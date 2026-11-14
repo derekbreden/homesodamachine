@@ -59,7 +59,7 @@
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "base_fine_bands_print_z_mm": [],
   "first_bed_layer_height_mm": 0.2,
-  "scope": "Complete Industrial faucet with the Sculpted display cover. Uniform model layers, selected seams and localized cooling. The base rim, tip mating lip and inboard dispense face use local nonplanar paths.",
+  "scope": "Complete Industrial faucet with the Sculpted display cover. The base starts on a sloped scaffold, roof and skin. The tip's mating lip and inboard dispense face use local nonplanar paths.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark2",
   "default_filament_colour": "#161616",
@@ -81,38 +81,22 @@
   },
   "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
   "production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
-  "base_rim_supports": {
-    "selected_date": "2026-10-15",
-    "part": "industrial-shell-base",
-    "method": "Segmented outside fins and Slim trees with a shared dense interface and a contoured first perimeter",
-    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
-    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
-    "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
-    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
-    "arc_count": 7,
-    "nominal_wall_width_mm": 0.9,
-    "arc_span_degrees": 41,
-    "release_gap_degrees": 4,
-    "requested_vertical_gap_mm": 0.24,
-    "tree_support_scope": "The base uses Slim trees and a dense interface. Local blockers keep both stages of each insert recess clear.",
+  "base_underside": {
+    "method": "Scaffold with a sloped roof and a sloped skin",
+    "physical_reference": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+    "insert_blocker_radial_clearance_mm": 0.65,
+    "insert_blocker_depth_allowance_mm": [1.0, 0.55],
     "object_settings": {
-      "brim_type": "no_brim"
-    },
-    "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
-    "scope": "Outside fins and Slim trees carry a shared dense interface at the rim. Bridges span both stages of each insert recess.",
-    "common_interface": {
-      "part": "industrial-shell-base",
-      "base_stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-      "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0",
-      "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1.gcode.3mf",
-      "source_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
-      "geometry_review": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/geometry-review.json",
-      "cavities": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/cavities.json",
-      "mapping": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
-      "mapping_margin_mm": 6.0,
-      "mapping_edge_blend_mm": 2.0,
-      "continuous_rim_angle_degrees": [114.5, 425.5]
+      "brim_type": "no_brim",
+      "enable_support": "1",
+      "support_type": "tree(auto)",
+      "support_style": "tree_slim",
+      "support_bottom_z_distance": "0.30"
     }
+  },
+  "tip_contact_parameters": {
+    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0",
+    "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json"
   },
   "mounting_plate_counterbores": {
     "part": "industrial-above-counter-plate",
@@ -129,10 +113,16 @@
     "outlet_shadow_clearance_mm": 0.90,
     "outlet_depth_mm": [-0.65, 5.0]
   },
+  "tip_end_cooling": {
+    "part": "faucet-shell-tip",
+    "fan_percent": 70,
+    "back_from_dispense_face_mm": [-1.0, 9.0],
+    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/ffe670b3c4a83a970d2e52dd81c75eddb7f12522/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json"
+  },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
-    "method": "Segmented fins follow each outside rim beneath the dense interface and its contoured first perimeter.",
-    "application": "The base uses bridges across the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face."
+    "method": "Sloped courses follow the base mounting face. The tip's first perimeter follows its mating lip.",
+    "application": "The base bridges the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face."
   },
   "tip_supports": {
     "selected_date": "2026-10-15",

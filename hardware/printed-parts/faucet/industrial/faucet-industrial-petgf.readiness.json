@@ -17,144 +17,67 @@
     "plates": 1
   },
   "offline_slice": {
+    "archive_sha256": "081ed77366707f05518aa2bd180ff3c5cdf06dc169dbebfbc743cfd5a94f8191",
     "completed": true,
     "fit": {
-      "complete_layer_bead_bounds": {
-        "bounds_padding_mm": 0.500998,
+      "complete_bead_bounds": {
+        "bounds_padding_mm": 0.5123285,
         "extrusion_bounds_xy_mm": [
           [
-            45.861002,
-            73.193002
+            53.4876715,
+            75.1826715
           ],
           [
-            266.010998,
-            274.749998
+            268.82932850000003,
+            264.47832850000003
           ]
         ],
-        "maximum_line_width_mm": 0.801996
+        "maximum_line_width_mm": 0.824657
       },
-      "complete_layer_bead_minimum_bed_margin_mm": 45.250001999999995,
-      "minimum_shared_bed_margin_mm": 45.31006049999996,
-      "minimum_toolpath_separation_mm": 4.651666999999989,
-      "pairwise_toolpath_separations": [
-        {
-          "parts": [
-            "industrial-shell-base",
-            "faucet-shell-tip"
-          ],
-          "separation_mm": 14.738444999999999
-        },
-        {
-          "parts": [
-            "industrial-shell-base",
-            "sculpted-display-cover"
-          ],
-          "separation_mm": 112.40007728083653
-        },
-        {
-          "parts": [
-            "faucet-shell-tip",
-            "sculpted-display-cover"
-          ],
-          "separation_mm": 12.062062499999996
-        },
-        {
-          "parts": [
-            "industrial-shell-base",
-            "industrial-above-counter-plate"
-          ],
-          "separation_mm": 50.707443
-        },
-        {
-          "parts": [
-            "faucet-shell-tip",
-            "industrial-above-counter-plate"
-          ],
-          "separation_mm": 41.21100199999998
-        },
-        {
-          "parts": [
-            "sculpted-display-cover",
-            "industrial-above-counter-plate"
-          ],
-          "separation_mm": 81.04338587206433
-        },
-        {
-          "parts": [
-            "industrial-shell-base",
-            "lever-replica"
-          ],
-          "separation_mm": 4.651666999999989
-        },
-        {
-          "parts": [
-            "faucet-shell-tip",
-            "lever-replica"
-          ],
-          "separation_mm": 46.79722599999997
-        },
-        {
-          "parts": [
-            "sculpted-display-cover",
-            "lever-replica"
-          ],
-          "separation_mm": 117.98480908135113
-        },
-        {
-          "parts": [
-            "industrial-above-counter-plate",
-            "lever-replica"
-          ],
-          "separation_mm": 18.882224000000008
-        }
-      ]
+      "complete_bead_minimum_bed_margin_mm": 53.4876715
     },
+    "gcode_sha256": "c3bb386923a44c773ab489fa40027f43c759f53ff9d2642004fdbfae5f716cc6",
     "physical_support_removal_validated": false,
     "plates": [
       {
-        "estimated_total_seconds": 32745.0,
+        "estimated_total_seconds": 27469.0,
         "plate": 1,
-        "saved_profile_filament_estimate_g": 176.76930236816406,
+        "saved_profile_filament_estimate_g": 166.70089721679688,
         "slicer_warning": ""
       }
     ],
     "slicer": "BambuStudio 02.08.02.61",
-    "support_audit_sha256": "614f44624a874c06c2a2c3223595abd44d1b22c0495be5cfd9f1ff8d4e9a515b",
-    "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
-    "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d"
+    "support_audit_sha256": "9acb529afd04071de4fd1f9e9078fa3103a2af548814d259d38de3975529579b",
+    "local_print_only_archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
+    "local_print_only_archive_sha256": "39e1fc2ad648caa60fb897fb5b8971eb1724609731eb7dc629fccc4bacac57e3"
   },
   "physical_print": {
-    "accepted_remaining_corner_gap": true,
-    "approved_geometry_record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
+    "accepted_cosmetic_condition": {
+      "record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+      "uncovered_tip_hole_by_cover_edge": true
+    },
+    "approved_geometry_record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
     "approved_geometry_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
     "first_bed_layer_height_mm": 0.2,
     "normal_layer_height_mm": 0.24,
     "this_archive_printed": false
   },
   "preparation_only": true,
-  "print_report_sha256": "f44ed5c9e8bd18442aecebac829a3e5d35304212013eb18807e6752179a36ce1",
+  "print_report_sha256": "cb58a1176ad54d2620ceeac9ac201ffb45f5df32884bb004e4c6f747315d9a6d",
   "printer_submission": {
     "performed_by_this_tool": false
   },
   "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
+  "project_sha256": "a213bf3bed66c3a1c660dae710be5d8fd490d1ac6b17c5586d57c0c03c18d070",
   "project_title": "Industrial faucet PET-GF",
-  "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "26fea9625989c1556632f4a444370e094bbcc8cadcf0f10d72a043ef98012f46",
-    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "520bfcfe182db137271f9cfce89b05fc268c625a2ae37593eddf8d0cd42133cb",
-    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97"
-  },
-  "settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
+  "settings_sha256": "97cd2c52e2c8cf133be24203ed8d73ac1ddc5ebf2a3d4e1a2eba23e95e91711f",
   "source_stls": {
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133"
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21"
   },
   "status": "approved production geometry and selected-layer native slice reviewed"
 }

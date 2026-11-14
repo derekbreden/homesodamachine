@@ -5,232 +5,75 @@
   "all_profile_members_preserved_byte_for_byte": false,
   "approved_geometry_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "base_layer_bands": [],
-  "base_rim_supports": {
-    "band": {
-      "bounds_mm": [
-        [
-          49.99999999999983,
-          105.6301035902894
-        ],
-        [
-          120.99999999999983,
-          183.5367617622894
-        ]
-      ],
-      "edge_blend_mm": 2.0,
-      "parameters": {
-        "band_period_mm": 1.92,
-        "band_phase_mm": 0.2,
-        "bed_blend_mm": [
-          0.44,
-          4.0
-        ],
-        "contact_full_weight_mm": [
-          -1.5,
-          1.0
-        ],
-        "contact_zero_weight_mm": [
-          -4.5,
-          4.0
-        ],
-        "maximum_gcode_segment_mm": 0.25,
-        "maximum_mesh_mapping_error_mm": 0.003,
-        "maximum_mesh_y_step_mm": 1.0,
-        "maximum_mesh_z_step_mm": 1.0,
-        "maximum_nonplanar_z_speed_mm_s": 7.5,
-        "travel_clearance_mm": 0.4,
-        "travel_retract_mm": 0.8,
-        "travel_retract_speed_mm_s": 30.0,
-        "travel_z_speed_mm_s": 15.0
-      },
-      "plane_normal": [
-        0.0,
-        -0.25881904510252074,
-        -0.9659258262890683
-      ],
-      "seat_plate_mm": [
-        85.5,
-        140.12491558071855,
-        7.635161830524368
-      ]
-    },
-    "components": [
+  "base_underside": {
+    "bridge_only_pockets": [
       {
-        "component_id": 12,
-        "geometry": {
-          "name": "Common interface at the visible rim",
-          "source_member_sha256": "c540e63f575103cdc943776659ba5f5d98b00a438ad7ef5892e9df1051d070b5",
-          "subtype": "support_enforcer"
-        },
-        "source_component_id": 2300
+        "blocker_cad_z_mm": [
+          -1.0,
+          9.0
+        ],
+        "blocker_radius_mm": 4.750000000000001,
+        "cad_center_mm": [
+          22.5,
+          -2.0
+        ],
+        "part_id": 12
       },
       {
-        "component_id": 13,
-        "geometry": {
-          "name": "Bridge insert recess 1",
-          "source_member_sha256": "66b187e89ab5cbbeab17e62f63125a653b79794eeddba532a0e09c9d8a331ff1",
-          "subtype": "support_blocker"
-        },
-        "source_component_id": 2400
+        "blocker_cad_z_mm": [
+          -1.0,
+          9.0
+        ],
+        "blocker_radius_mm": 4.750000000000001,
+        "cad_center_mm": [
+          -22.5,
+          -2.0
+        ],
+        "part_id": 13
       },
       {
-        "component_id": 14,
-        "geometry": {
-          "name": "Bridge insert recess 2",
-          "source_member_sha256": "8b9191211d75378463afa57047a38fedfa18e3a1fe083d587257ac4066228238",
-          "subtype": "support_blocker"
-        },
-        "source_component_id": 2401
-      },
-      {
-        "component_id": 15,
-        "geometry": {
-          "name": "Bridge insert recess 3",
-          "source_member_sha256": "fb7f72e8fa3eb28c780589d24cb47ab694c562e6b61c4d15d607e9b8e3492a84",
-          "subtype": "support_blocker"
-        },
-        "source_component_id": 2402
+        "blocker_cad_z_mm": [
+          -1.0,
+          9.0
+        ],
+        "blocker_radius_mm": 4.750000000000001,
+        "cad_center_mm": [
+          0.0,
+          -22.3
+        ],
+        "part_id": 14
       }
     ],
-    "fin_layout": {
-      "fins": [
-        {
-          "angles_degrees": [
-            -110.5,
-            -69.5
-          ],
-          "part_id": 16
-        },
-        {
-          "angles_degrees": [
-            -65.5,
-            -24.5
-          ],
-          "part_id": 17
-        },
-        {
-          "angles_degrees": [
-            -20.5,
-            20.5
-          ],
-          "part_id": 18
-        },
-        {
-          "angles_degrees": [
-            24.5,
-            56.505292695976095
-          ],
-          "part_id": 19
-        },
-        {
-          "angles_degrees": [
-            123.4947073040239,
-            155.5
-          ],
-          "part_id": 20
-        },
-        {
-          "angles_degrees": [
-            159.5,
-            200.5
-          ],
-          "part_id": 21
-        },
-        {
-          "angles_degrees": [
-            204.5,
-            245.5
-          ],
-          "part_id": 22
-        }
-      ],
-      "foot_splay_per_height": 0.28,
-      "maximum_foot_splay_mm": 4.0,
-      "radial_allowance_mm": [
-        -0.4,
-        0.5
-      ],
-      "setback_from_seat_mm": 0.96
-    },
+    "identify_id": 1901,
+    "nozzle_temperature": [
+      "280"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "265"
+    ],
     "object_settings": {
-      "brim_type": "no_brim"
+      "brim_type": "no_brim",
+      "enable_support": "1",
+      "support_bottom_z_distance": "0.30",
+      "support_style": "tree_slim",
+      "support_type": "tree(auto)"
     },
     "part": "industrial-shell-base",
-    "recesses": [
-      {
-        "blind_roof_depth_mm": 8.45,
-        "blocker_depth_mm": [
-          -0.65,
-          9.0
-        ],
-        "blocker_radius_mm": 4.55,
-        "mouth_plate_mm": [
-          62.99999999999969,
-          138.19306393851383,
-          8.152799924558739
-        ],
-        "mouth_radius_mm": 4.099999962393885,
-        "pilot_radius_mm": 1.999999990687229,
-        "shoulder_depth_mm": 3.2
-      },
-      {
-        "blind_roof_depth_mm": 8.45,
-        "blocker_depth_mm": [
-          -0.65,
-          9.0
-        ],
-        "blocker_radius_mm": 4.55,
-        "mouth_plate_mm": [
-          85.50000000000014,
-          118.58476968376843,
-          13.406826602993945
-        ],
-        "mouth_radius_mm": 4.100000067097798,
-        "pilot_radius_mm": 1.9999999670417308,
-        "shoulder_depth_mm": 3.2
-      },
-      {
-        "blind_roof_depth_mm": 8.45,
-        "blocker_depth_mm": [
-          -0.65,
-          9.0
-        ],
-        "blocker_radius_mm": 4.55,
-        "mouth_plate_mm": [
-          107.99999999999991,
-          138.19306393855183,
-          8.152799924699984
-        ],
-        "mouth_radius_mm": 4.099999962394772,
-        "pilot_radius_mm": 1.9999999906747234,
-        "shoulder_depth_mm": 3.2
-      }
+    "physical_reference": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+    "rim_semi_axes_mm": [
+      29.5,
+      29.5
     ],
-    "rim_radius_mm": 29.500000066966805,
-    "rim_seat_plate_mm": [
+    "seat_print_world_center_mm": [
       85.5,
-      140.12491558071855,
-      7.635161830524368
+      140.12485221443896,
+      7.635161830524353
     ],
-    "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1.gcode.3mf",
-    "source_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
-    "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0",
-    "source_to_production_plate_translation_mm": [
-      -69.50000000000017,
-      14.58343267628939,
-      4.3850398867562035e-08
-    ],
-    "support_settings": {
-      "support_bottom_z_distance": "0.0",
-      "support_interface_spacing": "0",
-      "support_interface_top_layers": "3",
-      "support_object_xy_distance": "0.4",
-      "support_on_build_plate_only": "0",
-      "support_style": "tree_slim",
-      "support_top_z_distance": "0.24",
-      "support_type": "tree(auto)",
-      "tree_support_branch_angle": "45"
-    }
+    "seat_print_world_outward_normal": [
+      0.0,
+      -0.25881904510252074,
+      -0.9659258262890683
+    ]
   },
   "bed_type": "Textured PEI Plate",
   "color_independent_geometry": true,
@@ -396,21 +239,21 @@
           22.5,
           -2.0
         ],
-        "part_id": 23
+        "part_id": 15
       },
       {
         "cad_center_mm": [
           -22.5,
           -2.0
         ],
-        "part_id": 24
+        "part_id": 16
       },
       {
         "cad_center_mm": [
           0.0,
           -22.3
         ],
-        "part_id": 25
+        "part_id": 17
       }
     ],
     "counterbore_radius_mm": 3.075,
@@ -418,7 +261,7 @@
     "shank_radius_mm": 1.95,
     "shoulder_cad_z_mm": -0.7999999999999998
   },
-  "native_settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
+  "native_settings_sha256": "97cd2c52e2c8cf133be24203ed8d73ac1ddc5ebf2a3d4e1a2eba23e95e91711f",
   "nozzle_diameter_mm": [
     0.4,
     0.4
@@ -437,8 +280,8 @@
         0.25881904510252074,
         0.9659258262890683,
         85.5,
-        165.13469120115752,
-        123.78370836088767
+        165.13354776850522,
+        123.78188095764497
       ],
       "embedded_vertex_error_mm": 5.000018177270249e-10,
       "identify_id": 1901,
@@ -450,13 +293,13 @@
       "plate_bounds_mm": [
         [
           56.0,
-          111.63010370519103,
+          111.63004033891144,
           0.0
         ],
         [
           115.0,
-          208.36989629480894,
-          245.2550222196938
+          208.36995966108856,
+          245.25145725899205
         ]
       ],
       "plate_origin_mm": [
@@ -466,18 +309,18 @@
       ],
       "plate_translation_mm": [
         85.5,
-        165.13469120115752,
-        123.78370836088767
+        165.13354776850522,
+        123.78188095764497
       ],
       "rotation_x_degrees": -14.999999999999998,
-      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
       "source_center_mm": [
         0.0,
-        -5.903867721557617,
-        118.66388702392578
+        -5.904438018798828,
+        118.6618423461914
       ],
-      "stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-      "triangles": 142556,
+      "stl_sha256": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
+      "triangles": 54892,
       "watertight": true
     },
     {
@@ -492,11 +335,11 @@
         0.0,
         0.9659258262890683,
         -0.25881904510252085,
-        182.5,
-        201.79490772981305,
-        68.93074137088173
+        186.5,
+        201.785128820301,
+        68.93456774147909
       ],
-      "embedded_vertex_error_mm": 4.998168545711223e-10,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
       "identify_id": 1902,
       "member": "3D/Objects/object_2.model",
       "name": "faucet-shell-tip",
@@ -505,14 +348,14 @@
       "plate": 1,
       "plate_bounds_mm": [
         [
-          169.0,
-          180.70603837801687,
+          173.00024604797363,
+          180.69518368615223,
           0.0
         ],
         [
-          196.0,
-          233.2939616219831,
-          137.8654754488954
+          199.99975395202637,
+          233.30481631384777,
+          137.87054537063977
         ]
       ],
       "plate_origin_mm": [
@@ -521,19 +364,19 @@
         0.0
       ],
       "plate_translation_mm": [
-        182.5,
-        201.79490772981305,
-        68.93074137088173
+        186.5,
+        201.785128820301,
+        68.93456774147909
       ],
       "rotation_x_degrees": -105.0,
-      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
+      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
       "source_center_mm": [
-        0.0,
-        -80.57017707824707,
-        208.50757598876953
+        0.0002460479736328125,
+        -80.5707836151123,
+        208.50538635253906
       ],
-      "stl_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-      "triangles": 29212,
+      "stl_sha256": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
+      "triangles": 103296,
       "watertight": true
     },
     {
@@ -549,10 +392,10 @@
         0.766044443118978,
         0.6427876096865394,
         251.5,
-        245.01714081182666,
-        10.095567854458237
+        234.95452958357183,
+        10.260568923016073
       ],
-      "embedded_vertex_error_mm": 4.990234891977252e-10,
+      "embedded_vertex_error_mm": 5.000000413701855e-10,
       "identify_id": 1903,
       "member": "3D/Objects/object_3.model",
       "name": "sculpted-display-cover",
@@ -561,14 +404,14 @@
       "plate": 1,
       "plate_bounds_mm": [
         [
-          237.27867889404297,
-          220.50953324431714,
+          236.71146392822266,
+          210.44692390926488,
           0.0
         ],
         [
-          265.72132110595703,
-          271.49046675568286,
-          16.05001425648164
+          266.28853607177734,
+          261.5530760907351,
+          16.380017385268015
         ]
       ],
       "plate_origin_mm": [
@@ -578,18 +421,18 @@
       ],
       "plate_translation_mm": [
         251.5,
-        245.01714081182666,
-        10.095567854458237
+        234.95452958357183,
+        10.260568923016073
       ],
       "rotation_x_degrees": -50.0,
-      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
       "source_center_mm": [
         0.0,
-        -128.5051383972168,
-        207.77315521240234
+        -128.63153457641602,
+        207.87921142578125
       ],
-      "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-      "triangles": 4982,
+      "stl_sha256": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
+      "triangles": 27294,
       "watertight": true
     },
     {
@@ -608,7 +451,7 @@
         108.0,
         3.100000023841858
       ],
-      "embedded_vertex_error_mm": 4.99755792304768e-10,
+      "embedded_vertex_error_mm": 4.999982650133461e-10,
       "identify_id": 1904,
       "member": "3D/Objects/object_4.model",
       "name": "industrial-above-counter-plate",
@@ -638,14 +481,14 @@
         3.100000023841858
       ],
       "rotation_x_degrees": 0.0,
-      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl",
+      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
       "source_center_mm": [
         0.0,
         0.0,
         -0.8999999761581421
       ],
-      "stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-      "triangles": 15144,
+      "stl_sha256": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
+      "triangles": 7128,
       "watertight": true
     },
     {
@@ -660,11 +503,11 @@
         0.0,
         -0.0,
         1.0,
-        145.0,
-        100.0,
-        6.199999809265137
+        256.5,
+        102.0,
+        6.199999809358269
       ],
-      "embedded_vertex_error_mm": 4.997851021926181e-10,
+      "embedded_vertex_error_mm": 4.999929359428279e-10,
       "identify_id": 1905,
       "member": "3D/Objects/object_5.model",
       "name": "lever-replica",
@@ -673,14 +516,14 @@
       "plate": 1,
       "plate_bounds_mm": [
         [
-          137.66753363609314,
-          73.48264628648758,
+          249.16753315925598,
+          75.48246631771326,
           0.0
         ],
         [
-          152.33246636390686,
-          126.51735371351242,
-          12.399999618530273
+          263.832466840744,
+          128.51753368228674,
+          12.399999618716539
         ]
       ],
       "plate_origin_mm": [
@@ -689,23 +532,23 @@
         0.0
       ],
       "plate_translation_mm": [
-        145.0,
-        100.0,
-        6.199999809265137
+        256.5,
+        102.0,
+        6.199999809358269
       ],
       "rotation_x_degrees": 0.0,
-      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl",
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
       "source_center_mm": [
-        -2.9024665355682373,
-        26.339595139026642,
-        6.199999809265136
+        -2.9024670124053955,
+        26.339422799646854,
+        6.199999809172004
       ],
-      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-      "triangles": 5072,
+      "stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+      "triangles": 18596,
       "watertight": true
     }
   ],
-  "physical_production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
+  "physical_production_approval": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
   "plate_border_mm": 40.0,
   "plate_count": 1,
   "preparation_only": true,
@@ -716,34 +559,34 @@
   "process": "0.24mm PET-GF faucet",
   "profile_member_sha256": {
     "Metadata/filament_settings_1.config": "3c259bd858d6a6ce3e5c1ef3487d7d77bd4ce67675d6df0cb4aa98883ee16415",
-    "Metadata/project_settings.config": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9"
+    "Metadata/project_settings.config": "97cd2c52e2c8cf133be24203ed8d73ac1ddc5ebf2a3d4e1a2eba23e95e91711f"
   },
   "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
-  "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "74e5e7d3d9ed6e50e020c383511a145b0741926df96bc04ab53009dd953e7e58",
+  "project": "faucet-industrial-petgf.3mf",
+  "project_sha256": "a213bf3bed66c3a1c660dae710be5d8fd490d1ac6b17c5586d57c0c03c18d070",
   "project_title": "Industrial faucet PET-GF",
   "rear_seam_enforcement": {
-    "enforced_triangles": 477,
+    "enforced_triangles": 265,
     "half_width_mm": 0.25,
     "mesh_vertices_and_triangle_indices_unchanged": true,
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "painted_facet_bounds_cad_mm": [
       [
-        -0.735455394,
-        -32.37545013455762,
-        -7.422329417750007e-11
+        -1.052923799,
+        -32.380378722798824,
+        1.914060021590558e-10
       ],
       [
-        0.735455394,
-        29.799999237442385,
-        237.3277740479258
+        3.918843031,
+        29.79999923720117,
+        237.32368469219142
       ]
     ],
     "part": "industrial-shell-base",
     "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
     "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm"
   },
-  "requested_z_trim_mm": 0.04,
+  "requested_z_trim_mm": 0.1,
   "review_host_regions": [
     {
       "applied_source_bounds_mm": [
@@ -845,24 +688,18 @@
   "saved_profile_filament_density_g_cm3": [
     1.29
   ],
-  "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "0d18d16f1d3d8636e5dd6cc062c71835a2e52011bcc81d53880b3ca5a3db6c52",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "26fea9625989c1556632f4a444370e094bbcc8cadcf0f10d72a043ef98012f46",
-    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "520bfcfe182db137271f9cfce89b05fc268c625a2ae37593eddf8d0cd42133cb",
-    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97"
-  },
   "selected_faces": [
     {
-      "area_mm2": 867.0933614556251,
+      "area_mm2": 867.0782768582249,
       "cad_bounds_mm": [
         [
-          -29.499868392944336,
-          -29.499967575073242,
+          -29.5,
+          -29.5,
           14.0
         ],
         [
           29.5,
-          28.15277862548828,
+          28.1477108001709,
           14.0
         ]
       ],
@@ -875,21 +712,21 @@
         14.0
       ],
       "print_z_span_mm": [
-        13.871648117739795,
-        28.79327683690711
+        13.872959767449174,
+        28.793285229095673
       ]
     },
     {
-      "area_mm2": 1041.752198988428,
+      "area_mm2": 1041.6311339274184,
       "cad_bounds_mm": [
         [
-          -24.399351119995117,
-          -18.018741607666016,
+          -24.399999618530273,
+          -18.015092849731445,
           57.5
         ],
         [
           24.399999618530273,
-          29.799837112426758,
+          29.799999237060547,
           57.5
         ]
       ],
@@ -902,49 +739,29 @@
         57.5
       ],
       "print_z_span_mm": [
-        55.46313145649685,
-        67.83949033899098
+        55.463089495553916,
+        67.83854597094651
       ]
     }
   ],
   "selected_finish": {
     "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
     "base_fine_bands_print_z_mm": [],
-    "base_rim_supports": {
-      "arc_count": 7,
-      "arc_span_degrees": 41,
-      "common_interface": {
-        "base_stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-        "cavities": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/cavities.json",
-        "continuous_rim_angle_degrees": [
-          114.5,
-          425.5
-        ],
-        "geometry_review": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/geometry-review.json",
-        "mapping": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
-        "mapping_edge_blend_mm": 2.0,
-        "mapping_margin_mm": 6.0,
-        "part": "industrial-shell-base",
-        "source_archive": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/faucet-nonplanar-rim-fins-insert-bridges-left04-z018-mark1.gcode.3mf",
-        "source_archive_sha256": "dfa8d1a52e70a39c6c28c1082ce25b2af608c63a1984c143eaeda0415354da5a",
-        "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
-      },
-      "method": "Segmented outside fins and Slim trees with a shared dense interface and a contoured first perimeter",
-      "nominal_wall_width_mm": 0.9,
+    "base_underside": {
+      "insert_blocker_depth_allowance_mm": [
+        1.0,
+        0.55
+      ],
+      "insert_blocker_radial_clearance_mm": 0.65,
+      "method": "Scaffold with a sloped roof and a sloped skin",
       "object_settings": {
-        "brim_type": "no_brim"
+        "brim_type": "no_brim",
+        "enable_support": "1",
+        "support_bottom_z_distance": "0.30",
+        "support_style": "tree_slim",
+        "support_type": "tree(auto)"
       },
-      "part": "industrial-shell-base",
-      "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
-      "release_gap_degrees": 4,
-      "requested_vertical_gap_mm": 0.24,
-      "scope": "Outside fins and Slim trees carry a shared dense interface at the rim. Bridges span both stages of each insert recess.",
-      "selected_date": "2026-10-15",
-      "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
-      "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
-      "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
-      "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
-      "tree_support_scope": "The base uses Slim trees and a dense interface. Local blockers keep both stages of each insert recess clear."
+      "physical_reference": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     "corner_seam_object_overrides": {
       "override_filament_scarf_seam_setting": "0",
@@ -955,8 +772,8 @@
     "default_filament_colour": "#161616",
     "default_printer": "Mark2",
     "edge_support_strategy": {
-      "application": "The base uses bridges across the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face.",
-      "method": "Segmented fins follow each outside rim beneath the dense interface and its contoured first perimeter.",
+      "application": "The base bridges the insert recesses. The tip uses a hidden-root disc for bed anchorage and a separate dense interface at the inboard dispense face.",
+      "method": "Sloped courses follow the base mounting face. The tip's first perimeter follows its mating lip.",
       "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs."
     },
     "filament_overrides": {
@@ -1011,7 +828,7 @@
       "target": "Complete outer rear silhouette at each build Z, including tilted stage shoulders; facets crossing CAD X=0 +/-0.25 mm"
     },
     "schema": 1,
-    "scope": "Complete Industrial faucet with the Sculpted display cover. Uniform model layers, selected seams and localized cooling. The base rim, tip mating lip and inboard dispense face use local nonplanar paths.",
+    "scope": "Complete Industrial faucet with the Sculpted display cover. The base starts on a sloped scaffold, roof and skin. The tip's mating lip and inboard dispense face use local nonplanar paths.",
     "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
     "seam_object_overrides": {
       "override_filament_scarf_seam_setting": "1",
@@ -1036,6 +853,10 @@
     "seam_specimen": "A2",
     "selected_date": "2026-10-25",
     "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production retains Bambu's 0.20 mm first bed layer and uses 0.24 mm later layers without fine bands.",
+    "tip_contact_parameters": {
+      "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
+      "source_commit": "40e364be6749339bf892c49263a5c9d6c5560ca0"
+    },
     "tip_dispense_contact": {
       "interior_end_mm": 2.35,
       "interior_full_mm": 0.25,
@@ -1048,6 +869,15 @@
       ],
       "outlet_shadow_clearance_mm": 0.9,
       "part": "faucet-shell-tip"
+    },
+    "tip_end_cooling": {
+      "back_from_dispense_face_mm": [
+        -1.0,
+        9.0
+      ],
+      "fan_percent": 70,
+      "part": "faucet-shell-tip",
+      "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/ffe670b3c4a83a970d2e52dd81c75eddb7f12522/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json"
     },
     "tip_rear_seam_enforcement": {
       "half_width_mm": 0.0,
@@ -1085,7 +915,7 @@
     "uniform_model_layer_height": true,
     "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic."
   },
-  "selected_finish_scope": "Complete Industrial faucet with the Sculpted display cover. Uniform model layers, selected seams and localized cooling. The base rim, tip mating lip and inboard dispense face use local nonplanar paths.",
+  "selected_finish_scope": "Complete Industrial faucet with the Sculpted display cover. The base starts on a sloped scaffold, roof and skin. The tip's mating lip and inboard dispense face use local nonplanar paths.",
   "send_attempted": false,
   "settings_changes": {
     "initial_layer_print_height": {
@@ -1094,8 +924,8 @@
     },
     "machine_start_gcode": {
       "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
-      "requested_z_trim_mm": 0.04,
-      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+      "requested_z_trim_mm": 0.1,
+      "to_sha256": "3dbe43733a8338e4b7a7ef67b171d1fc8b613de10576da61d48810a7dbf1ae10"
     },
     "petgf_support_recipe": {
       "members": {
@@ -1139,12 +969,12 @@
       ],
       "to": [
         "Bambu Lab H2C 0.4 nozzle",
-        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
       ]
     },
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
-      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
     },
     "sparse_infill_pattern": {
       "from": "grid",
@@ -1152,7 +982,7 @@
     }
   },
   "settings_preserved_byte_for_byte": false,
-  "settings_sha256": "af15f35b8a0deb20c56075e1f05d79d4f457190dc3b6fc7f48ea770232c0e3c9",
+  "settings_sha256": "97cd2c52e2c8cf133be24203ed8d73ac1ddc5ebf2a3d4e1a2eba23e95e91711f",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
   "shared_printable_area_mm": [
@@ -1165,26 +995,30 @@
       320.0
     ]
   ],
-  "shared_tip_source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
+  "shared_tip_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
   "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
   "source_sha256": {
-    "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
+    "40e364be6749339bf892c49263a5c9d6c5560ca0:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json": "ff32693655f02673bfdcd1b8a38eda40b2700c248363d322acab8290df2c554d",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "24d4624bd89b2b4026305c65fa0b4f3db77f2d2628711d58c54ccc1337d44463",
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "0250304f027bd91ea18d211c8e2184f824b8477e2eb0bb31feb3a5ce847cbe96",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs": "542245eb4aa3845939fe9b26a781043e27ec02cabe3fd99d50bb614d90621403",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.rs": "a9d49d1cf95e404adb814755d673179e77975a8d7a98564303163b667bcea6a6",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
-    "hardware/printed-parts/faucet/industrial/production-selection.json": "72a99d7374623220ff97edb3a38a853378a5efb989de51851e46bfbd709aa2d1",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
-    "tools/hsm/print-prep/src/faucet.rs": "d5aa1f5f44aecb1da18e278cad1ef9693a814e8f91e7f217d86dd5982a65010a",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "3307a4cad2ea741a16f364737abc9f67a66f8cec70d93689d4640931e86198f8",
+    "hardware/printed-parts/faucet/industrial/production-selection.json": "af33f8c5bd78926c28ed9a8252768dda60fbbc14a4b81e88cdec7e7cecc1f964",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+    "tools/hsm/print-prep/faucet-underside/courses.py": "2922889755de9d50b04ec876b8ee04e42e5211c6d02604bc47d213d74ab75991",
+    "tools/hsm/print-prep/faucet-underside/fill.py": "c601a31131f1558561fea1146e59daaa02b8fb50845a3aedc11cf18afe3e98d5",
+    "tools/hsm/print-prep/faucet-underside/left-active-height.npz": "81ca425ded29dfb86f90ab069bfc2a3763e66558e158662a4eb77a62ed58fce8",
+    "tools/hsm/print-prep/src/faucet.rs": "9aa7e250dceafb5f84a3f2e1ac046bbad4ab72bcc7baa0301cb6f95fb9ed9782",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "2a1ef157a969674d13ae6b9ac201079fd5f73b2b77d6fb0a4e9ad7d88e6c42fa",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
-    "tools/hsm/print-prep/src/profile.rs": "8d6d142f54fded17f0110fb1bd5c5140b480082e3f234838608fde8649abaee4",
-    "tools/hsm/print-prep/src/rim_contour.rs": "7a448d4c6028f78abd7ac96f9cbb683503e5c4cc4449317edc86f5fb42a480d1"
+    "tools/hsm/print-prep/src/faucet_underside.rs": "00e83d81eccca4a6c02082d492e39081471a6a7fe70ae8d603cc2b03faf89483",
+    "tools/hsm/print-prep/src/profile.rs": "2bb27ec1a82f4eeb60188fa46e9322a8fa1a190bf88ac01a72295731c57a7ef6",
+    "tools/hsm/print-prep/src/rim_contour.rs": "81c3e0bf93419666b845d9f8339b428dbed3eb7f284870e4c2782051e27ecde1"
   },
   "sparse_infill_pattern": "gyroid",
   "sparse_infill_percent": 15.0,
@@ -1193,12 +1027,12 @@
     "band": {
       "bounds_mm": [
         [
-          164.62891387939453,
-          184.60916740537868
+          168.62974739074707,
+          184.60134653875954
         ],
         [
-          200.37108612060547,
-          208.96353451592978
+          204.37044620513916,
+          208.9590396442065
         ]
       ],
       "edge_blend_mm": 2.0,
@@ -1234,1474 +1068,1293 @@
       ],
       "refine_mesh_interiors": true,
       "seat_plate_mm": [
-        182.5,
-        196.78635096065423,
-        131.20172481781805
+        186.50009679794312,
+        196.78019309148303,
+        131.20556575317354
       ],
       "support_paint": {
         "faces": [
-          11465,
-          11466,
-          11467,
-          11468,
-          11469,
-          11470,
-          11471,
-          11472,
-          11473,
-          11474,
-          11475,
-          11476,
-          11477,
-          11478,
-          11479,
-          11480,
-          11481,
-          11482,
-          11483,
-          11484,
-          11485,
-          11486,
-          11487,
-          11488,
-          11489,
-          11490,
-          11491,
-          11492,
-          11493,
-          11494,
-          11495,
-          11496,
-          11497,
-          11498,
-          11499,
-          11500,
-          11501,
-          11502,
-          11503,
-          11504,
-          11505,
-          11506,
-          11507,
-          11508,
-          11509,
-          11510,
-          11511,
-          11512,
-          11513,
-          11514,
-          11515,
-          11516,
-          11517,
-          11518,
-          11519,
-          11520,
-          11521,
-          11522,
-          11523,
-          11524,
-          11525,
-          11526,
-          11527,
-          11528,
-          11529,
-          11530,
-          11531,
-          11532,
-          11533,
-          11534,
-          11535,
-          11536,
-          11537,
-          11538,
-          11539,
-          11540,
-          11541,
-          11542,
-          11543,
-          11544,
-          11545,
-          11546,
-          11547,
-          11548,
-          11549,
-          11550,
-          11551,
-          11552,
-          11553,
-          11554,
-          11555,
-          11556,
-          11557,
-          11558,
-          15251,
-          15252,
-          15253,
-          15254,
-          15255,
-          15256,
-          15257,
-          15258,
-          15259,
-          15260,
-          15261,
-          15262,
-          15263,
-          15264,
-          15265,
-          15266,
-          15267,
-          15268,
-          15269,
-          15270,
-          15271,
-          15272,
-          15273,
-          15274,
-          15275,
-          15276,
-          15277,
-          15278,
-          15279,
-          15280,
-          15281,
-          15282,
-          15283,
-          15284,
-          15285,
-          15286
+          28849,
+          28850,
+          28851,
+          28852,
+          28853,
+          28854,
+          28855,
+          28856,
+          28857,
+          28858,
+          28859,
+          28860,
+          28861,
+          28862,
+          28863,
+          28864,
+          28865,
+          28866,
+          28867,
+          28868,
+          28869,
+          28870,
+          28871,
+          28872,
+          28873,
+          28874,
+          28875,
+          28876,
+          28877,
+          28878,
+          28879,
+          28880,
+          28881,
+          28882,
+          28883,
+          28884,
+          28885,
+          28886,
+          28887,
+          28888,
+          28889,
+          28890,
+          28891,
+          28892,
+          28893,
+          28894,
+          28895,
+          28896,
+          28897,
+          28898,
+          28899,
+          28900,
+          28901,
+          28902,
+          28903,
+          28904,
+          28905,
+          28906,
+          28907,
+          28908,
+          28909,
+          28910,
+          28911,
+          28912,
+          28913,
+          28914,
+          28915,
+          28916,
+          28918,
+          28919,
+          28920,
+          28921,
+          28922,
+          28923,
+          28924,
+          28925,
+          28926,
+          28927,
+          28928,
+          28929,
+          28930,
+          28931,
+          28932,
+          28933,
+          28934,
+          28935,
+          28936,
+          28937,
+          28938,
+          28939,
+          28940,
+          28941,
+          28942,
+          28943,
+          28944,
+          28945,
+          28946,
+          28947,
+          28948,
+          28949,
+          28950,
+          28951,
+          28952,
+          28953,
+          28954,
+          28955,
+          28956,
+          28957,
+          28958,
+          28959,
+          28960,
+          28961,
+          28962,
+          28963,
+          28964,
+          28965,
+          28966,
+          28967,
+          28968,
+          28969,
+          28970,
+          28971,
+          28972,
+          28973,
+          28974,
+          28975,
+          28976,
+          28977,
+          28978,
+          28979,
+          28980,
+          28981,
+          28982,
+          28983,
+          28984,
+          28985,
+          30503,
+          30505,
+          30506,
+          30507,
+          30508,
+          30509,
+          30510,
+          30511,
+          30512,
+          30513,
+          30514,
+          30515,
+          30516,
+          30517,
+          30518,
+          30519,
+          30520,
+          30521,
+          30522,
+          30524,
+          30525,
+          30526,
+          30527,
+          30528,
+          30529,
+          30530,
+          30531,
+          30532,
+          30533,
+          30534,
+          30535,
+          30536,
+          30537,
+          30538,
+          30539,
+          30540,
+          30541,
+          30542
         ],
         "outlet_shadows": [
           [
             [
-              -0.9997381142429903,
-              -0.022884556580142004,
-              -180.74603512274695
+              -0.9995512604434685,
+              -0.029954594737257843,
+              -186.0397592468001
             ],
             [
-              -0.9965598439952522,
-              -0.08287627728221487,
-              -191.4551318426496
+              -0.9959698626419705,
+              -0.08968853164666216,
+              -196.61268261723225
             ],
             [
-              -0.9898113557781845,
-              -0.14238497102065323,
-              -201.42776957202383
+              -0.9888533982955052,
+              -0.1488924332510916,
+              -206.4325196863966
             ],
             [
-              -0.9795831707542123,
-              -0.20103932842885142,
-              -210.61039624482166
+              -0.978292724534439,
+              -0.20722776146786953,
+              -215.45230537360575
             ],
             [
-              -0.9659969380849147,
-              -0.25855350628171675,
-              -218.97112456833702
+              -0.9644182316423515,
+              -0.26438130508006724,
+              -223.63710728788092
             ],
             [
-              -0.9492241334479241,
-              -0.31460061106113174,
-              -226.47932478460632
+              -0.9473983290822645,
+              -0.3200568794013545,
+              -230.96219015726905
             ],
             [
-              -0.9294484376760703,
-              -0.36895203170806884,
-              -233.1250318581069
+              -0.9274285118953641,
+              -0.37400047503118283,
+              -237.41573026885575
             ],
             [
-              -0.9069076525975405,
-              -0.4213294550111812,
-              -238.8986994631163
+              -0.9047009700909576,
+              -0.4260471273421289,
+              -243.00202565428114
             ],
             [
-              -0.8817945603562038,
-              -0.4716337067324697,
-              -243.81631922086538
+              -0.8794901375549642,
+              -0.4759171124718571,
+              -247.71898171466847
             ],
             [
-              -0.8544011268990299,
-              -0.5196140051554305,
-              -247.8833056752729
+              -0.8519997221731792,
+              -0.5235422365166209,
+              -251.5911993649126
             ],
             [
-              -0.8249386356306116,
-              -0.5652222991389361,
-              -251.12859956445422
+              -0.8224681012966419,
+              -0.5688112361315455,
+              -254.64159864022892
             ],
             [
-              -0.7936089592001132,
-              -0.6084281550662438,
-              -253.58276710842316
+              -0.7911666153439795,
+              -0.6116006759031186,
+              -256.896910563903
             ],
             [
-              -0.7607368709122996,
-              -0.6490604080011069,
-              -255.27215982897891
+              -0.758288830049393,
+              -0.6519187451073353,
+              -258.39424183510357
             ],
             [
-              -0.7264410253217534,
-              -0.6872288095892661,
-              -256.23865753515315
+              -0.7240128960571994,
+              -0.6897864353137622,
+              -259.1702759376906
             ],
             [
-              -0.6909728324559906,
-              -0.7228807265432835,
-              -256.5176666543649
+              -0.688595474355244,
+              -0.7251456906701413,
+              -259.26138075868175
             ],
             [
-              -0.6544605435558785,
-              -0.7560961558747301,
-              -256.14724757566717
+              -0.6522122581505808,
+              -0.7580363911568627,
+              -258.7073687332977
             ],
             [
-              -0.6171934406440032,
-              -0.7868114493485826,
-              -255.16764647933783
+              -0.6149749386193648,
+              -0.7885466535786634,
+              -257.54529553525697
             ],
             [
-              -0.5791189361381306,
-              -0.8152430667023424,
-              -253.60984596786088
+              -0.5771021502053955,
+              -0.8166719710069087,
+              -255.81463437459408
             ],
             [
-              -0.5405900105354381,
-              -0.841286182288343,
-              -251.51796865538287
+              -0.5385908664223501,
+              -0.8425674326761166,
+              -253.54381667222012
             ],
             [
-              -0.5015260431276352,
-              -0.8651425478293951,
-              -248.91516748120003
+              -0.49972853189123295,
+              -0.8661820792499882,
+              -250.77639752623892
             ],
             [
-              -0.4621873336811092,
-              -0.8867823118357442,
-              -245.84292248204414
+              -0.4604460601423225,
+              -0.8876876847739934,
+              -247.53172075021894
             ],
             [
-              -0.4224950564267789,
-              -0.9063652284233619,
-              -242.31683570614715
+              -0.42095961618368327,
+              -0.9070793799566199,
+              -243.84885265695655
             ],
             [
-              -0.38260493495290343,
-              -0.923912043297242,
-              -238.36897740392263
+              -0.3811678040477396,
+              -0.9245058708074406,
+              -239.7368233008036
             ],
             [
-              -0.34258779177052634,
-              -0.9394858194405036,
-              -234.02397280968458
+              -0.3413151962397434,
+              -0.9399489011727316,
+              -235.23751617743844
             ],
             [
-              -0.30240637034743983,
-              -0.9531790950148282,
-              -229.29236465845318
+              -0.30133432049951886,
+              -0.953518551098558,
+              -230.35900958811493
             ],
             [
-              -0.2621767441390606,
-              -0.9650198727656554,
-              -224.20045103626148
+              -0.2611576078779044,
+              -0.9652961741597709,
+              -225.10397178907542
             ],
             [
-              -0.22195052673943644,
-              -0.9750579283714823,
-              -218.76691739833245
+              -0.22111683625844122,
+              -0.9752473248992062,
+              -219.52754744812225
             ],
             [
-              -0.1815595901749022,
-              -0.9833799444851016,
-              -212.97741235529318
+              -0.180904606296106,
+              -0.983500647392187,
+              -213.59669729981508
             ],
             [
-              -0.14126888363513848,
-              -0.9899712634801486,
-              -206.87737931886593
+              -0.14071445507307614,
+              -0.9900502220258764,
+              -207.34628051555458
             ],
             [
-              -0.10086429102852777,
-              -0.9949001933838953,
-              -200.4406253810601
+              -0.10052083225133791,
+              -0.9949349537952208,
+              -200.77882296969017
             ],
             [
-              -0.06057595394177812,
-              -0.9981635907024679,
-              -193.70847751331095
+              -0.06033960351144241,
+              -0.9981779061109707,
+              -193.90159210377826
             ],
             [
-              -0.02015119949571106,
-              -0.9997969439635651,
-              -186.64152273201324
+              -0.02007774137580942,
+              -0.9997984218337446,
+              -186.7008751426482
             ],
             [
-              0.02015119949571106,
-              -0.9997969439635651,
-              -179.28633491607872
+              0.02007774137580942,
+              -0.9997984218337446,
+              -179.21188748964641
             ],
             [
-              0.06057595394177812,
-              -0.9981635907024679,
-              -171.59825432456194
+              0.06033960351144241,
+              -0.9981779061109707,
+              -171.3949496868846
             ],
             [
-              0.10086429102852777,
-              -0.9949001933838953,
-              -163.62515915564745
+              0.10052083225133791,
+              -0.9949349537952208,
+              -163.2846020058353
             ],
             [
-              0.14126888363513848,
-              -0.9899712634801486,
-              -155.3142367920404
+              0.14071445507307614,
+              -0.9900502220258764,
+              -154.85985801831023
             ],
             [
-              0.1815595901749022,
-              -0.9833799444851016,
-              -146.70816194145388
+              0.180904606296106,
+              -0.983500647392187,
+              -146.11936817379112
             ],
             [
-              0.22195052673943644,
-              -0.9750579283714823,
-              -137.75497513843814
+              0.22111683625844122,
+              -0.9752473248992062,
+              -137.05107633442267
             ],
             [
-              0.2621767441390606,
-              -0.9650198727656554,
-              -128.50593942550435
+              0.2611576078779044,
+              -0.9652961741597709,
+              -127.69231256521752
             ],
             [
-              0.30240637034743983,
-              -0.9531790950148282,
-              -118.91403948163766
+              0.30133432049951886,
+              -0.953518551098558,
+              -117.96145632719227
             ],
             [
-              0.34258779177052634,
-              -0.9394858194405036,
-              -108.97942881344247
+              0.3413151962397434,
+              -0.9399489011727316,
+              -107.92711593983896
             ],
             [
-              0.38260493495290343,
-              -0.923912043297242,
-              -98.71817614611287
+              0.3811678040477396,
+              -0.9245058708074406,
+              -97.56141996212834
             ],
             [
-              0.4224950564267789,
-              -0.9063652284233619,
-              -88.10614011037285
+              0.42095961618368327,
+              -0.9070793799566199,
+              -86.83112297296378
             ],
             [
-              0.4621873336811092,
-              -0.8867823118357442,
-              -77.1445456884393
+              0.4604460601423225,
+              -0.8876876847739934,
+              -75.78556690077276
             ],
             [
-              0.5015260431276352,
-              -0.8651425478293951,
-              -65.85816173961321
+              0.49972853189123295,
+              -0.8661820792499882,
+              -64.37790104519429
             ],
             [
-              0.5405900105354381,
-              -0.841286182288343,
-              -54.20261480994795
+              0.5385908664223501,
+              -0.8425674326761166,
+              -52.649688535066126
             ],
             [
-              0.5791189361381306,
-              -0.8152430667023424,
-              -42.23143427744325
+              0.5771021502053955,
+              -0.8166719710069087,
+              -40.555816337610885
             ],
             [
-              0.6171934406440032,
-              -0.7868114493485826,
-              -29.89204064427667
+              0.6149749386193648,
+              -0.7885466535786634,
+              -28.159946056908858
             ],
             [
-              0.6544605435558785,
-              -0.7560961558747301,
-              -17.26914917777153
+              0.6522122581505808,
+              -0.7580363911568627,
+              -15.43251739414004
             ],
             [
-              0.6909728324559906,
-              -0.7228807265432835,
-              -4.312582807928356
+              0.688595474355244,
+              -0.7251456906701413,
+              -2.4156076792179193
             ],
             [
-              0.7264410253217534,
-              -0.6872288095892661,
-              8.912316707286871
+              0.7240128960571994,
+              -0.6897864353137622,
+              10.886178007832905
             ],
             [
-              0.7607368709122996,
-              -0.6490604080011069,
-              22.39679805401044
+              0.758288830049393,
+              -0.6519187451073353,
+              24.447118622459875
             ],
             [
-              0.7936089592001132,
-              -0.6084281550662438,
-              36.08450299961819
+              0.7911666153439795,
+              -0.6116006759031186,
+              38.207847629516316
             ],
             [
-              0.8249386356306116,
-              -0.5652222991389361,
-              49.974002440719055
+              0.8224681012966419,
+              -0.5688112361315455,
+              52.138598410199116
             ],
             [
-              0.8544011268990299,
-              -0.5196140051554305,
-              63.97310564287299
+              0.8519997221731792,
+              -0.5235422365166209,
+              66.2042777400729
             ],
             [
-              0.8817945603562038,
-              -0.4716337067324697,
-              78.03869530914903
+              0.8794901375549642,
+              -0.4759171124718571,
+              80.33040679980081
             ],
             [
-              0.9069076525975405,
-              -0.4213294550111812,
-              92.12259373498598
+              0.9047009700909576,
+              -0.4260471273421289,
+              94.45099098996516
             ],
             [
-              0.9294484376760703,
-              -0.36895203170806884,
-              106.1236478936588
-            ],
-            [
-              0.9492241334479241,
-              -0.31460061106113174,
-              119.98748392388599
-            ],
-            [
-              0.9659969380849147,
-              -0.25855350628171675,
-              133.61775783265685
-            ],
-            [
-              0.9795831707542123,
-              -0.20103932842885142,
-              146.9374610804658
-            ],
-            [
-              0.9898113557781845,
-              -0.14238497102065323,
-              159.8533752870135
-            ],
-            [
-              0.9965598439952522,
-              -0.08287627728221487,
-              172.28921121561743
-            ],
-            [
-              0.9997381142429903,
-              -0.022884556580142004,
-              184.15837657594452
+              0.9189322337404658,
+              -0.3944154532884809,
+              103.07832246357806
             ],
             [
               1.0,
               -0.0,
-              188.51241149902344
+              197.41693725585938
             ],
             [
-              0.9993059957110213,
-              0.03724952262787407,
-              195.51007335016175
+              -0.26512975002847705,
+              0.9642127439781313,
+              143.6019527218861
             ],
             [
-              0.9952690591985244,
-              0.09715708827504121,
-              206.22866469742615
+              -0.3012929874057202,
+              0.9535316123444133,
+              134.83945195463306
             ],
             [
-              0.991913318815266,
-              0.12691716966937247,
-              211.30616431966226
+              -0.3413365760196936,
+              0.9399411374501873,
+              124.79169007234877
             ],
             [
-              0.9877157085414768,
-              0.15626157269273958,
-              216.29735959761152
+              -0.38111903487795656,
+              0.9245259765164497,
+              114.43470898879461
             ],
             [
-              0.9767888782872314,
-              0.2142043119415948,
-              225.66545477658363
+              -0.42095326972065156,
+              0.9070823252117156,
+              103.67077123463612
             ],
             [
-              0.9625843912986333,
-              0.2709820835926974,
-              234.1972538068389
+              -0.46042311538345365,
+              0.8876995859076398,
+              92.59402970514948
             ],
             [
-              0.9452933327608902,
-              0.32622157353217607,
-              241.8548375425781
+              -0.4997486607755012,
+              0.8661704659321358,
+              81.12315675660184
             ],
             [
-              0.9250870955391008,
-              0.3797550074285136,
-              248.63706560402852
+              -0.5386529147616799,
+              0.8425277665565369,
+              69.31551880540123
             ],
             [
-              0.9022040801937417,
-              0.4313093990185751,
-              254.53453309886797
+              -0.5770908094463557,
+              0.8166799848487472,
+              57.16134979940595
             ],
             [
-              0.8768222136313335,
-              0.48081473114147427,
-              259.56654408449924
+              -0.6149852881438529,
+              0.7885385820406141,
+              44.657341742836685
             ],
             [
-              0.84926938225956,
-              0.5279597677441582,
-              263.7327583006983
+              -0.6521353707721701,
+              0.7581025380433998,
+              31.840182346405605
             ],
             [
-              0.8197028288431935,
-              0.5727890295619029,
-              267.0711774706817
+              -0.6886341410824922,
+              0.7251089709385606,
+              18.640967702349293
             ],
             [
-              0.7883565542450074,
-              0.6152186142981523,
-              269.6087607899809
+              -0.724046808880008,
+              0.6897508380210039,
+              5.177492961444296
             ],
             [
-              0.7554763883347884,
-              0.6551758746082033,
-              271.37686716810015
+              -0.7582392731868968,
+              0.6519763834656946,
+              -8.53586071011805
             ],
             [
-              0.7213104364350451,
-              0.692611907412719,
-              272.4119403320212
+              -0.7911665500993927,
+              0.6116007603035049,
+              -22.52728138772229
             ],
             [
-              0.6858891100146156,
-              0.7277060730565318,
-              272.7549855005793
+              -0.8225015388582235,
+              0.5687628843163504,
+              -36.709446115730024
             ],
             [
-              0.6496125210325566,
-              0.7602654618734999,
-              272.44224568107825
+              -0.8520024473624668,
+              0.5235378015849159,
+              -51.02327346099313
             ],
             [
-              0.6125591987809874,
-              0.7904247136753727,
-              271.51483265803944
+              -0.879491431211334,
+              0.4759147217998613,
+              -65.43831979396118
             ],
             [
-              0.5747154318066057,
-              0.8183533298296933,
-              270.00362534845203
+              -0.9046989172001975,
+              0.42605148657972114,
+              -79.87413210477096
             ],
             [
-              0.5363847846644899,
-              0.8439735557352663,
-              267.94958866454067
+              -0.9274173796305358,
+              0.37402807910534036,
+              -94.27696870835425
             ],
             [
-              0.4976498518491239,
-              0.8673780173341639,
-              265.38629402518404
+              -0.9473964356201247,
+              0.32006248417189276,
+              -108.55807757232621
             ],
             [
-              0.4584958377999653,
-              0.8886965549163043,
-              262.3366023474274
+              -0.96442077787641,
+              0.26437201667396654,
+              -122.63527537213342
             ],
             [
-              0.4192110644874546,
-              0.9078888056426817,
-              258.8459637250878
+              -0.9782922040936994,
+              0.20723021837920205,
+              -136.4184557691705
             ],
             [
-              0.37958218411833694,
-              0.9251580219075836,
-              254.91494629492874
+              -0.9882820593114006,
+              0.15263869510454253,
+              -148.98689308807454
             ],
             [
-              0.3398561483239765,
-              0.9404774311201685,
-              250.58398892536277
+              -0.9919133188152662,
+              0.12691716966937178,
+              -154.71059886716463
             ],
             [
-              0.30002940726622407,
-              0.9539299527614583,
-              245.86878173556735
+              -0.9956213662347254,
+              0.09347777862625344,
+              -161.79558628841212
             ],
             [
-              0.2601361315034253,
-              0.9655719512736648,
-              240.78675828123775
-            ],
-            [
-              0.22002913532207452,
-              0.9754933006481491,
-              235.32842404665163
-            ],
-            [
-              0.18020780811853102,
-              0.9836285609380783,
-              229.5731916861058
-            ],
-            [
-              0.14014316273644095,
-              0.9901312508643627,
-              223.45356623482363
-            ],
-            [
-              0.10012020447751215,
-              0.9949753487676873,
-              217.01707497698195
-            ],
-            [
-              0.06001797317991747,
-              0.9981972965778734,
-              210.248563737143
-            ],
-            [
-              0.019990263896143768,
-              0.9998001747096079,
-              203.1770333154813
-            ],
-            [
-              0.0,
-              1.0,
-              199.5285206284575
-            ],
-            [
-              -0.019990263896143768,
-              0.9998001747096079,
-              195.88058699338882
-            ],
-            [
-              -0.06001797317991747,
-              0.9981972965778734,
-              188.34200352647315
-            ],
-            [
-              -0.10012020447751215,
-              0.9949753487676873,
-              180.47320034269
-            ],
-            [
-              -0.14014316273644095,
-              0.9901312508643627,
-              172.30131183602268
-            ],
-            [
-              -0.18020780811853102,
-              0.9836285609380783,
-              163.797341722842
-            ],
-            [
-              -0.22002913532207452,
-              0.9754933006481491,
-              155.01778965409443
-            ],
-            [
-              -0.2601361315034253,
-              0.9655719512736648,
-              145.83707028248753
-            ],
-            [
-              -0.30002940726622407,
-              0.9539299527614583,
-              136.35804808339557
-            ],
-            [
-              -0.3398561483239765,
-              0.9404774311201685,
-              126.5364947871114
-            ],
-            [
-              -0.37958218411833694,
-              0.9251580219075836,
-              116.36744909173575
-            ],
-            [
-              -0.4192110644874546,
-              0.9078888056426817,
-              105.83392518716693
-            ],
-            [
-              -0.4584958377999653,
-              0.8886965549163043,
-              94.98562155044013
-            ],
-            [
-              -0.4976498518491239,
-              0.8673780173341639,
-              83.74409810025388
-            ],
-            [
-              -0.5363847846644899,
-              0.8439735557352663,
-              72.16914226200188
-            ],
-            [
-              -0.5747154318066057,
-              0.8183533298296933,
-              60.23249273904096
-            ],
-            [
-              -0.6125591987809874,
-              0.7904247136753727,
-              47.93072510297906
-            ],
-            [
-              -0.6496125210325566,
-              0.7602654618734999,
-              35.33367550419511
-            ],
-            [
-              -0.6858891100146156,
-              0.7277060730565318,
-              22.40546034524464
-            ],
-            [
-              -0.7213104364350451,
-              0.692611907412719,
-              9.133631033229728
-            ],
-            [
-              -0.7554763883347884,
-              0.6551758746082033,
-              -4.372014574097568
-            ],
-            [
-              -0.7883565542450074,
-              0.6152186142981523,
-              -18.141381509446738
-            ],
-            [
-              -0.8197028288431935,
-              0.5727890295619029,
-              -32.12035505708392
-            ],
-            [
-              -0.84926938225956,
-              0.5279597677441582,
-              -46.25056622404106
-            ],
-            [
-              -0.8768222136313335,
-              0.48081473114147427,
-              -60.473563890937506
-            ],
-            [
-              -0.9022040801937417,
-              0.4313093990185751,
-              -74.76995617184772
-            ],
-            [
-              -0.9250870955391008,
-              0.3797550074285136,
-              -89.01972426774329
-            ],
-            [
-              -0.9452933327608902,
-              0.32622157353217607,
-              -103.17722891514683
-            ],
-            [
-              -0.9625843912986333,
-              0.2709820835926974,
-              -117.14604901716226
-            ],
-            [
-              -0.9767888782872314,
-              0.2142043119415948,
-              -130.86248579825585
-            ],
-            [
-              -0.9877157085414768,
-              0.15626157269273958,
-              -144.21887402002753
-            ],
-            [
-              -0.991913318815266,
-              0.12691716966937247,
-              -150.74219704790983
-            ],
-            [
-              -0.9952690591985244,
-              0.09715708827504121,
-              -157.04454191003526
-            ],
-            [
-              -0.9993059957110213,
-              0.03724952262787407,
-              -169.23661508436103
+              -0.999551196110088,
+              0.02995674139308961,
+              -174.67446057144102
             ],
             [
               -1.0,
               -0.0,
-              -176.48758850097656
+              -180.4872537612915
             ]
           ]
         ]
       }
     },
-    "contact_area_mm2": 206.01498535027054,
-    "face_count": 130,
+    "contact_area_mm2": 206.05479956324797,
+    "face_count": 174,
     "inclination_degrees": 34.99999999999998,
     "outlet_blockers": [
       {
         "aperture_plate_mm": [
           [
-            185.9437873363495,
-            185.36673477134144,
-            125.6471812297369
+            196.51693725585938,
+            199.16682477427756,
+            135.3182518046557
           ],
           [
-            185.75350522994995,
-            185.23156530406837,
-            125.55252113012298
+            191.3133978843689,
+            187.04331384656854,
+            126.82928359352937
           ],
           [
-            185.555326461792,
-            185.1042204544537,
-            125.46336281679926
+            191.22308826446533,
+            186.85154351063176,
+            126.69500544390817
           ],
           [
-            185.34973192214966,
-            184.9850366087231,
-            125.37990050244366
+            191.1213994026184,
+            186.66362349525545,
+            126.56342371036477
           ],
           [
-            185.13722038269043,
-            184.8742764588101,
-            125.30234814606021
+            191.00857639312744,
+            186.48001811246797,
+            126.43485629857014
           ],
           [
-            184.91830801963806,
-            184.77223217436506,
-            125.23091180812247
+            190.88489151000977,
+            186.30117693543932,
+            126.30962506346049
           ],
           [
-            184.6935257911682,
-            184.67914670099537,
-            125.1657317533423
+            190.7506422996521,
+            186.12751216109217,
+            126.18803028078555
           ],
           [
-            184.46341967582703,
-            184.59523745585682,
-            125.1069708838204
+            190.60615253448486,
+            185.95944677594247,
+            126.07035353817147
           ],
           [
-            184.22854793071747,
-            184.52072185610518,
-            125.05479210165748
+            190.4517698287964,
+            185.79740376650605,
+            125.95687642324435
           ],
           [
-            183.98948073387146,
-            184.4557720441185,
-            125.00930725205093
+            190.28786659240723,
+            185.64176190272354,
+            125.84789237142596
           ],
           [
-            183.74679815769196,
-            184.40053068455796,
-            124.9706360787286
+            190.1148374080658,
+            185.49288810673988,
+            125.74365060156273
           ],
           [
-            183.5010895729065,
-            184.3551659705364,
-            124.93887568802946
+            189.93309903144836,
+            185.35115324996525,
+            125.64441507135956
           ],
           [
-            183.25295102596283,
-            184.31975660381363,
-            124.91408397718479
+            189.74308967590332,
+            185.21688292903212,
+            125.55039868161805
           ],
           [
-            183.0029849410057,
-            184.2944147131315,
-            124.89632568375394
+            189.54526662826538,
+            185.09042932722696,
+            125.46185460044985
           ],
           [
-            182.75179806351662,
-            184.2791708344093,
-            124.8856558139054
+            189.34010672569275,
+            184.97206592607654,
+            125.37897809873536
           ],
           [
-            182.5,
-            184.27409577087647,
-            124.88210278715363
+            189.1281042098999,
+            184.8620996340896,
+            125.3019712876829
           ],
           [
-            182.24820193648338,
-            184.2791708344093,
-            124.8856558139054
+            188.90976977348328,
+            184.76077445507602,
+            125.23103733670328
           ],
           [
-            181.9970150589943,
-            184.2944147131315,
-            124.89632568375394
+            188.68562936782837,
+            184.66836281236007,
+            125.16630861197794
           ],
           [
-            181.74704897403717,
-            184.31975660381363,
-            124.91408397718479
+            188.45622301101685,
+            184.58506054391114,
+            125.10798539185485
           ],
           [
-            181.4989104270935,
-            184.3551659705364,
-            124.93887568802946
+            188.22210335731506,
+            184.51107321908927,
+            125.05618636185945
           ],
           [
-            181.25320184230804,
-            184.40053068455796,
-            124.9706360787286
+            187.9838343858719,
+            184.44661035651987,
+            125.01104494637553
           ],
           [
-            181.01051926612854,
-            184.4557720441185,
-            125.00930725205093
+            187.7419900894165,
+            184.3917772446168,
+            124.97265930994453
           ],
           [
-            180.77145206928253,
-            184.52072185610518,
-            125.05479210165748
+            187.49715322256088,
+            184.3467420764929,
+            124.94112655890541
           ],
           [
-            180.53658032417297,
-            184.59523745585682,
-            125.1069708838204
+            187.24991351366043,
+            184.3116022420316,
+            124.91651538008267
           ],
           [
-            180.3064742088318,
-            184.67914670099537,
-            125.1657317533423
+            187.0008665919304,
+            184.28644039225796,
+            124.89889840956609
           ],
           [
-            180.08169198036194,
-            184.77223217436506,
-            125.23091180812247
+            186.75061243772507,
+            184.27131259154288,
+            124.8883080161353
           ],
           [
-            179.86277961730957,
-            184.8742764588101,
-            125.30234814606021
+            186.49975395202637,
+            184.26627490425733,
+            124.88477656856996
           ],
           [
-            179.65026807785034,
-            184.9850366087231,
-            125.37990050244366
+            186.24889546632767,
+            184.27131259154288,
+            124.8883080161353
           ],
           [
-            179.444673538208,
-            185.1042204544537,
-            125.46336281679926
+            185.99864131212234,
+            184.28644039225796,
+            124.89889840956609
           ],
           [
-            179.24649477005005,
-            185.23156530406837,
-            125.55252113012298
+            185.7495943903923,
+            184.3116022420316,
+            124.91651538008267
           ],
           [
-            179.0562126636505,
-            185.36673477134144,
-            125.6471812297369
+            185.50235468149185,
+            184.3467420764929,
+            124.94112655890541
           ],
           [
-            178.87428951263428,
-            185.5094395776854,
-            125.7470888893269
+            185.25751781463623,
+            184.3917772446168,
+            124.97265930994453
           ],
           [
-            178.70116639137268,
-            185.6592912217688,
-            125.85203226629383
+            185.01567351818085,
+            184.44661035651987,
+            125.01104494637553
           ],
           [
-            178.53726387023926,
-            185.81595909949158,
-            125.96172081627873
+            184.77740454673767,
+            184.51107321908927,
+            125.05618636185945
           ],
           [
-            178.38297939300537,
-            185.97904681099192,
-            126.07591321896557
+            184.5432848930359,
+            184.58506054391114,
+            125.10798539185485
           ],
           [
-            178.23868799209595,
-            186.148164796736,
-            126.19433472705623
+            184.31387853622437,
+            184.66836281236007,
+            125.16630861197794
           ],
           [
-            178.10473918914795,
-            186.3228821716775,
-            126.31667427520773
+            184.08973813056946,
+            184.76077445507602,
+            125.23103733670328
           ],
           [
-            177.98145866394043,
-            186.50280937628256,
-            126.44265711612198
+            183.87140369415283,
+            184.8620996340896,
+            125.3019712876829
           ],
           [
-            177.86914539337158,
-            186.68748604778804,
-            126.57198008298641
+            183.65940117835999,
+            184.97206592607654,
+            125.37897809873536
           ],
           [
-            177.7680721282959,
-            186.8764586637587,
-            126.7043065820064
+            183.45424127578735,
+            185.09042932722696,
+            125.46185460044985
           ],
           [
-            177.6784839630127,
-            187.06929633914828,
-            126.83932554783895
+            183.2564182281494,
+            185.21688292903212,
+            125.55039868161805
           ],
           [
-            177.60059881210327,
-            187.26550133494624,
-            126.97671223448509
+            183.06640887260437,
+            185.35115324996525,
+            125.64441507135956
           ],
           [
-            177.53460502624512,
-            187.46462012871737,
-            127.11613004815018
+            182.88467049598694,
+            185.49288810673988,
+            125.74365060156273
           ],
           [
-            177.48066329956055,
-            187.66615498145123,
-            127.25725424283524
+            182.7116413116455,
+            185.64176190272354,
+            125.84789237142596
           ],
           [
-            177.4389042854309,
-            187.86962973332376,
-            127.39972269629399
+            182.54773807525635,
+            185.79740376650605,
+            125.95687642324435
           ],
           [
-            177.4094295501709,
-            188.0745279572008,
-            127.5431998729342
+            182.39335536956787,
+            185.95944677594247,
+            126.07035353817147
           ],
           [
-            177.39231061935425,
-            188.2803774425235,
-            127.68733838936802
+            182.24886560440063,
+            186.12751216109217,
+            126.18803028078555
           ],
           [
-            177.38758850097656,
-            188.48666860248576,
-            127.8317692830212
+            182.11461639404297,
+            186.30117693543932,
+            126.30962506346049
           ],
           [
-            177.39527559280396,
-            188.69289290848388,
-            127.97618649601836
+            181.9909315109253,
+            186.48001811246797,
+            126.43485629857014
           ],
           [
-            177.4153528213501,
-            188.89856235289813,
-            128.1201836895379
+            181.87810850143433,
+            186.66362349525545,
+            126.56342371036477
           ],
           [
-            178.06334733963013,
-            193.96292358058435,
-            131.66628393760158
+            181.7764196395874,
+            186.85154351063176,
+            126.69500544390817
           ],
           [
-            178.07873582839966,
-            194.06019286967737,
-            131.734402786978
+            181.68611001968384,
+            187.04331384656854,
+            126.82928359352937
           ],
           [
-            178.09990787506104,
-            194.15673910407367,
-            131.80200451053784
+            181.60739660263062,
+            187.23850361801945,
+            126.96594709388538
           ],
           [
-            178.1268129348755,
-            194.25231143963543,
-            131.86891936585243
+            181.5404691696167,
+            187.43661508597398,
+            127.10467119897717
           ],
           [
-            178.15938663482666,
-            194.34670035773732,
-            131.9350139285379
+            181.48548936843872,
+            187.6371720906081,
+            127.24509378655853
           ],
           [
-            178.19755125045776,
-            194.4396697530999,
-            132.00011450690033
+            181.44258880615234,
+            187.83969953030012,
+            127.38691563908208
           ],
           [
-            178.24121570587158,
-            194.53100615783262,
-            132.06407293769743
+            181.41187191009521,
+            188.04370255710242,
+            127.52976384470833
           ],
           [
-            178.29027605056763,
-            194.62047346665608,
-            132.1267155292353
+            181.3934121131897,
+            188.2486942215977,
+            127.67329496931464
           ],
           [
-            178.34461402893066,
-            194.70788084906854,
-            132.18791964672332
+            181.3872537612915,
+            188.45419152363388,
+            127.8171803176368
           ],
           [
-            178.40410089492798,
-            194.79301088791428,
-            132.24752238806076
+            181.3934121131897,
+            188.65967408681166,
+            127.96106961522418
           ],
           [
-            178.46859407424927,
-            194.8756540645679,
-            132.30539032886384
+            181.41510677337646,
+            188.89074148627896,
+            128.12285747095424
           ],
           [
-            178.53793954849243,
-            194.95561559926256,
-            132.3613860954834
+            182.0631012916565,
+            193.9551027139652,
+            131.66895771901793
           ],
           [
-            178.61197185516357,
-            195.03271545108973,
-            132.41536836500526
+            182.07627153396606,
+            194.04037541747212,
+            131.7286802040832
           ],
           [
-            178.69051384925842,
-            195.10674410142408,
-            132.46720371304554
+            182.09682989120483,
+            194.13742728940935,
+            131.7966361513589
           ],
           [
-            178.77337837219238,
-            195.17754809601124,
-            132.5167910840001
+            182.12317752838135,
+            194.23354263875933,
+            131.8639268095758
           ],
           [
-            178.86036705970764,
-            195.24496213280113,
-            132.5639852056894
+            182.15525007247925,
+            194.32847851991465,
+            131.93041191402196
           ],
           [
-            178.9512722492218,
-            195.3088032798225,
-            132.60869292103968
+            182.19297122955322,
+            194.4220096171891,
+            131.9958990848799
           ],
           [
-            179.0458767414093,
-            195.3689288724142,
-            132.65079448632315
+            182.23624897003174,
+            194.51390772383368,
+            132.06024410817253
           ],
           [
-            179.14395475387573,
-            195.42520019518022,
-            132.69018489667042
+            182.28498029708862,
+            194.60396332122306,
+            132.123313559516
           ],
           [
-            179.24527192115784,
-            195.47747169239662,
-            132.72679257419415
+            182.33904695510864,
+            194.69195109367104,
+            132.18491505909276
           ],
           [
-            179.34958624839783,
-            195.52563807564948,
-            132.76051935435294
+            182.3983187675476,
+            194.7776654718175,
+            132.24492992137738
           ],
           [
-            179.45664858818054,
-            195.5695645788081,
-            132.79127497113583
+            182.46265363693237,
+            194.86088903850663,
+            132.30319524426915
           ],
           [
-            179.5662031173706,
-            195.609153811989,
-            132.81899073771828
+            182.53189539909363,
+            194.94141622437837,
+            132.35959234224268
           ],
           [
-            179.67798805236816,
-            195.64431233457393,
-            132.84361270613425
+            182.6058783531189,
+            195.0190777781174,
+            132.41396120426003
           ],
           [
-            179.7917366027832,
-            195.6749574955379,
-            132.8650682402939
+            182.68442368507385,
+            195.09367207962885,
+            132.46619788365427
           ],
           [
-            179.90717697143555,
-            195.70099585426263,
-            132.88330339223126
+            182.76734232902527,
+            195.16500039988054,
+            132.51615026791788
           ],
           [
-            180.02403330802917,
-            195.7224047733593,
-            132.89829263349458
+            182.85443449020386,
+            195.23292402347658,
+            132.56371335218148
           ],
           [
-            180.14202666282654,
-            195.73910555106806,
-            132.9099780668526
+            182.94549036026,
+            195.29726685877367,
+            132.60876055238919
           ],
           [
-            180.26087498664856,
-            195.75106476040688,
-            132.9183528519773
+            183.04029059410095,
+            195.3578754515174,
+            132.65119081293687
           ],
           [
-            180.3802945613861,
-            195.75824502512842,
-            132.92339540968223
+            183.1386067867279,
+            195.41460029671862,
+            132.69091781707877
           ],
           [
-            180.5,
-            195.76063844670227,
-            132.92507626225054
+            183.24020218849182,
+            195.4672947804509,
+            132.7278070822286
           ],
           [
-            184.5,
-            195.76063844670227,
-            132.92507626225054
+            183.34483194351196,
+            195.5158507232376,
+            132.7618086096855
           ],
           [
-            184.6197054386139,
-            195.75824502512842,
-            132.92339540968223
+            183.45224404335022,
+            195.56012940968276,
+            132.79281739458006
           ],
           [
-            184.73912501335144,
-            195.75106476040688,
-            132.9183528519773
+            183.5621795654297,
+            195.6000521380265,
+            132.820775539681
           ],
           [
-            184.85797333717346,
-            195.73910555106806,
-            132.9099780668526
+            183.67437386512756,
+            195.63550283026183,
+            132.8456035685705
           ],
           [
-            184.97596669197083,
-            195.7224047733593,
-            132.89829263349458
+            183.78855657577515,
+            195.66639883536362,
+            132.8672288451589
           ],
           [
-            185.09282302856445,
-            195.70099585426263,
-            132.88330339223126
+            183.90445256233215,
+            195.69266935010256,
+            132.88562294993173
           ],
           [
-            185.2082633972168,
-            195.6749574955379,
-            132.8650682402939
+            184.02178263664246,
+            195.7142543608425,
+            132.9007387752509
           ],
           [
-            185.32201194763184,
-            195.64431233457393,
-            132.84361270613425
+            184.14026427268982,
+            195.73109385394724,
+            132.9125292134783
           ],
           [
-            185.4337968826294,
-            195.609153811989,
-            132.81899073771828
+            184.25961184501648,
+            195.7431504531695,
+            132.92097268542753
           ],
           [
-            185.54335141181946,
-            195.5695645788081,
-            132.79127497113583
+            184.37953805923462,
+            195.7504015211204,
+            132.92604366264692
           ],
           [
-            185.65041375160217,
-            195.52563807564948,
-            132.76051935435294
+            184.49975395202637,
+            195.75281758008313,
+            132.9277500436669
           ],
           [
-            185.75472807884216,
-            195.47747169239662,
-            132.72679257419415
+            188.49975395202637,
+            195.75281758008313,
+            132.9277500436669
           ],
           [
-            185.85604524612427,
-            195.42520019518022,
-            132.69018489667042
+            188.61996984481812,
+            195.7504015211204,
+            132.92604366264692
           ],
           [
-            185.9541232585907,
-            195.3689288724142,
-            132.65079448632315
+            188.73989605903625,
+            195.7431504531695,
+            132.92097268542753
           ],
           [
-            186.0487277507782,
-            195.3088032798225,
-            132.60869292103968
+            188.85924363136292,
+            195.73109385394724,
+            132.9125292134783
           ],
           [
-            186.13963294029236,
-            195.24496213280113,
-            132.5639852056894
+            188.97772526741028,
+            195.7142543608425,
+            132.9007387752509
           ],
           [
-            186.22662162780762,
-            195.17754809601124,
-            132.5167910840001
+            189.09505534172058,
+            195.69266935010256,
+            132.88562294993173
           ],
           [
-            186.30948615074158,
-            195.10674410142408,
-            132.46720371304554
+            189.2109513282776,
+            195.66639883536362,
+            132.8672288451589
           ],
           [
-            186.38802814483643,
-            195.03271545108973,
-            132.41536836500526
+            189.32513403892517,
+            195.63550283026183,
+            132.8456035685705
           ],
           [
-            186.46206045150757,
-            194.95561559926256,
-            132.3613860954834
+            189.43732833862305,
+            195.6000521380265,
+            132.820775539681
           ],
           [
-            186.53140592575073,
-            194.8756540645679,
-            132.30539032886384
+            189.54726386070251,
+            195.56012940968276,
+            132.79281739458006
           ],
           [
-            186.59589910507202,
-            194.79301088791428,
-            132.24752238806076
+            189.65467596054077,
+            195.5158507232376,
+            132.7618086096855
           ],
           [
-            186.65538597106934,
-            194.70788084906854,
-            132.18791964672332
+            189.7593057155609,
+            195.4672947804509,
+            132.7278070822286
           ],
           [
-            186.70972394943237,
-            194.62047346665608,
-            132.1267155292353
+            189.86090111732483,
+            195.41460029671862,
+            132.69091781707877
           ],
           [
-            186.75878429412842,
-            194.53100615783262,
-            132.06407293769743
+            189.95921730995178,
+            195.3578754515174,
+            132.65119081293687
           ],
           [
-            186.80244874954224,
-            194.4396697530999,
-            132.00011450690033
+            190.05401754379272,
+            195.29726685877367,
+            132.60876055238919
           ],
           [
-            186.84061336517334,
-            194.34670035773732,
-            131.9350139285379
+            190.14507341384888,
+            195.23292402347658,
+            132.56371335218148
           ],
           [
-            186.8731870651245,
-            194.25231143963543,
-            131.86891936585243
+            190.23216557502747,
+            195.16500039988054,
+            132.51615026791788
           ],
           [
-            186.90009212493896,
-            194.15673910407367,
-            131.80200451053784
+            190.31508421897888,
+            195.09367207962885,
+            132.46619788365427
           ],
           [
-            186.92126417160034,
-            194.06019286967737,
-            131.734402786978
+            190.39362955093384,
+            195.0190777781174,
+            132.41396120426003
           ],
           [
-            186.93665266036987,
-            193.96292358058435,
-            131.66628393760158
+            190.4676125049591,
+            194.94141622437837,
+            132.35959234224268
           ],
           [
-            187.5846471786499,
-            188.89856235289813,
-            128.1201836895379
+            190.53685426712036,
+            194.86088903850663,
+            132.30319524426915
           ],
           [
-            187.60472440719604,
-            188.69289290848388,
-            127.97618649601836
+            190.60118913650513,
+            194.7776654718175,
+            132.24492992137738
           ],
           [
-            187.61241149902344,
-            188.48666860248576,
-            127.8317692830212
+            190.6604609489441,
+            194.69195109367104,
+            132.18491505909276
           ],
           [
-            187.60768938064575,
-            188.2803774425235,
-            127.68733838936802
+            190.7145276069641,
+            194.60396332122306,
+            132.123313559516
           ],
           [
-            187.5905704498291,
-            188.0745279572008,
-            127.5431998729342
+            190.763258934021,
+            194.51390772383368,
+            132.06024410817253
           ],
           [
-            187.5610957145691,
-            187.86962973332376,
-            127.39972269629399
+            190.8065366744995,
+            194.4220096171891,
+            131.9958990848799
           ],
           [
-            187.51933670043945,
-            187.66615498145123,
-            127.25725424283524
+            190.8442578315735,
+            194.32847851991465,
+            131.93041191402196
           ],
           [
-            187.46539497375488,
-            187.46462012871737,
-            127.11613004815018
+            190.8763303756714,
+            194.23354263875933,
+            131.8639268095758
           ],
           [
-            187.39940118789673,
-            187.26550133494624,
-            126.97671223448509
+            190.9026780128479,
+            194.13742728940935,
+            131.7966361513589
           ],
           [
-            187.3215160369873,
-            187.06929633914828,
-            126.83932554783895
+            190.92323637008667,
+            194.04037541747212,
+            131.7286802040832
           ],
           [
-            187.2319278717041,
-            186.8764586637587,
-            126.7043065820064
+            190.93640661239624,
+            193.9551027139652,
+            131.66895771901793
           ],
           [
-            187.13085460662842,
-            186.68748604778804,
-            126.57198008298641
+            191.58440113067627,
+            188.89074148627896,
+            128.12285747095424
           ],
           [
-            187.01854133605957,
-            186.50280937628256,
-            126.44265711612198
+            191.60609579086304,
+            188.65967408681166,
+            127.96106961522418
           ],
           [
-            186.89526081085205,
-            186.3228821716775,
-            126.31667427520773
+            191.61225414276123,
+            188.45419152363388,
+            127.8171803176368
           ],
           [
-            186.76131200790405,
-            186.148164796736,
-            126.19433472705623
+            191.60609579086304,
+            188.2486942215977,
+            127.67329496931464
           ],
           [
-            186.61702060699463,
-            185.97904681099192,
-            126.07591321896557
+            191.58763599395752,
+            188.04370255710242,
+            127.52976384470833
           ],
           [
-            186.46273612976074,
-            185.81595909949158,
-            125.96172081627873
+            191.5569190979004,
+            187.83969953030012,
+            127.38691563908208
           ],
           [
-            186.29883360862732,
-            185.6592912217688,
-            125.85203226629383
+            191.514018535614,
+            187.6371720906081,
+            127.24509378655853
           ],
           [
-            186.12571048736572,
-            185.5094395776854,
-            125.7470888893269
+            191.45903873443604,
+            187.43661508597398,
+            127.10467119897717
+          ],
+          [
+            191.39211130142212,
+            187.23850361801945,
+            126.96594709388538
           ]
         ],
         "clearance_mm": 0.3,
@@ -2709,39 +2362,39 @@
           -0.65,
           5.0
         ],
-        "part_id": 27
+        "part_id": 19
       }
     ],
     "part": "faucet-shell-tip",
     "plate_bounds_mm": [
       [
-        169.62891387939453,
-        189.60916740537868,
-        126.17620910195092
+        173.62974739074707,
+        189.60134653875954,
+        126.17888288336725
       ],
       [
-        195.37108612060547,
-        203.96353451592978,
-        136.2272427521852
+        199.37044620513916,
+        203.9590396442065,
+        136.23224793637024
       ]
     ],
     "support_style": "tree_slim"
   },
   "tip_rear_seam_enforcement": {
-    "enforced_triangles": 48,
+    "enforced_triangles": 97,
     "half_width_mm": 0.0,
     "mesh_vertices_and_triangle_indices_unchanged": true,
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "painted_facet_bounds_cad_mm": [
       [
-        -0.322636545,
-        -114.90206909224707,
-        226.03253173876953
+        -12.472373962026367,
+        -145.4942626951123,
+        187.83045959453906
       ],
       [
-        0.536821306,
-        -32.37330627424707,
-        242.71250915576954
+        5.007819652973633,
+        -32.37481689411231,
+        242.71051025353907
       ]
     ],
     "part": "faucet-shell-tip",
@@ -2753,12 +2406,12 @@
     "band": {
       "bounds_mm": [
         [
-          165.00059382208144,
-          188.60153752893748
+          169.00036344130504,
+          188.59003417957035
         ],
         [
-          200.0005887340709,
-          223.60153244092695
+          203.99963655869496,
+          223.58930729696027
         ]
       ],
       "edge_blend_mm": 2.0,
@@ -2794,92 +2447,43 @@
         -0.8191520442889917
       ],
       "refine_mesh_interiors": true,
+      "rim_inboard_blend_mm": [
+        0.9,
+        2.65
+      ],
+      "rim_semi_axes_mm": [
+        13.499636558694963,
+        13.499636558694963
+      ],
       "seat_plate_mm": [
-        182.50059127807617,
-        206.10153498493221,
-        22.65933843985532
+        186.5,
+        206.0896707382653,
+        22.66484377746714
       ]
     },
     "enforcer_radii_mm": [
-      12.149997455994734,
-      14.099997455994734
+      12.049636558694964,
+      14.099636558694963
     ],
-    "fin_layout": {
-      "fins": [
-        {
-          "angles_degrees": [
-            6.5,
-            38.5
-          ],
-          "part_id": 29
-        },
-        {
-          "angles_degrees": [
-            51.5,
-            83.5
-          ],
-          "part_id": 30
-        },
-        {
-          "angles_degrees": [
-            96.5,
-            128.5
-          ],
-          "part_id": 31
-        },
-        {
-          "angles_degrees": [
-            141.5,
-            173.5
-          ],
-          "part_id": 32
-        },
-        {
-          "angles_degrees": [
-            186.5,
-            218.5
-          ],
-          "part_id": 33
-        },
-        {
-          "angles_degrees": [
-            231.5,
-            263.5
-          ],
-          "part_id": 34
-        },
-        {
-          "angles_degrees": [
-            276.5,
-            308.5
-          ],
-          "part_id": 35
-        },
-        {
-          "angles_degrees": [
-            321.5,
-            353.5
-          ],
-          "part_id": 36
-        }
-      ],
-      "foot_splay_per_height": 0.28,
-      "maximum_foot_splay_mm": 4.0,
-      "radial_allowance_mm": [
-        -0.4,
-        0.5
-      ],
-      "setback_from_seat_mm": 0.96
-    },
-    "lip_face_count": 262,
+    "lip_face_count": 375,
     "part": "faucet-shell-tip",
-    "rim_radius_mm": 13.499997455994734,
-    "roof_enforcer_part_id": 28
+    "plug_keepout": 24,
+    "release_break_blockers": [
+      21,
+      23
+    ],
+    "rim_radius_mm": 13.499636558694963,
+    "roof_enforcers": [
+      20,
+      22
+    ],
+    "top_gap_mm": 0.42,
+    "xy_gap_mm": 0.55
   },
   "tip_supports": {
     "components": [
       {
-        "component_id": 26,
+        "component_id": 18,
         "source_component_id": 2400,
         "source_member": "3D/Objects/plug-root-breakaway-foot.model",
         "source_member_sha256": "ae1749aebf01efcd912f9c9521f81bed6d3b6370b6232b3341c53c8ea181070b"
@@ -2901,20 +2505,13 @@
     "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
     "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
     "source_local_to_target_local_translation_mm": [
-      7.62939453125e-06,
-      43.827653884887695,
-      16.128089904785156
+      -0.0002384185791015625,
+      43.82826042175293,
+      16.130279541015625
     ],
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff"
   },
-  "wall_loops": 2,
-  "executable": {
-    "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-    "archive_sha256": "e13af5d68e55fe4439ee729d948cff9dd6960de094baf6cfa48319672f7b203b",
-    "member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "ac8d5a77362beaa2b0964218c0f2382c3b672209a3de1d88ab475470966f590d",
-    "plate_metadata_repair_commit": "dc5c8629282f7cdca8e02f3d7fec945ca78742a8"
-  }
+  "wall_loops": 2
 }

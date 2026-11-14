@@ -343,7 +343,6 @@ impl ContactBand {
                        slicer: &Path) -> Result<Value> {
         ensure!(!directory.exists() || fs::read_dir(directory)?.next().is_none(),
             "the contact slice directory must be empty");
-        ensure!(!scopes.is_empty(), "the contact slice needs a contact region");
         for (i, (object, band)) in scopes.iter().enumerate() {
             let z = band.mapped_z_bounds();
             ensure!(scopes[..i].iter().all(|(other, their_band)| {
@@ -1129,7 +1128,7 @@ pub fn apply_stretch_cooling(project: &Path, directory: &Path, name: &str, stret
     Ok(report)
 }
 
-fn replace_prediction(archive: &mut zip::ZipArchive<fs::File>, replaced: &mut BTreeMap<String, Vec<u8>>,
+pub(crate) fn replace_prediction(archive: &mut zip::ZipArchive<fs::File>, replaced: &mut BTreeMap<String, Vec<u8>>,
                       seconds: f64) -> Result<()> {
     let name = "Metadata/slice_info.config";
     let info = read_member(archive, name)?;
@@ -1138,7 +1137,7 @@ fn replace_prediction(archive: &mut zip::ZipArchive<fs::File>, replaced: &mut BT
     Ok(())
 }
 
-fn write_motion_result(source: &Path, output: &Path, added: f64) -> Result<()> {
+pub(crate) fn write_motion_result(source: &Path, output: &Path, added: f64) -> Result<()> {
     let mut result: Value = serde_json::from_slice(&fs::read(source)?)?;
     for plate in result["sliced_plates"].as_array_mut().into_iter().flatten() {
         if let Some(seconds) = plate["total_predication"].as_f64() {
@@ -1149,7 +1148,7 @@ fn write_motion_result(source: &Path, output: &Path, added: f64) -> Result<()> {
     Ok(())
 }
 
-fn write_archive(mut archive: zip::ZipArchive<fs::File>, replaced: BTreeMap<String, Vec<u8>>,
+pub(crate) fn write_archive(mut archive: zip::ZipArchive<fs::File>, replaced: BTreeMap<String, Vec<u8>>,
                  output: &Path, replace_model: bool) -> Result<()> {
     let options = zip::write::SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
     let temporary = output.with_extension(format!("restoring-{}", std::process::id()));

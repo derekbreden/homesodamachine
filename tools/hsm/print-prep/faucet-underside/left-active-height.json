@@ -1,0 +1,9 @@
+{
+  "purpose": "Supplies the modeled toolhead's clearance envelope to the faucet travel stage.",
+  "reference_source": "hardware/reference/h2c-toolhead/h2c_toolhead.rs",
+  "reference_body_model_sha256": "30016aede5227d71b2d2d0b83b53064cbe49affa8460ca9cec6874e50ae21e87",
+  "source_commit": "c8667107f964589be7dc69f8fb924f69a12729b3",
+  "generator_path": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/stage/headmap.py",
+  "height_map_sha256": "81ca425ded29dfb86f90ab069bfc2a3763e66558e158662a4eb77a62ed58fce8",
+  "scope": "Stock moving H2C head with the standard left nozzle active. Nozzle coordinates are at the active tip, with positive Y toward the back. The head shape comes from product photographs and its vertical clearances are estimates."
+}

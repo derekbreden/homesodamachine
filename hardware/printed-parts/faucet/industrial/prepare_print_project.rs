@@ -7,20 +7,22 @@
 //! The parts are the generated meshes the production selection names, posed as it poses them. The settings are the approved cover print's, with the selected finish: the
 //! printer's Z trim, Bambu's first bed layer and uniform later layers, the overhang and bridge
 //! recipe over the localized cooling, rear seams on the base, tip and plate and aligned seams on
-//! the cover and lever. The base uses a connected dense interface over Slim trees and a
-//! continuous first perimeter along the supported rim. The base's insert recesses and the plate's
+//! the cover and lever. The base starts on a sloped scaffold, roof and skin.
+//! The base's insert recesses and the plate's
 //! counterbores use bridges. The tip uses a contoured perimeter and dense trees at its
 //! mating lip and a removable disc at its hidden root.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::faucet::{add_common_base_rim, add_tip_root_anchor, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
-                             file_sha, mat, members, read_json, sub, text, texts, times};
-use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_tip_rim_contour, ContactBand};
+use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH};
+use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, as_texts, cross, enforce_rear_seam,
+                             file_sha, mat, members, read_json, recorded_member, sub, text, texts, times};
+use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_contact, apply_stretch_cooling,
+                                     apply_tip_rim_contour, tip_end_stretch, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
+use hsm_print_prep::faucet_underside::{self, Underside};
 use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
-use hsm_print_prep::rim_contour::RimSpec;
 use hsm_print_prep::{cooling, root, sha256_hex, slice, xml};
 use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
@@ -30,7 +32,7 @@ const HERE: &str = "hardware/printed-parts/faucet/industrial";
 const TITLE: &str = "Industrial faucet PET-GF";
 /// Each part's own space for its brim and automatically generated supports, from the shared
 /// plate's centre.
-const PART_OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [20.0, 47.0], [89.0, 86.0], [43.0, -52.0], [-17.5, -60.0]];
+const PART_OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [24.0, 47.0], [89.0, 76.0], [43.0, -52.0], [94.0, -58.0]];
 /// The model keeps this far inside the plate's edge.
 const PLATE_BORDER: f64 = 40.0;
 
@@ -121,10 +123,6 @@ fn main() -> Result<()> {
     if same(&project, &settings_from) || same(&project, &recipe) || protected.iter().any(|p| same(&project, p)) {
         bail!("the Industrial output must not replace its settings source or the Sculpted project");
     }
-    let protected_hashes = || -> Result<Map<String, Value>> {
-        protected.iter().filter(|p| p.is_file()).map(|p| Ok((relative(p, &root), json!(file_sha(p)?)))).collect()
-    };
-    let before = protected_hashes()?;
     if Some(file_sha(&recipe)?.as_str()) != accepted["prepared_project_sha256"].as_str() {
         bail!("the accepted five-part recipe has changed");
     }
@@ -211,29 +209,8 @@ fn main() -> Result<()> {
         let record = enforce_rear_seam(&mut r, &finish["tip_rear_seam_enforcement"])?;
         r.extra.insert("tip_rear_seam_enforcement".into(), record);
     }
-    let base_rim = &finish["base_rim_supports"];
-    let base_contour = if base_rim["common_interface"].is_object() {
-        let mut record = add_common_base_rim(&root, &mut r, &base_rim["common_interface"])?;
-        let base = r.row(base_rim["part"].as_str().context("base rim part")?)?.index;
-        let overrides = base_rim["object_settings"].as_object().context("base object settings")?;
-        let settings = &mut r.plate.objects[base].settings;
-        settings.retain(|(key, _)| !overrides.contains_key(key));
-        settings.extend(overrides.iter().map(|(key, value)| (key.clone(), text(value))));
-        record["object_settings"] = base_rim["object_settings"].clone();
-        let radius = record["rim_radius_mm"].as_f64().context("production rim radius")?;
-        let rim = RimSpec {
-            identify_id: r.plate.objects[base].identify_id.try_into()?,
-            center_mm: serde_json::from_value(record["rim_seat_plate_mm"].clone())?,
-            seat_fall_angle_degrees: -r.row("industrial-shell-base")?.angle,
-            semi_axes_mm: [radius; 2],
-            supported_angles_degrees: serde_json::from_value(base_rim["common_interface"]["continuous_rim_angle_degrees"].clone())?,
-        };
-        record["fin_layout"] = add_base_rim_fins(&root, &mut r, base, rim, base_rim)?;
-        r.extra.insert("base_rim_supports".into(), record);
-        Some((base, rim))
-    } else {
-        None
-    };
+    let radius = FOOT_WIDTH.max(FOOT_DEPTH) / 2.0;
+    let underside = Underside::prepare(&mut r, "industrial-shell-base", [radius; 2], &finish["base_underside"])?;
     let plate_recesses = &finish["mounting_plate_counterbores"];
     let counterbores = block_plate_counterbores(&mut r, plate_recesses["part"].as_str().context("mounting plate identity")?,
         plate_recesses["radial_clearance_mm"].as_f64().context("counterbore radial clearance")?,
@@ -243,11 +220,18 @@ fn main() -> Result<()> {
         let record = add_tip_root_anchor(&root, &mut r, &finish["tip_supports"])?;
         r.extra.insert("tip_supports".into(), record);
     }
-    let parameters = r.extra["base_rim_supports"]["band"]["parameters"].clone();
+    let motion_source = &finish["tip_contact_parameters"];
+    let motion_bytes = recorded_member(&root, motion_source, "parameters_source")?;
+    let mapping: Value = serde_json::from_slice(&motion_bytes)?;
+    let mut parameters = mapping["parameters"].clone();
+    if let Some(entries) = parameters.as_object_mut() {
+        entries.remove("purpose");
+    }
     let tip_contact = add_tip_dispense_contact(&mut r, &finish["tip_dispense_contact"], &parameters)?;
     r.extra.insert("tip_dispense_contact".into(), tip_contact);
     let (tip_rim, joint) = add_tip_rim_contact(&mut r, &finish["tip_supports"], &parameters)?;
     r.extra.insert("tip_rim_contact".into(), joint);
+    let tip_cooling = tip_end_stretch(&r, &finish["tip_end_cooling"])?;
     if r.rows.len() != 5 {
         bail!("the complete Industrial project needs five rigid parts on one plate");
     }
@@ -301,15 +285,19 @@ fn main() -> Result<()> {
         "tools/hsm/print-prep/src/faucet_recesses.rs", "tools/hsm/print-prep/src/profile.rs", "tools/hsm/print-prep/src/rim_contour.rs"] {
         source_sha.insert(path.into(), json!(file_sha(&root.join(path))?));
     }
-    for key in ["base_rim_supports", "tip_supports"] {
-        if let Some(p) = finish[key]["source_project"].as_str() {
-            source_sha.insert(p.to_string(), json!(file_sha(&root.join(p))?));
-        }
+    for path in faucet_underside::SOURCES {
+        source_sha.insert(path.into(), json!(file_sha(&root.join(path))?));
     }
+    if let Some(p) = finish["tip_supports"]["source_project"].as_str() {
+        source_sha.insert(p.to_string(), json!(file_sha(&root.join(p))?));
+    }
+    let revision = motion_source["source_commit"].as_str().context("tip contact revision")?;
+    let source = motion_source["parameters_source"].as_str().context("tip contact source")?;
+    source_sha.insert(format!("{revision}:{source}"), json!(sha256_hex(&motion_bytes)));
     let scope = finish["scope"].clone();
     for (k, v) in [
         ("project_title", json!(TITLE)), ("profile_source", json!(relative(&settings_from, &root))),
-        ("sculpted_artifacts_unchanged", json!(before)), ("shared_tip_source", json!(relative(&parts[1].source, &root))),
+        ("shared_tip_source", json!(relative(&parts[1].source, &root))),
         ("gasket_included", json!(false)), ("color_independent_geometry", json!(true)),
         ("accepted_recipe", json!(relative(&recipe, &root))), ("accepted_recipe_sha256", accepted["prepared_project_sha256"].clone()),
         ("approved_geometry_selection", json!(relative(&production_path, &root))), ("physical_production_approval", production["physical_result"].clone()),
@@ -331,16 +319,13 @@ fn main() -> Result<()> {
     report["native_settings_sha256"] = json!(sha256_hex(&actual[SETTINGS_MEMBER]));
     report["all_profile_members_preserved_byte_for_byte"] = json!(actual == preserved);
     report["profile_member_sha256"] = json!(actual.iter().map(|(n, d)| (n.clone(), json!(sha256_hex(d)))).collect::<Map<_, _>>());
-    if protected_hashes()? != before {
-        bail!("a Sculpted project artifact changed during Industrial preparation");
-    }
     for part in &parts {
         if Some(file_sha(&part.source)?) != r.row(&part.name).ok().map(|row| row.stl_sha256.clone()) {
             bail!("{} changed while preparing the project", part.name);
         }
     }
     std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
-    write_readiness(&root, &project, &report, &production, &finish_path, &production_path, None, None)?;
+    write_readiness(&root, &project, &report, &production, &finish_path, &production_path, None)?;
     println!("{}: five rigid parts on one plate; exact PET-GF settings {}", project.display(), report["settings_sha256"].as_str().unwrap_or(""));
     for row in &r.rows {
         println!("  {}: Rx {} degrees; {} triangles", row.name, python_number(row.angle), row.mesh.faces.len());
@@ -348,29 +333,23 @@ fn main() -> Result<()> {
     if let Some(directory) = slice_output {
         // Bambu Studio's slice is one of the Mac's heavy runs.
         hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
-        let mut reading;
-        if let Some((base, rim)) = base_contour {
-            let band = ContactBand::new(&r.extra["base_rim_supports"]["band"])?;
-            let tip = r.row("faucet-shell-tip")?.index;
-            let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
-            let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
-            let contact = ContactBand::slice_bands(&mut r.plate, &[(base, &band), (tip, &dispense), (tip, &joint)],
-                &project, &directory, &slicer)?;
-            let contour = apply_rim_contour(&project, &directory, rim, &band)?;
-            let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
-            reading = refresh::slice_review(&root, &project, &report, &directory)?;
-            reading["nonplanar_contact"] = contact;
-            reading["rim_contour"] = contour;
-            reading["tip_rim_contour"] = tip_contour;
-            std::fs::write(project.with_extension("support-audit.json"), serde_json::to_string_pretty(&reading)? + "\n")?;
-        } else {
-            reading = refresh::slice_and_review(&root, &project, &report, &directory, &slicer)?;
-        }
-        if protected_hashes()? != before {
-            bail!("a Sculpted project artifact changed during the Industrial slice");
-        }
-        write_readiness(&root, &project, &report, &production, &finish_path, &production_path, Some(&reading), Some(&directory.canonicalize()?))?;
-        println!("{}", serde_json::to_string_pretty(&reading["fit"])?);
+        let tip = r.row("faucet-shell-tip")?.index;
+        let dispense = ContactBand::new(&r.extra["tip_dispense_contact"]["band"])?;
+        let joint = ContactBand::new(&r.extra["tip_rim_contact"]["band"])?;
+        let contact = underside.slice_bands(&root, &mut r, &[(tip, &dispense), (tip, &joint)],
+            &project, &directory, &slicer, &finish["rear_seam_enforcement"])?;
+        let tip_contour = apply_tip_rim_contour(&project, &directory, tip_rim, &joint)?;
+        let tip_cooling = apply_stretch_cooling(&project, &directory, "tip-end-cooling", &tip_cooling)?;
+        let mut reading = refresh::slice_review(&root, &project, &report, &directory)?;
+        let sloped = underside.finish(&root, &project, &directory, &report)?;
+        reading["topology_scope"] = json!("Native support paths before the authored scaffold and skin replace the fill.");
+        reading["nonplanar_contact"] = contact;
+        reading["sloped_underside"] = sloped;
+        reading["tip_rim_contour"] = tip_contour;
+        reading["tip_end_cooling"] = tip_cooling;
+        std::fs::write(project.with_extension("support-audit.json"), serde_json::to_string_pretty(&reading)? + "\n")?;
+        write_readiness(&root, &project, &report, &production, &finish_path, &production_path, Some(&reading))?;
+        println!("{}", serde_json::to_string_pretty(&reading["sloped_underside"]["fit"])?);
     }
     Ok(())
 }
@@ -378,7 +357,7 @@ fn main() -> Result<()> {
 /// What this offline preparation checked.
 #[allow(clippy::too_many_arguments)]
 fn write_readiness(root: &Path, project: &Path, report: &Value, production: &Value, finish: &Path, selection: &Path,
-                   reading: Option<&Value>, directory: Option<&Path>) -> Result<()> {
+                   reading: Option<&Value>) -> Result<()> {
     let mut result = json!({
         "project_title": TITLE,
         "status": if reading.is_some() { "approved production geometry and selected-layer native slice reviewed" } else { "approved production geometry prepared; native review pending" },
@@ -393,18 +372,18 @@ fn write_readiness(root: &Path, project: &Path, report: &Value, production: &Val
         "offline_slice": {"completed": reading.is_some()}, "printer_submission": {"performed_by_this_tool": false},
         "physical_print": {"approved_geometry_record": production["physical_result"], "approved_geometry_selection": relative(selection, root),
                            "first_bed_layer_height_mm": report["first_bed_layer_height_mm"], "normal_layer_height_mm": report["layer_height_mm"],
-                           "accepted_remaining_corner_gap": true, "this_archive_printed": false},
+                           "accepted_cosmetic_condition": production["accepted_cosmetic_condition"], "this_archive_printed": false},
         "gasket": {"source": format!("{HERE}/industrial-above-counter-gasket.stl"), "material": "TPU", "included_in_petgf_project": false},
         "color": "The same meshes and project geometry serve black and white PET-GF.",
-        "sculpted_artifacts_unchanged": report["sculpted_artifacts_unchanged"],
     });
-    if let (Some(reading), Some(directory)) = (reading, directory) {
+    if let Some(reading) = reading {
         let slice = result["offline_slice"].as_object_mut().unwrap();
-        slice.insert("directory".into(), json!(relative(directory, root)));
         slice.insert("slicer".into(), reading["slicer"].clone());
+        slice.insert("archive_sha256".into(), reading["sloped_underside"]["archive_sha256"].clone());
+        slice.insert("gcode_sha256".into(), reading["sloped_underside"]["gcode_sha256"].clone());
         slice.insert("support_audit_sha256".into(), json!(file_sha(&project.with_extension("support-audit.json"))?));
         slice.insert("plates".into(), reading["plates"].clone());
-        slice.insert("fit".into(), reading["fit"].clone());
+        slice.insert("fit".into(), reading["sloped_underside"]["fit"].clone());
         slice.insert("physical_support_removal_validated".into(), json!(false));
     }
     std::fs::write(project.with_extension("readiness.json"), serde_json::to_string_pretty(&result)? + "\n")?;
