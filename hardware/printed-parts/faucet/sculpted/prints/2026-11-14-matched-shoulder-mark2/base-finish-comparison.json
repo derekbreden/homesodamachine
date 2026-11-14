@@ -1,0 +1,37 @@
+{
+  "purpose": "Compare the front wall stops and underside support between the printed plug-ramp plate and the matched shoulder plate.",
+  "printed_job": "1441898884",
+  "printed_gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+  "matched_shoulder_gcode_sha256": "a72a4094858e1ca1d3ab2bc07af5031fb26086181cdc16a92b49c56a47c872d0",
+  "front_wall_below_lever_opening": {
+    "source_course_height_range_mm": [10, 38.88],
+    "sampled_courses": 121,
+    "cad_lateral_center_band_mm": [-2, 2],
+    "front_side_cad_y_below_mm": -12,
+    "minimum_moves_per_run": 4,
+    "features": ["Outer wall", "Overhang wall"],
+    "printed_front_starts": 0,
+    "printed_front_ends": 480,
+    "matched_front_starts": 0,
+    "matched_front_ends": 0,
+    "matched_rear_starts": 121,
+    "matched_rear_ends": 121
+  },
+  "exterior_laps": {
+    "tool": "hsm-gcode seams",
+    "measured_on_each_plate": 1022,
+    "printed_open": 583,
+    "matched_open": 14,
+    "matched_open_scope": "Initial foundation courses below the continued base."
+  },
+  "base_support_and_foundation": {
+    "support_features": ["Support", "Support interface", "Support transition"],
+    "support_moves_on_each_plate": 60329,
+    "same_ordered_support_deposition_and_feed": true,
+    "foundation_phases": ["scaffold layer", "underside roof course", "underside deck bedding", "sloped course"],
+    "foundation_moves_on_each_plate": 42748,
+    "same_ordered_foundation_deposition": true,
+    "same_foundation_feed_fan_and_acceleration": true,
+    "deposition_fields": ["feature", "bead width", "bead height", "start XYZ", "end XYZ", "arc offsets", "extrusion"]
+  }
+}
