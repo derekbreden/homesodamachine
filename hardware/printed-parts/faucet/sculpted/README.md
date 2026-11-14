@@ -120,6 +120,8 @@ ends and removable mounting-plate counterbore rings.
 The [Mark2 steady base wall plate](prints/2026-11-14-steady-base-wall-mark2/README.md)
 carries the matched shoulder and caps the Sculpted base's ordinary exterior
 speed across whole laps for an even rear-wall finish.
+The [Mark2 extended cover plate](prints/2026-11-14-aft-cover-mark2/README.md)
+pairs that base finish with the longer rear cover over both cavity corners.
 
 The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)

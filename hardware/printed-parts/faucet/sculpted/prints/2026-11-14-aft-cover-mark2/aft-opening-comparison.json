@@ -1,0 +1,392 @@
+{
+  "purpose": "Locate the bilateral aperture under the aft cover corners in the assembly datum and launched paths.",
+  "published_assembly_source_sha256": "10223d3332733ce3589de2f64371856c2e3b0ef93544e541f48f69629e43b636",
+  "printed_tip_stl_sha256": "a70d6b5af3ef74ca1a8e94bf0133b1a51bb201923a65a40ab191713c5467aad5",
+  "printed_relaxed_cover_stl_sha256": "a6e21960c1a8f4646a8bbcdabe514b200cdea7533db07dc865344cb00b355262",
+  "printed_gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+  "tip_frame_pick_mm": {
+    "world_xyz": [
+      11.474,
+      -109.837,
+      221.783
+    ],
+    "local_xsn": [
+      11.474,
+      47.23941021002446,
+      8.100294470999508
+    ]
+  },
+  "authored_datums_mm": {
+    "tip_cavity_aft_s": 47.24,
+    "tip_ledge_n": 8.1,
+    "cover_trim_s_at_ledge": 46.96,
+    "cover_trim_n_at_cavity_end": 8.566666666666666,
+    "nominal_shortfall_in_s_at_ledge": 0.28,
+    "nominal_open_height_in_n_at_cavity_end": 0.4666666666666667
+  },
+  "published_and_trial_nominal_lateral_sections": {
+    "s_mm": 47.239,
+    "pass_through_at_n_mm": [
+      8.15,
+      8.35,
+      8.55
+    ],
+    "tip_outer_abs_x_mm_at_n_8p09": 11.48,
+    "seated_cover_hit_abs_x_span_mm_at_n_8p65": [
+      11.35567,
+      13.8305
+    ],
+    "relaxed_cover_hit_abs_x_span_mm_at_n_8p65": [
+      11.24302,
+      13.71779
+    ]
+  },
+  "printed_cover_paths": {
+    "method": "G-code exterior bead centerline maxima plus half the declared bead width, an upper bound on aft stock.",
+    "layer_rows": [
+      {
+        "n_top_mm": 8.29999,
+        "n_center_mm": 8.17999,
+        "aft_extent_ceiling_s_mm": 47.00807,
+        "line": 180217
+      },
+      {
+        "n_top_mm": 8.53999,
+        "n_center_mm": 8.41999,
+        "aft_extent_ceiling_s_mm": 47.15207,
+        "line": 182684
+      },
+      {
+        "n_top_mm": 8.77999,
+        "n_center_mm": 8.65999,
+        "aft_extent_ceiling_s_mm": 47.29607,
+        "line": 189875
+      }
+    ]
+  },
+  "scope": "The aperture exists in nominal geometry and sliced deposition. The photos show it in the assembled print. Physical deformation and seating can change its size.",
+  "revised": {
+    "nominal_aft_addition_mm": 1.2,
+    "nominal_overlap_in_s_at_ledge_mm": 0.92,
+    "ray_pitch_mm": 0.013,
+    "scan_domain": {
+      "s_mm": [
+        46.92,
+        47.24
+      ],
+      "n_mm": [
+        8.104,
+        8.577
+      ]
+    },
+    "fit_geometry_scope": "The prior and revised seated shapes have the same front, retaining-lip and window crossings within the measured mesh precision. The relaxed meshes intentionally include wing preload.",
+    "variant_results": [
+      {
+        "variant": "standing_seated",
+        "sha256": {
+          "before": "8d1e27471f2cdbfe83763d769a5e57a0fd3d99f0e38705923d9e3d0d1a153cb9",
+          "after": "d2671b6f12fd9ea799de923fc15a6a079d2bec05515b46aa59b1166004038ce8"
+        },
+        "bounds_local_mm": {
+          "before": [
+            [
+              -15.086725974455476,
+              -1.300577493825145E-10,
+              3.299999999384788
+            ],
+            [
+              15.086725974455476,
+              51.10614978479357,
+              19.68000000055032
+            ]
+          ],
+          "after": [
+            [
+              -15.086725974455476,
+              -1.300577493825145E-10,
+              3.299999999532651
+            ],
+            [
+              15.086725974455476,
+              52.306149784793966,
+              19.68000000057376
+            ]
+          ]
+        },
+        "ray_comparison": [
+          {
+            "measurement": "front s crossings",
+            "sample_count": 13950,
+            "both_hit_count": 4747,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.0
+          },
+          {
+            "measurement": "lip x crossings",
+            "sample_count": 1980,
+            "both_hit_count": 1980,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.0
+          },
+          {
+            "measurement": "bezel n crossings ahead of rear extension",
+            "sample_count": 5265,
+            "both_hit_count": 356,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.0
+          }
+        ],
+        "lower_corner_section": {
+          "s_mm": 47.239,
+          "n_mm": 8.15,
+          "before_cover_x_mm": [],
+          "after_cover_x_mm": [
+            -14.39577,
+            -11.49892,
+            11.49892,
+            14.39577
+          ],
+          "tip_x_mm": []
+        }
+      },
+      {
+        "variant": "standing_relaxed",
+        "sha256": {
+          "before": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
+          "after": "c6174d7c6a501226e9d8251bce8865dde797e0bd27cc6badd9a19d77f1798bb5"
+        },
+        "bounds_local_mm": {
+          "before": [
+            [
+              -14.788536071777344,
+              -0.000009395409357407356,
+              3.2999912980453323
+            ],
+            [
+              14.788536071777344,
+              51.10614278606087,
+              19.680008683313346
+            ]
+          ],
+          "after": [
+            [
+              -14.831587791442871,
+              -0.000009395409357407356,
+              3.2999912980453323
+            ],
+            [
+              14.831587791442871,
+              52.30615352722553,
+              19.680008683313346
+            ]
+          ]
+        },
+        "ray_comparison": [
+          {
+            "measurement": "front s crossings",
+            "sample_count": 13950,
+            "both_hit_count": 4753,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.013399999999999856
+          },
+          {
+            "measurement": "lip x crossings",
+            "sample_count": 1980,
+            "both_hit_count": 1980,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.01083000000000034
+          },
+          {
+            "measurement": "bezel n crossings ahead of rear extension",
+            "sample_count": 5265,
+            "both_hit_count": 356,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.0
+          }
+        ],
+        "lower_corner_section": {
+          "s_mm": 47.239,
+          "n_mm": 8.15,
+          "before_cover_x_mm": [],
+          "after_cover_x_mm": [
+            -14.26797,
+            -11.37122,
+            11.37132,
+            14.26797
+          ],
+          "tip_x_mm": []
+        }
+      },
+      {
+        "variant": "trial_seated",
+        "sha256": {
+          "before": "c972a5726b12364d1ce6d56d749fff3a12a3cf6778c11f98aa4ff0afcd53a2b6",
+          "after": "14f3b4a5be8385513c5170183b128bf4e0165b91f6586f972374f7a07a5d6dda"
+        },
+        "bounds_local_mm": {
+          "before": [
+            [
+              -15.086726188659668,
+              -0.000009236673782547021,
+              3.2999912980453323
+            ],
+            [
+              15.086726188659668,
+              51.10614278606087,
+              19.680008683313346
+            ]
+          ],
+          "after": [
+            [
+              -15.086726188659668,
+              -0.000009236673782547021,
+              3.2999912980453323
+            ],
+            [
+              15.086726188659668,
+              52.30615352722553,
+              19.680008683313346
+            ]
+          ]
+        },
+        "ray_comparison": [
+          {
+            "measurement": "front s crossings",
+            "sample_count": 13950,
+            "both_hit_count": 5666,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.000010000000000065512
+          },
+          {
+            "measurement": "lip x crossings",
+            "sample_count": 1980,
+            "both_hit_count": 1980,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.00001000000000139778
+          },
+          {
+            "measurement": "bezel n crossings ahead of rear extension",
+            "sample_count": 5265,
+            "both_hit_count": 356,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.0
+          }
+        ],
+        "lower_corner_section": {
+          "s_mm": 47.239,
+          "n_mm": 8.15,
+          "before_cover_x_mm": [],
+          "after_cover_x_mm": [
+            -14.39577,
+            -11.49892,
+            11.49892,
+            14.39577
+          ],
+          "tip_x_mm": []
+        }
+      },
+      {
+        "variant": "trial_relaxed",
+        "sha256": {
+          "before": "a6e21960c1a8f4646a8bbcdabe514b200cdea7533db07dc865344cb00b355262",
+          "after": "7111ee9086d20513908d1b363319be4195067b23ab4838e4ea00712a066d0e09"
+        },
+        "bounds_local_mm": {
+          "before": [
+            [
+              -14.788536071777344,
+              -0.000009395409357407356,
+              3.2999912980453323
+            ],
+            [
+              14.788536071777344,
+              51.10614278606087,
+              19.680008683313346
+            ]
+          ],
+          "after": [
+            [
+              -14.831587791442871,
+              -0.000009395409357407356,
+              3.2999912980453323
+            ],
+            [
+              14.831587791442871,
+              52.30615352722553,
+              19.680008683313346
+            ]
+          ]
+        },
+        "ray_comparison": [
+          {
+            "measurement": "front s crossings",
+            "sample_count": 13950,
+            "both_hit_count": 5656,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.013399999999999856
+          },
+          {
+            "measurement": "lip x crossings",
+            "sample_count": 1980,
+            "both_hit_count": 1980,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.01083000000000034
+          },
+          {
+            "measurement": "bezel n crossings ahead of rear extension",
+            "sample_count": 5265,
+            "both_hit_count": 356,
+            "different_hit_count": 0,
+            "maximum_matched_difference_mm": 0.0
+          }
+        ],
+        "lower_corner_section": {
+          "s_mm": 47.239,
+          "n_mm": 8.15,
+          "before_cover_x_mm": [],
+          "after_cover_x_mm": [
+            -14.26797,
+            -11.37122,
+            11.37132,
+            14.26797
+          ],
+          "tip_x_mm": []
+        }
+      }
+    ],
+    "coverage": {
+      "standing seated": {
+        "tested_s_n_points": 925,
+        "old_clear_through_both": 385,
+        "new_hitting_cover_left_right": [
+          385,
+          385
+        ]
+      },
+      "standing printable": {
+        "tested_s_n_points": 925,
+        "old_clear_through_both": 385,
+        "new_hitting_cover_left_right": [
+          385,
+          385
+        ]
+      },
+      "trial seated": {
+        "tested_s_n_points": 925,
+        "old_clear_through_both": 385,
+        "new_hitting_cover_left_right": [
+          385,
+          385
+        ]
+      },
+      "trial printable": {
+        "tested_s_n_points": 925,
+        "old_clear_through_both": 385,
+        "new_hitting_cover_left_right": [
+          385,
+          385
+        ]
+      }
+    }
+  }
+}
