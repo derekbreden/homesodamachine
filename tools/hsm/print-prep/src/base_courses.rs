@@ -3,13 +3,12 @@
 //! level upper courses as the slicer laid them. Each course is a restartable band whose entry and
 //! exit the plate scheduler reads from its markers.
 
-use crate::course_field::{CourseField, Move, ShaftEase, active, arc_points, groups, read_moves};
+use crate::course_field::{CourseField, Move, ShaftEase, active, arc_points, distance, groups, read_moves, rounded};
 use crate::gcode::words;
-use crate::json::{Json, python_number};
-use crate::python_text::{dist, round};
 use crate::shaft_stitch;
 use anyhow::{Context, Result, bail, ensure};
-use serde_json::Value;
+use serde_json::{json, Map, Value};
+use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::path::Path;
 use std::rc::Rc;
@@ -40,8 +39,14 @@ const FLOOR: &str = "native tilted base";
 const SHAFT: &str = "graded shaft transition";
 const UPPER: &str = "native level upper base";
 
+/// A point as the band writes it, to three places.
 fn output_point(p: [f64; 3]) -> [f64; 3] {
-    p.map(|v| round(v, 3))
+    p.map(|v| rounded(v, 3))
+}
+
+/// Whether extrusion is written as more than nothing, at five places.
+fn written(e: f64) -> bool {
+    e.abs() > 0.5e-5
 }
 
 /// The feed the firmware receives, held under the Z speed ceiling of the rounded motion.
@@ -51,9 +56,7 @@ fn output_feed(start: [f64; 3], end: [f64; 3], requested: f64, cap: f64) -> i64 
     if dz < SPATIAL {
         return requested.floor() as i64;
     }
-    let limited = cap * dist(&start, &end) / dz;
-    let feed = if limited < requested { limited } else { requested };
-    (feed + 1e-9).floor() as i64
+    (requested.min(cap * distance(start, end) / dz) + 1e-9).floor() as i64
 }
 
 fn xyz(p: [f64; 3]) -> String {
@@ -65,14 +68,14 @@ pub struct Stats {
     pub road_mm: f64,
     pub filament_mm: f64,
     pub dz_roads: i64,
-    pub features: Vec<(Rc<str>, f64)>,
+    pub features: BTreeMap<String, f64>,
     pub min_xyz: [f64; 3],
     pub max_xyz: [f64; 3],
 }
 
 impl Stats {
     pub fn new() -> Self {
-        Self { road_mm: 0.0, filament_mm: 0.0, dz_roads: 0, features: Vec::new(),
+        Self { road_mm: 0.0, filament_mm: 0.0, dz_roads: 0, features: BTreeMap::new(),
                min_xyz: [f64::INFINITY; 3], max_xyz: [f64::NEG_INFINITY; 3] }
     }
 
@@ -81,26 +84,23 @@ impl Stats {
         if let Some(e) = e {
             self.filament_mm += e;
         }
-        match self.features.iter_mut().find(|(f, _)| f == feature) {
-            Some(slot) => slot.1 += length,
-            None => self.features.push((feature.clone(), 0.0 + length)),
-        }
+        *self.features.entry(feature.to_string()).or_default() += length;
         self.dz_roads += (dz > 0.0005) as i64;
         for i in 0..3 {
-            self.min_xyz[i] = py_min(py_min(self.min_xyz[i], a[i]), b[i]);
-            self.max_xyz[i] = py_max(py_max(self.max_xyz[i], a[i]), b[i]);
+            self.min_xyz[i] = self.min_xyz[i].min(a[i]).min(b[i]);
+            self.max_xyz[i] = self.max_xyz[i].max(a[i]).max(b[i]);
         }
     }
 
-    pub fn to_json(&self) -> Json {
-        Json::Map(vec![
-            ("road_mm".into(), float(self.road_mm)),
-            ("filament_mm".into(), float(self.filament_mm)),
-            ("dz_roads".into(), int(self.dz_roads)),
-            ("features".into(), Json::Map(self.features.iter().map(|(k, v)| (k.to_string(), float(*v))).collect())),
-            ("min_xyz".into(), Json::List(self.min_xyz.iter().map(|v| float(*v)).collect())),
-            ("max_xyz".into(), Json::List(self.max_xyz.iter().map(|v| float(*v)).collect())),
-        ])
+    pub fn to_json(&self) -> Value {
+        json!({
+            "road_mm": self.road_mm,
+            "filament_mm": self.filament_mm,
+            "dz_roads": self.dz_roads,
+            "features": self.features,
+            "min_xyz": self.min_xyz,
+            "max_xyz": self.max_xyz,
+        })
     }
 }
 
@@ -108,25 +108,6 @@ impl Default for Stats {
     fn default() -> Self {
         Self::new()
     }
-}
-
-/// Python's `min(a, b)`: `b` only when it is smaller.
-fn py_min(a: f64, b: f64) -> f64 {
-    if b < a { b } else { a }
-}
-
-fn py_max(a: f64, b: f64) -> f64 {
-    if b > a { b } else { a }
-}
-
-/// A float as `json.dumps` writes it.
-pub fn float(v: f64) -> Json {
-    Json::Number(python_number(v), v)
-}
-
-/// An integer as `json.dumps` writes it.
-pub fn int(v: i64) -> Json {
-    Json::Number(v.to_string(), v as f64)
 }
 
 /// The bead settings a band has announced.
@@ -184,7 +165,7 @@ pub fn write_group(out: &mut String, height: &str, section: usize, total: usize,
         let deposition = m.deposition();
         if deposition {
             let expected = map(m.start);
-            ensure!(dist(&cursor, &expected) <= 0.002,
+            ensure!(distance(cursor, expected) <= 0.002,
                 "Support remap lost nozzle continuity at {height}: {cursor:?} -> {expected:?}");
             flags.bead(out, m);
         }
@@ -194,7 +175,7 @@ pub fn write_group(out: &mut String, height: &str, section: usize, total: usize,
         let count = points.len() as f64;
         for point in &points {
             let mut p = if *point == m.end { mapped_end } else { map(*point) };
-            let delta = dist(&prev, &p);
+            let delta = distance(prev, p);
             let e = m.e.map(|e| e / count);
             if delta < SPATIAL && !deposition {
                 p = cursor;
@@ -203,7 +184,7 @@ pub fn write_group(out: &mut String, height: &str, section: usize, total: usize,
             let feed;
             if delta > SPATIAL {
                 if output_point(prev) == output_point(p) {
-                    if e.is_some_and(|e| e != 0.0 && round(e, 5) != 0.0) {
+                    if e.is_some_and(written) {
                         bail!("Positive extrusion collapsed to one coordinate at {height}: {prev:?} -> {p:?}");
                     }
                     prev = p;
@@ -242,12 +223,12 @@ fn runs_of(moves: &[Move]) -> Vec<Vec<Move>> {
     for m in moves {
         if m.deposition() {
             if let Some(previous) = run.last() {
-                if previous.feature != m.feature || dist(&previous.end, &m.start) > SPATIAL {
+                if previous.feature != m.feature || distance(previous.end, m.start) > SPATIAL {
                     runs.push(std::mem::take(&mut run));
                 }
             }
             run.push(m.clone());
-        } else if !run.is_empty() && (dist(&m.start, &m.end) > SPATIAL || m.e.unwrap_or(0.0) < 0.0) {
+        } else if !run.is_empty() && (distance(m.start, m.end) > SPATIAL || m.e.unwrap_or(0.0) < 0.0) {
             runs.push(std::mem::take(&mut run));
         }
     }
@@ -326,10 +307,10 @@ pub fn write_ordered_group(out: &mut String, height: &str, section: usize, total
     let mut previous = entry;
     let linear = |out: &mut String, previous: &mut [f64; 3], next: [f64; 3], feed: f64, e: Option<f64>,
                       feature: Option<&Rc<str>>, seen: &mut Stats| -> Result<()> {
-        let length = dist(&*previous, &next);
+        let length = distance(*previous, next);
         let dz = (next[2] - previous[2]).abs();
         if output_point(*previous) == output_point(next) {
-            if e.is_some_and(|e| e != 0.0 && round(e, 5) != 0.0) {
+            if e.is_some_and(written) {
                 bail!("Positive extrusion collapsed to one coordinate at {height}: {previous:?} -> {next:?}");
             }
             *previous = next;
@@ -350,7 +331,7 @@ pub fn write_ordered_group(out: &mut String, height: &str, section: usize, total
     };
     for run in &runs {
         let start = map(run[0].start);
-        if dist(&previous, &start) > 0.002 {
+        if distance(previous, start) > 0.002 {
             let _ = writeln!(out, "G1 E-{RETRACT} F{RETRACT_SPEED}");
             let up = [previous[0], previous[1], previous[2] + LOCAL_LIFT];
             linear(out, &mut previous, up, TRAVEL_Z_FEED, None, None, seen)?;
@@ -396,7 +377,7 @@ impl ShaftTransition {
     pub fn adjust(&self, m: &Move) -> Move {
         let mut m = m.clone();
         let e = m.e.unwrap_or(0.0);
-        if !m.deposition() || e == 0.0 || py_max(m.start[2], m.end[2]) <= FADE_START {
+        if !m.deposition() || e == 0.0 || m.start[2].max(m.end[2]) <= FADE_START {
             return m;
         }
         let donor = self.ease.donor;
@@ -413,7 +394,7 @@ impl ShaftTransition {
         [donor[0] + x, donor[1] + e.cos * y - e.sin * z, donor[2] + self.fade_end]
     }
 
-    fn summary(&self) -> Vec<(String, Json)> {
+    fn summary(&self) -> Map<String, Value> {
         let e = &self.ease;
         let (mut pitch, mut slopes, mut heights) = (Vec::new(), Vec::new(), Vec::new());
         for index in 0..=1000 {
@@ -426,30 +407,29 @@ impl ShaftTransition {
             for y in [SHAFT_PIVOT_Y - SHAFT_RADIUS, SHAFT_PIVOT_Y + SHAFT_RADIUS] {
                 let (n, jacobian) = e.height_and_scale(y, u);
                 heights.push(e.seat[2] - e.sin * y + e.cos * n);
-                pitch.push(BASE_NORMAL_LAYER * jacobian / dist(&[1.0, normal_slope], &[0.0, 0.0]));
+                pitch.push(BASE_NORMAL_LAYER * jacobian / normal_slope.hypot(1.0));
             }
         }
-        let range = |v: &[f64]| Json::List(vec![
-            float(v.iter().skip(1).fold(v[0], |m, &x| py_min(m, x))),
-            float(v.iter().skip(1).fold(v[0], |m, &x| py_max(m, x))),
-        ]);
-        vec![
-            ("local_plane_slope_range_degrees".into(), range(&slopes)),
-            ("physical_fade_z_extent_mm".into(), range(&heights)),
-            ("approx_bead_normal_pitch_range_mm".into(), range(&pitch)),
-            ("physical_join_z_mm".into(), float(self.native_join_z)),
-            ("cad_join_section_offset_mm".into(), float(e.phase)),
-            ("donor_normal_fade_extent_mm".into(), Json::List(vec![float(FADE_START), float(self.fade_end)])),
-            ("cad_shaft_pivot_y_mm".into(), float(SHAFT_PIVOT_Y)),
-            ("native_upper_first_z_mm".into(), float(self.native_join_z + BASE_NORMAL_LAYER)),
-        ]
+        let range = |v: &[f64]| json!([v.iter().copied().fold(f64::INFINITY, f64::min), v.iter().copied().fold(f64::NEG_INFINITY, f64::max)]);
+        let summary = json!({
+            "local_plane_slope_range_degrees": range(&slopes),
+            "physical_fade_z_extent_mm": range(&heights),
+            "approx_bead_normal_pitch_range_mm": range(&pitch),
+            "physical_join_z_mm": self.native_join_z,
+            "cad_join_section_offset_mm": e.phase,
+            "donor_normal_fade_extent_mm": [FADE_START, self.fade_end],
+            "cad_shaft_pivot_y_mm": SHAFT_PIVOT_Y,
+            "native_upper_first_z_mm": self.native_join_z + BASE_NORMAL_LAYER,
+        });
+        let Value::Object(summary) = summary else { unreachable!() };
+        summary
     }
 }
 
 /// The last eased course: its walls, then a bridge stitch across the shaft's actual section
 /// where native infill would start.
 fn write_stitched_join(out: &mut String, height: &str, section: usize, total: usize, moves: &[Move],
-                       warp: &ShaftTransition, seen: &mut Stats, mesh: &Path) -> Result<Json> {
+                       warp: &ShaftTransition, seen: &mut Stats, mesh: &Path) -> Result<Value> {
     let (bridges, report) = shaft_stitch::ties(mesh, warp.native_join_z, warp.ease.seat, warp.ease.sin, warp.ease.cos,
                                                BASE_NORMAL_LAYER, height)?;
     let mut laid: Vec<Move> = moves.iter().filter(|m| m.deposition() && WALLS.contains(&&*m.feature)).cloned().collect();
@@ -571,13 +551,10 @@ pub fn continue_base(args: &ContinuedBase) -> Result<()> {
     let count = lower.len() + upper.len();
     let audited = audit_upper_source(physical_text, warp.native_join_z)?;
     let mut stats = [Stats::new(), Stats::new(), Stats::new()];
-    let mut events: Vec<(&str, i64)> = Vec::new();
-    let mut event = |phase: &'static str| match events.iter_mut().find(|(p, _)| *p == phase) {
-        Some(slot) => slot.1 += 1,
-        None => events.push((phase, 1)),
-    };
+    let mut events: BTreeMap<&str, i64> = BTreeMap::new();
+    let mut event = |phase: &'static str| *events.entry(phase).or_default() += 1;
     let mut section = 0;
-    let mut stitched = Json::Null;
+    let mut stitched = Value::Null;
     let mut out = String::new();
     let place = |p: [f64; 3]| warp.ease.place(p);
     for (height, moves) in groups(read_moves(donor_text)?) {
@@ -623,21 +600,19 @@ pub fn continue_base(args: &ContinuedBase) -> Result<()> {
     ensure!(section == count, "A selected source course contains no deposition");
     std::fs::write(args.output, out.as_bytes()).with_context(|| format!("writing {}", args.output.display()))?;
     let mut summary = warp.summary();
-    let point = |p: [f64; 3]| Json::List(p.iter().map(|v| float(*v)).collect());
     summary.extend([
-        ("donor_gcode_sha256".into(), Json::Text(crate::sha256_hex(&donor_bytes))),
-        ("physical_gcode_sha256".into(), Json::Text(crate::sha256_hex(&physical_bytes))),
-        ("candidate_gcode_sha256".into(), Json::Text(crate::sha256_hex(out.as_bytes()))),
-        ("early_donor_origin_mm".into(), point(donor)),
-        ("physical_seat_origin_mm".into(), point(physical)),
-        ("native_upper_positive_source_roads_audited".into(), int(audited)),
-        ("emitted_events_by_phase".into(), Json::Map(events.iter().map(|(p, n)| (p.to_string(), int(*n))).collect())),
-        ("emitted_deposition_by_phase".into(), Json::Map(
-            [FLOOR, SHAFT, UPPER].iter().zip(&stats).map(|(p, s)| (p.to_string(), s.to_json())).collect())),
+        ("donor_gcode_sha256".into(), json!(crate::sha256_hex(&donor_bytes))),
+        ("physical_gcode_sha256".into(), json!(crate::sha256_hex(&physical_bytes))),
+        ("candidate_gcode_sha256".into(), json!(crate::sha256_hex(out.as_bytes()))),
+        ("early_donor_origin_mm".into(), json!(donor)),
+        ("physical_seat_origin_mm".into(), json!(physical)),
+        ("native_upper_positive_source_roads_audited".into(), json!(audited)),
+        ("emitted_events_by_phase".into(), json!(events)),
+        ("emitted_deposition_by_phase".into(), json!({FLOOR: stats[0].to_json(), SHAFT: stats[1].to_json(), UPPER: stats[2].to_json()})),
         ("shaft_bridge_stitch".into(), stitched),
-        ("uphill_wall_runs".into(), Json::Bool(args.uphill_wall_runs)),
+        ("uphill_wall_runs".into(), json!(args.uphill_wall_runs)),
     ]);
     let receipt = args.output.with_extension("json");
-    std::fs::write(&receipt, Json::Map(summary).dumps() + "\n").with_context(|| format!("writing {}", receipt.display()))?;
+    std::fs::write(&receipt, serde_json::to_string_pretty(&summary)? + "\n").with_context(|| format!("writing {}", receipt.display()))?;
     Ok(())
 }

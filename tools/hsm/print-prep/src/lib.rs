@@ -29,7 +29,6 @@ pub mod refresh;
 pub mod review;
 pub mod seam;
 pub mod rim_contour;
-pub mod ring_offset;
 pub mod shaft_join_cooling;
 pub mod shaft_stitch;
 pub mod slice;

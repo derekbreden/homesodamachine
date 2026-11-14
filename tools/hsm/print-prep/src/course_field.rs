@@ -68,6 +68,12 @@ pub fn distance(a: [f64; 3], b: [f64; 3]) -> f64 {
     ((a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]) + (a[2] - b[2]) * (a[2] - b[2])).sqrt()
 }
 
+/// `v` rounded to `places` decimals, as G-code writes it.
+pub fn rounded(v: f64, places: i32) -> f64 {
+    let scale = 10f64.powi(places);
+    (v * scale).round_ties_even() / scale
+}
+
 /// The point `t` of the way from `a` to `b`.
 pub fn mix(a: [f64; 3], b: [f64; 3], t: f64) -> [f64; 3] {
     [0, 1, 2].map(|i| a[i] * (1.0 - t) + b[i] * t)

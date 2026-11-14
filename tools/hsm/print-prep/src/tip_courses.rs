@@ -3,7 +3,7 @@
 //! roads into courses laid low side first; and the nose above the field keeps the donor's own
 //! route, arcs, cooling and plastic.
 
-use crate::course_field::{active, distance, groups, lay, mix, read_moves, Move, ShoulderHold};
+use crate::course_field::{active, distance, groups, lay, mix, read_moves, rounded, Move, ShoulderHold};
 use crate::tip_warp::dot;
 use anyhow::{ensure, Context, Result};
 use serde_json::{json, Value};
@@ -188,12 +188,6 @@ fn band_boundaries(step: f64) -> Vec<f64> {
 /// it is written to.
 fn positive(e: Option<f64>) -> bool {
     e.is_some_and(|e| e > 0.5e-5)
-}
-
-/// `v` rounded to `places` decimals, as the tape writes it.
-fn rounded(v: f64, places: i32) -> f64 {
-    let scale = 10f64.powi(places);
-    (v * scale).round_ties_even() / scale
 }
 
 /// A laid point as the tape writes it, to three places.
