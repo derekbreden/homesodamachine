@@ -1,14 +1,13 @@
 //! course-field lays a donor slice's roads through a course field and prints every piece it
-//! lays, or prints the field's placement and thickening over a grid.
+//! lays, or prints where the field places a grid of donor points.
 //!
 //!   course-field roads FIELD RECEIPT DONOR.gcode [--incline DEG] [--displacement X,Y,Z] [--piece MM]
-//!   course-field sample FIELD RECEIPT --y FROM:TO:STEPS --u FROM:TO:STEPS [--x X] [--bead MM] [field options]
+//!   course-field sample FIELD RECEIPT --y FROM:TO:STEPS --u FROM:TO:STEPS [--x X] [field options]
 //!
 //! FIELD is `shaft-ease` (the base, from a shaft transition receipt, with the base's incline) or
 //! `shoulder-hold` (the tip, from a tip warp receipt, with the donor's displacement onto the
 //! plate). `roads` writes one tab-separated row per laid piece: course, feature, start, end and
-//! extrusion. `sample` writes the plate point and the field's rate of lift at each grid point,
-//! and with `--bead` the thickening of a bead that thick.
+//! extrusion. `sample` writes each grid point and the plate point the field places it at.
 
 use anyhow::{Context, Result, bail};
 use hsm_print_prep::course_field::{field_from_receipt, lay, read_moves};
@@ -60,15 +59,10 @@ fn main() -> Result<()> {
                 Ok((0..=steps).map(|i| v[0] + (v[1] - v[0]) * i as f64 / steps as f64).collect())
             };
             let x = option(&args, "--x").map(str::parse::<f64>).transpose()?.unwrap_or(0.0);
-            let bead = option(&args, "--bead").map(str::parse::<f64>).transpose()?;
             for y in grid("--y")? {
                 for u in grid("--u")? {
                     let p = field.place([x, y, u]);
-                    write!(out, "{y:?}\t{u:?}\t{:?}\t{:?}\t{:?}\t{:?}", p[0], p[1], p[2], field.thickening([x, y, u], None))?;
-                    match bead {
-                        Some(h) => writeln!(out, "\t{:?}", field.thickening([x, y, u], Some(h)))?,
-                        None => writeln!(out)?,
-                    }
+                    writeln!(out, "{y:?}\t{u:?}\t{:?}\t{:?}\t{:?}", p[0], p[1], p[2])?;
                 }
             }
         }
