@@ -830,7 +830,10 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let bed = plate.settings.first_text("curr_bed_type").unwrap_or("").to_string();
     let settings_text = plate.settings.dumps() + "\n";
     let mut tools = Map::new();
-    for path in [root.join(HERE).join("prepare.rs")].into_iter().chain(std::fs::read_dir(root.join("tools/hsm/print-prep/src"))?.filter_map(|e| e.ok().map(|e| e.path()))) {
+    let shared_sources = std::fs::read_dir(root.join("tools/hsm/print-prep/src"))?
+        .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+        .filter(|path| path.is_file());
+    for path in [root.join(HERE).join("prepare.rs")].into_iter().chain(shared_sources) {
         tools.insert(relative(&path, root), json!(file_sha(&path)?));
     }
     if records.iter().any(|record| record.get("removable_support_stock").is_some()) {
