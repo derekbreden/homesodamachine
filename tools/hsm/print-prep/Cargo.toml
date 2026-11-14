@@ -28,6 +28,7 @@ hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
 hsm-enclosure-retainer-numbers = { path = "../enclosure-retainer-numbers" }
 hsm-aero-float-numbers = { path = "../aero-float-numbers" }
 hsm-kernel = { path = "../kernel" }
+hsm-manifold = { path = "../manifold" }
 
 [[bin]]
 name = "course-field"

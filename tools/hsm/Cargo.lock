@@ -2304,6 +2304,7 @@ dependencies = [
  "hsm-fake-countertop-numbers",
  "hsm-faucet-numbers",
  "hsm-kernel",
+ "hsm-manifold",
  "hsm-run-slots",
  "hsm-shared-data",
  "serde",
