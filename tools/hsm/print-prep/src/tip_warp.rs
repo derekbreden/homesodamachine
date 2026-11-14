@@ -2,14 +2,11 @@
 //! finer until its shoulder field carries every edge and face back to the plate within
 //! tolerance, and laid into the virtual frame its warp donor is sliced in, with a receipt of the
 //! pose and the field for the stages that lay the donor's courses back.
-//!
-//! The arithmetic is the trial's numpy arithmetic, operation for operation, so the mesh and
-//! receipt are the ones its Python wrote.
 
 use crate::course_field::ShoulderHold;
-use crate::json::{python_number, Json};
-use crate::mesh::{bounds, stl_corners, Mesh};
+use crate::mesh::{bounds, stl_corners, write_stl, Mesh};
 use anyhow::{bail, ensure, Context, Result};
+use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::io::Read;
 use std::path::Path;
@@ -106,18 +103,8 @@ const REFINE_ROUNDS: usize = 12;
 const GRID_Y: usize = 221;
 const GRID_U: usize = 301;
 const MIN_DERIVATIVE: f64 = 0.08;
-/// Below this a face's cross product has no direction, as trimesh judges it.
-const TOL_ZERO: f64 = 1e-13;
 
-/// A dot product as Accelerate's matrix products in the trial's numpy accumulate one: each
-/// product fused into the running sum, in index order.
-pub fn fused(a: [f64; 3], b: [f64; 3]) -> f64 {
-    a[2].mul_add(b[2], a[1].mul_add(b[1], a[0] * b[0]))
-}
-
-/// A dot product as Accelerate takes a row of a row-ordered matrix with a vector: each product
-/// rounded, the products summed in index order.
-pub fn plain(a: [f64; 3], b: [f64; 3]) -> f64 {
+pub(crate) fn dot(a: [f64; 3], b: [f64; 3]) -> f64 {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
@@ -125,10 +112,11 @@ pub(crate) fn column(m: &[[f64; 3]; 3], i: usize) -> [f64; 3] {
     [m[0][i], m[1][i], m[2][i]]
 }
 
-/// The warped tip's binary STL and its receipt.
+/// The warped tip in the donor's virtual frame, and its receipt.
 pub struct Warped {
-    pub stl: Vec<u8>,
-    pub receipt: String,
+    pub vertices: Vec<[f64; 3]>,
+    pub faces: Vec<[usize; 3]>,
+    pub receipt: Value,
 }
 
 /// The tip in `mesh`, posed from the editable `project` and warped by `recipe`.
@@ -140,13 +128,13 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
     let (rotation, placement, world, shoulder) = match recipe.pose {
         Pose::Turned => {
             let desired = crate::rotation_x(DONOR_ANGLE - recipe.bearing_angle);
-            let turned: Vec<[f64; 3]> = source.vertices.iter().map(|v| desired.map(|row| fused(*v, row))).collect();
-            let old: Vec<[f64; 3]> = source.vertices.iter().map(|v| physical.map(|row| fused(*v, row))).collect();
+            let turned: Vec<[f64; 3]> = source.vertices.iter().map(|v| desired.map(|row| dot(*v, row))).collect();
+            let old: Vec<[f64; 3]> = source.vertices.iter().map(|v| physical.map(|row| dot(*v, row))).collect();
             let ((old_low, old_high), (low, high)) = (bounds(&old), bounds(&turned));
             let mut placement = [0, 1, 2].map(|i| translation[i] + (old_low[i] + old_high[i]) * 0.5 - (low[i] + high[i]) * 0.5);
             placement[2] = -low[2];
             let world: Vec<[f64; 3]> = turned.iter().map(|p| [0, 1, 2].map(|i| p[i] + placement[i])).collect();
-            let shoulder = [0, 1, 2].map(|i| plain(desired[i], CANONICAL_POINT) + placement[i]);
+            let shoulder = [0, 1, 2].map(|i| dot(desired[i], CANONICAL_POINT) + placement[i]);
             (desired, placement, world, shoulder)
         }
         Pose::Project => {
@@ -154,11 +142,11 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
                 .vertices
                 .iter()
                 .map(|v| {
-                    let p = physical.map(|row| fused(*v, row));
+                    let p = physical.map(|row| dot(*v, row));
                     [0, 1, 2].map(|i| p[i] + translation[i])
                 })
                 .collect();
-            let shoulder = [0, 1, 2].map(|i| fused(physical[i], CANONICAL_POINT) + translation[i]);
+            let shoulder = [0, 1, 2].map(|i| dot(physical[i], CANONICAL_POINT) + translation[i]);
             (physical, translation, world, shoulder)
         }
     };
@@ -168,7 +156,7 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
     let us = linspace(recipe.bed_through, recipe.normal_again, GRID_U);
     let f = &field;
     let least = ys.iter().flat_map(|y| us.iter().map(move |u| f.derivative(*y, *u))).fold(f64::INFINITY, f64::min);
-    ensure!(least > MIN_DERIVATIVE, "Tip inverse needs a single, continuous crossing, got {}", python_number(least));
+    ensure!(least > MIN_DERIVATIVE, "Tip inverse needs a single, continuous crossing, got {least}");
     let original_faces = source.faces.len();
     let (refined, faces, [edge_error, centroid_error]) = refine(world, source.faces, &field)?;
     let mut pitch = (f64::INFINITY, f64::NEG_INFINITY);
@@ -179,83 +167,52 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
             let rate = field.derivative(lifted[1], lifted[2]);
             pitch = (pitch.0.min(rate), pitch.1.max(rate));
             let m = [0, 1, 2].map(|i| lifted[i] - placement[i]);
-            [0, 1, 2].map(|i| fused(m, column(&rotation, i)))
+            [0, 1, 2].map(|i| dot(m, column(&rotation, i)))
         })
         .collect();
     ensure!(closed(&faces), "The conforming warp yielded an open model");
 
-    let mut receipt = vec![
-        entry("purpose", Json::Text(recipe.purpose.into())),
-        entry("orientation_degrees", number(DONOR_ANGLE - recipe.bearing_angle)),
-    ];
-    if let Receipt::BearingPlane = recipe.receipt {
-        receipt.push(entry("bearing_plane_degrees", number(recipe.bearing_angle)));
+    let mut receipt = json!({
+        "purpose": recipe.purpose,
+        "orientation_degrees": DONOR_ANGLE - recipe.bearing_angle,
+        "authored_plane_pick_world_xyz_mm": field.shoulder,
+        "physical_cad_to_plate_translation": placement,
+        "physical_rotation": rotation,
+        "virtual_shoulder_z_mm": field.shoulder_layer,
+        "incoming_fade_virtual_mm": [recipe.bed_through, recipe.hold[0]],
+        "outgoing_fade_virtual_mm": [recipe.hold[1], recipe.normal_again],
+        "exactly_inclined_virtual_mm": recipe.hold,
+        "xy_limits_exact_plane_y_mm": field.exact_y,
+        "outside_edge_blend_width_y_mm": EDGE_EASE_WIDTH,
+        "full_angle_degrees": recipe.field_angle,
+        "normal_course_mm": recipe.normal_course,
+        "maximum_cad_error": {
+            "max_sampled_edge_remap_error_mm": edge_error,
+            "max_sampled_centroid_remap_error_mm": centroid_error,
+            "tip_unchanged_under_z": recipe.bed_through,
+            "tip_unchanged_above_z": recipe.normal_again,
+        },
+        "area_scope": {
+            "physical_print_bounds_mm": [low, high],
+            "donor_nominal_physical_pitch_sample_mm": [pitch.0 * recipe.normal_course, pitch.1 * recipe.normal_course],
+        },
+        "original_facet_count": original_faces,
+        "warped_facet_count": faces.len(),
+        "minimum_invertibility_derivative": least,
+    });
+    match recipe.receipt {
+        Receipt::BearingPlane => receipt["bearing_plane_degrees"] = json!(recipe.bearing_angle),
+        Receipt::FirstCourse => receipt["first_model_virtual_onto_shoulder_z_mm"] = json!(field.shoulder_layer + recipe.normal_course),
     }
-    receipt.extend([
-        entry("authored_plane_pick_world_xyz_mm", numbers(&field.shoulder)),
-        entry("physical_cad_to_plate_translation", numbers(&placement)),
-        entry("physical_rotation", Json::List(rotation.iter().map(|row| numbers(row)).collect())),
-        entry("virtual_shoulder_z_mm", number(field.shoulder_layer)),
-    ]);
-    if let Receipt::FirstCourse = recipe.receipt {
-        receipt.push(entry("first_model_virtual_onto_shoulder_z_mm", number(field.shoulder_layer + recipe.normal_course)));
-    }
-    receipt.extend([
-        entry("incoming_fade_virtual_mm", numbers(&[recipe.bed_through, recipe.hold[0]])),
-        entry("outgoing_fade_virtual_mm", numbers(&[recipe.hold[1], recipe.normal_again])),
-        entry("exactly_inclined_virtual_mm", numbers(&recipe.hold)),
-        entry("xy_limits_exact_plane_y_mm", numbers(&field.exact_y)),
-        entry("outside_edge_blend_width_y_mm", number(EDGE_EASE_WIDTH)),
-        entry("full_angle_degrees", number(recipe.field_angle)),
-        entry("normal_course_mm", number(recipe.normal_course)),
-        entry(
-            "maximum_cad_error",
-            Json::Map(vec![
-                entry("max_sampled_edge_remap_error_mm", number(edge_error)),
-                entry("max_sampled_centroid_remap_error_mm", number(centroid_error)),
-                entry("tip_unchanged_under_z", number(recipe.bed_through)),
-                entry("tip_unchanged_above_z", number(recipe.normal_again)),
-            ]),
-        ),
-        entry(
-            "area_scope",
-            Json::Map(vec![
-                entry("physical_print_bounds_mm", Json::List(vec![numbers(&low), numbers(&high)])),
-                entry(
-                    "donor_nominal_physical_pitch_sample_mm",
-                    numbers(&[pitch.0 * recipe.normal_course, pitch.1 * recipe.normal_course]),
-                ),
-            ]),
-        ),
-        entry("original_facet_count", count(original_faces)),
-        entry("warped_facet_count", count(faces.len())),
-        entry("minimum_invertibility_derivative", number(least)),
-    ]);
-    Ok(Warped { stl: stl(&virtual_vertices, &faces), receipt: Json::Map(receipt).dumps() + "\n" })
+    Ok(Warped { vertices: virtual_vertices, faces, receipt })
 }
 
 /// Write the warped tip to `output` and its receipt beside it, as `.json`.
 pub fn write(recipe: &Recipe, mesh: &Path, project: &Path, output: &Path) -> Result<()> {
     let warped = warp(recipe, mesh, project)?;
-    std::fs::write(output, &warped.stl).with_context(|| format!("writing {}", output.display()))?;
+    write_stl(output, &warped.vertices, &warped.faces).with_context(|| format!("writing {}", output.display()))?;
     let receipt = output.with_extension("json");
-    std::fs::write(&receipt, &warped.receipt).with_context(|| format!("writing {}", receipt.display()))
-}
-
-pub(crate) fn entry(key: &str, value: Json) -> (String, Json) {
-    (key.to_string(), value)
-}
-
-pub(crate) fn number(v: f64) -> Json {
-    Json::Number(python_number(v), v)
-}
-
-pub(crate) fn numbers(v: &[f64]) -> Json {
-    Json::List(v.iter().map(|x| number(*x)).collect())
-}
-
-fn count(n: usize) -> Json {
-    Json::Number(n.to_string(), n as f64)
+    std::fs::write(&receipt, serde_json::to_string_pretty(&warped.receipt)? + "\n").with_context(|| format!("writing {}", receipt.display()))
 }
 
 /// The recipe's field about the shoulder pick, placed on the plate.
@@ -312,10 +269,10 @@ fn physical_origin(project: &Path, corners: &[[f64; 3]]) -> Result<([[f64; 3]; 3
     let rotation: [[f64; 3]; 3] = std::array::from_fn(|i| std::array::from_fn(|j| placed[3 * j + i]));
     let (low, high) = bounds(corners);
     let centre = [0, 1, 2].map(|i| (low[i] + high[i]) * 0.5);
-    Ok((rotation, [0, 1, 2].map(|i| placed[9 + i] - fused(rotation[i], centre))))
+    Ok((rotation, [0, 1, 2].map(|i| placed[9 + i] - dot(rotation[i], centre))))
 }
 
-/// `count` evenly spaced values from `start` to `stop`, as numpy's linspace makes them.
+/// `count` evenly spaced values from `start` to `stop`.
 pub(crate) fn linspace(start: f64, stop: f64, count: usize) -> Vec<f64> {
     let step = (stop - start) / (count - 1) as f64;
     let mut values: Vec<f64> = (0..count).map(|i| i as f64 * step + start).collect();
@@ -363,7 +320,7 @@ fn refine(mut vertices: Vec<[f64; 3]>, mut faces: Vec<[usize; 3]>, field: &Shoul
             edge_error.push(worst);
             split.push(worst > MAX_REMAP_EDGE_ERROR);
         }
-        let mean = |v: [f64; 3]| (0.0 + v[0] + v[1] + v[2]) / 3.0;
+        let mean = |v: [f64; 3]| (v[0] + v[1] + v[2]) / 3.0;
         let mut centroid_error = 0.0f64;
         for (f, owned) in faces.iter().zip(&face_edges) {
             let corners = f.map(|i| vertices[i]);
@@ -385,7 +342,7 @@ fn refine(mut vertices: Vec<[f64; 3]>, mut faces: Vec<[usize; 3]>, field: &Shoul
             if split[k] {
                 let (p, q) = (vertices[a], vertices[b]);
                 middle[k] = vertices.len();
-                vertices.push([0, 1, 2].map(|i| (0.0 + p[i] + q[i]) / 2.0));
+                vertices.push([0, 1, 2].map(|i| (p[i] + q[i]) / 2.0));
             }
         }
         faces = split_faces(&faces, &face_edges, &middle);
@@ -394,8 +351,7 @@ fn refine(mut vertices: Vec<[f64; 3]>, mut faces: Vec<[usize; 3]>, field: &Shoul
 }
 
 /// The faces a face is cut into, by the pattern of its split edges, as indices into its corners
-/// `a`, `b`, `c` followed by the midpoints of `ab`, `bc`, `ca`. A pattern's faces come together,
-/// each of its pieces in turn across all its faces.
+/// `a`, `b`, `c` followed by the midpoints of `ab`, `bc`, `ca`.
 const PIECES: [&[[usize; 3]]; 8] = [
     &[[0, 1, 2]],
     &[[0, 3, 2], [3, 1, 2]],
@@ -408,18 +364,11 @@ const PIECES: [&[[usize; 3]]; 8] = [
 ];
 
 fn split_faces(faces: &[[usize; 3]], face_edges: &[[usize; 3]], middle: &[usize]) -> Vec<[usize; 3]> {
-    let corners: Vec<[usize; 6]> = faces
-        .iter()
-        .zip(face_edges)
-        .map(|(f, e)| [f[0], f[1], f[2], middle[e[0]], middle[e[1]], middle[e[2]]])
-        .collect();
-    let pattern: Vec<usize> = corners.iter().map(|c| (3..6).filter(|&k| c[k] != usize::MAX).map(|k| 1 << (k - 3)).sum()).collect();
     let mut out = Vec::with_capacity(faces.len() * 2);
-    for (kind, pieces) in PIECES.iter().enumerate() {
-        let matched: Vec<&[usize; 6]> = corners.iter().zip(&pattern).filter(|(_, p)| **p == kind).map(|(c, _)| c).collect();
-        for piece in pieces.iter() {
-            out.extend(matched.iter().map(|c| (*piece).map(|k| c[k])));
-        }
+    for (f, e) in faces.iter().zip(face_edges) {
+        let corners = [f[0], f[1], f[2], middle[e[0]], middle[e[1]], middle[e[2]]];
+        let pattern: usize = (0..3).filter(|&k| corners[3 + k] != usize::MAX).map(|k| 1 << k).sum();
+        out.extend(PIECES[pattern].iter().map(|piece| piece.map(|k| corners[k])));
     }
     out
 }
@@ -434,30 +383,4 @@ pub(crate) fn closed(faces: &[[usize; 3]]) -> bool {
         }
     }
     uses.values().all(|&n| n == 2)
-}
-
-/// A binary STL as trimesh exports one: each face's normal from its first two edges in turn,
-/// scaled by the reciprocal of its length, or none for a face without area.
-pub(crate) fn stl(vertices: &[[f64; 3]], faces: &[[usize; 3]]) -> Vec<u8> {
-    let mut out = vec![0u8; 80];
-    out.extend_from_slice(&(faces.len() as u32).to_le_bytes());
-    out.reserve(faces.len() * 50);
-    for f in faces {
-        let [a, b, c] = f.map(|i| vertices[i]);
-        let u = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
-        let w = [c[0] - b[0], c[1] - b[1], c[2] - b[2]];
-        let n = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]];
-        let length = (n[0] * n[0] + n[1] * n[1] + n[2] * n[2]).sqrt();
-        let normal = if length > TOL_ZERO {
-            let r = 1.0 / length;
-            n.map(|v| v * r)
-        } else {
-            [0.0; 3]
-        };
-        for v in normal.iter().chain(&a).chain(&b).chain(&c) {
-            out.extend_from_slice(&(*v as f32).to_le_bytes());
-        }
-        out.extend_from_slice(&[0, 0]);
-    }
-    out
 }
