@@ -1,18 +1,18 @@
 {
   "purpose": "Replay the inverse-sliced tip in physical Z bands with bounded nozzle paths.",
-  "gcode_source_sha256": "4394ad8a0f53db09013b73232e96d55c6ea93041163240ea100cd47c13aee009",
-  "warp_report_sha256": "f36008c7b98f906d33fceb5ea63ba9ca1d96a475ea3a7079e2f98117a538a4c8",
-  "tip_tape_sha256": "665e8f6090c45bd5c018aaf4f8f66766158ffda09a1dc4e2ffafc8ee0ffa26af",
+  "gcode_source_sha256": "320c5650efe3cbfc226369011d8e7aa73f10ce6688feb893878ac95a20b23eaf",
+  "warp_report_sha256": "488b0d1408c88ebae9c1f3ea379edd131bd285ec545682b783d14b7ad20d1d0a",
+  "tip_tape_sha256": "adaeb2e859e2ab1531e60c51165059d485763c3de06803631c0dcfcd3c20c8f1",
   "shoulder_placement_mm": [
     186.49975395202637,
-    202.7935985002175,
+    202.7935984995988,
     24.97278027374805
   ],
   "native_nose_from_physical_z_mm": 62.12,
   "native_donor_translation_to_plate_mm": [
     24.0,
-    46.99999999792237,
-    7.105427357601002e-15
+    46.99999999730369,
+    -7.105427357601002e-15
   ],
   "world_band_spacing_mm": 1.0,
   "finer_band_spacing_mm": null,
@@ -23,38 +23,38 @@
   "retained_native_nose_travel": true,
   "phase_stats": {
     "tip anchor": {
-      "deposition_roads": 3544,
-      "filament_mm": 177.82124999999976,
+      "deposition_roads": 3853,
+      "filament_mm": 230.43151000000117,
       "vertical_roads": 0,
       "downward_bridge_roads": 0,
       "courses": 7
     },
     "tip shoulder entry": {
-      "deposition_roads": 162815,
-      "filament_mm": 3097.8187606565716,
-      "vertical_roads": 121755,
+      "deposition_roads": 185218,
+      "filament_mm": 3568.909107923897,
+      "vertical_roads": 129089,
       "downward_bridge_roads": 0,
-      "courses": 1971
+      "courses": 1985
     },
     "tip yellow shoulder": {
-      "deposition_roads": 13329,
-      "filament_mm": 379.1465731319371,
-      "vertical_roads": 12213,
+      "deposition_roads": 13767,
+      "filament_mm": 439.39585023564257,
+      "vertical_roads": 11481,
       "downward_bridge_roads": 259,
-      "courses": 251
+      "courses": 233
     },
     "tip shoulder fade": {
-      "deposition_roads": 200118,
-      "filament_mm": 4558.154839883139,
-      "vertical_roads": 139720,
+      "deposition_roads": 216952,
+      "filament_mm": 5560.968878064633,
+      "vertical_roads": 138127,
       "downward_bridge_roads": 19,
-      "courses": 2947
+      "courses": 2911
     },
     "tip native nose": {
-      "deposition_roads": 244207,
-      "filament_mm": 6094.74630149938,
-      "vertical_roads": 23396,
-      "courses": 541
+      "deposition_roads": 256405,
+      "filament_mm": 6691.62048789881,
+      "vertical_roads": 24622,
+      "courses": 539
     }
   }
 }

@@ -1,8 +1,8 @@
 {
   "input_tapes_sha256": {
     "reference": "f65174891a0a0a1886b4f2fa9b8e834633197cf7d9929f707e242e0a4bed0455",
-    "revised_native": "31a724f2a200ce13e5ddcc53e48837f5fc31f8ca2d55701d4555d019b42f8d30",
-    "merged": "05d93026768feafc952e8de8e7ab2cf739fdcf5ed435ae093c56c7135e03db64"
+    "revised_native": "0b5c580fbbb1e98f7ac53aa3684fa50c16de1c802687e65dd3a3abcd1a935255",
+    "merged": "10103c8aeaa797ca6c0d2d4c0ad10a2a4211ae3c996a358d916c1479715aba2e"
   },
   "signature_fields": [
     "command",
@@ -21,8 +21,8 @@
       "source": "reference"
     },
     "display_cover": {
-      "ordered_road_sha256": "74230e58620a2b6e2390778e1835864c617e7cd5381e15caa2027016ee8f086b",
-      "road_count": 57728,
+      "ordered_road_sha256": "180ea7309174268d707b33f071cd5096af787145666eefb9cb90304b14eac302",
+      "road_count": 58935,
       "source": "revised_native"
     },
     "mounting_plate": {
