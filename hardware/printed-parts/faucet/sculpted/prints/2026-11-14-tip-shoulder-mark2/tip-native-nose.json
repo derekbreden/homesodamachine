@@ -1,13 +1,13 @@
 {
   "purpose": "Compare donor and authored native-nose move sequences in an aligned physical frame.",
-  "donor_sha256": "4394ad8a0f53db09013b73232e96d55c6ea93041163240ea100cd47c13aee009",
-  "authored_tape_sha256": "665e8f6090c45bd5c018aaf4f8f66766158ffda09a1dc4e2ffafc8ee0ffa26af",
+  "donor_sha256": "320c5650efe3cbfc226369011d8e7aa73f10ce6688feb893878ac95a20b23eaf",
+  "authored_tape_sha256": "adaeb2e859e2ab1531e60c51165059d485763c3de06803631c0dcfcd3c20c8f1",
   "nose_growth_first_virtual_layer_mm": 62.12,
-  "donor_deposition_motion_count": 244207,
-  "emitted_deposition_motion_count": 244207,
+  "donor_deposition_motion_count": 256405,
+  "emitted_deposition_motion_count": 256405,
   "mismatched_deposition_motion_count": 0,
   "first_mismatches": [],
   "retained_feed_max_difference_mm_per_min": 0.049999999999272404,
-  "retained_feed_max_relative_difference": 4.98780481714931e-06,
+  "retained_feed_max_relative_difference": 4.8964016345275525e-06,
   "preserves_deposition_coordinates_e_fan_accel": true
 }

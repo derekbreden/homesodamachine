@@ -8,46 +8,46 @@
   "plate": "Textured PEI",
   "operator_z_trim_mm": 0.1,
   "project": {
-    "file": "sculpted-faucet-tip-shoulder-black-mark2.3mf",
-    "sha256": "ef1fa9202912acdd8c64aa56ed1bff4938adeffdc2e88f62985fc9e3bcfb542d"
+    "file": "sculpted-faucet-flat-face-black-mark2.3mf",
+    "sha256": "17e91881883305d2dcba34975a47ed6f510f0d4ab51b722db016b212c4e37ab4"
   },
   "sliced_review": {
-    "file": "sculpted-faucet-tip-shoulder-black-mark2-review.gcode.3mf",
-    "sha256": "044e6f0033cf981917ca9cbd5e76d508920c6a3048ca641ba50288e20e2beb78",
+    "file": "sculpted-faucet-flat-face-black-mark2-review.gcode.3mf",
+    "sha256": "24b4d562ebc6d136b4cc0e7fd4431cfd1eee42e36a376a6f4aa8b453b4d2ac85",
     "gcode_member": "Metadata/plate_1.gcode",
-    "gcode_sha256": "49f4fbeb1fbaf89585e190c3d8fcf7b3ab59db8f9b8501dfe6cec1c83686c79c",
-    "gcode_md5": "e16d6195c2690dbcfd41c8087d9ee577",
-    "raw_gcode_sha256": "05d93026768feafc952e8de8e7ab2cf739fdcf5ed435ae093c56c7135e03db64",
-    "motion_body_sha256": "285ae39e174fb717e3906ec9be8e94b73f163c58ded1b985ffc484db8cb0fd29"
+    "gcode_sha256": "de1ed31c0a8f690d415cd1701c0404ab0e97b6cc46ce39342d143c5a3ab50d02",
+    "gcode_md5": "265695f1410648b509d973f2c102797e",
+    "raw_gcode_sha256": "10103c8aeaa797ca6c0d2d4c0ad10a2a4211ae3c996a358d916c1479715aba2e",
+    "motion_body_sha256": "32841cce00207150965fcd19670bdb722528ca5ac8e99124d675221690bf077e"
   },
-  "course_groups": 7138,
-  "deposition_filament_mm": 52844.88396999996,
-  "deposition_weight_g": 163.9678256909668,
-  "estimated_motion_seconds": 67610.09698144313,
-  "estimated_motion_scope": "Playback with acceleration. Warmup and firmware waits are outside its clock.",
+  "course_groups": 7096,
+  "deposition_filament_mm": 55056.30175999999,
+  "deposition_weight_g": 170.82944292767937,
+  "estimated_motion_seconds": 68708.71955668897,
+  "estimated_motion_scope": "Repository acceleration-aware motion planner, excluding printer startup, heat waits, firmware macros and physical execution.",
   "first_bed_deposition_start_seconds": 2.448194226362645,
-  "first_bed_deposition_end_seconds": 447.96673615135967,
-  "first_bed_course_deposition_span_seconds": 445.518541925,
+  "first_bed_deposition_end_seconds": 473.6478202474806,
+  "first_bed_course_deposition_span_seconds": 471.1996260211179,
   "first_deposition_seconds_by_part": {
     "Base": 2.45,
-    "Tip": 157.48,
-    "Cover": 93.85,
-    "Mounting plate": 275.29,
-    "Lever": 389.86
+    "Tip": 157.63,
+    "Cover": 93.8,
+    "Mounting plate": 300.97,
+    "Lever": 415.54
   },
   "visualizations": {
     "timeline": {
-      "file": "faucet-mark2-tip-shoulder-timeline.html",
-      "sha256": "540b80746e8e0e8d69d2e927690f26252ed007fd822f0120f2389cc1332ed94f"
+      "file": "faucet-mark2-flat-face-timeline.html",
+      "sha256": "d10e04ec25d1623cf9786229281aa725ce4ec1aa348d4d3d12f7bb68a2096da6"
     },
     "dispense_face": {
-      "file": "faucet-rounded-dispense-face.html",
-      "sha256": "b9d8b428c54d72629f09db182779ac5c96885ed9ff631c06c2a99b4ca33e216b",
+      "file": "faucet-flat-dispense-face.html",
+      "sha256": "8090ae733dc353052e3476bc725c4251ed757b28cc20dd33c6de72b8c9003e9e",
       "mesh_payload_sha256": {
-        "oldTip": "a0aee83ca9f454b5ce6399dbd0f405d3112f569ac661fafc9b856fe4598a09c7",
-        "oldCover": "4959148c3f0211df244c10ebb5871c31f30ff3a1d3daa2df9a8ce90d41bfd641",
-        "newTip": "ee476c89f27421f12ddc99822c428a37324b2de6e45a16b6740c6ee22c7454d7",
-        "newCover": "88a1d20ade0438286c9effde7451efc4834af61c749182f5e942fa3d8fcab9f2"
+        "oldTip": "ee476c89f27421f12ddc99822c428a37324b2de6e45a16b6740c6ee22c7454d7",
+        "oldCover": "88a1d20ade0438286c9effde7451efc4834af61c749182f5e942fa3d8fcab9f2",
+        "newTip": "0719db2001d1e9076c05beff24b19b96609ad1e1ff8479083e48660cea46a99c",
+        "newCover": "686f4e71845e61153d9adc3982c97e0cc0f73a3b59f46fce8f37bfb84a9fc57e"
       }
     }
   },

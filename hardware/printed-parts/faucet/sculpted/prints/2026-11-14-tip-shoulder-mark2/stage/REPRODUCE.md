@@ -2,7 +2,7 @@
 
 Run from the checkout root. The prior ready archive supplies the exact base, mounting plate
 and lever. The full native slice supplies the revised cover and the tip’s level source.
-The editable project contains both revised physical meshes and their layout.
+The editable project contains the flat-faced tip and cover in their print poses.
 
 ```sh
 sculpted='hardware/printed-parts/faucet/sculpted'
@@ -157,7 +157,7 @@ PY
 ```
 
 Replay the extracted commands with the rasterized left-active toolhead. The
-nozzle windows cover the base, tip shoulder and screw-seat rings.
+nozzle windows cover the base, tip, screw-seat rings and display cover.
 
 ```sh
 git show "ddd391f3d32bd8397f08b517ee58614fcd3e93ba:$prior/stage/expand-headmap.py" > "$run/expand-headmap.py"
@@ -168,7 +168,8 @@ tools/run -- "$cad_py" "$run/expand-headmap.py" \
   "$run/head-model/h2c-left-active.step.npz" "$run/full-headmap.txt"
 tools/run -- c++ -std=c++20 -O3 -Wall -Wextra "$stage/replay.cpp" -o "$run/replay"
 tools/run -- "$run/replay" "$run/executed.gcode" "$run/full-headmap.txt" --base-nozzle \
-  --nozzle-box 143 174 225 246 --nozzle-box 180 82 232 110 > "$run/replay.json"
+  --nozzle-box 143 174 225 246 --nozzle-box 180 82 232 110 \
+  --nozzle-box 234 202 268 266 > "$run/replay.json"
 ```
 
 The source code and data here build the offline trial. The prototype’s

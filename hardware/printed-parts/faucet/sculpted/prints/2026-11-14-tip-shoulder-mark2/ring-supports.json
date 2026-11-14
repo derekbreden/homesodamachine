@@ -171,5 +171,106 @@
   "first_physical_print": {
     "status": "Unverified",
     "readback": "Confirm the support lifts from each screw-head bore in one piece, the shoulder is smooth and each screw head sits below the gasket face."
+  },
+  "retained_exact_on_trial": {
+    "purpose": "Compare the mounting ring motion and bed-heat scopes to the previous review plate.",
+    "previous_gcode_sha256": "49f4fbeb1fbaf89585e190c3d8fcf7b3ab59db8f9b8501dfe6cec1c83686c79c",
+    "current_gcode_sha256": "10103c8aeaa797ca6c0d2d4c0ad10a2a4211ae3c996a358d916c1479715aba2e",
+    "retained_identical": true,
+    "ring_courses": {
+      "0.2": {
+        "roads": 210,
+        "filament_mm": 3.168054,
+        "ordered_road_sha256": "5f7b7a86d1485d6fc59cc63eb68c7ca315ae2bcddb0dac5d73ecf5356e9bc30f",
+        "commanded_nozzle_c": 265.0,
+        "commanded_bed_c": 80.0
+      },
+      "0.44": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "d58ef700a20a989b9243c07514870db7ceb4d49c1a262a4fa00908bfc829b6c8",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "0.68": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "cfff278087de83275547290bf4b06990b83903d581b6eb6577588f722a5d407b",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "0.92": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "225949f3ca427c64b39f2a007d126c9086056e46479a15e557ab7797d343475e",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "1.16": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "55ba6db1b7e29ca7e4b11d2f922859881e5dea725aacd5af520d285037ef4a0a",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "1.4": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "895fde27a083c193fa08228ec4775847efc9f0684c1d3d6f79374bd8bddb51d3",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "1.64": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "7b9adf9412f0dff625448f3578b7db6d45cc7fa2ba27f207001e2a18e75fe0fc",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "1.88": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "fb1312ef6bc54d4863708615c3b7a0f385ffa3af91069a7dd2afce017ac14c89",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "2.12": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "722149e754612ae6ab689c0614fab66c157d3b49f4a4793766361e14e07bded2",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "2.36": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "893ccd7d9ae145c9f263a48df2edeed19b3a3a2930e070a08ecfb10ea3ef3c82",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "2.6": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "02b6b4f9f21179442b80825bb7711ca79269774e298a3f7423f34f1a714075d2",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "2.84": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "4a87816ff955c59c2784f40c7acdf18bf8a2da9e73f59ce7c34badbc50233388",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      },
+      "3.08": {
+        "roads": 210,
+        "filament_mm": 3.192348,
+        "ordered_road_sha256": "9d4164e142f2cdde5cb9121fcba84cfc1582ed60c4f8b18fb015bb9b87f270ce",
+        "commanded_nozzle_c": 280.0,
+        "commanded_bed_c": 80.0
+      }
+    },
+    "total_road_count": 2730,
+    "total_filament_mm": 41.47623
   }
 }

@@ -1,4 +1,4 @@
-//! Transfer the crown of the dispense face to the cover along the rounded trial seam.
+//! Transfer the full crown of the dispense face along a chord with tangent end fillets.
 use anyhow::{ensure, Result};
 use hsm_faucet::{display, Gooseneck};
 use hsm_faucet_display_cover_numbers as cover_numbers;
@@ -10,29 +10,50 @@ use serde_json::json;
 use std::path::{Path, PathBuf};
 
 const SEAM_HEIGHT: f64 = 15.0;
-const STRAIGHT_HALF_SPAN: f64 = 5.0;
 const CORNER_RADIUS: f64 = 1.25;
 const SEAM_CLEARANCE: f64 = 0.16;
 const COVER_FACE_THICKNESS: f64 = 1.45;
 const CROWN_BACKING_REACH: f64 = 0.95;
 const CUT_OVERRUN: f64 = 0.08;
 const PROFILE_REACH: f64 = 15.0;
+const WING_OVERLAP_REACH: f64 = 0.34;
 
-fn cut_profile() -> Result<Profile> {
-    let centre = v2(STRAIGHT_HALF_SPAN, SEAM_HEIGHT + CORNER_RADIUS);
-    let tangent = std::f64::consts::FRAC_PI_4;
-    let foot = v2(STRAIGHT_HALF_SPAN, SEAM_HEIGHT);
-    let rise = centre + v2(tangent.sin(), -tangent.cos()) * CORNER_RADIUS;
-    let side = v2(PROFILE_REACH, rise.y + (PROFILE_REACH - rise.x));
-    let left = |p: V2| v2(-p.x, p.y);
-    Ok(Profile::new(Loop::new(vec![
-        Seg::Line { a: left(foot), b: foot },
-        Seg::Arc { a: foot, b: rise, c: centre, ccw: true },
-        Seg::Line { a: rise, b: side },
-        Seg::Line { a: side, b: left(side) },
-        Seg::Line { a: left(side), b: left(rise) },
-        Seg::Arc { a: left(rise), b: left(foot), c: left(centre), ccw: true },
-    ])?))
+struct Seam {
+    flat: V2,
+    centre: V2,
+    on_circle: V2,
+}
+
+impl Seam {
+    // A centre offset in from both the chord and the round makes the blend tangent to both.
+    fn chord(height: f64, circle_radius: f64) -> Self {
+        let circle = v2(0.0, TUBE_SHELL_CENTER_Y);
+        let fillet_offset = height - CORNER_RADIUS - circle.y;
+        let centre_distance = circle_radius - CORNER_RADIUS;
+        let half_span = (centre_distance.powi(2) - fillet_offset.powi(2)).sqrt();
+        let centre = v2(half_span, height - CORNER_RADIUS);
+        let on_circle = circle + (centre - circle) * (circle_radius / centre_distance);
+        Self { flat: v2(half_span, height), centre, on_circle }
+    }
+
+    fn cap(&self, reach: f64) -> Result<Profile> {
+        let Self { flat, centre, on_circle } = *self;
+        let radius = on_circle - centre;
+        // Continue outside the round so the cut does not run along its curved surface.
+        let tangent = v2(reach, on_circle.y - (reach - on_circle.x) * radius.x / radius.y);
+        let corner = v2(reach, TUBE_SHELL_CENTER_Y + TUBE_SHELL_OUTER_R + 2.0 * CROWN_BACKING_REACH);
+        let left = |p: V2| v2(-p.x, p.y);
+        Ok(Profile::new(Loop::new(vec![
+            Seg::Line { a: left(flat), b: flat },
+            Seg::Arc { a: flat, b: on_circle, c: centre, ccw: false },
+            Seg::Line { a: on_circle, b: tangent },
+            Seg::Line { a: tangent, b: corner },
+            Seg::Line { a: corner, b: left(corner) },
+            Seg::Line { a: left(corner), b: left(tangent) },
+            Seg::Line { a: left(tangent), b: left(on_circle) },
+            Seg::Arc { a: left(on_circle), b: left(flat), c: left(centre), ccw: false },
+        ])?))
+    }
 }
 
 fn load(path: &str, name: &str) -> Result<Solid> {
@@ -62,12 +83,13 @@ fn main() -> Result<()> {
     )?);
     let display_stock = local(&load("faucet-layout/faucet-assembly.step.npz", "faucet_display")?);
 
-    let profile = cut_profile()?;
+    let tip_seam = Seam::chord(SEAM_HEIGHT, TUBE_SHELL_OUTER_R);
+    let cover_seam = Seam::chord(SEAM_HEIGHT + SEAM_CLEARANCE, cover_numbers::neck_clearance_r());
     let mouth = Plane::XZ.at(v3(0.0, DISPENSE_FACE_THICKNESS + CUT_OVERRUN, 0.0));
-    let tip_cut = mouth.extrude(&profile, DISPENSE_FACE_THICKNESS + 2.0 * CUT_OVERRUN)?;
+    let tip_cut = mouth.extrude(&tip_seam.cap(PROFILE_REACH)?, DISPENSE_FACE_THICKNESS + 2.0 * CUT_OVERRUN)?;
     let remaining_tip = tip.cut(&tip_cut)?;
     let front = Plane::XZ.at(v3(0.0, COVER_FACE_THICKNESS, 0.0));
-    let tongue = front.extrude(&profile.offset(-SEAM_CLEARANCE, false)?, COVER_FACE_THICKNESS)?;
+    let tongue = front.extrude(&cover_seam.cap(cover_seam.on_circle.x + WING_OVERLAP_REACH)?, COVER_FACE_THICKNESS)?;
     let crown = Solid::cylinder(
         v3(0.0, -CUT_OVERRUN, TUBE_SHELL_CENTER_Y),
         V3::Y,
@@ -93,7 +115,7 @@ fn main() -> Result<()> {
             let moved = added.translate(shift);
             installation_overlap = installation_overlap
                 .max(moved.intersect(&remaining_tip)?.volume())
-                .max(moved.intersect(&display_stock.translate(shift))?.volume());
+                .max(moved.intersect(&display_stock)?.volume());
         }
     }
     ensure!(installation_overlap < 1e-4, "the added tab collides along the nominal seat path: {installation_overlap}");
@@ -110,19 +132,17 @@ fn main() -> Result<()> {
         Body { name: "cover", color: Some([0.35, 0.53, 0.67]), solid: &clipped_cover },
     ])?;
 
-    let measured = removed.bounds();
     let report = json!({
-        "purpose": "Records the matching rounded transfer on the dispense face.",
+        "purpose": "Records the full-width chord and its tangent blends into the circular dispense face.",
         "seam_n_mm": SEAM_HEIGHT,
-        "central_straight_span_mm": 2.0 * STRAIGHT_HALF_SPAN,
+        "tip_straight_span_mm": 2.0 * tip_seam.flat.x,
+        "cover_straight_span_mm": 2.0 * cover_seam.flat.x,
+        "tip_right_tangency_x_n_mm": [tip_seam.on_circle.x, tip_seam.on_circle.y],
+        "cover_right_tangency_x_n_mm": [cover_seam.on_circle.x, cover_seam.on_circle.y],
         "corner_radius_mm": CORNER_RADIUS,
         "nominal_seam_clearance_mm": SEAM_CLEARANCE,
         "cover_face_axial_thickness_mm": COVER_FACE_THICKNESS,
         "removed_tip_stock_mm3": removed.volume(),
-        "removed_tip_bounds_x_s_n_mm": [
-            [measured.min.x, measured.min.y, measured.min.z],
-            [measured.max.x, measured.max.y, measured.max.z]
-        ],
         "added_cover_stock_mm3": added.volume(),
         "tongue_bond_to_original_cover_mm3": tongue.intersect(&cover)?.volume(),
         "max_added_stock_overlap_along_nominal_installation_mm3": installation_overlap,

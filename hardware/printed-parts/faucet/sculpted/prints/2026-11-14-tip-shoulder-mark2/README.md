@@ -1,8 +1,8 @@
 # Sculpted faucet tip shoulder trial for Mark2
 
-The [sliced review archive](sculpted-faucet-tip-shoulder-black-mark2-review.gcode.3mf)
+The [sliced review archive](sculpted-faucet-flat-face-black-mark2-review.gcode.3mf)
 contains the complete Mark2 trial. Open it in Bambu Studio Preview. The
-[editable five-part project](sculpted-faucet-tip-shoulder-black-mark2.3mf) holds the
+[editable five-part project](sculpted-faucet-flat-face-black-mark2.3mf) holds the
 Sculpted base, tip, display cover, mounting plate and lever in their print poses.
 The sliced archive carries the inclined regions, scheduling and local supports.
 
@@ -25,12 +25,13 @@ roads and the interface's clearance from the plug and bore. The native interface
 joins around the plug. Free the tree below it, then sever the exposed rim from the
 outside at both sides if needed to release it in pieces.
 
-On the dispense face, the cover fills the rounded cut across the tip's crown.
-The [mesh and support reading](dispense-face.json) locates the photographed mark
-in the outlet section and measures the seam, the clearances through assembly and the
-native interface supporting the first extended cover roads. The
-[opening and clearance reading](cover-clearance.json) checks the direction the
-cover seats along.
+The cover takes the full cap across the dispense face. The tip's top edge is
+flat across the crown and curves down into the existing round on both sides.
+The [profile reading](dispense-face.json) binds the photographed seam height
+to the flat chord and checks its outline on the exported tip. The
+[fit and support reading](cover-clearance.json) measures the aperture, the
+cover's seating along the blended ends and the dense interface under its first
+full-width roads.
 
 ## Mounting plate
 
