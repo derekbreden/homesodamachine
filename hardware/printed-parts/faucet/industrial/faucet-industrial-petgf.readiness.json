@@ -47,7 +47,7 @@
       }
     ],
     "slicer": "BambuStudio 02.08.02.61",
-    "support_audit_sha256": "9acb529afd04071de4fd1f9e9078fa3103a2af548814d259d38de3975529579b",
+    "support_audit_sha256": "aeed9d4364e1c402f2f98761ccba549f86aa3d005e9ee9e1b322feccac93eb1c",
     "local_print_only_archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "local_print_only_archive_sha256": "39e1fc2ad648caa60fb897fb5b8971eb1724609731eb7dc629fccc4bacac57e3"
   },
@@ -63,7 +63,7 @@
     "this_archive_printed": false
   },
   "preparation_only": true,
-  "print_report_sha256": "cb58a1176ad54d2620ceeac9ac201ffb45f5df32884bb004e4c6f747315d9a6d",
+  "print_report_sha256": "7ddc32001ae2637803db9a9f5d2ecb365bce17fb8ac5f9dc1f3ba0f397dc8a22",
   "printer_submission": {
     "performed_by_this_tool": false
   },

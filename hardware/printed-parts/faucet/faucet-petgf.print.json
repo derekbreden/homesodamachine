@@ -181,7 +181,6 @@
   "native_settings_sha256": "1e8acb23a01f80e131b7718c0e38ec393da44cd1d73bad24b4f8e7bd8bc64ebe",
   "nonplanar_motion": {
     "added_commanded_motion_seconds": 732.4124608291855,
-    "archive": ".cache/runs/faucet-standing-underside-review/sculpted/staged/faucet-petgf.gcode.3mf",
     "archive_sha256": "b5925532da413b34b56412765fdb5c93ad7d4930e8949259edafe72783c86886",
     "gcode_input_sha256": "841548d62a20fd72f4fc025be2f4e5985917918bdf1eeb55f7d944951f298a55",
     "gcode_sha256": "19cd6591c6dd94814911aac41d3c4d381caebf65b0377fc4a4d0875c45329396",
@@ -345,7 +344,8 @@
     "maximum_mapped_z_speed_mm_s": 7.499999953827274,
     "maximum_vertical_motion_offset_mm": 0.47984897423525297,
     "purpose": "Read the bounded restored movements of the full print.",
-    "restored_extrusion_delta_mm": 0.7110656526415615
+    "restored_extrusion_delta_mm": 0.7110656526415615,
+    "archive_scope": "Sliced contact-stage archive before the scaffold, roof and skin are inserted."
   },
   "nozzle_diameter_mm": [
     0.4,
@@ -1211,7 +1211,7 @@
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
     "hardware/printed-parts/faucet/sculpted/finish-selection.json": "0a3b931d193649c2d820aa3e8f6868029c43435bf5f70c901d0e3f90899aa6ec",
-    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "a059efa51585f2efa3b320e4c5b941368bd23f40301221ab6f5406681098c526",
+    "hardware/printed-parts/faucet/sculpted/prepare_print_project.rs": "9d54f3d8aac8ed82814839b7f7cccab267771bb74c8f895b9e9ce38aaf36a6c5",
     "hardware/printed-parts/faucet/sculpted/rim_supports.rs": "086c217ccfb829bee25546391fb9654f4e12df9952b0ec15c97fd50a6b1ffaba",
     "tools/hsm/print-prep/faucet-underside/courses.py": "2922889755de9d50b04ec876b8ee04e42e5211c6d02604bc47d213d74ab75991",
     "tools/hsm/print-prep/faucet-underside/fill.py": "c601a31131f1558561fea1146e59daaa02b8fb50845a3aedc11cf18afe3e98d5",
