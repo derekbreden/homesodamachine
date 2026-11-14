@@ -86,7 +86,9 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     let skin = flanks::front_bottom_flank_skin(g, inner, y_joint, zj);
     let skin = g.intersect(skin, &[col]);
     piece = g.union(piece, &[skin]);
-    let foot = flanks::plate_foot(g, &pack.collet_plate, zj);
+    let foot = g.scoped("collet-plate-lands", "Collet plate lands", &[], |g| {
+        flanks::plate_foot(g, &pack.collet_plate, zj)
+    });
     let foot = g.intersect(foot, &[col]);
     piece = g.union(piece, &[foot]);
     let flat = flanks::front_flat_lip_drop(g, inner, zj);
