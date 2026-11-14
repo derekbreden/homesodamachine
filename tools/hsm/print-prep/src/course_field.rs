@@ -5,9 +5,8 @@
 //! follow lies flat on the virtual bed. A field keeps each road's plan position in its own frame
 //! and moves the road's height: along the face where the courses follow it, level where they
 //! return to the plate's own layers, and through a smooth blend between. Each road is laid in
-//! pieces short enough for the field to stay straight along them; a piece's plastic is its
-//! share of the road's plastic, scaled by how much thicker the field lays its bead than the
-//! slicer did.
+//! pieces short enough for the field to stay straight along them, and each field shares the
+//! road's plastic among its pieces by its own rule.
 
 use crate::gcode::words;
 use anyhow::{Context, Result, bail, ensure};
@@ -194,47 +193,20 @@ pub fn arc_points(m: &Move) -> Vec<[f64; 3]> {
 pub trait CourseField {
     /// The plate point a donor point is laid at.
     fn place(&self, p: [f64; 3]) -> [f64; 3];
-    /// Whether the field lays the donor point at the height it was sliced at.
-    fn unmoved(&self, p: [f64; 3]) -> bool;
-    /// How much thicker the field lays a bead sliced `bead` thick whose top passes the donor
-    /// point `mid`, or its rate of lift there when the slicer named no bead height.
-    fn thickening(&self, mid: [f64; 3], bead: Option<f64>) -> f64;
-    /// How many pieces the field lays a straight donor run from `a` to `b` in.
-    fn pieces(&self, a: [f64; 3], b: [f64; 3]) -> usize;
+    /// The donor points a move's road is laid through, its start first.
+    fn points(&self, m: &Move) -> Vec<[f64; 3]>;
+    /// The plastic of each piece between consecutive `points` of the move.
+    fn extrusion(&self, m: &Move, points: &[[f64; 3]]) -> Vec<f64>;
 }
 
-/// A move's road, laid by `field` in pieces, each with its share of the move's plastic scaled
-/// by the thickness its bead is laid at.
+/// A move's road, laid by `field` in pieces, each with the field's share of the move's plastic.
 pub fn lay(m: &Move, field: &dyn CourseField) -> Vec<Road> {
-    let raw = arc_points(m);
-    let mut prev = m.start;
-    let mut points = vec![prev];
-    for point in raw {
-        let gap = distance(prev, point);
-        if gap <= MIN_PATH {
-            continue;
-        }
-        let n = field.pieces(prev, point);
-        points.extend((1..=n).map(|j| mix(prev, point, j as f64 / n as f64)));
-        prev = point;
-    }
+    let points = field.points(m);
     if points.len() < 2 {
         return Vec::new();
     }
-    let lengths: Vec<f64> = points.windows(2).map(|w| distance(w[0], w[1])).collect();
-    let total: f64 = lengths.iter().sum();
-    let unmoved = points.iter().all(|p| field.unmoved(*p));
-    let bead = m.bead_height.parse::<f64>().ok().filter(|h| *h != 0.0);
-    let e = m.e.unwrap_or(0.0);
-    points
-        .windows(2)
-        .zip(&lengths)
-        .map(|(w, length)| {
-            let mid = [0, 1, 2].map(|i| (w[1][i] + w[0][i]) * 0.5);
-            let thickening = if unmoved { 1.0 } else { field.thickening(mid, bead) };
-            Road { start: field.place(w[0]), end: field.place(w[1]), e: e * length / total * thickening }
-        })
-        .collect()
+    let e = field.extrusion(m, &points);
+    points.windows(2).zip(e).map(|(w, e)| Road { start: field.place(w[0]), end: field.place(w[1]), e }).collect()
 }
 
 fn triple(v: &Value, key: &str) -> Result<[f64; 3]> {
@@ -318,22 +290,24 @@ impl CourseField for ShaftEase {
         [a + x, b + self.cos * y + self.sin * n, c - self.sin * y + self.cos * n]
     }
 
-    fn unmoved(&self, p: [f64; 3]) -> bool {
-        let [_, y, u] = self.local(p);
-        (self.height_and_scale(y, u).0 - u).abs() < IDENTITY
+    /// Each course stays a plane, so a straight run stays whole and an arc keeps its chords.
+    fn points(&self, m: &Move) -> Vec<[f64; 3]> {
+        let mut points = vec![m.start];
+        points.extend(arc_points(m));
+        points
     }
 
-    fn thickening(&self, mid: [f64; 3], bead: Option<f64>) -> f64 {
-        let [_, y, u] = self.local(mid);
-        match bead {
-            Some(h) => (self.height_and_scale(y, u).0 - self.height_and_scale(y, u - h).0) / h,
-            None => self.height_and_scale(y, u).1,
+    /// The whole move's plastic, scaled by the field's rate of lift at the move's midpoint once
+    /// the move rises past the start of the fade, shared evenly across an arc's chords.
+    fn extrusion(&self, m: &Move, points: &[[f64; 3]]) -> Vec<f64> {
+        let mut e = m.e.unwrap_or(0.0);
+        if m.deposition() && e != 0.0 && m.start[2].max(m.end[2]) - self.donor[2] > self.fade[0] {
+            let y = (m.start[1] + m.end[1]) * 0.5 - self.donor[1];
+            let u = (m.start[2] + m.end[2]) * 0.5 - self.donor[2];
+            e *= self.height_and_scale(y, u).1;
         }
-    }
-
-    /// Each course stays a plane, so a straight run stays straight.
-    fn pieces(&self, _: [f64; 3], _: [f64; 3]) -> usize {
-        1
+        let n = points.len() - 1;
+        vec![e / n as f64; n]
     }
 }
 
@@ -440,25 +414,49 @@ impl CourseField for ShoulderHold {
         [x, y, self.forward(y, z)]
     }
 
-    fn unmoved(&self, p: [f64; 3]) -> bool {
-        let [_, y, z] = self.plate(p);
-        (self.forward(y, z) - p[2] - self.displacement[2]).abs() < IDENTITY
-    }
-
-    fn thickening(&self, mid: [f64; 3], bead: Option<f64>) -> f64 {
-        let [_, y, z] = self.plate(mid);
-        match bead {
-            Some(h) => (self.forward(y, z) - self.forward(y, z - h)) / h,
-            None => self.derivative(y, z),
-        }
-    }
-
-    /// The field bends courses across the shoulder's edges, so runs it moves are laid in short
-    /// pieces; runs below its first course or above its last stay whole.
-    fn pieces(&self, a: [f64; 3], b: [f64; 3]) -> usize {
+    /// Runs the field moves are laid in short pieces, and motion too short to carry a piece is
+    /// dropped; runs below its first course or above its last stay whole.
+    fn points(&self, m: &Move) -> Vec<[f64; 3]> {
         let dz = self.displacement[2];
-        let still = a[2].max(b[2]) + dz <= self.bed_through || a[2].min(b[2]) + dz >= self.normal_again;
-        if still { 1 } else { ((distance(a, b) / self.piece).ceil() as usize).max(1) }
+        let mut prev = m.start;
+        let mut points = vec![prev];
+        for point in arc_points(m) {
+            let gap = distance(prev, point);
+            if gap <= MIN_PATH {
+                continue;
+            }
+            let still = prev[2].max(point[2]) + dz <= self.bed_through || prev[2].min(point[2]) + dz >= self.normal_again;
+            let n = if still { 1 } else { ((gap / self.piece).ceil() as usize).max(1) };
+            points.extend((1..=n).map(|j| mix(prev, point, j as f64 / n as f64)));
+            prev = point;
+        }
+        points
+    }
+
+    /// Each piece's share of the move's plastic by length, scaled by how much thicker the field
+    /// lays the piece's bead than the slicer did.
+    fn extrusion(&self, m: &Move, points: &[[f64; 3]]) -> Vec<f64> {
+        let lengths: Vec<f64> = points.windows(2).map(|w| distance(w[0], w[1])).collect();
+        let total: f64 = lengths.iter().sum();
+        let unmoved = points.iter().all(|p| {
+            let [_, y, z] = self.plate(*p);
+            (self.forward(y, z) - p[2] - self.displacement[2]).abs() < IDENTITY
+        });
+        let bead = m.bead_height.parse::<f64>().ok().filter(|h| *h != 0.0);
+        let e = m.e.unwrap_or(0.0);
+        points
+            .windows(2)
+            .zip(&lengths)
+            .map(|(w, length)| {
+                let [_, y, z] = self.plate([0, 1, 2].map(|i| (w[1][i] + w[0][i]) * 0.5));
+                let thickening = match (unmoved, bead) {
+                    (true, _) => 1.0,
+                    (false, Some(h)) => (self.forward(y, z) - self.forward(y, z - h)) / h,
+                    (false, None) => self.derivative(y, z),
+                };
+                e * length / total * thickening
+            })
+            .collect()
     }
 }
 
