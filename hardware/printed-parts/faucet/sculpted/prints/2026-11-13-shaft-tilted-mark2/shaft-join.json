@@ -1,0 +1,156 @@
+{
+  "purpose": "Projected wall and infill landings across the final grade and the native upper shaft.",
+  "scope": "Projected bead stock uses source widths and omits wetting. Road envelope estimates use exact relative E and are distinct from qualified nozzle replay.",
+  "tolerance_mm": 0.025,
+  "feature_landings": {
+    "Inner wall": {
+      "upper_path_mm": 132.03773520742226,
+      "centerline_landing_share": 1.0,
+      "longest_unwetted_centerline_mismatch_mm": 0.0,
+      "nominal_bead_landing_share": 0.9999999999999996,
+      "nozzle_separation_from_lower_nominal_top_mm": [
+        0.2400000000000091,
+        0.2400000000000091
+      ],
+      "road_equivalent_thickness_5_50_95_mm": [
+        0.22754406469862384,
+        0.22783722303345144,
+        0.2281087432853125
+      ]
+    },
+    "Outer wall": {
+      "upper_path_mm": 132.0444132489959,
+      "centerline_landing_share": 1.0,
+      "longest_unwetted_centerline_mismatch_mm": 0.0,
+      "nominal_bead_landing_share": 0.9949403515627145,
+      "nozzle_separation_from_lower_nominal_top_mm": [
+        0.2400000000000091,
+        0.2400000000000091
+      ],
+      "road_equivalent_thickness_5_50_95_mm": [
+        0.2273308616958598,
+        0.22768427250920462,
+        0.22798917393817927
+      ]
+    },
+    "Sparse infill": {
+      "upper_path_mm": 148.7069581103842,
+      "centerline_landing_share": 1.0,
+      "longest_unwetted_centerline_mismatch_mm": 0.0,
+      "nominal_bead_landing_share": 1.0000000000000004,
+      "nozzle_separation_from_lower_nominal_top_mm": [
+        0.2400000000000091,
+        0.2400000000000091
+      ],
+      "road_equivalent_thickness_5_50_95_mm": [
+        0.22744184908780452,
+        0.22782289920031654,
+        0.22825909433267907
+      ]
+    }
+  },
+  "gcode_sha256": "6979316f32e54c723f4e442b1fae7a5ac1e271f46352831169f1943b5987aa87",
+  "bridge_stitch": {
+    "tie_road_count": 105,
+    "longest_continuous_open_span_mm": 2.992698229336824,
+    "minimum_same_course_wall_bond_each_end_mm": 0.16017858644705996,
+    "bridge_bead_height_mm": 0.24,
+    "bridge_road_width_mm": 0.42
+  },
+  "adjacent_courses": {
+    "last_two_graded_layers": {
+      "Bridge": {
+        "upper_path_mm": 833.8650000000001,
+        "centerline_landing_share": 0.26555607632894385,
+        "longest_unwetted_centerline_mismatch_mm": 2.9977247986741418,
+        "nominal_bead_landing_share": 0.2922189800592565,
+        "nozzle_separation_from_lower_nominal_top_mm": [
+          0.2400000000000091,
+          0.2400000000000091
+        ],
+        "road_equivalent_thickness_5_50_95_mm": [
+          0.2276687278463672,
+          0.22769071975471905,
+          0.22771355169526625
+        ]
+      },
+      "Inner wall": {
+        "upper_path_mm": 132.03748616540008,
+        "centerline_landing_share": 1.0,
+        "longest_unwetted_centerline_mismatch_mm": 0.0,
+        "nominal_bead_landing_share": 0.9892119698367428,
+        "nozzle_separation_from_lower_nominal_top_mm": [
+          0.2400000000000091,
+          0.2400000000000091
+        ],
+        "road_equivalent_thickness_5_50_95_mm": [
+          0.2278631757438636,
+          0.23230216048974892,
+          0.237001511455642
+        ]
+      },
+      "Outer wall": {
+        "upper_path_mm": 132.05014463219442,
+        "centerline_landing_share": 1.0,
+        "longest_unwetted_centerline_mismatch_mm": 0.0,
+        "nominal_bead_landing_share": 0.9801244718875962,
+        "nozzle_separation_from_lower_nominal_top_mm": [
+          0.2400000000000091,
+          0.2400000000000091
+        ],
+        "road_equivalent_thickness_5_50_95_mm": [
+          0.2277122935374477,
+          0.23215976184883852,
+          0.23694011170301488
+        ]
+      }
+    },
+    "first_two_native_layers": {
+      "Inner wall": {
+        "upper_path_mm": 132.03736125424984,
+        "centerline_landing_share": 1.0,
+        "longest_unwetted_centerline_mismatch_mm": 0.0,
+        "nominal_bead_landing_share": 0.9892768977385624,
+        "nozzle_separation_from_lower_nominal_top_mm": [
+          0.2400000000000091,
+          0.2400000000000091
+        ],
+        "road_equivalent_thickness_5_50_95_mm": [
+          0.22758516124796108,
+          0.2278291757029385,
+          0.22808701560241984
+        ]
+      },
+      "Outer wall": {
+        "upper_path_mm": 132.04397313316258,
+        "centerline_landing_share": 1.0,
+        "longest_unwetted_centerline_mismatch_mm": 0.0,
+        "nominal_bead_landing_share": 0.9799062556500706,
+        "nozzle_separation_from_lower_nominal_top_mm": [
+          0.2400000000000091,
+          0.2400000000000091
+        ],
+        "road_equivalent_thickness_5_50_95_mm": [
+          0.22738340857858594,
+          0.22768427250920462,
+          0.22803399262439447
+        ]
+      },
+      "Sparse infill": {
+        "upper_path_mm": 147.215604229265,
+        "centerline_landing_share": 0.9851011550430765,
+        "longest_unwetted_centerline_mismatch_mm": 1.1495812711663578,
+        "nominal_bead_landing_share": 0.820797878098049,
+        "nozzle_separation_from_lower_nominal_top_mm": [
+          0.2400000000000091,
+          0.2400000000000091
+        ],
+        "road_equivalent_thickness_5_50_95_mm": [
+          0.22748308021499675,
+          0.22776809265921952,
+          0.228234911302473
+        ]
+      }
+    }
+  }
+}

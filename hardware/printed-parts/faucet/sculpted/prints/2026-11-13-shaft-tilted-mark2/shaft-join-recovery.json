@@ -1,0 +1,49 @@
+{
+  "added_commanded_motion_seconds": 47.956560472555545,
+  "changed": true,
+  "native_cooled_seed_moves": 105,
+  "ordinary_model_moves": 1097,
+  "petgf_slots": [
+    0
+  ],
+  "policy": {
+    "grid_mm": 0.2,
+    "height_mm": 0.8
+  },
+  "recovery_by_feature": {
+    "Inner wall": [
+      388.0,
+      332.07050009339275,
+      20.37357797243205
+    ],
+    "Sparse infill": [
+      737.0,
+      449.57713393677125,
+      27.58298250012354
+    ]
+  },
+  "recovery_fan_percent": [
+    "70"
+  ],
+  "recovery_moves": 1125,
+  "recovery_speed_limit_mm_s": [
+    "15",
+    "15",
+    "15"
+  ],
+  "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+  "speed_limited_moves": 1125,
+  "source_sha256": "29b0d08052fff1cb72404bd80ba32da844e8d962493e55170f7461b8b94e0684",
+  "output_sha256": "11431c5cc5dfbf1a9574890d3001c9009f345bc70ed799f806c08e234e9b4b67",
+  "source_project_sha256": "ba1d369f73f00050db61a26be4e19f33426952e1c7507775833a53803f1ed8ee",
+  "stitch_and_recovery_z_mm": [
+    143.48,
+    143.72,
+    143.96,
+    144.2
+  ],
+  "start_line": 1732991,
+  "last_source_line": 1735995,
+  "scope_geometry_and_extrusion_verified": true,
+  "outside_scope_bytes_retained": true
+}
