@@ -1,0 +1,114 @@
+{
+  "purpose": "Measure the printed front wall interruptions and the continuous rear-seam courses in the revised Mark2 archive.",
+  "printed_job": "1441898884",
+  "printed_packaged_gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+  "revised_packaged_gcode_sha256": "c29b5b40a75bb84ff8c581f0728b066e6e59e6c2a0382447a1a3d8e71b1781dd",
+  "printed_continued_base_sha256": "3bccaa69f43a4e804ac5061552c16cee007bcbf50d5e273acedd55d678804631",
+  "revised_continued_base_sha256": "24773621ad8c02c128dbc0127beeb361598062fdeda4177180fac884cfe6e866",
+  "front_wall": {
+    "source_course_height_range_mm": [
+      10,
+      38.88
+    ],
+    "sampled_course_count": 121,
+    "cad_lateral_center_band_mm": [
+      -2,
+      2
+    ],
+    "front_side_cad_y_below_mm": -12,
+    "minimum_commands_per_run": 4,
+    "features": [
+      "Outer wall",
+      "Overhang wall"
+    ],
+    "printed_starts": 0,
+    "revised_starts": 0,
+    "printed_ends": 480,
+    "revised_ends": 0
+  },
+  "example_outer_loop": {
+    "source_course_height_mm": 20.16,
+    "printed_gcode_start_lines": [
+      569787,
+      569856
+    ],
+    "revised_gcode_start_line": 570705,
+    "printed_runs": 2,
+    "revised_runs": 1,
+    "commanded_deposit_segments": 128,
+    "commanded_extrusion_mm": 5.55495,
+    "printed_both_runs_end_at_world_xyz_mm": [
+      85.841,
+      124.051,
+      32.872
+    ],
+    "revised_run_starts_at_world_xyz_mm": [
+      85.499,
+      175.309,
+      19.138
+    ],
+    "revised_run_ends_at_world_xyz_mm": [
+      85.559,
+      175.307,
+      19.138
+    ]
+  },
+  "positive_continued_base_move_inventory": {
+    "course_count": 1182,
+    "groups_by_course_feature_bead_width_and_height": 17772,
+    "fields": [
+      "unordered rounded XYZ endpoints",
+      "extrusion length",
+      "feed",
+      "fan",
+      "acceleration"
+    ],
+    "exactly_retained_move_count": 739200,
+    "added_moves": 0,
+    "removed_moves": 0
+  },
+  "exterior_laps_measured_with_hsm_gcode_seams": {
+    "printed_laps": 1022,
+    "revised_laps": 1022,
+    "printed_open_laps": 583,
+    "revised_open_laps": 14,
+    "remaining_open_lap_scope": "Authored foundation courses below the continued base."
+  },
+  "revised_plate_replay": {
+    "tilted_base_minimum_modeled_head_body_gap_mm": 2.03389,
+    "tilted_base_minimum_modeled_travel_head_body_gap_mm": 2.05647,
+    "graded_shaft_minimum_modeled_head_body_gap_mm": 2.06071,
+    "base_dry_travel_witness_count": 0
+  },
+  "final_rust_verification": {
+    "native_order_front_wall_endpoints": 0,
+    "uphill_interior_front_wall_endpoints": 0,
+    "regenerated_archive_sha256": "4f34bc317aad4c1f756b52137f2ea09ceb041e475c285670084ecf88f34f153d",
+    "regenerated_print_body_line_differences": [
+      {
+        "phase": "graded shaft transition",
+        "line": 1527992,
+        "reference": "G1 X82.681 Y177.100 Z143.480 E0.19792 F900",
+        "regenerated": "G1 X82.681 Y177.100 Z143.480 E0.19791 F900"
+      },
+      {
+        "phase": "graded shaft transition",
+        "line": 1527995,
+        "reference": "G1 X81.268 Y177.520 Z144.580 F6000",
+        "regenerated": "G1 X81.267 Y177.520 Z144.580 F6000"
+      },
+      {
+        "phase": "graded shaft transition",
+        "line": 1527996,
+        "reference": "G1 X81.268 Y177.520 Z143.480 F900",
+        "regenerated": "G1 X81.267 Y177.520 Z143.480 F900"
+      },
+      {
+        "phase": "graded shaft transition",
+        "line": 1528520,
+        "reference": "G1 X96.585 Y196.840 Z143.480 E0.28355 F900",
+        "regenerated": "G1 X96.585 Y196.840 Z143.480 E0.28356 F900"
+      }
+    ]
+  }
+}

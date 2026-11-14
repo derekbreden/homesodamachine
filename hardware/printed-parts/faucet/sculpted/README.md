@@ -110,8 +110,9 @@ The [current print report](../faucet-petgf.print.json) binds the meshes and
 recipe for the complete plate. An offline slice writes its sloped path report,
 tip contact reports and executable beside the slice. The current local print-only
 archive is `production/faucet-petgf.gcode.3mf`. The
-[complete Mark2 trial](prints/2026-11-14-plug-ramp-mark2/README.md) interleaves
-the five parts and carries the foot's slope into the shaft. The tip builds
+[Mark2 rear seam trial](prints/2026-11-14-rear-seam-mark2/README.md) interleaves
+the five parts and carries the foot's slope into the shaft. The base's exterior
+walls follow continuous laps with their seam on the rear meridian. The tip builds
 from its male plug into inclined whole courses, then eases to level below the
 dispense nose. The plate includes the flat dispense-face seam with rounded
 ends and removable mounting-plate counterbore rings.

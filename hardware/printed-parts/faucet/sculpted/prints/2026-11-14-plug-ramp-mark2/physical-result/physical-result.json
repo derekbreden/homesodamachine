@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-14",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1441898884",
+  "submitted_archive": {
+    "name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+    "sha256": "802cd07510ac998cec5c7c94e2d163b5099f536becc6e245a286e66b48d0bb42",
+    "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5"
+  },
+  "scope": "Appearance of the Sculpted base on the bed during the print.",
+  "observations": [
+    "Also, we ended up with a pretty gnarly seam on the front side there, and I've got two questions about that. What the hell is it doing on the front side, and why is it so gnarly? Or rather, I don't really want those questions answered. I just want it fixed. Thanks."
+  ],
+  "images": [
+    {
+      "file": "01-front-seam-detail.jpg",
+      "sha256": "13dcdacef6e19cd45ae4061440c23f936131357527c72da63373633adfdf4aed",
+      "view": "Close view of the seam below the lever opening."
+    },
+    {
+      "file": "02-front-of-base.jpg",
+      "sha256": "22d3278055c1f662d48bed76761342cea8359be14d96a200cba227e239970642",
+      "view": "The front of the Sculpted base and its scaffold on the bed."
+    },
+    {
+      "file": "03-base-on-mark2.jpg",
+      "sha256": "cfda0e4441b7e6d4571060d5c0a1a6abd37d6067a490c14d74f375ef5fff65b2",
+      "view": "The Sculpted base on Mark2 while the plate is printing."
+    }
+  ]
+}

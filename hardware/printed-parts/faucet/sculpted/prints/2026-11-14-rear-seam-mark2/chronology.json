@@ -1,0 +1,202 @@
+{
+  "purpose": "Measure whole-plate chronology from the unsampled repository acceleration planner.",
+  "gcode_sha256": "6f968ccd69efc2afeb34adf2180701d6145dd68fa1dd2ab680ecb61babfa5105",
+  "estimate_scope": "Commanded motion with acceleration. Printer warmup, thermal waits, firmware macros and physical execution are outside the clock.",
+  "complete_motion_time_seconds": 39629.44307337899,
+  "first_bed_deposition_start_seconds": 2.448194226362645,
+  "first_bed_deposition_end_seconds": 475.7065793555956,
+  "first_bed_course_deposition_span_seconds": 473.2583851292329,
+  "course_groups": 2470,
+  "parts": {
+    "base": {
+      "first_deposition_start_seconds": 2.448194226362645,
+      "first_deposition_gcode_line": 1167,
+      "last_deposition_end_seconds": 39627.86926728023,
+      "longest_between_deposition_seconds": 1373.2343471667045,
+      "longest_gap_seconds_range": [
+        17910.5658820039,
+        19283.800229170603
+      ],
+      "longest_gap_world_z_mm": [
+        16.035999298095703,
+        23.406999588012695
+      ],
+      "longest_gap_gcode_lines": [
+        425130,
+        494176
+      ]
+    },
+    "tip": {
+      "first_deposition_start_seconds": 157.6499548676557,
+      "first_deposition_gcode_line": 2570,
+      "last_deposition_end_seconds": 36190.27515076331,
+      "longest_between_deposition_seconds": 1461.6861786780719,
+      "longest_gap_seconds_range": [
+        11841.444213744524,
+        13303.130392422596
+      ],
+      "longest_gap_world_z_mm": [
+        9.538999557495117,
+        10.154000282287598
+      ],
+      "longest_gap_gcode_lines": [
+        270540,
+        291001
+      ]
+    },
+    "cover": {
+      "first_deposition_start_seconds": 93.80476347484895,
+      "first_deposition_gcode_line": 1575,
+      "last_deposition_end_seconds": 19488.380864952385,
+      "longest_between_deposition_seconds": 1483.5800785782285,
+      "longest_gap_seconds_range": [
+        11832.9856971187,
+        13316.565775696929
+      ],
+      "longest_gap_world_z_mm": [
+        7.880000114440918,
+        8.119999885559082
+      ],
+      "longest_gap_gcode_lines": [
+        269971,
+        291890
+      ]
+    },
+    "mounting plate": {
+      "first_deposition_start_seconds": 303.031209607624,
+      "first_deposition_gcode_line": 5961,
+      "last_deposition_end_seconds": 4226.031958722719,
+      "longest_between_deposition_seconds": 201.10965286892815,
+      "longest_gap_seconds_range": [
+        1618.7615042585564,
+        1819.8711571274846
+      ],
+      "longest_gap_world_z_mm": [
+        2.359999895095825,
+        2.5999999046325684
+      ],
+      "longest_gap_gcode_lines": [
+        66314,
+        71778
+      ]
+    },
+    "lever": {
+      "first_deposition_start_seconds": 417.5992369164188,
+      "first_deposition_gcode_line": 7886,
+      "last_deposition_end_seconds": 10448.735340647783,
+      "longest_between_deposition_seconds": 893.0930040335043,
+      "longest_gap_seconds_range": [
+        4735.746269467918,
+        5628.839273501422
+      ],
+      "longest_gap_world_z_mm": [
+        7.880000114440918,
+        8.119999885559082
+      ],
+      "longest_gap_gcode_lines": [
+        141595,
+        149741
+      ]
+    }
+  },
+  "milestones": {
+    "mounting plate counterbore supports": {
+      "first_deposition_start_seconds": 303.031209607624,
+      "last_deposition_end_seconds": 1978.3358029750702,
+      "first_and_last_deposition_gcode_lines": [
+        5961,
+        84014
+      ],
+      "other_parts_course_groups_between": {
+        "lever": 12,
+        "base": 26,
+        "cover": 12,
+        "tip": 22
+      }
+    },
+    "tip shoulder entry": {
+      "first_deposition_start_seconds": 1061.9744270275376,
+      "last_deposition_end_seconds": 18562.848111421987,
+      "first_and_last_deposition_gcode_lines": [
+        28649,
+        467780
+      ],
+      "other_parts_course_groups_between": {
+        "cover": 55,
+        "mounting plate": 31,
+        "lever": 48,
+        "base": 151
+      }
+    },
+    "sloped course": {
+      "first_deposition_start_seconds": 5001.9658966517,
+      "last_deposition_end_seconds": 10956.845302621801,
+      "first_and_last_deposition_gcode_lines": [
+        143088,
+        239276
+      ],
+      "other_parts_course_groups_between": {
+        "tip": 26,
+        "cover": 8,
+        "lever": 19
+      }
+    },
+    "native tilted base": {
+      "first_deposition_start_seconds": 11218.887210100718,
+      "last_deposition_end_seconds": 31859.183751503504,
+      "first_and_last_deposition_gcode_lines": [
+        258487,
+        1157465
+      ],
+      "other_parts_course_groups_between": {
+        "tip": 612,
+        "cover": 36
+      }
+    },
+    "tip yellow shoulder": {
+      "first_deposition_start_seconds": 18581.062329314864,
+      "last_deposition_end_seconds": 22631.09867687076,
+      "first_and_last_deposition_gcode_lines": [
+        469184,
+        646091
+      ],
+      "other_parts_course_groups_between": {
+        "cover": 8,
+        "base": 91
+      }
+    },
+    "tip shoulder fade": {
+      "first_deposition_start_seconds": 22631.614129134938,
+      "last_deposition_end_seconds": 30034.908645637013,
+      "first_and_last_deposition_gcode_lines": [
+        646115,
+        1034232
+      ],
+      "other_parts_course_groups_between": {
+        "base": 266
+      }
+    },
+    "tip native nose": {
+      "first_deposition_start_seconds": 30035.320841474182,
+      "last_deposition_end_seconds": 36190.27515076331,
+      "first_and_last_deposition_gcode_lines": [
+        1034256,
+        1510222
+      ],
+      "other_parts_course_groups_between": {
+        "base": 287
+      }
+    },
+    "graded shaft transition": {
+      "first_deposition_start_seconds": 31860.065267331076,
+      "last_deposition_end_seconds": 36456.20338363755,
+      "first_and_last_deposition_gcode_lines": [
+        1157490,
+        1529753
+      ],
+      "other_parts_course_groups_between": {
+        "tip": 357
+      }
+    }
+  }
+}

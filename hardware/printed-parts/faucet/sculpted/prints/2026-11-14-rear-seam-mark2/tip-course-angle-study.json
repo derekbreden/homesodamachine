@@ -1,0 +1,446 @@
+{
+  "purpose": "Compare H2C body clearance and nominal nozzle-flat interaction through the tip shoulder as course inclination changes.",
+  "tip_pose_x_degrees": -105,
+  "physical_mating_face_degrees_to_bed": 35,
+  "head_model": {
+    "head_reference": "hardware/reference/h2c-toolhead/h2c_toolhead.rs",
+    "head_mesh_sha256": "30016aede5227d71b2d2d0b83b53064cbe49affa8460ca9cec6874e50ae21e87",
+    "head_map_sha256": "986c200b41e8c485748f242ec4104d1e78b58dd4d1a6fc02c91f5cb35b226374",
+    "coarse_grid_mm": 0.5,
+    "local_grid_mm": 0.1,
+    "fine_windows_xy_mm": {
+      "base": [
+        45,
+        73,
+        125,
+        213
+      ],
+      "tip": [
+        143,
+        174,
+        225,
+        246
+      ],
+      "rings": [
+        180,
+        82,
+        232,
+        110
+      ],
+      "cover": [
+        234,
+        202,
+        268,
+        266
+      ]
+    }
+  },
+  "scope": "The H2C envelope is estimated from photos. The replay follows native and remapped commands against the already deposited ideal bead geometry. Curl, tolerance in toolhead dimensions and physical finish are outside this measurement.",
+  "rows": [
+    {
+      "course_degrees": 15,
+      "scheduling": "Whole courses",
+      "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5",
+      "body": {
+        "gap_mm": 2.04495,
+        "line": 598293,
+        "xyz_mm": [
+          158.617,
+          200.248,
+          26.6765
+        ],
+        "head_cell_offset_xy_mm": [
+          27,
+          -4.5
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 19315.27308,
+        "deposited_material": "support"
+      },
+      "travel_body": {
+        "gap_mm": 2.05125,
+        "line": 545254,
+        "xyz_mm": [
+          173.023,
+          204.742,
+          21.953
+        ],
+        "head_cell_offset_xy_mm": [
+          26,
+          -4.5
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 18177.87353,
+        "deposited_material": "support"
+      },
+      "previous_model_nozzle_flat": {
+        "gap_mm": -0.14543,
+        "line": 532996,
+        "from_line": 532932,
+        "nozzle_xyz_mm": [
+          183.542,
+          194.733,
+          23.434
+        ],
+        "deposited_xyz_mm": [
+          183.6,
+          194.4,
+          23.57943
+        ],
+        "deposited_age_s_at_nominal_feed": 1.0476,
+        "distance_from_tip_center_mm": 0.33801,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Sparse infill",
+        "deposited_material": "part"
+      },
+      "previous_support_nozzle_flat": {
+        "gap_mm": -0.14919,
+        "line": 566378,
+        "from_line": 566346,
+        "nozzle_xyz_mm": [
+          177.084,
+          197.639,
+          25.512
+        ],
+        "deposited_xyz_mm": [
+          177.1,
+          197.3,
+          25.66119
+        ],
+        "deposited_age_s_at_nominal_feed": 0.46542,
+        "distance_from_tip_center_mm": 0.33938,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Support",
+        "deposited_material": "support"
+      }
+    },
+    {
+      "course_degrees": 20,
+      "scheduling": "Whole courses",
+      "gcode_sha256": "c2a15a74b15e5a59aa56e2064f8242718d286bc20577df41ceb14d29fe0f4efd",
+      "body": {
+        "gap_mm": 1.16356,
+        "line": 464569,
+        "xyz_mm": [
+          173.01267,
+          217.74722,
+          13.15156
+        ],
+        "head_cell_offset_xy_mm": [
+          44.5,
+          -18
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 16655.68814,
+        "deposited_material": "support"
+      },
+      "travel_body": {
+        "gap_mm": 1.17811,
+        "line": 538369,
+        "xyz_mm": [
+          170.953,
+          218.719,
+          15.972
+        ],
+        "head_cell_offset_xy_mm": [
+          47.5,
+          -18
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 18381.90177,
+        "deposited_material": "support"
+      },
+      "previous_model_nozzle_flat": {
+        "gap_mm": -0.2014,
+        "line": 467655,
+        "from_line": 467646,
+        "nozzle_xyz_mm": [
+          181.70867,
+          194.33567,
+          21.69517
+        ],
+        "deposited_xyz_mm": [
+          181.7,
+          194,
+          21.89657
+        ],
+        "deposited_age_s_at_nominal_feed": 0.22173,
+        "distance_from_tip_center_mm": 0.33578,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Sparse infill",
+        "deposited_material": "part"
+      },
+      "previous_support_nozzle_flat": {
+        "gap_mm": -0.20421,
+        "line": 518181,
+        "from_line": 518160,
+        "nozzle_xyz_mm": [
+          175.824,
+          210.63909,
+          17.63445
+        ],
+        "deposited_xyz_mm": [
+          175.8,
+          210.3,
+          17.83867
+        ],
+        "deposited_age_s_at_nominal_feed": 0.61778,
+        "distance_from_tip_center_mm": 0.33994,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Support transition",
+        "deposited_material": "support"
+      }
+    },
+    {
+      "course_degrees": 22.5,
+      "scheduling": "Whole courses",
+      "gcode_sha256": "163ba3060adb4bee3381a2fa9f3b00d445fe9fc687d5166031f8fe2403c6e756",
+      "body": {
+        "gap_mm": 0.57948,
+        "line": 565584,
+        "xyz_mm": [
+          213.95967,
+          210.74867,
+          20.58167
+        ],
+        "head_cell_offset_xy_mm": [
+          -18.5,
+          -15
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 19405.01462,
+        "deposited_material": "support"
+      },
+      "travel_body": {
+        "gap_mm": 0.5917,
+        "line": 514342,
+        "xyz_mm": [
+          173.847,
+          211.241,
+          17.78
+        ],
+        "head_cell_offset_xy_mm": [
+          -17.5,
+          -15
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 17910.11174,
+        "deposited_material": "support"
+      },
+      "previous_model_nozzle_flat": {
+        "gap_mm": -0.23126,
+        "line": 462057,
+        "from_line": 462049,
+        "nozzle_xyz_mm": [
+          183.111,
+          194.335,
+          22.445
+        ],
+        "deposited_xyz_mm": [
+          183.1,
+          194,
+          22.67626
+        ],
+        "deposited_age_s_at_nominal_feed": 0.20138,
+        "distance_from_tip_center_mm": 0.33518,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Sparse infill",
+        "deposited_material": "part"
+      },
+      "previous_support_nozzle_flat": {
+        "gap_mm": -0.23508,
+        "line": 560007,
+        "from_line": 559909,
+        "nozzle_xyz_mm": [
+          174.605,
+          200.539,
+          24.161
+        ],
+        "deposited_xyz_mm": [
+          174.6,
+          200.2,
+          24.39608
+        ],
+        "deposited_age_s_at_nominal_feed": 1.82864,
+        "distance_from_tip_center_mm": 0.33904,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Support",
+        "deposited_material": "support"
+      }
+    },
+    {
+      "course_degrees": 25,
+      "scheduling": "Whole courses",
+      "gcode_sha256": "3518a432266c444c66f7b6c4621d9a1076056ffeebc2dd6be42fc8bc662b9082",
+      "body": {
+        "gap_mm": -0.33371,
+        "line": 561725,
+        "xyz_mm": [
+          216.98667,
+          213.249,
+          18.97967
+        ],
+        "head_cell_offset_xy_mm": [
+          -23.5,
+          -18
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 19497.96439,
+        "deposited_material": "support"
+      },
+      "travel_body": {
+        "gap_mm": -0.31195,
+        "line": 524554,
+        "xyz_mm": [
+          196.133,
+          214.213,
+          16.765
+        ],
+        "head_cell_offset_xy_mm": [
+          -19.5,
+          -18
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 18320.50732,
+        "deposited_material": "support"
+      },
+      "previous_model_nozzle_flat": {
+        "gap_mm": -0.25883,
+        "line": 568705,
+        "from_line": 568658,
+        "nozzle_xyz_mm": [
+          197.84714,
+          208.23171,
+          22.02586
+        ],
+        "deposited_xyz_mm": [
+          197.8,
+          207.9,
+          22.28468
+        ],
+        "deposited_age_s_at_nominal_feed": 1.58374,
+        "distance_from_tip_center_mm": 0.33505,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Sparse infill",
+        "deposited_material": "part"
+      },
+      "previous_support_nozzle_flat": {
+        "gap_mm": -0.26522,
+        "line": 565602,
+        "from_line": 565566,
+        "nozzle_xyz_mm": [
+          176.007,
+          200.339,
+          25.441
+        ],
+        "deposited_xyz_mm": [
+          176,
+          200,
+          25.70622
+        ],
+        "deposited_age_s_at_nominal_feed": 1.08484,
+        "distance_from_tip_center_mm": 0.33907,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Support interface",
+        "deposited_material": "support"
+      }
+    },
+    {
+      "course_degrees": 25,
+      "scheduling": "One millimetre bands with uphill runs",
+      "gcode_sha256": "42a81cc8c65d8bb1e67122e937ba95d46a46a3a590f91b9dc675a63e9a8d23ab",
+      "body": {
+        "gap_mm": 2.4,
+        "line": 331008,
+        "xyz_mm": [
+          161.389,
+          219.86,
+          10
+        ],
+        "head_cell_offset_xy_mm": [
+          23.5,
+          -4
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 11757.83063,
+        "deposited_material": "support"
+      },
+      "travel_body": {
+        "gap_mm": 2.4,
+        "line": 331008,
+        "xyz_mm": [
+          161.389,
+          219.86,
+          10
+        ],
+        "head_cell_offset_xy_mm": [
+          23.5,
+          -4
+        ],
+        "object": 1902,
+        "deposited_by": 1902,
+        "minimum_elapsed_s": 11757.83063,
+        "deposited_material": "support"
+      },
+      "previous_model_nozzle_flat": {
+        "gap_mm": -0.24217,
+        "line": 619847,
+        "from_line": 619811,
+        "nozzle_xyz_mm": [
+          191.713,
+          194.739,
+          21.697
+        ],
+        "deposited_xyz_mm": [
+          191.7,
+          194.4,
+          21.93917
+        ],
+        "deposited_age_s_at_nominal_feed": 1.24864,
+        "distance_from_tip_center_mm": 0.33925,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Sparse infill",
+        "deposited_material": "part"
+      },
+      "previous_support_nozzle_flat": {
+        "gap_mm": -0.26349,
+        "line": 533803,
+        "from_line": 533795,
+        "nozzle_xyz_mm": [
+          175.69357,
+          214.33986,
+          17.14714
+        ],
+        "deposited_xyz_mm": [
+          175.7,
+          214,
+          17.41063
+        ],
+        "deposited_age_s_at_nominal_feed": 0.33557,
+        "distance_from_tip_center_mm": 0.33992,
+        "object": 1902,
+        "deposited_by": 1902,
+        "feature": "Support interface",
+        "deposited_material": "support"
+      }
+    }
+  ]
+}
