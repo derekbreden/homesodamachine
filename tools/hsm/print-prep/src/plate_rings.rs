@@ -4,6 +4,7 @@
 //! the bed face, as the custom G-code the plate sequencer places among the mounting plate's
 //! courses.
 
+use crate::course_field::rounded;
 use std::f64::consts::PI;
 use std::fmt::Write;
 
@@ -77,8 +78,10 @@ pub fn gcode() -> String {
             }
             let _ = writeln!(out, "G1 E{RETRACT} F1800");
             let _ = writeln!(out, "G1 F{deposition_feed}");
+            // Each road's plastic follows the chord between its written ends, which the nozzle moves along.
             for pair in path.windows(2) {
-                let amount = (pair[1][0] - pair[0][0]).hypot(pair[1][1] - pair[0][1]) * e_per_mm;
+                let [a, b] = [pair[0], pair[1]].map(|p| p.map(|v| rounded(v, 5)));
+                let amount = (b[0] - a[0]).hypot(b[1] - a[1]) * e_per_mm;
                 let _ = writeln!(out, "G1 {} E{amount:.6}", point(pair[1]));
             }
             let _ = writeln!(out, "G1 E-{RETRACT} F1800");

@@ -190,6 +190,13 @@ fn positive(e: Option<f64>) -> bool {
     e.is_some_and(|e| e > 0.5e-5)
 }
 
+/// A nose feed, written to six significant digits.
+fn feed(f: f64) -> String {
+    let exponent: i32 = format!("{f:.5e}").split_once('e').map_or(0, |(_, e)| e.parse().unwrap_or(0));
+    let text = format!("{f:.*}", (5 - exponent).max(0) as usize);
+    if text.contains('.') { text.trim_end_matches('0').trim_end_matches('.').to_string() } else { text }
+}
+
 /// A laid point as the tape writes it, to three places.
 fn written(p: [f64; 3]) -> [f64; 3] {
     p.map(|v| rounded(v, 3))
@@ -465,7 +472,7 @@ fn write_native_course(out: &mut String, index: usize, height: f64, moves: &[Mov
         if let Some(e) = m.e {
             let _ = write!(out, " E{e:.5}");
         }
-        let _ = writeln!(out, " F{}", m.feed);
+        let _ = writeln!(out, " F{}", feed(m.feed));
         if m.deposition() {
             stats.count(phase, "deposition_roads", 1);
             stats.sum(phase, "filament_mm", m.e.unwrap_or(0.0));
