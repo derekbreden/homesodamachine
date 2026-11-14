@@ -330,6 +330,13 @@
       "said": "So on the latest print of the enclosure front top, we ended up with some corner lifting. Other than that, everything seems to be pretty good on this last print, except for one fit issue.",
       "tried": "the full printed front top on the front-bottom rails, with corner lift at the seam and interference at the collet plate land",
       "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-13-front-top-wago-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0094",
+      "date": "2026-11-14",
+      "said": "So on the faucet, the base support broke off beautifully. ... it just all broke off as, like, one clean piece, and it took a little bit of force, but that was great. ... And the back of the faucet base, the seam that's back there where it normally is, that looks normal. It's fine. But then we've got this second seam in front that I don't understand how we ended up with that. ... And it's also all fuzzy and ugly. ... And I see some fuzziness other places too",
+      "tried": "the Sculpted base in hand after removing the underside support, inspecting the mounting face and both sides of the shell",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/19f296fa2b71b68a92735a3d2aae7e0ce242dfd9/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/physical-result.json"
     }
   ]
 }
