@@ -4,6 +4,7 @@
 
 pub mod audit;
 pub mod base_courses;
+pub mod base_foundation;
 pub mod cooling;
 pub mod course_field;
 pub mod derive;
@@ -32,6 +33,7 @@ pub mod ring_offset;
 pub mod shaft_join_cooling;
 pub mod shaft_stitch;
 pub mod slice;
+pub mod sloped_courses;
 pub mod stretch_cooling;
 pub mod tip_courses;
 pub mod tip_supports;

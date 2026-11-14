@@ -1,12 +1,13 @@
 //! sculpted-trial runs the Sculpted faucet trial plate's stages.
 //!
-//! The stages are the tip's warp, its donor supports and its courses; the base's continued courses
-//! through the shaft and the cooling of their join; the screw-seat rings; the tip-trial,
+//! The stages are the tip's warp, its donor supports and its courses; the base's foundation, its
+//! continued courses through the shaft and the cooling of their join; the screw-seat rings; the tip-trial,
 //! shaft-trial and plug-ramp sequencers; the plug-ramp feed cap; and the print-only review archive.
 //!
 //!   sculpted-trial warp tip-shoulder|plug-ramp TIP.stl EDITABLE.3mf OUT.stl
 //!   sculpted-trial supports WARP.json OUT.json
 //!   sculpted-trial tape DONOR.gcode DONOR.print.json WARP.json OUT.gcode --band-step STEP [--uphill-all] --native-nose
+//!   sculpted-trial foundation SLICED.gcode.3mf PRINT.json BASE.stl HEADMAP.npz OUT_DIR [--deck-top MM]
 //!   sculpted-trial continued-base DONOR.gcode DONOR.print.json PHYSICAL.gcode PHYSICAL.print.json OUT.gcode
 //!       [--uphill-wall-runs] [--stitch-mesh BASE.stl] [--fade-end MM] [--native-join-z MM]
 //!   sculpted-trial cool-shaft-join SEQUENCED.gcode PROJECT.3mf OUT.gcode [--catalog SCALARS.json]
@@ -19,7 +20,7 @@
 //!   sculpted-trial cap-feed UNCAPPED.gcode CAPPED.gcode
 //!   sculpted-trial bind-capped UNCAPPED.gcode CAPPED.gcode PLATE.gcode [--clamp-receipt CAPPED.json]
 
-use hsm_print_prep::{base_courses, feed_cap, plate_rings, plate_sequence, python_text, shaft_join_cooling, tip_courses, tip_supports, tip_warp, trial_archive};
+use hsm_print_prep::{base_courses, base_foundation, feed_cap, plate_rings, plate_sequence, python_text, shaft_join_cooling, tip_courses, tip_supports, tip_warp, trial_archive};
 use std::path::Path;
 use anyhow::{bail, Context, Result};
 use std::path::PathBuf;
@@ -116,6 +117,13 @@ fn main() -> Result<()> {
             }
             let banding = tip_courses::Banding { step: step.context("sculpted-trial tape needs --band-step")?, uphill };
             tip_courses::write(Path::new(gcode), Path::new(donor), Path::new(warp), Path::new(output), &banding)?;
+        }
+        "foundation" => {
+            let p = paths(&values, 5, &[])?;
+            let deck_top = valued(&values, "--deck-top").map(|v| v.parse::<f64>()).transpose().context("--deck-top needs a number")?;
+            base_foundation::foundation(&base_foundation::Foundation {
+                archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top,
+            })?;
         }
         "continued-base" => {
             let p = paths(&values, 5, &["--uphill-wall-runs"])?;
