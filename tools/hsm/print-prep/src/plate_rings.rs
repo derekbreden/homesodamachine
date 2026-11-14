@@ -4,10 +4,8 @@
 //! the bed face, as the custom G-code the plate sequencer places among the mounting plate's
 //! courses.
 
-use crate::python_text::{dist, g, round};
 use std::f64::consts::PI;
 use std::fmt::Write;
-use std::hint::black_box;
 
 const CENTERS: [[f64; 2]; 3] = [[183., 106.], [205.5, 85.7], [228., 106.]];
 const FIRST_Z: f64 = 0.20;
@@ -21,14 +19,12 @@ const FILAMENT_DIAMETER: f64 = 1.75;
 const FLOW_RATIO: f64 = 0.9555;
 const RETRACT: f64 = 0.8;
 
-/// The cosine and sine from the platform's maths library, as the trial's Python takes them.
 fn unit(angle: f64) -> [f64; 2] {
-    let angle = black_box(angle);
     [angle.cos(), angle.sin()]
 }
 
 fn at(origin: [f64; 2], radial: [f64; 2], tangent: [f64; 2], r: f64, t: f64) -> [f64; 2] {
-    [0, 1].map(|axis| round(origin[axis] + r * radial[axis] + t * tangent[axis], 5))
+    [0, 1].map(|axis| origin[axis] + r * radial[axis] + t * tangent[axis])
 }
 
 /// The inner arc, a half turn across the opening, and the outer arc back.
@@ -58,7 +54,7 @@ fn point(xy: [f64; 2]) -> String {
 pub fn gcode() -> String {
     let mut out = String::new();
     for course in 0..COURSES {
-        let z = round(FIRST_Z + course as f64 * PITCH, 2);
+        let z = FIRST_Z + course as f64 * PITCH;
         let (height, width) = if course > 0 { (PITCH, 0.48) } else { (FIRST_Z, 0.55) };
         let (inner, outer) = if course > 0 { (2.06, 2.49) } else { (2.03, 2.53) };
         // The area matches the rounded-road convention of the donor.
@@ -68,24 +64,24 @@ pub fn gcode() -> String {
         let first = rings[0][0];
         let _ = writeln!(out, "; HSM_PLATE_RING_Z: {z:.2}");
         let _ = writeln!(out, "; HSM_ENTRY_XYZ: {:.5} {:.5} {z:.5}", first[0], first[1]);
-        let _ = writeln!(out, "; HSM_ENTRY_RETRACT_MM: {}", g(RETRACT));
+        let _ = writeln!(out, "; HSM_ENTRY_RETRACT_MM: {RETRACT}");
         out.push_str("M106 S0\nM204 S500\n");
         out.push_str(if course >= COURSES - 3 { "; FEATURE: Support interface\n" } else { "; FEATURE: Support\n" });
-        let _ = writeln!(out, "; LINE_WIDTH: {}", g(width));
-        let _ = writeln!(out, "; LAYER_HEIGHT: {}", g(height));
+        let _ = writeln!(out, "; LINE_WIDTH: {width}");
+        let _ = writeln!(out, "; LAYER_HEIGHT: {height}");
         for (index, path) in rings.iter().enumerate() {
             if index > 0 {
                 let _ = writeln!(out, "G1 Z{TRAVEL_Z:.3} F900");
                 let _ = writeln!(out, "G1 {} F{travel_feed}", point(path[0]));
                 let _ = writeln!(out, "G1 Z{z:.5} F900");
             }
-            let _ = writeln!(out, "G1 E{} F1800", g(RETRACT));
+            let _ = writeln!(out, "G1 E{RETRACT} F1800");
             let _ = writeln!(out, "G1 F{deposition_feed}");
             for pair in path.windows(2) {
-                let amount = round(dist(&pair[0], &pair[1]) * e_per_mm, 6);
+                let amount = (pair[1][0] - pair[0][0]).hypot(pair[1][1] - pair[0][1]) * e_per_mm;
                 let _ = writeln!(out, "G1 {} E{amount:.6}", point(pair[1]));
             }
-            let _ = writeln!(out, "G1 E-{} F1800", g(RETRACT));
+            let _ = writeln!(out, "G1 E-{RETRACT} F1800");
         }
     }
     out
