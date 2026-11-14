@@ -3470,6 +3470,27 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-11-14",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-bd9a0f50bc3348cd994c827672c8bd5a",
+      "evidence_type": "shipment_tracking_and_merchant_transactions",
+      "examined_period": {
+        "end": "2026-11-14",
+        "start": "2026-11-12"
+      },
+      "note": "Exact package tracking identifies four shipped, undelivered rig lines and an explicit November 14 departure date. A separate order-scoped Completed transaction confirms the existing USD 159.54 charge on November 14. Order Summary tax remains estimated and no final line-tax breakdown is shown. Previously confirmed delivery of the endstops and adapter is preserved. No account-wide or bank coverage is claimed.",
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-e014f62abdb847af827f854538ae2c89"
+      ],
+      "stream": "named reed sweep rig order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
@@ -7217,9 +7238,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 15954,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
       "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
       "event_type": "charge",
       "order_ids": [
@@ -7236,11 +7260,12 @@
       ],
       "source_ids": [
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
-      "verified_at": "2026-11-13"
+      "verified_at": "2026-11-14"
     },
     {
       "allocation_ids": [
@@ -9916,7 +9941,7 @@
         "evt-9ed31057386d4c8fb11aeec9f8b619f8"
       ],
       "gap_id": "gap-cf741586c53d4ca09c214e6f7686dedb",
-      "missing_fact": "Final vendor tax and completed merchant charge remain unverified. The Order Summary supplies only order-level estimated tax, recorded separately rather than spread across items. Endstops and the power adapter are delivered; the stage, driver, carrier and controller remain on order without actual delivery dates.",
+      "missing_fact": "Final vendor tax breakdown remains unverified: the Order Summary still labels order-level tax estimated, recorded separately rather than spread across items. The completed order charge is confirmed. Endstops and the power adapter are delivered; the stage, driver, carrier and controller shipped November 14 and await delivery without actual delivery dates.",
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
@@ -9930,15 +9955,18 @@
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
         "src-575287e34a0e48b68470139996e8e4b9",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "sources_checked": [
         "Named Amazon Order Details and printable Order Summary",
         "Named order-scoped In Progress / Pending transaction, checked November 13, 2026",
-        "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026"
+        "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026",
+        "Exact remaining-package shipment timeline, Completed order transaction and printable Order Summary, checked November 14, 2026"
       ]
     },
     {
@@ -10011,7 +10039,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:e190d51492a1db086c32e3ca679ed25214a83ad36383491c2778a976afd2cb7a",
+  "input_fingerprint": "sha256:887ff7182f4cfa9ccb094fa9d73bf8d3b0db5dcfee6d898393a9152b5a856efe",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10768,10 +10796,12 @@
       ],
       "reference": "112-1265759-9506602",
       "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
         "src-575287e34a0e48b68470139996e8e4b9",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "vendor": "Amazon"
     },
@@ -25014,7 +25044,7 @@
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-2ad02a3c76fc4de6b57a9424c7892858",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1199,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -25023,7 +25053,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "price_history": [
         {
@@ -25054,7 +25084,8 @@
         "src-575287e34a0e48b68470139996e8e4b9",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -26176,7 +26207,7 @@
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-349e89ac22704ecaa32c57926e7c0d7e",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1499,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -26185,7 +26216,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "price_history": [
         {
@@ -26216,7 +26247,8 @@
         "src-575287e34a0e48b68470139996e8e4b9",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -36686,14 +36718,14 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "BIGTREETECH TMC2209 V1.3 stepper driver, 1 pc — drives the reed sweep rig's stage in step/direction mode. Item price; order-level estimated tax recorded separately; free shipping",
+      "description": "BIGTREETECH TMC2209 V1.3 stepper driver, 1 pc — drives the reed sweep rig's stage in step/direction mode. Shipped 2026-11-14; awaiting delivery. Item price; order-level estimated tax recorded separately; free shipping",
       "event_ids": [
         "evt-9ed31057386d4c8fb11aeec9f8b619f8"
       ],
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 999,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -36702,7 +36734,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "price_history": [
         {
@@ -36730,9 +36762,11 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -47105,14 +47139,14 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "ZXXP 42 stepper-driver expansion board for A4988/DRV8825-format drivers, DIP microstep switches and screw terminals, 2 pc — carrier for the reed sweep rig's driver. Item price; order-level estimated tax recorded separately; free shipping",
+      "description": "ZXXP 42 stepper-driver expansion board for A4988/DRV8825-format drivers, DIP microstep switches and screw terminals, 2 pc — carrier for the reed sweep rig's driver. Shipped 2026-11-14; awaiting delivery. Item price; order-level estimated tax recorded separately; free shipping",
       "event_ids": [
         "evt-9ed31057386d4c8fb11aeec9f8b619f8"
       ],
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-c421deec9a2f4c7b868ae95b9e1499c1",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 799,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -47121,7 +47155,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "price_history": [
         {
@@ -47149,9 +47183,11 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -47405,14 +47441,14 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "DORHEA ESP32 38-pin narrow USB-C development board with its screw-terminal breakout board, 3 sets (the listing's option A) — the reed sweep rig's controller. Item price; order-level estimated tax recorded separately; free shipping",
+      "description": "DORHEA ESP32 38-pin narrow USB-C development board with its screw-terminal breakout board, 3 sets (the listing's option A) — the reed sweep rig's controller. Shipped 2026-11-14; awaiting delivery. Item price; order-level estimated tax recorded separately; free shipping",
       "event_ids": [
         "evt-9ed31057386d4c8fb11aeec9f8b619f8"
       ],
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-c692f77e911c4e6fa40da3baf52ca7bd",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1999,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -47421,7 +47457,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "price_history": [
         {
@@ -47449,9 +47485,11 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -50875,7 +50913,7 @@
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-dfd251509a3543c5b3bd9e358dcef85f",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 1079,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -50884,7 +50922,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-dfd251509a3543c5b3bd9e358dcef85f",
       "purpose": "unclassified",
@@ -50901,7 +50939,8 @@
       "service_period": null,
       "source_ids": [
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-829a60a402c04c52b54328b2f840cf03"
+        "src-829a60a402c04c52b54328b2f840cf03",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -55195,14 +55234,14 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "Befenybay BE069-2 linear stage actuator, 200 mm travel, SFU1605 ball screw on square rails, with its NEMA 17 stepper and motor cable (the listing's 200mm-NEMA17 option) — the motion axis of the reed sweep rig. Item price; order-level estimated tax recorded separately; free shipping",
+      "description": "Befenybay BE069-2 linear stage actuator, 200 mm travel, SFU1605 ball screw on square rails, with its NEMA 17 stepper and motor cable (the listing's 200mm-NEMA17 option) — the motion axis of the reed sweep rig. Shipped 2026-11-14; awaiting delivery. Item price; order-level estimated tax recorded separately; free shipping",
       "event_ids": [
         "evt-9ed31057386d4c8fb11aeec9f8b619f8"
       ],
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-fd0447880897405fb697a1c430b6bba0",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 8380,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -55211,7 +55250,7 @@
       "order_ids": [
         "amazon:112-1265759-9506602"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "price_history": [
         {
@@ -55239,9 +55278,11 @@
       "section": "12. Shop / bench infrastructure",
       "service_period": null,
       "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-a84df1f538bc452984cd3d04e10595c3"
+        "src-a84df1f538bc452984cd3d04e10595c3",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -63606,6 +63647,23 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "document_type": "shipment_confirmation",
+      "note": "Exact-order tracking shows Shipped, step 2 of 4, with delivery incomplete. Its local-time timeline explicitly states Saturday, November 14, 2026: package left the shipper facility; no time is supplied. The package lists the Befenybay B085TG12D1 stage, BIGTREETECH B07ZPV4HFP driver, ZXXP B0FQC39GJ2 carrier pack and DORHEA B0C8DBN29X controller sets. The shipment notification corroborates dispatch. Relative Arriving Tuesday is not an actual delivery date. Shipment is recorded in row descriptions while ON-ORDER retains the outstanding classification. This source establishes neither delivery nor payment.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "proves": [],
+      "reference": "112-1265759-9506602 remaining rig package",
+      "source_id": "src-4846c39604814a94b7031992e7f315e7",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-14"
+    },
+    {
       "document_date": null,
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
@@ -67692,6 +67750,24 @@
       "verified_at": "2026-11-10"
     },
     {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "note": "Refreshed order-scoped Your Payments > Completed shows one USD 159.54 transaction dated November 14, 2026, with no split charges displayed. This confirms the existing expected event in place, independently of shipment subtotals. The current printable Order Summary still labels USD 10.79 tax as estimated: items USD 148.75, shipping USD 0.00, total USD 159.54. The completed total does not supply final per-line tax; existing item and separate order-tax allocations remain unchanged. No bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "price"
+      ],
+      "reference": "112-1265759-9506602",
+      "source_id": "src-e014f62abdb847af827f854538ae2c89",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-14"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-04-25"
@@ -69498,7 +69574,6 @@
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
-        "evt-9ed31057386d4c8fb11aeec9f8b619f8",
         "evt-a3c8a2e1a259405e85d14c27817deb58"
       ],
       "monthly": [
@@ -69790,7 +69865,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 75132,
+          "charges_minor": 91086,
           "currency": "USD",
           "event_ids": [
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
@@ -69802,6 +69877,7 @@
             "evt-46ab695dde87410681a27f2d7fd8a499",
             "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
             "evt-92e67e1783c94f10ac80f6a9895996db",
+            "evt-9ed31057386d4c8fb11aeec9f8b619f8",
             "evt-a433c78eacf3419f9a8285a9b133fbb7",
             "evt-a518d84ef1464651bd19812f7d6129d0",
             "evt-a65135dfda964b4faa92d367bd777b81",
@@ -69814,7 +69890,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 75132,
+          "net_minor": 91086,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -69837,9 +69913,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2576493,
+          "charges_minor": 2592447,
           "currency": "USD",
-          "net_minor": 2576493,
+          "net_minor": 2592447,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -69865,7 +69941,6 @@
             "evt-903eedfb26fd4f999dda301c34468ee4",
             "evt-998ca791689f49919e825d9ad1e0def0",
             "evt-99939add7e964cfb9fb65ee05dc98a55",
-            "evt-9ed31057386d4c8fb11aeec9f8b619f8",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
             "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
@@ -70853,7 +70928,7 @@
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2470710,
+          "purchases_without_merchant_charge_minor": 2454756,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -70972,6 +71047,7 @@
         "coverage-bb9e6d8e7ee44541935e7b7717d4e077",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
         "coverage-bd8d0957451549b2bd2006065f3ef7cb",
+        "coverage-bd9a0f50bc3348cd994c827672c8bd5a",
         "coverage-c2b991ed7f77417889868ab62b87b299",
         "coverage-c57ca481544248138b803bc112966160",
         "coverage-c6521989f3144cb39f81df95603c72c3",
@@ -71554,7 +71630,6 @@
         "pur-28f5f5bc86674717aa6f6b96b2079ca8",
         "pur-290815c457f54714a5735fb1e54360a9",
         "pur-2aa2349ca254425ba4ef67c46431c772",
-        "pur-2ad02a3c76fc4de6b57a9424c7892858",
         "pur-2ad8154642d3443ea53044f5c4fe0222",
         "pur-2adc38c7f40a47c0a7ce61c92ac8671d",
         "pur-2b02951001084d3da886fff6f90ab5ed",
@@ -71574,7 +71649,6 @@
         "pur-32156ab6ed504d49912a70643ac7648f",
         "pur-336e07bc67a84844b311d58e52364d25",
         "pur-338d6a3954314978b9c3b0b3023e441f",
-        "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-362dc6a7dece45c9a2adb878ace2e60c",
         "pur-375429e1cb9c4b95bb3584b04f7284da",
         "pur-375bb2f248d3428ba0372071b0658305",
@@ -71731,7 +71805,6 @@
         "pur-78b35b2efbb941efbb1ab93268589ce8",
         "pur-78ea1f58114044aaa33af53b0930e8d0",
         "pur-791463522f344caf818637b6bed6a2ac",
-        "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-7a0bf59561314549bacf12589f4fd2f4",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7ab9e4672d6f45dcb02e637077481082",
@@ -71873,11 +71946,9 @@
         "pur-c236a1fde9dc4036911e3ac588e4571a",
         "pur-c2989eb14f024256babfd3912e142609",
         "pur-c31eddcc31554604ae1cf85fb16d9536",
-        "pur-c421deec9a2f4c7b868ae95b9e1499c1",
         "pur-c42545bec1f74aa8b33c3976c8988412",
         "pur-c444ea7f58834964b05cf2a767596f98",
         "pur-c630840aeb274ece80243d4499e26364",
-        "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-c697d15ec50b42eeb73ae9c8bb6cdcba",
         "pur-c6f724e023c44e7e8a576b147258d8ea",
         "pur-c7cd43298809474ca0d28bec2d91da35",
@@ -71932,7 +72003,6 @@
         "pur-dda6299d62b24ab2b5825ac5012dc7af",
         "pur-dde3fb13bc1848948e853aa0cf358c04",
         "pur-de2cb021f33742498cca36744fab885f",
-        "pur-dfd251509a3543c5b3bd9e358dcef85f",
         "pur-dfdb0e2d51ff4980ad36338435d00bee",
         "pur-e056bae23d974d1181cba10c9179eea8",
         "pur-e072750dd8ce4f27b3713d63641fdd06",
@@ -71995,7 +72065,6 @@
         "pur-fb8bbd6de85e488bb5bc76437949ff9d",
         "pur-fc68e8713b2a41ab8baef861721af0d1",
         "pur-fcf61f35d1e04f098360e65ab77cce06",
-        "pur-fd0447880897405fb697a1c430b6bba0",
         "pur-fd783b99321f417788c5e4b8e89eddf4",
         "pur-fdc581d6e00244e4a20e069178ea4c50",
         "pur-fea530ae80304ebe82ba2d6d74518e45",
@@ -72018,7 +72087,6 @@
         "evt-903eedfb26fd4f999dda301c34468ee4",
         "evt-998ca791689f49919e825d9ad1e0def0",
         "evt-99939add7e964cfb9fb65ee05dc98a55",
-        "evt-9ed31057386d4c8fb11aeec9f8b619f8",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
         "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
@@ -72234,6 +72302,7 @@
       "coverage-bb9e6d8e7ee44541935e7b7717d4e077: evidence coverage is partial",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
       "coverage-bd8d0957451549b2bd2006065f3ef7cb: evidence coverage is partial",
+      "coverage-bd9a0f50bc3348cd994c827672c8bd5a: evidence coverage is partial",
       "coverage-c2b991ed7f77417889868ab62b87b299: evidence coverage is partial",
       "coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
       "coverage-c6521989f3144cb39f81df95603c72c3: evidence coverage is partial",

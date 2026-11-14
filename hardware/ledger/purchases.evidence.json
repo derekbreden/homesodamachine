@@ -9933,7 +9933,9 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-4846c39604814a94b7031992e7f315e7"
       ],
       "price_history": [
         {
@@ -9959,7 +9961,9 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-4846c39604814a94b7031992e7f315e7"
       ],
       "price_history": [
         {
@@ -9985,7 +9989,9 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-4846c39604814a94b7031992e7f315e7"
       ],
       "price_history": [
         {
@@ -10012,7 +10018,8 @@
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-575287e34a0e48b68470139996e8e4b9"
+        "src-575287e34a0e48b68470139996e8e4b9",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "price_history": [
         {
@@ -10044,7 +10051,9 @@
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-4846c39604814a94b7031992e7f315e7"
       ],
       "price_history": [
         {
@@ -10071,7 +10080,8 @@
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-575287e34a0e48b68470139996e8e4b9"
+        "src-575287e34a0e48b68470139996e8e4b9",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
       "price_history": [
         {
@@ -10102,7 +10112,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-e014f62abdb847af827f854538ae2c89"
       ]
     }
   },
@@ -16400,7 +16411,9 @@
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-829a60a402c04c52b54328b2f840cf03",
-        "src-575287e34a0e48b68470139996e8e4b9"
+        "src-575287e34a0e48b68470139996e8e4b9",
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-e014f62abdb847af827f854538ae2c89"
       ]
     }
   },
@@ -20676,16 +20689,20 @@
       "event_id": "evt-9ed31057386d4c8fb11aeec9f8b619f8",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
       "amount_minor": 15954,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
         "src-a84df1f538bc452984cd3d04e10595c3",
-        "src-70ca7dc199ed4a9691b01d7003853de8"
+        "src-70ca7dc199ed4a9691b01d7003853de8",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
-      "verified_at": "2026-11-13",
+      "verified_at": "2026-11-14",
       "order_ids": [
         "amazon:112-1265759-9506602"
       ]
@@ -34743,6 +34760,39 @@
       ],
       "verified_at": "2026-11-14",
       "note": "Exact-order tracking lists two orders in one package and explicitly records delivery Saturday, November 14, 2026 at 1:18 PM local. The package contains the uxcell B09TYSP9NV tap/drill set, BTF-LIGHTING B01D8FLQHE adapter and REIFENG B07TWKH7F7 endstops. This confirms only those three purchase lines, not the remaining rig components, and does not establish another charge."
+    },
+    "src-4846c39604814a94b7031992e7f315e7": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "112-1265759-9506602 remaining rig package",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "proves": [],
+      "verified_at": "2026-11-14",
+      "note": "Exact-order tracking shows Shipped, step 2 of 4, with delivery incomplete. Its local-time timeline explicitly states Saturday, November 14, 2026: package left the shipper facility; no time is supplied. The package lists the Befenybay B085TG12D1 stage, BIGTREETECH B07ZPV4HFP driver, ZXXP B0FQC39GJ2 carrier pack and DORHEA B0C8DBN29X controller sets. The shipment notification corroborates dispatch. Relative Arriving Tuesday is not an actual delivery date. Shipment is recorded in row descriptions while ON-ORDER retains the outstanding classification. This source establishes neither delivery nor payment."
+    },
+    "src-e014f62abdb847af827f854538ae2c89": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-1265759-9506602",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "price"
+      ],
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "verified_at": "2026-11-14",
+      "note": "Refreshed order-scoped Your Payments > Completed shows one USD 159.54 transaction dated November 14, 2026, with no split charges displayed. This confirms the existing expected event in place, independently of shipment subtotals. The current printable Order Summary still labels USD 10.79 tax as estimated: items USD 148.75, shipping USD 0.00, total USD 159.54. The completed total does not supply final per-line tax; existing item and separate order-tax allocations remain unchanged. No bank posting or funding ownership is inferred."
     }
   },
   "coverage": [
@@ -36941,6 +36991,27 @@
         "amazon:112-1265759-9506602"
       ],
       "note": "The exact shared-package item list and dated carrier timeline establish delivery for the tap, rig endstops and rig power adapter only. The other rig items remain on order. Delivery does not establish stock remaining, successful fit or a completed rig payment."
+    },
+    {
+      "coverage_id": "coverage-bd9a0f50bc3348cd994c827672c8bd5a",
+      "vendor": "Amazon",
+      "stream": "named reed sweep rig order",
+      "evidence_type": "shipment_tracking_and_merchant_transactions",
+      "checked_at": "2026-11-14",
+      "examined_period": {
+        "start": "2026-11-12",
+        "end": "2026-11-14"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-e014f62abdb847af827f854538ae2c89"
+      ],
+      "order_ids": [
+        "amazon:112-1265759-9506602"
+      ],
+      "note": "Exact package tracking identifies four shipped, undelivered rig lines and an explicit November 14 departure date. A separate order-scoped Completed transaction confirms the existing USD 159.54 charge on November 14. Order Summary tax remains estimated and no final line-tax breakdown is shown. Previously confirmed delivery of the endstops and adapter is preserved. No account-wide or bank coverage is claimed."
     }
   ],
   "gaps": [
@@ -37320,13 +37391,16 @@
         "src-a84df1f538bc452984cd3d04e10595c3",
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-575287e34a0e48b68470139996e8e4b9"
+        "src-575287e34a0e48b68470139996e8e4b9",
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-e014f62abdb847af827f854538ae2c89"
       ],
-      "missing_fact": "Final vendor tax and completed merchant charge remain unverified. The Order Summary supplies only order-level estimated tax, recorded separately rather than spread across items. Endstops and the power adapter are delivered; the stage, driver, carrier and controller remain on order without actual delivery dates.",
+      "missing_fact": "Final vendor tax breakdown remains unverified: the Order Summary still labels order-level tax estimated, recorded separately rather than spread across items. The completed order charge is confirmed. Endstops and the power adapter are delivered; the stage, driver, carrier and controller shipped November 14 and await delivery without actual delivery dates.",
       "sources_checked": [
         "Named Amazon Order Details and printable Order Summary",
         "Named order-scoped In Progress / Pending transaction, checked November 13, 2026",
-        "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026"
+        "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026",
+        "Exact remaining-package shipment timeline, Completed order transaction and printable Order Summary, checked November 14, 2026"
       ]
     }
   ],
