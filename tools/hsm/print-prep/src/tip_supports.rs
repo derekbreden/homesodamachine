@@ -2,15 +2,11 @@
 //! roof sector over each half of the mating annulus that calls for support, an access slit
 //! between the sectors that keeps it out, and a keepout over the male plug, each carried through
 //! the field into the donor's frame, with the course settings the preparer reads beside them.
-//!
-//! The arithmetic is the trial's numpy and trimesh arithmetic, so the meshes and settings are
-//! the ones its Python wrote.
 
-use crate::json::Json;
-use crate::tip_warp::{closed, column, entry, fused, linspace, number, numbers, plain, shoulder_field, stl, CANONICAL_POINT, PLUG_RAMP};
+use crate::mesh::{write_stl, Mesh};
+use crate::tip_warp::{closed, column, dot, linspace, shoulder_field, CANONICAL_POINT, PLUG_RAMP};
 use anyhow::{ensure, Context, Result};
-use serde_json::Value;
-use std::collections::HashMap;
+use serde_json::{json, Value};
 use std::path::Path;
 
 /// The mating annulus's centre across the bearing plane.
@@ -31,9 +27,6 @@ const PLUG_SECTIONS: usize = 144;
 /// The preparer's course bands, each a start, end and step in millimetres.
 const COURSE_BANDS: [[f64; 3]; 1] = [[0.2, 30.2, 0.2]];
 
-/// A closed mesh: its vertices and its faces.
-type Solid = (Vec<[f64; 3]>, Vec<[usize; 3]>);
-
 /// Write the support settings to `output` and the support meshes beside it, for the warp in
 /// `warp_receipt`.
 pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
@@ -42,27 +35,31 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
     let rotation: [[f64; 3]; 3] = serde_json::from_value(receipt["physical_rotation"].clone()).context("the receipt's rotation")?;
     let translation: [f64; 3] =
         serde_json::from_value(receipt["physical_cad_to_plate_translation"].clone()).context("the receipt's translation")?;
-    let shoulder = [0, 1, 2].map(|i| plain(rotation[i], CANONICAL_POINT) + translation[i]);
+    let shoulder = [0, 1, 2].map(|i| dot(rotation[i], CANONICAL_POINT) + translation[i]);
     let field = shoulder_field(&PLUG_RAMP, shoulder);
     let bearing = crate::rotation_x(-PLUG_RAMP.bearing_angle);
     let folder = output.parent().unwrap_or(Path::new("."));
     let mut parts = Vec::new();
-    let mut part = |name: String, role: &str, (vertices, faces): Solid| -> Result<()> {
-        let seated: Vec<[f64; 3]> = vertices
+    let mut part = |name: String, role: &str, solid: Mesh| -> Result<()> {
+        let vertices = solid
+            .vertices
             .iter()
             .map(|v| {
-                let on = bearing.map(|row| fused(*v, row));
+                let on = bearing.map(|row| dot(*v, row));
                 let on = [0, 1, 2].map(|i| on[i] + shoulder[i]);
                 let sliced = [on[0] - translation[0], on[1] - translation[1], field.inverse(on[1], on[2]) - translation[2]];
-                [0, 1, 2].map(|i| fused(sliced, column(&rotation, i)))
+                [0, 1, 2].map(|i| dot(sliced, column(&rotation, i)))
             })
             .collect();
-        ensure!(closed(&faces), "{name} has an open support mesh");
-        let faces = if volume(&seated, &faces) < 0.0 { faces.iter().map(|f| [f[2], f[1], f[0]]).collect() } else { faces };
+        ensure!(closed(&solid.faces), "{name} has an open support mesh");
+        let mut seated = Mesh { vertices, faces: solid.faces };
+        if seated.volume() < 0.0 {
+            seated.faces.iter_mut().for_each(|f| f.swap(0, 2));
+        }
         let file = format!("{}.stl", name.replace(' ', "-").to_lowercase());
         let path = folder.join(&file);
-        std::fs::write(&path, stl(&seated, &faces)).with_context(|| format!("writing {}", path.display()))?;
-        parts.push(Json::Map(vec![entry("name", Json::Text(name)), entry("role", Json::Text(role.into())), entry("stl", Json::Text(file))]));
+        write_stl(&path, &seated.vertices, &seated.faces).with_context(|| format!("writing {}", path.display()))?;
+        parts.push(json!({"name": name, "role": role, "stl": file}));
         Ok(())
     };
     for (i, centre) in [0.0, 180.0].into_iter().enumerate() {
@@ -72,17 +69,17 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
         part(format!("Roof access slit {}", i + 1), "support_blocker", sector(&slit, SLIT_RADII, SLIT_DEPTH))?;
     }
     part("Mating plug keepout".into(), "support_blocker", plug())?;
-    let settings = Json::Map(vec![
-        entry("course_bands_mm", Json::List(COURSE_BANDS.iter().map(|band| numbers(band)).collect())),
-        entry("native_nose_handoff_mm", number(PLUG_RAMP.normal_again)),
-        entry("support_parts", Json::List(parts)),
-    ]);
-    std::fs::write(output, settings.dumps() + "\n").with_context(|| format!("writing {}", output.display()))
+    let settings = json!({
+        "course_bands_mm": COURSE_BANDS,
+        "native_nose_handoff_mm": PLUG_RAMP.normal_again,
+        "support_parts": parts,
+    });
+    std::fs::write(output, serde_json::to_string_pretty(&settings)? + "\n").with_context(|| format!("writing {}", output.display()))
 }
 
 /// A ring sector about the annulus centre through `angles`, in degrees, between two radii and
 /// two depths, closed by a quad at each end.
-fn sector(angles: &[f64], [inner, outer]: [f64; 2], [low, high]: [f64; 2]) -> Solid {
+fn sector(angles: &[f64], [inner, outer]: [f64; 2], [low, high]: [f64; 2]) -> Mesh {
     let section = [[inner, low], [outer, low], [outer, high], [inner, high]];
     let mut vertices = Vec::with_capacity(angles.len() * 4);
     for a in angles {
@@ -100,66 +97,24 @@ fn sector(angles: &[f64], [inner, outer]: [f64; 2], [low, high]: [f64; 2]) -> So
     }
     let end = 4 * (angles.len() - 1);
     faces.extend([[end, end + 1, end + 2], [end, end + 2, end + 3]]);
-    (vertices, faces)
+    Mesh { vertices, faces }
 }
 
-/// The plug keepout: a cylinder as trimesh revolves one, its profile's axis points joined into
-/// one point per cap, moved onto the annulus centre and depth.
-fn plug() -> Solid {
-    let half = (PLUG_DEPTH[1] - PLUG_DEPTH[0]).abs() / 2.0;
-    let profile = [[0.0, -half], [PLUG_RADIUS, -half], [PLUG_RADIUS, half], [0.0, half]];
-    let theta = linspace(0.0, std::f64::consts::PI * 2.0, PLUG_SECTIONS + 1);
-    // The revolution is closed, so its last ring is its first.
-    let mut vertices = Vec::with_capacity(PLUG_SECTIONS * profile.len());
-    for t in &theta[..PLUG_SECTIONS] {
-        for [r, z] in profile {
-            vertices.push([t.cos() * r, t.sin() * r, z]);
-        }
+/// The plug keepout: a cylinder about the annulus centre between the plug's depths, each cap a
+/// fan about its centre.
+fn plug() -> Mesh {
+    let [low, high] = PLUG_DEPTH;
+    let mut vertices = vec![[0.0, CENTRE, low], [0.0, CENTRE, high]];
+    for t in &linspace(0.0, std::f64::consts::TAU, PLUG_SECTIONS + 1)[..PLUG_SECTIONS] {
+        let (x, y) = (t.cos() * PLUG_RADIUS, CENTRE + t.sin() * PLUG_RADIUS);
+        vertices.extend([[x, y, low], [x, y, high]]);
     }
-    // Each wedge's faces, the two that would join axis points to themselves having no area.
-    let count = vertices.len();
-    let wedge = [[1, 4, 5], [1, 5, 2], [2, 5, 6], [2, 6, 3]];
-    let faces: Vec<[usize; 3]> = (0..PLUG_SECTIONS).flat_map(|k| wedge.map(|f| f.map(|i| (i + 4 * k) % count))).collect();
-    let (vertices, faces) = merged(vertices, faces);
-    // trimesh moves the points by a homogeneous matrix, which Accelerate multiplies through.
-    let depth = (PLUG_DEPTH[0] + PLUG_DEPTH[1]) / 2.0;
-    let matrix = [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, CENTRE], [0.0, 0.0, 1.0, depth]];
-    let moved = vertices
-        .iter()
-        .map(|v| {
-            let point = [v[0], v[1], v[2], 1.0];
-            matrix.map(|row| (1..4).fold(row[0] * point[0], |sum, k| row[k].mul_add(point[k], sum)))
+    let rim = |k: usize| (2 + 2 * (k % PLUG_SECTIONS), 3 + 2 * (k % PLUG_SECTIONS));
+    let faces = (0..PLUG_SECTIONS)
+        .flat_map(|k| {
+            let ((b, t), (b1, t1)) = (rim(k), rim(k + 1));
+            [[b, 0, b1], [b, b1, t], [t, b1, t1], [t, t1, 1]]
         })
         .collect();
-    (moved, faces)
-}
-
-/// Vertices that land on the same point, at trimesh's merging precision, joined into the first,
-/// as trimesh merges them.
-fn merged(vertices: Vec<[f64; 3]>, faces: Vec<[usize; 3]>) -> Solid {
-    let mut index: HashMap<[i64; 3], usize> = HashMap::with_capacity(vertices.len());
-    let mut kept = Vec::with_capacity(vertices.len());
-    let renumber: Vec<usize> = vertices
-        .iter()
-        .map(|v| {
-            *index.entry(v.map(|x| (x * 1e8).round_ties_even() as i64)).or_insert_with(|| {
-                kept.push(*v);
-                kept.len() - 1
-            })
-        })
-        .collect();
-    (kept, faces.iter().map(|f| f.map(|i| renumber[i])).collect())
-}
-
-/// The signed volume, positive when the faces wind outward.
-fn volume(vertices: &[[f64; 3]], faces: &[[usize; 3]]) -> f64 {
-    faces
-        .iter()
-        .map(|f| {
-            let [a, b, c] = f.map(|i| vertices[i]);
-            let (u, w) = ([b[1] - a[1], b[2] - a[2]], [c[1] - b[1], c[2] - b[2]]);
-            (u[0] * w[1] - u[1] * w[0]) * (a[0] + b[0] + c[0])
-        })
-        .sum::<f64>()
-        / 6.0
+    Mesh { vertices, faces }
 }
