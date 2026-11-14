@@ -42,5 +42,5 @@
   ],
   "native_diagnosis_reference": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-all008-estimate-mark2/native-screw-track-assessment.json",
   "scope": "Physical surface finish and support removal only; no load-capacity or endurance measurement.",
-  "selected_recipe_reference": "hardware/printed-parts/faucet/industrial/selected-print.json"
+  "selected_recipe_reference": "https://github.com/derekbreden/homesodamachine/blob/a52c29539341168479df7e6e0f836ef37ed8c516/hardware/printed-parts/faucet/industrial/selected-print.json"
 }

@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "reported_date": "2026-10-25",
+  "reported_date": "2026-11-13",
   "status": "approved_production_print_geometry_and_layer_recipe",
-  "user_quote": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough. Regarding the thinner layers that we tried on the previous FASA print there, that didn't turn out so good, so I'd like to go back to the same layer height everywhere as our final production print settings. And other than that, make sure that our next prints match what we did here, because all of this is looking good and is approved.",
-  "physical_result": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
-  "complete_head_fit_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
+  "user_quote": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it.",
+  "physical_result": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+  "complete_head_fit_record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "parts": [
     {
@@ -27,7 +27,7 @@
         "stl_sha256": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
         "printed_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "task_id": "1440074146",
-        "physical_result": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+        "physical_result": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
       }
     },
     {
@@ -39,7 +39,7 @@
         "stl_sha256": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
         "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "task_id": "1440074146",
-        "physical_result": "hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+        "physical_result": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
       }
     },
     {
@@ -81,12 +81,16 @@
     "retain_other_settings_from_accepted_print": true
   },
   "accepted_cosmetic_condition": {
-    "remaining_front_corner_gap": true,
-    "iteration_requested": false,
-    "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json"
+    "uncovered_tip_hole_by_cover_edge": true,
+    "record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+  },
+  "layer_recipe_approval": {
+    "reported_date": "2026-10-25",
+    "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
+    "production_tag": "faucet-industrial-production-2026-10-25-first020",
+    "user_quote": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough. Regarding the thinner layers that we tried on the previous FASA print there, that didn't turn out so good, so I'd like to go back to the same layer height everywhere as our final production print settings. And other than that, make sure that our next prints match what we did here, because all of this is looking good and is approved."
   },
   "historical_shipping_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
-  "scope": "The approval covers the head both faucet styles share, the tip with its lowered display seat and the Sculpted display cover, and the Industrial base, above-counter plate and lever. The tip's and cover's approved print is the complete Sculpted faucet on Mark2 whose record each block names; the base, plate and lever keep the approved print their own blocks name. Each part prints from the mesh its generator makes; approved_print names the mesh Derek's approved print used, by its hash, which is the check a generated part is read against. Historical physical records retain their own scope.",
-  "production_tag": "faucet-industrial-production-2026-10-25-first020",
+  "scope": "Derek approved the tip and display cover shared by both styles on the complete black Sculpted print. The Industrial base, plate and lever have their own approved print. The source fields select the generated STLs for preparation. The approved_print entries identify the source mesh and task of each physical approval.",
   "first_layer_selection_quote": "I don't know why bambu defaults 0.24 layer height to a 0.20 first layer, but if I don't have a reason to muck with a bambu default choice, I don't muck with it. I haven't had a reason to muck with it ..."
 }

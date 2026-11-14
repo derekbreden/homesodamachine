@@ -1,18 +1,14 @@
-# Approved Industrial faucet production print
+# Industrial faucet production print
 
-[`faucet-industrial-petgf.3mf`](faucet-industrial-petgf.3mf) contains the approved
-five-part set: Industrial base, lowered shared tip, Sculpted display cover with
-extended front skirts, rigid Industrial above-counter plate and side-down lever.
-The [production selection](production-selection.json) binds the exact meshes and
-[physical approval](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json).
-The small remaining front-corner gap is accepted as good enough. No further
-iteration on that gap is requested.
+The Industrial plate uses the Industrial base and above-counter plate, the tip
+and display cover shared with Sculpted, and the side-down lever. The
+[production selection](production-selection.json) names the approved mesh and
+print task for each part. Derek approved the tip and cover together on the
+[complete black Sculpted faucet](https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json).
 
-The first bed layer retains **Bambu’s 0.20 mm default**; every later layer is
-**0.24 mm**. There are no fine layer bands, and independent support layer
-height is Off. The approved print's meshes are kept in
-[the approved print's folder](production/2026-10-25/README.md);
-preparation reads the generated parts the production selection names beside them.
+The plate uses Bambu’s default first bed layer and uniform later layers, with
+independent support layer height off. The Industrial base, plate and lever have
+their own mesh and fit evidence in the [Industrial print's record](production/2026-10-25/README.md).
 The tip's ledge holds the display low over the tube, with a recess for each foot and
 a pocket for each switch. The cover retains the working glass and neck clearances
 and fixed snap datums.
@@ -27,16 +23,16 @@ prints or parts.
 | --- | ---: | --- |
 | Industrial shell base | −15° | Back, A2 scarf |
 | Lowered shared faucet tip | −105° | Back, A2 scarf |
-| Extended-skirt Sculpted display cover | −50° | Aligned, scarf Off |
+| Shared display cover | −50° | Aligned, scarf Off |
 | Rigid Industrial above-counter plate | 0° | Back, A2 scarf |
 | Side-down lever replica | 0° of its print-oriented STL | Aligned, scarf Off |
 
 ## Selected process
 
-The [approval settings](production/2026-10-25/all-settings.json) and
-[approval slice reading](production/2026-10-25/native-review.json) bind the
-approved geometry, seam setup and calibration to the physical prints. The
-[current process selection](finish-selection.json) and
+The [layer recipe approval](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+records the selected layer schedule. The Industrial print's [settings](production/2026-10-25/all-settings.json)
+and [native slice reading](production/2026-10-25/native-review.json) record its
+seam setup and calibration. The [current process selection](finish-selection.json) and
 [production path review](faucet-industrial-petgf.support-audit.json) record
 the selected support contacts and emitted bridges.
 
@@ -57,8 +53,7 @@ the selected support contacts and emitted bridges.
 | Automatic supports | Tree(auto), saved Default style, 35° threshold |
 | Support gaps and interfaces | [Shared PET-GF recipe](../../petgf.3mf) with the [base contact overrides](finish-selection.json) |
 | Brim | Off for the base. Auto on the rest of the plate |
-| Mark2 requested / emitted Z trim | +0.04 / +0.02 mm on Textured PEI |
-| Mark1 requested / emitted Z trim | +0.18 / +0.16 mm on Textured PEI |
+| Z trim | [The selected printer’s PET-GF trim](../../z-trim.md) |
 | Timelapse / bed leveling | On / On |
 | Flow / nozzle-offset calibration | Auto / Auto |
 
@@ -90,9 +85,9 @@ automatic supports.
 tools/run -- tools/hsm/target/release/industrial-faucet-print-project --slice-output path/to/new-slice-directory
 ```
 
-The preparer uses the approved frozen meshes and print profile. The slice
-output contains the complete executable plate with the restored contact
-paths, contoured rim perimeters and original production meshes. Optional
+The preparer uses the generated STLs and print profile in the production
+selection. The slice output contains the complete executable plate with shaped
+contact paths and rim perimeters. Optional
 `--printer Mark1 --filament-colour '#000000'` applies Mark1's own trim and the
 specified spool colour. Check the destination's actual material and nozzle
 mapping before sending.
@@ -114,8 +109,8 @@ rear, donor and lever openings; through the tip's joint, display pocket and
 outlets; and through the cover's open underside before display installation.
 Preserve bearing, lip and groove surfaces.
 
-The pictured head and latest cover have direct assembly and appearance approval.
-The remaining corner gap is an accepted cosmetic condition. Numerical assembly
-and retention forces, hydraulic fault discharge and endurance are unmeasured.
+The shared head’s fit is approved with a small hole in the tip beside the
+cover’s front corner still visible. Assembly and retention forces, hydraulic
+fault discharge and endurance are unmeasured.
 Historical physical results retain their identified articles and settings in the
 [print log](print-log.md) and [shipping acceptance](physical-acceptance.json).
