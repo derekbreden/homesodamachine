@@ -21,7 +21,7 @@
     <span id="motion-layer"></span>
     <span id="motion-readout"></span>
   </div>
-  <div class="motion-stage" id="motion-stage" role="img" aria-label="Continuous H2C print simulation. The nozzle moves in the gantry plane, deposited beads grow on the bed, and the bed moves vertically with the G-code.">
+  <div class="motion-stage" id="motion-stage" role="img" aria-label="H2C print playback. The nozzle moves in XY at a fixed height. The bed moves vertically with the deposited material.">
     <div class="motion-loading" id="motion-loading">Preparing print motion…</div>
   </div>
   <div class="motion-controls">
@@ -262,12 +262,17 @@ function samplePoint(index, target) {
   return target.set(track.getInt16(offset, true) / 100, track.getInt16(offset + 2, true) / 100,
     track.getInt16(offset + 4, true) / 100);
 }
-if (bounds.isEmpty()) {
-  if (track) for (let i = 0; i < count; i++) bounds.expandByPoint(samplePoint(i, a));
-  else for (let i = 0; i <= count; i++) bounds.expandByPoint(point(i, a));
-}
-const printCenter=bounds.getCenter(new THREE.Vector3());
-const printSize=bounds.getSize(new THREE.Vector3());
+const motionBounds = new THREE.Box3();
+if (track) for (let i = 0; i < count; i++) motionBounds.expandByPoint(samplePoint(i, a));
+else for (let i = 0; i <= count; i++) motionBounds.expandByPoint(point(i, a));
+
+// The Print camera frames the print footprint and the bed's entire travel in printer coordinates.
+const printBounds = bounds.isEmpty() ? motionBounds.clone() : bounds;
+printBounds.min.z = -motionBounds.max.z;
+printBounds.max.z = Math.max(-motionBounds.min.z, new THREE.Box3().setFromObject(machine).max.z);
+const printFrame = printBounds.getBoundingSphere(new THREE.Sphere());
+const printDirection = new THREE.Vector3(-.75, -1, .75).normalize();
+const printDistance = printFrame.radius / Math.sin(THREE.MathUtils.degToRad(camera.fov / 2)) * 1.1;
 let now = data.start_at_end ? duration : 0;
 let playing=false,speed=data.speed,mode="print",lastFrame=0,frameRequest=0;
 let currentLayer = data.selected_layers[0];
@@ -308,15 +313,13 @@ function fraction(i,time){
 }
 function setView(value){
   mode=value;
-  const z=bed.position.z;
   if(mode==="machine"){
     controls.target.set(0,0,-70);camera.position.set(-450,-610,310);
   }else if(mode==="follow"){
     followTarget.copy(head.position);followOffset.set(-42,-65,48);controls.target.copy(followTarget);camera.position.copy(followTarget).add(followOffset);
   }else{
-    const distance=Math.max(printSize.x,printSize.y,printSize.z,25)*2.2;
-    controls.target.copy(printCenter).add(new THREE.Vector3(0,0,z));
-    camera.position.copy(controls.target).add(new THREE.Vector3(-distance*.75,-distance, distance*.75));
+    controls.target.copy(printFrame.center);
+    camera.position.copy(controls.target).addScaledVector(printDirection, printDistance);
   }
   controls.update();draw();
 }
@@ -358,20 +361,14 @@ function draw(){
   const frame = pose(now, current);
   currentLayer = frame.layer;
   roadGeometry.setDrawRange(0, frame.deposited * drawUnitsPerRoad);
-  const nextBedZ = -current.z;
-  if (mode === "print") {
-    const shift = nextBedZ - bed.position.z;
-    camera.position.z += shift;
-    controls.target.z += shift;
-  }
-  bed.position.z = nextBedZ;
+  bed.position.z = -current.z;
   head.position.set(current.x, current.y, 0);
   gantry.position.y = current.y;
   if(mode==="follow"){
     const delta=head.position.clone().sub(followTarget);camera.position.add(delta);controls.target.add(delta);followTarget.copy(head.position);
   }
   $("motion-layer").textContent=`Layer ${currentLayer} · ${data.selected_layers[0]}–${data.selected_layers[1]}`;
-  $("motion-readout").textContent=`${data.features[frame.feature]} · ${frame.speed.toFixed(0)} mm/s · Z ${current.z.toFixed(2)} mm`;
+  $("motion-readout").textContent=`${data.features[frame.feature]} · ${frame.speed.toFixed(0)} mm/s · G-code Z ${current.z.toFixed(2)} mm`;
   $("motion-time").textContent=`${clock(now)} / ${clock(duration)}`;
   $("motion-scrub").value=String(now/duration*1000);
   renderer.render(scene,camera);
@@ -397,7 +394,16 @@ $("motion-camera").addEventListener("change",()=>{setView($("motion-camera").val
 $("motion-scrub").addEventListener("input",()=>{now=Number($("motion-scrub").value)/1000*duration;draw();});
 $("motion-scrub").addEventListener("change",()=>{saveState();$("motion-announcement").textContent=`Layer ${currentLayer}, ${clock(now)} of estimated motion.`;});
 controls.addEventListener("change",()=>{if(mode==="follow")followOffset.copy(camera.position).sub(controls.target);renderer.render(scene,camera);});
-new ResizeObserver(()=>{renderer.setSize(stage.clientWidth,stage.clientHeight,false);camera.aspect=stage.clientWidth/stage.clientHeight;camera.updateProjectionMatrix();draw();}).observe(stage);
+new ResizeObserver(() => {
+  const { clientWidth: width, clientHeight: height } = stage;
+  if (!width || !height) return;
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
+  // Keep the horizontal field of view on narrow screens without moving the camera.
+  camera.zoom = Math.min(1, camera.aspect);
+  camera.updateProjectionMatrix();
+  draw();
+}).observe(stage);
 document.addEventListener("visibilitychange",()=>{lastFrame=0;if(!document.hidden&&playing&&!frameRequest)frameRequest=requestAnimationFrame(tick);});
 window.addEventListener("openai:set_globals",(event)=>{
   const state=event.detail?.globals?.widgetState;if(!sameSelection(state))return;
