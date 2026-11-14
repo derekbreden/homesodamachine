@@ -1,0 +1,58 @@
+{
+  "purpose": "Replays the print's moves near the base against the toolhead's modelled underside.",
+  "gcode": ".cache/runs/faucet-sloped-slab-20261113/plate/out/plate_1.gcode",
+  "samples": 1008992,
+  "least_head_gap_mm": 2.06,
+  "least_head_gap_at": [
+    60.09,
+    128.75,
+    12.978,
+    "underside:Internal solid infill",
+    48916
+  ],
+  "least_nozzle_flank_gap_mm": -0.061,
+  "least_nozzle_flank_gap_at": [
+    100.95,
+    145.25,
+    7.066,
+    "underside:Outer wall",
+    28035
+  ],
+  "travel_samples_below_laid_plastic": 0,
+  "fastest_z_in_the_underside_or_while_laying_mm_s": 30.0,
+  "fastest_z_while_laying_mm_s": 11.7,
+  "fastest_z_while_laying_at": [
+    "plate",
+    "Outer wall",
+    1029671
+  ],
+  "fastest_z_while_laying_the_underside_mm_s": 7.58,
+  "lowest_extrusion_z_mm": 0.2,
+  "least_head_gap_by_stage_mm": {
+    "plate:Bottom surface": 3.6,
+    "plate:Bridge": 2.161,
+    "plate:Brim": 3.6,
+    "plate:Floating vertical shell": 2.213,
+    "plate:Gap infill": 3.84,
+    "plate:Inner wall": 2.122,
+    "plate:Internal solid infill": 2.153,
+    "plate:Outer wall": 2.122,
+    "plate:Overhang wall": 3.4,
+    "plate:Sparse infill": 2.137,
+    "plate:Support": 2.138,
+    "plate:Support interface": 3.4,
+    "plate:Support transition": 3.4,
+    "plate:Top surface": 3.84,
+    "plate:travel": 2.137,
+    "underside:Bottom surface": 2.061,
+    "underside:Bridge": 2.137,
+    "underside:Internal solid infill": 2.06,
+    "underside:Outer wall": 2.062,
+    "underside:Support": 2.06,
+    "underside:Support interface": 2.061,
+    "underside:travel": 2.062
+  },
+  "grid_mm": 0.5,
+  "sample_mm": 1.0,
+  "head_model": "hardware/reference/h2c-toolhead, left nozzle active; its lower surfaces are estimates from photographs"
+}
