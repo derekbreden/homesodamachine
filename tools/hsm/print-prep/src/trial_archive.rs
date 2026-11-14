@@ -3,8 +3,9 @@
 //! The native slice's archive supplies everything else: the archive carries the sequenced
 //! G-code with its estimates and filament, and leaves out the editable geometry.
 
-use crate::python_text::{sum, Json};
+use crate::xml::{document, parse, Element};
 use anyhow::{bail, ensure, Context, Result};
+use serde_json::{json, Value};
 use std::f64::consts::PI;
 use std::fs;
 use std::io::{Read, Write};
@@ -77,200 +78,48 @@ fn count(data: &[u8], pattern: &[u8]) -> usize {
     found
 }
 
-/// An element as Python's ElementTree holds one: the text before its first child and the tail
-/// after its end.
-#[derive(Default)]
-struct Element {
-    tag: String,
-    attrib: Vec<(String, String)>,
-    text: String,
-    tail: String,
-    children: Vec<Element>,
-}
-
-impl Element {
-    fn set(&mut self, key: &str, value: String) {
-        match self.attrib.iter_mut().find(|(k, _)| k == key) {
-            Some(slot) => slot.1 = value,
-            None => self.attrib.push((key.to_string(), value)),
-        }
-    }
-
-    fn child(&mut self, tag: &str) -> Result<&mut Element> {
-        self.children.iter_mut().find(|c| c.tag == tag).with_context(|| format!("No <{tag}>"))
+fn set(element: &mut Element, key: &str, value: String) {
+    match element.attributes.iter_mut().find(|(k, _)| k == key) {
+        Some(slot) => slot.1 = value,
+        None => element.attributes.push((key.to_string(), value)),
     }
 }
 
-fn unescape(text: &str) -> Result<String> {
-    let mut out = String::with_capacity(text.len());
-    let mut rest = text;
-    while let Some(at) = rest.find('&') {
-        out.push_str(&rest[..at]);
-        let end = rest[at..].find(';').context("An unterminated entity")? + at;
-        let entity = &rest[at + 1..end];
-        let c = match entity {
-            "amp" => '&',
-            "lt" => '<',
-            "gt" => '>',
-            "quot" => '"',
-            "apos" => '\'',
-            _ => {
-                let code = match entity.strip_prefix("#x") {
-                    Some(hex) => u32::from_str_radix(hex, 16)?,
-                    None => entity.strip_prefix('#').context("An undefined entity")?.parse()?,
-                };
-                char::from_u32(code).context("A character reference out of range")?
-            }
-        };
-        out.push(c);
-        rest = &rest[end + 1..];
+fn child<'a>(element: &'a mut Element, name: &str) -> Result<&'a mut Element> {
+    element.children.iter_mut().find(|c| c.local() == name).with_context(|| format!("No <{name}>"))
+}
+
+/// The element without the white space between its children.
+fn compact(element: &mut Element) {
+    if element.text.trim().is_empty() {
+        element.text.clear();
     }
-    out.push_str(rest);
-    Ok(out)
-}
-
-/// The document's root as `xml.etree.ElementTree.fromstring` reads it.
-fn parse(text: &str) -> Result<Element> {
-    let text = text.strip_prefix('\u{feff}').unwrap_or(text).replace("\r\n", "\n").replace('\r', "\n");
-    let mut stack: Vec<Element> = Vec::new();
-    let mut root = None;
-    let mut at = 0;
-    let data = |stack: &mut Vec<Element>, piece: &str| {
-        if let Some(top) = stack.last_mut() {
-            match top.children.last_mut() {
-                Some(last) => last.tail.push_str(piece),
-                None => top.text.push_str(piece),
-            }
-        }
-    };
-    while at < text.len() {
-        let Some(open) = text[at..].find('<').map(|i| at + i) else {
-            data(&mut stack, &unescape(&text[at..])?);
-            break;
-        };
-        data(&mut stack, &unescape(&text[at..open])?);
-        let rest = &text[open..];
-        let skip = |end: &str| rest.find(end).map(|i| open + i + end.len()).context("An unterminated markup declaration");
-        if rest.starts_with("<?") {
-            at = skip("?>")?;
-        } else if rest.starts_with("<!--") {
-            at = skip("-->")?;
-        } else if let Some(cdata) = rest.strip_prefix("<![CDATA[") {
-            let end = cdata.find("]]>").context("An unterminated CDATA section")?;
-            data(&mut stack, &cdata[..end]);
-            at = open + 9 + end + 3;
-        } else if rest.starts_with("<!") {
-            at = skip(">")?;
-        } else if let Some(name) = rest.strip_prefix("</") {
-            let close = name.find('>').context("An unterminated end tag")?;
-            let done = stack.pop().context("An end tag without its start")?;
-            ensure!(done.tag == name[..close].trim(), "</{}> closes <{}>", name[..close].trim(), done.tag);
-            match stack.last_mut() {
-                Some(parent) => parent.children.push(done),
-                None => root = Some(done),
-            }
-            at = open + 2 + close + 1;
-        } else {
-            let close = rest.find('>').context("An unterminated start tag")?;
-            let inner = &rest[1..close];
-            let empty = inner.ends_with('/');
-            let inner = inner.strip_suffix('/').unwrap_or(inner);
-            let split = inner.find(|c: char| c.is_ascii_whitespace()).unwrap_or(inner.len());
-            let mut element = Element { tag: inner[..split].to_string(), ..Default::default() };
-            let mut attributes = inner[split..].trim();
-            while !attributes.is_empty() {
-                let eq = attributes.find('=').context("An attribute without a value")?;
-                let key = attributes[..eq].trim();
-                let value = attributes[eq + 1..].trim_start();
-                let quote = value.chars().next().filter(|c| *c == '"' || *c == '\'').context("An unquoted attribute")?;
-                let end = value[1..].find(quote).context("An unterminated attribute")? + 1;
-                let normalized = value[1..end].replace(['\t', '\n'], " ");
-                element.attrib.push((key.to_string(), unescape(&normalized)?));
-                attributes = value[end + 1..].trim_start();
-            }
-            if empty {
-                match stack.last_mut() {
-                    Some(parent) => parent.children.push(element),
-                    None => root = Some(element),
-                }
-            } else {
-                stack.push(element);
-            }
-            at = open + close + 1;
-        }
-    }
-    ensure!(stack.is_empty(), "An element is not closed");
-    root.context("No root element")
-}
-
-fn escape_text(text: &str) -> String {
-    text.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
-}
-
-fn escape_attribute(text: &str) -> String {
-    escape_text(text).replace('"', "&quot;").replace('\r', "&#13;").replace('\n', "&#10;").replace('\t', "&#09;")
-}
-
-fn serialize(element: &Element, out: &mut String) {
-    out.push('<');
-    out.push_str(&element.tag);
-    for (key, value) in &element.attrib {
-        out.push_str(&format!(" {key}=\"{}\"", escape_attribute(value)));
-    }
-    if element.text.is_empty() && element.children.is_empty() {
-        out.push_str(" />");
-    } else {
-        out.push('>');
-        out.push_str(&escape_text(&element.text));
-        for child in &element.children {
-            serialize(child, out);
-        }
-        out.push_str(&format!("</{}>", element.tag));
-    }
-    out.push_str(&escape_text(&element.tail));
-}
-
-/// `ElementTree.tostring(root, encoding="utf-8", xml_declaration=True)`.
-fn document(root: &Element) -> Vec<u8> {
-    let mut out = String::from("<?xml version='1.0' encoding='utf-8'?>\n");
-    serialize(root, &mut out);
-    out.into_bytes()
+    element.children.iter_mut().for_each(compact);
 }
 
 /// The slice record with the sequenced plate's prediction, weight, first-course time, filament
 /// and course groups.
 fn slice_info(template: &[u8], prediction: i64, grams: f64, first_course_seconds: f64, filament_mm: f64, groups: usize) -> Result<Vec<u8>> {
     let mut info = parse(std::str::from_utf8(template)?)?;
-    let plate = info.child("plate")?;
+    let plate = child(&mut info, "plate")?;
     for (key, value) in [("prediction", prediction.to_string()), ("weight", format!("{grams:.2}")),
                          ("first_layer_time", format!("{first_course_seconds:.6}"))] {
-        let mut found = None;
-        for (n, child) in plate.children.iter().enumerate() {
-            if child.tag == "metadata" {
-                let name = child.attrib.iter().find(|(k, _)| k == "key").context("A metadata element without a key")?;
-                if name.1 == key {
-                    found = Some(n);
-                }
-            }
-        }
-        plate.children[found.with_context(|| format!("No {key} metadata"))?].set("value", value);
+        let metadata = plate.children.iter_mut().filter(|c| c.local() == "metadata" && c.attribute("key") == Some(key)).last();
+        set(metadata.with_context(|| format!("No {key} metadata"))?, "value", value);
     }
-    let filament = plate.child("filament")?;
-    filament.set("used_m", format!("{:.2}", filament_mm / 1000.0));
-    filament.set("used_g", format!("{grams:.2}"));
-    let layers = plate.child("layer_filament_lists")?;
-    *layers = Element { tag: layers.tag.clone(), ..Default::default() };
-    layers.children.push(Element {
-        tag: "layer_filament_list".into(),
-        attrib: vec![("filament_list".into(), "0".into()), ("layer_ranges".into(), format!("0 {groups}"))],
-        ..Default::default()
-    });
+    let filament = child(plate, "filament")?;
+    set(filament, "used_m", format!("{:.2}", filament_mm / 1000.0));
+    set(filament, "used_g", format!("{grams:.2}"));
+    let layers = child(plate, "layer_filament_lists")?;
+    let ranges = vec![("filament_list".into(), "0".into()), ("layer_ranges".into(), format!("0 {groups}"))];
+    *layers = Element { name: layers.name.clone(), children: vec![Element { name: "layer_filament_list".into(), attributes: ranges, ..Default::default() }], ..Default::default() };
+    compact(&mut info);
     Ok(document(&info))
 }
 
 /// The model without its objects and build items, as a print-only archive carries it.
 fn print_only_model(data: &[u8]) -> Result<Vec<u8>> {
-    let mut model = crate::xml::parse(std::str::from_utf8(data)?)?;
+    let mut model = parse(std::str::from_utf8(data)?)?;
     for tag in ["resources", "build"] {
         let child = model.children.iter_mut().find(|e| e.local() == tag).with_context(|| format!("Model has no {tag}"))?;
         child.attributes.clear();
@@ -278,17 +127,17 @@ fn print_only_model(data: &[u8]) -> Result<Vec<u8>> {
         child.text.clear();
     }
     model.attributes.retain(|(key, _)| key != "requiredextensions");
-    Ok(crate::xml::document(&model))
+    Ok(document(&model))
 }
 
 /// The model settings without objects, assemblies or plate instances.
 fn print_only_settings(data: &[u8]) -> Result<Vec<u8>> {
-    let mut config = crate::xml::parse(std::str::from_utf8(data)?)?;
+    let mut config = parse(std::str::from_utf8(data)?)?;
     config.children.retain(|e| !matches!(e.local(), "object" | "assemble"));
     for plate in config.children.iter_mut().filter(|e| e.local() == "plate") {
         plate.children.retain(|e| e.local() != "model_instance");
     }
-    Ok(crate::xml::document(&config))
+    Ok(document(&config))
 }
 
 fn editable(name: &str) -> bool {
@@ -299,17 +148,16 @@ fn editable(name: &str) -> bool {
 /// Writes the print-only archive for `sequenced` to the new file `output`, from the native
 /// slice's archive `template`, the sequencer's report beside `sequenced`, the playback motion
 /// time and the first bed course's deposition span. The summary is returned.
-pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds: f64, first_course_seconds: f64) -> Result<Json> {
+pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds: f64, first_course_seconds: f64) -> Result<Value> {
     ensure!(!output.exists() && output != template, "Use a new destination; preserve the reviewed source archive");
     let raw = fs::read(sequenced)?;
-    let report = Json::loads(&fs::read_to_string(sequenced.with_extension("json"))?)?;
-    ensure!(report.get("sequenced_gcode_sha256") == Some(&Json::Str(crate::sha256_hex(&raw))), "Sequencer report and G-code differ");
+    let report: Value = serde_json::from_slice(&fs::read(sequenced.with_extension("json"))?)?;
+    ensure!(report["sequenced_gcode_sha256"] == crate::sha256_hex(&raw).as_str(), "Sequencer report and G-code differ");
     let groups = count(&raw, b"\n; CHANGE_LAYER\n");
-    let Some(Json::List(rows)) = report.get("groups") else { bail!("The report has no groups") };
+    let rows = report["groups"].as_array().context("The report has no groups")?;
     ensure!(groups == rows.len(), "Missing course group delimiters");
-    let Some(Json::Dict(deposition)) = report.get("deposition_mm_filament") else { bail!("The report has no filament") };
-    let deposition: Vec<f64> = deposition.iter().map(|(_, v)| v.as_f64().context("A filament length is not a number")).collect::<Result<_>>()?;
-    let filament_mm = sum(&deposition);
+    let deposition = report["deposition_mm_filament"].as_object().context("The report has no filament")?;
+    let filament_mm = deposition.values().map(|v| v.as_f64().context("A filament length is not a number")).sum::<Result<f64>>()?;
     let diameter = header_number(&raw, "; filament_diameter: ")?;
     let density = header_number(&raw, "; filament_density: ")?;
     let volume_mm3 = PI * (diameter / 2.0).powf(2.0) * filament_mm;
@@ -345,9 +193,9 @@ pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds:
             n if n == format!("{GCODE}.md5") => crate::ids::md5_hex(&gcode).into_bytes(),
             SLICE => slice_info(&data, motion_seconds.ceil() as i64, grams, first_course_seconds, filament_mm, groups)?,
             LAYOUT => {
-                let mut layout = Json::loads(std::str::from_utf8(&data)?)?;
-                layout.set("first_layer_time", Json::Float(first_course_seconds));
-                layout.dumps_compact().into_bytes()
+                let mut layout: Value = serde_json::from_slice(&data)?;
+                layout["first_layer_time"] = json!(first_course_seconds);
+                serde_json::to_vec(&layout)?
             }
             MODEL => print_only_model(&data)?,
             SETTINGS => print_only_settings(&data)?,
@@ -357,13 +205,13 @@ pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds:
         writer.write_all(&data)?;
     }
     writer.finish()?;
-    Ok(Json::Dict(vec![
-        ("gcode_sha256".into(), Json::Str(crate::sha256_hex(&gcode))),
-        ("gcode_md5".into(), Json::Str(crate::ids::md5_hex(&gcode))),
-        ("course_groups".into(), Json::Int(groups as i64)),
-        ("deposition_filament_mm".into(), Json::Float(filament_mm)),
-        ("deposition_weight_g".into(), Json::Float(grams)),
-        ("estimated_motion_seconds".into(), Json::Float(motion_seconds)),
-        ("first_bed_course_deposition_span_seconds".into(), Json::Float(first_course_seconds)),
-    ]))
+    Ok(json!({
+        "gcode_sha256": crate::sha256_hex(&gcode),
+        "gcode_md5": crate::ids::md5_hex(&gcode),
+        "course_groups": groups,
+        "deposition_filament_mm": filament_mm,
+        "deposition_weight_g": grams,
+        "estimated_motion_seconds": motion_seconds,
+        "first_bed_course_deposition_span_seconds": first_course_seconds,
+    }))
 }

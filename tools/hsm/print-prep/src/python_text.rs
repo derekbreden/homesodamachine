@@ -1,8 +1,7 @@
 //! Writes numbers, text and JSON the way the trial preparers' Python writes them.
 //!
-//! A stage ported from a trial's Python writes the same bytes through these: `repr`, the `g`
-//! format, `round`, `math.dist`, the builtin `sum`, `str.strip`, `str.splitlines`, `json.loads`
-//! and `json.dumps`.
+//! The plate sequencer and the shaft join's cooling read and write through these: `repr`, the
+//! `g` format, `str.strip`, `str.splitlines`, `json.loads` and `json.dumps`.
 
 use anyhow::{bail, Context, Result};
 
@@ -52,14 +51,6 @@ pub fn g(x: f64) -> String {
     }
 }
 
-/// `round(x, digits)`: the float nearest the decimal rounded to `digits` places.
-pub fn round(x: f64, digits: usize) -> f64 {
-    if !x.is_finite() {
-        return x;
-    }
-    format!("{x:.digits$}").parse().expect("a formatted float reads back")
-}
-
 /// The sign, digits and exponent of a number Rust wrote in exponent form.
 fn scientific(text: &str) -> (&str, String, i32) {
     let (mantissa, exponent) = text.split_once('e').expect("exponent form");
@@ -84,99 +75,6 @@ fn trim_zeros(mut text: String) -> String {
         }
     }
     text
-}
-
-/// `math.dist(p, q)`: scaled losslessly, squared exactly, summed with compensation and corrected
-/// through the square root, as CPython measures it.
-pub fn dist(p: &[f64], q: &[f64]) -> f64 {
-    let mut diffs: Vec<f64> = p.iter().zip(q).map(|(a, b)| (a - b).abs()).collect();
-    let mut max = 0.0;
-    let mut found_nan = false;
-    for &x in &diffs {
-        found_nan |= x.is_nan();
-        if x > max {
-            max = x;
-        }
-    }
-    vector_norm(&mut diffs, max, found_nan)
-}
-
-fn vector_norm(vec: &mut [f64], max: f64, found_nan: bool) -> f64 {
-    if max.is_infinite() {
-        return max;
-    }
-    if found_nan {
-        return f64::NAN;
-    }
-    if max == 0.0 || vec.len() <= 1 {
-        return max;
-    }
-    let max_e = frexp_exponent(max);
-    if max_e < -1023 {
-        for x in vec.iter_mut() {
-            *x /= f64::MIN_POSITIVE;
-        }
-        return f64::MIN_POSITIVE * vector_norm(vec, max / f64::MIN_POSITIVE, found_nan);
-    }
-    let scale = power_of_two(-max_e);
-    let (mut csum, mut frac1, mut frac2) = (1.0, 0.0, 0.0);
-    for &x in vec.iter() {
-        let x = x * scale;
-        let (hi, lo) = exact_product(x, x);
-        let (sum, error) = fast_two_sum(csum, hi);
-        csum = sum;
-        frac1 += lo;
-        frac2 += error;
-    }
-    let mut h = (csum - 1.0 + (frac1 + frac2)).sqrt();
-    let (hi, lo) = exact_product(-h, h);
-    let (sum, error) = fast_two_sum(csum, hi);
-    csum = sum;
-    frac1 += lo;
-    frac2 += error;
-    let x = csum - 1.0 + (frac1 + frac2);
-    h += x / (2.0 * h);
-    h / scale
-}
-
-fn exact_product(x: f64, y: f64) -> (f64, f64) {
-    let z = x * y;
-    (z, x.mul_add(y, -z))
-}
-
-fn fast_two_sum(a: f64, b: f64) -> (f64, f64) {
-    let x = a + b;
-    (x, (a - x) + b)
-}
-
-/// The binary exponent `frexp` gives for `x`.
-fn frexp_exponent(x: f64) -> i32 {
-    let biased = ((x.to_bits() >> 52) & 0x7ff) as i32;
-    if biased == 0 { frexp_exponent(x * power_of_two(64)) - 64 } else { biased - 1022 }
-}
-
-fn power_of_two(e: i32) -> f64 {
-    if e < -1022 { f64::from_bits(1u64 << (52 + e + 1022)) } else { f64::from_bits(((e + 1023) as u64) << 52) }
-}
-
-/// The builtin `sum` of floats: the first value, then the rest with Neumaier's compensation.
-pub fn sum(values: &[f64]) -> f64 {
-    let Some((&first, rest)) = values.split_first() else { return 0.0 };
-    let mut total = 0.0 + first;
-    let mut compensation = 0.0;
-    for &x in rest {
-        let t = total + x;
-        if total.abs() >= x.abs() {
-            compensation += (total - t) + x;
-        } else {
-            compensation += (x - t) + total;
-        }
-        total = t;
-    }
-    if compensation != 0.0 && compensation.is_finite() {
-        total += compensation;
-    }
-    total
 }
 
 /// `min(a, b, c)` on floats: the first of the smallest.
@@ -292,22 +190,9 @@ impl Json {
         }
     }
 
-    pub fn as_f64(&self) -> Option<f64> {
-        match self {
-            Json::Float(x) => Some(*x),
-            Json::Int(i) => Some(*i as f64),
-            _ => None,
-        }
-    }
-
     /// `json.dumps(value)`.
     pub fn dumps(&self) -> String {
         self.write(&Style { indent: None, item: ", ", key: ": " })
-    }
-
-    /// `json.dumps(value, separators=(",", ":"))`.
-    pub fn dumps_compact(&self) -> String {
-        self.write(&Style { indent: None, item: ",", key: ":" })
     }
 
     /// `json.dumps(value, indent=2)`.
@@ -598,13 +483,12 @@ mod tests {
         assert_eq!(g(255.0), "255");
         assert_eq!(g(0.42), "0.42");
         assert_eq!(g(1234567.0), "1.23457e+06");
-        assert_eq!(round(0.125, 2), 0.12);
     }
 
     #[test]
     fn json_keeps_order_and_kind() {
         let value = Json::loads(r#"{"b":1,"a":[0.5,2.0],"c":"\u00e9"}"#).unwrap();
-        assert_eq!(value.dumps_compact(), r#"{"b":1,"a":[0.5,2.0],"c":"\u00e9"}"#);
+        assert_eq!(value.dumps(), r#"{"b": 1, "a": [0.5, 2.0], "c": "\u00e9"}"#);
         assert_eq!(value.dumps_indented(), "{\n  \"b\": 1,\n  \"a\": [\n    0.5,\n    2.0\n  ],\n  \"c\": \"\\u00e9\"\n}");
     }
 }
