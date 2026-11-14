@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-13",
+  "as_of": "2026-11-14",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -9891,14 +9891,28 @@
     "pur-36841266e8fb437a8d42247cbf7ee53d": {
       "vendor": "Amazon",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "amazon:114-4687967-9041802"
       ],
       "allocation_status": "all_project",
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390",
-        "src-6e940ed7bbfe4e13ad74777db49f8ac9"
+        "src-6e940ed7bbfe4e13ad74777db49f8ac9",
+        "src-794a27088a4441b09ee7d79219e71cd3"
+      ],
+      "price_history": [
+        {
+          "amount_minor": 900,
+          "currency": "USD",
+          "amount_evidence": "estimate",
+          "source_ids": [
+            "src-f222afa30a654f9cb63b1cbf6992b390",
+            "src-6e940ed7bbfe4e13ad74777db49f8ac9"
+          ],
+          "verified_at": "2026-11-14",
+          "note": "Prior order estimate retained as noncontributing history; the separately completed order-scoped merchant transaction confirms the same USD 9.00 total."
+        }
       ]
     },
     "pur-fd0447880897405fb697a1c430b6bba0": {
@@ -16348,7 +16362,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390",
-        "src-6e940ed7bbfe4e13ad74777db49f8ac9"
+        "src-6e940ed7bbfe4e13ad74777db49f8ac9",
+        "src-794a27088a4441b09ee7d79219e71cd3"
       ]
     },
     "amazon:112-1265759-9506602": {
@@ -20616,16 +20631,20 @@
       "event_id": "evt-bd8302df82b54c40af7121a5187455cf",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-13"
+      },
       "amount_minor": 900,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
         "src-f222afa30a654f9cb63b1cbf6992b390",
-        "src-6e940ed7bbfe4e13ad74777db49f8ac9"
+        "src-6e940ed7bbfe4e13ad74777db49f8ac9",
+        "src-794a27088a4441b09ee7d79219e71cd3"
       ],
-      "verified_at": "2026-11-13",
+      "verified_at": "2026-11-14",
       "order_ids": [
         "amazon:114-4687967-9041802"
       ]
@@ -34550,7 +34569,7 @@
       "proves": [
         "price"
       ],
-      "verified_at": "2026-11-13",
+      "verified_at": "2026-11-14",
       "note": "Order-scoped Your Payments shows In Progress / Pending USD 159.54, with November 13, 2026 displayed. No completed charge or actual delivery is established. The pending date is not recorded as a completed merchant-event date."
     },
     "src-6e940ed7bbfe4e13ad74777db49f8ac9": {
@@ -34670,6 +34689,23 @@
       },
       "verified_at": "2026-11-13",
       "note": "Signed-in order invoice for us795729195777990656 explicitly states Payment Date November 8, 2026 and Net payment USD 56.69. Invoice date is November 8; item subtotal USD 45.87, shipping USD 6.99 and tax USD 3.83. Its Delivery Date label also says November 8, which conflicts with the carrier actual-delivery timeline; the separately verified November 12 physical delivery and November 7 placed date are retained. The invoice delivery field does not override carrier evidence. No bank posting or funding ownership is inferred."
+    },
+    "src-794a27088a4441b09ee7d79219e71cd3": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "114-4687967-9041802",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date",
+        "price"
+      ],
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-13"
+      },
+      "verified_at": "2026-11-14",
+      "note": "Live order-scoped Your Payments > Completed shows USD 9.00 dated 2026-11-13. This confirms the existing expected event in place; the order remains out for delivery, not delivered. No bank posting or funding ownership is inferred."
     }
   },
   "coverage": [
@@ -36825,6 +36861,28 @@
         "bambu:us795729195777990656"
       ],
       "note": "Named signed-in account order and its invoice confirm the existing order value and explicit payment date. Placed and actual-delivery dates remain separate from the invoice date and its conflicting delivery label. No account-wide or bank coverage is claimed."
+    },
+    {
+      "coverage_id": "coverage-30e83ca3a089411d845602c78b7c2aac",
+      "vendor": "Amazon",
+      "stream": "two named current project orders",
+      "evidence_type": "order_summary_and_merchant_transactions",
+      "checked_at": "2026-11-14",
+      "examined_period": {
+        "start": "2026-11-12",
+        "end": "2026-11-14"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-794a27088a4441b09ee7d79219e71cd3",
+        "src-70ca7dc199ed4a9691b01d7003853de8"
+      ],
+      "order_ids": [
+        "amazon:114-4687967-9041802",
+        "amazon:112-1265759-9506602"
+      ],
+      "note": "The additional tap order has a separate Completed USD 9.00 transaction. The reed sweep rig still shows In Progress / Pending USD 159.54, with estimated order-level tax and no completed or split transaction displayed. Neither order has an actual delivery date. Shipment totals do not establish completed payment allocations. No account-wide or bank coverage is claimed."
     }
   ],
   "gaps": [
