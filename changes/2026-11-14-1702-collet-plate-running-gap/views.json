@@ -1,0 +1,91 @@
+{
+  "views": [
+    {
+      "name": "collet-plate-gap",
+      "caption": "Section through the front rail and the land below the sliding collet plate.",
+      "before": "collet-plate-gap-before.webp",
+      "after": "collet-plate-gap-after.webp",
+      "width": 960,
+      "height": 540,
+      "marks": [
+        {
+          "x": 423.8,
+          "y": 343.9,
+          "r": 27,
+          "label": "Collet plate land",
+          "at": [
+            92.232,
+            85.974,
+            159.875
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          94,
+          -626.6943611355017,
+          162.2
+        ],
+        "target": [
+          94,
+          85.974,
+          162.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 8.5,
+        "near": 445.7247257871986,
+        "far": 1217.7821170173256,
+        "aspect": 1.7777777777777777,
+        "section": {
+          "at": [
+            0,
+            85.974,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-bottom",
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "2b7353f35e04af284d13c148f2adee8facced01a0bf576cea3f82f8ec0b4baa5",
+          "commit": "fb60cc50341298a0c6e8bb6288ce42a40d9afddf",
+          "taken": "2026-11-14T22:57:40.174Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868",
+          "commit": "83fc7c60213fb1d3dd050b7e1f41858f697a9935",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-front-bottom"
+      ]
+    }
+  ]
+}
