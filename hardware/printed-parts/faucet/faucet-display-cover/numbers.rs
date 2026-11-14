@@ -17,6 +17,9 @@ pub const WING_REACH: f64 = 0.83;
 /// The bezel's underside, over the glass, and its top.
 pub const BEZEL_N_BOTTOM: f64 = DISPLAY_FACE_N + DISPLAY_COVER_OVER_FACE + WING_REACH;
 pub const BEZEL_N_TOP: f64 = DISPLAY_COVER_TOP_N + WING_REACH;
+/// Extra cover beyond the rear corners of the tip's display opening.
+pub const AFT_LENGTH_EXTENSION: f64 = 1.2;
+pub const REAR_TRIM_S0: f64 = DISPLAY_COVER_REAR_TRIM_S0 + AFT_LENGTH_EXTENSION;
 /// How far the skirt runs on past the face toward the base.
 pub const REAR_SKIRT_EXTENSION: f64 = 1.2;
 /// What the lips' inner corners are relieved by.
@@ -71,7 +74,7 @@ pub fn wing_slope() -> f64 {
 pub fn wing_tips_s() -> [f64; 2] {
     [
         (DISPLAY_COVER_FRONT_RIM_N - DISPLAY_COVER_BOTTOM_N) / DISPLAY_COVER_FRONT_RIM_SLOPE,
-        DISPLAY_COVER_REAR_TRIM_S0 + DISPLAY_COVER_REAR_TRIM_DS_DN * DISPLAY_COVER_BOTTOM_N,
+        REAR_TRIM_S0 + DISPLAY_COVER_REAR_TRIM_DS_DN * DISPLAY_COVER_BOTTOM_N,
     ]
 }
 
@@ -115,18 +118,21 @@ pub fn wing_inward(s: f64, n: f64) -> f64 {
 /// at its shoulder, then the face.
 pub fn outer_rows() -> [[f64; 5]; 3] {
     let skirt_width = display_cover_skirt_width();
-    let skirt_length = display_cover_skirt_length() + REAR_SKIRT_EXTENSION;
-    let skirt_s = display_cover_center_s() + REAR_SKIRT_EXTENSION / 2.0;
+    let skirt_extension = REAR_SKIRT_EXTENSION + AFT_LENGTH_EXTENSION;
+    let skirt_length = display_cover_skirt_length() + skirt_extension;
+    let skirt_s = display_cover_center_s() + skirt_extension / 2.0;
+    let face_length = display_cover_face_length() + AFT_LENGTH_EXTENSION;
+    let face_s = display_cover_center_s() + AFT_LENGTH_EXTENSION / 2.0;
     [
         [skirt_width, skirt_length, DISPLAY_COVER_SKIRT_R, DISPLAY_COVER_BOTTOM_N, skirt_s],
         [skirt_width, skirt_length, DISPLAY_COVER_SKIRT_R, DISPLAY_COVER_SHOULDER_N + WING_REACH, skirt_s],
-        [DISPLAY_COVER_FACE_WIDTH, display_cover_face_length(), DISPLAY_COVER_FACE_R, BEZEL_N_TOP, display_cover_center_s()],
+        [DISPLAY_COVER_FACE_WIDTH, face_length, DISPLAY_COVER_FACE_R, BEZEL_N_TOP, face_s],
     ]
 }
 
 /// The prism the skin is clamped to, `[half x, s0, s1, n0, n1]`.
 pub fn outer_clamp() -> [f64; 5] {
-    [30.0, DISPLAY_HEAD_S_MIN, display_head_s_max() + REAR_SKIRT_EXTENSION + 1.0, -30.0, 40.0]
+    [30.0, DISPLAY_HEAD_S_MIN, display_head_s_max() + REAR_SKIRT_EXTENSION + AFT_LENGTH_EXTENSION + 1.0, -30.0, 40.0]
 }
 
 /// The cavity's outline rows, each the shell's with the housing's centre along s.

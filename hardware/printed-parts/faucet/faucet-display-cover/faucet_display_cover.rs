@@ -101,6 +101,6 @@ fn clamped(neck: &Gooseneck, solid: Solid, [hx, s0, s1, n0, n1]: [f64; 5]) -> Re
 fn sloped(neck: &Gooseneck, skin: Solid) -> Result<Solid> {
     let (tip, up, normal) = neck.tip_frame();
     let front = Plane::new(tip + normal * DISPLAY_COVER_FRONT_RIM_N, V3::X, normal + up * DISPLAY_COVER_FRONT_RIM_SLOPE)?;
-    let rear = Plane::new(tip + up * DISPLAY_COVER_REAR_TRIM_S0, V3::X, normal * DISPLAY_COVER_REAR_TRIM_DS_DN - up)?;
+    let rear = Plane::new(tip + up * cover::REAR_TRIM_S0, V3::X, normal * DISPLAY_COVER_REAR_TRIM_DS_DN - up)?;
     skin.trim(&front)?.trim(&rear)
 }
