@@ -94,5 +94,7 @@
     "selected_date": "2026-11-14",
     "selection_quote": "...and then everywhere else we want to go back to the print speeds that we had before, basically the settings that we had before.",
     "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
-  }
+  },
+  "first_bed_layer_height_mm": 0.2,
+  "layer_height_mm": 0.24
 }
