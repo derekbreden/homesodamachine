@@ -309,23 +309,6 @@
       },
       "mesh_and_build_members_unchanged": true,
       "native_slice_current": false
-    },
-    {
-      "project": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
-      "input_sha256": "32ab20b87103dc1248939cf9598a7fa67bc3e019a7de37dcb9b1c7230dadaf83",
-      "project_sha256": "dbc970ee557a5848ddce6b2fed6ddb7180c53385f6cb5f19bcd7c3b1a5707448",
-      "changes": {
-        "Metadata/project_settings.config": {
-          "post_process": {
-            "from": [],
-            "to": [
-              "/Users/derekbredensteiner/Developer/homesodamachine/tools/hsm/target/release/petgf-cooling"
-            ]
-          }
-        }
-      },
-      "mesh_and_build_members_unchanged": true,
-      "native_slice_current": false
     }
   ],
   "purpose": "Reusable editable PET-GF templates with localized bridge and foundation cooling."
