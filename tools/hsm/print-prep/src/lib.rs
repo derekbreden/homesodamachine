@@ -36,6 +36,7 @@ pub mod shaft_stitch;
 pub mod slice;
 pub mod sloped_courses;
 pub mod stretch_cooling;
+pub mod tip_audit;
 pub mod tip_courses;
 pub mod tip_supports;
 pub mod tip_warp;
