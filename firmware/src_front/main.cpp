@@ -270,7 +270,7 @@ enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
 
 static lv_obj_t *pageObj[PAGE_COUNT];
 static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
-static lv_obj_t *taskHeader, *systemTitle, *doneBtn, *backRow;
+static lv_obj_t *taskHeader, *backRow, *systemBand, *systemBack;
 static lv_obj_t *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
 // The rail's selection: the selected cell's ice, and each card's ring, number and check.
@@ -623,6 +623,7 @@ static bool      statusFreshShown = false;
 // the bus. Five lines, label and value, filling the card's right-hand column.
 #define STATUS_THERMAL_ROWS 5
 #define STATUS_BTN_H 56   // Move the machine and Forget trusted phones, in the column beneath
+#define STATUS_BTN_GAP 12  // between them
 static lv_obj_t *statusThermalValue[STATUS_THERMAL_ROWS] = {NULL};
 
 // The reading the column is drawn with. `drawn` is false until the first pass,
@@ -3365,9 +3366,10 @@ static void refreshHomeLevel() {
 }
 
 // The reeds on the Settings landing. A reed the main board reads closed is a
-// filled disc; every other one is a ring. A poll the main board has not answered
-// for STATUS_ANSWER_MS, or a reading it says is stale, empties the diagram and
-// says so under it, so a ring never stands for a reed nobody has looked at.
+// white disc in its ring; every other one is the ring alone. A poll the main
+// board has not answered for STATUS_ANSWER_MS, or a reading it says is stale,
+// empties the diagram and says so under it, so a ring never stands for a reed
+// nobody has looked at.
 static void refreshStatusReeds() {
   if (!statusNote) return;
   const bool answered = ctrlStatusMs != 0 &&
@@ -3388,8 +3390,7 @@ static void refreshStatusReeds() {
     const bool lit = ((closed ^ statusShown) >> i) & 1;
     if (!lit) continue;
     const bool on = (closed >> i) & 1;
-    lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_ACCENT : COL_BLUE), 0);
-    lv_obj_set_style_border_color(statusReed[i], lv_color_hex(on ? COL_GOOD : COL_DIM), 0);
+    lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_TEXT : COL_BLUE), 0);
   }
   const bool simulated = (ctrlStatus.levelFlags & LEVEL_F_SIMULATED) != 0;
   if (fresh != statusFreshShown || simulated != statusSimShown)
@@ -3644,8 +3645,8 @@ static void pendingOperationShow(const char *kicker, bool machine) {
   lv_label_set_text(lockNote, "Waiting for the main board");
 }
 
-// Completed operations keep their outcome in the task pane while Back, or System
-// status's Done, and the flavor rail become available immediately.
+// Completed operations keep their outcome in the task pane while Back and the
+// flavor rail become available immediately.
 static void operationResultShow() {
   const lv_coord_t x = operationLockMachine ? RAIL_W : TASK_X;
   lv_obj_set_pos(lockScreen, x, HEADER_H);
@@ -4357,8 +4358,8 @@ static void testScreenHide() {
 // grant text; an answer goes back the same way and nothing here keeps it.
 //
 // Remote requests enter a small inbox in the flavor rail. Only a local tap
-// opens their page, which has Back over it like a task's; the rail, Back and
-// Done remain available.
+// opens their page, which has Back over it like a task's; the rail and Back
+// remain available.
 // Forget's local confirmation, the no-water ask and the welcome's Skip use a modal. A
 // remote request never replaces one, the operation lock, or a physical hold.
 #define ASK_W        640
@@ -4578,11 +4579,11 @@ static void moveAskCb(lv_event_t *e) {
           "Cancel", "Move");
 }
 
-// The column's note, above Forget for FORGOT_MS: what the faucet found when it forgot the
-// phones, or a move the main board did not begin.
+// The column's note, above Move the machine and Forget trusted phones for FORGOT_MS: what the
+// faucet found when it forgot the phones, or a move the main board did not begin.
 static void columnNote() {
   lv_obj_clear_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_align_to(forgotNote, forgetBtn, LV_ALIGN_OUT_TOP_LEFT, 0, -8);
+  lv_obj_align_to(forgotNote, moveBtn, LV_ALIGN_OUT_TOP_LEFT, 0, -8);
   forgotUntilMs = millis() + FORGOT_MS;
   if (!forgotUntilMs) forgotUntilMs = 1;
 }
@@ -5083,47 +5084,56 @@ static void settingsCb(lv_event_t *e) {
   showPage(PAGE_SETUP);
 }
 
+// The hairline over the Settings cell, where the rail's flavors end.
+#define SETTINGS_RULE 0x5675c9
+
+// Back across a band `w` wide: the chevron and the word at its left, a hairline on the band's
+// last row across the pane's text, and the whole band its target.
+static lv_obj_t *mkBackRow(lv_obj_t *band, lv_coord_t w) {
+  lv_obj_t *row = mkBtn(band, w, HEADER_H, COL_BLUE);
+  lv_obj_add_event_cb(row, flavorBackCb, ACT_EVENT, NULL);
+  mkBackChevron(row);
+  lv_obj_align(mkText(row, "Back", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, BACK_LABEL_X, 0);
+  lv_obj_t *rule = mkFlat(row, PANE_PAD, HEADER_H - 1, w - 2 * PANE_PAD, 1, lv_color_hex(COL_OFF));
+  lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
+  return row;
+}
+
 static void buildSettingsButton(lv_obj_t *scr) {
   settingsBtn = mkBtn(scr, RAIL_W, SETTINGS_BTN, COL_CARD);
   lv_obj_set_pos(settingsBtn, 0, SCREEN_H - SETTINGS_BTN);
   lv_obj_set_style_border_width(settingsBtn, 1, 0);
   lv_obj_set_style_border_side(settingsBtn, LV_BORDER_SIDE_TOP, 0);
-  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(0x5675c9), 0);
+  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(SETTINGS_RULE), 0);
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
   lv_obj_center(mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_40, COL_TEXT));
 
-  // The band over the pane. A task's pane and the phone request page have Back there;
-  // System status has its title and Done.
+  // The band over the pane. A task's pane and the phone request page have Back there.
   taskHeader = mkFlat(scr, TASK_X, 0, TASK_W, HEADER_H, THEME_BG);
-  backRow = mkBtn(taskHeader, TASK_W, HEADER_H, COL_BLUE);
-  lv_obj_add_event_cb(backRow, flavorBackCb, ACT_EVENT, NULL);
-  mkBackChevron(backRow);
-  lv_obj_align(mkText(backRow, "Back", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, BACK_LABEL_X, 0);
-  lv_obj_t *rule = mkFlat(backRow, PANE_PAD, HEADER_H - 1, DETAIL_W, 1, lv_color_hex(COL_OFF));
-  lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
-  systemTitle = mkText(taskHeader, "System status", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(systemTitle, LV_ALIGN_LEFT_MID, PANE_PAD, 0);
-  doneBtn = mkBtn(taskHeader, 104, HEADER_H, COL_DIM);
-  lv_obj_align(doneBtn, LV_ALIGN_TOP_RIGHT, 0, 0);
-  lv_obj_add_event_cb(doneBtn, flavorBackCb, ACT_EVENT, NULL);
-  lv_obj_center(mkText(doneBtn, "Done", &lv_font_montserrat_24, COL_INK));
+  backRow = mkBackRow(taskHeader, TASK_W);
+  // System status's band runs from the rail: the same Back, and the page's title at its right,
+  // which stays when Back goes.
+  systemBand = mkFlat(scr, RAIL_W, 0, SCREEN_W - RAIL_W, HEADER_H, THEME_BG);
+  systemBack = mkBackRow(systemBand, SCREEN_W - RAIL_W);
+  lv_obj_align(mkText(systemBand, "System status", &lv_font_montserrat_28, COL_TEXT),
+               LV_ALIGN_RIGHT_MID, -PANE_PAD, 0);
 }
 
 static void refreshShell() {
   if (!taskHeader) return;
   const bool machine = activePage == PAGE_SETUP;
-  const bool back = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE || activePage == PAGE_TRUST;
+  const bool task = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE || activePage == PAGE_TRUST;
+  const bool back = front_ui::showBack(lockActive, holding);
   showIf(heroPanel, !machine);
   // At rest every task is a row in the pane, so nothing stands over it.
-  showIf(taskHeader, activePage != PAGE_HOME);
-  lv_obj_set_pos(taskHeader, machine ? RAIL_W : TASK_X, 0);
-  lv_obj_set_width(taskHeader, machine ? SCREEN_W - RAIL_W : TASK_W);
-  showIf(backRow, back && front_ui::showBack(lockActive, holding));
-  showIf(systemTitle, machine);
-  showIf(doneBtn, !back && front_ui::showDone(activePage == PAGE_HOME, lockActive));
-  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_ACCENT : COL_CARD), 0);
-  lv_obj_set_style_text_color(lv_obj_get_child(settingsBtn, 0), lv_color_hex(machine ? COL_INK : COL_TEXT), 0);
-  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_DIM : COL_CARD_ON), LV_STATE_PRESSED);
+  showIf(taskHeader, task);
+  showIf(backRow, task && back);
+  showIf(systemBand, machine);
+  showIf(systemBack, machine && back);
+  // While System status is open, the Settings cell takes the page's blue, joined to it, and the
+  // hairline over the cell goes.
+  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_BLUE : COL_CARD), 0);
+  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(machine ? COL_BLUE : SETTINGS_RULE), 0);
   lv_obj_set_style_opa(settingsBtn, lockActive || holding ? LV_OPA_50 : LV_OPA_COVER, 0);
 }
 
@@ -5386,8 +5396,8 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
 }
 
 // Settings is the system status: the machine's profile with every reed on it,
-// and beside it the cold loop and the refill, with Forget trusted phones under
-// them.
+// and beside it the cold loop and the refill, with Move the machine and Forget
+// trusted phones under them.
 static void buildSettings(lv_obj_t *page) {
   lv_obj_set_pos(page, RAIL_W, HEADER_H);
   lv_obj_set_width(page, SCREEN_W - RAIL_W);
@@ -5397,21 +5407,23 @@ static void buildSettings(lv_obj_t *page) {
   statusNote = mkText(status, "Not reading the sensors", &lv_font_montserrat_20, COL_WARN);
   lv_obj_set_pos(statusNote, 0, diagramHeight + 10);
   // The cold loop and the refill, in the column beside the profile: a dim label
-  // at the column's left edge and its value beside it, five rows down from the
-  // profile's top.
+  // at the column's left edge and its value right-aligned at its right edge, five
+  // rows down from the profile's top.
+  const lv_coord_t colW = SCREEN_W - RAIL_W - 2 * PANE_PAD - 460;
   static const char *const thermalLabel[STATUS_THERMAL_ROWS] = {"Tank", "Coil", "Cold", "Refill", "Probes"};
   for (uint8_t i = 0; i < STATUS_THERMAL_ROWS; i++) {
     const lv_coord_t y = 5 + i * 34;
     lv_obj_set_pos(mkText(status, thermalLabel[i], &lv_font_montserrat_20, COL_DIM), 460, y);
     statusThermalValue[i] = mkText(status, "--", &lv_font_montserrat_20, COL_TEXT);
+    lv_obj_set_width(statusThermalValue[i], 460 + colW - 548);
+    lv_obj_set_style_text_align(statusThermalValue[i], LV_TEXT_ALIGN_RIGHT, 0);
     lv_obj_set_pos(statusThermalValue[i], 548, y);
   }
-  // Move the machine under the readings, and Forget trusted phones at the foot of the
-  // column, level with the profile's floor. Each asks first; the column's note shows between
-  // them.
-  const lv_coord_t colW = SCREEN_W - RAIL_W - 2 * PANE_PAD - 460;
+  // Move the machine and Forget trusted phones together at the foot of the column, Move
+  // directly above Forget and Forget level with the profile's floor. Each asks first; the
+  // column's note shows above them.
   moveBtn = mkBtn(status, colW, STATUS_BTN_H, COL_BLUE);
-  lv_obj_set_pos(moveBtn, 460, 5 + (STATUS_THERMAL_ROWS - 1) * 34 + TEXT_H_20 + 11);
+  lv_obj_set_pos(moveBtn, 460, 5 + diagramHeight - 2 * STATUS_BTN_H - STATUS_BTN_GAP);
   lv_obj_set_style_border_width(moveBtn, 2, 0);
   lv_obj_set_style_border_color(moveBtn, lv_color_hex(0x7d9eed), 0);
   lv_obj_add_event_cb(moveBtn, moveAskCb, ACT_EVENT, NULL);
