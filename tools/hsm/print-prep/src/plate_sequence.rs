@@ -720,33 +720,192 @@ pub fn leveling<'a>(startup: Vec<&'a str>, native: &[&str], schedule: &[&Band]) 
 /// The plastic each object has laid so far.
 pub type Terrain = Vec<(i64, [f64; 3], [f64; 3])>;
 
-/// The highest deposit under the head's swept envelope from `old` to `entry`, no lower than
-/// either end or `floor`.
-fn clearance(old: [f64; 3], entry: [f64; 3], terrain: &Terrain, floor: f64) -> f64 {
+/// The highest deposit under the head's swept envelope from `old` to `entry`, if any.
+fn terrain_top(old: [f64; 3], entry: [f64; 3], terrain: &Terrain) -> f64 {
     let xmin = old[0].min(entry[0]) - 30.;
     let xmax = old[0].max(entry[0]) + 66.5;
     let ymin = old[1].min(entry[1]) - 19.;
     let ymax = old[1].max(entry[1]) + 99.;
-    let mut top = floor;
+    let mut top = f64::NEG_INFINITY;
     for (_, lo, hi) in terrain {
         if lo[0] <= xmax && xmin <= hi[0] && lo[1] <= ymax && ymin <= hi[1] && hi[2] > top {
             top = hi[2];
         }
     }
-    max3(top, old[2], entry[2])
+    top
+}
+
+/// The highest deposit under the head's swept envelope from `old` to `entry`, no lower than
+/// either end or `floor`.
+fn clearance(old: [f64; 3], entry: [f64; 3], terrain: &Terrain, floor: f64) -> f64 {
+    let top = terrain_top(old, entry, terrain);
+    max3(if top > floor { top } else { floor }, old[2], entry[2])
+}
+
+/// The groups laid along a slope or on the stack that carries one: a transfer to or from one of
+/// them keeps the slow, high lift over all laid plastic.
+const TILTED: [&str; 6] = ["scaffold layer", "underside roof course", "underside deck bedding", "sloped course",
+                           "tip shoulder entry", "tip yellow shoulder"];
+
+fn tilted(band: &Band) -> bool {
+    TILTED.contains(&band.phase.as_str())
+}
+
+/// The slicer's travel, z-hop and printer settings a native plate follows, read from the native
+/// slice's own header, and the timelapse block that slice sends at each layer.
+pub struct Native {
+    pub z_hop: f64,
+    pub travel_speed: f64,
+    pub travel_acceleration: f64,
+    pub max_speed_z: f64,
+    pub nozzle_temperature: f64,
+    camera: Vec<String>,
+}
+
+/// The slope of the slicer's spiral lift, as Bambu Studio's G-code writer winds it.
+const SPIRAL_SLOPE_DEGREES: f64 = 3.0;
+
+impl Native {
+    pub fn read(tape: &[&str]) -> Result<Native> {
+        let first = |key: &str| -> Result<f64> {
+            let prefix = format!("; {key} = ");
+            let line = tape.iter().find_map(|l| l.strip_prefix(prefix.as_str())).with_context(|| format!("The slice header has no {key}"))?;
+            float(strip(line).split(',').next().unwrap_or(""))
+        };
+        let all = OBJECTS.map(|o| o.to_string()).join(",");
+        let opening = format!(" start: {all}");
+        let start = tape.iter().position(|l| l.starts_with("; object ids of layer ") && strip(l).ends_with(&opening))
+            .context("The native slice has no timelapse block over every object")?;
+        let end = start + tape[start..].iter().position(|l| l.starts_with("; object ids of this layer"))
+            .context("The native timelapse block does not close")?;
+        ensure!(tape.get(end + 1).map(|l| strip(l)) == Some("M625"), "The native timelapse block does not end its object span");
+        ensure!(!tape[start + 1..end].iter().any(|l| ["G0 ", "G1 ", "G2 ", "G3 "].iter().any(|p| lstrip(l).starts_with(p))),
+                "The native timelapse block moves the head");
+        Ok(Native {
+            z_hop: first("z_hop")?,
+            travel_speed: first("travel_speed")?,
+            travel_acceleration: first("travel_acceleration")?,
+            max_speed_z: first("machine_max_speed_z")?,
+            nozzle_temperature: first("nozzle_temperature")?,
+            camera: tape[start + 1..end].iter().map(|l| l.trim_end_matches(['\r', '\n']).to_string()).collect(),
+        })
+    }
+
+    /// The commands the slicer sends as a layer begins: its progress, the layer-change notice
+    /// and the timelapse frame.
+    fn layer(&self, out: &mut String, layer: usize, total: usize) {
+        let all = OBJECTS.map(|o| o.to_string()).join(",");
+        let _ = writeln!(out, "; layer num/total_layer_count: {layer}/{total}\n; update layer progress\nM73 L{layer}");
+        let _ = writeln!(out, "M991 S0 P{} ;notify layer change", layer - 1);
+        let _ = writeln!(out, "; object ids of layer {layer} start: {all}");
+        for line in &self.camera {
+            let _ = writeln!(out, "{line}");
+        }
+        let _ = writeln!(out, "; object ids of this layer{layer} end: {all}\nM625");
+    }
+
+    /// What the slicer sends once the first layer is laid: power-loss recovery on, and the
+    /// regular nozzle temperature without waiting for it.
+    fn second_layer(&self, out: &mut String) {
+        let _ = writeln!(out, "; open powerlost recovery\nM1003 S1\nM104 S{} ; set nozzle temperature", g(self.nozzle_temperature));
+    }
+
+    /// The spiral the slicer lifts by `rise` on before a travel from `from` to `to`: its centre's
+    /// offset from `from`, beside the travel, and its radius.
+    pub fn spiral(&self, from: [f64; 3], to: [f64; 3], rise: f64) -> ([f64; 2], f64) {
+        let radius = rise / (std::f64::consts::TAU * SPIRAL_SLOPE_DEGREES.to_radians().atan());
+        let (dx, dy) = (to[0] - from[0], to[1] - from[1]);
+        let run = dx.hypot(dy);
+        (if run > 1e-9 { [-dy / run * radius, dx / run * radius] } else { [radius, 0.] }, radius)
+    }
+
+    /// A travel from `from` to `to` that crosses at `height`: the slicer's spiral lift when it
+    /// rises by no more than its z-hop and `spiral` allows it, else a straight lift at the
+    /// machine's Z speed, then the crossing at the slicer's travel speed and the drop.
+    pub fn travel(&self, out: &mut String, from: [f64; 3], to: [f64; 3], height: f64, spiral: bool) {
+        let rise = height - from[2];
+        let feed = self.travel_speed * 60.;
+        let _ = writeln!(out, "M204 S{}", g(self.travel_acceleration));
+        if spiral && rise > 1e-6 && rise <= self.z_hop + 1e-6 {
+            let ([i, j], _) = self.spiral(from, to, rise);
+            let _ = writeln!(out, "G17\nG3 Z{height:.3} I{i:.3} J{j:.3} P1 F{feed:.0}");
+            let _ = writeln!(out, "G1 X{:.3} Y{:.3} Z{height:.3}", to[0], to[1]);
+        } else {
+            if rise > 1e-6 {
+                let _ = writeln!(out, "G1 Z{height:.3} F{:.0}", self.max_speed_z * 60.);
+            }
+            let _ = writeln!(out, "G1 X{:.3} Y{:.3} F{feed:.0}", to[0], to[1]);
+        }
+        let _ = writeln!(out, "G1 Z{:.5} F{:.0}", to[2], self.max_speed_z * 60.);
+    }
+}
+
+/// What a native plate's group sends ahead of its transfer: the layer it starts as the print
+/// climbs, of how many, and whether it follows the whole first layer.
+#[derive(Clone, Copy)]
+struct Plan<'p> {
+    profile: &'p Native,
+    layer: Option<(usize, usize)>,
+    second: bool,
+}
+
+/// How the transfers between a plate's course groups moved.
+#[derive(Default)]
+pub struct Handoffs {
+    /// Transfers that move as the slicer's layer and object changes do.
+    pub native: usize,
+    /// Transfers that lift over all laid plastic, by why.
+    pub lifted_tilted: usize,
+    pub lifted_over_plastic: usize,
+    pub lifted_first: usize,
+    /// Level layers the printer hears of as the print climbs.
+    pub layers: usize,
 }
 
 /// One group: the lift and travel to its entry, its labels, its starting state, then its own
-/// commands without the native layer events.
-fn emit_band(out: &mut String, band: &Band, old: [f64; 3], terrain: &Terrain, floor: f64, metadata: &Metadata) -> Result<[f64; 3]> {
+/// commands without the native layer events. On a native plate a transfer between level groups
+/// with nothing laid higher than its ends under the head moves as the slicer's layer changes do,
+/// and a group that starts a level layer first sends that layer's printer commands.
+#[allow(clippy::too_many_arguments)]
+fn emit_band(out: &mut String, band: &Band, prev: Option<&Band>, old: [f64; 3], terrain: &Terrain, floor: f64, metadata: &Metadata,
+             native: Option<Plan>, handoffs: &mut Handoffs) -> Result<[f64; 3]> {
     let entry = band.entry.as_ref().context("A group without deposits")?;
-    let reach = clearance(old, entry.xyz, terrain, floor) + 0.8;
-    let lift = if reach > 5. { reach } else { 5. };
-    ensure!(lift <= 315., "Lift exceeds the machine travel space: {}", repr(lift));
     let obj = band.obj;
     let _ = write!(out, "{LAYER}\n{HEIGHT}{:.5}\n", band.hi[2]);
-    let _ = write!(out, "; HSM_PHASE_TRAVEL: transfer between course groups\n{NEXT_GROUP}{}\n", band.label);
-    let _ = write!(out, "G1 Z{lift:.3} F900\nG1 X{:.5} Y{:.5} F9000\nG1 Z{:.5} F900\n", entry.xyz[0], entry.xyz[1], entry.xyz[2]);
+    if let Some(plan) = &native {
+        if let Some((layer, total)) = plan.layer {
+            plan.profile.layer(out, layer, total);
+        }
+        if plan.second {
+            plan.profile.second_layer(out);
+        }
+    }
+    let level_ends = prev.is_some_and(|p| !tilted(p)) && !tilted(band);
+    let top = terrain_top(old, entry.xyz, terrain);
+    match native.map(|plan| plan.profile) {
+        Some(profile) if level_ends && top <= old[2].max(entry.xyz[2]) + 1e-6 => {
+            let _ = write!(out, "; HSM_PHASE_TRAVEL: level change between course groups\n{NEXT_GROUP}{}\n", band.label);
+            let height = (if top > old[2] { top } else { old[2] }) + profile.z_hop;
+            // nothing under the head stands higher than the group just laid, so the spiral
+            // around its last bead stays over it, as the slicer's own does
+            profile.travel(out, old, entry.xyz, height, true);
+            handoffs.native += 1;
+        }
+        _ => {
+            if native.is_some() {
+                match prev {
+                    None => handoffs.lifted_first += 1,
+                    Some(_) if !level_ends => handoffs.lifted_tilted += 1,
+                    Some(_) => handoffs.lifted_over_plastic += 1,
+                }
+            }
+            let reach = clearance(old, entry.xyz, terrain, floor) + 0.8;
+            let lift = if reach > 5. { reach } else { 5. };
+            ensure!(lift <= 315., "Lift exceeds the machine travel space: {}", repr(lift));
+            let _ = write!(out, "; HSM_PHASE_TRAVEL: transfer between course groups\n{NEXT_GROUP}{}\n", band.label);
+            let _ = write!(out, "G1 Z{lift:.3} F900\nG1 X{:.5} Y{:.5} F9000\nG1 Z{:.5} F900\n", entry.xyz[0], entry.xyz[1], entry.xyz[2]);
+        }
+    }
     let _ = writeln!(out, "{PHASE}{}", band.phase);
     for line in &metadata.lists[band.metadata] {
         out.push_str(line);
@@ -783,10 +942,29 @@ fn emit_band(out: &mut String, band: &Band, old: [f64; 3], terrain: &Terrain, fl
     Ok(band.exit)
 }
 
+/// The level layer each group starts as the print climbs, counted from one: the plate's first
+/// group starts the first, and a level group starts one when it lies above every group that
+/// started one before it. Returns them with their count.
+fn climbing_layers(schedule: &[&Band]) -> (Vec<Option<usize>>, usize) {
+    let mut reached = f64::NEG_INFINITY;
+    let mut count = 0;
+    let starts = schedule.iter().enumerate().map(|(n, band)| {
+        if n > 0 && (tilted(band) || band.hi[2] <= reached + 1e-4) {
+            return None;
+        }
+        reached = band.hi[2];
+        count += 1;
+        Some(count)
+    }).collect();
+    (starts, count)
+}
+
 /// A plate: the startup, the groups in order with the regular temperature before `heat_at`, the
-/// final lift and the footer carried up to it.
+/// final lift and the footer carried up to it. A `native` plate sends the regular temperature
+/// with its second level layer's commands instead, without waiting for it.
+#[allow(clippy::too_many_arguments)]
 fn write_plate(startup: &[String], schedule: &[&Band], heat_at: Option<usize>, footer: &[&str], floor: f64, metadata: &Metadata,
-               allowed: impl Fn(f64) -> Result<()>) -> Result<(String, Terrain)> {
+               native: Option<&Native>, allowed: impl Fn(f64) -> Result<()>) -> Result<(String, Terrain, Handoffs)> {
     let mut out = String::new();
     for line in startup {
         out.push_str(line);
@@ -794,11 +972,20 @@ fn write_plate(startup: &[String], schedule: &[&Band], heat_at: Option<usize>, f
     let _ = write!(out, "M1003 S0\n{PHASE}whole-plate first layer\nG1 E-.8 F1800\n");
     let mut terrain: Terrain = Vec::new();
     let mut pos = PARKED;
+    let mut handoffs = Handoffs::default();
+    let (layers, total) = climbing_layers(schedule);
+    if native.is_some() {
+        ensure!(total >= 2, "A native plate climbs through fewer than two level layers");
+        handoffs.layers = total;
+    }
+    let mut prev: Option<&Band> = None;
     for (n, band) in schedule.iter().enumerate() {
-        if heat_at == Some(n) {
+        if heat_at == Some(n) && native.is_none() {
             out.push_str("M109 S280 ; reach regular deposition temperature\n");
         }
-        pos = emit_band(&mut out, band, pos, &terrain, floor, metadata)?;
+        let plan = native.map(|profile| Plan { profile, layer: layers[n].map(|layer| (layer, total)), second: heat_at == Some(n) });
+        pos = emit_band(&mut out, band, prev, pos, &terrain, floor, metadata, plan, &mut handoffs)?;
+        prev = Some(band);
         match terrain.iter_mut().find(|(obj, _, _)| *obj == band.obj) {
             Some((_, lo, hi)) => {
                 for axis in 0..3 {
@@ -826,7 +1013,7 @@ fn write_plate(startup: &[String], schedule: &[&Band], heat_at: Option<usize>, f
             _ => out.push_str(line),
         }
     }
-    Ok((out, terrain))
+    Ok((out, terrain, handoffs))
 }
 
 fn float_below(text: &str, limit: f64) -> Result<bool> {
@@ -904,6 +1091,13 @@ pub fn compose_tip(reference: &Path, native: &Path, output: &Path, tip_model: &P
 /// The tip trial's plate written to `output`, and its report: phases, filament, roads, groups,
 /// bounds and the plate's hash.
 pub fn emit(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata) -> Result<Json> {
+    emit_with(output, startup, schedule, footer, metadata, None)
+}
+
+/// `emit`, with the transfers and printer commands of a `native` plate when it is one, and their
+/// counts in the report.
+pub fn emit_with(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata,
+                 native: Option<&Native>) -> Result<Json> {
     let heat_at = schedule.iter().position(|b| !b.first_bed_course());
     if let Some(at) = heat_at {
         let first_bed: HashSet<i64> = schedule[..at].iter().map(|b| b.obj).collect();
@@ -917,7 +1111,7 @@ pub fn emit(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&st
         ensure!(top + BASELINE_Z_LIFT < 247.24, "Print height conflicts with inherited finish motion: {}", repr(top));
         Ok(())
     };
-    let (text, terrain) = write_plate(startup, schedule, heat_at, footer, f64::NEG_INFINITY, metadata, allowed)?;
+    let (text, terrain, handoffs) = write_plate(startup, schedule, heat_at, footer, f64::NEG_INFINITY, metadata, native, allowed)?;
     std::fs::write(output, &text)?;
     let (mut counts, mut filament, mut roads) = (Vec::new(), Vec::new(), Vec::new());
     let mut groups = Vec::new();
@@ -929,14 +1123,24 @@ pub fn emit(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&st
                                     Json::Float(band.z), point(&band.lo), point(&band.hi), Json::Int(band.line as i64 + 1)]));
     }
     let bounds: Vec<(i64, Json)> = terrain.iter().map(|(obj, lo, hi)| (*obj, Json::List(vec![point(lo), point(hi)]))).collect();
-    Ok(Json::Dict(vec![
+    let mut report = vec![
         ("counts_by_phase".into(), Json::Dict(counts.into_iter().map(|(k, v)| (k, Json::Int(v))).collect())),
         ("deposition_mm_filament".into(), keyed(filament, Json::Float)),
         ("deposition_roads".into(), keyed(roads, Json::Int)),
         ("groups".into(), Json::List(groups)),
         ("bounds_by_object_mm".into(), keyed(bounds, |v| v)),
         ("sequenced_gcode_sha256".into(), Json::Str(crate::sha256_hex(text.as_bytes()))),
-    ]))
+    ];
+    if native.is_some() {
+        report.push(("transfers_between_groups".into(), Json::Dict(vec![
+            ("as_the_slicer_changes_layers".into(), Json::Int(handoffs.native as i64)),
+            ("lifted_from_or_to_a_tilted_group".into(), Json::Int(handoffs.lifted_tilted as i64)),
+            ("lifted_over_higher_plastic".into(), Json::Int(handoffs.lifted_over_plastic as i64)),
+            ("lifted_from_the_start".into(), Json::Int(handoffs.lifted_first as i64)),
+        ])));
+        report.push(("printer_layers".into(), Json::Int(handoffs.layers as i64)));
+    }
+    Ok(Json::Dict(report))
 }
 
 /// What a trial pins its previous plate to, and the sequencer provenance its plates' reports
@@ -1262,7 +1466,7 @@ pub fn compose_shaft(source: &Path, output: &Path, donor: Option<&Path>) -> Resu
         ensure!(top + 0.4 <= 245.640001, "the actual print rise requires revisiting the native finish positions");
         Ok(())
     };
-    let (text, _) = write_plate(&startup, &ordered, heat_at, &footer, 0.0, &metadata, allowed)?;
+    let (text, _, _) = write_plate(&startup, &ordered, heat_at, &footer, 0.0, &metadata, None, allowed)?;
     std::fs::write(output, &text)?;
     let (mut counts, mut filament) = (Vec::new(), Vec::new());
     let mut groups = Vec::new();

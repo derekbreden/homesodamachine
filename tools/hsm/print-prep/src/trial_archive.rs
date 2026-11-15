@@ -68,6 +68,12 @@ fn startup_progress(gcode: &[u8], minutes: i64) -> Result<Vec<u8>> {
     Ok(out)
 }
 
+/// The last layer a plate's own progress events name, `M73 L` at a line's start, if it sends any.
+fn printer_layers(gcode: &[u8]) -> Option<usize> {
+    gcode.split(|b| *b == b'\n').filter_map(|line| line.strip_prefix(b"M73 L"))
+        .filter_map(|rest| std::str::from_utf8(rest).ok()?.trim().parse::<usize>().ok()).max()
+}
+
 /// The number of non-overlapping places `pattern` occurs.
 fn count(data: &[u8], pattern: &[u8]) -> usize {
     let (mut found, mut at) = (0, 0);
@@ -79,8 +85,8 @@ fn count(data: &[u8], pattern: &[u8]) -> usize {
 }
 
 /// The slice record with the sequenced plate's prediction, weight, first-course time, filament
-/// and course groups, edited in place so the record keeps the slicer's own layout.
-fn slice_info(template: &[u8], prediction: i64, grams: f64, first_course_seconds: f64, filament_mm: f64, groups: usize) -> Result<Vec<u8>> {
+/// and layers, edited in place so the record keeps the slicer's own layout.
+fn slice_info(template: &[u8], prediction: i64, grams: f64, first_course_seconds: f64, filament_mm: f64, layers: usize) -> Result<Vec<u8>> {
     /// Puts `value` in the quoted value after the first `marker` from `from` on.
     fn put(info: &mut String, from: usize, marker: &str, value: &str, what: &str) -> Result<()> {
         let at = from + info[from..].find(marker).with_context(|| format!("No {what}"))? + marker.len();
@@ -100,7 +106,7 @@ fn slice_info(template: &[u8], prediction: i64, grams: f64, first_course_seconds
     put(&mut info, filament, " used_g=\"", &format!("{grams:.2}"), "filament weight")?;
     let open = info.find("<layer_filament_lists>").context("No <layer_filament_lists>")? + "<layer_filament_lists>".len();
     let close = open + info[open..].find("</layer_filament_lists>").context("Unclosed <layer_filament_lists>")?;
-    info.replace_range(open..close, &format!("\n      <layer_filament_list filament_list=\"0\" layer_ranges=\"0 {groups}\" />\n    "));
+    info.replace_range(open..close, &format!("\n      <layer_filament_list filament_list=\"0\" layer_ranges=\"0 {layers}\" />\n    "));
     Ok(info.into_bytes())
 }
 
@@ -143,6 +149,8 @@ pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds:
     let groups = count(&raw, b"\n; CHANGE_LAYER\n");
     let rows = report["groups"].as_array().context("The report has no groups")?;
     ensure!(groups == rows.len(), "Missing course group delimiters");
+    // a plate that tells the printer of its layers as it climbs counts those; otherwise its groups
+    let layers = printer_layers(&raw).unwrap_or(groups);
     let deposition = report["deposition_mm_filament"].as_object().context("The report has no filament")?;
     let filament_mm = deposition.values().map(|v| v.as_f64().context("A filament length is not a number")).sum::<Result<f64>>()?;
     let diameter = header_number(&raw, "; filament_diameter: ")?;
@@ -153,7 +161,7 @@ pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds:
     let mut gcode = raw;
     for (key, line) in [
         ("; model printing time: ", format!("; model printing time: {time}; total estimated time: {time}")),
-        ("; total layer number: ", format!("; total layer number: {groups}")),
+        ("; total layer number: ", format!("; total layer number: {layers}")),
         ("; total filament length [mm] : ", format!("; total filament length [mm] : {filament_mm:.2}")),
         // Native Bambu header stores the value in cubic millimeters under this key.
         ("; total filament volume [cm^3] : ", format!("; total filament volume [cm^3] : {volume_mm3:.2}")),
@@ -178,7 +186,7 @@ pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds:
         let data = match name.as_str() {
             GCODE => gcode.clone(),
             n if n == format!("{GCODE}.md5") => crate::ids::md5_hex(&gcode).into_bytes(),
-            SLICE => slice_info(&data, motion_seconds.ceil() as i64, grams, first_course_seconds, filament_mm, groups)?,
+            SLICE => slice_info(&data, motion_seconds.ceil() as i64, grams, first_course_seconds, filament_mm, layers)?,
             LAYOUT => {
                 let mut layout: Value = serde_json::from_slice(&data)?;
                 layout["first_layer_time"] = json!(first_course_seconds);
@@ -196,6 +204,7 @@ pub fn package(template: &Path, sequenced: &Path, output: &Path, motion_seconds:
         "gcode_sha256": crate::sha256_hex(&gcode),
         "gcode_md5": crate::ids::md5_hex(&gcode),
         "course_groups": groups,
+        "printer_layers": layers,
         "deposition_filament_mm": filament_mm,
         "deposition_weight_g": grams,
         "estimated_motion_seconds": motion_seconds,
