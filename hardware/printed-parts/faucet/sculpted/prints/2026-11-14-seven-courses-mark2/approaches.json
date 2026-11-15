@@ -1,0 +1,534 @@
+[
+  {
+    "phase": "sloped course",
+    "observation": {
+      "phase": "sloped course",
+      "metric": "dry_travel_flat",
+      "line": 123496,
+      "deposited_by": 1901,
+      "xyz_mm": [
+        66.257,
+        139.131,
+        9.202
+      ],
+      "model_gap_mm": -0.15875
+    },
+    "approach_move_from": [
+      66.257,
+      139.131,
+      10.202
+    ],
+    "approach_move_to": [
+      66.257,
+      139.131,
+      9.202
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": -0.051000000000000156,
+      "nominal_bead_height_mm": 0.16258343446873255,
+      "distance_to_earlier_centerline_mm": 0.18729655629509648,
+      "earlier_centerline_xyz_mm": [
+        66.279,
+        138.945,
+        9.253
+      ],
+      "prior_line": 123490,
+      "prior_feature": "Support"
+    }
+  },
+  {
+    "phase": "sloped course",
+    "observation": {
+      "phase": "sloped course",
+      "metric": "dry_travel_cone",
+      "line": 126492,
+      "deposited_by": 1901,
+      "xyz_mm": [
+        82.306,
+        119.924,
+        14.597
+      ],
+      "model_gap_mm": -0.15616
+    },
+    "approach_move_from": [
+      82.306,
+      119.924,
+      15.597
+    ],
+    "approach_move_to": [
+      82.306,
+      119.924,
+      14.597
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": -0.05000000000000071,
+      "nominal_bead_height_mm": 0.16317335446279158,
+      "distance_to_earlier_centerline_mm": 0.18829763673504687,
+      "earlier_centerline_xyz_mm": [
+        82.266,
+        119.74,
+        14.647
+      ],
+      "prior_line": 126438,
+      "prior_feature": "Support"
+    }
+  },
+  {
+    "phase": "tip level paths below shoulder",
+    "observation": {
+      "phase": "tip level paths below shoulder",
+      "metric": "dry_travel_cone",
+      "line": 507619,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        178.448,
+        230.047,
+        19.725
+      ],
+      "model_gap_mm": -0.13875
+    },
+    "approach_move_from": [
+      178.448,
+      230.047,
+      21.03
+    ],
+    "approach_move_to": [
+      178.448,
+      230.047,
+      19.725
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.08500000000000085,
+      "nominal_bead_height_mm": 0.1402429844924055,
+      "distance_to_earlier_centerline_mm": 0.06508026222708595,
+      "earlier_centerline_xyz_mm": [
+        178.49619175400272,
+        230.00326219738386,
+        19.64
+      ],
+      "prior_line": 502667,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "tip level paths below shoulder",
+    "observation": {
+      "phase": "tip level paths below shoulder",
+      "metric": "dry_travel_flat",
+      "line": 512564,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        177.833,
+        229.387,
+        19.965
+      ],
+      "model_gap_mm": -0.155
+    },
+    "approach_move_from": [
+      177.833,
+      229.387,
+      21.27
+    ],
+    "approach_move_to": [
+      177.833,
+      229.387,
+      19.965
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.08500000000000085,
+      "nominal_bead_height_mm": 0.1434958858974497,
+      "distance_to_earlier_centerline_mm": 0.06029925372672763,
+      "earlier_centerline_xyz_mm": [
+        177.893,
+        229.381,
+        19.88
+      ],
+      "prior_line": 507727,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "tip shoulder entry",
+    "observation": {
+      "phase": "tip shoulder entry",
+      "metric": "dry_travel_flat",
+      "line": 619557,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        184.469,
+        213.428,
+        25.902
+      ],
+      "model_gap_mm": -0.16809
+    },
+    "approach_move_from": [
+      184.469,
+      213.428,
+      29.028
+    ],
+    "approach_move_to": [
+      184.469,
+      213.428,
+      25.902
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.26200000000000045,
+      "nominal_bead_height_mm": 0.23985541154086487,
+      "distance_to_earlier_centerline_mm": 0.030886890422981494,
+      "earlier_centerline_xyz_mm": [
+        184.496,
+        213.443,
+        25.64
+      ],
+      "prior_line": 602425,
+      "prior_feature": "Sparse infill"
+    }
+  },
+  {
+    "phase": "tip shoulder entry",
+    "observation": {
+      "phase": "tip shoulder entry",
+      "metric": "dry_travel_cone",
+      "line": 627022,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        184.431,
+        213.656,
+        26.457
+      ],
+      "model_gap_mm": -0.1532
+    },
+    "approach_move_from": [
+      184.431,
+      213.656,
+      29.667
+    ],
+    "approach_move_to": [
+      184.431,
+      213.656,
+      26.457
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.18599999999999994,
+      "nominal_bead_height_mm": 0.21345617142374876,
+      "distance_to_earlier_centerline_mm": 0.07299315036358141,
+      "earlier_centerline_xyz_mm": [
+        184.443,
+        213.584,
+        26.271
+      ],
+      "prior_line": 626214,
+      "prior_feature": "Gap infill"
+    }
+  },
+  {
+    "phase": "tip yellow shoulder",
+    "observation": {
+      "phase": "tip yellow shoulder",
+      "metric": "dry_travel_cone",
+      "line": 640030,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        178.094,
+        214.643,
+        27.162
+      ],
+      "model_gap_mm": -0.16427
+    },
+    "approach_move_from": [
+      178.094,
+      214.643,
+      30.731
+    ],
+    "approach_move_to": [
+      178.094,
+      214.643,
+      27.162
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.21309231558222308,
+      "nominal_bead_height_mm": 0.20857966625309599,
+      "distance_to_earlier_centerline_mm": 0.0011305743557872415,
+      "earlier_centerline_xyz_mm": [
+        178.09471510595796,
+        214.64387568364313,
+        26.948907684417776
+      ],
+      "prior_line": 637204,
+      "prior_feature": "Internal solid infill"
+    }
+  },
+  {
+    "phase": "tip yellow shoulder",
+    "observation": {
+      "phase": "tip yellow shoulder",
+      "metric": "dry_travel_flat",
+      "line": 643522,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        182.335,
+        229.035,
+        22.35
+      ],
+      "model_gap_mm": -0.1723
+    },
+    "approach_move_from": [
+      182.335,
+      229.035,
+      31.157
+    ],
+    "approach_move_to": [
+      182.335,
+      229.035,
+      22.35
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.19989368731563673,
+      "nominal_bead_height_mm": 0.20774988716503828,
+      "distance_to_earlier_centerline_mm": 0.05023449437165926,
+      "earlier_centerline_xyz_mm": [
+        182.3680796460177,
+        228.9971946902655,
+        22.150106312684365
+      ],
+      "prior_line": 640864,
+      "prior_feature": "Sparse infill"
+    }
+  },
+  {
+    "phase": "transfer between course groups",
+    "observation": {
+      "phase": "transfers between course groups",
+      "metric": "dry_travel_flat",
+      "line": 646437,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        188.366,
+        235.943,
+        20.12
+      ],
+      "model_gap_mm": -0.06454
+    },
+    "approach_move_from": [
+      188.366,
+      235.943,
+      29.899
+    ],
+    "approach_move_to": [
+      188.366,
+      235.943,
+      20.12
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.05761640096836729,
+      "nominal_bead_height_mm": 0.21438555945174143,
+      "distance_to_earlier_centerline_mm": 0.039023917910963254,
+      "earlier_centerline_xyz_mm": [
+        188.36136647421256,
+        235.90425214060238,
+        20.062383599031634
+      ],
+      "prior_line": 646110,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "transfer between course groups",
+    "observation": {
+      "phase": "transfers between course groups",
+      "metric": "dry_travel_cone",
+      "line": 646437,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        188.366,
+        235.943,
+        20.12
+      ],
+      "model_gap_mm": -0.08301
+    },
+    "approach_move_from": [
+      188.366,
+      235.943,
+      29.899
+    ],
+    "approach_move_to": [
+      188.366,
+      235.943,
+      20.12
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.05761640096836729,
+      "nominal_bead_height_mm": 0.21438555945174143,
+      "distance_to_earlier_centerline_mm": 0.039023917910963254,
+      "earlier_centerline_xyz_mm": [
+        188.36136647421256,
+        235.90425214060238,
+        20.062383599031634
+      ],
+      "prior_line": 646110,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "tip level paths above shoulder",
+    "observation": {
+      "phase": "tip level paths above shoulder",
+      "metric": "dry_travel_flat",
+      "line": 647951,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        186.566,
+        236.715,
+        21.824
+      ],
+      "model_gap_mm": -0.216
+    },
+    "approach_move_from": [
+      186.566,
+      236.715,
+      31.449
+    ],
+    "approach_move_to": [
+      186.566,
+      236.715,
+      21.824
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.02400000000000091,
+      "nominal_bead_height_mm": 0.2404287021960874,
+      "distance_to_earlier_centerline_mm": 0.07600657866263293,
+      "earlier_centerline_xyz_mm": [
+        186.565,
+        236.639,
+        21.8
+      ],
+      "prior_line": 647771,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "tip level paths above shoulder",
+    "observation": {
+      "phase": "tip level paths above shoulder",
+      "metric": "dry_travel_cone",
+      "line": 665438,
+      "deposited_by": 1902,
+      "xyz_mm": [
+        186.647,
+        238.537,
+        28.304
+      ],
+      "model_gap_mm": -0.21561
+    },
+    "approach_move_from": [
+      186.647,
+      238.537,
+      31.449
+    ],
+    "approach_move_to": [
+      186.647,
+      238.537,
+      28.304
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.023999999999997357,
+      "nominal_bead_height_mm": 0.24038854999483827,
+      "distance_to_earlier_centerline_mm": 0.057999999999992724,
+      "earlier_centerline_xyz_mm": [
+        186.647,
+        238.479,
+        28.28
+      ],
+      "prior_line": 664589,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "inclined-base conventional handoff",
+    "observation": {
+      "phase": "inclined-base conventional handoff",
+      "metric": "dry_travel_cone",
+      "line": 810906,
+      "deposited_by": 1901,
+      "xyz_mm": [
+        85.498,
+        180.24,
+        41.264
+      ],
+      "model_gap_mm": -0.21599
+    },
+    "approach_move_from": [
+      85.498,
+      180.24,
+      41.88
+    ],
+    "approach_move_to": [
+      85.498,
+      180.24,
+      41.264
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.02400000000000091,
+      "nominal_bead_height_mm": 0.23997698136159654,
+      "distance_to_earlier_centerline_mm": 0.010000000000019327,
+      "earlier_centerline_xyz_mm": [
+        85.498,
+        180.23,
+        41.24
+      ],
+      "prior_line": 807895,
+      "prior_feature": "Outer wall"
+    }
+  },
+  {
+    "phase": "inclined-base conventional handoff",
+    "observation": {
+      "phase": "inclined-base conventional handoff",
+      "metric": "dry_travel_flat",
+      "line": 1612399,
+      "deposited_by": 1901,
+      "xyz_mm": [
+        85.773,
+        200.029,
+        129.104
+      ],
+      "model_gap_mm": -0.21601
+    },
+    "approach_move_from": [
+      85.773,
+      200.029,
+      129.72
+    ],
+    "approach_move_to": [
+      85.773,
+      200.029,
+      129.104
+    ],
+    "landing_sample": true,
+    "closest_prior_nominal_stock": {
+      "gap_mm": 0.02400000000000091,
+      "nominal_bead_height_mm": 0.2398128438067751,
+      "distance_to_earlier_centerline_mm": 0.06399999999999295,
+      "earlier_centerline_xyz_mm": [
+        85.773,
+        199.965,
+        129.08
+      ],
+      "prior_line": 1611462,
+      "prior_feature": "Outer wall"
+    }
+  }
+]

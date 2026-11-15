@@ -1,0 +1,79 @@
+{
+  "area_scope": {
+    "donor_nominal_physical_pitch_sample_mm": [
+      0.1468452606996351,
+      0.28584207479198653
+    ],
+    "physical_print_bounds_mm": [
+      [
+        173.00024604797363,
+        172.7948760986328,
+        2.021494083237485e-10
+      ],
+      [
+        199.99975395202637,
+        241.2051239013672,
+        131.76939773579784
+      ]
+    ]
+  },
+  "authored_plane_pick_world_xyz_mm": [
+    186.49975395202637,
+    219.35225476426575,
+    24.649970385871846
+  ],
+  "bearing_plane_degrees": 20.0,
+  "exactly_inclined_virtual_mm": [
+    23.449970385871847,
+    26.049970385871845
+  ],
+  "full_angle_degrees": 20.0,
+  "incoming_fade_virtual_mm": [
+    0.68,
+    23.449970385871847
+  ],
+  "maximum_cad_error": {
+    "max_sampled_centroid_remap_error_mm": 0.012496268846597047,
+    "max_sampled_edge_remap_error_mm": 0.012497261351185784,
+    "tip_unchanged_above_z": 49.207024567837244,
+    "tip_unchanged_under_z": 0.68
+  },
+  "minimum_invertibility_derivative": 0.5207908951643248,
+  "normal_course_mm": 0.2,
+  "orientation_degrees": -90.0,
+  "original_facet_count": 103210,
+  "outgoing_fade_virtual_mm": [
+    26.049970385871845,
+    49.207024567837244
+  ],
+  "outside_edge_blend_width_y_mm": 2.0,
+  "physical_cad_to_plate_translation": [
+    186.49975395202637,
+    -1.5053863525390625,
+    -13.717998504436522
+  ],
+  "physical_rotation": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      -1.0,
+      0.0
+    ]
+  ],
+  "purpose": "Flatten the mating shoulder for slicing while preserving physical tip geometry.",
+  "virtual_shoulder_z_mm": 24.649970385871846,
+  "warped_facet_count": 110134,
+  "xy_limits_exact_plane_y_mm": [
+    208.9977274896985,
+    237.269428250918
+  ]
+}

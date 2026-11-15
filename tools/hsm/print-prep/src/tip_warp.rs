@@ -99,6 +99,12 @@ pub const MATCHED_SHOULDER: Recipe = Recipe {
     receipt: Receipt::BearingPlane,
 };
 
+/// The shoulder's interface and visible foundation hold the same plane through the last course.
+pub const SHORT_SHOULDER: Recipe = Recipe {
+    transition: Transition::Tube { shoulder_offsets: [-1.2, 1.4] },
+    ..MATCHED_SHOULDER
+};
+
 /// The purpose line both trials' receipts carry.
 const FLATTEN: &str = "Flatten the mating shoulder for slicing while preserving physical tip geometry.";
 const JOINT_LAYER: f64 = 22.28;

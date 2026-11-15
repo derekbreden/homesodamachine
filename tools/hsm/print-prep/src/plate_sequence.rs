@@ -14,6 +14,9 @@ use std::collections::{BTreeMap, HashSet};
 use std::fmt::Write;
 use std::path::{Path, PathBuf};
 
+#[path = "foundation_sequence.rs"]
+pub mod foundation_sequence;
+
 pub const BASE: i64 = 1901;
 pub const TIP: i64 = 1902;
 pub const COVER: i64 = 1903;
