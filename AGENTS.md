@@ -101,6 +101,8 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 `python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the session title, marked `(auto-generated)` when Derek hasn't named the session; in a cloud session, the `Claude-Session:` link names it. Each `Derek:` line is a passage of his that the commit answers, quoted exactly — never paraphrased. A commit nothing of his asked for has no `Derek:` line. `git log --format='%(trailers:key=Derek)'` reads them back.
 
+`git blame` on a setting's line answers why it is so: the commit that writes the line says what the setting does on the part and where its evidence is, with Derek's words from when he chose it as its `Derek:` lines, and a commit that moves a setting carries those words with it. Settings files hold values, not quotes or reasons.
+
 ## Concerns
 
 [`hardware/concerns.md`](hardware/concerns.md) holds concerns that are already answered, so no agent raises them again. Agents are bad at telling a legitimate concern from one that isn't, so an agent never writes its own concern there. Tell Derek the concern. If he convinces you it isn't one, record his answer there. If he doesn't, it is work to do, not a row. If he doesn't respond, you haven't told him yet.
