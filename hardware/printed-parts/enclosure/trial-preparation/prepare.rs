@@ -117,7 +117,7 @@ impl Mesh {
         let sha256 = file_sha(path)?;
         let step = path.with_extension("step");
         let step_sha256 = if step.is_file() { Some(file_sha(&step)?) } else { None };
-        let raw = RawMesh::read_stl_exact(path)?;
+        let raw = RawMesh::read_stl(path)?;
         let (mut vertices, mut faces) = (raw.vertices, raw.faces);
         let mut seam_record = Value::Null;
         let mut seam_paint = vec![None; faces.len()];

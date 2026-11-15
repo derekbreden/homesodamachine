@@ -228,13 +228,13 @@ pub fn check_project(root: &Path, directory: &Path) -> Result<Value> {
         let t: Vec<f64> = items.get(&id).context("no build item")?.split_whitespace().filter_map(|v| v.parse().ok()).collect();
         let placed: Vec<[f64; 3]> = vertices.iter().map(|v| [0, 1, 2].map(|c| v[0] * t[c] + v[1] * t[3 + c] + v[2] * t[6 + c] + t[9 + c])).collect();
         let stl = root.join(record["stl"].as_str().context("stl")?);
-        let source = Mesh::read_stl_exact(&stl)?;
+        let source = Mesh::read_stl(&stl)?;
         let (r, centre, translation) = (mat3(&record["build_rotation"]), vec3(&record["source_center_mm"]), vec3(&record["translation_mm"]));
-        let mut comparison = "source vertices in order";
-        let mut error = if placed.len() == source.vertices.len() {
-            placed.iter().zip(&source.vertices).map(|(p, s)| {
-                let e = to_plate(*s, &r, centre, translation);
-                (0..3).map(|k| (p[k] - e[k]).abs()).fold(0.0, f64::max)
+        let mut comparison = "source triangles in order";
+        let mut error = if faces.len() == source.faces.len() {
+            faces.iter().zip(&source.faces).flat_map(|(f, s)| (0..3).map(move |k| (f[k], s[k]))).map(|(p, s)| {
+                let e = to_plate(source.vertices[s], &r, centre, translation);
+                (0..3).map(|k| (placed[p][k] - e[k]).abs()).fold(0.0, f64::max)
             }).fold(0.0, f64::max)
         } else {
             f64::INFINITY
