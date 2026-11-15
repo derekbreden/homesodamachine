@@ -3,7 +3,7 @@
 //! The stages are the tip's warp, its donor supports and its courses; the base filled under its
 //! mounting face, its foundation, its continued courses through the shaft and the cooling of
 //! their join; the screw-seat rings; the tip, shaft, plug-ramp and short foundation sequencers; the
-//! plug-ramp feed cap, base show-wall speed, the tip's end spliced from a second slice and
+//! plug-ramp feed cap, the tip's end spliced from a second slice and
 //! cooled as the standing path cools it, the printer's progress lines, and the print-only review
 //! archive.
 //!
@@ -27,7 +27,6 @@
 //!       [--reference-sha256 SHA] [--rings COUNT] [--sequencer-sha256 SHA]
 //!   sculpted-trial cap-feed UNCAPPED.gcode CAPPED.gcode
 //!   sculpted-trial bind-capped UNCAPPED.gcode CAPPED.gcode PLATE.gcode [--clamp-receipt CAPPED.json]
-//!   sculpted-trial finish-base-wall PLATE.gcode FINISH.gcode
 
 use anyhow::{bail, Context, Result};
 use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH};
@@ -87,7 +86,7 @@ fn number(args: &Args, name: &str) -> Result<f64> {
 fn main() -> Result<()> {
     let mut values: Vec<String> = std::env::args().skip(1).collect();
     if values.is_empty() {
-        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|splice-tip-end|cool-tip-end|progress|package|merge|cap-feed|bind-capped|finish-base-wall ...");
+        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|splice-tip-end|cool-tip-end|progress|package|merge|cap-feed|bind-capped ...");
     }
     let command = values.remove(0);
     match command.as_str() {
@@ -276,13 +275,7 @@ fn main() -> Result<()> {
             let receipt = args.option("--clamp-receipt").map(PathBuf::from);
             println!("{}", feed_cap::bind(&args.path(0)?, &args.path(1)?, &args.path(2)?, receipt.as_deref())?);
         }
-        "finish-base-wall" => {
-            let args = Args::parse(values, &[], &[])?;
-            args.count(2)?;
-            let report = plate_sequence::finish_base_wall(&args.path(0)?, &args.path(1)?)?;
-            println!("{}", serde_json::to_string_pretty(&report)?);
-        }
-        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, splice-tip-end, cool-tip-end, progress, package, merge, cap-feed, bind-capped or finish-base-wall"),
+        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, splice-tip-end, cool-tip-end, progress, package, merge, cap-feed or bind-capped"),
     }
     Ok(())
 }
