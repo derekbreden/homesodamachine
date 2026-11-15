@@ -3426,6 +3426,26 @@
       "vendor": "SendCutSend"
     },
     {
+      "checked_at": "2026-11-15",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-b33231d38620439992b31e180cbd4e92",
+      "evidence_type": "completed_merchant_transaction",
+      "examined_period": {
+        "end": "2026-11-15",
+        "start": "2026-11-15"
+      },
+      "note": "Exact named order only; no account-wide coverage claimed.",
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "source_ids": [
+        "src-49093cce3e6b470c807ba8dec2675623"
+      ],
+      "stream": "named H2C PEI plate order payment",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
@@ -7305,9 +7325,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 4278,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
       "event_id": "evt-97809881439b4885a7e33a8eb87b4b23",
       "event_type": "charge",
       "order_ids": [
@@ -7317,7 +7340,8 @@
         "pur-e8d3c873b40848499b387a0bed8978f7"
       ],
       "source_ids": [
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-49093cce3e6b470c807ba8dec2675623"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
@@ -9939,7 +9963,7 @@
         "evt-97809881439b4885a7e33a8eb87b4b23"
       ],
       "gap_id": "gap-1b4d6f383f084b22ac7dd2ceac00a416",
-      "missing_fact": "Order is shipped. Actual delivery, completed merchant payment and final tax remain unconfirmed.",
+      "missing_fact": "Order is shipped and the completed merchant charge is confirmed. Actual delivery and final tax remain unconfirmed.",
       "order_ids": [
         "amazon:112-7863139-0903423"
       ],
@@ -9948,11 +9972,13 @@
       ],
       "source_ids": [
         "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-49093cce3e6b470c807ba8dec2675623"
       ],
       "sources_checked": [
         "Named Amazon Order Details and order-scoped merchant transactions",
-        "Named Amazon shipment confirmation"
+        "Named Amazon shipment confirmation",
+        "Named Amazon Order Details and order-scoped Completed transaction, checked November 15, 2026"
       ]
     },
     {
@@ -10325,7 +10351,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:2ac4e53062bea99d8a78ee2444010865b74809d859433a9d6a00c609c48de70f",
+  "input_fingerprint": "sha256:f0250bde9b9076a37300a01219b8ce767df0d1b29964959a2fb752e428d5c33c",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -52825,7 +52851,7 @@
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
       "ledger_purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 4278,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -52834,7 +52860,7 @@
       "order_ids": [
         "amazon:112-7863139-0903423"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7",
       "purpose": "equipment_tooling",
@@ -64275,6 +64301,23 @@
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
         "precision": "day",
+        "value": "2026-11-15"
+      },
+      "note": "Order-scoped Your Payments > Completed shows one USD 42.78 transaction dated November 15, 2026. This confirms the existing expected event in place; allocations remain unchanged. Order Details still estimates USD 2.89 tax and says arriving today, which does not prove delivery or final tax. No bank posting or funding ownership is inferred.",
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "112-7863139-0903423",
+      "source_id": "src-49093cce3e6b470c807ba8dec2675623",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
+    },
+    {
+      "document_date": null,
+      "document_type": "completed_merchant_transaction",
+      "merchant_event_date": {
+        "precision": "day",
         "value": "2026-10-12"
       },
       "note": "Order-scoped Transactions lists one Completed charge equal to the USD 29.66 order total. Delivery is pending. No bank posting or funding ownership is established.",
@@ -70205,7 +70248,6 @@
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
-        "evt-97809881439b4885a7e33a8eb87b4b23",
         "evt-a3c8a2e1a259405e85d14c27817deb58"
       ],
       "monthly": [
@@ -70497,7 +70539,7 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 91086,
+          "charges_minor": 95364,
           "currency": "USD",
           "event_ids": [
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
@@ -70509,6 +70551,7 @@
             "evt-46ab695dde87410681a27f2d7fd8a499",
             "evt-51181bad6ecd4fcfb97e622f5e17a5f9",
             "evt-92e67e1783c94f10ac80f6a9895996db",
+            "evt-97809881439b4885a7e33a8eb87b4b23",
             "evt-9ed31057386d4c8fb11aeec9f8b619f8",
             "evt-a433c78eacf3419f9a8285a9b133fbb7",
             "evt-a518d84ef1464651bd19812f7d6129d0",
@@ -70522,7 +70565,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 91086,
+          "net_minor": 95364,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -70545,9 +70588,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2592447,
+          "charges_minor": 2596725,
           "currency": "USD",
-          "net_minor": 2592447,
+          "net_minor": 2596725,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -70574,7 +70617,6 @@
             "evt-8733331cccaa40d2b47ffde578a9bcd0",
             "evt-88d09a48acef421f95613ba1f60d2f08",
             "evt-903eedfb26fd4f999dda301c34468ee4",
-            "evt-97809881439b4885a7e33a8eb87b4b23",
             "evt-998ca791689f49919e825d9ad1e0def0",
             "evt-99939add7e964cfb9fb65ee05dc98a55",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
@@ -71572,7 +71614,7 @@
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2489404,
+          "purchases_without_merchant_charge_minor": 2485126,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -71691,6 +71733,7 @@
         "coverage-acea061ce3204d5f89dca212d3c84ba8",
         "coverage-b136418b081343e5b6fa252ee1b86a7c",
         "coverage-b315012d5a28447bb3ce18fede75ae7f",
+        "coverage-b33231d38620439992b31e180cbd4e92",
         "coverage-b3638bce1721458893c995d406a8e011",
         "coverage-b8b45e49d70542c79e84138ae30ce7a7",
         "coverage-b9b06230952f4f6795765fbb8e7c1222",
@@ -72678,7 +72721,6 @@
         "pur-e810552194844a54b71434179e0a985f",
         "pur-e82a517df8ae431283006bac8ccd2ca0",
         "pur-e8d314ccce9643ffbd660b3cf9bd5f66",
-        "pur-e8d3c873b40848499b387a0bed8978f7",
         "pur-e8f682f830f544c48d1b685defeb4ef3",
         "pur-e93a90b55e4540fbb8dae666d99c0176",
         "pur-e954ecc7688742b594585e9498bbbc01",
@@ -72744,7 +72786,6 @@
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
         "evt-88d09a48acef421f95613ba1f60d2f08",
         "evt-903eedfb26fd4f999dda301c34468ee4",
-        "evt-97809881439b4885a7e33a8eb87b4b23",
         "evt-998ca791689f49919e825d9ad1e0def0",
         "evt-99939add7e964cfb9fb65ee05dc98a55",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
@@ -72958,6 +72999,7 @@
       "coverage-acea061ce3204d5f89dca212d3c84ba8: evidence coverage is partial",
       "coverage-b136418b081343e5b6fa252ee1b86a7c: evidence coverage is partial",
       "coverage-b315012d5a28447bb3ce18fede75ae7f: evidence coverage is partial",
+      "coverage-b33231d38620439992b31e180cbd4e92: evidence coverage is partial",
       "coverage-b3638bce1721458893c995d406a8e011: evidence coverage is partial",
       "coverage-b8b45e49d70542c79e84138ae30ce7a7: evidence coverage is partial",
       "coverage-b9b06230952f4f6795765fbb8e7c1222: evidence coverage is unknown",
