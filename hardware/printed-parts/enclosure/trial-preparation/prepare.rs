@@ -19,11 +19,11 @@ mod back_top_print_supports;
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::derive::{self, Feature, Geometry};
 use hsm_print_prep::faucet_contact::ContactBand;
-use hsm_print_prep::json::{python_number, Json};
+use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{closed_check, Mesh as RawMesh};
 use hsm_print_prep::profile::{self, relative};
 use hsm_print_prep::project::{Paint, Plate, Range};
-use hsm_print_prep::{npz, seam, sha256_hex, slice};
+use hsm_print_prep::{faucet, npz, seam, sha256_hex, slice};
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeSet, HashMap};
 use std::path::{Path, PathBuf};
@@ -343,14 +343,6 @@ fn pair(v: &Value) -> Result<([f64; 3], [f64; 3])> {
     Ok((a(0)?, a(1)?))
 }
 
-fn setting_text(v: &Value) -> String {
-    match v {
-        Value::String(s) => s.clone(),
-        Value::Number(n) => n.as_f64().map(python_number).filter(|_| n.is_f64()).unwrap_or_else(|| n.to_string()),
-        other => other.to_string(),
-    }
-}
-
 /// The declared hotend against the one the recipe slices for and the side its filament maps to.
 fn check_nozzle(name: &str, piece: &Value, settings: &Json, profile_path: &str) -> Result<Value> {
     let nozzle = &piece["nozzle"];
@@ -494,7 +486,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
             let inner = &tail[1..close];
             let addend = inner.trim_start_matches("max_layer_z").trim().trim_start_matches('+').trim();
             if (addend == "0.4" || addend == "10") && inner.contains('+') {
-                out.push_str(&format!("{{min(max_layer_z + {addend}, {})}}", derive::g(limit)));
+                out.push_str(&format!("{{min(max_layer_z + {addend}, {limit:.3})}}"));
             } else {
                 out.push_str(&tail[..=close]);
             }
@@ -621,7 +613,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
             Cell::Attrs(a) => a.clone(),
         }).collect();
         let object_settings: Vec<(String, String)> = inst.settings_order.iter()
-            .map(|k| (k.clone(), setting_text(&part["object_settings"][k]["value"]))).collect();
+            .map(|k| (k.clone(), faucet::text(&part["object_settings"][k]["value"]))).collect();
         let local: Vec<[f64; 3]> = mesh.vertices.iter().map(|v| [v[0] - mesh.center[0], v[1] - mesh.center[1], v[2] - mesh.center[2]]).collect();
         let index = plate.add_object(&inst.name, local, mesh.faces.clone(), &Path::new(part["stl"].as_str().unwrap()).file_name().unwrap().to_string_lossy(),
                                      mesh.center, build_rotation, translation, Some(cells), object_settings);
@@ -768,7 +760,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
             }
             let (v, fc) = box_mesh(sub3(lo, mesh.center), sub3(hi, mesh.center));
             let name = format!("{} transverse bridge", f.record["name"].as_str().unwrap_or(""));
-            plate.add_part(index, &name, v, fc, "modifier_part", vec![("bridge_angle".into(), python_number(angle)),
+            plate.add_part(index, &name, v, fc, "modifier_part", vec![("bridge_angle".into(), angle.to_string()),
                 ("sparse_infill_density".into(), "100%".into()), ("sparse_infill_pattern".into(), "zig-zag".into())], None);
             let placed: Vec<[f64; 3]> = corners(lo, hi).into_iter().map(source_to_plate).collect();
             let (a, b) = bbox(&placed);
@@ -980,7 +972,7 @@ fn listing(root: &Path) -> Result<()> {
         let piece = &spec["pieces"][&name];
         let nozzle = &piece["nozzle"];
         let head = format!("{name:22} {:6} {:5} {} mm {}, {}", piece["printer"].as_str().unwrap_or(""), nozzle["side"].as_str().unwrap_or("-"),
-                           nozzle["diameter_mm"].as_f64().map(derive::g).unwrap_or("0".into()), nozzle["flow"].as_str().unwrap_or(""), piece["material"].as_str().unwrap_or("-"));
+                           nozzle["diameter_mm"].as_f64().unwrap_or(0.0), nozzle["flow"].as_str().unwrap_or(""), piece["material"].as_str().unwrap_or("-"));
         if let Some(external) = piece.get("external") {
             println!("{head}\n    external: {}", external["command"].as_array().map(|c| c.iter().filter_map(Value::as_str).collect::<Vec<_>>().join(" ")).unwrap_or_default());
             continue;

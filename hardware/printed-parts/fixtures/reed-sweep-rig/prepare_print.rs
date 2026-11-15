@@ -9,7 +9,7 @@
 //! archive. It neither submits a print nor joins the build.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::{python_number, Json};
+use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet, root, sha256_hex};
@@ -31,7 +31,7 @@ fn settings_project(root: &Path, spec: &Value) -> Result<(PathBuf, Map<String, V
     let mut settings = Json::parse(std::str::from_utf8(&members[SETTINGS_MEMBER])?)?;
     let mut changes = Map::new();
     let nozzle: f64 = settings.first_text("nozzle_diameter").context("nozzle diameter")?.parse()?;
-    let nozzle_text = python_number(nozzle).trim_end_matches(".0").to_string();
+    let nozzle_text = nozzle.to_string();
     let trim = spec["z_trim_mm"].as_f64().context("Z trim")?;
     let compatible = [format!("Bambu Lab H2C {nozzle_text} Standard +{trim:.2} Z trim"), format!("Bambu Lab H2C {nozzle_text} nozzle")];
     settings.set("print_compatible_printers", Json::List(compatible.iter().cloned().map(Json::Text).collect()));

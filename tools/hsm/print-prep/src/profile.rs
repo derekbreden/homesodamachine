@@ -282,7 +282,7 @@ pub fn load(settings_from: &Path, z_trim: Option<f64>, filament_from: Option<&Pa
         let start = settings.get("machine_start_gcode").and_then(Json::text).context("no start G-code")?.to_string();
         let trimmed = trimmed_start_gcode(&start, z)?;
         let nozzle: f64 = settings.first_text("nozzle_diameter").context("no nozzle diameter")?.parse()?;
-        let identity = format!("Bambu Lab H2C {} Standard +{:.2} Z trim", crate::json::python_number(nozzle).trim_end_matches(".0"), z);
+        let identity = format!("Bambu Lab H2C {nozzle} Standard +{z:.2} Z trim");
         changes.insert("machine_start_gcode".into(), json!({
             "from_sha256": crate::sha256_hex(start.as_bytes()),
             "to_sha256": crate::sha256_hex(trimmed.as_bytes()),

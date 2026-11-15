@@ -8,10 +8,10 @@
 //! selection's first bed layer and later layers.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::{python_number, Json};
+use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{petgf_infill_pattern, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
-use hsm_print_prep::{root, sha256_hex, xml};
+use hsm_print_prep::{faucet::text, root, sha256_hex, xml};
 use serde_json::{json, Value};
 use std::io::Read;
 use std::path::{Path, PathBuf};
@@ -27,15 +27,6 @@ fn member(path: &Path, name: &str) -> Result<Vec<u8>> {
     let mut bytes = Vec::new();
     archive.by_name(name)?.read_to_end(&mut bytes)?;
     Ok(bytes)
-}
-
-fn text(v: &Value) -> String {
-    match v {
-        Value::String(s) => s.clone(),
-        Value::Number(n) if n.is_i64() || n.is_u64() => n.to_string(),
-        Value::Number(n) => python_number(n.as_f64().unwrap_or(0.0)),
-        other => other.to_string(),
-    }
 }
 
 fn main() -> Result<()> {
