@@ -27,7 +27,6 @@ pub mod plate_sequence;
 pub mod preset;
 pub mod profile;
 pub mod project;
-pub mod python_text;
 pub mod refresh;
 pub mod review;
 pub mod seam;

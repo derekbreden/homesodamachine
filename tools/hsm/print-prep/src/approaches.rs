@@ -8,8 +8,8 @@
 
 use crate::course_field::distance;
 use crate::gcode;
-use crate::python_text::{self, Json};
 use anyhow::{bail, Context, Result};
+use serde_json::{json, Value};
 use std::collections::BTreeMap;
 use std::path::Path;
 
@@ -47,9 +47,9 @@ const LANDING: f64 = 0.00005;
 const ARC_STEP: f64 = 0.025;
 
 /// The approach readings of the replay report at `replay` on the plate G-code at `gcode`.
-pub fn read(gcode: &Path, replay: &Path) -> Result<Json> {
-    let report = Json::loads(&python_text::read_text(replay)?)?;
-    let Some(Json::Dict(phases)) = report.get("local_nozzle_model") else {
+pub fn read(gcode: &Path, replay: &Path) -> Result<Value> {
+    let report: Value = serde_json::from_slice(&std::fs::read(replay).with_context(|| format!("reading {}", replay.display()))?)?;
+    let Some(phases) = report["local_nozzle_model"].as_object() else {
         bail!("{} has no local nozzle model", replay.display());
     };
     let mut probes = Vec::new();
@@ -57,53 +57,40 @@ pub fn read(gcode: &Path, replay: &Path) -> Result<Json> {
         if !PHASES.contains(&phase.as_str()) {
             continue;
         }
-        let Json::Dict(metrics) = row else { bail!("{phase}'s nozzle readings are not a table") };
-        for (metric, witness) in metrics {
-            if !METRICS.contains(&metric.as_str()) || *witness == Json::Null {
-                continue;
-            }
+        let Some(metrics) = row.as_object() else { bail!("{phase}'s nozzle readings are not a table") };
+        for metric in METRICS {
+            let Some(witness) = metrics.get(metric).filter(|w| !w.is_null()) else { continue };
             let field = |key: &str| witness.get(key).cloned().with_context(|| format!("{phase} {metric} has no {key}"));
             if !(number(&field("gap_mm")?)? < PROBE_GAP) {
                 continue;
             }
-            probes.push(Json::Dict(vec![
-                ("phase".into(), Json::Str(phase.clone())),
-                ("metric".into(), Json::Str(metric.clone())),
-                ("line".into(), field("line")?),
-                ("deposited_by".into(), field("deposited_by")?),
-                ("xyz_mm".into(), field("nozzle_xyz_mm")?),
-                ("model_gap_mm".into(), field("gap_mm")?),
-            ]));
+            probes.push(json!({
+                "phase": phase,
+                "metric": metric,
+                "line": field("line")?,
+                "deposited_by": field("deposited_by")?,
+                "xyz_mm": field("nozzle_xyz_mm")?,
+                "model_gap_mm": field("gap_mm")?,
+            }));
         }
     }
     check(gcode, &probes)
 }
 
-fn number(value: &Json) -> Result<f64> {
-    match value {
-        Json::Float(x) => Ok(*x),
-        Json::Int(i) => Ok(*i as f64),
-        other => bail!("{other:?} is not a number"),
-    }
+fn number(value: &Value) -> Result<f64> {
+    value.as_f64().with_context(|| format!("{value} is not a number"))
 }
 
-fn integer(value: Option<&Json>) -> Result<i64> {
-    match value {
-        Some(Json::Int(i)) => Ok(*i),
-        other => bail!("{other:?} is not a whole number"),
-    }
+fn integer(value: &Value) -> Result<i64> {
+    value.as_i64().with_context(|| format!("{value} is not a whole number"))
 }
 
-fn floats(p: [f64; 3]) -> Json {
-    Json::List(p.iter().map(|&v| Json::Float(v)).collect())
-}
-
-/// `min(a, b)` and `max(a, b)` as the readings compare: the first of equals.
-fn least(a: f64, b: f64) -> f64 {
-    if b < a { b } else { a }
-}
-fn most(a: f64, b: f64) -> f64 {
-    if b > a { b } else { a }
+/// A number a plate's comment writes, white space aside.
+fn parse<T: std::str::FromStr>(text: &str) -> Result<T>
+where
+    T::Err: std::error::Error + Send + Sync + 'static,
+{
+    text.trim().parse().with_context(|| format!("{text:?} is not a number"))
 }
 
 /// An approach as the replay named it.
@@ -124,29 +111,29 @@ struct Stock {
 }
 
 impl Stock {
-    fn json(&self) -> Json {
-        Json::Dict(vec![
-            ("gap_mm".into(), Json::Float(self.gap)),
-            ("nominal_bead_height_mm".into(), Json::Float(self.height)),
-            ("distance_to_earlier_centerline_mm".into(), Json::Float(self.lateral)),
-            ("earlier_centerline_xyz_mm".into(), floats(self.center)),
-            ("prior_line".into(), Json::Int(self.line as i64)),
-            ("prior_feature".into(), Json::Str(self.feature.clone())),
-        ])
+    fn json(&self) -> Value {
+        json!({
+            "gap_mm": self.gap,
+            "nominal_bead_height_mm": self.height,
+            "distance_to_earlier_centerline_mm": self.lateral,
+            "earlier_centerline_xyz_mm": self.center,
+            "prior_line": self.line,
+            "prior_feature": self.feature,
+        })
     }
 }
 
-fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
+fn check(tape: &Path, observations: &[Value]) -> Result<Value> {
     if observations.is_empty() {
-        return Ok(Json::List(Vec::new()));
+        return Ok(json!([]));
     }
     let mut approaches = Vec::new();
     for w in observations {
-        let xyz = match w.get("xyz_mm") {
-            Some(Json::List(v)) if v.len() == 3 => [number(&v[0])?, number(&v[1])?, number(&v[2])?],
-            other => bail!("{other:?} is not a position"),
+        let xyz = match w["xyz_mm"].as_array() {
+            Some(v) if v.len() == 3 => [number(&v[0])?, number(&v[1])?, number(&v[2])?],
+            _ => bail!("{} is not a position", w["xyz_mm"]),
         };
-        approaches.push(Approach { line: usize::try_from(integer(w.get("line"))?)?, object: integer(w.get("deposited_by"))?, xyz });
+        approaches.push(Approach { line: usize::try_from(integer(&w["line"])?)?, object: integer(&w["deposited_by"])?, xyz });
     }
     let mut at_line: BTreeMap<usize, Vec<usize>> = BTreeMap::new();
     let mut by_object: BTreeMap<i64, Vec<usize>> = BTreeMap::new();
@@ -159,7 +146,7 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
         let [mut x1, mut y1] = [x0, y0];
         for &i in probes {
             let q = approaches[i].xyz;
-            (x0, y0, x1, y1) = (least(x0, q[0]), least(y0, q[1]), most(x1, q[0]), most(y1, q[1]));
+            (x0, y0, x1, y1) = (x0.min(q[0]), y0.min(q[1]), x1.max(q[0]), y1.max(q[1]));
         }
         (object, [x0, y0, x1, y1])
     }).collect();
@@ -171,7 +158,7 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
     let mut object = 0;
     let (mut feature, mut phase) = (String::from("Custom"), String::from("machine startup"));
     let end_line = *at_line.keys().last().context("no approaches")?;
-    let text = python_text::read_text(tape)?;
+    let text = std::fs::read_to_string(tape).with_context(|| format!("reading {}", tape.display()))?;
     for (index, line) in text.split('\n').enumerate() {
         let n = index + 1;
         if n > end_line || line.starts_with(BODY_END) {
@@ -182,13 +169,13 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
                 enabled = true;
                 debt = 0.0;
             } else if let Some(v) = line.strip_prefix(WIDTH) {
-                width = python_text::float(v)?;
+                width = parse(v)?;
             } else if let Some(v) = line.strip_prefix(FEATURE) {
-                feature = python_text::strip(v).to_string();
+                feature = v.trim().to_string();
             } else if PHASE.iter().any(|p| line.starts_with(p)) {
-                phase = python_text::strip(line.split_once(':').map_or("", |(_, v)| v)).to_string();
+                phase = line.split_once(':').map_or("", |(_, v)| v).trim().to_string();
             } else if let Some(v) = line.strip_prefix(OBJECT_START) {
-                object = python_text::int(v)?;
+                object = parse(v)?;
             } else if line.starts_with(OBJECT_END) {
                 object = 0;
             }
@@ -223,16 +210,16 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
         let increment = if relative_e { word(b'E').unwrap_or(0.0) } else { word(b'E').unwrap_or(e) - e };
         e += increment;
         let net = increment - debt;
-        let remaining = most(0.0, debt - increment);
+        let remaining = (debt - increment).max(0.0);
         for &i in at_line.get(&n).into_iter().flatten() {
-            found.push(Json::Dict(vec![
-                ("phase".into(), Json::Str(phase.clone())),
-                ("observation".into(), observations[i].clone()),
-                ("approach_move_from".into(), floats(pos)),
-                ("approach_move_to".into(), floats(next)),
-                ("landing_sample".into(), Json::Bool(distance(approaches[i].xyz, next) <= LANDING)),
-                ("closest_prior_nominal_stock".into(), finest[i].as_ref().map_or(Json::Null, Stock::json)),
-            ]));
+            found.push(json!({
+                "phase": phase,
+                "observation": observations[i],
+                "approach_move_from": pos,
+                "approach_move_to": next,
+                "landing_sample": distance(approaches[i].xyz, next) <= LANDING,
+                "closest_prior_nominal_stock": finest[i].as_ref().map(Stock::json),
+            }));
         }
         let laid = enabled && net > EPS && (pos[0] != next[0] || pos[1] != next[1] || command == "G2" || command == "G3");
         if let Some(&[x0, y0, x1, y1]) = bbox.get(&object).filter(|_| laid) {
@@ -241,7 +228,7 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
             let [mut low_x, mut low_y] = [curve[0][0], curve[0][1]];
             let [mut high_x, mut high_y] = [low_x, low_y];
             for p in &curve {
-                (low_x, low_y, high_x, high_y) = (least(low_x, p[0]), least(low_y, p[1]), most(high_x, p[0]), most(high_y, p[1]));
+                (low_x, low_y, high_x, high_y) = (low_x.min(p[0]), low_y.min(p[1]), high_x.max(p[0]), high_y.max(p[1]));
             }
             if low_x - r <= x1 && high_x + r >= x0 && low_y - r <= y1 && high_y + r >= y0 {
                 let h = height(net, length, width, &feature);
@@ -252,8 +239,8 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
                     }
                     for pair in curve.windows(2) {
                         let (a, b) = (pair[0], pair[1]);
-                        if !(least(a[0], b[0]) - r <= q[0] && q[0] <= most(a[0], b[0]) + r)
-                            || !(least(a[1], b[1]) - r <= q[1] && q[1] <= most(a[1], b[1]) + r)
+                        if !(a[0].min(b[0]) - r <= q[0] && q[0] <= a[0].max(b[0]) + r)
+                            || !(a[1].min(b[1]) - r <= q[1] && q[1] <= a[1].max(b[1]) + r)
                         {
                             continue;
                         }
@@ -268,7 +255,7 @@ fn check(tape: &Path, observations: &[Json]) -> Result<Json> {
         debt = remaining;
         pos = next;
     }
-    Ok(Json::List(found))
+    Ok(Value::Array(found))
 }
 
 /// A move's length and the points its track is followed through.
@@ -309,7 +296,7 @@ fn arc_center(clockwise: bool, a: [f64; 3], b: [f64; 3], word: &dyn Fn(u8) -> Op
         bail!("invalid R arc at {a:?} → {b:?}");
     }
     let sign = if clockwise == (signed >= 0.0) { -1.0 } else { 1.0 };
-    let rise = most(0.0, radius * radius - chord * chord * 0.25).sqrt() * sign;
+    let rise = (radius * radius - chord * chord * 0.25).max(0.0).sqrt() * sign;
     Ok(((a[0] + b[0]) * 0.5 - dy / chord * rise, (a[1] + b[1]) * 0.5 + dx / chord * rise))
 }
 
@@ -323,8 +310,8 @@ fn height(net_e: f64, length: f64, width: f64, feature: &str) -> f64 {
         volume_per_mm /= BRIDGE_FLOW;
     }
     let k = 1.0 - std::f64::consts::PI / 4.0;
-    let determinant = most(0.0, width * width - 4.0 * k * volume_per_mm);
-    least(width, most(0.0, (width - determinant.sqrt()) / (2.0 * k)))
+    let determinant = (width * width - 4.0 * k * volume_per_mm).max(0.0);
+    ((width - determinant.sqrt()) / (2.0 * k)).max(0.0).min(width)
 }
 
 /// The gap from `tip` down to the top of the bead laid from `a` to `b` where it passes under the
@@ -335,15 +322,15 @@ fn nearest_top(tip: [f64; 3], a: [f64; 3], b: [f64; 3], width: f64, bead_height:
     if length2 < EPS * EPS {
         return None;
     }
-    let t = most(0.0, least(1.0, ((tip[0] - a[0]) * x + (tip[1] - a[1]) * y) / length2));
+    let t = (((tip[0] - a[0]) * x + (tip[1] - a[1]) * y) / length2).min(1.0).max(0.0);
     let center: [f64; 3] = std::array::from_fn(|i| a[i] + (b[i] - a[i]) * t);
     let lateral = (tip[0] - center[0]).hypot(tip[1] - center[1]);
     let r = width * 0.5;
     if lateral > r {
         return None;
     }
-    let flat = most(0.0, (width - bead_height) * 0.5);
-    let roll = least(1.0, most(0.0, (lateral - flat) / most(EPS, r - flat)));
+    let flat = ((width - bead_height) * 0.5).max(0.0);
+    let roll = ((lateral - flat) / (r - flat).max(EPS)).max(0.0).min(1.0);
     let drops = bead_height * 0.5 * (1.0 - (1.0 - roll * roll).sqrt());
     Some((tip[2] - center[2] + drops, lateral, center))
 }
