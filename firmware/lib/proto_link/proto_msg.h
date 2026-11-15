@@ -1122,15 +1122,12 @@ constexpr uint8_t NOTICE_CORE_BYTES = 1;   // the kind
 static_assert(sizeof(NoticePayload) == 3, "notice wire layout drift");
 
 // ── Ratio, open on both glasses (0x7D..) ──────────────────────────────────
-// While the machine display has a flavor's Ratio page up, the faucet shows that flavor's
-// ratio with More flavor and Lighter, and Back on either glass closes it on both. The
-// machine display names one visit to the page with a token and states it on its poll for as
-// long as the page stands; the main board holds the visit open for a lease after each
-// statement (ratio_session_policy.h). Either glass closes it with that token, and a closed
-// token stays closed, so a statement still on its way does not open it again; the machine
-// display learns of a close from the answer to its next one. Only the machine display opens:
-// on J3 a CLOSE is the one action. The answer to either, and on J3 every change and a
-// heartbeat, is the state as it stands, with both ratios.
+// While the machine display has a flavor's Ratio page up, the faucet shows that flavor's ratio
+// with More flavor and Lighter. The machine display names one visit to the page with a token,
+// states it on its poll for as long as the page stands, and closes it when the page goes; the
+// main board holds the visit open for a lease after each statement (ratio_session_policy.h).
+// The answer, and on J3 every change and a heartbeat, is the state as it stands, with both
+// ratios. The faucet only reads it.
 constexpr uint8_t MSG_RATIO_SESSION_SET  = 0x7D;  // RatioSessionRequestPayload
 constexpr uint8_t MSG_RESP_RATIO_SESSION = 0x7E;  // RatioSessionStatePayload
 
@@ -1147,7 +1144,7 @@ struct __attribute__((packed)) RatioSessionStatePayload {
   uint8_t  open;      // 1 while the visit stands
   uint8_t  channel;   // the visit's flavor
   uint8_t  ratio[2];  // what each channel pours at
-  uint32_t token;     // the visit, open or last closed; 0 before any
+  uint32_t token;     // the visit; 0 while none has been stated since it closed
 };
 
 static_assert(sizeof(RatioSessionRequestPayload) == 6, "ratio session request wire layout drift");

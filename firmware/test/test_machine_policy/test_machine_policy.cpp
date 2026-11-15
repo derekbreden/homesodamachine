@@ -541,7 +541,7 @@ void test_prime_query_arbitration_leaves_malformed_and_direct_actions_to_dispatc
         101 + kPrimeSessionLeaseGraceMs));
 }
 
-void test_ratio_session_opens_renews_and_stays_closed_once_closed() {
+void test_ratio_session_opens_renews_and_closes() {
     ratio_session::Session session;
     RatioSessionStatePayload state{};
     TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_B, 0x51u, 100));
@@ -552,11 +552,8 @@ void test_ratio_session_opens_renews_and_stays_closed_once_closed() {
     TEST_ASSERT_EQUAL_UINT32(0x51u, state.token);
     TEST_ASSERT_TRUE(session.close(0x51u, 600));
     TEST_ASSERT_FALSE(session.close(0x51u, 700));
-    // A statement of the closed visit still on its way is answered closed.
-    TEST_ASSERT_FALSE(session.open(PUMP_CHANNEL_B, 0x51u, 800));
     session.read(800, state);
     TEST_ASSERT_EQUAL_UINT8(0, state.open);
-    TEST_ASSERT_EQUAL_UINT32(0x51u, state.token);
     TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_A, 0x52u, 900));
     TEST_ASSERT_TRUE(session.isOpen(900));
 }
@@ -569,9 +566,9 @@ void test_ratio_session_lease_lapses_and_reopens_on_the_next_statement() {
     TEST_ASSERT_FALSE(session.isOpen(start + ratio_session::kLeaseMs));
     TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_A, 0x61u, start + ratio_session::kLeaseMs + 50));
     TEST_ASSERT_TRUE(session.isOpen(start + ratio_session::kLeaseMs + 50));
-    // A visit that lapsed and was closed after stays closed.
+    // Closing a visit that has lapsed closes nothing that was open.
     TEST_ASSERT_FALSE(session.close(0x61u, start + 3 * ratio_session::kLeaseMs));
-    TEST_ASSERT_FALSE(session.open(PUMP_CHANNEL_A, 0x61u, start + 3 * ratio_session::kLeaseMs));
+    TEST_ASSERT_FALSE(session.isOpen(start + 3 * ratio_session::kLeaseMs));
 }
 
 void test_ratio_session_close_names_its_visit() {
@@ -1307,7 +1304,7 @@ int main(int, char **) {
     RUN_TEST(test_prime_discovery_queries_get_state_without_renewing_another_lease);
     RUN_TEST(test_prime_revision_changes_precede_queued_news);
     RUN_TEST(test_prime_query_arbitration_leaves_malformed_and_direct_actions_to_dispatch);
-    RUN_TEST(test_ratio_session_opens_renews_and_stays_closed_once_closed);
+    RUN_TEST(test_ratio_session_opens_renews_and_closes);
     RUN_TEST(test_ratio_session_lease_lapses_and_reopens_on_the_next_statement);
     RUN_TEST(test_ratio_session_close_names_its_visit);
     RUN_TEST(test_hold_is_bound_to_session_channel_source_and_press_token);

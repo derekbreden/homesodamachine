@@ -647,25 +647,6 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // Back on the faucet's Ratio screen, which closes the machine display's page too. Only
-    // the machine display opens one.
-    if (type == MSG_RATIO_SESSION_SET && plen >= sizeof(RatioSessionRequestPayload)) {
-        RatioSessionRequestPayload request;
-        memcpy(&request, payload, sizeof(request));
-        if (request.action != RATIO_SESSION_CLOSE || request.token == 0) {
-            ++invalidRequests;
-            if (faucet.trySendResponse(MSG_ERR_SLOT_INVALID, request.channel) >= 0) ++framesTx;
-            return;
-        }
-        idleTouched();
-        if (flavorRatioSessionClose(request.token)) {
-            soundPlay(SND_TICK);
-            Serial.println("\n[J3] Ratio closed at the faucet");
-        }
-        sendRatioSession();
-        return;
-    }
-
     if (type == MSG_FLAVOR_ART_SET && plen >= sizeof(FlavorArtPayload)) {
         FlavorArtPayload request;
         memcpy(&request, payload, sizeof(request));
@@ -690,28 +671,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    if (type == MSG_PRIME_SESSION_HOLD_START || type == MSG_PRIME_SESSION_SET) idleTouched();
-
-    if (type == MSG_PRIME_SESSION_SET &&
-        plen >= sizeof(PrimeSessionRequestPayload)) {
-        PrimeSessionRequestPayload request;
-        memcpy(&request, payload, sizeof(request));
-        if (request.action != PRIME_SESSION_CANCEL ||
-            request.channel > PUMP_CHANNEL_B || request.sessionToken == 0) {
-            ++invalidRequests;
-            if (faucet.trySendResponse(MSG_ERR_SLOT_INVALID, request.channel) >= 0) ++framesTx;
-            return;
-        }
-        MachinePrimeSessionState before;
-        machineReadPrimeSessionState(before);
-        const bool accepted = machinePrimeSessionCancel(request.sessionToken);
-        MachinePrimeSessionState after;
-        machineReadPrimeSessionState(after);
-        if (accepted && before.phase != PRIME_SESSION_OFF &&
-            after.revision != before.revision) soundPlay(SND_TICK);
-        sendPrimeState();
-        return;
-    }
+    if (type == MSG_PRIME_SESSION_HOLD_START) idleTouched();
 
     if ((type == MSG_PRIME_SESSION_HOLD_START ||
          type == MSG_PRIME_SESSION_HOLD_TICK ||

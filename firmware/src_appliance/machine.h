@@ -126,13 +126,13 @@ bool machinePrimeBegin(uint8_t channel);
 void machinePrimeTick(uint8_t channel);
 void machinePrimeEnd();
 
-// Main-board-owned prime-ready session. The enclosure activates and leases it;
-// either endpoint may own one tokenized hold, and either may cancel it. Every
-// command is absolute and stale source/session/hold tokens are harmless.
+// Main-board-owned prime-ready session. The enclosure activates, leases and
+// cancels it, and a phone may cancel it; either display may own one tokenized
+// hold. Every command is absolute and stale source/session/hold tokens are harmless.
 bool machinePrimeSessionActivate(uint8_t channel, uint32_t sessionToken);
 bool machinePrimeSessionQuery(uint32_t sessionToken);
 // Only J9 may tombstone an activation token while OFF: the enclosure is the
-// sole endpoint permitted to create a prime session. Faucet CANCEL is limited
+// sole endpoint permitted to create a prime session. A phone's CANCEL is limited
 // to the currently authoritative session.
 bool machinePrimeSessionCancel(uint32_t sessionToken,
                                bool tombstonePendingActivation = false);

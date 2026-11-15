@@ -43,7 +43,7 @@ bool    flavorRatioSet(uint8_t r0, uint8_t r1);
 
 // The machine display's Ratio page, open for one flavor, which the faucet shows as well
 // (ratio_session_policy.h). Open is the machine display stating its visit, on every poll;
-// close is either glass's Back. Each answers whether it changed the visit.
+// close is its leaving the page. Each answers whether it changed the visit.
 bool flavorRatioSessionOpen(uint8_t channel, uint32_t token);
 bool flavorRatioSessionClose(uint32_t token);
 void flavorRatioSession(RatioSessionStatePayload &state);
