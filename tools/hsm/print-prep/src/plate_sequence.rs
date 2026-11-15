@@ -7,9 +7,9 @@
 //! shaft trial composes a staged foundation slice with a continued-base donor.
 
 use crate::gcode;
-use crate::python_text::Json;
 use anyhow::{bail, ensure, Context, Result};
-use std::collections::HashSet;
+use serde_json::{json, Value};
+use std::collections::{BTreeMap, HashSet};
 use std::fmt::Write;
 use std::path::{Path, PathBuf};
 
@@ -852,29 +852,20 @@ fn footer_z(line: &str) -> Option<(&str, &str, &str)> {
     Some((&body[..4], &body[4..4 + length], &body[4 + length..]))
 }
 
-/// Adds `amount` to the row for `key`, the rows kept in the order their keys first appear.
-fn add<K: PartialEq, T: std::ops::AddAssign + Default>(rows: &mut Vec<(K, T)>, key: K, amount: T) {
-    match rows.iter_mut().find(|(k, _)| *k == key) {
-        Some((_, total)) => *total += amount,
-        None => {
-            let mut total = T::default();
-            total += amount;
-            rows.push((key, total));
-        }
-    }
+/// A file's SHA-256.
+fn file_sha(path: &Path) -> Result<String> {
+    Ok(crate::sha256_hex(&std::fs::read(path).with_context(|| format!("reading {}", path.display()))?))
 }
 
-fn point(xyz: &[f64]) -> Json {
-    Json::List(xyz.iter().map(|v| Json::Float(*v)).collect())
-}
-
-fn keyed<T>(rows: Vec<(i64, T)>, value: impl Fn(T) -> Json) -> Json {
-    Json::Dict(rows.into_iter().map(|(k, v)| (k.to_string(), value(v))).collect())
+/// A report written beside its plate.
+fn write_report(output: &Path, report: &Value) -> Result<()> {
+    std::fs::write(output.with_extension("json"), serde_json::to_string_pretty(report)? + "\n")?;
+    Ok(())
 }
 
 /// The tip trial's plate from the previous plate, a native slice for the cover, the custom tip
 /// and the screw-seat rings, written to `output` with its report beside it.
-pub fn compose_tip(reference: &Path, native: &Path, output: &Path, tip_model: &Path, plate_rings: Option<&Path>) -> Result<Json> {
+pub fn compose_tip(reference: &Path, native: &Path, output: &Path, tip_model: &Path, plate_rings: Option<&Path>) -> Result<Value> {
     let reference_tape = Tape::read(reference)?;
     let native_tape = Tape::read(native)?;
     let tip_tape = Tape::read(tip_model)?;
@@ -894,29 +885,26 @@ pub fn compose_tip(reference: &Path, native: &Path, output: &Path, tip_model: &P
     each_once(&schedule, pointers(tip.iter().chain(&cover).chain(&rings).chain(retained)))?;
     let (startup, window) = leveling(startup, &native_lines, &schedule)?;
     let mut result = emit(output, &startup, &schedule, &footer, &metadata)?;
-    let mut sources = vec![("reference".to_string(), Json::Str(crate::sha256_hex(&std::fs::read(reference)?))),
-                           ("native".to_string(), Json::Str(crate::sha256_hex(&std::fs::read(native)?))),
-                           ("tip_model".to_string(), Json::Str(crate::sha256_hex(&std::fs::read(tip_model)?)))];
+    result["source_gcode_sha256"] = json!({"reference": file_sha(reference)?, "native": file_sha(native)?, "tip_model": file_sha(tip_model)?});
     if let Some(rings) = plate_rings {
-        sources.push(("plate_rings".to_string(), Json::Str(crate::sha256_hex(&std::fs::read(rings)?))));
+        result["source_gcode_sha256"]["plate_rings"] = json!(file_sha(rings)?);
     }
-    result.set("source_gcode_sha256", Json::Dict(sources));
-    result.set("first_native_tip_z_mm", Json::Null);
-    result.set("stock_leveling_window_xy_mm", Json::List(window.iter().map(|p| point(p)).collect()));
-    std::fs::write(output.with_extension("json"), result.dumps_indented() + "\n")?;
+    result["first_native_tip_z_mm"] = Value::Null;
+    result["stock_leveling_window_xy_mm"] = json!(window);
+    write_report(output, &result)?;
     Ok(result)
 }
 
 /// The tip trial's plate written to `output`, and its report: phases, filament, roads, groups,
 /// bounds and the plate's hash.
-pub fn emit(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata) -> Result<Json> {
+pub fn emit(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata) -> Result<Value> {
     emit_with(output, startup, schedule, footer, metadata, None)
 }
 
 /// `emit`, with the transfers and printer commands of a `native` plate when it is one, and their
 /// counts in the report.
 pub fn emit_with(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata,
-                 native: Option<&Native>) -> Result<Json> {
+                 native: Option<&Native>) -> Result<Value> {
     let heat_at = schedule.iter().position(|b| !b.first_bed_course());
     if let Some(at) = heat_at {
         let first_bed: HashSet<i64> = schedule[..at].iter().map(|b| b.obj).collect();
@@ -932,55 +920,39 @@ pub fn emit_with(output: &Path, startup: &[String], schedule: &[&Band], footer: 
     };
     let (text, terrain, handoffs) = write_plate(startup, schedule, heat_at, footer, f64::NEG_INFINITY, metadata, native, allowed)?;
     std::fs::write(output, &text)?;
-    let (mut counts, mut filament, mut roads) = (Vec::new(), Vec::new(), Vec::new());
+    let (mut counts, mut filament, mut roads) = (BTreeMap::<&str, usize>::new(), BTreeMap::<i64, f64>::new(), BTreeMap::<i64, usize>::new());
     let mut groups = Vec::new();
     for band in schedule {
-        add(&mut counts, band.phase.clone(), 1i64);
-        add(&mut filament, band.obj, band.e);
-        add(&mut roads, band.obj, band.roads as i64);
-        groups.push(Json::List(vec![Json::Str(band.phase.clone()), Json::Str(band.label.clone()), Json::Int(band.obj),
-                                    Json::Float(band.z), point(&band.lo), point(&band.hi), Json::Int(band.line as i64 + 1)]));
+        *counts.entry(band.phase.as_str()).or_default() += 1;
+        *filament.entry(band.obj).or_default() += band.e;
+        *roads.entry(band.obj).or_default() += band.roads;
+        groups.push(json!([band.phase, band.label, band.obj, band.z, band.lo, band.hi, band.line + 1]));
     }
-    let bounds: Vec<(i64, Json)> = terrain.iter().map(|(obj, lo, hi)| (*obj, Json::List(vec![point(lo), point(hi)]))).collect();
-    let mut report = vec![
-        ("counts_by_phase".into(), Json::Dict(counts.into_iter().map(|(k, v)| (k, Json::Int(v))).collect())),
-        ("deposition_mm_filament".into(), keyed(filament, Json::Float)),
-        ("deposition_roads".into(), keyed(roads, Json::Int)),
-        ("groups".into(), Json::List(groups)),
-        ("bounds_by_object_mm".into(), keyed(bounds, |v| v)),
-        ("sequenced_gcode_sha256".into(), Json::Str(crate::sha256_hex(text.as_bytes()))),
-    ];
+    let bounds: BTreeMap<i64, [[f64; 3]; 2]> = terrain.iter().map(|(obj, lo, hi)| (*obj, [*lo, *hi])).collect();
+    let mut report = json!({
+        "counts_by_phase": counts,
+        "deposition_mm_filament": filament,
+        "deposition_roads": roads,
+        "groups": groups,
+        "bounds_by_object_mm": bounds,
+        "sequenced_gcode_sha256": crate::sha256_hex(text.as_bytes()),
+    });
     if native.is_some() {
-        report.push(("transfers_between_groups".into(), Json::Dict(vec![
-            ("as_the_slicer_changes_layers".into(), Json::Int(handoffs.native as i64)),
-            ("lifted_from_or_to_a_tilted_group".into(), Json::Int(handoffs.lifted_tilted as i64)),
-            ("lifted_over_higher_plastic".into(), Json::Int(handoffs.lifted_over_plastic as i64)),
-            ("lifted_from_the_start".into(), Json::Int(handoffs.lifted_first as i64)),
-        ])));
-        report.push(("printer_layers".into(), Json::Int(handoffs.layers as i64)));
+        report["transfers_between_groups"] = json!({
+            "as_the_slicer_changes_layers": handoffs.native,
+            "lifted_from_or_to_a_tilted_group": handoffs.lifted_tilted,
+            "lifted_over_higher_plastic": handoffs.lifted_over_plastic,
+            "lifted_from_the_start": handoffs.lifted_first,
+        });
+        report["printer_layers"] = json!(handoffs.layers);
     }
-    Ok(Json::Dict(report))
-}
-
-/// What a trial pins its previous plate to, and the sequencer provenance its plates' reports
-/// carry; each is checked or recorded only when the trial names it.
-#[derive(Default)]
-pub struct MergePins {
-    /// The previous plate's G-code, by SHA-256.
-    pub reference_sha256: Option<String>,
-    /// How many screw-seat ring groups the previous plate carries.
-    pub rings: Option<usize>,
-    /// The sequencer recipe the trial's archive names.
-    pub sequencer_sha256: Option<String>,
+    Ok(report)
 }
 
 /// Each plug-ramp alternative: its tip tape composed against the previous plate's other parts,
 /// written to its plate path with its report beside it. Each plate's summary is returned.
-pub fn merge(reference: &Path, candidates: &[(PathBuf, PathBuf)], pins: &MergePins) -> Result<Vec<Json>> {
-    let reference_sha = crate::sha256_hex(&std::fs::read(reference)?);
-    if let Some(expected) = &pins.reference_sha256 {
-        ensure!(reference_sha == *expected, "The previous plate is not the one the trial names");
-    }
+pub fn merge(reference: &Path, candidates: &[(PathBuf, PathBuf)]) -> Result<Vec<Value>> {
+    let reference_sha = file_sha(reference)?;
     let reference_tape = Tape::read(reference)?;
     let reference_lines = reference_tape.lines();
     let mut metadata = Metadata::new();
@@ -988,13 +960,12 @@ pub fn merge(reference: &Path, candidates: &[(PathBuf, PathBuf)], pins: &MergePi
     let cover: Vec<Band> = reference_bands.iter().filter(|b| b.obj == COVER).cloned().collect();
     let retained: Vec<&Band> = reference_bands.iter().filter(|b| b.obj != TIP && b.obj != COVER).collect();
     let ring_count = retained.iter().filter(|b| b.phase == RING_PHASE).count();
-    ensure!(!cover.is_empty() && pins.rings.is_none_or(|n| ring_count == n), "The previous plate is missing its cover or ring groups");
+    ensure!(!cover.is_empty(), "The previous plate has no display cover groups");
     let mut summaries = Vec::new();
     for (tip_path, output) in candidates {
-        let tip_sha = crate::sha256_hex(&std::fs::read(tip_path)?);
-        let declared = Json::loads(&std::fs::read_to_string(tip_path.with_extension("json"))?)?;
-        ensure!(declared.get("tip_tape_sha256") == Some(&Json::Str(tip_sha.clone())),
-                "The mapped tip tape and its receipt differ: {}", tip_path.display());
+        let tip_sha = file_sha(tip_path)?;
+        let declared: Value = serde_json::from_slice(&std::fs::read(tip_path.with_extension("json"))?)?;
+        ensure!(declared["tip_tape_sha256"] == tip_sha.as_str(), "The mapped tip tape and its receipt differ: {}", tip_path.display());
         let tip_tape = Tape::read(tip_path)?;
         let tip_lines = tip_tape.lines();
         let tip = read_custom(&tip_lines, TIP, &mut metadata)?;
@@ -1002,37 +973,28 @@ pub fn merge(reference: &Path, candidates: &[(PathBuf, PathBuf)], pins: &MergePi
         each_once(&schedule, pointers(tip.iter().chain(&cover).chain(retained.iter().copied())))?;
         let (startup_window, window) = leveling(startup.clone(), &reference_lines, &schedule)?;
         let mut result = emit(output, &startup_window, &schedule, &footer, &metadata)?;
-        result.set("source_gcode_sha256", Json::Dict(vec![
-            ("reference_for_all_non_tip_parts".into(), Json::Str(reference_sha.clone())),
-            ("tip_model".into(), Json::Str(tip_sha.clone())),
-        ]));
-        result.set("stock_leveling_window_xy_mm", Json::List(window.iter().map(|p| point(p)).collect()));
-        result.set("retained_ring_count", Json::Int(ring_count as i64));
-        if let Some(sequencer) = &pins.sequencer_sha256 {
-            result.set("archived_sequencer_sha256", Json::Str(sequencer.clone()));
-        }
-        std::fs::write(output.with_extension("json"), result.dumps_indented() + "\n")?;
-        let groups = match result.get("groups") {
-            Some(Json::List(rows)) => rows.len(),
-            _ => 0,
-        };
-        summaries.push(Json::Dict(vec![
-            ("plate".into(), Json::Str(output.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default())),
-            ("groups".into(), Json::Int(groups as i64)),
-            ("plate_sha256".into(), result.get("sequenced_gcode_sha256").cloned().unwrap_or(Json::Null)),
-            ("tip_sha256".into(), Json::Str(tip_sha)),
-            ("counts_by_phase".into(), result.get("counts_by_phase").cloned().unwrap_or(Json::Null)),
-        ]));
+        result["source_gcode_sha256"] = json!({"reference_for_all_non_tip_parts": reference_sha, "tip_model": tip_sha});
+        result["stock_leveling_window_xy_mm"] = json!(window);
+        result["retained_ring_count"] = json!(ring_count);
+        write_report(output, &result)?;
+        summaries.push(json!({
+            "plate": output.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default(),
+            "groups": result["groups"].as_array().map_or(0, Vec::len),
+            "plate_sha256": result["sequenced_gcode_sha256"],
+            "tip_sha256": tip_sha,
+            "counts_by_phase": result["counts_by_phase"],
+        }));
     }
     Ok(summaries)
 }
 
 /// A report without its group rows, as the sequencers print it.
-pub fn summary(report: &Json) -> Json {
-    match report {
-        Json::Dict(items) => Json::Dict(items.iter().filter(|(k, _)| k != "groups").cloned().collect()),
-        other => other.clone(),
+pub fn summary(report: &Value) -> Value {
+    let mut summary = report.clone();
+    if let Some(items) = summary.as_object_mut() {
+        items.remove("groups");
     }
+    summary
 }
 
 /// The course marker of a staged or donor course: its kind and its course number.
@@ -1235,7 +1197,7 @@ fn interleave_shaft<'b, 'a>(authored: &'b [Band<'a>], native: &'b [Band<'a>], do
 
 /// The shaft trial's plate from the staged foundation slice and the continued-base donor,
 /// written to `output` with its report beside it.
-pub fn compose_shaft(source: &Path, output: &Path, donor: Option<&Path>) -> Result<Json> {
+pub fn compose_shaft(source: &Path, output: &Path, donor: Option<&Path>) -> Result<Value> {
     let source_tape = Tape::read(source)?;
     let donor_tape = donor.map(Tape::read).transpose()?;
     let source_lines = source_tape.lines();
@@ -1286,25 +1248,24 @@ pub fn compose_shaft(source: &Path, output: &Path, donor: Option<&Path>) -> Resu
     };
     let (text, _, _) = write_plate(&startup, &ordered, heat_at, &footer, 0.0, &metadata, None, allowed)?;
     std::fs::write(output, &text)?;
-    let (mut counts, mut filament) = (Vec::new(), Vec::new());
+    let (mut counts, mut filament) = (BTreeMap::<&str, usize>::new(), BTreeMap::<i64, f64>::new());
     let mut groups = Vec::new();
     for band in &labelled {
-        add(&mut counts, band.phase.clone(), 1i64);
-        add(&mut filament, band.obj, band.e);
-        let level = if band.numbered { Json::Int(band.z as i64) } else { Json::Float(band.z) };
-        groups.push(Json::List(vec![Json::Str(band.phase.clone()), Json::Str(band.label.clone()), Json::Int(band.obj), level,
-                                    point(&band.lo), point(&band.hi)]));
+        *counts.entry(band.phase.as_str()).or_default() += 1;
+        *filament.entry(band.obj).or_default() += band.e;
+        let level = if band.numbered { json!(band.z as i64) } else { json!(band.z) };
+        groups.push(json!([band.phase, band.label, band.obj, level, band.lo, band.hi]));
     }
-    let mut result = Json::Dict(vec![
-        ("groups".into(), Json::List(groups)),
-        ("counts_by_phase".into(), Json::Dict(counts.into_iter().map(|(k, v)| (k, Json::Int(v))).collect())),
-        ("deposition_mm_filament".into(), keyed(filament, Json::Float)),
-        ("source_gcode_sha256".into(), Json::Str(crate::sha256_hex(&std::fs::read(source)?))),
-    ]);
+    let mut result = json!({
+        "groups": groups,
+        "counts_by_phase": counts,
+        "deposition_mm_filament": filament,
+        "source_gcode_sha256": file_sha(source)?,
+        "sequenced_gcode_sha256": crate::sha256_hex(text.as_bytes()),
+    });
     if let Some(donor) = donor {
-        result.set("inclined_donor_sha256", Json::Str(crate::sha256_hex(&std::fs::read(donor)?)));
+        result["inclined_donor_sha256"] = json!(file_sha(donor)?);
     }
-    result.set("sequenced_gcode_sha256", Json::Str(crate::sha256_hex(text.as_bytes())));
-    std::fs::write(output.with_extension("json"), result.dumps_indented() + "\n")?;
+    write_report(output, &result)?;
     Ok(result)
 }

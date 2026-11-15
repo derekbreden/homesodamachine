@@ -30,7 +30,6 @@
 //!   sculpted-trial progress PLATE.gcode [PROGRESS.json] OUT.gcode
 //!   sculpted-trial package NATIVE.gcode.3mf PLATE.gcode REVIEW.gcode.3mf [--motion-seconds S --first-course-seconds F]
 //!   sculpted-trial merge PREVIOUS.gcode --candidate TIP.gcode PLATE.gcode [--candidate TIP.gcode PLATE.gcode ...]
-//!       [--reference-sha256 SHA] [--rings COUNT] [--sequencer-sha256 SHA]
 //!   sculpted-trial cap-feed UNCAPPED.gcode CAPPED.gcode
 //!   sculpted-trial bind-capped UNCAPPED.gcode CAPPED.gcode PLATE.gcode [--clamp-receipt CAPPED.json]
 //!   sculpted-trial audit-tip TIP.stl WARP.json ARCHIVE.gcode.3mf OUT.json
@@ -191,14 +190,14 @@ fn main() -> Result<()> {
             let tip = args.option("--tip-model").context("A complete tip replacement needs a custom model tape")?;
             let rings = args.option("--plate-rings").map(PathBuf::from);
             let report = plate_sequence::compose_tip(&args.path(0)?, &args.path(1)?, &args.path(2)?, &PathBuf::from(tip), rings.as_deref())?;
-            println!("{}", plate_sequence::summary(&report).dumps_indented());
+            println!("{}", serde_json::to_string_pretty(&plate_sequence::summary(&report))?);
         }
         "sequence-shaft" => {
             let args = Args::parse(values, &[], &["--donor"])?;
             args.count(2)?;
             let donor = args.option("--donor").map(PathBuf::from);
             let report = plate_sequence::compose_shaft(&args.path(0)?, &args.path(1)?, donor.as_deref())?;
-            println!("{}", plate_sequence::summary(&report).dumps_indented());
+            println!("{}", serde_json::to_string_pretty(&plate_sequence::summary(&report))?);
         }
         "sequence-foundations" => {
             let args = Args::parse(values, &[], &["--headmap"])?;
@@ -207,7 +206,7 @@ fn main() -> Result<()> {
             let report = plate_sequence::foundation_sequence::compose(
                 &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, &headmap,
             )?;
-            println!("{}", plate_sequence::summary(&report).dumps_indented());
+            println!("{}", serde_json::to_string_pretty(&plate_sequence::summary(&report))?);
         }
         "splice-tip-end" => {
             let args = Args::parse(values, &[], &[])?;
@@ -251,7 +250,6 @@ fn main() -> Result<()> {
         "merge" => {
             let reference = values.first().map(PathBuf::from).context("Missing the previous plate")?;
             let mut candidates = Vec::new();
-            let mut pins = plate_sequence::MergePins::default();
             let mut rest = values[1..].iter();
             while let Some(option) = rest.next() {
                 match option.as_str() {
@@ -260,17 +258,14 @@ fn main() -> Result<()> {
                         let plate = rest.next().context("--candidate needs a tip tape and a plate")?;
                         candidates.push((PathBuf::from(tip), PathBuf::from(plate)));
                     }
-                    "--reference-sha256" => pins.reference_sha256 = Some(rest.next().context("--reference-sha256 needs a hash")?.clone()),
-                    "--rings" => pins.rings = Some(rest.next().context("--rings needs a count")?.parse()?),
-                    "--sequencer-sha256" => pins.sequencer_sha256 = Some(rest.next().context("--sequencer-sha256 needs a hash")?.clone()),
                     _ => bail!("Unknown argument {option}"),
                 }
             }
             if candidates.is_empty() {
                 bail!("--candidate is required");
             }
-            for summary in plate_sequence::merge(&reference, &candidates, &pins)? {
-                println!("{}", summary.dumps());
+            for summary in plate_sequence::merge(&reference, &candidates)? {
+                println!("{}", serde_json::to_string(&summary)?);
             }
         }
         "cap-feed" => {
