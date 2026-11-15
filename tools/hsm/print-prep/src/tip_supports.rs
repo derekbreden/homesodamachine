@@ -86,7 +86,6 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
         "support_parts": parts,
     });
     if is_matched {
-        settings["map_dispense_contact"] = json!(false);
         settings["independent_support_layer_height"] = json!(false);
     }
     std::fs::write(output, serde_json::to_string_pretty(&settings)? + "\n").with_context(|| format!("writing {}", output.display()))
