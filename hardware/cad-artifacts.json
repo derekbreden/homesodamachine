@@ -4593,9 +4593,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": {
-      "commit": "3bd3d27dda7428cc011e0c5d207e403058e6a9da",
-      "inputs": "0f6154a3535afe9f285877d43283a6e391e8cfdf9fd42a5b260bdcf821c0dcf2",
-      "unproven": true
+      "commit": "f5125a67bf8d2882ed9306797305d09390001f68",
+      "inputs": "0f6154a3535afe9f285877d43283a6e391e8cfdf9fd42a5b260bdcf821c0dcf2"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": {
       "commit": "c604d68ae0540871675765aaa663c2eb991de861",
@@ -4603,9 +4602,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": {
-      "commit": "3bd3d27dda7428cc011e0c5d207e403058e6a9da",
-      "inputs": "0f6154a3535afe9f285877d43283a6e391e8cfdf9fd42a5b260bdcf821c0dcf2",
-      "unproven": true
+      "commit": "f5125a67bf8d2882ed9306797305d09390001f68",
+      "inputs": "0f6154a3535afe9f285877d43283a6e391e8cfdf9fd42a5b260bdcf821c0dcf2"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": {
       "commit": "e1207cfaf4440daff1e9b61e77e8f033feb49d58",
