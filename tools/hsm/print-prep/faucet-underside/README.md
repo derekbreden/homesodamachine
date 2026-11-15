@@ -13,6 +13,9 @@ the actual parts.
   [left-active H2C head reference](../../../../hardware/reference/h2c-toolhead/README.md).
   Its model is a reconstruction from photos. The map's source mesh, settings and generator
   are recorded in [the map's source record](left-active-height.json).
+- `left-active-full-height.npz` gives the head replay the whole left-active head: the map above
+  with the rest of the head model's bodies folded in by `sculpted-trial head-map`. Its sources are
+  in [its record](left-active-full-height.json).
 
 The paths follow the [accepted Sculpted print](https://github.com/derekbreden/homesodamachine/tree/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2).
 Its in-hand result covers the Sculpted base. The Industrial preparation uses the same

@@ -138,6 +138,23 @@ slicer's layer changes do, and its layer, progress and time-left lines come from
 acceleration planner that `hsm-gcode`'s playback uses. The `sculpted-trial` stage commands lay
 one stage at a time for investigation.
 
+These checks read a prepared plate before it is sent. Each runs by hand on the plate's G-code or
+archive:
+
+- `sculpted-trial replay PLATE.gcode OUT.json` plays the plate's moves against the material laid
+  before each one, with the modeled toolhead over them. For each phase it gives the closest head
+  body, nozzle flank and travelling tip. `sculpted-trial approaches PLATE.gcode REPLAY.json
+  OUT.json` reads the replay's dry nozzle approaches again at their exact positions over the
+  earlier beads.
+- `sculpted-trial audit-tip TIP.stl WARP.json ARCHIVE.gcode.3mf OUT.json` measures the tip's tilted
+  courses, their support contacts and its clear waterways against the tip's mesh.
+- `hsm-gcode laying`, `recipe` and `harm` read a part's speed, fan and plastic by height, what two
+  plates command differently, and the travels that could touch earlier plastic, as the
+  [G-code tools](../../../../tools/gcode/README.md) describe.
+
+The replay's toolhead is the committed whole-head map, which `sculpted-trial head-map` folds
+from the H2C toolhead model's export.
+
 The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
 binds that print's geometry. Current 4 mm tubing and passage evidence are in
