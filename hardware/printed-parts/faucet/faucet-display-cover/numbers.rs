@@ -47,6 +47,12 @@ pub const ARCH_SLIP: f64 = 0.05;
 /// clearance. Past it an arch's underside prints clean and keeps the arch's clearance alone.
 pub const CROWN_POCKET: f64 = 0.6;
 pub const CROWN_POCKET_REACH: f64 = std::f64::consts::FRAC_PI_6;
+/// The tongue that carries the face over the tip's flat dispense face: how far its flat stands
+/// over the tip's, how deep it runs back along s from the face, and how far past its fillets it
+/// reaches into the sides.
+pub const TONGUE_CLEARANCE: f64 = 0.16;
+pub const TONGUE_DEPTH: f64 = 1.45;
+pub const TONGUE_OVERLAP: f64 = 0.34;
 
 /// The window along s.
 pub fn window_s() -> [f64; 2] {

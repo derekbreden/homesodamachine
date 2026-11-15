@@ -1,5 +1,6 @@
 //! What the display covers share, in the tip frame of `Gooseneck::tip_frame`: x across the neck,
 //! s back up it from the tube exit, n out through the glass. The round neck the cover closes on,
+//! the tip's dispense face cut flat across its crown and the tongue a cover's face lays over it,
 //! the lips that snap into the shell's grooves, their inner corners relieved, and the relaxed
 //! print, each side standing inward below the bezel by what it springs back from on the neck: a
 //! rigid lean (`relaxed`), or a move that varies along the side (`relaxed_by`).
@@ -7,7 +8,8 @@ use crate::Gooseneck;
 use crate::shell::PAST;
 use anyhow::{Result, anyhow, ensure};
 use hsm_faucet_numbers::shell::{
-    DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, TUBE_SHELL_CENTER_Y, display_clip_s_bottom, display_clip_s_top,
+    DISPENSE_FACE_THICKNESS, DISPLAY_CLIP_BOTTOM_N, DISPLAY_CLIP_TOP_N, TUBE_SHELL_CENTER_Y, TUBE_SHELL_OUTER_R,
+    display_clip_s_bottom, display_clip_s_top,
 };
 use hsm_kernel::*;
 use std::collections::HashMap;
@@ -24,6 +26,79 @@ pub fn tip_plane(neck: &Gooseneck) -> Result<Plane> {
 #[track_caller]
 pub fn neck_round(neck: &Gooseneck, r: f64) -> Result<Solid> {
     neck.sweep(&Profile::circle(v2(0.0, TUBE_SHELL_CENTER_Y), r), 0.0, neck.length() + PAST)
+}
+
+/// The flat across the crown of the tip's dispense face, along n, and the fillets that carry it
+/// tangent into the round on either side.
+pub const DISPENSE_FLAT_N: f64 = 15.0;
+pub const DISPENSE_FLAT_CORNER_R: f64 = 1.25;
+/// How far the crown's backing stands out past the tube shell's round.
+const CROWN_BACKING_REACH: f64 = 0.95;
+/// How far the flat's cutters run on past the faces they cut between.
+const FLAT_OVERRUN: f64 = 0.08;
+/// How far across the tip's cutter runs, out past the round.
+const FLAT_CUTTER_REACH: f64 = 15.0;
+
+/// A flat at `n` over a round of `radius` about the tube shell's centre, in the frame's (x, n):
+/// the flat's end, its fillet's centre and where the fillet meets the round, at +x.
+struct Flat {
+    end: V2,
+    centre: V2,
+    on_round: V2,
+}
+
+impl Flat {
+    /// A centre in from both the flat and the round by the fillet's radius makes the fillet
+    /// tangent to both.
+    fn new(n: f64, radius: f64) -> Self {
+        let round = v2(0.0, TUBE_SHELL_CENTER_Y);
+        let rise = n - DISPENSE_FLAT_CORNER_R - round.y;
+        let reach = radius - DISPENSE_FLAT_CORNER_R;
+        let half = (reach.powi(2) - rise.powi(2)).sqrt();
+        let centre = v2(half, n - DISPENSE_FLAT_CORNER_R);
+        Self { end: v2(half, n), centre, on_round: round + (centre - round) * (radius / reach) }
+    }
+
+    /// The region over the flat, its fillets and the round past them, out to `x` either side and
+    /// up past the crown's backing. Past the fillets it runs on along their tangent, so its edge
+    /// does not lie on the round.
+    fn cap(&self, x: f64) -> Result<Profile> {
+        let Self { end, centre, on_round } = *self;
+        let radius = on_round - centre;
+        let tangent = v2(x, on_round.y - (x - on_round.x) * radius.x / radius.y);
+        let corner = v2(x, TUBE_SHELL_CENTER_Y + TUBE_SHELL_OUTER_R + 2.0 * CROWN_BACKING_REACH);
+        let left = |p: V2| v2(-p.x, p.y);
+        Ok(Profile::new(Loop::new(vec![
+            Seg::Line { a: left(end), b: end },
+            Seg::Arc { a: end, b: on_round, c: centre, ccw: false },
+            Seg::Line { a: on_round, b: tangent },
+            Seg::Line { a: tangent, b: corner },
+            Seg::Line { a: corner, b: left(corner) },
+            Seg::Line { a: left(corner), b: left(tangent) },
+            Seg::Line { a: left(tangent), b: left(on_round) },
+            Seg::Arc { a: left(on_round), b: left(end), c: left(centre), ccw: false },
+        ])?))
+    }
+}
+
+/// `tip` with its dispense face cut flat across the crown, through the face's thickness.
+pub fn flat_dispense_face(neck: &Gooseneck, tip: &Solid) -> Result<Solid> {
+    let flat = Flat::new(DISPENSE_FLAT_N, TUBE_SHELL_OUTER_R);
+    let mouth = Plane::XZ.at(v3(0.0, DISPENSE_FACE_THICKNESS + FLAT_OVERRUN, 0.0));
+    let cutter = mouth.extrude(&flat.cap(FLAT_CUTTER_REACH)?, DISPENSE_FACE_THICKNESS + 2.0 * FLAT_OVERRUN)?;
+    tip.cut(&cutter.placed(&Plane::XY, &tip_plane(neck)?))
+}
+
+/// The tongue that carries a cover's face over the tip's flat dispense face: the region over a
+/// flat `clearance` above the tip's, on the cover's neck round of `radius`, from the face back
+/// `depth` along s, out `overlap` past its fillets into the sides and within the crown's backing.
+pub fn cover_tongue(neck: &Gooseneck, clearance: f64, radius: f64, depth: f64, overlap: f64) -> Result<Solid> {
+    let flat = Flat::new(DISPENSE_FLAT_N + clearance, radius);
+    let front = Plane::XZ.at(v3(0.0, depth, 0.0));
+    let tongue = front.extrude(&flat.cap(flat.on_round.x + overlap)?, depth)?;
+    let backing = TUBE_SHELL_OUTER_R + CROWN_BACKING_REACH;
+    let crown = Solid::cylinder(v3(0.0, -FLAT_OVERRUN, TUBE_SHELL_CENTER_Y), V3::Y, backing, depth + 2.0 * FLAT_OVERRUN)?;
+    Ok(tongue.intersect(&crown)?.placed(&Plane::XY, &tip_plane(neck)?))
 }
 
 /// How far a relief cutter stands out past the faces it cuts between, into the air.
