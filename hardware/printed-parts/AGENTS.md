@@ -108,12 +108,15 @@ emitted branches and their removal openings. Geometric access alone does not
 establish easy removal. A bed-footprint constraint does not justify trapped
 normal supports.
 
-Trees keep the shared profile's branch diameter, diameter growth and wall count
-(`tree_support_branch_diameter`, `tree_support_branch_diameter_angle`,
-`tree_support_wall_count`), and a `tree_support_branch_angle` override still lets
-their tips merge, so no tree becomes a narrow fixed-width column. The
+Every tree support stands on a trunk that thickens toward its root and branches
+thinner only near its tips. No support is a trunkless tower, whether a cluster
+of tip-sized columns or one or two alone. Recipes keep the shared profile's
+branch diameter, diameter growth and wall count (`tree_support_branch_diameter`,
+`tree_support_branch_diameter_angle`, `tree_support_wall_count`), and a
+`tree_support_branch_angle` override still leans enough for tips to merge into
+a trunk. The
 [stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/c604d68ae0540871675765aaa663c2eb991de861/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
-records narrow stem towers that did not survive, so some of the surfaces they
+records tip-sized towers that did not survive, so some of the surfaces they
 were to carry printed with no support under them.
 
 Back-bottom retains Default for its floor-rooted rail trees; local native
