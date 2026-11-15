@@ -9963,7 +9963,7 @@
         "evt-97809881439b4885a7e33a8eb87b4b23"
       ],
       "gap_id": "gap-1b4d6f383f084b22ac7dd2ceac00a416",
-      "missing_fact": "Order is shipped and the completed merchant charge is confirmed. Actual delivery and final tax remain unconfirmed.",
+      "missing_fact": "Final vendor tax remains unconfirmed. Delivery and the completed merchant charge are confirmed.",
       "order_ids": [
         "amazon:112-7863139-0903423"
       ],
@@ -9973,12 +9973,14 @@
       "source_ids": [
         "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
-        "src-49093cce3e6b470c807ba8dec2675623"
+        "src-49093cce3e6b470c807ba8dec2675623",
+        "src-924b4c3f76ea4de4883b620379ef2343"
       ],
       "sources_checked": [
         "Named Amazon Order Details and order-scoped merchant transactions",
         "Named Amazon shipment confirmation",
-        "Named Amazon Order Details and order-scoped Completed transaction, checked November 15, 2026"
+        "Named Amazon Order Details and order-scoped Completed transaction, checked November 15, 2026",
+        "Exact-order delivery timeline and Order Details, checked November 15, 2026"
       ]
     },
     {
@@ -10351,7 +10353,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f0250bde9b9076a37300a01219b8ce767df0d1b29964959a2fb752e428d5c33c",
+  "input_fingerprint": "sha256:9fe669e83f70f5f0639d00bad4e7281f1fd15868f85f121770aafd6fdffb876d",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -52843,12 +52845,15 @@
       "amount_minor": 4278,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
-      "description": "H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — shipped, awaiting delivery; printer accessory; $39.89 item + $2.89 estimated tax, free shipping",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "description": "H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — printer accessory; $39.89 item + $2.89 estimated tax, free shipping",
       "event_ids": [
         "evt-97809881439b4885a7e33a8eb87b4b23"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7",
       "merchant_charge_allocated_minor": 4278,
@@ -52877,7 +52882,8 @@
       "service_period": null,
       "source_ids": [
         "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-924b4c3f76ea4de4883b620379ef2343"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -66303,6 +66309,21 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "document_type": "delivery_confirmation",
+      "note": "Exact-order tracking explicitly records package delivered Sunday, November 15, 2026 at 12:53 PM local. Order Details identifies the single H2C dual-textured and smooth PEI plate, ASIN B0GRSZJYJ9. This confirms fulfillment only; the separately confirmed merchant charge is unchanged and the Order Summary still labels tax estimated.",
+      "proves": [
+        "delivery"
+      ],
+      "reference": "112-7863139-0903423",
+      "source_id": "src-924b4c3f76ea4de4883b620379ef2343",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
+    },
+    {
       "document_date": null,
       "document_type": "email_delivery_notification",
       "note": "Vendor notification confirms delivery of this project fabrication order. It does not independently state an actual delivery calendar day.",
@@ -69446,7 +69467,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5007305,
+          "amount_minor": 5011583,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -70102,6 +70123,7 @@
             "pur-e810552194844a54b71434179e0a985f",
             "pur-e82a517df8ae431283006bac8ccd2ca0",
             "pur-e8d314ccce9643ffbd660b3cf9bd5f66",
+            "pur-e8d3c873b40848499b387a0bed8978f7",
             "pur-e8f682f830f544c48d1b685defeb4ef3",
             "pur-e93a90b55e4540fbb8dae666d99c0176",
             "pur-e954ecc7688742b594585e9498bbbc01",
@@ -70195,7 +70217,7 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 54958,
+          "amount_minor": 50680,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
@@ -70207,7 +70229,6 @@
             "pur-c421deec9a2f4c7b868ae95b9e1499c1",
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
-            "pur-e8d3c873b40848499b387a0bed8978f7",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
           "unknown_amount_ids": []
@@ -70235,7 +70256,6 @@
         "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-dfd251509a3543c5b3bd9e358dcef85f",
-        "pur-e8d3c873b40848499b387a0bed8978f7",
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
