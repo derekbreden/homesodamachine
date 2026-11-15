@@ -3,22 +3,20 @@
 //!
 //!     sculpted-plate OUT_DIR [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!
-//! It runs the preparer and `sculpted-dispense-face`: the ones built beside it, or the installed
-//! commands of those names. The three programs are built and installed together from the checkout,
-//! and the plate is prepared from inside the checkout:
+//! It runs the preparer: the one built beside it, or the installed command of that name. The two
+//! programs are built and installed together from the checkout, and the plate is prepared from
+//! inside the checkout:
 //!
 //!     tools/run -- "$(rustup which cargo)" build --release --locked --offline -j 2 \
-//!       --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep -p hsm-faucet-display-cover \
-//!       --bin sculpted-plate --bin sculpted-faucet-print-project --bin sculpted-dispense-face
+//!       --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin sculpted-plate --bin sculpted-faucet-print-project
 //!     hsm-run --install-tools "$PWD" tools/hsm/target/release/sculpted-plate \
-//!       tools/hsm/target/release/sculpted-faucet-print-project tools/hsm/target/release/sculpted-dispense-face
+//!       tools/hsm/target/release/sculpted-faucet-print-project
 //!     tools/run -- sculpted-plate OUT_DIR
 //!
-//! OUT_DIR is the run's own folder and must not exist. The plate's tip and cover carry the
-//! selections' dispense-face seam; the base is filled under its mounting face for the slice and
-//! laid on its sloped foundation from its own mesh. The tip's mating courses come from a warped
-//! donor tip, sliced alone and laid back onto the real shoulder. The archive and every stage's
-//! receipt are written in OUT_DIR. Nothing is sent to a printer.
+//! OUT_DIR is the run's own folder and must not exist. The base is filled under its mounting face
+//! for the slice and laid on its sloped foundation from its own mesh. The tip's mating courses come
+//! from a warped donor tip, sliced alone and laid back onto the real shoulder. The archive and
+//! every stage's receipt are written in OUT_DIR. Nothing is sent to a printer.
 
 use anyhow::{Context, Result, bail, ensure};
 use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH};
@@ -31,6 +29,8 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const BASE: &str = "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl";
+const TIP: &str = "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl";
+const PREPARER: &str = "sculpted-faucet-print-project";
 const ARCHIVE: &str = "sculpted-faucet-plate.gcode.3mf";
 
 fn main() -> Result<()> {
@@ -50,30 +50,16 @@ fn main() -> Result<()> {
     let out = out.canonicalize()?;
     let root = hsm_print_prep::root();
     let plate = sculpted_plate::selection(&root)?;
-    // the programs it runs: the ones built beside it, or the installed commands of their names
-    let programs = std::env::current_exe()?.parent().context("the programs' folder")?.to_path_buf();
-    let program = |name: &str| {
-        let beside = programs.join(name);
-        if beside.is_file() { beside } else { PathBuf::from(name) }
-    };
+    // the preparer: the one built beside this program, or the installed command of its name
+    let beside = std::env::current_exe()?.parent().context("the programs' folder")?.join(PREPARER);
+    let preparer = if beside.is_file() { beside } else { PathBuf::from(PREPARER) };
     let rotation = sculpted_plate::TIP_ROTATION_DEGREES.to_string();
     let prepare = |project: &Path, extra: &[&str]| -> Result<()> {
-        let mut command = Command::new(program("sculpted-faucet-print-project"));
+        let mut command = Command::new(&preparer);
         command.arg(project).args(["--printer", &printer, "--filament-colour", &colour, "--tip-rotation", &rotation]).args(extra);
         run(command.current_dir(&root))
     };
-
-    // the tip and cover, with the plate's dispense-face seam when its selections name one
-    let heads = if plate.get("dispense_face_seam").is_some() {
-        let dir = out.join("meshes");
-        run(Command::new(program("sculpted-dispense-face")).arg(&dir).current_dir(&root))?;
-        Some((dir.join("tip.stl"), dir.join("cover.stl")))
-    } else {
-        None
-    };
-    let tip = heads.as_ref().map_or_else(|| root.join("hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl"), |h| h.0.clone());
-    let head_args: Vec<String> = heads.iter().flat_map(|(t, c)| ["--tip-mesh".into(), path(t), "--cover-mesh".into(), path(c)]).collect();
-    let head_args: Vec<&str> = head_args.iter().map(String::as_str).collect();
+    let tip = root.join(TIP);
 
     // the finish selection the plate's projects take: the standing one, with the plate's shallow
     // overhang points when its selections name them
@@ -94,7 +80,7 @@ fn main() -> Result<()> {
 
     // the editable plate, and the donor tip warped from it, sliced alone and laid as courses
     let editable = out.join("editable.3mf");
-    prepare(&editable, &[&["--physical-base"], head_args.as_slice(), finish_args.as_slice()].concat())?;
+    prepare(&editable, &[&["--physical-base"], finish_args.as_slice()].concat())?;
     let donor = out.join("donor");
     fs::create_dir_all(&donor)?;
     let warped = donor.join("tip-warped.stl");
@@ -114,12 +100,12 @@ fn main() -> Result<()> {
     // the plate's project, sliced with the standing slice path's cooling stages; where the plate's
     // selections splice the tip's end, the project without the shallow overhang points gives it
     let project = out.join("native.3mf");
-    prepare(&project, &[&["--filled-base", &path(&filled)], head_args.as_slice(), finish_args.as_slice()].concat())?;
+    prepare(&project, &[&["--filled-base", &path(&filled)], finish_args.as_slice()].concat())?;
     let report: Value = serde_json::from_slice(&fs::read(out.join("native.print.json"))?)?;
     let plain = plate.get("tip_end_splice").map(|_| out.join("plain/native.3mf"));
     if let Some(plain) = &plain {
         fs::create_dir_all(plain.parent().unwrap())?;
-        prepare(plain, &[&["--filled-base", &path(&filled)], head_args.as_slice()].concat())?;
+        prepare(plain, &["--filled-base", &path(&filled)])?;
     }
     let slice = out.join("slice");
     let cooling = sculpted_plate::slice_with_cooling(&project, &report, &slice, plain.as_deref())?;

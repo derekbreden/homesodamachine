@@ -5,7 +5,7 @@
 //!                                 [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!                                 [--base-only] [--base-section SECTION.stl | --tip-only | --tip-and-cover]
 //!                                 [--filled-base FILLED.stl | --physical-base]
-//!                                 [--tip-mesh TIP.stl --cover-mesh COVER.stl] [--tip-rotation DEGREES]
+//!                                 [--tip-rotation DEGREES]
 //!                                 [--warp-donor --tip-mesh TIP.stl [--warp-settings SETTINGS.json]]
 //!                                 [--finish SELECTION.json]
 //!
@@ -18,9 +18,8 @@
 //! its mounting face filled to the bed, for the stage that prints that space as a scaffold with a
 //! sloped roof and skin: the base then takes no rim supports and no contact band here, and the
 //! lever stands clear of the toolhead's reach over that scaffold. `--physical-base` writes that
-//! layout's editable project with the actual base. `--tip-mesh` and `--cover-mesh` put a trial's
-//! tip and cover on that plate; `--tip-rotation` places that tip and its donor in the same
-//! trial pose. `--warp-donor` slices a warped tip alone, in fine course bands
+//! layout's editable project with the actual base. `--tip-rotation` places the tip and its donor
+//! in the same trial pose. `--warp-donor` slices the warped tip `--tip-mesh` alone, in fine course bands
 //! with a removable roof under its virtual shoulder, for the stage that lays its courses back
 //! onto the real shoulder. `--warp-settings` supplies the donor's course bands and support
 //! regions in the warped mesh's coordinates. `--finish` reads a trial's finish selection in
@@ -66,7 +65,6 @@ fn main() -> Result<()> {
     let mut filled_base = None;
     let mut physical_base = false;
     let mut tip_mesh = None;
-    let mut cover_mesh = None;
     let mut tip_rotation = None;
     let mut warp_donor = false;
     let mut warp_settings_path = None;
@@ -104,7 +102,6 @@ fn main() -> Result<()> {
             Some("--base-section") => base_section = Some(PathBuf::from(value)),
             Some("--filled-base") => filled_base = Some(PathBuf::from(value)),
             Some("--tip-mesh") => tip_mesh = Some(PathBuf::from(value)),
-            Some("--cover-mesh") => cover_mesh = Some(PathBuf::from(value)),
             Some("--tip-rotation") => tip_rotation = Some(value.to_str().context("tip rotation")?.parse::<f64>()?),
             Some("--warp-settings") => warp_settings_path = Some(PathBuf::from(value)),
             Some("--finish") => finish = PathBuf::from(value),
@@ -119,12 +116,7 @@ fn main() -> Result<()> {
         "--physical-base writes the editable project with the actual base mesh");
     ensure!(!sloped_layout || (include_base && !base_only && base_section.is_none()),
         "the sloped layout prepares the complete plate");
-    if warp_donor {
-        ensure!(tip_mesh.is_some() && cover_mesh.is_none(), "a donor needs only the tip mesh");
-    } else {
-        ensure!(tip_mesh.is_some() == cover_mesh.is_some() && (tip_mesh.is_none() || sloped_layout),
-            "the two trial head meshes replace the tip and cover on the sloped plate");
-    }
+    ensure!(tip_mesh.is_some() == warp_donor, "--tip-mesh gives the warp donor its warped tip");
     ensure!(!(tip_only && tip_and_cover) && (include_base || (!base_only && base_section.is_none())),
         "--base-only and --base-section cannot be combined with a tip plate");
     ensure!(warp_donor || warp_settings_path.is_none(), "--warp-settings requires --warp-donor");
@@ -163,8 +155,7 @@ fn main() -> Result<()> {
         parts.push(Part::new("faucet-shell-tip", source, rotation));
     }
     if !base_only && !tip_only {
-        let source = cover_mesh.unwrap_or_else(|| faucet.join("faucet-display-cover/faucet-display-cover.stl"));
-        parts.push(Part::new("faucet-display-cover", source, -50.0));
+        parts.push(Part::new("faucet-display-cover", faucet.join("faucet-display-cover/faucet-display-cover.stl"), -50.0));
     }
     if full_plate {
         parts.extend([
