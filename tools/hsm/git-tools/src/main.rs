@@ -16,6 +16,8 @@ use std::{
 };
 
 const POINTERS: &str = "hardware/cad-artifacts.json";
+/// The build graph, whose producers' declared writes are the checkout's generated files.
+const GRAPH: &str = "tools/hsm/build-plan/graph.json";
 const UPSTREAM: &str = "origin/main";
 const ATTEMPTS: usize = 6;
 const CLEAR_ENV: &[&str] = &[
@@ -568,6 +570,21 @@ impl Repo {
         let _ = fs::remove_dir_all(dir);
         result
     }
+    /// The files a producer in `tree`'s build graph writes whole. They regenerate from source, so
+    /// main's copy of one stands where the checkout's differs; the documents a producer rewrites
+    /// keep authored text and are merged as text.
+    fn generated(&self, tree: &BTreeMap<String, Entry>) -> Result<BTreeSet<String>> {
+        let Some(entry) = tree.get(GRAPH) else { return Ok(BTreeSet::new()) };
+        let graph: serde_json::Value = serde_json::from_slice(&self.blob(&entry.blob)?)
+            .with_context(|| format!("reading {GRAPH}"))?;
+        let (mut writes, mut rewritten) = (BTreeSet::new(), BTreeSet::new());
+        for spec in graph.as_object().into_iter().flat_map(|o| o.values()) {
+            for (key, set) in [("writes", &mut writes), ("rewritten", &mut rewritten)] {
+                set.extend(spec[key].as_array().into_iter().flatten().filter_map(|v| v.as_str()).map(str::to_owned));
+            }
+        }
+        Ok(&writes - &rewritten)
+    }
     fn settle(&self, pre: &str, landed: &str, base: &str, dry: bool) -> Result<bool> {
         let before = self.tree(base)?;
         let local = self.tree(pre)?;
@@ -610,6 +627,8 @@ impl Repo {
         }
         let mut advanced = 0;
         let mut merged = 0;
+        let mut replaced = 0;
+        let mut generated: Option<BTreeSet<String>> = None;
         for p in paths {
             let b = before.get(&p);
             let l = remote.get(&p);
@@ -635,6 +654,24 @@ impl Repo {
                     }
                 }
                 continue;
+            }
+            if let (Some(l), Some(held)) = (l, work.as_ref()) {
+                if generated.is_none() {
+                    generated = Some(self.generated(&remote)?);
+                }
+                if generated.as_ref().is_some_and(|g| g.contains(&p)) {
+                    replaced += 1;
+                    if !dry {
+                        let bytes = self.blob(&l.blob)?;
+                        if self.disk(&p)?.as_ref() == Some(held) {
+                            self.write_work(&p, Some(l), Some(&bytes))?;
+                            eprintln!("took main's copy of generated {p}");
+                        } else {
+                            eprintln!("left alone: {p}: edited while main arrived");
+                        }
+                    }
+                    continue;
+                }
             }
             let (Some(b), Some(l), Some(work)) = (b, l, work) else {
                 eprintln!(
@@ -680,7 +717,7 @@ impl Repo {
             }
         }
         println!(
-            "{} main's files: {advanced} advanced, {merged} merged; edits and staged work retained",
+            "{} main's files: {advanced} advanced, {merged} merged, {replaced} generated taken from main; edits and staged work retained",
             if dry { "would bring" } else { "brought" }
         );
         Ok(true)

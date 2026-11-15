@@ -260,3 +260,27 @@ fn check_does_not_change_head_index_or_working_files() -> Result<()> {
     assert!(!f.a.root.join("remote").exists());
     Ok(())
 }
+
+#[test]
+fn generated_file_takes_mains_copy_and_rewritten_document_merges() -> Result<()> {
+    let f = Fixture::new()?;
+    fs::create_dir_all(f.a.root.join("tools/hsm/build-plan"))?;
+    let graph = r#"{"producer.rs": {"writes": ["art.svg", "notes.md"], "rewritten": ["notes.md"]}}"#;
+    Fixture::commit(&f.a, GRAPH, graph, "graph")?;
+    Fixture::commit(&f.a, "art.svg", "<svg>base</svg>\n", "art")?;
+    Fixture::commit(&f.a, "notes.md", "top\n\n\n\n\n\n\n\n\nbottom\n", "notes")?;
+    assert_eq!(f.a.land(false)?, 0);
+    f.b.git(&["pull", "--quiet", "origin", "main"])?;
+    Fixture::commit(&f.b, "art.svg", "<svg>main</svg>\n", "art on main")?;
+    Fixture::commit(&f.b, "notes.md", "main top\n\n\n\n\n\n\n\n\nbottom\n", "notes on main")?;
+    f.b.git(&["push", "origin", "main"])?;
+    fs::write(f.a.root.join("art.svg"), "<svg>local</svg>\n")?;
+    fs::write(f.a.root.join("notes.md"), "top\n\n\n\n\n\n\n\n\nlocal bottom\n")?;
+    Fixture::commit(&f.a, "other", "other\n", "other")?;
+    assert_eq!(f.a.land(false)?, 0);
+    assert_eq!(fs::read_to_string(f.a.root.join("art.svg"))?, "<svg>main</svg>\n");
+    let notes = fs::read_to_string(f.a.root.join("notes.md"))?;
+    assert!(notes.starts_with("main top"));
+    assert!(notes.ends_with("local bottom\n"));
+    Ok(())
+}
