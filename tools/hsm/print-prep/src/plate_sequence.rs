@@ -6,7 +6,7 @@
 //! the plug-ramp trial composes a new tip with all of the previous plate's other groups; the
 //! shaft trial composes a staged foundation slice with a continued-base donor.
 
-use crate::python_text::{float, g, int, lstrip, max3, min3, read_text, repr, splitlines, strip, Json};
+use crate::python_text::Json;
 use anyhow::{bail, ensure, Context, Result};
 use std::collections::HashSet;
 use std::fmt::Write;
@@ -73,19 +73,27 @@ fn mask(obj: i64) -> Result<&'static str> {
     })
 }
 
-/// A file's lines as the trials' Python reads them.
+/// A G-code file, read as lines that keep their newlines.
 pub struct Tape {
     text: String,
 }
 
 impl Tape {
     pub fn read(path: &Path) -> Result<Tape> {
-        Ok(Tape { text: read_text(path)? })
+        Ok(Tape { text: std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))? })
     }
 
     pub fn lines(&self) -> Vec<&str> {
-        splitlines(&self.text)
+        self.text.split_inclusive('\n').collect()
     }
+}
+
+/// The number a line writes, white space aside.
+fn number<T: std::str::FromStr>(text: &str) -> Result<T>
+where
+    T::Err: std::error::Error + Send + Sync + 'static,
+{
+    text.trim().parse().with_context(|| format!("{text:?} is not a number"))
 }
 
 fn is_space(c: u8) -> bool {
@@ -194,17 +202,17 @@ impl<'a> Modal<'a> {
 
     fn apply_tip(&mut self, line: &'a str) -> Result<Option<Deposit>> {
         const LETTERS: &[u8] = b"XYZEFSIJP";
-        let action = strip(line.split(' ').next().unwrap_or(""));
+        let action = line.split(' ').next().unwrap_or("").trim();
         let code = line.split(';').next().unwrap_or("");
         if matches!(action, "G0" | "G1" | "G2" | "G3") {
             return self.motion(&words(code, LETTERS, true)?, action, false, 1e-5, line);
         }
         if let Some(rest) = line.strip_prefix("; FEATURE: ") {
-            self.feature = strip(rest);
+            self.feature = rest.trim();
         } else if line.starts_with("; LINE_WIDTH: ") {
-            self.width = float(after_colon(line))?;
+            self.width = number(after_colon(line))?;
         } else if line.starts_with("; LAYER_HEIGHT: ") {
-            self.height = float(after_colon(line))?;
+            self.height = number(after_colon(line))?;
         } else if action == "M106" {
             let w = words(code, LETTERS, true)?;
             if word(&w, b'P').unwrap_or(1.0) == 1.0 {
@@ -219,15 +227,15 @@ impl<'a> Modal<'a> {
     fn apply_shaft(&mut self, text: &'a str) -> Result<Option<Deposit>> {
         const LETTERS: &[u8] = b"XYZEFIJS";
         if let Some(rest) = text.strip_prefix("; FEATURE: ") {
-            self.feature = strip(rest);
+            self.feature = rest.trim();
         }
         if text.starts_with("; LINE_WIDTH: ") {
-            self.width = float(after_colon(text))?;
+            self.width = number(after_colon(text))?;
         }
         if text.starts_with("; LAYER_HEIGHT: ") {
-            self.height = float(after_colon(text))?;
+            self.height = number(after_colon(text))?;
         }
-        let line = strip(text.split(';').next().unwrap_or(""));
+        let line = text.split(';').next().unwrap_or("").trim();
         let action = line.split(' ').next().unwrap_or("");
         if action == "M106" {
             let w = words(line, b"PS", true)?;
@@ -252,12 +260,11 @@ impl<'a> Modal<'a> {
         let e = word(w, b'E').unwrap_or(0.0);
         let still = start[0] == target[0] && start[1] == target[1];
         if (still_is_travel && still && start[2] == target[2]) || e <= 0.0 || (still && matches!(action, "G0" | "G1")) {
-            let debt = self.debt - e;
-            self.debt = if debt > 0.0 { debt } else { 0.0 };
+            self.debt = (self.debt - e).max(0.0);
             return Ok(None);
         }
         if self.debt > limit {
-            bail!("Extrusion starts with {} mm retract debt at {start:?}: {line}", g(self.debt));
+            bail!("Extrusion starts with {} mm retract debt at {start:?}: {line}", self.debt);
         }
         Ok(Some((start, target, e)))
     }
@@ -305,8 +312,8 @@ impl<'a> Band<'a> {
         self.end = index;
         self.exit = target;
         for axis in 0..3 {
-            self.lo[axis] = min3(self.lo[axis], start[axis], target[axis]);
-            self.hi[axis] = max3(self.hi[axis], start[axis], target[axis]);
+            self.lo[axis] = self.lo[axis].min(start[axis]).min(target[axis]);
+            self.hi[axis] = self.hi[axis].max(start[axis]).max(target[axis]);
         }
         self.e += e;
         self.roads += 1;
@@ -363,13 +370,13 @@ pub fn read_reference<'a>(tape: &'a [&'a str], metadata: &mut Metadata) -> Resul
             label.clear();
             phase.clear();
         } else if let Some(rest) = line.strip_prefix(HEIGHT) {
-            z = float(rest)?;
+            z = number(rest)?;
         } else if let Some(rest) = line.strip_prefix(NEXT_GROUP) {
-            label = strip(rest).to_string();
+            label = rest.trim().to_string();
         } else if let Some(rest) = line.strip_prefix(PHASE) {
-            phase = strip(rest).to_string();
+            phase = rest.trim().to_string();
         } else if let Some(rest) = line.strip_prefix(OBJECT) {
-            let obj = int(rest)?;
+            let obj = number(rest)?;
             ensure!(!phase.is_empty() && !label.is_empty(), "Prior band lacks phase/label at {}", i + 1);
             bands.push(Band::new(tape, label.clone(), phase.clone(), obj, z, i, list));
             band = Some(bands.len() - 1);
@@ -398,9 +405,9 @@ pub fn read_native<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
     for i in first..last {
         let line = tape[i];
         if let Some(rest) = line.strip_prefix(HEIGHT) {
-            z = float(rest)?;
+            z = number(rest)?;
         } else if let Some(rest) = line.strip_prefix(OBJECT) {
-            let obj = int(rest)?;
+            let obj = number(rest)?;
             let phase = if obj == TIP { "native tip upper" } else { "native display cover" };
             let created = Band::new(tape, name(obj)?.to_string(), phase.to_string(), obj, z, i, 0);
             band = Some((obj, None));
@@ -427,24 +434,24 @@ pub fn read_custom<'a>(tape: &'a [&'a str], obj: i64, metadata: &mut Metadata) -
     let mut phase = String::new();
     for (i, &line) in tape.iter().enumerate() {
         if let Some(rest) = line.strip_prefix(TIP_PHASE) {
-            phase = strip(rest).to_string();
+            phase = rest.trim().to_string();
         } else if let Some(rest) = line.strip_prefix(TIP_COURSE) {
             ensure!(!phase.is_empty(), "Tip course appears before its phase declaration");
             let list = metadata.list(vec![line.to_string()]);
-            bands.push(Band::new(tape, format!("{phase} course {}", strip(rest)), phase.clone(), obj, 0., i, list));
+            bands.push(Band::new(tape, format!("{phase} course {}", rest.trim()), phase.clone(), obj, 0., i, list));
         } else if let Some(rest) = line.strip_prefix(PLATE_RING) {
-            let z = float(rest)?;
+            let z: f64 = number(rest)?;
             phase = RING_PHASE.to_string();
             let list = metadata.list(vec![line.to_string()]);
-            bands.push(Band::new(tape, format!("{phase} at Z{}", g(z)), phase.clone(), obj, z, i, list));
+            bands.push(Band::new(tape, format!("{phase} at Z{z}"), phase.clone(), obj, z, i, list));
         } else if let Some(rest) = line.strip_prefix(ENTRY) {
-            let xyz: Vec<f64> = rest.split_whitespace().map(float).collect::<Result<_>>()?;
+            let xyz: Vec<f64> = rest.split_whitespace().map(number).collect::<Result<_>>()?;
             ensure!(xyz.len() == 3, "An entry needs three coordinates: {line}");
             modal = Modal::new(Dialect::Tip, [xyz[0], xyz[1], xyz[2]], 0.8);
         } else if let Some(rest) = line.strip_prefix(DEBT) {
-            modal.debt = float(rest)?;
+            modal.debt = number(rest)?;
         } else if let Some(rest) = line.strip_prefix(TIP_BAND) {
-            float(rest)?;
+            number::<f64>(rest)?;
             let band = bands.last().context("A tip band height precedes every course")?;
             metadata.lists[band.metadata].push(line.to_string());
         } else if let Some(band) = bands.last() {
@@ -480,17 +487,13 @@ pub fn interleave<'b, 'a>(reference: &'b [Band<'a>], tip: &'b [Band<'a>], cover:
     let mut tip_floor = vec![f64::INFINITY; tip_queue.len() + 1];
     for k in (0..tip_queue.len()).rev() {
         let lo = tip_queue[k].lo[2];
-        tip_floor[k] = if tip_floor[k + 1] < lo { tip_floor[k + 1] } else { lo };
+        tip_floor[k] = tip_floor[k + 1].min(lo);
     }
     let mut out: Vec<&Band> = Vec::new();
     let (mut i_tip, mut i_cover, mut ring) = (0, 0, 0);
     let (mut seen_tip, mut seen_cover) = (false, false);
     let (mut cursor_tip, mut cursor_cover) = (0.0f64, 0.0f64);
-    let cover_limit = |cursor_cover: f64, i_tip: usize| {
-        let floor = tip_floor[i_tip] + 0.6;
-        let level = if floor > BED_LAYER { floor } else { BED_LAYER };
-        if level < cursor_cover { level } else { cursor_cover }
-    };
+    let cover_limit = |cursor_cover: f64, i_tip: usize| (tip_floor[i_tip] + 0.6).max(BED_LAYER).min(cursor_cover);
     for band in reference {
         if band.obj != TIP && band.obj != COVER {
             if band.obj == PLATE {
@@ -511,9 +514,7 @@ pub fn interleave<'b, 'a>(reference: &'b [Band<'a>], tip: &'b [Band<'a>], cover:
             out.extend(&cover[..cover_first]);
         }
         let cursor = if band.obj == TIP { &mut cursor_tip } else { &mut cursor_cover };
-        if band.z > *cursor {
-            *cursor = band.z;
-        }
+        *cursor = cursor.max(band.z);
         if band.first_bed_course() {
             continue;
         }
@@ -572,8 +573,7 @@ struct LevelBox<'a> {
 
 /// A startup line that levels the bed over a window: `G29 A1` or `A2` with its origin and size.
 fn level_box(line: &str) -> Option<LevelBox<'_>> {
-    let lead = line.len() - line.trim_start_matches(|c: char| c.is_ascii() && is_space(c as u8)).len();
-    let rest = line[lead..].strip_prefix("G29 A")?;
+    let rest = line.trim_start().strip_prefix("G29 A")?;
     if !rest.starts_with('1') && !rest.starts_with('2') {
         return None;
     }
@@ -589,8 +589,7 @@ fn level_box(line: &str) -> Option<LevelBox<'_>> {
         values[n] = &rest[..length];
         rest = &rest[length..];
     }
-    let tail = rest.strip_prefix(" R")?;
-    if !tail.bytes().all(is_space) {
+    if !rest.strip_prefix(" R")?.trim().is_empty() {
         return None;
     }
     Some(LevelBox { prefix, values, suffix: rest })
@@ -602,32 +601,30 @@ pub fn leveling<'a>(startup: Vec<&'a str>, native: &[&str], schedule: &[&Band]) 
     let boxes: Vec<LevelBox> = startup.iter().chain(native.iter().take(2000)).filter_map(|l| level_box(l)).collect();
     ensure!(boxes.len() == 4, "Each complete stock startup must expose both bed leveling windows");
     let values: Vec<[f64; 4]> = boxes.iter().map(|b| -> Result<[f64; 4]> {
-        Ok([float(b.values[0])?, float(b.values[1])?, float(b.values[2])?, float(b.values[3])?])
+        Ok([number(b.values[0])?, number(b.values[1])?, number(b.values[2])?, number(b.values[3])?])
     }).collect::<Result<_>>()?;
-    let mut origin = [0.; 2];
-    let mut upper = [0.; 2];
+    let mut origin = [f64::INFINITY; 2];
+    let mut upper = [f64::NEG_INFINITY; 2];
     for axis in 0..2 {
-        origin[axis] = values.iter().map(|v| v[axis]).reduce(|a, b| if b < a { b } else { a }).unwrap();
-        upper[axis] = values.iter().map(|v| v[axis] + v[axis + 2]).reduce(|a, b| if b > a { b } else { a }).unwrap();
+        for v in &values {
+            origin[axis] = origin[axis].min(v[axis]);
+            upper[axis] = upper[axis].max(v[axis] + v[axis + 2]);
+        }
     }
     for band in schedule {
         if !(band.obj == TIP || band.obj == COVER) || !band.first_bed_course() {
             continue;
         }
         for axis in 0..2 {
-            if band.lo[axis] < origin[axis] {
-                origin[axis] = band.lo[axis];
-            }
-            if band.hi[axis] > upper[axis] {
-                upper[axis] = band.hi[axis];
-            }
+            origin[axis] = origin[axis].min(band.lo[axis]);
+            upper[axis] = upper[axis].max(band.hi[axis]);
         }
     }
     let old = startup.iter().find_map(|l| level_box(l)).context("The startup has no leveling window")?;
     let bounds = [origin[0], origin[1], upper[0] - origin[0], upper[1] - origin[1]];
     let mut changed = false;
     for (a, b) in bounds.iter().zip(old.values) {
-        changed |= (a - float(b)?).abs() > 1e-4;
+        changed |= (a - number::<f64>(b)?).abs() > 1e-4;
     }
     let startup = startup.into_iter().map(|line| match level_box(line) {
         Some(found) if changed => format!("{}X{:.5} Y{:.5} I{:.5} J{:.5}{}", found.prefix, bounds[0], bounds[1], bounds[2], bounds[3], found.suffix),
@@ -657,8 +654,7 @@ fn terrain_top(old: [f64; 3], entry: [f64; 3], terrain: &Terrain) -> f64 {
 /// The highest deposit under the head's swept envelope from `old` to `entry`, no lower than
 /// either end or `floor`.
 fn clearance(old: [f64; 3], entry: [f64; 3], terrain: &Terrain, floor: f64) -> f64 {
-    let top = terrain_top(old, entry, terrain);
-    max3(if top > floor { top } else { floor }, old[2], entry[2])
+    terrain_top(old, entry, terrain).max(floor).max(old[2]).max(entry[2])
 }
 
 /// The groups laid along a slope or on the stack that carries one: a transfer to or from one of
@@ -689,16 +685,16 @@ impl Native {
         let first = |key: &str| -> Result<f64> {
             let prefix = format!("; {key} = ");
             let line = tape.iter().find_map(|l| l.strip_prefix(prefix.as_str())).with_context(|| format!("The slice header has no {key}"))?;
-            float(strip(line).split(',').next().unwrap_or(""))
+            number(line.split(',').next().unwrap_or(""))
         };
         let all = OBJECTS.map(|o| o.to_string()).join(",");
         let opening = format!(" start: {all}");
-        let start = tape.iter().position(|l| l.starts_with("; object ids of layer ") && strip(l).ends_with(&opening))
+        let start = tape.iter().position(|l| l.starts_with("; object ids of layer ") && l.trim_end().ends_with(&opening))
             .context("The native slice has no timelapse block over every object")?;
         let end = start + tape[start..].iter().position(|l| l.starts_with("; object ids of this layer"))
             .context("The native timelapse block does not close")?;
-        ensure!(tape.get(end + 1).map(|l| strip(l)) == Some("M625"), "The native timelapse block does not end its object span");
-        ensure!(!tape[start + 1..end].iter().any(|l| ["G0 ", "G1 ", "G2 ", "G3 "].iter().any(|p| lstrip(l).starts_with(p))),
+        ensure!(tape.get(end + 1).map(|l| l.trim()) == Some("M625"), "The native timelapse block does not end its object span");
+        ensure!(!tape[start + 1..end].iter().any(|l| ["G0 ", "G1 ", "G2 ", "G3 "].iter().any(|p| l.trim_start().starts_with(p))),
                 "The native timelapse block moves the head");
         Ok(Native {
             z_hop: first("z_hop")?,
@@ -726,7 +722,7 @@ impl Native {
     /// What the slicer sends once the first layer is laid: power-loss recovery on, and the
     /// regular nozzle temperature without waiting for it.
     fn second_layer(&self, out: &mut String) {
-        let _ = writeln!(out, "; open powerlost recovery\nM1003 S1\nM104 S{} ; set nozzle temperature", g(self.nozzle_temperature));
+        let _ = writeln!(out, "; open powerlost recovery\nM1003 S1\nM104 S{} ; set nozzle temperature", self.nozzle_temperature);
     }
 
     /// The spiral the slicer lifts by `rise` on before a travel from `from` to `to`: its centre's
@@ -744,7 +740,7 @@ impl Native {
     pub fn travel(&self, out: &mut String, from: [f64; 3], to: [f64; 3], height: f64, spiral: bool) {
         let rise = height - from[2];
         let feed = self.travel_speed * 60.;
-        let _ = writeln!(out, "M204 S{}", g(self.travel_acceleration));
+        let _ = writeln!(out, "M204 S{}", self.travel_acceleration);
         if spiral && rise > 1e-6 && rise <= self.z_hop + 1e-6 {
             let ([i, j], _) = self.spiral(from, to, rise);
             let _ = writeln!(out, "G17\nG3 Z{height:.3} I{i:.3} J{j:.3} P1 F{feed:.0}");
@@ -804,7 +800,7 @@ fn emit_band(out: &mut String, band: &Band, prev: Option<&Band>, old: [f64; 3], 
     match native.map(|plan| plan.profile) {
         Some(profile) if level_ends && top <= old[2].max(entry.xyz[2]) + 1e-6 => {
             let _ = write!(out, "; HSM_PHASE_TRAVEL: level change between course groups\n{NEXT_GROUP}{}\n", band.label);
-            let height = (if top > old[2] { top } else { old[2] }) + profile.z_hop;
+            let height = top.max(old[2]) + profile.z_hop;
             // nothing under the head stands higher than the group just laid, so the spiral
             // around its last bead stays over it, as the slicer's own does
             profile.travel(out, old, entry.xyz, height, true);
@@ -818,9 +814,8 @@ fn emit_band(out: &mut String, band: &Band, prev: Option<&Band>, old: [f64; 3], 
                     Some(_) => handoffs.lifted_over_plastic += 1,
                 }
             }
-            let reach = clearance(old, entry.xyz, terrain, floor) + 0.8;
-            let lift = if reach > 5. { reach } else { 5. };
-            ensure!(lift <= 315., "Lift exceeds the machine travel space: {}", repr(lift));
+            let lift = (clearance(old, entry.xyz, terrain, floor) + 0.8).max(5.);
+            ensure!(lift <= 315., "Lift exceeds the machine travel space: {lift}");
             let _ = write!(out, "; HSM_PHASE_TRAVEL: transfer between course groups\n{NEXT_GROUP}{}\n", band.label);
             let _ = write!(out, "G1 Z{lift:.3} F900\nG1 X{:.5} Y{:.5} F9000\nG1 Z{:.5} F900\n", entry.xyz[0], entry.xyz[1], entry.xyz[2]);
         }
@@ -830,8 +825,8 @@ fn emit_band(out: &mut String, band: &Band, prev: Option<&Band>, old: [f64; 3], 
         out.push_str(line);
     }
     let _ = write!(out, "; OBJECT_ID: {obj}\n{OBJECT}{obj}\nM624 {}AAAAAAAAA=\n", mask(obj)?);
-    let _ = write!(out, "M106 S{}\nM204 S{}\nG1 E.8 F1800\nG1 F{:.5}\n", g(entry.fan), g(entry.acceleration), entry.feed);
-    let _ = write!(out, "; FEATURE: {}\n; LINE_WIDTH: {}\n; LAYER_HEIGHT: {}\n", entry.feature, g(entry.width), g(entry.height));
+    let _ = write!(out, "M106 S{}\nM204 S{}\nG1 E.8 F1800\nG1 F{:.5}\n", entry.fan, entry.acceleration, entry.feed);
+    let _ = write!(out, "; FEATURE: {}\n; LINE_WIDTH: {}\n; LAYER_HEIGHT: {}\n", entry.feature, entry.width, entry.height);
     let start = band.start.context("A group without deposits")?;
     let mut camera = false;
     for &line in &band.tape[start..=band.end] {
@@ -841,9 +836,9 @@ fn emit_band(out: &mut String, band: &Band, prev: Option<&Band>, old: [f64; 3], 
             continue;
         }
         if camera {
-            let command = lstrip(line);
+            let command = line.trim_start();
             ensure!(!["G0 ", "G1 ", "G2 ", "G3 "].iter().any(|p| command.starts_with(p)), "Native camera callback contains a gantry move");
-            if strip(line) == "M625" {
+            if line.trim() == "M625" {
                 camera = false;
             }
             continue;
@@ -851,7 +846,7 @@ fn emit_band(out: &mut String, band: &Band, prev: Option<&Band>, old: [f64; 3], 
         if ["M73 ", "M991 ", "M1003 ", "M104 "].iter().any(|p| line.starts_with(p)) {
             continue;
         }
-        let command = lstrip(line);
+        let command = line.trim_start();
         ensure!(!["M624", "M625", "M622", "M623", "M971", "M1004"].iter().any(|p| command.starts_with(p)),
                 "Unexpected nested object or camera command in {}: {line}", band.label);
         out.push_str(line);
@@ -919,24 +914,20 @@ fn write_plate(startup: &[String], schedule: &[&Band], heat_at: Option<usize>, f
             None => terrain.push((band.obj, band.lo, band.hi)),
         }
     }
-    let top = terrain.iter().map(|(_, _, hi)| hi[2]).fold(floor, |a, b| if b > a { b } else { a });
+    let top = terrain.iter().map(|(_, _, hi)| hi[2]).fold(floor, f64::max);
     allowed(top)?;
     let lifted = top + BASELINE_Z_LIFT;
     let _ = write!(out, "{END_LIFT}\nG1 Z{lifted:.3} F900\n");
     out.push_str("M1003 S0\nM106 S0\nM106 P2 S0\nM981 S0 P20000\n; FEATURE: Custom\n");
     for &line in footer {
         match footer_z(line) {
-            Some((head, z, rest)) if float_below(z, lifted)? => {
+            Some((head, z, rest)) if number::<f64>(z)? < lifted => {
                 let _ = writeln!(out, "{head}{lifted:.3}{rest}");
             }
             _ => out.push_str(line),
         }
     }
     Ok((out, terrain, handoffs))
-}
-
-fn float_below(text: &str, limit: f64) -> Result<bool> {
-    Ok(float(text)? < limit)
 }
 
 /// A footer move to a height: `G0 Z` or `G1 Z`, the height, and the rest of the line.
@@ -1027,7 +1018,7 @@ pub fn emit_with(output: &Path, startup: &[String], schedule: &[&Band], footer: 
         }
     }
     let allowed = |top: f64| -> Result<()> {
-        ensure!(top + BASELINE_Z_LIFT < 247.24, "Print height conflicts with inherited finish motion: {}", repr(top));
+        ensure!(top + BASELINE_Z_LIFT < 247.24, "Print height conflicts with inherited finish motion: {top}");
         Ok(())
     };
     let (text, terrain, handoffs) = write_plate(startup, schedule, heat_at, footer, f64::NEG_INFINITY, metadata, native, allowed)?;
@@ -1192,15 +1183,15 @@ fn read_staged<'a>(tape: &'a [&'a str]) -> Result<(Vec<&'a str>, Vec<Band<'a>>, 
         } else if group == "native" && l.starts_with(LAYER) {
             seg = None;
         } else if group == "native" && l.starts_with(HEIGHT) {
-            z = float(l.split(':').nth(1).unwrap_or(""))?;
+            z = number(l.split(':').nth(1).unwrap_or(""))?;
         } else if group == "native" && l.starts_with(OBJECT) {
-            let obj = int(l.split_whitespace().last().unwrap_or(""))?;
+            let obj = number(l.split_whitespace().last().unwrap_or(""))?;
             let mut band = Band::new(tape, part(obj).into(), String::new(), obj, z, i, 0);
             band.group = "native".into();
             native.push(band);
             seg = Some((false, native.len() - 1));
         } else if group != "native" {
-            let marker = strip(l.get(2..).unwrap_or(""));
+            let marker = l.get(2..).unwrap_or("").trim();
             let found = course(l);
             if found.is_some() || marker == "underside roof" || marker == "underside deck bedding" {
                 let (kind, k) = match found {
@@ -1235,14 +1226,14 @@ fn read_donor<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
     let mut upper_native_z = None;
     for (i, &l) in tape.iter().enumerate() {
         if l.starts_with("; HSM_DONOR_PHASE: ") {
-            phase = strip(after_colon(l)).into();
+            phase = after_colon(l).trim().into();
             upper_native_z = None;
         }
         if l.starts_with("; HSM_UPPER_NATIVE_Z: ") {
-            upper_native_z = Some(float(after_colon(l))?);
+            upper_native_z = Some(number(after_colon(l))?);
         }
         if course(l).is_some() {
-            let mut band = Band::new(tape, strip(&l[2..]).into(), String::new(), BASE, 0.0, i, 0);
+            let mut band = Band::new(tape, l[2..].trim().into(), String::new(), BASE, 0.0, i, 0);
             band.group = "whole base".into();
             band.source_phase = phase.clone();
             band.upper_native_z = upper_native_z;
@@ -1250,15 +1241,15 @@ fn read_donor<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
         }
         if l.starts_with("; HSM_NORMAL_Z: ") {
             let band = spans.last_mut().context("A normal height precedes every donor course")?;
-            band.z = float(l.split(':').nth(1).unwrap_or(""))?;
+            band.z = number(l.split(':').nth(1).unwrap_or(""))?;
         }
         if let Some(rest) = l.strip_prefix("; HSM_ENTRY_XYZ: ") {
-            let xyz: Vec<f64> = rest.split_whitespace().map(float).collect::<Result<_>>()?;
+            let xyz: Vec<f64> = rest.split_whitespace().map(number).collect::<Result<_>>()?;
             ensure!(xyz.len() == 3, "An entry needs three coordinates: {l}");
             modal = Modal::new(Dialect::Shaft, [xyz[0], xyz[1], xyz[2]], 0.8);
         }
         if let Some(rest) = l.strip_prefix("; HSM_ENTRY_RETRACT_MM: ") {
-            modal.debt = float(rest)?;
+            modal.debt = number(rest)?;
         }
         if let Some(deposit) = modal.apply(l)? {
             spans.last_mut().context("Donor deposition before its first course")?.note(i, &modal, deposit);
@@ -1307,8 +1298,7 @@ fn interleave_shaft<'b, 'a>(authored: &'b [Band<'a>], native: &'b [Band<'a>], do
             }
         }
         if has_donor && s.group.starts_with("underside roof") {
-            let raised = if s.z - 1. > 0. { s.z - 1. } else { 0. };
-            native_to(&mut out, 4.25 + 0.24 * raised, 6.44 + 0.48 * s.z);
+            native_to(&mut out, 4.25 + 0.24 * (s.z - 1.).max(0.), 6.44 + 0.48 * s.z);
         }
         if has_donor && s.group == "sloped course" {
             native_to(&mut out, 4.73 + 0.24 * (s.z - 1.), 7.88 + 0.35 * (s.z - 1.));
@@ -1324,7 +1314,7 @@ fn interleave_shaft<'b, 'a>(authored: &'b [Band<'a>], native: &'b [Band<'a>], do
     for (i, s) in donor.iter().enumerate() {
         if i % 7 == 0 {
             let reach = s.lo[2] + 1.0;
-            native_to(&mut out, if reach > 8.0 { reach } else { 8.0 }, if reach > 12.20 { reach } else { 12.20 });
+            native_to(&mut out, reach.max(8.0), reach.max(12.20));
         }
         out.push(s);
     }
