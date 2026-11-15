@@ -470,6 +470,8 @@ pub const DISPLAY_COVER_SKIRT_R: f64 = 10.0;
 /// The front skirt's lower trim plane in the display frame, set by its intercept and slope.
 pub const DISPLAY_COVER_FRONT_RIM_N: f64 = 10.5;
 pub const DISPLAY_COVER_FRONT_RIM_SLOPE: f64 = 1.8;
+/// How far behind that trim plane, along s, the tip's display pocket opens at its front corners.
+pub const DISPLAY_POCKET_CORNER_SETBACK: f64 = 2.0;
 /// The rear skirt's lower trim plane in the display frame, set by its intercept and slope.
 pub const DISPLAY_COVER_REAR_TRIM_S0: f64 = 42.1;
 pub const DISPLAY_COVER_REAR_TRIM_DS_DN: f64 = 0.6;

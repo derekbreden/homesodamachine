@@ -258,15 +258,17 @@ pub fn lever_clearance() -> Result<Solid> {
     Solid::union_all(&[travel, overhead, opening.cut(&cap)?.union(&entry)?])
 }
 
-/// The display pocket down to its ledge, the recesses its feet stand in, the pockets under its
-/// switches, and the open channel under it.
+/// The display pocket down to its ledge, its front corners left standing under the cover's front
+/// rim, the recesses its feet stand in, the pockets under its switches, and the open channel
+/// under it.
 fn display_cavity(neck: &Gooseneck) -> Result<Solid> {
     let s = (DISPENSE_FACE_THICKNESS, display_s_top());
     let half_x = DISPLAY_NECK_OUTER_R + WALL_THICKNESS_MIN;
     let (tip, up, normal) = neck.tip_frame();
     // Each cut below the ledge runs up past it, so its top meets no face of the pocket's.
     let above = DISPLAY_LEDGE_N + PAST;
-    let mut cuts = vec![neck.cradle_prism(half_x, s, (DISPLAY_LEDGE_N, DISPLAY_POCKET_TOP_N), 0.0)?];
+    let pocket = neck.cradle_prism(half_x, s, (DISPLAY_LEDGE_N, DISPLAY_POCKET_TOP_N), 0.0)?;
+    let mut cuts = vec![pocket.cut(&pocket_front_corners(neck, half_x)?)?];
     for [x, s] in display_foot_centers() {
         let foot = tip + V3::X * x + up * s + normal * DISPLAY_FEET_N;
         cuts.push(Solid::cylinder(foot, normal, DISPLAY_FOOT_RECESS_DIAMETER / 2.0, above - DISPLAY_FEET_N)?);
@@ -277,6 +279,28 @@ fn display_cavity(neck: &Gooseneck) -> Result<Solid> {
     }
     cuts.push(neck.cradle_prism(DISPLAY_CHANNEL_HALF_WIDTH, s, (0.0, DISPLAY_CHANNEL_TOP_N), 0.0)?);
     Solid::union_all(&cuts)
+}
+
+/// The display pocket's front corners, which its cut leaves standing so the pocket opens there
+/// behind the cover's front rim by the setback: either side from where the feet's recesses end
+/// across the neck out past `half_x`, under the rim's plane moved back along s by the setback.
+/// They run on in front of the dispense face's back and below the ledge, so no face of theirs
+/// lies on the pocket's.
+fn pocket_front_corners(neck: &Gooseneck, half_x: f64) -> Result<Solid> {
+    let (tip, up, _) = neck.tip_frame();
+    let slope = DISPLAY_COVER_FRONT_RIM_SLOPE;
+    // The face, n + slope s = c, in the plane of (s, n).
+    let c = DISPLAY_COVER_FRONT_RIM_N + slope * DISPLAY_POCKET_CORNER_SETBACK;
+    let (s0, n0) = (DISPENSE_FACE_THICKNESS - PAST, DISPLAY_LEDGE_N - PAST);
+    let wedge = Profile::polygon(&[v2(s0, n0), v2((c - n0) / slope, n0), v2(s0, c - slope * s0)]);
+    let feet = display_foot_centers().iter().map(|[x, _]| x.abs()).fold(0.0, f64::max);
+    let inner = feet + DISPLAY_FOOT_RECESS_DIAMETER / 2.0;
+    let reach = half_x + PAST - inner;
+    let corners = [inner, -(half_x + PAST)]
+        .iter()
+        .map(|&x| Plane::new(tip + V3::X * x, up, V3::X)?.extrude(&wedge, reach))
+        .collect::<Result<Vec<_>>>()?;
+    Solid::union_all(&corners)
 }
 
 /// The side grooves the display cover's lips snap into.
