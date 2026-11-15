@@ -3,7 +3,8 @@
 //! The stages are the tip's warp, its donor supports and its courses; the base filled under its
 //! mounting face, its foundation, its continued courses through the shaft and the cooling of
 //! their join; the screw-seat rings; the tip, shaft, plug-ramp and short foundation sequencers; the
-//! plug-ramp feed cap, base show-wall speed, and the print-only review archive.
+//! plug-ramp feed cap, base show-wall speed, the printer's progress lines, and the print-only
+//! review archive.
 //!
 //!   sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl
 //!   sculpted-trial supports WARP.json OUT.json
@@ -17,6 +18,7 @@
 //!   sculpted-trial sequence PRIOR.gcode NATIVE.gcode PLATE.gcode --tip-model TIP.gcode --entire-tip-custom [--plate-rings RINGS.gcode]
 //!   sculpted-trial sequence-shaft FOUNDATION.gcode SEQUENCED.gcode [--donor CONTINUED-BASE.gcode]
 //!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode --headmap HEADMAP.npz
+//!   sculpted-trial progress PLATE.gcode MOVES.bin|PROGRESS.json OUT.gcode
 //!   sculpted-trial package NATIVE.gcode.3mf PLATE.gcode REVIEW.gcode.3mf --motion-seconds S --first-course-seconds F
 //!   sculpted-trial merge PREVIOUS.gcode --candidate TIP.gcode PLATE.gcode [--candidate TIP.gcode PLATE.gcode ...]
 //!       [--reference-sha256 SHA] [--rings COUNT] [--sequencer-sha256 SHA]
@@ -82,7 +84,7 @@ fn number(args: &Args, name: &str) -> Result<f64> {
 fn main() -> Result<()> {
     let mut values: Vec<String> = std::env::args().skip(1).collect();
     if values.is_empty() {
-        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|package|merge|cap-feed|bind-capped|finish-base-wall ...");
+        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|progress|package|merge|cap-feed|bind-capped|finish-base-wall ...");
     }
     let command = values.remove(0);
     match command.as_str() {
@@ -194,6 +196,11 @@ fn main() -> Result<()> {
             )?;
             println!("{}", plate_sequence::summary(&report).dumps_indented());
         }
+        "progress" => {
+            let args = Args::parse(values, &[], &[])?;
+            args.count(3)?;
+            println!("{}", serde_json::to_string(&trial_archive::progress(&args.path(0)?, &args.path(1)?, &args.path(2)?)?)?);
+        }
         "package" => {
             let args = Args::parse(values, &[], &["--motion-seconds", "--first-course-seconds"])?;
             args.count(3)?;
@@ -243,7 +250,7 @@ fn main() -> Result<()> {
             let report = plate_sequence::finish_base_wall(&args.path(0)?, &args.path(1)?)?;
             println!("{}", serde_json::to_string_pretty(&report)?);
         }
-        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, package, merge, cap-feed, bind-capped or finish-base-wall"),
+        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, progress, package, merge, cap-feed, bind-capped or finish-base-wall"),
     }
     Ok(())
 }
