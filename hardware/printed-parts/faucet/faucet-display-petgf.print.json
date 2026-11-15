@@ -233,14 +233,14 @@
   },
   "all_profile_members_preserved_byte_for_byte": false,
   "production_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "775ebd194b780e16df6e507c903a33fee8357e3a7bd104e193b7405ce6089bb7",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "11fb89c67f45834216a7aa55162836a6349cc182e6c006a171663439fef4782f",
-    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
-    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "5223e1dcbb3d1af3a204fa469aaf42d0f584e8b80a5d48a30b3d85eac202b6c4",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "17532d5a12ff552db47e4dab7e80af77eae81a21f450729981a91136f3718297",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "18957bc30c25bdfe12728cb838b663e3a33da4bacc19ab01597332369f17aa79",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "f293db79898db6c702a17ce21eaedc97bfd0093ed041f5a438f6ba6c0a7b3062",
-    "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.readiness.json": "01b4812435e273b68eca9eb067ffa8021958c852ec7565ab53c3b50702953963"
+    "https://github.com/derekbreden/homesodamachine/blob/7eb7e79e5ec7c14e371ad2ca52f3e1b053dcb667/hardware/printed-parts/faucet/faucet-petgf.3mf": "775ebd194b780e16df6e507c903a33fee8357e3a7bd104e193b7405ce6089bb7",
+    "https://github.com/derekbreden/homesodamachine/blob/7eb7e79e5ec7c14e371ad2ca52f3e1b053dcb667/hardware/printed-parts/faucet/faucet-petgf.print.json": "11fb89c67f45834216a7aa55162836a6349cc182e6c006a171663439fef4782f",
+    "https://github.com/derekbreden/homesodamachine/blob/81a22ad4ae36c01d95f24441221877399de9fe34/hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "2bab474bf5836928c8d6f38fee4ac131345133ae29c3aa39aa2b2f1bc4295730",
+    "https://github.com/derekbreden/homesodamachine/blob/7eb7e79e5ec7c14e371ad2ca52f3e1b053dcb667/hardware/printed-parts/faucet/faucet-petgf.readiness.json": "5223e1dcbb3d1af3a204fa469aaf42d0f584e8b80a5d48a30b3d85eac202b6c4",
+    "https://github.com/derekbreden/homesodamachine/blob/7eb7e79e5ec7c14e371ad2ca52f3e1b053dcb667/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "17532d5a12ff552db47e4dab7e80af77eae81a21f450729981a91136f3718297",
+    "https://github.com/derekbreden/homesodamachine/blob/7eb7e79e5ec7c14e371ad2ca52f3e1b053dcb667/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "18957bc30c25bdfe12728cb838b663e3a33da4bacc19ab01597332369f17aa79",
+    "https://github.com/derekbreden/homesodamachine/blob/464573a4e56cc9857424cf17b25d29c631555322/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json": "f293db79898db6c702a17ce21eaedc97bfd0093ed041f5a438f6ba6c0a7b3062",
+    "https://github.com/derekbreden/homesodamachine/blob/7eb7e79e5ec7c14e371ad2ca52f3e1b053dcb667/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.readiness.json": "01b4812435e273b68eca9eb067ffa8021958c852ec7565ab53c3b50702953963"
   },
   "settings_changes": {
     "petgf_support_recipe": {
