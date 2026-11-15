@@ -358,9 +358,7 @@ cannot undo the wake.
 
 ## The interface
 
-Big Blue follows the approved [`design exploration`](../../future/enclosure-display-studies/big-blue.html),
-apart from the rail, the portrait and the band over the pane, which are described below.
-The sixteen-direction colour and type study is in Git at [`980d92f186`](https://github.com/derekbreden/homesodamachine/blob/980d92f186/firmware/src_front/studies/interface-variations/README.md).
+The sixteen-direction colour and type study behind Big Blue is in Git at [`980d92f186`](https://github.com/derekbreden/homesodamachine/blob/980d92f186/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 The flavor rail carries both actual images, the slot a phone's request takes, and Settings
 at the bottom. The portrait panel beside it shows the selected flavor's image.
