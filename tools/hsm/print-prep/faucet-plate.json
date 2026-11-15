@@ -41,6 +41,10 @@
       "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json"
     }
   },
+  "mounting_plate_counterbores": {
+    "blocker_radial_clearance_mm": 0.45,
+    "blocker_depth_allowance_mm": [0.65, 0.55]
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
