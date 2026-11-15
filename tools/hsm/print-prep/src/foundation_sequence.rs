@@ -1,6 +1,7 @@
 //! Splices inclined tip interface and shell courses into the ordinary Mark2 slice.
 
 use super::*;
+use crate::base_foundation::{HEAD_TRAVEL_MARGIN, left_nozzle};
 use crate::course_field::{distance, mix};
 use crate::gcode;
 use std::ops::Range;
@@ -11,6 +12,220 @@ const TIP_COURSE_HEIGHT: f64 = 0.2;
 const TIP_SHELL_COURSES: usize = 7;
 const LANDING: f64 = 0.12;
 const MIN_LAYER_SHARE: f64 = 0.3;
+/// The spacing of the tip's ground under the nozzle, of the coarser ground under the head,
+/// and of the samples along a travel.
+const GROUND_STEP: f64 = 0.25;
+const HEAD_GROUND_STEP: f64 = 1.0;
+
+/// A grid of the highest bead in each cell, with the cells that hold any.
+struct Grid {
+    x0: f64,
+    y0: f64,
+    step: f64,
+    nx: usize,
+    ny: usize,
+    top: Vec<f64>,
+    occupied: Vec<usize>,
+}
+
+impl Grid {
+    fn new(lo: [f64; 2], hi: [f64; 2], step: f64) -> Grid {
+        let pad = 5.0;
+        let (x0, y0) = (lo[0] - pad, lo[1] - pad);
+        let nx = ((hi[0] - lo[0] + 2.0 * pad) / step).ceil() as usize + 1;
+        let ny = ((hi[1] - lo[1] + 2.0 * pad) / step).ceil() as usize + 1;
+        Grid { x0, y0, step, nx, ny, top: vec![f64::NEG_INFINITY; nx * ny], occupied: Vec::new() }
+    }
+
+    fn cell(&self, x: f64, y: f64) -> Option<usize> {
+        let (i, j) = (((x - self.x0) / self.step).round(), ((y - self.y0) / self.step).round());
+        (i >= 0.0 && j >= 0.0 && (i as usize) < self.nx && (j as usize) < self.ny).then(|| j as usize * self.nx + i as usize)
+    }
+
+    fn centre(&self, cell: usize) -> [f64; 2] {
+        [self.x0 + (cell % self.nx) as f64 * self.step, self.y0 + (cell / self.nx) as f64 * self.step]
+    }
+
+    fn raise(&mut self, x: f64, y: f64, z: f64) {
+        if let Some(cell) = self.cell(x, y) {
+            if self.top[cell] == f64::NEG_INFINITY {
+                self.occupied.push(cell);
+            }
+            self.top[cell] = self.top[cell].max(z);
+        }
+    }
+}
+
+/// The tip's laid plastic as the travelling head meets it: the highest bead over a fine grid for
+/// the left nozzle's flat and cone, over a coarser one for the head's underside from the head map.
+struct Ground {
+    fine: Grid,
+    coarse: Grid,
+    nozzle: [f64; 3],
+    head: Vec<f64>,
+    head_step: f64,
+    head_x0: f64,
+    head_y0: f64,
+    head_cols: usize,
+    head_rows: usize,
+}
+
+impl Ground {
+    fn new(lo: [f64; 2], hi: [f64; 2], headmap: &Path) -> Result<Ground> {
+        let arrays = crate::npz::read_arrays(headmap)?;
+        let get = |name: &str| arrays.get(name).with_context(|| format!("the head map has no {name}"));
+        let scalar = |name: &str| -> Result<f64> { get(name)?.f64().and_then(|v| v.first().copied()).with_context(|| format!("{name} is a number")) };
+        let h = get("H")?;
+        Ok(Ground {
+            fine: Grid::new(lo, hi, GROUND_STEP), coarse: Grid::new(lo, hi, HEAD_GROUND_STEP), nozzle: left_nozzle()?,
+            head: h.f64().context("H")?.to_vec(), head_step: scalar("step")?, head_x0: scalar("x0")?, head_y0: scalar("y0")?,
+            head_rows: h.shape[0], head_cols: h.shape[1],
+        })
+    }
+
+    /// Lays each road's bead into the grids.
+    fn add(&mut self, roads: &[Road]) {
+        for r in roads.iter().filter(|r| r.e > 0.0) {
+            let count = (distance(r.a, r.b) / (GROUND_STEP / 2.0)).ceil().max(1.0) as usize;
+            for k in 0..=count {
+                let p = mix(r.a, r.b, k as f64 / count as f64);
+                self.fine.raise(p[0], p[1], p[2]);
+                self.coarse.raise(p[0], p[1], p[2]);
+            }
+        }
+    }
+
+    /// The head's lowest underside over a coarse cell at `offset` from the nozzle, if the head
+    /// reaches there.
+    fn underside(&self, offset: [f64; 2]) -> Option<f64> {
+        let half = HEAD_GROUND_STEP / 2.0;
+        let mut low: Option<f64> = None;
+        let mut x = offset[0] - half;
+        while x <= offset[0] + half + 1e-9 {
+            let mut y = offset[1] - half;
+            while y <= offset[1] + half + 1e-9 {
+                let i = ((x - self.head_x0) / self.head_step).round();
+                let j = ((y - self.head_y0) / self.head_step).round();
+                if i >= 0.0 && j >= 0.0 && (i as usize) < self.head_cols && (j as usize) < self.head_rows {
+                    let h = self.head[j as usize * self.head_cols + i as usize];
+                    if h.is_finite() {
+                        low = Some(low.map_or(h, |l: f64| l.min(h)));
+                    }
+                }
+                y += self.head_step;
+            }
+            x += self.head_step;
+        }
+        low
+    }
+
+    /// Whether the slicer's spiral lift from `a`, around `centre` by `rise`, keeps the nozzle's
+    /// flat and cone out of every bead it passes.
+    fn spiral_clear(&self, a: [f64; 3], centre: [f64; 2], radius: f64, rise: f64) -> bool {
+        let [flat, cone, height] = self.nozzle;
+        let start = (a[1] - centre[1]).atan2(a[0] - centre[0]);
+        let count = ((std::f64::consts::TAU * radius) / GROUND_STEP).ceil().max(8.0) as usize;
+        let reach = (cone / GROUND_STEP).ceil() as i64;
+        (0..=count).all(|k| {
+            let t = k as f64 / count as f64;
+            let angle = start + std::f64::consts::TAU * t;
+            let p = [centre[0] + radius * angle.cos(), centre[1] + radius * angle.sin()];
+            let z = a[2] + rise * t;
+            let Some(cell) = self.fine.cell(p[0], p[1]) else { return true };
+            let (ci, cj) = ((cell % self.fine.nx) as i64, (cell / self.fine.nx) as i64);
+            (cj - reach..=cj + reach).all(|j| (ci - reach..=ci + reach).all(|i| {
+                if i < 0 || j < 0 || i >= self.fine.nx as i64 || j >= self.fine.ny as i64 {
+                    return true;
+                }
+                let cell = j as usize * self.fine.nx + i as usize;
+                let q = self.fine.centre(cell);
+                let d = (q[0] - p[0]).hypot(q[1] - p[1]);
+                let lift = if d <= flat { 0.0 } else if d <= cone { height * (d - flat) / (cone - flat) } else { return true };
+                self.fine.top[cell] - lift <= z + 1e-6
+            }))
+        })
+    }
+
+    /// The lowest the nozzle may cross from `a` to `b`: its flat and cone `clear` over every bead
+    /// they pass, and the head's underside the head travel margin over every bead it passes.
+    fn floor(&self, a: [f64; 3], b: [f64; 3], clear: f64) -> f64 {
+        let [flat, cone, rise] = self.nozzle;
+        let count = (distance([a[0], a[1], 0.0], [b[0], b[1], 0.0]) / GROUND_STEP).ceil().max(1.0) as usize;
+        let reach = (cone / GROUND_STEP).ceil() as i64;
+        let mut floor = f64::NEG_INFINITY;
+        for k in 0..=count {
+            let t = k as f64 / count as f64;
+            let p = [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+            if let Some(centre) = self.fine.cell(p[0], p[1]) {
+                let (ci, cj) = ((centre % self.fine.nx) as i64, (centre / self.fine.nx) as i64);
+                for j in (cj - reach).max(0)..=(cj + reach).min(self.fine.ny as i64 - 1) {
+                    for i in (ci - reach).max(0)..=(ci + reach).min(self.fine.nx as i64 - 1) {
+                        let cell = j as usize * self.fine.nx + i as usize;
+                        let m = self.fine.top[cell];
+                        if m == f64::NEG_INFINITY {
+                            continue;
+                        }
+                        let q = self.fine.centre(cell);
+                        let d = (q[0] - p[0]).hypot(q[1] - p[1]);
+                        if d <= cone {
+                            let lift = if d <= flat { 0.0 } else { rise * (d - flat) / (cone - flat) };
+                            floor = floor.max(m - lift + clear);
+                        }
+                    }
+                }
+            }
+            for &cell in &self.coarse.occupied {
+                let q = self.coarse.centre(cell);
+                if let Some(h) = self.underside([q[0] - p[0], q[1] - p[1]]) {
+                    floor = floor.max(self.coarse.top[cell] - h + HEAD_TRAVEL_MARGIN);
+                }
+            }
+        }
+        floor
+    }
+}
+
+/// How the tip's own stage crossed between its roads.
+#[derive(Default)]
+struct TipTravels {
+    /// By phase: crossings at the slicer's z-hop on its spiral, crossings at the z-hop lifted
+    /// straight because the spiral would meet a bead, and crossings lifted higher, with how far
+    /// over the higher end each was lifted.
+    rows: Vec<(String, usize, usize, Vec<f64>)>,
+}
+
+impl TipTravels {
+    fn note(&mut self, phase: &str, over_ends: f64, z_hop: f64, spiral: bool) {
+        let row = match self.rows.iter().position(|r| r.0 == phase) {
+            Some(i) => &mut self.rows[i],
+            None => {
+                self.rows.push((phase.to_string(), 0, 0, Vec::new()));
+                self.rows.last_mut().unwrap()
+            }
+        };
+        if over_ends > z_hop + 1e-6 {
+            row.3.push(over_ends)
+        } else if spiral {
+            row.1 += 1
+        } else {
+            row.2 += 1
+        }
+    }
+
+    fn json(&self) -> Json {
+        Json::Dict(self.rows.iter().map(|(phase, hop, straight, lifted)| {
+            let mut sorted = lifted.clone();
+            sorted.sort_by(f64::total_cmp);
+            let pick = |q: f64| sorted.get(((sorted.len() as f64 - 1.0) * q).round() as usize).copied().map_or(Json::Null, Json::Float);
+            (phase.clone(), Json::Dict(vec![
+                ("at_the_slicer_z_hop_on_its_spiral".into(), Json::Int(*hop as i64)),
+                ("at_the_slicer_z_hop_lifted_straight".into(), Json::Int(*straight as i64)),
+                ("lifted_higher".into(), Json::Int(sorted.len() as i64)),
+                ("lift_over_higher_end_mm_least_median_most".into(), Json::List(vec![pick(0.0), pick(0.5), pick(1.0)])),
+            ]))
+        }).collect())
+    }
+}
 
 #[derive(Clone, Copy)]
 struct Shoulder {
@@ -221,8 +436,9 @@ fn same_point(a: [f64; 3], b: [f64; 3]) -> bool {
         .all(|(a, b)| (a * 1000.0).round() == (b * 1000.0).round())
 }
 
-/// Emit the clipped runs with original deposition settings and lifts at the new ends.
-fn write_roads(out: &mut String, roads: &[Road], phase: &str, z: f64, ceiling: f64) {
+/// Emit the clipped runs with original deposition settings, and `travel` written between them
+/// at each new start.
+fn write_roads(out: &mut String, roads: &[Road], phase: &str, z: f64, travel: &mut dyn FnMut(&mut String, [f64; 3], [f64; 3])) {
     let usable = |r: &&Road| r.e >= 0.000005 && !same_point(r.a, r.b);
     let mut moves = roads.iter().filter(usable).peekable();
     let Some(first) = moves.peek() else { return };
@@ -237,12 +453,11 @@ fn write_roads(out: &mut String, roads: &[Road], phase: &str, z: f64, ceiling: f
     let mut modes: Option<(&str, f64, f64, f64, f64)> = None;
     for r in moves {
         if !same_point(previous, r.a) {
-            let [x, y, z] = r.a;
-            let high = previous[2].max(z).max(ceiling) + 1.15;
-            let _ = write!(
-                out,
-                "G1 E-.8 F1800\nG1 Z{high:.3} F900\nG1 X{x:.3} Y{y:.3} F9000\nG1 Z{z:.3} F900\nG1 E.8 F1800\n"
-            );
+            out.push_str("G1 E-.8 F1800\n");
+            travel(out, previous, r.a);
+            out.push_str("G1 E.8 F1800\n");
+            // the travel set its own acceleration; the road sets its modes again
+            modes = None;
         }
         let m = &r.modal;
         let key = (m.feature, m.width, m.height, m.fan, m.acceleration);
@@ -262,16 +477,20 @@ fn write_roads(out: &mut String, roads: &[Road], phase: &str, z: f64, ceiling: f
     out.push_str("G1 E-.8 F1800\n; HSM_TIP_END_COURSE\n");
 }
 
+/// A tip course cut to one side of the physical join: its level and its roads.
+type Cut<'a> = (f64, Vec<Road<'a>>);
+
 /// Move one tip course to the correct side of the physical join. Courses wholly clear of
 /// either cut are passed through untouched, including the source's rear scarf and travel.
+#[allow(clippy::type_complexity)]
 fn split_tip<'a>(
     tip: &[Band<'a>],
     shoulder: Shoulder,
     upper_z: f64,
     lower_z: f64,
-) -> Result<(Vec<Band<'a>>, String, String, Vec<Band<'a>>)> {
+) -> Result<(Vec<Band<'a>>, Vec<Cut<'a>>, Vec<Cut<'a>>, Vec<Band<'a>>)> {
     let (mut before, mut after) = (Vec::new(), Vec::new());
-    let (mut lower, mut upper) = (String::new(), String::new());
+    let (mut lower, mut upper) = (Vec::new(), Vec::new());
     for band in tip {
         if band.hi[2] < lower_z {
             let mut native = band.clone();
@@ -283,25 +502,12 @@ fn split_tip<'a>(
             after.push(native);
         } else {
             let roads = roads(band)?;
-            for (out, portion, phase, clearance) in [
-                (
-                    &mut lower,
-                    Portion::Lower,
-                    "tip level paths below shoulder",
-                    band.hi[2],
-                ),
-                (
-                    &mut upper,
-                    Portion::Upper,
-                    "tip level paths above shoulder",
-                    upper_z,
-                ),
-            ] {
+            for (out, portion) in [(&mut lower, Portion::Lower), (&mut upper, Portion::Upper)] {
                 let laid: Vec<_> = roads
                     .iter()
                     .flat_map(|r| clipped(r, shoulder, portion, band.z))
                     .collect();
-                write_roads(out, &laid, phase, band.z, clearance);
+                out.push((band.z, laid));
             }
         }
     }
@@ -316,6 +522,7 @@ pub fn compose(
     warp: &Path,
     output: &Path,
     ring: &Path,
+    headmap: &Path,
 ) -> Result<Json> {
     let staged_tape = Tape::read(staged_base)?;
     let native_tape = Tape::read(native)?;
@@ -341,7 +548,8 @@ pub fn compose(
     let covers: Vec<_> = native.iter().filter(|b| b.obj == COVER).cloned().collect();
     let rings = read_custom(&ring_lines, PLATE, &mut metadata)?;
     let donor_bands = read_custom(&donor_lines, TIP, &mut metadata)?;
-    let mut inclined = String::new();
+    let profile = Native::read(&native_lines)?;
+    let mut courses: Vec<(f64, &str, Vec<Road>)> = Vec::new();
     let mut limit = [f64::INFINITY, f64::NEG_INFINITY];
     let mut seen_shell = 0;
     for band in &donor_bands {
@@ -376,14 +584,54 @@ pub fn compose(
         } else {
             "tip shoulder entry"
         };
-        write_roads(&mut inclined, &laid, phase, u, band.hi[2]);
+        courses.push((u, phase, laid));
     }
     ensure!(
         seen_shell == TIP_SHELL_COURSES,
         "Expected {TIP_SHELL_COURSES} tilted tip shell courses, found {seen_shell}"
     );
-    let (mut lower_native, lower, upper, upper_native) =
+    let (mut lower_native, lower_cuts, upper_cuts, upper_native) =
         split_tip(&tip, shoulder, limit[1] + 1.2, limit[0] - 0.6)?;
+    // The tip's stage lays its level paths below the shoulder, the shoulder's courses and the
+    // level paths above it in that order; each crossing between its roads stands as high over
+    // the beads already laid, and the course it crosses, as the nozzle and head need.
+    let (mut lo, mut hi) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
+    for band in &tip {
+        for axis in 0..2 {
+            lo[axis] = lo[axis].min(band.lo[axis]);
+            hi[axis] = hi[axis].max(band.hi[axis]);
+        }
+    }
+    let mut ground = Ground::new(lo, hi, headmap)?;
+    for band in &lower_native {
+        ground.add(&roads(band)?);
+    }
+    let mut travels = TipTravels::default();
+    let z_hop = profile.z_hop;
+    let cross = |ground: &Ground, travels: &mut TipTravels, phase: &str, out: &mut String, a: [f64; 3], b: [f64; 3]| {
+        let ends = a[2].max(b[2]);
+        let height = ground.floor(a, b, z_hop).max(ends + z_hop);
+        let rise = height - a[2];
+        let (offset, radius) = profile.spiral(a, b, rise);
+        let spiral = ground.spiral_clear(a, [a[0] + offset[0], a[1] + offset[1]], radius, rise);
+        travels.note(phase, height - ends, z_hop, spiral && rise <= z_hop + 1e-6);
+        profile.travel(out, a, b, height, spiral);
+    };
+    let (mut lower, mut inclined, mut upper) = (String::new(), String::new(), String::new());
+    let below = "tip level paths below shoulder";
+    for (z, laid) in &lower_cuts {
+        ground.add(laid);
+        write_roads(&mut lower, laid, below, *z, &mut |out, a, b| cross(&ground, &mut travels, below, out, a, b));
+    }
+    for (u, phase, laid) in &courses {
+        ground.add(laid);
+        write_roads(&mut inclined, laid, phase, *u, &mut |out, a, b| cross(&ground, &mut travels, phase, out, a, b));
+    }
+    let above = "tip level paths above shoulder";
+    for (z, laid) in &upper_cuts {
+        ground.add(laid);
+        write_roads(&mut upper, laid, above, *z, &mut |out, a, b| cross(&ground, &mut travels, above, out, a, b));
+    }
     let lower_lines = splitlines(&lower);
     let incline_lines = splitlines(&inclined);
     let upper_lines = splitlines(&upper);
@@ -400,7 +648,8 @@ pub fn compose(
         .chain(base.iter().filter(|b| b.obj != TIP && b.obj != COVER));
     each_once(&outgoing, pointers(all))?;
     let (startup, window) = leveling(startup, &native_lines, &outgoing)?;
-    let mut report = emit(output, &startup, &outgoing, &footer, &metadata)?;
+    let mut report = emit_with(output, &startup, &outgoing, &footer, &metadata, Some(&profile))?;
+    report.set("tip_stage_crossings", travels.json());
     report.set(
         "tip_visible_nonplanar_courses",
         Json::Int(seen_shell as i64),

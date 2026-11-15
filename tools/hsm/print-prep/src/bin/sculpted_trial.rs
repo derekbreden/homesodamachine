@@ -16,7 +16,7 @@
 //!   sculpted-trial rings RINGS.gcode
 //!   sculpted-trial sequence PRIOR.gcode NATIVE.gcode PLATE.gcode --tip-model TIP.gcode --entire-tip-custom [--plate-rings RINGS.gcode]
 //!   sculpted-trial sequence-shaft FOUNDATION.gcode SEQUENCED.gcode [--donor CONTINUED-BASE.gcode]
-//!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode
+//!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode --headmap HEADMAP.npz
 //!   sculpted-trial package NATIVE.gcode.3mf PLATE.gcode REVIEW.gcode.3mf --motion-seconds S --first-course-seconds F
 //!   sculpted-trial merge PREVIOUS.gcode --candidate TIP.gcode PLATE.gcode [--candidate TIP.gcode PLATE.gcode ...]
 //!       [--reference-sha256 SHA] [--rings COUNT] [--sequencer-sha256 SHA]
@@ -186,10 +186,11 @@ fn main() -> Result<()> {
             println!("{}", plate_sequence::summary(&report).dumps_indented());
         }
         "sequence-foundations" => {
-            let args = Args::parse(values, &[], &[])?;
+            let args = Args::parse(values, &[], &["--headmap"])?;
             args.count(6)?;
+            let headmap = args.option("--headmap").context("sequence-foundations needs the head map its tip crossings clear")?;
             let report = plate_sequence::foundation_sequence::compose(
-                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?,
+                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, Path::new(headmap),
             )?;
             println!("{}", plate_sequence::summary(&report).dumps_indented());
         }
