@@ -9,8 +9,11 @@ hsm-land --check
 hsm-land
 ```
 
-The existing post-commit hook calls this command synchronously. A text collision
-is left in the working file with the incoming commit named. `ORIG_HEAD` retains
+The existing post-commit hook calls this command synchronously. A generated file,
+one a producer in the build graph writes whole, takes main's copy when both sides
+changed it, since it regenerates from source. A document a producer rewrites keeps
+authored text and merges like any other. A text collision is left in the working
+file with the incoming commit named. `ORIG_HEAD` retains
 the local commits that need resolution. The native `hsm-merge-pointers` command
 merges CAD publications by member.
 
