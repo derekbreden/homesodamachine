@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "0921c2f761841901a08a8cd6b69db8fe7ce5bec63b3d7f4ad8fd560c3cd61d07",
+    "name": "enclosure-back-top-left04-petgf-engineering-stock-z-mark1.gcode.3mf",
+    "objects": [
+      "enclosure-back-top"
+    ],
+    "sha256": "8862079b5ddacf2762f72381c7e535abfb0b8d59560a63bd83f5e1f5b90fe826",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-15T03:01:09+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1445040105",
+  "subtask_name": "enclosure-back-top-left04-petgf-engineering-stock-z-mark1.gcode.3mf",
+  "total_layer_num": 1053
+}
