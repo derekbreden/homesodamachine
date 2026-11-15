@@ -116,8 +116,8 @@ Prepare it with:
 tools/hsm/target/release/faucet-cover-print-project
 ```
 
-The preparer uses the generated STL the production selection names. It does
-not submit a print. The identified historical white covers below retain their
+The preparer lays the shared cover in the faucet plate's pose, with the approved cover print's
+settings and the plate's layers. It does not submit a print. The identified historical white covers below retain their
 own geometry and print scope.
 
 The white PET-GF cover prints bezel up at −50° about the CAD X axis, using

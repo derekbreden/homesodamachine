@@ -49,15 +49,15 @@ shows the band and reads the photographed plate's motion over it.
 
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
-| Sculpted base | −15° | A removable scaffold and dense sloped roof carry the sloped skin. The level base courses start on that skin. Each mounting insert recess bridges its shoulder and pilot roof. Slim trees inside the base stand over the bore deck. |
-| Shared tip | −105° | Slim trees carry the dense shoulder roof with release breaks and clearance around the mating plug. The first outer perimeter follows the tilted rim. The inner dispense face has its own contact band and an outlet keepout; the band fades out inboard of the tube's outside wall, whose courses stay level. A removable disc anchors the hidden root. |
+| Sculpted base | −15° | Its foundation prints first: a removable scaffold and roof under the inclined mounting face, then the foot's courses cut from the base's own sections, with a plug rising in each insert socket and a deck in the bore. The level base courses start on the foot. Each mounting insert recess keeps tree support out. |
+| Shared tip | −90° | Its mating courses come from a donor warped to flatten the shoulder, sliced alone with the support regions its warp gives and laid back onto the real shoulder. The inner dispense face's support is painted without a contact band, with an outlet keepout. A removable disc anchors the hidden root. |
 | Sculpted cover | −50° | Saved automatic supports |
-| Matching plate | 0° | Bridge the screw counterbore shoulders and keep the shank passages open. |
+| Matching plate | 0° | Removable screw-seat rings stand under the counterbores. Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |
 
-The base's scaffold prints before the rest of the plate. The
-[accepted Sculpted base](https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
-records the fore-side finish and the one-piece release. The base prints without a brim. The cover prints on its flat lower lands with support
+The base's foundation prints before the rest of the plate, as on the
+[restored short-foundation plate](prints/2026-11-14-seven-courses-restored-mark2/README.md).
+The base prints without a brim. The cover prints on its flat lower lands with support
 accessible through its open underside. The side-down lever bridges its
 channel and uses accessible support at the attachment relief.
 Ordinary sparse infill follows the shared PET-GF profile.
