@@ -34,7 +34,6 @@ use hsm_print_prep::faucet::{add_tip_root_anchor, apply_overhang_recipe, archive
 use hsm_print_prep::faucet_contact::{add_base_rim_fins, add_tip_dispense_contact, add_tip_rim_contact, apply_rim_contour, apply_stretch_cooling, apply_tip_rim_contour, closed_rim_strip, tip_end_stretch, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::faucet_underside::{self, Underside};
-use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
 use hsm_print_prep::rim_contour::RimSpec;
@@ -243,10 +242,10 @@ fn main() -> Result<()> {
         r.extra.insert("tip_virtual_course_bands_mm".into(), json!(bands));
         if let Some(settings) = &warp_settings {
             if let Some(independent) = settings.independent_support_layer_height {
-                r.plate.settings.set("independent_support_layer_height", Json::Text(if independent { "1" } else { "0" }.into()));
+                r.plate.settings["independent_support_layer_height"] = json!(if independent { "1" } else { "0" });
             }
             if let Some(gap) = settings.support_top_gap_mm {
-                r.plate.settings.set("support_top_z_distance", Json::Text(gap.to_string()));
+                r.plate.settings["support_top_z_distance"] = json!(gap.to_string());
             }
         }
     }
@@ -261,26 +260,24 @@ fn main() -> Result<()> {
         };
         let (parts, points) = (names("parts")?, names("points")?);
         for point in &points {
-            let Some(Json::List(variants)) = r.plate.settings.get(point) else { bail!("the process has no {point}") };
+            let Some(Value::Array(variants)) = r.plate.settings.get(point) else { bail!("the process has no {point}") };
             let zeros = vec!["0"; variants.len()].join(",");
             for obj in r.plate.objects.iter_mut().filter(|o| parts.contains(&o.name)) {
                 obj.settings.push((point.clone(), zeros.clone()));
             }
         }
-        if let Some(Json::List(flags)) = r.plate.settings.get("override_process_overhang_speed") {
-            let off = Json::List(flags.iter().map(|_| Json::Text("0".into())).collect());
-            r.plate.settings.set("override_process_overhang_speed", off);
+        if let Some(Value::Array(flags)) = r.plate.settings.get("override_process_overhang_speed") {
+            let off = json!(vec!["0"; flags.len()]);
+            r.plate.settings["override_process_overhang_speed"] = off;
         }
     }
-    r.plate.settings.set("sparse_infill_pattern", Json::Text(petgf_infill_pattern(&root)?));
-    let text = |s: &str| Json::Text(s.into());
-    let list = |items: &[&str]| Json::List(items.iter().map(|s| Json::Text(s.to_string())).collect());
-    r.plate.settings.set("filament_map", list(&["1"]));
-    r.plate.settings.set("filament_nozzle_map", list(&["0"]));
-    r.plate.settings.set("filament_map_mode", text("Manual"));
-    r.plate.settings.set("filament_colour", list(&[&colour]));
+    r.plate.settings["sparse_infill_pattern"] = json!(petgf_infill_pattern(&root)?);
+    r.plate.settings["filament_map"] = json!(["1"]);
+    r.plate.settings["filament_nozzle_map"] = json!(["0"]);
+    r.plate.settings["filament_map_mode"] = json!("Manual");
+    r.plate.settings["filament_colour"] = json!([colour]);
     if r.plate.settings.get("filament_multi_colour").is_some() {
-        r.plate.settings.set("filament_multi_colour", list(&[&colour]));
+        r.plate.settings["filament_multi_colour"] = json!([colour]);
     }
     r.plate.filament_map_mode = "Manual".into();
     let seam_keys = if base_only {
@@ -353,11 +350,9 @@ fn main() -> Result<()> {
     };
 
     let mut changes = r.profile.changes.clone();
-    if let Json::Map(entries) = &r.plate.settings {
-        for (key, value) in entries {
-            if original.get(key) != Some(value) {
-                changes.insert(key.clone(), json!({"from": original.get(key).map(Json::to_value), "to": value.to_value()}));
-            }
+    for (key, value) in r.plate.settings.as_object().into_iter().flatten() {
+        if original.get(key) != Some(value) {
+            changes.insert(key.clone(), json!({"from": original.get(key), "to": value}));
         }
     }
     let mut sources = Map::new();

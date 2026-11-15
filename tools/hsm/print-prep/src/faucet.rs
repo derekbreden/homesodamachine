@@ -3,7 +3,6 @@
 //! pose's silhouette, and the accepted support parts carried in from the projects that proved
 //! them.
 
-use crate::json::Json;
 use crate::mesh::bounds;
 use crate::project::Paint;
 use crate::refresh::Refreshed;
@@ -59,26 +58,26 @@ pub fn text(v: &Value) -> String {
     v.as_str().map_or_else(|| v.to_string(), String::from)
 }
 
-pub fn as_texts(v: &Json) -> Vec<String> {
-    v.list().iter().filter_map(Json::text).map(String::from).collect()
+pub fn as_texts(v: &Value) -> Vec<String> {
+    v.as_array().into_iter().flatten().filter_map(Value::as_str).map(String::from).collect()
 }
 
-pub fn texts(items: &[String]) -> Json {
-    Json::List(items.iter().map(|s| Json::Text(s.clone())).collect())
+pub fn texts(items: &[String]) -> Value {
+    json!(items)
 }
 
 /// Keep ordinary PET-GF paths uncooled; cool bridges and qualifying overhangs.
-pub fn apply_overhang_recipe(settings: &mut Json, selected: &Value, hook: &str) -> Result<Map<String, Value>> {
+pub fn apply_overhang_recipe(settings: &mut Value, selected: &Value, hook: &str) -> Result<Map<String, Value>> {
     let mut changes = cooling::apply(settings, Some(hook))?.as_object().cloned().unwrap_or_default();
-    let mut put = |settings: &mut Json, key: &str, value: &Value| -> Result<()> {
+    let mut put = |settings: &mut Value, key: &str, value: &Value| -> Result<()> {
         let old = settings.get(key).cloned().with_context(|| format!("the profile has no {key}"))?;
         let new = match &old {
-            Json::List(items) => texts(&vec![text(value); items.len()]),
-            _ => Json::Text(text(value)),
+            Value::Array(items) => texts(&vec![text(value); items.len()]),
+            _ => json!(text(value)),
         };
         if old != new {
-            changes.insert(key.into(), json!({"from": old.to_value(), "to": new.to_value()}));
-            settings.set(key, new);
+            changes.insert(key.into(), json!({"from": old, "to": new}));
+            settings[key] = new;
         }
         Ok(())
     };
@@ -102,8 +101,8 @@ pub fn apply_overhang_recipe(settings: &mut Json, selected: &Value, hook: &str) 
                 if speed > 0.0 && speed <= limit { v.clone() } else { text(maximum) }
             }).collect();
             if as_texts(&old) != new {
-                changes.insert(key.clone(), json!({"from": old.to_value(), "to": new}));
-                settings.set(&key, texts(&new));
+                changes.insert(key.clone(), json!({"from": old, "to": new}));
+                settings[key.as_str()] = texts(&new);
             }
         }
     }

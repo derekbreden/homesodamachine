@@ -8,8 +8,7 @@
 //! upper-half donor cavity upward. A slice must keep the requested TPU material and process.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::Json;
-use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{relative, settings_bytes, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet, root};
 use serde_json::{json, Value};
@@ -43,10 +42,9 @@ fn main() -> Result<()> {
         bail!("the TPU recipe source differs from its reviewed project");
     }
     let mut members = faucet::members(&source)?;
-    let mut settings = Json::parse(std::str::from_utf8(&members[SETTINGS_MEMBER])?)?;
-    settings.set("print_compatible_printers", Json::List(vec![Json::Text(IDENTITY.into())]));
-    let requested = settings.to_value();
-    members.insert(SETTINGS_MEMBER.into(), (settings.dumps() + "\n").into_bytes());
+    let mut requested: Value = serde_json::from_slice(&members[SETTINGS_MEMBER])?;
+    requested["print_compatible_printers"] = json!([IDENTITY]);
+    members.insert(SETTINGS_MEMBER.into(), settings_bytes(&requested)?);
     let profile = root.join(".cache/donor-hold-down-settings.3mf");
     std::fs::create_dir_all(profile.parent().unwrap())?;
     {

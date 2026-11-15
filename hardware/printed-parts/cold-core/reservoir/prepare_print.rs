@@ -7,9 +7,8 @@
 //! binds each STEP and its fine model, which in turn binds the print mesh.
 
 use anyhow::{bail, ensure, Context, Result};
-use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{Mesh, stl_corners};
-use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{first_text, relative, SETTINGS_MEMBER};
 use hsm_print_prep::project::Plate;
 use hsm_print_prep::{apply, faucet, npz, root, sha256_hex};
 use serde_json::{json, Value};
@@ -81,10 +80,10 @@ fn main() -> Result<()> {
         "the reservoir process needs the fixed left nozzle");
     ensure!(base["curr_bed_type"] == "Engineering Plate" && base["ironing_type"] == "no ironing"
         && base["enable_support_ironing"] == "0", "the reservoir process needs Engineering Plate with ironing off");
-    let settings = Json::parse(&text)?;
+    let settings = base.clone();
     let integration = faucet::read_json(&root.join(INTEGRATION))?;
     let bound = &integration["files_sha256"];
-    let area = settings.get("extruder_printable_area").map(Json::list).and_then(|a| a.first()).and_then(Json::text)
+    let area = settings["extruder_printable_area"][0].as_str()
         .context("the printer has no printable area for the left nozzle")?;
     let (mut low, mut high) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
     for point in area.split(',') {
@@ -96,7 +95,7 @@ fn main() -> Result<()> {
         }
     }
     let centre = [(low[0] + high[0]) / 2.0, (low[1] + high[1]) / 2.0];
-    let height: f64 = settings.first_text("printable_height").context("the printer has no printable height")?.parse()?;
+    let height: f64 = first_text(&settings, "printable_height").context("the printer has no printable height")?.parse()?;
     let mut plate = Plate::with_settings(TITLE, settings, BTreeMap::new(), "homesodamachine/reservoir/");
     plate.filament_map_mode = "Manual".into();
     plate.filament_volume_maps = "0".into();

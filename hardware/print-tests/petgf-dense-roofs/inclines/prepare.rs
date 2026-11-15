@@ -1,6 +1,6 @@
 //! prepare.rs writes and optionally slices the incline comparison plates without contacting a printer.
 use anyhow::{Context, Result, ensure};
-use hsm_print_prep::{json::Json, mesh::Mesh, profile, project::Plate, refresh, root, sha256_hex, slice};
+use hsm_print_prep::{mesh::Mesh, profile, project::Plate, refresh, root, sha256_hex, slice};
 use serde_json::{Value, json};
 use std::path::{Path, PathBuf};
 
@@ -20,9 +20,9 @@ fn main() -> Result<()> {
         let directory = run.join(name);
         std::fs::create_dir_all(&directory)?;
         let mut plate = Plate::new(name, &profile, "homesodamachine/support-inclines/");
-        plate.settings.set("filament_colour", Json::from_value(&json!(["#161616"])));
-        plate.settings.set("support_filament", Json::Text("1".into()));
-        plate.settings.set("support_interface_filament", Json::Text("1".into()));
+        plate.settings["filament_colour"] = json!(["#161616"]);
+        plate.settings["support_filament"] = json!("1");
+        plate.settings["support_interface_filament"] = json!("1");
         let mut records = Vec::new();
         for (i, row) in declared["samples"].as_array().context("samples")?.iter().enumerate() {
             let id = row["id"].as_str().context("sample id")?;

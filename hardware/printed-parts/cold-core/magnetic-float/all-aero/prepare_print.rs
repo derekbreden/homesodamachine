@@ -17,9 +17,8 @@ use anyhow::{bail, Context, Result};
 use hsm_aero_float_numbers as float;
 use hsm_print_prep::gcode::Road;
 use hsm_print_prep::ids::md5_hex;
-use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::Mesh;
-use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{first_text, relative, SETTINGS_MEMBER};
 use hsm_print_prep::review::{bead_cover, ring_spans, section_spans};
 use hsm_print_prep::{faucet, project, root, sha256_hex, slice};
 use serde_json::{json, Map, Value};
@@ -366,11 +365,10 @@ fn main() -> Result<()> {
     }
     let mut members = faucet::members(&recipe_path)?;
     let text = String::from_utf8(members.get(SETTINGS_MEMBER).context("the recipe has no settings")?.clone())?;
-    let settings = Json::parse(&text)?;
     let selected: Value = serde_json::from_str(&text)?;
-    if settings.first_text("wall_loops") != Some("300") || settings.first_text("machine_pause_gcode").map(str::trim) != Some("M400 U1")
-        || settings.first_text("machine_start_gcode").map(|s| s.matches(LEVELING).count()) != Some(3)
-        || settings.first_text("print_settings_id") != Some(TITLE) || settings.get("post_process").is_some_and(|p| !p.list().is_empty()) {
+    if first_text(&selected, "wall_loops") != Some("300") || first_text(&selected, "machine_pause_gcode").map(str::trim) != Some("M400 U1")
+        || first_text(&selected, "machine_start_gcode").map(|s| s.matches(LEVELING).count()) != Some(3)
+        || first_text(&selected, "print_settings_id") != Some(TITLE) || selected["post_process"].as_array().is_some_and(|p| !p.is_empty()) {
         bail!("{RECIPE} no longer holds the float's recipe");
     }
     let stl = here.join("float-aero.stl");

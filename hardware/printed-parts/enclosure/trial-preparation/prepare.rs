@@ -19,9 +19,8 @@ mod back_top_print_supports;
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::derive::{self, Feature, Geometry};
 use hsm_print_prep::faucet_contact::ContactBand;
-use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{closed_check, Mesh as RawMesh};
-use hsm_print_prep::profile::{self, relative};
+use hsm_print_prep::profile::{self, first_text, relative};
 use hsm_print_prep::project::{Paint, Plate, Range};
 use hsm_print_prep::{faucet, npz, seam, sha256_hex, slice};
 use serde_json::{json, Map, Value};
@@ -344,21 +343,22 @@ fn pair(v: &Value) -> Result<([f64; 3], [f64; 3])> {
 }
 
 /// The declared hotend against the one the recipe slices for and the side its filament maps to.
-fn check_nozzle(name: &str, piece: &Value, settings: &Json, profile_path: &str) -> Result<Value> {
+fn check_nozzle(name: &str, piece: &Value, settings: &Value, profile_path: &str) -> Result<Value> {
     let nozzle = &piece["nozzle"];
     let side = match nozzle["side"].as_str() { Some("right") => 1, _ => 0 };
-    let diameter: f64 = settings.get("nozzle_diameter").map(Json::list).unwrap_or(&[]).get(side).and_then(Json::text).context("nozzle diameter")?.parse()?;
+    let diameter: f64 = settings["nozzle_diameter"][side].as_str().context("nozzle diameter")?.parse()?;
     if (diameter - nozzle["diameter_mm"].as_f64().unwrap_or(0.0)).abs() > 1e-6 {
         bail!("{name} declares a {} mm {} nozzle; {profile_path} slices {diameter} mm there", nozzle["diameter_mm"], nozzle["side"]);
     }
-    let volume: Vec<String> = settings.get("nozzle_volume_type").map(Json::list).unwrap_or(&[]).iter().filter_map(Json::text).map(String::from).collect();
+    let volume: Vec<String> = settings["nozzle_volume_type"].as_array().into_iter().flatten().filter_map(Value::as_str).map(String::from).collect();
     if let Some(flow) = nozzle.get("flow").and_then(Value::as_str) {
         if volume.len() > side && volume[side] != flow {
             bail!("{name} declares a {flow} {} nozzle; {profile_path} slices {}", nozzle["side"], volume[side]);
         }
     }
     let mapped: BTreeSet<i64> = match settings.get("filament_map") {
-        Some(m) => m.list().iter().filter_map(|v| match v { Json::Text(s) => s.parse().ok(), Json::Number(_, n) => Some(*n as i64), _ => None }).collect(),
+        Some(m) => m.as_array().into_iter().flatten()
+            .filter_map(|v| match v { Value::String(s) => s.parse().ok(), Value::Number(n) => n.as_f64().map(|n| n as i64), _ => None }).collect(),
         None => [1].into(),
     };
     if mapped != [side as i64 + 1].into() {
@@ -405,21 +405,9 @@ fn parse_part(text: &str) -> Result<(Value, Vec<String>)> {
     Ok((part, order))
 }
 
-/// pieces.json in its own key order, which serde_json's sorted maps lose: settings added to a
-/// recipe go in as declared.
-fn read_order(path: &Path) -> Result<Json> {
-    Json::parse(&std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?)
-}
-
-fn keys_at(order: &Json, path: &[&str]) -> Vec<String> {
-    let mut at = order;
-    for key in path {
-        match at.get(key) {
-            Some(next) => at = next,
-            None => return Vec::new(),
-        }
-    }
-    at.keys()
+/// The keys of the object at `path` in `spec`.
+fn keys_at(spec: &Value, path: &[&str]) -> Vec<String> {
+    path.iter().fold(spec, |at, key| &at[*key]).as_object().map_or_else(Vec::new, |object| object.keys().cloned().collect())
 }
 
 #[derive(Clone)]
@@ -434,7 +422,6 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let here = root.join(HERE);
     let spec_path = here.join("pieces.json");
     let spec = read_json(&spec_path)?;
-    let order = read_order(&spec_path)?;
     let piece = spec["pieces"].get(name).with_context(|| format!("no piece {name}"))?;
     if piece.get("external").is_some() {
         bail!("{name} is prepared by {}", piece["external"]["command"]);
@@ -450,14 +437,13 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let mut plate = Plate::new(&title, &profile, "homesodamachine/enclosure-trial/");
     let mut changes = Map::new();
     let put = |plate: &mut Plate, changes: &mut Map<String, Value>, key: &str, value: &Value, reason: &Value| {
-        let from = profile.settings.get(key).map(Json::to_value).unwrap_or(Value::Null);
-        changes.insert(key.into(), json!({"from": from, "to": value, "reason": reason}));
-        plate.settings.set(key, Json::from_value(value));
+        changes.insert(key.into(), json!({"from": profile.settings[key], "to": value, "reason": reason}));
+        plate.settings[key] = value.clone();
     };
     let default_mapping = json!({"value": spec["filament_mapping"], "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."});
     let (mapping, mapping_keys) = match piece.get("filament_mapping") {
-        Some(m) => (m, keys_at(&order, &["pieces", name, "filament_mapping", "value"])),
-        None => (&default_mapping, keys_at(&order, &["filament_mapping"])),
+        Some(m) => (m, keys_at(&spec, &["pieces", name, "filament_mapping", "value"])),
+        None => (&default_mapping, keys_at(&spec, &["filament_mapping"])),
     };
     for key in &mapping_keys {
         put(&mut plate, &mut changes, key, &mapping["value"][key], &mapping["reason"]);
@@ -468,14 +454,14 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     if let Some(z) = piece.get("z_trim_mm") {
         changes.insert("requested_z_trim_mm".into(), json!({"from": machine["z_trim_mm"], "to": z_trim, "reason": z["reason"]}));
     }
-    for key in keys_at(&order, &["pieces", name, "settings"]) {
+    for key in keys_at(&spec, &["pieces", name, "settings"]) {
         let declared = &piece["settings"][&key];
         put(&mut plate, &mut changes, &key, &declared["value"], &declared["reason"]);
     }
     if piece.get("cap_finish_lifts").and_then(|c| c.get("value")).and_then(Value::as_bool) == Some(true) {
-        let height: f64 = plate.settings.first_text("printable_height").context("printable height")?.parse()?;
+        let height: f64 = first_text(&plate.settings, "printable_height").context("printable height")?.parse()?;
         let limit = height - z_trim.max(0.0);
-        let end = plate.settings.get("machine_end_gcode").and_then(Json::text).unwrap_or("").to_string();
+        let end = plate.settings["machine_end_gcode"].as_str().unwrap_or("").to_string();
         let mut out = String::new();
         let mut rest = end.as_str();
         // The end routine's two clearance lifts over the last layer stop under the printer's ceiling.
@@ -500,9 +486,8 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let declared_parts: Vec<(Value, Vec<String>)> = match parts {
         Some(p) => p,
         None => {
-            let ordered = order.get("pieces").and_then(|p| p.get(name)).and_then(|p| p.get("parts")).map(Json::list).unwrap_or(&[]);
-            piece["parts"].as_array().into_iter().flatten().enumerate()
-                .map(|(i, part)| (part.clone(), ordered.get(i).and_then(|p| p.get("object_settings")).map(Json::keys).unwrap_or_default()))
+            piece["parts"].as_array().into_iter().flatten()
+                .map(|part| (part.clone(), keys_at(part, &["object_settings"])))
                 .collect()
         }
     };
@@ -563,9 +548,9 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let border = border.unwrap_or_else(|| piece.get("plate_border_mm").and_then(Value::as_f64).unwrap_or(20.0));
     let placements: Vec<(f64, f64, f64)> = layout(&footprints, usable_low, usable_high, spacing, border, &yaw_choice)
         .into_iter().map(|(y, cx, cy)| (y, cx + offset[0], cy + offset[1])).collect();
-    let brim_type = plate.settings.first_text("brim_type").unwrap_or("").to_string();
+    let brim_type = first_text(&plate.settings, "brim_type").unwrap_or("").to_string();
     let brim = if brim_type == "outer_only" || brim_type == "outer_and_inner" {
-        plate.settings.first_text("brim_width").and_then(|s| s.parse::<f64>().ok()).unwrap_or(5.0) + 0.5
+        first_text(&plate.settings, "brim_width").and_then(|s| s.parse::<f64>().ok()).unwrap_or(5.0) + 0.5
     } else { 0.0 };
 
     let mut records: Vec<Value> = Vec::new();
@@ -769,7 +754,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
         }
         for f in inst.features.iter().filter(|f| f.kind() == "removable_support_stock") {
             let name = f.record["name"].as_str().context("removable support name")?;
-            let gap: f64 = plate.settings.first_text("support_top_z_distance").context("support contact gap")?.parse()?;
+            let gap: f64 = first_text(&plate.settings, "support_top_z_distance").context("support contact gap")?.parse()?;
             let (solid, settings) = back_top_print_supports::removable_stock(&json!(f.record), gap)?;
             let vertices = solid.verts().iter().map(|v| sub3(v.to_array(), mesh.center)).collect();
             let faces = solid.tris().iter().map(|p| p.map(|i| i as usize)).collect();
@@ -819,8 +804,8 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
         painted.push((record["identify_id"].to_string(), triangles));
     }
     npz::write_triangles(&directory.join("show-faces.npz"), &painted)?;
-    let bed = plate.settings.first_text("curr_bed_type").unwrap_or("").to_string();
-    let settings_text = plate.settings.dumps() + "\n";
+    let bed = first_text(&plate.settings, "curr_bed_type").unwrap_or("").to_string();
+    let settings_text = profile::settings_bytes(&plate.settings)?;
     let mut tools = Map::new();
     let shared_sources = std::fs::read_dir(root.join("tools/hsm/print-prep/src"))?
         .filter_map(|entry| entry.ok().map(|entry| entry.path()))
@@ -840,7 +825,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
         "emitted_textured_trim_mm": ((z_trim - if bed == "Textured PEI Plate" { 0.02 } else { 0.0 }) * 1000.0).round() / 1000.0,
         "project": relative(&project, root), "project_sha256": file_sha(&project)?,
         "profile": relative(&profile_path, root), "profile_sha256": file_sha(&profile_path)?,
-        "settings_sha256": sha256_hex(settings_text.as_bytes()), "settings_changes": changes, "profile_changes": profile.changes,
+        "settings_sha256": sha256_hex(&settings_text), "settings_changes": changes, "profile_changes": profile.changes,
         "usable_plate_mm": [usable_low, usable_high], "plate_border_mm": border, "brim_allowance_mm": brim,
         "plate_offset_mm": piece.get("plate_offset_mm").cloned().unwrap_or(Value::Null), "objects": records, "pause": Value::Null,
         "show_faces": relative(&directory.join("show-faces.npz"), root),
@@ -968,7 +953,7 @@ fn listing(root: &Path) -> Result<()> {
     let spec_path = root.join(HERE).join("pieces.json");
     let spec = read_json(&spec_path)?;
     let mut region_files: HashMap<String, Value> = HashMap::new();
-    for name in keys_at(&read_order(&spec_path)?, &["pieces"]) {
+    for name in keys_at(&spec, &["pieces"]) {
         let piece = &spec["pieces"][&name];
         let nozzle = &piece["nozzle"];
         let head = format!("{name:22} {:6} {:5} {} mm {}, {}", piece["printer"].as_str().unwrap_or(""), nozzle["side"].as_str().unwrap_or("-"),
@@ -1072,7 +1057,7 @@ fn main() -> Result<()> {
     hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
     let spec_path = root.join(HERE).join("pieces.json");
     let spec = read_json(&spec_path)?;
-    let names: Vec<String> = if target == "all" { keys_at(&read_order(&spec_path)?, &["pieces"]) } else { vec![target.clone()] };
+    let names: Vec<String> = if target == "all" { keys_at(&spec, &["pieces"]) } else { vec![target.clone()] };
     if !parts.is_empty() && names.len() > 1 {
         bail!("--part names one plate's parts");
     }

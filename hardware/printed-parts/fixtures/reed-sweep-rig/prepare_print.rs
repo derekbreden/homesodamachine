@@ -9,8 +9,7 @@
 //! archive. It neither submits a print nor joins the build.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::Json;
-use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{first_text, relative, settings_bytes, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet, root, sha256_hex};
 use serde_json::{json, Map, Value};
@@ -28,24 +27,24 @@ const SETTINGS_RUN: &str = ".cache/runs/reed-sweep-rig-print-settings";
 fn settings_project(root: &Path, spec: &Value) -> Result<(PathBuf, Map<String, Value>)> {
     let source = root.join(spec["settings_source"].as_str().context("settings source")?);
     let mut members = faucet::members(&source)?;
-    let mut settings = Json::parse(std::str::from_utf8(&members[SETTINGS_MEMBER])?)?;
+    let mut settings: Value = serde_json::from_slice(&members[SETTINGS_MEMBER])?;
     let mut changes = Map::new();
-    let nozzle: f64 = settings.first_text("nozzle_diameter").context("nozzle diameter")?.parse()?;
+    let nozzle: f64 = first_text(&settings, "nozzle_diameter").context("nozzle diameter")?.parse()?;
     let nozzle_text = nozzle.to_string();
     let trim = spec["z_trim_mm"].as_f64().context("Z trim")?;
     let compatible = [format!("Bambu Lab H2C {nozzle_text} Standard +{trim:.2} Z trim"), format!("Bambu Lab H2C {nozzle_text} nozzle")];
-    settings.set("print_compatible_printers", Json::List(compatible.iter().cloned().map(Json::Text).collect()));
+    settings["print_compatible_printers"] = json!(compatible);
     if let Some(colour) = spec["filament_colour"].as_str() {
-        settings.set("filament_colour", Json::List(vec![Json::Text(colour.into())]));
+        settings["filament_colour"] = json!([colour]);
     }
     let id = spec["id"].as_str().unwrap_or("");
     for (key, value) in [("enable_support", "0".to_string()), ("enable_prime_tower", "0".into()), ("print_settings_id", format!("0.24mm PET-GF reed sweep rig - {id}"))] {
-        if settings.get(key).and_then(Json::text) != Some(value.as_str()) {
-            changes.insert(key.into(), json!({"from": settings.get(key).map(Json::to_value), "to": value}));
-            settings.set(key, Json::Text(value));
+        if settings[key].as_str() != Some(value.as_str()) {
+            changes.insert(key.into(), json!({"from": settings[key], "to": value}));
+            settings[key] = json!(value);
         }
     }
-    members.insert(SETTINGS_MEMBER.into(), (settings.dumps() + "\n").into_bytes());
+    members.insert(SETTINGS_MEMBER.into(), settings_bytes(&settings)?);
     let profile = root.join(SETTINGS_RUN).join(format!("{id}-settings.3mf"));
     std::fs::create_dir_all(profile.parent().unwrap())?;
     let mut archive = zip::ZipWriter::new(std::fs::File::create(&profile)?);

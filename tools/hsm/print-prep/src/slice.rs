@@ -2,8 +2,7 @@
 //! Nothing here contacts a printer.
 
 use crate::ids::md5_hex;
-use crate::json::Json;
-use crate::profile::SETTINGS_MEMBER;
+use crate::profile::{settings_bytes, SETTINGS_MEMBER};
 use crate::sha256_hex;
 use anyhow::{bail, Context, Result};
 use serde_json::{json, Value};
@@ -24,19 +23,19 @@ pub fn cli_project(project: &Path, directory: &Path) -> Result<PathBuf> {
     let file = std::fs::File::open(project)?;
     let mut archive = zip::ZipArchive::new(file)?;
     let mut settings = {
-        let mut data = String::new();
-        archive.by_name(SETTINGS_MEMBER)?.read_to_string(&mut data)?;
-        Json::parse(&data)?
+        let mut data = Vec::new();
+        archive.by_name(SETTINGS_MEMBER)?.read_to_end(&mut data)?;
+        serde_json::from_slice::<Value>(&data)?
     };
-    let scripts: Vec<String> = settings.get("post_process").map(Json::list).unwrap_or(&[])
-        .iter().filter_map(Json::text).map(String::from).collect();
+    let scripts: Vec<String> = settings["post_process"].as_array().into_iter().flatten()
+        .filter_map(Value::as_str).map(String::from).collect();
     if scripts.iter().all(|s| s.is_empty()) {
         return Ok(project.to_path_buf());
     }
     if scripts.iter().any(|s| !s.is_empty() && !is_cooling_hook(s)) {
         bail!("The native CLI cannot execute this project's additional post-processing scripts");
     }
-    settings.set("post_process", Json::List(Vec::new()));
+    settings["post_process"] = json!([]);
     let stem = project.file_stem().and_then(|s| s.to_str()).unwrap_or("project");
     let output = directory.join(format!("{stem}.cli.3mf"));
     let mut target = zip::ZipWriter::new(std::fs::File::create(&output)?);
@@ -48,7 +47,7 @@ pub fn cli_project(project: &Path, directory: &Path) -> Result<PathBuf> {
                 .last_modified_time(entry.last_modified().unwrap_or_default());
             drop(entry);
             target.start_file(SETTINGS_MEMBER, options)?;
-            target.write_all((settings.dumps() + "\n").as_bytes())?;
+            target.write_all(&settings_bytes(&settings)?)?;
         } else {
             target.raw_copy_file(entry)?;
         }
@@ -97,11 +96,10 @@ pub fn apply_directory(directory: &Path, project: &Path) -> Result<BTreeMap<Stri
     }
     let result_path = directory.join("result.json");
     if result_path.is_file() {
-        let mut result = Json::parse(&std::fs::read_to_string(&result_path)?)?;
-        if let Some(Json::List(plates)) = result.get("sliced_plates").cloned() {
-            let mut plates = plates;
+        let mut result: Value = serde_json::from_slice(&std::fs::read(&result_path)?)?;
+        if let Some(plates) = result.get_mut("sliced_plates").and_then(Value::as_array_mut) {
             for row in plates.iter_mut() {
-                let id = row.get("id").map(|v| match v { Json::Number(t, _) => t.clone(), Json::Text(s) => s.clone(), _ => String::new() }).unwrap_or_default();
+                let id = match &row["id"] { Value::Number(n) => n.to_string(), Value::String(s) => s.clone(), _ => String::new() };
                 let mut added = 0.0f64;
                 for reading in reports.values() {
                     if reading["changed"].as_bool() != Some(true) {
@@ -113,14 +111,12 @@ pub fn apply_directory(directory: &Path, project: &Path) -> Result<BTreeMap<Stri
                         }
                     }
                 }
-                if let Some(Json::Number(_, total)) = row.get("total_predication").cloned() {
-                    let sum = total + added;
-                    row.set("total_predication", Json::Number(crate::json::python_number(sum), sum));
+                if let Some(total) = row["total_predication"].as_f64() {
+                    row["total_predication"] = json!(total + added);
                 }
             }
-            result.set("sliced_plates", Json::List(plates));
         }
-        std::fs::write(&result_path, result.dumps() + "\n")?;
+        std::fs::write(&result_path, serde_json::to_string_pretty(&result)? + "\n")?;
     }
     Ok(reports)
 }

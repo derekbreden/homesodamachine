@@ -15,7 +15,6 @@
 //! `review.json`. No printer is contacted.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{bounds, write_stl};
 use hsm_print_prep::profile::{self, relative};
 use hsm_print_prep::project::Plate;
@@ -125,10 +124,10 @@ fn two_hotend_settings(root: &Path, colours: [&str; 2]) -> Result<(Plate, Value)
     let profile = profile::load(&root.join(PROFILE), Some(z_trim(root)?), None, root)?;
     let mut plate = Plate::new("", &profile, "homesodamachine/labels/");
     let original = profile.settings.clone();
-    let variants = original.get("filament_extruder_variant").map(Json::list).map_or(0, <[Json]>::len);
-    let Json::Map(entries) = &mut plate.settings else { bail!("the recipe's settings are not a map") };
-    for (_, value) in entries.iter_mut() {
-        if let Json::List(items) = value {
+    let variants = original["filament_extruder_variant"].as_array().map_or(0, Vec::len);
+    let Some(entries) = plate.settings.as_object_mut() else { bail!("the recipe's settings are not a map") };
+    for value in entries.values_mut() {
+        if let Value::Array(items) = value {
             if items.len() == 1 || items.len() == variants {
                 let again = items.clone();
                 items.extend(again);
@@ -139,36 +138,34 @@ fn two_hotend_settings(root: &Path, colours: [&str; 2]) -> Result<(Plate, Value)
     if registration["status"] != "nameplate_appearance_accepted" {
         bail!("{REGISTRATION} status is {}", registration["status"]);
     }
-    let texts = |items: &[&str]| Json::List(items.iter().map(|s| Json::Text(s.to_string())).collect());
-    let repeat = |item: &str, n: usize| Json::List(vec![Json::Text(item.to_string()); n]);
+    let texts = |items: &[&str]| json!(items);
+    let repeat = |item: &str, n: usize| json!(vec![item; n]);
     let indices: Vec<&str> = std::iter::repeat_n("1", variants).chain(std::iter::repeat_n("2", variants)).collect();
     let offset: Vec<&str> = registration["native_extruder_offset"].as_array().context("registration offset")?.iter().filter_map(Value::as_str).collect();
     let flush: Vec<&str> = ["0", "140", "140", "0"].repeat(2);
     for (key, value) in [
         ("filament_colour", texts(&colours)), ("filament_multi_colour", texts(&colours)), ("filament_map", texts(&["1", "2"])),
-        ("filament_map_2", texts(&["1", "2"])), ("filament_nozzle_map", texts(&["0", "1"])), ("filament_map_mode", Json::Text("Manual".into())),
+        ("filament_map_2", texts(&["1", "2"])), ("filament_nozzle_map", texts(&["0", "1"])), ("filament_map_mode", json!("Manual")),
         ("filament_volume_map", texts(&["0", "0"])), ("filament_self_index", texts(&indices)),
         ("filament_printable", texts(&["3", "3"])), ("extruder_ams_count", texts(&["1#0|4#0", "1#0|4#0"])),
         ("filament_prime_volume", texts(&["45", "45"])), ("flush_volumes_vector", repeat("140", 4)),
-        ("flush_volumes_matrix", texts(&flush)), ("extruder_offset", texts(&offset)), ("enable_support", Json::Text("0".into())),
-        ("brim_type", Json::Text("no_brim".into())), ("brim_width", Json::Text("0".into())),
-        ("initial_layer_print_height", Json::Text("0.2".into())), ("layer_height", Json::Text("0.24".into())),
-        ("flush_into_support", Json::Text("0".into())), ("wipe_tower_x", texts(&["135", "135"])), ("wipe_tower_y", texts(&["90", "90"])),
+        ("flush_volumes_matrix", texts(&flush)), ("extruder_offset", texts(&offset)), ("enable_support", json!("0")),
+        ("brim_type", json!("no_brim")), ("brim_width", json!("0")),
+        ("initial_layer_print_height", json!("0.2")), ("layer_height", json!("0.24")),
+        ("flush_into_support", json!("0")), ("wipe_tower_x", texts(&["135", "135"])), ("wipe_tower_y", texts(&["90", "90"])),
     ] {
-        plate.settings.set(key, value);
+        plate.settings[key] = value;
     }
-    let mut filament = Json::parse(std::str::from_utf8(plate.members.get("Metadata/filament_settings_1.config").context("no filament settings")?)?)?;
-    filament.set("filament_printable", texts(&["3"]));
+    let mut filament: Value = serde_json::from_slice(plate.members.get("Metadata/filament_settings_1.config").context("no filament settings")?)?;
+    filament["filament_printable"] = texts(&["3"]);
     plate.members.retain(|name, _| name.starts_with("Metadata/filament_settings_"));
     for member in ["Metadata/filament_settings_1.config", "Metadata/filament_settings_2.config"] {
-        plate.members.insert(member.into(), filament.dumps().into_bytes());
+        plate.members.insert(member.into(), profile::settings_bytes(&filament)?);
     }
     let mut changes = Map::new();
-    if let Json::Map(entries) = &plate.settings {
-        for (key, value) in entries {
-            if original.get(key) != Some(value) {
-                changes.insert(key.clone(), json!({"from": original.get(key).map(Json::to_value), "to": value.to_value()}));
-            }
+    for (key, value) in plate.settings.as_object().into_iter().flatten() {
+        if original.get(key) != Some(value) {
+            changes.insert(key.clone(), json!({"from": original.get(key), "to": value}));
         }
     }
     let recipe = json!({"profile_changes": profile.changes, "two_hotend_changes": changes,
@@ -243,10 +240,10 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
     let positions = layout(&parts.iter().map(|p| p.footprint).collect::<Vec<_>>(), centre);
     // The prime tower stands centred behind the parts, clear of every footprint.
     let back = parts.iter().zip(&positions).map(|(p, at)| at[1] + p.footprint[1] / 2.0).fold(f64::NEG_INFINITY, f64::max);
-    let width: f64 = plate.settings.first_text("prime_tower_width").context("prime tower width")?.parse()?;
-    let tower = |v: f64| Json::List(vec![Json::Text(format!("{v:.1}")); 2]);
-    plate.settings.set("wipe_tower_x", tower(centre[0] - width / 2.0));
-    plate.settings.set("wipe_tower_y", tower(back + GAP * 2.0));
+    let width: f64 = profile::first_text(&plate.settings, "prime_tower_width").context("prime tower width")?.parse()?;
+    let tower = |v: f64| json!(vec![format!("{v:.1}"); 2]);
+    plate.settings["wipe_tower_x"] = tower(centre[0] - width / 2.0);
+    plate.settings["wipe_tower_y"] = tower(back + GAP * 2.0);
     let mut digests: Vec<&String> = sources.values().collect();
     digests.sort();
     let digest = &sha256_hex(digests.into_iter().cloned().collect::<Vec<_>>().join("").as_bytes())[..8];
@@ -282,9 +279,9 @@ fn prepare(root: &Path, group: &Group, output: &Path) -> Result<PathBuf> {
     }
     // The cooling stage, over the doubled filament arrays.
     let mut members = plate.members.clone();
-    members.insert(profile::SETTINGS_MEMBER.into(), (plate.settings.dumps() + "\n").into_bytes());
+    members.insert(profile::SETTINGS_MEMBER.into(), profile::settings_bytes(&plate.settings)?);
     let cooling_changes = cooling::apply_members(&mut members, &profile::cooling_hook(root))?;
-    plate.settings = Json::parse(std::str::from_utf8(&members.remove(profile::SETTINGS_MEMBER).unwrap())?)?;
+    plate.settings = serde_json::from_slice(&members.remove(profile::SETTINGS_MEMBER).unwrap())?;
     plate.members = members;
     let project = directory.join(format!("{stem}.3mf"));
     plate.write(&project)?;
