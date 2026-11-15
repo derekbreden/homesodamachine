@@ -6,11 +6,9 @@
 //! the plug-ramp trial composes a new tip with all of the previous plate's other groups; the
 //! shaft trial composes a staged foundation slice with a continued-base donor.
 
-use crate::base_courses::{FLOOR, SHAFT, UPPER};
 use crate::python_text::{float, g, int, lstrip, max3, min3, read_text, repr, splitlines, strip, Json};
 use anyhow::{bail, ensure, Context, Result};
-use serde_json::json;
-use std::collections::{BTreeMap, HashSet};
+use std::collections::HashSet;
 use std::fmt::Write;
 use std::path::{Path, PathBuf};
 
@@ -43,8 +41,6 @@ const RING_PHASE: &str = "mounting plate counterbore supports";
 const BED_LAYER: f64 = 0.2;
 const PARKED: [f64; 3] = [290., -0.5, 6.2];
 const BASELINE_Z_LIFT: f64 = 1.2;
-const BASE_SHOW_WALL_SPEED: f64 = 28.0;
-const BASE_SHOW_WALL_PHASES: [&str; 3] = [FLOOR, SHAFT, UPPER];
 
 /// The word patterns each trial's Python reads commands with.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -389,83 +385,6 @@ pub fn read_reference<'a>(tape: &'a [&'a str], metadata: &mut Metadata) -> Resul
     }
     ensure!(!bands.is_empty() && bands.iter().all(|b| b.start.is_some()), "Prior archive has an empty or missing object span");
     Ok((tape[..start].to_vec(), bands, tape[last..].to_vec()))
-}
-
-/// Caps the Sculpted base's ordinary show-wall speed through whole courses so the wall finish
-/// does not follow the slicer's local slowdowns. The sequenced roads and the original limits on
-/// slower moves are carried into the new plate.
-pub fn finish_base_wall(source: &Path, output: &Path) -> Result<serde_json::Value> {
-    ensure!(source != output && !output.exists(), "Write the finish trial to a new path");
-    let data = std::fs::read_to_string(source)?;
-    let tape: Vec<_> = data.lines().collect();
-    let (_, bands, _) = read_reference(&tape, &mut Metadata::new())?;
-    let mut capped = HashSet::new();
-    let mut by_phase = BTreeMap::<&str, usize>::new();
-    let feed = BASE_SHOW_WALL_SPEED * 60.0;
-    for band in bands.iter().filter(|band| band.obj == BASE && BASE_SHOW_WALL_PHASES.contains(&band.phase.as_str())) {
-        let start = band.start.context("Base course has no deposited roads")?;
-        let entry = band.entry.as_ref().context("Base course has no entry state")?;
-        let mut modal = Modal::new(Dialect::Tip, entry.xyz, 0.0);
-        modal.feed = entry.feed;
-        modal.feature = entry.feature;
-        modal.fan = entry.fan;
-        let mut capped_feed_is_live = false;
-        for (i, line) in tape.iter().enumerate().take(band.end + 1).skip(start) {
-            let deposition = modal.apply(line)?;
-            let mut tokens = line.split(';').next().unwrap_or("").split_whitespace();
-            let command = tokens.next().unwrap_or("");
-            if !matches!(command, "G0" | "G1" | "G2" | "G3") {
-                continue;
-            }
-            let explicit_feed = tokens.clone().any(|word| word.starts_with('F'));
-            if explicit_feed {
-                capped_feed_is_live = false;
-            }
-            if deposition.is_some() && modal.feature == "Outer wall" && modal.fan == 0.0 {
-                let count = by_phase.entry(&band.phase).or_default();
-                if modal.feed > feed {
-                    ensure!(command == "G1" && explicit_feed, "Expected a linear wall move with its own feed at line {}", i + 1);
-                    capped.insert(i);
-                    capped_feed_is_live = true;
-                    *count += 1;
-                    continue;
-                }
-            }
-            if capped_feed_is_live && tokens.any(|word| word.starts_with(['X', 'Y', 'Z', 'E', 'I', 'J'])) {
-                bail!("Base wall feed would carry onto a different move at line {}", i + 1);
-            }
-        }
-        if capped_feed_is_live {
-            let first_move = tape[band.end + 1..].iter().find_map(|line| {
-                let mut words = line.split(';').next()?.split_whitespace();
-                matches!(words.next()?, "G0" | "G1" | "G2" | "G3").then_some(words)
-            });
-            ensure!(first_move.is_some_and(|mut words| words.any(|word| word.starts_with('F'))),
-                "Base wall feed would carry out of the course ending at line {}", band.end + 1);
-        }
-    }
-    ensure!(!by_phase.is_empty(), "No ordinary Sculpted base walls found in the sequenced courses");
-
-    let mut finished = String::with_capacity(data.len());
-    for (i, line) in data.split_inclusive('\n').enumerate() {
-        if capped.contains(&i) {
-            let code = line.split(';').next().unwrap_or("");
-            let start = code.find(" F").with_context(|| format!("No feed token at line {}", i + 1))? + 1;
-            let end = code[start..].find(char::is_whitespace).map_or(code.len(), |n| n + start);
-            let _ = write!(finished, "{}F{feed}{}", &line[..start], &line[end..]);
-        } else {
-            finished.push_str(line);
-        }
-    }
-    let report = json!({
-        "purpose": "Hold the ordinary Sculpted base exterior at a steady finish speed.",
-        "outer_wall_speed_mm_s": BASE_SHOW_WALL_SPEED,
-        "changed_moves_by_phase": by_phase,
-        "source_gcode_sha256": crate::sha256_hex(data.as_bytes()),
-        "gcode_sha256": crate::sha256_hex(finished.as_bytes()),
-    });
-    std::fs::write(output, finished)?;
-    Ok(report)
 }
 
 /// The cover and native tip groups of a native slice, with their starting state.

@@ -117,7 +117,7 @@ from its male plug into whole courses that match the mating angle and the
 support interface, then eases to level below the dispense nose. The plate
 includes the flat dispense-face seam with rounded
 ends and removable mounting-plate counterbore rings.
-The [Mark2 steady base wall plate](prints/2026-11-14-steady-base-wall-mark2/README.md)
+The [Mark2 steady base wall plate](https://github.com/derekbreden/homesodamachine/blob/04468f9f27ddfa60e45037fc90ff2d98aa3a159a/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-steady-base-wall-mark2/README.md)
 carries the matched shoulder and caps the Sculpted base's ordinary exterior
 speed across whole laps for an even rear-wall finish.
 The [Mark2 extended cover plate](https://github.com/derekbredensteiner/homesodamachine/blob/77742d1058fd2b9c92287fa8edf0dbb3c4737fc9/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-aft-cover-mark2/README.md)
