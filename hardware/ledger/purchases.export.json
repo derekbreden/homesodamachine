@@ -713,6 +713,14 @@
       "purchase_id": "pur-a667e3ee975c42218852bc7b225d75a8"
     },
     {
+      "allocation_id": "alloc-5983ef55ef824da9b3784822dca2868f",
+      "amount_minor": 943,
+      "currency": "USD",
+      "event_id": "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
+      "order_id": "amazon:112-7519255-8741021",
+      "purchase_id": "pur-5caf48bbb5b44f2bbac11f37b1608ead"
+    },
+    {
       "allocation_id": "alloc-59e9d73507d5463db4e0be407183dedc",
       "amount_minor": 3538,
       "currency": "USD",
@@ -3922,6 +3930,26 @@
       "vendor": "InnoAddi"
     },
     {
+      "checked_at": "2026-11-15",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-f0864e96763b4599b8dc772d2f30283b",
+      "evidence_type": "merchant_order_page",
+      "examined_period": {
+        "end": "2026-11-15",
+        "start": "2026-11-15"
+      },
+      "note": "Exact named order only; no account-wide coverage claimed.",
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ],
+      "stream": "named feeler gauge order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -5554,6 +5582,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-10-13"
+    },
+    {
+      "allocation_ids": [
+        "alloc-5983ef55ef824da9b3784822dca2868f"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 943,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "purchase_ids": [
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead"
+      ],
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
     },
     {
       "allocation_ids": [
@@ -10185,6 +10237,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-4fd5e400299c4ee6ac80dde60ce9e9fa"
+      ],
+      "gap_id": "gap-d38f9a772d7a49e1ad42ab7e1d5f13f9",
+      "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed.",
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "purchase_ids": [
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead"
+      ],
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ],
+      "sources_checked": [
+        "Signed-in Amazon order history page, checked November 15, 2026"
+      ]
+    },
+    {
       "gap_id": "gap-ea9234a1f7fe467ba032c78c31fe270e",
       "missing_fact": "Preserved line allocations total USD 423.94; saved project invoice amount is USD 423.95. The one-cent allocation residual is unresolved; line values are preserved and no balancing payment is invented.",
       "order_ids": [
@@ -10254,7 +10325,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:1a3aaaf6282163f79ba0f02db49c02b062eacc755d668f5e6be043070207dd56",
+  "input_fingerprint": "sha256:2ac4e53062bea99d8a78ee2444010865b74809d859433a9d6a00c609c48de70f",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13898,6 +13969,25 @@
       "reference": "112-7486016-3622668",
       "source_ids": [
         "saved-amazon:112-7486016-3622668"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-4fd5e400299c4ee6ac80dde60ce9e9fa"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "order_id": "amazon:112-7519255-8741021",
+      "purchase_ids": [
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead"
+      ],
+      "reference": "112-7519255-8741021",
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
       ],
       "vendor": "Amazon"
     },
@@ -32290,6 +32380,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:114-5534543-4435455"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 943,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Spurtar feeler gauge set, 32 tapered blades, 0.001\"–0.040\" (0.03–1.00 mm), dual-marked SAE and metric — with an end cap dropped into its tube, the thickest blade that enters at the widest spot is the gap the closure fillet bridges, which sets the fillet's size on the weld drawing. Sold by Wittyware, ships from Amazon. $8.79 item + $0.64 tax; no shipping charge",
+      "event_ids": [
+        "evt-4fd5e400299c4ee6ac80dde60ce9e9fa"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-5caf48bbb5b44f2bbac11f37b1608ead",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-5caf48bbb5b44f2bbac11f37b1608ead",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 set",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "row_date_basis": "order_date",
+      "section": "1. Carbonator fabrication",
+      "service_period": null,
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -63083,6 +63219,22 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "document_type": "merchant_order_page",
+      "note": "Signed-in Amazon order history, read 2026-11-15: order placed November 15, 2026; one Spurtar Feeler Gauges 0.001-0.04\" (0.03-1.00mm) 32 Blades Tapered, Dual Marked SAE and Metric (B07B3TQQSV), ships from Amazon, sold by Wittyware, USD 8.79 item. Order total USD 9.43; the USD 0.64 remainder is tax, with no shipping charge. Status Arriving Tuesday (2026-11-17), an estimate, not delivery evidence. No completed merchant charge is established.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-7519255-8741021",
+      "source_id": "src-24f43447cedb4e5a813e04d473be20dc",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
+    },
+    {
       "document_date": null,
       "document_type": "email_shipment_notification",
       "note": "Shipment notification identifies the existing tap/drill order and repeats the USD 9.00 total. Shipment is confirmed. The relative arrival estimate does not establish an actual delivery day, and shipment does not prove a completed merchant charge. No new purchase or payment is created.",
@@ -70000,13 +70152,14 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 54015,
+          "amount_minor": 54958,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-4cac3e81d16a4257b9c6b725ba967b74",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
+            "pur-5caf48bbb5b44f2bbac11f37b1608ead",
             "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
             "pur-c421deec9a2f4c7b868ae95b9e1499c1",
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
@@ -70032,6 +70185,7 @@
         "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c421deec9a2f4c7b868ae95b9e1499c1",
@@ -70048,6 +70202,7 @@
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-19293e4645d84cd08d555c566e2820d7",
+        "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
         "evt-97809881439b4885a7e33a8eb87b4b23",
@@ -70410,6 +70565,7 @@
             "evt-19293e4645d84cd08d555c566e2820d7",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
+            "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
             "evt-5fddb80e882c4533bf9042d5a74088cc",
             "evt-6540e6fba6f049698b43911f57012c6b",
             "evt-66df2a83d9084e9d984fb5305fa95c49",
@@ -71153,7 +71309,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 52583,
+          "estimate_minor": 53526,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 68812,
           "legacy_unverified_minor": 0,
@@ -71170,6 +71326,7 @@
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-4cac3e81d16a4257b9c6b725ba967b74",
+            "pur-5caf48bbb5b44f2bbac11f37b1608ead",
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-6f3e90aba9734990a07d1e24f1f75a86",
@@ -71189,7 +71346,7 @@
             "pur-f72407db7ffa450695c514cf2f38539b",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 121395,
+          "total_minor": 122338,
           "unknown_amount_ids": []
         },
         {
@@ -71226,7 +71383,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2409676,
+          "amount_minor": 2410619,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -71244,10 +71401,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 270756,
+          "estimate_minor": 271699,
           "final_vendor_amount_minor": 2905283,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5074347
+          "total_minor": 5075290
         }
       ],
       "undated_unallocated": [
@@ -71402,6 +71559,7 @@
         "gap-b513fdee8791439ca43d36cdba1179f2",
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-cf741586c53d4ca09c214e6f7686dedb",
+        "gap-d38f9a772d7a49e1ad42ab7e1d5f13f9",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
         "gap-f83ff884543e4158ac775f607e2c1fe3",
         "gap-fa04dc9a64af48f4a10328dbe9c2c0a5"
@@ -71410,11 +71568,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 270756,
+          "estimated_purchase_minor": 271699,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2488461,
+          "purchases_without_merchant_charge_minor": 2489404,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -71436,6 +71594,7 @@
         "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
         "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
@@ -71556,6 +71715,7 @@
         "coverage-ebeb2d7c77e9420197c6d8286df30fbb",
         "coverage-eee3337cad824a7788c806a39d1436fe",
         "coverage-f000ac62945a4ef1b60842f89aa45a31",
+        "coverage-f0864e96763b4599b8dc772d2f30283b",
         "coverage-f18d82d4491b433d80956e513f0c3242",
         "coverage-f3f98441b0e444bc9a4b46e0e90093fe",
         "coverage-f40e66eb69164069b4f0418f0859ba19",
@@ -72228,6 +72388,7 @@
         "pur-5b4ca0da0cbb4ae4bdb07bbb8bda907e",
         "pur-5b5c8cd276b14f3a96bf99861ccfff54",
         "pur-5c49121cf5a14ebdb16ac543b00ecda5",
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-5cc9903a311f466796a8f5afbb32c1de",
         "pur-5ceb76c50ae54fffba3b019d5d0f792a",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
@@ -72574,6 +72735,7 @@
         "evt-19293e4645d84cd08d555c566e2820d7",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
+        "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-6540e6fba6f049698b43911f57012c6b",
         "evt-66df2a83d9084e9d984fb5305fa95c49",
@@ -72723,7 +72885,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "20 authored evidence gap(s) remain",
+      "21 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-07575d26f1b2453ba683076fe7b7fa9c: evidence coverage is partial",
@@ -72820,6 +72982,7 @@
       "coverage-ebeb2d7c77e9420197c6d8286df30fbb: evidence coverage is partial",
       "coverage-eee3337cad824a7788c806a39d1436fe: evidence coverage is partial",
       "coverage-f000ac62945a4ef1b60842f89aa45a31: evidence coverage is unknown",
+      "coverage-f0864e96763b4599b8dc772d2f30283b: evidence coverage is partial",
       "coverage-f18d82d4491b433d80956e513f0c3242: evidence coverage is unknown",
       "coverage-f3f98441b0e444bc9a4b46e0e90093fe: evidence coverage is partial",
       "coverage-f40e66eb69164069b4f0418f0859ba19: evidence coverage is unknown",
@@ -72830,7 +72993,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "26 legacy named order(s) lack an exact invoice allocation check",
+      "27 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
