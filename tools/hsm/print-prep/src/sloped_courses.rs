@@ -15,8 +15,6 @@ pub type Point = [f64; 2];
 const PRECISION: i32 = 6;
 /// The spacing a foot's rings and pieces are resampled at.
 const STEP: f64 = 0.35;
-/// The spacing a skin's ring halves are resampled at.
-const HALF_STEP: f64 = 0.4;
 /// How far a path may dip against its climb before it is cut there.
 const CLIMB_TOLERANCE: f64 = 0.03;
 
@@ -420,39 +418,6 @@ pub fn ring_pieces(rings: &[Vec<Point>], taper: f64) -> (Vec<Piece>, Vec<Piece>)
         }
     }
     (first, last)
-}
-
-/// A ring as its two halves, each from the ring's lowest point up to its highest, the second
-/// starting a little above the low point so the halves lap there without doubling, and each
-/// stopping short of the top.
-pub fn uphill_halves(ring: &[Point]) -> Vec<Vec<Point>> {
-    const TRIM_TOP: f64 = 0.1;
-    const TRIM_LOW: f64 = 0.25;
-    let (pts, _) = resample(ring, true, HALF_STEP, 8);
-    let n = pts.len();
-    let (mut lo, mut hi) = (0, 0);
-    for (i, p) in pts.iter().enumerate() {
-        if p[1] < pts[lo][1] {
-            lo = i;
-        }
-        if p[1] > pts[hi][1] {
-            hi = i;
-        }
-    }
-    let forward: Vec<Point> = (0..=(hi + n - lo) % n).map(|i| pts[(lo + i) % n]).collect();
-    let backward: Vec<Point> = (0..=(lo + n - hi) % n).map(|i| pts[(lo + n - i) % n]).collect();
-    let mut halves = Vec::new();
-    for (k, half) in [forward, backward].into_iter().enumerate() {
-        if half.len() < 2 {
-            continue;
-        }
-        let span = length(&half);
-        let start = if k == 1 { TRIM_LOW } else { 0.0 };
-        if span - TRIM_TOP - start >= 0.5 {
-            halves.push(substring(&half, start, span - TRIM_TOP));
-        }
-    }
-    halves
 }
 
 /// Cuts a run at its low or high points, nearest first, into `inner`.

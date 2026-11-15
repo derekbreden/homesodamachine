@@ -1,4 +1,4 @@
-# Complete white Sculpted faucet
+# Complete Sculpted faucet
 
 The [selected process](finish-selection.json) starts from the recorded
 Industrial printing settings and applies the Sculpted finish and supports. The
@@ -7,14 +7,15 @@ matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
 
 The [editable project](../faucet-petgf.3mf)
-targets Mark2's abrasive left nozzle and white PET-GF on Textured PEI. It
+targets Mark2's abrasive left nozzle and black PET-GF on Textured PEI. It
 uses Mark2's [recorded trim](../../z-trim.md), with the left external spool
 assigned manually at project and plate scope.
 
 ## Layer schedule and finish
 
 The first bed layer is 0.20 mm. Every subsequent nominal course is 0.24 mm
-on all five parts. There are no Industrial shoulder fine-layer bands and no
+on the base, cover, mounting plate and lever; the tip's mating courses come from a donor
+sliced alone in finer bands. There are no Industrial shoulder fine-layer bands and no
 separate eight-layer starting override. Bridge and overhang bead-height
 annotations describe their extrusion cross-sections, not additional fine
 courses.
@@ -63,20 +64,15 @@ Ordinary sparse infill follows the shared PET-GF profile.
 
 ## Preparation and evidence
 
-[prepare_print_project.rs](prepare_print_project.rs), the `sculpted-faucet-print-project`
-program, prepares the complete plate from current STLs. Pass
-`--slice-output DIRECTORY` for the executable offline slice with the base scaffold,
-sloped skin and tip contact paths. The editable project carries the actual part meshes.
-The [underside stage](../../../../tools/hsm/print-prep/faucet-underside/README.md)
-fills the space beneath the seat for the slicer and replaces its paths in the executable.
-Pass `--printer Mark1` and `--filament-colour` with the loaded
-spool's colour to prepare a Mark1 plate. `--base-section SECTION.stl` pairs a
-section of the base in its CAD frame with the full tip and cover. `--tip-only`
-prepares the complete tip by itself with its production support and seam settings.
-`--tip-and-cover` prepares the two pieces together for a fit trial. `--filled-base FILLED.stl`
-prepares the complete plate around a base whose space under its mounting face is filled to the bed,
-for a stage that prints that space itself: the base then takes no rim supports and no contact
-band, and the lever stands beyond the above-counter plate.
+[`faucet-plate`](../../../../tools/hsm/print-prep/src/bin/faucet_plate.rs) prepares each style's
+plate from current STLs; `faucet-plate sculpted OUT_DIR --production` makes the Sculpted product
+plate, with its editable project at [faucet-petgf.3mf](../faucet-petgf.3mf). It runs
+[prepare_print_project.rs](../prepare_print_project.rs), the `faucet-print-project` program, for
+the plate's projects: the editable plate with the actual base, the slicer's plate with the base
+filled under its mounting face, and the warped donor tip, sliced alone. The
+[foundation stage](../../../../tools/hsm/print-prep/faucet-underside/README.md) lays the filled
+space and the foot in the plate's own paths. Pass `--printer Mark1` and `--filament-colour`
+with the loaded spool's colour to prepare a Mark1 plate.
 
 The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
 records the base section's one-piece support release, the tip cleanup and the
@@ -107,9 +103,8 @@ and per-part seam CSVs bind the submitted commands. Physical white Sculpted
 finish, cleanup and fit remain a result of this complete print.
 
 The [current print report](../faucet-petgf.print.json) binds the meshes and
-recipe for the complete plate. An offline slice writes its sloped path report,
-tip contact reports and executable beside the slice. The current local print-only
-archive is `production/faucet-petgf.gcode.3mf`. The
+recipe for the product plate, and [its record](../faucet-petgf.plate.json) its print-only
+archive, kept on this Mac at `production/faucet-petgf.gcode.3mf`. The
 [Mark2 matched shoulder trial](prints/2026-11-14-matched-shoulder-mark2/README.md) interleaves
 the five parts and carries the foot's slope into the shaft. The base's exterior
 walls follow continuous laps with their seam on the rear meridian. The tip builds
@@ -126,7 +121,7 @@ The [Mark2 restored short-foundation plate](prints/2026-11-14-seven-courses-rest
 prints the mounting face and visible shoulder on inclined interfaces, then
 uses the archived level wall and rear scarf recipe above each foundation.
 
-`faucet-plate sculpted OUT_DIR` prepares that plate from the checkout: its meshes, the standing
+`faucet-plate sculpted OUT_DIR` prepares that plate, the product plate, from the checkout: its meshes, the standing
 [finish selection](finish-selection.json) and the plate's own selections in
 [`faucet-plate.json`](../../../../tools/hsm/print-prep/faucet-plate.json). The base is filled
 under its mounting face for the slice and laid on its sloped foundation from its own mesh; the
@@ -143,7 +138,7 @@ install them again:
 
 ```sh
 hsm-run --install-tools "$PWD" tools/hsm/target/release/faucet-plate tools/hsm/target/release/sculpted-trial \
-  tools/hsm/target/release/sculpted-faucet-print-project
+  tools/hsm/target/release/faucet-print-project
 ```
 
 `faucet-plate` runs from inside the checkout, through `tools/run` for its slices.

@@ -3,15 +3,17 @@
 //! face. The plate's own G-code follows, the base's level courses kept above that stack and every
 //! travel the toolhead would carry into it lifted over it.
 //!
-//! Production plates lay skin courses across the face with a deck in the bore. The faucet plate's
-//! foundation lays the foot instead: courses cut from the base's own sections up past its insert
+//! The foundation lays the foot: courses cut from the base's own sections up past its insert
 //! sockets' shoulders, with a plug rising in each socket and a deck in the bore.
 
 use crate::mesh::Mesh;
-use crate::sloped_courses::{Piece, Point, Region, closed_lap, edge_pieces, hatch, level_order, narrow_pieces, outermost_ring, ring_pieces, section, uphill_halves};
+use crate::sloped_courses::{Piece, Point, Region, closed_lap, edge_pieces, hatch, level_order, narrow_pieces, outermost_ring, ring_pieces, section};
 use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::path::Path;
+
+/// The left nozzle head's height map over the bed, which the foundation's crossings clear.
+pub const HEAD_MAP: &str = "tools/hsm/print-prep/faucet-underside/left-active-height.npz";
 
 /// The H2C head model, whose left nozzle's flat tip sets how far a show lap rises where it descends.
 const HEAD_MODEL: &str = include_str!("../../../../hardware/reference/h2c-toolhead/h2c_toolhead.rs");
@@ -62,8 +64,6 @@ const SHOULDER_REACH: f64 = 0.3;
 const OVERLAP: f64 = 0.06;
 /// Half the least width the fill is laid in; narrower strips take rings.
 const OPEN: f64 = 1.0;
-/// The skin courses a production plate lays.
-const SKIN_COURSES: usize = 2;
 const ELLIPSE_POINTS: usize = 720;
 // The scaffold.
 const FIRST_LAYER: f64 = 0.20;
@@ -677,82 +677,6 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
     Ok(lay.laid)
 }
 
-/// A production base's mounting face in its own plane, from the base's lowest faces: the face
-/// and its bore.
-pub struct Skin {
-    region: Region,
-    bore: Region,
-}
-
-impl Skin {
-    pub fn cut(stl: &Path) -> Result<Skin> {
-        let mesh = Mesh::read_stl(stl)?;
-        let low = mesh.vertices.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min);
-        let faces: Vec<Vec<Point>> = mesh.faces.iter()
-            .filter(|f| f.iter().all(|&i| (mesh.vertices[i][2] - low).abs() < 1e-6))
-            .map(|f| f.iter().map(|&i| [mesh.vertices[i][0], -mesh.vertices[i][1]]).collect())
-            .collect();
-        let region = Region::from_rings(&faces);
-        let mut holes = region.holes();
-        ensure!(region.pieces() == 1 && holes.len() == 4, "the mounting face is not the ring with four openings");
-        holes.sort_by(|a, b| b.area().total_cmp(&a.area()));
-        Ok(Skin { region, bore: holes.swap_remove(0) })
-    }
-}
-
-/// The bore's deck and the skin's courses on the roof: in each course a ring at every edge, laid
-/// in halves up the slope, then lines across the face, each stopping short of the ring above it.
-/// Returns the ring halves laid.
-pub fn lay_skin(w: &mut Writer, frame: &Frame, skin: &Skin) -> usize {
-    const PULL_BACK: f64 = 0.2;
-    let n_skin: [f64; SKIN_COURSES] = std::array::from_fn(|i| COURSE * (i + 1) as f64);
-    let lines = |region: &Region, angle: f64, pitch: f64| -> Vec<(Point, Point)> {
-        let (s, c) = angle.to_radians().sin_cos();
-        hatch(region, angle, pitch, 0.5).into_iter().flatten()
-            .map(|(a, b)| if s > 1e-9 { (a, [b[0] - c * PULL_BACK, b[1] - s * PULL_BACK]) } else { (a, b) })
-            .collect()
-    };
-    // the bore's deck, level with the face, for the trees that stand inside the base
-    for (a, b) in hatch(&frame.limited(&skin.bore.offset(-DECK_KERF), 0.0), 135.0, ROOF_WIDTH, 1.0).into_iter().flatten() {
-        let (lo, hi) = if a[1] <= b[1] { (a, b) } else { (b, a) };
-        let path = [frame.at(lo, 0.0), frame.at(hi, 0.0)];
-        w.travel(path[0], TRAVEL_LIFT, 1.5);
-        w.extrude(&path, ROOF_WIDTH, COURSE, 40.0, 1.0, None);
-    }
-    let edge = skin.region.offset(-SKIN_WIDTH / 2.0);
-    let mut halves = 0;
-    let mut rings = |w: &mut Writer, n_top: f64, speed: f64, flow: f64| {
-        for ring in edge.rings() {
-            for half in uphill_halves(&ring) {
-                let path: Vec<[f64; 3]> = half.iter().map(|p| frame.at(*p, n_top)).collect();
-                w.travel(path[0], TRAVEL_LIFT, 1.5);
-                w.extrude(&path, SKIN_WIDTH, COURSE, speed, flow, None);
-                halves += 1;
-            }
-        }
-    };
-    let fill = |w: &mut Writer, lines: Vec<(Point, Point)>, n_top: f64, speed: f64, flow: f64| {
-        for (a, b) in lines {
-            let path = [frame.at(a, n_top), frame.at(b, n_top)];
-            w.travel(path[0], TRAVEL_LIFT, 1.5);
-            w.extrude(&path, SKIN_WIDTH, COURSE, speed, flow, None);
-        }
-    };
-    // the first course crosses the roof's air as a bridge: lines straight up the slope
-    w.raw("M204 S1000");
-    w.raw(format!("{BRIDGE_FAN} ; the first course over air takes the bridge's fan"));
-    w.comment_feature("Bottom surface", SKIN_WIDTH);
-    rings(w, n_skin[0], 15.0, BRIDGE_FLOW);
-    fill(w, lines(&skin.region.offset(-(SKIN_WIDTH + SKIN_PITCH / 2.0 - 0.06)), 90.0, SKIN_PITCH), n_skin[0], 15.0, BRIDGE_FLOW);
-    w.raw("M106 S0");
-    // the second: diagonal lines across the first
-    w.comment_feature("Bottom surface", SKIN_WIDTH);
-    rings(w, n_skin[1], 25.0, 1.0);
-    w.comment_feature("Internal solid infill", SKIN_WIDTH);
-    fill(w, lines(&skin.region.offset(-(SKIN_WIDTH + SKIN_WIDTH / 2.0 - 0.06)), 45.0, SKIN_WIDTH), n_skin[1], 40.0, 1.03);
-    halves
-}
-
 /// The lowest the active tip may sit at each plate position with the toolhead clear of the
 /// finished scaffold, roof and courses.
 pub struct Clearance {
@@ -943,16 +867,6 @@ impl PlateStats {
     }
 }
 
-/// How a level course of the base that reaches into the stack is cut.
-#[derive(Clone, Copy)]
-pub enum Clip {
-    /// Laid where it has room over the stack, with as much plastic as the room takes, and none
-    /// where under the feather's share of the bead is left.
-    Feather,
-    /// Kept where the course clears the stack by its kept share of height, cut square there.
-    Half,
-}
-
 /// How a method's stack meets the plate's own courses.
 #[derive(Clone, Copy)]
 pub struct Rule {
@@ -960,7 +874,6 @@ pub struct Rule {
     pub top: f64,
     /// What the plate's own supports stand on over the face, along its normal.
     pub support_floor: f64,
-    pub clip: Clip,
     /// The least the nozzle stands over the stack while laying a level course.
     pub nozzle_over: f64,
     /// Where the preamble parks the nozzle; travels above it need no lift.
@@ -1197,8 +1110,9 @@ impl Plate<'_> {
         Ok(())
     }
 
-    /// A level course of the base where it crosses the stack, cut by the rule's clip. A support
-    /// line under what the plate's supports stand on is dropped whole.
+    /// A level course of the base where it crosses the stack: laid where it has room over the
+    /// stack, with as much plastic as the room takes, and none where under the feather's share of
+    /// the bead is left. A support line under what the plate's supports stand on is dropped whole.
     fn clipped_extrusion(&mut self, a: [f64; 3], b: [f64; 3], e: f64) -> Result<()> {
         let ([x0, y0, z0], [x1, y1, z1]) = (a, b);
         let length = (x1 - x0).hypot(y1 - y0);
@@ -1211,41 +1125,6 @@ impl Plate<'_> {
                 return Ok(());
             }
             parts.push((0.0, 1.0, 1.0));
-        } else if let Clip::Half = self.rule.clip {
-            // keep the part of the bead over the stack: y at or beyond the cut for this course; a
-            // seam's ramp climbs inside its course, so the course's own height sets the cut
-            let cut = f.cy + (f.cz + self.skin - (layer_z - KEEP_FRACTION * layer_h)) / f.t;
-            let (a, b) = (y0 - cut, y1 - cut);
-            if a < 0.0 && b < 0.0 {
-                self.stats.dropped_mm += length;
-                return Ok(());
-            }
-            let (mut t0, mut t1) = (0.0_f64, 1.0_f64);
-            if a < 0.0 {
-                t0 = a / (a - b);
-            }
-            if b < 0.0 {
-                t1 = a / (a - b);
-            }
-            // and only where the nozzle itself stands over the stack
-            let g0 = z0 - (f.face(y0) + self.skin) - self.rule.nozzle_over;
-            let g1 = z1 - (f.face(y1) + self.skin) - self.rule.nozzle_over;
-            if g0 < 0.0 && g1 < 0.0 {
-                self.stats.dropped_mm += length;
-                return Ok(());
-            }
-            if g0 < 0.0 {
-                t0 = t0.max(g0 / (g0 - g1));
-            }
-            if g1 < 0.0 {
-                t1 = t1.min(g0 / (g0 - g1));
-            }
-            if (t1 - t0) * length < 0.05 {
-                self.stats.dropped_mm += length;
-                return Ok(());
-            }
-            self.stats.dropped_mm += (1.0 - (t1 - t0)) * length;
-            parts.push((t0, t1, 1.0));
         } else {
             let under = layer_z - layer_h;
             let room0 = z0 - (f.face(y0) + self.skin);
@@ -1420,7 +1299,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
     w.lift_downhill = args.part_courses.is_some();
     let laid = lay_foot(&mut w, &frame, &foot, args.deck_top, args.lift_share)?;
-    let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, clip: Clip::Feather, nozzle_over: 0.06, park_z: 26.0 };
+    let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, nozzle_over: 0.06, park_z: 26.0 };
     w.park(rule.park_z, "265", &[])?;
     let clearance = Clearance::new(args.headmap, &frame, &|_| laid.slab_top)?;
     let parked = w.pos.context("the preamble laid nothing")?;
@@ -1470,68 +1349,4 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     });
     std::fs::write(args.out_dir.join("sloped-underside.json"), serde_json::to_vec_pretty(&record)?)?;
     Ok(())
-}
-
-/// A production plate's sloped underside: the scaffold, the roof, the bore's deck and the skin
-/// ahead of the plate `raw` the slicer wrote from the filled base, and the plate with the base
-/// kept above the skin. `report` is the plate's preparation record; `stl` is the real base.
-/// Returns the plate's G-code and the stage's record.
-pub fn skin_underside(raw: &[u8], report: &Value, stl: &Path, headmap: &Path) -> Result<(String, Value)> {
-    let base = &report["base_underside"];
-    let seat: [f64; 3] = serde_json::from_value(base["seat_print_world_center_mm"].clone()).context("the seat")?;
-    let normal: [f64; 3] = serde_json::from_value(base["seat_print_world_outward_normal"].clone()).context("the seat normal")?;
-    let rim: [f64; 2] = serde_json::from_value(base["rim_semi_axes_mm"].clone()).context("the rim")?;
-    let base_id = base["identify_id"].as_i64().context("the base's id")?;
-    let temperature = |key: &str| base[key][0].as_str().map(str::to_string).with_context(|| format!("the base's {key}"));
-    let frame = Frame::new(seat, rim);
-    ensure!(normal[0].abs() < 1e-9 && (normal[1] + frame.s).abs() < 1e-6 && (normal[2] + frame.c).abs() < 1e-6,
-        "the seat is not turned 15 degrees about X");
-    let skin = Skin::cut(stl)?;
-    let text = std::str::from_utf8(raw)?;
-    let lines: Vec<&str> = text.split('\n').collect();
-    let start = format!("; start printing object, unique label id: {base_id}");
-    let label = lines.iter().position(|l| l.starts_with(&start)).and_then(|i| lines.get(i + 1)).context("the plate never starts the base")?;
-    ensure!(label.starts_with("M624 "), "{label}");
-    let mut w = Writer::new();
-    let opening = Opening {
-        title: "; ===== sloped underside: scaffold, roof and skin =====".into(),
-        object: vec![start, label.to_string()], temperature: temperature("nozzle_temperature")?, level_roof: false,
-    };
-    let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
-    let halves = lay_skin(&mut w, &frame, &skin);
-    let n_skin: Vec<f64> = (1..=SKIN_COURSES).map(|i| COURSE * i as f64).collect();
-    let rule = Rule { top: n_skin[SKIN_COURSES - 1], support_floor: 0.0, clip: Clip::Half, nozzle_over: 0.05, park_z: 22.0 };
-    w.park(rule.park_z, &temperature("nozzle_temperature_initial_layer")?, &[format!("; stop printing object, unique label id: {base_id}")])?;
-    // the skin over the face, the deck in the bore, the roof elsewhere under the lip
-    let face = skin.region.offset(0.3);
-    let top = |p: Point| if face.contains(p) { rule.top } else if skin.bore.contains(p) { 0.0 } else { stack.n_roof[ROOF_COURSES - 1] };
-    let clearance = Clearance::new(headmap, &frame, &top)?;
-    let parked = w.pos.context("the preamble laid nothing")?;
-    let (out, stats) = rewrite(&lines, &frame, &clearance, base_id, rule, &w.out, parked)?;
-    let gcode = out.join("\n");
-    let round = |v: f64, places: i32| (v * 10f64.powi(places)).round() / 10f64.powi(places);
-    let record = json!({
-        "purpose": "Binds the base's sloped courses and the retained native paths to the resulting plate.",
-        "gcode_input_sha256": crate::sha256_hex(raw),
-        "gcode_sha256": crate::sha256_hex(gcode.as_bytes()),
-        "seat_center_mm": seat,
-        "tilt_x_degrees": -15,
-        "stack_normal_mm": {
-            "course": COURSE, "air_asked": AIR, "roof_courses": ROOF_COURSES, "skin_courses": SKIN_COURSES,
-            "scaffold_ceiling": stack.n_scaffold, "roof_tops": stack.n_roof, "skin_tops": n_skin, "deck_top": 0.0,
-        },
-        "roof_lip_mm": LIP,
-        "laid": {"scaffold_layers": stack.scaffold_layers, "scaffold_top_mm": stack.scaffold_top, "skin_ring_halves": halves},
-        "preamble": {
-            "seconds": round(w.time, 1), "filament_mm": round(w.filament, 2),
-            "extrusion_mm_by_feature": w.lengths.iter().map(|(k, v)| (k.clone(), json!(round(*v, 1)))).collect::<serde_json::Map<_, _>>(),
-        },
-        "plate": stats.to_json(),
-        "limits": {
-            "z_while_printing_mm_s": Z_PRINT_RATE, "z_while_travelling_mm_s": Z_TRAVEL_RATE,
-            "head_travel_margin_mm": HEAD_TRAVEL_MARGIN, "nozzle_travel_margin_mm": NOZZLE_TRAVEL_MARGIN,
-            "kept_fraction_of_course_height": KEEP_FRACTION,
-        },
-    });
-    Ok((gcode, record))
 }

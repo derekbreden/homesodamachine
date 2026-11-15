@@ -13,7 +13,6 @@ use crate::ids::md5_hex;
 use crate::mesh::{bounds, Mesh};
 use crate::project::{Object, Paint, Plate};
 use crate::refresh::Refreshed;
-use crate::rim_contour::{self, RimSpec};
 use crate::stretch_cooling::{self, Stretch};
 use crate::{apply, sha256_hex, xml};
 use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::{DISPENSE_FACE_THICKNESS, TUBE_SHELL_CENTER_Y, TUBE_SHELL_OUTER_R}};
@@ -537,16 +536,6 @@ impl ContactBand {
     }
 }
 
-/// Carry the established arc breaks to the full base's actual seat.
-pub fn add_base_rim_fins(root: &Path, project: &mut Refreshed, object: usize, rim: RimSpec, selection: &Value) -> Result<Value> {
-    let source = selection["source_preparation"].as_str().context("base fin layout source")?;
-    let original = crate::faucet::read_json(&root.join(source))?;
-    let intervals = original["rim_arcs"].as_array().context("base fin arcs")?.iter()
-        .map(|arc| serde_json::from_value(arc["cad_angle_interval_degrees"].clone()))
-        .collect::<std::result::Result<Vec<[f64; 2]>, _>>()?;
-    add_rim_fins(project, object, rim, &intervals)
-}
-
 /// Close a strip whose sections run around a rim with a release gap at each end.
 pub fn closed_rim_strip(sections: &[[Point; 4]]) -> Mesh {
     let vertices = sections.iter().flatten().copied().collect();
@@ -563,75 +552,8 @@ pub fn closed_rim_strip(sections: &[[Point; 4]]) -> Mesh {
     Mesh { vertices, faces }
 }
 
-fn add_rim_fins(project: &mut Refreshed, object: usize, rim: RimSpec, intervals: &[[f64; 2]]) -> Result<Value> {
-    const RADIAL_ALLOWANCE: [f64; 2] = [-0.4, 0.5];
-    const SETBACK: f64 = 0.96;
-    const MINIMUM_HEIGHT: f64 = 0.20;
-    const ANGLE_STEP: f64 = 1.;
-    const FOOT_SPLAY_PER_HEIGHT: f64 = 0.28;
-    const MAXIMUM_FOOT_SPLAY: f64 = 4.;
-    let placed = &project.plate.objects[object];
-    let rotation = placed.rotation;
-    let inverse = [0, 1, 2].map(|i| [0, 1, 2].map(|j| rotation[j][i]));
-    let translation = placed.translation;
-    let local = |p| apply(&inverse, sub(p, translation));
-    let (fall, level) = rim.seat_fall_angle_degrees.to_radians().sin_cos();
-    let [cx, cy, cz] = rim.center_mm;
-    let [rx, ry] = rim.semi_axes_mm;
-    let top = |theta: f64| {
-        let (sin, cos) = theta.to_radians().sin_cos();
-        RADIAL_ALLOWANCE.map(|offset| {
-            let run = (ry + offset) * sin;
-            [cx + (rx + offset) * cos, cy + level * run, cz - fall * run - SETBACK]
-        })
-    };
-    let fits = |theta| top(theta).iter().all(|p| p[2] >= MINIMUM_HEIGHT);
-    let mut fins = Vec::new();
-    for &[start, end] in intervals {
-        let steps = ((end - start) / ANGLE_STEP).ceil() as usize;
-        let mut angles = Vec::new();
-        let mut previous = None;
-        for i in 0..=steps {
-            let theta = start + (end - start) * i as f64 / steps as f64;
-            let valid = fits(theta);
-            if let Some((mut left, was_valid)) = previous {
-                if was_valid != valid {
-                    let mut right = theta;
-                    for _ in 0..36 {
-                        let mid = (left + right) / 2.;
-                        if fits(mid) == was_valid { left = mid; } else { right = mid; }
-                    }
-                    angles.push(if was_valid { left } else { right });
-                }
-            }
-            if valid {
-                angles.push(theta);
-            }
-            previous = Some((theta, valid));
-        }
-        ensure!(angles.len() >= 2 && angles.windows(2).all(|pair| fits((pair[0] + pair[1]) / 2.)),
-            "removable fin does not clear the bed over its interval");
-        let sections: Vec<_> = angles.iter().map(|&theta| {
-            let [inner, outer] = top(theta);
-            let (sin, cos) = theta.to_radians().sin_cos();
-            let foot = |p: Point| {
-                let splay = (p[2] * FOOT_SPLAY_PER_HEIGHT).min(MAXIMUM_FOOT_SPLAY);
-                local([p[0] + splay * cos, p[1] + splay * level * sin, 0.])
-            };
-            [foot(inner), foot(outer), local(outer), local(inner)]
-        }).collect();
-        let name = format!("Removable outer rim fin {}", fins.len() + 1);
-        let mesh = closed_rim_strip(&sections);
-        mesh.check_closed_single_body(&name)?;
-        let id = project.plate.add_part(object, &name, mesh.vertices, mesh.faces, "normal_part", Vec::new(), None);
-        fins.push(json!({"part_id": id, "angles_degrees": [angles[0], angles[angles.len() - 1]]}));
-    }
-    Ok(json!({"radial_allowance_mm": RADIAL_ALLOWANCE, "setback_from_seat_mm": SETBACK,
-        "foot_splay_per_height": FOOT_SPLAY_PER_HEIGHT, "maximum_foot_splay_mm": MAXIMUM_FOOT_SPLAY, "fins": fins}))
-}
-
 /// Locate the tip's mating lip and give the Slim trees access to its narrow shoulder.
-pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Value) -> Result<(RimSpec, Value)> {
+pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Value) -> Result<Value> {
     const ENFORCER_INSET: f64 = 1.45;
     const ENFORCER_OUTSET: f64 = 0.6;
     const ENFORCER_HALF_DEPTH: f64 = 0.7;
@@ -647,7 +569,6 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Va
     let object = &project.plate.objects[index];
     let rotation = object.rotation;
     let translation = object.translation;
-    let identify_id = object.identify_id.try_into()?;
     let place = |p| add(apply(&rotation, sub(p, row.center)), translation);
     let origin = place(serde_json::from_value(tip["joint_plane"]["point"].clone())?);
     let inward = apply(&rotation, serde_json::from_value(tip["joint_plane"]["normal"].clone())?);
@@ -717,18 +638,14 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Va
         ("support_top_z_distance".into(), TIP_TOP_GAP.to_string()),
         ("support_object_xy_distance".into(), TIP_XY_GAP.to_string()),
     ]);
-    let contour = RimSpec {
-        identify_id, center_mm: center, seat_fall_angle_degrees: inward[1].atan2(inward[2]).to_degrees(),
-        semi_axes_mm: [radius; 2], supported_angles_degrees: [0., 360.],
-    };
     let window = [-1., 1.].map(|sign| [0, 1].map(|axis| center[axis] + sign * (radius + MAPPING_MARGIN)));
     let band = json!({"name": "faucet-shell-tip mating lip", "parameters": parameters,
         "plane_normal": outward, "seat_plate_mm": center, "bounds_mm": window, "edge_blend_mm": EDGE_BLEND,
-        "rim_semi_axes_mm": contour.semi_axes_mm, "rim_inboard_blend_mm": [0.90, 2.65],
+        "rim_semi_axes_mm": [radius, radius], "rim_inboard_blend_mm": [0.90, 2.65],
         "refine_mesh_interiors": true});
-    Ok((contour, json!({"part": name, "band": band, "roof_enforcers": roofs, "release_break_blockers": breaks,
+    Ok(json!({"part": name, "band": band, "roof_enforcers": roofs, "release_break_blockers": breaks,
         "plug_keepout": plug_keepout, "top_gap_mm": TIP_TOP_GAP, "xy_gap_mm": TIP_XY_GAP,
-        "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces})))
+        "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces}))
 }
 
 /// Paint support on the inside of the dispense face, optionally mapping its contact courses.
@@ -1024,64 +941,6 @@ fn restores_sliced_plate_links_without_replacing_the_physical_instances() {
     assert_eq!(metadata["thumbnail_file"], "Metadata/plate_1.png");
     assert_eq!(restored.child("object").unwrap().attribute("id"), Some("5"));
     assert_eq!(plate.child("model_instance").unwrap().child("metadata").unwrap().attribute("value"), Some("5"));
-}
-
-/// Apply the base's first perimeter to the restored slice, retaining the input for review.
-pub fn apply_rim_contour(project: &Path, directory: &Path, spec: RimSpec, band: &ContactBand) -> Result<Value> {
-    apply_contour(project, directory, spec, "rim", |source, output| {
-        rim_contour::apply(source, output, spec, &|p| band.mapped(p)[2])
-    })
-}
-
-/// Apply the tip's first perimeter in the native layer schedule of its restored mating lip.
-pub fn apply_tip_rim_contour(project: &Path, directory: &Path, spec: RimSpec, band: &ContactBand) -> Result<Value> {
-    apply_contour(project, directory, spec, "tip-rim", |source, output| {
-        rim_contour::apply_tip(source, output, spec, &|p| band.mapped(p)[2], band.z_print_feed)
-    })
-}
-
-fn apply_contour(
-    project: &Path, directory: &Path, spec: RimSpec, name: &str,
-    contour: impl FnOnce(&Path, &Path) -> std::io::Result<rim_contour::ContourReport>,
-) -> Result<Value> {
-    let archive_name = format!("{}.gcode.3mf", project.file_stem().context("rim project stem")?.to_string_lossy());
-    let archive = directory.join(archive_name);
-    let raw = directory.join("plate_1.gcode");
-    let prior = directory.join("mapped-slice");
-    let stem = if name == "rim" { "restored-before-contour".to_owned() } else { format!("restored-before-{name}-contour") };
-    let source = prior.join(format!("{stem}.gcode"));
-    fs::copy(&raw, &source)?;
-    fs::copy(&archive, prior.join(format!("{stem}.gcode.3mf")))?;
-    let output = prior.join(format!("{name}-contour.gcode"));
-    let reading = contour(&source, &output)?;
-    ensure!(reading.emitted_contact_segments > 0 && reading.modified_native_paths > 0,
-        "the selected full faucet has no supported first perimeter replacement");
-    let gcode = fs::read(&output)?;
-    let mut report = json!({"purpose": "Bind the continuous first outer rim course to the complete product.",
-        "identify_id": spec.identify_id, "seat_plate_mm": spec.center_mm,
-        "seat_fall_angle_degrees": spec.seat_fall_angle_degrees, "rim_semi_axes_mm": spec.semi_axes_mm,
-        "supported_angles_degrees": spec.supported_angles_degrees,
-        "gcode_input_sha256": sha256_hex(&fs::read(&source)?), "gcode_sha256": sha256_hex(&gcode),
-        "arc_count": reading.arc_count, "emitted_contact_segments": reading.emitted_contact_segments,
-        "modified_native_paths": reading.modified_native_paths, "extrusion_added_mm": reading.extrusion_added_mm,
-        "extrusion_removed_mm": reading.extrusion_removed_mm,
-        "added_commanded_motion_seconds": reading.estimated_motion_delta_seconds,
-        "maximum_contact_depth_below_prior_peak_mm": reading.maximum_contact_depth_below_prior_peak_mm,
-        "minimum_contact_z_mm": reading.minimum_contact_z_mm});
-    let mut zip = zip::ZipArchive::new(fs::File::open(&archive)?)?;
-    let mut replaced = BTreeMap::from([
-        (format!("{GCODE}.md5"), md5_hex(&gcode).into_bytes()),
-        (GCODE.into(), gcode),
-        (format!("Metadata/hsm_{}_contour.json", name.replace('-', "_")), serde_json::to_vec_pretty(&report)?),
-    ]);
-    replace_prediction(&mut zip, &mut replaced, reading.estimated_motion_delta_seconds)?;
-    write_archive(zip, replaced, &archive, false)?;
-    fs::rename(output, raw)?;
-    let result = directory.join("result.json");
-    write_motion_result(&result, &result, reading.estimated_motion_delta_seconds)?;
-    report["archive_sha256"] = json!(sha256_hex(&fs::read(&archive)?));
-    fs::write(directory.join(format!("{name}-contour.json")), serde_json::to_vec_pretty(&report)?)?;
-    Ok(report)
 }
 
 /// The stretch of the tip that takes part cooling: from its dispense face back up the neck by the

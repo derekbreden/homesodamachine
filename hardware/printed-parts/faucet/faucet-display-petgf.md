@@ -29,8 +29,7 @@ with the first three layers off. The support top gap is 0.45 mm with two
 interface layers. The native file's emitted settings match the successful
 job, including the resulting +0.02 mm Z trim.
 
-The two editable full-part projects come from `sculpted-faucet-print-project` and
-`industrial-faucet-print-project` ([Sculpted](sculpted/README.md),
+The two editable full-part projects come from `faucet-plate` ([Sculpted](sculpted/README.md),
 [Industrial](industrial/faucet-industrial-petgf.md)). The three-part project's preparer is in
 Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870):
 

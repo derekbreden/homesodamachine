@@ -6,7 +6,7 @@
 use crate::mesh::{bounds, Mesh};
 use crate::profile::{self, first_text, relative, Profile};
 use crate::project::Plate;
-use crate::{apply, audit, cooling, gcode, rotation_x, sha256_hex};
+use crate::{apply, audit, gcode, rotation_x, sha256_hex};
 use anyhow::{bail, Context, Result};
 use serde_json::{json, Map, Value};
 use std::path::{Path, PathBuf};
@@ -281,134 +281,6 @@ pub fn object_toolpaths(gcode: &[u8], identify: Option<i64>) -> Result<Value> {
     let padding = width.max(0.6) / 2.0 + 0.1;
     Ok(json!({"extrusion_bounds_xy_mm": [[lo[0] - padding, lo[1] - padding], [hi[0] + padding, hi[1] + padding]],
               "maximum_line_width_mm": width, "bounds_padding_mm": padding}))
-}
-
-/// Read each part's toolpaths and support topology in its own placement, the parts' clearances
-/// and the complete plate's bead envelope; written beside the project as `.support-audit.json`.
-pub fn slice_review(root: &Path, project: &Path, report: &Value, directory: &Path) -> Result<Value> {
-    crate::slice::apply_directory(directory, project)?;
-    if Some(sha256_hex(&std::fs::read(project)?).as_str()) != report["project_sha256"].as_str() {
-        bail!("the project changed after it was written");
-    }
-    let sliced: Value = serde_json::from_slice(&std::fs::read(directory.join("result.json"))?)?;
-    if sliced["return_code"].as_i64() != Some(0) {
-        bail!("Bambu slice failed: {}", sliced["error_string"]);
-    }
-    let name = relative(project, root);
-    let mut result = json!({
-        "project": name, "project_sha256": report["project_sha256"], "settings_sha256": report["settings_sha256"],
-        "slicer": Value::Null, "layer_height_mm": sliced["layer_height"], "wall_loops": sliced["wall_loops"],
-        "sparse_infill_density_percent": sliced["sparse_infill_density"],
-        "saved_profile_filament_density_g_cm3": report["saved_profile_filament_density_g_cm3"],
-        "mass_estimate_note": "Slicer grams use the saved profile density, not a measured PET-GF part mass.",
-        "plates": [], "parts": [],
-    });
-    for plate in sliced["sliced_plates"].as_array().into_iter().flatten() {
-        let grams: f64 = plate["filaments"].as_array().into_iter().flatten().filter_map(|f| f["total_used_g"].as_f64()).sum();
-        result["plates"].as_array_mut().unwrap().push(json!({"plate": plate["id"], "estimated_total_seconds": plate["total_predication"],
-            "saved_profile_filament_estimate_g": grams, "slicer_warning": plate["warning_message"]}));
-    }
-    let project_sha = sha256_hex(&std::fs::read(project)?);
-    let mut readings: Vec<Value> = Vec::new();
-    for part in report["parts"].as_array().into_iter().flatten() {
-        let source = root.join(part["source"].as_str().unwrap_or(""));
-        if Some(sha256_hex(&std::fs::read(&source)?).as_str()) != part["stl_sha256"].as_str() {
-            bail!("{} source changed after the project was written", part["name"]);
-        }
-        let plate_gcode = directory.join(format!("plate_{}.gcode", part["plate"]));
-        let bytes = std::fs::read(&plate_gcode).with_context(|| format!("missing slice: {}", plate_gcode.display()))?;
-        let identify = part["identify_id"].as_i64();
-        let toolpaths = object_toolpaths(&bytes, identify)?;
-        let build: Vec<f64> = part["build_transform"].as_array().into_iter().flatten().filter_map(Value::as_f64).collect();
-        let translation: Vec<f64> = part["plate_translation_mm"].as_array().into_iter().flatten().filter_map(Value::as_f64).collect();
-        let mut transform = [0.0; 12];
-        transform[..9].copy_from_slice(&build[..9]);
-        transform[9..].copy_from_slice(&translation[..3]);
-        let mut cad = audit::inverse(&transform).context("a part's build transform is singular")?;
-        let centre: Vec<f64> = part["source_center_mm"].as_array().into_iter().flatten().filter_map(Value::as_f64).collect();
-        for k in 0..3 {
-            cad[9 + k] += centre[k];
-        }
-        let options = audit::Options {
-            piece: part["name"].as_str().unwrap_or("").to_string(), object: identify, include_unlabelled: true,
-            cad_transform: Some(cad), bed_reseat: None,
-            inputs: json!({"gcode": format!("plate_{}.gcode", part["plate"]), "gcode_sha256": sha256_hex(&bytes),
-                           "model": relative(&source, root), "model_sha256": part["stl_sha256"],
-                           "profile": name, "profile_sha256": project_sha,
-                           "plate_gcode_sha256": sha256_hex(&bytes), "object_label": identify,
-                           "feature_filter": "Other objects' feature labels are masked; coordinates and extrusion commands are retained."}),
-        };
-        let mut reading = audit::audit(&bytes, &options);
-        if result["slicer"].is_null() {
-            result["slicer"] = reading["slicer"].clone();
-        } else if reading["slicer"] != result["slicer"] {
-            bail!("plate G-code files come from different slicer versions");
-        }
-        reading["plate"] = part["plate"].clone();
-        reading["rotation_x_degrees"] = part["rotation_x_degrees"].clone();
-        reading["toolpaths"] = toolpaths;
-        println!("  {}: {}", part["name"].as_str().unwrap_or(""), reading["summary"]);
-        readings.push(reading);
-    }
-    let area: Vec<Vec<f64>> = serde_json::from_value(report["shared_printable_area_mm"].clone())?;
-    let bounds_of = |v: &Value| -> ([f64; 2], [f64; 2]) {
-        let b = &v["extrusion_bounds_xy_mm"];
-        ([b[0][0].as_f64().unwrap_or(0.0), b[0][1].as_f64().unwrap_or(0.0)], [b[1][0].as_f64().unwrap_or(0.0), b[1][1].as_f64().unwrap_or(0.0)])
-    };
-    let margin = |lo: [f64; 2], hi: [f64; 2]| (lo[0] - area[0][0]).min(lo[1] - area[0][1]).min(area[1][0] - hi[0]).min(area[1][1] - hi[1]);
-    let (mut margins, mut gaps) = (Vec::new(), Vec::new());
-    for (i, reading) in readings.iter().enumerate() {
-        let (lo, hi) = bounds_of(&reading["toolpaths"]);
-        margins.push(margin(lo, hi));
-        for other in &readings[..i] {
-            let (olo, ohi) = bounds_of(&other["toolpaths"]);
-            let d = [0.0f64.max((lo[0] - ohi[0]).max(olo[0] - hi[0])), 0.0f64.max((lo[1] - ohi[1]).max(olo[1] - hi[1]))];
-            gaps.push(json!({"parts": [other["piece"], reading["piece"]], "separation_mm": d[0].hypot(d[1])}));
-        }
-    }
-    let all = object_toolpaths(&std::fs::read(directory.join("plate_1.gcode"))?, None)?;
-    let (alo, ahi) = bounds_of(&all);
-    let all_margin = margin(alo, ahi);
-    let border = report["plate_border_mm"].as_f64().unwrap_or(20.0);
-    if all_margin < border {
-        bail!("complete model/support/brim toolpaths enter the {border} mm plate border");
-    }
-    result["parts"] = json!(readings);
-    result["fit"] = json!({
-        "minimum_shared_bed_margin_mm": margins.iter().copied().fold(f64::INFINITY, f64::min),
-        "complete_layer_bead_bounds": all, "complete_layer_bead_minimum_bed_margin_mm": all_margin,
-        "minimum_toolpath_separation_mm": gaps.iter().filter_map(|g| g["separation_mm"].as_f64()).fold(None, |m: Option<f64>, v| Some(m.map_or(v, |m| m.min(v)))),
-        "pairwise_toolpath_separations": gaps,
-    });
-    std::fs::write(project.with_extension("support-audit.json"), serde_json::to_string_pretty(&result)? + "\n")?;
-    Ok(result)
-}
-
-/// Slice `project` with the installed Bambu Studio command line into `directory`, then read it
-/// back.
-pub fn slice_and_review(root: &Path, project: &Path, report: &Value, directory: &Path, slicer: &Path) -> Result<Value> {
-    if directory.exists() && std::fs::read_dir(directory)?.next().is_some() {
-        bail!("the slice directory must be empty so the reading cannot take an earlier slice");
-    }
-    std::fs::create_dir_all(directory)?;
-    let directory = directory.canonicalize()?;
-    let stem = project.file_stem().and_then(|s| s.to_str()).unwrap_or("project");
-    // The command line slices a copy without the hook; the cooling stage then runs on its output.
-    let cli = crate::slice::cli_project(&project.canonicalize()?, &directory)?;
-    let log = std::fs::File::create(directory.join("bambu-cli.log"))?;
-    let status = std::process::Command::new(slicer).args(["--slice", "0", "--arrange", "0", "--orient", "0", "--outputdir"])
-        .arg(&directory).arg("--export-3mf").arg(format!("{stem}.gcode.3mf")).arg(&cli).current_dir(&directory)
-        .stdout(log.try_clone()?).stderr(log).status()?;
-    println!("Offline slice exited {}; {}", status.code().unwrap_or(-1), directory.join("bambu-cli.log").display());
-    if !status.success() {
-        bail!("Bambu slice exited {}", status.code().unwrap_or(-1));
-    }
-    slice_review(root, project, report, &directory)
-}
-
-/// The cooling values' names, as the policy sets them on a PET-GF slot.
-pub fn cooling_keys() -> Result<Vec<String>> {
-    cooling::value_names()
 }
 
 /// One project's command-line slice into an empty `directory`, through the cooling stage: the

@@ -3,12 +3,13 @@
 //!
 //!     faucet-cover-print-project [--project P] [--printer Mark1|Mark2] [--filament-colour #RRGGBB]
 //!
-//! The cover is the generated STL the production selection names, in its approved pose, with
-//! the approved cover print's settings and object settings, the printer's Z trim, and the
-//! selection's first bed layer and later layers.
+//! The cover is the shared cover in the faucet plate's pose, with the approved cover print's
+//! settings and object settings, the printer's Z trim, and the plate's first bed layer and later
+//! layers.
 
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::profile::{first_text, petgf_infill_pattern, relative, settings_bytes, SETTINGS_MEMBER};
+use hsm_print_prep::faucet_plate::{self, COVER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet::text, root, sha256_hex, xml};
 use serde_json::{json, Value};
@@ -16,7 +17,12 @@ use std::io::Read;
 use std::path::{Path, PathBuf};
 
 const HERE: &str = "hardware/printed-parts/faucet/faucet-display-cover";
+/// Derek's approval of the shared tip and cover, which the report cites.
 const SELECTION: &str = "hardware/printed-parts/faucet/industrial/production-selection.json";
+/// The approved cover print, whose settings and object settings the project keeps.
+const SETTINGS_SOURCE: &str = "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf";
+/// The plate's black filament.
+const COLOUR: &str = "#161616";
 const TITLE: &str = "Faucet display cover";
 /// The cover keeps this far inside the plate's edge.
 const PLATE_BORDER: f64 = 80.0;
@@ -43,9 +49,10 @@ fn main() -> Result<()> {
     }
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let selection: Value = serde_json::from_slice(&std::fs::read(root.join(SELECTION))?)?;
-    let row = selection["parts"].as_array().into_iter().flatten().find(|p| p["name"] == "sculpted-display-cover").context("the selection names no cover")?;
-    let source = root.join(selection["settings_source"].as_str().context("settings source")?);
-    let part = Part::new("sculpted-display-cover", root.join(row["source"].as_str().context("cover source")?), row["rotation_x_degrees"].as_f64().context("cover pose")?);
+    let plate = faucet_plate::selection(&root)?;
+    let finish: Value = serde_json::from_slice(&std::fs::read(root.join(plate["finish_selection"].as_str().context("the standing finish selection")?))?)?;
+    let source = root.join(SETTINGS_SOURCE);
+    let part = Part::new(COVER.name, root.join(COVER.stl), faucet_plate::COVER_ROTATION_DEGREES);
     let mut r = refresh::refresh(&root, &source, &[part], &[[0.0, 0.0]], TITLE, Some(trim), PLATE_BORDER)?;
     // The approved print's own object settings.
     let config = xml::parse(std::str::from_utf8(&member(&source, "Metadata/model_settings.config")?)?)?;
@@ -57,13 +64,12 @@ fn main() -> Result<()> {
             }
         }
     }
-    let recipe = &selection["recipe"];
-    let colour = colour.unwrap_or_else(|| recipe["filament_colour"].as_str().unwrap_or("#161616").to_string());
+    let colour = colour.unwrap_or_else(|| COLOUR.to_string());
     r.plate.settings["filament_colour"] = json!([colour]);
     let mut changes = r.profile.changes.clone();
     for (key, value) in [
-        ("initial_layer_print_height", text(&recipe["first_bed_layer_height_mm"])),
-        ("layer_height", text(&recipe["layer_height_mm"])),
+        ("initial_layer_print_height", text(&finish["first_bed_layer_height_mm"])),
+        ("layer_height", text(&finish["layer_height_mm"])),
         ("sparse_infill_pattern", petgf_infill_pattern(&root)?),
     ] {
         let old = r.plate.settings[key].clone();

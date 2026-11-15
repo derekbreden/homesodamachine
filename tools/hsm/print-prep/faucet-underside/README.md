@@ -1,14 +1,16 @@
-# Faucet base underside
+# Faucet base foundation
 
-`faucet_underside.rs` prepares the complete faucet's removable scaffold, sloped roof and sloped skin
-as part of the Sculpted and Industrial offline slice. Each style's outline and insert
-recesses come from its own mounting face. The editable project and executable archive carry
-the actual parts.
+The faucet plate gives the slicer each style's base with the space under its mounting face filled
+to the bed, then lays that space and the base's foot itself ahead of the slicer's layers. The
+editable project and the print-only archive carry the actual parts.
 
-- [`filled_base.rs`](../src/filled_base.rs) gives the slicer a temporary solid beneath the seat so it can lay ordinary courses above it.
-- [`base_foundation.rs`](../src/base_foundation.rs) lays scaffold, roof and skin, keeps the base's courses above the skin, and lifts travels over the scaffold.
-  [`sloped_courses.rs`](../src/sloped_courses.rs) cuts the courses' paths from the mounting face with Clipper2.
-  The same stage lays the Sculpted trial's foot for `sculpted-trial foundation`.
+- [`filled_base.rs`](../src/filled_base.rs) gives the slicer a temporary solid beneath the seat so it
+  lays ordinary courses above it. The fill's rim is the base's own mounting face.
+- [`base_foundation.rs`](../src/base_foundation.rs) lays the scaffold, the roof and the foot's courses,
+  cut from the base's own sections with a plug in each insert socket and a deck in the bore, keeps the
+  base's courses above them, and lifts travels over the scaffold.
+  [`sloped_courses.rs`](../src/sloped_courses.rs) cuts the courses' paths with Clipper2.
+  `faucet-plate` runs it for each style; `sculpted-trial foundation` runs it alone.
 - `left-active-height.npz` gives the travel stage the underside of the
   [left-active H2C head reference](../../../../hardware/reference/h2c-toolhead/README.md).
   Its model is a reconstruction from photos. The map's source mesh, settings and generator
@@ -16,7 +18,3 @@ the actual parts.
 - `left-active-full-height.npz` gives the head replay the whole left-active head: the map above
   with the rest of the head model's bodies folded in by `sculpted-trial head-map`. Its sources are
   in [its record](left-active-full-height.json).
-
-The paths follow the [accepted Sculpted print](https://github.com/derekbreden/homesodamachine/tree/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2).
-Its in-hand result covers the Sculpted base. The Industrial preparation uses the same
-process on its circular foot.

@@ -90,16 +90,18 @@ and rectangular lever opening; its mounting stations and hardware are shared.
 The complete printed assembly supplies the physical readings of lever travel,
 display fit, snap retention and surface finish.
 
-## Prepare the approved Industrial print
+## Prepare a product plate
 
 ```
-tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
-tools/hsm/target/release/industrial-faucet-print-project
+tools/run -- faucet-plate sculpted OUT_DIR --production
+tools/run -- faucet-plate industrial OUT_DIR --production
 ```
 
-The production preparer reads the generated parts the production selection names
-and retains the selected process, supports and per-printer trim. Preparing a
-project does not submit it to a printer.
+Both styles print one recipe, the faucet plate's: each lays its own base and above-counter
+plate beside the shared tip, display cover and lever. `--production` writes the style's
+editable project, its report and its plate record at the production project above, and keeps
+its print-only archive on this Mac. [`faucet-plate`'s header](/tools/hsm/print-prep/src/bin/faucet_plate.rs)
+shows how it is built and installed. Preparing a plate does not submit it to a printer.
 
 `hsm --scene faucet` reads the current exported assembly for positions,
 clearances, intersections, sections and rays. [`inspect-part.mjs`](/tools/inspect-part.mjs)

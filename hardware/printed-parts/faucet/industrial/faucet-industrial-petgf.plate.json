@@ -1,0 +1,13 @@
+{
+  "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
+  "archive_sha256": "1467002170e951d2cdd01a08167adf975fe0e7b679ab3e1dbf682e9a3bb3e9fe",
+  "deposition_weight_g": 158.91059436034703,
+  "estimate": "the acceleration planner's motion time for the sequenced plate's G-code, as its progress lines count it down",
+  "estimated_motion_seconds": 27491.261397742957,
+  "gcode_sha256": "3ea9eaffea8cee96fef6cf2a98c4112edb711312e1bdc262004b59d0efeaf8c5",
+  "printer_layers": 1573,
+  "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+  "project_sha256": "5d766582ddd1fe4267a1e381d15117ff40c7a10df689f03d40170f50e3e66773",
+  "purpose": "Binds the style's product plate: its editable project, its print-only archive and the acceleration planner's estimate of the sequenced plate's motion.",
+  "style": "industrial"
+}
