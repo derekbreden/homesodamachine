@@ -41,11 +41,10 @@ struct Bead {
     e: f64,
 }
 
-fn read(path: &PathBuf, features: &mut Vec<String>) -> Result<Vec<Bead>> {
-    let text = slice_text(path, 1)?;
+fn read(gcode: &[u8], features: &mut Vec<String>) -> Vec<Bead> {
     let mut out = Vec::new();
     let mut layer = 0;
-    beads::layers(text.as_bytes(), |l| {
+    beads::layers(gcode, |l| {
         layer += 1;
         for r in l.roads {
             let feature = match features.iter().position(|f| **f == *r.feature) {
@@ -58,7 +57,7 @@ fn read(path: &PathBuf, features: &mut Vec<String>) -> Result<Vec<Bead>> {
             out.push(Bead { layer, top: l.z, feature, p0: [r.x0, r.y0, r.z0], p1: [r.x1, r.y1, r.z1], e: r.e });
         }
     });
-    Ok(out)
+    out
 }
 
 fn sub(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
@@ -163,14 +162,26 @@ impl Tally {
             || (self.plastic_a - self.plastic_b).abs() > 1e-4_f64.max(5e-4 * self.plastic_a)
     }
 
-    fn row(&self) -> String {
-        let plastic = if self.plastic_a > 0.0 {
+    fn plastic(&self) -> String {
+        if self.plastic_a > 0.0 {
             format!("{:+.3}%", 100.0 * (self.plastic_b - self.plastic_a) / self.plastic_a)
         } else {
             "new".into()
-        };
-        format!("{:11.1} {:11.1} {:>9} {:>8.3}% {:>8.3}%", self.length_a, self.length_b, plastic,
+        }
+    }
+
+    fn row(&self) -> String {
+        format!("{:11.1} {:11.1} {:>9} {:>8.3}% {:>8.3}%", self.length_a, self.length_b, self.plastic(),
             100.0 * Self::share(self.on_b, self.length_a), 100.0 * Self::share(self.on_a, self.length_b))
+    }
+
+    fn add(&mut self, other: &Tally) {
+        self.length_a += other.length_a;
+        self.length_b += other.length_b;
+        self.on_b += other.on_b;
+        self.on_a += other.on_a;
+        self.plastic_a += other.plastic_a;
+        self.plastic_b += other.plastic_b;
     }
 }
 
@@ -208,16 +219,46 @@ fn stretches(own: &[Bead], on: &[f64], side: char, features: &[String]) -> Vec<S
     out
 }
 
-pub fn run(args: Options) -> Result<i32> {
+/// Two slices' beads matched where they lie: by feature, by layer and feature, in all, and the
+/// stretches only one lays, longest first.
+pub struct Comparison {
+    by_feature: BTreeMap<String, Tally>,
+    /// Keyed by the layer's top, rounded, and the feature.
+    by_layer: BTreeMap<(i64, String), (usize, f64, Tally)>,
+    whole: Tally,
+    only: Vec<Stretch>,
+}
+
+impl Comparison {
+    /// The layer and feature groups whose beads or plastic differ.
+    pub fn groups_differing(&self) -> usize {
+        self.by_layer.values().filter(|(_, _, t)| t.differs()).count()
+    }
+
+    /// How many groups differ, and how much of all the beads lies on the other slice's.
+    pub fn summary(&self) -> String {
+        let w = &self.whole;
+        format!("{} of {} layer and feature groups differ; of all beads, A on B {:.3}%, B on A {:.3}%, plastic {}",
+            self.groups_differing(), self.by_layer.len(), 100.0 * Tally::share(w.on_b, w.length_a),
+            100.0 * Tally::share(w.on_a, w.length_b), w.plastic())
+    }
+}
+
+/// Match the beads of two slices' G-code, each bead on the other's within `tolerance` mm.
+pub fn compare(a: &[u8], b: &[u8], tolerance: f64) -> Comparison {
     let mut features = Vec::new();
-    let a = read(&args.a, &mut features)?;
-    let b = read(&args.b, &mut features)?;
-    let cell = (4.0 * args.tolerance).max(0.5);
-    let (index_a, index_b) = (Index::new(&a, cell), Index::new(&b, cell));
-    let (on_b, on_a) = (coverage(&a, &index_b, args.tolerance), coverage(&b, &index_a, args.tolerance));
+    let a = read(a, &mut features);
+    let b = read(b, &mut features);
+    matched(&a, &b, &features, tolerance)
+}
+
+fn matched(a: &[Bead], b: &[Bead], features: &[String], tolerance: f64) -> Comparison {
+    let cell = (4.0 * tolerance).max(0.5);
+    let (index_a, index_b) = (Index::new(a, cell), Index::new(b, cell));
+    let (on_b, on_a) = (coverage(a, &index_b, tolerance), coverage(b, &index_a, tolerance));
     let mut by_feature: BTreeMap<String, Tally> = BTreeMap::new();
     let mut by_layer: BTreeMap<(i64, String), (usize, f64, Tally)> = BTreeMap::new();
-    for (side, list, on) in [('a', &a, &on_b), ('b', &b, &on_a)] {
+    for (side, list, on) in [('a', a, &on_b), ('b', b, &on_a)] {
         for (bead, on) in list.iter().zip(on.iter()) {
             let name = features[bead.feature as usize].clone();
             let layer = by_layer.entry(((bead.top * 1e4).round() as i64, name.clone())).or_insert((bead.layer, bead.top, Tally::default()));
@@ -234,19 +275,25 @@ pub fn run(args: Options) -> Result<i32> {
             }
         }
     }
+    let mut whole = Tally::default();
+    by_feature.values().for_each(|t| whole.add(t));
+    let mut only: Vec<Stretch> = stretches(a, &on_b, 'A', features);
+    only.extend(stretches(b, &on_a, 'B', features));
+    only.sort_by(|x, y| y.length.total_cmp(&x.length));
+    Comparison { by_feature, by_layer, whole, only }
+}
+
+pub fn run(args: Options) -> Result<i32> {
+    let mut features = Vec::new();
+    let a = read(slice_text(&args.a, 1)?.as_bytes(), &mut features);
+    let b = read(slice_text(&args.b, 1)?.as_bytes(), &mut features);
+    let Comparison { by_feature, by_layer, whole, only } = matched(&a, &b, &features, args.tolerance);
     println!("A {}\nB {}\nA bead counts as on B within {} mm of a B bead of its feature, and B on A the same way.",
         args.a.display(), args.b.display(), args.tolerance);
     let head = format!("{:11} {:11} {:>9} {:>9} {:>9}", "length A mm", "length B mm", "plastic", "A on B", "B on A");
     println!("\n{:24} {head}", "feature");
-    let mut whole = Tally::default();
     for (name, t) in &by_feature {
         println!("{name:24} {}", t.row());
-        whole.length_a += t.length_a;
-        whole.length_b += t.length_b;
-        whole.on_b += t.on_b;
-        whole.on_a += t.on_a;
-        whole.plastic_a += t.plastic_a;
-        whole.plastic_b += t.plastic_b;
     }
     println!("{:24} {}", "all beads", whole.row());
     let rows: Vec<_> = by_layer.values().filter(|(_, _, t)| args.all || t.differs()).collect();
@@ -255,16 +302,12 @@ pub fn run(args: Options) -> Result<i32> {
     if !rows.is_empty() {
         println!("{:>5} {:>8} {:24} {head}", "layer", "top", "feature");
     }
-    let names: BTreeMap<_, _> = by_layer.keys().map(|k| (k, k.1.clone())).collect();
-    for (key, (layer, top, t)) in by_layer.iter().filter(|(_, (_, _, t))| args.all || t.differs()).take(args.limit) {
-        println!("{layer:5} {top:8.3} {:24} {}", names[key], t.row());
+    for ((_, feature), (layer, top, t)) in by_layer.iter().filter(|(_, (_, _, t))| args.all || t.differs()).take(args.limit) {
+        println!("{layer:5} {top:8.3} {feature:24} {}", t.row());
     }
     if rows.len() > args.limit {
         println!("... {} more; --limit lists more", rows.len() - args.limit);
     }
-    let mut only: Vec<Stretch> = stretches(&a, &on_b, 'A', &features);
-    only.extend(stretches(&b, &on_a, 'B', &features));
-    only.sort_by(|x, y| y.length.total_cmp(&x.length));
     if !only.is_empty() {
         println!("\nThe longest stretches only one slice lays:");
         for s in only.iter().take(args.limit) {
@@ -273,8 +316,8 @@ pub fn run(args: Options) -> Result<i32> {
         }
     }
     if let Some(path) = args.json {
-        let layers: Vec<_> = by_layer.iter().map(|(key, (layer, top, t))| {
-            serde_json::json!({"layer": layer, "top": top, "feature": names[key], "tally": t})
+        let layers: Vec<_> = by_layer.iter().map(|((_, feature), (layer, top, t))| {
+            serde_json::json!({"layer": layer, "top": top, "feature": feature, "tally": t})
         }).collect();
         let value = serde_json::json!({"a": args.a, "b": args.b, "tolerance_mm": args.tolerance, "features": by_feature,
             "all": whole, "layers": layers, "stretches": only});
