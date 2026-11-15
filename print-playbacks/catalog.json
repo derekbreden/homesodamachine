@@ -930,12 +930,12 @@
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/faucet-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "0cd2d14c527a146829b59a52648bfb4dccddeaa010e8a10d69657843b3533f38",
+    "recipe_sha256": "58c0daee2d12ba43b61927ecf3a34e3531c1a9686b71aaa054a4ff2e77bf7ab3",
     "project_sha256": "6104ad5b888c4d58d3cd5321c2cbb70a03fa97134d87f04791d626477238ad11",
-    "archive_sha256": "87f180c191defc119f074f70a53e9f0b9f2d6522f6a7fbbcaa7ddc0a5a636516",
-    "gcode_sha256": "85ee10cf0505c3948c56e36e2f926650b0d77e49c56da9e0d1c7bab67f28fb87",
+    "archive_sha256": "841a51b016f259c48aacae7a210509bd9aeb5c8a0668e516cab1971cf2603316",
+    "gcode_sha256": "5c3174a4a02893956108549eedf684a7f26785ad8f0f18eb3614edf699702514",
     "kind": "plan",
-    "sha256": "76ccfdfb7a26f835fe7e0bd8837ac921a57037a0e39f90d6cb0ceb5ae38f900a",
+    "sha256": "9ba3e59f73275cac38c0fd55b292d2826a7bb6a064a270e22a71a5c70da2a079",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -958,7 +958,7 @@
       "Seam": "Back, scarfed, 150% gap"
     },
     "model_sha256": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0093": {
     "title": "Sculpted faucet mounting gasket · Mark1 print plan",
@@ -989,12 +989,12 @@
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/faucet-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "0cd2d14c527a146829b59a52648bfb4dccddeaa010e8a10d69657843b3533f38",
+    "recipe_sha256": "58c0daee2d12ba43b61927ecf3a34e3531c1a9686b71aaa054a4ff2e77bf7ab3",
     "project_sha256": "6104ad5b888c4d58d3cd5321c2cbb70a03fa97134d87f04791d626477238ad11",
-    "archive_sha256": "87f180c191defc119f074f70a53e9f0b9f2d6522f6a7fbbcaa7ddc0a5a636516",
-    "gcode_sha256": "85ee10cf0505c3948c56e36e2f926650b0d77e49c56da9e0d1c7bab67f28fb87",
+    "archive_sha256": "841a51b016f259c48aacae7a210509bd9aeb5c8a0668e516cab1971cf2603316",
+    "gcode_sha256": "5c3174a4a02893956108549eedf684a7f26785ad8f0f18eb3614edf699702514",
     "kind": "plan",
-    "sha256": "76ccfdfb7a26f835fe7e0bd8837ac921a57037a0e39f90d6cb0ceb5ae38f900a",
+    "sha256": "9ba3e59f73275cac38c0fd55b292d2826a7bb6a064a270e22a71a5c70da2a079",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -1021,18 +1021,18 @@
       "Brim": "Off"
     },
     "model_sha256": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0095": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/faucet-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "0cd2d14c527a146829b59a52648bfb4dccddeaa010e8a10d69657843b3533f38",
+    "recipe_sha256": "58c0daee2d12ba43b61927ecf3a34e3531c1a9686b71aaa054a4ff2e77bf7ab3",
     "project_sha256": "6104ad5b888c4d58d3cd5321c2cbb70a03fa97134d87f04791d626477238ad11",
-    "archive_sha256": "87f180c191defc119f074f70a53e9f0b9f2d6522f6a7fbbcaa7ddc0a5a636516",
-    "gcode_sha256": "85ee10cf0505c3948c56e36e2f926650b0d77e49c56da9e0d1c7bab67f28fb87",
+    "archive_sha256": "841a51b016f259c48aacae7a210509bd9aeb5c8a0668e516cab1971cf2603316",
+    "gcode_sha256": "5c3174a4a02893956108549eedf684a7f26785ad8f0f18eb3614edf699702514",
     "kind": "plan",
-    "sha256": "76ccfdfb7a26f835fe7e0bd8837ac921a57037a0e39f90d6cb0ceb5ae38f900a",
+    "sha256": "9ba3e59f73275cac38c0fd55b292d2826a7bb6a064a270e22a71a5c70da2a079",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -1059,18 +1059,18 @@
       "Seam": "Back, scarfed, 15% gap"
     },
     "model_sha256": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0096": {
     "title": "Complete Sculpted faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/faucet-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "0cd2d14c527a146829b59a52648bfb4dccddeaa010e8a10d69657843b3533f38",
+    "recipe_sha256": "58c0daee2d12ba43b61927ecf3a34e3531c1a9686b71aaa054a4ff2e77bf7ab3",
     "project_sha256": "6104ad5b888c4d58d3cd5321c2cbb70a03fa97134d87f04791d626477238ad11",
-    "archive_sha256": "87f180c191defc119f074f70a53e9f0b9f2d6522f6a7fbbcaa7ddc0a5a636516",
-    "gcode_sha256": "85ee10cf0505c3948c56e36e2f926650b0d77e49c56da9e0d1c7bab67f28fb87",
+    "archive_sha256": "841a51b016f259c48aacae7a210509bd9aeb5c8a0668e516cab1971cf2603316",
+    "gcode_sha256": "5c3174a4a02893956108549eedf684a7f26785ad8f0f18eb3614edf699702514",
     "kind": "plan",
-    "sha256": "76ccfdfb7a26f835fe7e0bd8837ac921a57037a0e39f90d6cb0ceb5ae38f900a",
+    "sha256": "9ba3e59f73275cac38c0fd55b292d2826a7bb6a064a270e22a71a5c70da2a079",
     "slice": "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -1096,7 +1096,7 @@
       "Seam": "Aligned, no scarf"
     },
     "model_sha256": "0c6e9e140494d1c11a798607dbe503b5cfc4c645ac0eaafa185d89ffc4485293",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0098": {
     "title": "Faucet umbilical organizer · Mark2 print plan",
@@ -1260,12 +1260,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "aad5ac08584ebb7c57454b0c3314405729acbdc9120274a7b626c3056de516fa",
+    "recipe_sha256": "7dfc7901d789c0870413bf0c83d0cec4658afe511a309e5a234523f82346b228",
     "project_sha256": "5d766582ddd1fe4267a1e381d15117ff40c7a10df689f03d40170f50e3e66773",
-    "archive_sha256": "771833938a7ae6e4c4c15530b5cd8f944455fec81c4789c53efadcc6880bc0f3",
-    "gcode_sha256": "2c8b4376e305c96040848cb47f5eee2960f7c8a79e6372abea611136bd3c3550",
+    "archive_sha256": "91f6eec42dfa0bfe983db59bfb007c8ba0be8749f1520f8c95e02e7217622c77",
+    "gcode_sha256": "dcc81cc7bb4a6589d54a3df25c14b52f76cc48896447a790d9c98396fbff1e04",
     "kind": "plan",
-    "sha256": "c6d368f98d628fb4252e5c83849ece7869bc8ed7d0f310c1e7df3a3d22cac765",
+    "sha256": "8f830e4e655b24870e4b8bf9a1314140da64dc9f6bdf6f9e355d2273461550bf",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -1288,7 +1288,7 @@
       "Seam": "Back, scarfed, 150% gap"
     },
     "model_sha256": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0112": {
     "title": "Industrial faucet mounting gasket · Mark2",
@@ -1322,12 +1322,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "aad5ac08584ebb7c57454b0c3314405729acbdc9120274a7b626c3056de516fa",
+    "recipe_sha256": "7dfc7901d789c0870413bf0c83d0cec4658afe511a309e5a234523f82346b228",
     "project_sha256": "5d766582ddd1fe4267a1e381d15117ff40c7a10df689f03d40170f50e3e66773",
-    "archive_sha256": "771833938a7ae6e4c4c15530b5cd8f944455fec81c4789c53efadcc6880bc0f3",
-    "gcode_sha256": "2c8b4376e305c96040848cb47f5eee2960f7c8a79e6372abea611136bd3c3550",
+    "archive_sha256": "91f6eec42dfa0bfe983db59bfb007c8ba0be8749f1520f8c95e02e7217622c77",
+    "gcode_sha256": "dcc81cc7bb4a6589d54a3df25c14b52f76cc48896447a790d9c98396fbff1e04",
     "kind": "plan",
-    "sha256": "c6d368f98d628fb4252e5c83849ece7869bc8ed7d0f310c1e7df3a3d22cac765",
+    "sha256": "8f830e4e655b24870e4b8bf9a1314140da64dc9f6bdf6f9e355d2273461550bf",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -1354,7 +1354,7 @@
       "Brim": "Off"
     },
     "model_sha256": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0151": {
     "title": "Tube insertion base · Mark1",
@@ -1401,12 +1401,12 @@
     "title": "Industrial faucet · Mark2 print plan",
     "recipe": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.plate.json",
     "recipe_target": "faucet-plate",
-    "recipe_sha256": "aad5ac08584ebb7c57454b0c3314405729acbdc9120274a7b626c3056de516fa",
+    "recipe_sha256": "7dfc7901d789c0870413bf0c83d0cec4658afe511a309e5a234523f82346b228",
     "project_sha256": "5d766582ddd1fe4267a1e381d15117ff40c7a10df689f03d40170f50e3e66773",
-    "archive_sha256": "771833938a7ae6e4c4c15530b5cd8f944455fec81c4789c53efadcc6880bc0f3",
-    "gcode_sha256": "2c8b4376e305c96040848cb47f5eee2960f7c8a79e6372abea611136bd3c3550",
+    "archive_sha256": "91f6eec42dfa0bfe983db59bfb007c8ba0be8749f1520f8c95e02e7217622c77",
+    "gcode_sha256": "dcc81cc7bb4a6589d54a3df25c14b52f76cc48896447a790d9c98396fbff1e04",
     "kind": "plan",
-    "sha256": "c6d368f98d628fb4252e5c83849ece7869bc8ed7d0f310c1e7df3a3d22cac765",
+    "sha256": "8f830e4e655b24870e4b8bf9a1314140da64dc9f6bdf6f9e355d2273461550bf",
     "slice": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     "plate": 1,
     "layers": 1573,
@@ -1430,7 +1430,7 @@
       "Top interface": "3 layers, 0 mm spacing"
     },
     "model_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "recipe_commit": "cec07ee07f98e81477f5a6957e227bed9f3f8a62"
+    "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0272": {
     "title": "White tube collars · Mark2 print plan",
