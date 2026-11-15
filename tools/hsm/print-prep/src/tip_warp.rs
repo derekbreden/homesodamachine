@@ -12,102 +12,44 @@ use std::collections::HashMap;
 use std::io::Read;
 use std::path::Path;
 
-/// How a trial poses the tip and shapes the field its courses follow.
+/// How a warp shapes the field the tip's courses follow, with the tip as the editable project
+/// poses it.
 pub struct Recipe {
     /// The receipt's purpose line.
     pub purpose: &'static str,
-    pub pose: Pose,
     /// The incline the field lays the shoulder's courses at, in degrees.
     pub field_angle: f64,
     /// The mating bearing plane's incline, in degrees: it turns the tip and sets the width of the
     /// flat shoulder.
     pub bearing_angle: f64,
-    /// The slicing height of the shoulder course, or none for the shoulder pick's own height.
-    pub shoulder_layer: Option<f64>,
     /// The slicing height up to which courses stay level on the bed.
     pub bed_through: f64,
-    pub transition: Transition,
+    /// Where the courses hold their full tilt, from the shoulder course on either side of the
+    /// mating plane; they ease to level where the tube axis is vertical.
+    pub shoulder_offsets: [f64; 2],
     /// The donor's nominal course height.
     pub normal_course: f64,
-    pub receipt: Receipt,
 }
-
-/// Where the courses hold their full tilt and where they become level.
-pub enum Transition {
-    /// All boundaries are slicing heights measured from the plate.
-    Plate { hold: [f64; 2], level_from: f64 },
-    /// Hold on either side of the mating plane and ease to level where the tube axis is vertical.
-    Tube { shoulder_offsets: [f64; 2] },
-}
-
-/// Where the tip stands on the plate while it is warped.
-pub enum Pose {
-    /// Turned about X from its CAD frame by the donor angle less the bearing plane's incline,
-    /// centred in plan where the editable project centres it, and set down on the bed.
-    Turned,
-    /// As the editable project places it.
-    Project,
-}
-
-/// The line a trial's receipt carries besides the common ones.
-pub enum Receipt {
-    /// The slicing height of the first model course laid onto the shoulder.
-    FirstCourse,
-    /// The bearing plane's incline.
-    BearingPlane,
-}
-
-/// The tip-shoulder trial: the tip turned exactly to its bearing plane, its courses holding the
-/// plane's incline through the shoulder.
-pub const TIP_SHOULDER: Recipe = Recipe {
-    purpose: FLATTEN,
-    pose: Pose::Turned,
-    field_angle: 35.0,
-    bearing_angle: 35.0,
-    shoulder_layer: Some(JOINT_LAYER),
-    bed_through: 0.92,
-    transition: Transition::Plate { hold: [JOINT_LAYER - 0.48, JOINT_LAYER + 1.68], level_from: 62.12 },
-    normal_course: 0.24,
-    receipt: Receipt::FirstCourse,
-};
-
-/// The plug-ramp trial: the tip as the editable project poses it, its courses ramping gently up
-/// through the male plug and holding that ramp across the shoulder.
-pub const PLUG_RAMP: Recipe = Recipe {
-    purpose: FLATTEN,
-    pose: Pose::Project,
-    field_angle: 15.0,
-    bearing_angle: 35.0,
-    shoulder_layer: None,
-    bed_through: 0.92,
-    transition: Transition::Plate { hold: [18.44, 29.0], level_from: 66.2 },
-    normal_course: 0.2,
-    receipt: Receipt::BearingPlane,
-};
 
 /// The matched shoulder: start the tilt above the hidden bed anchor and hold the mating plane
 /// through the support interface and the first model courses.
 pub const MATCHED_SHOULDER: Recipe = Recipe {
     purpose: FLATTEN,
-    pose: Pose::Project,
     field_angle: 20.0,
     bearing_angle: 20.0,
-    shoulder_layer: None,
     bed_through: 0.68,
-    transition: Transition::Tube { shoulder_offsets: [-1.2, 1.2] },
+    shoulder_offsets: [-1.2, 1.2],
     normal_course: 0.2,
-    receipt: Receipt::BearingPlane,
 };
 
 /// The shoulder's interface and visible foundation hold the same plane through the last course.
 pub const SHORT_SHOULDER: Recipe = Recipe {
-    transition: Transition::Tube { shoulder_offsets: [-1.2, 1.4] },
+    shoulder_offsets: [-1.2, 1.4],
     ..MATCHED_SHOULDER
 };
 
-/// The purpose line both trials' receipts carry.
+/// The purpose line the receipts carry.
 const FLATTEN: &str = "Flatten the mating shoulder for slicing while preserving physical tip geometry.";
-const JOINT_LAYER: f64 = 22.28;
 
 /// The angle about X the donor's CAD frame is turned from before the bearing plane's incline.
 const DONOR_ANGLE: f64 = -70.0;
@@ -150,39 +92,22 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
     let corners = stl_corners(&bytes).with_context(|| format!("reading {}", mesh.display()))?;
     let source = Mesh::from_corners(&corners);
     let (physical, translation) = physical_origin(project, &corners)?;
-    let (rotation, placement, world, shoulder) = match recipe.pose {
-        Pose::Turned => {
-            let desired = crate::rotation_x(DONOR_ANGLE - recipe.bearing_angle);
-            let turned: Vec<[f64; 3]> = source.vertices.iter().map(|v| desired.map(|row| dot(*v, row))).collect();
-            let old: Vec<[f64; 3]> = source.vertices.iter().map(|v| physical.map(|row| dot(*v, row))).collect();
-            let ((old_low, old_high), (low, high)) = (bounds(&old), bounds(&turned));
-            let mut placement = [0, 1, 2].map(|i| translation[i] + (old_low[i] + old_high[i]) * 0.5 - (low[i] + high[i]) * 0.5);
-            placement[2] = -low[2];
-            let world: Vec<[f64; 3]> = turned.iter().map(|p| [0, 1, 2].map(|i| p[i] + placement[i])).collect();
-            let shoulder = [0, 1, 2].map(|i| dot(desired[i], CANONICAL_POINT) + placement[i]);
-            (desired, placement, world, shoulder)
-        }
-        Pose::Project => {
-            let world: Vec<[f64; 3]> = source
-                .vertices
-                .iter()
-                .map(|v| {
-                    let p = physical.map(|row| dot(*v, row));
-                    [0, 1, 2].map(|i| p[i] + translation[i])
-                })
-                .collect();
-            let shoulder = [0, 1, 2].map(|i| dot(physical[i], CANONICAL_POINT) + translation[i]);
-            (physical, translation, world, shoulder)
-        }
-    };
-    if matches!(recipe.transition, Transition::Tube { .. }) {
-        let expected = crate::rotation_x(-paths::JOINT_ANGLE.to_degrees() - recipe.bearing_angle);
-        ensure!(
-            rotation.iter().flatten().zip(expected.iter().flatten()).all(|(actual, wanted)| (actual - wanted).abs() <= 1e-6),
-            "The editable tip pose must set the mating shoulder to {}° from the bed",
-            recipe.bearing_angle
-        );
-    }
+    let (rotation, placement) = (physical, translation);
+    let world: Vec<[f64; 3]> = source
+        .vertices
+        .iter()
+        .map(|v| {
+            let p = physical.map(|row| dot(*v, row));
+            [0, 1, 2].map(|i| p[i] + translation[i])
+        })
+        .collect();
+    let shoulder = [0, 1, 2].map(|i| dot(physical[i], CANONICAL_POINT) + translation[i]);
+    let expected = crate::rotation_x(-paths::JOINT_ANGLE.to_degrees() - recipe.bearing_angle);
+    ensure!(
+        rotation.iter().flatten().zip(expected.iter().flatten()).all(|(actual, wanted)| (actual - wanted).abs() <= 1e-6),
+        "The editable tip pose must set the mating shoulder to {}° from the bed",
+        recipe.bearing_angle
+    );
     let field = shoulder_field(recipe, shoulder);
     let (low, high) = bounds(&world);
     let ys = linspace(low[1], high[1], GRID_Y);
@@ -205,7 +130,7 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
         .collect();
     ensure!(closed(&faces), "The conforming warp yielded an open model");
 
-    let mut receipt = json!({
+    let receipt = json!({
         "purpose": recipe.purpose,
         "orientation_degrees": DONOR_ANGLE - recipe.bearing_angle,
         "authored_plane_pick_world_xyz_mm": field.shoulder,
@@ -232,11 +157,8 @@ pub fn warp(recipe: &Recipe, mesh: &Path, project: &Path) -> Result<Warped> {
         "original_facet_count": original_faces,
         "warped_facet_count": faces.len(),
         "minimum_invertibility_derivative": least,
+        "bearing_plane_degrees": recipe.bearing_angle,
     });
-    match recipe.receipt {
-        Receipt::BearingPlane => receipt["bearing_plane_degrees"] = json!(recipe.bearing_angle),
-        Receipt::FirstCourse => receipt["first_model_virtual_onto_shoulder_z_mm"] = json!(field.shoulder_layer + recipe.normal_course),
-    }
     Ok(Warped { vertices: virtual_vertices, faces, receipt })
 }
 
@@ -252,17 +174,12 @@ pub fn write(recipe: &Recipe, mesh: &Path, project: &Path, output: &Path) -> Res
 pub(crate) fn shoulder_field(recipe: &Recipe, shoulder: [f64; 3]) -> ShoulderHold {
     let field = recipe.field_angle.to_radians();
     let c = recipe.bearing_angle.to_radians().cos();
-    let shoulder_layer = recipe.shoulder_layer.unwrap_or(shoulder[2]);
-    let (hold, normal_again) = match recipe.transition {
-        Transition::Plate { hold, level_from } => (hold, level_from),
-        Transition::Tube { shoulder_offsets } => {
-            let vertical_angle = paths::JOINT_ANGLE + recipe.bearing_angle.to_radians();
-            let vertical = paths::arc_point(vertical_angle, 0.0, 0.0);
-            let delta = std::array::from_fn(|i| vertical[i] - CANONICAL_POINT[i]);
-            let rotation = crate::rotation_x(-vertical_angle.to_degrees());
-            (shoulder_offsets.map(|offset| shoulder_layer + offset), shoulder[2] + dot(rotation[2], delta))
-        }
-    };
+    let shoulder_layer = shoulder[2];
+    let vertical_angle = paths::JOINT_ANGLE + recipe.bearing_angle.to_radians();
+    let vertical = paths::arc_point(vertical_angle, 0.0, 0.0);
+    let delta = std::array::from_fn(|i| vertical[i] - CANONICAL_POINT[i]);
+    let rotation = crate::rotation_x(-vertical_angle.to_degrees());
+    let (hold, normal_again) = (recipe.shoulder_offsets.map(|offset| shoulder_layer + offset), shoulder[2] + dot(rotation[2], delta));
     ShoulderHold {
         shoulder,
         shoulder_layer,

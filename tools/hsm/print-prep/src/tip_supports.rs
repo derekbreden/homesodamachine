@@ -1,4 +1,4 @@
-//! Describes the Sculpted tip's mating seat to the plug-ramp donor's native support slicing: a
+//! Describes the Sculpted tip's mating seat to the donor tip's native support slicing: a
 //! roof sector over each half of the mating annulus that calls for support, an access slit
 //! between the sectors that keeps it out, and a keepout over the male plug, each carried through
 //! the field into the donor's frame, with the course settings the preparer reads beside them.
@@ -25,8 +25,7 @@ const PLUG_DEPTH: [f64; 2] = [-1.15, 0.38];
 const ROOF_POINTS: usize = 175;
 const SLIT_POINTS: usize = 9;
 const PLUG_SECTIONS: usize = 144;
-/// The preparer's course bands, each a start, end and step in millimetres.
-const COURSE_BANDS: [[f64; 3]; 1] = [[0.2, 30.2, 0.2]];
+/// The course height the donor eases back to level at, above its matched courses.
 const TAPER_COURSE_HEIGHT: f64 = 0.18;
 
 /// Write the support settings to `output` and the support meshes beside it, for the warp in
@@ -41,13 +40,10 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
     let bearing = receipt["bearing_plane_degrees"].as_f64().context("the receipt's bearing angle")?;
     let course = receipt["normal_course_mm"].as_f64().context("the receipt's nominal course height")?;
     let shoulder = field.shoulder;
-    let is_matched = (bearing.to_radians() - field.tangent.atan()).abs() <= 1e-9;
-    let course_bands = if is_matched {
-        let interface_end = (field.hold[1] / course).ceil() * course;
-        vec![[course, interface_end, course], [interface_end, field.normal_again, TAPER_COURSE_HEIGHT]]
-    } else {
-        COURSE_BANDS.to_vec()
-    };
+    ensure!((bearing.to_radians() - field.tangent.atan()).abs() <= 1e-9,
+        "the donor's courses must hold the bearing plane's incline");
+    let interface_end = (field.hold[1] / course).ceil() * course;
+    let course_bands = vec![[course, interface_end, course], [interface_end, field.normal_again, TAPER_COURSE_HEIGHT]];
     let bearing = crate::rotation_x(-bearing);
     let folder = output.parent().unwrap_or(Path::new("."));
     let mut parts = Vec::new();
@@ -85,9 +81,7 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
         "native_nose_handoff_mm": field.normal_again,
         "support_parts": parts,
     });
-    if is_matched {
-        settings["independent_support_layer_height"] = json!(false);
-    }
+    settings["independent_support_layer_height"] = json!(false);
     std::fs::write(output, serde_json::to_string_pretty(&settings)? + "\n").with_context(|| format!("writing {}", output.display()))
 }
 
