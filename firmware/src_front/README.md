@@ -358,17 +358,32 @@ cannot undo the wake.
 
 ## The interface
 
-Big Blue follows the approved [`design exploration`](../../future/enclosure-display-studies/big-blue.html).
+Big Blue follows the approved [`design exploration`](../../future/enclosure-display-studies/big-blue.html),
+apart from its resting screen, which is described below.
 The sixteen-direction colour and type study is in Git at [`980d92f186`](https://github.com/derekbreden/homesodamachine/blob/980d92f186/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
-The 104 px flavor rail carries both actual images and Settings at the bottom. Flavor
-pages keep a 234 px portrait column with “✓ Selected”; Fill, Prime and Clean sit above
-the 462 px task pane. Done occupies the top-right 104 px and is hidden at rest and
-while an operation is pending or running.
+The flavor rail carries both actual images, the slot a phone's request takes, and Settings
+at the bottom. The portrait panel beside it shows the selected flavor's image.
+
+**At rest** the selected flavor's rail cell is the portrait panel's own ice, from the glass
+edge into the portrait, so the two read as one: its thumbnail has an orange ring just
+outside it, and a check stands left of its number in ink. The other flavor has no card; its
+thumbnail and white number stand on the rail. Each number keeps its place selected or not.
+The portrait is larger and captioned **On tap.** in ink. There are no tabs: the pane beside
+the portrait runs the glass's full height, with the reservoir's caption and gauge at its top,
+then Fill, Prime and Clean, and apart from them Change image and Ratio, each a full-width row
+with a chevron that opens what its tab or button opens on every other page. A hairline parts
+two rows of one group, and none stands above the first row, between the groups or under the
+last.
+
+**On every other flavor page** the rail draws both flavors as cards, the selected one bordered
+in orange with a check by its number; the portrait is smaller, over “✓ Selected”; and Fill,
+Prime and Clean are tabs above the task pane, with Done at their right. Done is hidden while
+an operation is pending or running.
 
 | Page | Contents |
 |---|---|
-| On tap | selected reservoir's four-segment reading, Change image and Ratio |
+| On tap | the selected reservoir's reading, then Fill, Prime, Clean, Change image and Ratio |
 | Ratio | concentrate : water, with a bounded minus/plus stepper |
 | Change image | available customer uploads, then four factory defaults; four per page, Previous/Next and actual position |
 | Fill | instructions, Start filling, authoritative progress and Stop |
@@ -383,10 +398,10 @@ open. Every page entry clears an armed image press so a remote flavor change can
 apply a pending choice to another channel.
 
 The image wire bundle stays 172×320, 129×240 and 86×160. At boot and after an image
-update, the display caches 64×119 rail images, 183×340 portraits and 78×145 picker images
-in PSRAM. LVGL draws these complete portraits without transforming them during a frame.
-The derived cache uses about 1.3 MB with all eight images. No image or ratio edit writes
-NVS on the running RGB panel.
+update, the display caches every image in PSRAM at each size it draws: the rail's, the
+resting portrait's, the portrait's beside a task, and the picker's. LVGL draws these complete
+portraits without transforming them during a frame. No image or ratio edit writes NVS on the
+running RGB panel.
 
 Done, either flavor, the rail background and the whole portrait return to On tap.
 Selecting a different flavor queues a causal prime cancellation before the new selection.
@@ -521,9 +536,12 @@ loop and rendering counters for live measurement.
 ### Level and ratio
 
 The selected reservoir's four segments come from the main board's reed-derived level:
-none at empty, all four at full. Orange segments show the known amount; unavailable or
-unanswered readings clear the segments and say No level reading. During a reported pour,
-the resting title reads Pouring.
+none at empty, all four at full. They are cells in one outline under the caption, lit white
+for the known amount and sunk for the rest; the caption reads Reservoir, or Reservoir empty at
+the empty reed. An unavailable or unanswered reading dims the outline, leaves it empty and
+says No level reading. During a reported pour the portrait's caption reads Pouring. While
+the selection is not known it reads Connecting, at a smaller size that fits the portrait
+panel, on the same baseline.
 
 The ratio stepper sends both ratios as `MSG_RATIO_SET`. The main board persists and
 returns them; the status poll carries subsequent changes. While a step's answer is owed,
@@ -565,7 +583,7 @@ left, and a request still standing here closes on its own in [`main.cpp`](main.c
 `askService()`. The page then reads **No request waiting**. A new request replaces the one up,
 and a repeat of it changes nothing.
 
-The rail, the tabs and Done stay available while a request stands, and a request never moves
+The rail, the resting rows, the tabs and Done stay available while a request stands, and a request never moves
 the glass to another page. It does not hold the dark off here. This glass's own asks do:
 **Forget all trusted phones?**, **No water**, **Skip this step?** and **Move the machine?**.
 

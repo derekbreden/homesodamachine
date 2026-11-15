@@ -216,6 +216,34 @@ static uint32_t frameDoneTimeouts = 0;
 static_assert(RAIL_W + HERO_W + TASK_W == SCREEN_W, "Big Blue fills the display");
 static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits per page");
 
+// ── The resting screen ──
+// At rest there are no tabs: the pane beside the portrait runs the glass's full height, with
+// the reservoir's reading at its top and every task as a row under it. The selected flavor's
+// rail cell is the portrait panel's own ice, from the glass edge into the portrait.
+#define RAIL_CARD_INSET       10   // a card from the rail's edges
+#define RAIL_CARD_PITCH      170
+#define RAIL_CARD_W           84
+#define RAIL_CARD_H          160
+#define RAIL_CARD_BORDER       2
+#define RAIL_ART_INSET         8   // the thumbnail inside a card's border
+#define REST_CELL_SPLIT      175   // the top cell's foot, and the bottom cell's head
+#define REST_CELL_FOOT       345
+#define REST_RING              3   // just outside the thumbnail
+#define REST_NUMBER_Y        130   // a card's number, from inside its border
+#define REST_PORTRAIT_W      198   // 43:80, like every rendition
+#define REST_PORTRAIT_H      368
+#define REST_PORTRAIT_Y       24
+#define REST_TITLE_Y         408
+#define REST_CAPTION_Y        24
+#define REST_GAUGE_Y          64
+#define REST_GAUGE_H          28
+#define REST_GAUGE_BORDER      2
+#define REST_GAUGE_INSET       3   // the cells from the outline's inside edge
+#define REST_GAUGE_GAP         2
+#define REST_ROW_Y           124
+#define REST_ROW_H            60
+#define REST_GROUP_GAP        30   // Fill, Prime and Clean; then Change image and Ratio
+
 // ── Pages ──
 // Every page is built once and lives for the life of the firmware; switching hides one and
 // shows another. Sub-views inside a page work the same way.
@@ -237,6 +265,10 @@ static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
 static lv_obj_t *taskHeader, *systemTitle, *doneBtn;
 static lv_obj_t *homeTitle, *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
+// The resting form of the rail and the portrait: the selected cell's ice, each card's ring,
+// number and check, and the larger portrait that "On tap." captions.
+static lv_obj_t *restCell, *heroRestImage;
+static lv_obj_t *restRing[2], *restNumber[2], *restCheck[2];
 static lv_obj_t *flvTilePosition;
 static lv_obj_t *flvTileMark[FLAVOR_IMAGE_COUNT] = {};
 static uint8_t imagePage = 0;
@@ -265,6 +297,7 @@ static void idleReset(uint8_t stage);
 static void refreshHomeSelection();
 static void refreshHomeLevel();
 static void refreshShell();
+static void paintRestForm();
 static bool primeLinkOwnsJ9();
 static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
@@ -343,13 +376,14 @@ static lv_img_dsc_t flavorTile[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorRailArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorHeroArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorPickerArt[FLAVOR_IMAGE_COUNT];
-static uint16_t *scaledPixels[3][FLAVOR_IMAGE_COUNT] = {};
+static lv_img_dsc_t flavorRestArt[FLAVOR_IMAGE_COUNT];   // the portrait at rest
+static uint16_t *scaledPixels[4][FLAVOR_IMAGE_COUNT] = {};
 
 static void bindBigBlueArt() {
-  const uint16_t width[3] = {64, 183, 78};
-  const uint16_t height[3] = {119, 340, 145};
-  lv_img_dsc_t *sets[3] = {flavorRailArt, flavorHeroArt, flavorPickerArt};
-  for (uint8_t size = 0; size < 3; ++size) {
+  const uint16_t width[4] = {64, 183, 78, REST_PORTRAIT_W};
+  const uint16_t height[4] = {119, 340, 145, REST_PORTRAIT_H};
+  lv_img_dsc_t *sets[4] = {flavorRailArt, flavorHeroArt, flavorPickerArt, flavorRestArt};
+  for (uint8_t size = 0; size < 4; ++size) {
     for (uint8_t art = 0; art < FLAVOR_IMAGE_COUNT; ++art) {
       const lv_img_dsc_t &source = flavorAnchor[art];
       const size_t bytes = (size_t)width[size] * height[size] * sizeof(uint16_t);
@@ -2345,6 +2379,11 @@ static void showOnly(lv_obj_t **objs, int n, int which) {
   }
 }
 
+static void showIf(lv_obj_t *o, bool shown) {
+  if (shown) lv_obj_clear_flag(o, LV_OBJ_FLAG_HIDDEN);
+  else       lv_obj_add_flag(o, LV_OBJ_FLAG_HIDDEN);
+}
+
 // ── Text the link writes into ──
 static void setPrimeMsg(const char *s) { if (primeMsg) lv_label_set_text(primeMsg, s); }
 static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMsg, s); }
@@ -2406,6 +2445,8 @@ static void refreshFlavorImages() {
   for (uint8_t i = 0; i < selImgCount; ++i)
     lv_img_set_src(selImg[i], &selImgSet[i][resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
   if (heroImage) lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  if (heroRestImage)
+    lv_img_set_src(heroRestImage, &flavorRestArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
   uint8_t order[FLAVOR_IMAGE_COUNT];
   const uint8_t count = availableImageOrder(order);
   const uint8_t pages = front_ui::imagePages(count);
@@ -2456,16 +2497,8 @@ static void refreshFlavorText() {
 static void refreshHomeSelection() {
   if (!homeFlavorCard[0]) return;
   const bool known = flavorSynchronized || flavorRequestPending;
-  const int8_t selected = known ? (int8_t)activeFlavor : -1;
-  if (selected != homeFlavorShown) {
-    homeFlavorShown = selected;
-    for (uint8_t i = 0; i < 2; ++i) {
-      const bool on = selected == i;
-      lv_obj_set_style_bg_color(homeFlavorCard[i], lv_color_hex(on ? 0x214bb5 : 0x0a267f), 0);
-      lv_obj_set_style_border_color(homeFlavorCard[i], lv_color_hex(on ? COL_ACCENT : 0x0a267f), 0);
-      lv_label_set_text_fmt(homeFlavorBadgeText[i], on ? LV_SYMBOL_OK " %u" : "%u", (unsigned)(i + 1));
-    }
-  }
+  homeFlavorShown = known ? (int8_t)activeFlavor : -1;
+  paintRestForm();
   if (activePage == PAGE_HOME || activePage == PAGE_SETUP) flavorSel = activeFlavor;
   static int8_t shownKnown = -1;
   const uint8_t art = resolveFlavorArt(flavorImage[flavorSel], flavorSel);
@@ -2475,6 +2508,9 @@ static void refreshHomeSelection() {
   }
   if (heroImage && lv_img_get_src(heroImage) != &flavorHeroArt[art]) {
     lv_img_set_src(heroImage, &flavorHeroArt[art]);
+  }
+  if (heroRestImage && lv_img_get_src(heroRestImage) != &flavorRestArt[art]) {
+    lv_img_set_src(heroRestImage, &flavorRestArt[art]);
   }
   refreshHomeLevel();
 }
@@ -3302,9 +3338,9 @@ static void ratioService() {
   if (ratioSentMs && millis() - ratioSentMs >= RATIO_REPLY_MS) ratioSentMs = 0;
 }
 
-// The gauge on each Choose card: lit segments in the reservoir's colour,
-// the rest sunk into the card; the caption says EMPTY at the empty reed and
-// stays a caption while nothing has been seen.
+// The resting gauge: one outline holding a cell per segment, lit white for what the reeds
+// say is there and sunk for the rest. With no reading the outline dims and holds nothing.
+// The caption says EMPTY at the empty reed and stays a caption while nothing has been seen.
 static void refreshHomeLevel() {
   if (!homeGauge) return;
   const uint8_t channel = activeFlavor & 1;
@@ -3312,14 +3348,26 @@ static void refreshHomeLevel() {
   const bool fresh = front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
   const bool known = n != LEVEL_UNKNOWN && levelValid && fresh;
   const bool pouring = fresh && pouringShown == channel;
+  const bool connecting = homeFlavorShown < 0;
   static int16_t shown = -1;
-  const int16_t reading = (channel << 8) | (known ? n : 15) | (pouring ? 0x20 : 0);
+  const int16_t reading = (channel << 8) | (known ? n : 15) | (pouring ? 0x20 : 0) | (connecting ? 0x40 : 0);
   if (reading == shown) return;
   shown = reading;
-  for (uint8_t k = 0; k < LEVEL_SEGMENTS; ++k)
-    lv_obj_set_style_bg_color(homeLevelSegments[k], lv_color_hex(known && k < n ? COL_ACCENT : COL_OFF), 0);
+  lv_obj_set_style_border_color(homeGauge, lv_color_hex(known ? COL_DIM : COL_OFF), 0);
+  for (uint8_t k = 0; k < LEVEL_SEGMENTS; ++k) {
+    lv_obj_set_style_bg_color(homeLevelSegments[k], lv_color_hex(k < n ? COL_TEXT : COL_OFF), 0);
+    showIf(homeLevelSegments[k], known);
+  }
   lv_label_set_text(homeLevelCaption, known ? (n == 0 ? "Reservoir empty" : "Reservoir") : "No level reading");
-  if (homeTitle) lv_label_set_text(homeTitle, pouring ? "Pouring." : "On tap.");
+  // The portrait's caption, or what stands in for "Selected" while the selection is not known.
+  // That word is wider than the portrait at the caption's size, so it takes a smaller one on
+  // the caption's own baseline.
+  const lv_font_t *font = connecting ? &lv_font_montserrat_36 : &lv_font_montserrat_44;
+  const lv_coord_t rise = (lv_font_montserrat_44.line_height - lv_font_montserrat_44.base_line) -
+                          (font->line_height - font->base_line);
+  lv_obj_set_style_text_font(homeTitle, font, 0);
+  lv_label_set_text(homeTitle, connecting ? "Connecting" : pouring ? "Pouring." : "On tap.");
+  lv_obj_align(homeTitle, LV_ALIGN_TOP_MID, 0, REST_TITLE_Y + rise);
 }
 
 // The reeds on the Settings landing. A reed the main board reads closed is a
@@ -4932,24 +4980,67 @@ static void moveService() {
   moveShow();
 }
 
+static lv_obj_t *mkOutline(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coord_t w,
+                           lv_coord_t h, lv_coord_t radius);
+
+// A line icon drawn as its strokes, ends and joins rounded: the resting screen's check and
+// chevrons, thinner than the symbol font's.
+static lv_obj_t *mkStroke(lv_obj_t *parent, const lv_point_t *points, uint16_t count, uint32_t color) {
+  lv_obj_t *l = lv_line_create(parent);
+  lv_line_set_points(l, points, count);
+  lv_obj_set_style_line_width(l, 2, 0);
+  lv_obj_set_style_line_color(l, lv_color_hex(color), 0);
+  lv_obj_set_style_line_rounded(l, true, 0);
+  lv_obj_clear_flag(l, LV_OBJ_FLAG_CLICKABLE);
+  return l;
+}
+
+// Left of a card's number, from inside the card's border.
+static lv_obj_t *mkCheck(lv_obj_t *card) {
+  static const lv_point_t check[] = {{15, 145}, {19, 149}, {28, 140}};
+  return mkStroke(card, check, 3, COL_INK);
+}
+
+// At the far right of a resting row.
+static lv_obj_t *mkChevron(lv_obj_t *row) {
+  static const lv_point_t chevron[] = {{392, 23}, {399, 30}, {392, 37}};
+  return mkStroke(row, chevron, 3, COL_DIM);
+}
+
 static void buildRail(lv_obj_t *scr) {
   flavorRail = mkFlat(scr, 0, 0, RAIL_W, SCREEN_H, lv_color_hex(COL_CARD));
   lv_obj_add_flag(flavorRail, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(flavorRail, flavorBackCb, ACT_EVENT, NULL);
+  // Beneath the cards, so a tap there still reaches the card or the rail.
+  restCell = mkFlat(flavorRail, 0, 0, RAIL_W, REST_CELL_SPLIT, lv_color_hex(COL_DIM));
+  lv_obj_clear_flag(restCell, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_add_flag(restCell, LV_OBJ_FLAG_HIDDEN);
   for (uint8_t i = 0; i < 2; ++i) {
-    lv_obj_t *b = mkBtn(flavorRail, 84, 160, 0x0a267f);
-    lv_obj_set_pos(b, 10, 10 + i * 170);
-    lv_obj_set_style_border_width(b, 2, 0);
+    lv_obj_t *b = mkBtn(flavorRail, RAIL_CARD_W, RAIL_CARD_H, 0x0a267f);
+    lv_obj_set_pos(b, RAIL_CARD_INSET, RAIL_CARD_INSET + i * RAIL_CARD_PITCH);
+    lv_obj_set_style_border_width(b, RAIL_CARD_BORDER, 0);
     lv_obj_set_style_border_color(b, lv_color_hex(0x0a267f), 0);
     lv_obj_add_event_cb(b, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
     homeFlavorCard[i] = b;
     lv_obj_t *art = lv_img_create(b);
     lv_img_set_src(art, &flavorRailArt[resolveFlavorArt(flavorImage[i], i)]);
-    lv_obj_align(art, LV_ALIGN_TOP_MID, 0, 8);
+    lv_obj_align(art, LV_ALIGN_TOP_MID, 0, RAIL_ART_INSET);
     lv_obj_clear_flag(art, LV_OBJ_FLAG_CLICKABLE);
     homeFlavorArtObj[i] = art;
     homeFlavorBadgeText[i] = mkText(b, "", &lv_font_montserrat_20, COL_TEXT);
     lv_obj_align(homeFlavorBadgeText[i], LV_ALIGN_BOTTOM_MID, 0, -5);
+    // At rest the card keeps its border's width with nothing drawn in it, so the thumbnail
+    // holds its pixels in both forms. The number stands alone and centred, and the
+    // selected card's check stands left of it, so the number never moves.
+    const lv_coord_t artX = (RAIL_CARD_W - 2 * RAIL_CARD_BORDER - 64) / 2;
+    restRing[i] = mkOutline(b, artX - REST_RING, RAIL_ART_INSET - REST_RING,
+                            64 + 2 * REST_RING, 119 + 2 * REST_RING, 0);
+    lv_obj_set_style_border_width(restRing[i], REST_RING, 0);
+    lv_obj_set_style_border_color(restRing[i], lv_color_hex(COL_ACCENT), 0);
+    restNumber[i] = mkText(b, "", &lv_font_montserrat_24, COL_TEXT);
+    lv_label_set_text_fmt(restNumber[i], "%u", (unsigned)(i + 1));
+    lv_obj_align(restNumber[i], LV_ALIGN_TOP_MID, 0, REST_NUMBER_Y);
+    restCheck[i] = mkCheck(b);
   }
   heroPanel = mkBtn(scr, HERO_W, SCREEN_H, COL_DIM);
   lv_obj_set_pos(heroPanel, RAIL_W, 0);
@@ -4961,6 +5052,50 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_clear_flag(heroImage, LV_OBJ_FLAG_CLICKABLE);
   heroCaption = mkText(heroPanel, LV_SYMBOL_OK " Selected", &lv_font_montserrat_20, COL_INK);
   lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, 424);
+  heroRestImage = lv_img_create(heroPanel);
+  lv_img_set_src(heroRestImage, &flavorRestArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  lv_obj_align(heroRestImage, LV_ALIGN_TOP_MID, 0, REST_PORTRAIT_Y);
+  lv_obj_clear_flag(heroRestImage, LV_OBJ_FLAG_CLICKABLE);
+  homeTitle = mkText(heroPanel, "On tap.", &lv_font_montserrat_44, COL_INK);
+  lv_obj_align(homeTitle, LV_ALIGN_TOP_MID, 0, REST_TITLE_Y);
+}
+
+// The rail and the portrait in their two forms. At rest: the selected cell in the portrait's
+// ice, its thumbnail ringed, and the larger portrait over "On tap.". On every other page:
+// the cards, the selected one bordered, and the smaller portrait over "Selected". Only a
+// change of page or of selection repaints them.
+static void paintRestForm() {
+  if (!restCell || !heroRestImage) return;
+  const bool resting = activePage == PAGE_HOME;
+  const int8_t selected = homeFlavorShown;
+  static int8_t shownSelected = -3;
+  static int8_t shownResting = -1;
+  if (selected == shownSelected && (int8_t)resting == shownResting) return;
+  shownSelected = selected;
+  shownResting = resting;
+  if (resting && selected >= 0) {
+    lv_obj_set_pos(restCell, 0, selected ? REST_CELL_SPLIT : 0);
+    lv_obj_set_height(restCell, selected ? REST_CELL_FOOT - REST_CELL_SPLIT : REST_CELL_SPLIT);
+  }
+  showIf(restCell, resting && selected >= 0);
+  for (uint8_t i = 0; i < 2; ++i) {
+    const bool on = selected == i;
+    lv_obj_t *b = homeFlavorCard[i];
+    lv_obj_set_style_bg_opa(b, resting ? LV_OPA_TRANSP : LV_OPA_COVER, 0);
+    lv_obj_set_style_border_opa(b, resting ? LV_OPA_TRANSP : LV_OPA_COVER, 0);
+    lv_obj_set_style_bg_color(b, lv_color_hex(on ? 0x214bb5 : 0x0a267f), 0);
+    lv_obj_set_style_border_color(b, lv_color_hex(on ? COL_ACCENT : 0x0a267f), 0);
+    lv_label_set_text_fmt(homeFlavorBadgeText[i], on ? LV_SYMBOL_OK " %u" : "%u", (unsigned)(i + 1));
+    lv_obj_set_style_text_color(restNumber[i], lv_color_hex(on ? COL_INK : COL_TEXT), 0);
+    showIf(homeFlavorBadgeText[i], !resting);
+    showIf(restNumber[i], resting);
+    showIf(restRing[i], resting && on);
+    showIf(restCheck[i], resting && on);
+  }
+  showIf(heroImage, !resting);
+  showIf(heroCaption, !resting);
+  showIf(heroRestImage, resting);
+  showIf(homeTitle, resting);
 }
 
 static void settingsCb(lv_event_t *e) {
@@ -5005,6 +5140,9 @@ static void refreshShell() {
   const bool machine = activePage == PAGE_SETUP;
   if (machine) lv_obj_add_flag(heroPanel, LV_OBJ_FLAG_HIDDEN);
   else lv_obj_clear_flag(heroPanel, LV_OBJ_FLAG_HIDDEN);
+  // At rest every task is a row in the pane, so there are no tabs above it.
+  showIf(taskHeader, activePage != PAGE_HOME);
+  paintRestForm();
   lv_obj_set_pos(taskHeader, machine ? RAIL_W : TASK_X, 0);
   lv_obj_set_width(taskHeader, machine ? SCREEN_W - RAIL_W : TASK_W);
   for (int i = 1; i < RAIL_PAGE_COUNT; ++i) {
@@ -5040,26 +5178,48 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
   return o;
 }
 
+// The resting pane runs the glass's full height: the selected reservoir's reading at the top,
+// then Fill, Prime and Clean, and apart from them Change image and Ratio. Each row opens what
+// its tab or button opens on every other page, and a hairline parts two rows of one group.
 static void buildHome(lv_obj_t *page) {
-  homeTitle = mkText(page, "On tap.", &lv_font_montserrat_40, COL_TEXT);
-  lv_obj_set_pos(homeTitle, 0, 0);
-  homeGauge = mkView(page);
-  lv_obj_set_size(homeGauge, DETAIL_W, 64);
-  lv_obj_align(homeGauge, LV_ALIGN_BOTTOM_LEFT, 0, -68);
-  homeLevelCaption = mkText(homeGauge, "No level reading", &lv_font_montserrat_24, COL_TEXT);
-  lv_obj_align(homeLevelCaption, LV_ALIGN_LEFT_MID, 0, -5);
+  lv_obj_set_pos(page, TASK_X, 0);
+  lv_obj_set_size(page, TASK_W, SCREEN_H);
+  lv_obj_set_style_pad_all(page, 0, 0);
+  homeLevelCaption = mkText(page, "No level reading", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_set_pos(homeLevelCaption, PANE_PAD, REST_CAPTION_Y);
+  homeGauge = mkOutline(page, PANE_PAD, REST_GAUGE_Y, DETAIL_W, REST_GAUGE_H, 6);
+  lv_obj_set_style_border_width(homeGauge, REST_GAUGE_BORDER, 0);
+  const lv_coord_t inside = DETAIL_W - 2 * REST_GAUGE_BORDER - 2 * REST_GAUGE_INSET;
+  const lv_coord_t cellW = (inside - (LEVEL_SEGMENTS - 1) * REST_GAUGE_GAP) / LEVEL_SEGMENTS;
+  const lv_coord_t cellH = REST_GAUGE_H - 2 * REST_GAUGE_BORDER - 2 * REST_GAUGE_INSET;
   for (uint8_t i = 0; i < LEVEL_SEGMENTS; ++i) {
-    homeLevelSegments[i] = mkFlat(homeGauge, DETAIL_W - 142 + i * 37, 18, 31, 17, lv_color_hex(COL_OFF));
+    homeLevelSegments[i] = mkFlat(homeGauge, REST_GAUGE_INSET + i * (cellW + REST_GAUGE_GAP),
+                                  REST_GAUGE_INSET, cellW, cellH, lv_color_hex(COL_OFF));
+    lv_obj_set_style_radius(homeLevelSegments[i], 2, 0);
+    lv_obj_clear_flag(homeLevelSegments[i], LV_OBJ_FLAG_CLICKABLE);
   }
-  mkFlat(page, 0, PANE_H - 69, DETAIL_W, 1, lv_color_hex(0x7699ed));
-  lv_obj_t *image = mkBtn(page, 280, 58, COL_BLUE);
-  lv_obj_align(image, LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  lv_obj_add_event_cb(image, homeSettingsCb, ACT_EVENT, (void *)(intptr_t)FLV_IMAGES);
-  lv_obj_align(mkText(image, "Change image " LV_SYMBOL_RIGHT, &lv_font_montserrat_24, COL_TEXT), LV_ALIGN_LEFT_MID, 0, 0);
-  lv_obj_t *ratio = mkBtn(page, 120, 58, COL_BLUE);
-  lv_obj_align(ratio, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_add_event_cb(ratio, homeSettingsCb, ACT_EVENT, (void *)(intptr_t)FLV_DETAIL);
-  lv_obj_align(mkText(ratio, "Ratio " LV_SYMBOL_RIGHT, &lv_font_montserrat_24, COL_DIM), LV_ALIGN_RIGHT_MID, 0, 0);
+  struct Row { const char *label; lv_event_cb_t cb; intptr_t to; bool ruled; };
+  static const Row rows[] = {
+      {"Fill", railCb, RAIL_FILL, false},
+      {"Prime", railCb, RAIL_PRIME, true},
+      {"Clean", railCb, RAIL_CLEAN, true},
+      {"Change image", homeSettingsCb, FLV_IMAGES, false},
+      {"Ratio", homeSettingsCb, FLV_DETAIL, true},
+  };
+  lv_coord_t y = REST_ROW_Y;
+  for (uint8_t i = 0; i < sizeof(rows) / sizeof(rows[0]); ++i) {
+    if (i == 3) y += REST_GROUP_GAP;
+    lv_obj_t *row = mkBtn(page, DETAIL_W, REST_ROW_H, COL_BLUE);
+    lv_obj_set_pos(row, PANE_PAD, y);
+    lv_obj_add_event_cb(row, rows[i].cb, ACT_EVENT, (void *)rows[i].to);
+    lv_obj_align(mkText(row, rows[i].label, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
+    mkChevron(row);
+    if (rows[i].ruled) {   // above the row, over the edge it shares with the one before
+      lv_obj_t *rule = mkFlat(page, PANE_PAD, y, DETAIL_W, 1, lv_color_hex(COL_OFF));
+      lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
+    }
+    y += REST_ROW_H;
+  }
 }
 
 static void buildFlavor(lv_obj_t *page) {
