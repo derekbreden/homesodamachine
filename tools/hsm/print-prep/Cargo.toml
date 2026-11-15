@@ -40,6 +40,10 @@ name = "sculpted-trial"
 path = "src/bin/sculpted_trial.rs"
 
 [[bin]]
+name = "sculpted-plate"
+path = "src/bin/sculpted_plate.rs"
+
+[[bin]]
 name = "petgf-cooling"
 path = "../../../hardware/printed-parts/cadlib/petgf_cooling.rs"
 
