@@ -1,13 +1,13 @@
 [
   {
     "printer": "H2C",
-    "observed_at": "2026-11-14T23:35:29+00:00",
-    "gcode_state": "FINISH",
+    "observed_at": "2026-11-15T03:00:37+00:00",
+    "gcode_state": "FAILED",
+    "subtask_name": "enclosure-back-top-left04-petgf-z010-mark1.gcode.3mf",
     "print_error": 0,
     "hms": [],
-    "subtask_name": "front-top-wago-mark1-ready.gcode.3mf",
     "bed_target_temper": 0.0,
-    "mc_percent": 100,
+    "mc_percent": 0,
     "left_filament": {
       "colour": "000000FF",
       "type": "PET-CF"
@@ -15,13 +15,13 @@
   },
   {
     "printer": "Mark2",
-    "observed_at": "2026-11-14T23:35:30+00:00",
-    "gcode_state": "FINISH",
+    "observed_at": "2026-11-15T03:00:36+00:00",
+    "gcode_state": "FAILED",
+    "subtask_name": "sculpted-faucet-seven-courses-black-mark2.gcode.3mf",
     "print_error": 0,
     "hms": [],
-    "subtask_name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
     "bed_target_temper": 0.0,
-    "mc_percent": 100,
+    "mc_percent": 0,
     "left_filament": {
       "colour": "161616FF",
       "type": "PET-CF"
