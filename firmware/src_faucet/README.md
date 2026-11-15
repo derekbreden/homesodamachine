@@ -62,8 +62,13 @@ The machine display's Ratio page is where a flavor's ratio is set. While it is u
 flavor, this glass shows **Back**, **More flavor**, the flavor over its ratio as `1 : n`, and
 **Lighter**. The main board says which visit to that page stands, with both ratios
 (`MSG_RESP_RATIO_SESSION`), as it changes and on its heartbeat, and the screen is up only
-while that word is fresh. Prime takes the glass from it, and a trust ask or a notice waits
-behind it until it goes.
+while that word is fresh. Prime takes the glass from it.
+
+A trust ask or a notice takes the strip along the foot while Ratio is up, as it does under
+the logo, and which of the two has it is decided the same way. Ratio then stands in what the
+strip leaves as four equal bands: Back, More flavor, the flavor over its ratio a size smaller,
+and Lighter, the targets still the whole width and still dimmed at the end of the range. It
+takes the whole glass again when the strip goes.
 
 More flavor and Lighter step the flavor's ratio by one and send the ratio stepped to
 (`MSG_RATIO_SET_ONE`), once J3 takes it; the main board ticks for the press. The step shows at
@@ -131,8 +136,9 @@ The main board names what stops the machine making soda (`MSG_NOTICE`, on its he
 a refill that stands latched this glass takes the strip a trust ask uses and says **No water**
 and **See the display on the machine.** It has no button: the machine's own display is where
 someone can look at the water and the floor, so it is where Try again is. A trust ask takes
-the strip while one is up, and Prime and Ratio take the whole glass. Nothing photographs this
-glass, so when the strip comes up it sends its laid-out sizes to the main board's console.
+the strip while one is up, Prime takes the whole glass, and Ratio stands above the strip.
+Nothing photographs this glass, so when the strip comes up it sends its laid-out sizes to the
+main board's console.
 
 A sweep is the other way round: the lever beside this glass is what lets a dry tank's air
 out, so the hand and the eyes are here. The strip asks for the lever (**Hold the lever**),
