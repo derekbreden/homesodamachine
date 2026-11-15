@@ -1,0 +1,133 @@
+{
+  "purpose": "What the sent plate commands, read before the send.",
+  "archive": {
+    "name": "2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
+    "sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+    "gcode_sha256": "0eebbf5e31bb63a361f6d5d5050dee0d4a75cf4df5af7fb7d5f0f9e05349aa3d"
+  },
+  "review": {
+    "pass": true,
+    "checks": {
+      "archive": true,
+      "bed_border": true,
+      "fine_and_transition_bands": true,
+      "show_faces_support_free": true,
+      "solid_hosts_sampled": true,
+      "tie_windows_support_free": true,
+      "z_trim": true
+    },
+    "layers": 269,
+    "bead_envelope_plate_mm": [
+      [
+        23.621468,
+        31.822467999999997
+      ],
+      [
+        301.0266135,
+        245.7237375
+      ]
+    ],
+    "bed_margins_mm": {
+      "back": 74.2762625,
+      "front": 31.822467999999997,
+      "left": 23.621468,
+      "right": 23.973386500000004
+    },
+    "emitted_z_trim_mm": [
+      0.0,
+      0.08
+    ]
+  },
+  "tower": {
+    "plate_mm": [
+      [
+        30.0,
+        226.0
+      ],
+      [
+        80.0,
+        240.4
+      ]
+    ],
+    "first_layer_with_brim_plate_mm": [
+      [
+        25.0,
+        221.0
+      ],
+      [
+        85.0,
+        245.4
+      ]
+    ],
+    "layers": 269,
+    "seconds_per_layer_after_the_first": 25.38,
+    "timelapse": "Smooth timelapse with the slicer's safe snapshot position on every layer, as on the single-regulator-cap recipe."
+  },
+  "same_beads_as_alone": {
+    "method": "Each part's beads, taken into the part's own frame, against the same part sliced alone on its own piece (the four rear caps together on rear-equipment-caps; the organizer alone through this piece), within a twentieth of a millimetre; and laid length per feature.",
+    "largest_length_difference_m": 0.003,
+    "match_percent": {
+      "walls": "100.00 on every part but the regulator cap, 99.94 there",
+      "infill": "100.00 on every part",
+      "support": "100.00 on the ASSE cap and the elbow cradle, 99.98 on the regulator cap"
+    },
+    "regulator_note": "The regulator cap's mapped contact courses carry a height per segment, which the matcher keys on.",
+    "tower_alone_effect": "The same layout sliced without the tower lays every part bead the same; only the tower's beads differ."
+  },
+  "shallow_overhang_points": "Every part's walls run at their own speed through the slicer's two shallowest overhang points; a slice without those entries lays every bead the same, supports included.",
+  "harm": {
+    "below_a_top": 52,
+    "below_a_top_where": "All on the regulator cap, from its own support to its own support, inside its nonplanar contact band; deepest a third of a millimetre.",
+    "below_a_top_z_mm": [
+      17.79,
+      24.08
+    ],
+    "standing_rear_caps_plate": "The rear-equipment-caps piece sliced on its own reads 51 travels of the same kind in the same band; the contact recipe has not been printed before this plate.",
+    "other_parts_below_a_top": 0,
+    "drops": 0,
+    "waits": "Three, in the end routine after its park command, which the reader does not model; the accepted faucet plate reads the same."
+  },
+  "printer_commands": {
+    "layer_progress": 269,
+    "layer_change_notices": 269,
+    "percent_and_time_left": 615,
+    "power_loss_recovery_on": "once, after the first layer",
+    "smooth_timelapse_snapshots": 269,
+    "z_trim_lines": [
+      "G29.1 Z0",
+      "G29.1 Z0.08"
+    ]
+  },
+  "cooling_stage": {
+    "marker": "; HSM bridge-foundation cooling",
+    "added_commanded_motion_seconds": 1293.2046902871216
+  },
+  "regulator_contact_restoration": {
+    "added_commanded_motion_seconds": 104.01516996476504,
+    "archive_sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+    "gcode_input_sha256": "ae20287575ab992765225548cc1a7405915e1dc73961684a8e31cf7f929ce5f6",
+    "gcode_sha256": "0eebbf5e31bb63a361f6d5d5050dee0d4a75cf4df5af7fb7d5f0f9e05349aa3d",
+    "lifted_travels": 360,
+    "mapped_deposition_segments": 73254,
+    "mapped_deposition_segments_by_region": [
+      73254
+    ],
+    "maximum_mapped_path_slope_degrees": 40.78120435644797,
+    "maximum_mapped_z_speed_mm_s": 7.499999910742066,
+    "maximum_vertical_motion_offset_mm": 0.5649799703126526,
+    "purpose": "Read the bounded restored movements of the full print.",
+    "restored_extrusion_delta_mm": 6.339494667110644
+  },
+  "supports": {
+    "asse-snap-cap": "one bed-rooted tree body",
+    "regulator-snap-cap": "one bed-rooted tree body",
+    "elbow-cradle": "two tree bodies under the hooks",
+    "others": "none"
+  },
+  "estimate": {
+    "seconds": 32612.602672751887,
+    "filament_mm": 86507.67,
+    "pet_gf_g_at_maker_density": 297.5,
+    "slicer_g_at_profile_density": 268.42
+  }
+}

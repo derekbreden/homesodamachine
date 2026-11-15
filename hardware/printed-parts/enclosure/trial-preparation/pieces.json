@@ -1855,11 +1855,72 @@
               "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
             }
           }
+        },
+        {
+          "name": "soda-bend-holder",
+          "stl": "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "6",
+              "reason": "The soda-bend-holder recipe: the accepted Mark1 article of these exact bytes printed six walls (future/tube-bend-holder-exploration, D-26)."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The soda-bend-holder recipe: the accepted article's solid recipe."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The soda-bend-holder recipe: the accepted article's solid recipe."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "elbow-cradle",
+          "stl": "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+          "object_settings": {
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "umbilical-organizer",
+          "stl": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+          "object_settings": {
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
         }
       ],
-      "pose_reason": "Each part keeps the pose of the piece that prints it alone: the caps stand on an axial end as exported, the display cover lies on its flat back with the counterbores up, the pump retainers stand on their Y-minus end and the Reservoir B fill guide lies on its D back.",
+      "pose_reason": "Each part keeps the pose of the piece that prints it alone: the caps stand on an axial end as exported, the display cover lies on its flat back with the counterbores up, the pump retainers stand on their Y-minus end, the fill guide and the soda bend holder lie on their D backs, the elbow cradle stands on its bottom and the umbilical organizer stands on its flat bottom face with its passages vertical.",
       "spacing_mm": 15,
-      "plate_border_mm": 35.0,
+      "plate_border_mm": 22.0,
+      "plate_offset_mm": {
+        "value": [
+          0.0,
+          -40.0
+        ],
+        "reason": "Hold the parts toward the front so the back middle of the bed stays clear for the slicer's safe timelapse snapshot, every bead well inside the unseasoned outer plate."
+      },
       "settings": {
         "overhang_2_4_speed": {
           "value": [
@@ -1888,6 +1949,38 @@
             "0"
           ],
           "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "The single-regulator-cap recipe: smooth timelapse takes the nozzle away for a snapshot and to the native tower every layer, so the tall caps' top layers, where they print alone or in a pair, get time away as the batch gives the rest."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "The single-regulator-cap recipe: reprime on the native tower after each timelapse departure."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "The single-regulator-cap recipe: a constant perimeter gives time away on every layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "The single-regulator-cap recipe: time on the tower cools the parts while their own recipes stay as they are."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "The single-regulator-cap recipe: keep the requested tower width in single-colour smooth-timelapse mode."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "30"
+          ],
+          "reason": "The tower stands behind the group at the left, clear of every part's beads and of the back middle, inside the bed border."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "226"
+          ],
+          "reason": "The tower stands behind the group at the left, clear of every part's beads and of the back middle, inside the bed border."
         }
       }
     }

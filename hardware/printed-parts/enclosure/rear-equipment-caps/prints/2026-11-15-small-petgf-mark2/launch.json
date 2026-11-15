@@ -1,0 +1,37 @@
+{
+  "archive": {
+    "gcode_sha256": "0eebbf5e31bb63a361f6d5d5050dee0d4a75cf4df5af7fb7d5f0f9e05349aa3d",
+    "name": "2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
+    "objects": [
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "regulator-snap-cap",
+      "meter-snap-cap",
+      "pump-snap-cap",
+      "display-cover",
+      "enclosure-pump-retainer-1",
+      "enclosure-pump-retainer-2",
+      "reservoir-b-fill-guide",
+      "soda-bend-holder",
+      "elbow-cradle",
+      "umbilical-organizer"
+    ],
+    "sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 1573,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-15T15:53:28+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1446969347",
+  "subtask_name": "2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
+  "total_layer_num": 269
+}
