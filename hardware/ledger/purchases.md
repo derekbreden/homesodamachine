@@ -591,7 +591,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | <!--purchase:pur-4cac3e81d16a4257b9c6b725ba967b74--> Polymaker Fiberon PET-GF15 Black, 1.75 mm, three 3 kg spools (9 kg total); $224.97 merchandise less $27.00 promotion + $14.34 estimated tax, free shipping | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 spools (3 kg each) | $212.31 | 114-2679873-7632253 | 2026-11-14 | — | ON-ORDER |
-| <!--purchase:pur-e8d3c873b40848499b387a0bed8978f7--> H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — shipped, awaiting delivery; printer accessory; $39.89 item + $2.89 estimated tax, free shipping | [B0GRSZJYJ9](https://www.amazon.com/dp/B0GRSZJYJ9) | 1 | $42.78 | 112-7863139-0903423 | 2026-11-14 | — | ON-ORDER |
+| <!--purchase:pur-e8d3c873b40848499b387a0bed8978f7--> H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — printer accessory; $39.89 item + $2.89 estimated tax, free shipping | [B0GRSZJYJ9](https://www.amazon.com/dp/B0GRSZJYJ9) | 1 | $42.78 | 112-7863139-0903423 | 2026-11-14 | 2026-11-15 | ACQUIRED |
 | <!--purchase:pur-92e9a8843e42401389b973926a963edc--> SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | 114-5148466-4469057 | 2026-04-19 | 2026-04-20 | ACQUIRED |
 | <!--purchase:pur-3ce496aeefa54ba3ac576dd7b9d3ec91--> Siraya Tech Flex TPU 85A Clear, 1.75 mm, 1 kg — ASSE vent elbow stock | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 spool (1 kg) | $33.88 | 114-4402537-9406656 | 2026-04-19 | 2026-04-20 | ACQUIRED (Confirmation identifies Clear, 1 kg: $31.59 item price, $33.88 order total.) |
 | <!--purchase:pur-c7cd43298809474ca0d28bec2d91da35--> SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | 114-9764609-4555460 | 2026-03-22 | 2026-03-25 | ACQUIRED |
@@ -862,10 +862,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,430.74](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,473.52](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,150.25](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$549.58](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,193.03](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$506.80](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,752.90](LEDGER_GRAND_TOTAL) |
@@ -904,7 +904,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$462.78](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$3,155.73](LEDGER_SEC12) |
-| 13 | Printing consumables | [$3,904.48](LEDGER_SEC13) |
+| 13 | Printing consumables | [$3,947.26](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,684.84](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |

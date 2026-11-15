@@ -10126,7 +10126,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
-        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde"
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
+        "src-924b4c3f76ea4de4883b620379ef2343"
       ]
     },
     "pur-4cac3e81d16a4257b9c6b725ba967b74": {
@@ -35078,6 +35079,20 @@
       },
       "verified_at": "2026-11-15",
       "note": "Order-scoped Your Payments > Completed shows one USD 42.78 transaction dated November 15, 2026. This confirms the existing expected event in place; allocations remain unchanged. Order Details still estimates USD 2.89 tax and says arriving today, which does not prove delivery or final tax. No bank posting or funding ownership is inferred."
+    },
+    "src-924b4c3f76ea4de4883b620379ef2343": {
+      "vendor": "Amazon",
+      "document_type": "delivery_confirmation",
+      "reference": "112-7863139-0903423",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-15",
+      "note": "Exact-order tracking explicitly records package delivered Sunday, November 15, 2026 at 12:53 PM local. Order Details identifies the single H2C dual-textured and smooth PEI plate, ASIN B0GRSZJYJ9. This confirms fulfillment only; the separately confirmed merchant charge is unchanged and the Order Summary still labels tax estimated."
     }
   },
   "coverage": [
@@ -37803,13 +37818,15 @@
       "source_ids": [
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
         "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
-        "src-49093cce3e6b470c807ba8dec2675623"
+        "src-49093cce3e6b470c807ba8dec2675623",
+        "src-924b4c3f76ea4de4883b620379ef2343"
       ],
-      "missing_fact": "Order is shipped and the completed merchant charge is confirmed. Actual delivery and final tax remain unconfirmed.",
+      "missing_fact": "Final vendor tax remains unconfirmed. Delivery and the completed merchant charge are confirmed.",
       "sources_checked": [
         "Named Amazon Order Details and order-scoped merchant transactions",
         "Named Amazon shipment confirmation",
-        "Named Amazon Order Details and order-scoped Completed transaction, checked November 15, 2026"
+        "Named Amazon Order Details and order-scoped Completed transaction, checked November 15, 2026",
+        "Exact-order delivery timeline and Order Details, checked November 15, 2026"
       ]
     },
     {
