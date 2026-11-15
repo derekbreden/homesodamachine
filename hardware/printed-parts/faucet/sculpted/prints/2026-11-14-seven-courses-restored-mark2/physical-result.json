@@ -8,9 +8,57 @@
     "sha256": "9f9233d8d5fc5080fdf6599d1f8a96b04080d68cfde8c6cb826f4f00ab4b910f",
     "gcode_sha256": "4ed406e89d30fd71b9f0f6ca09e9b06fe737998b8da12bb81a517629f46d00f3"
   },
-  "scope": "Every part on this plate: the Sculpted base, the tip, the display cover, the mounting plate and the lever. Derek's message says he took the supports off and put the faucet together, and calls it good enough. It names no flaw. No photographs came with it.",
+  "scope": "Every part on this plate: the Sculpted base, the tip, the display cover, the mounting plate and the lever. Derek's first message says he took the supports off and put the faucet together, and calls it good enough. His second, with nine photographs, names the base's seven foot courses, which show their lines more and look less fused than the level layers above them; the tip's shoulder courses, which are less well supported, sag on the sides and look better at the very back; the display cover's back corner, now covered; and its front corner, still exposed.",
   "tried": "the plate's parts with their supports removed, put together as one faucet",
   "observations": [
-    "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on."
+    "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
+    "So on the 7 layers on the faucet base, you can see that they are a little bit different than all the layers above it. There's just a little more separation between the layers. It's just fused not quite as well. Just looks a little bit different as a surface finish from a distance, a little bit more visible lines. I'm not sure if we've done everything that we can about that. Maybe we have. I just want to double check that we're going as fast as the machine allows. For those 7 layers, whatever the limit on the Z motor speed is there. So that's the first 3 photos, and then the next photos after that are just showing that on the faucet tip, on those same set on the seven layer concept that we've got there. It's just not as well supported. So if you can find a way to do something more like the supports that we have on the faucet base, on its 7 layers, on its interface layers below that, and the supports below those interface layers. If we can do something more like that on the faucet tip, that would be great. And you can see it's different on different sides of the faucet tip. I think I have a few photos there. On the sides, it's sagging in some places, but on the place that actually matters the most, the very back there, it looks better. So I think it's possible to get better supports there. I'd like to see us try. And then I wanted to mention that the on the back of the faucet display cover now, we're covering the corner better there. I can't see the corner anymore, so that's great there. And then I wanted to mention that on the front side, we have the exact same problem, the corner's still exposed. I hadn't mentioned this recently, so it's not something you missed. I just hadn't pointed it out. But yeah, it's a little bit exposed there."
+  ],
+  "images": [
+    {
+      "file": "01-base-foot-courses-close.jpg",
+      "sha256": "83e2c8eb8f0300398f03ef52400d6e3fce1754527b918e1d69a324926c0228b4",
+      "view": "The base turned mounting face up: close view of the seven courses laid parallel to the mounting face, and the notched line where the level layers meet them."
+    },
+    {
+      "file": "02-base-foot-courses-side.jpg",
+      "sha256": "7575e2575a3d441eb4772a09ed0ceb7439be53e9be61ae8280cacec595b49af3",
+      "view": "The same band of seven courses along the side of the base."
+    },
+    {
+      "file": "03-base-mounting-face-up.jpg",
+      "sha256": "590cf32293797e7990b00a5335d6cf6c56c1cff7884c80e3db1d4e09c7a9b8ce",
+      "view": "The base standing mounting face up, the band of seven courses at its rim."
+    },
+    {
+      "file": "04-tip-shoulder-split.jpg",
+      "sha256": "244e59320b6231cb687aa4a6f5365167bef46703c89525e1c30cfaf0b87a241a",
+      "view": "The tip's shoulder step, plug below and body above: a sagged bead hangs from the lowest shoulder course with a gap above it."
+    },
+    {
+      "file": "05-tip-shoulder-step.jpg",
+      "sha256": "9bef9cb9e7e5c5a1cf36f215d3dce234aa930eac41264c065f50e23db3fee391",
+      "view": "The shoulder step from another angle, its courses parted along the edge."
+    },
+    {
+      "file": "06-tip-shoulder-side.jpg",
+      "sha256": "a6ef9855d9f08f79b33de0dccc2e182a4b28810a7645519d4d4c56e0e04a9c2e",
+      "view": "The shoulder step and the plug from another side of the tip, with a rough line along the plug."
+    },
+    {
+      "file": "07-cover-front-corner.jpg",
+      "sha256": "74c02d236e248e031c7e44f96f6ca9717d98bb9c7347e479bb9c57400ff84a4e",
+      "view": "The display cover's front corner, still exposed."
+    },
+    {
+      "file": "08-cover-front-corner-close.jpg",
+      "sha256": "1441c536b097df20efbe6f5ceccd2ee33e5acca9b45d82538daef2c4343483ef",
+      "view": "Close view of the cover's exposed front corner."
+    },
+    {
+      "file": "09-cover-inside.jpg",
+      "sha256": "a31350d7d197e840ac2d48720c57ad6ae8a04b7d0a76d541a76d19993c984b1a",
+      "view": "The inside of the display cover."
+    }
   ]
 }
