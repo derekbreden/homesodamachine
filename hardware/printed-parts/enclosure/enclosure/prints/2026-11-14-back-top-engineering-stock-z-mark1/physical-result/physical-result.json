@@ -1,12 +1,13 @@
 {
-  "purpose": "Record Derek's photos and words on the stopped back-top after its supports came off.",
+  "purpose": "Record Derek's photos and words on the stopped back-top after its supports came off, and on its unsupported catches and inlet edge.",
   "date": "2026-11-15",
   "printer": "Mark1",
   "printer_task_id": "1445040105",
   "print_job": "../print-job.json",
   "physical_observation": "../physical-observation/support-failure.json",
   "derek": [
-    "A lot of these supports removed very well, as you can see there in the photos, but some of them did not, and to be, or rather, no, all of them removed well, that's not the problem. Some of them did not exist at all because, as you can see in one of the photos there, we've got the impossibly tiny little circles building towers so tall. It just doesn't work. Like, that's insane to try to make them that tall, but really at any height, every single one of these tiny little trees is a risk. So there's a lot of things that are working really well here with the interface layers and the things we have supports on and the things we don't and such, but the tiny trees themselves are a huge risk. As you can see, those towers just, it's surprising the print head doesn't knock more of them over as it lays another layer on each of those. It's quite amazing that it works at all. But maybe you can see what I'm talking about."
+    "A lot of these supports removed very well, as you can see there in the photos, but some of them did not, and to be, or rather, no, all of them removed well, that's not the problem. Some of them did not exist at all because, as you can see in one of the photos there, we've got the impossibly tiny little circles building towers so tall. It just doesn't work. Like, that's insane to try to make them that tall, but really at any height, every single one of these tiny little trees is a risk. So there's a lot of things that are working really well here with the interface layers and the things we have supports on and the things we don't and such, but the tiny trees themselves are a huge risk. As you can see, those towers just, it's surprising the print head doesn't knock more of them over as it lays another layer on each of those. It's quite amazing that it works at all. But maybe you can see what I'm talking about.",
+    "We need supports in these cavities that are reachable. This includes both sides of the water regulator, one side of the ASSE, and of course the C14. All of those cavities are reachable and should have supports on them. On the three specific cavities on one side of the ASSE and both sides of the PISCO, where things aren't reachable, only those three, I had asked for no supports. And that agent mistook that as a request for no supports on any cavities like that, which is ridiculous. But in any case, on those three cavities that aren't reachable, I would like us to do something different there. I think we need to simply do a corbel and adjust our snap geometry to fit that corbel. We realize, of course, that on one side of the ASSE and both sides of the PISCO, this means the snap is going to lift off quite a bit easier, but I actually think it's still going to hold quite well for our purposes and what each of those needs to do. So please make those geometry changes and those support changes."
   ],
   "photos": [
     {
@@ -36,6 +37,22 @@
     {
       "file": "07-recess-strands.jpg",
       "shows": "A recess under a ledge, with tangled strands at its upper corner and along its floor."
+    },
+    {
+      "file": "08-catch-face-drooped-courses.jpg",
+      "shows": "A snap receiver with drooped courses across the face beneath its catch."
+    },
+    {
+      "file": "09-snap-pocket-sagged-strands.jpg",
+      "shows": "A narrow snap pocket with loose strands sagging along its catch."
+    },
+    {
+      "file": "10-c14-opening-sagged-edge.jpg",
+      "shows": "The C14 inlet opening, with a strand sagging across one long edge."
+    },
+    {
+      "file": "11-catch-pocket-drooped-strands.jpg",
+      "shows": "A catch pocket with drooped strands down its inner faces, and a tangled pocket beyond it."
     }
   ]
 }
