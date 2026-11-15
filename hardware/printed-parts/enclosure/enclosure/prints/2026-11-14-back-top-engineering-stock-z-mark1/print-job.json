@@ -64,5 +64,6 @@
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
   "startup": "startup-status.json",
-  "physical_observation": "physical-observation/support-failure.json"
+  "physical_observation": "physical-observation/support-failure.json",
+  "physical_result": "physical-result/physical-result.json"
 }
