@@ -3,7 +3,7 @@
 //! pose's silhouette, and the accepted support parts carried in from the projects that proved
 //! them.
 
-use crate::json::{python_number, Json};
+use crate::json::Json;
 use crate::mesh::bounds;
 use crate::project::Paint;
 use crate::refresh::Refreshed;
@@ -54,15 +54,9 @@ pub fn recorded_member(root: &Path, record: &Value, key: &str) -> Result<Vec<u8>
     Ok(result.stdout)
 }
 
-/// A JSON value as Python's `str` writes it into a setting.
+/// A JSON value as a setting's text: a string as it is, a number as JSON writes it.
 pub fn text(v: &Value) -> String {
-    match v {
-        Value::String(s) => s.clone(),
-        Value::Number(n) if n.is_i64() || n.is_u64() => n.to_string(),
-        Value::Number(n) => python_number(n.as_f64().unwrap_or(0.0)),
-        Value::Bool(b) => if *b { "True".into() } else { "False".into() },
-        other => other.to_string(),
-    }
+    v.as_str().map_or_else(|| v.to_string(), String::from)
 }
 
 pub fn as_texts(v: &Json) -> Vec<String> {
@@ -105,7 +99,7 @@ pub fn apply_overhang_recipe(settings: &mut Json, selected: &Value, hook: &str) 
             // A slower saved limit stays; a faster or unset one takes the recipe's.
             let new: Vec<String> = as_texts(&old).iter().map(|v| {
                 let speed: f64 = v.parse().unwrap_or(0.0);
-                if speed > 0.0 && speed <= limit { python_number(speed) } else { text(maximum) }
+                if speed > 0.0 && speed <= limit { v.clone() } else { text(maximum) }
             }).collect();
             if as_texts(&old) != new {
                 changes.insert(key.clone(), json!({"from": old.to_value(), "to": new}));

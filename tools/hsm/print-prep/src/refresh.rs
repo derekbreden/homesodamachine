@@ -3,7 +3,7 @@
 //! projects and the bench parts that share their writer. A slice of one reads back per part —
 //! its toolpaths' envelope, the parts' clearances, and each part's support topology.
 
-use crate::json::{python_number, Json};
+use crate::json::Json;
 use crate::mesh::{bounds, Mesh};
 use crate::profile::{self, relative, Profile};
 use crate::project::{MeshStyle, Plate};
@@ -85,7 +85,7 @@ pub fn refresh(root: &Path, settings_from: &Path, parts: &[Part], offsets: &[[f6
         let placed: Vec<[f64; 3]> = rotated.iter().map(|v| [v[0] + translation[0], v[1] + translation[1], v[2] + translation[2]]).collect();
         let (plow, phigh) = bounds(&placed);
         if plow[0] < low[0] + plate_border || plow[1] < low[1] + plate_border || phigh[0] > high[0] - plate_border || phigh[1] > high[1] - plate_border {
-            bail!("{} extends into the {} mm plate border", part.name, python_number(plate_border).trim_end_matches(".0"));
+            bail!("{} extends into the {plate_border} mm plate border", part.name);
         }
         if phigh[2] > height {
             bail!("{} exceeds the printer height", part.name);
@@ -373,7 +373,7 @@ pub fn slice_review(root: &Path, project: &Path, report: &Value, directory: &Pat
     let all_margin = margin(alo, ahi);
     let border = report["plate_border_mm"].as_f64().unwrap_or(20.0);
     if all_margin < border {
-        bail!("complete model/support/brim toolpaths enter the {} mm plate border", python_number(border).trim_end_matches(".0"));
+        bail!("complete model/support/brim toolpaths enter the {border} mm plate border");
     }
     result["parts"] = json!(readings);
     result["fit"] = json!({

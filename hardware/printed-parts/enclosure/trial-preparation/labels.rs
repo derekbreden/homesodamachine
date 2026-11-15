@@ -19,7 +19,7 @@ use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{bounds, write_stl};
 use hsm_print_prep::profile::{self, relative};
 use hsm_print_prep::project::Plate;
-use hsm_print_prep::{cooling, derive, gcode, npz, sha256_hex, slice};
+use hsm_print_prep::{cooling, gcode, npz, sha256_hex, slice};
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
@@ -367,7 +367,7 @@ fn slice_and_review(root: &Path, directory: &Path) -> Result<bool> {
     let margins = json!({"left": low[0] - area[0][0], "front": low[1] - area[0][1], "right": area[1][0] - high[0], "back": area[1][1] - high[1]});
     let minimum = margins.as_object().unwrap().values().filter_map(Value::as_f64).fold(f64::INFINITY, f64::min);
     let wanted: Vec<f64> = serde_json::from_value(preparation["face_up_tops_mm"].clone())?;
-    let closed: Map<String, Value> = wanted.iter().map(|t| (derive::g(*t), json!(tops.iter().any(|z| (t - z).abs() < 1e-3)))).collect();
+    let closed: Map<String, Value> = wanted.iter().map(|t| (t.to_string(), json!(tops.iter().any(|z| (t - z).abs() < 1e-3)))).collect();
     let expected: BTreeSet<i64> = preparation["parts"].as_array().into_iter().flatten().filter_map(|p| p["identify_id"].as_i64()).collect();
     let plates = sliced["sliced_plates"].as_array().cloned().unwrap_or_default();
     let estimated: f64 = plates.iter().map(|p| p["total_predication"].as_f64().unwrap_or(0.0)).sum();

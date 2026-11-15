@@ -62,11 +62,6 @@ fn float(value: Option<&Json>) -> Option<f64> {
     }
 }
 
-/// A nozzle size as Python's `{:g}` writes it.
-fn g(value: f64) -> String {
-    python_number(value).trim_end_matches(".0").to_string()
-}
-
 fn side(recipe: &Json) -> Result<usize> {
     match field(recipe, "side")? {
         "left" => Ok(0),
@@ -87,7 +82,7 @@ fn nozzle(recipe: &Json) -> Result<f64> {
 }
 
 fn printer_name(recipe: &Json, trim: f64) -> Result<String> {
-    Ok(format!("Bambu Lab H2C {} {} +{trim:.2} Z trim", g(nozzle(recipe)?), field(recipe, "nozzle_type")?))
+    Ok(format!("Bambu Lab H2C {} {} +{trim:.2} Z trim", nozzle(recipe)?, field(recipe, "nozzle_type")?))
 }
 
 fn trims(recipe: &Json) -> Vec<f64> {
@@ -326,7 +321,7 @@ fn main() -> Result<()> {
     let models = models.context("--models names the folder holding cavity.stl and core.stl")?;
     let output = output.context("--output names the project to write")?;
     let recipes = Json::parse(&std::fs::read_to_string(root.join(RECIPES))?)?;
-    let recipe = recipes.get(&g(nozzle_mm)).with_context(|| format!("no recipe for the {} mm nozzle", g(nozzle_mm)))?;
+    let recipe = recipes.get(&nozzle_mm.to_string()).with_context(|| format!("no recipe for the {nozzle_mm} mm nozzle"))?;
     let trim = match z_trim {
         Some(t) if trims(recipe).contains(&t) => t,
         Some(t) => bail!("no +{t} mm Z trim; the recipe offers {:?}", trims(recipe)),

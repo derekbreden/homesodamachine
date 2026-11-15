@@ -20,7 +20,7 @@ use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_conta
                                      apply_tip_rim_contour, tip_end_stretch, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::faucet_underside::{self, Underside};
-use hsm_print_prep::json::{python_number, Json};
+use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
 use hsm_print_prep::{cooling, root, sha256_hex, slice, xml};
@@ -74,7 +74,7 @@ fn shoulder_readings(r: &Refreshed, recipe_report: &Value, layer_height: f64) ->
             }
         }
         if !any {
-            bail!("the current base has no upward shoulder at CAD Z{}", python_number(z));
+            bail!("the current base has no upward shoulder at CAD Z{z}");
         }
         readings.push(json!({"cad_z_mm": z, "pick_mm": reference["pick_mm"],
             "measurement": "Current source STL upward planar facets at the selected CAD Z", "area_mm2": area,
@@ -328,7 +328,7 @@ fn main() -> Result<()> {
     write_readiness(&root, &project, &report, &production, &finish_path, &production_path, None)?;
     println!("{}: five rigid parts on one plate; exact PET-GF settings {}", project.display(), report["settings_sha256"].as_str().unwrap_or(""));
     for row in &r.rows {
-        println!("  {}: Rx {} degrees; {} triangles", row.name, python_number(row.angle), row.mesh.faces.len());
+        println!("  {}: Rx {} degrees; {} triangles", row.name, row.angle, row.mesh.faces.len());
     }
     if let Some(directory) = slice_output {
         // Bambu Studio's slice is one of the Mac's heavy runs.

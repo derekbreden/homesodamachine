@@ -533,7 +533,7 @@ pub fn layer_ranges(features: &[Feature]) -> Vec<Value> {
     }
     merged.into_iter().map(|(lo, hi, h, walls, feature)| {
         let mut options = Map::new();
-        options.insert("layer_height".into(), json!(g(h)));
+        options.insert("layer_height".into(), json!(h.to_string()));
         if walls > 0 {
             options.insert("wall_loops".into(), json!(walls.to_string()));
         }
@@ -595,10 +595,4 @@ pub fn closing_schedule(tops: &[f64], finest: f64, coarsest_fine: f64) -> Result
         joined.push([low, high, height]);
     }
     Ok(joined)
-}
-
-/// Python's `f"{x:g}"` for the layer heights the ranges name.
-pub fn g(x: f64) -> String {
-    let s = format!("{}", (x * 1e6).round() / 1e6);
-    s
 }

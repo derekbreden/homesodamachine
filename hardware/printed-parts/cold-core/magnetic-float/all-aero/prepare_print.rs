@@ -17,7 +17,7 @@ use anyhow::{bail, Context, Result};
 use hsm_aero_float_numbers as float;
 use hsm_print_prep::gcode::Road;
 use hsm_print_prep::ids::md5_hex;
-use hsm_print_prep::json::{python_number, Json};
+use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::Mesh;
 use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
 use hsm_print_prep::review::{bead_cover, ring_spans, section_spans};
@@ -231,7 +231,7 @@ fn magnet_pause_review(program: &str, moves: &[Move]) -> Result<Value> {
     if over_bore >= BORE_BEADS {
         bail!("the closing layer lays {over_bore} mm² over the guide bore");
     }
-    let by_layer: Map<String, Value> = coverage.iter().map(|(z, f)| (python_number(*z), json!(f))).collect();
+    let by_layer: Map<String, Value> = coverage.iter().map(|(z, f)| (z.to_string(), json!(f))).collect();
     Ok(json!({"pause_command": "M400 U1", "pause_count": 1,
         "completed_layers_before_pause": heights.iter().position(|&z| z == rim).map_or(0, |i| i + 1),
         "last_open_pocket_layer_z_mm": rim, "printed_seat_top_z_mm": seat, "first_covering_layer_z_mm": cover_z,
@@ -275,7 +275,7 @@ fn travel_review(moves: &[Move], travels: &[Travel], retracts: usize) -> Value {
     sampled.dedup();
     for z in sampled {
         let at: Vec<f64> = travels.iter().filter(|t| t.layer == z).map(|t| t.distance).collect();
-        samples.insert(python_number(z), json!({"xy_move_count": at.len(), "xy_distance_mm": at.iter().sum::<f64>(),
+        samples.insert(z.to_string(), json!({"xy_move_count": at.len(), "xy_distance_mm": at.iter().sum::<f64>(),
                                                  "longest_xy_move_mm": longest(&mut at.iter().copied())}));
     }
     json!({"explicit_object_xy_travel_move_count": travels.len(),
@@ -313,7 +313,7 @@ fn preview(moves: &[Move], pause: &Value) -> String {
     for (z, colour, dash) in [(float::magnet_midplane(), "#75828f", "6 4"), (cover, "#af523c", "2 3")] {
         svg.push_str(&format!(r#"<line x1="{:.2}" x2="{:.2}" y1="{:.2}" y2="{:.2}" stroke="{colour}" stroke-dasharray="{dash}"/>"#, sx(-20.0), sx(20.0), sz(z), sz(z)));
     }
-    svg.push_str(&format!(r#"<text x="160" y="18" text-anchor="middle">{} mm body; magnet center at {} mm</text>"#, python_number(h), python_number(float::magnet_midplane())));
+    svg.push_str(&format!(r#"<text x="160" y="18" text-anchor="middle">{} mm body; magnet center at {} mm</text>"#, h, float::magnet_midplane()));
     // Each layer: X and Y about the float's centre, the panel 38 mm square.
     for (n, (z, title)) in [(rim, "Pocket open at pause"), (cover, "First layer over the inserted magnet")].into_iter().enumerate() {
         let x0 = 330.0 + n as f64 * 320.0;
@@ -324,7 +324,7 @@ fn preview(moves: &[Move], pause: &Value) -> String {
             svg.push_str(&format!(r##"<line x1="{:.2}" y1="{:.2}" x2="{:.2}" y2="{:.2}" stroke="#244867" stroke-width="0.65"/>"##,
                                   px(m.road.x0 - CENTRE[0]), py(m.road.y0 - CENTRE[1]), px(m.road.x1 - CENTRE[0]), py(m.road.y1 - CENTRE[1])));
         }
-        svg.push_str(&format!(r#"<text x="{}" y="18" text-anchor="middle">{title}, Z = {} mm</text>"#, x0 + 150.0, python_number(z)));
+        svg.push_str(&format!(r#"<text x="{}" y="18" text-anchor="middle">{title}, Z = {z} mm</text>"#, x0 + 150.0));
     }
     svg.push_str("</svg>\n");
     svg
@@ -385,7 +385,7 @@ fn main() -> Result<()> {
     if lo[2].abs() > 1e-6 || (hi[2] - h).abs() > 1e-6 {
         bail!("float-aero.stl spans Z{} to Z{}, not the float's height", lo[2], hi[2]);
     }
-    let half = python_number(h / 2.0);
+    let half = (h / 2.0).to_string();
     let config = String::from_utf8(members["Metadata/model_settings.config"].clone())?;
     let config = set_after(&config, r#"<metadata key="source_offset_z" value=""#, &half)?;
     let config = set_after(&config, r#"<mesh_stat face_count=""#, &mesh.faces.len().to_string())?;
