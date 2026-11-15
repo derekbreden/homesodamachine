@@ -109,7 +109,7 @@ fn main() -> Result<()> {
     let project = out.join("native.3mf");
     prepare(&project, &[&["--filled-base", &path(&filled)], finish_args.as_slice()].concat())?;
     let report: Value = serde_json::from_slice(&fs::read(out.join("native.print.json"))?)?;
-    let plain = plate.get("tip_end_splice").map(|_| out.join("plain/native.3mf"));
+    let plain = (plate["tip_end_splice"] == true).then(|| out.join("plain/native.3mf"));
     if let Some(plain) = &plain {
         fs::create_dir_all(plain.parent().unwrap())?;
         prepare(plain, &["--filled-base", &path(&filled), "--finish", &path(&plain_finish)])?;
