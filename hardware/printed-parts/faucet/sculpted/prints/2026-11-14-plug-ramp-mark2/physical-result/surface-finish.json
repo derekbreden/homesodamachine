@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-14",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1441898884",
+  "submitted_archive": {
+    "name": "sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf",
+    "sha256": "802cd07510ac998cec5c7c94e2d163b5099f536becc6e245a286e66b48d0bb42",
+    "gcode_sha256": "eec7ce8c8c9d2b305397085277e82afd001b62d4778e5753734a2d44a74118e5"
+  },
+  "scope": "Loose strands at the lever opening and exterior gloss on the Sculpted base beside an earlier print.",
+  "observations": [
+    "Is this fuzziness that we saw in this most recent print fixed in this next print here, or is that still broken? As you can see in the second photo that I have attached, that we didn't have this fuzziness previously, and it's not been present for many prints in the past. Like, I can't remember a time when I've seen this before, except for your previous print just now, the one with the front seam and other problems. So I hope that fuzziness is fixed. Let me know if it's not. And then that other third photo that I have attached of the both prints there at the same time, you'll see that on the right, that's your most recent print, the one with the ugly front and front seam and fuzziness. On the right there is also glossy throughout. So I wonder if you just have, like, a much higher speed there. You can see in the one on the left, there's some glossiness at the base, but then it's less glossy, and I think the glossiness at the base is even there from your changes also. And so I wonder if you're destroying a lot of good things that we had before in the process of the things that you're touching there. Do you see what I'm talking about?"
+  ],
+  "images": [
+    {
+      "file": "15-lever-opening-fuzz.jpg",
+      "sha256": "5bd325b756252c49c5fe1ca213684eb96bd104d746cfc30ec3eaf9ab05fedfb0",
+      "view": "Lever opening on the plug-ramp base, with strands visible around the rim and inside."
+    },
+    {
+      "file": "16-earlier-lever-opening.jpg",
+      "sha256": "8da70f8cd119af494a60dd689582c25764c7f636c2dcf716df656be005805533",
+      "view": "Cleaner lever opening on the earlier base. Its job number is unconfirmed."
+    },
+    {
+      "file": "17-earlier-and-plug-ramp-base-finish.jpg",
+      "sha256": "2cf6ae40e9cc33092d7463576a310213ad657afeaf0bb3cfcda6af50535254a1",
+      "view": "Earlier base at left and the plug-ramp base at right, with gloss farther up the shaft on the right."
+    }
+  ]
+}
