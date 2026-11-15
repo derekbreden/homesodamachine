@@ -301,8 +301,48 @@ pub type Piece = (Vec<Point>, Vec<f64>);
 /// runs on past the joint with its flow fading out as the other's fades in, so a joint is a lap
 /// and not a butt.
 pub fn edge_pieces(region: &Region, taper: f64) -> (Vec<Piece>, Vec<Piece>) {
+    ring_pieces(&region.rings(), taper)
+}
+
+/// The outer ring of `region` that encloses the most stock, and its other rings.
+pub fn outermost_ring(region: &Region) -> Option<(Vec<Point>, Vec<Vec<Point>>)> {
+    let mut rings = region.rings();
+    let outer = (0..rings.len()).filter(|&i| twice_area(&rings[i]) > 0.0)
+        .max_by(|&i, &j| twice_area(&rings[i]).total_cmp(&twice_area(&rings[j])))?;
+    let ring = rings.swap_remove(outer);
+    Some((ring, rings))
+}
+
+/// A ring as one closed lap from its lowest point on the slope around and back to it, run
+/// clockwise in the face's plane when `clockwise`, with the flow at each of its points. The lap
+/// runs on past its start, its flow fading in over the start and out over the same stretch at
+/// the end, so its joint is a lap and not a butt.
+pub fn closed_lap(ring: &[Point], taper: f64, clockwise: bool) -> Option<Piece> {
+    let (pts, total) = resample(ring, true, STEP, 4);
+    if total < 1.5 {
+        return None;
+    }
+    let n = pts.len();
+    let low = (0..n).fold(0, |lo, i| if pts[i][1] < pts[lo][1] { i } else { lo });
+    let along = (twice_area(&pts) < 0.0) == clockwise;
+    let mut lap: Vec<Point> = (0..n).map(|k| if along { pts[(low + k) % n] } else { pts[(low + n - k) % n] }).collect();
+    lap.push(lap[0]);
+    let round = length(&lap);
+    let laps: Vec<Point> = lap.iter().chain(&lap[1..]).chain(&lap[1..]).copied().collect();
+    let fade = taper.min(0.3 * round);
+    let (p, plen) = resample(&substring(&laps, round - fade, 2.0 * round + fade), false, STEP, 2);
+    let count = p.len();
+    let flows = (0..count).map(|i| {
+        let t = plen * i as f64 / (count - 1) as f64;
+        (t / (2.0 * fade)).min((plen - t) / (2.0 * fade)).clamp(0.0, 1.0)
+    }).collect();
+    Some((p, flows))
+}
+
+/// Rings as climbing pieces, as `edge_pieces` lays a region's.
+pub fn ring_pieces(rings: &[Vec<Point>], taper: f64) -> (Vec<Piece>, Vec<Piece>) {
     let (mut first, mut last) = (Vec::new(), Vec::new());
-    for ring in region.rings() {
+    for ring in rings {
         let (pts, total) = resample(&ring, true, STEP, 4);
         let n = pts.len();
         if total < 1.5 {
