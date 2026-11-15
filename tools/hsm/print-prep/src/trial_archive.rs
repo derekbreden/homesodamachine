@@ -158,15 +158,23 @@ fn object_spans(lines: &[&str], id: i64) -> Result<Vec<(f64, usize, usize)>> {
     Ok(spans)
 }
 
+/// The tip's object id on the Sculpted plate.
+const TIP: i64 = 1902;
+
 /// A plate sliced one way with the tip's spans, from the lowest layer the tip-end cooling stage
 /// cools upward, taken from the same plate sliced another way, written as a slice directory
 /// `output` holds: `stem.gcode.3mf` and its `plate_1.gcode`. Both slices must lay the same layers
 /// and the tip in each; the receipt is returned.
 pub fn splice_tip_end(level: &Path, plain: &Path, tip_end: &Path, output: &Path, stem: &str) -> Result<Value> {
-    const TIP: i64 = 1902;
     let report: Value = serde_json::from_slice(&fs::read(tip_end)?)?;
     ensure!(report["identify_id"].as_i64() == Some(TIP), "the tip-end report is not the tip's");
     let from = report["cooled_z_mm"][0].as_f64().context("the tip-end stage's lowest cooled layer")?;
+    splice_tip_layers(level, plain, from, output, stem, &json!({"tip_end_report_sha256": crate::sha256_hex(&fs::read(tip_end)?)}))
+}
+
+/// `splice_tip_end` with the lowest layer taken, the top of its tip spans, given as `from`;
+/// `extra` joins the receipt.
+pub fn splice_tip_layers(level: &Path, plain: &Path, from: f64, output: &Path, stem: &str, extra: &Value) -> Result<Value> {
     let (level_text, plain_text) = (String::from_utf8(crate::gcode::plate_gcode(level)?)?, String::from_utf8(crate::gcode::plate_gcode(plain)?)?);
     let (a, b): (Vec<&str>, Vec<&str>) = (level_text.split_inclusive('\n').collect(), plain_text.split_inclusive('\n').collect());
     let heights = |lines: &[&str]| lines.iter().filter_map(|l| l.strip_prefix("; Z_HEIGHT:")).map(str::trim).collect::<Vec<_>>().join(",");
@@ -189,12 +197,15 @@ pub fn splice_tip_end(level: &Path, plain: &Path, tip_end: &Path, output: &Path,
     fs::create_dir_all(output)?;
     let archive = output.join(format!("{stem}.gcode.3mf"));
     ensure!(!archive.exists(), "Write the spliced slice to a new directory");
-    let receipt = json!({
+    let mut receipt = json!({
         "purpose": "The tip's layers from the lowest the tip-end cooling stage cools upward, from a second slice of the same plate.",
         "level_archive_sha256": crate::sha256_hex(&fs::read(level)?), "plain_archive_sha256": crate::sha256_hex(&fs::read(plain)?),
-        "tip_end_report_sha256": crate::sha256_hex(&fs::read(tip_end)?), "from_layer_top_mm": from,
+        "from_layer_top_mm": from,
         "tip_layers_taken": taken, "tip_layers": spans_a.len(), "gcode_sha256": crate::sha256_hex(out.as_bytes()),
     });
+    if let (Some(fields), Some(more)) = (receipt.as_object_mut(), extra.as_object()) {
+        fields.extend(more.clone());
+    }
     let mut source = zip::ZipArchive::new(fs::File::open(level)?)?;
     let mut writer = zip::ZipWriter::new(fs::File::create(&archive)?);
     for i in 0..source.len() {

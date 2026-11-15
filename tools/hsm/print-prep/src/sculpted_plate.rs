@@ -1,6 +1,6 @@
 //! The Sculpted faucet plate's chain, which `sculpted-plate` runs from the checkout's meshes, the
 //! standing finish selection and the plate's own selections to the print-only archive.
-use crate::{faucet_contact, slice};
+use crate::{faucet_contact, slice, stretch_cooling, trial_archive};
 use anyhow::{Context, Result};
 use serde_json::{Value, json};
 use std::fs;
@@ -25,14 +25,31 @@ pub fn selection(root: &Path) -> Result<Value> {
 
 /// Slices `project` into `directory` and runs the standing slice path's G-code stages over the
 /// slice in their standing order, bridge-foundation cooling and then tip-end cooling. `report` is
-/// the project's print report. The stages' receipts are returned.
-pub fn slice_with_cooling(project: &Path, report: &Value, directory: &Path) -> Result<Value> {
-    slice_raw(project, directory)?;
-    let bridge = slice::apply_directory(directory, project)?;
+/// the project's print report. Given `plain`, the same plate with other settings, the tip's layers
+/// in the tip-end cooling zone come from its slice before the stages run. The stages' receipts
+/// are returned.
+pub fn slice_with_cooling(project: &Path, report: &Value, directory: &Path, plain: Option<&Path>) -> Result<Value> {
     let stretch = faucet_contact::recorded_tip_end_stretch(report, &report["selected_finish"]["tip_end_cooling"])?;
+    let splice = match plain {
+        None => {
+            slice_raw(project, directory)?;
+            Value::Null
+        }
+        Some(plain) => {
+            let (level, other) = (directory.join("level"), directory.join("plain"));
+            let level_archive = slice_raw(project, &level)?;
+            let plain_archive = slice_raw(plain, &other)?;
+            let probe = level.join("tip-end-zone.gcode");
+            let from = stretch_cooling::apply(&level.join("plate_1.gcode"), &probe, &stretch)?.z_mm[0];
+            fs::remove_file(&probe)?;
+            let stem = project.file_stem().context("the project's name")?.to_string_lossy().to_string();
+            trial_archive::splice_tip_layers(&level_archive, &plain_archive, from, directory, &stem, &json!({}))?
+        }
+    };
+    let bridge = slice::apply_directory(directory, project)?;
     fs::create_dir_all(directory.join("mapped-slice"))?;
     let tip_end = faucet_contact::apply_stretch_cooling(project, directory, "tip-end-cooling", &stretch)?;
-    Ok(json!({"bridge_foundation": bridge, "tip_end": tip_end}))
+    Ok(json!({"tip_end_splice": splice, "bridge_foundation": bridge, "tip_end": tip_end}))
 }
 
 /// The slicer's own slice of `project` in `directory`, its archive named for the project and its
