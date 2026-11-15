@@ -1,130 +1,24 @@
 {
-  "project": "lever-replica-petgf-white.3mf",
-  "settings_source": "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf",
-  "settings_source_sha256": "9715a23ffeae4934afcf426b8881d077db8767f345a9913960743cd7ed3de2f2",
-  "settings_sha256": "2c7ad42152210a0db0948e8dae8c8b761b45768c2b4dc1acdbb4f5a6dd30f838",
-  "source_settings_sha256": "37a1e4cbcb08fa8a23816b5a10a52d701f25ec242b56edf5645af6f209513bb3",
-  "settings_changes": {
-    "petgf_support_recipe": {
-      "profile": "hardware/printed-parts/petgf.3mf",
-      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
-      "members": {
-        "Metadata/filament_settings_1.config": {
-          "filament_bridge_speed": {
-            "from": null,
-            "to": [
-              "15",
-              "15",
-              "15"
-            ]
-          }
-        },
-        "Metadata/project_settings.config": {
-          "support_top_z_distance": {
-            "from": "0.45",
-            "to": "0.24"
-          },
-          "support_interface_top_layers": {
-            "from": "2",
-            "to": "3"
-          },
-          "support_interface_spacing": {
-            "from": "0.5",
-            "to": "0"
-          },
-          "bridge_flow": {
-            "from": "1",
-            "to": "1.25"
-          },
-          "bridge_speed": {
-            "from": [
-              "50",
-              "50",
-              "50",
-              "50",
-              "50"
-            ],
-            "to": [
-              "15",
-              "15",
-              "15",
-              "15",
-              "15"
-            ]
-          },
-          "filament_bridge_speed": {
-            "from": [
-              "25",
-              "25",
-              "25"
-            ],
-            "to": [
-              "15",
-              "15",
-              "15"
-            ]
-          }
-        }
-      }
-    }
-  },
-  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
-  "process": "0.24mm PET-GF faucet",
+  "bed_type": "Textured PEI Plate",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
   ],
   "layer_height_mm": 0.24,
+  "line_widths_mm": {
+    "inner_wall_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "outer_wall_line_width": 0.42,
+    "sparse_infill_line_width": 0.45,
+    "support_line_width": 0.62,
+    "top_surface_line_width": 0.45
+  },
   "nozzle_diameter_mm": [
     0.4,
     0.4
   ],
-  "line_widths_mm": {
-    "outer_wall_line_width": 0.42,
-    "inner_wall_line_width": 0.45,
-    "sparse_infill_line_width": 0.45,
-    "internal_solid_infill_line_width": 0.42,
-    "top_surface_line_width": 0.45,
-    "support_line_width": 0.62
-  },
-  "wall_loops": 2,
-  "sparse_infill_percent": 15.0,
-  "sparse_infill_pattern": "grid",
-  "saved_profile_filament_density_g_cm3": [
-    1.29
-  ],
-  "bed_type": "Textured PEI Plate",
-  "shared_printable_area_mm": [
-    [
-      0.0,
-      0.0
-    ],
-    [
-      325.0,
-      320.0
-    ]
-  ],
-  "printable_area_extruders": [
-    0
-  ],
-  "plate_border_mm": 20.0,
-  "plate_count": 1,
   "parts": [
     {
-      "name": "lever-replica",
-      "plate": 1,
-      "object_id": "2",
-      "part_id": "1",
-      "member": "3D/Objects/object_1.model",
-      "identify_id": 1901,
-      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
-      "stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-      "triangles": 18596,
-      "rotation_x_degrees": 0.0,
-      "source_center_mm": [
-        -2.9024670124053955,
-        26.339422799646854,
-        6.199999809172004
-      ],
+      "body_count": 1,
       "build_transform": [
         1.0,
         0.0,
@@ -139,16 +33,13 @@
         160.0,
         6.199999809358269
       ],
-      "plate_translation_mm": [
-        162.5,
-        160.0,
-        6.199999809358269
-      ],
-      "plate_origin_mm": [
-        0.0,
-        0.0,
-        0.0
-      ],
+      "embedded_vertex_error_mm": 4.999929359428279e-10,
+      "identify_id": 1901,
+      "member": "3D/Objects/object_1.model",
+      "name": "lever-replica",
+      "object_id": "2",
+      "part_id": "1",
+      "plate": 1,
       "plate_bounds_mm": [
         [
           155.16753315925598,
@@ -161,29 +52,98 @@
           12.399999618716539
         ]
       ],
-      "watertight": true,
-      "body_count": 1,
-      "embedded_vertex_error_mm": 4.999929359428279e-10
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        6.199999809358269
+      ],
+      "rotation_x_degrees": 0.0,
+      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "source_center_mm": [
+        -2.9024670124053955,
+        26.339422799646854,
+        6.199999809172004
+      ],
+      "stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+      "triangles": 18596,
+      "watertight": true
     }
   ],
-  "project_sha256": "29e6cc20997738144db0d9e4e9c830e73627b7033d4449c0513305369281e6f1",
-  "settings_preserved_byte_for_byte": false,
-  "variant": "white-mark2",
-  "status": "Editable project for the current source mesh; dated printed archives and their acceptance records are retained separately.",
   "physical_acceptance": {
-    "record": "physical-acceptance.json",
     "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
-    "observed_date": "2026-09-20",
-    "authority": "Derek's direct observation of the completed Mark2 print",
-    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
     "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "authority": "Derek's direct observation of the completed Mark2 print",
     "current_stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "matches_accepted_geometry": false,
-    "physical_fit": "unconfirmed for this mesh",
     "functional_operation": "unconfirmed for this mesh",
+    "matches_accepted_geometry": false,
+    "observed_date": "2026-09-20",
+    "physical_fit": "unconfirmed for this mesh",
+    "quantified_endurance": null,
     "quantified_strength": null,
-    "quantified_endurance": null
+    "record": "physical-acceptance.json",
+    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement."
   },
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
   "pose": "local CAD +X side on bed; broad show face vertical",
-  "reslice_required": true
+  "printable_area_extruders": [
+    0
+  ],
+  "printer": "Bambu Lab H2C 0.4 Standard +0.10 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "project": "lever-replica-petgf-white.3mf",
+  "project_sha256": "e648a617112747cf9055fa881eef2fbdc766813aec5944f1e2f0751e1887e76b",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.1,
+      "to_sha256": "3dbe43733a8338e4b7a7ef67b171d1fc8b613de10576da61d48810a7dbf1ae10"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+    }
+  },
+  "settings_preserved": false,
+  "settings_sha256": "b55699904fc5f3c2c068a6886b6118d8700d887e0ead3e5b5fbe6a2fbd06ea1b",
+  "settings_source": "hardware/printed-parts/petgf.3mf",
+  "settings_source_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "source_settings_sha256": "f6a1b858fa53a7f8d43d2470af3c7eaad71deacf574b7281816447be2d0517d2",
+  "sparse_infill_pattern": "gyroid",
+  "sparse_infill_percent": 15.0,
+  "status": "offline project preparation; submissions are recorded in print-jobs.json",
+  "variant": "white-mark2",
+  "wall_loops": 2
 }

@@ -4,8 +4,9 @@
 //!     lever-print-project [--variant black-h2c|white-mark2] [--slice-output DIR]
 //!
 //! One comparison lever per machine: the filament colour is physical, and the Z trim is the
-//! printer's. The lever lies on its local CAD +X side, its broad show face vertical. Derek's
-//! physical acceptance travels with the record only while the printed mesh is the one accepted.
+//! printer's standing PET-GF trim. The lever lies on its local CAD +X side, its broad show face
+//! vertical. Derek's physical acceptance travels with the record only while the printed mesh is
+//! the one accepted.
 
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::profile::relative;
@@ -19,16 +20,16 @@ const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
 
 struct Variant {
     name: &'static str,
+    printer: &'static str,
     project: &'static str,
     archive: &'static str,
-    z_trim: f64,
     title: &'static str,
 }
 
 const VARIANTS: [Variant; 2] = [
-    Variant { name: "black-h2c", project: "lever-replica-petgf.3mf", archive: "lever-black-petgf-z018-h2c.gcode.3mf", z_trim: 0.18,
+    Variant { name: "black-h2c", printer: "Mark1", project: "lever-replica-petgf.3mf", archive: "lever-black-petgf-h2c.gcode.3mf",
               title: "Lever comparison black PET-GF H2C" },
-    Variant { name: "white-mark2", project: "lever-replica-petgf-white.3mf", archive: "lever-white-petgf-z004-mark2.gcode.3mf", z_trim: 0.04,
+    Variant { name: "white-mark2", printer: "Mark2", project: "lever-replica-petgf-white.3mf", archive: "lever-white-petgf-mark2.gcode.3mf",
               title: "Lever comparison white PET-GF Mark2" },
 ];
 
@@ -65,7 +66,8 @@ fn main() -> Result<()> {
     let spec = VARIANTS.iter().find(|v| v.name == variant).with_context(|| format!("no variant {variant}; black-h2c or white-mark2"))?;
     let project = here.join(spec.project);
     let stl = here.join("lever-replica-side-down.stl");
-    let mut r = refresh::refresh(&root, &root.join(PROFILE), &[Part::new("lever-replica", stl.clone(), 0.0)], &[[0.0, 0.0]], spec.title, Some(spec.z_trim), 20.0)?;
+    let trim = hsm_print_prep::profile::petgf_z_trim(&root, spec.printer)?;
+    let mut r = refresh::refresh(&root, &root.join(PROFILE), &[Part::new("lever-replica", stl.clone(), 0.0)], &[[0.0, 0.0]], spec.title, Some(trim), 20.0)?;
     let acceptance = for_printed_model(&here, &r.rows[0].stl_sha256)?;
     for (k, v) in [("status", json!("offline project preparation; submissions are recorded in print-jobs.json")),
                    ("physical_acceptance", acceptance.clone()), ("pose", json!("local CAD +X side on bed; broad show face vertical")),
