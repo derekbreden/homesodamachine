@@ -640,7 +640,7 @@
   "cover_native_volume_mm3": 4405.617152321255,
   "support_scope": "Industrial base prints at -15 degrees, cover at -50 degrees. Roof39 uses bed-rooted tree-1/interface-10; roof57.5 uses tree-1/interface-14. Break and withdraw support through the open donor bore or lever region before loading hardware. Cover support exits through its open underside before the display is installed. Physical cleanup and contact finish are unmeasured.",
   "cover_native_support": {
-    "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
+    "report": "https://github.com/derekbreden/homesodamachine/blob/4be4ef0ee927741a6070878dacc079a832e2211d/hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.support-audit.json",
     "report_sha256": "b02efa45e36c0753a58c572449921db75527e664d8690cfe2f748e887090b27f",
     "model_sha256": "09f8af539052c8de694366319fe127e476d3157fd68c5fd8f7aaf361dee14e75",
     "plate_gcode_sha256": "d9d681582040a6e7345db2f8142c7a247661dcee235e9711d9b4b01d88a3cbc1",
