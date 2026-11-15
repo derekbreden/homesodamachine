@@ -7,6 +7,8 @@ The [launch record](launch.json) identifies the exact job accepted by Mark2.
 The [base in hand](physical-result/physical-result.json) records Derek's
 one-piece breakaway support removal, the acceptable rear seam and the rough
 second line on the front below the lever opening.
+The [surface finish comparison](physical-result/surface-finish.json) shows strands
+around the lever opening and gloss extending farther up the shaft.
 The [seated cover](physical-result/cover-fit.json) exposes the tip's display
 pocket at both aft corners.
 

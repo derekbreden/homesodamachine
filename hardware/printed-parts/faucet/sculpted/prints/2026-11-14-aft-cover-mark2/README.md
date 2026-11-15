@@ -19,6 +19,10 @@ matches the steady-base-wall plate for the base, matched tip, mounting plate,
 counterbore supports and lever. The [head replay](head-replay.json) and
 [motion estimate](chronology.json) cover the complete sequenced plate.
 
+The [surface finish comparison](surface-finish-comparison.json) counts stops
+and travel across the lever opening in the submitted G-code and records the
+commanded shaft speeds against the plug-ramp print and an earlier Mark2 plate.
+
 The [run inputs](run-inputs.zip) retain the revised cover, native project and
 slice, and the sequence receipt. The working run is
 `.cache/runs/sculpted-aft-cover-mark2-20261114`.
