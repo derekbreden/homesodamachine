@@ -18,7 +18,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const GCODE: &str = "Metadata/plate_1.gcode";
-const HEAD_MAP: &str = "tools/hsm/print-prep/faucet-underside/left-active-height.npz";
+/// The left nozzle head's height map over the bed, which the stages' crossings clear.
+pub const HEAD_MAP: &str = "tools/hsm/print-prep/faucet-underside/left-active-height.npz";
 pub const SOURCES: [&str; 5] = [
     "tools/hsm/print-prep/src/faucet_underside.rs",
     "tools/hsm/print-prep/src/filled_base.rs",

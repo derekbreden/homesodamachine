@@ -44,6 +44,8 @@ const AIR: f64 = 0.24;
 const ROOF_COURSES: usize = 3;
 /// Sloped courses laid on the sockets' shoulders before the level courses.
 const COURSES_OVER_SHOULDER: usize = 1;
+/// The part courses a short foundation lays parallel to the mounting face, below the level layers.
+pub const SHORT_FOUNDATION_COURSES: usize = 7;
 /// The courses the base is cut into while its sockets' shoulder is looked for.
 const PROBE_COURSES: usize = 24;
 const ROOF_WIDTH: f64 = 0.62;
