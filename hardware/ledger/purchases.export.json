@@ -433,6 +433,14 @@
       "purchase_id": "pur-149e488abacc4e3db11fde63d2b5af29"
     },
     {
+      "allocation_id": "alloc-30d71e6ba79f41d88c2c8eed53d5eb81",
+      "amount_minor": 8196,
+      "currency": "USD",
+      "event_id": "evt-19293e4645d84cd08d555c566e2820d7",
+      "order_id": "bambu:us798331608108187648",
+      "purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8"
+    },
+    {
       "allocation_id": "alloc-32d26c1307e94f87a2169f3dcf4e1dd4",
       "amount_minor": 660,
       "currency": "USD",
@@ -801,6 +809,14 @@
       "purchase_id": "pur-9795fe78ee6d4da5b43b92ef9cf3bf97"
     },
     {
+      "allocation_id": "alloc-70df67f649694acd89ff987880fb8798",
+      "amount_minor": 21231,
+      "currency": "USD",
+      "event_id": "evt-8733331cccaa40d2b47ffde578a9bcd0",
+      "order_id": "amazon:114-2679873-7632253",
+      "purchase_id": "pur-4cac3e81d16a4257b9c6b725ba967b74"
+    },
+    {
       "allocation_id": "alloc-72e35dc9bfc84a0a8338a484f7625f2b",
       "amount_minor": 70000,
       "currency": "USD",
@@ -839,6 +855,14 @@
       "event_id": "evt-1bead24454464c688dab3d4b9f2bc2bc",
       "order_id": "apple:MMWHDQG8Z2",
       "purchase_id": "pur-28ab4ada366b40b7a1aafc0f4693b327"
+    },
+    {
+      "allocation_id": "alloc-75cc2db5aa4e467cb4d9e0b91046b0cd",
+      "amount_minor": 4278,
+      "currency": "USD",
+      "event_id": "evt-97809881439b4885a7e33a8eb87b4b23",
+      "order_id": "amazon:112-7863139-0903423",
+      "purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7"
     },
     {
       "allocation_id": "alloc-75d6192c5bdb4729bd8df9d839c8d5de",
@@ -1793,7 +1817,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-14",
+  "as_of": "2026-11-15",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -2220,6 +2244,26 @@
       "vendor": "DigiKey"
     },
     {
+      "checked_at": "2026-11-15",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-3ecfa1a835aa430088188a5d19167acc",
+      "evidence_type": "order_confirmation_and_merchant_record",
+      "examined_period": {
+        "end": "2026-11-15",
+        "start": "2026-11-14"
+      },
+      "note": "Exact named order only; no account-wide coverage claimed.",
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ],
+      "stream": "named printer supply order",
+      "vendor": "Bambu Lab"
+    },
+    {
       "checked_at": "2026-11-12",
       "complete_period": null,
       "coverage": "partial",
@@ -2514,6 +2558,26 @@
       "source_ids": [],
       "stream": "project procurement records",
       "vendor": "Airgas"
+    },
+    {
+      "checked_at": "2026-11-15",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-5d93343debec42f28f0e114019f7a3c4",
+      "evidence_type": "order_and_merchant_transactions",
+      "examined_period": {
+        "end": "2026-11-15",
+        "start": "2026-11-14"
+      },
+      "note": "Exact order confirmation and merchant order details examined; no account-wide coverage claimed.",
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "stream": "named H2C build plate order",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-04",
@@ -3206,6 +3270,26 @@
       ],
       "stream": "install-guide print order",
       "vendor": "Lulu"
+    },
+    {
+      "checked_at": "2026-11-15",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-ab842088107045339bb47ef39f0cd522",
+      "evidence_type": "order_confirmation_and_merchant_record",
+      "examined_period": {
+        "end": "2026-11-15",
+        "start": "2026-11-14"
+      },
+      "note": "Exact named order only; no account-wide coverage claimed.",
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ],
+      "stream": "named printer supply order",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-11-10",
@@ -4401,6 +4485,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
+        "alloc-30d71e6ba79f41d88c2c8eed53d5eb81"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 8196,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-19293e4645d84cd08d555c566e2820d7",
+      "event_type": "charge",
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "purchase_ids": [
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8"
+      ],
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-15"
     },
     {
       "allocation_ids": [
@@ -6616,6 +6724,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-70df67f649694acd89ff987880fb8798"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 21231,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-8733331cccaa40d2b47ffde578a9bcd0",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "purchase_ids": [
+        "pur-4cac3e81d16a4257b9c6b725ba967b74"
+      ],
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
+    },
+    {
+      "allocation_ids": [
         "alloc-135a87b4135946fea6556b5f1b9a6919",
         "alloc-182f03c9c551477c9ca2cea66b082904",
         "alloc-488822da37b24b1696b8caac953374a0",
@@ -7114,6 +7246,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Amazon",
       "verified_at": "2026-11-10"
+    },
+    {
+      "allocation_ids": [
+        "alloc-75cc2db5aa4e467cb4d9e0b91046b0cd"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 4278,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-97809881439b4885a7e33a8eb87b4b23",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "purchase_ids": [
+        "pur-e8d3c873b40848499b387a0bed8978f7"
+      ],
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
     },
     {
       "allocation_ids": [
@@ -9667,6 +9823,25 @@
   ],
   "gaps": [
     {
+      "event_ids": [
+        "evt-19293e4645d84cd08d555c566e2820d7"
+      ],
+      "gap_id": "gap-083a0e4705eb4c0b8438f31067c1573e",
+      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Final invoice and credit origin remain unverified; the recorded procurement value is the net order amount after applied credit.",
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "purchase_ids": [
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8"
+      ],
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ],
+      "sources_checked": [
+        "Exact order confirmation and signed-in merchant order record"
+      ]
+    },
+    {
       "gap_id": "gap-139e9a25137a44468a9921f622868bfa",
       "missing_fact": "Preserved line allocations total USD 139.80; saved project invoice amount is USD 139.81. The one-cent allocation residual is unresolved; line values are preserved and no balancing payment is invented.",
       "order_ids": [
@@ -9686,6 +9861,44 @@
       ],
       "sources_checked": [
         "Preserved project rows and vendor order/invoice archive"
+      ]
+    },
+    {
+      "event_ids": [
+        "evt-8733331cccaa40d2b47ffde578a9bcd0"
+      ],
+      "gap_id": "gap-185474032e1c4eff87199dab31a87387",
+      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Tax is estimated.",
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "purchase_ids": [
+        "pur-4cac3e81d16a4257b9c6b725ba967b74"
+      ],
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ],
+      "sources_checked": [
+        "Exact order confirmation and signed-in merchant order record"
+      ]
+    },
+    {
+      "event_ids": [
+        "evt-97809881439b4885a7e33a8eb87b4b23"
+      ],
+      "gap_id": "gap-1b4d6f383f084b22ac7dd2ceac00a416",
+      "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed. Order-scoped transactions show no transactions yet.",
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "purchase_ids": [
+        "pur-e8d3c873b40848499b387a0bed8978f7"
+      ],
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "sources_checked": [
+        "Named Amazon Order Details and order-scoped merchant transactions"
       ]
     },
     {
@@ -10039,7 +10252,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:887ff7182f4cfa9ccb094fa9d73bf8d3b0db5dcfee6d898393a9152b5a856efe",
+  "input_fingerprint": "sha256:a75f890e4ecb6b20cf45f880cb1bee39a28fcccb4d18fa707f9e317d49cb9020",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13808,6 +14021,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-97809881439b4885a7e33a8eb87b4b23"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "order_id": "amazon:112-7863139-0903423",
+      "purchase_ids": [
+        "pur-e8d3c873b40848499b387a0bed8978f7"
+      ],
+      "reference": "112-7863139-0903423",
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -15392,6 +15624,25 @@
       "reference": "114-2674264-1703446",
       "source_ids": [
         "saved-amazon:114-2674264-1703446"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-8733331cccaa40d2b47ffde578a9bcd0"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "order_id": "amazon:114-2679873-7632253",
+      "purchase_ids": [
+        "pur-4cac3e81d16a4257b9c6b725ba967b74"
+      ],
+      "reference": "114-2679873-7632253",
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
       ],
       "vendor": "Amazon"
     },
@@ -18477,6 +18728,25 @@
         "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-bfde288f9a4046bc93c85650ef78f631",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
+      ],
+      "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-19293e4645d84cd08d555c566e2820d7"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "order_id": "bambu:us798331608108187648",
+      "purchase_ids": [
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8"
+      ],
+      "reference": "us798331608108187648",
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
       ],
       "vendor": "Bambu Lab"
     },
@@ -23166,6 +23436,52 @@
         "legacy-ledger-2026",
         "saved-bambu:us716485517830578177",
         "src-342104ac9a1743cfb9435b1a500c0717"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 8196,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount",
+      "event_ids": [
+        "evt-19293e4645d84cd08d555c566e2820d7"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+      "purpose": "equipment_tooling",
+      "quantity": null,
+      "quantity_text": "",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "row_date_basis": "order_date",
+      "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
+      "service_period": null,
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -29349,6 +29665,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-5620567-3321809"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 21231,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Polymaker Fiberon PET-GF15 Black, 1.75 mm, three 3 kg spools (9 kg total); $224.97 merchandise less $27.00 promotion + $14.34 estimated tax, free shipping",
+      "event_ids": [
+        "evt-8733331cccaa40d2b47ffde578a9bcd0"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-4cac3e81d16a4257b9c6b725ba967b74",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-4cac3e81d16a4257b9c6b725ba967b74",
+      "purpose": "consumables_materials",
+      "quantity": 3,
+      "quantity_text": "3 spools (3 kg each)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "row_date_basis": "order_date",
+      "section": "13. Printing consumables",
+      "service_period": null,
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -52312,6 +52674,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 4278,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — printer accessory; $39.89 item + $2.89 estimated tax, free shipping",
+      "event_ids": [
+        "evt-97809881439b4885a7e33a8eb87b4b23"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "row_date_basis": "order_date",
+      "section": "13. Printing consumables",
+      "service_period": null,
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 1391,
       "contributes": true,
@@ -62430,6 +62838,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-14"
+      },
+      "document_type": "order_confirmation",
+      "note": "Order Details identifies one black H2C dual-textured and smooth PEI spring-steel build plate (ASIN B0GRSZJYJ9), sold by HZD US. Item USD 39.89, shipping USD 0.00, estimated tax USD 2.89, total USD 42.78. Order-scoped merchant transactions show no transactions yet. Delivery is not confirmed.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-7863139-0903423",
+      "source_id": "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-04-16"
       },
       "document_type": "merchant_monetary_receipt",
@@ -62830,6 +63254,19 @@
       "source_id": "src-2b1cbba3d93c4326bd7787d64b2109ef",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "order_confirmation",
+      "note": "Order confirmation itemizes two H2C Engineering Plates: USD 109.98 before USD 22.00 sale discount, USD 87.98 subtotal, USD 11.56 credit applied, USD 5.54 tax and USD 81.96 net payment. Signed-in order list shows placed November 14, 2026 at 20:58, Processing. Separate completed charge and merchant event date are not established; credit origin is not established.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "us798331608108187648",
+      "source_id": "src-2c30f092670c4f8d91381f26b9dff8b0",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-15"
     },
     {
       "document_date": {
@@ -68018,6 +68455,19 @@
       "verified_at": "2026-11-11"
     },
     {
+      "document_date": null,
+      "document_type": "order_confirmation",
+      "note": "Named Order Details supplies November 14 placed date and three 3 kg spools, ASIN B0FBWGTW9W. Order-scoped transactions show no transactions yet. Arrival is estimated Tuesday, not delivery evidence.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "114-2679873-7632253",
+      "source_id": "src-eb3019ef3d99416ea0889f3f9aba87ef",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-06-30"
@@ -69532,15 +69982,18 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 20310,
+          "amount_minor": 54015,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
+            "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+            "pur-4cac3e81d16a4257b9c6b725ba967b74",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
             "pur-c421deec9a2f4c7b868ae95b9e1499c1",
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
+            "pur-e8d3c873b40848499b387a0bed8978f7",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
           "unknown_amount_ids": []
@@ -69558,6 +70011,8 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+        "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-79ed4268d7cf4c8ba55804d8d07a8adc",
         "pur-b6c01a5b012340fc888139c1070dc054",
@@ -69565,6 +70020,7 @@
         "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-dfd251509a3543c5b3bd9e358dcef85f",
+        "pur-e8d3c873b40848499b387a0bed8978f7",
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
@@ -69573,7 +70029,10 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-19293e4645d84cd08d555c566e2820d7",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
+        "evt-8733331cccaa40d2b47ffde578a9bcd0",
+        "evt-97809881439b4885a7e33a8eb87b4b23",
         "evt-a3c8a2e1a259405e85d14c27817deb58"
       ],
       "monthly": [
@@ -69930,6 +70389,7 @@
             "evt-0447af18f1f34778b9cd0f9facee2d40",
             "evt-0dd1678555e5406590e6b25b16d55d75",
             "evt-1399a1a835ce4be3a489628c06225b33",
+            "evt-19293e4645d84cd08d555c566e2820d7",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
             "evt-5fddb80e882c4533bf9042d5a74088cc",
@@ -69937,8 +70397,10 @@
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-6717a43cd68d4f1d80ba7a21e90df127",
             "evt-69d186cf3c4c436788b6706105b50532",
+            "evt-8733331cccaa40d2b47ffde578a9bcd0",
             "evt-88d09a48acef421f95613ba1f60d2f08",
             "evt-903eedfb26fd4f999dda301c34468ee4",
+            "evt-97809881439b4885a7e33a8eb87b4b23",
             "evt-998ca791689f49919e825d9ad1e0def0",
             "evt-99939add7e964cfb9fb65ee05dc98a55",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
@@ -70673,7 +71135,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 18878,
+          "estimate_minor": 52583,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 68812,
           "legacy_unverified_minor": 0,
@@ -70681,6 +71143,7 @@
           "purchase_ids": [
             "pur-0b426a7ded014916bd32dde66a3d3030",
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
+            "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-24623d00c3e94898adf2465f7537b1bd",
             "pur-2ad02a3c76fc4de6b57a9424c7892858",
             "pur-3161c146b8ef40e5817e13af4dc07846",
@@ -70688,6 +71151,7 @@
             "pur-36841266e8fb437a8d42247cbf7ee53d",
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
+            "pur-4cac3e81d16a4257b9c6b725ba967b74",
             "pur-5f9b203a9810468f8bab74284d78f44d",
             "pur-6655f4a0c1c747bc8ce06a69596eb432",
             "pur-6f3e90aba9734990a07d1e24f1f75a86",
@@ -70703,10 +71167,11 @@
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
             "pur-d6686b26577043b2acf9c6793d085302",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
+            "pur-e8d3c873b40848499b387a0bed8978f7",
             "pur-f72407db7ffa450695c514cf2f38539b",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 87690,
+          "total_minor": 121395,
           "unknown_amount_ids": []
         },
         {
@@ -70728,7 +71193,7 @@
           "purpose": "components"
         },
         {
-          "amount_minor": 638221,
+          "amount_minor": 659452,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -70743,7 +71208,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2397202,
+          "amount_minor": 2409676,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -70761,10 +71226,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 237051,
+          "estimate_minor": 270756,
           "final_vendor_amount_minor": 2905283,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5040642
+          "total_minor": 5074347
         }
       ],
       "undated_unallocated": [
@@ -70902,7 +71367,10 @@
     },
     "uncertainty": {
       "authored_gap_ids": [
+        "gap-083a0e4705eb4c0b8438f31067c1573e",
         "gap-139e9a25137a44468a9921f622868bfa",
+        "gap-185474032e1c4eff87199dab31a87387",
+        "gap-1b4d6f383f084b22ac7dd2ceac00a416",
         "gap-1e07a981739e40449539bd05770fafdc",
         "gap-27cbc75a60d0482493e9ec246cda4795",
         "gap-2e0c753bea0943db858dcaadb275439f",
@@ -70924,11 +71392,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 237051,
+          "estimated_purchase_minor": 270756,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2454756,
+          "purchases_without_merchant_charge_minor": 2488461,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -70941,11 +71409,13 @@
       "estimated_purchase_ids": [
         "pur-0504233f1bc64d7cbd4faa23bf63edd9",
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-2ad02a3c76fc4de6b57a9424c7892858",
         "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
+        "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
@@ -70967,6 +71437,7 @@
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
         "pur-dfd251509a3543c5b3bd9e358dcef85f",
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
+        "pur-e8d3c873b40848499b387a0bed8978f7",
         "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
@@ -70992,6 +71463,7 @@
         "coverage-39229818c301479f8e41d18b5ce3b0a6",
         "coverage-3b70e5a844c742d2ac1796dab636d5a0",
         "coverage-3be7379fc53e41e2b624ff0df39d942c",
+        "coverage-3ecfa1a835aa430088188a5d19167acc",
         "coverage-3f9213df0aa74f0ea6c1edddede6913c",
         "coverage-42b7855cb5784d1bb68d3fa2ebe3ebdd",
         "coverage-42d7760a10e14973982952b37ebe76a4",
@@ -71003,6 +71475,7 @@
         "coverage-551188b7ed324467806f9c4f28fccaf5",
         "coverage-59ed46ecf3b440448050d1c01f6aeada",
         "coverage-5d72f7e2ddec401d85de4cb0ce8ed2aa",
+        "coverage-5d93343debec42f28f0e114019f7a3c4",
         "coverage-615679b164eb4d54b8f4302a8f3b976f",
         "coverage-6194d8a6259e4ec4864ddd8bad6f5a79",
         "coverage-683c80d033e445e5a06780abc6fd7762",
@@ -71035,6 +71508,7 @@
         "coverage-a914738fc688438f8d509e94711f1e9c",
         "coverage-a998dc52b4624eb9affda84a3920c174",
         "coverage-a9a30503bf134e929097ac22eefffcbf",
+        "coverage-ab842088107045339bb47ef39f0cd522",
         "coverage-ac00b0893b3d4b808e645d57f024fe3b",
         "coverage-ac29a3ee87b742d2b8bd7ee14edcae46",
         "coverage-acea061ce3204d5f89dca212d3c84ba8",
@@ -71610,6 +72084,7 @@
         "pur-1a921c7df02b48cca8503560f61648d6",
         "pur-1af507c69de4482da0d7b9c1ecc99b52",
         "pur-1b7bb6a7d30446bca9cb2b15f9ab9d21",
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-1cd523f02fed4209ad9b4bdfb2f73f68",
         "pur-1d09a9a1ecd74b74825b2ec81c59b0a4",
         "pur-1d1f4567c6c34e248390df7f295564d0",
@@ -71699,6 +72174,7 @@
         "pur-4aa0cc28a1c64c85bd8200f0b123cf65",
         "pur-4bcc03a034a74bb394f4afa9254bcb19",
         "pur-4c22e1848a354f34a9faf63033e7121d",
+        "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4ce8b4ab83a54bdfa2dc9e264ccd1b0e",
         "pur-4dab8c029f604a8e8c1c585de5567bab",
         "pur-4e67b837e2924692ab29eaaba49ae039",
@@ -72023,6 +72499,7 @@
         "pur-e810552194844a54b71434179e0a985f",
         "pur-e82a517df8ae431283006bac8ccd2ca0",
         "pur-e8d314ccce9643ffbd660b3cf9bd5f66",
+        "pur-e8d3c873b40848499b387a0bed8978f7",
         "pur-e8f682f830f544c48d1b685defeb4ef3",
         "pur-e93a90b55e4540fbb8dae666d99c0176",
         "pur-e954ecc7688742b594585e9498bbbc01",
@@ -72076,6 +72553,7 @@
         "evt-0447af18f1f34778b9cd0f9facee2d40",
         "evt-0dd1678555e5406590e6b25b16d55d75",
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-19293e4645d84cd08d555c566e2820d7",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
@@ -72083,8 +72561,10 @@
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-6717a43cd68d4f1d80ba7a21e90df127",
         "evt-69d186cf3c4c436788b6706105b50532",
+        "evt-8733331cccaa40d2b47ffde578a9bcd0",
         "evt-88d09a48acef421f95613ba1f60d2f08",
         "evt-903eedfb26fd4f999dda301c34468ee4",
+        "evt-97809881439b4885a7e33a8eb87b4b23",
         "evt-998ca791689f49919e825d9ad1e0def0",
         "evt-99939add7e964cfb9fb65ee05dc98a55",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
@@ -72225,7 +72705,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "17 authored evidence gap(s) remain",
+      "20 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-07575d26f1b2453ba683076fe7b7fa9c: evidence coverage is partial",
@@ -72247,6 +72727,7 @@
       "coverage-39229818c301479f8e41d18b5ce3b0a6: evidence coverage is partial",
       "coverage-3b70e5a844c742d2ac1796dab636d5a0: evidence coverage is partial",
       "coverage-3be7379fc53e41e2b624ff0df39d942c: evidence coverage is unknown",
+      "coverage-3ecfa1a835aa430088188a5d19167acc: evidence coverage is partial",
       "coverage-3f9213df0aa74f0ea6c1edddede6913c: evidence coverage is partial",
       "coverage-42b7855cb5784d1bb68d3fa2ebe3ebdd: evidence coverage is partial",
       "coverage-42d7760a10e14973982952b37ebe76a4: evidence coverage is partial",
@@ -72258,6 +72739,7 @@
       "coverage-551188b7ed324467806f9c4f28fccaf5: evidence coverage is partial",
       "coverage-59ed46ecf3b440448050d1c01f6aeada: evidence coverage is partial",
       "coverage-5d72f7e2ddec401d85de4cb0ce8ed2aa: evidence coverage is unknown",
+      "coverage-5d93343debec42f28f0e114019f7a3c4: evidence coverage is partial",
       "coverage-615679b164eb4d54b8f4302a8f3b976f: evidence coverage is unknown",
       "coverage-6194d8a6259e4ec4864ddd8bad6f5a79: evidence coverage is partial",
       "coverage-683c80d033e445e5a06780abc6fd7762: evidence coverage is unknown",
@@ -72290,6 +72772,7 @@
       "coverage-a914738fc688438f8d509e94711f1e9c: evidence coverage is unknown",
       "coverage-a998dc52b4624eb9affda84a3920c174: evidence coverage is partial",
       "coverage-a9a30503bf134e929097ac22eefffcbf: evidence coverage is partial",
+      "coverage-ab842088107045339bb47ef39f0cd522: evidence coverage is partial",
       "coverage-ac00b0893b3d4b808e645d57f024fe3b: evidence coverage is partial",
       "coverage-ac29a3ee87b742d2b8bd7ee14edcae46: evidence coverage is partial",
       "coverage-acea061ce3204d5f89dca212d3c84ba8: evidence coverage is partial",
@@ -72329,7 +72812,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "24 legacy named order(s) lack an exact invoice allocation check",
+      "26 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
