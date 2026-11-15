@@ -169,14 +169,6 @@
           "value": "0",
           "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
         },
-        "tree_support_branch_diameter_angle": {
-          "value": "0",
-          "reason": "Lower tree trunks retain their base diameter."
-        },
-        "tree_support_branch_diameter": {
-          "value": "1.4",
-          "reason": "Keep the exposed native branches compact and clear of the fitted passages."
-        },
         "elefant_foot_compensation": {
           "value": "0",
           "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
@@ -188,10 +180,6 @@
         "support_on_build_plate_only": {
           "value": "0",
           "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
-        },
-        "tree_support_branch_angle": {
-          "value": "0",
-          "reason": "Keep the compact native support columns vertical in their open removal lanes."
         },
         "support_object_xy_distance": {
           "value": "0.5",
@@ -222,10 +210,6 @@
         "support_type": {
           "value": "tree(manual)",
           "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
-        },
-        "tree_support_wall_count": {
-          "value": "1",
-          "reason": "Keep the vertical branches narrow enough to remain beside their removal lanes."
         }
       },
       "parts": [
@@ -372,10 +356,6 @@
         "support_style": {
           "value": "default",
           "reason": "Retain the accepted tree treatment rooted on the rail cavity floors while local enforcers cover the accessible handhold mouths and seam lips."
-        },
-        "tree_support_branch_diameter_angle": {
-          "value": "0",
-          "reason": "Rail trunks retain their small section through the cavity height."
         },
         "support_on_build_plate_only": {
           "value": "0",
@@ -797,10 +777,6 @@
         "tree_support_branch_angle": {
           "value": "10",
           "reason": "The automatic-tree placement on the current full lid splayed beyond the 20 mm bed border at its west WAGO end wall. Keep Tree(auto)/Default and its automatic contact decisions; limit branch inclination on this wide lid so those supports rise near their supported wall."
-        },
-        "tree_support_branch_diameter_angle": {
-          "value": "0.5",
-          "reason": "Limit trunk growth on the current wide lid to retain the 20 mm full-bead border while preserving the 2 mm branch diameter and automatic support contacts."
         }
       },
       "plate_border_mm": 20.0,
