@@ -12,7 +12,7 @@ fn prop(name: &str, solid: Solid, color: [f64; 3]) -> Prop {
 }
 fn visible(name: &str) -> bool {
     name.starts_with("enclosure-front-") || name.starts_with("enclosure-back-")
-        || ["nameplate", "display", "status-plate", "rear-label", "bulkhead", "funnel"]
+        || ["nameplate", "display", "status-", "rear-label", "bulkhead", "funnel"]
             .iter().any(|prefix| name.starts_with(prefix))
         || matches!(name, "co2-inlet" | "keystone-jack" | "c14-inlet")
 }
@@ -143,7 +143,7 @@ fn main() -> Result<()> {
         views.push(json!({"name":name,"path":path,"cam":[1.,-0.5,0.45],"target":[0.,150.,380.],"span":230.,
             "reference_size":[1600,1500],"scale":2,"anchors":{}}));
     }
-    let path=write_scene(&out,"fill-screen-framed",&select(&exterior,|n|n.starts_with("display")||n.starts_with("status-plate")),&[])?;
+    let path=write_scene(&out,"fill-screen-framed",&select(&exterior,|n|n.starts_with("display")||n.starts_with("status-")),&[])?;
     let cover=source["meshes"].as_array().unwrap().iter().find(|n|n["name"]=="display-cover").context("display cover")?;
     let frame=&cover["transform"];let up=v3(frame[0][1].as_f64().unwrap(),frame[1][1].as_f64().unwrap(),frame[2][1].as_f64().unwrap());
     let normal=v3(frame[0][2].as_f64().unwrap(),frame[1][2].as_f64().unwrap(),frame[2][2].as_f64().unwrap());
