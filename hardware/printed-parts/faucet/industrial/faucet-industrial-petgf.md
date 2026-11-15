@@ -20,9 +20,7 @@ describe the product plate. Its print-only archive is kept on this Mac beside th
 TPU gasket, lever sleeve, PET-GF umbilical organizer and stainless under-counter plate are
 separate prints or parts.
 
-[`finish-selection.json`](finish-selection.json) records the Industrial print's own process
-selections and Derek's words for them. The plate takes the faucet plate's selections in their
-place.
+The plate takes the [faucet plate's selections](../../../../tools/hsm/print-prep/faucet-plate.json).
 
 ## Prepare the next print
 

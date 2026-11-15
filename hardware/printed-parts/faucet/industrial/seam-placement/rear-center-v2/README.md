@@ -7,7 +7,7 @@ meridian. The tip plug and display-frame surfaces retain their automatic Back
 seams. The mounting plate's exposed rim starts at X=0. The cover and lever
 retain Aligned, 15% seam gap and scarf off.
 
-The [selection](../../finish-selection.json) and
+The [selection](https://github.com/derekbreden/homesodamachine/blob/0052d13950e4470e01e0534776de5eb8eb84895b/hardware/printed-parts/faucet/industrial/finish-selection.json) and
 [preparer](https://github.com/derekbreden/homesodamachine/blob/0052d13950e4470e01e0534776de5eb8eb84895b/hardware/printed-parts/faucet/industrial/prepare_print_project.rs) select facets using their intersection
 with the center strip and the rear boundary at each **build Z**. This follows
 the contour's translation in plate Y. The base strip crosses X ±0.25 mm;
