@@ -71,10 +71,8 @@
       "infill": "100.00 on every part",
       "support": "100.00 on the ASSE cap and the elbow cradle, 99.98 on the regulator cap"
     },
-    "regulator_note": "The regulator cap's mapped contact courses carry a height per segment, which the matcher keys on.",
-    "tower_alone_effect": "The same layout sliced without the tower lays every part bead the same; only the tower's beads differ."
+    "regulator_note": "The regulator cap's mapped contact courses carry a height per segment, which the matcher keys on."
   },
-  "shallow_overhang_points": "Every part's walls run at their own speed through the slicer's two shallowest overhang points; a slice without those entries lays every bead the same, supports included.",
   "harm": {
     "below_a_top": 52,
     "below_a_top_where": "All on the regulator cap, from its own support to its own support, inside its nonplanar contact band; deepest a third of a millimetre.",
@@ -129,5 +127,10 @@
     "filament_mm": 86507.67,
     "pet_gf_g_at_maker_density": 297.5,
     "slicer_g_at_profile_density": 268.42
+  },
+  "read_on_other_plates_of_this_piece": {
+    "tower": "On the piece's four-row layout with the tower at the back right, the same plate sliced without the tower laid every part bead the same; only the tower's beads differed.",
+    "shallow_overhang_points": "On the piece's first plate of nine parts, the same plate sliced without the shallow-overhang entries laid every bead the same, supports included; only wall feeds changed.",
+    "slices": "Those comparison slices are not kept; the piece regenerates them."
   }
 }

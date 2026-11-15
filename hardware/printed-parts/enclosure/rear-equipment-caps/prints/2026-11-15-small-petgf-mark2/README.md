@@ -19,7 +19,7 @@ PET-GF parts that have no plate of their own on one Mark2 plate:
 
 Each part keeps the pose and recipe of the piece that prints it alone, carried as its object
 settings, and the regulator cap keeps its nonplanar contact. The umbilical organizer comes from
-its part mesh with the shared PET-GF recipe its own record names. Every part lays its walls at
+its part mesh with the shared PET-GF profile's walls and infill. Every part lays its walls at
 their own speed through the slicer's two shallowest overhang points, as the Sculpted faucet plate
 did; the steeper points, bridges and their fan stay as the filament has them.
 
