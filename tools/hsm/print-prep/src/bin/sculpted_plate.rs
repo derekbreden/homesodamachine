@@ -3,13 +3,16 @@
 //!
 //!     sculpted-plate OUT_DIR [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!
-//! It runs the preparer and `sculpted-dispense-face` from beside its own executable, so the three
-//! programs are built together from the checkout:
+//! It runs the preparer and `sculpted-dispense-face`: the ones built beside it, or the installed
+//! commands of those names. The three programs are built and installed together from the checkout,
+//! and the plate is prepared from inside the checkout:
 //!
 //!     tools/run -- "$(rustup which cargo)" build --release --locked --offline -j 2 \
 //!       --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep -p hsm-faucet-display-cover \
 //!       --bin sculpted-plate --bin sculpted-faucet-print-project --bin sculpted-dispense-face
-//!     tools/run -- tools/hsm/target/release/sculpted-plate OUT_DIR
+//!     hsm-run --install-tools "$PWD" tools/hsm/target/release/sculpted-plate \
+//!       tools/hsm/target/release/sculpted-faucet-print-project tools/hsm/target/release/sculpted-dispense-face
+//!     tools/run -- sculpted-plate OUT_DIR
 //!
 //! OUT_DIR is the run's own folder and must not exist. The plate's tip and cover carry the
 //! selections' dispense-face seam; the base is filled under its mounting face for the slice and
@@ -47,10 +50,15 @@ fn main() -> Result<()> {
     let out = out.canonicalize()?;
     let root = hsm_print_prep::root();
     let plate = sculpted_plate::selection(&root)?;
+    // the programs it runs: the ones built beside it, or the installed commands of their names
     let programs = std::env::current_exe()?.parent().context("the programs' folder")?.to_path_buf();
+    let program = |name: &str| {
+        let beside = programs.join(name);
+        if beside.is_file() { beside } else { PathBuf::from(name) }
+    };
     let rotation = sculpted_plate::TIP_ROTATION_DEGREES.to_string();
     let prepare = |project: &Path, extra: &[&str]| -> Result<()> {
-        let mut command = Command::new(programs.join("sculpted-faucet-print-project"));
+        let mut command = Command::new(program("sculpted-faucet-print-project"));
         command.arg(project).args(["--printer", &printer, "--filament-colour", &colour, "--tip-rotation", &rotation]).args(extra);
         run(command.current_dir(&root))
     };
@@ -58,7 +66,7 @@ fn main() -> Result<()> {
     // the tip and cover, with the plate's dispense-face seam when its selections name one
     let heads = if plate.get("dispense_face_seam").is_some() {
         let dir = out.join("meshes");
-        run(Command::new(programs.join("sculpted-dispense-face")).arg(&dir).current_dir(&root))?;
+        run(Command::new(program("sculpted-dispense-face")).arg(&dir).current_dir(&root))?;
         Some((dir.join("tip.stl"), dir.join("cover.stl")))
     } else {
         None
