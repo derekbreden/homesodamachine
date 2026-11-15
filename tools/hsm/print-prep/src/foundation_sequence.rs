@@ -312,7 +312,7 @@ impl<'a> Road<'a> {
 /// see their interior; complete native courses outside the join keep their source arcs.
 fn roads<'a>(band: &Band<'a>) -> Result<Vec<Road<'a>>> {
     let entry = band.entry.as_ref().context("Tip course entry")?;
-    let mut modal = Modal::new(Dialect::Tip, entry.xyz, 0.0);
+    let mut modal = Modal::new(entry.xyz, 0.0);
     modal.feed = entry.feed;
     modal.feature = entry.feature;
     modal.width = entry.width;
