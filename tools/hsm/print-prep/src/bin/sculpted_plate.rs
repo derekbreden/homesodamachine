@@ -95,12 +95,18 @@ fn main() -> Result<()> {
     tip_courses::write(&donor.join("slice/plate_1.gcode"), &donor.join("donor.print.json"), &donor.join("tip-warped.json"), &tape,
         &tip_courses::Banding { step: 0.0, uphill: false })?;
 
-    // the plate's project, sliced with the standing slice path's cooling stages
+    // the plate's project, sliced with the standing slice path's cooling stages; where the plate's
+    // selections splice the tip's end, the project without the shallow overhang points gives it
     let project = out.join("native.3mf");
     prepare(&project, &[&["--filled-base", &path(&filled)], head_args.as_slice(), finish_args.as_slice()].concat())?;
     let report: Value = serde_json::from_slice(&fs::read(out.join("native.print.json"))?)?;
+    let plain = plate.get("tip_end_splice").map(|_| out.join("plain/native.3mf"));
+    if let Some(plain) = &plain {
+        fs::create_dir_all(plain.parent().unwrap())?;
+        prepare(plain, &[&["--filled-base", &path(&filled)], head_args.as_slice()].concat())?;
+    }
     let slice = out.join("slice");
-    let cooling = sculpted_plate::slice_with_cooling(&project, &report, &slice)?;
+    let cooling = sculpted_plate::slice_with_cooling(&project, &report, &slice, plain.as_deref())?;
     fs::write(out.join("cooling.json"), serde_json::to_string_pretty(&cooling)? + "\n")?;
 
     // the base's foundation from its own mesh, the screw-seat rings and the plate's sequence

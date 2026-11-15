@@ -29,5 +29,11 @@
       "or 37% or whatever it is, to cut it in half maybe is what I was suggesting, so it is still scraping, but less.",
       "A compromise of sorts, that might avoid the problems of lifting too much, and solve the problem of not lifting at all."
     ]
+  },
+  "tip_end_splice": {
+    "scope": "In the tip-end cooling zone, from the lowest layer that stage cools to the tip's top, the tip's layers come from a slice of the plate's project without the shallow overhang points, so its walls there keep the slicer's recipe; they lay the same beads as the plate's own slice.",
+    "selected_date": "2026-11-14",
+    "selection_quote": "...and then everywhere else we want to go back to the print speeds that we had before, basically the settings that we had before.",
+    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
   }
 }
