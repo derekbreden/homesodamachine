@@ -366,11 +366,13 @@ The flavor rail carries both actual images, the slot a phone's request takes, an
 at the bottom. The portrait panel beside it shows the selected flavor's image.
 
 **The rail is the same on every page.** The selected flavor's cell is the portrait panel's
-own ice, from the glass edge into the portrait, so the two read as one: its thumbnail has an
-orange ring just outside it, and a check stands left of its number in ink. The other flavor
-has no card; its thumbnail and white number stand on the rail. Each number keeps its place
-selected or not. System status has no portrait, and there the cell's ice ends at the rail's
-edge. The portrait stands beside the rail on every other page, captioned **On tap.** in ink.
+own ice, from the glass edge into the portrait, so the two read as one. It holds no thumbnail,
+since its picture is the portrait: its number stands large in the middle of the cell with a
+check under it, both in ink. The other flavor has no card; its thumbnail stands on the rail in
+grey at a little over half strength, over its white number, and a tap on it puts that flavor on
+tap. While the selection is not known, both thumbnails stand in colour over their numbers.
+System status has no portrait, and there the cell's ice ends at the rail's edge. The portrait
+stands beside the rail on every other page, captioned **On tap.** in ink.
 
 **At rest** nothing stands over the pane: it runs the glass's full height, with the
 reservoir's caption and gauge at its top, then Fill, Prime and Clean, and apart from them
@@ -407,7 +409,10 @@ apply a pending choice to another channel.
 
 The image wire bundle stays 172×320, 129×240 and 86×160. At boot and after an image
 update, the display caches every image in PSRAM at each size it draws: the rail's, the
-portrait's and the picker's. LVGL draws these complete portraits without transforming them
+portrait's and the picker's, and the rail's again in grey. The grey is a browser's
+`grayscale()` of the rail's own pixels, Rec. 709 luma, laid at a little over half strength
+over the rail's navy once per picture, so the rail draws it as a plain copy; factory pictures
+and a phone's take the same path. LVGL draws these complete portraits without transforming them
 during a frame. No image or ratio edit writes NVS on the running RGB panel.
 
 Back, either flavor, the rail background and the whole portrait return to On tap.
