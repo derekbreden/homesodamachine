@@ -37,7 +37,8 @@ plastic are the regulator cap's, from its own support to its own support inside 
 and the standing rear-caps plate reads the same. That contact recipe prints for the first time on
 this plate.
 
-[launch.json](launch.json) records the accepted Mark2 job and [startup-spacing.json](startup-spacing.json)
-Mark1's last start before it. The [sent archive](2026-11-15-small-petgf-mark2-39847f01.gcode.3mf) and
+[launch.json](launch.json) records the accepted Mark2 job, [startup-spacing.json](startup-spacing.json)
+Mark1's last start before it, and [first-layer-status.json](first-layer-status.json) the printer's
+own report once the first layer was under way. The [sent archive](2026-11-15-small-petgf-mark2-39847f01.gcode.3mf) and
 the [editable project](2026-11-15-small-petgf-mark2-39847f01.3mf) are here, with the preparer's
 [preparation](preparation.json) and [review](review.json). [Reproduce the plate](REPRODUCE.md).
