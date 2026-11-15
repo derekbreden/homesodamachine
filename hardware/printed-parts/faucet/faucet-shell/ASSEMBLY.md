@@ -180,7 +180,8 @@ matching tip and cover in their selected orientations.
 Their native records identify the geometry, settings and support contacts.
 
 The dispense face has axial stock. The display pocket and USB clearance
-share one flat plane behind it.
+share one flat plane behind it. At its front corners the pocket opens behind
+the display cover's front rim, under a face parallel to the rim.
 
 The [display cover instructions](../faucet-display-cover/README.md) give the
 mating dimensions and print orientation.
