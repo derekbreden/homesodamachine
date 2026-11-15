@@ -14,7 +14,7 @@
 //! over them. `approaches` reads the head replay's dry nozzle approaches again at their exact
 //! positions over the earlier beads.
 //!
-//!   sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl
+//!   sculpted-trial warp matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl
 //!   sculpted-trial supports WARP.json OUT.json
 //!   sculpted-trial tape DONOR.gcode DONOR.print.json WARP.json OUT.gcode --band-step STEP [--uphill-all] --native-nose
 //!   sculpted-trial fill BASE.stl OUT.stl
@@ -101,11 +101,9 @@ fn main() -> Result<()> {
     match command.as_str() {
         "warp" => {
             let [recipe, mesh, project, output] = values.as_slice() else {
-                bail!("usage: sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl");
+                bail!("usage: sculpted-trial warp matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl");
             };
             let recipe = match recipe.as_str() {
-                "tip-shoulder" => &tip_warp::TIP_SHOULDER,
-                "plug-ramp" => &tip_warp::PLUG_RAMP,
                 "matched-shoulder" => &tip_warp::MATCHED_SHOULDER,
                 "short-shoulder" => &tip_warp::SHORT_SHOULDER,
                 other => bail!("unknown tip warp {other}"),
