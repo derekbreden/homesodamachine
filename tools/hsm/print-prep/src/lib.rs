@@ -15,6 +15,7 @@ pub mod faucet_underside;
 pub mod feed_cap;
 pub mod filled_base;
 pub mod gcode;
+pub mod head_map;
 pub mod ids;
 pub mod json;
 pub mod mesh;
