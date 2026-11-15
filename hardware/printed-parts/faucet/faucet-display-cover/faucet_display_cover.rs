@@ -1,8 +1,9 @@
 //! The Sculpted faucet's display cover: a skin lofted from its skirt round the neck up to its face,
 //! hollowed for the display and opened for the glass and round the neck, its lower front and rear
-//! edges sloped up to the open underside, with the lips that snap into the shell's grooves; cut as
-//! it sits on the tip, which the faucet assembly stands in place, and printed with its sides bowed
-//! in by what they spring back from on the neck.
+//! edges sloped up to the open underside, with the lips that snap into the shell's grooves and the
+//! tongue its face lays over the tip's flat dispense face; cut as it sits on the tip, which the
+//! faucet assembly stands in place, and printed with its sides bowed in by what they spring back
+//! from on the neck.
 //!
 //!     faucet-display-cover [<output directory>]
 use anyhow::{Result, ensure};
@@ -35,7 +36,7 @@ fn main() -> Result<()> {
 }
 
 /// The cover as it sits on the tip: its skin hollowed for the display, opened for the glass and
-/// round the neck, its lower edges sloped, with its lips.
+/// round the neck, its lower edges sloped, with its lips and its face's tongue.
 fn seated_cover(neck: &Gooseneck) -> Result<Solid> {
     let outer = clamped(neck, loft(neck, &cover::outer_rows())?, cover::outer_clamp())?;
     let mut cavity = loft(neck, &cover::cavity_rows())?;
@@ -58,7 +59,8 @@ fn seated_cover(neck: &Gooseneck) -> Result<Solid> {
     let [hx, s0, s1, n0, n1] = cover::lip_band();
     let band = neck.cradle_prism(hx, (s0, s1), (n0 - PAST, n1), 0.0)?;
     let lips = display::lips(&outer.intersect(&band)?, neck, cover::LIP_R, cover::LIP_RELIEF)?;
-    skin.union(&lips)
+    let tongue = display::cover_tongue(neck, cover::TONGUE_CLEARANCE, cover::neck_clearance_r(), cover::TONGUE_DEPTH, cover::TONGUE_OVERLAP)?;
+    Solid::union_all(&[skin, lips, tongue])
 }
 
 /// The smooth loft through the rows' outlines (`outline`).
