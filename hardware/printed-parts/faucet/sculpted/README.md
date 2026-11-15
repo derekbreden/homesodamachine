@@ -126,6 +126,18 @@ The [Mark2 restored short-foundation plate](prints/2026-11-14-seven-courses-rest
 prints the mounting face and visible shoulder on inclined interfaces, then
 uses the archived level wall and rear scarf recipe above each foundation.
 
+`sculpted-plate OUT_DIR` prepares that plate from the checkout: its meshes, the standing
+[finish selection](finish-selection.json) and the plate's own selections in
+[`sculpted-plate.json`](../../../../tools/hsm/print-prep/sculpted-plate.json). Its tip and cover
+carry the flat dispense-face seam that `sculpted-dispense-face` cuts and adds on the standing
+exports. The base is filled under its mounting face for the slice and laid on its sloped
+foundation from its own mesh; the tip's mating courses come from a warped donor tip, sliced
+alone and laid back onto the real shoulder. The plate's slice runs the standing slice path's
+bridge-foundation and tip-end cooling stages. Its sequence moves between course groups as the
+slicer's layer changes do, and its layer, progress and time-left lines come from the
+acceleration planner that `hsm-gcode`'s playback uses. The `sculpted-trial` stage commands lay
+one stage at a time for investigation.
+
 The display seat, foot recesses and cover bezel use their shared mounted datums.
 The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
 binds that print's geometry. Current 4 mm tubing and passage evidence are in

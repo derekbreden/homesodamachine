@@ -1,0 +1,15 @@
+{
+  "purpose": "The Sculpted faucet plate's own selections, which sculpted-plate prepares over the standing finish selection.",
+  "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
+  "dispense_face_seam": {
+    "parts": ["faucet-shell-tip", "faucet-display-cover"],
+    "program": "sculpted-dispense-face",
+    "scope": "The tip's crown at the dispense face passes to the display cover along a flat chord with tangent end fillets; the tip and cover meshes come from the standing exports with that seam cut and added.",
+    "selected_date": "2026-11-14",
+    "selection_quote": [
+      "instead having the cover go all the way across left to right there, no peaks, no cutout.",
+      "Just flat top, and go easy on the transition from flat top back to the circle is all I meant when I said \"rounded corners\"."
+    ],
+    "physical_evidence": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-tip-shoulder-mark2/dispense-face.json"
+  }
+}
