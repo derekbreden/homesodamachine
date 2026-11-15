@@ -13,6 +13,10 @@
     "maximum_overhang_speed_mm_s": 15,
     "fan_threshold": "50%"
   },
+  "rear_seam_enforcement": {
+    "part": "faucet-shell-base",
+    "half_width_mm": 0.25
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],

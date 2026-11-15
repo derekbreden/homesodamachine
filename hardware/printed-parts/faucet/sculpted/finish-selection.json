@@ -41,13 +41,6 @@
   "default_printer": "Mark2",
   "default_filament_colour": "#FFFFFF",
   "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
-  "rear_seam_enforcement": {
-    "part": "faucet-shell-base",
-    "half_width_mm": 0.25,
-    "target": "Complete Sculpted rear silhouette at every build Z; facets intersecting CAD X=0 +/-0.25 mm",
-    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-    "physical_result": "Industrial reference only; Sculpted seam placement reviewed natively for this print."
-  },
   "tip_rear_seam_enforcement": {
     "part": "faucet-shell-tip",
     "half_width_mm": 0.0,
