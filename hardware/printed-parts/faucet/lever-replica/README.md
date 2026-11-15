@@ -25,8 +25,8 @@ the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits i
 | [lever-replica.step](lever-replica.step) | Accepted analytic solid in the local part frame |
 | [lever-replica.stl](lever-replica.stl) | Accepted mesh in that same frame; source of the viewer payload |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
-| [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and +0.18 mm Z trim |
-| [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever at +0.04 mm Z trim, for Mark2 |
+| [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and the H2C's standing PET-GF Z trim |
+| [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever with Mark2's standing PET-GF Z trim |
 | [lever-black-petgf-z018-h2c.gcode.3mf](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/lever-replica/lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
 | [lever-original-wide-white-z004-mark2.gcode.3mf](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/lever-replica/lever-original-wide-white-z004-mark2.gcode.3mf) | Completed and physically accepted white lever at +0.04 mm on Mark2 |
 | [print-jobs.json](print-jobs.json) | Printer completion, physical observations, material/nozzle and job hashes |
@@ -121,13 +121,12 @@ applies to the printed lever's fit and operation, independently of that placemen
 ## PET-GF comparison print
 
 The project takes its process and filament settings directly from the shared
-[`petgf.3mf`](../../petgf.3mf), with Derek's +0.18 mm Z trim. Its H2C left
+[`petgf.3mf`](../../petgf.3mf), with the printer's standing PET-GF Z trim. Its H2C left
 0.4 mm profile uses 265 °C first layer / 280 °C later, 80 °C Textured PEI,
 0.24 mm layers, a 0.20 mm first layer, two walls, 15% grid infill and 0.9555
 flow ratio. The physical setup is black PET-GF and a 0.4 mm diamond PCD nozzle.
 The single external spool uses the saved PET-CF mapping for PET-GF. The trim
-adds to the stock Textured PEI compensation, producing `G29.1 Z0.16` in the
-submitted G-code.
+adds to the stock Textured PEI compensation in the emitted `G29.1`.
 
 The right side is on the bed. The broad outer face is vertical and has no labelled
 support-interface contact. The offline slice has one bed-rooted support body
@@ -183,8 +182,9 @@ tools/hsm/target/release/lever-print-project
 
 `lever-print-project --slice-output /tmp/lever-comparison-slice` also runs an offline
 Bambu Studio slice into an empty directory and writes the submittable archive beside
-the project. `--variant` picks the machine: `black-h2c` takes Derek's +0.18 mm Z trim,
-`white-mark2` takes +0.04 mm. Both take their process and filament settings from the
+the project. `--variant` picks the machine, `black-h2c` the H2C and `white-mark2` Mark2, and
+each takes that printer's standing PET-GF Z trim from
+[`pieces.json`](../../enclosure/trial-preparation/pieces.json). Both take their process and filament settings from the
 shared `petgf.3mf`; the filament colour is physical, on the spool. Neither connects to
 a printer — submission goes through Bambu Connect, driven by `tools/bambu-ax`, and is
 recorded in `print-jobs.json`.
