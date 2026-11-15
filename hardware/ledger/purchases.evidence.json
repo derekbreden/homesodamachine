@@ -20833,13 +20833,17 @@
       "event_id": "evt-97809881439b4885a7e33a8eb87b4b23",
       "vendor": "Amazon",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
       "amount_minor": 4278,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-49093cce3e6b470c807ba8dec2675623"
       ],
       "verified_at": "2026-11-15",
       "order_ids": [
@@ -35058,6 +35062,22 @@
       ],
       "verified_at": "2026-11-15",
       "note": "Signed-in Amazon order history, read 2026-11-15: order placed November 15, 2026; one Spurtar Feeler Gauges 0.001-0.04\" (0.03-1.00mm) 32 Blades Tapered, Dual Marked SAE and Metric (B07B3TQQSV), ships from Amazon, sold by Wittyware, USD 8.79 item. Order total USD 9.43; the USD 0.64 remainder is tax, with no shipping charge. Status Arriving Tuesday (2026-11-17), an estimate, not delivery evidence. No completed merchant charge is established."
+    },
+    "src-49093cce3e6b470c807ba8dec2675623": {
+      "vendor": "Amazon",
+      "document_type": "completed_merchant_transaction",
+      "reference": "112-7863139-0903423",
+      "document_date": null,
+      "proves": [
+        "charge",
+        "merchant_event_date"
+      ],
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "verified_at": "2026-11-15",
+      "note": "Order-scoped Your Payments > Completed shows one USD 42.78 transaction dated November 15, 2026. This confirms the existing expected event in place; allocations remain unchanged. Order Details still estimates USD 2.89 tax and says arriving today, which does not prove delivery or final tax. No bank posting or funding ownership is inferred."
     }
   },
   "coverage": [
@@ -37357,6 +37377,26 @@
         "amazon:112-7519255-8741021"
       ],
       "note": "Exact named order only; no account-wide coverage claimed."
+    },
+    {
+      "coverage_id": "coverage-b33231d38620439992b31e180cbd4e92",
+      "vendor": "Amazon",
+      "stream": "named H2C PEI plate order payment",
+      "evidence_type": "completed_merchant_transaction",
+      "checked_at": "2026-11-15",
+      "examined_period": {
+        "start": "2026-11-15",
+        "end": "2026-11-15"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-49093cce3e6b470c807ba8dec2675623"
+      ],
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "note": "Exact named order only; no account-wide coverage claimed."
     }
   ],
   "gaps": [
@@ -37762,12 +37802,14 @@
       ],
       "source_ids": [
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
-        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde"
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
+        "src-49093cce3e6b470c807ba8dec2675623"
       ],
-      "missing_fact": "Order is shipped. Actual delivery, completed merchant payment and final tax remain unconfirmed.",
+      "missing_fact": "Order is shipped and the completed merchant charge is confirmed. Actual delivery and final tax remain unconfirmed.",
       "sources_checked": [
         "Named Amazon Order Details and order-scoped merchant transactions",
-        "Named Amazon shipment confirmation"
+        "Named Amazon shipment confirmation",
+        "Named Amazon Order Details and order-scoped Completed transaction, checked November 15, 2026"
       ]
     },
     {
