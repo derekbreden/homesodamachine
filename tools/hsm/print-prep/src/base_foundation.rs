@@ -44,8 +44,6 @@ fn descent_lift(path: &[[f64; 3]], radius: f64, share: f64) -> Vec<f64> {
 pub const COURSE: f64 = 0.24;
 const AIR: f64 = 0.24;
 const ROOF_COURSES: usize = 3;
-/// Sloped courses laid on the sockets' shoulders before the level courses.
-const COURSES_OVER_SHOULDER: usize = 1;
 /// The part courses a short foundation lays parallel to the mounting face, below the level layers.
 pub const SHORT_FOUNDATION_COURSES: usize = 7;
 /// The courses the base is cut into while its sockets' shoulder is looked for.
@@ -433,7 +431,7 @@ pub struct Foot {
 impl Foot {
     /// The base cut parallel to its mounting face, whose rim is `rim`, through the middle of each
     /// course.
-    fn cut(mesh: &Mesh, courses: Option<usize>, rim: [f64; 2]) -> Result<Foot> {
+    fn cut(mesh: &Mesh, courses: usize, rim: [f64; 2]) -> Result<Foot> {
         mesh.check_closed_single_body("faucet base")?;
         let mut probe = Vec::with_capacity(PROBE_COURSES);
         for k in 1..=PROBE_COURSES {
@@ -456,7 +454,7 @@ impl Foot {
         let shoulder = 1 + probe.iter()
             .position(|r| small(r).into_iter().fold(f64::NEG_INFINITY, f64::max) < 0.6 * sockets[0])
             .context("no course closes the sockets down to their pilots")?;
-        let count = courses.unwrap_or(shoulder + COURSES_OVER_SHOULDER);
+        let count = courses;
         ensure!((1..=probe.len()).contains(&count), "the foot's course count is outside the probed range");
         let regions: Vec<Region> = probe.into_iter().take(count).collect();
         let reach = regions.iter().fold([0.0_f64; 2], |m, r| {
@@ -479,7 +477,6 @@ pub struct FootLaid {
     pub shoulder_course: usize,
     pub slab_top: f64,
     pub plug_top: f64,
-    pub deck_top: f64,
     /// The show surface's laps, one in each course.
     pub show_laps: usize,
     /// The most a show lap rises where it descends, and where on the face that is.
@@ -554,36 +551,27 @@ impl Laying<'_> {
     }
 
     /// One course of the foot: the rings its stock lies uphill of, the rings of its narrow
-    /// strips, the fill, then the rings its stock lies downhill of. A backing wall doubles the
-    /// rings inside the outer ones. Where the course holds the `show` surface, its outermost
+    /// strips, the fill, then the rings its stock lies downhill of. Where the course holds the
+    /// `show` surface, its outermost
     /// ring is one lap from the rear, the same way round as the level walls above: laid first
     /// where `lap_first`, so a bridge's fill starts on it, and otherwise last.
     #[allow(clippy::too_many_arguments)]
-    fn course(&mut self, region: &Region, n_top: f64, angle: f64, f: &Feature, backing_wall: bool, show: bool, lap_first: bool) {
+    fn course(&mut self, region: &Region, n_top: f64, angle: f64, f: &Feature, show: bool, lap_first: bool) {
         if region.is_empty() {
             return;
         }
         let edge = region.offset(-SKIN_WIDTH / 2.0);
         let outer = outermost_ring(&edge).filter(|_| show)
             .and_then(|(ring, others)| closed_lap(&ring, f.lap, true).map(|lap| (lap, others)));
-        let (lap, (mut first, mut last)) = match outer {
+        let (lap, (first, last)) = match outer {
             Some((lap, others)) => (Some(lap), ring_pieces(&others, f.lap)),
             None => (None, edge_pieces(&edge, f.lap)),
         };
-        let backing = if backing_wall { SKIN_WIDTH } else { 0.0 };
-        let mut fill = region.offset(-(SKIN_WIDTH + backing + f.pitch / 2.0 - OVERLAP));
+        let mut fill = region.offset(-(SKIN_WIDTH + f.pitch / 2.0 - OVERLAP));
         if !fill.is_empty() {
             fill = fill.offset(-OPEN).offset(OPEN).and(&fill);
         }
-        let mut narrow = narrow_pieces(region, SKIN_WIDTH, f.pitch, &fill);
-        if backing_wall {
-            // the inner pair replaces the first narrow-ring band; any narrower stock farther in stays
-            let (inner_first, inner_last) = edge_pieces(&region.offset(-1.5 * SKIN_WIDTH), f.lap);
-            let ring_stock = region.offset(-2.0 * SKIN_WIDTH + 0.06);
-            narrow.retain(|(pts, _)| ring_stock.covers(pts));
-            first.extend(inner_first);
-            last = [inner_last, last].concat();
-        }
+        let narrow = narrow_pieces(region, SKIN_WIDTH, f.pitch, &fill);
         self.w.comment_feature(f.ring, SKIN_WIDTH);
         if let Some(lap) = lap.as_ref().filter(|_| lap_first) {
             self.lap(lap, n_top, SKIN_WIDTH, f.ring_speed, f.flow);
@@ -613,9 +601,7 @@ impl Laying<'_> {
 }
 
 /// The foot's sloped courses on the roof, with the plugs and the deck rising beside them.
-/// `deck_top` stops the deck short of the slab's top, and the last course then takes a backing
-/// wall.
-pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64>, lift_share: f64) -> Result<FootLaid> {
+pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64) -> Result<FootLaid> {
     let regions = &foot.regions;
     let count = regions.len();
     let mut openings = regions[0].holes();
@@ -628,9 +614,7 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
     // the last course the plugs rise with
     let plug_top = foot.shoulder.saturating_sub(2).min(count);
     let slab_top = count as f64 * COURSE;
-    let deck_top = deck_top.unwrap_or(slab_top);
-    ensure!((count - 1) as f64 * COURSE < deck_top && deck_top <= slab_top, "the deck's top {deck_top} is not in the last course");
-    let laid = FootLaid { sloped_courses: count, shoulder_course: foot.shoulder, slab_top, plug_top: plug_top as f64 * COURSE, deck_top,
+    let laid = FootLaid { sloped_courses: count, shoulder_course: foot.shoulder, slab_top, plug_top: plug_top as f64 * COURSE,
                           tip_radius: left_nozzle()?[0], lift_share, ..Default::default() };
     let mut lay = Laying { w, frame, laid };
     // the plugs and the deck start on the roof, level with the mounting face
@@ -651,21 +635,21 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
         if k == 1 {
             // the first course crosses the roof's air as a bridge, as Support D lays it
             lay.w.raw(format!("{BRIDGE_FAN} ; the first course over air takes the bridge's fan"));
-            lay.course(region, n_top, 90.0, &Feature { ring: "Bottom surface", fill: "Bottom surface", ..BRIDGE }, false, true, true);
+            lay.course(region, n_top, 90.0, &Feature { ring: "Bottom surface", fill: "Bottom surface", ..BRIDGE }, true, true);
             lay.w.raw("M106 S0");
         } else if k == foot.shoulder {
             // the sockets' shoulders cross the plugs' air the same way, after the rest of the course
             let zone = sockets.iter().fold(Region::default(), |z, s| z.union(&s.offset(SHOULDER_REACH)));
-            lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), false, true, false);
+            lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), true, false);
             lay.w.raw(format!("{BRIDGE_FAN} ; the shoulders over the plugs take the bridge's fan"));
-            lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false, false, false);
+            lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false, false);
             lay.w.raw("M106 S0");
         } else {
             let flow = if k == 2 { 1.05 } else { 1.0 };
-            lay.course(region, n_top, angle, &wall(flow), deck_top < slab_top && k == count, true, false);
+            lay.course(region, n_top, angle, &wall(flow), true, false);
         }
         lay.w.comment_feature("Support", ROOF_WIDTH);
-        let deck_n = n_top.min(deck_top);
+        let deck_n = n_top.min(slab_top);
         let pitch = if k + 3 > count { ROOF_WIDTH } else { 3.0 * ROOF_WIDTH };
         lay.support(&deck, deck_n, angle, pitch, deck_n - (k - 1) as f64 * COURSE);
         if k <= plug_top {
@@ -1254,8 +1238,6 @@ pub struct Foundation<'a> {
     pub stl: &'a Path,
     pub headmap: &'a Path,
     pub out_dir: &'a Path,
-    pub deck_top: Option<f64>,
-    pub part_courses: Option<usize>,
     /// The show laps' descent lift, as a share of the nozzle flat's radius times the slope.
     pub lift_share: f64,
 }
@@ -1289,7 +1271,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let mesh = Mesh::read_stl(args.stl)?;
     let rim = crate::filled_base::rim(&mesh)?;
     let (frame, seat, base_id, label) = plate_inputs(&report, &lines, rim)?;
-    let foot = Foot::cut(&mesh, args.part_courses, rim)?;
+    let foot = Foot::cut(&mesh, SHORT_FOUNDATION_COURSES, rim)?;
     let base = report["base_seat"]["part"].as_str().context("the base's name")?;
     let mut w = Writer::new();
     let opening = Opening {
@@ -1297,8 +1279,8 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         object: vec![label], temperature: "280".into(), level_roof: true,
     };
     let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
-    w.lift_downhill = args.part_courses.is_some();
-    let laid = lay_foot(&mut w, &frame, &foot, args.deck_top, args.lift_share)?;
+    w.lift_downhill = true;
+    let laid = lay_foot(&mut w, &frame, &foot, args.lift_share)?;
     let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, nozzle_over: 0.06, park_z: 26.0 };
     w.park(rule.park_z, "265", &[])?;
     let clearance = Clearance::new(args.headmap, &frame, &|_| laid.slab_top)?;
@@ -1317,7 +1299,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         "stack_normal_mm": {
             "course": COURSE, "air_asked": AIR, "roof_courses": ROOF_COURSES, "scaffold_ceiling": stack.n_scaffold,
             "roof_tops": stack.n_roof, "slab_top": laid.slab_top, "shoulder_course": laid.shoulder_course,
-            "plug_top": laid.plug_top, "deck_top": laid.deck_top,
+            "plug_top": laid.plug_top, "deck_top": laid.slab_top,
         },
         "roof_lip_mm": LIP,
         "laid": {

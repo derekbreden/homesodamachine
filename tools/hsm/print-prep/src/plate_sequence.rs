@@ -1,17 +1,15 @@
-//! Composes the Sculpted faucet's Mark2 trial plates from course groups of other plates.
+//! Composes the faucet plate from course groups of other slices: the base's staged foundation,
+//! the native slice and the donor tip's courses, with the screw-seat rings.
 //!
 //! Each group keeps its own commands and the state they start from, and the travel between
-//! groups lifts over the plastic already laid. The tip trial composes the previous plate's base,
-//! mounting plate and lever with a native slice's cover, a custom tip and the screw-seat rings;
-//! the plug-ramp trial composes a new tip with all of the previous plate's other groups; the
-//! shaft trial composes a staged foundation slice with a continued-base donor.
+//! groups lifts over the plastic already laid.
 
 use crate::gcode;
 use anyhow::{bail, ensure, Context, Result};
 use serde_json::{json, Value};
 use std::collections::{BTreeMap, HashSet};
 use std::fmt::Write;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 #[path = "foundation_sequence.rs"]
 pub mod foundation_sequence;
@@ -30,7 +28,6 @@ const HEIGHT: &str = "; Z_HEIGHT: ";
 const PHASE: &str = "; HSM_PHASE: ";
 const TIP_PHASE: &str = "; HSM_TIP_PHASE: ";
 const TIP_COURSE: &str = "; HSM_TIP_COURSE: ";
-const TIP_BAND: &str = "; HSM_TIP_BAND_Z: ";
 const PLATE_RING: &str = "; HSM_PLATE_RING_Z: ";
 const ENTRY: &str = "; HSM_ENTRY_XYZ: ";
 const DEBT: &str = "; HSM_ENTRY_RETRACT_MM: ";
@@ -90,10 +87,6 @@ where
 
 fn word(words: &[(u8, f64)], key: u8) -> Option<f64> {
     words.iter().find(|(k, _)| *k == key).map(|(_, v)| *v)
-}
-
-fn after_colon(line: &str) -> &str {
-    line.split_once(':').map_or("", |(_, rest)| rest)
 }
 
 /// The state a deposit starts from.
@@ -200,17 +193,15 @@ pub struct Band<'a> {
     pub metadata: usize,
     pub e: f64,
     pub roads: usize,
-    /// The shaft trial's group kind, donor phase and upper native height.
+    /// The staged foundation's group kind.
     pub group: String,
-    pub source_phase: String,
-    pub upper_native_z: Option<f64>,
 }
 
 impl<'a> Band<'a> {
     fn new(tape: &'a [&'a str], label: String, phase: String, obj: i64, z: f64, line: usize, metadata: usize) -> Band<'a> {
         Band { tape, label, phase, obj, z, numbered: false, line, start: None, end: 0, entry: None, exit: [0.; 3],
                lo: [f64::INFINITY; 3], hi: [f64::NEG_INFINITY; 3], metadata, e: 0., roads: 0,
-               group: String::new(), source_phase: String::new(), upper_native_z: None }
+               group: String::new() }
     }
 
     fn note(&mut self, index: usize, modal: &Modal<'a>, (start, target, e): Deposit) {
@@ -253,54 +244,6 @@ impl Metadata {
 
 fn first_line(tape: &[&str], prefix: &str) -> Result<usize> {
     tape.iter().position(|l| l.starts_with(prefix)).with_context(|| format!("No line starts with {prefix:?}"))
-}
-
-/// The startup before the previous plate's first layer, its groups with their phase and stream
-/// order, and its footer.
-pub fn read_reference<'a>(tape: &'a [&'a str], metadata: &mut Metadata) -> Result<(Vec<&'a str>, Vec<Band<'a>>, Vec<&'a str>)> {
-    first_line(tape, START)?;
-    let last = first_line(tape, END)?;
-    let first = first_line(tape, LAYER)?;
-    let start = first_line(&tape[..first], "M1003 S0")?;
-    let mut modal = Modal::new(PARKED, 0.8);
-    let mut bands: Vec<Band> = Vec::new();
-    let mut band: Option<usize> = None;
-    let mut list = 0;
-    let mut z = 0.;
-    let (mut label, mut phase) = (String::new(), String::new());
-    for i in first..last {
-        let line = tape[i];
-        if line.starts_with(END_LIFT) {
-            break;
-        }
-        if line.starts_with(LAYER) {
-            band = None;
-            list = metadata.list(Vec::new());
-            label.clear();
-            phase.clear();
-        } else if let Some(rest) = line.strip_prefix(HEIGHT) {
-            z = number(rest)?;
-        } else if let Some(rest) = line.strip_prefix(NEXT_GROUP) {
-            label = rest.trim().to_string();
-        } else if let Some(rest) = line.strip_prefix(PHASE) {
-            phase = rest.trim().to_string();
-        } else if let Some(rest) = line.strip_prefix(OBJECT) {
-            let obj = number(rest)?;
-            ensure!(!phase.is_empty() && !label.is_empty(), "Prior band lacks phase/label at {}", i + 1);
-            bands.push(Band::new(tape, label.clone(), phase.clone(), obj, z, i, list));
-            band = Some(bands.len() - 1);
-        } else if line.starts_with(STOP) {
-            band = None;
-        } else if !phase.is_empty() && band.is_none() && line.starts_with("; ") && !line.starts_with("; OBJECT_ID: ") {
-            metadata.lists[list].push(line.to_string());
-        }
-        if let Some(deposit) = modal.apply(line)? {
-            let Some(b) = band else { bail!("Prior archive has unlabeled extrusion at {}", i + 1) };
-            bands[b].note(i, &modal, deposit);
-        }
-    }
-    ensure!(!bands.is_empty() && bands.iter().all(|b| b.start.is_some()), "Prior archive has an empty or missing object span");
-    Ok((tape[..start].to_vec(), bands, tape[last..].to_vec()))
 }
 
 /// The cover and native tip groups of a native slice, with their starting state.
@@ -359,10 +302,6 @@ pub fn read_custom<'a>(tape: &'a [&'a str], obj: i64, metadata: &mut Metadata) -
             modal = Modal::new([xyz[0], xyz[1], xyz[2]], 0.8);
         } else if let Some(rest) = line.strip_prefix(DEBT) {
             modal.debt = number(rest)?;
-        } else if let Some(rest) = line.strip_prefix(TIP_BAND) {
-            number::<f64>(rest)?;
-            let band = bands.last().context("A tip band height precedes every course")?;
-            metadata.lists[band.metadata].push(line.to_string());
         } else if let Some(band) = bands.last() {
             if band.start.is_none() && line.starts_with("; HSM_TIP_") {
                 metadata.lists[band.metadata].push(line.to_string());
@@ -853,56 +792,15 @@ fn footer_z(line: &str) -> Option<(&str, &str, &str)> {
 }
 
 /// A file's SHA-256.
-fn file_sha(path: &Path) -> Result<String> {
-    Ok(crate::sha256_hex(&std::fs::read(path).with_context(|| format!("reading {}", path.display()))?))
-}
-
 /// A report written beside its plate.
 fn write_report(output: &Path, report: &Value) -> Result<()> {
     std::fs::write(output.with_extension("json"), serde_json::to_string_pretty(report)? + "\n")?;
     Ok(())
 }
 
-/// The tip trial's plate from the previous plate, a native slice for the cover, the custom tip
-/// and the screw-seat rings, written to `output` with its report beside it.
-pub fn compose_tip(reference: &Path, native: &Path, output: &Path, tip_model: &Path, plate_rings: Option<&Path>) -> Result<Value> {
-    let reference_tape = Tape::read(reference)?;
-    let native_tape = Tape::read(native)?;
-    let tip_tape = Tape::read(tip_model)?;
-    let ring_tape = plate_rings.map(Tape::read).transpose()?;
-    let reference_lines = reference_tape.lines();
-    let native_lines = native_tape.lines();
-    let tip_lines = tip_tape.lines();
-    let ring_lines = ring_tape.as_ref().map(Tape::lines).unwrap_or_default();
-    let mut metadata = Metadata::new();
-    let (startup, reference_bands, footer) = read_reference(&reference_lines, &mut metadata)?;
-    let cover: Vec<Band> = read_native(&native_lines)?.into_iter().filter(|b| b.obj == COVER).collect();
-    let tip = read_custom(&tip_lines, TIP, &mut metadata)?;
-    let rings = if plate_rings.is_some() { read_custom(&ring_lines, PLATE, &mut metadata)? } else { Vec::new() };
-    ensure!(rings.windows(2).all(|w| w[0].z < w[1].z), "Counterbore support courses must follow increasing Z");
-    let schedule = interleave(&reference_bands, &tip, &cover, &rings)?;
-    let retained = reference_bands.iter().filter(|b| b.obj != TIP && b.obj != COVER);
-    each_once(&schedule, pointers(tip.iter().chain(&cover).chain(&rings).chain(retained)))?;
-    let (startup, window) = leveling(startup, &native_lines, &schedule)?;
-    let mut result = emit(output, &startup, &schedule, &footer, &metadata)?;
-    result["source_gcode_sha256"] = json!({"reference": file_sha(reference)?, "native": file_sha(native)?, "tip_model": file_sha(tip_model)?});
-    if let Some(rings) = plate_rings {
-        result["source_gcode_sha256"]["plate_rings"] = json!(file_sha(rings)?);
-    }
-    result["first_native_tip_z_mm"] = Value::Null;
-    result["stock_leveling_window_xy_mm"] = json!(window);
-    write_report(output, &result)?;
-    Ok(result)
-}
-
-/// The tip trial's plate written to `output`, and its report: phases, filament, roads, groups,
-/// bounds and the plate's hash.
-pub fn emit(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata) -> Result<Value> {
-    emit_with(output, startup, schedule, footer, metadata, None)
-}
-
-/// `emit`, with the transfers and printer commands of a `native` plate when it is one, and their
-/// counts in the report.
+/// The plate the schedule lays written to `output`, and its report: phases, filament, roads,
+/// groups, bounds and the plate's hash, with the transfers and printer commands of a `native`
+/// plate when it is one, and their counts.
 pub fn emit_with(output: &Path, startup: &[String], schedule: &[&Band], footer: &[&str], metadata: &Metadata,
                  native: Option<&Native>) -> Result<Value> {
     let heat_at = schedule.iter().position(|b| !b.first_bed_course());
@@ -949,45 +847,6 @@ pub fn emit_with(output: &Path, startup: &[String], schedule: &[&Band], footer: 
     Ok(report)
 }
 
-/// Each plug-ramp alternative: its tip tape composed against the previous plate's other parts,
-/// written to its plate path with its report beside it. Each plate's summary is returned.
-pub fn merge(reference: &Path, candidates: &[(PathBuf, PathBuf)]) -> Result<Vec<Value>> {
-    let reference_sha = file_sha(reference)?;
-    let reference_tape = Tape::read(reference)?;
-    let reference_lines = reference_tape.lines();
-    let mut metadata = Metadata::new();
-    let (startup, reference_bands, footer) = read_reference(&reference_lines, &mut metadata)?;
-    let cover: Vec<Band> = reference_bands.iter().filter(|b| b.obj == COVER).cloned().collect();
-    let retained: Vec<&Band> = reference_bands.iter().filter(|b| b.obj != TIP && b.obj != COVER).collect();
-    let ring_count = retained.iter().filter(|b| b.phase == RING_PHASE).count();
-    ensure!(!cover.is_empty(), "The previous plate has no display cover groups");
-    let mut summaries = Vec::new();
-    for (tip_path, output) in candidates {
-        let tip_sha = file_sha(tip_path)?;
-        let declared: Value = serde_json::from_slice(&std::fs::read(tip_path.with_extension("json"))?)?;
-        ensure!(declared["tip_tape_sha256"] == tip_sha.as_str(), "The mapped tip tape and its receipt differ: {}", tip_path.display());
-        let tip_tape = Tape::read(tip_path)?;
-        let tip_lines = tip_tape.lines();
-        let tip = read_custom(&tip_lines, TIP, &mut metadata)?;
-        let schedule = interleave(&reference_bands, &tip, &cover, &[])?;
-        each_once(&schedule, pointers(tip.iter().chain(&cover).chain(retained.iter().copied())))?;
-        let (startup_window, window) = leveling(startup.clone(), &reference_lines, &schedule)?;
-        let mut result = emit(output, &startup_window, &schedule, &footer, &metadata)?;
-        result["source_gcode_sha256"] = json!({"reference_for_all_non_tip_parts": reference_sha, "tip_model": tip_sha});
-        result["stock_leveling_window_xy_mm"] = json!(window);
-        result["retained_ring_count"] = json!(ring_count);
-        write_report(output, &result)?;
-        summaries.push(json!({
-            "plate": output.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default(),
-            "groups": result["groups"].as_array().map_or(0, Vec::len),
-            "plate_sha256": result["sequenced_gcode_sha256"],
-            "tip_sha256": tip_sha,
-            "counts_by_phase": result["counts_by_phase"],
-        }));
-    }
-    Ok(summaries)
-}
-
 /// A report without its group rows, as the sequencers print it.
 pub fn summary(report: &Value) -> Value {
     let mut summary = report.clone();
@@ -1022,12 +881,11 @@ fn part(obj: i64) -> &'static str {
     }
 }
 
-/// The phase a shaft-trial group writes.
+/// The phase a staged foundation group writes.
 fn shaft_phase(band: &Band) -> String {
     match band.group.as_str() {
         "native" if band.obj == BASE => "inclined-base conventional handoff".into(),
         "native" => "native companions".into(),
-        "whole base" => band.source_phase.clone(),
         group => group.into(),
     }
 }
@@ -1089,49 +947,9 @@ fn read_staged<'a>(tape: &'a [&'a str]) -> Result<(Vec<&'a str>, Vec<Band<'a>>, 
     Ok((tape[..first].to_vec(), keep(authored), keep(native), tape[footer..].to_vec()))
 }
 
-/// The continued base's courses, each with its donor phase and level.
-fn read_donor<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
-    let mut modal = Modal::new([0.; 3], 0.8);
-    let mut spans: Vec<Band> = Vec::new();
-    let mut phase = "native base along the mounting incline".to_string();
-    let mut upper_native_z = None;
-    for (i, &l) in tape.iter().enumerate() {
-        if l.starts_with("; HSM_DONOR_PHASE: ") {
-            phase = after_colon(l).trim().into();
-            upper_native_z = None;
-        }
-        if l.starts_with("; HSM_UPPER_NATIVE_Z: ") {
-            upper_native_z = Some(number(after_colon(l))?);
-        }
-        if course(l).is_some() {
-            let mut band = Band::new(tape, l[2..].trim().into(), String::new(), BASE, 0.0, i, 0);
-            band.group = "whole base".into();
-            band.source_phase = phase.clone();
-            band.upper_native_z = upper_native_z;
-            spans.push(band);
-        }
-        if l.starts_with("; HSM_NORMAL_Z: ") {
-            let band = spans.last_mut().context("A normal height precedes every donor course")?;
-            band.z = number(l.split(':').nth(1).unwrap_or(""))?;
-        }
-        if let Some(rest) = l.strip_prefix("; HSM_ENTRY_XYZ: ") {
-            let xyz: Vec<f64> = rest.split_whitespace().map(number).collect::<Result<_>>()?;
-            ensure!(xyz.len() == 3, "An entry needs three coordinates: {l}");
-            modal = Modal::new([xyz[0], xyz[1], xyz[2]], 0.8);
-        }
-        if let Some(rest) = l.strip_prefix("; HSM_ENTRY_RETRACT_MM: ") {
-            modal.debt = number(rest)?;
-        }
-        if let Some(deposit) = modal.apply(l)? {
-            spans.last_mut().context("Donor deposition before its first course")?.note(i, &modal, deposit);
-        }
-    }
-    Ok(spans.into_iter().filter(|b| b.start.is_some()).collect())
-}
-
-/// The shaft trial's order: the scaffold and native first courses, then each source in its own
-/// order, with cadence limits on how far the companions get ahead.
-fn interleave_shaft<'b, 'a>(authored: &'b [Band<'a>], native: &'b [Band<'a>], donor: &'b [Band<'a>]) -> Result<Vec<&'b Band<'a>>> {
+/// The staged foundation's order: the scaffold and native first courses, then each source in its
+/// own order, with cadence limits on how far the companions get ahead.
+fn interleave_shaft<'b, 'a>(authored: &'b [Band<'a>], native: &'b [Band<'a>]) -> Result<Vec<&'b Band<'a>>> {
     let first: Vec<&Band> = native.iter().filter(|s| s.z <= 0.201).collect();
     let objects: HashSet<i64> = first.iter().map(|s| s.obj).collect();
     ensure!(objects == HashSet::from([TIP, COVER, PLATE, LEVER]), "all four companions must have native first courses");
@@ -1157,115 +975,16 @@ fn interleave_shaft<'b, 'a>(authored: &'b [Band<'a>], native: &'b [Band<'a>], do
     };
     const CAPS: [(f64, f64, f64); 9] = [(5., 0.44, 0.44), (9., 0.92, 0.92), (14., 1.64, 1.64), (20., 2.36, 2.36), (28., 3.08, 3.08),
                                         (36., 3.56, 3.80), (43., 3.80, 4.76), (52., 4.04, 5.48), (61., 4.25, 6.20)];
-    let has_donor = !donor.is_empty();
     for s in &authored[1..] {
         if s.group == "scaffold layer" {
             if let Some(&(_, back_lim, front_lim)) = CAPS.iter().find(|c| c.0 == s.z) {
-                if has_donor {
-                    native_to(&mut out, back_lim, front_lim);
-                } else {
-                    native_to(&mut out, back_lim.min(3.56), front_lim.min(3.56));
-                }
+                native_to(&mut out, back_lim.min(3.56), front_lim.min(3.56));
             }
         }
-        if has_donor && s.group.starts_with("underside roof") {
-            native_to(&mut out, 4.25 + 0.24 * (s.z - 1.).max(0.), 6.44 + 0.48 * s.z);
-        }
-        if has_donor && s.group == "sloped course" {
-            native_to(&mut out, 4.73 + 0.24 * (s.z - 1.), 7.88 + 0.35 * (s.z - 1.));
-        }
         out.push(s);
     }
-    if !has_donor {
-        let mut rest: Vec<&Band> = back[bi..].iter().chain(&front[fi..]).chain(&pending).copied().collect();
-        rest.sort_by_key(|s| s.start);
-        out.extend(rest);
-        return Ok(out);
-    }
-    for (i, s) in donor.iter().enumerate() {
-        if i % 7 == 0 {
-            let reach = s.lo[2] + 1.0;
-            native_to(&mut out, reach.max(8.0), reach.max(12.20));
-        }
-        out.push(s);
-    }
-    let mut rest: Vec<&Band> = back[bi..].iter().chain(&front[fi..]).copied().collect();
+    let mut rest: Vec<&Band> = back[bi..].iter().chain(&front[fi..]).chain(&pending).copied().collect();
     rest.sort_by_key(|s| s.start);
     out.extend(rest);
     Ok(out)
-}
-
-/// The shaft trial's plate from the staged foundation slice and the continued-base donor,
-/// written to `output` with its report beside it.
-pub fn compose_shaft(source: &Path, output: &Path, donor: Option<&Path>) -> Result<Value> {
-    let source_tape = Tape::read(source)?;
-    let donor_tape = donor.map(Tape::read).transpose()?;
-    let source_lines = source_tape.lines();
-    let donor_lines = donor_tape.as_ref().map(Tape::lines).unwrap_or_default();
-    let (startup, authored, native, footer) = read_staged(&source_lines)?;
-    let donor_bands = if donor.is_some() { read_donor(&donor_lines)? } else { Vec::new() };
-    let native: Vec<Band> = if donor_bands.is_empty() { native } else { native.into_iter().filter(|s| s.obj != BASE).collect() };
-    ensure!(authored.first().is_some_and(|s| s.group == "scaffold layer"), "the authored stream needs a marked first scaffold layer");
-    let schedule = interleave_shaft(&authored, &native, &donor_bands)?;
-    each_once(&schedule, pointers(authored.iter().chain(&native).chain(&donor_bands)))?;
-    let mut metadata = Metadata::new();
-    let mut front: Vec<(i64, f64)> = Vec::new();
-    let mut heat_at = None;
-    let mut labelled: Vec<Band> = Vec::with_capacity(schedule.len());
-    for (n, span) in schedule.iter().enumerate() {
-        if heat_at.is_none() && (span.group == "scaffold layer" || span.group == "exterior scaffold layer") && span.z > 1. {
-            heat_at = Some(n);
-        }
-        if span.group == "native" {
-            let reached = front.iter().find(|(obj, _)| *obj == span.obj).map_or(0., |(_, z)| *z);
-            ensure!(span.z >= reached, "native object course order reversed");
-            match front.iter_mut().find(|(obj, _)| *obj == span.obj) {
-                Some(slot) => slot.1 = span.z,
-                None => front.push((span.obj, span.z)),
-            }
-        }
-        let mut lines = Vec::new();
-        if span.group != "native" {
-            lines.push(format!("; {}\n", span.label));
-        }
-        if span.group == "whole base" {
-            lines.push(format!("; HSM_DONOR_PHASE: {}\n", span.source_phase));
-            lines.push(match span.upper_native_z {
-                Some(z) => format!("; HSM_UPPER_NATIVE_Z: {z:.5}\n"),
-                None => format!("; HSM_NORMAL_Z: {:.5}\n", span.z),
-            });
-        }
-        let mut band = (*span).clone();
-        band.phase = shaft_phase(span);
-        band.metadata = metadata.list(lines);
-        labelled.push(band);
-    }
-    let ordered: Vec<&Band> = labelled.iter().collect();
-    let startup: Vec<String> = startup.iter().map(|l| l.to_string()).collect();
-    let allowed = |top: f64| -> Result<()> {
-        ensure!(top + 0.4 <= 245.640001, "the actual print rise requires revisiting the native finish positions");
-        Ok(())
-    };
-    let (text, _, _) = write_plate(&startup, &ordered, heat_at, &footer, 0.0, &metadata, None, allowed)?;
-    std::fs::write(output, &text)?;
-    let (mut counts, mut filament) = (BTreeMap::<&str, usize>::new(), BTreeMap::<i64, f64>::new());
-    let mut groups = Vec::new();
-    for band in &labelled {
-        *counts.entry(band.phase.as_str()).or_default() += 1;
-        *filament.entry(band.obj).or_default() += band.e;
-        let level = if band.numbered { json!(band.z as i64) } else { json!(band.z) };
-        groups.push(json!([band.phase, band.label, band.obj, level, band.lo, band.hi]));
-    }
-    let mut result = json!({
-        "groups": groups,
-        "counts_by_phase": counts,
-        "deposition_mm_filament": filament,
-        "source_gcode_sha256": file_sha(source)?,
-        "sequenced_gcode_sha256": crate::sha256_hex(text.as_bytes()),
-    });
-    if let Some(donor) = donor {
-        result["inclined_donor_sha256"] = json!(file_sha(donor)?);
-    }
-    write_report(output, &result)?;
-    Ok(result)
 }

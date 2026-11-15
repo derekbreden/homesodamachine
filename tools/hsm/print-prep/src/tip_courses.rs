@@ -1,9 +1,8 @@
 //! Lays the Sculpted tip's warp-donor slice back onto the plate. The shoulder field carries each
-//! road to its physical height; world bands, when the banding asks for them, cut the field's
-//! roads into courses laid low side first; and the nose above the field keeps the donor's own
-//! route, arcs, cooling and plastic.
+//! road to its physical height, each donor course laid whole, and the nose above the field keeps
+//! the donor's own route, arcs, cooling and plastic.
 
-use crate::course_field::{active, distance, groups, lay, mix, read_moves, rounded, Move, ShoulderHold};
+use crate::course_field::{active, distance, groups, lay, read_moves, rounded, Move, ShoulderHold};
 use crate::tip_warp::dot;
 use anyhow::{ensure, Context, Result};
 use serde_json::{json, Value};
@@ -12,16 +11,7 @@ use std::fmt::Write as _;
 use std::path::Path;
 use std::rc::Rc;
 
-/// How the field's courses are cut and ordered.
-pub struct Banding {
-    /// The height of the world bands the field's roads are cut into; zero lays each donor course
-    /// whole.
-    pub step: f64,
-    /// Whether a banded course is laid in uphill runs, low side first, before its bridges.
-    pub uphill: bool,
-}
-
-const PURPOSE: &str = "Replay the inverse-sliced tip in physical Z bands with bounded nozzle paths.";
+const PURPOSE: &str = "Replay the inverse-sliced tip's courses at their physical heights with bounded nozzle paths.";
 const TIP_ID: i64 = 1902;
 const RETRACT: f64 = 0.8;
 const RETRACT_FEED: i64 = 1800;
@@ -39,8 +29,6 @@ const SPATIAL: f64 = 1e-7;
 const SUBDIVIDE_ROAD_MM: f64 = 1.0;
 /// The highest donor course laid.
 const UPPER_UP_TO: f64 = 320.0;
-/// The world bands reach this height.
-const BAND_TOP: f64 = 321.0;
 
 /// The tape and its report.
 pub struct Tape {
@@ -50,13 +38,12 @@ pub struct Tape {
 
 /// Lay the donor slice `gcode`, whose part placements are in `donor_report`, through the field
 /// in the tip's warp receipt.
-pub fn tape(gcode: &Path, donor_report: &Path, warp_receipt: &Path, banding: &Banding) -> Result<Tape> {
+pub fn tape(gcode: &Path, donor_report: &Path, warp_receipt: &Path) -> Result<Tape> {
     let text = std::fs::read_to_string(gcode).with_context(|| format!("reading {}", gcode.display()))?;
     let receipt_bytes = std::fs::read(warp_receipt).with_context(|| format!("reading {}", warp_receipt.display()))?;
     let receipt: Value = serde_json::from_slice(&receipt_bytes)?;
     let report: Value = serde_json::from_slice(&std::fs::read(donor_report).with_context(|| format!("reading {}", donor_report.display()))?)?;
     let field = layout(&receipt, &report)?;
-    let boundaries = band_boundaries(banding.step);
     let mut schedule: Vec<Course> = Vec::new();
     for (layer, moves) in groups(read_moves(&text)?) {
         let u = layer.parse::<f64>().with_context(|| format!("the donor course height {layer}"))? + field.displacement[2];
@@ -66,35 +53,28 @@ pub fn tape(gcode: &Path, donor_report: &Path, warp_receipt: &Path, banding: &Ba
         if u >= field.normal_again - 1e-4 {
             let body = active(&moves);
             if body.iter().any(|m| positive(m.e) && m.deposition()) {
-                schedule.push(Course { state: 2, key: u, u, band: None, body: Body::Native(body.to_vec()) });
+                schedule.push(Course { state: 2, u, body: Body::Native(body.to_vec()) });
             }
             continue;
         }
-        for (band, runs) in split_runs(&moves, &field, &boundaries, u)? {
-            if !runs.iter().flatten().any(|m| positive(m.e)) {
-                continue;
-            }
-            let state = if u <= field.bed_through { 0 } else if band.is_none() { 2 } else { 1 };
-            let runs = if state == 1 && banding.uphill { order_local_height(runs) } else { runs };
-            if runs.is_empty() {
-                continue;
-            }
-            schedule.push(Course { state, key: band.unwrap_or(u), u, band, body: Body::Laid(runs) });
+        let runs = split_runs(&moves, &field)?;
+        if !runs.iter().flatten().any(|m| positive(m.e)) {
+            continue;
         }
+        let state = if u <= field.bed_through { 0 } else { 2 };
+        schedule.push(Course { state, u, body: Body::Laid(runs) });
     }
     let order = |a: f64, b: f64| a.partial_cmp(&b).unwrap_or(std::cmp::Ordering::Equal);
-    schedule.sort_by(|a, b| a.state.cmp(&b.state).then(order(a.key, b.key)).then(order(a.u, b.u)));
+    schedule.sort_by(|a, b| a.state.cmp(&b.state).then(order(a.u, b.u)));
 
     let mut out = String::from("G90\nM83\n");
     let mut stats = Stats::default();
     for (i, course) in schedule.iter().enumerate() {
         match &course.body {
             Body::Native(moves) => write_native_course(&mut out, i + 1, course.u, moves, &field, &mut stats),
-            Body::Laid(runs) => write_course(&mut out, i + 1, course.u, course.band, runs, &field, &mut stats),
+            Body::Laid(runs) => write_course(&mut out, i + 1, course.u, runs, &field, &mut stats),
         }
     }
-    let physical_order =
-        if boundaries.is_empty() { "whole virtual course in source height order" } else { "world band, then virtual source height" };
     let report = json!({
         "purpose": PURPOSE,
         "gcode_source_sha256": crate::sha256_hex(text.as_bytes()),
@@ -103,12 +83,7 @@ pub fn tape(gcode: &Path, donor_report: &Path, warp_receipt: &Path, banding: &Ba
         "shoulder_placement_mm": field.shoulder,
         "native_nose_from_physical_z_mm": field.normal_again,
         "native_donor_translation_to_plate_mm": field.displacement,
-        "world_band_spacing_mm": banding.step,
-        "finer_band_spacing_mm": null,
-        "finer_physical_band_range_mm": null,
-        "physical_order": physical_order,
-        "uphill_wall_runs": false,
-        "uphill_all": banding.uphill,
+        "physical_order": "whole virtual course in source height order",
         "retained_native_nose_travel": true,
         "phase_stats": stats.json(),
     });
@@ -116,22 +91,19 @@ pub fn tape(gcode: &Path, donor_report: &Path, warp_receipt: &Path, banding: &Ba
 }
 
 /// Write the tape to `output` and its report beside it, as `.json`.
-pub fn write(gcode: &Path, donor_report: &Path, warp_receipt: &Path, output: &Path, banding: &Banding) -> Result<()> {
-    let tape = tape(gcode, donor_report, warp_receipt, banding)?;
+pub fn write(gcode: &Path, donor_report: &Path, warp_receipt: &Path, output: &Path) -> Result<()> {
+    let tape = tape(gcode, donor_report, warp_receipt)?;
     std::fs::write(output, &tape.gcode).with_context(|| format!("writing {}", output.display()))?;
     let report = output.with_extension("json");
     std::fs::write(&report, &tape.report).with_context(|| format!("writing {}", report.display()))
 }
 
-/// One course of the tape: its place in the order, the donor course it came from, its world
-/// band, and what it lays.
+/// One course of the tape: its place in the order, the donor course it came from and what it
+/// lays.
 struct Course {
-    /// Anchor courses come first, banded courses next, and whole courses and the nose last.
+    /// Anchor courses come first, then the whole courses and the nose.
     state: u8,
-    /// The world band, or the donor course height for a whole course.
-    key: f64,
     u: f64,
-    band: Option<f64>,
     body: Body,
 }
 
@@ -175,13 +147,6 @@ fn phase(field: &ShoulderHold, u: f64) -> &'static str {
     } else {
         "tip native nose"
     }
-}
-
-fn band_boundaries(step: f64) -> Vec<f64> {
-    if step == 0.0 {
-        return Vec::new();
-    }
-    (1..=(BAND_TOP / step).ceil() as i64).map(|i| i as f64 * step).collect()
 }
 
 /// Whether a move lays plastic the tape keeps: extrusion that is positive at the five places
@@ -233,117 +198,26 @@ fn runs_of(moves: &[Move]) -> Vec<Vec<&Move>> {
     out
 }
 
-/// The list kept for `band`, added at the end when the band is new.
-fn slot<T>(lists: &mut Vec<(Option<f64>, Vec<T>)>, band: Option<f64>) -> &mut Vec<T> {
-    let at = match lists.iter().position(|(b, _)| *b == band) {
-        Some(at) => at,
-        None => {
-            lists.push((band, Vec::new()));
-            lists.len() - 1
-        }
-    };
-    &mut lists[at].1
-}
-
-/// A donor course's roads laid by the field and gathered, band by band, into runs.
-fn split_runs(moves: &[Move], field: &ShoulderHold, boundaries: &[f64], u: f64) -> Result<Vec<(Option<f64>, Vec<Vec<Move>>)>> {
-    let banded = !boundaries.is_empty() && field.bed_through < u && u < field.normal_again - 1e-4;
-    let mut grouped: Vec<(Option<f64>, Vec<Vec<Move>>)> = Vec::new();
+/// A donor course's roads laid by the field and gathered into runs.
+fn split_runs(moves: &[Move], field: &ShoulderHold) -> Result<Vec<Vec<Move>>> {
+    let mut grouped: Vec<Vec<Move>> = Vec::new();
     for native in runs_of(moves) {
-        let mut runs: Vec<(Option<f64>, Vec<Vec<Move>>)> = Vec::new();
+        let mut runs: Vec<Vec<Move>> = Vec::new();
         for m in native {
             for road in lay(m, field) {
-                let projected = Move { start: road.start, end: road.end, e: Some(road.e), arc: None, ..m.clone() };
-                let bands = if banded { cut_at_bands(projected, boundaries)? } else { vec![(None, projected)] };
-                for (band, p) in bands {
-                    if written(p.start) == written(p.end) {
-                        continue;
-                    }
-                    let neighbours = slot(&mut runs, band);
-                    match neighbours.last_mut() {
-                        Some(run) if distance(run[run.len() - 1].end, p.start) <= 0.002 => run.push(p),
-                        _ => neighbours.push(vec![p]),
-                    }
+                let p = Move { start: road.start, end: road.end, e: Some(road.e), arc: None, ..m.clone() };
+                if written(p.start) == written(p.end) {
+                    continue;
+                }
+                match runs.last_mut() {
+                    Some(run) if distance(run[run.len() - 1].end, p.start) <= 0.002 => run.push(p),
+                    _ => runs.push(vec![p]),
                 }
             }
         }
-        for (band, paths) in runs {
-            for path in paths {
-                if path.iter().any(|m| positive(m.e)) {
-                    slot(&mut grouped, band).push(path);
-                }
-            }
-        }
+        grouped.extend(runs.into_iter().filter(|path| path.iter().any(|m| positive(m.e))));
     }
     Ok(grouped)
-}
-
-/// A road piece cut where it crosses the world band boundaries, each part with its band.
-fn cut_at_bands(m: Move, boundaries: &[f64]) -> Result<Vec<(Option<f64>, Move)>> {
-    let (s, e) = (m.start[2], m.end[2]);
-    let (low, high, delta) = (s.min(e), s.max(e), e - s);
-    let at_least = |x: f64| boundaries.partition_point(|b| *b < x);
-    let level = |x: f64| boundaries.get(at_least(x)).copied().context("a road above the highest world band");
-    if high - low < MIN_PATH {
-        return Ok(vec![(Some(level(high - 1e-6)?), m)]);
-    }
-    let (from, to) = (boundaries.partition_point(|b| *b <= low + 1e-6), at_least(high - 1e-6));
-    let mut t: Vec<f64> = boundaries[from..to.max(from)].iter().map(|edge| (edge - s) / delta).collect();
-    t.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-    let starts = std::iter::once(0.0).chain(t.iter().copied());
-    let ends = t.iter().copied().chain(std::iter::once(1.0));
-    let plastic = m.e.unwrap_or(0.0);
-    starts
-        .zip(ends)
-        .map(|(a, b)| {
-            let band = level(s + delta * (a + b) * 0.5 - 1e-6)?;
-            Ok((Some(band), Move { start: mix(m.start, m.end, a), end: mix(m.start, m.end, b), e: Some(plastic * (b - a)), ..m.clone() }))
-        })
-        .collect()
-}
-
-/// A run split where its roads turn between rising and falling, each falling part reversed so
-/// every part climbs.
-fn upward_runs(run: Vec<Move>) -> Vec<Vec<Move>> {
-    fn climbing(sample: Vec<Move>, sign: i32) -> Vec<Move> {
-        if sign < 0 { sample.into_iter().rev().map(|m| Move { start: m.end, end: m.start, ..m }).collect() } else { sample }
-    }
-    let mut out = Vec::new();
-    let (mut previous, mut sample) = (0, Vec::new());
-    for p in run {
-        let dz = p.end[2] - p.start[2];
-        let sign = if dz.abs() < 0.002 { 0 } else if dz > 0.0 { 1 } else { -1 };
-        if sign != 0 && previous != 0 && sign != previous {
-            out.push(climbing(std::mem::take(&mut sample), previous));
-        }
-        sample.push(p);
-        if sign != 0 {
-            previous = sign;
-        }
-    }
-    if !sample.is_empty() {
-        out.push(climbing(sample, previous));
-    }
-    out
-}
-
-/// A banded course's runs, each portion laid before its uphill neighbours and the bridges last.
-fn order_local_height(runs: Vec<Vec<Move>>) -> Vec<Vec<Move>> {
-    let (mut stock, mut bridges) = (Vec::new(), Vec::new());
-    for run in runs {
-        if run[0].feature.contains("Bridge") {
-            bridges.push(run);
-        } else {
-            stock.extend(upward_runs(run));
-        }
-    }
-    let mut keyed: Vec<((f64, f64), Vec<Move>)> = stock
-        .into_iter()
-        .map(|run| ((rounded(run[0].start[2], 6), run.iter().map(|p| p.end[2]).fold(f64::NEG_INFINITY, f64::max)), run))
-        .collect();
-    let order = |a: f64, b: f64| a.partial_cmp(&b).unwrap_or(std::cmp::Ordering::Equal);
-    keyed.sort_by(|(a, _), (b, _)| order(a.0, b.0).then(order(a.1, b.1)));
-    keyed.into_iter().map(|(_, run)| run).chain(bridges).collect()
 }
 
 /// The bead settings a course has written, so each is written only when it changes.
@@ -375,11 +249,8 @@ fn xyz(p: [f64; 3], digits: usize) -> String {
     format!("{:.d$} {:.d$} {:.d$}", p[0], p[1], p[2], d = digits)
 }
 
-fn course_head(out: &mut String, phase: &str, index: usize, band: Option<f64>, height: f64, entry: String, exit: String) {
+fn course_head(out: &mut String, phase: &str, index: usize, height: f64, entry: String, exit: String) {
     let _ = write!(out, "; HSM_TIP_PHASE: {phase}\n; HSM_TIP_COURSE: {index}\n");
-    if let Some(band) = band {
-        let _ = writeln!(out, "; HSM_TIP_BAND_Z: {band:.5}");
-    }
     let _ = writeln!(out, "; HSM_TIP_VIRTUAL_Z: {height:.5}");
     let _ = write!(out, "; HSM_ENTRY_XYZ: {entry}\n; HSM_ENTRY_RETRACT_MM: {RETRACT}\n");
     let _ = write!(out, "; HSM_EXIT_XYZ: {exit}\n; HSM_EXIT_RETRACT_MM: {RETRACT}\n");
@@ -402,19 +273,19 @@ fn linear(out: &mut String, prev: &mut [f64; 3], point: [f64; 3], feed: f64, ext
 }
 
 /// A course the field laid, each run entered from above after a retraction.
-fn write_course(out: &mut String, index: usize, height: f64, band: Option<f64>, runs: &[Vec<Move>], field: &ShoulderHold, stats: &mut Stats) {
+fn write_course(out: &mut String, index: usize, height: f64, runs: &[Vec<Move>], field: &ShoulderHold, stats: &mut Stats) {
     let phase = phase(field, height);
     let start = runs[0][0].start;
     let end = runs[runs.len() - 1][runs[runs.len() - 1].len() - 1].end;
-    course_head(out, phase, index, band, height, xyz(start, 3), xyz(end, 3));
+    course_head(out, phase, index, height, xyz(start, 3), xyz(end, 3));
     let mut prev = start;
     let mut modes = Modes::default();
     for run in runs {
         let start = run[0].start;
         if distance(prev, start) > 0.001 {
             let _ = writeln!(out, "G1 E-{RETRACT} F{RETRACT_FEED}");
-            // The nozzle travels above itself, the run's start and the band.
-            let hike = prev[2].max(start[2]).max(band.unwrap_or(f64::NEG_INFINITY)) + LIFT;
+            // The nozzle travels above itself and the run's start.
+            let hike = prev[2].max(start[2]) + LIFT;
             let rise = [prev[0], prev[1], hike];
             linear(out, &mut prev, rise, Z_TRAVEL_MM_MIN, None);
             linear(out, &mut prev, [start[0], start[1], hike], TRAVEL_XY_MM_MIN, None);
@@ -443,7 +314,7 @@ fn write_course(out: &mut String, index: usize, height: f64, band: Option<f64>, 
 fn write_native_course(out: &mut String, index: usize, height: f64, moves: &[Move], field: &ShoulderHold, stats: &mut Stats) {
     let phase = phase(field, height);
     let shift = |p: [f64; 3]| [0, 1, 2].map(|i| p[i] + field.displacement[i]);
-    course_head(out, phase, index, None, height, xyz(shift(moves[0].start), 5), xyz(shift(moves[moves.len() - 1].end), 5));
+    course_head(out, phase, index, height, xyz(shift(moves[0].start), 5), xyz(shift(moves[moves.len() - 1].end), 5));
     let mut modes = Modes::default();
     for m in moves {
         set_number(out, &mut modes.fan, "M106", m.fan);

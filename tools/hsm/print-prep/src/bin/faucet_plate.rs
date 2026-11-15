@@ -24,7 +24,7 @@
 
 use anyhow::{Context, Result, bail, ensure};
 use hsm_print_prep::mesh::{Mesh, write_stl};
-use hsm_print_prep::{base_courses, base_foundation, faucet_plate, feed_cap, filled_base, motion,
+use hsm_print_prep::{base_foundation, faucet_plate, feed_cap, filled_base, motion,
     plate_rings, plate_sequence, tip_courses, tip_supports, tip_warp, trial_archive};
 use serde_json::Value;
 use std::fs;
@@ -82,7 +82,7 @@ fn main() -> Result<()> {
     let base = root.join(style.base.stl);
     let mesh = Mesh::read_stl(&base)?;
     let filled = out.join("filled-base.stl");
-    let fill = filled_base::fill(&mesh, base_courses::INCLINE_DEGREES, filled_base::rim(&mesh)?)?;
+    let fill = filled_base::fill(&mesh, filled_base::INCLINE_DEGREES, filled_base::rim(&mesh)?)?;
     write_stl(&filled, &fill.vertices, &fill.faces)?;
 
     // the editable plate, and the donor tip warped from it, sliced alone and laid as courses
@@ -101,8 +101,7 @@ fn main() -> Result<()> {
     prepare(&donor_project, &["--warp-donor", "--tip-mesh", &path(&warped), "--warp-settings", &path(&settings),
         "--slice-output", &path(&donor.join("slice")), "--finish", &path(&plain_finish)])?;
     let tape = out.join("tip.gcode");
-    tip_courses::write(&donor.join("slice/plate_1.gcode"), &donor.join("donor.print.json"), &donor.join("tip-warped.json"), &tape,
-        &tip_courses::Banding { step: 0.0, uphill: false })?;
+    tip_courses::write(&donor.join("slice/plate_1.gcode"), &donor.join("donor.print.json"), &donor.join("tip-warped.json"), &tape)?;
 
     // the plate's project, sliced with the standing slice path's cooling stages; where the plate's
     // selections splice the tip's end, the project without the shallow overhang points gives it
@@ -122,7 +121,7 @@ fn main() -> Result<()> {
     let headmap = root.join(base_foundation::HEAD_MAP);
     base_foundation::foundation(&base_foundation::Foundation {
         archive: &slice.join("native.gcode.3mf"), report: &out.join("native.print.json"), stl: &base, headmap: &headmap,
-        out_dir: &out.join("base"), deck_top: None, part_courses: Some(base_foundation::SHORT_FOUNDATION_COURSES),
+        out_dir: &out.join("base"),
         lift_share: faucet_plate::lift_share(&plate),
     })?;
     let rings = out.join("rings.gcode");
@@ -137,7 +136,7 @@ fn main() -> Result<()> {
     let bound = out.join("plate.gcode");
     feed_cap::bind(&open, &capped, &bound, Some(&out.join("capped.json")))?;
     let progressed = out.join("progressed.gcode");
-    trial_archive::progress(&bound, None, &progressed)?;
+    trial_archive::progress(&bound, &progressed)?;
     let timing = motion::timing(&fs::read_to_string(&progressed)?)?;
     let archive = out.join(format!("{}-faucet-plate.gcode.3mf", style.name));
     let package = trial_archive::package(&slice.join("native.gcode.3mf"), &progressed, &archive, timing.seconds, timing.first_course_seconds)?;

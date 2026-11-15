@@ -542,7 +542,7 @@ pub fn compose(
             band.metadata = metadata.list(vec![format!("; {}\n", band.label)]);
         }
     }
-    let schedule = interleave_shaft(&authored, &base_native, &[])?;
+    let schedule = interleave_shaft(&authored, &base_native)?;
     let native = read_native(&native_lines)?;
     let tip: Vec<_> = native.iter().filter(|b| b.obj == TIP).cloned().collect();
     let covers: Vec<_> = native.iter().filter(|b| b.obj == COVER).cloned().collect();
