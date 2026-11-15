@@ -1263,13 +1263,13 @@ pub struct Foundation<'a> {
 /// The base's seat, whose rim is `rim`, its object id on the plate and the label its object start
 /// carries.
 pub fn plate_inputs(report: &Value, lines: &[&str], rim: [f64; 2]) -> Result<(Frame, [f64; 3], i64, String)> {
-    let rims = &report["base_rim_supports"];
-    let seat: [f64; 3] = serde_json::from_value(rims["seat_print_world_center_mm"].clone()).context("the seat")?;
-    let normal: [f64; 3] = serde_json::from_value(rims["seat_print_world_outward_normal"].clone()).context("the seat normal")?;
+    let seat_record = &report["base_seat"];
+    let seat: [f64; 3] = serde_json::from_value(seat_record["seat_print_world_center_mm"].clone()).context("the seat")?;
+    let normal: [f64; 3] = serde_json::from_value(seat_record["seat_print_world_outward_normal"].clone()).context("the seat normal")?;
     let frame = Frame::new(seat, rim);
     ensure!(normal[0].abs() < 1e-9 && (normal[1] + frame.s).abs() < 1e-6 && (normal[2] + frame.c).abs() < 1e-6,
         "the seat is not turned 15 degrees about X");
-    let base = rims["part"].as_str().context("the base's name")?;
+    let base = seat_record["part"].as_str().context("the base's name")?;
     let base_id = report["parts"].as_array().context("the parts")?.iter()
         .find(|p| p["name"] == base).and_then(|p| p["identify_id"].as_i64()).context("the base's id")?;
     let start = lines.iter().position(|l| l.starts_with(&format!("; start printing object, unique label id: {base_id}")))
@@ -1290,7 +1290,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let rim = crate::filled_base::rim(&mesh)?;
     let (frame, seat, base_id, label) = plate_inputs(&report, &lines, rim)?;
     let foot = Foot::cut(&mesh, args.part_courses, rim)?;
-    let base = report["base_rim_supports"]["part"].as_str().context("the base's name")?;
+    let base = report["base_seat"]["part"].as_str().context("the base's name")?;
     let mut w = Writer::new();
     let opening = Opening {
         title: format!("; ===== sloped underside of {base}: scaffold, roof and foot ====="),

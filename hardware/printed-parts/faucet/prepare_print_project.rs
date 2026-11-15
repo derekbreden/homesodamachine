@@ -205,8 +205,8 @@ fn main() -> Result<()> {
     if !warp_donor {
         // The fill stands where the rim's supports would: only the insert recesses' blockers and
         // the base's support settings apply.
-        let seat = base_seat::add(&mut r, style.base.name, &selection["base_rim_supports"])?;
-        r.extra.insert("base_rim_supports".into(), seat);
+        let seat = base_seat::add(&mut r, style.base.name, &selection["base_supports"])?;
+        r.extra.insert("base_seat".into(), seat);
         let pocket_recipe = &selection["mounting_plate_counterbores"];
         let radial_clearance = pocket_recipe["blocker_radial_clearance_mm"].as_f64().context("counterbore blocker clearance")?;
         let depth_allowance = serde_json::from_value(pocket_recipe["blocker_depth_allowance_mm"].clone())?;

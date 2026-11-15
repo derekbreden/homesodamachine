@@ -513,7 +513,7 @@ pub fn tape_origin(donor_report: &Value, physical_report: &Value) -> Result<([f6
         "The donor base has to be horizontal in its CAD frame");
     let (t, c) = (triple(&base["plate_translation_mm"])?, triple(&base["source_center_mm"])?);
     let donor = [t[0] - c[0], t[1] - c[1], t[2] - c[2]];
-    let physical = triple(&physical_report["base_rim_supports"]["seat_print_world_center_mm"])?;
+    let physical = triple(&physical_report["base_seat"]["seat_print_world_center_mm"])?;
     Ok((donor, physical))
 }
 
