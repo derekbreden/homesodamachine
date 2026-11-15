@@ -41,14 +41,6 @@
   "default_printer": "Mark2",
   "default_filament_colour": "#FFFFFF",
   "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
-  "tip_rear_seam_enforcement": {
-    "part": "faucet-shell-tip",
-    "half_width_mm": 0.0,
-    "surface": "curved_outer_arc",
-    "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
-    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-    "physical_result": "Retain the shared tip rear seam enforcement from the accepted Industrial process."
-  },
   "cover_rear_seam_enforcement": {
     "part": "faucet-display-cover",
     "paint_strip_half_width_mm": 0.35,
