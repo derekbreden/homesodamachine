@@ -202,11 +202,6 @@ fn main() -> Result<()> {
         let record = enforce_rear_seam(&mut r, &selection[key])?;
         r.extra.insert(key.into(), record);
     }
-    let contact = &selection["base_rim_supports"]["nonplanar_contact"];
-    let mapping_source = contact["parameters_source"].as_str().context("contact parameters source")?;
-    let mapping_revision = contact["source_commit"].as_str().context("contact parameters revision")?;
-    let mapping_bytes = recorded_member(&root, contact, "parameters_source")?;
-    let mapping: Value = serde_json::from_slice(&mapping_bytes)?;
     if !warp_donor {
         // The fill stands where the rim's supports would: only the insert recesses' blockers and
         // the base's support settings apply.
@@ -220,16 +215,13 @@ fn main() -> Result<()> {
     }
     let tip = add_tip_root_anchor(&root, &mut r, &selection["tip_supports"])?;
     r.extra.insert("tip_supports".into(), tip);
-    let tip_index = r.row(TIP.name)?.index;
-    let map_dispense = warp_settings.as_ref().is_some_and(|settings| settings.map_dispense_contact);
-    let contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"], &mapping["parameters"], map_dispense)?;
-    let dispense_band = map_dispense.then(|| ContactBand::new(&contact["band"])).transpose()?;
+    let contact = add_tip_dispense_contact(&mut r, &selection["tip_dispense_contact"])?;
     r.extra.insert("tip_dispense_contact".into(), contact);
     if let Some(settings) = &warp_settings {
         let support = settings.add_support(&mut r)?;
         r.extra.insert("warp_shoulder_support".into(), support);
     } else {
-        let joint = add_tip_rim_contact(&mut r, &selection["tip_supports"], &mapping["parameters"])?;
+        let joint = add_tip_rim_contact(&mut r, &selection["tip_supports"])?;
         r.extra.insert("tip_rim_contact".into(), joint);
     }
     let cooling = tip_end_stretch(&r, &selection["tip_end_cooling"])?;
@@ -241,7 +233,6 @@ fn main() -> Result<()> {
         }
     }
     let mut sources = Map::new();
-    sources.insert(format!("{mapping_revision}:{mapping_source}"), json!(sha256_hex(&mapping_bytes)));
     sources.insert(format!("{parent_revision}:{parent_project_source}"), json!(sha256_hex(&parent_project_bytes)));
     sources.insert(format!("{parent_revision}:{parent_report_source}"), json!(sha256_hex(&parent_report_bytes)));
     for p in ["hardware/printed-parts/faucet/prepare_print_project.rs", "hardware/printed-parts/faucet/base_seat.rs",
@@ -278,8 +269,8 @@ fn main() -> Result<()> {
     std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     println!("{}", project.display());
     if let Some(directory) = slice_output {
-        let bands: Vec<(usize, &ContactBand)> = dispense_band.iter().map(|band| (tip_index, band)).collect();
-        report["nonplanar_motion"] = ContactBand::slice_bands(&mut r.plate, &bands, &project, &directory, Path::new(slice::SLICER))?;
+        // the donor's slice: the contact-band slice path with no band on it
+        report["nonplanar_motion"] = ContactBand::slice_bands(&mut r.plate, &[], &project, &directory, Path::new(slice::SLICER))?;
         report["tip_end_cooling"] = apply_stretch_cooling(&project, &directory, "tip-end-cooling", &cooling)?;
         report["preparation_only"] = json!(false);
         std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
@@ -296,7 +287,6 @@ struct WarpSupport {
 struct WarpSettings {
     course_bands_mm: Vec<[f64; 3]>,
     support_parts: Vec<WarpSupport>,
-    map_dispense_contact: bool,
     independent_support_layer_height: Option<bool>,
     support_top_gap_mm: Option<f64>,
 }
@@ -322,13 +312,11 @@ impl WarpSettings {
                     "each support part needs a name and a native support subtype");
                 Ok(WarpSupport { name, role, stl })
             }).collect::<Result<_>>()?;
-        let map_dispense_contact = recipe.get("map_dispense_contact").map(|value|
-            value.as_bool().context("map_dispense_contact must be a boolean")).transpose()?.unwrap_or(true);
         let independent_support_layer_height = recipe.get("independent_support_layer_height").map(|value|
             value.as_bool().context("independent_support_layer_height must be a boolean")).transpose()?;
         let support_top_gap_mm = recipe.get("support_top_gap_mm").map(|value|
             value.as_f64().filter(|gap| *gap >= 0. && gap.is_finite()).context("support_top_gap_mm must be nonnegative")).transpose()?;
-        Ok(Self { course_bands_mm, support_parts, map_dispense_contact, independent_support_layer_height, support_top_gap_mm })
+        Ok(Self { course_bands_mm, support_parts, independent_support_layer_height, support_top_gap_mm })
     }
 
     fn add_support(&self, project: &mut Refreshed) -> Result<Value> {

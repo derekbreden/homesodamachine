@@ -34,10 +34,6 @@
       "support_type": "tree(auto)",
       "support_style": "tree_slim",
       "support_bottom_z_distance": "0.30"
-    },
-    "nonplanar_contact": {
-      "source_commit": "b388123d2ac2fdc31fd091f980334b9c99443ab8",
-      "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json"
     }
   },
   "mounting_plate_counterbores": {
@@ -54,17 +50,7 @@
       "normal": [0.0, -0.9396926207859083, 0.3420201433256688]
     }
   },
-  "tip_dispense_contact": {
-    "part": "faucet-shell-tip",
-    "mapping_margin_mm": 5.0,
-    "mapping_edge_blend_mm": 2.0,
-    "outside_wall_inboard_blend_mm": [0.90, 2.65],
-    "interior_full_mm": 0.25,
-    "interior_end_mm": 2.35,
-    "outlet_clearance_mm": 0.30,
-    "outlet_shadow_clearance_mm": 0.90,
-    "outlet_depth_mm": [-0.65, 5.0]
-  },
+  "tip_dispense_contact": {"part": "faucet-shell-tip", "outlet_clearance_mm": 0.30, "outlet_shadow_clearance_mm": 0.90, "outlet_depth_mm": [-0.65, 5.0]},
   "tip_end_cooling": {
     "part": "faucet-shell-tip",
     "fan_percent": 70,

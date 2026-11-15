@@ -15,7 +15,7 @@ use crate::project::{Object, Paint, Plate};
 use crate::refresh::Refreshed;
 use crate::stretch_cooling::{self, Stretch};
 use crate::{apply, sha256_hex, xml};
-use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::{DISPENSE_FACE_THICKNESS, TUBE_SHELL_CENTER_Y, TUBE_SHELL_OUTER_R}};
+use hsm_faucet_numbers::{paths::TOTAL_ANGLE, shell::DISPENSE_FACE_THICKNESS};
 
 type Point = [f64; 3];
 type Face = [usize; 3];
@@ -553,15 +553,13 @@ pub fn closed_rim_strip(sections: &[[Point; 4]]) -> Mesh {
 }
 
 /// Locate the tip's mating lip and give the Slim trees access to its narrow shoulder.
-pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Value) -> Result<Value> {
+pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value) -> Result<Value> {
     const ENFORCER_INSET: f64 = 1.45;
     const ENFORCER_OUTSET: f64 = 0.6;
     const ENFORCER_HALF_DEPTH: f64 = 0.7;
     const BREAK_HALF_ANGLE: f64 = 2.5;
     const TIP_TOP_GAP: f64 = 0.42;
     const TIP_XY_GAP: f64 = 0.55;
-    const MAPPING_MARGIN: f64 = 4.;
-    const EDGE_BLEND: f64 = 2.;
 
     let name = tip["part"].as_str().context("tip rim part")?;
     let row = project.row(name)?;
@@ -638,18 +636,13 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value, parameters: &Va
         ("support_top_z_distance".into(), TIP_TOP_GAP.to_string()),
         ("support_object_xy_distance".into(), TIP_XY_GAP.to_string()),
     ]);
-    let window = [-1., 1.].map(|sign| [0, 1].map(|axis| center[axis] + sign * (radius + MAPPING_MARGIN)));
-    let band = json!({"name": "faucet-shell-tip mating lip", "parameters": parameters,
-        "plane_normal": outward, "seat_plate_mm": center, "bounds_mm": window, "edge_blend_mm": EDGE_BLEND,
-        "rim_semi_axes_mm": [radius, radius], "rim_inboard_blend_mm": [0.90, 2.65],
-        "refine_mesh_interiors": true});
-    Ok(json!({"part": name, "band": band, "roof_enforcers": roofs, "release_break_blockers": breaks,
+    Ok(json!({"part": name, "roof_enforcers": roofs, "release_break_blockers": breaks,
         "plug_keepout": plug_keepout, "top_gap_mm": TIP_TOP_GAP, "xy_gap_mm": TIP_XY_GAP,
         "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces}))
 }
 
-/// Paint support on the inside of the dispense face, optionally mapping its contact courses.
-pub fn add_tip_dispense_contact(project: &mut Refreshed, spec: &Value, parameters: &Value, map: bool) -> Result<Value> {
+/// Paint support on the inside of the dispense face and keep it off the beverage outlet.
+pub fn add_tip_dispense_contact(project: &mut Refreshed, spec: &Value) -> Result<Value> {
     let part = spec["part"].as_str().context("dispense contact part")?;
     let row = project.row(part)?;
     let index = row.index;
@@ -657,8 +650,6 @@ pub fn add_tip_dispense_contact(project: &mut Refreshed, spec: &Value, parameter
     let (sin, cos) = TOTAL_ANGLE.sin_cos();
     let normal = apply(&object.rotation, [0., sin, -cos]);
     ensure!(normal[2] < 0., "the dispense contact must face the build plate");
-    ensure!(!map || normal[2] < -std::f64::consts::FRAC_1_SQRT_2,
-        "the dispense contact must face down on a shallow incline");
     let world: Vec<_> = row.mesh.vertices.iter().map(|point| {
         add(apply(&object.rotation, sub(*point, row.center)), object.translation)
     }).collect();
@@ -672,39 +663,6 @@ pub fn add_tip_dispense_contact(project: &mut Refreshed, spec: &Value, parameter
     let contact_marks: BTreeMap<_, _> = row.mesh.faces.iter().enumerate()
         .filter_map(|(i, face)| inside_faces.contains(face).then(|| (i, face.map(|v| world[v])))).collect();
     let (low, high) = bounds(&patch);
-    let mut band = if map {
-        let mut seat = mix(low, high, 0.5);
-        seat[2] += (inside.offset - dot(normal, seat)) / normal[2];
-        let margin = spec["mapping_margin_mm"].as_f64().context("dispense mapping margin")?;
-        let window = [[low[0] - margin, low[1] - margin], [high[0] + margin, high[1] + margin]];
-        let mut parameters = parameters.clone();
-        parameters["contact_full_weight_mm"][1] = spec["interior_full_mm"].clone();
-        parameters["contact_zero_weight_mm"][1] = spec["interior_end_mm"].clone();
-        for key in ["maximum_mesh_y_step_mm", "maximum_mesh_z_step_mm"] {
-            parameters[key] = json!(parameters[key].as_f64().context("dispense mesh step")? / 2.);
-        }
-        let mut band = json!({"parameters": parameters, "plane_normal": normal, "seat_plate_mm": seat,
-            "bounds_mm": window, "edge_blend_mm": spec["mapping_edge_blend_mm"], "refine_mesh_interiors": true});
-        if let Some(blend) = spec.get("outside_wall_inboard_blend_mm") {
-            // The mapping fades out toward the tube's outside wall, round the tube's centre line
-            // where it meets the supported face.
-            let [exit, up, out] = hsm_faucet_numbers::shell::tip_frame();
-            let centre = add(exit, add(scale(up, DISPENSE_FACE_THICKNESS), scale(out, TUBE_SHELL_CENTER_Y)));
-            let mut centre = add(apply(&object.rotation, sub(centre, row.center)), object.translation);
-            let off_face = (inside.offset - dot(normal, centre)) / normal[2];
-            ensure!(normal[0].abs() < 1e-6 && off_face.abs() < 0.01, "the tube's centre line misses the supported dispense face");
-            centre[2] += off_face;
-            band["seat_plate_mm"] = json!(centre);
-            band["rim_semi_axes_mm"] = json!([TUBE_SHELL_OUTER_R, TUBE_SHELL_OUTER_R]);
-            band["rim_inboard_blend_mm"] = blend.clone();
-        }
-        ContactBand::new(&band)?;
-        ensure!(band["parameters"]["contact_zero_weight_mm"][1].as_f64().unwrap_or(f64::INFINITY)
-            < DISPENSE_FACE_THICKNESS / normal[2].abs(), "the dispense mapping reaches the exterior face");
-        Some(band)
-    } else {
-        None
-    };
 
     let mut loops = boundary_loops(&outside.faces, &world)?;
     loops.sort_by(|a, b| polygon_area(b, normal).abs().total_cmp(&polygon_area(a, normal).abs()));
@@ -741,13 +699,10 @@ pub fn add_tip_dispense_contact(project: &mut Refreshed, spec: &Value, parameter
     for (i, face) in contact_marks {
         set_paint(&mut paint[i], "paint_supports", if selection.clear(face) { "4" } else { "8" });
     }
-    if let Some(band) = &mut band {
-        band["support_paint"] = json!({"faces": selection.faces, "outlet_shadows": selection.shadows});
-    }
-    Ok(json!({"part": part, "support_style": "tree_slim", "plate_bounds_mm": [low, high], "mapped": map,
+    Ok(json!({"part": part, "support_style": "tree_slim", "plate_bounds_mm": [low, high],
         "inclination_degrees": normal[2].abs().acos().to_degrees(),
         "contact_area_mm2": inside.area, "face_count": inside.faces.len(),
-        "outlet_blockers": blockers, "band": band}))
+        "outlet_blockers": blockers}))
 }
 
 fn outlet_shadow(aperture: &[Point], normal: Point, depth: [f64; 2], clearance: f64) -> Vec<Point> {
