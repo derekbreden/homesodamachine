@@ -9887,7 +9887,7 @@
         "evt-97809881439b4885a7e33a8eb87b4b23"
       ],
       "gap_id": "gap-1b4d6f383f084b22ac7dd2ceac00a416",
-      "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed. Order-scoped transactions show no transactions yet.",
+      "missing_fact": "Order is shipped. Actual delivery, completed merchant payment and final tax remain unconfirmed.",
       "order_ids": [
         "amazon:112-7863139-0903423"
       ],
@@ -9895,10 +9895,12 @@
         "pur-e8d3c873b40848499b387a0bed8978f7"
       ],
       "source_ids": [
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
       ],
       "sources_checked": [
-        "Named Amazon Order Details and order-scoped merchant transactions"
+        "Named Amazon Order Details and order-scoped merchant transactions",
+        "Named Amazon shipment confirmation"
       ]
     },
     {
@@ -10252,7 +10254,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:a75f890e4ecb6b20cf45f880cb1bee39a28fcccb4d18fa707f9e317d49cb9020",
+  "input_fingerprint": "sha256:1a3aaaf6282163f79ba0f02db49c02b062eacc755d668f5e6be043070207dd56",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -14034,6 +14036,7 @@
       ],
       "reference": "112-7863139-0903423",
       "source_ids": [
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
       ],
       "vendor": "Amazon"
@@ -52679,7 +52682,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — printer accessory; $39.89 item + $2.89 estimated tax, free shipping",
+      "description": "H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — shipped, awaiting delivery; printer accessory; $39.89 item + $2.89 estimated tax, free shipping",
       "event_ids": [
         "evt-97809881439b4885a7e33a8eb87b4b23"
       ],
@@ -52711,6 +52714,7 @@
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
         "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
       ],
       "split_charge": false,
@@ -62464,6 +62468,20 @@
       "source_id": "src-086a9f322de447a494f29e29018c594e",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Shipment notification for the existing single-item H2C PEI build-plate order confirms shipped. Relative arrival estimate is not an actual delivery date. Shipment total corroborates the order value but does not prove completed payment.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "proves": [],
+      "reference": "112-7863139-0903423",
+      "source_id": "src-088b52f62b9f4d5d8ddaf34a7d5f5bde",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-15"
     },
     {
       "document_date": {
