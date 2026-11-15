@@ -1,79 +1,86 @@
 {
-  "status": "offline slice complete; physical observations are recorded separately",
-  "project_sha256": "ba523134b4f4b87486c4847c97410c449abc6012aa1f5fbd05b0475432c8acd9",
-  "printer_submission": false,
-  "support_summary": {
-    "support_bodies": 1,
-    "interface_islands": 4,
-    "bed_rooted_bodies": 1,
-    "model_rooted_bodies": 0,
-    "shortest_build_up_mm": 6.48,
-    "bodies_without_interface_labels": 0,
-    "explicit_interface_islands": 4,
-    "shortest_labelled_build_up_mm": 6.48
+  "archive": "lever-white-petgf-mark2.gcode.3mf",
+  "archive_sha256": "5dc46f51ac3268ac43f2bb2029486e70ad45eef4f31ef87fcb136c545586bb7f",
+  "gcode": {
+    "plate_1.gcode": "de06e11a455de8a5967395dfa5c88bf7fa73714909fa05e481f5b8d3971fd586"
   },
-  "support_audit_sha256": "42aec6c47e04e89b12403eb7aba1d29af6a9956b4f38f0823d7d8ede5ca145e2",
+  "physical_acceptance": {
+    "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
+    "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "authority": "Derek's direct observation of the completed Mark2 print",
+    "current_stl_sha256": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
+    "functional_operation": "unconfirmed for this mesh",
+    "matches_accepted_geometry": false,
+    "observed_date": "2026-09-20",
+    "physical_fit": "unconfirmed for this mesh",
+    "quantified_endurance": null,
+    "quantified_strength": null,
+    "record": "physical-acceptance.json",
+    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement."
+  },
+  "printer_submission": false,
+  "project_sha256": "e648a617112747cf9055fa881eef2fbdc766813aec5944f1e2f0751e1887e76b",
   "slice_result": {
     "error_string": "Success.",
-    "export_time": 1442,
+    "export_time": 786,
     "layer_height": 0.23999999463558197,
     "plate_index": 0,
-    "prepare_time": 32,
+    "prepare_time": 50,
     "return_code": 0,
     "sliced_plates": [
       {
         "feature_type_times": {
-          "Bottom surface": 21.271587371826172,
-          "Bridge": 38.03752517700195,
-          "Custom": 305.1034240722656,
+          "Bottom surface": 21.33536148071289,
+          "Bridge": 55.833717346191406,
+          "Custom": 305.1111755371094,
           "Flush": 15.0,
-          "Gap infill": 2.155757188796997,
-          "Inner wall": 47.77482604980469,
-          "Internal solid infill": 90.72682189941406,
-          "Outer wall": 62.06747817993164,
-          "Overhang wall": 19.37989616394043,
-          "Sparse infill": 38.1905403137207,
-          "Support": 175.1813201904297,
-          "Support interface": 12.831588745117188,
-          "Top surface": 17.0859432220459,
-          "Travel": 162.8389892578125,
-          "Undefined": 153.49502563476562
+          "Gap infill": 2.269939661026001,
+          "Inner wall": 47.238861083984375,
+          "Internal solid infill": 91.08642578125,
+          "Outer wall": 61.13847732543945,
+          "Overhang wall": 19.62265968322754,
+          "Sparse infill": 48.88924789428711,
+          "Support": 183.34402465820312,
+          "Support interface": 23.68252182006836,
+          "Top surface": 21.985313415527344,
+          "Travel": 155.85818481445312,
+          "Undefined": 146.51422119140625
         },
         "filament_change_times": 0,
         "filaments": [
           {
             "filament_id": "GFT01",
             "id": 1,
-            "main_used_g": 4.04211950302124,
-            "total_used_g": 4.042119026184082
+            "main_used_g": 4.269048690795898,
+            "total_used_g": 4.269048690795898
           }
         ],
-        "generate_support_material_time": 228,
+        "generate_support_material_time": 363,
         "id": 1,
-        "infill_time": 54,
+        "infill_time": 75,
         "layer_filament_change": 0,
-        "main_predication": 672.551513671875,
-        "make_perimeters_time": 36,
+        "main_predication": 717.2952880859375,
+        "make_perimeters_time": 69,
         "obj_cached_cnt": 0,
         "objects": [
           {
             "bbox": {
-              "depth": 53.03470230102539,
+              "depth": 53.035064697265625,
               "height": 12.399999618530273,
-              "width": 14.664939880371094,
-              "x": 167.6675262451172,
-              "y": 133.48265075683594,
+              "width": 14.66494083404541,
+              "x": 155.1675262451172,
+              "y": 133.4824676513672,
               "z": -2.651363573136223e-10
             },
             "id": 5,
             "name": "lever-replica",
-            "triangle_count": 5072
+            "triangle_count": 18596
           }
         ],
-        "sliced_time": 649,
-        "sliced_time_with_cache": 317,
-        "total_predication": 998.3109741210938,
-        "triangle_count": 5072,
+        "sliced_time": 1118,
+        "sliced_time_with_cache": 588,
+        "total_predication": 1157.0712149030514,
+        "triangle_count": 18596,
         "warning_message": ""
       }
     ],
@@ -86,23 +93,16 @@
     ],
     "wall_loops": 2
   },
-  "archive": "lever-white-petgf-z004-mark2.gcode.3mf",
-  "archive_sha256": "2dba145b9e564e37c953e116c1d3327eaa4c664b33fe1beb4bdb375b9c41e6b1",
-  "gcode": {
-    "plate_1.gcode": "74643d682eeb7cf0f533e92501745732ed842716dfeca9193f976071d7470225"
-  },
-  "physical_acceptance": {
-    "record": "physical-acceptance.json",
-    "accepted_job_id": "2026-09-20-lever-original-wide-white-z004-mark2",
-    "observed_date": "2026-09-20",
-    "authority": "Derek's direct observation of the completed Mark2 print",
-    "scope": "The identified white PET-GF print on Mark2. This confirms fit and operation; it supplies no numerical force, endurance or assembled-pose measurement.",
-    "accepted_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "current_stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "matches_accepted_geometry": true,
-    "physical_fit": "confirmed",
-    "functional_operation": "confirmed",
-    "quantified_strength": null,
-    "quantified_endurance": null
+  "status": "offline slice complete; physical observations are recorded separately",
+  "support_audit_sha256": "9f1d4cae1283aeb3589a3bfc3f9640e4404ce4a781d9816530ed857d5db0b082",
+  "support_summary": {
+    "bed_rooted_bodies": 1,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 3,
+    "interface_islands": 3,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 6.48,
+    "shortest_labelled_build_up_mm": 6.48,
+    "support_bodies": 1
   }
 }
