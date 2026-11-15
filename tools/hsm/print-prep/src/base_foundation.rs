@@ -8,10 +8,35 @@
 //! insert sockets' shoulders, with a plug rising in each socket and a deck in the bore.
 
 use crate::mesh::Mesh;
-use crate::sloped_courses::{Piece, Point, Region, edge_pieces, hatch, level_order, narrow_pieces, section, uphill_halves};
+use crate::sloped_courses::{Piece, Point, Region, closed_lap, edge_pieces, hatch, level_order, narrow_pieces, outermost_ring, ring_pieces, section, uphill_halves};
 use anyhow::{Context, Result, ensure};
 use serde_json::{Value, json};
 use std::path::Path;
+
+/// The H2C head model, whose left nozzle's flat tip sets how far a show lap rises where it descends.
+const HEAD_MODEL: &str = include_str!("../../../../hardware/reference/h2c-toolhead/h2c_toolhead.rs");
+
+/// The left nozzle as the head model draws it: its flat tip's radius, then the radius and
+/// height of the cone that rises from the flat.
+pub fn left_nozzle() -> Result<[f64; 3]> {
+    const CALL: &str = "nozzle(0., 0., ";
+    let calls: Vec<&str> = HEAD_MODEL.match_indices(CALL).map(|(i, _)| &HEAD_MODEL[i + CALL.len()..]).collect();
+    ensure!(calls.len() == 1, "the head model does not draw one nozzle at the left tip");
+    let words: Vec<&str> = calls[0].split(',').take(3).map(str::trim).collect();
+    ensure!(words.len() == 3, "the left nozzle's tip and cone");
+    Ok([words[0].parse()?, words[1].parse()?, words[2].parse()?])
+}
+
+/// How far each point of a lap rises: half of what the nozzle's flat would otherwise press into
+/// the bead behind it where the lap runs downhill, and nothing where it climbs or runs level.
+fn descent_lift(path: &[[f64; 3]], radius: f64) -> Vec<f64> {
+    let n = path.len();
+    (0..n).map(|i| {
+        let (a, b) = (path[i.saturating_sub(1)], path[(i + 1).min(n - 1)]);
+        let run = (b[0] - a[0]).hypot(b[1] - a[1]);
+        if run < 1e-9 { 0.0 } else { 0.5 * radius * ((a[2] - b[2]) / run).max(0.0) }
+    }).collect()
+}
 
 // The stack, normal to the mounting face.
 pub const COURSE: f64 = 0.24;
@@ -55,7 +80,7 @@ const TRAVEL_LIFT: f64 = 1.0;
 const TRAVEL_SPEED: f64 = 150.0;
 const BED_MIN_Z: f64 = 0.2;
 // Clearance.
-const HEAD_TRAVEL_MARGIN: f64 = 3.0;
+pub const HEAD_TRAVEL_MARGIN: f64 = 3.0;
 const NOZZLE_TRAVEL_MARGIN: f64 = 0.3;
 const NOZZLE_FLAT_R: f64 = 0.6;
 const FEATHER_MIN: f64 = 0.3;
@@ -455,6 +480,15 @@ pub struct FootLaid {
     pub slab_top: f64,
     pub plug_top: f64,
     pub deck_top: f64,
+    /// The show surface's laps, one in each course.
+    pub show_laps: usize,
+    /// The most a show lap rises where it descends, and where on the face that is.
+    pub lap_lift: (f64, Point),
+    /// The rise summed over the laps' points and weighted by how far across the slope each lies,
+    /// and the rise summed: which side of the rim the laps descend on.
+    pub lap_lift_side: [f64; 2],
+    /// The left nozzle's flat tip radius the laps rise by.
+    pub tip_radius: f64,
 }
 
 /// One feature of a course as it is laid: its rings and its fill.
@@ -488,6 +522,24 @@ impl Laying<'_> {
         }
     }
 
+    /// The show surface's lap, raised where it descends by `descent_lift`.
+    fn lap(&mut self, (pts, flows): &Piece, n_top: f64, width: f64, speed: f64, flow: f64) {
+        let mut path: Vec<[f64; 3]> = pts.iter().map(|p| self.frame.at(*p, n_top)).collect();
+        let lift = descent_lift(&path, self.laid.tip_radius);
+        for ((p, l), q) in path.iter_mut().zip(&lift).zip(pts) {
+            p[2] += l;
+            if *l > self.laid.lap_lift.0 {
+                self.laid.lap_lift = (*l, *q);
+            }
+            self.laid.lap_lift_side[0] += l * q[0];
+            self.laid.lap_lift_side[1] += l;
+        }
+        let shares: Vec<f64> = flows.windows(2).map(|f| (f[0] + f[1]) / 2.0).map(|s| if s < 0.12 { 0.0 } else { s }).collect();
+        self.w.travel(path[0], TRAVEL_LIFT, 1.5);
+        self.w.extrude(&path, width, COURSE, speed, flow, Some(&shares));
+        self.laid.show_laps += 1;
+    }
+
     fn lines(&mut self, rows: &[Vec<(Point, Point)>], n_top: f64, angle: f64, width: f64, speed: f64, flow: f64, height: f64) -> usize {
         let lines = if angle == 0.0 { level_order(rows) } else { rows.iter().flatten().copied().collect() };
         for &(a, b) in &lines {
@@ -501,12 +553,19 @@ impl Laying<'_> {
 
     /// One course of the foot: the rings its stock lies uphill of, the rings of its narrow
     /// strips, the fill, then the rings its stock lies downhill of. A backing wall doubles the
-    /// rings inside the outer ones.
-    fn course(&mut self, region: &Region, n_top: f64, angle: f64, f: &Feature, backing_wall: bool) {
+    /// rings inside the outer ones. Where the course holds the `show` surface, its outermost
+    /// ring is one lap laid last, from the rear and the same way round as the level walls above.
+    fn course(&mut self, region: &Region, n_top: f64, angle: f64, f: &Feature, backing_wall: bool, show: bool) {
         if region.is_empty() {
             return;
         }
-        let (mut first, mut last) = edge_pieces(&region.offset(-SKIN_WIDTH / 2.0), f.lap);
+        let edge = region.offset(-SKIN_WIDTH / 2.0);
+        let outer = outermost_ring(&edge).filter(|_| show)
+            .and_then(|(ring, others)| closed_lap(&ring, f.lap, true).map(|lap| (lap, others)));
+        let (lap, (mut first, mut last)) = match outer {
+            Some((lap, others)) => (Some(lap), ring_pieces(&others, f.lap)),
+            None => (None, edge_pieces(&edge, f.lap)),
+        };
         let backing = if backing_wall { SKIN_WIDTH } else { 0.0 };
         let mut fill = region.offset(-(SKIN_WIDTH + backing + f.pitch / 2.0 - OVERLAP));
         if !fill.is_empty() {
@@ -528,6 +587,9 @@ impl Laying<'_> {
         self.laid.fill_lines += self.lines(&hatch(&fill, angle, f.pitch, 0.8), n_top, angle, SKIN_WIDTH, f.fill_speed, f.flow, COURSE);
         self.w.comment_feature(f.ring, SKIN_WIDTH);
         self.pieces(&last, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
+        if let Some(lap) = &lap {
+            self.lap(lap, n_top, SKIN_WIDTH, f.ring_speed, f.flow);
+        }
         self.laid.ring_pieces += first.len() + last.len();
         self.laid.narrow_rings += narrow.len();
     }
@@ -561,7 +623,8 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
     let slab_top = count as f64 * COURSE;
     let deck_top = deck_top.unwrap_or(slab_top);
     ensure!((count - 1) as f64 * COURSE < deck_top && deck_top <= slab_top, "the deck's top {deck_top} is not in the last course");
-    let laid = FootLaid { sloped_courses: count, shoulder_course: foot.shoulder, slab_top, plug_top: plug_top as f64 * COURSE, deck_top, ..Default::default() };
+    let laid = FootLaid { sloped_courses: count, shoulder_course: foot.shoulder, slab_top, plug_top: plug_top as f64 * COURSE, deck_top,
+                          tip_radius: left_nozzle()?[0], ..Default::default() };
     let mut lay = Laying { w, frame, laid };
     // the plugs and the deck start on the roof, level with the mounting face
     lay.w.raw("; underside deck bedding");
@@ -581,18 +644,18 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
         if k == 1 {
             // the first course crosses the roof's air as a bridge, as Support D lays it
             lay.w.raw(format!("{BRIDGE_FAN} ; the first course over air takes the bridge's fan"));
-            lay.course(region, n_top, 90.0, &Feature { ring: "Bottom surface", fill: "Bottom surface", ..BRIDGE }, false);
+            lay.course(region, n_top, 90.0, &Feature { ring: "Bottom surface", fill: "Bottom surface", ..BRIDGE }, false, true);
             lay.w.raw("M106 S0");
         } else if k == foot.shoulder {
             // the sockets' shoulders cross the plugs' air the same way, after the rest of the course
             let zone = sockets.iter().fold(Region::default(), |z, s| z.union(&s.offset(SHOULDER_REACH)));
-            lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), false);
+            lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), false, true);
             lay.w.raw(format!("{BRIDGE_FAN} ; the shoulders over the plugs take the bridge's fan"));
-            lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false);
+            lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false, false);
             lay.w.raw("M106 S0");
         } else {
             let flow = if k == 2 { 1.05 } else { 1.0 };
-            lay.course(region, n_top, angle, &wall(flow), deck_top < slab_top && k == count);
+            lay.course(region, n_top, angle, &wall(flow), deck_top < slab_top && k == count, true);
         }
         lay.w.comment_feature("Support", ROOF_WIDTH);
         let deck_n = n_top.min(deck_top);
@@ -1367,6 +1430,16 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         "laid": {
             "ring_pieces": laid.ring_pieces, "narrow_rings": laid.narrow_rings, "fill_lines": laid.fill_lines,
             "scaffold_layers": stack.scaffold_layers, "scaffold_top_mm": stack.scaffold_top, "sloped_courses": laid.sloped_courses,
+            "show_laps": laid.show_laps,
+        },
+        "show_lap": {
+            "direction": "clockwise across the face's slope frame, anticlockwise over the plate as the level walls run",
+            "starts_at": "the rim's lowest point on the slope, the rear",
+            "tip_radius_mm": laid.tip_radius,
+            "most_rise_mm": round(laid.lap_lift.0, 4),
+            "most_rise_at_face_mm": [round(laid.lap_lift.1[0], 2), round(laid.lap_lift.1[1], 2)],
+            "descends_on_cad_x": if laid.lap_lift_side[0] > 0.0 { "+x" } else { "-x" },
+            "rise_weighted_mean_cad_x_mm": round(laid.lap_lift_side[0] / laid.lap_lift_side[1].max(1e-12), 2),
         },
         "preamble": {
             "seconds": round(w.time, 1), "filament_mm": round(w.filament, 2),
