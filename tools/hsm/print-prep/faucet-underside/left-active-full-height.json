@@ -1,0 +1,13 @@
+{
+  "purpose": "Supplies the whole modeled toolhead's clearance envelope to the Sculpted plate's head replay.",
+  "reference_source": "hardware/reference/h2c-toolhead/h2c_toolhead.rs",
+  "reference_source_commit": "850187397c11f9092c906406758fdbb4a36d819e",
+  "reference_body_model": "cargo run -p hsm-sandbox --example h2c-toolhead -- DIR, DIR/h2c-left-active.step.npz",
+  "reference_body_model_sha256": "30016aede5227d71b2d2d0b83b53064cbe49affa8460ca9cec6874e50ae21e87",
+  "lower_height_map": "tools/hsm/print-prep/faucet-underside/left-active-height.npz",
+  "lower_height_map_sha256": "81ca425ded29dfb86f90ab069bfc2a3763e66558e158662a4eb77a62ed58fce8",
+  "generator_path": "tools/hsm/print-prep/src/head_map.rs",
+  "generator_command": "sculpted-trial head-map DIR/h2c-left-active.step.npz OUT.npz",
+  "height_map_sha256": "2a71a09ae0835d22811f2aee9d6806d4d271e39084bd9f8a2021089c26fc1655",
+  "scope": "Stock moving H2C head with the standard left nozzle active, every modeled body: the lower height map's, with the rest of each body folded in. Nozzle coordinates are at the active tip, with positive Y toward the back. The head shape comes from product photographs and its vertical clearances are estimates."
+}

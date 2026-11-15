@@ -1,16 +1,33 @@
-//! NumPy's `.npz` archive of float64 triangle arrays, the form `np.load` reads the show faces in.
+//! NumPy's `.npz` archive of float64 arrays, the form `np.load` reads the show faces and the
+//! toolhead's height maps in.
 
-use anyhow::Result;
+use anyhow::{ensure, Result};
 use std::io::Write;
 use std::path::Path;
 
 /// Each array is (count, 3, 3) float64, under its name, deflated as `np.savez_compressed` writes.
 pub fn write_triangles(path: &Path, arrays: &[(String, Vec<[[f64; 3]; 3]>)]) -> Result<()> {
+    let flat: Vec<(Vec<usize>, Vec<f64>)> =
+        arrays.iter().map(|(_, triangles)| (vec![triangles.len(), 3, 3], triangles.iter().flatten().flatten().copied().collect())).collect();
+    let named: Vec<(&str, &[usize], &[f64])> =
+        arrays.iter().zip(&flat).map(|((name, _), (shape, values))| (name.as_str(), shape.as_slice(), values.as_slice())).collect();
+    write_f64(path, &named)
+}
+
+/// Float64 arrays of the given shapes in C order, a scalar's shape empty, under their names,
+/// deflated as `np.savez_compressed` writes.
+pub fn write_f64(path: &Path, arrays: &[(&str, &[usize], &[f64])]) -> Result<()> {
     let mut archive = zip::ZipWriter::new(std::fs::File::create(path)?);
     let options = zip::write::SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
-    for (name, triangles) in arrays {
+    for &(name, shape, values) in arrays {
+        ensure!(shape.iter().product::<usize>() == values.len(), "{name} has {} values for its shape {shape:?}", values.len());
         archive.start_file(format!("{name}.npy"), options)?;
-        let mut header = format!("{{'descr': '<f8', 'fortran_order': False, 'shape': ({}, 3, 3), }}", triangles.len());
+        // The shape as Python writes a tuple.
+        let dims = match shape {
+            [one] => format!("({one},)"),
+            _ => format!("({})", shape.iter().map(usize::to_string).collect::<Vec<_>>().join(", ")),
+        };
+        let mut header = format!("{{'descr': '<f8', 'fortran_order': False, 'shape': {dims}, }}");
         // Magic, version, length, then the dictionary padded so data starts on 64 bytes.
         while (10 + header.len() + 1) % 64 != 0 {
             header.push(' ');
@@ -19,12 +36,8 @@ pub fn write_triangles(path: &Path, arrays: &[(String, Vec<[[f64; 3]; 3]>)]) -> 
         let mut bytes = b"\x93NUMPY\x01\x00".to_vec();
         bytes.extend_from_slice(&(header.len() as u16).to_le_bytes());
         bytes.extend_from_slice(header.as_bytes());
-        for t in triangles {
-            for p in t {
-                for v in p {
-                    bytes.extend_from_slice(&v.to_le_bytes());
-                }
-            }
+        for v in values {
+            bytes.extend_from_slice(&v.to_le_bytes());
         }
         archive.write_all(&bytes)?;
     }
