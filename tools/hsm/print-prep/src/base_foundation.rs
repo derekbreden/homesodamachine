@@ -154,11 +154,13 @@ pub struct Writer {
     lift_downhill: bool,
     /// The machine's Z feed, mm/s: the most any move of this stage climbs or drops per second.
     z_feed: f64,
+    /// The filament's most plastic per second, mm³/s, which the slicer holds its own beads to.
+    volume: f64,
 }
 
 impl Writer {
-    pub fn new(z_feed: f64) -> Self {
-        Self { retracted: true, z_feed, ..Default::default() }
+    pub fn new(z_feed: f64, volume: f64) -> Self {
+        Self { retracted: true, z_feed, volume, ..Default::default() }
     }
 
     /// `speed`, or less where a move from `a` to `b` would climb or drop faster than the
@@ -247,8 +249,11 @@ impl Writer {
         self.line(target, None, self.z_feed);
     }
 
-    /// Lays a bead along `path`; `flows` gives each segment its own share of the flow.
+    /// Lays a bead along `path`; `flows` gives each segment its own share of the flow. The bead
+    /// runs no faster than the filament's volumetric limit allows for its section, as the
+    /// slicer's own beads do.
     pub fn extrude(&mut self, path: &[[f64; 3]], width: f64, height: f64, speed: f64, flow: f64, flows: Option<&[f64]>) {
+        let speed = speed.min(self.volume / (bead(width, height) * flow));
         self.unretract();
         for i in 1..path.len() {
             let (a, b) = (path[i - 1], path[i]);
@@ -605,8 +610,27 @@ impl Laying<'_> {
     }
 }
 
-/// The foot's sloped courses on the roof, with the plugs and the deck rising beside them.
-pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64) -> Result<FootLaid> {
+/// The speeds the plate's slicer lays the base's level layers at: its outer walls and its
+/// internal solid infill, in mm/s.
+#[derive(Clone, Copy)]
+pub struct LevelSpeeds {
+    pub wall: f64,
+    pub fill: f64,
+}
+
+/// One setting of the slicer's header in a sliced plate's G-code, the same for every extruder.
+pub fn header_setting(lines: &[&str], key: &str) -> Result<f64> {
+    let prefix = format!("; {key} = ");
+    let text = lines.iter().find_map(|l| l.strip_prefix(prefix.as_str())).with_context(|| format!("the slice's header has no {key}"))?;
+    let values: Vec<f64> = text.split(',').map(|v| v.trim().parse::<f64>()).collect::<Result<_, _>>()
+        .with_context(|| format!("the slice's {key}"))?;
+    ensure!(!values.is_empty() && values.iter().all(|v| (v - values[0]).abs() < 1e-9), "the slice's {key} differs between extruders");
+    Ok(values[0])
+}
+
+/// The foot's sloped courses on the roof, with the plugs and the deck rising beside them. Their
+/// walls and fill take the level layers' speeds, where the machine's Z feed and the filament allow.
+pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64, speeds: LevelSpeeds) -> Result<FootLaid> {
     let regions = &foot.regions;
     let count = regions.len();
     let mut openings = regions[0].holes();
@@ -634,8 +658,7 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64) -> 
         let n_top = k as f64 * COURSE;
         let region = &regions[k - 1];
         let angle = if k % 2 == 1 { 90.0 } else { 0.0 };
-        let fill_speed = if angle != 0.0 { 40.0 } else { 50.0 };
-        let wall = |flow| Feature { pitch: SKIN_WIDTH, ring_speed: 25.0, fill_speed, flow, ring: "Outer wall", fill: "Internal solid infill", lap: 1.2 };
+        let wall = |flow| Feature { pitch: SKIN_WIDTH, ring_speed: speeds.wall, fill_speed: speeds.fill, flow, ring: "Outer wall", fill: "Internal solid infill", lap: 1.2 };
         lay.w.raw(format!("; sloped course {k} of {count}"));
         if k == 1 {
             // the first course crosses the roof's air as a bridge, as Support D lays it
@@ -1278,16 +1301,22 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let (frame, seat, base_id, label) = plate_inputs(&report, &lines, rim)?;
     let foot = Foot::cut(&mesh, SHORT_FOUNDATION_COURSES, rim)?;
     let base = report["base_seat"]["part"].as_str().context("the base's name")?;
-    // the machine's Z feed, as the plate's start G-code tells the printer
+    // the machine's Z feed, as the plate's start G-code tells the printer, and the speeds and
+    // volumetric limit the slicer lays the level layers with
     let z_feed = crate::motion::AxisLimits::stated(&gcode)?.speed[2];
-    let mut w = Writer::new(z_feed);
+    let volume = header_setting(&lines, "filament_max_volumetric_speed")?;
+    let speeds = LevelSpeeds {
+        wall: header_setting(&lines, "outer_wall_speed")?,
+        fill: header_setting(&lines, "internal_solid_infill_speed")?,
+    };
+    let mut w = Writer::new(z_feed, volume);
     let opening = Opening {
         title: format!("; ===== sloped underside of {base}: scaffold, roof and foot ====="),
         object: vec![label], temperature: "280".into(), level_roof: true,
     };
     let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
     w.lift_downhill = true;
-    let laid = lay_foot(&mut w, &frame, &foot, args.lift_share)?;
+    let laid = lay_foot(&mut w, &frame, &foot, args.lift_share, speeds)?;
     let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, nozzle_over: 0.06, park_z: 26.0 };
     w.park(rule.park_z, "265", &[])?;
     let clearance = Clearance::new(args.headmap, &frame, &|_| laid.slab_top)?;
@@ -1332,6 +1361,8 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         "plate": stats.to_json(),
         "limits": {
             "machine_z_feed_mm_s": z_feed,
+            "course_wall_speed_mm_s": speeds.wall, "course_fill_speed_mm_s": speeds.fill,
+            "filament_max_volumetric_mm3_s": volume,
             "head_travel_margin_mm": HEAD_TRAVEL_MARGIN, "nozzle_travel_margin_mm": NOZZLE_TRAVEL_MARGIN,
             "least_share_of_a_level_course_laid": FEATHER_MIN, "nozzle_over_slab_mm": rule.nozzle_over,
         },
