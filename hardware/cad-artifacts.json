@@ -4563,9 +4563,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": {
-      "commit": "d882acc4b9c0dfa16cf905e72d63dbdc13c2e7c9",
-      "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80",
-      "unproven": true
+      "commit": "4f014581a02723123da7b188f6bc91cb02ed2683",
+      "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80"
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step.mesh": {
       "commit": "146691a6aee6e47306e636e8bfda38376ecc8a20",
@@ -4573,9 +4572,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": {
-      "commit": "d882acc4b9c0dfa16cf905e72d63dbdc13c2e7c9",
-      "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80",
-      "unproven": true
+      "commit": "4f014581a02723123da7b188f6bc91cb02ed2683",
+      "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80"
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step.mesh": {
       "commit": "146691a6aee6e47306e636e8bfda38376ecc8a20",
@@ -4583,9 +4581,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": {
-      "commit": "d882acc4b9c0dfa16cf905e72d63dbdc13c2e7c9",
-      "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80",
-      "unproven": true
+      "commit": "4f014581a02723123da7b188f6bc91cb02ed2683",
+      "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80"
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": {
       "commit": "550aacdc49063dd6e66faf8023fd3d22ade1e952",
