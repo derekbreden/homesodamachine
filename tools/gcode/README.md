@@ -2,6 +2,9 @@
 
 Run by hand. Nothing here is a hook, gate or build step.
 
+`hsm-gcode` runs the build last installed, so after an edit to its source, build it and install
+it again with `hsm-run --install-tools "$PWD" tools/hsm/target/release/hsm-gcode`.
+
 These tools read the G-code inside a Bambu Studio `.gcode.3mf`, the moves the printer will be
 sent, and answer questions about a whole part rather than a chosen window of it.
 
