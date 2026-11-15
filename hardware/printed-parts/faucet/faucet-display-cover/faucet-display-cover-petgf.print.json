@@ -38,8 +38,8 @@
         0.766044443118978,
         0.6427876096865394,
         162.5,
-        158.95452958357183,
-        10.260568923016073
+        158.95452373911655,
+        10.260567275935449
       ],
       "embedded_vertex_error_mm": 5.000000413701855e-10,
       "identify_id": 1901,
@@ -50,13 +50,13 @@
       "plate": 1,
       "plate_bounds_mm": [
         [
-          147.71146392822266,
-          134.44692390926488,
+          147.66841220855713,
+          133.84691853868256,
           0.0
         ],
         [
-          177.28853607177734,
-          185.5530760907351,
+          177.33158779144287,
+          186.15308146131744,
           16.380017385268015
         ]
       ],
@@ -67,18 +67,18 @@
       ],
       "plate_translation_mm": [
         162.5,
-        158.95452958357183,
-        10.260568923016073
+        158.95452373911655,
+        10.260567275935449
       ],
       "rotation_x_degrees": -50.0,
       "source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
       "source_center_mm": [
         0.0,
-        -128.63153457641602,
-        207.87921142578125
+        -128.2458610534668,
+        208.33883666992188
       ],
-      "stl_sha256": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
-      "triangles": 27294,
+      "stl_sha256": "0c6e9e140494d1c11a798607dbe503b5cfc4c645ac0eaafa185d89ffc4485293",
+      "triangles": 28882,
       "watertight": true
     }
   ],
@@ -92,7 +92,7 @@
   "process": "0.24mm PET-GF faucet",
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "project": "faucet-display-cover-petgf.3mf",
-  "project_sha256": "6c8413d83e0a934da7358bc81e894eb372953a56d515bd7b6108011d0ab45d13",
+  "project_sha256": "491962c4fae0e9154274ffeee112d4cdfb9783c59207afa3d49b43c521cd17a6",
   "requested_z_trim_mm": 0.1,
   "saved_profile_filament_density_g_cm3": [
     1.29
@@ -161,7 +161,7 @@
       "to": "gyroid"
     }
   },
-  "settings_preserved_byte_for_byte": false,
+  "settings_preserved": false,
   "settings_sha256": "97cd2c52e2c8cf133be24203ed8d73ac1ddc5ebf2a3d4e1a2eba23e95e91711f",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
