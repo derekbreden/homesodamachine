@@ -407,11 +407,6 @@
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "04de6d97e88559b546d5e5ed018437f14663e3780227f3031f6edda93d65fbb5",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "5bbb87407821acad2202323b99e74fb390d4bc0e6ed2bdeffb403d82b6090905",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step": "470cd18032a507c7f43e94727416388edbfeca00d11d5e18d9f5b9c450920eb1",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": "ef1ec339afb6382ba3390a3ac4fed0dc9140c700f3f2ad6466cf4d5fbb44cbd7",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "beff715d504953f2285f679fd09ff89fb67194decfd6292ccb14c532b43d0b00",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": "1827f14eab4905312f6d2faf67ddba3ad3d82235ff4592fa880eb8195d371e44",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "eb9ce3541f247b3fe88b612d74179ca36661151870597f36c959e15b240f96ee",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "a15e86c44dd9df50e654ae8ee7570821085731c1497d9743917884ae22a47993",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "ab0047f8d2333eb63e7327c80c8c5d5f479b546316553a5c03e6e4f2ba33da88",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
@@ -2868,11 +2863,6 @@
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": 1793626644,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": 1793626644,
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step": 1794593427.648251,
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": 1794735197.816025,
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": 1794593427.648251,
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": 1794593408.902349,
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": 1794593427.648251,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1794593427.648251,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1794593408.902349,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1794593427.648251,
@@ -4650,31 +4640,6 @@
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": {
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
       "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step": {
-      "commit": "66fa91ed28efb00451f107d0203839a5ab632bcf",
-      "inputs": "9870c2b1564f97f82d2761056ad202ac83d7c513f2d073b3821ed22e898f2bef",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": {
-      "commit": "ba37bcfb78dc441c6077e871be08e2d19486f104",
-      "inputs": "dd722fd59981595a97dac788fc3f08447db16aa9fa6e9c9d5c1d7b0cad01bb18",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": {
-      "commit": "66fa91ed28efb00451f107d0203839a5ab632bcf",
-      "inputs": "9870c2b1564f97f82d2761056ad202ac83d7c513f2d073b3821ed22e898f2bef",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": {
-      "commit": "5c7125e91522acc1833a1c96b20c31e08b25a22c",
-      "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": {
-      "commit": "66fa91ed28efb00451f107d0203839a5ab632bcf",
-      "inputs": "9870c2b1564f97f82d2761056ad202ac83d7c513f2d073b3821ed22e898f2bef",
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": {
