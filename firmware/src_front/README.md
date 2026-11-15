@@ -95,8 +95,8 @@ The rail and selected portrait remain visible beneath it; Back is gone and the t
 offers only Stop. A pending operation reports that it is waiting for the main board. Progress and
 time left begin with the authoritative answer. Unanswered starts keep the shield up
 while querying; Stop is retried until an answer proves the operation ended.
-Completed operations keep their result in the task pane for six seconds, with Back (Done on
-System status, after Dry) and flavor selection available immediately.
+Completed operations keep their result in the task pane for six seconds, with Back and
+flavor selection available immediately.
 
 A refill that stands latched at its pumping ceiling is named in the status this panel polls
 (`StatusPayload::notice`). The machine cannot tell a supply that is shut off from a line that
@@ -125,7 +125,7 @@ jug until water and hissing stop, unplug it and free its tubes. Under the steps 
 reeds can say of the tank, at its low mark (`LEVEL_F_CARB_LOW`) or below it
 (`LEVEL_F_CARB_BELOW`), and **Cancel** sends `MSG_MOVE_CANCEL`. The steps hold the glass while
 the notice stands and come back after a restart, and the next power-up opens onto **Welcome**.
-A move the main board does not begin says so under the button.
+A move the main board does not begin says so above the button.
 
 ## Build / flash
 
@@ -384,8 +384,10 @@ on the band's last row, with the whole band its target. Back returns to rest. It
 an operation is pending or running and while a finger holds Prime, when Stop or the held pad is
 the pane's one control.
 
-**System status** has its title and Done in that band. Done is hidden while an operation is
-pending or running.
+**System status** has the same Back in its band, which runs from the rail, with the page's title
+at the band's right. Back is gone while an operation is pending or running, and the title stays.
+While the page is open the Settings cell takes the page's blue, its gear white and the hairline
+over it gone, so the two read as one; a tap on it still opens System status.
 
 | Page | Contents |
 |---|---|
@@ -408,15 +410,14 @@ update, the display caches every image in PSRAM at each size it draws: the rail'
 portrait's and the picker's. LVGL draws these complete portraits without transforming them
 during a frame. No image or ratio edit writes NVS on the running RGB panel.
 
-Back, Done, either flavor, the rail background and the whole portrait return to On tap.
+Back, either flavor, the rail background and the whole portrait return to On tap.
 Selecting a different flavor queues a causal prime cancellation before the new selection.
 A held prime takes Back away, keeps the flavors, rail and portrait as its exits, and blocks
 Settings. Fill, Clean and Dry intercept every touch except Stop from the queued Start through
 the authoritative terminal answer. Their result cards restore navigation immediately.
 
-Machine pages occupy all 696 px to the right of the rail. Their header contains the page
-title and Done; the portrait is absent. Changing flavor at the
-faucet leaves these machine pages open.
+System status occupies everything to the right of the rail, its band included; the portrait
+is absent. Changing flavor at the faucet leaves it open.
 
 Text is Montserrat, 20 px and up. Pages are built once; navigation changes visibility.
 Routine unchanged main-board replies do not repaint the portrait, selection or gauge.
@@ -561,14 +562,15 @@ tube in the middle of it and a reservoir pocket at either end, B's forward and A
 of them named on the glass. Each of the ten reeds is a 14 px dot at its own station: a column
 of four on each pocket's outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the shell, empty at
 the bottom and full at the top, and the carbonator's low and high on its tube's aft wall at
-99.1 and 127.3 mm. A reed the main board reads closed is a filled `COL_GOOD` disc; every other
-one is a ring.
+99.1 and 127.3 mm. A reed the main board reads closed is a white disc in its ice ring; every
+other one is the ring alone.
 
 The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
 repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
 reading it flags as stale, empties every dot and puts **Not reading the sensors** in the pane
-below the drawing. The 436 px profile occupies the full machine page beside the cold loop and
-refill readings. The drawing contains no text.
+below the drawing. The profile takes the page's left, beside a column of the cold loop and
+refill readings, each label at the column's left and its value right-aligned at its right. The
+drawing contains no text.
 
 ### Trusted phones
 
@@ -588,15 +590,16 @@ left, and a request still standing here closes on its own in [`main.cpp`](main.c
 `askService()`. The page then reads **No request waiting**. A new request replaces the one up,
 and a repeat of it changes nothing.
 
-The rail, the resting rows, Back and Done stay available while a request stands, and a request never moves
+The rail, the resting rows and Back stay available while a request stands, and a request never moves
 the glass to another page. It does not hold the dark off here. This glass's own asks do:
 **Forget all trusted phones?**, **No water**, **Skip this step?** and **Move the machine?**.
 
-**Forget trusted phones** is at the foot of System status's right-hand column. It asks
-**Forget all trusted phones?** first, and **Forget** sends `MSG_TRUST_FORGET`. The faucet's
-`MSG_RESP_TRUST_FORGET { count }` shows above the button for [`main.cpp`](main.cpp)'s
-`FORGOT_MS`: *Forgot 2 trusted phones.*, *Forgot 1 trusted phone.* or *No phones were
-trusted.* **Move the machine** stands above it, under the readings.
+**Move the machine** and **Forget trusted phones** stand together at the foot of System
+status's right-hand column, Move directly above Forget and Forget level with the profile's
+floor. Forget asks **Forget all trusted phones?** first, and **Forget** sends
+`MSG_TRUST_FORGET`. The faucet's `MSG_RESP_TRUST_FORGET { count }` shows above the pair for
+[`main.cpp`](main.cpp)'s `FORGOT_MS`: *Forgot 2 trusted phones.*, *Forgot 1 trusted phone.* or
+*No phones were trusted.*
 
 ## Integration seams (not implemented)
 

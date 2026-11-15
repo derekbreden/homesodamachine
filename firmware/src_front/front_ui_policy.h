@@ -10,12 +10,9 @@ constexpr bool allows(Action action, bool operationLocked, bool primeHeld) {
   return operationLocked ? action == Action::Stop
       : !primeHeld || action == Action::Stop || action == Action::Dismiss || action == Action::SelectFlavor;
 }
-constexpr bool showDone(bool resting, bool operationLocked) {
-  return !resting && !operationLocked;
-}
-// Back stands over a task's pane and goes while an operation holds the glass, and while a
-// finger holds Prime, whose pad is then the pane's one control. The rail and the portrait
-// keep Prime's exits.
+// Back stands over a task's pane and over System status, and goes while an operation holds
+// the glass, and while a finger holds Prime, whose pad is then the pane's one control. The
+// rail and the portrait keep Prime's exits.
 constexpr bool showBack(bool operationLocked, bool primeHeld) {
   return !operationLocked && !primeHeld;
 }

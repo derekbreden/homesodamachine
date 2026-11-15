@@ -16,7 +16,6 @@ static void queued_and_running_operations_allow_only_stop() {
         TEST_ASSERT_FALSE(allows(Action::Settings, true, held));
         TEST_ASSERT_FALSE(allows(Action::Edit, true, held));
         TEST_ASSERT_TRUE(allows(Action::Stop, true, held));
-        TEST_ASSERT_FALSE(showDone(false, true));
         TEST_ASSERT_FALSE(showBack(true, held));
     }
 }
@@ -28,7 +27,6 @@ static void prime_keeps_cancellation_exits_available() {
     TEST_ASSERT_FALSE(allows(Action::Task, false, true));
     TEST_ASSERT_FALSE(allows(Action::Settings, false, true));
     TEST_ASSERT_FALSE(allows(Action::Edit, false, true));
-    TEST_ASSERT_TRUE(showDone(false, false));
     // The held pad is the pane's one control; the rail and the portrait are the exits.
     TEST_ASSERT_FALSE(showBack(false, true));
     TEST_ASSERT_TRUE(showBack(false, false));
@@ -39,7 +37,6 @@ static void faucet_selection_dismisses_only_flavor_tasks() {
     TEST_ASSERT_FALSE(dismissForFaucetChange(true, true, false));
     TEST_ASSERT_FALSE(dismissForFaucetChange(false, false, false));
     TEST_ASSERT_FALSE(dismissForFaucetChange(false, true, true));
-    TEST_ASSERT_FALSE(showDone(true, false));
 }
 
 static void stale_sensor_readings_clear_at_deadline_and_across_clock_wrap() {
