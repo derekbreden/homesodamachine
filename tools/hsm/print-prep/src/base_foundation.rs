@@ -130,6 +130,7 @@ pub struct Writer {
     pub filament: f64,
     pub lengths: Vec<(String, f64)>,
     pub feature: Option<String>,
+    lift_downhill: bool,
 }
 
 impl Writer {
@@ -204,7 +205,8 @@ impl Writer {
             return;
         };
         let flat = (target[0] - x0).hypot(target[1] - y0);
-        if flat < hop && (target[2] - z0).abs() < 0.5 && !self.retracted {
+        let safe_short_hop = !self.lift_downhill || target[2] >= z0 - 0.001;
+        if flat < hop && (target[2] - z0).abs() < 0.5 && !self.retracted && safe_short_hop {
             self.line(target, None, TRAVEL_SPEED.min(60.0));
             return;
         }
@@ -405,7 +407,7 @@ pub struct Foot {
 
 impl Foot {
     /// The base cut parallel to its mounting face through the middle of each course.
-    pub fn cut(stl: &Path) -> Result<Foot> {
+    fn cut(stl: &Path, courses: Option<usize>) -> Result<Foot> {
         let mesh = Mesh::read_stl(stl)?;
         mesh.check_closed_single_body("faucet base")?;
         let mut probe = Vec::with_capacity(PROBE_COURSES);
@@ -429,7 +431,9 @@ impl Foot {
         let shoulder = 1 + probe.iter()
             .position(|r| small(r).into_iter().fold(f64::NEG_INFINITY, f64::max) < 0.6 * sockets[0])
             .context("no course closes the sockets down to their pilots")?;
-        let regions: Vec<Region> = probe.into_iter().take(shoulder + COURSES_OVER_SHOULDER).collect();
+        let count = courses.unwrap_or(shoulder + COURSES_OVER_SHOULDER);
+        ensure!((1..=probe.len()).contains(&count), "the foot's course count is outside the probed range");
+        let regions: Vec<Region> = probe.into_iter().take(count).collect();
         let reach = regions.iter().fold([0.0_f64; 2], |m, r| {
             let (lo, hi) = r.bounds();
             [m[0].max(lo[0].abs()).max(hi[0].abs()), m[1].max(lo[1].abs()).max(hi[1].abs())]
@@ -553,7 +557,7 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
     let deck = bore.offset(-DECK_KERF);
     let plugs: Vec<Region> = sockets.iter().map(|s| s.offset(-PLUG_CLEAR)).collect();
     // the last course the plugs rise with
-    let plug_top = foot.shoulder.saturating_sub(2);
+    let plug_top = foot.shoulder.saturating_sub(2).min(count);
     let slab_top = count as f64 * COURSE;
     let deck_top = deck_top.unwrap_or(slab_top);
     ensure!((count - 1) as f64 * COURSE < deck_top && deck_top <= slab_top, "the deck's top {deck_top} is not in the last course");
@@ -1302,6 +1306,7 @@ pub struct Foundation<'a> {
     pub headmap: &'a Path,
     pub out_dir: &'a Path,
     pub deck_top: Option<f64>,
+    pub part_courses: Option<usize>,
 }
 
 /// The base's seat, its object id on the plate and the label its object start carries.
@@ -1329,13 +1334,14 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let gcode = String::from_utf8(crate::gcode::plate_gcode(args.archive)?)?;
     let lines: Vec<&str> = gcode.split('\n').collect();
     let (frame, seat, base_id, label) = plate_inputs(&report, &lines)?;
-    let foot = Foot::cut(args.stl)?;
+    let foot = Foot::cut(args.stl, args.part_courses)?;
     let mut w = Writer::new();
     let opening = Opening {
         title: "; ===== sloped underside of faucet-shell-base: scaffold, roof and foot =====".into(),
         object: vec![label], temperature: "280".into(), level_roof: true,
     };
     let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
+    w.lift_downhill = args.part_courses.is_some();
     let laid = lay_foot(&mut w, &frame, &foot, args.deck_top)?;
     let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, clip: Clip::Feather, nozzle_over: 0.06, park_z: 26.0 };
     w.park(rule.park_z, "265", &[])?;

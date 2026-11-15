@@ -2,20 +2,21 @@
 //!
 //! The stages are the tip's warp, its donor supports and its courses; the base filled under its
 //! mounting face, its foundation, its continued courses through the shaft and the cooling of
-//! their join; the screw-seat rings; the tip-trial, shaft-trial and plug-ramp sequencers; the
+//! their join; the screw-seat rings; the tip, shaft, plug-ramp and short foundation sequencers; the
 //! plug-ramp feed cap, base show-wall speed, and the print-only review archive.
 //!
-//!   sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder TIP.stl EDITABLE.3mf OUT.stl
+//!   sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl
 //!   sculpted-trial supports WARP.json OUT.json
 //!   sculpted-trial tape DONOR.gcode DONOR.print.json WARP.json OUT.gcode --band-step STEP [--uphill-all] --native-nose
 //!   sculpted-trial fill BASE.stl OUT.stl
-//!   sculpted-trial foundation SLICED.gcode.3mf PRINT.json BASE.stl HEADMAP.npz OUT_DIR [--deck-top MM]
+//!   sculpted-trial foundation SLICED.gcode.3mf PRINT.json BASE.stl HEADMAP.npz OUT_DIR [--deck-top MM] [--part-courses COUNT]
 //!   sculpted-trial continued-base DONOR.gcode DONOR.print.json PHYSICAL.gcode PHYSICAL.print.json OUT.gcode
 //!       [--uphill-wall-runs] [--stitch-mesh BASE.stl] [--fade-end MM] [--native-join-z MM]
 //!   sculpted-trial cool-shaft-join SEQUENCED.gcode PROJECT.3mf OUT.gcode [--catalog SCALARS.json]
 //!   sculpted-trial rings RINGS.gcode
 //!   sculpted-trial sequence PRIOR.gcode NATIVE.gcode PLATE.gcode --tip-model TIP.gcode --entire-tip-custom [--plate-rings RINGS.gcode]
 //!   sculpted-trial sequence-shaft FOUNDATION.gcode SEQUENCED.gcode [--donor CONTINUED-BASE.gcode]
+//!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode
 //!   sculpted-trial package NATIVE.gcode.3mf PLATE.gcode REVIEW.gcode.3mf --motion-seconds S --first-course-seconds F
 //!   sculpted-trial merge PREVIOUS.gcode --candidate TIP.gcode PLATE.gcode [--candidate TIP.gcode PLATE.gcode ...]
 //!       [--reference-sha256 SHA] [--rings COUNT] [--sequencer-sha256 SHA]
@@ -81,18 +82,19 @@ fn number(args: &Args, name: &str) -> Result<f64> {
 fn main() -> Result<()> {
     let mut values: Vec<String> = std::env::args().skip(1).collect();
     if values.is_empty() {
-        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|package|merge|cap-feed|bind-capped|finish-base-wall ...");
+        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|package|merge|cap-feed|bind-capped|finish-base-wall ...");
     }
     let command = values.remove(0);
     match command.as_str() {
         "warp" => {
             let [recipe, mesh, project, output] = values.as_slice() else {
-                bail!("usage: sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder TIP.stl EDITABLE.3mf OUT.stl");
+                bail!("usage: sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl");
             };
             let recipe = match recipe.as_str() {
                 "tip-shoulder" => &tip_warp::TIP_SHOULDER,
                 "plug-ramp" => &tip_warp::PLUG_RAMP,
                 "matched-shoulder" => &tip_warp::MATCHED_SHOULDER,
+                "short-shoulder" => &tip_warp::SHORT_SHOULDER,
                 other => bail!("unknown tip warp {other}"),
             };
             tip_warp::write(recipe, Path::new(mesh), Path::new(project), Path::new(output))?;
@@ -135,8 +137,9 @@ fn main() -> Result<()> {
         "foundation" => {
             let p = paths(&values, 5, &[])?;
             let deck_top = valued(&values, "--deck-top").map(|v| v.parse::<f64>()).transpose().context("--deck-top needs a number")?;
+            let part_courses = valued(&values, "--part-courses").map(|v| v.parse::<usize>()).transpose().context("--part-courses needs a count")?;
             base_foundation::foundation(&base_foundation::Foundation {
-                archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top,
+                archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top, part_courses,
             })?;
         }
         "continued-base" => {
@@ -180,6 +183,14 @@ fn main() -> Result<()> {
             args.count(2)?;
             let donor = args.option("--donor").map(PathBuf::from);
             let report = plate_sequence::compose_shaft(&args.path(0)?, &args.path(1)?, donor.as_deref())?;
+            println!("{}", plate_sequence::summary(&report).dumps_indented());
+        }
+        "sequence-foundations" => {
+            let args = Args::parse(values, &[], &[])?;
+            args.count(6)?;
+            let report = plate_sequence::foundation_sequence::compose(
+                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?,
+            )?;
             println!("{}", plate_sequence::summary(&report).dumps_indented());
         }
         "package" => {
@@ -231,7 +242,7 @@ fn main() -> Result<()> {
             let report = plate_sequence::finish_base_wall(&args.path(0)?, &args.path(1)?)?;
             println!("{}", serde_json::to_string_pretty(&report)?);
         }
-        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, package, merge, cap-feed, bind-capped or finish-base-wall"),
+        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, package, merge, cap-feed, bind-capped or finish-base-wall"),
     }
     Ok(())
 }

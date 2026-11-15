@@ -1,0 +1,149 @@
+{
+  "purpose": "Measure whole-plate chronology from the unsampled repository acceleration planner.",
+  "gcode_sha256": "1b3a27aabce08ca4ceaf50c65781772e3290b7b47191e522b98b3da521e8f500",
+  "estimate_scope": "Commanded motion with acceleration. Printer warmup, thermal waits, firmware macros and physical execution are outside the clock.",
+  "complete_motion_time_seconds": 27995.546301662223,
+  "first_bed_deposition_start_seconds": 2.448194226362645,
+  "first_bed_deposition_end_seconds": 412.7568715268392,
+  "first_bed_course_deposition_span_seconds": 410.3086773004765,
+  "course_groups": 2391,
+  "parts": {
+    "base": {
+      "first_deposition_start_seconds": 2.448194226362645,
+      "first_deposition_gcode_line": 1166,
+      "last_deposition_end_seconds": 27993.972495563463,
+      "longest_between_deposition_seconds": 659.107457877828,
+      "longest_gap_seconds_range": [
+        14007.305845559866,
+        14666.413303437694
+      ],
+      "longest_gap_world_z_mm": [
+        29.0,
+        29.02400016784668
+      ],
+      "longest_gap_gcode_lines": [
+        645653,
+        669156
+      ]
+    },
+    "tip": {
+      "first_deposition_start_seconds": 159.88787615517714,
+      "first_deposition_gcode_line": 2585,
+      "last_deposition_end_seconds": 23877.93165427634,
+      "longest_between_deposition_seconds": 3686.4415225274083,
+      "longest_gap_seconds_range": [
+        2491.895207231198,
+        6178.336729758606
+      ],
+      "longest_gap_world_z_mm": [
+        3.559999942779541,
+        3.5840001106262207
+      ],
+      "longest_gap_gcode_lines": [
+        94712,
+        136988
+      ]
+    },
+    "cover": {
+      "first_deposition_start_seconds": 93.81999077511725,
+      "first_deposition_gcode_line": 1574,
+      "last_deposition_end_seconds": 10696.633185408851,
+      "longest_between_deposition_seconds": 3681.109813067375,
+      "longest_gap_seconds_range": [
+        2485.5911017413796,
+        6166.7009148087545
+      ],
+      "longest_gap_world_z_mm": [
+        3.559999942779541,
+        3.799999952316284
+      ],
+      "longest_gap_gcode_lines": [
+        94311,
+        135986
+      ]
+    },
+    "mounting plate": {
+      "first_deposition_start_seconds": 240.08150177886802,
+      "first_deposition_gcode_line": 5259,
+      "last_deposition_end_seconds": 6983.411935762538,
+      "longest_between_deposition_seconds": 3615.7069058235693,
+      "longest_gap_seconds_range": [
+        2569.449121960026,
+        6185.156027783595
+      ],
+      "longest_gap_world_z_mm": [
+        3.559999942779541,
+        3.799999952316284
+      ],
+      "longest_gap_gcode_lines": [
+        96785,
+        137402
+      ]
+    },
+    "lever": {
+      "first_deposition_start_seconds": 354.6495290876624,
+      "first_deposition_gcode_line": 7184,
+      "last_deposition_end_seconds": 9237.78613328468,
+      "longest_between_deposition_seconds": 3651.9189037558767,
+      "longest_gap_seconds_range": [
+        2580.977690060809,
+        6232.896593816686
+      ],
+      "longest_gap_world_z_mm": [
+        3.559999942779541,
+        3.799999952316284
+      ],
+      "longest_gap_gcode_lines": [
+        97684,
+        139070
+      ]
+    }
+  },
+  "milestones": {
+    "mounting plate counterbore supports": {
+      "first_deposition_start_seconds": 240.08150177886802,
+      "last_deposition_end_seconds": 1942.0238466520043,
+      "first_and_last_deposition_gcode_lines": [
+        5259,
+        83216
+      ],
+      "other_parts_course_groups_between": {
+        "lever": 12,
+        "base": 26,
+        "cover": 12,
+        "tip": 22
+      }
+    },
+    "sloped course": {
+      "first_deposition_start_seconds": 3451.231484804319,
+      "last_deposition_end_seconds": 6082.076948999804,
+      "first_and_last_deposition_gcode_lines": [
+        104630,
+        131168
+      ],
+      "other_parts_course_groups_between": {}
+    },
+    "tip shoulder entry": {
+      "first_deposition_start_seconds": 13434.280509374874,
+      "last_deposition_end_seconds": 13633.988035729404,
+      "first_and_last_deposition_gcode_lines": [
+        618450,
+        627903
+      ],
+      "other_parts_course_groups_between": {
+        "base": 3
+      }
+    },
+    "tip yellow shoulder": {
+      "first_deposition_start_seconds": 13655.291976506409,
+      "last_deposition_end_seconds": 14032.142944868405,
+      "first_and_last_deposition_gcode_lines": [
+        629784,
+        646427
+      ],
+      "other_parts_course_groups_between": {
+        "base": 9
+      }
+    }
+  }
+}

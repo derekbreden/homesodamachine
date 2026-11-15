@@ -1,0 +1,69 @@
+{
+  "gcode_sha256": "a6151509cc641fb218b49c475d0aa14d50ec0e56ca7a66ec12188a49d2da3e0c",
+  "input_archive": {
+    "path": ".cache/runs/sculpted-seven-courses-20261114/native-slice/native.gcode.3mf",
+    "sha256": "573807424c235014b065b79213d5e81a62f302066557731223f630b0d20e25e6"
+  },
+  "laid": {
+    "fill_lines": 1996,
+    "narrow_rings": 148,
+    "ring_pieces": 140,
+    "scaffold_layers": 61,
+    "scaffold_top_mm": 14.6,
+    "sloped_courses": 7
+  },
+  "limits": {
+    "head_travel_margin_mm": 3.0,
+    "least_share_of_a_level_course_laid": 0.3,
+    "nozzle_over_slab_mm": 0.06,
+    "nozzle_travel_margin_mm": 0.3,
+    "z_while_printing_mm_s": 7.5,
+    "z_while_travelling_mm_s": 15.0
+  },
+  "plate": {
+    "clipped_layers": 187,
+    "dropped_mm": 104353.311,
+    "dropped_support_mm": 689.459,
+    "feathered_mm": 2996.924,
+    "highest_lift_mm": 16.837,
+    "kept_mm": 168543.411,
+    "least_base_head_clearance_mm": 2.19,
+    "least_other_head_clearance_mm": null,
+    "lifted_travels": 1043,
+    "rewritten_travels": 20
+  },
+  "preamble": {
+    "extrusion_mm_by_feature": {
+      "Bottom surface": 3894.0,
+      "Internal solid infill": 20561.2,
+      "Outer wall": 2818.9,
+      "Support": 55045.3,
+      "Support interface": 14358.3
+    },
+    "filament_mm": 4821.72,
+    "seconds": 3725.2
+  },
+  "purpose": "Binds the Sculpted base's sloped foot to the courses this stage laid and what it kept of the plate.",
+  "roof_lip_mm": 2.0,
+  "seat_center_mm": [
+    85.49944496154785,
+    140.34437517845532,
+    7.635167989157424
+  ],
+  "stack_normal_mm": {
+    "air_asked": 0.24,
+    "course": 0.24,
+    "deck_top": 1.68,
+    "plug_top": 1.68,
+    "roof_courses": 3,
+    "roof_tops": [
+      -0.72,
+      -0.48,
+      -0.24
+    ],
+    "scaffold_ceiling": -0.96,
+    "shoulder_course": 14,
+    "slab_top": 1.68
+  },
+  "tilt_x_degrees": -15
+}

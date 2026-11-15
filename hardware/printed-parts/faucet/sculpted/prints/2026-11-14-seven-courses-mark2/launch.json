@@ -1,0 +1,30 @@
+{
+  "archive": {
+    "gcode_sha256": "daa50e63767af29716262b03212d55d244be04b13a9e86b03117cc8b9f0001be",
+    "name": "sculpted-faucet-seven-courses-black-mark2.gcode.3mf",
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover",
+      "above-counter-plate",
+      "lever-replica"
+    ],
+    "sha256": "00a17df23fdadf858dec55c1f871e1ce5156e324258bc15af99bcf60bf1cc75c",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-15T01:19:16+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1444820141",
+  "subtask_name": "sculpted-faucet-seven-courses-black-mark2.gcode.3mf",
+  "total_layer_num": 2391
+}
