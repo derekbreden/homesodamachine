@@ -60,7 +60,6 @@ pub fn add(r: &mut Refreshed, name: &str, recipe: &Value) -> Result<Value> {
     }
     Ok(json!({
         "part": name,
-        "source_preparation": recipe["source_preparation"],
         "seat_print_world_center_mm": world(seat),
         "seat_print_world_outward_normal": apply(&rotation, [0.0, 0.0, -1.0]),
         "bridge_only_pockets": pockets,

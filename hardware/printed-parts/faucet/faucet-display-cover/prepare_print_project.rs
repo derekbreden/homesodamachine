@@ -4,8 +4,8 @@
 //!     faucet-cover-print-project [--project P] [--printer Mark1|Mark2] [--filament-colour #RRGGBB]
 //!
 //! The cover is the shared cover in the faucet plate's pose, with the approved cover print's
-//! settings and object settings, the printer's Z trim, and the plate's first bed layer and later
-//! layers.
+//! settings and object settings, the printer's Z trim, and the first bed layer and later layers
+//! the faucet plate's selections give it.
 
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::profile::{first_text, petgf_infill_pattern, relative, settings_bytes, SETTINGS_MEMBER};
@@ -50,7 +50,6 @@ fn main() -> Result<()> {
     let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let selection: Value = serde_json::from_slice(&std::fs::read(root.join(SELECTION))?)?;
     let plate = faucet_plate::selection(&root)?;
-    let finish: Value = serde_json::from_slice(&std::fs::read(root.join(plate["finish_selection"].as_str().context("the standing finish selection")?))?)?;
     let source = root.join(SETTINGS_SOURCE);
     let part = Part::new(COVER.name, root.join(COVER.stl), faucet_plate::COVER_ROTATION_DEGREES);
     let mut r = refresh::refresh(&root, &source, &[part], &[[0.0, 0.0]], TITLE, Some(trim), PLATE_BORDER)?;
@@ -68,8 +67,8 @@ fn main() -> Result<()> {
     r.plate.settings["filament_colour"] = json!([colour]);
     let mut changes = r.profile.changes.clone();
     for (key, value) in [
-        ("initial_layer_print_height", text(&finish["first_bed_layer_height_mm"])),
-        ("layer_height", text(&finish["layer_height_mm"])),
+        ("initial_layer_print_height", text(&plate["first_bed_layer_height_mm"])),
+        ("layer_height", text(&plate["layer_height_mm"])),
         ("sparse_infill_pattern", petgf_infill_pattern(&root)?),
     ] {
         let old = r.plate.settings[key].clone();

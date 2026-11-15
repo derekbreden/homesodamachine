@@ -223,7 +223,8 @@ fn main() -> Result<()> {
             args.count(3)?;
             let directory = args.path(0)?;
             let report: serde_json::Value = serde_json::from_slice(&std::fs::read(args.path(2)?)?)?;
-            let stretch = hsm_print_prep::faucet_contact::recorded_tip_end_stretch(&report, &report["selected_finish"]["tip_end_cooling"])?;
+            let cooling = &hsm_print_prep::faucet_plate::selection(&hsm_print_prep::root())?["tip_end_cooling"];
+            let stretch = hsm_print_prep::faucet_contact::recorded_tip_end_stretch(&report, cooling)?;
             std::fs::create_dir_all(directory.join("mapped-slice"))?;
             let reading = hsm_print_prep::faucet_contact::apply_stretch_cooling(&args.path(1)?, &directory, "tip-end-cooling", &stretch)?;
             println!("{}", serde_json::to_string_pretty(&reading)?);

@@ -1,13 +1,13 @@
 //! The faucet plate's chain, which `faucet-plate` runs for either style from the checkout's
-//! meshes, the standing finish selection and the plate's own selections to the print-only archive.
-//! Both styles lay the same tip, display cover and lever beside their own base and mounting plate.
+//! meshes and the plate's selections to the print-only archive. Both styles lay the same tip,
+//! display cover and lever beside their own base and mounting plate.
 use crate::{faucet_contact, slice, stretch_cooling, trial_archive};
 use anyhow::{Context, Result};
 use serde_json::{Value, json};
 use std::fs;
 use std::path::{Path, PathBuf};
 
-/// The plate's own selections.
+/// The plate's selections.
 pub const SELECTION: &str = "tools/hsm/print-prep/faucet-plate.json";
 
 /// A part of a plate: its name there and its mesh in the checkout.
@@ -91,18 +91,29 @@ pub fn lift_share(plate: &Value) -> f64 {
     plate["descent_lift"]["share"].as_f64().unwrap_or(0.0)
 }
 
+/// The plate's selections: each entry its file gives, over the entries of the standing finish
+/// selection the file names.
 pub fn selection(root: &Path) -> Result<Value> {
-    let path = root.join(SELECTION);
-    serde_json::from_slice(&fs::read(&path)?).with_context(|| format!("reading {}", path.display()))
+    let read = |relative: &str| -> Result<Value> {
+        let path = root.join(relative);
+        serde_json::from_slice(&fs::read(&path)?).with_context(|| format!("reading {}", path.display()))
+    };
+    let mut plate = read(SELECTION)?;
+    let entries = plate.as_object_mut().context("the plate's selections")?;
+    let Some(standing) = entries.remove("finish_selection") else { return Ok(plate) };
+    let mut selection = read(standing.as_str().context("the standing finish selection")?)?;
+    let composed = selection.as_object_mut().context("the standing finish selection")?;
+    composed.extend(std::mem::take(entries));
+    Ok(selection)
 }
 
 /// Slices `project` into `directory` and runs the standing slice path's G-code stages over the
 /// slice in their standing order, bridge-foundation cooling and then tip-end cooling. `report` is
-/// the project's print report. Given `plain`, the same plate with other settings, the tip's layers
-/// in the tip-end cooling zone come from its slice before the stages run. The stages' receipts
-/// are returned.
-pub fn slice_with_cooling(project: &Path, report: &Value, directory: &Path, plain: Option<&Path>) -> Result<Value> {
-    let stretch = faucet_contact::recorded_tip_end_stretch(report, &report["selected_finish"]["tip_end_cooling"])?;
+/// the project's print report and `cooling` the selections' tip-end cooling. Given `plain`, the
+/// same plate with other settings, the tip's layers in the tip-end cooling zone come from its
+/// slice before the stages run. The stages' receipts are returned.
+pub fn slice_with_cooling(project: &Path, report: &Value, cooling: &Value, directory: &Path, plain: Option<&Path>) -> Result<Value> {
+    let stretch = faucet_contact::recorded_tip_end_stretch(report, cooling)?;
     let splice = match plain {
         None => {
             slice_raw(project, directory)?;
