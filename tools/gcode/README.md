@@ -15,6 +15,7 @@ sent, and answer questions about a whole part rather than a chosen window of it.
 | Show the commanded walls with seam markers or speed colours | `hsm-gcode view seams` or `hsm-gcode view speed` |
 | Watch consecutive layers deposit under the moving head and bed | `hsm-gcode view playback` |
 | Did a change to a print stage change what prints? | `hsm-gcode compare` |
+| Is a re-prepared project, sliced archive or output folder the one before it, by value? | [`hsm-project compare`](../hsm/inspection/README.md#print-projects) |
 | How fast, with how much part fan and how much plastic is one part laid at each height, on several plates? | `hsm-gcode laying` |
 | What does one plate command differently from another, apart from where its beads lie? | `hsm-gcode recipe` |
 | Could the head hit plastic it laid earlier: a low travel, a drop onto a part, a wait over a part? | `hsm-gcode harm` |
