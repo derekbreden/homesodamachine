@@ -138,6 +138,82 @@ fn editable(name: &str) -> bool {
         || matches!(name, "Metadata/layer_config_ranges.xml" | "Metadata/cut_information.xml")
 }
 
+/// The motion reader's per-move record: the move's end time at its start, its G-code line at
+/// `MOVE_LINE`, in a record `MOVE_RECORD` bytes long.
+const MOVE_RECORD: usize = 62;
+const MOVE_LINE: usize = 52;
+
+/// Where a plate's printer progress changes: before each G-code line, counted from one, the
+/// whole percent and whole minutes left the motion estimate gives as that line starts.
+fn progress_points(gcode: &str, moves: &[u8]) -> Result<Vec<(usize, u64, u64)>> {
+    ensure!(moves.len() % MOVE_RECORD == 0 && !moves.is_empty(), "The motion file is not whole records");
+    let records: Vec<(f64, usize)> = moves.chunks_exact(MOVE_RECORD).map(|r| {
+        (f64::from_le_bytes(r[..8].try_into().unwrap()), u32::from_le_bytes(r[MOVE_LINE..MOVE_LINE + 4].try_into().unwrap()) as usize)
+    }).collect();
+    let total = records.last().map(|r| r.0).context("The motion file has no moves")?;
+    ensure!(total > 0.0, "The motion estimate takes no time");
+    let line_of = |marker: &str| gcode.lines().position(|l| l.starts_with(marker)).map(|i| i + 1).with_context(|| format!("The plate has no {marker}"));
+    let (start, end) = (line_of("; MACHINE_START_GCODE_END")?, line_of("; MACHINE_END_GCODE_START")?);
+    let mut points = Vec::new();
+    let mut last = None;
+    let mut at = 0.0;
+    for &(end_time, line) in &records {
+        if line > start && line < end {
+            let state = ((100.0 * at / total).floor() as u64, ((total - at) / 60.0).floor() as u64);
+            if last != Some(state) && points.last().is_none_or(|p: &(usize, u64, u64)| p.0 < line) {
+                points.push((line, state.0, state.1));
+                last = Some(state);
+            }
+        }
+        at = end_time;
+    }
+    Ok(points)
+}
+
+/// The plate with the printer's percent and time-left written in, as the slicer writes them on
+/// its own plates: an `M73 P R` line wherever the motion estimate's whole percent or whole minute
+/// left changes. `times` is the motion reader's move file, or the receipt of an earlier run on the
+/// same plate. Only lines are added. The plate's course-group report is carried to `output`'s
+/// under the new hash, with the progress points; the receipt is returned.
+pub fn progress(plate: &Path, times: &Path, output: &Path) -> Result<Value> {
+    ensure!(plate != output && !output.exists(), "Write the progress plate to a new path");
+    let gcode = fs::read_to_string(plate)?;
+    let source = crate::sha256_hex(gcode.as_bytes());
+    let mut report: Value = serde_json::from_slice(&fs::read(plate.with_extension("json"))?)?;
+    ensure!(report["sequenced_gcode_sha256"] == source.as_str(), "The plate and its course-group report differ");
+    let points: Vec<(usize, u64, u64)> = if times.extension().is_some_and(|e| e == "json") {
+        let earlier: Value = serde_json::from_slice(&fs::read(times)?)?;
+        ensure!(earlier["pre_progress_gcode_sha256"] == source.as_str(), "The progress receipt belongs to another plate");
+        serde_json::from_value(earlier["printer_progress"]["points"].clone()).context("The receipt's progress points")?
+    } else {
+        progress_points(&gcode, &fs::read(times)?)?
+    };
+    let mut out = String::with_capacity(gcode.len() + points.len() * 16);
+    let mut next = points.iter().peekable();
+    for (i, line) in gcode.split_inclusive('\n').enumerate() {
+        while let Some(&&(at, p, r)) = next.peek() {
+            if at != i + 1 {
+                break;
+            }
+            let _ = std::fmt::Write::write_fmt(&mut out, format_args!("M73 P{p} R{r}\n"));
+            next.next();
+        }
+        out.push_str(line);
+    }
+    ensure!(next.peek().is_none(), "A progress point lies past the plate's end");
+    let sha = crate::sha256_hex(out.as_bytes());
+    report["pre_progress_gcode_sha256"] = json!(source);
+    report["sequenced_gcode_sha256"] = json!(sha);
+    report["printer_progress"] = json!({
+        "purpose": "The printer's percent and time-left as the motion estimate runs, written where either changes.",
+        "lines": points.len(),
+        "points": points,
+    });
+    fs::write(output, &out)?;
+    fs::write(output.with_extension("json"), serde_json::to_string_pretty(&report)? + "\n")?;
+    Ok(json!({"lines": points.len(), "source_gcode_sha256": source, "gcode_sha256": sha}))
+}
+
 /// Writes the print-only archive for `sequenced` to the new file `output`, from the native
 /// slice's archive `template`, the sequencer's report beside `sequenced`, the playback motion
 /// time and the first bed course's deposition span. The summary is returned.
