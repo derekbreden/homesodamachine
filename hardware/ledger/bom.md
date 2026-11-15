@@ -162,7 +162,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
 | **Printed parts total** | | | **~7.16** | **[$165.08](BOM_SEC7)** |
 
-By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.58. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.59. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
