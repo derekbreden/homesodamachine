@@ -40,8 +40,8 @@ name = "sculpted-trial"
 path = "src/bin/sculpted_trial.rs"
 
 [[bin]]
-name = "sculpted-plate"
-path = "src/bin/sculpted_plate.rs"
+name = "faucet-plate"
+path = "src/bin/faucet_plate.rs"
 
 [[bin]]
 name = "petgf-cooling"

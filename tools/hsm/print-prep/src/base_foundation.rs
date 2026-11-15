@@ -3,9 +3,9 @@
 //! face. The plate's own G-code follows, the base's level courses kept above that stack and every
 //! travel the toolhead would carry into it lifted over it.
 //!
-//! Production plates lay skin courses across the face with a deck in the bore. The Sculpted
-//! trial's foundation lays the foot instead: courses cut from the base's own sections up past its
-//! insert sockets' shoulders, with a plug rising in each socket and a deck in the bore.
+//! Production plates lay skin courses across the face with a deck in the bore. The faucet plate's
+//! foundation lays the foot instead: courses cut from the base's own sections up past its insert
+//! sockets' shoulders, with a plug rising in each socket and a deck in the bore.
 
 use crate::mesh::Mesh;
 use crate::sloped_courses::{Piece, Point, Region, closed_lap, edge_pieces, hatch, level_order, narrow_pieces, outermost_ring, ring_pieces, section, uphill_halves};
@@ -62,8 +62,6 @@ const SHOULDER_REACH: f64 = 0.3;
 const OVERLAP: f64 = 0.06;
 /// Half the least width the fill is laid in; narrower strips take rings.
 const OPEN: f64 = 1.0;
-/// The Sculpted trial's rim half-width and half-depth.
-const SCULPTED_RIM: [f64; 2] = [29.0, 29.5];
 /// The skin courses a production plate lays.
 const SKIN_COURSES: usize = 2;
 const ELLIPSE_POINTS: usize = 720;
@@ -433,9 +431,9 @@ pub struct Foot {
 }
 
 impl Foot {
-    /// The base cut parallel to its mounting face through the middle of each course.
-    fn cut(stl: &Path, courses: Option<usize>) -> Result<Foot> {
-        let mesh = Mesh::read_stl(stl)?;
+    /// The base cut parallel to its mounting face, whose rim is `rim`, through the middle of each
+    /// course.
+    fn cut(mesh: &Mesh, courses: Option<usize>, rim: [f64; 2]) -> Result<Foot> {
         mesh.check_closed_single_body("faucet base")?;
         let mut probe = Vec::with_capacity(PROBE_COURSES);
         for k in 1..=PROBE_COURSES {
@@ -465,7 +463,7 @@ impl Foot {
             let (lo, hi) = r.bounds();
             [m[0].max(lo[0].abs()).max(hi[0].abs()), m[1].max(lo[1].abs()).max(hi[1].abs())]
         });
-        ensure!(reach[0] + SKIN_WIDTH < SCULPTED_RIM[0] + LIP && reach[1] + SKIN_WIDTH < SCULPTED_RIM[1] + LIP,
+        ensure!(reach[0] + SKIN_WIDTH < rim[0] + LIP && reach[1] + SKIN_WIDTH < rim[1] + LIP,
             "the foot's courses reach past the roof's lip");
         Ok(Foot { regions, shoulder })
     }
@@ -1383,16 +1381,18 @@ pub struct Foundation<'a> {
     pub lift_share: f64,
 }
 
-/// The base's seat, its object id on the plate and the label its object start carries.
-pub fn plate_inputs(report: &Value, lines: &[&str]) -> Result<(Frame, [f64; 3], i64, String)> {
+/// The base's seat, whose rim is `rim`, its object id on the plate and the label its object start
+/// carries.
+pub fn plate_inputs(report: &Value, lines: &[&str], rim: [f64; 2]) -> Result<(Frame, [f64; 3], i64, String)> {
     let rims = &report["base_rim_supports"];
     let seat: [f64; 3] = serde_json::from_value(rims["seat_print_world_center_mm"].clone()).context("the seat")?;
     let normal: [f64; 3] = serde_json::from_value(rims["seat_print_world_outward_normal"].clone()).context("the seat normal")?;
-    let frame = Frame::new(seat, SCULPTED_RIM);
+    let frame = Frame::new(seat, rim);
     ensure!(normal[0].abs() < 1e-9 && (normal[1] + frame.s).abs() < 1e-6 && (normal[2] + frame.c).abs() < 1e-6,
         "the seat is not turned 15 degrees about X");
+    let base = rims["part"].as_str().context("the base's name")?;
     let base_id = report["parts"].as_array().context("the parts")?.iter()
-        .find(|p| p["name"] == "faucet-shell-base").and_then(|p| p["identify_id"].as_i64()).context("the base's id")?;
+        .find(|p| p["name"] == base).and_then(|p| p["identify_id"].as_i64()).context("the base's id")?;
     let start = lines.iter().position(|l| l.starts_with(&format!("; start printing object, unique label id: {base_id}")))
         .context("the plate never starts the base")?;
     let label = lines.get(start + 1).context("the base's label")?.to_string();
@@ -1407,11 +1407,14 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let source = std::fs::read(args.archive)?;
     let gcode = String::from_utf8(crate::gcode::plate_gcode(args.archive)?)?;
     let lines: Vec<&str> = gcode.split('\n').collect();
-    let (frame, seat, base_id, label) = plate_inputs(&report, &lines)?;
-    let foot = Foot::cut(args.stl, args.part_courses)?;
+    let mesh = Mesh::read_stl(args.stl)?;
+    let rim = crate::filled_base::rim(&mesh)?;
+    let (frame, seat, base_id, label) = plate_inputs(&report, &lines, rim)?;
+    let foot = Foot::cut(&mesh, args.part_courses, rim)?;
+    let base = report["base_rim_supports"]["part"].as_str().context("the base's name")?;
     let mut w = Writer::new();
     let opening = Opening {
-        title: "; ===== sloped underside of faucet-shell-base: scaffold, roof and foot =====".into(),
+        title: format!("; ===== sloped underside of {base}: scaffold, roof and foot ====="),
         object: vec![label], temperature: "280".into(), level_roof: true,
     };
     let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
@@ -1427,7 +1430,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     std::fs::write(args.out_dir.join("plate_1.gcode"), &text)?;
     let round = |v: f64, places: i32| (v * 10f64.powi(places)).round() / 10f64.powi(places);
     let record = json!({
-        "purpose": "Binds the Sculpted base's sloped foot to the courses this stage laid and what it kept of the plate.",
+        "purpose": "Binds the base's sloped foot to the courses this stage laid and what it kept of the plate.",
         "input_archive": {"path": args.archive.display().to_string(), "sha256": crate::sha256_hex(&source)},
         "gcode_sha256": crate::sha256_hex(text.as_bytes()),
         "seat_center_mm": seat,

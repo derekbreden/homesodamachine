@@ -1,14 +1,16 @@
-//! Writes the removable screw-seat rings under the Sculpted faucet's mounting plate.
+//! Writes the removable screw-seat rings under a faucet's mounting plate.
 //!
 //! Each course joins an inner and an outer arc around each seat, with a single opening toward
 //! the bed face, as the custom G-code the plate sequencer places among the mounting plate's
 //! courses.
 
 use crate::course_field::rounded;
+use anyhow::{Context, Result};
+use hsm_faucet_numbers::shell::BASE_POD_CENTERS;
+use serde_json::Value;
 use std::f64::consts::PI;
 use std::fmt::Write;
 
-const CENTERS: [[f64; 2]; 3] = [[183., 106.], [205.5, 85.7], [228., 106.]];
 const FIRST_Z: f64 = 0.20;
 const PITCH: f64 = 0.24;
 const COURSES: usize = 13;
@@ -51,8 +53,26 @@ fn point(xy: [f64; 2]) -> String {
     format!("X{:.5} Y{:.5}", xy[0], xy[1])
 }
 
-/// The rings' G-code.
-pub fn gcode() -> String {
+/// Where the mounting plate's screw seats stand on the bed, from left to right: the faucet's
+/// mounting screw centres on its CAD z = 0 plane, through the placement the plate's preparation
+/// record gives the part whose counterbores it blocked.
+pub fn seats(report: &Value) -> Result<Vec<[f64; 2]>> {
+    let plate = report["mounting_plate_counterbores"]["part"].as_str().context("the mounting plate's name")?;
+    let part = report["parts"].as_array().into_iter().flatten().find(|p| p["name"] == plate)
+        .with_context(|| format!("the preparation record has no {plate}"))?;
+    let placed: [f64; 12] = serde_json::from_value(part["build_transform"].clone()).context("the plate's build transform")?;
+    let centre: [f64; 3] = serde_json::from_value(part["source_center_mm"].clone()).context("the plate's source centre")?;
+    // the build item's transform is the rotation's transpose, row by row, then the translation
+    let mut seats: Vec<[f64; 2]> = BASE_POD_CENTERS.iter().map(|&[x, y]| {
+        let p = [x - centre[0], y - centre[1], -centre[2]];
+        [0, 1].map(|row| (0..3).map(|k| placed[3 * k + row] * p[k]).sum::<f64>() + placed[9 + row])
+    }).collect();
+    seats.sort_by(|a, b| a[0].total_cmp(&b[0]).then(a[1].total_cmp(&b[1])));
+    Ok(seats)
+}
+
+/// The rings' G-code around the seats `centers`.
+pub fn gcode(centers: &[[f64; 2]]) -> String {
     let mut out = String::new();
     for course in 0..COURSES {
         let z = FIRST_Z + course as f64 * PITCH;
@@ -60,7 +80,7 @@ pub fn gcode() -> String {
         let (inner, outer) = if course > 0 { (2.06, 2.49) } else { (2.03, 2.53) };
         // The area matches the rounded-road convention of the donor.
         let e_per_mm = height * (width - height * (1.0 - PI / 4.0)) * FLOW_RATIO / (PI * (FILAMENT_DIAMETER / 2.0).powf(2.0));
-        let rings: Vec<Vec<[f64; 2]>> = CENTERS.iter().map(|&center| ring_path(center, inner, outer)).collect();
+        let rings: Vec<Vec<[f64; 2]>> = centers.iter().map(|&center| ring_path(center, inner, outer)).collect();
         let (travel_feed, deposition_feed) = (9000, if course > 0 { 1800 } else { 1500 });
         let first = rings[0][0];
         let _ = writeln!(out, "; HSM_PLATE_RING_Z: {z:.2}");

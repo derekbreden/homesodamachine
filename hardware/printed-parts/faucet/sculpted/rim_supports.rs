@@ -3,7 +3,7 @@
 use anyhow::{Context, Result};
 use hsm_faucet_numbers::shell::{
     BASE_INSERT_BOTTOM_Z, BASE_POD_CENTERS, BASE_POD_INSERT_DEPTH, BASE_POD_Z_BOTTOM,
-    FOOT_CENTER_Y, FOOT_DEPTH, FOOT_WIDTH, ZONE1_Z_BOTTOM, base_pod_hole_dia,
+    FOOT_CENTER_Y, ZONE1_Z_BOTTOM, base_pod_hole_dia,
 };
 use hsm_print_prep::faucet_contact::closed_rim_strip;
 use hsm_print_prep::faucet_recesses::add_blocker;
@@ -21,9 +21,10 @@ fn pair(value: &Value) -> Result<[f64; 2]> {
     ])
 }
 
-/// `roof` adds the enforcer that asks for a support roof along the rim.
-pub fn add(r: &mut Refreshed, recipe: &Value, roof: bool) -> Result<Value> {
-    let base = r.row("faucet-shell-base")?.index;
+/// The base `name`, whose mounting face's rim has half-width and half-depth `semi`; `roof` adds the
+/// enforcer that asks for a support roof along the rim.
+pub fn add(r: &mut Refreshed, name: &str, semi: [f64; 2], recipe: &Value, roof: bool) -> Result<Value> {
+    let base = r.row(name)?.index;
     let object = &r.plate.objects[base];
     let source_center = object.source_center;
     let rotation = object.rotation;
@@ -37,7 +38,7 @@ pub fn add(r: &mut Refreshed, recipe: &Value, roof: bool) -> Result<Value> {
     let stock = recipe["reference_rim_diameter_mm"]
         .as_f64()
         .context("reference rim diameter")?;
-    let scale = [FOOT_WIDTH / stock, FOOT_DEPTH / stock];
+    let scale = [2.0 * semi[0] / stock, 2.0 * semi[1] / stock];
     let rim = |theta: f64, radius: f64, z: f64| {
         let (sin, cos) = theta.to_radians().sin_cos();
         [
@@ -114,7 +115,7 @@ pub fn add(r: &mut Refreshed, recipe: &Value, roof: bool) -> Result<Value> {
         settings.push((key.to_owned(), value.to_owned()));
     }
     Ok(json!({
-        "part": "faucet-shell-base",
+        "part": name,
         "source_preparation": recipe["source_preparation"],
         "cad_xy_scale": scale,
         "seat_print_world_center_mm": world(rim_center),

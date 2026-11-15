@@ -24,6 +24,15 @@ const MOUTH_AREA: f64 = 200.0;
 /// Decimal places the result's coordinates are kept to.
 const DECIMALS: i32 = 5;
 
+/// The rim of a base's mounting face, the face its lowest vertices lie on: its half-width and
+/// half-depth about the base's own axis.
+pub fn rim(base: &Mesh) -> Result<[f64; 2]> {
+    let bottom = base.vertices.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min);
+    ensure!(bottom.is_finite(), "the base has no vertices");
+    let face = base.vertices.iter().filter(|p| p[2] - bottom < 1e-6);
+    Ok(face.fold([0.0_f64; 2], |m, p| [m[0].max(p[0].abs()), m[1].max(p[1].abs())]))
+}
+
 /// The base, in its own frame, with the space under its mounting face filled down to the bed.
 /// `tilt_degrees` is the print pose's tilt of the face; `semi` the rim's half-width and half-depth.
 pub fn fill(base: &Mesh, tilt_degrees: f64, semi: [f64; 2]) -> Result<Mesh> {

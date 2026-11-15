@@ -126,9 +126,9 @@ The [Mark2 restored short-foundation plate](prints/2026-11-14-seven-courses-rest
 prints the mounting face and visible shoulder on inclined interfaces, then
 uses the archived level wall and rear scarf recipe above each foundation.
 
-`sculpted-plate OUT_DIR` prepares that plate from the checkout: its meshes, the standing
+`faucet-plate sculpted OUT_DIR` prepares that plate from the checkout: its meshes, the standing
 [finish selection](finish-selection.json) and the plate's own selections in
-[`sculpted-plate.json`](../../../../tools/hsm/print-prep/sculpted-plate.json). The base is filled
+[`faucet-plate.json`](../../../../tools/hsm/print-prep/faucet-plate.json). The base is filled
 under its mounting face for the slice and laid on its sloped foundation from its own mesh; the
 tip's mating courses come from a warped donor tip, sliced alone and laid back onto the real
 shoulder. The plate's slice runs the standing slice path's
@@ -138,15 +138,15 @@ acceleration planner that `hsm-gcode`'s playback uses. The `sculpted-trial` stag
 one stage at a time for investigation.
 
 These commands run the builds last installed, so after an edit to their source, build them as
-[`sculpted-plate`'s header](../../../../tools/hsm/print-prep/src/bin/sculpted_plate.rs) shows and
+[`faucet-plate`'s header](../../../../tools/hsm/print-prep/src/bin/faucet_plate.rs) shows and
 install them again:
 
 ```sh
-hsm-run --install-tools "$PWD" tools/hsm/target/release/sculpted-plate tools/hsm/target/release/sculpted-trial \
+hsm-run --install-tools "$PWD" tools/hsm/target/release/faucet-plate tools/hsm/target/release/sculpted-trial \
   tools/hsm/target/release/sculpted-faucet-print-project
 ```
 
-`sculpted-plate` runs from inside the checkout, through `tools/run` for its slices.
+`faucet-plate` runs from inside the checkout, through `tools/run` for its slices.
 
 These checks read a prepared plate before it is sent. Each runs by hand on the plate's G-code or
 archive:
