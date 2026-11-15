@@ -91,12 +91,12 @@ use this full-screen animation. Normal pages and operational progress remain sta
 except where their displayed state changes.
 
 Fill, Clean and Dry raise a full-screen touch shield as soon as Start is queued.
-The rail and selected portrait remain visible beneath it; the task pane offers only
-Stop. A pending operation reports that it is waiting for the main board. Progress and
+The rail and selected portrait remain visible beneath it; Back is gone and the task pane
+offers only Stop. A pending operation reports that it is waiting for the main board. Progress and
 time left begin with the authoritative answer. Unanswered starts keep the shield up
 while querying; Stop is retried until an answer proves the operation ended.
-Completed operations keep their result in the task pane for six seconds, with Done,
-flavor selection and task navigation available immediately.
+Completed operations keep their result in the task pane for six seconds, with Back (Done on
+System status, after Dry) and flavor selection available immediately.
 
 A refill that stands latched at its pumping ceiling is named in the status this panel polls
 (`StatusPayload::notice`). The machine cannot tell a supply that is shut off from a line that
@@ -359,27 +359,32 @@ cannot undo the wake.
 ## The interface
 
 Big Blue follows the approved [`design exploration`](../../future/enclosure-display-studies/big-blue.html),
-apart from its resting screen, which is described below.
+apart from the rail, the portrait and the band over the pane, which are described below.
 The sixteen-direction colour and type study is in Git at [`980d92f186`](https://github.com/derekbreden/homesodamachine/blob/980d92f186/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 The flavor rail carries both actual images, the slot a phone's request takes, and Settings
 at the bottom. The portrait panel beside it shows the selected flavor's image.
 
-**At rest** the selected flavor's rail cell is the portrait panel's own ice, from the glass
-edge into the portrait, so the two read as one: its thumbnail has an orange ring just
-outside it, and a check stands left of its number in ink. The other flavor has no card; its
-thumbnail and white number stand on the rail. Each number keeps its place selected or not.
-The portrait is larger and captioned **On tap.** in ink. There are no tabs: the pane beside
-the portrait runs the glass's full height, with the reservoir's caption and gauge at its top,
-then Fill, Prime and Clean, and apart from them Change image and Ratio, each a full-width row
-with a chevron that opens what its tab or button opens on every other page. A hairline parts
-two rows of one group, and none stands above the first row, between the groups or under the
-last.
+**The rail is the same on every page.** The selected flavor's cell is the portrait panel's
+own ice, from the glass edge into the portrait, so the two read as one: its thumbnail has an
+orange ring just outside it, and a check stands left of its number in ink. The other flavor
+has no card; its thumbnail and white number stand on the rail. Each number keeps its place
+selected or not. System status has no portrait, and there the cell's ice ends at the rail's
+edge. The portrait stands beside the rail on every other page, captioned **On tap.** in ink.
 
-**On every other flavor page** the rail draws both flavors as cards, the selected one bordered
-in orange with a check by its number; the portrait is smaller, over “✓ Selected”; and Fill,
-Prime and Clean are tabs above the task pane, with Done at their right. Done is hidden while
-an operation is pending or running.
+**At rest** nothing stands over the pane: it runs the glass's full height, with the
+reservoir's caption and gauge at its top, then Fill, Prime and Clean, and apart from them
+Change image and Ratio, each a full-width row with a chevron that opens its task's page. A
+hairline parts two rows of one group, and none stands above the first row, between the groups
+or under the last.
+
+**A task's page** (Fill, Prime, Clean, Ratio or Change image) has **Back** in the band over its
+pane: a chevron pointing left and the word, over a hairline on the band's last row, with the
+whole band its target. Back returns to rest. It is gone while an operation is pending or running
+and while a finger holds Prime, when Stop or the held pad is the pane's one control.
+
+**System status** has its title and Done in that band, and the **phone request page** has Fill,
+Prime and Clean as tabs and Done. Done is hidden while an operation is pending or running.
 
 | Page | Contents |
 |---|---|
@@ -399,18 +404,17 @@ apply a pending choice to another channel.
 
 The image wire bundle stays 172×320, 129×240 and 86×160. At boot and after an image
 update, the display caches every image in PSRAM at each size it draws: the rail's, the
-resting portrait's, the portrait's beside a task, and the picker's. LVGL draws these complete
-portraits without transforming them during a frame. No image or ratio edit writes NVS on the
-running RGB panel.
+portrait's and the picker's. LVGL draws these complete portraits without transforming them
+during a frame. No image or ratio edit writes NVS on the running RGB panel.
 
-Done, either flavor, the rail background and the whole portrait return to On tap.
+Back, Done, either flavor, the rail background and the whole portrait return to On tap.
 Selecting a different flavor queues a causal prime cancellation before the new selection.
-A held prime permits those exits and blocks task/settings navigation. Fill, Clean and
-Dry intercept every touch except Stop from the queued Start through the authoritative
-terminal answer. Their result cards restore navigation immediately.
+A held prime takes Back away, keeps the flavors, rail and portrait as its exits, and blocks
+Settings. Fill, Clean and Dry intercept every touch except Stop from the queued Start through
+the authoritative terminal answer. Their result cards restore navigation immediately.
 
 Machine pages occupy all 696 px to the right of the rail. Their header contains the page
-title and Done; the large portrait and flavor tabs are absent. Changing flavor at the
+title and Done; the portrait and the tabs are absent. Changing flavor at the
 faucet leaves these machine pages open.
 
 Text is Montserrat, 20 px and up. Pages are built once; navigation changes visibility.
@@ -583,7 +587,7 @@ left, and a request still standing here closes on its own in [`main.cpp`](main.c
 `askService()`. The page then reads **No request waiting**. A new request replaces the one up,
 and a repeat of it changes nothing.
 
-The rail, the resting rows, the tabs and Done stay available while a request stands, and a request never moves
+The rail, the resting rows, Back, the tabs and Done stay available while a request stands, and a request never moves
 the glass to another page. It does not hold the dark off here. This glass's own asks do:
 **Forget all trusted phones?**, **No water**, **Skip this step?** and **Move the machine?**.
 
