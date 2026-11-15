@@ -408,7 +408,7 @@
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "5bbb87407821acad2202323b99e74fb390d4bc0e6ed2bdeffb403d82b6090905",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step": "470cd18032a507c7f43e94727416388edbfeca00d11d5e18d9f5b9c450920eb1",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": "7e0f5bd3634d143dae9b0f049082e745956e399b15132708d97b3f7f6ab8225a",
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": "ef1ec339afb6382ba3390a3ac4fed0dc9140c700f3f2ad6466cf4d5fbb44cbd7",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": "beff715d504953f2285f679fd09ff89fb67194decfd6292ccb14c532b43d0b00",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": "1827f14eab4905312f6d2faf67ddba3ad3d82235ff4592fa880eb8195d371e44",
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "eb9ce3541f247b3fe88b612d74179ca36661151870597f36c959e15b240f96ee",
@@ -2869,7 +2869,7 @@
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": 1793626644,
     "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step": 1794593427.648251,
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": 1794593584.258951,
+    "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": 1794735197.816025,
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step": 1794593427.648251,
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.step.mesh": 1794593408.902349,
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": 1794593427.648251,
@@ -4663,7 +4663,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-display-cover-seated.step.mesh": {
-      "commit": "b89c5bf113067771bbe4d49577ec181ce225a8db",
+      "commit": "ba37bcfb78dc441c6077e871be08e2d19486f104",
       "inputs": "dd722fd59981595a97dac788fc3f08447db16aa9fa6e9c9d5c1d7b0cad01bb18",
       "unproven": true
     },
