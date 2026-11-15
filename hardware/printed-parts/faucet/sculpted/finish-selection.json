@@ -54,37 +54,6 @@
       "support_bottom_z_distance": "0.30"
     }
   },
-  "base_rim_supports": {
-    "selected_date": "2026-11-11",
-    "part": "faucet-shell-base",
-    "method": "Segmented outside fins and Slim trees beneath the common dense rim interface",
-    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
-    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
-    "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
-    "fin_footprint_physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
-    "dense_roof_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
-    "insert_bridge_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
-    "reference_rim_diameter_mm": 59.0,
-    "rim_enforcer_angle_degrees": [114.5, 425.5],
-    "rim_enforcer_radius_mm": [27.45, 29.95],
-    "rim_enforcer_half_height_mm": 0.65,
-    "insert_blocker_radial_clearance_mm": 0.65,
-    "insert_blocker_depth_allowance_mm": [1.0, 0.55],
-    "object_settings": {
-      "brim_type": "no_brim",
-      "enable_support": "1",
-      "support_type": "tree(auto)",
-      "support_style": "tree_slim",
-      "support_bottom_z_distance": "0.30"
-    },
-    "nonplanar_contact": {
-      "source_commit": "b388123d2ac2fdc31fd091f980334b9c99443ab8",
-      "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json",
-      "scope_margin_mm": 8.0,
-      "edge_blend_mm": 3.0
-    },
-    "scope": "Outside fins and Slim trees carry the dense interface under the Sculpted ellipse. The mounting recesses use bridges at their shoulders and blind roofs."
-  },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
     "method": "Keep the rim contact mapping inboard of the exterior wall and follow the seat with the first rim perimeter.",
