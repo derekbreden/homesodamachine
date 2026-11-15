@@ -1,12 +1,11 @@
-//! Lays a part's courses, sliced where its chosen face lies level, back into the part's pose on
-//! the plate, easing them to level, with each road's plastic scaled to the course it fills.
+//! Reads the tip's donor slice and lays its courses back into the tip's pose on the plate
+//! through the shoulder hold, with each road's plastic scaled to the course it fills.
 //!
-//! A donor slice is an ordinary slice of the part in a frame where the face the courses should
-//! follow lies flat on the virtual bed. A field keeps each road's plan position in its own frame
-//! and moves the road's height: along the face where the courses follow it, level where they
-//! return to the plate's own layers, and through a smooth blend between. Each road is laid in
-//! pieces short enough for the field to stay straight along them, and each field shares the
-//! road's plastic among its pieces by its own rule.
+//! The donor slice is an ordinary slice of the tip with its mating shoulder level on the virtual
+//! bed. The shoulder hold keeps each road's plan position and moves the road's height: onto the
+//! shoulder's incline where the courses follow it, level where they return to the plate's own
+//! layers, and through a smooth blend between. Each road is laid in pieces short enough for the
+//! hold to stay straight along them, each piece with its share of the move's plastic.
 
 use crate::gcode::words;
 use anyhow::{Context, Result, ensure};
@@ -19,7 +18,7 @@ const ARC_SEGMENT: f64 = 0.75;
 const SPATIAL: f64 = 1e-7;
 /// A road piece shorter than this is dropped.
 const MIN_PATH: f64 = 1e-5;
-/// A field this close to its slicing height leaves a road's plastic as sliced.
+/// A road the hold lays this close to its slicing height keeps its plastic as sliced.
 const IDENTITY: f64 = 1e-8;
 
 /// One commanded move of the donor's print body, at its donor position, with the bead settings
@@ -197,24 +196,14 @@ pub fn arc_points(m: &Move) -> Vec<[f64; 3]> {
     out
 }
 
-/// Where a field lays a donor's courses.
-pub trait CourseField {
-    /// The plate point a donor point is laid at.
-    fn place(&self, p: [f64; 3]) -> [f64; 3];
-    /// The donor points a move's road is laid through, its start first.
-    fn points(&self, m: &Move) -> Vec<[f64; 3]>;
-    /// The plastic of each piece between consecutive `points` of the move.
-    fn extrusion(&self, m: &Move, points: &[[f64; 3]]) -> Vec<f64>;
-}
-
-/// A move's road, laid by `field` in pieces, each with the field's share of the move's plastic.
-pub fn lay(m: &Move, field: &dyn CourseField) -> Vec<Road> {
-    let points = field.points(m);
+/// A move's road, laid through `hold` in pieces, each with its share of the move's plastic.
+pub fn lay(m: &Move, hold: &ShoulderHold) -> Vec<Road> {
+    let points = hold.points(m);
     if points.len() < 2 {
         return Vec::new();
     }
-    let e = field.extrusion(m, &points);
-    points.windows(2).zip(e).map(|(w, e)| Road { start: field.place(w[0]), end: field.place(w[1]), e }).collect()
+    let e = hold.extrusion(m, &points);
+    points.windows(2).zip(e).map(|(w, e)| Road { start: hold.place(w[0]), end: hold.place(w[1]), e }).collect()
 }
 
 fn triple(v: &Value, key: &str) -> Result<[f64; 3]> {
@@ -325,16 +314,16 @@ impl ShoulderHold {
     pub fn plate(&self, p: [f64; 3]) -> [f64; 3] {
         [0, 1, 2].map(|i| p[i] + self.displacement[i])
     }
-}
 
-impl CourseField for ShoulderHold {
+    /// The plate point a donor point is laid at.
     fn place(&self, p: [f64; 3]) -> [f64; 3] {
         let [x, y, z] = self.plate(p);
         [x, y, self.forward(y, z)]
     }
 
-    /// Runs the field moves are laid in short pieces, and motion too short to carry a piece is
-    /// dropped; runs below its first course or above its last stay whole.
+    /// The donor points a move's road is laid through, its start first. Runs the hold moves are
+    /// laid in short pieces, and motion too short to carry a piece is dropped; runs below its
+    /// first course or above its last stay whole.
     fn points(&self, m: &Move) -> Vec<[f64; 3]> {
         let dz = self.displacement[2];
         let mut prev = m.start;
@@ -352,7 +341,7 @@ impl CourseField for ShoulderHold {
         points
     }
 
-    /// Each piece's share of the move's plastic by length, scaled by how much thicker the field
+    /// Each piece's share of the move's plastic by length, scaled by how much thicker the hold
     /// lays the piece's bead than the slicer did.
     fn extrusion(&self, m: &Move, points: &[[f64; 3]]) -> Vec<f64> {
         let lengths: Vec<f64> = points.windows(2).map(|w| distance(w[0], w[1])).collect();
