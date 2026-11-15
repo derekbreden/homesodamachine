@@ -146,6 +146,7 @@ fn main() -> Result<()> {
                 .context("--part-courses needs a count")?;
             base_foundation::foundation(&base_foundation::Foundation {
                 archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top, part_courses: Some(part_courses),
+                lift_share: hsm_print_prep::sculpted_plate::lift_share(&hsm_print_prep::sculpted_plate::selection(&hsm_print_prep::root())?),
             })?;
         }
         "continued-base" => {

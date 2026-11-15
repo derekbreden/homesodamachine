@@ -27,14 +27,14 @@ pub fn left_nozzle() -> Result<[f64; 3]> {
     Ok([words[0].parse()?, words[1].parse()?, words[2].parse()?])
 }
 
-/// How far each point of a lap rises: half of what the nozzle's flat would otherwise press into
-/// the bead behind it where the lap runs downhill, and nothing where it climbs or runs level.
-fn descent_lift(path: &[[f64; 3]], radius: f64) -> Vec<f64> {
+/// How far each point of a lap rises where it runs downhill: `share` of the nozzle flat's radius
+/// times the slope there, and nothing where it climbs or runs level.
+fn descent_lift(path: &[[f64; 3]], radius: f64, share: f64) -> Vec<f64> {
     let n = path.len();
     (0..n).map(|i| {
         let (a, b) = (path[i.saturating_sub(1)], path[(i + 1).min(n - 1)]);
         let run = (b[0] - a[0]).hypot(b[1] - a[1]);
-        if run < 1e-9 { 0.0 } else { 0.5 * radius * ((a[2] - b[2]) / run).max(0.0) }
+        if run < 1e-9 { 0.0 } else { share * radius * ((a[2] - b[2]) / run).max(0.0) }
     }).collect()
 }
 
@@ -489,6 +489,8 @@ pub struct FootLaid {
     /// The rise summed over the laps' points and weighted by how far across the slope each lies,
     /// and the rise summed: which side of the rim the laps descend on.
     pub lap_lift_side: [f64; 2],
+    /// The share of the nozzle flat's radius times the slope the laps rise by where they descend.
+    pub lift_share: f64,
     /// The left nozzle's flat tip radius the laps rise by.
     pub tip_radius: f64,
 }
@@ -527,7 +529,7 @@ impl Laying<'_> {
     /// The show surface's lap, raised where it descends by `descent_lift`.
     fn lap(&mut self, (pts, flows): &Piece, n_top: f64, width: f64, speed: f64, flow: f64) {
         let mut path: Vec<[f64; 3]> = pts.iter().map(|p| self.frame.at(*p, n_top)).collect();
-        let lift = descent_lift(&path, self.laid.tip_radius);
+        let lift = descent_lift(&path, self.laid.tip_radius, self.laid.lift_share);
         for ((p, l), q) in path.iter_mut().zip(&lift).zip(pts) {
             p[2] += l;
             if *l > self.laid.lap_lift.0 {
@@ -615,7 +617,7 @@ impl Laying<'_> {
 /// The foot's sloped courses on the roof, with the plugs and the deck rising beside them.
 /// `deck_top` stops the deck short of the slab's top, and the last course then takes a backing
 /// wall.
-pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64>) -> Result<FootLaid> {
+pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64>, lift_share: f64) -> Result<FootLaid> {
     let regions = &foot.regions;
     let count = regions.len();
     let mut openings = regions[0].holes();
@@ -631,7 +633,7 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
     let deck_top = deck_top.unwrap_or(slab_top);
     ensure!((count - 1) as f64 * COURSE < deck_top && deck_top <= slab_top, "the deck's top {deck_top} is not in the last course");
     let laid = FootLaid { sloped_courses: count, shoulder_course: foot.shoulder, slab_top, plug_top: plug_top as f64 * COURSE, deck_top,
-                          tip_radius: left_nozzle()?[0], ..Default::default() };
+                          tip_radius: left_nozzle()?[0], lift_share, ..Default::default() };
     let mut lay = Laying { w, frame, laid };
     // the plugs and the deck start on the roof, level with the mounting face
     lay.w.raw("; underside deck bedding");
@@ -1377,6 +1379,8 @@ pub struct Foundation<'a> {
     pub out_dir: &'a Path,
     pub deck_top: Option<f64>,
     pub part_courses: Option<usize>,
+    /// The show laps' descent lift, as a share of the nozzle flat's radius times the slope.
+    pub lift_share: f64,
 }
 
 /// The base's seat, its object id on the plate and the label its object start carries.
@@ -1412,7 +1416,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     };
     let stack = scaffold_and_roof(&mut w, &frame, &opening)?;
     w.lift_downhill = args.part_courses.is_some();
-    let laid = lay_foot(&mut w, &frame, &foot, args.deck_top)?;
+    let laid = lay_foot(&mut w, &frame, &foot, args.deck_top, args.lift_share)?;
     let rule = Rule { top: laid.slab_top, support_floor: laid.slab_top, clip: Clip::Feather, nozzle_over: 0.06, park_z: 26.0 };
     w.park(rule.park_z, "265", &[])?;
     let clearance = Clearance::new(args.headmap, &frame, &|_| laid.slab_top)?;
@@ -1444,6 +1448,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
             "starts_at": "the rim's lowest point on the slope, the rear",
             "laid": "first in the bridge course over the roof's air, so its fill starts on it; last in the others",
             "tip_radius_mm": laid.tip_radius,
+            "lift_share": laid.lift_share,
             "most_rise_mm": round(laid.lap_lift.0, 4),
             "most_rise_at_face_mm": [round(laid.lap_lift.1[0], 2), round(laid.lap_lift.1[1], 2)],
             "descends_on_cad_x": if laid.lap_lift_side[0] > 0.0 { "+x" } else { "-x" },

@@ -13,6 +13,11 @@ pub const TIP_ROTATION_DEGREES: f64 = -90.0;
 /// The gap between the donor tip's support tops and the courses they carry.
 pub const DONOR_SUPPORT_TOP_GAP_MM: f64 = 0.24;
 
+/// The show laps' descent lift the plate's selections give, or none.
+pub fn lift_share(plate: &Value) -> f64 {
+    plate["descent_lift"]["share"].as_f64().unwrap_or(0.0)
+}
+
 pub fn selection(root: &Path) -> Result<Value> {
     let path = root.join(SELECTION);
     serde_json::from_slice(&fs::read(&path)?).with_context(|| format!("reading {}", path.display()))

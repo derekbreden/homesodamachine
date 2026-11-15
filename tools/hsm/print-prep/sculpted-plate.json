@@ -19,5 +19,15 @@
     "selected_date": "2026-11-14",
     "selection_quote": "This circle on the back of the base of the sculpted faucet has been present since the earliest prints of it that we've done.",
     "physical_evidence": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-rear-base-oval/physical-result.json"
+  },
+  "descent_lift": {
+    "share": 0.5,
+    "scope": "Where the base's show lap descends, the nozzle rides higher by this share of its flat's radius times the slope; it does not rise where the lap climbs or runs level.",
+    "selected_date": "2026-11-14",
+    "selection_quote": [
+      "Is there anything we can do, like increasing the distance on the down slope part of the pass only, distance between print tip and the layer it is printing onto, not much just to eat into that 33% a bit, so it is more like 15% I don't know.",
+      "or 37% or whatever it is, to cut it in half maybe is what I was suggesting, so it is still scraping, but less.",
+      "A compromise of sorts, that might avoid the problems of lifting too much, and solve the problem of not lifting at all."
+    ]
   }
 }
