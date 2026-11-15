@@ -221,7 +221,7 @@ fn main() -> Result<()> {
             obj.settings.retain(|(key, _)| key != "seam_gap");
             obj.settings.push(("seam_gap".into(), shell_gap.into()));
         }
-        if (sloped_layout && obj.name == "faucet-shell-base") || (warp_donor && obj.name == "faucet-shell-tip") {
+        if warp_donor && obj.name == "faucet-shell-tip" {
             obj.settings.retain(|(key, _)| key != "seam_slope_type");
             obj.settings.push(("seam_slope_type".into(), "none".into()));
         }
