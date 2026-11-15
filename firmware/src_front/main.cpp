@@ -264,12 +264,11 @@ enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
 
 // Stable diagnostic destination IDs. The live rail contains flavor images;
 // the three service destinations are the resting pane's Fill, Prime and Clean
-// rows, and the tabs over the phone request page.
+// rows.
 enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
 static lv_obj_t *pageObj[PAGE_COUNT];
-static lv_obj_t *railBtn[RAIL_PAGE_COUNT] = {};
 static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
 static lv_obj_t *taskHeader, *systemTitle, *doneBtn, *backRow;
 static lv_obj_t *homeGauge, *homeLevelCaption;
@@ -3133,7 +3132,6 @@ static void primePadCb(lv_event_t *e) {
 // ── Navigation ──
 static void railCb(lv_event_t *e) {
   const RailPage page = (RailPage)(intptr_t)lv_event_get_user_data(e);
-  if (page == RAIL_PRIME && activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD) return;
   if (!front_ui::allows(front_ui::Action::Task, lockActive, holding)) return;
   if (!flavorSynchronized || flavorRequestPending) return;
   flavorSel = activeFlavor;
@@ -4359,7 +4357,8 @@ static void testScreenHide() {
 // grant text; an answer goes back the same way and nothing here keeps it.
 //
 // Remote requests enter a small inbox in the flavor rail. Only a local tap
-// opens their normal task page; the rail, task tabs and Done remain available.
+// opens their page, which has Back over it like a task's; the rail, Back and
+// Done remain available.
 // Forget's local confirmation, the no-water ask and the welcome's Skip use a modal. A
 // remote request never replaces one, the operation lock, or a physical hold.
 #define ASK_W        640
@@ -4527,7 +4526,7 @@ static void trustClose(uint8_t askId) {
   trustAskId = 0;
   lv_obj_add_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
   lv_label_set_text(trustTaskTitle, "No request waiting");
-  lv_label_set_text(trustTaskBody, "Use your phone to ask again, or choose Done to return.");
+  lv_label_set_text(trustTaskBody, "Use your phone to ask again, or choose Back to return.");
   lv_obj_add_state(trustTaskNo, LV_STATE_DISABLED);
   lv_obj_add_state(trustTaskYes, LV_STATE_DISABLED);
 }
@@ -5093,8 +5092,8 @@ static void buildSettingsButton(lv_obj_t *scr) {
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
   lv_obj_center(mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_40, COL_TEXT));
 
-  // The band over the pane. A task's pane has Back there; System status has its title and
-  // Done; the phone request page has the Fill, Prime and Clean tabs and Done.
+  // The band over the pane. A task's pane and the phone request page have Back there;
+  // System status has its title and Done.
   taskHeader = mkFlat(scr, TASK_X, 0, TASK_W, HEADER_H, THEME_BG);
   backRow = mkBtn(taskHeader, TASK_W, HEADER_H, COL_BLUE);
   lv_obj_add_event_cb(backRow, flavorBackCb, ACT_EVENT, NULL);
@@ -5102,18 +5101,6 @@ static void buildSettingsButton(lv_obj_t *scr) {
   lv_obj_align(mkText(backRow, "Back", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, BACK_LABEL_X, 0);
   lv_obj_t *rule = mkFlat(backRow, PANE_PAD, HEADER_H - 1, DETAIL_W, 1, lv_color_hex(COL_OFF));
   lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
-  static const RailPage pages[3] = {RAIL_FILL, RAIL_PRIME, RAIL_CLEAN};
-  static const char *labels[3] = {"Fill", "Prime", "Clean"};
-  for (uint8_t i = 0; i < 3; ++i) {
-    const RailPage page = pages[i];
-    railBtn[page] = mkBtn(taskHeader, i == 2 ? 120 : 119, HEADER_H, COL_BLUE);
-    lv_obj_set_pos(railBtn[page], i * 119, 0);
-    lv_obj_set_style_border_width(railBtn[page], 1, 0);
-    lv_obj_set_style_border_side(railBtn[page], LV_BORDER_SIDE_RIGHT | LV_BORDER_SIDE_BOTTOM, 0);
-    lv_obj_set_style_border_color(railBtn[page], lv_color_hex(0x7096ef), 0);
-    lv_obj_add_event_cb(railBtn[page], railCb, ACT_EVENT, (void *)(intptr_t)page);
-    lv_obj_center(mkText(railBtn[page], labels[i], &lv_font_montserrat_24, COL_TEXT));
-  }
   systemTitle = mkText(taskHeader, "System status", &lv_font_montserrat_28, COL_TEXT);
   lv_obj_align(systemTitle, LV_ALIGN_LEFT_MID, PANE_PAD, 0);
   doneBtn = mkBtn(taskHeader, 104, HEADER_H, COL_DIM);
@@ -5125,17 +5112,15 @@ static void buildSettingsButton(lv_obj_t *scr) {
 static void refreshShell() {
   if (!taskHeader) return;
   const bool machine = activePage == PAGE_SETUP;
-  const bool task = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE;
+  const bool back = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE || activePage == PAGE_TRUST;
   showIf(heroPanel, !machine);
   // At rest every task is a row in the pane, so nothing stands over it.
   showIf(taskHeader, activePage != PAGE_HOME);
   lv_obj_set_pos(taskHeader, machine ? RAIL_W : TASK_X, 0);
   lv_obj_set_width(taskHeader, machine ? SCREEN_W - RAIL_W : TASK_W);
-  showIf(backRow, task && front_ui::showBack(lockActive, holding));
-  for (int i = 1; i < RAIL_PAGE_COUNT; ++i)
-    if (railBtn[i]) showIf(railBtn[i], activePage == PAGE_TRUST);
+  showIf(backRow, back && front_ui::showBack(lockActive, holding));
   showIf(systemTitle, machine);
-  showIf(doneBtn, !task && front_ui::showDone(activePage == PAGE_HOME, lockActive));
+  showIf(doneBtn, !back && front_ui::showDone(activePage == PAGE_HOME, lockActive));
   lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_ACCENT : COL_CARD), 0);
   lv_obj_set_style_text_color(lv_obj_get_child(settingsBtn, 0), lv_color_hex(machine ? COL_INK : COL_TEXT), 0);
   lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_DIM : COL_CARD_ON), LV_STATE_PRESSED);

@@ -378,13 +378,14 @@ Change image and Ratio, each a full-width row with a chevron that opens its task
 hairline parts two rows of one group, and none stands above the first row, between the groups
 or under the last.
 
-**A task's page** (Fill, Prime, Clean, Ratio or Change image) has **Back** in the band over its
-pane: a chevron pointing left and the word, over a hairline on the band's last row, with the
-whole band its target. Back returns to rest. It is gone while an operation is pending or running
-and while a finger holds Prime, when Stop or the held pad is the pane's one control.
+**A task's page** (Fill, Prime, Clean, Ratio or Change image) and the **phone request page**
+have **Back** in the band over the pane: a chevron pointing left and the word, over a hairline
+on the band's last row, with the whole band its target. Back returns to rest. It is gone while
+an operation is pending or running and while a finger holds Prime, when Stop or the held pad is
+the pane's one control.
 
-**System status** has its title and Done in that band, and the **phone request page** has Fill,
-Prime and Clean as tabs and Done. Done is hidden while an operation is pending or running.
+**System status** has its title and Done in that band. Done is hidden while an operation is
+pending or running.
 
 | Page | Contents |
 |---|---|
@@ -414,7 +415,7 @@ Settings. Fill, Clean and Dry intercept every touch except Stop from the queued 
 the authoritative terminal answer. Their result cards restore navigation immediately.
 
 Machine pages occupy all 696 px to the right of the rail. Their header contains the page
-title and Done; the portrait and the tabs are absent. Changing flavor at the
+title and Done; the portrait is absent. Changing flavor at the
 faucet leaves these machine pages open.
 
 Text is Montserrat, 20 px and up. Pages are built once; navigation changes visibility.
@@ -587,7 +588,7 @@ left, and a request still standing here closes on its own in [`main.cpp`](main.c
 `askService()`. The page then reads **No request waiting**. A new request replaces the one up,
 and a repeat of it changes nothing.
 
-The rail, the resting rows, Back, the tabs and Done stay available while a request stands, and a request never moves
+The rail, the resting rows, Back and Done stay available while a request stands, and a request never moves
 the glass to another page. It does not hold the dark off here. This glass's own asks do:
 **Forget all trusted phones?**, **No water**, **Skip this step?** and **Move the machine?**.
 
