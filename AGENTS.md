@@ -233,6 +233,11 @@ source edits immediately. Do not create branches, worktrees or separate reposito
 copies. Keep `main` current with `origin/main`, preserving other sessions' work,
 and commit and push directly to `main` using the path-scoped commit rule above.
 
+Conflicts are inevitable, and we'd rather see them early. Another agent's edit in a file
+you're working on is that conflict arriving early: read it, build on it, and settle any
+collision in the tree when you meet it. It's all our code. A commit takes its files as they
+stand, other agents' lines included.
+
 ## Temporary Build Files
 
 Reuse the artifacts already held by `hsm`. Do not copy whole build
