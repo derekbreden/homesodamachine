@@ -25,10 +25,10 @@
 // The logo changes locally on touch-down. J3 then carries that absolute
 // selection to the main board, whose persisted value is authoritative;
 // this board's NVS value is the immediate boot-logo cache.
-// When the enclosure opens prime mode, main board state replaces the logo with
-// Back across the top and one hold target below it until either display exits.
-// When it opens a flavor's Ratio page, the logo gives way to Back, More flavor,
-// the ratio and Lighter until either display goes back.
+// The glass shows one thing at a time and it fills the glass: the logo, or what
+// the machine display has open (Prime's hold target, Ratio's two buttons), or a
+// phone's trust ask, or why there is no soda. The machine display opens and
+// closes Prime and Ratio; this glass follows.
 
 // ── Big Blue service surfaces; flavor portraits fill the resting display ──
 #define THEME_BG  lv_color_hex(0x1749d1)
@@ -42,14 +42,9 @@
 #define COL_WARN   0xf0a83c
 #define COL_OFF    0x6287e0
 
-// ── The service surfaces' bands, strip and type ──
-// A trust ask or a notice takes a strip along the foot; Prime and Ratio wear Back across the
-// top, shallower while a strip is up. LINE_DY_n is how far below the top of a line of size n
-// in the faucet design LVGL's label of that size starts, so the two baselines meet.
-#define STRIP_H        136
-#define BACK_H          64
-#define BACK_H_STRIP    48
-#define LINE_DY_14       1
+// ── The service surfaces' type ──
+// LINE_DY_n is how far below the top of a line of size n in the faucet design LVGL's label
+// of that size starts, so the two baselines meet.
 #define LINE_DY_16       0
 #define LINE_DY_20       1
 #define LINE_DY_36       0
@@ -81,7 +76,6 @@ static bool primeSessionKnown = false;
 static bool primeVisible = false;
 static bool primePressed = false;
 static bool primeStopPending = false;
-static bool primeCancelPending = false;
 static bool primeLinkLost = false;
 static uint32_t primeTokenState = 1;
 static uint32_t primeHoldToken = 0;
@@ -89,8 +83,6 @@ static uint32_t primeHoldSessionToken = 0;
 static uint32_t primeStopRevision = 0;
 static bool primeStopRevisionKnown = false;
 static uint8_t primeHoldChannel = 0;
-static uint32_t primeCancelSessionToken = 0;
-static uint8_t primeCancelChannel = 0;
 static uint32_t primeElapsedShown = 0;
 static uint32_t primeBaseGeneration = 0;
 static unsigned long primeElapsedAnchorAt = 0;
@@ -103,28 +95,22 @@ static unsigned long primeLastUiAt = 0;
 
 // ── Ratio, open on the machine display for one flavor ──
 // The main board says which visit to the machine display's Ratio page stands and what both
-// channels pour at. This glass steps the visit's flavor and can close the visit; it opens
-// none. A step shows at once and stands against older truth until the main board answers
-// it; Back puts the logo back at once and is said again only while the main board still
-// states the visit it closed.
+// channels pour at. This glass steps the visit's flavor; the machine display opens and
+// closes it. A step shows at once and stands against older truth until the main board
+// answers it.
 static RatioSessionStatePayload ratioSession = {};
 static bool ratioSessionKnown = false;
 static bool ratioLinkUp = false;
 static unsigned long ratioSessionAt = 0;
 static uint8_t ratioShown[2] = {FLAVOR_RATIO_DEFAULT, FLAVOR_RATIO_DEFAULT};
-static bool ratioVisible = false;
 static bool ratioStepWanted = false;      // pressed, waiting for J3 to take it
 static uint8_t ratioStepChannel = 0;
 static uint8_t ratioStepValue = 0;
 static uint8_t ratioStepsOwed = 0;        // taken by J3, not yet answered
 static unsigned long ratioStepSentAt = 0;
-static uint32_t ratioClosedToken = 0;     // the visit Back closed here
-static bool ratioCloseWanted = false;
-static unsigned long ratioCloseSentAt = 0;
 static uint32_t ratioSaidToken = 0;       // the visit whose layout the console heard
 
 #define RATIO_REPLY_MS        2500
-#define RATIO_CLOSE_RETRY_MS  1000
 #define RATIO_STALE_MS        1800
 
 // ── Backlight / idle dimming ──
@@ -198,22 +184,25 @@ static lv_color_t *lvgl_buf;
 static lv_obj_t *logoImg;
 static lv_obj_t *primeLayer;
 static lv_obj_t *otaLayer, *otaTitle, *otaFill, *otaPct;
-static lv_obj_t *primeExitBtn, *primeHoldBtn;
+static lv_obj_t *primeHoldBtn;
 static lv_obj_t *primeFlavorLbl, *primeHoldLbl, *primeStatusLbl;
-static lv_obj_t *ratioLayer, *ratioBackBtn, *ratioMoreBtn, *ratioMoreLbl;
-static lv_obj_t *ratioLighterBtn, *ratioLighterLbl;
+static lv_obj_t *ratioLayer, *ratioMoreBtn, *ratioMoreMark, *ratioMoreLbl;
+static lv_obj_t *ratioLighterBtn, *ratioLighterMark, *ratioLighterLbl;
 static lv_obj_t *ratioFlavorLbl, *ratioValueLbl;
 static lv_obj_t *trustLayer, *trustTitleLbl, *trustBodyLbl;
-static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
+static uint8_t   trustShownAsk = 0;   // the ask standing; 0 while none is
 static lv_obj_t *noticeLayer, *noticeTitleLbl, *noticeBodyLbl, *noticeTrack, *noticeFill;
 static uint8_t   noticeKind = NOTICE_NONE;   // what the main board says stops the soda
 static uint8_t   noticeProgress = 0;         // a sweep's count, percent
 static bool      noticeFlowing = false;      // the meter is turning now
 static bool      noticeBelow = false;        // a move: the float has passed the low reed
-static uint8_t   noticeFace = 0xFF;          // which words the strip wears, NOTICE_FACE_*; none yet
+static uint8_t   noticeFace = 0xFF;          // which words the notice wears, NOTICE_FACE_*; none yet
 static uint8_t   noticeFaceSaid = 0xFF;      // the face whose layout the console last heard
-static bool trustLayoutReserved = false;
 static bool trustPressed = false;
+
+// What fills the glass, one at a time; an update stands over all of them on its own layer.
+enum : uint8_t { FACE_LOGO, FACE_NOTICE, FACE_RATIO, FACE_PRIME, FACE_TRUST };
+static uint8_t faceShown = FACE_LOGO;
 static bool touchIsDown = false;
 static lv_indev_t *touchInput = nullptr;
 
@@ -350,12 +339,6 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 #define BAR_W (SCREEN_W - 32)
 #define BAR_H 8
 
-// Where Back's chevron and word stand, as one group centered across the band. The chevron
-// sits a little below the band's middle, as the design's icon does.
-#define BACK_MARK_X   55
-#define BACK_MARK_DY   2
-#define BACK_WORD_X   75
-
 // The design sets two lines of a size as far apart as its line box, which is taller than
 // LVGL's line at every size but the largest.
 static lv_coord_t designLineSpace(const lv_font_t *font) {
@@ -398,35 +381,19 @@ static lv_obj_t *barTrack(lv_obj_t *parent, lv_coord_t y, lv_obj_t **fill) {
   return track;
 }
 
-// Back, across the top of Prime and Ratio: a chevron and the word, the whole band its
-// target, which answers the press.
-static lv_obj_t *backBand(lv_obj_t *parent, lv_coord_t h, lv_event_cb_t cb) {
-  lv_obj_t *band = lv_btn_create(parent);
-  lv_obj_remove_style_all(band);
-  lv_obj_set_pos(band, 0, 0);
-  lv_obj_set_size(band, SCREEN_W, h);
-  lv_obj_set_style_bg_color(band, lv_color_hex(COL_CARD), 0);
-  lv_obj_set_style_bg_opa(band, LV_OPA_COVER, 0);
-  lv_obj_set_style_bg_color(band, lv_color_hex(COL_OFF), LV_STATE_PRESSED);
-  lv_obj_add_flag(band, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_PRESS_LOCK);
-  lv_obj_clear_flag(band, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_add_event_cb(band, cb, LV_EVENT_PRESSED, NULL);
-
-  static const lv_point_t chevron[] = {{6, 0}, {0, 6}, {6, 12}};
-  lv_obj_t *mark = lv_line_create(band);
-  lv_line_set_points(mark, chevron, 3);
-  lv_obj_set_style_line_width(mark, 2, 0);
-  lv_obj_set_style_line_color(mark, lv_color_hex(COL_DIM), 0);
-  lv_obj_set_style_line_rounded(mark, true, 0);
-  lv_obj_clear_flag(mark, LV_OBJ_FLAG_CLICKABLE);
-  lv_obj_align(mark, LV_ALIGN_LEFT_MID, BACK_MARK_X, BACK_MARK_DY);
-
-  lv_obj_t *word = lv_label_create(band);
-  lv_obj_set_style_text_font(word, &lv_font_montserrat_20, 0);
-  lv_obj_set_style_text_color(word, lv_color_hex(COL_DIM), 0);
-  lv_label_set_text(word, "Back");
-  lv_obj_align(word, LV_ALIGN_LEFT_MID, BACK_WORD_X, 0);
-  return band;
+// A layer the size of the glass, in one colour, that takes a press nothing on it takes.
+static lv_obj_t *wholeGlass(lv_obj_t *scr, lv_color_t bg, lv_event_cb_t cb, lv_event_code_t code) {
+  lv_obj_t *layer = lv_obj_create(scr);
+  lv_obj_remove_style_all(layer);
+  lv_obj_set_pos(layer, 0, 0);
+  lv_obj_set_size(layer, SCREEN_W, SCREEN_H);
+  lv_obj_set_style_bg_color(layer, bg, 0);
+  lv_obj_set_style_bg_opa(layer, LV_OPA_COVER, 0);
+  lv_obj_clear_flag(layer, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_add_flag(layer, LV_OBJ_FLAG_CLICKABLE);
+  if (cb) lv_obj_add_event_cb(layer, cb, code, NULL);
+  lv_obj_add_flag(layer, LV_OBJ_FLAG_HIDDEN);
+  return layer;
 }
 
 // ════════════════════════════════════════════════════════════
@@ -609,8 +576,6 @@ static void refreshPrimeStatus(bool force = false) {
   char status[40];
   if (primeLinkLost) {
     snprintf(status, sizeof(status), "Link lost");
-  } else if (primeCancelPending) {
-    snprintf(status, sizeof(status), "Ending on\nboth displays");
   } else if (primeStopPending) {
     status[0] = '\0';
   } else if (primeSession.phase == PRIME_SESSION_RUNNING) {
@@ -635,7 +600,6 @@ static void renderPrime(bool force = false) {
   static uint8_t shownOutcome = 0xFF;
   static bool shownPressed = false;
   static bool shownStop = false;
-  static bool shownCancel = false;
   static bool shownLost = false;
 
   const bool changed = force || shownPhase != primeSession.phase ||
@@ -643,7 +607,6 @@ static void renderPrime(bool force = false) {
                        shownOutcome != primeSession.outcome ||
                        shownPressed != primePressed ||
                        shownStop != primeStopPending ||
-                       shownCancel != primeCancelPending ||
                        shownLost != primeLinkLost;
   if (!changed) return;
   shownPhase = primeSession.phase;
@@ -651,13 +614,9 @@ static void renderPrime(bool force = false) {
   shownOutcome = primeSession.outcome;
   shownPressed = primePressed;
   shownStop = primeStopPending;
-  shownCancel = primeCancelPending;
   shownLost = primeLinkLost;
 
-  if (primeCancelPending) {
-    lv_label_set_text(primeHoldLbl, "Exiting prime");
-    lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_DIM), 0);
-  } else if (primeLinkLost) {
+  if (primeLinkLost) {
     lv_label_set_text(primeHoldLbl, "Reconnecting");
     lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_DIM), 0);
   } else if (primeStopPending) {
@@ -674,11 +633,9 @@ static void renderPrime(bool force = false) {
     lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_ACCENT), 0);
   }
   lv_label_set_text(primeFlavorLbl, FLAVOR_NAMES[primeSession.channel & 1]);
-  // Back stays lit as it is under a finger until the exit it asked for lands.
-  lv_obj_set_style_bg_color(primeExitBtn, lv_color_hex(primeCancelPending ? COL_OFF : COL_CARD), 0);
   // LV_STATE_PRESSED otherwise hides the authoritative green state beneath
   // the generic touch color for the entire time the user's finger is down.
-  const bool blocked = primeCancelPending || primeLinkLost || primeStopPending;
+  const bool blocked = primeLinkLost || primeStopPending;
   lv_obj_set_style_bg_color(
       primeHoldBtn,
       lv_color_hex(blocked ? COL_DIM
@@ -687,23 +644,14 @@ static void renderPrime(bool force = false) {
   refreshPrimeStatus(true);
 }
 
-static void refreshRatioVisible();
+static void faceService(lv_timer_t *);
 
+// Whether the main board's Prime session is up; which face has the glass is faceService's.
 static void setPrimeVisible(bool visible) {
   if (!primeLayer || visible == primeVisible) return;
-  // Main board state can replace or uncover the whole screen between two
-  // touch samples. Keep an already-resting finger from becoming a fresh press
-  // on whichever target just appeared underneath it.
-  if (touchInput) lv_indev_wait_release(touchInput);
   primeVisible = visible;
-  if (visible) {
-    lv_obj_clear_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
-    renderPrime(true);
-  } else {
-    lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
-  }
-  // Prime and a Ratio still on its lease cannot both have the glass; Prime takes it.
-  refreshRatioVisible();
+  if (visible) renderPrime(true);
+  faceService(nullptr);
 }
 
 // An image is arriving over J3. esp_ota_write stalls this board for whole
@@ -780,27 +728,10 @@ static bool touchWakesOnly() {
   return true;
 }
 
-static void onPrimeExit(lv_event_t *e) {
-  (void)e;
-  if (touchWakesOnly() || !primeVisible || primeSession.phase == PRIME_SESSION_OFF) return;
-  lastInputTime = millis();
-  primePressed = false;
-  primeClearStopPending();
-  primeCancelPending = true;
-  primeCancelChannel = primeSession.channel;
-  primeCancelSessionToken = primeSession.sessionToken;
-  baseLinkPrimeCancel(primeCancelChannel, primeCancelSessionToken);
-  primeHoldToken = 0;
-  primeHoldSessionToken = 0;
-  primeControlSentAt = millis();
-  renderPrime(true);
-}
-
 static void onPrimeHold(lv_event_t *e) {
   const lv_event_code_t code = lv_event_get_code(e);
   if (code == LV_EVENT_PRESSED) {
-    if (touchWakesOnly() || !primeVisible || primeLinkLost || primeCancelPending ||
-        primeStopPending ||
+    if (touchWakesOnly() || !primeVisible || primeLinkLost || primeStopPending ||
         primeSession.phase != PRIME_SESSION_READY) return;
     lastInputTime = millis();
     primePressed = true;
@@ -821,7 +752,7 @@ static void onPrimeHold(lv_event_t *e) {
     }
     if (code == LV_EVENT_PRESS_LOST) {
       // LVGL otherwise re-hit-tests this still-pressed sample and can deliver a
-      // fresh PRESSED to Back directly above the pad.
+      // fresh PRESSED to whatever lies under the finger.
       lv_indev_t *indev = lv_indev_get_act();
       if (indev) {
         lv_indev_wait_release(indev);
@@ -872,23 +803,15 @@ static void acceptBasePrime(const PrimeSessionStatePayload &state, uint32_t gene
 
   // A retry belongs to the exact session in which the physical gesture began.
   // If OFF was coalesced and the next accepted snapshot is already a new
-  // session, never retarget an old EXIT/hold to that new main board token.
-  const bool cancelRetargeted = primeCancelPending &&
-                                state.sessionToken != primeCancelSessionToken;
+  // session, never retarget an old hold to that new main board token.
   const bool holdRetargeted = (primePressed || primeStopPending) &&
                               state.sessionToken != primeHoldSessionToken;
-  if (cancelRetargeted || holdRetargeted) {
+  if (holdRetargeted) {
     baseLinkPrimeDiscard();
-    if (cancelRetargeted) {
-      primeCancelPending = false;
-      primeCancelSessionToken = 0;
-    }
-    if (holdRetargeted) {
-      primePressed = false;
-      primeClearStopPending();
-      primeHoldToken = 0;
-      primeHoldSessionToken = 0;
-    }
+    primePressed = false;
+    primeClearStopPending();
+    primeHoldToken = 0;
+    primeHoldSessionToken = 0;
   }
 
   const bool wasKnown = primeSessionKnown;
@@ -901,10 +824,8 @@ static void acceptBasePrime(const PrimeSessionStatePayload &state, uint32_t gene
   if (state.phase == PRIME_SESSION_OFF) {
     primePressed = false;
     primeClearStopPending();
-    primeCancelPending = false;
     primeHoldToken = 0;
     primeHoldSessionToken = 0;
-    primeCancelSessionToken = 0;
     primeElapsedShown = state.elapsedMs;
     setPrimeVisible(false);
     return;
@@ -947,6 +868,8 @@ static void acceptBasePrime(const PrimeSessionStatePayload &state, uint32_t gene
 
   primeElapsedShown = state.elapsedMs;
   renderPrime(true);
+  // A hold starting or ending decides whether a trust ask may have the glass.
+  faceService(nullptr);
 }
 
 static void primeService(const BaseLinkStatus &link) {
@@ -970,13 +893,6 @@ static void primeService(const BaseLinkStatus &link) {
   }
 
   if (!link.connected) return;
-  if (primeCancelPending) {
-    if (now - primeControlSentAt >= PRIME_CONTROL_RETRY_MS) {
-      baseLinkPrimeCancel(primeCancelChannel, primeCancelSessionToken);
-      primeControlSentAt = now;
-    }
-    return;
-  }
 
   if (primeStopPending) {
     const bool sameRun = primeSession.phase == PRIME_SESSION_RUNNING &&
@@ -1028,38 +944,30 @@ static void primeService(const BaseLinkStatus &link) {
   }
 }
 
-// Back and the hold target, over the whole glass or over what a strip leaves of it. The
-// target's three lines stand around its middle: the flavor, what the hold is doing, and
-// how it went.
-static void layoutPrime(bool strip) {
-  const lv_coord_t height = strip ? SCREEN_H - STRIP_H : SCREEN_H;
-  const lv_coord_t band = strip ? BACK_H_STRIP : BACK_H;
-  const lv_coord_t target = height - band;
-  lv_obj_set_height(primeExitBtn, band);
-  lv_obj_set_pos(primeHoldBtn, 0, band);
-  lv_obj_set_size(primeHoldBtn, SCREEN_W, target);
-  const lv_coord_t top = target / 2 - (strip ? 34 : 46);
-  lv_obj_set_y(primeFlavorLbl, top + LINE_DY_16);
-  lv_obj_set_y(primeHoldLbl, top + 28 + LINE_DY_20);
-  lv_obj_set_y(primeStatusLbl, top + 62 + LINE_DY_16);
-}
-
 // ════════════════════════════════════════════════════════════
 //  Ratio, open on the machine display
 // ════════════════════════════════════════════════════════════
 //
-// While the machine display has a flavor's Ratio page up, this glass shows Back, More
-// flavor, the flavor and its ratio, and Lighter. A step goes to the main board as the ratio
-// it stepped to, and Back closes the page on both glasses. With a strip up the four stand as
-// equal bands in what the strip leaves.
+// While the machine display has a flavor's Ratio page up, this glass shows two buttons on
+// its blue: More flavor under a minus above the flavor and its ratio, and Lighter under a
+// plus below them, the signs the machine display's own stepper wears. A step goes to the
+// main board as the ratio it stepped to.
 
-#define RATIO_TARGET_H 88
-#define RATIO_BAND_H_STRIP ((SCREEN_H - STRIP_H) / 4)
-#define RATIO_PAIR_DY 2
+#define RATIO_BTN_X        8
+#define RATIO_BTN_W      (SCREEN_W - 2 * RATIO_BTN_X)
+#define RATIO_BTN_H      104
+#define RATIO_MORE_Y       8
+#define RATIO_LIGHTER_Y  208
+#define RATIO_MARK_Y      23   // the sign's line, down from the button's top
+#define RATIO_WORD_Y      66   // the word's line, down from the button's top
 
-static void trustLayoutService(lv_timer_t *);
+// Up while the main board's fresh word is that a visit stands.
+static bool ratioWanted() {
+  return ratioSessionKnown && ratioLinkUp && ratioSession.open &&
+         millis() - ratioSessionAt < RATIO_STALE_MS;
+}
 
-// The visit's flavor and ratio, and whether each target has a step left in it. A target at
+// The visit's flavor and ratio, and whether each button has a step left in it. A button at
 // the end of the range is dimmed and takes no press of its own.
 static void renderRatio() {
   static int16_t shown = -1;
@@ -1070,65 +978,38 @@ static void renderRatio() {
   shown = now;
   lv_label_set_text(ratioFlavorLbl, FLAVOR_NAMES[ch]);
   lv_label_set_text_fmt(ratioValueLbl, "1 : %u", (unsigned)ratio);
-  struct { lv_obj_t *btn; lv_obj_t *label; bool on; } targets[2] = {
-      {ratioMoreBtn, ratioMoreLbl, ratio > FLAVOR_RATIO_MIN},
-      {ratioLighterBtn, ratioLighterLbl, ratio < FLAVOR_RATIO_MAX}};
-  for (auto &t : targets) {
-    lv_obj_set_style_bg_color(t.btn, lv_color_hex(t.on ? COL_DIM : COL_CARD_ON), 0);
-    lv_obj_set_style_text_color(t.label, lv_color_hex(t.on ? COL_INK : COL_OFF), 0);
-    if (t.on) lv_obj_add_flag(t.btn, LV_OBJ_FLAG_CLICKABLE);
-    else lv_obj_clear_flag(t.btn, LV_OBJ_FLAG_CLICKABLE);
+  struct { lv_obj_t *btn; lv_obj_t *mark; lv_obj_t *label; bool on; } buttons[2] = {
+      {ratioMoreBtn, ratioMoreMark, ratioMoreLbl, ratio > FLAVOR_RATIO_MIN},
+      {ratioLighterBtn, ratioLighterMark, ratioLighterLbl, ratio < FLAVOR_RATIO_MAX}};
+  for (auto &b : buttons) {
+    lv_obj_set_style_bg_color(b.btn, lv_color_hex(b.on ? COL_DIM : COL_CARD_ON), 0);
+    lv_obj_set_style_text_color(b.mark, lv_color_hex(b.on ? COL_INK : COL_OFF), 0);
+    lv_obj_set_style_text_color(b.label, lv_color_hex(b.on ? COL_INK : COL_OFF), 0);
+    if (b.on) lv_obj_add_flag(b.btn, LV_OBJ_FLAG_CLICKABLE);
+    else lv_obj_clear_flag(b.btn, LV_OBJ_FLAG_CLICKABLE);
   }
 }
 
 static void adoptRatios(const uint8_t ratio[2]) {
   for (uint8_t i = 0; i < 2; i++)
     if (ratio[i] >= FLAVOR_RATIO_MIN && ratio[i] <= FLAVOR_RATIO_MAX) ratioShown[i] = ratio[i];
-  if (ratioVisible) renderRatio();
-}
-
-static void setRatioVisible(bool visible) {
-  if (!ratioLayer || visible == ratioVisible) return;
-  // A finger already resting on the glass is not a press on whatever appears or is
-  // uncovered under it.
-  if (touchInput) lv_indev_wait_release(touchInput);
-  ratioVisible = visible;
-  if (visible) {
-    renderRatio();
-    lv_obj_clear_flag(ratioLayer, LV_OBJ_FLAG_HIDDEN);
-  } else {
-    lv_obj_add_flag(ratioLayer, LV_OBJ_FLAG_HIDDEN);
-    ratioStepWanted = false;   // a step belongs to the screen it was pressed on
-  }
-  trustLayoutService(nullptr);
-}
-
-// Up while the main board's fresh word is that a visit stands which this glass did not
-// close, and Prime does not have the glass.
-static void refreshRatioVisible() {
-  const bool fresh = ratioSessionKnown && ratioLinkUp &&
-                     millis() - ratioSessionAt < RATIO_STALE_MS;
-  setRatioVisible(fresh && ratioSession.open && ratioSession.token != ratioClosedToken &&
-                  !primeVisible);
+  if (faceShown == FACE_RATIO) renderRatio();
 }
 
 void faucetApplyRatioSession(const RatioSessionStatePayload &state) {
   if (state.channel > PUMP_CHANNEL_B) return;
-  const bool entering = state.open && state.token != ratioClosedToken &&
-                        (!ratioSessionKnown || !ratioSession.open ||
-                         ratioSession.token != state.token);
+  const bool entering = state.open && (!ratioSessionKnown || !ratioSession.open ||
+                                       ratioSession.token != state.token);
   ratioSession = state;
   ratioSessionKnown = true;
   ratioLinkUp = true;
   ratioSessionAt = millis();
-  // Back pressed here is settled once the main board no longer states that visit.
-  if (ratioCloseWanted && (!state.open || state.token != ratioClosedToken)) ratioCloseWanted = false;
   if (!ratioStepWanted && !ratioStepsOwed) adoptRatios(state.ratio);
   if (entering) {
     lastInputTime = millis();
     if (dimmed) wakeBacklight();
   }
-  refreshRatioVisible();
+  faceService(nullptr);
 }
 
 void faucetApplyRatio(const RatioPayload &ratio) {
@@ -1136,7 +1017,7 @@ void faucetApplyRatio(const RatioPayload &ratio) {
   if (!ratioStepWanted && !ratioStepsOwed) adoptRatios(ratio.ratio);
 }
 
-// The value between the targets, and a target at the end of its range: a finger, and nothing
+// The blue between the buttons, and a button at the end of its range: a finger, and nothing
 // more.
 static void onRatioLayerTouch(lv_event_t *e) {
   (void)e;
@@ -1145,18 +1026,8 @@ static void onRatioLayerTouch(lv_event_t *e) {
   faucetTouched();
 }
 
-static void onRatioBack(lv_event_t *e) {
-  (void)e;
-  if (touchWakesOnly() || !ratioVisible) return;
-  lastInputTime = millis();
-  ratioClosedToken = ratioSession.token;
-  ratioCloseWanted = true;
-  ratioCloseSentAt = 0;
-  refreshRatioVisible();
-}
-
 static void onRatioStep(lv_event_t *e) {
-  if (touchWakesOnly() || !ratioVisible) return;
+  if (touchWakesOnly() || faceShown != FACE_RATIO) return;
   lastInputTime = millis();
   const uint8_t ch = ratioSession.channel & 1;
   const int next = (int)ratioShown[ch] + (int)(intptr_t)lv_event_get_user_data(e);
@@ -1171,9 +1042,7 @@ static void onRatioStep(lv_event_t *e) {
   renderRatio();
 }
 
-// A press's step goes out once J3 takes it, so it ticks once; Back goes out again only
-// while the main board still states the visit it closed; and the screen comes down when the
-// main board's word goes stale.
+// A press's step goes out once J3 takes it, so it ticks once.
 static void ratioService(const BaseLinkStatus &link) {
   const unsigned long now = millis();
   ratioLinkUp = link.connected;
@@ -1183,20 +1052,15 @@ static void ratioService(const BaseLinkStatus &link) {
     ++ratioStepsOwed;
     ratioStepSentAt = now;
   }
-  if (ratioCloseWanted && (!ratioCloseSentAt || now - ratioCloseSentAt >= RATIO_CLOSE_RETRY_MS) &&
-      baseLinkRatioClose(ratioSession.channel, ratioClosedToken)) {
-    ratioCloseSentAt = now ? now : 1;
-  }
-  refreshRatioVisible();
 
   // This glass has no camera on it. What the screen laid out goes to the main board's
   // console, once for each visit it shows.
-  if (ratioVisible && ratioSaidToken != ratioSession.token) {
+  if (faceShown == FACE_RATIO && ratioSaidToken != ratioSession.token) {
     ratioSaidToken = ratioSession.token;
     lv_obj_update_layout(ratioLayer);
     const char *value = lv_label_get_text(ratioValueLbl);
     char line[96];
-    snprintf(line, sizeof(line), "ratio up: %s at %s, %d px wide; targets at %d and %d, %d tall",
+    snprintf(line, sizeof(line), "ratio up: %s at %s, %d px wide; buttons at %d and %d, %d tall",
              lv_label_get_text(ratioFlavorLbl), value,
              (int)lv_txt_get_width(value, strlen(value), &lv_font_montserrat_36, 0, LV_TEXT_FLAG_NONE),
              (int)lv_obj_get_y(ratioMoreBtn), (int)lv_obj_get_y(ratioLighterBtn),
@@ -1205,76 +1069,45 @@ static void ratioService(const BaseLinkStatus &link) {
   }
 }
 
-// Back, the targets and the flavor over its ratio, over the whole glass or as four equal bands
-// over what a strip leaves, the ratio a size smaller there so the pair fits its band.
-static void layoutRatio(bool strip) {
-  if (!ratioLayer) return;
-  const lv_coord_t band = strip ? RATIO_BAND_H_STRIP : BACK_H;
-  const lv_coord_t target = strip ? RATIO_BAND_H_STRIP : RATIO_TARGET_H;
-  const lv_coord_t height = strip ? SCREEN_H - STRIP_H : SCREEN_H;
-  lv_obj_set_height(ratioLayer, height);
-  lv_obj_set_height(ratioBackBtn, band);
-  lv_obj_set_pos(ratioMoreBtn, 0, band);
-  lv_obj_set_height(ratioMoreBtn, target);
-  lv_obj_set_pos(ratioLighterBtn, 0, height - target);
-  lv_obj_set_height(ratioLighterBtn, target);
-  if (strip) {
-    // The value's band lies between the targets, and the caption and the ratio fill it, set
-    // down by RATIO_PAIR_DY so their ink stands in its middle.
-    const lv_coord_t top = band + target + RATIO_PAIR_DY;
-    lv_obj_set_style_text_font(ratioFlavorLbl, &lv_font_montserrat_14, 0);
-    lv_obj_set_style_text_font(ratioValueLbl, &lv_font_montserrat_28, 0);
-    lv_obj_set_y(ratioFlavorLbl, top);
-    lv_obj_set_y(ratioValueLbl, top + lv_font_montserrat_14.line_height);
-  } else {
-    lv_obj_set_style_text_font(ratioFlavorLbl, &lv_font_montserrat_16, 0);
-    lv_obj_set_style_text_font(ratioValueLbl, &lv_font_montserrat_36, 0);
-    lv_obj_set_y(ratioFlavorLbl, 160 + LINE_DY_16);
-    lv_obj_set_y(ratioValueLbl, 182 + LINE_DY_36);
-  }
-}
-
-// A step target: the whole width, its word in the middle.
-static lv_obj_t *ratioTarget(lv_obj_t *parent, lv_coord_t y, const char *text, int step,
-                             lv_obj_t **label) {
+// A step button, inset on the glass's blue: its sign, as the machine display's stepper draws
+// one, over its word.
+static lv_obj_t *ratioButton(lv_obj_t *parent, lv_coord_t y, const char *sign, const char *text,
+                             int step, lv_obj_t **mark, lv_obj_t **label) {
   lv_obj_t *btn = lv_btn_create(parent);
   lv_obj_remove_style_all(btn);
-  lv_obj_set_pos(btn, 0, y);
-  lv_obj_set_size(btn, SCREEN_W, RATIO_TARGET_H);
+  lv_obj_set_pos(btn, RATIO_BTN_X, y);
+  lv_obj_set_size(btn, RATIO_BTN_W, RATIO_BTN_H);
   lv_obj_set_style_bg_color(btn, lv_color_hex(COL_DIM), 0);
   lv_obj_set_style_bg_opa(btn, LV_OPA_COVER, 0);
   lv_obj_add_flag(btn, LV_OBJ_FLAG_PRESS_LOCK);
   lv_obj_clear_flag(btn, LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_add_event_cb(btn, onRatioStep, LV_EVENT_PRESSED, (void *)(intptr_t)step);
+
+  *mark = lv_label_create(btn);
+  lv_obj_set_style_text_font(*mark, &lv_font_montserrat_28, 0);
+  lv_obj_set_style_text_color(*mark, lv_color_hex(COL_INK), 0);
+  lv_label_set_text(*mark, sign);
+  lv_obj_align(*mark, LV_ALIGN_TOP_MID, 0, RATIO_MARK_Y);
+
   *label = lv_label_create(btn);
-  lv_obj_set_style_text_font(*label, &lv_font_montserrat_20, 0);
+  lv_obj_set_width(*label, RATIO_BTN_W);
+  lv_obj_set_pos(*label, 0, RATIO_WORD_Y + LINE_DY_16);
+  lv_obj_set_style_text_align(*label, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_font(*label, &lv_font_montserrat_16, 0);
   lv_obj_set_style_text_color(*label, lv_color_hex(COL_INK), 0);
   lv_label_set_text(*label, text);
-  lv_obj_center(*label);
   return btn;
 }
 
-// Back, More flavor, the flavor over its ratio on the glass's blue, and Lighter. The layer
-// takes every press its targets do not.
 static void buildRatioLayer(lv_obj_t *scr) {
-  ratioLayer = lv_obj_create(scr);
-  lv_obj_remove_style_all(ratioLayer);
-  lv_obj_set_pos(ratioLayer, 0, 0);
-  lv_obj_set_size(ratioLayer, SCREEN_W, SCREEN_H);
-  lv_obj_set_style_bg_color(ratioLayer, THEME_BG, 0);
-  lv_obj_set_style_bg_opa(ratioLayer, LV_OPA_COVER, 0);
-  lv_obj_clear_flag(ratioLayer, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_add_flag(ratioLayer, LV_OBJ_FLAG_CLICKABLE);
-  lv_obj_add_event_cb(ratioLayer, onRatioLayerTouch, LV_EVENT_PRESSED, NULL);
-
-  ratioBackBtn = backBand(ratioLayer, BACK_H, onRatioBack);
-  ratioMoreBtn = ratioTarget(ratioLayer, BACK_H, "More flavor", -1, &ratioMoreLbl);
-  ratioFlavorLbl = lineLabel(ratioLayer, 0, &lv_font_montserrat_16, COL_DIM, FLAVOR_NAMES[0]);
-  ratioValueLbl = lineLabel(ratioLayer, 0, &lv_font_montserrat_36, COL_TEXT, "");
-  ratioLighterBtn = ratioTarget(ratioLayer, SCREEN_H - RATIO_TARGET_H, "Lighter", 1,
-                                &ratioLighterLbl);
-  layoutRatio(false);
-  lv_obj_add_flag(ratioLayer, LV_OBJ_FLAG_HIDDEN);
+  ratioLayer = wholeGlass(scr, THEME_BG, onRatioLayerTouch, LV_EVENT_PRESSED);
+  ratioMoreBtn = ratioButton(ratioLayer, RATIO_MORE_Y, LV_SYMBOL_MINUS, "More flavor", -1,
+                             &ratioMoreMark, &ratioMoreLbl);
+  ratioFlavorLbl = lineLabel(ratioLayer, 126 + LINE_DY_16, &lv_font_montserrat_16, COL_DIM,
+                             FLAVOR_NAMES[0]);
+  ratioValueLbl = lineLabel(ratioLayer, 148 + LINE_DY_36, &lv_font_montserrat_36, COL_TEXT, "");
+  ratioLighterBtn = ratioButton(ratioLayer, RATIO_LIGHTER_Y, LV_SYMBOL_PLUS, "Lighter", 1,
+                                &ratioLighterMark, &ratioLighterLbl);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1305,20 +1138,14 @@ static void buildUi() {
   lv_obj_add_flag(overlay, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(overlay, onTap, LV_EVENT_PRESSED, NULL);
 
-  // Prime-ready replaces the logo with Back across the top and one hold target
-  // below it, built here once and shown and hidden after.
-  primeLayer = lv_obj_create(scr);
-  lv_obj_remove_style_all(primeLayer);
-  lv_obj_set_pos(primeLayer, 0, 0);
-  lv_obj_set_size(primeLayer, SCREEN_W, SCREEN_H);
-  lv_obj_set_style_bg_color(primeLayer, THEME_BG, 0);
-  lv_obj_set_style_bg_opa(primeLayer, LV_OPA_COVER, 0);
-  lv_obj_clear_flag(primeLayer, LV_OBJ_FLAG_SCROLLABLE);
-
-  primeExitBtn = backBand(primeLayer, BACK_H, onPrimeExit);
+  // Prime-ready replaces the logo with one hold target the size of the glass: the
+  // flavor, what the hold is doing, and how it stands.
+  primeLayer = wholeGlass(scr, THEME_BG, nullptr, LV_EVENT_ALL);
 
   primeHoldBtn = lv_btn_create(primeLayer);
   lv_obj_remove_style_all(primeHoldBtn);
+  lv_obj_set_pos(primeHoldBtn, 0, 0);
+  lv_obj_set_size(primeHoldBtn, SCREEN_W, SCREEN_H);
   lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_ACCENT), 0);
   lv_obj_set_style_bg_opa(primeHoldBtn, LV_OPA_COVER, 0);
   lv_obj_set_style_bg_color(primeHoldBtn, lv_color_hex(COL_ACCENT), LV_STATE_PRESSED);
@@ -1326,12 +1153,11 @@ static void buildUi() {
   lv_obj_clear_flag(primeHoldBtn, LV_OBJ_FLAG_PRESS_LOCK | LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_add_event_cb(primeHoldBtn, onPrimeHold, LV_EVENT_ALL, NULL);
 
-  primeFlavorLbl = lineLabel(primeHoldBtn, 0, &lv_font_montserrat_16, COL_INK, FLAVOR_NAMES[0]);
-  primeHoldLbl = lineLabel(primeHoldBtn, 0, &lv_font_montserrat_20, COL_INK, "Hold to prime");
-  primeStatusLbl = lineLabel(primeHoldBtn, 0, &lv_font_montserrat_16, COL_INK, "");
-  layoutPrime(false);
-
-  lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
+  primeFlavorLbl = lineLabel(primeHoldBtn, 112 + LINE_DY_16, &lv_font_montserrat_16, COL_INK,
+                             FLAVOR_NAMES[0]);
+  primeHoldLbl = lineLabel(primeHoldBtn, 140 + LINE_DY_20, &lv_font_montserrat_20, COL_INK,
+                           "Hold to prime");
+  primeStatusLbl = lineLabel(primeHoldBtn, 174 + LINE_DY_16, &lv_font_montserrat_16, COL_INK, "");
 
   buildRatioLayer(scr);
   buildTrustLayer(scr);
@@ -1376,97 +1202,91 @@ static lv_obj_t *trustButton(lv_obj_t *parent, lv_coord_t x, lv_coord_t y,
   lv_obj_add_event_cb(btn, cb, LV_EVENT_CLICKED, NULL);
   lv_obj_t *lbl = lv_label_create(btn);
   lv_label_set_text(lbl, text);
-  lv_obj_set_style_text_font(lbl, &lv_font_montserrat_16, 0);
+  lv_obj_set_style_text_font(lbl, &lv_font_montserrat_20, 0);
   lv_obj_set_style_text_color(lbl, lv_color_hex(fg), 0);
   lv_obj_set_style_text_align(lbl, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_style_text_line_space(lbl, 1, 0);
   lv_obj_center(lbl);
   return btn;
 }
 
-// A request takes the strip along the foot. The flavor target stays usable
-// above it; Prime and Ratio keep Back and their targets in what is left.
-// Arrival or departure waits for a resting finger and a pending Stop, so a
-// target never moves underneath a hold. Replays do not touch this layout.
-// The no-water notice takes the same strip when no request holds it, and gives
-// way to Prime, which is someone at work on the machine.
-static void trustLayoutService(lv_timer_t *) {
-  if (!trustLayer) return;
-  const bool finger = touchIsDown;
-  if (!finger) trustPressed = false;
-  const bool sensitive = finger || primePressed || primeStopPending || primeCancelPending;
-  const bool noticeWanted = noticeKind != NOTICE_NONE && !primeVisible;
-  const bool wanted = trustShownAsk != 0 || noticeWanted;
-  if (wanted != trustLayoutReserved && !sensitive) {
+// ════════════════════════════════════════════════════════════
+//  One face at a time
+// ════════════════════════════════════════════════════════════
+//
+// The glass shows one thing and it fills the glass, the first of: a trust ask, unless a hold
+// is in progress, which keeps the glass until it ends; Prime; Ratio; why there is no soda;
+// and the flavor's picture. An update stands over all of them on its own layer.
+
+// A hold here or at the machine, or one of this glass's starting or stopping.
+static bool primeHeld() {
+  return primePressed || primeStopPending ||
+         (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING);
+}
+
+static uint8_t faceWanted() {
+  if (trustShownAsk && !(primeVisible && primeHeld())) return FACE_TRUST;
+  if (primeVisible) return FACE_PRIME;
+  if (ratioWanted()) return FACE_RATIO;
+  if (noticeKind != NOTICE_NONE) return FACE_NOTICE;
+  return FACE_LOGO;
+}
+
+static void showIf(lv_obj_t *obj, bool show) {
+  if (show) lv_obj_clear_flag(obj, LV_OBJ_FLAG_HIDDEN);
+  else lv_obj_add_flag(obj, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void faceService(lv_timer_t *) {
+  if (!trustLayer || !noticeLayer || !ratioLayer || !primeLayer) return;
+  if (!touchIsDown) trustPressed = false;
+  const uint8_t face = faceWanted();
+  if (face != faceShown) {
+    // A finger already on the glass is not a press on whatever appears under it.
     if (touchInput) lv_indev_wait_release(touchInput);
-    trustLayoutReserved = wanted;
-    layoutPrime(wanted);
-    layoutRatio(wanted);
-    // The logo shrinks into what the strip leaves, centered over it.
-    lv_img_set_zoom(logoImg, wanted ? (SCREEN_H - STRIP_H) * LV_IMG_ZOOM_NONE / SCREEN_H
-                                    : LV_IMG_ZOOM_NONE);
-    lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, wanted ? -STRIP_H / 2 : 0);
-  }
-  const bool updating = otaLayer && !lv_obj_has_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
-  const bool show = trustShownAsk != 0 && trustLayoutReserved && !updating;
-  if (show && lv_obj_has_flag(trustLayer, LV_OBJ_FLAG_HIDDEN)) {
-    lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_move_foreground(trustLayer);
-  } else if (!show) {
-    lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
-  }
-  if (!noticeLayer) return;
-  const bool notice = trustShownAsk == 0 && noticeWanted && trustLayoutReserved && !updating;
-  if (notice && lv_obj_has_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN)) {
-    lv_obj_clear_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_move_foreground(noticeLayer);
-    noticeFaceSaid = 0xFF;
-  } else if (!notice) {
-    lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
+    faceShown = face;
+    if (face == FACE_PRIME) renderPrime(true);
+    if (face == FACE_RATIO) renderRatio();
+    else ratioStepWanted = false;   // a step belongs to the screen it was pressed on
+    if (face == FACE_NOTICE) noticeFaceSaid = 0xFF;
+    showIf(trustLayer, face == FACE_TRUST);
+    showIf(primeLayer, face == FACE_PRIME);
+    showIf(ratioLayer, face == FACE_RATIO);
+    showIf(noticeLayer, face == FACE_NOTICE);
   }
   // This glass has no camera on it. What it laid out goes to the main board's console, once
-  // for each face the strip wears while it is up.
-  if (notice && noticeFace != noticeFaceSaid) {
+  // for each face a notice wears while it is up.
+  if (face == FACE_NOTICE && noticeFace != noticeFaceSaid) {
     noticeFaceSaid = noticeFace;
     lv_obj_update_layout(noticeLayer);
     char line[112];
     snprintf(line, sizeof(line),
-             "notice %u.%u up: title %dx%d at %d, body %dx%d at %d, bar %d at %d, strip %d",
+             "notice %u.%u up: title %dx%d at %d, body %dx%d at %d, bar %d at %d",
              (unsigned)noticeKind, (unsigned)noticeFace,
              (int)lv_obj_get_width(noticeTitleLbl), (int)lv_obj_get_height(noticeTitleLbl),
              (int)lv_obj_get_y(noticeTitleLbl),
              (int)lv_obj_get_width(noticeBodyLbl), (int)lv_obj_get_height(noticeBodyLbl),
              (int)lv_obj_get_y(noticeBodyLbl),
              lv_obj_has_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN) ? 0 : (int)lv_obj_get_width(noticeTrack),
-             (int)lv_obj_get_y(noticeTrack), (int)lv_obj_get_height(noticeLayer));
+             (int)lv_obj_get_y(noticeTrack));
     baseLinkSay(line);
   }
 }
 
-// The strip a trust ask or a notice takes along the foot of the glass, and gives back.
-static lv_obj_t *footStrip(lv_obj_t *scr, lv_event_cb_t cb, lv_event_code_t code) {
-  lv_obj_t *strip = lv_obj_create(scr);
-  lv_obj_remove_style_all(strip);
-  lv_obj_set_pos(strip, 0, SCREEN_H - STRIP_H);
-  lv_obj_set_size(strip, SCREEN_W, STRIP_H);
-  lv_obj_set_style_bg_color(strip, lv_color_hex(COL_CARD), 0);
-  lv_obj_set_style_bg_opa(strip, LV_OPA_COVER, 0);
-  lv_obj_clear_flag(strip, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_add_flag(strip, LV_OBJ_FLAG_CLICKABLE);
-  lv_obj_add_event_cb(strip, cb, code, NULL);
-  return strip;
-}
+// The ask's title, the device it names on a line of its own, then what trusting allows, and
+// the two answers one above the other.
+#define TRUST_TITLE_PITCH 26
 
 static void buildTrustLayer(lv_obj_t *scr) {
-  trustLayer = footStrip(scr, trustTouch, LV_EVENT_ALL);
-  trustTitleLbl = lineLabel(trustLayer, 10 + LINE_DY_16, &lv_font_montserrat_16, COL_TEXT, "");
-  trustBodyLbl = lineLabel(trustLayer, 34 + LINE_DY_14, &lv_font_montserrat_14, COL_DIM, "");
+  trustLayer = wholeGlass(scr, lv_color_hex(COL_CARD), trustTouch, LV_EVENT_ALL);
+  trustTitleLbl = lineLabel(trustLayer, 28 + LINE_DY_20, &lv_font_montserrat_20, COL_TEXT, "");
+  lv_obj_set_style_text_line_space(trustTitleLbl,
+                                   TRUST_TITLE_PITCH - lv_font_montserrat_20.line_height, 0);
+  trustBodyLbl = lineLabel(trustLayer, 96 + LINE_DY_16, &lv_font_montserrat_16, COL_DIM, "");
 
-  trustButton(trustLayer, 8, 62, 74, 64, 0x1749d1, COL_TEXT, "Don't\nTrust", onDontTrust);
-  trustButton(trustLayer, 90, 62, 74, 64, COL_ACCENT, COL_INK, "Trust", onTrust);
+  trustButton(trustLayer, 8, 148, SCREEN_W - 16, 72, 0x1749d1, COL_TEXT, "Don't Trust", onDontTrust);
+  trustButton(trustLayer, 8, 232, SCREEN_W - 16, 72, COL_ACCENT, COL_INK, "Trust", onTrust);
 
-  lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
-  lv_timer_create(trustLayoutService, 50, nullptr);
+  lv_timer_create(faceService, 50, nullptr);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1479,15 +1299,15 @@ static void buildTrustLayer(lv_obj_t *scr) {
 // display says what to check and is where Try again is.
 //
 // A sweep is the other way round. The lever beside this glass is what lets
-// the dry tank's air out, so the hand and the eyes are here: the strip asks
+// the dry tank's air out, so the hand and the eyes are here: the glass asks
 // for the lever, shows the main board's count as a bar while gas is moving,
 // and says when to let go.
 //
 // A move is at the lever too. The machine's display has told the person to
-// shut the supplies and empty the tank here, so the strip says to hold the
+// shut the supplies and empty the tank here, so the glass says to hold the
 // lever until nothing comes out. The main board cannot tell an empty tank: it
 // says only whether the meter is turning and whether the float has passed
-// the low reed, and once it has and the flow has stopped the strip asks.
+// the low reed, and once it has and the flow has stopped the glass asks.
 enum : uint8_t {
   NOTICE_FACE_NO_WATER,
   NOTICE_FACE_SWEEP_ASK,     // nothing counted yet
@@ -1509,16 +1329,15 @@ static void onNoticeTouch(lv_event_t *e) {
 }
 
 static void buildNoticeLayer(lv_obj_t *scr) {
-  noticeLayer = footStrip(scr, onNoticeTouch, LV_EVENT_PRESSED);
+  noticeLayer = wholeGlass(scr, lv_color_hex(COL_CARD), onNoticeTouch, LV_EVENT_PRESSED);
   noticeTitleLbl = lineLabel(noticeLayer, 0, &lv_font_montserrat_20, COL_WARN, "No water");
   noticeBodyLbl = lineLabel(noticeLayer, 0, &lv_font_montserrat_16, COL_TEXT,
                             "See the display\non the machine.");
-  noticeTrack = barTrack(noticeLayer, 48, &noticeFill);
+  noticeTrack = barTrack(noticeLayer, 140, &noticeFill);
   lv_obj_add_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_add_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
 }
 
-// The strip's words for what the main board last said.
+// The words for what the main board last said.
 static void noticeDress() {
   uint8_t face = NOTICE_FACE_NO_WATER;
   if (noticeKind == NOTICE_SWEEP_DONE) face = NOTICE_FACE_SWEEP_DONE;
@@ -1582,8 +1401,8 @@ static void noticeDress() {
   lv_label_set_text(noticeTitleLbl, title);
   lv_label_set_text(noticeBodyLbl, body);
   lv_obj_set_style_text_color(noticeTitleLbl, lv_color_hex(color), 0);
-  lv_obj_set_y(noticeTitleLbl, (sweep ? 14 : 22) + LINE_DY_20);
-  lv_obj_set_y(noticeBodyLbl, (sweep ? 70 : 62) + LINE_DY_16);
+  lv_obj_set_y(noticeTitleLbl, (sweep ? 100 : 112) + LINE_DY_20);
+  lv_obj_set_y(noticeBodyLbl, (sweep ? 166 : 152) + LINE_DY_16);
   if (sweep) lv_obj_clear_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN);
   else lv_obj_add_flag(noticeTrack, LV_OBJ_FLAG_HIDDEN);
 }
@@ -1606,15 +1425,20 @@ void faucetApplyNotice(const NoticePayload &notice) {
   noticeFlowing  = flowing;
   noticeBelow    = below;
   if (kind != NOTICE_NONE) noticeDress();
-  trustLayoutService(nullptr);
+  faceService(nullptr);
 }
 
 void faucetTrustShow(const TrustShowPayload &ask) {
   if (trustShownAsk == ask.askId) return;
-  lv_label_set_text(trustTitleLbl, trustTitle(ask.kind));
+  // The device the ask names stands on a line of its own.
+  char title[32];
+  snprintf(title, sizeof(title), "%s", trustTitle(ask.kind));
+  char *space = strrchr(title, ' ');
+  if (space) *space = '\n';
+  lv_label_set_text(trustTitleLbl, title);
   lv_label_set_text(trustBodyLbl, "Settings + cycles");
   trustShownAsk = ask.askId;
-  trustLayoutService(nullptr);
+  faceService(nullptr);
   lastInputTime = millis();
   wakeBacklight();
 }
@@ -1622,8 +1446,7 @@ void faucetTrustShow(const TrustShowPayload &ask) {
 void faucetTrustHide() {
   if (trustPressed && touchInput) lv_indev_wait_release(touchInput);
   trustShownAsk = 0;
-  lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
-  trustLayoutService(nullptr);
+  faceService(nullptr);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1676,14 +1499,14 @@ static void processTextLine(const char *line) {
                   idleAsleepWanted ? 1 : 0,
                   millis() / 1000);
     Serial.printf("DIAG_PRIME:visible=%d,known=%d,phase=%u,owner=%u,outcome=%u,"
-                  "pressed=%d,stop=%d,cancel=%d,lost=%d,session=%08lX,hold=%08lX,"
+                  "pressed=%d,stop=%d,lost=%d,session=%08lX,hold=%08lX,"
                   "revision=%lu,elapsed=%lu,epoch=%lu\n",
                   primeVisible ? 1 : 0, primeSessionKnown ? 1 : 0,
                   primeSessionKnown ? (unsigned)primeSession.phase : 0,
                   primeSessionKnown ? (unsigned)primeSession.owner : 0,
                   primeSessionKnown ? (unsigned)primeSession.outcome : 0,
                   primePressed ? 1 : 0, primeStopPending ? 1 : 0,
-                  primeCancelPending ? 1 : 0, primeLinkLost ? 1 : 0,
+                  primeLinkLost ? 1 : 0,
                   (unsigned long)primeSession.sessionToken,
                   (unsigned long)primeHoldToken,
                   primeSessionKnown ? (unsigned long)primeSession.revision : 0,

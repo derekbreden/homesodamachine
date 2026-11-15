@@ -542,8 +542,7 @@ static unsigned long ratioSentMs = 0;
 #define RATIO_REPLY_MS 2500
 
 // The Ratio page's visit, which the faucet shows too: stated to the main board when
-// the page comes up and on this pace while it stands, and closed when it goes. The
-// faucet's Back closes it from there, and the answer to the next statement says so.
+// the page comes up and on this pace while it stands, and closed when it goes.
 static uint32_t ratioSessionToken = 0;   // this page's visit; 0 while the page is down
 static uint8_t  ratioSessionChannel = 0;
 static unsigned long ratioSessionSaidMs = 0;
@@ -2068,7 +2067,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   // The Ratio page's visit as the main board holds it, with both ratios: a step at the faucet
-  // shows here, and the faucet's Back takes this page back to rest too.
+  // shows here.
   if (type == MSG_RESP_RATIO_SESSION && plen >= sizeof(RatioSessionStatePayload)) {
     RatioSessionStatePayload state;
     memcpy(&state, payload, sizeof(state));
@@ -2081,10 +2080,6 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         }
       }
       if (moved && uiReady) refreshFlavorText();
-    }
-    if (!state.open && ratioSessionToken && state.token == ratioSessionToken) {
-      ratioSessionToken = 0;
-      if (uiReady && activePage == PAGE_FLAVOR && activeFlv == FLV_DETAIL) showPage(PAGE_HOME);
     }
     return;
   }
@@ -3360,8 +3355,8 @@ static void ratioStepCb(lv_event_t *e) {
   ratioSentMs = millis() ? millis() : 1;
 }
 
-// A fresh sequence each boot, so a restarted glass never names a visit the main board
-// has already closed.
+// A fresh sequence each boot, so a restarted glass's visits are new ones to the main board
+// and the faucet.
 static uint32_t nextRatioToken() {
   static uint32_t state = 0;
   if (!state) state = esp_random() | 1;

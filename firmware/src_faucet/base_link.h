@@ -90,18 +90,15 @@ void baseLinkTouched();
 void baseLinkSelect(uint8_t flavor, bool audible);
 
 // Fixed-memory, non-blocking prime-session controls. The enclosure owns
-// session activation; the faucet may cancel it or own one physical hold.
-void baseLinkPrimeCancel(uint8_t channel, uint32_t sessionToken);
+// the session; the faucet may own one physical hold.
 void baseLinkPrimeHoldStart(uint8_t channel, uint32_t sessionToken, uint32_t holdToken);
 void baseLinkPrimeHoldTick(uint8_t channel, uint32_t sessionToken, uint32_t holdToken);
 void baseLinkPrimeHoldStop(uint8_t channel, uint32_t sessionToken, uint32_t holdToken);
 void baseLinkPrimeDiscard();
 
-// A step on the Ratio screen, as the ratio it stepped to, and its Back, as the visit it
-// closes. Called from the loop, never from a touch. False when J3 is down or its window is
-// full, which the caller waits out.
+// A step on the Ratio screen, as the ratio it stepped to. Called from the loop, never from
+// a touch. False when J3 is down or its window is full, which the caller waits out.
 bool baseLinkRatioSet(uint8_t channel, uint8_t ratio);
-bool baseLinkRatioClose(uint8_t channel, uint32_t token);
 
 // Put one frame on J3 for the OTA path — the source half, where this board is
 // upstream of the relay rather than a target of it. False when the link is busy

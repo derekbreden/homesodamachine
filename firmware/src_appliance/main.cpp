@@ -414,7 +414,6 @@ static void help() {
     Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
     Serial.printf ("  ratio [a|b] [%u-%u]  what a channel pours at, 1:n water to concentrate (persisted)\n",
                    FLAVOR_RATIO_MIN, FLAVOR_RATIO_MAX);
-    Serial.println("  ratio close       close the Ratio open on both displays, as the faucet's Back does");
     Serial.printf ("  art [a|b <0-%u>]  change one channel; art <first> <second> explicitly sets both\n",
                    FLAVOR_ART_COUNT - 1);
     Serial.println("  link              J9 enclosure display and J3 faucet links");
@@ -1287,13 +1286,7 @@ static void console(const String &line) {
 
     if (line.startsWith("ratio")) {
         String rest = line.substring(5); rest.trim();
-        RatioSessionStatePayload session;
-        flavorRatioSession(session);
-        if (rest == "close") {
-            // As Back on the faucet's Ratio screen does.
-            if (!flavorRatioSessionClose(session.token)) Serial.println("\nno Ratio is open");
-            flavorRatioSession(session);
-        } else if (rest.length()) {
+        if (rest.length()) {
             char which = rest[0] | 0x20;
             String nArg = rest.substring(1); nArg.trim();
             const int n = nArg.toInt();
@@ -1307,6 +1300,8 @@ static void console(const String &line) {
         }
         Serial.printf("\nratio A 1:%u, B 1:%u%s\n", flavorRatio(0), flavorRatio(1),
                       flavorPersisted() ? " (persisted)" : " (persistence pending)");
+        RatioSessionStatePayload session;
+        flavorRatioSession(session);
         if (session.open)
             Serial.printf("Ratio open for flavor %u on both displays\n", session.channel + 1);
         return;

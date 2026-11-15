@@ -106,11 +106,9 @@ board also establishes and reports the safe I/O foundation the next connected be
   it open for a lease after each statement
   ([`ratio_session_policy.h`](/firmware/lib/proto_link/ratio_session_policy.h)), answers each
   statement with the visit and both ratios (`MSG_RESP_RATIO_SESSION`), and sends the same to
-  J3 as it changes and on the heartbeat. Back on either glass closes it (CLOSE with the
-  token; on J3 that is the only action), and a closed visit stays closed: the enclosure learns
-  of the faucet's Back from the answer to its next statement and goes back to rest. A visit
-  whose statements stop lapses with its lease and opens again on the next one. `ratio` says
-  whether one is open, and `ratio close` closes it as the faucet's Back does.
+  J3 as it changes and on the heartbeat. The enclosure closes it when the page goes (CLOSE with
+  the token), and a visit whose statements stop lapses with its lease and opens again on the
+  next one. The faucet only reads it. `ratio` says whether one is open.
 - **A phone.** What a phone asks through the faucet's radio arrives on J3 inside
   `MSG_BRIDGE_REQ`, and `faucet_link.cpp` holds the whole list of what it may ask: status,
   the selection, a channel's ratio, the fill and the clean cycle, sound, Prime's session,
@@ -339,7 +337,6 @@ pio device monitor -e appliance
 | `ui notice [go\|no]` | put the notice standing up on the enclosure, and press one of its answers: on no water `go` is Try again and `no` is Not now; on the welcome `go` is OK and `no` is Skip, whose confirmation then takes `go` for Skip and `no` for Cancel; a move answers only to `no`, its Cancel |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll, and whether a Ratio page is open on both glasses |
-| `ratio close` | close the Ratio page open on both glasses, as the faucet's Back does |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `trust [forget\|yes\|no]` | how many phones the faucet trusts and how many it has bonds for; `forget` forgets every trusted phone; `yes` or `no` answers the ask that is up, as a tap on either display would |
 | `dry [s]` | dry the flavor lines, at the bench or the factory: air in then through to the faucet, on each channel in turn; `s` caps every step |

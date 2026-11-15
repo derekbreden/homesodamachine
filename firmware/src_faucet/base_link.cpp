@@ -106,7 +106,7 @@ void clearPrimeQueue() {
 void enqueuePrime(uint8_t type, const void *payload, uint8_t len, bool safetyCritical) {
   if (len > kPrimePayloadMax) return;
 
-  // A STOP or session CANCEL is the safe final word. It supersedes every
+  // A STOP is the safe final word. It supersedes every
   // queued START/TICK immediately, including across a release in the same UI
   // frame; no actuator-on intent may remain behind a physical lift.
   if (safetyCritical && primeQueueCount) clearPrimeQueue();
@@ -671,12 +671,6 @@ void baseLinkSelect(uint8_t flavor, bool audible) {
   enqueue(MSG_FLAVOR_SELECT, flavor, audible);
 }
 
-void baseLinkPrimeCancel(uint8_t channel, uint32_t sessionToken) {
-  if (channel > PUMP_CHANNEL_B || sessionToken == 0) return;
-  PrimeSessionRequestPayload request{PRIME_SESSION_CANCEL, channel, sessionToken};
-  enqueuePrime(MSG_PRIME_SESSION_SET, &request, sizeof(request), true);
-}
-
 void baseLinkPrimeHoldStart(uint8_t channel, uint32_t sessionToken, uint32_t holdToken) {
   if (channel > PUMP_CHANNEL_B || sessionToken == 0 || holdToken == 0) return;
   PrimeHoldPayload hold{channel, sessionToken, holdToken};
@@ -703,14 +697,6 @@ bool baseLinkRatioSet(uint8_t channel, uint8_t ratio) {
   if (channel > PUMP_CHANNEL_B || !base.isConnected()) return false;
   RatioOnePayload request{channel, ratio};
   if (base.trySend(MSG_RATIO_SET_ONE, &request, sizeof(request)) < 0) return false;
-  ++framesTx;
-  return true;
-}
-
-bool baseLinkRatioClose(uint8_t channel, uint32_t token) {
-  if (channel > PUMP_CHANNEL_B || token == 0 || !base.isConnected()) return false;
-  RatioSessionRequestPayload request{RATIO_SESSION_CLOSE, channel, token};
-  if (base.trySend(MSG_RATIO_SESSION_SET, &request, sizeof(request)) < 0) return false;
   ++framesTx;
   return true;
 }
@@ -778,7 +764,7 @@ void baseLinkService() {
     synchronized = false;
     // A control accepted by the previous TinyProto epoch may or may not have
     // reached the main board. Drop it here; the UI fails closed and reasserts
-    // any desired CANCEL/STOP with the same token after fresh truth.
+    // any desired STOP with the same token after fresh truth.
     clearPrimeQueue();
     const bool mustReassert = flavor_link_policy::needsReassert(
         offlineSelection, awaitingPersistence, queueHasSelection(),

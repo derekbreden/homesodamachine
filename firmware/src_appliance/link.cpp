@@ -775,7 +775,7 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     }
 
     // The Ratio page, stated on every poll while it stands, and closed when it goes. The
-    // answer says whether the faucet's Back closed it first, and what each channel pours at.
+    // answer is the visit as it stands, with what each channel pours at.
     if (type == MSG_RATIO_SESSION_SET && plen >= sizeof(RatioSessionRequestPayload)) {
         RatioSessionRequestPayload request;
         memcpy(&request, payload, sizeof(request));
