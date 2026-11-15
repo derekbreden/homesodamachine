@@ -212,17 +212,17 @@ impl TipTravels {
         }
     }
 
-    fn json(&self) -> Json {
-        Json::Dict(self.rows.iter().map(|(phase, hop, straight, lifted)| {
+    fn json(&self) -> Value {
+        Value::Object(self.rows.iter().map(|(phase, hop, straight, lifted)| {
             let mut sorted = lifted.clone();
             sorted.sort_by(f64::total_cmp);
-            let pick = |q: f64| sorted.get(((sorted.len() as f64 - 1.0) * q).round() as usize).copied().map_or(Json::Null, Json::Float);
-            (phase.clone(), Json::Dict(vec![
-                ("at_the_slicer_z_hop_on_its_spiral".into(), Json::Int(*hop as i64)),
-                ("at_the_slicer_z_hop_lifted_straight".into(), Json::Int(*straight as i64)),
-                ("lifted_higher".into(), Json::Int(sorted.len() as i64)),
-                ("lift_over_higher_end_mm_least_median_most".into(), Json::List(vec![pick(0.0), pick(0.5), pick(1.0)])),
-            ]))
+            let pick = |q: f64| sorted.get(((sorted.len() as f64 - 1.0) * q).round() as usize).copied();
+            (phase.clone(), json!({
+                "at_the_slicer_z_hop_on_its_spiral": hop,
+                "at_the_slicer_z_hop_lifted_straight": straight,
+                "lifted_higher": sorted.len(),
+                "lift_over_higher_end_mm_least_median_most": [pick(0.0), pick(0.5), pick(1.0)],
+            }))
         }).collect())
     }
 }
@@ -523,7 +523,7 @@ pub fn compose(
     output: &Path,
     ring: &Path,
     headmap: &Path,
-) -> Result<Json> {
+) -> Result<Value> {
     let staged_tape = Tape::read(staged_base)?;
     let native_tape = Tape::read(native)?;
     let donor_tape = Tape::read(donor)?;
@@ -649,28 +649,13 @@ pub fn compose(
     each_once(&outgoing, pointers(all))?;
     let (startup, window) = leveling(startup, &native_lines, &outgoing)?;
     let mut report = emit_with(output, &startup, &outgoing, &footer, &metadata, Some(&profile))?;
-    report.set("tip_stage_crossings", travels.json());
-    report.set(
-        "tip_visible_nonplanar_courses",
-        Json::Int(seen_shell as i64),
-    );
-    report.set(
-        "tip_virtual_interface_start_mm",
-        Json::Float(FIRST_INTERFACE),
-    );
-    report.set("tip_virtual_first_visible_mm", Json::Float(FIRST_VISIBLE));
-    report.set(
-        "tip_virtual_shell_end_mm",
-        Json::Float(Shoulder::last_visible()),
-    );
-    report.set("tip_shoulder_world_z_mm", point(&limit));
-    report.set(
-        "stock_leveling_window_xy_mm",
-        Json::List(window.iter().map(|p| point(p)).collect()),
-    );
-    std::fs::write(
-        output.with_extension("json"),
-        report.dumps_indented() + "\n",
-    )?;
+    report["tip_stage_crossings"] = travels.json();
+    report["tip_visible_nonplanar_courses"] = json!(seen_shell);
+    report["tip_virtual_interface_start_mm"] = json!(FIRST_INTERFACE);
+    report["tip_virtual_first_visible_mm"] = json!(FIRST_VISIBLE);
+    report["tip_virtual_shell_end_mm"] = json!(Shoulder::last_visible());
+    report["tip_shoulder_world_z_mm"] = json!(limit);
+    report["stock_leveling_window_xy_mm"] = json!(window);
+    write_report(output, &report)?;
     Ok(report)
 }
