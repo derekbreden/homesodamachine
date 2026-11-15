@@ -15,9 +15,7 @@ const PURPOSE: &str = "Replay the inverse-sliced tip's courses at their physical
 const TIP_ID: i64 = 1902;
 const RETRACT: f64 = 0.8;
 const RETRACT_FEED: i64 = 1800;
-/// The Z speed ceilings for laying plastic and for travel, and the plan travel speed.
-const Z_PRINT_MM_MIN: f64 = 450.0;
-const Z_TRAVEL_MM_MIN: f64 = 900.0;
+/// The plan travel speed.
 const TRAVEL_XY_MM_MIN: f64 = 5400.0;
 /// How far above a course the nozzle travels between runs.
 const LIFT: f64 = 0.85;
@@ -67,12 +65,15 @@ pub fn tape(gcode: &Path, donor_report: &Path, warp_receipt: &Path) -> Result<Ta
     let order = |a: f64, b: f64| a.partial_cmp(&b).unwrap_or(std::cmp::Ordering::Equal);
     schedule.sort_by(|a, b| a.state.cmp(&b.state).then(order(a.u, b.u)));
 
+    // the machine's Z feed in mm/min, as the donor's start G-code tells the printer: the most
+    // a laid road or a crossing climbs or drops
+    let z_feed = crate::motion::AxisLimits::stated(&text)?.speed[2] * 60.0;
     let mut out = String::from("G90\nM83\n");
     let mut stats = Stats::default();
     for (i, course) in schedule.iter().enumerate() {
         match &course.body {
             Body::Native(moves) => write_native_course(&mut out, i + 1, course.u, moves, &field, &mut stats),
-            Body::Laid(runs) => write_course(&mut out, i + 1, course.u, runs, &field, &mut stats),
+            Body::Laid(runs) => write_course(&mut out, i + 1, course.u, runs, &field, &mut stats, z_feed),
         }
     }
     let report = json!({
@@ -258,12 +259,12 @@ fn course_head(out: &mut String, phase: &str, index: usize, height: f64, entry: 
 }
 
 /// A straight motion to `point`, unless it is written as the point the nozzle is at.
-fn linear(out: &mut String, prev: &mut [f64; 3], point: [f64; 3], feed: f64, extrusion: Option<f64>) {
+fn linear(out: &mut String, prev: &mut [f64; 3], point: [f64; 3], feed: f64, extrusion: Option<f64>, z_feed: f64) {
     let (from, to) = (written(*prev), written(point));
     if from == to {
         return;
     }
-    let rate = output_feed(from, to, feed, if extrusion.is_some() { Z_PRINT_MM_MIN } else { Z_TRAVEL_MM_MIN });
+    let rate = output_feed(from, to, feed, z_feed);
     let _ = write!(out, "G1 X{:.3} Y{:.3} Z{:.3}", point[0], point[1], point[2]);
     if let Some(e) = extrusion {
         let _ = write!(out, " E{e:.5}");
@@ -273,7 +274,7 @@ fn linear(out: &mut String, prev: &mut [f64; 3], point: [f64; 3], feed: f64, ext
 }
 
 /// A course the field laid, each run entered from above after a retraction.
-fn write_course(out: &mut String, index: usize, height: f64, runs: &[Vec<Move>], field: &ShoulderHold, stats: &mut Stats) {
+fn write_course(out: &mut String, index: usize, height: f64, runs: &[Vec<Move>], field: &ShoulderHold, stats: &mut Stats, z_feed: f64) {
     let phase = phase(field, height);
     let start = runs[0][0].start;
     let end = runs[runs.len() - 1][runs[runs.len() - 1].len() - 1].end;
@@ -287,9 +288,9 @@ fn write_course(out: &mut String, index: usize, height: f64, runs: &[Vec<Move>],
             // The nozzle travels above itself and the run's start.
             let hike = prev[2].max(start[2]) + LIFT;
             let rise = [prev[0], prev[1], hike];
-            linear(out, &mut prev, rise, Z_TRAVEL_MM_MIN, None);
-            linear(out, &mut prev, [start[0], start[1], hike], TRAVEL_XY_MM_MIN, None);
-            linear(out, &mut prev, start, Z_TRAVEL_MM_MIN, None);
+            linear(out, &mut prev, rise, z_feed, None, z_feed);
+            linear(out, &mut prev, [start[0], start[1], hike], TRAVEL_XY_MM_MIN, None, z_feed);
+            linear(out, &mut prev, start, z_feed, None, z_feed);
             let _ = writeln!(out, "G1 E{RETRACT} F{RETRACT_FEED}");
         }
         for m in run {
@@ -299,7 +300,7 @@ fn write_course(out: &mut String, index: usize, height: f64, runs: &[Vec<Move>],
             set_number(out, &mut modes.fan, "M106", m.fan);
             set_number(out, &mut modes.acceleration, "M204", m.acceleration);
             let e = m.e.unwrap_or(0.0);
-            linear(out, &mut prev, m.end, m.feed, Some(e));
+            linear(out, &mut prev, m.end, m.feed, Some(e), z_feed);
             stats.count(phase, "deposition_roads", 1);
             stats.sum(phase, "filament_mm", e);
             stats.count(phase, "vertical_roads", ((m.end[2] - m.start[2]).abs() > 0.002) as i64);
