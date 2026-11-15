@@ -59,31 +59,6 @@
     "method": "Keep the rim contact mapping inboard of the exterior wall and follow the seat with the first rim perimeter.",
     "application": "The full base starts on the sloped scaffold and its insert recesses bridge. Tip trees feed the shoulder roof with release breaks and clearance from the mating plug."
   },
-  "tip_supports": {
-    "selected_date": "2026-10-15",
-    "part": "faucet-shell-tip",
-    "method": "Slim trees at the mating shoulder with dense roof sections, a contoured first perimeter and a hidden-root disc",
-    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
-    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
-    "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
-    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
-    "root_anchor_component_id": 2400,
-    "joint_plane": {
-      "point": [
-        0.0,
-        -38.36796889030837,
-        220.8576411168048
-      ],
-      "normal": [
-        0.0,
-        -0.9396926207859083,
-        0.3420201433256688
-      ]
-    },
-    "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
-    "tree_support_scope": "The mating lip has a scoped dense roof and the inboard dispense face has a separate outlet keepout.",
-    "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
-  },
   "tip_dispense_contact": {
     "part": "faucet-shell-tip",
     "mapping_margin_mm": 5.0,

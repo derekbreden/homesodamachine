@@ -45,6 +45,16 @@
     "blocker_radial_clearance_mm": 0.45,
     "blocker_depth_allowance_mm": [0.65, 0.55]
   },
+  "tip_supports": {
+    "part": "faucet-shell-tip",
+    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
+    "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
+    "root_anchor_component_id": 2400,
+    "joint_plane": {
+      "point": [0.0, -38.36796889030837, 220.8576411168048],
+      "normal": [0.0, -0.9396926207859083, 0.3420201433256688]
+    }
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
