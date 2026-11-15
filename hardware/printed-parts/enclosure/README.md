@@ -77,7 +77,7 @@ The crossing airflow's grilles are the flanks' own flutes, pierced over the fins
 
 ## What is on the front face
 
-- The machine display — a 4.3" touchscreen let into the rounded 30° top, centred, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
+- The machine display — a 4.3" touchscreen let into the rounded 30° top, off centre beside its [status plate](display-cover/README.md#status-plate), angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
 - The continuous front-top skin beneath the facet, surrounding the integral upper pump mount. The lower retainer is reached from inside the loose quadrant. Detail: [Integral pump mount](/hardware/printed-parts/enclosure/enclosure/README.md#integral-pump-mount).
 - Nothing else. Every fluid connection the customer makes is on the +Y wall of back-top: the water inlet, the CO2 inlet, and the umbilical that carries carbonated water and both flavours up to the faucet.
 
