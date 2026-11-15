@@ -2,6 +2,7 @@
 pub(crate) use crate::math::{add, dot, scale, sub};
 use anyhow::{Context, Result, ensure};
 use clap::{Args, Parser, Subcommand};
+use hsm_print_prep::motion::arc;
 use hsm_print_prep::{gcode as beads, review, xml};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
@@ -62,37 +63,6 @@ pub(crate) fn rounded(value: f64, places: i32) -> f64 {
     let factor = 10f64.powi(places);
     (value * factor).round_ties_even() / factor
 }
-fn arc(start: [f64; 3], end: [f64; 3], words: &[(u8, f64)], clockwise: bool) -> Vec<[f64; 3]> {
-    let centre = [
-        start[0] + word(words, b'I').unwrap_or(0.),
-        start[1] + word(words, b'J').unwrap_or(0.),
-    ];
-    let radius = (start[0] - centre[0]).hypot(start[1] - centre[1]);
-    let first = (start[1] - centre[1]).atan2(start[0] - centre[0]);
-    let mut sweep = (end[1] - centre[1]).atan2(end[0] - centre[0]) - first;
-    if clockwise {
-        if sweep >= -1e-9 {
-            sweep -= std::f64::consts::TAU;
-        }
-    } else if sweep <= 1e-9 {
-        sweep += std::f64::consts::TAU;
-    }
-    let count = ((sweep.abs() * radius / 0.25).ceil() as usize).max(1);
-    let mut points = (1..=count)
-        .map(|i| {
-            let t = i as f64 / count as f64;
-            let angle = first + sweep * t;
-            [
-                centre[0] + radius * angle.cos(),
-                centre[1] + radius * angle.sin(),
-                start[2] + (end[2] - start[2]) * t,
-            ]
-        })
-        .collect::<Vec<_>>();
-    points[count - 1] = end;
-    points
-}
-
 /// Feed-only changes and scarf connectors stay inside a run; travel and retraction end it.
 pub fn read_runs(text: &str, object_id: Option<i64>, features: &[&str]) -> Result<Vec<Run>> {
     let mut position = [0.; 3];

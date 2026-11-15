@@ -18,11 +18,11 @@
 //!   sculpted-trial rings RINGS.gcode
 //!   sculpted-trial sequence PRIOR.gcode NATIVE.gcode PLATE.gcode --tip-model TIP.gcode --entire-tip-custom [--plate-rings RINGS.gcode]
 //!   sculpted-trial sequence-shaft FOUNDATION.gcode SEQUENCED.gcode [--donor CONTINUED-BASE.gcode]
-//!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode --headmap HEADMAP.npz
+//!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode [--headmap HEADMAP.npz]
 //!   sculpted-trial splice-tip-end LEVEL.gcode.3mf PLAIN.gcode.3mf TIP-END.json OUT_DIR STEM
 //!   sculpted-trial cool-tip-end SLICE_DIR PROJECT.3mf PRINT.json
-//!   sculpted-trial progress PLATE.gcode MOVES.bin|PROGRESS.json OUT.gcode
-//!   sculpted-trial package NATIVE.gcode.3mf PLATE.gcode REVIEW.gcode.3mf --motion-seconds S --first-course-seconds F
+//!   sculpted-trial progress PLATE.gcode [PROGRESS.json] OUT.gcode
+//!   sculpted-trial package NATIVE.gcode.3mf PLATE.gcode REVIEW.gcode.3mf [--motion-seconds S --first-course-seconds F]
 //!   sculpted-trial merge PREVIOUS.gcode --candidate TIP.gcode PLATE.gcode [--candidate TIP.gcode PLATE.gcode ...]
 //!       [--reference-sha256 SHA] [--rings COUNT] [--sequencer-sha256 SHA]
 //!   sculpted-trial cap-feed UNCAPPED.gcode CAPPED.gcode
@@ -142,9 +142,10 @@ fn main() -> Result<()> {
         "foundation" => {
             let p = paths(&values, 5, &[])?;
             let deck_top = valued(&values, "--deck-top").map(|v| v.parse::<f64>()).transpose().context("--deck-top needs a number")?;
-            let part_courses = valued(&values, "--part-courses").map(|v| v.parse::<usize>()).transpose().context("--part-courses needs a count")?;
+            let part_courses = valued(&values, "--part-courses").map_or(Ok(base_foundation::SHORT_FOUNDATION_COURSES), |v| v.parse::<usize>())
+                .context("--part-courses needs a count")?;
             base_foundation::foundation(&base_foundation::Foundation {
-                archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top, part_courses,
+                archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top, part_courses: Some(part_courses),
             })?;
         }
         "continued-base" => {
@@ -193,9 +194,9 @@ fn main() -> Result<()> {
         "sequence-foundations" => {
             let args = Args::parse(values, &[], &["--headmap"])?;
             args.count(6)?;
-            let headmap = args.option("--headmap").context("sequence-foundations needs the head map its tip crossings clear")?;
+            let headmap = args.option("--headmap").map_or_else(|| hsm_print_prep::root().join(hsm_print_prep::faucet_underside::HEAD_MAP), PathBuf::from);
             let report = plate_sequence::foundation_sequence::compose(
-                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, Path::new(headmap),
+                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, &headmap,
             )?;
             println!("{}", plate_sequence::summary(&report).dumps_indented());
         }
@@ -219,14 +220,23 @@ fn main() -> Result<()> {
         }
         "progress" => {
             let args = Args::parse(values, &[], &[])?;
-            args.count(3)?;
-            println!("{}", serde_json::to_string(&trial_archive::progress(&args.path(0)?, &args.path(1)?, &args.path(2)?)?)?);
+            let (plate, earlier, output) = match args.positional.len() {
+                2 => (args.path(0)?, None, args.path(1)?),
+                _ => { args.count(3)?; (args.path(0)?, Some(args.path(1)?), args.path(2)?) }
+            };
+            println!("{}", serde_json::to_string(&trial_archive::progress(&plate, earlier.as_deref(), &output)?)?);
         }
         "package" => {
             let args = Args::parse(values, &[], &["--motion-seconds", "--first-course-seconds"])?;
             args.count(3)?;
-            let summary = trial_archive::package(&args.path(0)?, &args.path(1)?, &args.path(2)?,
-                                                 number(&args, "--motion-seconds")?, number(&args, "--first-course-seconds")?)?;
+            let (seconds, first) = match (args.option("--motion-seconds"), args.option("--first-course-seconds")) {
+                (None, None) => {
+                    let timing = hsm_print_prep::motion::timing(&std::fs::read_to_string(args.path(1)?)?)?;
+                    (timing.seconds, timing.first_course_seconds)
+                }
+                _ => (number(&args, "--motion-seconds")?, number(&args, "--first-course-seconds")?),
+            };
+            let summary = trial_archive::package(&args.path(0)?, &args.path(1)?, &args.path(2)?, seconds, first)?;
             println!("{}", serde_json::to_string(&summary)?);
         }
         "merge" => {

@@ -215,26 +215,17 @@ pub fn splice_tip_end(level: &Path, plain: &Path, tip_end: &Path, output: &Path,
     Ok(receipt)
 }
 
-/// The motion reader's per-move record: the move's end time at its start, its G-code line at
-/// `MOVE_LINE`, in a record `MOVE_RECORD` bytes long.
-const MOVE_RECORD: usize = 62;
-const MOVE_LINE: usize = 52;
-
 /// Where a plate's printer progress changes: before each G-code line, counted from one, the
 /// whole percent and whole minutes left the motion estimate gives as that line starts.
-fn progress_points(gcode: &str, moves: &[u8]) -> Result<Vec<(usize, u64, u64)>> {
-    ensure!(moves.len() % MOVE_RECORD == 0 && !moves.is_empty(), "The motion file is not whole records");
-    let records: Vec<(f64, usize)> = moves.chunks_exact(MOVE_RECORD).map(|r| {
-        (f64::from_le_bytes(r[..8].try_into().unwrap()), u32::from_le_bytes(r[MOVE_LINE..MOVE_LINE + 4].try_into().unwrap()) as usize)
-    }).collect();
-    let total = records.last().map(|r| r.0).context("The motion file has no moves")?;
-    ensure!(total > 0.0, "The motion estimate takes no time");
+fn progress_points(gcode: &str) -> Result<Vec<(usize, u64, u64)>> {
+    let timing = crate::motion::timing(gcode)?;
+    let total = timing.seconds;
     let line_of = |marker: &str| gcode.lines().position(|l| l.starts_with(marker)).map(|i| i + 1).with_context(|| format!("The plate has no {marker}"));
     let (start, end) = (line_of("; MACHINE_START_GCODE_END")?, line_of("; MACHINE_END_GCODE_START")?);
     let mut points = Vec::new();
     let mut last = None;
     let mut at = 0.0;
-    for &(end_time, line) in &records {
+    for &(line, end_time) in &timing.ends {
         if line > start && line < end {
             let state = ((100.0 * at / total).floor() as u64, ((total - at) / 60.0).floor() as u64);
             if last != Some(state) && points.last().is_none_or(|p: &(usize, u64, u64)| p.0 < line) {
@@ -249,21 +240,22 @@ fn progress_points(gcode: &str, moves: &[u8]) -> Result<Vec<(usize, u64, u64)>> 
 
 /// The plate with the printer's percent and time-left written in, as the slicer writes them on
 /// its own plates: an `M73 P R` line wherever the motion estimate's whole percent or whole minute
-/// left changes. `times` is the motion reader's move file, or the receipt of an earlier run on the
-/// same plate. Only lines are added. The plate's course-group report is carried to `output`'s
-/// under the new hash, with the progress points; the receipt is returned.
-pub fn progress(plate: &Path, times: &Path, output: &Path) -> Result<Value> {
+/// left changes. The points come from the motion planner, or from `earlier`, the receipt of an
+/// earlier run on the same plate. Only lines are added. The plate's course-group report is
+/// carried to `output`'s under the new hash, with the progress points; the receipt is returned.
+pub fn progress(plate: &Path, earlier: Option<&Path>, output: &Path) -> Result<Value> {
     ensure!(plate != output && !output.exists(), "Write the progress plate to a new path");
     let gcode = fs::read_to_string(plate)?;
     let source = crate::sha256_hex(gcode.as_bytes());
     let mut report: Value = serde_json::from_slice(&fs::read(plate.with_extension("json"))?)?;
     ensure!(report["sequenced_gcode_sha256"] == source.as_str(), "The plate and its course-group report differ");
-    let points: Vec<(usize, u64, u64)> = if times.extension().is_some_and(|e| e == "json") {
-        let earlier: Value = serde_json::from_slice(&fs::read(times)?)?;
-        ensure!(earlier["pre_progress_gcode_sha256"] == source.as_str(), "The progress receipt belongs to another plate");
-        serde_json::from_value(earlier["printer_progress"]["points"].clone()).context("The receipt's progress points")?
-    } else {
-        progress_points(&gcode, &fs::read(times)?)?
+    let points: Vec<(usize, u64, u64)> = match earlier {
+        Some(receipt) => {
+            let earlier: Value = serde_json::from_slice(&fs::read(receipt)?)?;
+            ensure!(earlier["pre_progress_gcode_sha256"] == source.as_str(), "The progress receipt belongs to another plate");
+            serde_json::from_value(earlier["printer_progress"]["points"].clone()).context("The receipt's progress points")?
+        }
+        None => progress_points(&gcode)?,
     };
     let mut out = String::with_capacity(gcode.len() + points.len() * 16);
     let mut next = points.iter().peekable();
