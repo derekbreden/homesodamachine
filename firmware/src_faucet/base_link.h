@@ -65,6 +65,12 @@ void faucetApplyIdle(bool asleep);
 // has got. Defined in main.cpp, where the glass says it.
 void faucetApplyNotice(const NoticePayload &notice);
 
+// The machine display's Ratio page as the main board states it, with both ratios, and the
+// pair a step from this glass was answered with. Defined in main.cpp, where the glass
+// shows them.
+void faucetApplyRatioSession(const RatioSessionStatePayload &state);
+void faucetApplyRatio(const RatioPayload &ratio);
+
 // What the glass shows while an image is arriving. Defined in main.cpp, where
 // the display lives. Flash writes stall this board for whole seconds at a
 // time, so the panel says what is happening rather than appearing to hang.
@@ -90,6 +96,12 @@ void baseLinkPrimeHoldStart(uint8_t channel, uint32_t sessionToken, uint32_t hol
 void baseLinkPrimeHoldTick(uint8_t channel, uint32_t sessionToken, uint32_t holdToken);
 void baseLinkPrimeHoldStop(uint8_t channel, uint32_t sessionToken, uint32_t holdToken);
 void baseLinkPrimeDiscard();
+
+// A step on the Ratio screen, as the ratio it stepped to, and its Back, as the visit it
+// closes. Called from the loop, never from a touch. False when J3 is down or its window is
+// full, which the caller waits out.
+bool baseLinkRatioSet(uint8_t channel, uint8_t ratio);
+bool baseLinkRatioClose(uint8_t channel, uint32_t token);
 
 // Put one frame on J3 for the OTA path — the source half, where this board is
 // upstream of the relay rather than a target of it. False when the link is busy

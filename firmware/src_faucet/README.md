@@ -27,14 +27,22 @@ logo and wakes the backlight. Re-publication of the flavor already shown is a no
 not disturb idle behavior.
 
 When the machine display opens Prime for one flavor, main board state replaces the logo
-with two exact half-screen targets: `EXIT PRIME` on top and `HOLD TO PRIME` below. The faucet
-does not create prime mode; it can end the existing mode or own a held run for its selected
+with **Back** across the top and one hold target below it. The target says the flavor, then
+**Hold to prime**, **Starting**, **Priming**, **Stopping**, **Reconnecting** or **Exiting
+prime**, then how the hold stands: whose it is and for how long, how the last one ended, the
+link lost, or the exit ending on both displays. The faucet does not create prime mode; Back
+ends the existing mode on both displays, and the target owns a held run for its selected
 channel. A hold from either display is shown on both, and an entering, starting, or ending
 session wakes a dimmed faucet. The first touch while dimmed remains wake-only.
 
-Service and update screens use the Big Blue palette: cobalt background, navy exit target,
-and an orange hold target with navy text. Active priming remains green and pending or
-reconnecting states use ice blue. The resting screen shows the selected flavor's own artwork.
+When the machine display has a flavor's Ratio page up, the faucet shows that flavor's ratio
+([Ratio](#ratio)).
+
+Service and update screens use the Big Blue palette: cobalt background, a navy Back band, an
+orange hold target and ice step targets with ink text. Active priming is green and pending or
+reconnecting states use ice blue; a step target at the end of its range is darker blue with
+its word dimmed. An update says **Updating** over a bar and its percent. The resting screen
+shows the selected flavor's own artwork.
 
 **The main board keeps the quiet stretch, across both glasses.** A finger on either is
 activity for both, so this head does not dim while a hand is at the machine display, and the pair
@@ -44,9 +52,31 @@ a wake tap, a tap on the flavor already showing — sends `MSG_TOUCH` so it coun
 hold still holds the dim off here regardless. A pair left lit is a link that stopped talking.
 
 Each faucet press retains its main board session and hold tokens across retries. Lift or
-`PRESS_LOST` queues an absolute STOP ahead of any unsent feed, and EXIT queues an absolute
+`PRESS_LOST` queues an absolute STOP ahead of any unsent feed, and Back queues an absolute
 CANCEL. If J3 disconnects, the main board stops a faucet-owned run independently of the UI,
-while its 2 s hold-heartbeat and 60 s run limits remain in force.
+while its hold-heartbeat and run limits remain in force.
+
+## Ratio
+
+The machine display's Ratio page is where a flavor's ratio is set. While it is up for a
+flavor, this glass shows **Back**, **More flavor**, the flavor over its ratio as `1 : n`, and
+**Lighter**. The main board says which visit to that page stands, with both ratios
+(`MSG_RESP_RATIO_SESSION`), as it changes and on its heartbeat, and the screen is up only
+while that word is fresh. Prime takes the glass from it, and a trust ask or a notice waits
+behind it until it goes.
+
+More flavor and Lighter step the flavor's ratio by one and send the ratio stepped to
+(`MSG_RATIO_SET_ONE`), once J3 takes it; the main board ticks for the press. The step shows at
+once and stands against older truth until the main board answers it. A target at the end of
+the range is dimmed and takes no press of its own. When both glasses step at once, each
+sends the value it stepped to and the later one stands; the other glass follows it within a
+heartbeat or a poll.
+
+Back puts the logo back at once and closes the page on both glasses
+(`MSG_RATIO_SESSION_SET`, CLOSE with the visit's token). It is said again while the main
+board still states that visit, and the visit it closed stays down here even if a heartbeat
+sent before the close arrives after it. Nothing photographs this glass, so when the screen
+comes up it sends its laid-out sizes to the main board's console, once a visit.
 
 ## A phone
 
@@ -101,8 +131,8 @@ The main board names what stops the machine making soda (`MSG_NOTICE`, on its he
 a refill that stands latched this glass takes the strip a trust ask uses and says **No water**
 and **See the display on the machine.** It has no button: the machine's own display is where
 someone can look at the water and the floor, so it is where Try again is. A trust ask takes
-the strip while one is up and Prime takes the whole glass. Nothing photographs this glass, so
-when the strip comes up it sends its laid-out sizes to the main board's console.
+the strip while one is up, and Prime and Ratio take the whole glass. Nothing photographs this
+glass, so when the strip comes up it sends its laid-out sizes to the main board's console.
 
 A sweep is the other way round: the lever beside this glass is what lets a dry tank's air
 out, so the hand and the eyes are here. The strip asks for the lever (**Hold the lever**),

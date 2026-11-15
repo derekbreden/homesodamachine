@@ -3,6 +3,7 @@
 #include "machine_policy.h"
 #include "proto_msg.h"
 #include "j9_query_policy.h"
+#include "ratio_session_policy.h"
 
 using namespace machine_policy;
 
@@ -538,6 +539,53 @@ void test_prime_query_arbitration_leaves_malformed_and_direct_actions_to_dispatc
     TEST_ASSERT_EQUAL_UINT8(0, endpoint.nextNews);
     TEST_ASSERT_TRUE(endpoint.session.leaseExpired(
         101 + kPrimeSessionLeaseGraceMs));
+}
+
+void test_ratio_session_opens_renews_and_stays_closed_once_closed() {
+    ratio_session::Session session;
+    RatioSessionStatePayload state{};
+    TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_B, 0x51u, 100));
+    TEST_ASSERT_FALSE(session.open(PUMP_CHANNEL_B, 0x51u, 400));
+    session.read(500, state);
+    TEST_ASSERT_EQUAL_UINT8(1, state.open);
+    TEST_ASSERT_EQUAL_UINT8(PUMP_CHANNEL_B, state.channel);
+    TEST_ASSERT_EQUAL_UINT32(0x51u, state.token);
+    TEST_ASSERT_TRUE(session.close(0x51u, 600));
+    TEST_ASSERT_FALSE(session.close(0x51u, 700));
+    // A statement of the closed visit still on its way is answered closed.
+    TEST_ASSERT_FALSE(session.open(PUMP_CHANNEL_B, 0x51u, 800));
+    session.read(800, state);
+    TEST_ASSERT_EQUAL_UINT8(0, state.open);
+    TEST_ASSERT_EQUAL_UINT32(0x51u, state.token);
+    TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_A, 0x52u, 900));
+    TEST_ASSERT_TRUE(session.isOpen(900));
+}
+
+void test_ratio_session_lease_lapses_and_reopens_on_the_next_statement() {
+    ratio_session::Session session;
+    const uint32_t start = 0xFFFFFF00u;   // across the clock's wrap
+    TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_A, 0x61u, start));
+    TEST_ASSERT_TRUE(session.isOpen(start + ratio_session::kLeaseMs - 1));
+    TEST_ASSERT_FALSE(session.isOpen(start + ratio_session::kLeaseMs));
+    TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_A, 0x61u, start + ratio_session::kLeaseMs + 50));
+    TEST_ASSERT_TRUE(session.isOpen(start + ratio_session::kLeaseMs + 50));
+    // A visit that lapsed and was closed after stays closed.
+    TEST_ASSERT_FALSE(session.close(0x61u, start + 3 * ratio_session::kLeaseMs));
+    TEST_ASSERT_FALSE(session.open(PUMP_CHANNEL_A, 0x61u, start + 3 * ratio_session::kLeaseMs));
+}
+
+void test_ratio_session_close_names_its_visit() {
+    ratio_session::Session session;
+    TEST_ASSERT_FALSE(session.open(2, 0x71u, 0));
+    TEST_ASSERT_FALSE(session.open(PUMP_CHANNEL_A, 0, 0));
+    TEST_ASSERT_FALSE(session.close(0, 0));
+    TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_A, 0x71u, 0));
+    TEST_ASSERT_FALSE(session.close(0x70u, 10));
+    TEST_ASSERT_TRUE(session.isOpen(10));
+    TEST_ASSERT_TRUE(session.open(PUMP_CHANNEL_B, 0x72u, 20));
+    TEST_ASSERT_FALSE(session.close(0x71u, 30));
+    TEST_ASSERT_TRUE(session.isOpen(30));
+    TEST_ASSERT_TRUE(session.close(0x72u, 40));
 }
 
 void test_hold_is_bound_to_session_channel_source_and_press_token() {
@@ -1259,6 +1307,9 @@ int main(int, char **) {
     RUN_TEST(test_prime_discovery_queries_get_state_without_renewing_another_lease);
     RUN_TEST(test_prime_revision_changes_precede_queued_news);
     RUN_TEST(test_prime_query_arbitration_leaves_malformed_and_direct_actions_to_dispatch);
+    RUN_TEST(test_ratio_session_opens_renews_and_stays_closed_once_closed);
+    RUN_TEST(test_ratio_session_lease_lapses_and_reopens_on_the_next_statement);
+    RUN_TEST(test_ratio_session_close_names_its_visit);
     RUN_TEST(test_hold_is_bound_to_session_channel_source_and_press_token);
     RUN_TEST(test_terminal_hold_returns_to_ready_and_rejects_stale_stop);
     RUN_TEST(test_refused_hold_token_cannot_replay_start_or_refusal);

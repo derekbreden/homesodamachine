@@ -253,8 +253,9 @@ constexpr uint8_t MSG_AIR_STOP   = 0x62;  // no payload: end the cycle now
 // ── What a channel pours at (0x63..) ─────────────────────────────────────
 // The ratio of carbonated water to concentrate, one per channel, owned and
 // persisted by the main board beside the selection and the artwork, and read
-// by the dispense. A SET states both channels; the answer is what the main
-// board now holds, and StatusPayload carries the pair on every poll.
+// by the dispense. A SET states both channels and SET_ONE (0x69) one; the
+// answer is what the main board now holds, and StatusPayload carries the pair
+// on every poll.
 constexpr uint8_t MSG_RATIO_SET   = 0x63;  // RatioPayload: both channels
 constexpr uint8_t MSG_RATIO_QUERY = 0x64;  // no payload: answer with the pair
 constexpr uint8_t MSG_RESP_RATIO  = 0x65;  // RatioPayload: resulting truth
@@ -283,8 +284,8 @@ constexpr uint8_t MSG_IDENTITY_SET = 0x66;  // IdentityNamePayload; empty clears
 constexpr uint8_t MSG_BRIDGE_REQ  = 0x67;  // BridgeHeader, then the request's own payload
 constexpr uint8_t MSG_BRIDGE_RESP = 0x68;  // BridgeHeader, then the answer's own payload
 
-// A phone saves one flavor's ratio; the main board keeps the other channel at
-// what it holds.
+// One flavor's ratio, from either glass's step or a phone; the main board keeps
+// the other channel at what it holds.
 constexpr uint8_t MSG_RATIO_SET_ONE = 0x69;  // RatioOnePayload: answered with MSG_RESP_RATIO
 
 // A phone's Prime opens that flavor's Prime page on the enclosure, which leases
@@ -1119,6 +1120,38 @@ struct __attribute__((packed)) NoticePayload {
 
 constexpr uint8_t NOTICE_CORE_BYTES = 1;   // the kind
 static_assert(sizeof(NoticePayload) == 3, "notice wire layout drift");
+
+// ── Ratio, open on both glasses (0x7D..) ──────────────────────────────────
+// While the machine display has a flavor's Ratio page up, the faucet shows that flavor's
+// ratio with More flavor and Lighter, and Back on either glass closes it on both. The
+// machine display names one visit to the page with a token and states it on its poll for as
+// long as the page stands; the main board holds the visit open for a lease after each
+// statement (ratio_session_policy.h). Either glass closes it with that token, and a closed
+// token stays closed, so a statement still on its way does not open it again; the machine
+// display learns of a close from the answer to its next one. Only the machine display opens:
+// on J3 a CLOSE is the one action. The answer to either, and on J3 every change and a
+// heartbeat, is the state as it stands, with both ratios.
+constexpr uint8_t MSG_RATIO_SESSION_SET  = 0x7D;  // RatioSessionRequestPayload
+constexpr uint8_t MSG_RESP_RATIO_SESSION = 0x7E;  // RatioSessionStatePayload
+
+constexpr uint8_t RATIO_SESSION_OPEN  = 0;  // open this visit, or keep it open
+constexpr uint8_t RATIO_SESSION_CLOSE = 1;
+
+struct __attribute__((packed)) RatioSessionRequestPayload {
+  uint8_t  action;   // RATIO_SESSION_*
+  uint8_t  channel;  // PUMP_CHANNEL_*: the flavor the page is for
+  uint32_t token;    // never 0: one visit to the page
+};
+
+struct __attribute__((packed)) RatioSessionStatePayload {
+  uint8_t  open;      // 1 while the visit stands
+  uint8_t  channel;   // the visit's flavor
+  uint8_t  ratio[2];  // what each channel pours at
+  uint32_t token;     // the visit, open or last closed; 0 before any
+};
+
+static_assert(sizeof(RatioSessionRequestPayload) == 6, "ratio session request wire layout drift");
+static_assert(sizeof(RatioSessionStatePayload) == 8, "ratio session state wire layout drift");
 
 // ── The radio bench ──────────────────────────────────────────────────────
 // The enclosure display raises the access point and sinks the bytes; the

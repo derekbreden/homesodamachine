@@ -95,10 +95,22 @@ board also establishes and reports the safe I/O foundation the next connected be
   while the machine is idle and every quarter second by any operation that moves a level, and
   each reservoir's gauge is kept from them: the reed the float was last seen at, and which way
   the machine was moving it (`machine_policy::ReservoirLevel`).
-- **The ratio.** What each channel pours at — 1:6 to 1:24 — is held here and persisted in
-  namespace `selection`, keys `ratio0` and `ratio1`, set from a flavor's own page on the
-  enclosure as `MSG_RATIO_SET`, from a phone one channel at a time as `MSG_RATIO_SET_ONE`,
-  or by `ratio <a|b> <n>` on the console, and read by the dispense.
+- **The ratio.** What each channel pours at is held here with the machine's other settings
+  ([`settings.cpp`](settings.cpp)) and read by the dispense. It is set one channel at a time as
+  `MSG_RATIO_SET_ONE` — a step on the enclosure's Ratio page or on the faucet's, or a phone —
+  or by `ratio <a|b> <n>` on the console. A step from the faucet ticks here, since that glass
+  has no sounder.
+- **Ratio on both glasses.** While the enclosure has a flavor's Ratio page up, it states
+  that visit on its poll (`MSG_RATIO_SESSION_SET`, OPEN with a token for the visit), and the
+  faucet shows the same flavor's ratio for as long as the visit stands. The main board holds
+  it open for a lease after each statement
+  ([`ratio_session_policy.h`](/firmware/lib/proto_link/ratio_session_policy.h)), answers each
+  statement with the visit and both ratios (`MSG_RESP_RATIO_SESSION`), and sends the same to
+  J3 as it changes and on the heartbeat. Back on either glass closes it (CLOSE with the
+  token; on J3 that is the only action), and a closed visit stays closed: the enclosure learns
+  of the faucet's Back from the answer to its next statement and goes back to rest. A visit
+  whose statements stop lapses with its lease and opens again on the next one. `ratio` says
+  whether one is open, and `ratio close` closes it as the faucet's Back does.
 - **A phone.** What a phone asks through the faucet's radio arrives on J3 inside
   `MSG_BRIDGE_REQ`, and `faucet_link.cpp` holds the whole list of what it may ask: status,
   the selection, a channel's ratio, the fill and the clean cycle, sound, Prime's session,
@@ -297,8 +309,8 @@ clock or `-`, what it was, and that thing's own fields by name —
 | `machine.cpp` | every pin that reaches a load, and the three limits |
 | `pcba_expanders.cpp` | U2/U3 register safety and the logical V-A–V-K / fan / reed map |
 | `link.cpp` | J9 frames in, machine announcements out |
-| `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, and what a phone may ask |
-| `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
+| `faucet_link.cpp` | J3 full-duplex flavor acknowledgements, shared-prime controls/state, the Ratio page's state, and what a phone may ask |
+| `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence, and the Ratio page open on both glasses |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
 | `refill_store.cpp` | what the refill keeps through a power cut: that it is owed, and the pumping time spent on it; and, for good, that the carbonator has been filled |
 | `sweep_store.cpp` | what the sweep keeps through a power cut: that it is owed, and that the machine was moving |
@@ -326,7 +338,8 @@ pio device monitor -e appliance
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `ui notice [go\|no]` | put the notice standing up on the enclosure, and press one of its answers: on no water `go` is Try again and `no` is Not now; on the welcome `go` is OK and `no` is Skip, whose confirmation then takes `go` for Skip and `no` for Cancel; a move answers only to `no`, its Cancel |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
-| `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
+| `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll, and whether a Ratio page is open on both glasses |
+| `ratio close` | close the Ratio page open on both glasses, as the faucet's Back does |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `trust [forget\|yes\|no]` | how many phones the faucet trusts and how many it has bonds for; `forget` forgets every trusted phone; `yes` or `no` answers the ask that is up, as a tap on either display would |
 | `dry [s]` | dry the flavor lines, at the bench or the factory: air in then through to the faucet, on each channel in turn; `s` caps every step |

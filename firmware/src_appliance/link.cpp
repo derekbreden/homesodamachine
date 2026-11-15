@@ -774,6 +774,23 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // The Ratio page, stated on every poll while it stands, and closed when it goes. The
+    // answer says whether the faucet's Back closed it first, and what each channel pours at.
+    if (type == MSG_RATIO_SESSION_SET && plen >= sizeof(RatioSessionRequestPayload)) {
+        RatioSessionRequestPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (request.action == RATIO_SESSION_OPEN) {
+            if (flavorRatioSessionOpen(request.channel, request.token))
+                Serial.printf("\n[J9] Ratio open for flavor %u on both displays\n", request.channel + 1);
+        } else if (flavorRatioSessionClose(request.token)) {
+            Serial.println("\n[J9] Ratio closed at the machine display");
+        }
+        RatioSessionStatePayload state;
+        flavorRatioSession(state);
+        link->send(MSG_RESP_RATIO_SESSION, &state, sizeof(state));
+        return;
+    }
+
     // The funnel fill. START and STOP are answered with the state they produced;
     // QUERY with the state as it stands. Either way the answer is the machine's
     // complete fill truth, so a glass never has to infer one from an error code.

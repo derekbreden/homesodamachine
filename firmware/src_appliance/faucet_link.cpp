@@ -52,6 +52,11 @@ uint8_t eraseWanted = 0xFF;
 // A faucet display that just came up renders from artwork it has not been told
 // yet, so the pair is published once per connection as well as on every change.
 bool artPublished = false;
+// The Ratio page as the faucet's glass was last told it, and when: absolute, sent as it
+// changes and again on the heartbeat, so a glass that missed a close still finds the logo.
+RatioSessionStatePayload ratioSent{};
+uint32_t ratioSentMs = 0;
+bool ratioSentOnce = false;
 // What phones have asked, and a Prime one of them is waiting on (onBridge).
 uint32_t bridgeRequests = 0;
 uint32_t bridgeRefused = 0;
@@ -77,6 +82,7 @@ void observeConnectionEpoch() {
     connectionKnownUp = faucet.isConnected();
     synchronized = false;
     artPublished = false;
+    ratioSentOnce = false;
     handledTokens.reset();
     phoneTokens.reset();
     primeOpen.waiting = false;
@@ -157,6 +163,17 @@ bool sendArt() {
         return true;
     }
     return false;
+}
+
+bool sendRatioSession() {
+    RatioSessionStatePayload state;
+    flavorRatioSession(state);
+    if (faucet.trySend(MSG_RESP_RATIO_SESSION, &state, sizeof(state)) < 0) return false;
+    ++framesTx;
+    ratioSent = state;
+    ratioSentMs = millis();
+    ratioSentOnce = true;
+    return true;
 }
 
 void readPrimeState(PrimeSessionStatePayload &state) {
@@ -618,13 +635,34 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // A step on the faucet's Ratio screen. That glass has no sounder, so its press ticks here.
     if (type == MSG_RATIO_SET_ONE && plen == sizeof(RatioOnePayload)) {
         RatioOnePayload request;
         memcpy(&request, payload, sizeof(request));
+        soundPlay(SND_TICK);
         settingsWrite(SETTING_RATIO, request.channel, &request.ratio, 1);
         RatioPayload r{{flavorRatio(0), flavorRatio(1)}};
         if (faucet.trySend(MSG_RESP_RATIO, &r, sizeof(r)) >= 0) ++framesTx;
         idleTouched();
+        return;
+    }
+
+    // Back on the faucet's Ratio screen, which closes the machine display's page too. Only
+    // the machine display opens one.
+    if (type == MSG_RATIO_SESSION_SET && plen >= sizeof(RatioSessionRequestPayload)) {
+        RatioSessionRequestPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (request.action != RATIO_SESSION_CLOSE || request.token == 0) {
+            ++invalidRequests;
+            if (faucet.trySendResponse(MSG_ERR_SLOT_INVALID, request.channel) >= 0) ++framesTx;
+            return;
+        }
+        idleTouched();
+        if (flavorRatioSessionClose(request.token)) {
+            soundPlay(SND_TICK);
+            Serial.println("\n[J3] Ratio closed at the faucet");
+        }
+        sendRatioSession();
         return;
     }
 
@@ -771,6 +809,17 @@ void faucetLinkService() {
     // replica gets its turn. A RUNNING/OFF transition therefore is never held
     // behind a routine flavor heartbeat.
     faucet.service();
+
+    // The Ratio page as it changes — opened, closed, a lapsed lease, a step from either
+    // glass — and on the heartbeat.
+    {
+        RatioSessionStatePayload ratio;
+        flavorRatioSession(ratio);
+        if (!ratioSentOnce || memcmp(&ratio, &ratioSent, sizeof(ratio)) != 0 ||
+            static_cast<uint32_t>(now - ratioSentMs) >= kStateHeartbeatMs) {
+            if (sendRatioSession()) faucet.service();
+        }
+    }
 
     // A notice that has changed since the glass was last told.
     {

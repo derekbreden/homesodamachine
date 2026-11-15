@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "proto_msg.h"
+
 // Main-board-authoritative flavor selection. The faucet may render its cached
 // value immediately at boot, but this state is what future dispense logic reads.
 void flavorBegin();
@@ -38,3 +40,10 @@ bool    flavorArtSet(uint8_t a0, uint8_t a1);
 // refused rather than clamped.
 uint8_t flavorRatio(uint8_t channel);
 bool    flavorRatioSet(uint8_t r0, uint8_t r1);
+
+// The machine display's Ratio page, open for one flavor, which the faucet shows as well
+// (ratio_session_policy.h). Open is the machine display stating its visit, on every poll;
+// close is either glass's Back. Each answers whether it changed the visit.
+bool flavorRatioSessionOpen(uint8_t channel, uint32_t token);
+bool flavorRatioSessionClose(uint32_t token);
+void flavorRatioSession(RatioSessionStatePayload &state);
