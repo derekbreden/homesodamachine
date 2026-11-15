@@ -554,8 +554,10 @@ impl Laying<'_> {
     /// One course of the foot: the rings its stock lies uphill of, the rings of its narrow
     /// strips, the fill, then the rings its stock lies downhill of. A backing wall doubles the
     /// rings inside the outer ones. Where the course holds the `show` surface, its outermost
-    /// ring is one lap laid last, from the rear and the same way round as the level walls above.
-    fn course(&mut self, region: &Region, n_top: f64, angle: f64, f: &Feature, backing_wall: bool, show: bool) {
+    /// ring is one lap from the rear, the same way round as the level walls above: laid first
+    /// where `lap_first`, so a bridge's fill starts on it, and otherwise last.
+    #[allow(clippy::too_many_arguments)]
+    fn course(&mut self, region: &Region, n_top: f64, angle: f64, f: &Feature, backing_wall: bool, show: bool, lap_first: bool) {
         if region.is_empty() {
             return;
         }
@@ -581,13 +583,16 @@ impl Laying<'_> {
             last = [inner_last, last].concat();
         }
         self.w.comment_feature(f.ring, SKIN_WIDTH);
+        if let Some(lap) = lap.as_ref().filter(|_| lap_first) {
+            self.lap(lap, n_top, SKIN_WIDTH, f.ring_speed, f.flow);
+        }
         self.pieces(&first, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
         self.pieces(&narrow, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
         self.w.comment_feature(f.fill, SKIN_WIDTH);
         self.laid.fill_lines += self.lines(&hatch(&fill, angle, f.pitch, 0.8), n_top, angle, SKIN_WIDTH, f.fill_speed, f.flow, COURSE);
         self.w.comment_feature(f.ring, SKIN_WIDTH);
         self.pieces(&last, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
-        if let Some(lap) = &lap {
+        if let Some(lap) = lap.as_ref().filter(|_| !lap_first) {
             self.lap(lap, n_top, SKIN_WIDTH, f.ring_speed, f.flow);
         }
         self.laid.ring_pieces += first.len() + last.len();
@@ -644,18 +649,18 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, deck_top: Option<f64
         if k == 1 {
             // the first course crosses the roof's air as a bridge, as Support D lays it
             lay.w.raw(format!("{BRIDGE_FAN} ; the first course over air takes the bridge's fan"));
-            lay.course(region, n_top, 90.0, &Feature { ring: "Bottom surface", fill: "Bottom surface", ..BRIDGE }, false, true);
+            lay.course(region, n_top, 90.0, &Feature { ring: "Bottom surface", fill: "Bottom surface", ..BRIDGE }, false, true, true);
             lay.w.raw("M106 S0");
         } else if k == foot.shoulder {
             // the sockets' shoulders cross the plugs' air the same way, after the rest of the course
             let zone = sockets.iter().fold(Region::default(), |z, s| z.union(&s.offset(SHOULDER_REACH)));
-            lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), false, true);
+            lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), false, true, false);
             lay.w.raw(format!("{BRIDGE_FAN} ; the shoulders over the plugs take the bridge's fan"));
-            lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false, false);
+            lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false, false, false);
             lay.w.raw("M106 S0");
         } else {
             let flow = if k == 2 { 1.05 } else { 1.0 };
-            lay.course(region, n_top, angle, &wall(flow), deck_top < slab_top && k == count, true);
+            lay.course(region, n_top, angle, &wall(flow), deck_top < slab_top && k == count, true, false);
         }
         lay.w.comment_feature("Support", ROOF_WIDTH);
         let deck_n = n_top.min(deck_top);
@@ -1435,6 +1440,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         "show_lap": {
             "direction": "clockwise across the face's slope frame, anticlockwise over the plate as the level walls run",
             "starts_at": "the rim's lowest point on the slope, the rear",
+            "laid": "first in the bridge course over the roof's air, so its fill starts on it; last in the others",
             "tip_radius_mm": laid.tip_radius,
             "most_rise_mm": round(laid.lap_lift.0, 4),
             "most_rise_at_face_mm": [round(laid.lap_lift.1[0], 2), round(laid.lap_lift.1[1], 2)],
