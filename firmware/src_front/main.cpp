@@ -219,18 +219,21 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 
 // ── The rail and the portrait ──
 // On every page the selected flavor's rail cell is the portrait panel's own ice, from the
-// glass edge into the portrait, its thumbnail ringed and a check left of its number; the other
-// flavor stands on the rail without a card. The portrait is captioned under it.
+// glass edge into the portrait, holding the flavor's number large with the check under it: its
+// picture is the portrait's. The other flavor stands on the rail without a card, its thumbnail
+// in grey over its number. The portrait is captioned under it.
 #define RAIL_CARD_INSET       10   // a card from the rail's edges
 #define RAIL_CARD_PITCH      170
 #define RAIL_CARD_W           84
 #define RAIL_CARD_H          160
 #define RAIL_CARD_BORDER       2   // drawn in nothing: the thumbnail, number and check stand inside it
 #define RAIL_ART_INSET         8   // the thumbnail inside a card's border
+#define RAIL_ART_W            64   // the thumbnail, the anchor's proportions to the nearest pixel
+#define RAIL_ART_H           119
 #define RAIL_CELL_SPLIT      175   // the top cell's foot, and the bottom cell's head
 #define RAIL_CELL_FOOT       345
-#define RAIL_RING              3   // just outside the thumbnail
-#define RAIL_NUMBER_Y        130   // a card's number, from inside its border
+#define RAIL_NUMBER_Y        130   // a card's number under its thumbnail, from inside its border
+#define RAIL_BIG_NUMBER_Y     38   // the selected card's number, from inside its border
 #define HERO_ART_W           198   // the anchor's proportions, to the nearest whole pixel
 #define HERO_ART_H           368
 #define HERO_ART_Y            24
@@ -274,9 +277,10 @@ static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
 static lv_obj_t *taskHeader, *backRow, *systemBand, *systemBack;
 static lv_obj_t *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
-// The rail's selection: the selected cell's ice, and each card's ring, number and check.
+// The rail's selection: the selected cell's ice, and each card's number under its thumbnail,
+// or large with the check under it while the card is the flavor on tap.
 static lv_obj_t *railCell;
-static lv_obj_t *railRing[2], *railNumber[2], *railCheck[2];
+static lv_obj_t *railNumber[2], *railBigNumber[2], *railBigCheck[2];
 static lv_obj_t *flvTilePosition;
 static lv_obj_t *flvTileMark[FLAVOR_IMAGE_COUNT] = {};
 static uint8_t imagePage = 0;
@@ -382,13 +386,33 @@ static lv_img_dsc_t flavorAnchor[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorCard[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorTile[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorRailArt[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorRailGreyArt[FLAVOR_IMAGE_COUNT];   // the rail's flavor not on tap
 static lv_img_dsc_t flavorHeroArt[FLAVOR_IMAGE_COUNT];   // the portrait
 static lv_img_dsc_t flavorPickerArt[FLAVOR_IMAGE_COUNT];
 static uint16_t *scaledPixels[3][FLAVOR_IMAGE_COUNT] = {};
+static uint16_t *railGreyPixels[FLAVOR_IMAGE_COUNT] = {};
+
+// The flavor not on tap wears its rail picture in grey at a little over half strength over the
+// rail's navy, worked out once per picture so that drawing it is a plain copy. The grey is a
+// browser's grayscale(): Rec. 709 luma of the stored values.
+#define RAIL_GREY_OPA 140   // of 255: how much of the grey stands over the rail
+static void railGrey(const uint16_t *src, uint16_t *dst, size_t n) {
+  const uint32_t under[3] = {(COL_CARD >> 16) & 0xff, (COL_CARD >> 8) & 0xff, COL_CARD & 0xff};
+  for (size_t i = 0; i < n; ++i) {
+    const uint16_t p = src[i];
+    const uint32_t r5 = p >> 11, g6 = (p >> 5) & 0x3f, b5 = p & 0x1f;
+    const uint32_t r = (r5 << 3) | (r5 >> 2), g = (g6 << 2) | (g6 >> 4), b = (b5 << 3) | (b5 >> 2);
+    const uint32_t luma = (54 * r + 183 * g + 19 * b + 128) >> 8;
+    uint32_t c[3];
+    for (uint8_t k = 0; k < 3; ++k)
+      c[k] = (luma * RAIL_GREY_OPA + under[k] * (255 - RAIL_GREY_OPA) + 127) / 255;
+    dst[i] = (uint16_t)(((c[0] >> 3) << 11) | ((c[1] >> 2) << 5) | (c[2] >> 3));
+  }
+}
 
 static void bindBigBlueArt() {
-  const uint16_t width[3] = {64, HERO_ART_W, 78};
-  const uint16_t height[3] = {119, HERO_ART_H, 145};
+  const uint16_t width[3] = {RAIL_ART_W, HERO_ART_W, 78};
+  const uint16_t height[3] = {RAIL_ART_H, HERO_ART_H, 145};
   lv_img_dsc_t *sets[3] = {flavorRailArt, flavorHeroArt, flavorPickerArt};
   for (uint8_t size = 0; size < 3; ++size) {
     for (uint8_t art = 0; art < FLAVOR_IMAGE_COUNT; ++art) {
@@ -413,6 +437,20 @@ static void bindBigBlueArt() {
       sets[size][art].data = (const uint8_t *)pixels;
       lv_img_cache_invalidate_src(&sets[size][art]);
     }
+  }
+  // The grey from the rail's own rendition, so it stands on the same pixels. Without room for
+  // it, the flavor not on tap keeps its colour.
+  for (uint8_t art = 0; art < FLAVOR_IMAGE_COUNT; ++art) {
+    const lv_img_dsc_t &rail = flavorRailArt[art];
+    const size_t n = (size_t)rail.header.w * rail.header.h;
+    uint16_t *&pixels = railGreyPixels[art];
+    if (!pixels) pixels = (uint16_t *)heap_caps_malloc(RAIL_ART_W * RAIL_ART_H * sizeof(uint16_t),
+                                                       MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    if (!pixels || n > RAIL_ART_W * RAIL_ART_H) { flavorRailGreyArt[art] = rail; continue; }
+    railGrey((const uint16_t *)rail.data, pixels, n);
+    flavorRailGreyArt[art] = rail;
+    flavorRailGreyArt[art].data = (const uint8_t *)pixels;
+    lv_img_cache_invalidate_src(&flavorRailGreyArt[art]);
   }
 }
 // Every wire rendition is retained, in the shared IMAGE_BUNDLE order. The Big
@@ -552,6 +590,13 @@ static lv_obj_t *homeFlavorBadge[2];
 // Render selection only when it changes. Routine main-board replies leave the
 // rail, portrait and gauge's cached visible state alone.
 static int8_t homeFlavorShown = -2;
+
+// The rail's picture of flavor `i`: in grey while the other flavor is the one on tap, and in
+// colour while nothing is known to be.
+static const lv_img_dsc_t *railArt(uint8_t i) {
+  const uint8_t art = resolveFlavorArt(flavorImage[i], i);
+  return homeFlavorShown >= 0 && homeFlavorShown != i ? &flavorRailGreyArt[art] : &flavorRailArt[art];
+}
 
 static lv_obj_t *flvDetailRatio;
 static lv_obj_t *flvRatioMinus = NULL, *flvRatioPlus = NULL;
@@ -2470,8 +2515,7 @@ static uint8_t availableImageOrder(uint8_t (&order)[FLAVOR_IMAGE_COUNT]) {
 static void refreshFlavorImages() {
   tileDisarm();
   for (uint8_t i = 0; i < 2; ++i)
-    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i],
-        &flavorRailArt[resolveFlavorArt(flavorImage[i], i)]);
+    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], railArt(i));
   for (uint8_t i = 0; i < chanImgCount; ++i)
     lv_img_set_src(chanImg[i], &chanImgSet[i][resolveFlavorArt(flavorImage[chanImgCh[i]], chanImgCh[i])]);
   for (uint8_t i = 0; i < selImgCount; ++i)
@@ -5047,9 +5091,9 @@ static lv_obj_t *mkStroke(lv_obj_t *parent, const lv_point_t *points, uint16_t c
   return l;
 }
 
-// Left of a card's number, from inside the card's border.
+// Under the selected card's large number and centred on it, from inside the card's border.
 static lv_obj_t *mkCheck(lv_obj_t *card) {
-  static const lv_point_t check[] = {{15, 145}, {19, 149}, {28, 140}};
+  static const lv_point_t check[] = {{33, 114}, {38, 119}, {48, 109}};
   return mkStroke(card, check, 3, COL_INK);
 }
 
@@ -5084,21 +5128,20 @@ static void buildRail(lv_obj_t *scr) {
     lv_obj_add_event_cb(b, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
     homeFlavorCard[i] = b;
     lv_obj_t *art = lv_img_create(b);
-    lv_img_set_src(art, &flavorRailArt[resolveFlavorArt(flavorImage[i], i)]);
+    lv_img_set_src(art, railArt(i));
     lv_obj_align(art, LV_ALIGN_TOP_MID, 0, RAIL_ART_INSET);
     lv_obj_clear_flag(art, LV_OBJ_FLAG_CLICKABLE);
     homeFlavorArtObj[i] = art;
-    // The number stands alone and centred, and the selected card's check stands left of it,
-    // so the number never moves.
-    const lv_coord_t artX = (RAIL_CARD_W - 2 * RAIL_CARD_BORDER - 64) / 2;
-    railRing[i] = mkOutline(b, artX - RAIL_RING, RAIL_ART_INSET - RAIL_RING,
-                            64 + 2 * RAIL_RING, 119 + 2 * RAIL_RING, 0);
-    lv_obj_set_style_border_width(railRing[i], RAIL_RING, 0);
-    lv_obj_set_style_border_color(railRing[i], lv_color_hex(COL_ACCENT), 0);
     railNumber[i] = mkText(b, "", &lv_font_montserrat_24, COL_TEXT);
     lv_label_set_text_fmt(railNumber[i], "%u", (unsigned)(i + 1));
     lv_obj_align(railNumber[i], LV_ALIGN_TOP_MID, 0, RAIL_NUMBER_Y);
-    railCheck[i] = mkCheck(b);
+    // On tap, the number in its place: large and centred in the cell, the check under it.
+    railBigNumber[i] = mkText(b, "", &lv_font_montserrat_48, COL_INK);
+    lv_label_set_text_fmt(railBigNumber[i], "%u", (unsigned)(i + 1));
+    lv_obj_align(railBigNumber[i], LV_ALIGN_TOP_MID, 0, RAIL_BIG_NUMBER_Y);
+    railBigCheck[i] = mkCheck(b);
+    lv_obj_add_flag(railBigNumber[i], LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(railBigCheck[i], LV_OBJ_FLAG_HIDDEN);
   }
   heroPanel = mkBtn(scr, HERO_W, SCREEN_H, COL_DIM);
   lv_obj_set_pos(heroPanel, RAIL_W, 0);
@@ -5113,8 +5156,9 @@ static void buildRail(lv_obj_t *scr) {
 }
 
 // The rail's selection, the same on every page: the selected flavor's cell in the portrait
-// panel's ice, its thumbnail ringed and its number in ink with the check beside it; the other
-// flavor's number in white. Only a change of selection repaints it.
+// panel's ice with its number large and the check under it, and the other flavor's thumbnail in
+// grey over its white number. While the selection is not known both stand in colour. Only a
+// change of selection repaints it.
 static void paintRailSelection() {
   if (!railCell) return;
   const int8_t selected = homeFlavorShown;
@@ -5128,9 +5172,11 @@ static void paintRailSelection() {
   showIf(railCell, selected >= 0);
   for (uint8_t i = 0; i < 2; ++i) {
     const bool on = selected == i;
-    lv_obj_set_style_text_color(railNumber[i], lv_color_hex(on ? COL_INK : COL_TEXT), 0);
-    showIf(railRing[i], on);
-    showIf(railCheck[i], on);
+    lv_img_set_src(homeFlavorArtObj[i], railArt(i));
+    showIf(homeFlavorArtObj[i], !on);
+    showIf(railNumber[i], !on);
+    showIf(railBigNumber[i], on);
+    showIf(railBigCheck[i], on);
   }
 }
 
