@@ -1,7 +1,6 @@
 //! A printer recipe taken from a saved Bambu Studio project: its settings and filament presets,
 //! with a user Z trim, another project's filament and the localized PET-GF cooling applied.
 
-use crate::json::Json;
 use anyhow::{bail, Context, Result};
 use serde_json::{json, Value};
 use std::collections::{BTreeMap, BTreeSet};
@@ -21,10 +20,22 @@ const PRESET_METADATA: [&str; 16] = [
     "compatible_printers_condition", "compatible_prints", "compatible_prints_condition",
 ];
 
+/// A settings document as a project's member carries it: indented JSON and a closing newline.
+pub fn settings_bytes(settings: &Value) -> Result<Vec<u8>> {
+    let mut bytes = serde_json::to_vec_pretty(settings)?;
+    bytes.push(b'\n');
+    Ok(bytes)
+}
+
+/// A setting's text, or its first entry's when it holds one per extruder or filament.
+pub fn first_text<'a>(settings: &'a Value, key: &str) -> Option<&'a str> {
+    settings[key].as_str().or_else(|| settings[key][0].as_str())
+}
+
 pub struct Profile {
     /// The settings member and the filament presets, as the project carries them.
     pub members: BTreeMap<String, Vec<u8>>,
-    pub settings: Json,
+    pub settings: Value,
     /// What moved from the saved project, for the preparation record.
     pub changes: serde_json::Map<String, Value>,
     pub cooling_member_changes: Value,
@@ -62,39 +73,39 @@ fn filament_member(name: &str) -> bool {
 pub fn petgf_infill_pattern(root: &Path) -> Result<String> {
     let members = read_members(&root.join(PETGF_PROFILE))?;
     let payload = members.get(SETTINGS_MEMBER).context("no shared PET-GF settings")?;
-    let settings = Json::parse(std::str::from_utf8(payload)?)?;
-    Ok(settings.first_text("sparse_infill_pattern").context("no shared PET-GF infill pattern")?.to_string())
+    let settings: Value = serde_json::from_slice(payload)?;
+    Ok(first_text(&settings, "sparse_infill_pattern").context("no shared PET-GF infill pattern")?.to_string())
 }
 
 /// Current PET-GF contact and bridge defaults, including when a preparer takes its other
 /// settings from an accepted print. Part-specific support geometry and later trial overrides
 /// remain the preparer's responsibility.
 pub fn apply_petgf_support(members: &mut BTreeMap<String, Vec<u8>>, root: &Path) -> Result<Value> {
-    let is_petgf = |settings: &Json| {
+    let is_petgf = |settings: &Value| {
         let identity = settings.get("filament_settings_id").or_else(|| settings.get("name"));
         let matches = |name: &str| {
             let name = name.to_lowercase();
             name.contains("pet-gf") || name.contains("petgf")
         };
         match identity {
-            Some(Json::Text(name)) => matches(name),
-            Some(Json::List(names)) => names.iter().filter_map(Json::text).any(matches),
+            Some(Value::String(name)) => matches(name),
+            Some(Value::Array(names)) => names.iter().filter_map(Value::as_str).any(matches),
             _ => false,
         }
     };
-    let settings = Json::parse(std::str::from_utf8(members.get(SETTINGS_MEMBER).context("no project settings")?)?)?;
+    let settings: Value = serde_json::from_slice(members.get(SETTINGS_MEMBER).context("no project settings")?)?;
     if !is_petgf(&settings) {
         return Ok(Value::Null);
     }
     let source = root.join(PETGF_PROFILE);
     let shared = read_members(&source)?;
-    let recipe = Json::parse(std::str::from_utf8(shared.get(SETTINGS_MEMBER).context("no shared PET-GF settings")?)?)?;
+    let recipe: Value = serde_json::from_slice(shared.get(SETTINGS_MEMBER).context("no shared PET-GF settings")?)?;
     let mut changed_members = serde_json::Map::new();
     for (name, bytes) in members.iter_mut() {
         if name != SETTINGS_MEMBER && !filament_member(name) {
             continue;
         }
-        let mut settings = Json::parse(std::str::from_utf8(bytes)?)?;
+        let mut settings: Value = serde_json::from_slice(bytes)?;
         if !is_petgf(&settings) {
             continue;
         }
@@ -105,18 +116,18 @@ pub fn apply_petgf_support(members: &mut BTreeMap<String, Vec<u8>>, root: &Path)
             }
             let value = recipe.get(key).with_context(|| format!("shared PET-GF profile has no {key}"))?;
             let value = match (settings.get(key), value) {
-                (Some(Json::List(current)), Json::List(values)) if !values.is_empty() =>
-                    Json::List(vec![values[0].clone(); current.len()]),
+                (Some(Value::Array(current)), Value::Array(values)) if !values.is_empty() =>
+                    Value::Array(vec![values[0].clone(); current.len()]),
                 _ => value.clone(),
             };
-            let old = settings.get(key).cloned().unwrap_or(Json::Null);
+            let old = settings[key].clone();
             if old != value {
-                changes.insert(key.to_string(), json!({"from": old.to_value(), "to": value.to_value()}));
-                settings.set(key, value);
+                changes.insert(key.to_string(), json!({"from": old, "to": value}));
+                settings[key] = value;
             }
         }
         if !changes.is_empty() {
-            *bytes = (settings.dumps() + "\n").into_bytes();
+            *bytes = settings_bytes(&settings)?;
             changed_members.insert(name.clone(), Value::Object(changes));
         }
     }
@@ -143,10 +154,10 @@ pub fn filament_keys(name: &str) -> Result<BTreeSet<String>> {
 }
 
 /// Another saved project's filament block over this project's printer and process.
-fn take_filament(settings: &mut Json, from: &Path, root: &Path) -> Result<(BTreeMap<String, Vec<u8>>, Value)> {
+fn take_filament(settings: &mut Value, from: &Path, root: &Path) -> Result<(BTreeMap<String, Vec<u8>>, Value)> {
     let theirs_members = read_members(from)?;
-    let theirs = Json::parse(std::str::from_utf8(theirs_members.get(SETTINGS_MEMBER).context("no project settings")?)?)?;
-    let named = theirs.first_text("filament_settings_id").context("no filament named")?.to_string();
+    let theirs: Value = serde_json::from_slice(theirs_members.get(SETTINGS_MEMBER).context("no project settings")?)?;
+    let named = first_text(&theirs, "filament_settings_id").context("no filament named")?.to_string();
     let mut current = BTreeMap::new();
     let mut system = None;
     let mut preset_keys = BTreeSet::new();
@@ -154,13 +165,13 @@ fn take_filament(settings: &mut Json, from: &Path, root: &Path) -> Result<(BTree
         if !filament_member(member) {
             continue;
         }
-        let preset = Json::parse(std::str::from_utf8(data)?)?;
-        if preset.get("name").and_then(Json::text) == Some(named.as_str()) {
+        let preset: Value = serde_json::from_slice(data)?;
+        if preset["name"].as_str() == Some(named.as_str()) {
             if system.is_none() {
-                system = preset.get("inherits").and_then(Json::text).filter(|s| !s.is_empty()).map(String::from);
+                system = preset["inherits"].as_str().filter(|s| !s.is_empty()).map(String::from);
             }
-            if let Json::Map(entries) = &preset {
-                preset_keys.extend(entries.iter().map(|(k, _)| k.clone()));
+            if let Some(entries) = preset.as_object() {
+                preset_keys.extend(entries.keys().cloned());
             }
             current.insert(member.clone(), data.clone());
         }
@@ -178,17 +189,16 @@ fn take_filament(settings: &mut Json, from: &Path, root: &Path) -> Result<(BTree
         }
     }
     for key in &moved {
-        settings.set(key, theirs.get(key).unwrap().clone());
+        settings[key.as_str()] = theirs[key.as_str()].clone();
     }
+    // Each group lists the process first, the filaments, then the printer: their filaments
+    // between this project's process and printer.
     for group in ["inherits_group", "different_settings_to_system"] {
-        if let (Some(Json::List(t)), Some(Json::List(s))) = (theirs.get(group), settings.get(group)) {
-            if t.len() == s.len() && !s.is_empty() {
-                // Python's settings[:1] + theirs[1:-1] + settings[-1:], one-item lists included.
-                let mut merged = vec![s[0].clone()];
-                merged.extend(t.get(1..t.len().saturating_sub(1)).unwrap_or(&[]).iter().cloned());
-                merged.push(s[s.len() - 1].clone());
-                settings.set(group, Json::List(merged));
-            }
+        let (Some(Value::Array(t)), Some(Value::Array(mut merged))) = (theirs.get(group), settings.get(group).cloned()) else { continue };
+        if t.len() == merged.len() && t.len() > 2 {
+            let filaments = 1..t.len() - 1;
+            merged[filaments.clone()].clone_from_slice(&t[filaments]);
+            settings[group] = Value::Array(merged);
         }
     }
     let bytes = std::fs::read(from)?;
@@ -215,7 +225,8 @@ pub fn petgf_z_trim(root: &Path, printer: &str) -> Result<f64> {
     setup["printers"][printer]["z_trim_mm"].as_f64().with_context(|| format!("{PETGF_SETUP} gives no Z trim for printer {printer}"))
 }
 
-/// The plate-compensation block with the user's Z trim, as the Python preparers wrote it.
+/// The plate-compensation block with the user's Z trim. Its header line is how
+/// `trimmed_start_gcode` finds the block in a start G-code it has already trimmed.
 fn trim_block(z: f64) -> String {
     let z = format!("{z:.2}");
     [
@@ -265,7 +276,7 @@ fn points(text: &str) -> Result<Vec<[f64; 2]>> {
 pub fn load(settings_from: &Path, z_trim: Option<f64>, filament_from: Option<&Path>, root: &Path) -> Result<Profile> {
     let source_members = read_members(settings_from)?;
     let original = source_members.get(SETTINGS_MEMBER).context("the project has no settings member")?.clone();
-    let mut settings = Json::parse(std::str::from_utf8(&original)?)?;
+    let mut settings: Value = serde_json::from_slice(&original)?;
     let mut payload = original.clone();
     let mut changes = serde_json::Map::new();
     let mut filament_members = None;
@@ -273,46 +284,43 @@ pub fn load(settings_from: &Path, z_trim: Option<f64>, filament_from: Option<&Pa
         let (members, record) = take_filament(&mut settings, from, root)?;
         filament_members = Some(members);
         changes.insert("filament_from".into(), record);
-        payload = (settings.dumps() + "\n").into_bytes();
+        payload = settings_bytes(&settings)?;
     }
     if let Some(z) = z_trim {
         if !z.is_finite() {
             bail!("Z trim must be a finite millimetre value");
         }
-        let start = settings.get("machine_start_gcode").and_then(Json::text).context("no start G-code")?.to_string();
+        let start = settings["machine_start_gcode"].as_str().context("no start G-code")?.to_string();
         let trimmed = trimmed_start_gcode(&start, z)?;
-        let nozzle: f64 = settings.first_text("nozzle_diameter").context("no nozzle diameter")?.parse()?;
+        let nozzle: f64 = first_text(&settings, "nozzle_diameter").context("no nozzle diameter")?.parse()?;
         let identity = format!("Bambu Lab H2C {nozzle} Standard +{z:.2} Z trim");
         changes.insert("machine_start_gcode".into(), json!({
             "from_sha256": crate::sha256_hex(start.as_bytes()),
             "to_sha256": crate::sha256_hex(trimmed.as_bytes()),
             "requested_z_trim_mm": z,
         }));
-        let printer = settings.get("printer_settings_id").cloned().unwrap_or(Json::Null).to_value();
-        changes.insert("printer_settings_id".into(), json!({"from": printer, "to": identity}));
-        settings.set("machine_start_gcode", Json::Text(trimmed));
-        settings.set("printer_settings_id", Json::Text(identity.clone()));
+        changes.insert("printer_settings_id".into(), json!({"from": settings["printer_settings_id"], "to": identity}));
+        settings["machine_start_gcode"] = json!(trimmed);
+        settings["printer_settings_id"] = json!(identity);
         // The slicer refuses a process whose compatible printers do not name the printer.
-        if let Some(Json::List(compatible)) = settings.get("print_compatible_printers").cloned() {
-            if !compatible.iter().any(|c| c.text() == Some(identity.as_str())) {
+        if let Some(Value::Array(compatible)) = settings.get("print_compatible_printers").cloned() {
+            if !compatible.iter().any(|c| c.as_str() == Some(identity.as_str())) {
                 let mut more = compatible.clone();
-                more.push(Json::Text(identity.clone()));
-                changes.insert("print_compatible_printers".into(), json!({
-                    "from": Json::List(compatible).to_value(), "to": Json::List(more.clone()).to_value()}));
-                settings.set("print_compatible_printers", Json::List(more));
+                more.push(json!(identity));
+                changes.insert("print_compatible_printers".into(), json!({"from": compatible, "to": more}));
+                settings["print_compatible_printers"] = Value::Array(more);
             }
         }
-        payload = (settings.dumps() + "\n").into_bytes();
+        payload = settings_bytes(&settings)?;
     }
-    let areas: Vec<Vec<[f64; 2]>> = settings.get("extruder_printable_area").map(Json::list).unwrap_or(&[])
-        .iter().filter_map(Json::text).map(points).collect::<Result<_>>()?;
-    let mut used: Vec<usize> = settings.get("filament_nozzle_map").map(Json::list).unwrap_or(&[])
-        .iter()
-        .filter_map(|v| match v { Json::Text(s) => s.parse().ok(), Json::Number(_, n) => Some(*n as usize), _ => None })
+    let areas: Vec<Vec<[f64; 2]>> = settings["extruder_printable_area"].as_array().into_iter().flatten()
+        .filter_map(Value::as_str).map(points).collect::<Result<_>>()?;
+    let mut used: Vec<usize> = settings["filament_nozzle_map"].as_array().into_iter().flatten()
+        .filter_map(|v| match v { Value::String(s) => s.parse().ok(), Value::Number(n) => n.as_f64().map(|n| n as usize), _ => None })
         .filter(|&n| n < areas.len())
         .collect::<BTreeSet<usize>>().into_iter().collect();
     let chosen: Vec<&Vec<[f64; 2]>> = if used.is_empty() { areas.iter().collect() } else { used.iter().map(|&i| &areas[i]).collect() };
-    let bed = points(&settings.get("printable_area").map(Json::list).unwrap_or(&[]).iter().filter_map(Json::text).collect::<Vec<_>>().join(","))?;
+    let bed = points(&settings["printable_area"].as_array().into_iter().flatten().filter_map(Value::as_str).collect::<Vec<_>>().join(","))?;
     let (mut low, mut high) = ([f64::NEG_INFINITY; 2], [f64::INFINITY; 2]);
     if chosen.is_empty() {
         for p in &bed {
@@ -349,7 +357,7 @@ pub fn load(settings_from: &Path, z_trim: Option<f64>, filament_from: Option<&Pa
             changes.insert(k.clone(), v.clone());
         }
     }
-    let settings = Json::parse(std::str::from_utf8(&members[SETTINGS_MEMBER])?)?;
+    let settings: Value = serde_json::from_slice(&members[SETTINGS_MEMBER])?;
     Ok(Profile {
         members, settings, changes, cooling_member_changes: cooling, original_payload: original,
         usable_low: low, usable_high: high, printable_area_extruders: used,

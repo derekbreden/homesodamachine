@@ -9,8 +9,7 @@
 //! submits a print nor joins the build.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::Json;
-use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{first_text, relative, settings_bytes, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet, root, sha256_hex};
 use serde_json::{json, Map, Value};
@@ -25,16 +24,15 @@ const PLATE_BORDER: f64 = 20.0;
 fn settings_project(root: &Path, spec: &Value) -> Result<(PathBuf, Map<String, Value>)> {
     let source = root.join(spec["settings_source"].as_str().context("settings source")?);
     let mut members = faucet::members(&source)?;
-    let mut settings = Json::parse(std::str::from_utf8(&members[SETTINGS_MEMBER])?)?;
+    let mut settings: Value = serde_json::from_slice(&members[SETTINGS_MEMBER])?;
     let mut changes = Map::new();
-    let nozzle: f64 = settings.first_text("nozzle_diameter").context("nozzle diameter")?.parse()?;
+    let nozzle: f64 = first_text(&settings, "nozzle_diameter").context("nozzle diameter")?.parse()?;
     let nozzle_text = nozzle.to_string();
     let trim = spec["z_trim_mm"].as_f64().context("Z trim")?;
     let mut compatible = vec![format!("Bambu Lab H2C {nozzle_text} Standard +{trim:.2} Z trim")];
-    let listed = |c: &[String]| Json::List(c.iter().cloned().map(Json::Text).collect());
-    settings.set("print_compatible_printers", listed(&compatible));
+    settings["print_compatible_printers"] = json!(compatible);
     if let Some(colour) = spec["filament_colour"].as_str() {
-        settings.set("filament_colour", Json::List(vec![Json::Text(colour.into())]));
+        settings["filament_colour"] = json!([colour]);
     }
     if spec["material"] == "PET-GF" {
         compatible.push(format!("Bambu Lab H2C {nozzle_text} nozzle"));
@@ -43,14 +41,14 @@ fn settings_project(root: &Path, spec: &Value) -> Result<(PathBuf, Map<String, V
                              ("initial_layer_print_height", "0.2".into()), ("layer_height", "0.24".into()), ("enable_support", "1".into()),
                              ("support_type", "tree(auto)".into()), ("support_style", "default".into()), ("enable_prime_tower", "0".into()),
                              ("print_settings_id", format!("0.24mm PET-GF tube insertion solid - {id}"))] {
-            if settings.get(key).and_then(Json::text) != Some(value.as_str()) {
-                changes.insert(key.into(), json!({"from": settings.get(key).map(Json::to_value), "to": value}));
-                settings.set(key, Json::Text(value));
+            if settings[key].as_str() != Some(value.as_str()) {
+                changes.insert(key.into(), json!({"from": settings[key], "to": value}));
+                settings[key] = json!(value);
             }
         }
     }
-    settings.set("print_compatible_printers", listed(&compatible));
-    members.insert(SETTINGS_MEMBER.into(), (settings.dumps() + "\n").into_bytes());
+    settings["print_compatible_printers"] = json!(compatible);
+    members.insert(SETTINGS_MEMBER.into(), settings_bytes(&settings)?);
     let profile = root.join(".cache/tube-insertion-print").join(format!("{}-settings.3mf", spec["id"].as_str().unwrap_or("plate")));
     std::fs::create_dir_all(profile.parent().unwrap())?;
     let mut archive = zip::ZipWriter::new(std::fs::File::create(&profile)?);

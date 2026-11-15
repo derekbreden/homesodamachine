@@ -3,9 +3,8 @@
 //! projects and the bench parts that share their writer. A slice of one reads back per part —
 //! its toolpaths' envelope, the parts' clearances, and each part's support topology.
 
-use crate::json::Json;
 use crate::mesh::{bounds, Mesh};
-use crate::profile::{self, relative, Profile};
+use crate::profile::{self, first_text, relative, Profile};
 use crate::project::Plate;
 use crate::{apply, audit, cooling, gcode, rotation_x, sha256_hex};
 use anyhow::{bail, Context, Result};
@@ -51,8 +50,8 @@ pub struct Refreshed {
     pub extra: Map<String, Value>,
 }
 
-fn number(settings: &Json, key: &str) -> Result<f64> {
-    Ok(settings.first_text(key).with_context(|| format!("the profile has no {key}"))?.trim_end_matches('%').parse()?)
+fn number(settings: &Value, key: &str) -> Result<f64> {
+    Ok(first_text(settings, key).with_context(|| format!("the profile has no {key}"))?.trim_end_matches('%').parse()?)
 }
 
 /// Lay `parts` on one plate in `settings_from`'s settings (`z_trim` replacing its plate
@@ -150,11 +149,11 @@ impl Refreshed {
     pub fn write(&self, root: &Path, output: &Path) -> Result<Value> {
         self.plate.write(output)?;
         let settings = &self.plate.settings;
-        let get = |key: &str| settings.first_text(key).with_context(|| format!("the profile has no {key}"));
+        let get = |key: &str| first_text(settings, key).with_context(|| format!("the profile has no {key}"));
         let floats = |key: &str| -> Value {
-            json!(settings.get(key).map(Json::list).unwrap_or(&[]).iter().filter_map(Json::text).filter_map(|s| s.parse::<f64>().ok()).collect::<Vec<_>>())
+            json!(settings[key].as_array().into_iter().flatten().filter_map(Value::as_str).filter_map(|s| s.parse::<f64>().ok()).collect::<Vec<_>>())
         };
-        let payload = settings.dumps() + "\n";
+        let payload = profile::settings_bytes(settings)?;
         let mut parts = Vec::new();
         for row in &self.rows {
             let obj = &self.plate.objects[row.index];
@@ -178,11 +177,11 @@ impl Refreshed {
             "project": output.file_name().unwrap().to_string_lossy(),
             "settings_source": relative(&self.settings_from, root),
             "settings_source_sha256": sha256_hex(&std::fs::read(&self.settings_from)?),
-            "settings_sha256": sha256_hex(payload.as_bytes()),
+            "settings_sha256": sha256_hex(&payload),
             "source_settings_sha256": sha256_hex(&self.profile.original_payload),
             "settings_changes": self.profile.changes,
             "printer": get("printer_settings_id")?, "process": get("print_settings_id")?,
-            "filament": settings.get("filament_settings_id").map(Json::to_value).unwrap_or(Value::Null),
+            "filament": settings["filament_settings_id"],
             "layer_height_mm": number(settings, "layer_height")?,
             "nozzle_diameter_mm": floats("nozzle_diameter"),
             "line_widths_mm": line_widths,
@@ -195,7 +194,7 @@ impl Refreshed {
             "printable_area_extruders": self.profile.printable_area_extruders,
             "plate_border_mm": self.plate_border, "plate_count": 1, "parts": parts,
             "project_sha256": sha256_hex(&std::fs::read(output)?),
-            "settings_preserved_byte_for_byte": payload.as_bytes() == self.profile.original_payload.as_slice(),
+            "settings_preserved": serde_json::from_slice::<Value>(&self.profile.original_payload).ok().as_ref() == Some(settings),
         });
         for (k, v) in &self.extra {
             report[k] = v.clone();

@@ -20,7 +20,6 @@ use hsm_print_prep::faucet_contact::{add_tip_dispense_contact, add_tip_rim_conta
                                      apply_tip_rim_contour, tip_end_stretch, ContactBand};
 use hsm_print_prep::faucet_recesses::block_plate_counterbores;
 use hsm_print_prep::faucet_underside::{self, Underside};
-use hsm_print_prep::json::Json;
 use hsm_print_prep::profile::{cooling_hook, petgf_infill_pattern, relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part, Refreshed, Region};
 use hsm_print_prep::{cooling, root, sha256_hex, slice, xml};
@@ -171,24 +170,24 @@ fn main() -> Result<()> {
     }
 
     let settings = &mut r.plate.settings;
-    let original_colour = settings.get("filament_colour").map(Json::to_value);
-    settings.set("filament_colour", texts(&[colour.clone()]));
-    settings.set("sparse_infill_pattern", Json::Text(petgf_infill_pattern(&root)?));
+    let original_colour = settings.get("filament_colour").cloned();
+    settings["filament_colour"] = texts(&[colour.clone()]);
+    settings["sparse_infill_pattern"] = json!(petgf_infill_pattern(&root)?);
     for (key, value) in finish["filament_overrides"].as_object().into_iter().flatten() {
         let mut items = as_texts(settings.get(key).with_context(|| format!("the profile has no {key}"))?);
         if items.is_empty() {
             bail!("{key} has no first slot");
         }
         items[0] = text(value);
-        settings.set(key, texts(&items));
+        settings[key] = texts(&items);
     }
     let mut layer_changes = Map::new();
     for (key, value) in [("layer_height", text(&finish["normal_layer_height_mm"])), ("initial_layer_print_height", text(&finish["first_bed_layer_height_mm"])),
                          ("independent_support_layer_height", "0".to_string())] {
-        let old = settings.get(key).cloned().unwrap_or(Json::Null);
-        if old != Json::Text(value.clone()) {
-            layer_changes.insert(key.into(), json!({"from": old.to_value(), "to": value}));
-            settings.set(key, Json::Text(value));
+        let old = settings[key].clone();
+        if old != json!(value) {
+            layer_changes.insert(key.into(), json!({"from": old, "to": value}));
+            settings[key] = json!(value);
         }
     }
     let hook = cooling_hook(&root);
@@ -240,7 +239,7 @@ fn main() -> Result<()> {
     // compatibility, the colour, the filament overrides, the layers, the overhang recipe and the
     // shared infill and support settings and cooling stage with its hook.
     let before_settings: Value = serde_json::from_slice(&preserved[SETTINGS_MEMBER])?;
-    let after_settings = r.plate.settings.to_value();
+    let after_settings = r.plate.settings.clone();
     let mut allowed: Vec<String> = ["machine_start_gcode", "printer_settings_id", "print_compatible_printers", "filament_colour", "post_process", "sparse_infill_pattern"]
         .iter().map(|s| s.to_string()).collect();
     allowed.extend(finish["filament_overrides"].as_object().into_iter().flatten().map(|(k, _)| k.clone()));
@@ -317,7 +316,10 @@ fn main() -> Result<()> {
     report["layer_height_mm"] = json!(layer_height);
     let actual = profile_members(&project)?;
     report["native_settings_sha256"] = json!(sha256_hex(&actual[SETTINGS_MEMBER]));
-    report["all_profile_members_preserved_byte_for_byte"] = json!(actual == preserved);
+    let values = |members: &BTreeMap<String, Vec<u8>>| -> Result<BTreeMap<String, Value>> {
+        members.iter().map(|(name, data)| Ok((name.clone(), serde_json::from_slice(data)?))).collect()
+    };
+    report["all_profile_members_preserved"] = json!(values(&actual)? == values(&preserved)?);
     report["profile_member_sha256"] = json!(actual.iter().map(|(n, d)| (n.clone(), json!(sha256_hex(d)))).collect::<Map<_, _>>());
     for part in &parts {
         if Some(file_sha(&part.source)?) != r.row(&part.name).ok().map(|row| row.stl_sha256.clone()) {
@@ -367,7 +369,7 @@ fn write_readiness(root: &Path, project: &Path, report: &Value, production: &Val
         "preparation_only": true, "launch_authorized": false, "finish_choices_pending": [], "finish_selection": relative(finish, root),
         "project": relative(project, root), "project_sha256": report["project_sha256"], "settings_sha256": report["settings_sha256"],
         "print_report_sha256": file_sha(&project.with_extension("print.json"))?, "profile_source": report["profile_source"],
-        "all_profile_members_preserved_byte_for_byte": report["all_profile_members_preserved_byte_for_byte"],
+        "all_profile_members_preserved": report["all_profile_members_preserved"],
         "source_stls": report["parts"].as_array().into_iter().flatten().map(|p| (p["source"].as_str().unwrap_or("").to_string(), p["stl_sha256"].clone())).collect::<Map<_, _>>(),
         "mesh_and_placement": {"closed_oriented_single_body_meshes": true, "embedded_meshes_match_source_stls": true,
                                "parts": report["parts"].as_array().map_or(0, Vec::len), "plates": report["plate_count"],

@@ -61,7 +61,7 @@ impl Underside {
         for (key, value) in settings {
             object.settings.push((key.clone(), value.as_str().with_context(|| format!("base setting {key}"))?.into()));
         }
-        let temperature = |key| r.plate.settings.first_text(key)
+        let temperature = |key| crate::profile::first_text(&r.plate.settings, key)
             .with_context(|| format!("the plate has no left-nozzle {key}"));
         r.extra.insert("base_underside".into(), json!({
             "part": part, "rim_semi_axes_mm": rim, "seat_print_world_center_mm": seat,

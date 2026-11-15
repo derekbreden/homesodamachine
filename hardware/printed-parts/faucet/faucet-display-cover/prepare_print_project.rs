@@ -8,8 +8,7 @@
 //! selection's first bed layer and later layers.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::Json;
-use hsm_print_prep::profile::{petgf_infill_pattern, relative, SETTINGS_MEMBER};
+use hsm_print_prep::profile::{first_text, petgf_infill_pattern, relative, settings_bytes, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet::text, root, sha256_hex, xml};
 use serde_json::{json, Value};
@@ -60,22 +59,22 @@ fn main() -> Result<()> {
     }
     let recipe = &selection["recipe"];
     let colour = colour.unwrap_or_else(|| recipe["filament_colour"].as_str().unwrap_or("#161616").to_string());
-    r.plate.settings.set("filament_colour", Json::List(vec![Json::Text(colour)]));
+    r.plate.settings["filament_colour"] = json!([colour]);
     let mut changes = r.profile.changes.clone();
     for (key, value) in [
         ("initial_layer_print_height", text(&recipe["first_bed_layer_height_mm"])),
         ("layer_height", text(&recipe["layer_height_mm"])),
         ("sparse_infill_pattern", petgf_infill_pattern(&root)?),
     ] {
-        let old = r.plate.settings.get(key).cloned().unwrap_or(Json::Null);
-        if old != Json::Text(value.clone()) {
-            changes.insert(key.into(), json!({"from": old.to_value(), "to": value}));
-            r.plate.settings.set(key, Json::Text(value));
+        let old = r.plate.settings[key].clone();
+        if old != json!(value) {
+            changes.insert(key.into(), json!({"from": old, "to": value}));
+            r.plate.settings[key] = json!(value);
         }
     }
-    let first: f64 = r.plate.settings.first_text("initial_layer_print_height").unwrap_or("0").parse()?;
-    let layer: f64 = r.plate.settings.first_text("layer_height").unwrap_or("0").parse()?;
-    let preserved = (r.plate.settings.dumps() + "\n").into_bytes() == member(&source, SETTINGS_MEMBER)?;
+    let first: f64 = first_text(&r.plate.settings, "initial_layer_print_height").unwrap_or("0").parse()?;
+    let layer: f64 = first_text(&r.plate.settings, "layer_height").unwrap_or("0").parse()?;
+    let preserved = r.plate.settings == serde_json::from_slice::<Value>(&member(&source, SETTINGS_MEMBER)?)?;
     for (k, v) in [("printer", json!(printer)), ("requested_z_trim_mm", json!(trim)), ("active_nozzle", json!(0)),
                    ("first_bed_layer_height_mm", json!(first)), ("layer_height_mm", json!(layer)), ("layer_ranges", json!([])),
                    ("production_selection", json!(SELECTION)), ("physical_approval", selection["physical_result"].clone()),
@@ -88,8 +87,8 @@ fn main() -> Result<()> {
     }
     let mut report = r.write(&root, &project)?;
     report["settings_changes"] = json!(changes);
-    report["settings_preserved_byte_for_byte"] = json!(preserved);
-    report["settings_sha256"] = json!(sha256_hex((r.plate.settings.dumps() + "\n").as_bytes()));
+    report["settings_preserved"] = json!(preserved);
+    report["settings_sha256"] = json!(sha256_hex(&settings_bytes(&r.plate.settings)?));
     std::fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     println!("{}: display cover; {first:.2} mm first layer, {layer:.2} mm later layers; {printer}", relative(&project, &root));
     Ok(())

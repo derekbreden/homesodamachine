@@ -11,12 +11,11 @@
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::gcode;
 use hsm_print_prep::ids::md5_hex;
-use hsm_print_prep::json::Json;
 use hsm_print_prep::preset::system_preset;
 use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
 use hsm_print_prep::refresh::{self, Part};
 use hsm_print_prep::{faucet, review, root, sha256_hex, slice};
-use serde_json::{json, Value};
+use serde_json::{json, Map, Value};
 use std::collections::BTreeSet;
 use std::path::Path;
 
@@ -36,52 +35,42 @@ const LAYER: f64 = 0.24;
 /// The least share of the second layer's bead area that must lie over the first layer's.
 const STACKED: f64 = 0.95;
 
-fn text(value: &str) -> Json {
-    Json::Text(value.into())
-}
-
-fn texts(values: &[&str]) -> Json {
-    Json::List(values.iter().map(|v| text(v)).collect())
-}
-
 /// The cover's recipe over the shared project's settings: the stock PETG preset, then the
 /// solid process. Returns the stock preset files read.
-fn petg(settings: &mut Json) -> Result<Json> {
-    let mut files = Json::Map(Vec::new());
+fn petg(settings: &mut Value) -> Result<Value> {
+    let mut files = Map::new();
     let preset = system_preset("filament", FILAMENT, &mut files)?;
-    if let Json::Map(values) = preset.values {
-        for (key, value) in values {
-            settings.set(&key, value);
-        }
+    for (key, value) in preset.values {
+        settings[key.as_str()] = value;
     }
     let filament_id = preset.ids.get("filament_id").cloned().context("the PETG preset has no filament ID")?;
     let process = [("wall_loops", "3"), ("sparse_infill_density", "100%"), ("sparse_infill_pattern", "zig-zag"), ("enable_support", "0"),
                    ("brim_type", "no_brim"), ("brim_width", "0"), ("layer_height", "0.24"), ("initial_layer_print_height", "0.2"),
                    ("enable_prime_tower", "0")];
     for (key, value) in process {
-        settings.set(key, text(value));
+        settings[key] = json!(value);
     }
-    for (key, value) in [("filament_colour", texts(&["#000000"])), ("filament_type", texts(&["PETG"])),
-                         ("filament_settings_id", texts(&[FILAMENT])), ("filament_ids", Json::List(vec![filament_id])),
-                         ("filament_nozzle_map", texts(&["0"])), ("filament_map", texts(&["1"])), ("filament_map_2", texts(&["1"])),
-                         ("filament_map_mode", text("Manual")), ("support_filament", text("1")), ("support_interface_filament", text("1")),
-                         ("extruder_ams_count", texts(&["1#0|4#0", "1#0|4#0"])), ("flush_into_support", text("0"))] {
-        settings.set(key, value);
+    for (key, value) in [("filament_colour", json!(["#000000"])), ("filament_type", json!(["PETG"])),
+                         ("filament_settings_id", json!([FILAMENT])), ("filament_ids", json!([filament_id])),
+                         ("filament_nozzle_map", json!(["0"])), ("filament_map", json!(["1"])), ("filament_map_2", json!(["1"])),
+                         ("filament_map_mode", json!("Manual")), ("support_filament", json!("1")), ("support_interface_filament", json!("1")),
+                         ("extruder_ams_count", json!(["1#0|4#0", "1#0|4#0"])), ("flush_into_support", json!("0"))] {
+        settings[key] = value;
     }
     // The material selector inherits the PETG preset rather than the exterior's spool.
-    let mut inherits = settings.get("inherits_group").map(Json::list).unwrap_or(&[]).to_vec();
+    let mut inherits = settings["inherits_group"].as_array().cloned().unwrap_or_default();
     if inherits.len() < 2 {
         bail!("the shared project names no filament preset to inherit");
     }
-    inherits[1] = text(FILAMENT);
-    settings.set("inherits_group", Json::List(inherits));
-    let mut different = settings.get("different_settings_to_system").map(Json::list).unwrap_or(&[]).to_vec();
-    let process_keys: BTreeSet<String> = different.first().and_then(Json::text).context("no process differences")?
+    inherits[1] = json!(FILAMENT);
+    settings["inherits_group"] = Value::Array(inherits);
+    let mut different = settings["different_settings_to_system"].as_array().cloned().unwrap_or_default();
+    let process_keys: BTreeSet<String> = different.first().and_then(Value::as_str).context("no process differences")?
         .split(';').map(String::from).chain(process.iter().map(|(k, _)| k.to_string())).collect();
-    different[0] = text(&process_keys.into_iter().collect::<Vec<_>>().join(";"));
-    settings.set("different_settings_to_system", Json::List(different));
-    settings.set("print_settings_id", text(PROCESS));
-    Ok(files)
+    different[0] = json!(process_keys.into_iter().collect::<Vec<_>>().join(";"));
+    settings["different_settings_to_system"] = Value::Array(different);
+    settings["print_settings_id"] = json!(PROCESS);
+    Ok(Value::Object(files))
 }
 
 /// Slice `project` into `job` as the printer takes it. The command line refuses the project's
@@ -115,7 +104,7 @@ fn main() -> Result<()> {
     let files = petg(&mut r.plate.settings)?;
     r.extra.insert("source_mesh_sha256".into(), json!(faucet::file_sha(&stl)?));
     r.extra.insert("material".into(), json!(MATERIAL));
-    r.extra.insert("filament_preset_sha256".into(), files.to_value());
+    r.extra.insert("filament_preset_sha256".into(), files.clone());
     let mut report = r.write(&root, &project)?;
     let object = report["parts"][0]["identify_id"].as_i64().context("the cover has no object ID")?;
 
@@ -188,7 +177,7 @@ fn main() -> Result<()> {
         sources.insert(relative(path, &root), json!(faucet::file_sha(path)?));
     }
     let grams: f64 = sliced["filaments"].as_array().into_iter().flatten().filter_map(|f| f["total_used_g"].as_f64()).sum();
-    for (key, value) in [("source_sha256", json!(sources)), ("stock_filament_preset_sha256", files.to_value()),
+    for (key, value) in [("source_sha256", json!(sources)), ("stock_filament_preset_sha256", files.clone()),
                          ("native_archive", json!(relative(&native, &root))), ("native_sha256", json!(faucet::file_sha(&native)?)),
                          ("gcode_sha256", json!(sha256_hex(emitted))), ("settings_verified", json!(true)),
                          ("process", json!({"first_layer_mm": FIRST_LAYER, "layer_mm": LAYER, "walls": 3, "infill_percent": 100,

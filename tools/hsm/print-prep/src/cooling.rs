@@ -2,7 +2,6 @@
 //! project's filament slots, the hook Bambu Studio runs after slicing, and the foundation stage
 //! that rewrites a sliced plate's G-code.
 
-use crate::json::Json;
 use anyhow::{Context, Result};
 use serde_json::{json, Value};
 use std::collections::BTreeMap;
@@ -22,17 +21,17 @@ pub fn apply_members(members: &mut BTreeMap<String, Vec<u8>>, hook: &str) -> Res
     let mut changes = serde_json::Map::new();
     for name in chosen.as_array().cloned().unwrap_or_default() {
         let name = name.as_str().context("member name")?.to_string();
-        let mut settings = Json::parse(std::str::from_utf8(&members[&name])?)?;
+        let mut settings: Value = serde_json::from_slice(&members[&name])?;
         let command = if name == PROJECT { json!(hook) } else { Value::Null };
-        let reply = policy::dispatch("apply", &json!({"settings": settings.to_value(), "post_process_command": command}))?;
+        let reply = policy::dispatch("apply", &json!({"settings": settings, "post_process_command": command}))?;
         let mut changed = serde_json::Map::new();
         for update in reply["updates"].as_array().cloned().unwrap_or_default() {
             let key = update[0].as_str().context("update key")?.to_string();
-            settings.set(&key, Json::from_value(&update[1]["to"]));
+            settings[key.as_str()] = update[1]["to"].clone();
             changed.insert(key, update[1].clone());
         }
         if !changed.is_empty() {
-            members.insert(name.clone(), (settings.dumps() + "\n").into_bytes());
+            members.insert(name.clone(), crate::profile::settings_bytes(&settings)?);
             changes.insert(name, Value::Object(changed));
         }
     }
@@ -41,12 +40,12 @@ pub fn apply_members(members: &mut BTreeMap<String, Vec<u8>>, hook: &str) -> Res
 
 /// Apply the cooling values to one settings document; `hook` is the post-process command a
 /// project's own settings take. Returns the changes.
-pub fn apply(settings: &mut Json, hook: Option<&str>) -> Result<Value> {
-    let reply = policy::dispatch("apply", &json!({"settings": settings.to_value(), "post_process_command": hook}))?;
+pub fn apply(settings: &mut Value, hook: Option<&str>) -> Result<Value> {
+    let reply = policy::dispatch("apply", &json!({"settings": settings, "post_process_command": hook}))?;
     let mut changed = serde_json::Map::new();
     for update in reply["updates"].as_array().cloned().unwrap_or_default() {
         let key = update[0].as_str().context("update key")?.to_string();
-        settings.set(&key, Json::from_value(&update[1]["to"]));
+        settings[key.as_str()] = update[1]["to"].clone();
         changed.insert(key, update[1].clone());
     }
     Ok(Value::Object(changed))

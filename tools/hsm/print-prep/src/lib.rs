@@ -19,7 +19,6 @@ pub mod gcode;
 pub mod head_map;
 pub mod head_replay;
 pub mod ids;
-pub mod json;
 pub mod mesh;
 pub mod motion;
 pub mod npz;

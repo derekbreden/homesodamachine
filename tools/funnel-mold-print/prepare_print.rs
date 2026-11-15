@@ -11,12 +11,12 @@
 //! they agree with the recipe. `--slice` slices every plate into `native/` beside the project.
 
 use anyhow::{bail, Context, Result};
-use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::mesh::Mesh;
 use hsm_print_prep::preset::system_preset;
 use hsm_print_prep::profile::{trimmed_start_gcode, PRESETS, SETTINGS_MEMBER};
 use hsm_print_prep::project::{self, Plate, Range};
 use hsm_print_prep::{faucet, root, sha256_hex, slice};
+use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -27,42 +27,24 @@ const PLATE_STRIDE: f64 = 396.0;
 const BED: &str = "Textured PEI Plate";
 const PIECES: [&str; 2] = ["cavity", "core"];
 
-fn text(value: &str) -> Json {
-    Json::Text(value.into())
+fn field<'a>(value: &'a Value, key: &str) -> Result<&'a str> {
+    value[key].as_str().with_context(|| format!("no {key}"))
 }
 
-fn texts<S: AsRef<str>>(values: &[S]) -> Json {
-    Json::List(values.iter().map(|v| text(v.as_ref())).collect())
-}
-
-fn number(value: f64) -> Json {
-    Json::Number(python_number(value), value)
-}
-
-fn map(entries: Vec<(&str, Json)>) -> Json {
-    Json::Map(entries.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
-}
-
-fn entries(value: Option<&Json>) -> &[(String, Json)] {
+/// A number, or a setting's text that holds one.
+fn float(value: &Value) -> Option<f64> {
     match value {
-        Some(Json::Map(entries)) => entries,
-        _ => &[],
+        Value::String(s) => s.trim().parse().ok(),
+        other => other.as_f64(),
     }
 }
 
-fn field<'a>(value: &'a Json, key: &str) -> Result<&'a str> {
-    value.get(key).and_then(Json::text).with_context(|| format!("no {key}"))
+/// The settings of a recipe group, a preset or a saved project, by key.
+fn entries(value: &Value) -> impl Iterator<Item = (&String, &Value)> {
+    value.as_object().into_iter().flatten()
 }
 
-fn float(value: Option<&Json>) -> Option<f64> {
-    match value? {
-        Json::Number(_, v) => Some(*v),
-        Json::Text(s) => s.trim().parse().ok(),
-        _ => None,
-    }
-}
-
-fn side(recipe: &Json) -> Result<usize> {
+fn side(recipe: &Value) -> Result<usize> {
     match field(recipe, "side")? {
         "left" => Ok(0),
         "right" => Ok(1),
@@ -71,30 +53,30 @@ fn side(recipe: &Json) -> Result<usize> {
 }
 
 /// Each hotend's flow type, left first: the recipe's nozzle on its side, Standard opposite.
-fn volume_types(recipe: &Json) -> Result<Vec<String>> {
+fn volume_types(recipe: &Value) -> Result<Vec<String>> {
     let mut volumes = vec!["Standard".to_string(); 2];
     volumes[side(recipe)?] = field(recipe, "nozzle_type")?.to_string();
     Ok(volumes)
 }
 
-fn nozzle(recipe: &Json) -> Result<f64> {
-    float(recipe.get("nozzle_mm")).context("the recipe names no nozzle size")
+fn nozzle(recipe: &Value) -> Result<f64> {
+    float(&recipe["nozzle_mm"]).context("the recipe names no nozzle size")
 }
 
-fn printer_name(recipe: &Json, trim: f64) -> Result<String> {
+fn printer_name(recipe: &Value, trim: f64) -> Result<String> {
     Ok(format!("Bambu Lab H2C {} {} +{trim:.2} Z trim", nozzle(recipe)?, field(recipe, "nozzle_type")?))
 }
 
-fn trims(recipe: &Json) -> Vec<f64> {
-    recipe.get("z_trim").and_then(|z| z.get("available_mm")).map(Json::list).unwrap_or(&[]).iter().filter_map(|v| float(Some(v))).collect()
+fn trims(recipe: &Value) -> Vec<f64> {
+    recipe["z_trim"]["available_mm"].as_array().into_iter().flatten().filter_map(float).collect()
 }
 
-fn presets(recipe: &Json) -> Result<&Json> {
+fn presets(recipe: &Value) -> Result<&Value> {
     recipe.get("system_presets").context("the recipe names no system presets")
 }
 
 /// The machine preset itself, then one printer per available Z trim.
-fn printer_names(recipe: &Json) -> Result<Vec<String>> {
+fn printer_names(recipe: &Value) -> Result<Vec<String>> {
     let mut names = vec![field(presets(recipe)?, "machine")?.to_string()];
     for trim in trims(recipe) {
         names.push(printer_name(recipe, trim)?);
@@ -104,85 +86,83 @@ fn printer_names(recipe: &Json) -> Result<Vec<String>> {
 
 /// The recipe over its system presets, with the Z trim in the start G-code, and the provenance
 /// of every value.
-fn fresh_settings(recipe: &Json, trim: f64) -> Result<(Json, Json)> {
-    let (mut values, mut sources, mut files) = (Json::Map(Vec::new()), Json::Map(Vec::new()), Json::Map(Vec::new()));
+fn fresh_settings(recipe: &Value, trim: f64) -> Result<(Value, Value)> {
+    let (mut values, mut sources, mut files) = (Map::new(), Map::new(), Map::new());
     let named = presets(recipe)?;
     let mut filament_id = None;
-    for (kind, name) in entries(Some(named)) {
-        let resolved = system_preset(kind, name.text().context("a preset without a name")?, &mut files)?;
-        for (key, value) in entries(Some(&resolved.values)) {
-            values.set(key, value.clone());
-        }
-        for (key, value) in entries(Some(&resolved.sources)) {
-            sources.set(key, value.clone());
-        }
+    // A filament's value wins over the process's and the printer's where both set a key.
+    for kind in ["machine", "process", "filament"] {
+        let resolved = system_preset(kind, field(named, kind)?, &mut files)?;
+        values.extend(resolved.values);
+        sources.extend(resolved.sources);
         if kind == "filament" {
             filament_id = resolved.ids.get("filament_id").cloned();
         }
     }
     for group in ["process_settings", "filament_settings"] {
-        for (key, choice) in entries(recipe.get(group)) {
-            let reason = choice.get("reason").and_then(Json::text).filter(|r| !r.is_empty()).with_context(|| format!("{key} has no reason"))?;
-            values.set(key, choice.get("value").cloned().with_context(|| format!("{key} has no value"))?);
-            sources.set(key, map(vec![("recipe", text(group)), ("reason", text(reason))]));
+        for (key, choice) in entries(&recipe[group]) {
+            let reason = choice["reason"].as_str().filter(|r| !r.is_empty()).with_context(|| format!("{key} has no reason"))?;
+            values.insert(key.clone(), choice.get("value").cloned().with_context(|| format!("{key} has no value"))?);
+            sources.insert(key.clone(), json!({"recipe": group, "reason": reason}));
         }
     }
     let lane = side(recipe)?;
     let volumes = volume_types(recipe)?;
-    let keys = |group: &str| entries(recipe.get(group)).iter().map(|(k, _)| k.as_str()).collect::<Vec<_>>().join(";");
-    let lanes = values.get("filament_extruder_variant").map(|v| v.list().len()).unwrap_or(0);
+    let keys = |group: &str| entries(&recipe[group]).map(|(k, _)| k.as_str()).collect::<Vec<_>>().join(";");
+    let lanes = values.get("filament_extruder_variant").and_then(Value::as_array).map_or(0, Vec::len);
     let stats: Vec<String> = volumes.iter().map(|v| format!("{v}#1")).collect();
-    let assignment = vec![
-        ("printer_settings_id", text(&printer_name(recipe, trim)?)),
-        ("print_settings_id", text(field(recipe, "process_name")?)),
-        ("filament_settings_id", texts(&[field(recipe, "filament_name")?])),
-        ("inherits_group", texts(&[field(named, "process")?, field(named, "filament")?, field(named, "machine")?])),
-        ("different_settings_to_system", texts(&[keys("process_settings"), keys("filament_settings"),
-                                                 "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type".into()])),
-        ("filament_ids", Json::List(vec![filament_id.context("the filament preset has no filament ID")?])),
-        ("filament_colour", texts(&["#DDEBF0"])),
-        ("filament_map_mode", text("Manual")),
-        ("filament_map", texts(&[(lane + 1).to_string()])),
-        ("filament_map_2", texts(&[(lane + 1).to_string()])),
-        ("filament_nozzle_map", texts(&[lane.to_string()])),
-        ("filament_self_index", texts(&vec!["1"; lanes])),
-        ("filament_volume_map", texts(&[if field(recipe, "nozzle_type")? == "High Flow" { "1" } else { "0" }])),
-        ("nozzle_volume_type", texts(&volumes)),
-        ("default_nozzle_volume_type", texts(&volumes)),
-        ("extruder_nozzle_stats", texts(&stats)),
-        ("extruder_nozzle_stats_new", texts(&stats)),
-        ("curr_bed_type", text(BED)),
-        ("print_compatible_printers", texts(&printer_names(recipe)?)),
+    let filament_id = filament_id.context("the filament preset has no filament ID")?;
+    let volume_map = if field(recipe, "nozzle_type")? == "High Flow" { "1" } else { "0" };
+    let assignment = [
+        ("printer_settings_id", json!(printer_name(recipe, trim)?)),
+        ("print_settings_id", json!(field(recipe, "process_name")?)),
+        ("filament_settings_id", json!([field(recipe, "filament_name")?])),
+        ("inherits_group", json!([field(named, "process")?, field(named, "filament")?, field(named, "machine")?])),
+        ("different_settings_to_system", json!([keys("process_settings"), keys("filament_settings"),
+                                                "machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type"])),
+        ("filament_ids", json!([filament_id])),
+        ("filament_colour", json!(["#DDEBF0"])),
+        ("filament_map_mode", json!("Manual")),
+        ("filament_map", json!([(lane + 1).to_string()])),
+        ("filament_map_2", json!([(lane + 1).to_string()])),
+        ("filament_nozzle_map", json!([lane.to_string()])),
+        ("filament_self_index", json!(vec!["1"; lanes])),
+        ("filament_volume_map", json!([volume_map])),
+        ("nozzle_volume_type", json!(volumes)),
+        ("default_nozzle_volume_type", json!(volumes)),
+        ("extruder_nozzle_stats", json!(stats)),
+        ("extruder_nozzle_stats_new", json!(stats)),
+        ("curr_bed_type", json!(BED)),
+        ("print_compatible_printers", json!(printer_names(recipe)?)),
     ];
     let reason = format!("One PETG filament on the {} hotend, textured PEI; named source presets.", field(recipe, "side")?);
     for (key, value) in assignment {
-        values.set(key, value);
-        sources.set(key, map(vec![("generator", text("fresh_settings")), ("reason", text(&reason))]));
+        values.insert(key.into(), value);
+        sources.insert(key.into(), json!({"generator": "fresh_settings", "reason": reason}));
     }
-    let start = field(&values, "machine_start_gcode").context("the machine preset has no start G-code")?.to_string();
-    values.set("machine_start_gcode", text(&trimmed_start_gcode(&start, trim)?));
-    let preset = sources.get("machine_start_gcode").and_then(|s| s.get("preset")).cloned().unwrap_or(Json::Null);
-    let trim_reason = recipe.get("z_trim").and_then(|z| z.get("reason")).cloned().unwrap_or(Json::Null);
-    sources.set("machine_start_gcode", map(vec![("preset", preset), ("generator", text("trimmed_start_gcode")), ("z_trim_mm", number(trim)),
-                                               ("reason", trim_reason)]));
-    let mut supplied = Json::Map(Vec::new());
-    for (key, value) in entries(Some(&values)) {
-        let mut row = vec![("value".to_string(), value.clone())];
-        row.extend(entries(sources.get(key)).iter().cloned());
-        supplied.set(key, Json::Map(row));
+    let start = values.get("machine_start_gcode").and_then(Value::as_str).context("the machine preset has no start G-code")?.to_string();
+    values.insert("machine_start_gcode".into(), json!(trimmed_start_gcode(&start, trim)?));
+    let preset = sources.get("machine_start_gcode").map_or(Value::Null, |s| s["preset"].clone());
+    sources.insert("machine_start_gcode".into(), json!({"preset": preset, "generator": "trimmed_start_gcode", "z_trim_mm": trim,
+                                                        "reason": recipe["z_trim"]["reason"]}));
+    let mut supplied = Map::new();
+    for (key, value) in &values {
+        let mut row = sources.get(key).and_then(Value::as_object).cloned().unwrap_or_default();
+        row.insert("value".into(), value.clone());
+        supplied.insert(key.clone(), Value::Object(row));
     }
-    Ok((values, map(vec![("system_preset_sha256", files), ("supplied_settings", supplied)])))
+    Ok((Value::Object(values), json!({"system_preset_sha256": files, "supplied_settings": supplied})))
 }
 
 /// Whether a saved setting is the value supplied, as Bambu Studio rewrites a few on saving.
-fn equivalent(key: &str, supplied: &Json, effective: &Json) -> bool {
+fn equivalent(key: &str, supplied: &Value, effective: &Value) -> bool {
     if supplied == effective {
         return true;
     }
     if key == "extruder_nozzle_stats" || key == "extruder_nozzle_stats_new" {
-        let installed = |lanes: &Json| -> Vec<Vec<String>> {
-            lanes.list().iter().map(|lane| {
-                let mut kept: Vec<String> = lane.text().unwrap_or("").split('|')
+        let installed = |lanes: &Value| -> Vec<Vec<String>> {
+            lanes.as_array().into_iter().flatten().map(|lane| {
+                let mut kept: Vec<String> = lane.as_str().unwrap_or("").split('|')
                     .filter(|e| e.rsplit_once('#').and_then(|(_, n)| n.parse::<i64>().ok()).is_some_and(|n| n != 0))
                     .map(String::from).collect();
                 kept.sort();
@@ -192,27 +172,27 @@ fn equivalent(key: &str, supplied: &Json, effective: &Json) -> bool {
         return installed(supplied) == installed(effective);
     }
     if key == "best_object_pos" {
-        return supplied.text().map(|s| s.replace('x', ",")).as_deref() == effective.text();
+        return supplied.as_str().map(|s| s.replace('x', ",")).as_deref() == effective.as_str();
     }
     if key == "enable_long_retraction_when_cut" {
-        return *supplied == Json::List(vec![effective.clone()]);
+        return *supplied == json!([effective]);
     }
     if matches!(key, "top_surface_density" | "bottom_surface_density" | "monotonic_travel_into_wall") {
-        let percent = |v: &Json| v.text().and_then(|s| s.trim_end_matches('%').parse::<f64>().ok());
+        let percent = |v: &Value| v.as_str().and_then(|s| s.trim_end_matches('%').parse::<f64>().ok());
         return percent(supplied).is_some() && percent(supplied) == percent(effective);
     }
-    if let (Json::List(a), Json::List(b)) = (supplied, effective) {
+    if let (Value::Array(a), Value::Array(b)) = (supplied, effective) {
         return a.len() == b.len() && a.iter().zip(b).all(|(x, y)| equivalent(key, x, y));
     }
-    match (float(Some(supplied)), float(Some(effective))) {
+    match (float(supplied), float(effective)) {
         (Some(a), Some(b)) => (a - b).abs() <= f64::max(1e-9 * f64::max(a.abs(), b.abs()), 1e-9),
         _ => false,
     }
 }
 
 /// The centre of the selected hotend's printable area, each plate's model centre.
-fn bed_centre(settings: &Json, lane: usize) -> Result<[f64; 2]> {
-    let area = settings.get("extruder_printable_area").map(Json::list).and_then(|a| a.get(lane)).and_then(Json::text)
+fn bed_centre(settings: &Value, lane: usize) -> Result<[f64; 2]> {
+    let area = settings["extruder_printable_area"][lane].as_str()
         .context("the printer has no printable area for the hotend")?;
     let (mut lo, mut hi) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
     for point in area.split(',') {
@@ -237,41 +217,40 @@ fn slicer_version() -> Result<String> {
 
 /// Every selector's preset, the stock parent named and the recipe's edits on it, as one bundle
 /// Bambu Studio imports.
-fn preset_bundle(recipe: &Json, version: &str, destination: &Path) -> Result<()> {
+fn preset_bundle(recipe: &Value, version: &str, destination: &Path) -> Result<()> {
     let named = presets(recipe)?;
-    let mut scratch = Json::Map(Vec::new());
+    let mut scratch = Map::new();
     let machine = field(named, "machine")?;
     let stock = system_preset("machine", machine, &mut scratch)?;
-    let start = field(&stock.values, "machine_start_gcode")?.to_string();
+    let start = stock.values.get("machine_start_gcode").and_then(Value::as_str).context("no machine_start_gcode")?.to_string();
     let mut profiles = Vec::new();
     for offset in trims(recipe) {
         let name = printer_name(recipe, offset)?;
-        profiles.push(map(vec![("from", text("User")), ("inherits", text(machine)), ("name", text(&name)), ("printer_settings_id", text(&name)),
-                               ("version", text(version)), ("machine_start_gcode", text(&trimmed_start_gcode(&start, offset)?)),
-                               ("default_nozzle_volume_type", texts(&volume_types(recipe)?))]));
+        profiles.push(json!({"from": "User", "inherits": machine, "name": name, "printer_settings_id": name, "version": version,
+                             "machine_start_gcode": trimmed_start_gcode(&start, offset)?, "default_nozzle_volume_type": volume_types(recipe)?}));
     }
     for (kind, identity) in [("process", "print_settings_id"), ("filament", "filament_settings_id")] {
         let name = field(recipe, &format!("{kind}_name"))?;
         if name.contains('/') || name.contains('\\') {
             bail!("Preset names must also be valid filenames.");
         }
-        let mut profile = map(vec![("from", text("User")), ("inherits", text(field(named, kind)?)), ("name", text(name)), ("version", text(version)),
-                                   (identity, if kind == "filament" { texts(&[name]) } else { text(name) })]);
-        for (key, choice) in entries(recipe.get(&format!("{kind}_settings"))) {
-            profile.set(key, choice.get("value").cloned().unwrap_or(Json::Null));
+        let mut profile = json!({"from": "User", "inherits": field(named, kind)?, "name": name, "version": version});
+        profile[identity] = if kind == "filament" { json!([name]) } else { json!(name) };
+        for (key, choice) in entries(&recipe[format!("{kind}_settings").as_str()]) {
+            profile[key.as_str()] = choice["value"].clone();
         }
         if kind == "process" {
-            profile.set("compatible_printers", texts(&printer_names(recipe)?));
+            profile["compatible_printers"] = json!(printer_names(recipe)?);
         } else {
             let ids = system_preset(kind, field(named, kind)?, &mut scratch)?.ids;
-            profile.set("filament_id", ids.get("filament_id").cloned().context("the filament preset has no filament ID")?);
+            profile["filament_id"] = ids.get("filament_id").cloned().context("the filament preset has no filament ID")?;
         }
         profiles.push(profile);
     }
     let mut archive = zip::ZipWriter::new(std::fs::File::create(destination).with_context(|| format!("writing {}", destination.display()))?);
     for profile in &profiles {
         archive.start_file(format!("{}.json", field(profile, "name")?), project::options())?;
-        archive.write_all((profile.dumps() + "\n").as_bytes())?;
+        archive.write_all((serde_json::to_string_pretty(profile)? + "\n").as_bytes())?;
     }
     archive.finish()?;
     Ok(())
@@ -320,12 +299,12 @@ fn main() -> Result<()> {
     }
     let models = models.context("--models names the folder holding cavity.stl and core.stl")?;
     let output = output.context("--output names the project to write")?;
-    let recipes = Json::parse(&std::fs::read_to_string(root.join(RECIPES))?)?;
+    let recipes: Value = serde_json::from_slice(&std::fs::read(root.join(RECIPES))?)?;
     let recipe = recipes.get(&nozzle_mm.to_string()).with_context(|| format!("no recipe for the {nozzle_mm} mm nozzle"))?;
     let trim = match z_trim {
         Some(t) if trims(recipe).contains(&t) => t,
         Some(t) => bail!("no +{t} mm Z trim; the recipe offers {:?}", trims(recipe)),
-        None => float(recipe.get("z_trim").and_then(|z| z.get("default_mm"))).context("the recipe has no default Z trim")?,
+        None => float(&recipe["z_trim"]["default_mm"]).context("the recipe has no default Z trim")?,
     };
     let names: Vec<&str> = match only.as_deref() {
         Some(piece) if PIECES.contains(&piece) => vec![piece],
@@ -336,42 +315,41 @@ fn main() -> Result<()> {
     if let Some(saved) = &settings_from {
         let members = faucet::members(saved)?;
         let payload = members.get(SETTINGS_MEMBER).context("the saved project has no settings")?;
-        let preserved = Json::parse(std::str::from_utf8(payload)?)?;
+        let preserved: Value = serde_json::from_slice(payload)?;
         for group in ["process_settings", "filament_settings"] {
-            for (key, expected) in entries(recipe.get(group)) {
+            for (key, expected) in entries(&recipe[group]) {
                 let have = preserved.get(key).with_context(|| format!("the saved project has no {key}"))?;
-                if !equivalent(key, expected.get("value").unwrap_or(&Json::Null), have) {
-                    bail!("the saved project's {key} is {}", have.dumps());
+                if !equivalent(key, &expected["value"], have) {
+                    bail!("the saved project's {key} is {have}");
                 }
             }
         }
         for key in ["printer_settings_id", "print_settings_id", "filament_settings_id", "machine_start_gcode", "curr_bed_type",
                     "nozzle_diameter", "nozzle_volume_type", "filament_volume_map"] {
             let have = preserved.get(key).with_context(|| format!("the saved project has no {key}"))?;
-            if !equivalent(key, settings.get(key).unwrap_or(&Json::Null), have) {
-                bail!("the saved project's {key} is {}", have.dumps());
+            if !equivalent(key, &settings[key], have) {
+                bail!("the saved project's {key} is {have}");
             }
         }
-        let source = vec![("project", text(&saved.file_name().unwrap_or_default().to_string_lossy())),
-                          ("project_sha256", text(&faucet::file_sha(saved)?))];
-        let mut record = map(source.clone());
-        record.set("settings_sha256", text(&sha256_hex(payload)));
-        provenance.set("settings_source", record);
-        let mut supplied = Json::Map(Vec::new());
-        for (key, value) in entries(Some(&preserved)) {
-            let mut row = vec![("value".to_string(), value.clone())];
-            row.extend(source.iter().map(|(k, v)| (k.to_string(), v.clone())));
-            supplied.set(key, Json::Map(row));
+        let source = json!({"project": saved.file_name().unwrap_or_default().to_string_lossy(), "project_sha256": faucet::file_sha(saved)?});
+        let mut record = source.clone();
+        record["settings_sha256"] = json!(sha256_hex(payload));
+        provenance["settings_source"] = record;
+        let mut supplied = Map::new();
+        for (key, value) in entries(&preserved) {
+            let mut row = source.clone();
+            row["value"] = value.clone();
+            supplied.insert(key.clone(), row);
         }
-        provenance.set("supplied_settings", supplied);
+        provenance["supplied_settings"] = Value::Object(supplied);
         settings = preserved;
     }
     let version = slicer_version()?;
     let lane = side(recipe)?;
     let centre = bed_centre(&settings, lane)?;
     let side_map = (lane + 1).to_string();
-    if settings.get("filament_map") != Some(&texts(&[&side_map])) {
-        bail!("the settings map the filament to {}, not the recipe's hotend", settings.get("filament_map").map(Json::dumps).unwrap_or_default());
+    if settings.get("filament_map") != Some(&json!([side_map])) {
+        bail!("the settings map the filament to {}, not the recipe's hotend", settings["filament_map"]);
     }
     let label = label.unwrap_or_else(|| "Funnel mold".into());
     let mut plate = Plate::with_settings(&label, settings, BTreeMap::new(), "homesodamachine/funnel-mold/");
@@ -379,7 +357,7 @@ fn main() -> Result<()> {
     plate.filament_maps = Some(side_map);
     plate.filament_map_mode = "Manual".into();
     plate.filament_volume_maps = if field(recipe, "nozzle_type")? == "High Flow" { "1" } else { "0" }.into();
-    let mut meshes = Json::Map(Vec::new());
+    let mut meshes = Map::new();
     for (i, name) in names.iter().enumerate() {
         let index = i + 1;
         let path = models.join(format!("{name}.stl"));
@@ -395,19 +373,19 @@ fn main() -> Result<()> {
                                   None, Vec::new());
         plate.objects[at].identify_id = 1800 + index;
         plate.objects[at].plate = i;
-        for band in recipe.get("layer_ranges_mm").and_then(|r| r.get(name)).map(Json::list).unwrap_or(&[]) {
-            let (Some(bottom), Some(top)) = (float(band.list().first()), float(band.list().get(1))) else { bail!("a layer range needs a bottom and a top") };
+        for band in recipe["layer_ranges_mm"][*name].as_array().into_iter().flatten() {
+            let (Some(bottom), Some(top)) = (float(&band[0]), float(&band[1])) else { bail!("a layer range needs a bottom and a top") };
             plate.objects[at].ranges.push(Range { min_z: bottom, max_z: top, options: vec![("layer_height".into(), "0.16".into())] });
         }
-        meshes.set(name, text(&faucet::file_sha(&path)?));
+        meshes.insert(name.to_string(), json!(faucet::file_sha(&path)?));
     }
     plate.plates = names.iter().map(|name| format!("{label} {name}")).collect();
     plate.write(&output)?;
-    provenance.set("mesh_sha256", meshes);
-    provenance.set("parts", texts(&names));
-    provenance.set("recipe", recipe.clone());
-    provenance.set("slicer_version", text(&version));
-    std::fs::write(output.with_extension("provenance.json"), provenance.dumps() + "\n")?;
+    provenance["mesh_sha256"] = Value::Object(meshes);
+    provenance["parts"] = json!(names);
+    provenance["recipe"] = recipe.clone();
+    provenance["slicer_version"] = json!(version);
+    std::fs::write(output.with_extension("provenance.json"), serde_json::to_string_pretty(&provenance)? + "\n")?;
     preset_bundle(recipe, &version, &output.parent().unwrap_or(Path::new(".")).join("funnel-mold-presets.bbscfg"))?;
     println!("{}", output.display());
     if do_slice {

@@ -3,9 +3,9 @@
 //! and slices.
 
 use crate::ids::uuid5;
-use crate::json::Json;
-use crate::profile::{Profile, SETTINGS_MEMBER};
+use crate::profile::{settings_bytes, Profile, SETTINGS_MEMBER};
 use anyhow::{bail, Result};
+use serde_json::Value;
 use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::io::Write as _;
@@ -75,7 +75,7 @@ impl Object {
 
 pub struct Plate {
     pub title: String,
-    pub settings: Json,
+    pub settings: Value,
     pub members: BTreeMap<String, Vec<u8>>,
     pub objects: Vec<Object>,
     /// Prefix of every object's name-based identifier, so a project's identities are its own.
@@ -105,7 +105,7 @@ impl Plate {
     }
 
     /// A project of `settings` alone, `members` carried as they are.
-    pub fn with_settings(title: &str, settings: Json, members: BTreeMap<String, Vec<u8>>, id_prefix: &str) -> Plate {
+    pub fn with_settings(title: &str, settings: Value, members: BTreeMap<String, Vec<u8>>, id_prefix: &str) -> Plate {
         Plate {
             title: title.to_string(),
             settings,
@@ -187,11 +187,11 @@ impl Plate {
         let mut config = String::from("<?xml version='1.0' encoding='UTF-8'?>\n<config>");
         let maps = self.filament_maps.clone().unwrap_or_else(|| {
             match self.settings.get("filament_map") {
-                Some(m) => m.list().iter().filter_map(Json::text).collect::<Vec<_>>().join(" "),
+                Some(m) => m.as_array().into_iter().flatten().filter_map(Value::as_str).collect::<Vec<_>>().join(" "),
                 None => "1".into(),
             }
         });
-        let bed = self.settings.get("curr_bed_type").and_then(Json::text).unwrap_or("").to_string();
+        let bed = self.settings["curr_bed_type"].as_str().unwrap_or("").to_string();
         let names = if self.plates.is_empty() { vec![self.title.clone()] } else { self.plates.clone() };
         if let Some(obj) = self.objects.iter().find(|o| o.plate >= names.len()) {
             bail!("{} prints on plate {} of {}", obj.name, obj.plate + 1, names.len());
@@ -289,7 +289,7 @@ impl Plate {
         rels.push_str("</Relationships>");
         ranges.push_str("</objects>");
         let mut members = self.members.clone();
-        members.insert(SETTINGS_MEMBER.to_string(), (self.settings.dumps() + "\n").into_bytes());
+        members.insert(SETTINGS_MEMBER.to_string(), settings_bytes(&self.settings)?);
         members.insert("3D/3dmodel.model".into(), model.into_bytes());
         members.insert("3D/_rels/3dmodel.model.rels".into(), rels.into_bytes());
         members.insert("_rels/.rels".into(), format!("<?xml version='1.0' encoding='UTF-8'?>\n<Relationships xmlns=\"{REL}\"><Relationship Target=\"/3D/3dmodel.model\" Id=\"rel-1\" Type=\"{MODEL_TYPE}\" /></Relationships>").into_bytes());
