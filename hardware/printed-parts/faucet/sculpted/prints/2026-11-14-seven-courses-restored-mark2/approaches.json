@@ -4,7 +4,7 @@
     "observation": {
       "phase": "sloped course",
       "metric": "dry_travel_flat",
-      "line": 123496,
+      "line": 125078,
       "deposited_by": 1901,
       "xyz_mm": [
         66.257,
@@ -33,7 +33,7 @@
         138.945,
         9.253
       ],
-      "prior_line": 123490,
+      "prior_line": 125072,
       "prior_feature": "Support"
     }
   },
@@ -42,7 +42,7 @@
     "observation": {
       "phase": "sloped course",
       "metric": "dry_travel_cone",
-      "line": 126492,
+      "line": 128041,
       "deposited_by": 1901,
       "xyz_mm": [
         82.306,
@@ -71,7 +71,7 @@
         119.74,
         14.647
       ],
-      "prior_line": 126438,
+      "prior_line": 127987,
       "prior_feature": "Support"
     }
   },
@@ -80,28 +80,28 @@
     "observation": {
       "phase": "tip level paths below shoulder",
       "metric": "dry_travel_cone",
-      "line": 507619,
+      "line": 512242,
       "deposited_by": 1902,
       "xyz_mm": [
         178.448,
         230.047,
-        19.725
+        19.72524
       ],
-      "model_gap_mm": -0.13875
+      "model_gap_mm": -0.13851
     },
     "approach_move_from": [
       178.448,
       230.047,
-      21.03
+      20.28
     ],
     "approach_move_to": [
       178.448,
       230.047,
-      19.725
+      19.72524
     ],
     "landing_sample": true,
     "closest_prior_nominal_stock": {
-      "gap_mm": 0.08500000000000085,
+      "gap_mm": 0.08523999999999887,
       "nominal_bead_height_mm": 0.1402429844924055,
       "distance_to_earlier_centerline_mm": 0.06508026222708595,
       "earlier_centerline_xyz_mm": [
@@ -109,7 +109,7 @@
         230.00326219738386,
         19.64
       ],
-      "prior_line": 502667,
+      "prior_line": 507072,
       "prior_feature": "Outer wall"
     }
   },
@@ -118,28 +118,28 @@
     "observation": {
       "phase": "tip level paths below shoulder",
       "metric": "dry_travel_flat",
-      "line": 512564,
+      "line": 517405,
       "deposited_by": 1902,
       "xyz_mm": [
         177.833,
         229.387,
-        19.965
+        19.96545
       ],
-      "model_gap_mm": -0.155
+      "model_gap_mm": -0.15455
     },
     "approach_move_from": [
       177.833,
       229.387,
-      21.27
+      20.52
     ],
     "approach_move_to": [
       177.833,
       229.387,
-      19.965
+      19.96545
     ],
     "landing_sample": true,
     "closest_prior_nominal_stock": {
-      "gap_mm": 0.08500000000000085,
+      "gap_mm": 0.08545000000000158,
       "nominal_bead_height_mm": 0.1434958858974497,
       "distance_to_earlier_centerline_mm": 0.06029925372672763,
       "earlier_centerline_xyz_mm": [
@@ -147,7 +147,7 @@
         229.381,
         19.88
       ],
-      "prior_line": 507727,
+      "prior_line": 512356,
       "prior_feature": "Outer wall"
     }
   },
@@ -156,7 +156,7 @@
     "observation": {
       "phase": "tip shoulder entry",
       "metric": "dry_travel_flat",
-      "line": 619557,
+      "line": 627601,
       "deposited_by": 1902,
       "xyz_mm": [
         184.469,
@@ -168,7 +168,7 @@
     "approach_move_from": [
       184.469,
       213.428,
-      29.028
+      26.466
     ],
     "approach_move_to": [
       184.469,
@@ -185,7 +185,7 @@
         213.443,
         25.64
       ],
-      "prior_line": 602425,
+      "prior_line": 610704,
       "prior_feature": "Sparse infill"
     }
   },
@@ -194,7 +194,7 @@
     "observation": {
       "phase": "tip shoulder entry",
       "metric": "dry_travel_cone",
-      "line": 627022,
+      "line": 634902,
       "deposited_by": 1902,
       "xyz_mm": [
         184.431,
@@ -206,7 +206,7 @@
     "approach_move_from": [
       184.431,
       213.656,
-      29.667
+      26.935
     ],
     "approach_move_to": [
       184.431,
@@ -223,7 +223,7 @@
         213.584,
         26.271
       ],
-      "prior_line": 626214,
+      "prior_line": 634081,
       "prior_feature": "Gap infill"
     }
   },
@@ -232,7 +232,7 @@
     "observation": {
       "phase": "tip yellow shoulder",
       "metric": "dry_travel_cone",
-      "line": 640030,
+      "line": 647656,
       "deposited_by": 1902,
       "xyz_mm": [
         178.094,
@@ -244,7 +244,7 @@
     "approach_move_from": [
       178.094,
       214.643,
-      30.731
+      27.701
     ],
     "approach_move_to": [
       178.094,
@@ -261,7 +261,7 @@
         214.64387568364313,
         26.948907684417776
       ],
-      "prior_line": 637204,
+      "prior_line": 644882,
       "prior_feature": "Internal solid infill"
     }
   },
@@ -270,7 +270,7 @@
     "observation": {
       "phase": "tip yellow shoulder",
       "metric": "dry_travel_flat",
-      "line": 643522,
+      "line": 651140,
       "deposited_by": 1902,
       "xyz_mm": [
         182.335,
@@ -282,7 +282,7 @@
     "approach_move_from": [
       182.335,
       229.035,
-      31.157
+      23.409
     ],
     "approach_move_to": [
       182.335,
@@ -299,7 +299,7 @@
         228.9971946902655,
         22.150106312684365
       ],
-      "prior_line": 640864,
+      "prior_line": 648530,
       "prior_feature": "Sparse infill"
     }
   },
@@ -308,7 +308,7 @@
     "observation": {
       "phase": "transfers between course groups",
       "metric": "dry_travel_flat",
-      "line": 646437,
+      "line": 653997,
       "deposited_by": 1902,
       "xyz_mm": [
         188.366,
@@ -337,7 +337,7 @@
         235.90425214060238,
         20.062383599031634
       ],
-      "prior_line": 646110,
+      "prior_line": 653650,
       "prior_feature": "Outer wall"
     }
   },
@@ -346,7 +346,7 @@
     "observation": {
       "phase": "transfers between course groups",
       "metric": "dry_travel_cone",
-      "line": 646437,
+      "line": 653997,
       "deposited_by": 1902,
       "xyz_mm": [
         188.366,
@@ -375,7 +375,7 @@
         235.90425214060238,
         20.062383599031634
       ],
-      "prior_line": 646110,
+      "prior_line": 653650,
       "prior_feature": "Outer wall"
     }
   },
@@ -384,7 +384,7 @@
     "observation": {
       "phase": "tip level paths above shoulder",
       "metric": "dry_travel_flat",
-      "line": 647951,
+      "line": 655646,
       "deposited_by": 1902,
       "xyz_mm": [
         186.566,
@@ -396,7 +396,7 @@
     "approach_move_from": [
       186.566,
       236.715,
-      31.449
+      23.416
     ],
     "approach_move_to": [
       186.566,
@@ -413,7 +413,7 @@
         236.639,
         21.8
       ],
-      "prior_line": 647771,
+      "prior_line": 655459,
       "prior_feature": "Outer wall"
     }
   },
@@ -422,7 +422,7 @@
     "observation": {
       "phase": "tip level paths above shoulder",
       "metric": "dry_travel_cone",
-      "line": 665438,
+      "line": 674575,
       "deposited_by": 1902,
       "xyz_mm": [
         186.647,
@@ -434,7 +434,7 @@
     "approach_move_from": [
       186.647,
       238.537,
-      31.449
+      28.92
     ],
     "approach_move_to": [
       186.647,
@@ -451,7 +451,7 @@
         238.479,
         28.28
       ],
-      "prior_line": 664589,
+      "prior_line": 673667,
       "prior_feature": "Outer wall"
     }
   },
@@ -460,7 +460,7 @@
     "observation": {
       "phase": "inclined-base conventional handoff",
       "metric": "dry_travel_cone",
-      "line": 810906,
+      "line": 819191,
       "deposited_by": 1901,
       "xyz_mm": [
         85.498,
@@ -489,7 +489,7 @@
         180.23,
         41.24
       ],
-      "prior_line": 807895,
+      "prior_line": 816050,
       "prior_feature": "Outer wall"
     }
   },
@@ -498,7 +498,7 @@
     "observation": {
       "phase": "inclined-base conventional handoff",
       "metric": "dry_travel_flat",
-      "line": 1612399,
+      "line": 1620178,
       "deposited_by": 1901,
       "xyz_mm": [
         85.773,
@@ -527,7 +527,7 @@
         199.965,
         129.08
       ],
-      "prior_line": 1611462,
+      "prior_line": 1619246,
       "prior_feature": "Outer wall"
     }
   }

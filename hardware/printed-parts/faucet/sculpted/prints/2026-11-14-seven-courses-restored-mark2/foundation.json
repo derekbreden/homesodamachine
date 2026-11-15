@@ -1,15 +1,16 @@
 {
-  "gcode_sha256": "a6151509cc641fb218b49c475d0aa14d50ec0e56ca7a66ec12188a49d2da3e0c",
+  "gcode_sha256": "8d65c44fdcc9cc2d9921c478c03ebf4264bbc0ecdce125df9a61794c54b443fc",
   "input_archive": {
-    "path": ".cache/runs/sculpted-seven-courses-20261114/native-slice/native.gcode.3mf",
-    "sha256": "573807424c235014b065b79213d5e81a62f302066557731223f630b0d20e25e6"
+    "path": ".cache/runs/sculpted-seven-courses-cooled-20261114/native-slice-x/native-x.gcode.3mf",
+    "sha256": "2643e8e9f9667cbf02f488f55fff4cf1895a9511a11aa369b438d8cb8ec80c62"
   },
   "laid": {
     "fill_lines": 1996,
     "narrow_rings": 148,
-    "ring_pieces": 140,
+    "ring_pieces": 112,
     "scaffold_layers": 61,
     "scaffold_top_mm": 14.6,
+    "show_laps": 7,
     "sloped_courses": 7
   },
   "limits": {
@@ -22,11 +23,11 @@
   },
   "plate": {
     "clipped_layers": 187,
-    "dropped_mm": 104353.311,
+    "dropped_mm": 104353.194,
     "dropped_support_mm": 689.459,
-    "feathered_mm": 2996.924,
+    "feathered_mm": 2997.042,
     "highest_lift_mm": 16.837,
-    "kept_mm": 168543.411,
+    "kept_mm": 168543.757,
     "least_base_head_clearance_mm": 2.19,
     "least_other_head_clearance_mm": null,
     "lifted_travels": 1043,
@@ -34,14 +35,14 @@
   },
   "preamble": {
     "extrusion_mm_by_feature": {
-      "Bottom surface": 3894.0,
+      "Bottom surface": 3891.0,
       "Internal solid infill": 20561.2,
-      "Outer wall": 2818.9,
+      "Outer wall": 2788.3,
       "Support": 55045.3,
       "Support interface": 14358.3
     },
-    "filament_mm": 4821.72,
-    "seconds": 3725.2
+    "filament_mm": 4821.75,
+    "seconds": 3709.7
   },
   "purpose": "Binds the Sculpted base's sloped foot to the courses this stage laid and what it kept of the plate.",
   "roof_lip_mm": 2.0,
@@ -50,6 +51,19 @@
     140.34437517845532,
     7.635167989157424
   ],
+  "show_lap": {
+    "descends_on_cad_x": "+x",
+    "direction": "clockwise across the face's slope frame, anticlockwise over the plate as the level walls run",
+    "laid": "first in the bridge course over the roof's air, so its fill starts on it; last in the others",
+    "most_rise_at_face_mm": [
+      29.62,
+      0.34
+    ],
+    "most_rise_mm": 0.0456,
+    "rise_weighted_mean_cad_x_mm": 23.1,
+    "starts_at": "the rim's lowest point on the slope, the rear",
+    "tip_radius_mm": 0.34
+  },
   "stack_normal_mm": {
     "air_asked": 0.24,
     "course": 0.24,

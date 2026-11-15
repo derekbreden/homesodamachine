@@ -1,0 +1,242 @@
+{
+  "purpose": "Verify where the emitted wall courses leave their sloped supports, the shallow overhang speeds on the base and tip, and the archived Mark2 recipe elsewhere.",
+  "archive_sha256": "9f9233d8d5fc5080fdf6599d1f8a96b04080d68cfde8c6cb826f4f00ab4b910f",
+  "part_gcode_sha256": "4ed406e89d30fd71b9f0f6ca09e9b06fe737998b8da12bb81a517629f46d00f3",
+  "ordinary_wall_recipe": {
+    "reference_task_id": "1440074146",
+    "reference_editable_revision": "c8667107f964589be7dc69f8fb924f69a12729b3",
+    "outer_wall_speed_mm_s": 200.0,
+    "shell_object_settings": {
+      "faucet-shell-base": {
+        "seam_position": "back",
+        "seam_slope_type": "external",
+        "seam_slope_min_length": "60",
+        "seam_slope_start_height": "10%",
+        "seam_gap": "15%"
+      },
+      "faucet-shell-tip": {
+        "seam_position": "back",
+        "seam_slope_type": "external",
+        "seam_slope_min_length": "60",
+        "seam_slope_start_height": "10%",
+        "seam_gap": "15%"
+      }
+    },
+    "base_rear_outer_wall_sample": {
+      "layer": 897,
+      "print_z": 46.04,
+      "point_plate": [
+        85.497,
+        180.361,
+        45.824
+      ],
+      "arriving_mm_s": 200.0,
+      "leaving_mm_s": 200.0,
+      "arriving_line": 870548,
+      "labelled_overhang": false,
+      "loop_min_mm_s": 200.0,
+      "loop_max_mm_s": 200.0
+    }
+  },
+  "shallow_overhang_speeds": {
+    "how": "The filament's overhang speeds do not override the process's, which hold the same speeds; the base and the tip set the slicer's two shallowest overhang points to their wall's own speed in their object settings. The tip's end, from the lowest layer the tip-end cooling stage cools to its top, comes from a slice of the stopped plate's project, where the filament's overhang speeds apply to every object.",
+    "tip_end_splice": "The tip's end lays the same beads, supports included, and starts every path where this plate's own slice starts it; its feeds, how the slicer splits its moves and, at the heights listed, which of its islands comes first differ. The stopped plate's own slice lays the same moves there.",
+    "tip_end_islands_in_the_other_order_z_mm": [
+      118.28,
+      118.52,
+      118.76,
+      119.0,
+      119.72,
+      119.96,
+      120.2,
+      120.44,
+      120.92,
+      121.16,
+      121.4,
+      121.64,
+      124.52
+    ],
+    "slicer_source": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/GCode.cpp#L6677-L6709",
+    "filament_overrides_process_overhang_speed": [
+      "0",
+      "0",
+      "0"
+    ],
+    "process_overhang_speeds_mm_s": {
+      "overhang_1_4_speed": "15.0",
+      "overhang_2_4_speed": "15.0",
+      "overhang_3_4_speed": "15.0",
+      "overhang_4_4_speed": "10.0",
+      "overhang_totally_speed": "10.0",
+      "bridge_speed": "15"
+    },
+    "object_settings": {
+      "faucet-shell-base": {
+        "overhang_1_4_speed": "0,0,0,0,0",
+        "overhang_2_4_speed": "0,0,0,0,0"
+      },
+      "faucet-shell-tip": {
+        "overhang_1_4_speed": "0,0,0,0,0",
+        "overhang_2_4_speed": "0,0,0,0,0"
+      },
+      "faucet-display-cover": {},
+      "above-counter-plate": {},
+      "lever-replica": {}
+    },
+    "beads_against_the_stopped_slice": "hsm-gcode compare reads every feature's beads on the other's and the plastic unchanged, apart from tree-support differences a plain re-slice of the stopped project also shows and the mounting plate's counterbore scarf starts sliding along their loops",
+    "feeds_against_the_stopped_slice": {
+      "cover_mounting_plate_lever": "no commanded feed or part fan changes",
+      "base_sped_up_mm": {
+        "Outer wall": 49912.5,
+        "Inner wall": 2374.0,
+        "Floating vertical shell": 330.5,
+        "Internal solid infill": 23.5
+      },
+      "tip_sped_up_mm": {
+        "Outer wall": 34329.5,
+        "Inner wall": 256.5
+      },
+      "under_15_mm_s_changed_mm": {
+        "base": 226.0,
+        "tip": 2.5,
+        "where": "the ends of slow stretches next to stretches that sped up, as the slicer smooths between them"
+      }
+    },
+    "fan_off_outside_wall_stopped_slice": {
+      "base rear oval": {
+        "outside_wall_m": 7.87,
+        "fan_off_m": 7.87,
+        "fan_off_under_40_mm_s_m": 2.73,
+        "fan_off_40_to_150_mm_s_m": 1.86,
+        "fan_off_over_150_mm_s_m": 3.29
+      },
+      "base bottom band": {
+        "outside_wall_m": 24.32,
+        "fan_off_m": 24.22,
+        "fan_off_under_40_mm_s_m": 4.22,
+        "fan_off_40_to_150_mm_s_m": 2.99,
+        "fan_off_over_150_mm_s_m": 17.0
+      },
+      "base top band": {
+        "outside_wall_m": 22.84,
+        "fan_off_m": 21.84,
+        "fan_off_under_40_mm_s_m": 6.43,
+        "fan_off_40_to_150_mm_s_m": 2.84,
+        "fan_off_over_150_mm_s_m": 12.56
+      },
+      "base all": {
+        "outside_wall_m": 137.42,
+        "fan_off_m": 136.15,
+        "fan_off_under_40_mm_s_m": 15.34,
+        "fan_off_40_to_150_mm_s_m": 16.89,
+        "fan_off_over_150_mm_s_m": 103.93
+      },
+      "tip 60-90 mm": {
+        "outside_wall_m": 15.14,
+        "fan_off_m": 15.14,
+        "fan_off_under_40_mm_s_m": 2.96,
+        "fan_off_40_to_150_mm_s_m": 1.4,
+        "fan_off_over_150_mm_s_m": 10.79
+      },
+      "tip all": {
+        "outside_wall_m": 49.51,
+        "fan_off_m": 48.1,
+        "fan_off_under_40_mm_s_m": 7.2,
+        "fan_off_40_to_150_mm_s_m": 5.34,
+        "fan_off_over_150_mm_s_m": 35.56
+      }
+    },
+    "fan_off_outside_wall_this_slice": {
+      "base rear oval": {
+        "outside_wall_m": 7.87,
+        "fan_off_m": 7.87,
+        "fan_off_under_40_mm_s_m": 0.0,
+        "fan_off_40_to_150_mm_s_m": 0.0,
+        "fan_off_over_150_mm_s_m": 7.87
+      },
+      "base bottom band": {
+        "outside_wall_m": 24.32,
+        "fan_off_m": 24.21,
+        "fan_off_under_40_mm_s_m": 0.05,
+        "fan_off_40_to_150_mm_s_m": 0.36,
+        "fan_off_over_150_mm_s_m": 23.81
+      },
+      "base top band": {
+        "outside_wall_m": 22.84,
+        "fan_off_m": 21.84,
+        "fan_off_under_40_mm_s_m": 0.15,
+        "fan_off_40_to_150_mm_s_m": 2.85,
+        "fan_off_over_150_mm_s_m": 18.83
+      },
+      "base all": {
+        "outside_wall_m": 137.26,
+        "fan_off_m": 135.99,
+        "fan_off_under_40_mm_s_m": 0.21,
+        "fan_off_40_to_150_mm_s_m": 3.24,
+        "fan_off_over_150_mm_s_m": 132.53
+      },
+      "tip 60-90 mm": {
+        "outside_wall_m": 15.14,
+        "fan_off_m": 15.14,
+        "fan_off_under_40_mm_s_m": 0.0,
+        "fan_off_40_to_150_mm_s_m": 0.31,
+        "fan_off_over_150_mm_s_m": 14.84
+      },
+      "tip all": {
+        "outside_wall_m": 49.5,
+        "fan_off_m": 48.09,
+        "fan_off_under_40_mm_s_m": 1.23,
+        "fan_off_40_to_150_mm_s_m": 2.38,
+        "fan_off_over_150_mm_s_m": 44.48
+      }
+    },
+    "region_method": "A wall move is on the outside beyond three quarters of its layer's widest wall reach; the rear oval is the base's rear quarter between plate heights the reader names."
+  },
+  "base": {
+    "part_courses": 7,
+    "plane_incline_degrees": 15,
+    "normal_part_course_mm": 0.24,
+    "support_roof_courses": 3,
+    "upper_course_top_over_mount_plane_mm": 1.68,
+    "show_lap": {
+      "descends_on_cad_x": "+x",
+      "direction": "clockwise across the face's slope frame, anticlockwise over the plate as the level walls run",
+      "laid": "first in the bridge course over the roof's air, so its fill starts on it; last in the others",
+      "most_rise_at_face_mm": [
+        29.62,
+        0.34
+      ],
+      "most_rise_mm": 0.0456,
+      "rise_weighted_mean_cad_x_mm": 23.1,
+      "starts_at": "the rim's lowest point on the slope, the rear",
+      "tip_radius_mm": 0.34
+    }
+  },
+  "tip": {
+    "visible_part_courses": 7,
+    "plane_incline_degrees": 20,
+    "interface_normal_slice_heights_mm": [
+      23.8,
+      24.0,
+      24.2,
+      24.4,
+      24.6
+    ],
+    "visible_shell_normal_slice_heights_mm": [
+      24.8,
+      25.0,
+      25.2,
+      25.4,
+      25.6,
+      25.8,
+      26.0
+    ],
+    "visible_shell_incline_measured_range_degrees": [
+      19.99937793513146,
+      20.000664319082563
+    ],
+    "max_visible_shell_deposition_plane_residual_mm": 0.0006798062532062943,
+    "first_unsupported_wall_interface_median_gap_mm": 0.3419301931402261
+  },
+  "physical_verification": "The print tests the sloped-to-level joins, the show lap's rear joint and descending side, support release, the tip end's surfaces and wall finish."
+}

@@ -1,0 +1,86 @@
+{
+  "purpose": "Records the bridge-foundation cooling stage on the spliced slice.",
+  "native.gcode.3mf": {
+    "added_commanded_motion_seconds": 2219.736159059963,
+    "archive_sha256": "c47cfdfa2dd2eb770361a128997997a1f947c0c8d55aa9a9612c47e2304e5e30",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "d92b984539027f3ec4fa35a3d33198dbd0fb2233a1b6115cf5d109a88e0e2d97",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 2219.736159059963,
+        "changed": true,
+        "input_gcode_sha256": "74544d1eb876cdc7ce72ba7f41caeabfb5c5179f822ec59b56038e91a262114a",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 12669,
+        "ordinary_model_moves": 1353449,
+        "output_gcode_sha256": "a3a8624a965f3e4474f3e519b168f01da0853f594a882dd1743f2a6a55c75245",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            1215.0,
+            1107.0159788867595,
+            0.0
+          ],
+          "Floating vertical shell": [
+            5251.0,
+            3272.318806423315,
+            200.3002632614741
+          ],
+          "Gap infill": [
+            340.0,
+            130.4017390991127,
+            8.053548790054744
+          ],
+          "Inner wall": [
+            12307.0,
+            7467.902156506325,
+            433.54038115693936
+          ],
+          "Internal solid infill": [
+            7848.0,
+            22624.03264100113,
+            1394.2752621312477
+          ],
+          "Outer wall": [
+            11249.0,
+            5175.571531920862,
+            121.97313401317564
+          ],
+          "Overhang wall": [
+            3.0,
+            0.10683115402698201,
+            0.0
+          ],
+          "Sparse infill": [
+            1809.0,
+            881.8390209416054,
+            54.1038159694636
+          ],
+          "Top surface": [
+            56.0,
+            122.07562414341194,
+            7.489753737547464
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 40078,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 33053
+      }
+    ]
+  }
+}
