@@ -31,7 +31,11 @@ fn main() -> Result<()> {
     let relaxed = display::relaxed_by(&neck, &seated, cover::BEZEL_N_BOTTOM, cover::wing_inward)?;
     ensure!(relaxed.components().len() == 1, "the display cover is not one solid");
     println!("{}", printed::write(&out, PRINTED, Body { name: PRINTED, color: black, solid: &relaxed })?);
-    println!("{}", write_shown(&out, SEATED, &[Body { name: SEATED, color: black, solid: &seated }])?);
+    // The seated cover is shown simplified to the rule's tolerance, as a printed file is: the
+    // lips' union leaves slivers narrower than it on the skin's planar foot, which the payload's
+    // single-precision vertices would fold shut.
+    let shown = seated.simplified()?;
+    println!("{}", write_shown(&out, SEATED, &[Body { name: SEATED, color: black, solid: &shown }])?);
     Ok(())
 }
 
