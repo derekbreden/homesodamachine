@@ -10125,7 +10125,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde"
       ]
     },
     "pur-4cac3e81d16a4257b9c6b725ba967b74": {
@@ -16461,7 +16462,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde"
       ]
     },
     "amazon:114-2679873-7632253": {
@@ -34979,6 +34981,19 @@
       ],
       "verified_at": "2026-11-15",
       "note": "Order confirmation itemizes two H2C Engineering Plates: USD 109.98 before USD 22.00 sale discount, USD 87.98 subtotal, USD 11.56 credit applied, USD 5.54 tax and USD 81.96 net payment. Signed-in order list shows placed November 14, 2026 at 20:58, Processing. Separate completed charge and merchant event date are not established; credit origin is not established."
+    },
+    "src-088b52f62b9f4d5d8ddaf34a7d5f5bde": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "112-7863139-0903423",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "proves": [],
+      "verified_at": "2026-11-15",
+      "note": "Shipment notification for the existing single-item H2C PEI build-plate order confirms shipped. Relative arrival estimate is not an actual delivery date. Shipment total corroborates the order value but does not prove completed payment."
     }
   },
   "coverage": [
@@ -37662,11 +37677,13 @@
         "evt-97809881439b4885a7e33a8eb87b4b23"
       ],
       "source_ids": [
-        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f",
+        "src-088b52f62b9f4d5d8ddaf34a7d5f5bde"
       ],
-      "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed. Order-scoped transactions show no transactions yet.",
+      "missing_fact": "Order is shipped. Actual delivery, completed merchant payment and final tax remain unconfirmed.",
       "sources_checked": [
-        "Named Amazon Order Details and order-scoped merchant transactions"
+        "Named Amazon Order Details and order-scoped merchant transactions",
+        "Named Amazon shipment confirmation"
       ]
     },
     {
