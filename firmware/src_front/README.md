@@ -196,9 +196,10 @@ dark until this board runs.
 is activity for both, so they sleep and wake together; this panel runs no timer of its
 own and sleeps when it is told to. A press that already sent a command is presence the
 main board can see, and a press that stayed silent — a wake tap, a tap on nothing — sends
-`MSG_TOUCH` so it counts too. Waking is immediate; a live hold, an operation lock and an
-open ask still hold the dark off here, which is this panel's own business. A pair left lit is a link that
-stopped talking, and is meant to read as exactly that.
+`MSG_TOUCH` so it counts too. Waking is immediate; a live hold, an operation lock and one of
+this glass's own asks still hold the dark off here, which is this panel's own business, and a
+phone's request does not. A pair left lit is a link that stopped talking, and is meant to read
+as exactly that.
 
 The first touch on a dark screen turns it back on, on whatever the dark left up (see the
 ladder above). The difference from the faucet display is the backlight itself:
@@ -548,24 +549,30 @@ refill readings. The drawing contains no text.
 ### Trusted phones
 
 Any phone reads the machine; changing it takes a phone the faucet trusts, and a tap on either
-glass trusts one. The faucet runs each ask and the main board carries it here as
-`MSG_TRUST_SHOW { askId, reason, channel, kind }`. The ask covers the glass: **Trust this
-iPhone?** (or iPad), what the phone wants and what trusting it allows, in
-[`trust_text.h`](../lib/proto_link/trust_text.h)'s words, the same as the faucet's, and
-**Don't Trust** beside **Trust**. Either sends `MSG_TRUST_ANSWER { askId, trusted }` and takes
-the ask down at once. `MSG_TRUST_CLOSE { askId }` takes it down when it was answered at the
-faucet, timed out or the phone left, and an ask still up after 75 s goes down on its own. A
-new ask replaces the one up.
+glass trusts one. The faucet runs each request and the main board carries it here as
+`MSG_TRUST_SHOW { askId, reason, channel, kind }`. A request wakes a dark glass and puts
+**Phone request** in the flavor rail, in a slot kept for it between the flavors and Settings, so
+no other target moves. It leaves the rail while an operation lock or one of this glass's own
+asks is up and comes back after them while it stands, and it is disabled during a live hold or
+a running prime.
 
-An ask goes up on the terms `MSG_UI_SHOW` does: never over a lock or a live hold on this glass,
-where the faucet's own ask still stands, and a dark glass wakes for it. While up it holds the
-dark off, and a lock coming up takes it down.
+A tap opens the request's own page beside the portrait: the title and body
+[`trust_text.h`](../lib/proto_link/trust_text.h) gives it, with **Don't Trust** beside
+**Trust**. Either sends `MSG_TRUST_ANSWER { askId, trusted }` and closes the request.
+`MSG_TRUST_CLOSE { askId }` closes it when it was answered at the faucet, timed out or the phone
+left, and a request still standing here closes on its own in [`main.cpp`](main.cpp)'s
+`askService()`. The page then reads **No request waiting**. A new request replaces the one up,
+and a repeat of it changes nothing.
+
+The rail, the tabs and Done stay available while a request stands, and a request never moves
+the glass to another page. It does not hold the dark off here. This glass's own asks do:
+**Forget all trusted phones?**, **No water**, **Skip this step?** and **Move the machine?**.
 
 **Forget trusted phones** is at the foot of System status's right-hand column. It asks
 **Forget all trusted phones?** first, and **Forget** sends `MSG_TRUST_FORGET`. The faucet's
-`MSG_RESP_TRUST_FORGET { count }` shows above the button for six seconds: *Forgot 2 trusted
-phones.*, *Forgot 1 trusted phone.* or *No phones were trusted.* **Move the machine** stands
-above it, under the readings.
+`MSG_RESP_TRUST_FORGET { count }` shows above the button for [`main.cpp`](main.cpp)'s
+`FORGOT_MS`: *Forgot 2 trusted phones.*, *Forgot 1 trusted phone.* or *No phones were
+trusted.* **Move the machine** stands above it, under the readings.
 
 ## Integration seams (not implemented)
 
