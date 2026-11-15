@@ -128,11 +128,10 @@ uses the archived level wall and rear scarf recipe above each foundation.
 
 `sculpted-plate OUT_DIR` prepares that plate from the checkout: its meshes, the standing
 [finish selection](finish-selection.json) and the plate's own selections in
-[`sculpted-plate.json`](../../../../tools/hsm/print-prep/sculpted-plate.json). Its tip and cover
-carry the flat dispense-face seam that `sculpted-dispense-face` cuts and adds on the standing
-exports. The base is filled under its mounting face for the slice and laid on its sloped
-foundation from its own mesh; the tip's mating courses come from a warped donor tip, sliced
-alone and laid back onto the real shoulder. The plate's slice runs the standing slice path's
+[`sculpted-plate.json`](../../../../tools/hsm/print-prep/sculpted-plate.json). The base is filled
+under its mounting face for the slice and laid on its sloped foundation from its own mesh; the
+tip's mating courses come from a warped donor tip, sliced alone and laid back onto the real
+shoulder. The plate's slice runs the standing slice path's
 bridge-foundation and tip-end cooling stages. Its sequence moves between course groups as the
 slicer's layer changes do, and its layer, progress and time-left lines come from the
 acceleration planner that `hsm-gcode`'s playback uses. The `sculpted-trial` stage commands lay
@@ -144,7 +143,7 @@ install them again:
 
 ```sh
 hsm-run --install-tools "$PWD" tools/hsm/target/release/sculpted-plate tools/hsm/target/release/sculpted-trial \
-  tools/hsm/target/release/sculpted-faucet-print-project tools/hsm/target/release/sculpted-dispense-face
+  tools/hsm/target/release/sculpted-faucet-print-project
 ```
 
 `sculpted-plate` runs from inside the checkout, through `tools/run` for its slices.
