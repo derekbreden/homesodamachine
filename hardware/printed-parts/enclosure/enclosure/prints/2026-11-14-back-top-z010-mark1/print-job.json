@@ -3,7 +3,7 @@
   "piece": "enclosure-back-top",
   "printer": "Mark1",
   "connection_key": "H2C",
-  "status": "started",
+  "status": "failed_adhesion",
   "printer_task_id": "1444577221",
   "source_commit": "1558adbfd3e2149debd8c78761b12f1e67920adc",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
@@ -49,5 +49,6 @@
   "protected_support_crossings": 0,
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
-  "startup": "startup-status.json"
+  "startup": "startup-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
