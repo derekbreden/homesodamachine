@@ -9,7 +9,7 @@
 //! road's plastic among its pieces by its own rule.
 
 use crate::gcode::words;
-use anyhow::{Context, Result, bail, ensure};
+use anyhow::{Context, Result, ensure};
 use serde_json::Value;
 use std::rc::Rc;
 
@@ -229,97 +229,6 @@ fn number(v: &Value, key: &str) -> Result<f64> {
     v[key].as_f64().with_context(|| format!("{key} must be a number"))
 }
 
-fn smoothstep(t: f64) -> f64 {
-    t * t * (3.0 - 2.0 * t)
-}
-
-/// The Sculpted base: sliced with its mounting face level, its courses follow that face through
-/// the foot and lower shaft, then ease to the plate's level layers inside the straight shaft,
-/// keeping each road's position across the shaft.
-pub struct ShaftEase {
-    pub sin: f64,
-    pub cos: f64,
-    pub tangent: f64,
-    pub end_derivative: f64,
-    pub donor: [f64; 3],
-    pub seat: [f64; 3],
-    pub fade: [f64; 2],
-    pub pivot_y: f64,
-    pub phase: f64,
-}
-
-impl ShaftEase {
-    /// The field the shaft trial recorded in its transition receipt, at the base's incline.
-    pub fn from_receipt(receipt: &Value, incline_degrees: f64) -> Result<Self> {
-        let rotation = incline_degrees.to_radians();
-        let (sin, cos) = (rotation.sin(), rotation.cos());
-        let seat = triple(receipt, "physical_seat_origin_mm")?;
-        let fade = pair(receipt, "donor_normal_fade_extent_mm")?;
-        let pivot_y = number(receipt, "cad_shaft_pivot_y_mm")?;
-        let join_z = number(receipt, "physical_join_z_mm")?;
-        ensure!(fade[0] < fade[1], "the fade must start below its end");
-        Ok(Self {
-            sin, cos, tangent: sin / cos, end_derivative: 1.0 / cos - 1.0,
-            donor: triple(receipt, "early_donor_origin_mm")?, seat, fade, pivot_y,
-            phase: (join_z - seat[2] + sin * pivot_y) / cos - fade[1],
-        })
-    }
-
-    /// The height along the face's normal a course sliced at `height` is laid at, across the
-    /// shaft at `cad_y`, and its rate with slicing height.
-    pub fn height_and_scale(&self, cad_y: f64, height: f64) -> (f64, f64) {
-        let [start, end] = self.fade;
-        if height <= start {
-            return (height, 1.0);
-        }
-        let target_offset = self.tangent * (cad_y - self.pivot_y) + self.phase;
-        if height >= end {
-            return (end + target_offset + (height - end) / self.cos, 1.0 / self.cos);
-        }
-        let span = end - start;
-        let t = (height - start) / span;
-        let blend = smoothstep(t);
-        let start_to_end_pitch = self.end_derivative * span * t * t * (t - 1.0);
-        let normal = height + blend * target_offset + start_to_end_pitch;
-        let derivative = 1.0 + (6.0 * t * (1.0 - t) / span) * target_offset + self.end_derivative * t * (3.0 * t - 2.0);
-        (normal, derivative)
-    }
-
-    /// A donor point relative to the donor origin.
-    pub fn local(&self, p: [f64; 3]) -> [f64; 3] {
-        [0, 1, 2].map(|i| p[i] - self.donor[i])
-    }
-}
-
-impl CourseField for ShaftEase {
-    fn place(&self, p: [f64; 3]) -> [f64; 3] {
-        let [x, y, u] = self.local(p);
-        let n = self.height_and_scale(y, u).0;
-        let [a, b, c] = self.seat;
-        [a + x, b + self.cos * y + self.sin * n, c - self.sin * y + self.cos * n]
-    }
-
-    /// Each course stays a plane, so a straight run stays whole and an arc keeps its chords.
-    fn points(&self, m: &Move) -> Vec<[f64; 3]> {
-        let mut points = vec![m.start];
-        points.extend(arc_points(m));
-        points
-    }
-
-    /// The whole move's plastic, scaled by the field's rate of lift at the move's midpoint once
-    /// the move rises past the start of the fade, shared evenly across an arc's chords.
-    fn extrusion(&self, m: &Move, points: &[[f64; 3]]) -> Vec<f64> {
-        let mut e = m.e.unwrap_or(0.0);
-        if m.deposition() && e != 0.0 && m.start[2].max(m.end[2]) - self.donor[2] > self.fade[0] {
-            let y = (m.start[1] + m.end[1]) * 0.5 - self.donor[1];
-            let u = (m.start[2] + m.end[2]) * 0.5 - self.donor[2];
-            e *= self.height_and_scale(y, u).1;
-        }
-        let n = points.len() - 1;
-        vec![e / n as f64; n]
-    }
-}
-
 /// The Sculpted tip: sliced with its mating shoulder level, its courses rise from the bed onto
 /// the shoulder's incline, hold it through the shoulder, and ease back to level below the nose,
 /// keeping each road's plan position on the plate.
@@ -468,14 +377,4 @@ impl CourseField for ShoulderHold {
             })
             .collect()
     }
-}
-
-/// The field a receipt describes: the base's shaft ease or the tip's shoulder hold.
-pub fn field_from_receipt(kind: &str, receipt: &Value, incline_degrees: Option<f64>, displacement: [f64; 3], piece: f64)
-    -> Result<Box<dyn CourseField>> {
-    Ok(match kind {
-        "shaft-ease" => Box::new(ShaftEase::from_receipt(receipt, incline_degrees.context("the shaft ease needs the base's incline")?)?),
-        "shoulder-hold" => Box::new(ShoulderHold::from_receipt(receipt, displacement, piece)?),
-        _ => bail!("unknown course field {kind}"),
-    })
 }

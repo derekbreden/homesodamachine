@@ -32,10 +32,6 @@ hsm-manifold = { path = "../manifold" }
 clipper2-rust = "1.2.0"
 
 [[bin]]
-name = "course-field"
-path = "src/bin/course_field.rs"
-
-[[bin]]
 name = "sculpted-trial"
 path = "src/bin/sculpted_trial.rs"
 
