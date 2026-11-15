@@ -84,7 +84,7 @@ const FAUCET_FINISH_BODIES: [&str; 7] = [
     "lever",
     "soda_faucet_tube",
 ];
-const FAUCET_PARTS: [&str; 10] = [
+const FAUCET_PARTS: [&str; 9] = [
     "printed-parts/faucet/lever-replica/lever-replica.step",
     "printed-parts/faucet/faucet-shell/faucet-shell-base.step",
     "printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
@@ -92,7 +92,6 @@ const FAUCET_PARTS: [&str; 10] = [
     "printed-parts/faucet/above-counter-plate/above-counter-plate.step",
     "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
     "printed-parts/faucet/industrial/industrial-shell-base.step",
-    "printed-parts/faucet/industrial/industrial-display-cover.step",
     "printed-parts/faucet/industrial/industrial-above-counter-plate.step",
     "printed-parts/faucet/industrial/industrial-above-counter-gasket.step",
 ];
