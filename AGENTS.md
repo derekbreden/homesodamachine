@@ -234,8 +234,8 @@ copies. Keep `main` current with `origin/main`, preserving other sessions' work,
 and commit and push directly to `main` using the path-scoped commit rule above.
 
 Conflicts are inevitable, and we'd rather see them early. Another agent's edit in a file
-you're working on is that conflict arriving early: read it, build on it, and settle any
-collision in the tree when you meet it. It's all our code.
+you're working on is that conflict arriving early: read it, build on it, integrate it,
+coordinate with the other agent so you both accomplish your tasks. It's all our code.
 
 ## Temporary Build Files
 
