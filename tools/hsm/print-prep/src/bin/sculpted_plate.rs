@@ -3,6 +3,14 @@
 //!
 //!     sculpted-plate OUT_DIR [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!
+//! It runs the preparer and `sculpted-dispense-face` from beside its own executable, so the three
+//! programs are built together from the checkout:
+//!
+//!     tools/run -- "$(rustup which cargo)" build --release --locked --offline -j 2 \
+//!       --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep -p hsm-faucet-display-cover \
+//!       --bin sculpted-plate --bin sculpted-faucet-print-project --bin sculpted-dispense-face
+//!     tools/run -- tools/hsm/target/release/sculpted-plate OUT_DIR
+//!
 //! OUT_DIR is the run's own folder and must not exist. The plate's tip and cover carry the
 //! selections' dispense-face seam; the base is filled under its mounting face for the slice and
 //! laid on its sloped foundation from its own mesh. The tip's mating courses come from a warped
