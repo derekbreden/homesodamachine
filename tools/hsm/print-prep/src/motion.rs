@@ -1,5 +1,6 @@
 //! The acceleration planner that times a sliced plate's moves: hsm-gcode's playback draws them,
 //! and the trial plates take their motion estimate, first-course time and printer progress from it.
+//! The faucet plate's stages that lay their own courses read the machine's axis limits here.
 use crate::gcode::words;
 use anyhow::{Context, Result, ensure};
 
@@ -30,6 +31,56 @@ pub struct Motion {
     pub moves: Vec<Move>,
     pub features: Vec<String>,
     pub bed: [f64; 2],
+}
+
+/// The machine's axis limits for X, Y, Z and E: M201 accelerations, M203 feeds and M205 jerks.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct AxisLimits {
+    pub acceleration: [f64; 4],
+    pub speed: [f64; 4],
+    pub jerk: [f64; 4],
+}
+
+impl AxisLimits {
+    /// The H2C's own limits, which hold until a G-code states its own.
+    pub const H2C: AxisLimits =
+        AxisLimits { acceleration: [20000., 20000., 500., 5000.], speed: [1000., 1000., 30., 50.], jerk: [9., 9., 3., 2.5] };
+
+    /// Takes the positive axis words of an M201, M203 or M205; false for any other command.
+    fn apply(&mut self, command: &str, values: &[(u8, f64)]) -> bool {
+        let target = match command {
+            "M201" => &mut self.acceleration,
+            "M203" => &mut self.speed,
+            "M205" => &mut self.jerk,
+            _ => return false,
+        };
+        for (i, key) in b"XYZE".iter().enumerate() {
+            if let Some(value) = word(values, *key).filter(|v| *v > 0.) {
+                target[i] = value;
+            }
+        }
+        true
+    }
+
+    /// The limits a plate's start G-code states before its first layer, each of M201, M203 and
+    /// M205 stated at least once.
+    pub fn stated(text: &str) -> Result<AxisLimits> {
+        let mut limits = AxisLimits::H2C;
+        let mut seen = [false; 3];
+        for raw in text.lines() {
+            let raw = raw.trim();
+            if raw.starts_with("; Z_HEIGHT:") {
+                break;
+            }
+            let code = raw.split(';').next().unwrap_or("").trim();
+            let Some(command) = code.split_whitespace().next() else { continue };
+            if limits.apply(command, &words(&code[command.len()..])) {
+                seen[["M201", "M203", "M205"].iter().position(|c| *c == command).unwrap()] = true;
+            }
+        }
+        ensure!(seen.iter().all(|s| *s), "the plate states no M201, M203 and M205 before its first layer");
+        Ok(limits)
+    }
 }
 
 pub fn distance(a: [f64; 3], b: [f64; 3]) -> f64 {
@@ -83,9 +134,7 @@ pub fn read(text: &str, first: usize, last: usize) -> Result<Motion> {
     let (mut absolute, mut relative_e) = (true, true);
     let (mut layer, mut width, mut height, mut feature) = (0, 0.42, 0.24, 0);
     let mut features = vec!["Travel".to_string()];
-    let mut axis_acceleration = [20000., 20000., 500., 5000.];
-    let mut max_speed = [1000., 1000., 30., 50.];
-    let mut jerk = [9., 9., 3., 2.5];
+    let mut limits = AxisLimits::H2C;
     let mut acceleration = [20000., 5000., 9000.];
     let (mut feed, mut multiplier) = (0., 1.);
     let mut moves: Vec<Move> = Vec::new();
@@ -139,16 +188,7 @@ pub fn read(text: &str, first: usize, last: usize) -> Result<Motion> {
                 e = word(&values, b'E').unwrap_or(e);
             }
             "M201" | "M203" | "M205" => {
-                let target = match command {
-                    "M201" => &mut axis_acceleration,
-                    "M203" => &mut max_speed,
-                    _ => &mut jerk,
-                };
-                for (i, key) in b"XYZE".iter().enumerate() {
-                    if let Some(value) = word(&values, *key).filter(|v| *v > 0.) {
-                        target[i] = value;
-                    }
-                }
+                limits.apply(command, &values);
             }
             "M204" => {
                 if let Some(value) = word(&values, b'S').filter(|v| *v > 0.) {
@@ -237,8 +277,8 @@ pub fn read(text: &str, first: usize, last: usize) -> Result<Motion> {
                             }];
                             for axis in 0..4 {
                                 if unit[axis].abs() > 1e-12 {
-                                    cruise = cruise.min(max_speed[axis] / unit[axis].abs());
-                                    a = a.min(axis_acceleration[axis] / unit[axis].abs());
+                                    cruise = cruise.min(limits.speed[axis] / unit[axis].abs());
+                                    a = a.min(limits.acceleration[axis] / unit[axis].abs());
                                 }
                             }
                             moves.push(Move {
@@ -248,7 +288,7 @@ pub fn read(text: &str, first: usize, last: usize) -> Result<Motion> {
                                 length,
                                 cruise,
                                 acceleration: a,
-                                jerk,
+                                jerk: limits.jerk,
                                 layer,
                                 width,
                                 height,
