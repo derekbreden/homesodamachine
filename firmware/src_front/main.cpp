@@ -61,10 +61,11 @@ extern "C" uint32_t home_soda_rgb_restart_count(void);
 // (16 MB flash / 8 MB octal PSRAM). Mounts in the enclosure's front face,
 // angled up toward a standing user.
 //
-// Big Blue keeps both flavors in a left rail, the selected portrait beside it,
-// and Fill, Prime, Clean above the task pane. Settings occupies the whole area
-// right of the rail. The main board owns selection, operations and prime sessions;
-// holding either glass's prime pad renews the same tokenized session.
+// Big Blue keeps both flavors in a left rail and the selected portrait on the
+// ice beside it, with the blue pane over the ice from the right: pulled partly
+// out at rest, all the way out on a task's page. Settings occupies the whole
+// area right of the rail. The main board owns selection, operations and prime
+// sessions; holding either glass's prime pad renews the same tokenized session.
 
 // ── Big Blue ──
 #define COL_BLUE     0x1749d1
@@ -185,6 +186,7 @@ static void *fb0 = nullptr, *fb1 = nullptr;
 // them in direct_mode, which clips a repaint to the area that changed.
 static lv_disp_draw_buf_t draw_buf;
 static uint32_t flushCount = 0;   // frame submissions completed, per GET_DIAG
+static uint32_t framesFlushed = 0;   // every frame LVGL finished, submitted or not: the pane's step clock
 static volatile uint32_t vsyncCount = 0;
 static volatile uint32_t frameDoneCount = 0;
 static uint32_t panelDrawErrors = 0;
@@ -235,9 +237,22 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 #define HERO_ART_Y            24
 #define HERO_CAPTION_Y       408
 
+// ── The pane ──
+// Everything right of the rail is the portrait's ice, and the blue pane stands over it from the
+// glass's right edge. A task's page and the phone request page pull it out to TASK_X, with the
+// portrait beside the rail. At rest it is pulled only partly out, and the portrait stands
+// centred in the wider ice. Between the two it moves in PANE_STEPS steps, each a whole frame,
+// the next taken as soon as the frame before it has reached the glass: the pace is the panel's.
+#define PANE_REST_W          290   // what shows of the pane at rest
+#define PANE_REST_X          (SCREEN_W - PANE_REST_W)
+#define HERO_REST_X          (RAIL_W + (PANE_REST_X - RAIL_W - HERO_W) / 2)
+#define PANE_STEPS             3
+#define PANE_STEP_STALL_MS   250   // a step whose frame never comes is taken as shown
+
 // ── The resting pane ──
-// At rest the pane beside the portrait runs the glass's full height, with the reservoir's
-// reading at its top and every task as a row under it.
+// At rest the pane runs the glass's full height, with the reservoir's reading at its top and
+// every task as a row under it, all as wide as the pane's showing part leaves.
+#define REST_W               (PANE_REST_W - 2 * PANE_PAD)
 #define REST_CAPTION_Y        24
 #define REST_GAUGE_Y          64
 #define REST_GAUGE_H          28
@@ -269,7 +284,7 @@ enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
 static lv_obj_t *pageObj[PAGE_COUNT];
-static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
+static lv_obj_t *flavorRail, *iceBackdrop, *heroPanel, *heroImage, *heroCaption, *pane;
 static lv_obj_t *taskHeader, *backRow, *systemBand, *systemBack;
 static lv_obj_t *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
@@ -305,6 +320,7 @@ static void refreshHomeSelection();
 static void refreshHomeLevel();
 static void refreshShell();
 static void paintRailSelection();
+static void paneSettle();
 static bool primeLinkOwnsJ9();
 static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
@@ -1356,6 +1372,7 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 // The 100 ms timeout (not portMAX) means a missed completion degrades, never deadlocks.
 static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p) {
   if (!lv_disp_flush_is_last(disp)) { lv_disp_flush_ready(disp); return; }
+  framesFlushed++;
   const esp_err_t drawn = esp_lcd_panel_draw_bitmap(panel, 0, 0, SCREEN_W, SCREEN_H, color_p);
   if (drawn != ESP_OK) {
     panelDrawErrors++;
@@ -3609,6 +3626,7 @@ static void lockScreenShow(const char *kicker, const char *title, const char *bo
   askHide();   // the lock takes the glass; the nonmodal inbox retains its request
   welcomeHide();
   moveHide();
+  paneSettle();   // an operation's modal stands where the open pane does
   lv_obj_set_pos(lockScreen, 0, 0);
   lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
   operationResultVisible = false;
@@ -5059,7 +5077,7 @@ static lv_obj_t *mkCheck(lv_obj_t *card) {
 
 // At the far right of a resting row.
 static lv_obj_t *mkChevron(lv_obj_t *row) {
-  static const lv_point_t chevron[] = {{392, 23}, {399, 30}, {392, 37}};
+  static const lv_point_t chevron[] = {{REST_W - 20, 23}, {REST_W - 13, 30}, {REST_W - 20, 37}};
   return mkStroke(row, chevron, 3, COL_DIM);
 }
 
@@ -5104,10 +5122,17 @@ static void buildRail(lv_obj_t *scr) {
     lv_obj_align(railNumber[i], LV_ALIGN_TOP_MID, 0, RAIL_NUMBER_Y);
     railCheck[i] = mkCheck(b);
   }
-  heroPanel = mkBtn(scr, HERO_W, SCREEN_H, COL_DIM);
-  lv_obj_set_pos(heroPanel, RAIL_W, 0);
-  lv_obj_set_style_bg_color(heroPanel, lv_color_hex(COL_DIM), LV_STATE_PRESSED);
-  lv_obj_add_event_cb(heroPanel, flavorBackCb, ACT_EVENT, NULL);
+  // The ice everything right of the rail stands on. The pane covers its part of it, and the
+  // rest, the portrait's side, returns to On tap wherever it is touched.
+  iceBackdrop = mkBtn(scr, SCREEN_W - RAIL_W, SCREEN_H, COL_DIM);
+  lv_obj_set_pos(iceBackdrop, RAIL_W, 0);
+  lv_obj_set_style_bg_color(iceBackdrop, lv_color_hex(COL_DIM), LV_STATE_PRESSED);
+  lv_obj_add_event_cb(iceBackdrop, flavorBackCb, ACT_EVENT, NULL);
+  // The portrait and its caption, which move with the pane and hand a touch to the ice.
+  heroPanel = mkView(scr);
+  lv_obj_set_size(heroPanel, HERO_W, SCREEN_H);
+  lv_obj_set_pos(heroPanel, HERO_REST_X, 0);
+  lv_obj_clear_flag(heroPanel, LV_OBJ_FLAG_CLICKABLE);
   heroImage = lv_img_create(heroPanel);
   lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
   lv_obj_align(heroImage, LV_ALIGN_TOP_MID, 0, HERO_ART_Y);
@@ -5168,8 +5193,9 @@ static void buildSettingsButton(lv_obj_t *scr) {
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
   lv_obj_center(mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_40, COL_TEXT));
 
-  // The band over the pane. A task's pane and the phone request page have Back there.
-  taskHeader = mkFlat(scr, TASK_X, 0, TASK_W, HEADER_H, THEME_BG);
+  // The band over the pane, which moves with it. A task's pane and the phone request page have
+  // Back there.
+  taskHeader = mkFlat(pane, 0, 0, TASK_W, HEADER_H, THEME_BG);
   backRow = mkBackRow(taskHeader, TASK_W);
   // System status's band runs from the rail: the same Back, and the page's title at its right,
   // which stays when Back goes.
@@ -5184,7 +5210,9 @@ static void refreshShell() {
   const bool machine = activePage == PAGE_SETUP;
   const bool task = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE || activePage == PAGE_TRUST;
   const bool back = front_ui::showBack(lockActive, holding);
+  // System status covers the ice, the portrait and the pane.
   showIf(heroPanel, !machine);
+  showIf(pane, !machine);
   // At rest every task is a row in the pane, so nothing stands over it.
   showIf(taskHeader, task);
   showIf(backRow, task && back);
@@ -5202,26 +5230,96 @@ static void setRailSelection(RailPage page) {
   refreshShell();
 }
 
-static lv_obj_t *buildPane(lv_obj_t *scr) {
-  lv_obj_t *o = mkView(scr);
+// ── The pane's steps ──
+// Where the pane and the portrait stand, and the move they are making: from where they stood
+// when it began to where the page wants them, one step a frame. A page's content changes with
+// the first step and rides the pane the rest of the way.
+static lv_coord_t paneX = PANE_REST_X, heroX = HERO_REST_X;
+static lv_coord_t paneFromX, heroFromX, paneToX = PANE_REST_X, heroToX = HERO_REST_X;
+static uint8_t paneStep = 0;              // the step last taken; 0 while nothing moves
+static unsigned long paneStepMs = 0;
+static uint32_t paneStepFrame = 0;        // framesFlushed when it was taken
+
+static void panePlace(lv_coord_t px, lv_coord_t hx) {
+  paneX = px;
+  heroX = hx;
+  lv_obj_set_x(pane, px);
+  lv_obj_set_x(heroPanel, hx);
+}
+
+// The `k`th of PANE_STEPS from `from` to `to`, to the nearest pixel either way, so a move and
+// its reverse stand on the same pixels.
+static lv_coord_t paneStepX(lv_coord_t from, lv_coord_t to, uint8_t k) {
+  const int32_t d = (int32_t)(to - from) * k;
+  return from + (d >= 0 ? (d + PANE_STEPS / 2) / PANE_STEPS : -((-d + PANE_STEPS / 2) / PANE_STEPS));
+}
+
+static void paneAdvance() {
+  ++paneStep;
+  panePlace(paneStepX(paneFromX, paneToX, paneStep), paneStepX(heroFromX, heroToX, paneStep));
+  paneStepMs = millis();
+  paneStepFrame = framesFlushed;
+  if (paneStep >= PANE_STEPS) paneStep = 0;
+}
+
+// The pane follows the page: open on a task's page and the phone request page, out at rest
+// otherwise. With `step` it moves in steps, the first of them now; without, it is there at
+// once. A page that wants where the pane already is or is going changes nothing.
+static void paneFollow(bool step) {
+  if (!pane) return;
+  const bool open = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE || activePage == PAGE_TRUST;
+  const lv_coord_t to = open ? TASK_X : PANE_REST_X;
+  const lv_coord_t heroTo = open ? RAIL_W : HERO_REST_X;
+  if (to == paneToX && (paneStep || to == paneX)) return;
+  paneToX = to;
+  heroToX = heroTo;
+  if (!step) {
+    paneStep = 0;
+    panePlace(to, heroTo);
+    return;
+  }
+  paneFromX = paneX;
+  heroFromX = heroX;
+  paneStep = 0;
+  paneAdvance();
+}
+
+// The rest of a move at once, for what has to find the pane where its page puts it.
+static void paneSettle() {
+  if (!paneStep) return;
+  paneStep = 0;
+  panePlace(paneToX, heroToX);
+}
+
+// From loop(): the next step, once the last one's frame has reached the glass.
+static void paneService() {
+  if (!paneStep) return;
+  if (framesFlushed == paneStepFrame && millis() - paneStepMs < PANE_STEP_STALL_MS) return;
+  paneAdvance();
+}
+
+// A page's place in the pane, under the band, or System status's beside the rail.
+static lv_obj_t *buildPane(lv_obj_t *parent) {
+  lv_obj_t *o = mkView(parent);
   lv_obj_set_size(o, TASK_W, SCREEN_H - HEADER_H);
-  lv_obj_set_pos(o, TASK_X, HEADER_H);
+  lv_obj_set_pos(o, 0, HEADER_H);
   lv_obj_set_style_pad_all(o, PANE_PAD, 0);
   return o;
 }
 
 // The resting pane runs the glass's full height: the selected reservoir's reading at the top,
-// then Fill, Prime and Clean, and apart from them Change image and Ratio. Each row opens its
-// task's page, whose Back returns here, and a hairline parts two rows of one group.
+// then Fill, Prime and Clean, and apart from them Change image and Ratio, as wide as the pane
+// shows at rest. Each row opens its task's page, whose Back returns here, and a hairline parts
+// two rows of one group.
 static void buildHome(lv_obj_t *page) {
-  lv_obj_set_pos(page, TASK_X, 0);
+  lv_obj_set_pos(page, 0, 0);
   lv_obj_set_size(page, TASK_W, SCREEN_H);
   lv_obj_set_style_pad_all(page, 0, 0);
   homeLevelCaption = mkText(page, "No level reading", &lv_font_montserrat_28, COL_TEXT);
   lv_obj_set_pos(homeLevelCaption, PANE_PAD, REST_CAPTION_Y);
-  homeGauge = mkOutline(page, PANE_PAD, REST_GAUGE_Y, DETAIL_W, REST_GAUGE_H, 6);
+  homeGauge = mkOutline(page, PANE_PAD, REST_GAUGE_Y, REST_W, REST_GAUGE_H, 6);
   lv_obj_set_style_border_width(homeGauge, REST_GAUGE_BORDER, 0);
-  const lv_coord_t inside = DETAIL_W - 2 * REST_GAUGE_BORDER - 2 * REST_GAUGE_INSET;
+  const lv_coord_t inside = REST_W - 2 * REST_GAUGE_BORDER - 2 * REST_GAUGE_INSET;
   const lv_coord_t cellW = (inside - (LEVEL_SEGMENTS - 1) * REST_GAUGE_GAP) / LEVEL_SEGMENTS;
   const lv_coord_t cellH = REST_GAUGE_H - 2 * REST_GAUGE_BORDER - 2 * REST_GAUGE_INSET;
   for (uint8_t i = 0; i < LEVEL_SEGMENTS; ++i) {
@@ -5241,13 +5339,13 @@ static void buildHome(lv_obj_t *page) {
   lv_coord_t y = REST_ROW_Y;
   for (uint8_t i = 0; i < sizeof(rows) / sizeof(rows[0]); ++i) {
     if (i == 3) y += REST_GROUP_GAP;
-    lv_obj_t *row = mkBtn(page, DETAIL_W, REST_ROW_H, COL_BLUE);
+    lv_obj_t *row = mkBtn(page, REST_W, REST_ROW_H, COL_BLUE);
     lv_obj_set_pos(row, PANE_PAD, y);
     lv_obj_add_event_cb(row, rows[i].cb, ACT_EVENT, (void *)rows[i].to);
     lv_obj_align(mkText(row, rows[i].label, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
     mkChevron(row);
     if (rows[i].ruled) {   // above the row, over the edge it shares with the one before
-      lv_obj_t *rule = mkFlat(page, PANE_PAD, y, DETAIL_W, 1, lv_color_hex(COL_OFF));
+      lv_obj_t *rule = mkFlat(page, PANE_PAD, y, REST_W, 1, lv_color_hex(COL_OFF));
       lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
     }
     y += REST_ROW_H;
@@ -5461,6 +5559,8 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
 static void buildSettings(lv_obj_t *page) {
   lv_obj_set_pos(page, RAIL_W, HEADER_H);
   lv_obj_set_width(page, SCREEN_W - RAIL_W);
+  lv_obj_set_style_bg_color(page, THEME_BG, 0);   // over the ice, the portrait and the pane
+  lv_obj_set_style_bg_opa(page, LV_OPA_COVER, 0);
   lv_obj_t *status = mkView(page);
   lv_obj_set_height(status, PANE_H + 8);
   const lv_coord_t diagramHeight = buildStatusDiagram(status, 436, 5);
@@ -5629,8 +5729,13 @@ static void showPage(Page p) {
       !primeAuthoritativeNavigation) {
     primeSessionCancel();
   }
+  const Page from = activePage;
   showOnly(pageObj, PAGE_COUNT, p);
   activePage = p;
+  // The pane moves in steps where the glass shows it moving. System status covers it, and a
+  // dark glass, one coming back from the dark and the operation lock show none of it, so there
+  // it stands where the page wants it at once.
+  paneFollow(!screenIdle && !kickStage && !lockActive && from != PAGE_SETUP && p != PAGE_SETUP);
   setRailSelection(railForPage(p));
   // The animation belongs only to the full-screen operation lock. Ordinary
   // pages invalidate only when their cached visible state actually changes.
@@ -5760,7 +5865,10 @@ static void buildUi() {
   lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
 
   buildRail(scr);
-  for (int i = 0; i < PAGE_COUNT; i++) pageObj[i] = buildPane(scr);
+  // The pane: blue under every page in it, and the band over them; System status stands on
+  // the screen beside the rail, over all of it.
+  pane = mkFlat(scr, PANE_REST_X, 0, TASK_W, SCREEN_H, THEME_BG);
+  for (int i = 0; i < PAGE_COUNT; i++) pageObj[i] = buildPane(i == PAGE_SETUP ? scr : pane);
   buildHome(pageObj[PAGE_HOME]);
   buildFlavor(pageObj[PAGE_FLAVOR]);
   buildService(pageObj[PAGE_SERVICE]);
@@ -6439,6 +6547,7 @@ void loop() {
     if (idleStage < 3 && dark >= KEEP_AREA_MS) { idleStage = 3; idleReset(3); }
   }
 
+  paneService();
   if (displayReady) lv_timer_handler();
 
   // Again, on the far side of the render. lv_timer_handler() is the long pole in
