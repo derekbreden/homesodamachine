@@ -10152,6 +10152,18 @@
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0"
       ]
+    },
+    "pur-5caf48bbb5b44f2bbac11f37b1608ead": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ]
     }
   },
   "orders": {
@@ -16489,6 +16501,18 @@
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0"
       ]
+    },
+    "amazon:112-7519255-8741021": {
+      "vendor": "Amazon",
+      "reference": "112-7519255-8741021",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ]
     }
   },
   "events": [
@@ -20855,6 +20879,23 @@
       "order_ids": [
         "bambu:us798331608108187648"
       ]
+    },
+    {
+      "event_id": "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 943,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ],
+      "verified_at": "2026-11-15",
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ]
     }
   ],
   "allocations": [
@@ -22672,6 +22713,14 @@
       "purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8",
       "order_id": "bambu:us798331608108187648",
       "amount_minor": 8196,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-5983ef55ef824da9b3784822dca2868f",
+      "event_id": "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
+      "purchase_id": "pur-5caf48bbb5b44f2bbac11f37b1608ead",
+      "order_id": "amazon:112-7519255-8741021",
+      "amount_minor": 943,
       "currency": "USD"
     }
   ],
@@ -34994,6 +35043,21 @@
       "proves": [],
       "verified_at": "2026-11-15",
       "note": "Shipment notification for the existing single-item H2C PEI build-plate order confirms shipped. Relative arrival estimate is not an actual delivery date. Shipment total corroborates the order value but does not prove completed payment."
+    },
+    "src-24f43447cedb4e5a813e04d473be20dc": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_page",
+      "reference": "112-7519255-8741021",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-15",
+      "note": "Signed-in Amazon order history, read 2026-11-15: order placed November 15, 2026; one Spurtar Feeler Gauges 0.001-0.04\" (0.03-1.00mm) 32 Blades Tapered, Dual Marked SAE and Metric (B07B3TQQSV), ships from Amazon, sold by Wittyware, USD 8.79 item. Order total USD 9.43; the USD 0.64 remainder is tax, with no shipping charge. Status Arriving Tuesday (2026-11-17), an estimate, not delivery evidence. No completed merchant charge is established."
     }
   },
   "coverage": [
@@ -37273,6 +37337,26 @@
         "bambu:us798331608108187648"
       ],
       "note": "Exact named order only; no account-wide coverage claimed."
+    },
+    {
+      "coverage_id": "coverage-f0864e96763b4599b8dc772d2f30283b",
+      "vendor": "Amazon",
+      "stream": "named feeler gauge order",
+      "evidence_type": "merchant_order_page",
+      "checked_at": "2026-11-15",
+      "examined_period": {
+        "start": "2026-11-15",
+        "end": "2026-11-15"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ],
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "note": "Exact named order only; no account-wide coverage claimed."
     }
   ],
   "gaps": [
@@ -37724,6 +37808,26 @@
       "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Final invoice and credit origin remain unverified; the recorded procurement value is the net order amount after applied credit.",
       "sources_checked": [
         "Exact order confirmation and signed-in merchant order record"
+      ]
+    },
+    {
+      "gap_id": "gap-d38f9a772d7a49e1ad42ab7e1d5f13f9",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-5caf48bbb5b44f2bbac11f37b1608ead"
+      ],
+      "order_ids": [
+        "amazon:112-7519255-8741021"
+      ],
+      "event_ids": [
+        "evt-4fd5e400299c4ee6ac80dde60ce9e9fa"
+      ],
+      "source_ids": [
+        "src-24f43447cedb4e5a813e04d473be20dc"
+      ],
+      "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed.",
+      "sources_checked": [
+        "Signed-in Amazon order history page, checked November 15, 2026"
       ]
     }
   ],

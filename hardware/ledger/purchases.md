@@ -104,6 +104,7 @@ Stainless carbonator fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS
 | <!--purchase:pur-770c1f0b7dfd4d458834d39d99185eb3--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — carbonator upper-rim earth attachment. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 112-9511233-2346613 | 2026-11-10 | 2026-11-11 | ACQUIRED |
 | <!--purchase:pur-36841266e8fb437a8d42247cbf7ee53d--> uxcell M3 × 0.5 spiral-flute tap and Ø2.5 mm twist-drill set, M35 cobalt HSS — additional earth-clamp tooling set. $8.39 item + $0.61 estimated tax; free shipping | [B09TYSP9NV](https://www.amazon.com/dp/B09TYSP9NV) | 1 set | $9.00 | 114-4687967-9041802 | 2026-11-12 | 2026-11-14 | ACQUIRED |
 | <!--purchase:pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a--> Piutouyar M1–M6 adjustable tap wrench, 1/16"–1/4" tap capacity — small hand driver for the carbonator upper-rim M3 earth-clamp tap. $5.99 item + $0.43 estimated tax; free shipping | [B0F7K43T14](https://www.amazon.com/dp/B0F7K43T14) | 1 | $6.42 | 112-8461282-5610650 | 2026-11-10 | 2026-11-11 | ACQUIRED |
+| <!--purchase:pur-5caf48bbb5b44f2bbac11f37b1608ead--> Spurtar feeler gauge set, 32 tapered blades, 0.001"–0.040" (0.03–1.00 mm), dual-marked SAE and metric — with an end cap dropped into its tube, the thickest blade that enters at the widest spot is the gap the closure fillet bridges, which sets the fillet's size on the weld drawing. Sold by Wittyware, ships from Amazon. $8.79 item + $0.64 tax; no shipping charge | [B07B3TQQSV](https://www.amazon.com/dp/B07B3TQQSV) | 1 set | $9.43 | 112-7519255-8741021 | 2026-11-15 | — | ON-ORDER |
 
 ## 2. CO2 subsystem
 
@@ -864,17 +865,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$43,430.74](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$50,150.25](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$540.15](LEDGER_ON_ORDER) |
+| ON-ORDER | [$549.58](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,743.47](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,752.90](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$29,052.83](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,707.56](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,716.99](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
