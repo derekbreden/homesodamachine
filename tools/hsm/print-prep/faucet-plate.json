@@ -72,16 +72,7 @@
     "back_from_dispense_face_mm": [-1.0, 9.0]
   },
   "shallow_overhang_wall_speed": {"parts": ["faucet-shell-base", "faucet-shell-tip"], "points": ["overhang_1_4_speed", "overhang_2_4_speed"]},
-  "descent_lift": {
-    "share": 0.5,
-    "scope": "Where the base's show lap descends, the nozzle rides higher by this share of its flat's radius times the slope; it does not rise where the lap climbs or runs level.",
-    "selected_date": "2026-11-14",
-    "selection_quote": [
-      "Is there anything we can do, like increasing the distance on the down slope part of the pass only, distance between print tip and the layer it is printing onto, not much just to eat into that 33% a bit, so it is more like 15% I don't know.",
-      "or 37% or whatever it is, to cut it in half maybe is what I was suggesting, so it is still scraping, but less.",
-      "A compromise of sorts, that might avoid the problems of lifting too much, and solve the problem of not lifting at all."
-    ]
-  },
+  "descent_lift": {"share": 0.5},
   "tip_end_splice": {
     "scope": "In the tip-end cooling zone, from the lowest layer that stage cools to the tip's top, the tip's layers come from a slice of the plate's project without the shallow overhang points, so its walls there keep the slicer's recipe; they lay the same beads as the plate's own slice.",
     "selected_date": "2026-11-14",
