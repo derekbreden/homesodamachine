@@ -1089,14 +1089,33 @@ fn apply_contour(
 pub fn tip_end_stretch(project: &Refreshed, spec: &Value) -> Result<Stretch> {
     let row = project.row(spec["part"].as_str().context("cooled part")?)?;
     let object = &project.plate.objects[row.index];
+    placed_tip_end_stretch(object.identify_id as i64, &object.rotation, object.translation, row.center, spec)
+}
+
+/// The same stretch for a plate already prepared, from the placement its preparation record gives
+/// the cooled part: its identity, build transform and source centre.
+pub fn recorded_tip_end_stretch(report: &Value, spec: &Value) -> Result<Stretch> {
+    let name = spec["part"].as_str().context("cooled part")?;
+    let part = report["parts"].as_array().into_iter().flatten().find(|p| p["name"] == name)
+        .with_context(|| format!("the preparation record has no {name}"))?;
+    let transform: [f64; 12] = serde_json::from_value(part["build_transform"].clone()).context("the part's build transform")?;
+    // the build item's transform is the rotation's transpose, row by row, then the translation
+    let rotation: [[f64; 3]; 3] = std::array::from_fn(|r| std::array::from_fn(|c| transform[c * 3 + r]));
+    let translation = [transform[9], transform[10], transform[11]];
+    let center: [f64; 3] = serde_json::from_value(part["source_center_mm"].clone()).context("the part's source centre")?;
+    let identify_id = part["identify_id"].as_i64().context("the part's identify id")?;
+    placed_tip_end_stretch(identify_id, &rotation, translation, center, spec)
+}
+
+fn placed_tip_end_stretch(identify_id: i64, rotation: &[[f64; 3]; 3], translation: [f64; 3], center: [f64; 3], spec: &Value) -> Result<Stretch> {
     let [exit, up, _] = hsm_faucet_numbers::shell::tip_frame();
     let span: [f64; 2] = serde_json::from_value(spec["back_from_dispense_face_mm"].clone())?;
     let fan_percent = spec["fan_percent"].as_f64().context("cooled stretch fan speed")?;
     ensure!(span[0] < span[1] && fan_percent > 0. && fan_percent <= 100., "invalid cooled stretch");
     Ok(Stretch {
-        object: object.identify_id as i64,
-        origin: add(apply(&object.rotation, sub(exit, row.center)), object.translation),
-        axis: apply(&object.rotation, up),
+        object: identify_id,
+        origin: add(apply(rotation, sub(exit, center)), translation),
+        axis: apply(rotation, up),
         span,
         fan_percent,
     })
