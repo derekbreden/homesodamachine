@@ -230,7 +230,7 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 #define REST_CELL_FOOT       345
 #define REST_RING              3   // just outside the thumbnail
 #define REST_NUMBER_Y        130   // a card's number, from inside its border
-#define REST_PORTRAIT_W      198   // 43:80, like every rendition
+#define REST_PORTRAIT_W      198   // the anchor's proportions, to the nearest whole pixel
 #define REST_PORTRAIT_H      368
 #define REST_PORTRAIT_Y       24
 #define REST_TITLE_Y         408
