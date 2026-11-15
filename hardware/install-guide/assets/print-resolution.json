@@ -2,12 +2,12 @@
   "assets": {
     "fill-screen-framed.png": {
       "coordinate_reference_path": "reference/fill-screen-framed.png",
-      "coordinate_reference_sha256": "f25ed0e5d14f160f191b23339854506dde2aa9bc04c163a249d7e93d986c8ae9",
+      "coordinate_reference_sha256": "e1a0e2d1de02b96259368b9dc7407da4fcf42ae03f2b65d0f67336aaf2e9ba97",
       "reference_size": [
         1800,
         1200
       ],
-      "render_sha256": "f25ed0e5d14f160f191b23339854506dde2aa9bc04c163a249d7e93d986c8ae9",
+      "render_sha256": "e1a0e2d1de02b96259368b9dc7407da4fcf42ae03f2b65d0f67336aaf2e9ba97",
       "render_size": [
         1800,
         1200
@@ -178,7 +178,7 @@
       "anchor_source_mm": {},
       "anchors_reference_pixels": {},
       "coordinate_reference_path": "reference/fill-closed.png",
-      "coordinate_reference_sha256": "26f50f889db5bcabcd2f91c5ecb4df98b50b0e6d36b1edfc5e95cbdce2734b77",
+      "coordinate_reference_sha256": "5ced653017fd6ee2c4ffe3266340fc7feb38e5696be2ef23797070bddb8fd5cd",
       "reference_size": [
         1600,
         1500
@@ -196,7 +196,7 @@
           380.0
         ]
       },
-      "render_sha256": "c198376b45c67df421f31e7c974ce11f6805e7f1dee3dcba03c05b99a6e0c1ce",
+      "render_sha256": "003c325ae1e9483fc12993f170da232bae92ad3c0544879f3f3511491d03e241",
       "render_size": [
         3200,
         3000
@@ -212,7 +212,7 @@
       "anchor_source_mm": {},
       "anchors_reference_pixels": {},
       "coordinate_reference_path": "reference/fill-ready.png",
-      "coordinate_reference_sha256": "da441dc0ff5aa1b7b4c0e9eb302517caa01ecb3d201307fb48525df3e1e8287c",
+      "coordinate_reference_sha256": "71a744517b9c451f72ddcaa2254d63c32c93d1dcd89854edb23d83b9c24a124b",
       "reference_size": [
         1600,
         1500
@@ -230,7 +230,7 @@
           380.0
         ]
       },
-      "render_sha256": "3c4acd83f1f37cdc41604b2fc6797b34c8a3f41ea3ad405268556287ef497375",
+      "render_sha256": "1dc8134919b66d4a4b91d8c11f6ff7d7653140ed13d066eefcf545fde43c91c0",
       "render_size": [
         3200,
         3000
