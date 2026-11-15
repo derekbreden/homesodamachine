@@ -12,6 +12,9 @@ sent, and answer questions about a whole part rather than a chosen window of it.
 | Show the commanded walls with seam markers or speed colours | `hsm-gcode view seams` or `hsm-gcode view speed` |
 | Watch consecutive layers deposit under the moving head and bed | `hsm-gcode view playback` |
 | Did a change to a print stage change what prints? | `hsm-gcode compare` |
+| How fast, with how much part fan and how much plastic is one part laid at each height, on several plates? | `hsm-gcode laying` |
+| What does one plate command differently from another, apart from where its beads lie? | `hsm-gcode recipe` |
+| Could the head hit plastic it laid earlier: a low travel, a drop onto a part, a wait over a part? | `hsm-gcode harm` |
 
 ```bash
 hsm-gcode seams SLICE.gcode.3mf PRINT.json --part industrial-shell-base --project PROJECT.3mf
@@ -28,6 +31,29 @@ hsm-gcode view speed "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --mark-layers FIRS
 ```bash
 hsm-gcode compare BEFORE.gcode.3mf AFTER.gcode.3mf
 ```
+
+```bash
+hsm-gcode laying "A=FIRST.gcode.3mf" "B=SECOND.gcode.3mf" --object ID [--step MM] [--walls [--outside]]
+hsm-gcode recipe FIRST.gcode.3mf SECOND.gcode.3mf
+hsm-gcode harm SLICE.gcode.3mf [--object ID] [--above MM]
+```
+
+`laying` reads one object, by its id on the plate, in height bands of its moves' end Z. Each
+band gives the length laid, the share laid with the part fan on, the length in each commanded
+speed band with the fan off and on, the slow laying under the fan, the mean speed and the
+plastic per millimetre, plate by plate. `--walls` keeps the outer and overhang walls, and
+`--outside` the walls beyond the middle of each layer's wall radii.
+
+`recipe` lists, by part and feature, the length laid at each feed, part-fan level, nozzle
+temperature and acceleration where the two plates differ. It then lists the printer-side
+commands, retractions, lifts and travels whose counts differ, the heating commands, and the
+moves that follow the same path under other settings.
+
+`harm` keeps the tallest bead top laid so far in every cell of the plate. It samples each
+travel between beads against it, leaving out the ends where the travel leaves and reaches a
+bead. It reports the travels whose nozzle tip comes within a tenth of a millimetre of earlier
+plastic or passes below its top, the drops that end close above plastic, and the waits over
+it. `--object` and `--above` keep the travels at one object and height.
 
 `compare` reads two slices or G-code files. For each feature it reports the bead length
 each lays, the plastic, and how much of each one's bead length lies on the other's beads of

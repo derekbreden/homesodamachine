@@ -18,6 +18,14 @@ use std::{
 pub mod view;
 #[path = "gcode_compare.rs"]
 pub mod compare;
+#[path = "gcode_walk.rs"]
+pub mod walk;
+#[path = "gcode_laying.rs"]
+pub mod laying;
+#[path = "gcode_recipe.rs"]
+pub mod recipe;
+#[path = "gcode_harm.rs"]
+pub mod harm;
 
 pub const OUTER_WALLS: [&str; 2] = ["Outer wall", "Overhang wall"];
 
@@ -795,7 +803,7 @@ pub(crate) fn parse_coordinates(text: &str, count: usize) -> Result<Vec<f64>> {
 #[derive(Parser)]
 #[command(
     name = "hsm-gcode",
-    about = "Read commanded seams and speeds from an existing slice, or compare two slices' beads"
+    about = "Read what an existing slice commands, or compare two slices' beads"
 )]
 struct Command {
     #[command(subcommand)]
@@ -808,6 +816,12 @@ enum Mode {
     Speeds(Speeds),
     View(view::Options),
     Compare(compare::Options),
+    /// How one part is laid by height on one or more plates: speed, part fan, slow laying under the fan and plastic.
+    Laying(laying::Options),
+    /// What two plates command differently, apart from where their beads lie.
+    Recipe(recipe::Options),
+    /// Where the head could hit plastic it laid earlier: low travels, drops onto a part, waits over a part.
+    Harm(harm::Options),
 }
 #[derive(Args)]
 struct Seams {
@@ -976,6 +990,9 @@ pub fn cli(args: &[String]) -> Result<i32> {
         Mode::Speeds(args) => speeds_cli(args),
         Mode::View(args) => view::run(args),
         Mode::Compare(args) => compare::run(args),
+        Mode::Laying(args) => laying::run(args),
+        Mode::Recipe(args) => recipe::run(args),
+        Mode::Harm(args) => harm::run(args),
     }
 }
 
