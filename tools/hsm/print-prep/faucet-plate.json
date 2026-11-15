@@ -26,6 +26,21 @@
     "part": "faucet-display-cover",
     "paint_strip_half_width_mm": 0.35
   },
+  "base_rim_supports": {
+    "insert_blocker_radial_clearance_mm": 0.65,
+    "insert_blocker_depth_allowance_mm": [1.0, 0.55],
+    "object_settings": {
+      "brim_type": "no_brim",
+      "enable_support": "1",
+      "support_type": "tree(auto)",
+      "support_style": "tree_slim",
+      "support_bottom_z_distance": "0.30"
+    },
+    "nonplanar_contact": {
+      "source_commit": "b388123d2ac2fdc31fd091f980334b9c99443ab8",
+      "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json"
+    }
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
