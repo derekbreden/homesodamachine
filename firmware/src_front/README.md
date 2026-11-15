@@ -1,8 +1,7 @@
 # Machine Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
 The soda machine's display: Big Blue on an 800×480 RGB panel under LVGL.
-Both flavors stay in the left rail; the selected portrait stands on the ice beside it, and the
-blue task pane stands over the ice from the right.
+Both flavors stay in the left rail; the selected portrait and task occupy the rest.
 
 ## Board
 
@@ -364,39 +363,26 @@ apart from the rail, the portrait and the band over the pane, which are describe
 The sixteen-direction colour and type study is in Git at [`980d92f186`](https://github.com/derekbreden/homesodamachine/blob/980d92f186/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 The flavor rail carries both actual images, the slot a phone's request takes, and Settings
-at the bottom. Everything right of the rail is ice: the selected flavor's portrait stands on
-it, and the blue pane stands over it from the glass's right edge.
+at the bottom. The portrait panel beside it shows the selected flavor's image.
 
-**The rail is the same on every page.** The selected flavor's cell is the portrait's own ice,
-from the glass edge into the portrait, so the two read as one: its thumbnail has an orange ring
-just outside it, and a check stands left of its number in ink. The other flavor has no card;
-its thumbnail and white number stand on the rail. Each number keeps its place selected or not.
-System status has no portrait, and there the cell's ice ends at the rail's edge. The portrait
-stands on the ice on every other page, captioned **On tap.** in ink.
+**The rail is the same on every page.** The selected flavor's cell is the portrait panel's
+own ice, from the glass edge into the portrait, so the two read as one: its thumbnail has an
+orange ring just outside it, and a check stands left of its number in ink. The other flavor
+has no card; its thumbnail and white number stand on the rail. Each number keeps its place
+selected or not. System status has no portrait, and there the cell's ice ends at the rail's
+edge. The portrait stands beside the rail on every other page, captioned **On tap.** in ink.
 
-**At rest** the pane is pulled only partly out, and the portrait and its caption stand centred
-in the wider ice. Nothing stands over the pane: it runs the glass's full height, with the
+**At rest** nothing stands over the pane: it runs the glass's full height, with the
 reservoir's caption and gauge at its top, then Fill, Prime and Clean, and apart from them
-Change image and Ratio, each a row as wide as the pane shows, with a chevron that opens its
-task's page. A hairline parts two rows of one group, and none stands above the first row,
-between the groups or under the last.
+Change image and Ratio, each a full-width row with a chevron that opens its task's page. A
+hairline parts two rows of one group, and none stands above the first row, between the groups
+or under the last.
 
 **A task's page** (Fill, Prime, Clean, Ratio or Change image) and the **phone request page**
-pull the pane all the way out, with the portrait beside the rail, and have **Back** in the band
-over the pane: a chevron pointing left and the word, over a hairline on the band's last row,
-with the whole band its target. Back returns to rest. It is gone while an operation is pending
-or running and while a finger holds Prime, when Stop or the held pad is the pane's one control.
-
-**The pane moves in steps.** Opening one of those pages from rest takes the pane and the
-portrait to their places in `PANE_STEPS` whole frames, and going back reverses them on the same
-pixels. The page's content changes with the first step and rides the pane, its right part off
-the glass until the pane is out; going back, the resting rows ride it out. A step is taken as
-soon as the frame before it has reached the glass, so each is drawn whole into the framebuffer
-the panel is not scanning and the steps come as fast as the panel draws them: each costs about
-what one of its page changes does. A tap that reverses a move mid-way starts back from where
-the pane stands. System status covers the pane, so opening it or leaving it moves
-nothing on the glass; nor does a page change while the glass is dark or coming back from the
-dark, or under the operation lock, whose modal stands where the open pane does.
+have **Back** in the band over the pane: a chevron pointing left and the word, over a hairline
+on the band's last row, with the whole band its target. Back returns to rest. It is gone while
+an operation is pending or running and while a finger holds Prime, when Stop or the held pad is
+the pane's one control.
 
 **System status** has the same Back in its band, which runs from the rail, with the page's title
 at the band's right. Back is gone while an operation is pending or running, and the title stays.
@@ -550,9 +536,8 @@ remain visible for six seconds. A console air purge uses the same operation surf
 ### Rendering
 
 Boot and `LOCK:SHOW` use the 10 fps animation timer. Fill, Prime, Clean, Ratio, images,
-On tap, Settings and the welcome repaint only when their displayed state changes, and the pane's
-move repaints the pane and the portrait once a step. `GET_DIAG` exposes loop and rendering
-counters for live measurement.
+On tap, Settings and the welcome repaint only when their displayed state changes. `GET_DIAG` exposes
+loop and rendering counters for live measurement.
 
 ### Level and ratio
 
