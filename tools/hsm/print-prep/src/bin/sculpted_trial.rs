@@ -296,7 +296,7 @@ fn main() -> Result<()> {
             let args = Args::parse(values, &[], &[])?;
             args.count(3)?;
             let readings = approaches::read(&args.path(0)?, &args.path(1)?)?;
-            std::fs::write(args.path(2)?, readings.dumps_indented() + "\n")?;
+            std::fs::write(args.path(2)?, serde_json::to_string_pretty(&readings)? + "\n")?;
         }
         _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, splice-tip-end, cool-tip-end, progress, package, merge, cap-feed, bind-capped, audit-tip, head-map or approaches"),
     }
