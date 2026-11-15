@@ -7,6 +7,12 @@
     "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json"
   },
   "shell_ordinary_seam_gap": "15%",
+  "overhang_recipe": {
+    "fan_percent": 70,
+    "fan_off_bed_layers": 3,
+    "maximum_overhang_speed_mm_s": 15,
+    "fan_threshold": "50%"
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
