@@ -55,6 +55,17 @@
       "normal": [0.0, -0.9396926207859083, 0.3420201433256688]
     }
   },
+  "tip_dispense_contact": {
+    "part": "faucet-shell-tip",
+    "mapping_margin_mm": 5.0,
+    "mapping_edge_blend_mm": 2.0,
+    "outside_wall_inboard_blend_mm": [0.90, 2.65],
+    "interior_full_mm": 0.25,
+    "interior_end_mm": 2.35,
+    "outlet_clearance_mm": 0.30,
+    "outlet_shadow_clearance_mm": 0.90,
+    "outlet_depth_mm": [-0.65, 5.0]
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
