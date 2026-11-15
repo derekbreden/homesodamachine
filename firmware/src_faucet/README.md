@@ -84,14 +84,18 @@ form its own answer takes: `BRIDGE_ERR_UNTRUSTED`, an image or update ending wit
 `_UNTRUSTED` error, the faces as they stand, `ERR:IDENTITY:UNTRUSTED`.
 
 A phone asks to be trusted with `BLE_FRAME_TRUST_ASK` (reason, channel, iPhone or iPad). The
-ask goes up here and, through the main board, on the enclosure (`MSG_TRUST_SHOW`): **Trust
-this iPhone?**, what the phone wants, and what trusting it allows, in
-[`trust_text.h`](/firmware/lib/proto_link/trust_text.h)'s words. **Trust** or **Don't Trust**
-on either display answers for both; the ask also ends after a minute, when the phone
-withdraws it, or when it leaves, and `MSG_TRUST_CLOSE` takes the other display's copy down.
-The phone hears how it ended, and where it now stands, as `BLE_FRAME_TRUST`. One ask is up at
-a time; another phone asking meanwhile is told the machine is busy. A phone with no bond is
-asked to pair again instead, which iOS puts to its owner.
+ask goes up here in a strip along the foot of the glass:
+[`trust_text.h`](/firmware/lib/proto_link/trust_text.h)'s **Trust this iPhone?** or **Trust
+this iPad?** over **Settings + cycles**, with **Don't Trust** beside **Trust**. Through the main
+board (`MSG_TRUST_SHOW`) it also stands on the machine's display, as **Phone request** in its
+rail, which opens a page of its own ([Trusted phones](/firmware/src_front/README.md#trusted-phones)).
+**Trust** or **Don't Trust** on either display answers for both. The ask also ends when
+[`trust_policy.h`](trust_policy.h)'s `kAskMs` runs out, when an ask the phone leases
+(`BLE_TRUST_ASK_LEASED`) goes `kLeaseMs` without its heartbeat, when the phone withdraws it, or
+when it leaves, and `MSG_TRUST_CLOSE` takes the other display's copy down. The phone hears how
+it ended, and where it now stands, as `BLE_FRAME_TRUST`. One ask is up at a time; another
+phone asking meanwhile is told the machine is busy. A phone with no bond is asked to pair
+again instead, which iOS puts to its owner.
 
 The main board names what stops the machine making soda (`MSG_NOTICE`, on its heartbeat). For
 a refill that stands latched this glass takes the strip a trust ask uses and says **No water**
