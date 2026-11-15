@@ -46,7 +46,8 @@ The rear wall closes within the rounded skirt outline. Its inner face is
 vertical at the display's rear clearance plane; its lower edge slopes upward
 across the curved neck opening. The rear rim and bezel extend aft to cover the
 display pocket's corners. The front edge and bezel window use their shared
-display datums. The underside remains open.
+display datums, and the tip's pocket opens behind the front edge at its front
+corners. The underside remains open.
 
 The skirt's shoulder gives the wings their reach from the bezel to the groove
 floors. The lips meet the groove roots in the seated model and engage below both
