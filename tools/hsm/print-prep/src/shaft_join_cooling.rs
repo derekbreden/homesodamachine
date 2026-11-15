@@ -2,10 +2,9 @@
 //! courses that recover on it, leaving every other byte of the sequenced plate as it was.
 
 use crate::cooling;
-use crate::json::Json;
 use crate::sha256_hex;
 use anyhow::{Context, Result, bail, ensure};
-use serde_json::Value;
+use serde_json::{Value, json};
 use std::io::Read;
 use std::path::{Path, PathBuf};
 
@@ -77,33 +76,6 @@ fn local_window(raw: &[u8], depth: f64) -> Result<(usize, usize, usize, Vec<f64>
     Ok((layers[stitch].0, layers[end_index].0, layers[stitch + 1].0, layers[stitch..end_index].iter().map(|l| l.1).collect()))
 }
 
-/// Python's `bytes.splitlines`.
-fn split_lines(data: &[u8]) -> Vec<&[u8]> {
-    let mut out = Vec::new();
-    let (mut start, mut i) = (0, 0);
-    while i < data.len() {
-        match data[i] {
-            b'\n' => {
-                out.push(&data[start..i]);
-                start = i + 1;
-            }
-            b'\r' => {
-                out.push(&data[start..i]);
-                if data.get(i + 1) == Some(&b'\n') {
-                    i += 1;
-                }
-                start = i + 1;
-            }
-            _ => {}
-        }
-        i += 1;
-    }
-    if start < data.len() {
-        out.push(&data[start..]);
-    }
-    out
-}
-
 /// Each ` F` word a line carries, as `(start, end)` of the word, where a run of digits, points
 /// and minus signs follows the `F` and ends the line or meets white space.
 fn feed_words(line: &[u8]) -> Vec<(usize, usize)> {
@@ -113,7 +85,7 @@ fn feed_words(line: &[u8]) -> Vec<(usize, usize)> {
         if line[i] == b' ' && line[i + 1] == b'F' {
             let run = line[i + 2..].iter().take_while(|c| c.is_ascii_digit() || **c == b'.' || **c == b'-').count();
             let end = i + 2 + run;
-            if run > 0 && (end == line.len() || line[end].is_ascii_whitespace() || line[end] == 0x0b) {
+            if run > 0 && (end == line.len() || line[end].is_ascii_whitespace()) {
                 out.push((i, end));
                 i = end;
                 continue;
@@ -138,19 +110,18 @@ fn replace_feeds(data: &[u8], mut with: impl FnMut(&[u8]) -> Vec<u8>) -> Vec<u8>
 
 /// The motion lines with their feeds removed, which the cooling must leave unchanged.
 fn motion_without_feed(data: &[u8]) -> Vec<Vec<u8>> {
-    split_lines(data).into_iter()
+    data.split(|b| *b == b'\n')
         .filter(|l| [b"G0 ", b"G1 ", b"G2 ", b"G3 "].iter().any(|p| l.starts_with(*p)) && !l.starts_with(b"G1 F"))
         .map(|l| replace_feeds(l, |_| Vec::new()))
         .collect()
 }
 
-/// The feeds rewritten as `%g`, so a feed the cooling only reformats compares equal.
+/// The feeds written from their values, so a feed the cooling only rewrites to more decimal
+/// places compares equal.
 fn normalize_feed(data: &[u8]) -> Vec<u8> {
     replace_feeds(data, |run| {
         let value: f64 = std::str::from_utf8(run).ok().and_then(|s| s.parse().ok()).unwrap_or(f64::NAN);
-        let mut word = b" F".to_vec();
-        word.extend(crate::python_text::g(value).into_bytes());
-        word
+        format!(" F{value}").into_bytes()
     })
 }
 
@@ -176,9 +147,9 @@ fn settings(project: &Path) -> Result<Value> {
 pub fn cool_shaft_join(source: &Path, project: &Path, output: &Path, catalog: &Path) -> Result<()> {
     let raw = std::fs::read(source).with_context(|| format!("reading {}", source.display()))?;
     let schedule_path = source.with_extension("json");
-    let mut schedule = Json::parse(&std::fs::read_to_string(&schedule_path).with_context(|| format!("reading {}", schedule_path.display()))?)?;
+    let mut schedule: Value = serde_json::from_slice(&std::fs::read(&schedule_path).with_context(|| format!("reading {}", schedule_path.display()))?)?;
     let before = sha256_hex(&raw);
-    ensure!(schedule.get("sequenced_gcode_sha256").and_then(Json::text) == Some(before.as_str()), "Uncooled schedule and G-code differ");
+    ensure!(schedule["sequenced_gcode_sha256"] == before.as_str(), "Uncooled schedule and G-code differ");
     let scalars: Value = serde_json::from_slice(&std::fs::read(catalog).with_context(|| format!("reading {}", catalog.display()))?)?;
     let depth = scalars["petgf_cooling"]["FOUNDATION"]["height_mm"].as_f64().context("the foundation's cooling depth")?;
     let (start, end, first_native, levels) = local_window(&raw, depth)?;
@@ -196,7 +167,7 @@ pub fn cool_shaft_join(source: &Path, project: &Path, output: &Path, catalog: &P
         Ok((report, std::fs::read(&cooled)?))
     })();
     let _ = std::fs::remove_dir_all(&scratch);
-    let (report, written) = result?;
+    let (mut report, written) = result?;
     let newline = written.iter().position(|b| *b == b'\n').context("the cooling stage wrote no marker")?;
     let (marker, modified) = (&written[..newline], &written[newline + 1..]);
     if marker != MARKER || count(modified, TAIL) != 1 {
@@ -213,28 +184,22 @@ pub fn cool_shaft_join(source: &Path, project: &Path, output: &Path, catalog: &P
     ensure!(motion_without_feed(original) == motion_without_feed(&modified), "Foundation cooling changed motion geometry or extrusion");
     let combined: Vec<u8> = [&raw[..start], &modified[..], &raw[end..]].concat();
     std::fs::write(output, &combined).with_context(|| format!("writing {}", output.display()))?;
-    let mut report = Json::from_value(&report);
-    let lines = |upto: usize| raw[..upto].iter().filter(|b| **b == b'\n').count() as i64;
-    let project_bytes = std::fs::read(project)?;
-    for (key, value) in [
-        ("source_sha256", Json::Text(before.clone())),
-        ("output_sha256", Json::Text(sha256_hex(&combined))),
-        ("source_project_sha256", Json::Text(sha256_hex(&project_bytes))),
-        ("stitch_and_recovery_z_mm", Json::List(levels.iter().map(|z| Json::Number(crate::json::python_number(*z), *z)).collect())),
-        ("start_line", Json::Number((lines(start) + 1).to_string(), (lines(start) + 1) as f64)),
-        ("last_source_line", Json::Number(lines(end).to_string(), lines(end) as f64)),
-        ("scope_geometry_and_extrusion_verified", Json::Bool(true)),
-        ("outside_scope_bytes_retained", Json::Bool(true)),
-    ] {
-        report.set(key, value);
-    }
+    let lines = |upto: usize| raw[..upto].iter().filter(|b| **b == b'\n').count();
+    let output_sha = sha256_hex(&combined);
+    report["source_sha256"] = json!(before);
+    report["output_sha256"] = json!(output_sha);
+    report["source_project_sha256"] = json!(sha256_hex(&std::fs::read(project)?));
+    report["stitch_and_recovery_z_mm"] = json!(levels);
+    report["start_line"] = json!(lines(start) + 1);
+    report["last_source_line"] = json!(lines(end));
+    report["scope_geometry_and_extrusion_verified"] = json!(true);
+    report["outside_scope_bytes_retained"] = json!(true);
     let recovery = output.with_extension("recovery.json");
-    std::fs::write(&recovery, report.dumps() + "\n").with_context(|| format!("writing {}", recovery.display()))?;
-    let output_hash = report.get("output_sha256").cloned().context("the output hash")?;
-    schedule.set("sequenced_gcode_sha256", output_hash);
-    schedule.set("pre_recovery_gcode_sha256", Json::Text(before));
-    schedule.set("shaft_join_recovery", report);
+    std::fs::write(&recovery, serde_json::to_string_pretty(&report)? + "\n").with_context(|| format!("writing {}", recovery.display()))?;
+    schedule["sequenced_gcode_sha256"] = json!(output_sha);
+    schedule["pre_recovery_gcode_sha256"] = json!(before);
+    schedule["shaft_join_recovery"] = report;
     let cooled = output.with_extension("json");
-    std::fs::write(&cooled, schedule.dumps() + "\n").with_context(|| format!("writing {}", cooled.display()))?;
+    std::fs::write(&cooled, serde_json::to_string_pretty(&schedule)? + "\n").with_context(|| format!("writing {}", cooled.display()))?;
     Ok(())
 }
