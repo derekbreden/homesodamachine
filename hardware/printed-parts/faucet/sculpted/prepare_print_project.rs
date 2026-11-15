@@ -252,6 +252,26 @@ fn main() -> Result<()> {
     }
     let hook = cooling_hook(&root);
     apply_overhang_recipe(&mut r.plate.settings, &selection["overhang_recipe"], &hook)?;
+    if let Some(entry) = selection.get("shallow_overhang_wall_speed") {
+        // The named parts lay walls at their own speed through these overhang points; the filament's
+        // overhang speeds leave the process's, which hold the same values, to every object.
+        let names = |key: &str| -> Result<Vec<String>> {
+            entry[key].as_array().with_context(|| format!("the shallow overhang entry's {key}"))?.iter()
+                .map(|v| v.as_str().map(String::from).with_context(|| format!("a name in {key}"))).collect()
+        };
+        let (parts, points) = (names("parts")?, names("points")?);
+        for point in &points {
+            let Some(Json::List(variants)) = r.plate.settings.get(point) else { bail!("the process has no {point}") };
+            let zeros = vec!["0"; variants.len()].join(",");
+            for obj in r.plate.objects.iter_mut().filter(|o| parts.contains(&o.name)) {
+                obj.settings.push((point.clone(), zeros.clone()));
+            }
+        }
+        if let Some(Json::List(flags)) = r.plate.settings.get("override_process_overhang_speed") {
+            let off = Json::List(flags.iter().map(|_| Json::Text("0".into())).collect());
+            r.plate.settings.set("override_process_overhang_speed", off);
+        }
+    }
     r.plate.settings.set("sparse_infill_pattern", Json::Text(petgf_infill_pattern(&root)?));
     let text = |s: &str| Json::Text(s.into());
     let list = |items: &[&str]| Json::List(items.iter().map(|s| Json::Text(s.to_string())).collect());
