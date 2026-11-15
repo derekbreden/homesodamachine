@@ -549,9 +549,17 @@ says No level reading. During a reported pour the portrait's caption reads Pouri
 the selection is not known it reads Connecting, at a smaller size that fits the portrait
 panel, on the same baseline.
 
-The ratio stepper sends both ratios as `MSG_RATIO_SET`. The main board persists and
-returns them; the status poll carries subsequent changes. While a step's answer is owed,
-an older status value cannot overwrite the local step. Ratios range from 1:6 to 1:24.
+A step on the Ratio page sends that flavor's ratio as `MSG_RATIO_SET_ONE`; the main board
+keeps the other flavor at what it holds and answers with both. The status poll carries
+changes made elsewhere, and while a step's answer is owed an older value cannot overwrite the
+local step.
+
+While the Ratio page is up the faucet shows the same flavor's ratio, with More flavor,
+Lighter and Back of its own. This glass states its visit to the page to the main board
+(`MSG_RATIO_SESSION_SET`, a token for the visit) when the page comes up and on the poll's
+pace while it stands, and closes it when the page goes. Each statement is answered with the
+visit and both ratios, so a step at the faucet shows here within a statement, and an answer
+that the visit is closed, which is the faucet's Back, takes this glass back to rest.
 
 ### System status
 

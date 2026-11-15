@@ -534,11 +534,19 @@ static int8_t    pouringShown = -1;
 static uint8_t   levelSegments[2] = {LEVEL_UNKNOWN, LEVEL_UNKNOWN};
 static bool      levelValid = false;
 
-// What each channel pours at is the main board's: a step here states the
-// pair and takes back what it holds; while that answer is owed, the status
-// poll's copy is not allowed to put the old number back.
+// What each channel pours at is the main board's: a step here states its
+// flavor's ratio and takes back the pair the main board holds; while that answer
+// is owed, the status poll's copy is not allowed to put the old number back.
 static unsigned long ratioSentMs = 0;
 #define RATIO_REPLY_MS 2500
+
+// The Ratio page's visit, which the faucet shows too: stated to the main board when
+// the page comes up and on this pace while it stands, and closed when it goes. The
+// faucet's Back closes it from there, and the answer to the next statement says so.
+static uint32_t ratioSessionToken = 0;   // this page's visit; 0 while the page is down
+static uint8_t  ratioSessionChannel = 0;
+static unsigned long ratioSessionSaidMs = 0;
+#define RATIO_SESSION_STATE_MS 500
 static lv_obj_t *homeFlavorBadge[2];
 
 // Render selection only when it changes. Routine main-board replies leave the
@@ -2058,6 +2066,28 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  // The Ratio page's visit as the main board holds it, with both ratios: a step at the faucet
+  // shows here, and the faucet's Back takes this page back to rest too.
+  if (type == MSG_RESP_RATIO_SESSION && plen >= sizeof(RatioSessionStatePayload)) {
+    RatioSessionStatePayload state;
+    memcpy(&state, payload, sizeof(state));
+    if (!ratioSentMs) {
+      bool moved = false;
+      for (uint8_t i = 0; i < 2; i++) {
+        if (state.ratio[i] >= RATIO_MIN && state.ratio[i] <= RATIO_MAX && flavorRatio[i] != state.ratio[i]) {
+          flavorRatio[i] = state.ratio[i];
+          moved = true;
+        }
+      }
+      if (moved && uiReady) refreshFlavorText();
+    }
+    if (!state.open && ratioSessionToken && state.token == ratioSessionToken) {
+      ratioSessionToken = 0;
+      if (uiReady && activePage == PAGE_FLAVOR && activeFlv == FLV_DETAIL) showPage(PAGE_HOME);
+    }
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_ART && plen >= sizeof(FlavorArtPayload)) {
     FlavorArtPayload art;
     memcpy(&art, payload, sizeof(art));
@@ -3329,8 +3359,38 @@ static void ratioStepCb(lv_event_t *e) {
   ratioSentMs = millis() ? millis() : 1;
 }
 
+// A fresh sequence each boot, so a restarted glass never names a visit the main board
+// has already closed.
+static uint32_t nextRatioToken() {
+  static uint32_t state = 0;
+  if (!state) state = esp_random() | 1;
+  state += 0x9E3779B9u;
+  if (state == 0) ++state;
+  return state;
+}
+
+static void ratioSessionPost(uint8_t action) {
+  RatioSessionRequestPayload p{action, ratioSessionChannel, ratioSessionToken};
+  j9Post(MSG_RATIO_SESSION_SET, &p, sizeof(p));
+  ratioSessionSaidMs = millis();
+}
+
+// The page as it stands once a pass is done with it. Change image opens by way of Ratio
+// inside one pass, and is not stated.
 static void ratioService() {
   if (ratioSentMs && millis() - ratioSentMs >= RATIO_REPLY_MS) ratioSentMs = 0;
+  const bool up = uiReady && activePage == PAGE_FLAVOR && activeFlv == FLV_DETAIL;
+  if (up && (!ratioSessionToken || ratioSessionChannel != flavorSel)) {
+    if (ratioSessionToken) ratioSessionPost(RATIO_SESSION_CLOSE);
+    ratioSessionToken = nextRatioToken();
+    ratioSessionChannel = flavorSel;
+    ratioSessionPost(RATIO_SESSION_OPEN);
+  } else if (up && millis() - ratioSessionSaidMs >= RATIO_SESSION_STATE_MS) {
+    ratioSessionPost(RATIO_SESSION_OPEN);
+  } else if (!up && ratioSessionToken) {
+    ratioSessionPost(RATIO_SESSION_CLOSE);
+    ratioSessionToken = 0;
+  }
 }
 
 // The resting gauge: one outline holding a cell per segment, lit white for what the reeds
