@@ -534,6 +534,20 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_RESP_RATIO_SESSION && plen >= sizeof(RatioSessionStatePayload)) {
+    RatioSessionStatePayload state;
+    memcpy(&state, payload, sizeof(state));
+    faucetApplyRatioSession(state);
+    return;
+  }
+
+  if (type == MSG_RESP_RATIO && plen >= sizeof(RatioPayload)) {
+    RatioPayload ratio;
+    memcpy(&ratio, payload, sizeof(ratio));
+    faucetApplyRatio(ratio);
+    return;
+  }
+
   if (type == MSG_NOTICE && plen >= NOTICE_CORE_BYTES) {
     // A main board built before a byte existed does not send it, and it reads as zero.
     NoticePayload notice{};
@@ -683,6 +697,22 @@ void baseLinkPrimeHoldStop(uint8_t channel, uint32_t sessionToken, uint32_t hold
 
 void baseLinkPrimeDiscard() {
   clearPrimeQueue();
+}
+
+bool baseLinkRatioSet(uint8_t channel, uint8_t ratio) {
+  if (channel > PUMP_CHANNEL_B || !base.isConnected()) return false;
+  RatioOnePayload request{channel, ratio};
+  if (base.trySend(MSG_RATIO_SET_ONE, &request, sizeof(request)) < 0) return false;
+  ++framesTx;
+  return true;
+}
+
+bool baseLinkRatioClose(uint8_t channel, uint32_t token) {
+  if (channel > PUMP_CHANNEL_B || token == 0 || !base.isConnected()) return false;
+  RatioSessionRequestPayload request{RATIO_SESSION_CLOSE, channel, token};
+  if (base.trySend(MSG_RATIO_SESSION_SET, &request, sizeof(request)) < 0) return false;
+  ++framesTx;
+  return true;
 }
 
 // Said over J3 because this board has no console of its own in the appliance.

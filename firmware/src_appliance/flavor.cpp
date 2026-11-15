@@ -4,6 +4,7 @@
 #include "flavor.h"
 #include "flavor_selection.h"
 #include "proto_msg.h"
+#include "ratio_session_policy.h"
 #include "settings.h"
 
 namespace {
@@ -29,6 +30,10 @@ uint32_t artPersistDueMs = 0;
 uint8_t ratio[2] = {FLAVOR_RATIO_DEFAULT, FLAVOR_RATIO_DEFAULT};
 bool ratioDirty = false;
 uint32_t ratioPersistDueMs = 0;
+
+// The Ratio page open on the machine display, and so on the faucet. Kept in RAM: a restart
+// closes it, and the machine display's next statement opens it again.
+ratio_session::Session ratioSession;
 
 bool due(uint32_t now, uint32_t deadline) {
     return static_cast<int32_t>(now - deadline) >= 0;
@@ -170,6 +175,20 @@ bool flavorRatioSet(uint8_t r0, uint8_t r1) {
     ratioPersistDueMs = millis() + kPersistDelayMs;
     ++revision;
     return true;
+}
+
+bool flavorRatioSessionOpen(uint8_t channel, uint32_t token) {
+    return ratioSession.open(channel, token, millis());
+}
+
+bool flavorRatioSessionClose(uint32_t token) {
+    return ratioSession.close(token, millis());
+}
+
+void flavorRatioSession(RatioSessionStatePayload &state) {
+    ratioSession.read(millis(), state);
+    state.ratio[0] = ratio[0];
+    state.ratio[1] = ratio[1];
 }
 
 void flavorApplySettings(uint8_t selected, uint8_t r0, uint8_t r1, uint8_t a0, uint8_t a1) {

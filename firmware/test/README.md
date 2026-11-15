@@ -23,7 +23,10 @@ down through a draw, and the air cycles' steps — the dry
 sweep of both channels that draws on no reservoir, and the purge that airs one and draws it
 out. It also checks that Prime queries renew the main-board lease while giving queued J9
 announcements a turn, that snapshots stay fresh through a full queue at dark-display polling
-speed, and that discovery queries and direct hold/stop/cancel replies retain priority.
+speed, and that discovery queries and direct hold/stop/cancel replies retain priority. The
+Ratio page's visit opens on its statement and is kept open by the next, stays closed once
+either glass closes it, is closed only by its own token, and lapses with its lease to open
+again on the statement after, across the clock's wrap.
 `test_machine_prime` runs the production machine arbiter and expander driver with host
 GPIO, clock and I2C fakes. It checks wet Prime's reservoir dispense pairs, pump-before-valve
 stop ordering including expander faults, token/session retries and competing displays,

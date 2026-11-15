@@ -23,9 +23,11 @@
 /* Display DPI (LVGL's recommended default; sizes are set explicitly) */
 #define LV_DPI_DEF 130
 
-/* Fonts: compact prime controls plus the theme default */
+/* Fonts: every size the glass draws; the smallest is also the theme default */
 #define LV_FONT_MONTSERRAT_14 1
+#define LV_FONT_MONTSERRAT_16 1
 #define LV_FONT_MONTSERRAT_20 1
+#define LV_FONT_MONTSERRAT_36 1
 
 /* Disable debug monitors */
 #define LV_USE_PERF_MONITOR 0
