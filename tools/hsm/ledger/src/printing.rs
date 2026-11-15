@@ -210,23 +210,17 @@ pub fn estimate(request: &Value, ctx: &mut Context) -> Result<Value> {
     let (mut kg, orphans) = group_masses(&text)?;
     let shell=ctx.json(ctx.path(request,"shell_slice","hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/preparation.json"))?;
     let shell_hours = num(&shell["native_slice"]["estimated_total_seconds"])? / 3600.;
+    // The faucet's hours are the acceleration planner's motion time for the Sculpted product
+    // plate's sequenced G-code, the estimate its progress lines count down; not Bambu's estimate.
     let faucet = ctx.json(ctx.path(
         request,
-        "faucet_slice",
-        "hardware/printed-parts/faucet/faucet-petgf.support-audit.json",
+        "faucet_plate",
+        "hardware/printed-parts/faucet/faucet-petgf.plate.json",
     ))?;
-    let faucet_hours = faucet["plates"]
-        .as_array()
-        .context("faucet plates")?
-        .iter()
-        .map(|v| num(&v["estimated_total_seconds"]))
-        .collect::<Result<Vec<_>>>()?
-        .iter()
-        .sum::<f64>()
-        / 3600.;
+    let faucet_hours = num(&faucet["estimated_motion_seconds"])? / 3600.;
     ensure!(
         faucet_hours > 0. && kg["petgf"] > 0.,
-        "Faucet slice duration and filament mass must be positive"
+        "Faucet plate duration and filament mass must be positive"
     );
     let floats: Vec<_> = text
         .lines()
