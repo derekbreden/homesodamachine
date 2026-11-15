@@ -72,8 +72,6 @@ const TIE_PITCH: f64 = 10.0;
 const FLOW: f64 = 0.9555;
 const BRIDGE_FLOW: f64 = 1.25;
 const BRIDGE_FAN: &str = "M106 S178";
-const Z_PRINT_RATE: f64 = 7.5;
-const Z_TRAVEL_RATE: f64 = 15.0;
 const TRAVEL_LIFT: f64 = 1.0;
 const TRAVEL_SPEED: f64 = 150.0;
 const BED_MIN_Z: f64 = 0.2;
@@ -154,11 +152,20 @@ pub struct Writer {
     pub lengths: Vec<(String, f64)>,
     pub feature: Option<String>,
     lift_downhill: bool,
+    /// The machine's Z feed, mm/s: the most any move of this stage climbs or drops per second.
+    z_feed: f64,
 }
 
 impl Writer {
-    pub fn new() -> Self {
-        Self { retracted: true, ..Default::default() }
+    pub fn new(z_feed: f64) -> Self {
+        Self { retracted: true, z_feed, ..Default::default() }
+    }
+
+    /// `speed`, or less where a move from `a` to `b` would climb or drop faster than the
+    /// machine's Z feed.
+    fn z_limited(&self, a: [f64; 3], b: [f64; 3], speed: f64) -> f64 {
+        let dz = (b[2] - a[2]).abs();
+        if dz < 1e-9 { speed } else { speed.min(self.z_feed * dist3(a, b) / dz) }
     }
 
     pub fn raw(&mut self, text: impl Into<String>) {
@@ -221,24 +228,23 @@ impl Writer {
     /// Lift, cross and lower; a crossing shorter than `hop` runs along the course in hand.
     pub fn travel(&mut self, target: [f64; 3], lift: f64, hop: f64) {
         let Some([x0, y0, z0]) = self.pos else {
-            self.out.push(format!("G1 Z{:.3} F1800", target[2] + lift + 4.0));
+            self.out.push(format!("G1 Z{:.3} F{:.0}", target[2] + lift + 4.0, self.z_feed * 60.0));
             self.out.push(format!("G1 X{:.3} Y{:.3} F{:.0}", target[0], target[1], TRAVEL_SPEED * 60.0));
             self.pos = Some([target[0], target[1], target[2] + lift + 4.0]);
-            self.line(target, None, 20.0);
+            self.line(target, None, self.z_feed);
             return;
         };
         let flat = (target[0] - x0).hypot(target[1] - y0);
         let safe_short_hop = !self.lift_downhill || target[2] >= z0 - 0.001;
         if flat < hop && (target[2] - z0).abs() < 0.5 && !self.retracted && safe_short_hop {
-            self.line(target, None, TRAVEL_SPEED.min(60.0));
+            self.line(target, None, self.z_limited([x0, y0, z0], target, TRAVEL_SPEED.min(60.0)));
             return;
         }
         self.retract();
-        self.line([x0, y0, z0 + lift], None, 20.0);
-        let dz = (target[2] - z0).abs();
-        let feed = if dz < 1e-9 { TRAVEL_SPEED } else { TRAVEL_SPEED.min(Z_TRAVEL_RATE * flat.hypot(dz) / dz) };
-        self.line([target[0], target[1], target[2] + lift], None, feed);
-        self.line(target, None, 20.0);
+        self.line([x0, y0, z0 + lift], None, self.z_feed);
+        let over = [target[0], target[1], target[2] + lift];
+        self.line(over, None, self.z_limited([x0, y0, z0 + lift], over, TRAVEL_SPEED));
+        self.line(target, None, self.z_feed);
     }
 
     /// Lays a bead along `path`; `flows` gives each segment its own share of the flow.
@@ -251,8 +257,7 @@ impl Writer {
                 continue;
             }
             let share = flows.map_or(1.0, |f| f[i - 1].max(0.0));
-            let dz = (b[2] - a[2]).abs();
-            let feed = if dz < 1e-9 { speed } else { speed.min(Z_PRINT_RATE * d / dz) };
+            let feed = self.z_limited(a, b, speed);
             self.line(b, Some(e_per_mm(width, height, flow * share) * d), feed);
         }
     }
@@ -262,7 +267,7 @@ impl Writer {
     pub fn park(&mut self, z: f64, temperature: &str, closing: &[String]) -> Result<()> {
         self.retract();
         let [x, y, _] = self.pos.context("the preamble laid nothing")?;
-        self.line([x, y, z], None, 25.0);
+        self.line([x, y, z], None, self.z_feed);
         self.raw(format!("M104 S{temperature} ; the plate's first-layer temperature"));
         self.raw("M625");
         self.out.extend(closing.iter().cloned());
@@ -1273,7 +1278,9 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     let (frame, seat, base_id, label) = plate_inputs(&report, &lines, rim)?;
     let foot = Foot::cut(&mesh, SHORT_FOUNDATION_COURSES, rim)?;
     let base = report["base_seat"]["part"].as_str().context("the base's name")?;
-    let mut w = Writer::new();
+    // the machine's Z feed, as the plate's start G-code tells the printer
+    let z_feed = crate::motion::AxisLimits::stated(&gcode)?.speed[2];
+    let mut w = Writer::new(z_feed);
     let opening = Opening {
         title: format!("; ===== sloped underside of {base}: scaffold, roof and foot ====="),
         object: vec![label], temperature: "280".into(), level_roof: true,
@@ -1324,7 +1331,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         },
         "plate": stats.to_json(),
         "limits": {
-            "z_while_printing_mm_s": Z_PRINT_RATE, "z_while_travelling_mm_s": Z_TRAVEL_RATE,
+            "machine_z_feed_mm_s": z_feed,
             "head_travel_margin_mm": HEAD_TRAVEL_MARGIN, "nozzle_travel_margin_mm": NOZZLE_TRAVEL_MARGIN,
             "least_share_of_a_level_course_laid": FEATHER_MIN, "nozzle_over_slab_mm": rule.nozzle_over,
         },
