@@ -138,6 +138,17 @@ slicer's layer changes do, and its layer, progress and time-left lines come from
 acceleration planner that `hsm-gcode`'s playback uses. The `sculpted-trial` stage commands lay
 one stage at a time for investigation.
 
+These commands run the builds last installed, so after an edit to their source, build them as
+[`sculpted-plate`'s header](../../../../tools/hsm/print-prep/src/bin/sculpted_plate.rs) shows and
+install them again:
+
+```sh
+hsm-run --install-tools "$PWD" tools/hsm/target/release/sculpted-plate tools/hsm/target/release/sculpted-trial \
+  tools/hsm/target/release/sculpted-faucet-print-project tools/hsm/target/release/sculpted-dispense-face
+```
+
+`sculpted-plate` runs from inside the checkout, through `tools/run` for its slices.
+
 These checks read a prepared plate before it is sent. Each runs by hand on the plate's G-code or
 archive:
 
