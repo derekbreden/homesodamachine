@@ -82,7 +82,7 @@ destroyed is a part that comes out by being destroyed.
   the cover before its bezel reaches the glass. Factory assembly places the display
   inside the cover, slides the pair along the tip with clearance above the neck,
   then lowers it onto the supports. The
-  [complete tip and display covers](printed-parts/faucet/faucet-display-petgf.md)
+  [complete tip and display covers](https://github.com/derekbreden/homesodamachine/blob/7e3ce56e2f0682254e7ac1976d5c0467b98b55be/hardware/printed-parts/faucet/faucet-display-petgf.md)
   carry the actual enclosure, device supports, tubes and ribbon route. The print record
   identifies their geometry and settings. The preloaded geometry needs its own fit and
   retention reading. The linked PET-GF15 data are annealed specimen results, not an
