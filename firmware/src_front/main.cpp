@@ -5561,6 +5561,7 @@ static void buildSettings(lv_obj_t *page) {
   lv_obj_set_width(page, SCREEN_W - RAIL_W);
   lv_obj_set_style_bg_color(page, THEME_BG, 0);   // over the ice, the portrait and the pane
   lv_obj_set_style_bg_opa(page, LV_OPA_COVER, 0);
+  lv_obj_set_style_radius(page, 0, 0);   // square to the band, the rail and the glass's edges
   lv_obj_t *status = mkView(page);
   lv_obj_set_height(status, PANE_H + 8);
   const lv_coord_t diagramHeight = buildStatusDiagram(status, 436, 5);
