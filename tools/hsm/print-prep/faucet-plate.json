@@ -1,6 +1,5 @@
 {
-  "purpose": "The faucet plate's own selections, which faucet-plate prepares for either style over the standing finish selection.",
-  "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
+  "purpose": "The faucet plate's selections: faucet-plate prepares either style's plate from them, and faucet-cover-print-project takes the cover's own plate's layers from them.",
   "industrial_recipe": {
     "source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
     "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
