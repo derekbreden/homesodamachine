@@ -632,9 +632,9 @@ pub fn compose(
         ground.add(laid);
         write_roads(&mut upper, laid, above, *z, &mut |out, a, b| cross(&ground, &mut travels, above, out, a, b));
     }
-    let lower_lines = splitlines(&lower);
-    let incline_lines = splitlines(&inclined);
-    let upper_lines = splitlines(&upper);
+    let lower_lines: Vec<&str> = lower.split_inclusive('\n').collect();
+    let incline_lines: Vec<&str> = inclined.split_inclusive('\n').collect();
+    let upper_lines: Vec<&str> = upper.split_inclusive('\n').collect();
     lower_native.extend(read_custom(&lower_lines, TIP, &mut metadata)?);
     lower_native.extend(read_custom(&incline_lines, TIP, &mut metadata)?);
     lower_native.extend(read_custom(&upper_lines, TIP, &mut metadata)?);
