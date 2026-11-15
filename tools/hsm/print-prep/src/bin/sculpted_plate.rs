@@ -108,6 +108,7 @@ fn main() -> Result<()> {
     base_foundation::foundation(&base_foundation::Foundation {
         archive: &slice.join("native.gcode.3mf"), report: &out.join("native.print.json"), stl: &base, headmap: &headmap,
         out_dir: &out.join("base"), deck_top: None, part_courses: Some(base_foundation::SHORT_FOUNDATION_COURSES),
+        lift_share: sculpted_plate::lift_share(&plate),
     })?;
     let rings = out.join("rings.gcode");
     fs::write(&rings, plate_rings::gcode())?;
