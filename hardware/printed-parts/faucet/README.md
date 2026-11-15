@@ -67,7 +67,8 @@ The organizer is a separate PET-GF print, fitted during
 
 The [display acceptance record](faucet-display-cover/physical-acceptance.json)
 identifies the tested physical article. The current complete Industrial
-project uses the [selected printing recipe](industrial/finish-selection.json):
+project takes the [faucet plate's selections](../../../tools/hsm/print-prep/faucet-plate.json)
+over the recorded Industrial project's object settings:
 Back with A2 on the base, tip and mounting plate, rear-center seam enforcement
 through the base's full rear silhouette and the tip's exposed curved neck, default Aligned/15%/scarf-off
 seams on the cover and lever, **Bambu’s 0.20 mm first bed layer and 0.24 mm later

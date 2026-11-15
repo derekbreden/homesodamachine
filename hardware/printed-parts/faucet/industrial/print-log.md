@@ -234,7 +234,7 @@ The [preceding tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-
 records the best observed bottom-side rim appearance and a still-rough opposite
 side. The [Full-annulus base result](../finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
 reports tighter material but better underside and front-face finish with trees.
-The [selected complete-faucet recipe](finish-selection.json) retains 125% bridge
+The [selected complete-faucet recipe](https://github.com/derekbreden/homesodamachine/blob/7fde4f2a497164cf7ebe20673e0a25f61fbb91bd/hardware/printed-parts/faucet/industrial/finish-selection.json) retains 125% bridge
 flow, 70% cooling after three fan-off layers, 15 mm/s bridges and overhang limits
 at most 15 mm/s with the existing 10 mm/s limit retained. The
 [whole-project command reading](overhang-native-review.json) covers all five rigid
@@ -253,7 +253,7 @@ match the complete [production project](faucet-industrial-petgf.3mf), which
 contains all five rigid parts. The cover, mounting plate and lever retain the
 [accepted complete-print reference](prints/2026-10-13-a2-back-mark2/physical-result.json).
 
-The saved [recipe](finish-selection.json) applies A2/Back/150% to base, tip
+The saved [recipe](https://github.com/derekbreden/homesodamachine/blob/5660c51dc741ac34b5488739989db8a6ab57f6d7/hardware/printed-parts/faucet/industrial/finish-selection.json) applies A2/Back/150% to base, tip
 and mounting plate, complete rear seam enforcement to base and exposed
 curved tip, default Aligned/15%/scarf-off seams to cover and lever, and eight
 coarse lip layers before the 0.12 mm bands. The normal complete-print
