@@ -17,6 +17,11 @@
     "part": "faucet-shell-base",
     "half_width_mm": 0.25
   },
+  "tip_rear_seam_enforcement": {
+    "part": "faucet-shell-tip",
+    "half_width_mm": 0.0,
+    "surface": "curved_outer_arc"
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
