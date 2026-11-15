@@ -1,6 +1,11 @@
 {
   "purpose": "The faucet plate's own selections, which faucet-plate prepares for either style over the standing finish selection.",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
+  "industrial_recipe": {
+    "source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
+    "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+    "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json"
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],

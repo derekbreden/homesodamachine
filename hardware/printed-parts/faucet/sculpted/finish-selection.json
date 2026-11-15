@@ -2,11 +2,6 @@
   "schema": 1,
   "selected_date": "2026-10-15",
   "selection_basis": "Use the recorded Industrial process for the complete white Sculpted faucet with the selected Sculpted layer and support settings.",
-  "industrial_recipe": {
-    "source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
-    "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-    "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json"
-  },
   "seam_specimen": "A2",
   "shell_ordinary_seam_gap": "15%",
   "seam_parts": [
