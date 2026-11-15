@@ -41,11 +41,6 @@
   "default_printer": "Mark2",
   "default_filament_colour": "#FFFFFF",
   "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
-  "cover_rear_seam_enforcement": {
-    "part": "faucet-display-cover",
-    "paint_strip_half_width_mm": 0.35,
-    "target": "Exterior rear wall on the tip's CAD center plane above the opening"
-  },
   "base_underside": {
     "method": "Scaffold with a sloped roof and a sloped skin",
     "physical_reference": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
