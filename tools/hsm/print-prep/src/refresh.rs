@@ -6,7 +6,7 @@
 use crate::json::Json;
 use crate::mesh::{bounds, Mesh};
 use crate::profile::{self, relative, Profile};
-use crate::project::{MeshStyle, Plate};
+use crate::project::Plate;
 use crate::{apply, audit, cooling, gcode, rotation_x, sha256_hex};
 use anyhow::{bail, Context, Result};
 use serde_json::{json, Map, Value};
@@ -67,7 +67,6 @@ pub fn refresh(root: &Path, settings_from: &Path, parts: &[Part], offsets: &[[f6
     let mut plate = Plate::new(title, &profile, "homesodamachine/faucet/");
     plate.filament_maps = Some("1".into());
     plate.build_name = Some("build".into());
-    plate.mesh_style = MeshStyle::Element;
     let (low, high) = (profile.usable_low, profile.usable_high);
     let height = number(&profile.settings, "printable_height")?;
     let mut rows = Vec::new();

@@ -1,9 +1,9 @@
 //! A Bambu Studio plate project: the objects on one plate, each a normal part with its paint,
 //! plus modifier and extra parts and layer ranges, written as the 3MF archive Bambu Studio opens
-//! and slices, element for element as the Python preparers wrote it.
+//! and slices.
 
 use crate::ids::uuid5;
-use crate::json::{python_number, Json};
+use crate::json::Json;
 use crate::profile::{Profile, SETTINGS_MEMBER};
 use anyhow::{bail, Result};
 use std::collections::BTreeMap;
@@ -84,8 +84,6 @@ pub struct Plate {
     pub filament_maps: Option<String>,
     /// The name the build's identifier is made from; `<title>/build` when None.
     pub build_name: Option<String>,
-    /// How each object's mesh member is written.
-    pub mesh_style: MeshStyle,
     /// How Bambu Studio assigns filaments to nozzles: its own choice for flushing, or the
     /// project's map.
     pub filament_map_mode: String,
@@ -99,14 +97,6 @@ pub struct Plate {
     /// The application the model names as its writer.
     pub application: String,
     next_id: usize,
-}
-
-/// The two ways the Python preparers wrote a mesh member: the enclosure's streamed form with six
-/// decimals, and the faucet's ElementTree form with nine.
-#[derive(Clone, Copy, PartialEq)]
-pub enum MeshStyle {
-    Streamed,
-    Element,
 }
 
 impl Plate {
@@ -124,7 +114,6 @@ impl Plate {
             id_prefix: id_prefix.to_string(),
             filament_maps: None,
             build_name: None,
-            mesh_style: MeshStyle::Streamed,
             filament_map_mode: "Auto For Flush".into(),
             filament_volume_maps: "0".into(),
             model_metadata: Vec::new(),
@@ -239,9 +228,9 @@ impl Plate {
             let _ = write!(config, "<metadata face_count=\"{}\" /><part id=\"{}\" subtype=\"normal_part\" uuid=\"{}\">", obj.faces.len(), obj.part_id, self.identifier(&format!("{name}/part")));
             for (k, v) in [("name", name.clone()), ("matrix", MATRIX.into()), ("source_file", obj.source_file.clone()),
                            ("source_object_id", "0".into()), ("source_volume_id", "0".into()),
-                           ("source_offset_x", python_number(obj.source_center[0])),
-                           ("source_offset_y", python_number(obj.source_center[1])),
-                           ("source_offset_z", python_number(obj.source_center[2]))] {
+                           ("source_offset_x", obj.source_center[0].to_string()),
+                           ("source_offset_y", obj.source_center[1].to_string()),
+                           ("source_offset_z", obj.source_center[2].to_string())] {
                 metadata(&mut config, k, &v);
             }
             mesh_stat(&mut config, obj.faces.len());
@@ -322,9 +311,9 @@ impl Plate {
                 archive.write_all(data)?;
             }
             for obj in &self.objects {
-                stream_mesh(&mut archive, self.mesh_style, &obj.member, obj.part_id, &obj.vertices, &obj.faces, obj.paint.as_deref())?;
+                stream_mesh(&mut archive, &obj.member, obj.part_id, &obj.vertices, &obj.faces, obj.paint.as_deref())?;
                 for extra in &obj.parts {
-                    stream_mesh(&mut archive, self.mesh_style, &extra.member, extra.id, &extra.vertices, &extra.faces, extra.paint.as_deref())?;
+                    stream_mesh(&mut archive, &extra.member, extra.id, &extra.vertices, &extra.faces, extra.paint.as_deref())?;
                 }
             }
             archive.finish()?;
@@ -343,19 +332,14 @@ pub fn options() -> zip::write::SimpleFileOptions {
         .unix_permissions(0o644)
 }
 
-#[allow(clippy::too_many_arguments)]
-fn stream_mesh(archive: &mut zip::ZipWriter<std::fs::File>, style: MeshStyle, member: &str, object_id: usize,
+/// An object's mesh member.
+fn stream_mesh(archive: &mut zip::ZipWriter<std::fs::File>, member: &str, object_id: usize,
                vertices: &[[f64; 3]], faces: &[[usize; 3]], paint: Option<&[Paint]>) -> Result<()> {
-    let close = if style == MeshStyle::Element { " />" } else { "/>" };
     archive.start_file(member, options())?;
     let mut out = String::new();
     let _ = write!(out, "<?xml version='1.0' encoding='UTF-8'?>\n<model xmlns=\"{CORE}\" unit=\"millimeter\"><resources><object id=\"{object_id}\" type=\"model\"><mesh><vertices>");
     for v in vertices {
-        if style == MeshStyle::Element {
-            let _ = write!(out, "<vertex x=\"{:.9}\" y=\"{:.9}\" z=\"{:.9}\" />", v[0], v[1], v[2]);
-        } else {
-            let _ = write!(out, "<vertex x=\"{:.6}\" y=\"{:.6}\" z=\"{:.6}\"/>", v[0], v[1], v[2]);
-        }
+        let _ = write!(out, "<vertex x=\"{:.9}\" y=\"{:.9}\" z=\"{:.9}\" />", v[0], v[1], v[2]);
         if out.len() > 1 << 20 {
             archive.write_all(out.as_bytes())?;
             out.clear();
@@ -372,7 +356,7 @@ fn stream_mesh(archive: &mut zip::ZipWriter<std::fs::File>, style: MeshStyle, me
                 let _ = write!(out, " {k}=\"{v}\"");
             }
         }
-        out.push_str(close);
+        out.push_str(" />");
         if out.len() > 1 << 20 {
             archive.write_all(out.as_bytes())?;
             out.clear();
@@ -391,7 +375,8 @@ fn mesh_stat(out: &mut String, faces: usize) {
     let _ = write!(out, "<mesh_stat face_count=\"{faces}\" edges_fixed=\"0\" degenerate_facets=\"0\" facets_removed=\"0\" facets_reversed=\"0\" backwards_edges=\"0\" />");
 }
 
-/// Attribute text, escaped as ElementTree escapes it.
+/// Attribute text escaped for XML, line breaks and tabs as character references so an attribute
+/// keeps them.
 pub fn attr(s: &str) -> String {
     let mut out = String::with_capacity(s.len());
     for c in s.chars() {
@@ -409,7 +394,7 @@ pub fn attr(s: &str) -> String {
     out
 }
 
-/// Element text, escaped as ElementTree escapes it.
+/// Element text escaped for XML.
 pub fn text(s: &str) -> String {
     s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
 }

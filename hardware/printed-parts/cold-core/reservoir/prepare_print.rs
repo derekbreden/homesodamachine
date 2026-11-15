@@ -10,7 +10,7 @@ use anyhow::{bail, ensure, Context, Result};
 use hsm_print_prep::json::Json;
 use hsm_print_prep::mesh::{Mesh, stl_corners};
 use hsm_print_prep::profile::{relative, SETTINGS_MEMBER};
-use hsm_print_prep::project::{MeshStyle, Plate};
+use hsm_print_prep::project::Plate;
 use hsm_print_prep::{apply, faucet, npz, root, sha256_hex};
 use serde_json::{json, Value};
 use std::collections::BTreeMap;
@@ -98,7 +98,6 @@ fn main() -> Result<()> {
     let centre = [(low[0] + high[0]) / 2.0, (low[1] + high[1]) / 2.0];
     let height: f64 = settings.first_text("printable_height").context("the printer has no printable height")?.parse()?;
     let mut plate = Plate::with_settings(TITLE, settings, BTreeMap::new(), "homesodamachine/reservoir/");
-    plate.mesh_style = MeshStyle::Element;
     plate.filament_map_mode = "Manual".into();
     plate.filament_volume_maps = "0".into();
     let mut parts = Vec::new();

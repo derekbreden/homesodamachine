@@ -15,7 +15,7 @@ use hsm_print_prep::json::{python_number, Json};
 use hsm_print_prep::mesh::Mesh;
 use hsm_print_prep::preset::system_preset;
 use hsm_print_prep::profile::{trimmed_start_gcode, PRESETS, SETTINGS_MEMBER};
-use hsm_print_prep::project::{self, MeshStyle, Plate, Range};
+use hsm_print_prep::project::{self, Plate, Range};
 use hsm_print_prep::{faucet, root, sha256_hex, slice};
 use std::collections::BTreeMap;
 use std::io::Write;
@@ -375,7 +375,6 @@ fn main() -> Result<()> {
     }
     let label = label.unwrap_or_else(|| "Funnel mold".into());
     let mut plate = Plate::with_settings(&label, settings, BTreeMap::new(), "homesodamachine/funnel-mold/");
-    plate.mesh_style = MeshStyle::Element;
     plate.application = format!("BambuStudio-{version}");
     plate.filament_maps = Some(side_map);
     plate.filament_map_mode = "Manual".into();
