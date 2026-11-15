@@ -11,6 +11,8 @@ use anyhow::{Context, Result, ensure};
 use hsm_manifold::Manifold;
 use std::collections::BTreeMap;
 
+/// The base's turn about X on the plate, in degrees.
+pub const INCLINE_DEGREES: f64 = 15.0;
 /// How far the fill reaches past the mounting face's plane into the base.
 const EMBED: f64 = 0.05;
 /// How much wider than the base's own mouths the fill leaves the insert recesses open.

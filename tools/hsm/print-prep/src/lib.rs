@@ -4,7 +4,6 @@
 
 pub mod approaches;
 pub mod audit;
-pub mod base_courses;
 pub mod base_foundation;
 pub mod cooling;
 pub mod course_field;
@@ -30,8 +29,6 @@ pub mod project;
 pub mod refresh;
 pub mod review;
 pub mod seam;
-pub mod shaft_join_cooling;
-pub mod shaft_stitch;
 pub mod slice;
 pub mod sloped_courses;
 pub mod stretch_cooling;

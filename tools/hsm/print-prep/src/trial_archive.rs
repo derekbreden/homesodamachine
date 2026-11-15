@@ -161,19 +161,10 @@ fn object_spans(lines: &[&str], id: i64) -> Result<Vec<(f64, usize, usize)>> {
 /// The tip's object id on the Sculpted plate.
 const TIP: i64 = 1902;
 
-/// A plate sliced one way with the tip's spans, from the lowest layer the tip-end cooling stage
-/// cools upward, taken from the same plate sliced another way, written as a slice directory
-/// `output` holds: `stem.gcode.3mf` and its `plate_1.gcode`. Both slices must lay the same layers
-/// and the tip in each; the receipt is returned.
-pub fn splice_tip_end(level: &Path, plain: &Path, tip_end: &Path, output: &Path, stem: &str) -> Result<Value> {
-    let report: Value = serde_json::from_slice(&fs::read(tip_end)?)?;
-    ensure!(report["identify_id"].as_i64() == Some(TIP), "the tip-end report is not the tip's");
-    let from = report["cooled_z_mm"][0].as_f64().context("the tip-end stage's lowest cooled layer")?;
-    splice_tip_layers(level, plain, from, output, stem, &json!({"tip_end_report_sha256": crate::sha256_hex(&fs::read(tip_end)?)}))
-}
-
-/// `splice_tip_end` with the lowest layer taken, the top of its tip spans, given as `from`;
-/// `extra` joins the receipt.
+/// A plate sliced one way with the tip's spans, from the layer whose tip spans top out at `from`
+/// upward, taken from the same plate sliced another way, written as a slice directory `output`
+/// holds: `stem.gcode.3mf` and its `plate_1.gcode`. Both slices must lay the same layers and the
+/// tip in each; `extra` joins the receipt, which is returned.
 pub fn splice_tip_layers(level: &Path, plain: &Path, from: f64, output: &Path, stem: &str, extra: &Value) -> Result<Value> {
     let (level_text, plain_text) = (String::from_utf8(crate::gcode::plate_gcode(level)?)?, String::from_utf8(crate::gcode::plate_gcode(plain)?)?);
     let (a, b): (Vec<&str>, Vec<&str>) = (level_text.split_inclusive('\n').collect(), plain_text.split_inclusive('\n').collect());
@@ -251,23 +242,16 @@ fn progress_points(gcode: &str) -> Result<Vec<(usize, u64, u64)>> {
 
 /// The plate with the printer's percent and time-left written in, as the slicer writes them on
 /// its own plates: an `M73 P R` line wherever the motion estimate's whole percent or whole minute
-/// left changes. The points come from the motion planner, or from `earlier`, the receipt of an
-/// earlier run on the same plate. Only lines are added. The plate's course-group report is
-/// carried to `output`'s under the new hash, with the progress points; the receipt is returned.
-pub fn progress(plate: &Path, earlier: Option<&Path>, output: &Path) -> Result<Value> {
+/// left changes. The points come from the motion planner. Only lines are added. The plate's
+/// course-group report is carried to `output`'s under the new hash, with the progress points; the
+/// receipt is returned.
+pub fn progress(plate: &Path, output: &Path) -> Result<Value> {
     ensure!(plate != output && !output.exists(), "Write the progress plate to a new path");
     let gcode = fs::read_to_string(plate)?;
     let source = crate::sha256_hex(gcode.as_bytes());
     let mut report: Value = serde_json::from_slice(&fs::read(plate.with_extension("json"))?)?;
     ensure!(report["sequenced_gcode_sha256"] == source.as_str(), "The plate and its course-group report differ");
-    let points: Vec<(usize, u64, u64)> = match earlier {
-        Some(receipt) => {
-            let earlier: Value = serde_json::from_slice(&fs::read(receipt)?)?;
-            ensure!(earlier["pre_progress_gcode_sha256"] == source.as_str(), "The progress receipt belongs to another plate");
-            serde_json::from_value(earlier["printer_progress"]["points"].clone()).context("The receipt's progress points")?
-        }
-        None => progress_points(&gcode)?,
-    };
+    let points: Vec<(usize, u64, u64)> = progress_points(&gcode)?;
     let mut out = String::with_capacity(gcode.len() + points.len() * 16);
     let mut next = points.iter().peekable();
     for (i, line) in gcode.split_inclusive('\n').enumerate() {
