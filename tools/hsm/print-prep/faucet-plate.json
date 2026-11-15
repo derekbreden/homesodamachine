@@ -22,6 +22,10 @@
     "half_width_mm": 0.0,
     "surface": "curved_outer_arc"
   },
+  "cover_rear_seam_enforcement": {
+    "part": "faucet-display-cover",
+    "paint_strip_half_width_mm": 0.35
+  },
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],
     "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
