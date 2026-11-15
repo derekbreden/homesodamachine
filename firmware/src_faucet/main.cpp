@@ -200,7 +200,8 @@ static lv_obj_t *primeLayer;
 static lv_obj_t *otaLayer, *otaTitle, *otaFill, *otaPct;
 static lv_obj_t *primeExitBtn, *primeHoldBtn;
 static lv_obj_t *primeFlavorLbl, *primeHoldLbl, *primeStatusLbl;
-static lv_obj_t *ratioLayer, *ratioMoreBtn, *ratioMoreLbl, *ratioLighterBtn, *ratioLighterLbl;
+static lv_obj_t *ratioLayer, *ratioBackBtn, *ratioMoreBtn, *ratioMoreLbl;
+static lv_obj_t *ratioLighterBtn, *ratioLighterLbl;
 static lv_obj_t *ratioFlavorLbl, *ratioValueLbl;
 static lv_obj_t *trustLayer, *trustTitleLbl, *trustBodyLbl;
 static uint8_t   trustShownAsk = 0;   // the ask on the glass; 0 while none is
@@ -1049,9 +1050,12 @@ static void layoutPrime(bool strip) {
 //
 // While the machine display has a flavor's Ratio page up, this glass shows Back, More
 // flavor, the flavor and its ratio, and Lighter. A step goes to the main board as the ratio
-// it stepped to, and Back closes the page on both glasses.
+// it stepped to, and Back closes the page on both glasses. With a strip up the four stand as
+// equal bands in what the strip leaves.
 
 #define RATIO_TARGET_H 88
+#define RATIO_BAND_H_STRIP ((SCREEN_H - STRIP_H) / 4)
+#define RATIO_PAIR_DY 2
 
 static void trustLayoutService(lv_timer_t *);
 
@@ -1201,6 +1205,35 @@ static void ratioService(const BaseLinkStatus &link) {
   }
 }
 
+// Back, the targets and the flavor over its ratio, over the whole glass or as four equal bands
+// over what a strip leaves, the ratio a size smaller there so the pair fits its band.
+static void layoutRatio(bool strip) {
+  if (!ratioLayer) return;
+  const lv_coord_t band = strip ? RATIO_BAND_H_STRIP : BACK_H;
+  const lv_coord_t target = strip ? RATIO_BAND_H_STRIP : RATIO_TARGET_H;
+  const lv_coord_t height = strip ? SCREEN_H - STRIP_H : SCREEN_H;
+  lv_obj_set_height(ratioLayer, height);
+  lv_obj_set_height(ratioBackBtn, band);
+  lv_obj_set_pos(ratioMoreBtn, 0, band);
+  lv_obj_set_height(ratioMoreBtn, target);
+  lv_obj_set_pos(ratioLighterBtn, 0, height - target);
+  lv_obj_set_height(ratioLighterBtn, target);
+  if (strip) {
+    // The value's band lies between the targets, and the caption and the ratio fill it, set
+    // down by RATIO_PAIR_DY so their ink stands in its middle.
+    const lv_coord_t top = band + target + RATIO_PAIR_DY;
+    lv_obj_set_style_text_font(ratioFlavorLbl, &lv_font_montserrat_14, 0);
+    lv_obj_set_style_text_font(ratioValueLbl, &lv_font_montserrat_28, 0);
+    lv_obj_set_y(ratioFlavorLbl, top);
+    lv_obj_set_y(ratioValueLbl, top + lv_font_montserrat_14.line_height);
+  } else {
+    lv_obj_set_style_text_font(ratioFlavorLbl, &lv_font_montserrat_16, 0);
+    lv_obj_set_style_text_font(ratioValueLbl, &lv_font_montserrat_36, 0);
+    lv_obj_set_y(ratioFlavorLbl, 160 + LINE_DY_16);
+    lv_obj_set_y(ratioValueLbl, 182 + LINE_DY_36);
+  }
+}
+
 // A step target: the whole width, its word in the middle.
 static lv_obj_t *ratioTarget(lv_obj_t *parent, lv_coord_t y, const char *text, int step,
                              lv_obj_t **label) {
@@ -1221,8 +1254,8 @@ static lv_obj_t *ratioTarget(lv_obj_t *parent, lv_coord_t y, const char *text, i
   return btn;
 }
 
-// Back, More flavor, the flavor over its ratio on the glass's blue, and Lighter, over the
-// whole glass. The layer takes every press its targets do not.
+// Back, More flavor, the flavor over its ratio on the glass's blue, and Lighter. The layer
+// takes every press its targets do not.
 static void buildRatioLayer(lv_obj_t *scr) {
   ratioLayer = lv_obj_create(scr);
   lv_obj_remove_style_all(ratioLayer);
@@ -1234,13 +1267,13 @@ static void buildRatioLayer(lv_obj_t *scr) {
   lv_obj_add_flag(ratioLayer, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(ratioLayer, onRatioLayerTouch, LV_EVENT_PRESSED, NULL);
 
-  backBand(ratioLayer, BACK_H, onRatioBack);
+  ratioBackBtn = backBand(ratioLayer, BACK_H, onRatioBack);
   ratioMoreBtn = ratioTarget(ratioLayer, BACK_H, "More flavor", -1, &ratioMoreLbl);
-  ratioFlavorLbl = lineLabel(ratioLayer, 160 + LINE_DY_16, &lv_font_montserrat_16, COL_DIM,
-                             FLAVOR_NAMES[0]);
-  ratioValueLbl = lineLabel(ratioLayer, 182 + LINE_DY_36, &lv_font_montserrat_36, COL_TEXT, "");
+  ratioFlavorLbl = lineLabel(ratioLayer, 0, &lv_font_montserrat_16, COL_DIM, FLAVOR_NAMES[0]);
+  ratioValueLbl = lineLabel(ratioLayer, 0, &lv_font_montserrat_36, COL_TEXT, "");
   ratioLighterBtn = ratioTarget(ratioLayer, SCREEN_H - RATIO_TARGET_H, "Lighter", 1,
                                 &ratioLighterLbl);
+  layoutRatio(false);
   lv_obj_add_flag(ratioLayer, LV_OBJ_FLAG_HIDDEN);
 }
 
@@ -1352,12 +1385,11 @@ static lv_obj_t *trustButton(lv_obj_t *parent, lv_coord_t x, lv_coord_t y,
 }
 
 // A request takes the strip along the foot. The flavor target stays usable
-// above it; Prime keeps Back and its hold target in what is left.
+// above it; Prime and Ratio keep Back and their targets in what is left.
 // Arrival or departure waits for a resting finger and a pending Stop, so a
 // target never moves underneath a hold. Replays do not touch this layout.
 // The no-water notice takes the same strip when no request holds it, and gives
-// way to Prime, which is someone at work on the machine. Ratio takes the whole
-// glass while it is up, and a strip stands behind it until it goes.
+// way to Prime, which is someone at work on the machine.
 static void trustLayoutService(lv_timer_t *) {
   if (!trustLayer) return;
   const bool finger = touchIsDown;
@@ -1369,13 +1401,14 @@ static void trustLayoutService(lv_timer_t *) {
     if (touchInput) lv_indev_wait_release(touchInput);
     trustLayoutReserved = wanted;
     layoutPrime(wanted);
+    layoutRatio(wanted);
     // The logo shrinks into what the strip leaves, centered over it.
     lv_img_set_zoom(logoImg, wanted ? (SCREEN_H - STRIP_H) * LV_IMG_ZOOM_NONE / SCREEN_H
                                     : LV_IMG_ZOOM_NONE);
     lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, wanted ? -STRIP_H / 2 : 0);
   }
   const bool updating = otaLayer && !lv_obj_has_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
-  const bool show = trustShownAsk != 0 && trustLayoutReserved && !updating && !ratioVisible;
+  const bool show = trustShownAsk != 0 && trustLayoutReserved && !updating;
   if (show && lv_obj_has_flag(trustLayer, LV_OBJ_FLAG_HIDDEN)) {
     lv_obj_clear_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
     lv_obj_move_foreground(trustLayer);
@@ -1383,8 +1416,7 @@ static void trustLayoutService(lv_timer_t *) {
     lv_obj_add_flag(trustLayer, LV_OBJ_FLAG_HIDDEN);
   }
   if (!noticeLayer) return;
-  const bool notice = trustShownAsk == 0 && noticeWanted && trustLayoutReserved && !updating &&
-                      !ratioVisible;
+  const bool notice = trustShownAsk == 0 && noticeWanted && trustLayoutReserved && !updating;
   if (notice && lv_obj_has_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN)) {
     lv_obj_clear_flag(noticeLayer, LV_OBJ_FLAG_HIDDEN);
     lv_obj_move_foreground(noticeLayer);
