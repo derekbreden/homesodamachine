@@ -11,5 +11,13 @@
       "Just flat top, and go easy on the transition from flat top back to the circle is all I meant when I said \"rounded corners\"."
     ],
     "physical_evidence": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-tip-shoulder-mark2/dispense-face.json"
+  },
+  "shallow_overhang_wall_speed": {
+    "parts": ["faucet-shell-base", "faucet-shell-tip"],
+    "points": ["overhang_1_4_speed", "overhang_2_4_speed"],
+    "scope": "The base's and tip's walls run at their own speed through the slicer's two shallowest overhang points and slow from there toward its steeper points, where the fan comes on. The filament's overhang speeds leave the process's, which hold the same values, to every other object.",
+    "selected_date": "2026-11-14",
+    "selection_quote": "This circle on the back of the base of the sculpted faucet has been present since the earliest prints of it that we've done.",
+    "physical_evidence": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-rear-base-oval/physical-result.json"
   }
 }

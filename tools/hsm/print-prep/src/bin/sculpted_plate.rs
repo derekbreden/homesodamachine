@@ -59,6 +59,17 @@ fn main() -> Result<()> {
     let head_args: Vec<String> = heads.iter().flat_map(|(t, c)| ["--tip-mesh".into(), path(t), "--cover-mesh".into(), path(c)]).collect();
     let head_args: Vec<&str> = head_args.iter().map(String::as_str).collect();
 
+    // the finish selection the plate's projects take: the standing one, with the plate's shallow
+    // overhang points when its selections name them
+    let finish = out.join("finish.json");
+    let mut selection: Value = serde_json::from_slice(&fs::read(root.join(plate["finish_selection"].as_str().context("the standing finish selection")?))?)?;
+    if let Some(entry) = plate.get("shallow_overhang_wall_speed") {
+        selection["shallow_overhang_wall_speed"] = entry.clone();
+    }
+    fs::write(&finish, serde_json::to_string_pretty(&selection)? + "\n")?;
+    let finish_args = ["--finish".to_string(), path(&finish)];
+    let finish_args: Vec<&str> = finish_args.iter().map(String::as_str).collect();
+
     // the base filled to the bed under its mounting face, for the slicer
     let base = root.join(BASE);
     let filled = out.join("filled-base.stl");
@@ -67,7 +78,7 @@ fn main() -> Result<()> {
 
     // the editable plate, and the donor tip warped from it, sliced alone and laid as courses
     let editable = out.join("editable.3mf");
-    prepare(&editable, &[&["--physical-base"], head_args.as_slice()].concat())?;
+    prepare(&editable, &[&["--physical-base"], head_args.as_slice(), finish_args.as_slice()].concat())?;
     let donor = out.join("donor");
     fs::create_dir_all(&donor)?;
     let warped = donor.join("tip-warped.stl");
@@ -86,7 +97,7 @@ fn main() -> Result<()> {
 
     // the plate's project, sliced with the standing slice path's cooling stages
     let project = out.join("native.3mf");
-    prepare(&project, &[&["--filled-base", &path(&filled)], head_args.as_slice()].concat())?;
+    prepare(&project, &[&["--filled-base", &path(&filled)], head_args.as_slice(), finish_args.as_slice()].concat())?;
     let report: Value = serde_json::from_slice(&fs::read(out.join("native.print.json"))?)?;
     let slice = out.join("slice");
     let cooling = sculpted_plate::slice_with_cooling(&project, &report, &slice)?;
