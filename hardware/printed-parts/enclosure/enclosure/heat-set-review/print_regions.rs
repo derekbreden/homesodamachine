@@ -46,7 +46,8 @@ const DISPLAY_HALF: f64 = 6.0;
 const SCOPE: &str = "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump clamps and their anchors, roots and seam load paths. No load capacity or lifetime qualification.";
 const USE: &str = "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.";
 
-/// A number as Python's `{:g}` writes it: six significant digits, trailing zeros dropped.
+/// A number in a region's name, as printf's `%g` writes it. The name makes the modifier part's
+/// identity in a project.
 fn g(value: f64) -> String {
     if value == 0.0 {
         return if value.is_sign_negative() { "-0".into() } else { "0".into() };

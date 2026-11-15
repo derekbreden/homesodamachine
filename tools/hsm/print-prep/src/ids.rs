@@ -1,5 +1,5 @@
 //! Stable identifiers for a project's objects: the same name gives the same identifier on every
-//! preparation, as Python's `uuid.uuid5(uuid.NAMESPACE_URL, name)` does.
+//! preparation, the standard name-based UUID (RFC 4122, SHA-1) in the URL namespace.
 
 const NAMESPACE_URL: [u8; 16] = [
     0x6b, 0xa7, 0xb8, 0x11, 0x9d, 0xad, 0x11, 0xd1, 0x80, 0xb4, 0x00, 0xc0, 0x4f, 0xd4, 0x30, 0xc8,
