@@ -70,7 +70,10 @@ renders the appliance views on request, using the current shared meshes and the 
 [`art.rs`](../../tools/install-guide/art.rs). The power connector approaches the recessed inlet.
 The pour shows the funnel without its lift-off cover; the closed view shows the cover on its brim.
 `assets/fill-scene-inputs.json` records the source hashes and motion cue;
-`assets/fill-screen.svg` and its PNG supply the interface. The display cover shares the
+`assets/fill-screen.svg` supplies the interface: the machine display's Fill page as
+[`main.cpp`](../../firmware/src_front/main.cpp) lays it out, its lettering outlined from
+Montserrat Medium and Font Awesome, the fonts LVGL builds the panel's type from.
+`rsvg-convert -z 2` draws its PNG. The display cover shares the
 enclosure's matte black PET-GF appearance. Both Fill views use the same exposure, and the
 complete frame has an uninterrupted outline.
 

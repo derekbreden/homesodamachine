@@ -401,9 +401,9 @@ pub fn compose(b: &mut Book) -> Result<()> {
     let fill_phase = "YOUR FIRST GLASS / FILL BOTH FLAVORS";
     b.header("Choose the flavor to fill", fill_phase, Some(6), None)?;
     b.pic("fill-screen-framed.png", M, 160.0, 278.0, 207.0, None, false)?;
-    b.caption("Flavor 1 is selected. Fill and Start filling are separate controls.", 389.0, M, 264.0)?;
+    b.caption("Flavor 1 is selected and its Fill page is open.", 389.0, M, 264.0)?;
     b.item("1 / CHOOSE", "Tap a flavor on the left", "The large portrait shows the reservoir you selected.", 149.0, RIGHT, RW, 13.0)?;
-    b.item("2 / OPEN FILL", "Tap Fill across the top", "Leave Start filling alone until the concentrate is in place on the next page.", 283.0, RIGHT, RW, 13.0)?;
+    b.item("2 / OPEN FILL", "Tap Fill on the right", "It opens the page shown here. Leave Start filling alone until the concentrate is in place on the next page.", 283.0, RIGHT, RW, 13.0)?;
     b.end()?;
 
     // Interior 26

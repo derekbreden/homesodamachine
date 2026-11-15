@@ -1,184 +1,62 @@
 {
-  "coordinate_system": "Crops and illustration anchors use reference pixels. Scale each axis to the native render before placement.",
   "assets": {
-    "steps/mount-under-slide-clean.png": {
+    "fill-screen-framed.png": {
+      "coordinate_reference_path": "reference/fill-screen-framed.png",
+      "coordinate_reference_sha256": "f25ed0e5d14f160f191b23339854506dde2aa9bc04c163a249d7e93d986c8ae9",
       "reference_size": [
-        1564,
-        791
+        1800,
+        1200
       ],
+      "render_sha256": "f25ed0e5d14f160f191b23339854506dde2aa9bc04c163a249d7e93d986c8ae9",
       "render_size": [
-        5328,
-        2696
+        1800,
+        1200
       ],
       "scale": [
-        3.4066496163682864,
-        3.4083438685208596
+        1.0,
+        1.0
       ],
-      "coordinate_reference_sha256": "79d597efdd7c3615afa7f4a904e654e7e36f3a18b1cafbf6ff1db6d08f4d63c3",
-      "render_sha256": "b32c8a1cc8244c58a1ecb9aa977cbf85ea338113c78bc7f34fea84c46bbb1c05",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "coordinate_reference_path": "reference/drain-mount-under-slide-clean.png",
-      "scene_step_sha256": "54893e9e74e66cea0ef2716feeffdada3a9089711a5ebe407f69dc77f542a9c1",
-      "scene_mesh_sha256": null,
-      "registered_camera": {
-        "cam": [
-          0.58,
-          -1.6,
-          -0.72
-        ],
-        "target": [
-          0.0,
-          0.0,
-          -34.0
-        ],
-        "size": "7200x7200",
-        "trim": true,
-        "up": [
-          0,
-          0,
-          1
-        ]
-      },
-      "frame_anchor_crop_native_pixels": [
-        61,
-        61,
-        5389,
-        2757
+      "source_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
+    },
+    "hose-attached.png": {
+      "coordinate_reference_sha256": "76b341fa08f7b709b84171b350c42650121caaac1e7a18e48c73d495adf915ba",
+      "reference_size": [
+        1250,
+        1150
       ],
-      "frame_centers_native_pixels": [
-        [
-          16.521466905187836,
-          2785.144007155635
-        ],
-        [
-          16.511190689346464,
-          19.130707251566697
-        ]
+      "render_sha256": "9f39157bef26fff5a6c6419515b397dc64903a8ac4a84103f2d8ab9961a5af3f",
+      "render_size": [
+        2500,
+        2300
+      ],
+      "scale": [
+        2.0,
+        2.0
       ]
     },
-    "steps/mount-under-tighten-clean.png": {
+    "hose-removed.png": {
+      "coordinate_reference_sha256": "0e818bfcf307ef9948a865be42017a77d39dd4c5eaafcc95a5f753e857e301ef",
       "reference_size": [
-        1564,
-        791
+        1250,
+        1150
       ],
+      "render_sha256": "854a8ffc88279b3b1be6ccc13658471f18b5fb016d315bf07dcc3477c46286e0",
       "render_size": [
-        5328,
-        2696
+        2500,
+        2300
       ],
       "scale": [
-        3.4066496163682864,
-        3.4083438685208596
-      ],
-      "coordinate_reference_sha256": "253cc17dd442031a8f631f2694973acd9559a8c6b795dfbf02304ad83ee5beac",
-      "render_sha256": "8e217b05cdc8c8f00f50eb8b08e34d43c185c0e1e201c9817d79ed8deaca1508",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "coordinate_reference_path": "reference/drain-mount-under-tighten-clean.png",
-      "scene_step_sha256": "601529ca55fed5fb0befbc1ab1a060a26e8562677af1393c916ffefffadc3af0",
-      "scene_mesh_sha256": null,
-      "registered_camera": {
-        "cam": [
-          0.58,
-          -1.6,
-          -0.72
-        ],
-        "target": [
-          0.0,
-          0.0,
-          -34.0
-        ],
-        "size": "7200x7200",
-        "trim": true,
-        "up": [
-          0,
-          0,
-          1
-        ]
-      },
-      "frame_anchor_crop_native_pixels": [
-        61,
-        61,
-        5389,
-        2757
-      ],
-      "frame_centers_native_pixels": [
-        [
-          16.521466905187836,
-          2785.144007155635
-        ],
-        [
-          16.511190689346464,
-          19.130707251566697
-        ]
-      ]
-    },
-    "steps/mount-drop.png": {
-      "reference_size": [
-        772,
-        1404
-      ],
-      "render_size": [
-        2135,
-        3905
-      ],
-      "scale": [
-        2.7655440414507773,
-        2.7813390313390314
-      ],
-      "coordinate_reference_sha256": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12",
-      "render_sha256": "ba6b065aafb3e9347c837ccda5f46b763befb5c53ec903d44fa72704f41de361",
-      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2",
-      "frame_anchor_crop_native_pixels": [
-        55,
-        391,
-        2190,
-        4296
-      ],
-      "coordinate_reference_path": "reference/drain-mount-drop.png",
-      "scene_step_sha256": "49c81bf9ffa9cac2e98206634eafb13efcd456b19b0d849c1c062296e14c0ecb",
-      "scene_mesh_sha256": null,
-      "registered_camera": {
-        "cam": [
-          1.0,
-          -1.45,
-          -0.38
-        ],
-        "target": [
-          0.0,
-          0.0,
-          110.0
-        ],
-        "size": "4800x4800",
-        "trim": true,
-        "up": [
-          0,
-          0,
-          1
-        ]
-      },
-      "frame_centers_native_pixels": [
-        [
-          2239.5449101796407,
-          7.622754491017964
-        ],
-        [
-          5.526946107784431,
-          7.622754491017964
-        ],
-        [
-          2239.524096385542,
-          4457.1626506024095
-        ],
-        [
-          5.524096385542169,
-          4457.1626506024095
-        ]
+        2.0,
+        2.0
       ]
     },
     "steps/co2-connected.png": {
+      "coordinate_reference_sha256": "608914d46f47eeb3b17188555c2c71b02cce2e389b0545c128aaedcdeaf7f14d",
       "reference_size": [
         1600,
         1500
       ],
+      "render_sha256": "e160d55f7f19caef18bdbc93f555da547f2760e4f642bae6f63be192262d0a72",
       "render_size": [
         3200,
         3000
@@ -186,110 +64,51 @@
       "scale": [
         2.0,
         2.0
-      ],
-      "coordinate_reference_sha256": "608914d46f47eeb3b17188555c2c71b02cce2e389b0545c128aaedcdeaf7f14d",
-      "render_sha256": "e160d55f7f19caef18bdbc93f555da547f2760e4f642bae6f63be192262d0a72"
+      ]
     },
-    "steps/modern-water-on.png": {
-      "reference_size": [
-        2000,
-        1100
-      ],
-      "render_size": [
-        4000,
-        2200
-      ],
-      "scale": [
-        2.0,
-        2.0
-      ],
-      "coordinate_reference_sha256": "422c052163c46edcf78cc18226657a2ec887283ba5befb132a6f5b1ebda79fc2",
-      "render_sha256": "d184bcd969de645e67420467ea36695e699f3f18de04de7586f5335c9ed48562"
-    },
-    "steps/the-back-face.png": {
-      "reference_size": [
-        1600,
-        1120
-      ],
-      "render_size": [
-        3200,
-        2240
-      ],
-      "scale": [
-        2,
-        2
-      ],
-      "coordinate_reference_path": "reference/rear-layout-the-back-face.png",
-      "coordinate_reference_sha256": "0928878fa0ce54a2577558e941d7c538b9b657794669f329a480bba68127c04d",
-      "render_sha256": "d64adc4a5feb0dd1191bd485f91f7e04627c97bb07d9ec52a116a4da4245f036",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "fixed_native_crop": null,
-      "lighting": "Default studio lighting; axial rear camera; native transparent background.",
-      "scene_mesh_sha256": "513567e0a538fd8d97a13a002208bae6e91780023f8162b147b1a66f554d9b7c",
-      "registered_camera": {
-        "cam": [
-          0.0,
-          1.0,
-          0.12
+    "steps/connect-rear-connected.png": {
+      "anchor_source_mm": {
+        "co2-mouth": [
+          76.5,
+          480.79998779296875,
+          331.1999969482422
         ],
-        "target": [
-          0.0,
-          467.0,
-          268.0
-        ],
-        "span": 100.0
+        "co2-tube": [
+          76.5,
+          480.79998779296875,
+          331.1999969482422
+        ]
       },
       "anchors_reference_pixels": {
-        "jack-port": [
-          1158.3999999999999,
-          432.20642496761275
+        "co2-mouth": [
+          323.2181601918962,
+          218.79500834581856
+        ],
+        "co2-tube": [
+          323.2181601918962,
+          218.79500834581856
         ]
       },
-      "anchor_source_mm": {
-        "jack-port": [
-          -64,
-          471.3,
-          291.5
-        ]
-      }
-    },
-    "hose-attached.png": {
-      "reference_size": [
-        1250,
-        1150
-      ],
-      "render_size": [
-        2500,
-        2300
-      ],
-      "scale": [
-        2.0,
-        2.0
-      ],
-      "coordinate_reference_sha256": "76b341fa08f7b709b84171b350c42650121caaac1e7a18e48c73d495adf915ba",
-      "render_sha256": "9f39157bef26fff5a6c6419515b397dc64903a8ac4a84103f2d8ab9961a5af3f"
-    },
-    "hose-removed.png": {
-      "reference_size": [
-        1250,
-        1150
-      ],
-      "render_size": [
-        2500,
-        2300
-      ],
-      "scale": [
-        2.0,
-        2.0
-      ],
-      "coordinate_reference_sha256": "0e818bfcf307ef9948a865be42017a77d39dd4c5eaafcc95a5f753e857e301ef",
-      "render_sha256": "854a8ffc88279b3b1be6ccc13658471f18b5fb016d315bf07dcc3477c46286e0"
-    },
-    "steps/connect-rear-open.png": {
+      "coordinate_reference_path": "reference/rear-layout-connect-rear-connected.png",
+      "coordinate_reference_sha256": "1173f88e357eae854390d2c7ca4ae0d4c5ffdcdadeab50c23340d7de880bac44",
       "reference_size": [
         1600,
         1050
       ],
+      "registered_camera": {
+        "cam": [
+          0.7,
+          1.0,
+          0.16
+        ],
+        "span": 110.0,
+        "target": [
+          10.0,
+          560.0,
+          270.0
+        ]
+      },
+      "render_sha256": "155035b618f1bac9cdfadd0c1fd44ef847a1eb52d693e474ab8d27fec2ea9466",
       "render_size": [
         3200,
         2100
@@ -298,24 +117,10 @@
         2,
         2
       ],
-      "coordinate_reference_path": "reference/rear-layout-connect-rear-open.png",
-      "coordinate_reference_sha256": "ed38f6217de80c38ecaead95d828fe82ba9906c6d7b8c41126d0be6f0f08f23f",
-      "render_sha256": "fee78dbc36ff9d9682dc74650d80db1dc07d194c6f46aeb6a93ca00396fe6ceb",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "scene_mesh_sha256": "4a2bdce00571b838b959e2c2804a848d2b946f9e6fbb28c3c5e3c7540d8e817f",
-      "registered_camera": {
-        "cam": [
-          0.7,
-          1.0,
-          0.16
-        ],
-        "target": [
-          10.0,
-          560.0,
-          270.0
-        ],
-        "span": 110.0
-      },
+      "scene_mesh_sha256": "99dd26eb0a20472d17864af4efb1f58656a22d33dd156e2e0a137231a161e438",
+      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb"
+    },
+    "steps/connect-rear-open.png": {
       "anchor_source_mm": {
         "co2-mouth": [
           76.5,
@@ -337,81 +142,27 @@
           487.4369224413957,
           249.2846569265983
         ]
-      }
-    },
-    "steps/startup-gas.png": {
-      "reference_size": [
-        1800,
-        1500
-      ],
-      "render_size": [
-        3600,
-        3000
-      ],
-      "scale": [
-        2.0,
-        2.0
-      ],
-      "coordinate_reference_sha256": "ffbc5cfb1cdc3d08ed419601497a91815f3080b7c0fa988aa368a7d9cc0f6fe9",
-      "render_sha256": "4e914704473f0f288d7480340b7c715d178cf3d38ccb05a0d38eabdf651f5146"
-    },
-    "fill-screen-framed.png": {
-      "reference_size": [
-        1800,
-        1200
-      ],
-      "render_size": [
-        1800,
-        1200
-      ],
-      "scale": [
-        1,
-        1
-      ],
-      "coordinate_reference_path": "reference/fill-screen-framed.png",
-      "coordinate_reference_sha256": "b26829d46fdbbbe9b12685bd4f3f9e91f2cd7ff868f71e566bc70746d4ba855c",
-      "render_sha256": "b26829d46fdbbbe9b12685bd4f3f9e91f2cd7ff868f71e566bc70746d4ba855c",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb"
-    },
-    "steps/fill-ready.png": {
-      "reference_size": [
-        1600,
-        1500
-      ],
-      "render_size": [
-        3200,
-        3000
-      ],
-      "scale": [
-        2,
-        2
-      ],
-      "coordinate_reference_sha256": "6bca572328ea45003f5384399beff170e92954f810853fc69926530286c5177c",
-      "render_sha256": "eb92f1938216a42348e3b34dd0fca83592a8915df713e6a722ceb8f1c5252c95",
-      "coordinate_reference_path": "reference/fill-ready.png",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "registered_camera": {
-        "cam": [
-          1.0,
-          -0.5,
-          0.45
-        ],
-        "target": [
-          0.0,
-          150.0,
-          380.0
-        ],
-        "span": 230.0
       },
-      "anchor_source_mm": {},
-      "anchors_reference_pixels": {},
-      "scene_mesh_sha256": "05883e9ef9d07fb3f2f988abdb20270c82c469ec21eb9c49c63e4a360f0dfc75"
-    },
-    "steps/connect-rear-connected.png": {
+      "coordinate_reference_path": "reference/rear-layout-connect-rear-open.png",
+      "coordinate_reference_sha256": "ed38f6217de80c38ecaead95d828fe82ba9906c6d7b8c41126d0be6f0f08f23f",
       "reference_size": [
         1600,
         1050
       ],
+      "registered_camera": {
+        "cam": [
+          0.7,
+          1.0,
+          0.16
+        ],
+        "span": 110.0,
+        "target": [
+          10.0,
+          560.0,
+          270.0
+        ]
+      },
+      "render_sha256": "fee78dbc36ff9d9682dc74650d80db1dc07d194c6f46aeb6a93ca00396fe6ceb",
       "render_size": [
         3200,
         2100
@@ -420,78 +171,267 @@
         2,
         2
       ],
-      "coordinate_reference_path": "reference/rear-layout-connect-rear-connected.png",
-      "coordinate_reference_sha256": "1173f88e357eae854390d2c7ca4ae0d4c5ffdcdadeab50c23340d7de880bac44",
-      "render_sha256": "155035b618f1bac9cdfadd0c1fd44ef847a1eb52d693e474ab8d27fec2ea9466",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "scene_mesh_sha256": "99dd26eb0a20472d17864af4efb1f58656a22d33dd156e2e0a137231a161e438",
+      "scene_mesh_sha256": "4a2bdce00571b838b959e2c2804a848d2b946f9e6fbb28c3c5e3c7540d8e817f",
+      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb"
+    },
+    "steps/fill-closed.png": {
+      "anchor_source_mm": {},
+      "anchors_reference_pixels": {},
+      "coordinate_reference_path": "reference/fill-closed.png",
+      "coordinate_reference_sha256": "26f50f889db5bcabcd2f91c5ecb4df98b50b0e6d36b1edfc5e95cbdce2734b77",
+      "reference_size": [
+        1600,
+        1500
+      ],
       "registered_camera": {
         "cam": [
-          0.7,
           1.0,
-          0.16
+          -0.5,
+          0.45
         ],
+        "span": 230.0,
         "target": [
-          10.0,
-          560.0,
-          270.0
-        ],
-        "span": 110.0
-      },
-      "anchor_source_mm": {
-        "co2-mouth": [
-          76.5,
-          480.79998779296875,
-          331.1999969482422
-        ],
-        "co2-tube": [
-          76.5,
-          480.79998779296875,
-          331.1999969482422
+          0.0,
+          150.0,
+          380.0
         ]
       },
-      "anchors_reference_pixels": {
-        "co2-mouth": [
-          323.2181601918962,
-          218.79500834581856
-        ],
-        "co2-tube": [
-          323.2181601918962,
-          218.79500834581856
-        ]
-      }
-    },
-    "steps/power-ready.png": {
-      "reference_size": [
-        1800,
-        1300
-      ],
+      "render_sha256": "c198376b45c67df421f31e7c974ce11f6805e7f1dee3dcba03c05b99a6e0c1ce",
       "render_size": [
-        3600,
-        2600
+        3200,
+        3000
       ],
       "scale": [
-        2,
-        2
+        2.0,
+        2.0
       ],
-      "render_sha256": "3df2a4c3d78548e9154b7c1f6eea2c7e2d6224b1690a902caed55f1de8f9a342",
-      "scene_mesh_sha256": "7e3f541f13f7199ef6d468f43998a0d155bd62782c4f298e62af33113b63d6eb",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+      "scene_mesh_sha256": "c97fca2579ced81b782d36686e2f3603c0fae0f578c345f38e45283890ddfdaa",
+      "source_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
+    },
+    "steps/fill-ready.png": {
+      "anchor_source_mm": {},
+      "anchors_reference_pixels": {},
+      "coordinate_reference_path": "reference/fill-ready.png",
+      "coordinate_reference_sha256": "da441dc0ff5aa1b7b4c0e9eb302517caa01ecb3d201307fb48525df3e1e8287c",
+      "reference_size": [
+        1600,
+        1500
+      ],
       "registered_camera": {
         "cam": [
-          -0.85,
           1.0,
-          0.25
+          -0.5,
+          0.45
         ],
+        "span": 230.0,
         "target": [
-          -76.5,
-          505.3,
-          314.0
-        ],
-        "span": 64.0
+          0.0,
+          150.0,
+          380.0
+        ]
       },
-      "coordinate_reference_path": "reference/rear-layout-power-ready.png",
-      "coordinate_reference_sha256": "1ad3cce8bfd7561ed4faf720d138b87206c7129b09dd94230db8c666a93a9603",
+      "render_sha256": "3c4acd83f1f37cdc41604b2fc6797b34c8a3f41ea3ad405268556287ef497375",
+      "render_size": [
+        3200,
+        3000
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ],
+      "scene_mesh_sha256": "ed37c6faccd4b96ce688c91428e19ca811f1ab5e1727aea8673d917624108a0a",
+      "source_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
+    },
+    "steps/modern-water-on.png": {
+      "coordinate_reference_sha256": "422c052163c46edcf78cc18226657a2ec887283ba5befb132a6f5b1ebda79fc2",
+      "reference_size": [
+        2000,
+        1100
+      ],
+      "render_sha256": "d184bcd969de645e67420467ea36695e699f3f18de04de7586f5335c9ed48562",
+      "render_size": [
+        4000,
+        2200
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ]
+    },
+    "steps/mount-drop.png": {
+      "coordinate_reference_path": "reference/drain-mount-drop.png",
+      "coordinate_reference_sha256": "73f288e227fcf8e25473b86f7ae3f262ac3ed2550eeb7a495a388d7e6c5c0c12",
+      "frame_anchor_crop_native_pixels": [
+        55,
+        391,
+        2190,
+        4296
+      ],
+      "frame_centers_native_pixels": [
+        [
+          2239.5449101796407,
+          7.622754491017964
+        ],
+        [
+          5.526946107784431,
+          7.622754491017964
+        ],
+        [
+          2239.524096385542,
+          4457.1626506024095
+        ],
+        [
+          5.524096385542169,
+          4457.1626506024095
+        ]
+      ],
+      "reference_size": [
+        772,
+        1404
+      ],
+      "registered_camera": {
+        "cam": [
+          1.0,
+          -1.45,
+          -0.38
+        ],
+        "size": "4800x4800",
+        "target": [
+          0.0,
+          0.0,
+          110.0
+        ],
+        "trim": true,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "render_sha256": "ba6b065aafb3e9347c837ccda5f46b763befb5c53ec903d44fa72704f41de361",
+      "render_size": [
+        2135,
+        3905
+      ],
+      "scale": [
+        2.7655440414507773,
+        2.7813390313390314
+      ],
+      "scene_mesh_sha256": null,
+      "scene_step_sha256": "49c81bf9ffa9cac2e98206634eafb13efcd456b19b0d849c1c062296e14c0ecb",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2"
+    },
+    "steps/mount-under-slide-clean.png": {
+      "coordinate_reference_path": "reference/drain-mount-under-slide-clean.png",
+      "coordinate_reference_sha256": "79d597efdd7c3615afa7f4a904e654e7e36f3a18b1cafbf6ff1db6d08f4d63c3",
+      "frame_anchor_crop_native_pixels": [
+        61,
+        61,
+        5389,
+        2757
+      ],
+      "frame_centers_native_pixels": [
+        [
+          16.521466905187836,
+          2785.144007155635
+        ],
+        [
+          16.511190689346464,
+          19.130707251566697
+        ]
+      ],
+      "reference_size": [
+        1564,
+        791
+      ],
+      "registered_camera": {
+        "cam": [
+          0.58,
+          -1.6,
+          -0.72
+        ],
+        "size": "7200x7200",
+        "target": [
+          0.0,
+          0.0,
+          -34.0
+        ],
+        "trim": true,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "render_sha256": "b32c8a1cc8244c58a1ecb9aa977cbf85ea338113c78bc7f34fea84c46bbb1c05",
+      "render_size": [
+        5328,
+        2696
+      ],
+      "scale": [
+        3.4066496163682864,
+        3.4083438685208596
+      ],
+      "scene_mesh_sha256": null,
+      "scene_step_sha256": "54893e9e74e66cea0ef2716feeffdada3a9089711a5ebe407f69dc77f542a9c1",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2"
+    },
+    "steps/mount-under-tighten-clean.png": {
+      "coordinate_reference_path": "reference/drain-mount-under-tighten-clean.png",
+      "coordinate_reference_sha256": "253cc17dd442031a8f631f2694973acd9559a8c6b795dfbf02304ad83ee5beac",
+      "frame_anchor_crop_native_pixels": [
+        61,
+        61,
+        5389,
+        2757
+      ],
+      "frame_centers_native_pixels": [
+        [
+          16.521466905187836,
+          2785.144007155635
+        ],
+        [
+          16.511190689346464,
+          19.130707251566697
+        ]
+      ],
+      "reference_size": [
+        1564,
+        791
+      ],
+      "registered_camera": {
+        "cam": [
+          0.58,
+          -1.6,
+          -0.72
+        ],
+        "size": "7200x7200",
+        "target": [
+          0.0,
+          0.0,
+          -34.0
+        ],
+        "trim": true,
+        "up": [
+          0,
+          0,
+          1
+        ]
+      },
+      "render_sha256": "8e217b05cdc8c8f00f50eb8b08e34d43c185c0e1e201c9817d79ed8deaca1508",
+      "render_size": [
+        5328,
+        2696
+      ],
+      "scale": [
+        3.4066496163682864,
+        3.4083438685208596
+      ],
+      "scene_mesh_sha256": null,
+      "scene_step_sha256": "601529ca55fed5fb0befbc1ab1a060a26e8562677af1393c916ffefffadc3af0",
+      "source_sha256": "9edf87564467c1ceea40bae52dafef46dc315605246796e664f9009a021a81e2"
+    },
+    "steps/power-ready.png": {
       "anchor_source_mm": {
         "cord-approach": [
           -68.5,
@@ -513,41 +453,101 @@
           1061.0757575696255,
           431.4358081285455
         ]
-      }
-    },
-    "steps/fill-closed.png": {
+      },
+      "coordinate_reference_path": "reference/rear-layout-power-ready.png",
+      "coordinate_reference_sha256": "1ad3cce8bfd7561ed4faf720d138b87206c7129b09dd94230db8c666a93a9603",
       "reference_size": [
-        1600,
-        1500
+        1800,
+        1300
       ],
+      "registered_camera": {
+        "cam": [
+          -0.85,
+          1.0,
+          0.25
+        ],
+        "span": 64.0,
+        "target": [
+          -76.5,
+          505.3,
+          314.0
+        ]
+      },
+      "render_sha256": "3df2a4c3d78548e9154b7c1f6eea2c7e2d6224b1690a902caed55f1de8f9a342",
       "render_size": [
-        3200,
-        3000
+        3600,
+        2600
       ],
       "scale": [
         2,
         2
       ],
-      "coordinate_reference_sha256": "032b87690307722f8d610f0e001378f4f0aa2542ac341bdf7bb332a4fe600e77",
-      "render_sha256": "95dbd634ab775ebf405a341f6213b2a291e09d2b99b3b65af607d1b7ed23577c",
-      "coordinate_reference_path": "reference/fill-closed.png",
-      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
+      "scene_mesh_sha256": "7e3f541f13f7199ef6d468f43998a0d155bd62782c4f298e62af33113b63d6eb",
+      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb"
+    },
+    "steps/startup-gas.png": {
+      "coordinate_reference_sha256": "ffbc5cfb1cdc3d08ed419601497a91815f3080b7c0fa988aa368a7d9cc0f6fe9",
+      "reference_size": [
+        1800,
+        1500
+      ],
+      "render_sha256": "4e914704473f0f288d7480340b7c715d178cf3d38ccb05a0d38eabdf651f5146",
+      "render_size": [
+        3600,
+        3000
+      ],
+      "scale": [
+        2.0,
+        2.0
+      ]
+    },
+    "steps/the-back-face.png": {
+      "anchor_source_mm": {
+        "jack-port": [
+          -64,
+          471.3,
+          291.5
+        ]
+      },
+      "anchors_reference_pixels": {
+        "jack-port": [
+          1158.3999999999999,
+          432.20642496761275
+        ]
+      },
+      "coordinate_reference_path": "reference/rear-layout-the-back-face.png",
+      "coordinate_reference_sha256": "0928878fa0ce54a2577558e941d7c538b9b657794669f329a480bba68127c04d",
+      "fixed_native_crop": null,
+      "lighting": "Default studio lighting; axial rear camera; native transparent background.",
+      "reference_size": [
+        1600,
+        1120
+      ],
       "registered_camera": {
         "cam": [
+          0.0,
           1.0,
-          -0.5,
-          0.45
+          0.12
         ],
+        "span": 100.0,
         "target": [
           0.0,
-          150.0,
-          380.0
-        ],
-        "span": 230.0
+          467.0,
+          268.0
+        ]
       },
-      "anchor_source_mm": {},
-      "anchors_reference_pixels": {},
-      "scene_mesh_sha256": "513567e0a538fd8d97a13a002208bae6e91780023f8162b147b1a66f554d9b7c"
+      "render_sha256": "d64adc4a5feb0dd1191bd485f91f7e04627c97bb07d9ec52a116a4da4245f036",
+      "render_size": [
+        3200,
+        2240
+      ],
+      "scale": [
+        2,
+        2
+      ],
+      "scene_mesh_sha256": "513567e0a538fd8d97a13a002208bae6e91780023f8162b147b1a66f554d9b7c",
+      "source_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb"
     }
-  }
+  },
+  "coordinate_system": "Crops and illustration anchors use reference pixels. Scale each axis to the native render before placement."
 }

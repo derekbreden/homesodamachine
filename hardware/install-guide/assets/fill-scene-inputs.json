@@ -1,35 +1,4 @@
 {
-  "purpose": "The Fill pictures and their motion cue follow the current appliance geometry.",
-  "sources": {
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-    "tools/install-guide/art.rs": "0ab857847f0ad7f59a8c3742561235ff706033c9e39ef51148c1b35c035d1856",
-    "tools/install-guide/refresh_art.py": "d4a4b86b8d790e7cf251ec83efe0d9e39d29c923ede06adfda61090c0e05d5a5",
-    "hardware/install-guide/assets/fill-screen.png": "4eea0c80eef7c9d9bc1126d954e08c15fa272d67b9ef1f72f4e35183b3881d10"
-  },
-  "bottle_mouth": [
-    0.0,
-    182.19575119018555,
-    373.0
-  ],
-  "screen": {
-    "centre": [
-      -27.75,
-      50.67210506462308,
-      327.37435565298216
-    ],
-    "height": 60.0,
-    "normal": [
-      0.0,
-      -0.49999999999999994,
-      0.8660254037844387
-    ],
-    "up": [
-      0.0,
-      0.8660254037844387,
-      0.49999999999999994
-    ],
-    "width": 99.8
-  },
   "arrow": [
     [
       0.0,
@@ -87,40 +56,74 @@
       437.98382723187706
     ]
   ],
+  "bottle_mouth": [
+    0.0,
+    182.19575119018555,
+    373.0
+  ],
+  "outputs_sha256": {
+    "hardware/install-guide/assets/fill-screen-framed.png": "f25ed0e5d14f160f191b23339854506dde2aa9bc04c163a249d7e93d986c8ae9",
+    "hardware/install-guide/assets/steps/fill-closed.png": "c198376b45c67df421f31e7c974ce11f6805e7f1dee3dcba03c05b99a6e0c1ce",
+    "hardware/install-guide/assets/steps/fill-ready.png": "3c4acd83f1f37cdc41604b2fc6797b34c8a3f41ea3ad405268556287ef497375"
+  },
   "pose": {
     "cam": [
       1.0,
       -0.5,
       0.45
     ],
+    "size": [
+      1600,
+      1500
+    ],
+    "span": 230.0,
     "target": [
       0.0,
       150.0,
       380.0
-    ],
-    "span": 230.0,
-    "size": [
-      1600,
-      1500
     ]
   },
-  "outputs_sha256": {
-    "hardware/install-guide/assets/steps/fill-ready.png": "eb92f1938216a42348e3b34dd0fca83592a8915df713e6a722ceb8f1c5252c95",
-    "hardware/install-guide/assets/steps/fill-closed.png": "95dbd634ab775ebf405a341f6213b2a291e09d2b99b3b65af607d1b7ed23577c",
-    "hardware/install-guide/assets/fill-screen-framed.png": "b26829d46fdbbbe9b12685bd4f3f9e91f2cd7ff868f71e566bc70746d4ba855c"
+  "purpose": "The Fill pictures and their motion cue follow the current appliance geometry.",
+  "screen": {
+    "centre": [
+      -27.75,
+      50.67210506462308,
+      327.37435565298216
+    ],
+    "height": 60.0,
+    "normal": [
+      0.0,
+      -0.49999999999999994,
+      0.8660254037844387
+    ],
+    "up": [
+      0.0,
+      0.8660254037844387,
+      0.49999999999999994
+    ],
+    "width": 99.8
+  },
+  "sources": {
+    "hardware/install-guide/assets/fill-screen.png": "5d89630da8969baea2998a4c0b50f3188d0c914e20c464580bdcbfaf064bbd88",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868",
+    "tools/hsm/install-art/Cargo.toml": "9f094fb35e1d031e025e6cb2e1f9f940145cc3444f80ac4a2029e4dbca4a4b9e",
+    "tools/hsm/install-art/src/main.rs": "607cd4f61b1e98c1cadd2564545701e718f41894c9f6d4646e70a136b57973ff",
+    "tools/hsm/install-art/src/pixels.rs": "9351c2299372f315904f20cd7d44eee37d6b57eb549bb1da1656e5b4b66a6e09",
+    "tools/hsm/install-art/src/refresh.rs": "1fceb47a565bdef1c2a6b798f1b62f783fcfb009b2a6abc58258168b36ba1f5d",
+    "tools/install-guide/art.rs": "c7503ab4eca7db3ab85ca80ac297380b920db3b128d2d2d16879bc8842434cfc"
   },
   "views": {
-    "fill-ready": {
-      "source_payload_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "render_sha256": "eb92f1938216a42348e3b34dd0fca83592a8915df713e6a722ceb8f1c5252c95"
-    },
     "fill-closed": {
-      "source_payload_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "render_sha256": "95dbd634ab775ebf405a341f6213b2a291e09d2b99b3b65af607d1b7ed23577c"
+      "render_sha256": "c198376b45c67df421f31e7c974ce11f6805e7f1dee3dcba03c05b99a6e0c1ce",
+      "source_payload_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
+    },
+    "fill-ready": {
+      "render_sha256": "3c4acd83f1f37cdc41604b2fc6797b34c8a3f41ea3ad405268556287ef497375",
+      "source_payload_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
     },
     "fill-screen-framed": {
-      "source_payload_sha256": "54c5829e70e3e9b203dd90ef0d70b56ff5682c4fd4e8e0e26f516607983e77fb",
-      "render_sha256": "b26829d46fdbbbe9b12685bd4f3f9e91f2cd7ff868f71e566bc70746d4ba855c"
+      "render_sha256": "f25ed0e5d14f160f191b23339854506dde2aa9bc04c163a249d7e93d986c8ae9",
+      "source_payload_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
     }
   }
 }
