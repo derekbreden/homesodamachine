@@ -91,20 +91,9 @@ pub fn lift_share(plate: &Value) -> f64 {
     plate["descent_lift"]["share"].as_f64().unwrap_or(0.0)
 }
 
-/// The plate's selections: each entry its file gives, over the entries of the standing finish
-/// selection the file names.
 pub fn selection(root: &Path) -> Result<Value> {
-    let read = |relative: &str| -> Result<Value> {
-        let path = root.join(relative);
-        serde_json::from_slice(&fs::read(&path)?).with_context(|| format!("reading {}", path.display()))
-    };
-    let mut plate = read(SELECTION)?;
-    let entries = plate.as_object_mut().context("the plate's selections")?;
-    let Some(standing) = entries.remove("finish_selection") else { return Ok(plate) };
-    let mut selection = read(standing.as_str().context("the standing finish selection")?)?;
-    let composed = selection.as_object_mut().context("the standing finish selection")?;
-    composed.extend(std::mem::take(entries));
-    Ok(selection)
+    let path = root.join(SELECTION);
+    serde_json::from_slice(&fs::read(&path)?).with_context(|| format!("reading {}", path.display()))
 }
 
 /// Slices `project` into `directory` and runs the standing slice path's G-code stages over the

@@ -60,8 +60,8 @@ and strength remain physical observations.
 ## Selected stretches
 
 A part's recipe may name one stretch of its model paths for part cooling. The
-Sculpted tip's [finish selection](../faucet/sculpted/finish-selection.json) cools
-its paths by the dispense face. The preparer adds the fan commands as its last
+[faucet plate's selections](../../../tools/hsm/print-prep/faucet-plate.json) cool the shared
+tip's paths by its dispense face. The preparer adds the fan commands as its last
 G-code stage, which changes no motion or extrusion; paths outside the stretch
 keep the cooling above.
 

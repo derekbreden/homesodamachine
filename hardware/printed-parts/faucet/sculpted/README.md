@@ -1,7 +1,7 @@
 # Complete Sculpted faucet
 
-The [selected process](finish-selection.json) starts from the recorded
-Industrial printing settings and applies the Sculpted finish and supports. The
+The [faucet plate's selections](../../../../tools/hsm/print-prep/faucet-plate.json) start from
+the recorded Industrial printing settings and apply the Sculpted finish and supports. The
 complete PET-GF plate contains the Sculpted base, tip, display cover,
 matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
@@ -22,8 +22,8 @@ courses.
 
 | Parts | Seam position | Ordinary gap | Scarf |
 | --- | --- | --- | --- |
-| Base, shared tip | Back | [Shell gap](finish-selection.json) | A2 |
-| Mounting plate | Back | [Mounting plate gap](finish-selection.json) | A2 |
+| Base, shared tip | Back | [Shell gap](../../../../tools/hsm/print-prep/faucet-plate.json) | A2 |
+| Mounting plate | Back | [Mounting plate gap](../../../../tools/hsm/print-prep/faucet-plate.json) | A2 |
 | Cover, lever | Aligned | 15% | Off |
 
 Rear seam enforcement follows the entire base silhouette in its build pose
@@ -121,9 +121,8 @@ The [Mark2 restored short-foundation plate](prints/2026-11-14-seven-courses-rest
 prints the mounting face and visible shoulder on inclined interfaces, then
 uses the archived level wall and rear scarf recipe above each foundation.
 
-`faucet-plate sculpted OUT_DIR` prepares that plate, the product plate, from the checkout: its meshes, the standing
-[finish selection](finish-selection.json) and the plate's own selections in
-[`faucet-plate.json`](../../../../tools/hsm/print-prep/faucet-plate.json). The base is filled
+`faucet-plate sculpted OUT_DIR` prepares that plate, the product plate, from the checkout: its meshes
+and the plate's selections in [`faucet-plate.json`](../../../../tools/hsm/print-prep/faucet-plate.json). The base is filled
 under its mounting face for the slice and laid on its sloped foundation from its own mesh; the
 tip's mating courses come from a warped donor tip, sliced alone and laid back onto the real
 shoulder. The plate's slice runs the standing slice path's
