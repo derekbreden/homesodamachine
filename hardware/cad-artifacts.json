@@ -387,7 +387,7 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "04ceb278399687abd33fa293eeb58b95e8a2485665d44050788f5bd2ab691267",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "71bad0f865fe0dfacbb081f1f0383dd500b72b6c5498b49ee8f4f29560efde5f",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "6feeff4f780aa9d92c03f52970ba07e2817639906dbafb4d74ab7183f356e9f5",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "338effc77a76f2ad1f48cdb8f9fa5277ecf78d984a91212167a4c6d8a17d1da0",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": "939b0698f62bc913831cd6e1cd6adf1fb23de93a757b3c163638b6b44bd0ab71",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": "43f6e6b9d7daef2b27bede25e13981f480d400771ab6955bbf29892799708abb",
@@ -1125,7 +1125,7 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": "04ceb278399687abd33fa293eeb58b95e8a2485665d44050788f5bd2ab691267",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": "f49e8818fa749ad57445aca26972ff107d840ed53102d33e6fff7837f46c1bfb",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "71bad0f865fe0dfacbb081f1f0383dd500b72b6c5498b49ee8f4f29560efde5f",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "6feeff4f780aa9d92c03f52970ba07e2817639906dbafb4d74ab7183f356e9f5",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "338effc77a76f2ad1f48cdb8f9fa5277ecf78d984a91212167a4c6d8a17d1da0",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "e65e6b2faddc02de044fd69dadbf71ac288bd8f9de7157320a6f6d83ee51253c",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "67bff92af5f94e1f9373173828a44490aadc833e0086572c47baa2b2ffda1199",
@@ -2842,7 +2842,7 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh": 1794554632.012347,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl": 1794554652.032095,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": 1794735152.367304,
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": 1794735146.319627,
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": 1794785710.215541,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": 1794735152.367304,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": 1793934190,
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh": 1793948545,
@@ -4598,7 +4598,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": {
-      "commit": "06b9667f7a241c682cc4fc87682454b84a475ef9",
+      "commit": "c604d68ae0540871675765aaa663c2eb991de861",
       "inputs": "7e8b11c95bef9af0ae2c18847e32aae761ba089ba9e3e2c760501f2829f1fa66",
       "unproven": true
     },
