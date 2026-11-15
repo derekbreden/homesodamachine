@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-14",
+  "as_of": "2026-11-15",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10115,6 +10115,42 @@
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-e014f62abdb847af827f854538ae2c89"
       ]
+    },
+    "pur-e8d3c873b40848499b387a0bed8978f7": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ]
+    },
+    "pur-4cac3e81d16a4257b9c6b725ba967b74": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ]
+    },
+    "pur-1c4dede86ac6420db23a61fd3b7eabb8": {
+      "vendor": "Bambu Lab",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ]
     }
   },
   "orders": {
@@ -16415,6 +16451,42 @@
         "src-4846c39604814a94b7031992e7f315e7",
         "src-e014f62abdb847af827f854538ae2c89"
       ]
+    },
+    "amazon:112-7863139-0903423": {
+      "vendor": "Amazon",
+      "reference": "112-7863139-0903423",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ]
+    },
+    "amazon:114-2679873-7632253": {
+      "vendor": "Amazon",
+      "reference": "114-2679873-7632253",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ]
+    },
+    "bambu:us798331608108187648": {
+      "vendor": "Bambu Lab",
+      "reference": "us798331608108187648",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ]
     }
   },
   "events": [
@@ -20730,6 +20802,57 @@
         "precision": "day",
         "value": "2026-11-08"
       }
+    },
+    {
+      "event_id": "evt-97809881439b4885a7e33a8eb87b4b23",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 4278,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "verified_at": "2026-11-15",
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ]
+    },
+    {
+      "event_id": "evt-8733331cccaa40d2b47ffde578a9bcd0",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 21231,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ],
+      "verified_at": "2026-11-15",
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ]
+    },
+    {
+      "event_id": "evt-19293e4645d84cd08d555c566e2820d7",
+      "vendor": "Bambu Lab",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 8196,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ],
+      "verified_at": "2026-11-15",
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ]
     }
   ],
   "allocations": [
@@ -22523,6 +22646,30 @@
       "purchase_id": "pur-6655f4a0c1c747bc8ce06a69596eb432",
       "order_id": "bambu:us795729195777990656",
       "amount_minor": 5669,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-75cc2db5aa4e467cb4d9e0b91046b0cd",
+      "event_id": "evt-97809881439b4885a7e33a8eb87b4b23",
+      "purchase_id": "pur-e8d3c873b40848499b387a0bed8978f7",
+      "order_id": "amazon:112-7863139-0903423",
+      "amount_minor": 4278,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-70df67f649694acd89ff987880fb8798",
+      "event_id": "evt-8733331cccaa40d2b47ffde578a9bcd0",
+      "purchase_id": "pur-4cac3e81d16a4257b9c6b725ba967b74",
+      "order_id": "amazon:114-2679873-7632253",
+      "amount_minor": 21231,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-30d71e6ba79f41d88c2c8eed53d5eb81",
+      "event_id": "evt-19293e4645d84cd08d555c566e2820d7",
+      "purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+      "order_id": "bambu:us798331608108187648",
+      "amount_minor": 8196,
       "currency": "USD"
     }
   ],
@@ -34793,6 +34940,45 @@
       },
       "verified_at": "2026-11-14",
       "note": "Refreshed order-scoped Your Payments > Completed shows one USD 159.54 transaction dated November 14, 2026, with no split charges displayed. This confirms the existing expected event in place, independently of shipment subtotals. The current printable Order Summary still labels USD 10.79 tax as estimated: items USD 148.75, shipping USD 0.00, total USD 159.54. The completed total does not supply final per-line tax; existing item and separate order-tax allocations remain unchanged. No bank posting or funding ownership is inferred."
+    },
+    "src-1c2b84ffeeff4c3bb5e021e457a6ad7f": {
+      "vendor": "Amazon",
+      "document_type": "order_confirmation",
+      "reference": "112-7863139-0903423",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-14"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-15",
+      "note": "Order Details identifies one black H2C dual-textured and smooth PEI spring-steel build plate (ASIN B0GRSZJYJ9), sold by HZD US. Item USD 39.89, shipping USD 0.00, estimated tax USD 2.89, total USD 42.78. Order-scoped merchant transactions show no transactions yet. Delivery is not confirmed."
+    },
+    "src-eb3019ef3d99416ea0889f3f9aba87ef": {
+      "vendor": "Amazon",
+      "document_type": "order_confirmation",
+      "reference": "114-2679873-7632253",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-15",
+      "note": "Named Order Details supplies November 14 placed date and three 3 kg spools, ASIN B0FBWGTW9W. Order-scoped transactions show no transactions yet. Arrival is estimated Tuesday, not delivery evidence."
+    },
+    "src-2c30f092670c4f8d91381f26b9dff8b0": {
+      "vendor": "Bambu Lab",
+      "document_type": "order_confirmation",
+      "reference": "us798331608108187648",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-15",
+      "note": "Order confirmation itemizes two H2C Engineering Plates: USD 109.98 before USD 22.00 sale discount, USD 87.98 subtotal, USD 11.56 credit applied, USD 5.54 tax and USD 81.96 net payment. Signed-in order list shows placed November 14, 2026 at 20:58, Processing. Separate completed charge and merchant event date are not established; credit origin is not established."
     }
   },
   "coverage": [
@@ -37012,6 +37198,66 @@
         "amazon:112-1265759-9506602"
       ],
       "note": "Exact package tracking identifies four shipped, undelivered rig lines and an explicit November 14 departure date. A separate order-scoped Completed transaction confirms the existing USD 159.54 charge on November 14. Order Summary tax remains estimated and no final line-tax breakdown is shown. Previously confirmed delivery of the endstops and adapter is preserved. No account-wide or bank coverage is claimed."
+    },
+    {
+      "coverage_id": "coverage-5d93343debec42f28f0e114019f7a3c4",
+      "vendor": "Amazon",
+      "stream": "named H2C build plate order",
+      "evidence_type": "order_and_merchant_transactions",
+      "checked_at": "2026-11-15",
+      "examined_period": {
+        "start": "2026-11-14",
+        "end": "2026-11-15"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "note": "Exact order confirmation and merchant order details examined; no account-wide coverage claimed."
+    },
+    {
+      "coverage_id": "coverage-ab842088107045339bb47ef39f0cd522",
+      "vendor": "Amazon",
+      "stream": "named printer supply order",
+      "evidence_type": "order_confirmation_and_merchant_record",
+      "checked_at": "2026-11-15",
+      "examined_period": {
+        "start": "2026-11-14",
+        "end": "2026-11-15"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ],
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "note": "Exact named order only; no account-wide coverage claimed."
+    },
+    {
+      "coverage_id": "coverage-3ecfa1a835aa430088188a5d19167acc",
+      "vendor": "Bambu Lab",
+      "stream": "named printer supply order",
+      "evidence_type": "order_confirmation_and_merchant_record",
+      "checked_at": "2026-11-15",
+      "examined_period": {
+        "start": "2026-11-14",
+        "end": "2026-11-15"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ],
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "note": "Exact named order only; no account-wide coverage claimed."
     }
   ],
   "gaps": [
@@ -37401,6 +37647,66 @@
         "Named order-scoped In Progress / Pending transaction, checked November 13, 2026",
         "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026",
         "Exact remaining-package shipment timeline, Completed order transaction and printable Order Summary, checked November 14, 2026"
+      ]
+    },
+    {
+      "gap_id": "gap-1b4d6f383f084b22ac7dd2ceac00a416",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-e8d3c873b40848499b387a0bed8978f7"
+      ],
+      "order_ids": [
+        "amazon:112-7863139-0903423"
+      ],
+      "event_ids": [
+        "evt-97809881439b4885a7e33a8eb87b4b23"
+      ],
+      "source_ids": [
+        "src-1c2b84ffeeff4c3bb5e021e457a6ad7f"
+      ],
+      "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed. Order-scoped transactions show no transactions yet.",
+      "sources_checked": [
+        "Named Amazon Order Details and order-scoped merchant transactions"
+      ]
+    },
+    {
+      "gap_id": "gap-185474032e1c4eff87199dab31a87387",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-4cac3e81d16a4257b9c6b725ba967b74"
+      ],
+      "order_ids": [
+        "amazon:114-2679873-7632253"
+      ],
+      "event_ids": [
+        "evt-8733331cccaa40d2b47ffde578a9bcd0"
+      ],
+      "source_ids": [
+        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+      ],
+      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Tax is estimated.",
+      "sources_checked": [
+        "Exact order confirmation and signed-in merchant order record"
+      ]
+    },
+    {
+      "gap_id": "gap-083a0e4705eb4c0b8438f31067c1573e",
+      "vendor": "Bambu Lab",
+      "purchase_ids": [
+        "pur-1c4dede86ac6420db23a61fd3b7eabb8"
+      ],
+      "order_ids": [
+        "bambu:us798331608108187648"
+      ],
+      "event_ids": [
+        "evt-19293e4645d84cd08d555c566e2820d7"
+      ],
+      "source_ids": [
+        "src-2c30f092670c4f8d91381f26b9dff8b0"
+      ],
+      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Final invoice and credit origin remain unverified; the recorded procurement value is the net order amount after applied credit.",
+      "sources_checked": [
+        "Exact order confirmation and signed-in merchant order record"
       ]
     }
   ],

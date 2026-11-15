@@ -589,6 +589,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| <!--purchase:pur-4cac3e81d16a4257b9c6b725ba967b74--> Polymaker Fiberon PET-GF15 Black, 1.75 mm, three 3 kg spools (9 kg total); $224.97 merchandise less $27.00 promotion + $14.34 estimated tax, free shipping | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 spools (3 kg each) | $212.31 | 114-2679873-7632253 | 2026-11-14 | — | ON-ORDER |
+| <!--purchase:pur-e8d3c873b40848499b387a0bed8978f7--> H2C dual-textured and smooth PEI spring-steel build plate, black, sold by HZD US — printer accessory; $39.89 item + $2.89 estimated tax, free shipping | [B0GRSZJYJ9](https://www.amazon.com/dp/B0GRSZJYJ9) | 1 | $42.78 | 112-7863139-0903423 | 2026-11-14 | — | ON-ORDER |
 | <!--purchase:pur-92e9a8843e42401389b973926a963edc--> SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | 114-5148466-4469057 | 2026-04-19 | 2026-04-20 | ACQUIRED |
 | <!--purchase:pur-3ce496aeefa54ba3ac576dd7b9d3ec91--> Siraya Tech Flex TPU 85A Clear, 1.75 mm, 1 kg — ASSE vent elbow stock | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 spool (1 kg) | $33.88 | 114-4402537-9406656 | 2026-04-19 | 2026-04-20 | ACQUIRED (Confirmation identifies Clear, 1 kg: $31.59 item price, $33.88 order total.) |
 | <!--purchase:pur-c7cd43298809474ca0d28bec2d91da35--> SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | 114-9764609-4555460 | 2026-03-22 | 2026-03-25 | ACQUIRED |
@@ -679,6 +681,7 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 
 | Order date | Bambu order # | Contents | $ | Status |
 |---|---|---|---|---|
+| <!--purchase:pur-1c4dede86ac6420db23a61fd3b7eabb8--> 2026-11-14 | us798331608108187648 | Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount | $81.96 | ON-ORDER |
 | <!--purchase:pur-fd5344356f7b483485428f444470b0ab--> 2026-03-22 | us712460111015776257 | Bambu Lab H2C — H2C AMS Combo (printer + integrated AMS) | $2,399.00 | ACQUIRED |
 | <!--purchase:pur-78da6641c19145ed970808c4ef7cc9c5--> 2026-03-22 | us712460111015776257 | Vision Encoder (H2 Series) | $78.75 | ACQUIRED |
 | <!--purchase:pur-c3b3b0a2274849c591fa9619695bc636--> 2026-03-22 | us712460111015776257 | Bambu Engineering Plate (H2C) | $49.49 | ACQUIRED |
@@ -861,17 +864,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$43,430.74](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$50,150.25](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$203.10](LEDGER_ON_ORDER) |
+| ON-ORDER | [$540.15](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,406.42](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,743.47](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$29,052.83](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,370.51](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,707.56](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
