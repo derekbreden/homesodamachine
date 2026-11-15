@@ -1,0 +1,132 @@
+{
+  "purpose": "Bind the photographed support and bridge failures to the emitted paths and chamber footage for this print.",
+  "printer": "Mark1",
+  "printer_task_id": "1445040105",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Engineering Plate",
+  "bed_treatment": "glue",
+  "archive": "enclosure-back-top-left04-petgf-engineering-stock-z-mark1.gcode.3mf",
+  "gcode_sha256": "0921c2f761841901a08a8cd6b69db8fe7ce5bec63b3d7f4ad8fd560c3cd61d07",
+  "user_observations": [
+    "It looks to me like something has gone strange here, in that I see a lot of tree supports that are very thin.",
+    "I don't think that we want those thin trees anywhere. I don't think they've ever worked well for us.",
+    "I couldn't even see where the support is under some of that, though, at all. It looks like we're missing supports in some critical places."
+  ],
+  "photos": [
+    {
+      "path": "01-flow-meter-and-asse.jpg",
+      "sha256": "ac091dd5f9bd50b7e193417c8f70e48e4e5460ed3a14a4c26f0417ffdd7b561e",
+      "observation": "Loose extrusion beneath the flow-meter ledge, with a detached fork on the floor and the ASSE receiver to the right."
+    },
+    {
+      "path": "02-flank-supports.jpg",
+      "sha256": "405e5c5143b84b79fab88d0366320a5062a968c9da0c6c0050427dcaf0087c88",
+      "observation": "Single-wall slicer supports beneath the soda-valve seat and stem bundle beside the funnel receiver. The flow-meter ledge is at the back."
+    },
+    {
+      "path": "03-asse-catch.jpg",
+      "sha256": "b61cfc0bd3e22857b22c8dff67e5762db9b1854d0c6adc74bc3ff6f73310d57b",
+      "observation": "Loose roads curl outward in the lower recess of the ASSE catch. The screw boss, end step and curved saddle locate the face on the slice."
+    },
+    {
+      "path": "04-flow-meter-chamber-camera.jpg",
+      "sha256": "23b0b2baa17e0872f8bddb97899458e6e6cee31219a301bfe1e8e248b9a5ed96",
+      "observation": "Read left to right, top to bottom. Fore tree upright, print head passing it, the tree absent while the aft tree still stands, then the loose fork on the printed floor."
+    }
+  ],
+  "chamber_camera": [
+    {
+      "source": "ipcam-record.2026-11-16_02-02-00.173.mp4",
+      "playback_sha256": "47949767432eccded2e0c87352bf7c5cb619b51cb52acb44917a384320b228bc",
+      "elapsed_source_seconds": 466,
+      "observation": "Fore and aft forks stand."
+    },
+    {
+      "source": "ipcam-record.2026-11-16_02-02-00.173.mp4",
+      "playback_sha256": "47949767432eccded2e0c87352bf7c5cb619b51cb52acb44917a384320b228bc",
+      "elapsed_source_seconds": 468,
+      "observation": "The approaching head occludes the top of the fore fork."
+    },
+    {
+      "source": "ipcam-record.2026-11-16_02-02-00.173.mp4",
+      "playback_sha256": "47949767432eccded2e0c87352bf7c5cb619b51cb52acb44917a384320b228bc",
+      "elapsed_source_seconds": 472,
+      "observation": "Fore fork is gone. The aft fork still stands. The ledge has yet to print."
+    },
+    {
+      "source": "ipcam-record.2026-11-16_02-51-15.179.mp4",
+      "playback_sha256": "f9aa1b7aa6fc606dca334055c317671b4353b954aa009b96b4197eccb49a82dc",
+      "elapsed_source_seconds": 300,
+      "observation": "A fork lies on the floor and the first ledge is still absent."
+    }
+  ],
+  "findings": {
+    "slicer_generated_trees": {
+      "support_type": "tree(manual)",
+      "support_style": "tree_slim",
+      "branch_diameter_mm": 1.4,
+      "branch_growth_angle_deg": 0,
+      "branch_wall_count": 1,
+      "recipe_change": "98d8b815d654b0155077f24d6f16d1eb869b0554",
+      "reason": "The recipe uses compact vertical columns to preserve clearance and open removal lanes.",
+      "support_setting_changes_from_prior_plate": {},
+      "valve_seat": {
+        "section_z_mm": 29.0,
+        "typical_stem_outer_diameter_mm": 1.39
+      },
+      "opposite_wall_cable_hook": {
+        "root_z_mm": 9.62,
+        "first_interface_z_mm": 80.042,
+        "section_z_mm": 57.986,
+        "small_stem_outer_diameter_mm": 1.39
+      },
+      "measurement": "Cross-section extents include the native line width. The valve-seat forest in the photograph is still standing."
+    },
+    "flow_meter_receiver": {
+      "support_kind": "Two modeled breakaway forks under the end shoulders.",
+      "foot_diameter_mm": 1.0,
+      "trunk_diameter_mm": 2.5,
+      "planned_contact_gap_mm": 0.25,
+      "first_ledge_layer": 240,
+      "first_ledge_z_mm": 42.68,
+      "longest_first_ledge_bridge_road_mm": 58.33,
+      "first_front_lip_layer": 260,
+      "first_front_lip_z_mm": 45.32,
+      "longest_front_lip_bridge_road_mm": 39.92,
+      "first_front_lip_free_span_mm": 38.1,
+      "observation": "The chamber footage brackets the fore tree loss around the print-head pass. The contact or detachment mechanism is obscured.",
+      "coverage": "The forks reach the end shoulders. The central ledge and front lip rely on lengthwise bridges."
+    },
+    "asse_receiver": {
+      "support_kind": "Bridge between the end shoulders of the open catch pocket.",
+      "first_catch_layer": 91,
+      "first_catch_z_mm": 12.2,
+      "near_catch_first_wall_road_mm": 41.76,
+      "near_catch_longest_bridge_road_mm": 43.59,
+      "near_catch_bridge_free_span_mm": 41.77,
+      "slicer_support_roads_in_pocket": 0,
+      "observation": "The long near catch sags into the insertion opening. The interior is an explicit support exclusion for removal access."
+    },
+    "water_regulator_receiver": {
+      "first_catch_layer": 115,
+      "first_catch_z_mm": 15.32,
+      "first_wall_road_mm": 36.1,
+      "observation": "The nearer water-regulator catch also shows sagging courses in the chamber video across its support-free recess."
+    },
+    "span_method": "Read first wall and bridge paths from the sent G-code in plate coordinates. Compare with the preceding course using commanded bead widths and XY footprint overlap.",
+    "launch_review_scope": "The native review checks support-free regions, the bed border and selected material bands. End-to-end coverage and physical survival of the ledge supports are outside the launch receipt."
+  },
+  "printer_observations": {
+    "initial": {
+      "observed_at": "2026-11-15T23:07:42+00:00",
+      "gcode_state": "RUNNING",
+      "layer_num": 435,
+      "nominal_z_mm": 68.12
+    },
+    "later": {
+      "observed_at": "2026-11-15T23:27:07+00:00",
+      "gcode_state": "FAILED",
+      "print_error": 0
+    }
+  }
+}
