@@ -337,6 +337,41 @@
       "said": "So on the faucet, the base support broke off beautifully. ... it just all broke off as, like, one clean piece, and it took a little bit of force, but that was great. ... And the back of the faucet base, the seam that's back there where it normally is, that looks normal. It's fine. But then we've got this second seam in front that I don't understand how we ended up with that. ... And it's also all fuzzy and ugly. ... And I see some fuzziness other places too",
       "tried": "the Sculpted base in hand after removing the underside support, inspecting the mounting face and both sides of the shell",
       "record": "https://github.com/derekbreden/homesodamachine/blob/19f296fa2b71b68a92735a3d2aae7e0ce242dfd9/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0094",
+      "date": "2026-11-15",
+      "said": "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
+      "tried": "the printed Sculpted base with its supports removed, put together with the tip, cover, mounting plate and lever from the same plate",
+      "record": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0095",
+      "date": "2026-11-15",
+      "said": "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
+      "tried": "the printed tip with its supports removed, put together with the base, cover, mounting plate and lever from the same plate",
+      "record": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0096",
+      "date": "2026-11-15",
+      "said": "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
+      "tried": "the printed display cover put together with the base, tip, mounting plate and lever from the same plate",
+      "record": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0092",
+      "date": "2026-11-15",
+      "said": "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
+      "tried": "the printed mounting plate put together with the base, tip, cover and lever from the same plate",
+      "record": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0268",
+      "date": "2026-11-15",
+      "said": "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
+      "tried": "the printed lever put together with the base, tip, cover and mounting plate from the same plate",
+      "record": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/physical-result.json"
     }
   ]
 }
