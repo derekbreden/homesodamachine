@@ -138,6 +138,83 @@ fn editable(name: &str) -> bool {
         || matches!(name, "Metadata/layer_config_ranges.xml" | "Metadata/cut_information.xml")
 }
 
+/// One object's spans in a slice, layer by layer: the layer's height and the span's first and last
+/// line, its start and stop markers.
+fn object_spans(lines: &[&str], id: i64) -> Result<Vec<(f64, usize, usize)>> {
+    let (start, stop) = (format!("; start printing object, unique label id: {id}"), format!("; stop printing object, unique label id: {id}"));
+    let mut spans = Vec::new();
+    let (mut z, mut open) = (f64::NAN, None);
+    for (i, line) in lines.iter().enumerate() {
+        if let Some(value) = line.strip_prefix("; Z_HEIGHT:") {
+            z = value.trim().parse()?;
+        } else if line.trim_end() == start {
+            ensure!(open.is_none(), "object {id} starts twice at line {}", i + 1);
+            open = Some(i);
+        } else if line.trim_end() == stop {
+            spans.push((z, open.with_context(|| format!("object {id} stops before it starts at line {}", i + 1))?, i));
+            open = None;
+        }
+    }
+    Ok(spans)
+}
+
+/// A plate sliced one way with the tip's spans, from the lowest layer the tip-end cooling stage
+/// cools upward, taken from the same plate sliced another way, written as a slice directory
+/// `output` holds: `stem.gcode.3mf` and its `plate_1.gcode`. Both slices must lay the same layers
+/// and the tip in each; the receipt is returned.
+pub fn splice_tip_end(level: &Path, plain: &Path, tip_end: &Path, output: &Path, stem: &str) -> Result<Value> {
+    const TIP: i64 = 1902;
+    let report: Value = serde_json::from_slice(&fs::read(tip_end)?)?;
+    ensure!(report["identify_id"].as_i64() == Some(TIP), "the tip-end report is not the tip's");
+    let from = report["cooled_z_mm"][0].as_f64().context("the tip-end stage's lowest cooled layer")?;
+    let (level_text, plain_text) = (String::from_utf8(crate::gcode::plate_gcode(level)?)?, String::from_utf8(crate::gcode::plate_gcode(plain)?)?);
+    let (a, b): (Vec<&str>, Vec<&str>) = (level_text.split_inclusive('\n').collect(), plain_text.split_inclusive('\n').collect());
+    let heights = |lines: &[&str]| lines.iter().filter_map(|l| l.strip_prefix("; Z_HEIGHT:")).map(str::trim).collect::<Vec<_>>().join(",");
+    ensure!(heights(&a) == heights(&b), "the two slices lay different layers");
+    let (spans_a, spans_b) = (object_spans(&a, TIP)?, object_spans(&b, TIP)?);
+    ensure!(spans_a.len() == spans_b.len() && spans_a.iter().zip(&spans_b).all(|(x, y)| x.0 == y.0), "the two slices lay the tip in different layers");
+    let mut out = String::with_capacity(level_text.len());
+    let (mut at, mut taken) = (0, 0);
+    for (x, y) in spans_a.iter().zip(&spans_b) {
+        if x.0 < from - 1e-6 {
+            continue;
+        }
+        a[at..x.1].iter().for_each(|l| out.push_str(l));
+        b[y.1..=y.2].iter().for_each(|l| out.push_str(l));
+        at = x.2 + 1;
+        taken += 1;
+    }
+    a[at..].iter().for_each(|l| out.push_str(l));
+    ensure!(taken > 0, "no tip layer lies at or above the tip-end stage's lowest cooled layer");
+    fs::create_dir_all(output)?;
+    let archive = output.join(format!("{stem}.gcode.3mf"));
+    ensure!(!archive.exists(), "Write the spliced slice to a new directory");
+    let receipt = json!({
+        "purpose": "The tip's layers from the lowest the tip-end cooling stage cools upward, from a second slice of the same plate.",
+        "level_archive_sha256": crate::sha256_hex(&fs::read(level)?), "plain_archive_sha256": crate::sha256_hex(&fs::read(plain)?),
+        "tip_end_report_sha256": crate::sha256_hex(&fs::read(tip_end)?), "from_layer_top_mm": from,
+        "tip_layers_taken": taken, "tip_layers": spans_a.len(), "gcode_sha256": crate::sha256_hex(out.as_bytes()),
+    });
+    let mut source = zip::ZipArchive::new(fs::File::open(level)?)?;
+    let mut writer = zip::ZipWriter::new(fs::File::create(&archive)?);
+    for i in 0..source.len() {
+        let entry = source.by_index_raw(i)?;
+        let name = entry.name()?.to_string();
+        let options = zip::write::SimpleFileOptions::default().compression_method(entry.compression())
+            .last_modified_time(entry.last_modified().unwrap_or_default()).large_file(out.len() as u64 > u32::MAX as u64);
+        match name.as_str() {
+            GCODE => { drop(entry); writer.start_file(name, options)?; writer.write_all(out.as_bytes())?; }
+            n if n == format!("{GCODE}.md5") => { drop(entry); writer.start_file(name, options)?; writer.write_all(crate::ids::md5_hex(out.as_bytes()).as_bytes())?; }
+            _ => writer.raw_copy_file(entry)?,
+        }
+    }
+    writer.start_file("Metadata/hsm_tip_end_splice.json", zip::write::SimpleFileOptions::default())?;
+    writer.write_all((serde_json::to_string_pretty(&receipt)? + "\n").as_bytes())?;
+    writer.finish()?;
+    fs::write(output.join("plate_1.gcode"), &out)?;
+    Ok(receipt)
+}
+
 /// The motion reader's per-move record: the move's end time at its start, its G-code line at
 /// `MOVE_LINE`, in a record `MOVE_RECORD` bytes long.
 const MOVE_RECORD: usize = 62;
