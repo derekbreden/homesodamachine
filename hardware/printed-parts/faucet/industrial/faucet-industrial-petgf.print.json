@@ -56,8 +56,7 @@
       0.0,
       -0.25881904510252074,
       -0.9659258262890683
-    ],
-    "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json"
+    ]
   },
   "bed_type": "Textured PEI Plate",
   "cover_rear_seam_enforcement": {
@@ -77,18 +76,14 @@
       ]
     ],
     "part": "faucet-display-cover",
-    "project_facets": 29260,
-    "target": "Exterior rear wall on the tip's CAD center plane above the opening"
+    "project_facets": 29260
   },
   "external_spool": 254,
   "filament": [
     "Polymaker PET-GF @BBL H2C"
   ],
   "filament_colour": "#161616",
-  "finish_selection": [
-    "hardware/printed-parts/faucet/sculpted/finish-selection.json",
-    "tools/hsm/print-prep/faucet-plate.json"
-  ],
+  "finish_selection": "tools/hsm/print-prep/faucet-plate.json",
   "inverse_warp_donor": false,
   "layer_config_ranges": [],
   "layer_height_mm": 0.24,
@@ -476,7 +471,6 @@
     "enforced_triangles": 265,
     "half_width_mm": 0.25,
     "mesh_vertices_and_triangle_indices_unchanged": true,
-    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "painted_facet_bounds_cad_mm": [
       [
         -1.052923799,
@@ -489,252 +483,13 @@
         237.32368469219142
       ]
     ],
-    "part": "industrial-shell-base",
-    "physical_result": "Industrial reference only; Sculpted seam placement reviewed natively for this print.",
-    "target": "Complete Sculpted rear silhouette at every build Z; facets intersecting CAD X=0 +/-0.25 mm"
+    "part": "industrial-shell-base"
   },
   "requested_z_trim_mm": 0.1,
   "rigid_part_count": 5,
   "saved_profile_filament_density_g_cm3": [
     1.29
   ],
-  "selected_finish": {
-    "active_nozzle": 0,
-    "annotation_clarification": "The 0.24 mm layers are the normal model layers; no separate eight-layer override is necessary when the fine bands are absent.",
-    "base_fine_bands_print_z_mm": [],
-    "base_rim_supports": {
-      "dense_roof_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
-      "fin_footprint_physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
-      "insert_blocker_depth_allowance_mm": [
-        1.0,
-        0.55
-      ],
-      "insert_blocker_radial_clearance_mm": 0.65,
-      "insert_bridge_evidence": "hardware/printed-parts/faucet/sculpted/production/contact-review.json",
-      "method": "Segmented outside fins and Slim trees beneath the common dense rim interface",
-      "nonplanar_contact": {
-        "edge_blend_mm": 3.0,
-        "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json",
-        "scope_margin_mm": 8.0,
-        "source_commit": "b388123d2ac2fdc31fd091f980334b9c99443ab8"
-      },
-      "object_settings": {
-        "brim_type": "no_brim",
-        "enable_support": "1",
-        "support_bottom_z_distance": "0.30",
-        "support_style": "tree_slim",
-        "support_type": "tree(auto)"
-      },
-      "part": "industrial-shell-base",
-      "reference_rim_diameter_mm": 59.0,
-      "rim_enforcer_angle_degrees": [
-        114.5,
-        425.5
-      ],
-      "rim_enforcer_half_height_mm": 0.65,
-      "rim_enforcer_radius_mm": [
-        27.45,
-        29.95
-      ],
-      "scope": "Outside fins and Slim trees carry the dense interface under the Sculpted ellipse. The mounting recesses use bridges at their shoulders and blind roofs.",
-      "selected_date": "2026-11-11",
-      "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json",
-      "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf",
-      "source_project_sha256": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7"
-    },
-    "base_underside": {
-      "insert_blocker_depth_allowance_mm": [
-        1.0,
-        0.55
-      ],
-      "insert_blocker_radial_clearance_mm": 0.65,
-      "method": "Scaffold with a sloped roof and a sloped skin",
-      "object_settings": {
-        "brim_type": "no_brim",
-        "enable_support": "1",
-        "support_bottom_z_distance": "0.30",
-        "support_style": "tree_slim",
-        "support_type": "tree(auto)"
-      },
-      "physical_reference": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
-    },
-    "coarse_layer_height_mm": 0.24,
-    "corner_seam_object_overrides": {
-      "override_filament_scarf_seam_setting": "0",
-      "seam_gap": "15%",
-      "seam_position": "aligned",
-      "seam_slope_type": "none"
-    },
-    "cover_rear_seam_enforcement": {
-      "paint_strip_half_width_mm": 0.35,
-      "part": "faucet-display-cover",
-      "target": "Exterior rear wall on the tip's CAD center plane above the opening"
-    },
-    "default_filament_colour": "#FFFFFF",
-    "default_printer": "Mark2",
-    "edge_support_strategy": {
-      "application": "The full base starts on the sloped scaffold and its insert recesses bridge. Tip trees feed the shoulder roof with release breaks and clearance from the mating plug.",
-      "method": "Keep the rim contact mapping inboard of the exterior wall and follow the seat with the first rim perimeter.",
-      "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs."
-    },
-    "filament_overrides": {
-      "filament_wipe": "0",
-      "filament_wipe_distance": "0"
-    },
-    "first_bed_layer_height_mm": 0.2,
-    "industrial_recipe": {
-      "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-      "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
-      "source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4"
-    },
-    "layer_height_mm": 0.24,
-    "mounting_plate_counterbores": {
-      "blocker_depth_allowance_mm": [
-        0.65,
-        0.55
-      ],
-      "blocker_radial_clearance_mm": 0.45,
-      "scope": "Leave the screw head and shank passages clear. Bridge each counterbore shoulder in the flat mounting plate."
-    },
-    "overhang_recipe": {
-      "auxiliary_fan_percent": 0,
-      "cooling_physical_evidence": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
-      "cooling_policy": "hardware/printed-parts/cooling/README.md",
-      "cooling_selection_date": "2026-10-17",
-      "fan_off_bed_layers": 3,
-      "fan_percent": 70,
-      "fan_prestart_seconds": 0,
-      "fan_threshold": "50%",
-      "keep_fan_always_on": false,
-      "maximum_overhang_speed_mm_s": 15,
-      "ordinary_fan_percent": 0,
-      "physical_evidence": [
-        "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json",
-        "hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json",
-        "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json",
-        "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json"
-      ],
-      "preserve_slower_overhang_limits": true,
-      "scope": "Part cooling is off on ordinary paths. Force 70% only on bridges and wall paths with at least 50% of their bead width unsupported, after the first three bed layers. No layer-time cooling, auxiliary part cooling or fan pre-start.",
-      "selected_date": "2026-10-15",
-      "selection_quote": "the cooling, high cooling, is totally fine. We can use 100% cooling if we want, but only on the places that actually need it, and everywhere else we shouldn't be using that cooling.",
-      "support_profile": "hardware/printed-parts/petgf.3mf"
-    },
-    "rear_seam_enforcement": {
-      "half_width_mm": 0.25,
-      "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-      "part": "industrial-shell-base",
-      "physical_result": "Industrial reference only; Sculpted seam placement reviewed natively for this print.",
-      "target": "Complete Sculpted rear silhouette at every build Z; facets intersecting CAD X=0 +/-0.25 mm"
-    },
-    "schema": 1,
-    "scope": "Print process transferred from the accepted black Industrial faucet; white Sculpted physical finish and fit require this complete print.",
-    "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
-    "seam_object_overrides": {
-      "override_filament_scarf_seam_setting": "1",
-      "scarf_angle_threshold": "155",
-      "seam_gap": "150%",
-      "seam_position": "back",
-      "seam_slope_conditional": "1",
-      "seam_slope_entire_loop": "0",
-      "seam_slope_gap": "0%",
-      "seam_slope_inner_walls": "1",
-      "seam_slope_min_length": "60",
-      "seam_slope_start_height": "10%",
-      "seam_slope_steps": "10",
-      "seam_slope_type": "external"
-    },
-    "seam_parts": [
-      "industrial-shell-base",
-      "faucet-shell-tip",
-      "industrial-above-counter-plate"
-    ],
-    "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
-    "seam_specimen": "A2",
-    "selected_date": "2026-10-15",
-    "selection_basis": "Use the recorded Industrial process for the complete white Sculpted faucet with the selected Sculpted layer and support settings.",
-    "shallow_overhang_wall_speed": {
-      "parts": [
-        "industrial-shell-base",
-        "faucet-shell-tip"
-      ],
-      "physical_evidence": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-rear-base-oval/physical-result.json",
-      "points": [
-        "overhang_1_4_speed",
-        "overhang_2_4_speed"
-      ],
-      "scope": "The base's and tip's walls run at their own speed through the slicer's two shallowest overhang points and slow from there toward its steeper points, where the fan comes on. The filament's overhang speeds leave the process's, which hold the same values, to every other object.",
-      "selected_date": "2026-11-14",
-      "selection_quote": "This circle on the back of the base of the sculpted faucet has been present since the earliest prints of it that we've done."
-    },
-    "shell_ordinary_seam_gap": "15%",
-    "source_complete_black_acceptance": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/physical-result.json",
-    "style": "Sculpted",
-    "tip_dispense_contact": {
-      "interior_end_mm": 2.35,
-      "interior_full_mm": 0.25,
-      "mapping_edge_blend_mm": 2.0,
-      "mapping_margin_mm": 5.0,
-      "outlet_clearance_mm": 0.3,
-      "outlet_depth_mm": [
-        -0.65,
-        5.0
-      ],
-      "outlet_shadow_clearance_mm": 0.9,
-      "outside_wall_inboard_blend_mm": [
-        0.9,
-        2.65
-      ],
-      "part": "faucet-shell-tip",
-      "scope": "Carry the dense interface to the inclined inner dispense face. Keep the actual outlet mouth clear for its bridging paths. The mapping fades out inboard of the tube's outside wall."
-    },
-    "tip_end_cooling": {
-      "back_from_dispense_face_mm": [
-        -1.0,
-        9.0
-      ],
-      "fan_percent": 70,
-      "part": "faucet-shell-tip",
-      "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/ffe670b3c4a83a970d2e52dd81c75eddb7f12522/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json",
-      "scope": "Part cooling on the tip's model paths from its dispense face back to just short of the lip grooves, on both sides. Every other path keeps its native cooling.",
-      "selected_date": "2026-11-12",
-      "selection_quote": "I want you to turn on part cooling for the area I highlighted in red there. You just need part cooling on for those surfaces that are rough on both sides, as you can see in the photos."
-    },
-    "tip_rear_seam_enforcement": {
-      "half_width_mm": 0.0,
-      "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
-      "part": "faucet-shell-tip",
-      "physical_result": "Retain the shared tip rear seam enforcement from the accepted Industrial process.",
-      "surface": "curved_outer_arc",
-      "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces"
-    },
-    "tip_supports": {
-      "joint_plane": {
-        "normal": [
-          0.0,
-          -0.9396926207859083,
-          0.3420201433256688
-        ],
-        "point": [
-          0.0,
-          -38.36796889030837,
-          220.8576411168048
-        ]
-      },
-      "method": "Slim trees at the mating shoulder with dense roof sections, a contoured first perimeter and a hidden-root disc",
-      "part": "faucet-shell-tip",
-      "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
-      "root_anchor_component_id": 2400,
-      "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
-      "selected_date": "2026-10-15",
-      "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here.",
-      "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
-      "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
-      "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff",
-      "tree_support_scope": "The mating lip has a scoped dense roof and the inboard dispense face has a separate outlet keepout."
-    },
-    "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic."
-  },
   "send_attempted": false,
   "settings_changes": {
     "fan_max_speed": {
@@ -876,20 +631,19 @@
   ],
   "source_settings_sha256": "3be9e83c72f407020e2b6da766d1e758d879a02062aa0966a2f5b51f156df81e",
   "source_sha256": {
-    ".cache/runs/faucet-recipe-20261115/industrial-product/finish.json": "7431ee1ff800d46416d64539b8563a22c030d4c091743c4b09fe732eaab0f17d",
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "9215b8d53ac56ed0eecee6f64f60f8f6ec745e626a7639ff2c6a4e36bbcf950d",
     "b388123d2ac2fdc31fd091f980334b9c99443ab8:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json": "568808776590b7f6afb5d92330a3fcf04d5041e94767e18657b05c95ce0cfbf1",
-    "hardware/printed-parts/faucet/base_seat.rs": "f61e0b479842dfe5f01b11383d0990e1690a11852e4f2f7fe33094afef361320",
+    "hardware/printed-parts/faucet/base_seat.rs": "e75e6cc2573090620d8fccc99c4066e087800335b8b288aa5352a30a91f0a1bc",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "0c6e9e140494d1c11a798607dbe503b5cfc4c645ac0eaafa185d89ffc4485293",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
-    "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/preparation.json": "ef809621ac2b4d66ab7c0602848fe73eea37af4107cfb77d63b034088c2c3b33",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "hardware/printed-parts/faucet/prepare_print_project.rs": "15daf179fe511ea74c572a7ab578f0b75283674b2cb7b8be725bf8b2d8e04cdb",
-    "tools/hsm/print-prep/src/faucet.rs": "4f1f0e4cf4584a466fa4d260a7dd943d55d741523ee350830c9c4d7d2b24dce0",
+    "hardware/printed-parts/faucet/prepare_print_project.rs": "27ae40f3ab8ef9ba47d1c8e7cdd6ec804d8c05fd1060396d4a854bed7582a987",
+    "tools/hsm/print-prep/faucet-plate.json": "0ad92c99fe98e8744447a81184381faa0de4a59e3083a565107b029ac30c5134",
+    "tools/hsm/print-prep/src/faucet.rs": "57af71f4f669e1c392faf0086d7fabbf27236bb35f0f943a7629463d9b6d5ff7",
     "tools/hsm/print-prep/src/faucet_contact.rs": "531c6bbc4131fc193a4fc811feed452a3e8deda85cfe8e77595fe5b782bd3178",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
     "tools/hsm/print-prep/src/profile.rs": "f1ae30f9942e907dfbfe57167d8cfcfe6582658aec911c7ae6caa985105062da",
@@ -1596,7 +1350,6 @@
     "enforced_triangles": 96,
     "half_width_mm": 0.0,
     "mesh_vertices_and_triangle_indices_unchanged": true,
-    "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "painted_facet_bounds_cad_mm": [
       [
         -2.636718751322653e-11,
@@ -1610,9 +1363,7 @@
       ]
     ],
     "part": "faucet-shell-tip",
-    "physical_result": "Retain the shared tip rear seam enforcement from the accepted Industrial process.",
-    "surface": "curved_outer_arc",
-    "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces"
+    "surface": "curved_outer_arc"
   },
   "tip_rim_contact": {
     "band": {
@@ -1734,8 +1485,6 @@
       ]
     },
     "part": "faucet-shell-tip",
-    "physical_result": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/physical-result/physical-result.json",
-    "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
     "source_project_sha256": "f6e5c53d4a23b25f568b083d8a3eaa779b7959c666fa41a227a953e21904f3ff"
