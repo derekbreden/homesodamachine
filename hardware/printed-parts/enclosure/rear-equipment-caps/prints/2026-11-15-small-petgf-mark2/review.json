@@ -1,0 +1,352 @@
+{
+  "archive": ".cache/runs/small-petgf-F0Ci9E/tower3/2026-11-15-small-petgf-mark2-39847f01/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
+  "archive_sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+  "bead_envelope_plate_mm": [
+    [
+      23.621468,
+      31.822467999999997
+    ],
+    [
+      301.0266135,
+      245.7237375
+    ]
+  ],
+  "bed_border_mm": 22.0,
+  "bed_margins_mm": {
+    "back": 74.2762625,
+    "front": 31.822467999999997,
+    "left": 23.621468,
+    "right": 23.973386500000004
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9207483023741937,
+      "second_layer_centerline_outside_first_mm": 8.550316028537347,
+      "second_layer_model_bead_area_mm2": 483.678568500326
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9178051490428415,
+      "second_layer_centerline_outside_first_mm": 6.041257849300157,
+      "second_layer_model_bead_area_mm2": 425.6618631783365
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.9127178270238978,
+      "second_layer_centerline_outside_first_mm": 5.514972459475103,
+      "second_layer_model_bead_area_mm2": 438.76133003933336
+    },
+    "1904": {
+      "fraction_over_first_layer": 0.943751241950482,
+      "second_layer_centerline_outside_first_mm": 6.936636627193652,
+      "second_layer_model_bead_area_mm2": 698.2196834477163
+    },
+    "1905": {
+      "fraction_over_first_layer": 0.9522831895579613,
+      "second_layer_centerline_outside_first_mm": 13.28541511732078,
+      "second_layer_model_bead_area_mm2": 1169.9157883711923
+    },
+    "1906": {
+      "fraction_over_first_layer": 0.9617792295920096,
+      "second_layer_centerline_outside_first_mm": 32.99119773101492,
+      "second_layer_model_bead_area_mm2": 3555.0228547639567
+    },
+    "1907": {
+      "fraction_over_first_layer": 0.9807222237362535,
+      "second_layer_centerline_outside_first_mm": 8.601540960148917,
+      "second_layer_model_bead_area_mm2": 1909.4145913767638
+    },
+    "1908": {
+      "fraction_over_first_layer": 0.9807222237224595,
+      "second_layer_centerline_outside_first_mm": 8.601540960154718,
+      "second_layer_model_bead_area_mm2": 1909.414591376767
+    },
+    "1909": {
+      "fraction_over_first_layer": 0.9560502509900514,
+      "second_layer_centerline_outside_first_mm": 1.3767784612599745,
+      "second_layer_model_bead_area_mm2": 236.40055561372907
+    },
+    "1910": {
+      "fraction_over_first_layer": 0.960191137328083,
+      "second_layer_centerline_outside_first_mm": 1.4820483936981075,
+      "second_layer_model_bead_area_mm2": 301.29385960299294
+    },
+    "1911": {
+      "fraction_over_first_layer": 0.97829639557193,
+      "second_layer_centerline_outside_first_mm": 5.003680538391535,
+      "second_layer_model_bead_area_mm2": 861.3488357708426
+    },
+    "1912": {
+      "fraction_over_first_layer": 0.9185238795162985,
+      "second_layer_centerline_outside_first_mm": 193.74535671749058,
+      "second_layer_model_bead_area_mm2": 708.2985174250994
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 269,
+  "minimum_bed_margin_mm": 23.621468,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.99464054703382,
+      "minimum_outline_coverage": 0.9947892051720169,
+      "name": "Pump flange retainer and screw seats",
+      "object": 1907,
+      "plate_bounds_mm": [
+        [
+          46.80100019073486,
+          187.05420358276368,
+          0.0009999999999994458
+        ],
+        [
+          137.79900019073486,
+          208.05220358276367,
+          13.798999237060546
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9993339500462535,
+          "infill_core_mm2": 1858.993974291599,
+          "outline_coverage": 0.9993355747678514,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.08742484781799735,
+          "stock_mm2": 1909.553107357439
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.99464054703382,
+          "infill_core_mm2": 578.9957016280637,
+          "outline_coverage": 0.9947892051720169,
+          "print_z_mm": 6.92,
+          "sampling_step_mm": 0.08742484781799735,
+          "stock_mm2": 630.7165865043356
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9987021276595744,
+          "infill_core_mm2": 718.4517775039997,
+          "outline_coverage": 0.9986852750809061,
+          "print_z_mm": 13.64,
+          "sampling_step_mm": 0.08742484781799735,
+          "stock_mm2": 755.7501251020796
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -45.499,
+          14.251,
+          195.52500207519532
+        ],
+        [
+          45.499,
+          28.048999237060546,
+          216.5230020751953
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.99464054703382,
+      "minimum_outline_coverage": 0.9947892051720169,
+      "name": "Pump flange retainer and screw seats",
+      "object": 1908,
+      "plate_bounds_mm": [
+        [
+          152.80100019073487,
+          187.05420358276368,
+          0.0009999999999994458
+        ],
+        [
+          243.79900019073486,
+          208.05220358276367,
+          13.798999237060546
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9993339500462535,
+          "infill_core_mm2": 1858.993974291599,
+          "outline_coverage": 0.9993355747678514,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.08742484781799735,
+          "stock_mm2": 1909.553107357439
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.99464054703382,
+          "infill_core_mm2": 578.9957016280637,
+          "outline_coverage": 0.9947892051720169,
+          "print_z_mm": 6.92,
+          "sampling_step_mm": 0.08742484781799735,
+          "stock_mm2": 630.7165865043356
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9987021276595744,
+          "infill_core_mm2": 718.4517775039997,
+          "outline_coverage": 0.9986852750809061,
+          "print_z_mm": 13.64,
+          "sampling_step_mm": 0.08742484781799735,
+          "stock_mm2": 755.7501251020796
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -45.499,
+          14.251,
+          195.52500207519532
+        ],
+        [
+          45.499,
+          28.048999237060546,
+          216.5230020751953
+        ]
+      ]
+    }
+  ],
+  "support_roads": 112416,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 6,
+      "interface_islands": 6,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 29.76,
+      "shortest_labelled_build_up_mm": 29.76,
+      "support_bodies": 1
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1903": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 20.64,
+      "shortest_labelled_build_up_mm": 20.64,
+      "support_bodies": 1
+    },
+    "1904": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1905": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1906": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1907": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1908": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1909": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1910": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1911": {
+      "bed_rooted_bodies": 2,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 2,
+      "interface_islands": 2,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 23.04,
+      "shortest_labelled_build_up_mm": 23.04,
+      "support_bodies": 2
+    },
+    "1912": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  },
+  "tie_window_support_crossings": []
+}

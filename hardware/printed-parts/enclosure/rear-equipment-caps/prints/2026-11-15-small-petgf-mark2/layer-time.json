@@ -1,0 +1,121 @@
+{
+  "purpose": "Time away from each part between its layers on the sent plate.",
+  "gcode_sha256": "0eebbf5e31bb63a361f6d5d5050dee0d4a75cf4df5af7fb7d5f0f9e05349aa3d",
+  "scope": "Commanded path length over feed plus explicit dwells; acceleration, firmware motion and the smooth-timelapse snapshot add time, so these are lower bounds. Time away runs from a part's last model deposition on one layer to its first on the next.",
+  "reader": "A scratch reader outside the repo; no installed reader gives this time.",
+  "earlier_batch_for_comparison": {
+    "record": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-taller-tips-mark2/job.json",
+    "minimum_away_s": 18.94
+  },
+  "single_cap_with_tower_for_comparison": {
+    "record": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json",
+    "minimum_away_s": 23.82
+  },
+  "tower_per_layer_s": 25.4,
+  "parts": {
+    "asse-snap-cap": {
+      "identify_id": 1901,
+      "model_layers": 269,
+      "top_z_mm": 64.52,
+      "minimum_away_s": 25.67,
+      "median_away_s": 65.84
+    },
+    "pisco-snap-cap": {
+      "identify_id": 1902,
+      "model_layers": 174,
+      "top_z_mm": 41.72,
+      "minimum_away_s": 50.46,
+      "median_away_s": 71.95
+    },
+    "regulator-snap-cap": {
+      "identify_id": 1903,
+      "model_layers": 150,
+      "top_z_mm": 35.96,
+      "minimum_away_s": 63.26,
+      "median_away_s": 68.18
+    },
+    "meter-snap-cap": {
+      "identify_id": 1904,
+      "model_layers": 159,
+      "top_z_mm": 38.12,
+      "minimum_away_s": 55.68,
+      "median_away_s": 68.75
+    },
+    "pump-snap-cap": {
+      "identify_id": 1905,
+      "model_layers": 227,
+      "top_z_mm": 54.44,
+      "minimum_away_s": 32.37,
+      "median_away_s": 57.23
+    },
+    "display-cover": {
+      "identify_id": 1906,
+      "model_layers": 13,
+      "top_z_mm": 3.08,
+      "minimum_away_s": 140.02,
+      "median_away_s": 162.43
+    },
+    "enclosure-pump-retainer-1": {
+      "identify_id": 1907,
+      "model_layers": 58,
+      "top_z_mm": 13.88,
+      "minimum_away_s": 83.58,
+      "median_away_s": 106.34
+    },
+    "enclosure-pump-retainer-2": {
+      "identify_id": 1908,
+      "model_layers": 58,
+      "top_z_mm": 13.88,
+      "minimum_away_s": 83.55,
+      "median_away_s": 110.74
+    },
+    "reservoir-b-fill-guide": {
+      "identify_id": 1909,
+      "model_layers": 51,
+      "top_z_mm": 12.2,
+      "minimum_away_s": 96.05,
+      "median_away_s": 136.4
+    },
+    "soda-bend-holder": {
+      "identify_id": 1910,
+      "model_layers": 51,
+      "top_z_mm": 12.2,
+      "minimum_away_s": 95.12,
+      "median_away_s": 136.02
+    },
+    "elbow-cradle": {
+      "identify_id": 1911,
+      "model_layers": 112,
+      "top_z_mm": 26.84,
+      "minimum_away_s": 71.28,
+      "median_away_s": 93.13
+    },
+    "umbilical-organizer": {
+      "identify_id": 1912,
+      "model_layers": 42,
+      "top_z_mm": 10.04,
+      "minimum_away_s": 96.64,
+      "median_away_s": 122.93
+    }
+  },
+  "tall_cap_tops": {
+    "asse-snap-cap alone above the pump cap": {
+      "layers": 41,
+      "after_z_mm": [
+        54.68,
+        64.28
+      ],
+      "minimum_away_s": 25.67,
+      "maximum_away_s": 26.96
+    },
+    "pump-snap-cap with only the ASSE cap": {
+      "layers": 52,
+      "after_z_mm": [
+        41.96,
+        54.2
+      ],
+      "minimum_away_s": 32.37,
+      "maximum_away_s": 81.09
+    }
+  }
+}

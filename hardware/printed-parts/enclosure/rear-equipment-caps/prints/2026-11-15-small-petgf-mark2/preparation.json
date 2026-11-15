@@ -1,0 +1,1700 @@
+{
+  "archive": ".cache/runs/small-petgf-F0Ci9E/tower3/2026-11-15-small-petgf-mark2-39847f01/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
+  "archive_sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 1293.2046902871216,
+    "archive_sha256": "bedf9f9df166200641398a0c3a0de5514a40dfcd87e188d6f74f23282c14daec",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "fe71d1e8d04a9c1ffd50ea42305868fd0ca14e837e4416d1d3433a9cfee49a64",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 1293.2046902871216,
+        "changed": true,
+        "input_gcode_sha256": "7c5425c4f5d968aaf889ffa448b23ed8b0423e9d1f0309dcbf44831ec5bde4e1",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 3945,
+        "ordinary_model_moves": 613863,
+        "output_gcode_sha256": "ae20287575ab992765225548cc1a7405915e1dc73961684a8e31cf7f929ce5f6",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            32.0,
+            29.352831752707388,
+            0.0
+          ],
+          "Floating vertical shell": [
+            869.0,
+            1287.1943706315244,
+            79.13951724022975
+          ],
+          "Inner wall": [
+            3753.0,
+            3478.252307496849,
+            200.08752953464418
+          ],
+          "Internal solid infill": [
+            5677.0,
+            14103.69101481041,
+            870.0445883591585
+          ],
+          "Outer wall": [
+            2040.0,
+            1720.225090572444,
+            80.95696722656541
+          ],
+          "Overhang wall": [
+            1.0,
+            0.07699999999999818,
+            0.0
+          ],
+          "Sparse infill": [
+            1333.0,
+            1026.4483331675892,
+            62.97608792652845
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 13705,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 13637
+      }
+    ]
+  },
+  "emitted_textured_trim_mm": 0.08,
+  "estimated_seconds": 32612.602672751887,
+  "gcode_sha256": "0eebbf5e31bb63a361f6d5d5050dee0d4a75cf4df5af7fb7d5f0f9e05349aa3d",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nonplanar_contact": {
+    "band": ".cache/runs/small-petgf-F0Ci9E/tower3/2026-11-15-small-petgf-mark2-39847f01/contact-band.json",
+    "band_sha256": "56eb38ee96060637374b2c6f37d1c486dc948820d1c1478afbd4ed9d1aaf71f0",
+    "meshes": {
+      "regulator-snap-cap": {
+        "maximum_facet_restoration_error_mm": 0.008652015749177622,
+        "maximum_roundtrip_error_mm": 1.4425083350033674e-10,
+        "maximum_shift_mm": 0.5649954837221571,
+        "minimum_sampled_jacobian": 0.6812610678963438,
+        "scoped_support_paint_area_mm2": 0.0,
+        "slice_triangles": 92010,
+        "source_triangles": 4210
+      }
+    },
+    "object": "regulator-snap-cap",
+    "recipe": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json",
+    "recipe_sha256": "daf97b69c2614949e486e7c99328b75401e0d66d5690a862a6ba301ff7563b6f",
+    "restoration": {
+      "regulator-snap-cap": {
+        "added_commanded_motion_seconds": 104.01516996476504,
+        "archive_sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+        "gcode_input_sha256": "ae20287575ab992765225548cc1a7405915e1dc73961684a8e31cf7f929ce5f6",
+        "gcode_sha256": "0eebbf5e31bb63a361f6d5d5050dee0d4a75cf4df5af7fb7d5f0f9e05349aa3d",
+        "lifted_travels": 360,
+        "mapped_deposition_segments": 73254,
+        "mapped_deposition_segments_by_region": [
+          73254
+        ],
+        "maximum_mapped_path_slope_degrees": 40.78120435644797,
+        "maximum_mapped_z_speed_mm_s": 7.499999910742066,
+        "maximum_vertical_motion_offset_mm": 0.5649799703126526,
+        "purpose": "Read the bounded restored movements of the full print.",
+        "restored_extrusion_delta_mm": 6.339494667110644
+      }
+    },
+    "slicing_project": ".cache/runs/small-petgf-F0Ci9E/tower3/2026-11-15-small-petgf-mark2-39847f01/contact-band.3mf",
+    "slicing_project_sha256": "09c27a573f7acdcc8ebea9afab9f886b64e0c56800404de9bb90aa080ee9dc39",
+    "tool_sha256": "218cd5b9fb1dcaebb9f5e1a58ccf91d3370eefbdca49ed48c938cd76e6a79f58"
+  },
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark2's fixed left hardened Standard-flow hotend carries black PET-GF, as for the rear caps and the pump cap.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 2931,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 1954,
+      "features": [],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 71.04174900054932,
+      "modifiers": [],
+      "name": "asse-snap-cap",
+      "object_id": 2,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          71.04174900054932,
+          130.1855354309082,
+          0.0
+        ],
+        [
+          121.33802890777588,
+          171.8144645690918,
+          64.625
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        32.3125
+      ],
+      "step_sha256": "cf33be71c8495bcac54981668f58a039b78b34b3f01104819521356018fbf1ec",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+      "stl_sha256": "7dd9150c05aa10466bcbdddd74a192d5ab585efb083b64943484a2f995c0b4e5",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        96.1898889541626,
+        151.0,
+        32.3125
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 5166,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 3444,
+      "features": [],
+      "fins": [],
+      "identify_id": 1902,
+      "model_bed_margin_mm": 133.96129989624023,
+      "modifiers": [],
+      "name": "pisco-snap-cap",
+      "object_id": 4,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          136.33802890777588,
+          133.96129989624023,
+          0.0
+        ],
+        [
+          165.14926052093506,
+          168.03870010375977,
+          41.70428466796875
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.852142333984375
+      ],
+      "step_sha256": "3b46abce88acc23bba53abe15fb85070766dd346cdf4e30b997800f791479934",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+      "stl_sha256": "0d8e673e1417aa8eaf205245c56e528ef67c96114e26c8ed91a264d6cf9eb4e2",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        150.74364471435547,
+        151.0,
+        20.852142333984375
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 6315,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 4210,
+      "features": [],
+      "fins": [],
+      "identify_id": 1903,
+      "model_bed_margin_mm": 24.15074062347412,
+      "modifiers": [],
+      "name": "regulator-snap-cap",
+      "object_id": 6,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          24.15074062347412,
+          129.94679641723633,
+          0.0
+        ],
+        [
+          56.041749000549316,
+          172.05320358276367,
+          36.0
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        18.0
+      ],
+      "step_sha256": "939512b6d3ff66ac4495db1f2e117154701d42f8fe9763d7c46364a1795d6c1d",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "stl_sha256": "926df4c063127b01220678a06d1fb9dca5b37111769684aaefc02d4d79c0541e",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        40.09624481201172,
+        151.0,
+        18.0
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 2766,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 1844,
+      "features": [],
+      "fins": [],
+      "identify_id": 1904,
+      "model_bed_margin_mm": 23.745819091796875,
+      "modifiers": [],
+      "name": "meter-snap-cap",
+      "object_id": 8,
+      "object_settings": {
+        "enable_support": {
+          "reason": "The rear-equipment-caps recipe: bridge the narrow port shoulder and leave its fitted opening clear.",
+          "value": "0"
+        },
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          262.40418243408203,
+          46.296796798706055,
+          0.0
+        ],
+        [
+          301.2541809082031,
+          100.5967960357666,
+          38.0
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        19.0
+      ],
+      "step_sha256": "52a87e9fac7ff8c64fb1d2adc754933b88f8b955a6bbaedccba06101b60b4260",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+      "stl_sha256": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        281.8291816711426,
+        73.44679641723633,
+        19.0
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 948,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 632,
+      "features": [],
+      "fins": [],
+      "identify_id": 1905,
+      "model_bed_margin_mm": 42.917043685913086,
+      "modifiers": [],
+      "name": "pump-snap-cap",
+      "object_id": 10,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The pump-snap-cap recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The pump-snap-cap recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_loops": {
+          "reason": "The pump-snap-cap recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          174.24581909179688,
+          42.917043685913086,
+          0.0
+        ],
+        [
+          247.40418243408203,
+          103.97654914855957,
+          54.5
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.25
+      ],
+      "step_sha256": "6ba4bfc8bf542898cfe7f793594c0fda301399ca0f497bc77e4f6463daa0015b",
+      "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "stl_sha256": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        210.82500076293945,
+        73.44679641723633,
+        27.25
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 7752,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 5168,
+      "features": [],
+      "fins": [],
+      "identify_id": 1906,
+      "model_bed_margin_mm": 23.745819091796875,
+      "modifiers": [],
+      "name": "display-cover",
+      "object_id": 12,
+      "object_settings": {
+        "enable_support": {
+          "reason": "The display-cover recipe: the flat bezel prints on its back with open upward-facing counterbores.",
+          "value": "0"
+        },
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The display-cover recipe: solid screw-bearing stock throughout the thin bezel.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The display-cover recipe: a continuous solid fill pattern for the screw-bearing bezel.",
+          "value": "zig-zag"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          23.745819091796875,
+          31.946796417236328,
+          0.0
+        ],
+        [
+          159.24581909179688,
+          114.94679641723633,
+          3.0
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        -1.5
+      ],
+      "step_sha256": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
+      "stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+      "stl_sha256": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        91.49581909179688,
+        73.44679641723633,
+        1.5
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 3126,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 2084,
+      "features": [],
+      "fins": [],
+      "identify_id": 1907,
+      "model_bed_margin_mm": 46.80000019073486,
+      "modifiers": [
+        {
+          "name": "Pump flange retainer and screw seats",
+          "plate_bounds_mm": [
+            [
+              46.80100019073486,
+              187.05420358276368,
+              0.0009999999999994458
+            ],
+            [
+              137.79900019073486,
+              208.05220358276367,
+              13.798999237060546
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -45.499,
+              14.251,
+              195.52500207519532
+            ],
+            [
+              45.499,
+              28.048999237060546,
+              216.5230020751953
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "name": "enclosure-pump-retainer-1",
+      "object_id": 14,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "support_style": {
+          "reason": "The pump-retainer recipe: the sideways openings bridge clear in this pose; Tree Slim for removable supports at accessible surfaces.",
+          "value": "tree_slim"
+        },
+        "wall_loops": {
+          "reason": "The pump-retainer recipe: keep the saved perimeter stock around the pump flange bearing and screw seats.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          46.80000019073486,
+          187.05320358276367,
+          0.0
+        ],
+        [
+          137.80000019073486,
+          208.05320358276367,
+          13.799999237060547
+        ]
+      ],
+      "pose": {
+        "reason": "The pump-retainer pose: Y-end down leaves the screw openings sideways, with their short roofs bridged and the head seats clear.",
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "ranges": [],
+      "regions": {
+        "part_process_overrides": null,
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "ed3d8d8d54f6f1e2aafa418afbc5f74293945dced9848ead23ca4c03fd405d5f"
+      },
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        21.149999618530273,
+        206.0240020751953
+      ],
+      "step_sha256": null,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+      "stl_sha256": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        92.30000019073486,
+        197.55320358276367,
+        6.899999618530273
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 3126,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 2084,
+      "features": [],
+      "fins": [],
+      "identify_id": 1908,
+      "model_bed_margin_mm": 81.19999980926514,
+      "modifiers": [
+        {
+          "name": "Pump flange retainer and screw seats",
+          "plate_bounds_mm": [
+            [
+              152.80100019073487,
+              187.05420358276368,
+              0.0009999999999994458
+            ],
+            [
+              243.79900019073486,
+              208.05220358276367,
+              13.798999237060546
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -45.499,
+              14.251,
+              195.52500207519532
+            ],
+            [
+              45.499,
+              28.048999237060546,
+              216.5230020751953
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "name": "enclosure-pump-retainer-2",
+      "object_id": 17,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "support_style": {
+          "reason": "The pump-retainer recipe: the sideways openings bridge clear in this pose; Tree Slim for removable supports at accessible surfaces.",
+          "value": "tree_slim"
+        },
+        "wall_loops": {
+          "reason": "The pump-retainer recipe: keep the saved perimeter stock around the pump flange bearing and screw seats.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          152.80000019073486,
+          187.05320358276367,
+          0.0
+        ],
+        [
+          243.80000019073486,
+          208.05320358276367,
+          13.799999237060547
+        ]
+      ],
+      "pose": {
+        "reason": "The pump-retainer pose: Y-end down leaves the screw openings sideways, with their short roofs bridged and the head seats clear.",
+        "turns": [
+          [
+            "x",
+            90
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "ranges": [],
+      "regions": {
+        "part_process_overrides": null,
+        "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "record_sha256": "ed3d8d8d54f6f1e2aafa418afbc5f74293945dced9848ead23ca4c03fd405d5f"
+      },
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        21.149999618530273,
+        206.0240020751953
+      ],
+      "step_sha256": null,
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+      "stl_sha256": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        198.30000019073486,
+        197.55320358276367,
+        6.899999618530273
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 35511,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 23674,
+      "features": [],
+      "fins": [],
+      "identify_id": 1909,
+      "model_bed_margin_mm": 46.80000019073486,
+      "modifiers": [],
+      "name": "reservoir-b-fill-guide",
+      "object_id": 20,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The reservoir-b-fill-guide recipe: the shared bulk recipe in thicker regions.",
+          "value": "gyroid"
+        },
+        "wall_loops": {
+          "reason": "The reservoir-b-fill-guide recipe: three Classic loops at each boundary of the selected holder wall.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          258.80000019073486,
+          187.85320377349854,
+          0.0
+        ],
+        [
+          278.19999980926514,
+          207.2532033920288,
+          12.20832633972168
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        9.699999809265137,
+        9.699999809265137,
+        6.10416316986084
+      ],
+      "step_sha256": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
+      "stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+      "stl_sha256": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        268.5,
+        197.55320358276367,
+        6.10416316986084
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 73725,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 49150,
+      "features": [],
+      "fins": [],
+      "identify_id": 1910,
+      "model_bed_margin_mm": 24.15074062347412,
+      "modifiers": [],
+      "name": "soda-bend-holder",
+      "object_id": 22,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The soda-bend-holder recipe: the accepted article's solid recipe.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The soda-bend-holder recipe: the accepted article's solid recipe.",
+          "value": "zig-zag"
+        },
+        "wall_loops": {
+          "reason": "The soda-bend-holder recipe: the accepted Mark1 article of these exact bytes printed six walls (future/tube-bend-holder-exploration, D-26).",
+          "value": "6"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          278.4492597579956,
+          139.80000019073486,
+          0.0
+        ],
+        [
+          300.8492593765259,
+          162.19999980926514,
+          12.20832633972168
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        8.199999809265137,
+        8.199999809265137,
+        6.10416316986084
+      ],
+      "step_sha256": "d6cac70239b625a770ea64b987835e18b285f5851cbc494b74bc577f27c49171",
+      "stl": "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
+      "stl_sha256": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        289.64925956726074,
+        151.0,
+        6.10416316986084
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 9585,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 6390,
+      "features": [],
+      "fins": [],
+      "identify_id": 1911,
+      "model_bed_margin_mm": 61.550740242004395,
+      "modifiers": [],
+      "name": "elbow-cradle",
+      "object_id": 24,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          227.14926052093506,
+          136.024920463562,
+          0.0
+        ],
+        [
+          263.4492597579956,
+          165.975079536438,
+          26.80796241806261
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        3.735079765319824,
+        13.403981208571235
+      ],
+      "step_sha256": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
+      "stl": "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+      "stl_sha256": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        245.29926013946533,
+        151.0,
+        13.403981209031304
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 9264,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 6176,
+      "features": [],
+      "fins": [],
+      "identify_id": 1912,
+      "model_bed_margin_mm": 112.85073947906494,
+      "modifiers": [],
+      "name": "umbilical-organizer",
+      "object_id": 26,
+      "object_settings": {
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          180.14926052093506,
+          135.0,
+          0.0
+        ],
+        [
+          212.14926052093506,
+          167.0,
+          10.0
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "step_sha256": "977d3c6199c918813d11497c9d7b88ec0ea84fa9a729e27a2dda1c633ca1ecad",
+      "stl": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+      "stl_sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        196.14926052093506,
+        151.0,
+        5.0
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    }
+  ],
+  "pause": null,
+  "piece": "small-petgf",
+  "plate_border_mm": 22.0,
+  "plate_offset_mm": {
+    "reason": "Centre the parts and the tower together inside the usable bed, every bead well inside the unseasoned outer plate.",
+    "value": [
+      0.0,
+      -40.0
+    ]
+  },
+  "prepared_utc": "2026-11-15T15:49:16+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.1,
+      "to_sha256": "3dbe43733a8338e4b7a7ef67b171d1fc8b613de10576da61d48810a7dbf1ae10"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+    }
+  },
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": ".cache/runs/small-petgf-F0Ci9E/tower3/2026-11-15-small-petgf-mark2-39847f01/2026-11-15-small-petgf-mark2-39847f01.3mf",
+  "project_sha256": "a948795810057232dc3461bb287bc363062ce4dc8e7657a7d7923ff597802e06",
+  "requested_z_trim_mm": 0.1,
+  "settings_changes": {
+    "enable_prime_tower": {
+      "from": "1",
+      "reason": "The single-regulator-cap recipe: reprime on the native tower after each timelapse departure.",
+      "to": "1"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here.",
+      "to": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here.",
+      "to": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35"
+      ]
+    },
+    "override_process_overhang_speed": {
+      "from": [
+        "1",
+        "0",
+        "0"
+      ],
+      "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply.",
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "prime_tower_max_speed": {
+      "from": "90",
+      "reason": "The single-regulator-cap recipe: time on the tower cools the parts while their own recipes stay as they are.",
+      "to": "10"
+    },
+    "prime_tower_rib_wall": {
+      "from": "1",
+      "reason": "The single-regulator-cap recipe: keep the requested tower width in single-colour smooth-timelapse mode.",
+      "to": "0"
+    },
+    "prime_tower_width": {
+      "from": "60",
+      "reason": "The single-regulator-cap recipe: a constant perimeter gives time away on every layer.",
+      "to": "50"
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "timelapse_type": {
+      "from": "0",
+      "reason": "The single-regulator-cap recipe: smooth timelapse parks the nozzle on the native tower every layer, so the tall caps' top layers, where they print alone or in a pair, get time away as the batch gives the rest.",
+      "to": "1"
+    },
+    "wipe_tower_x": {
+      "from": [
+        "165"
+      ],
+      "reason": "The tower stands behind the group at the left, clear of every part's beads and inside the bed border.",
+      "to": [
+        "30"
+      ]
+    },
+    "wipe_tower_y": {
+      "from": [
+        "250"
+      ],
+      "reason": "The tower stands behind the group at the left, clear of every part's beads and inside the bed border.",
+      "to": [
+        "226"
+      ]
+    }
+  },
+  "settings_sha256": "c91f826b99b683d6a8e91134a28784f1f5eba8db20859958a8fe94da3d688169",
+  "show_faces": ".cache/runs/small-petgf-F0Ci9E/tower3/2026-11-15-small-petgf-mark2-39847f01/show-faces.npz",
+  "sliced": true,
+  "slicer_warnings": [],
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "14186246b85b134ac8d4915633180c92e84f32ad9099b847326ef49cec1b8e3e",
+  "submitted": false,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "f312633652344bedcefc426b4c644adf14afafc5d042c48d86f315970c6b97fb",
+    "tools/hsm/print-prep/src/approaches.rs": "5bf7b4ba8fdbf626534a9f95d048f34cd06b15e9b8eb078d498cec468fccbe29",
+    "tools/hsm/print-prep/src/audit.rs": "a00e46498cb0a567a17a67c8ea9e5ede8676ea115f85ef3bbc78de3d4503b43b",
+    "tools/hsm/print-prep/src/base_courses.rs": "fe699e52284c82ce2f039aa478565d60e600a68f57ca78e259f5e49b57373728",
+    "tools/hsm/print-prep/src/base_foundation.rs": "ad2c6a4cc695ada3290eece98c68dd6bde0641d47b8ea94e00d4f8a50fc2afca",
+    "tools/hsm/print-prep/src/cooling.rs": "e56accc63143f90c84cbb2f566664500884cd71201238552b104ee18cfaf6a33",
+    "tools/hsm/print-prep/src/course_field.rs": "b32ff0f817ed51b71d0dc67ed8051f43a0dd8d3541b5bbd0b3bd54b3f3dd2455",
+    "tools/hsm/print-prep/src/derive.rs": "7d44db839edc83c10961afedd6d9f42f23b8d0d2a61deb7e12ec6b18c528b0c7",
+    "tools/hsm/print-prep/src/faucet.rs": "57af71f4f669e1c392faf0086d7fabbf27236bb35f0f943a7629463d9b6d5ff7",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "79da101d069932fcd851ed533f32eff77151a7fd69929ca0cd381f166e669db3",
+    "tools/hsm/print-prep/src/faucet_plate.rs": "1ef4073ce593217eafcf68a23b54cbb65af91a4b4443fe40467db9435456e4cd",
+    "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/feed_cap.rs": "e2b3652363fea2dc8436cc373fe125b6d583aaeb8378974e8986cbac88561f18",
+    "tools/hsm/print-prep/src/filled_base.rs": "b373936c2b56999d811f876de95ca8605f45b988b434483917aadd1aa945502b",
+    "tools/hsm/print-prep/src/foundation_sequence.rs": "8571bb2a53c8ae93e0ac159a9a0bc834522ce84ff9ac2667bd41614a76d1eeae",
+    "tools/hsm/print-prep/src/gcode.rs": "99ccfe0103f21f646ba16506184b12fd231131a4b1c222117f7e4b1a814c7162",
+    "tools/hsm/print-prep/src/head_map.rs": "f05abcd30e5f7ecd3035e69a0cd2fadd504f0632e4453cb494734ed6f6155853",
+    "tools/hsm/print-prep/src/head_replay.rs": "55c91c184e3e4d73d9b8b15a01baa9cb99a7dd357e31c9336d1ac2a5a40cb0c0",
+    "tools/hsm/print-prep/src/ids.rs": "ecd56bf93b5c1f08b1b8d6f36d983d5a18e1b123c138f5a9884b7fe2f786fbec",
+    "tools/hsm/print-prep/src/lib.rs": "1eb84c6a8050188d3ca63300d1069aaf6e4d6f70e12de81f93c11da7f53627ec",
+    "tools/hsm/print-prep/src/mesh.rs": "47a9d52e10d0c8cae37eebe42f224480dba51fbe8f743e0ddb8f3d993ccdba65",
+    "tools/hsm/print-prep/src/motion.rs": "1c904421cfe3b694caabd2ede5188516cce07bb8ed8d7c9a9eb77f3ef9be3297",
+    "tools/hsm/print-prep/src/npz.rs": "23c7d5acbe636050d8e095f83943186709027f75b7e01623652c8d235baead21",
+    "tools/hsm/print-prep/src/plate_rings.rs": "097d6b48ead23ae4c40f59c880cf14bd3d617e9244aac3a4dcc05f9a2b50cca2",
+    "tools/hsm/print-prep/src/plate_sequence.rs": "d2c9ac2ff432bd94c3acfb6204d4800f18cc58992b78015699d816ece6dc32f7",
+    "tools/hsm/print-prep/src/preset.rs": "8897253423900e99f4df09890a747ce633abc4a1c2b3ab73a6119183d3444770",
+    "tools/hsm/print-prep/src/profile.rs": "f1ae30f9942e907dfbfe57167d8cfcfe6582658aec911c7ae6caa985105062da",
+    "tools/hsm/print-prep/src/project.rs": "4fcd588d4704c42a82eda45074181419ea47a2b6918131729a3ad952991f54f9",
+    "tools/hsm/print-prep/src/refresh.rs": "2981218c8a9b5e5ff6ad3500644b7d34ee8705e2cb648e1229d39dccbdb8946c",
+    "tools/hsm/print-prep/src/review.rs": "6b38f9f5fca116bf38a78ff125253a4034b178021a1e586a162ece74ef0608ed",
+    "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
+    "tools/hsm/print-prep/src/shaft_join_cooling.rs": "58ebba6d6e3bf3c36edaea87065014d6db545b8de366b6f024dd8164c0b46113",
+    "tools/hsm/print-prep/src/shaft_stitch.rs": "6a7a2f03c277058485d5a4d841fb40b02a0dd38a413843876a303c2615e2ade1",
+    "tools/hsm/print-prep/src/slice.rs": "6edbd05ee86cc7d5ab70b28a2f353ee482ee129eb3f70d7a470b72de8eab0c6a",
+    "tools/hsm/print-prep/src/sloped_courses.rs": "a7c01e0a085db0d2dbf234bf14947839b0fd0fbca3fec503e1ee24b22c7a09ad",
+    "tools/hsm/print-prep/src/stretch_cooling.rs": "2e68af6908e25fa12b29df744991546e86ed7102a6b61b317577fde59ac0c26b",
+    "tools/hsm/print-prep/src/tip_audit.rs": "2957f4a44e8d73f4497b2f6aaf874c2354a017e5ffd5142ff6ffcf20ad0c2d09",
+    "tools/hsm/print-prep/src/tip_courses.rs": "5e2ae89b3ab159aed60e48d9f3fddbea1750dfda7388f7190b7eac578261ec34",
+    "tools/hsm/print-prep/src/tip_supports.rs": "61d760742e927715e68ecce7f5f06d6b299e00f9728bf879cf54188a217160d5",
+    "tools/hsm/print-prep/src/tip_warp.rs": "41f131dbcff636c8422a21d57b60c0f4da6d5debe1b1f28f37782a3dfaeef3fa",
+    "tools/hsm/print-prep/src/trial_archive.rs": "173f24be2354634d856a528c9569f77a1bea460ee92acc6d833b38f544b3bead",
+    "tools/hsm/print-prep/src/xml.rs": "6223880bf228c5c0092df6b2f3728fd792bff174ac3ef243e7d81d659f223407"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}
