@@ -506,7 +506,7 @@ fn load(
             }
         } else if kind == "printed" {
             output.representation = Some("printed STL".into());
-            let mesh = hsm_print_prep::mesh::Mesh::read_stl_exact(&path)?;
+            let mesh = hsm_print_prep::mesh::Mesh::read_stl(&path)?;
             measure(
                 &mesh.vertices,
                 &mesh.faces,

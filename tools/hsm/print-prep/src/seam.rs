@@ -1,10 +1,10 @@
 //! A seam-enforcer strip on one exterior plane: the facets the strip crosses are split along its
 //! two edges, without moving the surface, and the facets inside it on that plane are painted.
 
+use crate::mesh::Mesh;
 use crate::project::Paint;
 use anyhow::{bail, Result};
 use serde_json::{json, Value};
-use std::collections::BTreeMap;
 
 fn half(polygon: &[[f64; 3]], axis: usize, coordinate: f64, sign: f64) -> Vec<[f64; 3]> {
     let mut result = Vec::new();
@@ -64,17 +64,9 @@ pub(crate) fn split_at_strip(
         triangles = result;
         parents = ids;
     }
-    // np.unique(np.round(corners, 9), axis=0): rows sorted by value, x then y then z.
-    // + 0.0: -0.0 and 0.0 are one point, as numpy's comparison makes them.
-    let round9 = |v: f64| (v * 1e9).round() / 1e9 + 0.0;
-    let corners: Vec<[f64; 3]> = triangles.iter().flat_map(|t| t.map(|p| p.map(round9))).collect();
-    let mut sorted: Vec<[f64; 3]> = corners.clone();
-    sorted.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    sorted.dedup();
-    let keys: BTreeMap<[u64; 3], usize> = sorted.iter().enumerate().map(|(i, p)| (p.map(f64::to_bits), i)).collect();
-    let flat: Vec<usize> = corners.iter().map(|p| keys[&p.map(f64::to_bits)]).collect();
-    let split_faces: Vec<[usize; 3]> = flat.chunks(3).map(|c| [c[0], c[1], c[2]]).collect();
-    (sorted, split_faces, parents)
+    let corners: Vec<[f64; 3]> = triangles.iter().flatten().copied().collect();
+    let mesh = Mesh::from_corners(&corners);
+    (mesh.vertices, mesh.faces, parents)
 }
 
 /// The split mesh, each facet's paint, and the record of the strip.
@@ -83,7 +75,7 @@ pub fn strip(vertices: &[[f64; 3]], faces: &[[usize; 3]], declaration: &Value) -
     let axis = "xyz".find(declaration["axis"].as_str().unwrap_or("x")).unwrap_or(0);
     let center = declaration["center_mm"].as_f64().unwrap_or(0.0);
     let half_width = declaration["half_width_mm"].as_f64().unwrap_or(0.0);
-    let (sorted, split_faces, parents) = split_at_strip(&original, axis, center, half_width);
+    let (points, split_faces, parents) = split_at_strip(&original, axis, center, half_width);
     let face_axis = "xyz".find(declaration["face_axis"].as_str().unwrap_or("x")).unwrap_or(0);
     let plane = declaration["face_coordinate_mm"].as_f64().unwrap_or(0.0);
     let face_sign = declaration["face_sign"].as_f64().unwrap_or(1.0);
@@ -92,7 +84,7 @@ pub fn strip(vertices: &[[f64; 3]], faces: &[[usize; 3]], declaration: &Value) -
     let mut plane_error: f64 = 0.0;
     let mut area = vec![0.0; original.len()];
     for (k, f) in split_faces.iter().enumerate() {
-        let t = f.map(|i| sorted[i]);
+        let t = f.map(|i| points[i]);
         let u = [0, 1, 2].map(|j| t[1][j] - t[0][j]);
         let w = [0, 1, 2].map(|j| t[2][j] - t[0][j]);
         let normal = [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]];
@@ -130,5 +122,5 @@ pub fn strip(vertices: &[[f64; 3]], faces: &[[usize; 3]], declaration: &Value) -
         m.insert("maximum_source_plane_error_mm".into(), json!(plane_error));
         m.insert("maximum_source_facet_area_error_mm2".into(), json!(area_error));
     }
-    Ok((sorted, split_faces, paint, record))
+    Ok((points, split_faces, paint, record))
 }

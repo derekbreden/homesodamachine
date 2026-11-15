@@ -1,8 +1,7 @@
 //! A part's printed mesh, read from its STL.
 //!
 //! Corners that land on the same point, to the hundred-millionth of a millimetre, become one
-//! vertex, kept where it first appears: the vertices and faces trimesh gives the Python
-//! preparers, so a project carries the same mesh either way.
+//! vertex, kept where it first appears; the faces keep the file's order.
 
 use anyhow::{bail, Context, Result};
 use std::collections::HashMap;
@@ -58,8 +57,7 @@ impl Mesh {
             .sum()
     }
 
-    /// One closed, consistently wound, positive volume in one piece; the Python preparers
-    /// refuse any other.
+    /// Refuse any mesh but one closed, consistently wound, positive volume in one piece.
     pub fn check_closed_single_body(&self, name: &str) -> Result<()> {
         let mut directed: HashMap<(usize, usize), usize> = HashMap::new();
         for f in &self.faces {
@@ -108,33 +106,6 @@ impl Mesh {
     }
 }
 
-impl Mesh {
-    /// The enclosure preparation's merge: corners that are the same 32-bit point are one vertex,
-    /// and the vertices are ordered by their stored bytes, as its numpy reader orders them.
-    pub fn read_stl_exact(path: &Path) -> Result<Mesh> {
-        let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
-        let corners = stl_corners(&bytes).with_context(|| format!("reading {}", path.display()))?;
-        let keys: Vec<[u8; 12]> = corners.iter().map(|c| {
-            let mut k = [0u8; 12];
-            for (i, v) in c.iter().enumerate() {
-                // + 0.0 makes -0.0 the same point as 0.0.
-                k[4 * i..4 * i + 4].copy_from_slice(&((*v as f32) + 0.0f32).to_le_bytes());
-            }
-            k
-        }).collect();
-        let mut unique: Vec<[u8; 12]> = keys.clone();
-        unique.sort_unstable();
-        unique.dedup();
-        let index: HashMap<[u8; 12], usize> = unique.iter().enumerate().map(|(i, k)| (*k, i)).collect();
-        let vertices = unique.iter().map(|k| {
-            [0, 1, 2].map(|i| f32::from_le_bytes([k[4 * i], k[4 * i + 1], k[4 * i + 2], k[4 * i + 3]]) as f64)
-        }).collect();
-        let flat: Vec<usize> = keys.iter().map(|k| index[k]).collect();
-        let faces = flat.chunks(3).map(|c| [c[0], c[1], c[2]]).collect();
-        Ok(Mesh { vertices, faces })
-    }
-}
-
 /// What the enclosure preparation records of a mesh's closure, read from its faces alone.
 pub fn closed_check(faces: &[[usize; 3]]) -> serde_json::Value {
     let mut counts: HashMap<(usize, usize), (usize, i64)> = HashMap::new();
@@ -156,7 +127,7 @@ pub fn closed_check(faces: &[[usize; 3]]) -> serde_json::Value {
 }
 
 /// Each face's component, faces joined through shared vertices, numbered in order of each
-/// component's first face, as scipy's connected_components numbers them.
+/// component's first face.
 pub fn vertex_components(faces: &[[usize; 3]]) -> Vec<usize> {
     let n = faces.len();
     let mut parent: Vec<usize> = (0..n).collect();
