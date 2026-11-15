@@ -122,7 +122,7 @@ carries the matched shoulder and caps the Sculpted base's ordinary exterior
 speed across whole laps for an even rear-wall finish.
 The [Mark2 extended cover plate](https://github.com/derekbredensteiner/homesodamachine/blob/77742d1058fd2b9c92287fa8edf0dbb3c4737fc9/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-aft-cover-mark2/README.md)
 pairs that base finish with the longer rear cover over both cavity corners.
-The [Mark2 short-foundation trial](prints/2026-11-14-seven-courses-mark2/README.md)
+The [Mark2 restored short-foundation plate](prints/2026-11-14-seven-courses-restored-mark2/README.md)
 prints the mounting face and visible shoulder on inclined interfaces, then
 uses the archived level wall and rear scarf recipe above each foundation.
 

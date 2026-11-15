@@ -1,0 +1,10 @@
+{
+  "from_layer_top_mm": 107.48,
+  "gcode_sha256": "74544d1eb876cdc7ce72ba7f41caeabfb5c5179f822ec59b56038e91a262114a",
+  "level_archive_sha256": "9368daff29690df53982398614d16ddefda6953d8298644a577e5df72580ffd8",
+  "plain_archive_sha256": "41e8a423679bd6ed51bb051872dfbfd4294684c0d358d35b6b2e128349974e08",
+  "purpose": "The tip's layers from the lowest the tip-end cooling stage cools upward, from a second slice of the same plate.",
+  "tip_end_report_sha256": "ee460b5d8843d2d4f8f8885acdc7fd0479cde4a0aef1e47d79613a42a025b643",
+  "tip_layers": 956,
+  "tip_layers_taken": 165
+}

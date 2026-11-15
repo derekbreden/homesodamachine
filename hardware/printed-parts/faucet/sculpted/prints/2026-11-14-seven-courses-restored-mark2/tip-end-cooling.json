@@ -1,0 +1,33 @@
+{
+  "already_cooled_commanded_motion_seconds": 68.76052754846627,
+  "archive_sha256": "2643e8e9f9667cbf02f488f55fff4cf1895a9511a11aa369b438d8cb8ec80c62",
+  "axis_plate": [
+    0.0,
+    0.7660444431189779,
+    -0.6427876096865395
+  ],
+  "cooled_commanded_motion_seconds": 255.3506249499473,
+  "cooled_moves": 18989,
+  "cooled_path_mm": 17332.146684844804,
+  "cooled_z_mm": [
+    107.48,
+    131.48
+  ],
+  "fan_commands_added": 868,
+  "fan_percent": 70.0,
+  "gcode_input_sha256": "a3a8624a965f3e4474f3e519b168f01da0853f594a882dd1743f2a6a55c75245",
+  "gcode_sha256": "88f90015aa93fd1428751caf45f46337cd3bc0706824ce3882f134b138901912",
+  "identify_id": 1902,
+  "origin_plate_mm": [
+    186.49975395202637,
+    178.8833570390829,
+    120.27872350012831
+  ],
+  "other_model_commanded_motion_seconds": 1930.9435552286805,
+  "purpose": "Part cooling on one stretch of one object's model paths.",
+  "scope": "Motion and extrusion words are retained; only part-fan commands are added.",
+  "span_mm": [
+    -1.0,
+    9.0
+  ]
+}
