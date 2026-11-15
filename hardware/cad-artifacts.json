@@ -39,7 +39,7 @@
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
     "hardware/faucet-layout/faucet-assembly.step": "0226ee7a9a59d293a14565a798a8364604f8065320bcfdcaf90d6fdf3bb4a94a",
-    "hardware/faucet-layout/faucet-assembly.step.mesh": "b7c34a944e2ce83ea59dbd3b18b8c373f5b2039a7b40ea65f090844dedcb11ce",
+    "hardware/faucet-layout/faucet-assembly.step.mesh": "75e8689a77d38866fc027b3fa326303e119d3f179bfb4f31f9c987860bbb740d",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "80ebf882fed7212aa2accab15b4999f729db47bcd22e88df0136fe767d3ddc21",
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "dfafa79cfb8ab9af071864fbd90076fd6d7adc0e7c8b55b052d89c5290dd75cd",
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "f777688d43515f39d4445c50e2d31ea18b2d7dd9b0eb149cbf4c49fc8d2a01f7",
@@ -953,7 +953,7 @@
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": "8b1196fa7451cc7b3af804dffbbecbdf1ed217db43a6e1ec0f00741b580eca5b",
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
       "hardware/faucet-layout/faucet-assembly.step": "0226ee7a9a59d293a14565a798a8364604f8065320bcfdcaf90d6fdf3bb4a94a",
-      "hardware/faucet-layout/faucet-assembly.step.mesh": "b7c34a944e2ce83ea59dbd3b18b8c373f5b2039a7b40ea65f090844dedcb11ce",
+      "hardware/faucet-layout/faucet-assembly.step.mesh": "75e8689a77d38866fc027b3fa326303e119d3f179bfb4f31f9c987860bbb740d",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "80ebf882fed7212aa2accab15b4999f729db47bcd22e88df0136fe767d3ddc21",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "dfafa79cfb8ab9af071864fbd90076fd6d7adc0e7c8b55b052d89c5290dd75cd",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "7fe5548b9972ab514f70becfbc21d981cd438531293d2c03d9f8014b6c473152",
@@ -2500,7 +2500,7 @@
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf": 1793811159,
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
     "hardware/faucet-layout/faucet-assembly.step": 1794699727.565186,
-    "hardware/faucet-layout/faucet-assembly.step.mesh": 1794699708.333352,
+    "hardware/faucet-layout/faucet-assembly.step.mesh": 1794735190.024424,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1794699727.565186,
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794699719.900432,
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793830497,
@@ -3482,7 +3482,7 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-assembly.step.mesh": {
-      "commit": "6168edd0b3e0abbca59dddc0ea41908386dcead1",
+      "commit": "67b68eb56d291f466edd7a4d41017742d9c1852a",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step": {
