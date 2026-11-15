@@ -6,6 +6,7 @@
 //! the plug-ramp trial composes a new tip with all of the previous plate's other groups; the
 //! shaft trial composes a staged foundation slice with a continued-base donor.
 
+use crate::gcode;
 use crate::python_text::Json;
 use anyhow::{bail, ensure, Context, Result};
 use std::collections::HashSet;
@@ -41,15 +42,6 @@ const RING_PHASE: &str = "mounting plate counterbore supports";
 const BED_LAYER: f64 = 0.2;
 const PARKED: [f64; 3] = [290., -0.5, 6.2];
 const BASELINE_Z_LIFT: f64 = 1.2;
-
-/// The word patterns each trial's Python reads commands with.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
-enum Dialect {
-    /// The tip trial: words after any spaces, from the line before its comment.
-    Tip,
-    /// The shaft trial: words straight after their letter, from the stripped command.
-    Shaft,
-}
 
 fn name(obj: i64) -> Result<&'static str> {
     Ok(match obj {
@@ -96,57 +88,6 @@ where
     text.trim().parse().with_context(|| format!("{text:?} is not a number"))
 }
 
-fn is_space(c: u8) -> bool {
-    matches!(c, b' ' | b'\t' | b'\n' | b'\r' | b'\x0b' | b'\x0c' | b'\x1c'..=b'\x1f')
-}
-
-/// The number a word pattern takes: an optional minus, then digits with an optional point and
-/// digits, or a point and digits.
-fn number_length(text: &[u8]) -> Option<usize> {
-    let mut at = usize::from(text.first() == Some(&b'-'));
-    let digits = |from: usize| text[from..].iter().take_while(|c| c.is_ascii_digit()).count();
-    let whole = digits(at);
-    if whole > 0 {
-        at += whole;
-        if text.get(at) == Some(&b'.') {
-            at += 1 + digits(at + 1);
-        }
-    } else if text.get(at) == Some(&b'.') && digits(at + 1) > 0 {
-        at += 1 + digits(at + 1);
-    } else {
-        return None;
-    }
-    Some(at)
-}
-
-/// The words a trial's pattern finds in `code`, later ones replacing earlier.
-fn words(code: &str, letters: &[u8], spaced: bool) -> Result<Vec<(u8, f64)>> {
-    let bytes = code.as_bytes();
-    let mut found: Vec<(u8, f64)> = Vec::new();
-    let mut at = 0;
-    while at < bytes.len() {
-        if letters.contains(&bytes[at]) {
-            let mut from = at + 1;
-            if spaced {
-                while from < bytes.len() && is_space(bytes[from]) {
-                    from += 1;
-                }
-            }
-            if let Some(length) = number_length(&bytes[from..]) {
-                let value: f64 = code[from..from + length].parse()?;
-                match found.iter_mut().find(|(k, _)| *k == bytes[at]) {
-                    Some(slot) => slot.1 = value,
-                    None => found.push((bytes[at], value)),
-                }
-                at = from + length;
-                continue;
-            }
-        }
-        at += 1;
-    }
-    Ok(found)
-}
-
 fn word(words: &[(u8, f64)], key: u8) -> Option<f64> {
     words.iter().find(|(k, _)| *k == key).map(|(_, v)| *v)
 }
@@ -169,10 +110,12 @@ pub struct Entry<'a> {
 
 type Deposit = ([f64; 3], [f64; 3], f64);
 
+/// The retraction a deposit may start with unrecovered, as the written plastic rounds.
+const RECOVERED: f64 = 1e-5;
+
 /// The modal state commands leave, and the retraction a deposit must have recovered.
 #[derive(Clone)]
 struct Modal<'a> {
-    dialect: Dialect,
     xyz: [f64; 3],
     feed: f64,
     fan: f64,
@@ -184,8 +127,8 @@ struct Modal<'a> {
 }
 
 impl<'a> Modal<'a> {
-    fn new(dialect: Dialect, xyz: [f64; 3], debt: f64) -> Modal<'a> {
-        Modal { dialect, xyz, feed: 1800., fan: 0., acceleration: 10000., feature: "Custom", width: 0.42, height: 0.24, debt }
+    fn new(xyz: [f64; 3], debt: f64) -> Modal<'a> {
+        Modal { xyz, feed: 1800., fan: 0., acceleration: 10000., feature: "Custom", width: 0.42, height: 0.24, debt }
     }
 
     fn entry(&self, xyz: [f64; 3]) -> Entry<'a> {
@@ -193,77 +136,43 @@ impl<'a> Modal<'a> {
                 width: self.width, height: self.height }
     }
 
+    /// Takes in one line: its feature, line width or layer height, the part fan, the
+    /// acceleration, or a move. Returns the move when it lays plastic.
     fn apply(&mut self, line: &'a str) -> Result<Option<Deposit>> {
-        match self.dialect {
-            Dialect::Tip => self.apply_tip(line),
-            Dialect::Shaft => self.apply_shaft(line),
-        }
-    }
-
-    fn apply_tip(&mut self, line: &'a str) -> Result<Option<Deposit>> {
-        const LETTERS: &[u8] = b"XYZEFSIJP";
-        let action = line.split(' ').next().unwrap_or("").trim();
-        let code = line.split(';').next().unwrap_or("");
-        if matches!(action, "G0" | "G1" | "G2" | "G3") {
-            return self.motion(&words(code, LETTERS, true)?, action, false, 1e-5, line);
-        }
         if let Some(rest) = line.strip_prefix("; FEATURE: ") {
             self.feature = rest.trim();
-        } else if line.starts_with("; LINE_WIDTH: ") {
-            self.width = number(after_colon(line))?;
-        } else if line.starts_with("; LAYER_HEIGHT: ") {
-            self.height = number(after_colon(line))?;
-        } else if action == "M106" {
-            let w = words(code, LETTERS, true)?;
-            if word(&w, b'P').unwrap_or(1.0) == 1.0 {
-                self.fan = word(&w, b'S').with_context(|| format!("M106 without S: {line}"))?;
+        } else if let Some(rest) = line.strip_prefix("; LINE_WIDTH: ") {
+            self.width = number(rest)?;
+        } else if let Some(rest) = line.strip_prefix("; LAYER_HEIGHT: ") {
+            self.height = number(rest)?;
+        }
+        let code = line.split(';').next().unwrap_or("").trim();
+        let command = code.split_whitespace().next().unwrap_or("");
+        let words = gcode::words(&code[command.len()..]);
+        match command {
+            "G0" | "G1" | "G2" | "G3" => return self.motion(&words, command, line),
+            "M106" if word(&words, b'P').unwrap_or(1.0) == 1.0 => {
+                self.fan = word(&words, b'S').with_context(|| format!("M106 without S: {line}"))?;
             }
-        } else if action == "M204" && line.starts_with("M204 S") {
-            self.acceleration = word(&words(code, LETTERS, true)?, b'S').with_context(|| format!("M204 without S: {line}"))?;
+            "M204" => self.acceleration = word(&words, b'S').unwrap_or(self.acceleration),
+            _ => {}
         }
         Ok(None)
     }
 
-    fn apply_shaft(&mut self, text: &'a str) -> Result<Option<Deposit>> {
-        const LETTERS: &[u8] = b"XYZEFIJS";
-        if let Some(rest) = text.strip_prefix("; FEATURE: ") {
-            self.feature = rest.trim();
-        }
-        if text.starts_with("; LINE_WIDTH: ") {
-            self.width = number(after_colon(text))?;
-        }
-        if text.starts_with("; LAYER_HEIGHT: ") {
-            self.height = number(after_colon(text))?;
-        }
-        let line = text.split(';').next().unwrap_or("").trim();
-        let action = line.split(' ').next().unwrap_or("");
-        if action == "M106" {
-            let w = words(line, b"PS", true)?;
-            if word(&w, b'P').unwrap_or(1.0) == 1.0 {
-                self.fan = word(&w, b'S').with_context(|| format!("M106 without S: {text}"))?;
-            }
-        }
-        if action == "M204" && line.contains('S') {
-            self.acceleration = word(&words(line, LETTERS, false)?, b'S').with_context(|| format!("M204 without S: {text}"))?;
-        }
-        if !matches!(action, "G0" | "G1" | "G2" | "G3") {
-            return Ok(None);
-        }
-        self.motion(&words(line, LETTERS, false)?, action, true, 1e-6, text)
-    }
-
-    fn motion(&mut self, w: &[(u8, f64)], action: &str, still_is_travel: bool, limit: f64, line: &str) -> Result<Option<Deposit>> {
+    /// A move lays plastic when it extrudes along the bed: a line that changes X or Y, or an arc.
+    fn motion(&mut self, w: &[(u8, f64)], command: &str, line: &str) -> Result<Option<Deposit>> {
         let start = self.xyz;
         let target = [word(w, b'X').unwrap_or(start[0]), word(w, b'Y').unwrap_or(start[1]), word(w, b'Z').unwrap_or(start[2])];
         self.xyz = target;
         self.feed = word(w, b'F').unwrap_or(self.feed);
         let e = word(w, b'E').unwrap_or(0.0);
-        let still = start[0] == target[0] && start[1] == target[1];
-        if (still_is_travel && still && start[2] == target[2]) || e <= 0.0 || (still && matches!(action, "G0" | "G1")) {
+        let along = start[0] != target[0] || start[1] != target[1] || matches!(command, "G2" | "G3");
+        if e <= 0.0 || !along {
             self.debt = (self.debt - e).max(0.0);
             return Ok(None);
         }
-        if self.debt > limit {
+        if self.debt > RECOVERED {
             bail!("Extrusion starts with {} mm retract debt at {start:?}: {line}", self.debt);
         }
         Ok(Some((start, target, e)))
@@ -353,7 +262,7 @@ pub fn read_reference<'a>(tape: &'a [&'a str], metadata: &mut Metadata) -> Resul
     let last = first_line(tape, END)?;
     let first = first_line(tape, LAYER)?;
     let start = first_line(&tape[..first], "M1003 S0")?;
-    let mut modal = Modal::new(Dialect::Tip, PARKED, 0.8);
+    let mut modal = Modal::new(PARKED, 0.8);
     let mut bands: Vec<Band> = Vec::new();
     let mut band: Option<usize> = None;
     let mut list = 0;
@@ -398,7 +307,7 @@ pub fn read_reference<'a>(tape: &'a [&'a str], metadata: &mut Metadata) -> Resul
 pub fn read_native<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
     let first = first_line(tape, START)? + 1;
     let last = first_line(tape, END)?;
-    let mut modal = Modal::new(Dialect::Tip, PARKED, 0.);
+    let mut modal = Modal::new(PARKED, 0.);
     let mut bands: Vec<Band> = Vec::new();
     let mut band: Option<(i64, Option<usize>)> = None;
     let mut z = 0.;
@@ -429,7 +338,7 @@ pub fn read_native<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
 
 /// Author-labeled tip courses or screw-seat ring courses, with their starting state.
 pub fn read_custom<'a>(tape: &'a [&'a str], obj: i64, metadata: &mut Metadata) -> Result<Vec<Band<'a>>> {
-    let mut modal = Modal::new(Dialect::Tip, [0.; 3], 0.8);
+    let mut modal = Modal::new([0.; 3], 0.8);
     let mut bands: Vec<Band> = Vec::new();
     let mut phase = String::new();
     for (i, &line) in tape.iter().enumerate() {
@@ -447,7 +356,7 @@ pub fn read_custom<'a>(tape: &'a [&'a str], obj: i64, metadata: &mut Metadata) -
         } else if let Some(rest) = line.strip_prefix(ENTRY) {
             let xyz: Vec<f64> = rest.split_whitespace().map(number).collect::<Result<_>>()?;
             ensure!(xyz.len() == 3, "An entry needs three coordinates: {line}");
-            modal = Modal::new(Dialect::Tip, [xyz[0], xyz[1], xyz[2]], 0.8);
+            modal = Modal::new([xyz[0], xyz[1], xyz[2]], 0.8);
         } else if let Some(rest) = line.strip_prefix(DEBT) {
             modal.debt = number(rest)?;
         } else if let Some(rest) = line.strip_prefix(TIP_BAND) {
@@ -1167,7 +1076,7 @@ fn read_staged<'a>(tape: &'a [&'a str]) -> Result<(Vec<&'a str>, Vec<Band<'a>>, 
     let startup = first_line(tape, START)?;
     let footer = first_line(tape, END)?;
     let first = startup + first_line(&tape[startup..footer], LAYER)?;
-    let mut modal = Modal::new(Dialect::Shaft, [0.; 3], 0.);
+    let mut modal = Modal::new([0.; 3], 0.);
     let (mut authored, mut native): (Vec<Band>, Vec<Band>) = (Vec::new(), Vec::new());
     let mut seg: Option<(bool, usize)> = None;
     let mut group = "startup";
@@ -1220,7 +1129,7 @@ fn read_staged<'a>(tape: &'a [&'a str]) -> Result<(Vec<&'a str>, Vec<Band<'a>>, 
 
 /// The continued base's courses, each with its donor phase and level.
 fn read_donor<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
-    let mut modal = Modal::new(Dialect::Shaft, [0.; 3], 0.8);
+    let mut modal = Modal::new([0.; 3], 0.8);
     let mut spans: Vec<Band> = Vec::new();
     let mut phase = "native base along the mounting incline".to_string();
     let mut upper_native_z = None;
@@ -1246,7 +1155,7 @@ fn read_donor<'a>(tape: &'a [&'a str]) -> Result<Vec<Band<'a>>> {
         if let Some(rest) = l.strip_prefix("; HSM_ENTRY_XYZ: ") {
             let xyz: Vec<f64> = rest.split_whitespace().map(number).collect::<Result<_>>()?;
             ensure!(xyz.len() == 3, "An entry needs three coordinates: {l}");
-            modal = Modal::new(Dialect::Shaft, [xyz[0], xyz[1], xyz[2]], 0.8);
+            modal = Modal::new([xyz[0], xyz[1], xyz[2]], 0.8);
         }
         if let Some(rest) = l.strip_prefix("; HSM_ENTRY_RETRACT_MM: ") {
             modal.debt = number(rest)?;
