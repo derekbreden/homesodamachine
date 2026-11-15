@@ -1,6 +1,6 @@
 {
   "active_nozzle": 0,
-  "base_rim_supports": {
+  "base_seat": {
     "bridge_only_pockets": [
       {
         "blocker_cad_z_mm": [
@@ -633,7 +633,6 @@
   "source_sha256": {
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "9215b8d53ac56ed0eecee6f64f60f8f6ec745e626a7639ff2c6a4e36bbcf950d",
-    "b388123d2ac2fdc31fd091f980334b9c99443ab8:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json": "568808776590b7f6afb5d92330a3fcf04d5041e94767e18657b05c95ce0cfbf1",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
     "hardware/printed-parts/faucet/base_seat.rs": "e75e6cc2573090620d8fccc99c4066e087800335b8b288aa5352a30a91f0a1bc",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "0c6e9e140494d1c11a798607dbe503b5cfc4c645ac0eaafa185d89ffc4485293",
@@ -641,10 +640,10 @@
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "hardware/printed-parts/faucet/prepare_print_project.rs": "27ae40f3ab8ef9ba47d1c8e7cdd6ec804d8c05fd1060396d4a854bed7582a987",
-    "tools/hsm/print-prep/faucet-plate.json": "0ad92c99fe98e8744447a81184381faa0de4a59e3083a565107b029ac30c5134",
+    "hardware/printed-parts/faucet/prepare_print_project.rs": "84397c9b0d20058a87d9b0c5b07cb82e028060dd222d24c019c556d691e7ad91",
+    "tools/hsm/print-prep/faucet-plate.json": "acea38fb06a4326b4aa18e579709b9dbdb350fd4b492101315b33bf75db5cc7d",
     "tools/hsm/print-prep/src/faucet.rs": "57af71f4f669e1c392faf0086d7fabbf27236bb35f0f943a7629463d9b6d5ff7",
-    "tools/hsm/print-prep/src/faucet_contact.rs": "531c6bbc4131fc193a4fc811feed452a3e8deda85cfe8e77595fe5b782bd3178",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "79da101d069932fcd851ed533f32eff77151a7fd69929ca0cd381f166e669db3",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
     "tools/hsm/print-prep/src/profile.rs": "f1ae30f9942e907dfbfe57167d8cfcfe6582658aec911c7ae6caa985105062da",
     "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
@@ -654,11 +653,9 @@
   "sparse_infill_percent": 15.0,
   "submitted": false,
   "tip_dispense_contact": {
-    "band": null,
     "contact_area_mm2": 178.98715609047204,
     "face_count": 151,
     "inclination_degrees": 49.99999999999999,
-    "mapped": false,
     "outlet_blockers": [
       {
         "aperture_plate_mm": [
@@ -1366,65 +1363,6 @@
     "surface": "curved_outer_arc"
   },
   "tip_rim_contact": {
-    "band": {
-      "bounds_mm": [
-        [
-          169.00036344130504,
-          205.63371742373346
-        ],
-        [
-          203.99963655869496,
-          240.63299054112338
-        ]
-      ],
-      "edge_blend_mm": 2.0,
-      "name": "faucet-shell-tip mating lip",
-      "parameters": {
-        "band_period_mm": 1.92,
-        "band_phase_mm": 0.2,
-        "bed_blend_mm": [
-          0.44,
-          4.0
-        ],
-        "contact_full_weight_mm": [
-          -1.5,
-          1.0
-        ],
-        "contact_zero_weight_mm": [
-          -4.5,
-          4.0
-        ],
-        "maximum_gcode_segment_mm": 0.25,
-        "maximum_mesh_mapping_error_mm": 0.003,
-        "maximum_mesh_y_step_mm": 1.0,
-        "maximum_mesh_z_step_mm": 1.0,
-        "maximum_nonplanar_z_speed_mm_s": 7.5,
-        "purpose": "Extend continuous contact bands and reduce the requested gap on the complete retained faucet coupon.",
-        "travel_clearance_mm": 0.4,
-        "travel_retract_mm": 0.8,
-        "travel_retract_speed_mm_s": 30.0,
-        "travel_z_speed_mm_s": 15.0
-      },
-      "plane_normal": [
-        -0.0,
-        -0.34202014332566877,
-        -0.9396926207859083
-      ],
-      "refine_mesh_interiors": true,
-      "rim_inboard_blend_mm": [
-        0.9,
-        2.65
-      ],
-      "rim_semi_axes_mm": [
-        13.499636558694961,
-        13.499636558694961
-      ],
-      "seat_plate_mm": [
-        186.5,
-        223.13335398242842,
-        23.27376118717958
-      ]
-    },
     "enforcer_radii_mm": [
       12.049636558694962,
       14.09963655869496
