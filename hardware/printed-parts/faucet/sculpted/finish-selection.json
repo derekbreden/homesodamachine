@@ -35,7 +35,6 @@
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "coarse_layer_height_mm": 0.24,
   "base_fine_bands_print_z_mm": [],
-  "first_bed_layer_height_mm": 0.2,
   "scope": "Print process transferred from the accepted black Industrial faucet; white Sculpted physical finish and fit require this complete print.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark2",
@@ -61,7 +60,6 @@
   },
   "style": "Sculpted",
   "active_nozzle": 0,
-  "layer_height_mm": 0.24,
   "annotation_clarification": "The 0.24 mm layers are the normal model layers; no separate eight-layer override is necessary when the fine bands are absent.",
   "source_complete_black_acceptance": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/physical-result.json"
 }
