@@ -44,7 +44,7 @@
       "embedded_vertex_error_mm": 5.000000413701855e-10,
       "identify_id": 1901,
       "member": "3D/Objects/object_1.model",
-      "name": "sculpted-display-cover",
+      "name": "faucet-display-cover",
       "object_id": "2",
       "part_id": "1",
       "plate": 1,
@@ -92,7 +92,7 @@
   "process": "0.24mm PET-GF faucet",
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "project": "faucet-display-cover-petgf.3mf",
-  "project_sha256": "491962c4fae0e9154274ffeee112d4cdfb9783c59207afa3d49b43c521cd17a6",
+  "project_sha256": "54863d9bd75978aa6b6835df6691d0f5fcffce5226658e99faddb8683df75ead",
   "requested_z_trim_mm": 0.1,
   "saved_profile_filament_density_g_cm3": [
     1.29

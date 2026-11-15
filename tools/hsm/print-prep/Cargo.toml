@@ -65,10 +65,6 @@ name = "support-audit"
 path = "../../../hardware/printed-parts/cadlib/support_audit.rs"
 
 [[bin]]
-name = "industrial-faucet-print-project"
-path = "../../../hardware/printed-parts/faucet/industrial/prepare_print_project.rs"
-
-[[bin]]
 name = "faucet-cover-print-project"
 path = "../../../hardware/printed-parts/faucet/faucet-display-cover/prepare_print_project.rs"
 
@@ -77,8 +73,8 @@ name = "lever-print-project"
 path = "../../../hardware/printed-parts/faucet/lever-replica/prepare_print.rs"
 
 [[bin]]
-name = "sculpted-faucet-print-project"
-path = "../../../hardware/printed-parts/faucet/sculpted/prepare_print_project.rs"
+name = "faucet-print-project"
+path = "../../../hardware/printed-parts/faucet/prepare_print_project.rs"
 
 [[bin]]
 name = "fake-countertop-print-project"

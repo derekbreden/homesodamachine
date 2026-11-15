@@ -26,13 +26,16 @@ pub const LEVER: Part = Part { name: "lever-replica", stl: "hardware/printed-par
 /// object settings and foot regions the preparer copies onto either style's parts.
 pub const PARENT: [&str; 5] = ["industrial-shell-base", "faucet-shell-tip", "sculpted-display-cover", "industrial-above-counter-plate", "lever-replica"];
 
-/// A faucet style's plate: its own base and mounting plate beside the shared parts.
+/// A faucet style's plate: its own base and mounting plate beside the shared parts, and where its
+/// product plate's editable project and print-only archive are kept.
 pub struct Style {
     pub name: &'static str,
     /// The style as a plate's title names it.
     pub title: &'static str,
     pub base: Part,
     pub plate: Part,
+    pub project: &'static str,
+    pub archive: &'static str,
 }
 
 pub const STYLES: [Style; 2] = [
@@ -41,12 +44,16 @@ pub const STYLES: [Style; 2] = [
         title: "Sculpted",
         base: Part { name: "faucet-shell-base", stl: "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl" },
         plate: Part { name: "above-counter-plate", stl: "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl" },
+        project: "hardware/printed-parts/faucet/faucet-petgf.3mf",
+        archive: "hardware/printed-parts/faucet/sculpted/production/faucet-petgf.gcode.3mf",
     },
     Style {
         name: "industrial",
         title: "Industrial",
         base: Part { name: "industrial-shell-base", stl: "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl" },
         plate: Part { name: "industrial-above-counter-plate", stl: "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl" },
+        project: "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+        archive: "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
     },
 ];
 
@@ -73,8 +80,9 @@ impl Style {
         }
     }
 }
-/// The tip's pose about X on the plate, as the preparer's `--tip-rotation` takes it.
+/// The tip's and the display cover's poses about X on the plate.
 pub const TIP_ROTATION_DEGREES: f64 = -90.0;
+pub const COVER_ROTATION_DEGREES: f64 = -50.0;
 /// The gap between the donor tip's support tops and the courses they carry.
 pub const DONOR_SUPPORT_TOP_GAP_MM: f64 = 0.24;
 

@@ -204,7 +204,7 @@ fn main() -> Result<()> {
         "sequence-foundations" => {
             let args = Args::parse(values, &[], &["--headmap"])?;
             args.count(6)?;
-            let headmap = args.option("--headmap").map_or_else(|| hsm_print_prep::root().join(hsm_print_prep::faucet_underside::HEAD_MAP), PathBuf::from);
+            let headmap = args.option("--headmap").map_or_else(|| hsm_print_prep::root().join(hsm_print_prep::base_foundation::HEAD_MAP), PathBuf::from);
             let report = plate_sequence::foundation_sequence::compose(
                 &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, &headmap,
             )?;
@@ -290,7 +290,7 @@ fn main() -> Result<()> {
         "head-map" => {
             let args = Args::parse(values, &[], &[])?;
             args.count(2)?;
-            let mut map = head_map::HeadMap::read(&hsm_print_prep::root().join(hsm_print_prep::faucet_underside::HEAD_MAP))?;
+            let mut map = head_map::HeadMap::read(&hsm_print_prep::root().join(hsm_print_prep::base_foundation::HEAD_MAP))?;
             map.fold(&args.path(0)?)?;
             map.write(&args.path(1)?)?;
         }

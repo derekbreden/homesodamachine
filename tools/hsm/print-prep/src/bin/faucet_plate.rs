@@ -1,42 +1,49 @@
 //! faucet-plate prepares a faucet style's plate from the checkout's meshes, the standing finish
 //! selection and the plate's own selections, through to its print-only archive.
 //!
-//!     faucet-plate sculpted|industrial OUT_DIR [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
+//!     faucet-plate sculpted|industrial OUT_DIR [--production] [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!
 //! It runs the preparer: the one built beside it, or the installed command of that name. The two
 //! programs are built and installed together from the checkout, and the plate is prepared from
 //! inside the checkout:
 //!
 //!     tools/run -- "$(rustup which cargo)" build --release --locked --offline -j 2 \
-//!       --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin faucet-plate --bin sculpted-faucet-print-project
+//!       --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep --bin faucet-plate --bin faucet-print-project
 //!     hsm-run --install-tools "$PWD" tools/hsm/target/release/faucet-plate \
-//!       tools/hsm/target/release/sculpted-faucet-print-project
+//!       tools/hsm/target/release/faucet-print-project
 //!     tools/run -- faucet-plate sculpted OUT_DIR
 //!
 //! OUT_DIR is the run's own folder and must not exist. Each style lays its own base and mounting
 //! plate beside the shared tip, display cover and lever. The base is filled under its mounting face
 //! for the slice and laid on its sloped foundation from its own mesh. The tip's mating courses come
 //! from a warped donor tip, sliced alone and laid back onto the real shoulder. The archive and
-//! every stage's receipt are written in OUT_DIR. Nothing is sent to a printer.
+//! every stage's receipt are written in OUT_DIR. `--production` makes it the style's product
+//! plate: its editable project and report go to the style's project path, its archive to the style's
+//! archive path, and beside the project a record of the plate with the acceleration planner's
+//! estimate of its motion, which the ledger's machine time reads. Nothing is sent to a printer.
 
 use anyhow::{Context, Result, bail, ensure};
 use hsm_print_prep::mesh::{Mesh, write_stl};
-use hsm_print_prep::{base_courses, base_foundation, faucet_plate, faucet_underside, feed_cap, filled_base, motion,
+use hsm_print_prep::{base_courses, base_foundation, faucet_plate, feed_cap, filled_base, motion,
     plate_rings, plate_sequence, tip_courses, tip_supports, tip_warp, trial_archive};
 use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-const PREPARER: &str = "sculpted-faucet-print-project";
-const USAGE: &str = "usage: faucet-plate sculpted|industrial OUT_DIR [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']";
+const PREPARER: &str = "faucet-print-project";
+const USAGE: &str = "usage: faucet-plate sculpted|industrial OUT_DIR [--production] [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']";
 
 fn main() -> Result<()> {
     let mut args = std::env::args().skip(1);
     let style = faucet_plate::style(&args.next().context(USAGE)?)?;
     let out = PathBuf::from(args.next().context(USAGE)?);
-    let (mut printer, mut colour) = ("Mark2".to_string(), "#161616".to_string());
+    let (mut printer, mut colour, mut production) = ("Mark2".to_string(), "#161616".to_string(), false);
     while let Some(arg) = args.next() {
+        if arg == "--production" {
+            production = true;
+            continue;
+        }
         let value = args.next().with_context(|| format!("{arg} needs a value"))?;
         match arg.as_str() {
             "--printer" => printer = value,
@@ -52,11 +59,9 @@ fn main() -> Result<()> {
     // the preparer: the one built beside this program, or the installed command of its name
     let beside = std::env::current_exe()?.parent().context("the programs' folder")?.join(PREPARER);
     let preparer = if beside.is_file() { beside } else { PathBuf::from(PREPARER) };
-    let rotation = faucet_plate::TIP_ROTATION_DEGREES.to_string();
     let prepare = |project: &Path, extra: &[&str]| -> Result<()> {
         let mut command = Command::new(&preparer);
-        command.arg(project).args(["--style", style.name, "--printer", &printer, "--filament-colour", &colour, "--tip-rotation", &rotation])
-            .args(extra);
+        command.arg(project).args(["--style", style.name, "--printer", &printer, "--filament-colour", &colour]).args(extra);
         run(command.current_dir(&root))
     };
     let tip = root.join(faucet_plate::TIP.stl);
@@ -117,7 +122,7 @@ fn main() -> Result<()> {
     fs::write(out.join("cooling.json"), serde_json::to_string_pretty(&cooling)? + "\n")?;
 
     // the base's foundation from its own mesh, the screw-seat rings and the plate's sequence
-    let headmap = root.join(faucet_underside::HEAD_MAP);
+    let headmap = root.join(base_foundation::HEAD_MAP);
     base_foundation::foundation(&base_foundation::Foundation {
         archive: &slice.join("native.gcode.3mf"), report: &out.join("native.print.json"), stl: &base, headmap: &headmap,
         out_dir: &out.join("base"), deck_top: None, part_courses: Some(base_foundation::SHORT_FOUNDATION_COURSES),
@@ -141,6 +146,39 @@ fn main() -> Result<()> {
     let package = trial_archive::package(&slice.join("native.gcode.3mf"), &progressed, &archive, timing.seconds, timing.first_course_seconds)?;
     fs::write(out.join("package.json"), serde_json::to_string_pretty(&package)? + "\n")?;
     println!("{}", archive.display());
+    if production {
+        product(&root, style, &out, &archive, &package, &plate)?;
+    }
+    Ok(())
+}
+
+/// The style's product plate from the run in `out`: the editable project and its report, the
+/// print-only archive, and the record of the plate beside the project.
+fn product(root: &Path, style: &faucet_plate::Style, out: &Path, archive: &Path, package: &Value, plate: &Value) -> Result<()> {
+    let project = root.join(style.project);
+    fs::copy(out.join("editable.3mf"), &project)?;
+    let mut report: Value = serde_json::from_slice(&fs::read(out.join("editable.print.json"))?)?;
+    report["project"] = style.project.into();
+    // the finish selection the run composed: the standing one under the plate's own selections
+    report["finish_selection"] = serde_json::json!([plate["finish_selection"], faucet_plate::SELECTION]);
+    report.as_object_mut().context("the editable project's report")?.remove("finish_selection_sha256");
+    fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
+    let kept = root.join(style.archive);
+    fs::create_dir_all(kept.parent().context("the archive's folder")?)?;
+    fs::copy(archive, &kept)?;
+    let sha = |path: &Path| -> Result<String> { Ok(hsm_print_prep::sha256_hex(&fs::read(path)?)) };
+    let record = serde_json::json!({
+        "purpose": "Binds the style's product plate: its editable project, its print-only archive and the acceleration planner's estimate of the sequenced plate's motion.",
+        "style": style.name,
+        "project": style.project, "project_sha256": sha(&project)?,
+        "archive": style.archive, "archive_sha256": sha(&kept)?, "gcode_sha256": package["gcode_sha256"],
+        "estimate": "the acceleration planner's motion time for the sequenced plate's G-code, as its progress lines count it down",
+        "estimated_motion_seconds": package["estimated_motion_seconds"],
+        "printer_layers": package["printer_layers"],
+        "deposition_weight_g": package["deposition_weight_g"],
+    });
+    fs::write(project.with_extension("plate.json"), serde_json::to_string_pretty(&record)? + "\n")?;
+    println!("{}", project.display());
     Ok(())
 }
 
