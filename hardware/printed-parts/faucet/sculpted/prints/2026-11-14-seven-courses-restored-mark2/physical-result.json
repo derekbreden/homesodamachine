@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-15",
+  "reported_by": "Derek",
+  "printer": "Mark2",
+  "printer_task_id": "1445263169",
+  "submitted_archive": {
+    "name": "sculpted-faucet-seven-courses-restored-black-mark2.gcode.3mf",
+    "sha256": "9f9233d8d5fc5080fdf6599d1f8a96b04080d68cfde8c6cb826f4f00ab4b910f",
+    "gcode_sha256": "4ed406e89d30fd71b9f0f6ca09e9b06fe737998b8da12bb81a517629f46d00f3"
+  },
+  "scope": "Every part on this plate: the Sculpted base, the tip, the display cover, the mounting plate and the lever. Derek's message says he took the supports off and put the faucet together, and calls it good enough. It names no flaw. No photographs came with it.",
+  "tried": "the plate's parts with their supports removed, put together as one faucet",
+  "observations": [
+    "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on."
+  ]
+}
