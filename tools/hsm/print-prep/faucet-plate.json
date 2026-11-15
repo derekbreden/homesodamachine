@@ -1,5 +1,5 @@
 {
-  "purpose": "The Sculpted faucet plate's own selections, which sculpted-plate prepares over the standing finish selection.",
+  "purpose": "The faucet plate's own selections, which faucet-plate prepares for either style over the standing finish selection.",
   "finish_selection": "hardware/printed-parts/faucet/sculpted/finish-selection.json",
   "shallow_overhang_wall_speed": {
     "parts": ["faucet-shell-base", "faucet-shell-tip"],

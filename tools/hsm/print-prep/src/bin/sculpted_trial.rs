@@ -22,7 +22,7 @@
 //!   sculpted-trial continued-base DONOR.gcode DONOR.print.json PHYSICAL.gcode PHYSICAL.print.json OUT.gcode
 //!       [--uphill-wall-runs] [--stitch-mesh BASE.stl] [--fade-end MM] [--native-join-z MM]
 //!   sculpted-trial cool-shaft-join SEQUENCED.gcode PROJECT.3mf OUT.gcode [--catalog SCALARS.json]
-//!   sculpted-trial rings RINGS.gcode
+//!   sculpted-trial rings PRINT.json RINGS.gcode
 //!   sculpted-trial sequence PRIOR.gcode NATIVE.gcode PLATE.gcode --tip-model TIP.gcode --entire-tip-custom [--plate-rings RINGS.gcode]
 //!   sculpted-trial sequence-shaft FOUNDATION.gcode SEQUENCED.gcode [--donor CONTINUED-BASE.gcode]
 //!   sculpted-trial sequence-foundations FOUNDATION.gcode NATIVE.gcode DONOR.gcode WARP.json RINGS.gcode OUT.gcode [--headmap HEADMAP.npz]
@@ -39,7 +39,6 @@
 //!   sculpted-trial approaches PLATE.gcode REPLAY.json OUT.json
 
 use anyhow::{bail, Context, Result};
-use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH};
 use hsm_print_prep::mesh::{write_stl, Mesh};
 use hsm_print_prep::{approaches, base_courses, base_foundation, feed_cap, filled_base, head_map, head_replay, plate_rings, plate_sequence, shaft_join_cooling, tip_audit, tip_courses, tip_supports, tip_warp, trial_archive};
 use std::path::{Path, PathBuf};
@@ -144,8 +143,8 @@ fn main() -> Result<()> {
             let [base, output] = values.as_slice() else {
                 bail!("usage: sculpted-trial fill BASE.stl OUT.stl");
             };
-            let semi = [FOOT_WIDTH / 2.0, FOOT_DEPTH / 2.0];
-            let filled = filled_base::fill(&Mesh::read_stl(Path::new(base))?, base_courses::INCLINE_DEGREES, semi)?;
+            let mesh = Mesh::read_stl(Path::new(base))?;
+            let filled = filled_base::fill(&mesh, base_courses::INCLINE_DEGREES, filled_base::rim(&mesh)?)?;
             write_stl(Path::new(output), &filled.vertices, &filled.faces)?;
         }
         "foundation" => {
@@ -155,7 +154,7 @@ fn main() -> Result<()> {
                 .context("--part-courses needs a count")?;
             base_foundation::foundation(&base_foundation::Foundation {
                 archive: &p[0], report: &p[1], stl: &p[2], headmap: &p[3], out_dir: &p[4], deck_top, part_courses: Some(part_courses),
-                lift_share: hsm_print_prep::sculpted_plate::lift_share(&hsm_print_prep::sculpted_plate::selection(&hsm_print_prep::root())?),
+                lift_share: hsm_print_prep::faucet_plate::lift_share(&hsm_print_prep::faucet_plate::selection(&hsm_print_prep::root())?),
             })?;
         }
         "continued-base" => {
@@ -180,8 +179,9 @@ fn main() -> Result<()> {
         }
         "rings" => {
             let args = Args::parse(values, &[], &[])?;
-            args.count(1)?;
-            std::fs::write(args.path(0)?, plate_rings::gcode())?;
+            args.count(2)?;
+            let report: serde_json::Value = serde_json::from_slice(&std::fs::read(args.path(0)?)?)?;
+            std::fs::write(args.path(1)?, plate_rings::gcode(&plate_rings::seats(&report)?))?;
         }
         "sequence" => {
             let args = Args::parse(values, &["--entire-tip-custom"], &["--tip-model", "--plate-rings"])?;
