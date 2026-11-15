@@ -1,5 +1,5 @@
-//! faucet-plate prepares a faucet style's plate from the checkout's meshes, the standing finish
-//! selection and the plate's own selections, through to its print-only archive.
+//! faucet-plate prepares a faucet style's plate from the checkout's meshes and the plate's
+//! selections, through to its print-only archive.
 //!
 //!     faucet-plate sculpted|industrial OUT_DIR [--production] [--printer Mark1|Mark2] [--filament-colour '#RRGGBB']
 //!
@@ -66,18 +66,15 @@ fn main() -> Result<()> {
     };
     let tip = root.join(faucet_plate::TIP.stl);
 
-    // the finish selections the plate's projects take: the standing one, naming the style's base and
-    // mounting plate, without and then with the plate's shallow overhang points when its selections
-    // name them
-    let standing: Value = serde_json::from_slice(&fs::read(root.join(plate["finish_selection"].as_str().context("the standing finish selection")?))?)?;
-    let mut selection = style.finish(&standing);
-    let plain_finish = out.join("plain-finish.json");
-    fs::write(&plain_finish, serde_json::to_string_pretty(&selection)? + "\n")?;
-    if let Some(entry) = plate.get("shallow_overhang_wall_speed") {
-        selection["shallow_overhang_wall_speed"] = style.finish(entry);
-    }
+    // the selections the plate's projects take, naming the style's base and mounting plate: all of
+    // them, and without the shallow overhang points for the donor tip and the plain plate
+    let selection = style.finish(&plate);
     let finish = out.join("finish.json");
     fs::write(&finish, serde_json::to_string_pretty(&selection)? + "\n")?;
+    let mut plain = selection.clone();
+    plain.as_object_mut().context("the plate's selections")?.remove("shallow_overhang_wall_speed");
+    let plain_finish = out.join("plain-finish.json");
+    fs::write(&plain_finish, serde_json::to_string_pretty(&plain)? + "\n")?;
     let finish_args = ["--finish".to_string(), path(&finish)];
     let finish_args: Vec<&str> = finish_args.iter().map(String::as_str).collect();
 
@@ -102,7 +99,7 @@ fn main() -> Result<()> {
     fs::write(&settings, serde_json::to_string_pretty(&recipe)? + "\n")?;
     let donor_project = donor.join("donor.3mf");
     prepare(&donor_project, &["--warp-donor", "--tip-mesh", &path(&warped), "--warp-settings", &path(&settings),
-        "--slice-output", &path(&donor.join("slice"))])?;
+        "--slice-output", &path(&donor.join("slice")), "--finish", &path(&plain_finish)])?;
     let tape = out.join("tip.gcode");
     tip_courses::write(&donor.join("slice/plate_1.gcode"), &donor.join("donor.print.json"), &donor.join("tip-warped.json"), &tape,
         &tip_courses::Banding { step: 0.0, uphill: false })?;
@@ -118,7 +115,7 @@ fn main() -> Result<()> {
         prepare(plain, &["--filled-base", &path(&filled), "--finish", &path(&plain_finish)])?;
     }
     let slice = out.join("slice");
-    let cooling = faucet_plate::slice_with_cooling(&project, &report, &slice, plain.as_deref())?;
+    let cooling = faucet_plate::slice_with_cooling(&project, &report, &selection["tip_end_cooling"], &slice, plain.as_deref())?;
     fs::write(out.join("cooling.json"), serde_json::to_string_pretty(&cooling)? + "\n")?;
 
     // the base's foundation from its own mesh, the screw-seat rings and the plate's sequence
@@ -147,21 +144,25 @@ fn main() -> Result<()> {
     fs::write(out.join("package.json"), serde_json::to_string_pretty(&package)? + "\n")?;
     println!("{}", archive.display());
     if production {
-        product(&root, style, &out, &archive, &package, &plate)?;
+        product(&root, style, &out, &archive, &package)?;
     }
     Ok(())
 }
 
 /// The style's product plate from the run in `out`: the editable project and its report, the
 /// print-only archive, and the record of the plate beside the project.
-fn product(root: &Path, style: &faucet_plate::Style, out: &Path, archive: &Path, package: &Value, plate: &Value) -> Result<()> {
+fn product(root: &Path, style: &faucet_plate::Style, out: &Path, archive: &Path, package: &Value) -> Result<()> {
     let project = root.join(style.project);
     fs::copy(out.join("editable.3mf"), &project)?;
     let mut report: Value = serde_json::from_slice(&fs::read(out.join("editable.print.json"))?)?;
     report["project"] = style.project.into();
-    // the finish selection the run composed: the standing one under the plate's own selections
-    report["finish_selection"] = serde_json::json!([plate["finish_selection"], faucet_plate::SELECTION]);
+    // the selections by their file in the checkout, in place of the run's copy of them
+    report["finish_selection"] = faucet_plate::SELECTION.into();
     report.as_object_mut().context("the editable project's report")?.remove("finish_selection_sha256");
+    let sources = report["source_sha256"].as_object_mut().context("the report's sources")?;
+    let copy = hsm_print_prep::profile::relative(&out.join("finish.json"), root);
+    sources.remove(&copy).with_context(|| format!("the report's sources have no {copy}"))?;
+    sources.insert(faucet_plate::SELECTION.into(), hsm_print_prep::sha256_hex(&fs::read(root.join(faucet_plate::SELECTION))?).into());
     fs::write(project.with_extension("print.json"), serde_json::to_string_pretty(&report)? + "\n")?;
     let kept = root.join(style.archive);
     fs::create_dir_all(kept.parent().context("the archive's folder")?)?;

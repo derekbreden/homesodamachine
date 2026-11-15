@@ -392,8 +392,7 @@ pub fn add_tip_root_anchor(root: &Path, r: &mut Refreshed, selected: &Value) -> 
     let id = add_carried(r, index, carried);
     let mut anchor = json!({"source_component_id": old, "component_id": id, "source_member": member, "source_member_sha256": sha});
     let mut report = json!({"part": selected["part"], "source_project": selected["source_project"], "source_project_sha256": file_sha(&source_path)?,
-        "source_preparation": selected["source_preparation"], "physical_result": selected["physical_result"],
-        "joint_plane": selected["joint_plane"], "root_contact_scope": selected["root_contact_scope"]});
+        "source_preparation": selected["source_preparation"], "joint_plane": selected["joint_plane"]});
     if let Some(reseated) = reseated {
         anchor["reseated"] = reseated;
     } else {

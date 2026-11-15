@@ -17,7 +17,7 @@
 //! perimeter follows the inclined seat above a dense tree interface. `--warp-donor` slices the
 //! warped tip `--tip-mesh` alone, in the course bands and with the support regions `--warp-settings`
 //! gives in the warped mesh's coordinates, for the stage that lays its courses back onto the real
-//! shoulder. `--finish` reads a finish selection in place of the standing one.
+//! shoulder. `--finish` reads the selections from that file in place of the plate's.
 
 mod base_seat;
 
@@ -35,7 +35,6 @@ use std::io::Cursor;
 use std::path::{Path, PathBuf};
 
 const PROFILE: &str = "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf";
-const FINISH: &str = "hardware/printed-parts/faucet/sculpted/finish-selection.json";
 /// Each part's own space from the shared plate's centre, for its brim and supports: the lever
 /// beyond the above-counter plate, where the toolhead over it stays off the base's foundation.
 const OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [24.0, 47.0], [89.0, 76.0], [43.0, -52.0], [94.0, -58.0]];
@@ -47,7 +46,7 @@ fn main() -> Result<()> {
     let mut style: &Style = &faucet_plate::STYLES[0];
     let (mut slice_output, mut filled_base, mut tip_mesh, mut warp_settings_path) = (None, None, None, None);
     let (mut physical_base, mut warp_donor) = (false, false);
-    let mut finish = PathBuf::from(FINISH);
+    let mut finish = None;
     let mut printer = "Mark2".to_owned();
     let mut colour = "#FFFFFF".to_owned();
     while let Some(arg) = args.next() {
@@ -65,7 +64,7 @@ fn main() -> Result<()> {
             Some("--filled-base") => filled_base = Some(PathBuf::from(value)),
             Some("--tip-mesh") => tip_mesh = Some(PathBuf::from(value)),
             Some("--warp-settings") => warp_settings_path = Some(PathBuf::from(value)),
-            Some("--finish") => finish = PathBuf::from(value),
+            Some("--finish") => finish = Some(PathBuf::from(value)),
             Some("--style") => style = faucet_plate::style(value.to_str().context("style name")?)?,
             Some("--printer") => printer = value.into_string().ok().context("printer name")?,
             Some("--filament-colour") => colour = value.into_string().ok().context("filament colour")?,
@@ -85,8 +84,11 @@ fn main() -> Result<()> {
     } else {
         format!("Complete {named} faucet sloped underside PET-GF left {printer}")
     };
-    let finish = relative(&root.join(&finish), &root);
-    let selection = read_json(&root.join(&finish))?;
+    let (finish, selection) = match finish {
+        Some(path) => (relative(&root.join(&path), &root), read_json(&root.join(&path))?),
+        None => (faucet_plate::SELECTION.to_owned(), faucet_plate::selection(&root)?),
+    };
+    let selection = style.finish(&selection);
     let tip_part = Part::new(TIP.name, tip_mesh.unwrap_or_else(|| root.join(TIP.stl)), faucet_plate::TIP_ROTATION_DEGREES);
     let parts = if warp_donor {
         vec![tip_part]
@@ -242,12 +244,11 @@ fn main() -> Result<()> {
     sources.insert(format!("{mapping_revision}:{mapping_source}"), json!(sha256_hex(&mapping_bytes)));
     sources.insert(format!("{parent_revision}:{parent_project_source}"), json!(sha256_hex(&parent_project_bytes)));
     sources.insert(format!("{parent_revision}:{parent_report_source}"), json!(sha256_hex(&parent_report_bytes)));
-    let rim_footprint = selection["base_rim_supports"]["source_preparation"].as_str().context("accepted fin footprint source")?;
     for p in ["hardware/printed-parts/faucet/prepare_print_project.rs", "hardware/printed-parts/faucet/base_seat.rs",
         "tools/hsm/print-prep/src/faucet.rs", "tools/hsm/print-prep/src/faucet_contact.rs", "tools/hsm/print-prep/src/faucet_recesses.rs",
         "tools/hsm/print-prep/src/profile.rs", "tools/hsm/print-prep/src/seam.rs",
         "tools/hsm/print-prep/src/stretch_cooling.rs",
-        finish.as_str(), PROFILE, rim_footprint].iter().map(|p| root.join(p))
+        finish.as_str(), PROFILE].iter().map(|p| root.join(p))
         .chain(parts.iter().map(|p| p.source.clone())) {
         sources.insert(relative(&p, &root), json!(file_sha(&p)?));
     }
@@ -264,7 +265,7 @@ fn main() -> Result<()> {
         ("filament_colour", json!(colour)), ("parent_project", json!(parent_project_source)),
         ("parent_project_sha256", json!(sha256_hex(&parent_project_bytes))), ("parent_project_source_commit", json!(parent_revision)),
         ("profile_source", json!(PROFILE)), ("profile_source_sha256", json!(file_sha(&root.join(PROFILE))?)),
-        ("finish_selection", json!(finish)), ("finish_selection_sha256", json!(file_sha(&root.join(&finish))?)), ("selected_finish", selection.clone()),
+        ("finish_selection", json!(finish)), ("finish_selection_sha256", json!(file_sha(&root.join(&finish))?)),
         ("layer_config_ranges", json!([])),
         ("layer_scope", json!("Use the shared first and ordinary layer heights across the plate.")),
         ("settings_changes", json!(changes)), ("rigid_part_count", json!(parts.len())),
