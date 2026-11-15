@@ -1628,6 +1628,268 @@
         "reason": "Center the complete receiver and cover comparison inside the usable bed border."
       },
       "plate_border_mm": 80.0
+    },
+    "small-petgf": {
+      "nonplanar_contacts": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json",
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark2's fixed left hardened Standard-flow hotend carries black PET-GF, as for the rear caps and the pump cap."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "asse-snap-cap",
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "pisco-snap-cap",
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "regulator-snap-cap",
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "meter-snap-cap",
+          "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The rear-equipment-caps recipe: bridge the narrow port shoulder and leave its fitted opening clear."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "pump-snap-cap",
+          "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The pump-snap-cap recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The pump-snap-cap recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The pump-snap-cap recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "display-cover",
+          "stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The display-cover recipe: solid screw-bearing stock throughout the thin bezel."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The display-cover recipe: a continuous solid fill pattern for the screw-bearing bezel."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The display-cover recipe: the flat bezel prints on its back with open upward-facing counterbores."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "enclosure-pump-retainer",
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+          "quantity": 2,
+          "pose": {
+            "turns": [
+              [
+                "x",
+                90
+              ]
+            ],
+            "reason": "The pump-retainer pose: Y-end down leaves the screw openings sideways, with their short roofs bridged and the head seats clear."
+          },
+          "regions": "pump-retainer",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The pump-retainer recipe: keep the saved perimeter stock around the pump flange bearing and screw seats."
+            },
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "The pump-retainer recipe: the sideways openings bridge clear in this pose; Tree Slim for removable supports at accessible surfaces."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        },
+        {
+          "name": "reservoir-b-fill-guide",
+          "stl": "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The reservoir-b-fill-guide recipe: three Classic loops at each boundary of the selected holder wall."
+            },
+            "sparse_infill_pattern": {
+              "value": "gyroid",
+              "reason": "The reservoir-b-fill-guide recipe: the shared bulk recipe in thicker regions."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            }
+          }
+        }
+      ],
+      "pose_reason": "Each part keeps the pose of the piece that prints it alone: the caps stand on an axial end as exported, the display cover lies on its flat back with the counterbores up, the pump retainers stand on their Y-minus end and the Reservoir B fill guide lies on its D back.",
+      "spacing_mm": 15,
+      "plate_border_mm": 35.0,
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        }
+      }
     }
   }
 }
