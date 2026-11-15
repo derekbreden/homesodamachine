@@ -10,6 +10,8 @@
 //! The checks of a finished plate run by hand, each when someone asks its question. `audit-tip`
 //! measures the tip's courses, support contacts and clear waterways against the tip's mesh.
 //! `head-map` folds the whole toolhead model into the left-active head's height map.
+//! `approaches` reads the head replay's dry nozzle approaches again at their exact positions over
+//! the earlier beads.
 //!
 //!   sculpted-trial warp tip-shoulder|plug-ramp|matched-shoulder|short-shoulder TIP.stl EDITABLE.3mf OUT.stl
 //!   sculpted-trial supports WARP.json OUT.json
@@ -33,11 +35,12 @@
 //!   sculpted-trial bind-capped UNCAPPED.gcode CAPPED.gcode PLATE.gcode [--clamp-receipt CAPPED.json]
 //!   sculpted-trial audit-tip TIP.stl WARP.json ARCHIVE.gcode.3mf OUT.json
 //!   sculpted-trial head-map TOOLHEAD.step.npz OUT.npz
+//!   sculpted-trial approaches PLATE.gcode REPLAY.json OUT.json
 
 use anyhow::{bail, Context, Result};
 use hsm_faucet_numbers::shell::{FOOT_DEPTH, FOOT_WIDTH};
 use hsm_print_prep::mesh::{write_stl, Mesh};
-use hsm_print_prep::{base_courses, base_foundation, feed_cap, filled_base, head_map, plate_rings, plate_sequence, shaft_join_cooling, tip_audit, tip_courses, tip_supports, tip_warp, trial_archive};
+use hsm_print_prep::{approaches, base_courses, base_foundation, feed_cap, filled_base, head_map, plate_rings, plate_sequence, shaft_join_cooling, tip_audit, tip_courses, tip_supports, tip_warp, trial_archive};
 use std::path::{Path, PathBuf};
 
 struct Args {
@@ -92,7 +95,7 @@ fn number(args: &Args, name: &str) -> Result<f64> {
 fn main() -> Result<()> {
     let mut values: Vec<String> = std::env::args().skip(1).collect();
     if values.is_empty() {
-        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|splice-tip-end|cool-tip-end|progress|package|merge|cap-feed|bind-capped|audit-tip|head-map ...");
+        bail!("usage: sculpted-trial warp|supports|tape|fill|foundation|continued-base|cool-shaft-join|rings|sequence|sequence-shaft|sequence-foundations|splice-tip-end|cool-tip-end|progress|package|merge|cap-feed|bind-capped|audit-tip|head-map|approaches ...");
     }
     let command = values.remove(0);
     match command.as_str() {
@@ -294,7 +297,13 @@ fn main() -> Result<()> {
             map.fold(&args.path(0)?)?;
             map.write(&args.path(1)?)?;
         }
-        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, splice-tip-end, cool-tip-end, progress, package, merge, cap-feed, bind-capped, audit-tip or head-map"),
+        "approaches" => {
+            let args = Args::parse(values, &[], &[])?;
+            args.count(3)?;
+            let readings = approaches::read(&args.path(0)?, &args.path(1)?)?;
+            std::fs::write(args.path(2)?, readings.dumps_indented() + "\n")?;
+        }
+        _ => bail!("Unknown command {command}; use warp, supports, tape, fill, foundation, continued-base, cool-shaft-join, rings, sequence, sequence-shaft, sequence-foundations, splice-tip-end, cool-tip-end, progress, package, merge, cap-feed, bind-capped, audit-tip, head-map or approaches"),
     }
     Ok(())
 }

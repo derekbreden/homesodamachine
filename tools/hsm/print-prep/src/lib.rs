@@ -2,6 +2,7 @@
 //! parts' printed meshes and a saved printer recipe, and their offline slices. It never sends a
 //! job to a printer.
 
+pub mod approaches;
 pub mod audit;
 pub mod base_courses;
 pub mod base_foundation;
