@@ -64,11 +64,13 @@ The flavor R30 and drain R25 returns begin 3 mm below the organizer's bottom and
 
 ## Print
 
-The reusable [editable project](umbilical-organizer-petgf.3mf) uses the
-[shared PET-GF infill and support settings](../../petgf.3mf) and
-[localized cooling](../../cooling/README.md) on Mark2's abrasive left nozzle.
-The flat print keeps the passages vertical and emits bridges without support
-inside the bores. Re-slice the editable project for new printing.
+The organizer prints on Mark2's [small PET-GF parts plate](../../enclosure/trial-preparation/pieces.json),
+from its mesh with the [shared PET-GF settings](../../petgf.3mf),
+[localized cooling](../../cooling/README.md) and Mark2's standing trim on its abrasive left
+nozzle; `enclosure-print-prep small-petgf` prepares that plate. The
+[November 15 plate](../../enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/README.md)
+is the first one sent with it. The flat print keeps the passages vertical and emits bridges
+without support inside the bores.
 
 PET-GF, flat bottom face on the textured plate with all passages vertical.
 The [white Mark2 right-hotend print](prints/2026-10-16-white-right-mark2/README.md)

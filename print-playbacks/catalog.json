@@ -1099,34 +1099,12 @@
     "recipe_commit": "b0ec4b00b090ee0fcb07967a8b885f77e8436e18"
   },
   "HSM-0098": {
-    "title": "Faucet umbilical organizer · Mark2 print plan",
-    "recipe": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.print.json",
-    "recipe_sha256": "e502ad82674a0f9ee26fc52e5e9a41500f679c9436c72bbee7ac3a3335b20b49",
-    "project_sha256": "75944db9db24c4d6af042c70a20faa147d72bb968ef31b6b4f2983a404e42785",
-    "archive_sha256": "44e6b1e5571c7b39d53a7df61a7d149a0a811aa47d4b98699b610acfd5661652",
-    "gcode_sha256": "ce8bbe3b7d946e21cdae315b3832f0b2bf5c3ef6109da0f9c8d1153ed936be99",
-    "kind": "plan",
-    "sha256": "afc176979e74e8cb0ddbd5396a907a2bd22e1f1b7e9777cf9a1c05a372786e07",
-    "slice": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.gcode.3mf",
+    "title": "Faucet umbilical organizer · November 15 small PET-GF plate · Mark2",
+    "sha256": "4bd19ebf661a23bdcf560536616440d85a51e694505f6a0d483b76da8af6453c",
+    "slice": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
     "plate": 1,
-    "layers": 42,
-    "process": {
-      "Material": "White Polymaker PET-GF",
-      "Printer": "Mark2",
-      "Nozzle": "Left 0.4 mm Standard",
-      "Z trim": "+0.04 mm requested, +0.02 mm emitted",
-      "Supports": "None in emitted slice",
-      "Orientation": "Flat with vertical bores and signal slot",
-      "Layer heights": "0.2 mm first, 0.24 mm nominal",
-      "Build plate": "Textured PEI Plate",
-      "Walls": "2",
-      "Infill": "15% gyroid",
-      "Bridge flow": "1.25",
-      "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s"
-    },
-    "model_sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
-    "recipe_commit": "c11997ef29f577859c81e44c69d105ef658dde38"
+    "archive_sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
+    "launch": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/launch.json"
   },
   "HSM-0099": {
     "title": "Blue tube collars · Mark2 print plan",
