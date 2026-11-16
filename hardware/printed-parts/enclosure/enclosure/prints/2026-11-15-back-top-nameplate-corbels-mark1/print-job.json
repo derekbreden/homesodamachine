@@ -1,0 +1,53 @@
+{
+  "purpose": "Bind the corbelled back-top to its reviewed textured PEI slice and Mark1 print.",
+  "piece": "back-top",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "running",
+  "printer_task_id": "1449338494",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark1 ran this back-top in black PET-GF on its left hardened 0.4 mm Standard-flow hotend (enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/print-job.json, task 1445040105).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_revision": "a110b52245c65b89abbdc4c35b853def3981ba7b",
+  "recipe_sha256": "246b57538390354832ecfaef8f7338bcf88311a83c2aeb7b91104604273be6e1",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_stl_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
+  "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "print_features_sha256": "e958ea2477fc75355e6d426a40cc3ee9a41043b3317000f3de4c2569f3b73654",
+  "archive": "enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
+  "archive_sha256": "ae6c03e23db549eb667b04a911ee16ad81448a78bda48ecdf44eb9925686059c",
+  "gcode_sha256": "57b3fb576ce4148c0d87dfcf676739501fd71e24455c78898419360121e466cb",
+  "project": "enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.3mf",
+  "project_sha256": "fb717d5e62b06b5f3c0c6d9171b78b9544af83c8ee2bfa92f2e9bd6b54e7cf39",
+  "layers": 1019,
+  "estimated_seconds": 128363,
+  "estimated_filament_grams": 845.76,
+  "minimum_bead_bed_margin_mm": 20.232000000000028,
+  "native_slicer_warnings": [],
+  "support_coverage": "support-coverage.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "startup": "startup-status.json",
+  "startup_spacing": {
+    "other_task_id": "1448989765",
+    "other_accepted_at": "2026-11-16T02:07:27+00:00",
+    "this_accepted_at": "2026-11-16T05:08:44+00:00",
+    "elapsed_seconds": 10877.0
+  }
+}

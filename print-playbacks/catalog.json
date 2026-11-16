@@ -809,18 +809,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "2122314da0ee0b135cb9657651b709c202d8259e1a54b64b773f0fcb44b0ebd7",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-textured-z004-mark1/enclosure-back-top-left04-petgf-textured-z004-mark1.gcode.3mf",
+    "sha256": "65ea26048db2f0acfbd4870e43387307078ca91f93fb7ad5d86e991ec8c23ef2",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "50014409f32fea75bc8adbfe01076cfb53a1e6ef2b49dc7d9a58dd974b6a3d9e",
-    "project_sha256": "4137d6e89a4ed82755701997abc67afc8c833e3c73c91f72a3e72c505aec696a",
-    "archive_sha256": "6435d2e8fd0b3f7953b5cd53e9fd170da678b9a0f01da57ba8758424b044fc38",
-    "gcode_sha256": "8afd446466bbbb9444c0650466b223a9e432bfb947717df639947657e05c583d",
+    "recipe_sha256": "246b57538390354832ecfaef8f7338bcf88311a83c2aeb7b91104604273be6e1",
+    "project_sha256": "fb717d5e62b06b5f3c0c6d9171b78b9544af83c8ee2bfa92f2e9bd6b54e7cf39",
+    "archive_sha256": "ae6c03e23db549eb667b04a911ee16ad81448a78bda48ecdf44eb9925686059c",
+    "gcode_sha256": "57b3fb576ce4148c0d87dfcf676739501fd71e24455c78898419360121e466cb",
     "kind": "plan",
     "layers": 1019,
-    "model_sha256": "01334047ba206a219e5bf9ede53ddab2ab56e5a2ffe25879d0fb4281b9feb997",
+    "model_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -839,14 +839,14 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
       "Rail roofs": "Short breakaway supports rooted in the cavity floor",
-      "Nameplate": "Outboard support panel with straight aft removal",
+      "Nameplate": "Integral corbels carry the rounded crown and lower lip",
       "Protected openings": "Pisco catches, ASSE east catch, lower meter cap pocket, cable hooks, valve sockets and insert pilots clear",
       "Snap catches": "Removable supports on the reachable ASSE and water regulator catches. Corbels on ASSE east and both Pisco catches.",
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
       "Flow-meter receiver": "Dense interface under the upper hook pocket and slide and wire floors. The aft shoulder and flank strip use corbels."
     },
-    "recipe_commit": "f1b180f5c065f60431dedb6f53c43455c2bd9e31",
-    "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-textured-z004-mark1/launch.json"
+    "recipe_commit": "a110b52245c65b89abbdc4c35b853def3981ba7b",
+    "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/launch.json"
   },
   "HSM-0082": {
     "title": "Lower pump retainer · Mark1 print plan",

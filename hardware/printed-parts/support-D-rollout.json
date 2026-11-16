@@ -1152,7 +1152,7 @@
     }
   },
   "current_full_part": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "current_full_part_status": "The full back-top slice on Mark1 passes native bed placement and passage-clearance review. Physical cleanup and fit are pending.",
+  "current_full_part_status": "The corbelled back-top on Mark1 passes native bed placement and passage-clearance review. Physical cleanup and fit are pending.",
   "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
   "scope": "D supplies the shared contact and bridge settings. Each full product selects its support roots, clearance, interface treatment and bridges from its actual contact surfaces and removal access.",
   "inclined_contact_qualification": {
@@ -1169,7 +1169,7 @@
     "nonplanar_smaller_gap_result": "https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json"
   },
   "current_full_parts": {
-    "Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/print-job.json",
+    "Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/print-job.json",
     "Mark2": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json"
   }
 }
