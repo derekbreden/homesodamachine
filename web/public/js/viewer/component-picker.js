@@ -686,7 +686,7 @@ function showPanel(names = hiddenNames()) {
   const description = selection ? componentName(selection) : "";
   const unit = componentUnit(selection);
   const instance = state.currentGroup?.userData.instanceView;
-  const installed = instance && !instance.preview && instance.names.has(bodyName);
+  const installed = instance && !instance.preview && !instance.found && instance.names.has(bodyName);
   const nameInTrail = !feature && description && [...header.querySelectorAll(".cad-crumb.show :is(.cad-crumb-step, .cad-crumb-here)")]
     .some(crumb => crumb.textContent === description);
   if (selection) {

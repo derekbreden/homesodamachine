@@ -6,6 +6,9 @@
 // recognizable pick in it is matched against the loaded model's
 // reconstructed edges and classified faces. Both land in one overlay,
 // framed by one camera move: the box finds things, however you name them.
+// The parts standing in front of what it lit, seen from where the camera
+// lands, are hidden and listed with the other hidden parts, as a part picked
+// from the materials list is uncovered (instance-view.js).
 //
 // Name matching ignores case and separators and widens to substrings only
 // when nothing matches exactly (pick-format.js), so there is no format to
@@ -21,9 +24,10 @@ import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
 import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick-format.js";
-import { getFindData, faceHighlightGeometry, faceNearest, boxHighlightGeometry } from "./edge-picker.js";
+import { getFindData, faceHighlightGeometry, faceNearest, faceBody, boxHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
 import { jumpToStep } from "./step-nav.js";
+import { uncoverFound, releaseFound } from "./instance-view.js";
 import { makeToolButton } from "./tool-rail.js";
 import { materialForFile, materialForComponent, searchMaterials, explodeBom, occurrenceBodies, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
@@ -104,12 +108,38 @@ function addSurfaceHighlight(geo, box) {
   return { lit: mesh, at: surfaceMiddle(geo) };
 }
 
+// Points spread over a lit surface by area, for the sight lines that uncover
+// it: the middles of the triangles at even shares of its area.
+function surfacePoints(geo, count = 5) {
+  const p = geo.getAttribute("position").array, index = geo.index?.array;
+  const corner = (t, k) => (index ? index[t * 3 + k] : t * 3 + k) * 3;
+  const tris = index ? index.length / 3 : p.length / 9;
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+  const shares = [];
+  let total = 0;
+  for (let t = 0; t < tris; t++) {
+    a.fromArray(p, corner(t, 0)); b.fromArray(p, corner(t, 1)); c.fromArray(p, corner(t, 2));
+    total += b.sub(a).cross(c.sub(a)).length();
+    shares.push(total);
+  }
+  const points = [];
+  for (let k = 0, t = 0; total && k < count; k++) {
+    while (t < tris - 1 && shares[t] < (k + 0.5) / count * total) t++;
+    a.fromArray(p, corner(t, 0)); b.fromArray(p, corner(t, 1)); c.fromArray(p, corner(t, 2));
+    const middle = a.clone().add(b).add(c).multiplyScalar(1 / 3);
+    if (!points.some(q => q.distanceToSquared(middle) < 1e-6)) points.push(middle);
+  }
+  return points;
+}
+
 // A whole named solid: its feature edges plus a faint shell, depth-test off
 // so it reads through the enclosure walls. Same shape as part-highlight.js's
 // scorecard highlight, in the find box's own magenta — one color for
-// everything this box turned up, whether it was named or pasted.
+// everything this box turned up, whether it was named or pasted. Returns
+// points on it for the sight lines that uncover it.
 function addPartHighlight(name, box) {
-  if (!state.currentGroup) return;
+  const points = [];
+  if (!state.currentGroup) return points;
   const seen = new Set();
   for (const mesh of state.currentGroup.children) {
     // Locally hidden stays hidden — the same rule the pickers and the scorecard
@@ -133,7 +163,9 @@ function addPartHighlight(name, box) {
     shell.renderOrder = 997;
     overlay.add(shell);
     box.union(geometry.boundingBox);
+    points.push(...surfacePoints(geometry, 9));
   }
+  return points;
 }
 
 function addPointHighlight(p, box) {
@@ -152,9 +184,8 @@ function addPointHighlight(p, box) {
 // to frame them — same ease + duration as the reset-view flight. A `view:`
 // line names the direction instead, upright, so a link can show a feature
 // from the side it is seen from: inside a wall, under a ledge.
-let flyToken = 0;
-function flyToBox(box, view = null, instant = false) {
-  if (box.isEmpty()) return;
+function landing(box, view = null) {
+  if (box.isEmpty()) return null;
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z, 2);
@@ -162,10 +193,16 @@ function flyToBox(box, view = null, instant = false) {
   if (view) {
     const az = THREE.MathUtils.degToRad(view.az), el = THREE.MathUtils.degToRad(view.el);
     dir = new THREE.Vector3(Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el));
-    camera.up.set(0, 0, 1);
   }
-  const destTarget = center;
-  const destPos = center.clone().addScaledVector(dir, maxDim * 2.2);
+  return { target: center, position: center.clone().addScaledVector(dir, maxDim * 2.2) };
+}
+
+let flyToken = 0;
+function flyToBox(box, view = null, instant = false) {
+  const pose = landing(box, view);
+  if (!pose) return;
+  if (view) camera.up.set(0, 0, 1);
+  const { target: destTarget, position: destPos } = pose;
   if (instant) {
     flyToken++;
     camera.position.copy(destPos);
@@ -244,7 +281,7 @@ function buildPanel() {
   clear.type = "button";
   clear.className = "edge-panel-all";
   clear.textContent = "Clear";
-  clear.addEventListener("click", () => { activeFind = null; clearOverlay(); setStatus(""); });
+  clear.addEventListener("click", () => { activeFind = null; clearOverlay(); releaseFound(); setStatus(""); });
   buttons.appendChild(go);
   buttons.appendChild(clear);
   panel.appendChild(buttons);
@@ -352,6 +389,7 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
     if (searchMaterials(state.materialCatalog, line).length && !names.includes(line)) names.push(line);
   }
   clearOverlay();
+  if (focus) releaseFound();
   if (!picks.length && !files.length && !names.length && !featureQueries.length) {
     activeFind = null;
     setStatus("nothing recognizable — type a part name, or paste pick text");
@@ -386,8 +424,18 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
     const bodies = materialBodies(query, available);
     return bodies ? { query, names: bodies } : matchNames([query], available)[0];
   });
+  // What each match lit, as points on it and the bodies it lies on: the
+  // parts standing in front of it are hidden from where the camera lands.
+  const targets = [];
+  const litTarget = (lit, bodies = lit.geometry.userData.bodies || []) => ({ points: surfacePoints(lit.geometry), bodies });
+  const spotTarget = (p) => {
+    const gid = faceNearest(p);
+    return { points: [new THREE.Vector3(p.x, p.y, p.z)], bodies: gid >= 0 ? [faceBody(gid)] : [] };
+  };
   if (nameHits.length) {
-    for (const name of new Set(nameHits.flatMap((h) => h.names))) addPartHighlight(name, box);
+    for (const name of new Set(nameHits.flatMap((h) => h.names))) {
+      targets.push({ points: addPartHighlight(name, box), bodies: [name] });
+    }
     status.push(nameStatus(nameHits));
   }
 
@@ -402,6 +450,7 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
       if (mesh.visible === false) continue;
       const record = mesh.userData.features.find(f => f.id === feature.id);
       const { at, lit } = addSurfaceHighlight(featureGeometry(mesh, record), box);
+      targets.push(litTarget(lit, [mesh.name]));
       if (at) labels.push({ at, lit, text: feature.label });
     }
   }
@@ -417,22 +466,26 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
         const e = edges[r.index];
         addEdgeHighlight(e, box);
         at = e.points[Math.floor(e.points.length / 2)];
+        targets.push({ points: [e.points[0], at, e.points[e.points.length - 1]], bodies: [e.solid] });
         matched++;
       } else if (r.type === "face") {
         ({ lit, at } = addFaceHighlight(r.index, box) || {});
+        if (lit) targets.push(litTarget(lit));
         matched++;
       } else if (r.type === "point") {
         addPointHighlight(pick.p, box);
+        targets.push(spotTarget(pick.p));
         at = pick.p;
         matched++;
       } else if (r.type === "face-at") {
         // A point no face comes near still marks its spot, and counts against the readout.
         const gid = faceNearest(pick.p);
         if (gid >= 0) { ({ lit } = addFaceHighlight(gid, box) || {}); matched++; } else addPointHighlight(pick.p, box);
+        targets.push(lit ? litTarget(lit) : spotTarget(pick.p));
         at = pick.p;
       } else if (r.type === "box") {
         const geo = boxHighlightGeometry(pick.lo, pick.hi);
-        if (geo) { ({ lit, at } = addSurfaceHighlight(geo, box)); matched++; }
+        if (geo) { ({ lit, at } = addSurfaceHighlight(geo, box)); targets.push(litTarget(lit)); matched++; }
       }
       if (pick.text && at) labels.push({ at: new THREE.Vector3(at.x, at.y, at.z), lit, text: pick.text });
     }
@@ -440,7 +493,10 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
   }
 
   setStatus(status.filter(Boolean).join(" · "));
-  if (focus) flyToBox(box, view, instant);
+  if (focus) {
+    uncoverFound(targets, landing(box, view)?.position || camera.position);
+    flyToBox(box, view, instant);
+  }
   showLabels(labels);
 }
 
@@ -599,6 +655,7 @@ export function clearPickFind() {
 export function closePickFind() {
   activeFind = null;
   clearPickFind();
+  releaseFound();
   panelOpen = false;
   if (panel) panel.classList.remove("show");
   toggleBtn = null;
