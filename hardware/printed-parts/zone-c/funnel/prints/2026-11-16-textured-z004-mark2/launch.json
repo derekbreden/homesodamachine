@@ -1,0 +1,56 @@
+{
+  "archive": {
+    "gcode_sha256": "77c7b1880071976c4eb31cac7f6ef24797c2702eb12fc93c2ffdb18de034aa41",
+    "name": "2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf",
+    "objects": [
+      "funnel-frame"
+    ],
+    "sha256": "fcfc868675dd8a134efbbccc7e9a270457a1c60c70298c0ba3eec28659edfc1f",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 1315,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-16T17:42:19+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1451241427",
+  "subtask_name": "2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf",
+  "total_layer_num": 230,
+  "previous_printer_task_id": "1448989765",
+  "first_layer_z_trim": {
+    "bed_type": "Textured PEI Plate",
+    "nozzle_side": "left",
+    "nozzle_diameter_mm": 0.4,
+    "requested_above_stock_mm": 0.04,
+    "stock_compensation_mm": -0.02,
+    "emitted_g29_1_mm": [
+      0.0,
+      0.02
+    ],
+    "nominal_first_layer_height_mm": 0.2,
+    "archived_printer_preset_label": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+  },
+  "peer_startup_spacing": {
+    "printer": "H2C",
+    "peer_launch_receipt": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/launch.json",
+    "peer_accepted_at": "2026-11-16T05:08:44+00:00",
+    "seconds_between_acceptances": 45215.0
+  },
+  "postlaunch_reading": {
+    "observed_at": "2026-11-16T17:43:15+00:00",
+    "printer": "Mark2",
+    "gcode_state": "RUNNING",
+    "subtask_name": "2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 230,
+    "print_error": 0,
+    "hms": []
+  }
+}

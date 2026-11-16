@@ -1,0 +1,57 @@
+{
+  "archive": "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf",
+  "archive_sha256": "fcfc868675dd8a134efbbccc7e9a270457a1c60c70298c0ba3eec28659edfc1f",
+  "bead_envelope_plate_mm": [
+    [
+      61.87556,
+      68.32
+    ],
+    [
+      263.57944000000003,
+      255.94744
+    ]
+  ],
+  "bed_border_mm": 20.0,
+  "bed_margins_mm": {
+    "back": 64.05256,
+    "front": 68.32,
+    "left": 61.87556,
+    "right": 61.420559999999966
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.997622257396363,
+      "second_layer_centerline_outside_first_mm": 31.617371173018668,
+      "second_layer_model_bead_area_mm2": 22699.431330125404
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 230,
+  "minimum_bed_margin_mm": 61.420559999999966,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 426850,
+  "support_topology": {},
+  "tie_window_support_crossings": []
+}
