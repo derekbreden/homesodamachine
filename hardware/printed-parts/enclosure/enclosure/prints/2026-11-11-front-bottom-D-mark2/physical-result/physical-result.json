@@ -1,0 +1,28 @@
+{
+  "purpose": "Record Derek's inspection and photos of the front-bottom's textured plate face.",
+  "date": "2026-11-15",
+  "piece": "enclosure-front-bottom",
+  "material_number": "HSM-0078",
+  "printer": "Mark2",
+  "printer_task_id": "1432869919",
+  "print_job": "../print-job.json",
+  "stock_z_slice_check": "stock-z-slice-check.json",
+  "observation": "The entire exterior floor has a clean textured finish. Derek reports no lifting.",
+  "derek": [
+    "that whole surface actually turned out beautifully. There was no lifting, and if you look at it, it's just a very clean surface, with the texture kind of hiding any sort of adhesion variation there, right? Like, so that one turned out great."
+  ],
+  "photos": [
+    {
+      "file": "01-textured-face-and-side-notch.jpg",
+      "shows": "Plate texture across the broad floor and up to the side notch."
+    },
+    {
+      "file": "02-textured-face-and-rounded-corner.jpg",
+      "shows": "Plate texture continuing around the rounded corner above the flutes."
+    },
+    {
+      "file": "03-textured-floor-overall.jpg",
+      "shows": "The full exterior floor and its edges above the side vents."
+    }
+  ]
+}

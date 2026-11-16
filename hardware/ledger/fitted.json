@@ -372,6 +372,13 @@
       "said": "Back to the faucet plate that just finished printing. I've test fed and removed the supports and put everything together, and I'm going to call this good enough. Moving on.",
       "tried": "the printed lever put together with the base, tip, cover and mounting plate from the same plate",
       "record": "hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0078",
+      "date": "2026-11-15",
+      "said": "that whole surface actually turned out beautifully. There was no lifting, and if you look at it, it's just a very clean surface, with the texture kind of hiding any sort of adhesion variation there, right? Like, so that one turned out great.",
+      "tried": "the printed front-bottom in hand, inspecting the textured exterior floor and its edges",
+      "record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/physical-result/physical-result.json"
     }
   ]
 }

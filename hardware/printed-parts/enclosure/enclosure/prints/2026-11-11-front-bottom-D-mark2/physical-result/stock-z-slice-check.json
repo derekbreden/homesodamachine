@@ -1,0 +1,21 @@
+{
+  "purpose": "Read back Bambu's stock textured-plate Z compensation in an offline slice of the front-bottom.",
+  "date": "2026-11-15",
+  "baseline": "../print-job.json",
+  "project_changes": "Replace the project start G-code's plate-compensation block with the installed Bambu block and label the printer settings as stock Z. Slice in place with the cooling hook detached for the native readback.",
+  "preset_source": "Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json",
+  "stock_compensation_block_sha256": "1c9934be97cb26b0b4677158b611d106de8a68424cfdca165ac4980623a9df10",
+  "slicer_version": "02.08.02.61",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.0,
+  "emitted_g29_1_z_mm": [0.0, -0.02],
+  "first_layer": {
+    "nominal_height_mm": 0.2,
+    "features": ["Inner wall", "Outer wall", "Bottom surface"],
+    "motion_commands_match_printed_archive_by_value": true
+  },
+  "cli_project_sha256": "87a5ef247235b03c9a7505d1c71d6fc2af265f0e0d63b45831f5facf23e4f172",
+  "native_archive_sha256": "295e8f794a5154afdc3f3d0f85a07b303cc81ad919fa49957b863513740e4cc6",
+  "gcode_sha256": "e5cae04cc9d31b64234ac3f4e4b6b929809385922f061a9e4d27244ffc5982e4",
+  "status": "offline_slice_only"
+}
