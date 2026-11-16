@@ -60,8 +60,10 @@ notes, merging any links pushed meanwhile. A trail that ends at a commit carryin
 none of them for this line, says so and prints the `link` command that records it.
 A checkout that has never fetched the notes takes them from origin on its first run.
 
-The enclosure's Rust port, `cd432f36f`, carries links for the settings it moved under the
-same name and value from a single hand-written source.
+The Rust ports carry links for the settings they rewrote from a single hand-written
+source: under the same name and value, or under a new name from a line that assigned
+exactly that value. A setting a port computed or introduced has no link until someone
+records one.
 
 Build and install it like the other tools:
 
