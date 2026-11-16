@@ -1,0 +1,271 @@
+{
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "emitted_textured_trim_mm": 0.02,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 84306,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 56204,
+      "features": [],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 64.25,
+      "modifiers": [],
+      "name": "funnel-frame",
+      "object_id": 2,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          64.25,
+          68.65424346923828,
+          0.0
+        ],
+        [
+          260.75,
+          251.34575653076172,
+          55.099998474121094
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        5.150001525878906,
+        27.549999237060547
+      ],
+      "step_sha256": "029a6a8bc0a30cbfe88bb6d87c244f124af72b2d83b7f5c76994e6b997940527",
+      "stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+      "stl_sha256": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768",
+      "support_free_regions": [],
+      "tie_windows": [],
+      "translation_mm": [
+        162.5,
+        160.0,
+        27.549999237060547
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    }
+  ],
+  "pause": null,
+  "piece": "funnel-frame",
+  "plate_border_mm": 20.0,
+  "plate_offset_mm": null,
+  "prepared_utc": "2026-11-16T17:40:17+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.04,
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.3mf",
+      "sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+    }
+  },
+  "profile_sha256": "1be18bdfd75b33efc898b3e5c28a0c1975fc694ef4d94dd88a909472cb96b97f",
+  "project": "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.3mf",
+  "project_sha256": "6bfea434546a9a65478f56ad793b7a08b5960907773d15869698c5c5c13103e8",
+  "requested_z_trim_mm": 0.04,
+  "settings_changes": {
+    "brim_type": {
+      "from": "auto_brim",
+      "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build.",
+      "to": "no_brim"
+    },
+    "brim_width": {
+      "from": "5",
+      "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build.",
+      "to": "0"
+    },
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "reason": "Plate selected on the command line.",
+      "to": "Textured PEI Plate"
+    },
+    "elefant_foot_compensation": {
+      "from": "0.15",
+      "reason": "The 2026-10-05 Mark2 frame recipe (zone-c/funnel/flush-roof-review/mark2-v1/preparation.json), whose article fit the 2026-10-07 build (enclosure/lillium-prototype-2026-10-07/physical-observation.json).",
+      "to": "0"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_object_xy_distance": {
+      "from": "0.4",
+      "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build.",
+      "to": "0.5"
+    },
+    "requested_z_trim_mm": {
+      "from": 0.1,
+      "to": 0.04,
+      "reason": "Derek requests this trim for the Mark2 funnel-frame print."
+    }
+  },
+  "settings_sha256": "af2c4e7f8622401c4e432753d290b8e1c6a574a4162a1e03ce509b9016fcf77d",
+  "show_faces": "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/show-faces.npz",
+  "sliced": true,
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "246b57538390354832ecfaef8f7338bcf88311a83c2aeb7b91104604273be6e1",
+  "submitted": true,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "07fd82641e1994cf2da395ddea885e823112558d12c8d921d025070944653e53",
+    "tools/hsm/print-prep/src/approaches.rs": "5bf7b4ba8fdbf626534a9f95d048f34cd06b15e9b8eb078d498cec468fccbe29",
+    "tools/hsm/print-prep/src/audit.rs": "a00e46498cb0a567a17a67c8ea9e5ede8676ea115f85ef3bbc78de3d4503b43b",
+    "tools/hsm/print-prep/src/base_foundation.rs": "dc54df99d1bbd512b50a7261db9f85d4b43fb6513432ab872146ac4a4acf8edf",
+    "tools/hsm/print-prep/src/cooling.rs": "e56accc63143f90c84cbb2f566664500884cd71201238552b104ee18cfaf6a33",
+    "tools/hsm/print-prep/src/course_field.rs": "bc81cf55189faea828141e3ad56bc43fd5112511ff67dbe8da5e070893990b57",
+    "tools/hsm/print-prep/src/derive.rs": "7d44db839edc83c10961afedd6d9f42f23b8d0d2a61deb7e12ec6b18c528b0c7",
+    "tools/hsm/print-prep/src/faucet.rs": "57af71f4f669e1c392faf0086d7fabbf27236bb35f0f943a7629463d9b6d5ff7",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "4d9723455214bc90329f3c61f858758259a305cca925003ba96314f1c3f7844f",
+    "tools/hsm/print-prep/src/faucet_plate.rs": "5c2255971377893cbb937966d92528d7ed85cf79499e0bca9eaba089c3cd50a8",
+    "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/feed_cap.rs": "e2b3652363fea2dc8436cc373fe125b6d583aaeb8378974e8986cbac88561f18",
+    "tools/hsm/print-prep/src/filled_base.rs": "5e4012e59975694f8d51dabdf9704d160ca44d8c55d34c211d07a8929e6c9cf8",
+    "tools/hsm/print-prep/src/foundation_sequence.rs": "97541500add2abceef652ef7a4e1d9683234a794dc6a44093cce53a1a3374731",
+    "tools/hsm/print-prep/src/gcode.rs": "99ccfe0103f21f646ba16506184b12fd231131a4b1c222117f7e4b1a814c7162",
+    "tools/hsm/print-prep/src/head_map.rs": "f05abcd30e5f7ecd3035e69a0cd2fadd504f0632e4453cb494734ed6f6155853",
+    "tools/hsm/print-prep/src/head_replay.rs": "55c91c184e3e4d73d9b8b15a01baa9cb99a7dd357e31c9336d1ac2a5a40cb0c0",
+    "tools/hsm/print-prep/src/ids.rs": "ecd56bf93b5c1f08b1b8d6f36d983d5a18e1b123c138f5a9884b7fe2f786fbec",
+    "tools/hsm/print-prep/src/lib.rs": "f76248419f6bac23ca78509af03345f203cbcc15be0fff36f8ec249d6b100d52",
+    "tools/hsm/print-prep/src/mesh.rs": "47a9d52e10d0c8cae37eebe42f224480dba51fbe8f743e0ddb8f3d993ccdba65",
+    "tools/hsm/print-prep/src/motion.rs": "27fde46e9a2956e24be849c723dd2b81a922f15dd960362607e959e4b4b47bde",
+    "tools/hsm/print-prep/src/npz.rs": "23c7d5acbe636050d8e095f83943186709027f75b7e01623652c8d235baead21",
+    "tools/hsm/print-prep/src/plate_rings.rs": "097d6b48ead23ae4c40f59c880cf14bd3d617e9244aac3a4dcc05f9a2b50cca2",
+    "tools/hsm/print-prep/src/plate_sequence.rs": "054606df22b5ceb4d7fb922742019854a390f960e1b72671b2615b31cc4eb1a4",
+    "tools/hsm/print-prep/src/preset.rs": "8897253423900e99f4df09890a747ce633abc4a1c2b3ab73a6119183d3444770",
+    "tools/hsm/print-prep/src/profile.rs": "5287bf9ed587501e6bc5d0b89d70e86b79293121156f9126ba921fca3120d531",
+    "tools/hsm/print-prep/src/project.rs": "4fcd588d4704c42a82eda45074181419ea47a2b6918131729a3ad952991f54f9",
+    "tools/hsm/print-prep/src/refresh.rs": "2981218c8a9b5e5ff6ad3500644b7d34ee8705e2cb648e1229d39dccbdb8946c",
+    "tools/hsm/print-prep/src/review.rs": "6b38f9f5fca116bf38a78ff125253a4034b178021a1e586a162ece74ef0608ed",
+    "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
+    "tools/hsm/print-prep/src/slice.rs": "6edbd05ee86cc7d5ab70b28a2f353ee482ee129eb3f70d7a470b72de8eab0c6a",
+    "tools/hsm/print-prep/src/sloped_courses.rs": "4d0bc66757be4465463b837bb151a0cc2524890173637017a1cbbafad217e0f6",
+    "tools/hsm/print-prep/src/stretch_cooling.rs": "2e68af6908e25fa12b29df744991546e86ed7102a6b61b317577fde59ac0c26b",
+    "tools/hsm/print-prep/src/tip_audit.rs": "2957f4a44e8d73f4497b2f6aaf874c2354a017e5ffd5142ff6ffcf20ad0c2d09",
+    "tools/hsm/print-prep/src/tip_courses.rs": "98f53ebfa27d80347db52c22a261585b29abc14b9a9f21b8754b7a0bceae173c",
+    "tools/hsm/print-prep/src/tip_foundation.rs": "4d9b5630a162877506c0df5b6d4cabcbffa8734a32c20db95e89148973e84f4f",
+    "tools/hsm/print-prep/src/tip_supports.rs": "d9c7bd831f4d23324b76131bcba1c3af3c9f392696b5bb1721bcfdfcaf6a6216",
+    "tools/hsm/print-prep/src/tip_warp.rs": "675aae67e5d36ddfdf6c52a572e09f523ba6eca5956a9903ad5c03396f912a23",
+    "tools/hsm/print-prep/src/trial_archive.rs": "0cc8dd5c1a459619ea652a46d216e94a2b8a24caf668e5c2d914b0070ac5271e",
+    "tools/hsm/print-prep/src/xml.rs": "6223880bf228c5c0092df6b2f3728fd792bff174ac3ef243e7d81d659f223407"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "archive": "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf",
+  "archive_sha256": "fcfc868675dd8a134efbbccc7e9a270457a1c60c70298c0ba3eec28659edfc1f",
+  "gcode_sha256": "77c7b1880071976c4eb31cac7f6ef24797c2702eb12fc93c2ffdb18de034aa41",
+  "estimated_seconds": 56661.540679096535,
+  "slicer_warnings": [],
+  "launch_receipt": "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/launch.json"
+}
