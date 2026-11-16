@@ -62,7 +62,7 @@
   },
   "HSM-0021": {
     "title": "Cold-core bottom cap · Mark2 print plan",
-    "sha256": "abd99b0761906976df165eeb96c90f4eb6f05cbbd20d65fae2456bd5536aedb3",
+    "sha256": "d15a88033ac224d9266a04fffac909ae1b6069b8841a863e482413974f3b90b3",
     "slice": "2026-11-10-foam-cap-bottom-mark2-7965d13e.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
@@ -318,7 +318,7 @@
   },
   "HSM-0041": {
     "title": "Compressor thermal-cutoff clamp · Mark1 print plan",
-    "sha256": "5b3736a3c71b1a7b450fa06ebb940281e9d8bf67c46ded29276516ec4dd3ba3c",
+    "sha256": "3161e32db5146f09eee52835a9c7ecf4d6f9f4bc7f7977b321f48c074a567ba8",
     "slice": "2026-11-10-small-petg-mark1-979ebfaa.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
@@ -627,7 +627,7 @@
     "archive_sha256": "5701dcb1900465dd986b4315c6080f9785a2756f27fdb13ad9d300358fc8f69f",
     "gcode_sha256": "a1c504ee2465a5d5cd6f0edc9b0b47520c4db9a92be70e4f40c2c12a81454095",
     "kind": "plan",
-    "sha256": "e4684e042d88ddb29bf703c2e529fa340bb57cbb573d5491737be0064d2cc666",
+    "sha256": "a687b0dac07c5471bc64bef1a3592aa77f6ca54fe4d477306045f7c5279ae0cb",
     "slice": "2026-11-10-elbow-cradle-mark1-81717d4a.gcode.3mf",
     "plate": 1,
     "layers": 112,
@@ -1758,7 +1758,7 @@
   },
   "HSM-0454": {
     "title": "Reservoir B fill guide · Mark2 print plan",
-    "sha256": "192ab59378b3c50e9adda923f1f7f45ef585790ab96743cdab9bbc1633817535",
+    "sha256": "1fec2cee67911733a394d15a40734f4f7cd7987db1d7aab90df99cf452088601",
     "slice": "2026-11-10-reservoir-b-fill-guide-mark2-fc1e9a78.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
