@@ -158,7 +158,9 @@ fn repo_path(root: &str, given: &str) -> Result<String> {
 }
 
 fn blame(root: &str, rev: Option<&str>, path: &str, range: &str) -> Result<Blame> {
-    let mut args = vec!["blame", "--porcelain", "-L", range];
+    // -C -C -M: lines moved or copied unchanged from another file count as that file's, so only a
+    // rewrite needs a recorded link.
+    let mut args = vec!["blame", "--porcelain", "-C", "-C", "-M", "-L", range];
     if let Some(rev) = rev {
         args.push(rev);
     }
