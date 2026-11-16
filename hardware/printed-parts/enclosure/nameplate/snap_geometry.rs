@@ -117,7 +117,13 @@ pub fn snap_plate_cuts(n: &Snap) -> Result<Solid> {
 }
 pub fn snap_plate_blank(n: &Snap) -> Result<Solid> {
     let profile = Profile::new(Loop::rounded_rect(v2(0., 0.), n.width, n.height, n.corner)?);
-    corbelled_lower_edge(profile, n.thick, n.thick)?.cut(&snap_plate_cuts(n)?)
+    // Keep a face land at the end of the bevel, with running air normal to the corbel.
+    let normal_gap = n.slip * CORBEL_RISE_PER_DEPTH.hypot(1.);
+    let land = (n.slip + n.supported - normal_gap) / CORBEL_RISE_PER_DEPTH;
+    let bevel_end = n.thick - land;
+    let backing = corbelled_lower_edge(profile.clone(), bevel_end, bevel_end)?;
+    let face = xz(profile, bevel_end, n.thick)?;
+    backing.union(&face)?.cut(&snap_plate_cuts(n)?)
 }
 pub fn snap_receiver_stock(n: &Snap) -> Result<Solid> {
     let (bottom, top) = (n.frame_bottom, n.frame_top);

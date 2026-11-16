@@ -174,7 +174,7 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          -2.5,
+          -3.4,
           0.0
         ],
         "reason": "Balance the bead margins of the ceiling-down enclosure and its bed-rooted support trees."
