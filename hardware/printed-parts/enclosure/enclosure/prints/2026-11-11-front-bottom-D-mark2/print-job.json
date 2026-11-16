@@ -29,6 +29,7 @@
   "slice_review": "review.json",
   "support_contact_review": "support-contact-review.json",
   "support_topology": "support-audit-1901.json",
+  "physical_result": "physical-result/physical-result.json",
   "launch": {
     "submitted": true,
     "attempted": true,
