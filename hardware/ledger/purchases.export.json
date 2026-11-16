@@ -1825,7 +1825,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-15",
+  "as_of": "2026-11-16",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -4540,9 +4540,12 @@
       ],
       "allocation_status": "all_project",
       "amount_minor": 8196,
-      "confirmation": "expected",
+      "confirmation": "confirmed",
       "currency": "USD",
-      "event_date": null,
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
       "event_id": "evt-19293e4645d84cd08d555c566e2820d7",
       "event_type": "charge",
       "order_ids": [
@@ -4552,11 +4555,12 @@
         "pur-1c4dede86ac6420db23a61fd3b7eabb8"
       ],
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
       "unallocated_to_purchase_minor": 0,
       "vendor": "Bambu Lab",
-      "verified_at": "2026-11-15"
+      "verified_at": "2026-11-16"
     },
     {
       "allocation_ids": [
@@ -9903,7 +9907,7 @@
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
       "gap_id": "gap-083a0e4705eb4c0b8438f31067c1573e",
-      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Final invoice and credit origin remain unverified; the recorded procurement value is the net order amount after applied credit.",
+      "missing_fact": "Actual delivery and credit origin remain unverified. The invoice labels November 15 as Delivery Date, while the current order is Processing. Final net amount and completed payment date are confirmed by the invoice.",
       "order_ids": [
         "bambu:us798331608108187648"
       ],
@@ -9911,10 +9915,12 @@
         "pur-1c4dede86ac6420db23a61fd3b7eabb8"
       ],
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
       "sources_checked": [
-        "Exact order confirmation and signed-in merchant order record"
+        "Exact order confirmation and signed-in merchant order record",
+        "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026"
       ]
     },
     {
@@ -10353,7 +10359,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:9fe669e83f70f5f0639d00bad4e7281f1fd15868f85f121770aafd6fdffb876d",
+  "input_fingerprint": "sha256:7eaf00436ae2096a529fd9472f400d91891563991176b09e9f6cae82a6eb5208",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -23565,7 +23571,7 @@
     },
     {
       "allocation_status": "all_project",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "amount_minor": 8196,
       "contributes": true,
       "currency": "USD",
@@ -23575,9 +23581,12 @@
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
       "fulfillment": "ON-ORDER",
-      "invoice_date": null,
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
       "ledger_purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8",
-      "merchant_charge_allocated_minor": 0,
+      "merchant_charge_allocated_minor": 8196,
       "merchant_refund_allocated_minor": 0,
       "order_date": {
         "precision": "day",
@@ -23586,7 +23595,7 @@
       "order_ids": [
         "bambu:us798331608108187648"
       ],
-      "payment_evidence": "unknown",
+      "payment_evidence": "merchant_charge",
       "price_basis": "row_total",
       "purchase_id": "pur-1c4dede86ac6420db23a61fd3b7eabb8",
       "purpose": "equipment_tooling",
@@ -23602,7 +23611,8 @@
       "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
       "service_period": null,
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -67130,6 +67140,29 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "document_type": "paid_invoice",
+      "invoice_reference": "BBLUS2616KM839F11",
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "note": "Invoice for order us798331608108187648 states Payment Date November 15, 2026 and Net payment USD 81.96. Two H2C Engineering Plates have USD 87.98 subtotal, USD 11.56 applied credit, USD 5.54 tax and zero shipping. The invoice also labels November 15 as Delivery Date, but the current order remains Processing; actual fulfillment is not established. Credit origin remains unverified.",
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "reference": "BBLUS2616KM839F11",
+      "source_id": "src-b0cb6517e7794385aad65450a6e01b2b",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-16"
+    },
+    {
       "document_date": null,
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
@@ -70264,7 +70297,6 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
-        "evt-19293e4645d84cd08d555c566e2820d7",
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
@@ -70559,13 +70591,14 @@
         },
         {
           "authorizations_minor": 0,
-          "charges_minor": 95364,
+          "charges_minor": 103560,
           "currency": "USD",
           "event_ids": [
             "evt-03528b8bbe2f47c39bee9b7de9b837c3",
             "evt-0daeac8a24434db6abdfdeb3d8dc4a57",
             "evt-1192b2180d784a0cb3a1c85da3946034",
             "evt-173ae81452be441989c194ea73607128",
+            "evt-19293e4645d84cd08d555c566e2820d7",
             "evt-212f0cc5453646209e86acf44a509e60",
             "evt-44d3b6c0a264492589465271e6914753",
             "evt-46ab695dde87410681a27f2d7fd8a499",
@@ -70585,7 +70618,7 @@
           ],
           "evidence_scope": "retrieved_records_only",
           "month": "2026-11",
-          "net_minor": 95364,
+          "net_minor": 103560,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
@@ -70608,9 +70641,9 @@
       "totals": [
         {
           "authorizations_minor": 0,
-          "charges_minor": 2596725,
+          "charges_minor": 2604921,
           "currency": "USD",
-          "net_minor": 2596725,
+          "net_minor": 2604921,
           "noncash_credits_minor": 0,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
@@ -70625,7 +70658,6 @@
             "evt-0447af18f1f34778b9cd0f9facee2d40",
             "evt-0dd1678555e5406590e6b25b16d55d75",
             "evt-1399a1a835ce4be3a489628c06225b33",
-            "evt-19293e4645d84cd08d555c566e2820d7",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
             "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
@@ -71371,9 +71403,9 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 53526,
+          "estimate_minor": 45330,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 68812,
+          "final_vendor_amount_minor": 77008,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
@@ -71463,8 +71495,8 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 271699,
-          "final_vendor_amount_minor": 2905283,
+          "estimate_minor": 263503,
+          "final_vendor_amount_minor": 2913479,
           "legacy_unverified_minor": 1898308,
           "total_minor": 5075290
         }
@@ -71630,11 +71662,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 271699,
+          "estimated_purchase_minor": 263503,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2485126,
+          "purchases_without_merchant_charge_minor": 2476930,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -71647,7 +71679,6 @@
       "estimated_purchase_ids": [
         "pur-0504233f1bc64d7cbd4faa23bf63edd9",
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
-        "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-2ad02a3c76fc4de6b57a9424c7892858",
         "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-3ce173932d6c45f184bcd60237a2c790",
@@ -72325,7 +72356,6 @@
         "pur-1a921c7df02b48cca8503560f61648d6",
         "pur-1af507c69de4482da0d7b9c1ecc99b52",
         "pur-1b7bb6a7d30446bca9cb2b15f9ab9d21",
-        "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-1cd523f02fed4209ad9b4bdfb2f73f68",
         "pur-1d09a9a1ecd74b74825b2ec81c59b0a4",
         "pur-1d1f4567c6c34e248390df7f295564d0",
@@ -72794,7 +72824,6 @@
         "evt-0447af18f1f34778b9cd0f9facee2d40",
         "evt-0dd1678555e5406590e6b25b16d55d75",
         "evt-1399a1a835ce4be3a489628c06225b33",
-        "evt-19293e4645d84cd08d555c566e2820d7",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
