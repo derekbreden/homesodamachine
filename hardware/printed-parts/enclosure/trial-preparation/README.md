@@ -92,8 +92,9 @@ the model section. Solid-host coverage measures the interior beyond the local
 bead radius; the outline coverage remains in the reading. Layer-height coverage
 uses the project's declared bed layer and preserves feature tags across layers.
 
-Each printer's Z trim in `pieces.json` goes into the start G-code's plate compensation,
-unless a piece states its own. The `petgf-cooling` program
+Each printer's Z trim in `pieces.json` for the plate a piece prints on, Textured PEI or the
+Engineering Plate, goes into the start G-code's plate compensation, unless a piece states
+its own. The `petgf-cooling` program
 ([`petgf_cooling.rs`](../../cadlib/petgf_cooling.rs)) applies the localized cooling to PET-GF
 slots. Black PET-GF on the left 0.4 mm nozzle prints model, support and interface on the
 enclosure pieces. The solid-host modifiers come from
@@ -111,7 +112,7 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Tree(auto)/Default; short rail trees rooted on their cavity floors |
-| `back-top` | Mark2, left 0.4 | PET-GF black | Ceiling-down, rear flutes clear of the bed; additive roof-edge transition; local solid catch and rail bands | Manual Tree Slim at accessible contacts, removable nameplate panel and cavity-floor rail caps; clear receiver bridges, passages and sockets |
+| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on the glued Engineering Plate, rear flutes clear of the bed; additive roof-edge transition; local solid meter roof and rail bands | Manual Tree Slim at accessible contacts, reachable receiver catches and the inlet's pocket and passage, removable nameplate panel and cavity-floor rail caps; corbelled catches, fitted rooms, sockets and pilots clear |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Saved plate offset and automatic-tree branch angle |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Lower retainer on the Y-minus end | Classic perimeters, solid screw seats and bridged screw openings |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | Nonplanar regulator contact, bridged meter shoulder |

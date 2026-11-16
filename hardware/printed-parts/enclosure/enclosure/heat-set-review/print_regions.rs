@@ -217,9 +217,9 @@ fn main() -> Result<()> {
     // funnel frame's receivers.
     let features = read(BACK_TOP_FEATURES)?;
     wall_hosts(&mut regions, &features, &b.outer)?;
-    let inlet = features["support_free_regions"].as_array().into_iter().flatten()
-        .find(|r| r["name"] == "Internal C14 mount and cord passage").context("the back-top records no C14 tunnel")?;
-    regions.add("back-top", "C14 internal insert tunnel and wall roots", bounds6(&inlet["bounds_source_mm"])?);
+    let inlet = &features["wall_hosts"]["c14_tunnel_mm"];
+    regions.add("back-top", "C14 internal insert tunnel and wall roots",
+                bounds6(inlet).context("the back-top records no C14 tunnel; rebuild enclosure-back-top")?);
     let nameplate = &read(NAMEPLATE)?["snap"];
     let plate = &read(ABOVE_CORE)?["rear_identification"]["nameplate"];
     let number = |v: &Value, key: &str| v[key].as_f64().with_context(|| format!("no {key}"));

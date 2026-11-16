@@ -55,10 +55,21 @@ reports tight hardware fits, with the ASSE body seating as the exception. The
 [ASSE body cap](../../../print-tests/asse-body-seating/README.md) carries its local seating allowance.
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
-height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
-the water regulator. Each rear cap has the same single planar lead-in ending at a
+height, and the Pisco's east leaf is shorter, rooted above the cut that clears
+the meter's aft shoulder corbel. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
+the water regulator. Each rear cap has the same planar lead-in ending at a
 pointed free edge above a solid nose land. Its matching receiver ceiling clears
-the complete point. All retaining noses are solid. The rear receiver bases are continuous,
+the complete point. All retaining noses are solid. The ASSE cap's east wing and
+both Pisco wings hook over corbels, because no screwdriver reaches those receiver
+pockets to clear support from a flat catch. Each of those hooks' catch faces
+climbs from the ledge's edge to its nose at the corbel's slope, the catch
+clearance above the corbel, and its lead-in keeps its slope across the ledge's
+reach before meeting the same point. A pull spreads those three wings, so they
+lift off more easily than the flat hooks the other wings keep. The meter
+receiver's aft shoulder corbel climbs the east flank under the Pisco cap, so the
+cap's east lower corner is cut back along that slope over the cap's aft run, far
+enough to clear it lowered and slid fore on its service path, and its east wall
+roots higher, shorter and stiffer, so it stands whole above that cut. The rear receiver bases are continuous,
 with no enclosed screwdriver tunnels. Release the leaves from their exposed
 edges with the surrounding service room open. The front paired-pump cartridge
 uses its separate open flank pry windows. The nominal catch

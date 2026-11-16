@@ -57,21 +57,16 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     use hsm_enclosure_solid::pieces::digest;
     use serde_json::json;
     let mut regions = vec![];
-    let receivers = supports::bridge_regions()
-        .into_iter()
-        .map(|(name, bounds, span)| (name, bounds, span, [0.0, 1.0, 0.0]))
-        .chain(supports::side_support_regions());
-    for (name, bounds, span, axis) in receivers {
-        let mut blocking = bounds;
-        for k in 0..3 {
-            blocking[2 * k] -= shell::WALL + catalog::running();
-            blocking[2 * k + 1] += shell::WALL + catalog::running();
+    for interior in supports::interiors() {
+        let mut blocking = interior.bounds;
+        for (k, grows) in interior.grows.into_iter().enumerate() {
+            if grows {
+                blocking[k] += if k % 2 == 0 { -1.0 } else { 1.0 } * (shell::WALL + catalog::running());
+            }
         }
         blocking[5] = b.outer[5];
-        regions.push(json!({"name": name, "bounds_source_mm": bounds, "bridge_span_mm": span,
-            "blocking_bounds_source_mm": blocking,
-            "bridge_axis_source": axis,
-            "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."}));
+        regions.push(json!({"name": interior.name, "bounds_source_mm": interior.bounds,
+            "blocking_bounds_source_mm": blocking, "reason": interior.reason}));
     }
     for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
         let mut bounds = bounds;
@@ -92,12 +87,17 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bounds_source_mm":stop,"bridge_print_axis_source":[1,0,0],
             "reason":"The stop bridges between its complete side rails."}));
     }
-    for (name, bounds, span, axis) in supports::catch_bridges() {
-        bridges.push(json!({"name":name,"bounds_source_mm":bounds,
-            "bridge_span_mm":span,"bridge_axis_source":axis,"bridge_print_axis_source":axis,
-            "reason":"The catch roads bridge along the pocket between its solid end shoulders."}));
-    }
+    let (roof, span) = supports::meter_roof_bridge();
+    bridges.push(json!({"name":"Flow meter receiver roof","bounds_source_mm":roof,
+        "bridge_span_mm":span,"bridge_axis_source":[0,1,0],"bridge_print_axis_source":[0,1,0],
+        "reason":"The roof roads bridge along the cap pocket between its end shoulders."}));
     let mut targets = vec![];
+    for (name, bounds) in supports::catch_targets() {
+        targets.push(json!({"name":name,"bounds_source_mm":bounds,
+            "reason":"Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."}));
+    }
+    targets.push(json!({"name":"Accessible flow meter fore shoulder","bounds_source_mm":supports::meter_shoulder_target(),
+        "reason":"Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."}));
     let mut contact_plan = plan::Graph::new();
     let silhouette = contact_plan.silhouette(b.outer);
     let (_, upper) = hsm_enclosure_quadrants::ystacks::y_stack(&b.inner);
@@ -161,15 +161,14 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     valve_underside[5] += catalog::running();
     targets.push(json!({"name":"Accessible soda valve seat underside","bounds_source_mm":valve_underside,
         "reason":"Support the cantilevered seat from its first underside course, below the protected valve sockets."}));
-    for (name, mut bounds) in routes::underside_support_regions(quadrant::Quadrant::BACK_TOP) {
-        let reason = if name == "Accessible cable hook 1 land 5" {
-            bounds[3] = bounds[3].min(325.0);
-            "Support the open side of the cable hook and keep the vertical path fore of the inlet-valve socket."
-        } else {
-            "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
-        };
+    // A cable hook's beak land overhangs its arm too little to need support; front-bottom prints
+    // the same hook section in the same pose without any. Only the tube seat takes a target.
+    for (name, bounds) in routes::underside_support_regions(quadrant::Quadrant::BACK_TOP)
+        .into_iter()
+        .filter(|(name, _)| !name.starts_with("Accessible cable hook"))
+    {
         targets.push(json!({"name":name,"bounds_source_mm":bounds,
-            "reason":reason}));
+            "reason":"Support the accessible outer contact land while leaving the fitted bore roof outside the target."}));
     }
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(
         &b.inner,
@@ -202,35 +201,16 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     }
     let wall = &layout::layout().rear_wall;
     let panel = &wall.interior_panel_relief;
-    let mut inlet = rear::c14_stock_bounds();
-    inlet[2] -= shell::WALL;
-    let mut inlet_blocking = inlet;
-    inlet_blocking[3] = b.outer[3] + 1.0;
-    regions.push(json!({"name":"Internal C14 mount and cord passage",
-        "bounds_source_mm":inlet,"blocking_bounds_source_mm":inlet_blocking,
-        "reason":"The internal flange pocket and cord passage bridge across the tunnel sides; the blind pilots remain clear."}));
-    bridges.push(json!({"name":"Internal C14 passage",
-        "bounds_source_mm":inlet,"bridge_print_axis_source":[1,0,0],
-        "reason":"Bridge the cord passage and internal pocket between the tunnel side walls."}));
-    let cord = &wall.dry_openings.c14;
-    let [cx, cy, cz] = layout::layout().parts.c14_inlet.translation_mm;
-    let (hw, hh, radius) = (cord.cord_access_width_mm/2.0, cord.cord_access_height_mm/2.0, cord.cord_access_radius_mm);
-    let (bottom, top) = (cz-hh-catalog::supported(), cz+hh);
-    let profile: Vec<_> = [
-        ([cx+hw-radius, top-radius], 0.0),
-        ([cx-hw+radius, top-radius], std::f64::consts::FRAC_PI_2),
-        ([cx-hw+radius, bottom+radius], std::f64::consts::PI),
-        ([cx+hw-radius, bottom+radius], 3.0*std::f64::consts::FRAC_PI_2),
-    ].into_iter().flat_map(|(centre, start)| (0..=15).map(move |i| {
-        let angle = start+std::f64::consts::FRAC_PI_2*i as f64/15.0;
-        [centre[0]+radius*angle.cos(), centre[1]+radius*angle.sin()]
-    })).collect();
-    let cord_floor = cy+rear_wall::c14::RIM_PROUD;
-    regions.push(json!({"name":"C14 cord opening through rear wall",
-        "bounds_source_mm":[cx-hw,cx+hw,cord_floor,wall.rear_wall.ymax,bottom,top],
-        "blocking_bounds_source_mm":[cx-hw,cx+hw,cord_floor,b.exterior_bounds()[3],bottom,top],
-        "void_source":{"kind":"prism_y","profile_xz_mm":profile,"span_y_mm":[cord_floor,wall.rear_wall.ymax]},
-        "reason":"Keep the complete cord passage through the rear wall core clear of supports."}));
+    for (name, bounds) in rear::c14_support_targets() {
+        targets.push(json!({"name":name,"bounds_source_mm":bounds,
+            "reason":"Support the inlet's roof through its open flange pocket and cord passage."}));
+    }
+    for (index, (start, end, radius)) in rear::c14_pilots().into_iter().enumerate() {
+        regions.push(json!({"name":format!("C14 insert pilot {}",index+1),
+            "bounds_source_mm":[start[0]-radius,start[0]+radius,start[1],end[1],start[2]-radius,start[2]+radius],
+            "void_source":{"kind":"cylinder","start_mm":start,"end_mm":end,"radius_mm":radius},
+            "reason":"Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support."}));
+    }
     let roof_angle = shell::shell().teardrop_roof_angle.to_radians();
     for port in &wall.wet_ports {
         let r = port.bore_diameter_mm / 2.0;
@@ -294,7 +274,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "void_source": hsm_enclosure_quadrants::vent::mouth_void(&b.inner, *station),
             "reason": "The cap root and end-wall backing keep supports out of the clear passage."}));
     }
-    // The hosted parts' bosses, for the print regions that fill them solid.
+    // The hosted parts' bosses and the inlet's tunnel, for the print regions that fill them solid.
     let mounted = rear::wall_mounts();
     for (part, mounts) in mounted.iter().filter(|(part,_)| *part != "psu") {
         for (index, mount) in mounts.iter().enumerate() {
@@ -310,12 +290,13 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     let hosts: Vec<_> = mounted.into_iter().map(|(part, mounts)| json!({"part": part,
         "stations": mounts.iter().map(|m| json!({"point_mm": m.point, "insert_face_mm": m.face, "root_mm": m.root,
             "axis": m.axis, "threaded": m.threaded, "pilot_radius_mm": m.pilot_radius, "pilot_depth_mm": m.pilot_depth})).collect::<Vec<_>>()})).collect();
+    let mut tunnel = rear::c14_stock_bounds();
+    tunnel[2] -= shell::WALL;
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
-        "bridge_regions":bridges,"support_regions":targets,"removable_support_trees":supports::meter_support_trees()?,
-        "removable_support_stock":support_stock,
+        "bridge_regions":bridges,"support_regions":targets,"removable_support_stock":support_stock,
         "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF,
-                       "bar_bounds_mm": bars, "parts": hosts}});
+                       "bar_bounds_mm": bars, "parts": hosts, "c14_tunnel_mm": tunnel}});
     keep(
         &dir.join("enclosure-back-top.print-features.json"),
         &serde_json::to_vec_pretty(&record)?,

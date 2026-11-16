@@ -144,16 +144,44 @@ fn c14_cutters(g: &mut Graph, rear_face: f64) -> Vec<Shape> {
     );
     let cord = supported_cut(g, cord, -1.0);
     let mut cuts = vec![flange, cord];
-    for dx in [-plan.mount_pitch_mm / 2.0, plan.mount_pitch_mm / 2.0] {
-        cuts.push(g.ycyl(
-            PILOT_RADIUS,
-            x + dx,
-            z,
-            floor - 0.01,
-            floor + c14::PILOT_DEPTH,
-        ));
+    for (start, end, radius) in c14_pilots() {
+        cuts.push(g.ycyl(radius, start[0], start[2], start[1], end[1]));
     }
     cuts
+}
+
+/// The inlet's blind insert pilots: each one's mouth on the pocket floor, its end in the wall,
+/// and its radius.
+pub fn c14_pilots() -> Vec<(P3, P3, f64)> {
+    let plan = &layout().rear_wall.dry_openings.c14;
+    let [x, y, z] = layout().parts.c14_inlet.translation_mm;
+    let floor = y + c14::RIM_PROUD;
+    [-plan.mount_pitch_mm / 2.0, plan.mount_pitch_mm / 2.0]
+        .map(|dx| ([x + dx, floor - 0.01, z], [x + dx, floor + c14::PILOT_DEPTH, z], PILOT_RADIUS))
+        .into()
+}
+
+/// The inlet's faces that print down in the ceiling-down print and stand on removable support:
+/// the cord passage's roof through the rear wall, and the flange pocket's, up to where the ears
+/// turn steeper than the shell's teardrop roof. Both stop short of the pocket floor the blind
+/// pilots open on.
+pub fn c14_support_targets() -> Vec<(&'static str, Bounds)> {
+    let plan = &layout().rear_wall.dry_openings.c14;
+    let [x, y, z] = layout().parts.c14_inlet.translation_mm;
+    let floor = y + c14::RIM_PROUD;
+    let (clearance, a) = (plan.profile_clearance_mm, running());
+    let passage = z - plan.cord_access_height_mm / 2.0 - supported();
+    let pocket = z - c14::POCKET_H / 2.0 - clearance - supported();
+    let half = c14::FLANGE_W / 2.0 + clearance;
+    let ear = c14::FLANGE_W / 2.0 - c14::EAR_CX + clearance;
+    let steep = z - ear * shell().teardrop_roof_angle.to_radians().cos();
+    let width = plan.cord_access_width_mm / 2.0;
+    vec![
+        ("Accessible C14 cord passage roof",
+         [x - width, x + width, floor, layout().rear_wall.rear_wall.ymax, passage - a, passage + a]),
+        ("Accessible C14 flange pocket roof",
+         [x - half, x + half, floor - plan.flange_pocket_depth_mm, floor - a, pocket - a, steep]),
+    ]
 }
 
 /// The flange outline's right-top landmarks: a long flat, the knuckle round at its end, the
