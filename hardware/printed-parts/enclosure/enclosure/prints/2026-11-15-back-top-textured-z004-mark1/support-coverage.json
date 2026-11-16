@@ -1,0 +1,621 @@
+{
+  "scope": "Interface extrusion and first model-course overlap measured in the submitted G-code.",
+  "gcode_sha256": "8afd446466bbbb9444c0650466b223a9e432bfb947717df639947657e05c583d",
+  "sampling_mm": 0.065,
+  "native_checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "excluded_support_counts_by_region": {
+    "ASSE receiver": 0,
+    "C14 insert pilot 1": 0,
+    "C14 insert pilot 2": 0,
+    "Covered bulkhead at X28.7999988712316 Z264": 0,
+    "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+    "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+    "Covered bulkhead at X76.5 Z264": 0,
+    "Covered bulkhead at X76.5 Z294.2": 0,
+    "Covered bulkhead at X76.5 Z331.2": 0,
+    "East funnel frame insert pilot": 0,
+    "Flow meter lower cap pocket": 0,
+    "Identification channel 1": 0,
+    "Identification channel 2": 0,
+    "Inlet valve post socket -1/-1": 0,
+    "Inlet valve post socket -1/1": 0,
+    "Inlet valve post socket 1/-1": 0,
+    "Inlet valve post socket 1/1": 0,
+    "PRV vent mouth": 0,
+    "Pisco receiver": 0,
+    "Soda valve post socket -1/-1": 0,
+    "Soda valve post socket -1/1": 0,
+    "Soda valve post socket 1/-1": 0,
+    "Soda valve post socket 1/1": 0,
+    "Water regulator receiver": 0,
+    "West funnel frame insert pilot": 0,
+    "wago-g insertion pocket": 0,
+    "wago-h insertion pocket": 0,
+    "wago-n insertion pocket": 0
+  },
+  "support_topology": {
+    "bed_rooted_bodies": 4,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 21,
+    "interface_islands": null,
+    "model_rooted_bodies": 11,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": 0.0,
+    "support_bodies": 15
+  },
+  "meter_trees": [
+    {
+      "base_z_mm": 52.421,
+      "bbox_cad_xyz_mm": [
+        80.8,
+        383.625,
+        263.84,
+        96.8,
+        430.425,
+        302.579
+      ],
+      "bbox_xy_mm": [
+        206.4,
+        240.8,
+        253.2,
+        256.8
+      ],
+      "first_interface_z_mm": 85.322,
+      "id": "tree-10",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-19",
+        "interface-21"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 32.901,
+      "top_z_mm": 91.16
+    },
+    {
+      "base_z_mm": 6.889,
+      "bbox_cad_xyz_mm": [
+        82.0,
+        383.625,
+        307.28,
+        97.6,
+        433.225,
+        348.111
+      ],
+      "bbox_xy_mm": [
+        206.4,
+        242.0,
+        256.0,
+        257.6
+      ],
+      "first_interface_z_mm": 41.18,
+      "id": "tree-11",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-16",
+        "interface-17",
+        "interface-18"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 34.291,
+      "top_z_mm": 47.72
+    }
+  ],
+  "targets": {
+    "Accessible ASSE west catch": {
+      "plate_box_mm": [
+        218.978,
+        261.143,
+        166.152,
+        169.002,
+        11.7,
+        12.2
+      ],
+      "interface_length_by_z_mm": {
+        "11.192": 181.6,
+        "11.456": 165.4,
+        "11.72": 181.4
+      }
+    },
+    "Accessible water regulator fore catch": {
+      "plate_box_mm": [
+        111.879,
+        114.729,
+        104.426,
+        140.926,
+        14.935,
+        15.435
+      ],
+      "interface_length_by_z_mm": {
+        "14.3164": 156.4,
+        "14.5782": 142.6,
+        "14.84": 156.2
+      }
+    },
+    "Accessible water regulator aft catch": {
+      "plate_box_mm": [
+        146.135,
+        148.985,
+        104.426,
+        140.926,
+        14.935,
+        15.435
+      ],
+      "interface_length_by_z_mm": {
+        "14.3164": 156.4,
+        "14.5782": 142.7,
+        "14.84": 156.2
+      }
+    },
+    "Accessible flow meter fore shoulder": {
+      "plate_box_mm": [
+        207.534,
+        218.034,
+        243.05,
+        258.5,
+        42.3,
+        42.8
+      ],
+      "interface_length_by_z_mm": {
+        "41.72": 292.8,
+        "41.96": 286.0,
+        "42.2": 280.9
+      }
+    },
+    "Accessible flow meter front lip": {
+      "plate_box_mm": [
+        218.284,
+        242.871,
+        243.05,
+        248.2,
+        44.8,
+        45.3
+      ],
+      "interface_length_by_z_mm": {
+        "44.3067": 235.2,
+        "44.5733": 242.9,
+        "44.84": 235.2
+      },
+      "model_layers": {
+        "45.32": {
+          "length_by_backing_and_feature_mm": {
+            "model": 3.34,
+            "Inner wall": 0.51,
+            "air": 0.78,
+            "Overhang wall": 97.62,
+            "interface": 316.57,
+            "Outer wall": 0.49,
+            "Bridge": 222.07
+          },
+          "longest_free_span": [
+            0.06496241830065355,
+            [
+              86.572,
+              395.7569834917854,
+              309.68
+            ],
+            [
+              86.572,
+              395.7569834917854,
+              309.68
+            ],
+            "interface",
+            "Bridge"
+          ]
+        }
+      }
+    },
+    "Accessible flow meter upper hook pocket floor": {
+      "plate_box_mm": [
+        218.284,
+        256.784,
+        248.2,
+        256.7,
+        47.65,
+        48.15
+      ],
+      "interface_length_by_z_mm": {
+        "47.192": 451.4,
+        "47.456": 495.5,
+        "47.72": 451.4
+      },
+      "model_layers": {
+        "48.2": {
+          "length_by_backing_and_feature_mm": {
+            "air": 83.35,
+            "Bridge": 893.68,
+            "interface": 810.33
+          },
+          "longest_free_span": [
+            8.593033112582768,
+            [
+              88.1857880794702,
+              433.89199084472654,
+              306.8
+            ],
+            [
+              96.7142119205298,
+              433.89199084472654,
+              306.8
+            ],
+            null,
+            "Bridge"
+          ]
+        }
+      }
+    },
+    "Accessible flow meter fore boss channel floor": {
+      "plate_box_mm": [
+        204.944,
+        228.794,
+        243.05,
+        253.85,
+        87.05,
+        87.55
+      ],
+      "interface_length_by_z_mm": {
+        "86.36": 54.6,
+        "86.6": 245.7,
+        "86.84": 243.7,
+        "87.08": 237.1
+      },
+      "model_layers": {
+        "87.56": {
+          "length_by_backing_and_feature_mm": {
+            "model": 17.23,
+            "Inner wall": 0.51,
+            "air": 1.92,
+            "Overhang wall": 48.16,
+            "interface": 264.16,
+            "Outer wall": 22.67,
+            "Bridge": 211.97
+          },
+          "longest_free_span": [
+            0.23999999999999772,
+            [
+              93.62900000000002,
+              384.9689908447266,
+              267.44
+            ],
+            [
+              93.44900000000001,
+              384.9689908447266,
+              267.44
+            ],
+            "model",
+            "Outer wall"
+          ]
+        }
+      }
+    },
+    "Accessible flow meter aft boss channel floor": {
+      "plate_box_mm": [
+        229.944,
+        253.794,
+        243.05,
+        253.85,
+        87.05,
+        87.55
+      ],
+      "interface_length_by_z_mm": {
+        "86.36": 80.8,
+        "86.6": 233.3,
+        "86.84": 220.6,
+        "87.08": 212.9
+      },
+      "model_layers": {
+        "87.56": {
+          "length_by_backing_and_feature_mm": {
+            "model": 65.33,
+            "Inner wall": 3.27,
+            "air": 1.3,
+            "Overhang wall": 38.37,
+            "interface": 272.93,
+            "Outer wall": 14.87,
+            "Bridge": 283.05
+          },
+          "longest_free_span": [
+            0.06498051948051951,
+            [
+              93.61750974025975,
+              419.2619908447266,
+              267.44
+            ],
+            [
+              93.61750974025975,
+              419.2619908447266,
+              267.44
+            ],
+            null,
+            "Overhang wall"
+          ]
+        }
+      }
+    },
+    "Accessible flow meter fore screw-head channel floor": {
+      "plate_box_mm": [
+        205.744,
+        227.994,
+        253.55,
+        255.55,
+        86.25,
+        86.75
+      ],
+      "interface_length_by_z_mm": {
+        "85.6012": 17.3,
+        "85.88": 67.8,
+        "86.12": 63.2,
+        "86.36": 61.4,
+        "86.6": 17.9,
+        "86.84": 3.2
+      },
+      "model_layers": {
+        "86.6": {
+          "length_by_backing_and_feature_mm": {
+            "model": 7.1,
+            "Inner wall": 2.12,
+            "Overhang wall": 4.93,
+            "air": 0.19,
+            "interface": 4.5,
+            "Outer wall": 2.57,
+            "Bridge": 2.17
+          },
+          "longest_free_span": [
+            0.0644999999999996,
+            [
+              95.31774999999999,
+              384.9689908447266,
+              268.4
+            ],
+            [
+              95.31774999999999,
+              384.9689908447266,
+              268.4
+            ],
+            null,
+            "Overhang wall"
+          ]
+        },
+        "86.84": {
+          "length_by_backing_and_feature_mm": {
+            "model": 11.7,
+            "Inner wall": 4.12,
+            "Overhang wall": 33.82,
+            "interface": 62.08,
+            "Outer wall": 4.9,
+            "Bridge": 30.94
+          },
+          "longest_free_span": [
+            0.0,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    "Accessible flow meter aft screw-head channel floor": {
+      "plate_box_mm": [
+        230.744,
+        252.994,
+        253.55,
+        255.55,
+        86.25,
+        86.75
+      ],
+      "interface_length_by_z_mm": {
+        "85.6012": 13.8,
+        "85.88": 62.9,
+        "86.12": 57.7,
+        "86.36": 58.0,
+        "86.6": 12.1
+      },
+      "model_layers": {
+        "86.6": {
+          "length_by_backing_and_feature_mm": {
+            "model": 14.22,
+            "Inner wall": 4.22,
+            "Overhang wall": 4.78,
+            "interface": 4.17,
+            "air": 0.13,
+            "Outer wall": 4.3,
+            "Bridge": 5.21
+          },
+          "longest_free_span": [
+            0.06478571428571302,
+            [
+              95.25282142857142,
+              428.3389908447266,
+              268.4
+            ],
+            [
+              95.25282142857142,
+              428.3389908447266,
+              268.4
+            ],
+            "model",
+            "Overhang wall"
+          ]
+        },
+        "86.84": {
+          "length_by_backing_and_feature_mm": {
+            "model": 18.1,
+            "Inner wall": 6.0,
+            "Overhang wall": 33.82,
+            "interface": 67.05,
+            "Outer wall": 5.18,
+            "Bridge": 40.14
+          },
+          "longest_free_span": [
+            0.0,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    "Accessible flow meter wire chamber floor": {
+      "plate_box_mm": [
+        217.294,
+        241.444,
+        243.05,
+        253.55,
+        91.25,
+        91.75
+      ],
+      "interface_length_by_z_mm": {
+        "90.68": 265.7,
+        "90.92": 266.6,
+        "91.16": 265.7
+      },
+      "model_layers": {
+        "91.64": {
+          "length_by_backing_and_feature_mm": {
+            "model": 12.13,
+            "Inner wall": 1.02,
+            "air": 2.47,
+            "Overhang wall": 105.33,
+            "interface": 316.27,
+            "Outer wall": 0.98,
+            "Bridge": 223.53
+          },
+          "longest_free_span": [
+            0.19358426966292117,
+            [
+              93.31773595505618,
+              394.91499084472656,
+              263.36
+            ],
+            [
+              93.18867977528089,
+              394.91499084472656,
+              263.36
+            ],
+            null,
+            "Overhang wall"
+          ]
+        },
+        "91.88": {
+          "length_by_backing_and_feature_mm": {
+            "model": 107.01,
+            "Inner wall": 53.89,
+            "Outer wall": 53.12
+          },
+          "longest_free_span": [
+            0.0,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      }
+    },
+    "Accessible C14 cord passage roof": {
+      "plate_box_mm": [
+        285.825,
+        294.075,
+        77.35,
+        105.65,
+        34.65,
+        35.15
+      ],
+      "interface_length_by_z_mm": {
+        "34.04": 60.1,
+        "34.28": 401.7,
+        "34.52": 398.1,
+        "34.76": 367.5
+      }
+    },
+    "Accessible C14 flange pocket roof": {
+      "plate_box_mm": [
+        280.825,
+        285.575,
+        65.965,
+        117.035,
+        29.478,
+        37.235
+      ],
+      "interface_length_by_z_mm": {
+        "28.76": 28.2,
+        "29.0": 30.8,
+        "29.24": 20.5,
+        "29.48": 35.3,
+        "29.72": 36.4,
+        "29.96": 29.1,
+        "30.2": 36.7,
+        "30.44": 36.6,
+        "30.68": 29.1,
+        "30.92": 36.7,
+        "31.16": 36.6,
+        "31.4": 29.1,
+        "31.64": 36.6,
+        "31.88": 36.7,
+        "32.12": 29.1,
+        "32.36": 36.6,
+        "32.6": 36.6,
+        "32.84": 29.0,
+        "33.08": 36.7,
+        "33.32": 36.6,
+        "33.56": 29.2,
+        "33.8": 44.1,
+        "34.04": 45.2,
+        "34.28": 87.4,
+        "34.52": 88.3,
+        "34.76": 78.6,
+        "35.0": 29.6,
+        "35.24": 36.7,
+        "35.48": 36.6,
+        "35.72": 29.2,
+        "35.96": 37.0,
+        "36.2": 191.5,
+        "36.44": 187.6,
+        "36.68": 181.7
+      }
+    },
+    "Cable hook 1 land": {
+      "plate_box_mm": [
+        135.275,
+        147.775,
+        64.25,
+        65.0,
+        100.4,
+        100.9
+      ],
+      "interface_length_by_z_mm": {}
+    },
+    "Cable hook 2 land": {
+      "plate_box_mm": [
+        81.775,
+        97.775,
+        62.95,
+        63.7,
+        80.625,
+        81.125
+      ],
+      "interface_length_by_z_mm": {}
+    },
+    "Cable hook 3 land": {
+      "plate_box_mm": [
+        92.775,
+        100.775,
+        256.3,
+        256.9,
+        35.85,
+        36.35
+      ],
+      "interface_length_by_z_mm": {}
+    }
+  }
+}

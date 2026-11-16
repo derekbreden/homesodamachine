@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "8afd446466bbbb9444c0650466b223a9e432bfb947717df639947657e05c583d",
+    "name": "enclosure-back-top-left04-petgf-textured-z004-mark1.gcode.3mf",
+    "objects": [
+      "enclosure-back-top"
+    ],
+    "sha256": "6435d2e8fd0b3f7953b5cd53e9fd170da678b9a0f01da57ba8758424b044fc38",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "PREPARE",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 0,
+  "observed_at": "2026-11-16T04:20:19+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1449259987",
+  "subtask_name": "enclosure-back-top-left04-petgf-textured-z004-mark1.gcode.3mf",
+  "total_layer_num": 1053
+}
