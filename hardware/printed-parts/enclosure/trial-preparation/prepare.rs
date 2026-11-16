@@ -3,7 +3,7 @@
 //!
 //!     enclosure-print-prep list
 //!     enclosure-print-prep <piece> [--printer P] [--part STL[,quantity=N][,turns=x:90][,walls=N][,infill=N][,name=..]]
-//!                          [--slice] [--review] [--output DIR] [--border MM]
+//!                          [--bed PLATE] [--slice] [--review] [--output DIR] [--border MM]
 //!     enclosure-print-prep all --slice
 //!
 //! `pieces.json` declares every piece: its meshes, pose, printer, recipe changes with their
@@ -417,7 +417,26 @@ enum Cell {
     Attrs(Vec<(String, String)>),
 }
 
-fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Value, Vec<String>)>>, output: Option<&Path>, border: Option<f64>) -> Result<PathBuf> {
+/// Select the lower PET-GF trim when every part on the textured plate qualifies.
+fn textured_pei_trim<'a>(root: &Path, spec: &'a Value, piece: &Value, bed: &str, parts: &[(Value, Vec<String>)]) -> Option<&'a Value> {
+    if bed != profile::TEXTURED_PEI
+        || piece["nozzle"]["diameter_mm"].as_f64() != Some(0.4)
+        || !piece["material"].as_str().is_some_and(|material| material.contains("PET-GF"))
+        || parts.is_empty()
+    {
+        return None;
+    }
+    let rule = spec.get("textured_pei_z_trim")?;
+    let eligible: BTreeSet<_> = rule["pieces"].as_array()?.iter().filter_map(Value::as_str)
+        .flat_map(|name| spec["pieces"][name]["parts"].as_array().into_iter().flatten())
+        .filter_map(|part| part["stl"].as_str())
+        .collect();
+    parts.iter().all(|(part, _)| part["stl"].as_str().is_some_and(|stl| {
+        eligible.contains(relative(&root.join(stl), root).as_str())
+    })).then_some(rule)
+}
+
+fn prepare(root: &Path, name: &str, printer: Option<&str>, bed_override: Option<&str>, parts: Option<Vec<(Value, Vec<String>)>>, output: Option<&Path>, border: Option<f64>) -> Result<PathBuf> {
     let production_layout = parts.is_none();
     let here = root.join(HERE);
     let spec_path = here.join("pieces.json");
@@ -431,17 +450,26 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let profile_rel = piece.get("profile").or(spec.get("profile")).and_then(Value::as_str).context("no profile")?;
     let profile_path = root.join(profile_rel);
     let filament_from = piece.get("filament_from").and_then(Value::as_str).filter(|s| !s.is_empty()).map(|s| root.join(s));
-    // The trim a piece states, else the printer's PET-GF trim for the plate the piece prints on:
-    // its own setting's, else its profile's.
-    let z_trim = match piece.get("z_trim_mm").and_then(|z| z["value"].as_f64()) {
-        Some(z) => z,
+    let declared_parts: Vec<(Value, Vec<String>)> = parts.unwrap_or_else(|| {
+        piece["parts"].as_array().into_iter().flatten()
+            .map(|part| (part.clone(), keys_at(part, &["object_settings"])))
+            .collect()
+    });
+    let (z_trim, trim_change) = match piece["z_trim_mm"]["value"].as_f64() {
+        Some(z) => (z, Some(json!({"from": machine["z_trim_mm"], "to": z, "reason": piece["z_trim_mm"]["reason"]}))),
         None => {
-            let bed = match piece["settings"]["curr_bed_type"]["value"].as_str() {
+            let bed = match bed_override.or_else(|| piece["settings"]["curr_bed_type"]["value"].as_str()) {
                 Some(bed) => bed.to_string(),
                 None => first_text(&profile::load(&profile_path, None, filament_from.as_deref(), root)?.settings, "curr_bed_type")
                     .context("the profile names no plate")?.to_string(),
             };
-            profile::petgf_bed_z_trim(root, &printer, &bed)?
+            let default = profile::petgf_bed_z_trim(root, &printer, &bed)?;
+            if let Some(rule) = textured_pei_trim(root, &spec, piece, &bed, &declared_parts) {
+                let z = rule["value"].as_f64().context("textured_pei_z_trim.value")?;
+                (z, Some(json!({"from": default, "to": z, "reason": rule["reason"]})))
+            } else {
+                (default, None)
+            }
         }
     };
     let profile = profile::load(&profile_path, Some(z_trim), filament_from.as_deref(), root)?;
@@ -463,12 +491,15 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let default_colour = json!({"value": machine["filament_colour"], "reason": format!("{printer}'s loaded black PET-GF colour reading.")});
     let colour = piece.get("filament_colour").unwrap_or(&default_colour);
     put(&mut plate, &mut changes, "filament_colour", &json!([colour["value"]]), &colour["reason"]);
-    if let Some(z) = piece.get("z_trim_mm") {
-        changes.insert("requested_z_trim_mm".into(), json!({"from": machine["z_trim_mm"], "to": z_trim, "reason": z["reason"]}));
+    if let Some(change) = trim_change {
+        changes.insert("requested_z_trim_mm".into(), change);
     }
     for key in keys_at(&spec, &["pieces", name, "settings"]) {
         let declared = &piece["settings"][&key];
         put(&mut plate, &mut changes, &key, &declared["value"], &declared["reason"]);
+    }
+    if let Some(bed) = bed_override {
+        put(&mut plate, &mut changes, "curr_bed_type", &json!(bed), &json!("Plate selected on the command line."));
     }
     if piece.get("cap_finish_lifts").and_then(|c| c.get("value")).and_then(Value::as_bool) == Some(true) {
         let height: f64 = first_text(&plate.settings, "printable_height").context("printable height")?.parse()?;
@@ -495,14 +526,6 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     }
     let nozzle = check_nozzle(name, piece, &plate.settings, &relative(&profile_path, root))?;
 
-    let declared_parts: Vec<(Value, Vec<String>)> = match parts {
-        Some(p) => p,
-        None => {
-            piece["parts"].as_array().into_iter().flatten()
-                .map(|part| (part.clone(), keys_at(part, &["object_settings"])))
-                .collect()
-        }
-    };
     let mut meshes: HashMap<String, std::rc::Rc<Mesh>> = HashMap::new();
     let mut derived: HashMap<String, std::rc::Rc<Vec<Feature>>> = HashMap::new();
     struct Instance { part: Value, settings_order: Vec<String>, mesh: std::rc::Rc<Mesh>, features: std::rc::Rc<Vec<Feature>>, regions: Option<Value>, name: String }
@@ -781,7 +804,12 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     }
     let sources: BTreeSet<String> = records.iter().filter_map(|r| r["stl_sha256"].as_str().map(String::from)).collect();
     let stamp = String::from_utf8(std::process::Command::new("date").arg("+%Y-%m-%d").output()?.stdout)?.trim().to_string();
-    let stem = format!("{stamp}-{name}-{}-{}", printer.to_lowercase(), &sha256_hex(sources.into_iter().collect::<String>().as_bytes())[..8]);
+    let bed_suffix = match bed_override {
+        Some(profile::TEXTURED_PEI) => "-textured-pei",
+        Some(profile::ENGINEERING_PLATE) => "-engineering",
+        _ => "",
+    };
+    let stem = format!("{stamp}-{name}-{}-{}{bed_suffix}", printer.to_lowercase(), &sha256_hex(sources.into_iter().collect::<String>().as_bytes())[..8]);
     let base = output.map(Path::to_path_buf).unwrap_or_else(|| root.join(".cache/prints/trial"));
     std::fs::create_dir_all(&base)?;
     let directory = base.canonicalize()?.join(&stem);
@@ -824,7 +852,7 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
         "nozzle": nozzle, "material": piece["material"], "bed_type": bed, "requested_z_trim_mm": z_trim,
         // Bambu's Textured PEI compensation emits less than the request, by the amount here;
         // other plates emit the request.
-        "emitted_textured_trim_mm": ((z_trim - if bed == "Textured PEI Plate" { 0.02 } else { 0.0 }) * 1000.0).round() / 1000.0,
+        "emitted_textured_trim_mm": ((z_trim - if bed == profile::TEXTURED_PEI { 0.02 } else { 0.0 }) * 1000.0).round() / 1000.0,
         "project": relative(&project, root), "project_sha256": file_sha(&project)?,
         "profile": relative(&profile_path, root), "profile_sha256": file_sha(&profile_path)?,
         "settings_sha256": sha256_hex(&settings_text), "settings_changes": changes, "profile_changes": profile.changes,
@@ -1039,11 +1067,19 @@ fn main() -> Result<()> {
     let root = hsm_print_prep::root();
     let mut args = std::env::args().skip(1);
     let target = args.next().context("usage: enclosure-print-prep list|all|<piece> [options]")?;
+    let mut bed = None;
     let (mut printer, mut parts, mut do_slice, mut review, mut output, mut border) = (None, Vec::new(), false, false, None, None);
     while let Some(arg) = args.next() {
         let mut value = || args.next().with_context(|| format!("{arg} needs a value"));
         match arg.as_str() {
             "--printer" => printer = Some(value()?),
+            "--bed" => {
+                let plate = value()?;
+                if !matches!(plate.as_str(), profile::TEXTURED_PEI | profile::ENGINEERING_PLATE) {
+                    bail!("--bed selects '{}' or '{}'", profile::TEXTURED_PEI, profile::ENGINEERING_PLATE);
+                }
+                bed = Some(plate);
+            }
             "--part" => parts.push(parse_part(&value()?)?),
             "--slice" => do_slice = true,
             "--review" => review = true,
@@ -1051,6 +1087,9 @@ fn main() -> Result<()> {
             "--border" => border = Some(value()?.parse::<f64>()?),
             _ => bail!("unknown argument {arg}"),
         }
+    }
+    if bed.is_some() && matches!(target.as_str(), "all" | "list") {
+        bail!("--bed selects the plate for one named piece");
     }
     if target == "list" {
         return listing(&root);
@@ -1067,6 +1106,9 @@ fn main() -> Result<()> {
     for name in &names {
         let piece = &spec["pieces"][name];
         let result: Result<()> = (|| {
+            if bed.is_some() && (piece.get("archive").is_some() || piece.get("external").is_some()) {
+                bail!("{name} uses its own print preparation");
+            }
             if let Some(archive) = piece.get("archive") {
                 let (source, state) = check_archive(&root, archive)?;
                 println!("{name}: prints from {source} ({state}); nothing to prepare");
@@ -1078,7 +1120,7 @@ fn main() -> Result<()> {
                 else { println!("{name}: prepared and sliced by its own command (--slice runs it)"); }
                 return Ok(());
             }
-            let directory = prepare(&root, name, printer.as_deref(), (!parts.is_empty()).then(|| parts.clone()), output.as_deref(), border)?;
+            let directory = prepare(&root, name, printer.as_deref(), bed.as_deref(), (!parts.is_empty()).then(|| parts.clone()), output.as_deref(), border)?;
             if do_slice {
                 slice_project(&root, &directory, Path::new(slice::SLICER))?;
             }
