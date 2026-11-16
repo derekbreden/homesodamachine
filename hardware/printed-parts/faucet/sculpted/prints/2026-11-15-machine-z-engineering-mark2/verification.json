@@ -1,0 +1,107 @@
+{
+  "purpose": "The checks the plate passed before it was sent, read from its own archive.",
+  "archive": {
+    "name": "sculpted-faucet-machine-z-engineering-black-mark2.gcode.3mf",
+    "sha256": "f18a9db25b448bb10b8c1cf27c156fd0bac0f8d4c864825591fb4a64b279fe83",
+    "gcode_sha256": "e21042ff9921564c5d109bd05d46509497a8bba9da224e08600a2e8a3f9f82d3",
+    "gcode_md5": "e1b710752c49af72a5378da8f0b2d3aa"
+  },
+  "prepared_from_commit": "47ab7d77d9e49efeaabb429c454e58c35ca09e8a",
+  "planner_motion_seconds": 25246.9,
+  "printed_plate_motion_seconds": 26920.7,
+  "printer_layers": 1282,
+  "first_layer": {
+    "bed": "Engineering Plate, glued",
+    "plate_compensation_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0.05"
+    ],
+    "stopped_mark1_engineering_print_commands": [
+      "G29.1 Z0 ; clear z-trim value first"
+    ],
+    "reading": "On the Engineering Plate with the 0.4 mm nozzle Bambu's own compensation sends nothing beyond the clear, so the trim's command is the nozzle's rise over Bambu's first layer.",
+    "initial_layer_mm": 0.2,
+    "bed_temperature_c": 80
+  },
+  "recipe_against_task_1445263169": {
+    "since_that_plate_in_the_checkout": [
+      "The tip's dispense face cut flat (317d8a07f): the support column inside the tip's passage and the extra layer notices that came with it are gone; tip support and the plate's layer and object-change notices fall accordingly.",
+      "The tip's display pocket front corners stand under the cover's rim (f5125a67b); the tip's other courses and brim shift with it."
+    ],
+    "from_this_plates_commits": [
+      "Base foot courses: lap and rings from 25 mm/s to the outer wall speed, held to the machine's Z feed on the steep stretches; fill from 40 and 50 mm/s to the internal solid infill speed under the volumetric limit; accelerations from 1000 to the outer wall and default accelerations; deck and plug lines from the old Z bound back to their own speed.",
+      "Foundation hops and crossings at the machine's Z feed in place of 20 and 15 mm/s.",
+      "Tip shoulder courses at the machine's Z feed in place of 7.5 mm/s of Z; the volumetric flow cap now holds some of them.",
+      "Tip shoulder interface one donor course under the first shoulder course: the interface and transition lengths move slightly.",
+      "Bed: Engineering Plate, its own foreign-object check branch, and G29.1 Z0.05 in place of G29.1 Z0.08."
+    ],
+    "reports": [
+      "recipe-printed-vs-final.txt",
+      "recipe-baseline-vs-final.txt"
+    ]
+  },
+  "harm": {
+    "same_as_the_checkout_before_these_commits": true,
+    "travels_below_a_bead_top": 40,
+    "travels_below_a_bead_top_in_tilted_courses": 40,
+    "note": "The drops that end close above plastic now come down at the machine's Z feed where they came at 20 or 15 mm/s; their count and ends are those of the plate before the change."
+  },
+  "stages": {
+    "bridge_foundation_changed": true,
+    "tip_end_cooled_moves": 19177,
+    "tip_end_fan_commands_added": 869,
+    "tip_end_cooled_z_mm": [
+      107.48,
+      131.48
+    ],
+    "tip_end_splice_from_mm": 107.48,
+    "tip_end_splice_layers_taken": 128,
+    "same_as_the_checkout_before_these_commits": true
+  },
+  "tip_corner_support": "The tip lays support above the shoulder only at its dispense face's inner contact, at the nose's underside; none stands by the display pocket's front corners.",
+  "foot_course_planner_seconds": [
+    513.9,
+    91.5,
+    278.7,
+    91.3,
+    315.8,
+    109.4,
+    314.1
+  ],
+  "printed_plate_foot_course_seconds": [
+    590.9,
+    167.9,
+    462.8,
+    169.7,
+    515.4,
+    188.2,
+    517.2
+  ],
+  "foot_show_lap": {
+    "courses": "2 to 7",
+    "commanded_mm_s": [
+      116,
+      200
+    ],
+    "planned_peak_per_move_mm_s": [
+      102.4,
+      200.0
+    ],
+    "planned_mean_mm_s": [
+      150.9,
+      152.7
+    ],
+    "planned_at_the_laps_ends_mm_s": 59.1,
+    "z_peak_mm_s": 30.0,
+    "reading": "The lap runs at the outer wall speed where it runs level and at the machine's Z feed where it climbs or drops."
+  },
+  "tip_shoulder_footing": {
+    "interface_to_shoulder_normal_gap_mm_median": 0.25,
+    "printed_plate": 0.45,
+    "first_course_bridge_roads_backed_within_0p28_mm": 0.654,
+    "printed_plate_bridge": 0.013,
+    "first_course_overhang_walls_backed_within_0p28_mm": 0.997,
+    "printed_plate_overhang": 0.063
+  },
+  "untested": "No print has tested these speeds and accelerations, the tip's one course of air, the Engineering Plate first layer with its trim, or the tip's new corners."
+}
