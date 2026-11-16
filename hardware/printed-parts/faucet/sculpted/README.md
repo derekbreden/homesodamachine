@@ -51,7 +51,7 @@ shows the band and reads the photographed plate's motion over it.
 | Part | CAD X rotation | Support treatment |
 | --- | ---: | --- |
 | Sculpted base | −15° | Its foundation prints first: a removable scaffold and roof under the inclined mounting face, then the foot's courses cut from the base's own sections, with a plug rising in each insert socket and a deck in the bore. The level base courses start on the foot. Each mounting insert recess keeps tree support out. |
-| Shared tip | −90° | Its mating courses come from a donor warped to flatten the shoulder, sliced alone with the support regions its warp gives and laid back onto the real shoulder. The inner dispense face's support is painted without a contact band, with an outlet keepout. A removable disc anchors the hidden root. |
+| Shared tip | −90° | Its mating courses come from a donor warped to flatten the shoulder, sliced alone and laid back onto the real shoulder. The shoulder stands on its own foundation, as the base's foot does: a scaffold of level wall layers from the bed, clear of the mating plug and leaning out with its flare, a roof of courses parallel to the shoulder, and a course of air under its first course. The inner dispense face's support is painted without a contact band, with an outlet keepout. A removable disc anchors the hidden root. |
 | Sculpted cover | −50° | Saved automatic supports |
 | Matching plate | 0° | Removable screw-seat rings stand under the counterbores. Bridge the screw counterbore shoulders and keep the shank passages open. |
 | Side-down lever | 0° of print-oriented STL | Saved automatic supports |

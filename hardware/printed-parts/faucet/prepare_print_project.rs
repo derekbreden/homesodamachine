@@ -13,11 +13,12 @@
 //! part. `--physical-base` writes the editable project with the actual base. `--filled-base` gives
 //! the slicer the base with the space under its mounting face filled to the bed, for the stage
 //! that lays that space and the foot itself; the base keeps its mounting insert recesses clear and
-//! the lever stands clear of the toolhead's reach over the foundation. The tip's first mating-lip
-//! perimeter follows the inclined seat above a dense tree interface. `--warp-donor` slices the
-//! warped tip `--tip-mesh` alone, in the course bands and with the support regions `--warp-settings`
-//! gives in the warped mesh's coordinates, for the stage that lays its courses back onto the real
-//! shoulder. `--finish` reads the selections from that file in place of the plate's.
+//! the lever stands clear of the toolhead's reach over the foundation. The slicer lays no support
+//! under the tip's mating lip, where the plate lays the shoulder's scaffold and roof.
+//! `--warp-donor` slices the warped tip `--tip-mesh` alone, in the course bands and with the
+//! support regions `--warp-settings` gives in the warped mesh's coordinates, for the stage that
+//! lays its courses back onto the real shoulder. `--finish` reads the selections from that file
+//! in place of the plate's.
 
 mod base_seat;
 

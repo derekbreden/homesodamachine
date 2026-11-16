@@ -1,9 +1,13 @@
-//! Splices inclined tip interface and shell courses into the ordinary Mark2 slice.
+//! Splices the tip's inclined shell courses into the ordinary Mark2 slice, on the scaffold and
+//! roof the tip's shoulder stands on.
 
 use super::*;
-use crate::base_foundation::{HEAD_TRAVEL_MARGIN, left_nozzle};
+use crate::base_foundation::{HEAD_TRAVEL_MARGIN, e_per_mm, header_setting, left_nozzle};
 use crate::course_field::{distance, mix};
 use crate::gcode;
+use crate::mesh::Mesh;
+use crate::sloped_courses::Point;
+use crate::tip_foundation::{self, Beads, Ring};
 use std::ops::Range;
 
 const FIRST_INTERFACE: f64 = 23.8;
@@ -230,16 +234,20 @@ impl TipTravels {
 #[derive(Clone, Copy)]
 struct Shoulder {
     origin: [f64; 3],
+    degrees: f64,
     sin: f64,
     cos: f64,
     split_y: f64,
+    /// The tip's pose on the plate: its rotation's rows and its translation.
+    rotation: [[f64; 3]; 3],
+    translation: [f64; 3],
 }
 
 impl Shoulder {
     fn read(path: &Path) -> Result<Self> {
         let data: serde_json::Value = serde_json::from_slice(&std::fs::read(path)?)?;
         let origin = serde_json::from_value(data["authored_plane_pick_world_xyz_mm"].clone())?;
-        let angle = data["bearing_plane_degrees"]
+        let degrees = data["bearing_plane_degrees"]
             .as_f64()
             .context("Bearing incline")?;
         let [low, _]: [f64; 2] =
@@ -250,13 +258,26 @@ impl Shoulder {
             first <= FIRST_INTERFACE && last >= Self::last_visible(),
             "The tip donor needs to hold the exact incline through its interface and shell courses"
         );
-        let (sin, cos) = angle.to_radians().sin_cos();
+        let course = data["normal_course_mm"].as_f64().context("The donor's course height")?;
+        ensure!((course - TIP_COURSE_HEIGHT).abs() < 1e-9, "The tip donor's courses are {course} mm, not {TIP_COURSE_HEIGHT}");
+        let (sin, cos) = degrees.to_radians().sin_cos();
         Ok(Self {
             origin,
+            degrees,
             sin,
             cos,
             split_y: low - 5.0,
+            rotation: serde_json::from_value(data["physical_rotation"].clone()).context("The tip's rotation on the plate")?,
+            translation: serde_json::from_value(data["physical_cad_to_plate_translation"].clone()).context("The tip's place on the plate")?,
         })
+    }
+
+    /// The tip's mesh in its pose on the plate.
+    fn pose(self, tip: &Mesh) -> Mesh {
+        let vertices = tip.vertices.iter().map(|v| {
+            [0, 1, 2].map(|i| self.rotation[i][0] * v[0] + self.rotation[i][1] * v[1] + self.rotation[i][2] * v[2] + self.translation[i])
+        }).collect();
+        Mesh { vertices, faces: tip.faces.clone() }
     }
 
     fn u(self, p: [f64; 3]) -> f64 {
@@ -514,7 +535,43 @@ fn split_tip<'a>(
     Ok((before, lower, upper, after))
 }
 
-/// The tip returns to the unwarped native tape just above the sloped foundation.
+/// The scaffold's speeds, mm/s, and print accelerations, mm/s², on its first layer and the rest,
+/// and the roof's first course and the others: the base's scaffold's and roof's.
+const SCAFFOLD_SPEED: [f64; 2] = [40.0, 80.0];
+const SCAFFOLD_ACCELERATION: [f64; 2] = [500.0, 3000.0];
+const ROOF_SPEED: [f64; 2] = [50.0, 40.0];
+const ROOF_ACCELERATION: f64 = 2000.0;
+/// A crossing between scaffold paths shorter than this runs along the layer in hand, at this
+/// speed, mm/s.
+const SHORT_HOP: f64 = 1.5;
+const HOP_SPEED: f64 = 60.0;
+
+/// A road the tip's foundation lays, at `speed` or less where the filament's volumetric limit or
+/// the machine's Z feed holds it back.
+#[allow(clippy::too_many_arguments)]
+fn foundation_road(a: [f64; 3], b: [f64; 3], width: f64, height: f64, speed: f64, acceleration: f64,
+                   feature: &'static str, limits: [f64; 2]) -> Road<'static> {
+    let [volume, z_feed] = limits;
+    let run = distance(a, b);
+    let rise = (b[2] - a[2]).abs();
+    let mut speed = speed.min(volume / crate::base_foundation::bead(width, height));
+    if rise > 1e-9 {
+        speed = speed.min(z_feed * run / rise);
+    }
+    let mut modal = Modal::new(a, 0.0);
+    modal.feed = (speed * 60.0).round();
+    modal.fan = 0.0;
+    modal.acceleration = acceleration;
+    modal.feature = feature;
+    modal.width = width;
+    modal.height = (height * 1e4).round() / 1e4;
+    Road { a, b, e: e_per_mm(width, height, 1.0) * run, modal }
+}
+
+/// The tip returns to the unwarped native tape just above the sloped foundation. Its shoulder
+/// stands on the scaffold and roof the tip's foundation lays from `tip_mesh`, the tip's printed
+/// mesh, as it stands on the plate.
+#[allow(clippy::too_many_arguments)]
 pub fn compose(
     staged_base: &Path,
     native: &Path,
@@ -523,6 +580,7 @@ pub fn compose(
     output: &Path,
     ring: &Path,
     headmap: &Path,
+    tip_mesh: &Path,
 ) -> Result<Value> {
     let staged_tape = Tape::read(staged_base)?;
     let native_tape = Tape::read(native)?;
@@ -549,9 +607,95 @@ pub fn compose(
     let rings = read_custom(&ring_lines, PLATE, &mut metadata)?;
     let donor_bands = read_custom(&donor_lines, TIP, &mut metadata)?;
     let profile = Native::read(&native_lines)?;
+    // the filament's volumetric limit and the machine's Z feed, as the native slice states them
+    let first_layer = native_lines.iter().position(|l| l.starts_with(HEIGHT)).unwrap_or(native_lines.len());
+    let limits = [
+        header_setting(&native_lines, "filament_max_volumetric_speed")?,
+        crate::motion::AxisLimits::stated(&native_lines[..first_layer].concat())?.speed[2],
+    ];
+
+    // The shoulder stands on a scaffold of level layers and a roof of courses parallel to it,
+    // with a course of air between the roof and the shoulder's first course, as the base's foot
+    // does: the ring is measured on the tip as it stands on the plate.
+    let posed = shoulder.pose(&Mesh::read_stl(tip_mesh)?);
+    let mating = Ring::measure(&posed, shoulder.origin, shoulder.degrees)?;
+    let ledge = shoulder.origin[2];
+    let ceiling = FIRST_INTERFACE - ledge;
+    let tops: [f64; tip_foundation::ROOF_COURSES] = std::array::from_fn(|k| ceiling + TIP_COURSE_HEIGHT * (k + 1) as f64);
+    ensure!(((FIRST_VISIBLE - TIP_COURSE_HEIGHT) - (ledge + tops[tip_foundation::ROOF_COURSES - 1]) - TIP_COURSE_HEIGHT).abs() < 1e-9,
+        "The tip's roof must leave a course of air under the shoulder's first course");
+    // the native tip's level layers, each with the beads the plate lays in it
+    let mut levels: Vec<(f64, Vec<Road>)> = Vec::new();
+    for band in &tip {
+        let laid = roads(band)?;
+        match levels.last_mut() {
+            Some((z, all)) if (*z - band.z).abs() < 1e-4 => all.extend(laid),
+            _ => levels.push((band.z, laid)),
+        }
+    }
+    ensure!(levels.windows(2).all(|w| w[1].0 > w[0].0), "The native tip's layers are out of order");
+    // the scaffold takes the tip's own layers; the slicer's support layers between them, at
+    // their own heights, are beads it keeps clear of in the layers they overlap
+    let own: Vec<usize> = (0..levels.len()).filter(|&i| levels[i].1.iter().any(|r| r.e > 0.0 && !support(r))).collect();
+    let layers: Vec<(f64, f64)> = own.iter().enumerate()
+        .map(|(k, &i)| (levels[i].0, if k == 0 { levels[i].0 } else { levels[i].0 - levels[own[k - 1]].0 }))
+        .collect();
+    let overlapping = |&(z, height): &(f64, f64)| -> Vec<Road> {
+        levels.iter().enumerate()
+            .filter(|(i, (top, _))| *top > z - height - 0.3 && *top < z + 0.3 && (own.contains(i) == ((*top - z).abs() < 1e-6)))
+            .flat_map(|(_, (_, laid))| laid.iter().cloned())
+            .collect()
+    };
+    // the tip's brim is the scaffold's footing on the bed; every other bead keeps it clear, each
+    // run of roads laid end to end as one line
+    let lines = |laid: &[Road], brim: bool| -> Beads {
+        let mut out: Beads = Vec::new();
+        let mut end: Option<[f64; 3]> = None;
+        for r in laid.iter().filter(|r| r.e > 0.0 && (r.modal.feature == "Brim") == brim) {
+            let half = r.modal.width / 2.0;
+            match out.last_mut() {
+                Some((line, h)) if (*h - half).abs() < 1e-9 && end.is_some_and(|e| distance(e, r.a) < 1e-6) => line.push([r.b[0], r.b[1]]),
+                _ => out.push((vec![[r.a[0], r.a[1]], [r.b[0], r.b[1]]], half)),
+            }
+            end = Some(r.b);
+        }
+        out
+    };
+    let beads: Vec<Beads> = layers.iter().map(|layer| lines(&overlapping(layer), false)).collect();
+    let footing: Beads = levels.first().map(|(_, laid)| lines(laid, true)).unwrap_or_default();
+    let scaffold = tip_foundation::scaffold(&mating, &posed, ceiling, &layers, &beads, &footing)?;
+    let tops_laid: Vec<f64> = scaffold.iter().filter(|l| !l.paths.is_empty()).map(|l| l.z).collect();
+    ensure!(!tops_laid.is_empty(), "The tip's shoulder has no scaffold under it");
+    // each roof course keeps clear of the plate's own tip beads that stay at its height, below the
+    // shoulder's splice: a slicer tree that rises past the ring to another part of the tip
+    let reach = mating.outer + tip_foundation::LIP + 2.0;
+    let roof_clear: [Beads; tip_foundation::ROOF_COURSES] = std::array::from_fn(|k| {
+        let near = |r: &&Road| {
+            let mid = [(r.a[0] + r.b[0]) / 2.0, (r.a[1] + r.b[1]) / 2.0];
+            let kept = shoulder.u(r.a).min(shoulder.u(r.b)) < FIRST_INTERFACE - LANDING;
+            let top = mating.plane_z(tops[k], mid[1]);
+            let bottom = top - if k == 0 { 2.5 * TIP_COURSE_HEIGHT } else { TIP_COURSE_HEIGHT / mating.frame.c };
+            kept && r.e > 0.0 && r.b[2] > bottom - 0.05 && r.b[2] - r.modal.height < top + 0.05
+                && (mid[0] - mating.frame.cx).hypot(mid[1] - mating.frame.cy) < reach
+        };
+        let laid: Vec<Road> = levels.iter().flat_map(|(_, laid)| laid.iter().filter(near).cloned()).collect();
+        lines(&laid, false)
+    });
+    let roof = tip_foundation::roof(&mating, ceiling, tops, TIP_COURSE_HEIGHT, &tops_laid, &roof_clear)?;
+
+    let roof_phase = "tip shoulder roof";
     let mut courses: Vec<(f64, &str, Vec<Road>)> = Vec::new();
-    let mut limit = [f64::INFINITY, f64::NEG_INFINITY];
+    for (k, lines) in roof.iter().enumerate() {
+        let speed = ROOF_SPEED[k.min(1)];
+        let laid = lines.iter()
+            .filter(|l| distance(l.from, l.to) > 1e-6)
+            .map(|l| foundation_road(l.from, l.to, tip_foundation::WIDTH, l.height, speed, ROOF_ACCELERATION, "Support interface", limits))
+            .collect();
+        courses.push((ledge + tops[k], roof_phase, laid));
+    }
+    let roof_lines: Vec<usize> = roof.iter().map(Vec::len).collect();
     let mut seen_shell = 0;
+    let mut dropped_interface = 0;
     for band in &donor_bands {
         let u = virtual_z(band)?;
         if u < FIRST_INTERFACE - 1e-5 || u > Shoulder::last_visible() + 1e-5 {
@@ -562,22 +706,18 @@ pub fn compose(
             .flat_map(|r| clipped(r, shoulder, Portion::Inclined, 0.0))
             .collect();
         let visible = u >= FIRST_VISIBLE - 1e-5;
-        if !visible {
-            ensure!(
-                !laid.is_empty() && laid.iter().any(support),
-                "The donor has no local interface at {u}"
-            );
-        } else {
-            laid.retain(|r| !support(r));
+        // the roof stands where the donor's own interface did
+        let sliced = laid.len();
+        laid.retain(|r| !support(r));
+        dropped_interface += sliced - laid.len();
+        if visible {
             ensure!(
                 laid.iter().any(|r| r.modal.feature.ends_with("wall")),
                 "No visible tip wall at {u}"
             );
             seen_shell += 1;
-        }
-        for road in &laid {
-            limit[0] = limit[0].min(road.a[2]).min(road.b[2]);
-            limit[1] = limit[1].max(road.a[2]).max(road.b[2]);
+        } else if laid.is_empty() {
+            continue;
         }
         let phase = if visible {
             "tip yellow shoulder"
@@ -590,16 +730,24 @@ pub fn compose(
         seen_shell == TIP_SHELL_COURSES,
         "Expected {TIP_SHELL_COURSES} tilted tip shell courses, found {seen_shell}"
     );
+    // each roof course goes down ahead of the donor's course of its height
+    courses.sort_by_key(|c| ((c.0 * 1e4).round() as i64, c.1 != roof_phase));
+    let mut limit = [f64::INFINITY, f64::NEG_INFINITY];
+    for road in courses.iter().flat_map(|c| &c.2) {
+        limit[0] = limit[0].min(road.a[2]).min(road.b[2]);
+        limit[1] = limit[1].max(road.a[2]).max(road.b[2]);
+    }
     let (mut lower_native, lower_cuts, upper_cuts, upper_native) =
         split_tip(&tip, shoulder, limit[1] + 1.2, limit[0] - 0.6)?;
     // The tip's stage lays its level paths below the shoulder, the shoulder's courses and the
     // level paths above it in that order; each crossing between its roads stands as high over
     // the beads already laid, and the course it crosses, as the nozzle and head need.
     let (mut lo, mut hi) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
-    for band in &tip {
+    for p in tip.iter().flat_map(|b| [b.lo, b.hi]).map(|p| [p[0], p[1]])
+        .chain(scaffold.iter().flat_map(|l| l.paths.iter().flatten().copied())) {
         for axis in 0..2 {
-            lo[axis] = lo[axis].min(band.lo[axis]);
-            hi[axis] = hi[axis].max(band.hi[axis]);
+            lo[axis] = lo[axis].min(p[axis]);
+            hi[axis] = hi[axis].max(p[axis]);
         }
     }
     let mut ground = Ground::new(lo, hi, headmap)?;
@@ -617,12 +765,73 @@ pub fn compose(
         travels.note(phase, height - ends, z_hop, spiral && rise <= z_hop + 1e-6);
         profile.travel(out, a, b, height, spiral);
     };
+
+    // The scaffold's layers, each laid after the plate's own tip layer of its height, its
+    // crossings over what is laid by then.
+    let scaffold_phase = "tip shoulder scaffold";
+    let mut scaffold_text = String::new();
+    let mut scaffold_roads: Vec<Road> = Vec::new();
+    let mut footing = Ground::new(lo, hi, headmap)?;
+    let mut level = 0;
+    for (k, layer) in scaffold.iter().enumerate() {
+        while level < levels.len() && levels[level].0 <= layer.z + 1e-4 {
+            footing.add(&levels[level].1);
+            level += 1;
+        }
+        let Some(first) = layer.paths.first() else { continue };
+        let stage = usize::from(k > 0);
+        let z = layer.z;
+        let road = |a: Point, b: Point| foundation_road([a[0], a[1], z], [b[0], b[1], z], tip_foundation::WIDTH, layer.height,
+            SCAFFOLD_SPEED[stage], SCAFFOLD_ACCELERATION[stage], "Support", limits);
+        let sample = road(first[0], first[1]);
+        let modes = format!(
+            "; FEATURE: Support\n; LINE_WIDTH: {}\n; LAYER_HEIGHT: {}\nM106 S0\nM204 S{}\n",
+            tip_foundation::WIDTH, sample.modal.height, sample.modal.acceleration
+        );
+        let _ = write!(
+            scaffold_text,
+            "; HSM_TIP_PHASE: {scaffold_phase}\n; HSM_TIP_COURSE: {z:.5}\n; HSM_TIP_VIRTUAL_Z: {z:.5}\n\
+            ; HSM_ENTRY_XYZ: {:.3} {:.3} {z:.3}\n; HSM_ENTRY_RETRACT_MM: 0.8\nG1 E.8 F1800\n{modes}",
+            first[0][0], first[0][1]
+        );
+        let mut at = [first[0][0], first[0][1], z];
+        let mut laid = Vec::new();
+        for path in &layer.paths {
+            let start = [path[0][0], path[0][1], z];
+            if distance(at, start) > 1e-6 {
+                if distance(at, start) < SHORT_HOP {
+                    // a short crossing runs along the layer in hand
+                    let _ = writeln!(scaffold_text, "G1 X{:.3} Y{:.3} F{:.0}", start[0], start[1], HOP_SPEED * 60.0);
+                } else {
+                    scaffold_text.push_str("G1 E-.8 F1800\n");
+                    cross(&footing, &mut travels, scaffold_phase, &mut scaffold_text, at, start);
+                    scaffold_text.push_str("G1 E.8 F1800\n");
+                    // the travel set its own acceleration
+                    scaffold_text.push_str(&modes);
+                }
+            }
+            for w in path.windows(2) {
+                let r = road(w[0], w[1]);
+                if r.e <= 0.0 {
+                    continue;
+                }
+                let _ = writeln!(scaffold_text, "G1 X{:.3} Y{:.3} Z{z:.3} E{:.5} F{:.0}", r.b[0], r.b[1], r.e, r.modal.feed);
+                laid.push(r);
+            }
+            at = [path[path.len() - 1][0], path[path.len() - 1][1], z];
+        }
+        scaffold_text.push_str("G1 E-.8 F1800\n; HSM_TIP_END_COURSE\n");
+        footing.add(&laid);
+        scaffold_roads.extend(laid);
+    }
+
     let (mut lower, mut inclined, mut upper) = (String::new(), String::new(), String::new());
     let below = "tip level paths below shoulder";
     for (z, laid) in &lower_cuts {
         ground.add(laid);
         write_roads(&mut lower, laid, below, *z, &mut |out, a, b| cross(&ground, &mut travels, below, out, a, b));
     }
+    ground.add(&scaffold_roads);
     for (u, phase, laid) in &courses {
         ground.add(laid);
         write_roads(&mut inclined, laid, phase, *u, &mut |out, a, b| cross(&ground, &mut travels, phase, out, a, b));
@@ -633,9 +842,19 @@ pub fn compose(
         write_roads(&mut upper, laid, above, *z, &mut |out, a, b| cross(&ground, &mut travels, above, out, a, b));
     }
     let lower_lines: Vec<&str> = lower.split_inclusive('\n').collect();
+    let scaffold_lines: Vec<&str> = scaffold_text.split_inclusive('\n').collect();
     let incline_lines: Vec<&str> = inclined.split_inclusive('\n').collect();
     let upper_lines: Vec<&str> = upper.split_inclusive('\n').collect();
     lower_native.extend(read_custom(&lower_lines, TIP, &mut metadata)?);
+    // each scaffold layer follows the plate's own tip layer of its height
+    let mut level_bands = std::mem::take(&mut lower_native).into_iter().peekable();
+    for band in read_custom(&scaffold_lines, TIP, &mut metadata)? {
+        while let Some(next) = level_bands.next_if(|b| b.z <= band.z + 1e-4) {
+            lower_native.push(next);
+        }
+        lower_native.push(band);
+    }
+    lower_native.extend(level_bands);
     lower_native.extend(read_custom(&incline_lines, TIP, &mut metadata)?);
     lower_native.extend(read_custom(&upper_lines, TIP, &mut metadata)?);
     lower_native.extend(upper_native);
@@ -655,6 +874,25 @@ pub fn compose(
     report["tip_virtual_first_visible_mm"] = json!(FIRST_VISIBLE);
     report["tip_virtual_shell_end_mm"] = json!(Shoulder::last_visible());
     report["tip_shoulder_world_z_mm"] = json!(limit);
+    let laid_layers: Vec<&tip_foundation::Layer> = scaffold.iter().filter(|l| !l.paths.is_empty()).collect();
+    let f = &mating.frame;
+    report["tip_shoulder_foundation"] = json!({
+        "ring_centre_mm": [f.cx, f.cy, f.cz],
+        "plug_radius_mm": mating.inner,
+        "rim_radius_mm": mating.outer,
+        "plug_clearance_mm": tip_foundation::PLUG_CLEAR,
+        "roof_lip_mm": tip_foundation::LIP,
+        "line_width_mm": tip_foundation::WIDTH,
+        "scaffold_ceiling_virtual_mm": ledge + ceiling,
+        "roof_course_tops_virtual_mm": tops.map(|n| ledge + n),
+        "air_under_shoulder_mm": TIP_COURSE_HEIGHT,
+        "roof_lines": roof_lines,
+        "scaffold_layers": laid_layers.len(),
+        "scaffold_z_mm": [laid_layers.first().map(|l| l.z), laid_layers.last().map(|l| l.z)],
+        "scaffold_paths": laid_layers.iter().map(|l| l.paths.len()).sum::<usize>(),
+        "scaffold_filament_mm": scaffold_roads.iter().map(|r| r.e).sum::<f64>(),
+        "donor_interface_roads_left_out": dropped_interface,
+    });
     report["stock_leveling_window_xy_mm"] = json!(window);
     write_report(output, &report)?;
     Ok(report)

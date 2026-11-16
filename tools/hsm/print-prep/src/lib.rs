@@ -34,6 +34,7 @@ pub mod sloped_courses;
 pub mod stretch_cooling;
 pub mod tip_audit;
 pub mod tip_courses;
+pub mod tip_foundation;
 pub mod tip_supports;
 pub mod tip_warp;
 pub mod trial_archive;

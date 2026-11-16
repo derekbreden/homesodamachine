@@ -158,6 +158,46 @@ impl Region {
     pub fn covers(&self, line: &[Point]) -> bool {
         self.clip_lines(&[line.to_vec()], ClipType::Difference).iter().map(|l| length(l)).sum::<f64>() < 1e-4
     }
+
+    /// The region with every boundary point that strays from its neighbours' line by less than
+    /// `tolerance` dropped.
+    pub fn simplified(&self, tolerance: f64) -> Region {
+        Region(clipper2_rust::simplify_paths(&self.0, tolerance, true))
+    }
+
+    /// The pieces of the open lines that lie outside the region.
+    pub fn lines_outside(&self, lines: &[Vec<Point>]) -> Vec<Vec<Point>> {
+        if self.is_empty() {
+            return lines.to_vec();
+        }
+        self.clip_lines(lines, ClipType::Difference)
+    }
+
+    /// The pieces of the open lines that lie in the region.
+    pub fn lines_inside(&self, lines: &[Vec<Point>]) -> Vec<Vec<Point>> {
+        if self.is_empty() {
+            return Vec::new();
+        }
+        self.clip_lines(lines, ClipType::Intersection)
+    }
+
+    /// The stock beads along the open lines make, each line with its own half-width, round at
+    /// its ends.
+    pub fn beads(lines: &[(Vec<Point>, f64)]) -> Region {
+        let mut out = Region::default();
+        let mut widths: Vec<f64> = lines.iter().map(|l| l.1).collect();
+        widths.sort_by(f64::total_cmp);
+        widths.dedup_by(|a, b| (*a - *b).abs() < 1e-6);
+        for half in widths {
+            let paths: PathsD = lines.iter().filter(|l| (l.1 - half).abs() < 1e-6 && l.0.len() >= 2).map(|l| path(&l.0)).collect();
+            if paths.is_empty() {
+                continue;
+            }
+            let grown = clipper2_rust::inflate_paths_d(&paths, half, JoinType::Round, EndType::Round, 2.0, PRECISION, 0.0);
+            out = out.union(&Region(clipper2_rust::union_subjects_d(&grown, FillRule::NonZero, PRECISION)));
+        }
+        out
+    }
 }
 
 /// The solid cut by the plane at height `z`, as rings in its own x and y wound as its faces

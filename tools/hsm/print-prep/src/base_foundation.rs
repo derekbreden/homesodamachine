@@ -82,11 +82,13 @@ const NOZZLE_FLAT_R: f64 = 0.6;
 const FEATHER_MIN: f64 = 0.3;
 const KEEP_FRACTION: f64 = 0.5;
 
-fn bead(width: f64, height: f64) -> f64 {
+/// The cross-section of a bead `width` wide and `height` tall, mm².
+pub fn bead(width: f64, height: f64) -> f64 {
     (width - height) * height + std::f64::consts::PI * (height / 2.0).powi(2)
 }
 
-fn e_per_mm(width: f64, height: f64, flow: f64) -> f64 {
+/// The filament a bead takes per millimetre it runs, at `flow` of its section.
+pub fn e_per_mm(width: f64, height: f64, flow: f64) -> f64 {
     bead(width, height) / (std::f64::consts::PI * 0.875 * 0.875) * FLOW * flow
 }
 

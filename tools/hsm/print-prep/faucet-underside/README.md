@@ -11,6 +11,11 @@ editable project and the print-only archive carry the actual parts.
   base's courses above them, and lifts travels over the scaffold.
   [`sloped_courses.rs`](../src/sloped_courses.rs) cuts the courses' paths with Clipper2.
   `faucet-plate` runs it for each style; `sculpted-trial foundation` runs it alone.
+- [`tip_foundation.rs`](../src/tip_foundation.rs) stands the tip's mating shoulder the same way: a
+  scaffold of level wall layers rises from the bed under the shoulder's ring, clear of the mating
+  plug and leaning out with its flare, then the roof's courses parallel to the shoulder and a
+  course of air under the shoulder's first course. The plate's sequence lays each scaffold layer
+  after the tip's own layer of its height and the roof ahead of the shoulder's courses.
 - `left-active-height.npz` gives the travel stage the underside of the
   [left-active H2C head reference](../../../../hardware/reference/h2c-toolhead/README.md).
   Its model is a reconstruction from photos. The map's source mesh, settings and generator
