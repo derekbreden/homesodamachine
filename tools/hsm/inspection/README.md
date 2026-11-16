@@ -19,7 +19,8 @@ The composer takes typed numeric picks, a model and an optional surface from JSO
 [`fixtures/picks.json`](fixtures/picks.json) contains a request and its browser text.
 The library's `pick_format::Compose` and `Pick` types expose the same interface to Rust.
 `link` accepts existing pick text and writes a published `/3d` URL with `?find=`.
-It creates no scene. `demo` prints each geometric pick kind without building geometry.
+It creates no scene. The site hides the parts standing in front of what the link lights;
+a `view: az=… el=…` line picks the side to look from when the part a spot lies on would hide it. `demo` prints each geometric pick kind without building geometry.
 
 The reader names each measured file, its hash and its representation. Authored readings
 use the fine `.step.npz` model with analytic face records and complete source contributors.

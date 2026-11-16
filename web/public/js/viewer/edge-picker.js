@@ -509,7 +509,13 @@ export function faceHighlightGeometry(gid) {
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geo.userData.bodies = [rec.name];
   return geo;
+}
+
+// The body a face belongs to, by global face id; null for an unknown id.
+export function faceBody(gid) {
+  return (faceTable && faceTable[gid]?.rec.name) ?? null;
 }
 
 // THE FACE A POINT LIES ON, for a `face:` pick that gives a point on the face
@@ -562,7 +568,8 @@ export function faceNearest(p, tol = 0.5) {
 // standing in it — and a box takes only what it holds, with a straight edge
 // where it cuts. A face lying in one of its planes is the box's boundary, not
 // its content, and stays dark. Non-indexed triangle soup, like
-// faceHighlightGeometry; null when the box holds no surface.
+// faceHighlightGeometry, with the bodies it came off in userData.bodies; null
+// when the box holds no surface.
 export function boxHighlightGeometry(lo, hi) {
   ensureEdges();
   if (!meshRecs) return null;
@@ -570,6 +577,7 @@ export function boxHighlightGeometry(lo, hi) {
   const planes = [[1, 0, 0, hi.x - e], [-1, 0, 0, -lo.x - e], [0, 1, 0, hi.y - e], [0, -1, 0, -lo.y - e],
     [0, 0, 1, hi.z - e], [0, 0, -1, -lo.z - e]];
   const out = [];
+  const bodies = new Set();
   const keep = (poly) => {
     for (let i = 1; i < poly.length - 1; i++) out.push(...poly[0], ...poly[i], ...poly[i + 1]);
   };
@@ -596,12 +604,13 @@ export function boxHighlightGeometry(lo, hi) {
         poly = next;
         if (poly.length < 3) break;
       }
-      if (poly.length >= 3) keep(poly);
+      if (poly.length >= 3) { keep(poly); bodies.add(rec.name); }
     }
   }
   if (!out.length) return null;
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(out, 3));
+  geo.userData.bodies = [...bodies];
   return geo;
 }
 

@@ -1,4 +1,4 @@
-// Part selections and installed locations uncover their geometry in solid context.
+// Part selections, installed locations and what a find lights uncover their geometry in solid context.
 import * as THREE from "three";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { standsIn } from "/contracts/body-path.js";
@@ -56,6 +56,49 @@ export function uncoverContext(group, solids) {
       break;
     }
   }
+}
+
+// Sight lines a find casts at most, spread across its targets: each one is tested against every solid.
+const FOUND_SIGHT_LINES = 64;
+
+// What a find lit, seen from `eye`, where its camera lands. Each target is points on a lit
+// surface, edge or spot and the bodies it lies on. A sight line runs to each point and stops at
+// the first wall of those bodies, so a body standing in front is hidden and none behind the
+// target's own wall is. The view joins the hidden list like any other, and arriving parts are
+// tested against the same lines.
+export function uncoverFound(targets, eye) {
+  const group = state.currentGroup;
+  if (!group) return;
+  const names = new Set(targets.flatMap(target => target.bodies));
+  group.updateWorldMatrix(true, true);
+  const solids = visibleSolids(group);
+  const walls = solids.filter(mesh => names.has(mesh.name));
+  const points = targets.flatMap(target => target.points);
+  const stride = Math.max(1, points.length / FOUND_SIGHT_LINES);
+  const rays = [];
+  for (let i = 0; i < points.length; i += stride) {
+    const toward = points[Math.floor(i)].clone().sub(eye), distance = toward.length();
+    if (distance < 0.02) continue;
+    const ray = new THREE.Raycaster(eye.clone(), toward.divideScalar(distance), 0, distance);
+    const wall = ray.intersectObjects(walls, false)[0];
+    ray.far = Math.min(distance, wall ? wall.distance : distance) - 0.01;
+    if (ray.far > 0) rays.push(ray);
+  }
+  if (!rays.length) return;
+  group.userData.instanceView = { names, rays, found: true };
+  state.autoHiddenComponents.clear();
+  state.autoHiddenFile = state.mountedDetail?.file;
+  uncoverContext(group, solids);
+  applyHiddenComponents();
+}
+
+// The parts a find hid come back when the find is cleared or replaced.
+export function releaseFound() {
+  const group = state.currentGroup;
+  if (!group?.userData.instanceView?.found) return;
+  delete group.userData.instanceView;
+  state.autoHiddenComponents.clear();
+  applyHiddenComponents();
 }
 
 export function clearInstancePreview() {
