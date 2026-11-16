@@ -1,0 +1,91 @@
+{
+  "views": [
+    {
+      "name": "strip",
+      "caption": "The top of the meter receiver, cut across its middle and seen from the front, with the meter cap (blue) seated in its hook pocket against the east flank (right). The narrow strip between the pocket and the flank now climbs to the flank at the enclosure's printable roof slope, so it grows off the wall as it prints instead of bridging the pocket's whole length.",
+      "before": "strip-before.webp",
+      "after": "strip-after.webp",
+      "width": 1600,
+      "height": 1000,
+      "marks": [
+        {
+          "x": 1273.3,
+          "y": 260,
+          "r": 80,
+          "label": "corbel",
+          "at": [
+            97.6,
+            414.8,
+            313.1
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          90.5,
+          -188.80190417215005,
+          309.5
+        ],
+        "target": [
+          90.5,
+          414.8,
+          309.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 7.5,
+        "near": 284.76925042182893,
+        "far": 938.6713132749915,
+        "aspect": 1.6,
+        "section": {
+          "at": [
+            90.5,
+            414.8,
+            309.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "meter-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "7c7674ee2b28e9ed54d5f514e63e5dfc330af8950a7d55df2b5e13b04d235705",
+          "commit": "8813b58e7ad204bf973d04ff1b62e1022027cee4",
+          "taken": "2026-11-16T02:09:36.853Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "57823bca6c5d95db3af3e966f58a078aff815c600c2fcf3d3fafc4976837419c",
+          "commit": "646789f2e3d1f5222eacf49eb3a6a3db769f5ebf",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
