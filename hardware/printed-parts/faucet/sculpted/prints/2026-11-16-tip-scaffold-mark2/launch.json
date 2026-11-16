@@ -1,0 +1,30 @@
+{
+  "archive": {
+    "gcode_sha256": "d9ee7c4d512271e3bc9a307072a03a2f6adf69a0dfbce9fe006cb071851d91c9",
+    "name": "sculpted-faucet-tip-scaffold-black-mark2.gcode.3mf",
+    "objects": [
+      "faucet-shell-base",
+      "faucet-shell-tip",
+      "faucet-display-cover",
+      "above-counter-plate",
+      "lever-replica"
+    ],
+    "sha256": "09edd45731dad8e657d3afae1a78d7ec7803695624f9d6abc5a6ea7ddd4ef386",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 427,
+  "observed_at": "2026-11-16T02:07:27+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1448989765",
+  "subtask_name": "sculpted-faucet-tip-scaffold-black-mark2.gcode.3mf",
+  "total_layer_num": 1315
+}

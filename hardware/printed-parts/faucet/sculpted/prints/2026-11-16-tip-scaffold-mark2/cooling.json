@@ -1,0 +1,129 @@
+{
+  "bridge_foundation": {
+    "native.gcode.3mf": {
+      "added_commanded_motion_seconds": 2219.6887473047877,
+      "archive_sha256": "552a797a41860bce742b0c73010a311cb384e34e2c970c460587be4810905294",
+      "changed": true,
+      "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+      "input_archive_sha256": "cdf12515621f35bb747c571b04fd1489bcd01cd43cae9e321e2b656c00287c8a",
+      "members": [
+        {
+          "added_commanded_motion_seconds": 2219.6887473047877,
+          "changed": true,
+          "input_gcode_sha256": "3304e767880f87ee42b4ac912fef1ab9b9c3d965e06982721c0307788d3e1889",
+          "member": "Metadata/plate_1.gcode",
+          "native_cooled_seed_moves": 12666,
+          "ordinary_model_moves": 1355723,
+          "output_gcode_sha256": "4f7fc43c3ea9b5489af9bfeb842d1a6929d4c3158ab0dbac02831b822d7ad362",
+          "petgf_slots": [
+            0
+          ],
+          "policy": {
+            "grid_mm": 0.2,
+            "height_mm": 0.8
+          },
+          "recovery_by_feature": {
+            "Bridge": [
+              1215.0,
+              1107.0149846181948,
+              0.0
+            ],
+            "Floating vertical shell": [
+              5250.0,
+              3271.206100385841,
+              200.23350918647557
+            ],
+            "Gap infill": [
+              340.0,
+              130.40567410688928,
+              8.05379297934216
+            ],
+            "Inner wall": [
+              12306.0,
+              7468.722146850079,
+              433.57215017141266
+            ],
+            "Internal solid infill": [
+              7848.0,
+              22624.03323065914,
+              1394.2752972636017
+            ],
+            "Outer wall": [
+              11248.0,
+              5175.357121713551,
+              121.95981651298612
+            ],
+            "Overhang wall": [
+              3.0,
+              0.10683115402698837,
+              0.0
+            ],
+            "Sparse infill": [
+              1809.0,
+              881.8489875281173,
+              54.10442745336219
+            ],
+            "Top surface": [
+              56.0,
+              122.07562414341194,
+              7.489753737547464
+            ]
+          },
+          "recovery_fan_percent": [
+            "70"
+          ],
+          "recovery_moves": 40075,
+          "recovery_speed_limit_mm_s": [
+            "15",
+            "15",
+            "15"
+          ],
+          "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+          "speed_limited_moves": 33043
+        }
+      ]
+    }
+  },
+  "tip_end": {
+    "already_cooled_commanded_motion_seconds": 68.43182132918788,
+    "archive_sha256": "22a80c11d4c4779bdcbb595c8210613406eeb01e93127778c2a9c533030d7afd",
+    "axis_plate": [
+      0.0,
+      0.7660444431189779,
+      -0.6427876096865395
+    ],
+    "cooled_commanded_motion_seconds": 252.87014507680556,
+    "cooled_moves": 19177,
+    "cooled_path_mm": 17399.316074965063,
+    "cooled_z_mm": [
+      107.48,
+      131.48
+    ],
+    "fan_commands_added": 869,
+    "fan_percent": 70.0,
+    "gcode_input_sha256": "4f7fc43c3ea9b5489af9bfeb842d1a6929d4c3158ab0dbac02831b822d7ad362",
+    "gcode_sha256": "f4aa61280725bb83e6137a17822bd88f7254458cab59ecd082047cf26b8c2ff3",
+    "identify_id": 1902,
+    "origin_plate_mm": [
+      186.49975395202637,
+      178.8833570390829,
+      120.27872350012831
+    ],
+    "other_model_commanded_motion_seconds": 1930.9435796964538,
+    "purpose": "Part cooling on one stretch of one object's model paths.",
+    "scope": "Motion and extrusion words are retained; only part-fan commands are added.",
+    "span_mm": [
+      -1.0,
+      9.0
+    ]
+  },
+  "tip_end_splice": {
+    "from_layer_top_mm": 107.48,
+    "gcode_sha256": "3304e767880f87ee42b4ac912fef1ab9b9c3d965e06982721c0307788d3e1889",
+    "level_archive_sha256": "611f62a71971bd70f2f9e9fa4ca27409429a98e8e39e9431c41d3ef5ef137931",
+    "plain_archive_sha256": "992c84af51e93969039b5748f00b20738f14c19428151dc51f2e51c08008e79a",
+    "purpose": "The tip's layers from the lowest the tip-end cooling stage cools upward, from a second slice of the same plate.",
+    "tip_layers": 698,
+    "tip_layers_taken": 128
+  }
+}
