@@ -112,7 +112,7 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Tree(auto)/Default; short rail trees rooted on their cavity floors |
-| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on the glued Engineering Plate, rear flutes clear of the bed; additive roof-edge transition; local solid meter roof and rail bands | Manual Tree Slim at accessible contacts, reachable receiver catches and the inlet's pocket and passage, removable nameplate panel and cavity-floor rail caps; corbelled catches, fitted rooms, sockets and pilots clear |
+| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on the glued Engineering Plate, rear flutes clear of the bed; additive roof-edge transition; local solid rail bands | Manual Tree Slim at accessible contacts, reachable receiver catches, the meter's front lip and the inlet's pocket and passage, removable nameplate panel and cavity-floor rail caps; corbelled catches, fitted rooms, sockets and pilots clear |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Saved plate offset and automatic-tree branch angle |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Lower retainer on the Y-minus end | Classic perimeters, solid screw seats and bridged screw openings |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | Nonplanar regulator contact, bridged meter shoulder |
