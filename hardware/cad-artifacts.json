@@ -4277,9 +4277,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "ba098adad0a7d942eba614188cb889b7c353ca26",
-      "inputs": "d14aa1cebdddad019ee03ad3e5fc8ddbf8d166a0afbfbf7bd4a4f046847c046b",
-      "unproven": true
+      "commit": "9c68ecf1ab68d4124472696b0b705d8e5988c879",
+      "inputs": "d14aa1cebdddad019ee03ad3e5fc8ddbf8d166a0afbfbf7bd4a4f046847c046b"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
       "commit": "fb60cc50341298a0c6e8bb6288ce42a40d9afddf",
@@ -4358,18 +4357,16 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": {
-      "commit": "ba098adad0a7d942eba614188cb889b7c353ca26",
-      "inputs": "5945b14307c56a0fc74f4a3d29ac35d982ae9944c34a55361258ade784a6f72f",
-      "unproven": true
+      "commit": "9c68ecf1ab68d4124472696b0b705d8e5988c879",
+      "inputs": "5945b14307c56a0fc74f4a3d29ac35d982ae9944c34a55361258ade784a6f72f"
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": {
       "commit": "2532cc1317b5467e20334b77133ba2072db07c26",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": {
-      "commit": "ba098adad0a7d942eba614188cb889b7c353ca26",
-      "inputs": "5945b14307c56a0fc74f4a3d29ac35d982ae9944c34a55361258ade784a6f72f",
-      "unproven": true
+      "commit": "9c68ecf1ab68d4124472696b0b705d8e5988c879",
+      "inputs": "5945b14307c56a0fc74f4a3d29ac35d982ae9944c34a55361258ade784a6f72f"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
       "commit": "824445d33a7108f62c5434fba6b478c5567d1b45",
