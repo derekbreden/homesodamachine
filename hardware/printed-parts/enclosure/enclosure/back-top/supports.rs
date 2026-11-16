@@ -54,6 +54,7 @@ const PISCO_SERVICE_FLANK: f64 = 3.2;
 const METER_AIR: f64 = 0.75;
 const METER_HOUSING_FIT: f64 = 0.15;
 const VAR: f64 = 0.5;
+const METER_FIT_SWEEP: P2 = [SLIDE + VAR, METER_HOUSING_FIT];
 const METER_SEAT: P2 = [-30.01, 29.99];
 const METER_CAP: P2 = [-19.01, 18.99];
 
@@ -280,19 +281,17 @@ pub struct Interior {
     pub reason: &'static str,
 }
 
-/// The fitted rooms and cap pockets that print with no support: the ASSE's room and corbelled
-/// east pocket, the whole Pisco receiver, the meter's room and cap pocket below its front lip,
-/// between its end shoulders, and the water regulator's room between its two supported catches.
+/// Fitted rooms and cap pockets kept clear of supports. The meter's open body room and
+/// upper hook pocket take support at their floors.
 pub fn interiors() -> Vec<Interior> {
     let a = running();
     let (asse, pisco) = (asse_station(), pisco_station());
     let whole = |s: &Station| [s.axis_x - s.outer - a, s.axis_x + s.outer + a, s.y0 - a, s.y1 + a, s.split - a, s.ceiling + a];
     let mut asse_room = whole(&asse);
     asse_room[0] = asse.axis_x - asse.neck;
-    let (stock, cap, meter) = meter_print_stock();
-    let mut meter_pocket = stock;
-    (meter_pocket[2], meter_pocket[3]) = (cap[0] - a, cap[1] + a);
-    meter_pocket[5] = stock[5] - meter.outer + meter.ledge - a;
+    let (stock, cap, _) = meter_print_stock();
+    let lower_pocket = [stock[0], stock[1], cap[0] - a, cap[1] + a, stock[4],
+                        meter_wire_chamber_bounds()[4] - 2.0 * a];
     let mount = &layout().rear_plumbing.regulator_mount;
     let [y0, y1] = regulator_seat();
     let regulator_room = [-y1, -y0, mount.axis[0] - mount.station.neck, mount.axis[0] + mount.station.neck,
@@ -302,8 +301,9 @@ pub fn interiors() -> Vec<Interior> {
                    reason: "The fitted room and the corbelled east catch print without support; the reachable west catch's support stands outside." },
         Interior { name: "Pisco receiver", bounds: whole(&pisco), grows: [true; 6],
                    reason: "The fitted room and both corbelled catches print without support." },
-        Interior { name: "Flow meter receiver", bounds: meter_pocket, grows: [true, true, false, false, true, false],
-                   reason: "The fitted room and cap pocket print without support; the front lip's support stands above it and the fore end shoulder's beside it." },
+        Interior { name: "Flow meter lower cap pocket", bounds: lower_pocket,
+                   grows: [true, true, false, false, true, false],
+                   reason: "Keep support out of the lower hook pocket below the wire chamber floor." },
         Interior { name: "Water regulator receiver", bounds: regulator_room, grows: [true, true, false, false, true, true],
                    reason: "The fitted room prints without support; both reachable catches' support stands on either side." },
     ]
@@ -351,6 +351,44 @@ pub fn meter_lip_target() -> Bounds {
     [stock[0], stock[0] + s.bearing, cap[0] - a, pisco_station().y0 - a, lip - a, lip + a]
 }
 
+/// The upper hook pocket floor, from the lip's inner edge to the corbel at the flank.
+pub fn meter_hook_floor_target() -> Bounds {
+    let (stock, cap, s) = meter_print_stock();
+    let a = running();
+    let floor = stock[5] - s.outer + s.neck;
+    [stock[0] + s.bearing, stock[0] + s.ceiling, cap[0] - a, cap[1] + a, floor - a, floor + a]
+}
+
+/// The meter's downhill slide and wire floors face the bed in the ceiling-down pose.
+/// Supports peel away through the receiver's open west face.
+pub fn meter_floor_targets() -> Vec<(String, Bounds)> {
+    let frame = &layout().parts.digiten_flow;
+    let centre = frame.point([meter::BODY_CENTER_X, 0.0, meter::BODY_CENTER_Z]);
+    let (stock, _, _) = meter_print_stock();
+    let [fore, aft] = METER_FIT_SWEEP;
+    let fit = METER_HOUSING_FIT;
+    let a = running();
+    let mut targets = Vec::new();
+    for (channel, radius, span) in [
+        ("boss channel", meter::BOSS_RADIUS, meter::BOSS_Y),
+        ("screw-head channel", meter::SCREW_HEAD_RADIUS, meter::SCREW_HEAD_Y),
+    ] {
+        let [x0, x1] = span.map(|y| frame.point([meter::BODY_CENTER_X, y, meter::BODY_CENTER_Z])[0]);
+        let radius = radius + fit;
+        let floor = centre[2] - meter::BOSS_Z - radius;
+        for (end, dy) in [("fore", -meter::BOSS_X), ("aft", meter::BOSS_X)] {
+            let y = centre[1] + dy;
+            targets.push((
+                format!("Accessible flow meter {end} {channel} floor"),
+                [(x0 - fit).max(stock[0]), x1 + fit, y - fore - radius, y + aft + radius, floor - a, floor + a],
+            ));
+        }
+    }
+    let [_, x1, y0, y1, floor, _] = meter_wire_chamber_bounds();
+    targets.push(("Accessible flow meter wire chamber floor".into(), [stock[0], x1, y0, y1, floor - a, floor + a]));
+    targets
+}
+
 /// The water regulator seat's span along its own axis, its far end a wall past the cap.
 fn regulator_seat() -> P2 {
     let mount = &layout().rear_plumbing.regulator_mount;
@@ -370,6 +408,23 @@ fn meter_print_stock() -> (Bounds, P2, Station) {
     let s = station(0.0,port[2]+meter::PORT_COLLAR_RADIUS+METER_AIR-centre[2]+WALL,
                     cap,0.0,wx(meter::UNDERSIDE_Y)-METER_AIR-mx);
     ([mx,side()+INTO,ty+METER_SEAT[0],ty+METER_SEAT[1],centre[2]-s.outer,centre[2]+s.outer],cap,s)
+}
+
+/// The cut for the lead's exit, shared by the receiver and its print support request.
+fn meter_wire_chamber_bounds() -> Bounds {
+    let frame = &layout().parts.digiten_flow;
+    let (stock, _, station) = meter_print_stock();
+    let centre = frame.point([meter::BODY_CENTER_X, 0.0, meter::BODY_CENTER_Z]);
+    let root = frame.point(meter::WIRE_ROOT);
+    let half = meter::WIRE_ROOT_WIDTH / 2.0;
+    let [fore, aft] = METER_FIT_SWEEP;
+    let air = METER_AIR;
+    [stock[0] - 1.0,
+     frame.point([meter::BODY_CENTER_X, meter::WIRE_ROOT[1] + meter::WIRE_ROOT_DEPTH / 2.0, meter::BODY_CENTER_Z])[0] + air,
+     frame.point([-half, 0.0, 0.0])[1] - fore - air,
+     frame.point([half, 0.0, 0.0])[1] + aft + air,
+     (root[2] - meter::WIRE_DROP).min(centre[2] - station.neck),
+     root[2] + meter::WIRE_BOSS_LEN + air]
 }
 
 fn asse_station() -> Station {
@@ -607,7 +662,8 @@ fn meter(g: &mut Graph) -> Shape {
     let wy = |x: f64| at([x, 0.0, 0.0])[1];
     let air = METER_AIR;
     let mx = wx(meter::FLANGE_Y) - air;
-    let (fore, aft, fit) = (SLIDE + VAR, METER_HOUSING_FIT, METER_HOUSING_FIT);
+    let [fore, aft] = METER_FIT_SWEEP;
+    let fit = METER_HOUSING_FIT;
     let x0 = mx - 1.0;
     let housing: Vec<P2> = clearance_profile(&meter::HOUSING_PROFILE, fit, fit).into_iter().map(|[y, r]| [wx(y), r]).collect();
     let radius = housing.iter().map(|p| p[1]).fold(f64::NEG_INFINITY, f64::max);
@@ -632,15 +688,11 @@ fn meter(g: &mut Graph) -> Shape {
         let sleeve = g.intersect(sleeve, &[reach]);
         cup = g.union(cup, &[sleeve]);
     }
-    let root = at(meter::WIRE_ROOT);
-    let half = meter::WIRE_ROOT_WIDTH / 2.0;
     let ty = frame.translation_mm[1];
     let cap_y = [ty + METER_CAP[0], ty + METER_CAP[1]];
     let west = wx(meter::UNDERSIDE_Y);
     let st = station(0.0, soda[1] + collar + air - mz + WALL, cap_y, 0.0, west - air - mx);
-    let wire = g.box_([x0, wx(meter::WIRE_ROOT[1] + meter::WIRE_ROOT_DEPTH / 2.0) + air, wy(-half) - fore - air,
-                       wy(half) + aft + air, (root[2] - meter::WIRE_DROP).min(mz - st.neck),
-                       root[2] + meter::WIRE_BOSS_LEN + air]);
+    let wire = g.box_(meter_wire_chamber_bounds());
     cup = g.union(cup, &[wire]);
     let stock = g.box_([mx, side() + INTO, ty + METER_SEAT[0], ty + METER_SEAT[1], mz - st.outer, mz + st.outer]);
     // The aft end shoulder stands under the Pisco receiver, where a tree would root in the
