@@ -49,7 +49,13 @@ regulator uses its measured linear radius profile and true installed axis,
 with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
 Its body-to-outlet shoulder retains the scanned position. The central cap
 bearing ends 1 mm short of the spring ends beside the outlet release collet.
-The PISCO, water-regulator and flow-meter hardware fits are physically approved.
+The PISCO, water-regulator and flow-meter hardware fits are
+[physically approved](../../../print-tests/pointed-snaps/physical-result/physical-result.json).
+The PISCO and meter fits were approved on the
+[fitted-retention samples](../../../print-tests/rear-snap-retention/v5/README.md): receivers cut
+from back-top, printed roof-down as it prints, with automatic tree supports in their cavities, so
+the meter's channel and wire-chamber floors printed on support. The water regulator's fit is the
+[v4 sample's](../../../print-tests/rear-snap-retention/v4/physical-result/physical-result.json).
 The [latest pointed-set result](../../../print-tests/asse-body-seating/physical-result/physical-result.json)
 reports tight hardware fits, with the ASSE body seating as the exception. The
 [ASSE body cap](../../../print-tests/asse-body-seating/README.md) carries its local seating allowance.

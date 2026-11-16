@@ -168,17 +168,24 @@
     },
     {
       "material": "HSM-0449",
-      "date": "2026-11-01",
+      "date": "2026-11-02",
       "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
-      "tried": "the regulator snapped into its printed cap and receiver",
-      "record": "hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json"
+      "tried": "the Pisco CO₂ regulator snapped into its printed cap and receiver",
+      "record": "hardware/print-tests/pointed-snaps/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0450",
-      "date": "2026-11-01",
+      "date": "2026-11-02",
       "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
       "tried": "the flow sensor snapped into its printed cap and receiver",
-      "record": "hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json"
+      "record": "hardware/print-tests/pointed-snaps/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0451",
+      "date": "2026-11-02",
+      "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
+      "tried": "the water regulator snapped into its printed cap and receiver",
+      "record": "hardware/print-tests/pointed-snaps/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0448",
