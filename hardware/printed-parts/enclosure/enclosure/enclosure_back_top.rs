@@ -192,7 +192,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     }
     let rail_contact = b.splits[1] + shell::HOOK_FOOT;
     let rail_floor = b.splits[1] + shell::Z_RISE + shell::slide_slip();
-    let mut support_stock = vec![rear::nameplate_print_support(b.outer[5])];
+    let mut support_stock = Vec::new();
     // The caps stay inside the open rail lanes, with a break in the west lane at the vent chase.
     for (name, side, span) in [
         ("Removable west fore rail support", 1.0, [224.2, 310.0]),

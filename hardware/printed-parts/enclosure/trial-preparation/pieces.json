@@ -177,12 +177,12 @@
           -2.5,
           0.0
         ],
-        "reason": "Center the ceiling-down enclosure and exterior nameplate panel inside the usable bed border."
+        "reason": "Balance the bead margins of the ceiling-down enclosure and its bed-rooted support trees."
       },
       "settings": {
         "curr_bed_type": {
-          "value": "Engineering Plate",
-          "reason": "Mark1 prints the back-top on its glued Engineering Plate."
+          "value": "Textured PEI Plate",
+          "reason": "Mark1 prints the back-top on textured PEI for the specified roof finish."
         },
         "max_bridge_length": {
           "value": "0",
@@ -206,7 +206,7 @@
         },
         "raft_first_layer_expansion": {
           "value": "0.5",
-          "reason": "Fit the native tree feet and exterior nameplate panel within the usable bed border."
+          "reason": "Fit the native tree feet within the usable bed border."
         },
         "tree_support_branch_distance": {
           "value": "3",
