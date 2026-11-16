@@ -500,7 +500,8 @@ pub struct FootLaid {
     pub tip_radius: f64,
 }
 
-/// One feature of a course as it is laid: its rings and its fill.
+/// One feature of a course as it is laid: its rings and its fill, and the print accelerations
+/// they take, where they set their own.
 struct Feature<'a> {
     pitch: f64,
     ring_speed: f64,
@@ -509,9 +510,10 @@ struct Feature<'a> {
     ring: &'a str,
     fill: &'a str,
     lap: f64,
+    acceleration: Option<[f64; 2]>,
 }
 
-const BRIDGE: Feature<'static> = Feature { pitch: SKIN_PITCH, ring_speed: 15.0, fill_speed: 15.0, flow: BRIDGE_FLOW, ring: "Bridge", fill: "Bridge", lap: 0.5 };
+const BRIDGE: Feature<'static> = Feature { pitch: SKIN_PITCH, ring_speed: 15.0, fill_speed: 15.0, flow: BRIDGE_FLOW, ring: "Bridge", fill: "Bridge", lap: 0.5, acceleration: None };
 
 /// The foot's G-code, laid into the preamble.
 struct Laying<'a> {
@@ -582,15 +584,19 @@ impl Laying<'_> {
             fill = fill.offset(-OPEN).offset(OPEN).and(&fill);
         }
         let narrow = narrow_pieces(region, SKIN_WIDTH, f.pitch, &fill);
+        let accelerate = |w: &mut Writer, i: usize| if let Some(a) = f.acceleration { w.raw(format!("M204 S{:.0}", a[i])) };
         self.w.comment_feature(f.ring, SKIN_WIDTH);
+        accelerate(self.w, 0);
         if let Some(lap) = lap.as_ref().filter(|_| lap_first) {
             self.lap(lap, n_top, SKIN_WIDTH, f.ring_speed, f.flow);
         }
         self.pieces(&first, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
         self.pieces(&narrow, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
         self.w.comment_feature(f.fill, SKIN_WIDTH);
+        accelerate(self.w, 1);
         self.laid.fill_lines += self.lines(&hatch(&fill, angle, f.pitch, 0.8), n_top, angle, SKIN_WIDTH, f.fill_speed, f.flow, COURSE);
         self.w.comment_feature(f.ring, SKIN_WIDTH);
+        accelerate(self.w, 0);
         self.pieces(&last, n_top, SKIN_WIDTH, f.ring_speed, f.flow, COURSE);
         if let Some(lap) = lap.as_ref().filter(|_| !lap_first) {
             self.lap(lap, n_top, SKIN_WIDTH, f.ring_speed, f.flow);
@@ -610,12 +616,14 @@ impl Laying<'_> {
     }
 }
 
-/// The speeds the plate's slicer lays the base's level layers at: its outer walls and its
-/// internal solid infill, in mm/s.
+/// The speeds the plate's slicer lays the base's level layers at, its outer walls and its
+/// internal solid infill, in mm/s, and the print accelerations it lays them with, in mm/s².
 #[derive(Clone, Copy)]
 pub struct LevelSpeeds {
     pub wall: f64,
     pub fill: f64,
+    pub wall_acceleration: f64,
+    pub fill_acceleration: f64,
 }
 
 /// One setting of the slicer's header in a sliced plate's G-code, the same for every extruder.
@@ -629,7 +637,8 @@ pub fn header_setting(lines: &[&str], key: &str) -> Result<f64> {
 }
 
 /// The foot's sloped courses on the roof, with the plugs and the deck rising beside them. Their
-/// walls and fill take the level layers' speeds, where the machine's Z feed and the filament allow.
+/// walls and fill take the level layers' speeds and accelerations, where the machine's Z feed and
+/// the filament allow.
 pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64, speeds: LevelSpeeds) -> Result<FootLaid> {
     let regions = &foot.regions;
     let count = regions.len();
@@ -658,7 +667,8 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64, spe
         let n_top = k as f64 * COURSE;
         let region = &regions[k - 1];
         let angle = if k % 2 == 1 { 90.0 } else { 0.0 };
-        let wall = |flow| Feature { pitch: SKIN_WIDTH, ring_speed: speeds.wall, fill_speed: speeds.fill, flow, ring: "Outer wall", fill: "Internal solid infill", lap: 1.2 };
+        let wall = |flow| Feature { pitch: SKIN_WIDTH, ring_speed: speeds.wall, fill_speed: speeds.fill, flow, ring: "Outer wall", fill: "Internal solid infill", lap: 1.2,
+                                    acceleration: Some([speeds.wall_acceleration, speeds.fill_acceleration]) };
         lay.w.raw(format!("; sloped course {k} of {count}"));
         if k == 1 {
             // the first course crosses the roof's air as a bridge, as Support D lays it
@@ -669,12 +679,15 @@ pub fn lay_foot(w: &mut Writer, frame: &Frame, foot: &Foot, lift_share: f64, spe
             // the sockets' shoulders cross the plugs' air the same way, after the rest of the course
             let zone = sockets.iter().fold(Region::default(), |z, s| z.union(&s.offset(SHOULDER_REACH)));
             lay.course(&region.minus(&zone), n_top, angle, &wall(1.0), true, false);
+            lay.w.raw("M204 S1000");
             lay.w.raw(format!("{BRIDGE_FAN} ; the shoulders over the plugs take the bridge's fan"));
             lay.course(&region.and(&zone), n_top, 90.0, &BRIDGE, false, false);
             lay.w.raw("M106 S0");
         } else {
             let flow = if k == 2 { 1.05 } else { 1.0 };
             lay.course(region, n_top, angle, &wall(flow), true, false);
+            // the deck and plugs keep the courses' own acceleration
+            lay.w.raw("M204 S1000");
         }
         lay.w.comment_feature("Support", ROOF_WIDTH);
         let deck_n = n_top.min(slab_top);
@@ -1305,9 +1318,12 @@ pub fn foundation(args: &Foundation) -> Result<()> {
     // volumetric limit the slicer lays the level layers with
     let z_feed = crate::motion::AxisLimits::stated(&gcode)?.speed[2];
     let volume = header_setting(&lines, "filament_max_volumetric_speed")?;
+    // the slicer lays internal solid infill at its default acceleration
     let speeds = LevelSpeeds {
         wall: header_setting(&lines, "outer_wall_speed")?,
         fill: header_setting(&lines, "internal_solid_infill_speed")?,
+        wall_acceleration: header_setting(&lines, "outer_wall_acceleration")?,
+        fill_acceleration: header_setting(&lines, "default_acceleration")?,
     };
     let mut w = Writer::new(z_feed, volume);
     let opening = Opening {
@@ -1362,6 +1378,7 @@ pub fn foundation(args: &Foundation) -> Result<()> {
         "limits": {
             "machine_z_feed_mm_s": z_feed,
             "course_wall_speed_mm_s": speeds.wall, "course_fill_speed_mm_s": speeds.fill,
+            "course_wall_acceleration_mm_s2": speeds.wall_acceleration, "course_fill_acceleration_mm_s2": speeds.fill_acceleration,
             "filament_max_volumetric_mm3_s": volume,
             "head_travel_margin_mm": HEAD_TRAVEL_MARGIN, "nozzle_travel_margin_mm": NOZZLE_TRAVEL_MARGIN,
             "least_share_of_a_level_course_laid": FEATHER_MIN, "nozzle_over_slab_mm": rule.nozzle_over,
