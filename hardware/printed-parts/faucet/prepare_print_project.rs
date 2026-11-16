@@ -88,15 +88,10 @@ fn main() -> Result<()> {
         None => (faucet_plate::SELECTION.to_owned(), faucet_plate::selection(&root)?),
     };
     let selection = style.finish(&selection);
-    // the plate the selections put the faucet on; the PET-GF Z trim belongs to the textured PEI
-    // plate, and any other bed takes the selections' own trim over Bambu's plate compensation,
-    // or Bambu's compensation alone
+    // the plate the selections put the faucet on, and the PET-GF Z trim the print setup gives the
+    // printer for that plate
     let bed = selection["bed_type"].as_str().context("the plate's selections name no bed_type")?.to_owned();
-    let trim = if bed == hsm_print_prep::profile::TEXTURED_PEI {
-        Some(hsm_print_prep::profile::petgf_z_trim(&root, &printer)?)
-    } else {
-        selection.get("bed_z_trim_mm").map(|v| v.as_f64().context("the selections' bed_z_trim_mm is a number")).transpose()?
-    };
+    let trim = hsm_print_prep::profile::petgf_bed_z_trim(&root, &printer, &bed)?;
     let tip_part = Part::new(TIP.name, tip_mesh.unwrap_or_else(|| root.join(TIP.stl)), faucet_plate::TIP_ROTATION_DEGREES);
     let parts = if warp_donor {
         vec![tip_part]
@@ -110,7 +105,7 @@ fn main() -> Result<()> {
         ]
     };
     let offsets = if warp_donor { &[[0.0, 0.0]][..] } else { &OFFSETS[..] };
-    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, offsets, &title, trim, 40.0)?;
+    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, offsets, &title, Some(trim), 40.0)?;
     let parent = &selection["industrial_recipe"];
     let parent_project_source = parent["project"].as_str().context("Industrial parent project")?;
     let parent_report_source = parent["report"].as_str().context("Industrial parent report")?;
@@ -157,10 +152,6 @@ fn main() -> Result<()> {
     }
     let original = r.plate.settings.clone();
     r.plate.settings["curr_bed_type"] = json!(bed);
-    let compensation = match trim {
-        Some(z) => json!({"user_z_trim_mm": z}),
-        None => hsm_print_prep::profile::stock_compensation(&mut r.plate.settings)?,
-    };
     if let Some(settings) = &warp_settings {
         let index = r.row(TIP.name)?.index;
         r.plate.objects[index].ranges = settings.course_bands_mm.iter().copied().map(|[min_z, max_z, height]|
@@ -265,7 +256,7 @@ fn main() -> Result<()> {
     let mut report = r.write(&root, &project)?;
     for (k, v) in [
         ("project", json!(relative(&project, &root))), ("native_settings_sha256", report["settings_sha256"].clone()),
-        ("printer", json!(printer)), ("active_nozzle", json!(0)), ("external_spool", json!(254)), ("requested_z_trim_mm", json!(trim)), ("plate_compensation", compensation),
+        ("printer", json!(printer)), ("active_nozzle", json!(0)), ("external_spool", json!(254)), ("requested_z_trim_mm", json!(trim)),
         ("filament_colour", json!(colour)), ("parent_project", json!(parent_project_source)),
         ("parent_project_sha256", json!(sha256_hex(&parent_project_bytes))), ("parent_project_source_commit", json!(parent_revision)),
         ("profile_source", json!(PROFILE)), ("profile_source_sha256", json!(file_sha(&root.join(PROFILE))?)),
