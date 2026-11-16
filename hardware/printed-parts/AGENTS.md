@@ -146,8 +146,9 @@ a support target through the slot's open west side as far as the Pisco
 receiver. Under the Pisco a tree could only root against the receiver's fore end
 stop, so the lip bridges from that support to the aft shoulder. The upper hook
 pocket floor, both boss channels, both screw-head channels and the wire chamber
-take support through the receiver's open west side. Preserve the approved
-component seats, catch planes and wing travel.
+take support through the receiver's open west side. Preserve the
+[approved](../print-tests/pointed-snaps/physical-result/physical-result.json) component seats,
+catch planes and wing travel.
 Receiver coupons retain this production layer direction. Ordinary layers apply
 except where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop
