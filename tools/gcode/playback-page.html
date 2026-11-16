@@ -47,7 +47,7 @@
     <span data-road-kind="0" hidden><i class="motion-swatch" aria-hidden="true"></i>Model</span>
     <span data-road-kind="1" hidden><i class="motion-swatch" aria-hidden="true"></i>Support</span>
     <span data-road-kind="2" hidden><i class="motion-swatch" aria-hidden="true"></i>Support interface</span>
-    <span data-road-kind="3" hidden><i class="motion-swatch" aria-hidden="true"></i>Bridge</span>
+    <span data-road-kind="3" hidden><i class="motion-swatch" aria-hidden="true"></i>Bridge infill (slicer-marked)</span>
     <span id="motion-timing-method">Acceleration + braking estimate · simplified H2C hardware</span>
     <span>Firmware actions and waits excluded</span>
   </div>
@@ -92,7 +92,7 @@ if (data.sampled) {
     throw error;
   }
   $("motion-timing-method").textContent = surfacePaths
-    ? "Sampled motion · surface and support paths · simplified H2C hardware"
+    ? "Sampled motion · sparse infill hidden · simplified H2C hardware"
     : "Sampled motion · simplified bead paths and H2C hardware";
 }
 const detail = data.detail;
@@ -162,10 +162,14 @@ const roadKinds = new Uint8Array(roadCount);
 const presentRoadKinds = new Set();
 const roadColorTokens = ["viz-series-1", "viz-series-2", "viz-series-3", "viz-series-4"];
 const roadLegend = root.querySelectorAll("[data-road-kind]");
+const bridgeFeatureLabels = new Map([
+  ["Bridge", "Bridge infill"],
+  ["Internal Bridge", "Internal bridge infill"],
+]);
 function detailedRoadKind(feature) {
   if (feature === "Support interface") return 2;
   if (feature.startsWith("Support")) return 1;
-  return feature === "Bridge" || feature === "Internal Bridge" ? 3 : 0;
+  return bridgeFeatureLabels.has(feature) ? 3 : 0;
 }
 const roadVertices = surfacePaths ? 2 : 8;
 const roadCoordinates = roadVertices * 3;
@@ -359,6 +363,7 @@ const current = new THREE.Vector3();
 if (track) liveBead.visible = false;
 function draw(){
   const frame = pose(now, current);
+  const feature = data.features[frame.feature];
   currentLayer = frame.layer;
   roadGeometry.setDrawRange(0, frame.deposited * drawUnitsPerRoad);
   bed.position.z = -current.z;
@@ -368,7 +373,7 @@ function draw(){
     const delta=head.position.clone().sub(followTarget);camera.position.add(delta);controls.target.add(delta);followTarget.copy(head.position);
   }
   $("motion-layer").textContent=`Layer ${currentLayer} · ${data.selected_layers[0]}–${data.selected_layers[1]}`;
-  $("motion-readout").textContent=`${data.features[frame.feature]} · ${frame.speed.toFixed(0)} mm/s · G-code Z ${current.z.toFixed(2)} mm`;
+  $("motion-readout").textContent=`${bridgeFeatureLabels.get(feature) ?? feature} · ${frame.speed.toFixed(0)} mm/s · G-code Z ${current.z.toFixed(2)} mm`;
   $("motion-time").textContent=`${clock(now)} / ${clock(duration)}`;
   $("motion-scrub").value=String(now/duration*1000);
   renderer.render(scene,camera);
