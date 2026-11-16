@@ -30,8 +30,7 @@ tools/run -- faucet-plate industrial path/to/new-run-directory --production
 
 The default plate targets Mark2's fixed left hardened nozzle, black PET-GF on its external
 spool, and the bed the [plate's selections](../../../../tools/hsm/print-prep/faucet-plate.json)
-name; on any bed but textured PEI its first layer stands the selections' bed trim above
-Bambu's own compensation.
+name, with the [PET-GF trim](../../z-trim.md) the print setup gives the printer for that bed.
 `--printer Mark1 --filament-colour '#000000'` targets Mark1 and the specified spool colour. Check the destination's actual material and nozzle
 mapping before sending. A cover-only project is available through the
 [cover preparer](../faucet-display-cover/README.md#printing-and-checks).

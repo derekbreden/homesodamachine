@@ -285,35 +285,6 @@ pub fn petgf_bed_z_trim(root: &Path, printer: &str, bed: &str) -> Result<f64> {
     setup["printers"][printer][key].as_f64().with_context(|| format!("{PETGF_SETUP} gives no {bed} Z trim for printer {printer}"))
 }
 
-/// Bambu's own H2C start G-code, whose plate compensation a plate without a user Z trim keeps.
-pub const STOCK_START_GCODE: &str = "machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json";
-
-/// Puts Bambu's own plate compensation back into the start G-code of `settings`, in place of a
-/// user Z trim, and names the printer preset for it. Returns where the block came from.
-pub fn stock_compensation(settings: &mut Value) -> Result<Value> {
-    let source = Path::new(PRESETS).join(STOCK_START_GCODE);
-    let template: Value = serde_json::from_slice(&std::fs::read(&source).with_context(|| format!("reading {}", source.display()))?)?;
-    let stock = template["machine_start_gcode"].as_str().context("Bambu's template has no start G-code")?;
-    let (a, b) = compensation_span(stock)?;
-    let block = &stock[a..b];
-    let start = settings["machine_start_gcode"].as_str().context("no start G-code")?.to_string();
-    let (c, d) = compensation_span(&start)?;
-    settings["machine_start_gcode"] = json!(format!("{}{}{}", &start[..c], block, &start[d..]));
-    let nozzle: f64 = first_text(settings, "nozzle_diameter").context("no nozzle diameter")?.parse()?;
-    let identity = format!("Bambu Lab H2C {nozzle} Standard stock Z");
-    settings["printer_settings_id"] = json!(identity);
-    // The slicer refuses a process whose compatible printers do not name the printer.
-    if let Some(Value::Array(compatible)) = settings.get_mut("print_compatible_printers") {
-        if !compatible.iter().any(|c| c.as_str() == Some(identity.as_str())) {
-            compatible.push(json!(identity));
-        }
-    }
-    Ok(json!({
-        "source": source.display().to_string(), "source_sha256": crate::sha256_hex(&std::fs::read(&source)?),
-        "block_sha256": crate::sha256_hex(block.as_bytes()), "printer_settings_id": identity,
-    }))
-}
-
 fn points(text: &str) -> Result<Vec<[f64; 2]>> {
     text.split(',')
         .map(|p| {
