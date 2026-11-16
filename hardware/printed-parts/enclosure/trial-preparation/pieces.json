@@ -15,6 +15,19 @@
       "filament_colour": "#161616"
     }
   },
+  "textured_pei_z_trim": {
+    "value": 0.04,
+    "pieces": [
+      "front-top",
+      "front-bottom",
+      "back-top",
+      "back-bottom",
+      "foam-shell",
+      "foam-cap-lid-top",
+      "foam-cap-bottom"
+    ],
+    "reason": "Derek selects the lower PET-GF trim for the enclosure quadrants and the cold-core casing on textured PEI."
+  },
   "filament_mapping": {
     "extruder_ams_count": [
       "1#0|4#0",

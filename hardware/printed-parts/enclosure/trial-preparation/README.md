@@ -16,6 +16,7 @@ reduce that objective to fit or qualify the assembled machine by itself.
 tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml -p hsm-print-prep
 tools/hsm/target/release/enclosure-print-prep list
 tools/hsm/target/release/enclosure-print-prep back-top --slice --review
+tools/hsm/target/release/enclosure-print-prep back-top --bed 'Textured PEI Plate' --slice --review
 tools/hsm/target/release/enclosure-print-prep all --slice --review
 tools/run -- tools/hsm/target/release/enclosure-labels --mark1-identification --slice
 tools/run -- tools/hsm/target/release/enclosure-labels --collars-only --slice
@@ -27,7 +28,8 @@ whether the region record binds them. A run writes
 and `show-faces.npz`, the painted show faces in plate coordinates. `preparation.json` holds
 the input digests, the hotend and material, pose, yaw and plate placement, each derived band
 and its measured span, the painted face counts, the ribbon, window and modifier boxes, and each
-recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) or Mark2;
+recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) or Mark2.
+`--bed` selects Textured PEI or the Engineering Plate for a named recipe.
 `--part` replaces a plate's declared parts, with per-part quantity, axis turns, walls and
 infill. Preparation reads the exported meshes and builds no geometry. `--slice` runs the
 installed Bambu Studio command line on the project and keeps its archive beside it, and
@@ -93,8 +95,10 @@ bead radius; the outline coverage remains in the reading. Layer-height coverage
 uses the project's declared bed layer and preserves feature tags across layers.
 
 Each printer's Z trim in `pieces.json` for the plate a piece prints on, Textured PEI or the
-Engineering Plate, goes into the start G-code's plate compensation, unless a piece states
-its own. The `petgf-cooling` program
+Engineering Plate, goes into the start G-code's plate compensation. For PET-GF on textured
+PEI with the enclosure hotend, a plate containing only the named enclosure or cold-core
+parts uses `textured_pei_z_trim`. A piece can also declare its own trim for a material-specific
+recipe. The `petgf-cooling` program
 ([`petgf_cooling.rs`](../../cadlib/petgf_cooling.rs)) applies the localized cooling to PET-GF
 slots. Black PET-GF on the left 0.4 mm nozzle prints model, support and interface on the
 enclosure pieces. The solid-host modifiers come from

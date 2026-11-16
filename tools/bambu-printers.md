@@ -146,36 +146,39 @@ then emits **`G29.1 Z0.02`** on textured PEI with the 0.8 mm nozzle.
 
 ## Z trim
 
-Each first-layer trim belongs to its recorded printer, material, nozzle and plate.
-The printer preset's start G-code carries it. Job names carry the requested value
-(`z010` for the PET-GF preset below).
+Each first-layer trim belongs to its recorded part, printer, material, nozzle and plate.
+The printer preset's start G-code carries it. When a job name includes a trim, that is
+the requested value above the plate's stock compensation.
+
+On both printers, the enclosure quadrants and the cold-core shell, top equipment lid and
+bottom cap use `textured_pei_z_trim` for PET-GF on textured PEI through the enclosure hotend.
+Other jobs on that setup use the printer's `z_trim_mm`. The settings live in
+[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json).
+
+The other textured-plate nozzle setups have their own recipes.
 
 | printer | nozzle | requested | emitted on Textured PEI | preset on current jobs |
 | --- | --- | --- | --- | --- |
-| Mark1 (`H2C`) and Mark2, PET-GF on Textured PEI | 0.4 mm | +0.10 mm | `G29.1 Z0.08` | `Bambu Lab H2C 0.4 Standard +0.10 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |
 
-PET-GF on the glued Engineering Plate takes its own trim from the same `printers` section of
-[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json)
-(`engineering_plate_z_trim_mm`), added over Bambu's other-plate compensation.
+PET-GF on the glued Engineering Plate takes the printer's `engineering_plate_z_trim_mm`,
+added over Bambu's other-plate compensation.
 
 The [Engineering Plate clear-PETG reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
 retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
 The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
 
-The PET-GF default applies to the textured PEI plate with the hotend above. The
-[accepted identification set](../hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
+The [accepted identification set](../hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
 owns the PETG Engineering Plate settings for its nozzle arrangement. Its filament
 hooks apply the right-side clearance while the left retains its baseline, and
 clear the trim before tool changes and maintenance. The clear PETG reservoir
 keeps its own recorded recipe. Other trim changes require explicit authorization
 for their specific print.
 
-Each printer's PET-GF trim is set under `printers` in
-[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json). The
-enclosure, faucet and tube-collar preparers read it there and write it over the trim the
-shared [`petgf.3mf`](../hardware/printed-parts/petgf.3mf) working profile carries. The
+The enclosure, faucet and tube-collar preparers read the trim from the print setup and
+write it over the trim the shared [`petgf.3mf`](../hardware/printed-parts/petgf.3mf)
+working profile carries. The
 coupon plate specs under `hardware/print-tests` restate it. The fixture preparers and the
 lever replica keep each recorded job's own trim in their variant tables and layouts, and
 a project or archive named for a trim holds that trim.
