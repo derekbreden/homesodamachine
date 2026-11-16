@@ -105,8 +105,9 @@ export function setActiveEdges(result) {
 
 // A component out of the view: hidden by hand (component-picker.js), or a body the faucet's
 // finish leaves out — a Black faucet has no union, a White one no bridge.
-function offView(solid) {
-  return (state.hiddenComponents && state.hiddenComponents.has(solid))
+// A body hidden here by hand, unless `hidden` takes those in too, or one the faucet's finish leaves out.
+function offView(solid, hidden = false) {
+  return (!hidden && state.hiddenComponents && state.hiddenComponents.has(solid))
     || !showsInFaucetFinish(state.mountedDetail?.file, solid, state.faucetFinish);
 }
 
@@ -523,7 +524,7 @@ export function faceBody(gid) {
 // drawn surface is a reduction of the solid, so a point taken off the solid can
 // stand a little off every triangle; `tol` is how far it may. Returns the global
 // face id, or -1 when no shown face comes that near.
-export function faceNearest(p, tol = 0.5) {
+export function faceNearest(p, tol = 0.5, { hidden = false } = {}) {
   ensureEdges();
   if (!faceTable) return -1;
   if (!faceBoxes) {
@@ -546,7 +547,7 @@ export function faceNearest(p, tol = 0.5) {
   let best = -1, bestD = tol;
   faceTable.forEach((entry, gid) => {
     const b = faceBoxes[gid];
-    if (!entry || offView(entry.rec.name)) return;
+    if (!entry || offView(entry.rec.name, hidden)) return;
     const out = Math.hypot(Math.max(b[0] - q.x, 0, q.x - b[3]), Math.max(b[1] - q.y, 0, q.y - b[4]),
       Math.max(b[2] - q.z, 0, q.z - b[5]));
     if (out > bestD) return;
@@ -569,8 +570,8 @@ export function faceNearest(p, tol = 0.5) {
 // where it cuts. A face lying in one of its planes is the box's boundary, not
 // its content, and stays dark. Non-indexed triangle soup, like
 // faceHighlightGeometry, with the bodies it came off in userData.bodies; null
-// when the box holds no surface.
-export function boxHighlightGeometry(lo, hi) {
+// when the box holds no surface. `hidden` takes in bodies hidden by hand.
+export function boxHighlightGeometry(lo, hi, { hidden = false } = {}) {
   ensureEdges();
   if (!meshRecs) return null;
   const e = 1e-4;
@@ -582,7 +583,7 @@ export function boxHighlightGeometry(lo, hi) {
     for (let i = 1; i < poly.length - 1; i++) out.push(...poly[0], ...poly[i], ...poly[i + 1]);
   };
   for (const rec of meshRecs) {
-    if (!rec || offView(rec.name)) continue;
+    if (!rec || offView(rec.name, hidden)) continue;
     const { pos, idx } = rec;
     for (let t = 0; t < idx.length; t += 3) {
       let poly = [0, 1, 2].map((k) => [pos[idx[t + k] * 3], pos[idx[t + k] * 3 + 1], pos[idx[t + k] * 3 + 2]]);
