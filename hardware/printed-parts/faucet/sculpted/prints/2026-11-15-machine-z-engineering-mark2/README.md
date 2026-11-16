@@ -28,8 +28,10 @@ printed, this plate carries:
 - The tip's tilted shoulder courses at the machine's Z feed, and one donor course of air between
   the shoulder's interface and its first course, as the base's first course has one course of air
   over its roof. On the restored plate two courses of air stood there.
-- The tip's display pocket front corners standing under the cover's front rim, and its flat
-  dispense face, which leave the tip's passage without the support column the restored plate laid.
+- The tip's display pocket front corners standing under the cover's front rim. The restored plate
+  grew a tall tree from the bed beside the tip to carry the pocket's lower front corner; with the
+  corner no longer overhanging, the slicer grows none, and the plate is shorter by that tree's
+  courses.
 
 The [verification](verification.json) records the checks the plate passed before it was sent:
 its [recipe against the restored plate](recipe-printed-vs-final.txt) and

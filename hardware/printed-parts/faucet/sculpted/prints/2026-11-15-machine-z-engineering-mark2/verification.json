@@ -25,8 +25,8 @@
   },
   "recipe_against_task_1445263169": {
     "since_that_plate_in_the_checkout": [
-      "The tip's dispense face cut flat (317d8a07f): the support column inside the tip's passage and the extra layer notices that came with it are gone; tip support and the plate's layer and object-change notices fall accordingly.",
-      "The tip's display pocket front corners stand under the cover's rim (f5125a67b); the tip's other courses and brim shift with it."
+      "The tip's display pocket front corners stand under the cover's rim (f5125a67b). On the restored plate a tall tree rose from the bed beside the tip to carry the pocket's lower front corner from below; the corner no longer overhangs, the slicer grows no tree there, and the tip's support, its separately layered support courses and the plate's layer and object-change notices fall with it. The product plate of b0ec4b00b, after the flat dispense face (317d8a07f), still had the restored plate's layer count.",
+      "The tip's other courses and brim shift with the new mesh."
     ],
     "from_this_plates_commits": [
       "Base foot courses: lap and rings from 25 mm/s to the outer wall speed, held to the machine's Z feed on the steep stretches; fill from 40 and 50 mm/s to the internal solid infill speed under the volumetric limit; accelerations from 1000 to the outer wall and default accelerations; deck and plug lines from the old Z bound back to their own speed.",
@@ -101,7 +101,9 @@
     "first_course_bridge_roads_backed_within_0p28_mm": 0.654,
     "printed_plate_bridge": 0.013,
     "first_course_overhang_walls_backed_within_0p28_mm": 0.997,
-    "printed_plate_overhang": 0.063
+    "printed_plate_overhang": 0.063,
+    "read_from": "sculpted-trial audit-tip on this archive with the tip mesh it was prepared from"
   },
-  "untested": "No print has tested these speeds and accelerations, the tip's one course of air, the Engineering Plate first layer with its trim, or the tip's new corners."
+  "untested": "No print has tested these speeds and accelerations, the tip's one course of air, the Engineering Plate first layer with its trim, or the tip's new corners.",
+  "nose_support": "The tip's support above its shoulder stands only under the dispense face's inner contact, its lowest beads on the tip's own plastic, as on the restored plate."
 }
