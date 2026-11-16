@@ -740,7 +740,8 @@ footprint or an open-looking lane alone does not establish easy cleanup.
 
 Back-top prints ceiling-down with its rear flutes clear of the bed. Manual Tree
 Slim carries the exposed joint ends, funnel receiver shoulders, valve seat and
-routing lands. The first model courses on the tube-seat and relay-boss arcs
+the tube seat's outer underside. The cable hooks' beak lands overhang too little
+to need support, as front-bottom's same hooks print without it. The first model courses on the tube-seat and relay-boss arcs
 have dense interface or adjacent deposited stock throughout the sampled contact
 areas. The native layers retain that local backing. Joint targets follow the
 raked ends and counterbore roofs above the bed chamfer.
@@ -750,16 +751,25 @@ straight aft. Each split rail cap starts on narrow roots in its own cavity;
 sever the necks and pull the cap inward through the open sliding lane. The
 native slice review confirms the cap air gaps, bed border and clear fitted
 interiors. Funnel insert pilots bridge between their own walls inside the
-supported shoulders. The connector insertion pockets and both power-inlet
-passages remain clear. The [current review record](../../support-D-rollout.json)
+supported shoulders, and so do the power inlet's blind pilots inside its
+supported flange pocket and cord passage. The connector insertion pockets
+remain clear. The [current review record](../../support-D-rollout.json)
 binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
-The rear receiver catches bridge along their pockets between the complete end
-shoulders. The Pisco entry relief ends below a full-thickness fore bridge anchor. The sideways meter host uses authored removable trees under its
-exposed end shoulders; their trunks stand beside the Pisco pocket and their
-forks branch below it. Approved component seats, catch planes and wing travel remain
-intact. Local modifiers select the bridge direction and solid catch stock.
+A rear receiver catch whose flank pocket a screwdriver reaches prints on
+removable support through that open flank: both of the water regulator's and
+the ASSE's west one. The ASSE's east pocket faces the Pisco across a narrow
+corridor and the Pisco's pockets face the ASSE and the east flank, so those
+three catches are corbels climbing the neck at the shell's teardrop roof slope;
+they print with neither support nor bridge inside support-free pockets, and
+their caps' hooks seat on the slope. The Pisco entry relief ends below a
+full-thickness fore end stop. The sideways meter host's fore end shoulder takes a
+support target beside its support-free cap pocket. The aft shoulder sits under
+the Pisco receiver, where a tree would root in the Pisco's open wing slot, so a
+corbel off the east flank carries its top at the same slope. Approved
+component seats, catch planes and wing travel remain intact. A local modifier
+selects the meter roof's bridge direction and solid stock.
 Native construction emits the exclusions beside the STL, bound to its digest;
 preparation carries them through orientation and placement as blockers and
 painted surfaces. The covered bulkhead bores and horizontal valve sockets use
@@ -1037,9 +1047,10 @@ floor and a 45° roof. The display receiver carries the glass seat, PCB opening 
 functional faces; no earlier slice establishes cleanup of this geometry.
 
 The rear fluid bores retain their circular hardware envelopes inside teardrop
-roofs. Their covered interiors and the mains inlet's internal flange pocket,
-cord passage and blind insert pilots remain free of supports in the ceiling-down
-rear-quadrant print. The inlet's broad stock joins the west flank and ceiling;
+roofs. Their covered interiors and the mains inlet's blind insert pilots remain
+free of supports in the ceiling-down rear-quadrant print; the inlet's internal
+flange pocket and cord passage take removable support through their open sides.
+The inlet's broad stock joins the west flank and ceiling;
 its rim bears on the pocket floor and its screws enter from inside. Exterior
 trees remain on accessible surfaces outside the native exclusions.
 

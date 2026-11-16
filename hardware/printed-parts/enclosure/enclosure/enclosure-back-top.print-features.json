@@ -37,75 +37,6 @@
     },
     {
       "bounds_source_mm": [
-        3.401860222036486,
-        54.19813977796352,
-        393.2032545933731,
-        441.3679848073112,
-        331.2,
-        343.3
-      ],
-      "bridge_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_print_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_span_mm": 42.16473021393807,
-      "name": "ASSE receiver",
-      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
-    },
-    {
-      "bounds_source_mm": [
-        61.84438431246909,
-        91.15561568753091,
-        417.09571720240064,
-        465.3,
-        337.95,
-        343.3
-      ],
-      "bridge_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_print_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_span_mm": 42.204282797599376,
-      "name": "Pisco receiver",
-      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
-    },
-    {
-      "bounds_source_mm": [
-        -58.57391030388001,
-        -16.073910303880005,
-        286.353633714998,
-        328.9600400329926,
-        334.75,
-        340.06514607709613
-      ],
-      "bridge_axis_source": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "bridge_print_axis_source": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "bridge_span_mm": 36.50000000000001,
-      "name": "Water regulator receiver",
-      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
-    },
-    {
-      "bounds_source_mm": [
         83.05,
         99.0,
         384.7586388104271,
@@ -114,18 +45,18 @@
         312.7
       ],
       "bridge_axis_source": [
-        0.0,
-        1.0,
-        0.0
+        0,
+        1,
+        0
       ],
       "bridge_print_axis_source": [
-        0.0,
-        1.0,
-        0.0
+        0,
+        1,
+        0
       ],
       "bridge_span_mm": 38.0,
       "name": "Flow meter receiver roof",
-      "reason": "The catch roads bridge along the pocket between its solid end shoulders."
+      "reason": "The roof roads bridge along the cap pocket between its end shoulders."
     },
     {
       "bounds_source_mm": [
@@ -223,23 +154,6 @@
       "bridge_span_mm": 10.25,
       "name": "Sliding rail -1",
       "reason": "The fitted sliding bearings retain local solid deposition."
-    },
-    {
-      "bounds_source_mm": [
-        -98.5,
-        -39.965,
-        455.04999999999995,
-        468.29999999999995,
-        314.1,
-        349.0
-      ],
-      "bridge_print_axis_source": [
-        1,
-        0,
-        0
-      ],
-      "name": "Internal C14 passage",
-      "reason": "Bridge the cord passage and internal pocket between the tunnel side walls."
     }
   ],
   "producer": "enclosure-back-top",
@@ -297,75 +211,11 @@
       ]
     }
   ],
-  "removable_support_trees": [
-    {
-      "bounds_source_mm": [
-        83.3,
-        98.25,
-        387.0086388104271,
-        389.5086388104271,
-        312.7,
-        346.01
-      ],
-      "contact_box_source_mm": [
-        83.3,
-        98.25,
-        387.0086388104271,
-        389.5086388104271,
-        312.7,
-        313.3
-      ],
-      "contact_gap_mm": 0.25,
-      "inner_contact_x_mm": 84.55,
-      "name": "Meter fore shoulder tree",
-      "neck_flare_mm": 3.0,
-      "neck_length_mm": 1.0,
-      "reason": "Pull the exposed fork to break its neck at the roof; the trunk stays beside the Pisco pocket and branches below it.",
-      "root_radius_mm": 0.5,
-      "root_source_mm": [
-        96.75,
-        388.2586388104271,
-        346.0
-      ],
-      "trunk_radius_mm": 1.25
-    },
-    {
-      "bounds_source_mm": [
-        83.3,
-        98.25,
-        440.0086388104271,
-        442.5086388104271,
-        312.7,
-        346.01
-      ],
-      "contact_box_source_mm": [
-        83.3,
-        98.25,
-        440.0086388104271,
-        442.5086388104271,
-        312.7,
-        313.3
-      ],
-      "contact_gap_mm": 0.25,
-      "inner_contact_x_mm": 84.55,
-      "name": "Meter aft shoulder tree",
-      "neck_flare_mm": 3.0,
-      "neck_length_mm": 1.0,
-      "reason": "Pull the exposed fork to break its neck at the roof; the trunk stays beside the Pisco pocket and branches below it.",
-      "root_radius_mm": 0.5,
-      "root_source_mm": [
-        96.75,
-        441.2586388104271,
-        346.0
-      ],
-      "trunk_radius_mm": 1.25
-    }
-  ],
-  "source_stl_sha256": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
+  "source_stl_sha256": "1fc762c8e7fc39617f3ed812f3f95d07a86eb1c35be131a108fbd30c1525dc7d",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
-        0.1518602220364862,
+        9.001860222036488,
         57.44813977796352,
         392.9532545933731,
         441.6179848073112,
@@ -373,21 +223,15 @@
         355.0
       ],
       "bounds_source_mm": [
-        3.401860222036486,
+        9.001860222036488,
         54.19813977796352,
         396.2032545933731,
         438.3679848073112,
         331.2,
         351.8
       ],
-      "bridge_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_span_mm": 42.16473021393807,
       "name": "ASSE receiver",
-      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
+      "reason": "The fitted room and the corbelled east catch print without support; the reachable west catch's support stands outside."
     },
     {
       "blocking_bounds_source_mm": [
@@ -406,66 +250,48 @@
         337.95,
         351.8
       ],
-      "bridge_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_span_mm": 42.204282797599376,
       "name": "Pisco receiver",
-      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
+      "reason": "The fitted room and both corbelled catches print without support."
     },
     {
       "blocking_bounds_source_mm": [
         79.8,
         102.25,
-        381.5086388104271,
-        448.0086388104271,
+        395.5086388104271,
+        434.0086388104271,
         254.90000000000003,
         355.0
       ],
       "bounds_source_mm": [
         83.05,
         99.0,
-        384.7586388104271,
-        444.7586388104271,
+        395.5086388104271,
+        434.0086388104271,
         258.15000000000003,
         312.45
       ],
-      "bridge_axis_source": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "bridge_span_mm": 38.0,
       "name": "Flow meter receiver",
-      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
+      "reason": "The fitted cap pocket prints without support; the fore end shoulder's support stands beside it."
     },
     {
       "blocking_bounds_source_mm": [
         -61.82391030388001,
         1.6260896961199958,
-        283.353633714998,
-        331.9600400329926,
+        291.95363371499803,
+        323.3600400329926,
         331.75,
         355.0
       ],
       "bounds_source_mm": [
         -58.57391030388001,
         -1.6239103038800042,
-        286.603633714998,
-        328.7100400329926,
+        291.95363371499803,
+        323.3600400329926,
         335.0,
         346.5
       ],
-      "bridge_axis_source": [
-        1.0,
-        0.0,
-        0.0
-      ],
-      "bridge_span_mm": 56.95000000000001,
       "name": "Water regulator receiver",
-      "reason": "The fitted catches bridge between their end shoulders in the ceiling-down print without interior supports."
+      "reason": "The fitted room prints without support; both reachable catches' support stands on either side."
     },
     {
       "bounds_source_mm": [
@@ -602,307 +428,54 @@
       "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
     },
     {
-      "blocking_bounds_source_mm": [
-        -98.5,
-        -39.965,
-        455.04999999999995,
-        472.3,
-        314.1,
-        349.0
-      ],
       "bounds_source_mm": [
-        -98.5,
-        -39.965,
-        455.04999999999995,
+        -90.5,
+        -86.5,
+        463.03999999999996,
         468.29999999999995,
-        314.1,
-        349.0
+        328.0,
+        332.0
       ],
-      "name": "Internal C14 mount and cord passage",
-      "reason": "The internal flange pocket and cord passage bridge across the tunnel sides; the blind pilots remain clear."
+      "name": "C14 insert pilot 1",
+      "reason": "Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support.",
+      "void_source": {
+        "end_mm": [
+          -88.5,
+          468.29999999999995,
+          330.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          -88.5,
+          463.03999999999996,
+          330.0
+        ]
+      }
     },
     {
-      "blocking_bounds_source_mm": [
-        -82.65,
-        -54.35,
-        463.04999999999995,
-        474.3,
-        320.1,
-        339.65
-      ],
       "bounds_source_mm": [
-        -82.65,
-        -54.35,
-        463.04999999999995,
-        471.3,
-        320.1,
-        339.65
+        -50.5,
+        -46.5,
+        463.03999999999996,
+        468.29999999999995,
+        328.0,
+        332.0
       ],
-      "name": "C14 cord opening through rear wall",
-      "reason": "Keep the complete cord passage through the rear wall core clear of supports.",
+      "name": "C14 insert pilot 2",
+      "reason": "Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support.",
       "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -54.35,
-            338.15
-          ],
-          [
-            -54.35821715694759,
-            338.30679269490145
-          ],
-          [
-            -54.38277859889929,
-            338.46186753622663
-          ],
-          [
-            -54.42341522555727,
-            338.61352549156237
-          ],
-          [
-            -54.479681813536104,
-            338.7601049646137
-          ],
-          [
-            -54.55096189432334,
-            338.9
-          ],
-          [
-            -54.63647450843758,
-            339.0316778784387
-          ],
-          [
-            -54.73528276178391,
-            339.15369590953827
-          ],
-          [
-            -54.846304090461715,
-            339.26471723821606
-          ],
-          [
-            -54.96832212156129,
-            339.36352549156237
-          ],
-          [
-            -55.1,
-            339.44903810567666
-          ],
-          [
-            -55.239895035386304,
-            339.5203181864639
-          ],
-          [
-            -55.38647450843758,
-            339.5765847744427
-          ],
-          [
-            -55.538132463773366,
-            339.61722140110066
-          ],
-          [
-            -55.69320730509852,
-            339.6417828430524
-          ],
-          [
-            -55.85,
-            339.65
-          ],
-          [
-            -81.15,
-            339.65
-          ],
-          [
-            -81.30679269490149,
-            339.6417828430524
-          ],
-          [
-            -81.46186753622665,
-            339.61722140110066
-          ],
-          [
-            -81.61352549156243,
-            339.5765847744427
-          ],
-          [
-            -81.7601049646137,
-            339.5203181864639
-          ],
-          [
-            -81.9,
-            339.44903810567666
-          ],
-          [
-            -82.03167787843871,
-            339.36352549156237
-          ],
-          [
-            -82.1536959095383,
-            339.26471723821606
-          ],
-          [
-            -82.2647172382161,
-            339.15369590953827
-          ],
-          [
-            -82.36352549156243,
-            339.0316778784387
-          ],
-          [
-            -82.44903810567666,
-            338.9
-          ],
-          [
-            -82.52031818646391,
-            338.7601049646137
-          ],
-          [
-            -82.57658477444274,
-            338.61352549156237
-          ],
-          [
-            -82.61722140110072,
-            338.46186753622663
-          ],
-          [
-            -82.64178284305241,
-            338.30679269490145
-          ],
-          [
-            -82.65,
-            338.15
-          ],
-          [
-            -82.65,
-            321.6
-          ],
-          [
-            -82.64178284305241,
-            321.44320730509855
-          ],
-          [
-            -82.61722140110072,
-            321.28813246377337
-          ],
-          [
-            -82.57658477444274,
-            321.13647450843763
-          ],
-          [
-            -82.52031818646391,
-            320.9898950353863
-          ],
-          [
-            -82.44903810567666,
-            320.85
-          ],
-          [
-            -82.36352549156243,
-            320.7183221215613
-          ],
-          [
-            -82.2647172382161,
-            320.59630409046173
-          ],
-          [
-            -82.1536959095383,
-            320.48528276178394
-          ],
-          [
-            -82.03167787843871,
-            320.38647450843763
-          ],
-          [
-            -81.9,
-            320.3009618943234
-          ],
-          [
-            -81.7601049646137,
-            320.2296818135361
-          ],
-          [
-            -81.61352549156243,
-            320.1734152255573
-          ],
-          [
-            -81.46186753622665,
-            320.13277859889934
-          ],
-          [
-            -81.30679269490149,
-            320.1082171569476
-          ],
-          [
-            -81.15,
-            320.1
-          ],
-          [
-            -55.85,
-            320.1
-          ],
-          [
-            -55.693207305098525,
-            320.1082171569476
-          ],
-          [
-            -55.538132463773366,
-            320.13277859889934
-          ],
-          [
-            -55.38647450843758,
-            320.1734152255573
-          ],
-          [
-            -55.239895035386304,
-            320.2296818135361
-          ],
-          [
-            -55.1,
-            320.30096189432334
-          ],
-          [
-            -54.96832212156129,
-            320.38647450843763
-          ],
-          [
-            -54.846304090461715,
-            320.48528276178394
-          ],
-          [
-            -54.73528276178391,
-            320.59630409046173
-          ],
-          [
-            -54.63647450843758,
-            320.7183221215613
-          ],
-          [
-            -54.55096189432334,
-            320.85
-          ],
-          [
-            -54.479681813536104,
-            320.9898950353863
-          ],
-          [
-            -54.42341522555727,
-            321.13647450843763
-          ],
-          [
-            -54.38277859889929,
-            321.28813246377337
-          ],
-          [
-            -54.35821715694759,
-            321.44320730509855
-          ],
-          [
-            -54.35,
-            321.6
-          ]
+        "end_mm": [
+          -48.5,
+          468.29999999999995,
+          330.0
         ],
-        "span_y_mm": [
-          463.04999999999995,
-          471.3
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          -48.5,
+          463.03999999999996,
+          330.0
         ]
       }
     },
@@ -1317,6 +890,54 @@
   "support_regions": [
     {
       "bounds_source_mm": [
+        6.151860222036486,
+        9.001860222036488,
+        396.2032545933731,
+        438.3679848073112,
+        342.8,
+        343.3
+      ],
+      "name": "Accessible ASSE west catch",
+      "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."
+    },
+    {
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        289.103633714998,
+        291.95363371499803,
+        339.56514607709613,
+        340.06514607709613
+      ],
+      "name": "Accessible water regulator fore catch",
+      "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."
+    },
+    {
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        323.3600400329926,
+        326.2100400329926,
+        339.56514607709613,
+        340.06514607709613
+      ],
+      "name": "Accessible water regulator aft catch",
+      "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        98.5,
+        384.7586388104271,
+        395.2586388104271,
+        312.2,
+        312.7
+      ],
+      "name": "Accessible flow meter fore shoulder",
+      "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."
+    },
+    {
+      "bounds_source_mm": [
         -105.5,
         -91.5,
         200.0,
@@ -1449,42 +1070,6 @@
     },
     {
       "bounds_source_mm": [
-        -95.75,
-        -95.0,
-        312.5,
-        325.0,
-        254.10000000000002,
-        254.60000000000002
-      ],
-      "name": "Accessible cable hook 1 land 5",
-      "reason": "Support the open side of the cable hook and keep the vertical path fore of the inlet-valve socket."
-    },
-    {
-      "bounds_source_mm": [
-        -97.05,
-        -96.3,
-        259.0,
-        275.0,
-        273.875,
-        274.375
-      ],
-      "name": "Accessible cable hook 2 land 5",
-      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
-    },
-    {
-      "bounds_source_mm": [
-        96.3,
-        96.9,
-        270.0,
-        278.0,
-        318.65000000000003,
-        319.15000000000003
-      ],
-      "name": "Accessible cable hook 3 land 5",
-      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
-    },
-    {
-      "bounds_source_mm": [
         88.735,
         99.885,
         261.0,
@@ -1494,6 +1079,30 @@
       ],
       "name": "Accessible tube seat outer underside",
       "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
+    },
+    {
+      "bounds_source_mm": [
+        -82.65,
+        -54.35,
+        463.04999999999995,
+        471.3,
+        319.85,
+        320.35
+      ],
+      "name": "Accessible C14 cord passage roof",
+      "reason": "Support the inlet's roof through its open flange pocket and cord passage."
+    },
+    {
+      "bounds_source_mm": [
+        -94.035,
+        -42.965,
+        458.04999999999995,
+        462.79999999999995,
+        317.76500000000004,
+        325.52209093613465
+      ],
+      "name": "Accessible C14 flange pocket roof",
+      "reason": "Support the inlet's roof through its open flange pocket and cord passage."
     },
     {
       "bounds_source_mm": [
@@ -1612,6 +1221,14 @@
       ]
     ],
     "boss_radius_mm": 5.0,
+    "c14_tunnel_mm": [
+      -98.5,
+      -39.965,
+      455.04999999999995,
+      468.29999999999995,
+      314.1,
+      349.0
+    ],
     "parts": [
       {
         "part": "psu",

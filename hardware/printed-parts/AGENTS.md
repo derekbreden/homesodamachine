@@ -128,24 +128,29 @@ supports and tall trees starting well below the cavity do not share that accepta
 Read the actual rail-tree bases and interfaces from the native slice; allowing
 supports on model material alone does not establish where the slicer roots them.
 
-The full rear enclosure's [physical result](enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
-requires the Pisco and ASSE receiver interiors to print without supports: the
-full-size walls prevent screwdriver access. Preserve their approved component
-seats, catch planes and wing travel. Back-top prints ceiling-down, with the
-rear flutes standing clear of the bed. Its catches bridge along their pockets
-between the complete end shoulders. Native preparation selects that bridge
-direction, retains solid catch and rail bands, and excludes supports from the
-receiver interiors. The sideways meter host uses authored removable trees under its exposed end
-shoulders. Their trunks stand beside the Pisco pocket and their forks branch
-below it, outside the fitted cap pocket. Receiver
-coupons retain this production layer direction. Ordinary layers apply except
-where a specific show round requires a fine band.
+Back-top prints ceiling-down, with the rear flutes standing clear of the bed.
+A snap receiver's flank pocket that a screwdriver reaches prints its catch on
+removable support: both of the water regulator's, and the ASSE's west one. No
+screwdriver reaches the ASSE's east pocket beside the Pisco or either of the
+Pisco's, so only those three catches are corbels at the shell's teardrop roof
+slope, printing with neither support nor bridge, and their caps' hooks seat on
+the slope. The [stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/c604d68ae0540871675765aaa663c2eb991de861/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
+records Derek's split between the two kinds of pocket. The C14 inlet's flange
+pocket and cord passage take support; its blind pilots stay clear. The meter
+host's fore end shoulder takes a support target. Its aft shoulder sits under the
+Pisco receiver, so a corbel off the east flank carries it, and the Pisco cap's
+east corner and shorter east wall clear that corbel seated and down its service
+path. Preserve the approved component seats, catch planes and wing travel.
+Receiver coupons retain this production layer direction. Ordinary layers apply
+except where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop
 clearances pointing in the build direction. The vent cap has a rooted chamfer;
 its passage stays clear of supports. Back-top's rail caps have narrow removable
 roots on their own cavity floors. The exterior nameplate panel follows both
 receiver ledges and pulls aft. Manual Tree Slim supports exposed joint ends,
-funnel receivers, the valve seat, initial boss curves and routing lands. Read the
+funnel receivers, the valve seat, initial boss curves and the tube seat's outer
+underside. The cable hooks' beak lands overhang too little to need support, as
+front-bottom's same hooks show. Read the
 actual removal openings and first model courses in the native slice. Keep blind pilot roofs
 outside support enforcers. Connector insertion pockets bridge between their well
 walls and remain support-free. A bridge path needs a landing at both ends. Follow
@@ -165,7 +170,10 @@ underside and subsequent glossy courses require localized foundation cooling.
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That
 result applies only where the same access remains available in the complete
-part. Where a screwdriver cannot reach, the feature must print without supports.
+part. A surface counts as reachable for support only where a screwdriver gets in
+at a place it can pry or pull the support in the direction that also peels the
+support's interface layers off the surface they are fused to. Anywhere else the
+surface gets a corbel or a bridge, not support.
 
 For visible overhang edges with reported roughness, follow the edge with a
 removable fin wall and retain Tree(auto)/Default on the remaining surfaces.

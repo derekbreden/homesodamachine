@@ -221,7 +221,7 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
                 let overlap = native["boundary_overlap_mm"].as_f64().unwrap_or(0.0);
                 let record_sha = file_sha(&path)?;
                 let mut regions: Vec<(&str, &Value)> = Vec::new();
-                for (k, key) in [("support_free", "support_free_regions"), ("bridge_direction", "bridge_regions"), ("support_required", "support_regions"), ("removable_tree","removable_support_trees")] {
+                for (k, key) in [("support_free", "support_free_regions"), ("bridge_direction", "bridge_regions"), ("support_required", "support_regions")] {
                     for r in native.get(key).and_then(Value::as_array).into_iter().flatten() {
                         regions.push((k, r));
                     }
@@ -430,8 +430,20 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
     let machine = &spec["printers"][&printer];
     let profile_rel = piece.get("profile").or(spec.get("profile")).and_then(Value::as_str).context("no profile")?;
     let profile_path = root.join(profile_rel);
-    let z_trim = piece.get("z_trim_mm").and_then(|z| z["value"].as_f64()).or(machine["z_trim_mm"].as_f64()).context("no Z trim")?;
     let filament_from = piece.get("filament_from").and_then(Value::as_str).filter(|s| !s.is_empty()).map(|s| root.join(s));
+    // The trim a piece states, else the printer's PET-GF trim for the plate the piece prints on:
+    // its own setting's, else its profile's.
+    let z_trim = match piece.get("z_trim_mm").and_then(|z| z["value"].as_f64()) {
+        Some(z) => z,
+        None => {
+            let bed = match piece["settings"]["curr_bed_type"]["value"].as_str() {
+                Some(bed) => bed.to_string(),
+                None => first_text(&profile::load(&profile_path, None, filament_from.as_deref(), root)?.settings, "curr_bed_type")
+                    .context("the profile names no plate")?.to_string(),
+            };
+            profile::petgf_bed_z_trim(root, &printer, &bed)?
+        }
+    };
     let profile = profile::load(&profile_path, Some(z_trim), filament_from.as_deref(), root)?;
     let title = format!("{name}; {printer}");
     let mut plate = Plate::new(&title, &profile, "homesodamachine/enclosure-trial/");
@@ -641,16 +653,6 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, parts: Option<Vec<(Va
                     let (v, fc) = box_mesh(sub3(lo, mesh.center), sub3(hi, mesh.center));
                     plate.add_part(index, &format!("{} support target", f.record["name"].as_str().unwrap_or("")), v, fc, "support_enforcer", vec![], None);
                     record.as_object_mut().unwrap().entry("support_targets").or_insert(json!([])).as_array_mut().unwrap().push(Value::Object(entry.clone()));
-                }
-                "removable_tree" => {
-                    let tree = hsm_enclosure_quadrants::shapes::removable_tree(&Value::Object(f.record.clone()))?;
-                    let vertices = tree.verts().iter().map(|p|sub3(p.to_array(),mesh.center)).collect();
-                    let faces = tree.tris().iter().map(|p|p.map(|i|i as usize)).collect();
-                    plate.add_part(index,f.record["name"].as_str().unwrap_or("Removable tree"),vertices,faces,"normal_part",
-                        vec![("wall_loops".into(),"2".into()),("sparse_infill_density".into(),"100%".into())],Some("8"));
-                    record.as_object_mut().unwrap().entry("removable_trees").or_insert(json!([])).as_array_mut().unwrap().push(json!({
-                        "name":f.record["name"],"bounds_source_mm":f.record["bounds_source_mm"],"root_radius_mm":f.record["root_radius_mm"],
-                        "contact_gap_mm":f.record["contact_gap_mm"],"reason":f.record["reason"]}));
                 }
                 "tie_windows" => {
                     let overlap = f.record["blocker_roof_overlap_mm"].as_f64().unwrap_or(0.0);

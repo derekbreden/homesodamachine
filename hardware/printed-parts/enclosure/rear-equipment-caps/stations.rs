@@ -142,6 +142,17 @@ pub fn catch_air() -> f64 {
     clearance(false, true, false)
 }
 
+/// The flanks, west then east, whose receiver pockets no screwdriver reaches. Each catch there
+/// is a corbel climbing the neck at the shell's teardrop roof slope, and the hook seats on it.
+pub const ASSE_CORBELS: [bool; 2] = [false, true];
+pub const PISCO_CORBELS: [bool; 2] = [true, true];
+pub const NO_CORBELS: [bool; 2] = [false, false];
+
+/// The corbel's slope: its rise for each millimetre it climbs the neck from the ledge's edge.
+pub fn corbel_slope() -> f64 {
+    hsm_enclosure_numbers::shell::shell().teardrop_roof_angle.to_radians().tan()
+}
+
 /// One snap station's flank numbers about its axis, from the seat's neck half-width, the cap's
 /// span, the split the seat parts at and where its wings root.
 fn station(axis_x: f64, neck: f64, [y0, y1]: P2, split: f64, root: f64) -> Station {
