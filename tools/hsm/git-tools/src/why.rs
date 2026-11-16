@@ -25,7 +25,8 @@ const NULL_SHA: &str = "0000000000000000000000000000000000000000";
 const USAGE: &str = "usage:
   git why <path> <line | /regex/> [--rev REV] [--json]
   git why <path>:<line>
-  git why link <commit>:<path>:<line[-end]> <from-commit>:<from-path>:<line[-end]> [--note TEXT] [--no-push]";
+  git why link <commit>:<path>:<line[-end]> <from-commit>:<from-path>:<line[-end]> [--note TEXT] [--no-push]
+  git why origin <commit>:<path>:<line[-end]> --note TEXT [--no-push]";
 
 fn main() {
     if let Err(error) = run() {
@@ -42,7 +43,8 @@ fn run() -> Result<()> {
             println!("{USAGE}");
             Ok(())
         }
-        Some("link") => link(&root, &args[1..]),
+        Some("link") => link(&root, &args[1..], true),
+        Some("origin") => link(&root, &args[1..], false),
         _ => follow(&root, &args),
     }
 }
@@ -85,9 +87,8 @@ struct Blame {
 }
 
 struct Link {
-    commit: String,
-    path: String,
-    start: u64,
+    /// The earlier line, or none when the record says the line begins in this commit.
+    from: Option<(String, String, u64)>,
     note: Option<String>,
 }
 
@@ -126,7 +127,7 @@ fn follow(root: &str, args: &[String]) -> Result<()> {
             break;
         }
         let link = derived_from(&records(root, &blame.commit), &blame.commit, &blame.path, blame.line);
-        let next = link.as_ref().map(|l| (l.commit.clone(), l.path.clone(), l.start));
+        let next = link.as_ref().and_then(|l| l.from.clone());
         hops.push((blame, link));
         match next {
             Some((commit, next_path, line)) => {
@@ -138,7 +139,8 @@ fn follow(root: &str, args: &[String]) -> Result<()> {
     }
     let last = &hops.last().context("no blame")?.0;
     let message = if last.commit == NULL_SHA { String::new() } else { git(Some(root), &["show", "-s", "--format=%B", &last.commit])? };
-    let unlinked = last.commit != NULL_SHA && !records(root, &last.commit).is_empty();
+    let ends_recorded = hops.last().is_some_and(|(_, link)| link.as_ref().is_some_and(|l| l.from.is_none()));
+    let unlinked = !ends_recorded && last.commit != NULL_SHA && !records(root, &last.commit).is_empty();
     if json_out {
         print_json(root, &hops, &message, unlinked)
     } else {
@@ -211,7 +213,12 @@ fn derived_from(records: &[Value], commit: &str, path: &str, line: u64) -> Optio
                     if start <= line && line <= end {
                         if let Some(target) = urls.iter().find_map(|url| parse_permalink(url)) {
                             let offset = (line - start).min(target.2 - target.1);
-                            return Some(Link { commit: target.0, path: target.3, start: target.1 + offset, note });
+                            return Some(Link { from: Some((target.0, target.3, target.1 + offset)), note });
+                        }
+                        if conversation["related"].is_null()
+                            && note.as_deref().is_some_and(|text| !text.trim().is_empty())
+                        {
+                            return Some(Link { from: None, note });
                         }
                     }
                 }
@@ -244,9 +251,13 @@ fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         }
         let summary = git(Some(root), &["log", "-1", "--format=%h %ad %s", "--date=short", &blame.commit])?;
         println!("{}\n    {}:{}  {}", summary.trim_end(), blame.path, blame.line, blame.content.trim());
-        if let Some(link) = link {
-            let short = &link.commit[..link.commit.len().min(10)];
-            println!("    ↳ rewritten from {}:{} at {short}{}", link.path, link.start, link.note.as_ref().map(|n| format!(": {n}")).unwrap_or_default());
+        match link {
+            Some(Link { from: Some((commit, path, line)), note }) => {
+                let short = &commit[..commit.len().min(10)];
+                println!("    ↳ rewritten from {path}:{line} at {short}{}", note.as_ref().map(|n| format!(": {n}")).unwrap_or_default());
+            }
+            Some(Link { from: None, note }) => println!("    ↳ begins here: {}", note.as_deref().unwrap_or("")),
+            None => {}
         }
         println!();
     }
@@ -272,7 +283,8 @@ fn print_json(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         rows.push(json!({
             "commit": blame.commit, "date": date, "subject": subject,
             "path": blame.path, "line": blame.line, "content": blame.content,
-            "derived_from": link.as_ref().map(|l| json!({"commit": l.commit, "path": l.path, "line": l.start, "note": l.note})),
+            "derived_from": link.as_ref().and_then(|l| l.from.as_ref().map(|(c, p, n)| json!({"commit": c, "path": p, "line": n, "note": l.note}))),
+            "begins_here": link.as_ref().filter(|l| l.from.is_none()).map(|l| json!({"note": l.note})),
         }));
     }
     println!("{}", serde_json::to_string_pretty(&json!({"hops": rows, "message": message, "unlinked_migration": unlinked}))?);
@@ -312,7 +324,7 @@ fn place(root: &str, spec: &str) -> Result<Place> {
     Ok(Place { commit, path: path.to_string(), start, end })
 }
 
-fn link(root: &str, args: &[String]) -> Result<()> {
+fn link(root: &str, args: &[String], derived: bool) -> Result<()> {
     let (mut note, mut push, mut positional) = (None, true, vec![]);
     let mut i = 0;
     while i < args.len() {
@@ -326,10 +338,20 @@ fn link(root: &str, args: &[String]) -> Result<()> {
         }
         i += 1;
     }
-    let [at, from] = positional.as_slice() else { bail!("{USAGE}") };
-    let (at, from) = (place(root, at)?, place(root, from)?);
-    let url = format!("{}/blob/{}/{}#L{}{}", github_base(root)?, from.commit, from.path, from.start,
-                      if from.end > from.start { format!("-L{}", from.end) } else { String::new() });
+    let (at, url) = match (derived, positional.as_slice()) {
+        (true, [at, from]) => {
+            let (at, from) = (place(root, at)?, place(root, from)?);
+            let url = format!("{}/blob/{}/{}#L{}{}", github_base(root)?, from.commit, from.path, from.start,
+                              if from.end > from.start { format!("-L{}", from.end) } else { String::new() });
+            (at, Some(url))
+        }
+        (false, [at]) => {
+            ensure!(note.as_deref().is_some_and(|text| !text.trim().is_empty()),
+                    "origin needs --note saying why the line begins here");
+            (place(root, at)?, None)
+        }
+        _ => bail!("{USAGE}"),
+    };
     let mut record = json!({
         "version": "0.1.0",
         "id": uuid4()?,
@@ -338,9 +360,11 @@ fn link(root: &str, args: &[String]) -> Result<()> {
         "tool": {"name": "git-why", "version": env!("CARGO_PKG_VERSION")},
         "files": [{"path": at.path, "conversations": [{
             "ranges": [{"start_line": at.start, "end_line": at.end}],
-            "related": [{"type": DERIVED_FROM, "url": url}],
         }]}],
     });
+    if let Some(url) = &url {
+        record["files"][0]["conversations"][0]["related"] = json!([{"type": DERIVED_FROM, "url": url}]);
+    }
     if let Some(note) = &note {
         let mut namespace = serde_json::Map::new();
         namespace.insert(NAMESPACE.to_string(), json!({"note": note}));
@@ -351,7 +375,10 @@ fn link(root: &str, args: &[String]) -> Result<()> {
         .unwrap_or_default();
     lines.push(serde_json::to_string(&record)?);
     git_stdin(root, &["notes", "--ref", NOTES, "add", "-f", "-F", "-", &at.commit], &(lines.join("\n") + "\n"))?;
-    println!("linked {}:{}:{} ← {url}", &at.commit[..10], at.path, at.start);
+    match &url {
+        Some(url) => println!("linked {}:{}:{} ← {url}", &at.commit[..10], at.path, at.start),
+        None => println!("recorded {}:{}:{} as beginning there", &at.commit[..10], at.path, at.start),
+    }
     if push {
         push_notes(root)?;
     }
