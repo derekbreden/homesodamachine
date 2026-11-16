@@ -809,23 +809,24 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "f8a18f111efa471d6a9e9c01dc592247fe736dc8aa7d47e2930bda42586b791e",
-    "slice": "2026-11-15-back-top-mark1-38b1bc8b.gcode.3mf",
+    "sha256": "f974df9050cd0caae238c544e27ab2d29b7a9a9207c8a07d7b59f68a55c6c8d2",
+    "slice": "2026-11-15-back-top-mark1-34cfc031.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "e8450ef09c78e4140a2f7ac16a3a41ef3ea1ec7ed0685b430f75dcdc9fe50f5c",
-    "project_sha256": "24bca6c6fec44e016daa9afbcfebd6de4063dc62c06cd287cc405bb19a3adf2a",
-    "archive_sha256": "9410d617a240baa5de4bb1d1849087afe646af0d78c1c03ec78260dcb8c13dc5",
-    "gcode_sha256": "31f094aa2a7438f16a469706c807430d33a7e5cba6d87f73bef078e7aa5e5de3",
+    "recipe_sha256": "ea7941d01d2ed03d18578589ead782fd2f64cf47d2fea9fa7283fb52af3a841a",
+    "project_sha256": "6c1dd43d949e2c55095be9a9951bbfbd4ebde9d6833e1b05db21722bf9ecde36",
+    "archive_sha256": "49098dcf5c2c9965badccc69fb7fc648a8ffe8e28e43331bdbed5456f3cebf29",
+    "gcode_sha256": "0dbcc1c1110c8e0d38a9fa3412005b7e54c5a12b5382480dec009d0f76c56359",
     "kind": "plan",
-    "layers": 1053,
-    "model_sha256": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
+    "layers": 1026,
+    "model_sha256": "1fc762c8e7fc39617f3ed812f3f95d07a86eb1c35be131a108fbd30c1525dc7d",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
       "Nozzle": "Left 0.4 mm Standard",
-      "Build plate": "Textured PEI Plate",
+      "Build plate": "Engineering Plate, glued",
+      "First-layer Z": "Bambu's plate compensation plus 0.05 mm",
       "Layer heights": "0.2 mm first, 0.24 mm nominal",
       "Local layer schedule": "Ordinary layer height throughout; six walls in the roof-edge band",
       "Walls": "2",
@@ -839,9 +840,10 @@
       "Filament bridge speed": "15 mm/s",
       "Rail roofs": "Short breakaway supports rooted in the cavity floor",
       "Nameplate": "Outboard support panel with straight aft removal",
-      "Protected openings": "C14 passage, valve sockets and insert pilots clear"
+      "Protected openings": "Corbelled catches, fitted rooms, valve sockets and insert pilots clear",
+      "Snap catches": "Reachable catches and the C14 pocket and passage on supports; the others and the meter's aft shoulder on corbels"
     },
-    "recipe_commit": "166ccab06e7a760f59df025b1bd9c43c148671cc"
+    "recipe_commit": "824445d33a7108f62c5434fba6b478c5567d1b45"
   },
   "HSM-0082": {
     "title": "Lower pump retainer · Mark1 print plan",
