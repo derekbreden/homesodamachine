@@ -552,12 +552,17 @@ pub fn closed_rim_strip(sections: &[[Point; 4]]) -> Mesh {
     Mesh { vertices, faces }
 }
 
-/// Locate the tip's mating lip and give the Slim trees access to its narrow shoulder.
+/// Locate the tip's mating lip and keep the slicer's supports off it and off the mating plug:
+/// the plate lays the shoulder's own scaffold and roof under the lip.
 pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value) -> Result<Value> {
-    const ENFORCER_INSET: f64 = 1.45;
-    const ENFORCER_OUTSET: f64 = 0.6;
-    const ENFORCER_HALF_DEPTH: f64 = 0.7;
-    const BREAK_HALF_ANGLE: f64 = 2.5;
+    /// The plug's keepout, inside the lip's rim.
+    const KEEPOUT_INSET: f64 = 1.45;
+    /// The ledge's blockers, inside and outside its rim, and either side of its plane.
+    const LEDGE_INSET: f64 = 2.5;
+    const LEDGE_OUTSET: f64 = 1.0;
+    const HALF_DEPTH: f64 = 0.7;
+    /// How far each half of the ledge's blockers runs past the other's end.
+    const OVERLAP_HALF_ANGLE: f64 = 2.5;
     const TIP_TOP_GAP: f64 = 0.42;
     const TIP_XY_GAP: f64 = 0.55;
 
@@ -588,14 +593,15 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value) -> Result<Value
     let (lo, hi) = bounds(&uv);
     let mid = mix(lo, hi, 0.5);
     let radius = uv.iter().map(|&p| distance(p, mid)).sum::<f64>() / uv.len() as f64;
-    ensure!(radius > ENFORCER_INSET && uv.iter().all(|&p| (distance(p, mid) - radius).abs() < 0.012),
+    ensure!(radius > LEDGE_INSET && uv.iter().all(|&p| (distance(p, mid) - radius).abs() < 0.012),
         "tip lip exterior differs from a round perimeter");
     let center = add(add(origin, [mid[0], 0., 0.]), scale(along, mid[1]));
     let center = add(center, scale(outward, joint.offset - dot(center, outward)));
     let lip_faces = joint.faces.len();
 
     let inverse = [0, 1, 2].map(|axis| [0, 1, 2].map(|other| rotation[other][axis]));
-    let radial = [radius - ENFORCER_INSET, radius + ENFORCER_OUTSET];
+    let keepout = radius - KEEPOUT_INSET;
+    let blocked = [radius - LEDGE_INSET, radius + LEDGE_OUTSET];
     let at = |angle: f64, radius, depth| {
         let (sin, cos) = angle.to_radians().sin_cos();
         let ray = add([cos, 0., 0.], scale(along, sin));
@@ -612,23 +618,21 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value) -> Result<Value
         let steps = (end - start).ceil() as usize;
         let sections = (0..=steps).map(|i| {
             let angle = start + (end - start) * i as f64 / steps as f64;
-            let [lo, hi] = radial;
-            let h = ENFORCER_HALF_DEPTH;
-            [[lo, -h], [hi, -h], [hi, h], [lo, h]].map(|[r, d]| at(angle, r, d))
+            let [lo, hi] = blocked;
+            [[lo, -HALF_DEPTH], [hi, -HALF_DEPTH], [hi, HALF_DEPTH], [lo, HALF_DEPTH]].map(|[r, d]| at(angle, r, d))
         }).collect::<Vec<_>>();
         closed_rim_strip(&sections)
     };
-    let mut roofs = Vec::new();
-    let mut breaks = Vec::new();
+    // the plate lays the shoulder's own scaffold and roof under the ledge, so the slicer grows
+    // nothing there: half rings that run past each other's ends keep the whole ledge clear
+    let mut ledge = Vec::new();
     for (number, angle) in [90., 270.].into_iter().enumerate() {
-        roofs.push(add_region(&format!("Mating shoulder support roof {}", number + 1), "support_enforcer",
-            strip(angle + BREAK_HALF_ANGLE, angle + 180. - BREAK_HALF_ANGLE))?);
-        breaks.push(add_region(&format!("Mating shoulder support release break {}", number + 1), "support_blocker",
-            strip(angle - BREAK_HALF_ANGLE, angle + BREAK_HALF_ANGLE))?);
+        ledge.push(add_region(&format!("Mating shoulder stands on the plate's scaffold {}", number + 1), "support_blocker",
+            strip(angle - OVERLAP_HALF_ANGLE, angle + 180. + OVERLAP_HALF_ANGLE))?);
     }
     let plug_depth = points.iter().map(|&p| dot(inward, sub(p, center))).fold(0., f64::min);
-    let mut outline = (0..72).map(|i| at(i as f64 * 5., radial[0], 0.)).collect::<Vec<_>>();
-    let (vertices, faces) = outlet_blocker(&mut outline, inward, 0., [plug_depth - ENFORCER_HALF_DEPTH, ENFORCER_HALF_DEPTH]);
+    let mut outline = (0..72).map(|i| at(i as f64 * 5., keepout, 0.)).collect::<Vec<_>>();
+    let (vertices, faces) = outlet_blocker(&mut outline, inward, 0., [plug_depth - HALF_DEPTH, HALF_DEPTH]);
     let plug_keepout = add_region("Keep tree supports off the mating plug", "support_blocker", Mesh { vertices, faces })?;
     let settings = &mut project.plate.objects[index].settings;
     settings.retain(|(key, _)| !matches!(key.as_str(), "support_top_z_distance" | "support_object_xy_distance"));
@@ -636,9 +640,9 @@ pub fn add_tip_rim_contact(project: &mut Refreshed, tip: &Value) -> Result<Value
         ("support_top_z_distance".into(), TIP_TOP_GAP.to_string()),
         ("support_object_xy_distance".into(), TIP_XY_GAP.to_string()),
     ]);
-    Ok(json!({"part": name, "roof_enforcers": roofs, "release_break_blockers": breaks,
+    Ok(json!({"part": name, "ledge_blockers": ledge,
         "plug_keepout": plug_keepout, "top_gap_mm": TIP_TOP_GAP, "xy_gap_mm": TIP_XY_GAP,
-        "enforcer_radii_mm": radial, "rim_radius_mm": radius, "lip_face_count": lip_faces}))
+        "ledge_blocker_radii_mm": blocked, "rim_radius_mm": radius, "lip_face_count": lip_faces}))
 }
 
 /// Paint support on the inside of the dispense face and keep it off the beverage outlet.

@@ -129,9 +129,11 @@ fn main() -> Result<()> {
         "sequence-foundations" => {
             let args = Args::parse(values, &[], &[])?;
             args.count(6)?;
-            let headmap = hsm_print_prep::root().join(hsm_print_prep::base_foundation::HEAD_MAP);
+            let root = hsm_print_prep::root();
+            let headmap = root.join(hsm_print_prep::base_foundation::HEAD_MAP);
+            let tip = root.join(hsm_print_prep::faucet_plate::TIP.stl);
             let report = plate_sequence::foundation_sequence::compose(
-                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, &headmap,
+                &args.path(0)?, &args.path(1)?, &args.path(2)?, &args.path(3)?, &args.path(5)?, &args.path(4)?, &headmap, &tip,
             )?;
             println!("{}", serde_json::to_string_pretty(&plate_sequence::summary(&report))?);
         }

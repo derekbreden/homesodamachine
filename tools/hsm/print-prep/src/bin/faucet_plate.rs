@@ -125,7 +125,7 @@ fn main() -> Result<()> {
     fs::write(&rings, plate_rings::gcode(&plate_rings::seats(&report)?))?;
     let open = out.join("open.gcode");
     plate_sequence::foundation_sequence::compose(&out.join("base/plate_1.gcode"), &slice.join("plate_1.gcode"), &tape,
-        &donor.join("tip-warped.json"), &open, &rings, &headmap)?;
+        &donor.join("tip-warped.json"), &open, &rings, &headmap, &tip)?;
 
     // the plug ramp's flow cap, the printer's progress and the print-only archive
     let capped = out.join("capped.gcode");

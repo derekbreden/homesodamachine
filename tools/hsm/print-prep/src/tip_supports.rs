@@ -2,6 +2,8 @@
 //! roof sector over each half of the mating annulus that calls for support, an access slit
 //! between the sectors that keeps it out, and a keepout over the male plug, each carried through
 //! the field into the donor's frame, with the course settings the preparer reads beside them.
+//! The donor's support lets it slice the shoulder's first course over one course of air; the
+//! plate lays the tip's own roof in place of the donor's interface.
 
 use crate::course_field::ShoulderHold;
 use crate::mesh::{write_stl, Mesh};
