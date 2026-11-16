@@ -1,0 +1,10 @@
+{
+  "course_groups": 2103,
+  "deposition_filament_mm": 48468.078033999984,
+  "deposition_weight_g": 150.38741262383536,
+  "estimated_motion_seconds": 25246.93491761429,
+  "first_bed_course_deposition_span_seconds": 390.2825683232214,
+  "gcode_md5": "e1b710752c49af72a5378da8f0b2d3aa",
+  "gcode_sha256": "e21042ff9921564c5d109bd05d46509497a8bba9da224e08600a2e8a3f9f82d3",
+  "printer_layers": 1282
+}

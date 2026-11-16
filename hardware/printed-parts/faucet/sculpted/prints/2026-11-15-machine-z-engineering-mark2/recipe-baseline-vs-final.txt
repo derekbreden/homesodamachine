@@ -1,0 +1,92 @@
+A .cache/runs/faucet-plate-baseline-20261115/sculpted-faucet-plate.gcode.3mf
+B .cache/runs/faucet-plate-final-20261115/sculpted-faucet-plate.gcode.3mf
+
+by part and feature, where what is commanded differs (lengths in m):
+  base / Internal solid infill: A 28.07, B 28.07
+    feed: 29 mm/s A 10.35 B 0.00; 116 mm/s A 0.00 B 10.36; 50 mm/s A 10.21 B 0.00; 204 mm/s A 0.24 B 7.15; 194 mm/s A 0.02 B 3.32
+    acceleration: 8000 mm/s2 A 7.51 B 28.07; 1000 mm/s2 A 20.56 B 0.00
+  base / Outer wall: A 216.81, B 216.81
+    feed: 25 mm/s A 2.90 B 0.04; 200 mm/s A 181.76 B 182.66; 116 mm/s A 0.13 B 0.53; 194 mm/s A 0.77 B 0.95; 117 mm/s A 0.01 B 0.17; 118 mm/s A 0.13 B 0.22
+    acceleration: 1000 mm/s2 A 2.86 B 0.00; 5000 mm/s2 A 213.96 B 216.81
+  base / Support: A 75.28, B 75.28
+    feed: 29 mm/s A 4.26 B 0.00; 40 mm/s A 6.84 B 10.76; 30 mm/s A 1.20 B 1.54
+  base / Support interface: A 15.71, B 15.71
+    feed: 40 mm/s A 4.83 B 9.62; 29 mm/s A 4.79 B 0.00
+  tip / Floating vertical shell: A 15.72, B 15.72
+    feed: 200 mm/s A 6.46 B 6.47; 57 mm/s A 0.00 B 0.00; 196 mm/s A 0.06 B 0.06; 58 mm/s A 0.00 B 0.00; 64 mm/s A 0.00 B 0.00; 186 mm/s A 0.13 B 0.13
+  tip / Gap infill: A 0.40, B 0.40
+    feed: 161 mm/s A 0.00 B 0.00; 159 mm/s A 0.00 B 0.00; 100 mm/s A 0.00 B 0.00; 104 mm/s A 0.00 B 0.00; 162 mm/s A 0.00 B 0.00; 160 mm/s A 0.16 B 0.16
+  tip / Inner wall: A 89.21, B 89.21
+    feed: 22 mm/s A 0.26 B 0.00; 89 mm/s A 0.00 B 0.17; 32 mm/s A 0.13 B 0.00; 129 mm/s A 0.00 B 0.10; 218 mm/s A 0.02 B 0.11; 23 mm/s A 0.07 B 0.00
+  tip / Outer wall: A 86.57, B 86.57
+    feed: 22 mm/s A 0.35 B 0.10; 89 mm/s A 0.19 B 0.38; 32 mm/s A 0.14 B 0.01; 129 mm/s A 0.01 B 0.09; 23 mm/s A 0.11 B 0.04; 88 mm/s A 0.01 B 0.07
+  tip / Sparse infill: A 66.26, B 66.26
+    feed: 22 mm/s A 0.17 B 0.00; 23 mm/s A 0.09 B 0.00; 218 mm/s A 0.04 B 0.12; 89 mm/s A 0.00 B 0.08; 32 mm/s A 0.07 B 0.00; 30 mm/s A 0.07 B 0.00
+  tip / Support: A 23.17, B 23.17
+    feed: 150 mm/s A 0.25 B 0.25; 94 mm/s A 0.00 B 0.00
+    part fan: 70 % A 20.48 B 20.49
+    nozzle: 280 C A 21.89 B 21.89
+    acceleration: 8000 mm/s2 A 21.89 B 21.89
+  tip / Support interface: A 2.18, B 2.11
+    feed: 80 mm/s A 1.21 B 2.11; 22 mm/s A 0.36 B 0.00; 23 mm/s A 0.08 B 0.00; 24 mm/s A 0.06 B 0.00; 27 mm/s A 0.04 B 0.00; 26 mm/s A 0.04 B 0.00
+    part fan: 0 % A 2.18 B 2.11
+    nozzle: 280 C A 2.18 B 2.11
+    acceleration: 8000 mm/s2 A 2.18 B 2.11
+  tip / Support transition: A 0.70, B 1.06
+    feed: 15 mm/s A 0.70 B 1.06
+    part fan: 0 % A 0.70 B 1.06
+    nozzle: 280 C A 0.70 B 1.06
+    acceleration: 8000 mm/s2 A 0.70 B 1.06
+
+printer-side commands whose counts differ:
+  G17: A 6472, B 6488
+  M106 S: A 16520, B 16499
+  M204 S: A 77166, B 77202
+  M73 PR: A 539, B 520
+
+retractions, primes, lifts and travels whose counts differ:
+  lift +0.50 mm at 30 mm/s: A 7, B 6
+  lift +0.53 mm at 30 mm/s: A 5, B 7
+  lift +0.56 mm at 30 mm/s: A 4, B 3
+  lift +0.60 mm at 20 mm/s: A 1381, B 0
+  lift +0.60 mm at 30 mm/s: A 7, B 1388
+  lift +0.65 mm at 30 mm/s: A 4, B 5
+  lift +0.70 mm at 30 mm/s: A 75, B 74
+  lift +0.76 mm at 30 mm/s: A 96, B 95
+  lift +0.83 mm at 30 mm/s: A 7, B 8
+  lift +0.88 mm at 30 mm/s: A 4, B 3
+  lift +0.91 mm at 30 mm/s: A 1, B 0
+  lift +0.93 mm at 30 mm/s: A 1, B 2
+  lift +1.00 mm at 20 mm/s: A 2044, B 0
+  lift +1.00 mm at 30 mm/s: A 17, B 2061
+  lift +1.08 mm at 30 mm/s: A 5, B 6
+  lift +1.09 mm at 30 mm/s: A 5, B 6
+  lift +1.11 mm at 30 mm/s: A 7, B 6
+  lift +1.12 mm at 30 mm/s: A 7, B 8
+  lift +1.16 mm at 30 mm/s: A 2, B 1
+  lift +1.34 mm at 30 mm/s: A 2, B 1
+  lift +1.38 mm at 30 mm/s: A 2, B 3
+  lift +1.41 mm at 30 mm/s: A 4, B 3
+  lift +1.46 mm at 30 mm/s: A 3, B 2
+  lift +1.57 mm at 30 mm/s: A 2, B 1
+
+heating commands: the same
+
+moves on the same path under other settings, by part:
+  base: moves A 949497, B 949497; same path, other settings 11294
+      2589 x feed 25->200 mm/s, fan 0->0%, acceleration 1000->5000
+      1156 x feed 25->116 mm/s, fan 0->0%, acceleration 1000->5000
+      868 x feed 29->30 mm/s, fan 0->0%, acceleration 1000->1000
+      862 x feed 29->116 mm/s, fan 0->0%, acceleration 1000->8000
+      569 x feed 50->204 mm/s, fan 0->0%, acceleration 1000->8000
+      531 x feed 25->194 mm/s, fan 0->0%, acceleration 1000->5000
+  tip: moves A 430828, B 431223; same path, other settings 5485
+      305 x feed 22->89 mm/s, fan 0->0%, acceleration 8000->8000
+      228 x feed 22->88 mm/s, fan 0->0%, acceleration 8000->8000
+      209 x feed 22->89 mm/s, fan 0->0%, acceleration 5000->5000
+      150 x feed 32->129 mm/s, fan 0->0%, acceleration 8000->8000
+      107 x feed 22->88 mm/s, fan 0->0%, acceleration 5000->5000
+      94 x feed 23->91 mm/s, fan 0->0%, acceleration 8000->8000
+  cover: moves A 62935, B 62935; same path, other settings 0
+  mounting plate: moves A 47350, B 47342; same path, other settings 0
+  lever: moves A 33735, B 33735; same path, other settings 0
