@@ -142,14 +142,14 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.020 | $0.51 <!--@printed--><!--parts HSM-0062:1.27 HSM-0063:1.29 HSM-0064:1.38 HSM-0065:1.38 HSM-0066:1.25 HSM-0067:1.36--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--><!--parts HSM-0272:2.48 HSM-0099:2.72 HSM-0100:2.87 HSM-0101:2.87 HSM-0273:2.53 HSM-0102:2.67--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--><!--parts HSM-0372--> |
-| Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.027 | $0.69 <!--@printed--><!--parts HSM-0069--> |
+| Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.027 | $0.68 <!--@printed--><!--parts HSM-0069--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--><!--parts HSM-0041--> |
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.105 | $2.62 <!--@printed--><!--parts HSM-0094:76.1 HSM-0095:29.6 HSM-0113:80.3--> |
 | Faucet display cover plate | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-0096--> |
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--><!--parts HSM-0092 HSM-0111--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-0268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-0098--> |
-| Rear equipment snap caps | 4 | PET-GF | 0.067 | $1.67 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
+| Rear equipment snap caps | 4 | PET-GF | 0.067 | $1.66 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
 | G Ganen pump snap cap | 1 | PET-GF | 0.092 | $2.29 <!--@printed--><!--parts HSM-0455--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-0358--> |
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-0072--> |
@@ -160,9 +160,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Reservoir cap gaskets | 2 | Bambu TPU 85A | 0.011102 | $0.54 <!--@printed--><!--parts HSM-0456--> |
 | Display gasket | 1 | Bambu TPU 90A | 0.001351 | $0.06 <!--@printed--><!--parts HSM-0077--> |
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
-| **Printed parts total** | | | **~7.16** | **[$165.08](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.16** | **[$165.06](BOM_SEC7)** |
 
-By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.59. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.04 kg / $11.64 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.10 kg / $152.58. Bambu TPU 85A ≈ 0.011102 kg / $0.54. Bambu TPU 90A ≈ 0.002343 kg / $0.11. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -359,7 +359,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$134.94](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$20.76](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$165.08](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$165.06](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -368,7 +368,7 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 13. Mechanical attach hardware | [$27.45](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,461.90](BOM_GRAND)** |
+| **Total** | **[$1,461.88](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
