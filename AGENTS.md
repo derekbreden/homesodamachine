@@ -101,7 +101,7 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 `python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the session title, marked `(auto-generated)` when Derek hasn't named the session; in a cloud session, the `Claude-Session:` link names it. Each `Derek:` line is a passage of his that the commit answers, quoted exactly — never paraphrased. A commit nothing of his asked for has no `Derek:` line. `git log --format='%(trailers:key=Derek)'` reads them back.
 
-`git blame` on a setting's line answers why it is so: the commit that writes the line says what the setting does on the part and where its evidence is, with Derek's words from when he chose it as its `Derek:` lines, and a commit that moves a setting carries those words with it. Settings files hold values, not quotes or reasons.
+`git why` on a setting's line answers why it is so. It runs `git blame` and follows the links recorded where a commit rewrote lines git can't follow, back to the commit that writes the line, which says what the setting does on the part and where its evidence is, with Derek's words from when he chose it as its `Derek:` lines. A commit that moves a setting carries those words with it, and one that rewrites it where blame can't follow, such as a port to another language, records the link with [`git why link`](tools/hsm/git-tools/README.md#following-a-line-past-a-rewrite). Settings files hold values, not quotes or reasons.
 
 ## Concerns
 

@@ -10,6 +10,10 @@ publish = false
 name = "hsm-land"
 path = "src/main.rs"
 
+[[bin]]
+name = "git-why"
+path = "src/why.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true
