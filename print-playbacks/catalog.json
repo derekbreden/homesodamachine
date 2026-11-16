@@ -597,7 +597,7 @@
     "archive_sha256": "c33be822d4f174aed01610ba9627ffaa4707ccfb83f43ab3a30d9fcc27bc20ce",
     "gcode_sha256": "7b88240a17d604c62b69fdd5868717ebd2de3958389ab643d6d3d3f8f2d4df25",
     "kind": "plan",
-    "sha256": "387ee206ff0294f5a7012bdf10ceb258606c1a4e12c3e7830770b1b30cce3ac1",
+    "sha256": "38c9559a8b0be20284da032e8cb988ceff75570bb6f1f797a878ad5382961165",
     "slice": "2026-11-10-funnel-frame-mark2-793b1fef.gcode.3mf",
     "plate": 1,
     "layers": 230,
