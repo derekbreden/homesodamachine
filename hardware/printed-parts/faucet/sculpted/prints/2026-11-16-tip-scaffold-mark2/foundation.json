@@ -1,0 +1,88 @@
+{
+  "gcode_sha256": "328ccbc36a1389d4cd2b56a4cb6b6451724f4ed07406c486d52562d903e8a10c",
+  "input_archive": {
+    "path": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/runs/tip-scaffold-20261116/production/slice/native.gcode.3mf",
+    "sha256": "22a80c11d4c4779bdcbb595c8210613406eeb01e93127778c2a9c533030d7afd"
+  },
+  "laid": {
+    "fill_lines": 1996,
+    "narrow_rings": 148,
+    "ring_pieces": 112,
+    "scaffold_layers": 61,
+    "scaffold_top_mm": 14.6,
+    "show_laps": 7,
+    "sloped_courses": 7
+  },
+  "limits": {
+    "course_fill_acceleration_mm_s2": 8000.0,
+    "course_fill_speed_mm_s": 250.0,
+    "course_wall_acceleration_mm_s2": 5000.0,
+    "course_wall_speed_mm_s": 200.0,
+    "filament_max_volumetric_mm3_s": 18.0,
+    "head_travel_margin_mm": 3.0,
+    "least_share_of_a_level_course_laid": 0.3,
+    "machine_z_feed_mm_s": 30.0,
+    "nozzle_over_slab_mm": 0.06,
+    "nozzle_travel_margin_mm": 0.3
+  },
+  "plate": {
+    "clipped_layers": 188,
+    "dropped_mm": 104345.569,
+    "dropped_support_mm": 687.531,
+    "feathered_mm": 2996.493,
+    "highest_lift_mm": 16.837,
+    "kept_mm": 168390.163,
+    "least_base_head_clearance_mm": 2.19,
+    "least_other_head_clearance_mm": null,
+    "lifted_travels": 1039,
+    "rewritten_travels": 18
+  },
+  "preamble": {
+    "extrusion_mm_by_feature": {
+      "Bottom surface": 3891.0,
+      "Internal solid infill": 20561.2,
+      "Outer wall": 2788.3,
+      "Support": 55045.3,
+      "Support interface": 14358.3
+    },
+    "filament_mm": 4821.75,
+    "seconds": 2558.7
+  },
+  "purpose": "Binds the base's sloped foot to the courses this stage laid and what it kept of the plate.",
+  "roof_lip_mm": 2.0,
+  "seat_center_mm": [
+    85.49944496154785,
+    140.34437517845532,
+    7.635167675902196
+  ],
+  "show_lap": {
+    "descends_on_cad_x": "+x",
+    "direction": "clockwise across the face's slope frame, anticlockwise over the plate as the level walls run",
+    "laid": "first in the bridge course over the roof's air, so its fill starts on it; last in the others",
+    "lift_share": 0.5,
+    "most_rise_at_face_mm": [
+      29.62,
+      0.34
+    ],
+    "most_rise_mm": 0.0456,
+    "rise_weighted_mean_cad_x_mm": 23.1,
+    "starts_at": "the rim's lowest point on the slope, the rear",
+    "tip_radius_mm": 0.34
+  },
+  "stack_normal_mm": {
+    "air_asked": 0.24,
+    "course": 0.24,
+    "deck_top": 1.68,
+    "plug_top": 1.68,
+    "roof_courses": 3,
+    "roof_tops": [
+      -0.72,
+      -0.48,
+      -0.24
+    ],
+    "scaffold_ceiling": -0.96,
+    "shoulder_course": 14,
+    "slab_top": 1.68
+  },
+  "tilt_x_degrees": -15
+}

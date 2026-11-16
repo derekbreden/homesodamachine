@@ -1,0 +1,15 @@
+{
+  "previous_printer": "Mark1",
+  "previous_task_id": "1445040105",
+  "previous_accepted_at_utc": "2026-11-15T03:01:09+00:00",
+  "current_accepted_at_utc": "2026-11-16T02:07:27+00:00",
+  "elapsed_seconds": 83178.0,
+  "required_seconds": 180,
+  "other_printer_before_send": {
+    "observed_at": "2026-11-16T02:05:18+00:00",
+    "gcode_state": "FAILED",
+    "subtask_name": "enclosure-back-top-left04-petgf-engineering-stock-z-mark1.gcode.3mf",
+    "layer_num": 0,
+    "print_error": 0
+  }
+}

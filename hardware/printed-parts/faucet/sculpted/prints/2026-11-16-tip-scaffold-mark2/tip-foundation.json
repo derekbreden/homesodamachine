@@ -1,0 +1,101 @@
+{
+  "purpose": "The tip's shoulder foundation the plate's sequence laid: the ring it measured, its scaffold and roof, and how the tip's own crossings moved.",
+  "tip_shoulder_foundation": {
+    "air_under_shoulder_mm": 0.2,
+    "donor_interface_roads_left_out": 2176,
+    "line_width_mm": 0.62,
+    "plug_clearance_mm": 0.5,
+    "plug_radius_mm": 11.349111361336224,
+    "rim_radius_mm": 13.500264662871405,
+    "ring_centre_mm": [
+      186.5,
+      223.13335450638763,
+      23.273762626947864
+    ],
+    "roof_course_tops_virtual_mm": [
+      24.0,
+      24.2,
+      24.400000000000002
+    ],
+    "roof_lines": [
+      92,
+      90,
+      90
+    ],
+    "roof_lip_mm": 2.0,
+    "scaffold_ceiling_virtual_mm": 23.8,
+    "scaffold_filament_mm": 1590.6431235628836,
+    "scaffold_layers": 114,
+    "scaffold_paths": 2262,
+    "scaffold_z_mm": [
+      0.2,
+      27.32
+    ]
+  },
+  "tip_stage_crossings": {
+    "tip level paths above shoulder": {
+      "at_the_slicer_z_hop_lifted_straight": 5,
+      "at_the_slicer_z_hop_on_its_spiral": 178,
+      "lift_over_higher_end_mm_least_median_most": [
+        0.41699999999999804,
+        1.1075999998137362,
+        1.8305714283718615
+      ],
+      "lifted_higher": 269
+    },
+    "tip level paths below shoulder": {
+      "at_the_slicer_z_hop_lifted_straight": 33,
+      "at_the_slicer_z_hop_on_its_spiral": 405,
+      "lift_over_higher_end_mm_least_median_most": [
+        0.4673540941552865,
+        0.4673540941552865,
+        0.4673540941552865
+      ],
+      "lifted_higher": 1
+    },
+    "tip shoulder entry": {
+      "at_the_slicer_z_hop_lifted_straight": 0,
+      "at_the_slicer_z_hop_on_its_spiral": 0,
+      "lift_over_higher_end_mm_least_median_most": [
+        0.6837142855280263,
+        1.0010993870597602,
+        1.8003932368017068
+      ],
+      "lifted_higher": 35
+    },
+    "tip shoulder roof": {
+      "at_the_slicer_z_hop_lifted_straight": 30,
+      "at_the_slicer_z_hop_on_its_spiral": 37,
+      "lift_over_higher_end_mm_least_median_most": [
+        0.4177064217938131,
+        1.1037154397408955,
+        1.8866138287292742
+      ],
+      "lifted_higher": 202
+    },
+    "tip shoulder scaffold": {
+      "at_the_slicer_z_hop_lifted_straight": 0,
+      "at_the_slicer_z_hop_on_its_spiral": 1796,
+      "lift_over_higher_end_mm_least_median_most": [
+        null,
+        null,
+        null
+      ],
+      "lifted_higher": 0
+    },
+    "tip yellow shoulder": {
+      "at_the_slicer_z_hop_lifted_straight": 0,
+      "at_the_slicer_z_hop_on_its_spiral": 0,
+      "lift_over_higher_end_mm_least_median_most": [
+        0.42779999999999774,
+        0.8293823527549122,
+        1.8449999998137372
+      ],
+      "lifted_higher": 61
+    }
+  },
+  "tip_shoulder_world_z_mm": [
+    17.467704274497816,
+    29.099
+  ]
+}

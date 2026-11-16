@@ -1,0 +1,89 @@
+{
+  "purpose": "The checks the plate passed before it was sent, read from its own archive.",
+  "archive": {
+    "name": "sculpted-faucet-tip-scaffold-black-mark2.gcode.3mf",
+    "sha256": "09edd45731dad8e657d3afae1a78d7ec7803695624f9d6abc5a6ea7ddd4ef386",
+    "gcode_sha256": "d9ee7c4d512271e3bc9a307072a03a2f6adf69a0dfbce9fe006cb071851d91c9",
+    "gcode_md5": "04857515f5e15d5c14fc187a0ccacc5e"
+  },
+  "prepared_from_commit": "6b77eba3634ee6a8b7a858d0eaad4b2bad3ec4ad",
+  "planner_motion_seconds": 25570.2,
+  "stopped_plate_planner_motion_seconds": 25246.9,
+  "printer_layers": 1315,
+  "tip_shoulder": {
+    "read_from": "the composed plate before its flow cap, its beads with their widths and heights",
+    "scaffold_layers": 114,
+    "scaffold_z_mm": [
+      0.2,
+      27.32
+    ],
+    "scaffold_bead_to_other_tip_bead_in_its_layer_min_gap_mm": 0.491,
+    "scaffold_gap_note": "the tip's brim is left out: the scaffold's first layer meets it and its second stands on it",
+    "roof_bead_to_other_tip_bead_sharing_its_height_min_gap_mm": 0.414,
+    "roof_first_course_lines": 92,
+    "roof_first_course_lines_without_scaffold_under": 0,
+    "roof_first_course_bead_height_over_the_scaffold_mm": [
+      0.216,
+      0.538
+    ],
+    "roof_first_course_longest_unsupported_run_mm": {
+      "median": 0.36,
+      "p90": 0.71,
+      "max": 2.56
+    },
+    "roof_first_course_longest_run_note": "the runs past the wall spacing lie in the roof's lip on the high side, outside the shoulder's rim, where the roof steps around the slicer's tree for the tip's high side",
+    "first_shoulder_course_points_over_the_ledge": 1969,
+    "first_shoulder_course_points_over_the_ledge_backed_by_the_roof_top_course_within_0p36_mm": 0.94,
+    "first_shoulder_course_to_roof_top_course_normal_mm_median": 0.4,
+    "air_under_the_shoulder_mm": 0.2,
+    "first_course_points_with_support_within_0p28_mm_beneath": {
+      "this_plate": {
+        "Bridge": 0.36,
+        "Overhang wall": 0.995
+      },
+      "stopped_plate": {
+        "Bridge": 0.427,
+        "Overhang wall": 0.996
+      }
+    },
+    "backing_note": "the bridge points without support beneath within that reach lie over the clearance the roof keeps from the mating plug; the stopped plate's points were backed by an interface on trees, this plate's by a roof on walls"
+  },
+  "head_replay": {
+    "read_from": "sculpted-trial replay on the plate G-code",
+    "tip shoulder scaffold": {
+      "head_body_mm": 3.4,
+      "nozzle_flank_mm": 0.20667,
+      "travelling_tip_mm": -0.0,
+      "travel_samples_below_a_prior_bead": 0
+    },
+    "tip shoulder roof": {
+      "head_body_mm": 1.50981,
+      "nozzle_flank_mm": -0.17731,
+      "travelling_tip_mm": 0.00519,
+      "travel_samples_below_a_prior_bead": 0
+    },
+    "tip shoulder entry": {
+      "head_body_mm": 1.3403,
+      "nozzle_flank_mm": -0.16952,
+      "travelling_tip_mm": -0.14267,
+      "travel_samples_below_a_prior_bead": 0
+    },
+    "tip yellow shoulder": {
+      "head_body_mm": 1.35271,
+      "nozzle_flank_mm": -0.17817,
+      "travelling_tip_mm": -0.143,
+      "travel_samples_below_a_prior_bead": 0
+    },
+    "roof_nozzle_nearest_part_mm": 0.68339,
+    "note": "the scaffold's travelling tip touches only its own layer, on the short crossings it runs along that layer; the roof's flank reaches into support, not the part, by as much as the tilted courses reach into their own"
+  },
+  "harm": {
+    "read_from": "hsm-gcode harm --object 1902 on the archive and on the stopped plate",
+    "travels_below_a_bead_top": 0,
+    "stopped_plate_travels_below_a_bead_top": 0,
+    "drops_of_5_mm_or_more_at_the_machine_z_feed": 93,
+    "stopped_plate_drops_of_5_mm_or_more_at_the_machine_z_feed": 4,
+    "note": "the new tall drops are the roof's crossings coming down after lifting the head over the mating plug and the high side's scaffold"
+  },
+  "untested": "No print has tested the tip's scaffold and roof: how it stands, how the shoulder's first course lies on it, or how it comes off."
+}
