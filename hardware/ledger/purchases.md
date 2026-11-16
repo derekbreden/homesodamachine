@@ -682,7 +682,7 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 
 | Order date | Bambu order # | Contents | $ | Status |
 |---|---|---|---|---|
-| <!--purchase:pur-1c4dede86ac6420db23a61fd3b7eabb8--> 2026-11-14 | us798331608108187648 | Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount | $81.96 | ON-ORDER |
+| <!--purchase:pur-1c4dede86ac6420db23a61fd3b7eabb8--> 2026-11-14 | us798331608108187648 | Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount; both plates shipped, awaiting delivery | $81.96 | ON-ORDER |
 | <!--purchase:pur-fd5344356f7b483485428f444470b0ab--> 2026-03-22 | us712460111015776257 | Bambu Lab H2C — H2C AMS Combo (printer + integrated AMS) | $2,399.00 | ACQUIRED |
 | <!--purchase:pur-78da6641c19145ed970808c4ef7cc9c5--> 2026-03-22 | us712460111015776257 | Vision Encoder (H2 Series) | $78.75 | ACQUIRED |
 | <!--purchase:pur-c3b3b0a2274849c591fa9619695bc636--> 2026-03-22 | us712460111015776257 | Bambu Engineering Plate (H2C) | $49.49 | ACQUIRED |
