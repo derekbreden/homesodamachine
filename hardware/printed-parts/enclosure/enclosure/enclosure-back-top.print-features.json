@@ -237,7 +237,7 @@
         395.5086388104271,
         434.0086388104271,
         254.90000000000003,
-        309.7
+        263.00000000000006
       ],
       "bounds_source_mm": [
         83.05,
@@ -245,10 +245,10 @@
         395.5086388104271,
         434.0086388104271,
         258.15000000000003,
-        309.7
+        263.00000000000006
       ],
-      "name": "Flow meter receiver",
-      "reason": "The fitted room and cap pocket print without support; the front lip's support stands above it and the fore end shoulder's beside it."
+      "name": "Flow meter lower cap pocket",
+      "reason": "Keep support out of the lower hook pocket below the wire chamber floor."
     },
     {
       "blocking_bounds_source_mm": [
@@ -924,6 +924,78 @@
       ],
       "name": "Accessible flow meter front lip",
       "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."
+    },
+    {
+      "bounds_source_mm": [
+        88.19999999999999,
+        96.69999999999999,
+        395.5086388104271,
+        434.0086388104271,
+        306.84999999999997,
+        307.34999999999997
+      ],
+      "name": "Accessible flow meter upper hook pocket floor",
+      "reason": "Support the floor at the hook's fitted height. A screwdriver enters above the lip and lifts the support toward the open side."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        93.85000000000001,
+        382.16863881042707,
+        406.0186388104271,
+        267.45,
+        267.95
+      ],
+      "name": "Accessible flow meter fore boss channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        93.85000000000001,
+        407.16863881042707,
+        431.0186388104271,
+        267.45,
+        267.95
+      ],
+      "name": "Accessible flow meter aft boss channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        93.55,
+        95.55000000000001,
+        382.9686388104271,
+        405.2186388104271,
+        268.25,
+        268.75
+      ],
+      "name": "Accessible flow meter fore screw-head channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        93.55,
+        95.55000000000001,
+        407.9686388104271,
+        430.2186388104271,
+        268.25,
+        268.75
+      ],
+      "name": "Accessible flow meter aft screw-head channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        93.55,
+        394.5186388104271,
+        418.66863881042707,
+        263.25000000000006,
+        263.75000000000006
+      ],
+      "name": "Accessible flow meter wire chamber floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
     },
     {
       "bounds_source_mm": [

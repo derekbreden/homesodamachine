@@ -98,6 +98,12 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         "reason":"Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."}));
     targets.push(json!({"name":"Accessible flow meter front lip","bounds_source_mm":supports::meter_lip_target(),
         "reason":"Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."}));
+    targets.push(json!({"name":"Accessible flow meter upper hook pocket floor","bounds_source_mm":supports::meter_hook_floor_target(),
+        "reason":"Support the floor at the hook's fitted height. A screwdriver enters above the lip and lifts the support toward the open side."}));
+    for (name, bounds) in supports::meter_floor_targets() {
+        targets.push(json!({"name":name,"bounds_source_mm":bounds,
+            "reason":"Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."}));
+    }
     let mut contact_plan = plan::Graph::new();
     let silhouette = contact_plan.silhouette(b.outer);
     let (_, upper) = hsm_enclosure_quadrants::ystacks::y_stack(&b.inner);

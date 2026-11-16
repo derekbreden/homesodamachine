@@ -144,8 +144,10 @@ path. A second corbel off the flank carries the strip between the hook pocket
 and the flank. The front lip, the bar the meter cap's top wing rides over, takes
 a support target through the slot's open west side as far as the Pisco
 receiver. Under the Pisco a tree could only root against the receiver's fore end
-stop, so the lip bridges from that support to the aft shoulder. Preserve the
-approved component seats, catch planes and wing travel.
+stop, so the lip bridges from that support to the aft shoulder. The upper hook
+pocket floor, both boss channels, both screw-head channels and the wire chamber
+take support through the receiver's open west side. Preserve the approved
+component seats, catch planes and wing travel.
 Receiver coupons retain this production layer direction. Ordinary layers apply
 except where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop
@@ -164,11 +166,8 @@ Read each exposed underside's first deposited courses
 and its actual support contacts; the support topology alone does not establish
 coverage. Derive contact bands from the complete receiver stock and its exposed
 undersides; keep the self-supporting bed chamfer outside joint enforcers.
-The current back-top recipe retains bed-only native roots. Its
-[replacement audit](enclosure/enclosure/prints/2026-11-10-back-top-D-coverage-mark1/support-audit.json)
-remains unqualified: adding contact targets does not establish passage clearance
-or a compliant bed envelope. Model-floor roots on other parts retain their own
-removal paths.
+Back-top allows native roots on the part and the plate. Read the slice for
+passage clearance, bead margins and access to the tree roots and interfaces.
 The rail supports were removable in the full-size physical article; its loose
 underside and subsequent glossy courses require localized foundation cooling.
 
