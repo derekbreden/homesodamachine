@@ -1,0 +1,323 @@
+{
+  "views": [
+    {
+      "name": "receivers",
+      "caption": "The ASSE (left) and the Pisco (right) seen from the front, cut through both receivers. The ASSE's west catch, which a screwdriver reaches, stays flat and prints on support. The other three catches are corbels, and the caps' hooks follow their slope.",
+      "before": "receivers-before.webp",
+      "after": "receivers-after.webp",
+      "width": 1800,
+      "height": 500,
+      "marks": [
+        {
+          "x": 170.2,
+          "y": 236.2,
+          "r": 23.9,
+          "label": "supported",
+          "at": [
+            7.6,
+            430,
+            343.05
+          ]
+        },
+        {
+          "x": 949.6,
+          "y": 216.9,
+          "r": 23.9,
+          "label": "corbel",
+          "at": [
+            50,
+            430,
+            344.1
+          ]
+        },
+        {
+          "x": 1243.8,
+          "y": 217.5,
+          "r": 23.9,
+          "label": "corbel",
+          "at": [
+            66,
+            430,
+            344.07
+          ]
+        },
+        {
+          "x": 1629.8,
+          "y": 217.5,
+          "r": 23.9,
+          "label": "corbel",
+          "at": [
+            87,
+            430,
+            344.07
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          47.3,
+          -173.60190417215006,
+          342.3
+        ],
+        "target": [
+          47.3,
+          430,
+          342.3
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 13.6,
+        "near": 268.45234130765664,
+        "far": 922.3544041608192,
+        "aspect": 3.6,
+        "section": {
+          "at": [
+            47.5,
+            430,
+            342
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "asse-snap-cap",
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "7c7674ee2b28e9ed54d5f514e63e5dfc330af8950a7d55df2b5e13b04d235705",
+          "commit": "c479e37da2b2e31041d0b7572aff0e8a7e2072f6",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "corbels",
+      "caption": "Closer, either side of the narrow gap between the two receivers. Each catch climbs its pocket wall at the slope the enclosure's teardrop roofs print at, and each hook's underside is cut to the same slope.",
+      "before": "corbels-before.webp",
+      "after": "corbels-after.webp",
+      "width": 1800,
+      "height": 800,
+      "marks": [
+        {
+          "x": 382.8,
+          "y": 544.8,
+          "r": 48.3,
+          "label": "ASSE east corbel",
+          "at": [
+            50,
+            430,
+            344.1
+          ]
+        },
+        {
+          "x": 1486.2,
+          "y": 546.9,
+          "r": 48.3,
+          "label": "Pisco west corbel",
+          "at": [
+            66,
+            430,
+            344.07
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          57.5,
+          -173.60190417215006,
+          346.2
+        ],
+        "target": [
+          57.5,
+          430,
+          346.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 5.8,
+        "near": 270.12732824635225,
+        "far": 924.0293910995148,
+        "aspect": 2.25,
+        "section": {
+          "at": [
+            57.5,
+            430,
+            345
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "asse-snap-cap",
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "7c7674ee2b28e9ed54d5f514e63e5dfc330af8950a7d55df2b5e13b04d235705",
+          "commit": "c479e37da2b2e31041d0b7572aff0e8a7e2072f6",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter-shoulder",
+      "caption": "The meter receiver's aft shoulder, under the Pisco, seen from the front. A corbel off the east flank now carries the shoulder's top. The Pisco cap's east corner is cut back to clear it, seated and on the way out, and the cap's east wing roots higher, so it is shorter.",
+      "before": "meter-shoulder-before.webp",
+      "after": "meter-shoulder-after.webp",
+      "width": 1200,
+      "height": 1100,
+      "marks": [
+        {
+          "x": 683.7,
+          "y": 789.1,
+          "r": 35.9,
+          "label": "meter shoulder corbel",
+          "at": [
+            93,
+            440,
+            319
+          ]
+        },
+        {
+          "x": 619.1,
+          "y": 729.3,
+          "r": 28.7,
+          "label": "cap corner cut",
+          "at": [
+            90.3,
+            440,
+            321.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          89.5,
+          -163.60190417215006,
+          329
+        ],
+        "target": [
+          89.5,
+          440,
+          329
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 23,
+        "near": 262.2425465977501,
+        "far": 916.1446094509126,
+        "aspect": 1.0909090909090908,
+        "section": {
+          "at": [
+            89,
+            440,
+            320
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "7c7674ee2b28e9ed54d5f514e63e5dfc330af8950a7d55df2b5e13b04d235705",
+          "commit": "c479e37da2b2e31041d0b7572aff0e8a7e2072f6",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
