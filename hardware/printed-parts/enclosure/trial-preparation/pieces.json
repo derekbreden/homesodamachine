@@ -22,11 +22,12 @@
       "front-bottom",
       "back-top",
       "back-bottom",
+      "funnel-frame",
       "foam-shell",
       "foam-cap-lid-top",
       "foam-cap-bottom"
     ],
-    "reason": "Derek selects the lower PET-GF trim for the enclosure quadrants and the cold-core casing on textured PEI."
+    "reason": "A large contact area on the print bed calls for the lower PET-GF trim on textured PEI."
   },
   "filament_mapping": {
     "extruder_ams_count": [

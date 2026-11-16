@@ -150,10 +150,10 @@ Each first-layer trim belongs to its recorded part, printer, material, nozzle an
 The printer preset's start G-code carries it. When a job name includes a trim, that is
 the requested value above the plate's stock compensation.
 
-On both printers, the enclosure quadrants and the cold-core shell, top equipment lid and
-bottom cap use `textured_pei_z_trim` for PET-GF on textured PEI through the enclosure hotend.
-Other jobs on that setup use the printer's `z_trim_mm`. The settings live in
-[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json).
+For PET-GF on textured PEI through the enclosure hotend, both printers use `textured_pei_z_trim`
+when every part on the plate is listed for its large contact area on the print bed.
+The funnel frame is on that list. Other jobs on that setup use the printer's `z_trim_mm`.
+[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json) owns the settings.
 
 The other textured-plate nozzle setups have their own recipes.
 

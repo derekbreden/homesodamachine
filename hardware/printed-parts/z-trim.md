@@ -9,10 +9,11 @@ native print archive.
 Derek: *"No. That should be documented as for pet-gf on textured plate."*
 
 [`pieces.json`](enclosure/trial-preparation/pieces.json) owns the PET-GF trims. On textured
-PEI with the enclosure hotend, `textured_pei_z_trim` applies on both printers to the enclosure
-quadrants and the cold-core shell, top equipment lid and bottom cap. Other jobs on this
-setup take their printer's `z_trim_mm`. Glued Engineering Plate jobs take
-`engineering_plate_z_trim_mm`. [The printer runbook](../../tools/bambu-printers.md#z-trim)
+PEI with the enclosure hotend, both printers use `textured_pei_z_trim` when every part on
+the plate qualifies by its large contact area on the print bed. The list includes the
+funnel frame, the enclosure quadrants and the cold-core shell, top equipment lid and
+bottom cap. Other jobs on this setup take their printer's `z_trim_mm`. Glued Engineering
+Plate jobs take `engineering_plate_z_trim_mm`. [The printer runbook](../../tools/bambu-printers.md#z-trim)
 describes how to read the command in a native slice.
 
 The [accepted identification-set print](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)
