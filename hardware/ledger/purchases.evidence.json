@@ -10152,7 +10152,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
-        "src-b0cb6517e7794385aad65450a6e01b2b"
+        "src-b0cb6517e7794385aad65450a6e01b2b",
+        "src-979852095e4b4b9f85d0451fa983baec"
       ],
       "invoice_date": {
         "precision": "day",
@@ -16505,7 +16506,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-979852095e4b4b9f85d0451fa983baec"
       ]
     },
     "amazon:112-7519255-8741021": {
@@ -35124,6 +35126,19 @@
       ],
       "verified_at": "2026-11-16",
       "note": "Invoice for order us798331608108187648 states Payment Date November 15, 2026 and Net payment USD 81.96. Two H2C Engineering Plates have USD 87.98 subtotal, USD 11.56 applied credit, USD 5.54 tax and zero shipping. The invoice also labels November 15 as Delivery Date, but the current order remains Processing; actual fulfillment is not established. Credit origin remains unverified."
+    },
+    "src-979852095e4b4b9f85d0451fa983baec": {
+      "vendor": "Bambu Lab",
+      "document_type": "shipment_confirmation",
+      "reference": "us798331608108187648",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "proves": [],
+      "verified_at": "2026-11-16",
+      "note": "Merchant shipment notification identifies both H2C Engineering Plates as on the way via UPS. Actual delivery and dispatch calendar date are not established by the notification timestamp. Shipment does not establish another payment."
     }
   },
   "coverage": [
@@ -37894,12 +37909,14 @@
       ],
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
-        "src-b0cb6517e7794385aad65450a6e01b2b"
+        "src-b0cb6517e7794385aad65450a6e01b2b",
+        "src-979852095e4b4b9f85d0451fa983baec"
       ],
-      "missing_fact": "Actual delivery and credit origin remain unverified. The invoice labels November 15 as Delivery Date, while the current order is Processing. Final net amount and completed payment date are confirmed by the invoice.",
+      "missing_fact": "Actual delivery and credit origin remain unverified. Both plates are confirmed shipped. The invoice labels November 15 as Delivery Date, but actual delivery is not established by the subsequent shipment notification. Final net amount and completed payment date are confirmed by the invoice.",
       "sources_checked": [
         "Exact order confirmation and signed-in merchant order record",
-        "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026"
+        "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026",
+        "Exact-order merchant shipment notification received November 16, 2026"
       ]
     },
     {

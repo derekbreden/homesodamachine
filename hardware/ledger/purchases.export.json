@@ -9907,7 +9907,7 @@
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
       "gap_id": "gap-083a0e4705eb4c0b8438f31067c1573e",
-      "missing_fact": "Actual delivery and credit origin remain unverified. The invoice labels November 15 as Delivery Date, while the current order is Processing. Final net amount and completed payment date are confirmed by the invoice.",
+      "missing_fact": "Actual delivery and credit origin remain unverified. Both plates are confirmed shipped. The invoice labels November 15 as Delivery Date, but actual delivery is not established by the subsequent shipment notification. Final net amount and completed payment date are confirmed by the invoice.",
       "order_ids": [
         "bambu:us798331608108187648"
       ],
@@ -9916,11 +9916,13 @@
       ],
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-979852095e4b4b9f85d0451fa983baec",
         "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
       "sources_checked": [
         "Exact order confirmation and signed-in merchant order record",
-        "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026"
+        "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026",
+        "Exact-order merchant shipment notification received November 16, 2026"
       ]
     },
     {
@@ -10359,7 +10361,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:7eaf00436ae2096a529fd9472f400d91891563991176b09e9f6cae82a6eb5208",
+  "input_fingerprint": "sha256:b22f6f352d79f67ca03461b4a40049832232a53e8bbffc93435c6367bb19500a",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -18873,7 +18875,8 @@
       ],
       "reference": "us798331608108187648",
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-979852095e4b4b9f85d0451fa983baec"
       ],
       "vendor": "Bambu Lab"
     },
@@ -23576,7 +23579,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount",
+      "description": "Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount; both plates shipped, awaiting delivery",
       "event_ids": [
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
@@ -23612,6 +23615,7 @@
       "service_period": null,
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-979852095e4b4b9f85d0451fa983baec",
         "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
       "split_charge": false,
@@ -66544,6 +66548,20 @@
       "source_id": "src-96766c40a8cb487dba62d9fee936fc01",
       "vendor": "Render",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Merchant shipment notification identifies both H2C Engineering Plates as on the way via UPS. Actual delivery and dispatch calendar date are not established by the notification timestamp. Shipment does not establish another payment.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "proves": [],
+      "reference": "us798331608108187648",
+      "source_id": "src-979852095e4b4b9f85d0451fa983baec",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-16"
     },
     {
       "document_date": {
