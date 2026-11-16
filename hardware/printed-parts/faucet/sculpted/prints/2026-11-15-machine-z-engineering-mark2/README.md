@@ -6,7 +6,9 @@ PET-GF faucet: the Sculpted base, the tip, the display cover, the mounting plate
 `faucet-plate sculpted --production` prepared them from the checkout at
 [`47ab7d77d`](https://github.com/derekbreden/homesodamachine/tree/47ab7d77d9e49efeaabb429c454e58c35ca09e8a),
 so the plate is also the Sculpted product plate of that commit. The [package record](package.json)
-binds the archive's G-code and the acceleration planner's estimate of its motion.
+binds the archive's G-code and the acceleration planner's estimate of its motion. The
+[launch receipt](launch.json) identifies the job Mark2 accepted, and the
+[startup spacing](startup-spacing.json) record gives Mark 1's last start before it.
 
 The plate goes on Mark2's glued Engineering Plate. Its first layer stands the
 [plate's selected bed trim](https://github.com/derekbreden/homesodamachine/blob/47ab7d77d9e49efeaabb429c454e58c35ca09e8a/tools/hsm/print-prep/faucet-plate.json)
