@@ -808,26 +808,26 @@
     }
   },
   "HSM-0081": {
-    "title": "Enclosure back top · Mark2 print plan",
-    "sha256": "4df779c7b360e76e864cca801317371bbdd77fe33eb813c5f1374122533b76b4",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-back-top-support-D-mark2/2026-11-11-back-top-mark2-862659ea.gcode.3mf",
+    "title": "Enclosure back top · Mark1 print plan",
+    "sha256": "f8a18f111efa471d6a9e9c01dc592247fe736dc8aa7d47e2930bda42586b791e",
+    "slice": "2026-11-15-back-top-mark1-38b1bc8b.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "638f51fc370c18eff6636ec6cd53442e06745431a797acb666ae885cb850d38d",
-    "project_sha256": "e8fff0d2d2aa8bbf7e2924504e76b7ae4f89c62f6c629b5f968004017d001b99",
-    "archive_sha256": "abaacd32216989dafd31f978d5ccd94146090672c5ca9e92c39d136f1a5194e4",
-    "gcode_sha256": "5c83575f3593bc511da9b10f43a6224d8169ea1b214a5276d209488aa2dda098",
+    "recipe_sha256": "e8450ef09c78e4140a2f7ac16a3a41ef3ea1ec7ed0685b430f75dcdc9fe50f5c",
+    "project_sha256": "24bca6c6fec44e016daa9afbcfebd6de4063dc62c06cd287cc405bb19a3adf2a",
+    "archive_sha256": "9410d617a240baa5de4bb1d1849087afe646af0d78c1c03ec78260dcb8c13dc5",
+    "gcode_sha256": "31f094aa2a7438f16a469706c807430d33a7e5cba6d87f73bef078e7aa5e5de3",
     "kind": "plan",
     "layers": 1053,
-    "model_sha256": "55443c602f726c67be9705ff7e0667716bbd51adf3f6a2532599673f56234b60",
+    "model_sha256": "14ca155df697d912670f155000820f304a76937857d82535641505ec21a3c82b",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
-      "Printer": "Mark2",
+      "Printer": "Mark1",
       "Nozzle": "Left 0.4 mm Standard",
       "Build plate": "Textured PEI Plate",
       "Layer heights": "0.2 mm first, 0.24 mm nominal",
-      "Local layer schedule": "Variable layer bands",
+      "Local layer schedule": "Ordinary layer height throughout; six walls in the roof-edge band",
       "Walls": "2",
       "Infill": "15% gyroid",
       "Supports": "tree(manual) · tree_slim",
@@ -841,7 +841,7 @@
       "Nameplate": "Outboard support panel with straight aft removal",
       "Protected openings": "C14 passage, valve sockets and insert pilots clear"
     },
-    "recipe_commit": "98d8b815d654b0155077f24d6f16d1eb869b0554"
+    "recipe_commit": "166ccab06e7a760f59df025b1bd9c43c148671cc"
   },
   "HSM-0082": {
     "title": "Lower pump retainer · Mark1 print plan",
