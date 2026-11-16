@@ -3,7 +3,7 @@
   "piece": "enclosure-back-top",
   "printer": "Mark1",
   "connection_key": "H2C",
-  "status": "running",
+  "status": "cancelled",
   "printer_task_id": "1449259987",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
@@ -52,5 +52,11 @@
   },
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
-  "startup": "startup-status.json"
+  "startup": "startup-status.json",
+  "cancellation": {
+    "printer_status": "cancellation-status.json",
+    "reported_by": "Derek",
+    "observation": "I stopped the print",
+    "reason": "Derek saw the separate exterior nameplate support panel in the print replay."
+  }
 }

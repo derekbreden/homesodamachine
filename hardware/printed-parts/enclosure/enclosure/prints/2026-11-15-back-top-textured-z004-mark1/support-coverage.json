@@ -230,23 +230,24 @@
       "model_layers": {
         "48.2": {
           "length_by_backing_and_feature_mm": {
-            "air": 83.35,
+            "model": 69.91,
             "Bridge": 893.68,
+            "air": 13.44,
             "interface": 810.33
           },
           "longest_free_span": [
-            8.593033112582768,
+            0.12921854304635724,
             [
-              88.1857880794702,
-              433.89199084472654,
+              96.45577483443708,
+              433.5199908447266,
               306.8
             ],
             [
-              96.7142119205298,
-              433.89199084472654,
+              96.3911655629139,
+              433.5199908447266,
               306.8
             ],
-            null,
+            "model",
             "Bridge"
           ]
         }
@@ -617,5 +618,10 @@
       ],
       "interface_length_by_z_mm": {}
     }
+  },
+  "narrow_support_run": {
+    "scope": "Adjacent overlapping support islands under the width threshold.",
+    "threshold_mm": 2.5,
+    "longest_mm": 2.88
   }
 }

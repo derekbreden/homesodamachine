@@ -1,0 +1,10 @@
+{
+  "printer": "H2C",
+  "gcode_state": "FAILED",
+  "subtask_name": "enclosure-back-top-left04-petgf-textured-z004-mark1.gcode.3mf",
+  "observed_at": "2026-11-16T04:30:43+00:00",
+  "layer_num": 0,
+  "total_layer_num": 1019,
+  "print_error": 50348044,
+  "hms": []
+}
