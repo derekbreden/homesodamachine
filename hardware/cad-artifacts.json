@@ -4357,9 +4357,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
-      "commit": "222e6bf82df55a10c0ed19096243e99821eae200",
-      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8",
-      "unproven": true
+      "commit": "824445d33a7108f62c5434fba6b478c5567d1b45",
+      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
       "commit": "af13cbfe90ca8f98c5a2fa7707969874ff6ba8e6",
@@ -4367,9 +4366,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": {
-      "commit": "222e6bf82df55a10c0ed19096243e99821eae200",
-      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8",
-      "unproven": true
+      "commit": "824445d33a7108f62c5434fba6b478c5567d1b45",
+      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
       "commit": "9b4c7c5cecf8dfc50a90060e6a761f5c526abb49",
@@ -4385,9 +4383,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
-      "commit": "222e6bf82df55a10c0ed19096243e99821eae200",
-      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8",
-      "unproven": true
+      "commit": "824445d33a7108f62c5434fba6b478c5567d1b45",
+      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
       "commit": "af13cbfe90ca8f98c5a2fa7707969874ff6ba8e6",
@@ -4395,14 +4392,12 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": {
-      "commit": "222e6bf82df55a10c0ed19096243e99821eae200",
-      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8",
-      "unproven": true
+      "commit": "824445d33a7108f62c5434fba6b478c5567d1b45",
+      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "222e6bf82df55a10c0ed19096243e99821eae200",
-      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8",
-      "unproven": true
+      "commit": "824445d33a7108f62c5434fba6b478c5567d1b45",
+      "inputs": "b8655c4d4426bd580120219bc270b136327d59def05f90f3b3f0f61ee78142c8"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
       "commit": "af13cbfe90ca8f98c5a2fa7707969874ff6ba8e6",
