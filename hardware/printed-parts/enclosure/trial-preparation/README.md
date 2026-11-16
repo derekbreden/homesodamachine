@@ -81,8 +81,7 @@ Native support regions distinguish functional interiors from exterior request bl
 An exterior blocker marked `review_interior: false` still masks support requests; its
 box does not define an inaccessible void. The native record also names accessible
 support targets, which become enforcers in the manual-tree preparation. Back-top's
-same record carries its removable exterior panel and local rail caps as separate
-printable stock.
+same record carries its local rail caps as removable print stock.
 
 The regulator cap's [contact recipe](../rear-equipment-caps/contact.json) samples its fitted
 roof from the posed mesh. The preparer writes the physical project and the contact-band slicing
@@ -116,7 +115,7 @@ for fixed-width brim types.
 | --- | --- | --- | --- | --- |
 | `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Tree(auto)/Default; short rail trees rooted on their cavity floors |
-| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on the glued Engineering Plate, rear flutes clear of the bed; additive roof-edge transition; local solid rail bands | Manual Tree Slim at accessible contacts, reachable receiver catches, the meter's front lip and the inlet's pocket and passage, removable nameplate panel and cavity-floor rail caps; corbelled catches, fitted rooms, sockets and pilots clear |
+| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on textured PEI, rear flutes clear of the bed; additive roof-edge transition; local solid rail bands | Manual trees at accessible contacts, receiver catches, meter floors and inlet roofs; cavity-floor rail caps; self-supporting nameplate ledges and protected corbelled catches, sockets and pilots |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Saved plate offset and automatic-tree branch angle |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Lower retainer on the Y-minus end | Classic perimeters, solid screw seats and bridged screw openings |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | Nonplanar regulator contact, bridged meter shoulder |

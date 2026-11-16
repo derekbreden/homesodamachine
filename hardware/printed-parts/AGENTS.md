@@ -153,8 +153,8 @@ except where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop
 clearances pointing in the build direction. The vent cap has a rooted chamfer;
 its passage stays clear of supports. Back-top's rail caps have narrow removable
-roots on their own cavity floors. The exterior nameplate panel follows both
-receiver ledges and pulls aft. Manual Tree Slim supports exposed joint ends,
+roots on their own cavity floors. The nameplate receiver's two ledges grow
+from the rear wall on corbels. Manual Tree Slim supports exposed joint ends,
 funnel receivers, the valve seat, initial boss curves and the tube seat's outer
 underside. The cable hooks' beak lands overhang too little to need support, as
 front-bottom's same hooks show. Read the

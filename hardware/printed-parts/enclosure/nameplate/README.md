@@ -37,8 +37,9 @@ Each Ø3.4 mm
 clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads stand
 2 mm above the black face; their 2.5 mm hex sockets face directly outward.
 
-The plate has a flat back, a 2.36 mm bearing floor beneath each counterbore and
-3.64 mm of screw engagement. The receiver uses the cold pilots in the shared mount coordinates;
+The plate bears on its flat back. Its lower rear bevel follows the receiver
+mouth's corbel. The counterbore floors and screw engagement come from the
+shared mount record. The receiver uses the cold pilots in the shared mount coordinates.
 insert fronts finish flush with the seat. The upper pair ends against the existing
 support floors; the lower pair opens through the rear wall. The closed pilots
 clear the inserts and screw tips.
@@ -58,14 +59,15 @@ cavity construction. Hardware is separate from the printable plate's two-colour
 The plate's position comes from the rear identification plan in
 [`above-core.json`](/hardware/manifold-layout/above-core.json). Its receiver has
 matching clear space beside the rounded corner root and above the seam band,
-and clears the adjacent port-label rail. The raised field has a sloped crown.
+and clears the adjacent port-label rail. The rounded crown and the mouth's
+lower edge grow from the rear wall on corbels.
 The short inserts and screw tips clear the cold-core envelope. All screws are
 reached from outside the assembled machine.
 [Production measurements](production-fit.json) record the current geometry review.
 
 ## Printing and assembly
 
-Print the nameplate flat, face up, with its complete back on the bed and the
+Print the nameplate flat, face up, with its bearing face on the bed and the
 counterbores facing up. The [Mark1 identification plate](../trial-preparation/README.md)
 prints the black and white PETG with fine nozzles on the glued Engineering Plate
 without supports. It carries the filament assignments and side-specific trim from

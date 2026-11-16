@@ -87,6 +87,22 @@ impl Snap {
 fn xz(profile: Profile, y0: f64, y1: f64) -> Result<Solid> {
     Plane::XZ.at(v3(0., y0, 0.)).extrude(&profile, -(y1 - y0))
 }
+
+/// The matching slope for the receiver printed roof-down and the plate printed back-down.
+const CORBEL_RISE_PER_DEPTH: f64 = 1.0;
+
+/// Sweep the rounded outline at the corbel slope, registering it at the face.
+fn corbel_sweep(profile: &Profile, y0: f64, y1: f64, face_y: f64) -> Result<Solid> {
+    let plane = Plane::XZ.at(v3(0., y0, (face_y - y0) * CORBEL_RISE_PER_DEPTH));
+    let depth = y1 - y0;
+    Solid::extrude(&profile.place(&plane), plane.z, v3(0., depth, -depth * CORBEL_RISE_PER_DEPTH))
+}
+
+/// Share the sloping lower edge across the receiver mouth and the matching plate.
+fn corbelled_lower_edge(profile: Profile, face_y: f64, end_y: f64) -> Result<Solid> {
+    xz(profile.clone(), 0., end_y)?.intersect(&corbel_sweep(&profile, 0., end_y, face_y)?)
+}
+
 pub fn cylinder_y(x: f64, z: f64, r: f64, y0: f64, y1: f64) -> Result<Solid> {
     xz(Profile::new(Loop::circle(v2(x, z), r)), y0, y1)
 }
@@ -100,20 +116,24 @@ pub fn snap_plate_cuts(n: &Snap) -> Result<Solid> {
     Solid::union_all(&cuts)
 }
 pub fn snap_plate_blank(n: &Snap) -> Result<Solid> {
-    xz(Profile::new(Loop::rounded_rect(v2(0., 0.), n.width, n.height,
-        n.corner)?), 0., n.thick)?.cut(&snap_plate_cuts(n)?)
+    let profile = Profile::new(Loop::rounded_rect(v2(0., 0.), n.width, n.height, n.corner)?);
+    corbelled_lower_edge(profile, n.thick, n.thick)?.cut(&snap_plate_cuts(n)?)
 }
 pub fn snap_receiver_stock(n: &Snap) -> Result<Solid> {
     let (bottom, top) = (n.frame_bottom, n.frame_top);
     let t = n.thick;
-    let frame = xz(Profile::new(Loop::rounded_rect(v2(0., (bottom + top) / 2.),
-        n.frame_width, top - bottom, n.frame_corner)?), n.floor_rear, t)?;
-    // Back-top prints roof down: one 45 degree crown runs to the enclosure skin.
-    let crown = Plane::YZ.at(v3(-n.frame_width, 0., 0.)).extrude(&Profile::polygon(&[
-        v2(n.crown_y - 0.01, top + 0.01), v2(t + 0.01, top + 0.01),
-        v2(t + 0.01, top - n.field_proud - 0.01)
+    let profile = Profile::new(Loop::rounded_rect(v2(0., (bottom + top) / 2.),
+        n.frame_width, top - bottom, n.frame_corner)?);
+    let frame = xz(profile.clone(), n.floor_rear, t)?;
+    // Carry the whole rounded crown back to the wall at the print slope.
+    let crown = corbel_sweep(&profile, n.crown_y, t, t)?;
+    let roof = top + n.field_proud + 1.;
+    let face_top = top - n.field_proud * CORBEL_RISE_PER_DEPTH;
+    let relief = Plane::YZ.at(v3(-n.frame_width, 0., 0.)).extrude(&Profile::polygon(&[
+        v2(n.crown_y, top), v2(n.crown_y, roof), v2(t + 1., roof),
+        v2(t + 1., face_top - CORBEL_RISE_PER_DEPTH),
     ]), 2. * n.frame_width)?;
-    let mut parts = vec![frame.cut(&crown)?];
+    let mut parts = vec![frame.union(&crown)?.cut(&relief)?];
     // These short, broad insert lands coincide with the enclosure's existing
     // rear wall. They keep the standalone receiver model complete as well.
     for (x, z) in n.stations() {
@@ -123,9 +143,9 @@ pub fn snap_receiver_stock(n: &Snap) -> Result<Solid> {
     Solid::union_all(&parts)
 }
 pub fn snap_receiver_cuts(n: &Snap) -> Result<Solid> {
-    let mouth = xz(Profile::new(Loop::rounded_rect(v2(0., 0.), n.mouth_width,
-        n.mouth_height, n.corner + n.slip)?), 0., n.thick + 1.)?;
-    let mut cuts = vec![mouth.clone(), mouth.translate(v3(0., 0., -n.supported))];
+    let profile = Profile::new(Loop::rounded_rect(v2(0., -n.supported / 2.),
+        n.mouth_width, n.mouth_height + n.supported, n.corner + n.slip)?);
+    let mut cuts = vec![corbelled_lower_edge(profile, n.thick, n.thick + 1.)?];
     for (x, z) in n.stations() {
         // Upper bores end against the adjoining support floors. Lower bores
         // continue through the rear land into the cold-core clearance.

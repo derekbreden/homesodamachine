@@ -136,22 +136,6 @@
   "producer": "enclosure-back-top",
   "removable_support_stock": [
     {
-      "bed_source_z_mm": 355.0,
-      "center_x_mm": -41.4,
-      "center_z_mm": 220.75,
-      "face_y_mm": 473.3,
-      "field_proud_mm": 2.0,
-      "frame_corner_mm": 7.0,
-      "frame_half_width_mm": 43.15,
-      "frame_top_mm": 271.3545454545455,
-      "mouth_corner_mm": 5.15,
-      "mouth_floor_mm": 174.89545454545456,
-      "mouth_half_width_mm": 40.15,
-      "name": "Removable exterior nameplate support",
-      "reason": "Both rounded contact bands carry on a separate bed-rooted panel with an open aft removal path.",
-      "shape": "nameplate_panel"
-    },
-    {
       "center_x_mm": -101.125,
       "contact_source_z_mm": 168.7,
       "name": "Removable west fore rail support",
@@ -188,7 +172,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "01334047ba206a219e5bf9ede53ddab2ab56e5a2ffe25879d0fb4281b9feb997",
+  "source_stl_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [

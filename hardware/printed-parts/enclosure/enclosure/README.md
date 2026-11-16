@@ -746,9 +746,10 @@ have dense interface or adjacent deposited stock throughout the sampled contact
 areas. The native layers retain that local backing. Joint targets follow the
 raked ends and counterbore roofs above the bed chamfer.
 
-The nameplate receiver's exterior panel follows both rounded ledges and pulls
-straight aft. Each split rail cap starts on narrow roots in its own cavity;
-sever the necks and pull the cap inward through the open sliding lane. The
+The nameplate receiver's rounded crown and lower mouth edge grow from the
+rear wall on corbels. The lower rear edge of the nameplate follows the mouth
+slope. Each split rail cap starts on narrow roots in its own cavity. Sever the
+necks and pull the cap inward through the open sliding lane. The
 native slice review confirms the cap air gaps, bed border and clear fitted
 interiors. Funnel insert pilots bridge between their own walls inside the
 supported shoulders, and so do the power inlet's blind pilots inside its
