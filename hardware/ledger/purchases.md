@@ -874,17 +874,17 @@ Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$29,052.83](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,716.99](LEDGER_ESTIMATES) |
+| Final vendor amounts | [$29,134.79](LEDGER_FINAL_VENDOR) |
+| Estimated amounts | [$2,635.03](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):
 
 | Event basis | USD |
 |---|---|
-| Completed charges | [$25,967.25](LEDGER_MERCHANT_CHARGES) |
+| Completed charges | [$26,049.21](LEDGER_MERCHANT_CHARGES) |
 | Issued monetary refunds | [$0.00](LEDGER_MERCHANT_REFUNDS) |
-| Charges less monetary refunds | [$25,967.25](LEDGER_MERCHANT_NET) |
+| Charges less monetary refunds | [$26,049.21](LEDGER_MERCHANT_NET) |
 
 The retrieved records have partial vendor coverage. An empty month or refund total is not evidence of account-wide zero activity. Authorizations, pending charges and noncash credit do not enter this view.
 

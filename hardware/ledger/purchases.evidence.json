@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-15",
+  "as_of": "2026-11-16",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10145,14 +10145,19 @@
     "pur-1c4dede86ac6420db23a61fd3b7eabb8": {
       "vendor": "Bambu Lab",
       "purpose": "equipment_tooling",
-      "amount_evidence": "estimate",
+      "amount_evidence": "final_vendor_amount",
       "order_ids": [
         "bambu:us798331608108187648"
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
-      ]
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-b0cb6517e7794385aad65450a6e01b2b"
+      ],
+      "invoice_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      }
     },
     "pur-5caf48bbb5b44f2bbac11f37b1608ead": {
       "vendor": "Amazon",
@@ -20872,15 +20877,19 @@
       "event_id": "evt-19293e4645d84cd08d555c566e2820d7",
       "vendor": "Bambu Lab",
       "event_type": "charge",
-      "confirmation": "expected",
-      "event_date": null,
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
       "amount_minor": 8196,
       "currency": "USD",
       "allocation_status": "all_project",
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
-      "verified_at": "2026-11-15",
+      "verified_at": "2026-11-16",
       "order_ids": [
         "bambu:us798331608108187648"
       ]
@@ -35093,6 +35102,28 @@
       ],
       "verified_at": "2026-11-15",
       "note": "Exact-order tracking explicitly records package delivered Sunday, November 15, 2026 at 12:53 PM local. Order Details identifies the single H2C dual-textured and smooth PEI plate, ASIN B0GRSZJYJ9. This confirms fulfillment only; the separately confirmed merchant charge is unchanged and the Order Summary still labels tax estimated."
+    },
+    "src-b0cb6517e7794385aad65450a6e01b2b": {
+      "vendor": "Bambu Lab",
+      "document_type": "paid_invoice",
+      "reference": "BBLUS2616KM839F11",
+      "invoice_reference": "BBLUS2616KM839F11",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-15"
+      },
+      "proves": [
+        "price",
+        "invoice_date",
+        "charge",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-16",
+      "note": "Invoice for order us798331608108187648 states Payment Date November 15, 2026 and Net payment USD 81.96. Two H2C Engineering Plates have USD 87.98 subtotal, USD 11.56 applied credit, USD 5.54 tax and zero shipping. The invoice also labels November 15 as Delivery Date, but the current order remains Processing; actual fulfillment is not established. Credit origin remains unverified."
     }
   },
   "coverage": [
@@ -37862,11 +37893,13 @@
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
       "source_ids": [
-        "src-2c30f092670c4f8d91381f26b9dff8b0"
+        "src-2c30f092670c4f8d91381f26b9dff8b0",
+        "src-b0cb6517e7794385aad65450a6e01b2b"
       ],
-      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Final invoice and credit origin remain unverified; the recorded procurement value is the net order amount after applied credit.",
+      "missing_fact": "Actual delivery and credit origin remain unverified. The invoice labels November 15 as Delivery Date, while the current order is Processing. Final net amount and completed payment date are confirmed by the invoice.",
       "sources_checked": [
-        "Exact order confirmation and signed-in merchant order record"
+        "Exact order confirmation and signed-in merchant order record",
+        "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026"
       ]
     },
     {
