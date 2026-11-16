@@ -94,9 +94,6 @@ fn main() -> Result<()> {
     tip_warp::write(&tip_warp::SHORT_SHOULDER, &tip, &editable, &warped)?;
     let settings = donor.join("warp-settings.json");
     tip_supports::write(&donor.join("tip-warped.json"), &settings)?;
-    let mut recipe: Value = serde_json::from_slice(&fs::read(&settings)?)?;
-    recipe["support_top_gap_mm"] = faucet_plate::DONOR_SUPPORT_TOP_GAP_MM.into();
-    fs::write(&settings, serde_json::to_string_pretty(&recipe)? + "\n")?;
     let donor_project = donor.join("donor.3mf");
     prepare(&donor_project, &["--warp-donor", "--tip-mesh", &path(&warped), "--warp-settings", &path(&settings),
         "--slice-output", &path(&donor.join("slice")), "--finish", &path(&plain_finish)])?;
