@@ -1,0 +1,154 @@
+{
+  "views": [
+    {
+      "name": "mouth",
+      "caption": "The lower edge of the nameplate follows the corbel in the rear receiver.",
+      "before": "mouth-before.webp",
+      "after": "mouth-after.webp",
+      "width": 1200,
+      "height": 800,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -23.222341682108524,
+          478.162180411262,
+          179.45421266543133
+        ],
+        "target": [
+          -41.4,
+          471.8,
+          178
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.325657737808396,
+        "far": 565.230138352298,
+        "aspect": 1.5,
+        "section": {
+          "at": [
+            -41.4,
+            472,
+            177
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "nameplate"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "nameplate"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c1e1bfebc8169d6d48d24779c2bb8745b7b269621aa42ab711bb120df5d48878",
+          "commit": "5451a7357ac7e9ff0cb30e6a12813b19a2c99454",
+          "taken": "2026-11-16T04:37:20.082Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b7c692b2aa862cce278d11af79f23f399783a03fb68c066c9020586956a83de0",
+          "commit": "af8d11eb95c91ffb58f8727e2ee0e14356ab6824",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "nameplate"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "crown",
+      "caption": "The rounded crown carries its outer edge from the rear wall.",
+      "before": "crown-before.webp",
+      "after": "crown-after.webp",
+      "width": 1200,
+      "height": 800,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -67.67074293287584,
+          477.5562879681921,
+          271.1843885600686
+        ],
+        "target": [
+          -80.9,
+          472,
+          269.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.31276866479597765,
+        "far": 558.7856018460889,
+        "aspect": 1.5,
+        "section": {
+          "at": [
+            -80.9,
+            472,
+            269
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c1e1bfebc8169d6d48d24779c2bb8745b7b269621aa42ab711bb120df5d48878",
+          "commit": "5451a7357ac7e9ff0cb30e6a12813b19a2c99454",
+          "taken": "2026-11-16T04:37:20.082Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3b3d8b9fc9d77982684c020adbff7843477b723d71ba4e73ca38ade0bfbc8c90",
+          "commit": "7b4d73cc1e72e2626f282a9b9de592cbee932006",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/float-a",
+        "cold-core/float-b",
+        "cold-core/float-carb",
+        "nameplate",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
