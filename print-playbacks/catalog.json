@@ -29,7 +29,7 @@
   },
   "HSM-0020": {
     "title": "Cold-core top cap lid · Mark1 print plan",
-    "sha256": "282c6e30b074e0a8edbe74ce3f1558eaeca9cfab9500c93169d2ba48f2c8bc01",
+    "sha256": "cd1b5b6db38f57660a1f784be8877e92c2bd5a6c516da42928db40c2989dbb4b",
     "slice": "2026-11-15-foam-cap-lid-top-mark1-8a6c3782.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
@@ -777,7 +777,7 @@
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
-    "sha256": "7d9904fd1312da6496453df9c0bad2aa4e8b045632b0b626ab63795c6d27d21c",
+    "sha256": "73608c588b3f2391b3c91b94a25561151d0c83ca061b45807ca017d0e9f723e8",
     "slice": "2026-11-15-back-bottom-mark2-d08d2e44.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
@@ -809,7 +809,7 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "65ea26048db2f0acfbd4870e43387307078ca91f93fb7ad5d86e991ec8c23ef2",
+    "sha256": "85742e717d75c472a0d256af20ae85f24aaf06b144b4e57f2f7515a68abcba3d",
     "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
@@ -1107,7 +1107,7 @@
   },
   "HSM-0098": {
     "title": "Faucet umbilical organizer · November 15 small PET-GF plate · Mark2",
-    "sha256": "4bd19ebf661a23bdcf560536616440d85a51e694505f6a0d483b76da8af6453c",
+    "sha256": "0b69f527e0d16d35782fb1a1614c515f818d7efa0380256027926629733a0301",
     "slice": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf",
     "plate": 1,
     "archive_sha256": "10f39395e61255f2cf27a58d049b7464d6f62822cf72429f32b6ec60002812f8",
@@ -1350,21 +1350,21 @@
   },
   "HSM-0152": {
     "title": "Tube insertion carrier and puck · Mark1",
-    "sha256": "bba40892a9c9fc241e9f811228538a6a2c2902db5c90e30157b249ff14059281",
+    "sha256": "91684a6b03448620ad1b9f9e217c8317fddbc87128af39154b4dc0db9d4f6b1e",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
   },
   "HSM-0153": {
     "title": "Tube insertion jaws · Mark1",
-    "sha256": "017e45f8679aaea1599d09a82edb00530926fac0a314254686b49228842b64c3",
+    "sha256": "7f626dd6af6247aa5908d41fcaa7240b2ec4c8fc03bd1aa68b11a9c16545cbcc",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
     "plate": 1,
     "source_commit": "245322abd5be6146d7f3efc3ed0d5d9552961a7d"
   },
   "HSM-0154": {
     "title": "Tube insertion jaws · Mark1",
-    "sha256": "017e45f8679aaea1599d09a82edb00530926fac0a314254686b49228842b64c3",
+    "sha256": "7f626dd6af6247aa5908d41fcaa7240b2ec4c8fc03bd1aa68b11a9c16545cbcc",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf",
     "plate": 1,
     "source_commit": "245322abd5be6146d7f3efc3ed0d5d9552961a7d"
@@ -1377,7 +1377,7 @@
   },
   "HSM-0156": {
     "title": "Tube insertion carrier and puck · Mark1",
-    "sha256": "bba40892a9c9fc241e9f811228538a6a2c2902db5c90e30157b249ff14059281",
+    "sha256": "91684a6b03448620ad1b9f9e217c8317fddbc87128af39154b4dc0db9d4f6b1e",
     "slice": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-rigid-parts-mark1/tube-insertion-rigid-parts-h2c.gcode.3mf",
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"
@@ -1622,7 +1622,7 @@
   },
   "HSM-0398": {
     "title": "Tube miter box · Mark2",
-    "sha256": "d647efe1b5cd922bef13caee477f1f364a4eb6b68ab032382b4d00c25cffb4f0",
+    "sha256": "58e4f162f247ed8c77feda98fe5cf2cb0f3edc6f54aa70442bfcec56bc6fa4ef",
     "slice": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-z004-mark2.gcode.3mf",
     "plate": 1,
     "source_commit": "f91f00712597b900b2b9fc43def45f19ea844c43"

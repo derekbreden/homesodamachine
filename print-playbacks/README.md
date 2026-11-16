@@ -22,8 +22,10 @@ receipt. The receipt identifies the source of the toolpaths.
 For a freshly prepared product plate, record its recipe and revision or preparation-spec
 digest, the model and project digests, and the archive and plate G-code digests. Label
 it as a print plan and record the effective settings for the selected part in `process`.
-Encode the full production plate. The player identifies model paths, supports, dense
-interfaces and bridges from the emitted feature labels.
+Encode the full production plate. The player draws external bridges in pink and internal
+bridge infill in the model color. For Bambu Studio's shared bridge feature, the encoder
+uses the sliced settings and extrusion height to identify internal infill. A bridge
+feature with insufficient information stays highlighted.
 Commit and push the catalog and the matching compressed replay together. Use the part's
 material link to check the toolpaths and timeline, then remove the scratch directory.
 Dense plates draw surface and support paths and retain the complete motion timeline.
