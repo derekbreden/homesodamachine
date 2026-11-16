@@ -83,8 +83,6 @@ impl Style {
 /// The tip's and the display cover's poses about X on the plate.
 pub const TIP_ROTATION_DEGREES: f64 = -90.0;
 pub const COVER_ROTATION_DEGREES: f64 = -50.0;
-/// The gap between the donor tip's support tops and the courses they carry.
-pub const DONOR_SUPPORT_TOP_GAP_MM: f64 = 0.24;
 
 /// The show laps' descent lift the plate's selections give, or none.
 pub fn lift_share(plate: &Value) -> f64 {

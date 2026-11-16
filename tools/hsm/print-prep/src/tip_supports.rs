@@ -82,6 +82,9 @@ pub fn write(warp_receipt: &Path, output: &Path) -> Result<()> {
         "support_parts": parts,
     });
     settings["independent_support_layer_height"] = json!(false);
+    // one donor course of air between the shoulder's interface and its first course, as the
+    // base's first course has one course of air over its roof
+    settings["support_top_gap_mm"] = json!(course);
     std::fs::write(output, serde_json::to_string_pretty(&settings)? + "\n").with_context(|| format!("writing {}", output.display()))
 }
 
