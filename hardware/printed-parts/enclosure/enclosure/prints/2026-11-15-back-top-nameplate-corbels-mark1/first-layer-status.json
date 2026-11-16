@@ -1,0 +1,111 @@
+{
+  "purpose": "Record Mark1's first layer and verify heat and filament selection on its fixed left extruder.",
+  "printer_task_id": "1449338494",
+  "readings": [
+    {
+      "bed_target_temper": 80.0,
+      "bed_temper": 80.0,
+      "external_spools": {
+        "254": {
+          "colour": "000000FF",
+          "type": "PET-CF"
+        },
+        "255": {
+          "colour": "FFFFFFFF",
+          "type": "TPU"
+        }
+      },
+      "gcode_state": "RUNNING",
+      "hms": [],
+      "layer_num": 1,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ],
+      "mc_percent": 0,
+      "mc_remaining_time": 1784,
+      "nozzle_target_temper": 265.0,
+      "nozzle_temper": 262.0,
+      "nozzle_type": "HS00-0.2",
+      "nozzles": [
+        {
+          "diameter": 0.2,
+          "id": 16,
+          "type": "HS00"
+        },
+        {
+          "diameter": 0.4,
+          "id": 1,
+          "type": "HS01"
+        },
+        {
+          "diameter": 0.2,
+          "id": 0,
+          "type": "HS00"
+        },
+        {
+          "diameter": 0.2,
+          "id": 18,
+          "type": "HS00"
+        },
+        {
+          "diameter": 0.2,
+          "id": 19,
+          "type": "HS00"
+        }
+      ],
+      "observed_at": "2026-11-16T05:20:57+00:00",
+      "print_error": 0,
+      "printer": "H2C",
+      "subtask_name": "enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
+      "total_layer_num": 1019
+    }
+  ],
+  "extruder_report": {
+    "left": {
+      "hnow": 1,
+      "hpre": 1,
+      "htar": 1,
+      "id": 1,
+      "info": 1118,
+      "snow": 65024,
+      "spre": 65024,
+      "star": 65024,
+      "stat": 197376,
+      "temp": 17367305
+    },
+    "right": {
+      "hnow": 0,
+      "hpre": 0,
+      "htar": 0,
+      "id": 0,
+      "info": 1545,
+      "snow": 65535,
+      "spre": 65535,
+      "star": 65535,
+      "stat": 0,
+      "temp": 45
+    },
+    "left_nozzle": {
+      "id": 1,
+      "type": "HS01",
+      "diameter": 0.4,
+      "stat": 0
+    },
+    "left_actual_temperature_c": 265,
+    "left_target_temperature_c": 265,
+    "left_external_spool": 254,
+    "right_actual_temperature_c": 45,
+    "right_target_temperature_c": 0
+  }
+}
