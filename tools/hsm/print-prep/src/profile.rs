@@ -270,6 +270,21 @@ pub fn trimmed_start_gcode(start: &str, z: f64) -> Result<String> {
 /// The plate the PET-GF Z trim belongs to.
 pub const TEXTURED_PEI: &str = "Textured PEI Plate";
 
+/// The glued plate PET-GF also prints on, with a Z trim of its own.
+pub const ENGINEERING_PLATE: &str = "Engineering Plate";
+
+/// A printer's user Z trim for PET-GF through its 0.4 mm nozzle on `bed`, in millimetres, as the
+/// print setup gives it: the Textured PEI trim, or the Engineering Plate's.
+pub fn petgf_bed_z_trim(root: &Path, printer: &str, bed: &str) -> Result<f64> {
+    let key = match bed {
+        TEXTURED_PEI => "z_trim_mm",
+        ENGINEERING_PLATE => "engineering_plate_z_trim_mm",
+        other => bail!("{PETGF_SETUP} gives no PET-GF Z trim for the {other}"),
+    };
+    let setup: Value = serde_json::from_slice(&std::fs::read(root.join(PETGF_SETUP)).with_context(|| format!("reading {PETGF_SETUP}"))?)?;
+    setup["printers"][printer][key].as_f64().with_context(|| format!("{PETGF_SETUP} gives no {bed} Z trim for printer {printer}"))
+}
+
 /// Bambu's own H2C start G-code, whose plate compensation a plate without a user Z trim keeps.
 pub const STOCK_START_GCODE: &str = "machine/Bambu Lab H2C 0.4 nozzle template machine_start_gcode.json";
 
