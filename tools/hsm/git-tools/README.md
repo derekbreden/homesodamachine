@@ -49,6 +49,7 @@ git why hardware/printed-parts/enclosure/enclosure/back-top/supports.rs '/^const
 git why PATH:LINE
 git why PATH LINE --rev REV --json
 git why link COMMIT:PATH:LINE[-END] FROM-COMMIT:FROM-PATH:LINE[-END] --note TEXT
+git why origin COMMIT:PATH:LINE[-END] --note TEXT
 ```
 
 Each link is an [Agent Trace](https://agent-trace.dev) record, one JSON object per line
@@ -56,14 +57,17 @@ of a git note on `refs/notes/agent-trace`, attached to the commit that rewrote t
 The record names the file and line range in that commit; its `related` link of type
 `derived_from` is a GitHub permalink to the line it was rewritten from, and an optional
 note sits under `metadata."com.homesodamachine"`. `git why link` writes one and pushes the
-notes, merging any links pushed meanwhile. A trail that ends at a commit carrying links,
-none of them for this line, says so and prints the `link` command that records it.
-A checkout that has never fetched the notes takes them from origin on its first run.
+notes, merging any links pushed meanwhile. `git why origin` records why a line begins in a
+commit, such as a setting the port introduced or a unit conversion. `git why` ends the
+trail at that line and prints the note. For a line still missing a record in a documented
+rewrite, it prints the `link` command.
 
-The Rust ports carry links for the settings they rewrote from a single hand-written
-source: under the same name and value, or under a new name from a line that assigned
-exactly that value. A setting a port computed or introduced has no link until someone
-records one.
+A checkout fetches the notes on its first `git why` run. Refresh an existing checkout
+with `git fetch origin refs/notes/agent-trace:refs/notes/agent-trace`.
+
+The Rust ports' records point to the earlier hand-written lines that set or computed
+their values. When an earlier rewrite also has a record for the line, `git why` follows
+both.
 
 Build and install it like the other tools:
 
