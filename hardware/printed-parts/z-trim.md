@@ -3,13 +3,16 @@
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in
 committed `.3mf` snapshots.
 
-The PET-GF trim belongs to the textured PEI plate. Each PETG Engineering Plate
-recipe records its emitted trim with its native print archive.
+PET-GF has a trim for each plate it prints on: the textured PEI plate and the glued
+Engineering Plate. Each PETG Engineering Plate recipe records its emitted trim with its
+native print archive.
 Derek: *"No. That should be documented as for pet-gf on textured plate."*
 
 Both printers use the same default for PET-GF on textured PEI with the enclosure
-hotend. The `printers` section of [`pieces.json`](enclosure/trial-preparation/pieces.json)
-owns that setting, and [the printer runbook](../../tools/bambu-printers.md#z-trim)
+hotend, and the same one for PET-GF on the glued Engineering Plate. The `printers` section of
+[`pieces.json`](enclosure/trial-preparation/pieces.json) owns both settings (`z_trim_mm` and
+`engineering_plate_z_trim_mm`), and `hsm_print_prep::profile::petgf_bed_z_trim` reads the one
+for a project's plate, and [the printer runbook](../../tools/bambu-printers.md#z-trim)
 shows the command expected in a native slice.
 
 The [accepted identification-set print](enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json)

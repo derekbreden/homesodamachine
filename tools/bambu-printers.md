@@ -156,6 +156,10 @@ The printer preset's start G-code carries it. Job names carry the requested valu
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |
 
+PET-GF on the glued Engineering Plate takes its own trim from the same `printers` section of
+[`pieces.json`](../hardware/printed-parts/enclosure/trial-preparation/pieces.json)
+(`engineering_plate_z_trim_mm`), added over Bambu's other-plate compensation.
+
 The [Engineering Plate clear-PETG reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
 retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
 The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
