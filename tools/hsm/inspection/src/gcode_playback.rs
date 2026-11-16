@@ -4,9 +4,15 @@ use super::{base64, render};
 use anyhow::{Context, Result, ensure};
 use clap::Args;
 use hsm_print_prep::motion::{Motion, Move, distance, read};
-use serde_json::json;
+use hsm_print_prep::profile::{SETTINGS_MEMBER, first_text};
+use hsm_print_prep::xml;
+use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
-use std::{fs, path::PathBuf};
+use std::{
+    fs,
+    io::Read,
+    path::{Path, PathBuf},
+};
 
 #[path = "gcode_playback_inline.rs"]
 mod inline;
@@ -14,6 +20,7 @@ mod inline;
 const TEMPLATE: &str = include_str!("../../../gcode/playback-page.html");
 const THEME: &str = include_str!("../../../viz/inline-mobile/assets/theme.js");
 const COORDINATE_SCALE: f64 = 100.;
+const HEIGHT_TOLERANCE_MM: f64 = 0.00001;
 
 #[derive(Args)]
 pub struct Options {
@@ -118,6 +125,106 @@ fn detailed_data(
     )
 }
 
+/// Read the round bead height that identifies internal bridges in a native thin-bridge slice.
+fn internal_bridge_height(path: &Path, text: &str) -> Option<f64> {
+    if !text.lines().any(|line| line.starts_with("; BambuStudio ")) {
+        return None;
+    }
+    let mut archive = zip::ZipArchive::new(fs::File::open(path).ok()?).ok()?;
+    let settings: Value = serde_json::from_reader(archive.by_name(SETTINGS_MEMBER).ok()?).ok()?;
+    let mut model_settings = String::new();
+    archive
+        .by_name("Metadata/model_settings.config")
+        .ok()?
+        .read_to_string(&mut model_settings)
+        .ok()?;
+    let keys = [
+        "thick_bridges",
+        "bridge_flow",
+        "layer_height",
+        "max_layer_height",
+        "initial_layer_print_height",
+        "nozzle_diameter",
+    ];
+    if first_text(&settings, "thick_bridges") != Some("0")
+        || keys.iter().any(|key| model_settings.contains(key))
+        || archive.file_names().any(|name| {
+            name.map_or(true, |name| {
+                name.starts_with("Metadata/layer_heights_profile")
+            })
+        })
+    {
+        return None;
+    }
+
+    let positive = |value: &str| {
+        value
+            .parse::<f64>()
+            .ok()
+            .filter(|v| v.is_finite() && *v > 0.)
+    };
+    let number = |key| positive(first_text(&settings, key)?);
+    let nozzle = number("nozzle_diameter")?;
+    let nozzles = settings["nozzle_diameter"].as_array()?;
+    let caps = settings["max_layer_height"].as_array()?;
+    if caps.len() != nozzles.len()
+        || !nozzles
+            .iter()
+            .all(|v| v.as_str().and_then(positive) == Some(nozzle))
+    {
+        return None;
+    }
+    let mut max_layer_height = caps.iter().try_fold(
+        number("initial_layer_print_height")?.max(number("layer_height")?),
+        |max, value| Some(max.max(positive(value.as_str()?)?)),
+    )?;
+    match archive.by_name("Metadata/layer_config_ranges.xml") {
+        Ok(mut file) => {
+            let mut ranges = String::new();
+            file.read_to_string(&mut ranges).ok()?;
+            for row in xml::parse(&ranges).ok()?.descendants() {
+                match row.attribute("opt_key") {
+                    Some("layer_height") => {
+                        max_layer_height = max_layer_height.max(positive(row.text.trim())?)
+                    }
+                    Some(key) if keys.contains(&key) => return None,
+                    _ => {}
+                }
+            }
+        }
+        Err(zip::result::ZipError::FileNotFound) => {}
+        Err(_) => return None,
+    }
+    let flow = number("bridge_flow")?;
+    // Bambu's thin bridge flow keeps line spacing and can grow the bead's height.
+    let max_thin_height = max_layer_height * flow.max(1.);
+    let round_height = nozzle * flow.sqrt();
+    (round_height - max_thin_height > HEIGHT_TOLERANCE_MM).then_some(round_height)
+}
+
+fn mark_infill(motion: &mut Motion, round_height: Option<f64>) {
+    let internal = motion
+        .features
+        .iter()
+        .position(|name| name == "Internal Bridge");
+    let bridge = motion.features.iter().position(|name| name == "Bridge");
+    let mut infill = motion.features.iter().position(|name| name == "Infill");
+    for movement in &mut motion.moves {
+        if movement.extrusion
+            && (Some(movement.feature) == internal
+                || (Some(movement.feature) == bridge
+                    && round_height.is_some_and(|height| {
+                        (movement.height - height).abs() <= HEIGHT_TOLERANCE_MM
+                    })))
+        {
+            movement.feature = *infill.get_or_insert_with(|| {
+                motion.features.push("Infill".into());
+                motion.features.len() - 1
+            });
+        }
+    }
+}
+
 pub fn run(args: Options) -> Result<i32> {
     ensure!(
         args.speed.is_finite() && args.speed > 0.,
@@ -130,7 +237,14 @@ pub fn run(args: Options) -> Result<i32> {
     };
     let text = slice_text(&args.slice, args.plate)?;
     let gcode_sha256 = format!("{:x}", Sha256::digest(text.as_bytes()));
-    let motion = read(&text, *selected.start(), *selected.end())?;
+    let mut motion = read(&text, *selected.start(), *selected.end())?;
+    let round_height = motion
+        .features
+        .iter()
+        .any(|name| name == "Bridge")
+        .then(|| internal_bridge_height(&args.slice, &text))
+        .flatten();
+    mark_infill(&mut motion, round_height);
     let origin = [motion.bed[0] / 2., motion.bed[1] / 2., 0.];
     let end_times: Vec<_> = motion
         .moves
@@ -181,6 +295,28 @@ fn playback_page(title: &str, data: &serde_json::Value) -> Result<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn infill_does_not_relabel_an_exterior_bridge() -> Result<()> {
+        let round_height = 0.4 * 1.25_f64.sqrt();
+        let code = "M83\n; Z_HEIGHT: .24\nG1 X0 Y0 Z.24 F900\n; FEATURE: Bridge\n; LAYER_HEIGHT: .3\nG1 X10 E1\n; LAYER_HEIGHT: .447214\nG1 Y10 E1\n; FEATURE: Internal Bridge\nG1 X0 E1\n";
+        for (height, expected) in [
+            (Some(round_height), ["Bridge", "Infill", "Infill"]),
+            (None, ["Bridge", "Bridge", "Infill"]),
+        ] {
+            let mut motion = read(code, 1, 1)?;
+            mark_infill(&mut motion, height);
+            let features: Vec<_> = motion
+                .moves
+                .iter()
+                .filter(|movement| movement.extrusion)
+                .map(|movement| motion.features[movement.feature].as_str())
+                .collect();
+            assert_eq!(features, expected);
+        }
+        Ok(())
+    }
+
     #[test]
     fn short_moves_accelerate_and_turns_obey_junction_limits() -> Result<()> {
         let code = "M83\nM201 X100 Y100 Z100 E100\nM203 X100 Y100 Z100 E100\nM204 S100\nM205 X2 Y2 Z2 E2\n; Z_HEIGHT: .2\nG1 X0 Y0 Z.2 F6000\nG1 X10 E1\nG1 X20 E1\nG1 Y10 E1\n";

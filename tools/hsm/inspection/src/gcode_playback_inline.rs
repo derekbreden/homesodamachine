@@ -28,7 +28,7 @@ impl RoadKind {
     fn from_feature(feature: &str) -> Self {
         match feature {
             "Support interface" => Self::Interface,
-            "Bridge" | "Internal Bridge" => Self::Bridge,
+            "Bridge" => Self::Bridge,
             other if other.starts_with("Support") => Self::Support,
             _ => Self::Model,
         }
