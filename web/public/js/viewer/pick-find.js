@@ -27,7 +27,7 @@ import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick
 import { getFindData, faceHighlightGeometry, faceNearest, faceBody, boxHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
 import { jumpToStep } from "./step-nav.js";
-import { uncoverFound, releaseFound } from "./instance-view.js";
+import { uncoverFound, releaseFound, revealHidden } from "./instance-view.js";
 import { makeToolButton } from "./tool-rail.js";
 import { materialForFile, materialForComponent, searchMaterials, explodeBom, occurrenceBodies, matchesBody } from "/contracts/materials.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
@@ -370,7 +370,7 @@ function nameStatus(hits) {
   return out.join(" · ");
 }
 
-async function runFind({ focus = true, text = textarea.value, instant = false } = {}) {
+async function runFind({ focus = true, text = textarea.value, instant = false, reveal = false } = {}) {
   // The box is on screen from the moment the modal opens; a big assembly is
   // still parsing for seconds after that. Say so rather than doing nothing.
   if (!state.mountedDetail || state.mountedDetail.type !== "step") {
@@ -429,9 +429,11 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
   const targets = [];
   const litTarget = (lit, bodies = lit.geometry.userData.bodies || []) => ({ points: surfacePoints(lit.geometry), bodies });
   const spotTarget = (p) => {
-    const gid = faceNearest(p);
+    const gid = faceNearest(p, 0.5, { hidden: reveal });
     return { points: [new THREE.Vector3(p.x, p.y, p.z)], bodies: gid >= 0 ? [faceBody(gid)] : [] };
   };
+  // A link brings back what it points at when the reader hid it here by hand.
+  if (reveal) revealHidden(nameHits.flatMap((h) => h.names));
   if (nameHits.length) {
     for (const name of new Set(nameHits.flatMap((h) => h.names))) {
       targets.push({ points: addPartHighlight(name, box), bodies: [name] });
@@ -445,6 +447,7 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
   for (const query of [...featureQueries, ...names.filter(name => !literalSolids.has(name))]) {
     for (const feature of matchFeatures(query, allFeatures)) featureMatches.set(feature.key, feature);
   }
+  if (reveal) revealHidden([...featureMatches.values()].flatMap(feature => feature.meshes.map(mesh => mesh.name)));
   for (const feature of featureMatches.values()) {
     for (const mesh of feature.meshes) {
       if (mesh.visible === false) continue;
@@ -479,18 +482,19 @@ async function runFind({ focus = true, text = textarea.value, instant = false } 
         matched++;
       } else if (r.type === "face-at") {
         // A point no face comes near still marks its spot, and counts against the readout.
-        const gid = faceNearest(pick.p);
+        const gid = faceNearest(pick.p, 0.5, { hidden: reveal });
         if (gid >= 0) { ({ lit } = addFaceHighlight(gid, box) || {}); matched++; } else addPointHighlight(pick.p, box);
         targets.push(lit ? litTarget(lit) : spotTarget(pick.p));
         at = pick.p;
       } else if (r.type === "box") {
-        const geo = boxHighlightGeometry(pick.lo, pick.hi);
+        const geo = boxHighlightGeometry(pick.lo, pick.hi, { hidden: reveal });
         if (geo) { ({ lit, at } = addSurfaceHighlight(geo, box)); targets.push(litTarget(lit)); matched++; }
       }
       if (pick.text && at) labels.push({ at: new THREE.Vector3(at.x, at.y, at.z), lit, text: pick.text });
     }
     status.push(`${matched}/${results.length} picks matched`);
   }
+  if (reveal) revealHidden(targets.flatMap(target => target.bodies));
 
   setStatus(status.filter(Boolean).join(" · "));
   if (focus) {
@@ -610,7 +614,8 @@ function hideLabels() {
 // --- a find carried by a link ---
 // `#step:<path>?find=<pick text>` (route.js) opens the model and runs its pick
 // text through this box once the model is drawn, so a conversation can point at
-// a feature on the piece itself, lit and labelled, with one link. The box keeps
+// a feature on the piece itself, lit and labelled, with one link. A part the reader
+// hid here by hand comes back when the link points at it. The box keeps
 // the text, for whoever opens it to see what lit and why.
 let pendingFind = null;
 
@@ -626,8 +631,8 @@ function runPendingFind(instant = false) {
   if (!panel) buildPanel();
   textarea.value = text;
   // A frame on, past the camera the open restores, which is the one it flies from.
-  if (instant) runFind({ text, instant });
-  else requestAnimationFrame(() => runFind({ text }));
+  if (instant) runFind({ text, instant, reveal: true });
+  else requestAnimationFrame(() => runFind({ text, reveal: true }));
 }
 
 window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {

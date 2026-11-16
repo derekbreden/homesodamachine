@@ -92,6 +92,14 @@ export function uncoverFound(targets, eye) {
   applyHiddenComponents();
 }
 
+// A link shows what it points at: the bodies hidden here by hand that hold any of `bodies` come
+// back, as they do for a part entered from the materials list.
+export function revealHidden(bodies) {
+  const reveal = [...state.hiddenComponents].filter(hidden => bodies.some(body => standsIn(body, hidden)));
+  for (const hidden of reveal) state.hiddenComponents.delete(hidden);
+  if (reveal.length) applyHiddenComponents();
+}
+
 // The parts a find hid come back when the find is cleared or replaced.
 export function releaseFound() {
   const group = state.currentGroup;
