@@ -95,9 +95,9 @@ uses the project's declared bed layer and preserves feature tags across layers.
 
 Each printer's Z trim in `pieces.json` for the plate a piece prints on, Textured PEI or the
 Engineering Plate, goes into the start G-code's plate compensation. For PET-GF on textured
-PEI with the enclosure hotend, a plate containing only the named enclosure or cold-core
-parts uses `textured_pei_z_trim`. A piece can also declare its own trim for a material-specific
-recipe. The `petgf-cooling` program
+PEI with the enclosure hotend, the preparer uses `textured_pei_z_trim` when every part on
+the plate is listed for its large contact area on the print bed. A piece can also declare
+its own trim for a material-specific recipe. The `petgf-cooling` program
 ([`petgf_cooling.rs`](../../cadlib/petgf_cooling.rs)) applies the localized cooling to PET-GF
 slots. Black PET-GF on the left 0.4 mm nozzle prints model, support and interface on the
 enclosure pieces. The solid-host modifiers come from
