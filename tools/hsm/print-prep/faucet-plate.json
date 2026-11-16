@@ -59,6 +59,7 @@
   "shallow_overhang_wall_speed": {"parts": ["faucet-shell-base", "faucet-shell-tip"], "points": ["overhang_1_4_speed", "overhang_2_4_speed"]},
   "descent_lift": {"share": 0.5},
   "tip_end_splice": true,
+  "bed_type": "Engineering Plate",
   "first_bed_layer_height_mm": 0.2,
   "layer_height_mm": 0.24
 }

@@ -1,6 +1,6 @@
 //! faucet-print-project — a faucet style's complete plate, or its warped donor tip, as a PET-GF
-//! project for the selected H2C's hardened left nozzle. `faucet-plate` runs it for each of the
-//! plate's projects. Never contacts a printer.
+//! project for the selected H2C's hardened left nozzle, on the bed the plate's selections name.
+//! `faucet-plate` runs it for each of the plate's projects. Never contacts a printer.
 //!
 //!     faucet-print-project <project.3mf> [--style sculpted|industrial]
 //!                          [--printer Mark1|Mark2] [--filament-colour '#RRGGBB'] [--finish SELECTION.json]
@@ -77,7 +77,6 @@ fn main() -> Result<()> {
         && (warp_donor || (tip_mesh.is_none() && warp_settings_path.is_none() && slice_output.is_none())),
         "the warp donor takes its warped tip, its warp settings and a slice directory");
     let warp_settings = warp_settings_path.as_deref().map(WarpSettings::read).transpose()?;
-    let trim = hsm_print_prep::profile::petgf_z_trim(&root, &printer)?;
     let named = style.title;
     let title = if warp_donor {
         format!("{named} faucet tip inverse warp donor PET-GF left {printer}")
@@ -89,6 +88,11 @@ fn main() -> Result<()> {
         None => (faucet_plate::SELECTION.to_owned(), faucet_plate::selection(&root)?),
     };
     let selection = style.finish(&selection);
+    // the plate the selections put the faucet on; the PET-GF Z trim belongs to the textured PEI
+    // plate, and any other keeps Bambu's own plate compensation
+    let bed = selection["bed_type"].as_str().context("the plate's selections name no bed_type")?.to_owned();
+    let trim = (bed == hsm_print_prep::profile::TEXTURED_PEI)
+        .then(|| hsm_print_prep::profile::petgf_z_trim(&root, &printer)).transpose()?;
     let tip_part = Part::new(TIP.name, tip_mesh.unwrap_or_else(|| root.join(TIP.stl)), faucet_plate::TIP_ROTATION_DEGREES);
     let parts = if warp_donor {
         vec![tip_part]
@@ -102,7 +106,7 @@ fn main() -> Result<()> {
         ]
     };
     let offsets = if warp_donor { &[[0.0, 0.0]][..] } else { &OFFSETS[..] };
-    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, offsets, &title, Some(trim), 40.0)?;
+    let mut r = refresh::refresh(&root, &root.join(PROFILE), &parts, offsets, &title, trim, 40.0)?;
     let parent = &selection["industrial_recipe"];
     let parent_project_source = parent["project"].as_str().context("Industrial parent project")?;
     let parent_report_source = parent["report"].as_str().context("Industrial parent report")?;
@@ -148,6 +152,11 @@ fn main() -> Result<()> {
         }
     }
     let original = r.plate.settings.clone();
+    r.plate.settings["curr_bed_type"] = json!(bed);
+    let compensation = match trim {
+        Some(z) => json!({"user_z_trim_mm": z}),
+        None => hsm_print_prep::profile::stock_compensation(&mut r.plate.settings)?,
+    };
     if let Some(settings) = &warp_settings {
         let index = r.row(TIP.name)?.index;
         r.plate.objects[index].ranges = settings.course_bands_mm.iter().copied().map(|[min_z, max_z, height]|
@@ -252,7 +261,7 @@ fn main() -> Result<()> {
     let mut report = r.write(&root, &project)?;
     for (k, v) in [
         ("project", json!(relative(&project, &root))), ("native_settings_sha256", report["settings_sha256"].clone()),
-        ("printer", json!(printer)), ("active_nozzle", json!(0)), ("external_spool", json!(254)), ("requested_z_trim_mm", json!(trim)),
+        ("printer", json!(printer)), ("active_nozzle", json!(0)), ("external_spool", json!(254)), ("requested_z_trim_mm", json!(trim)), ("plate_compensation", compensation),
         ("filament_colour", json!(colour)), ("parent_project", json!(parent_project_source)),
         ("parent_project_sha256", json!(sha256_hex(&parent_project_bytes))), ("parent_project_source_commit", json!(parent_revision)),
         ("profile_source", json!(PROFILE)), ("profile_source_sha256", json!(file_sha(&root.join(PROFILE))?)),

@@ -7,8 +7,10 @@ matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
 
 The [editable project](../faucet-petgf.3mf)
-targets Mark2's abrasive left nozzle and black PET-GF on Textured PEI. It
-uses Mark2's [recorded trim](../../z-trim.md), with the left external spool
+targets Mark2's abrasive left nozzle and black PET-GF on the glued Engineering
+Plate the [plate's selections](../../../../tools/hsm/print-prep/faucet-plate.json) name.
+It keeps Bambu's own first-layer plate compensation, without the
+[PET-GF trim](../../z-trim.md) that belongs to textured PEI, with the left external spool
 assigned manually at project and plate scope.
 
 ## Layer schedule and finish
