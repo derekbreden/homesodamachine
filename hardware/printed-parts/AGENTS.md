@@ -140,7 +140,12 @@ pocket and cord passage take support; its blind pilots stay clear. The meter
 host's fore end shoulder takes a support target. Its aft shoulder sits under the
 Pisco receiver, so a corbel off the east flank carries it, and the Pisco cap's
 east corner and shorter east wall clear that corbel seated and down its service
-path. Preserve the approved component seats, catch planes and wing travel.
+path. A second corbel off the flank carries the strip between the hook pocket
+and the flank. The front lip, the bar the meter cap's top wing rides over, takes
+a support target through the slot's open west side as far as the Pisco
+receiver. Under the Pisco a tree could only root against the receiver's fore end
+stop, so the lip bridges from that support to the aft shoulder. Preserve the
+approved component seats, catch planes and wing travel.
 Receiver coupons retain this production layer direction. Ordinary layers apply
 except where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop

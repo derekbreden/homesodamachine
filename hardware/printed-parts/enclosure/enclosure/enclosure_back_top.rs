@@ -64,7 +64,9 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
                 blocking[k] += if k % 2 == 0 { -1.0 } else { 1.0 } * (shell::WALL + catalog::running());
             }
         }
-        blocking[5] = b.outer[5];
+        if interior.grows[5] {
+            blocking[5] = b.outer[5];
+        }
         regions.push(json!({"name": interior.name, "bounds_source_mm": interior.bounds,
             "blocking_bounds_source_mm": blocking, "reason": interior.reason}));
     }
@@ -87,10 +89,6 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bounds_source_mm":stop,"bridge_print_axis_source":[1,0,0],
             "reason":"The stop bridges between its complete side rails."}));
     }
-    let (roof, span) = supports::meter_roof_bridge();
-    bridges.push(json!({"name":"Flow meter receiver roof","bounds_source_mm":roof,
-        "bridge_span_mm":span,"bridge_axis_source":[0,1,0],"bridge_print_axis_source":[0,1,0],
-        "reason":"The roof roads bridge along the cap pocket between its end shoulders."}));
     let mut targets = vec![];
     for (name, bounds) in supports::catch_targets() {
         targets.push(json!({"name":name,"bounds_source_mm":bounds,
@@ -98,6 +96,8 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     }
     targets.push(json!({"name":"Accessible flow meter fore shoulder","bounds_source_mm":supports::meter_shoulder_target(),
         "reason":"Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."}));
+    targets.push(json!({"name":"Accessible flow meter front lip","bounds_source_mm":supports::meter_lip_target(),
+        "reason":"Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."}));
     let mut contact_plan = plan::Graph::new();
     let silhouette = contact_plan.silhouette(b.outer);
     let (_, upper) = hsm_enclosure_quadrants::ystacks::y_stack(&b.inner);

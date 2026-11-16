@@ -37,29 +37,6 @@
     },
     {
       "bounds_source_mm": [
-        83.05,
-        99.0,
-        384.7586388104271,
-        444.7586388104271,
-        309.45,
-        312.7
-      ],
-      "bridge_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "bridge_span_mm": 38.0,
-      "name": "Flow meter receiver roof",
-      "reason": "The roof roads bridge along the cap pocket between its end shoulders."
-    },
-    {
-      "bounds_source_mm": [
         -98.5,
         -88.05,
         384.85,
@@ -211,7 +188,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "1fc762c8e7fc39617f3ed812f3f95d07a86eb1c35be131a108fbd30c1525dc7d",
+  "source_stl_sha256": "01334047ba206a219e5bf9ede53ddab2ab56e5a2ffe25879d0fb4281b9feb997",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -260,7 +237,7 @@
         395.5086388104271,
         434.0086388104271,
         254.90000000000003,
-        355.0
+        309.7
       ],
       "bounds_source_mm": [
         83.05,
@@ -268,10 +245,10 @@
         395.5086388104271,
         434.0086388104271,
         258.15000000000003,
-        312.45
+        309.7
       ],
       "name": "Flow meter receiver",
-      "reason": "The fitted cap pocket prints without support; the fore end shoulder's support stands beside it."
+      "reason": "The fitted room and cap pocket print without support; the front lip's support stands above it and the fore end shoulder's beside it."
     },
     {
       "blocking_bounds_source_mm": [
@@ -935,6 +912,18 @@
       ],
       "name": "Accessible flow meter fore shoulder",
       "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        88.19999999999999,
+        395.5086388104271,
+        420.09571720240064,
+        309.7,
+        310.2
+      ],
+      "name": "Accessible flow meter front lip",
+      "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."
     },
     {
       "bounds_source_mm": [
