@@ -58,7 +58,7 @@
       -0.9659258262890683
     ]
   },
-  "bed_type": "Textured PEI Plate",
+  "bed_type": "Engineering Plate",
   "cover_rear_seam_enforcement": {
     "enforced_triangles": 62,
     "mesh_vertices_and_triangle_indices_unchanged": false,
@@ -165,7 +165,7 @@
     "shank_radius_mm": 1.95,
     "shoulder_cad_z_mm": -0.7999999999999998
   },
-  "native_settings_sha256": "0285cae887ec895d3fbcc1d32906b4f466ad232805028b2f3d9dd13830c14731",
+  "native_settings_sha256": "b1afe1f5243dbf0dff61997df74663e48fa8fe2640b83a6dfd0b35d452c60279",
   "nozzle_diameter_mm": [
     0.4,
     0.4
@@ -282,8 +282,8 @@
         -79.60269737243652,
         208.50538635253906
       ],
-      "stl_sha256": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
-      "triangles": 103210,
+      "stl_sha256": "3edf5831ed82965ebb6b9b24d5a6ca4975c42dc75179806f1c45773ffc132b84",
+      "triangles": 103222,
       "watertight": true
     },
     {
@@ -456,6 +456,9 @@
     }
   ],
   "plate_border_mm": 40.0,
+  "plate_compensation": {
+    "user_z_trim_mm": 0.05
+  },
   "plate_count": 1,
   "preparation_only": true,
   "printable_area_extruders": [
@@ -466,7 +469,7 @@
   "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "profile_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "5d766582ddd1fe4267a1e381d15117ff40c7a10df689f03d40170f50e3e66773",
+  "project_sha256": "7182b4bd2d418524e4e94bf2f593848df3dc94b7f9bb1792fcdbb4759b7481fa",
   "rear_seam_enforcement": {
     "enforced_triangles": 265,
     "half_width_mm": 0.25,
@@ -485,13 +488,17 @@
     ],
     "part": "industrial-shell-base"
   },
-  "requested_z_trim_mm": 0.1,
+  "requested_z_trim_mm": 0.05,
   "rigid_part_count": 5,
   "saved_profile_filament_density_g_cm3": [
     1.29
   ],
   "send_attempted": false,
   "settings_changes": {
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "to": "Engineering Plate"
+    },
     "fan_max_speed": {
       "from": [
         "70"
@@ -522,8 +529,8 @@
     },
     "machine_start_gcode": {
       "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
-      "requested_z_trim_mm": 0.1,
-      "to_sha256": "3dbe43733a8338e4b7a7ef67b171d1fc8b613de10576da61d48810a7dbf1ae10"
+      "requested_z_trim_mm": 0.05,
+      "to_sha256": "d1fa2b34dc68fa43cd9d71089040fca03686a47234096f8cbbfe292bed9e5641"
     },
     "overhang_fan_threshold": {
       "from": [
@@ -595,12 +602,12 @@
       ],
       "to": [
         "Bambu Lab H2C 0.4 nozzle",
-        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+        "Bambu Lab H2C 0.4 Standard +0.05 Z trim"
       ]
     },
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
-      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+      "to": "Bambu Lab H2C 0.4 Standard +0.05 Z trim"
     },
     "reduce_fan_stop_start_freq": {
       "from": [
@@ -616,7 +623,7 @@
     }
   },
   "settings_preserved": false,
-  "settings_sha256": "0285cae887ec895d3fbcc1d32906b4f466ad232805028b2f3d9dd13830c14731",
+  "settings_sha256": "b1afe1f5243dbf0dff61997df74663e48fa8fe2640b83a6dfd0b35d452c60279",
   "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf",
   "settings_source_sha256": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
   "shared_printable_area_mm": [
@@ -635,17 +642,17 @@
     "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4:hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json": "9215b8d53ac56ed0eecee6f64f60f8f6ec745e626a7639ff2c6a4e36bbcf950d",
     "hardware/printed-parts/faucet/base_seat.rs": "e75e6cc2573090620d8fccc99c4066e087800335b8b288aa5352a30a91f0a1bc",
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl": "0c6e9e140494d1c11a798607dbe503b5cfc4c645ac0eaafa185d89ffc4485293",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "86770a689489c7160a7863a0c2bf2484e2856b0daa402ac34c3295e368eb7abb",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "3edf5831ed82965ebb6b9b24d5a6ca4975c42dc75179806f1c45773ffc132b84",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf": "25ae62b12d2dee09e59b835cce1c63f549bd6f49623956929d631c208f98fc0f",
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
-    "hardware/printed-parts/faucet/prepare_print_project.rs": "84397c9b0d20058a87d9b0c5b07cb82e028060dd222d24c019c556d691e7ad91",
-    "tools/hsm/print-prep/faucet-plate.json": "acea38fb06a4326b4aa18e579709b9dbdb350fd4b492101315b33bf75db5cc7d",
+    "hardware/printed-parts/faucet/prepare_print_project.rs": "fae63e5399c5121f3565f122f701a5179e7ce0186f87d29e3bdb9a5451c79b9e",
+    "tools/hsm/print-prep/faucet-plate.json": "20f48fb6dc444c1b50cbf392cbf16d48e433c79c7ae3668185b997e24fcb6455",
     "tools/hsm/print-prep/src/faucet.rs": "57af71f4f669e1c392faf0086d7fabbf27236bb35f0f943a7629463d9b6d5ff7",
     "tools/hsm/print-prep/src/faucet_contact.rs": "79da101d069932fcd851ed533f32eff77151a7fd69929ca0cd381f166e669db3",
     "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
-    "tools/hsm/print-prep/src/profile.rs": "f1ae30f9942e907dfbfe57167d8cfcfe6582658aec911c7ae6caa985105062da",
+    "tools/hsm/print-prep/src/profile.rs": "9d846c69334047cf9022e82d9418b304ee342303fb965d683fc04a96bafcb0cd",
     "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
     "tools/hsm/print-prep/src/stretch_cooling.rs": "2e68af6908e25fa12b29df744991546e86ed7102a6b61b317577fde59ac0c26b"
   },
@@ -653,8 +660,8 @@
   "sparse_infill_percent": 15.0,
   "submitted": false,
   "tip_dispense_contact": {
-    "contact_area_mm2": 178.98715609047204,
-    "face_count": 151,
+    "contact_area_mm2": 169.84678004251072,
+    "face_count": 140,
     "inclination_degrees": 49.99999999999999,
     "outlet_blockers": [
       {
@@ -1331,12 +1338,12 @@
     "part": "faucet-shell-tip",
     "plate_bounds_mm": [
       [
-        173.62974739074707,
+        174.6533031463623,
         180.4154510498047,
         118.9931526184082
       ],
       [
-        199.37044620513916,
+        198.34603023529053,
         190.05726623535156,
         130.48381423950195
       ]
