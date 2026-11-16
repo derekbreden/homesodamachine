@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "57b3fb576ce4148c0d87dfcf676739501fd71e24455c78898419360121e466cb",
+    "name": "enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
+    "objects": [
+      "enclosure-back-top"
+    ],
+    "sha256": "ae6c03e23db549eb667b04a911ee16ad81448a78bda48ecdf44eb9925686059c",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 1789,
+  "observed_at": "2026-11-16T05:08:44+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1449338494",
+  "subtask_name": "enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
+  "total_layer_num": 1019
+}

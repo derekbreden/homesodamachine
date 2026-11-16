@@ -1,0 +1,178 @@
+{
+  "scope": "Read the integral nameplate corbels and retained support contacts in the submitted G-code.",
+  "gcode_sha256": "57b3fb576ce4148c0d87dfcf676739501fd71e24455c78898419360121e466cb",
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "protected_support_crossings": 0,
+  "support_topology": {
+    "bed_rooted_bodies": 5,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 21,
+    "interface_islands": null,
+    "model_rooted_bodies": 9,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": 7.09,
+    "support_bodies": 14
+  },
+  "nameplate_corbels": {
+    "Rounded crown": {
+      "sampled_model_mm": 3672.7,
+      "overlap_with_prior_model_mm": 3654.13,
+      "max_free_span_mm": 0.585,
+      "longest_span_location": [
+        87.8,
+        [
+          293.47711666666663,
+          154.83875
+        ],
+        "Bridge"
+      ],
+      "layers": 37
+    },
+    "Recess lower lip": {
+      "sampled_model_mm": 2142.65,
+      "overlap_with_prior_model_mm": 2142.65,
+      "max_free_span_mm": 0.0,
+      "longest_span_location": null,
+      "layers": 29
+    }
+  },
+  "support_in_nameplate_mm": 0,
+  "authored_stock": [
+    "Removable west fore rail support",
+    "Removable west aft rail support",
+    "Removable east rail support"
+  ],
+  "retained_support_contacts": {
+    "Accessible ASSE west catch": {
+      "11.192": 184.9,
+      "11.456": 165.4,
+      "11.72": 184.8
+    },
+    "Accessible water regulator fore catch": {
+      "14.3164": 159.2,
+      "14.5782": 142.4,
+      "14.84": 159.1
+    },
+    "Accessible water regulator aft catch": {
+      "14.3164": 159.1,
+      "14.5782": 142.4,
+      "14.84": 159.0
+    },
+    "Accessible flow meter fore shoulder": {
+      "41.72": 293.8,
+      "41.96": 287.6,
+      "42.2": 281.6
+    },
+    "Accessible flow meter front lip": {
+      "44.3067": 238.9,
+      "44.5733": 242.7,
+      "44.84": 238.9
+    },
+    "Accessible flow meter upper hook pocket floor": {
+      "47.192": 451.4,
+      "47.456": 489.1,
+      "47.72": 451.4
+    },
+    "Accessible flow meter fore boss channel floor": {
+      "86.36": 55.4,
+      "86.6": 245.6,
+      "86.84": 244.5,
+      "87.08": 237.1
+    },
+    "Accessible flow meter aft boss channel floor": {
+      "86.36": 90.6,
+      "86.6": 233.3,
+      "86.84": 221.3,
+      "87.08": 213.0
+    },
+    "Accessible flow meter fore screw-head channel floor": {
+      "85.6012": 18.5,
+      "85.88": 68.0,
+      "86.12": 63.3,
+      "86.36": 61.4,
+      "86.6": 17.9,
+      "86.84": 3.2
+    },
+    "Accessible flow meter aft screw-head channel floor": {
+      "85.6012": 13.7,
+      "85.88": 64.1,
+      "86.12": 57.7,
+      "86.36": 56.9,
+      "86.6": 12.1
+    },
+    "Accessible flow meter wire chamber floor": {
+      "90.68": 273.8,
+      "90.92": 266.6,
+      "91.16": 276.7
+    },
+    "Accessible C14 cord passage roof": {
+      "34.04": 59.8,
+      "34.28": 405.2,
+      "34.52": 398.0,
+      "34.76": 370.9
+    },
+    "Accessible C14 flange pocket roof": {
+      "28.76": 13.9,
+      "29.0": 15.2,
+      "29.24": 10.2,
+      "29.48": 35.1,
+      "29.72": 36.2,
+      "29.96": 29.1,
+      "30.2": 36.5,
+      "30.44": 36.5,
+      "30.68": 29.1,
+      "30.92": 36.5,
+      "31.16": 36.5,
+      "31.4": 29.2,
+      "31.64": 36.4,
+      "31.88": 36.4,
+      "32.12": 29.1,
+      "32.36": 36.5,
+      "32.6": 36.4,
+      "32.84": 29.2,
+      "33.08": 36.5,
+      "33.32": 36.4,
+      "33.56": 29.2,
+      "33.8": 43.7,
+      "34.04": 43.4,
+      "34.28": 84.6,
+      "34.52": 62.7,
+      "34.76": 76.2,
+      "35.0": 29.5,
+      "35.24": 36.5,
+      "35.48": 36.5,
+      "35.72": 29.1,
+      "35.96": 36.7,
+      "36.2": 193.4,
+      "36.44": 187.6,
+      "36.68": 183.5
+    },
+    "Cable hook 1 land": {},
+    "Cable hook 2 land": {},
+    "Cable hook 3 land": {}
+  },
+  "nameplate_fit": {
+    "assembly_payload_sha256": "b7c692b2aa862cce278d11af79f23f399783a03fb68c066c9020586956a83de0",
+    "seated_overlap_mm3": 5.39168709678961e-12,
+    "insertion_offset_mm": [
+      0.0,
+      1.68,
+      0.0
+    ],
+    "insertion_overlaps": []
+  },
+  "narrow_support_run": {
+    "scope": "Adjacent overlapping support islands under the width threshold.",
+    "threshold_mm": 2.5,
+    "longest_mm": 2.88
+  }
+}
