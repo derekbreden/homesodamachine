@@ -60,6 +60,7 @@
   "descent_lift": {"share": 0.5},
   "tip_end_splice": true,
   "bed_type": "Engineering Plate",
+  "bed_z_trim_mm": 0.05,
   "first_bed_layer_height_mm": 0.2,
   "layer_height_mm": 0.24
 }

@@ -89,10 +89,14 @@ fn main() -> Result<()> {
     };
     let selection = style.finish(&selection);
     // the plate the selections put the faucet on; the PET-GF Z trim belongs to the textured PEI
-    // plate, and any other keeps Bambu's own plate compensation
+    // plate, and any other bed takes the selections' own trim over Bambu's plate compensation,
+    // or Bambu's compensation alone
     let bed = selection["bed_type"].as_str().context("the plate's selections name no bed_type")?.to_owned();
-    let trim = (bed == hsm_print_prep::profile::TEXTURED_PEI)
-        .then(|| hsm_print_prep::profile::petgf_z_trim(&root, &printer)).transpose()?;
+    let trim = if bed == hsm_print_prep::profile::TEXTURED_PEI {
+        Some(hsm_print_prep::profile::petgf_z_trim(&root, &printer)?)
+    } else {
+        selection.get("bed_z_trim_mm").map(|v| v.as_f64().context("the selections' bed_z_trim_mm is a number")).transpose()?
+    };
     let tip_part = Part::new(TIP.name, tip_mesh.unwrap_or_else(|| root.join(TIP.stl)), faucet_plate::TIP_ROTATION_DEGREES);
     let parts = if warp_donor {
         vec![tip_part]
