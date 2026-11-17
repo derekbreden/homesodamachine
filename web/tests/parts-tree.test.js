@@ -5,8 +5,8 @@
 // Two halves. The first is `seatParts` as a pure function over path lists — the
 // folding of a part's representations, every model claimed ahead of the
 // directories they share, the tooling claimed ahead of the sweep, a child
-// sweeping ahead of its parent. The second walks the real
-// hardware tree and asserts each assembly it states has a model to draw.
+// sweeping ahead of its parent. The publication check reads the website's
+// artifact pointers for every assembly model.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -18,7 +18,7 @@ import {
   ASSEMBLIES, PURCHASED, INSTALL_KIT, TOOLING, EXCLUDED_DIRS,
   seatParts, walkAssemblies,
 } from "../contracts/parts-tree.js";
-import { walkFiles } from "../lib/walk.js";
+import { websitePointers } from "../contracts/artifact-scope.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HARDWARE = path.resolve(__dirname, "..", "..", "hardware");
@@ -169,14 +169,13 @@ test("every id is unique, and every assembly names a model", () => {
   }
 });
 
-test("every assembly in the hardware tree has its model on this disk", (t) => {
-  const steps = walkFiles(HARDWARE, ".step");
-  const dxfs = walkFiles(HARDWARE, ".dxf");
-  const glbs = walkFiles(HARDWARE, ".glb");
-  if (!steps.length && !dxfs.length && !glbs.length) return t.skip("hardware tree empty");
-
-  const tree = seatParts({ steps, dxfs, glbs });
-  for (const a of flat(tree)) assert.ok(a.model, `${a.id} has no model to draw`);
+test("every assembly in the parts tree has a published model", () => {
+  const pointers = JSON.parse(fs.readFileSync(path.join(HARDWARE, "cad-artifacts.json"), "utf8"));
+  const { solids } = websitePointers(pointers);
+  for (const assembly of walkAssemblies()) {
+    const model = `hardware/${assembly.model}`;
+    assert.ok(solids[model] || solids[`${model}.mesh`], `${assembly.id} has no published model to draw`);
+  }
 });
 
 // EXCLUDED_DIRS states where builds put their workings, and .gitignore is what

@@ -33,10 +33,10 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   `component-sources`, `cards` and `contracts-browser` hold each contract
   under `web/contracts/` against the artifacts and the browser code that
   read it.
-- **Walkers and seating.** `walk` pins how a PCB board is discovered;
-  `parts-tree` pins that every file the walkers offer is claimed — by an
-  assembly's model, by a directory an assembly places from, by the bought
-  geometry no one unit owns, or by the tooling a bench works from; `deps` pins the rebuild ordering used by `build-all`.
+- **Walkers and seating.** `walk` checks how a PCB board is discovered.
+  `parts-tree` checks how model paths are assigned and that the website's
+  artifact pointers include a model for each assembly. `deps` checks the
+  rebuild ordering used by `build-all`.
 - **Text-only readers.** `updates` parses the feed's frontmatter and order,
   `pick-format` the edge-picker's copy blobs.
 
