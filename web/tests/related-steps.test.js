@@ -66,7 +66,7 @@ test("a directory's own models are offered beside each other", () => {
 test("a name that merely shares a prefix is not related", () => {
   // Both live under cold-core and both begin "foam"; neither extends the other
   // at a separator.
-  const cap = "printed-parts/cold-core/foam-cap/foam-cap-top.step";
+  const cap = "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step";
   const rel = relatedSteps(cap, ALL).map((r) => r.file);
   assert.ok(!rel.some((f) => f.includes("/foam-assembly/")), rel.join("\n"));
 });

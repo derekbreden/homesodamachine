@@ -71,11 +71,6 @@
       "name": "asse-drain-adapter",
       "output": "hardware/printed-parts/asse-drain-adapter"
     },
-    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.rs": {
-      "crate": "asse-straight-cuffs",
-      "name": "asse-straight-cuffs",
-      "output": "hardware/printed-parts/asse-straight-cuffs"
-    },
     "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs": {
       "crate": "coil-mandrel",
       "name": "coil-mandrel",
@@ -125,11 +120,6 @@
       "crate": "collet-press",
       "name": "collet-press",
       "output": "hardware/printed-parts/collet-press"
-    },
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.rs": {
-      "crate": "diaphragm-pump-sleeve",
-      "name": "diaphragm-pump-sleeve",
-      "output": "hardware/printed-parts/diaphragm-pump-sleeve"
     },
     "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.rs": {
       "crate": "pcba-assembly",

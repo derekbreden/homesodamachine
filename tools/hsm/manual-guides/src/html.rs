@@ -4,6 +4,7 @@ use hsm_pages::{Page, Rgb, RgbaImage};
 use serde::Deserialize;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
+use std::io::Cursor;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::sync::Arc;
@@ -387,22 +388,18 @@ fn print_guide_leaves(root: &Path, guide: &Path, out: &Path, pages: &[PathBuf]) 
                 input.path
             );
             read.stdout
-        } else if let Some(member) = input.member {
-            let read = Command::new("unzip")
-                .arg("-p")
-                .arg(root.join(&input.path))
-                .arg(&member)
-                .output()?;
-            ensure!(
-                read.status.success(),
-                "cannot read {member} in {}",
-                input.path
-            );
-            read.stdout
         } else {
             std::fs::read(root.join(&input.path))?
         };
-        let source: Value = serde_json::from_slice(&bytes).with_context(|| input.path.clone())?;
+        let source: Value = if let Some(member) = input.member {
+            let mut archive = zip::ZipArchive::new(Cursor::new(bytes))
+                .with_context(|| format!("reading project {}", input.path))?;
+            let entry = archive.by_name(&member)
+                .with_context(|| format!("reading {member} in {}", input.path))?;
+            serde_json::from_reader(entry)
+        } else {
+            serde_json::from_slice(&bytes)
+        }.with_context(|| input.path.clone())?;
         settings.insert(name, source);
     }
     let staged = out.join("source");

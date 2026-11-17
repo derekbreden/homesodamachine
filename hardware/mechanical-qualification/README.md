@@ -59,49 +59,9 @@ the reference's 8 mm occupied cylinder is not a measured sealing diameter.
 The 3.80 mm tube socket is independent of the organizer's PET-GF sliding fit.
 Socket fit, retained tie tension, leakage and complete fault flow are unmeasured.
 
-The [diaphragm pump elbow](../printed-parts/diaphragm-pump-sleeve/README.md)
-is the Siraya Tech Flex TPU 85A Clear elbow the assembly places on both G Ganen
-barbs: a 90° turn from either scanned barb to 1/4 in LLDPE under two clamp bands,
-printed as a V on its flat foot. Its geometry is the compact elbow below; the
-identified Bambu TPU 85A article's manual fit and the Siraya single's exterior
-acceptance belong to their own prints. The
-[Mark2 deposited-path pair](../../future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json)
-has no strings reported and a qualitative seal comparison: “seal seems as good
-as before.” Numerical fitting force, clamp retention, quantified pressure holding,
-relaxation and lifetime are unmeasured; its README states the pressure screen.
-
-The [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
-records [left-lip curl, nozzle pickup and increased curl after a runtime fan reduction](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json).
-The identified one-object Mark1 trial requests a 10 mm/s outer wall, with full part
-cooling, Engineering Plate and zero user Z trim. Its
-[physical record and nine photos](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
-show raised, distorted rims and ragged underside strands. Derek reports that
-this rough-edged article fits beautifully, with firm friction and elastic
-stretch, requiring insertion force but no jig. Its cuff dimensions and walls
-are the fit baseline. A dependable speed benefit is unestablished and the
-13 mm/s midpoint is not selected. The
-[215°C normal-layer trial](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/README.md)
-is accepted as Mark1 task 1337710290, retaining 10 mm/s and the 225°C first
-layer. Its [in-progress physical record](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/physical-result.json)
-reports faint curl by layer 21 and a similar defect by layer 27. Separate
-overhang settings make the actual lip faster than the ordinary 10 mm/s
-outer-wall setting in both archives. The [offline corrected candidate](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/README.md)
-retains the accepted-fit article's 225°C recipe and geometry and has verified
-10 mm/s lip commands; it is not submitted. Finished quality and fit of the
-revised process remain pending; the observations establish no sealing or
-lifetime result.
-
-The [Siraya Tech Flex TPU 85A Clear trial](../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
-has accepted finished exterior quality: Derek reports “Turned out perfect,”
-with three finished-part photos. He separately reports internal stringing.
-It uses 215°C normal layers, a 225°C first layer and verified 10 mm/s exterior
-commands. Completion telemetry reports FINISH at layer 184/184 without errors.
-The [two-object trial](../../future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md)
-is accepted by Mark1 as task 1337964351 with Nearest seams and wall-crossing
-avoidance; its physical result is pending. The Mark2 deposited-path pair has
-reported no visible strings and qualitative seal acceptance, with FINISH at
-184/184 and no printer faults. The earlier Bambu article retains its separate
-manual-fit acceptance.
+The water pump uses [reinforced PVC joints](../reference/pump-barb-joint/README.md).
+The [archived TPU elbow trials](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/README.md)
+retain their fit, print and seal observations with the articles tested.
 
 The [Industrial production selection](../printed-parts/faucet/industrial/production-selection.json)
 names the printed articles Derek approved for the Industrial base, shared tip
@@ -283,8 +243,8 @@ linked here are the authority for each observation, including their print bindin
 | [Tee-carrier surface](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) and [sliding fit](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json) | Expanding show transition accepted with additive chamfer/taper and six local walls. Sliding and observed tilt accepted with the existing front-top. | Spring return, actuation force and simultaneous release of all four collets remain separate observations. Preserve the accepted surface treatment in structural profile trials. |
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. [Assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json) establish lever attachment before tube/shell insertion, sleeve fitting on the tube first, and the shell-guided lever motion. | Operating force, assembled contact pose and endurance are unmeasured. Sliding-friction comparison is qualitative. |
 | [Centred tube insertion tool](../printed-parts/fixtures/tube-insertion/physical-acceptance.json) | Successful insertion reported 2026-10-13 with the identified Mark1 plus-handle jaws and proud TPU inserts. The handle alone works well for starting insertion; the full tool makes the final press very easy. Derek reports it is far easier than before. | Effort comparison is qualitative. Numerical insertion and grip forces, structural load capacity, pressure sealing and endurance are unmeasured. |
-| [Compact TPU 85A elbow](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json) | The identified rough-edged 225°C / 10 mm/s Mark1 article has reported firm, stretchy friction fit and manageable manual insertion without a jig. | Qualitative fit acceptance applies to this article. Fit after correcting the 45° surfaces or changing the recipe, sealing, pressure retention and lifetime remain unassessed. |
-| [Deposited-path Siraya TPU 85A elbows](../../future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json) | Mark2 task 1365546966 has no strings reported and seal seeming as good as before, using the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | Acceptance applies to the identified processed-path recipe. The seal comparison has no pressure, hold duration, fixture or identified comparison article; quantified pressure holding, retention and lifetime remain unmeasured. |
+| [Compact TPU 85A elbow](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json) | The identified rough-edged 225°C / 10 mm/s Mark1 article has reported firm, stretchy friction fit and manageable manual insertion without a jig. | Qualitative fit acceptance applies to this article. Fit after correcting the 45° surfaces or changing the recipe, sealing, pressure retention and lifetime remain unassessed. |
+| [Deposited-path Siraya TPU 85A elbows](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json) | Mark2 task 1365546966 has no strings reported and seal seeming as good as before, using the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | Acceptance applies to the identified processed-path recipe. The seal comparison has no pressure, hold duration, fixture or identified comparison article; quantified pressure holding, retention and lifetime remain unmeasured. |
 | [Touch-Flo TPU 85A sleeve](../printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/physical-result.json) | Mark2 task 1368570348 finished; Derek reports “Okay, that came out pretty well.” The identified recipe uses deposited cap tours, the native spiral wall, black Bambu TPU 85A, the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | General print quality is accepted qualitatively. Specific stringing, assembled seating, sealing pressure and lifetime are unreported. |
 | [Industrial faucet production selection](../printed-parts/faucet/industrial/production-selection.json) | The Industrial base, rigid plate and lever have their own physical approval. The shared head has an approved snap fit on the complete black Sculpted print. The layer recipe uses Bambu’s default first bed layer and uniform later layers. | A small hole in the tip is visible beside the front corner of the cover. Fault discharge, load capacity and endurance are unmeasured. |
 | [Tube bend holder](../../future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json) | The free PET-GF holder with a 2 mm wall and 3 mm straight legs on both sides of its 90° turn holds 1/4" LLDPE round the R14 floor; Derek reports it works pretty well, 2026-10-23. It is an option for a corner that needs holding; no enclosure corner carries one. | Qualitative acceptance of the identified Mark1 article. Threading force, roundness through the turn, flow, pressure and retention over time are unmeasured. |

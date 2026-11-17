@@ -33,7 +33,7 @@ accepted fit project supplies this same three-layer cap recipe.
 
 ## Applying the stringing result
 
-The [accepted elbow trial](/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
+The [accepted elbow trial](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 prints through turns so that free strands cannot straighten across an opening.
 The sleeve's native wall already rises as one uninterrupted spiral. Its native
 cap has five potential free attachment chords across its hole, even with

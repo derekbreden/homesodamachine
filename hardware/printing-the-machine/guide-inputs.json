@@ -72,7 +72,8 @@
   },
   "tpu-elbow": {
     "path": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.3mf",
-    "member": "Metadata/project_settings.config"
+    "member": "Metadata/project_settings.config",
+    "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c"
   },
   "tpu-sleeve": {
     "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf",
@@ -87,7 +88,8 @@
     "member": "Metadata/project_settings.config"
   },
   "tpu-accepted": {
-    "path": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json"
+    "path": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json",
+    "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c"
   },
   "tpu-sleeve-cap": {
     "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/emitted-path-review.json"
@@ -156,7 +158,8 @@
   },
   "h2c-elbow": {
     "path": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
-    "member": "Metadata/project_settings.config"
+    "member": "Metadata/project_settings.config",
+    "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c"
   },
   "h2c-float": {
     "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v2/all-aero-float.3mf",
@@ -179,5 +182,9 @@
   },
   "h2c-idresult": {
     "path": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json"
+  },
+  "h2c-elbows-trial": {
+    "path": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+    "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c"
   }
 }

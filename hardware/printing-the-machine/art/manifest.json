@@ -434,7 +434,7 @@
   "tpu-curled-lip.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/curl-left-edge.jpg",
-   "revision": null,
+   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
    "max_px": 1700,
    "width_px": 876,
    "made_with": "magick auto-orient",
@@ -454,7 +454,7 @@
   "tpu-elbow-ragged-edges.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/underside-sag-photo-1.jpg",
-   "revision": null,
+   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
    "max_px": 1700,
    "width_px": 739,
    "made_with": "magick auto-orient",
@@ -464,7 +464,7 @@
   "tpu-elbow-siraya-clean.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/finished-elbow-1.jpg",
-   "revision": null,
+   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
    "max_px": 1700,
    "width_px": 1108,
    "made_with": "magick auto-orient",
@@ -474,7 +474,7 @@
   "tpu-elbow-threads.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/result-photo.jpg",
-   "revision": null,
+   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
    "max_px": 2000,
    "width_px": 631,
    "made_with": "magick auto-orient",
