@@ -14,7 +14,7 @@ use serde_json::json;
 use std::path::PathBuf;
 
 const HERE: &str = "hardware/printed-parts/fixtures/fake-countertop";
-const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
+const PROFILE: &str = hsm_print_prep::profile::PETGF_PROFILE;
 
 /// Name, project, archive, Z trim and title per machine. Mark2's stock variant prints at
 /// Bambu's own first-layer offset.

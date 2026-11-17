@@ -1,6 +1,6 @@
 {
   "purpose": "Test D's contact process on roofs with less model anchoring and representative enclosure support surfaces.",
-  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.profile.json",
   "interface_spacing_mm": {
     "D": 0.0
   },

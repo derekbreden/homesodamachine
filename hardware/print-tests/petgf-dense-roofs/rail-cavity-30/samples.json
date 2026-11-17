@@ -1,6 +1,6 @@
 {
   "purpose": "Preserve the complete production rail cross-section and local support height in a short longitudinal coupon.",
-  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.profile.json",
   "interface_spacing_mm": {
     "D": 0.0
   },

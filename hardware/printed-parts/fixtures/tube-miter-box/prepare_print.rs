@@ -14,7 +14,7 @@ use serde_json::json;
 use std::path::PathBuf;
 
 const HERE: &str = "hardware/printed-parts/fixtures/tube-miter-box";
-const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
+const PROFILE: &str = hsm_print_prep::profile::PETGF_PROFILE;
 
 /// Name, project, archive, Z trim and title per machine.
 const VARIANTS: [(&str, &str, &str, f64, &str); 2] = [

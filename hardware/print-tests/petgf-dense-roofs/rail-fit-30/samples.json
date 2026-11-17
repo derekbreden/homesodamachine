@@ -1,6 +1,6 @@
 {
   "purpose": "Preserve the complete production rail and its matching enclosure wall section as a sliding fit pair.",
-  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.profile.json",
   "interface_spacing_mm": {
     "D": 0.0
   },

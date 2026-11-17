@@ -1,6 +1,6 @@
 {
   "purpose": "Preserve the enclosure's local supported surfaces and removal access in compact print samples.",
-  "profile": "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf",
+  "profile": "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.profile.json",
   "interface_spacing_mm": {"A": 0.5, "B": 0.15, "C": 0.0},
   "column_x_mm": [112.0, 160.0, 208.0],
   "label_height_mm": 0.48,

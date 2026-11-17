@@ -7,7 +7,7 @@
 //! colour. Each mode reads the body and lettering from the current STEP payload. The plates
 //! lie on their flat backs and the collars on their lettered faces.
 //!
-//! The collar recipe uses `petgf.3mf` on both nozzles with Mark2's Z trim. White PET-GF is on the
+//! The collar recipe uses the shared PET-GF profile on both nozzles with Mark2's Z trim. White PET-GF is on the
 //! left nozzle and the plate's colour on the right, which takes its measured registration offset
 //! (`calibration/dual-nozzle-registration/mark2-registration.json`). There are no supports or brim.
 //!
@@ -26,7 +26,7 @@ use std::path::{Path, PathBuf};
 #[path = "identification_mark1.rs"]
 mod identification_mark1;
 
-const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
+const PROFILE: &str = profile::PETGF_PROFILE;
 const REGISTRATION: &str = "hardware/printed-parts/calibration/dual-nozzle-registration/mark2-registration.json";
 /// Mark2's Z trim, as `pieces.json` gives it for every Mark2 plate.
 fn z_trim(root: &Path) -> Result<f64> {
@@ -119,7 +119,7 @@ fn bodies(step: &Path) -> Result<(Shape, Shape)> {
     Ok((body, word))
 }
 
-/// `petgf.3mf` with its filament arrays doubled onto both nozzles, as the nameplate's preparer does.
+/// The shared PET-GF profile with its filament arrays doubled onto both nozzles.
 fn two_hotend_settings(root: &Path, colours: [&str; 2]) -> Result<(Plate, Value)> {
     let profile = profile::load(&root.join(PROFILE), Some(z_trim(root)?), None, root)?;
     let mut plate = Plate::new("", &profile, "homesodamachine/labels/");

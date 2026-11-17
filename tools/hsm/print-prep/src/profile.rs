@@ -1,5 +1,5 @@
-//! A printer recipe taken from a saved Bambu Studio project: its settings and filament presets,
-//! with a user Z trim, another project's filament and the localized PET-GF cooling applied.
+//! Bambu Studio settings and filament presets, with a user Z trim, another recipe's filament
+//! and the localized PET-GF cooling applied.
 
 use anyhow::{bail, Context, Result};
 use serde_json::{json, Value};
@@ -13,7 +13,7 @@ pub const PETGF_SUPPORT_KEYS: [&str; 6] = [
     "support_top_z_distance", "support_interface_top_layers", "support_interface_spacing",
     "bridge_flow", "bridge_speed", "filament_bridge_speed",
 ];
-const PETGF_PROFILE: &str = "hardware/printed-parts/petgf.3mf";
+pub const PETGF_PROFILE: &str = "hardware/printed-parts/petgf.profile.json";
 const PRESET_METADATA: [&str; 16] = [
     "type", "name", "inherits", "include", "from", "setting_id", "instantiation", "description",
     "alias", "filament_id", "version", "rename", "compatible_printers",
@@ -53,11 +53,22 @@ pub fn cooling_hook(root: &Path) -> String {
 
 fn read_members(path: &Path) -> Result<BTreeMap<String, Vec<u8>>> {
     let file = std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?;
+    if path.extension().is_some_and(|extension| extension == "json") {
+        let members: BTreeMap<String, Value> = serde_json::from_reader(std::io::BufReader::new(file))
+            .with_context(|| format!("reading profile {}", path.display()))?;
+        return members.into_iter()
+            .filter(|(name, _)| name == SETTINGS_MEMBER || filament_member(name))
+            .map(|(name, value)| Ok((name, settings_bytes(&value)?)))
+            .collect();
+    }
     let mut archive = zip::ZipArchive::new(file)?;
     let mut members = BTreeMap::new();
     for i in 0..archive.len() {
         let mut entry = archive.by_index(i)?;
         let name = entry.name()?.to_string();
+        if name != SETTINGS_MEMBER && !filament_member(&name) {
+            continue;
+        }
         let mut data = Vec::new();
         entry.read_to_end(&mut data).with_context(|| format!("{} has a damaged member", path.display()))?;
         members.insert(name, data);
