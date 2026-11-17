@@ -6,10 +6,9 @@ Checked November 10, 2026 against the current BOM, purchase ledger, stock record
 
 | Item | Order quantity | Purpose / evidence | Listed price before shipping/tax |
 |---|---:|---|---:|
-| Green 16 AWG solid tinned-copper UL1007 wire | 150 mm per build | AC-1 from the C14 earth tab to the PE WAGO. An available spool option is the [Remington green 100 ft spool](https://business.walmart.com/ip/Remington-Industries-16-AWG-Solid-Hook-Up-Wire-UL1007-300V-100-ft-Length-Green/18458067158), sold and shipped by Remington. The acquired black and white wire is supplied in 25 ft coils. | $29.75 for the spool |
 | [BelMetric WSE3SS, M3 DIN 6797-A A2 stainless external-tooth washer](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS) | 1; select M3 / 6 mm OD | Conditional on the acquired IEAWISL assortment: verify its M3 washer before buying separately. Earth-clamp specification remains 3.2 mm ID, 6 mm OD, 0.4 mm material thickness. Exact BelMetric variant in stock. BelMetric lists same-day weekday dispatch before its cutoff; freight is calculated at checkout. | $0.06 each |
 
-The Remington spool offer was checked November 17. The washer ships from BelMetric with freight at checkout.
+The washer ships from BelMetric with freight at checkout.
 
 ## Conditional purchase for a customer install kit
 
@@ -65,3 +64,7 @@ Both orders were placed November 16 with delivery estimated November 17. Receipt
 ## Printed parts for this tubing
 
 Print the current faucet base/shared tip for the selected style, organizer, both FLAVOR collars, both metric-bore FLAVOR chips and back-top with its 4 mm flavor sockets. These use acquired filament; no filament purchase is established for unit 1. Dated print archives and physical acceptance records identify their exact articles; they are not a substitute for the current geometry.
+
+## AC-1 earth wire on order
+
+One [MECCANIXITY green 16 AWG solid UL1007 wire coil](https://www.amazon.com/dp/B0FK5JHQW7), 25 ft, was ordered November 16 for $12.86 including estimated tax. It supplies the AC-1 earth link. Receipt and completed payment remain pending in the purchase ledger.

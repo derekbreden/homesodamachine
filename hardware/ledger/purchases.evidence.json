@@ -10196,6 +10196,18 @@
       "source_ids": [
         "src-c5820eb1e8314a3898e3758aad484fe8"
       ]
+    },
+    "pur-0460bfe098504c85bbbf043b1d7a5bb0": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-6794186-7953808"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ]
     }
   },
   "orders": {
@@ -16571,6 +16583,18 @@
       "source_ids": [
         "src-c5820eb1e8314a3898e3758aad484fe8"
       ]
+    },
+    "amazon:112-6794186-7953808": {
+      "vendor": "Amazon",
+      "reference": "112-6794186-7953808",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ]
     }
   },
   "events": [
@@ -20996,6 +21020,23 @@
       "order_ids": [
         "amazon:112-9810422-9839444"
       ]
+    },
+    {
+      "event_id": "evt-3a8544ddbe8a4823b7685b21f54c008c",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 1286,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ],
+      "verified_at": "2026-11-17",
+      "order_ids": [
+        "amazon:112-6794186-7953808"
+      ]
     }
   ],
   "allocations": [
@@ -22837,6 +22878,14 @@
       "purchase_id": "pur-fcd44116a7094087b680a7ae1ffd83af",
       "order_id": "amazon:112-9810422-9839444",
       "amount_minor": 482,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-47e8b10aa5a8466d91a016b60e7a572a",
+      "event_id": "evt-3a8544ddbe8a4823b7685b21f54c008c",
+      "purchase_id": "pur-0460bfe098504c85bbbf043b1d7a5bb0",
+      "order_id": "amazon:112-6794186-7953808",
+      "amount_minor": 1286,
       "currency": "USD"
     }
   ],
@@ -35282,6 +35331,18 @@
       "proves": [],
       "verified_at": "2026-11-17",
       "note": "Shipment notification identifies the existing order and three 3D-printing supplies shipped in a four-item package with one generically described measurement tool. Its package total is not a revised filament order value. The additional item is not independently linked to an order by this notification. Relative arrival estimate does not establish actual delivery or its date; no completed payment is proved."
+    },
+    "src-56b5905ef743455fa0e61dd424f75261": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_record",
+      "reference": "112-6794186-7953808",
+      "document_date": null,
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-17",
+      "note": "Signed-in order details identify one MECCANIXITY green UL1007 16 AWG solid tinned-copper wire, 25 ft, ASIN B0FK5JHQW7, placed November 16. Item USD11.99 plus USD0.87 estimated tax, free shipping, total USD12.86. Delivery pending. Exact-order transaction page shows no transactions yet."
     }
   },
   "coverage": [
@@ -38160,6 +38221,26 @@
       "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
       "sources_checked": [
         "Signed-in Amazon Order Details on November 16, 2026"
+      ]
+    },
+    {
+      "gap_id": "gap-f68df098e9074bbbbe65127bdb70a3a2",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0"
+      ],
+      "order_ids": [
+        "amazon:112-6794186-7953808"
+      ],
+      "event_ids": [
+        "evt-3a8544ddbe8a4823b7685b21f54c008c"
+      ],
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ],
+      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified.",
+      "sources_checked": [
+        "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026"
       ]
     }
   ],

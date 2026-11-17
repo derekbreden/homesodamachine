@@ -577,6 +577,14 @@
       "purchase_id": "pur-65c979f1bb194148918426361d985f73"
     },
     {
+      "allocation_id": "alloc-47e8b10aa5a8466d91a016b60e7a572a",
+      "amount_minor": 1286,
+      "currency": "USD",
+      "event_id": "evt-3a8544ddbe8a4823b7685b21f54c008c",
+      "order_id": "amazon:112-6794186-7953808",
+      "purchase_id": "pur-0460bfe098504c85bbbf043b1d7a5bb0"
+    },
+    {
       "allocation_id": "alloc-47ffad812ea8463cab26a3b4c5629ace",
       "amount_minor": 9515,
       "currency": "USD",
@@ -5170,6 +5178,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Render",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-47e8b10aa5a8466d91a016b60e7a572a"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 1286,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-3a8544ddbe8a4823b7685b21f54c008c",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-6794186-7953808"
+      ],
+      "purchase_ids": [
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0"
+      ],
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-17"
     },
     {
       "allocation_ids": [
@@ -10466,6 +10498,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-3a8544ddbe8a4823b7685b21f54c008c"
+      ],
+      "gap_id": "gap-f68df098e9074bbbbe65127bdb70a3a2",
+      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified.",
+      "order_ids": [
+        "amazon:112-6794186-7953808"
+      ],
+      "purchase_ids": [
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0"
+      ],
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ],
+      "sources_checked": [
+        "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026"
+      ]
+    },
+    {
       "gap_id": "gap-f83ff884543e4158ac775f607e2c1fe3",
       "missing_fact": "exact placed date; merchant payment evidence. 68.98 order confirmation and May26 delivery verified; printed placed date not present.",
       "order_ids": [
@@ -10503,7 +10554,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:8054bfa870e0ec44d816374f56821b1d9ec4a27d35d2b49244fe946229ff96df",
+  "input_fingerprint": "sha256:66cacce7798080c261b692ec72627b91504b1a7774657aa0acf6f982b7677c00",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13838,6 +13889,25 @@
       "reference": "112-6764112-7787443",
       "source_ids": [
         "saved-amazon:112-6764112-7787443"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-3a8544ddbe8a4823b7685b21f54c008c"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "order_id": "amazon:112-6794186-7953808",
+      "purchase_ids": [
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0"
+      ],
+      "reference": "112-6794186-7953808",
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
       ],
       "vendor": "Amazon"
     },
@@ -20706,6 +20776,52 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Fresh Water Systems"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1286,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — AC-1 earth link. $11.99 item + $0.87 estimated tax, free shipping",
+      "event_ids": [
+        "evt-3a8544ddbe8a4823b7685b21f54c008c"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-0460bfe098504c85bbbf043b1d7a5bb0",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "order_ids": [
+        "amazon:112-6794186-7953808"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-0460bfe098504c85bbbf043b1d7a5bb0",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 (25 ft)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "row_date_basis": "order_date",
+      "section": "9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors",
+      "service_period": null,
+      "source_ids": [
+        "src-56b5905ef743455fa0e61dd424f75261"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "mixed_partial",
@@ -65020,6 +65136,19 @@
       "verified_at": "2026-11-10"
     },
     {
+      "document_date": null,
+      "document_type": "merchant_order_record",
+      "note": "Signed-in order details identify one MECCANIXITY green UL1007 16 AWG solid tinned-copper wire, 25 ft, ASIN B0FK5JHQW7, placed November 16. Item USD11.99 plus USD0.87 estimated tax, free shipping, total USD12.86. Delivery pending. Exact-order transaction page shows no transactions yet.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-6794186-7953808",
+      "source_id": "src-56b5905ef743455fa0e61dd424f75261",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-17"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-04"
@@ -70588,10 +70717,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 51856,
+          "amount_minor": 53142,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
+            "pur-0460bfe098504c85bbbf043b1d7a5bb0",
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-3e68e1bb95ea4eee80c22dc466261cb4",
             "pur-4cac3e81d16a4257b9c6b725ba967b74",
@@ -70619,6 +70749,7 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0",
         "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-3e68e1bb95ea4eee80c22dc466261cb4",
         "pur-4cac3e81d16a4257b9c6b725ba967b74",
@@ -70639,6 +70770,7 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-3a8544ddbe8a4823b7685b21f54c008c",
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
@@ -71003,6 +71135,7 @@
             "evt-0dd1678555e5406590e6b25b16d55d75",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
+            "evt-3a8544ddbe8a4823b7685b21f54c008c",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
             "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
             "evt-5fddb80e882c4533bf9042d5a74088cc",
@@ -71749,12 +71882,13 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 46506,
+          "estimate_minor": 47792,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 77008,
           "legacy_unverified_minor": 0,
           "month": "2026-11",
           "purchase_ids": [
+            "pur-0460bfe098504c85bbbf043b1d7a5bb0",
             "pur-0b426a7ded014916bd32dde66a3d3030",
             "pur-14f8f47e82a74b129f4677cb0fc2a67d",
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
@@ -71788,7 +71922,7 @@
             "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 123514,
+          "total_minor": 124800,
           "unknown_amount_ids": []
         },
         {
@@ -71805,7 +71939,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1175569,
+          "amount_minor": 1176855,
           "currency": "USD",
           "purpose": "components"
         },
@@ -71843,10 +71977,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 264679,
+          "estimate_minor": 265965,
           "final_vendor_amount_minor": 2913479,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5076466
+          "total_minor": 5077752
         }
       ],
       "undated_unallocated": [
@@ -72005,6 +72139,7 @@
         "gap-d38f9a772d7a49e1ad42ab7e1d5f13f9",
         "gap-d7417370fcd74c91a67a61308fd257a0",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
+        "gap-f68df098e9074bbbbe65127bdb70a3a2",
         "gap-f83ff884543e4158ac775f607e2c1fe3",
         "gap-fa04dc9a64af48f4a10328dbe9c2c0a5"
       ],
@@ -72012,11 +72147,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 264679,
+          "estimated_purchase_minor": 265965,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2478106,
+          "purchases_without_merchant_charge_minor": 2479392,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -72027,6 +72162,7 @@
         }
       ],
       "estimated_purchase_ids": [
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0",
         "pur-0504233f1bc64d7cbd4faa23bf63edd9",
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-2ad02a3c76fc4de6b57a9424c7892858",
@@ -72669,6 +72805,7 @@
         "pur-02133b0b1a1044348652ed03fc0a0348",
         "pur-022b925f5cc0486d843d3854c811541c",
         "pur-0244120fd40945e9bb7de77ab89e372b",
+        "pur-0460bfe098504c85bbbf043b1d7a5bb0",
         "pur-0528c779989e48999b774c692381a635",
         "pur-05a6b88d898346c09b2c6cafba57c8b5",
         "pur-05f3b0f5d0e04c6e937ae6180b8064c3",
@@ -73181,6 +73318,7 @@
         "evt-0dd1678555e5406590e6b25b16d55d75",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
+        "evt-3a8544ddbe8a4823b7685b21f54c008c",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
@@ -73333,7 +73471,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "23 authored evidence gap(s) remain",
+      "24 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-07575d26f1b2453ba683076fe7b7fa9c: evidence coverage is partial",
@@ -73444,7 +73582,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "29 legacy named order(s) lack an exact invoice allocation check",
+      "30 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
