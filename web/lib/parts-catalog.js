@@ -76,11 +76,12 @@ export function readPartsCatalog(hardwareDir) {
   const images = new Set(fs.existsSync(partThumbnailDirectory) ? fs.readdirSync(partThumbnailDirectory) : []);
   const cards = (parts) => parts.map(({ material, provider, section }) => {
     const name = `${material.id}.webp`;
+    const workspace = material.pcb ? { view: "pcb" } : { panel: "materials" };
     return {
       id: material.id,
       name: material.description,
       href: provider === "Lulu" ? "/read/install-guide/install-guide.pdf"
-        : `/parts#${materialHash(material.id, { view: material.pcb && "pcb" })}`,
+        : `/parts#${materialHash(material.id, workspace)}`,
       image: images.has(name) ? `/parts-thumbnails/${name}` : null,
       ...(provider && { provider }),
       ...(section && { section }),
