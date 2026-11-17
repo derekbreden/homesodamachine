@@ -2455,15 +2455,15 @@
     },
     {
       "id": "16awg-kit",
-      "name": "BNTECHGO 16 AWG, five colours \u00d7 25 ft \u2014 colour allocation pending",
+      "name": "BNTECHGO 16 AWG black stranded silicone wire",
       "unit": "ft",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "The recorded Prime offer supplies the stated color kit. The stock ledger carries a provisional purchase reserve for unmeasured color allocation; completed-stock credits reduce that reserve before supplier lots are selected.",
+      "note": "The recorded Prime offer is for the five-color kit. Each kit contributes one 25 ft black coil to the pump leads.",
       "options": [
         {
-          "quantity": 125,
+          "quantity": 25,
           "priceCents": 3798,
           "label": "5 \u00d7 25 ft colour kit",
           "available": true

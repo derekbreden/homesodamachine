@@ -115,7 +115,7 @@ The column does not pass through the side window.
 
 The shared west-side `sensor-cable` loom at world X−48/Y347 carries seven
 conductors: the three temperature-bus leads, CLO, CHI, their continuous common
-and the green 16 AWG carbonator PE lead. It follows an R5.5 transition below
+and the green solid carbonator PE lead. It follows an R5.5 transition below
 the equipment lid to the Ø7.5 mm opening at world X−78/Y320/Z253.4. The
 nominal packed loom envelope is 6.6 mm. The fixed east-side reeds retain
 their positions; their three leads transfer over the open vessel head at

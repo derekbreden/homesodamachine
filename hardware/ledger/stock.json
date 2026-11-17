@@ -2706,16 +2706,16 @@
     },
     {
       "id": "16awg-kit",
-      "name": "BNTECHGO 16 AWG, five colours × 25 ft — colour allocation pending",
+      "name": "BNTECHGO 16 AWG black stranded silicone wire",
       "unit": "ft",
       "href": "https://www.amazon.com/dp/B06Y557TCL",
-      "onHand": 125,
+      "onHand": 25,
       "incoming": 0,
       "reserved": 0,
       "estimated": true,
       "asOf": "2026-10-13",
       "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate. Color allocation is unmeasured; the provisional purchase reserve scales with unmet physical demand.",
+      "note": "The acquired five-color kit contains one 25 ft black coil for the pump leads. Remaining black wire after development is uncounted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -2724,13 +2724,8 @@
       ],
       "planning": {
         "root": "HSM-0340",
-        "perUnit": 14,
-        "materialAllowance": 0,
-        "purchaseReserve": {
-          "5": 250,
-          "10": 375,
-          "20": 625
-        }
+        "perUnit": 3.9,
+        "materialAllowance": 0
       }
     },
     {
@@ -3587,7 +3582,7 @@
       "estimated": false,
       "asOf": "2026-11-17",
       "basis": "unknown",
-      "note": "One 25 ft coil on order for the AC-1 earth link. Receipt is pending.",
+      "note": "One 25 ft coil on order for the C14 inlet earth link and the carbonator vessel bond. Receipt is pending.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",

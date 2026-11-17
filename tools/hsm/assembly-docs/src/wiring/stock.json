@@ -43,17 +43,6 @@
     "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
     "construction": "solid tinned copper with white PVC insulation"
   },
-  "inlet-earth16": {
-    "awg": 16,
-    "od_mm": 3.0,
-    "color": [
-      0.06,
-      0.42,
-      0.12
-    ],
-    "basis": "Nominal layout allowance for the C14 earth link",
-    "construction": "solid tinned copper with green PVC insulation"
-  },
   "pump16": {
     "awg": 16,
     "od_mm": 3.0,
@@ -74,7 +63,7 @@
       0.12
     ],
     "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
-    "construction": "stranded green silicone"
+    "construction": "solid tinned copper with green PVC insulation"
   },
   "cord18": {
     "awg": 18,

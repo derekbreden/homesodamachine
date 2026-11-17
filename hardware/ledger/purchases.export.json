@@ -10554,7 +10554,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:66cacce7798080c261b692ec72627b91504b1a7774657aa0acf6f982b7677c00",
+  "input_fingerprint": "sha256:75f24bda19b0ca4d9a6d5d3045dd860cc81e1af6f695cf657116dc3e2e3c7cdf",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -20784,7 +20784,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — AC-1 earth link. $11.99 item + $0.87 estimated tax, free shipping",
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — C14 inlet earth link and carbonator vessel bond. $11.99 item + $0.87 estimated tax, free shipping",
       "event_ids": [
         "evt-3a8544ddbe8a4823b7685b21f54c008c"
       ],

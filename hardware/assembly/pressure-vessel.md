@@ -48,7 +48,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** The 125 PSI set pressure stands above the G Ganen's outlet switch and the primary regulator's 75 PSI factory setting, so neither the refill pump nor a failed-open secondary lifts it; it is not a vessel safety factor. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
-| Dedicated carbonator earth clamp | Finished M3 × 4 stainless socket screw; DIN 6797A M3 A2 external-tooth washer, 0.4 mm; M3 / #4 22–16 AWG closed ring | Shorten one acquired M3 × 12 screw to 4 mm; the ring is acquired. The toothed washer is required and not recorded as acquired. See the [upper-rim attachment](#upper-rim-earth-bond). |
+| Dedicated carbonator earth clamp | Finished M3 × 4 stainless socket screw, DIN 6797A M3 A2 external-tooth washer, closed M3 ring rated for solid 16 AWG | Shorten the acquired screw to its finished length. See the [upper-rim attachment](#upper-rim-earth-bond) and [terminal sourcing](../ledger/unit-1-shopping.md#carbonator-earth-terminal). |
 | Cambro 6 QT polycarbonate square container | B001BZEQ44 | Reusable passivation tub; bath condition and reuse limits need qualification |
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, sufficient to contact all interior and exterior surfaces |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per carbonator for NPT tapping |
@@ -120,7 +120,7 @@ tilt and free travel require physical qualification before closure. See
 
 ### Upper-rim earth bond
 
-The green 16 AWG carbonator earth lead clamps directly to the existing upper
+The green solid carbonator earth lead clamps directly to the existing upper
 vessel rim. Its radial M3 × 0.5 attachment is defined by
 [`numbers.rs`](/hardware/cold-core-layout/carbonator/numbers.rs).
 
@@ -141,20 +141,22 @@ pitches, with 1.35 mm of steel between the thread's upper edge and the tube end.
 
 Finish one acquired **M3 × 12 stainless screw to 4 mm under the head** and
 deburr its thread end. After passivation and before the cold-core body foam
-pour, crimp the green 16 AWG lead into the acquired M3 / #4 closed ring.
+pour, crimp the solid green lead into a closed M3 ring rated for solid 16 AWG
+with the terminal maker's specified crimp tooling.
 Assemble outside the vessel, from the screw head: **M3 × 4 stainless screw →
 DIN 6797A M3 A2 external-tooth washer, 0.4 mm → 0.8 mm ring tongue → bare
 tapped rim**. The washer's specified ID is 3.2–3.38 mm and OD is 5.7–6.0 mm.
 Hold the ring with its barrel upward while tightening. Keep paint, adhesive
-and sealant out of the metal contact stack. The 1.2 mm washer/ring stack leaves
-1.149 mm of screw projection beyond the tube ID. Check the steel-to-ring bond
-before it is buried, as required by [`wiring.md`](/hardware/assembly/wiring.md).
+and sealant out of the metal contact stack. Check that the washer seats flat
+on the ring tongue. The nominal 1.2 mm washer/ring stack leaves
+1.149 mm of screw projection beyond the tube ID. Measure the bond from the
+steel to the free end of the lead before it is buried. [Bond measurement](/hardware/assembly/wiring.md#1-chassis-ground-bonds-single-point-ground-on-the-rear-wall)
 
 Keep the opposite wire end free until it has passed through the shared
-seven-core sensor riser at world X−48/Y347 and both cap pieces. Ferrule it
-afterward and land it in port 2 of the west-wall PE WAGO above the relays
-([`electronics-bay.md`](/hardware/assembly/electronics-bay.md) step 4). Fit the steel-side
-clamp before foil and body foam cover its contact faces.
+seven-core sensor riser at world X−48/Y347 and both cap pieces. Strip it
+after dressing and land bare copper in port 2 of the west-wall PE WAGO above
+the relays. Fit the steel-side clamp before foil and body foam cover its
+contact faces. [Electronics bay assembly](/hardware/assembly/electronics-bay.md)
 
 ### 2. Prepare the bottom plate — tack the float rod
 

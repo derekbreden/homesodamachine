@@ -109,13 +109,12 @@ records the current rigid-slide and final-connection limits.
    WAGO; fit their lid-side terminations after threading. The shared
    `sensor-cable` loom rises at world X−48/Y347 and follows an R5.5 transition
    to its Ø7.5 mm lid opening at X−78/Y320. It carries seven cores: temperature
-   V/DATA/GND, carbonator CLO/CHI/common, and the green 16 AWG PE lead. Feed the temperature bus at
+   V/DATA/GND, carbonator CLO/CHI/common, and the solid green PE lead. Feed the temperature bus at
    the coil probe first; its free leads turn aft below the PRV vent at Z184
    and rise toward the shared riser at Y347. Keep the east reeds fixed and lay
    their transfer across the open head at Z225/Y352 before the body pour.
    Foam locates the sensor/earth loom below the lid. Thread the lid over all
-   seven free ends; the earth lead's ferrule goes on outside the
-   lid after dressing. Dress the signals along the west PCB approach and
+   seven free ends. Dress the signals along the west PCB approach and
    leave PE free for the west-wall PE WAGO above the relays. Complete the
    cold-core assembly in
    [cold-core.md](cold-core.md).
@@ -155,9 +154,9 @@ records the current rigid-slide and final-connection limits.
    its housing. Seat J6, J7 and J4 at the PCB, J4 with cavities 4 and 5 empty.
    Populate the sensor and reservoir-B common junctions without adding
    junctions to the continuous reservoir-A reed common.
-   On open back-top, land the carbonator's free bond lead in G's port 2 and
-   the compressor's PE core in its port 3, each ferruled. The carbonator lead
-   drops straight into its port; the compressor core rises over the keystone
+   On open back-top, land the carbonator's stripped solid bond lead in G's
+   port 2 and the compressor's ferruled PE core in port 3. The carbonator lead
+   drops straight into its port. The compressor core rises over the keystone
    and drops into its port. Connect the carbonator's bond before the rear
    assembly closes over the core.
 5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
