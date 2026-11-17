@@ -1,11 +1,12 @@
-// The Parts page uses the shipped BOM and the registered tooling to select its part cards.
+// The Parts page draws its cards from the shipped BOM, assembly models and registered tooling.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { materialHash } from "../contracts/material-tabs.js";
-import { explodeBom, materialIndex, modelForMaterial } from "../contracts/materials.js";
+import { explodeBom, materialForFile, materialIndex, modelForMaterial } from "../contracts/materials.js";
 import { FAUCET_FINISHES } from "../contracts/faucet-options.js";
 import { rollupCost } from "../contracts/part-costs.js";
+import { ASSEMBLIES } from "../contracts/parts-tree.js";
 import { readBomLines } from "./bom-lines.js";
 import { readMaterialCatalog } from "./material-catalog.js";
 import { readPartCosts } from "./part-costs.js";
@@ -55,7 +56,8 @@ export function selectCatalogParts(catalog, ledger) {
       )).sort(byName),
     };
   }
-  return { machine: group(machine), tools: group([...toolParts, ...equipment]) };
+  const assemblies = ASSEMBLIES.map(({ model }) => ({ model, material: materialForFile(catalog, model) }));
+  return { machine: { ...group(machine), assemblies }, tools: group([...toolParts, ...equipment]) };
 }
 
 export function readPartsCatalog(hardwareDir) {
@@ -74,15 +76,18 @@ export function readPartsCatalog(hardwareDir) {
     return left === right ? 0 : right - left;
   };
   const images = new Set(fs.existsSync(partThumbnailDirectory) ? fs.readdirSync(partThumbnailDirectory) : []);
+  const thumbnail = (id) => {
+    const name = `${id}.webp`;
+    return id && images.has(name) ? `/parts-thumbnails/${name}` : null;
+  };
   const cards = (parts) => parts.map(({ material, provider, section }) => {
-    const name = `${material.id}.webp`;
     const workspace = material.pcb ? { view: "pcb" } : { panel: "materials" };
     return {
       id: material.id,
       name: material.description,
       href: provider === "Lulu" ? "/read/install-guide/install-guide.pdf"
         : `/parts#${materialHash(material.id, workspace)}`,
-      image: images.has(name) ? `/parts-thumbnails/${name}` : null,
+      image: thumbnail(material.id),
       ...(provider && { provider }),
       ...(section && { section }),
     };
@@ -91,6 +96,8 @@ export function readPartsCatalog(hardwareDir) {
     madeToOrder: cards(entries.madeToOrder),
     offTheShelf: cards(entries.offTheShelf).sort(byCost),
   }]));
+  result.machine.assemblyImages = Object.fromEntries(groups.machine.assemblies
+    .map(({ model, material }) => [model, thumbnail(material?.id)]));
   const index = materialIndex(catalog);
   result.tools.assemblies = catalog.roots.map(id => index.get(id))
     .filter(material => material?.kind === "tooling" && modelForMaterial(catalog, material.id))
