@@ -3,7 +3,7 @@ import { ensureRunLease } from "./browser.js";
 ensureRunLease();
 // render-dxf.js — render a DXF cut part as an isometric PNG against the
 // site palette by booting the prod server in-process, driving Puppeteer
-// through the existing /3d viewer (which extrudes the flat outline by
+// through the Parts viewer (which extrudes the flat outline by
 // the sidecar's thickness_mm into a real 3D plate), and trimming +
 // resizing the frame with sharp.
 //
@@ -92,7 +92,7 @@ async function renderOne({ dxfRel, outAbs, hardwareDir }) {
       if (line) console.error(line);
     });
 
-    const url = `http://localhost:${port}/3d?file=${encodeURIComponent(dxfRel)}`;
+    const url = `http://localhost:${port}/parts?file=${encodeURIComponent(dxfRel)}`;
     console.log(`navigating: ${url}`);
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 

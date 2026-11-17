@@ -315,7 +315,7 @@ pub fn link(root: &Path, model: &Path, text: &str, site: &str) -> String {
     let path = path.strip_prefix("hardware/").unwrap_or(&path);
     let path = path.strip_suffix(".mesh").unwrap_or(path);
     format!(
-        "{}/3d#step:{}?find={}",
+        "{}/parts#step:{}?find={}",
         site.trim_end_matches('/'),
         encode(path),
         encode(text.trim_end())
@@ -389,7 +389,7 @@ mod tests {
                 "click: x=1\n",
                 SITE
             ),
-            "https://homesodamachine.com/3d#step:part%20name.step?find=click%3A%20x%3D1"
+            "https://homesodamachine.com/parts#step:part%20name.step?find=click%3A%20x%3D1"
         );
     }
     #[test]

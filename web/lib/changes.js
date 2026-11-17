@@ -315,7 +315,7 @@ function viewFigure(changesDir, e, view, i) {
 function linksOf(e) {
   const links = e.commits.map((c) =>
     `<a href="https://github.com/derekbreden/homesodamachine/commit/${esc(c)}">Commit ${esc(c.slice(0, 9))}</a>`);
-  if (e.model) links.push(`<a href="/3d#step:${encodeURIComponent(e.model)}">Open in 3D</a>`);
+  if (e.model) links.push(`<a href="/parts#step:${encodeURIComponent(e.model)}">Open in 3D</a>`);
   return links.length ? `<p class="ch-links">${links.join("")}</p>` : "";
 }
 

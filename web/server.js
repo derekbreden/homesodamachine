@@ -10,6 +10,7 @@ import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountUnitRoutes } from "./lib/unit.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
+import { mountPartsPage } from "./lib/parts-page.js";
 import { mountSpinRoutes } from "./lib/spin.js";
 import { mountWeldPositionRoutes } from "./lib/weld-position.js";
 import { mountPositionerRoutes } from "./lib/positioner.js";
@@ -173,6 +174,7 @@ export async function start({ port, hardwareDir } = {}) {
   mountLandingRoutes(app);
   mountUnitRoutes(app);
   mountViewerPages(app);
+  mountPartsPage(app, { hardwareDir: HARDWARE_DIR, pointersPath });
   mountSpinRoutes(app);
   mountWeldPositionRoutes(app);
   mountPositionerRoutes(app);

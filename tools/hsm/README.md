@@ -1,6 +1,6 @@
 # hsm
 
-`hsm` answers geometry questions from the same triangle payloads and shared mesh references that `/3d` displays,
+`hsm` answers geometry questions from the triangle payloads and shared mesh references the Parts viewer displays,
 and draws pictures of them. One local Rust daemon serves the CLI, an MCP server and a Unix socket. Queries load a scene on
 demand. A saved edit starts no build, query, watcher or check.
 
@@ -55,7 +55,7 @@ them when its producer exports a new payload.
 
 ## Find and inspect a part
 
-`node tools/find-part.mjs "water regulator"` uses the material search that serves `/3d`.
+`node tools/find-part.mjs "water regulator"` uses the material search that serves `/parts`.
 Descriptions, aliases, brands and part numbers return the same ordered candidates locally
 and in the browser. A spelling or incomplete-word suggestion is labeled; it does not rename
 the part or turn different components into synonyms. An exact material ID selects its identity.
@@ -116,7 +116,7 @@ through source edits, review attempts and reference-browser draws when a timing 
 
 ## Construction features and installed instances
 
-In `/3d`, Component clicking selects whole parts in an assembly. **Open component** enters
+In the Parts viewer, Component clicking selects whole parts in an assembly. **Open component** enters
 the selected part; Component clicking then selects its named construction features directly
 on the geometry. The parent breadcrumb selects the whole part. Returning to the assembly
 returns picking to whole components.
@@ -280,7 +280,7 @@ and `shutdown` need no scene.
 
 ## Render
 
-`hsm render` draws a payload as `/3d` draws it: the viewer's colours, `web/public/finishes.json`,
+`hsm render` draws a payload with the Parts viewer's colours, `web/public/finishes.json`,
 its studio light, x-ray, contact shadow and fog. The daemon draws with wgpu, on Metal on a Mac
 and on Vulkan elsewhere, and starts no browser, server or STEP reader. Its device, pipelines and
 last scenes stay warm, so a picture of the whole machine takes a fresh daemon about three seconds

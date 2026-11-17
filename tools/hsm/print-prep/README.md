@@ -25,3 +25,18 @@ tools/run -- tools/hsm/target/release/plate-recipe slice output/print-build/petg
 ```
 
 Restore a saved print or bench-trial input with `node tools/print-archive.mjs REPO_PATH`. An older record's archive link contains the blob ID for that version. Restore it with `node tools/print-archive.mjs BLOB_ID OUTPUT`. The restore downloads the file's byte range from the release and checks its SHA-256. Use `plate-recipe capture` to save a recipe from a restored editable project.
+
+## Plate previews
+
+The website's [plate list](../../../hardware/printed-parts/plates.json) links each layout to its
+material's Print view. Update its WebP from the editable project when publishing a new
+[playback](../../../print-playbacks/README.md). The render reads the printable objects, their
+transforms and filament assignments from the Bambu project.
+
+```sh
+tools/run -- python3 tools/render/print-plate.py small-petg=PROJECT.3mf
+```
+
+The name before `=` is the plate ID in the list. Append `:PLATE` to select a plate in a
+multi-plate project. Rendering uses the native `hsm-render` binary in the release target
+directory, NumPy and Sharp from `tools/render`. WebPs go to `web/public/parts/plates/`.

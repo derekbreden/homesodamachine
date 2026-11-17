@@ -54,7 +54,7 @@ after(async () => {
 const routes = [
   // HTML pages
   { path: "/",         expect: 200, ct: "text/html" },
-  { path: "/3d",       expect: 200, ct: "text/html" },
+  { path: "/parts",    expect: 200, ct: "text/html" },
   { path: "/guides",   expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/spin",     expect: 200, ct: "text/html" },
@@ -65,6 +65,7 @@ const routes = [
   // Legacy redirects (301). Don't pin Content-Type — express renders a
   // tiny HTML body for browsers but the assertion that matters is the
   // redirect itself.
+  { path: "/3d",           expect: 301 },
   { path: "/dev",          expect: 301 },
   { path: "/drawings",     expect: 301 },
 
@@ -129,12 +130,21 @@ for (const r of routes) {
 }
 
 test("legacy PCB links open the board in its material workspace", async () => {
-  const target = "/3d#material:HSM-0048?view=pcb";
+  const target = "/parts#material:HSM-0048?view=pcb";
   const plain = await fetch(baseUrl + "/pcb", { redirect: "manual" });
   assert.equal(plain.status, 301);
   assert.equal(plain.headers.get("location"), target);
   const fileLink = await fetch(baseUrl + "/pcb?file=pcb%2Fpcba%2Fpcba.tsx", { redirect: "manual" });
   assert.equal(fileLink.headers.get("location"), target);
+});
+
+test("legacy viewer redirects keep the file or Find query", async () => {
+  const query = "?file=manifold-layout%2Fenclosure-assembly.step&find=solid%3A%20relay-1";
+  for (const former of ["/3d", "/3d/", "/dev"]) {
+    const moved = await fetch(baseUrl + former + query, { redirect: "manual" });
+    assert.equal(moved.status, 301);
+    assert.equal(moved.headers.get("location"), "/parts" + query);
+  }
 });
 
 // The WebSocket senders must emit frame types via the WS contract, exactly as
@@ -357,7 +367,7 @@ test("GET /js/viewer/main.js", async (t) => {
 });
 
 test("the shell and APIs omit notifications", async () => {
-  const shell = await (await fetch(baseUrl + "/3d")).text();
+  const shell = await (await fetch(baseUrl + "/parts")).text();
   assert.doesNotMatch(shell, /href="\/notifications"/);
 
   for (const route of ["/api/notifications/seen", "/api/push/subscribe", "/api/push/unsubscribe"]) {

@@ -1,17 +1,4 @@
-// URL → state translation. Two surfaces:
-//
-//   - popstate: handles browser back/forward + the sentinel pop pushed
-//     by ContentViewer when the user dismisses the modal directly.
-//     Decides what's open now, what should be open per the URL, closes
-//     the wrong thing and opens the right one.
-//
-//   - applyInitialRoute(): on first load, deep-link via
-//     ?file=<path> (notification), where the extension names the surface,
-//     or location.hash (bookmark), where the prefix does.
-//
-// Both read the hash through `wantFromHash` and open through `OPENERS`, so the
-// prefixes are stated once and the two surfaces cannot come to disagree about
-// what a link means.
+// Open the model or material named by a Parts link and preserve its modal history.
 
 import { state } from "./state.js";
 import {
@@ -25,6 +12,9 @@ import { findWhenMounted } from "./pick-find.js";
 import { openMaterial } from "./material-nav.js";
 import { modelForMaterial } from "/contracts/materials.js";
 import { materialTab } from "/contracts/material-tabs.js";
+import { ASSEMBLIES } from "/contracts/parts-tree.js";
+import { stepLocation } from "/contracts/step-locations.js";
+import { isViewerHash } from "/contracts/viewer-links.js";
 
 const decodeHash = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
 
@@ -34,11 +24,8 @@ const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb" };
 const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail };
 
 // WHAT A HASH NAMES, read once for both surfaces below. A `step:` hash carries
-// the whole walk and is split before it is decoded; every other kind is one file
-// and decodes whole (step-nav.js's parseStepHash). A hash matching no prefix
-// names nothing here — popstate reads that as "close what is open", and the
-// initial route reads it as the bare STEP path a link written before the
-// prefixes says.
+// the whole walk and is split before it is decoded. Older links name a STEP
+// file without a prefix.
 function wantFromHash(raw) {
   if (raw.startsWith("material:")) {
     const [identity, query = ""] = raw.slice("material:".length).split("?");
@@ -61,10 +48,11 @@ function wantFromHash(raw) {
     }
     return { type, file: decodeHash(raw).slice(prefix.length), path: null };
   }
-  return { type: null, file: null, path: null };
+  const file = isViewerHash(raw) ? decodeHash(raw) : null;
+  return { type: file ? "step" : null, file, path: file ? [file] : null };
 }
 
-window.addEventListener("popstate", () => {
+function followViewerHistory() {
   if (state.dismissViewerRoute) {
     state.dismissViewerRoute = false;
     history.replaceState(null, "", location.pathname + location.search);
@@ -111,7 +99,7 @@ window.addEventListener("popstate", () => {
   if (want.material) openMaterial(want.material, false, want);
   else if (want.type === "step") { openDetail(want.file, false, want.path, target); state.materialPanel?.applyRoute(want); }
   else if (want.type) OPENERS[want.type](want.file, false);
-});
+}
 
 // --- Initial route ---
 // On first load: a `?file=` deep link (what a notification writes), else the
@@ -122,25 +110,32 @@ window.addEventListener("popstate", () => {
 const FILE_KINDS = { ".dxf": "dxf", ".glb": "glb" };
 const stepTarget = ({ instance, find }) => instance ? { instance } : find ? { find } : null;
 
-export function applyInitialRoute() {
-  const open = (type, file, push, path = null, pane = {}) => {
-    if (type === "step") {
-      openDetail(file, push, path, stepTarget(pane));
-      state.materialPanel?.applyRoute(pane);
-    } else {
-      return OPENERS[type](file, push);
-    }
-  };
+function openFile(want, pushHistory) {
+  const { type, file, path, find } = want;
+  if (type !== "step") return OPENERS[type](file, pushHistory);
+  if (find) findWhenMounted(file, find);
+  openDetail(file, pushHistory, path, stepTarget(want));
+  state.materialPanel?.applyRoute(want);
+}
 
-  const linked = new URLSearchParams(location.search).get("file");
-  if (linked) {
-    return open(FILE_KINDS[linked.slice(linked.lastIndexOf("."))] || "step", linked, true);
+export function openViewerHash(hash, pushHistory = false) {
+  const want = wantFromHash(hash.slice(1));
+  if (want.material) return openMaterial(want.material, pushHistory, want);
+  if (want.type) {
+    openFile(want, pushHistory);
+    if (pushHistory && location.hash !== hash) history.replaceState(history.state, "", hash);
   }
-  if (!location.hash) return;
-  const raw = location.hash.slice(1);
-  const want = wantFromHash(raw);
-  if (want.find) findWhenMounted(want.file, want.find);
-  if (want.material) return openMaterial(want.material, false, want);
-  if (want.type) return open(want.type, want.file, false, want.path, want);
-  return open("step", decodeHash(raw), false);
+}
+
+export function startViewerRoutes() {
+  window.addEventListener("popstate", followViewerHistory);
+  const query = new URLSearchParams(location.search);
+  const linked = query.get("file");
+  const find = query.get("find");
+  if (linked || (find && !isViewerHash(location.hash))) {
+    const file = linked || ASSEMBLIES[0].model;
+    const extension = stepLocation(file).file.match(/\.[a-z]+$/i)?.[0]?.toLowerCase();
+    return openFile({ type: FILE_KINDS[extension] || "step", file, find }, true);
+  }
+  return openViewerHash(location.hash);
 }

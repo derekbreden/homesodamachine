@@ -19,15 +19,13 @@ export const state = {
   materialPanel: null,      // active companion panel's select / sync / dispose handle
   dismissViewerRoute: false, // the next history pop ends a dismissed viewer walk
   allFiles: [],       // STEP files (paths)
-  dxfFiles: [],       // DXF files
-  glbFiles: [],       // GLB assemblies (board 3D models)
   documents: [],      // PDFs the site hands over whole: {path, title, subtitle, pages, cover, bytes} (contracts/documents.js)
   currentDetail: null,
   mountedDetail: null,
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
-  faucetStyle: "sculpted",   // /3d's faucet card follows the assembly last opened in this session
+  faucetStyle: "sculpted",   // shared by the faucet assembly and its related models
   faucetFinish: "black",     // shared by the faucet assembly and its PET-GF part drilldowns
   stepLoadSeq: 0,            // only the most recent asynchronous CAD request can mount
   cadLoadAbort: null,         // active CAD transfer; shared across hot loader imports
@@ -42,9 +40,6 @@ export const state = {
   dxfEtags: new Map(),        // file -> last loaded ETag
   glbEtags: new Map(),        // GLB file -> last loaded ETag
   dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/README.md)
-  gridEl: null,               // set by main.js after DOM ready
-  gridWindow: null,           // lazy.js handle for the current grid's mount/release observers;
-                              // disconnected and replaced on each buildGrid so the observers die
-                              // with the cards they watch
+  gridEl: null,               // guide shelf, when present
   codeVersion: null,          // Deploy commit used to re-import the detail loaders.
 };

@@ -11,7 +11,7 @@ const searchView = { panel: "materials" };
 const costView = { panel: "materials", tab: "cost" };
 const openMaterial = (...args) => import("./material-nav.js").then(module => module.openMaterial(...args));
 
-// Shared description and construction lookup serves the grid and model companion.
+// The model companion searches material records and construction features.
 // Stock and supplies open on the Cost tab of a part that uses them.
 export function makeMaterialSearch({
   compact = false, featuresInView = () => [], catalogPending = () => false, navigate = open => open(),
@@ -51,7 +51,7 @@ export function makeMaterialSearch({
   }
   function installedAction(assembly, instance, label, destination) {
     const view = { instance: instance.name };
-    return result(`/3d#${materialHash(assembly, view)}`, label, null,
+    return result(`/parts#${materialHash(assembly, view)}`, label, null,
       () => openMaterial(assembly, true, view), destination);
   }
   function update() {
@@ -90,7 +90,7 @@ export function makeMaterialSearch({
         entry.className = "material-search-entry";
         entry.dataset.material = m.id;
         results.append(entry);
-        result("/3d#" + materialHash(m.id, searchView), m.description, meta, () => openMaterial(m.id, true, searchView), entry);
+        result("/parts#" + materialHash(m.id, searchView), m.description, meta, () => openMaterial(m.id, true, searchView), entry);
         const file = state.mountedDetail?.file || featureFile;
         const owner = materialForFile(state.materialCatalog, state.mountedDetail?.sourceFile || file);
         if (owner?.kind === "assembly") {
@@ -117,7 +117,7 @@ export function makeMaterialSearch({
       const holder = line.holders[0].id;
       const users = line.holders.map((h) => index.get(h.id)?.description).filter(Boolean);
       const kinds = COST_KINDS.filter((kind) => line.kinds.has(kind.id)).map((kind, i) => i ? kind.label.toLowerCase() : kind.label).join(" and ");
-      result("/3d#" + materialHash(holder, costView), line.label,
+      result("/parts#" + materialHash(holder, costView), line.label,
         `${kinds} for ${users[0]}${users.length > 1 ? ` +${users.length - 1} more` : ""}`, () => openMaterial(holder, true, costView));
     }
     const availableFeatures = new Map(remote.features.map(f => [f.key, f]));

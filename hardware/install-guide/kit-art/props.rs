@@ -219,6 +219,13 @@ pub fn water_tees(black_tee: &str) -> Result<Shown> {
     for body in import::payload(black_tee)? {
         out.push((format!("black-tee/{}", body.name), body.solid.translate(v3(30., 0., 0.))));
     }
+    out.extend(angle_stop_adapter()?);
+    Ok(out)
+}
+
+/// The supplied angle-stop adapter on its own.
+pub fn angle_stop_adapter() -> Result<Shown> {
+    let mut out = vec![];
     white_tee(&mut out, v3(-12., 0., -30.8))?;
     Ok(out)
 }

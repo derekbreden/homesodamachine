@@ -30,7 +30,7 @@ function renderGuide(hardwareDir) {
   const root = find('HSM-0006');
   const samples = [root, find('HSM-0005'), find('HSM-0161')];
   const rows = ['HSM-0151', 'HSM-0152', 'HSM-0155'].map(id => ({ material: find(id), item: root.bom.items.find(item => item.material === id) }));
-  const materialLink = material => `/3d#material:${material.id}`;
+  const materialLink = material => `/parts#material:${material.id}`;
   const documentLink = document => `/read/${document.path}`;
   const documents = materialDocuments({ materials }, root.id);
 

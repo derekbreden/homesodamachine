@@ -73,7 +73,7 @@ export function renderLandingSupport() {
     <div class="home-support-closure">
       <a class="home-support-identity" href="/" aria-label="Home Soda Machine home"><img src="/brand/wordmark-reverse.svg" width="168" height="64" loading="lazy" alt="Home Soda Machine"></a>
       <p>A kitchen appliance in development.</p>
-      <nav class="home-support-links" aria-label="Project"><a href="/updates">Follow the build</a><a href="/3d">Explore the design</a></nav>
+      <nav class="home-support-links" aria-label="Project"><a href="/updates">Follow the build</a><a href="/parts">Explore the design</a></nav>
     </div>
   </div>
 </footer>`;

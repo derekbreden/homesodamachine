@@ -1,0 +1,306 @@
+[
+  {
+    "id": "front-top",
+    "label": "Enclosure front top",
+    "scope": "machine",
+    "material": "HSM-0079",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/front-top.webp",
+    "href": "/parts#material:HSM-0079?view=print",
+    "download": "/print-archive/cae4ffa395820dc548f0c6c1992f36cd95c3a461/enclosure-front-top.3mf",
+    "parts": [{"label": "Enclosure front top", "material": "HSM-0079"}],
+    "relatedPrints": [{"label": "Display gasket · TPU", "material": "HSM-0077", "href": "/parts#material:HSM-0077?view=print"}]
+  },
+  {
+    "id": "front-bottom",
+    "label": "Enclosure front bottom",
+    "scope": "machine",
+    "material": "HSM-0078",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/front-bottom.webp",
+    "href": "/parts#material:HSM-0078?view=print",
+    "parts": [{"label": "Enclosure front bottom", "material": "HSM-0078"}]
+  },
+  {
+    "id": "back-top",
+    "label": "Enclosure back top",
+    "scope": "machine",
+    "material": "HSM-0081",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/back-top.webp",
+    "href": "/parts#material:HSM-0081?view=print",
+    "download": "/print-archive/8a62d197a997d735ccaa3ab0973070c71c044fd3/enclosure-back-top.3mf",
+    "parts": [{"label": "Enclosure back top", "material": "HSM-0081"}],
+    "relatedPrints": [{"label": "ASSE vent sleeve · TPU", "material": "HSM-0088", "href": "/parts#material:HSM-0088?view=print"}]
+  },
+  {
+    "id": "back-bottom",
+    "label": "Enclosure back bottom",
+    "scope": "machine",
+    "material": "HSM-0080",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/back-bottom.webp",
+    "href": "/parts#material:HSM-0080?view=print",
+    "parts": [{"label": "Enclosure back bottom", "material": "HSM-0080"}]
+  },
+  {
+    "id": "foam-shell",
+    "label": "Cold-core insulation shell",
+    "scope": "machine",
+    "material": "HSM-0018",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/foam-shell.webp",
+    "href": "/parts#material:HSM-0018?view=print",
+    "parts": [{"label": "Cold-core insulation shell", "material": "HSM-0018"}],
+    "relatedPrints": [
+      {"label": "Flavor reservoir A · translucent PETG", "material": "HSM-0026", "href": "/parts#material:HSM-0026?view=print"},
+      {"label": "Flavor reservoir B · translucent PETG", "material": "HSM-0025", "href": "/parts#material:HSM-0025?view=print"},
+      {"label": "Magnetic level floats · ASA Aero", "material": "HSM-0033", "href": "/parts#material:HSM-0033?view=print"}
+    ]
+  },
+  {
+    "id": "foam-cap-lid-top",
+    "label": "Cold-core equipment lid",
+    "scope": "machine",
+    "material": "HSM-0020",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/foam-cap-lid-top.webp",
+    "href": "/parts#material:HSM-0020?view=print",
+    "parts": [{"label": "Cold-core equipment lid", "material": "HSM-0020"}],
+    "relatedPrints": [
+      {"label": "Reservoir caps · translucent PETG", "material": "HSM-0027", "href": "/parts#material:HSM-0027?view=print"},
+      {"label": "Reservoir cap gaskets · TPU", "material": "HSM-0456", "href": "/parts#material:HSM-0456?view=print"},
+      {"label": "Reservoir tube grips · TPU", "material": "HSM-0457", "href": "/parts#material:HSM-0457?view=print"}
+    ]
+  },
+  {
+    "id": "foam-cap-bottom",
+    "label": "Cold-core bottom cap",
+    "scope": "machine",
+    "material": "HSM-0021",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/foam-cap-bottom.webp",
+    "href": "/parts#material:HSM-0021?view=print",
+    "parts": [{"label": "Cold-core bottom cap", "material": "HSM-0021"}]
+  },
+  {
+    "id": "funnel-frame",
+    "label": "Funnel frame",
+    "scope": "machine",
+    "material": "HSM-0072",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/funnel-frame.webp",
+    "href": "/parts#material:HSM-0072?view=print",
+    "parts": [{"label": "Flavor-fill funnel frame", "material": "HSM-0072"}]
+  },
+  {
+    "id": "small-petgf",
+    "label": "PET-GF accessories",
+    "scope": "machine",
+    "material": "HSM-0073",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/small-petgf.webp",
+    "href": "/parts#material:HSM-0073?view=print",
+    "parts": [
+      {"label": "ASSE snap cap", "material": "HSM-0448"},
+      {"label": "CO₂ regulator snap cap", "material": "HSM-0449"},
+      {"label": "Water regulator snap cap", "material": "HSM-0451"},
+      {"label": "Flow sensor snap cap", "material": "HSM-0450"},
+      {"label": "Pump snap cap", "material": "HSM-0455"},
+      {"label": "Display cover", "material": "HSM-0076"},
+      {"label": "Lower pump retainer", "material": "HSM-0082", "quantity": 2},
+      {"label": "Reservoir B fill guide", "material": "HSM-0454"},
+      {"label": "Soda inlet bend holder", "material": "HSM-0358"},
+      {"label": "Drain elbow cradle", "material": "HSM-0073"},
+      {"label": "Umbilical organizer", "material": "HSM-0098"},
+      {"label": "Collet press", "material": "HSM-0372"}
+    ]
+  },
+  {
+    "id": "small-petg",
+    "label": "PETG accessories",
+    "scope": "machine",
+    "material": "HSM-0024",
+    "filament": "Black PETG",
+    "thumbnail": "/parts/plates/small-petg.webp",
+    "href": "/parts#material:HSM-0024?view=print",
+    "parts": [
+      {"label": "Funnel cover", "material": "HSM-0071"},
+      {"label": "Relief valve shroud", "material": "HSM-0024"},
+      {"label": "Reed bridge", "material": "HSM-0029"},
+      {"label": "Compressor thermal-cutoff clamp", "material": "HSM-0041"}
+    ]
+  },
+  {
+    "id": "identification",
+    "label": "Nameplate and labels",
+    "scope": "machine",
+    "material": "HSM-0062",
+    "filament": "Multicolor PETG",
+    "thumbnail": "/parts/plates/identification.webp",
+    "href": "/parts#material:HSM-0062?view=print",
+    "parts": [
+      {"label": "Nameplate", "material": "HSM-0069"},
+      {"label": "Status plate", "material": "HSM-0579"},
+      {"label": "Tap water label", "material": "HSM-0062"},
+      {"label": "Soda water label", "material": "HSM-0063"},
+      {"label": "Flavor A label", "material": "HSM-0064"},
+      {"label": "Flavor B label", "material": "HSM-0065"},
+      {"label": "CO₂ label", "material": "HSM-0066"},
+      {"label": "Vent return label", "material": "HSM-0067"}
+    ],
+    "relatedPrints": [
+      {"label": "Blue tube collars · PET-GF", "material": "HSM-0099", "href": "/parts#material:HSM-0099?view=print"},
+      {"label": "Black tube collars · PET-GF", "material": "HSM-0100", "href": "/parts#material:HSM-0100?view=print"},
+      {"label": "White tube collars · PET-GF", "material": "HSM-0102", "href": "/parts#material:HSM-0102?view=print"},
+      {"label": "Red tube collars · PET-GF", "material": "HSM-0273", "href": "/parts#material:HSM-0273?view=print"}
+    ]
+  },
+  {
+    "id": "sculpted-faucet",
+    "label": "Sculpted faucet",
+    "scope": "machine",
+    "material": "HSM-0092",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/sculpted-faucet.webp",
+    "href": "/parts#material:HSM-0092?view=print",
+    "download": "/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/sculpted-faucet.3mf",
+    "parts": [
+      {"label": "Shell base", "material": "HSM-0094"},
+      {"label": "Shared shell tip", "material": "HSM-0095"},
+      {"label": "Display cover", "material": "HSM-0096"},
+      {"label": "Countertop mounting plate", "material": "HSM-0092"},
+      {"label": "Handle", "material": "HSM-0268"}
+    ],
+    "relatedPrints": [
+      {"label": "Industrial faucet · PET-GF", "material": "HSM-0111", "href": "/parts#material:HSM-0111?view=print"},
+      {"label": "Faucet-to-counter gasket · TPU", "material": "HSM-0093", "href": "/parts#material:HSM-0093?view=print"},
+      {"label": "Faucet tube sealing thimble · TPU", "material": "HSM-0090", "href": "/parts#material:HSM-0090?view=print"}
+    ]
+  },
+  {
+    "id": "tube-insertion-base",
+    "label": "Tube insertion base",
+    "scope": "tools",
+    "material": "HSM-0151",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/tube-insertion-base.webp",
+    "href": "/parts#material:HSM-0151?view=print",
+    "parts": [{"label": "Tube insertion base", "material": "HSM-0151"}]
+  },
+  {
+    "id": "tube-insertion-carrier",
+    "label": "Tube insertion carrier and puck",
+    "scope": "tools",
+    "material": "HSM-0152",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/tube-insertion-carrier.webp",
+    "href": "/parts#material:HSM-0152?view=print",
+    "parts": [
+      {"label": "Tube insertion carrier", "material": "HSM-0152"},
+      {"label": "Thimble support puck", "material": "HSM-0156"},
+      {"label": "Lower jaw", "material": "HSM-0153"},
+      {"label": "Upper jaw", "material": "HSM-0154"}
+    ]
+  },
+  {
+    "id": "tube-insertion-jaws",
+    "label": "Tube insertion jaws",
+    "scope": "tools",
+    "material": "HSM-0153",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/tube-insertion-jaws.webp",
+    "href": "/parts#material:HSM-0153?view=print",
+    "parts": [
+      {"label": "Lower jaw", "material": "HSM-0153"},
+      {"label": "Upper jaw", "material": "HSM-0154"}
+    ]
+  },
+  {
+    "id": "tube-insertion-liners",
+    "label": "Tube insertion liners",
+    "scope": "tools",
+    "material": "HSM-0155",
+    "filament": "TPU",
+    "thumbnail": "/parts/plates/tube-insertion-liners.webp",
+    "href": "/parts#material:HSM-0155?view=print",
+    "parts": [{"label": "Tube insertion liners", "material": "HSM-0155", "quantity": 2}]
+  },
+  {
+    "id": "tube-insertion-hold-down",
+    "label": "Tube insertion hold-down",
+    "scope": "tools",
+    "material": "HSM-0403",
+    "filament": "TPU",
+    "thumbnail": "/parts/plates/tube-insertion-hold-down.webp",
+    "href": "/parts#material:HSM-0403?view=print",
+    "parts": [{"label": "Donor hold-down cover", "material": "HSM-0403"}]
+  },
+  {
+    "id": "tube-miter-box",
+    "label": "Tube miter box",
+    "scope": "tools",
+    "material": "HSM-0398",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/tube-miter-box.webp",
+    "href": "/parts#material:HSM-0398?view=print",
+    "download": "/print-archive/8d3be78c0a58bf0bb50c4fde0088d4f72622c464/tube-miter-box-petgf-mark2.3mf",
+    "parts": [{"label": "Tube miter box", "material": "HSM-0398"}]
+  },
+  {
+    "id": "factory-petg",
+    "label": "Coil mandrel and reed gauge",
+    "scope": "tools",
+    "material": "HSM-0396",
+    "filament": "PETG",
+    "thumbnail": "/parts/plates/factory-petg.webp",
+    "href": "/parts#material:HSM-0396?view=print",
+    "parts": [
+      {"label": "Coil-winding mandrel", "material": "HSM-0396"},
+      {"label": "Reed bridge setting gauge", "material": "HSM-0397"}
+    ]
+  },
+  {
+    "id": "factory-tools",
+    "label": "Pump tube setting jig",
+    "scope": "tools",
+    "material": "HSM-0447",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/factory-tools.webp",
+    "href": "/parts#material:HSM-0447?view=print",
+    "parts": [{"label": "Pump tube setting jig", "material": "HSM-0447"}]
+  },
+  {
+    "id": "fake-countertop",
+    "label": "Fake countertop",
+    "scope": "tools",
+    "material": "HSM-0399",
+    "filament": "PET-GF",
+    "thumbnail": "/parts/plates/fake-countertop.webp",
+    "href": "/parts#material:HSM-0399?view=print",
+    "download": "/print-archive/ad163471d3416cacd678cbba960e4c0d314206c1/fake-countertop-petgf-mark2.3mf",
+    "parts": [{"label": "Fake countertop", "material": "HSM-0399"}]
+  },
+  {
+    "id": "funnel-mold-cavity",
+    "label": "Funnel mold cavity",
+    "scope": "tools",
+    "material": "HSM-0390",
+    "filament": "Translucent PETG",
+    "thumbnail": "/parts/plates/funnel-mold-cavity.webp",
+    "href": "/parts#material:HSM-0390?view=print",
+    "download": "/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf",
+    "parts": [{"label": "Funnel mold cavity", "material": "HSM-0390"}]
+  },
+  {
+    "id": "funnel-mold-core",
+    "label": "Funnel mold core",
+    "scope": "tools",
+    "material": "HSM-0391",
+    "filament": "Translucent PETG",
+    "thumbnail": "/parts/plates/funnel-mold-core.webp",
+    "href": "/parts#material:HSM-0391?view=print",
+    "download": "/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf",
+    "parts": [{"label": "Funnel mold core", "material": "HSM-0391"}]
+  }
+]

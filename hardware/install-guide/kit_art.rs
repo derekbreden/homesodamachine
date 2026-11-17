@@ -1,7 +1,7 @@
 //! The install guide's kit page drawings: each supplied item as a hidden-line view of its
 //! current model, world Z up, written as the SVG lines the booklet draws in one slate pen.
 use anyhow::{Context, Result};
-use hsm_kernel::Solid;
+use hsm_kernel::{Body, Loop, Plane, Profile, Solid, V2, V3, v3, write_payload};
 use serde_json::Value;
 use std::fmt::Write as _;
 use std::path::Path;
@@ -88,9 +88,40 @@ fn line_svg(bodies: &[(String, Solid)], camera: [f64; 3]) -> String {
     svg + "</g>\n</svg>\n"
 }
 
+// The catalog uses the guide's loose kit shapes and the BOM's standard hardware profiles.
+fn write_part_models(dir: &Path) -> Result<()> {
+    let filter = props::filtered_line()?.into_iter().filter(|(name, _)| !name.starts_with("white-run-")).collect();
+    let book = props::install_guide().into_iter().filter(|(name, _)| name != "panel").collect();
+    let inlet_washer = Profile::circle(V2::ZERO, 3.5).with_hole(Loop::circle(V2::ZERO, 1.6));
+    let coin_cell = Solid::cylinder(V3::ZERO, V3::Z, 10., 3.2)?;
+    let screw_shank = Solid::cylinder(V3::ZERO, V3::Z, 2.5, 10.)?;
+    let screw_head = Solid::cylinder(v3(0., 0., 10.), V3::Z, 4.25, 5.)?;
+    let socket_radius = 2. / (std::f64::consts::PI / 6.).cos();
+    let socket = Plane::XY.offset(12.5).extrude(&Profile::new(Loop::regular(V2::ZERO, 6, 2. * socket_radius)), 3.)?;
+    let items = [
+        ("HSM-0133", vec![("screw".into(), screw_shank.union(&screw_head)?.cut(&socket)?)]),
+        ("HSM-0354", vec![("cell".into(), coin_cell)]),
+        ("HSM-0362", vec![("washer".into(), Plane::XY.extrude(&inlet_washer, 0.5)?)]),
+        ("HSM-0368", filter),
+        ("HSM-0369", props::angle_stop_adapter()?),
+        ("HSM-0371", props::power_cord()?),
+        ("HSM-0373", book),
+    ];
+    for (id, shapes) in items {
+        let bodies: Vec<Body<'_>> = shapes.iter().map(|(name, solid)| Body { name, color: None, solid }).collect();
+        write_payload(dir.join(format!("{id}.mesh")), &bodies, None, None)?;
+    }
+    Ok(())
+}
+
 fn main() -> Result<()> {
     let mut args=std::env::args().skip(1);
-    let out = std::path::absolute(args.next().unwrap_or_else(|| ".".into()))?;
+    let target = args.next().unwrap_or_else(|| ".".into());
+    if target == "--part-models" {
+        let dir = args.next().context("--part-models needs an output directory")?;
+        return write_part_models(Path::new(&dir));
+    }
+    let out = std::path::absolute(target)?;
     let selected:Vec<String>=args.collect();
     let facts_path = Path::new("hardware/manifold-layout/enclosure-assembly.facts.json");
     let bytes = std::fs::read(facts_path).with_context(|| format!("reading {}", facts_path.display()))?;

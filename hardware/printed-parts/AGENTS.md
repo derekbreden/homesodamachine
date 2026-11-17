@@ -44,7 +44,7 @@ piece you changed and fix what it flags while Derek is already looking:
 The [native review command](../../tools/hsm/mesh-review/README.md) reads the saved print mesh
 and optional exact-facet source binding; it starts no geometry build.
 
-Findings print as pick text: paste one into the /3d Find box, or feed it to `hsm-pick read`.
+Findings print as pick text: paste one into the model viewer's Find box, or feed it to `hsm-pick read`.
 Answers live in `lint-answers/`, at each piece's own path; its AGENTS.md says when a finding is
 answered instead of fixed. A defect fixed at one station usually has siblings; the lint's job is
 to find them before Derek does.
@@ -59,7 +59,7 @@ The physical print is the part. The files answer different questions about it:
 - Rust source and `.step.npz` — the authored construction and its fine model, with recorded
   surfaces and source contributors. A standalone `.step` is an export where a consumer needs it.
 - `.stl` — the tessellated geometry the slicer reads: the closest file to the print.
-- `.step.mesh` — the payload `/3d` draws. Assembly payloads reference immutable part meshes
+- `.step.mesh` — the payload the model viewer draws. Assembly payloads reference immutable part meshes
   and their placements. Picks name the displayed payload and its digest.
 - `hsm where`, `gap`, `section` and `ray` answer questions about those exported meshes without
   rebuilding them. A source edit reaches a query after its producer writes the new payload.

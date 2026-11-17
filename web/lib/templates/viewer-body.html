@@ -2,12 +2,8 @@
 <link rel="stylesheet" href="/css/workspace.css">
 <link rel="stylesheet" href="/css/materials.css">
 
-<main id="grid" class="site-content"><p class="empty-state" role="status">Loading…</p></main>
-
-<!-- Hidden host for the Three.js renderer + gizmo canvases. They live here
-     when no part is open and get moved into the modal wrapper when a STEP
-     or DXF is opened (both use the same renderer + camera + gizmo). -->
-<div id="cad-canvas-host" style="display: none;"></div>
+<!-- Holds the shared renderer and gizmo canvases between modal opens. -->
+<div id="cad-canvas-host" hidden></div>
 
 <script src="/content-viewer.js"></script>
 
@@ -22,6 +18,3 @@
   }
 }
 </script>
-
-<script type="module" src="/js/viewer/shelf-search.js"></script>
-<script type="module" src="/js/viewer/main.js"></script>

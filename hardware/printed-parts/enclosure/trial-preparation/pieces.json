@@ -2,6 +2,18 @@
   "schema": 1,
   "profile": "hardware/printed-parts/petgf.profile.json",
   "regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "machine": [
+    "front-top",
+    "front-bottom",
+    "back-top",
+    "back-bottom",
+    "foam-shell",
+    "foam-cap-lid-top",
+    "foam-cap-bottom",
+    "funnel-frame",
+    "small-petgf",
+    "small-petg"
+  ],
   "printers": {
     "Mark1": {
       "connection_key": "H2C",
@@ -1153,6 +1165,58 @@
       "spacing_mm": 10,
       "parts": [
         {
+          "name": "funnel-cover",
+          "stl": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "Keep the funnel cover's solid PETG recipe."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Keep the funnel cover's solid PETG recipe."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Keep the funnel cover's solid PETG recipe."
+            },
+            "brim_type": {
+              "value": "no_brim",
+              "reason": "Preserve the cover's flat edges and its brim-free process."
+            },
+            "bridge_flow": {
+              "value": "1.25",
+              "reason": "Retain the bridge process of the cover's native project."
+            },
+            "bridge_speed": {
+              "value": "15,15,15,15,15",
+              "reason": "Retain the bridge process of the cover's native project."
+            }
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl",
+          "pose": {
+            "turns": [
+              [
+                "y",
+                90
+              ]
+            ]
+          }
+        },
+        {
           "stl": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl",
           "pose": {
             "turns": [
@@ -1164,11 +1228,15 @@
           }
         }
       ],
-      "pose_reason": "Fuse clamp stands on its swept profile face.",
+      "pose_reason": "Cover lies on its flat exterior. Shroud stands on its closed cap. Reed bridge stands on its convex face and the fuse clamp on its swept profile.",
       "settings": {
+        "filament_ids": {
+          "value": ["GFG00"],
+          "reason": "Match the stock Bambu PETG Basic spool on the left nozzle."
+        },
         "enable_support": {
           "value": "0",
-          "reason": "The swept profile stands on its side and the two short closures bridge."
+          "reason": "The cover sits flat and the shroud, reed bridge and clamp bridge their short openings without support."
         },
         "bridge_flow": {
           "value": "1",
@@ -1177,6 +1245,14 @@
         "bridge_speed": {
           "value": ["50", "50", "50", "50", "50"],
           "reason": "Retain the process bridge speed for PETG with its stock filament bridge override."
+        },
+        "filament_bridge_speed": {
+          "value": ["25", "25", "25"],
+          "reason": "Retain the stock PETG Basic filament bridge override."
+        },
+        "enable_prime_tower": {
+          "value": "0",
+          "reason": "The plate uses one filament and one nozzle."
         }
       }
     },
@@ -1200,6 +1276,12 @@
         "reason": "Black PETG, the funnel cover's spool."
       },
       "spacing_mm": 15,
+      "settings": {
+        "filament_ids": {
+          "value": ["GFG00"],
+          "reason": "Match the stock Bambu PETG Basic spool on the left nozzle."
+        }
+      },
       "parts": [
         {
           "stl": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl"

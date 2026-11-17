@@ -315,10 +315,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     streamFile(res, abs);
   });
 
-  // Committed pictures, served beside the file they are of: a PDF's cover
-  // (`/guides`) and a scene's `.glb` still. `/3d` fetches neither — its cards
-  // draw the model. The 404 path is normal. no-cache so a live regen or deploy is
-  // picked up via ETag revalidation rather than a stale hit.
+  // Serve committed guides covers and scene stills from their hardware directories.
   app.get("/thumbs/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".png");
     if (!abs) return res.status(400).send("Invalid path");

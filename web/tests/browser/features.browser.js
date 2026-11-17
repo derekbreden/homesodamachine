@@ -171,12 +171,11 @@ test("feature links and component drill-down use the same exported identity on d
     }
     if (file==='manifold-layout/enclosure-assembly.step') {
       const page=await browser.newPage();
-      await page.goto(`${origin}/3d`);
-      await page.waitForSelector('.material-search input');
-      await page.type('.material-search input',key);
-      await page.waitForFunction(key=>[...document.querySelectorAll('.material-search-results a')]
+      await page.goto(`${origin}/parts`);
+      await page.type('#site-search-input',key);
+      await page.waitForFunction(key=>[...document.querySelectorAll('#site-search-results a')]
         .some(a=>decodeURIComponent(a.href).includes(`find=feature: ${key}`)),{},key);
-      assert.ok(await page.evaluate(()=>!window.__hsm.currentGroup));
+      assert.ok(await page.evaluate(()=>!window.__hsm));
       await page.close();
     }
   } finally { await closeBrowser(browser); if(server) await closeServer(server); }

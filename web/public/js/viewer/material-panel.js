@@ -304,7 +304,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function materialLink(m, label = m.description, view = { panel: "materials" }) {
     const link = el("a", "material-link", label);
-    link.href = "/3d#" + materialHash(m.id, view);
+    link.href = "/parts#" + materialHash(m.id, view);
     link.addEventListener("click", (event) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       event.preventDefault(); openMaterial(m.id, true, view);

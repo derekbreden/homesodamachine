@@ -39,14 +39,9 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
 
 ## What it does not hold
 
-- **The machine's shape.** Which assemblies exist, which parts fill a
-  branch, what a readout chip reads, which order a grid lays out. Those
-  move with the hardware, and `/3d` renders them from the tree at
-  request time.
+- **The machine's shape.** The Parts workspace reads the published models.
 - **Signup storage.** The suite runs without a database and does not write subscriber rows.
-- **UI behavior.** Grid rendering, modal interactions — client-side,
-  behind JS. `lazy.js` is held at source level here; the window itself is a
-  browser's answer.
+- **UI behavior.** The browser suite covers catalog links and modal interactions.
 - **Error paths.** Bad-input 400s on `/steps/../etc/passwd` and friends
   are exercised by the dev viewer in normal use.
 

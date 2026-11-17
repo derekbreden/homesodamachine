@@ -19,7 +19,7 @@ export function materialInstances(hardwareDir, catalog, material, options = {}) 
       if (!instances.length) continue;
       groups.push({ assembly, label: index.get(assembly).description, file, revision: head.src,
         instances: instances.map(instance => ({ ...instance,
-          url: "/3d#" + instanceMaterialHash(assembly, instance.name) })) });
+          url: "/parts#" + instanceMaterialHash(assembly, instance.name) })) });
     } catch (error) { if (error.code !== "ENOENT") throw error; }
   }
   return { material, groups };

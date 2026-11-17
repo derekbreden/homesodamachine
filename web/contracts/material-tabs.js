@@ -16,6 +16,6 @@ export function materialHash(id, { tab = null, panel = null, instance = null, vi
   if (materialTab(tab).tab) query.set("tab", tab);
   if (panel === "materials") query.set("panel", panel);
   if (instance) query.set("instance", instance);
-  if (view === "pcb") query.set("view", view);
+  if (view === "pcb" || view === "print") query.set("view", view);
   return "material:" + encodeURIComponent(id) + (query.size ? "?" + query : "");
 }

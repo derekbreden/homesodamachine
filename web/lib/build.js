@@ -9,7 +9,7 @@ import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.j
 
 const escape = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const amount = (value, unit = "ea") => value == null ? "Not recorded" : `${Number(value.toFixed(3)).toLocaleString("en-US")} ${unit}`;
-const materialHref = id => "/3d#material:" + encodeURIComponent(id) + "?panel=materials&tab=stock";
+const materialHref = id => "/parts#material:" + encodeURIComponent(id) + "?panel=materials&tab=stock";
 const buildHref = (id, finish) => "/build?material=" + encodeURIComponent(id) + "&finish=" + finish + "#plan";
 const number = value => Number(value).toLocaleString("en-US");
 

@@ -17,10 +17,16 @@ tools/run -- cargo build --release --locked --manifest-path tools/hsm/Cargo.toml
 tools/hsm/target/release/enclosure-print-prep list
 tools/hsm/target/release/enclosure-print-prep back-top --slice --review
 tools/hsm/target/release/enclosure-print-prep back-top --bed 'Textured PEI Plate' --slice --review
-tools/hsm/target/release/enclosure-print-prep all --slice --review
+tools/run -- tools/hsm/target/release/enclosure-print-prep machine --slice --review
 tools/run -- tools/hsm/target/release/enclosure-labels --mark1-identification --slice
 tools/run -- tools/hsm/target/release/enclosure-labels --collars-only --slice
 ```
+
+`machine` prepares the enclosure quadrants, cold-core casing, funnel frame and consolidated
+accessory plates from the `machine` list in [`pieces.json`](pieces.json).
+The identification and faucet plates have their own preparers. The reservoir bodies and caps,
+floats, seals and collars retain their material-specific projects.
+`all` walks the diagnostic inventory, which also includes tooling, refill plates and trials.
 
 `list` prints each piece's printer, hotend and material, its meshes and their digests, and
 whether the region record binds them. A run writes
@@ -137,8 +143,8 @@ for fixed-width brim types.
 | `seals` | Mark2, right | Bambu TPU 85A | Flat, as exported | Reservoir cap gaskets |
 | `display-gasket` | Mark2, right | Bambu TPU 90A, black | Flat, as exported | Glued Engineering Plate, solid, support-free |
 | `reservoir-grips` | Mark2, right | Bambu TPU 90A, white | Broad flanges on the bed, bores upright | Glued Engineering Plate; support-free |
-| `cold-core-petg` | Mark1, left 0.4 | PETG Basic black | PRV shroud cap down; reed bridge on its convex face | Open shroud cavity and bridged lead groove |
-| `small-petg` | Mark1, left 0.4 | PETG Basic black | Fuse clamp on its swept profile face | Support-free, with stock PETG bridges |
+| `cold-core-petg` | Mark1, left 0.4 | PETG Basic black | Refill plate with PRV shroud cap down and reed bridge on its convex face | Open shroud cavity and bridged lead groove |
+| `small-petg` | Mark1, left 0.4 | PETG Basic black | Funnel cover, PRV shroud, reed bridge and fuse clamp in their established print poses | Support-free. The cover retains its solid infill, three walls, bridge settings and brim-free edge. |
 | `factory-petg` | Mark1, left 0.4 | PETG Basic black | Coil mandrel and setting gauge as exported | As `small-petg` |
 
 ## Declared features

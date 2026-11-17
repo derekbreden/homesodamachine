@@ -1,35 +1,13 @@
-// WebSocket-driven live updates for the viewer. Side-effect import only —
-// registers the listeners below on import:
-//
-//   hsm:files-changed (detail.files = [...]) — fired when published files change. We refresh
-//     the per-file grid thumbnail and, if that file is the one currently
-//     open in the modal, refetch the file into the open viewer too.
-//
-//   hsm:deploy — fired when a new build is detected, via either the WS
-//     `hello` commit changing across a reconnect or boot.js's /api/version
-//     activation check. We can't know which files differ, so on a real
-//     build we refresh everything: drop the thumbnail + etag caches,
-//     refetch the lists (rebuilding the grid re-renders every visible
-//     thumbnail fresh), and reload whatever the modal is showing,
-//     preserving the camera. A same-commit reconnect blip
-//     (commitChanged === false) only re-lists — no cache wipe, no re-mesh.
-//
-// We set window.__hsmDeploySoft so boot.js leaves the deploy refresh to
-// us (it reloads other pages outright). The socket itself is owned by
-// boot.js (one WebSocket per page); per-file work is split by extension
-// so the same handler refreshes models, boards and published PDFs.
+// Reflect published changes in the open model while preserving the camera.
 
 import { state } from "./state.js";
 import { getLoader } from "./loaders.js";
-import { paintStepThumb } from "./grid.js";
 import { forgetThumbnail } from "./step.js";
-import { refreshMemberUrls } from "./member.js";
 import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountMissing } from "./missing-parts.js";
 import { afterGesture } from "./scene.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
-import { isMounted } from "./lazy.js";
 import { stepLocation } from "/contracts/step-locations.js";
 
 // Keep one update in flight and one request to read again after it. A save
@@ -50,38 +28,6 @@ function latestUpdate(pending, key, update) {
     }
   })();
   return entry.run;
-}
-
-const pendingStepCards = new Map();
-
-function refreshStepCard(file) {
-  // The card draws the model, so a STEP that moved is a card that has to redraw:
-  // drop every picture of it and let `paintStepThumb` read the fresh one.
-  return latestUpdate(pendingStepCards, file, async () => {
-    forgetThumbnail(file);
-    const card = state.gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
-    if (!card) { await fetchFiles(); return; }
-    if (!isMounted(card)) return;
-    await paintStepThumb(card, { bust: true });
-  });
-}
-
-// NO PAGE DRAWS A CARD FOR A CUT OR A SCENE. /3d is the machine's two assemblies,
-// and a `.dxf` or a `.glb` is reached by opening one and taking what a pick offers,
-// or by a link straight to it — so a change to one is a list to re-take, which is
-// what puts a newly unclaimed directory in front of the reader. The modal showing
-// it reloads on its own, below.
-function refreshUncardedFile() {
-  fetchFiles();
-}
-
-// A document is a built file, not an authored one: editing a card moves nothing
-// on this page until `_build.py` binds the deck again. When the PDF itself
-// lands, the listing is what has to move — the page count and the byte count
-// beside the cover are read off the new file. The cover is served no-cache, so
-// re-listing is enough to repaint it.
-function refreshDocuments() {
-  fetchFiles();
 }
 
 function isOpenAs(type, file) {
@@ -120,10 +66,10 @@ async function reloadCad(type, file) {
 
 window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
   const files = e.detail?.files || [];
-  if (files.some(file => file.endsWith('.step') || file.endsWith('.glb'))) {
-    // Content-addressed URLs keep answering with the old bytes. Adopt the new
-    // publication before asking the changed cards or open model to redraw.
-    if (!await refreshMemberUrls()) {
+  if (files.some(file => /\.(step|dxf|glb|pdf)$/.test(file))) {
+    // Resolve the current content addresses before reloading the open model.
+    try { await fetchFiles(); }
+    catch {
       for (const file of files) {
         state.memberUrls.delete(file);
         state.memberUrls.delete(`${file}.mesh`);
@@ -132,7 +78,7 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
   }
   for (const file of files) {
     if (file.endsWith(".step")) {
-      refreshStepCard(file);
+      forgetThumbnail(file);
       // Reload the model in place, then re-mount the scorecard bar so a live rebuild's fresh
       // verdict (the sidecar is rewritten alongside the .step) replaces the stale one.
       const open = openStepOf(file);
@@ -142,13 +88,9 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
         reloadCad("step", open);
       }
     } else if (file.endsWith(".dxf")) {
-      refreshUncardedFile();
       if (isOpenAs("dxf", file)) reloadCad("dxf", file);
     } else if (file.endsWith(".glb")) {
-      refreshUncardedFile();
       if (isOpenAs("glb", file)) reloadCad("glb", file);
-    } else if (file.endsWith(".pdf")) {
-      refreshDocuments();
     }
   }
 });

@@ -12,8 +12,10 @@ export async function openMaterial(id, pushHistory = true, { tab = null, panel =
   if (!material) {
     const notice = document.createElement("p"); notice.className = "material-catalog-status";
     notice.textContent = `Material ${id} is not in the catalog.`;
-    state.gridEl?.querySelector(".material-route-error")?.remove();
-    notice.classList.add("material-route-error"); state.gridEl?.prepend(notice); return;
+    const host = state.gridEl ?? document.getElementById("parts-catalog");
+    host?.querySelector(".material-route-error")?.remove();
+    notice.classList.add("material-route-error"); notice.setAttribute("role", "alert");
+    host?.prepend(notice); return;
   }
   const file = modelForMaterial(state.materialCatalog, id)?.file;
   if (file) {

@@ -1408,6 +1408,8 @@
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": "5371c375caf99716726530fd96725ae4300e16323176a08e95ba842f06f0433b",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": "389f1168a0be8f6ae41a9837af4a2b5f5ddfab11a3678523e19c2e16bc83693d",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
+      "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": "8e688912ef5c51346e818eb9ce789bc621f4eff47b38757959a86290c1546bd1",
+      "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh": "a4c8a06daed99833dab1d2f1c15a0085553638740cea5dc8a9f642498b6c2baa",
       "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
       "hardware/reference/tee-connector/tee-connector.step.mesh": "7a1d9fccd08701a5304e1246e24c72f59a2ed13e4e1a2c4b2579e4d3092e4405",
       "hardware/reference/teyleten-relay/teyleten-relay.step": "88bf1735baa52f356d60abd38624013ac0b7cc238a2c9a5477425cb63fac78bf",

@@ -1066,7 +1066,7 @@ fn run_external(root: &Path, piece: &Value) -> Result<()> {
 fn main() -> Result<()> {
     let root = hsm_print_prep::root();
     let mut args = std::env::args().skip(1);
-    let target = args.next().context("usage: enclosure-print-prep list|all|<piece> [options]")?;
+    let target = args.next().context("usage: enclosure-print-prep list|machine|all|<piece> [options]")?;
     let mut bed = None;
     let (mut printer, mut parts, mut do_slice, mut review, mut output, mut border) = (None, Vec::new(), false, false, None, None);
     while let Some(arg) = args.next() {
@@ -1088,7 +1088,7 @@ fn main() -> Result<()> {
             _ => bail!("unknown argument {arg}"),
         }
     }
-    if bed.is_some() && matches!(target.as_str(), "all" | "list") {
+    if bed.is_some() && matches!(target.as_str(), "machine" | "all" | "list") {
         bail!("--bed selects the plate for one named piece");
     }
     if target == "list" {
@@ -1098,7 +1098,11 @@ fn main() -> Result<()> {
     hsm_run_slots::process_enter(&hsm_run_slots::native_key())?;
     let spec_path = root.join(HERE).join("pieces.json");
     let spec = read_json(&spec_path)?;
-    let names: Vec<String> = if target == "all" { keys_at(&spec, &["pieces"]) } else { vec![target.clone()] };
+    let names: Vec<String> = match target.as_str() {
+        "all" => keys_at(&spec, &["pieces"]),
+        "machine" => serde_json::from_value(spec["machine"].clone()).context("the machine plate list")?,
+        _ => vec![target.clone()],
+    };
     if !parts.is_empty() && names.len() > 1 {
         bail!("--part names one plate's parts");
     }

@@ -525,10 +525,6 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
 }
 
 // --- Thumbnail rendering ---
-// SIZED BY THE CALLER, because a picture drawn smaller than it is shown is a
-// picture nobody wants: the /3d cards take half the page each and a dense display
-// doubles that again (`thumbSize` in grid.js). This is the square it starts at,
-// and what a caller naming no size gets.
 const THUMB_SIZE = 400;
 
 // Frame a group front-iso in the offscreen scene and snap it. The caller removes the group.
