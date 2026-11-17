@@ -1649,15 +1649,23 @@
     },
     {
       "id": "HSM-0014",
-      "description": "John Guest PI010822S \u00b7 CO\u2082 port connector",
+      "description": "John Guest PI010822S \u00b7 Taprite CO\u2082 outlet adapter",
       "kind": "purchased",
       "aliases": [
-        "gas PTC collet"
+        "primary regulator outlet adapter",
+        "regulator tether fitting"
       ],
       "manufacturer_number": "PI010822S",
-      "contexts": [
+      "models": [
         {
-          "material": "HSM-0001"
+          "file": "reference/taprite-3741-regulator/taprite-3741-regulator.step?component=outlet-connector",
+          "context": true
+        }
+      ],
+      "documents": [
+        {
+          "title": "Taprite regulator outlet",
+          "path": "reference/taprite-3741-regulator/README.md"
         }
       ]
     },
