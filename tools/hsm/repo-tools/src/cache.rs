@@ -880,14 +880,19 @@ pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::sync::atomic::{AtomicUsize, Ordering};
+
     const DAY: f64 = 86400.;
+    static NEXT_TEMP: AtomicUsize = AtomicUsize::new(0);
+
     fn temp() -> PathBuf {
+        let index = NEXT_TEMP.fetch_add(1, Ordering::Relaxed);
         let p = std::env::temp_dir().join(format!(
-            "hsm-cache-gc-{}-{}",
+            "hsm-cache-gc-{}-{}-{index}",
             std::process::id(),
             crate::now().to_bits()
         ));
-        std::fs::create_dir_all(&p).unwrap();
+        std::fs::create_dir(&p).unwrap();
         p
     }
     fn at(seconds: f64) -> std::time::SystemTime {
