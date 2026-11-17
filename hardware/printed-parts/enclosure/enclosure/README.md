@@ -718,7 +718,7 @@ are outside this pass's fit assessment.
 Heat-set pilots follow the manufacturer's installation dimensions.
 Finger openings, flexible-tube routing and vibration-isolation spaces have their own envelopes.
 
-[`petgf.3mf`](../../petgf.3mf) owns Support D's contact and interface recipe.
+[`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) owns Support D's contact and interface recipe.
 Prepared projects inherit it; the native archive owns the emitted contact planes.
 The requested vertical gap does not describe a uniform clearance around an incline.
 

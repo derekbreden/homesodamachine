@@ -1,7 +1,7 @@
 # Sculpted faucet at the machine's Z feed on the glued Engineering Plate, Mark2
 
-The [print plate](sculpted-faucet-machine-z-engineering-black-mark2.gcode.3mf) and
-[editable project](sculpted-faucet-machine-z-engineering-black-mark2.3mf) hold the complete black
+The [print plate](https://homesodamachine.com/print-archive/e5ab53e547d7e5e3a930e6d90b96805b52238f6d/sculpted-faucet-machine-z-engineering-black-mark2.gcode.3mf) and
+[editable project](https://homesodamachine.com/print-archive/1bc7f57c5fc6cf4a34b67386794091d31e2591b3/sculpted-faucet-machine-z-engineering-black-mark2.3mf) hold the complete black
 PET-GF faucet: the Sculpted base, the tip, the display cover, the mounting plate and the lever.
 `faucet-plate sculpted --production` prepared them from the checkout at
 [`47ab7d77d`](https://github.com/derekbreden/homesodamachine/tree/47ab7d77d9e49efeaabb429c454e58c35ca09e8a),

@@ -23,3 +23,5 @@ gh release download print-projects --pattern "$asset.zip" --dir output/print-ass
 tools/hsm/target/release/plate-recipe build "$recipe" output/print-build/petgf.3mf output/print-assets
 tools/run -- tools/hsm/target/release/plate-recipe slice output/print-build/petgf.3mf output/print-build/petgf-slice
 ```
+
+Restore a saved print or bench-trial input with `node tools/print-archive.mjs REPO_PATH`. An older record's archive link contains the blob ID for that version. Restore it with `node tools/print-archive.mjs BLOB_ID OUTPUT`. The restore downloads the file's byte range from the release and checks its SHA-256. Use `plate-recipe capture` to save a recipe from a restored editable project.

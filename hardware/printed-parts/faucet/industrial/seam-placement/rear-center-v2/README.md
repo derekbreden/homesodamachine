@@ -75,7 +75,7 @@ the native evidence for that candidate did not cover the reported lower areas.
 
 The [base-and-tip evaluation](../../prints/2026-10-13-complete-rear-seam-base-tip-mark2/README.md)
 is the specifically authorized partial print of both corrected pieces. The
-normal [canonical project](../../faucet-industrial-petgf.3mf) contains all five
+normal [canonical project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf) contains all five
 rigid parts and keeps Mark1's default profile and trim. The Mark2 evaluation
 uses Mark2's normal +0.04 mm trim. Derek's
 [physical approval](../../prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)

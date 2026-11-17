@@ -3,7 +3,7 @@
 Format: facts only. Direct quotes from Derek where applicable. Settings
 observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
-[`gaskets.3mf`](gaskets.3mf) is a consolidated TPU plate — it batches the
+[`gaskets.3mf`](https://homesodamachine.com/print-archive/e543db6f13b5dc804517aff8edaa3f2beb6d983a/gaskets.3mf) is a consolidated TPU plate — it batches the
 appliance's flexible seals onto one bed and prints them in a single Bambu
 TPU 85A run. Each part's geometry source-of-truth and any per-part print
 history stay in that part's own subsystem folder; this plate just groups
@@ -38,7 +38,7 @@ above-counter-gasket, retaining-ring TPU 90A; the dry
 bulkhead washer unspecified). This plate prints all of them from the single
 loaded TPU 85A spool.
 
-## Print attempt 1 (2026-06-06, settings per [`gaskets.3mf`](gaskets.3mf))
+## Print attempt 1 (2026-06-06, settings per [`gaskets.3mf`](https://homesodamachine.com/print-archive/e543db6f13b5dc804517aff8edaa3f2beb6d983a/gaskets.3mf))
 
 First consolidated gaskets plate. Single TPU 85A spool. Verbatim, the keys that touch extruder
 assignment: every object carries `extruder` `1`; the project carries
@@ -98,7 +98,7 @@ Derek said (2026-06-06):
 Print outcome not yet fully recorded — this entry captures the committed
 slice state.
 
-## Print attempt 2 (2026-06-11, settings per [`gaskets.3mf`](gaskets.3mf))
+## Print attempt 2 (2026-06-11, settings per [`gaskets.3mf`](https://homesodamachine.com/print-archive/e543db6f13b5dc804517aff8edaa3f2beb6d983a/gaskets.3mf))
 
 Second consolidated slice. Plate trimmed to 9 instances / 5 distinct parts:
 the two `reservoir-bulkhead-seal-wet` instances are off the plate (the wet-side

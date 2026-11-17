@@ -1,7 +1,7 @@
 # September reservoir PETG inspection record
 
 Historical settings and toolpath observations. The current next-print project is
-[reservoir.3mf](../reservoir.3mf). The September source projects are identified
+[reservoir.3mf](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf). The September source projects are identified
 by immutable Git references in the [print log](../print-log.md).
 
 One September reference left reservoir body, mouth up, and its matching cap, exterior face down

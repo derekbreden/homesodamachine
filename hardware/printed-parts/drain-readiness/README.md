@@ -38,10 +38,10 @@ whole face is 1.68 mm deep; the jack mounts independently behind it.
 
 | Project | Parts | Filament 1 / left 0.4 mm | Filament 2 / right 0.4 mm | Native archive under `ready/` |
 | --- | --- | --- | --- | --- |
-| [White](projects/labels-white-z004-mark2.3mf) | TAP and OVER | White PET-GF | Black PET-GF | [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/drain-readiness/ready/labels-white-z004-mark2.gcode.3mf) |
-| [Blue](projects/labels-blue-z004-mark2.3mf) | SODA | White PET-GF | Blue PET-GF | [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/drain-readiness/ready/labels-blue-z004-mark2.gcode.3mf) |
-| [Red](projects/labels-red-z004-mark2.3mf) | CO2 | White PET-GF | Red PET-GF | [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/drain-readiness/ready/labels-red-z004-mark2.gcode.3mf) |
-| [Black](projects/labels-black-z004-mark2.3mf) | Two FLAVOR chips, two collars and DATA | White PET-GF | Black PET-GF | [Native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/drain-readiness/ready/labels-black-z004-mark2.gcode.3mf) |
+| [White](https://homesodamachine.com/print-archive/2506667bd0a1a0f449c931a13a75a542c404f907/labels-white-z004-mark2.3mf) | TAP and OVER | White PET-GF | Black PET-GF | [Native archive](https://homesodamachine.com/print-archive/0650dfa0a9349dbf19c9bcd4073d584710f3b3bc/labels-white-z004-mark2.gcode.3mf) |
+| [Blue](https://homesodamachine.com/print-archive/6741d74c739c63ba9a32b462698db6b829dcbfb0/labels-blue-z004-mark2.3mf) | SODA | White PET-GF | Blue PET-GF | [Native archive](https://homesodamachine.com/print-archive/8a89965258f050d85d9c357a6bf8a9b47e3994ad/labels-blue-z004-mark2.gcode.3mf) |
+| [Red](https://homesodamachine.com/print-archive/dfce0e6edc2d5bc2f0f63c968afb65a0cd8f0a40/labels-red-z004-mark2.3mf) | CO2 | White PET-GF | Red PET-GF | [Native archive](https://homesodamachine.com/print-archive/33ff9c72da43bb3631b572e468c8b148c9ee018b/labels-red-z004-mark2.gcode.3mf) |
+| [Black](https://homesodamachine.com/print-archive/e335b12efd3f97ca1932fb223d39ba4dc1af20f4/labels-black-z004-mark2.3mf) | Two FLAVOR chips, two collars and DATA | White PET-GF | Black PET-GF | [Native archive](https://homesodamachine.com/print-archive/1cb6bae04ceeb0dcf9ff4976d465e13f7243cfa2/labels-black-z004-mark2.gcode.3mf) |
 
 The body and lettering keep their separate materials. Chips print face-up;
 collars print flat-face-down. The saved recipe uses a 0.20 mm first layer, 0.24 mm

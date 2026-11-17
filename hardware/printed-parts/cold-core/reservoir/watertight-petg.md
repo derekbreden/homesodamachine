@@ -37,7 +37,7 @@ used Textured PEI with zero added user trim. The table describes the selected
 50% Engineering Plate right repeat; its physical adhesion and sealing are unassessed.
 The root project and print-settings.json retain the 265/270 °C Textured PEI reference.
 
-[reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
+[reservoir.3mf](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf) uses the **five-wall May Water adaptation**
 through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overlap,
 265/270 °C, no brim, zero added user Z trim and ironing Off**. Arachne uses its
 10° default transition threshold. Mark1 task **1365626370** has a **reported

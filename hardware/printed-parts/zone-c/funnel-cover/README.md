@@ -48,7 +48,7 @@ Use plain black PETG, a 0.20 mm first layer, 0.24 mm layers, three walls and
 The front recess prints as a thinner strip of the bed-facing plate; inspect
 that accessible dry face after printing.
 
-The [saved PETG project](funnel-cover-petg.3mf) and
+The [saved PETG project](https://homesodamachine.com/print-archive/4570e75ff6192cd48575222807ed5146309f3545/funnel-cover-petg.3mf) and
 [native slice review](native-slice-review.json) bind the full production cover
 to its support-free paths, solid infill and material preset. Physical fit and
 drip exclusion remain unqualified.

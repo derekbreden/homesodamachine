@@ -31,14 +31,14 @@ hashes. The bead reader retains a 0.05 mm distance allowance.
 
 | Editable project | Native filament (g) | Native time (h:mm:ss) |
 | --- | ---: | ---: |
-| [West outer junction](plates/enclosure-pump-receiver-west-outer/enclosure-pump-receiver-west-outer.3mf) | 8.045 | 1:49:26 |
-| [West outer return](plates/enclosure-pump-return-west-outer/enclosure-pump-return-west-outer.3mf) | 6.664 | 1:54:51 |
-| [West inner junction](plates/enclosure-pump-receiver-west-inner/enclosure-pump-receiver-west-inner.3mf) | 8.024 | 1:49:11 |
-| [West inner return](plates/enclosure-pump-return-west-inner/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:06 |
-| [East inner junction](plates/enclosure-pump-receiver-east-inner/enclosure-pump-receiver-east-inner.3mf) | 8.024 | 1:49:11 |
-| [East inner return](plates/enclosure-pump-return-east-inner/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:06 |
-| [East outer junction](plates/enclosure-pump-receiver-east-outer/enclosure-pump-receiver-east-outer.3mf) | 8.054 | 1:49:38 |
-| [East outer return](plates/enclosure-pump-return-east-outer/enclosure-pump-return-east-outer.3mf) | 6.662 | 1:54:50 |
+| [West outer junction](https://homesodamachine.com/print-archive/d9c6a4af163a674b8372e0f78dcd692aa4d4d3fb/enclosure-pump-receiver-west-outer.3mf) | 8.045 | 1:49:26 |
+| [West outer return](https://homesodamachine.com/print-archive/6ed0809b2c8dd68411f02ef768b57a4397da312d/enclosure-pump-return-west-outer.3mf) | 6.664 | 1:54:51 |
+| [West inner junction](https://homesodamachine.com/print-archive/813ae80784b74d2958cdbce27fdef7bb4aeccc82/enclosure-pump-receiver-west-inner.3mf) | 8.024 | 1:49:11 |
+| [West inner return](https://homesodamachine.com/print-archive/8ab8abb0ca3d98894f05fe5fd2859be9d7615477/enclosure-pump-return-west-inner.3mf) | 5.662 | 1:36:06 |
+| [East inner junction](https://homesodamachine.com/print-archive/0664024d12e7bcc10fa85ac4b1c01aed17329e4a/enclosure-pump-receiver-east-inner.3mf) | 8.024 | 1:49:11 |
+| [East inner return](https://homesodamachine.com/print-archive/46df69183746976d74278c3e8d4f17b5d7ec8bdc/enclosure-pump-return-east-inner.3mf) | 5.662 | 1:36:06 |
+| [East outer junction](https://homesodamachine.com/print-archive/4f7a1faf440940fe5cc9d24f2e188bbbbe328e59/enclosure-pump-receiver-east-outer.3mf) | 8.054 | 1:49:38 |
+| [East outer return](https://homesodamachine.com/print-archive/b8cd081deb8be00e101fcb5be015d64e69e618f9/enclosure-pump-return-east-outer.3mf) | 6.662 | 1:54:50 |
 | **All eight** | **56.798** | **14:19:19** |
 
 These are the eight actual native-slice estimates, rounded here; exact values and

@@ -41,7 +41,7 @@ The [review](review.json) passes archive integrity, the emitted trim (`G29.1 Z0`
 [project check](project-check.json) binds the embedded model to the current `foam-shell.stl`,
 sha256 `925487a53bed2793…`, with no problems. The G-code holds no brim, support or prime-tower
 moves. [Preparation](preparation.json) binds the inputs and the archive; the editable
-[project](cold-core-shell-mark2.3mf) carries the seam paint.
+[project](https://homesodamachine.com/print-archive/d896e8885a5b0bec43fb70242ed63c6bb0a63ca0/cold-core-shell-mark2.3mf) carries the seam paint.
 
 The [launch receipt](launch.json) binds the sent archive, sha256 `16d4b9f8ec695b09…`, the left
 external spool mapping and four print options: timelapse on, bed leveling on, flow dynamic and

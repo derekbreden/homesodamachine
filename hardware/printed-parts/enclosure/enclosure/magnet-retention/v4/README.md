@@ -1,6 +1,6 @@
 # Cartridge and cap together — Mark2
 
-The [native source](pump-cartridge-cap-pause.3mf) prints the current lower
+The [native source](https://homesodamachine.com/print-archive/0b20096e87eb73b70157b735aa0a9add9b8d8cc2/pump-cartridge-cap-pause.3mf) prints the current lower
 cartridge cradle upright and its pump cap crown-down on one plate, in black
 PET-GF on Mark2's fixed left standard-flow 0.4 mm nozzle. Requested trim is
 +0.04 mm; emitted Textured PEI trim is +0.02 mm. Saved process, filament,

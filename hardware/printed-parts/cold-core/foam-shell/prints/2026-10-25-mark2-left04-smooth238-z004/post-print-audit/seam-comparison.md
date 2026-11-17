@@ -2,7 +2,7 @@
 
 The sent shell did not receive the faucet's selected A2 scarf treatment or
 wipe-off setting. It inherited the seam defaults from the shared
-[`petgf.3mf`](../../../../../petgf.3mf). The faucet preparer applies its
+[`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf). The faucet preparer applies its
 selected seams as object overrides and its wipe choice as a filament override;
 the shell preparer did not transfer those settings.
 

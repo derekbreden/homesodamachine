@@ -6,8 +6,8 @@ backing, and an 8 × 20 × 28 mm manufacturing envelope. The [geometry record](g
 confirms 0.75 mm of radial material inside the channel with the original
 outside envelope preserved.
 
-The [editable project](2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.3mf)
-and [native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf)
+The [editable project](https://homesodamachine.com/print-archive/165eb2e940eec94e941efbf57f2a900d701899f6/2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.3mf)
+and [native slice](https://homesodamachine.com/print-archive/86070bc613d6c3dad132b0e75ce226f1c6d5edf6/2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.gcode.3mf)
 use Mark1's right fixed 0.6 mm hotend, black TPU 85A on external spool 255,
 textured PEI, 0.00 mm user Z trim, and a 2 mm model gap. Stock plate
 compensation remains enabled. The [slice record](2026-10-12-tube-insertion-liners-d775-tpu85a-right06-z000-mark1.readiness.json)

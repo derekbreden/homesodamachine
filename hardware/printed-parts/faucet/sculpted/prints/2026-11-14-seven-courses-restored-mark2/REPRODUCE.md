@@ -13,6 +13,7 @@ lay the same beads at the tip's end.
 trial="$PWD/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2"
 mkdir -p "$PWD/.cache/runs"
 run="$(mktemp -d "$PWD/.cache/runs/sculpted-seven-courses-restored-repro.XXXXXX")"
+node tools/print-archive.mjs "$trial/run-inputs.zip"
 unzip -q "$trial/run-inputs.zip" -d "$run"
 
 rustup_bin="$(command -v rustup || printf %s /opt/homebrew/bin/rustup)"
@@ -58,6 +59,7 @@ motion="$(jq -r .complete_motion_time_seconds "$trial/chronology.json")"
 first="$(jq -r .first_bed_course_deposition_span_seconds "$trial/chronology.json")"
 tools/run -- "$stages" package "$run/slice/native.gcode.3mf" "$run/progressed.gcode" \
   "$run/review.gcode.3mf" --motion-seconds "$motion" --first-course-seconds "$first"
+node tools/print-archive.mjs "$trial/sculpted-faucet-seven-courses-restored-black-mark2.gcode.3mf"
 unzip -p "$trial/sculpted-faucet-seven-courses-restored-black-mark2.gcode.3mf" Metadata/plate_1.gcode \
   | cmp - <(unzip -p "$run/review.gcode.3mf" Metadata/plate_1.gcode)
 ```

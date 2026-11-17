@@ -21,7 +21,7 @@ Bridge moves and 10 mm/s fully overhung walls**. The [comparison description](..
 records the local support scope, customer outcome, path measurements and
 physical assessment procedure. No production profile is promoted.
 
-The [editable project](2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1.3mf)
+The [editable project](https://homesodamachine.com/print-archive/05254f944603b53ec54e3889ce535cd2e617018c/2026-10-14-faucet-foot-full-annulus-fins-vs-tree-current15-bridge125-fan70-z018-mark1.3mf)
 copies the reviewed Mark2 comparison's complete geometry and placement. Its
 printer-specific settings come from the accepted Mark1 tip project's saved
 start code, preset identity and black filament colour. Mark1 uses the fixed left

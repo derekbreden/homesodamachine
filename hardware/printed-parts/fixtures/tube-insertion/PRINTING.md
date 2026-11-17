@@ -16,9 +16,9 @@ TPU backing is 5.125 mm.
 
 | Plate | Pieces | Project | Exact slice |
 | --- | --- | --- | --- |
-| Mark1, PET-GF | D lower jaw, E upper jaw | [Jaw project](ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf) | [Jaw slice](ready/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf) |
-| Mark2, PET-GF | D lower jaw, E upper jaw | [Jaw project](ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf) | [Jaw slice](ready/tube-insertion-centered-grip-petgf-left04-z004-mark2.gcode.3mf) |
-| Mark1, TPU 85A | F liner × 2 | [Liner project](ready/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf) | [Liner slice](ready/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf) |
+| Mark1, PET-GF | D lower jaw, E upper jaw | [Jaw project](https://homesodamachine.com/print-archive/55e32a6ed190c4daa9868422d92e97268e61a9d8/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf) | [Jaw slice](https://homesodamachine.com/print-archive/bea2656f2686c41a91199fe1c056e14fa9832745/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf) |
+| Mark2, PET-GF | D lower jaw, E upper jaw | [Jaw project](https://homesodamachine.com/print-archive/b35c8f336d30f71a8c5a87c326d267e74c8d19cd/tube-insertion-centered-grip-petgf-left04-z004-mark2.3mf) | [Jaw slice](https://homesodamachine.com/print-archive/44ce4e508320fe70f968fa30658b37ba394fdbd7/tube-insertion-centered-grip-petgf-left04-z004-mark2.gcode.3mf) |
+| Mark1, TPU 85A | F liner × 2 | [Liner project](https://homesodamachine.com/print-archive/b32e4e3bb29c9492e6baf236cb703e07895bd685/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf) | [Liner slice](https://homesodamachine.com/print-archive/7f5cb698a39c38eb6985bd0aad0067d530a97820/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf) |
 
 The jaw plate contains only the two replacement halves. The TPU pieces
 have a 2 mm model gap. The corresponding `.print.json` and `.readiness.json`

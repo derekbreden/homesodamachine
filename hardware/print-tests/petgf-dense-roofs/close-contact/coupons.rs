@@ -37,7 +37,7 @@ fn main() -> Result<()> {
             "position_mm":[x,165.,total/2.],"geometry":written}));
     }
     let recipe = json!({"purpose":"Compare tighter contact gaps on solid support interfaces with the selected bridge flow and speed.",
-        "profile":"hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf","printer":"Mark1","connection_key":"H2C",
+        "profile":"hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.profile.json","printer":"Mark1","connection_key":"H2C",
         "nozzle":"left hardened Standard","nozzle_diameter_mm":0.4,"material":"Polymaker Fiberon PET-GF15",
         "plate":"Textured PEI Plate","z_trim_mm":0.18,"requested_top_z_distance_mm":0.24,
         "interface_layers":3,"interface_pattern":"auto","width_mm":WIDTH,"depth_mm":DEPTH,

@@ -3,7 +3,7 @@
 Mark1 accepted task **1317250748** at **09:30:52 CDT** through one foreground
 Bambu Connect Send. [Launch receipt](launch.json) · [Fresh preflight](preflight.json).
 
-The core is plate 2 of the frozen [October 6 matching cavity/core project](../2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf).
+The core is plate 2 of the frozen [October 6 matching cavity/core project](https://homesodamachine.com/print-archive/7944e684d3831a2f709a080d2376c4481812f0fa/funnel-mold-mark1-retry-z004.3mf).
 Its submitted G-code is byte-identical to that plate's reviewed native slice.
 [Packaging and hashes](packaging.json) · [Authorized launch plan](launch-plan.json) ·
 [Native two-plate review](../2026-10-06-mark1-retry-z004-v2/readiness-review.json).

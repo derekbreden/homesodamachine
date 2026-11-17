@@ -97,7 +97,7 @@ omits its ceiling support.
 
 ## Machine file and verification
 
-The editable [support-interface.3mf](support-interface.3mf) carries the geometry
+The editable [support-interface.3mf](https://homesodamachine.com/print-archive/abdbb763d83c2d4e7fa20328f4a70a5ef0eb108b/support-interface.3mf) carries the geometry
 and per-object Z settings. **Edge treatments are applied after slicing** by
 [`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f43329c4f4aa8d1d8aa2ce3493aa4a2b/hardware/print-tests/petgf-interface-edges/setback.py); simply re-slicing this project does not reproduce the experiment.
 

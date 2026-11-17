@@ -1,7 +1,7 @@
 # Sculpted faucet with short inclined foundations and the restored recipe on Mark2
 
-The [print plate](sculpted-faucet-seven-courses-restored-black-mark2.gcode.3mf) and
-[editable project](sculpted-faucet-seven-courses-restored-black-mark2.3mf) hold the complete
+The [print plate](https://homesodamachine.com/print-archive/56fcf3479bcda7f6b3509e7338e669b1b9f754a3/sculpted-faucet-seven-courses-restored-black-mark2.gcode.3mf) and
+[editable project](https://homesodamachine.com/print-archive/99f8f8d4ca0995fc419cf57aa44f91084e187aa4/sculpted-faucet-seven-courses-restored-black-mark2.3mf) hold the complete
 black PET-GF faucet with the extended display cover. The [launch receipt](launch.json)
 identifies the submitted job, and the [startup spacing](startup-spacing.json) record gives
 Mark1's last start before it.

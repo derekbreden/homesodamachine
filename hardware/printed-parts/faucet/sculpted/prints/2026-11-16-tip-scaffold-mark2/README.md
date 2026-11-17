@@ -1,7 +1,7 @@
 # Sculpted faucet with the tip's shoulder on a scaffold and roof, Mark2
 
-The [print plate](sculpted-faucet-tip-scaffold-black-mark2.gcode.3mf) and
-[editable project](sculpted-faucet-tip-scaffold-black-mark2.3mf) hold the complete black PET-GF
+The [print plate](https://homesodamachine.com/print-archive/c81565e3d74bea2b053d3e5bedb77762f8b861ca/sculpted-faucet-tip-scaffold-black-mark2.gcode.3mf) and
+[editable project](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/sculpted-faucet-tip-scaffold-black-mark2.3mf) hold the complete black PET-GF
 faucet: the Sculpted base, the tip, the display cover, the mounting plate and the lever.
 `faucet-plate sculpted --production` prepared them from the checkout at
 [`6b77eba36`](https://github.com/derekbreden/homesodamachine/tree/6b77eba364d6ff4c80d3e115af3ca3a7493f8dd1),

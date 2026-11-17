@@ -339,7 +339,7 @@ fn source_paths(
             paths.insert(path);
         }
     }
-    if guide.join("guide-inputs.json").is_file() {
+    if spec.id == "printing-the-machine" && guide.join("guide-inputs.json").is_file() {
         for input in print_guide_inputs(guide)?.into_values() {
             if input.revision.is_none() {
                 paths.insert(root.join(input.path));
@@ -494,7 +494,7 @@ pub fn bind(
                 }
             }
         }
-        if guide.join("guide-inputs.json").is_file() {
+        if spec.id == "printing-the-machine" && guide.join("guide-inputs.json").is_file() {
             let staged = print_guide_leaves(root, &guide, &out, &pages)?;
             run_renderer(root, &staged, &out, &leaves(&staged)?, selected)?;
         } else {

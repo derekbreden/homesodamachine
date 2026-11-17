@@ -39,6 +39,6 @@ this plate.
 
 [launch.json](launch.json) records the accepted Mark2 job, [startup-spacing.json](startup-spacing.json)
 Mark1's last start before it, and [first-layer-status.json](first-layer-status.json) the printer's
-own report once the first layer was under way. The [sent archive](2026-11-15-small-petgf-mark2-39847f01.gcode.3mf) and
-the [editable project](2026-11-15-small-petgf-mark2-39847f01.3mf) are here, with the preparer's
+own report once the first layer was under way. The [sent archive](https://homesodamachine.com/print-archive/63fea4bc03d00df349a33a2b9a894fa22682b918/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf) and
+the [editable project](https://homesodamachine.com/print-archive/bdc65db857c31442d30e92e624ada4818e613685/2026-11-15-small-petgf-mark2-39847f01.3mf) are here, with the preparer's
 [preparation](preparation.json) and [review](review.json). [Reproduce the plate](REPRODUCE.md).

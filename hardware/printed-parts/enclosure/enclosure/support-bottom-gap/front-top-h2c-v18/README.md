@@ -7,7 +7,7 @@ The archive is retained as measured evidence and is not approved for another
 start. A separate v19 support preparation addresses that ceiling. Full front-top and
 frame printing is deferred; the next authorized jobs are centered fit samples.
 
-The [input project](2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf)
+The [input project](https://homesodamachine.com/print-archive/7fdee04e0a1bcf37186cb0e630e3486c79d9707b/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf)
 contains the front-top with an open front roof for the removable frame's
 flush-ceiling surround. The existing back-top is retained. The
 [snapshot](snapshot.json) binds this project and its reviewed native archive;

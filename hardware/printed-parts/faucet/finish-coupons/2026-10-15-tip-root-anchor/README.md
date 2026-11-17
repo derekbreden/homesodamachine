@@ -40,7 +40,7 @@ its time. The preceding rim-contact review did not assess this anchorage.
 
 ## Local correction
 
-The [editable project](mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf)
+The [editable project](https://homesodamachine.com/print-archive/044c174f77aee3d1666619c5f592449cd5ed05a1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf)
 adds a directly bonded sacrificial foot under the plug's lowest start only:
 
 - A 10 × 8 mm elliptical pad, 0.44 mm tall, centred at printer X162.5/Y153.15.

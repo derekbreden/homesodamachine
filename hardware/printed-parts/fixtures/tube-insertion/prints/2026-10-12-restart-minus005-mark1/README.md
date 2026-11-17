@@ -21,8 +21,8 @@ It is a diagnostic candidate, not a physically accepted process.
 
 ## Files
 
-- [Editable project](tube-insertion-liners-d775-restart-minus005-z000-mark1.3mf)
-- [Native print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-restart-minus005-mark1/tube-insertion-liners-d775-restart-minus005-z000-mark1.gcode.3mf)
+- [Editable project](https://homesodamachine.com/print-archive/e4438099fef239d371f8c634b3cbac818c27fafd/tube-insertion-liners-d775-restart-minus005-z000-mark1.3mf)
+- [Native print archive](https://homesodamachine.com/print-archive/d6699dd70d344f276c8ebf821daa6a9eab559d58/tube-insertion-liners-d775-restart-minus005-z000-mark1.gcode.3mf)
 - [Exact native G-code](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-restart-minus005-mark1/tube-insertion-liners-d775-restart-minus005-z000-mark1.gcode)
 - [Recipe change](tube-insertion-liners-d775-restart-minus005-z000-mark1.print.json)
 - [Native review](tube-insertion-liners-d775-restart-minus005-z000-mark1.readiness.json)

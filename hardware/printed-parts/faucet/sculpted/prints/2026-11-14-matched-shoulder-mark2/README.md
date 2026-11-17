@@ -1,8 +1,8 @@
 # Sculpted faucet matched shoulder on Mark2
 
-The [complete print plate](sculpted-faucet-matched-shoulder-black-mark2-review.gcode.3mf)
+The [complete print plate](https://homesodamachine.com/print-archive/34db185b1e40ee1c137edb1f465ac9924eb32433/sculpted-faucet-matched-shoulder-black-mark2-review.gcode.3mf)
 contains the Sculpted base, tip, display cover, mounting plate and lever in black PET-GF.
-The [editable project](sculpted-faucet-matched-shoulder-black-mark2.3mf) holds the
+The [editable project](https://homesodamachine.com/print-archive/1466c7f633717ccd8f70202f47c22b74892526e0/sculpted-faucet-matched-shoulder-black-mark2.3mf) holds the
 physical tip in the trial pose.
 
 The tip's small breakaway pad seats the hidden plug on the bed. The courses

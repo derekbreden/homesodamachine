@@ -551,7 +551,7 @@ retain their scope. This register requests no destructive drop, fixture or purch
 
 ## Infill and deposited structure
 
-The shared [PET-GF profile](../printed-parts/petgf.3mf) requests two wall loops and 15% gyroid
+The shared [PET-GF profile](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) requests two wall loops and 15% gyroid
 infill, with local exceptions. This is the production baseline; comparison prints do not
 change it without Derek's explicit instruction. Actual material around a loaded feature
 depends on nozzle and line width, both bore and outer walls, solid layers, narrow-region

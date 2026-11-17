@@ -1,6 +1,6 @@
 # Sculpted faucet base underside on Mark2
 
-Open the [print archive](sculpted-base-uphill-mark2-ready.gcode.3mf) in Bambu Connect with the black PET-GF external spool mapped to the left hardened nozzle. Use the textured PEI plate. The [editable project](sculpted-base-uphill-mark2.3mf) holds the CAD section and support settings. The print archive carries the custom deposition sequence.
+Open the [print archive](https://homesodamachine.com/print-archive/3fbad05c2ffc6fbbee1a057cb6deca8f8db20655/sculpted-base-uphill-mark2-ready.gcode.3mf) in Bambu Connect with the black PET-GF external spool mapped to the left hardened nozzle. Use the textured PEI plate. The [editable project](https://homesodamachine.com/print-archive/bef312115be85fd21701fd23424109fe3d8fdd36/sculpted-base-uphill-mark2.3mf) holds the CAD section and support settings. The print archive carries the custom deposition sequence.
 
 The mounting face is down in the production pose. The cut sits above the insert recesses. Bambu Studio supplies the Slim tree, rim-fin and insert-bridge roads. Short ties back the interface where the native stock stops short. The dense roof follows the mounting face. Its release gap is specified normal to that face. The first outer wall climbs each side from the bed end to the high seam, then the rest of the first skin fills in around the bore and recesses. The bed tangent is eased into the slope.
 

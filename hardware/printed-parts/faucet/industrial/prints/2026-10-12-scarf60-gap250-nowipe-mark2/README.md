@@ -2,7 +2,7 @@
 
 The current five-part Industrial faucet with scarf and gap settings taken from the 2026-10-12
 swatch plates: a 60 mm outer-wall scarf, 250% scarf gap, 88% regular seam gap and no wipe.
-Everything else is the reviewed [project](../../faucet-industrial-petgf.3mf): geometry,
+Everything else is the reviewed [project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf): geometry,
 placements, layer bands with eight coarse lip layers, and the infill-only foot.
 [launch.json](launch.json) records the hashes, the exact differences and the native checks.
 

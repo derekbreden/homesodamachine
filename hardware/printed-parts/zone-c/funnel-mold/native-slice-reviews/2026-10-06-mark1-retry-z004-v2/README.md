@@ -6,7 +6,7 @@ acceptance is PREPARE without a print error or HMS alert; a later reading at
 15:20:39 CDT reports RUNNING at layer 1/404 without a fault. Physical adhesion and completed mold or
 casting results are pending.
 
-[Editable two-plate project](funnel-mold-mark1-retry-z004.3mf) ·
+[Editable two-plate project](https://homesodamachine.com/print-archive/7944e684d3831a2f709a080d2376c4481812f0fa/funnel-mold-mark1-retry-z004.3mf) ·
 [Native review](readiness-review.json) · [Preflight](preflight.json) ·
 [Launch receipt](launch.json) · [Launch plan](launch-plan.json) ·
 [Timelapse and storage inspection](timelapse-storage-review.json)

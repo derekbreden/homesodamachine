@@ -3,6 +3,7 @@
   "industrial_recipe": {
     "source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
     "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
+    "project_blob": "9af7b448ad1eee85973ce944caa1b8bcf278cad0",
     "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json"
   },
   "shell_ordinary_seam_gap": "15%",
@@ -44,6 +45,7 @@
     "part": "faucet-shell-tip",
     "source_preparation": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/preparation.json",
     "source_project": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/mark1/2026-10-15-faucet-tip-root-anchor-eight-fins-lip-trees-current105-bridge125-fan70-z018-mark1.3mf",
+    "source_project_blob": "044c174f77aee3d1666619c5f592449cd5ed05a1",
     "root_anchor_component_id": 2400,
     "joint_plane": {
       "point": [0.0, -38.36796889030837, 220.8576411168048],

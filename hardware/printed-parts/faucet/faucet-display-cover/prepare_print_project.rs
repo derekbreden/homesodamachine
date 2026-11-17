@@ -11,28 +11,20 @@ use anyhow::{bail, Context, Result};
 use hsm_print_prep::profile::{first_text, petgf_infill_pattern, relative, settings_bytes, SETTINGS_MEMBER};
 use hsm_print_prep::faucet_plate::{self, COVER};
 use hsm_print_prep::refresh::{self, Part};
-use hsm_print_prep::{faucet::text, root, sha256_hex, xml};
+use hsm_print_prep::{faucet::{read_json, text}, root, sha256_hex, xml};
 use serde_json::{json, Value};
-use std::io::Read;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 const HERE: &str = "hardware/printed-parts/faucet/faucet-display-cover";
 /// Derek's approval of the shared tip and cover, which the report cites.
 const SELECTION: &str = "hardware/printed-parts/faucet/industrial/production-selection.json";
 /// The approved cover print, whose settings and object settings the project keeps.
-const SETTINGS_SOURCE: &str = "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf";
+const SETTINGS_SOURCE: &str = "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.profile.json";
 /// The plate's black filament.
 const COLOUR: &str = "#161616";
 const TITLE: &str = "Faucet display cover";
 /// The cover keeps this far inside the plate's edge.
 const PLATE_BORDER: f64 = 80.0;
-
-fn member(path: &Path, name: &str) -> Result<Vec<u8>> {
-    let mut archive = zip::ZipArchive::new(std::fs::File::open(path).with_context(|| format!("opening {}", path.display()))?)?;
-    let mut bytes = Vec::new();
-    archive.by_name(name)?.read_to_end(&mut bytes)?;
-    Ok(bytes)
-}
 
 fn main() -> Result<()> {
     let root = root();
@@ -51,10 +43,11 @@ fn main() -> Result<()> {
     let selection: Value = serde_json::from_slice(&std::fs::read(root.join(SELECTION))?)?;
     let plate = faucet_plate::selection(&root)?;
     let source = root.join(SETTINGS_SOURCE);
+    let accepted = read_json(&source)?;
     let part = Part::new(COVER.name, root.join(COVER.stl), faucet_plate::COVER_ROTATION_DEGREES);
     let mut r = refresh::refresh(&root, &source, &[part], &[[0.0, 0.0]], TITLE, Some(trim), PLATE_BORDER)?;
     // The approved print's own object settings.
-    let config = xml::parse(std::str::from_utf8(&member(&source, "Metadata/model_settings.config")?)?)?;
+    let config = xml::parse(accepted["Metadata/model_settings.config"].as_str().context("the approved print's object settings")?)?;
     let reference = config.child("object").context("the approved print has no object")?;
     for m in reference.children_named("metadata") {
         if let (Some(k), Some(v)) = (m.attribute("key"), m.attribute("value")) {
@@ -79,7 +72,7 @@ fn main() -> Result<()> {
     }
     let first: f64 = first_text(&r.plate.settings, "initial_layer_print_height").unwrap_or("0").parse()?;
     let layer: f64 = first_text(&r.plate.settings, "layer_height").unwrap_or("0").parse()?;
-    let preserved = r.plate.settings == serde_json::from_slice::<Value>(&member(&source, SETTINGS_MEMBER)?)?;
+    let preserved = r.plate.settings == accepted[SETTINGS_MEMBER];
     for (k, v) in [("printer", json!(printer)), ("requested_z_trim_mm", json!(trim)), ("active_nozzle", json!(0)),
                    ("first_bed_layer_height_mm", json!(first)), ("layer_height_mm", json!(layer)), ("layer_ranges", json!([])),
                    ("production_selection", json!(SELECTION)), ("physical_approval", selection["physical_result"].clone()),

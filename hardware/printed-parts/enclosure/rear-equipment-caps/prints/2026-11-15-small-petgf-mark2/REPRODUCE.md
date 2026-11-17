@@ -14,8 +14,8 @@ tools/run -- tools/hsm/target/release/enclosure-print-prep small-petgf --slice -
   --output .cache/runs/small-petgf
 ```
 
-Preparing the committed piece writes the [editable project](2026-11-15-small-petgf-mark2-39847f01.3mf)
+Preparing the committed piece writes the [editable project](https://homesodamachine.com/print-archive/bdc65db857c31442d30e92e624ada4818e613685/2026-11-15-small-petgf-mark2-39847f01.3mf)
 byte for byte. `--slice` runs the installed Bambu Studio command line and the standing cooling
 stage, and restores the regulator cap's contact courses; `--review` reads the archive back. A fresh slice lays the
-same beads as the [sent archive](2026-11-15-small-petgf-mark2-39847f01.gcode.3mf) apart from the
+same beads as the [sent archive](https://homesodamachine.com/print-archive/63fea4bc03d00df349a33a2b9a894fa22682b918/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf) apart from the
 slicer's own tree-support differences between runs, which `hsm-gcode compare` shows.

@@ -249,7 +249,7 @@ Derek's [physical inspection](prints/2026-10-13-complete-rear-seam-base-tip-mark
 accepts the seam-fixed faucet as the official planned production model,
 tagged `faucet-industrial-production-2026-10-14`. The exact Mark2 task
 `1337767162` contains the corrected base and tip. Their meshes and seam paint
-match the complete [production project](faucet-industrial-petgf.3mf), which
+match the complete [production project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf), which
 contains all five rigid parts. The cover, mounting plate and lever retain the
 [accepted complete-print reference](prints/2026-10-13-a2-back-mark2/physical-result.json).
 

@@ -4,7 +4,7 @@ The plate is the Sculpted product plate of commit
 [`6b77eba36`](https://github.com/derekbreden/homesodamachine/tree/6b77eba364d6ff4c80d3e115af3ca3a7493f8dd1).
 Its meshes are the build's own outputs at that commit; the product report there,
 `hardware/printed-parts/faucet/faucet-petgf.print.json`, names each mesh's sha256, and the
-[editable project](sculpted-faucet-tip-scaffold-black-mark2.3mf) carries them.
+[editable project](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/sculpted-faucet-tip-scaffold-black-mark2.3mf) carries them.
 
 ```sh
 git checkout 6b77eba364d6ff4c80d3e115af3ca3a7493f8dd1

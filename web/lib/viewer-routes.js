@@ -20,6 +20,7 @@ import { madeFrom } from "./made-from.js";
 import { featureCatalog } from "./feature-catalog.js";
 import { materialInstances } from "./material-instances.js";
 import { mountPrintPlayback, readPrintPlaybacks } from "./print-playback.js";
+import { mountPrintArchive } from "./print-archive.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -57,6 +58,7 @@ function readSidecar(rootDir, rel) {
 export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
   mountPdfjsAssets(app);
   mountPrintPlayback(app);
+  mountPrintArchive(app, hardwareDir);
 
   // Public deployments expose catalog models. Local render servers also read
   // temporary, unnumbered scene inputs without publishing them.

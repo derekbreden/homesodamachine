@@ -185,6 +185,7 @@ hardware/reference/xlaserlab-sup29f-xh/reference-models.zip
 /result.json
 # Prepared Bambu projects are local manufacturing deliverables.
 *.3[mM][fF]
+run-inputs.zip
 output/print-build/
 output/print-assets/
 output/print-archive/

@@ -35,8 +35,8 @@ The [native review](native-check.json) verifies all four meshes and settings,
 the 0.06 mm commanded seam gap, and **127.39 mm** of complete-bead edge clearance.
 Across every layer, the flat seams stay within **0.08 mm** of face center and the
 curved seams within **0.14 mm**; both flat seams have over 5.9 mm of corner
-clearance. The [editable project](2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.3mf)
-and [native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/finish-coupons/flat-curved-seam-v1/2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.gcode.3mf)
+clearance. The [editable project](https://homesodamachine.com/print-archive/b35c7d36075ea55baa85e476781d351a9b4402f5/2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.3mf)
+and [native slice](https://homesodamachine.com/print-archive/6b54cae338f0f820a37a72cad00c083ad637d27f/2026-10-12-flat-curved-seams-petgf-left04-z004-mark2.gcode.3mf)
 are prepared locally. No import or Send has occurred.
 
 Inspect the arrowed face under several lighting directions and across its
