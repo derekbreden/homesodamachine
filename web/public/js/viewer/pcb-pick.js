@@ -20,7 +20,6 @@
 // the cursor back to board mm through the pick layer's getScreenCTM (which folds
 // in PanZoom's CSS transform), so a miss still yields a coordinate.
 
-import { state } from "./state.js";
 import { CONTENT_ROOT } from "./pick-format.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -73,7 +72,7 @@ export function installPadPicker(svgEl, info) {
   svgEl.appendChild(layer);
   svgEl.appendChild(hilite);
 
-  ctx = { svgEl, layer, hilite, pads: info.pads || [], vias: info.vias || [], traces: info.traces || [], source: info.source, wrapper: info.wrapper };
+  ctx = { svgEl, layer, hilite, pads: info.pads || [], vias: info.vias || [], traces: info.traces || [], source: info.source, wrapper: info.wrapper, panZoom: info.panZoom };
   applyEnabled();
   wireWrapper(info.wrapper);
 
@@ -94,6 +93,7 @@ export function installPadPicker(svgEl, info) {
 export function clearPadPicker() {
   clearSelection();
   ctx = null;
+  toggleRefresh = null;
 }
 
 // Drop the current selection (highlight + panel) without tearing down the
@@ -192,7 +192,7 @@ function resolveEnd(end) {
 const FOCUS_SPAN_MM = 12;
 function focusBoardPoint(xmm, ymm) {
   if (!ctx || !ctx.layer || !ctx.wrapper) return;
-  const pz = state.currentPcbPz;
+  const pz = ctx.panZoom;
   if (!pz) return;
   const ctm = ctx.layer.getCTM();
   if (!ctm) return;
@@ -265,7 +265,7 @@ function clientToMm(clientX, clientY) {
   if (!ctx || !ctx.layer) return null;
   const wrapper = ctx.wrapper;
   if (!wrapper) return null;
-  const pz = state.currentPcbPz;
+  const pz = ctx.panZoom;
   if (!pz) return null;
   const t = pz.getTransform();
   const wr = wrapper.getBoundingClientRect();

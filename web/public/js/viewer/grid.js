@@ -1,14 +1,9 @@
-// The viewer path picks a shelf of parts, guides or boards. Model and board
-// cards load thumbnails near the viewport and open their detail modal.
+// Parts cards load their model thumbnails near the viewport. Guide cards link to documents.
 
 import { state } from "./state.js";
-// Card-click openers come from detail-shims.js so opening a part after a code
-// edit runs fresh code; thumbnail renderers stay from the modules (static).
-import { openPcbDetail } from "./detail-shims.js";
 import { buildPartsSection, syncFaucetCard } from "./parts.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
-import { isMounted, windowContent, markupThumb } from "./lazy.js";
-import { renderPcbThumbnail } from "./pcb.js";
+import { isMounted, windowContent } from "./lazy.js";
 import { renderThumbnail, forgetThumbnail } from "./step.js";
 
 // A CARD DRAWS THE MODEL IT OPENS. `renderThumbnail` answers off the same mesh
@@ -179,7 +174,6 @@ function buildGuidesSection() {
 export function currentSection() {
   const tail = location.pathname.replace(/\/$/, "");
   if (tail === "/guides") return "guides";
-  if (tail === "/pcb") return "pcb";
   return "parts";
 }
 
@@ -216,65 +210,13 @@ export function buildGrid() {
     buildGuidesSection();
   }
 
-  if (section === "pcb") {
-    // PCB boards: one card per board, thumbnail is the Top copper view. The
-    // card opens a modal with the Top / Bottom / Overlay toggle (pcb.js). The
-    // dir subline carries the board's folder (minus the leading pcb/).
-    const pcbThumb = (source) => `<div class="pcb-thumb" data-file="${source}"><div class="placeholder">loading...</div></div>`;
-    const header = document.createElement("div");
-    header.className = "section-header";
-    header.textContent = "Boards";
-    state.gridEl.appendChild(header);
-    if (!state.pcbBoards || state.pcbBoards.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No boards yet.";
-      state.gridEl.appendChild(empty);
-    } else {
-      for (const board of state.pcbBoards) {
-        const dirLabel = board.dir.replace(/^pcb\//, "");
-        const card = document.createElement("div");
-        card.className = "card";
-        card.dataset.file = board.source;
-        card.dataset.type = "pcb";
-        // A board whose directory is its own name says it once.
-        const dir = dirLabel && dirLabel !== board.name ? `<span class="dir">${dirLabel}</span>` : "";
-        card.innerHTML = `${pcbThumb(board.source)}<div class="label card-caption">${dir}<span class="name-row"><span class="name">${board.name}</span></span></div>`;
-        card.addEventListener("click", () => openPcbDetail(board.source));
-        state.gridEl.appendChild(card);
-      }
-    }
-  }
-
-  // Windowed thumbnail content. Every kind mounts as it nears the viewport and
-  // releases once it's well past — see lazy.js for why this windows content
-  // rather than rows, and for the measurements that motivated it. Each kind
-  // supplies only what "mount" and "release" mean for its own thumbnail; the
-  // scroll bookkeeping is shared.
-  //
-  // The handle is kept on `state` so the next buildGrid disconnects these
-  // observers before the cards they watch are thrown away.
   state.gridWindow?.disconnect();
-
-  const kinds = {
-    // STEP: the model itself, drawn offscreen. Releasing the src is what frees
-    // the decoded bitmap; the picture stays in `state.thumbnailCache`, so coming
-    // back re-reads that rather than the model.
-    step: {
-      mount: (card) => paintStepThumb(card),
-      unmount: (card) => {
-        pendingStepThumbs.delete(card);
-        card.querySelector("img")?.removeAttribute("src");
-      },
+  state.gridWindow = windowContent({
+    elements: state.gridEl.querySelectorAll('.card[data-type="step"]'),
+    mount: card => paintStepThumb(card),
+    unmount: card => {
+      pendingStepThumbs.delete(card);
+      card.querySelector("img")?.removeAttribute("src");
     },
-    pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
-  };
-
-  const windows = [];
-  for (const [type, { mount, unmount }] of Object.entries(kinds)) {
-    const elements = state.gridEl.querySelectorAll(`.card[data-type="${type}"]`);
-    if (elements.length === 0) continue;
-    windows.push(windowContent({ elements, mount, unmount }));
-  }
-  state.gridWindow = { disconnect: () => windows.forEach((w) => w.disconnect()) };
+  });
 }

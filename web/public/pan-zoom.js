@@ -21,7 +21,7 @@
 // also give the container `overflow: hidden` and (recommended) `touch-action:
 // none` so native page-level pinch/scroll doesn't fight the gesture.
 
-(function () {
+export default (function () {
   function getNaturalSize(el) {
     if (el instanceof HTMLImageElement && el.naturalWidth) {
       return { w: el.naturalWidth, h: el.naturalHeight };
@@ -199,14 +199,14 @@
 
     // The single state-mutating path. Every gesture / API call funnels
     // through this so the clamping rules stay consistent.
-    function commit(s, px, py) {
+    function commit(s, px, py, persist = true) {
       const sb = scaleBounds();
       s = clamp(s, sb.lo, sb.hi);
       const b = panBounds(s);
       px = clamp(px, b.minX, b.maxX);
       py = clamp(py, b.minY, b.maxY);
       scale = s; panX = px; panY = py;
-      apply();
+      apply(persist);
     }
 
     // `persist` marks a committed view — the user's, and the one worth
@@ -238,16 +238,17 @@
         }
         return;
       }
-      commit(fs, 0, 0);  // commit will center via panBounds
+      commit(fs, 0, 0, false);  // commit will center via panBounds
     }
 
     function reset() { commit(1, 0, 0); }
 
-    function setTransform(t) {
+    function setTransform(t, persist = true) {
       commit(
         t.scale != null ? t.scale : scale,
         t.panX != null ? t.panX : panX,
         t.panY != null ? t.panY : panY,
+        persist,
       );
     }
     function getTransform() { return { scale: scale, panX: panX, panY: panY }; }
@@ -398,7 +399,7 @@
     };
   }
 
-  window.PanZoom = {
+  return {
     wrap: wrap,
     fitScale: computeFitScale,
     measureObstacles: measureObstacles,

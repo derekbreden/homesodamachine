@@ -29,6 +29,6 @@ The threads below reach past that surface — couplings that live outside `web/`
 
 - **Content root.** `hardware/`. [`server.js`](/web/server.js), [`viewer-routes.js`](/web/lib/viewer-routes.js).
 
-- **Old deep links resolve.** `/dev`, `/dev/settings` and `/drawings`. [`viewer-pages.js`](/web/lib/viewer-pages.js).
+- **Old deep links resolve.** `/dev`, `/drawings` and `/pcb`. The PCB link opens the board view in its material workspace. [`viewer-pages.js`](/web/lib/viewer-pages.js).
 
 - **dev and prod differ in two places.** The commit signal, and the skipped boot push diff. Routes match. [`server.js`](/web/server.js), [`smoke.test.js`](/web/tests/smoke.test.js).

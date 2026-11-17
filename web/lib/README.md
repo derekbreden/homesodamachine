@@ -35,9 +35,8 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 | [`shell.js`](/web/lib/shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
 | [`landing.js`](/web/lib/landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
 | [`unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Registered unit pages with the shared head and their own owner navigation. Equipment, preparation, and links to the printed guides. |
-| [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides`, `/pcb` | The parts, guides and boards pages share [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides` | Parts and guides share [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`viewer-routes.js`](/web/lib/viewer-routes.js) | Viewer API | Lists and serves models, board views and published documents. Walks `hardware/` via [`walk.js`](/web/lib/walk.js). |
-| [`settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |
 | [`events.js`](/web/lib/events.js) | `/ws` | WebSocket channel — one socket per page, owned by [`public/boot.js`](/web/public/boot.js). |
 | [`notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
 | [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions and notifications. File changes are read from `step_hashes`, `dxf_hashes`, `document_hashes` and `pcb_hashes`. |

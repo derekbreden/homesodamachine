@@ -91,33 +91,3 @@ export function windowContent({ elements, mount, unmount }) {
     },
   };
 }
-
-const PLACEHOLDER = `<div class="placeholder">loading...</div>`;
-
-// Releasing a board thumbnail puts the placeholder back. The rendered markup
-// stays cached for when the card returns to the viewport.
-//
-// Every render is async, so a card can be released (or released and mounted
-// again) while its render is still in flight. Each mount takes a token and only
-// paints if it's still the current one, which drops both the stale-paint and
-// the out-of-order-paint cases.
-export function markupThumb({ hostSelector, render }) {
-  return {
-    mount(card) {
-      const host = card.querySelector(hostSelector);
-      if (!host) return;
-      const token = (host._mountToken = (host._mountToken || 0) + 1);
-      render(card.dataset.file).then((markup) => {
-        if (host._mountToken !== token) return;
-        host.innerHTML = markup || `<div class="placeholder">error</div>`;
-      });
-    },
-    unmount(card) {
-      const host = card.querySelector(hostSelector);
-      if (!host) return;
-      // Bumping the token invalidates any render still in flight for this host.
-      host._mountToken = (host._mountToken || 0) + 1;
-      host.innerHTML = PLACEHOLDER;
-    },
-  };
-}

@@ -69,7 +69,6 @@
 }
 .card > img,
 .card > .placeholder,
-.card > .pcb-thumb,
 .card > .doc-cover { flex: 0 0 auto; }
 .card .card-caption {
   padding: 8px 10px;
@@ -188,34 +187,13 @@
   font-size: 15px;
   white-space: nowrap;
 }
-/* The corner opposite the rail, on the 3D surface and the 2D ones alike. */
-.cad-wrapper .reset-view,
-.pan-zoom-reset {
+/* The corner opposite the tool rail. */
+.cad-wrapper .reset-view {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   right: calc(env(safe-area-inset-right, 0px) + 16px);
   z-index: 11;
 }
-/* The 3D reset comes out of makeToolButton and wears .tool-btn's pill. The 2D
-   surfaces build their own (pan-zoom-extras makeResetButton), so it carries
-   the pill here — the same one, to the pixel. */
-.pan-zoom-reset {
-  padding: 6px 12px;
-  background: rgba(16, 49, 156, 0.85);
-  color: var(--text-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 13px var(--font-sans);
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-  transition: background 0.12s, color 0.12s;
-}
-.pan-zoom-reset:hover {
-  background: rgba(23, 73, 209, 0.9);
-  color: var(--text);
-}
-
 /* ── Tool rail ─────────────────────────────────────────────────────────────────
    The controls that change what the view shows and what a click does, in one
    bottom-left column laid out in flow.
@@ -360,8 +338,6 @@
    carries no caption either. */
 .tool-group:not(:has(.tool-seg-btn)):not(:has(.tool-chip)) { display: none; }
 
-/* Same segmented control as .pcb-view-toggle on the board viewer, which wears
-   the button half of it (.pcb-view-btn joins .tool-seg-btn below). */
 .tool-seg {
   display: inline-flex;
   flex-wrap: wrap;
@@ -373,8 +349,7 @@
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
-.tool-seg-btn,
-.pcb-view-btn {
+.tool-seg-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -389,10 +364,8 @@
   appearance: none;
   transition: background 0.12s, color 0.12s;
 }
-.tool-seg-btn:hover,
-.pcb-view-btn:hover { color: var(--text); }
-.tool-seg-btn.active,
-.pcb-view-btn.active {
+.tool-seg-btn:hover { color: var(--text); }
+.tool-seg-btn.active {
   background: var(--action);
   color: var(--on-action);
   font-weight: 600;
@@ -492,7 +465,6 @@
 .pick-find-input,
 .edge-panel-text,
 .sc-card,
-.pcb-checks-card,
 .related-menu,
 .tool-drawer.compact > .tool-drawer-body,
 .cad-crumb {
@@ -502,8 +474,7 @@
 .cad-crumb { touch-action: pan-x; }
 
 /* Keyboard focus, on every control on every surface this file dresses — the
-   rail, the crumb, the readout panels, the two checks cards, and the board's
-   own chrome. */
+   rail, the crumb, the readout panels and the scorecard. */
 .tool-btn:focus-visible,
 .tool-seg-btn:focus-visible,
 .tool-chip:focus-visible,
@@ -515,12 +486,7 @@
 .component-show-all:focus-visible,
 .sc-badge:focus-visible,
 .sc-x:focus-visible,
-.sc-toggle:focus-visible,
-.pcb-view-btn:focus-visible,
-.pad-pick-toggle:focus-visible,
-.pcb-checks:focus-visible,
-.pcb-checks-x:focus-visible,
-.pcb-checks-toggle:focus-visible {
+.sc-toggle:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -827,8 +793,8 @@
   background: color-mix(in srgb, var(--surface) 72%, var(--bg));
 }
 .cad-wrapper > .component-panel.show { display: grid; }
-.cad-wrapper:is(.drawing-open, .print-open) > .component-panel { display: none; }
-.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open)) .component-model-name { visibility: hidden; }
+.cad-wrapper:is(.drawing-open, .print-open, .pcb-open) > .component-panel { display: none; }
+.cad-workspace:has(.cad-wrapper:is(.drawing-open, .print-open, .pcb-open)) .component-model-name { visibility: hidden; }
 .component-selection { min-width: 0; }
 .component-selection-bar {
   display: flex;
@@ -1137,34 +1103,6 @@
   }
 }
 
-/* Minimap for board views. 2D equivalent
-   of the 3D ViewCube gizmo: outer box is the wrapper at the default
-   (fit) view, inner box is what portion of that view is currently
-   visible after pan/zoom. Pointer-events: none — the box is an
-   indicator, not an input surface. Sits 8px to the left of the
-   ContentViewer's .cv-close button (top: 8px right: 8px, 36×36) so
-   the close X doesn't appear to apply to the minimap. */
-.pan-zoom-minimap {
-  position: absolute;
-  top: 8px;
-  right: 52px; /* 8 (close X right) + 36 (close X width) + 8 (gap) */
-  z-index: 10;
-  background: rgba(16, 49, 156, 0.55);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-  pointer-events: none;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-}
-.pan-zoom-minimap-rect {
-  position: absolute;
-  background: rgba(220, 230, 255, 0.20);
-  border: 1px solid var(--accent);
-  border-radius: 2px;
-  pointer-events: none;
-}
-
 /* Section headers in grid */
 .section-header {
   grid-column: 1 / -1;
@@ -1284,271 +1222,6 @@
   .card.card-doc { padding: 12px 12px 2px; }
 }
 
-/* PCB board thumbnail in card. The view SVG carries its own FR4 background
-   and copper colours, so — unlike line-art — we don't recolor strokes; we
-   just scale it to fit. The dark thumb background matches the board
-   substrate so the letterbox around the (landscape) board is seamless. */
-.card .pcb-thumb {
-  width: 100%;
-  aspect-ratio: 1;
-  background: #0b0e14;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 8px;
-}
-.card .pcb-thumb svg {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-/* PCB detail view (inside ContentViewer). The board substrate fills the
-   surface; the SVG sits on top and PanZoom drives pan/zoom. */
-.pcb-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #0b0e14;
-  touch-action: none;
-}
-/* The board SVG is sized in Gerber units (~150000px nominal) so PanZoom's
-   viewBox-based fit math is consistent; absolute positioning keeps that
-   oversized element out of layout flow (clipped by the wrapper) until
-   PanZoom's transform scales it to fit. */
-.pcb-wrapper > svg.pcb-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* Top / Bottom / Overlay segmented control — top-centre, clear of the
-   filename pill (top-left), minimap + close X (top-right). Same pill
-   aesthetic as the reset / ruler toggles. */
-.pcb-view-toggle {
-  position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 12px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 12;
-  display: inline-flex;
-  /* A 4-layer board adds Inner buttons; wrap (centred) rather than run off a
-     narrow screen, and never exceed the viewport width. */
-  flex-wrap: wrap;
-  justify-content: center;
-  /* The wrapper, which is the viewport less the modal card's own inset. */
-  max-width: calc(100% - 24px);
-  gap: 2px;
-  padding: 3px;
-  background: rgba(16, 49, 156, 0.85);
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-}
-
-/* Pad picker (pcb-pick.js). Toggle bottom-left, same pill as the edge picker.
-   The hit layer is inert until armed; then each pad's invisible hit-circle
-   captures the click and lights faintly on hover. The highlight ring is drawn
-   in a separate, always-inert group on top. */
-.pcb-wrapper > .pad-pick-toggle {
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
-  left: calc(env(safe-area-inset-left, 0px) + 16px);
-  z-index: 12;
-  padding: 6px 10px;
-  background: rgba(16, 49, 156, 0.85);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 13px var(--font-sans);
-  cursor: pointer;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.pcb-wrapper > .pad-pick-toggle:hover {
-  background: rgba(23, 73, 209, 0.9);
-}
-/* Disarmed, the label goes quiet — the pill itself keeps its ground, or the
-   copper underneath reads straight through the control. */
-.pcb-wrapper > .pad-pick-toggle.off {
-  color: var(--text-2);
-}
-
-/* Board outer-dimensions readout — bottom-centre, between the pad-pick toggle
-   (bottom-left) and the reset button (bottom-right). Sourced dynamically from
-   the board element via picks.json (pick-data.ts), with an SVG-viewBox
-   fallback. Same system font as the corner pills (compact enough to clear
-   them on desktop); wraps rather than running off a narrow screen, and never
-   exceeds the viewport. Non-interactive so it never swallows a pan/drag. */
-.pcb-wrapper > .pcb-dims {
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 12;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-  /* Prefer one line, sized to content; wrap upward when it would reach the
-     Inspect and Reset pills standing in the corners of the same row. */
-  width: max-content;
-  max-width: calc(100% - 240px);
-  padding: 5px 10px;
-  background: rgba(16, 49, 156, 0.85);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font: 12px var(--font-sans);
-  text-align: center;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  /* The readout is glance-only so pan/zoom passes through; the checks badge re-enables. */
-  pointer-events: none;
-}
-/* Clickable checks badge inside the readout — green when clean, red with a count when
-   clearance.ts flagged genuine overlap/DRC errors. Opens the board-checks modal. */
-.pcb-dims .pcb-checks {
-  pointer-events: auto;
-  cursor: pointer;
-  font: inherit;
-  padding: 1px 7px;
-  border-radius: 6px;
-  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
-  background: color-mix(in srgb, var(--ok) 18%, transparent);
-  color: var(--ok);
-}
-.pcb-dims .pcb-checks.has-issues {
-  border-color: color-mix(in srgb, var(--err) 60%, transparent);
-  background: color-mix(in srgb, var(--err) 20%, transparent);
-  color: var(--err);
-}
-/* Amber: no DRC errors, but a decoupling cap drifted past its budget (advisory). */
-.pcb-dims .pcb-checks.has-warns {
-  border-color: color-mix(in srgb, var(--warn) 60%, transparent);
-  background: color-mix(in srgb, var(--warn) 20%, transparent);
-  color: var(--warn);
-}
-.pcb-dims .pcb-checks:hover { filter: brightness(1.2); }
-/* Phone: dims + via count + clearance floor + the checks badge together overrun
-   a narrow bottom bar and bury the corner Inspect / Reset pills. Lift the readout
-   onto its own row a full pill-height above that corner row (it wraps and grows
-   upward into empty board space, so the corners stay clear). */
-@media (max-width: 600px) {
-  .pcb-wrapper > .pcb-dims {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
-    /* Its own row now, so the corners are no longer in the way. */
-    max-width: calc(100% - 24px);
-  }
-  /* The view toggle wraps to four rows at this width and stands centred, which
-     runs it under the top-right minimap; a centred box this tall clears that
-     corner at no width a phone has. The board fits the frame here, so the
-     toggle keeps the band and the indicator stands down. The fit reads its
-     obstacles off the live chrome, so it takes the room back. */
-  .pcb-wrapper > .pan-zoom-minimap { display: none; }
-}
-/* Board-checks modal: backdrop + centred card, scoped inside the board wrapper. */
-.pcb-wrapper > .pcb-checks-modal {
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  background: rgba(10, 10, 24, 0.55);
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-}
-.pcb-checks-card {
-  /* Explicit width (not just max-width) so the card is a consistent, roomy panel instead of
-     shrink-wrapping to its longest row — that kept it narrow and let rows wrap on tight
-     viewports. 94% keeps it inside a small board wrapper. */
-  width: min(640px, 94%);
-  max-height: 80%;
-  overflow: auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
-  font: 12.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: var(--text);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-}
-.pcb-checks-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-.pcb-checks-x {
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: var(--text-2);
-  font-size: 15px;
-  line-height: 1;
-}
-.pcb-checks-x:hover { color: var(--text); }
-.pcb-checks-h {
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 10.5px;
-  margin: 12px 0 5px;
-}
-/* The head is a div and so is every section caption, so the first caption is
-   named by the head above it. */
-.pcb-checks-head + .pcb-checks-h { margin-top: 0; }
-/* The same two tracks the scorecard's rows stand in (.sc-row), against this
-   card's own readings — a board's are figures and fit in a quarter, where the
-   scorecard's run to a sentence. The row's ground reaches past its text at
-   both ends; the rules stay on the card's own column. */
-.pcb-checks-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 24%;
-  gap: 12px;
-  padding: 3px 8px;
-  margin: 0 -8px;
-  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
-}
-.pcb-checks-row .k { color: var(--text); overflow-wrap: anywhere; }
-.pcb-checks-row .v {
-  color: var(--text-2);
-  text-align: right;
-  overflow-wrap: anywhere;
-}
-.pcb-checks-row.issue .k { color: var(--err); }
-.pcb-checks-row.issue .v { color: var(--text-3); text-transform: uppercase; font-size: 10px; align-self: center; }
-/* A decoupling cap past its budget — amber on both the label and the gap readout. */
-.pcb-checks-row.warn .k { color: var(--warn); }
-.pcb-checks-row.warn .v { color: var(--warn); }
-/* A clearance pair that can be shown on the board — clickable, with the pinch location
-   trailing its label in a muted tone. Hover tints the row so it reads as a control. */
-.pcb-checks-row.clickable { cursor: pointer; }
-.pcb-checks-row.clickable:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
-.pcb-checks-row .pcb-checks-at { color: var(--text-3); white-space: nowrap; }
-.pcb-checks-clean { color: var(--ok); padding: 2px 0; }
-/* Per-section "Show N more / less" toggle — a muted full-width control under a collapsed
-   list (clearance pairs, decoupling rows). The hidden tail is a plain block wrapper. */
-.pcb-checks-toggle {
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  background: none;
-  border: none;
-  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
-  color: var(--text-2);
-  font: inherit;
-  padding: 5px 0 3px;
-}
-.pcb-checks-toggle:hover { color: var(--text); }
-
 /* ── 3D-model scorecard: the enclosure requirements verdict as a badge at the bottom of the
    canvas + a drill-down modal, mirroring the PCB board-checks UI (.pcb-dims / .pcb-checks*)
    inside the STEP viewer's .cad-wrapper. Built by public/js/viewer/scorecard-3d.js. ── */
@@ -1628,26 +1301,6 @@
   .edge-panel-faces input { width: 16px; height: 16px; }
   /* The way back up the trail. */
   .cad-crumb-step { min-height: 34px; display: inline-flex; align-items: center; }
-  /* The board carries the same controls under different names. */
-  .pcb-view-toggle { padding: 2px; }
-  .pcb-view-btn { min-height: 36px; }
-  .pcb-wrapper > .pad-pick-toggle,
-  .pan-zoom-reset {
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  .pcb-dims .pcb-checks { min-height: 32px; display: inline-flex; align-items: center; }
-  .pcb-checks-x {
-    min-width: 36px;
-    min-height: 36px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .pcb-checks-toggle { min-height: 36px; }
   /* The checks card is read and dismissed with a thumb too. */
   .sc-x {
     min-width: 36px;
@@ -1935,35 +1588,3 @@
   padding: 5px 0 3px;
 }
 .sc-toggle:hover { color: var(--text); }
-.pcb-pick-layer {
-  pointer-events: none;
-}
-/* Always invisible — never paint over the copper. (Default SVG fill is opaque
-   black, which would mask everything when the picker is off.) */
-.pcb-pad-hit,
-.pcb-via-hit {
-  fill: transparent;
-}
-.pcb-trace-hit {
-  fill: none;
-  stroke: transparent;
-}
-.pcb-pick-layer.active .pcb-pad-hit,
-.pcb-pick-layer.active .pcb-via-hit {
-  pointer-events: all;
-  cursor: pointer;
-}
-.pcb-pick-layer.active .pcb-trace-hit {
-  pointer-events: stroke;
-  cursor: pointer;
-}
-.pcb-pick-layer.active .pcb-pad-hit:hover,
-.pcb-pick-layer.active .pcb-via-hit:hover {
-  fill: rgba(89, 208, 255, 0.25);
-}
-.pcb-pick-layer.active .pcb-trace-hit:hover {
-  stroke: rgba(89, 208, 255, 0.4);
-}
-.pcb-pick-hilite {
-  pointer-events: none;
-}

@@ -1,0 +1,341 @@
+/* Board controls and copper-view layout, loaded by the PCB view. */
+.pcb-wrapper {
+  container-type: inline-size;
+  overflow: hidden;
+  background: #0b0e14;
+  touch-action: none;
+}
+/* The board SVG is sized in Gerber units (~150000px nominal) so PanZoom's
+   viewBox-based fit math is consistent; absolute positioning keeps that
+   oversized element out of layout flow (clipped by the wrapper) until
+   PanZoom's transform scales it to fit. */
+.pcb-wrapper > svg.pcb-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* The layer controls sit below the material workspace header. */
+.pcb-view-toggle {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  box-sizing: border-box;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(16, 49, 156, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* Pad picker (pcb-pick.js). Toggle bottom-left, same pill as the edge picker.
+   The hit layer is inert until armed; then each pad's invisible hit-circle
+   captures the click and lights faintly on hover. The highlight ring is drawn
+   in a separate, always-inert group on top. */
+.pcb-wrapper > .pad-pick-toggle {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  z-index: 12;
+  padding: 6px 10px;
+  background: rgba(16, 49, 156, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 13px var(--font-sans);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pcb-wrapper > .pad-pick-toggle:hover {
+  background: rgba(23, 73, 209, 0.9);
+}
+/* Disarmed, the label goes quiet — the pill itself keeps its ground, or the
+   copper underneath reads straight through the control. */
+.pcb-wrapper > .pad-pick-toggle.off {
+  color: var(--text-2);
+}
+
+/* Board outer-dimensions readout — bottom-centre, between the pad-pick toggle
+   (bottom-left) and the reset button (bottom-right). Sourced dynamically from
+   the board element via picks.json (pick-data.ts), with an SVG-viewBox
+   fallback. Same system font as the corner pills (compact enough to clear
+   them on desktop); wraps rather than running off a narrow screen, and never
+   exceeds the viewport. Non-interactive so it never swallows a pan/drag. */
+.pcb-wrapper > .pcb-dims {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  /* Prefer one line, sized to content; wrap upward when it would reach the
+     Inspect and Reset pills standing in the corners of the same row. */
+  width: max-content;
+  max-width: calc(100% - 240px);
+  padding: 5px 10px;
+  background: rgba(16, 49, 156, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 12px var(--font-sans);
+  text-align: center;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  /* The readout is glance-only so pan/zoom passes through; the checks badge re-enables. */
+  pointer-events: none;
+}
+/* Clickable checks badge inside the readout — green when clean, red with a count when
+   clearance.ts flagged genuine overlap/DRC errors. Opens the board-checks modal. */
+.pcb-dims .pcb-checks {
+  pointer-events: auto;
+  cursor: pointer;
+  font: inherit;
+  padding: 1px 7px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 18%, transparent);
+  color: var(--ok);
+}
+.pcb-dims .pcb-checks.has-issues {
+  border-color: color-mix(in srgb, var(--err) 60%, transparent);
+  background: color-mix(in srgb, var(--err) 20%, transparent);
+  color: var(--err);
+}
+/* Amber: no DRC errors, but a decoupling cap drifted past its budget (advisory). */
+.pcb-dims .pcb-checks.has-warns {
+  border-color: color-mix(in srgb, var(--warn) 60%, transparent);
+  background: color-mix(in srgb, var(--warn) 20%, transparent);
+  color: var(--warn);
+}
+.pcb-dims .pcb-checks:hover { filter: brightness(1.2); }
+/* Phone: dims + via count + clearance floor + the checks badge together overrun
+   a narrow bottom bar and bury the corner Inspect / Reset pills. Lift the readout
+   onto its own row a full pill-height above that corner row (it wraps and grows
+   upward into empty board space, so the corners stay clear). */
+@container (max-width: 650px) {
+  .pcb-wrapper > .pcb-dims {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
+    /* Its own row now, so the corners are no longer in the way. */
+    max-width: calc(100% - 24px);
+  }
+  /* Leave the top of the narrow pane to the layer controls. */
+  .pan-zoom-minimap { display: none; }
+}
+/* Board-checks modal: backdrop + centred card, scoped inside the board wrapper. */
+.pcb-wrapper > .pcb-checks-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 10, 24, 0.55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.pcb-checks-card {
+  /* Explicit width (not just max-width) so the card is a consistent, roomy panel instead of
+     shrink-wrapping to its longest row — that kept it narrow and let rows wrap on tight
+     viewports. 94% keeps it inside a small board wrapper. */
+  width: min(640px, 94%);
+  max-height: 80%;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font: 12.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--text);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+.pcb-checks-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.pcb-checks-x {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1;
+}
+.pcb-checks-x:hover { color: var(--text); }
+.pcb-checks-h {
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  margin: 12px 0 5px;
+}
+/* The head is a div and so is every section caption, so the first caption is
+   named by the head above it. */
+.pcb-checks-head + .pcb-checks-h { margin-top: 0; }
+/* The same two tracks the scorecard's rows stand in (.sc-row), against this
+   card's own readings — a board's are figures and fit in a quarter, where the
+   scorecard's run to a sentence. The row's ground reaches past its text at
+   both ends; the rules stay on the card's own column. */
+.pcb-checks-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24%;
+  gap: 12px;
+  padding: 3px 8px;
+  margin: 0 -8px;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+.pcb-checks-row .k { color: var(--text); overflow-wrap: anywhere; }
+.pcb-checks-row .v {
+  color: var(--text-2);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.pcb-checks-row.issue .k { color: var(--err); }
+.pcb-checks-row.issue .v { color: var(--text-3); text-transform: uppercase; font-size: 10px; align-self: center; }
+/* A decoupling cap past its budget — amber on both the label and the gap readout. */
+.pcb-checks-row.warn .k { color: var(--warn); }
+.pcb-checks-row.warn .v { color: var(--warn); }
+/* A clearance pair that can be shown on the board — clickable, with the pinch location
+   trailing its label in a muted tone. Hover tints the row so it reads as a control. */
+.pcb-checks-row.clickable { cursor: pointer; }
+.pcb-checks-row.clickable:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.pcb-checks-row .pcb-checks-at { color: var(--text-3); white-space: nowrap; }
+.pcb-checks-clean { color: var(--ok); padding: 2px 0; }
+/* Per-section "Show N more / less" toggle — a muted full-width control under a collapsed
+   list (clearance pairs, decoupling rows). The hidden tail is a plain block wrapper. */
+.pcb-checks-toggle {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  color: var(--text-2);
+  font: inherit;
+  padding: 5px 0 3px;
+}
+.pcb-checks-toggle:hover { color: var(--text); }
+
+.pan-zoom-minimap {
+  position: absolute;
+  top: 58px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(16, 49, 156, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.pan-zoom-minimap-rect {
+  position: absolute;
+  background: rgba(220, 230, 255, 0.20);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.pan-zoom-reset {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  z-index: 11;
+  padding: 6px 12px;
+  background: rgba(16, 49, 156, 0.85);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 13px var(--font-sans);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.12s, color 0.12s;
+}
+.pan-zoom-reset:hover {
+  background: rgba(23, 73, 209, 0.9);
+  color: var(--text);
+}
+
+.pcb-pick-layer {
+  pointer-events: none;
+}
+/* Always invisible — never paint over the copper. (Default SVG fill is opaque
+   black, which would mask everything when the picker is off.) */
+.pcb-pad-hit,
+.pcb-via-hit {
+  fill: transparent;
+}
+.pcb-trace-hit {
+  fill: none;
+  stroke: transparent;
+}
+.pcb-pick-layer.active .pcb-pad-hit,
+.pcb-pick-layer.active .pcb-via-hit {
+  pointer-events: all;
+  cursor: pointer;
+}
+.pcb-pick-layer.active .pcb-trace-hit {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+.pcb-pick-layer.active .pcb-pad-hit:hover,
+.pcb-pick-layer.active .pcb-via-hit:hover {
+  fill: rgba(89, 208, 255, 0.25);
+}
+.pcb-pick-layer.active .pcb-trace-hit:hover {
+  stroke: rgba(89, 208, 255, 0.4);
+}
+.pcb-pick-hilite {
+  pointer-events: none;
+}
+
+.pad-pick-toggle:focus-visible,
+.pcb-checks:focus-visible,
+.pcb-checks-x:focus-visible,
+.pcb-checks-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pcb-checks-card { touch-action: pan-y; overscroll-behavior: contain; }
+
+@media (pointer: coarse) {
+  .pcb-view-toggle { padding: 2px; }
+  .pcb-view-btn { min-height: 36px; }
+  .pcb-wrapper > .pad-pick-toggle,
+  .pan-zoom-reset {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .pcb-dims .pcb-checks { min-height: 32px; display: inline-flex; align-items: center; }
+  .pcb-checks-x {
+    min-width: 36px;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pcb-checks-toggle { min-height: 36px; }
+}

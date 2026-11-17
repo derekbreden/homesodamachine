@@ -27,6 +27,7 @@ import fs from "fs";
 import crypto from "crypto";
 import { pipeline } from "node:stream/promises";
 import { insertNotification } from "./notifications.js";
+import { pcbMaterialHash } from "./material-catalog.js";
 import { walkFiles, walkPcbBoards, walkDocuments } from "./walk.js";
 
 let pool = null;
@@ -456,10 +457,10 @@ export async function notifyFilesChanged({ files }) {
 
   const { title, body } = describeFilesUpdate(files);
   const firstFile = files[0];
-  const basePath = isPcbPath(firstFile) ? "/pcb" : "/3d";
+  const boardHash = isPcbPath(firstFile) && pcbMaterialHash(firstFile);
   const link = firstFile.endsWith(".pdf")
     ? `/read/${firstFile}`
-    : `${basePath}?file=${encodeURIComponent(firstFile)}`;
+    : boardHash ? `/3d#${boardHash}` : `/3d?file=${encodeURIComponent(firstFile)}`;
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const pcbCount = files.filter(isPcbPath).length;

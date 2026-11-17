@@ -24,11 +24,6 @@ import { getLoader } from "./loaders.js";
 import { paintStepThumb } from "./grid.js";
 import { forgetThumbnail } from "./step.js";
 import { refreshMemberUrls } from "./member.js";
-// Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
-// stay static — a code edit rarely touches the tiny card render and re-importing
-// for it isn't worth it.
-import { refetchOpenPcb } from "./detail-shims.js";
-import { renderPcbThumbnail } from "./pcb.js";
 import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { mountMissing } from "./missing-parts.js";
@@ -78,19 +73,6 @@ function refreshStepCard(file) {
 // it reloads on its own, below.
 function refreshUncardedFile() {
   fetchFiles();
-}
-
-function refreshPcbCard(file) {
-  state.pcbThumbCache.delete(file);
-  const card = state.gridEl.querySelector(`.card[data-type="pcb"][data-file="${CSS.escape(file)}"]`);
-  if (!card) { fetchFiles(); return; }
-  if (!isMounted(card)) return;
-  const thumbEl = card.querySelector(".pcb-thumb");
-  if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
-  renderPcbThumbnail(file).then((svg) => {
-    if (!thumbEl) return;
-    thumbEl.innerHTML = svg ? svg : `<div class="placeholder">error</div>`;
-  });
 }
 
 // A document is a built file, not an authored one: editing a card moves nothing
@@ -167,12 +149,6 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
       if (isOpenAs("glb", file)) reloadCad("glb", file);
     } else if (file.endsWith(".pdf")) {
       refreshDocuments();
-    } else if (file.endsWith(".tsx")) {
-      // PCB board: the watcher broadcasts the board source after re-rendering
-      // its three views, so refresh the card and the open modal (if it's this
-      // board) against the new SVGs.
-      refreshPcbCard(file);
-      if (isOpenAs("pcb", file)) refetchOpenPcb(file);
     }
   }
 });
@@ -185,21 +161,18 @@ function reloadOpenDetail() {
   const d = state.currentDetail;
   if (!d) return;
   if (d.type === "step" || d.type === "dxf" || d.type === "glb") reloadCad(d.type, d.file);
-  else if (d.type === "pcb") refetchOpenPcb(d.file);
 }
 
 // Force the open detail to fully re-render on the next reloadOpenDetail rather
 // than short-circuit on unchanged content — used when the render CODE moved even
 // though the artifact bytes didn't (a deploy or a dev code edit). Each kind gates
-// re-render on a "same as last time" check: CAD loaders on the ETag, the
-// PCB loader on the last view set. Dropping those makes the freshly
-// imported module actually re-parse and re-mount.
+// CAD loaders use ETags to skip unchanged content. Clearing them reloads the
+// open model through the deployed loader.
 function forceDetailRerender() {
   state.stepEtags.clear();
   state.dxfEtags.clear();
   state.glbEtags.clear();
   state.memberLoaded.clear();
-  state.currentPcbViews = null;
 }
 
 window.addEventListener(HSM_EVENTS.DEPLOY, async (e) => {
@@ -214,7 +187,6 @@ window.addEventListener(HSM_EVENTS.DEPLOY, async (e) => {
     // not the code this tab loaded at boot.
     if (e.detail && e.detail.commit) state.codeVersion = String(e.detail.commit);
     state.thumbnailCache.clear();
-    state.pcbThumbCache.clear();
     // New build may carry new render code too, so force a full re-render (this
     // drops the ETags the pre-code-version deploy path already cleared).
     forceDetailRerender();

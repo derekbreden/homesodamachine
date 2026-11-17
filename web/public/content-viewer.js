@@ -1,14 +1,11 @@
 // ContentViewer — modal frame for showing arbitrary content (images, SVGs,
-// board views and STEP models). Native <dialog> for backdrop +
+// drawings and STEP models). Native <dialog> for backdrop +
 // focus trap + Escape; bespoke open/close transitions and a top drag area
 // that swipe-down dismisses on touch.
 //
 // Singleton: only one viewer open at a time.
 //
-// Visuals match the subscribe-modal pattern in lib/settings.js:
-// rounded card, dimmed backdrop, white-on-dark chrome — extended here to
-// also support a borderless content-fills-the-card mode (because the
-// content IS the focus).
+// A rounded card with a dimmed backdrop and a full-bleed mode.
 //
 // API:
 //   ContentViewer.open({ content, filename, onOpen, onClose });

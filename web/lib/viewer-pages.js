@@ -1,20 +1,17 @@
-// The parts, guides and boards pages share lib/templates/viewer-body.html.
+// Parts and Guides share lib/templates/viewer-body.html.
 // The server renders the page title and navigation. The viewer uses the path
 // to pick the catalog it renders.
 //
-// Old route layout (pre-rename, kept as 301 redirects so prior FCM
-// notification deep links and bookmarks still land somewhere):
+// Redirects keep notification links and bookmarks working.
 //   /dev          → /3d
-//   /dev/settings → /settings
 //   /drawings     → /guides (the printed guides carry homesodamachine.com/drawings)
-//
-// Settings lives at /settings (lib/settings.js), reachable via the gear in the
-// nav.
+//   /pcb          → the board's material workspace
 
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
+import { pcbMaterialHash } from "./material-catalog.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = path.join(__dirname, "templates");
@@ -26,13 +23,11 @@ function readFragment(name) {
 const TITLES = {
   parts: "Parts · Home Soda Machine",
   guides: "Guides · Home Soda Machine",
-  pcb: "Boards · Home Soda Machine",
 };
 
 const INTRO = {
   parts: { eyebrow: "Parts", title: "Explore the machine.", description: "The soda machine, the faucet, and the tools that bring them together. Open a model to explore its parts and documents." },
   guides: { title: "Guides", description: "Assembly instructions and shop references." },
-  pcb: { eyebrow: "Boards", title: "The circuit boards.", description: "Explore the electronics that control the machine and the faucet." },
 };
 
 export function mountViewerPages(app) {
@@ -60,7 +55,13 @@ export function mountViewerPages(app) {
   // Express's default `strict: false` routing makes /3d and /3d/ equivalent.
   app.get("/3d", renderPage("parts"));
   app.get("/guides", renderPage("guides"));
-  app.get("/pcb", renderPage("pcb"));
+  app.get("/pcb", (req, res) => {
+    const source = typeof req.query.file === "string" ? req.query.file : null;
+    const hash = pcbMaterialHash(source);
+    const notification = String(req.query.n || "");
+    const query = /^\d+$/.test(notification) ? `?n=${notification}` : "";
+    res.redirect(301, `/3d${query}${hash ? "#" + hash : ""}`);
+  });
 
   // Legacy redirects. /dev?file=foo and /dev/?file=foo were the deep-link
   // shape baked into FCM notifications before the rename; preserve the
@@ -74,5 +75,4 @@ export function mountViewerPages(app) {
   app.get("/dev", movedTo("/3d"));
   app.get("/dev/", movedTo("/3d"));
   app.get("/drawings", movedTo("/guides"));
-  app.get("/dev/settings", (_req, res) => res.redirect(301, "/settings"));
 }
