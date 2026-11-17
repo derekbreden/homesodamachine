@@ -71,8 +71,14 @@
   overflow: hidden; transition: background-color .12s, border-color .12s;
 }
 .parts-tile-image img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.parts-tile-text-frame { padding: .375rem; }
+.parts-tile-text {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  max-inline-size: 100%; overflow: hidden; overflow-wrap: anywhere;
+  text-align: center; font-size: .6875rem; font-weight: 600; line-height: 1.2;
+}
 a.parts-tile:is(:hover, :focus-visible) .parts-tile-image { border-color: var(--accent); background: #d6e3f7; }
-a.parts-tile:hover .parts-tile-name { text-decoration: underline; text-underline-offset: 2px; }
+a.parts-tile:hover :is(.parts-tile-name, .parts-tile-text) { text-decoration: underline; text-underline-offset: 2px; }
 .parts-tile-name { font-size: .6875rem; font-weight: 600; line-height: 1.22; overflow-wrap: anywhere; }
 .parts-tile-meta { color: var(--text-2); font-size: .6875rem; line-height: 1.3; }
 .parts-related { margin-top: .375rem; border-top: 1px solid var(--border); font-size: .75rem; }
@@ -92,7 +98,7 @@ a.parts-tile:hover .parts-tile-name { text-decoration: underline; text-underline
 .parts-empty { margin: 0; color: var(--text-3); font-size: .8125rem; }
 .parts-focused .parts-group { grid-template-columns: 1fr; --part-size: 9rem; --part-gap: .75rem; }
 .parts-focused .parts-group-heading { display: flex; align-items: baseline; gap: .625rem; }
-.parts-focused .parts-tile-name { font-size: .8125rem; }
+.parts-focused :is(.parts-tile-name, .parts-tile-text) { font-size: .8125rem; }
 @media (max-width: 680px) {
   .parts-catalog { --part-size: 4.25rem; --part-gap: .25rem; }
   .parts-group { grid-template-columns: 1fr; gap: .375rem; padding-block: .625rem; }

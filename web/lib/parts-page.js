@@ -67,22 +67,25 @@ function tile(card, { plate, large }) {
   const name = escape(card.name);
   const image = internal(card.image);
   const href = internal(card.href);
-  const graphic = `<span class="parts-tile-image"><img src="${image}" alt="" decoding="async"${plate ? "" : ' loading="lazy"'}></span>`;
+  const graphic = image
+    ? `<span class="parts-tile-image"><img src="${image}" alt="" decoding="async"${plate ? "" : ' loading="lazy"'}></span>`
+    : `<span class="parts-tile-image parts-tile-text-frame"><span class="parts-tile-text">${name}</span></span>`;
   const meta = card.provider || (large && typeof card.note === "string" ? card.note : "");
-  const caption = `<span class="parts-tile-name">${name}</span>${meta ? `<span class="parts-tile-meta">${escape(meta)}</span>` : ""}`;
+  const caption = image ? `<span class="parts-tile-name">${name}</span>` : "";
+  const content = graphic + caption + (meta ? `<span class="parts-tile-meta">${escape(meta)}</span>` : "");
   return `<li>${href
-    ? `<a class="parts-tile" href="${href}" title="${name}"${plate ? ` data-plate-search="${name}" data-plate-parts="${escape((card.parts || []).map(part => part.label).join(" "))}"` : ""}>${graphic}${caption}</a>`
-    : `<div class="parts-tile">${graphic}${caption}</div>`}
+    ? `<a class="parts-tile" href="${href}" title="${name}"${plate ? ` data-plate-search="${name}" data-plate-parts="${escape((card.parts || []).map(part => part.label).join(" "))}"` : ""}>${content}</a>`
+    : `<div class="parts-tile">${content}</div>`}
     ${large && card.parts?.length > 1 ? printLinks("Parts on this plate", card.parts) : ""}
     ${large ? printLinks("Separate print jobs", card.related) : ""}</li>`;
 }
 
 function groupSection(group, cards, scope, focused) {
   const { key, name, noun } = group;
-  const withImages = cards.filter(card => internal(card.image));
-  const withoutImages = cards.filter(card => !internal(card.image));
+  const tiles = key === "shelf" ? cards : cards.filter(card => internal(card.image));
+  const withoutImages = key === "shelf" ? [] : cards.filter(card => !internal(card.image));
   const tileCount = countOf(cards.length, noun);
-  const expand = !focused && withImages.length > 0;
+  const expand = !focused && tiles.length > 0;
   return `<section id="parts-${key}" class="parts-group parts-group-${key}" aria-labelledby="parts-${key}-title">
     <header class="parts-group-heading">
       <h2 id="parts-${key}-title">${name}</h2>
@@ -90,8 +93,8 @@ function groupSection(group, cards, scope, focused) {
       ${expand ? `<a class="parts-enlarge" href="${partsUrl(scope, key)}" aria-label="Enlarge ${name.toLowerCase()} thumbnails">Enlarge <span aria-hidden="true">↗</span></a>` : ""}
     </header>
     <div class="parts-group-items">
-      ${withImages.length ? `<ul class="parts-tiles" role="list">${withImages.map(card => tile(card, { plate: key === "print", large: focused })).join("")}</ul>` : ""}
-      ${withoutImages.length ? `<details class="parts-no-models"${!withImages.length || focused ? " open" : ""}>
+      ${tiles.length ? `<ul class="parts-tiles" role="list">${tiles.map(card => tile(card, { plate: key === "print", large: focused })).join("")}</ul>` : ""}
+      ${withoutImages.length ? `<details class="parts-no-models"${!tiles.length || focused ? " open" : ""}>
         <summary>${countOf(withoutImages.length, noun)} without ${key === "print" ? "a preview" : "a 3D model"}</summary>
         <ul>${withoutImages.map(card => {
           const href = internal(card.href);
