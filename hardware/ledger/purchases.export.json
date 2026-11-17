@@ -1841,7 +1841,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-17",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -10503,7 +10503,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:ccdeda134367fb556dd4d97e98ccca603f1ceb89b1f50e4d60e2e36bbffabda7",
+  "input_fingerprint": "sha256:8054bfa870e0ec44d816374f56821b1d9ec4a27d35d2b49244fe946229ff96df",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15951,6 +15951,7 @@
       ],
       "reference": "114-2679873-7632253",
       "source_ids": [
+        "src-1c76b36d35114756aac96799ba97b66f",
         "src-eb3019ef3d99416ea0889f3f9aba87ef"
       ],
       "vendor": "Amazon"
@@ -30039,7 +30040,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "Polymaker Fiberon PET-GF15 Black, 1.75 mm, three 3 kg spools (9 kg total); $224.97 merchandise less $27.00 promotion + $14.34 estimated tax, free shipping",
+      "description": "Polymaker Fiberon PET-GF15 Black, 1.75 mm, three 3 kg spools (9 kg total); $224.97 merchandise less $27.00 promotion + $14.34 estimated tax, free shipping; shipped, awaiting delivery",
       "event_ids": [
         "evt-8733331cccaa40d2b47ffde578a9bcd0"
       ],
@@ -30071,6 +30072,7 @@
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
+        "src-1c76b36d35114756aac96799ba97b66f",
         "src-eb3019ef3d99416ea0889f3f9aba87ef"
       ],
       "split_charge": false,
@@ -63349,6 +63351,20 @@
       "source_id": "src-1c5e6cfd743a42c78a9260491a747b01",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Shipment notification identifies the existing order and three 3D-printing supplies shipped in a four-item package with one generically described measurement tool. Its package total is not a revised filament order value. The additional item is not independently linked to an order by this notification. Relative arrival estimate does not establish actual delivery or its date; no completed payment is proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [],
+      "reference": "114-2679873-7632253",
+      "source_id": "src-1c76b36d35114756aac96799ba97b66f",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-17"
     },
     {
       "document_date": {
