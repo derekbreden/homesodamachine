@@ -244,7 +244,7 @@ enters the connected refrigeration assembly.
 | HSM-0565 — Carbonator bottom endcap and guide assembly | Machined cap with its tacked guide rod | HSM-0567 vessel weldment |
 | HSM-0566 — Carbonator top endcap and stop assembly | Machined cap with its tacked upper stop | HSM-0567 vessel weldment, after the float enters |
 | HSM-0567 — Carbonator vessel weldment | Closed tube, prepared caps and captive float | Inspection, proof and cleaning, then HSM-0004 port fitting |
-| HSM-0553 — Carbonator pressure-relief assembly | Elbow, relief valve and shroud with its seal cured | HSM-0004 carbonator |
+| HSM-0553 — Carbonator pressure-relief assembly | Elbow, relief valve and shroud with a foam seal at the elbow joint | HSM-0004 carbonator |
 | HSM-0004 — Carbonator vessel | Welded vessel, captive float and guides, port elbows and relief assembly | HSM-0554 instrumented carbonator and coil |
 | HSM-0554 — Instrumented carbonator and coil assembly | Carbonator, bonded coil, probes, reed bridge and reeds, and earth lead | HSM-0557 insulated core |
 | HSM-0568 — Flavor reservoir cap assembly · channel A | Cap with captured liquid and air grips | HSM-0555 fitted reservoir A |

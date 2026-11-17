@@ -36,6 +36,8 @@ if (host) {
   select('#planner-finish').value = scenario.finish;
 
   const required = (row, n = scenario.focus) => row.needs[n] || 0;
+  const demandText = (row, units) => row.quantityKnown
+    ? `${number(required(row, units))} ${row.unit} needed` : 'Usage unresolved';
   const stateOf = (row, n = scenario.focus) => coverageFor(row, n, row.purchase);
   const badge = (status, extra = '') => `<span class="planner-badge" data-tone="${status}">${escape(extra || labels[status])}</span>`;
   function bar(unit) {
@@ -82,12 +84,12 @@ if (host) {
     });
     select('.planner-table thead').innerHTML = `<tr><th scope="col">Material / purchase packs</th><th scope="col">Available now</th>${Array.from({ length: scenario.horizon }, (_, i) => `<th scope="col" class="planner-unit-head${scenario.focus === i + 1 ? ' is-focus' : ''}"><button type="button" data-focus="${i + 1}" aria-label="Focus unit ${i + 1}">${i + 1}</button></th>`).join('')}<th scope="col">Through ${scenario.focus}</th></tr>`;
     select('.planner-table tbody').innerHTML = matching.slice(0, visible).map(({ row, index }) => {
-      const status = stateOf(row), total = required(row);
+      const status = stateOf(row);
       const cells = Array.from({ length: scenario.horizon }, (_, i) => {
         const state = stateOf(row, i + 1);
-        return `<td class="planner-unit-cell${scenario.focus === i + 1 ? ' is-focus' : ''}"><span class="planner-cell" data-tone="${state}" title="Through unit ${i + 1}: need ${number(required(row, i + 1))} ${escape(row.unit)} · ${labels[state]}"><span class="planner-sr-only">${labels[state]}</span></span></td>`;
+        return `<td class="planner-unit-cell${scenario.focus === i + 1 ? ' is-focus' : ''}"><span class="planner-cell" data-tone="${state}" title="Through unit ${i + 1}: ${escape(demandText(row, i + 1))} · ${labels[state]}"><span class="planner-sr-only">${labels[state]}</span></span></td>`;
       }).join('');
-      return `<tr class="planner-material-row" data-resource="${escape(row.id)}"><th scope="row"><button class="planner-material-toggle" id="row-${index}" data-open="${escape(row.id)}" type="button" aria-expanded="${openRow === row.id}"><span><strong>${escape(row.name)}</strong><small>${escape(row.category)}${row.estimated ? ' · estimated usage / stock' : ''}</small></span><span aria-hidden="true">${openRow === row.id ? '−' : '+'}</span></button>${row.purchase.quantity ? `<small class="planner-row-purchase">+ ${number(row.purchase.quantity)} ${escape(row.unit)} planned · ${money(row.purchase.costCents)}${row.purchase.unpriced ? ' + unpriced' : ''}</small>` : ''}</th><td><b>${row.available == null ? '?' : number(row.available)}</b><small>${escape(row.unit)}${row.incoming ? `<br>+ ${number(row.incoming)} ordered` : ''}</small></td>${cells}<td>${badge(status, status === 'unknown' && row.material ? 'Define input' : '')}<small>${row.quantityKnown ? number(total) + ' ' + escape(row.unit) + ' needed' : 'Usage unresolved'}</small></td></tr>${openRow === row.id ? details(row, index) : ''}`;
+      return `<tr class="planner-material-row" data-resource="${escape(row.id)}"><th scope="row"><button class="planner-material-toggle" id="row-${index}" data-open="${escape(row.id)}" type="button" aria-expanded="${openRow === row.id}"><span><strong>${escape(row.name)}</strong><small>${escape(row.category)}${row.estimated ? ' · estimated usage / stock' : ''}</small></span><span aria-hidden="true">${openRow === row.id ? '−' : '+'}</span></button>${row.purchase.quantity ? `<small class="planner-row-purchase">+ ${number(row.purchase.quantity)} ${escape(row.unit)} planned · ${money(row.purchase.costCents)}${row.purchase.unpriced ? ' + unpriced' : ''}</small>` : ''}</th><td><b>${row.available == null ? '?' : number(row.available)}</b><small>${escape(row.unit)}${row.incoming ? `<br>+ ${number(row.incoming)} ordered` : ''}</small></td>${cells}<td>${badge(status, status === 'unknown' && !row.quantityKnown ? 'Define input' : '')}<small>${escape(demandText(row))}</small></td></tr>${openRow === row.id ? details(row, index) : ''}`;
     }).join('') || `<tr><td colspan="${scenario.horizon + 3}" class="planner-empty">No materials match this view. Try all materials or another search.</td></tr>`;
     select('#planner-row-count').textContent = `${Math.min(visible, matching.length)} of ${matching.length} material lines`;
     select('#planner-more').hidden = visible >= matching.length;

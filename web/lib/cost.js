@@ -48,7 +48,7 @@ function parseMoney(cell) {
 // covers "2 (of 10 pk)", "18 (2 bags of 10)", and the [N](ANCHOR) sync markers.
 function parseCount(qtyCell) {
   if (!qtyCell) return null;
-  if (/[/]|\b(ft|kg|g|m|oz|roll|pair)\b/i.test(qtyCell)) return null;
+  if (/[/]|\b(ft|kg|g|m|mL|oz|roll|pair)\b/i.test(qtyCell)) return null;
   const m = qtyCell.match(/^\s*\[?~?\s*(\d+)\b/);
   return m ? parseInt(m[1], 10) : null;
 }

@@ -459,23 +459,22 @@
       }
     },
     {
-      "id": "100% RTV silicone caulk (e.g. GE Silicone II)",
-      "name": "100% RTV silicone caulk (e.g. GE Silicone II)",
-      "unit": "builds",
+      "id": "prv-shroud-foam-seal",
+      "name": "PRV shroud foam seal",
+      "unit": "mL",
       "href": null,
       "onHand": null,
       "incoming": 0,
       "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
+      "estimated": false,
+      "asOf": null,
       "basis": "unknown",
-      "note": "No usable production stock quantified in the reviewed records; no stock credit taken.",
-      "sources": [],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 1,
-        "materialAllowance": 0
-      }
+      "note": "Keeps expanding foam out of the relief shroud at the elbow joint. Material selection, amount per joint and pack size are open.",
+      "sources": [
+        {
+          "path": "hardware/printed-parts/cold-core/prv-shroud/README.md"
+        }
+      ]
     },
     {
       "id": "B01G2F6EMY",

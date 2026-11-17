@@ -126,6 +126,10 @@ test('the published workspace carries every real stock input, unknown usage and 
     }
     const rod = rows.find(row => row.id === 'B0FYCJJXCS-rod');
     assert.ok(rod.quantityKnown && rod.unit === 'mm' && rod.uses.includes('HSM-0011') && rod.uses.includes('HSM-0459'));
+    const foamSeal = rows.find(row => row.id === 'prv-shroud-foam-seal');
+    assert.ok(foamSeal.active[1] && !foamSeal.quantityKnown);
+    assert.equal(foamSeal.quote, null);
+    assert.ok(!rows.some(row => row.name.includes('GE Silicone II')));
     assert.ok(!rows.some(row => /HSM-0324|HSM-0334|HSM-0335|HSM-0364/.test(row.id)));
     const screw = rows.find(row => row.id === 'svling-B0GHNNYVDH');
     assert.ok(screw.available >= screw.needs[1] && screw.estimated);
