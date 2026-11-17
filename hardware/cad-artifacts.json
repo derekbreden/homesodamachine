@@ -93,14 +93,6 @@
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "e174167261c21c0454629c054c648350d73bd89149d41c7634d7f8a1f445b4dc",
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": "c8ff212d3388a9239bf1b4a8041e1618953a28d287dfc228ea61b556848a9160",
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "6856373c12a4622863347011524e7428a5da8d9f220461c960177e16d5e61f36",
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": "70ea1bb64fffc023ca458f8a2089de35c63a596b0d298f8c3768a45000e249d9",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh": "4910d0f4767b28812b683a1631fcf5385335bdf8eed1176e79b76509ab0c1e6c",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": "67c1821a9941be34c9fe6d8fac7fe7ff0c79f2774c63d7eb75f10aeaf13e7da2",
@@ -118,15 +110,9 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "0a3305dfd2a6b75dc88e0b758ac4cf434b70d22496bdcee4230332e22fe053d8",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "90c2ecb56ebc87635e05b11c68dd0a8bdb275323b427a9b951a27b9c76e8ed85",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh": "d8fc1d7679db432036ca199bb358bd0b15afd3ae583f5eea32680d528b571a0c",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "fc308b454d8940727fd71e8a665b09bbfcb78d88d8ca0724ba7f1b3a304876f6",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "aea26e786eb41faf10876229596b8da584f9e9477e355c9c96363d9614bc2819",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "9961d9e1df945777423a4949a68ba1dc2f06b87fe0bac6ee54078ec6c93fca7e",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f3cb1504488cc6081e9465f4540a6e646a1a94a153f7f0278330096b0f8323e1",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "7263cd553a7a6af47fe093ea99a40c96035734beb6c0e363ac18612a29f56333",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "44ce5628d4239233ef35d705da0a8f6d05a50f734c377885d117c633ee5d08c2",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "6ba4bfc8bf542898cfe7f793594c0fda301399ca0f497bc77e4f6463daa0015b",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0292691e1e8418f4f1e5aa4cd30ae096777f5952c1248fe2eafd48bb5e334533",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
@@ -202,9 +188,6 @@
     "hardware/printed-parts/collet-press/collet-press.step": "d8dff38e519a01885464430d031d5b0df35f3c368adde3e4b13464aa0b9da52b",
     "hardware/printed-parts/collet-press/collet-press.step.mesh": "ac07ea11318e6256e475072327ea048773739d95e67a6a82c4bbd494f665f623",
     "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": "dc732268af4cd0948b812e588d061739e109a31216747cee68a8d96d7eede79f",
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": "17954bcbe6a9bec9ac7bfacd6215514d53a9227a226c738e8dfb72313cb21620",
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": "a2959a35d0327f54ab5a4181037bb43b6bbe6d4959be2c307188c1c1ed870e08",
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh": "226f10b48056513eb4ad56696b2990d1488bf8b5976305af699c63df25728386",
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "24d6357cae73a727fa3870f60b7630649f80e772a10bdce673632f6bfcd0e99e",
@@ -814,8 +797,6 @@
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "39ccc30f08f5d1f8808fe16d18463f99cb8a58b7aaf86dd0da2285e8e0c73993",
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.npz": "664a0f04fccb58dfe0c12e4eb0c04ea57e6539faa6f5ae79b2de46b8594aa60e",
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
-    "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
-    "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
     "hardware/reference/jg-pp061208w/jg-pp061208w.step.mesh": "ddfaeee1030c20712e78e7f7cad4bf5ab9f394e0fd321b9a5d81ee9577ad88fc",
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": "01288f13c01e9153c01cc891ccb825da5bc08485613067919d2fc3de87505cdf",
@@ -976,29 +957,15 @@
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": "4730c636dd33e1431fa4fa3c6df0b4a3a41942efa40f451ce04e4f41e661a92d",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": "192cb511c9bd723d16f931037c741fb143fa7000b522a574d13fc47f50854806",
       "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": "ee0584ceb98ba367aaf8ea1508a060946f8e357a0f8e77cc33de567066437d2e",
-      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": "497993beffe16a8a44dc16b30c90a398421f1feda23259d071cad705e8a68c10",
-      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": "e174167261c21c0454629c054c648350d73bd89149d41c7634d7f8a1f445b4dc",
-      "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173",
-      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": "c8ff212d3388a9239bf1b4a8041e1618953a28d287dfc228ea61b556848a9160",
-      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": "da4317af62970098f06ba9653b97fde9523bbfc014cc12ad2a2e772d1fffad41",
-      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": "6856373c12a4622863347011524e7428a5da8d9f220461c960177e16d5e61f36",
-      "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "aaa7535949e94a34e92caff0b2bf2db8e8e822752411b436abf4e87bc6b09771",
       "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "0a3305dfd2a6b75dc88e0b758ac4cf434b70d22496bdcee4230332e22fe053d8",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "90c2ecb56ebc87635e05b11c68dd0a8bdb275323b427a9b951a27b9c76e8ed85",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh": "d8fc1d7679db432036ca199bb358bd0b15afd3ae583f5eea32680d528b571a0c",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "fc308b454d8940727fd71e8a665b09bbfcb78d88d8ca0724ba7f1b3a304876f6",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "aea26e786eb41faf10876229596b8da584f9e9477e355c9c96363d9614bc2819",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "9961d9e1df945777423a4949a68ba1dc2f06b87fe0bac6ee54078ec6c93fca7e",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "f3cb1504488cc6081e9465f4540a6e646a1a94a153f7f0278330096b0f8323e1",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "7263cd553a7a6af47fe093ea99a40c96035734beb6c0e363ac18612a29f56333",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "44ce5628d4239233ef35d705da0a8f6d05a50f734c377885d117c633ee5d08c2",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "6ba4bfc8bf542898cfe7f793594c0fda301399ca0f497bc77e4f6463daa0015b",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0292691e1e8418f4f1e5aa4cd30ae096777f5952c1248fe2eafd48bb5e334533",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
@@ -1050,9 +1017,6 @@
       "hardware/printed-parts/collet-press/collet-press.step": "d8dff38e519a01885464430d031d5b0df35f3c368adde3e4b13464aa0b9da52b",
       "hardware/printed-parts/collet-press/collet-press.step.mesh": "ac07ea11318e6256e475072327ea048773739d95e67a6a82c4bbd494f665f623",
       "hardware/printed-parts/collet-press/collet-press.stl": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
-      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": "dc732268af4cd0948b812e588d061739e109a31216747cee68a8d96d7eede79f",
-      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": "17954bcbe6a9bec9ac7bfacd6215514d53a9227a226c738e8dfb72313cb21620",
-      "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "24d6357cae73a727fa3870f60b7630649f80e772a10bdce673632f6bfcd0e99e",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step.mesh": "4ffc48d3849da295ad068f32cf1c8f11f559da08fd2ede2bf4f9655623211453",
       "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
@@ -1423,8 +1387,6 @@
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "b16050612c9f88003186efd4d62e054ede70c68bd3f35f06512735bd8b77bc3d",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": "39ccc30f08f5d1f8808fe16d18463f99cb8a58b7aaf86dd0da2285e8e0c73993",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": "35e38299310e8e100d629c99ef9b91c549dbf724c96f405151b3f49f9bab5f6e",
-      "hardware/reference/jg-pp0408w/jg-pp0408w.step": "987eccd988d461a87babb024bc4cd7e538777467449bfceea7ead8ed5d4dfded",
-      "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": "c9e764f9809d9305385f97d83e3f4894f83ec97a4f7765eeb073e224508c105a",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step": "5b9d3c1bba5bc098056a0a8395ddb260188dabfcf9152460b5f39855cb8c13af",
       "hardware/reference/jg-pp061208w/jg-pp061208w.step.mesh": "ddfaeee1030c20712e78e7f7cad4bf5ab9f394e0fd321b9a5d81ee9577ad88fc",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "16308de08af380e2eb6369c760ecb021dea0c72100d0b4da1b14387f783b9320",
@@ -2586,14 +2548,6 @@
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step": 1794333527.660268,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh": 1794333521.231233,
     "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl": 1794333527.660268,
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": 1793652093,
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.json": 1793750338,
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": 1794037810,
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": 1793652093,
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": 1793652093,
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.json": 1793750338,
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": 1794037810,
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": 1793652093,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step": 1790719427,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh": 1790719427,
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.stl": 1790719427,
@@ -2611,15 +2565,9 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": 1793568839,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": 1793712586,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": 1793568839,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": 1792964249,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh": 1792964249,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": 1792964249,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": 1794136040,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1794136023,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": 1794136040,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": 1793508101,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": 1793508101,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": 1793508101,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": 1794136040,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": 1794136023,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": 1794136040,
@@ -2695,9 +2643,6 @@
     "hardware/printed-parts/collet-press/collet-press.step": 1793626644,
     "hardware/printed-parts/collet-press/collet-press.step.mesh": 1794037810,
     "hardware/printed-parts/collet-press/collet-press.stl": 1793712586,
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": 1793712586,
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": 1794037810,
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": 1793712586,
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": 1793938190,
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step.mesh": 1793938190,
     "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": 1793938190,
@@ -3307,8 +3252,6 @@
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.mesh": 1794271403.428597,
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.npz": 1794271411.5702882,
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.stl": 1793750338,
-    "hardware/reference/jg-pp0408w/jg-pp0408w.step": 1787356215,
-    "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": 1793568839,
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": 1793413160,
     "hardware/reference/jg-pp061208w/jg-pp061208w.step.mesh": 1793617993,
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": 1787578592,
@@ -3614,36 +3557,6 @@
       "inputs": "d39c51b15ab1f67670eb185e651140d3c15c43a2468cc11df2e1367230e1fcce",
       "unproven": true
     },
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step": {
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "inputs": "277839c2bd71ba3cc222be13cc7c1432453e2a91517962acd0257ab729854196",
-      "unproven": true
-    },
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.step.mesh": {
-      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
-      "inputs": "16b0fd10f6a485b48b2c829bd88ca2f7d32b3259b6dbd97ddac0944672e9e220",
-      "unproven": true
-    },
-    "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl": {
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "inputs": "277839c2bd71ba3cc222be13cc7c1432453e2a91517962acd0257ab729854196",
-      "unproven": true
-    },
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step": {
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "inputs": "277839c2bd71ba3cc222be13cc7c1432453e2a91517962acd0257ab729854196",
-      "unproven": true
-    },
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step.mesh": {
-      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
-      "inputs": "16b0fd10f6a485b48b2c829bd88ca2f7d32b3259b6dbd97ddac0944672e9e220",
-      "unproven": true
-    },
-    "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl": {
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "inputs": "277839c2bd71ba3cc222be13cc7c1432453e2a91517962acd0257ab729854196",
-      "unproven": true
-    },
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": {
       "commit": "57208d39114af965cdca4e515565953a6ded6611",
       "inputs": "c971213ac27351b24f1fc3c6ec631c8e9e0f376ecb388ac0b54a8ee5c3ef0702",
@@ -3692,18 +3605,6 @@
       "inputs": "d8259ff3025f11a89e72c8cbfeec9e8ba2e375d4e9bfdba03acd146d328fb576",
       "unproven": true
     },
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
-      "unproven": true
-    },
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
-      "unproven": true
-    },
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
-      "unproven": true
-    },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": {
       "commit": "9b4c7c5cecf8dfc50a90060e6a761f5c526abb49",
       "unproven": true
@@ -3715,19 +3616,6 @@
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": {
       "commit": "9b4c7c5cecf8dfc50a90060e6a761f5c526abb49",
-      "unproven": true
-    },
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": {
-      "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
-      "unproven": true
-    },
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": {
-      "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
-      "inputs": "0afb551216d2deade792ee9375f172e743b98fa1823ed2b95431c10a8d556c1d",
-      "unproven": true
-    },
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": {
-      "commit": "b378cd5b8adcbac3da430283ac083189dfe1ae11",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": {
@@ -4065,21 +3953,6 @@
     "hardware/printed-parts/collet-press/collet-press.stl": {
       "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
       "inputs": "9f1dabe00576ed22b78a9b0d17533e7cb557ac87fa97f395adca8e5746182d15",
-      "unproven": true
-    },
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step": {
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "inputs": "74271afcf2f543ad4a8967ca94237df2bb5ce26e700c18324a1fe26cfdd8983b",
-      "unproven": true
-    },
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step.mesh": {
-      "commit": "df0b9119f8880376223371a4dbb0481be272238e",
-      "inputs": "da57f0f03ce73fb9ba7fa589f30617c5fc14106582abb8c3d38e77aeb370a125",
-      "unproven": true
-    },
-    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.stl": {
-      "commit": "41976ea8aadc1cfeb0ae6b57aaba91944ba40bf2",
-      "inputs": "74271afcf2f543ad4a8967ca94237df2bb5ce26e700c18324a1fe26cfdd8983b",
       "unproven": true
     },
     "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step": {
@@ -5696,14 +5569,6 @@
     },
     "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step.npz": {
       "commit": "7a18c19513ddb6d3ee1fec0ab42a9bac24e4e247",
-      "unproven": true
-    },
-    "hardware/reference/jg-pp0408w/jg-pp0408w.step": {
-      "commit": "d2c7e36f5c616919c8be5d1ccb8205b0fbac8540",
-      "unproven": true
-    },
-    "hardware/reference/jg-pp0408w/jg-pp0408w.step.mesh": {
-      "commit": "831d7c85eca5996faffd66ad3bda685ed2871f84",
       "unproven": true
     },
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": {
