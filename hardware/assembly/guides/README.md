@@ -10,7 +10,7 @@ sequence of actions, and a visible check before the next operation.
 | [Faucet assembly](../../faucet-assembly-guide/README.md) | Sleeve-first tube insertion, attached faucet lever, rear display pin map on page 2, mount stack and umbilical |
 | [Tube insertion tool](../../tube-insertion-guide/README.md) | T-handle grip, sleeve-fitting puck, horizontal dual screw-clamp press, donor setup and tube insertion |
 | [Drilling and cutting](../../drill-and-cut-guide/README.md) | Endcap preparation and registers, rod and tube stock, tiny inlet jet, plumbing and harness cuts, finishing |
-| [Molds](../../mold-guide/README.md) | Silicone funnel tooling and casting, foam caps, cold-core body pour and demolding |
+| [Molds](../../mold-guide/README.md) | Silicone funnel casting, bottom-cap and open-body pours, lid closure and B-fill threading |
 | [Refrigeration](../../refrigeration-guide/README.md) | Coil and probes, donor circuit, opening and joining, leak and vacuum work, charge and commissioning |
 | [Drill and weld bench sheets](../letter/README.md) | The endcap register, closure weld setup, pedal and trigger sequence |
 | [Weld rotator](../../weld-rotator-guide/README.md) | Building, checking and operating the rotation fixture |
@@ -18,7 +18,8 @@ sequence of actions, and a visible check before the next operation.
 | [Gun positioner](../../gun-positioner-guide/README.md) | PGFUN swivel/pivot fixture, controller wiring, one-camera dry learning and loaded commissioning |
 
 The [guides page](https://homesodamachine.com/guides) carries each complete
-PDF. Fabrication procedures under `hardware/assembly/` and physical qualification
+PDF. The [cold-core bench procedure](../cold-core.md) covers the full assembly.
+Fabrication procedures under `hardware/assembly/` and physical qualification
 records beside the parts own the operating requirements and accepted results.
 A guide identifies an unresolved recipe or service qualification where that
 operation reaches it.

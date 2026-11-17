@@ -53,7 +53,7 @@ through the equipment lid.
 |---|---|
 | foam stack | taller shell, top equipment lid and open-topped bottom cap — loaded from `foam-assembly` |
 | closure hardware | twenty M5 × 100 screws; ten in each shell face |
-| B-fill guide | independent R14 holder with a 2 mm wall, located by its tube and cured foam |
+| B-fill guide | Independent holder located by the pour offcut and held by the cured foam. The final tube feeds from the front after the lid seats. [Assembly](../assembly/cold-core.md#7-close-and-populate-the-top-lid) |
 | carbonator | 5" × 0.065" 316 tube, two 1/4" endcap plates recessed one thickness in, the 1/8" 316L float rod between their blind registers |
 | carbonator fittings | two TAISHER street elbows on the top plate's ports and two neoFit AME4-N2-E push-fit male elbows on the bottom plate's; the SV-125 and its shroud on port 4 |
 | reservoirs | both bodies and their caps |

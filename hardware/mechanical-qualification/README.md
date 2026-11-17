@@ -366,7 +366,7 @@ specifies the following dimensions. Its minimum surrounding wall is measured fro
 | Insert | Knurl OD | Recommended nominal bore | Minimum surrounding wall | Relevant CAD feature |
 | --- | --- | --- | --- | --- |
 | RX-M2x4 | 3.6 mm | 3.2 mm | 1.3 mm | The shared bench-tray engine uses a 5.8 mm boss and a 5.0 mm blind pocket for this family. No M2 insert is specified in the integrated appliance. |
-| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | The selected cold-core pump, PCB and PSU columns are 8.0 mm OD with 9.75 mm blind pilots for full-length inserts. The main-board bench tray uses 7.2 mm OD with 5.0 mm pockets for short inserts. Complete native stock, including adjacent cuts, is checked separately. |
+| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | The PCB's full-length inserts are in the integral equipment-lid posts. The main-board bench tray uses short inserts. [Lid pilots](../printed-parts/cold-core/foam-cap/README.md) |
 | RX-M5x9.5 | 7.1 mm | 6.4 mm | 2.6 mm | Compressor posts are 12.0 mm OD with a 6.4 mm bore, giving a nominal 2.8 mm annulus. CAD checks the M5 manufacturer's minimum surrounding wall. |
 
 Ruthex specifies at least 1.0 mm of blind relief below the installed insert.
@@ -384,21 +384,12 @@ blind ends and connected routes. Its 66 passing native checks apply to the sourc
 bound in that report; rubber compression and installed isolation remain physical
 observations.
 
-The [selected cap arrangement](../printed-parts/cold-core/foam-cap/README.md)
-has eight cup-rooted full-length M3 insert stations: four pump feet and four PCB
-posts. The PCB's M3×8 screws engage 6.4 mm; the pump's M3×20 stack gives 6.65 mm
-nominal reach. The PSU's hosts are on back-top's west sidewall, in the
-[wall-mount review](enclosure-above-core/wall-mount-review.json). The B-fill lower
-pocket's cover retains 3.05 mm nominal stock; the upper fitting's 2.4 mm cover leaves
-0.25 mm nominal air below the modeled PCB tails
-([B-fill pair review](../printed-parts/cold-core/foam-cap/b-fill-pair-review.json)). The [scoped native review](../printed-parts/cold-core/foam-cap/above-core-native-review.json)
-records the passage, complete pilot-stock, B-fill, check-bridge, valve-wall and
-three JG union-restraint queries. The union windows retain complete 3 mm native
-surrounding stock; their nominal strip segments are checked against the selected
-equipment, tubes and dressed electrical references. These establish CAD geometry,
-without transferring physical acceptance to the complete cap, the V-B wall, union
-restraints, cable passages, fitting pockets or water-inlet extension. Printed fit, load capacity, installed tube/cable behavior, seam
-adhesion and lifetime retain their separate qualification scopes.
+The equipment lid carries the PCB inserts and the bare pump sits in an integral
+cradle with its snap cap. The B-fill guide stays fixed in the foam. Feed its
+tube lengthwise after closing the lid. The cold-core procedure sets the
+bench sequence and physical checks for closure. The geometry receipts identify
+the cap, fittings and passage shapes they measured.
+[Cold-core assembly](../assembly/cold-core.md) · [Lid and bottom cap](../printed-parts/cold-core/foam-cap/README.md) · [Pump installation](../reference/g-ganen-pump/installation/README.md) · [Cap and restraints receipt](../printed-parts/cold-core/foam-cap/above-core-native-review.json) · [Elbow pair receipt](../printed-parts/cold-core/foam-cap/b-fill-pair-review.json)
 
 The [above-core closure review](enclosure-above-core/README.md) reads the
 exported populated appliance for vertical removal of the empty funnel frame,

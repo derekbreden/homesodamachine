@@ -2,8 +2,8 @@
   "purpose": "Author the molding shop guide from its operation records and schematic drawing primitives.",
   "layout": "mold",
   "title": "Mold operations",
-  "subtitle": "Shop guide - silicone funnel and three cold-core foam pours",
-  "sources": ["hardware/printed-parts/zone-c/funnel-mold/README.md", "hardware/printed-parts/zone-c/funnel-mold/silicone.md", "hardware/printed-parts/zone-c/funnel-mold/design.json", "hardware/printed-parts/zone-c/funnel-mold/print-log.md", "hardware/assembly/cold-core.md", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/cold-core-layout/coil/numbers.rs", "hardware/mechanical-qualification/core-and-faucet-heatsets.json", "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md"],
+  "subtitle": "Shop guide - silicone funnel and cold-core insulation",
+  "sources": ["hardware/printed-parts/zone-c/funnel-mold/README.md", "hardware/printed-parts/zone-c/funnel-mold/silicone.md", "hardware/printed-parts/zone-c/funnel-mold/design.json", "hardware/printed-parts/zone-c/funnel-mold/print-log.md", "hardware/assembly/cold-core.md", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/cold-core-layout/coil/numbers.rs", "hardware/printed-parts/cold-core/foam-cap/README.md", "hardware/cold-core-layout/layout/b_fill.rs", "hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md"],
   "extra": {
     "manufacturer_sources": {
       "BBDINO 40A": "https://bbdino.com/products/bbdino-40a-clear-silicone-mold-making-trial-kit-gp-platinum-cure-high-hardness",
@@ -19,7 +19,7 @@
   "pages": [
     {
       "title": "Make the soft parts",
-      "subtitle": "Silicone funnel + two foam caps + one body pour. A picture for each bench move.",
+      "subtitle": "Cast the silicone funnel and insulate the cold core.",
       "series": "MOLD OPERATIONS / START HERE",
       "illustration": {
         "origin": [72.9203539823009, 169],
@@ -54,29 +54,34 @@
           {"kind": "arrow", "start": [222, 80], "end": [268, 80], "color": "#E95A2C", "width": 2, "head": 6},
           {"kind": "label", "value": "FUNNEL", "x": 263, "y": 18, "size": 16, "color": "#1749D1", "font": "PlexBold", "align": "center"},
           {"kind": "label", "value": "cavity + core + steel rod", "x": 263, "y": 172, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "rect", "x": 239, "y": 247, "width": 222, "height": 31, "fill": "#FFE2CC", "stroke": "#202337"},
-          {"kind": "rect", "x": 239, "y": 292, "width": 222, "height": 31, "fill": "#FFE2CC", "stroke": "#202337"},
-          {"kind": "rect", "x": 48, "y": 232, "width": 146, "height": 94, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "label", "value": "BODY", "x": 121, "y": 283, "size": 12, "color": "#202337", "font": "PlexBold", "align": "center"},
-          {"kind": "label", "value": "TOP CAP", "x": 350, "y": 268, "size": 11, "color": "#202337", "font": "PlexBold", "align": "center"},
-          {"kind": "label", "value": "BOTTOM CAP", "x": 350, "y": 313, "size": 11, "color": "#202337", "font": "PlexBold", "align": "center"},
-          {"kind": "label", "value": "THREE COLD-CORE POURS", "x": 263, "y": 220, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"}
+          {"kind": "label", "value": "TWO COLD-CORE POURS", "x": 263, "y": 218, "size": 14, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 69, "y": 260, "width": 165, "height": 31, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "rect", "x": 69, "y": 247, "width": 165, "height": 13, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 74, "y": 291, "width": 154, "height": 9, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [157, 231], "end": [157, 250], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "rect", "x": 299, "y": 251, "width": 169, "height": 50, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "rect", "x": 299, "y": 243, "width": 10, "height": 58, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 458, "y": 243, "width": 10, "height": 58, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 299, "y": 301, "width": 169, "height": 9, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [383, 228], "end": [383, 252], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "BOTTOM CAP", "x": 151, "y": 326, "size": 11, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "OPEN BODY", "x": 384, "y": 326, "size": 11, "color": "#202337", "font": "PlexBold", "align": "center"}
         ]
       },
       "actions": [
         {
-          "title": "Funnel: pages 2-16",
+          "title": "Funnel casting",
           "body": "Finish the printed tooling, prove the material stack, cast, open and inspect the removable funnel."
         },
         {
-          "title": "Cold core: pages 17-22",
-          "body": "Two cap pours bolted to the shell's top face, then the body pour through its open top. Each mixes 1:1."
+          "title": "Cold-core insulation",
+          "body": "Fill the inverted bottom cap, pour the upright body, then seat the equipment lid and feed B-fill from the front."
         }
       ],
       "actions_y": 506,
       "result": {
         "title": "USE THIS AT THE BENCH",
-        "body": "Coral marks the current move. Blue marks gauges, air paths and surfaces to keep clear. Pictures are schematic; named dimensions govern.",
+        "body": "Coral marks the current move. Blue marks gauges, air paths and surfaces to keep clear. Use the linked part drawings for dimensions.",
         "y": 682,
         "tone": "#1749D1"
       },
@@ -970,353 +975,326 @@
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/zone-c/funnel-mold/silicone.md"
     },
     {
-      "title": "Prepare the three foam pours",
-      "subtitle": "Two cap cavities and one body cavity use the acquired FSD 2 lb closed-cell PU foam.",
+      "title": "Prepare both foam pours",
+      "subtitle": "The empty casing receives its bottom pour before the open body is filled.",
       "series": "MOLD OPERATIONS / COLD CORE",
       "illustration": {
-        "origin": [64.44036697247705, 169],
-        "scale": 0.9357798165137615,
-        "panel": [32, 155, 547, 334],
+        "origin": [51,172],
+        "scale": 1,
+        "panel": [32,155,547,326],
         "drawing": [
-          {"kind": "rect", "x": 37, "y": 45, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
-          {"kind": "shape", "points": [[37, 57], [72, 57], [72, 67], [82, 78], [82, 146], [27, 146], [27, 78], [37, 67]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
-          {"kind": "rect", "x": 34, "y": 91, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
-          {"kind": "label", "value": "A", "x": 54.5, "y": 113, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
-          {"kind": "rect", "x": 123, "y": 45, "width": 35, "height": 12, "fill": "#202337", "stroke": null},
-          {"kind": "shape", "points": [[123, 57], [158, 57], [158, 67], [168, 78], [168, 146], [113, 146], [113, 78], [123, 67]], "fill": "#EEDDB2", "stroke": "#202337", "width": 1.5, "close": true},
-          {"kind": "rect", "x": 120, "y": 91, "width": 41, "height": 33, "fill": "#FCFCFA", "stroke": null},
-          {"kind": "label", "value": "B", "x": 140.5, "y": 113, "size": 16, "color": "#202337", "font": "PlexBold", "align": "center"},
-          {"kind": "arrow", "start": [190, 99], "end": [251, 99], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "rect", "x": 275, "y": 33, "width": 222, "height": 264, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "label", "value": "MIX 1:1", "x": 291, "y": 59, "size": 16, "color": "#1749D1", "font": "PlexBold", "align": "left"},
-          {"kind": "label", "value": "measured shot per pour", "x": 291, "y": 87, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [291, 101], "end": [478, 101], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "top cap / 12.6 mm deep", "x": 291, "y": 121, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [291, 135], "end": [478, 135], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "bottom cap / 16 mm deep", "x": 291, "y": 155, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [291, 169], "end": [478, 169], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "body / open top, all at once", "x": 291, "y": 189, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [291, 203], "end": [478, 203], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "~5 L risen foam per build", "x": 291, "y": 223, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [291, 237], "end": [478, 237], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "TOP / BOTTOM / BODY", "x": 265, "y": 330, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+          {"kind": "label", "value": "BOTTOM-CAP POUR", "x": 127, "y": 29, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "OPEN-BODY POUR", "x": 385, "y": 29, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [253, 48], "end": [253, 264], "color": "#1749D1", "width": 1, "dash": [4, 4]},
+          {"kind": "rect", "x": 43, "y": 113, "width": 171, "height": 36, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "rect", "x": 43, "y": 102, "width": 171, "height": 11, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 43, "y": 113, "width": 9, "height": 36, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 205, "y": 113, "width": 9, "height": 36, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 50, "y": 149, "width": 157, "height": 9, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 50, "y": 158, "width": 9, "height": 72, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 198, "y": 158, "width": 9, "height": 72, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "line", "start": [31, 230], "end": [225, 230], "color": "#202337", "width": 2, "dash": []},
+          {"kind": "arrow", "start": [113, 61], "end": [113, 102], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "Pour ports face up", "x": 126, "y": 259, "size": 12, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 299, "y": 137, "width": 169, "height": 80, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "rect", "x": 294, "y": 103, "width": 9, "height": 124, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 463, "y": 103, "width": 9, "height": 124, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 294, "y": 217, "width": 178, "height": 10, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 294, "y": 227, "width": 178, "height": 10, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 314, "y": 146, "width": 32, "height": 70, "fill": "#C9EEEE", "stroke": "#202337"},
+          {"kind": "rect", "x": 420, "y": 146, "width": 33, "height": 70, "fill": "#C9EEEE", "stroke": "#202337"},
+          {"kind": "rect", "x": 354, "y": 132, "width": 58, "height": 85, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [355, 66], "end": [355, 124], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "arrow", "start": [409, 66], "end": [409, 124], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "Upright shell with lid off", "x": 384, "y": 259, "size": 12, "color": "#202337", "font": "PlexBold", "align": "center"}
         ]
       },
       "actions": [
         {
-          "title": "Use the acquired foam",
-          "body": "FSD B08R7TX8QJ two-part 2 lb closed-cell PU. Mix the two parts 1:1 in measured shots, one shot per pour."
+          "title": "Set the batch quantities",
+          "body": "Use the foam-fill trials to set the charge and distribution for each cavity. Follow the kit directions for mixing and cure."
         },
         {
-          "title": "Stage three separate pours",
-          "body": "Each cap pours bolted to the shell's top face; the body pours last through its open top. A build fills ~5 L of risen foam (~4 L cavity + waste), about 1/7 of the 1 qt kit."
+          "title": "Stage the two setups",
+          "body": "Bolt the bottom cap to the empty shell for the first pour. The installed vessels and tubing go into the upright shell for the body pour."
         },
         {
-          "title": "Stage a dry, ventilated bench",
-          "body": "Use dry cups/tools, protective gloves and chemical eye protection. Keep moisture out of the liquids and vapors away from the operator."
+          "title": "Set up for the material",
+          "body": "Follow the foam kit and safety sheet for bench ventilation, protective equipment and dry handling."
         }
       ],
-      "actions_y": 506,
+      "actions_y": 493,
       "result": {
-        "title": "GLOVES ON",
-        "body": "The PU foam's isocyanate component is a skin sensitizer. Clamp each cap before mixing its shot.",
-        "y": 682,
-        "tone": "#E95A2C"
-      },
-      "source": "Cold-core.md steps 3 and 6; BOM foam row; FSD official foam page + SDS",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
-    },
-    {
-      "title": "Clamp each cap mouth-up",
-      "subtitle": "Use the shell's top face as the pour fixture for both cap stacks, one after the other.",
-      "series": "MOLD OPERATIONS / COLD CORE",
-      "illustration": {
-        "origin": [60.72049689440993, 169],
-        "scale": 0.9503105590062112,
-        "panel": [32, 155, 547, 334],
-        "drawing": [
-          {"kind": "rect", "x": 20, "y": 208, "width": 455, "height": 27, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "rect", "x": 32, "y": 192, "width": 431, "height": 13, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 32, "y": 130, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 447, "y": 130, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 32, "y": 117, "width": 431, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 34, "y": 213, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
-          {"kind": "rect", "x": 37, "y": 128, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 33, "y": 118, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 450, "y": 213, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
-          {"kind": "rect", "x": 453, "y": 128, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 449, "y": 118, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 320, "y": 116, "width": 30, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 110, "y": 116, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 419, "y": 116, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 32, "y": 130, "width": 16, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 447, "y": 130, "width": 16, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "label", "value": "lid / pads into BOTTOM cup", "x": 44, "y": 74, "size": 11, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [99, 78], "end": [53, 126], "color": "#E95A2C", "width": 0.8, "dash": []},
-          {"kind": "label", "value": "cap floor", "x": 109, "y": 256, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [178, 251], "end": [153, 199], "color": "#202337", "width": 0.8, "dash": []},
-          {"kind": "label", "value": "shell top face + inserts", "x": 276, "y": 277, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [369, 261], "end": [370, 227], "color": "#1749D1", "width": 0.8, "dash": []},
-          {"kind": "label", "value": "10 x M3 x 25 through lid + cap", "x": 263, "y": 25, "size": 14, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "TOP: flat lid underside / 4 deck inserts first", "x": 263, "y": 306, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "BOTTOM: counterbore pads face into the cup", "x": 263, "y": 326, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
-        ]
-      },
-      "actions": [
-        {
-          "title": "Label TOP and BOTTOM",
-          "body": "The top cap carries conduits and four deck-mount columns. Press the four full-length RX-M3x5.7 inserts into those columns before pouring."
-        },
-        {
-          "title": "Use installed shell threads",
-          "body": "Ten full-length M3 inserts in the shell's top face supply the pour-clamp threads. Lid and cap have clearance holes."
-        },
-        {
-          "title": "Build the correct stack",
-          "body": "Cap floor down on the shell. Bottom lid pads enter the cup; top lid underside is flat. Close with ten M3 x 25 screws."
-        }
-      ],
-      "actions_y": 506,
-      "result": {
-        "title": "CHECK",
-        "body": "The lid is held by the complete screw pattern, not its own threads. All top-cap conduits and both vent paths remain open.",
+        "title": "BEFORE MIXING",
+        "body": "Have the proper casing setup ready and its pour and air paths open.",
         "y": 682,
         "tone": "#1749D1"
       },
-      "source": "Cold-core.md step 3; foam-shell/README.md cap stack; heat-set geometry record",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+      "source": "Cold Core Assembly, hardware/assembly/cold-core.md",
+      "url": "https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/cold-core.md#3-attach-and-fill-the-bottom-cap"
     },
     {
-      "title": "Pour the two cap cavities",
-      "subtitle": "Liquid enters through the lid's 20 mm hole and air leaves through both vents.",
+      "title": "Bolt on the bottom cap",
+      "subtitle": "Attach the open-topped tray to the shell floor before inverting the empty casing.",
       "series": "MOLD OPERATIONS / COLD CORE",
       "illustration": {
-        "origin": [60.72049689440993, 169],
-        "scale": 0.9503105590062112,
-        "panel": [32, 155, 547, 334],
+        "origin": [51,172],
+        "scale": 1,
+        "panel": [32,155,547,326],
         "drawing": [
-          {"kind": "rect", "x": 20, "y": 238, "width": 455, "height": 27, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "rect", "x": 32, "y": 222, "width": 431, "height": 13, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 32, "y": 160, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 447, "y": 160, "width": 16, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 48, "y": 160, "width": 399, "height": 62, "fill": "#FFE2CC", "stroke": null},
-          {"kind": "rect", "x": 32, "y": 147, "width": 431, "height": 13, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 34, "y": 243, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
-          {"kind": "rect", "x": 37, "y": 158, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 33, "y": 148, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 450, "y": 243, "width": 10, "height": 16, "fill": "#B8722C", "stroke": "#202337"},
-          {"kind": "rect", "x": 453, "y": 158, "width": 4, "height": 96, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 449, "y": 148, "width": 12, "height": 10, "fill": "#202337", "stroke": null},
-          {"kind": "rect", "x": 196, "y": 146, "width": 18, "height": 90, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 181, "y": 160, "width": 15, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 214, "y": 160, "width": 15, "height": 62, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 320, "y": 146, "width": 30, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 110, "y": 146, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "rect", "x": 419, "y": 146, "width": 9, "height": 14, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "arrow", "start": [335, 107], "end": [335, 164], "color": "#E95A2C", "width": 3, "head": 8},
-          {"kind": "arrow", "start": [116, 165], "end": [116, 101], "color": "#1749D1", "width": 2, "head": 7},
-          {"kind": "arrow", "start": [424, 165], "end": [424, 101], "color": "#1749D1", "width": 2, "head": 7},
-          {"kind": "label", "value": "20 mm pour", "x": 331, "y": 80, "size": 13, "color": "#E95A2C", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "6 mm vents x 2", "x": 119, "y": 52, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "TOP 12.6 mm / BOTTOM 16 mm pour depth", "x": 262, "y": 298, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "top-cap section / one stack at a time", "x": 262, "y": 324, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"}
+          {"kind": "label", "value": "UPRIGHT EMPTY SHELL", "x": 174, "y": 26, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 42, "y": 54, "width": 14, "height": 82, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 292, "y": 54, "width": 14, "height": 82, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 42, "y": 119, "width": 264, "height": 17, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 49, "y": 180, "width": 13, "height": 51, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 286, "y": 180, "width": 13, "height": 51, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 49, "y": 215, "width": 250, "height": 16, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "arrow", "start": [85, 205], "end": [85, 144], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "arrow", "start": [266, 205], "end": [266, 144], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "BOTTOM CAP", "x": 173, "y": 257, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [329, 44], "end": [329, 256], "color": "#1749D1", "width": 1.3, "dash": [4, 4]},
+          {"kind": "label", "value": "MASK AT THE JOINT", "x": 415, "y": 57, "size": 11, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 366, "y": 95, "width": 36, "height": 58, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 366, "y": 157, "width": 38, "height": 58, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 358, "y": 142, "width": 9, "height": 29, "fill": "#E7F5FF", "stroke": "#1749D1"},
+          {"kind": "arrow", "start": [450, 159], "end": [370, 159], "color": "#1749D1", "width": 2, "head": 8},
+          {"kind": "label", "value": "Temporary tape", "x": 423, "y": 242, "size": 10, "color": "#202337", "font": "PlexBold", "align": "center"}
         ]
       },
       "actions": [
         {
-          "title": "Mix 1:1",
-          "body": "Mix the two parts 1:1 with the clamped cap ready beside you, and pour as soon as the shot is mixed."
+          "title": "Use the shell's M5 inserts",
+          "body": "Seat the bottom cap against the shell. Fit the full screw pattern with the heads recessed in the cap floor."
         },
         {
-          "title": "Pour into the 20 mm hole",
-          "body": "Keep the two 6 mm vents clear while foam expands. The lid stays clamped; do not cover the vent paths to force fill."
+          "title": "Mask the seam and head pockets",
+          "body": "Close the dry seam at the outside and mask the outward-facing head pockets. Keep the pour ports and vents open."
         },
         {
-          "title": "Cure, trim, unbolt, repeat",
-          "body": "After cure, trim pour/vent overflow to the plate, never into a cradle. Remove the ten screws and repeat for the other labeled cap."
+          "title": "Turn the empty casing over",
+          "body": "Set it on its open upper rim with the bottom ports facing up. Keep the equipment lid and vessels on the bench."
         }
       ],
-      "actions_y": 506,
+      "actions_y": 493,
       "result": {
-        "title": "PRESERVE THE TOP FEATURES",
-        "body": "Trim flush without cutting a valve cradle, conduit, anchor or deck-mount feature. Every conduit bore stays open end to end.",
+        "title": "READY TO POUR",
+        "body": "The bottom cap is fastened to the shell and its outside face is up.",
         "y": 682,
-        "tone": "#E95A2C"
+        "tone": "#1749D1"
       },
-      "source": "Cold-core.md step 3; foam-shell/README.md cap pour",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+      "source": "Cold Core Assembly, hardware/assembly/cold-core.md",
+      "url": "https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/cold-core.md#3-attach-and-fill-the-bottom-cap"
     },
     {
-      "title": "Seal the copper exits; protect access",
-      "subtitle": "Everything foam will bury is installed, routed and proved before the body pour.",
+      "title": "Fill the inverted bottom cap",
+      "subtitle": "Distribute the charge through the four large ports and keep the two small vents open.",
       "series": "MOLD OPERATIONS / COLD CORE",
       "illustration": {
-        "origin": [71.54896142433233, 169],
-        "scale": 0.9080118694362018,
-        "panel": [32, 155, 547, 334],
+        "origin": [51,172],
+        "scale": 1,
+        "panel": [32,155,547,326],
         "drawing": [
-          {"kind": "rect", "x": 191, "y": 47, "width": 30, "height": 104, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "rect", "x": 191, "y": 199, "width": 30, "height": 97, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "rect", "x": 38, "y": 153, "width": 414, "height": 44, "fill": "#B8722C", "stroke": "#202337"},
-          {"kind": "rect", "x": 185, "y": 119, "width": 6, "height": 112, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 154, "y": 147, "width": 37, "height": 6, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 154, "y": 197, "width": 37, "height": 6, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "label", "value": "outside", "x": 105, "y": 38, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "foam cavity", "x": 342, "y": 38, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "plain 2.38 mm wall", "x": 316, "y": 94, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [302, 98], "end": [213, 106], "color": "#202337", "width": 0.9, "dash": []},
-          {"kind": "label", "value": "7.5 mm round hole", "x": 316, "y": 125, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [303, 130], "end": [222, 151], "color": "#202337", "width": 0.9, "dash": []},
-          {"kind": "label", "value": "6.35 mm OD copper", "x": 316, "y": 251, "size": 12, "color": "#B8722C", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [303, 244], "end": [277, 193], "color": "#B8722C", "width": 0.9, "dash": []},
-          {"kind": "label", "value": "burnished 3M 425 collar", "x": 14, "y": 267, "size": 12, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [161, 259], "end": [185, 226], "color": "#E95A2C", "width": 0.9, "dash": []},
-          {"kind": "label", "value": "Seal the annulus before pouring foam", "x": 262, "y": 333, "size": 12, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+          {"kind": "rect", "x": 67, "y": 42, "width": 370, "height": 235, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "line", "start": [252, 45], "end": [252, 274], "color": "#1749D1", "width": 1, "dash": [4, 4]},
+          {"kind": "line", "start": [70, 159], "end": [434, 159], "color": "#1749D1", "width": 1, "dash": [4, 4]},
+          {"kind": "ellipse", "x": 134.5, "y": 86.5, "width": 39, "height": 39, "fill": "#EEDDB2", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "arrow", "start": [194, 73], "end": [167, 96], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "ellipse", "x": 330.5, "y": 86.5, "width": 39, "height": 39, "fill": "#EEDDB2", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "arrow", "start": [390, 73], "end": [363, 96], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "ellipse", "x": 134.5, "y": 192.5, "width": 39, "height": 39, "fill": "#EEDDB2", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "arrow", "start": [194, 179], "end": [167, 202], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "ellipse", "x": 330.5, "y": 192.5, "width": 39, "height": 39, "fill": "#EEDDB2", "stroke": "#202337", "line_width": 1.5},
+          {"kind": "arrow", "start": [390, 179], "end": [363, 202], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "ellipse", "x": 103.5, "y": 76.5, "width": 9, "height": 9, "fill": "#E7F5FF", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "ellipse", "x": 103.5, "y": 233.5, "width": 9, "height": 9, "fill": "#E7F5FF", "stroke": "#1749D1", "line_width": 1.5},
+          {"kind": "label", "value": "AIR VENTS", "x": 19, "y": 160, "size": 10, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [42, 152], "end": [102, 85], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "line", "start": [42, 167], "end": [102, 235], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "label", "value": "OUTSIDE FACE", "x": 252, "y": 26, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Divide the charge",
+          "body": "Deliver a portion to each quarter through its port within the kit's working time. Keep the air vents open."
+        },
+        {
+          "title": "Cure and trim",
+          "body": "Leave the shell and cap fastened while the foam cures. Trim the overflow flush at the ports and vents."
+        },
+        {
+          "title": "Patch and turn upright",
+          "body": "Remove the masks. Foil-patch the ports and screw pockets, band the seam and turn the casing upright with the cap fastened."
+        }
+      ],
+      "actions_y": 493,
+      "result": {
+        "title": "READY FOR THE VESSELS",
+        "body": "The cap face is flat, its ports are covered and the open shell faces up.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Cold Core Assembly, hardware/assembly/cold-core.md",
+      "url": "https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/cold-core.md#3-attach-and-fill-the-bottom-cap"
+    },
+    {
+      "title": "Dry-fit and protect B-fill",
+      "subtitle": "Use an offcut in the bend holder and TPU grip to locate the holder for the pour.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [51,172],
+        "scale": 1,
+        "panel": [32,155,547,326],
+        "drawing": [
+          {"kind": "rect", "x": 128, "y": 182, "width": 336, "height": 55, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "rect", "x": 109, "y": 139, "width": 19, "height": 98, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 291, "y": 231, "width": 173, "height": 34, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 291, "y": 215, "width": 173, "height": 16, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 358, "y": 213, "width": 30, "height": 20, "fill": "#C9EEEE", "stroke": "#1749D1"},
+          {"kind": "shape", "points": [[308, 93], [416, 93], [416, 154], [410, 178], [397, 199], [389, 211], [356, 211], [356, 200], [351, 180], [338, 156], [308, 151]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 129, "y": 117, "width": 178, "height": 42, "fill": "#E7F5FF", "stroke": "#1749D1"},
+          {"kind": "line", "start": [129, 159], "end": [307, 159], "color": "#1749D1", "width": 1.6, "dash": [4, 3]},
+          {"kind": "shape", "points": [[32, 130], [308, 130], [316.48, 130.56], [324.82, 132.21], [332.87, 134.95], [340.5, 138.71], [347.57, 143.43], [353.96, 149.04], [359.57, 155.43], [364.29, 162.5], [368.05, 170.13], [370.79, 178.18], [372.44, 186.52], [373, 195], [373, 246]], "fill": null, "stroke": "#FCFCFA", "width": 18, "close": false},
+          {"kind": "shape", "points": [[32, 130], [308, 130], [316.48, 130.56], [324.82, 132.21], [332.87, 134.95], [340.5, 138.71], [347.57, 143.43], [353.96, 149.04], [359.57, 155.43], [364.29, 162.5], [368.05, 170.13], [370.79, 178.18], [372.44, 186.52], [373, 195], [373, 246]], "fill": null, "stroke": "#E95A2C", "width": 6, "close": false},
+          {"kind": "arrow", "start": [108, 155], "end": [33, 155], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "LOCATOR PULLS OUT", "x": 57, "y": 180, "size": 8.5, "color": "#E95A2C", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "LID OFF DURING POUR", "x": 171, "y": 58, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [170, 68], "end": [170, 115], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "label", "value": "BEND HOLDER", "x": 396, "y": 58, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [396, 68], "end": [396, 93], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "label", "value": "TPU GRIP", "x": 430, "y": 250, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [402, 242], "end": [382, 230], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "label", "value": "KEEP FOAM CLEAR HERE", "x": 204, "y": 265, "size": 11, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [205, 250], "end": [205, 158], "color": "#1749D1", "width": 1.5, "dash": []}
         ]
       },
       "actions": [
         {
           "title": "Prove the buried work",
-          "body": "Carbonator and inlet jet qualified; coil/probes/reeds and fitted fluid lines checked. Tug-test inaccessible push fittings before encapsulating."
+          "body": "Check the vessel fittings, probes, reed wiring, earth bond and relief path. Fit the copper collars and bridge both reservoir rims with foil."
         },
         {
-          "title": "Form, inspect and seal the exits",
-          "body": "Feed bare tails through their holes while lowering the core. Support broad bends in the copper; reject kinks or flattening. Burnish foil collars to clean copper and shell around both annuli."
+          "title": "Prove the front feed",
+          "body": "With the lid seated dry, feed the offcut through the front into the grip, mark the tip depth and pull it back out before lifting the lid."
         },
         {
-          "title": "Keep service paths open",
-          "body": "Protect reservoir vent/fill openings, top conduits, relief outlet and both reed channels. Reed columns are installed after body foam cure."
+          "title": "Locate and mask the holder",
+          "body": "Reinsert the marked offcut with the lid off. Mask the straight approach and the gap between holder and grip against foam."
         }
       ],
-      "actions_y": 506,
+      "actions_y": 493,
       "result": {
-        "title": "PROBE AND ACCESS CHECK",
-        "body": "Both probes and lead entries need foam coverage without a trapped void. Do not bury an unproved sensor, line, relief path or fitting.",
+        "title": "KEEP THE LOCATOR ACCESSIBLE",
+        "body": "Leave the offcut's pull end at the fore entry and keep the passage free of foam.",
         "y": 682,
-        "tone": "#E95A2C"
-      },
-      "source": "Cold-core.md steps 1, 5-6; foam-shell/README.md",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
-    },
-    {
-      "title": "Pour through the open top",
-      "subtitle": "The body foam fills around the sealed carbonator and reservoirs; its connected zone reaches the coil.",
-      "series": "MOLD OPERATIONS / COLD CORE",
-      "illustration": {
-        "origin": [74.94736842105263, 169],
-        "scale": 0.8947368421052632,
-        "panel": [32, 155, 547, 334],
-        "drawing": [
-          {"kind": "rect", "x": 26, "y": 64, "width": 460, "height": 230, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "rect", "x": 36, "y": 74, "width": 440, "height": 210, "fill": "#FFE2CC", "stroke": "#202337"},
-          {"kind": "shape", "points": [[45, 96], [159, 96], [142, 128], [129, 180], [142, 232], [159, 262], [45, 262]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
-          {"kind": "shape", "points": [[467, 96], [353, 96], [370, 128], [383, 180], [370, 232], [353, 262], [467, 262]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.5, "close": true},
-          {"kind": "ellipse", "x": 172.0, "y": 95.0, "width": 168, "height": 168, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
-          {"kind": "ellipse", "x": 165.0, "y": 88.0, "width": 182, "height": 182, "fill": null, "stroke": "#B8722C", "line_width": 3},
-          {"kind": "rect", "x": 31, "y": 148, "width": 8, "height": 63, "fill": "#1749D1", "stroke": null},
-          {"kind": "rect", "x": 473, "y": 148, "width": 8, "height": 63, "fill": "#1749D1", "stroke": null},
-          {"kind": "label", "value": "RESERVOIR A", "x": 96, "y": 180, "size": 9, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "RESERVOIR B", "x": 416, "y": 180, "size": 9, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "SEALED", "x": 256.0, "y": 172, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "CARBONATOR", "x": 256.0, "y": 190, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "arrow", "start": [206, 56], "end": [169, 81], "color": "#E95A2C", "width": 3, "head": 8},
-          {"kind": "arrow", "start": [302, 56], "end": [338, 81], "color": "#E95A2C", "width": 3, "head": 8},
-          {"kind": "arrow", "start": [173, 207], "end": [158, 171], "color": "#E95A2C", "width": 3, "head": 8},
-          {"kind": "arrow", "start": [351, 155], "end": [365, 186], "color": "#E95A2C", "width": 3, "head": 8},
-          {"kind": "label", "value": "OPEN +Z TOP / no cap during the pour", "x": 263, "y": 31, "size": 14, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "line", "start": [50, 194], "end": [14, 312], "color": "#1749D1", "width": 0.9, "dash": []},
-          {"kind": "label", "value": "reed channel", "x": 8, "y": 330, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [480, 194], "end": [503, 312], "color": "#1749D1", "width": 0.9, "dash": []},
-          {"kind": "label", "value": "reed channel", "x": 507, "y": 330, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
-          {"kind": "label", "value": "blue channels stay empty", "x": 264, "y": 330, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "CORAL = foam zone / sealed vessel interiors take no foam", "x": 263, "y": 350, "size": 10, "color": "#606A78", "font": "PlexSemi", "align": "center"}
-        ]
-      },
-      "actions": [
-        {
-          "title": "Mix the body shot 1:1",
-          "body": "Mix 1:1 and pour all at once into the open +Z top, with no lid and no down-channels. The cap stacks are already poured separately."
-        },
-        {
-          "title": "Pour directly into the body",
-          "body": "One pour fills the connected outer gap and space around the carbonator/coil, through the open paths at the reservoir-pocket ends."
-        },
-        {
-          "title": "Watch fill and squeeze-out",
-          "body": "Preserve empty reservoir/reed cavities and open tube paths. Beads squeeze out at the lane slots and tight tube exits; trim them after cure."
-        }
-      ],
-      "actions_y": 506,
-      "result": {
-        "title": "A VOID AT A PROBE IS THE DEFECT",
-        "body": "The pour must fully wet each probe and its lead entry. Trapped air condenses and frosts on the cold metal.",
-        "y": 682,
-        "tone": "#E95A2C"
-      },
-      "source": "Cold-core.md step 6; foam-shell/README.md body pour paths",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/foam-shell/README.md"
-    },
-    {
-      "title": "Trim and close the cold core",
-      "subtitle": "All three pours are cured before the gaskets and caps complete the insulated stack.",
-      "series": "MOLD OPERATIONS / COLD CORE",
-      "illustration": {
-        "origin": [93.41935483870967, 169],
-        "scale": 0.8225806451612904,
-        "panel": [32, 155, 547, 334],
-        "drawing": [
-          {"kind": "rect", "x": 158, "y": 161, "width": 211, "height": 137, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "rect", "x": 146, "y": 122, "width": 235, "height": 28, "fill": "#FFE2CC", "stroke": "#202337"},
-          {"kind": "rect", "x": 149, "y": 149, "width": 229, "height": 8, "fill": "#1749D1", "stroke": null},
-          {"kind": "rect", "x": 149, "y": 308, "width": 229, "height": 8, "fill": "#1749D1", "stroke": null},
-          {"kind": "rect", "x": 146, "y": 321, "width": 235, "height": 28, "fill": "#FFE2CC", "stroke": "#202337"},
-          {"kind": "rect", "x": 175, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 172, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "arrow", "start": [179, 112], "end": [179, 127], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "rect", "x": 210, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 207, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "arrow", "start": [214, 112], "end": [214, 127], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "rect", "x": 285, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 282, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "arrow", "start": [289, 112], "end": [289, 127], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "rect", "x": 328, "y": 82, "width": 8, "height": 28, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "rect", "x": 325, "y": 78, "width": 14, "height": 7, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "arrow", "start": [332, 112], "end": [332, 127], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "label", "value": "10 M3 x 25", "x": 429, "y": 211, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "per end", "x": 429, "y": 230, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "arrow", "start": [391, 123], "end": [391, 160], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "arrow", "start": [391, 320], "end": [391, 297], "color": "#E95A2C", "width": 2, "head": 6},
-          {"kind": "label", "value": "TOP / installed rotation 180 deg", "x": 266, "y": 60, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "gasket", "x": 78, "y": 154, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [120, 151], "end": [148, 151], "color": "#1749D1", "width": 0.8, "dash": []},
-          {"kind": "label", "value": "gasket", "x": 78, "y": 314, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [120, 310], "end": [148, 310], "color": "#1749D1", "width": 0.8, "dash": []},
-          {"kind": "label", "value": "BOTTOM / mouth down", "x": 266, "y": 376, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
-        ]
-      },
-      "actions": [
-        {
-          "title": "Trim only cured overflow",
-          "body": "Trim to the plate, never into a cradle. Protect tubes/leads, copper exits, cradles and insert hosts; clear all conduits, vents and reed channels."
-        },
-        {
-          "title": "Install reeds, gaskets and caps",
-          "body": "Drop reservoir reed columns in, route their cables out the top, and lay both TPU gaskets. Top cap rotates 180 deg; bottom mouth faces down."
-        },
-        {
-          "title": "Close and inspect",
-          "body": "Ten M3 x 25 screws per end. Identify top orientation by deck/cradle features. Check open paths, gasket seating and recessed screw heads."
-        }
-      ],
-      "actions_y": 506,
-      "result": {
-        "title": "FINISHED",
-        "body": "Both caps and body cured; exposed foam flush; probes wetted in with no void; channels and relief path open.",
-        "y": 686,
         "tone": "#1749D1"
       },
-      "source": "Cold-core.md output condition + step 7; foam-shell/README.md",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/cold-core.md"
+      "source": "Cold Core Assembly, hardware/assembly/cold-core.md",
+      "url": "https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/cold-core.md#6-open-body-foam-pour"
+    },
+    {
+      "title": "Pour through the open body",
+      "subtitle": "The upright shell holds the fitted carbonator and the two closed reservoirs.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [51,172],
+        "scale": 1,
+        "panel": [32,155,547,326],
+        "drawing": [
+          {"kind": "rect", "x": 51, "y": 50, "width": 404, "height": 206, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 60, "y": 61, "width": 386, "height": 184, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "shape", "points": [[73, 88], [144, 88], [168, 107], [178, 141], [168, 186], [141, 218], [73, 218]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "shape", "points": [[432, 88], [361, 88], [337, 107], [327, 141], [337, 186], [364, 218], [432, 218]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "ellipse", "x": 182, "y": 82, "width": 142, "height": 142, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 2},
+          {"kind": "ellipse", "x": 191, "y": 91, "width": 124, "height": 124, "fill": "#E4E8EE", "stroke": "#202337", "line_width": 2},
+          {"kind": "label", "value": "CARBONATOR", "x": 253, "y": 154, "size": 13, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "RESERVOIR B", "x": 119, "y": 161, "size": 10, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "RESERVOIR A", "x": 386, "y": 161, "size": 10, "color": "#202337", "font": "PlexBold", "align": "center"},
+          {"kind": "rect", "x": 44, "y": 102, "width": 16, "height": 56, "fill": "#E7F5FF", "stroke": "#1749D1"},
+          {"kind": "arrow", "start": [149, 21], "end": [167, 69], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "arrow", "start": [358, 21], "end": [340, 69], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "arrow", "start": [200, 276], "end": [213, 230], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "arrow", "start": [312, 276], "end": [295, 230], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "MASKED APPROACH", "x": 115, "y": 277, "size": 10, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [72, 260], "end": [55, 154], "color": "#1749D1", "width": 1.5, "dash": []}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Keep the penetrations clear",
+          "body": "Hold the straight risers on their lid-hole axes. Mask the reed channels, including B's side outlet, and protect the insert mouths."
+        },
+        {
+          "title": "Distribute the body charge",
+          "body": "Pour into the connected cavity through the open rim. The foam surrounds the installed dry tubing spans and the holder's lower body."
+        },
+        {
+          "title": "Let the assembly cure",
+          "body": "Keep the lid on the bench while the foam cures. Leave the relief path and tube lumens open."
+        }
+      ],
+      "actions_y": 493,
+      "result": {
+        "title": "AFTER CURE",
+        "body": "Keep the lid seat and the entire B-fill approach clear when trimming.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Cold Core Assembly, hardware/assembly/cold-core.md",
+      "url": "https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/cold-core.md#6-open-body-foam-pour"
+    },
+    {
+      "title": "Seat the lid and feed B-fill",
+      "subtitle": "With the closure screws in, feed the final tube lengthwise into Reservoir B.",
+      "series": "MOLD OPERATIONS / COLD CORE",
+      "illustration": {
+        "origin": [51,172],
+        "scale": 1,
+        "panel": [32,155,547,326],
+        "drawing": [
+          {"kind": "rect", "x": 128, "y": 182, "width": 336, "height": 55, "fill": "#EEDDB2", "stroke": "#202337"},
+          {"kind": "rect", "x": 109, "y": 139, "width": 19, "height": 98, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 291, "y": 231, "width": 173, "height": 34, "fill": "#FCFCFA", "stroke": "#202337"},
+          {"kind": "rect", "x": 291, "y": 215, "width": 173, "height": 16, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 358, "y": 213, "width": 30, "height": 20, "fill": "#C9EEEE", "stroke": "#1749D1"},
+          {"kind": "shape", "points": [[308, 93], [416, 93], [416, 154], [410, 178], [397, 199], [389, 211], [356, 211], [356, 200], [351, 180], [338, 156], [308, 151]], "fill": "#C9EEEE", "stroke": "#202337", "width": 1.5, "close": true},
+          {"kind": "rect", "x": 109, "y": 93, "width": 199, "height": 45, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "rect", "x": 416, "y": 93, "width": 48, "height": 45, "fill": "#E4E8EE", "stroke": "#202337"},
+          {"kind": "shape", "points": [[32, 130], [308, 130], [316.48, 130.56], [324.82, 132.21], [332.87, 134.95], [340.5, 138.71], [347.57, 143.43], [353.96, 149.04], [359.57, 155.43], [364.29, 162.5], [368.05, 170.13], [370.79, 178.18], [372.44, 186.52], [373, 195], [373, 246]], "fill": null, "stroke": "#FCFCFA", "width": 18, "close": false},
+          {"kind": "shape", "points": [[32, 130], [308, 130], [316.48, 130.56], [324.82, 132.21], [332.87, 134.95], [340.5, 138.71], [347.57, 143.43], [353.96, 149.04], [359.57, 155.43], [364.29, 162.5], [368.05, 170.13], [370.79, 178.18], [372.44, 186.52], [373, 195], [373, 246]], "fill": null, "stroke": "#E95A2C", "width": 6, "close": false},
+          {"kind": "arrow", "start": [32, 155], "end": [106, 155], "color": "#E95A2C", "width": 2, "head": 8},
+          {"kind": "label", "value": "FEED FROM THE FRONT", "x": 57, "y": 180, "size": 8.5, "color": "#E95A2C", "font": "PlexBold", "align": "center"},
+          {"kind": "label", "value": "SEATED EQUIPMENT LID", "x": 171, "y": 58, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [170, 68], "end": [170, 93], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "label", "value": "BEND HOLDER", "x": 396, "y": 58, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [396, 68], "end": [396, 93], "color": "#1749D1", "width": 1.5, "dash": []},
+          {"kind": "label", "value": "TPU GRIP", "x": 430, "y": 250, "size": 12, "color": "#1749D1", "font": "PlexBold", "align": "center"},
+          {"kind": "line", "start": [402, 242], "end": [382, 230], "color": "#1749D1", "width": 1.5, "dash": []}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Pull the locator and trim",
+          "body": "Withdraw the offcut and remove the masks. Trim cured foam below the lid seat and clear the full B-fill approach."
+        },
+        {
+          "title": "Fit the reeds and close the lid",
+          "body": "Thread the risers and loom ends. Bring B's wires out the side outlet. Lower the lid over the flush holder and fit the M5 screws."
+        },
+        {
+          "title": "Feed the production tube",
+          "body": "Push B-fill through the seated lid and holder into the grip to the marked depth. Connect the valve end to V-I during plumbing assembly."
+        }
+      ],
+      "actions_y": 493,
+      "result": {
+        "title": "READY TO POPULATE",
+        "body": "Seal the lid perimeter and penetrations with foil. Keep the air and relief paths open.",
+        "y": 682,
+        "tone": "#1749D1"
+      },
+      "source": "Cold Core Assembly, hardware/assembly/cold-core.md",
+      "url": "https://github.com/derekbredensteiner/homesodamachine/blob/main/hardware/assembly/cold-core.md#7-close-and-populate-the-top-lid"
     }
   ]
 }

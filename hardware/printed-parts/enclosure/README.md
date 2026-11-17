@@ -50,12 +50,10 @@ X77.5, with rows at Z338.376, 306.376 and 274.376. Water/CO2 enter at the top,
 vent/soda leave at the middle, and flavor A/B leave at the bottom. C14 is west/upper,
 RJ11 west/lower. The rear wall is 9 mm stock with a 6 mm fluid-panel clamping section.
 
-**The cold core's fluid routes leave through its cap.** Reservoir cap bores retain their
-own datums while selected lid guides clear the PCB and pump. B-fill uses two actual
-compact fittings under the lid; A-fill and B-draw use shallow offsets. The gas guide
-follows the folded gas group. The carbonator water and soda fitting datums stay fixed.
-Tube geometry, insertions and spool choices are authored beside the production poses;
-nominal CAD paths are not physical cut-length or pressure qualification.
+The cold core's straight risers exit through the equipment lid. B-fill feeds
+in from the front through the seated lid and bend holder into the reservoir's
+TPU grip. The tubing and fittings above the core follow the production layout.
+[Cold-core assembly](/hardware/assembly/cold-core.md) · [Above-core layout](/hardware/manifold-layout/above-core.md)
 
 ## Constraints the layout respects
 
@@ -63,7 +61,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 
 - The foam shell is the largest single solid and it cannot compress. Its depth is derived, not fixed: `enclosure_assembly.build_foam` takes the front face as an argument and the pack strikes it on the compressor bay's aft plane, so the core follows whatever stands ahead of it. Its yaw puts its short axis across the machine and its long one front to back, which is what leaves the column above and ahead of it.
 - The core spans the box's full depth, so it goes in before the front and back halves telescope together around it. The seam's furniture all lives in the bands the standoffs open, so none of it meets the core.
-- The cold core stands flat on the floor, on its bottom foam-cap lid: its cap screws, driven up from below, sit in counterbores in the lid's own head pads ([cold core](/hardware/assembly/cold-core.md)).
+- The cold core stands on its bottom cap. The closure screws seat in recessed pockets in the cap's floor. [Cold-core assembly](/hardware/assembly/cold-core.md#3-attach-and-fill-the-bottom-cap)
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.
 - The compressor stands upright, on its own feet, and cannot be laid on its side or inverted: the oil charge sits in the bottom of the hermetic can and the pickup is gravity-fed. That fixes its plate on the floor, which leaves a yaw as the only turn it has — and a yaw keeps its copper-bearing tangents horizontal, so the copper always leaves sideways.
 - The compressor is the one body on the floor the box fastens: four posts on the slab, struck off its own plate pattern, each rising through the rubber grommet in a plate hole to that grommet's crown, where a washer stops on it.

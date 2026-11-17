@@ -143,9 +143,10 @@ records the current rigid-slide and final-connection limits.
    sliding surface, and flag it with its run ID. Seat the solid wire
    directly in the screw cages, including the AC-4 and DC-3 pigtails. Fit
    the J5 relay-control leads with their specified ferrules.
-4. On the open core, close the three B-fill lid clamps and thread the tube
-   before installing the PCB, per [cold-core.md](cold-core.md); the board
-   covers the clamp-driver approaches. Land the two prepared J10 power
+4. Fasten the equipment lid with its mounts clear and feed B-fill from
+   the front through the seated lid and holder. Carry this out before
+   the PCB covers the closure-driver approaches. [Cold-core closure](cold-core.md#7-close-and-populate-the-top-lid)
+   Land the two prepared J10 power
    leads on the loose PCB, `V12` and `GND` each in the clamp beside its silk
    label. Mount the PCB, pump and V-B on their core features. Land the J10 leads' free ends in the V12 and GND
    junctions, and the pump negative in GND. Land the pump positive on the

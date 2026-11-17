@@ -1,11 +1,9 @@
 # Reservoir floor and dip tube
 
-The cavity floor is one flat slab, and the body stands on its bag pocket's
-own floor, over it, so the reservoir fills its pocket from floor to
-rim. The wet floor is at z = in the cold-core frame. The body prints mouth up
-with that floor on the bed and needs no support under it. The cavity holds
- floor to rim, of it between the first and
-last reed's heights ([level sensing](level-sensing.md)).
+The body stands on its pocket's floor and prints mouth up on its own flat
+floor. The dip tube reaches the wet floor. The reservoir source owns the
+cavity, and the reed reference owns the sensing heights.
+[Reservoir source](reservoir.rs) · [Level sensing](level-sensing.md)
 
 The fill and draw mouths are in the cap's 4 mm flat plate. Each has a TPU
 90A spool seated flush in matching 45° countersinks: 9 mm waist, 11 mm
@@ -25,12 +23,13 @@ or sidewall.
 
 ## Fitting the dip tube
 
-Install the fill, draw and air tubes before the body foam pour, with the
-reservoir closed and seated in its pocket. Straighten the draw tube by hand,
-cut its end at 45°, and feed it through the TPU grip until the tip touches
-the floor. Position its free upper end on the equipment-lid opening's axis;
-after cure, thread the lid over it. The other end goes on to the draw valve
-with the rest of its run ([internal plumbing](/hardware/assembly/internal-plumbing.md)).
+Install A-fill and both draw and air tubes before the body foam pour, with
+the reservoirs closed and seated in their pockets. Straighten each draw tube,
+cut its end at the specified angle and feed it through the TPU grip until its
+tip touches the floor. Locate the free upper end on the lid-hole axis so the
+lid can pass over it after cure. Feed B-fill through the front after closing
+the lid.
+[Cold-core assembly](/hardware/assembly/cold-core.md#7-close-and-populate-the-top-lid)
 
 The local TPU grip is designed to hold dip-tube depth while permitting hand adjustment.
 The equipment-lid opening guides it from above; cured foam surrounds only
