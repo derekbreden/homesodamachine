@@ -23,10 +23,6 @@ name = "hsm-cut-vs-pointers"
 path = "src/cut_main.rs"
 
 [[bin]]
-name = "hsm-build-times"
-path = "src/build_times_main.rs"
-
-[[bin]]
 name = "hsm-publish-firmware"
 path = "src/firmware_main.rs"
 

@@ -51,15 +51,7 @@ repo-tools paths
 
 The enclosure reading consumes existing fine models and the native `enclosure-mating` program. The purchase reading uses the existing native `purchases --check`. These programs must be installed or explicitly built first; a reading starts no compiler.
 
-`repo-tools checks` runs the listed readings. `--json PATH` writes a verdict with no clock or duration. Red is a reading for the settings gear and holds no build or publish. Pinning is also explicit:
-
-```sh
-tools/run -- repo-tools checks-now --check
-tools/run -- repo-tools checks-now --session '<current chat title>'
-tools/run -- repo-tools checks-now --message-file /path/to/complete-message.txt
-```
-
-`--check` keeps the verdict in memory. The write mode requires the current chat title, or a complete caller-authored commit message with its trailer block. It freezes only `web/public/checks.json` through `hsm-land --commit-snapshot`, then invokes the existing post-commit hook. A session title produces the fixed reading subject and a `Session:` trailer. Any `Derek:` quotes belong to the caller-authored message. Concurrent writes coalesce through `.cache/checks-now.lock` and its again marker; these files keep explicit readings from racing.
+`repo-tools checks` runs the listed readings. `--json PATH` writes a verdict with no clock or duration.
 
 Focused native fixtures run on request:
 
