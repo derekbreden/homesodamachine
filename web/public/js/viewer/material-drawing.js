@@ -158,14 +158,15 @@ export function mountMaterialDrawing(wrapper) {
   }
   function applyRoute(view) {
     if (view === "pcb") showPcb();
-    else if (mode === "pcb") show("model");
+    else if (view === "print") showPrint();
+    else if (mode === "pcb" || mode === "print") show("model");
   }
   function closeView() {
-    if (mode === "pcb") {
+    if (mode === "pcb" || mode === "print") {
       const url = new URL(location.href);
       const [hash, query] = url.hash.split("?");
       const params = new URLSearchParams(query);
-      if (params.get("view") === "pcb") {
+      if (params.get("view") === mode) {
         params.delete("view");
         url.hash = hash + (params.size ? "?" + params : "");
         history.replaceState(history.state, "", url);

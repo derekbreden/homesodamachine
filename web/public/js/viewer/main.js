@@ -1,21 +1,15 @@
-// Viewer entry point. Loaded as <script type="module"> from
-// lib/templates/viewer-body.html. Wires the modules together:
-//
-//   1. Read #grid into state, set the active nav class and document.title.
-//   2. Expose window.__hsm for the headless render tools (Puppeteer
-//      drives loadStepFile / loadDxfFile and reads scene/camera).
-//   3. Fetch the catalog, open the initial route, then allow shelf thumbnails.
-//   4. Register the publication update listeners through ./live.js.
+// Load the shared model workspace when Parts opens a model or Guides opens its library.
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { buildGrid, currentSection, startStepThumbnails } from "./grid.js";
-import { applyInitialRoute } from "./route.js";
-import { initialCatalog, loadMaterialCatalog, enableShelfSearchNavigation } from "./shelf-search.js";
+import { buildGrid } from "./grid.js";
+import { startViewerRoutes } from "./route.js";
 import { loadStepFile } from "./step.js";
 import { loadDxfFile } from "./dxf.js";
 import { renderer, scene, camera, controls } from "./scene.js";
 import "./live.js";
+
+export { openViewerHash } from "./route.js";
 
 state.gridEl = document.getElementById("grid");
 
@@ -32,29 +26,13 @@ window.__hsm = {
   get mountedDxfFile()  { return state.mountedDetail?.type === "dxf"  ? state.mountedDetail.file : null; },
 };
 
-function setupNav() {
-  // The shell renders the nav with absolute hrefs. Set the active class for client-side
-  // navigation cases.
-  const section = currentSection();
-  for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
-    a.classList.toggle("active", a.dataset.nav === section);
-  }
-
-  const titleMap = {
-    parts: "Parts · Home Soda Machine",
-    guides: "Guides · Home Soda Machine",
-  };
-  document.title = titleMap[section] || document.title;
-}
-
-export async function fetchFiles(catalog = loadMaterialCatalog()) {
-  const [stepResp, dxfResp, glbResp, docResp, objResp] = await Promise.all([
+export async function fetchFiles() {
+  const [stepResp, dxfResp, docResp, objResp, catalog] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/dxf"),
-    fetch("/api/glbs"),
-    fetch("/api/documents"),
+    state.gridEl ? fetch("/api/documents") : null,
     fetch("/api/objects"),
-    catalog,
+    fetch("/api/materials").catch(() => null),
   ]);
   // Where each model's bytes are on the store, when the store has a public address; empty
   // otherwise, and every loader reads this site's own routes.
@@ -64,22 +42,19 @@ export async function fetchFiles(catalog = loadMaterialCatalog()) {
     for (const [file, url] of Object.entries(objects ?? {})) state.memberUrls.set(file, url);
   } catch { /* the site's own routes answer for every model */ }
   state.allFiles = (await stepResp.json()).sort();
-  state.glbFiles = (await glbResp.json()).sort();
-  // Documents arrive sorted by title from the server.
-  state.documents = await docResp.json();
+  state.materialCatalog = catalog?.ok ? await catalog.json() : null;
+  state.materialCatalogTag = catalog?.ok ? catalog.headers.get("ETag") : null;
   // /api/dxf returns objects with thickness_mm + material from each
   // part's sidecar (hardware/README.md). Cache the metadata so the
   // viewer can extrude on open without a second round-trip.
   const dxfData = await dxfResp.json();
   state.dxfMeta.clear();
   for (const d of dxfData) state.dxfMeta.set(d.path, d);
-  state.dxfFiles = dxfData.map((d) => d.path).sort();
-  buildGrid();
+  if (docResp) {
+    state.documents = await docResp.json();
+    buildGrid();
+  }
   state.materialPanel?.sync();
 }
 
-setupNav();
-fetchFiles(initialCatalog).then(applyInitialRoute).finally(() => {
-  enableShelfSearchNavigation();
-  startStepThumbnails();
-});
+export const viewerReady = fetchFiles().then(startViewerRoutes);

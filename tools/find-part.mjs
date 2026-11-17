@@ -15,7 +15,7 @@ import { instancesInScene, instanceMaterialHash } from "../web/contracts/materia
 import { nativeBuildPlan } from "../web/scripts/build-deps.js";
 
 export const checkoutRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const website = "https://homesodamachine.com/3d";
+const website = "https://homesodamachine.com/parts";
 
 function jsonFile(file, fallback) {
   try { return JSON.parse(fs.readFileSync(file, "utf8")); }

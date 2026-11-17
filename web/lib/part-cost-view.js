@@ -9,7 +9,7 @@ function escape(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-const explorerHref = (id) => `/3d#material:${encodeURIComponent(id)}?panel=materials`;
+const explorerHref = (id) => `/parts#material:${encodeURIComponent(id)}?panel=materials`;
 const width = (part, whole) => whole > 0 ? (Math.max(0, part) / whole * 100).toFixed(2) : "0";
 
 export function renderPartCostTree(catalog) {

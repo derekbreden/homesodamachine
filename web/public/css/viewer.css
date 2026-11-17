@@ -111,7 +111,6 @@
   z-index: 10;
   pointer-events: none;
 }
-.faucet-card-options { display: block; margin-top: 8px; color: var(--text-2); font-size: 12px; }
 .cad-wrapper > .faucet-options {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 60px);
@@ -1116,50 +1115,6 @@
   margin-bottom: 4px;
 }
 .section-header:first-child { padding-top: 0; }
-
-/* --- /3d: the machine's two units -----------------------------------------
-
-   The row spans the page grid and nests its own inside it, the way .doc-shelf
-   does: the page's tracks stop at it, and the cards lay out on tracks of their
-   own. What stands where is web/contracts/parts-tree.js. */
-
-/* Both cards across a wide window, one per row on a phone. Each is the width
-   the note wants rather than the width a part thumbnail takes, so the row does
-   not read as the first row of a longer grid. */
-.assembly-row {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-/* A card on its way. The model is read and drawn in the browser, so the picture
-   arrives a moment after the card does; this is the moment, not an empty card. */
-.card[data-drawing] {
-  background-image: linear-gradient(
-    100deg, transparent 20%, color-mix(in srgb, var(--text-3) 12%, transparent) 50%, transparent 80%);
-  background-size: 220% 100%;
-  animation: card-drawing 1.1s ease-in-out infinite;
-}
-@keyframes card-drawing {
-  from { background-position: 120% 0; }
-  to   { background-position: -120% 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .card[data-drawing] { animation: none; }
-}
-
-.card-assembly .label {
-  padding: 12px 14px 14px;
-  white-space: normal;
-}
-.card-assembly .label .name { font-size: 16px; font-weight: 600; }
-.card-assembly .assembly-note {
-  display: block;
-  margin-top: 6px;
-  font-size: 12px;
-  line-height: 1.55;
-  color: var(--text-2);
-}
 
 /* `.name` takes the ellipsis, so a long name stays inside its label. */
 .card .card-caption .name-row {

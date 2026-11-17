@@ -149,6 +149,7 @@ const ICON_V = (() => {
 })();
 
 const HEAD_TAGS = `<script type="module" src="/boot.js"></script>
+<script type="module" src="/js/site-search.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -187,13 +188,13 @@ ${pageHead}
 `;
 }
 
-export function renderNav({ active = null } = {}) {
+export function renderNav({ active = null, searchQuery = "" } = {}) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: '<img src="/brand/mark.svg" width="28" height="28" alt="" aria-hidden="true">' },
     // One item for both feeds: it opens the /latest hub, and reads as the page you are on from
     // anywhere in either feed.
     { href: "/latest", name: "latest", label: "Latest", svg: LATEST_SVG, also: ["updates", "changes"] },
-    { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
+    { href: "/parts", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/guides", name: "guides", label: "Guides", svg: GUIDES_SVG },
     { href: "/cost", name: "cost", label: "Cost", svg: DOLLAR_SVG },
   ];
@@ -208,6 +209,14 @@ export function renderNav({ active = null } = {}) {
     .join("\n");
   return `<nav class="site-nav" id="site-nav" aria-label="Primary">
 ${iconItems}
+  <form id="site-search" class="nav-search" role="search" action="/parts">
+    <button type="submit" aria-label="Search parts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="10.75" cy="10.75" r="5.75"/><path d="m15 15 4.5 4.5"/></svg>
+    </button>
+    <input id="site-search-input" name="q" type="search" value="${escape(searchQuery)}" placeholder="Search parts" aria-label="Find a part or feature" aria-controls="site-search-results" autocomplete="off">
+    <p id="site-search-status" class="nav-search-status" role="status"></p>
+    <div id="site-search-results" class="nav-search-results" role="region" aria-label="Search results" hidden></div>
+  </form>
 </nav>
 `;
 }
@@ -230,7 +239,7 @@ export function renderFooter({ siteFooter = false } = {}) {
   return `${siteFooter ? `<footer class="site-footer">
   <div class="site-inner site-footer-inner">
     <a href="/" class="site-footer-brand"><img src="/brand/mark-blue.svg" width="36" height="36" alt=""><span>Home Soda Machine<small>A kitchen appliance in development.</small></span></a>
-    <nav aria-label="Project"><a href="/latest">Follow the build</a><a href="/3d">Explore the design</a><a href="/cost">Parts &amp; costs</a></nav>
+    <nav aria-label="Project"><a href="/latest">Follow the build</a><a href="/parts">Explore the design</a><a href="/cost">Parts &amp; costs</a></nav>
   </div>
 </footer>` : ""}</body>
 </html>

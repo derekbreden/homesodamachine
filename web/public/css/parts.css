@@ -1,0 +1,112 @@
+/* Keep the full build in view; enlarging a group reveals every name. */
+.parts-catalog {
+  --part-gap: .3125rem;
+  --part-size: 3.375rem;
+  --part-cell: #e4ebf5;
+  width: 100%; max-width: 92rem; min-width: 0; flex: 1;
+  margin-inline: auto;
+  padding: clamp(.75rem, 2vw, 1.625rem)
+    calc(env(safe-area-inset-right, 0px) + clamp(.75rem, 3.5vw, 3rem))
+    2.75rem calc(env(safe-area-inset-left, 0px) + clamp(.75rem, 3.5vw, 3rem));
+}
+.parts-catalog :is(a, summary):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: .25rem;
+}
+.parts-heading {
+  display: flex; align-items: center; flex-wrap: wrap; gap: .5rem clamp(.75rem, 2vw, 2rem);
+  padding-bottom: clamp(.75rem, 2vw, 1.25rem);
+}
+.parts-heading h1 { margin: 0; font-size: clamp(1.625rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.05; letter-spacing: -.045em; }
+.parts-scope {
+  display: flex; align-items: stretch; gap: 2px; padding: 2px;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: .375rem;
+}
+.parts-scope a {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 38px;
+  padding-inline: .875rem; border-radius: .25rem; font-size: .8125rem; font-weight: 600;
+  color: var(--text-2); text-decoration: none;
+}
+.parts-scope a:hover { color: var(--accent); }
+.parts-scope a[aria-current] { background: var(--brand-navy); color: #fff; }
+.parts-assembly-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 clamp(.75rem, 2vw, 1.25rem); margin-inline-start: auto; }
+.parts-assembly-links a, .parts-tool-models summary, .parts-overview, .parts-enlarge {
+  display: inline-flex; align-items: center; gap: .35rem; min-height: 34px;
+  color: var(--accent); text-decoration: none; font-weight: 600; font-size: .75rem;
+}
+.parts-assembly-links a:hover, .parts-tool-models summary:hover, .parts-overview:hover, .parts-enlarge:hover { text-decoration: underline; text-underline-offset: 3px; }
+.parts-tool-models { position: relative; margin-inline-start: auto; }
+.parts-tool-models summary { display: list-item; padding-block: .5rem; cursor: pointer; }
+.parts-tool-models ul {
+  position: absolute; z-index: 2; top: calc(100% + .25rem); right: 0;
+  width: min(17rem, 85vw); margin: 0; padding: .375rem .625rem; list-style: none;
+  max-height: min(21rem, calc(100dvh - 8rem)); overflow: auto;
+  border: 1px solid var(--border); border-radius: .375rem; background: var(--surface);
+  box-shadow: 0 .25rem .875rem #10319c22;
+}
+.parts-tool-models a { display: block; padding-block: .375rem; color: var(--accent); text-decoration: none; font-size: .8125rem; }
+.parts-tool-models a:hover { text-decoration: underline; }
+.parts-overview { margin-bottom: .375rem; }
+.parts-map { border-block-start: 1px solid var(--border); }
+.parts-group {
+  display: grid; grid-template-columns: clamp(7.5rem, 11vw, 9.75rem) minmax(0, 1fr);
+  gap: .75rem clamp(.625rem, 2vw, 1.5rem); padding-block: .875rem;
+  border-block-end: 1px solid var(--border);
+}
+.parts-group-heading { min-width: 0; }
+.parts-group-heading h2 {
+  margin: 0; color: var(--text); font-size: clamp(.9375rem, 1.4vw, 1.125rem);
+  font-weight: 600; line-height: 1.25; letter-spacing: -.025em;
+}
+.parts-count { display: block; margin-top: .1875rem; color: var(--text-3); font: 500 .6875rem/1.35 ui-monospace, monospace; white-space: nowrap; }
+.parts-group-print { --part-size: 5rem; }
+.parts-group-order { --part-size: 6.5rem; }
+.parts-tiles, .parts-no-models ul {
+  margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--part-size), 100%), 1fr));
+  gap: var(--part-gap);
+}
+.parts-tiles > li { min-width: 0; }
+.parts-tile { display: flex; flex-direction: column; gap: .1875rem; min-width: 0; color: var(--text); text-decoration: none; }
+.parts-tile-image {
+  display: grid; place-items: center; width: 100%; aspect-ratio: 1.2;
+  border: 1px solid transparent; border-radius: .225rem; background: var(--part-cell);
+  overflow: hidden; transition: background-color .12s, border-color .12s;
+}
+.parts-tile-image img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.parts-group-print .parts-tile-image { aspect-ratio: 1.23; }
+.parts-group-order .parts-tile-image { aspect-ratio: 1.38; }
+a.parts-tile:is(:hover, :focus-visible) .parts-tile-image { border-color: var(--accent); background: #d6e3f7; }
+a.parts-tile:hover .parts-tile-name { text-decoration: underline; text-underline-offset: 2px; }
+.parts-tile-name { font-size: .6875rem; font-weight: 600; line-height: 1.22; overflow-wrap: anywhere; }
+.parts-tile-meta { color: var(--text-2); font-size: .6875rem; line-height: 1.3; }
+.parts-related { margin-top: .375rem; border-top: 1px solid var(--border); font-size: .75rem; }
+.parts-related summary { padding-top: .375rem; color: var(--text-2); cursor: pointer; }
+.parts-related ul { list-style: none; margin: .25rem 0 0; padding: 0; }
+.parts-related a { display: inline-block; padding-block: .25rem; color: var(--accent); text-underline-offset: 2px; }
+.parts-catalog:not(.parts-focused) .parts-group-shelf .parts-tile-name {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%);
+}
+.parts-catalog:not(.parts-focused) .parts-group-order .parts-tile-name {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+.parts-no-models { margin-top: .375rem; color: var(--text-2); font-size: .75rem; }
+.parts-no-models summary { width: fit-content; padding-block: .25rem; color: var(--text-2); cursor: pointer; }
+.parts-no-models ul { --part-size: 10.5rem; margin-top: .25rem; gap: .25rem .875rem; }
+.parts-no-models a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.parts-empty { margin: 0; color: var(--text-3); font-size: .8125rem; }
+.parts-focused .parts-group { grid-template-columns: 1fr; --part-size: 9rem; --part-gap: .75rem; }
+.parts-focused .parts-group-heading { display: flex; align-items: baseline; gap: .625rem; }
+.parts-focused .parts-tile-name { font-size: .8125rem; }
+.parts-focused .parts-group-print { --part-size: 11rem; }
+@media (max-width: 680px) {
+  .parts-catalog { --part-size: 2.75rem; --part-gap: .25rem; }
+  .parts-group { grid-template-columns: 1fr; gap: .375rem; padding-block: .625rem; }
+  .parts-group-print { --part-size: 4.25rem; }
+  .parts-group-order { --part-size: 4.25rem; }
+  .parts-group-heading { display: flex; align-items: center; gap: .5rem; min-height: 36px; }
+  .parts-enlarge { margin-inline-start: auto; }
+  .parts-tile-image { aspect-ratio: 1.06; }
+  .parts-heading { column-gap: .75rem; }
+  .parts-assembly-links { width: 100%; margin-inline-start: 0; }
+  .parts-focused .parts-group { --part-size: 7.5rem; --part-gap: .625rem; }
+}

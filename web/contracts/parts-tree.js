@@ -1,12 +1,11 @@
-// The CAD parts tree displayed on /3d.
+// Published assembly roots and ownership of CAD paths.
 //
-// THE PARTS SECTION IS THE MACHINE'S TWO UNITS, one thumbnail each:
+// The assembled-model links on /parts open these units:
 //
 //   Enclosure assembly       manifold-layout/enclosure-assembly.step
 //   Faucet and umbilical     faucet-layout/faucet-assembly.step
 //
-// Those two are what ship as separate bodies. Everything else the machine is
-// made of stands inside one of them, and is reached by opening it.
+// The enclosure and faucet ship as separate assemblies.
 //
 // AN ASSEMBLY MAY HOLD AN ASSEMBLY, and the cold core is it. The enclosure STEP
 // carries the core as a real sub-assembly — a node named `cold-core` with the shell
@@ -27,8 +26,7 @@
 // trail back (contracts/component-sources.js, viewer/component-picker.js,
 // viewer/step-nav.js). That drill recurses — an assembly reached this way offers
 // its own components the same way — so depth is a property of the model, not a
-// limit of the page. The page itself lists no installed part, loose install-kit
-// part, or purchased geometry.
+// limit of the page.
 //
 // EVERY FILE THE WALKERS OFFER IS CLAIMED. An assembly's `holds` names the
 // directories it places from, `PURCHASED` takes the bought bodies, `INSTALL_KIT`
@@ -42,12 +40,7 @@
 // what lets the claim be stated as parts — the vocabulary the gate reads in, and
 // the two roots' own models.
 //
-// Produced from web/lib/walk.js's file lists by way of /api/{steps,dxf,glbs};
-// consumed by web/public/js/viewer/parts.js; pinned by web/tests/parts-tree.test.js.
-//
-// Browser tools such as tools/render/render-dxf.js and screenshot-site.js open `/3d`.
-// `main.js` applies the initial route after building the grid, so these tools depend on
-// `seatParts` and `parts.js` completing before their model can mount.
+// web/tests/parts-tree.test.js checks file ownership and the published assembly roots.
 
 // WHERE A BUILD PUTS ITS WORKINGS. A generator lays its scene, study or plot
 // down in an `out/` beside itself on the way to the artifact it publishes: a

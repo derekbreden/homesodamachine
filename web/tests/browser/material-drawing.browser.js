@@ -6,8 +6,9 @@ import path from "node:path";
 import { start } from "../../server.js";
 
 const require = createRequire(new URL("../../../tools/render/package.json", import.meta.url));
-const materialUrl = "/3d#material:HSM-0009";
+const materialUrl = "/parts#material:HSM-0009";
 const searchUrl = materialUrl + "?panel=materials";
+const gaugeUrl = "/parts#material:HSM-0397";
 const capFile = "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step";
 const reviewDir = path.resolve(".cache/material-workspace");
 let browser, server, baseUrl;
@@ -48,16 +49,44 @@ async function assertPane(page, open) {
   assert.equal(await page.$eval(".material-panel", panel => getComputedStyle(panel).display !== "none"), open);
 }
 
-test("3D thumbnails and model navigation start closed after an open materials pane", async () => {
+test("a print plate opens Print, follows material navigation and closes to the same catalog", async () => {
   const page = await browser.newPage();
-  const card = '.card[data-material="HSM-0397"] .assembly-model-link';
+  const overview = "/parts?group=print";
+  const id = "HSM-0072";
+  const plateHash = `#material:${id}?view=print`;
+  const anchor = `#parts-print a[href="/parts${plateHash}"]`;
+  async function printReady() {
+    const iframe = await page.waitForSelector(".material-print-view");
+    assert.equal(await iframe.evaluate(node => node.getAttribute("src")), `/print-playback/${id}`);
+    const frame = await iframe.contentFrame();
+    await frame.waitForSelector("#hsm-motion-playback canvas");
+    assert.equal(new URL(page.url()).hash, plateHash);
+  }
+  try {
+    await page.goto(baseUrl + overview, { waitUntil: "domcontentloaded" });
+    const catalog = await page.$("#parts-catalog");
+    await page.locator(anchor).click();
+    await printReady();
+    await materialReady(page, "printed-parts/zone-c/funnel/funnel-frame.step");
+    await page.click(".materials-toggle");
+    await page.type(".material-panel .material-search input", "HSM-0009");
+    await page.locator(`.material-panel a[href="${searchUrl}"]`).click();
+    await materialReady(page);
+    await page.goBack();
+    await printReady();
+    await page.click(".cv-close");
+    await page.waitForFunction(() => !location.hash && !document.querySelector(".cv-dialog"));
+    assert.equal(page.url(), baseUrl + overview);
+    assert.equal(await catalog.evaluate(node => node === document.getElementById("parts-catalog")), true);
+  } finally { await page.close(); }
+});
+
+test("direct model links start with a closed materials pane", async () => {
+  const page = await browser.newPage();
   const file = "printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step";
   try {
     await page.setViewport({ width: 1440, height: 1000 });
-    await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector(card);
-    assert.equal(await page.$eval(card, link => link.getAttribute("href")), "/3d#material:HSM-0397");
-    await page.click(card);
+    await page.goto(baseUrl + gaugeUrl, { waitUntil: "domcontentloaded" });
     await materialReady(page, file);
     await assertPane(page, false);
     await page.click(".materials-toggle");
@@ -75,13 +104,12 @@ test("3D thumbnails and model navigation start closed after an open materials pa
     await assertPane(page, false);
     await page.click(".materials-toggle");
     await page.type(".material-panel .material-search input", "HSM-0009");
-    await page.waitForSelector(".material-panel .material-search-results a", { visible: true });
-    await page.click(".material-panel .material-search-results a");
+    await page.locator(`.material-panel .material-search-results a[href="${searchUrl}"]`).click();
     await page.waitForFunction(() => location.hash.endsWith("?panel=materials"));
     await assertPane(page, true); // The same model can be entered as a search result.
     await page.click(".cv-close");
     await page.waitForSelector(".cad-workspace", { hidden: true });
-    await page.click(card);
+    await page.goto(baseUrl + gaugeUrl, { waitUntil: "domcontentloaded" });
     await materialReady(page, file);
     await assertPane(page, false);
   } finally { await page.close(); }
@@ -92,9 +120,7 @@ test("one workspace toolbar contains navigation, view mode and document controls
   const parentFile = "printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step";
   try {
     await page.setViewport({ width: 1440, height: 1000 });
-    await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector('.card[data-material="HSM-0397"] .assembly-model-link');
-    await page.click('.card[data-material="HSM-0397"] .assembly-model-link');
+    await page.goto(baseUrl + gaugeUrl, { waitUntil: "domcontentloaded" });
     await materialReady(page, parentFile);
     await page.click(".materials-toggle");
     await page.type(".material-panel .material-search input", "HSM-0009");
@@ -134,11 +160,10 @@ test("material search opens the pane and features a working drawing beside the p
   page.on("pageerror", error => errors.push(error.message));
   try {
     await page.setViewport({ width: 1440, height: 1000 });
-    await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector(".material-search input");
-    await page.type(".material-search input", "HSM-0009");
-    await page.waitForSelector(".material-search-results a");
-    const href = await page.$eval(".material-search-results a", link => link.getAttribute("href"));
+    await page.goto(baseUrl + "/parts", { waitUntil: "domcontentloaded" });
+    await page.type("#site-search-input", "HSM-0009");
+    await page.waitForSelector("#site-search-results a");
+    const href = await page.$eval("#site-search-results a", link => link.getAttribute("href"));
     assert.equal(href, searchUrl);
     const linked = await browser.newPage();
     try {
@@ -147,7 +172,7 @@ test("material search opens the pane and features a working drawing beside the p
       await materialReady(linked);
       await assertPane(linked, true);
     } finally { await linked.close(); }
-    await page.click(".material-search-results a");
+    await page.click("#site-search-results a");
     await materialReady(page);
     assert.ok(await page.$(".cad-workspace.materials-open"));
     assert.equal(await page.$eval(".materials-toggle", button => button.getAttribute("aria-expanded")), "true");
@@ -215,10 +240,9 @@ test("phone searches open the pane under the model; drawings keep the pane and t
   page.on("pageerror", error => errors.push(error.message));
   try {
     await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
-    await page.goto(baseUrl + "/3d", { waitUntil: "domcontentloaded" });
-    await page.waitForSelector(".material-search input");
-    await page.type(".material-search input", "HSM-0009");
-    await page.locator(".material-search-results a").click();
+    await page.goto(baseUrl + "/parts", { waitUntil: "domcontentloaded" });
+    await page.type("#site-search-input", "HSM-0009");
+    await page.locator("#site-search-results a").click();
     await materialReady(page);
     await assertPane(page, true);
     // The pane takes the lower part of the screen, and the model stays in view above it.

@@ -81,3 +81,6 @@ tools/run -- tools/hsm/target/release/funnel-cover
 `funnel-cover.step` and `funnel-cover.stl` use the assembled seating datum.
 `funnel-cover-print.step` and `funnel-cover-print.stl` use the flat exterior bed face. The appliance places
 the cover on the mouth's plan center and Z358 silicone seating plane.
+
+The machine's [PETG accessory plate](../../enclosure/trial-preparation/README.md#recipe)
+prints the cover with the shroud, reed bridge and fuse clamp using the cover's solid recipe.

@@ -9,7 +9,7 @@ test("draw eligibility excludes hidden, transparent, off-camera and depth-clippe
   try {
     browser = await launchBrowser();
     const page = await browser.newPage();
-    await page.goto("https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step", { waitUntil: "domcontentloaded" });
+    await page.goto("https://homesodamachine.com/parts#step:manifold-layout%2Fenclosure-assembly.step", { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => window.__hsm?.THREE && window.__hsm.renderer.domElement.getBoundingClientRect().width > 0, { timeout: 60000 });
     const nodes = ["a", "b"].map((name) => ({ name, asset: `new-${name}`, entries: [{ name, color: [0, 0, 0] }], transform: null }));
     const target = { revision: "fixture", parts: nodes.map((node) => ({ name: node.name, asset: node.asset, key: partKey(node) })) };

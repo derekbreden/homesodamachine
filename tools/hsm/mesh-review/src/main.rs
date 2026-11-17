@@ -5,7 +5,7 @@ use hsm_mesh_review::{CLASSES, Options};
 use std::path::PathBuf;
 
 #[derive(Parser)]
-#[command(about = "Rank printed-mesh anomalies and emit /3d Find locations")]
+#[command(about = "Rank printed-mesh anomalies and emit Parts viewer Find locations")]
 struct Args {
     /// Saved STL files, or STEP paths with an STL beside them.
     pieces: Vec<PathBuf>,

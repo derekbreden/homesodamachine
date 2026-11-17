@@ -48,12 +48,10 @@ The tree a page is a browse of. It states the one thing the repository's own fil
 directory stands relative to the others — and reads everything else off disk, so a part added on the
 tree needs no edit here.
 
-- **parts-tree.js** — the two units `/3d` browses (the soda machine, which holds the cold core,
-  and the faucet and umbilical), the directories each places from, the bought geometry no one of them
-  owns, and the tooling a bench works from, including the fixture namespace; plus
-  `seatParts`, which walks that nesting and folds a part's `.step` / `.dxf` / `.glb` into one card.
-  Read from `/api/{steps,dxf,glbs}` by `web/public/js/viewer/parts.js`; pinned by
-  `web/tests/parts-tree.test.js`.
+- **parts-tree.js** — the assembled units linked from `/parts`, the directories each places from,
+  the bought geometry, and the tooling namespaces. `seatParts` checks those rules against lists
+  of `.step`, `.dxf` and `.glb` files. `web/tests/parts-tree.test.js` checks the rules and assembly
+  references against the checkout.
 - **component-sources.js** — which file a named solid inside an assembly was modelled in, for the
   ones whose name is not its file's stem; plus `sourceFileFor`, which answers null for the bodies an
   assembly builds and keeps. Read by `web/public/js/viewer/component-picker.js` for the drill-down

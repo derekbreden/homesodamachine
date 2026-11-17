@@ -41,7 +41,7 @@ An already-open MCP connection retains its reader build. If it reports an old-re
 whole-scene cache error, use the installed `hsm` CLI, which adopts the installed reader.
 
 For remembered descriptions, brands or part numbers, `node tools/find-part.mjs "water regulator"`
-uses the same material search as `/3d`. It returns candidates, source producers, build targets
+uses the same material search as `/parts`. It returns candidates, source producers, build targets
 and published model links. Suggestions retain their uncertainty; use the returned identity
 when a description could mean more than one part.
 
@@ -138,7 +138,7 @@ closes on `?find=` lights and labels what it points at and turns the camera to i
 
 Two things count: what I see on the website and what I print. Everything else is a means to
 those two. An output, check or report that feeds neither can go, and so can an expensive detail
-of the website that isn't needed, such as a check in the `/3d` checks modal.
+of the website that isn't needed, such as a check in the model viewer's checks modal.
 
 Every part has a manufacturing process, and its process names its build:
 

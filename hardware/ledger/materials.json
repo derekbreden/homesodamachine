@@ -5833,6 +5833,11 @@
         "CGA-320 regulator",
         "Taprite 3741"
       ],
+      "models": [
+        {
+          "file": "reference/taprite-3741-regulator/taprite-3741-regulator.step"
+        }
+      ],
       "documents": [
         {
           "title": "Regulator reference",

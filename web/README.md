@@ -178,7 +178,8 @@ The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Appliance overview with CAD-based kitchen and detail illustrations. [`lib/landing-support.js`](/web/lib/landing-support.js) supplies the optional film, supplier acknowledgements and secondary availability signup. |
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/cost.js`](/web/lib/cost.js) | `/cost` | The production workspace, parts, planned labor, sale price and investment recovery. [`lib/production-planner.js`](/web/lib/production-planner.js) reads the material catalog, shared stock and supplier offers. [`public/production-planner.js`](/web/public/production-planner.js) shows cumulative unit coverage, editable supplier packs, custom packs and a browser-saved purchase scenario. [`contracts/production-plan.js`](/web/contracts/production-plan.js) and [`contracts/purchase-lots.js`](/web/contracts/purchase-lots.js) share coverage and pack pricing between server and browser. [`lib/part-cost-view.js`](/web/lib/part-cost-view.js) renders the numbered assembly cost tree with each assembly’s own work and supplies, linking to the explorer. |
-| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides` | Parts and guides share [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`lib/parts-page.js`](/web/lib/parts-page.js) | `/parts` | Machine and tools catalog, with print plates, made-to-order parts and off-the-shelf parts. |
+| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/guides`, `/3d` | Guide library, shared viewer shell and redirects for older viewer links. |
 | [`lib/weld-position.js`](/web/lib/weld-position.js) | `/weld-position` | Tube, recessed endcap and gun orientation; grip, hole and vertical rotations about the laser dot. |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,pcb,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*` | API for the viewer's file lists and content, plus document publication gates. The STEP list holds only the models a part number names. |
 | [`lib/document-reader.js`](/web/lib/document-reader.js) | `/vendor/pdfjs/<version>/*` | Document reader HTML and the installed PDF.js assets. `/read/*` renders one page at a time through `public/document-reader.js`, with page links, history, selectable text and zoom. `/docs/*?raw=1` supplies range-capable PDF bytes; `?download=1` supplies an attachment. HTML navigations to saved `/docs/*` links redirect to the reader. |
@@ -208,12 +209,12 @@ Served flat via `express.static(public/)`.
 | [`public/style-guide.js`](/web/public/style-guide.js) | `/style-guide` | Local sample search, tabs, row selection, copy markup and computed style readouts. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`hsm-marketing brand-assets`](../tools/hsm/marketing/src/brand.rs). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | PCB material view | Pan, pinch and wheel zoom for board views. |
-| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/changes` | Shared modal with swipe-down, Escape, close button and backdrop dismissal. |
-| `public/js/viewer/*.js` | `/3d`, `/guides` | The catalog and viewer modules. |
-| `public/css/viewer.css` | `/3d`, `/guides`, `/pcb` | Viewer styles. |
+| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/parts`, `/changes` | Shared modal with swipe-down, Escape, close button and backdrop dismissal. |
+| `public/js/viewer/*.js` | `/parts`, `/guides` | The model workspace and guide shelf. |
+| `public/css/viewer.css` | `/parts`, `/guides` | Viewer styles. |
 
 The studio's `reducer.js` records the reference STL's SHA-256. `enclosure.js`
-reads the same published colored assembly tessellation as `/3d` and matches its
+reads the same published colored assembly tessellation as the Parts workspace and matches its
 linear RGB colors to `/finishes.json`. It groups bodies by finish and cutaway
 visibility for fewer preview draws. Cutaway surfaces remain in one BVH; their
 opacity changes remove them from traced light, while mesh visibility controls
@@ -228,9 +229,13 @@ assembly. The responsive WebGL 2 viewer uses pinned Three.js, mesh BVH and
 path-tracer modules from CDNs, with a studio preview available when refinement
 is unsupported. It adds no build dependency.
 
-### `public/js/viewer/` — the parts viewer modules
+### Parts catalog and viewer
 
-`/3d` and `/guides` share one module graph. The entry selects a catalog from `location.pathname`. The import map lives in [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html).
+The Parts page renders its overview from the material catalog and [print plate index](/hardware/printed-parts/plates.json). The navigation search can find materials, construction features and the plates on the current page. Model and print links open the shared modal over the catalog, leaving the current group and scroll position in place. `#material:<id>?view=print` opens the workspace's Print view with the published toolpath replay for that plate. `/3d` redirects to `/parts` and carries existing file queries and bookmark fragments through.
+
+Refresh made-to-order and off-the-shelf stills from the repo root with `tools/run -- node web/scripts/render-part-thumbnails.mjs`. Pass material IDs to refresh only those stills. Plate stills read the actual printable geometry and placement from their Bambu projects; [plate preparation](/hardware/printed-parts/enclosure/trial-preparation/README.md) describes the batch.
+
+[`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html) supplies the modal shell and Three.js import map. Parts loads the interactive workspace when a visitor follows a model or material link. Guides uses the guide shelf from the same module graph.
 
 | Module | Role |
 |---|---|
@@ -238,27 +243,27 @@ is unsupported. It adds no build dependency.
 | `scene.js` | Three.js renderer/camera/controls/scene/lighting + ViewCube + animate loop + per-file camera persistence + canvas reparenting (canvases live in `#cad-canvas-host` between opens). |
 | `step.js` | STEP loader (occt-import-js), parser, mesher, thumbnail renderer. |
 | `faucet-options.js` | The faucet's Sculpted/Industrial style and Black/White finish controls. Style swaps actual assembly payloads in the same view; finish recolors the printed exterior, lever, above-counter gasket, soda faucet tube, including their direct part views. The continuous black 4 mm flavor tubes retain their stock color in both finishes. On narrow screens the choices expand from a compact summary. |
-| `xray.js` | The X-ray toggle. Every model, and every card's picture, draws solid until x-ray is turned on; the choice is kept in this browser under `step-xray` and applies to every model. |
-| `dxf.js` | DXF loader, parser and extrusion mesher. No page draws a card for a cut, so a `.dxf` is reached by opening it. |
+| `xray.js` | The X-ray toggle. Models draw solid until x-ray is turned on. The browser keeps the choice under `step-xray`. |
+| `dxf.js` | DXF loader, parser and extrusion mesher. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
-| `grid.js` | Renders the catalog shelves and uses `IntersectionObserver` to load thumbnails near the viewport. `/3d` delegates its shelf to `parts.js`. |
-| `parts.js` | `/3d`'s description lookup and cards for the two product units and build tools. Each card draws the model it opens, at the card's own size. The material catalog supplies identities and engineering relationships; a model without a part number is not offered. |
-| `material-search.js` | Description, permanent number, alias and manufacturer-number lookup on the grid and in the model companion. |
+| `grid.js` | Guide shelf and document search. |
+| `parts-entry.js` | Opens the workspace on demand for a Parts link. |
+| `material-search.js` | Description, permanent number, alias and manufacturer number lookup in the model companion. |
 | `material-panel.js` | Expandable BOM with quantities through assembly levels, geometry selection, reverse ancestry and linked documents. Context representations inspect a named assembly inside an enclosing model while retaining its own BOM. Its selection is the model's: a part chosen in the pane, opened from a search or picked in the model is selected there too (`part-highlight.js`), and **←** steps up one BOM level. A model opened on its own material shows whole and opaque, with nothing selected. |
 | `material-sheet.js` | The phone Materials pane: a sheet under the model resting low, at half or near the top. Scrolling its list raises it to the top before the list scrolls, in one stroke; pulling down from the list's top lowers it; a drag, pinch or wheel on the model lowers it, while a tap does not; a part chosen in the list brings it back to half. The canvas keeps its full height under the sheet, and `scene.js` centres the view in the part left uncovered, holding the picture still while the sheet moves. |
 | `part-highlight.js` | Draws visible feature edges for Materials selections and marks referenced geometry for checks. A click in the model keeps the component picker's mark and the reader's camera. Leaving a framed Materials selection restores the view held for that file. |
 | `instance-view.js` | Frames a Materials selection or installed location and hides the parts crossing its sight lines. Visible surroundings retain their materials. Automatically hidden parts can be restored from the component controls. |
-| `material-nav.js` | Permanent `/3d#material:HSM-0001` links and material records with or without geometry. Model drill-downs retain the STEP navigation trail. |
-| `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
+| `material-nav.js` | Permanent `/parts#material:<id>` links and material records with or without geometry. Model drill-downs retain the STEP navigation trail. |
+| `live.js` | Refreshes published files and the open model in place on `hsm:files-changed` and `hsm:deploy`. Sets `window.__hsmDeploySoft`. |
 | `pcb.js` | Loads on selection of PCB in the Main control PCBA material workspace. Loads its board styles, layers and inspection data. |
-| `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
-| `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |
+| `route.js` | Opens links from the URL hash or `?file=` and follows browser history inside the workspace. |
+| `main.js` | Exposes the render tools' browser API, fetches the workspace records and starts routing. |
 
 State sharing pattern is **one shared object** (`state.js`'s exported `state`). Other modules `import { state } from './state.js'` and read/write `state.allFiles` etc. directly. Live binding via the object identity; no per-module proxy or sync ceremony.
 
 `GET /api/materials` reads [`hardware/ledger/materials.json`](/hardware/ledger/materials.json) through `lib/material-catalog.js`, resolving authored part-list imports such as the insertion fixture's `parts.json`. `contracts/materials.js` traverses quantities, ancestry and model bindings in the browser and Node. [`hardware/ledger/materials.md`](/hardware/ledger/materials.md) describes the catalog's identity and authoring rules. The financial BOM remains [`hardware/ledger/bom.md`](/hardware/ledger/bom.md).
 
-The same response carries `costs`: [`lib/part-costs.js`](/web/lib/part-costs.js) allocates every bom.md row and labor.md operation to the part numbers its hidden `<!--parts …-->` tag names ([materials.md](/hardware/ledger/materials.md#costs)), and `contracts/part-costs.js` rolls those up through the BOM. The material panel shows the selected part's cost under its name — parts in orange, labor in blue, the split the cost page draws — prices every BOM row at its quantity in the inspected assembly with a thin bar for its share, lists an expanded assembly's own labor and supplies beneath its contents so each level adds up, and can rank the tree by cost. Its **Cost** tab itemizes a part's contents, purchase, material, supplies and labor operations. Product cards on `/3d` carry their rolled-up cost beside the part number. Tooling, references and anything outside the finished unit show no cost. `node web/scripts/part-costs.mjs` reports the allocation: totals, unallocated rows and catalog counts that disagree with the ledger.
+The same response carries `costs`. [`lib/part-costs.js`](/web/lib/part-costs.js) allocates every bom.md row and labor.md operation to the part numbers its hidden `<!--parts …-->` tag names ([materials.md](/hardware/ledger/materials.md#costs)), and `contracts/part-costs.js` rolls those up through the BOM. The material panel shows the selected part's cost under its name, with parts in orange and labor in blue. It prices each BOM row at its quantity in the inspected assembly, lists an expanded assembly's own labor and supplies beneath its contents, and can rank the tree by cost. The **Cost** tab itemizes a part's contents, purchase, material, supplies and labor operations. `node web/scripts/part-costs.mjs` reports totals, unallocated rows and catalog counts that disagree with the ledger.
 
 The response also carries `stock`: [`lib/material-stock.js`](/web/lib/material-stock.js) reads physical inputs from [`lib/bom-lines.js`](/web/lib/bom-lines.js) and the material configurations shared with costing. [`lib/stock-ledger.js`](/web/lib/stock-ledger.js) projects balances from [`stock.json`](/hardware/ledger/stock.json). The material Stock tab, [`/build`](https://homesodamachine.com/build), `/api/build` and purchasing use those same facts. Completed stock reduces component demand before raw inputs are expanded; incoming stock reduces duplicate purchases and remains unavailable to build until receipt. Purchasing lists inputs without a definition or quote separately from its quoted budget.
 
@@ -284,7 +289,7 @@ engineering drawing pinned first. Empty relationship tabs are omitted. Material
 actions, including the permanent link, sit in the record's **⋯** menu. The **3D /
 Drawing** switch preserves the model's camera and selection.
 
-Assembly cards, search results and expandable BOM rows show direct and total BOM-item counts. Direct counts cover immediate rows; totals follow every nested assembly path. Each row counts once regardless of its quantity. Faucet counts use the selected style and finish. The card's underlined count link opens the Materials pane on its BOM tab; `#material:HSM-0001?tab=bom` preserves that intent in bookmarks and new tabs. The model link opens with the pane collapsed. The Materials tabs count the displayed BOM's items, recorded uses (containing assembly paths and associated tools/equipment), and distinct linked documents, including documents inherited from containing assemblies.
+Search results in Materials and expandable BOM rows show direct and total BOM-item counts. Direct counts cover immediate rows. Totals follow every nested assembly path. Each row counts once regardless of its quantity. Faucet counts use the selected style and finish. A `#material:<id>?tab=bom` link opens Materials on its BOM tab. The Materials tabs count the displayed BOM's items, recorded uses (containing assembly paths and associated tools and equipment), and distinct linked documents, including documents inherited from containing assemblies.
 
 Every selected component offers **Open component** or its canonical part model. Source lookup uses the material catalog before name aliases. Components without a standalone STEP use a `?component=` view of the owning model's named body or branch, preserving the STEP breadcrumb and browser Back/Forward behavior. The loader reads the owning file and filters its geometry; the view creates no second CAD file or material identity. Picks continue to name the owning geometry file. Cataloged assemblies include numbered records for their fitted tube runs, context geometry and tooling workpieces.
 

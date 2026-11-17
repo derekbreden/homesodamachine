@@ -59,6 +59,8 @@ services:
         - render.yaml
         # The cost page reads the ledgers from the deployed clone.
         - hardware/ledger/**
+        # The parts map reads the production plate index from the deployed clone.
+        - hardware/printed-parts/plates.json
         # Bench harness maps are rendered in the assembly section of /cost.
         - hardware/assembly/harnesses/**
         # THE HARDWARE PATHS THAT DEPLOY, AND WHY THEY ARE THE ONLY ONES. Everything else under
