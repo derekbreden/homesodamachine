@@ -9935,7 +9935,8 @@
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-e014f62abdb847af827f854538ae2c89",
-        "src-4846c39604814a94b7031992e7f315e7"
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-05779070a6004c3f840776708e7740fe"
       ],
       "price_history": [
         {
@@ -9963,7 +9964,8 @@
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-e014f62abdb847af827f854538ae2c89",
-        "src-4846c39604814a94b7031992e7f315e7"
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-05779070a6004c3f840776708e7740fe"
       ],
       "price_history": [
         {
@@ -9991,7 +9993,8 @@
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-e014f62abdb847af827f854538ae2c89",
-        "src-4846c39604814a94b7031992e7f315e7"
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-05779070a6004c3f840776708e7740fe"
       ],
       "price_history": [
         {
@@ -10053,7 +10056,8 @@
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-e014f62abdb847af827f854538ae2c89",
-        "src-4846c39604814a94b7031992e7f315e7"
+        "src-4846c39604814a94b7031992e7f315e7",
+        "src-05779070a6004c3f840776708e7740fe"
       ],
       "price_history": [
         {
@@ -10113,7 +10117,8 @@
       "source_ids": [
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-70ca7dc199ed4a9691b01d7003853de8",
-        "src-e014f62abdb847af827f854538ae2c89"
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-05779070a6004c3f840776708e7740fe"
       ]
     },
     "pur-e8d3c873b40848499b387a0bed8978f7": {
@@ -10140,7 +10145,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-eb3019ef3d99416ea0889f3f9aba87ef",
-        "src-1c76b36d35114756aac96799ba97b66f"
+        "src-1c76b36d35114756aac96799ba97b66f",
+        "src-f5f46a4b9e7f48e2b5a4b45a18f62e19"
       ]
     },
     "pur-1c4dede86ac6420db23a61fd3b7eabb8": {
@@ -16510,7 +16516,8 @@
         "src-829a60a402c04c52b54328b2f840cf03",
         "src-575287e34a0e48b68470139996e8e4b9",
         "src-4846c39604814a94b7031992e7f315e7",
-        "src-e014f62abdb847af827f854538ae2c89"
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-05779070a6004c3f840776708e7740fe"
       ]
     },
     "amazon:112-7863139-0903423": {
@@ -16536,7 +16543,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-eb3019ef3d99416ea0889f3f9aba87ef",
-        "src-1c76b36d35114756aac96799ba97b66f"
+        "src-1c76b36d35114756aac96799ba97b66f",
+        "src-f5f46a4b9e7f48e2b5a4b45a18f62e19"
       ]
     },
     "bambu:us798331608108187648": {
@@ -35379,6 +35387,36 @@
       ],
       "verified_at": "2026-11-17",
       "note": "Two-item delivery notification identifies the sealant order in its order field and the masking-tape order in its shared-package tracking link. Both existing purchases are delivered. Relative today wording does not independently establish a delivery calendar date. No completed payment or final tax is proved."
+    },
+    "src-f5f46a4b9e7f48e2b5a4b45a18f62e19": {
+      "vendor": "Amazon",
+      "document_type": "delivery_notification",
+      "reference": "114-2679873-7632253",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-17",
+      "note": "Exact-order delivery notification confirms the previously identified shipment delivered. Relative today wording does not independently establish a delivery calendar date. No completed payment or final tax is proved. The additional generic measurement tool in the shared package is not linked to a specific order by this notification; no other purchase fulfillment is inferred."
+    },
+    "src-05779070a6004c3f840776708e7740fe": {
+      "vendor": "Amazon",
+      "document_type": "delivery_notification",
+      "reference": "112-1265759-9506602",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-17",
+      "note": "Exact-order delivery notification confirms the previously identified shipment delivered. Relative today wording does not independently establish a delivery calendar date. No completed payment or final tax is proved."
     }
   },
   "coverage": [
@@ -38119,14 +38157,16 @@
         "src-70ca7dc199ed4a9691b01d7003853de8",
         "src-575287e34a0e48b68470139996e8e4b9",
         "src-4846c39604814a94b7031992e7f315e7",
-        "src-e014f62abdb847af827f854538ae2c89"
+        "src-e014f62abdb847af827f854538ae2c89",
+        "src-05779070a6004c3f840776708e7740fe"
       ],
-      "missing_fact": "Final vendor tax breakdown remains unverified: the Order Summary still labels order-level tax estimated, recorded separately rather than spread across items. The completed order charge is confirmed. Endstops and the power adapter are delivered; the stage, driver, carrier and controller shipped November 14 and await delivery without actual delivery dates.",
+      "missing_fact": "Final vendor tax breakdown remains unverified: the Order Summary labels order-level tax estimated, recorded separately rather than spread across items. Completed order charge and delivery of all hardware are confirmed. Exact delivery calendar dates for the stage, driver, carrier and controller remain unknown.",
       "sources_checked": [
         "Named Amazon Order Details and printable Order Summary",
         "Named order-scoped In Progress / Pending transaction, checked November 13, 2026",
         "Exact-order shared-package tracking and order-scoped Pending transaction, checked November 14, 2026",
-        "Exact remaining-package shipment timeline, Completed order transaction and printable Order Summary, checked November 14, 2026"
+        "Exact remaining-package shipment timeline, Completed order transaction and printable Order Summary, checked November 14, 2026",
+        "Exact-order delivery notification received November 17, 2026"
       ]
     },
     {
@@ -38168,11 +38208,13 @@
         "evt-8733331cccaa40d2b47ffde578a9bcd0"
       ],
       "source_ids": [
-        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+        "src-eb3019ef3d99416ea0889f3f9aba87ef",
+        "src-f5f46a4b9e7f48e2b5a4b45a18f62e19"
       ],
-      "missing_fact": "Delivery and separate completed merchant charge/date remain unconfirmed. Tax is estimated.",
+      "missing_fact": "Exact delivery calendar date, completed merchant charge/date and final tax remain unverified. All three spools are delivered.",
       "sources_checked": [
-        "Exact order confirmation and signed-in merchant order record"
+        "Exact order confirmation and signed-in merchant order record",
+        "Exact-order delivery notification received November 17, 2026"
       ]
     },
     {
