@@ -23,7 +23,7 @@ regulator and sets it:
 There is no knob and no outlet shutoff. The customer seats a washer in the nut, tightens it onto the
 cylinder, pushes the tether's free end into the machine and opens the cylinder valve. The in-machine
 PISCO RVFUP1/4-1/4-0.3 secondary holds the feed at its 0.3 MPa preset below the 75 psi, and the
-neoFit ACHV44-E downstream of it is the gas path's check valve.
+neoFit ACVUS-44 stem check inserts directly into its outlet.
 
 ## Six things a picture points at
 

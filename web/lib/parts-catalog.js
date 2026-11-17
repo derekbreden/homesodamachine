@@ -18,13 +18,21 @@ const providers = [
   ["OnlineMetals", /\bOnlineMetals #12498\b/i],
 ];
 
+// Show the evaporator coil in its installed form under the copper tubing it is wound from.
+const formedFromStock = new Set(["HSM-0015"]);
+
 export function selectCatalogParts(catalog, ledger) {
   const index = materialIndex(catalog);
   const options = { finish: FAUCET_FINISHES[0].id };
   const toolRoots = catalog.roots.filter(id => index.get(id)?.kind === "tooling");
   const subjects = (root) => explodeBom(catalog, root, options).map(({ material }) => material);
   const machine = subjects(catalog.cost_root);
-  const tools = [...toolRoots.flatMap(subjects), ...catalog.materials.filter(material => material.kind === "equipment")];
+  const toolParts = toolRoots.flatMap(subjects);
+  const equipment = [...toolRoots.map(id => index.get(id)), ...toolParts]
+    .flatMap(tool => tool.relations || [])
+    .filter(relation => relation.kind === "used-with")
+    .map(relation => index.get(relation.material))
+    .filter(material => material?.kind === "equipment");
   const sourcing = new Map();
   for (const line of ledger) {
     const provider = providers.find(([, pattern]) => pattern.test(line.name))?.[0];
@@ -40,10 +48,12 @@ export function selectCatalogParts(catalog, ledger) {
     return {
       madeToOrder: parts.filter(part => part.provider).sort((a, b) =>
         a.provider.localeCompare(b.provider) || byName(a, b)),
-      offTheShelf: parts.filter(part => !part.provider && ["purchased", "equipment"].includes(part.material.kind)).sort(byName),
+      offTheShelf: parts.filter(({ material, provider }) => !provider && (
+        ["purchased", "equipment"].includes(material.kind) || formedFromStock.has(material.id)
+      )).sort(byName),
     };
   }
-  return { machine: group(machine), tools: group(tools) };
+  return { machine: group(machine), tools: group([...toolParts, ...equipment]) };
 }
 
 export function readPartsCatalog(hardwareDir) {

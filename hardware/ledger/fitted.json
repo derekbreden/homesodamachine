@@ -43,7 +43,7 @@
       "date": "2026-09-30",
       "said": "Alright, nameplate is good. Mark2 is free - what shall we print next?",
       "tried": "the flat-wing nameplate in its printed receiver",
-      "record": "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/36833968c72d9aad04dc0d83759081bdee1aa69c/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/physical-acceptance.json"
     },
     {
       "material": "HSM-0076",

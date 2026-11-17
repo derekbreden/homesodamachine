@@ -22,7 +22,6 @@ pub const SOURCES: &[&str] = &[
     "hardware/ledger/tools.md",
     "hardware/topology/fluid-topology.md",
     "hardware/mechanical-qualification/README.md",
-    "hardware/printed-parts/fixtures/tube-miter-box/README.md",
 ];
 const SITE: &str = "https://github.com/derekbreden/homesodamachine/blob/main/";
 const DOCS: &str = "https://homesodamachine.com/docs/";
@@ -2369,7 +2368,7 @@ pub fn compose(c: &mut Canvas, d: &Data) {
         "Square-cut the plastic tube",
         "One clean cutting plane, with the bore round and the sealing surface undamaged.",
         lldpe_art,
-        "Mudder cutter for 1/4-inch and 3/8-inch OD LLDPE. The printed razor miter box is a separate, untested tool trial.",
+        "Mudder cutter for 1/4-inch and 3/8-inch OD LLDPE.",
         &[
             "Check the blade. Measure and mark the cut; place the tube square in the Mudder cutter without squeezing it out of round.",
             "Make a clean cut across the tube. Inspect the end for angle, deformation and burrs; recut a damaged end before it reaches a fitting.",

@@ -237,17 +237,6 @@
     "parts": [{"label": "Donor hold-down cover", "material": "HSM-0403"}]
   },
   {
-    "id": "tube-miter-box",
-    "label": "Tube miter box",
-    "scope": "tools",
-    "material": "HSM-0398",
-    "filament": "PET-GF",
-    "thumbnail": "/parts/plates/tube-miter-box.webp",
-    "href": "/parts#material:HSM-0398?view=print",
-    "download": "/print-archive/8d3be78c0a58bf0bb50c4fde0088d4f72622c464/tube-miter-box-petgf-mark2.3mf",
-    "parts": [{"label": "Tube miter box", "material": "HSM-0398"}]
-  },
-  {
     "id": "factory-petg",
     "label": "Coil mandrel and reed gauge",
     "scope": "tools",
@@ -269,17 +258,6 @@
     "thumbnail": "/parts/plates/factory-tools.webp",
     "href": "/parts#material:HSM-0447?view=print",
     "parts": [{"label": "Pump tube setting jig", "material": "HSM-0447"}]
-  },
-  {
-    "id": "fake-countertop",
-    "label": "Fake countertop",
-    "scope": "tools",
-    "material": "HSM-0399",
-    "filament": "PET-GF",
-    "thumbnail": "/parts/plates/fake-countertop.webp",
-    "href": "/parts#material:HSM-0399?view=print",
-    "download": "/print-archive/ad163471d3416cacd678cbba960e4c0d314206c1/fake-countertop-petgf-mark2.3mf",
-    "parts": [{"label": "Fake countertop", "material": "HSM-0399"}]
   },
   {
     "id": "funnel-mold-cavity",

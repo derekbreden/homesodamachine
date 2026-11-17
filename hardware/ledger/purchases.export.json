@@ -10503,7 +10503,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:caff5c9cdfc0b82daa74bf00adad820cfa201d872831cfc8ec1377c3063f3b15",
+  "input_fingerprint": "sha256:ccdeda134367fb556dd4d97e98ccca603f1ceb89b1f50e4d60e2e36bbffabda7",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -41122,7 +41122,7 @@
           "value": "2026-10-18"
         }
       ],
-      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, neutral conductors. $11.99 item price + $0.87 allocated tax",
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft coil — fixed AC neutral conductors. $11.99 item price + $0.87 allocated tax",
       "event_ids": [
         "evt-7f73633b6a97457eaa442c0429f18359"
       ],
@@ -43489,7 +43489,7 @@
           "value": "2026-10-19"
         }
       ],
-      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, hot and DC conductors. $11.99 item price + $0.87 allocated tax",
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft coil — fixed hot and DC conductors. $11.99 item price + $0.87 allocated tax",
       "event_ids": [
         "evt-7f73633b6a97457eaa442c0429f18359"
       ],

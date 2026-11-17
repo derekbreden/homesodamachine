@@ -35,29 +35,16 @@ to the same gap. Each supported face is counted once, on that face or its mate.
 
 Sliding describes a joint whose mating surfaces constrain movement and whose function
 requires an easy slide. It includes the pump cradle's insertion, enclosure assembly slides and
-spring-driven hook engagement; travel length alone does not decide the category. The
-hand-flexed flat-wing nameplate uses static clearances.
+spring-driven hook engagement; travel length alone does not decide the category.
 For the enclosure's Y assembly motion, Y-normal end faces approach head-on and use
 0.15 mm static clearance. X/Z faces that slide past their mates use 0.25 mm running
 clearance, as do sloping laps with tangential motion. The rail ends retain a local
 0.25 mm gap, conservatively above the 0.15 mm head-on minimum.
 
-The horizontal-wing nameplate gives each wing tip **0.30 mm of X clearance** at the
-centered position: 0.15 mm body travel plus 0.15 mm static clearance. The body locates X
-at 0.15 mm per side; the wing tips retain 0.15 mm at the extreme of body travel.
-DATA uses the same construction. The wing tips retain their capture within the slots.
-
-The nameplate receiver has 0.45 mm of local relief above each 1.68 mm wing and
-0.15 mm static clearance beneath it, giving a 2.28 mm slot. The body back also has
-0.15 mm clearance. The retaining face and entry bevel retain 1.23 mm of stock over
-the flat bearing. The production station stands 0.30 mm west of the rear-field midpoint;
-the hidden east backing remains 2.14 mm thick to preserve the specified 1 mm PSU margin.
-Both pads carry their full ordinary backing before the 45° print-down run-out.
-The DATA jack and its complete receptacle stand 0.16 mm farther inboard than the
-plate's nominal back plane. The flat jack lip retains 3 mm behind the 0.15 mm
-printed back gap; the required 50° swing ease has its own functional profile.
-The [receiver trial](nameplate/horizontal-wing-trial/README.md) records its own source and
-physical support-removal scope; it does not validate the current receiver's added back gap.
+The [screw-mounted nameplate](nameplate/README.md) bears on its flat rear seat.
+The [mount record](nameplate/snap_dimensions.rs) defines the fastener stations
+and backing. The [production fit review](nameplate/production-fit.json)
+records clearances at the receiver, the PSU and the cold core.
 
 The [machine display cover](display-cover/README.md) uses screws and a flat glass
 gasket. Its [mount record](display-cover/mount-dimensions.json) and

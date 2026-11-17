@@ -1187,56 +1187,6 @@
       ],
       "geometry": "ceiling"
     },
-    "bulkhead-water-nut": {
-      "rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "translation_mm": [
-        0.0,
-        0.0,
-        4.0
-      ],
-      "geometry": "bulkhead-water-nut"
-    },
-    "co2-inlet-nut": {
-      "rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "translation_mm": [
-        0.0,
-        0.0,
-        4.0
-      ],
-      "geometry": "co2-inlet-nut"
-    },
     "bulkhead-drain-nut": {
       "rotation": [
         [
@@ -1461,33 +1411,6 @@
         331.1308478805363
       ],
       "geometry": "candidate-regulator"
-    },
-    "gas-check": {
-      "rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          -1.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ]
-      ],
-      "translation_mm": [
-        78.2,
-        393.4574,
-        309.0514511944077
-      ],
-      "geometry": "neofit-achv44-check",
-      "reference": "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
-      "manufacturer_part": "neoFit ACHV44-E"
     },
     "va-ya-straight": {
       "rotation": [

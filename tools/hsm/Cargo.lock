@@ -1585,20 +1585,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hsm-fake-countertop"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-catalog",
- "hsm-fake-countertop-numbers",
- "hsm-kernel",
-]
-
-[[package]]
-name = "hsm-fake-countertop-numbers"
-version = "0.1.0"
-
-[[package]]
 name = "hsm-faucet"
 version = "0.1.0"
 dependencies = [
@@ -2275,7 +2261,6 @@ dependencies = [
  "hsm-enclosure-numbers",
  "hsm-enclosure-quadrants",
  "hsm-enclosure-retainer-numbers",
- "hsm-fake-countertop-numbers",
  "hsm-faucet-numbers",
  "hsm-kernel",
  "hsm-manifold",
@@ -2518,23 +2503,6 @@ name = "hsm-tube-collar-numbers"
 version = "0.1.0"
 dependencies = [
  "hsm-bulkhead-ring-numbers",
-]
-
-[[package]]
-name = "hsm-tube-miter-box"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hsm-catalog",
- "hsm-kernel",
- "hsm-tube-miter-box-numbers",
-]
-
-[[package]]
-name = "hsm-tube-miter-box-numbers"
-version = "0.1.0"
-dependencies = [
- "hsm-catalog",
 ]
 
 [[package]]

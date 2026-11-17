@@ -1655,41 +1655,6 @@
       "Filament bridge speed": "25 mm/s"
     }
   },
-  "HSM-0398": {
-    "title": "Tube miter box · Mark2",
-    "sha256": "58e4f162f247ed8c77feda98fe5cf2cb0f3edc6f54aa70442bfcec56bc6fa4ef",
-    "slice": "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-z004-mark2.gcode.3mf",
-    "plate": 1,
-    "source_commit": "634effe8ff92290057bbf20a41babea837cc91e1"
-  },
-  "HSM-0399": {
-    "title": "Fake countertop · Mark2 print plan",
-    "sha256": "2b7055579063b1d81d65b5d405a33c0856d74ffff3166c412fff753a7a61ddfa",
-    "slice": "fake-countertop-petgf-mark2.gcode.3mf",
-    "plate": 1,
-    "recipe": "hardware/printed-parts/fixtures/fake-countertop/prepare_print.rs",
-    "recipe_target": "black-mark2",
-    "recipe_sha256": "eebbbb594f21982ed2064c1d68e2a7bb85abab624d2054be3e30325e89397d1a",
-    "project_sha256": "2f59fc01e901ee0e96b2b87e9f11f51da06abc58251b1a6a0a7ae6d65708ea25",
-    "archive_sha256": "1481deeea68c6031076bd5a639b74935dd03334224d580dff1a2207a553d36d3",
-    "gcode_sha256": "79bd9e3ec53c1e9eb7260044744538b614cf0d4b5690bb107e0fa6f45e4bfa51",
-    "kind": "plan",
-    "layers": 917,
-    "model_sha256": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
-    "process": {
-      "Material": "Polymaker Fiberon PET-GF15, black",
-      "Printer": "Mark2",
-      "Nozzle": "Left 0.4 mm Standard",
-      "Build plate": "Textured PEI Plate",
-      "Layer heights": "0.2 mm first, 0.24 mm nominal",
-      "Walls": "2",
-      "Infill": "15% grid",
-      "Supports": "tree(auto) · default",
-      "Bridge flow": "1.25",
-      "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s"
-    }
-  },
   "HSM-0403": {
     "title": "Tube insertion donor hold-down cover · Mark1",
     "sha256": "cb75d5d97f2a1cda324597584f8f6e024c7f25fde68d4502e3a03f97f30c7a79",

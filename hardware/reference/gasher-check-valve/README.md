@@ -3,8 +3,8 @@
 Owned SKU B0FV2D2FFX has a female 1/4-inch NPT inlet and male 1/4-inch NPT
 outlet in the nominal dimensional drawing. It is not part of the appliance.
 Both of the machine's check valves, the CO2 check downstream of the PISCO
-secondary and the pump-discharge water check, are the push-connect
-[neoFit ACHV44-E](../neofit-achv44-check/README.md).
+secondary and the pump-discharge water check, are the
+[neoFit ACVUS-44 stem check](../neofit-acvus44-check/README.md).
 
 The owned valve's exact body and seat materials are not established by the
 source drawing. Stainless/PTFE and nickel-plated-copper/soft-seat descriptions

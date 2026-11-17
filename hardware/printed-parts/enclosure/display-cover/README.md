@@ -46,9 +46,8 @@ Its clear lens directs light into the printed diffuser. The LED sits in a round 
 the window. The pocket's floor continues the lower faces of the diamond lead channel, which
 opens into the display's PCB cavity. The channel's roof follows the print frame.
 The wires reach the display's terminal strip: the blue positive lead on VIN beside the J9 loom's
-V12, the black lead on DOUT0. The
-EDGELEC's positive lead is red. Both lamps have an inline resistor. The display firmware lights it as
-the board comes up ([`src_front/README.md`](/firmware/src_front/README.md)).
+V12, the black lead on DOUT0. The lamp has an inline resistor. The display
+firmware lights it as the board comes up ([`src_front/README.md`](/firmware/src_front/README.md)).
 
 Fit the wired lamp into the round pocket with the status plate and display removed. Feed the
 free wires through the lead channel into the accessible display cavity, then fit the flat

@@ -39,7 +39,7 @@ physical assembly force and durability retain the qualification limits below.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the +Y wall's JG bulkheads), §3 (the §3 PP1208E tap-water inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's two M3 × 8 and their inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the rear SODA, DRAIN and FLAVOR bulkheads), §3 (the PP010822E TAP inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's two M3 × 8 and their inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
 
 | Item | Source / spec | Notes |
 |---|---|---|
@@ -79,7 +79,8 @@ identifies those branches; it does not establish physical cleanup effort.
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
 - **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The mains inlet's internal mounting block, the PSU hosts and every relay corner take short inserts. Install them before the purchased bodies. Use the screw stacks assigned in the [BOM](/hardware/ledger/bom.md). Each relay board bears directly on its corner posts, with the insert faces at the PCB underside. Lower the board straight onto the posts and fasten every corner before landing the terminal wires. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs) defines the bearing tips and insert-face datums.
+- **Short RX-M3S×4.0.** The mains inlet's internal mounting block and the PSU hosts take short inserts. Install them before the purchased bodies. Use the screw stacks assigned in the [BOM](/hardware/ledger/bom.md).
+- **Relay corner inserts.** Install the inserts specified in [electronics-bay.md](electronics-bay.md). The relay boards bear directly on their corner posts, with the insert faces at the PCB underside. Lower each board straight onto its posts and fasten every corner before landing the terminal wires. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -125,17 +126,18 @@ below. Coordinates are world X/Z millimetres; screen-left is positive X.
 The water inlet's fitted bore centre is X29.026/Z330.865. The other five bores
 use the nominal grid centres.
 
-Load the cards before fitting the bulkheads. The fluid panel uses nominal seat
+Load the cards before fitting the connectors. The fluid panel uses nominal seat
 planes 6 mm apart. Its 42 × 38 × 1.8 mm identification
 tiles slide in continuous side channels. Each rail overlaps its edge by 2 mm,
 leaving a 38 × 38 mm visible color face; adjacent tiles have a 0.2 mm seam.
 Load each column's bottom tile first. Install the per-unit nameplate at final
 finishing, centred at world X−45.4/Z217 in the receiver beside the cards. Its four short inserts are pressed during shell preparation; four
 black M3 × 6 screws secure the flat plate. See [`finish-pack-ship.md`](finish-pack-ship.md) §3.
-Seat each fitting flange
-outside and its panel nut on the relieved inside land. Keep moving release
-collets free. Actual fitting make-up and insertion witnesses determine physical
-assembly; the reference envelopes do not establish those dimensions.
+Seat the SODA, FLAVOR and DRAIN bulkhead flanges outside and their panel nuts
+on the relieved inside lands. Fit TAP with the threaded backflow-preventer
+assembly and CO₂ with the PISCO secondary regulator assembly, following
+[internal plumbing](internal-plumbing.md). Keep the release collets free and
+mark the seated depths on the received fittings.
 
 Install the mains inlet from inside, with its solder tabs facing into the bay.
 Seat the raised rim against the internal pocket floor; the flange and its screws
@@ -209,8 +211,9 @@ The cold core stays **on its cart** through this step, tethered to the compresso
 
 ### 5. Populate the cold-core roof and fixed west wall
 
-Mount the PCB flat west/forward on the core lid. Fit the pump with its
-motor fore–aft and discharge −X, on four identical rubber feet. V-B enters its
+Mount the PCB flat west/forward on the core lid. Slide the feet and legs off
+the pump. Seat its motor fore–aft in the integral saddle with discharge −X,
+then engage the upper snap. V-B enters its
 upright socket wall east of the PCB. Use the actual mount holes, fasteners and
 insert datums in [electronics-bay.md](electronics-bay.md) and the
 [core mount source](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs).
@@ -244,8 +247,8 @@ east-turn union to the tube's east end afterward, then connect the forward
 feed to Y-A. Keep the pump-side joint clocked apart until this low feed is
 assembled; the [staging plan](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)
 records the local tube-insertion screen and its scope.
-Rotate the pump's TPU inlet elbow up and the lower
-pump-side push-fit elbow down about 45° at their existing round joints, so
+Rotate the pump's reinforced suction joint up and the lower
+pump-side push-fit elbow down at their existing round joints so
 they pass each other during the slide. After the column is home, rotate them
 back to their installed clocking and connect the loose pump-inlet link
 ([Derek's assembly direction](/hardware/mechanical-qualification/enclosure-above-core/pump-inlet-rotation-assembly.json)). The
@@ -350,7 +353,7 @@ the shared pump/display passage and out the open facet, and land it on the displ
 ([wiring.md](wiring.md) §5). Before seating the display, fit the status light: press the
 status plate's four short inserts flush in its seat, then push the blue prewired LED into the
 bore under the plate's aperture, lens first, feeding its leads down the channel at the bore's
-foot until they come out into the display pocket. Land the LED's red lead on the display's VIN
+foot until they come out into the display pocket. Land the LED's blue positive lead on the display's VIN
 terminal beside the loom's V12 and its black lead on DOUT0. Then seat the glass in the shallow
 counterbore with the PCB passing through the housing. Handle it ESD-safe.
 
