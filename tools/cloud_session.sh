@@ -91,7 +91,7 @@ else
     tools/hsm/target/release/hsm-build-plan tools/hsm/target/release/hsm-print-build \
     tools/hsm/target/release/hsm-cargo-config tools/hsm/target/release/hsm-publish \
     tools/hsm/target/release/hsm-pack tools/hsm/target/release/hsm-land \
-    tools/hsm/target/release/hsm-merge-pointers tools/hsm/target/release/hsm-build-times \
+    tools/hsm/target/release/hsm-merge-pointers \
     tools/hsm/target/release/hsm-cut-vs-pointers
   export PATH="$HOME/.local/bin:$PATH"
 fi

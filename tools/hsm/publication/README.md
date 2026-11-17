@@ -81,10 +81,6 @@ print driver only for current cache entries and starts no producer. An explicit
 querying current inputs. `--failed` excludes failed target cohorts and `--annotate`
 prints CI annotations.
 
-`hsm-build-times` reads completed full native print-build results under `.cache/runs/`
-and commits changes to the site's timing list. Existing timing rows remain in that
-history. `--check` prints available native records without writing. It starts no build.
-
 ## Firmware
 
 `hsm-publish-firmware` packages the images served by `/api/firmware`. Its targets are

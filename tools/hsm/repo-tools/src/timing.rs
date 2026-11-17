@@ -206,11 +206,11 @@ mod tests {
     use super::*;
     #[test]
     fn deployment_filter_keeps_both_halves() {
-        let text = "paths:\n - web/**\n - hardware/cad-artifacts.json\nignoredPaths:\n # data may update live\n - web/public/checks.json\n";
+        let text = "paths:\n - web/**\n - hardware/cad-artifacts.json\nignoredPaths:\n # tests run on request\n - web/tests/**\n";
         let paths = list(text, "paths");
         let ignored = list(text, "ignoredPaths");
         assert!(under("web/lib/shell.js", &paths));
-        assert!(under("web/public/checks.json", &ignored));
+        assert!(under("web/tests/smoke.test.js", &ignored));
         assert!(!under("hardware/ledger/tools.md", &paths));
     }
 }

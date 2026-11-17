@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     let root = hsm_repo_tools::root(root)?;
     let Some(command) = args.first().map(String::as_str) else {
         println!(
-            "repo-tools <cache-gc|time-to-site|missing-tools|model|checks|checks-now|check|paths|drawing-review> [options] [--root path]"
+            "repo-tools <cache-gc|time-to-site|missing-tools|model|checks|check|paths|drawing-review> [options] [--root path]"
         );
         return Ok(());
     };
@@ -23,7 +23,6 @@ fn main() -> Result<()> {
         "missing-tools" => hsm_repo_tools::discovery::cli(&root, &args[1..])?,
         "model" => hsm_repo_tools::model::cli(&root, &args[1..])?,
         "checks" => hsm_repo_tools::checks::cli(&root, &args[1..])?,
-        "checks-now" => hsm_repo_tools::checks::now(&root, &args[1..])?,
         "check" => hsm_repo_tools::integrity::cli(&root, &args[1..])?,
         "paths" => hsm_repo_tools::paths::cli(&root, &args[1..])?,
         "drawing-review" => hsm_repo_tools::drawing_review::cli(&root, &args[1..])?,

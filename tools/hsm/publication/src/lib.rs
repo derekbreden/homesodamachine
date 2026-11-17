@@ -1,5 +1,4 @@
 //! Completed geometry reaches the site through immutable objects and a source-scoped pointer commit.
-pub mod build_times;
 pub mod checks;
 pub mod cut;
 pub mod merge;
