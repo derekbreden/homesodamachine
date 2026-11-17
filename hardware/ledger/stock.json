@@ -763,34 +763,6 @@
       }
     },
     {
-      "id": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"–7/8\")",
-      "name": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"–7/8\")",
-      "unit": "pieces",
-      "href": "https://www.freshwatersystems.com/products/stainless-steel-hose-clamp-316-sae-6-3-8-7-8",
-      "onHand": 20,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 152
-        },
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 154
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 4.0,
-        "materialAllowance": 0
-      }
-    },
-    {
       "id": "B07F35PTFR",
       "name": "G Ganen 12 V diaphragm pump",
       "unit": "pieces",
@@ -813,53 +785,6 @@
         "perUnit": 1.0,
         "materialAllowance": 0
       }
-    },
-    {
-      "id": "B0DMP77B6S",
-      "name": "MAACFLOW SS 1/4\" NPT M × 3/8\" hose barb (4-pk)",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0DMP77B6S",
-      "onHand": 4.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 225
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "B0FV2D2FFX",
-      "name": "GASHER 1/4\" NPT one-way check valve, male × female (2-pk, $15.00)",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0FV2D2FFX",
-      "onHand": 6.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 169
-        },
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 170
-        }
-      ]
     },
     {
       "id": "John Guest PP010822E 1/4\" OD × 1/4\" NPT male connector, black polypropylene (10-pk)",
@@ -886,34 +811,6 @@
       }
     },
     {
-      "id": "John Guest PP450822E female adapter, 1/4\" OD × 1/4\" NPTF, black polypropylene (bag of 10)",
-      "name": "John Guest PP450822E female adapter, 1/4\" OD × 1/4\" NPTF, black polypropylene (bag of 10)",
-      "unit": "pieces",
-      "href": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-black-polypropylene-1-4-x-1-4-nptf",
-      "onHand": 20,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 150
-        },
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 154
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
-        "materialAllowance": 0
-      }
-    },
-    {
       "id": "B0G2XJGZMQ",
       "name": "GAGIRA 316L SS reducing coupling, 3/8\" NPT F × 1/4\" NPT F (5-pk, incl. Teflon tape)",
       "unit": "pieces",
@@ -934,30 +831,6 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 1.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
-      "name": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
-      "unit": "pieces",
-      "href": "https://www.freshwatersystems.com/products/neofit-acetal-black-flow-control-bulkhead-1-4-tube",
-      "onHand": 10,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 154
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 1,
         "materialAllowance": 0
       }
     },
@@ -1090,30 +963,6 @@
       }
     },
     {
-      "id": "B0CGFCJNMG",
-      "name": "Interstate Pneumatics WR1105 1/4\" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar, 230 PSI max inlet, aluminum body",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0CGFCJNMG",
-      "onHand": 3,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": false,
-      "asOf": "2026-10-13",
-      "basis": "counted",
-      "note": "Three WR1105 regulators delivered October 7 (Amazon 112-6207769-5063458). The confirmed October 4 charge of $91.56 is excluded from future spending.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 121
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 1.0,
-        "materialAllowance": 0
-      }
-    },
-    {
       "id": "Red 1/4\" OD LLDPE polyethylene tubing",
       "name": "Red 1/4\" OD LLDPE polyethylene tubing",
       "unit": "ft",
@@ -1135,30 +984,6 @@
         "root": "HSM-0340",
         "perUnit": 2,
         "materialAllowance": 0.25
-      }
-    },
-    {
-      "id": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
-      "name": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
-      "unit": "pieces",
-      "href": "https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-1-4-tube",
-      "onHand": 10,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 153
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 1.0,
-        "materialAllowance": 0
       }
     },
     {
@@ -1186,30 +1011,6 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 4.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "John Guest PI450822S female adapter NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal",
-      "name": "John Guest PI450822S female adapter NPTF, 1/4-inch tube × 1/4-inch NPTF, gray acetal",
-      "unit": "pieces",
-      "href": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf",
-      "onHand": 30,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Thirty PI450822S delivered October 5 (FWS WEBFWS100708594). Usable remainder after development is not separately counted; the payment reserve below carries the order until a charge is confirmed.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 124
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
         "materialAllowance": 0
       }
     },
@@ -1790,54 +1591,6 @@
       }
     },
     {
-      "id": "B0968K4JRN",
-      "name": "PureSec 1/4\" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0968K4JRN",
-      "onHand": 5.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 240
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "B07D23JJMR",
-      "name": "uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear (10-pk)",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B07D23JJMR",
-      "onHand": 10.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 241
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
-        "materialAllowance": 0
-      }
-    },
-    {
       "id": "B0FM77LLM1",
       "name": "Siptenk 1/4\" OD brass tube stiffener insert (100-pk)",
       "unit": "pieces",
@@ -2274,30 +2027,6 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 7.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "B08BKSHJ93",
-      "name": "Zip Ties 8\", 50 lb (100-pack)",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B08BKSHJ93",
-      "onHand": 98.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 434
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
         "materialAllowance": 0
       }
     },
@@ -2796,66 +2525,16 @@
       "estimated": true,
       "asOf": "2026-10-13",
       "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
+      "note": "Acquired stock for the laser gun positioner. Its assembly procedure cuts the fan and pitch-stop screws from this pack. The usable remainder is uncounted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
           "line": 507
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "B0DJR2Q5LP",
-      "name": "BNUOK M3 × 20 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0DJR2Q5LP",
-      "onHand": 60.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
+        },
         {
-          "path": "hardware/ledger/purchases.md",
-          "line": 508
+          "path": "hardware/gun-positioner/assembly.md"
         }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 4.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "B0FB45MN93",
-      "name": "uxcell M3 flat washer, Ø9 mm OD × 0.8 mm, 304 stainless steel, 200 pc",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0FB45MN93",
-      "onHand": 200.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 510
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 4.0,
-        "materialAllowance": 0
-      }
+      ]
     },
     {
       "id": "B0BHZVXNJX",
@@ -2902,30 +2581,6 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 4.0,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "B0D41KT345",
-      "name": "LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B0D41KT345",
-      "onHand": 100.0,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 503
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 2.0,
         "materialAllowance": 0
       }
     },
@@ -2998,25 +2653,6 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 32,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "forks",
-      "name": "Insulated #6 fork terminals, 22–16 AWG",
-      "unit": "pieces",
-      "href": null,
-      "onHand": null,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "unknown",
-      "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *.",
-      "sources": [],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 7,
         "materialAllowance": 0
       }
     },
@@ -3190,25 +2826,6 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 45,
-        "materialAllowance": 0
-      }
-    },
-    {
-      "id": "large-shrink",
-      "name": "Large-diameter heat shrink for braided sleeve ends",
-      "unit": "m",
-      "href": null,
-      "onHand": null,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "unknown",
-      "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *.",
-      "sources": [],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 0.3,
         "materialAllowance": 0
       }
     },
@@ -3730,24 +3347,6 @@
       }
     },
     {
-      "id": "ruthex-RX-M4x8.1",
-      "name": "ruthex RX-M4x8.1 brass heat-set inserts",
-      "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B08K1BVGN9",
-      "onHand": null,
-      "incoming": 50,
-      "reserved": 0,
-      "estimated": false,
-      "asOf": "2026-11-10",
-      "note": "M4 share of the confirmed assortment order; no current machine demand is assigned.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
-        }
-      ]
-    },
-    {
       "id": "neofit-AME4-N2-E",
       "name": "neoFit AME4-N2-E fixed male elbow",
       "unit": "pieces",
@@ -3919,6 +3518,27 @@
         "perUnit": 0,
         "materialAllowance": 0.15
       }
+    },
+    {
+      "id": "rosin-core-solder",
+      "name": "Rosin-core electronics solder",
+      "unit": "g",
+      "href": null,
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "basis": "unknown",
+      "note": "Kester stock is recorded in the purchase ledger. Remaining usable stock and grams used per build require measurement.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md"
+        },
+        {
+          "path": "hardware/assembly/wiring.md"
+        }
+      ]
     }
   ],
   "observations": [

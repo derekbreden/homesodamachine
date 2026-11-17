@@ -57,7 +57,7 @@ export function parseTargets(text) {
   });
 }
 
-// Quantity cells expose a discrete piece count when they are not measures or fractions.
+// Quantity cells expose a count when they are not measures or pack fractions.
 function parseCount(cell) {
   const text = plainMarkdown(cell);
   if (
@@ -66,8 +66,8 @@ function parseCount(cell) {
     )
   )
     return null;
-  const match = text.match(/^~?\s*(\d+)\b/);
-  return match ? parseInt(match[1], 10) : null;
+  const match = text.match(/^~?\s*(\d+(?:\.\d+)?)\b/);
+  return match ? Number(match[1]) : null;
 }
 
 // A quantity cell carries a physical measure per build.
