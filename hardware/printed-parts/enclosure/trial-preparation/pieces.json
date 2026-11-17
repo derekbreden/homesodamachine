@@ -800,7 +800,7 @@
         },
         "enable_support": {
           "value": "1",
-          "reason": "Tree(auto)/Default supports the WAGO well end walls, pump spring pockets and other receiving ceilings where needed. The B-fill guide uses a plain clearance window. Retain native automatic support choices outside the one scoped aft tie-passage blocker."
+          "reason": "Tree(auto)/Default supports the WAGO well end walls, pump spring pockets and other receiving ceilings where needed. The B-fill window passes through the plate. Retain native automatic support choices outside the scoped aft tie-passage blocker."
         },
         "raft_first_layer_expansion": {
           "value": "0",
@@ -1479,7 +1479,7 @@
         }
       ],
       "plate_border_mm": 80.0,
-      "pose_reason": "As exported: the accepted R14 holder lies flat on its D back. Its 2 mm wall and teardrop channel retain their selected shape; retain Tree(auto)/Default.",
+      "pose_reason": "As exported, the R14 holder and the stock that fills the lid window grow from the flat D back. The teardrop channel roof is self-supporting.",
       "settings": {
         "wall_loops": {
           "value": "3",

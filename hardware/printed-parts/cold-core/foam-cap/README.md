@@ -28,13 +28,15 @@ Install the straight fill, draw and air tubes through their reservoir grips befo
 the open-body foam pour. Cured foam locates their short dry spans below the lid;
 the dip sections inside the closed reservoirs remain free. The shell mouth remains clear for loading the vessels.
 
-The separate Reservoir B fill guide is the accepted R14, 2 mm-wall D-back bend holder,
+The separate Reservoir B fill guide uses the R14, 2 mm-wall D-back bend holder,
 with no straight outlet leg. Its lower exit clears the reservoir cap. Thread the
 continuous tube through it before connecting the reservoir grip. The guide stays
-with the tube and cured foam; a plain clearance window in the lid clears its crown.
+with the tube and cured foam. Its rectangular top fills the lid window flush with
+the equipment face so the lid can lift straight off the holder.
 The fore-facing entry and reservoir endpoint retain their installed positions.
-The guide prints flat on its D back, with its teardrop channel roof self-supporting.
-Seal the dry lid/window boundary with 3M 425 after potting, leaving all tube lumens open.
+The guide and its rectangular top grow from the flat print face, with a
+self-supporting teardrop channel roof. Seal the seating seam with 3M 425
+after potting, leaving all tube lumens open.
 
 The bare G Ganen pump seats in one broad block carved into the lid and uses a
 separate upper clip. Its complete rubber feet and legs are removed. Both fixed

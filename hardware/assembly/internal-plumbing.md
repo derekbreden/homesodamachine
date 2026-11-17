@@ -294,9 +294,9 @@ nominally at Z228.15, 1 mm below the reservoir plate; the short tip may remain s
 angled. A-fill and B-draw use their lid openings after their upper dry spans are potted.
 Bridge both reservoir-cap/pocket rims with foil and keep tube lumens, reed channels
 and insert mouths clear during the open-body pour. The holder stays with the tube
-and cured foam. After cure and trimming, lower the equipment lid over the tubing;
-its plain window clears the B-fill holder. Tighten the ten M5 closure screws before
-fitting the PCB.
+and cured foam. After cure and trimming, lower the equipment lid over the tubing
+so its window seats around the flush top of the B-fill holder. Tighten the ten
+M5 closure screws before fitting the PCB.
 
 The drawn external `fluid-24` span includes the nominal 16.891 mm receiving length
 in V-I's stem elbow. The cap-entry boundary divides the CAD spans of one physical
