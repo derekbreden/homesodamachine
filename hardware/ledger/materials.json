@@ -8,8 +8,6 @@
     "HSM-0389",
     "HSM-0396",
     "HSM-0397",
-    "HSM-0398",
-    "HSM-0399",
     "HSM-0400",
     "HSM-0447",
     "HSM-0464"
@@ -323,66 +321,31 @@
         },
         {
           "kind": "used-with",
-          "material": "HSM-0311",
-          "bodies": [
-            "tube-customer-water"
-          ],
-          "quantity": 1,
-          "unit": "ea"
+          "material": "HSM-0311"
         },
         {
           "kind": "used-with",
-          "material": "HSM-0312",
-          "bodies": [
-            "tube-customer-co2"
-          ],
-          "quantity": 1,
-          "unit": "ea"
+          "material": "HSM-0312"
         },
         {
           "kind": "used-with",
-          "material": "HSM-0108",
-          "bodies": [
-            "tube-drain-umbilical"
-          ]
+          "material": "HSM-0108"
         },
         {
           "kind": "used-with",
-          "material": "HSM-0272",
-          "quantity": 1,
-          "unit": "ea",
-          "bodies": [
-            "tube-collar-water",
-            "tube-collar-water-word"
-          ]
+          "material": "HSM-0272"
         },
         {
           "kind": "used-with",
-          "material": "HSM-0273",
-          "quantity": 1,
-          "unit": "ea",
-          "bodies": [
-            "tube-collar-co2",
-            "tube-collar-co2-word"
-          ]
+          "material": "HSM-0273"
         },
         {
           "kind": "used-with",
-          "material": "HSM-0572",
-          "bodies": [
-            "tube-customer-water",
-            "tube-collar-water",
-            "tube-collar-water-word"
-          ]
+          "material": "HSM-0572"
         },
         {
           "kind": "used-with",
-          "material": "HSM-0573",
-          "bodies": [
-            "tube-customer-co2",
-            "tube-collar-co2",
-            "tube-collar-co2-word"
-          ]
+          "material": "HSM-0573"
         }
       ]
     },
@@ -4864,11 +4827,6 @@
           "title": "Tube stock and supply scope",
           "path": "ledger/bom.md"
         }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
-        }
       ]
     },
     {
@@ -4886,11 +4844,6 @@
         {
           "title": "Tube stock and supply scope",
           "path": "ledger/bom.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
         }
       ]
     },
@@ -5859,6 +5812,15 @@
           "title": "Regulator specification",
           "path": "ledger/bom.md"
         }
+      ],
+      "relations": [
+        {
+          "kind": "used-with",
+          "material": "HSM-0014",
+          "bodies": [
+            "outlet-connector"
+          ]
+        }
       ]
     },
     {
@@ -6481,68 +6443,6 @@
         {
           "kind": "tool-for",
           "material": "HSM-0029"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0398",
-      "description": "Tube miter box",
-      "kind": "tooling",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/tube-miter-box/tube-miter-box.step"
-        }
-      ],
-      "aliases": [
-        "tube-miter-box",
-        "razor miter box",
-        "tube cutting block"
-      ],
-      "documents": [
-        {
-          "title": "Miter box print and use",
-          "path": "printed-parts/fixtures/tube-miter-box/README.md"
-        }
-      ],
-      "relations": [
-        {
-          "kind": "used-with",
-          "material": "HSM-0106"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0399",
-      "description": "Fake countertop",
-      "kind": "tooling",
-      "models": [
-        {
-          "file": "printed-parts/fixtures/fake-countertop/fake-countertop.step"
-        }
-      ],
-      "aliases": [
-        "fake-countertop",
-        "counter stand",
-        "dummy counter"
-      ],
-      "documents": [
-        {
-          "title": "Stand print and use",
-          "path": "printed-parts/fixtures/fake-countertop/README.md"
-        }
-      ],
-      "relations": [
-        {
-          "kind": "used-with",
-          "material": "HSM-0002"
-        },
-        {
-          "kind": "used-with",
-          "material": "HSM-0007"
         }
       ]
     },
@@ -11073,11 +10973,6 @@
         "filtered tee and jumper",
         "installation water assembly"
       ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
-        }
-      ],
       "documents": [
         {
           "title": "Assembly procedure",
@@ -11128,11 +11023,6 @@
       "aliases": [
         "prepared CO2 supply",
         "regulator and red tether"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
-        }
       ],
       "documents": [
         {
