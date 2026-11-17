@@ -1,6 +1,6 @@
 # web-hardware
 
-This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`. It includes the design viewers for STEP, DXF, PCB and print sheets along with the picker, live reload and phone notifications. The package takes a directory of hardware files, an HTML shell and configuration for branding, routes and layout. Anyone can run it against their own hardware project.
+This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`. It includes the design viewers for STEP, DXF, PCB and print sheets along with the picker and live reload. The package takes a directory of hardware files, an HTML shell and configuration for branding, routes and layout. Anyone can run it against their own hardware project.
 
 `web/` runs on this package and keeps every behavior it has now.
 
@@ -25,7 +25,6 @@ The threads below reach past that surface — couplings that live outside `web/`
 
 - **Clipboard pick text round-trips.** [`pick-format.js`](/web/public/js/viewer/pick-format.js), [`pick-format.test.js`](/web/tests/pick-format.test.js).
 
-- **Phone push wakes on a commit.** [`push.js`](/web/lib/push.js), [`notifications.js`](/web/lib/notifications.js), [`boot.js`](/web/public/boot.js). Runs with `DATABASE_URL` + `FIREBASE_*`, no-ops without; the boot diff and FCM paths show on a real deploy. Verify on a device.
 
 - **Content root.** `hardware/`. [`server.js`](/web/server.js), [`viewer-routes.js`](/web/lib/viewer-routes.js).
 

@@ -1,6 +1,5 @@
 // Shared recursive directory walker. Returns paths relative to rootDir,
-// filtered by extension(s). Used by lib/viewer-routes.js for the /api
-// endpoints and by lib/push.js for the boot-time hash diff.
+// filtered by extension(s). The viewer uses it to list published files.
 //
 // Pass a single extension string (".step") or an array ([".step", ".dxf"]);
 // the result is an array of forward-slash relative paths. Returns [] if
@@ -85,8 +84,7 @@ export function walkDocuments(rootDir) {
 // fields being root-relative SVG paths and `inners` the board's inner-plane views
 // in stack order — so callers list boards (not raw SVGs) with their views attached.
 // Scoped to `<root>/pcb` and skips node_modules so we never recurse the tscircuit
-// toolchain's dependency tree. Shared by the /api/pcb route and the deploy-time
-// change diff (lib/push.js).
+// toolchain's dependency tree. The list serves the PCB material view.
 export function walkPcbBoards(rootDir) {
   const pcbDir = path.join(rootDir, "pcb");
   if (!fs.existsSync(pcbDir)) return [];

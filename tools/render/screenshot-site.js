@@ -22,7 +22,7 @@ ensureRunLease();
 // /ws WebSocket that holds the in-flight connection count above 0
 // indefinitely, so networkidle0 never resolves and the screenshot
 // times out. The 8-second cap lets one-shot fetches (the importmap-loaded
-// occt-import-js wasm, /api/steps + siblings, GET /api/firebase-config)
+// occt-import-js wasm and /api/steps with its companion requests)
 // settle while remaining tolerant of any number of persistent streaming
 // connections.
 //

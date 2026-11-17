@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
-import { PARTS_SVG, GUIDES_SVG, DOLLAR_SVG, LATEST_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, GUIDES_SVG, DOLLAR_SVG, LATEST_SVG } from "./icons.js";
 
 const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 
@@ -129,82 +129,6 @@ body {
   border-radius: 3px;
   background: var(--action);
 }
-.site-nav .nav-bell { margin-inline-start: auto; }
-/* On the bell's own top-right corner, which sits inside the link's hit area:
-   the link's padding is where the glyph starts, and the dot straddles the
-   corner from there. */
-.site-nav .nav-bell.has-unread::after {
-  content: "";
-  position: absolute;
-  top: calc(0.75rem - 3px);
-  right: calc(0.375rem - 3px);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg);
-  box-sizing: content-box;
-}
-/* In-app toast for foreground push notifications. Bottom-anchored, fixed,
-   sits above any modal in the app. The HEAD_TAGS script appends a single
-   .hsm-toast to body when a pending-nav event arrives for a URL
-   different from the current one (same-URL events trigger a reload
-   instead — see HEAD_TAGS). */
-.hsm-toast {
-  position: fixed;
-  left: max(12px, env(safe-area-inset-left, 0px));
-  right: max(12px, env(safe-area-inset-right, 0px));
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  margin: 0 auto;
-  max-width: 600px;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  /* The ✕ carries its own 8px of hit area, which completes the 14px the title
-     sits in on the other side. */
-  padding: 12px 6px 12px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  /* 2147483647 = max signed 32-bit int — guaranteed above any user-supplied
-     z-index in the app, including modals. */
-  z-index: 2147483647;
-  font-size: 14px;
-  animation: hsm-toast-in 200ms ease-out;
-}
-.hsm-toast-link {
-  flex: 1;
-  min-width: 0;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-.hsm-toast-title { font-weight: 600; margin-bottom: 2px; }
-.hsm-toast-body {
-  color: var(--text-2);
-  font-size: 12px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.hsm-toast-close {
-  background: none;
-  border: 0;
-  color: var(--text-2);
-  font-size: 18px;
-  cursor: pointer;
-  padding: 11px 8px;
-  line-height: 1;
-  flex-shrink: 0;
-  transition: color 0.15s;
-}
-.hsm-toast-close:hover { color: var(--text); }
-@keyframes hsm-toast-in {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
 `;
 
 // The artwork's own fingerprint, carried by every icon href below.
@@ -263,8 +187,6 @@ ${pageHead}
 `;
 }
 
-// Navigation and notifications share the glyphs in lib/icons.js.
-
 export function renderNav({ active = null } = {}) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: '<img src="/brand/mark.svg" width="28" height="28" alt="" aria-hidden="true">' },
@@ -284,10 +206,8 @@ export function renderNav({ active = null } = {}) {
       return `  <a href="${l.href}" class="nav-icon${activeCls}"${current} data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
     })
     .join("\n");
-  const bellActive = active === "notifications" ? " active" : "";
   return `<nav class="site-nav" id="site-nav" aria-label="Primary">
 ${iconItems}
-  <a href="/notifications" class="nav-icon nav-bell${bellActive}" data-nav="notifications" aria-label="Notifications">${BELL_SVG}</a>
 </nav>
 `;
 }

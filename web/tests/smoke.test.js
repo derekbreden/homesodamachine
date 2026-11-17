@@ -7,9 +7,7 @@
 // future change crosses on its way to production.
 //
 // Around that, a table of GET routes verifies status + content-type prefix
-// for every public surface that doesn't depend on Postgres. Routes that
-// require DATABASE_URL (push subscribe, notifications inbox) are
-// deliberately omitted — running this file with no DB still has to pass.
+// for public routes that work without Postgres.
 //
 // Tests use only stdlib (`node:test` + `node:assert`) and native fetch.
 // No supertest, no jest, no extra deps.
@@ -62,6 +60,7 @@ const routes = [
   { path: "/spin",     expect: 200, ct: "text/html" },
   { path: "/weld-position", expect: 200, ct: "text/html" },
   { path: "/settings", expect: 404 },
+  { path: "/notifications", expect: 404 },
 
   // Legacy redirects (301). Don't pin Content-Type — express renders a
   // tiny HTML body for browsers but the assertion that matters is the
@@ -73,9 +72,11 @@ const routes = [
   { path: "/api/steps",           expect: 200, ct: "application/json" },
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/documents",       expect: 200, ct: "application/json" },
-  { path: "/api/firebase-config", expect: 200, ct: "application/json" },
+  { path: "/api/firebase-config", expect: 404 },
+  { path: "/api/notifications", expect: 404 },
+  { path: "/api/push/subscription", expect: 404 },
 
-  // Service worker variants — same body, three URLs (root, /3d, legacy /dev)
+  // Existing installs fetch the worker that clears their push subscription.
   { path: "/firebase-messaging-sw.js",     expect: 200, ct: "text/javascript" },
   { path: "/3d/firebase-messaging-sw.js",  expect: 200, ct: "text/javascript" },
   { path: "/dev/firebase-messaging-sw.js", expect: 200, ct: "text/javascript" },
@@ -95,7 +96,6 @@ const routes = [
   { path: "/cost.js",             expect: 200, ct: "text/javascript" },
   { path: "/cost-recovery.js",    expect: 200, ct: "text/javascript" },
   { path: "/production-planner.js", expect: 200, ct: "text/javascript" },
-  { path: "/notification-subscription.js", expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
   { path: "/js/weld-position/main.js", expect: 200, ct: "text/javascript" },
   { path: "/foam", expect: 200, ct: "text/html" },
@@ -133,18 +133,16 @@ test("legacy PCB links open the board in its material workspace", async () => {
   const plain = await fetch(baseUrl + "/pcb", { redirect: "manual" });
   assert.equal(plain.status, 301);
   assert.equal(plain.headers.get("location"), target);
-  const notified = await fetch(baseUrl + "/pcb?file=pcb%2Fpcba%2Fpcba.tsx&n=42", { redirect: "manual" });
-  assert.equal(notified.headers.get("location"), "/3d?n=42#material:HSM-0048?view=pcb");
+  const fileLink = await fetch(baseUrl + "/pcb?file=pcb%2Fpcba%2Fpcba.tsx", { redirect: "manual" });
+  assert.equal(fileLink.headers.get("location"), target);
 });
 
 // The WebSocket senders must emit frame types via the WS contract, exactly as
 // the client matches them (web/contracts/ws-frames.js). A reintroduced literal
 // would still work today but drift silently if a tag is ever renamed in one
-// place. events.js is guarded implicitly (it imports WS or fails to boot);
-// the deploy broadcaster only fires after a hosted deploy, so a source
-// check is the cheap guard.
+// place. The live adoption broadcaster runs on the hosted site.
 test("WebSocket broadcasters emit frame types via the WS contract", () => {
-  const src = fs.readFileSync(path.join(WEB_ROOT, "server.js"), "utf8");
+  const src = fs.readFileSync(path.join(WEB_ROOT, "lib/artifacts-live.js"), "utf8");
   assert.match(src, /import\s*\{[^}]*\bWS\b[^}]*\}\s*from\s*["'][^"']*contracts\/ws-frames\.js["']/);
   assert.doesNotMatch(src, /broadcast\(\s*\{\s*type:\s*["']files-changed["']/);
 });
@@ -358,31 +356,12 @@ test("GET /js/viewer/main.js", async (t) => {
   assert.match(res.headers.get("content-type") || "", /^text\/javascript/);
 });
 
-// EVERY PAGE THE SHELL DRAWS CARRIES THE BELL, so the route it points at is a route this
-// boot serves. `renderNav` puts `/notifications` in the nav unconditionally; a boot with no
-// DATABASE_URL has no pool and holds no rows, which is the empty answer these give.
-test("the nav bell leads somewhere on a boot with no database", async () => {
-  const page = await fetch(baseUrl + "/notifications");
-  assert.equal(page.status, 200, "the bell in every page's nav must not 404");
-
+test("the shell and APIs omit notifications", async () => {
   const shell = await (await fetch(baseUrl + "/3d")).text();
-  assert.ok(shell.includes('href="/notifications"'), "the nav renders the bell");
+  assert.doesNotMatch(shell, /href="\/notifications"/);
 
-  for (const [route, want] of [
-    ["/api/notifications?token=x", { items: [] }],
-    ["/api/notifications/unread-count?token=x", { count: 0 }],
-  ]) {
-    const res = await fetch(baseUrl + route);
-    assert.equal(res.status, 200, route);
-    assert.deepEqual(await res.json(), want, `${route} answers empty without a pool`);
+  for (const route of ["/api/notifications/seen", "/api/push/subscribe", "/api/push/unsubscribe"]) {
+    const res = await fetch(baseUrl + route, { method: "POST" });
+    assert.equal(res.status, 404, route);
   }
 });
-
-// Routes we deliberately don't test:
-//   POST /api/subscribe        — needs Postgres; bails 503 without DATABASE_URL
-//   POST /api/push/subscribe   — same
-//   POST /api/push/unsubscribe — same
-//   GET  /api/push/subscription — returns {files: []} without DB; not load-bearing
-//
-// These need a real database fixture and FCM credentials; that's a
-// different layer of test (integration, not smoke) and out of scope.

@@ -1,7 +1,6 @@
-// WebSocket transport for server -> client push.
+// WebSocket transport for live viewer updates.
 //
-// The deploy handshake and hash-diff replay give reconnecting clients the
-// changes they missed during the container swap.
+// The commit identifies a new deploy and the recent publication reaches reconnecting clients.
 //
 // Liveness: the client reconnects on close with backoff; the server
 // pings every 30s and terminates a socket that misses its pong. A client
@@ -10,12 +9,6 @@
 //
 // Frame types live in web/contracts/ws-frames.js.
 //
-// `recent` snapshot: latest boot-diff result, set by server.js after
-// the production hash-diff completes. Piggy-backed onto every hello so
-// a client that reconnects after a deploy gets the change list its
-// previous connection missed. The client dedupes by recent.commit so a
-// stable connection that already saw the deploy ignores it.
-
 import { WebSocketServer } from "ws";
 
 import { WS } from "../contracts/ws-frames.js";
@@ -25,9 +18,7 @@ export function mountEvents(server, { commit = "unknown" } = {}) {
   let recent = null;
 
   function setRecent(snapshot) {
-    const hasFiles = Array.isArray(snapshot?.files) && snapshot.files.length > 0;
-    const hasPosts = Array.isArray(snapshot?.posts) && snapshot.posts.length > 0;
-    recent = (hasFiles || hasPosts) ? snapshot : null;
+    recent = snapshot;
   }
 
   function send(ws, msg) {

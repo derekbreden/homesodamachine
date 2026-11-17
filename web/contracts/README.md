@@ -81,17 +81,12 @@ tree needs no edit here.
 - **api-shapes.js** — the `/api` endpoints and their responses (PathList, DxfItem, Board, Document). Produced
   by `web/lib/viewer-routes.js`; consumed by `web/public/js/viewer/main.js`.
 - **ws-frames.js** — the `/ws` WebSocket frames (hello, ping, files-changed). Produced by
-  `web/lib/events.js` and read by `web/public/boot.js`.
+  `web/lib/events.js` and `web/lib/artifacts-live.js`. Read by `web/public/boot.js`.
 - **client-events.js** — the `hsm:*` window CustomEvents. Shared by `web/public/boot.js`
   and `web/public/js/viewer/*.js`.
-- **icons.js** — the Feather glyph table and its `<svg>` attributes. Drawn by `web/lib/icons.js`
-  into the shell nav and the notification rows, and by
-  `web/public/js/viewer/tool-rail.js` into the 3D viewer's tool rail.
+- **icons.js** — the Feather glyph table shared by the navigation and the viewer's tool rail.
 - **hsm-globals.js** — `window.__hsm`, the headless-render escape hatch. Set by
   `web/public/js/viewer/main.js`; read by `tools/render/*.js`.
-- **push-notify.js** — the wake-on-commit path: `/api/push/*` + `/api/notifications/*`, the FCM
-  message, the boot-diff hash tables. Produced by `web/lib/{push,notifications}.js`; consumed by
-  `web/public/boot.js` and the FCM service worker.
 
 ## Lives with its code
 
