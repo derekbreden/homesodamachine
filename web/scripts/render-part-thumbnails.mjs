@@ -25,6 +25,13 @@ const boardTexture = path.join(hardware, "pcb/pcba/out/pcba.top3d.png");
 // These two installations share the ledger's same purchased screw.
 const sharedScrew = { file: "faucet-layout/faucet-assembly.step", component: "base_screw_1" };
 
+const partFraming = new Map([
+  ["HSM-0015", { cam: [1, -0.2, 0.44], margin: 1.36 }],
+  // Center the drain tube's upper bend so its bore reads at the small catalog size.
+  ["HSM-0108", { cam: [1, -0.18, 0.15], target: [0, -16, 188], span: 52 }],
+  ["HSM-0537", { margin: 1.68 }],
+]);
+
 const finish = (names, color) => ({ names, color, roughness: 0.7 });
 const kitFinishes = new Map([
   ["HSM-0133", [finish(["screw"], "#26282b")]],
@@ -114,9 +121,9 @@ function makeJobs(catalog, materials, run) {
       : partView(material, catalog, scenes);
     if (!view) continue;
     jobs.push({
-      size: "240x240", cam: [1, -1, 0.85], frame: "look", ortho: true,
-      margin: material.id === "HSM-0537" ? 1.68 : 1.48,
-      transparent: true, fog: false, ground: false, ...view, out: path.join(run, `${material.id}.png`),
+      size: "240x240", cam: [1, -1, 0.85], frame: "look", ortho: true, margin: 1.48,
+      transparent: true, fog: false, ground: false,
+      ...view, ...partFraming.get(material.id), out: path.join(run, `${material.id}.png`),
     });
   }
   return jobs;
