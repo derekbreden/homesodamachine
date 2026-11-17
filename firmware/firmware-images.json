@@ -62,7 +62,7 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-f21ddab06c0e87d7.tar.gz"
   },
   "source": {
-    "commit": "ab38574f8da7c6066351c809d0977b216e942a87"
+    "commit": "85c748e6f1296479c94465bc754505d088d8c2d6"
   },
   "unproven": {
     "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",

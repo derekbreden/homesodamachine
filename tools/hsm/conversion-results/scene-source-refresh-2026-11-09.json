@@ -1,8 +1,8 @@
 {
   "purpose": "This on-demand audit records source ownership and installed-frame repair across the shared-reference publication inventory.",
   "implementation_commits": [
-    "ba6321c9860856f12461ec4f9688ed259a42fd1e",
-    "5e71a9f4613f79a20b938af5a3e3f9fe3d66e09a"
+    "9ada60b253ff290f4c54b467c061954e11583498",
+    "daea6ea186b29825f9614da50eac1530df0650b3"
   ],
   "root_cause": "A partial source refresh adopted independently constructed bodies by display name and replaced their installed geometry with source-local prototypes.",
   "additional_defect": "Stored references and explicit skin exports omitted original source-body identities before installed aliases were applied. Refreshing an aliased multi-body source advanced the source table while retaining the aliases at their previous revision.",

@@ -25,7 +25,7 @@
   "total_layer_num": 155,
   "mc_remaining_time": 77,
   "display_printer": "Mark1",
-  "design_commit": "b67ed572f",
+  "design_commit": "19fbc7224",
   "requested_user_z_trim_mm": 0.18,
   "emitted_textured_pei_trim_mm": 0.16,
   "bed_clear_authorization": "Bed is clear and TPU is loaded on mark1 for your new TPU inserts for that plus handle",

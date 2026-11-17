@@ -25,8 +25,8 @@ frame, fitted bands, observed axial medians and measured face location.
 [`scan-selection.json`](scan-selection.json) holds the inspected fixture
 exclusion. [`source-cloud.ply.gz`](source-cloud.ply.gz) contains the untouched
 scan, and [`observed-surface.ply.gz`](observed-surface.ply.gz) retains the open,
-unfilled measured surface. [`measure_scan.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/measure_scan.py),
-[`derive_profiles.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/derive_profiles.py) and [`scan_tools.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/scan_tools.py)
+unfilled measured surface. [`measure_scan.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0308e-elbow/measure_scan.py),
+[`derive_profiles.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0308e-elbow/derive_profiles.py) and [`scan_tools.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0308e-elbow/scan_tools.py)
 read those observations. The sampled profiles are evidence for the nominal
 surface, rather than a separate geometry recipe.
 
@@ -53,9 +53,9 @@ tools/run -- cargo run --release --locked -j2 \
   -- hardware/reference/jg-pp0308e-elbow
 ```
 
-The [archived scan comparison](https://github.com/derekbreden/homesodamachine/blob/a78cf15ba5f85762e6ecaef94c03181b25ee272b/hardware/reference/jg-pp0308e-elbow/scan-model-check.json)
-and [archived preview](https://github.com/derekbreden/homesodamachine/blob/a78cf15ba5f85762e6ecaef94c03181b25ee272b/hardware/reference/jg-pp0308e-elbow/model-preview.png)
+The [archived scan comparison](https://github.com/derekbreden/homesodamachine/blob/b1fd18441eb35221cb3b99c8e92f057cbd7e2059/hardware/reference/jg-pp0308e-elbow/scan-model-check.json)
+and [archived preview](https://github.com/derekbreden/homesodamachine/blob/b1fd18441eb35221cb3b99c8e92f057cbd7e2059/hardware/reference/jg-pp0308e-elbow/model-preview.png)
 retain the observation record for the geometry identified by their artifact
 hashes. They are historical evidence rather than current model validation.
 
-The source derivations are preserved at their recorded revision: [elbow.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp0308e-elbow/elbow.py).
+The source derivations are preserved at their recorded revision: [elbow.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp0308e-elbow/elbow.py).

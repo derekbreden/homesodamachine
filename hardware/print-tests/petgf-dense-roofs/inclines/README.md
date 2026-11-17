@@ -1,7 +1,7 @@
 # Inclined support release
 
 These prepared plates compare gap and tree algorithm while retaining the shared
-D dense interface. The [faucet lower-curve result](https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
+D dense interface. The [faucet lower-curve result](https://github.com/derekbreden/homesodamachine/blob/7b4d4c7d87dda9db021665b2e7c7e255d996a39d/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
 records stems breaking with contact material retained on the part. The flat rail
 acceptance does not qualify this inclined contact.
 
@@ -10,7 +10,7 @@ generation from physical release. Default emits interface paths in a low band
 while bare tree paths continue along the higher curve. Explicit Tree Slim emits
 interface paths into that curved band at the same requested contact gap and
 density. Increasing the general XY distance alone leaves the upper interface
-absent. The [Mark1 Slim removal result](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json)
+absent. The [Mark1 Slim removal result](https://github.com/derekbreden/homesodamachine/blob/be19fb8a4693edecead5753aa2bcb42c54dcdbf0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json)
 records retained contact material despite screwdriver prying. Roof generation
 alone does not qualify release.
 
@@ -37,12 +37,12 @@ bead envelopes through the native renderer. Model stock, support stems and dense
 interface paths have separate display colors. The envelopes illustrate the slice;
 they do not simulate molten material, sagging or adhesion.
 
-The planar plates are prepared and unprinted. The [completed larger-gap Mark1 trial](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
+The planar plates are prepared and unprinted. The [completed larger-gap Mark1 trial](https://github.com/derekbreden/homesodamachine/blob/a261387d7021b9f74675793f5b1a3fd188cfccec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
 records easier support removal with connected roof mats and essentially
 unchanged underside finish. It increases the top contact gap after the
-[completed Slim trial](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/print-job.json)
+[completed Slim trial](https://github.com/derekbreden/homesodamachine/blob/be19fb8a4693edecead5753aa2bcb42c54dcdbf0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/print-job.json)
 failed release. It retains the dense interface, model, pose, side clearance,
-cooling and printer calibration. The [contact comparison](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/separation.json)
+cooling and printer calibration. The [contact comparison](https://github.com/derekbreden/homesodamachine/blob/a261387d7021b9f74675793f5b1a3fd188cfccec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/separation.json)
 reads the emitted interface and model bead envelopes; it does not measure
 molten material or removal force.
 

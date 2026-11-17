@@ -14,7 +14,7 @@
   "monitor_active": false,
   "current_print_monitor_record": "insert-mark2-launch.json",
   "start_condition": "After the insert is removed, the requested all-ASA Aero float is prepared next. A new clear-bed report or start request supplies its launch condition. Do not submit the separate core automatically.",
-  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_commit": "08a570ea9259bb64ecccd81760762dc72587acbc",
   "jobs": {
     "core": {
       "part": "body-aero",

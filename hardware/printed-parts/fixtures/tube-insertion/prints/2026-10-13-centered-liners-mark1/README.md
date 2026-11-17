@@ -16,7 +16,7 @@ handle. Each prints upright with the tube axis vertical, using a solid
 9×20 mm footprint and 28 mm height. The two models have a 2 mm gap.
 
 - [Exact launched native slice](https://homesodamachine.com/print-archive/7f5cb698a39c38eb6985bd0aad0067d530a97820/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode.3mf)
-- [Exact G-code for Studio preview](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode)
+- [Exact G-code for Studio preview](https://github.com/derekbreden/homesodamachine/blob/fdcbcd5b66621e72fa86ce830f4bc61c65e43a03/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.gcode)
 - [Editable native project](https://homesodamachine.com/print-archive/b32e4e3bb29c9492e6baf236cb703e07895bd685/tube-insertion-centered-liners-tpu85a-right06-z018-mark1.3mf)
 - [Project settings and source meshes](tube-insertion-centered-liners-tpu85a-right06-z018-mark1.print.json)
 - [Native slice review and checksums](tube-insertion-centered-liners-tpu85a-right06-z018-mark1.readiness.json)

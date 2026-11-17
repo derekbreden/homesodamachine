@@ -1,5 +1,5 @@
 {
-  "source_commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+  "source_commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
   "scope": "The longer PISCO cap and its back-top receiver only; production Box and unrelated native bodies, viewer arrays and pointer rows are retained. Full retention samples are printing on both machines.",
   "members": {
     "hardware/manifold-layout/enclosure-assembly.step": "c38edb1304a08ce36a34f250bd05f06c8c292876c4830a25fa2bb44ffabd386b",
@@ -16,47 +16,47 @@
   },
   "made": {
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
-      "commit": "e457351db6baff393fc0ff4e94032131f11889ee",
+      "commit": "5a1620a5101044a4b6e313b9ed1e88985cc58d22",
       "unproven": true
     }
   },

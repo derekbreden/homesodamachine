@@ -105,7 +105,7 @@
       159.57557299642247,
       14.026556118791891
     ],
-    "support_release_reference_revision": "7ebe4a45b0fd8064118e95f2cc1445c5ee643722",
+    "support_release_reference_revision": "5b913b04cc47913fa98f6aef4fdc17dd4b93b42a",
     "support_release_reference": "hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json",
     "bridge_only_pockets": [
       {
@@ -377,7 +377,7 @@
   },
   "head_sweep": {
     "reference": "hardware/reference/h2c-toolhead/README.md",
-    "source_revision": "850187397c11f9092c906406758fdbb4a36d819e",
+    "source_revision": "35ef59ce3944489eabf9a9bf0c43b9ba811e71ae",
     "head_mesh_sha256": "cd57c349cfe8e75b0713bfb0c71a553682de57d69f89d0ddbe8919f60c6738eb",
     "gantry_mesh_sha256": "db6a1886378618ef3252f6de85327d087345bae62962da4ab746a0229800caf8",
     "mesh_bodies": 52,

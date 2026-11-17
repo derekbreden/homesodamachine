@@ -3,7 +3,7 @@
 The rotator is in use and working.
 
 Printed M5 threaded passages use the shared Ø5.2 mm fit selected in the
-[M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json).
 The [native host reading](m5-pass-fit-reading.json) identifies the three affected parts.
 
 PET-GF fixture that stands a 5-inch 316L carbonator tube vertically and turns

@@ -4,7 +4,7 @@
 Native estimate: **31 h 17 min**, **1,452.4 g**, 889 layers.
 
 The shell carries the full-height 9.5 × 1.5 mm seam channel on its +Y flank and B's 8 mm
-rim slot, at geometry commit `daee7e7ff`. It prints the production recipe of the
+rim slot, at geometry commit `241af0c48`. It prints the production recipe of the
 [2026-10-26 shell](../2026-10-26-mark2-round-ports-a2/README.md) with a plain seam in place of
 the faucet A2 scarf package: the outer wall's seam is aligned, and a painted strip places it in
 the channel's +X inside corner.

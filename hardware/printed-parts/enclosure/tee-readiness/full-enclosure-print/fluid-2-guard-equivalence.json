@@ -1,7 +1,7 @@
 {
   "status": "geometry_and_near_guard_equivalent",
   "created_at_utc": "2026-09-21T06:00:58.740456+00:00",
-  "old_revision": "7aa2c76e98f59db6c35b661c77eb0e5b852eaeef",
+  "old_revision": "52419239ba89e51b9c562ca7e9bbbd95b3910dd1",
   "source_path": "hardware/manifold-layout/_lines.py",
   "old_sha256": "1674cdc2971073826d7c25a6a759cd0d3a22b51f7cee059a99db9bea9f45307c",
   "new_sha256": "25ebc25e36b3aa68e46c38f03061be3654b19c31e77d9fd76e6832008ee93cee",

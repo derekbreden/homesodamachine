@@ -147,9 +147,9 @@
     "hardware/manifold-layout/machine_equipment.rs": "81b8c8e2d4b36c411dfa795fe7c4612e0b24bcc7a9395f383557222c0dee40c3"
   },
   "archived_geometry_record": {
-    "git_commit": "5f1f4862d7bce3bf53874cefca924fdcef5b16fd",
+    "git_commit": "3fe2a3c78f7d0f3f005108a056cbad023ff83853",
     "path": "hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json",
-    "url": "https://github.com/derekbreden/homesodamachine/blob/5f1f4862d7bce3bf53874cefca924fdcef5b16fd/hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json",
+    "url": "https://github.com/derekbreden/homesodamachine/blob/3fe2a3c78f7d0f3f005108a056cbad023ff83853/hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json",
     "scope": "Historical mounting geometry and measurements with the former hardware recipe; these are not current measurements of the selected mounting hardware."
   },
   "scope": "The user identifies the mounting fastener family. Source dimensions and exported geometry do not establish printed-fit acceptance, installation force, insert pullout strength or lifetime."

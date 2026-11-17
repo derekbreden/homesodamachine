@@ -4,14 +4,14 @@ The [print plate](https://homesodamachine.com/print-archive/e5ab53e547d7e5e3a930
 [editable project](https://homesodamachine.com/print-archive/1bc7f57c5fc6cf4a34b67386794091d31e2591b3/sculpted-faucet-machine-z-engineering-black-mark2.3mf) hold the complete black
 PET-GF faucet: the Sculpted base, the tip, the display cover, the mounting plate and the lever.
 `faucet-plate sculpted --production` prepared them from the checkout at
-[`47ab7d77d`](https://github.com/derekbreden/homesodamachine/tree/47ab7d77d9e49efeaabb429c454e58c35ca09e8a),
+[`b806556a9`](https://github.com/derekbreden/homesodamachine/tree/b806556a904ec8f0402c9b95a1a486a47a5e58b6),
 so the plate is also the Sculpted product plate of that commit. The [package record](package.json)
 binds the archive's G-code and the acceleration planner's estimate of its motion. The
 [launch receipt](launch.json) identifies the job Mark2 accepted, and the
 [startup spacing](startup-spacing.json) record gives Mark 1's last start before it.
 
 The plate goes on Mark2's glued Engineering Plate. Its first layer stands the
-[plate's selected bed trim](https://github.com/derekbreden/homesodamachine/blob/47ab7d77d9e49efeaabb429c454e58c35ca09e8a/tools/hsm/print-prep/faucet-plate.json)
+[plate's selected bed trim](https://github.com/derekbreden/homesodamachine/blob/b806556a904ec8f0402c9b95a1a486a47a5e58b6/tools/hsm/print-prep/faucet-plate.json)
 above Bambu's own plate compensation, which on this plate and nozzle sends nothing but the start
 code's clear; the stopped Mark 1 back-top on the same kind of plate sent only that clear.
 

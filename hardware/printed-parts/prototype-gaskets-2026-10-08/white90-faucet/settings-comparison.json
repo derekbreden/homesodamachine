@@ -411,7 +411,7 @@
   },
   "source_binding": {
     "name": "faucet-counter-gasket-printed-white",
-    "frozen_source_revision": "14594f74e",
+    "frozen_source_revision": "ebcd13a55",
     "frozen_source_path": "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
     "frozen_source_sha256": "e83425db601e3b37c27661bcc46d1140d9dbf2bcf94a7070319308eafeb0fb1a",
     "scope": "Footprint and openings match the printed September 18 white Sculpted faucet foot.",

@@ -172,7 +172,7 @@
   ],
   "parent_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
   "parent_project_sha256": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
-  "parent_project_source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
+  "parent_project_source_commit": "c6dde0433932b77d843f3f7c4d4599b5d503e074",
   "parts": [
     {
       "body_count": 1,

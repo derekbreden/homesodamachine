@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "commit": "e1ae1f74b3ec4e00e7f7e1831856c4b747a4ef6e",
     "path": "hardware/reference/beduan-solenoid/beduan_solenoid.py",
     "sha256": "c215ca2dd4f899be5d4c07d378bc0f26be2c2213f765f026063690537738a23f"
   },

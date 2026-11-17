@@ -11,7 +11,7 @@ recessed screw seats after support removal. The sheet includes top and front
 views and a 5:1 local section. General linear tolerance is ±0.20 mm;
 feature-center coordinates are ±0.10 mm, with individual fit and depth limits
 shown on the drawing. Gasket-face free-state gap is 0.20 mm maximum.
-[above_counter_plate_drawing.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate_drawing.py) generates
+[above_counter_plate_drawing.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate_drawing.py) generates
 the sheet from the production part's parameters.
 
 ## Footprint and bearing

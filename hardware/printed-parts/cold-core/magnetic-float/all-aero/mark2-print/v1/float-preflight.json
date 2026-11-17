@@ -4,7 +4,7 @@
   "status": "prepared_not_submitted",
   "send_attempts": 0,
   "preview_inspected": true,
-  "source_commit": "4ac1fa874ddbccd9f96fa3c708079927c82049d2",
+  "source_commit": "5a27622838a530a2f7a751d009139656d57669db",
   "source_snapshot": {
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/all_aero_float.py": "aa60072961ce7dc4962d48e99cdc51434f14fb254bd26c8e626f31cb927cf4d0",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json": "7fe0dcfd46acf0a74a7c459a66a472edda0c109418ff6f13286f544e47d317fb",

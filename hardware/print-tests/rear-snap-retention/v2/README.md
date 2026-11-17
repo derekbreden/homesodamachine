@@ -69,4 +69,4 @@ empty cap first, then the real hardware; record insertion, release, rocking,
 whitening, residual bending and any fracture. Test the pump's fixed rail seats
 with all four removable rubber foot assemblies removed.
 
-The trial’s [geometry recipe](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/rear-snap-retention/build.py) and [print preparer](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/rear-snap-retention/prepare.py) are archived in Git.
+The trial’s [geometry recipe](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf71799f8829d2fbce8c8e1bad250d813/hardware/print-tests/rear-snap-retention/build.py) and [print preparer](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf71799f8829d2fbce8c8e1bad250d813/hardware/print-tests/rear-snap-retention/prepare.py) are archived in Git.

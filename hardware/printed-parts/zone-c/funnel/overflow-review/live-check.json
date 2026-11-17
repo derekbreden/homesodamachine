@@ -1,7 +1,7 @@
 {
   "checked_at_utc": "2026-10-20T14:07:58.284740+00:00",
   "method": "Fetch every changed CAD member through the live site object manifest or its STL object route, decompress, and compare SHA-256 with the published pointer file. Canonical manifest URLs are checked before downloading.",
-  "pointer_commit": "45cde6801d3dddf065c6968f5bbf085dec0eaa42",
+  "pointer_commit": "35eccb612345f223cc5c028e372e572e395dbd5d",
   "members": [
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",

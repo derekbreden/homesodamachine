@@ -4028,8 +4028,8 @@
         "slope": []
       },
       "phase": "After the coverless bottom meshes and both aggregate exports were verified live against the current pointer and local SHA256 values.",
-      "source_commit": "340052d12",
-      "published_pointer_commit": "117efaab4",
+      "source_commit": "ad1427918",
+      "published_pointer_commit": "366953cca",
       "source_and_artifact_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
         "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
@@ -4147,8 +4147,8 @@
         "slope": []
       },
       "phase": "After the coverless bottom meshes and both aggregate exports were verified live against the current pointer and local SHA256 values.",
-      "source_commit": "340052d12",
-      "published_pointer_commit": "117efaab4",
+      "source_commit": "ad1427918",
+      "published_pointer_commit": "366953cca",
       "source_and_artifact_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
         "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": "839336757930b5120132e2ec5600a99f1a132879a76b20aa43d9699282dd159a",
@@ -4344,7 +4344,7 @@
     "receiver_restoration_pass": true,
     "floor_pass": true,
     "source_relation": {
-      "prior_commit": "4db2ba620468abdf99a93518a763703676809336",
+      "prior_commit": "fe0ed2420fcd11b49f10ec17df724c7ed1fab27c",
       "prior_source_sha256": "01f226980e16edc44981fda0625ca959de4acb81284e6e99da7dfbcedc8423ff",
       "current_source_sha256": "e5f7265dace4cb15971c84936bab2afc4ff7ed6ac2eabb3841a16ef8ea9b26c3",
       "prior_handholds_final_statement": "return grip_interface(inner).apply_receiver(solid, y_side)",
@@ -7657,8 +7657,8 @@
     },
     "post_publication_review": {
       "scope": "Polished Y-seam finish follow-through; native and print-mesh properties followed by the requested one-time post-publication lint. No recurring checks or whole-enclosure lint pass.",
-      "source_commit": "a4ae6236a",
-      "initial_polish_published_pointer_commit": "63c218e6f",
+      "source_commit": "ac6c0394a",
+      "initial_polish_published_pointer_commit": "872141d84",
       "post_publication_enclosure_lint": {
         "scope": "After verified live publication: existing four face classes, once, on complete original facets intersecting each named changed neighborhood. Coordinates and normals preserved; full-piece print bed datum. No artificial caps/cut faces, mesh repair, thin/ledge restart, recurring gate or whole-piece pass.",
         "source_sha256": {
@@ -8359,8 +8359,8 @@
         "assembly_clearance": "Each previously clear rigid approach/closing pose remains clear because the frame only loses stock and every mating/fixed body is unchanged.",
         "retained_corner_review": "The rear R6 and upper bearing regions lie above rail Z306.9, where the final native toe-finish comparison records zero changed volume. Their source-bound corner and coupling measurements retain that stated scope."
       },
-      "final_source_commit": "4bbfaa73e",
-      "final_published_pointer_commit": "2d5a04130",
+      "final_source_commit": "dbc8f4ade",
+      "final_published_pointer_commit": "7998b2dd0",
       "final_publication": "Root verified all eight current HTTP/local/pointer hashes, including final frame payload4427f99c81912120 and updated appliance aggregate, before the final frame lint.",
       "final_frame_post_publication_lint": {
         "scope": "Existing geometry_lint.lint, all six classes, once on the complete final small frame STL after verified live publication.",

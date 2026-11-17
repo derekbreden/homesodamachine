@@ -6,7 +6,7 @@ rigid round neck, then its two broad lips seat in the side grooves.
 The display and cover slide onto the tip together, then seat toward the neck.
 No display fasteners are fitted.
 
-The [physical trial](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md) establishes
+The [physical trial](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md) establishes
 solid construction, useful give and spring, firm snap seating and retention
 for its two identified PET-GF covers. The [acceptance record](physical-acceptance.json)
 preserves the successful STL and reported results. The current cover matches the
@@ -25,7 +25,7 @@ and the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md) 
 how that head was fitted. The extended-skirt cover's
 [physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 records its working fit and appearance. The
-[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
+[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json)
 records the accepted snap fit on the shared tip. The
 [plug-ramp photographs](../sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/cover-fit.json)
 locate the exposed rear corners. The cover's rear reach brings the rim over
@@ -140,7 +140,7 @@ and relaxed shapes. Current geometry questions use `hsm --scene faucet` and
 [`inspect-part.mjs`](/tools/inspect-part.mjs) against the saved exports. The
 [native printed-mesh review](/tools/hsm/mesh-review/README.md) inspects the printable cover.
 Those geometric readings do not measure the printed snap's force or durability.
-The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
+The [physical trial log](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/faucet-display-snap/print-log.md)
 records the reported print and retention observations.
 
 ```

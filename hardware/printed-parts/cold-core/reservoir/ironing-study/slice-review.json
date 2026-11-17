@@ -214,6 +214,6 @@
     }
   ],
   "scope": "Native flat-square path verification. The physical finish selection is in Derek's separate record; this native review supplies no sealing result.",
-  "project_source": "git:ee5270c53cd4cfda339ffc97352cf9a16bc392d9:hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
+  "project_source": "git:7f370a4fcf0a1843fec9b770e8adaea80626c4ed:hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
   "physical_result": "prints/2026-10-06-mark2-squares-v1/physical-result.json"
 }

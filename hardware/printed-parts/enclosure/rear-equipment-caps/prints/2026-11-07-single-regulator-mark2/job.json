@@ -1,7 +1,7 @@
 {
   "purpose": "Retain the individual regulator-cover print recipe, layer-return timing and launch identity.",
   "recorded_utc": "2026-11-07T19:40:08.524778+00:00",
-  "source_revision": "3e770b79c7d827f1c42a2918c3486a17d6a70aa1",
+  "source_revision": "beb530b0a56a016cbddc52642de04107d5b5507c",
   "recipe": "single-regulator-cap",
   "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
   "prepared_spec_sha256": "f4721be014240e4598ef4f0c7e72925d4e9f922fcd9a93da6f84aa29c6fd1600",

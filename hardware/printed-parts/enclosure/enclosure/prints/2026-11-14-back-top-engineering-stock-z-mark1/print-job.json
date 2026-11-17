@@ -10,13 +10,13 @@
   "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
   "print_features_sha256": "1355a348a5378b85d307b520baf6645a0ef1c01a2cea3cb0111325f9bba07ab8",
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_revision": "254716bbeddda170b404ec8825d91b10911ad81d",
+  "recipe_revision": "8c665c370701da2436810d5fe1425a7fa9ce0da5",
   "recipe_sha256": "6980e683d93a7ad05486a6bcd801f7ba3f4544553f5a77d9d60ba8d7b433f668",
   "retry_of": {
     "printer_task_id": "1444577221",
-    "project": "git:0324f9065f733cc0ddb2076070c96e1f4eabe156:hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-z010-mark1/enclosure-back-top-left04-petgf-z010-mark1.3mf",
+    "project": "git:9a54a6c922d605d3a7c3a077f985dc300ceab8b2:hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-z010-mark1/enclosure-back-top-left04-petgf-z010-mark1.3mf",
     "project_sha256": "c6d47922f3dd20066e4685947ce153bf64227b24d3734110cb9ffbd2c50644e5",
-    "physical_result": "https://github.com/derekbreden/homesodamachine/blob/0324f9065f733cc0ddb2076070c96e1f4eabe156/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-z010-mark1/physical-result/physical-result.json"
+    "physical_result": "https://github.com/derekbreden/homesodamachine/blob/9a54a6c922d605d3a7c3a077f985dc300ceab8b2/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-z010-mark1/physical-result/physical-result.json"
   },
   "project": "enclosure-back-top-left04-petgf-engineering-stock-z-mark1.3mf",
   "project_sha256": "85d27faf66c2f456d179097a63436b7c3ff48dd05e6dde87aba2ad5d1a2cb72c",

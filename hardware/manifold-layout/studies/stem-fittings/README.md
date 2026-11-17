@@ -51,12 +51,12 @@ in the self-contained `socket-layout.npz` benchmark. These are layout meshes;
 the individual stem fittings retain native STEP files in their reference
 directories. Square-cut variants have native STEP and NPZ
 geometry under `trimmed/`; the stock part references retain their full stems.
-[study.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/stem-fittings/study.py) uses those references and writes
+[study.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/studies/stem-fittings/study.py) uses those references and writes
 the numerical report and a compact viewer dataset under ignored `out/`.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/stem-fittings/trim_stems.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/studies/stem-fittings/trim_stems.py).
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/stem-fittings/study.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/studies/stem-fittings/study.py).
 
 The source derivation defines the exterior interference reading for these fixed
 study inputs.

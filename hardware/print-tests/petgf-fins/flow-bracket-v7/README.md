@@ -76,7 +76,7 @@ The [Mark2 finish matrix](../finish-matrix-v6/README.md) supplies the matched fi
 speed, direction and ramp comparisons. This plate assesses permanent-post
 bridges; fin removal and slicer support-interface finish have separate scope.
 
-The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/flow-bracket-v7/finish.py) defines the local roof extrusion and per-object
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/print-tests/petgf-fins/flow-bracket-v7/finish.py) defines the local roof extrusion and per-object
 fan treatments. Those treatments are absent from the editable project alone.
 The [print-only packaging record](mark1/packaging.json) binds unchanged reviewed
 G-code bytes to the submission archive.

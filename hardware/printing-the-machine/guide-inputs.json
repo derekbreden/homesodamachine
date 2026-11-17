@@ -39,7 +39,7 @@
   },
   "tilt": {
     "path": "hardware/printed-parts/enclosure/enclosure/support-removal-review/height-reading.json",
-    "revision": "642e1aaa3"
+    "revision": "e09f00a20"
   },
   "skin": {
     "path": "tools/hsm/shared-data/catalog/scalars.json"
@@ -88,30 +88,30 @@
   },
   "tpu-accepted": {
     "path": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json",
-    "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c"
+    "revision": "e59c4f46ec277160e3eba3883aac7b79aba253e3"
   },
   "tpu-sleeve-cap": {
     "path": "hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/emitted-path-review.json"
   },
   "tpu-drying": {
     "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-overhang10-engineering-z000-mark1/filament-drying.json",
-    "revision": "85cc475e9"
+    "revision": "c64c69421"
   },
   "tpu-lip-set10": {
     "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-t215-engineering-z000-mark1/emitted-commands.json",
-    "revision": "a5eb3dff1"
+    "revision": "3bb8137d1"
   },
   "tpu-lip-compare": {
     "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/outer-speed-comparison.json",
-    "revision": "a5eb3dff1"
+    "revision": "3bb8137d1"
   },
   "tpu-lip-fixed": {
     "path": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json",
-    "revision": "b61ea4bef"
+    "revision": "5c70a1920"
   },
   "tpu-underside": {
     "path": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/underside-side-comparison.json",
-    "revision": "3d2e975a9"
+    "revision": "4aab7ac4b"
   },
   "aero": {
     "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.profile.json",
@@ -131,11 +131,11 @@
   },
   "aeroprint": {
     "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",
-    "revision": "7abb9dfd6"
+    "revision": "b8ed88e4a"
   },
   "aeroprintdesign": {
     "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
-    "revision": "7abb9dfd6"
+    "revision": "b8ed88e4a"
   },
   "petcf": {
     "path": "hardware/printed-parts/faucet/faucet-pet-cf.profile.json",
@@ -183,6 +183,6 @@
   },
   "h2c-elbows-trial": {
     "path": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-    "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c"
+    "revision": "e59c4f46ec277160e3eba3883aac7b79aba253e3"
   }
 }

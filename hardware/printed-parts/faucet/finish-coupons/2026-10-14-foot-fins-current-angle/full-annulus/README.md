@@ -132,4 +132,4 @@ by this prepared coupon.
 
 ## Article sources
 
-The [rim-render source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/render-rim-review.py) is archived in Git. The retained projects, native reviews and launch records identify each prepared article.
+The [rim-render source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/render-rim-review.py) is archived in Git. The retained projects, native reviews and launch records identify each prepared article.

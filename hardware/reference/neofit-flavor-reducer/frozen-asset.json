@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "commit": "de2c703111ef5916b91e7c86b843435d7bba7fc7",
     "path": "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
     "sha256": "cd6926788afa13cae904823801b499096031b4db820a48564dd36d8ed20b0bd1"
   },

@@ -1,6 +1,6 @@
 {
   "purpose": "This record measures the former C++ Manifold and the published Rust Manifold on the same production workload.",
-  "source_commit": "b449e961459faed6ea5a881b5b3f444082c9a3ea",
+  "source_commit": "9ba3dea02b9d49f6cbb46a0e572dc1724872e67b",
   "at": "2026-11-11T03:04:26.976Z",
   "engines": {
     "rust": {

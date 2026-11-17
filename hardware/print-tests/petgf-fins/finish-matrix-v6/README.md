@@ -174,7 +174,7 @@ bridge variable. The treatment range here follows this PET-GF physical evidence;
 it is not a manufacturer's qualified PET-GF recipe. The shared production
 material profile is unchanged.
 
-The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/finish-matrix-v6/finish.py) defines the local extrusion, fan and roof-speed
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/print-tests/petgf-fins/finish-matrix-v6/finish.py) defines the local extrusion, fan and roof-speed
 treatments for the submitted artifact. The editable project alone does not
 contain those G-code treatments.
 

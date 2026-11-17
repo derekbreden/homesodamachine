@@ -3,7 +3,7 @@
 Each case: the load, its path, the feature that governs it, a hand-calculation margin and a
 verdict. The Y-seam cases use the current four M5×100 pin stacks and their
 [native review](../printed-parts/enclosure/enclosure/y-seam-100-review.json).
-The other enclosure calculations bind `fbc3e5dd3` and its regenerated quadrants;
+The other enclosure calculations bind `a7a5de5cb` and its regenerated quadrants;
 the pump-mount and tube-joint cases describe the current integral mount and dock below. Physical evidence is in the
 [register](README.md). The tee wall that holds the pump tees is outside this review.
 
@@ -58,7 +58,7 @@ quadrant: back-bottom at the lower stations and front-top at the upper stations.
 The screw retains the opposite quadrant's middle block as a pin through a clearance
 passage. Tightening seats the head; it does not directly squeeze that middle block
 between the end blocks. The Ø5.2 passages use the
-[selected physical M5 fit](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json);
+[selected physical M5 fit](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json);
 the nominal diametral air around an M5 thread envelope is 0.2 mm. The 0.25 mm
 running fits remain between the printed blocks. Printed variation, contact, wear and deflection
 set assembled movement. No installation torque or retained preload is qualified;

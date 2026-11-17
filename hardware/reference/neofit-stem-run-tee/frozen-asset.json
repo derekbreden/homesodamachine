@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "commit": "de2c703111ef5916b91e7c86b843435d7bba7fc7",
     "path": "hardware/reference/neofit-stem-run-tee/neofit_stem_run_tee.py",
     "sha256": "10dfbcc2215aeaa97cd852dfe1b08aea12538ee7508304d8a55a682e440e8cbe"
   },

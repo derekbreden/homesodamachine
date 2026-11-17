@@ -8,7 +8,7 @@ to the archived meshes and source bindings below.
 
 The four receivers stand with their front funnel rings on the bed and their bores vertical.
 The preparation uses the Mark1/H2C right fixed 0.6 mm nozzle recipe retained
-by the [Siraya single-elbow physical record](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json).
+by the [Siraya single-elbow physical record](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json).
 That record accepts the elbow's exterior quality and reports internal
 stringing; it supplies no receiver acceptance.
 
@@ -97,10 +97,10 @@ compares that preparation's geometry snapshot, source STL bytes and all
 eight embedded receiver meshes. Its recorded hashes and source reference
 scope the reading to this archive.
 
-The retained [preparation script](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py) and [path reader](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py)
+The retained [preparation script](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/prepare.py) and [path reader](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/review_slice.py)
 document this archive's process. Their straight-receiver source name and
 vertical-bore rotation are not a preparation recipe for current wet parts.
 Current junctions and returns require one object per plate in their own
 manufacturing pose, with a review of their emitted paths.
 
-The [recorded source](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/audit_bindings.py) defines this artifact's preparation and reading.
+The [recorded source](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/audit_bindings.py) defines this artifact's preparation and reading.

@@ -3,7 +3,7 @@
 Tree (auto), Default style uses a **50 mm maximum bridge length**. Bambu's
 bridge exemption compares both dimensions of a classified bridge surface's
 bounding box. The short-span tie roofs include surfaces up to 31.6 mm long.
-The historical shared profile at commit `06bae4528` records this 50 mm value.
+The historical shared profile at commit `5922cb6e2` records this 50 mm value.
 This limit applies to the back-top profile.
 
 The model, placement, 23 solid reinforcement modifiers and layer schedule

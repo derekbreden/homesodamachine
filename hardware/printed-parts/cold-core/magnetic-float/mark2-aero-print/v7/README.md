@@ -48,7 +48,7 @@ both bed and chamber before release.
 
 Frozen core and insert STL hashes are `63d12cbb…` and `c69cdc55…`. Geometry source
 hashes are verified against export commit
-`f3cefbe360b7a8019741d177868d1e6c6770b93f`. The input retains the selected mesh
+`08a570ea9259bb64ecccd81760762dc72587acbc`. The input retains the selected mesh
 bytes and print orientation, centred at X150 / Y145 with bed Z0. Native export
 preserves triangle connectivity, with coordinate serialization differences
 below 0.000001 mm. Full source, project, archive and G-code hashes are in each
@@ -83,6 +83,6 @@ The material recipe is held constant for this path-layout trial.
 ![Native wall paths and remaining moves](path-preview.png)
 
 - [Queue and launch conditions](queue.json)
-- [Native preparation and path verifier](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v7/prepare.py)
+- [Native preparation and path verifier](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v7/prepare.py)
 - [Core native preview](core-preview.png)
 - [Insert native preview](insert-preview.png)

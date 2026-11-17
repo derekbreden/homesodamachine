@@ -65,6 +65,6 @@
   "review_state": "Review candidate; production mount remains the selected printed design.",
   "base_edges_saved": 18,
   "additional_solid_mm3": 7447.321208240202,
-  "source_commit": "27f1cd5be",
+  "source_commit": "319f8596f",
   "scope_of_native_fit": "Seated nominal geometry. Axial-play, elastic snap motion, release access and physical vibration qualification are not established by this reading."
 }

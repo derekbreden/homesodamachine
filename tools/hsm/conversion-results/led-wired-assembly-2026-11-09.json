@@ -1,6 +1,6 @@
 {
   "purpose": "This record measures delivery and digital clearance of the complete prewired status LED pocket.",
-  "source_commit": "ef03981884e58d3a902772f9a28ed5b0eed7332e",
+  "source_commit": "98a74cdefa6d305f24d87b5c360e19599b63403e",
   "request_received_at": "2026-11-10T02:18:30.301Z",
   "first_source_edit_at": "2026-11-10T02:28:56.266Z",
   "first_matching_reference_draw_at": "2026-11-10T02:30:04.527Z",
@@ -247,5 +247,5 @@
       }
     ]
   },
-  "gallery_commit": "d2155de8e"
+  "gallery_commit": "065196b3d"
 }

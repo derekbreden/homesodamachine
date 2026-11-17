@@ -334,7 +334,7 @@
   "source_stl": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/faucet-foot-section.stl",
   "source_stl_sha256": "534a765c7573a99a2bcb4e81d31057f218026e613adb31c86c7bb68238595374",
   "source_study": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/preparation.json",
-  "source_geometry_pointer_commit": "5a9863696",
+  "source_geometry_pointer_commit": "11a1e2766",
   "full_faucet_geometry_tag": "faucet-industrial-shipping-2026-10-10",
   "full_faucet_stl_sha256": "b3d9fa899ad07a075f1ba64258dc92d07a19612bf91b23439b2010185ee0125f",
   "full_faucet_step_sha256": "fbeca2bc5ce5da7f5d808547c5bfd166046c8847e996227432e7c77acee6e716",

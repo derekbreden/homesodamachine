@@ -36,24 +36,24 @@ of the passive fluid-passage diameter.
 back-top solid and the retained main-board mounting stations. The wire
 probes use the selected 2 mm OD stock, a 1 mm straight and R3 fixed bend;
 these are nominal access probes, not a qualified installed bend radius.
-Run [`measure_native.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_native.py) manually with the CAD Python to reproduce them.
+Run [`measure_native.py`](https://github.com/derekbreden/homesodamachine/blob/ed7926a69ba5599f295cba8584c717687608290b/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_native.py) manually with the CAD Python to reproduce them.
 
 [Printed C14 measurements](printed-c14-measurements.json) compare the
 October 10 Mark1 project's main mesh and the current print STL at the
 flange-pocket and cord-bore sections. The fixed exterior planes register
 the print object into the machine frame; the measured pocket is not a
-registration datum. The [measurement source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_print.py) is archived in Git.
+registration datum. The [measurement source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_print.py) is archived in Git.
 
 [Assembly feedback](assembly-feedback.json) binds the observations to the
 identified articles. The latest logged foam-shell success is the May 31
-record at source `7cd49702`, whose small passages are Ø6.5 mm. Its saved
+record at source `d894d993`, whose small passages are Ø6.5 mm. Its saved
 project and current design are distinct artifacts; an on-disk modification
 time does not establish a later physical print. The October 11 back-top
 preparation records `prepared_not_started`.
 
 [Core passage measurements](core-passage-measurements.json) read Ø7.5 mm
 cylinder faces from the exported top cap, top lid, both reservoir caps and
-foam shell and measure both connecting webs at 5 mm. [`measure_core.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_core.py) is a
+foam shell and measure both connecting webs at 5 mm. [`measure_core.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/measure_core.py) is a
 manual B-rep measurement. The [appliance assembly review](../../../../manifold-layout/enclosure-assembly.scorecard.json)
 passes its active checks, including pack closure and conduit wall/pair stock.
 

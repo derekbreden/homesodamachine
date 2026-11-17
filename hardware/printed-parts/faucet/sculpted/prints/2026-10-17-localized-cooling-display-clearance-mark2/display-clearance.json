@@ -91,7 +91,7 @@
     "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f"
   },
   "stock_comparison_method": "Native before/after tip Booleans. Four bearing pads extend upward 1.50 mm and 0.25 mm inward to meet the existing channel wall. No intermediate ledge. No native tip stock removed.",
-  "before_source_commit": "23e85414a012d718c7fe4dd7c2bc4f242d86b1fe",
+  "before_source_commit": "e976e67e52f7ac5aa00f3c957448df398cd5f6ab",
   "previous_flavor_hardware_gaps_mm": {
     "-1": 0.3006397181854381,
     "1": 0.3006397181854457

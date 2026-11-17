@@ -55,20 +55,20 @@ is X=±(body half-width + 0.15 mm); its Y position follows the slot roof while
 its width and slope stay fixed.
 The retaining lip is 1.23 mm thick over the flat bearing.
 
-[`wing_interface.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py) supplies the reusable wall cutter. The [physical acceptance](physical-acceptance.json)
+[`wing_interface.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/wing_interface.py) supplies the reusable wall cutter. The [physical acceptance](physical-acceptance.json)
 qualifies this receiver with the existing flat nameplate. The full back-top integration is prepared with a local PSU backing relief; its
 print is on hold in [accepted-fit-integration](../../enclosure/accepted-fit-integration/README.md). Its mouth and slots establish the locating clearances.
 
 ## Verification and printing
 
-[`horizontal_wing_trial.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py) generates the STEP/STL/viewer triplets and
-`geometry-check.json`. [`verify_insertion.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_insertion.py) checks 101 positions of an ideal
-circular bend in the central cross-section. [`verify_pair.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_pair.py) checks exported
+[`horizontal_wing_trial.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/horizontal_wing_trial.py) generates the STEP/STL/viewer triplets and
+`geometry-check.json`. [`verify_insertion.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_insertion.py) checks 101 positions of an ideal
+circular bend in the central cross-section. [`verify_pair.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_pair.py) checks exported
 solids at all six pure-axis travel limits and just beyond each, then verifies
 the emitted artwork, wing layers, supports and native coordinate correction.
 The bend model does not establish insertion force, fatigue or corner motion.
 
-[`prepare_pair.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_pair.py) (in Git at `306268f870`) slices the complete pair for Mark2. The nameplate has no supports
+[`prepare_pair.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_pair.py) (in Git at `15bf03ec45`) slices the complete pair for Mark2. The nameplate has no supports
 or brim. The receiver uses the shared `petgf.3mf` tree supports and its enclosure
 orientation: 0.40 mm support XY, 0.45 mm upper Z and 0.30 mm lower Z gaps. Support
 and interface material are explicitly black. Every emitted support bead is checked
@@ -77,7 +77,7 @@ against the wing slots and their entry bevels; support removal remains a bench t
 Both objects use a 0.20 mm first layer, a 0.28 mm second layer, then 0.24 mm layers.
 Their shared schedule permits the prime tower and preserves complete raised-artwork
 layers at 3.60 and 3.84 mm. Saved speeds, wall order and 15% infill overlap apply.
-[`prepare_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py) (in Git at `306268f870`) and [`verify_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_receiver.py) create and check the receiver-only
+[`prepare_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/prepare_receiver.py) (in Git at `15bf03ec45`) and [`verify_receiver.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/verify_receiver.py) create and check the receiver-only
 comparison on Mark2. It uses 0.20 mm followed by 0.24 mm layers, shared tree
 supports and the existing flat nameplate. Its
 [slice review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-nameplate-x015-y045-receiver-mark2-v10/README.md)

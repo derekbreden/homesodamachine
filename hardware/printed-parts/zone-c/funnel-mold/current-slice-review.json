@@ -138,7 +138,7 @@
   "minimum_cavity_backing_mm": 5.004878288547443,
   "minimum_core_backing_mm": 7.338948143675221,
   "method": "Current native STL meshes, current containment binding and frozen printer/filament/support recipe; explicit sparse-process changes.",
-  "baseline_recipe_commit": "4d584d29f",
+  "baseline_recipe_commit": "0180d5103",
   "baseline_project_sha256": "3e9f6e7118e015dec727523575d6ce8546f240ca46edd6857c4bee1d3d66ce22",
   "current_project": "hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
   "current_project_sha256": "89c0addd01a9905ab26bf972fc000a278bc34864ddfc9c06369ddee0931cd829",
@@ -436,7 +436,7 @@
     ]
   },
   "physical_recipe_binding": {
-    "print_source": "git:59e088d8d:hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
+    "print_source": "git:a78f28d28:hardware/printed-parts/zone-c/funnel-mold/funnel-mold.3mf",
     "print_source_sha256": "2bc6a358dbfb74c94d9388bf4abd166ab243182298f45768c0dff9d928182c68",
     "current_template_sha256": "8847f34c92a7befdc808581ff90e98468f2721c884e69f978b9f9b5f6b288898",
     "project_setting_changes_from_physical_input": {},

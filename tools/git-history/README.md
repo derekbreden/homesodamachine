@@ -1,7 +1,12 @@
 # The commit map
 
-`commit-map` is the old → new SHA table two `git filter-repo` runs left behind, composed
-into one: the first expunged 98 generated solids on 2026-08-17, the second the rest of the
+`commit-map` maps older commit IDs to their published successors. It includes the print
+package rewrite. [The print archive](../../hardware/print-archive.json) indexes the exact
+packages in the [print projects release](https://github.com/derekbreden/homesodamachine/releases/tag/print-projects).
+Original signed commit objects are in the [signed commit records](https://github.com/derekbreden/homesodamachine/releases/download/print-projects/signed-commit-records.zip).
+
+The generated solids entries come from two `git filter-repo` runs: the first expunged
+98 generated solids on 2026-08-17, the second the rest of the
 generated tree — every `.step`, `.stl`, `.glb` and `.step.mesh` but the three harvested
 reference solids, the board renders, the card pictures and decks, the Quick Start artwork —
 on 2026-08-26. 9,282 pairs, one per line, oldest first, under an `old new` header.

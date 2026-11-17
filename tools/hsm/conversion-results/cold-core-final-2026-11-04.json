@@ -3,7 +3,7 @@
   "scope": "All remaining normal-build cold-core numeric providers, recipes, readers, reports, entrypoints and maintained fabrication drawings in hardware/cold-core-layout, hardware/printed-parts/cold-core and hardware/cut-parts/carbonation.",
   "algorithm_execution": "Statically compiled Rust functions, expressions, loops, branches, closures and recipe/document composition. No runtime source compiler, Python AST evaluator or fixed-output substitutions.",
   "python_boundary": "Import/type and container marshalling, preserved record shells, opaque third-party library primitive calls and compiled service transport. Placement rotations/translations/matrix multiplication are native Rust; ndarray construction is type marshalling.",
-  "source_anchor_revision": "63658e44888f13d7a7e657d435558580e4746902",
+  "source_anchor_revision": "6b5ebc9456b890d64bfc7656df4e16d65174db3a",
   "source_modules": {
     "_bom": {
       "path": "hardware/cold-core-layout/_bom.py",

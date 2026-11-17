@@ -78,7 +78,7 @@ not a full-assembly performance guarantee.
 | Distance to the same box | 2.523605 mm | 2.499829 mm |
 | Standard room-section query | exceeded 90 s total process limit | 37.348 s |
 
-The [component-query source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py)
+The [component-query source](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py)
 is archived with the bound benchmark. Current [native geometry queries](/tools/hsm/README.md)
 measure the saved detailed or conservative payload directly.
 
@@ -90,6 +90,6 @@ its summed volume is not union volume or material volume.
 
 ## Bound sources
 
-The [envelope derivation, export and benchmark programs](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/integration-envelope)
+The [envelope derivation, export and benchmark programs](https://github.com/derekbreden/homesodamachine/tree/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/reference/g-ganen-pump/integration-envelope)
 are archived in Git. The saved model, containment proof and component identities
 retain the bindings recorded in this directory's manifests.

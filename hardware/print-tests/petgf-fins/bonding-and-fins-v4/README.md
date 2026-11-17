@@ -144,7 +144,7 @@ starts do not qualify a correctly deposited fin roof.
 
 ## Preparation source
 
-The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/bonding-and-fins-v4/finish.py) defines the local fan and roof extrusion treatments and
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/print-tests/petgf-fins/bonding-and-fins-v4/finish.py) defines the local fan and roof extrusion treatments and
 path review for the submitted artifacts. The editable project alone does not
 contain those treatments. The print-only [packaging record](mark2/packaging.json)
 binds the reviewed G-code and its embedded checksums.

@@ -28,7 +28,7 @@ Mark2 printer slices emitted `G29.1 Z0.02` after the initial zero reset.
 
 ## 0.24 mm comparison
 
-Source: `git:67994c7efaed7589ff26db350b90eea089fbd3e8:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`.
+Source: `git:2b8c90160ca8e58be5a094058d93efc415679f90:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`.
 
 The recorded body and cap with **0.24 mm layers** and a 0.30 mm first layer.
 The physical process, filament and machine settings match the 0.18 mm recipe

@@ -1,7 +1,7 @@
 # Tube insertion tooling
 
 Printed M5 threaded passages use the shared Ø5.2 mm fit selected in the
-[M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json).
 
 Current PET-GF editable projects follow the [localized cooling policy](../../cooling/README.md).
 Re-slice them for current cooling commands. Identified native archives retain
@@ -175,7 +175,7 @@ lever's [physical record](../../faucet/lever-replica/physical-acceptance.json)
 retain their identified scope.
 
 The issued print payloads have their [producer receipt](parts.json) and
-[producer source in Git](https://github.com/derekbreden/homesodamachine/blob/5104eaa428a79683c5315f14aedc8b6b6c09ef0d/hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py).
+[producer source in Git](https://github.com/derekbreden/homesodamachine/blob/3547d374615e17775190cb826fad17338e6df774/hardware/printed-parts/fixtures/tube-insertion/tube_insertion.py).
 
 [`tube_insertion.rs`](tube_insertion.rs) supplies `build_parts`, the
 individual builders, `assembly`, `clamp_stations` and

@@ -161,7 +161,7 @@ post-closure function, have no acceptance record.
 
 ## Source
 
-Dimensions and geometry checks, run on request: [`integration.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py),
+Dimensions and geometry checks, run on request: [`integration.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/magnetic-float/all-aero/integration.py),
 [`integration-check.json`](integration-check.json), and shared
 [`numbers.rs`](/hardware/printed-parts/cold-core/magnetic-float/numbers.rs).
 [Littelfuse activation guidance](https://www.littelfuse.com/assetdocs/reed-switch-and-reed-sensor-activation-application-note?assetguid=fa9045a4-e577-4f55-9e9b-4232faacffd9)

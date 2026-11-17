@@ -502,7 +502,7 @@
     "y-seam-west-upper-insert",
     "y-seam-west-upper-screw"
   ],
-  "source_commit": "441e977c3e596fa39e06f25d261bee39667868c1",
+  "source_commit": "0f5f87ee4dad7e416cecae26bddcbee34068ad46",
   "preserved_pump_profile_functions": [
     {
       "path": "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
@@ -530,6 +530,6 @@
       "ast_sha256": "089c0c840aac8e533384ccd7bfba193e1489e44adb098cc9769e66ae82ef4499"
     }
   ],
-  "artifact_pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
-  "preserved_profile_source_commit": "09e7854ea837782a2a196e41c560f40d17823a67"
+  "artifact_pointer_source_commit": "f81208c673e6318212dc743784f5acbb50fa4c6c",
+  "preserved_profile_source_commit": "80d7208b9707e44663288a80db211e7d453ac12c"
 }

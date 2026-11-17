@@ -1,7 +1,7 @@
 {
   "purpose": "Restore the physical target geometry after native slicing in bounded nonplanar contact coordinates.",
   "source_project_sha256": "d4f4ff2229829c3951b7326c74c1677ec30a31b64a2274595cba85e9da3bc2dc",
-  "source_project": "https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/faucet-slim-gap048-left04-z018-mark1.3mf",
+  "source_project": "https://github.com/derekbreden/homesodamachine/blob/a261387d7021b9f74675793f5b1a3fd188cfccec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/faucet-slim-gap048-left04-z018-mark1.3mf",
   "mapping": "mapping.json",
   "motion_review": "motion-review.json",
   "bead_review": "bead-review.json",

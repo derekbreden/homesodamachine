@@ -1,10 +1,10 @@
 {
   "geometry": "The display cover as the tree held it at 6a1ecd84f^: 2 mm skirts 34 mm deep with 1.8 mm lips.",
   "sources": {
-    "display_cover.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/display-cover/display_cover.py",
-    "_display_retention.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/enclosure/_display_retention.py",
-    "_enclosure_interface.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-    "_swept_top.py": "git show 6a1ecd84f^:hardware/printed-parts/enclosure/enclosure/_swept_top.py"
+    "display_cover.py": "git show 4b5390e78^:hardware/printed-parts/enclosure/display-cover/display_cover.py",
+    "_display_retention.py": "git show 4b5390e78^:hardware/printed-parts/enclosure/enclosure/_display_retention.py",
+    "_enclosure_interface.py": "git show 4b5390e78^:hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+    "_swept_top.py": "git show 4b5390e78^:hardware/printed-parts/enclosure/enclosure/_swept_top.py"
   },
   "stl_sha256": "f52711458a43c403ed706a7db6652dcb1a543c1e8d81f054069530999f2300ff",
   "same_stl_as": ".cache/prints/2026-09-22-display-cover-mark2-v1/fresh-geometry-receipt.json",

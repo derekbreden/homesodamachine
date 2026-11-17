@@ -1,6 +1,6 @@
 {
-  "source_commit": "bb2f0ec4d7b908671f35a7b4c15a5d5d12d360f8",
-  "pointer_commit": "5f9764ffc65dab28bb79c34abf4bc29407372fc8",
+  "source_commit": "d38c63961aa06e3727c901edce1572a87da55f0a",
+  "pointer_commit": "8e4aa6893d42289afd6526de5371c41b8de79f2c",
   "live_viewer_native_source_sha256": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",
   "published_members_sha256": {
     "hardware/manifold-layout/enclosure-assembly.step": "294da475d3ecf3790bc1433469a0fcfe1fdc7a688f7e1872fd5f4c95095c8263",

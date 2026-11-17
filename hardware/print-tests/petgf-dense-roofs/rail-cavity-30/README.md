@@ -1,6 +1,6 @@
 # Longer complete rail cavity coupon
 
-This plate extends the [archived complete rail cavity coupon](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/print-tests/petgf-dense-roofs/rail-cavity-20) along
+This plate extends the [archived complete rail cavity coupon](https://github.com/derekbreden/homesodamachine/tree/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/print-tests/petgf-dense-roofs/rail-cavity-20) along
 the slide direction. Its production cross-section, surrounding stock, D contact
 treatment and locally rooted tree recipe remain the same.
 
@@ -16,5 +16,5 @@ front-top rail and surrounding wall to this longer cavity on the same plate.
 
 ## Article sources
 
-The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/rail-cavity-30/prepare.py) is archived in Git.
+The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-dense-roofs/rail-cavity-30/prepare.py) is archived in Git.
 The retained project, slice and launch records identify the prepared article.

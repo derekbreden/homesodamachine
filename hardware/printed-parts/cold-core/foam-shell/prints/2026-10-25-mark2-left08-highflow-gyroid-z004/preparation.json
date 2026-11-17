@@ -1,7 +1,7 @@
 {
   "status": "prepared_not_submitted",
   "printer": "Mark2",
-  "source_commit": "362e074f241780ba60239198a9f6aa8ae6460e49",
+  "source_commit": "0c7627bc0cadbaa77474f9dae6959a3b8d338fc0",
   "nozzle_confirmation": "Pending: last accepted Mark2 job and current telemetry identify the fixed left 0.4 mm hotend; this candidate requires left 0.8 mm High Flow.",
   "preparation_directory": ".cache/prints/2026-10-25-cold-core-shell-settings/high-flow08-gyroid/2026-10-25-foam-shell-mark2-d6cdf55a",
   "prepared_utc": "2026-10-25T18:32:50+00:00",

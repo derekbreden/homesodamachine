@@ -17,7 +17,7 @@ The [flat plate](https://homesodamachine.com/print-archive/575749c0b580fd16e05c3
 contains two reservoir cap perimeter gaskets, two dry bulkhead washers, two vent
 filter retaining rings, the machine display gasket, and one counter gasket for
 the printed September 18 white Sculpted faucet. That counter gasket retains the
-printed foot's openings and footprint through source revision `14594f74e`.
+printed foot's openings and footprint through source revision `ebcd13a55`.
 The reservoir perimeter gasket is symmetric in Y; flip one to fit the opposite
 reservoir. The wet bulkhead washer is purchased silicone.
 

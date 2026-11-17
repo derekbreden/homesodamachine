@@ -4,7 +4,7 @@
   "part_gcode_sha256": "4ed406e89d30fd71b9f0f6ca09e9b06fe737998b8da12bb81a517629f46d00f3",
   "ordinary_wall_recipe": {
     "reference_task_id": "1440074146",
-    "reference_editable_revision": "c8667107f964589be7dc69f8fb924f69a12729b3",
+    "reference_editable_revision": "cff7e283594be4f0d37e20b0b0863f11efc4823f",
     "outer_wall_speed_mm_s": 200.0,
     "shell_object_settings": {
       "faucet-shell-base": {

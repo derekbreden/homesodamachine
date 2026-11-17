@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "commit": "c33722222d15c7259d35d22e5a302578f13902d3",
     "path": "hardware/reference/shok-blok-regulator/shok_blok_regulator.py",
     "sha256": "d30ed83777c4d7adb42f69d2f192a889e4dc9f3f8b1c15afc0b215c3279355f1"
   },

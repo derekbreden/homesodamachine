@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "One manual native read of the frozen current appliance. Exact approved clip, current lid attachment, retained tube straight, static contacts and local 7 mm press window. No source edits, full source rebuild or recurring check.",
-  "source_commit": "438f5eb2a9f2d7319bbc3e633d6df999431b7079",
+  "source_commit": "b98cac7c098ac82ee9aa7866e4c0fb710157d1a8",
   "source_native": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/va-feed-snap/baseline/hardware/manifold-layout/enclosure-assembly.step",
   "source_native_sha256": "19432c9700c04c363b4f4b53335a040e697f2237cc984880d69dfb4d99cfa622",
   "native_leaf_count": 563,

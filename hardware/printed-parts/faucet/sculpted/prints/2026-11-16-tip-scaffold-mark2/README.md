@@ -4,7 +4,7 @@ The [print plate](https://homesodamachine.com/print-archive/c81565e3d74bea2b053d
 [editable project](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/sculpted-faucet-tip-scaffold-black-mark2.3mf) hold the complete black PET-GF
 faucet: the Sculpted base, the tip, the display cover, the mounting plate and the lever.
 `faucet-plate sculpted --production` prepared them from the checkout at
-[`6b77eba36`](https://github.com/derekbreden/homesodamachine/tree/6b77eba364d6ff4c80d3e115af3ca3a7493f8dd1),
+[`bc96e330e`](https://github.com/derekbreden/homesodamachine/tree/bc96e330e272af0e36cf4ca1bcec54eb2d0ff0e8),
 so the plate is also the Sculpted product plate of that commit. The [package record](package.json)
 binds the archive's G-code and the acceleration planner's estimate of its motion. The
 [launch receipt](launch.json) identifies the job Mark2 accepted, and the

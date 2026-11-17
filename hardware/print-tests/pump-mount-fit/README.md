@@ -47,10 +47,10 @@ replacement pump and four rear equipment pairs.
 
 ## Reproduce
 
-[`build.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/pump-mount-fit/build.py) exports the isolated base from the production mount generator.
-Run it through [`python3 tools/run.py --cad -- <CAD Python> .../build.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/run.py).
-[`prepare.py --piece pump-fit-base`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/pump-mount-fit/prepare.py) prepares and reviews only the base; it never
+[`build.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/print-tests/pump-mount-fit/build.py) exports the isolated base from the production mount generator.
+Run it through [`python3 tools/run.py --cad -- <CAD Python> .../build.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/tools/run.py).
+[`prepare.py --piece pump-fit-base`](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf71799f8829d2fbce8c8e1bad250d813/hardware/print-tests/pump-mount-fit/prepare.py) prepares and reviews only the base; it never
 sends a job. The cap archive retains the already reviewed production G-code
 without reslicing.
 
-The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/pump-mount-fit/build.py) retains the source revision for these physical artifacts.
+The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/print-tests/pump-mount-fit/build.py) retains the source revision for these physical artifacts.

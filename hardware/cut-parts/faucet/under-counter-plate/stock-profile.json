@@ -3,7 +3,7 @@
   "scope": "Purchased 0.060-inch 316 stainless plate profile. This record and its archived drawing identify the received S4177511 stock.",
   "stock_order": "S4177511",
   "purchase_record": "hardware/ledger/purchases.md#purchase:pur-bf8d135df8f84025b5e36f07d38b311c",
-  "reference_commit": "c44a6ffdf",
+  "reference_commit": "28a8bfcb8",
   "reference_path": "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
   "reference_dxf_sha256": "48d11b21462f59772dd5185fe881c69c7f732fe4562d5627a5ae4e1f98b95c85",
   "units": "mm",

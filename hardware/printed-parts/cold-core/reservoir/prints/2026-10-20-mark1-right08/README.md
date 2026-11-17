@@ -7,7 +7,7 @@ through one Bambu Connect Send. [Launch receipt](launch.json) ·
 Plate 1 contains the current **reservoir-left** and matching **reservoir-cap-left**:
 a full-height body with one flat floor, with fill and draw entering through the cap.
 The body prints mouth up; the cap prints exterior face down. The
-project at commit `a840ea0ac` preserves the September 0.24 mm PETG recipe
+project at commit `52f6679f1` preserves the September 0.24 mm PETG recipe
 with ironing off, right-nozzle assignment and Mark1's calibrated trim.
 
 Use Mark1's **right 0.8 mm Standard-flow hotend**, clear Bambu PETG Translucent
@@ -27,7 +27,7 @@ cap sealing and installed float motion remain unassessed for this article.
 
 ## Launch file
 
-[prepare_launch.py](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/prepare_launch.py) selects plate 1 from the reviewed native
+[prepare_launch.py](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/prepare_launch.py) selects plate 1 from the reviewed native
 two-plate archive and makes a print-only copy. [Packaging](packaging.json) binds
 the hashes and confirms unchanged native G-code and project settings.
 The launch file is

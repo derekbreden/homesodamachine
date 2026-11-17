@@ -7,8 +7,8 @@ meridian. The tip plug and display-frame surfaces retain their automatic Back
 seams. The mounting plate's exposed rim starts at X=0. The cover and lever
 retain Aligned, 15% seam gap and scarf off.
 
-The [selection](https://github.com/derekbreden/homesodamachine/blob/0052d13950e4470e01e0534776de5eb8eb84895b/hardware/printed-parts/faucet/industrial/finish-selection.json) and
-[preparer](https://github.com/derekbreden/homesodamachine/blob/0052d13950e4470e01e0534776de5eb8eb84895b/hardware/printed-parts/faucet/industrial/prepare_print_project.rs) select facets using their intersection
+The [selection](https://github.com/derekbreden/homesodamachine/blob/405a31063e29770bf132df5fd7d3973d1302fcde/hardware/printed-parts/faucet/industrial/finish-selection.json) and
+[preparer](https://github.com/derekbreden/homesodamachine/blob/405a31063e29770bf132df5fd7d3973d1302fcde/hardware/printed-parts/faucet/industrial/prepare_print_project.rs) select facets using their intersection
 with the center strip and the rear boundary at each **build Z**. This follows
 the contour's translation in plate Y. The base strip crosses X ±0.25 mm;
 the curved tip facets intersect X=0. Selected base facets include CAD Z0–237.33,
@@ -18,7 +18,7 @@ infill-only reinforcement are retained.
 
 ## Native motor paths
 
-The [manual reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/review.py) (in Git at `306268f870`) follows every emitted exterior-wall run in the
+The [manual reader](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/review.py) (in Git at `15bf03ec45`) follows every emitted exterior-wall run in the
 base, tip and plate, including G2/G3 arcs, zero-flow E-word moves and numerical
 E-less hops within 0.02 mm in XY and 0.002 mm in Z. Each run is compared with
 the source STL's actual external footprint in its build pose. Hole walls, disconnected shoulder
@@ -27,7 +27,7 @@ classification; they are not substituted for the exposed rear seam.
 
 The [complete-set trace](complete-trace/trace.json) and
 [CSV](complete-trace/seams.csv) retain starts, full-height ramp ends and the
-overlap endpoints read with the bounded-connector reader in `a37392aa5`.
+overlap endpoints read with the bounded-connector reader in `8c54ed228`.
 Those endpoints can omit final zero-flow moves; they do not represent the
 complete commanded wall path. The [native review](native-review.json) binds
 the exact meshes, settings and archive. The base-and-tip evaluation produces

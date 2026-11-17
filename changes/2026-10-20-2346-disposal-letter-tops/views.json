@@ -71,7 +71,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
           "from": "tree",
           "sha256": "cc55171347442a39da21c0263998a7d76bec6be8a4b6fb996442b620e7c47995",
-          "commit": "ae34dbd698cdf0597c852ebc9b5a201813a29836",
+          "commit": "48d847e5b246367f418ef6c063e159b94453d7e9",
           "published": true
         }
       },

@@ -1,7 +1,7 @@
 {
   "project": "ironing-study.3mf",
   "geometry": "flat squares",
-  "recipe": "git:ee5270c53cd4cfda339ffc97352cf9a16bc392d9:hardware/printed-parts/cold-core/reservoir/print-settings.json",
+  "recipe": "git:7f370a4fcf0a1843fec9b770e8adaea80626c4ed:hardware/printed-parts/cold-core/reservoir/print-settings.json",
   "recipe_settings_sha256": "241d74ab94950c0f1ce07466ce6abeabe307ee2a596b7939776981950b8c4b08",
   "project_overrides": {
     "enable_support": {
@@ -427,6 +427,6 @@
     }
   ],
   "project_sha256": "e15724ed0197bf279a9b57bc50f08f8fc1fb08a20271c092457818ad4bfbe858",
-  "project_source": "git:ee5270c53cd4cfda339ffc97352cf9a16bc392d9:hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
+  "project_source": "git:7f370a4fcf0a1843fec9b770e8adaea80626c4ed:hardware/printed-parts/cold-core/reservoir/ironing-study/ironing-study.3mf",
   "physical_result": "prints/2026-10-06-mark2-squares-v1/physical-result.json"
 }

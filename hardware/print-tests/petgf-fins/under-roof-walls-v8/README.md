@@ -104,6 +104,6 @@ established by this coupon. No additional fixture or purchase is requested.
 
 ## Preparation source
 
-The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/under-roof-walls-v8/finish.py) defines the local extrusion, fan and speed treatments,
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/print-tests/petgf-fins/under-roof-walls-v8/finish.py) defines the local extrusion, fan and speed treatments,
 wall-crossing review and print-only packaging for the submitted artifacts.
 The editable project alone does not contain those G-code treatments.

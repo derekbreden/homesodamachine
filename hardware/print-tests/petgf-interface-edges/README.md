@@ -99,9 +99,9 @@ omits its ceiling support.
 
 The editable [support-interface.3mf](https://homesodamachine.com/print-archive/abdbb763d83c2d4e7fa20328f4a70a5ef0eb108b/support-interface.3mf) carries the geometry
 and per-object Z settings. **Edge treatments are applied after slicing** by
-[`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f43329c4f4aa8d1d8aa2ce3493aa4a2b/hardware/print-tests/petgf-interface-edges/setback.py); simply re-slicing this project does not reproduce the experiment.
+[`setback.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b4f5745020358fad91706d1c8cdba6d/hardware/print-tests/petgf-interface-edges/setback.py); simply re-slicing this project does not reproduce the experiment.
 
-[`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f43329c4f4aa8d1d8aa2ce3493aa4a2b/hardware/print-tests/petgf-interface-edges/setback.py) measures both interface layers independently and clips only positive
+[`setback.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b4f5745020358fad91706d1c8cdba6d/hardware/print-tests/petgf-interface-edges/setback.py) measures both interface layers independently and clips only positive
 Support interface extrusion at the selected edges. Removed portions become
 non-extruding moves on the same XYZ route. Temperatures, feed rates, retractions,
 model commands and tree commands are retained. The package G-code checksum is
@@ -114,11 +114,11 @@ all 16 measured Z gaps, both measured interface envelopes, and an independent
 comparison of central interface, tree and ceiling paths against the native slice.
 `print-job.json` records printer acceptance; physical results remain separate.
 
-Generate with [`tools/cad-venv/bin/python hardware/print-tests/petgf-interface-edges/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-interface-edges/prepare.py).
+Generate with [`tools/cad-venv/bin/python hardware/print-tests/petgf-interface-edges/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/e023e795b7fd8b3a395be374641d30984229e53b/hardware/print-tests/petgf-interface-edges/prepare.py).
 Slice the generated input with Bambu Studio 02.08.02.61 using `--arrange 0 --orient 0
 --slice 0 --min-save`, exporting `native.gcode.3mf` into the input directory.
-Run [`setback.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-edges/setback.py) `--input <native.gcode.3mf> --output <petgf-interface-edges-mark2.gcode.3mf>`,
-then [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-interface-edges/verify.py) before sending; both are in Git at `9884d0e7f4`.
+Run [`setback.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/print-tests/petgf-interface-edges/setback.py) `--input <native.gcode.3mf> --output <petgf-interface-edges-mark2.gcode.3mf>`,
+then [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/print-tests/petgf-interface-edges/verify.py) before sending; both are in Git at `44191ff08b`.
 
 The installed slicer's default tree style selects organic support. That path
 uses whole-layer top-gap rounding. Its local overhang clearance can differ from

@@ -57,5 +57,5 @@ does not establish this plate's result.
 
 ## Article sources
 
-The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/peel-scenarios/prepare.py) is archived in Git.
+The specimen geometry is defined in `samples.rs`. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-dense-roofs/peel-scenarios/prepare.py) is archived in Git.
 The retained project, slice and launch records identify the prepared article.

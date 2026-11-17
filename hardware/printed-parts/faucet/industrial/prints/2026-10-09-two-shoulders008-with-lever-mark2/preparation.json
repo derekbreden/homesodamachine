@@ -635,7 +635,7 @@
       ]
     }
   ],
-  "source_repository_commit": "b63b8348f9451c5e0710326b6cc2418d95a21c1b",
+  "source_repository_commit": "25b28aa9275c0675abf3a69e2a4de8230db467c1",
   "housing_settings_and_mesh_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-mark2/2026-10-09-industrial-faucet-two-shoulders008-petgf-left04-z004-mark2.3mf",
   "housing_settings_and_mesh_source_sha256": "7de460328f99f141ddcf6d2d28d622e5f657128e2c69a509d835a5299d9b271e",
   "housing_geometry_and_placement_preserved_byte_for_byte": true,

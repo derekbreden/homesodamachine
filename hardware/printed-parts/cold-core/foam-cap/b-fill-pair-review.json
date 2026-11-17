@@ -3205,7 +3205,7 @@
       "json_pointer": "/J2_OUT3_pump_correction",
       "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
     },
-    "source_commit": "1f0715378",
+    "source_commit": "4242c9c04",
     "brep_sha256": "55dea3368a238575329e36df1092ae21ba5291a1d548a6611f2f5fbfd1c266a6",
     "scope": "The corrected guide portion is at positiveX5..40/Y274..305/Z274..308. All B-fill changed subjects lie at negativeX<=-15, and this lead retains its PCB aft crossing at negativeX. The prior local B-fill reading applies to the unchanged portion; the changed portion is outside the named delta bounds. No additional native neighbor replay.",
     "actual_wire_binding_scope": "The public wire receipt binds98 curves/113 bodies to the718e42 appliance and corresponding standalone wire export. This local link preserves that artifact scope; subsequent subtractive cup cleanup does not constitute a whole-scene replay."

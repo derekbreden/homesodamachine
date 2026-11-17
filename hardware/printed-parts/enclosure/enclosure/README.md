@@ -136,7 +136,7 @@ that rises toward a free face levels off one wall short of it. Every face betwee
 keeps a running fit, measured square to the face.
 
 The screws pass through printed holes, the selected
-[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json).
+[M5 sample fit](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json).
 Long passages may require turning the screw before the insert engages. Each insert and
 the manufacturer's minimum stock round it, about the axis, fit
 inside the side band. The lower axes stand in from the exterior,
@@ -611,7 +611,7 @@ two figures move OPPOSITE ways: the jamb stands half a slot off the groove's cen
 half-ellipse where the groove is shallower, so the flank behind a jamb is
  rather than the 4.8 under the groove's own floor — a wider slot never
 thins the wall and only ever thins the mullion.
-The coupon at `c14bb2fff` printed this scheme beside the ceiling slot and a full-groove-width slot
+The coupon at `1aa6b47c8` printed this scheme beside the ceiling slot and a full-groove-width slot
 down alternate grooves, on a section of this same flank at this same pitch.
 
 **Every groove, and the stations are the field's own.** `vent_grooves` walks `flute_centres` and
@@ -831,7 +831,7 @@ ordinary layer schedule. Mating planes keep their required dimensions.
 Use a 0.20 mm first bed layer, six walls locally through the expanding band,
 and the saved wall-first order, speeds and 15% overlap. Keep support contacts off
 those transitions. **Inward/top show rounds retain 0.08 mm**. The
-[carrier physical record](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) includes its
+[carrier physical record](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json) includes its
 complete top R6 and qualifies the chamfer/taper's surface on that article; sliding fit and the other parts' physical
 surfaces remain separate checks. Each fresh slice must verify first/second-layer
 bead overlap and absence of support contacts on the show transitions, including
@@ -871,13 +871,13 @@ reads an exported Bambu G-code or sliced archive directly, or refreshes only the
 temporary copy of the named production project before slicing it:
 
 ```sh
-git show 366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+git show 0a171e777348bf368f97559c722d11fe5fef9ffb:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
   > /tmp/enclosure-back-top-petgf.3mf
 tools/hsm/target/release/support-audit \
   --piece enclosure-back-top --slice-current \
   --model hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl \
   --profile /tmp/enclosure-back-top-petgf.3mf \
-  --profile-label git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
+  --profile-label git:0a171e777348bf368f97559c722d11fe5fef9ffb:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf \
   --json-out hardware/printed-parts/enclosure/enclosure/enclosure-back-top.support-audit.json
 ```
 
@@ -896,9 +896,9 @@ four Y-seam hosts. Pump, valve, glass-seat, wing and cleanout stock keep their
 separate native comparisons.
 
 The 3MF snapshots are evidence inputs in Git history: four at
-`aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`, the cap's crown-down project at
-`b4e181bee752bebaddc24d5e620fd7f8144129bd`, and back-top's ceiling-down project at
-`366d54ba040ecc7f1465c200e63e52410ffc0d4c`. The retained October 25 Mark1 cap,
+`41b9062ec23befab0f355ed18676dd2b1b29c09f`, the cap's crown-down project at
+`38850c02d34402ce660a6496cafef07df0ef1ce2`, and back-top's ceiling-down project at
+`0a171e777348bf368f97559c722d11fe5fef9ffb`. The retained October 25 Mark1 cap,
 front-top and front-bottom slices identify STLs `fa10132c600a`, `317721279647` and
 `1a1c2762f71e`, recipe `45c16e8c8517`; the Mark2 back-bottom slice identifies
 STL `a967b77ebfbc`.
@@ -1134,7 +1134,7 @@ features add no separate printed part or fastener. Reservoir A's fore pair seats
 in two integral C2 clips on the cold-core lid at 13.5 mm centre spacing;
 body-retaining ties keep their existing jobs.
 
-The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/2f2d9c94a1c3fbf007dfa1bd7e93095197079895/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 accepts the C2 6.35 mm bore for present use and the 16 mm-span 4P ribbon clip's
 fit and qualitative retention. The 4 mm tube sections, DC-1 pair seat and V-K
 single-wire seat remain provisional. The coupon result does not establish the

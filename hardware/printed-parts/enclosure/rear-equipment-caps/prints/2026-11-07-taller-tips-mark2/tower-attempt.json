@@ -1,6 +1,6 @@
 {
   "purpose": "Retain the taller-lead-in regulator comparison print and its physical-review state.",
-  "source_revision": "527dcdda5a636afb632042df98cb34e52d6251f1",
+  "source_revision": "e12698e0e28d08518e356f46c39c1b86ff20e200",
   "recipe": "regulator-entry-comparison",
   "printer": "Mark2",
   "printer_task_id": "1418621811",

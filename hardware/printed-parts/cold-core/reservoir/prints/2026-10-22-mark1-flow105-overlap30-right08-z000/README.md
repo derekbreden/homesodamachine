@@ -69,4 +69,4 @@ values before the 10 °C increase. This is a planning note: Derek reports the
 printer is busy with other work and filament is not loaded. The submitted
 recipe and its one-hour water-hold result remain unchanged.
 
-The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/prepare_launch.py) selects the reviewed plate and preserves its native G-code.
+The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/prepare_launch.py) selects the reviewed plate and preserves its native G-code.

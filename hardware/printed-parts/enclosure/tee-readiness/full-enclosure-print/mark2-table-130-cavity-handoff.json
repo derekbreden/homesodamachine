@@ -13,7 +13,7 @@
   "launch_authority": {
     "record": "hardware/printed-parts/fixtures/fake-countertop/print-jobs.json",
     "job_id": "2026-09-22-fake-countertop-black-z004-mark2-130-cavity",
-    "commit": "58348df25"
+    "commit": "f7356fe2d"
   },
   "reported_start": {
     "printer": "Mark2",

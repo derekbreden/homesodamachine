@@ -1,6 +1,6 @@
 {
-  "source_commit": "5bd8fade17aef625d097cc0313dbe13573fa4445",
-  "pointer_commit": "8e9ef2d34e0579419e7c27888cc0e22ee13ec391",
+  "source_commit": "0a6fed178cc9a8aa126be78d4d2aac8e5570ba75",
+  "pointer_commit": "d2941889acb84eb1d1af7df3f0c2c088f18d9da4",
   "appliance_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
   "live_viewer_native_source_sha256": "d073f62616bef15232d55ecdb8b1f843cf118d917750f90408eeb6a380428189",
   "live_viewer_matches_published_object": true,

@@ -64,4 +64,4 @@ attributed to those exact unchanged components. `prior-evidence/` retains their
 reports and hashes. Whole-pump timing measurements retain their original STEP
 identity and are historical; they are not current performance claims.
 
-The [common-foot measurement and construction programs](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/common-foot) are archived in Git.
+The [common-foot measurement and construction programs](https://github.com/derekbreden/homesodamachine/tree/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/reference/g-ganen-pump/common-foot) are archived in Git.

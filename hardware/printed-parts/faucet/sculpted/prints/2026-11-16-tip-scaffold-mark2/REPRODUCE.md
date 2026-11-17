@@ -1,13 +1,13 @@
 # Prepare the Mark2 plate with the tip's shoulder on a scaffold and roof
 
 The plate is the Sculpted product plate of commit
-[`6b77eba36`](https://github.com/derekbreden/homesodamachine/tree/6b77eba364d6ff4c80d3e115af3ca3a7493f8dd1).
+[`bc96e330e`](https://github.com/derekbreden/homesodamachine/tree/bc96e330e272af0e36cf4ca1bcec54eb2d0ff0e8).
 Its meshes are the build's own outputs at that commit; the product report there,
 `hardware/printed-parts/faucet/faucet-petgf.print.json`, names each mesh's sha256, and the
 [editable project](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/sculpted-faucet-tip-scaffold-black-mark2.3mf) carries them.
 
 ```sh
-git checkout 6b77eba364d6ff4c80d3e115af3ca3a7493f8dd1
+git checkout bc96e330e272af0e36cf4ca1bcec54eb2d0ff0e8
 tools/run -- hsm-print-build --
 cargo_bin="$("$(command -v rustup || printf %s /opt/homebrew/bin/rustup)" which cargo)"
 tools/run -- "$cargo_bin" build --release --locked --offline -j 2 \

@@ -136,8 +136,8 @@ surfaces.
 
 ## Recorded readings
 
-The faucet's [shared-reader profiles and CSVs](https://github.com/derekbreden/homesodamachine/tree/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/shared-reader)
+The faucet's [shared-reader profiles and CSVs](https://github.com/derekbreden/homesodamachine/tree/e8cd72a084a5fe09cfeb5b428fb3c90e190c7d0c/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/shared-reader)
 retain the complete-height loop readings, selected-part paint checks and numerical scarf
-connectors. The pump elbow's [emitted-command record](https://github.com/derekbreden/homesodamachine/blob/f0d1e837bdaa383ecb435e62b88c9e1d6d1cf180/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
+connectors. The pump elbow's [emitted-command record](https://github.com/derekbreden/homesodamachine/blob/e8cd72a084a5fe09cfeb5b428fb3c90e190c7d0c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/emitted-command-review.json)
 binds its reviewed slice and speed reader. Use these records for a focused manual comparison
 when changing the decoder.

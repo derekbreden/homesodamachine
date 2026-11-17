@@ -32,5 +32,5 @@ release, vibration, load capacity, creep and lifetime remain unqualified.
 and [`baseline-hardware.json`](baseline-hardware.json) identify their own
 archived articles, source hashes, member lists and print processes. Their
 results apply to those inputs. The manual analytic reader,
-[`review.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/pump-snap-review/review.py),
+[`review.py`](https://github.com/derekbreden/homesodamachine/blob/ed7926a69ba5599f295cba8584c717687608290b/hardware/printed-parts/enclosure/enclosure/pump-snap-review/review.py),
 is in Git history.

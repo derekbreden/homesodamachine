@@ -57,7 +57,7 @@
   "estimate_including_parked_waits_seconds": 2788,
   "predicted_filament_g": 8.25,
   "emitted_z_trim_mm": 0.16,
-  "cad_source_commit": "c8d293e64",
+  "cad_source_commit": "dcf875aa9",
   "editable_project_sha256": "70c6ce74af63900630e039e38e4a9ef15a7ced71dbe6364487d400801daab239",
   "measured_fit": {
     "additional_wing_reach_mm": 0.5,

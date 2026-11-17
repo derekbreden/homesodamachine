@@ -1,6 +1,6 @@
 {
   "purpose": "Retain the ceiling-down regulator comparison print, its emitted bridge paths and physical-review state.",
-  "source_base_revision": "7f035feee5dfa2519bf9c2eb3ca817d930c5df35",
+  "source_base_revision": "45d6f18b6a67dafcf5cf749f1ef6247ae14dac30",
   "recipe": "regulator-entry-comparison",
   "printer": "Mark2",
   "status": "physical longer-tip geometry approved",

@@ -31,6 +31,6 @@
   "passing_branch_proximity_candidates": 7,
   "minimum_nominal_air_to_passing_branch_mm": 0.3080000000000034,
   "passing_branch_note": "These are continuing tree branches, with positive air below the curve; they are not support interfaces. The minimum nominal bead-envelope separation is 0.308 mm.",
-  "geometry_integration_commit": "c0be387fe",
+  "geometry_integration_commit": "062361828",
   "review_basis": "Actual labelled and unlabelled support toolpaths; production geometry and accepted receiver slot bridge prints. Full-bottom physical removal remains to be checked after printing."
 }

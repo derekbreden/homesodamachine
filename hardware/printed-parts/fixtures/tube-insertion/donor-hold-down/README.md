@@ -107,7 +107,7 @@ The STEP files are `donor-hold-down.step` in manufacturing orientation
 and `donor-hold-down-fit.step` for the cropped contact view. The slicer
 mesh is [`donor-hold-down-print.stl`](donor-hold-down-print.stl).
 
-The issued payload's [producer source is in Git](https://github.com/derekbreden/homesodamachine/blob/12871f44bf19cebb9563d6b012475cde66e9e9c8/hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor_hold_down.py).
+The issued payload's [producer source is in Git](https://github.com/derekbreden/homesodamachine/blob/89d159e37373328e6f582686d9f7d851f023aedc/hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor_hold_down.py).
 The [native builder](donor_hold_down.rs) regenerates the pad and contact view
 from the fixture and frozen donor datums.
 Generate and slice explicitly from the repository root:

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Wire-only graft on the fresh published B-fill/bank physical scene. All physical STEP bytes and viewer arrays retained; no older cap, lid, parent or GLB is installed.",
-  "incoming_catalog_commit": "92c2584ca",
+  "incoming_catalog_commit": "b9622e2a2",
   "incoming_native_sha256": "bd0de9a72df941187537513ab565518b6b18bef75ad7e0a44304095eab8727f5",
   "incoming_physical_sha256": "dec1c80236221b0975e892770df3338844a69d301cd4d0252fb7fe1434164d62",
   "retained_physical_step_bytes_identical": true,

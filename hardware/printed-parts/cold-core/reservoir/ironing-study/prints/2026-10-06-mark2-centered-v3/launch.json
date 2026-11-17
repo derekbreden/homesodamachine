@@ -21,7 +21,7 @@
     "resliced_for_launch": true,
     "prior_launch_record": "../2026-10-06-mark2/launch.json",
     "prior_placement_observation": "../2026-10-06-mark2/physical-result.json",
-    "repository_snapshot_commit": "464f0465c188e804c3d1acc9797f0971092c55b5"
+    "repository_snapshot_commit": "c1a2f5d79b4a826873cdefc1fb86920e870d4282"
   },
   "submission": {
     "application": "Bambu Connect",

@@ -3,10 +3,10 @@
 [`numbers/pump.rs`](/hardware/printed-parts/enclosure/enclosure/numbers/pump.rs) holds the
 case-derived locating profiles used at both pump stations by front-top's integral upper
 inverse and `enclosure-pump-retainer`. They are not a separate printed part.
-[`pump_case.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/pump-tray/pump_case.py) supplies the fitted
+[`pump_case.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/pump-tray/pump_case.py) supplies the fitted
 head profiles, the boss's octagonal bore and the motor-can opening. The production
 construction is in
-[`_fixed_pump_mount.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py).
+[`_fixed_pump_mount.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py).
 
 The flavour manifold carries KPHM600-SW3B17 pumps.
 

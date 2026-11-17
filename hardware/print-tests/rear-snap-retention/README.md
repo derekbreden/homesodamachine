@@ -13,7 +13,7 @@ chain, Pisco CO2 regulator, water regulator and Digiten flow meter. Remove the
 pump's four rubber foot assemblies before fitting its rigid casing.
 
 The common joint uses the accepted funnel v4 dimensions from source
-`29808fba7830848e59cbb740c11ff1b6d0b162fa`: 2.6 mm of flat hook overlap,
+`91b0daca80237c811765821769f9283f88a52bc8`: 2.6 mm of flat hook overlap,
 1.3 mm spring leaves, 2.0 mm flat hooks and at least 12.49 mm of free leaf.
 The specific leaf section is the thinner flexure exception; ordinary receiver
 walls, roof stock and end shoulders retain the nominal 3 mm section.
@@ -70,15 +70,15 @@ shared localized cooling policy. Full-bead margins are 79.961 mm and
 [print-jobs.json](print-jobs.json) binds the reviewed native archives and
 launch records. Mark1 accepted task **1398257516**; Mark2 accepted task
 **1398266343**, 215 seconds later. The [progress](prints/progress.json) records
-both task IDs running without print errors or HMS alerts. [`build.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/rear-snap-retention/build.py) exports the samples; [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/print-tests/rear-snap-retention/prepare.py) (in Git at `f5e8bed091`) prepares and
-reviews the two plates. Both run through [`python3 tools/run.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/run.py); the native
+both task IDs running without print errors or HMS alerts. [`build.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/print-tests/rear-snap-retention/build.py) exports the samples; [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf7/hardware/print-tests/rear-snap-retention/prepare.py) (in Git at `d52c60fcf7`) prepares and
+reviews the two plates. Both run through [`python3 tools/run.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/tools/run.py); the native
 export also takes `--cad`.
 
 The [replacement cap job](box-cap-print.json) is prepared for Mark2 at
 1 h 32 min and 71.07 g, with a 126.557 mm native bead margin. The emitted
 first and second layers overlap across 95.4% of the second-layer bead area.
 Its constant end-down profile generates no support roads under the retained
-Tree(auto)/Default process. [`prepare.py --plate box`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed0919827aec6fba620a4b8f15010b70d3d/hardware/print-tests/rear-snap-retention/prepare.py) prepares this cap without
+Tree(auto)/Default process. [`prepare.py --plate box`](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf71799f8829d2fbce8c8e1bad250d813/hardware/print-tests/rear-snap-retention/prepare.py) prepares this cap without
 replacing the two running plates' records. It has not been submitted.
 
 ## Bench fit
@@ -95,4 +95,4 @@ and the head underside remains outside the bearing surfaces. Record rocking,
 axial play, insertion/release force, whitening and residual leaf bend. Running
 pump vibration and repeated-cycle endurance require their physical tests.
 
-The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/print-tests/rear-snap-retention/build.py) retains the source revision for these physical artifacts.
+The [recorded preparation source](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/print-tests/rear-snap-retention/build.py) retains the source revision for these physical artifacts.

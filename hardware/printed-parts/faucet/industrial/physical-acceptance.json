@@ -79,7 +79,7 @@
     "supports": "Tree (auto), saved Default style and automatic sections",
     "probing_clump_detection": false
   },
-  "source_commit": "a60c04aec1a31244b0411224624ef7928147bf30",
+  "source_commit": "d15735fac154136c983d19de8e8a7d086ae5d6e3",
   "tag": "faucet-industrial-shipping-2026-10-10",
   "observations": {
     "overall_complete_faucet": "Looks good; accepted for shipping.",

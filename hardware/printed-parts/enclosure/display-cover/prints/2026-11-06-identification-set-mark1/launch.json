@@ -134,7 +134,7 @@
   },
   "viewer_url": "https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20status-plate%0Aview%3A%20az%3D-90%20el%3D60",
   "publication": {
-    "pointer_commit": "393786f4d946e0614e242a852f0535a83037b5a8",
+    "pointer_commit": "d8e672539ab755e1a74811ebb5920be20442909f",
     "model_payload_sha256": "71c3d6867f9915512ad57f631790fe13c75f22b4ccfce1e2db860f13d21c26f7",
     "verified_in_live_viewer": true
   }

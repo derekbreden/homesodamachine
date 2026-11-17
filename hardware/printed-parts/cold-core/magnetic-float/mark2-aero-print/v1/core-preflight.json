@@ -128,7 +128,7 @@
     "filament_type": "ASA-AERO",
     "filament_id": "GFB02"
   },
-  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_commit": "08a570ea9259bb64ecccd81760762dc72587acbc",
   "source_snapshot": {
     "hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py": "7d427f044916de750ba9e3cf93ca5b0445bac988d3dc555900f47af1342c4355",
     "hardware/printed-parts/cold-core/magnetic-float/prepare_print.py": "b42d0cedae4090451937a22642e01aa62be4352f9960136f140b47c376b9db39",

@@ -11,7 +11,7 @@ signal connections.
 payload, source files, declared placement box and saved print settings.
 The compressed snapshots in `inputs/` are committed with this package. Restoring
 them uses those bytes and imports no active enclosure, faucet or placement
-generator. The CAD source revision is `b20e7d208`; the source archive retains
+generator. The CAD source revision is `86d60ff64`; the source archive retains
 the exact source files and box named by the bound generation record for inspection.
 
 ## Fit evidence
@@ -38,7 +38,7 @@ acceptance.
 
 ## Article sources
 
-The [materialization source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/materialize.py) is archived in Git. The saved exports identify this prototype article.
+The [materialization source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/materialize.py) is archived in Git. The saved exports identify this prototype article.
 
 **Slice the STL.** It includes the fluted print surface; the STEP is the native
 construction body. The restored part is in machine coordinates. Print it on
@@ -57,4 +57,4 @@ This mesh needs a fresh native slice and emitted support/solid-host review
 before submission. The back-top v9 review binds a different mesh. This
 package submits no printer job.
 
-The [fit comparison source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/verify_fit.py) is archived in Git. Its bound report remains with the identified prototype.
+The [fit comparison source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/verify_fit.py) is archived in Git. Its bound report remains with the identified prototype.

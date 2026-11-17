@@ -55,7 +55,7 @@ retained. Adhesive application is unreported. Cool each part and plate to
 
 This is physical trial **v2**, using native archive revision **v3**. Geometry
 and orientation are bound to export commit
-`f3cefbe360b7a8019741d177868d1e6c6770b93f`; frozen STL hashes are retained in
+`08a570ea9259bb64ecccd81760762dc72587acbc`; frozen STL hashes are retained in
 the [preflight](pair-preflight.json). Both meshes remain byte-identical in the
 native input, and embedded vertices agree with the frozen STLs to less than
 0.000001 mm. Their centres are (125,145) and (175,145) mm, with the original
@@ -70,7 +70,7 @@ was inspected. Printed dimensions, density and fit remain unreported.
 - [Preflight and frozen archive/G-code hashes](pair-preflight.json)
 - [Launch, one-Send guard and printer acceptance](pair-mark2-launch.json)
 - [Queue](queue.json)
-- [Preparation and per-object emitted-path review](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v2/prepare.py) (in Git at `306268f870`)
+- [Preparation and per-object emitted-path review](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v2/prepare.py) (in Git at `15bf03ec45`)
 - [First trial's physical adhesion and release report](../v1/physical-observations.json)
 - [Material recipe and density assumptions](../../asa-aero-research.md)
 

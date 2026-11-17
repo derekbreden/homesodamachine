@@ -65,7 +65,7 @@
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "snapshot",
           "sha256": "e459caa7c367e4d40c6464b978d46a0ce66ddec784d0d9caed675a4262a6654b",
-          "commit": "91a09de7d60f1506a61fede15b560d35e8684582",
+          "commit": "0d2aec1c877c7b0370f3a92c6b208248a93fa3db",
           "taken": "2026-10-29T03:50:19.479Z",
           "published": true
         },
@@ -73,7 +73,7 @@
           "payload": "printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
           "from": "tree",
           "sha256": "44409b0affdae01ce7e43e762068a77f06c29c873beaec326ecea5709ac8febd",
-          "commit": "64ecd23ffc91b4b3118e10a65d89add2ea6fff90",
+          "commit": "f2e77eb7b7ffd449878ac931ab1c1f7dd273a028",
           "published": true
         }
       },

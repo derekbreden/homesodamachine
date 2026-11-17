@@ -1,6 +1,6 @@
 {
   "check": "Postpublication mesh lint of both consumer mounting plates and countertop gaskets",
-  "published_geometry_commit": "b214e4ca1998b2b728e5b5f54af7446c716f4df2",
+  "published_geometry_commit": "442f4f8071cea8b2ce475b088fb9cf8d728a86a8",
   "publication_live_confirmation": {
     "report": "hardware/printed-parts/faucet/asse-vent-seals/rear-bundle-publication-check.json",
     "report_sha256": "9ca06e3aed3a90fca5cf54975bc62769d46c655e497969abceadab51bb45aaea",

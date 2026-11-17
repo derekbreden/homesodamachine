@@ -48,7 +48,7 @@ tray 0, mapped to the right nozzle; normal Send options are On/On/Auto/Auto.
 
 This is physical trial **v4**, native archive revision **v5**. Geometry and
 orientation remain bound to export commit
-`f3cefbe360b7a8019741d177868d1e6c6770b93f`, with core SHA `63d12cbb…` and
+`08a570ea9259bb64ecccd81760762dc72587acbc`, with core SHA `63d12cbb…` and
 insert SHA `c69cdc55…`. Full hashes and source verification are in the preflight.
 
 The entire program after the machine-start block is byte-identical to the
@@ -65,7 +65,7 @@ address startup adhesion; they do not establish printed density, fit or buoyancy
 The parts and plate retain the 35 °C cooling threshold before release.
 
 - [Preflight and priming-strip coordinate review](pair-preflight.json)
-- [Preparation and exact part-program comparison](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v4/prepare.py) (in Git at `f5e8bed091`)
+- [Preparation and exact part-program comparison](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf7/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v4/prepare.py) (in Git at `d52c60fcf7`)
 - [Queue](queue.json)
 - [Derek's physical startup report](../v3/physical-observations.json)
 

@@ -40,4 +40,4 @@ records the module placement and installed-wire fit scope. The
 [conditional electrical Plan B](/future/carbonation-plan-b.md) depends on
 measured current and voltage under the intended load schedule.
 
-The source derivations are preserved at their recorded revision: [meanwell_irm90.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/meanwell-irm90/meanwell_irm90.py).
+The source derivations are preserved at their recorded revision: [meanwell_irm90.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/meanwell-irm90/meanwell_irm90.py).

@@ -7,14 +7,14 @@
   "measurement_scope": "Each sample starts at the authored JSON edit with an already-open reference browser on the live website. The normal selective print build includes scheduler waits, geometry generation and publication. This is an input-edit benchmark after implementation, not a design-request timing sample.",
   "draw_evidence_scope": "The mounted geometry matches the expected immutable assets and placements in an eligible completed WebGL draw. Occlusion, unobstructed pixels and the user device paint are not established.",
   "implementation_commits": [
-    "c8f90bc7d57c5a051c52f43fb86516503716cc1a",
-    "9105eadf7",
-    "60dc46ba2",
-    "08d4223ac"
+    "899e05283528383da308dab2c49c190c2d006064",
+    "7a4527c1b",
+    "bd902ee59",
+    "9549be923"
   ],
   "samples": {
     "placement_and_pocket_fit": {
-      "source_commit": "352963ecc1ed9e48abdf8d4f397f2f6c9a653cc3",
+      "source_commit": "7660941acdd7fec89f24dab52511a07cfa0df550",
       "edit_at": "2026-11-09T04:38:09.919357+00:00",
       "first_live_draw_at": "2026-11-09T04:38:29.410Z",
       "edit_to_first_live_draw_seconds": 19.490643,
@@ -172,7 +172,7 @@
       }
     },
     "two_wire_routes": {
-      "source_commit": "08d4223ac7e7c7713745d666fcb6f67bcce618a6",
+      "source_commit": "9549be9233391ebd44a2e9cc60ee3e21e367eafc",
       "edit_at": "2026-11-09T04:36:16.972604+00:00",
       "first_live_draw_at": "2026-11-09T04:36:42.972Z",
       "edit_to_first_live_draw_seconds": 25.999396,

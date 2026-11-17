@@ -850,7 +850,7 @@
   "source_step_sha256": "b00670bc0bab08d82a86c34755549eb3bf08dbe5beed5abc986cf04d3da96707",
   "source_stl": "hardware/printed-parts/faucet/finish-coupons/scarf-swatches-v1/faucet-neck-swatch.stl",
   "source_stl_sha256": "bae74f64710d7ddee182f2888c4740baeee88e696b7ee58798e29c8098733adf",
-  "source_geometry_pointer_commit": "5a9863696",
+  "source_geometry_pointer_commit": "11a1e2766",
   "specimens": [
     {
       "id": "A",

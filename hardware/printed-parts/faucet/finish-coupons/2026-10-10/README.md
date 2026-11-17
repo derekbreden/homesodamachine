@@ -35,7 +35,7 @@ faucet archive at the same print height. B halves that command; C raises it to
 at least 70%. The treatment is confined to model deposition at Z13.40–29.00 mm.
 Support deposition, brims and the other heights retain native cooling.
 Native motion, extrusion, feedrates, heater commands and other fans are unchanged.
-[finish.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/finish-coupons/2026-10-10/finish.py) applies these explicit fan commands and updates the archive checksum.
+[finish.py](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/faucet/finish-coupons/2026-10-10/finish.py) applies these explicit fan commands and updates the archive checksum.
 Re-slicing the editable project alone does not reproduce this comparison.
 
 The neck specimens are cut at parent print Z82–120 mm, with a print-horizontal

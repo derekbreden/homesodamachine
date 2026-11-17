@@ -1,6 +1,6 @@
 {
   "scope": "Manual post-publication review of the default top-ranked back-top lint findings. Local native symmetric differences establish whether these reported regions changed; they do not dismiss a reported defect.",
-  "baseline_pointer_commit": "8a8083b1055d4d158d92320eab32987e5a201622",
+  "baseline_pointer_commit": "341cca099dd17ec3289dd2079a880c73d1ddfe07",
   "baseline_step_sha256": "88291742a66090e21e19cd92d898e75d5ddb9dbeb21abbaf8a88ae8f413d63fd",
   "current_step_sha256": "63ec80861a5abf44802da9bdb39ed0695613dde9567036d7b35ad166c76fc6c4",
   "regions": [
@@ -271,7 +271,7 @@
   },
   "live_delivery": {
     "verified_utc": "2026-10-17T17:48:24.133593+00:00",
-    "pointer_commit": "571fd396754b38b3cf1d7aaee11d68de1da8c926",
+    "pointer_commit": "ecb8873c2d6a88d485a06246984175ca1bf6819f",
     "scope": "Live STEP, viewer mesh and STL downloads match the local pointer hashes after gzip decoding.",
     "verified_members": [
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",

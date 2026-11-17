@@ -1,7 +1,7 @@
 {
   "purpose": "Prepare the actual failed faucet lower curve with explicit Tree Slim and unchanged D contact settings.",
   "status": "prepared-unprinted",
-  "source_project": "https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf",
+  "source_project": "https://github.com/derekbreden/homesodamachine/blob/7b4d4c7d87dda9db021665b2e7c7e255d996a39d/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf",
   "source_project_sha256": "fb79895469e0098f5ca1fca710075df9bd49c7e2cf1db621b181b75bb9debae7",
   "editable_project": "faucet-slim.3mf",
   "editable_project_sha256": "9ac56ae546fc4ae997874802616453843297e9772aa9e40e1c9999404c85b136",

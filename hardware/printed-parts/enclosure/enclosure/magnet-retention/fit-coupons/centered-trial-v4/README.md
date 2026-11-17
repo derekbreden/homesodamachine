@@ -13,7 +13,7 @@ Send per job, printer-specific trim and shared-circuit start spacing.
 C0 and V70 repeat on both printers. The remaining variants cover all sixteen
 X/Y magnet combinations and five progressively tighter valve sockets.
 Read the [magnet fit procedure](../README.md) and
-[valve fit procedure](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
+[valve fit procedure](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/README.md)
 after cooling. Report the preferred label and printer. These tests select a
 preferred hand fit; roof quality, retention force and lifetime remain
 unqualified.
@@ -25,8 +25,8 @@ geometry, labels, native paths, ordinary layers and repeated controls. The
 first layers are connected in the emitted paths; this does not establish
 visual bed adhesion.
 
-The [archive review source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py)
-and [streamed-road reader](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py)
+The [archive review source](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/review.py)
+and [streamed-road reader](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/read_roads.py)
 define the checks recorded for these frozen jobs. Current full-part preparation
 and review use the [native enclosure workflow](../../../../trial-preparation/README.md).
 

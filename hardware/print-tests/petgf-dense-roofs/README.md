@@ -87,5 +87,5 @@ ln -s ../../../../hardware/print-tests/petgf-dense-roofs/coupons.rs tools/hsm/sa
 tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml -p hsm-sandbox --example dense-roofs -- hardware/print-tests/petgf-dense-roofs/parts
 ```
 
-The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/prepare.py) is archived in Git. The accepted archive and launch receipt live in
+The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-dense-roofs/prepare.py) is archived in Git. The accepted archive and launch receipt live in
 [`mark1/`](mark1/). The editable project retains the article’s process and object settings.

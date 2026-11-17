@@ -6,7 +6,7 @@
     "gcode_sha256": "e21042ff9921564c5d109bd05d46509497a8bba9da224e08600a2e8a3f9f82d3",
     "gcode_md5": "e1b710752c49af72a5378da8f0b2d3aa"
   },
-  "prepared_from_commit": "47ab7d77d9e49efeaabb429c454e58c35ca09e8a",
+  "prepared_from_commit": "b806556a904ec8f0402c9b95a1a486a47a5e58b6",
   "planner_motion_seconds": 25246.9,
   "printed_plate_motion_seconds": 26920.7,
   "printer_layers": 1282,

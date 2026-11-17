@@ -69,7 +69,7 @@
           "payload": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step.mesh",
           "from": "snapshot",
           "sha256": "c7bbc59973395db2ffb8fdb7a7d46565797dd768dc2bb27eb8554efe296b46d5",
-          "commit": "e077fdaff991107cc78bdbdc0178f87d5b8dda6d",
+          "commit": "38505b9976bf5eb528e23a32fcf8d3bd4efc1316",
           "taken": "2026-11-07T22:29:28.482Z",
           "published": true
         },
@@ -77,7 +77,7 @@
           "payload": "printed-parts/enclosure/rear-equipment-caps/entry-study/regulator-snap-cap-entry.step.mesh",
           "from": "tree",
           "sha256": "a0651d4c9666cba016f03401fc5ea4d1cf549c0264152b217b2c7733c56befa8",
-          "commit": "e64b598607703b6ea7b96064a94c8ccd6b44a3dc",
+          "commit": "575c4462042b4599539eacd5309527f8d8b961a7",
           "published": true
         }
       },

@@ -1,6 +1,6 @@
 {
   "scope": "Only water-check lid geometry and its retained parent/scene surfaces published. Physical check-valve fit remains unmeasured.",
-  "source_commit": "1d482095e104ec73fe3fa9bdecd12c9cf8c86e43",
+  "source_commit": "2ae479688603a849f1ab3a33afc5420b42c3421d",
   "changed_artifacts": {
     "hardware/assembly/scenes/glb/back-half.glb": "5df02b0f4c04f4dfbd0306e94f2431b5e06a632464b6f44e341ef972129948a4",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "dd11bf6eb2135cca2e61ac2076c0fe76ba210d1418e6f2ae90085755c8aa4ca1",

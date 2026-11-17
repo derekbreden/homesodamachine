@@ -1,7 +1,7 @@
 # Above-core enclosure integration
 
 The production arrangement is defined by [above-core.json](../../manifold-layout/above-core.json),
-[rear_plumbing.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/rear_plumbing.py) and
+[rear_plumbing.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/rear_plumbing.py) and
 [the assembly procedure](../../manifold-layout/above-core.md).
 Back-top carries the threaded ASSE header, Pisco/check group, meter,
 regulator, V-A/V-K, ceiling PSU and west-wall relays. The pump, PCB and V-B
@@ -65,13 +65,13 @@ V-B-to-Y-B return; lift 6 mm, move 10 mm east, then lift another 20 mm.
 Reservoir B's draw fitting stays installed. The nominal housing sweeps are
 clear with those prerequisites. Its current binding retains those housing
 bounds, reads the changed printed stock natively and checks the changed tube
-candidates against the complete stage boxes. [connector_service.py](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/mechanical-qualification/enclosure-above-core/connector_service.py)
+candidates against the complete stage boxes. [connector_service.py](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/mechanical-qualification/enclosure-above-core/connector_service.py)
 reproduces the recorded continuous stage bounds without generating a review.
 
-The [installed wiring binding](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/wiring/installed/above-core-review/installed-wiring-binding.json)
-and [routing review](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/wiring/installed/routing-review.json) carry their own
+The [installed wiring binding](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/wiring/installed/above-core-review/installed-wiring-binding.json)
+and [routing review](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/wiring/installed/routing-review.json) carry their own
 artifact hashes. Wire obstacles are larger bodies; other wires and tubes are
-excluded. The [enclosure routing review](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/wiring/installed/above-core-review/routing-enclosure-review.json)
+excluded. The [enclosure routing review](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/wiring/installed/above-core-review/routing-enclosure-review.json)
 records native readings of its named mesh witnesses.
 
 The completed assembly includes all 100 conductors. The neutral WAGO stands

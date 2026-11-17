@@ -7,7 +7,7 @@ The current recipe and result are in [watertight-petg.md](watertight-petg.md) an
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
 
-## PETG print attempt 1 (2026-05-22, settings per history-only `git:8c9128a94:hardware/printed-parts/cold-core/reservoir/reservoir-left-body-and-cap.3mf`)
+## PETG print attempt 1 (2026-05-22, settings per history-only `git:d36fd3631:hardware/printed-parts/cold-core/reservoir/reservoir-left-body-and-cap.3mf`)
 
 SunTop PETG, left body and cap, 0.8 mm High Flow nozzle. The active Generic
 PETG slot carried `nozzle_temperature` **240 °C** (initial 240),
@@ -20,7 +20,7 @@ Normal cooling was 40–90%.
 The May 25 attempt-2 record reports that attempt 1 leaked. Its original
 settings and observations are retained in Git at the source above.
 
-## PETG print attempt 2 (2026-05-25, settings per history-only `git:f0b560736:hardware/printed-parts/cold-core/reservoir/reservoir-left-body-and-cap.3mf`)
+## PETG print attempt 2 (2026-05-25, settings per history-only `git:c34078a3a:hardware/printed-parts/cold-core/reservoir/reservoir-left-body-and-cap.3mf`)
 
 SunTop PETG, left body and cap, 0.6 mm nozzle. The active slot carried
 `nozzle_temperature` **255 °C** (initial 255), `layer_height` **0.30 mm**
@@ -32,7 +32,7 @@ requested 100 walls, 0.62 mm lines and 15% grid infill. Normal cooling was
 
 The record documents the print start and saved settings, without a water-hold outcome.
 
-## PETG print attempt 3 (2026-05-30, settings per history-only `git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## PETG print attempt 3 (2026-05-30, settings per history-only `git:fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 First print of the watertight recipe (developed on the water-test-cup coupon, which held water; the cup, its print log and its `.3mf` stand at the `archive-water-test-cup` tag) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
 
@@ -78,7 +78,7 @@ Derek said:
 
 First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. The reported fill-and-hold result passed; this was the first reservoir reported to hold water.
 
-## Saved project dated 2026-05-31 (settings per history-only `git:7ba87d399:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## Saved project dated 2026-05-31 (settings per history-only `git:d52cd4062:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 PETG Translucent preset, 0.6 mm nozzle, `layer_height` **0.18 mm**
 (initial 0.30), `nozzle_temperature` **245 °C** (initial 250), flow 0.97
@@ -90,7 +90,7 @@ used tree supports with a 0.18 mm top gap.
 This saved recipe differs from the May 30 water-holding recipe. No physical
 water-hold outcome is recorded for this saved project.
 
-## PETG print attempt 4 (2026-06-10, settings per history-only `git:7436a1c92:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## PETG print attempt 4 (2026-06-10, settings per history-only `git:5d410b70d:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 Full plate carrying both flavor reservoirs and both caps — four objects, four cut records. Bodies `reservoir-left.step` + `reservoir-right.step` placed mouth-up; caps `reservoir-cap-left.step` + `reservoir-cap-right.step` laid flat. Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1107 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
 
@@ -120,7 +120,7 @@ Watertight recipe (carried from attempt 3):
 
 ### Result — not yet recorded (slice committed 2026-06-10)
 
-## PETG print attempt 5 (2026-06-14, settings per history-only `git:8ace13398:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
+## PETG print attempt 5 (2026-06-14, settings per history-only `git:1e14bdae0:hardware/printed-parts/cold-core/reservoir/reservoir.3mf`)
 
 Full plate carrying both flavor reservoirs and both caps — four objects (`reservoir-left.step`, `reservoir-right.step`, `reservoir-cap-left.step`, `reservoir-cap-right.step`). Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1097 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
 
@@ -152,7 +152,7 @@ Watertight recipe (carried from attempt 4):
 
 ### Result — not yet recorded (slice committed 2026-06-14)
 
-## PETG seal trial prepared (2026-09-04, settings per history-only `git:67994c7efaed7589ff26db350b90eea089fbd3e8:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial.3mf`)
+## PETG seal trial prepared (2026-09-04, settings per history-only `git:2b8c90160ca8e58be5a094058d93efc415679f90:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial.3mf`)
 
 One September reference left reservoir body, mouth up, and matching left cap, exterior face down
 and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.
@@ -181,7 +181,7 @@ The [acceptance record](water-hold-acceptance.json) identifies the archive and
 G-code hashes. The reported water hold has no specified duration, temperature
 or fill height.
 
-## PETG 0.24 mm seal trial prepared (2026-09-04, settings per history-only `git:67994c7efaed7589ff26db350b90eea089fbd3e8:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`)
+## PETG 0.24 mm seal trial prepared (2026-09-04, settings per history-only `git:2b8c90160ca8e58be5a094058d93efc415679f90:hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf`)
 
 One September reference left reservoir body and matching left cap. Body mouth up; cap exterior
 face down and gasket rim up. H2C, 0.8 mm nozzle, PETG Translucent.

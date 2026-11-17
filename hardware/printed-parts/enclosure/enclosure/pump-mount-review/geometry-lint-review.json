@@ -3,7 +3,7 @@
   "recorded_utc": "2026-10-26T01:41:00+00:00",
   "scope": "Manual post-publication geometry-lint readings of the exact published part revisions. All seven classes ran once per piece revision; raw logs are retained without rerunning to apply later answer edits. These classifier rows do not establish physical print cleanup, fit, strength or lifetime.",
   "publication_binding": {
-    "source_commit": "b8cae0ae504a8cb5a678e5bcf53d8a1d66e2ec14",
+    "source_commit": "45b236371a92f4f509d592b168d8ba6f8e5e90e0",
     "executor_byte_verification": {
       "executor": "M5 agent, relayed and confirmed by root",
       "scope": "The executor confirmed six live payload downloads matched local bytes after this publication, including the front-top payload below, before the recorded final lint run.",
@@ -46,7 +46,7 @@
     {
       "revision": "initial-published-mount",
       "artifact_revision": "455cd05a/ea79019f",
-      "source_commit": "ae7a3a7b5b653f7dada9dd6f9e367a7aeee9c8bf",
+      "source_commit": "fc569a7eb5e2044a2c876fbe86f0ae0025bf9357",
       "tool_source_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
       "pieces": [
         {
@@ -106,7 +106,7 @@
     {
       "revision": "post-live-flatback-u",
       "artifact_revision": "38930496/bd394956",
-      "source_commit": "7c311ff2203af2c17996603e441460c0e2e0b0a4",
+      "source_commit": "648d1ddbf2f268f2fd8c4893e94f1aa9087d1921",
       "tool_source_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
       "pieces": [
         {
@@ -199,7 +199,7 @@
     {
       "revision": "frozen-published-main-7e676118",
       "revision_role": "Current final front-top; retainer remains the unchanged bd394956 revision already linted once.",
-      "source_commit_at_record": "066964bbe5cdb6a43501e5dcae02de4ea93edfcc",
+      "source_commit_at_record": "cc7460b9faa85e78f6662f6966ec38caf787903a",
       "tool_source_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
       "executor": "Root agent, after live hash confirmation.",
       "pieces": [
@@ -269,7 +269,7 @@
     {
       "revision": "published-main-6120cf94",
       "revision_role": "Current front-top, with the final upper M5 head-corner stock refinement. Retainer remains unchanged bd394956; no retainer rerun.",
-      "source_commit_at_publication": "b8cae0ae504a8cb5a678e5bcf53d8a1d66e2ec14",
+      "source_commit_at_publication": "45b236371a92f4f509d592b168d8ba6f8e5e90e0",
       "executor": "M5 agent; exact command, exit status, seven classifier passes, answer hash and post-publication order confirmed to root.",
       "confirmation_scope": "Root relayed the M5 executor confirmation. This pump review did not duplicate the lint run.",
       "pieces": [

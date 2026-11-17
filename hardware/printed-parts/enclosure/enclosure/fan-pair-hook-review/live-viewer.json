@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Live viewer object map and downloaded printed/native viewer payload bytes",
-  "pointer_commit": "f81fa80ea79a8964c72c14c05f3fe2d5e26a7d00",
+  "pointer_commit": "35e0ed55d54e6fa664923367653ceaa347039103",
   "passed": true,
   "checks": [
     {

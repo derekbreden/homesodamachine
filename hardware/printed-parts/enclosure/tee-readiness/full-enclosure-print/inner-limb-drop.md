@@ -33,7 +33,7 @@ current printable parts. The pump cartridge/cap equality uses the frozen canonic
 geometry in `fit-correction-baseline.zip` (in git at aab7f24fec).
 
 Reproduce without writing production outputs. The script this command runs
-is in Git at [`5d63329191`](https://github.com/derekbreden/homesodamachine/tree/5d633291918a02e34734ef15445158dcaa97d8c8):
+is in Git at [`ed7926a69b`](https://github.com/derekbreden/homesodamachine/tree/ed7926a69ba5599f295cba8584c717687608290b):
 
 ```sh
 HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python \

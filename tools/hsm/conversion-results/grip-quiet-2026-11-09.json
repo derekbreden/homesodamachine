@@ -1,7 +1,7 @@
 {
   "purpose": "This record compares fresh corbel exports and native slicing on a reserved host with the earlier busy-host request.",
   "started_at": "2026-11-09T20:54:05.670906+00:00",
-  "source_commit": "db3b5f2036bca7bb8c3ffa106a6d974a3b9b5fef",
+  "source_commit": "7a4362750325c5963508bfab147b3a2a8a27ee92",
   "host_before": {
     "swap": "vm.swapusage: total = 6144.00M  used = 5243.12M  free = 900.88M  (encrypted)",
     "memory": "The system has 8589934592 (524288 pages with a page size of 16384).\nSystem-wide memory free percentage: 23%",
