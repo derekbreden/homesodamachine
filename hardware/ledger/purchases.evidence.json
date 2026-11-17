@@ -10182,7 +10182,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-efc990d31d25466b930702e5a2ba2dee"
+        "src-efc990d31d25466b930702e5a2ba2dee",
+        "src-7f412bf4f958477babc232984e837e4b"
       ]
     },
     "pur-fcd44116a7094087b680a7ae1ffd83af": {
@@ -10194,7 +10195,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-c5820eb1e8314a3898e3758aad484fe8"
+        "src-c5820eb1e8314a3898e3758aad484fe8",
+        "src-7f412bf4f958477babc232984e837e4b"
       ]
     },
     "pur-0460bfe098504c85bbbf043b1d7a5bb0": {
@@ -16569,7 +16571,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-efc990d31d25466b930702e5a2ba2dee"
+        "src-efc990d31d25466b930702e5a2ba2dee",
+        "src-7f412bf4f958477babc232984e837e4b"
       ]
     },
     "amazon:112-9810422-9839444": {
@@ -16581,7 +16584,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-c5820eb1e8314a3898e3758aad484fe8"
+        "src-c5820eb1e8314a3898e3758aad484fe8",
+        "src-7f412bf4f958477babc232984e837e4b"
       ]
     },
     "amazon:112-6794186-7953808": {
@@ -35343,6 +35347,19 @@
       ],
       "verified_at": "2026-11-17",
       "note": "Signed-in order details identify one MECCANIXITY green UL1007 16 AWG solid tinned-copper wire, 25 ft, ASIN B0FK5JHQW7, placed November 16. Item USD11.99 plus USD0.87 estimated tax, free shipping, total USD12.86. Delivery pending. Exact-order transaction page shows no transactions yet."
+    },
+    "src-7f412bf4f958477babc232984e837e4b": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "112-9294493-8073803 / 112-9810422-9839444",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [],
+      "verified_at": "2026-11-17",
+      "note": "Two-item shipment notification names sealants and painting supplies, with sealant order in its order field and masking-tape order in its package and invoice links. Package total USD11.76 corroborates the two existing order values without creating another purchase or charge. Both items are shipped; relative arrival estimate does not establish actual delivery, dispatch date or completed payment."
     }
   },
   "coverage": [

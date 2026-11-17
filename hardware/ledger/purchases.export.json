@@ -10554,7 +10554,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:75f24bda19b0ca4d9a6d5d3045dd860cc81e1af6f695cf657116dc3e2e3c7cdf",
+  "input_fingerprint": "sha256:454bece63ecd18b9bdcd3a0fefa373011b19731e335a35175e88d6ab5e0cffce",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15234,6 +15234,7 @@
       ],
       "reference": "112-9294493-8073803",
       "source_ids": [
+        "src-7f412bf4f958477babc232984e837e4b",
         "src-efc990d31d25466b930702e5a2ba2dee"
       ],
       "vendor": "Amazon"
@@ -15462,6 +15463,7 @@
       ],
       "reference": "112-9810422-9839444",
       "source_ids": [
+        "src-7f412bf4f958477babc232984e837e4b",
         "src-c5820eb1e8314a3898e3758aad484fe8"
       ],
       "vendor": "Amazon"
@@ -28311,7 +28313,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping.",
+      "description": "GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping; shipped, awaiting delivery.",
       "event_ids": [
         "evt-95d9935a302643fdb1fa901b9d6b7c1d"
       ],
@@ -28343,6 +28345,7 @@
       "section": "6. Refrigeration",
       "service_period": null,
       "source_ids": [
+        "src-7f412bf4f958477babc232984e837e4b",
         "src-efc990d31d25466b930702e5a2ba2dee"
       ],
       "split_charge": false,
@@ -56124,7 +56127,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping.",
+      "description": "3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping; shipped, awaiting delivery.",
       "event_ids": [
         "evt-afa937140f37458b8384ec75776d3b51"
       ],
@@ -56156,6 +56159,7 @@
       "section": "6. Refrigeration",
       "service_period": null,
       "source_ids": [
+        "src-7f412bf4f958477babc232984e837e4b",
         "src-c5820eb1e8314a3898e3758aad484fe8"
       ],
       "split_charge": false,
@@ -66261,6 +66265,20 @@
       "source_id": "src-7df9aab746b345d58fe00d83a461fdaf",
       "vendor": "Amazon",
       "verified_at": "2026-11-05"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Two-item shipment notification names sealants and painting supplies, with sealant order in its order field and masking-tape order in its package and invoice links. Package total USD11.76 corroborates the two existing order values without creating another purchase or charge. Both items are shipped; relative arrival estimate does not establish actual delivery, dispatch date or completed payment.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [],
+      "reference": "112-9294493-8073803 / 112-9810422-9839444",
+      "source_id": "src-7f412bf4f958477babc232984e837e4b",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-17"
     },
     {
       "document_date": {
