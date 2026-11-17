@@ -78,8 +78,12 @@ export function calculateBatch(data, units, labor) {
   return { units, rows, suppliers, allowances, pendingPayments, pendingCents, partsCents, inboundCents, taxCents, procurementCents, cashCents, leftoverCents: Math.round(leftoverCents), laborHours, laborCents, totalCents: laborCents === null ? null : cashCents + laborCents };
 }
 
+export function readSupplierOffers(hardwareDir) {
+  return JSON.parse(fs.readFileSync(path.join(hardwareDir, "ledger", "batch-forecast.json"), "utf8"));
+}
+
 export function readBatchForecast(hardwareDir, labor) {
-  const data = JSON.parse(fs.readFileSync(path.join(hardwareDir, "ledger", "batch-forecast.json"), "utf8"));
+  const data = readSupplierOffers(hardwareDir);
   const stock = readStockLedger(hardwareDir);
   const catalog = readMaterialCatalog(hardwareDir);
   catalog.stock = readMaterialStock(hardwareDir, catalog);

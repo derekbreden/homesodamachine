@@ -12,7 +12,8 @@
       "HSM-0096",
       "HSM-0111",
       "HSM-0113",
-      "HSM-0268"
+      "HSM-0268",
+      "HSM-0093"
     ],
     "colors": {
       "HSM-0062": "white",
@@ -3371,34 +3372,6 @@
       }
     },
     {
-      "id": "tpu",
-      "name": "Bambu TPU 90A / 85A seal and sleeve stock",
-      "unit": "kg",
-      "href": null,
-      "onHand": 0.4,
-      "incoming": 0,
-      "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Remaining quantity is provisional: 0.5 kg credited across the acquired Bambu TPU 90A and 85A spools after a development-use reserve, less about 0.1 kg in the TPU jobs logged October 8–13. No current measured balance; estimate marked *.",
-      "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 662
-        },
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 676
-        }
-      ],
-      "planning": {
-        "root": "HSM-0340",
-        "perUnit": 0.0137,
-        "materialAllowance": 0
-      }
-    },
-    {
       "id": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
       "name": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
       "unit": "pieces",
@@ -3555,7 +3528,13 @@
           "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
           "line": 522
         }
-      ]
+      ],
+      "href": "https://www.amazon.com/dp/B0GHNNYVDH",
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0
+      }
     },
     {
       "id": "uxcell-B0F9KKJ22M",
@@ -3723,6 +3702,98 @@
       "estimated": true,
       "asOf": "2026-11-10",
       "sources": []
+    },
+    {
+      "id": "tpu85a-black",
+      "name": "Bambu TPU 85A · black",
+      "unit": "kg",
+      "href": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "Reservoir cap gaskets and the faucet tube sealing thimble use this grade. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-ab4666fecc0947408ccb9177de425c95"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "tpu90a-black",
+      "name": "Bambu TPU 90A · black",
+      "unit": "kg",
+      "href": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "Reservoir tube grips, the machine display gasket and the black Sculpted faucet mounting gasket use this grade. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-ab4666fecc0947408ccb9177de425c95"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "tpu90a-white",
+      "name": "Bambu TPU 90A · white",
+      "unit": "kg",
+      "href": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The white Sculpted faucet mounting gasket uses this grade. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-8dda604c8c6b4c4581077a554a7667a6"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "siraya85a-clear",
+      "name": "Siraya Tech Flex TPU 85A · clear",
+      "unit": "kg",
+      "href": "https://www.amazon.com/dp/B0CVXF33Z1",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The ASSE drain adapter uses this grade. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-3ce496aeefa54ba3ac576dd7b9d3ec91"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0
+      }
     }
   ],
   "observations": [
@@ -3760,20 +3831,18 @@
     },
     {
       "resource": "B088QJG676",
-      "incoming": 70,
+      "incoming": 0,
       "asOf": "2026-11-10",
-      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "note": "The delivered assortment includes the specified inserts. The usable remainder needs a physical count.",
       "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 506,
-          "purchase": "pur-9f81aa36ad4e47ac8232415d46371a22"
-        },
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
         }
-      ]
+      ],
+      "onHand": 70,
+      "estimated": true,
+      "basis": "received_quantity_estimate"
     },
     {
       "resource": "B08BCRZZS3",
@@ -3793,36 +3862,37 @@
     },
     {
       "resource": "B07YSVXWS8",
-      "incoming": 50,
+      "incoming": 0,
       "asOf": "2026-11-10",
-      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "note": "The original pack and delivered assortment include this insert. The usable remainder after development needs a physical count.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 504
+          "purchase": "pur-278cde3de6144b749c07b867ca90ec3d"
         },
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-89b25fbe2a3e44adb4cbb188ab8a820f"
         }
-      ]
+      ],
+      "onHand": 100,
+      "estimated": true,
+      "basis": "received_quantity_estimate"
     },
     {
       "resource": "B0CXQ7Q7L3",
-      "incoming": 105,
-      "asOf": "2026-11-10",
-      "note": "Confirmed replenishment order awaiting receipt. Prior on-hand balance retains its recorded uncertainty.",
+      "incoming": 0,
+      "asOf": "2026-11-11",
+      "note": "The delivered replenishment pack provides this estimate. Earlier stock and the usable remainder are uncounted.",
       "sources": [
-        {
-          "path": "hardware/ledger/purchases.md",
-          "line": 512,
-          "purchase": "pur-290815c457f54714a5735fb1e54360a9"
-        },
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-14f8f47e82a74b129f4677cb0fc2a67d"
         }
-      ]
+      ],
+      "onHand": 105,
+      "estimated": true,
+      "basis": "received_quantity_estimate"
     },
     {
       "resource": "pisco-RVFUP1/4-1/4-0.3",
@@ -3881,21 +3951,20 @@
     },
     {
       "resource": "svling-B0GHNNYVDH",
-      "onHand": 20,
+      "onHand": 40,
       "incoming": 0,
       "estimated": true,
-      "asOf": "2026-10-26",
+      "asOf": "2026-11-10",
       "basis": "received_quantity_estimate",
-      "note": "Receipt is confirmed. The usable remainder after development is an estimate; no current physical stocktake is recorded.",
+      "note": "Both packs are recorded as delivered. The usable remainder after development needs a physical count.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
-          "line": 522
+          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96"
         },
         {
           "path": "hardware/ledger/purchases.md",
-          "purchase": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96"
+          "purchase": "pur-f72407db7ffa450695c514cf2f38539b"
         }
       ]
     },

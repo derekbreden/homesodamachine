@@ -82,6 +82,8 @@ test('manual pack counts apply tier prices and custom merchandise does not tax d
   assert.equal(result.budget.partsCents, 1700);
   assert.equal(result.budget.taxCents, 20, 'tax applies to the custom pack and freight');
   assert.equal(result.budget.totalCents, 1820);
+  const customOnly = projectProduction(value, { ...scenario, orders: {} });
+  assert.equal(customOnly.budget.freightCents, 0);
 });
 
 test('completed subassemblies and reservations flow from the same physical plan into each cumulative target', () => {
@@ -99,7 +101,7 @@ test('completed subassemblies and reservations flow from the same physical plan 
 
 test('the published workspace carries every real stock input, unknown usage and missing manufacturing definition', () => {
   const hardware = fileURLToPath(new URL('../../hardware', import.meta.url));
-  const value = readProductionPlanner(hardware, null);
+  const value = readProductionPlanner(hardware);
   const catalog = readMaterialCatalog(hardware); catalog.stock = readMaterialStock(hardware, catalog);
   for (const finish of ['white', 'black']) for (const units of [1, 2, 5, 10, 20]) {
     const plan = planMaterial(catalog, catalog.cost_root, units, { finish });
@@ -115,6 +117,15 @@ test('the published workspace carries every real stock input, unknown usage and 
   assert.doesNotMatch(html, /NaN|Infinity/);
   assert.match(html, /production-planner-data/);
   assert.match(html, /Stock &amp; assembly records/);
+  for (const [finish, { rows }] of Object.entries(value.finishes)) {
+    assert.ok(rows.some(row => row.id === 'siraya85a-clear' && row.uses.includes('HSM-0088') && row.needs[1] > 0));
+    assert.ok(rows.some(row => row.id === 'tpu85a-black' && row.uses.includes('HSM-0090') && row.needs[1] > 0));
+    assert.ok(rows.some(row => row.id === 'tpu90a-' + finish && row.uses.includes('HSM-0093') && row.needs[1] > 0));
+    assert.ok(!rows.some(row => /HSM-0324|HSM-0334|HSM-0335|HSM-0364/.test(row.id)));
+    const screw = rows.find(row => row.id === 'svling-B0GHNNYVDH');
+    assert.ok(screw.available >= screw.needs[1] && screw.estimated);
+    assert.ok(screw.quote.options.every(option => option.available === false));
+  }
 });
 
 test('reusable equipment remains after each build while consumable stock is depleted', () => {
