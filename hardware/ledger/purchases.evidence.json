@@ -10183,7 +10183,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-efc990d31d25466b930702e5a2ba2dee",
-        "src-7f412bf4f958477babc232984e837e4b"
+        "src-7f412bf4f958477babc232984e837e4b",
+        "src-de79632a0e51480cb499d592c627c500"
       ]
     },
     "pur-fcd44116a7094087b680a7ae1ffd83af": {
@@ -10196,7 +10197,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-c5820eb1e8314a3898e3758aad484fe8",
-        "src-7f412bf4f958477babc232984e837e4b"
+        "src-7f412bf4f958477babc232984e837e4b",
+        "src-de79632a0e51480cb499d592c627c500"
       ]
     },
     "pur-0460bfe098504c85bbbf043b1d7a5bb0": {
@@ -16572,7 +16574,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-efc990d31d25466b930702e5a2ba2dee",
-        "src-7f412bf4f958477babc232984e837e4b"
+        "src-7f412bf4f958477babc232984e837e4b",
+        "src-de79632a0e51480cb499d592c627c500"
       ]
     },
     "amazon:112-9810422-9839444": {
@@ -16585,7 +16588,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-c5820eb1e8314a3898e3758aad484fe8",
-        "src-7f412bf4f958477babc232984e837e4b"
+        "src-7f412bf4f958477babc232984e837e4b",
+        "src-de79632a0e51480cb499d592c627c500"
       ]
     },
     "amazon:112-6794186-7953808": {
@@ -35360,6 +35364,21 @@
       "proves": [],
       "verified_at": "2026-11-17",
       "note": "Two-item shipment notification names sealants and painting supplies, with sealant order in its order field and masking-tape order in its package and invoice links. Package total USD11.76 corroborates the two existing order values without creating another purchase or charge. Both items are shipped; relative arrival estimate does not establish actual delivery, dispatch date or completed payment."
+    },
+    "src-de79632a0e51480cb499d592c627c500": {
+      "vendor": "Amazon",
+      "document_type": "delivery_notification",
+      "reference": "112-9294493-8073803 / 112-9810422-9839444",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-17",
+      "note": "Two-item delivery notification identifies the sealant order in its order field and the masking-tape order in its shared-package tracking link. Both existing purchases are delivered. Relative today wording does not independently establish a delivery calendar date. No completed payment or final tax is proved."
     }
   },
   "coverage": [
@@ -38213,11 +38232,13 @@
         "evt-95d9935a302643fdb1fa901b9d6b7c1d"
       ],
       "source_ids": [
-        "src-efc990d31d25466b930702e5a2ba2dee"
+        "src-efc990d31d25466b930702e5a2ba2dee",
+        "src-de79632a0e51480cb499d592c627c500"
       ],
-      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "missing_fact": "Exact delivery calendar date, completed merchant payment and final tax remain unverified. Delivered fulfillment is confirmed.",
       "sources_checked": [
-        "Signed-in Amazon Order Details on November 16, 2026"
+        "Signed-in Amazon Order Details on November 16, 2026",
+        "Exact shared-package delivery notification received November 17, 2026"
       ]
     },
     {
@@ -38233,11 +38254,13 @@
         "evt-afa937140f37458b8384ec75776d3b51"
       ],
       "source_ids": [
-        "src-c5820eb1e8314a3898e3758aad484fe8"
+        "src-c5820eb1e8314a3898e3758aad484fe8",
+        "src-de79632a0e51480cb499d592c627c500"
       ],
-      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "missing_fact": "Exact delivery calendar date, completed merchant payment and final tax remain unverified. Delivered fulfillment is confirmed.",
       "sources_checked": [
-        "Signed-in Amazon Order Details on November 16, 2026"
+        "Signed-in Amazon Order Details on November 16, 2026",
+        "Exact shared-package delivery notification received November 17, 2026"
       ]
     },
     {

@@ -464,12 +464,12 @@
       "unit": "mL",
       "href": "https://www.amazon.com/dp/B0C9VT9KD2",
       "onHand": null,
-      "incoming": 83,
+      "incoming": 0,
       "reserved": 0,
       "estimated": false,
-      "asOf": "2026-11-16",
+      "asOf": "2026-11-17",
       "basis": "ledger_estimate",
-      "note": "One 83 mL squeeze tube is on order. Verify adhesion on scrap PETG and stainless and record usage from the cured exterior joint before setting per-build demand.",
+      "note": "One 83 mL squeeze tube is delivered; remaining usable quantity is unverified. Verify adhesion on scrap PETG and stainless and record usage from the cured exterior joint before setting per-build demand.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -1428,12 +1428,12 @@
       "unit": "ft",
       "href": "https://www.amazon.com/dp/B00004Z4CP",
       "onHand": null,
-      "incoming": 180,
+      "incoming": 0,
       "reserved": 0,
       "estimated": false,
-      "asOf": "2026-11-16",
+      "asOf": "2026-11-17",
       "basis": "ledger_estimate",
-      "note": "One 180 ft roll is on order. The BOM carries a provisional masking allowance for the cold-core pour.",
+      "note": "One 180 ft roll is delivered; remaining usable quantity is unverified. The BOM carries a provisional masking allowance for the cold-core pour.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
