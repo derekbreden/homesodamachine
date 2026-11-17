@@ -76,7 +76,7 @@ The plate uses 0.20 mm first and 0.24 mm ordinary layers, 0.42 mm outer and
 0.45 mm inner lines, three classic wall loops and 15% gyroid in thick regions.
 Emitted outer walls request 100 mm/s and 1,500 mm/s² acceleration.
 It takes the filament settings from the shared
-[`petgf.3mf`](../../petgf.3mf):
+[`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf):
 
 | | Value |
 |---|---|
@@ -96,7 +96,7 @@ on moisture, and a 3 kg spool feeds the print from a PolyDryer Box XL rather tha
 Attempts 1 and 2 below use `Bambu PETG Basic`. The smooth PET-GF shell's reported
 physical result and digital audit are recorded with its launch below.
 
-## Print attempt 1 (settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
+## Print attempt 1 (settings per [`foam-shell-8mm-high-flow.3mf`](https://homesodamachine.com/print-archive/30fb45aee3c2b5b36ad57b0e99765f4809638484/foam-shell-8mm-high-flow.3mf))
 
 First full foam-shell print. Used the part-proving foam shell for the reservoir watertight test (held water with gaskets — see [`../reservoir/print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md) attempt 3).
 
@@ -120,7 +120,7 @@ Derek said:
 
 Otherwise "nearly everything was perfect."
 
-## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
+## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](https://homesodamachine.com/print-archive/30fb45aee3c2b5b36ad57b0e99765f4809638484/foam-shell-8mm-high-flow.3mf))
 
 `foam-shell.step` at geometry commit `7cd49702`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md); construction in [`../_outer_shell.py`](https://github.com/derekbreden/homesodamachine/blob/bc84c88552075f1828c4111c21bf4a8e78f1a560/hardware/printed-parts/cold-core/_outer_shell.py); the four corner gussets were defined in [`_corner_gussets.py`](https://github.com/derekbreden/homesodamachine/blob/56c4d179be828195a3601854420f8be692649d1b/hardware/printed-parts/cold-core/_corner_gussets.py) at that commit.
 

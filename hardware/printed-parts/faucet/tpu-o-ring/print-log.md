@@ -87,7 +87,7 @@ LLDPE-empty cavity). **Doing both at once gives the wall nowhere to
 go** — and 95A TPU at 0.375 mm wall thickness isn't compliant enough
 to compress through that combined load. The dual-compression locks up.
 
-## v3 — 85A, seats successfully (2026-05-30, settings per [`tpu-o-ring-85A-6mm.3mf`](tpu-o-ring-85A-6mm.3mf))
+## v3 — 85A, seats successfully (2026-05-30, settings per [`tpu-o-ring-85A-6mm.3mf`](https://homesodamachine.com/print-archive/a468b3dbb7114109e0a6715ade647df60e1da58b/tpu-o-ring-85A-6mm.3mf))
 
 Derek said:
 - New print in 85A; "got it to successfully seat with the tube in the touch-flow metal body, like actually inserted with the TPU, for the first time."

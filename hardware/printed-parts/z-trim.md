@@ -49,7 +49,7 @@ at the prints here, the more I think I might be wrong and we might need a .01."*
 
 ## The carriers
 
-[`z-trim-0.01.3mf`](z-trim-0.01.3mf) through [`z-trim-0.20.3mf`](z-trim-0.20.3mf) are empty
+[`z-trim-0.01.3mf`](https://homesodamachine.com/print-archive/1568bdb73cc31f9bbe7ad09cab31c493ea8d99a2/z-trim-0.01.3mf) through [`z-trim-0.20.3mf`](https://homesodamachine.com/print-archive/464bf8a96219f560f0062e7fff5a9320b98ab3d8/z-trim-0.20.3mf) are empty
 plates, one per value, carrying nothing but the printer profile — `Bambu Lab H2C 0.4 nozzle`
 with `machine_start_gcode` as its one setting modified from system, on the `Polymaker PET-GF
 @BBL H2C` slot over a textured PEI plate. Open one in Bambu Studio and save the printer preset
@@ -98,7 +98,7 @@ would discard the stock −0.02 with it.
 
 The mesh is measured fresh each print, over the bounding box of that plate's own first layer.
 
-[`z-trim-0.30-probe.3mf`](z-trim-0.30-probe.3mf) is the isolation print: +0.30 mm over stock,
+[`z-trim-0.30-probe.3mf`](https://homesodamachine.com/print-archive/48807d17d508609890a03462e232d00530579ae2/z-trim-0.30-probe.3mf) is the isolation print: +0.30 mm over stock,
 ten times the sweep's step, more than a 0.2 mm first layer can reach the plate through.
 
 ## The plate is a variable

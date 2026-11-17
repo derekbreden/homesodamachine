@@ -1,6 +1,6 @@
 # Sculpted faucet rear seam on Mark2
 
-The [complete review plate](sculpted-faucet-rear-seam-black-mark2-review.gcode.3mf)
+The [complete review plate](https://homesodamachine.com/print-archive/f44bfb8833c802facc4f1acc5c9320df142ea9ba/sculpted-faucet-rear-seam-black-mark2-review.gcode.3mf)
 carries the Sculpted base, tip, cover, mounting plate and lever in black PET-GF.
 The base's inclined and graded courses follow the slicer's continuous exterior
 wall laps with the seam on the rear meridian.
@@ -21,7 +21,7 @@ mating shoulder in the current pose. The [tip pose study](tip-pose-study.json)
 checks native slicer support contacts on the rotated dispense nose.
 
 The [run inputs](run-inputs.zip) retain the base's native slices, foundation,
-continued courses and cooling template. The [plug ramp's saved inputs](../2026-11-14-plug-ramp-mark2/run-inputs.zip)
+continued courses and cooling template. The [plug ramp's saved inputs](https://homesodamachine.com/print-archive/3da6c2ff4e136f224ea853f56c22c803ef76e270/run-inputs.zip)
 supply the editable project, tip donor, rings and native complete slice.
 [Reproduce the plate](stage/REPRODUCE.md) from those inputs. The active run
 uses `.cache/runs/faucet-base-seam-plate-20261114`, the first base comparison

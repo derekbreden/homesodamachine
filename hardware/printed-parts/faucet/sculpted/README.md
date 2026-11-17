@@ -6,7 +6,7 @@ complete PET-GF plate contains the Sculpted base, tip, display cover,
 matching above-counter plate and side-down lever replica. TPU pieces and the
 umbilical organizer are separate prints.
 
-The [editable project](../faucet-petgf.3mf)
+The [editable project](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/faucet-petgf.3mf)
 targets Mark2's abrasive left nozzle and black PET-GF on the glued Engineering
 Plate the [plate's selections](../../../../tools/hsm/print-prep/faucet-plate.json) name.
 It takes the [PET-GF trim](../../z-trim.md) the print setup gives each printer for that
@@ -67,7 +67,7 @@ Ordinary sparse infill follows the shared PET-GF profile.
 
 [`faucet-plate`](../../../../tools/hsm/print-prep/src/bin/faucet_plate.rs) prepares each style's
 plate from current STLs; `faucet-plate sculpted OUT_DIR --production` makes the Sculpted product
-plate, with its editable project at [faucet-petgf.3mf](../faucet-petgf.3mf). It runs
+plate, with its editable project at [faucet-petgf.3mf](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/faucet-petgf.3mf). It runs
 [prepare_print_project.rs](../prepare_print_project.rs), the `faucet-print-project` program, for
 the plate's projects: the editable plate with the actual base, the slicer's plate with the base
 filled under its mounting face, and the warped donor tip, sliced alone. The

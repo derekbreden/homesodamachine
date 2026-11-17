@@ -14,9 +14,9 @@ D and E use the reviewed centred plus geometry from source commit
 The two 9 mm TPU liners are a separate plate; this job contains only the
 PET-GF jaws. Reuse the existing base, carrier and metal hardware.
 
-- [Exact launched native slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf)
+- [Exact launched native slice](https://homesodamachine.com/print-archive/bea2656f2686c41a91199fe1c056e14fa9832745/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf)
 - [Exact G-code for Studio preview](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode)
-- [Editable native project](tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf)
+- [Editable native project](https://homesodamachine.com/print-archive/740e2476947b4b9f047fcc7686bb73e32099c3f7/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf)
 - [Project settings and source meshes](tube-insertion-centered-grip-petgf-left04-z018-mark1.print.json)
 - [Native slice review and checksums](tube-insertion-centered-grip-petgf-left04-z018-mark1.readiness.json)
 - [Native support review](tube-insertion-centered-grip-petgf-left04-z018-mark1.support-audit.json)

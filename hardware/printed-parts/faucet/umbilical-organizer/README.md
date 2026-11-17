@@ -65,7 +65,7 @@ The flavor R30 and drain R25 returns begin 3 mm below the organizer's bottom and
 ## Print
 
 The organizer prints on Mark2's [small PET-GF parts plate](../../enclosure/trial-preparation/pieces.json),
-from its mesh with the [shared PET-GF settings](../../petgf.3mf),
+from its mesh with the [shared PET-GF settings](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf),
 [localized cooling](../../cooling/README.md) and Mark2's standing trim on its abrasive left
 nozzle; `enclosure-print-prep small-petgf` prepares that plate. The
 [November 15 plate](../../enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/README.md)

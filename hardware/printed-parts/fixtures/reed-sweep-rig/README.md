@@ -65,13 +65,13 @@ The rod prints on its side, with its pad standing as a wall.
 ## Print
 
 Black PET-GF on either printer's left 0.4 mm nozzle, from the shared
-[`petgf.3mf`](../../petgf.3mf) with supports and the prime tower off. Nothing needs support: the
+[`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) with supports and the prime tower off. Nothing needs support: the
 slices carry none.
 
 | Plate | Pieces | Mark1 | Mark2 |
 |---|---|---|---|
-| Cradle | cradle | [project](ready/reed-sweep-rig-cradle-petgf-left04-z018-mark1.3mf), [slice](ready/reed-sweep-rig-cradle-petgf-left04-z018-mark1.gcode.3mf), [readiness](ready/reed-sweep-rig-cradle-petgf-left04-z018-mark1.readiness.json) | [project](ready/reed-sweep-rig-cradle-petgf-left04-z004-mark2.3mf), [slice](ready/reed-sweep-rig-cradle-petgf-left04-z004-mark2.gcode.3mf), [readiness](ready/reed-sweep-rig-cradle-petgf-left04-z004-mark2.readiness.json) |
-| Small parts | rod, comb, three sleds | [project](ready/reed-sweep-rig-small-parts-petgf-left04-z018-mark1.3mf), [slice](ready/reed-sweep-rig-small-parts-petgf-left04-z018-mark1.gcode.3mf), [readiness](ready/reed-sweep-rig-small-parts-petgf-left04-z018-mark1.readiness.json) | [project](ready/reed-sweep-rig-small-parts-petgf-left04-z004-mark2.3mf), [slice](ready/reed-sweep-rig-small-parts-petgf-left04-z004-mark2.gcode.3mf), [readiness](ready/reed-sweep-rig-small-parts-petgf-left04-z004-mark2.readiness.json) |
+| Cradle | cradle | [project](https://homesodamachine.com/print-archive/36fa51ec83089cffce25f244f969a73f57d365eb/reed-sweep-rig-cradle-petgf-left04-z018-mark1.3mf), [slice](https://homesodamachine.com/print-archive/f4b0d0e31c1f0863f03f5ba57058c3b2082038cc/reed-sweep-rig-cradle-petgf-left04-z018-mark1.gcode.3mf), [readiness](ready/reed-sweep-rig-cradle-petgf-left04-z018-mark1.readiness.json) | [project](https://homesodamachine.com/print-archive/c23e6be87a6c65b47f27117cc046db8466cf43d6/reed-sweep-rig-cradle-petgf-left04-z004-mark2.3mf), [slice](https://homesodamachine.com/print-archive/2968b694fae6f65cedcd3be98aa9021ed63a6fae/reed-sweep-rig-cradle-petgf-left04-z004-mark2.gcode.3mf), [readiness](ready/reed-sweep-rig-cradle-petgf-left04-z004-mark2.readiness.json) |
+| Small parts | rod, comb, three sleds | [project](https://homesodamachine.com/print-archive/4f29871117f3210e8992887dfa46d23958d36210/reed-sweep-rig-small-parts-petgf-left04-z018-mark1.3mf), [slice](https://homesodamachine.com/print-archive/d204a37605848572df9056e968a48ffdfcbd64a9/reed-sweep-rig-small-parts-petgf-left04-z018-mark1.gcode.3mf), [readiness](ready/reed-sweep-rig-small-parts-petgf-left04-z018-mark1.readiness.json) | [project](https://homesodamachine.com/print-archive/1f2d80cefc71d82b7a477eb915ceda3c84daff12/reed-sweep-rig-small-parts-petgf-left04-z004-mark2.3mf), [slice](https://homesodamachine.com/print-archive/b0896dc7ba4c189fc5f83e813dc0801f2b16941c/reed-sweep-rig-small-parts-petgf-left04-z004-mark2.gcode.3mf), [readiness](ready/reed-sweep-rig-small-parts-petgf-left04-z004-mark2.readiness.json) |
 
 A plate's Mark1 and Mark2 slices differ in the printer's Z trim and its spool's reported colour.
 Each readiness file holds its slice's time, filament, layers, bead margin and checksums.

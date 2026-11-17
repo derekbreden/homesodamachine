@@ -57,7 +57,7 @@ dimension above describes the CAD region, not this recipe's solid cap thickness.
 ## Material
 
 **Bambu TPU 85A**, using the
-[accepted Touch-Flo / LLDPE fit project](tpu-o-ring-85A-6mm.3mf).
+[accepted Touch-Flo / LLDPE fit project](https://homesodamachine.com/print-archive/a468b3dbb7114109e0a6715ade647df60e1da58b/tpu-o-ring-85A-6mm.3mf).
 The [2026-05-30 physical fit record](print-log.md#v3--85a-seats-successfully-2026-05-30-settings-per-tpu-o-ring-85a-6mm3mf)
 establishes successful tube-plus-sleeve seating in the metal donor. It supplies
 no quantified sealing-pressure, insertion-force or lifetime result.

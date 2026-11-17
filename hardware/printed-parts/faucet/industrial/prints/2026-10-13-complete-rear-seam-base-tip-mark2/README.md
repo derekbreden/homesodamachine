@@ -8,7 +8,7 @@ the seam-fixed faucet as the current planned production model, tagged
 
 The latest physical print contains the corrected base and tip. The cover,
 mounting plate and lever retain the [accepted complete-print reference](../2026-10-13-a2-back-mark2/physical-result.json).
-The normal [production project](../../faucet-industrial-petgf.3mf) contains
+The normal [production project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf) contains
 all five rigid parts.
 
 Mark2 accepted the base-and-tip evaluation at 11:45 pm CDT on October 13,
@@ -57,8 +57,8 @@ Timelapse and bed leveling are On; flow dynamic and nozzle offset calibration
 are Auto. Mark1's preceding acceptance was 39 min 58 s earlier, exceeding
 the 180-second startup interval.
 
-- [Exact launched native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
-- [Editable evaluation project](2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.3mf)
+- [Exact launched native archive](https://homesodamachine.com/print-archive/1178382ab53a789ccebb01a3cbe7635a59d99a00/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
+- [Editable evaluation project](https://homesodamachine.com/print-archive/87d1c374975f0abac871513622cdfbf178335229/2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.3mf)
 - [Source, settings and authorization](2026-10-13-industrial-base-tip-full-rear-seam-petgf-left04-z004-mark2.print.json)
 - [Launch receipt](launch.json)
 - [Preflight observations](preflight.json)

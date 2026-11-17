@@ -1,8 +1,8 @@
 # Sculpted faucet tip shoulder trial for Mark2
 
-The [sliced review archive](sculpted-faucet-flat-face-black-mark2-review.gcode.3mf)
+The [sliced review archive](https://homesodamachine.com/print-archive/fe3b353ef67e7aa0f136818c01556a73902b26f0/sculpted-faucet-flat-face-black-mark2-review.gcode.3mf)
 contains the complete Mark2 trial. Open it in Bambu Studio Preview. The
-[editable five-part project](sculpted-faucet-flat-face-black-mark2.3mf) holds the
+[editable five-part project](https://homesodamachine.com/print-archive/07c16292f7c6eebd4087734cededb7788e35ad52/sculpted-faucet-flat-face-black-mark2.3mf) holds the
 Sculpted base, tip, display cover, mounting plate and lever in their print poses.
 The sliced archive carries the inclined regions, scheduling and local supports.
 

@@ -2,8 +2,8 @@
 
 The second [tube insertion tool](../../README.md) plate contains one guided
 carrier B, lower jaw D, upper jaw E and cap-support puck G. It uses the
-[reviewed native archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/ready/tube-insertion-rigid-parts-h2c.gcode.3mf),
-with the shared [PET-GF baseline](../../../../petgf.3mf), six walls, 100%
+[reviewed native archive](https://homesodamachine.com/print-archive/319eb79160e3b97a5ac1f863070ea516607eb61e/tube-insertion-rigid-parts-h2c.gcode.3mf),
+with the shared [PET-GF baseline](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf), six walls, 100%
 zigzag infill, a 0.20 mm first layer and 0.24 mm ordinary layers. The full
 model/support bead footprint retains at least 46.21 mm bed-edge clearance.
 

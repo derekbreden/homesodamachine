@@ -12,8 +12,8 @@ by the [Siraya single-elbow physical record](https://github.com/derekbreden/home
 That record accepts the elbow's exterior quality and reports internal
 stringing; it supplies no receiver acceptance.
 
-The [editable project](2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf)
-and [native sliced archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf)
+The [editable project](https://homesodamachine.com/print-archive/f8c7f76d754125437cdcb71213463ad6ed286e01/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf)
+and [native sliced archive](https://homesodamachine.com/print-archive/99962fcba64516ec63d1315d3d33b5c2cab49f5b/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.gcode.3mf)
 are prepared for review. No printer was contacted, submitted to or started.
 Bambu Studio estimates **2 h 12 min / 10.36 g**, with **124 layers** and no
 slicer warning. The archive contains unprocessed native G-code.

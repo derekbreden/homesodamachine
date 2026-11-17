@@ -19,7 +19,7 @@ the successful May 30 clear reservoir recipe's sealing controls with Translucent
 
 The [reservoir print log, attempt 3](../reservoir/print-log.md)
 records hours of water retention with the gaskets installed. The exact printed
-project is retained in Git at [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://github.com/derekbreden/homesodamachine/blob/f25975cd045cc835eccf1a207cb12fe48dc63ada/hardware/printed-parts/cold-core/reservoir/reservoir.3mf).
+project is retained in Git at [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://homesodamachine.com/print-archive/7d7e3fabf16884e161e524e9820dbc69758c953a/reservoir.3mf).
 Its saved preset is `Bambu PETG Water`, using **GFG00, PETG Basic** settings.
 The actual filament was **Bambu PETG clear**, confirmed by Derek on 2026-10-05.
 [petg-water-recipe.json](petg-water-recipe.json) extracts the active left-nozzle

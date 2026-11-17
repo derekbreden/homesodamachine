@@ -17,7 +17,7 @@ with the specimens during removal; the geometry has no added label features.
 The gap is a percentage of the 0.4 mm nozzle diameter: 0/5/10/15/20/25/30%
 correspond to nominal closure interruptions of 0/0.02/0.04/0.06/0.08/0.10/0.12 mm.
 
-All use the actual saved [PET-GF defaults](../../../petgf.3mf): aligned seams,
+All use the actual saved [PET-GF defaults](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf): aligned seams,
 0.20 mm first bed layer, 0.24 mm model layers, Classic walls, two wall loops,
 15% grid, saved temperatures, cooling, flow, retraction and automatic
 Tree(auto)/Default support decisions. Native slicing generated no support

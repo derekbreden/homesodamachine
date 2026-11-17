@@ -25,10 +25,10 @@ the faucet's finish; [faucet shell assembly](../faucet-shell/ASSEMBLY.md) fits i
 | [lever-replica.step](lever-replica.step) | Accepted analytic solid in the local part frame |
 | [lever-replica.stl](lever-replica.stl) | Accepted mesh in that same frame; source of the viewer payload |
 | [lever-replica-side-down.stl](lever-replica-side-down.stl) | Accepted shape with its right side on the print bed |
-| [lever-replica-petgf.3mf](lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and the H2C's standing PET-GF Z trim |
-| [lever-replica-petgf-white.3mf](lever-replica-petgf-white.3mf) | The same lever with Mark2's standing PET-GF Z trim |
-| [lever-black-petgf-z018-h2c.gcode.3mf](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/lever-replica/lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
-| [lever-original-wide-white-z004-mark2.gcode.3mf](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/lever-replica/lever-original-wide-white-z004-mark2.gcode.3mf) | Completed and physically accepted white lever at +0.04 mm on Mark2 |
+| [lever-replica-petgf.3mf](https://homesodamachine.com/print-archive/85fc3a53230f5cbea839daa1ee6b73c05544d933/lever-replica-petgf.3mf) | One lever using the shared PET-GF settings and the H2C's standing PET-GF Z trim |
+| [lever-replica-petgf-white.3mf](https://homesodamachine.com/print-archive/81cc2721e1a125e721fc62db80a97dd6be51a465/lever-replica-petgf-white.3mf) | The same lever with Mark2's standing PET-GF Z trim |
+| [lever-black-petgf-z018-h2c.gcode.3mf](https://homesodamachine.com/print-archive/f85f2993a670baad001f41f9c5e8523b28273d50/lever-black-petgf-z018-h2c.gcode.3mf) | Native H2C slice; submitted jobs are identified by hashes in the job record |
+| [lever-original-wide-white-z004-mark2.gcode.3mf](https://homesodamachine.com/print-archive/d0a7ec0a0dddfaec7788a3514690d36ff8aec243/lever-original-wide-white-z004-mark2.gcode.3mf) | Completed and physically accepted white lever at +0.04 mm on Mark2 |
 | [print-jobs.json](print-jobs.json) | Printer completion, physical observations, material/nozzle and job hashes |
 | [physical-acceptance.json](physical-acceptance.json) | Derek's fit/function confirmation for the exact accepted mesh |
 | [scan-fit.json](scan-fit.json) | Donor-reference/observed-point distances, normals and mesh validity |
@@ -121,7 +121,7 @@ applies to the printed lever's fit and operation, independently of that placemen
 ## PET-GF comparison print
 
 The project takes its process and filament settings directly from the shared
-[`petgf.3mf`](../../petgf.3mf), with the printer's standing PET-GF Z trim. Its H2C left
+[`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf), with the printer's standing PET-GF Z trim. Its H2C left
 0.4 mm profile uses 265 °C first layer / 280 °C later, 80 °C Textured PEI,
 0.24 mm layers, a 0.20 mm first layer, two walls, 15% grid infill and 0.9555
 flow ratio. The physical setup is black PET-GF and a 0.4 mm diamond PCD nozzle.

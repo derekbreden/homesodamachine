@@ -30,7 +30,7 @@ records R55.67 mm minimum curvature in the short white return and at least
 ## Print and assemble
 
 The STL stands on a small exterior flat with both sockets rising at 45°.
-Print in Siraya Tech Flex TPU 85A Clear using the [saved print settings](siraya-85a-settings.3mf) from the
+Print in Siraya Tech Flex TPU 85A Clear using the [saved print settings](https://homesodamachine.com/print-archive/052cb987fca4d100b24ddf9c56b9bf90fae68b48/siraya-85a-settings.3mf) from the
 [Siraya elbow trial](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):
 Mark1's right 0.6 mm nozzle, glued Engineering Plate, zero user Z trim,
 225°C first layer, 215°C normal layers and 100% infill. Keep supports out of

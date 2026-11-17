@@ -59,7 +59,7 @@ Derek's PET-GF print request is the go and the plate-clear: send the named revie
 black PET-GF mapping. There is no print order. A productive print keeps running while checks
 proceed; a concretely defective one is cancelled and replaced.
 
-New PET-GF jobs use the saved [PET-GF profile](../petgf.3mf): two ordinary wall loops,
+New PET-GF jobs use the saved [PET-GF profile](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf): two ordinary wall loops,
 15% gyroid infill, black PET-GF on the fixed left 0.4 mm nozzle and `auto_brim`.
 The two-wall/15% gyroid baseline remains in use unless Derek explicitly requests a change;
 comparison-print results alone do not change it. Local solid reinforcement and six-wall

@@ -126,7 +126,7 @@ from speed or establish the cause of the remaining defect.
 The original supplied JPEG bytes are preserved; their hashes are in
 [print-jobs.json](print-jobs.json).
 
-The saved [funnel-mold.3mf](funnel-mold.3mf) contains the **600 mL**
+The saved [funnel-mold.3mf](https://homesodamachine.com/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf) contains the **600 mL**
 rounded-mouth funnel's cavity and core from geometry commit `953dbfa68`.
 Its finished casting solid matched that commit's [`../funnel/funnel.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/zone-c/funnel/funnel.py),
 with zero symmetric-difference volume after trimming that design's sacrificial tip.
@@ -270,7 +270,7 @@ Failed-trial project SHA-256:
 ## 100% infill retry — 2026-09-16
 
 Derek reports saving the project and starting a new print. The inspected
-[funnel-mold.3mf](funnel-mold.3mf) contains these settings:
+[funnel-mold.3mf](https://homesodamachine.com/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf) contains these settings:
 
 | Setting | Saved value |
 | --- | --- |
@@ -316,7 +316,7 @@ buildup are unconfirmed.
 ## Snug normal-support trial — 2026-09-15
 
 Derek reports: “Some supports fell over,” and is trying the saved
-[funnel-mold.3mf](funnel-mold.3mf) below. The failure layer and cause were not
+[funnel-mold.3mf](https://homesodamachine.com/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf) below. The failure layer and cause were not
 identified. On 2026-09-16 he reported that the 15% infill print with Snug
 normal supports worked well.
 

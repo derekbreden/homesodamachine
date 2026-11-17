@@ -13,6 +13,7 @@ shaft_store='ddd391f3d32bd8397f08b517ee58614fcd3e93ba:hardware/printed-parts/fau
 cad_py="$PWD/tools/cad-venv/bin/python"
 mkdir -p "$PWD/.cache/runs"
 run="$(mktemp -d "$PWD/.cache/runs/faucet-plug-ramp-repro.XXXXXX")"
+node tools/print-archive.mjs "$trial/run-inputs.zip"
 unzip -q "$trial/run-inputs.zip" -d "$run"
 git show "$flat:$previous/stage/tip_geometry.py" > "$run/tip_geometry.py"
 git show "$flat:$previous/stage/sequence.py" > "$run/archived_sequence.py"
@@ -39,6 +40,7 @@ first="$(python3 -c 'import json,sys;x=json.load(open(sys.argv[1]));print(x["fir
 tools/run -- python3 "$run/package.py" "$run/native/complete.gcode.3mf" "$run/plate.gcode" \
   "$run/reproduced.gcode.3mf" --motion-seconds "$motion" --first-course-seconds "$first"
 unzip -p "$run/reproduced.gcode.3mf" Metadata/plate_1.gcode > "$run/reproduced.gcode"
+node tools/print-archive.mjs "$trial/sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf"
 unzip -p "$trial/sculpted-faucet-plug-ramp-black-mark2-review.gcode.3mf" Metadata/plate_1.gcode > "$run/submitted.gcode"
 cmp "$run/reproduced.gcode" "$run/submitted.gcode"
 ```

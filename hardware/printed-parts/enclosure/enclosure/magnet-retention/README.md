@@ -65,10 +65,10 @@ insertion depth.
 
 Both magnet-owning parts print in their production +Z orientation using black
 PET-GF on the fixed left hardened standard-flow 0.4 mm nozzle. The retained Mark2
-[combined source](v4/pump-cartridge-cap-pause.3mf) binds the completed lower
+[combined source](https://homesodamachine.com/print-archive/0b20096e87eb73b70157b735aa0a9add9b8d8cc2/pump-cartridge-cap-pause.3mf) binds the completed lower
 cartridge cradle and pump cap on one plate. The cap prints
 crown-down, with its recessed female pogo seat and complete solid insert hosts.
-The independent H2C [front-top source](v3/front-top-pause.3mf) remains
+The independent H2C [front-top source](https://homesodamachine.com/print-archive/beafc5e4e434c4e34cd542b1585b58262c7e52d4/front-top-pause.3mf) remains
 unsubmitted. The [front-top v18 record](../support-bottom-gap/front-top-h2c-v18/README.md)
 binds the flush sliding-frame roof and its native retention review; that job
 is cancelled for a separate unsupported display-strip defect.

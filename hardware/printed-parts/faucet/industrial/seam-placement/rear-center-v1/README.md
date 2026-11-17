@@ -70,7 +70,7 @@ indices, global and object settings, reinforcement and layer ranges against
 the approved printed project. The five-part Mark2 candidate estimates
 6 h 5 min 58 s and 161.06 g, with at least 44.86 mm full-bead edge clearance.
 
-- [Complete editable Mark2 candidate](2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.3mf)
-- [Complete sliced Mark2 candidate](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
+- [Complete editable Mark2 candidate](https://homesodamachine.com/print-archive/cd4ff4bb80d7a3fa85aa2a4a6fc49d32cf76f72e/2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.3mf)
+- [Complete sliced Mark2 candidate](https://homesodamachine.com/print-archive/1437c6bef697e5a831631bfa33f766c53ed9df83/2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.gcode.3mf)
 - [Source and preparation record](2026-10-13-industrial-faucet-rear-seam-petgf-left04-z004-mark2.print.json)
 - [Manual trace reader](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/review.py) (in Git at `306268f870`)

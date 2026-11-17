@@ -9,7 +9,7 @@ and reed test article.
 Its predicted assembled mass is **55.08 g** at 0.55 g/cm³ Aero density, against
 **60.05 g** of water displacement: **4.96 g spare lift**.
 
-[PETG shell project](magnetic-float.3mf) · [ASA Aero parts project](magnetic-float-aero.3mf) ·
+[PETG shell project](https://homesodamachine.com/print-archive/5c25b6f8d98a54cb5bd503d6f6308512ecf80def/magnetic-float.3mf) · [ASA Aero parts project](https://homesodamachine.com/print-archive/e4fe27cc38e23710fe276e42efe7e76a1d20f78b/magnetic-float-aero.3mf) ·
 [CadQuery source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/magnetic-float/magnetic_float.py) · [Material research](asa-aero-research.md) ·
 [PETG shell recipe](petg-shell.md) · [Pressure-printing research](pressure-printing-research.md)
 

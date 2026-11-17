@@ -14,7 +14,7 @@ cover retains the working glass and neck clearances and fixed snap datums.
 The plate prints the [faucet plate's recipe](../sculpted/README.md), the one the Sculpted plate
 prints: it lays its own base and above-counter plate beside the shared tip, cover and lever.
 The base's foundation follows its own round mounting face, and the screw-seat rings stand under
-its own plate's counterbores. The [editable project](faucet-industrial-petgf.3mf), its
+its own plate's counterbores. The [editable project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf), its
 [report](faucet-industrial-petgf.print.json) and its [plate record](faucet-industrial-petgf.plate.json)
 describe the product plate. Its print-only archive is kept on this Mac beside the project. The
 TPU gasket, lever sleeve, PET-GF umbilical organizer and stainless under-counter plate are

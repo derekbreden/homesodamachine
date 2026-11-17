@@ -37,7 +37,7 @@ to the complete selected scarf package. [Settings](settings.json) records the
 actual project configuration, including filament wipe and wipe distance 0.
 
 [Preparation](preparation.json) binds the exact geometry and archive hashes.
-The editable [production project](cold-core-shell-mark2.3mf) carries its precise
+The editable [production project](https://homesodamachine.com/print-archive/234b89311cc07b06c7c1dbbb74ab1697a02611a3/cold-core-shell-mark2.3mf) carries its precise
 seam-enforcer facet paint. The ready-to-send archive is the local cache path
 recorded in preparation.json; SHA256
 `b08e84852254a382e2aba91014fca7222d1ddb9e2b49160eb9be0caec9fd93c4`.

@@ -6,9 +6,9 @@ binds task **1368637649** to the reviewed processed archive. The native estimate
 is **43 minutes / 5.88 g**, with ten layers. Processed part motion is nominally
 36.5 minutes, excluding startup, shutdown and acceleration effects.
 
-Use the [processed print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf)
-directly. Reslicing the [editable project](2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.3mf)
-produces the separate [native source slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/industrial/prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.gcode.3mf).
+Use the [processed print archive](https://homesodamachine.com/print-archive/b0b16de1750d88e6d5d1095ce29d271bc28a3149/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf)
+directly. Reslicing the [editable project](https://homesodamachine.com/print-archive/7155f0dcbd099b8dc20160f9f1c9203ffdb1df25/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.3mf)
+produces the separate [native source slice](https://homesodamachine.com/print-archive/06e2a88f57af82d8cc262af2e54433d37f82b328/2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.gcode.3mf).
 
 ## Part and recipe
 
@@ -19,7 +19,7 @@ One gasket is flat and centered at **X177.5, Y160 mm**, with at least
 **122.89 mm** full-bead bed-edge clearance. The [native preview](native-preview.png)
 shows the circular Industrial footprint and its two openings.
 
-The [solid-gasket project](../../../../gaskets.3mf) supplies the Bambu TPU
+The [solid-gasket project](https://homesodamachine.com/print-archive/e543db6f13b5dc804517aff8edaa3f2beb6d983a/gaskets.3mf) supplies the Bambu TPU
 85A material and dense process: **225°C nozzle, 35°C Engineering Plate,
 1.0 flow ratio, 2.2 mm³/s flow cap, 0.30 mm first / 0.18 mm normal layers,
 two Arachne walls, 100% zigzag infill and three top/bottom shells**. No supports

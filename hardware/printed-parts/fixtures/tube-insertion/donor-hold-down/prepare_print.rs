@@ -35,8 +35,8 @@ fn main() -> Result<()> {
             _ => bail!("unknown argument {arg}"),
         }
     }
-    let source = root.join(SETTINGS_SOURCE);
-    let reviewed = faucet::read_json(&source.with_extension("readiness.json"))?;
+    let reviewed = faucet::read_json(&root.join(SETTINGS_SOURCE).with_extension("readiness.json"))?;
+    let source = faucet::archived_project(&root, "63d067b1d4d8ec0415eb4b6b12a8fca9434bb0a1")?;
     let source_sha = faucet::file_sha(&source)?;
     if reviewed["project_sha256"].as_str() != Some(source_sha.as_str()) {
         bail!("the TPU recipe source differs from its reviewed project");

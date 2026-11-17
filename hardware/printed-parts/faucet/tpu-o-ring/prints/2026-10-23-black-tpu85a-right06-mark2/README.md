@@ -5,14 +5,14 @@ Mark2 accepted one black Bambu TPU 85A sleeve on **2026-10-23 at 16:38 CDT**.
 The [launch receipt](launch.json) binds the submitted processed archive to task
 **1368570348**. The source estimate is **11 minutes / 0.40 g**, with 87 layers.
 
-Use the [processed print archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf)
+Use the [processed print archive](https://homesodamachine.com/print-archive/668974025ca509f43b067aad4c59413ef0c11845/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf)
 directly. It includes the cap routing; reslicing the
-[editable project](2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf)
-produces the [native source slice](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.gcode.3mf).
+[editable project](https://homesodamachine.com/print-archive/4b0839478e41bd2b81173baca0332045f3f12fac/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.3mf)
+produces the [native source slice](https://homesodamachine.com/print-archive/8c7b00b3e767213f468b96ed05c32ccddc39b6cd/2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2.gcode.3mf).
 
 ## Recipe and fit basis
 
-The [accepted May Touch-Flo / LLDPE fit project](../../tpu-o-ring-85A-6mm.3mf)
+The [accepted May Touch-Flo / LLDPE fit project](https://homesodamachine.com/print-archive/a468b3dbb7114109e0a6715ade647df60e1da58b/tpu-o-ring-85A-6mm.3mf)
 supplies the unchanged mesh, cap-down pose, Bambu TPU 85A material profile,
 0.30 mm first / 0.18 mm subsequent layers, one Classic wall, spiral mode,
 225°C nozzle, 1.0 flow ratio and 2.2 mm³/s flow cap. One sleeve is centered at

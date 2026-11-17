@@ -18,7 +18,7 @@ unreported.
 
 - Polymaker Fiberon PET-GF15, black, on Mark1's fixed left hardened 0.4 mm nozzle from
   external spool 254, which reads PET-CF. Textured PEI.
-- The shared [`petgf.3mf`](../../../../hardware/printed-parts/petgf.3mf) with its localized
+- The shared [`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) with its localized
   cooling; requested +0.18 mm trim, emitted `G29.1 Z0.16`.
 - Solid, like the tube-insertion fixture: six walls and 100% zig-zag infill, so the wall
   thickness is the only difference between the three. 0.20 mm first layer, 0.24 mm layers.

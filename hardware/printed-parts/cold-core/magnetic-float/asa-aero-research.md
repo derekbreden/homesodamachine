@@ -44,7 +44,7 @@ supplies 0.20 mm layers, 0.48 mm lines, ordinary wall/infill speeds of 80 mm/s,
 normal acceleration 5,000 mm/s² and outer-wall acceleration 3,000 mm/s².
 The guide prefers Engineering or smooth PEI with glue; textured PEI can tear
 foam on removal. Single-object printing limits travel stringing. Each float
-piece has its own plate in [magnetic-float-aero.3mf](magnetic-float-aero.3mf).
+piece has its own plate in [magnetic-float-aero.3mf](https://homesodamachine.com/print-archive/e4fe27cc38e23710fe276e42efe7e76a1d20f78b/magnetic-float-aero.3mf).
 
 The core process has three wall loops, five top/bottom layers and **100% infill**.
 This produces a filled body of foamed extrusions. Bambu's one-wall/zero-infill

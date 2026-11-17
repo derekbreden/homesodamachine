@@ -2,7 +2,7 @@
 
 The current five-part Industrial faucet with swatch A2's scarf: a 60 mm outer-wall scarf with
 no scarf gap, seams aligned on all five parts, a 150% seam gap and no wipe. Everything else is
-the reviewed [project](../../faucet-industrial-petgf.3mf): geometry, placements, layer bands
+the reviewed [project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf): geometry, placements, layer bands
 with eight coarse lip layers, smart scarf at 155° and the infill-only foot.
 [launch.json](launch.json) records the hashes, the exact differences and the native checks.
 

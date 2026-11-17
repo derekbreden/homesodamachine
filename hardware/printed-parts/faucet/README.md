@@ -4,8 +4,8 @@ The faucet has two styles, each in Black or White PET-GF.
 
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
-| **Sculpted** | Smooth curves and softly blended transitions. | [Production project](faucet-petgf.3mf) · [print settings](sculpted/README.md) |
-| **Industrial** | Simple cylinders and crisp shoulders. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Sculpted** | Smooth curves and softly blended transitions. | [Production project](https://homesodamachine.com/print-archive/e35fa8fbcddca686b10df0e355bad3074d38d833/faucet-petgf.3mf) · [print settings](sculpted/README.md) |
+| **Industrial** | Simple cylinders and crisp shoulders. | [Production project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.

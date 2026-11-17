@@ -3,7 +3,7 @@
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
 The current recipe and result are in [watertight-petg.md](watertight-petg.md) and
-[reservoir.3mf](reservoir.3mf). This file records historical settings and observations. [Water-hold acceptance](water-hold-acceptance.json) identifies the tested articles and reported results.
+[reservoir.3mf](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf). This file records historical settings and observations. [Water-hold acceptance](water-hold-acceptance.json) identifies the tested articles and reported results.
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
 

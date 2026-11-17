@@ -105,7 +105,7 @@ and [native source](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-t
 identify this 30% print through Mark1's left **0.8 mm Standard** nozzle. The completed
 left water-hold article used Textured PEI.
 
-[reservoir.3mf](reservoir.3mf) and [print-settings.json](print-settings.json)
+[reservoir.3mf](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf) and [print-settings.json](print-settings.json)
 retain the **265/270 °C reference recipe** on the current left/right body/cap
 geometry. Its intentionally shortened task **1365626370** has a reported
 one-hour hold on October 23 and remains holding water on October 25.

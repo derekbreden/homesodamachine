@@ -4,7 +4,7 @@ Mark2 accepted task **1317261284** at **09:34:45 CDT** through one foreground
 Bambu Connect Send. [Launch receipt](launch.json) · [Fresh preflight](preflight.json).
 
 The submitted plate contains **reservoir-right** and **reservoir-cap-right**,
-source plate 2 of the frozen [reservoir project](../../reservoir.3mf).
+source plate 2 of the frozen [reservoir project](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf).
 The G-code and project settings are byte-identical to the reviewed native
 plate. [Packaging and hashes](packaging.json) · [Authorized launch plan](launch-plan.json) ·
 [Native review](../../slice-review.json).

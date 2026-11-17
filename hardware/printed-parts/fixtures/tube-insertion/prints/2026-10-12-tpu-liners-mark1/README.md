@@ -9,8 +9,8 @@ contains the replacement print.
 The final [tube insertion tool](../../README.md) plate contains two identical
 preformed TPU 85A liners F. Their tube axes are vertical, with each 8 × 20 mm
 end on the bed and the constant half-round gripping channel carried through
-28 mm of height. The [native project](2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.3mf)
-and [reviewed G-code archive](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.gcode.3mf)
+28 mm of height. The [native project](https://homesodamachine.com/print-archive/98de093c8b5ea114786580093b9e21ca04f43d64/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.3mf)
+and [reviewed G-code archive](https://homesodamachine.com/print-archive/d0cf16ddffdf9decb4a0ae5f97e8e5521249bc6f/2026-10-12-tube-insertion-liners-tpu85a-right06-z018-mark1.gcode.3mf)
 are prepared for Mark1's right fixed 0.6 mm hotend and black TPU 85A on
 external spool 255.
 

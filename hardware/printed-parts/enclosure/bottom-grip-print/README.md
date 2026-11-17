@@ -16,7 +16,7 @@ launch receipts bind the receiver-cut geometry identified in each record. Their 
 support exclusions and bridge checks apply only to those source meshes. The
 [receiver/cover coupon result](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json) retains its scope.
 
-The shared [`petgf.3mf`](../../petgf.3mf) supplies temperatures, speeds, wall order,
+The shared [`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) supplies temperatures, speeds, wall order,
 15% infill overlap and automatic tree supports. The production layer bands and complete
 insert-host modifiers are described in the
 [enclosure layer policy](../enclosure/layer-policy-correction/README.md).

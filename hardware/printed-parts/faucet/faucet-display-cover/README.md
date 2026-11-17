@@ -109,7 +109,7 @@ Customer installation uses the assembled faucet.
 
 The production cover uses black PET-GF, **Bambu’s 0.20 mm first bed
 layer and 0.24 mm later layers**, with no fine bands. Its
-[cover-only project](faucet-display-cover-petgf.3mf) retains the accepted −50°
+[cover-only project](https://homesodamachine.com/print-archive/17694ddaa9460ac11c5e64d12739675a9ecd7909/faucet-display-cover-petgf.3mf) retains the accepted −50°
 pose, localized cooling, supports and Mark2 trim.
 Prepare it with:
 

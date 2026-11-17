@@ -61,8 +61,8 @@ The [native slice review](mark2-print/v2/float-preflight.json) records the seat,
 last open pocket, insertion pause, covering roads and open guide bore for the
 current body.
 [`prepare_print.rs`](prepare_print.rs), the `aero-float-print-project` program, takes the
-recipe from [`all-aero-float.3mf`](all-aero-float.3mf) and prepares the
-[current project](mark2-print/v2/all-aero-float.3mf) and its native archive offline.
+recipe from [`all-aero-float.3mf`](https://homesodamachine.com/print-archive/c14e30783c8fad9facaf7b2d8bf916309a759055/all-aero-float.3mf) and prepares the
+[current project](https://homesodamachine.com/print-archive/66954ac45836101d72d2c7d3964db54fd5da05ea/all-aero-float.3mf) and its native archive offline.
 
 Mark2's recipe is the glued Engineering plate, +0.04 mm user trim, fixed right
 hardened standard-flow 0.4 mm nozzle and ASA Aero White GFB02 from the Polymaker
@@ -85,7 +85,7 @@ The inner collar and outer band anchor the covering roads.
 ## Accepted print evidence
 
 The [v1 slice review](mark2-print/v1/float-preflight.json),
-[native project](all-aero-float.3mf), [source snapshot](mark2-print/v1/source-snapshot/README.md)
+[native project](https://homesodamachine.com/print-archive/c14e30783c8fad9facaf7b2d8bf916309a759055/all-aero-float.3mf), [source snapshot](mark2-print/v1/source-snapshot/README.md)
 and [launch receipt](mark2-print/v1/float-mark2-launch.json) identify Mark2 task
 **1306080180**, accepted once at 15:01:48 CDT on 2026-10-03. That article uses
 a 3.40 mm pocket, insertion after layer 79 at Z15.8 and covering from layer 80

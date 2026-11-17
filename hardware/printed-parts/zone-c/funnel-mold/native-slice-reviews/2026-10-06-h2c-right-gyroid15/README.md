@@ -1,6 +1,6 @@
 # H2C right-nozzle funnel mold
 
-The [editable two-plate project](funnel-mold-h2c-right.3mf) selects the right
+The [editable two-plate project](https://homesodamachine.com/print-archive/43e333992307b876e0bc01bf8eb28087bdafafd9/funnel-mold-h2c-right.3mf) selects the right
 0.4 mm Standard nozzle for the current cavity and core. The process is six
 walls, 15% gyroid, six top/bottom layers, PETG Translucent at 0.88 flow and
 5.61702 mm³/s, with 0.20 mm first and 0.24 mm normal layers. Textured PEI uses

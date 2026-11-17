@@ -1,8 +1,8 @@
 # Tube insertion base — Mark1
 
 One PET-GF base A for the [tube insertion fixture](../../README.md) occupies
-the first of its three plates. The [reviewed native archive](../../ready/tube-insertion-rigid-base-h2c.gcode.3mf)
-uses the shared [petgf.3mf](../../../../petgf.3mf) baseline, six walls,
+the first of its three plates. The [reviewed native archive](https://homesodamachine.com/print-archive/59f40bda0c69b53d01a289ddad0ba418145a1aae/tube-insertion-rigid-base-h2c.gcode.3mf)
+uses the shared [petgf.3mf](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) baseline, six walls,
 100% zigzag infill, a 0.20 mm first layer and 0.24 mm normal layers.
 The full-bead envelope has at least 26.02 mm bed-edge clearance; no supports
 are generated on this plate.

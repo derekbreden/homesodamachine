@@ -1,6 +1,6 @@
 # Frame and fit plate
 
-The [input project](2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf)
+The [input project](https://homesodamachine.com/print-archive/61d9703060857159ef65d14852111ccefc55a1f2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf)
 contains one flush-ceiling funnel frame, seventeen labeled open RC62 pockets
 and five upright four-socket valve panels. The
 [snapshot](snapshot.json) binds the input, native archive and every review by

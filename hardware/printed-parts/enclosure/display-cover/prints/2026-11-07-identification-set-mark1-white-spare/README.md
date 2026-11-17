@@ -1,7 +1,7 @@
 # Identification set with a spare white hotend
 
 White PETG uses an available replacement hotend on Mark One. The reviewed
-[identification-set archive](../2026-11-06-identification-set-mark1-z000/HSM-identification-Mark1-z000.gcode.3mf)
+[identification-set archive](https://homesodamachine.com/print-archive/aeff38920d31b4ad6ae58e72f51c85091117b8f7/HSM-identification-Mark1-z000.gcode.3mf)
 provides the same geometry and toolpaths with no Z offset on the glued Engineering Plate.
 The launch record identifies the selected hotends, material slots and printer job.
 

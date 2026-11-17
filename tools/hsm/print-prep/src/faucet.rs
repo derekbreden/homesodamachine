@@ -12,7 +12,7 @@ use hsm_faucet_numbers::paths as faucet_paths;
 use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
 use std::io::{Read, Seek};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 pub fn read_json(path: &Path) -> Result<Value> {
     Ok(serde_json::from_slice(&std::fs::read(path).with_context(|| format!("reading {}", path.display()))?)?)
@@ -41,8 +41,27 @@ pub fn archive_members(input: impl Read + Seek) -> Result<BTreeMap<String, Vec<u
     Ok(out)
 }
 
-/// Read a production recipe's immutable evidence from its recorded Git revision.
+/// Open a print project identified by the blob ID recorded with its print evidence.
+pub fn archived_project(root: &Path, blob: &str) -> Result<PathBuf> {
+    ensure!(blob.len() == 40 && blob.bytes().all(|byte| byte.is_ascii_hexdigit()), "invalid print archive blob ID");
+    let path = root.join("output/print-archive/blobs").join(format!("{blob}.3mf"));
+    if !path.is_file() {
+        let result = std::process::Command::new("node")
+            .arg(root.join("tools/print-archive.mjs"))
+            .arg(blob)
+            .arg(&path)
+            .output()
+            .context("restoring the archived print project")?;
+        ensure!(result.status.success(), "{}", String::from_utf8_lossy(&result.stderr).trim());
+    }
+    Ok(path)
+}
+
+/// Read the immutable evidence a production recipe records.
 pub fn recorded_member(root: &Path, record: &Value, key: &str) -> Result<Vec<u8>> {
+    if let Some(blob) = record.get(format!("{key}_blob")).and_then(Value::as_str) {
+        return Ok(std::fs::read(archived_project(root, blob)?)?);
+    }
     let path = record[key].as_str().with_context(|| format!("missing recorded evidence {key}"))?;
     let commit = record["source_commit"].as_str().context("recorded evidence revision")?;
     let result = std::process::Command::new("git")
@@ -348,7 +367,10 @@ fn origin_shift(root: &Path, r: &Refreshed, selected: &Value) -> Result<(Value, 
 
 /// Carry the accepted removable tip anchor beneath the hidden plug end.
 pub fn add_tip_root_anchor(root: &Path, r: &mut Refreshed, selected: &Value) -> Result<Value> {
-    let source_path = root.join(selected["source_project"].as_str().context("source project")?);
+    let source_path = match selected["source_project_blob"].as_str() {
+        Some(blob) => archived_project(root, blob)?,
+        None => root.join(selected["source_project"].as_str().context("source project")?),
+    };
     let source = members(&source_path)?;
     let (_, origin, shift, index) = origin_shift(root, r, selected)?;
     let origin_object = origin["object_id"].as_str().map(String::from).unwrap_or_else(|| origin["object_id"].to_string());
