@@ -113,7 +113,7 @@
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0292691e1e8418f4f1e5aa4cd30ae096777f5952c1248fe2eafd48bb5e334533",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
-    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "6ec51669fc24c60bc659cc6e1331af4b1b8596b6eb391e7f30401fe45aac529c",
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "e35804b576bc4f8fa12e07d7d61d78a3a0571be7bc0a0b2f37e3148d9bbc8159",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": "4a3ba3a34ff8c70237f0bd33ae052c565b5030824476c43cc6a4b2e8075744f4",
@@ -902,7 +902,7 @@
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0292691e1e8418f4f1e5aa4cd30ae096777f5952c1248fe2eafd48bb5e334533",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "3e789119c1475e08b7bd5a9eb7edbf265cb8c85bd486ef4740178c1c10d1050b",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "d1503dc41b490a05b6d636e46868485c2929dfebcd6dc70aba1131ee36df07c0",
-      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "6ec51669fc24c60bc659cc6e1331af4b1b8596b6eb391e7f30401fe45aac529c",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "e35804b576bc4f8fa12e07d7d61d78a3a0571be7bc0a0b2f37e3148d9bbc8159",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "3f1fb479bf4599050149102ac96e540a2d1ca1892a99460c8f63ab4cb62c4987",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": "4a3ba3a34ff8c70237f0bd33ae052c565b5030824476c43cc6a4b2e8075744f4",
@@ -2491,7 +2491,7 @@
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": 1794136023,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": 1794136040,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": 1793568839,
-    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": 1793712586,
+    "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": 1794899012.045988,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": 1793568839,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": 1793543574,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": 1793750338,
@@ -3491,7 +3491,7 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
+      "commit": "fa35eb5ca498ea4f1c07df404a7f41a632eb2307",
       "inputs": "d8259ff3025f11a89e72c8cbfeec9e8ba2e375d4e9bfdba03acd146d328fb576",
       "unproven": true
     },
