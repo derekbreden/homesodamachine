@@ -7,9 +7,12 @@ use hsm_cold_core_catalog::Colour;
 /// The drawn surfaces are simplified to this share of the viewer's deflection budget.
 pub const SIMPLIFICATION_FRACTION: f64 = 0.5;
 
-/// The pieces drawn at their own part's viewer budget rather than the assembly's: reservoir B's
-/// fill holder, small beside the core.
-pub const PART_BUDGET: [&str; 1] = ["reservoir-b-fill-guide"];
+/// Small pieces drawn at their own viewer budget to retain their profile.
+pub const PART_BUDGET: [&str; 3] = [
+    "reservoir-b-fill-guide",
+    "probe-carbonator-ds18b20",
+    "probe-coil-ds18s20",
+];
 
 /// The printed casing pieces the core draws with the surfaces their own print payloads cut, each
 /// with that payload's file.
