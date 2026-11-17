@@ -221,11 +221,11 @@ all tubes and sensing leads before closing the top.
 Drop the two proved reservoir reed columns into their dry channels. Route A's leads
 through its lid opening and B's leads through the fore side window. Feed the exposed
 tubes and sensor/earth loom through their lid openings. Lower the lid
-in its specified 180° installed orientation, clearing the B-fill holder with its
-plain window. The flat equipment face stays at appliance Z253.4 mm. Ten M5 × 100
+in its specified 180° installed orientation so the window seats around the flush
+rectangular top of the B-fill holder. The flat equipment face stays at appliance Z253.4 mm. Ten M5 × 100
 screws seat in Ø9 recesses and engage the raised shell-face inserts. Tighten these
 before the PCB covers any driver path. Apply 3M 425 to the dry exterior perimeter
-and guide-window boundary without covering functional tube or vent lumens.
+and the seam around the B-fill holder, keeping tube and vent lumens clear.
 
 The closed casing, cured insulation, installed sensing columns and supported
 free lines form **HSM-0557 insulated cold-core assembly**. It moves together

@@ -289,9 +289,10 @@ fn fine_section(profile: Profile) -> Result<Profile> {
     Ok(Profile::new(Loop::new(segments)?))
 }
 
-/// The R14 holder: the accepted holder's quarter turn, printed flat on its domed back.
+/// The R14 holder prints on its flat back. Its rectangular top fills the lid's window.
 fn b_holder() -> Result<Solid> {
     let body = Plane::XZ.revolve(&fine_section(b_body()?)?, 90., v2(0., 0.), v2(0., 1.))?;
+    let body = body.union(&cuboid(cap::b_fill::lid_fill_stock()))?;
     let air = Plane::XZ.revolve(&fine_section(teardrop(tube::CHANNEL_RADIUS)?)?, 90., v2(0., 0.), v2(0., 1.))?;
     let mouth = b_mouth(true)?;
     body.cut(&air)?.cut(&mouth)?.cut(&mouth.mirror(V3::ZERO, v3(1., -1., 0.)))
@@ -722,7 +723,7 @@ fn top_lid() -> Result<Solid> {
             .cut(&cylinder(v2(p.x, p.y), -OVERCUT, p.z + 1., bore)?)?;
         body = body.union(&guide)?;
     }
-    // A plain clearance window lets the independent R14 holder stay with its tube.
+    // The window slides over the holder's flat top as the lid seats.
     let [lo, hi] = cap::b_fill::holder_bounds();
     let gap = cap::b_fill::WINDOW_CLEARANCE;
     body = body.cut(&box3(lo[0] - gap, hi[0] + gap, lo[1] - gap, hi[1] + gap, -OVERCUT, h + OVERCUT))?;
