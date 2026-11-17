@@ -197,11 +197,10 @@ def main():
         subprocess.run([
             "node", "--input-type=module", "-e",
             """import path from 'node:path';
-import sharp from './tools/render/node_modules/sharp/dist/index.mjs';
+import { writeCatalogThumbnail } from './tools/render/catalog-thumbnail.mjs';
 const [source, destination, ...files] = process.argv.slice(1);
 for (const file of files) {
-  await sharp(path.join(source, file + '.png')).webp({ quality: 84 })
-    .toFile(path.join(destination, file + '.webp'));
+  await writeCatalogThumbnail(path.join(source, file + '.png'), path.join(destination, file + '.webp'));
 }""",
             scratch, OUTPUT, *(Path(job["out"]).stem for job in jobs),
         ], check=True, cwd=ROOT)
