@@ -1,16 +1,14 @@
 # Mold operations
 
-[Illustrated shop guide](mold-guide.pdf): 22 Letter pages for casting the silicone
-funnel and filling the cold core's two caps and body with polyurethane foam.
-Each page has a large picture, short bench actions and a completion check or
-process gate. It uses the [weld-rotator guide](../weld-rotator-guide/README.md)'s
-one-picture-per-step approach and the approved Letter sheets' print calibration.
+The illustrated shop guide covers casting the silicone funnel and insulating
+the cold core. Each operation has a schematic, bench actions and a completion
+check. [Shop guide](mold-guide.pdf) · [Cold-core bench procedure](../assembly/cold-core.md)
 
 ## Operations and pages
 
 | Page | Bench operation |
 | --- | --- |
-| 1 | Identify the funnel cast and three cold-core pours |
+| 1 | Identify the funnel cast and both cold-core pours |
 | 2 | Stage tooling, liquids, closure hardware and vacuum equipment |
 | 3 | Clear bolt-pocket supports, drill infill breathers, finish forming faces and mask bare datums |
 | 4 | Clean the stock 6 × 25 mm steel rod |
@@ -26,15 +24,16 @@ one-picture-per-step approach and the approved Letter sheets' print calibration.
 | 14 | Remove flange fasteners and open the tooling in alternating small movements |
 | 15 | Pull the straight rod and trim outlet flash flush |
 | 16 | Inspect and clean the funnel; check its installation |
-| 17 | Stage the three 1:1 foam pours and the per-build quantity |
-| 18 | Prepare and clamp the labeled top and bottom cap stacks |
-| 19 | Mix each cap shot 1:1, pour, cure, trim and remove the fixture screws |
-| 20 | Prove buried components, seal the round copper exits and protect open paths |
-| 21 | Mix the body shot 1:1 and pour it all at once through the open top |
-| 22 | Trim after cure, fit reed columns/gaskets and close both caps |
+| 17 | Prepare the bottom-cap and open-body pours |
+| 18 | Bolt the bottom cap to the empty shell, mask the joint and invert the casing |
+| 19 | Fill through the underside ports, cure, trim and patch |
+| 20 | Prove buried components, seal the copper exits and dry-fit the B-fill locator |
+| 21 | Protect the risers and dry passages and pour through the open body |
+| 22 | Pull the locator, clear the approach, seat the lid and feed B-fill |
 
-The two cap pours are separate operations, with different depths and lid details.
-Both use the shell's top face as their fixture. The body pour has no cap in place.
+The bottom-cap pour uses the inverted empty shell. Return it upright with
+the cap fastened before fitting the vessels. The body pour uses the upright
+shell with its equipment lid on the bench.
 The current reservoirs are printed PETG, and the floats are printed ASA Aero.
 The [silicone reservoir concept](../printed-parts/cold-core/reservoir/silicone.md)
 has no production mold or casting recipe; it does not supply a bench operation
@@ -91,16 +90,13 @@ silicone/pigment/release/post-process mixture still needs the
 
 ### Foam pours
 
-The acquired foam is FSD B08R7TX8QJ, two-part 2 lb density closed-cell PU,
-mixed 1:1 in measured shots. Each cap pours bolted mouth-up to the shell's top
-face, through its lid's 20 mm hole with air leaving by the two 6 mm vents. The
-body pours all at once through its open top. A build fills about 5 L of risen
-foam, about 4 L of cavity plus waste, which is about 1/7 of the 1 qt kit
-([BOM](../ledger/bom.md)). The [cold-core procedure](../assembly/cold-core.md)
-keeps the foam data-sheet details (pot life, cure time, pour temperature window)
-and the trim method as open items. The body surrounds sealed components; no foam
-enters the carbonator or reservoir liquid interiors. Reed channels, top conduits,
-vents and the relief outlet remain open.
+Use the FSD closed-cell PU kit specified in the BOM. Establish the measured
+charge and distribution for each cavity from the foam-fill trials, and follow
+the kit directions for handling and cure. Fill the inverted bottom cap through
+its distributed ports with the vents open. In the upright body, keep the B-fill
+approach, upper insert mouths and dry reed channels clear during the pour.
+Pull the locator after cure. Seat the lid before feeding the final B-fill tube.
+[Cold-core procedure](../assembly/cold-core.md) · [Foam-fill trials](../print-tests/foam-fill/README.md)
 
 ## Manufacturer sources
 

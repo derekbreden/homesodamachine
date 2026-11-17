@@ -8,23 +8,16 @@ Order isn't strict — pressure-testing waits on tap + weld being complete on th
 
 ## Bend copper around the pressure vessel
 
-Form GOORY 1/4" OD × 0.031" wall ACR copper tubing to the complete
-[EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf).
-The final winding is 9½ right-hand turns over 119.4 mm at
-pitch on the 5" OD vessel, with the specified local relief over the reed bridge.
-Use the undersized printed [coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs)
-for rough forming, then feed material from the unfinished ends as the finished
-winding is set on the vessel fixture. Form the R15 tangent tails and verify
-their exit stations before foam. Copper allocation is in
-the laid winding plus at the inlet and
- at the outlet, including each in-core form and its own
-working tail. The finished stock cut and working lengths are controlled by
-EVAP-01. Apply 3M 425 foil as the continuous vessel-to-coil thermal interface.
+Rough-form the GOORY ACR copper on the undersized printed coil mandrel.
+Feed material from the unfinished ends while setting the right-hand winding
+on the vessel fixture, including the relief over the reed bridge. Apply
+3M 425 foil as the continuous vessel-to-coil thermal interface.
+[Coil mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs)
 
-See [assembly/cold-core.md](/hardware/assembly/cold-core.md) step 1 for the production-procedure framing; the stubs it leaves are brazed in [assembly/refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md).
-
-The [EVAP-01 production drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
-defines the installed winding, working tails, exit positions and bend requirements.
+Form the tangent tails and check the exits before foam. Use the drawing for
+the stock cut, winding, tail bends and working lengths. The cold-core procedure
+sets the order for the probes, reeds and earth lead.
+[EVAP-01](/hardware/cold-core-layout/evaporator-coil-drawing.pdf) · [Cold-core procedure](cold-core.md#1-dress-the-carbonator-wall-then-wind-the-evaporator-coil)
 
 ## Tap NPT in 316L end caps
 

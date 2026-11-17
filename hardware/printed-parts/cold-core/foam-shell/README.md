@@ -17,12 +17,12 @@ lid underside Z246 mm. The 7.4 mm lid presents its equipment face at Z253.4 mm.
 The bottom cap stands on Z0 and seats 0.15 mm below the shell base. The complete
 casing therefore remains 253.4 mm high.
 
-The main body's mouth is open for lowering the finished vessels, routing tubes
-and pouring foam. The straight fill, draw and air tubes are installed in their
-reservoir grips before the body pour, with their upper ends located on the lid-hole axes. After
-cure these ends pass through the lid; the dip sections remain free inside the
-closed reservoirs. The B-fill
-R14 guide is installed with its tube after the vessels are seated.
+The main body's mouth is open for lowering the finished vessels, routing
+the risers and pouring foam. The straight fill, draw and air tubes go in
+before the body pour. After cure their upper ends pass through the lid.
+The B-fill holder is located by a removable offcut during the pour. Feed the
+final B-fill tube through the front entry once the lid seats.
+[Cold-core assembly](../../../assembly/cold-core.md#6-open-body-foam-pour)
 
 ## Vessel supports and pockets
 
@@ -70,8 +70,8 @@ Exterior foil bands cover the dry pocket mouths and perimeter joints.
 
 All wet paths are continuous tubes or their specified fittings. The main foam
 closes on their outside surfaces. The lid's quarter-inch passages are Ø7.5 mm;
-reservoir air-tube passages are Ø5.2 mm for separate 4 mm tubes. B-fill uses the
-accepted Ø6.8 teardrop-channel R14 holder, with a plain lid clearance window.
+reservoir air-tube passages are Ø5.2 mm for separate 4 mm tubes. The top of the
+B-fill holder fills its mating window in the equipment lid.
 The PCB's four full-length M3 inserts belong to the lid, above its flat bed face.
 
 The water line keeps R14 turns in the west lane. Its two opposed turns pass

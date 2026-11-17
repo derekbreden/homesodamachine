@@ -286,23 +286,15 @@ preserves the selected line/arc definitions and contact scope.
 
 V-F's outlet and V-E's inlet each receive one ATEU44W stem elbow on front-top. Cut each male stem to the valve's marked tube stop (12.7 mm nominal in CAD), seat it fully and point its tube socket aft. Their reservoir tubes rise gently to the Z295.5 free runs beneath the funnel frame, with 1.225 mm nominal tube/frame air. V-I's outlet takes the same trimmed stem elbow with its socket clocked 15° east of aft. Its B-fill tube descends toward the fore-facing cap entry. Flavor A's 4 mm crossover runs at Y156/Z288.5; the J9 display ribbon's free bends pass below it while the printed cable mouth and connector positions retain their datums.
 
-Prepare B-fill as one continuous black 1/4-inch LLDPE tube from V-I to reservoir B's
-headspace. Thread it through the independent 2 mm-wall R14 holder, with no straight
-outlet leg, and into the reservoir's TPU fill grip before the body pour. Keep the V-I
-end free. The lower tube passes through the grip at world X−43.5/Y233.3 and ends
-nominally at Z228.15, 1 mm below the reservoir plate; the short tip may remain slightly
-angled. A-fill and B-draw use their lid openings after their upper dry spans are potted.
-Bridge both reservoir-cap/pocket rims with foil and keep tube lumens, reed channels
-and insert mouths clear during the open-body pour. The holder stays with the tube
-and cured foam. After cure and trimming, lower the equipment lid over the tubing
-so its window seats around the flush top of the B-fill holder. Tighten the ten
-M5 closure screws before fitting the PCB.
+Use one continuous black LLDPE tube for B-fill from V-I to the reservoir
+headspace. Protect the inlet and locate the holder during the pour, then feed
+the final tube lengthwise from the front through the seated lid, holder and
+TPU grip to its marked depth. [Cold-core pour](cold-core.md#6-open-body-foam-pour) · [Lid closure and B-fill feed](cold-core.md#7-close-and-populate-the-top-lid)
 
-The drawn external `fluid-24` span includes the nominal 16.891 mm receiving length
-in V-I's stem elbow. The cap-entry boundary divides the CAD spans of one physical
-blank; measure the complete route through the passage to the reservoir tip and use
-the actual V-I receiving mark. Keep the source end free while closing the lid,
-then insert it into V-I's clocked elbow. Terminate both J10 power leads on the loose
+The cap-entry boundary divides the CAD spans of the same tube. Measure the
+complete route to the reservoir tip and mark the actual receiving length in
+V-I's stem elbow. Make that connection after the tube is seated in the
+reservoir. Terminate both J10 power leads on the loose
 PCB before fastening it to the core, then land their free ends at the core WAGOs.
 Dress and tag the front-top ends on the bench and make the flexible handoffs through
 the funnel opening before fitting the frame. Stage B-fill clear of the J5/J6/J13
