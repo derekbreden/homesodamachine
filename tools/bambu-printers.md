@@ -92,7 +92,7 @@ records intermittent projecting strands appearing on arrival from the other
 object as a wall starts. Derek identifies the second object's end on layer N
 to the first object's start on layer N+1 as the transition of concern.
 The record does not establish an outward departure pulling the reported strand.
-The [two-elbow travel review](../future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
+The [two-elbow travel review](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
 distinguishes that return from transfers within a layer, including the
 firmware timelapse detour. A path above wall material alone does not establish
 that ooze contacts it or becomes buried.

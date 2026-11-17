@@ -51,7 +51,6 @@
     "hardware/printed-parts/enclosure/rear-identification",
     "hardware/printed-parts/faucet/tube-collar",
     "hardware/printed-parts/soda-bend-holder",
-    "hardware/printed-parts/asse-straight-cuffs",
     "hardware/printed-parts/refrigeration/fuse-clamp",
     "hardware/printed-parts/cold-core/coil-mandrel",
     "hardware/printed-parts/fixtures/weld-rotator",
@@ -90,8 +89,7 @@
     "hardware/printed-parts/cold-core/coil-mandrel",
     "hardware/printed-parts/fixtures/weld-rotator",
     "hardware/printed-parts/fixtures/water-inlet-jet",
-    "hardware/printed-parts/asse-drain-adapter",
-    "hardware/printed-parts/asse-straight-cuffs"
+    "hardware/printed-parts/asse-drain-adapter"
   ],
   "BUNDLED_PAYLOAD_FILES": [
     "hardware/cold-core-layout/cold-core-assembly.step.mesh",

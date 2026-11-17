@@ -8,7 +8,7 @@ local support blocker. The source supplies the handed print pose, the actual wet
 passage and the complete part geometry.
 
 It uses the saved Siraya Tech Flex TPU85A Clear recipe from the
-[October 14 single-elbow article](../../../../../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json),
+[October 14 single-elbow article](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json),
 with the right 0.6 mm nozzle mapping, 0.20 mm first layer and 0.12 mm normal
 layers. Temperature, flow, retraction and wipe settings stay in that retained
 recipe. Exterior supports use Tree (auto), Default, including the normal
@@ -58,7 +58,7 @@ beads, first and second layers, and nonextruding moves against the actual cavity
 The junction's lower socket retains its six-millimetre sealing land and tube-tip
 station, with a 0.30 mm radial stop ledge followed by a 45-degree bore taper.
 
-The [Siraya article's exterior result](../../../../../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
+The [Siraya article's exterior result](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
 was accepted, while internal stringing was reported. That result does not qualify
 these parts' internal finish, support release, wet service, seals, pressure
 retention or life. Single-object placement and native travel avoidance do not

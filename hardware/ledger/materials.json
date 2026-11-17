@@ -4942,10 +4942,6 @@
           "path": "ledger/bom.md"
         },
         {
-          "title": "Elbow clamping",
-          "path": "printed-parts/diaphragm-pump-sleeve/README.md"
-        },
-        {
           "title": "Pump barb joint",
           "path": "reference/pump-barb-joint/README.md"
         }

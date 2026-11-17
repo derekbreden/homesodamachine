@@ -133,9 +133,7 @@ for fixed-width brim types.
 | `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.rs`](labels.rs) | — |
 | `funnel-cover` | Mark1, left 0.4 | PETG Basic black | [`zone-c/funnel-cover/prepare_print.rs`](../../zone-c/funnel-cover/prepare_print.rs) | — |
 | `funnel-mold` | Mark1, right 0.4 | PETG Translucent | [`tools/funnel-mold-print/prepare_print.rs`](../../../../tools/funnel-mold-print/prepare_print.rs) | — |
-| `pump-elbows` | Mark2, right 0.6 | Siraya TPU 85A | Retained processed archive with its deposited links | — |
 | `asse-vent-sleeve` | Mark1, right 0.6 | Siraya TPU 85A | Upright, the large socket on the bed | The accepted Siraya single's project: zero user Z trim, glued Engineering Plate |
-| `asse-cuffs` | Mark1, right 0.6 | Siraya TPU 85A | Half a turn about X, onto each tube end | As the vent sleeve; 2 mm part gap |
 | `seals` | Mark2, right | Bambu TPU 85A | Flat, as exported | Reservoir cap gaskets |
 | `display-gasket` | Mark2, right | Bambu TPU 90A, black | Flat, as exported | Glued Engineering Plate, solid, support-free |
 | `reservoir-grips` | Mark2, right | Bambu TPU 90A, white | Broad flanges on the bed, bores upright | Glued Engineering Plate; support-free |

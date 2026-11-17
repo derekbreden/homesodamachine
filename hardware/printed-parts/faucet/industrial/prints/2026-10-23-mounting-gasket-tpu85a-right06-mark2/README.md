@@ -33,7 +33,7 @@ bind the source mesh, settings, footprint, trim and warning-free native slice.
 
 ## Deposited turns and open passages
 
-The [accepted elbow trial](/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
+The [accepted elbow trial](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 prints through turns so a loose strand cannot straighten across an opening.
 The [Touch-Flo sleeve](../../../tpu-o-ring/prints/2026-10-23-black-tpu85a-right06-mark2/README.md)
 applies the same approach to its cap and has a qualitative general print-quality

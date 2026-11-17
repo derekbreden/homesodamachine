@@ -8,7 +8,7 @@ to the archived meshes and source bindings below.
 
 The four receivers stand with their front funnel rings on the bed and their bores vertical.
 The preparation uses the Mark1/H2C right fixed 0.6 mm nozzle recipe retained
-by the [Siraya single-elbow physical record](../../../../../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json).
+by the [Siraya single-elbow physical record](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json).
 That record accepts the elbow's exterior quality and reports internal
 stringing; it supplies no receiver acceptance.
 

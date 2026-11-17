@@ -471,8 +471,6 @@ fn pose(stl: &Path) -> (f64, f64) {
             | "reservoir-cap-left"
             | "reservoir-cap-right"
             | "prv-shroud"
-            | "asse-inlet-cuff"
-            | "asse-outlet-cuff"
             | "core"
     ) || parent == "tube-collar"
     {

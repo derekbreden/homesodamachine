@@ -5,7 +5,7 @@
   "printers": {
     "Mark1": {
       "connection_key": "H2C",
-      "z_trim_mm": 0.10,
+      "z_trim_mm": 0.1,
       "engineering_plate_z_trim_mm": 0.05,
       "filament_colour": "#000000"
     },
@@ -915,23 +915,6 @@
         "reason": "The silicone mold's own preparer: its README recipe from the installed Bambu presets, the current cavity and core meshes, one plate each, centred on the right hotend's bed."
       }
     },
-    "pump-elbows": {
-      "printer": "Mark2",
-      "nozzle": {
-        "side": "right",
-        "diameter_mm": 0.6,
-        "flow": "Standard",
-        "hardened": false,
-        "reason": "The accepted Mark2 pair printed on the right 0.6 mm, glued Engineering Plate (diaphragm-pump-sleeve/README.md, Material and print)."
-      },
-      "material": "Siraya Tech Flex TPU 85A, clear",
-      "archive": {
-        "path": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf",
-        "source_commit": "33d50d2ecd2a0fb6b518483a44c8031e3a0c1617",
-        "sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
-        "reason": "Use the processed archive directly; reslicing loses the deposited links (diaphragm-pump-sleeve/README.md). Accepted as the 2026-10-22 Mark2 pair (D-56)."
-      }
-    },
     "asse-vent-sleeve": {
       "printer": "Mark1",
       "nozzle": {
@@ -942,7 +925,7 @@
         "reason": "Mark1's right 0.6 mm with Siraya Tech Flex TPU 85A Clear on the external right spool (asse-drain-adapter/README.md, Print and assemble)."
       },
       "material": "Siraya Tech Flex TPU 85A, clear",
-      "profile": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+      "profile": "hardware/printed-parts/asse-drain-adapter/siraya-85a-settings.3mf",
       "z_trim_mm": {
         "value": 0.0,
         "reason": "The accepted Siraya single's zero user Z trim on the glued Engineering Plate (asse-drain-adapter/README.md)."
@@ -965,61 +948,6 @@
         }
       ],
       "pose_reason": "As exported: the exterior flat on the bed, with both sealing sockets rising at45 degrees (asse-drain-adapter/README.md)."
-    },
-    "asse-cuffs": {
-      "printer": "Mark1",
-      "nozzle": {
-        "side": "right",
-        "diameter_mm": 0.6,
-        "flow": "Standard",
-        "hardened": false,
-        "reason": "Mark1's right 0.6 mm with Siraya Tech Flex TPU 85A Clear on the external right spool (asse-drain-adapter/README.md, Print and assemble)."
-      },
-      "material": "Siraya Tech Flex TPU 85A, clear",
-      "profile": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
-      "z_trim_mm": {
-        "value": 0.0,
-        "reason": "The accepted Siraya single's zero user Z trim on the glued Engineering Plate (asse-drain-adapter/README.md)."
-      },
-      "filament_mapping": {
-        "value": {
-          "support_filament": "2",
-          "support_interface_filament": "2",
-          "flush_into_support": "0"
-        },
-        "reason": "One TPU spool on the right nozzle; the recipe prints no support."
-      },
-      "filament_colour": {
-        "value": "#FFFFFF",
-        "reason": "Mark1's external right spool reads TPU FFFFFF (2026-10-23 tube-bend-holder physical-result.json)."
-      },
-      "spacing_mm": 2,
-      "parts": [
-        {
-          "stl": "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                180
-              ]
-            ]
-          }
-        },
-        {
-          "stl": "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                180
-              ]
-            ]
-          }
-        }
-      ],
-      "pose_reason": "Half a turn about X stands each cuff on its tube end, so the flat metal-socket floor faces up and prints as a floor, the 1 mm tube-stop shoulder is the only ceiling, and the outer reducer taper rises at 42.5 degrees. The recipe's attached 5 mm outer brim carries the 11.8 mm footprint. No recipe is assigned to the cuffs; they take the vent sleeve's, the same stock's accepted single (asse-drain-adapter/README.md).",
-      "spacing_reason": "TPU objects stay close to shorten travel between extrusion stops and starts; the compact retry used a 2 mm model gap (tools/bambu-printers.md, Placement on unseasoned plates)."
     },
     "seals": {
       "printer": "Mark2",
@@ -1190,7 +1118,11 @@
           "reason": "Retain the selected PETG Basic bridge process from the native black PETG cover profile."
         },
         "filament_bridge_speed": {
-          "value": ["25", "25", "25"],
+          "value": [
+            "25",
+            "25",
+            "25"
+          ],
           "reason": "Retain the selected PETG Basic bridge process from the native black PETG cover profile."
         },
         "enable_support": {
