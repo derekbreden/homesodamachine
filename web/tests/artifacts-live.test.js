@@ -148,7 +148,14 @@ for (const failure of ["download-error", "stale-success", "missing-current"]) {
         await mkdir(path.join(root, dir), { recursive: true });
       }
       await writeFile(path.join(root, "package.json"), '{"type":"module"}');
-      for (const relative of ["lib/artifacts-live.js", "contracts/documents.js", "contracts/scorecard-sidecar.js", "contracts/artifact-scope.js"]) {
+      for (const relative of [
+        "lib/artifacts-live.js",
+        "lib/print-playback.js",
+        "contracts/artifact-scope.js",
+        "contracts/client-events.js",
+        "contracts/documents.js",
+        "contracts/scorecard-sidecar.js",
+      ]) {
         await copyFile(new URL("../" + relative, import.meta.url), path.join(root, "web", relative));
       }
       const have = {
