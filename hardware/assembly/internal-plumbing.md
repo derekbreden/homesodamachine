@@ -394,9 +394,8 @@ separate from native geometry and precede fluid commissioning.
 The [mechanical qualification index](/hardware/mechanical-qualification/README.md)
 preserves accepted results at their named parts and artifacts. The pump dock
 has no physical seal, retention, lifetime or cleaning acceptance, and its
-food-contact suitability is not established. The pump/ASSE TPU
-interfaces, shortened fitting stems and selected gas hardware retain their
-part-specific open qualification items. No unit is declared primed-ready or
+food-contact suitability is not established. The ASSE vent adapter, reinforced PVC pump joints, shortened fitting stems and
+selected gas hardware retain their part-specific open qualification items. No unit is declared primed-ready or
 safe to energize solely because the CAD paths connect.
 
 ## Reservoir tube grips and passive air paths

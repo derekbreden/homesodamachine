@@ -92,14 +92,6 @@
       "Support contact": "Outward-open screw head seats"
     }
   },
-  "HSM-0022": {
-    "title": "Cold-core bottom cap lid · October 31 · Mark2",
-    "sha256": "5d53af1e8c39f186720afdfdbab8ed9a2a9a86835621585aecbb4e7476184471",
-    "slice": "2026-10-31-foam-cap-lid-bottom-mark2-cb7b7c83.gcode.3mf",
-    "plate": 1,
-    "archive_sha256": "c1b546c589366ea990b029d70880917775ca83fc3fbf53f4425fe2253acefc47",
-    "launch": "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark2/launch.json"
-  },
   "HSM-0024": {
     "title": "PRV shroud and reed bridge · Mark1 print plan",
     "sha256": "e01277847481bba99aa17375f042ee3deb8ce30ea1f70a021817253accc5fe25",
@@ -1498,90 +1490,6 @@
     "model_sha256": "4a7579f6a1e19e9095923b05f1ba76d2b431553f3b9ff11d31b943a4319e31dd",
     "recipe_commit": "706e7a74e9b7acbe073282269711cfe2297fdf38",
     "recipe_sha256": "df8f28460bf0412e3653ce49d8e03e4d241f9a3723cc97e2d10f4277ee3f4fe9"
-  },
-  "HSM-0324": {
-    "title": "Water-pump elbows · Mark2 production print",
-    "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-    "recipe_target": "pump-elbows",
-    "recipe_commit": "9e09e00d4e35ad0aba3e2df94d04e250092b5359",
-    "archive_sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
-    "gcode_sha256": "2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0",
-    "source_commit": "33d50d2ecd2a0fb6b518483a44c8031e3a0c1617",
-    "kind": "print",
-    "sha256": "c661c81e2041047c4a2015b27208f6d712a83982256bb780ee9b137fee58fc28",
-    "slice": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf",
-    "plate": 1,
-    "layers": 184,
-    "process": {
-      "Material": "Siraya Tech Flex TPU 85A, clear",
-      "Printer": "Mark2",
-      "Nozzle": "Right 0.6 mm",
-      "Layer heights": "0.2 mm first, 0.12 mm nominal",
-      "Build plate": "Engineering Plate",
-      "Walls": "6",
-      "Infill": "100% zig-zag",
-      "Supports": "None in emitted slice",
-      "Bridge flow": "1",
-      "Process bridge speed": "25 mm/s",
-      "Filament bridge speed": "25 mm/s"
-    },
-    "model_sha256": "0ebe7cbc53bf9abdc17ca9391438432b33010b1537f22608a00358023efbe79a"
-  },
-  "HSM-0334": {
-    "title": "ASSE inlet and outlet cuffs · Mark1 print plan",
-    "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-    "recipe_target": "asse-cuffs",
-    "recipe_commit": "9e09e00d4e35ad0aba3e2df94d04e250092b5359",
-    "project_sha256": "058988a7f36de2953bc6f9a1df2fe9ef1ede0aa6bccb21fb04aa6702534179b9",
-    "archive_sha256": "a1f610ab2f60215ac9164f12fe3e4a8e4c4e55b8a4fe94cbd54de609ba0897d9",
-    "gcode_sha256": "174da61fb6e852bd68f1f9550a029923cbe33d2d89612a17922e425349f52a83",
-    "kind": "plan",
-    "sha256": "f5ead29b6de74751b34f7ea6125a9a3ce7f93701b4a1db70aee4951d336a4f60",
-    "slice": "2026-11-10-asse-cuffs-mark1-882fb3fa.gcode.3mf",
-    "plate": 1,
-    "layers": 283,
-    "process": {
-      "Material": "Siraya Tech Flex TPU 85A, clear",
-      "Printer": "Mark1",
-      "Nozzle": "Right 0.6 mm",
-      "Layer heights": "0.2 mm first, 0.12 mm nominal",
-      "Build plate": "Engineering Plate",
-      "Walls": "6",
-      "Infill": "100% zig-zag",
-      "Supports": "None in emitted slice",
-      "Bridge flow": "1",
-      "Process bridge speed": "25 mm/s",
-      "Filament bridge speed": "25 mm/s"
-    },
-    "model_sha256": "05476e57b5513d349b5e799a7a4576de2a689cb934c2b48d0903b63337a64173"
-  },
-  "HSM-0335": {
-    "title": "ASSE inlet and outlet cuffs · Mark1 print plan",
-    "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-    "recipe_target": "asse-cuffs",
-    "recipe_commit": "9e09e00d4e35ad0aba3e2df94d04e250092b5359",
-    "project_sha256": "058988a7f36de2953bc6f9a1df2fe9ef1ede0aa6bccb21fb04aa6702534179b9",
-    "archive_sha256": "a1f610ab2f60215ac9164f12fe3e4a8e4c4e55b8a4fe94cbd54de609ba0897d9",
-    "gcode_sha256": "174da61fb6e852bd68f1f9550a029923cbe33d2d89612a17922e425349f52a83",
-    "kind": "plan",
-    "sha256": "f5ead29b6de74751b34f7ea6125a9a3ce7f93701b4a1db70aee4951d336a4f60",
-    "slice": "2026-11-10-asse-cuffs-mark1-882fb3fa.gcode.3mf",
-    "plate": 1,
-    "layers": 283,
-    "process": {
-      "Material": "Siraya Tech Flex TPU 85A, clear",
-      "Printer": "Mark1",
-      "Nozzle": "Right 0.6 mm",
-      "Layer heights": "0.2 mm first, 0.12 mm nominal",
-      "Build plate": "Engineering Plate",
-      "Walls": "6",
-      "Infill": "100% zig-zag",
-      "Supports": "None in emitted slice",
-      "Bridge flow": "1",
-      "Process bridge speed": "25 mm/s",
-      "Filament bridge speed": "25 mm/s"
-    },
-    "model_sha256": "8412a13f173f666288fc00a34d4272afa076e35dffc6bc95bf91d0d61e2a809b"
   },
   "HSM-0358": {
     "title": "PET-GF accessory plate · Mark2 print plan",

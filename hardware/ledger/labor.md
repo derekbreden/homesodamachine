@@ -182,12 +182,12 @@ Everything that is taking the printed parts off the printers and putting parts t
 
 ### Printed parts
 
-The print model allocates [7.180](LAB_PRINT_KG) kg of filament and [192.6](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)); those hours are the printers'. A plate's setup is its turn: the finished plate pulled and its parts released, the plate cleaned, glued and seated, the next job started, the spool changed when it runs out. A piece's own time is its brim and supports off and a look over it, and for a float the RC62 seated at its pause. A large part fills a plate by itself; the small ones go a batch's worth to a plate. Plate capacities follow the recorded slicer layouts where there is one and are provisional elsewhere, as are the times. The small TPU seals' printing is unmeasured and not counted. On the ledger's batch the printed parts take [1 h 17 m](LAB_HM_PRINTED) a machine.
+The print model allocates [7.180](LAB_PRINT_KG) kg of filament and [192.6](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)); those hours are the printers'. A plate's setup is its turn: the finished plate pulled and its parts released, the plate cleaned, glued and seated, the next job started, the spool changed when it runs out. A piece's own time is its brim and supports off and a look over it, and for a float the RC62 seated at its pause. A large part fills a plate by itself; the small ones go a batch's worth to a plate. Plate capacities follow the recorded slicer layouts where there is one and are provisional elsewhere, as are the times. The small TPU seals' printing is unmeasured and not counted. On the ledger's batch the printed parts take [1 h 11 m](LAB_HM_PRINTED) a machine.
 
 | Operation | Procedure | Notes | Run | Minutes |
 |---|---|---|---|---:|
 | Print the cold-core insulation shell | [preparation](/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/README.md) | One shell to a plate; no generated supports | 3 m setup a plate of 1 · 1 m a shell · 1 a machine | 4 <!--parts HSM-0018--> |
-| Print the four cold-core caps and lids | — | One piece to a plate | 3 m setup a plate of 1 · 30 s a piece · 4 a machine | 14 <!--parts HSM-0019 HSM-0020 HSM-0021 HSM-0022--> |
+| Print the cold-core equipment lid and bottom cap | [Casing](/hardware/printed-parts/cold-core/foam-cap/README.md) | One piece to a plate | 3 m setup a plate of 1 · 30 s a piece · 2 a machine | 7 <!--parts HSM-0020 HSM-0021--> |
 | Print the four enclosure quadrants | [print log](/hardware/printed-parts/enclosure/enclosure/print-log.md) | One quadrant to a plate; tree supports and a 5 mm brim | 3 m setup a plate of 1 · 2 m a quadrant · 4 a machine | 20 <!--parts HSM-0078 HSM-0079 HSM-0080 HSM-0081--> |
 | Print the funnel frame, lower pump retainer, display cover and drain-elbow cradle | — | Two to a plate; tree supports | 3 m setup a plate of 2 · 1 m a piece · 4 a machine | 10 <!--parts HSM-0072 HSM-0082 HSM-0076 HSM-0073--> |
 | Print the two flavor reservoirs and their caps | [print log](/hardware/printed-parts/cold-core/reservoir/print-log.md) | A reservoir and its cap to a plate | 3 m setup a plate of 2 · 1 m a piece · 4 a machine | 10 <!--parts HSM-0025 HSM-0026 HSM-0027 HSM-0028--> |
@@ -213,7 +213,7 @@ The print model allocates [7.180](LAB_PRINT_KG) kg of filament and [192.6](LAB_P
 | Seat the cold core; condenser, electronics bay, close the box | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | | 10 <!--parts HSM-0001--> |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | [faucet-and-umbilical](/hardware/assembly/faucet-and-umbilical.md) | Three LLDPE tubes, braid, the bag | 10 <!--parts HSM-0002 HSM-0007--> |
 | Assemble the faucet — valve insert, two-piece shell, display cover, plate, gasket and sealing thimble | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 <!--parts HSM-0571:1 HSM-0002:2 HSM-0007:2--> |
-| **Assembly** | | | **[172.5](LAB_SEC8)** |
+| **Assembly** | | | **[165.5](LAB_SEC8)** |
 
 ## 9. Power-on & testing
 
@@ -255,14 +255,14 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
 | 6. Wiring | [2 h 20 m](LAB_HM6) | [$233.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
-| 8. Assembly | [2 h 53 m](LAB_HM8) | [$287.50](LAB_USD8) |
+| 8. Assembly | [2 h 46 m](LAB_HM8) | [$275.83](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[12 h](LAB_HM)** | **[$1,199.17](LAB_USD)** |
+| **Per-unit total** | **[11 h 53 m](LAB_HM)** | **[$1,187.50](LAB_USD)** |
 
-The target is 10 hours attended per unit. The current estimate is [12 h](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
+The target is 10 hours attended per unit. The current estimate is [11 h 53 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
-- **Assembly** ([2 h 53 m](LAB_HM8), the largest category) — [1 h 17 m](LAB_HM_PRINTED) of it is the printed parts, most of that the plate turns of the large parts that fill a plate each. More printers shorten the print, not the plate turns.
+- **Assembly** ([2 h 46 m](LAB_HM8), the largest category) — [1 h 11 m](LAB_HM_PRINTED) of it is the printed parts, most of that the plate turns of the large parts that fill a plate each. More printers shorten the print, not the plate turns.
 - **Wiring** ([2 h 20 m](LAB_HM6)) — 90 minutes for eleven finished bench harnesses and 50 minutes for installation and AC checks. Ready maps, a cut list and staged crimping and soldering tools support the practiced unit-25 estimates.
 - **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build.
 

@@ -1,5 +1,5 @@
 // The production workspace joins authored material demand, stock evidence and supplier packs for the cost page.
-import { readBatchForecast } from './batch-forecast.js';
+import { readSupplierOffers } from './batch-forecast.js';
 import { readMaterialCatalog } from './material-catalog.js';
 import { readMaterialStock } from './material-stock.js';
 import { planMaterial } from '../contracts/material-stock.js';
@@ -9,7 +9,9 @@ export const PLANNING_HORIZON = 20;
 
 export function productionData(catalog, offers, horizon = PLANNING_HORIZON) {
   const index = new Map(catalog.materials.map(m => [m.id, m]));
-  const quotes = new Map(offers.items.map(item => [item.stock, item]));
+  const quotes = new Map(offers.items.map(item => [item.stock, item.status === 'unconfirmed'
+    ? { ...item, options: item.options.map(option => ({ ...option, available: false })) }
+    : item]));
   const finishes = {};
   for (const finish of ['white', 'black']) {
     const rows = new Map(), completed = [];
@@ -50,8 +52,8 @@ export function productionData(catalog, offers, horizon = PLANNING_HORIZON) {
   };
 }
 
-export function readProductionPlanner(hardwareDir, labor) {
-  const { data } = readBatchForecast(hardwareDir, labor);
+export function readProductionPlanner(hardwareDir) {
+  const data = readSupplierOffers(hardwareDir);
   const catalog = readMaterialCatalog(hardwareDir);
   catalog.stock = readMaterialStock(hardwareDir, catalog);
   return productionData(catalog, data);
@@ -62,7 +64,7 @@ export function renderProductionPlanner(data) {
   const json = JSON.stringify(data).replace(/</g, '\\u003c');
   return `<section class="production-planner" id="batch-forecast" aria-labelledby="planner-title">
     <div class="planner-intro"><div><p class="planner-eyebrow">Production planning</p><h2 id="planner-title">From the shelf to the next machine.</h2><p>Start with what we have. Choose purchase packs. See how far they take us.</p></div><label class="planner-finish">Faucet finish<select id="planner-finish"><option value="white">White</option><option value="black">Black</option></select></label></div>
-    <p class="planner-basis">Stock evidence through <time>${data.stockAsOf.slice(0, 10)}</time> · Supplier observations ${data.checkedAt} · <a href="/build?material=${data.root}">Stock &amp; assembly records ↗</a></p>
+    <p class="planner-basis">Stock evidence through <time>${data.stockAsOf.slice(0, 10)}</time> · Supplier prices from dated records · <a href="/build?material=${data.root}">Stock &amp; assembly records ↗</a></p>
     <div class="planner-milestones" aria-label="Cumulative production targets"></div>
     <div class="planner-legend"><span data-tone="stock">On hand</span><span data-tone="incoming">On order</span><span data-tone="planned">Proposed purchase</span><span data-tone="short">Short</span><span data-tone="unknown">Needs confirmation</span></div>
     <div class="planner-outlook" aria-label="Coverage through successive units"></div>

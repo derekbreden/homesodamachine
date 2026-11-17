@@ -135,22 +135,16 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "turn-fluid-3",
-              "step-fluid-3",
               "tube-above-core-va-fore-feed"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0286",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "turn-fluid-5",
-              "step-fluid-5",
               "tube-above-core-vb-yb-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0346",
@@ -551,7 +545,6 @@
                 "label": "Flavor tube set \u00b7 +X side",
                 "bodies": [
                   "flavor_tube_pos_x",
-                  "flavor_tube_bridge_pos_x",
                   "flavor_umbilical_tube_pos_x"
                 ]
               },
@@ -559,7 +552,6 @@
                 "label": "Flavor tube set \u00b7 \u2212X side",
                 "bodies": [
                   "flavor_tube_neg_x",
-                  "flavor_tube_bridge_neg_x",
                   "flavor_umbilical_tube_neg_x"
                 ]
               }
@@ -1453,7 +1445,6 @@
                 "label": "Flavor tube set \u00b7 +X side",
                 "bodies": [
                   "flavor_tube_pos_x",
-                  "flavor_tube_bridge_pos_x",
                   "flavor_umbilical_tube_pos_x"
                 ]
               },
@@ -1461,7 +1452,6 @@
                 "label": "Flavor tube set \u00b7 \u2212X side",
                 "bodies": [
                   "flavor_tube_neg_x",
-                  "flavor_tube_bridge_neg_x",
                   "flavor_umbilical_tube_neg_x"
                 ]
               }
@@ -1746,20 +1736,6 @@
       ]
     },
     {
-      "id": "HSM-0019",
-      "description": "Cold-core insulation cap \u00b7 top",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/cold-core/foam-cap/foam-cap-top.step"
-        }
-      ],
-      "aliases": [
-        "foam cap top",
-        "Foam cap top"
-      ]
-    },
-    {
       "id": "HSM-0020",
       "description": "Cold-core insulation cap lid \u00b7 top",
       "kind": "manufactured",
@@ -1785,20 +1761,6 @@
       "aliases": [
         "foam cap bottom",
         "Foam cap bottom"
-      ]
-    },
-    {
-      "id": "HSM-0022",
-      "description": "Cold-core insulation cap lid \u00b7 bottom",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step"
-        }
-      ],
-      "aliases": [
-        "foam cap lid bottom",
-        "Foam cap lid bottom"
       ]
     },
     {
@@ -2761,16 +2723,6 @@
         "faucet tube seal",
         "sealing sleeve",
         "TPU thimble"
-      ]
-    },
-    {
-      "id": "HSM-0091",
-      "description": "John Guest PP0408W \u00b7 1/4 inch union",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/jg-pp0408w/jg-pp0408w.step"
-        }
       ]
     },
     {
@@ -3921,10 +3873,6 @@
       ],
       "documents": [
         {
-          "title": "Keystone geometry and receptacle",
-          "path": "reference/riteav-keystone/riteav_keystone.py"
-        },
-        {
           "title": "SIG-6 wiring",
           "path": "assembly/wiring.md"
         }
@@ -3980,7 +3928,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4009,7 +3957,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4038,7 +3986,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4067,7 +4015,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4096,7 +4044,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4125,7 +4073,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4154,7 +4102,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4183,7 +4131,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4215,7 +4163,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4248,7 +4196,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4277,7 +4225,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4306,7 +4254,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4335,7 +4283,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4366,7 +4314,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4405,7 +4353,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4436,7 +4384,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4467,7 +4415,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4500,7 +4448,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4539,7 +4487,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4573,7 +4521,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4612,7 +4560,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4640,10 +4588,6 @@
       ],
       "documents": [
         {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/above_core_routes.py"
-        },
-        {
           "title": "Internal plumbing",
           "path": "assembly/internal-plumbing.md"
         },
@@ -4668,10 +4612,6 @@
         "fluid 18 tube \u00b7 4 mm black LLDPE"
       ],
       "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/above_core_routes.py"
-        },
         {
           "title": "Internal plumbing",
           "path": "assembly/internal-plumbing.md"
@@ -4699,10 +4639,6 @@
         "Cold-core reservoir b fill tube"
       ],
       "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/above_core_routes.py"
-        },
         {
           "title": "Internal plumbing",
           "path": "assembly/internal-plumbing.md"
@@ -4740,7 +4676,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4779,7 +4715,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4818,7 +4754,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4857,7 +4793,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4886,7 +4822,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -4996,31 +4932,6 @@
       ]
     },
     {
-      "id": "HSM-0324",
-      "description": "Water-pump elbow \u00b7 TPU 85A",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/diaphragm-pump-sleeve/README.md"
-        },
-        {
-          "title": "Water-pump connections",
-          "path": "assembly/internal-plumbing.md"
-        }
-      ],
-      "aliases": [
-        "diaphragm pump elbow",
-        "pump elbow",
-        "diaphragm pump sleeve"
-      ]
-    },
-    {
       "id": "HSM-0325",
       "description": "YDS butterfly hose clamp \u00b7 10\u201316 mm, 9 mm band",
       "kind": "purchased",
@@ -5063,7 +4974,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Internal plumbing",
@@ -5136,54 +5047,6 @@
         {
           "title": "Regulator representation and scope",
           "path": "reference/yzmsz-water-regulator/README.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0334",
-      "description": "ASSE 1022 inlet cuff \u00b7 TPU 85A",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/asse-straight-cuffs/asse-inlet-cuff.step"
-        }
-      ],
-      "aliases": [
-        "asse-inlet-tpu",
-        "ASSE straight inlet cuff"
-      ],
-      "documents": [
-        {
-          "title": "Straight ASSE cuffs",
-          "path": "printed-parts/asse-straight-cuffs/README.md"
-        },
-        {
-          "title": "Water-path assembly",
-          "path": "assembly/internal-plumbing.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0335",
-      "description": "ASSE 1022 outlet cuff \u00b7 TPU 85A",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/asse-straight-cuffs/asse-outlet-cuff.step"
-        }
-      ],
-      "aliases": [
-        "asse-outlet-tpu",
-        "ASSE straight outlet cuff"
-      ],
-      "documents": [
-        {
-          "title": "Straight ASSE cuffs",
-          "path": "printed-parts/asse-straight-cuffs/README.md"
-        },
-        {
-          "title": "Water-path assembly",
-          "path": "assembly/internal-plumbing.md"
         }
       ]
     },
@@ -5844,36 +5707,6 @@
         {
           "title": "Fastener specification",
           "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0364",
-      "description": "Backflow preventer inlet tube \u00b7 1/4 inch white LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "water-1",
-        "tube-water-1",
-        "tube-above-core-water-in",
-        "water 1 tube \u00b7 1/4 inch white LLDPE"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
-        },
-        {
-          "title": "Internal plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
         }
       ]
     },
@@ -6605,7 +6438,7 @@
         },
         {
           "title": "Mandrel dimensions",
-          "path": "printed-parts/cold-core/coil-mandrel/coil_mandrel.py"
+          "path": "printed-parts/cold-core/coil-mandrel/coil_mandrel.rs"
         }
       ],
       "relations": [
@@ -7263,7 +7096,7 @@
       "documents": [
         {
           "title": "Tube routing and cut stock",
-          "path": "manifold-layout/enclosure_assembly.py"
+          "path": "manifold-layout/installed-machine/routes_plan.rs"
         },
         {
           "title": "Above-core routes",
@@ -8973,22 +8806,6 @@
             ]
           },
           {
-            "material": "HSM-0334",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse-inlet-tpu"
-            ]
-          },
-          {
-            "material": "HSM-0335",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "asse-outlet-tpu"
-            ]
-          },
-          {
             "material": "HSM-0088",
             "quantity": 1,
             "unit": "ea",
@@ -9009,40 +8826,32 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-fluid-1",
               "tube-above-core-tee-regulator"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0296",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-water-3",
               "tube-above-core-tee-vk-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0300",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-fluid-2",
               "tube-above-core-reg-va-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0302",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-carb-2",
               "tube-soda-meter-bulkhead"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0310",
@@ -9078,12 +8887,6 @@
               "wire-relay-bus-V5",
               "wire-relay-bus-GND"
             ]
-          },
-          {
-            "material": "HSM-0364",
-            "quantity": 1,
-            "unit": "ea",
-            "note": "One fitted run from the tap-water bulkhead to the ASSE inlet cuff."
           },
           {
             "material": "HSM-0384",
@@ -9216,8 +9019,7 @@
               {
                 "label": "V-A valve",
                 "bodies": [
-                  "valve-v-a",
-                  "coil-v-a"
+                  "valve-v-a"
                 ]
               },
               {
@@ -9548,7 +9350,7 @@
               "tee-y-a",
               "tee-y-b"
             ],
-            "note": "Six flavor-manifold tees and the tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator."
+            "note": "Source tees at the tap-water and funnel feeds to the flavor manifold."
           },
           {
             "material": "HSM-0330",
@@ -9790,10 +9592,8 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "tube-fluid-4",
               "tube-above-core-drain-vb-east-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
+            ]
           },
           {
             "material": "HSM-0330",
@@ -9929,15 +9729,6 @@
               "wire-AC6-PE",
               "terminal-fuse-in-splice",
               "terminal-fuse-out-splice"
-            ]
-          },
-          {
-            "material": "HSM-0324",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "pump-inlet-tpu",
-              "pump-outlet-tpu"
             ]
           }
         ]
@@ -10319,7 +10110,6 @@
             "unit": "ea",
             "bodies": [
               "line-carb-water-out",
-              "../../tube-carb-1",
               "../../tube-soda-core-rise"
             ],
             "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
@@ -10330,7 +10120,6 @@
             "unit": "ea",
             "bodies": [
               "line-co2-in",
-              "../../tube-co2-2",
               "../../tube-above-core-gas-core-drop"
             ],
             "note": "One continuous tube. The cold core pots its lower span; the machine model draws its free end above the lid."
@@ -10522,7 +10311,7 @@
       ],
       "bom": {
         "source": "assembly/internal-plumbing.md",
-        "scope": "Rear TAP connector, inlet reducing coupling, ASSE body, outlet flare adapter and stem reducer made up and clocked on the bench. This threaded unit enters the back-top seat together. The retaining cap, cuffs, vent connection, header tee and free tube links are fitted with back-top open.",
+        "scope": "Rear TAP connector, inlet reducing coupling, ASSE body, outlet flare adapter and stem reducer made up and clocked on the bench. This threaded unit enters the back-top seat together. The retaining cap, vent connection, header tee and free tube links are fitted with back-top open.",
         "items": [
           {
             "material": "HSM-0013",

@@ -3150,24 +3150,6 @@
       "stock": "asa-aero"
     },
     {
-      "id": "tpu",
-      "name": "Bambu TPU 90A / 85A seal and sleeve stock",
-      "unit": "kg",
-      "supplier": "bambu",
-      "priceBasis": "merchandise",
-      "status": "estimate",
-      "note": "BOM soft seals (TPU 90A gaskets, washers, rings and o-ring; the TPU 85A above-counter gasket) are per-unit-trivial and not costed in the BOM. 10 g per machine is provisional for those, plus about 3.7 g for the TPU 85A ASSE drain sleeve (solid CAD volume at 1.22 g/cm\u00b3; unprinted). Replenishment uses the September 16 Bambu TPU 90A 1 kg price.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 4199,
-          "label": "1 kg spool",
-          "available": true
-        }
-      ],
-      "stock": "tpu"
-    },
-    {
       "id": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
       "name": "neoFit ABU44M-E acetal black bulkhead connector, 4 mm tube (bag of 10)",
       "unit": "pieces",
@@ -3303,7 +3285,7 @@
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "listed",
-      "note": "Signed-in Prime offer verified November 10; the ordered replenishment pack is recorded as incoming stock.",
+      "note": "Signed-in Prime offer verified November 10; the replenishment pack is recorded as delivered in the stock evidence.",
       "options": [
         {
           "quantity": 105,
@@ -3387,6 +3369,96 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem",
       "stock": "neofit-ACVUS-44"
+    },
+    {
+      "id": "tpu85a-black",
+      "name": "Bambu TPU 85A \u00b7 black",
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 4499,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
+      "stock": "tpu85a-black"
+    },
+    {
+      "id": "tpu90a-black",
+      "name": "Bambu TPU 90A \u00b7 black",
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 4199,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
+      "stock": "tpu90a-black"
+    },
+    {
+      "id": "tpu90a-white",
+      "name": "Bambu TPU 90A \u00b7 white",
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 4199,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
+      "stock": "tpu90a-white"
+    },
+    {
+      "id": "siraya85a-clear",
+      "name": "Siraya Tech Flex TPU 85A \u00b7 clear",
+      "unit": "kg",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 3388,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0CVXF33Z1",
+      "stock": "siraya85a-clear"
+    },
+    {
+      "id": "svling-B0GHNNYVDH",
+      "name": "SVLING M5 \u00d7 100 socket-head screw",
+      "unit": "ea",
+      "supplier": "amazon",
+      "priceBasis": "delivered",
+      "status": "unconfirmed",
+      "note": "November replenishment pack purchase price. Current Prime price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 20,
+          "priceCents": 917,
+          "label": "20-piece pack"
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B0GHNNYVDH",
+      "stock": "svling-B0GHNNYVDH"
     }
   ],
   "allowances": [

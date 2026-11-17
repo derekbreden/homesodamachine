@@ -598,7 +598,7 @@ function renderPrice(unitCost) {
   </section>`;
 }
 
-function renderRecovery(unitCost, labor, investment) {
+function renderRecovery(unitCost, labor, investment, partial) {
   if (unitCost === null || !investment) {
     return `<section class="cost-recovery"><h2 class="cost-title" id="recovery">Paying back the investment</h2><p class="cost-prose">Recovery estimates are unavailable while cost or investment figures are incomplete.</p></section>`;
   }
@@ -615,6 +615,7 @@ function renderRecovery(unitCost, labor, investment) {
     </details>
     <div class="recovery-panel">
       <div class="cost-top-cap">Machines to recover the investment</div>
+      ${partial ? '<p class="cost-prose">This scenario starts from known parts and planned labor. Add an allowance for the unpriced materials with the per-machine cost control.</p>' : ""}
       <div class="recovery-headline"><b data-recovery="range">${recoveryRange(plan)}</b><span data-recovery="unit-label">${plan.recordedUnits === null ? "at this per-machine cost" : "machines"}</span></div>
       <p class="recovery-summary" data-recovery="summary" aria-live="polite">${recoverySummary(plan)}</p>
       <figure class="recovery-figure">
@@ -640,15 +641,15 @@ function renderRecovery(unitCost, labor, investment) {
         <div class="recovery-control">
           <label for="machine-cost">Per machine cost <output for="machine-cost" data-recovery="machine-cost">${money(unitCost)}</output></label>
           <input id="machine-cost" type="range" min="${unitCost}" max="${Math.max(unitCost + 2500, SALE_PRICE)}" step="50" value="${unitCost}" aria-valuetext="${money(unitCost)} per machine" aria-describedby="cost-help">
-          <p id="cost-help">Starts at ${money(unitCost)} for parts and planned labor. Increase this total to allow for other per-machine costs.</p>
+          <p id="cost-help">Starts at ${money(unitCost)} for known parts and planned labor. Adjust the cost to include other expenses.</p>
         </div>
       </div>
       <p class="recovery-limit">Available toward investment = machines sold &times; (${dollars(SALE_PRICE, 0)} &minus; per-machine cost). Selling costs, support, overhead and taxes still have to come out of this money unless included in the cost you select.</p>
     </div>
     <div class="cost-assumptions" id="assumptions">
       <h3 class="cost-title">Where the estimates need care</h3>
-      <p><strong>The build cost is an estimate.</strong> The <a href="#labor">${hm(labor.minutes)} labor allowance</a> is deliberately ideal: practiced hands, fixtures ready${labor.batchSize ? ` and setup shared across ${labor.batchSize} machines` : " and setup shared across machines"}. We&rsquo;re still developing that process. The per-machine cost slider lets you explore a larger allowance for making and supporting each machine.</p>
-      <p><strong>The investment is recorded cash.</strong> It includes paid development services, but puts no dollar value on our own design, software, testing or process-development time. The calculation sets aside the full parts cost on every sale to replenish inventory, including parts we have already bought.</p>
+      <p><strong>The build cost is an estimate.</strong> The <a href="#labor">${hm(labor.minutes)} labor allowance</a> assumes practiced hands, ready fixtures and setup shared across ${labor.batchSize ? `${labor.batchSize} machines` : "the batch"}.</p>
+      <p><strong>The investment is recorded procurement value.</strong> It includes development services and open commitments. Our design, software, testing and process-development time is unpriced. The scenario sets aside the estimated build cost from each sale.</p>
       <p><strong>There are costs still to budget.</strong> Payment fees, delivery or installation, warranty and support, ongoing overhead, further development and taxes are not included in the per-unit estimate. These reduce the money available to repay the investment and can push recovery further out. Passing the line on this chart does not mean all of that money is profit.</p>
     </div>
   </section>`;
@@ -665,8 +666,9 @@ function renderCostBody(rollup, labor, mach, investment, forecast, harness, part
   const { total, rowCount, cats } = rollup;
   const partial = cats.some((category) => category.parts.some((part) => part.cost == null));
   const mx = Math.max(...cats.map((c) => c.sum), 1);
-  const unitCost = !partial && labor && labor.rate > 0 && labor.opCount > 0
+  const recoveryCost = (!partial || total > 0) && labor && labor.rate > 0 && labor.opCount > 0
     ? Math.round((total + (labor.minutes / 60) * labor.rate) * 100) / 100 : null;
+  const unitCost = partial ? null : recoveryCost;
 
   const bars = cats.map((c) => {
     const w = ((c.sum / mx) * 100).toFixed(1);
@@ -725,7 +727,7 @@ ${details}
   <div class="cost-total"><span>${partial ? "Known parts subtotal" : "Per-unit total"}</span><span class="v">${money(total)}</span></div>
 ${labor ? renderLaborSection(labor, harness) : ""}${mach ? renderMachineSection(mach) : ""}`;
   const metric = (value, label) => `<span class="cost-panel-value"><strong>${value}</strong><small>${label}</small></span>`;
-  const plan = unitCost !== null && investment ? recoveryPlan({ unitCost, investment: investment.total }) : null;
+  const plan = recoveryCost !== null && investment ? recoveryPlan({ unitCost: recoveryCost, investment: investment.total }) : null;
   const panels = [{
     id: "unit-cost-panel", anchor: "parts", title: "Cost per unit",
     caption: partial ? "Known parts subtotal; some prices are unrecorded" : unitCost !== null ? `${money(total)} parts + ${money(unitCost - total)} planned labor` : "Parts only; build labor estimate unavailable",
@@ -733,9 +735,9 @@ ${labor ? renderLaborSection(labor, harness) : ""}${mach ? renderMachineSection(
     body: unitBody,
   }, {
     id: "investment-panel", anchor: "recovery", title: "Investment recovery",
-    caption: investment ? `${money(investment.total)} recorded procurement value` : "Recorded investment estimate unavailable",
+    caption: investment ? `${money(investment.total)} recorded procurement value${partial && plan ? " · known build costs" : ""}` : "Recorded investment estimate unavailable",
     metrics: metric(`<span data-recovery-overview="range">${plan ? recoveryRange(plan) : "Unavailable"}</span>`, `<span data-recovery-overview="label">${plan?.recordedUnits === null ? "At the planned build cost" : "Machines to recover investment"}</span>`),
-    body: renderRecovery(unitCost, labor, investment),
+    body: renderRecovery(recoveryCost, labor, investment, partial),
   }];
   return `<main class="cost-wrap site-content">
 ${renderProductionPlanner(forecast)}
@@ -769,7 +771,7 @@ export function mountCostRoutes(app, { hardwareDir }) {
       investment = readInvestmentRollup(hardwareDir);
     } catch (e) { /* missing or inconsistent purchase totals */ }
     try {
-      forecast = readProductionPlanner(hardwareDir, labor);
+      forecast = readProductionPlanner(hardwareDir);
     } catch (e) { /* optional supplier forecast */ }
     try {
       harness.J2 = readJ2Harness(hardwareDir);

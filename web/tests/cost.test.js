@@ -142,8 +142,9 @@ test("unrecorded category prices stay unknown and known subtotals do not imply a
   assert.match(html, /Supplied spacer<\/td><td class="cost-qty">&times;1<\/td><td class="cost-num">\$0\.00<\/td>/);
   assert.match(html, /Known parts subtotal/);
   assert.match(html, /build cost estimate is currently incomplete/);
-  assert.match(html, /Recovery estimates are unavailable/);
-  assert.doesNotMatch(html, /data-recovery="range"|NaN|Infinity/);
+  assert.match(html, /data-unit-cost="19"/);
+  assert.match(html, /This scenario starts from known parts and planned labor/);
+  assert.doesNotMatch(html, /NaN|Infinity/);
 
   fs.writeFileSync(bom, `## 1. Parts
 | Earth washer | 2 | — | — <!--@fasteners--> |
@@ -151,5 +152,5 @@ test("unrecorded category prices stay unknown and known subtotals do not imply a
   render();
   assert.equal(readCostRollup(dir).total, 0);
   assert.match(html, /Earth washer<\/td><td class="cost-qty">&times;2<\/td><td class="cost-num">—<\/td>/);
-  assert.doesNotMatch(html, /NaN|Infinity/);
+  assert.doesNotMatch(html, /data-recovery="range"|NaN|Infinity/);
 });

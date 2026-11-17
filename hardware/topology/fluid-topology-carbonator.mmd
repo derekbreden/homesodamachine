@@ -26,19 +26,19 @@ flowchart LR
   %% =========================
   %% Water supply — above the cold core
   %% =========================
-  %% The rear bulkhead reaches the ASSE inlet cuff through water-1. The outlet
-  %% cuff receives the trimmed water-split stem at the water-2 mating joint.
+  %% The rear TAP connector threads into the ASSE inlet coupling. The flare
+  %% adapter and reducer connect the outlet to the union tee through a tube stub.
   subgraph WaterSupply["Water Supply"]
     direction LR
-    BhW["bulkhead-water<br/>(PP1208E, +Y wall of back-top)"]
+    BhW["bulkhead-water<br/>(PP010822E, +Y wall of back-top)"]
     BFP["asse1022-assembly<br/>(Multiplex 19-0897)"]
-    Split["water-split<br/>(trimmed neoFit stem tee)"]
+    Split["water-split<br/>(John Guest PP0208E)"]
     VK["vk-solenoid<br/>(V-K, 12 V NC)"]
     FlowReg["flow-regulator<br/>(YZMSZ 0.3 MPa, clean-water feed)"]
     JointS["suction-reducer<br/>(PVC pump joint, PP061208W stem)"]
     PW["g-ganen-pump<br/>(G Ganen, 110 PSI advertised)"]
     JointD["discharge-reducer<br/>(PVC pump joint, PP061208W stem)"]
-    DischChain["water check<br/>(neoFit ACHV44-E, 1/4-inch)"]
+    DischChain["water check<br/>(neoFit ACVUS-44, 1/4-inch)"]
   end
 
   %% =========================
@@ -91,7 +91,7 @@ flowchart LR
 
   subgraph Dispense["Dispense"]
     FlowMeter["digiten-flow<br/>(Hall turbine, F = 23&middot;Q)"]
-    BhCarb["bulkhead-carb<br/>(PP1208E, +Y wall of back-top)"]
+    BhCarb["bulkhead-carb<br/>(PP010822E, +Y wall of back-top)"]
     Faucet["Faucet Lever"]
     Gooseneck["Gooseneck"]
   end

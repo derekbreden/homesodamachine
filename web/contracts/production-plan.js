@@ -86,7 +86,9 @@ export function projectProduction(data, scenario) {
   });
   const buying = rows.filter(row => row.purchase.quantity > EPSILON);
   const partsCents = buying.reduce((sum, row) => sum + row.purchase.costCents, 0);
-  const activeSuppliers = new Set(buying.map(row => row.quote?.supplier).filter(Boolean));
+  const activeSuppliers = new Set(buying.filter(row =>
+    row.purchase.packs.some(pack => !pack.option.custom && pack.option.available !== false)
+  ).map(row => row.quote?.supplier));
   const freight = data.suppliers.filter(s => activeSuppliers.has(s.id)).map(s => {
     const bracket = Object.keys(s.shippingCents).map(Number).sort((a, b) => a - b).find(n => n >= scenario.buyFor) || data.horizon;
     return { id: s.id, name: s.name, bracket, cents: s.shippingCents[String(bracket)] || 0 };

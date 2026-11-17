@@ -139,13 +139,6 @@
       "record": "hardware/printed-parts/fixtures/tube-insertion/physical-acceptance.json"
     },
     {
-      "material": "HSM-0324",
-      "date": "2026-10-21",
-      "said": "That worked very well. I see no strings, and seal seems as good as before.",
-      "tried": "the printed elbow on the pump, with its seal checked",
-      "record": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json"
-    },
-    {
       "material": "HSM-0358",
       "date": "2026-10-23",
       "said": "2 mm works.",

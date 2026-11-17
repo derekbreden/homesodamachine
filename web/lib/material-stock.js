@@ -78,7 +78,8 @@ export function readMaterialStock(hardwareDir, catalog) {
   const add = (id, resource, quantity, extra = {}) =>
     (inputs[id] ||= []).push({ resource, quantity, ...extra });
   function filament(id, line, measure) {
-    if (!/^(PET-GF|PETG)( |$)/.test(line.stock || "") || !measure) return false;
+    const family = line.stock?.match(/^(PET-GF|PETG|Bambu TPU 85A|Bambu TPU 90A|Siraya TPU 85A)( |$)/)?.[1];
+    if (!family || !measure) return false;
     const mass = convertStock(measure.value, measure.unit, "kg");
     if (mass == null) return false;
     const color = (key, fraction = 1, extra = {}) =>
@@ -87,20 +88,27 @@ export function readMaterialStock(hardwareDir, catalog) {
         key,
         mass *
           fraction *
-          (1 + (resources[key].planning?.materialAllowance || 0)),
+          (1 + (resources[key]?.planning?.materialAllowance || 0)),
         { estimated: true, ...extra },
       );
-    if (line.stock.startsWith("PET-GF")) {
+    const forFinish = (prefix) => {
+      for (const finish of ["black", "white"])
+        color(prefix + finish, 1, { finish });
+    };
+    if (family === "PET-GF") {
       if (record.printing.mixes[id])
         for (const [shade, fraction] of Object.entries(
           record.printing.mixes[id],
         ))
           color("petgf-" + shade, fraction);
-      else if (record.printing.faucet.includes(id))
-        for (const finish of ["black", "white"])
-          color("petgf-" + finish, 1, { finish });
+      else if (record.printing.faucet.includes(id)) forFinish("petgf-");
       else color("petgf-" + (record.printing.colors[id] || "black"));
-    } else
+    } else if (family === "Bambu TPU 90A") {
+      if (record.printing.faucet.includes(id)) forFinish("tpu90a-");
+      else color("tpu90a-black");
+    } else if (family === "Bambu TPU 85A") color("tpu85a-black");
+    else if (family === "Siraya TPU 85A") color("siraya85a-clear");
+    else
       color(line.stock.includes("translucent") ? "petg-clear" : "petg-black");
     return true;
   }

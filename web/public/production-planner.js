@@ -12,11 +12,25 @@ if (host) {
   const labels = { stock: 'On hand', estimate: 'On hand · estimate', incoming: 'Await receipt', planned: 'With purchase', short: 'Short', unknown: 'Confirm', unused: '—' };
   const select = selector => host.querySelector(selector);
   let scenario = freshScenario(), openRow = null, visible = 12, projection, saved = false;
+  const purchaseTargets = [1, 2, 5, 10, 20];
   try {
     const held = JSON.parse(localStorage.getItem(key));
-    if (held && data.finishes[held.finish] && [10, 20].includes(held.horizon) && Number.isSafeInteger(held.focus) && held.focus >= 1 && held.focus <= held.horizon) {
-      scenario = { ...scenario, ...held, buyFor: Math.max(1, Math.min(data.horizon, held.buyFor || held.focus)) };
-      for (const orders of Object.values(scenario.orders)) for (const [pack, count] of Object.entries(orders)) if (!Number.isSafeInteger(count) || count < 0 || count > 10000) delete orders[pack];
+    if (held && Object.hasOwn(data.finishes, held.finish) && [10, 20].includes(held.horizon) && Number.isSafeInteger(held.focus) && held.focus >= 1 && held.focus <= held.horizon) {
+      const { finish, horizon, focus, buyFor } = held;
+      Object.assign(scenario, { finish, horizon, focus });
+      if (purchaseTargets.includes(buyFor)) scenario.buyFor = buyFor;
+      const rows = new Map(Object.values(data.finishes).flatMap(({ rows }) => rows.map(row => [row.id, row])));
+      for (const [id, row] of rows) {
+        for (const option of row.quote?.options || []) {
+          const key = optionKey(option), count = held.orders?.[id]?.[key];
+          if (Number.isSafeInteger(count) && count > 0 && count <= 10000) (scenario.orders[id] ||= {})[key] = count;
+        }
+        const custom = held.custom?.[id];
+        if (custom && Number.isFinite(custom.quantity) && custom.quantity >= 0
+          && Number.isSafeInteger(custom.count) && custom.count >= 0 && custom.count <= 10000) {
+          scenario.custom[id] = custom;
+        }
+      }
     }
   } catch { /* A blocked or invalid browser store starts a fresh scenario. */ }
   select('#planner-finish').value = scenario.finish;
@@ -47,7 +61,7 @@ if (host) {
     const remainder = balance.projectedAfter == null ? 'Usage unresolved' : (balance.atLeast ? 'At least ' : '') + number(balance.projectedAfter) + ' ' + escape(row.unit);
     const packs = (row.quote?.options || []).map((option, i) => {
       const count = scenario.orders[row.id]?.[optionKey(option)] || 0;
-      return `<label class="planner-pack"><span><strong>${escape(option.label)}</strong><small>${number(option.quantity)} ${escape(row.unit)} / pack · ${money(lotCost(option, count || 1) / (count || 1))} / pack${option.available === false ? ' · unavailable' : ''}${option.tiers?.length ? ' · quantity pricing' : ''}</small></span><span class="planner-stepper"><button type="button" data-adjust="-1" data-input="pack-${index}-${i}" aria-label="Remove a ${escape(option.label)}"${!count || option.available === false ? ' disabled' : ''}>−</button><input id="pack-${index}-${i}" data-kind="pack" data-row="${escape(row.id)}" data-key="${escape(optionKey(option))}" aria-label="Packs of ${escape(option.label)}" type="number" min="0" max="10000" step="1" value="${count}"${option.available === false ? ' disabled' : ''}><button type="button" data-adjust="1" data-input="pack-${index}-${i}" aria-label="Add a ${escape(option.label)}"${option.available === false ? ' disabled' : ''}>+</button></span></label>`;
+      return `<label class="planner-pack"><span><strong>${escape(option.label)}</strong><small>${number(option.quantity)} ${escape(row.unit)} / pack · ${money(lotCost(option, count || 1) / (count || 1))} / pack${option.available === false ? row.quote.status === 'unconfirmed' ? ' · availability unconfirmed' : ' · unavailable' : ''}${option.tiers?.length ? ' · quantity pricing' : ''}</small></span><span class="planner-stepper"><button type="button" data-adjust="-1" data-input="pack-${index}-${i}" aria-label="Remove a ${escape(option.label)}"${!count ? ' disabled' : ''}>−</button><input id="pack-${index}-${i}" data-kind="pack" data-row="${escape(row.id)}" data-key="${escape(optionKey(option))}" aria-label="Packs of ${escape(option.label)}" type="number" min="0" max="10000" step="1" value="${count}"${option.available === false ? ' disabled' : ''}><button type="button" data-adjust="1" data-input="pack-${index}-${i}" aria-label="Add a ${escape(option.label)}"${option.available === false ? ' disabled' : ''}>+</button></span></label>`;
     }).join('');
     const custom = scenario.custom[row.id];
     const customFields = custom ? `<div class="planner-custom-fields"><label>Pack quantity (${escape(row.unit)})<input id="custom-${index}-quantity" type="number" min="0.001" step="any" value="${custom.quantity}" data-kind="custom" data-field="quantity" data-row="${escape(row.id)}"></label><label>Price / pack ($)<input id="custom-${index}-price" type="number" min="0.01" step="0.01" placeholder="Unquoted" value="${custom.priceCents == null ? '' : custom.priceCents / 100}" data-kind="custom" data-field="priceCents" data-row="${escape(row.id)}"></label><label>Packs<input id="custom-${index}-count" type="number" min="0" max="10000" step="1" value="${custom.count}" data-kind="custom" data-field="count" data-row="${escape(row.id)}"></label></div>` : '';
@@ -58,7 +72,7 @@ if (host) {
     const query = select('#planner-search').value.trim().toLowerCase(), filter = select('#planner-filter').value, supplier = select('#planner-supplier').value;
     const matching = projection.rows.map((row, index) => ({ row, index })).filter(({ row }) => {
       const status = stateOf(row);
-      if (!required(row) && !row.active?.[scenario.focus]) return false;
+      if (!required(row) && !row.active?.[scenario.focus] && !row.purchase.quantity) return false;
       if (query && ![row.name, row.id, row.category, ...row.uses, ...row.uses.map(id => data.materials[id])].join(' ').toLowerCase().includes(query)) return false;
       if (supplier !== 'all' && (supplier === 'none' ? Boolean(row.supplier) : row.supplier !== supplier)) return false;
       return row.id === openRow || filter === 'all' || filter === 'planned' && row.purchase.quantity > 0 || filter === 'attention' && ['short', 'unknown', 'incoming'].includes(status) || filter === 'short' && status === 'short' || filter === 'unknown' && status === 'unknown';
@@ -104,10 +118,14 @@ if (host) {
     const button = event.target.closest('button'); if (!button) return;
     if (button.dataset.focus) { scenario.focus = Number(button.dataset.focus); visible = 12; changed(); }
     else if (button.dataset.open) {
+      const fromBasket = Boolean(button.closest('.planner-basket'));
       openRow = openRow === button.dataset.open ? null : button.dataset.open;
-      if (button.closest('.planner-basket')) { select('#planner-search').value = ''; select('#planner-supplier').value = 'all'; visible = projection.rows.length; }
+      if (fromBasket) { select('#planner-search').value = ''; select('#planner-supplier').value = 'all'; visible = projection.rows.length; }
       render();
-      if (button.closest('.planner-basket') && openRow) { const index = data.finishes[scenario.finish].rows.findIndex(row => row.id === openRow); document.getElementById('row-' + index)?.scrollIntoView({ block: 'nearest' }); }
+      if (fromBasket && openRow) {
+        const index = projection.rows.findIndex(row => row.id === openRow);
+        document.getElementById('row-' + index)?.focus();
+      }
     }
     else if (button.dataset.custom) {
       const id = button.dataset.custom;
@@ -121,7 +139,7 @@ if (host) {
       scenario.orders = {}; scenario.custom = {}; changed('Proposed purchases cleared. Recorded stock is unchanged.');
     } else if (button.id === 'planner-more') { visible += 20; renderRows(); }
     else if (button.id === 'planner-export') {
-      const csv = [['Material', 'Unit', 'Available', 'Incoming', 'Need through ' + scenario.focus, 'Proposed quantity', 'Quoted pack cost USD', 'Unpriced packs', 'Coverage', 'Packs'], ...projection.rows.filter(row => required(row) > 0 || row.active?.[scenario.focus] || row.purchase.quantity).map(row => [row.name, row.unit, row.available ?? 'Unknown', row.incoming, required(row), row.purchase.quantity, row.purchase.costCents / 100, row.purchase.unpriced ? 'Yes' : 'No', labels[stateOf(row)], row.purchase.packs.map(p => p.count + ' × ' + p.option.label).join(' + ')])].map(row => row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+      const csv = [['Material', 'Unit', 'Available', 'Incoming', 'Need through ' + scenario.focus, 'Proposed quantity', 'Quoted pack cost USD', 'Unpriced packs', 'Coverage', 'Packs'], ...projection.rows.filter(row => required(row) > 0 || row.active?.[scenario.focus] || row.purchase.quantity).map(row => [row.name, row.unit, row.available ?? 'Unknown', row.incoming, row.quantityKnown ? required(row) : 'Unknown', row.purchase.quantity, row.purchase.costCents / 100, row.purchase.unpriced ? 'Yes' : 'No', labels[stateOf(row)], row.purchase.packs.map(p => p.count + ' × ' + p.option.label).join(' + ')])].map(row => row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(',')).join('\r\n');
       const link = document.createElement('a'), url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
       link.href = url; link.download = `production-plan-${scenario.finish}-through-${scenario.focus}.csv`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     }
