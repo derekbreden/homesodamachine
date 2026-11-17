@@ -1,0 +1,80 @@
+{
+  "views": [
+    {
+      "name": "lid-window",
+      "caption": "The Reservoir B fill holder at the equipment lid.",
+      "before": "lid-window-before.webp",
+      "after": "lid-window-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 565.5,
+          "y": 108.4,
+          "r": 80.4,
+          "label": "Edge of the lid opening",
+          "at": [
+            -49.9,
+            238,
+            253.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          6.1488184746997945,
+          128.3023630506004,
+          755.588184746998
+        ],
+        "target": [
+          -44.2,
+          229,
+          252.1
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 14,
+        "near": 316.9851310248737,
+        "far": 875.9004837289001,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/reservoir-b-fill-guide"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-b-fill-guide",
+        "cold-core/reservoir-b-cap",
+        "cold-core/line-reservoir-b-fill"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b7c692b2aa862cce278d11af79f23f399783a03fb68c066c9020586956a83de0",
+          "commit": "fa35eb5ca498ea4f1c07df404a7f41a632eb2307",
+          "taken": "2026-11-17T07:01:45.502Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ebfa5a3bcbd49fdeeb997ceac85a244e6873dada6c8446e33f904d30ffbbbce9",
+          "commit": "adc843034963dc5162216d3d821d332753af17fa",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/reservoir-b-fill-guide"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
