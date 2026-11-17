@@ -95,13 +95,13 @@ export function readMaterialStock(hardwareDir, catalog) {
       for (const finish of ["black", "white"])
         color(prefix + finish, 1, { finish });
     };
-    if (family === "PET-GF") {
-      if (record.printing.mixes[id])
-        for (const [shade, fraction] of Object.entries(
-          record.printing.mixes[id],
-        ))
-          color("petgf-" + shade, fraction);
-      else if (record.printing.faucet.includes(id)) forFinish("petgf-");
+    const mix = record.printing.mixes[id];
+    if (mix && (family === "PET-GF" || family === "PETG")) {
+      const prefix = family === "PETG" ? "petg-" : "petgf-";
+      for (const [shade, fraction] of Object.entries(mix))
+        color(prefix + shade, fraction);
+    } else if (family === "PET-GF") {
+      if (record.printing.faucet.includes(id)) forFinish("petgf-");
       else color("petgf-" + (record.printing.colors[id] || "black"));
     } else if (family === "Bambu TPU 90A") {
       if (record.printing.faucet.includes(id)) forFinish("tpu90a-");

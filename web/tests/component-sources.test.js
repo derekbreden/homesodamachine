@@ -67,7 +67,7 @@ test("a name with no alias resolves against its own stem", () => {
 });
 
 test("an alias beats the stem search, and a body the assembly builds has nowhere to go", () => {
-  const files = ["reference/neofit-achv44-check/neofit-achv44-check.step"];
+  const files = ["reference/neofit-acvus44-check/neofit-acvus44-check.step"];
   assert.equal(sourceFileFor("discharge-chain", files), files[0]);
   assert.equal(sourceFileFor("tube-fluid-17", files), null);
 });

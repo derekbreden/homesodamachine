@@ -119,7 +119,7 @@
     "Display cover plate": [
       "enclosure/display-cover/display-cover.step"
     ],
-    "Bulkhead ring — one per +Y-wall crossing": [
+    "Rear port identification plates": [
       "enclosure/rear-identification/rear-label-water.step",
       "enclosure/rear-identification/rear-label-carb.step",
       "enclosure/rear-identification/rear-label-flavor-a.step",
@@ -288,7 +288,7 @@
       "small"
     ],
     [
-      "Bulkhead ring",
+      "Rear port identification plates",
       "rings"
     ],
     [
@@ -301,7 +301,7 @@
     ],
     [
       "Nameplate",
-      "petgf"
+      "rings"
     ],
     [
       "Funnel frame",

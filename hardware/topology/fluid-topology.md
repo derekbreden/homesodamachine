@@ -30,14 +30,13 @@ subassembly; the continuous inlet crosses the plain guide into the core.
 
 > **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It mounts on back-top east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
 
-The water discharge and CO2 feed each use one purchased neoFit ACHV44-E
-check, oriented by its flow arrow toward the carbonator. The selected reference
-and its fit and service limits are in
-[the check-valve record](/hardware/reference/neofit-achv44-check/README.md).
+The pump discharge and CO₂ feed each use a neoFit ACVUS-44 stem check, with its
+flow arrow toward the carbonator. The body and its interfaces are in
+[the check-valve reference](/hardware/reference/neofit-acvus44-check/README.md).
 
 ## The pack
 
- limbs connect the valves, three-port junctions and pumps. All junctions are purchased PP0208E tees, of them on the pump ports.
+The manifold's limbs connect the valves and pumps through purchased PP0208E tees.
 
 **A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. Behind front-top's collet plate, each pump tee takes a prepared pump's LLDPE tube in its branch, reaches its fore valve on a short upper tube and reaches its rear valve on a lower return from its lower port: a stem elbow in each collet and one straight tube between them.
 

@@ -121,6 +121,11 @@ test('the published workspace carries every real stock input, unknown usage and 
     assert.ok(rows.some(row => row.id === 'siraya85a-clear' && row.uses.includes('HSM-0088') && row.needs[1] > 0));
     assert.ok(rows.some(row => row.id === 'tpu85a-black' && row.uses.includes('HSM-0090') && row.needs[1] > 0));
     assert.ok(rows.some(row => row.id === 'tpu90a-' + finish && row.uses.includes('HSM-0093') && row.needs[1] > 0));
+    for (const color of ['white', 'black', 'clear']) {
+      assert.ok(rows.some(row => row.id === 'petg-' + color && row.uses.includes('HSM-0579') && row.needs[1] > 0));
+    }
+    const rod = rows.find(row => row.id === 'B0FYCJJXCS-rod');
+    assert.ok(rod.quantityKnown && rod.unit === 'mm' && rod.uses.includes('HSM-0011') && rod.uses.includes('HSM-0459'));
     assert.ok(!rows.some(row => /HSM-0324|HSM-0334|HSM-0335|HSM-0364/.test(row.id)));
     const screw = rows.find(row => row.id === 'svling-B0GHNNYVDH');
     assert.ok(screw.available >= screw.needs[1] && screw.estimated);
