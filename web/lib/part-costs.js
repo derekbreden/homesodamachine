@@ -192,8 +192,8 @@ export function allocatePartCosts(catalog, { lines, operations, rate, batch = nu
   };
 }
 
-export function readPartCosts(hardwareDir, catalog) {
+export function readPartCosts(hardwareDir, catalog, bomLines = readBomLines(hardwareDir)) {
   const { rate, batch, operations } = readLaborOperations(hardwareDir);
-  const lines = attachPurchaseLots(hardwareDir, readBomLines(hardwareDir));
+  const lines = attachPurchaseLots(hardwareDir, bomLines);
   return allocatePartCosts(catalog, { lines, operations, rate, batch });
 }

@@ -5,8 +5,10 @@ import { fileURLToPath } from "node:url";
 import { materialHash } from "../contracts/material-tabs.js";
 import { explodeBom, materialIndex, modelForMaterial } from "../contracts/materials.js";
 import { FAUCET_FINISHES } from "../contracts/faucet-options.js";
+import { rollupCost } from "../contracts/part-costs.js";
 import { readBomLines } from "./bom-lines.js";
 import { readMaterialCatalog } from "./material-catalog.js";
+import { readPartCosts } from "./part-costs.js";
 
 export const partThumbnailDirectory = fileURLToPath(new URL("../public/parts-thumbnails/", import.meta.url));
 
@@ -58,7 +60,19 @@ export function selectCatalogParts(catalog, ledger) {
 
 export function readPartsCatalog(hardwareDir) {
   const catalog = readMaterialCatalog(hardwareDir);
-  const groups = selectCatalogParts(catalog, readBomLines(hardwareDir));
+  const ledger = readBomLines(hardwareDir);
+  const groups = selectCatalogParts(catalog, ledger);
+  try { catalog.costs = readPartCosts(hardwareDir, catalog, ledger); }
+  catch { catalog.costs = null; }
+  const costMemo = new Map();
+  const rankedCost = (id) => {
+    const { usd, costed } = rollupCost(catalog, id, catalog.costs?.options, costMemo);
+    return costed ? usd : -Infinity;
+  };
+  const byCost = (a, b) => {
+    const left = rankedCost(a.id), right = rankedCost(b.id);
+    return left === right ? 0 : right - left;
+  };
   const images = new Set(fs.existsSync(partThumbnailDirectory) ? fs.readdirSync(partThumbnailDirectory) : []);
   const cards = (parts) => parts.map(({ material, provider, section }) => {
     const name = `${material.id}.webp`;
@@ -74,7 +88,7 @@ export function readPartsCatalog(hardwareDir) {
   });
   const result = Object.fromEntries(Object.entries(groups).map(([scope, entries]) => [scope, {
     madeToOrder: cards(entries.madeToOrder),
-    offTheShelf: cards(entries.offTheShelf),
+    offTheShelf: cards(entries.offTheShelf).sort(byCost),
   }]));
   const index = materialIndex(catalog);
   result.tools.assemblies = catalog.roots.map(id => index.get(id))
