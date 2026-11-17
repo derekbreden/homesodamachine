@@ -691,9 +691,18 @@
     "hardware/reference/compressor/compressor.source-fine.npz": "a9f949ceff09451d3ee795cefd4a3718adc5b11a3607193d5d84a3ef33cb88bc",
     "hardware/reference/compressor/compressor.step": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
     "hardware/reference/compressor/compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0",
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step": "7168e2d7afe7f779bde98dfd4fe5a2749100d3c25c0a52840cadb3dc76e0327b",
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.mesh": "dbe06fc536c19b536f7368361ae024959ab433de745b8ac8709594f01520ceab",
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.npz": "35ce40c65bbf1f36a3f93b47fcbd8c9f4e28415911221885efca2e8f96b2bd76",
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.fine.step.npz": "21ecc301a9b6a6efaccbd095e7f730f2de3bced6ed9b0a7d0a1a32136ba64f16",
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step": "f115b79482885b6acf3b4a335a58a723794bc12f325454828f7f1b206b38c6b2",
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.mesh": "77e495e047fb08abf15637568668493d2d0c45f64dbbaaf8a2e53e2bd1a896db",
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.npz": "e6d30c877196c7d851b829275e8ea1314dde81094767e3c02721debebf5e5395",
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step": "145cf1f0010b369fc3b1d1fa8e59e6edf352601dd69574b2a7a30a42a3e275d0",
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.mesh": "e982d349bbdaff4115245c3dafff938b0cc0a9b270286db3979c88635d8655b4",
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.npz": "c22c58e20fb38ba1b80de18900a6986ac5d6f6ac33b03ef580fe1b57211b4d50",
     "hardware/reference/ffl38barb38/ffl38barb38.step": "4153c62185bb0dc3f19c6a3142441e0859578e1538bee2ac0a3b84d5ad2bccc2",
     "hardware/reference/ffl38barb38/ffl38barb38.step.mesh": "11364abda960f7d36f5638f401285349932e4181b83e9016d9c34f8561577a21",
     "hardware/reference/flare38-14ptc/flare38-14ptc.step": "ca5d990edd15f5cd363a1105cef956cd959f1e43646a509d44d070df3232172c",
@@ -724,6 +733,9 @@
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "a90b49bb1cfb89cf80798796832c4e5c10800c336ac3d19c42dc3d6559e97c80",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.mesh": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.npz": "a7da569d730a4810a8bcc5b99af9a6838c11f6a1de922182f8d75e2730e9683d",
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step": "141134c2562883fab41e146b485ba80b9d11690a7d44e500d207c0b363178327",
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step.mesh": "6f8b5b7aad14d37545dd3061d8316472969f8e85733bf79ef4d4d644513be9e3",
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step.npz": "3e958a33a15dc343183f4b0becb2e927a8012deae2bc3bd86217cc429e317cd4",
     "hardware/reference/jg-pp010822e/jg-pp010822e.step": "98438485a8a3a5cde89adb572091d09d09a3097f5f09791642b0e0db874e12cf",
     "hardware/reference/jg-pp010822e/jg-pp010822e.step.mesh": "37f306f04a33dd00dcab04864397c8c661148d622f6bb42821ee75758cfb3e43",
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step": "231311fedf8cfe57d46ff9c2cc6969efeb878e65d30b14eefd5dce97b8bab17f",
@@ -751,6 +763,9 @@
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.npz": "523da86d9c0b50b83777716e9c8987faa7cb318ddc21e27d9a380939aca80476",
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step": "cc59c0660d0e801b9c9b4c8ae1d12abaaa0af2d4f5178896ecfa0d5f5c1179fc",
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.mesh": "983d7be615a9c8197ed9ac73ed7096c541c9a68ebcdcb534a801a0e92c4ddc78",
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.npz": "bfb04fdd8d5d56a2c5e3f5399f4d90dbebc5647fbe967633bb153a57ec66feb9",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step": "d29c77b461831fdb17d19defdb88d887ec972932701b9c6155c42878a18983cf",
@@ -790,9 +805,15 @@
     "hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh": "b96c1d8dfa2b4ba53f9d991c381fe5b2266420362f6ed043b8c0e24c6e59bcec",
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step": "820fa4fdc35bc9d5565d4e913802682cb68eb91a97141f5c694641afca894e49",
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step.mesh": "c822fe541d3c19920db2fd5ccc225e1fe9cc95c29873e543375c059bab6e17d2",
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step": "fabc430d285b2ad1b8df5a941209df8c009182304a7c6961047acc44da0c64b4",
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.mesh": "e13773c61ff4a7b17403eadbaf5e42d7b183ac4c0c861a51b2e8251ed6c99977",
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.npz": "ec51a3313a894d76bb0a52b1aee54757b28bb068e5ccebdd9d7dc978f99a66d6",
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": "5371c375caf99716726530fd96725ae4300e16323176a08e95ba842f06f0433b",
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": "389f1168a0be8f6ae41a9837af4a2b5f5ddfab11a3678523e19c2e16bc83693d",
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
+    "hardware/reference/supco-bpv31/supco-bpv31.step": "b267f21c222b5b18ab223a02e1e51840f1104dae69ec0aaf1ca3ea3abf1e7f5d",
+    "hardware/reference/supco-bpv31/supco-bpv31.step.mesh": "80eb8e33184cea9648d059c589b5b31df1147de2c75262be5cd54eb50f78db4e",
+    "hardware/reference/supco-bpv31/supco-bpv31.step.npz": "c9d6e6f89ed8f91bad87d79d7207dabbec54fae552f0cb6f996d423a4d3237e6",
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": "8e688912ef5c51346e818eb9ce789bc621f4eff47b38757959a86290c1546bd1",
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh": "a4c8a06daed99833dab1d2f1c15a0085553638740cea5dc8a9f642498b6c2baa",
     "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
@@ -1293,8 +1314,14 @@
       "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step.mesh": "cbef3094ad0ff719aa66eef66783304cf5f462d7153aa4b85015427f45a6619e",
       "hardware/reference/compressor/compressor.step": "8eaf3cd580b7ffa68578a00c2401673bbc45246eb565614d3d6175f5598b9d62",
       "hardware/reference/compressor/compressor.step.mesh": "e2453f221d7251a64d210d6e4e9a07b3de57cca34174b229a9f14ac33855a4c0",
+      "hardware/reference/copper-slip-coupling/copper-slip-coupling.step": "7168e2d7afe7f779bde98dfd4fe5a2749100d3c25c0a52840cadb3dc76e0327b",
+      "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.mesh": "dbe06fc536c19b536f7368361ae024959ab433de745b8ac8709594f01520ceab",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
       "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": "84d68c77955b19d2e1f776a33b8fcd2370658086ad00acf5eb7ed953c0e72aec",
+      "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step": "f115b79482885b6acf3b4a335a58a723794bc12f325454828f7f1b206b38c6b2",
+      "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.mesh": "77e495e047fb08abf15637568668493d2d0c45f64dbbaaf8a2e53e2bd1a896db",
+      "hardware/reference/female-faston-receptacle/female-faston-receptacle.step": "145cf1f0010b369fc3b1d1fa8e59e6edf352601dd69574b2a7a30a42a3e275d0",
+      "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.mesh": "e982d349bbdaff4115245c3dafff938b0cc0a9b270286db3979c88635d8655b4",
       "hardware/reference/g-ganen-pump/g-ganen-replica.step": "e6b30e992f9dfe49d9fa4f268f91db40daf0d0223881d41afb98b2364aaa9b42",
       "hardware/reference/g-ganen-pump/g-ganen-replica.step.mesh": "00adb176df71aed13fec1fd593f683558bf0655461936d915a33346c55c7b1a5",
       "hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step": "a30ce13ed70c41e630b4a6cb5ce402fb846cc55c90b6bf765600fba67fe4a768",
@@ -1303,6 +1330,8 @@
       "hardware/reference/iec-c14-inlet/iec-c14-inlet.step.mesh": "48d018c3f64efaabbce9c099f59c058ecfbacaba6838816ca3ed1604db1a88f9",
       "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "a90b49bb1cfb89cf80798796832c4e5c10800c336ac3d19c42dc3d6559e97c80",
       "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.mesh": "3cd20fc9658b32fd7a78f1b08e2ec6b716c811a2bb6319a70be48471da7a62b6",
+      "hardware/reference/jg-pi010822s/jg-pi010822s.step": "141134c2562883fab41e146b485ba80b9d11690a7d44e500d207c0b363178327",
+      "hardware/reference/jg-pi010822s/jg-pi010822s.step.mesh": "6f8b5b7aad14d37545dd3061d8316472969f8e85733bf79ef4d4d644513be9e3",
       "hardware/reference/jg-pp010822e/jg-pp010822e.step": "98438485a8a3a5cde89adb572091d09d09a3097f5f09791642b0e0db874e12cf",
       "hardware/reference/jg-pp010822e/jg-pp010822e.step.mesh": "37f306f04a33dd00dcab04864397c8c661148d622f6bb42821ee75758cfb3e43",
       "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "b16050612c9f88003186efd4d62e054ede70c68bd3f35f06512735bd8b77bc3d",
@@ -1316,6 +1345,8 @@
       "hardware/reference/meanwell-irm90/meanwell-irm90.step.mesh": "c5ab179f21d889cb99dc038d5f9f9cdcf3e25e092b7560645c565bcdc94dcb00",
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "fb24dfa14266da28fe06300508ae6584ca68da9ee851d136e4896d5970f09040",
       "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": "2d05151890ceae500ca3691532615e63590b24a5394b57106e680f030c4d04d1",
+      "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step": "cc59c0660d0e801b9c9b4c8ae1d12abaaa0af2d4f5178896ecfa0d5f5c1179fc",
+      "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.mesh": "983d7be615a9c8197ed9ac73ed7096c541c9a68ebcdcb534a801a0e92c4ddc78",
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
       "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
       "hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step": "854cbc8e5329f9c72b75c92d02192b826aaf377a0f371562e03d9227079ad948",
@@ -1326,9 +1357,13 @@
       "hardware/reference/riteav-keystone/riteav-keystone.step.mesh": "a8a6a67fd8f85773198854a4c3fa3469b2348a4e6c48ebf3de5375c02928a2bc",
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step": "ee95f27a52c445bd9be8b24a6b1822a50ef1d60e0deb8d337acbc695733b47e8",
       "hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step.mesh": "c4882921c1250afe714a660f812b691260cd25492186fd489bb9280f08995e2a",
+      "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step": "fabc430d285b2ad1b8df5a941209df8c009182304a7c6961047acc44da0c64b4",
+      "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.mesh": "e13773c61ff4a7b17403eadbaf5e42d7b183ac4c0c861a51b2e8251ed6c99977",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": "5371c375caf99716726530fd96725ae4300e16323176a08e95ba842f06f0433b",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": "389f1168a0be8f6ae41a9837af4a2b5f5ddfab11a3678523e19c2e16bc83693d",
       "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": "dca1e2ca76f2940117919f4f89393eff483ec5a55d6ac2955c1fa76ca411fa16",
+      "hardware/reference/supco-bpv31/supco-bpv31.step": "b267f21c222b5b18ab223a02e1e51840f1104dae69ec0aaf1ca3ea3abf1e7f5d",
+      "hardware/reference/supco-bpv31/supco-bpv31.step.mesh": "80eb8e33184cea9648d059c589b5b31df1147de2c75262be5cd54eb50f78db4e",
       "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": "8e688912ef5c51346e818eb9ce789bc621f4eff47b38757959a86290c1546bd1",
       "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh": "a4c8a06daed99833dab1d2f1c15a0085553638740cea5dc8a9f642498b6c2baa",
       "hardware/reference/tee-connector/tee-connector.step": "bba36626afe1765fefd3affc790120cad6de786a3a23992f745037bf549bac36",
@@ -3070,9 +3105,18 @@
     "hardware/reference/compressor/compressor.source-fine.npz": 1793697604,
     "hardware/reference/compressor/compressor.step": 1787356215,
     "hardware/reference/compressor/compressor.step.mesh": 1793617993,
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step": 1794903779.805288,
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.mesh": 1794903709.376099,
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.npz": 1794903779.805288,
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.fine.step.npz": 1793697604,
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": 1789887713,
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": 1793568839,
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step": 1794903779.805288,
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.mesh": 1794903709.376099,
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.npz": 1794903779.805288,
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step": 1794903779.805288,
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.mesh": 1794903709.376099,
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.npz": 1794903779.805288,
     "hardware/reference/ffl38barb38/ffl38barb38.step": 1787578592,
     "hardware/reference/ffl38barb38/ffl38barb38.step.mesh": 1793502211,
     "hardware/reference/flare38-14ptc/flare38-14ptc.step": 1787578592,
@@ -3103,6 +3147,9 @@
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": 1793774578,
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.mesh": 1793774578,
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.npz": 1793774578,
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step": 1794903779.805288,
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step.mesh": 1794903709.376099,
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step.npz": 1794903779.805288,
     "hardware/reference/jg-pp010822e/jg-pp010822e.step": 1787578592,
     "hardware/reference/jg-pp010822e/jg-pp010822e.step.mesh": 1793617993,
     "hardware/reference/jg-pp0208e-tee/jg-pp0208e-tee.step": 1788994414,
@@ -3130,6 +3177,9 @@
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": 1794271411.5702882,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.mesh": 1794271403.428597,
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.npz": 1794271411.5702882,
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step": 1794903779.805288,
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.mesh": 1794903709.376099,
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.npz": 1794903779.805288,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": 1793316034,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": 1793617993,
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step": 1793774578,
@@ -3169,9 +3219,15 @@
     "hardware/reference/shok-blok-regulator/shok-blok-regulator.step.mesh": 1793617993,
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step": 1787356215,
     "hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step.mesh": 1793503760,
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step": 1794903779.805288,
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.mesh": 1794903709.376099,
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.npz": 1794903779.805288,
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": 1792893021,
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.json": 1793750338,
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": 1793568839,
+    "hardware/reference/supco-bpv31/supco-bpv31.step": 1794903779.805288,
+    "hardware/reference/supco-bpv31/supco-bpv31.step.mesh": 1794903709.376099,
+    "hardware/reference/supco-bpv31/supco-bpv31.step.npz": 1794903779.805288,
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": 1791179392,
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step.mesh": 1793617993,
     "hardware/reference/tee-connector/tee-connector.step": 1793617993,
@@ -5189,6 +5245,18 @@
       "commit": "00e3f01d90a166f5f802e8f8a96a4f83d03ec850",
       "unproven": true
     },
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/copper-slip-coupling/copper-slip-coupling.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.fine.step.npz": {
       "commit": "ad49078c9e9710e929644b9c1c90f48dba33c099",
       "unproven": true
@@ -5199,6 +5267,30 @@
     },
     "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step.mesh": {
       "commit": "4e9210312f017ae063b666cd1635e23eed21a27e",
+      "unproven": true
+    },
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/female-faston-receptacle/female-faston-receptacle.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
       "unproven": true
     },
     "hardware/reference/ffl38barb38/ffl38barb38.step": {
@@ -5283,6 +5375,18 @@
     },
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step.npz": {
       "commit": "25d3c4403ae9bb6f757f6e3515c85921f84b7ee8",
+      "unproven": true
+    },
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/jg-pi010822s/jg-pi010822s.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
       "unproven": true
     },
     "hardware/reference/jg-pp010822e/jg-pp010822e.step": {
@@ -5387,6 +5491,18 @@
     },
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.npz": {
       "commit": "2f5aac2f7355689d20fb844f0a9629476adfa773",
+      "unproven": true
+    },
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/mudder-tube-cutter/mudder-tube-cutter.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
       "unproven": true
     },
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": {
@@ -5533,12 +5649,36 @@
       "commit": "6a398d8e89a73ebc8ba9508ecc3b7f6d777755e4",
       "unproven": true
     },
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step": {
       "commit": "68b0da200813bad053518974869e5755bf84f18b",
       "unproven": true
     },
     "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh": {
       "commit": "4e9210312f017ae063b666cd1635e23eed21a27e",
+      "unproven": true
+    },
+    "hardware/reference/supco-bpv31/supco-bpv31.step": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
+      "unproven": true
+    },
+    "hardware/reference/supco-bpv31/supco-bpv31.step.mesh": {
+      "commit": "d8617198e60dbb97694a6ac7da1672c7796330d9",
+      "unproven": true
+    },
+    "hardware/reference/supco-bpv31/supco-bpv31.step.npz": {
+      "commit": "b58f200f9e2ab8fc1381451b71430c496d09e5a5",
       "unproven": true
     },
     "hardware/reference/taprite-3741-regulator/taprite-3741-regulator.step": {
