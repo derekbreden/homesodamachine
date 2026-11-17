@@ -1,0 +1,39 @@
+{
+  "source": {
+    "path": "hardware/reference/copper-slip-coupling/model.rs",
+    "sha256": "f78efda69ed6fe3bb1500f99d82a544932217bd78faa5dd3623a01a09c9178aa"
+  },
+  "members": {
+    "copper-slip-coupling.step": "7168e2d7afe7f779bde98dfd4fe5a2749100d3c25c0a52840cadb3dc76e0327b",
+    "copper-slip-coupling.step.npz": "35ce40c65bbf1f36a3f93b47fcbd8c9f4e28415911221885efca2e8f96b2bd76",
+    "copper-slip-coupling.step.mesh": "dbe06fc536c19b536f7368361ae024959ab433de745b8ac8709594f01520ceab"
+  },
+  "fine_models": {
+    "copper-slip-coupling.step": {
+      "path": "copper-slip-coupling.step.npz",
+      "sha256": "35ce40c65bbf1f36a3f93b47fcbd8c9f4e28415911221885efca2e8f96b2bd76",
+      "source_step_sha256": "7168e2d7afe7f779bde98dfd4fe5a2749100d3c25c0a52840cadb3dc76e0327b",
+      "producer": "hardware/reference/copper-slip-coupling/model.rs",
+      "presentation_indices": [
+        0
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "copper-slip-coupling.step.mesh",
+    "sha256": "dbe06fc536c19b536f7368361ae024959ab433de745b8ac8709594f01520ceab",
+    "source_step_sha256": "7168e2d7afe7f779bde98dfd4fe5a2749100d3c25c0a52840cadb3dc76e0327b",
+    "producer": "hardware/reference/copper-slip-coupling/model.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "copper-slip-coupling",
+        "color": [
+          0.4793201684951782,
+          0.17144110798835754,
+          0.03310476616024971
+        ]
+      }
+    ]
+  }
+}

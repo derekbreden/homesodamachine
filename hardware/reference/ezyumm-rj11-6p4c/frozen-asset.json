@@ -1,0 +1,75 @@
+{
+  "source": {
+    "path": "hardware/reference/ezyumm-rj11-6p4c/replica.rs",
+    "sha256": "75a2c62ce69ea782296fdfeaf22c37bf663c9047507d167e6795f5b2ac1c4c22"
+  },
+  "members": {
+    "ezyumm-rj11-6p4c.step": "f115b79482885b6acf3b4a335a58a723794bc12f325454828f7f1b206b38c6b2",
+    "ezyumm-rj11-6p4c.step.npz": "e6d30c877196c7d851b829275e8ea1314dde81094767e3c02721debebf5e5395",
+    "ezyumm-rj11-6p4c.step.mesh": "77e495e047fb08abf15637568668493d2d0c45f64dbbaaf8a2e53e2bd1a896db"
+  },
+  "fine_models": {
+    "ezyumm-rj11-6p4c.step": {
+      "path": "ezyumm-rj11-6p4c.step.npz",
+      "sha256": "e6d30c877196c7d851b829275e8ea1314dde81094767e3c02721debebf5e5395",
+      "source_step_sha256": "f115b79482885b6acf3b4a335a58a723794bc12f325454828f7f1b206b38c6b2",
+      "producer": "hardware/reference/ezyumm-rj11-6p4c/replica.rs",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "ezyumm-rj11-6p4c.step.mesh",
+    "sha256": "77e495e047fb08abf15637568668493d2d0c45f64dbbaaf8a2e53e2bd1a896db",
+    "source_step_sha256": "f115b79482885b6acf3b4a335a58a723794bc12f325454828f7f1b206b38c6b2",
+    "producer": "hardware/reference/ezyumm-rj11-6p4c/replica.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "plug-housing",
+        "color": [
+          0.6920710802078247,
+          0.7874122858047485,
+          0.8275708556175232
+        ]
+      },
+      {
+        "name": "contact-2",
+        "color": [
+          0.77,
+          0.46,
+          0.1
+        ]
+      },
+      {
+        "name": "contact-3",
+        "color": [
+          0.77,
+          0.46,
+          0.1
+        ]
+      },
+      {
+        "name": "contact-4",
+        "color": [
+          0.77,
+          0.46,
+          0.1
+        ]
+      },
+      {
+        "name": "contact-5",
+        "color": [
+          0.77,
+          0.46,
+          0.1
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "source": {
+    "path": "hardware/reference/jg-pi010822s/jg_pi010822s.rs",
+    "sha256": "12f24c78956362d65888759aa0a0dece82febabbc5b7e524a20ec596fed06ff3"
+  },
+  "members": {
+    "jg-pi010822s.step": "141134c2562883fab41e146b485ba80b9d11690a7d44e500d207c0b363178327",
+    "jg-pi010822s.step.npz": "3e958a33a15dc343183f4b0becb2e927a8012deae2bc3bd86217cc429e317cd4",
+    "jg-pi010822s.step.mesh": "6f8b5b7aad14d37545dd3061d8316472969f8e85733bf79ef4d4d644513be9e3"
+  },
+  "fine_models": {
+    "jg-pi010822s.step": {
+      "path": "jg-pi010822s.step.npz",
+      "sha256": "3e958a33a15dc343183f4b0becb2e927a8012deae2bc3bd86217cc429e317cd4",
+      "source_step_sha256": "141134c2562883fab41e146b485ba80b9d11690a7d44e500d207c0b363178327",
+      "producer": "hardware/reference/jg-pi010822s/jg_pi010822s.rs",
+      "presentation_indices": [
+        0,
+        1
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "jg-pi010822s.step.mesh",
+    "sha256": "6f8b5b7aad14d37545dd3061d8316472969f8e85733bf79ef4d4d644513be9e3",
+    "source_step_sha256": "141134c2562883fab41e146b485ba80b9d11690a7d44e500d207c0b363178327",
+    "producer": "hardware/reference/jg-pi010822s/jg_pi010822s.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "body",
+        "color": [
+          0.2632734179496765,
+          0.27383843064308167,
+          0.2846466898918152
+        ]
+      },
+      {
+        "name": "collet",
+        "color": [
+          0.09,
+          0.11,
+          0.14
+        ]
+      }
+    ]
+  }
+}

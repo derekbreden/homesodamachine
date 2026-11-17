@@ -46,6 +46,34 @@ path = "../../../hardware/reference/g-ganen-pump/replica.rs"
 name = "h2c-toolhead"
 path = "../../../hardware/reference/h2c-toolhead/h2c_toolhead.rs"
 
+[[example]]
+name = "jg-pi010822s"
+path = "../../../hardware/reference/jg-pi010822s/jg_pi010822s.rs"
+
+[[example]]
+name = "copper-slip-coupling"
+path = "../../../hardware/reference/copper-slip-coupling/model.rs"
+
+[[example]]
+name = "supco-bpv31"
+path = "../../../hardware/reference/supco-bpv31/model.rs"
+
+[[example]]
+name = "siptenk-tube-stiffener"
+path = "../../../hardware/reference/siptenk-tube-stiffener/model.rs"
+
+[[example]]
+name = "mudder-tube-cutter"
+path = "../../../hardware/reference/mudder-tube-cutter/model.rs"
+
+[[example]]
+name = "female-faston-receptacle"
+path = "../../../hardware/reference/female-faston-receptacle/model.rs"
+
+[[example]]
+name = "ezyumm-rj11-6p4c"
+path = "../../../hardware/reference/ezyumm-rj11-6p4c/replica.rs"
+
 # A concept is a file in examples/. README.md says how to run one.
 [[example]]
 name = "support-inclines"

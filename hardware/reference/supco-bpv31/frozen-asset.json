@@ -1,0 +1,102 @@
+{
+  "source": {
+    "path": "hardware/reference/supco-bpv31/model.rs",
+    "sha256": "117d049d3a0f313b8c7f87dd8d27eb0080a00854543af7f9a8a5e33d0e5c5e37"
+  },
+  "members": {
+    "supco-bpv31.step": "b267f21c222b5b18ab223a02e1e51840f1104dae69ec0aaf1ca3ea3abf1e7f5d",
+    "supco-bpv31.step.npz": "c9d6e6f89ed8f91bad87d79d7207dabbec54fae552f0cb6f996d423a4d3237e6",
+    "supco-bpv31.step.mesh": "80eb8e33184cea9648d059c589b5b31df1147de2c75262be5cd54eb50f78db4e"
+  },
+  "fine_models": {
+    "supco-bpv31.step": {
+      "path": "supco-bpv31.step.npz",
+      "sha256": "c9d6e6f89ed8f91bad87d79d7207dabbec54fae552f0cb6f996d423a4d3237e6",
+      "source_step_sha256": "b267f21c222b5b18ab223a02e1e51840f1104dae69ec0aaf1ca3ea3abf1e7f5d",
+      "producer": "hardware/reference/supco-bpv31/model.rs",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "supco-bpv31.step.mesh",
+    "sha256": "80eb8e33184cea9648d059c589b5b31df1147de2c75262be5cd54eb50f78db4e",
+    "source_step_sha256": "b267f21c222b5b18ab223a02e1e51840f1104dae69ec0aaf1ca3ea3abf1e7f5d",
+    "producer": "hardware/reference/supco-bpv31/model.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "valve-body",
+        "color": [
+          0.68,
+          0.71,
+          0.73
+        ]
+      },
+      {
+        "name": "saddle",
+        "color": [
+          0.68,
+          0.71,
+          0.73
+        ]
+      },
+      {
+        "name": "flare-cap",
+        "color": [
+          0.68,
+          0.71,
+          0.73
+        ]
+      },
+      {
+        "name": "saddle-gasket",
+        "color": [
+          0.22,
+          0.087,
+          0.056
+        ]
+      },
+      {
+        "name": "piercing-screw",
+        "color": [
+          0.035,
+          0.035,
+          0.033
+        ]
+      },
+      {
+        "name": "clamp-screw-back",
+        "color": [
+          0.035,
+          0.035,
+          0.033
+        ]
+      },
+      {
+        "name": "clamp-screw-left",
+        "color": [
+          0.035,
+          0.035,
+          0.033
+        ]
+      },
+      {
+        "name": "clamp-screw-right",
+        "color": [
+          0.035,
+          0.035,
+          0.033
+        ]
+      }
+    ]
+  }
+}
