@@ -10227,7 +10227,7 @@
         "evt-afa937140f37458b8384ec75776d3b51"
       ],
       "gap_id": "gap-55aefb37c76140789e0bf094e8e3443f",
-      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "missing_fact": "Exact delivery calendar date, completed merchant payment and final tax remain unverified. Delivered fulfillment is confirmed.",
       "order_ids": [
         "amazon:112-9810422-9839444"
       ],
@@ -10235,10 +10235,12 @@
         "pur-fcd44116a7094087b680a7ae1ffd83af"
       ],
       "source_ids": [
-        "src-c5820eb1e8314a3898e3758aad484fe8"
+        "src-c5820eb1e8314a3898e3758aad484fe8",
+        "src-de79632a0e51480cb499d592c627c500"
       ],
       "sources_checked": [
-        "Signed-in Amazon Order Details on November 16, 2026"
+        "Signed-in Amazon Order Details on November 16, 2026",
+        "Exact shared-package delivery notification received November 17, 2026"
       ]
     },
     {
@@ -10451,7 +10453,7 @@
         "evt-95d9935a302643fdb1fa901b9d6b7c1d"
       ],
       "gap_id": "gap-d7417370fcd74c91a67a61308fd257a0",
-      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "missing_fact": "Exact delivery calendar date, completed merchant payment and final tax remain unverified. Delivered fulfillment is confirmed.",
       "order_ids": [
         "amazon:112-9294493-8073803"
       ],
@@ -10459,10 +10461,12 @@
         "pur-3e68e1bb95ea4eee80c22dc466261cb4"
       ],
       "source_ids": [
+        "src-de79632a0e51480cb499d592c627c500",
         "src-efc990d31d25466b930702e5a2ba2dee"
       ],
       "sources_checked": [
-        "Signed-in Amazon Order Details on November 16, 2026"
+        "Signed-in Amazon Order Details on November 16, 2026",
+        "Exact shared-package delivery notification received November 17, 2026"
       ]
     },
     {
@@ -10554,7 +10558,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:454bece63ecd18b9bdcd3a0fefa373011b19731e335a35175e88d6ab5e0cffce",
+  "input_fingerprint": "sha256:2945898e11f32eb92c88febaa8a4261dca943efa23c7e18f432e7c7678c854cf",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15235,6 +15239,7 @@
       "reference": "112-9294493-8073803",
       "source_ids": [
         "src-7f412bf4f958477babc232984e837e4b",
+        "src-de79632a0e51480cb499d592c627c500",
         "src-efc990d31d25466b930702e5a2ba2dee"
       ],
       "vendor": "Amazon"
@@ -15464,7 +15469,8 @@
       "reference": "112-9810422-9839444",
       "source_ids": [
         "src-7f412bf4f958477babc232984e837e4b",
-        "src-c5820eb1e8314a3898e3758aad484fe8"
+        "src-c5820eb1e8314a3898e3758aad484fe8",
+        "src-de79632a0e51480cb499d592c627c500"
       ],
       "vendor": "Amazon"
     },
@@ -28313,11 +28319,11 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping; shipped, awaiting delivery.",
+      "description": "GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping; delivered; exact delivery date unverified.",
       "event_ids": [
         "evt-95d9935a302643fdb1fa901b9d6b7c1d"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3e68e1bb95ea4eee80c22dc466261cb4",
       "merchant_charge_allocated_minor": 0,
@@ -28346,6 +28352,7 @@
       "service_period": null,
       "source_ids": [
         "src-7f412bf4f958477babc232984e837e4b",
+        "src-de79632a0e51480cb499d592c627c500",
         "src-efc990d31d25466b930702e5a2ba2dee"
       ],
       "split_charge": false,
@@ -56127,11 +56134,11 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping; shipped, awaiting delivery.",
+      "description": "3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping; delivered; exact delivery date unverified.",
       "event_ids": [
         "evt-afa937140f37458b8384ec75776d3b51"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-fcd44116a7094087b680a7ae1ffd83af",
       "merchant_charge_allocated_minor": 0,
@@ -56160,7 +56167,8 @@
       "service_period": null,
       "source_ids": [
         "src-7f412bf4f958477babc232984e837e4b",
-        "src-c5820eb1e8314a3898e3758aad484fe8"
+        "src-c5820eb1e8314a3898e3758aad484fe8",
+        "src-de79632a0e51480cb499d592c627c500"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -68837,6 +68845,22 @@
       "verified_at": "2026-11-11"
     },
     {
+      "document_date": null,
+      "document_type": "delivery_notification",
+      "note": "Two-item delivery notification identifies the sealant order in its order field and the masking-tape order in its shared-package tracking link. Both existing purchases are delivered. Relative today wording does not independently establish a delivery calendar date. No completed payment or final tax is proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "112-9294493-8073803 / 112-9810422-9839444",
+      "source_id": "src-de79632a0e51480cb499d592c627c500",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-17"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-30"
@@ -69985,7 +70009,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5011583,
+          "amount_minor": 5012759,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -70148,6 +70172,7 @@
             "pur-3d8a298bd6054af6a120b520e7a8da65",
             "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
             "pur-3e422dd818e94af4b336e62fbe83e26f",
+            "pur-3e68e1bb95ea4eee80c22dc466261cb4",
             "pur-3f24d066bf684d46943a5469ba0b74fc",
             "pur-3f610c61869547abb6f636978fb3c63c",
             "pur-3f6de21c0d6f4fe4a39aed9b05b32fc9",
@@ -70699,6 +70724,7 @@
             "pur-fbeb6d70584a4d0fba20a4e555a33932",
             "pur-fc68e8713b2a41ab8baef861721af0d1",
             "pur-fcca5d9c2ff44cdba4f21d5a544fbcef",
+            "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fcf61f35d1e04f098360e65ab77cce06",
             "pur-fd5344356f7b483485428f444470b0ab",
             "pur-fd783b99321f417788c5e4b8e89eddf4",
@@ -70735,13 +70761,12 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 53142,
+          "amount_minor": 51966,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-0460bfe098504c85bbbf043b1d7a5bb0",
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
-            "pur-3e68e1bb95ea4eee80c22dc466261cb4",
             "pur-4cac3e81d16a4257b9c6b725ba967b74",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
@@ -70749,7 +70774,6 @@
             "pur-c421deec9a2f4c7b868ae95b9e1499c1",
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
-            "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
           "unknown_amount_ids": []
@@ -70769,7 +70793,6 @@
       "outstanding_purchase_ids": [
         "pur-0460bfe098504c85bbbf043b1d7a5bb0",
         "pur-1c4dede86ac6420db23a61fd3b7eabb8",
-        "pur-3e68e1bb95ea4eee80c22dc466261cb4",
         "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
@@ -70779,7 +70802,6 @@
         "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-dfd251509a3543c5b3bd9e358dcef85f",
-        "pur-fcd44116a7094087b680a7ae1ffd83af",
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "returned_without_evidenced_refund_purchase_ids": []

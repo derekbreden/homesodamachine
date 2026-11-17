@@ -319,8 +319,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | <!--purchase:pur-52d96cd79ae44da49b50723415e884da--> BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack) | [B07Y61YTTK](https://www.amazon.com/dp/B07Y61YTTK) | 1 pk (10) | $6.42 | 112-0089456-0822653 | 2026-05-11 | 2026-05-13 | ACQUIRED |
 | <!--purchase:pur-418cda134a6d4c6786b36931d0c34d7f--> ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack) | [B0978JSCZ8](https://www.amazon.com/dp/B0978JSCZ8) | 1 pk (5) | $11.79 | 112-0089456-0822653 | 2026-05-11 | 2026-05-13 | ACQUIRED |
 | <!--purchase:pur-8ba035a103d94342a627b5b6d858d658--> Heyco SB-500-6 (Heyco part #2053) black 6/6 nylon strain-relief snap bushing, 100-pack | [B01LPBST9G](https://www.amazon.com/HEYCO-2053-SB-500-6-Accessories/dp/B01LPBST9G/) | 1 pk (100) | $12.60 | 112-7723568-0091455 | 2026-05-15 | 2026-05-16 | ACQUIRED |
-| <!--purchase:pur-3e68e1bb95ea4eee80c22dc466261cb4--> GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping; shipped, awaiting delivery. | [B0C9VT9KD2](https://www.amazon.com/dp/B0C9VT9KD2) | 1 | $6.94 | 112-9294493-8073803 | 2026-11-16 | — | ON-ORDER |
-| <!--purchase:pur-fcd44116a7094087b680a7ae1ffd83af--> 3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping; shipped, awaiting delivery. | [B00004Z4CP](https://www.amazon.com/dp/B00004Z4CP) | 1 | $4.82 | 112-9810422-9839444 | 2026-11-16 | — | ON-ORDER |
+| <!--purchase:pur-3e68e1bb95ea4eee80c22dc466261cb4--> GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping; delivered; exact delivery date unverified. | [B0C9VT9KD2](https://www.amazon.com/dp/B0C9VT9KD2) | 1 | $6.94 | 112-9294493-8073803 | 2026-11-16 | — | ACQUIRED |
+| <!--purchase:pur-fcd44116a7094087b680a7ae1ffd83af--> 3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping; delivered; exact delivery date unverified. | [B00004Z4CP](https://www.amazon.com/dp/B00004Z4CP) | 1 | $4.82 | 112-9810422-9839444 | 2026-11-16 | — | ACQUIRED |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -864,10 +864,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,473.52](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,485.28](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,193.03](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$531.42](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,204.79](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$519.66](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,777.52](LEDGER_GRAND_TOTAL) |
@@ -899,7 +899,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 3 | Water supply + backflow prevention | [$1,641.36](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$604.07](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$2,056.56](LEDGER_SEC5) |
-| 6 | Refrigeration | [$1,984.90](LEDGER_SEC6) |
+| 6 | Refrigeration | [$1,996.66](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$1,970.50](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$2,571.20](LEDGER_SEC9) |
