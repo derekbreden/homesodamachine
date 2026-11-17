@@ -1,7 +1,7 @@
 // Production planning tests cover cumulative stock use, purchase lots, uncertain inputs and cash boundaries.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { freshScenario, optionKey, projectProduction, fillPurchasePlan, materialBalance } from '../contracts/production-plan.js';
+import { coverageFor, freshScenario, optionKey, projectProduction, fillPurchasePlan, materialBalance } from '../contracts/production-plan.js';
 import { productionData, readProductionPlanner, renderProductionPlanner } from '../lib/production-planner.js';
 import { readMaterialCatalog } from '../lib/material-catalog.js';
 import { readMaterialStock } from '../lib/material-stock.js';
@@ -128,8 +128,13 @@ test('the published workspace carries every real stock input, unknown usage and 
     assert.ok(rod.quantityKnown && rod.unit === 'mm' && rod.uses.includes('HSM-0011') && rod.uses.includes('HSM-0459'));
     const foamSeal = rows.find(row => row.id === 'prv-shroud-foam-seal');
     assert.ok(foamSeal.active[1] && !foamSeal.quantityKnown);
+    assert.equal(foamSeal.incoming, 83);
     assert.equal(foamSeal.quote, null);
     assert.ok(!rows.some(row => row.name.includes('GE Silicone II')));
+    const maskingTape = rows.find(row => row.id === 'B00004Z4CP');
+    assert.equal(maskingTape.needs[1], 3);
+    assert.equal(maskingTape.incoming, 180);
+    assert.equal(coverageFor(maskingTape, 1), 'incoming');
     assert.ok(!rows.some(row => /HSM-0324|HSM-0334|HSM-0335|HSM-0364/.test(row.id)));
     const screw = rows.find(row => row.id === 'svling-B0GHNNYVDH');
     assert.ok(screw.available >= screw.needs[1] && screw.estimated);

@@ -10171,6 +10171,30 @@
       "source_ids": [
         "src-24f43447cedb4e5a813e04d473be20dc"
       ]
+    },
+    "pur-3e68e1bb95ea4eee80c22dc466261cb4": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ]
+    },
+    "pur-fcd44116a7094087b680a7ae1ffd83af": {
+      "vendor": "Amazon",
+      "purpose": "consumables_materials",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ]
     }
   },
   "orders": {
@@ -16521,6 +16545,30 @@
       "source_ids": [
         "src-24f43447cedb4e5a813e04d473be20dc"
       ]
+    },
+    "amazon:112-9294493-8073803": {
+      "vendor": "Amazon",
+      "reference": "112-9294493-8073803",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ]
+    },
+    "amazon:112-9810422-9839444": {
+      "vendor": "Amazon",
+      "reference": "112-9810422-9839444",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ]
     }
   },
   "events": [
@@ -20912,6 +20960,40 @@
       "order_ids": [
         "amazon:112-7519255-8741021"
       ]
+    },
+    {
+      "event_id": "evt-95d9935a302643fdb1fa901b9d6b7c1d",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 694,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "verified_at": "2026-11-16",
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ]
+    },
+    {
+      "event_id": "evt-afa937140f37458b8384ec75776d3b51",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 482,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "verified_at": "2026-11-16",
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ]
     }
   ],
   "allocations": [
@@ -22737,6 +22819,22 @@
       "purchase_id": "pur-5caf48bbb5b44f2bbac11f37b1608ead",
       "order_id": "amazon:112-7519255-8741021",
       "amount_minor": 943,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-3b0a22fe84c548fbae18f4d0a9abf3b8",
+      "event_id": "evt-95d9935a302643fdb1fa901b9d6b7c1d",
+      "purchase_id": "pur-3e68e1bb95ea4eee80c22dc466261cb4",
+      "order_id": "amazon:112-9294493-8073803",
+      "amount_minor": 694,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-7498e855482141eea568c9fbbcc4cf4f",
+      "event_id": "evt-afa937140f37458b8384ec75776d3b51",
+      "purchase_id": "pur-fcd44116a7094087b680a7ae1ffd83af",
+      "order_id": "amazon:112-9810422-9839444",
+      "amount_minor": 482,
       "currency": "USD"
     }
   ],
@@ -35139,6 +35237,36 @@
       "proves": [],
       "verified_at": "2026-11-16",
       "note": "Merchant shipment notification identifies both H2C Engineering Plates as on the way via UPS. Actual delivery and dispatch calendar date are not established by the notification timestamp. Shipment does not establish another payment."
+    },
+    "src-efc990d31d25466b930702e5a2ba2dee": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_page",
+      "reference": "112-9294493-8073803",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-16",
+      "note": "Signed-in Amazon Order Details identifies one GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube (B0C9VT9KD2), ordered November 16 for USD 6.47 plus USD 0.47 estimated tax, with free shipping. Displayed order total USD 6.94. Estimated arrival November 17. Fulfillment and completed payment are pending."
+    },
+    "src-c5820eb1e8314a3898e3758aad484fe8": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_page",
+      "reference": "112-9810422-9839444",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-16",
+      "note": "Signed-in Amazon Order Details identifies one 3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll (B00004Z4CP), ordered November 16 for USD 4.49 plus USD 0.33 estimated tax, with free shipping. Displayed order total USD 4.82. Estimated arrival November 17. Fulfillment and completed payment are pending."
     }
   },
   "coverage": [
@@ -37458,6 +37586,46 @@
         "amazon:112-7863139-0903423"
       ],
       "note": "Exact named order only; no account-wide coverage claimed."
+    },
+    {
+      "coverage_id": "coverage-bfc5b257b92b42408c92b0ab47a0970b",
+      "vendor": "Amazon",
+      "stream": "named PRV shroud exterior foam seal order",
+      "evidence_type": "merchant_order_page",
+      "checked_at": "2026-11-16",
+      "examined_period": {
+        "start": "2026-11-16",
+        "end": "2026-11-16"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "note": "Exact project order only."
+    },
+    {
+      "coverage_id": "coverage-bd98b892a644443b90dc95fa80a8e33e",
+      "vendor": "Amazon",
+      "stream": "named removable cold-core foam-pour masking order",
+      "evidence_type": "merchant_order_page",
+      "checked_at": "2026-11-16",
+      "examined_period": {
+        "start": "2026-11-16",
+        "end": "2026-11-16"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "note": "Exact project order only."
     }
   ],
   "gaps": [
@@ -37937,6 +38105,46 @@
       "missing_fact": "Delivery, completed merchant payment and final tax remain unconfirmed.",
       "sources_checked": [
         "Signed-in Amazon order history page, checked November 15, 2026"
+      ]
+    },
+    {
+      "gap_id": "gap-d7417370fcd74c91a67a61308fd257a0",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4"
+      ],
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "event_ids": [
+        "evt-95d9935a302643fdb1fa901b9d6b7c1d"
+      ],
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "sources_checked": [
+        "Signed-in Amazon Order Details on November 16, 2026"
+      ]
+    },
+    {
+      "gap_id": "gap-55aefb37c76140789e0bf094e8e3443f",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-fcd44116a7094087b680a7ae1ffd83af"
+      ],
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "event_ids": [
+        "evt-afa937140f37458b8384ec75776d3b51"
+      ],
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "sources_checked": [
+        "Signed-in Amazon Order Details on November 16, 2026"
       ]
     }
   ],

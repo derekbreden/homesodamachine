@@ -460,17 +460,21 @@
     },
     {
       "id": "prv-shroud-foam-seal",
-      "name": "PRV shroud foam seal",
+      "name": "PRV shroud foam seal · GE Advanced Silicone 2 Window & Door, clear",
       "unit": "mL",
-      "href": null,
+      "href": "https://www.amazon.com/dp/B0C9VT9KD2",
       "onHand": null,
-      "incoming": 0,
+      "incoming": 83,
       "reserved": 0,
       "estimated": false,
-      "asOf": null,
-      "basis": "unknown",
-      "note": "Keeps expanding foam out of the relief shroud at the elbow joint. Material selection, amount per joint and pack size are open.",
+      "asOf": "2026-11-16",
+      "basis": "ledger_estimate",
+      "note": "One 83 mL squeeze tube is on order. Verify adhesion on scrap PETG and stainless and record usage from the cured exterior joint before setting per-build demand.",
       "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 322
+        },
         {
           "path": "hardware/printed-parts/cold-core/prv-shroud/README.md"
         }
@@ -1614,6 +1618,30 @@
       "planning": {
         "root": "HSM-0340",
         "perUnit": 15,
+        "materialAllowance": 0
+      }
+    },
+    {
+      "id": "B00004Z4CP",
+      "name": "3M ScotchBlue Original 2090-24NC masking tape, 0.94 in × 60 yd roll",
+      "unit": "ft",
+      "href": "https://www.amazon.com/dp/B00004Z4CP",
+      "onHand": null,
+      "incoming": 180,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-11-16",
+      "basis": "ledger_estimate",
+      "note": "One 180 ft roll is on order. The BOM carries a provisional masking allowance for the cold-core pour.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "line": 323
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 3,
         "materialAllowance": 0
       }
     },

@@ -48,11 +48,10 @@ Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.12](MT_KG_PET
 |---|---|---|---:|
 | Silicone funnel — room-temperature cure to demold | The mold | BBDINO 40A: the maker's 5 h to demold at 23 °C, per [silicone.md](/hardware/printed-parts/zone-c/funnel-mold/silicone.md). Full use at 24 h; a cool shop lengthens both | 5.0 |
 | Silicone funnel — food-contact post-cure bake | Oven at ~200 °C | The drive-off bake is the food-contact acceptance gate, not the room-temp cure. **The maker states no post-cure schedule** ([silicone.md](/hardware/printed-parts/zone-c/funnel-mold/silicone.md)); 4 h at ~200 °C is a placeholder, under the cured material's 230 °C ceiling, until the trial is run | 4.0 |
+| PRV shroud exterior foam seal — cure | In the subassembly | Nominal full cure at 73 °F and 50% RH per the [GE data sheet](https://gesealants.com/wp-content/uploads/2020/06/TD-GE-Advanced-Silicone-2-WD-June-1-2024.pdf). Prepare the subassembly ahead of the pour. | 24.0 |
 | Body foam — pour to trimmable | In the part | Cure time is an **open item** in [cold-core.md](/hardware/assembly/cold-core.md); 4 h is a placeholder for a 2 lb pour foam, not a datasheet figure | 4.0 |
 | Cap foams — pour to trimmable, both caps | In the part | Same open item; the two caps pour together | 4.0 |
-| **Curing and baking** | | | **[17.0](MT_H_CURE)** |
-
-The PRV shroud foam seal's working time depends on the material selection.
+| **Curing and baking** | | | **[41.0](MT_H_CURE)** |
 
 ## 3. Soaking and holding
 
