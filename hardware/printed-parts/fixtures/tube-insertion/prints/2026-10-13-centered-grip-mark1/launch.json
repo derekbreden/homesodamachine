@@ -25,7 +25,7 @@
   "total_layer_num": 63,
   "mc_remaining_time": 0,
   "display_printer": "Mark1",
-  "design_commit": "b67ed572f",
+  "design_commit": "19fbc7224",
   "requested_user_z_trim_mm": 0.18,
   "emitted_textured_pei_trim_mm": 0.16,
   "bed_clear_authorization": "Mark1 is available for PET-GF right now, please print your new plus handle there.",

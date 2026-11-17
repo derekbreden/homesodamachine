@@ -3,7 +3,7 @@
   "reviewed_at_utc": "2026-10-07T11:05:28.406247+00:00",
   "publication_basis": {
     "confirmation": "Parent agent confirmed the exact current meshes live before this review. The unchanged Industrial cover also has its explicit live confirmation at 2823d75cf.",
-    "confirmed_main_commit": "ff0e4a35d",
+    "confirmed_main_commit": "35db61f51",
     "live_pointer_checked_by_this_record": false,
     "parent_live_pointer_snapshot": {
       "live_base": "https://objects.homesodamachine.com",

@@ -86,16 +86,16 @@ support style, rooting, removal access, authored fins and support-free regions.
 Check the actual emitted contact planes and underside recovery paths when
 preparing a part. Coupon acceptance does not establish full-part removal.
 
-The [inclined faucet result](https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
+The [inclined faucet result](https://github.com/derekbreden/homesodamachine/blob/7b4d4c7d87dda9db021665b2e7c7e255d996a39d/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json)
 records broken tree stems with contact material retained on the base. D's
 removal acceptance covers the tested flat rail ceilings and their access;
 inclined and curved faucet contacts remain unqualified. Prepare the incline
 comparisons before treating D as an accepted faucet support recipe.
-The [explicit Slim faucet trial](https://github.com/derekbreden/homesodamachine/blob/1fe50e4ff3209adc4afd6299082bfca21cd8511c/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json)
+The [explicit Slim faucet trial](https://github.com/derekbreden/homesodamachine/blob/be19fb8a4693edecead5753aa2bcb42c54dcdbf0/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/physical-result.json)
 also failed release despite generating interface paths along the curve. The
-[larger-gap trial](https://github.com/derekbreden/homesodamachine/blob/416bf47e9ded600fa3a0c7d19855d87d20b8b893/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
+[larger-gap trial](https://github.com/derekbreden/homesodamachine/blob/a261387d7021b9f74675793f5b1a3fd188cfccec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
 records easier release with connected roof mats and essentially unchanged
-underside finish. The [nonplanar faucet result](https://github.com/derekbreden/homesodamachine/blob/b06ab316f6c796a314a30f0dc8ffda66113b2e4e/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records improved underside finish and trapped insert supports. Keep the heat-insert recesses clear of support. Bridge the shoulders and blind pilot roofs, and read the emitted paths through both stages. The [rim-fin release observation](https://github.com/derekbredensteiner/homesodamachine/blob/b388123d2ac2fdc31fd091f980334b9c99443ab8/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense roof and support coming off together. The [tree and contoured-rim trial](../print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json) uses the dense roof and bridge-only pockets on the complete lower curve.
+underside finish. The [nonplanar faucet result](https://github.com/derekbreden/homesodamachine/blob/542ced3900b6b513c521c525582c22f167c9584d/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records improved underside finish and trapped insert supports. Keep the heat-insert recesses clear of support. Bridge the shoulders and blind pilot roofs, and read the emitted paths through both stages. The [rim-fin release observation](https://github.com/derekbredensteiner/homesodamachine/blob/b388123d2ac2fdc31fd091f980334b9c99443ab8/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense roof and support coming off together. The [tree and contoured-rim trial](../print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json) uses the dense roof and bridge-only pockets on the complete lower curve.
 The [active incline comparisons](../print-tests/petgf-dense-roofs/inclines/matrix.json)
 retain D's dense interface and vary contact gap and tree generation. Interface
 density and the contact footprint selected by the tree algorithm are distinct.
@@ -115,7 +115,7 @@ branch diameter, diameter growth and wall count (`tree_support_branch_diameter`,
 `tree_support_branch_diameter_angle`, `tree_support_wall_count`), and a
 `tree_support_branch_angle` override still leans enough for tips to merge into
 a trunk. The
-[stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/c604d68ae0540871675765aaa663c2eb991de861/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
+[stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/442ac2b7c23d85ee12d16088b3ad89388730cc91/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
 records tip-sized towers that did not survive, so some of the surfaces they
 were to carry printed with no support under them.
 
@@ -134,7 +134,7 @@ removable support: both of the water regulator's, and the ASSE's west one. No
 screwdriver reaches the ASSE's east pocket beside the Pisco or either of the
 Pisco's, so only those three catches are corbels at the shell's teardrop roof
 slope, printing with neither support nor bridge, and their caps' hooks seat on
-the slope. The [stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/c604d68ae0540871675765aaa663c2eb991de861/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
+the slope. The [stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/442ac2b7c23d85ee12d16088b3ad89388730cc91/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
 records Derek's split between the two kinds of pocket. The C14 inlet's flange
 pocket and cord passage take support; its blind pilots stay clear. The meter
 host's fore end shoulder takes a support target. Its aft shoulder sits under the
@@ -218,7 +218,7 @@ following [`enclosure/enclosure/numbers/structure.rs`](enclosure/enclosure/numbe
 Use six walls locally through that transition band, saved speeds and wall-first order,
 15% infill/wall overlap, and no supports on that exterior transition. Derek's accepted
 tee-carrier surface is recorded in
-[`enclosure/tee-carrier/physical-acceptance.json`](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json).
+[`enclosure/tee-carrier/physical-acceptance.json`](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json).
 
 Retain 0.08 mm for inward/top show rounds. Functional flat lifting ceilings, sliding
 seats and retention bearings keep their required shape and receive accessible supports

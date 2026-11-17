@@ -33,6 +33,6 @@ joint strength remain unmeasured.
 The [launch record](mark2-launch.json) binds the submitted trial to the
 accepted printer job. The [physical result](physical-result.json) records a
 sealed-in magnet, reported rattle and uneven initial roof deposition.
-The [recorded launcher](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/timed_launch.py) defines the preparation,
+The [recorded launcher](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/printed-parts/enclosure/enclosure/magnet-retention/v4/timed_launch.py) defines the preparation,
 peer-printer observation and single-submission logic for that artifact.
 Further physical fit trials are recorded beside the [fit coupons](../fit-coupons/README.md).

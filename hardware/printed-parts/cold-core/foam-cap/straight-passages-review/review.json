@@ -1,7 +1,7 @@
 {
   "scope": "Post-publication geometry-lint review of four revised printable pieces; every lint class ran once against the published full-resolution STL.",
-  "publication_commit": "cf1094637",
-  "source_commit": "dd16b1aa9",
+  "publication_commit": "b19aee0c5",
+  "source_commit": "c6507055d",
   "classes": [
     "step",
     "bump",

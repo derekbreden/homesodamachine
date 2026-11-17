@@ -122,8 +122,8 @@
   "exported_step_solid_count": 1,
   "limits": "Nominal geometry and print-mesh dimensions establish no hand fit, insertion force, bridge quality or service-life result.",
   "publication": {
-    "source_commit": "714328c515fd5421844e87b2503cda547c36303e",
-    "artifact_pointer_commit": "6c4e21d279191cebdae08bbbfffe41818fcfb96e",
+    "source_commit": "6e5039a984c8809a206cfa3d0412f0dc7aba3e11",
+    "artifact_pointer_commit": "6a9e9b2f115fe61a39ac5adb3470bf9fb15def2f",
     "live_payloads": [
       {
         "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",

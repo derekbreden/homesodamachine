@@ -8,7 +8,7 @@
   "archive": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/prints/magnetic-float-insert-mark2-aero-v8/ready/magnetic-float-insert-mark2-aero-v8.gcode.3mf",
   "archive_sha256": "9a1b755ecd9d62abd0aeae3617a2cdfad50b527a712b073de3bb203d565ac2bd",
   "gcode_sha256": "39ed09d593b983b8cc6e431b2d7ee6b5f185095af9cbfa44c35fb397307eee8c",
-  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_commit": "08a570ea9259bb64ecccd81760762dc72587acbc",
   "source_stl_sha256": {
     "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"
   },

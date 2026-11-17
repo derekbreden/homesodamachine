@@ -26,7 +26,7 @@ the [physical log](../../print-log.md).
 
 To repeat the native review from the repository root:
 
-The scripts these commands run are in Git at [`306268f870`](https://github.com/derekbreden/homesodamachine/tree/306268f870).
+The scripts these commands run are in Git at [`15bf03ec45`](https://github.com/derekbreden/homesodamachine/tree/15bf03ec45).
 
 ```sh
 mkdir -p .cache/funnel-h2c-right-2026-10-06/slice-v3

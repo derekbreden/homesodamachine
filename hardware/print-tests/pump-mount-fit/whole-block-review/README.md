@@ -24,7 +24,7 @@ The complete base has 18 fewer edges and 7.447 cm³ more solid stock. Both
 bases are single valid native solids with watertight printable meshes.
 Native seated overlap with the complete bare pump and the upper clip is zero.
 [solid-block-report.json](solid-block-report.json) binds the measured source
-and geometry. Its source reading was made from commit `27f1cd5be`.
+and geometry. Its source reading was made from commit `319f8596f`.
 
 The raised mount clears all nine surrounding mechanical parts included in the
 local payload reading. The reservoir air tube has 1.054 mm of clearance.
@@ -38,7 +38,7 @@ This is review geometry. The production mount and the launched fit trial retain
 their selected design. Printed seating, axial play, spring force, release access
 and running vibration of this candidate remain physical observations to make.
 
-Run [`build.py`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/print-tests/pump-mount-fit/whole-block-review/build.py) explicitly through [`python3 tools/run.py --cad -- <CAD Python>`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/tools/run.py)
+Run [`build.py`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/print-tests/pump-mount-fit/whole-block-review/build.py) explicitly through [`python3 tools/run.py --cad -- <CAD Python>`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/tools/run.py)
 to regenerate the native comparison and print meshes. It starts no print and
 changes no production geometry. The source is a reproduction of the measured
 construction with its checkout and output paths resolved beside this review.

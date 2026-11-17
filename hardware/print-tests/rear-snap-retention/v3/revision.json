@@ -51,7 +51,7 @@
     "scan_check": "hardware/reference/yzmsz-water-regulator/scan-model-check.json",
     "scan_check_sha256": "fca2d90b95b168f34e372f18815fadc683544e4456d7c6f7afb50a8bd3ff780b",
     "physical_diagnosis": {
-      "tested_revision": "a0158112b",
+      "tested_revision": "088268890",
       "hardware_axis_world_z_mm": 331.97514607709616,
       "tested_bridge_world_z_mm": 318.9651460770961,
       "tested_bridge_scallop_mm": 0.041,

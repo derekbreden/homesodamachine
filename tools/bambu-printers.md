@@ -92,7 +92,7 @@ records intermittent projecting strands appearing on arrival from the other
 object as a wall starts. Derek identifies the second object's end on layer N
 to the first object's start on layer N+1 as the transition of concern.
 The record does not establish an outward departure pulling the reported strand.
-The [two-elbow travel review](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
+The [two-elbow travel review](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/travel-review.json)
 distinguishes that return from transfers within a layer, including the
 firmware timelapse detour. A path above wall material alone does not establish
 that ooze contacts it or becomes buried.
@@ -452,7 +452,7 @@ tools/run -- hsm-printer picker-check
 
 The tests use generated popover images in different positions and scales,
 including wrong-type and duplicate choices, plus two-nozzle accessibility
-fixtures. [Archived validation scope](https://github.com/derekbreden/homesodamachine/blob/4f454e7b0142229b93df64c3c5d53d5c5e383de1/tools/bambu-ui/filament-picker-review.json) distinguishes
+fixtures. [Archived validation scope](https://github.com/derekbreden/homesodamachine/blob/a23c9f72ae1f3d4ffcb788b23590e166fd1ccd66/tools/bambu-ui/filament-picker-review.json) distinguishes
 those results from the live dry run on a busy printer.
 
 Changing the printer in the selector clears the filament mapping.

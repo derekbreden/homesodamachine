@@ -18,7 +18,7 @@ These estimates are recorded separately from published dimensions in
 `dimensions.json`. Plain insertion sockets are modeled; the regulating
 mechanism is not.
 
-[`frizzlife-prv01.step`](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/reference/frizzlife-prv01/geometry/frizzlife-prv01.step)
+[`frizzlife-prv01.step`](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/reference/frizzlife-prv01/geometry/frizzlife-prv01.step)
 is a colored native assembly with named inlet and outlet tube-mouth faces. It
 and the individual valid solids are at the `archive-finished-trials` tag.
 Their frozen NPZ meshes are in `geometry/`; `dimensions.json` retains the
@@ -28,4 +28,4 @@ Sources: [manufacturer product page](https://www.frizzlife.com/collections/press
 [manufacturer dimensional photograph](https://cdn.shopify.com/s/files/1/0159/8429/5990/files/PRV013_77f49cde-2932-4349-856b-636ef15aa6ae_1.jpg?v=1758007365),
 and [purchased product identity](https://www.amazon.com/dp/B08NDQCZN2).
 
-The source derivations are preserved at their recorded revision: [build.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/frizzlife-prv01/build.py), [model.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/frizzlife-prv01/model.py).
+The source derivations are preserved at their recorded revision: [build.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/frizzlife-prv01/build.py), [model.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/frizzlife-prv01/model.py).

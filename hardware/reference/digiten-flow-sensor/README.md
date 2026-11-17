@@ -91,11 +91,11 @@ measurements and modeling choices. [scan-model-check.json](scan-model-check.json
 records feature residuals against the exact generator SHA.
 [model-check.json](model-check.json) retains the generated STEP's solid, bounds
 and interface readings. Its `executed_producer_sha256` names the executed source
-bytes in the [frozen generation evidence](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/digiten-flow-sensor/model-check.json). The scan
+bytes in the [frozen generation evidence](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/digiten-flow-sensor/model-check.json). The scan
 comparison's `model_source_sha256` hashes the full repository source bytes;
 the two fields intentionally describe different inputs.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py).
 
 The retained comparison in `scan-model-check.json` names its source and capture
 digests.

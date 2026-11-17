@@ -410,7 +410,7 @@
   "face_up": true,
   "supports": false,
   "project_sha256": "0312f0f9d23f6fa8d89a330d1e2b675af15886812a75c9a72e54f8b572f861ab",
-  "model_commit": "8e5d31284f71d48994af33268b24656039b7b9ef",
+  "model_commit": "a27ba86e36d434647ce289eb1953744e792cfc2a",
   "slicer_version": "BambuStudio-02.08.02.61",
   "native_cli_settings": {
     "filament_map": [

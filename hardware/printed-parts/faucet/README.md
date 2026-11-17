@@ -80,7 +80,7 @@ the mesh of the approved print it is read against. The [October 25 approval](fau
 accepts the remaining visible corner gap as good enough, with no further
 iteration requested. The cover in its current shape, with reach on its sides
 and pockets at its crown, is approved on the shared tip by the
-[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
+[complete Sculpted faucet's result](https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json),
 which Derek calls the best fit so far. The one flaw he names is a hole in the tip
 that the cover does not quite cover. Historical physical and sealed-cavity records retain
 their identified geometry and material scope.

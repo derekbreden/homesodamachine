@@ -63,7 +63,7 @@ published enclosure model. The preparation record binds the production STLs
 used by the retained specimens.
 
 `samples.rs` defines the specimen crops and labels in Rust. The
-[plate preparation source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/print-tests/enclosure-support-scenarios/prepare.py)
+[plate preparation source](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/print-tests/enclosure-support-scenarios/prepare.py)
 is archived in Git.
 The prepared native archive is in [`ready/`](ready/); no printer submission is
 performed by the generator. Its source profile is the initial ceiling plate's

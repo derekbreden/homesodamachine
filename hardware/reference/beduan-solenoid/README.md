@@ -4,7 +4,7 @@ Measured exterior of the Beduan 12 V normally closed, 1/4-inch quick-connect
 valve (Amazon B07NWCQJK9). The model supplies the mounting, tubing and electrical
 interfaces used by the manifold and its printed supports.
 
-[Open the STEP](beduan-solenoid.step) · [Source derivation](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/beduan-solenoid/beduan_solenoid.py) ·
+[Open the STEP](beduan-solenoid.step) · [Source derivation](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/beduan-solenoid/beduan_solenoid.py) ·
 [Capture evidence](scan-evidence.json) · [Model checks](model-check.json)
 
 The MINI 2 capture covers four full turntable passes: feet down and feet up,
@@ -77,10 +77,10 @@ of 0.113 and 0.165 mm respectively; omitted recess details remain in the totals.
 
 ## Model inputs
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/beduan-solenoid/beduan_solenoid.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/beduan-solenoid/beduan_solenoid.py).
 
 The assembly reads the retained STEP, fine model and viewer payload declared in
 [frozen-asset.json](frozen-asset.json). The source derivation records the exterior
 components and their material identities.
 
-The source derivations are preserved at their recorded revision: [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/beduan-solenoid/validate_scan.py).
+The source derivations are preserved at their recorded revision: [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/beduan-solenoid/validate_scan.py).

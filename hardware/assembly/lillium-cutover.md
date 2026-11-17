@@ -117,7 +117,7 @@ Front-top is the fixture for the whole flavor side.
    [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps),
    whose steps 1–4 seat the machine's four pump tees in front-top's tee wall. This build's
    dock is the tee carrier with Y-C, Y-D, Y-F and Y-G
-   ([tee carrier](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/tee-carrier/README.md#assembly)); the aft
+   ([tee carrier](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/README.md#assembly)); the aft
    valves V-C, V-D, V-G and V-J and their window covers; the fore valves V-E, V-F, V-H and V-I
    with the four bowed stubs; Y-A and Y-B butted to V-C and V-D, with the crossbar between them;
    the four hairpins.
@@ -189,7 +189,7 @@ Build both closed before they go into the shell ([cold core §4](cold-core.md#4-
 
 1. **The draw:** a PureSec bulkhead up through the trough floor, silicone wet washer above, TPU
    dry washer below, the elbow clocked to its own pocket wall (A at −Y, B at +Y), the nut
-   hand-tight from inside ([floor and bulkhead as printed](https://github.com/derekbreden/homesodamachine/blob/20e19fc573/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)).
+   hand-tight from inside ([floor and bulkhead as printed](https://github.com/derekbreden/homesodamachine/blob/2bbbcf95fb/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)).
 2. **The float:** cut each 1/8" rod ([handwork](handwork.md#cut--seat-the-reservoir-float-rods)),
    seat it in the body boss, the float over it.
 3. **The reeds:** run the
@@ -214,7 +214,7 @@ the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
    front-bottom. The compressor bay stays empty.
 2. **The foam shell:** both reservoirs in their pockets, the reed columns down their channels,
    each draw out through its own pocket wall and up the forward band
-   ([foam shell as printed](https://github.com/derekbreden/homesodamachine/blob/b20e7d208/hardware/printed-parts/cold-core/foam-shell/README.md)). It stands on the slab
+   ([foam shell as printed](https://github.com/derekbreden/homesodamachine/blob/86d60ff64/hardware/printed-parts/cold-core/foam-shell/README.md)). It stands on the slab
    where the cold core does, its front corners in front-bottom's blocks.
 3. **The reservoir runs** cross the Y seam, made up before the back column rides
    ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)):
@@ -324,7 +324,7 @@ Follow [firmware and commissioning](firmware-and-commissioning.md):
 
 ## What the firmware does here
 
-The main board runs `b79be4d54` or later. Nothing is configured for this build.
+The main board runs `7587aa68b` or later. Nothing is configured for this build.
 
 - **Pour.** Flow at the meter opens the selected flavor's pair, V-E/V-G or V-H/V-J, and bursts its
   pump into the stream.

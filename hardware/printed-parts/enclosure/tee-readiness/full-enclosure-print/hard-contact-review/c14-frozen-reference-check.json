@@ -1,6 +1,6 @@
 {
   "scope": "Seated current C14 reference against exact current exported back-top. The physically accepted printed station is preserved; no station redesign or complete insertion-motion claim.",
-  "reference_commit": "6d89e8ae5",
+  "reference_commit": "59eb91ce5",
   "input_sha256": {
     "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "ffbf2fd46c17a0f7f4d97b8959d70a8519675f8f3f753cadc46d27a926718dd0",
     "/Users/derekbredensteiner/Developer/homesodamachine/hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
@@ -38,7 +38,7 @@
     "all_pass": true,
     "details": {
       "scope": "Exact native printed-pocket profile equality; live C14 reference is neither imported nor tested.",
-      "baseline_git_commit": "12e17e4a0f786f3711fb4f685c7cd5c1cca814b5",
+      "baseline_git_commit": "f3cde833ae949a12e208bdad0df4d27336e1c64c",
       "baseline_reference_sha256": "3002f33a9b2c8978f56047832f2cb117678d42369f700383d17889fc61743a67",
       "baseline_enclosure_sha256": "5e3ceafcce5cb2da4790fcb24514c5ac40cb7ad28e5ad6e4f2775da1f893341e",
       "current_enclosure_sha256": "6e97e190ee942b737a7d2c0a33d306816ee3be6bfe0a6c6e41f4dba7f56cc5f3",

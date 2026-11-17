@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "7320c7c39a9d4e1485cb7dbcc3b95aa85d0802fb",
+    "commit": "de2c703111ef5916b91e7c86b843435d7bba7fc7",
     "path": "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
     "sha256": "1cf799e2bf6848a156e683becc173670b52c52c1bbd57da90c78751ad88c77f2"
   },

@@ -141,7 +141,7 @@ demonstrates a union elbow resting flat beneath that head on the received pump.
 The [rigid underside measurements](under-head-clearance.json) retain that open
 space below the switch casing. The native model excludes the flexible lead
 loops from rigid occupancy there; the switch's lower front block and the head
-shoulder remain. The [scoped update source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump/under-head-clearance/update_reference.py)
+shoulder remain. The [scoped update source](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/reference/g-ganen-pump/under-head-clearance/update_reference.py)
 is archived in Git with its bound detailed reference and study inputs.
 
 The two observed lead/casing transition regions are retained separately. These
@@ -172,6 +172,6 @@ tools/run -- cargo run --release --locked -j 2 \
   --example g-ganen-replica -- hardware/reference/g-ganen-pump
 ```
 
-The [scan, registration and envelope source programs](https://github.com/derekbreden/homesodamachine/tree/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/reference/g-ganen-pump)
+The [scan, registration and envelope source programs](https://github.com/derekbreden/homesodamachine/tree/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/reference/g-ganen-pump)
 are archived in Git. Their saved measurements and hash-bound model inputs remain
 with the reference; they are not an ongoing scan pipeline.

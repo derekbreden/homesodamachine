@@ -189,4 +189,4 @@ shared `petgf.3mf`; the filament colour is physical, on the spool. Neither conne
 a printer — submission goes through Bambu Connect, driven by `tools/bambu-ax`, and is
 recorded in `print-jobs.json`.
 
-The [nominal replica review source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/faucet/lever-replica/check_replica.py) is archived in Git.
+The [nominal replica review source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/faucet/lever-replica/check_replica.py) is archived in Git.

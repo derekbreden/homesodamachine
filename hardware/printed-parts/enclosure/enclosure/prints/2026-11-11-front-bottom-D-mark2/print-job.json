@@ -1,6 +1,6 @@
 {
   "purpose": "Bind the current front-bottom and its flat rail support roofs to the reviewed Mark2 plate.",
-  "source_revision": "d691562ba8b225b103f6edf848241e3ab813889b",
+  "source_revision": "6efc7249b9fbabfb0f51b0ef0500b6a52bbcbb49",
   "printer": "Mark2",
   "nozzle": {
     "diameter_mm": 0.4,

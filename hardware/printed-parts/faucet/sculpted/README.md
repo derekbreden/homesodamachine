@@ -43,7 +43,7 @@ are 15 mm/s, and overhang limits retain the selected 10/15 mm/s values.
 Ordinary supported-wall and infill speeds retain the black print's settings.
 The tip's model paths by its dispense face take the same part cooling, from the
 face back to just short of the lip grooves on both sides. The
-[tip-end surface record](https://github.com/derekbreden/homesodamachine/blob/ffe670b3c4a83a970d2e52dd81c75eddb7f12522/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json)
+[tip-end surface record](https://github.com/derekbreden/homesodamachine/blob/98184ec4e05240c534ecaf5bf042fb3a7aecda95/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/tip-end-surface.json)
 shows the band and reads the photographed plate's motion over it.
 
 ## Supports and poses
@@ -75,10 +75,10 @@ filled under its mounting face, and the warped donor tip, sliced alone. The
 space and the foot in the plate's own paths. Pass `--printer Mark1` and `--filament-colour`
 with the loaded spool's colour to prepare a Mark1 plate.
 
-The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
+The [Mark1 support and fit trial](https://github.com/derekbreden/homesodamachine/blob/5b913b04cc47913fa98f6aef4fdc17dd4b93b42a/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/physical-result/physical-result.json)
 records the base section's one-piece support release, the tip cleanup and the
 cover seating on one wing. Its
-[slice review](https://github.com/derekbreden/homesodamachine/blob/7ebe4a45b0fd8064118e95f2cc1445c5ee643722/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/support-review.json)
+[slice review](https://github.com/derekbreden/homesodamachine/blob/5b913b04cc47913fa98f6aef4fdc17dd4b93b42a/hardware/printed-parts/faucet/sculpted/prints/2026-11-11-support-and-fit-mark1/support-review.json)
 binds the seam gaps, exterior wall paths, shoulder support and nose clearance
 to the submitted toolpath.
 
@@ -87,14 +87,14 @@ stand closer to the lips than their fore ends, so the snapped cover rests toward
 The cover's sides
 bear on the groove roots and clear the rest of the neck when seated, as the
 [cover's geometry](../faucet-display-cover/README.md#geometry) describes. The
-[wing contact record](https://github.com/derekbreden/homesodamachine/blob/2ac8b452d916cb323d39cce42306069da7a25f91/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
+[wing contact record](https://github.com/derekbreden/homesodamachine/blob/9fa38dc41d5a210aaad2fc5d9039787ae01d784f/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-wing-end-relief-mark1/physical-result/physical-result.json)
 locates where a rigidly leaned cover's wing ends bore on the tip instead. The
-[bowed cover's fit record](https://github.com/derekbreden/homesodamachine/blob/2ec8379a49dab4833c363c0129f5298c7435f70f/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json)
+[bowed cover's fit record](https://github.com/derekbreden/homesodamachine/blob/cd63966c8a342d38363dfdb81509aa5a521585da/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json)
 holds Derek's approval of the bowed cover on this tip, with its aft tips touching the neck and
 its front edge lying on the tip for part of its run. The cover's ends are bowed by what they
 spring back for both; its fit remains a print result.
 
-[review_print.py](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `306268f870`) reads the native G-code's nominal courses,
+[review_print.py](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/sculpted/review_print.py) (in Git at `15bf03ec45`) reads the native G-code's nominal courses,
 filament assignment, cooling, speed commands, complete bead footprint and
 whole-height seam paths. It packages a separate print-only archive with
 unchanged G-code bytes. It is a manual reader, not a build step.
@@ -113,7 +113,7 @@ from its male plug into whole courses that match the mating angle and the
 support interface, then eases to level below the dispense nose. The plate
 includes the flat dispense-face seam with rounded
 ends and removable mounting-plate counterbore rings.
-The [Mark2 steady base wall plate](https://github.com/derekbreden/homesodamachine/blob/04468f9f27ddfa60e45037fc90ff2d98aa3a159a/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-steady-base-wall-mark2/README.md)
+The [Mark2 steady base wall plate](https://github.com/derekbreden/homesodamachine/blob/15c587ff7f9a1aa63be395e5fb00e550974cf747/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-steady-base-wall-mark2/README.md)
 carries the matched shoulder and caps the Sculpted base's ordinary exterior
 speed across whole laps for an even rear-wall finish.
 The [Mark2 extended cover plate](https://github.com/derekbredensteiner/homesodamachine/blob/77742d1058fd2b9c92287fa8edf0dbb3c4737fc9/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-aft-cover-mark2/README.md)

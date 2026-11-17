@@ -43,7 +43,7 @@ are at most 0.231, 0.083 and 0.116 mm respectively; the upper neck reaches
 0.543 mm. The exposed curved tip stays within 0.188 mm. Approaching the joint,
 the base and tip differ by 0.035 mm laterally. The [CSV](trace/seams.csv)
 retains the starts and the overlap endpoints measured by the bounded-connector
-reader in `a37392aa5`. Those recorded endpoints omit some final zero-flow
+reader in `8c54ed228`. Those recorded endpoints omit some final zero-flow
 moves. The current reader retains every non-retracting E-word move, including
 E0. Re-reading all 3,479 runs changes starts by at most 0.002 mm and final
 endpoints by at most 0.401 mm; the seam-placement conclusions remain valid.
@@ -63,4 +63,4 @@ the 180-second startup interval.
 - [Launch receipt](launch.json)
 - [Preflight observations](preflight.json)
 - [Fresh startup observation](startup.json)
-- [Manual evaluation preparer](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/prepare.py) (in Git at `306268f870`)
+- [Manual evaluation preparer](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/prepare.py) (in Git at `15bf03ec45`)

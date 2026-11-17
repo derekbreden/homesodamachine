@@ -48,7 +48,7 @@ gasket-sealing, reservoir water-hold or lifetime result.
 
 [study.json](study.json) preserves the settings, geometry and source hashes.
 The completed project's 3MF and generator/reviewer sources are retained in
-Git at **`ee5270c53cd4cfda339ffc97352cf9a16bc392d9`**, under this directory. The current reservoir project is
+Git at **`7f370a4fcf0a1843fec9b770e8adaea80626c4ed`**, under this directory. The current reservoir project is
 [reservoir.3mf](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf).
 
 [Feature-crop comparison observation](prints/2026-10-06-mark2-centered-v3/physical-result.json) ·

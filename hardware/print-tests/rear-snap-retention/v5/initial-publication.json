@@ -1,5 +1,5 @@
 {
-  "source_commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+  "source_commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
   "scope": "ASSE adapter-hex capture, fitted PISCO body/neck bearings and measured meter housing socket; declared Box, pump/water-regulator fits and unrelated native bodies, viewer arrays and pointer rows are retained. Three complete receiver/cap pairs bind the next physical fit trial.",
   "members": {
     "hardware/manifold-layout/enclosure-assembly.step": "dce84e02da0f307ff9c27d2f9bd0286189ea2168f6ae0166d16e078a1c845ec1",
@@ -20,63 +20,63 @@
   },
   "made": {
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
-      "commit": "c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30",
+      "commit": "393470bc706b2344b3331ac02f0a131feac23a6f",
       "unproven": true
     }
   },

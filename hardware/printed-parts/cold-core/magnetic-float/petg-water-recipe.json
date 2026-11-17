@@ -1,5 +1,5 @@
 {
-  "source_commit": "f25975cd045cc835eccf1a207cb12fe48dc63ada",
+  "source_commit": "fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9",
   "source_path": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
   "source_project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
   "physical_evidence": "reservoir/print-log.md attempt 3, 2026-05-30: holding water for hours, with gaskets installed. No numeric pressure hold recorded.",
@@ -111,5 +111,5 @@
     "base_preset": "Bambu PETG Basic",
     "scope": "Saved preset identity; actual filament confirmed as Bambu PETG clear."
   },
-  "saved_project_history_ref": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf"
+  "saved_project_history_ref": "git:fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9:hardware/printed-parts/cold-core/reservoir/reservoir.3mf"
 }

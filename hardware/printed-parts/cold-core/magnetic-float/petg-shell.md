@@ -34,7 +34,7 @@ and 3 mm walls/floor. The reservoir's current
 cooling, floor fill and seam treatment.
 
 The sphere pressure test is recorded in
-[commit b7dc4d576](https://github.com/derekbreden/homesodamachine/commit/b7dc4d576e9dc38794d190f31473f31d71aa4aa1):
+[commit b7dc4d576](https://github.com/derekbreden/homesodamachine/commit/be9b7d9fa0fc456728b4b43602dd8be36197cc6d):
 its printed NPT port wept at **5 psi or less**. The
 [archived sphere generator](https://github.com/derekbreden/homesodamachine/blob/archive-plan-b/hardware/printed-parts/plan-b/carbonator-tank-sphere/generate_step_cadquery.py)
 has 5 mm walls. The recovered sphere test history is incomplete. This commit
@@ -131,7 +131,7 @@ replaces Aero within the fixed exterior volume. The specified 3 mm wall
 preserves useful lift while providing material depth and ovalization resistance.
 The [research calculation](pressure-printing-sources.json) records this tradeoff.
 
-[pressure_analysis.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py) produces the independent annulus
+[pressure_analysis.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/magnetic-float/pressure_analysis.py) produces the independent annulus
 calculation and the pressure/stiffness sensitivity in
 [pressure-analysis.json](pressure-analysis.json). With full pressure differential
 and no structural credit for the foam, Lamé thick-cylinder equations give:

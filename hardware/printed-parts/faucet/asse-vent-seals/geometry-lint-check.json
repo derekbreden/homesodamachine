@@ -2,7 +2,7 @@
   "check": "Postpublication consumer faucet vent, mounting and cover mesh lint",
   "linter": "hardware/scripts/geometry_lint.py",
   "linter_sha256": "79914fb4ca91a5620956c1d4d95fd6fe253fcae1b5f26bac0fafc43edffb4f53",
-  "published_geometry_commit": "ff0e4a35dd86d9ac72cc524c6d3d335e97a9ba34",
+  "published_geometry_commit": "35db61f5144d2d35895aa9da8eef4518f8ad81a3",
   "publication_live_confirmation": {
     "live_base": "https://objects.homesodamachine.com",
     "all_eight_current_geometry_pointers_match": true,

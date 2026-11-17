@@ -51,4 +51,4 @@ commanded paths and timing.
 Preparation records retain their preparation-only scope. A separate launch
 receipt identifies the authorized transaction and actual accepted job.
 
-The [recorded executable sources](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot) retain the exact source revision for these physical artifacts.
+The [recorded executable sources](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/source-snapshot) retain the exact source revision for these physical artifacts.

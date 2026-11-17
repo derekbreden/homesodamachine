@@ -45,8 +45,8 @@
     182.60000000000002,
     247.55
   ],
-  "source_commit": "08a592b43e25d065a1a7f06f8e51be9f17e89bdd",
-  "recorded_at_source_commit": "9105503d1ed64750a03bbd0d2dfdf012b9b70a44",
+  "source_commit": "631874880a5dc1b96b2abf3d9efa78e68bdf8cd5",
+  "recorded_at_source_commit": "f876b8816d91a4ffa3e7610a27a65c99eda13b8b",
   "prepared_utc": "2026-10-29T02:26:05+00:00",
   "printer": "Mark1",
   "nozzle": {

@@ -22,10 +22,10 @@ at review time, before submission.
 | **Total** | **4.50 mm** | **7.10 mm** |
 
 The history basis is commit
-[`5271aa710`](https://github.com/derekbreden/homesodamachine/commit/5271aa710fdb3ddb7bb735a7114d80cbc4ad324b):
+[`a69d67215`](https://github.com/derekbreden/homesodamachine/commit/a69d6721531c59254a465db646c3345b7a9b6e5f):
 it adds 1.50 mm to the original `wall_thickness_min` support depth of 2.00 mm
 and raises the display and bezel. The 4 mm tube change is commit
-[`8742c6624`](https://github.com/derekbreden/homesodamachine/commit/8742c66249d4e96f56e3635657f041b573e6ab25).
+[`bb9cee4aa`](https://github.com/derekbreden/homesodamachine/commit/bb9cee4aaae648a5523e50b9b0200156b65fea88).
 The calculation uses the complete 3.50 mm support depth, including its original
 stock, then the requested additional 1.00 mm below the support bases.
 
@@ -77,7 +77,7 @@ lowered Industrial head has reported tight but working fit. Quantified seating
 force, clearance, retention force and endurance are unmeasured. The requested
 lowered Sculpted cover has its own print record.
 
-[prepare.py](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/prepare.py) is a manual study generator. It writes `candidate-tip.step/.stl`,
+[prepare.py](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/prepare.py) is a manual study generator. It writes `candidate-tip.step/.stl`,
 `candidate-cover.step/.stl`, `geometry-review.json` and the self-contained viewer
 data. `review-template.html` combines that data with synchronized before/after
 views, feature highlights and dimension labels. The viewer meshes are a

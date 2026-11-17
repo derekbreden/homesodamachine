@@ -637,7 +637,7 @@
   ],
   "parent_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
   "parent_project_sha256": "33b248cc401b7f604b61b2cf19b8b978f98283bf870343f6a57b270917e708ec",
-  "parent_project_source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4",
+  "parent_project_source_commit": "c6dde0433932b77d843f3f7c4d4599b5d503e074",
   "parts": [
     {
       "body_count": 1,
@@ -1005,7 +1005,7 @@
         "edge_blend_mm": 3.0,
         "parameters_source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/mapping.json",
         "scope_margin_mm": 8.0,
-        "source_commit": "b388123d2ac2fdc31fd091f980334b9c99443ab8"
+        "source_commit": "534b87cc5f8d6911f8bcfa38378116d8dcdcb6bd"
       },
       "object_settings": {
         "brim_type": "no_brim",
@@ -1053,7 +1053,7 @@
     "industrial_recipe": {
       "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
       "report": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.print.json",
-      "source_commit": "4642937f98c1b55f2ae3cc0b15b10e39e1f027a4"
+      "source_commit": "c6dde0433932b77d843f3f7c4d4599b5d503e074"
     },
     "layer_height_mm": 0.24,
     "mounting_plate_counterbores": {

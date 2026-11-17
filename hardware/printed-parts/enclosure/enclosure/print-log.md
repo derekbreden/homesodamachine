@@ -5,11 +5,11 @@ snapshots retained only in Git history. The explicit `git:<revision>:<path>` ref
 are evidence for these printed plates, not current slicer deliverables.
 
 Geometry: the six-piece box from
-[`enclosure.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants,
+[`enclosure.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants,
 the lower pump cradle and its top clamp, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 
-## The PETG exterior profile (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-0.4mm-16hours.3mf`)
+## The PETG exterior profile (settings per history-only `git:41b9062ec23befab0f355ed18676dd2b1b29c09f:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-0.4mm-16hours.3mf`)
 
 The geometry every exterior piece is cut to, sliced in PETG — the four quadrants, the pump
 lower pump cradle, and its top clamp. The front-top, the largest of them, takes **16
@@ -47,7 +47,7 @@ The model sits on the plate at scale 1.0 and identity rotation, so the piece sta
 box's own frame with +Z up — the orientation [README.md](README.md) "Print orientation +
 corner relief" strikes every 45° relief on.
 
-## The PET-GF15 exterior (settings per history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf`)
+## The PET-GF15 exterior (settings per history-only `git:41b9062ec23befab0f355ed18676dd2b1b29c09f:hardware/printed-parts/enclosure/enclosure/enclosure-front-top-petgf.3mf`)
 
 What the first PET-GF15 front-top printed on: Polymaker Fiberon PET-GF15 on the Bambu 0.4 mm tungsten
 carbide hotend, left side ([tools.md](/hardware/ledger/tools.md), [bom.md
@@ -138,7 +138,7 @@ that and the plate is the supports and the brim, which §7 does not bill.
 0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even
 though they are out of the mass.
 
-## The back-top plate (settings per history-only `git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf`)
+## The back-top plate (settings per history-only `git:0a171e777348bf368f97559c722d11fe5fef9ffb:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf`)
 
 The back-top on the same Polymaker Fiberon PET-GF15 stock as the section above, sliced on the
 faucet's profile rather than the exterior's: `0.24mm PET-GF faucet`, 265 °C with the fan on
@@ -232,7 +232,7 @@ PET-CF's and not this spool's.
 standard-flow 0.4 mm tungsten carbide ([tools.md](/hardware/ledger/tools.md)). The two pieces'
 committed projects — [`enclosure-pump-cap-petgf.3mf`](enclosure-pump-cap-petgf.3mf) beside this
 log and history-only
-`git:62311012c79857590fe41895f29c67158eea74b3:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf`
+`git:b258aca3894e78c28934608897369976790103f5:hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge-petgf.3mf`
 — both carry the PET-GF15 exterior settings above: `Bambu Lab H2C 0.4 nozzle`, `0.20mm Standard
 @BBL H2C`, `Polymaker PET-GF @BBL H2C` at 290 °C over a 100 °C plate and a 50 °C chamber, fan
 off, 18 mm³/s, tree supports at 30°, the clamp turned onto its crown (`1 0 0 0 -1 0 0 0 -1`).

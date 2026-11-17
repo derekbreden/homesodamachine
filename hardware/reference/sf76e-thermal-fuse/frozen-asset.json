@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "30bb5cb2d5b95f18f43637bd9be26daced05f1f5",
+    "commit": "e1ae1f74b3ec4e00e7f7e1831856c4b747a4ef6e",
     "path": "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
     "sha256": "cb379e0658acdbdd713659db8b669cf1dd57e276af2ec3a14ce95f4507238657"
   },

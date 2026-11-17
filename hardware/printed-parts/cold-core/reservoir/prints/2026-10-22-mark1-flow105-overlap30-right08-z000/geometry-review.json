@@ -283,7 +283,7 @@
     }
   },
   "physical_recipe_source": {
-    "project": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "project": "git:fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
     "project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
     "native_application": "BambuStudio-02.07.00.55",
     "acceptance_id": "may-30-clear-06",

@@ -3,8 +3,8 @@
   "reported_date": "2026-11-13",
   "status": "approved_production_print_geometry_and_layer_recipe",
   "user_quote": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it.",
-  "physical_result": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
-  "complete_head_fit_record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+  "physical_result": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
+  "complete_head_fit_record": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "parts": [
     {
@@ -27,7 +27,7 @@
         "stl_sha256": "cf815f829c3925edc5f2b6cb268d771366fb75feb246eb39ba896c0c5770af4d",
         "printed_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
         "task_id": "1440074146",
-        "physical_result": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+        "physical_result": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
       }
     },
     {
@@ -39,7 +39,7 @@
         "stl_sha256": "d0d9c079bd60d82ccf8ed20f722db71983409166649a3d3c4136505d78911c52",
         "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.stl",
         "task_id": "1440074146",
-        "physical_result": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+        "physical_result": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
       }
     },
     {
@@ -82,7 +82,7 @@
   },
   "accepted_cosmetic_condition": {
     "uncovered_tip_hole_by_cover_edge": true,
-    "record": "https://github.com/derekbreden/homesodamachine/blob/c8667107f964589be7dc69f8fb924f69a12729b3/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+    "record": "https://github.com/derekbreden/homesodamachine/blob/cff7e283594be4f0d37e20b0b0863f11efc4823f/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
   },
   "layer_recipe_approval": {
     "reported_date": "2026-10-25",

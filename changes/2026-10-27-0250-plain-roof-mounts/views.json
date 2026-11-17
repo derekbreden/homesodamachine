@@ -80,7 +80,7 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "snapshot",
           "sha256": "4b9db87d395db27f546ec65f568c05763aa9c1ad13c6e99bc9c11dce55e6b229",
-          "commit": "82ab5d039cedd8dbe5c130c1ef3e23d5a6d3d007",
+          "commit": "899abc8253f4bc19613821ecceeea9b0f08c38dc",
           "taken": "2026-10-27T07:00:18.842Z",
           "published": true
         },

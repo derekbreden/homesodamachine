@@ -1,5 +1,5 @@
 {
-  "source_commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f",
+  "source_commit": "b78657f0b474bd5540d2c003bdb810b879228595",
   "scope": "ASSE adapter-hex capture, fitted PISCO body/neck bearings and measured meter housing socket; declared Box, pump/water-regulator fits and unrelated native bodies, viewer arrays and pointer rows are retained. Three complete receiver/cap pairs bind the next physical fit trial.",
   "members": {
     "hardware/manifold-layout/enclosure-assembly.step": "e4ffee665d9c7199e3ca95e430a391c8fb3729e944aecd55d4c1bd3cb38f9f13",
@@ -11,28 +11,28 @@
   },
   "made": {
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f",
+      "commit": "b78657f0b474bd5540d2c003bdb810b879228595",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f",
+      "commit": "b78657f0b474bd5540d2c003bdb810b879228595",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": {
       "inputs": "4c1ee6e41c2c3e568274279aecba3614f8b7709247f65bd778427fb518414322",
-      "commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f"
+      "commit": "b78657f0b474bd5540d2c003bdb810b879228595"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
       "inputs": "4c1ee6e41c2c3e568274279aecba3614f8b7709247f65bd778427fb518414322",
-      "commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f"
+      "commit": "b78657f0b474bd5540d2c003bdb810b879228595"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
       "inputs": "4c1ee6e41c2c3e568274279aecba3614f8b7709247f65bd778427fb518414322",
-      "commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f"
+      "commit": "b78657f0b474bd5540d2c003bdb810b879228595"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
       "inputs": "4c1ee6e41c2c3e568274279aecba3614f8b7709247f65bd778427fb518414322",
-      "commit": "28f3ce3289e7f8e802408581e18c962b68cdd42f"
+      "commit": "b78657f0b474bd5540d2c003bdb810b879228595"
     }
   },
   "readback_verified": [

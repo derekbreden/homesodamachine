@@ -1,13 +1,13 @@
 # Enclosure connections — the three placed components — Snapshot 2026-07-17
 
 **This is a point-in-time snapshot, not a living document.** Pack state: on top of commit
-`8ff7d0fe`. Scope: the three components that carry held placement rules today —
+`8fd4223c`. Scope: the three components that carry held placement rules today —
 `foam-assembly` (cold core), `compressor-shroud`, `condenser+fan` — evaluated for whether
 their positions and rotations serve the connections each must make. Re-running this against a
 later pack produces a fresh dated file. The durable rules are in
-[`requirements.md`](https://github.com/derekbreden/homesodamachine/blob/c4a5a2be93018addd8d28b7f508c6550c42bd501/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md); the
+[`requirements.md`](https://github.com/derekbreden/homesodamachine/blob/fa28e59b2319f03625445b5c0361504166b677ce/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md); the
 executable form is the `located` axis + `PORTS` in
-[`scorecard.py`](https://github.com/derekbreden/homesodamachine/blob/c4a5a2be93018addd8d28b7f508c6550c42bd501/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py).
+[`scorecard.py`](https://github.com/derekbreden/homesodamachine/blob/fa28e59b2319f03625445b5c0361504166b677ce/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py).
 
 Coordinate frame: **+X right, +Y back, +Z up**, origin at the lower-front-left corner.
 
@@ -72,7 +72,7 @@ are blocked on the compressor's rotation and the condenser's undefined ports.**
 - **refrig-2 (condenser → evaporator): can't be assessed.** The condenser outlet + its brazed
   drier/cap-tube are unpositioned. The evaporator inlet is fixed at (141.5, 155, 72). See Q3
   for the 4 mm channel this subassembly has to live in.
-- **The rotation, precisely.** [`_contents.py`](https://github.com/derekbreden/homesodamachine/blob/c4a5a2be93018addd8d28b7f508c6550c42bd501/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) rotates the shroud 90° about Z before placing
+- **The rotation, precisely.** [`_contents.py`](https://github.com/derekbreden/homesodamachine/blob/fa28e59b2319f03625445b5c0361504166b677ce/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) rotates the shroud 90° about Z before placing
   it. That maps the shroud's one copper-bearing face (native −X "left") to world −Y (front)
   and its AC face (native +Y "back") to world −X (left wall). So **both refrigerant stubs face
   the front wall**; the AC gland faces the left wall. The AC orientation is fine — the cable

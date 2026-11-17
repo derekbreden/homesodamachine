@@ -1,8 +1,8 @@
 {
   "scope": "Published straight B-vent station and the three matching printed interfaces. This manual review is separate from the remaining cap fluid-traverse assembly decision and adds no build or commit check.",
-  "source_commit": "50e626035",
-  "combined_sensor_source_commit": "c4014c64a",
-  "publication_commit": "2ac98443e",
+  "source_commit": "84db9d648",
+  "combined_sensor_source_commit": "9affd6eec",
+  "publication_commit": "a16c06f6d",
   "station_world_xy_mm": [
     32.5,
     214.8

@@ -1,7 +1,7 @@
 # Prepare the restored short-foundation Mark2 plate
 
 The [retained inputs](run-inputs.zip) hold the sliced project and its native slice as the slicer
-wrote it, the [stopped short-foundation plate's](https://github.com/derekbreden/homesodamachine/tree/9ebc8ac1b152c1845f673ce2613d9cbbb9f3cd66/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-mark2)
+wrote it, the [stopped short-foundation plate's](https://github.com/derekbreden/homesodamachine/tree/93eee62ef1197db2fe70e3fbec278826502d2794/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-mark2)
 sliced project and a slice of it as the slicer wrote it, the plate's print report, the base mesh,
 and the tip's inclined donor courses with their warp. The sliced project is the stopped plate's
 with [`stage/overhang-scope.py`](stage/overhang-scope.py) applied, which the first step checks.

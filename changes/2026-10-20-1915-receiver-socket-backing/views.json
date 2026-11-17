@@ -78,13 +78,13 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "c14a60b5bb96b15286ea8519f6e4b7631a701106ed6ab57db809b4f532af426b",
-          "commit": "a417f77bc9630615a47fb070018005ed24b2ea46"
+          "commit": "14b2eb79d90c32e73fccac810ef7ce6c0fa6bfc1"
         },
         "after": {
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
-          "commit": "0c8bbef50c2e316bd0eb541fdbd52d5e06088147"
+          "commit": "25cb9a9b92683497a31f0a2423cda15a23c774b5"
         }
       },
       "changed": [
@@ -149,13 +149,13 @@
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "c14a60b5bb96b15286ea8519f6e4b7631a701106ed6ab57db809b4f532af426b",
-          "commit": "a417f77bc9630615a47fb070018005ed24b2ea46"
+          "commit": "14b2eb79d90c32e73fccac810ef7ce6c0fa6bfc1"
         },
         "after": {
           "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
           "from": "file",
           "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
-          "commit": "0c8bbef50c2e316bd0eb541fdbd52d5e06088147"
+          "commit": "25cb9a9b92683497a31f0a2423cda15a23c774b5"
         }
       },
       "changed": [

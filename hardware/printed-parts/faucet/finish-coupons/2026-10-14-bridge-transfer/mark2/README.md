@@ -53,6 +53,6 @@ identified defect without damaging adjacent finish or mating fit. A clean B
 alone cannot establish a cure if A does not reproduce the defect. Physical
 observations of this pair remain pending.
 
-Run [`review-foot-ready.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/review-foot-ready.py) manually from the parent directory with
+Run [`review-foot-ready.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45f7b0c2c3632c7a9152b81e75e8ac90/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/review-foot-ready.py) manually from the parent directory with
 `tools/cad-venv/bin/python` to repeat the saved path review. It sends no printer
 commands and adds no build or commit checks.

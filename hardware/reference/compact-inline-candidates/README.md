@@ -38,7 +38,7 @@ fused cloud and SHA-256 capture manifest are in
 `~/Documents/3D Scans/2026-10-29-pisco-rvfup-regulator/`. The same directory holds
 registered observations and portable STEP/STL files.
 
-[analyze_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/analyze_regulator_scan.py) fits the broad marker
+[analyze_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compact-inline-candidates/analyze_regulator_scan.py) fits the broad marker
 table and exposed round housing, then locates the release-face patches. The
 registration is rigid at native scale. A fixed plane above 21 mm from the table
 removes the putty and markers, retaining **305,203 observations** without
@@ -91,8 +91,8 @@ NPZ files have `v` and `f` arrays in the same frame.
 Fluidfit estimated details and source evidence. The retained native models supply
 the assembly references.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/build.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compact-inline-candidates/build.py).
 
-The source derivations are preserved at their recorded revision: [analyze_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/analyze_regulator_scan.py), [validate_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/validate_regulator_scan.py).
+The source derivations are preserved at their recorded revision: [analyze_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compact-inline-candidates/analyze_regulator_scan.py), [validate_regulator_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compact-inline-candidates/validate_regulator_scan.py).
 
-The source derivations are preserved at their recorded revision: [model.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/compact-inline-candidates/model.py).
+The source derivations are preserved at their recorded revision: [model.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compact-inline-candidates/model.py).

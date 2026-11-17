@@ -4,7 +4,7 @@
   "native_archive_sha256": "e96ffe6d001d999efea9ab643656f55fd45b9387a60860b24c0b2829f3ec24c5",
   "gcode_sha256": "b4d45f54e2daf7e168cd8b7d2161a88fb16a709404b9332474d03ea6ab3ad96f",
   "staged_input_sha256": "60e0ebcc12b94290453bf9ee35d851913fca6b858ed31e27933dad64097e7b2f",
-  "geometry_snapshot_head": "7ce979614c6c39fa1e160f5c5bf9eb6ecea08839",
+  "geometry_snapshot_head": "9ff52a2d9249570c5eb00a9288fec2a82da9b4b1",
   "filaments": {
     "1": "white PET-GF, left nozzle, external 254: lettering",
     "2": "blue PET-GF, right nozzle, external 255: body"

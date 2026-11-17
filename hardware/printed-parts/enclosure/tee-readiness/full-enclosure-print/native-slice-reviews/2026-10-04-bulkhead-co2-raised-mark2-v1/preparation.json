@@ -4,7 +4,7 @@
   "geometry_snapshot": {
     "station": "co2",
     "word": "CO2",
-    "head": "cb54c7e84f458eff5524060d18d20cb58f4b2aa6",
+    "head": "7de0bc01a940698f1d6f6c2c59153925f2a04b3f",
     "sources_from_head_sha256": {
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "490207b4fa6b1a6ad69897386ca661ae7ecd4eaf1d21f4d54280d01a539bf2b7",
       "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",

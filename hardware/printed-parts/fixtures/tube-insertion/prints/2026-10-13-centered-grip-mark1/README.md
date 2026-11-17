@@ -10,12 +10,12 @@ insertion: the handle alone starts the tube well, and the full tool makes
 the final press very easy.
 
 D and E use the reviewed centred plus geometry from source commit
-`b67ed572f`. Their closure screws, liner length and crossbar share X22.
+`19fbc7224`. Their closure screws, liner length and crossbar share X22.
 The two 9 mm TPU liners are a separate plate; this job contains only the
 PET-GF jaws. Reuse the existing base, carrier and metal hardware.
 
 - [Exact launched native slice](https://homesodamachine.com/print-archive/bea2656f2686c41a91199fe1c056e14fa9832745/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode.3mf)
-- [Exact G-code for Studio preview](https://github.com/derekbreden/homesodamachine/blob/33d50d2ecd2a0fb6b518483a44c8031e3a0c1617/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode)
+- [Exact G-code for Studio preview](https://github.com/derekbreden/homesodamachine/blob/fdcbcd5b66621e72fa86ce830f4bc61c65e43a03/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/tube-insertion-centered-grip-petgf-left04-z018-mark1.gcode)
 - [Editable native project](https://homesodamachine.com/print-archive/740e2476947b4b9f047fcc7686bb73e32099c3f7/tube-insertion-centered-grip-petgf-left04-z018-mark1.3mf)
 - [Project settings and source meshes](tube-insertion-centered-grip-petgf-left04-z018-mark1.print.json)
 - [Native slice review and checksums](tube-insertion-centered-grip-petgf-left04-z018-mark1.readiness.json)

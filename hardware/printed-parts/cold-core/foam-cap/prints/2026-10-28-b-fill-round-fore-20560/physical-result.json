@@ -10,7 +10,7 @@
   "launch_record": "launch.json",
   "geometry_record": "geometry.json",
   "archive_sha256": "b6b13d3110765e35f085e4ebe99e4e3371c3fdf8557b6a8db22b2dd7efa701dd",
-  "source_commit": "062fabae8",
+  "source_commit": "9d452792b",
   "tested_configuration": {
     "channel_section": "round",
     "channel_diameter_mm": 6.8,

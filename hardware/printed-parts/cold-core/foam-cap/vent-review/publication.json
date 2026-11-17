@@ -1,6 +1,6 @@
 {
   "scope": "Cap vent passage, four WAGO junctions and twelve existing lead routes; all other native records and public arrays retained.",
-  "source_commit": "0642418f7dc23bf51bf196dfb114c30f20e3be61",
+  "source_commit": "6db68a968ab64b5afc57f196bc241eeb766b1ae0",
   "changed_artifacts": {
     "hardware/assembly/scenes/glb/back-half.glb": "4f17f0704e90979d4a35539ea927f5d0dcb9c85f7c070cfacf46f2ea92ab063b",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "562d8c5db73898f5f49c9881a882b3fd7a5563134577806e7894d9817e67c0b0",

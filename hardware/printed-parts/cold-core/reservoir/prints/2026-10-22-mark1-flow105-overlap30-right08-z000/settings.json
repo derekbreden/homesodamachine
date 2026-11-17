@@ -5,7 +5,7 @@
   "accepted_result_id": "may-30-clear-06",
   "acceptance_record": "water-hold-acceptance.json",
   "historical_source": {
-    "commit": "67994c7efaed7589ff26db350b90eea089fbd3e8",
+    "commit": "2b8c90160ca8e58be5a094058d93efc415679f90",
     "path": "hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf",
     "sha256": "3ff0f250b7dcdff49e2eb2a4cfcca4ccac2d32db3601c75177f88c7f577fd0af",
     "project_settings_sha256": "ee53386dfc97caed9142b4b265ccc7b04dbb69dcd5a91ec39ccfdc7602721562",
@@ -1784,7 +1784,7 @@
     }
   },
   "physical_recipe_source": {
-    "project": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+    "project": "git:fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
     "project_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
     "native_application": "BambuStudio-02.07.00.55",
     "acceptance_id": "may-30-clear-06",

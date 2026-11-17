@@ -18,7 +18,7 @@
   },
   "source_archive": ".cache/prints/2026-10-29-cold-core-seam-channel/preparation/2026-10-29-foam-shell-mark2-d68bb179.gcode.3mf",
   "archive_repackaged": false,
-  "geometry_commit": "daee7e7ff7a1a79a42e29e05fbb5db458d126ad8",
+  "geometry_commit": "241af0c486384f1782122897d8640eec38dcde17",
   "printer_task_id": "1386110458",
   "printer_report": {
     "command": "project_file",

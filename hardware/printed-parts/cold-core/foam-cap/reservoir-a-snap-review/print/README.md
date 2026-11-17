@@ -26,13 +26,13 @@ and cleanup before fitting the tubes and cap. Other lid supports retain their
 automatic recipe. This records access and emitted paths, not printed surface
 finish or removal effort.
 
-The manual [`review.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/print/review.py) (in Git at `f5e8bed091`) additionally samples actual model beads
+The manual [`review.py`](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf7/hardware/printed-parts/cold-core/foam-cap/reservoir-a-snap-review/print/review.py) (in Git at `d52c60fcf7`) additionally samples actual model beads
 through the cap roof, both spring leaves and both hooks using the existing
 native print reader. Its sampling boxes are analysis only. No build or commit
 invokes this reader.
 
-The preparation ran [`prepare_fore_snap_regions.py`](https://github.com/derekbreden/homesodamachine/blob/1775218fc9/hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py)
-and [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/1775218fc9/hardware/printed-parts/enclosure/trial-preparation/prepare.py)
-(in Git at `1775218fc9`) for `reservoir-a-fore-snap-cap` and `foam-cap-lid-top`, with `--slice --review`.
+The preparation ran [`prepare_fore_snap_regions.py`](https://github.com/derekbreden/homesodamachine/blob/abadb832d8/hardware/printed-parts/cold-core/foam-cap/prepare_fore_snap_regions.py)
+and [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/abadb832d8/hardware/printed-parts/enclosure/trial-preparation/prepare.py)
+(in Git at `abadb832d8`) for `reservoir-a-fore-snap-cap` and `foam-cap-lid-top`, with `--slice --review`.
 They prepare and slice without contacting a printer. Physical fit,
 retention, release, load capacity and repeated-use performance remain unmeasured.

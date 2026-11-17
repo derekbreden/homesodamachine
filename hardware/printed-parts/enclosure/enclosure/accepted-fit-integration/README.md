@@ -7,7 +7,7 @@ The current production geometry and print records are indexed in
 
 ## Interface check
 
-[`verify_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/5d633291918a02e34734ef15445158dcaa97d8c8/hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py),
+[`verify_geometry.py`](https://github.com/derekbreden/homesodamachine/blob/ed7926a69ba5599f295cba8584c717687608290b/hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/verify_geometry.py),
 in Git history, read the declared production Box and the front-top, back-top and pump-cap
 exports and wrote [`current-geometry-check.json`](current-geometry-check.json), leaving the
 retained [`geometry-check.json`](geometry-check.json) with its identified source snapshot.

@@ -50,14 +50,14 @@
       "date": "2026-09-30",
       "said": "Tee carrier and display cover are good. ... Display cover still has a bow, but I think it is mostly from the bend action leaving a bit of bend behind, so not sure there is much we can do there, or much I'm willing to iterate on right now at least. I think it is good enough. It survives the shake test and it looks good",
       "tried": "the cover snapped into its printed receiver and shaken",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json"
     },
     {
       "material": "HSM-0073",
       "date": "2026-10-02",
       "said": "Very good.",
       "tried": "the third printed drain cradle snapped into its receiver",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json"
     },
     {
       "material": "HSM-0033",
@@ -88,28 +88,28 @@
       "date": "2026-11-12",
       "said": "They work right now. In Z they are pretty close to snug, but in Y they are a bit loose. ... (currently they cannot be, and in fact forcing it into the pocket fully will force the snaps shut on the wago).",
       "tried": "both Wago connectors pressed into the printed front-top tower",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/a8f24b2b5d16fcc4a23abb2832802df7cbcf50ca/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/46e517081c7bc1b4e29b5e7df45d1909b13af147/hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-observation.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-12",
       "said": "the WAGO fits in very easily, but is still held pretty well. It's awesome. The 3.1 is definitely good enough.",
       "tried": "Wago insertion and retention in the three-dot front-top receiver coupon",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/eb3ec0fcfb192c179362f20fa5e17cb1c4d9c5ff/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/e7bbe828fe21328b174546dab8968187cb4c671a/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-dots-3-4-standard-layers/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-13",
       "said": "Size wise I think we're getting very good, I'd just like to go tighter again on the slimmer 5 conductor wago only",
       "tried": "Wago fit in the five-dot front-top receiver coupons",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/474000169aef000f16a765554fcc51038d954d6c/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/7544b2d847a4105b46f73d5fae2adc05fe300f97/hardware/print-tests/front-top-wago-fit/2026-11-12-mark1-five-dot/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
       "date": "2026-11-13",
       "said": "please implement that, and call it fitted close enough and good enough.",
       "tried": "Front-top Wago receiver fit series, with the production dimensions accepted by Derek",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/53de04d569cdcbdbf9d43c05f4d11b93e7070c04/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/d7924ed62aa3d398b92454ce9c695e220c5b946b/hardware/print-tests/front-top-wago-fit/2026-11-13-mark1-six-dot-rail-trees/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0080",
@@ -301,28 +301,28 @@
       "date": "2026-11-12",
       "said": "On the prints that just finished, the fit turned out wonderful. Best faucet display cover fit so far, and very tight/firm. It is good enough. You can see in the photos it is not perfect though. ... on the aft side it is almost like that, but still a bit of a ramp where you can see the tip kissing the surface. But on the fore side, as we bring the camera around the side you see we do make quite a lot of contact with the surface there for a bit, and then we get gaps again.",
       "tried": "the printed cover snapped onto the printed Sculpted tip",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/2ec8379a49dab4833c363c0129f5298c7435f70f/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/cd63966c8a342d38363dfdb81509aa5a521585da/hardware/printed-parts/faucet/sculpted/prints/2026-11-12-bowed-cover-tip-end-cooling-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0096",
       "date": "2026-11-13",
       "said": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good.",
       "tried": "the printed cover snapped onto the printed tip from the same plate",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0095",
       "date": "2026-11-13",
       "said": "Regarding the faucet tip and faucet display cover, that is the best fit that we've had of anything ever. It's amazing. I love it. I think the only tiny imperfection is a hole you can see, which isn't even a gap between the display cover and the faucet tip, even though it might look like a gap between them. It's not. It's actually like a hole in the faucet tip that just didn't get quite covered by the display cover. And other than that, I mean, I think it looks pretty damn good.",
       "tried": "the printed tip with the printed cover snapped onto it, from the same plate",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0094",
       "date": "2026-11-13",
       "said": "So this is the best looking faucet base bottom that we've had ever, at least at this angle. ... And it's still looking better than we've ever had before towards the fore side, towards the front side. But it is definitely looser there. ... And the same for the faucet base. What we just had there needs to be implemented as well, because it's better than anything we've had before, regardless of what we try next.",
       "tried": "the printed Sculpted base in hand, its underside after the support came off",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/727125473a61a56604e145292ffd41d6984f49a0/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/dcbaf13d4d9c3d449373a059742f91478bb67e82/hardware/printed-parts/faucet/sculpted/prints/2026-11-13-sloped-underside-complete-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0079",
@@ -336,7 +336,7 @@
       "date": "2026-11-14",
       "said": "So on the faucet, the base support broke off beautifully. ... it just all broke off as, like, one clean piece, and it took a little bit of force, but that was great. ... And the back of the faucet base, the seam that's back there where it normally is, that looks normal. It's fine. But then we've got this second seam in front that I don't understand how we ended up with that. ... And it's also all fuzzy and ugly. ... And I see some fuzziness other places too",
       "tried": "the Sculpted base in hand after removing the underside support, inspecting the mounting face and both sides of the shell",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/19f296fa2b71b68a92735a3d2aae7e0ce242dfd9/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/physical-result.json"
+      "record": "https://github.com/derekbreden/homesodamachine/blob/f835475169b9bd355745a40451b682da94f32c62/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-plug-ramp-mark2/physical-result/physical-result.json"
     },
     {
       "material": "HSM-0094",

@@ -72,7 +72,7 @@
           "payload": "cold-core-layout/cold-core-assembly.step.mesh",
           "from": "snapshot",
           "sha256": "870392c9a21b5f6ee9c4e8554afe95a7aa3404f314a17131ea206956fbb779f7",
-          "commit": "cf109463727143f4b247e2802bd2750296a03a51",
+          "commit": "b19aee0c5cfd96b11011776546dfe4c571f2ba2b",
           "taken": "2026-10-28T16:16:48.797Z",
           "published": false
         },
@@ -80,7 +80,7 @@
           "payload": "cold-core-layout/cold-core-assembly.step.mesh",
           "from": "tree",
           "sha256": "1635f6eb0aa3831a0b441430613f000392ce94fcae58ca8e25e80cda7d037702",
-          "commit": "d95267c5025bf0e1254cc7040b6fcd47910a127a",
+          "commit": "f824a13576d767727ae3780e43f24978d936e733",
           "published": false
         }
       },

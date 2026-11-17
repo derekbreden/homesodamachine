@@ -1,6 +1,6 @@
 {
-  "normal_cohort_commit": "5ac430b6f",
-  "trial_geometry_commit": "ab91e7433",
+  "normal_cohort_commit": "474954ec2",
+  "trial_geometry_commit": "73f5851a0",
   "nominal_snap_sources_identical": {
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "33a24029f92b344545406590092cef73807cf26eb85186585491bbe2e41a6c4d",
     "hardware/manifold-layout/rear_snaps.py": "651bb10e8803cef4decea96e51f0e3003399837b59b22866a05162905b630a85"

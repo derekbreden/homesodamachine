@@ -87,7 +87,7 @@ before the single transaction. Further Send is disabled for this job.
 
 ## Preparation source
 
-The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/package.py) extracts the reviewed
-cavity plate without changing native G-code. The [review source](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py)
+The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/package.py) extracts the reviewed
+cavity plate without changing native G-code. The [review source](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/review.py)
 reads the saved meshes, deposited paths, supports, trim and probing state.
 The launch and packaging records identify the submitted artifact.

@@ -39,7 +39,7 @@
       "enclosure-pump-cap.stl": "5e0584c482953c79004593b70023ba9c9dc65223f7a75d976d4a03826717df63",
       "enclosure-front-top.stl": "9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3"
     },
-    "source_commit_context": "47ae3f735fd14df393d3c8ba07d37f0f1e4cc064",
+    "source_commit_context": "929771737e427e5ce3e7ac30c7b4c82067d3d8a1",
     "note": "Generated native exports are external archived evidence, not tracked git artifacts. Source commit is context, not a substitute for their content digests."
   },
   "native_contact_fixture": {

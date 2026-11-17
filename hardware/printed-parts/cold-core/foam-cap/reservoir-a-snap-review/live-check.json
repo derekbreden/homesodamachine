@@ -1,8 +1,8 @@
 {
   "scope": "Published fore paired snap files, populated assembly and lid scene, read through the live object map and decompressed before SHA-256 comparison. No physical qualification.",
   "site": "https://homesodamachine.com",
-  "implementation_commit": "4291e30fca19d6e9e8fe9b7447c053e3b64eb674",
-  "publication_commit": "d54fd2322f18425cd96f08a3f0217c7d1a4de3a0",
+  "implementation_commit": "9daf777f4c784bdd56cf1d4b6106975260f9c25b",
+  "publication_commit": "4dc64ac20c480c26f6aeec4eee0182d2e1c18672",
   "files": [
     {
       "path": "printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step",

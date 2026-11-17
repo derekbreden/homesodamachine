@@ -50,7 +50,7 @@ fused cloud and capture manifest are under
 contains the two registered observation sets, portable STEP/STL files, preview,
 model manifest and cleanup receipt.
 
-[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-elbow/analyze_scan.py) fits the marker-table plane and registers
+[analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-stem-elbow/analyze_scan.py) fits the marker-table plane and registers
 each specimen separately using its straight stem and drafted socket collar.
 Fixed physical bounds and a 15 mm table-height cutoff exclude the fixture.
 Specimen A retains **124,435 observations**, including the free stem tip and
@@ -100,4 +100,4 @@ internal tube stops or qualify another fitting's engagement.
 nominal constraints and published family dimensions. Other material variants
 have no tooling-equivalence claim from this capture.
 
-The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-elbow/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-stem-elbow/validate_scan.py).
+The source derivations are preserved at their recorded revision: [analyze_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-stem-elbow/analyze_scan.py), [validate_scan.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-stem-elbow/validate_scan.py).

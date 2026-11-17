@@ -17,7 +17,7 @@ The native [manual guide builder](../../tools/hsm/manual-guides/src/html.rs) ren
 and binds them on demand. The appliance build does not regenerate this guide.
 The PDF, cover and document sidecar deploy from their committed directory.
 
-The [archived illustration source](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/tools/weld-rotator-guide/rotator_art.py)
+The [archived illustration source](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/tools/weld-rotator-guide/rotator_art.py)
 records the source shapes and picture poses used by the committed artwork.
 
 ## What is here

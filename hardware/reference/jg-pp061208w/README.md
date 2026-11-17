@@ -63,4 +63,4 @@ distance is **0.055 mm**, the 95th percentile **0.203 mm**, and the maximum
 none is rejected by CAD distance. These are scan/model differences, not
 manufacturing tolerances or measurements of the hidden stem and internals.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/jg-pp061208w/jg_pp061208w.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/jg-pp061208w/jg_pp061208w.py).

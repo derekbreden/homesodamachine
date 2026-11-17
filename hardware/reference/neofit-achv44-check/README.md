@@ -41,7 +41,7 @@ separate fixed case and two analytic oval release collets. CAD clearance to
 this estimated envelope establishes no hardware fit, grip, seal, pressure
 capacity, cracking performance or service life.
 
-[neofit_achv44_check.py](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-achv44-check/neofit_achv44_check.py) exposes `inlet()` and `outlet()`
+[neofit_achv44_check.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-achv44-check/neofit_achv44_check.py) exposes `inlet()` and `outlet()`
 as `(position, outward_axis)` pairs; `ports()` includes the common insertion
 estimate. `socket_depth()`, `bearing_band()` and `sections()` are stdlib-only
 interfaces. `sections()` returns `(label, radius, s0, s1)` along flow from the
@@ -49,4 +49,4 @@ inlet; tapered spans and oval collets use conservative radial bounds.
 `build_parts()` returns the three native solids and `build()` their compound.
 Production imports this reference STEP; it does not import the vendor mesh.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/neofit-achv44-check/neofit_achv44_check.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/neofit-achv44-check/neofit_achv44_check.py).

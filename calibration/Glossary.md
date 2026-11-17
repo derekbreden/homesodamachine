@@ -25,7 +25,7 @@ larger boundary so several local steps, notches, or projections disappear.
 A detailed fitting cavity can sit inside a simple exterior.
 
 Derek, **Visualize pump cartridge redesign** (Codex), in the
-[recorded instruction](https://github.com/derekbreden/homesodamachine/commit/7c311ff2203af2c17996603e441460c0e2e0b0a4):
+[recorded instruction](https://github.com/derekbreden/homesodamachine/commit/648d1ddbf2f268f2fd8c4893e94f1aa9087d1921):
 
 > Please consider our preference for fewer edges and more material.
 
@@ -63,7 +63,7 @@ rearrangement can make other components or mechanisms unnecessary.
 Simplicity belongs to the complete arrangement, including how it is put
 together.
 
-The [check-valve example](https://github.com/derekbreden/homesodamachine/commit/66afca468f088b1b049a6c00557e99e611ccbb09)
+The [check-valve example](https://github.com/derekbreden/homesodamachine/commit/a876953f50b7e3a595e35e2fc0a36a81c6075675)
 puts the required tube connections on the valve itself.
 
 Derek, **Above cold core** (Codex), on regulator placement:

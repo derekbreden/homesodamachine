@@ -1,7 +1,7 @@
 # Funnel integration review
 
 The exported frame enters front-top along Y, and back-top captures its opposite
-rails as the enclosure closes. [`check_fit.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py) measures the actual frame and shell
+rails as the enclosure closes. [`check_fit.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/zone-c/funnel/integration-review/check_fit.py) measures the actual frame and shell
 STLs through those motions. The seated pairs have no shared volume, and the
 closed enclosure captures the frame against 2 mm translations in every axis
 direction. [`rail-motion-check.json`](rail-motion-check.json) binds those
@@ -107,7 +107,7 @@ print receipts must name the current mesh hashes, bed placement, emitted paths
 and removal lanes. Physical support removal and fit remain unqualified for this
 geometry.
 
-The accepted [v4 cradle trial](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) records
+The accepted [v4 cradle trial](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json) records
 insertion of its printed pair and the 0.65 mm released drop. That drop is retained.
 The current 3.15 mm hook thickness and flat silicone bearing are separately
 checked in native geometry, including 29 sampled insertion poses with the

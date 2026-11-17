@@ -68,7 +68,7 @@ A converted part meets this when these edits do what is predicted:
 The edits are tried once, when a part is converted, not on every commit.
 
 What each step read when its recipe was Python is its ceiling. The
-[archived dependency graph](https://github.com/derekbreden/homesodamachine/blob/d6a0b281d2866a4435ffaf056850efe960a74f1f/tools/bazel/graph.json)
+[archived dependency graph](https://github.com/derekbreden/homesodamachine/blob/1c6498164a4fa879bebf758e06cce6ca25b93cff/tools/bazel/graph.json)
 lists every step's reads, and the Python modules at that revision name each number
 a part takes in their `from … import` lines. A converted part is made from no more than its step
 read there, with each Python file replaced by the Rust that took its place.

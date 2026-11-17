@@ -5,7 +5,7 @@
   "source_assembly_sha256": "16314ee4bb4a38c002eb73cec124cf7b83115b179e3f4fa2c206cdb7c30fba5d",
   "exporter": {
     "path": "hardware/pcb/pcba/board-3d.py",
-    "source_revision": "50dc0d823a5da1d1b88a59b20001b5aef7e763b7",
+    "source_revision": "8cfd49473bf69ea01640047c77804791267efd20",
     "source_sha256": "247d610304ecad8acecdcbd9cc16d8b54d20d424d68d26e9e27a7de2dc175338"
   },
   "units": "metres",

@@ -113,7 +113,7 @@ retainer. Each is 6 mm deep and 56.515 mm long; the retainer stops 6.25 mm from
 its back wall. The snap-wing retainer is outside these identified
 STEP/STL inputs. The existing aft Z-joining rails are separate.
 
-The Y-seam passages use the [selected Ø5.2 mm printed M5 fit](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/print-tests/m5-seam-bearing/physical-result.json)
+The Y-seam passages use the [selected Ø5.2 mm printed M5 fit](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json)
 around the nominal Ø5 mm outside-thread envelope. The identified samples pushed
 through over 12 mm and sometimes needed screw rotation over 40 mm. The nominal
 diametral air is 0.2 mm; the complete enclosure's stiffness and wear retain their
@@ -125,7 +125,7 @@ or detailed helical contact.
 
 The commands below belong to the bound three-screw reading and do not qualify the snap
 interface. Its geometry reading uses the named part and appliance exports. The script this
-command runs is in Git at [`7877f6193e`](https://github.com/derekbreden/homesodamachine/tree/7877f6193ead05647b529972ee9f50de305c8d44):
+command runs is in Git at [`aacac6f1e3`](https://github.com/derekbreden/homesodamachine/tree/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc):
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/pump-mount-review/review.py
@@ -143,7 +143,7 @@ subset after the aggregate path is replaced. It records the cache inputs read
 and keeps the original aggregate identity in the hardware provenance.
 
 When a final producer emits the same named hardware as a small native subset,
-[`verify_hardware.py <reading.json> <final-subset.step> --out <report.json>`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_hardware.py)
+[`verify_hardware.py <reading.json> <final-subset.step> --out <report.json>`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_hardware.py)
 compares every body by native serialization or two-way native Boolean difference.
 Its agreement record preserves the original path-query inputs and binds the
 final subset separately.
@@ -151,19 +151,19 @@ final subset separately.
 bodies with their original cache inputs and front-bottom with its separately
 identified current native part. It appends a current agreement while retaining
 the earlier subset receipt and the old/new front-bottom stock comparison.
-[`refine_review.py --old-directory <saved-native-parts> --stage all`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/enclosure/enclosure/pump-mount-review/refine_review.py) appends an
+[`refine_review.py --old-directory <saved-native-parts> --stage all`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/printed-parts/enclosure/enclosure/pump-mount-review/refine_review.py) appends an
 old/new native stock comparison and the required added-stock motion queries.
 It keeps the original path-query identities and checks the lower skirt land
 and screw-column stock separately.
-[`verify_successor.py <saved-predecessor.step>`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_successor.py) compares a subsequent front-top
+[`verify_successor.py <saved-predecessor.step>`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_successor.py) compares a subsequent front-top
 to its recorded predecessor. Any added material triggers direct complete
 stock-path queries against the original native baseline. Its optional
 `--delta-directory <directory>` retains native added/removed bodies and their
 exact input hashes for a separate manual reading.
-[`verify_rear_breakout.py <saved-predecessor.step>`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_rear_breakout.py) binds a removal-only rear
+[`verify_rear_breakout.py <saved-predecessor.step>`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_rear_breakout.py) binds a removal-only rear
 breakout and checks every existing front-top modifier box plus the valve
 tray/post/bearing envelopes and pump guards.
-[`verify_passage_stock.py <saved-predecessor.step>`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_passage_stock.py) compares both added and
+[`verify_passage_stock.py <saved-predecessor.step>`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_passage_stock.py) compares both added and
 removed stock with those mounting regions and checks the canonical display
 pocket and wing-exit separation. `--regions <print-regions.json>` identifies
 the exact modifier specification read; `--cleanouts` adds the native aperture,
@@ -171,10 +171,10 @@ glass-backing and retained upper-fit stock queries.
 `--joint-review <review.json> --joint-band-y 197 218` identifies intentional
 changes within the current M5 joint band while preserving the separate
 nonjoint mounting-stock and display-fit comparisons.
-[`verify_main_joint_rebase.py`](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_main_joint_rebase.py) binds the landed joint review, compares its
+[`verify_main_joint_rebase.py`](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_main_joint_rebase.py) binds the landed joint review, compares its
 top/front-bottom native material with the original path inputs, and checks
 the complete swept domains affected by those additions.
-The [subset extraction](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/pump-mount-review/extract_native_subset.py) and [export lineage](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_export_lineage.py) sources are archived in Git beside their bound review records.
+The [subset extraction](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/enclosure/enclosure/pump-mount-review/extract_native_subset.py) and [export lineage](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/enclosure/enclosure/pump-mount-review/verify_export_lineage.py) sources are archived in Git beside their bound review records.
 
 A complete translation is bounded by native minimum-distance intervals. Each
 proved interval is shorter than the current solid-to-solid gap, after a

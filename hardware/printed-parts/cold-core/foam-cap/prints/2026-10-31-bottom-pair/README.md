@@ -35,4 +35,4 @@ preparation records.
 - Mark1: [preparation](mark1/preparation.json), [settings](mark1/settings.json),
   [review](mark1/review.json), [launch](mark1/launch.json),
   [startup](mark1/startup.json).
-- The [Mark2 bottom-lid trial](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/README.md) records the other print in this session.
+- The [Mark2 bottom-lid trial](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/README.md) records the other print in this session.

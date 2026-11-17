@@ -2,7 +2,7 @@
   "archive": ".cache/prints/magnetic-float-pair-mark2-aero-v6/ready/magnetic-float-pair-mark2-aero-v6.gcode.3mf",
   "archive_sha256": "22689911264655fd4158f8cba9fd3843c9a7ae32aee9b9985aafb581ebcdd6cf",
   "gcode_sha256": "66b51259f636ab7dda7e6d5e6df1c8b1cdb4a5c6563130eebe76afb62acd664c",
-  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_commit": "08a570ea9259bb64ecccd81760762dc72587acbc",
   "source_stl_sha256": {
     "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771",
     "insert-aero": "c69cdc552c1dec84dd0bd84972ed601667df8327b0388236eec63ea7d672b8c6"

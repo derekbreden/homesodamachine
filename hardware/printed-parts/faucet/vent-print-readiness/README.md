@@ -5,7 +5,7 @@ or the [Sculpted production preparation](../sculpted/README.md#preparation-and-e
 for the faucet with the [unsealed overflow outlet](../vent-qualification/README.md).
 
 The records below concern the sealed cavity with a bung on either side of the
-drip pocket. The [plate manifest](https://github.com/derekbreden/homesodamachine/blob/b1f86c0a272601b4ef1f2f71bb8f39e998d494ac/hardware/printed-parts/faucet/vent-print-readiness/manifest.json)
+drip pocket. The [plate manifest](https://github.com/derekbreden/homesodamachine/blob/f8360cc43b1c1d3904de7ceef54b50a26b627538/hardware/printed-parts/faucet/vent-print-readiness/manifest.json)
 identifies their geometry, native settings and toolpaths.
 
 | Retained plate | Native archive |

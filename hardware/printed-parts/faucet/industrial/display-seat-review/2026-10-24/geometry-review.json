@@ -1,7 +1,7 @@
 {
   "status": "Visual review candidate; no print submitted; production geometry remains the reference",
   "recorded_at_utc": "2026-10-24T05:50:08.360439+00:00",
-  "source_commit": "c6aeefe26dcff8d521a757331043542690da19db",
+  "source_commit": "74dd00996a40b5696e613751d7115eadda0aabd9",
   "source_sha256": {
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "ffe226a32be53b2d4b086d9acb819fc87164f4b92c59db5f19aa7b8bba006339",
     "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
@@ -10,10 +10,10 @@
     "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
   },
   "history": {
-    "clearance_lift_commit": "5271aa710fdb3ddb7bb735a7114d80cbc4ad324b",
+    "clearance_lift_commit": "a69d6721531c59254a465db646c3345b7a9b6e5f",
     "clearance_lift_mm": 1.5,
     "original_support_height_mm": 2.0,
-    "four_mm_tubes_commit": "8742c66249d4e96f56e3635657f041b573e6ab25"
+    "four_mm_tubes_commit": "bb9cee4aaae648a5523e50b9b0200156b65fea88"
   },
   "drop_breakdown_mm": {
     "added_clearance_lift": 1.5,

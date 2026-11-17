@@ -4,7 +4,7 @@
   "status": "finite_findings_reviewed_six_undefined_diagnostics_unresolved",
   "scope": "One manual post-LIVE review of original canonical STL files. All six existing lint classes on the cradle; five face classes on the three changed enclosure quadrants. No new recurring gate or whole-quadrant thin sampling.",
   "publication": {
-    "publication_commit": "4b5c24b79",
+    "publication_commit": "4a7934489",
     "verified_utc": "2026-10-16T07:41:55.870841+00:00",
     "scope": "HTTPsha256verification of actualpublished12files; source/stock/candidateproofs retain their own scope",
     "live_files": [
@@ -197,7 +197,7 @@
       },
       "omitted_classes": {},
       "status": "completed_findings_require_review",
-      "publication_reference": "4b5c24b79",
+      "publication_reference": "4a7934489",
       "geometry_verdict": "not_evaluated_findings_require_review",
       "nonfinite_unknowns": {},
       "answers_path": "hardware/printed-parts/lint-answers/zone-c/funnel/elbow-cradle.lint-answers",
@@ -438,7 +438,7 @@
         "thin": "Not run on this quadrant. No whole-quadrant thin result is claimed; use the separate fresh native full-stock evidence within its named scopes."
       },
       "status": "completed_with_nonfinite_unknowns",
-      "publication_reference": "4b5c24b79",
+      "publication_reference": "4a7934489",
       "geometry_verdict": "not_evaluated_findings_require_review",
       "nonfinite_unknowns": {
         "sliver": [
@@ -1030,7 +1030,7 @@
         "thin": "Not run on this quadrant. No whole-quadrant thin result is claimed; use the separate fresh native full-stock evidence within its named scopes."
       },
       "status": "completed_findings_require_review",
-      "publication_reference": "4b5c24b79",
+      "publication_reference": "4a7934489",
       "geometry_verdict": "not_evaluated_findings_require_review",
       "nonfinite_unknowns": {},
       "answers_path": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers",
@@ -2092,7 +2092,7 @@
         "thin": "Not run on this quadrant. No whole-quadrant thin result is claimed; use the separate fresh native full-stock evidence within its named scopes."
       },
       "status": "completed_with_nonfinite_unknowns",
-      "publication_reference": "4b5c24b79",
+      "publication_reference": "4a7934489",
       "geometry_verdict": "not_evaluated_findings_require_review",
       "nonfinite_unknowns": {
         "sliver": [
@@ -3085,7 +3085,7 @@
   },
   "quadrant_dispositions": {
     "scope": "Post-LIVE4b5c24b79 text/stdlib review of every fresh FB/FT/BT row. No additional CAD/native/mesh queries or geometry edits during triage. Cradle raw findings belong to hardware helper. This scoped disposition is not a whole-quadrant thin result or physical print/support qualification.",
-    "publication": "4b5c24b79",
+    "publication": "4a7934489",
     "verified_live_receipt": {
       "path": ".cache/y-seam-fit/polish2/live-verified.json",
       "sha256": "25a72fead3606a7dd1bc549a94a70166d14ad9320fff1dd2861ea58fb073f9a0"
@@ -4561,7 +4561,7 @@
   },
   "cradle_dispositions": {
     "scope": "Read-only standard-library review of every raw final published cradle lint row; no CAD/import/proximity/lint rerun. Answers explain named functional geometry; no general thin-stock waiver.",
-    "publication_reference": "4b5c24b79",
+    "publication_reference": "4a7934489",
     "raw_receipt_sha256": "18ebf09717742c4d5cb2ed40bfd443e3f342f6dd1095e1c4cc78ffc8cb1976b1",
     "source_stl_sha256": "607085545eddb7b15a882408250b7a3e28e52beaf8299682e6f7107cdd47c295",
     "native_finish_receipt_sha256": "fcd9e4eb99105e182defb8ea5434f9a47ad7b5843c30743e12eb3c787538d9ec",
@@ -4713,7 +4713,7 @@
     "answers_sha256": "4ce9f996bf44c8d5d8e3d0c9e3b42add8bd4071453409a47350711b798a4cc9b",
     "production_pose_raw": {
       "scope": "All six existing lint classes on the complete canonical carrier STL after exact saved production print rotation. The raw findings require review. No original-machine-frame lint pass, mesh repair, crop, resampling, decimation or physical qualification is claimed.",
-      "publication_reference": "979e20ec3",
+      "publication_reference": "20ac39137",
       "canonical_stl": "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-plate.stl",
       "canonical_stl_sha256": "fe30b370c8c86da63716b0d7d50041bc454a6d6467367c8a3352ad60eeb134f4",
       "posed_stl": ".cache/y-seam-fit/polish/carrier-print-pose-minus90x.stl",

@@ -1,7 +1,7 @@
 {
   "recorded_on_central": "2026-10-22",
   "status": "Mark1 task 1365626370 was intentionally stopped early. Derek reports one hour holding water on the printed portion on 2026-10-23.",
-  "baseline_commit": "17d1e6a91",
+  "baseline_commit": "b9f537780",
   "recipe": "../../print-settings.json",
   "setting_changes": {
     "bottom_shell_layers": {

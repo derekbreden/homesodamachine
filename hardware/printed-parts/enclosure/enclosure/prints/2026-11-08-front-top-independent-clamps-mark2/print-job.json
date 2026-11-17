@@ -2,7 +2,7 @@
   "piece": "enclosure-front-top",
   "printer": "Mark2",
   "status": "started",
-  "source_commit": "f4bb137e389058f80b9d9c363065f467275797c3",
+  "source_commit": "75ffb260efa437c1162fbdfd79c503cf7fa60309",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
   "source_stl_sha256": "226620a1a95ce374e662a42f94483f4d03b8199c69576a4a049924ed4dada73f",
   "source_orientation": "+Z, seam plane on the bed",

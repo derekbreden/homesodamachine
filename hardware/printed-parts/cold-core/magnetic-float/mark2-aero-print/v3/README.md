@@ -51,7 +51,7 @@ before release.
 
 This is physical trial **v3**, using native archive revision **v4**. Geometry
 and orientation are bound to export commit
-`f3cefbe360b7a8019741d177868d1e6c6770b93f`. The core STL SHA starts
+`08a570ea9259bb64ecccd81760762dc72587acbc`. The core STL SHA starts
 `63d12cbb` and the insert starts `c69cdc55`; full hashes are in the preflight.
 Their centres are (125,145) and (175,145) mm, with the original bases at Z=0.
 
@@ -72,7 +72,7 @@ establish physical adhesion, density or fit.
 - [Preflight, parent archive binding and frozen hashes](pair-preflight.json)
 - [One-Send guard and printer acceptance](pair-mark2-launch.json)
 - [Queue](queue.json)
-- [Preparation and exact command comparison](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v3/prepare.py) (in Git at `0a648015e0`)
+- [Preparation and exact command comparison](https://github.com/derekbreden/homesodamachine/blob/e023e795b7/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v3/prepare.py) (in Git at `e023e795b7`)
 - [Derek's stop report for the preceding combined trial](../v2/pair-mark2-launch.json)
 
 ![Combined plate native preview](pair-preview.png)

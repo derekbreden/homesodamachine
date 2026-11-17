@@ -2,7 +2,7 @@
   "schema": 1,
   "scope": "Manual live viewer check of downloaded object bytes and native source hashes.",
   "checked_utc": "2026-10-29T20:56:58.482205+00:00",
-  "pointer_commit": "c49ebe5d3866d7d2a08a2a11c191cfff1ef8ff9a",
+  "pointer_commit": "2d1d0e81a93028d2c33ca3f543049f4b9877cd83",
   "passed": true,
   "checks": [
     {

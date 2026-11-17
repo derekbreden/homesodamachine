@@ -3,7 +3,7 @@
   "status": "passed",
   "scope": "Remaining normal machine placement, equipment, manifold, route and enclosure assembly recipes, source/fact/scorecard readers, report composition, archive IO and scalar providers.",
   "algorithm_execution": "Statically compiled Rust expressions, branches, loops, closures, readers and recipe/report composition. Live providers and source files remain inputs. No runtime Python source compilation, AST evaluation or frozen derived values.",
-  "source_anchor_revision": "63658e44888f13d7a7e657d435558580e4746902",
+  "source_anchor_revision": "6b5ebc9456b890d64bfc7656df4e16d65174db3a",
   "source_modules": {
     "enclosure_assembly": {
       "path": "hardware/manifold-layout/enclosure_assembly.py",

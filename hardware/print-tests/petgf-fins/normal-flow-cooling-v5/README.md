@@ -68,7 +68,7 @@ repeated bridge specimens is [Prusa's bridge guidance](https://help.prusa3d.com/
 The selected 100–125% range comes from this PET-GF physical result. More cooling
 is a candidate to test, not an established improvement in line joining.
 
-The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/finish.py) defines the local roof extrusion and part-fan
+The [recorded finish source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/finish.py) defines the local roof extrusion and part-fan
 treatments. The editable project alone does not contain those G-code treatments.
 
 The print-only archive preserves every reviewed G-code byte and embedded MD5;

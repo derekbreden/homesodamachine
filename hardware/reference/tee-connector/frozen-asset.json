@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "commit": "c33722222d15c7259d35d22e5a302578f13902d3",
     "path": "hardware/reference/tee-connector/tee_connector.py",
     "sha256": "4c9b3d086073f4b1d237c7df3b64c9a82dc59b09d866f76afa729376230dd369"
   },

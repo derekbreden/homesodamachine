@@ -176,7 +176,7 @@ inboard lane and estimates deflection over a 12.89 mm free
 length, about nominal root strain. The remaining web from
 the slot to the drain-hole edge is. This model describes
 nominal passage geometry; it does not establish insertion force or strain capacity.
-The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md) records accepted insertion for its
+The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md) records accepted insertion for its
 identified meshes; it does not establish this joint's loaded retention or lifetime.
 
 The cradle prints on its bottom. The hooks' flat undersides take accessible
@@ -199,7 +199,7 @@ funnel by `funnel.numbers.json`, the frame by `funnel-frame.numbers.json` and th
 
 ## Integration checks
 
-The manual [drop-in review](https://github.com/derekbreden/homesodamachine/blob/c7d81e1eefee1c16b74229577bc128f648e315ec/hardware/printed-parts/zone-c/funnel/drop-in-review/review.py),
+The manual [drop-in review](https://github.com/derekbreden/homesodamachine/blob/af14cecd2715054426ff40fdce2009ab5355f698/hardware/printed-parts/zone-c/funnel/drop-in-review/review.py),
 in Git history, measures the authored rigid
 empty frame, ledges, silicone brim bearing, original snap web/socket and screw engagement.
 With production shells included, it also measures the nominal Ø3.3 mm J10 tool
@@ -211,6 +211,6 @@ printed fit, support-removal effort, sealing, load capacity or lifetime.
 
 The retained [horizontal rail-motion record](integration-review/rail-motion-check.json)
 and [frame print receipt](flush-roof-review/mark2-v1/README.md) apply only to the
-artifacts named in those records. The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/b57b985c648c34346481a57fde897374b0e8f068/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json)
+artifacts named in those records. The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json)
 retains its accepted insertion scope. The drop-in frame and installed drain joint require their own physical print
 and assembly observations.

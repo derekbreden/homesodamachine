@@ -232,8 +232,8 @@ from CAD or printer completion alone.
 
 ## Preparation and slice records
 
-The [single-part preparation source](https://github.com/derekbreden/homesodamachine/blob/0785c32f89a6e08609e5348aa2beb0096d560326/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py)
-and [combined-cartridge preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py)
+The [single-part preparation source](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_prints.py)
+and [combined-cartridge preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/printed-parts/enclosure/enclosure/magnet-retention/prepare_cartridge_pair.py)
 are archived in Git. Their retained preparation and review records bind the source
 geometry and native archives. Current enclosure projects and reviews come from
 the [native print workflow](../../trial-preparation/README.md).

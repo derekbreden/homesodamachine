@@ -1,6 +1,6 @@
 {
   "source": {
-    "commit": "a40b1dc0d4a41ea4dab2b765f997a841ed8b6678",
+    "commit": "c33722222d15c7259d35d22e5a302578f13902d3",
     "path": "hardware/reference/taprite-3741-regulator/taprite_3741_regulator.py",
     "sha256": "166f1262db8f4976f98940f2354c4983bc93de25c3c485dd7a278dacc9f01bb8"
   },

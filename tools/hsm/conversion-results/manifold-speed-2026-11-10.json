@@ -5,9 +5,9 @@
     "words": "Please dig in. Is closing the gap a massive undertaking you need approval for or can you simply fix it?"
   },
   "source": {
-    "implementation_commit": "b3b6ababc8e6c0ec1d2cf94132b0627a59566e66",
-    "before_rust_evidence_commit": "c6f694b7e6af9a3b1e21fd5dfb58a357eaa2e0c3",
-    "cpp_reference_commit": "1fe50e4ff3209adc4afd6299082bfca21cd8511c",
+    "implementation_commit": "cf6acc0159f3f35f05302190fb0eaebc5d0d055b",
+    "before_rust_evidence_commit": "6d9c611cc34d59b8f10cca24cf7d00338058913d",
+    "cpp_reference_commit": "be19fb8a4693edecead5753aa2bcb42c54dcdbf0",
     "previous_record": "tools/hsm/conversion-results/manifold-rust-2026-11-10.json",
     "engine": {
       "purpose": "This record identifies the pinned Rust boolean source and its local inlining patch.",
@@ -726,7 +726,7 @@
       ]
     },
     "normal_build": {
-      "source_commit": "b3b6ababc8e6c0ec1d2cf94132b0627a59566e66",
+      "source_commit": "cf6acc0159f3f35f05302190fb0eaebc5d0d055b",
       "run_id": "1794353200291595000-3022",
       "completed": true,
       "success": true,
@@ -751,7 +751,7 @@
       "checkpoint_errors": []
     },
     "warm_build": {
-      "source_commit": "79239026d56d944f18d265b9658d38b918d1ef9c",
+      "source_commit": "93777ae0f7af479928badc512b42b9a8c65bc4db",
       "run_id": "1794353668918075000-7751",
       "completed": true,
       "success": true,
@@ -1395,7 +1395,7 @@
         }
       ],
       "url": "https://github.com/derekbreden/homesodamachine/actions/runs/42923408812",
-      "commit": "b3b6ababc8e6c0ec1d2cf94132b0627a59566e66",
+      "commit": "cf6acc0159f3f35f05302190fb0eaebc5d0d055b",
       "producers": {
         "counts": {
           "built": 61

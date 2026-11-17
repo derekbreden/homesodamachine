@@ -40,8 +40,8 @@ plate trim, 101 mm bed-edge inset, zero support extrusions, fan-off paths and
 25 mm/s axial roof fill. Some native ramp bridge features retain the slicer's
 0.40 mm extrusion-height treatment within the fixed 0.24 mm Z schedule.
 
-Run [`make_plate.py`](https://github.com/derekbreden/homesodamachine/blob/f5e8bed091/hardware/print-tests/petgf-fins/dense-landing-v3/make_plate.py) (in Git at `f5e8bed091`) manually with `tools/cad-venv/bin/python`; it calls the
+Run [`make_plate.py`](https://github.com/derekbreden/homesodamachine/blob/d52c60fcf7/hardware/print-tests/petgf-fins/dense-landing-v3/make_plate.py) (in Git at `d52c60fcf7`) manually with `tools/cad-venv/bin/python`; it calls the
 parameterized short-span generator and writes only this directory. Slice with
 Bambu Studio `--arrange 0 --orient 0 --slice 0`, an absolute output directory,
-and `--export-3mf`. The short-span [slice inspection](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/inspect_slice.py) and [landing trace](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/trace_landing.py) sources are archived in Git. Physical formation, release and
+and `--export-3mf`. The short-span [slice inspection](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-fins/short-spans-v2/inspect_slice.py) and [landing trace](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-fins/short-spans-v2/trace_landing.py) sources are archived in Git. Physical formation, release and
 retained finish remain unmeasured.

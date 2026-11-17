@@ -26,7 +26,7 @@ symmetric beverage outlet locations are retained. The Ø4 mm hole has 2.56 times
 alone does not establish discharge flow. Physical threading, support cleanup,
 drip direction and complete fault-vent performance are unmeasured.
 
-The [centered mounting-set review](https://github.com/derekbreden/homesodamachine/blob/23d6e62695ada26d985c3a5943565734a00388b3/hardware/printed-parts/faucet/vent-qualification/centered-layout-lint-review.json) binds the
+The [centered mounting-set review](https://github.com/derekbreden/homesodamachine/blob/613b5920fcee631c2d3df5a206e351f883ef16e0/hardware/printed-parts/faucet/vent-qualification/centered-layout-lint-review.json) binds the
 regenerated faucet, rigid plates, gaskets and organizer to the published
 artifacts. It records the exact local faces at low-thickness mesh picks,
 watertight STL topology and all answered lint locations. The Ø4 mm underside
@@ -38,7 +38,7 @@ The [Industrial production selection](../industrial/production-selection.json)
 identifies the approved articles and the generated parts used for preparation.
 The [centered mounting trial](../industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
 records its own native support access and references the
-[complete Industrial print used for comparison](https://github.com/derekbreden/homesodamachine/blob/23d6e62695ada26d985c3a5943565734a00388b3/hardware/printed-parts/faucet/industrial/selected-print.json).
+[complete Industrial print used for comparison](https://github.com/derekbreden/homesodamachine/blob/613b5920fcee631c2d3df5a206e351f883ef16e0/hardware/printed-parts/faucet/industrial/selected-print.json).
 
 The retained [hydraulic report](hydraulic-report.json),
 [sealed-port witness](port-native-check.json) and

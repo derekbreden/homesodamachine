@@ -56,7 +56,7 @@
     "shell_formula": "https://ntrs.nasa.gov/citations/20205011530",
     "petg_translucent_XY_Youngs_modulus_1420_MPa": "https://cdn.shopify.com/s/files/1/0574/3116/2995/files/Bambu_PETG_Translucent_Technical_Data_Sheet.pdf?v=1704680051",
     "successful_water_recipe": "petg-water-recipe.json",
-    "sphere_thread_leak_commit": "b7dc4d576e9dc38794d190f31473f31d71aa4aa1"
+    "sphere_thread_leak_commit": "be9b7d9fa0fc456728b4b43602dd8be36197cc6d"
   },
   "stiffness_basis": "1420 MPa is the published PETG Translucent mean XY Young's modulus (reported spread \u00b1160 MPa) for specimens conditioned at 65 C for 8 h. This is a material screen input, not the printed shell's measured modulus. 1000 MPa is an assumed reduced-stiffness scenario, not measured creep data.",
   "thickness_sensitivity": [

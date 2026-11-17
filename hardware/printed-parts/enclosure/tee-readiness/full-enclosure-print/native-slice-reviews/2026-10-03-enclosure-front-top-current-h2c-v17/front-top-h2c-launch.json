@@ -31,7 +31,7 @@
   },
   "estimated_part_time_s": 92685.421875,
   "native_review_manifest": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/manifest.json",
-  "native_review_commit": "0eaf2fe37a402cc09273b5d85830b5cdbd9c3452",
+  "native_review_commit": "cc617c352517b24885ea3c57ca63c46c8017bca2",
   "source_step_sha256": "cb45044df359205d55dafe6ad3a8f5e8f332eccb2cfe6ac708f3c913672541b6",
   "source_profile_sha256": "3864deceaa295d0fffded05e445b77ee926e2706d8765fdc8bbf81a23fe98697",
   "source_binding_scope": "Launch binds the verified frozen native STEP/STL and archive hashes to the committed native review; no geometry regeneration or source-export commit inference.",

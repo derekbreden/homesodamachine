@@ -65,4 +65,4 @@ The upstream fittings therefore sit at negative X.
 
 Builds its parts from their modules in-process, so only this one command:
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/asse1022-assembly/asse1022_assembly.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/asse1022-assembly/asse1022_assembly.py).

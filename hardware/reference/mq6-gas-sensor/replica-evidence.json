@@ -7,7 +7,7 @@
     "ledger": "hardware/ledger/purchases.md"
   },
   "retained_module_datums": {
-    "source_commit": "e993e2f1dc02e22f670f06dc5aecf0df14dcfe3d",
+    "source_commit": "e17a0af2f013231ec23eae5ffb712cb403ba5aa4",
     "source_path": "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
     "source_sha256": "ce1602bf172ebe8eabea1e30059a5efb7b20c4d73af6839811c80d7dfac1f2a7",
     "pcb_xyz_mm": [

@@ -1,6 +1,6 @@
 {
   "purpose": "Describe the missing interface on the frozen faucet curve and compare native contact generation at unchanged dense-interface settings.",
-  "source_project": "https://github.com/derekbreden/homesodamachine/blob/de202da37ef6b132a07fe1863b304381f4ccc394/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf",
+  "source_project": "https://github.com/derekbreden/homesodamachine/blob/7b4d4c7d87dda9db021665b2e7c7e255d996a39d/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf",
   "slicer_version": "02.08.02.61",
   "faucet_object_id": 1901,
   "requested_object_settings": {

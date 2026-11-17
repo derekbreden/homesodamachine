@@ -70,13 +70,13 @@ All 16 gaps and interface-layer counts are verified in `verification.json`.
 
 ## Files
 
-- [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/print-tests/petgf-support-interface/prepare.py) (in Git at `0a648015e0`) builds the labeled specimens and single-plate project with per-object settings.
+- [`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/e023e795b7/hardware/print-tests/petgf-support-interface/prepare.py) (in Git at `e023e795b7`) builds the labeled specimens and single-plate project with per-object settings.
 - `experiment.json` records dimensions, arrangement, recipe and source hashes.
 - `support-interface.3mf` is the editable project.
 - `verification.json` records the sliced settings, support paths and file hashes.
 - `print-job.json` records printer acceptance and the started job.
 
-Generate with [`tools/cad-venv/bin/python hardware/print-tests/petgf-support-interface/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-support-interface/prepare.py).
+Generate with [`tools/cad-venv/bin/python hardware/print-tests/petgf-support-interface/prepare.py`](https://github.com/derekbreden/homesodamachine/blob/e023e795b7fd8b3a395be374641d30984229e53b/hardware/print-tests/petgf-support-interface/prepare.py).
 
 The default tree setting selects organic support for this fixed-layer model.
 That implementation rounds the top gap into whole model layers: the baseline
@@ -84,4 +84,4 @@ That implementation rounds the top gap into whole model layers: the baseline
 [Bambu default-style selection](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/SupportParameters.hpp#L143),
 [Bambu gap rounding](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Support/TreeSupportCommon.hpp#L280).
 
-[`audit_gcode.py`](https://github.com/derekbreden/homesodamachine/blob/9884d0e7f4/hardware/print-tests/petgf-support-interface/audit_gcode.py), in Git at `9884d0e7f4`, audits the sliced file against `regions.json`.
+[`audit_gcode.py`](https://github.com/derekbreden/homesodamachine/blob/44191ff08b/hardware/print-tests/petgf-support-interface/audit_gcode.py), in Git at `44191ff08b`, audits the sliced file against `regions.json`.

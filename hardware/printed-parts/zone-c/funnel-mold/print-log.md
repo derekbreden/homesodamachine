@@ -113,7 +113,7 @@ surface lines. No surface-height, density or strength measurements accompany
 this report.
 
 This result belongs to the square-mouth cavity submitted on September 18 as
-`funnel-mold-04-standard-flow088-z018.gcode.3mf`, source commit `59e088d8d`.
+`funnel-mold-04-standard-flow088-z018.gcode.3mf`, source commit `a78f28d28`.
 The print used 0.88 flow and a 5.61702 mm³/s volumetric limit. Both settings
 changed from the 0.94 trial, and the emitted speeds differed. The result
 establishes an improvement for that combination; it does not isolate flow
@@ -127,8 +127,8 @@ The original supplied JPEG bytes are preserved; their hashes are in
 [print-jobs.json](print-jobs.json).
 
 The saved [funnel-mold.3mf](https://homesodamachine.com/print-archive/ec5bb28cafaf7b24f3af52fcb8c3377e78b1fa4f/funnel-mold.3mf) contains the **600 mL**
-rounded-mouth funnel's cavity and core from geometry commit `953dbfa68`.
-Its finished casting solid matched that commit's [`../funnel/funnel.py`](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/zone-c/funnel/funnel.py),
+rounded-mouth funnel's cavity and core from geometry commit `244508166`.
+Its finished casting solid matched that commit's [`../funnel/funnel.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/zone-c/funnel/funnel.py),
 with zero symmetric-difference volume after trimming that design's sacrificial tip.
 Both embedded meshes match the current STL files and retain their print
 orientations. The complete process, filament and machine settings equal
@@ -191,7 +191,7 @@ use Auto. At **2026-09-18 18:43:18 UTC** (13:43 CDT), the printer reports
 **RUNNING**, the correct `funnel-mold-04-standard-flow088-z018.gcode.3mf`
 filename, 642 layers, no print error and no HMS entry. Connect shows chamber
 cooling and the left nozzle heating toward 165 °C. The saved source is commit
-`59e088d8d`. The September 20 result is recorded above.
+`a78f28d28`. The September 20 result is recorded above.
 
 ## Reduced-flow 0.4 mm Standard trial — 2026-09-17
 
@@ -209,7 +209,7 @@ normal supports. The meshes, placements and support settings are unchanged.
 The global filament variant map is Standard, matching both plate assignments.
 The other stored filament variants retain 0.97.
 
-Fresh Bambu Studio 2.8.2.61 slices of the failed project in commit `9ccc619e7`
+Fresh Bambu Studio 2.8.2.61 slices of the failed project in commit `900ad704f`
 and this project each contain 642 layers. Layer 374 is Z47.24 mm in these
 reconstructed slices; support and model layers interleave, so multiplying 374
 by the nominal 0.24 mm layer height does not give its height. The original
@@ -219,7 +219,7 @@ The new cavity slice reports a 0.94 flow ratio, the left 0.4 mm Standard
 nozzle, and `G29.1 Z0.16` after the Textured PEI plate correction. Its estimate
 is 32 h 54 min 35 s and 719.38 g. The editable project contains no G-code;
 the sliced submission file is kept outside this folder.
-The flow audit in commit `ca28e9a7a` records identical model extrusion paths
+The flow audit in commit `afe024f6d` records identical model extrusion paths
 and the 3.09% reduction in model extrusion, including internal solid infill.
 
 Editable project SHA-256:
@@ -295,7 +295,7 @@ The project selects the left 0.8 mm High Flow nozzle, Textured PEI and the
 Standard, while the selected High Flow variant retains 0.97. The filament
 preset's name alone does not establish that this print uses 0.94.
 
-The embedded cavity/core meshes and their placements match commit `6eff076c1`.
+The embedded cavity/core meshes and their placements match commit `5a3686148`.
 The saved project contains no G-code. Print start is Derek's report; the
 submitted toolpaths and printer state were not independently read. Derek
 subsequently reported cancelling this retry.
@@ -340,7 +340,7 @@ a 30° threshold and may start on the model; top and bottom interfaces have
 two layers each. Support speed is 150 mm/s and interface speed is 80 mm/s.
 
 The embedded cavity/core meshes and placements are unchanged from the saved
-0.24 mm project in commit `1004b713a`. The six support settings above are the
+0.24 mm project in commit `fc703ee22`. The six support settings above are the
 only process changes. The archive contains no G-code; these are saved settings,
 not a record of emitted toolpaths or printer submission.
 
@@ -470,7 +470,7 @@ of this pair was not identified. No coated fit or casting result was reported.
 
 Mark2 reported `Funnel_mold_-_solid_cavity_and_core`, 304 layers, 18 h 59 min 7 s
 and 1,315.70 g. The reference project is `solid/solid-mold.3mf` at Git revision
-`46295bf93`, SHA-256
+`97c6b804d`, SHA-256
 `8019a34f5062a185253bfe8ae5b906343ed8e454f589b75de5106e647a5e1a50`.
 The device's title, layer count, time and mass match that archive; the printer's
 job bytes were not downloaded for comparison.

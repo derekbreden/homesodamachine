@@ -6,7 +6,7 @@
     "volume": "mm^3",
     "angle": "degrees"
   },
-  "source_commit": "3dc5416a8ec6d0b16eb18d157ab49c4c53fe8550",
+  "source_commit": "a048c3806963071919b2cf6b6e4c373e76bf6444",
   "change_gallery": "changes/2026-11-09-0213-grip-corbels",
   "measurement_scope": "One real construction-code change on the shared busy Mac. Discovery, agent review, compilation, geometry, publication and native slicing are included in request elapsed milestones. Action durations overlap and include lock waits and host contention; they are not CPU time. This is not a runtime-input benchmark.",
   "request_received_at": "2026-11-09T07:32:17.552Z",
@@ -758,7 +758,7 @@
   "native_print_verification": {
     "front_bottom": {
       "purpose": "This record verifies ordinary grip layers and native support locations for the final corbel slice.",
-      "git_head": "c8ce1f979747e90cb76714fd492ede0870729656",
+      "git_head": "dbc30a7b7514238c2f244fad5b5992be88a8b82d",
       "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
       "source_stl_sha256": "7eb9455df0f38d96e9edd78384e98b5ac11a2dbfbb43dacf7eab3a378d1360a6",
       "project_sha256": "4b99ceae062383f87663b4a856f0ad7cf073c99fede7ecf0116649820c659848",
@@ -916,7 +916,7 @@
     },
     "back_bottom": {
       "purpose": "This record verifies ordinary grip layers and native support locations for the final corbel slice.",
-      "git_head": "c8ce1f979747e90cb76714fd492ede0870729656",
+      "git_head": "dbc30a7b7514238c2f244fad5b5992be88a8b82d",
       "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
       "source_stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
       "project_sha256": "9daae635645b0b499836114126252755039801d734fb99a71fc1262529efcf11",

@@ -68,4 +68,4 @@ the complete maintenance routine.
 
 ## Accepted trial
 
-The [accepted trial record](https://github.com/derekbreden/homesodamachine/blob/05a3ada6274265e013d664ceeb34c6861f740c27/tools/h2c-purge/trial-v1/result.json) contains the printer telemetry and the user's confirmation of blob ejection with no printing on the plate. The loose blob can land on the plate. Tip cleanliness and prevention of idle-time extrusion overload remain unmeasured. The trial qualifies the documented nozzle and material configuration.
+The [accepted trial record](https://github.com/derekbreden/homesodamachine/blob/20eaf74acdbd5d962f1bfa69236bbb66c45a9c3a/tools/h2c-purge/trial-v1/result.json) contains the printer telemetry and the user's confirmation of blob ejection with no printing on the plate. The loose blob can land on the plate. Tip cleanliness and prevention of idle-time extrusion overload remain unmeasured. The trial qualifies the documented nozzle and material configuration.

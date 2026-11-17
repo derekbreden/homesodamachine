@@ -10,7 +10,7 @@
   "source_stl_sha256": {
     "body-aero": "63d12cbb501b629997a2462822df42a1f4f6bf20ee2806f2f6f310c1f7e72771"
   },
-  "source_commit": "f3cefbe360b7a8019741d177868d1e6c6770b93f",
+  "source_commit": "08a570ea9259bb64ecccd81760762dc72587acbc",
   "requested_z_trim_mm": 0.04,
   "emitted_z_trim_commands_mm": [
     0.0,

@@ -18,7 +18,7 @@
     "gcode_sha256": "e2ab678b5dbf281e00689afad6408a61b6397b0cfc3b4aaa2a8457ef77d2ac65",
     "gcode_bytes_unchanged": true,
     "resliced_for_launch": false,
-    "repository_snapshot_commit": "6cc45a11fa6e73c7167f9caa712b1c676ff276d4"
+    "repository_snapshot_commit": "b78ec6db2312cc880dfc5090377ebee08f20890f"
   },
   "submission": {
     "application": "Bambu Connect",

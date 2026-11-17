@@ -37,7 +37,7 @@ It is a nominal XY reading, not measured deposited material or proof of a
 through-floor leak. Scarf Z/flow ramps and molten spreading are outside its scope.
 The printed article supplies the sealing result.
 
-The [recorded footprint source](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/review_floor.py)
+The [recorded footprint source](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/review_floor.py)
 defines the saved floor-path picture and XY reading.
 
 Use the **most depleted matching spool first**, then work toward fuller spools.
@@ -73,6 +73,6 @@ examines closing those junctions while retaining walls-only construction.
 [Photograph and result](physical-result/physical-result.json) ·
 [Native seam/junction comparison](physical-result/seam-comparison.json).
 
-The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/7cf7b55608deefa5f3cae6bb20f83bce14ff706f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/prepare_launch.py) selects the reviewed plate and preserves its native G-code.
+The [recorded packaging source](https://github.com/derekbreden/homesodamachine/blob/e956573aab2a9329aadda1efed9a8f45e875fc8a/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/prepare_launch.py) selects the reviewed plate and preserves its native G-code.
 
-The [recorded source](https://github.com/derekbreden/homesodamachine/blob/e50eb3e4372a4d5b70248795469c02ed8d51d2d3/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/prepare_recipe.py) defines this artifact's preparation and reading.
+The [recorded source](https://github.com/derekbreden/homesodamachine/blob/651f0d96d5fb06c74aea20a49442740bdb2f191f/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/prepare_recipe.py) defines this artifact's preparation and reading.

@@ -96,7 +96,7 @@ The acquired [5-gallon chamber](../../../ledger/tools.md) is recorded with a
 **297.64 mm circle**, leaving **1.04 mm radial clearance**. With the specified
 M4 × 20 closure hardware it is about **73.35 mm high**. Use a catch tray no
 larger than 260 mm across and keep it clear of the breathers. The
-[chamber check](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/chamber-check.json) binds these dimensions to the native parts
+[chamber check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/chamber-check.json) binds these dimensions to the native parts
 and the acquired chamber record; physical insertion is not recorded.
 
 ## Print files and checks
@@ -134,7 +134,7 @@ binds the apron to its current source and assembly exports.
 
 The [physical print log](print-log.md), [October 6 slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
 [matching core launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
-[rod check](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/rod-check.json) and [closure check](https://github.com/derekbreden/homesodamachine/blob/fa658f2927cea008103ecb80685b65f879c2f2cb/hardware/printed-parts/zone-c/funnel-mold/containment-review.json) retain
+[rod check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/rod-check.json) and [closure check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/containment-review.json) retain
 their identified artifact scope.
 
 ```sh

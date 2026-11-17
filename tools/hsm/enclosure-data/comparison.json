@@ -138,7 +138,7 @@
       "new_schema_output_groups_exact": 8,
       "new_schema_python_adapter": "pass",
       "normal_build": "Not run; targeted scalar/recipe compatibility only.",
-      "original_layout_revision": "d6a0b281d",
+      "original_layout_revision": "1c6498164",
       "original_layout_sha256": "c3ce79ed97206b1012531fa6fab1bcda858da2251dbe360b3eb3e1138412726f",
       "release_build": "cargo build --release --locked --offline -p hsm-enclosure-data -j 2: pass",
       "result": "pass"
@@ -183,7 +183,7 @@
     "Python geometry builder and manual native review interfaces in these modules"
   ],
   "scope": "Enclosure leaf scalar interfaces, construction recipes, numerical readers and document reports. Existing Rust geometry programs consume these recipes.",
-  "source_revision": "d6a0b281d",
+  "source_revision": "1c6498164",
   "source_sha256": {
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": "23211d119a86655e3dd6a43def64c39b69c97203965ad367b8859e2a3156edb0",
     "hardware/printed-parts/enclosure/data-ring/data_ring.py": "08c94e801c970397f424d1caf3c96ee30489b4dda6718ec3d483165eb6af69a6",

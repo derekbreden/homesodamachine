@@ -37,6 +37,6 @@ damage. A fused mat with a clean-looking underside does not establish useful
 support removal. The first screen's spontaneous release is recorded in
 [`physical-result.json`](../physical-result.json).
 
-`coupons.rs` defines the labeled meshes in Rust. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-dense-roofs/close-contact/prepare.py) is archived in Git.
+`coupons.rs` defines the labeled meshes in Rust. The [plate preparation source](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-dense-roofs/close-contact/prepare.py) is archived in Git.
 The editable project is here; the accepted machine archive and launch receipt
 are in [`mark1/`](mark1/).

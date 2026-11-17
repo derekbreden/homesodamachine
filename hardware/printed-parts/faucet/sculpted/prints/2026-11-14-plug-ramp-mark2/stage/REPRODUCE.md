@@ -7,7 +7,7 @@ accepted by the printer.
 sculpted='hardware/printed-parts/faucet/sculpted'
 trial="$PWD/$sculpted/prints/2026-11-14-plug-ramp-mark2"
 stage="$trial/stage"
-flat='f5dee32108832f6d0e1f5c50dbb8f7fd5c30576e'
+flat='46b73353f6a2d910bdd5c82f3b3946adc4a84415'
 previous="$sculpted/prints/2026-11-14-tip-shoulder-mark2"
 shaft_store='ddd391f3d32bd8397f08b517ee58614fcd3e93ba:hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/stage'
 cad_py="$PWD/tools/cad-venv/bin/python"

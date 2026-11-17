@@ -42,7 +42,7 @@ The current recipes and rules are owned by these files, and the book's pages lin
 | PET-GF: recipe, cooling, supports | [`petgf.profile.json`](../printed-parts/petgf.profile.json) · [`cooling/README.md`](../printed-parts/cooling/README.md) · [`support-D-rollout.json`](../printed-parts/support-D-rollout.json) · [support-removal strategy](../printed-parts/enclosure/enclosure/README.md#support-removal-strategy) |
 | PET-GF faucets | [Industrial](../printed-parts/faucet/industrial/faucet-industrial-petgf.md) · [Sculpted](../printed-parts/faucet/sculpted/README.md) |
 | PETG: reservoirs and lids, the funnel cover, the molds | [`reservoir/README.md`](../printed-parts/cold-core/reservoir/README.md) · [`funnel-cover/README.md`](../printed-parts/zone-c/funnel-cover/README.md) · [`funnel-mold/print-log.md`](../printed-parts/zone-c/funnel-mold/print-log.md) |
-| TPU: the sleeve, gaskets, elbows | [`tpu-o-ring/README.md`](../printed-parts/faucet/tpu-o-ring/README.md) · [`gaskets-print-log.md`](../printed-parts/gaskets-print-log.md) · [`pump-elbow-exploration`](https://github.com/derekbreden/homesodamachine/blob/6f111aad9c1551e981aad21d4a69aed5ff7fb99c/future/pump-elbow-exploration/README.md) |
+| TPU: the sleeve, gaskets, elbows | [`tpu-o-ring/README.md`](../printed-parts/faucet/tpu-o-ring/README.md) · [`gaskets-print-log.md`](../printed-parts/gaskets-print-log.md) · [`pump-elbow-exploration`](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/README.md) |
 | ASA Aero: the float | [`all-aero/README.md`](../printed-parts/cold-core/magnetic-float/all-aero/README.md) |
 | The printers: runbook, first-layer trims, maintenance, what dries where | [`tools/bambu-printers.md`](../../tools/bambu-printers.md) · [`z-trim.md`](../printed-parts/z-trim.md) · [`tools/bambu-maintenance.md`](../../tools/bambu-maintenance.md) · [`ledger/tools.md`](../ledger/tools.md) |
 | What Derek has tried in hand, in his words | [`hardware/ledger/fitted.json`](../ledger/fitted.json) |
@@ -154,5 +154,5 @@ why clear PETG moved to a glued plate, and PETG's molds; reading back the file t
 - **Adding a page.** Start from one print: its date, printer, plastic, plate and nozzle, and a photograph. Say what happened, the rule
   it taught and how far that has been tested. Put it in its plastic's part and link the record.
 - **Where it came from.** The generator that drew the first pages, the brief its writers worked from and their research
-  are archived in Git at [`474d5e90c`](https://github.com/derekbreden/homesodamachine/tree/474d5e90c84781b467263a23998406cf1c72f61a/hardware/printing-the-machine/workshop).
+  are archived in Git at [`2a5689ee3`](https://github.com/derekbreden/homesodamachine/tree/2a5689ee3fabc4ca47dcec638bc1ac2fe7c1c96f/hardware/printing-the-machine/workshop).
   The pages here are edited directly.

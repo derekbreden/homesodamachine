@@ -4,7 +4,7 @@
   "geometry_snapshot": {
     "station": "carb",
     "word": "SODA",
-    "head": "7ce979614c6c39fa1e160f5c5bf9eb6ecea08839",
+    "head": "9ff52a2d9249570c5eb00a9288fec2a82da9b4b1",
     "sources": {
       "hardware/printed-parts/enclosure/bulkhead-ring/face-up-trial/raised_rings.py": {
         "working_sha256": "ef5f4a412425e55b400d8f09f81e6fa83e5942fdd61e9c6c737164ac6352fa5d",

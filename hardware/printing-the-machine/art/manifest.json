@@ -64,7 +64,7 @@
   "petcf-try-nine.jpg": {
    "kind": "Frame from the project's video of 10 May 2026, a photograph with the video's title drawn across the top",
    "source": "public/post-images/2026-05-10-faucet-shell-thumbnail.png",
-   "revision": "b100c064b",
+   "revision": "9aeb540bc",
    "max_px": 1700,
    "width_px": 897,
    "made_with": "magick auto-orient",
@@ -184,7 +184,7 @@
   "petgf-fits-wago-crack.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1/physical-result/IMG_8623.jpeg",
-   "revision": "cbd8efc66",
+   "revision": "cdc641bb3",
    "max_px": 2000,
    "width_px": 661,
    "made_with": "magick auto-orient",
@@ -194,7 +194,7 @@
   "petgf-fits-wago-rest.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1/physical-result/IMG_8624.jpeg",
-   "revision": "cbd8efc66",
+   "revision": "cdc641bb3",
    "max_px": 1700,
    "width_px": 480,
    "made_with": "magick auto-orient",
@@ -204,7 +204,7 @@
   "petgf-fits-wago-spread.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark1/physical-result/IMG_8625.jpeg",
-   "revision": "cbd8efc66",
+   "revision": "cdc641bb3",
    "max_px": 1700,
    "width_px": 480,
    "made_with": "magick auto-orient",
@@ -214,7 +214,7 @@
   "petgf-overhangs-tee-bed-round.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7842.jpeg",
-   "revision": "aab7f24fec",
+   "revision": "c693edfdd0",
    "max_px": 1700,
    "width_px": 950,
    "made_with": "magick auto-orient",
@@ -224,7 +224,7 @@
   "petgf-overhangs-tee-fan-off.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v12/IMG_7847.jpeg",
-   "revision": "aab7f24fec",
+   "revision": "c693edfdd0",
    "max_px": 1700,
    "width_px": 490,
    "made_with": "magick auto-orient",
@@ -234,7 +234,7 @@
   "petgf-overhangs-tee-top-round.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/tee-carrier/physical-observations/2026-09-24-v11/IMG_7844.jpeg",
-   "revision": "aab7f24fec",
+   "revision": "c693edfdd0",
    "max_px": 1700,
    "width_px": 743,
    "made_with": "magick auto-orient",
@@ -274,7 +274,7 @@
   "petgf-setup-melted-clip.jpg": {
    "kind": "Bench photograph",
    "source": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-photo-2.jpg",
-   "revision": "2f2d9c94a",
+   "revision": "1f49ea24e",
    "max_px": 2000,
    "width_px": 899,
    "made_with": "magick auto-orient",
@@ -364,7 +364,7 @@
   "petgf-supports-faucet-one-ring.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/photo-2.jpg",
-   "revision": "b388123d2",
+   "revision": "534b87cc5",
    "max_px": 1700,
    "width_px": 490,
    "made_with": "magick auto-orient",
@@ -374,7 +374,7 @@
   "petgf-supports-faucet-pried.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-mark1/physical-result/photo-4.jpg",
-   "revision": "1fe50e4ff",
+   "revision": "be19fb8a4",
    "max_px": 1700,
    "width_px": 490,
    "made_with": "magick auto-orient",
@@ -434,7 +434,7 @@
   "tpu-curled-lip.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/curl-left-edge.jpg",
-   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
+   "revision": "e59c4f46ec277160e3eba3883aac7b79aba253e3",
    "max_px": 1700,
    "width_px": 876,
    "made_with": "magick auto-orient",
@@ -454,7 +454,7 @@
   "tpu-elbow-ragged-edges.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/underside-sag-photo-1.jpg",
-   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
+   "revision": "e59c4f46ec277160e3eba3883aac7b79aba253e3",
    "max_px": 1700,
    "width_px": 739,
    "made_with": "magick auto-orient",
@@ -464,7 +464,7 @@
   "tpu-elbow-siraya-clean.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/finished-elbow-1.jpg",
-   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
+   "revision": "e59c4f46ec277160e3eba3883aac7b79aba253e3",
    "max_px": 1700,
    "width_px": 1108,
    "made_with": "magick auto-orient",
@@ -474,7 +474,7 @@
   "tpu-elbow-threads.jpg": {
    "kind": "Bench photograph",
    "source": "future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/result-photo.jpg",
-   "revision": "6f111aad9c1551e981aad21d4a69aed5ff7fb99c",
+   "revision": "e59c4f46ec277160e3eba3883aac7b79aba253e3",
    "max_px": 2000,
    "width_px": 631,
    "made_with": "magick auto-orient",
@@ -494,7 +494,7 @@
   "wago-roof-fell.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/front-top-wago-fit/2026-11-12-mark2/physical-result/IMG_8622.jpeg",
-   "revision": "a8f24b2b5",
+   "revision": "46e517081",
    "max_px": 1700,
    "width_px": 861,
    "made_with": "magick auto-orient",

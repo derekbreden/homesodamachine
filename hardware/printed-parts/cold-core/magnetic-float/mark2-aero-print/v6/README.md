@@ -34,7 +34,7 @@ startup printing-command differences associated with the plate selection.
 Every part printing command and every native geometry member is unchanged.
 Only progress estimates differ within the part program. Core and insert STL
 hashes remain `63d12cbb…` and `c69cdc55…`, bound to export commit
-`f3cefbe360b7a8019741d177868d1e6c6770b93f`. Full hashes are in the preflight.
+`08a570ea9259bb64ecccd81760762dc72587acbc`. Full hashes are in the preflight.
 
 The native estimate is about **1 h 57 min**, including the corner strip; actual
 heating, calibration and bed probing times vary. The native preview shows the
@@ -64,7 +64,7 @@ The next submission requires a new start request or clear-bed report after
 removing the completed print.
 
 - [Preflight and native comparison](pair-preflight.json)
-- [Native preparation](https://github.com/derekbreden/homesodamachine/blob/0a648015e0/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/prepare.py) (in Git at `0a648015e0`)
+- [Native preparation](https://github.com/derekbreden/homesodamachine/blob/e023e795b7/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/prepare.py) (in Git at `e023e795b7`)
 - [Queue](queue.json)
 - [Prior physical plate report](../v5/physical-observations.json)
 

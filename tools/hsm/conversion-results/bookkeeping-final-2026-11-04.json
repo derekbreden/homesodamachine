@@ -1,6 +1,6 @@
 {
   "date": "2026-11-04",
-  "baseline_source_revision": "c646ae72a9a85d253ded1679fe0fd598a2499ee5",
+  "baseline_source_revision": "79dad036fc7bffeabe25d3f43051e185b998181b",
   "baseline_python_sha256": {
     "tools/bazel/sync_tree.py": "43ad7d51c1554737285efd3e5a9393c0777b8b650eb3b5ae64bcc8b059fcff78",
     "tools/bazel/affected.py": "f7131b600ae167d13a859ae10cad2b6d14dee3b8bd6fe39d53c7c715fd09d987",

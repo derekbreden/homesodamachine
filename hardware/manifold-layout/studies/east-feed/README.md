@@ -92,4 +92,4 @@ reservoir routes, final WAGO positions and production-pack migration remain
 deferred. Valve seats, relays, rear fittings and the gas path retain their
 wall-supported poses.
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/manifold-layout/studies/east-feed/study.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/studies/east-feed/study.py).

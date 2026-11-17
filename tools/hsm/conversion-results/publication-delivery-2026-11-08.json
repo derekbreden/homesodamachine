@@ -1,7 +1,7 @@
 {
   "purpose": "This record compares useful progressive scene publication, delivery timing and coalesced publisher work on the live website.",
-  "source_commit": "d29ecaa5fa054a5bf503c1283941d2c87a4cbd69",
-  "baseline_print_build_commit": "742f27f6f48fbff0c641815c3fed0d69b0e4e091",
+  "source_commit": "dccc4edeae59013173d3976ec899b39acad0ac0e",
+  "baseline_print_build_commit": "130ba0466c9a7acb86bac6163e12a9b29af5012b",
   "baseline_print_build_sha256": "21a149c73e2f58a877e0ae74e86347315caac7957f43a844a85fc7805fecc75b",
   "measurement_scope": "The observer is loaded before each reversible runtime-input edit. Before trials use the committed print_build implementation from the baseline revision; optimized trials use the current normal entry point. Geometry programs, camera selection and rendering code remain the same. Before and reverse trials edit the same inputs in opposite directions; wire-after-idle repeats the forward edit after logical-start spacing has elapsed. These are observed samples, not distribution estimates.",
   "delivery_scope": "Website change-event receipt follows server adoption and includes transport to the reference browser. Last notification to eligible matching WebGL draw includes browser loading and mounting. Server internal phase durations and unobstructed pixels are not established.",

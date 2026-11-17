@@ -25,7 +25,7 @@
   },
   "native_full_slice_gcode_sha256": "bf4abe1c50c535c5f83caf8a322734539c5a1d1c6c36ccdcfbf0a6e033de3626",
   "native_tip_donor_gcode_sha256": "6602a18a62cc5fb0a98d33fe993e0d7ec82b70c0ec578f72034e50f769b4a71e",
-  "exact_companion_paths_source_commit": "f5dee32108832f6d0e1f5c50dbb8f7fd5c30576e",
+  "exact_companion_paths_source_commit": "46b73353f6a2d910bdd5c82f3b3946adc4a84415",
   "exact_companion_paths_archive_sha256": "24b4d562ebc6d136b4cc0e7fd4431cfd1eee42e36a376a6f4aa8b453b4d2ac85",
   "exact_companion_paths_gcode_sha256": "de1ed31c0a8f690d415cd1701c0404ab0e97b6cc46ce39342d143c5a3ab50d02",
   "standing_preparer_projects_byte_equal": {

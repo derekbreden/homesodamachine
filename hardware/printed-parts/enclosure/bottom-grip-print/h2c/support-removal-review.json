@@ -27,6 +27,6 @@
     }
   ],
   "exterior_transition_contact_roads": 0,
-  "geometry_integration_commit": "c0be387fe",
+  "geometry_integration_commit": "062361828",
   "review_basis": "Actual labelled and unlabelled support toolpaths; production geometry and accepted receiver slot bridge prints."
 }

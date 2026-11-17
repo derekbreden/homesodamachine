@@ -160,10 +160,10 @@ part of this evidence; a result is not a universal PET-GF bridge limit.
 ## Manual reproduction
 
 Run
-[`tools/cad-venv/bin/python hardware/print-tests/petgf-fins/short-spans-v2/make_plate.py`](https://github.com/derekbreden/homesodamachine/blob/0a648015e07ed6ea7eb962ec559e0a836c3a4439/hardware/print-tests/petgf-fins/short-spans-v2/make_plate.py)
+[`tools/cad-venv/bin/python hardware/print-tests/petgf-fins/short-spans-v2/make_plate.py`](https://github.com/derekbreden/homesodamachine/blob/e023e795b7fd8b3a395be374641d30984229e53b/hardware/print-tests/petgf-fins/short-spans-v2/make_plate.py)
 from the repository root. Slice each `.3mf` with the installed Bambu Studio using
 `--arrange 0 --orient 0 --slice 0` and an absolute output directory.
-The [slice inspection](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/inspect_slice.py) and [landing trace](https://github.com/derekbreden/homesodamachine/blob/d24b111b5d10e1eed4574db786e5ae1d0b96d445/hardware/print-tests/petgf-fins/short-spans-v2/trace_landing.py) sources are archived in Git.
+The [slice inspection](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-fins/short-spans-v2/inspect_slice.py) and [landing trace](https://github.com/derekbreden/homesodamachine/blob/22a3f0d2e5ab3d0f06018a8fb12baea51ba14578/hardware/print-tests/petgf-fins/short-spans-v2/trace_landing.py) sources are archived in Git.
 
 Use the documented [saved-slice print submission](../../../../tools/bambu-printers.md#bambu-studio-send-from-an-existing-slice)
 with Timelapse On, Bed Leveling On, Flow Dynamics Calibration Auto and Nozzle

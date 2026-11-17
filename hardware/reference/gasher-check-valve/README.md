@@ -34,4 +34,4 @@ Terminals: `inlet()` (socket mouth) and `outlet()` (stub end), each
 
 ## Model inputs
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/a518a57a878f02d9ac5b8b638c1c5883cadf6669/hardware/reference/gasher-check-valve/gasher_check_valve.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/gasher-check-valve/gasher_check_valve.py).

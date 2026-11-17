@@ -3,7 +3,7 @@
   "created_utc": "2026-10-28T16:57:20.856346+00:00",
   "scope": "Manual post-publication classification of the shared flavor roof snaps at Y354 and Y390. Existing complete lint output was read; geometry lint and CAD were not rerun. Only the existing 4mm C2 spring answer entry and this receipt changed.",
   "published_context": {
-    "source_commit": "a33f36f062b0cf1259792013f255f0b37fdc1123",
+    "source_commit": "eb69ca2160e3002898d8e5b539f263bd2a6ef093",
     "primary_native_sha256": "593d13874cb902ce14696a0fe062a0a99093e9e9fd7766746960adf1d1197754",
     "back_top_step_sha256": "8974d38f391b349b6bb7d17903b3e7a531cfb10441703982948bc1c7f9a3285f"
   },

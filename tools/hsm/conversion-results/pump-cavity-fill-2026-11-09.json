@@ -1,6 +1,6 @@
 {
   "purpose": "This on-demand record measures a source-authored pump-retainer cavity fill from request through live display and focused geometry review.",
-  "source_commit": "a17db6087c36c2c59f5a1bdc92c1e09d14387048",
+  "source_commit": "9233d78fb73424fd037a0c80933c32f0018d0d44",
   "request": {
     "received_at": "2026-11-10T00:52:43.130Z",
     "words": "The work we need to do, the next change, is filling in a cavity here that does not appear to have a purpose."

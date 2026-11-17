@@ -4,8 +4,8 @@
   "performed_at_utc": "2026-10-27T07:51:24.306739+00:00",
   "publication": {
     "live_confirmation": "Parent confirmed live adoption before this run.",
-    "source_commit": "8c5eb27e7bb12e96802f71b8ac88eae2f04f2545",
-    "pointer_commit": "d6a6525f0e8a60fc5087ab4a1ed7db60756fcc0a",
+    "source_commit": "e9b2012fd54f787de5f0649d8d693f8e1bbd47f7",
+    "pointer_commit": "5009a43d70fc4419998e07d1078b49ba2120c8b7",
     "appliance_payload": "manifold-layout/enclosure-assembly.step.mesh",
     "live_payload_source_sha256": "e7e55c199893f12b8af8323ef9bf87bfeda92ec327c730ad49e09ba6f3098193",
     "live_mesh_count": 562,

@@ -193,7 +193,7 @@
       "part_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "d9068b52c4d06c85507421ecfcd8d3e19e5812153583715b0fdc7662f2bee379"
       },
-      "geometry_commit": "23b6861cd6c5b04f2c7ef59d8e95dd38612ddfaa",
+      "geometry_commit": "5c635a0a13657b4f01890d5d29ca7d56915837fc",
       "z_offset_mm": 0.04,
       "effective_textured_plate_trim_mm": 0.02,
       "nozzle": "left 0.4 mm Standard",
@@ -264,7 +264,7 @@
       "part_sha256": {
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "c4e3c41c0990168bbe596208df8175704560b28b0f0f81ac4f77c9f02c59a672"
       },
-      "geometry_commit": "330a8a3681aee37ad189642e997c633bd0ccb687",
+      "geometry_commit": "955f47ad209d6a12a9d866963d79f9b7c690dd2a",
       "z_offset_mm": 0.04,
       "effective_textured_plate_trim_mm": 0.02,
       "nozzle": "left 0.4 mm Standard",
@@ -340,7 +340,7 @@
         "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-left.stl": "fba0ccdc767bb9c14a41d27868cc19a8112b93b397c4acc265f60d561e4302e0",
         "hardware/printed-parts/enclosure/tee-carrier/enclosure-tee-carrier-right.stl": "06a37899492d49aed8f82789812848b24fe3df98f6aec4dabf9cb9c83356c9e4"
       },
-      "geometry_commit": "7d77a3abb2576eac832c551f3047fff671ddf138",
+      "geometry_commit": "830f95764d5f2dadf8107e0f257050fd7455c7a4",
       "z_offset_mm": 0.04,
       "effective_textured_plate_trim_mm": 0.02,
       "nozzle": "left 0.4 mm Standard",
@@ -421,7 +421,7 @@
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "0d15e6177dc405b0631415cc331a4e43acbf1a4cf627012e38a766964a3cb216"
       },
       "part_sha256_note": "The STL as sliced. The tree's copy hashes 9de3c25bc0efe2deef22805f35d9dc8c75ba116c18313d9ee8c2af98ed05d5f3.",
-      "geometry_commit": "f8f3965595e4e799ce0b2aff281b55f665202318",
+      "geometry_commit": "a177214f22f75473490416ba37ad20785ffae116",
       "z_offset_mm": 0.18,
       "effective_textured_plate_trim_mm": 0.16,
       "nozzle": "left 0.4 mm (sliced as Standard; the head carries the 0.4 mm diamond PCD)",

@@ -1,7 +1,7 @@
 {
   "schema": "hsm-kernel-shell-print-review/1",
   "scope": "Commanded paths and bead envelopes for the exact Rust shell STL, using the accepted Mark2 PET-GF recipe and finite solid M5 host/wall-root regions. Physical force, fit, cleanup and lifetime are not measured by this slice.",
-  "geometry_source_commit": "96ebe13f5",
+  "geometry_source_commit": "cc04aca85",
   "physical_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
   "physical_stl_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
   "step_sha256": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
@@ -615,7 +615,7 @@
   },
   "post_publication_surface_review": {
     "scope": "All seven geometry-lint classes on the exact published Rust shell STL. Current answer anchors bind the picks in the retained reading.",
-    "publication_commit": "13ae299537210d03e8248504704eae3eae005895",
+    "publication_commit": "9f3c2a2792fadfa6224d64a8eacbb2ec25495daa",
     "physical_stl_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
     "reader": "hardware/scripts/geometry_lint.py",
     "reader_sha256": "bb7b1fa42e8d2985671eb2ebce6610074e65b6e2a22e5f014e498885ebfb030d",

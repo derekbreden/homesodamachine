@@ -1,7 +1,7 @@
 {
   "scope": "Post-publication review of the five revised caps; classifications are task-specific, not a new gate. Native geometry and slice checks do not qualify physical hand force or fatigue.",
-  "source_commit": "67944ae32",
-  "publication_commit": "e1c24d40a",
+  "source_commit": "0cdb001df",
+  "publication_commit": "cc6006320",
   "report": "geometry-lint.txt",
   "changes": "Finite screwdriver-purchase noses above the centered entries; the water-regulator central bearing ends before the outlet release-collet shoulder.",
   "specified_features": [

@@ -272,6 +272,6 @@
     }
   },
   "print_release_status": "HSM-0081 rear top running on Mark2, job 1410263719, with no reported errors.",
-  "source_revision": "bee47bcd7",
+  "source_revision": "0db6c9b02",
   "print_record": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/print-job.json"
 }

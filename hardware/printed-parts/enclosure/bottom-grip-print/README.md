@@ -5,8 +5,8 @@ inner corner returns retain the saved automatic Tree/Default support decisions.
 The exterior R6 transition uses the additive 0.24 mm treatment with six local walls and
 its existing show-surface support exclusion. The first layer is 0.20 mm.
 
-[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/bottom-grip-print/prepare.py) (in Git at `306268f870`) builds a fresh immutable project from the production bottom STL and invokes
-Bambu Studio's slicer. [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/enclosure/bottom-grip-print/verify.py) (in Git at `306268f870`) reads the exact archive, source hashes, layer/wall bands,
+[`prepare.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/enclosure/bottom-grip-print/prepare.py) (in Git at `15bf03ec45`) builds a fresh immutable project from the production bottom STL and invokes
+Bambu Studio's slicer. [`verify.py`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/enclosure/bottom-grip-print/verify.py) (in Git at `15bf03ec45`) reads the exact archive, source hashes, layer/wall bands,
 bead overlap, exterior support clearance and plate margins. Preparation does not establish
 support cleanup, finger comfort or load capacity. The current integral handholds have no
 physical acceptance for those properties.
@@ -14,7 +14,7 @@ physical acceptance for those properties.
 The stored [H2C](h2c/preflight.json) and [Mark2](mark2/preflight.json) reviews and their
 launch receipts bind the receiver-cut geometry identified in each record. Their grip-wing
 support exclusions and bridge checks apply only to those source meshes. The
-[receiver/cover coupon result](https://github.com/derekbreden/homesodamachine/blob/d8d50f9a54222ccd40bc1e74111d2d87d893fa78/hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json) retains its scope.
+[receiver/cover coupon result](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/grip-cover/physical-acceptance.json) retains its scope.
 
 The shared [`petgf.3mf`](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf) supplies temperatures, speeds, wall order,
 15% infill overlap and automatic tree supports. The production layer bands and complete

@@ -46,10 +46,10 @@
   "cold_core": {
     "observation": "Blind tube insertion below the reservoir is too tight. Passive passages must be larger than the tube.",
     "latest_logged_success_date": "2026-05-31",
-    "geometry_commit": "7cd497027",
+    "geometry_commit": "d894d9938",
     "small_passage_diameter_at_logged_source_mm": 6.5,
     "record": "hardware/printed-parts/cold-core/foam-shell/print-log.md",
-    "success_record_commit": "56c4d179be",
+    "success_record_commit": "800b9bde6f",
     "measured_tube_od_mm": 6.5,
     "passive_passage_diameter_mm": 7.5,
     "gripping_fits": "Use their own part dimensions: faucet, organizer, copper-plug seats and PRV tube socket.",
@@ -75,7 +75,7 @@
   },
   "other_agent_review": {
     "session": "Screw lengths for C14/Meanwell/PCB enclosure",
-    "commit": "8a8083b1055d4d158d92320eab32987e5a201622",
+    "commit": "341cca099dd17ec3289dd2079a880c73d1ddfe07",
     "reviewed_scope": "Screw-length and documentation changes; no terminal, C14 or cold-core clearance correction in that commit.",
     "manufacturer_crosscheck": "IRM-90 ST mechanical drawing dimensions the mounting ears at 6.7 mm. The existing screw-length selection is retained."
   },

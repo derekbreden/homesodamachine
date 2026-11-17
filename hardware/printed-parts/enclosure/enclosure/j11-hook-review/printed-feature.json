@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "scope": "Post-publication manual reading of the printed front-bottom, with the new J11 hook findings identified by their exact pick anchors.",
-  "published_pointer_commit": "ca07276ae281a0351d49a299627fb64911d9a018",
+  "published_pointer_commit": "1ef747906545461cc62d15e4ae8ed1d6bc9c2ed9",
   "stl_sha256": "d131b22b420e376edb74cd6be9038234b5b1c54309511302f594888062e3361b",
   "print_axis_world": [
     0,

@@ -85,7 +85,7 @@
   "geometry": {
     "picked_face": "enclosure-front-bottom::collet-plate-lands",
     "pick_xyz_mm": [92.232, 85.974, 160.0],
-    "change_commit": "b2155b1777cff562e234929f64fbc88c5a84838b",
+    "change_commit": "38912696d329797d26fa3a803a152f8d00278a50",
     "nominal_gap_before_mm": 0.25,
     "nominal_gap_after_mm": 0.5,
     "gap_on_seam_shoulders_after_mm": 0.25,

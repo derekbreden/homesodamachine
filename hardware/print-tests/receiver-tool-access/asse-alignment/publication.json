@@ -1,5 +1,5 @@
 {
-  "source_commit": "91e61d6f09bf475c9b0b038594f5db5ae8a92b43",
+  "source_commit": "049718fd9559fd40a1cbe4790739de55569639c8",
   "scope": "The raised ASSE adapter and matching cap cavity, continuous rear receiver bases, five native assemblies, installed machine scene and matching installation views. The front cartridge pry geometry and its currently printing front shell are unchanged.",
   "members": {
     "hardware/assembly/scenes/glb/back-half.glb": "eb77b93d78deb753b2d244a6440b04c12a8d5b09ede36f0377a8dd6d17110574",

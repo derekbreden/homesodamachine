@@ -66,7 +66,7 @@ filament preset are captured in the preflight records.
 
 This is physical trial **v1** and native archive revision **v2**. The geometry
 and print orientations are bound to export commit
-`f3cefbe360b7a8019741d177868d1e6c6770b93f`. Embedded mesh vertices agree with
+`08a570ea9259bb64ecccd81760762dc72587acbc`. Embedded mesh vertices agree with
 the frozen STLs to less than 0.000001 mm. The source snapshot hashes are
 verified against that commit.
 
@@ -86,7 +86,7 @@ results and are not established by these slice checks.
 - [Insert preflight and frozen archive/G-code hashes](insert-preflight.json)
 - [Core launch and printer acceptance](core-mark2-launch.json)
 - [Queue and removal gate](queue.json)
-- [Preparation and emitted-path checks](https://github.com/derekbreden/homesodamachine/blob/306268f870/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v1/prepare.py) (in Git at `306268f870`)
+- [Preparation and emitted-path checks](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45/hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v1/prepare.py) (in Git at `15bf03ec45`)
 
 ![Core native preview](core-preview.png)
 

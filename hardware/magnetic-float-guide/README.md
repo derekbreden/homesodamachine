@@ -42,7 +42,7 @@ tools/run hsm-manual-guides bind magnetic-float-guide
 [HTML templates](templates/) from the current design, integration, print recipe
 and physical records. The rod figures come from their owning native providers.
 The artwork is committed here.
-The [archived illustration source](https://github.com/derekbreden/homesodamachine/blob/7877f6193ead05647b529972ee9f50de305c8d44/tools/magnetic-float-guide/float_art.py)
+The [archived illustration source](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/tools/magnetic-float-guide/float_art.py)
 records the source solids and coral motion cues of the committed artwork.
 [The native binder](../../tools/hsm/manual-guides/src/html.rs) checks the current
 design revision and illustration dimensions against the artwork record,

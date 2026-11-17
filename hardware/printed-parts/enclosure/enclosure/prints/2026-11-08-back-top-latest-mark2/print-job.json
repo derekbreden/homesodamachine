@@ -9,7 +9,7 @@
   "material": "Polymaker Fiberon PET-GF15, black",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
   "source_stl_sha256": "c3f7666a64fdee92767becc4f09009602d3ad1149887c47aec5a0e9addc298c1",
-  "prepared_from_revision": "6b1f8c22a9d9f9e76e9fb6dba666730418fb68af",
+  "prepared_from_revision": "138e7151d42190e424666868119afe4058744250",
   "peer_confirmation": {
     "thread_title": "Fit",
     "thread_id": "01a19503-4047-7cf0-ad82-9e42d010912e",

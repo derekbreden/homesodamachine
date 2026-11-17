@@ -107,7 +107,7 @@ recorded in the [bridge transfer study](../2026-10-14-bridge-transfer/README.md)
 ## Manual reproduction
 
 From the repository root, run
-[`tools/cad-venv/bin/python hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/prepare.py grip`](https://github.com/derekbreden/homesodamachine/blob/306268f870dccc55f5a3a9044669904f1cd360cb/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/prepare.py).
+[`tools/cad-venv/bin/python hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/prepare.py grip`](https://github.com/derekbreden/homesodamachine/blob/15bf03ec45f7b0c2c3632c7a9152b81e75e8ac90/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/prepare.py).
 The script expects the recorded engine pin at `.cache/support-fins-faucet`,
 creates its separate modified copy, builds both conditions, preserves the
 native slice and refuses to overwrite a launched experiment. Review and package

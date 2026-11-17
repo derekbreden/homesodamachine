@@ -3,7 +3,7 @@
   "scope": "Straight 2.4 mm radius, 80 mm long driver envelopes above the 7.4 mm lid face at all ten M5 closure axes, measured against the current printed lid and integral pump clip. Separate equipment and a purchased tool are outside this measurement.",
   "physical_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
   "physical_stl_sha256": "f24c17a1834784b3917672483c3b8e0a14350479e96793998dbe024a38da5275",
-  "pointer_checked_at_commit": "4e3f4d0e1ee55708a2e15992880a16c307b405f2",
+  "pointer_checked_at_commit": "a44b747be918357250b349a4d1b2e1a800977613",
   "watertight": true,
   "connected_components": 1,
   "lid_native_top_face_z_mm": 7.4,

@@ -1,7 +1,7 @@
 {
   "purpose": "Retain the tower-free taller-lead-in regulator comparison print and its physical-review state.",
-  "source_revision": "e64b598607703b6ea7b96064a94c8ccd6b44a3dc",
-  "geometry_source_revision": "a48121052",
+  "source_revision": "575c4462042b4599539eacd5309527f8d8b961a7",
+  "geometry_source_revision": "00ac36db3",
   "prepared_spec_sha256": "5d6d759f5ce9f754f8eaa11f26c5f56b81e1f89b2c8289122ffd5840021d69db",
   "recipe": "regulator-entry-comparison",
   "printer": "Mark2",

@@ -1,5 +1,5 @@
 {
-  "source_commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+  "source_commit": "73f5851a043c4166176397de50da5c676f47dc5a",
   "scope": "Production cartridge springs and enclosure receivers, including both full assemblies in the seated pose; declared Box and unrelated body arrays and pointer rows preserved.",
   "members": {
     "hardware/manifold-layout/enclosure-assembly.step": "863511bd5dafc96953974a4a7cdbb0c2e3071013ff4751a8c7d47f95638014fb",
@@ -17,57 +17,57 @@
   },
   "made": {
     "hardware/manifold-layout/enclosure-assembly.step": {
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": {
       "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": {
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
       "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": {
       "inputs": "774793ace0e223b9cabc7bdccea24405b2daecdee165f2ad7523a02da0b1f943",
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh": {
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl": {
       "inputs": "774793ace0e223b9cabc7bdccea24405b2daecdee165f2ad7523a02da0b1f943",
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step": {
       "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer-seated.step.mesh": {
       "inputs": "3c2d27641d236e6faa671dc8a6400c1c873dc70e541bec5c60cb2bc01d5f89c6",
-      "commit": "ab91e74339fa0b5d974602270a9d2cbd4157e88e",
+      "commit": "73f5851a043c4166176397de50da5c676f47dc5a",
       "unproven": true
     }
   },
