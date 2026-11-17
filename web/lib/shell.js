@@ -1,5 +1,5 @@
 // Shared HTML shell for every server-rendered page (landing, parts
-// viewer, charts viewer, settings). One source of truth for:
+// viewer, settings). One source of truth for:
 //   - <head> meta tags, font loading, manifest, icons, theme color
 //   - The :root CSS variables (palette tokens shared with the iOS app and
 //     enclosure display — same brand hues as Theme.swift)
@@ -9,7 +9,7 @@
 //     anywhere else that wants the same delightful slide).
 //
 // All primary links are icon-only (Home included), and every page carries the
-// same set: Home, Latest, Parts, Charts, Guides, Boards, Cost, then the bell
+// same set: Home, Latest, Parts, Guides, Boards, Cost, then the bell
 // and the gear. Latest is where Changes and Updates both begin.
 //
 // Render flow:
@@ -20,7 +20,7 @@ import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
-import { PARTS_SVG, CHARTS_SVG, GUIDES_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, GUIDES_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 // The check verdict the site is showing — `public/checks.json`, written by
 // `repo-tools checks --json` and pinned by `repo-tools checks-now` when requested.
@@ -428,9 +428,7 @@ ${pageHead}
 `;
 }
 
-// Nav glyphs — shared with the notifications page via lib/icons.js so
-// kind=step / kind=mermaid rows in /notifications use the same cube and
-// bar-chart icons as the Parts / Charts nav items.
+// Navigation and notifications share the glyphs in lib/icons.js.
 
 // Layout: every primary link is icon-only — Home included — so the nav fits a
 // phone PWA viewport without overflow. (Adding Boards, and now Cost, to a row
@@ -490,7 +488,6 @@ export function renderNav({ active = null } = {}) {
     // anywhere in either feed.
     { href: "/latest", name: "latest", label: "Latest", svg: LATEST_SVG, also: ["updates", "changes"] },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
-    { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/guides", name: "guides", label: "Guides", svg: GUIDES_SVG },
     { href: "/pcb", name: "pcb", label: "Boards", svg: PCB_SVG },
     { href: "/cost", name: "cost", label: "Cost", svg: DOLLAR_SVG },

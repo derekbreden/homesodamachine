@@ -102,7 +102,7 @@ tree needs no edit here.
 
 ## Conventions (enforced in code, no shared module)
 
-- **legacy redirects** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings` → 301. `web/lib/viewer-pages.js`.
+- **legacy redirects** `/dev`, `/dev/settings`, `/drawings` → 301. `web/lib/viewer-pages.js`.
 - **explicit build selection** — `web/scripts/build-deps.js` reads native program declarations,
   inputs and outputs from `tools/hsm/build-plan/graph.json` and `tools/hsm/build-plan/inventory.json`.
   It selects producer targets and their dependents for requested builds.

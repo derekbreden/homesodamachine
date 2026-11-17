@@ -1,10 +1,7 @@
 // PanZoom — vanilla pan + pinch-zoom + wheel-zoom for any element.
 //
-// Generalized from the mermaid detail view in
-// lib/templates/viewer-body.html. Same pinch math (anchor at
-// the gesture midpoint, recompute pan so that midpoint stays put), same
-// pointer state machine, just wrapped so the caller controls the target and
-// container.
+// Pinching keeps the content under the gesture midpoint in place. The caller
+// supplies the target element and its container.
 //
 // Usage:
 //   const pz = PanZoom.wrap(el, {

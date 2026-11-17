@@ -19,15 +19,14 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   `VIEWER_DEFAULTS` ReferenceError took down a deploy before commit
   8611dfa), `npm test` fails immediately.
 - **Route surface.** Every GET that doesn't require a database — landing,
-  /3d, /charts, /settings, the JSON APIs (`/api/steps`,
-  `/api/dxf`, `/api/mermaid`, `/api/firebase-config`), the three service
+  `/3d`, `/settings`, the JSON APIs (`/api/steps`,
+  `/api/dxf`, `/api/firebase-config`), the three service
   worker URLs, the favicons + apple-touch-icon, and every static JS file
   imported by an HTML surface. Status code + Content-Type prefix.
-- **Legacy redirects.** `/dev`, `/dev/diagrams`, `/dev/mermaid`,
-  `/dev/settings` still 301 to their new homes.
+- **Legacy redirects.** `/dev`, `/dev/settings` and `/drawings` return 301 redirects.
 - **WebSocket.** `/ws` accepts a connection and receives a `hello`
   frame carrying a `commit` field on connect.
-- **File passthroughs.** `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*`
+- **File passthroughs.** `/steps/*` and `/dxfs/*`
   each probe one real file from the tree (skipped if the tree happens
   to be empty for that extension).
 - **Contracts.** `picks-schema`, `sidecar`, `scorecard-sidecar`,

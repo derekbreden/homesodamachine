@@ -1,6 +1,6 @@
 # web-hardware
 
-This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`: the viewers for the design files (STEP, DXF, PCB, mermaid, print sheets), the picker, live reload, and phone-push it has today. Point the package at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout stay behind in the shell and a config the package takes; it carries none of them. Anyone can run it against their own hardware project.
+This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`. It includes the design viewers for STEP, DXF, PCB and print sheets along with the picker, live reload and phone notifications. The package takes a directory of hardware files, an HTML shell and configuration for branding, routes and layout. Anyone can run it against their own hardware project.
 
 `web/` runs on this package and keeps every behavior it has now.
 
@@ -29,6 +29,6 @@ The threads below reach past that surface — couplings that live outside `web/`
 
 - **Content root.** `hardware/`. [`server.js`](/web/server.js), [`viewer-routes.js`](/web/lib/viewer-routes.js).
 
-- **Old deep links resolve.** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings`. [`viewer-pages.js`](/web/lib/viewer-pages.js).
+- **Old deep links resolve.** `/dev`, `/dev/settings` and `/drawings`. [`viewer-pages.js`](/web/lib/viewer-pages.js).
 
 - **dev and prod differ in two places.** The commit signal, and the skipped boot push diff. Routes match. [`server.js`](/web/server.js), [`smoke.test.js`](/web/tests/smoke.test.js).

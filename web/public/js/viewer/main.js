@@ -33,7 +33,7 @@ window.__hsm = {
 };
 
 function setupNav() {
-  // The shell already renders the nav with absolute hrefs (/3d, /charts,
+  // The shell already renders the nav with absolute hrefs (/3d, /pcb,
   // /guides); this just sets the active class for client-side
   // navigation cases.
   const section = currentSection();
@@ -43,7 +43,6 @@ function setupNav() {
 
   const titleMap = {
     parts: "Parts · Home Soda Machine",
-    charts: "Charts · Home Soda Machine",
     guides: "Guides · Home Soda Machine",
     pcb: "Boards · Home Soda Machine",
   };
@@ -51,9 +50,8 @@ function setupNav() {
 }
 
 export async function fetchFiles(catalog = loadMaterialCatalog()) {
-  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp, objResp] = await Promise.all([
+  const [stepResp, dxfResp, pcbResp, glbResp, docResp, objResp] = await Promise.all([
     fetch("/api/steps"),
-    fetch("/api/mermaid"),
     fetch("/api/dxf"),
     fetch("/api/pcb"),
     fetch("/api/glbs"),
@@ -70,7 +68,6 @@ export async function fetchFiles(catalog = loadMaterialCatalog()) {
   } catch { /* the site's own routes answer for every model */ }
   state.allFiles = (await stepResp.json()).sort();
   state.glbFiles = (await glbResp.json()).sort();
-  state.mmdFiles = (await mmdResp.json()).sort();
   // PCB boards arrive pre-sorted from the server (by source path).
   state.pcbBoards = await pcbResp.json();
   // Documents arrive sorted by title from the server.

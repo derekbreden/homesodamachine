@@ -6,7 +6,7 @@
 // then removes the worktree no matter what.
 //
 // The point: when --at <date> is given to a render tool, the *source
-// artifact* (STEP / mermaid file) should be the version that existed on
+// artifact* should be the version that existed on
 // that date — but the *tooling* (server.js, viewer-body.html, the render
 // pipeline itself) should still be HEAD's. The worktree only supplies the
 // historical bytes; the renderer reads them via the live tools.

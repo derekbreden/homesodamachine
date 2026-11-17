@@ -1,8 +1,4 @@
-// Reset button + minimap + chrome-aware fit for the 2D PanZoom modal surfaces
-// (mermaid, drawings, assembly cards, boards). The 3D STEP/DXF surface has its
-// own reset (cad-detail.js' makeResetViewButton, which lerps the camera) and
-// the ViewCube gizmo for orientation; this module is the 2D analog so the two
-// surfaces feel equivalent.
+// Reset button, minimap and chrome-aware fit for the board viewer.
 //
 // makeResetButton(pz, { transformKey, refit }) — a bottom-right "Reset view"
 //   button that fits the content and clears the saved transform so a

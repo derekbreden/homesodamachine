@@ -455,7 +455,7 @@ function openChecksModal(wrapper, picks) {
 
 // --- Thumbnail ---
 // The card thumbnail is the Overlay view SVG, scaled by its container. Cached as
-// a string (matches drawings/mermaid; keeps the grid cache shape uniform).
+// a string for the grid thumbnail cache.
 export async function renderPcbThumbnail(source) {
   if (state.pcbThumbCache.has(source)) return state.pcbThumbCache.get(source);
   const board = boardForSource(source);
@@ -601,7 +601,7 @@ export async function openPcbDetail(source, pushHistory = true) {
   if (picks && picks.pads && picks.pads.length) wrapper.appendChild(makePadPickToggle());
 
   // Publish the open-modal context, then build the first view synchronously —
-  // before ContentViewer.open (the proven mermaid/drawings order). Mounting
+  // before ContentViewer.open. Mounting
   // here rather than in onOpen keeps the SVG + PanZoom out of reach of the
   // singleton-close path, which fires the prior modal's onClose during open.
   state.currentPcbSource = source;

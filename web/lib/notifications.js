@@ -277,8 +277,6 @@ function renderNotificationsPage() {
     return d + "d ago";
   }
 
-  // Glyphs come from the server-rendered lib/icons.js source of truth so
-  // the cube / chart icons stay in sync with the Parts / Charts nav.
   var iconSvgByKind = ${JSON.stringify(NOTIF_ICON_BY_KIND)};
   function iconSvg(kind) {
     return iconSvgByKind[kind] || iconSvgByKind.default;

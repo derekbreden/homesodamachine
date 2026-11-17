@@ -27,7 +27,6 @@ import {
   initPush,
   mountPushRoutes,
   detectChangedSteps,
-  detectChangedMermaid,
   detectChangedDxf,
   detectChangedDocuments,
   detectChangedPcb,
@@ -332,14 +331,13 @@ export async function start({ port, hardwareDir } = {}) {
   if (deployed) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid, changedDxf, changedDocuments, changedPcb] = await Promise.all([
+        const [changedSteps, changedDxf, changedDocuments, changedPcb] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
-          detectChangedMermaid(HARDWARE_DIR),
           detectChangedDxf(HARDWARE_DIR),
           detectChangedDocuments(HARDWARE_DIR),
           detectChangedPcb(HARDWARE_DIR),
         ]);
-        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDocuments, ...changedPcb];
+        const changedFiles = [...changedSteps, ...changedDxf, ...changedDocuments, ...changedPcb];
 
         if (changedFiles.length === 0) return;
 
@@ -367,8 +365,7 @@ export async function start({ port, hardwareDir } = {}) {
       setRecent,
       commit,
       hardwareDir: HARDWARE_DIR,
-      detect: [detectChangedSteps, detectChangedMermaid, detectChangedDxf,
-               detectChangedDocuments, detectChangedPcb],
+      detect: [detectChangedSteps, detectChangedDxf, detectChangedDocuments, detectChangedPcb],
     });
   }
 

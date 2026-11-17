@@ -1,17 +1,12 @@
-// Card grid for the four viewer pages. Path drives which section renders.
-// Model and chart cards lazy-load their thumbnails and open their detail modal.
-// Guide cards link to PDFs and show committed covers on /guides.
-//
-// /3d presents description search, the two product units and their tooling.
-// The other three pages group by a path segment.
+// The viewer path picks a shelf of parts, guides or boards. Model and board
+// cards load thumbnails near the viewport and open their detail modal.
 
 import { state } from "./state.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
 // edit runs fresh code; thumbnail renderers stay from the modules (static).
-import { openMmdDetail, openPcbDetail } from "./detail-shims.js";
+import { openPcbDetail } from "./detail-shims.js";
 import { buildPartsSection, syncFaucetCard } from "./parts.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
-import { renderMmdThumbnail } from "./mermaid.js";
 import { isMounted, windowContent, markupThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail, forgetThumbnail } from "./step.js";
@@ -101,68 +96,6 @@ window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, () => {
   }
 });
 
-// Subsystem grouping for the charts grid. Files under
-// printed-parts/<subsystem>/... or cut-parts/<subsystem>/... bucket by
-// <subsystem>; anything else buckets by its top-level path segment
-// (charts live in topology/ and wiring/, so those are their groups).
-// Categories sort alphabetically. Within a group the card's `dir` label
-// drops the redundant subsystem prefix so the leaf folder reads cleanly
-// under the subheader.
-function categoryAndPartPath(file) {
-  const parts = file.split("/");
-  const filename = parts.pop();
-  let category, partPath;
-  if ((parts[0] === "printed-parts" || parts[0] === "cut-parts") && parts.length > 1) {
-    category = parts[1];
-    partPath = parts.slice(2).join("/");
-  } else {
-    category = parts[0] || "";
-    partPath = parts.slice(1).join("/");
-  }
-  return { category, partPath, filename };
-}
-
-function titleCaseCategory(s) {
-  return s.replace(/[-_]/g, " ")
-    .split(" ")
-    .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
-    .join(" ");
-}
-
-function groupFilesByCategory(files) {
-  const groups = new Map();
-  for (const f of files) {
-    const { category } = categoryAndPartPath(f);
-    if (!groups.has(category)) groups.set(category, []);
-    groups.get(category).push(f);
-  }
-  return new Map([...groups.entries()].sort(([a], [b]) => a.localeCompare(b)));
-}
-
-// Append a sequence of [subsection-header, card, card, ...] groups to
-// gridEl, one group per category returned by groupFilesByCategory.
-// Caller supplies the thumbnail markup and the click handler.
-function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
-  for (const [category, group] of groupFilesByCategory(files)) {
-    const sub = document.createElement("div");
-    sub.className = "subsection-header";
-    sub.textContent = titleCaseCategory(category);
-    state.gridEl.appendChild(sub);
-    for (const file of group) {
-      const { partPath, filename } = categoryAndPartPath(file);
-      const name = filename.replace(ext, "");
-      const card = document.createElement("div");
-      card.className = "card";
-      card.dataset.file = file;
-      card.dataset.type = type;
-      const dir = partPath ? `<span class="dir">${partPath}</span>` : "";
-      card.innerHTML = `${thumbnailHtml(file)}<div class="label card-caption">${dir}<span class="name-row"><span class="name">${name}</span></span></div>`;
-      card.addEventListener("click", () => onClick(file));
-      state.gridEl.appendChild(card);
-    }
-  }
-}
-
 // Guides — the PDFs this site hands over whole (/api/documents,
 // web/contracts/documents.js), less the engineering drawings: a drawing is a
 // document some material tags `engineering-drawing`, and that material's panel
@@ -245,7 +178,6 @@ function buildGuidesSection() {
 // grid renders.
 export function currentSection() {
   const tail = location.pathname.replace(/\/$/, "");
-  if (tail === "/charts") return "charts";
   if (tail === "/guides") return "guides";
   if (tail === "/pcb") return "pcb";
   return "parts";
@@ -277,22 +209,6 @@ export function buildGrid() {
       buildPartsSection(state.gridEl, {
         steps: state.allFiles, dxfs: state.dxfFiles, glbs: state.glbFiles,
       });
-    }
-  }
-
-  if (section === "charts") {
-    // Same subsystem grouping as Prints/Cuts, applied to mermaid files.
-    // Charts live in hardware/topology/ and hardware/wiring/ rather than
-    // under printed-parts/cut-parts, so categoryAndPartPath buckets them
-    // by their top-level segment ("topology", "wiring", ...).
-    const mmdThumb = (file) => `<div class="mmd-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
-    if (state.mmdFiles.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No charts yet.";
-      state.gridEl.appendChild(empty);
-    } else {
-      renderGroupedCards({ files: state.mmdFiles, ext: ".mmd", type: "mmd", thumbnailHtml: mmdThumb, onClick: openMmdDetail });
     }
   }
 
@@ -351,7 +267,6 @@ export function buildGrid() {
         card.querySelector("img")?.removeAttribute("src");
       },
     },
-    mmd: markupThumb({ hostSelector: ".mmd-thumb", render: renderMmdThumbnail }),
     pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
   };
 

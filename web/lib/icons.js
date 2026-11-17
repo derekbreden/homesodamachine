@@ -8,7 +8,6 @@ import { iconSvg } from "../contracts/icons.js";
 // Shell nav glyphs.
 export const HOME_SVG      = iconSvg("home");
 export const PARTS_SVG     = iconSvg("cube");
-export const CHARTS_SVG    = iconSvg("chart");
 export const GUIDES_SVG    = iconSvg("book");
 export const PCB_SVG       = iconSvg("cpu");
 export const DOLLAR_SVG    = iconSvg("dollar");
@@ -21,7 +20,6 @@ export const BELL_SVG      = iconSvg("bell");
 const NOTIF_KIND_TO_INNER = {
   step:    "cube",
   dxf:     "scissors",
-  mermaid: "chart",
   drawing: "pencil",
   pcb:     "cpu",
   card:    "clipboard",
@@ -36,7 +34,6 @@ export function notifIconSvg(kind) {
 export const NOTIF_ICON_BY_KIND = {
   step:    notifIconSvg("step"),
   dxf:     notifIconSvg("dxf"),
-  mermaid: notifIconSvg("mermaid"),
   drawing: notifIconSvg("drawing"),
   pcb:     notifIconSvg("pcb"),
   card:    notifIconSvg("card"),

@@ -1,16 +1,10 @@
-// Viewer pages render the machine catalogs.
-// /3d (parts — prints + cuts), /charts
-// (mermaid diagrams), /guides (guide PDFs), and /pcb (board views). These catalogs
-// share the same body fragment (lib/templates/viewer-body.html), which decides
-// what to render based on location.pathname. The server picks the page title and
-// active nav item based on which route was hit; everything else is in the
-// fragment.
+// The parts, guides and boards pages share lib/templates/viewer-body.html.
+// The server renders the page title and navigation. The viewer uses the path
+// to pick the catalog it renders.
 //
 // Old route layout (pre-rename, kept as 301 redirects so prior FCM
 // notification deep links and bookmarks still land somewhere):
 //   /dev          → /3d
-//   /dev/diagrams → /charts
-//   /dev/mermaid  → /charts
 //   /dev/settings → /settings
 //   /drawings     → /guides (the printed guides carry homesodamachine.com/drawings)
 //
@@ -31,14 +25,12 @@ function readFragment(name) {
 
 const TITLES = {
   parts: "Parts · Home Soda Machine",
-  charts: "Charts · Home Soda Machine",
   guides: "Guides · Home Soda Machine",
   pcb: "Boards · Home Soda Machine",
 };
 
 const INTRO = {
   parts: { eyebrow: "Parts", title: "Explore the machine.", description: "The soda machine, the faucet, and the tools that bring them together. Open a model to explore its parts and documents." },
-  charts: { eyebrow: "Charts", title: "How it all connects.", description: "Plumbing, wiring, and control diagrams for the machine." },
   guides: { title: "Guides", description: "Assembly instructions and shop references." },
   pcb: { eyebrow: "Boards", title: "The circuit boards.", description: "Explore the electronics that control the machine and the faucet." },
 };
@@ -67,7 +59,6 @@ export function mountViewerPages(app) {
 
   // Express's default `strict: false` routing makes /3d and /3d/ equivalent.
   app.get("/3d", renderPage("parts"));
-  app.get("/charts", renderPage("charts"));
   app.get("/guides", renderPage("guides"));
   app.get("/pcb", renderPage("pcb"));
 
@@ -83,7 +74,5 @@ export function mountViewerPages(app) {
   app.get("/dev", movedTo("/3d"));
   app.get("/dev/", movedTo("/3d"));
   app.get("/drawings", movedTo("/guides"));
-  app.get("/dev/diagrams", (_req, res) => res.redirect(301, "/charts"));
-  app.get("/dev/mermaid", (_req, res) => res.redirect(301, "/charts"));
   app.get("/dev/settings", (_req, res) => res.redirect(301, "/settings"));
 }

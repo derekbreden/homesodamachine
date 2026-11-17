@@ -77,7 +77,6 @@ body.site-interior { background: var(--site-paper); }
   padding: clamp(2rem, 4vw, 3.5rem) calc(env(safe-area-inset-right, 0px) + var(--site-gutter)) calc(env(safe-area-inset-bottom, 0px) + 5rem) calc(env(safe-area-inset-left, 0px) + var(--site-gutter));
   grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 1.75rem;
 }
-.site-viewer-charts #grid.site-content { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .site-content .material-search { max-width: 46rem; margin-bottom: .5rem; }
 .site-content .material-search label { font-size: .8125rem; font-weight: 500; gap: .75rem; }
 .site-content .material-search input { border-radius: 5px; padding: 1rem; font-size: 1rem; font-weight: 400; }
@@ -99,8 +98,7 @@ body.site-interior { background: var(--site-paper); }
 .site-content .card-assembly .assembly-note { font: .6875rem/1.6 ui-monospace, monospace; color: var(--text-3); }
 .site-content .assembly-bom-link { margin: 0; min-height: 44px; padding: .6rem 0; font-size: .75rem; }
 .site-content .faucet-card-options { color: var(--text-2); font-size: .75rem; }
-.site-content .subsection-header, .site-content .section-header { font-size: .75rem; font-weight: 500; letter-spacing: .075em; opacity: 1; margin-top: 1rem; padding-block: .75rem; }
-.site-content .card .mmd-thumb { background: var(--brand-navy); border-radius: 5px; padding: 1rem; }
+.site-content .section-header { font-size: .75rem; font-weight: 500; letter-spacing: .075em; opacity: 1; margin-top: 1rem; padding-block: .75rem; }
 .site-content .card .pcb-thumb { border-radius: 5px; }
 .site-content .doc-shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
 .document-empty { grid-column: 1 / -1; }
@@ -217,7 +215,6 @@ body.site-interior { background: var(--site-paper); }
   .site-eyebrow { font-size: .6875rem; margin-bottom: .875rem; }
   .site-lede { font-size: .9375rem; margin-top: 1rem; }
   #grid.site-content { gap: 1.25rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .site-viewer-charts #grid.site-content { grid-template-columns: minmax(0, 1fr); }
   .site-content .assembly-row, .site-content .doc-shelf { grid-template-columns: 1fr; gap: 2rem; }
   .site-content .card-assembly .label .name { font-size: 1.25rem; }
   .site-content .card .card-caption { font-size: .8125rem; }

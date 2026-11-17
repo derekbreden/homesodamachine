@@ -94,9 +94,8 @@ export function windowContent({ elements, mount, unmount }) {
 
 const PLACEHOLDER = `<div class="placeholder">loading...</div>`;
 
-// Hosts whose content is markup dropped into a wrapper (mermaid, line art, PCB
-// views). Releasing means putting the placeholder back — the rendered string
-// stays in its per-kind cache, so coming back is a re-parse with no refetch.
+// Releasing a board thumbnail puts the placeholder back. The rendered markup
+// stays cached for when the card returns to the viewport.
 //
 // Every render is async, so a card can be released (or released and mounted
 // again) while its render is still in flight. Each mount takes a token and only

@@ -23,10 +23,7 @@ import {
 // Non-CAD detail kinds resolve their open/close through detail-shims.js so a
 // viewer-code edit is picked up (open re-imports fresh; close is the static,
 // synchronous teardown — see detail-shims.js).
-import {
-  openMmdDetail, closeMmdDetail,
-  openPcbDetail, closePcbDetail,
-} from "./detail-shims.js";
+import { openPcbDetail, closePcbDetail } from "./detail-shims.js";
 import { routeToStep, parseStepHash, stepFind } from "./step-nav.js";
 import { findWhenMounted } from "./pick-find.js";
 import { openMaterial } from "./material-nav.js";
@@ -37,8 +34,8 @@ const decodeHash = (s) => { try { return decodeURIComponent(s); } catch { return
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
-const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "pcb:": "pcb" };
-const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, pcb: openPcbDetail };
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "pcb:": "pcb" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, pcb: openPcbDetail };
 
 // WHAT A HASH NAMES, read once for both surfaces below. A `step:` hash carries
 // the whole walk and is split before it is decoded; every other kind is one file
@@ -109,11 +106,9 @@ window.addEventListener("popstate", () => {
     openMaterial(want.material, false, want);
     return;
   }
-  // Close whatever is currently open (cad / mmd / pcb close paths differ
-  // because mmd and pcb use PanZoom while step/dxf use the Three.js scene).
+  // Close the open workspace with its own teardown.
   if (state.currentDetail) {
-    if (state.currentDetail.type === "mmd") closeMmdDetail(false);
-    else if (state.currentDetail.type === "pcb") closePcbDetail(false);
+    if (state.currentDetail.type === "pcb") closePcbDetail(false);
     else if (state.currentDetail.type === "material") { state.currentDetail = null; ContentViewer.close(); }
     else closeCadDetail(false);
   }
@@ -128,7 +123,7 @@ window.addEventListener("popstate", () => {
 
 // Extension → the surface a `?file=` link opens. Anything the table does not
 // name is a STEP, which is what a hand-written link and every render tool pass.
-const FILE_KINDS = { ".mmd": "mmd", ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" };
+const FILE_KINDS = { ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" };
 const stepTarget = ({ instance, find }) => instance ? { instance } : find ? { find } : null;
 
 export function applyInitialRoute() {

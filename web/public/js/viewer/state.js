@@ -6,11 +6,10 @@
 // the file-scope `let` it replaces.
 //
 // At most one detail surface is open at a time (parts viewer is modal):
-//   currentDetail = { type: "step"|"dxf"|"mmd"|"pcb", file } | null
+//   currentDetail = { type: "step"|"dxf"|"glb"|"pcb"|"material", file } | null
 //   mountedDetail = { type: "step"|"dxf",       file } | null
 // "current" tracks which file the modal is presenting; "mounted" tracks
-// which file is actually loaded into the shared Three.js scene (only
-// step+dxf use the scene; mmd renders separately via PanZoom). The two
+// which file is actually loaded into the shared Three.js scene. The two
 // can briefly disagree during a load — the current file is set first
 // so popstate handlers see the new state, then the loader populates
 // the scene and updates mounted to match.
@@ -20,17 +19,12 @@ export const state = {
   materialPanel: null,      // active companion panel's select / sync / dispose handle
   dismissViewerRoute: false, // the next history pop ends a dismissed viewer walk
   allFiles: [],       // STEP files (paths)
-  mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files
   glbFiles: [],       // GLB assemblies (board 3D models)
   pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay, inners, picks}
   documents: [],      // PDFs the site hands over whole: {path, title, subtitle, pages, cover, bytes} (contracts/documents.js)
   currentDetail: null,
   mountedDetail: null,
-  currentMmdContent: null,
-  currentMmdWrapper: null,    // host div inside the modal (PanZoom container)
-  currentMmdPz: null,         // PanZoom handle for currentMmdWrapper
-  currentMmdMinimap: null,    // Minimap handle (pan-zoom-extras.makeMinimap)
   currentPcbSource: null,     // source path of the open board
   currentPcbViews: null,      // {top,bottom,overlay,inner1,…} SVG text for the open board
   currentPcbView: null,       // which view is showing ("top"|"bottom"|"overlay"|"inner1"…)
@@ -52,7 +46,6 @@ export const state = {
   autoHiddenComponents: new Set(), // obstructions hidden around the current selection
   autoHiddenFile: null,
   thumbnailCache: new Map(),  // "<STEP file>@<square px>[@<faucet finish>]" -> dataURL
-  mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
   memberUrls: new Map(),      // file -> the store's URL for its bytes (/api/objects), when there is one
   memberLoaded: new Map(),    // file -> the store URL last loaded, which is the hash of what is on screen
@@ -69,5 +62,4 @@ export const state = {
                               // here (not module-local) so it stays unique across a hot re-import of
                               // pcb.js — a reset counter would re-issue "__b1" and collide with a grid
                               // card's ids (the mask-clearance bug pcb.js's uniquifySvgIds guards).
-  mmdRenderSeq: 0,            // same, for mermaid.js's transient render ids.
 };
