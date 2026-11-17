@@ -447,6 +447,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | <!--purchase:pur-918df672831a4c4e95c0e052eb0bb356--> BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | 112-8492724-3195462 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-a02ce33a2d984d9fbea615cbad793ab3--> MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft coil — fixed hot and DC conductors. $11.99 item price + $0.87 allocated tax | [B0FK5HH8H1](https://www.amazon.com/dp/B0FK5HH8H1) | 1 (25 ft) | $12.86 | 114-8768578-0217027 | 2026-10-17 | 2026-10-19 | ACQUIRED |
 | <!--purchase:pur-91bd3b099e80493ab591655550b439ca--> MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft coil — fixed AC neutral conductors. $11.99 item price + $0.87 allocated tax | [B0FK5G1Q1J](https://www.amazon.com/dp/B0FK5G1Q1J) | 1 (25 ft) | $12.86 | 114-8768578-0217027 | 2026-10-17 | 2026-10-18 | ACQUIRED |
+| <!--purchase:pur-0460bfe098504c85bbbf043b1d7a5bb0--> MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — AC-1 earth link. $11.99 item + $0.87 estimated tax, free shipping | [B0FK5JHQW7](https://www.amazon.com/dp/B0FK5JHQW7) | 1 (25 ft) | $12.86 | 112-6794186-7953808 | 2026-11-16 | — | ON-ORDER |
 | <!--purchase:pur-395e856bb32044f180d8c0f6ef913ef4--> HS 6" zip ties, black, 18 lb tensile, nylon PA66 UV-resistant, 100-pack — harness/cable management | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | 1 pk (100) | $6.42 | 112-7522816-0777851 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | <!--purchase:pur-f1d4b8acb6c84ea08eea6c8722eea66a--> TANTTI 4" zip ties, black, 18 lb tensile, nylon 66 UV-resistant, stated 0.1" across the strap, 200-pack — cabinet cable management and the narrow tube-anchor ties | [B0BC1VH4XB](https://www.amazon.com/dp/B0BC1VH4XB) | 1 pk (200) | $4.28 | 112-5463509-3741018 | 2026-08-10 | 2026-08-11 | ACQUIRED |
 | <!--purchase:pur-0027ab81640e4a45a75713c0f82c2f79--> TANTTI 8" zip ties, black, 50 lb tensile, nylon 66 UV-resistant, stated 0.19" across the strap, 100-pack — the two zip ties that shut the ASSE anchor's mouth on the Multiplex barrel, whose 105 mm loop passes what a 4" closes. That 0.19" is `enclosure.tie_wide_w`, and `tie_cav_wide_w` is the cavity cut for it — the one wide one on the box | [B08BKSHJ93](https://www.amazon.com/dp/B08BKSHJ93) | 1 pk (100) | $5.35 | 112-8079907-6555421 | 2026-08-10 | 2026-08-11 | ACQUIRED |
@@ -854,7 +855,6 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 |---|---|
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 | **DIN 6797A M3 external-tooth washer, A2 stainless, 0.4 mm** | Conditional purchase: first verify the M3 washer in the acquired IEAWISL assortment against this specification. One per carbonator upper-rim earth clamp. [BelMetric WSE3SS](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS): 3.2 mm ID × 6 mm OD, $0.06 each before shipping/tax, in stock November 10. Not recorded as acquired. [Attachment procedure](/hardware/assembly/pressure-vessel.md#upper-rim-earth-bond). |
-| **Green 16 AWG solid UL1007 wire** | Open conductor purchase for AC-1. The [unit-one shopping list](/hardware/ledger/unit-1-shopping.md) records the per-build cut and spool option. |
 | **BenchPro Kennedy mobile workbench, 96 × 48 in, 1¾ in maple butcher-block top, gray (KW4896 LP 30-36 CL5-UB-Gray)** | Garage table for kit photos, moving large assemblies and general work. 30–36 in adjustable height, 1,200 lb capacity, four 5 in locking casters. $2,299 plus freight at [Global Industrial](https://www.globalindustrial.com/p/kennedy-mobile-workbench-96-x-48-maple-butcher-block-top-gray), ships in 15 business days. |
 | **hykolity 4 ft LED shop light, 5000K, 4-pack (×5, 20 lights)** | Garage ceiling: three rows of six, 2¼, 9.4 and 16½ ft from the back wall, two lights spare. 4,400 lm and 42 W each, six linked to one plug; 756 W for all eighteen. The three ceiling light boxes take receptacles in place of their lampholders: the middle row plugs into the middle box, and the back and front rows each take a new ceiling receptacle fed from a box. $40.84 a 4-pack, $204.20 for five, Amazon Prime, [B06XGBKDKZ](https://www.amazon.com/dp/B06XGBKDKZ). |
 
@@ -867,17 +867,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$43,473.52](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$50,193.03](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$518.56](LEDGER_ON_ORDER) |
+| ON-ORDER | [$531.42](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,764.66](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,777.52](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$29,134.79](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,646.79](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,659.65](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

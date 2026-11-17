@@ -3578,19 +3578,20 @@
     },
     {
       "id": "solid16-green",
-      "name": "Green 16 AWG solid tinned-copper UL1007 hookup wire",
+      "name": "MECCANIXITY green 16 AWG solid tinned-copper UL1007 hookup wire",
       "unit": "m",
-      "href": null,
+      "href": "https://www.amazon.com/dp/B0FK5JHQW7",
       "onHand": 0,
-      "incoming": 0,
+      "incoming": 7.62,
       "reserved": 0,
       "estimated": false,
       "asOf": "2026-11-17",
       "basis": "unknown",
-      "note": "AC-1 earth link between the inlet solder tab and PE WAGO. Green solid wire remains to source.",
+      "note": "One 25 ft coil on order for the AC-1 earth link. Receipt is pending.",
       "sources": [
         {
-          "path": "hardware/ledger/unit-1-shopping.md"
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-0460bfe098504c85bbbf043b1d7a5bb0"
         }
       ]
     }
