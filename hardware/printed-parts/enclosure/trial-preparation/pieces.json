@@ -1905,15 +1905,49 @@
               "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
             }
           }
+        },
+        {
+          "name": "collet-press",
+          "stl": "hardware/printed-parts/collet-press/collet-press.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "6",
+              "reason": "The collet-press recipe uses structural perimeters through the fork and handle."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The shipped press has a solid core."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Retain the collet-press recipe's continuous solid fill."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The rising fork is self-supporting in its exported pose."
+            },
+            "brim_type": {
+              "value": "no_brim",
+              "reason": "The full underside of the handle bears on the plate."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "The accessory plate runs shallow overhang walls at their own speed."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "The accessory plate runs shallow overhang walls at their own speed."
+            }
+          }
         }
       ],
-      "pose_reason": "Each part keeps the pose of the piece that prints it alone: the caps stand on an axial end as exported, the display cover lies on its flat back with the counterbores up, the pump retainers stand on their Y-minus end, the fill guide and the soda bend holder lie on their D backs, the elbow cradle stands on its bottom and the umbilical organizer stands on its flat bottom face with its passages vertical.",
+      "pose_reason": "The caps stand on an axial end, the display cover lies on its flat back with the counterbores up, the pump retainers stand on their Y-minus end, the fill guide and soda bend holder lie on their D backs, the elbow cradle stands on its bottom, the umbilical organizer stands with its passages vertical and the collet press rests on its flat handle.",
       "spacing_mm": 15,
       "plate_border_mm": 22.0,
       "plate_offset_mm": {
         "value": [
           0.0,
-          -40.0
+          -28.0
         ],
         "reason": "Hold the parts toward the front so the back middle of the bed stays clear for the slicer's safe timelapse snapshot, every bead well inside the unseasoned outer plate."
       },
