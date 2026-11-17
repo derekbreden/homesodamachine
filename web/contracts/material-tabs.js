@@ -11,10 +11,11 @@ export function materialTab(value) {
   return Object.hasOwn(sections, value) ? sections[value] : { tab: tabs.has(value) ? value : null, section: null };
 }
 
-export function materialHash(id, { tab = null, panel = null, instance = null } = {}) {
+export function materialHash(id, { tab = null, panel = null, instance = null, view = null } = {}) {
   const query = new URLSearchParams();
   if (materialTab(tab).tab) query.set("tab", tab);
   if (panel === "materials") query.set("panel", panel);
   if (instance) query.set("instance", instance);
+  if (view === "pcb") query.set("view", view);
   return "material:" + encodeURIComponent(id) + (query.size ? "?" + query : "");
 }

@@ -62,25 +62,37 @@ function settled(page) {
   });
 }
 
-test("/pcb view toggle exposes inner copper planes in stack order", async (t) => {
+test("the board material loads PCB code and layers when requested", async (t) => {
+  const boards = await fetch(`${baseUrl}/api/pcb`).then(r => r.json());
+  const board = boards.find(b => b.source === "pcb/pcba/pcba.tsx" && b.inners?.length);
+  if (!board) return t.skip("control board layers are unavailable");
+
   const page = await browser.newPage();
   try {
-    await page.goto(`${baseUrl}/pcb`, { waitUntil: "domcontentloaded" });
+    const requests = [];
+    page.on("request", req => {
+      const { pathname } = new URL(req.url());
+      if (/^\/api\/pcb(?:$|-)|\/pcb[^/]*\.js$|\/pan-zoom[^/]*\.js$|\/pcb\.css$/.test(pathname)) {
+        requests.push(pathname);
+      }
+    });
+    await page.setViewport({ width: 1440, height: 900 });
+    await page.goto(`${baseUrl}/3d#material:HSM-0048`, { waitUntil: "domcontentloaded" });
+    await page.waitForSelector(".material-view-switch button:last-child", { visible: true });
+    await page.waitForFunction(() => window.__hsm?.mountedStepFile === "printed-parts/electronics/pcba-tray/pcba-board.step"
+      && window.__hsm.currentGroup);
+    await settled(page);
+    assert.deepEqual(requests, []);
+    const canvas = await page.$("canvas.cad-viewport");
+    assert.equal(await page.$eval(".material-view-switch button:last-child", button => button.textContent), "PCB");
+    assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
 
-    // Find a multi-layer board (one /api/pcb advertises inner planes for).
-    const board = await page.evaluate(() =>
-      fetch("/api/pcb").then((r) => r.json()).then((b) => b.find((x) => x.inners && x.inners.length)),
-    );
-    if (!board) return t.skip("no board with inner planes");
-
-    await page.evaluate((src) => {
-      location.hash = "pcb:" + encodeURIComponent(src);
-    }, board.source);
+    await page.click(".material-view-switch button:last-child");
     await page.waitForSelector(".pcb-view-toggle .pcb-view-btn", { timeout: 10_000 });
+    for (const path of ["/js/viewer/pcb.js", "/css/pcb.css", "/api/pcb", "/api/pcb-content/" + board.overlay]) {
+      assert.ok(requests.includes(path), `opening the PCB view should request ${path}`);
+    }
 
-    // The toggle's order is the physical stack: Top → inner planes → Bottom →
-    // Overlay, then any solder-mask views as adjuncts at the end. Inner + mask keys
-    // come from the board's own fields.
     const views = await page.$$eval(".pcb-view-toggle .pcb-view-btn", (els) =>
       els.map((e) => e.dataset.view),
     );
@@ -88,11 +100,21 @@ test("/pcb view toggle exposes inner copper planes in stack order", async (t) =>
     const maskKeys = ["topmask", "bottommask"].filter((k) => board[k]);
     assert.deepEqual(views, ["top", ...innerKeys, "bottom", "overlay", ...maskKeys]);
 
-    // Clicking an inner button activates it.
     const firstInner = innerKeys[0];
     await page.click(`.pcb-view-btn[data-view="${firstInner}"]`);
     const active = await page.$eval(".pcb-view-btn.active", (e) => e.dataset.view);
     assert.equal(active, firstInner, "clicked inner button should become active");
+
+    await page.click(".materials-toggle");
+    await page.waitForFunction(() => {
+      const pane = document.querySelector(".material-pcb-view").getBoundingClientRect();
+      const board = document.querySelector(".pcb-svg").getBoundingClientRect();
+      return board.width > 0 && board.left >= pane.left - 1 && board.right <= pane.right + 1
+        && Math.abs((board.left + board.right) - (pane.left + pane.right)) < 2;
+    });
+    await page.click(".material-view-switch button:first-child");
+    assert.equal(await page.$(".material-pcb-view"), null);
+    assert.equal(await canvas.evaluate(node => node === document.querySelector("canvas.cad-viewport")), true);
   } finally {
     await page.close().catch(() => {});
   }

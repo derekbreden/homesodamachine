@@ -1,58 +1,11 @@
-// Shared HTML shell for every server-rendered page (landing, parts
-// viewer, settings). One source of truth for:
-//   - <head> meta tags, font loading, manifest, icons, theme color
-//   - The :root CSS variables (palette tokens shared with the iOS app and
-//     enclosure display — same brand hues as Theme.swift)
-//   - body base styles (font, background)
-//   - The top nav, including the gear that links to /settings
-//   - The .ios-toggle pill primitive (shared between /settings rows and
-//     anywhere else that wants the same delightful slide).
-//
-// All primary links are icon-only (Home included), and every page carries the
-// same set: Home, Latest, Parts, Guides, Boards, Cost, then the bell
-// and the gear. Latest is where Changes and Updates both begin.
-//
-// Render flow:
-//   res.send(renderHead({title, ...}) + renderNav({active}) +
-//            <body content> + renderFooter());
-
+// Shared page head, navigation, and theme.
 import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
-import { PARTS_SVG, GUIDES_SVG, PCB_SVG, DOLLAR_SVG, LATEST_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, GUIDES_SVG, DOLLAR_SVG, LATEST_SVG, BELL_SVG } from "./icons.js";
 
-// The check verdict the site is showing — `public/checks.json`, written by
-// `repo-tools checks --json` and pinned by `repo-tools checks-now` when requested.
-//
-// Read on demand: artifacts-live.js refreshes the file without restarting this process.
-// A stat identifies each version; parsing happens when the file changes. An absent or
-// unreadable verdict returns null.
 const PUBLIC_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
-const CHECKS_FILE = path.join(PUBLIC_DIR, "checks.json");
-
-let checksCache = { key: null, value: null };
-
-function readChecks() {
-  let key;
-  try {
-    const st = fs.statSync(CHECKS_FILE);
-    key = `${st.mtimeMs}:${st.size}`;
-  } catch {
-    checksCache = { key: null, value: null };
-    return null;
-  }
-  if (key === checksCache.key) return checksCache.value;
-  let value = null;
-  try {
-    const v = JSON.parse(fs.readFileSync(CHECKS_FILE, "utf-8"));
-    value = Array.isArray(v.checks) ? v : null;
-  } catch {
-    value = null;
-  }
-  checksCache = { key, value };
-  return value;
-}
 
 function escape(s) {
   return String(s)
@@ -176,20 +129,7 @@ body {
   border-radius: 3px;
   background: var(--action);
 }
-/* Right cluster (bell + gear). One container with margin-left: auto
-   pushes them both to the right edge as a unit; two icons each with
-   their own margin-left: auto would split the available space and
-   leave a big gap between them. */
-.site-nav .nav-right {
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: clamp(0.25rem, 2.2vw, 0.75rem);
-}
-.site-nav .nav-bell {
-  display: none; /* shown only when html.notifs-enabled */
-}
-html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
+.site-nav .nav-bell { margin-inline-start: auto; }
 /* On the bell's own top-right corner, which sits inside the link's hit area:
    the link's padding is where the glyph starts, and the dot straddles the
    corner from there. */
@@ -204,99 +144,6 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
   background: var(--accent);
   border: 2px solid var(--bg);
   box-sizing: content-box;
-}
-/* The check verdict, on the gear's corner where the bell wears its unread —
-   green when every check passes, red when one does not, and absent when this
-   deploy carries no reading. The gear is already in every nav and the dot is
-   inside its hit area, so the verdict costs the page no room. /settings names
-   what is red. */
-.site-nav .nav-gear.checks-ok::after,
-.site-nav .nav-gear.checks-red::after {
-  content: "";
-  position: absolute;
-  top: calc(0.75rem - 3px);
-  right: calc(0.375rem - 3px);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 2px solid var(--bg);
-  box-sizing: content-box;
-}
-.site-nav .nav-gear.checks-ok::after { background: var(--ok); }
-.site-nav .nav-gear.checks-red::after { background: var(--err); }
-
-/* iOS-style pill toggle. Used on /settings (Notifications + Live-reload debug).
-   .loading shows a centered spinner overlay on the knob without changing
-   layout — the slide animation runs the moment .loading drops and .on
-   goes on in the same frame. */
-.ios-toggle {
-  position: relative;
-  width: 51px;
-  height: 31px;
-  border-radius: 31px;
-  background: rgba(120,120,128,0.32);
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  padding: 0;
-  flex-shrink: 0;
-}
-.ios-toggle::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 27px;
-  height: 27px;
-  background: #ffffff;
-  border-radius: 50%;
-  transition: transform 0.2s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-.ios-toggle.on { background: var(--action); }
-.ios-toggle.on::before { transform: translateX(20px); background: var(--on-action); }
-.ios-toggle:hover:not(:disabled) { background: rgba(120,120,128,0.45); }
-.ios-toggle.on:hover:not(:disabled) { background: var(--action-hover); }
-.ios-toggle:disabled { cursor: default; }
-.ios-toggle .ios-toggle-spinner {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 15px;
-  height: 15px;
-  border: 2px solid rgba(80,80,90,0.35);
-  border-top-color: var(--brand-blue);
-  border-radius: 50%;
-  display: none;
-  animation: ios-toggle-spin 0.7s linear infinite;
-  pointer-events: none;
-  box-sizing: border-box;
-}
-.ios-toggle.loading .ios-toggle-spinner { display: block; }
-@keyframes ios-toggle-spin { to { transform: rotate(360deg); } }
-
-/* Settings card — used on /settings and anywhere else that wants iOS-y
-   grouped rows. */
-.settings-card {
-  background: var(--surface);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.setting-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.setting-row:last-child { border-bottom: none; }
-.setting-row[hidden] { display: none; }
-.setting-label { font-size: 14px; color: var(--text); }
-.setting-help {
-  font-size: 12px;
-  color: var(--text-2);
-  margin-top: 2px;
 }
 /* In-app toast for foreground push notifications. Bottom-anchored, fixed,
    sits above any modal in the app. The HEAD_TAGS script appends a single
@@ -367,8 +214,7 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 // deploy that replaced it, and a page whose entry was written wrong keeps the wrong icon.
 // New bytes are a new URL, so the cache has nothing to hold and re-resolves.
 //
-// Read once at load, unlike checks.json above: the icons ship with the deploy, and a deploy
-// that moves them restarts this process.
+// The icons ship with the deploy, so read their fingerprint at startup.
 const ICON_V = (() => {
   try {
     const bytes = fs.readFileSync(path.join(PUBLIC_DIR, "pwa-icons", "favicon-32.png"));
@@ -378,18 +224,7 @@ const ICON_V = (() => {
   }
 })();
 
-// HEAD_TAGS — runs on every page via renderHead below.
-//
-// Synchronous flicker-prevention only: the localStorage class flip for
-// notifs-enabled has to land before first paint, so it stays inline.
-// Everything else (SW navigate bridge, notifications state, live-update
-// owner, toast) lives in public/boot.js loaded as a module — see that
-// file's docstring for the full architecture.
-//
-// The status-bar style is left unset, so iOS paints a Home Screen app's
-// status bar from the page itself (see .site-nav).
-const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");}catch(e){}})();</script>
-<script type="module" src="/boot.js"></script>
+const HEAD_TAGS = `<script type="module" src="/boot.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -430,57 +265,6 @@ ${pageHead}
 
 // Navigation and notifications share the glyphs in lib/icons.js.
 
-// Layout: every primary link is icon-only — Home included — so the nav fits a
-// phone PWA viewport without overflow. (Adding Boards, and now Cost, to a row
-// that still carried "Home" as text is exactly what pushed it past the edge on
-// mobile.) The right cluster (bell + gear) is wrapped in .nav-right with
-// margin-left: auto, so a single auto margin pushes both icons to the right
-// edge as a unit (two siblings each with margin-left: auto would split the
-// available space and leave a big gap between them).
-
-// The class the gear wears for this deploy's verdict: `checks-ok`, `checks-red`, or nothing
-// when no verdict shipped. `repo-tools checks-now` writes it when requested, and /settings names
-// what is red.
-export function checksNavClass() {
-  const CHECKS = readChecks();
-  if (!CHECKS) return "";
-  return CHECKS.checks.some((c) => c.status === "red") ? " checks-red" : " checks-ok";
-}
-
-// Every check and what it answered, for the settings page — the whole set, not just the red
-// ones, since the green rows are what say the reading was taken. A red row carries the check's
-// last lines under it, which hold the command that repairs it.
-export function renderChecksRows() {
-  const CHECKS = readChecks();
-  if (!CHECKS) {
-    return `    <div class="setting-row">
-      <div><div class="setting-help">This deploy carries no reading.</div></div>
-    </div>`;
-  }
-  return CHECKS.checks
-    .map((c) => {
-      const red = c.status === "red";
-      const name = c.check.split("/").pop().replace(/^check_|\.py$/g, "");
-      // `note` is the check's last line and `detail` ends with that same line, so a red row
-      // showing both says it twice — the detail alone carries it, and everything above it.
-      // The mark column carries the verdict, so a note opening with one repeats that too, and
-      // an empty note is a check that passed silently: `check_payloads` prints nothing when
-      // every payload is the one beside its solid.
-      const detail = red ? (CHECKS.detail?.[c.check] ?? []) : [];
-      const note = detail.length ? "" : c.note.replace(/^[✓✗•]\s*/, "").trim();
-      const lines = detail.map((ln) => `<div>${escape(ln)}</div>`).join("");
-      return `    <div class="setting-row checks-row">
-      <div>
-        <div class="setting-label">${escape(name)}</div>
-        ${note ? `<div class="setting-help">${escape(note)}</div>` : ""}
-        ${lines ? `<div class="checks-detail">${lines}</div>` : ""}
-      </div>
-      <span class="checks-mark ${red ? "red" : "ok"}">${red ? "✗" : "✓"}</span>
-    </div>`;
-    })
-    .join("\n");
-}
-
 export function renderNav({ active = null } = {}) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: '<img src="/brand/mark.svg" width="28" height="28" alt="" aria-hidden="true">' },
@@ -489,7 +273,6 @@ export function renderNav({ active = null } = {}) {
     { href: "/latest", name: "latest", label: "Latest", svg: LATEST_SVG, also: ["updates", "changes"] },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/guides", name: "guides", label: "Guides", svg: GUIDES_SVG },
-    { href: "/pcb", name: "pcb", label: "Boards", svg: PCB_SVG },
     { href: "/cost", name: "cost", label: "Cost", svg: DOLLAR_SVG },
   ];
   const iconItems = iconLinks
@@ -501,14 +284,10 @@ export function renderNav({ active = null } = {}) {
       return `  <a href="${l.href}" class="nav-icon${activeCls}"${current} data-nav="${l.name}" aria-label="${escape(l.label)}">${l.svg}</a>`;
     })
     .join("\n");
-  const gearActive = active === "settings" ? " active" : "";
   const bellActive = active === "notifications" ? " active" : "";
   return `<nav class="site-nav" id="site-nav" aria-label="Primary">
 ${iconItems}
-  <div class="nav-right">
-    <a href="/notifications" class="nav-icon nav-bell${bellActive}" data-nav="notifications" aria-label="Notifications">${BELL_SVG}</a>
-    <a href="/settings" class="nav-icon nav-gear${gearActive}${checksNavClass()}" data-nav="settings" aria-label="Settings">${GEAR_SVG}</a>
-  </div>
+  <a href="/notifications" class="nav-icon nav-bell${bellActive}" data-nav="notifications" aria-label="Notifications">${BELL_SVG}</a>
 </nav>
 `;
 }

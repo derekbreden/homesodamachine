@@ -166,20 +166,23 @@ function renderNotificationsPage() {
 .notifs-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 16px;
 }
-.notifs-mark-all {
+.notifs-mark-all, .notifs-push {
   background: var(--surface-2);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 6px 12px;
-  font-size: 13px;
+  min-height: 44px;
+  font: inherit;
+  font-size: .8125rem;
   cursor: pointer;
 }
-.notifs-mark-all:hover { background: var(--border); }
+.notifs-mark-all:hover, .notifs-push:hover { background: var(--border); }
 .notifs-mark-all[hidden] { display: none; }
 .notifs-list { list-style: none; margin: 0; padding: 0; }
 .notifs-empty {
@@ -214,6 +217,17 @@ function renderNotificationsPage() {
   flex-shrink: 0;
 }
 .notif-row.unread .notif-dot { background: var(--accent); }
+.notifs-push-status { color: var(--text-2); font-size: .875rem; }
+.notifs-push-status:empty { display: none; }
+.notifs-push-dialog {
+  width: min(420px, calc(100% - 32px)); box-sizing: border-box;
+  padding: 20px; background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 10px;
+}
+.notifs-push-dialog::backdrop { background: rgba(0, 0, 0, .6); }
+.notifs-push-dialog h2 { margin: 0; font-size: 1.0625rem; }
+.notifs-push-dialog p { color: var(--text-2); font-size: .875rem; }
+.notifs-push-dialog form { display: flex; gap: 8px; justify-content: flex-end; }
 .notif-icon {
   width: 20px;
   height: 20px;
@@ -250,11 +264,22 @@ function renderNotificationsPage() {
     renderPageHeader({ eyebrow: "Notifications", title: "Your updates, together.", description: "New parts, design changes, and posts from the build." }) +
     `<main class="notifs-page site-content" id="notifs-page">
   <div class="notifs-header">
+    <button class="notifs-push" id="notifs-push" type="button" hidden>Enable push notifications</button>
     <button class="notifs-mark-all" id="notifs-mark-all" type="button" hidden>Mark all as read</button>
   </div>
+  <p class="notifs-push-status" id="notifs-push-status" role="status"></p>
   <ul class="notifs-list" id="notifs-list" aria-live="polite"></ul>
   <div class="notifs-empty" id="notifs-empty" hidden>No notifications yet.</div>
 </main>
+<dialog class="notifs-push-dialog" id="notifs-push-dialog" aria-labelledby="notifs-push-title">
+  <h2 id="notifs-push-title">Notify on every update?</h2>
+  <p>Updates can arrive several times an hour.</p>
+  <form method="dialog">
+    <button class="notifs-push" type="submit" autofocus>Cancel</button>
+    <button class="notifs-push" id="notifs-push-confirm" type="button">Subscribe</button>
+  </form>
+</dialog>
+<script type="module" src="/notification-subscription.js"></script>
 <script>
 (function(){
   var listEl = document.getElementById("notifs-list");

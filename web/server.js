@@ -19,7 +19,6 @@ import { mountBuildRoutes } from "./lib/build.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountChangesRoutes } from "./lib/changes.js";
 import { mountLatestRoutes } from "./lib/latest.js";
-import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountStyleGuideRoutes } from "./lib/style-guide.js";
 import { mountFirmwareRoutes } from "./lib/firmware.js";
 import { mountEvents } from "./lib/events.js";
@@ -298,7 +297,6 @@ export async function start({ port, hardwareDir } = {}) {
     carry: deployed,
   });
   mountLatestRoutes(app, { changesDir: CHANGES_DIR, changes, updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
-  mountSettingsRoutes(app);
   mountStyleGuideRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountFirmwareRoutes(app, { commit });
   attachSubscribe(app, pool);

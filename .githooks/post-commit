@@ -26,7 +26,4 @@ if publisher=$(native_tool hsm-publish); then
 else
   echo 'post-commit: install hsm-publish to publish completed outputs.' >&2
 fi
-if readings=$(native_tool hsm-build-times); then
-  nohup "$readings" --root "$root" >>"$root/.cache/build-times.log" 2>&1 &
-fi
 exit 0

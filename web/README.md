@@ -183,19 +183,18 @@ The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Appliance overview with CAD-based kitchen and detail illustrations. [`lib/landing-support.js`](/web/lib/landing-support.js) supplies the optional film, supplier acknowledgements and secondary availability signup. |
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/cost.js`](/web/lib/cost.js) | `/cost` | The production workspace, parts, planned labor, sale price and investment recovery. [`lib/production-planner.js`](/web/lib/production-planner.js) reads the material catalog, shared stock and supplier offers. [`public/production-planner.js`](/web/public/production-planner.js) shows cumulative unit coverage, editable supplier packs, custom packs and a browser-saved purchase scenario. [`contracts/production-plan.js`](/web/contracts/production-plan.js) and [`contracts/purchase-lots.js`](/web/contracts/purchase-lots.js) share coverage and pack pricing between server and browser. [`lib/part-cost-view.js`](/web/lib/part-cost-view.js) renders the numbered assembly cost tree with each assembly’s own work and supplies, linking to the explorer. |
-| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides`, `/pcb` | Parts, guides and boards share [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides` | Parts and guides share [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/weld-position.js`](/web/lib/weld-position.js) | `/weld-position` | Tube, recessed endcap and gun orientation; grip, hole and vertical rotations about the laser dot. |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,pcb,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*` | API for the viewer's file lists and content, plus document publication gates. The STEP list holds only the models a part number names. |
 | [`lib/document-reader.js`](/web/lib/document-reader.js) | `/vendor/pdfjs/<version>/*` | Document reader HTML and the installed PDF.js assets. `/read/*` renders one page at a time through `public/document-reader.js`, with page links, history, selectable text and zoom. `/docs/*?raw=1` supplies range-capable PDF bytes; `?download=1` supplies an attachment. HTML navigations to saved `/docs/*` links redirect to the reader. |
 | [`lib/changes.js`](/web/lib/changes.js) | `/changes`, `/changes/<id>`, `/changes/<id>/<file>`, `/api/changes` | Before-and-after feed of recorded changes, newest first. Reads `changes/<id>/entry.md` (frontmatter + the Updates markdown subset) and `views.json` (each view's Before and After images, pixel size and marks); [`changes/README.md`](/changes/README.md) is how an entry is made. Serves the cards, `/api/changes?before=<id>` pages for the infinite scroll, the entry page and its `?fragment=1` modal body, and only the images a view names. Entries do not deploy: on the deployed container it carries those committed since its clone from GitHub when the feed is asked for — main's root tree, then the `changes/` subtree only when it moved, at most once a minute, standing down below 20 calls left in the shared hour. |
 | [`lib/latest.js`](/web/lib/latest.js) | `/latest` | The hub the nav's Latest item opens. Changes, then Updates: each section's name, a line on what it is, its newest items as thumbnails and a link into the whole feed. A change's thumbnail is its first view cut down the middle, the Before's left half against the After's right; a post's is its `image`, else its `image_fig`; an item with neither carries its words in the same frame. Each thumbnail opens its item at `/changes/<id>` or `/updates/<slug>`. The entries come through the reader `mountChangesRoutes` hands back, and the page waits on the same carry. |
-| [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: FCM enable, live-reload debug. |
 | [`lib/style-guide.js`](/web/lib/style-guide.js) | `/style-guide` | Production-style examples, usage notes, markup and source links. Sample material names and quantities come from the catalog. |
 | [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed` broadcasts. |
-| [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
+| [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox and push subscription controls for installed web apps. |
 | [`lib/push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
 | [`lib/walk.js`](/web/lib/walk.js) | — | Shared `walkFiles(rootDir, exts)` helper, plus the per-kind walkers (`walkPcbBoards`, `walkDocuments`). |
-| [`lib/icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, clipboard). |
+| [`lib/icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs for the site and viewer. |
 
 The pattern: `export function mountXxxRoutes(app, { … } = {})`. `server.js` calls each in sequence. To add a new page or API surface, add `lib/foo.js` with `mountFooRoutes`, import and call it from `server.js`.
 
@@ -213,12 +212,12 @@ Served flat via `express.static(public/)`.
 | [`public/cost.js`](/web/public/cost.js) | `/cost` | Cost overview navigation and sales scenario controls. Three accordion cards show per-unit cost, investment recovery and the 5/10/20 forecast in that order, with headline totals visible while collapsed. Jump links and direct section links reveal the relevant card; recovery controls update its summary. `cost-recovery.js` shares recovery math and the SVG chart with the server. `batch-forecast.js` selects the 5/10/20 plan, defaults to Parts category, and filters suppliers and stock-covered parts. Compact purchase lists scroll; each item expands for source, lots and stock evidence. The overview, category grouping and all three batch disclosures work without JavaScript. |
 | [`public/unit.js`](/web/public/unit.js) | Unit pages | Opens the included-equipment disclosure from its link and saves preparation checkmarks in this browser, keyed by serial. Navigation and documents are server-rendered links. |
 | [`public/changes.js`](/web/public/changes.js) | `/changes` | Loads more cards as the feed scrolls and opens a card's entry in ContentViewer with its `/changes/<id>` URL pushed, so Back closes it. A tap on a picture, or ← and →, flips each view between Before and After; without it the cards are links, the feed ends in a link to older entries, and the views are radios. |
-| [`public/settings.js`](/web/public/settings.js) | `/settings` | Notification + live-reload debug toggles. |
+| [`public/notification-subscription.js`](/web/public/notification-subscription.js) | `/notifications` | Enables or disables push notifications in the installed web app. |
 | [`public/style-guide.js`](/web/public/style-guide.js) | `/style-guide` | Local sample search, tabs, row selection, copy markup and computed style readouts. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`hsm-marketing brand-assets`](../tools/hsm/marketing/src/brand.rs). |
-| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/pcb` | Pan, pinch and wheel zoom for board views. |
-| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/pcb`, `/changes` | Shared modal with swipe-down, Escape, close button and backdrop dismissal. |
-| `public/js/viewer/*.js` | `/3d`, `/guides`, `/pcb` | The catalog and viewer modules. |
+| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | PCB material view | Pan, pinch and wheel zoom for board views. |
+| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/changes` | Shared modal with swipe-down, Escape, close button and backdrop dismissal. |
+| `public/js/viewer/*.js` | `/3d`, `/guides` | The catalog and viewer modules. |
 | `public/css/viewer.css` | `/3d`, `/guides`, `/pcb` | Viewer styles. |
 
 The studio's `reducer.js` records the reference STL's SHA-256. `enclosure.js`
@@ -239,7 +238,7 @@ is unsupported. It adds no build dependency.
 
 ### `public/js/viewer/` — the parts viewer modules
 
-`/3d`, `/guides` and `/pcb` share one module graph. The entry selects a catalog from `location.pathname`. The import map lives in [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html).
+`/3d` and `/guides` share one module graph. The entry selects a catalog from `location.pathname`. The import map lives in [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html).
 
 | Module | Role |
 |---|---|
@@ -259,6 +258,7 @@ is unsupported. It adds no build dependency.
 | `instance-view.js` | Frames a Materials selection or installed location and hides the parts crossing its sight lines. Visible surroundings retain their materials. Automatically hidden parts can be restored from the component controls. |
 | `material-nav.js` | Permanent `/3d#material:HSM-0001` links and material records with or without geometry. Model drill-downs retain the STEP navigation trail. |
 | `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
+| `pcb.js` | Loads on selection of PCB in the Main control PCBA material workspace. Loads its board styles, layers and inspection data. |
 | `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
 | `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |
 

@@ -19,11 +19,11 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   `VIEWER_DEFAULTS` ReferenceError took down a deploy before commit
   8611dfa), `npm test` fails immediately.
 - **Route surface.** Every GET that doesn't require a database — landing,
-  `/3d`, `/settings`, the JSON APIs (`/api/steps`,
+  `/3d`, the JSON APIs (`/api/steps`,
   `/api/dxf`, `/api/firebase-config`), the three service
   worker URLs, the favicons + apple-touch-icon, and every static JS file
   imported by an HTML surface. Status code + Content-Type prefix.
-- **Legacy redirects.** `/dev`, `/dev/settings` and `/drawings` return 301 redirects.
+- **Legacy redirects.** `/dev`, `/drawings` and `/pcb` return redirects.
 - **WebSocket.** `/ws` accepts a connection and receives a `hello`
   frame carrying a `commit` field on connect.
 - **File passthroughs.** `/steps/*` and `/dxfs/*`
@@ -44,7 +44,7 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
 
 - **The machine's shape.** Which assemblies exist, which parts fill a
   branch, what a readout chip reads, which order a grid lays out. Those
-  move with the hardware, and `/3d` and `/pcb` render them from the tree at
+  move with the hardware, and `/3d` renders them from the tree at
   request time.
 - **Anything that requires Postgres.** `/api/subscribe`,
   `/api/push/subscribe`, `/api/push/unsubscribe`,

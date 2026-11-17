@@ -5,7 +5,7 @@ import { dismissViewerHistory } from "./viewer-history.js";
 import { materialHash } from "/contracts/material-tabs.js";
 export { materialHash } from "/contracts/material-tabs.js";
 
-export async function openMaterial(id, pushHistory = true, { tab = null, panel = null, instance = null, fly = true } = {}) {
+export async function openMaterial(id, pushHistory = true, { tab = null, panel = null, instance = null, view = null, fly = true } = {}) {
   // Links written with six-digit ids (`HSM-000546`) open the same material.
   id = id.replace(/^HSM-0*(\d+)$/, (_, n) => "HSM-" + n.padStart(4, "0"));
   const material = materialIndex(state.materialCatalog).get(id);
@@ -39,9 +39,9 @@ export async function openMaterial(id, pushHistory = true, { tab = null, panel =
     const raw = location.hash.slice(1);
     const remembered = raw.startsWith("step:") ? parseStepHash(raw) : history.state?.materialPath;
     const materialPath = remembered?.at(-1) === file ? remembered : [file];
-    history.replaceState({ materialPath }, "", "#" + materialHash(id, { tab, panel, instance }));
+    history.replaceState({ materialPath }, "", "#" + materialHash(id, { tab, panel, instance, view }));
     state.materialPanel?.setRoot(id);
-    state.materialPanel?.applyRoute({ tab, panel, instance, fly });
+    state.materialPanel?.applyRoute({ tab, panel, instance, view, fly });
     await moving;
   } else {
     const depth = state.currentCadWrapper ? walkDepth() : 0;

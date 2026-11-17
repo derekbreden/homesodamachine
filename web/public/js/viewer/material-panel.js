@@ -373,6 +373,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
     drawingView?.setDrawing(activeDrawing || null);
     drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
+    drawingView?.setPcb(current?.pcb);
     headHost.replaceChildren(head);
     const focus = current || rootMaterial;
     const rows = focus ? explodeBom(state.materialCatalog, focus.id, options())
@@ -805,7 +806,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
   // Visibility belongs to this navigation. Manual toggles last for this view;
   // model links start closed, and material lookups open the pane.
-  function applyRoute({ panel = null, tab: requestedTab = null, instance = null, fly = true } = {}) {
+  function applyRoute({ panel = null, tab: requestedTab = null, instance = null, view = null, fly = true } = {}) {
     stopLocations();
     pendingInstance = instance ? { name: instance, fly } : null;
     const route = materialTab(requestedTab);
@@ -813,6 +814,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     setOpen(panel === "materials" || !!tab);
     render();
     showInstalled();
+    drawingView?.applyRoute(view);
   }
   const handle = { select, setRoot, sync, applyRoute, leave, closeView: () => drawingView?.closeView(), dispose: () => {
     disposed = true;

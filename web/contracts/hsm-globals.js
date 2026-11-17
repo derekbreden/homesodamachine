@@ -17,6 +17,4 @@
  * @property {string|null} mountedDxfFile  (getter)
  */
 
-// Two flags other modules set on window, read by boot.js:
 //   window.__hsmDeploySoft — live.js sets it so boot.js leaves the deploy refresh to the viewer.
-//   window.__hsmLiveDebug  — settings.js toggles the live-reload debug panel.

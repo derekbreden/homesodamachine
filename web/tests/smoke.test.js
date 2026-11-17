@@ -61,13 +61,12 @@ const routes = [
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/spin",     expect: 200, ct: "text/html" },
   { path: "/weld-position", expect: 200, ct: "text/html" },
-  { path: "/settings", expect: 200, ct: "text/html" },
+  { path: "/settings", expect: 404 },
 
   // Legacy redirects (301). Don't pin Content-Type — express renders a
   // tiny HTML body for browsers but the assertion that matters is the
   // redirect itself.
   { path: "/dev",          expect: 301 },
-  { path: "/dev/settings", expect: 301 },
   { path: "/drawings",     expect: 301 },
 
   // JSON APIs that don't touch Postgres
@@ -96,7 +95,7 @@ const routes = [
   { path: "/cost.js",             expect: 200, ct: "text/javascript" },
   { path: "/cost-recovery.js",    expect: 200, ct: "text/javascript" },
   { path: "/production-planner.js", expect: 200, ct: "text/javascript" },
-  { path: "/settings.js",         expect: 200, ct: "text/javascript" },
+  { path: "/notification-subscription.js", expect: 200, ct: "text/javascript" },
   { path: "/pan-zoom.js",         expect: 200, ct: "text/javascript" },
   { path: "/js/weld-position/main.js", expect: 200, ct: "text/javascript" },
   { path: "/foam", expect: 200, ct: "text/html" },
@@ -128,6 +127,15 @@ for (const r of routes) {
     }
   });
 }
+
+test("legacy PCB links open the board in its material workspace", async () => {
+  const target = "/3d#material:HSM-0048?view=pcb";
+  const plain = await fetch(baseUrl + "/pcb", { redirect: "manual" });
+  assert.equal(plain.status, 301);
+  assert.equal(plain.headers.get("location"), target);
+  const notified = await fetch(baseUrl + "/pcb?file=pcb%2Fpcba%2Fpcba.tsx&n=42", { redirect: "manual" });
+  assert.equal(notified.headers.get("location"), "/3d?n=42#material:HSM-0048?view=pcb");
+});
 
 // The WebSocket senders must emit frame types via the WS contract, exactly as
 // the client matches them (web/contracts/ws-frames.js). A reintroduced literal

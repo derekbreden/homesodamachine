@@ -28,6 +28,8 @@
 // Both return DOM elements + (for the minimap) a refresh handle the
 // caller can hold onto for window-resize updates.
 
+import PanZoom from "/pan-zoom.js";
+
 const MINIMAP_MAX = 140;
 
 function naturalSize(svgEl) {
@@ -74,6 +76,8 @@ export function makeChromeFit(wrapper, extra) {
   const obstacles = [];
   let pz = null;
   let minimap = null;
+  let fitScale, size;
+  let observer;
 
   function measure() {
     // The minimap's box is aspect-driven, so it is at its pre-layout maximum
@@ -84,39 +88,35 @@ export function makeChromeFit(wrapper, extra) {
     obstacles.push(...rects);
   }
   function refit() {
-    try { measure(); pz?.fit(); } catch {}
-    try { minimap?.update(); } catch {}
+    measure();
+    pz.fit();
+    fitScale = pz.getTransform().scale;
   }
 
   return {
     obstacles,
     attach(p, m) { pz = p; minimap = m; },
-    measure,
     refit,
-    // Opening: fit clear of the chrome, then again next frame — the minimap
-    // takes its final height on its first paint, after the first fit read it.
-    // A saved transform is the user's own view and takes the surface instead.
     open(saved) {
-      refit();
-      if (saved && pz) {
-        pz.setTransform(saved);
-        try { minimap?.update(); } catch {}
-        return;
-      }
-      requestAnimationFrame(refit);
-      if (wrapper.clientWidth && wrapper.clientHeight) return;
-      // Nothing to fit into yet — a deep link opening into a document still
-      // laying out, or a tab that isn't painting. Both fits above measured a
-      // zero box and left the content at its natural size, which is the
-      // artifact spilling past every edge. Watch for the first real box.
-      if (typeof ResizeObserver !== "function") return;
-      const ro = new ResizeObserver(() => {
-        if (!wrapper.clientWidth || !wrapper.clientHeight) return;
-        ro.disconnect();
+      function layout() {
+        const width = wrapper.clientWidth, height = wrapper.clientHeight;
+        if (!width || !height || (size?.width === width && size?.height === height)) return;
+        const previous = pz.getTransform();
+        const restore = !size ? saved : previous.scale > fitScale && {
+          scale: previous.scale,
+          panX: previous.panX + (width - size.width) / 2,
+          panY: previous.panY + (height - size.height) / 2,
+        };
+        size = { width, height };
         refit();
-      });
-      ro.observe(wrapper);
+        if (restore) pz.setTransform(restore, false);
+      }
+      layout();
+      if (typeof ResizeObserver !== "function") return;
+      observer = new ResizeObserver(layout);
+      observer.observe(wrapper);
     },
+    destroy() { observer?.disconnect(); },
   };
 }
 
@@ -175,9 +175,7 @@ export function makeMinimap(svgEl, container, obstacles) {
 
     // Default (fit) view parameters. Match PanZoom's obstacle-aware fit: the
     // largest centered box that clears the chrome, then centered in the wrapper.
-    const fs = (window.PanZoom && window.PanZoom.fitScale)
-      ? window.PanZoom.fitScale(W, H, nat.w, nat.h, obs)
-      : Math.min(W / nat.w, H / nat.h);
+    const fs = PanZoom.fitScale(W, H, nat.w, nat.h, obs);
     if (!fs) return;
     const fsPanX = (W - fs * nat.w) / 2;
     const fsPanY = (H - fs * nat.h) / 2;

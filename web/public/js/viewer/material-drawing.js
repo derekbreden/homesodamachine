@@ -1,4 +1,5 @@
 import { startAnimate, stopAnimate } from "./scene.js";
+import { state } from "./state.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
 const button = (text, label) => {
@@ -15,8 +16,8 @@ export function mountMaterialDrawing(wrapper) {
   switcher.className = "material-view-switch";
   switcher.setAttribute("role", "group"); switcher.setAttribute("aria-label", "Material view");
   switcher.hidden = true;
-  const model = button("3D"), drawing = button("Drawing"), print = button("Print");
-  const modes = { model, drawing, print };
+  const model = button("3D"), drawing = button("Drawing"), print = button("Print"), pcb = button("PCB");
+  const modes = { model, drawing, print, pcb };
   for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === "model"));
   switcher.append(model);
   workspace.querySelector(".cad-view-slot").append(switcher);
@@ -50,9 +51,16 @@ export function mountMaterialDrawing(wrapper) {
   tools.append(zoom, menu); workspace.querySelector(".cad-document-slot").append(tools);
 
   let selected = null, frame = null, replay = null, printFrame = null, mode = "model";
+  let board = null, boardView = null;
+  const syncSwitcher = () => { switcher.hidden = !selected && !replay && !board; };
   const command = (command, extra = {}) => frame?.contentWindow?.postMessage({
     type: HSM_EVENTS.DOCUMENT_COMMAND, command, ...extra,
   }, location.origin);
+  function removeBoardView() {
+    boardView?.controller.abort();
+    boardView?.host.remove();
+    boardView = null;
+  }
   function show(nextMode) {
     if (mode === nextMode) return false;
     mode = nextMode;
@@ -60,8 +68,10 @@ export function mountMaterialDrawing(wrapper) {
     tools.hidden = mode !== "drawing";
     if (frame) frame.hidden = mode !== "drawing";
     if (mode !== "print") { printFrame?.remove(); printFrame = null; }
+    if (mode !== "pcb") removeBoardView();
     wrapper.classList.toggle("drawing-open", mode === "drawing");
     wrapper.classList.toggle("print-open", mode === "print");
+    wrapper.classList.toggle("pcb-open", mode === "pcb");
     for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === mode));
     if (mode !== "model") stopAnimate();
     else if (wrapper.isConnected) startAnimate();
@@ -90,7 +100,7 @@ export function mountMaterialDrawing(wrapper) {
       drawing.title = doc.title;
       model.after(drawing);
     } else drawing.remove();
-    switcher.hidden = !selected && !replay;
+    syncSwitcher();
   }
   function setPrint(id, entry) {
     if (replay?.id === id && replay?.sha256 === entry?.sha256 && replay?.title === entry?.title) return;
@@ -98,7 +108,7 @@ export function mountMaterialDrawing(wrapper) {
     replay = entry ? { ...entry, id } : null;
     if (replay) switcher.append(print);
     else print.remove();
-    switcher.hidden = !selected && !replay;
+    syncSwitcher();
   }
   function showPrint() {
     if (!replay || printFrame) return;
@@ -110,7 +120,57 @@ export function mountMaterialDrawing(wrapper) {
     wrapper.append(printFrame);
     show("print");
   }
+  function setPcb(source = null) {
+    if (source === board) return;
+    if (mode === "pcb") show("model");
+    board = source;
+    if (board) switcher.append(pcb);
+    else pcb.remove();
+    syncSwitcher();
+  }
+  async function showPcb() {
+    if (!board || (boardView && !boardView.failed)) return;
+    removeBoardView();
+    const source = board;
+    const controller = new AbortController();
+    const host = document.createElement("div");
+    host.className = "material-pcb-view pcb-wrapper";
+    const status = document.createElement("p");
+    status.className = "material-pcb-status";
+    status.setAttribute("role", "status");
+    status.textContent = "Loading PCB view…";
+    host.append(status);
+    const view = { host, controller, failed: false };
+    boardView = view;
+    wrapper.append(host);
+    show("pcb");
+    try {
+      const version = state.codeVersion ? `?v=${encodeURIComponent(state.codeVersion)}` : "";
+      const { mountPcbView } = await import(`./pcb.js${version}`);
+      if (!controller.signal.aborted) await mountPcbView(host, source, controller.signal);
+      status.remove();
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      view.failed = true;
+      status.textContent = "PCB view unavailable. Select PCB to retry.";
+      console.warn("PCB view:", error.message);
+    }
+  }
+  function applyRoute(view) {
+    if (view === "pcb") showPcb();
+    else if (mode === "pcb") show("model");
+  }
   function closeView() {
+    if (mode === "pcb") {
+      const url = new URL(location.href);
+      const [hash, query] = url.hash.split("?");
+      const params = new URLSearchParams(query);
+      if (params.get("view") === "pcb") {
+        params.delete("view");
+        url.hash = hash + (params.size ? "?" + params : "");
+        history.replaceState(history.state, "", url);
+      }
+    }
     const closed = show("model");
     if (closed) model.focus();
     return closed;
@@ -140,12 +200,13 @@ export function mountMaterialDrawing(wrapper) {
   next.addEventListener("click", () => command("page", { page: Number(page.value) + 1 }));
   page.addEventListener("change", () => command("page", { page: page.value }));
   page.addEventListener("keydown", event => { if (event.key === "Enter") { command("page", { page: page.value }); page.blur(); } });
-  model.addEventListener("click", () => show("model"));
+  model.addEventListener("click", closeView);
   drawing.addEventListener("click", () => showDrawing());
   print.addEventListener("click", showPrint);
+  pcb.addEventListener("click", showPcb);
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.addEventListener("message", message);
-  return { setDrawing, setPrint, showDrawing, drawingPath: () => selected?.path, closeView, dispose: () => {
+  return { setDrawing, setPrint, setPcb, showDrawing, applyRoute, drawingPath: () => selected?.path, closeView, dispose: () => {
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.removeEventListener("message", message);
-    frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
+    removeBoardView(); frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
   } };
 }

@@ -22,18 +22,6 @@ const WEB = path.resolve(HERE, "..");
 const ROOT = path.resolve(WEB, "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 
-// Explicit check readings reach the gear as data. render.yaml excludes their pins from
-// deployment; this adopts checks.json on the same look as the artifact pointer file.
-const CHECKS = path.join(WEB, "public", "checks.json");
-const CHECKS_URL =
-  "https://api.github.com/repos/derekbreden/homesodamachine/contents/web/public/checks.json?ref=main";
-
-// The build times, `hsm-build-times`' rows, ride the same look. They come off the raw
-// file, which the contents API's unauthenticated ceiling below does not count.
-const BUILD_TIMES = path.join(WEB, "public", "build-times.json");
-const BUILD_TIMES_URL =
-  "https://raw.githubusercontent.com/derekbreden/homesodamachine/main/web/public/build-times.json";
-
 // The poll recovers missed publication notifications.
 const POLL_MS = 120_000;
 
@@ -114,47 +102,6 @@ export async function lockOnMain() {
   const response = await fetch(`https://raw.githubusercontent.com/derekbreden/homesodamachine/${commit}/hardware/cad-artifacts.json`);
   if (!response.ok) throw new Error(`Main pointer says ${response.status}`);
   return response.json();
-}
-
-// The verdict on main onto this disk, when it is not already the bytes here. Its own read, so a
-// GitHub that answers for one file and not the other still moves what it answered for; and its
-// own failure, because a verdict this cannot fetch is a stale band on the gear and not a reason
-// to leave geometry unadopted.
-async function carryChecks() {
-  const res = await fetch(CHECKS_URL, {
-    headers: { accept: "application/vnd.github+json", "user-agent": "homesodamachine-site" },
-  });
-  if (!res.ok) throw new Error(`GitHub says ${res.status} ${res.statusText}`);
-  const meta = await res.json();
-  if (meta.encoding !== "base64" || !meta.content) throw new Error("no inline content");
-  const text = Buffer.from(meta.content, "base64").toString("utf-8");
-  // Parsed before it is written: a truncated verdict draws no band rather than a wrong one.
-  const verdict = JSON.parse(text);
-  if (!Array.isArray(verdict.checks)) throw new Error("no checks in it");
-  let here = null;
-  try {
-    here = await readFile(CHECKS, "utf-8");
-  } catch { /* a container whose clone predates the file */ }
-  if (here === text) return { moved: false };
-  await writeFile(CHECKS, text);
-  return { moved: true, green: verdict.green === true, checks: verdict.checks.length };
-}
-
-// The build times on main onto this disk: parsed before written, failing on their own.
-async function carryBuildTimes() {
-  const res = await fetch(BUILD_TIMES_URL, { headers: { "user-agent": "homesodamachine-site" } });
-  if (res.status === 404) return { moved: false };
-  if (!res.ok) throw new Error(`GitHub says ${res.status} ${res.statusText}`);
-  const text = await res.text();
-  const document = JSON.parse(text);
-  if (!Array.isArray(document.builds)) throw new Error("no builds in it");
-  let here = null;
-  try {
-    here = await readFile(BUILD_TIMES, "utf-8");
-  } catch { /* a container whose clone predates the file */ }
-  if (here === text) return { moved: false };
-  await writeFile(BUILD_TIMES, text);
-  return { moved: true, builds: document.builds.length };
 }
 
 // The pointer file's own shape, before it is written anywhere. A truncated or half-published pointer file that
@@ -361,7 +308,7 @@ export function mountArtifactsLive(app, ctx) {
 
   const timer = setInterval(() => {
     refreshArtifacts(ctx);
-    Promise.allSettled([carryChecks(), carryBuildTimes(), carryPrintPlaybacks()]);
+    carryPrintPlaybacks().catch(error => console.warn(`[print-playback] ${error.message}`));
   }, POLL_MS);
   timer.unref();
   return timer;

@@ -84,11 +84,6 @@ services:
         # The owner install guide is committed with its cover and sidecar.
         - hardware/install-guide/**
       ignoredPaths:
-        # Explicit check readings reach the running server through artifacts-live.js.
-        # Pinning one with repo-tools checks-now refreshes the gear without a deploy.
-        - web/public/checks.json
-        # hsm-build-times records full builds; artifacts-live.js adopts its data too.
-        - web/public/build-times.json
         # Tests run on request and are outside the deployed application's dependencies.
         - web/tests/**
     envVars:

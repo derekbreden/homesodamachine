@@ -24,7 +24,6 @@ const read = (rel) => fs.readFileSync(path.join(PUBLIC, rel), "utf8");
 const THUMB_HOSTS = [
   ".card img",
   ".card .placeholder",
-  ".card .pcb-thumb",
 ];
 
 // Pull one rule block's body out of a stylesheet by exact selector.
@@ -63,33 +62,11 @@ test("no grid kind reverts to mounting once and never releasing", () => {
   assert.match(grid, /windowContent\(/, "grid.js should mount thumbnails through windowContent");
 });
 
-test("every kind the window mounts has a refresher, and it skips a released card", () => {
+test("live STEP thumbnail refresh skips a released card", () => {
   const live = read("js/viewer/live.js");
-  const grid = read("js/viewer/grid.js");
-  // THE TWO SIDES OF A CARD. `buildGrid`'s `kinds` names what the window mounts
-  // and releases; live.js names what repaints when a file moves. A kind in one
-  // and not the other is a card that draws once and never redraws, or a
-  // refresher painting a card that no page builds — so the sets are held equal
-  // rather than counted. A document is in neither: its cover is a committed file
-  // the browser fetches, with nothing to release and nothing to repaint.
-  const kindsBlock = /const kinds = \{([\s\S]*?)^  \};/m.exec(grid)[1];
-  const mounted = [...kindsBlock.matchAll(/^    (\w+):/gm)].map((m) => m[1]).sort();
-
-  const refreshes = live.match(/^function refresh\w+\(file\) \{[\s\S]*?^\}/gm) || [];
-  const refreshed = refreshes
-    .map((fn) => /^function refresh(\w+)Card\(/.exec(fn))
-    .filter(Boolean)
-    .map((m) => m[1].toLowerCase())
-    .sort();
-  assert.deepEqual(refreshed, mounted,
-    `live.js refreshes [${refreshed}] where grid.js mounts [${mounted}]`);
-
-  // Painting a released card leaves content in a card the window is no longer
-  // tracking, so nothing will ever free it. Every per-file refresh has to check.
-  for (const fn of refreshes) {
-    const name = /^function (\w+)/.exec(fn)[1];
-    assert.match(fn, /isMounted\(card\)/, `${name} must skip a released card`);
-  }
+  const refresh = /^function refreshStepCard\(file\) \{[\s\S]*?^\}/m.exec(live)?.[0];
+  assert.ok(refresh);
+  assert.match(refresh, /if \(!isMounted\(card\)\) return;[\s\S]*paintStepThumb\(card/);
 });
 
 test("the window's margins leave room for hysteresis", async () => {

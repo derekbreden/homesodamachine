@@ -52,11 +52,6 @@
 //      build shipped: the viewer refreshes in place (hsm:deploy, soft),
 //      every other page reloads.
 //
-// What's NOT in here: the synchronous pre-paint CSS class flip for
-// notifs-enabled. That has to run during <head> parse (before first
-// paint) or the bell flashes hidden. The flip stays inline in
-// lib/shell.js; this module is deferred (module scripts run after parse).
-//
 // State ownership note: the notifications mirror lives in module-
 // local `state` here, not on window. window.__hsm is reserved for
 // the /3d viewer's Puppeteer escape hatch (see viewer-body.html);
@@ -128,7 +123,6 @@ import { WS } from "/contracts/ws-frames.js";
       if (!state.items[i].seen) unread++;
     }
     state.unread = unread;
-    document.documentElement.classList.toggle("notifs-enabled", !!getToken());
     var bell = document.querySelector(".nav-bell");
     if (bell) bell.classList.toggle("has-unread", unread > 0);
     window.dispatchEvent(
@@ -293,6 +287,7 @@ import { WS } from "/contracts/ws-frames.js";
   // ----- Initial fetch + activation hooks -----
   refetchAndMaybeRedirect();
   window.addEventListener("focus", refetchAndMaybeRedirect);
+  window.addEventListener(HSM_EVENTS.NOTIFICATION_SUBSCRIPTION_CHANGED, fetchNotifications);
   window.addEventListener("pageshow", refetchAndMaybeRedirect);
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") refetchAndMaybeRedirect();
@@ -335,85 +330,6 @@ import { WS } from "/contracts/ws-frames.js";
   var bootCommit = null;
   var lastActivityAt = 0;
 
-  // Debug logging + on-screen panel, driven by the "Live-reload debug"
-  // setting (localStorage hsmLiveDebug, toggled from /settings). dbg()
-  // always keeps a short in-memory tail so flipping the setting on shows
-  // recent history; when on it also mirrors to the console and the panel.
-  // The panel shows live state (socket health, commit, seconds since the
-  // last frame) so it reads true whenever you look — not just the boot
-  // lines that scroll past before an inspector can attach.
-  var liveLog = [];
-  var overlayEl = null;
-  var overlayTick = null;
-
-  function liveDebugOn() {
-    try { return !!localStorage.getItem("hsmLiveDebug"); } catch (e) { return false; }
-  }
-  function dbg() {
-    var args = [].slice.call(arguments);
-    liveLog.push(args.join(" "));
-    if (liveLog.length > 40) liveLog.shift();
-    if (!liveDebugOn()) return;
-    try { console.info.apply(console, ["[hsm-live]"].concat(args)); } catch (e) {}
-    renderOverlay();
-  }
-  function noteCommit(c) { if (c) bootCommit = c; }
-
-  function wsLabel() {
-    if (ws && ws.readyState === 1) return "open";
-    if (ws && ws.readyState === 0) return "connecting";
-    return "closed";
-  }
-  function renderOverlay() {
-    if (!overlayEl) return;
-    var label = wsLabel();
-    var dot = label === "open" ? "#39d353" : (label === "connecting" ? "#d9a800" : "#f85149");
-    var since = lastActivityAt ? Math.round((Date.now() - lastActivityAt) / 1000) + "s" : "—";
-    var commit = bootCommit ? String(bootCommit).slice(0, 7) : "—";
-    overlayEl.firstChild.innerHTML =
-      '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;' +
-      'margin-right:6px;vertical-align:middle;background:' + dot + '"></span>' +
-      "ws:" + label + " · " + commit + " · " + since;
-    overlayEl.lastChild.textContent = liveLog.slice(-8).join("\n");
-  }
-  function ensureOverlay() {
-    if (overlayEl) return;
-    if (!document.body) { document.addEventListener("DOMContentLoaded", ensureOverlay, { once: true }); return; }
-    overlayEl = document.createElement("div");
-    overlayEl.setAttribute("aria-hidden", "true");
-    overlayEl.style.cssText =
-      "position:fixed;left:8px;z-index:2147483646;max-width:72vw;" +
-      "bottom:calc(env(safe-area-inset-bottom,0px) + 8px);" +
-      "font:11px/1.35 ui-monospace,Menlo,monospace;color:#e6edf3;" +
-      "background:rgba(13,17,23,.86);border:1px solid rgba(240,246,252,.18);" +
-      "border-radius:7px;padding:6px 8px;-webkit-backdrop-filter:blur(3px);" +
-      "backdrop-filter:blur(3px);";
-    var head = document.createElement("div");
-    head.style.cssText = "font-weight:600;";
-    var log = document.createElement("pre");
-    log.style.cssText = "margin:4px 0 0;padding:0;font:inherit;color:#9aa4ad;white-space:pre-wrap;max-height:9em;overflow:auto;";
-    overlayEl.appendChild(head);
-    overlayEl.appendChild(log);
-    // Tap the panel to collapse to just the status line.
-    overlayEl.addEventListener("click", function () {
-      log.style.display = log.style.display === "none" ? "" : "none";
-    });
-    document.body.appendChild(overlayEl);
-    if (!overlayTick) overlayTick = setInterval(renderOverlay, 1000);
-    renderOverlay();
-  }
-  function removeOverlay() {
-    if (overlayTick) { clearInterval(overlayTick); overlayTick = null; }
-    if (overlayEl) { overlayEl.remove(); overlayEl = null; }
-  }
-  // /settings (public/settings.js) flips the panel live through this.
-  window.__hsmLiveDebug = {
-    set: function (on) {
-      try { if (on) localStorage.setItem("hsmLiveDebug", "1"); else localStorage.removeItem("hsmLiveDebug"); } catch (e) {}
-      if (on) ensureOverlay(); else removeOverlay();
-    },
-    isOn: liveDebugOn,
-  };
   var reconnectDelayMs = 1000;
   var reconnectMaxMs = 8000;
   var reconnectTimer = null;
@@ -431,9 +347,8 @@ import { WS } from "/contracts/ws-frames.js";
     if (msg.type === WS.HELLO) {
       if (seenCommit === null) {
         seenCommit = msg.commit;
-        noteCommit(msg.commit);
+        if (msg.commit) bootCommit = msg.commit;
         if (msg.recent && msg.recent.commit) seenRecentCommit = msg.recent.commit;
-        dbg("hello (first)", msg.commit);
         return;
       }
       // Reconnect: any non-first hello means the connection had
@@ -444,8 +359,7 @@ import { WS } from "/contracts/ws-frames.js";
       // the viewer refetches either way to catch missed dev broadcasts.
       var commitChanged = msg.commit !== seenCommit;
       seenCommit = msg.commit;
-      noteCommit(msg.commit);
-      dbg("hello (reconnect)", msg.commit, "changed=" + commitChanged);
+      if (msg.commit) bootCommit = msg.commit;
       window.dispatchEvent(new CustomEvent(HSM_EVENTS.DEPLOY, { detail: { commit: msg.commit, reconnect: true, commitChanged: commitChanged } }));
       if (msg.recent && msg.recent.commit && msg.recent.commit !== seenRecentCommit) {
         seenRecentCommit = msg.recent.commit;
@@ -461,10 +375,6 @@ import { WS } from "/contracts/ws-frames.js";
       fetchNotifications();
       return;
     }
-    // type === "ping" and anything else: lastActivityAt already bumped at
-    // the top of this handler. Log the 30s heartbeat so the panel's
-    // "seconds since last frame" reads as a visible pulse.
-    if (msg.type === WS.PING) dbg("ping");
   }
 
   function clearReconnectTimer() {
@@ -490,16 +400,10 @@ import { WS } from "/contracts/ws-frames.js";
       // starts fast.
       reconnectDelayMs = 1000;
       lastActivityAt = Date.now();
-      dbg("ws open", wsUrl());
     });
     ws.addEventListener("message", onWSMessage);
-    ws.addEventListener("error", function () {
-      // The close event will follow; nothing extra to do here.
-      dbg("ws error");
-    });
     ws.addEventListener("close", function () {
       ws = null;
-      dbg("ws close");
       scheduleReconnect();
     });
   }
@@ -553,9 +457,8 @@ import { WS } from "/contracts/ws-frames.js";
         versionInFlight = false;
         var commit = d && d.commit ? d.commit : null;
         if (!commit) return;
-        if (bootCommit === null) { bootCommit = commit; dbg("version seeded", commit); return; }
+        if (bootCommit === null) { bootCommit = commit; return; }
         if (commit === bootCommit) return;
-        dbg("version changed", bootCommit, "->", commit);
         // Advance first so repeated activations don't re-fire while a soft
         // viewer refresh is still settling.
         bootCommit = commit;
@@ -572,11 +475,9 @@ import { WS } from "/contracts/ws-frames.js";
   window.addEventListener(HSM_EVENTS.DEPLOY, function (e) {
     if (window.__hsmDeploySoft) return;
     if (e.detail && e.detail.commitChanged === false) return; // socket blip, not a deploy
-    dbg("deploy -> reload");
     window.location.reload();
   });
 
   checkVersion();  // seed bootCommit now, independent of the socket
   connectWS();
-  if (liveDebugOn()) ensureOverlay();  // show the debug panel if the setting is on
 })();

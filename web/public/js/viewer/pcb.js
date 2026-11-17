@@ -4,13 +4,9 @@
 // back) — produced by hardware/pcb/pcba/render-board.ts straight from the
 // fabrication Gerbers, so the lines have the real widths the board is made with.
 //
-// Modeled on drawings.js: a 2D SVG opened in ContentViewer with PanZoom, with
-// per-board transform persistence and a swap-in-place on re-render. What it adds
-// is the view toggle — Top / Inner 1…N / Bottom / Overlay, in physical stack
-// order. All views share one identical viewBox, so switching swaps the SVG while
-// keeping the user's exact pan/zoom — the board holds still under the toggle.
-
-import { state } from "./state.js";
+// The material workspace loads this viewer when the reader selects PCB.
+import PanZoom from "/pan-zoom.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 import { makeResetButton, makeMinimap, makeChromeFit } from "./pan-zoom-extras.js";
 import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle, revealClearance, revealComponent, revealTraceRoute } from "./pcb-pick.js";
 
@@ -60,10 +56,10 @@ const PCB_CHROME = [
 function pcbTransformKey(source) { return `pcb-transform:${source}`; }
 function pcbViewKey(source) { return `pcb-view:${source}`; }
 
-export function pcbSaveTransform(source, t) {
+function pcbSaveTransform(source, t) {
   try { localStorage.setItem(pcbTransformKey(source), JSON.stringify(t)); } catch {}
 }
-export function pcbLoadTransform(source) {
+function pcbLoadTransform(source) {
   try {
     const raw = localStorage.getItem(pcbTransformKey(source));
     if (!raw) return null;
@@ -82,10 +78,6 @@ function pcbLoadView(source, validViews) {
   } catch { return null; }
 }
 
-function boardForSource(source) {
-  return (state.pcbBoards || []).find((b) => b.source === source) || null;
-}
-
 // Parse an SVG string into a live SVGSVGElement. PanZoom reads an SVG's natural
 // size from its viewBox (here in Gerber units, e.g. 150050), and fits/zooms by
 // CSS-transforming the element — so the element's rendered px size must MATCH
@@ -94,22 +86,13 @@ function boardForSource(source) {
 // nominally ~150000px, so .pcb-svg is positioned absolutely (viewer.css) and
 // clipped by the overflow-hidden wrapper until PanZoom's fit scales it down —
 // otherwise the unscaled element would blow out the page on first paint.
-// Inlining several board SVGs into one document collides their shared element ids:
-// pcb-stackup emits the SAME `fcu_clear-1`, `bcu_clear-1`, `in*_clear-1`, and
-// `*_pad-*` ids in every file and view, so a `mask="url(#fcu_clear-1)"` binds to
-// whichever copy is FIRST in the document — a grid thumbnail — and the modal's
-// copper gets masked by the wrong board's clearance (the "big hole" that only
-// appeared from the /pcb grid, not a direct deep-link). Rewrite every id and its
-// references to a per-instance token so each inlined SVG is self-contained.
-// The per-instance token counter lives in `state` (state.svgIdSeq), not module
-// scope, so it stays globally monotonic across a hot re-import of this module —
-// a reset counter would re-issue "__b1" and shadow a grid card's ids in the
-// document, resurfacing the wrong-mask "big hole" this function exists to prevent.
+// Namespace SVG IDs so an inline board can't bind to another element's mask.
+let svgIdSeq = 0;
 function uniquifySvgIds(svgText) {
   const ids = new Set();
   for (const m of svgText.matchAll(/\bid="([^"]+)"/g)) ids.add(m[1]);
   if (!ids.size) return svgText;
-  const tok = "__b" + (state.svgIdSeq += 1);
+  const tok = "__pcb" + (++svgIdSeq);
   let out = svgText;
   for (const id of ids) {
     const esc = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -144,10 +127,10 @@ function picksUrl(path) { return `/api/pcb-picks/${path}`; }
 
 // Fetch a board's pad-picker data (pads + identity), or null when the board
 // has no picks sidecar / the fetch fails — the picker then just doesn't arm.
-async function fetchPicks(board) {
+async function fetchPicks(board, signal) {
   if (!board || !board.picks) return null;
   try {
-    const r = await fetch(picksUrl(board.picks));
+    const r = await fetch(picksUrl(board.picks), { signal });
     return r.ok ? await r.json() : null;
   } catch { return null; }
 }
@@ -156,22 +139,17 @@ async function fetchPicks(board) {
 // by view name ({ top, bottom, overlay, inner1, … }). Returns null if any of the
 // three fixed views fail; an inner plane that fails to load is simply omitted,
 // so its toggle button never appears rather than blocking the whole board.
-async function fetchViews(board) {
+async function fetchViews(board, signal) {
   try {
     const entries = orderedViews(board);
     const texts = await Promise.all(
-      entries.map((e) => fetch(contentUrl(e.path)).then((r) => (r.ok ? r.text() : null))),
+      entries.map((e) => fetch(contentUrl(e.path), { signal }).then(r => r.ok ? r.text() : null, () => null)),
     );
     const views = {};
     entries.forEach((e, i) => { if (texts[i] != null) views[e.view] = texts[i]; });
     if (!views.top || !views.bottom || !views.overlay) return null;
     return views;
   } catch { return null; }
-}
-
-function shortName(source) {
-  const parts = source.split("/");
-  return parts.pop().replace(/\.tsx$/, "");
 }
 
 // Board outer dimensions readout. Authoritative source is the board element's
@@ -453,266 +431,157 @@ function openChecksModal(wrapper, picks) {
   wrapper.appendChild(modal);
 }
 
-// --- Thumbnail ---
-// The card thumbnail is the Overlay view SVG, scaled by its container. Cached as
-// a string for the grid thumbnail cache.
-export async function renderPcbThumbnail(source) {
-  if (state.pcbThumbCache.has(source)) return state.pcbThumbCache.get(source);
-  const board = boardForSource(source);
-  if (!board) return null;
-  try {
-    const resp = await fetch(contentUrl(board.overlay));
-    if (!resp.ok) return null;
-    // Uniquify here too — the grid inlines every board's thumbnail at once, so
-    // without this they collide with each other (and seed the modal collision).
-    const svgText = uniquifySvgIds(await resp.text());
-    state.pcbThumbCache.set(source, svgText);
-    return svgText;
-  } catch { return null; }
-}
-
-// Build the segmented control from `views` (ordered view keys). onSelect(view)
-// swaps the shown SVG; the buttons reflect state.currentPcbView.
 function makeViewToggle(views, onSelect) {
   const wrap = document.createElement("div");
   wrap.className = "pcb-view-toggle";
-  for (const v of views) {
+  wrap.setAttribute("role", "group");
+  wrap.setAttribute("aria-label", "PCB layers");
+  for (const view of views) {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "pcb-view-btn";
-    btn.dataset.view = v;
-    btn.textContent = viewLabel(v);
-    btn.addEventListener("click", (e) => { e.stopPropagation(); onSelect(v); });
-    wrap.appendChild(btn);
+    btn.className = "tool-seg-btn pcb-view-btn";
+    btn.dataset.view = view;
+    btn.textContent = viewLabel(view);
+    btn.addEventListener("click", event => { event.stopPropagation(); onSelect(view); });
+    wrap.append(btn);
   }
   return wrap;
 }
-function syncToggle(toggleEl, view) {
-  for (const btn of toggleEl.querySelectorAll(".pcb-view-btn")) {
-    btn.classList.toggle("active", btn.dataset.view === view);
-  }
-}
-// The toggle's per-button action — swap to `v` unless it's already showing.
-// Shared by the initial build and the live-reload rebuild.
-function onViewSelect(v) { if (v !== state.currentPcbView) mountView(v, true); }
 
-// Mount `view` into the open board's wrapper, re-wrapping PanZoom while keeping
-// the current transform (all views share a viewBox, so the board doesn't move).
-// `preserve` carries the transform across a swap; on first mount we fit.
-function mountView(view, preserve) {
-  const wrapper = state.currentPcbWrapper;
-  if (!wrapper) return;
-  const svgText = state.currentPcbViews?.[view];
-  if (!svgText) return;
-
-  let svgEl;
-  try {
-    svgEl = parseSvgString(svgText);
-  } catch (err) {
-    wrapper.querySelector(".pcb-svg")?.remove();
-    return;
-  }
-
-  const prev = preserve && state.currentPcbPz ? state.currentPcbPz.getTransform() : null;
-  try { state.currentPcbPz?.destroy(); } catch {}
-  try { state.currentPcbMinimap?.destroy(); } catch {}
-  wrapper.querySelector(".pcb-svg")?.remove();
-  // Insert the SVG as the first child so the toggle / minimap / reset overlay it.
-  wrapper.insertBefore(svgEl, wrapper.firstChild);
-
-  const source = state.currentPcbSource;
-  const chrome = makeChromeFit(wrapper, PCB_CHROME);
-  const minimap = makeMinimap(svgEl, wrapper, chrome.obstacles);
-  const pz = PanZoom.wrap(svgEl, {
-    container: wrapper,
-    initialFit: !prev,
-    // The board's natural size is in Gerber units (~150000), so the fit scale is
-    // tiny (~0.006). Drop PanZoom's default minScale floor (0.1) well below it
-    // or the fit clamps and the board renders far too zoomed-in.
-    minScale: 0.0001,
-    // Grow the fit (and the zoom-out floor) as large as clears the chrome rects.
-    fitObstacles: chrome.obstacles,
-    onTransformChange: (t) => { if (source) pcbSaveTransform(source, t); },
-    onTransformLive: (t) => minimap.update(t),
-  });
-  // The reset pill has no destroy of its own, and a layer swap builds another.
-  wrapper.querySelector(".pan-zoom-reset")?.remove();
-  wrapper.appendChild(minimap.el);
-  wrapper.appendChild(makeResetButton(pz, {
-    transformKey: source ? pcbTransformKey(source) : null,
-    refit: chrome.refit,
-  }));
-  chrome.attach(pz, minimap);
-
-  state.currentPcbPz = pz;
-  state.currentPcbMinimap = minimap;
-  state.currentPcbChrome = chrome;
-  state.currentPcbView = view;
-  // A swap keeps the view the user was on; the board's own fit belongs to the
-  // open (onOpen below), which is the one place the chrome is laid out.
-  if (prev) { chrome.measure(); pz.setTransform(prev); }
-  if (source) pcbSaveView(source, view);
-  if (state.currentPcbToggle) syncToggle(state.currentPcbToggle, view);
-
-  // Re-arm the board inspector on the freshly mounted SVG (the three views share
-  // a frame, so a live selection carries across the swap).
-  const picks = state.currentPcbPicks;
-  installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper } : null);
-}
-
-export async function openPcbDetail(source, pushHistory = true) {
-  // Set currentDetail BEFORE touching location.hash (popstate may fire
-  // synchronously under Puppeteer; its handler dispatches on currentDetail).
-  state.currentDetail = { type: "pcb", file: source };
-  if (pushHistory) location.hash = "pcb:" + encodeURIComponent(source);
-
-  let board = boardForSource(source);
-  if (!board) {
-    // Deep-link (or any call) before the board list loaded: fetch it and retry,
-    // so we open the real board rather than the unavailable-fallback.
-    try {
-      const list = await fetch("/api/pcb").then((r) => (r.ok ? r.json() : null));
-      if (list) { state.pcbBoards = list; board = boardForSource(source); }
-    } catch {}
-  }
-  const [views, picks] = board
-    ? await Promise.all([fetchViews(board), fetchPicks(board)])
-    : [null, null];
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "pcb-wrapper";
-
-  if (!views) {
-    wrapper.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;">Board views unavailable: ${shortName(source)}</pre>`;
-    ContentViewer.open({
-      content: wrapper,
-      filename: shortName(source),
-      onClose: () => { clearPcbState(); if (location.hash) history.back(); },
+let styles;
+function loadStyles() {
+  if (!styles) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "/css/pcb.css";
+    styles = new Promise((resolve, reject) => {
+      link.onload = resolve;
+      link.onerror = () => {
+        link.remove();
+        styles = null;
+        reject(new Error("PCB styles unavailable"));
+      };
+      document.head.append(link);
     });
-    return;
   }
-
-  // The toggle and its order follow the views that actually loaded, in stack
-  // order; a saved view only sticks if it's one of them.
-  const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
-  const view = pcbLoadView(source, present) || "overlay";
-  const toggle = makeViewToggle(present, onViewSelect);
-  wrapper.appendChild(toggle);
-  if (picks && picks.pads && picks.pads.length) wrapper.appendChild(makePadPickToggle());
-
-  // Publish the open-modal context, then build the first view synchronously —
-  // before ContentViewer.open. Mounting
-  // here rather than in onOpen keeps the SVG + PanZoom out of reach of the
-  // singleton-close path, which fires the prior modal's onClose during open.
-  state.currentPcbSource = source;
-  state.currentPcbViews = views;
-  state.currentPcbPicks = picks;
-  state.currentPcbWrapper = wrapper;
-  state.currentPcbToggle = toggle;
-  state.currentPcbView = view;
-  mountView(view, false);
-  updateDimsChip(wrapper, picks);
-  // Local handles for onOpen/onClose so a later modal reassigning the shared
-  // state can't strand this modal's fit or teardown.
-  const pz = state.currentPcbPz;
-  const minimap = state.currentPcbMinimap;
-  const chrome = state.currentPcbChrome;
-
-  ContentViewer.open({
-    content: wrapper,
-    filename: shortName(source),
-    onOpen: () => chrome?.open(pcbLoadTransform(source)),
-    onClose: () => {
-      // Only tear down shared state if it still belongs to this modal; a newer
-      // board opened over this one already owns it. Always destroy this modal's
-      // own PanZoom either way.
-      if (state.currentPcbWrapper === wrapper) {
-        clearPcbState();
-      } else {
-        try { pz?.destroy(); } catch {}
-        try { minimap?.destroy(); } catch {}
-      }
-      if (location.hash) history.back();
-    },
-  });
+  return styles;
 }
 
-function clearPcbState() {
-  try { state.currentPcbPz?.destroy(); } catch {}
-  try { state.currentPcbMinimap?.destroy(); } catch {}
-  try { clearPadPicker(); } catch {}
-  state.currentDetail = null;
-  state.currentPcbSource = null;
-  state.currentPcbViews = null;
-  state.currentPcbPicks = null;
-  state.currentPcbWrapper = null;
-  state.currentPcbToggle = null;
-  state.currentPcbPz = null;
-  state.currentPcbMinimap = null;
-  state.currentPcbChrome = null;
-  state.currentPcbView = null;
+async function loadBoard(source, signal) {
+  const response = await fetch("/api/pcb", { signal, cache: "no-cache" });
+  if (!response.ok) throw new Error("Board list unavailable");
+  const board = (await response.json()).find(entry => entry.source === source);
+  if (!board) throw new Error("Board unavailable");
+  const [views, picks] = await Promise.all([fetchViews(board, signal), fetchPicks(board, signal)]);
+  if (!views) throw new Error("Board layers unavailable");
+  const layers = orderedViews(board).map(entry => entry.view).filter(view => views[view]);
+  return { views, picks, layers };
 }
 
-export function closePcbDetail(pushHistory = true) {
-  if (!ContentViewer.isOpen()) { clearPcbState(); return; }
-  if (!pushHistory) {
-    const pz = state.currentPcbPz;
-    clearPcbState();
-    try { pz?.destroy(); } catch {}
-    ContentViewer.close();
-    return;
-  }
-  ContentViewer.close();
-}
+export async function mountPcbView(wrapper, source, signal) {
+  let board, activeView, toggle, svg, panZoom, minimap, chrome;
+  let generation = 0;
 
-export async function refetchOpenPcb(source) {
-  // Live-reload path: the open-board branch of refreshPcbCard (live.js) never
-  // re-fetches the board list, so board.inners would otherwise be frozen at
-  // page-load. Refresh it (like openPcbDetail) so a re-render that added or
-  // dropped an inner plane is reflected in the views we fetch and the toggle.
-  try {
-    const list = await fetch("/api/pcb").then((r) => (r.ok ? r.json() : null));
-    if (list) state.pcbBoards = list;
-  } catch {}
-  const board = boardForSource(source);
-  if (!board) return;
-  const [views, picks] = await Promise.all([fetchViews(board), fetchPicks(board)]);
-  if (!views) return;
-  const prevView = state.currentPcbView;
-  const prevActive = state.currentPcbViews?.[prevView];
-  state.currentPcbViews = views;
-  state.currentPcbPicks = picks;
-  updateDimsChip(state.currentPcbWrapper, picks);
-
-  // If the showing plane is gone, fall back to the overlay (always present).
-  const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
-  const view = views[prevView] ? prevView : "overlay";
-
-  // Rebuild the toggle when the available planes changed (a layer added or
-  // removed), so new buttons appear and dead ones go away; leave it untouched
-  // when the set is identical (the common case — a geometry-only re-render).
-  // Either way re-sync the active button: a remount below would, but the
-  // unchanged-view path skips it, and a freshly built toggle starts blank.
-  if (state.currentPcbToggle) {
-    const shown = [...state.currentPcbToggle.querySelectorAll(".pcb-view-btn")].map((b) => b.dataset.view);
-    if (shown.join() !== present.join()) {
-      const fresh = makeViewToggle(present, onViewSelect);
-      state.currentPcbToggle.replaceWith(fresh);
-      state.currentPcbToggle = fresh;
-    }
-    syncToggle(state.currentPcbToggle, view);
+  function installPicker() {
+    const { picks } = board;
+    installPadPicker(svg, picks ? {
+      pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper, panZoom,
+    } : null);
   }
 
-  // The board re-rendered underneath us: drop any stale selection (its geometry
-  // may be gone) so the inspector doesn't keep a dead highlight, then rebuild
-  // the hit targets from the fresh picks so they line up with the new copper.
-  clearPadSelection();
-  if (view !== prevView || views[view] !== prevActive) {
-    mountView(view, true);
-  } else {
-    const svgEl = state.currentPcbWrapper?.querySelector(".pcb-svg");
-    if (svgEl) {
-      installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper: state.currentPcbWrapper } : null);
+  function syncToggle() {
+    for (const btn of toggle.querySelectorAll("button")) {
+      const active = btn.dataset.view === activeView;
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-pressed", String(active));
     }
   }
+
+  function releaseLayer() {
+    panZoom?.destroy();
+    minimap?.destroy();
+    chrome?.destroy();
+  }
+
+  function mountLayer(view) {
+    const next = parseSvgString(board.views[view]);
+    const previous = panZoom?.getTransform();
+    releaseLayer();
+    svg?.remove();
+    svg = next;
+    wrapper.prepend(svg);
+    chrome = makeChromeFit(wrapper, PCB_CHROME);
+    minimap = makeMinimap(svg, wrapper, chrome.obstacles);
+    panZoom = PanZoom.wrap(svg, {
+      container: wrapper,
+      initialFit: false,
+      // The board's viewBox uses Gerber units. Its fit scale is below PanZoom's default floor.
+      minScale: 0.0001,
+      fitObstacles: chrome.obstacles,
+      onTransformChange: transform => pcbSaveTransform(source, transform),
+      onTransformLive: transform => minimap.update(transform),
+    });
+    wrapper.querySelector(".pan-zoom-reset")?.remove();
+    wrapper.append(minimap.el, makeResetButton(panZoom, {
+      transformKey: pcbTransformKey(source),
+      refit: chrome.refit,
+    }));
+    chrome.attach(panZoom, minimap);
+    updateDimsChip(wrapper, board.picks);
+    chrome.open(previous || pcbLoadTransform(source));
+    activeView = view;
+    pcbSaveView(source, view);
+    syncToggle();
+    installPicker();
+  }
+
+  function selectLayer(view) {
+    if (view !== activeView) mountLayer(view);
+  }
+
+  function render(next) {
+    const previous = board;
+    board = next;
+    if (!toggle || previous.layers.join() !== next.layers.join()) {
+      const newToggle = makeViewToggle(next.layers, selectLayer);
+      if (toggle) toggle.replaceWith(newToggle);
+      else wrapper.append(newToggle);
+      toggle = newToggle;
+    }
+    const inspect = wrapper.querySelector(".pad-pick-toggle");
+    if (next.picks?.pads?.length) {
+      if (!inspect) wrapper.append(makePadPickToggle());
+    } else inspect?.remove();
+
+    if (previous) {
+      clearPadSelection();
+      closeChecksModal(wrapper);
+    }
+    const view = next.views[activeView] ? activeView : pcbLoadView(source, next.layers) || "overlay";
+    if (view !== activeView || next.views[view] !== previous?.views[view]) mountLayer(view);
+    else { syncToggle(); installPicker(); updateDimsChip(wrapper, next.picks); }
+  }
+
+  signal.addEventListener("abort", () => {
+    releaseLayer();
+    if (board) clearPadPicker();
+  }, { once: true });
+
+  const [, initial] = await Promise.all([loadStyles(), loadBoard(source, signal)]);
+  if (signal.aborted) return;
+  render(initial);
+
+  async function refresh() {
+    const requested = ++generation;
+    try {
+      const next = await loadBoard(source, signal);
+      if (!signal.aborted && requested === generation) render(next);
+    } catch (error) {
+      if (!signal.aborted) console.warn("Refresh PCB view:", error.message);
+    }
+  }
+  window.addEventListener(HSM_EVENTS.FILES_CHANGED, event => {
+    if (event.detail?.files?.includes(source)) refresh();
+  }, { signal });
+  window.addEventListener(HSM_EVENTS.DEPLOY, refresh, { signal });
 }

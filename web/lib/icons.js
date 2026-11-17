@@ -9,10 +9,8 @@ import { iconSvg } from "../contracts/icons.js";
 export const HOME_SVG      = iconSvg("home");
 export const PARTS_SVG     = iconSvg("cube");
 export const GUIDES_SVG    = iconSvg("book");
-export const PCB_SVG       = iconSvg("cpu");
 export const DOLLAR_SVG    = iconSvg("dollar");
 export const LATEST_SVG    = iconSvg("history");
-export const GEAR_SVG      = iconSvg("gear");
 export const BELL_SVG      = iconSvg("bell");
 
 // Map from notification `kind` to glyph (with the notif-icon class the
