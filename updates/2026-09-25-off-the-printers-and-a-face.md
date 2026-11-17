@@ -68,7 +68,7 @@ A 3D scanner arrived on 18 September. In ten sessions since, it has measured mos
 
 Two films went up on 25 September. [Cold Soda on Tap — Inside a Home Soda Machine](https://youtu.be/aYyjj8i9WS8) is a narrated three-minute tour through the machine's own model, from the water supply through the cold core to the pour. [One Less Errand](https://youtu.be/WHO-V2DPTcs) is a 100-second animated short about the trip to the store a glass of soda should not need; it now plays on the home page, under the sign-up form.
 
-The walkthrough page the tour was cut from is retired, and every section of this site — Parts, Charts, Drawings, Boards and Cost — is now in everyone's navigation. In [Parts](/3d) the faucet can be viewed in either style and either finish.
+The walkthrough page the tour was cut from is retired. In [Parts](/3d) the faucet can be viewed in either style and either finish.
 
 ## What one costs
 

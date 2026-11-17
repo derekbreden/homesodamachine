@@ -69,7 +69,6 @@
 }
 .card > img,
 .card > .placeholder,
-.card > .mmd-thumb,
 .card > .pcb-thumb,
 .card > .doc-cover { flex: 0 0 auto; }
 .card .card-caption {
@@ -1138,7 +1137,7 @@
   }
 }
 
-/* Minimap for 2D PanZoom surfaces (mermaid + board views). 2D equivalent
+/* Minimap for board views. 2D equivalent
    of the 3D ViewCube gizmo: outer box is the wrapper at the default
    (fit) view, inner box is what portion of that view is currently
    visible after pan/zoom. Pointer-events: none — the box is an
@@ -1179,16 +1178,6 @@
   margin-bottom: 4px;
 }
 .section-header:first-child { padding-top: 0; }
-.subsection-header {
-  grid-column: 1 / -1;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-2);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 10px 0 2px;
-  opacity: 0.65;
-}
 
 /* --- /3d: the machine's two units -----------------------------------------
 
@@ -1249,24 +1238,6 @@
   white-space: nowrap;
 }
 
-
-/* Mermaid thumbnail in card. A topology diagram is wide and short, and a
-   square well shrinks it to a hairline across the middle of an empty box —
-   the well carries the shape the diagrams are actually drawn in. */
-.card .mmd-thumb {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 8px;
-}
-.card .mmd-thumb svg {
-  max-width: 100%;
-  max-height: 100%;
-}
 
 /* --- /guides: the guides shelf -------------------------------------------
 

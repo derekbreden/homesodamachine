@@ -1,6 +1,6 @@
 # web/
 
-The Node web server for **homesodamachine.com** + the browser-rendered viewer at `/3d` and `/charts`. No bundler. Runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables.
+The Node web server for **homesodamachine.com**, including the parts, guides and boards viewers. The web service runs on Render with Postgres for the notification inbox and FCM hash tables.
 
 The hardware, firmware and CAD content the site presents lives in [`hardware/`](/hardware/).
 Native `hsm` programs produce the geometry and print files; the PCB and firmware have their
@@ -170,7 +170,7 @@ state, WebSocket owner, /api/version activation check). Then any page-specific
 module (/landing.js, /js/viewer/main.js, etc.).
 ```
 
-The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses `renderHead` and `renderFooter`. Public and engineering pages use `renderNav`, which draws the same icons everywhere: Home, Latest, Parts, Charts, Drawings, Boards and Cost, then the bell and the gear. Latest opens the `/latest` hub, where Changes and Updates both begin, and stands lit anywhere in either feed. Unit pages have their own named navigation: Your machine, Get started, and Guides.
+The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `renderFooter` and `renderNav`. The public and engineering navigation includes Home, Latest, Parts, Guides, Boards, Cost, Notifications and Settings. Latest opens the `/latest` hub and stays active in the Changes and Updates feeds. Unit navigation includes Your machine, Get started and Guides.
 
 ## Module layout
 
@@ -183,9 +183,9 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page uses 
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Appliance overview with CAD-based kitchen and detail illustrations. [`lib/landing-support.js`](/web/lib/landing-support.js) supplies the optional film, supplier acknowledgements and secondary availability signup. |
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/cost.js`](/web/lib/cost.js) | `/cost` | The production workspace, parts, planned labor, sale price and investment recovery. [`lib/production-planner.js`](/web/lib/production-planner.js) reads the material catalog, shared stock and supplier offers. [`public/production-planner.js`](/web/public/production-planner.js) shows cumulative unit coverage, editable supplier packs, custom packs and a browser-saved purchase scenario. [`contracts/production-plan.js`](/web/contracts/production-plan.js) and [`contracts/purchase-lots.js`](/web/contracts/purchase-lots.js) share coverage and pack pricing between server and browser. [`lib/part-cost-view.js`](/web/lib/part-cost-view.js) renders the numbered assembly cost tree with each assembly’s own work and supplies, linking to the explorer. |
-| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/guides`, `/pcb` | The viewer pages — parts, charts, guides, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides`, `/pcb` | Parts, guides and boards share [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/weld-position.js`](/web/lib/weld-position.js) | `/weld-position` | Tube, recessed endcap and gun orientation; grip, hole and vertical rotations about the laser dot. |
-| [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content, plus document publication gates. The STEP list holds only the models a part number names. |
+| [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,pcb,documents}`, `/steps/*`, `/dxfs/*`, `/read/*`, `/docs/*` | API for the viewer's file lists and content, plus document publication gates. The STEP list holds only the models a part number names. |
 | [`lib/document-reader.js`](/web/lib/document-reader.js) | `/vendor/pdfjs/<version>/*` | Document reader HTML and the installed PDF.js assets. `/read/*` renders one page at a time through `public/document-reader.js`, with page links, history, selectable text and zoom. `/docs/*?raw=1` supplies range-capable PDF bytes; `?download=1` supplies an attachment. HTML navigations to saved `/docs/*` links redirect to the reader. |
 | [`lib/changes.js`](/web/lib/changes.js) | `/changes`, `/changes/<id>`, `/changes/<id>/<file>`, `/api/changes` | Before-and-after feed of recorded changes, newest first. Reads `changes/<id>/entry.md` (frontmatter + the Updates markdown subset) and `views.json` (each view's Before and After images, pixel size and marks); [`changes/README.md`](/changes/README.md) is how an entry is made. Serves the cards, `/api/changes?before=<id>` pages for the infinite scroll, the entry page and its `?fragment=1` modal body, and only the images a view names. Entries do not deploy: on the deployed container it carries those committed since its clone from GitHub when the feed is asked for — main's root tree, then the `changes/` subtree only when it moved, at most once a minute, standing down below 20 calls left in the shared hour. |
 | [`lib/latest.js`](/web/lib/latest.js) | `/latest` | The hub the nav's Latest item opens. Changes, then Updates: each section's name, a line on what it is, its newest items as thumbnails and a link into the whole feed. A change's thumbnail is its first view cut down the middle, the Before's left half against the After's right; a post's is its `image`, else its `image_fig`; an item with neither carries its words in the same frame. Each thumbnail opens its item at `/changes/<id>` or `/updates/<slug>`. The entries come through the reader `mountChangesRoutes` hands back, and the page waits on the same carry. |
@@ -216,10 +216,10 @@ Served flat via `express.static(public/)`.
 | [`public/settings.js`](/web/public/settings.js) | `/settings` | Notification + live-reload debug toggles. |
 | [`public/style-guide.js`](/web/public/style-guide.js) | `/style-guide` | Local sample search, tabs, row selection, copy markup and computed style readouts. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`hsm-marketing brand-assets`](../tools/hsm/marketing/src/brand.rs). |
-| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
-| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
-| `public/js/viewer/*.js` | `/3d`, `/charts` | The parts/charts viewer modules — see below. |
-| `public/css/viewer.css` | `/3d`, `/charts` | Viewer-specific styles. |
+| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/pcb` | Pan, pinch and wheel zoom for board views. |
+| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/3d`, `/pcb`, `/changes` | Shared modal with swipe-down, Escape, close button and backdrop dismissal. |
+| `public/js/viewer/*.js` | `/3d`, `/guides`, `/pcb` | The catalog and viewer modules. |
+| `public/css/viewer.css` | `/3d`, `/guides`, `/pcb` | Viewer styles. |
 
 The studio's `reducer.js` records the reference STL's SHA-256. `enclosure.js`
 reads the same published colored assembly tessellation as `/3d` and matches its
@@ -239,7 +239,7 @@ is unsupported. It adds no build dependency.
 
 ### `public/js/viewer/` — the parts viewer modules
 
-`/3d` and `/charts` share one module graph (the entry decides what to show based on `location.pathname`). Each module is a browser-native ES module loaded via the importmap in [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html).
+`/3d`, `/guides` and `/pcb` share one module graph. The entry selects a catalog from `location.pathname`. The import map lives in [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html).
 
 | Module | Role |
 |---|---|
@@ -249,9 +249,8 @@ is unsupported. It adds no build dependency.
 | `faucet-options.js` | The faucet's Sculpted/Industrial style and Black/White finish controls. Style swaps actual assembly payloads in the same view; finish recolors the printed exterior, lever, above-counter gasket, soda faucet tube, including their direct part views. The continuous black 4 mm flavor tubes retain their stock color in both finishes. On narrow screens the choices expand from a compact summary. |
 | `xray.js` | The X-ray toggle. Every model, and every card's picture, draws solid until x-ray is turned on; the choice is kept in this browser under `step-xray` and applies to every model. |
 | `dxf.js` | DXF loader, parser and extrusion mesher. No page draws a card for a cut, so a `.dxf` is reached by opening it. |
-| `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
-| `grid.js` | Card grid per page, `IntersectionObserver` for thumbnail lazy-load. `/3d` hands off to `parts.js`; charts and line art group by a path segment (`categoryAndPartPath`, `groupFilesByCategory`). |
+| `grid.js` | Renders the catalog shelves and uses `IntersectionObserver` to load thumbnails near the viewport. `/3d` delegates its shelf to `parts.js`. |
 | `parts.js` | `/3d`'s description lookup and cards for the two product units and build tools. Each card draws the model it opens, at the card's own size. The material catalog supplies identities and engineering relationships; a model without a part number is not offered. |
 | `material-search.js` | Description, permanent number, alias and manufacturer-number lookup on the grid and in the model companion. |
 | `material-panel.js` | Expandable BOM with quantities through assembly levels, geometry selection, reverse ancestry and linked documents. Context representations inspect a named assembly inside an enclosing model while retaining its own BOM. Its selection is the model's: a part chosen in the pane, opened from a search or picked in the model is selected there too (`part-highlight.js`), and **←** steps up one BOM level. A model opened on its own material shows whole and opaque, with nothing selected. |

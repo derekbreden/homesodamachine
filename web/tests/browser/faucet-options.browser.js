@@ -71,7 +71,7 @@ async function openPage(file = sculpted.assembly, xrayPreference = "0") {
     const json = (body) => request.respond({ status: 200, contentType: "application/json", body: JSON.stringify(body) });
     if (url.pathname === "/api/steps") return json(files);
     if (url.pathname === "/api/objects") return json({ objects: {} });
-    if (["/api/dxf", "/api/glbs", "/api/pcb", "/api/mermaid", "/api/documents"].includes(url.pathname)) return json([]);
+    if (["/api/dxf", "/api/glbs", "/api/pcb", "/api/documents"].includes(url.pathname)) return json([]);
     if (url.pathname.startsWith("/meshes/") || url.pathname.startsWith("/steps/")) {
       const target = decodeURIComponent(url.pathname.replace(/^\/(meshes|steps)\//, "")).replace(/\.mesh$/, "");
       return request.respond(failures.has(target)

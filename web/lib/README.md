@@ -35,15 +35,15 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 | [`shell.js`](/web/lib/shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
 | [`landing.js`](/web/lib/landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
 | [`unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Registered unit pages with the shared head and their own owner navigation. Equipment, preparation, and links to the printed guides. |
-| [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | Every page renders [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html), which loads `public/js/viewer/main.js`. Which one it shows — parts, charts, drawings and shop guides, or boards — is decided client-side by `currentSection()`. |
-| [`viewer-routes.js`](/web/lib/viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid,documents}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs), and `/docs/*` (complete published PDFs listed on `/drawings`). Walks `hardware/` via [`walk.js`](/web/lib/walk.js). Archived card URLs return 410. |
+| [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/guides`, `/pcb` | The parts, guides and boards pages share [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`viewer-routes.js`](/web/lib/viewer-routes.js) | Viewer API | Lists and serves models, board views and published documents. Walks `hardware/` via [`walk.js`](/web/lib/walk.js). |
 | [`settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |
 | [`events.js`](/web/lib/events.js) | `/ws` | WebSocket channel — one socket per page, owned by [`public/boot.js`](/web/public/boot.js). |
 | [`notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
-| [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `drawing_hashes`, `document_hashes`, `pcb_hashes`). |
+| [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions and notifications. File changes are read from `step_hashes`, `dxf_hashes`, `document_hashes` and `pcb_hashes`. |
 | [`walk.js`](/web/lib/walk.js) | — | `walkFiles(rootDir, exts)` and the per-kind walkers (`walkFilesUnderDir`, `walkPcbBoards`, `walkDocuments`) — shared between `viewer-routes.js` and `push.js`. Every one of them skips a retired tree. |
 | [`retired.js`](/web/lib/retired.js) | — | The `.retired` marker: a directory holding that file, and everything under it, is source kept for reading. Read by `walk.js` (what the site browses) and [`scripts/build-deps.js`](/web/scripts/build-deps.js) (what the build rebuilds), from here so the two cannot disagree. |
-| [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, clipboard, file). One source of truth for both nav and notification rows. |
+| [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs for navigation and notification rows. |
 | [`templates/`](/web/lib/templates/) | — | HTML fragments included by the page-render modules above. Currently just `viewer-body.html`. |
 
 ## Conventions

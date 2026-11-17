@@ -1,5 +1,5 @@
 // ContentViewer — modal frame for showing arbitrary content (images, SVGs,
-// long text, mermaid, eventually STEP). Native <dialog> for backdrop +
+// board views and STEP models). Native <dialog> for backdrop +
 // focus trap + Escape; bespoke open/close transitions and a top drag area
 // that swipe-down dismisses on touch.
 //

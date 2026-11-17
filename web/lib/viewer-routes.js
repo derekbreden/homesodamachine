@@ -148,10 +148,6 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     res.json([...new Set(walkFiles(hardwareDir, [".glb", ".glb.mesh"]).map(file=>file.replace(/\.glb\.mesh$/,'.glb')))].filter(rel => publishedFile(rel) || publishedFile(`${rel}.mesh`)));
   });
 
-  app.get("/api/mermaid", (req, res) => {
-    res.json(walkFiles(hardwareDir, ".mmd"));
-  });
-
   // PCB boards with their three rendered copper views (see walkPcbBoards).
   app.get("/api/pcb", (req, res) => {
     res.json(walkPcbBoards(hardwareDir));
@@ -178,13 +174,6 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     // (thickness_mm, material, etc.) in the same round-trip — the
     // viewer needs thickness to extrude. See hardware/README.md.
     res.json(paths.map((p) => ({ path: p, ...sidecarFields(readSidecar(hardwareDir, p)) })));
-  });
-
-  app.get("/api/mermaid-content/*splat", (req, res) => {
-    const abs = safeFile(hardwareDir, relOf(req), ".mmd");
-    if (!abs) return res.status(400).send("Invalid path");
-    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
-    res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
   });
 
   // PCB view SVG content. Only the rendered board views under a `pcb/.../out/`

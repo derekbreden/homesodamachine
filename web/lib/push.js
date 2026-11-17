@@ -7,7 +7,7 @@
 //   - Server (this module) stores tokens + which files each subscription
 //     watches in Postgres.
 //   - On prod boot, server.js calls the per-kind detect* functions (steps,
-//     mermaid, dxf, pcb boards, published documents) against per-kind hash tables,
+//     dxf, pcb boards, published documents) against per-kind hash tables,
 //     concatenates the result, and calls notifyFilesChanged once for the
 //     combined set. One FCM banner regardless of how many files or which kinds
 //     changed; the files-changed broadcast fires alongside for in-app handling
@@ -15,7 +15,7 @@
 //
 // Notes:
 //   - The first time a hash table is empty (genuine bootstrap — first deploy
-//     after schema creation, or when adding a new kind like mermaid), we
+//     after schema creation or when adding a new kind), we
 //     record hashes silently and notify nothing. Avoids paging every
 //     subscriber for every existing file.
 //   - Tokens that come back from FCM as not-registered or invalid are removed.
@@ -34,7 +34,6 @@ let adminApp = null;
 let schemaReady = null;
 
 function walkStepFiles(rootDir) { return walkFiles(rootDir, ".step"); }
-function walkMermaidFiles(rootDir) { return walkFiles(rootDir, ".mmd"); }
 function walkDxfFiles(rootDir) { return walkFiles(rootDir, ".dxf"); }
 function walkDocumentFiles(rootDir) { return walkDocuments(rootDir).map((doc) => doc.path); }
 
@@ -57,13 +56,6 @@ function ensureSchema() {
     `);
     await pool.query(`
       CREATE TABLE IF NOT EXISTS step_hashes (
-        file TEXT PRIMARY KEY,
-        sha256 TEXT NOT NULL,
-        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS mermaid_hashes (
         file TEXT PRIMARY KEY,
         sha256 TEXT NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -221,12 +213,11 @@ export function mountPushRoutes(app) {
 // existing file is "first-seen" but is really backlog. Detect that by
 // checking whether the hash table is empty before iterating; if so, record
 // hashes silently and notify nothing. Each table bootstraps independently
-// so adding a new viewable kind (mermaid alongside steps) doesn't trigger
-// a notification flood for files that already existed.
+// so a new file kind can start tracking its existing files silently.
 //
 // Allowed table names are hardcoded — no SQL injection risk despite the
 // template-string interpolation, since callers pick from this whitelist.
-const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "document_hashes"]);
+const ALLOWED_HASH_TABLES = new Set(["step_hashes", "dxf_hashes", "document_hashes"]);
 
 async function hashFile(abs) {
   const hash = crypto.createHash("sha256");
@@ -281,10 +272,6 @@ async function detectChangedFilesInTable(tableName, walker, hardwareDir) {
 
 export function detectChangedSteps(hardwareDir) {
   return detectChangedFilesInTable("step_hashes", walkStepFiles, hardwareDir);
-}
-
-export function detectChangedMermaid(hardwareDir) {
-  return detectChangedFilesInTable("mermaid_hashes", walkMermaidFiles, hardwareDir);
 }
 
 export function detectChangedDxf(hardwareDir) {
@@ -347,7 +334,7 @@ export async function detectChangedPcb(hardwareDir) {
 // the retry/error path consistent and frees the callers to focus on
 // what to send (single post vs batched count vs single STEP vs etc).
 //
-// `kind` distinguishes step / mermaid / dxf / … for the in-app
+// `kind` distinguishes step / dxf / pcb / … for the in-app
 // notifications list (icon picker, etc). For mixed-kind batches it's
 // "files".
 //
@@ -420,43 +407,24 @@ async function fanOutToTokens(tokens, message, errorContext, link, kind) {
   return { sent, removed };
 }
 
-// Unified notification for any viewable-file changes (STEP and/or mermaid).
-// One FCM message regardless of how many files or which kinds: title and
-// body are computed by countFilesByKind so a deploy that changes both
-// kinds doesn't fan out into two banners. Link always points at the first
-// changed file's deep link, so cold-launch tap on the system banner lands
-// on something specific even for batched updates (rather than dumping the
-// user at /3d root with no file context).
-//
-// All callers route through here; the boot diff loop in server.js
-// detects step + mermaid changes separately and concatenates them into
-// `files` for one call.
-// Title is per-kind ("Print updated" for STEP, "Diagram updated" for
-// mermaid). Body is the basename only — full paths get long fast and the
-// directory rarely tells the user anything they need at notification-
-// glance time.
 function isPcbPath(p) {
   return p.endsWith(".tsx") && p.split("/").includes("pcb");
 }
 
 function describeFilesUpdate(files) {
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
-  const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const pcbCount = files.filter(isPcbPath).length;
   const documentCount = files.filter((f) => f.endsWith(".pdf")).length;
   let title;
   if (files.length === 1) {
     if (files[0].endsWith(".step")) title = "Print updated";
-    else if (files[0].endsWith(".mmd")) title = "Diagram updated";
     else if (files[0].endsWith(".dxf")) title = "Cut updated";
     else if (isPcbPath(files[0])) title = "Board updated";
     else if (files[0].endsWith(".pdf")) title = "Guide updated";
     else title = "File updated";
   } else if (stepCount === files.length) {
     title = `${files.length} Prints updated`;
-  } else if (mermaidCount === files.length) {
-    title = `${files.length} Diagrams updated`;
   } else if (dxfCount === files.length) {
     title = `${files.length} Cuts updated`;
   } else if (pcbCount === files.length) {
@@ -472,6 +440,7 @@ function describeFilesUpdate(files) {
   return { title, body };
 }
 
+// A single notification links to the first file in each batch of changes.
 export async function notifyFilesChanged({ files }) {
   if (!pool || !adminApp) return { sent: 0, removed: 0 };
   if (files.length === 0) return { sent: 0, removed: 0 };
@@ -486,29 +455,16 @@ export async function notifyFilesChanged({ files }) {
   );
 
   const { title, body } = describeFilesUpdate(files);
-  // STEP and DXF files both live on /3d (Prints + Cuts sections), mermaid
-  // files on /charts, PCB boards on /pcb. Pick the deep link based on the first
-  // file's extension so a single-file notification lands the user on the right
-  // page; mixed batches are rare enough that we just send them to /3d (the
-  // "default" parts page).
   const firstFile = files[0];
-  let basePath;
-  if (firstFile.endsWith(".mmd")) basePath = "/charts";
-  else if (isPcbPath(firstFile)) basePath = "/pcb";
-  else basePath = "/3d";
+  const basePath = isPcbPath(firstFile) ? "/pcb" : "/3d";
   const link = firstFile.endsWith(".pdf")
     ? `/read/${firstFile}`
     : `${basePath}?file=${encodeURIComponent(firstFile)}`;
-  // Pick a kind for the notifications-list icon. Pure step / mermaid /
-  // dxf / pcb / (mixed → "files"); inferred from the file list
-  // rather than passed separately so callers don't have to think about it.
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
-  const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const pcbCount = files.filter(isPcbPath).length;
   const documentCount = files.filter((f) => f.endsWith(".pdf")).length;
   const kind = stepCount === files.length ? "step"
-             : mermaidCount === files.length ? "mermaid"
              : dxfCount === files.length ? "dxf"
              : pcbCount === files.length ? "pcb"
              : documentCount === files.length ? "card"

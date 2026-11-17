@@ -1,6 +1,5 @@
 // Shared modal flow for STEP + DXF (the two CAD formats that use the
-// same Three.js scene). Mermaid is a separate flow (PanZoom, no
-// Three.js) — see mermaid.js.
+// same Three.js scene).
 //
 // open/close functions take a `pushHistory` flag. UI-driven calls push;
 // popstate-driven calls don't (the URL already changed).

@@ -57,7 +57,6 @@ const routes = [
   // HTML pages
   { path: "/",         expect: 200, ct: "text/html" },
   { path: "/3d",       expect: 200, ct: "text/html" },
-  { path: "/charts",   expect: 200, ct: "text/html" },
   { path: "/guides",   expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/spin",     expect: 200, ct: "text/html" },
@@ -68,15 +67,12 @@ const routes = [
   // tiny HTML body for browsers but the assertion that matters is the
   // redirect itself.
   { path: "/dev",          expect: 301 },
-  { path: "/dev/diagrams", expect: 301 },
-  { path: "/dev/mermaid",  expect: 301 },
   { path: "/dev/settings", expect: 301 },
   { path: "/drawings",     expect: 301 },
 
   // JSON APIs that don't touch Postgres
   { path: "/api/steps",           expect: 200, ct: "application/json" },
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
-  { path: "/api/mermaid",         expect: 200, ct: "application/json" },
   { path: "/api/documents",       expect: 200, ct: "application/json" },
   { path: "/api/firebase-config", expect: 200, ct: "application/json" },
 
@@ -167,7 +163,7 @@ test("WS /ws emits hello on connect", async () => {
   }
 });
 
-// /api/mermaid-content/* and /steps/* and /dxfs/* are passthroughs to a
+// /steps/* and /dxfs/* are passthroughs to a
 // real file under hardware/. Probe one of each, but only if the tree has
 // at least one such file — a stripped-down checkout shouldn't fail the
 // suite. The route's own behavior is a 400 / 404 for invalid paths,
@@ -205,14 +201,6 @@ test("GET /dxfs/* returns a DXF file when one exists", async (t) => {
   const res = await fetch(`${baseUrl}/dxfs/${rel}`);
   assert.equal(res.status, 200);
   assert.match(res.headers.get("content-type") || "", /^application\/octet-stream/);
-});
-
-test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => {
-  const rel = await firstFileWithExt(path.join(REPO_ROOT, "hardware"), ".mmd");
-  if (!rel) return t.skip("no .mmd files under hardware/");
-  const res = await fetch(`${baseUrl}/api/mermaid-content/${rel}`);
-  assert.equal(res.status, 200);
-  assert.match(res.headers.get("content-type") || "", /^text\/plain/);
 });
 
 test("GET /cards/* reports the archived deck", async () => {

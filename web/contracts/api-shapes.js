@@ -2,7 +2,7 @@
 // web/public/js/viewer/main.js (fetchFiles) and the per-type modules. List endpoints return
 // paths relative to the content root, hardware/.
 
-/** @typedef {string[]} PathList  /api/steps, /api/mermaid — file paths, sorted client-side */
+/** @typedef {string[]} PathList  /api/steps, /api/glbs — file paths, sorted client-side */
 /** @typedef {{ path: string, thickness_mm: number|null, material: string|null }} DxfItem  one /api/dxf entry (sidecar.js) */
 /**
  * @typedef {Object} Board  one /api/pcb entry (walkPcbBoards in web/lib/walk.js)
@@ -46,7 +46,6 @@
 //   GET /api/steps      -> PathList   the models a part number names (materials.js numberedModels)
 //   GET /api/glbs       -> PathList
 //   GET /api/objects    -> ObjectMap
-//   GET /api/mermaid    -> PathList
 //   GET /api/dxf        -> DxfItem[]
 //   GET /api/pcb        -> Board[]
 //   GET /api/documents  -> Document[]
@@ -56,7 +55,6 @@
 //                          (null without the ledgers), rolled up by contracts/part-costs.js
 //                          `printPlaybacks` maps material IDs to saved replay entries
 //   GET /print-playback/<material> -> HTML player for a registered slice
-//   GET /api/mermaid-content/<path>  -> text/plain (raw .mmd)
 //   GET /api/pcb-content/<path>      -> image/svg+xml   (confined by pcb-out.js VIEW_REQUEST_RE)
 //   GET /api/pcb-picks/<path>        -> PicksFile        (picks-schema.ts; confined by PICKS_REQUEST_RE)
 //   GET /api/made-from/<path>        -> MadeFrom         (lib/made-from.js) what the build remakes a model

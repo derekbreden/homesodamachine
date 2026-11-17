@@ -24,7 +24,6 @@ const read = (rel) => fs.readFileSync(path.join(PUBLIC, rel), "utf8");
 const THUMB_HOSTS = [
   ".card img",
   ".card .placeholder",
-  ".card .mmd-thumb",
   ".card .pcb-thumb",
 ];
 

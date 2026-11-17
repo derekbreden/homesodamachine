@@ -17,8 +17,7 @@
 // We set window.__hsmDeploySoft so boot.js leaves the deploy refresh to
 // us (it reloads other pages outright). The socket itself is owned by
 // boot.js (one WebSocket per page); per-file work is split by extension
-// so the same handler covers .step, .dxf, .mmd and the .pdf a built document
-// lands as.
+// so the same handler refreshes models, boards and published PDFs.
 
 import { state } from "./state.js";
 import { getLoader } from "./loaders.js";
@@ -28,8 +27,7 @@ import { refreshMemberUrls } from "./member.js";
 // Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
 // stay static — a code edit rarely touches the tiny card render and re-importing
 // for it isn't worth it.
-import { refetchOpenMmd, refetchOpenPcb } from "./detail-shims.js";
-import { renderMmdThumbnail } from "./mermaid.js";
+import { refetchOpenPcb } from "./detail-shims.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
@@ -80,19 +78,6 @@ function refreshStepCard(file) {
 // it reloads on its own, below.
 function refreshUncardedFile() {
   fetchFiles();
-}
-
-function refreshMmdCard(file) {
-  state.mmdThumbCache.delete(file);
-  const card = state.gridEl.querySelector(`.card[data-type="mmd"][data-file="${CSS.escape(file)}"]`);
-  if (!card) { fetchFiles(); return; }
-  if (!isMounted(card)) return;
-  const thumbEl = card.querySelector(".mmd-thumb");
-  if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
-  renderMmdThumbnail(file).then((svg) => {
-    if (!thumbEl) return;
-    thumbEl.innerHTML = svg ? svg : `<div class="placeholder">error</div>`;
-  });
 }
 
 function refreshPcbCard(file) {
@@ -180,9 +165,6 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
     } else if (file.endsWith(".glb")) {
       refreshUncardedFile();
       if (isOpenAs("glb", file)) reloadCad("glb", file);
-    } else if (file.endsWith(".mmd")) {
-      refreshMmdCard(file);
-      if (isOpenAs("mmd", file)) refetchOpenMmd(file);
     } else if (file.endsWith(".pdf")) {
       refreshDocuments();
     } else if (file.endsWith(".tsx")) {
@@ -203,22 +185,20 @@ function reloadOpenDetail() {
   const d = state.currentDetail;
   if (!d) return;
   if (d.type === "step" || d.type === "dxf" || d.type === "glb") reloadCad(d.type, d.file);
-  else if (d.type === "mmd") refetchOpenMmd(d.file);
   else if (d.type === "pcb") refetchOpenPcb(d.file);
 }
 
 // Force the open detail to fully re-render on the next reloadOpenDetail rather
 // than short-circuit on unchanged content — used when the render CODE moved even
 // though the artifact bytes didn't (a deploy or a dev code edit). Each kind gates
-// re-render on a "same as last time" check: CAD loaders on the ETag, the PanZoom
-// kinds on the last content string / view set. Dropping those makes the freshly
+// re-render on a "same as last time" check: CAD loaders on the ETag, the
+// PCB loader on the last view set. Dropping those makes the freshly
 // imported module actually re-parse and re-mount.
 function forceDetailRerender() {
   state.stepEtags.clear();
   state.dxfEtags.clear();
   state.glbEtags.clear();
   state.memberLoaded.clear();
-  state.currentMmdContent = null;
   state.currentPcbViews = null;
 }
 
@@ -234,7 +214,6 @@ window.addEventListener(HSM_EVENTS.DEPLOY, async (e) => {
     // not the code this tab loaded at boot.
     if (e.detail && e.detail.commit) state.codeVersion = String(e.detail.commit);
     state.thumbnailCache.clear();
-    state.mmdThumbCache.clear();
     state.pcbThumbCache.clear();
     // New build may carry new render code too, so force a full re-render (this
     // drops the ETags the pre-code-version deploy path already cleared).
