@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-17",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10139,7 +10139,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+        "src-eb3019ef3d99416ea0889f3f9aba87ef",
+        "src-1c76b36d35114756aac96799ba97b66f"
       ]
     },
     "pur-1c4dede86ac6420db23a61fd3b7eabb8": {
@@ -16518,7 +16519,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-eb3019ef3d99416ea0889f3f9aba87ef"
+        "src-eb3019ef3d99416ea0889f3f9aba87ef",
+        "src-1c76b36d35114756aac96799ba97b66f"
       ]
     },
     "bambu:us798331608108187648": {
@@ -35267,6 +35269,19 @@
       ],
       "verified_at": "2026-11-16",
       "note": "Signed-in Amazon Order Details identifies one 3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll (B00004Z4CP), ordered November 16 for USD 4.49 plus USD 0.33 estimated tax, with free shipping. Displayed order total USD 4.82. Estimated arrival November 17. Fulfillment and completed payment are pending."
+    },
+    "src-1c76b36d35114756aac96799ba97b66f": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "114-2679873-7632253",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [],
+      "verified_at": "2026-11-17",
+      "note": "Shipment notification identifies the existing order and three 3D-printing supplies shipped in a four-item package with one generically described measurement tool. Its package total is not a revised filament order value. The additional item is not independently linked to an order by this notification. Relative arrival estimate does not establish actual delivery or its date; no completed payment is proved."
     }
   },
   "coverage": [
