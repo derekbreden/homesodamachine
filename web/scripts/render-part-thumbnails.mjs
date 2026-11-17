@@ -26,6 +26,12 @@ const boardTexture = path.join(hardware, "pcb/pcba/out/pcba.top3d.png");
 const sharedScrew = { file: "faucet-layout/faucet-assembly.step", component: "base_screw_1" };
 
 const partFraming = new Map([
+  ["HSM-0001", { cam: [1, -1, 0.6], margin: 1.28 }],
+  // Frame the visible faucet above the counter.
+  ["HSM-0002", {
+    cam: [-1, -1, 0.45], margin: 1.28, context: "drop",
+    only: ["shell_*", "above_counter_plate", "lever", "faucet-display-cover-seated", "faucet_display", "faucet_display_screen"],
+  }],
   ["HSM-0015", { cam: [1, -0.2, 0.44], margin: 1.36 }],
   // Center the drain tube's upper bend so its bore reads at the small catalog size.
   ["HSM-0108", { cam: [1, -0.18, 0.15], target: [0, -16, 188], span: 52 }],
@@ -144,7 +150,10 @@ function main() {
   ensureRunLease();
   const catalog = readMaterialCatalog(hardware);
   const groups = selectCatalogParts(catalog, readBomLines(hardware));
-  const parts = Object.values(groups).flatMap(scope => [...scope.madeToOrder, ...scope.offTheShelf]);
+  const parts = [
+    ...groups.machine.assemblies.filter(({ material }) => material),
+    ...Object.values(groups).flatMap(scope => [...scope.madeToOrder, ...scope.offTheShelf]),
+  ];
   const materials = [...new Map(parts.map(({ material }) => [material.id, material])).values()]
     .filter(material => !selected.size || selected.has(material.id));
   const scratch = path.join(root, ".cache/runs");

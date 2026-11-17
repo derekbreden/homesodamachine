@@ -28,11 +28,13 @@
 }
 .parts-scope a:hover { color: var(--accent); }
 .parts-scope a[aria-current] { background: var(--brand-navy); color: #fff; }
-.parts-assembly-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 clamp(.75rem, 2vw, 1.25rem); margin-inline-start: auto; }
+.parts-assembly-links { display: flex; align-items: center; gap: clamp(.75rem, 2vw, 1.25rem); margin-inline-start: auto; }
 .parts-assembly-links a, .parts-tool-models summary, .parts-overview, .parts-enlarge {
   display: inline-flex; align-items: center; gap: .35rem; min-height: 34px;
   color: var(--accent); text-decoration: none; font-weight: 600; font-size: .75rem;
 }
+.parts-assembly-links a { min-height: 44px; min-inline-size: 0; }
+.parts-assembly-links .parts-tile-image { flex: none; inline-size: clamp(3rem, 5vw, 4.25rem); }
 .parts-assembly-links a:hover, .parts-tool-models summary:hover, .parts-overview:hover, .parts-enlarge:hover { text-decoration: underline; text-underline-offset: 3px; }
 .parts-tool-models { position: relative; margin-inline-start: auto; }
 .parts-tool-models summary { display: list-item; padding-block: .5rem; cursor: pointer; }
@@ -77,7 +79,7 @@
   max-inline-size: 100%; overflow: hidden; overflow-wrap: anywhere;
   text-align: center; font-size: .6875rem; font-weight: 600; line-height: 1.2;
 }
-a.parts-tile:is(:hover, :focus-visible) .parts-tile-image { border-color: var(--accent); background: #d6e3f7; }
+:is(a.parts-tile, .parts-assembly-links a):is(:hover, :focus-visible) .parts-tile-image { border-color: var(--accent); background: #d6e3f7; }
 a.parts-tile:hover :is(.parts-tile-name, .parts-tile-text) { text-decoration: underline; text-underline-offset: 2px; }
 .parts-tile-name { font-size: .6875rem; font-weight: 600; line-height: 1.22; overflow-wrap: anywhere; }
 .parts-tile-meta { color: var(--text-2); font-size: .6875rem; line-height: 1.3; }

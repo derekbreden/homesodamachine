@@ -119,7 +119,11 @@ export function mountPartsPage(app, { hardwareDir, pointersPath }) {
       shelf: catalog[scope]?.offTheShelf ?? [],
     };
     const current = focus ? [focus] : groups;
-    const modelLink = (model, name) => `<a href="/parts#step:${encodeURIComponent(model)}">${name} <span aria-hidden="true">↗</span></a>`;
+    const modelLink = (model, name) => {
+      const image = internal(catalog.machine?.assemblyImages?.[model]);
+      const thumb = image ? `<span class="parts-tile-image"><img src="${image}" alt="" decoding="async"></span>` : "";
+      return `<a href="/parts#step:${encodeURIComponent(model)}">${thumb}<span>${name} <span aria-hidden="true">↗</span></span></a>`;
+    };
     const toolModels = catalog.tools?.assemblies ?? [];
     res.set("Cache-Control", "no-cache").type("html").send(
       renderHead({
