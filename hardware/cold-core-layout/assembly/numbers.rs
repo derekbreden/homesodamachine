@@ -162,28 +162,32 @@ pub fn air_tube_z() -> [f64; 2] {
 
 // --- The probes ---------------------------------------------------------------------------------
 
-/// The DS18B20 and DS18S20 1-wire probes: a bare TO-92, its leads sleeved, foil-taped to the
-/// surface it reads and potted in the pour. The package is a rounded square stood upright.
+/// The nominal straight-lead TO-92 package shared by the DS18B20 and DS18S20.
+/// [Analog Devices package outline](https://www.analog.com/media/en/package-pcb-resources/package/pkg_pdf/to92/21-0248.pdf).
 pub mod to92 {
-    pub const WIDTH: f64 = 4.3;
-    pub const HEIGHT: f64 = 5.2;
-    pub const CORNER_RADIUS: f64 = 1.2;
-    /// What stands the package off the wall it is taped to: its half diagonal, as a share of its
-    /// width.
-    pub const STANDOFF_PER_WIDTH: f64 = 0.71;
-    pub const STANDOFF: f64 = WIDTH * STANDOFF_PER_WIDTH;
+    pub const HEIGHT: f64 = 4.65;
+    pub const BACK_RADIUS: f64 = 2.35;
+    pub const DEPTH: f64 = 3.62;
+    pub const FLAT_OFFSET: f64 = DEPTH - BACK_RADIUS;
+    pub const SIDE_DRAFT: f64 = 5.;
+    pub const FLAT_CORNER_RADIUS: f64 = 0.12;
+    pub const LEAD_LENGTH: f64 = 14.1;
+    pub const LEAD_PITCH: f64 = 1.27;
+    pub const LEAD_WIDTH: f64 = 0.48;
+    pub const LEAD_THICKNESS: f64 = 0.43;
+    /// The wall probe's lead row turns so the leads run along the gap in the winding.
+    pub const WALL_PROBE_ROLL: f64 = 90.;
 }
 
-/// The carbonator's probe, taped to its wall opposite the register azimuth, in a gap between the
-/// coil's wraps at the wetted column's middle.
-pub fn carbonator_probe() -> P3 {
+/// The carbonator probe's flat face meets the wall opposite the register azimuth.
+pub fn carbonator_probe_contact() -> P3 {
     let z = coil::gap_z_near(180., (carbonator::INTERIOR_Z[0] + carbonator::INTERIOR_Z[1]) / 2.);
-    [-(core::CARBONATOR_OUTER_RADIUS + to92::STANDOFF), 0., z]
+    [-core::CARBONATOR_OUTER_RADIUS, 0., z]
 }
 
-/// The coil's probe, its flat face on the copper at the wrap's suction end, the outlet tail's.
-pub fn coil_probe() -> P3 {
-    coil::at(coil::OUTLET_AZIMUTH, coil::HIGH_Z, coil::WIND_RADIUS + coil::TUBE_RADIUS + to92::WIDTH / 2.)
+/// The coil probe's flat face meets the copper at the suction end of the wrap.
+pub fn coil_probe_contact() -> P3 {
+    coil::at(coil::OUTLET_AZIMUTH, coil::HIGH_Z, coil::WIND_RADIUS + coil::TUBE_RADIUS)
 }
 
 /// How finely the coil's and its tails' sweeps follow their paths.

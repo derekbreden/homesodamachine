@@ -342,13 +342,42 @@ pub fn reservoir_rod(foot: [f64; 3]) -> Result<Solid> {
     cylinder(carbonator::ROD_DIAMETER / 2., reservoir::rod_length(), v(foot), V3::Z)
 }
 
-/// A TO-92 probe, upright, centred at `at`.
-pub fn to92_probe(at: [f64; 3]) -> Result<Solid> {
-    let (at, axis) = (v(at), V3::Z);
-    let outline =
-        Profile::new(Loop::rounded_rect(v2(0., 0.), to92::WIDTH, to92::WIDTH, to92::CORNER_RADIUS)?);
-    let body = Plane::XY.extrude(&outline, to92::HEIGHT)?;
-    Ok(orient(&body, axis).translate(at - axis * (to92::HEIGHT / 2.)))
+/// A TO-92 package and its straight leads, with the flat face against the sensor's contact.
+pub fn to92_probe(contact: [f64; 3], roll: f64) -> Result<[Solid; 2]> {
+    let radius = to92::BACK_RADIUS;
+    let draft = radians(to92::SIDE_DRAFT);
+    let shoulder = v2(radius * cos(draft), -radius * sin(draft));
+    let face = v2(
+        shoulder.x - (shoulder.y + to92::FLAT_OFFSET) * draft.tan(),
+        -to92::FLAT_OFFSET,
+    );
+    let outline = Pen::new(v2(-face.x, face.y))
+        .line_to(face)
+        .line_to(shoulder)
+        .arc_center(V2::ZERO, v2(-shoulder.x, shoulder.y), true)
+        .close()?
+        .fillet(to92::FLAT_CORNER_RADIUS)?;
+    let base = -to92::HEIGHT / 2.;
+    let body = Plane::XY.offset(base).extrude(&Profile::new(outline), to92::HEIGHT)?;
+    let leads = [-to92::LEAD_PITCH, 0., to92::LEAD_PITCH].map(|x| {
+        let half_width = to92::LEAD_WIDTH / 2.;
+        let half_thickness = to92::LEAD_THICKNESS / 2.;
+        Solid::cuboid(
+            v3(x - half_width, -half_thickness, base - to92::LEAD_LENGTH),
+            v3(x + half_width, half_thickness, base),
+        )
+    });
+    let contact = v(contact);
+    let outward = v3(contact.x, contact.y, 0.).unit();
+    let frame = Affine::from_columns(
+        outward.cross(V3::Z),
+        outward,
+        V3::Z,
+        contact + outward * to92::FLAT_OFFSET,
+    );
+    Ok([body, Solid::compose(&leads)].map(|solid| {
+        solid.rotate(V3::ZERO, V3::Y, roll).transformed(&frame)
+    }))
 }
 
 // --- The reservoirs' ports ----------------------------------------------------------------------

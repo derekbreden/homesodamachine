@@ -208,9 +208,14 @@ fn bodies() -> Result<Vec<Piece>> {
             add(&format!("reed-{}-{}", r.letter, i + 1), glass, vec![stand_ins::reed(at)?]);
         }
     }
-    let epoxy = catalog::epoxy_black();
-    add("probe-carbonator-ds18b20", epoxy, vec![stand_ins::to92_probe(numbers::carbonator_probe())?]);
-    add("probe-coil-ds18s20", epoxy, vec![stand_ins::to92_probe(numbers::coil_probe())?]);
+    for (name, contact, roll) in [
+        ("probe-carbonator-ds18b20", numbers::carbonator_probe_contact(), numbers::to92::WALL_PROBE_ROLL),
+        ("probe-coil-ds18s20", numbers::coil_probe_contact(), 0.),
+    ] {
+        let [package, leads] = stand_ins::to92_probe(contact, roll)?;
+        add(name, catalog::epoxy_black(), vec![package]);
+        add(&format!("{name}/leads"), catalog::stainless(), vec![leads]);
+    }
     let prv = ports.iter().find(|p| p.name == "prv").context("the PRV's port")?;
     add("prv-sv125", carbonator::prv_colour(), vec![stand_ins::sv125(prv)?]);
     add(
