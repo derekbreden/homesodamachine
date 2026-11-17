@@ -283,18 +283,13 @@ export function resolveAtSpecSha(atSpec) {
 //
 // Mechanics:
 //   1. withHistoricalTree creates a detached worktree at the historical SHA.
-//   2. We symlink HEAD's node_modules into the worktree so we don't reinstall
-//      deps. Tradeoff: HEAD's deps must be ABI-compatible with the historical
-//      server.js — fine for recent history (days), risky for ancient SHAs.
+//   2. Use the current node_modules for a matching lockfile. Install the
+//      archived dependencies in the historical tree when its lockfile differs.
 //   3. We dynamic-import server.js from the worktree path. Node caches ESM
 //      by file URL, so two different worktrees get separate caches; the same
 //      worktree path imported twice returns the cached module (which is
 //      fine — start() is reentrant).
 //   4. We call start({ port: 0 }) to get an ephemeral port.
-//      No env vars are passed, so the historical server's database / Firebase
-//      paths must degrade gracefully when DATABASE_URL /
-//      FIREBASE_SERVICE_ACCOUNT_JSON are absent (current code does; check
-//      the historical code path if you point this at deep history).
 //   5. We resolve baseUrl = http://localhost:<port> and hand it to callback.
 //   6. On callback exit (success OR throw) we close the server, then
 //      withHistoricalTree's finally cleans up the worktree.
@@ -319,26 +314,21 @@ export async function withHistoricalServer(atSpec, callback) {
       }
     }
 
-    // Symlink HEAD's node_modules into the worktree right next to the
-    // historical server.js so the historical code's `import "puppeteer"`
-    // / `import "firebase-admin"` etc. resolve. HEAD's node_modules
-    // lives under web/ (post-reorg, current); we point both pre-reorg
-    // and post-reorg worktree node_modules at that same HEAD tree, on
-    // the assumption that HEAD's deps are ABI-compatible with the
-    // historical server.js (fine for recent history, risky for ancient
-    // SHAs).
-    const headNm = path.resolve(REPO_ROOT, "web", "node_modules");
+    const headWeb = path.join(REPO_ROOT, "web");
+    const headNm = path.join(headWeb, "node_modules");
     const wtNm = path.join(wtServerDir, "node_modules");
-    if (!fs.existsSync(headNm)) {
-      throw new Error(
-        `withHistoricalServer: HEAD has no node_modules at ${headNm}; ` +
-          `run 'npm install' in web/ first.`,
-      );
-    }
-    // If the worktree somehow already has node_modules (shouldn't — `git
-    // worktree add` doesn't carry over .gitignored paths), leave it alone.
     if (!fs.existsSync(wtNm)) {
-      fs.symlinkSync(headNm, wtNm, "dir");
+      const historicalLock = path.join(wtServerDir, "package-lock.json");
+      const currentLock = fs.readFileSync(path.join(headWeb, "package-lock.json"));
+      if (fs.existsSync(historicalLock) &&
+          (!fs.existsSync(headNm) || !currentLock.equals(fs.readFileSync(historicalLock)))) {
+        execFileSync("npm", ["ci", "--omit=dev", "--no-audit", "--no-fund"], {
+          cwd: wtServerDir, stdio: "inherit",
+        });
+      } else {
+        if (!fs.existsSync(headNm)) throw new Error("Run npm install in web/ to render this revision.");
+        fs.symlinkSync(headNm, wtNm, "dir");
+      }
     }
 
     const serverUrl = pathToFileUrl(serverPath);
@@ -350,8 +340,6 @@ export async function withHistoricalServer(atSpec, callback) {
       );
     }
 
-    // Boot on an ephemeral port. No env vars passed — we rely on the server
-    // degrading gracefully without DATABASE_URL / Firebase config.
     const { server } = await mod.start({ port: 0 });
     // app.listen returns the server synchronously; .address() is populated
     // by the time we get back here in practice (Node binds the socket

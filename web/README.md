@@ -1,6 +1,6 @@
 # web/
 
-The Node web server for **homesodamachine.com**, including the parts, guides and boards viewers. The web service runs on Render with Postgres for the notification inbox and FCM hash tables.
+The Node web server for **homesodamachine.com**, including the parts viewer, PCB material view and guides. The web service runs on Render and stores availability signups in Postgres.
 
 The hardware, firmware and CAD content the site presents lives in [`hardware/`](/hardware/).
 Native `hsm` programs produce the geometry and print files; the PCB and firmware have their
@@ -141,9 +141,7 @@ fabrication pixels; the provenance records its source hashes and bench pose.
 
 `package-lock.json` is tracked, and is what the deployed site installs. `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and stops when the lockfile and `package.json` disagree.
 
-`overrides` pins `uuid` to `^11.1.1`. Below that it misses a buffer bounds check in its v3/v5/v6 generators. It arrives four levels down — `firebase-admin` → `@google-cloud/storage` → `retry-request`/`teeny-request` → `uuid` — and again through `gaxios`.
-
-Node 22 is the floor, in `engines` and in `.node-version`: `firebase-admin` 14 declares `>=22`, and Render reads `.node-version` from the service's root directory. `npm run audit` reads the production half of the tree.
+The Node version is set in `engines` and `web/.node-version`. `npm run audit` reads the production dependency tree.
 
 ## Page request lifecycle
 
@@ -151,8 +149,7 @@ Node 22 is the floor, in `engines` and in `.node-version`: `firebase-admin` 14 d
 HTTP GET /<path>
    │
    ▼
-server.js  ── start({ dev }) ──┬─ pg.Pool from DATABASE_URL (null if missing)
-   │                            ├─ initPush(serviceAccountJson)
+server.js  ── start({ port }) ──┬─ pg.Pool from DATABASE_URL (null if missing)
    │                            └─ for each lib/<name>.js:
    │                                  mountXxxRoutes(app, …)        // attaches GET handlers
    │
@@ -164,13 +161,11 @@ res.send(
   + renderFooter()
 )
 
-Browser receives HTML. Inline pre-paint <script> sets the notifs-enabled
-class from localStorage. Then deferred /boot.js runs (SW bridge, notifications
-state, WebSocket owner, /api/version activation check). Then any page-specific
-module (/landing.js, /js/viewer/main.js, etc.).
+The browser loads /boot.js for the WebSocket and deploy version check.
+Page modules handle the controls for their own views.
 ```
 
-The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `renderFooter` and `renderNav`. The public and engineering navigation includes Home, Latest, Parts, Guides, Boards, Cost, Notifications and Settings. Latest opens the `/latest` hub and stays active in the Changes and Updates feeds. Unit navigation includes Your machine, Get started and Guides.
+The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `renderFooter` and `renderNav`. The public and engineering navigation includes Home, Latest, Parts, Guides and Cost. Latest opens the `/latest` hub and stays active in the Changes and Updates feeds. Unit navigation includes Your machine, Get started and Guides.
 
 ## Module layout
 
@@ -178,8 +173,8 @@ The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `
 
 | Module | Mounts | Responsibility |
 |---|---|---|
-| [`server.js`](/web/server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
-| [`lib/shell.js`](/web/lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
+| [`server.js`](/web/server.js) | `/api/version` | Entry; mounts routes, starts the signup connection pool and wires the live viewer. Serves the deployment commit at `/api/version`. |
+| [`lib/shell.js`](/web/lib/shell.js) | — | Shared head, navigation and footer. Loads the browser entry point. |
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Appliance overview with CAD-based kitchen and detail illustrations. [`lib/landing-support.js`](/web/lib/landing-support.js) supplies the optional film, supplier acknowledgements and secondary availability signup. |
 | [`lib/unit.js`](/web/lib/unit.js) | `/0001`, `/0001/get-started`, `/0001/guides` | Machine overview, included equipment, preparation checklist, and owner documents. Only serials registered in this module resolve. |
 | [`lib/cost.js`](/web/lib/cost.js) | `/cost` | The production workspace, parts, planned labor, sale price and investment recovery. [`lib/production-planner.js`](/web/lib/production-planner.js) reads the material catalog, shared stock and supplier offers. [`public/production-planner.js`](/web/public/production-planner.js) shows cumulative unit coverage, editable supplier packs, custom packs and a browser-saved purchase scenario. [`contracts/production-plan.js`](/web/contracts/production-plan.js) and [`contracts/purchase-lots.js`](/web/contracts/purchase-lots.js) share coverage and pack pricing between server and browser. [`lib/part-cost-view.js`](/web/lib/part-cost-view.js) renders the numbered assembly cost tree with each assembly’s own work and supplies, linking to the explorer. |
@@ -190,9 +185,7 @@ The shared shell in [`lib/shell.js`](/web/lib/shell.js) supplies `renderHead`, `
 | [`lib/changes.js`](/web/lib/changes.js) | `/changes`, `/changes/<id>`, `/changes/<id>/<file>`, `/api/changes` | Before-and-after feed of recorded changes, newest first. Reads `changes/<id>/entry.md` (frontmatter + the Updates markdown subset) and `views.json` (each view's Before and After images, pixel size and marks); [`changes/README.md`](/changes/README.md) is how an entry is made. Serves the cards, `/api/changes?before=<id>` pages for the infinite scroll, the entry page and its `?fragment=1` modal body, and only the images a view names. Entries do not deploy: on the deployed container it carries those committed since its clone from GitHub when the feed is asked for — main's root tree, then the `changes/` subtree only when it moved, at most once a minute, standing down below 20 calls left in the shared hour. |
 | [`lib/latest.js`](/web/lib/latest.js) | `/latest` | The hub the nav's Latest item opens. Changes, then Updates: each section's name, a line on what it is, its newest items as thumbnails and a link into the whole feed. A change's thumbnail is its first view cut down the middle, the Before's left half against the After's right; a post's is its `image`, else its `image_fig`; an item with neither carries its words in the same frame. Each thumbnail opens its item at `/changes/<id>` or `/updates/<slug>`. The entries come through the reader `mountChangesRoutes` hands back, and the page waits on the same carry. |
 | [`lib/style-guide.js`](/web/lib/style-guide.js) | `/style-guide` | Production-style examples, usage notes, markup and source links. Sample material names and quantities come from the catalog. |
-| [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed` broadcasts. |
-| [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox and push subscription controls for installed web apps. |
-| [`lib/push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
+| [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page for deploy detection, heartbeat and publication updates. |
 | [`lib/walk.js`](/web/lib/walk.js) | — | Shared `walkFiles(rootDir, exts)` helper, plus the per-kind walkers (`walkPcbBoards`, `walkDocuments`). |
 | [`lib/icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs for the site and viewer. |
 
@@ -204,7 +197,7 @@ Served flat via `express.static(public/)`.
 
 | File | Loaded on | Role |
 |---|---|---|
-| [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
+| [`public/boot.js`](/web/public/boot.js) | every page | Connects the live viewer and checks the deployed commit on activation. |
 | [`public/landing.js`](/web/public/landing.js) | `/` | Loads the film player when its local poster is activated; handles availability signup and feedback. The poster links to YouTube without JavaScript. |
 | [`public/landing/`](/web/public/landing/) | `/` | Kitchen and component illustrations rendered from the current CAD meshes by [`hsm-marketing kitchen-scene`](../tools/hsm/marketing/src/kitchen.rs), plus the film poster. The scene renderer is run on demand. |
 | [`public/pretty/`](/web/public/pretty/) | `/pretty/`, `/pretty/enclosure/` | Interactive studio views of the PP061208W reducer and full enclosure. Rotate, pan, scroll or pinch to zoom, and reset. The enclosure offers front-open, rear-open, all-open and closed shell views, with a separate core-insulation toggle. |
@@ -212,7 +205,6 @@ Served flat via `express.static(public/)`.
 | [`public/cost.js`](/web/public/cost.js) | `/cost` | Cost overview navigation and sales scenario controls. Three accordion cards show per-unit cost, investment recovery and the 5/10/20 forecast in that order, with headline totals visible while collapsed. Jump links and direct section links reveal the relevant card; recovery controls update its summary. `cost-recovery.js` shares recovery math and the SVG chart with the server. `batch-forecast.js` selects the 5/10/20 plan, defaults to Parts category, and filters suppliers and stock-covered parts. Compact purchase lists scroll; each item expands for source, lots and stock evidence. The overview, category grouping and all three batch disclosures work without JavaScript. |
 | [`public/unit.js`](/web/public/unit.js) | Unit pages | Opens the included-equipment disclosure from its link and saves preparation checkmarks in this browser, keyed by serial. Navigation and documents are server-rendered links. |
 | [`public/changes.js`](/web/public/changes.js) | `/changes` | Loads more cards as the feed scrolls and opens a card's entry in ContentViewer with its `/changes/<id>` URL pushed, so Back closes it. A tap on a picture, or ← and →, flips each view between Before and After; without it the cards are links, the feed ends in a link to older entries, and the views are radios. |
-| [`public/notification-subscription.js`](/web/public/notification-subscription.js) | `/notifications` | Enables or disables push notifications in the installed web app. |
 | [`public/style-guide.js`](/web/public/style-guide.js) | `/style-guide` | Local sample search, tabs, row selection, copy markup and computed style readouts. |
 | [`public/brand/mark.svg`](/web/public/brand/mark.svg) | every page | The faucet mark in the Home link and landing hero. Generated from [`../brand/mark.svg`](../brand/mark.svg) by [`hsm-marketing brand-assets`](../tools/hsm/marketing/src/brand.rs). |
 | [`public/pan-zoom.js`](/web/public/pan-zoom.js) | PCB material view | Pan, pinch and wheel zoom for board views. |
@@ -311,25 +303,12 @@ are progressive enhancements.
 `hardware/install-guide/assets/steps/pour-base.png`. Regenerate it with
 `node web/scripts/build-unit-assets.mjs`, using the Sharp dependency in `tools/render/`.
 
-## Cross-module event flow
+## Live viewer updates
 
-```
-WS  /ws  ─────────────► boot.js                ────► CustomEvent("hsm:files-changed", {files})
-                          │                          ────► CustomEvent("hsm:deploy", {commitChanged})
-                          ▼                          │
-                     fetchNotifications()           │
-                          │                          │
-focus/visibility/pageshow │                          ▼
-   ├─► fetchNotifications()│                     viewer/live.js  → __hsmDeploySoft set: refresh
-   └─► GET /api/version ───┘                     grid + open modal in place
-        (commit changed? ──► hsm:deploy)         other pages → boot.js reloads on hsm:deploy
-
-FCM  → service worker → notification banner
-       (tap → on iOS PWA, page focus → boot.js refetch → maybe redirect; on
-        Android/Chrome desktop, SW posts {type:"navigate"} which boot.js handles)
-```
-
-Three signals drive the page: the WebSocket push, FCM, and activation (focus/visibility/pageshow). Activation does double duty — it refetches notifications AND polls `/api/version`, so a deploy that the socket missed (suspended PWA, lost `recent` race) still reloads the page the next time it's foregrounded. The notification signals all converge on `fetchNotifications()`, which keeps the local state mirror current and dispatches `hsm:notifications-updated` for the toast + bell.
+The running site reads the publication pointer and adopts the changed files.
+It sends their paths over `/ws` so an open viewer can refresh in place.
+The WebSocket hello carries the deployment commit. On focus, visibility
+and pageshow, `boot.js` also checks `/api/version` and reconnects a stale socket.
 
 ## Where things go (cheat sheet)
 
@@ -342,12 +321,11 @@ Three signals drive the page: the WebSocket push, FCM, and activation (focus/vis
 | Walk a directory by extension | `import { walkFiles } from "./walk.js"` (server-side). |
 | Open a CAD detail modal | `openDetail(file)`, `openDxfDetail(file)` or `openGlbDetail(file)` from `cad-detail.js` — one name per kind, which is what `route.js`'s `OPENERS` tables. They are the whole of `openCadDetail(type, …)`; don't write a parallel modal flow. |
 | Persist some viewer state across opens | Add to `state.js`'s exported `state` object. Don't introduce a fresh module-scope `let`. |
-| Add a live event type | Define on the server in `lib/events.js` + `lib/push.js`, dispatch on the client in `public/boot.js`'s WebSocket message handler. Page modules listen via `window.addEventListener("hsm:foo")`. |
-| Wake a user via FCM | `notifyFilesChanged` in `lib/push.js`. The boot-time diff in `server.js` shows the canonical wiring. |
+| Add a live event type | Define the frame in `contracts/ws-frames.js` and its browser event in `contracts/client-events.js`. Dispatch the event from `public/boot.js`. |
 
 ## Things that are NOT here
 
 - No bundler (esbuild/webpack/vite). Browser ES modules + the importmap in `lib/templates/viewer-body.html` is the whole story. If you reach for a bundler, ask why first — most "needs a bundler" arguments here are for problems we don't have.
 - No framework (React/Vue/Svelte). The viewer uses Three.js + plain DOM; the rest is server-rendered HTML + small client modules.
-- No auth, no sessions, no user accounts. The app identifies a user by their FCM token (when they enable notifications). Settings live in `localStorage`.
+- The site is public. Viewer preferences live in the browser.
 - No browser in `npm test`. The suite holds what stays still — the server boots, the public route surface answers, the walkers and the contracts agree. `npm run test:browser` is the browser pass, on demand. What the viewer renders moves with the hardware: which assemblies exist, which parts fill a branch, what a readout chip reads. If you reach for an assertion on one of those, ask why first.

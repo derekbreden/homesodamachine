@@ -168,8 +168,6 @@ body.site-interior { background: var(--site-paper); }
 .site-content .recovery-headline b { font-weight: 500; }
 
 /* Utility pages use the same surface and scale. */
-.notifs-page.site-content { max-width: var(--site-width); }
-.site-content .notifs-mark-all { min-height: 44px; font: inherit; font-size: .8125rem; }
 .site-content.guide { max-width: var(--site-width); }
 .site-content.guide > header { max-width: 70ch; }
 .site-content.guide .guide-section > h2 { font-size: 2rem; }

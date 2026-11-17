@@ -1,4 +1,4 @@
-// Who the landing page's form has signed up, and what the push tables hold.
+// Who signed up through the landing page.
 // `POST /api/subscribe` in server.js writes `subscribers` and nothing reads it
 // back; this is the read.
 //
@@ -9,7 +9,7 @@
 // deployed service the internal one through `fromDatabase`, so no checkout
 // carries either.
 //
-// SELECT and COUNT. It writes nothing.
+// Lists signups and tallies their email address patterns.
 //
 // A Gmail address whose local part is three or four nonsense syllables with
 // dots sprinkled through it — `a.ro.be.qi.7.28@gmail.com` — is the shape a
@@ -37,11 +37,6 @@ function looksGenerated(email) {
   return /^[a-z]+\d*$/.test(bare) && !/[aeiou]{2}|[bcdfghjklmnpqrstvwxyz]{2}/.test(bare);
 }
 
-const count = async (table) => {
-  const r = await pool.query(`SELECT COUNT(*)::int AS c FROM ${table}`);
-  return r.rows[0].c;
-};
-
 try {
   const { rows } = await pool.query(
     "SELECT id, email, created_at FROM subscribers ORDER BY created_at ASC",
@@ -56,8 +51,6 @@ try {
   }
 
   console.log(`\nsubscribers: ${rows.length}  (* = ${rows.length - generated.length} not in the generated shape)`);
-  console.log(`push_subscriptions: ${await count("push_subscriptions")}`);
-  console.log(`notifications: ${await count("notifications")}`);
 } finally {
   await pool.end();
 }

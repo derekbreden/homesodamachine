@@ -13,6 +13,8 @@ import { promisify } from "node:util";
 import { isScorecard } from "../contracts/scorecard-sidecar.js";
 import { isArchivedDocumentFile, isCommittedDocumentFile } from "../contracts/documents.js";
 import { websitePointers } from "../contracts/artifact-scope.js";
+import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
+import { WS } from "../contracts/ws-frames.js";
 import { carryPrintPlaybacks } from "./print-playback.js";
 
 const run = promisify(execFile);
@@ -22,7 +24,7 @@ const WEB = path.resolve(HERE, "..");
 const ROOT = path.resolve(WEB, "..");
 const POINTERS = path.join(ROOT, "hardware", "cad-artifacts.json");
 
-// The poll recovers missed publication notifications.
+// The poll recovers missed refresh requests.
 const POLL_MS = 120_000;
 
 // Coalescing holds a later request briefly while retaining its request to look again.
@@ -200,7 +202,17 @@ async function carryScorecards(pointers) {
   return { carried, failed };
 }
 
-async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
+function viewerFile(relative) {
+  if (!relative.startsWith("hardware/")) return null;
+  const file = relative.slice("hardware/".length);
+  if (VIEW_REQUEST_RE.test(file) || PICKS_REQUEST_RE.test(file)) {
+    return file.replace(/\/out\/([^/]+)\.[^.]+\.(?:svg|json)$/, "/$1.tsx");
+  }
+  if (/\.(?:step|glb)(?:\.mesh)?$|\.(?:dxf|pdf)$/.test(file)) return file.replace(/\.mesh$/, "");
+  return null;
+}
+
+async function adopt({ broadcast, setRecent, commit }) {
   const have = await lockOnDisk();
   const pointers = await lockOnMain();
   if (!usable(pointers)) throw new Error("the pointer file on main is not one this can read");
@@ -256,13 +268,11 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   }
   failedAdoption = null;
   for (const line of stdout.trim().split("\n")) if (line.trim()) console.log(line);
-  await retireSolids(ROOT, have, pointers);
+  const retired = await retireSolids(ROOT, have, pointers);
 
-  // The same reading a deploy takes, off the same tables: what is on this disk now against what
-  // this site last said. A member the pointer file re-pointed to bytes it already had moves nothing.
-  const files = [...new Set(changed.filter(file=>/\.(step|step\.mesh|glb|glb\.mesh)$/.test(file)).map(file=>file.replace(/^hardware\//, "").replace(/\.mesh$/, "")))];
+  const files = [...new Set([...changed, ...retired].map(viewerFile).filter(Boolean))];
   if (files.length) {
-    broadcast({ type: "files-changed", commit, files });
+    broadcast({ type: WS.FILES_CHANGED, commit, files });
     setRecent({ commit, ts: Date.now(), files });
   }
   return { moved: true, bundle: pointers.bundle.sha256, files: files.length };

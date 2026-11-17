@@ -73,7 +73,6 @@ test("boot.js imports WS and matches frames by constant", () => {
 test("contract constants hold the agreed wire strings", () => {
   assert.equal(HSM_EVENTS.FILES_CHANGED, "hsm:files-changed");
   assert.equal(HSM_EVENTS.DEPLOY, "hsm:deploy");
-  assert.equal(HSM_EVENTS.NOTIFICATIONS_UPDATED, "hsm:notifications-updated");
   assert.equal(WS.HELLO, "hello");
   assert.equal(WS.PING, "ping");
   assert.equal(WS.FILES_CHANGED, "files-changed");

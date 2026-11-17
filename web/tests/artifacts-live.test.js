@@ -24,7 +24,7 @@ import { pathToFileURL } from "node:url";
 import { pointersMoved, refreshArtifacts, retireSolids } from "../lib/artifacts-live.js";
 
 // Never reached — `adopt()` throws at `lockOnMain()`, before any of these are read.
-const ctx = { broadcast() {}, setRecent() {}, commit: "0000000", hardwareDir: ".", detect: [] };
+const ctx = { broadcast() {}, setRecent() {}, commit: "0000000" };
 
 test("a look refused by the floor is held for the rest of it, not dropped", async () => {
   const realFetch = globalThis.fetch;
@@ -154,7 +154,9 @@ for (const failure of ["download-error", "stale-success", "missing-current"]) {
         "contracts/artifact-scope.js",
         "contracts/client-events.js",
         "contracts/documents.js",
+        "contracts/pcb-out.js",
         "contracts/scorecard-sidecar.js",
+        "contracts/ws-frames.js",
       ]) {
         await copyFile(new URL("../" + relative, import.meta.url), path.join(root, "web", relative));
       }
@@ -182,16 +184,12 @@ for (const failure of ["download-error", "stale-success", "missing-current"]) {
       globalThis.fetch = async (url) => {
         if (String(url).includes('/info/refs?')) return new Response('0'.repeat(40) + ' refs/heads/main\n');
         if (String(url).includes('raw.githubusercontent.com')) return new Response(JSON.stringify(next));
-        const value = String(url).includes("cad-artifacts.json") ? next : { checks: [] };
-        return new Response(JSON.stringify({
-          encoding: "base64", content: Buffer.from(JSON.stringify(value)).toString("base64"),
-        }));
+        throw new Error("unexpected request: " + url);
       };
       const module = await import(pathToFileURL(path.join(root, "web/lib/artifacts-live.js")));
       const events = [];
       const context = {
         broadcast(event) { events.push(event); }, setRecent() {}, commit: "fixture",
-        hardwareDir: path.join(root, "hardware"), detect: [async () => ["body.step"]],
       };
       const failed = await module.refreshArtifacts(context, { force: true });
       assert.ok(failed.error, "failed download or stale bytes must not complete adoption");
@@ -231,7 +229,7 @@ for (const failure of ["download-error", "stale-success", "missing-current"]) {
       assert.equal(recovered.moved, true, "the same publication is retried after storage recovers");
       assert.deepEqual(JSON.parse(await readFile(pointerPath, "utf8")), next);
       assert.equal(await readFile(path.join(root, "hardware/body.step"), "utf8"), "new");
-      assert.equal(events.length, 1);
+      assert.deepEqual(events, [{ type: "files-changed", commit: "fixture", files: ["body.step"] }]);
       const afterRecovery = (await readFile(path.join(root, "calls"), "utf8")).trim().split("\n");
       assert.deepEqual(afterRecovery.slice(beforeRecovery.length), ["download", "check"]);
       assert.deepEqual(await module.refreshArtifacts(context, { force: true }),

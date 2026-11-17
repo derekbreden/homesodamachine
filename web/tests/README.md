@@ -18,11 +18,8 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   any module under `lib/` throws while loading (the way a stray
   `VIEWER_DEFAULTS` ReferenceError took down a deploy before commit
   8611dfa), `npm test` fails immediately.
-- **Route surface.** Every GET that doesn't require a database — landing,
-  `/3d`, the JSON APIs (`/api/steps`,
-  `/api/dxf`, `/api/firebase-config`), the three service
-  worker URLs, the favicons + apple-touch-icon, and every static JS file
-  imported by an HTML surface. Status code + Content-Type prefix.
+- **Route surface.** The public pages, model and document lists, app icons, and browser modules have smoke coverage.
+  The retired push worker URLs return the script that removes existing browser registrations.
 - **Legacy redirects.** `/dev`, `/drawings` and `/pcb` return redirects.
 - **WebSocket.** `/ws` accepts a connection and receives a `hello`
   frame carrying a `commit` field on connect.
@@ -46,13 +43,7 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   branch, what a readout chip reads, which order a grid lays out. Those
   move with the hardware, and `/3d` renders them from the tree at
   request time.
-- **Anything that requires Postgres.** `/api/subscribe`,
-  `/api/push/subscribe`, `/api/push/unsubscribe`,
-  `/api/push/subscription`, `/notifications`, and the
-  `/api/notifications/*` endpoints bail out without a DB, and nothing here
-  stands one up.
-- **Real FCM.** Push delivery, token registration, notification banner
-  rendering. Firebase credentials and a real device.
+- **Signup storage.** The suite runs without a database and does not write subscriber rows.
 - **UI behavior.** Grid rendering, modal interactions — client-side,
   behind JS. `lazy.js` is held at source level here; the window itself is a
   browser's answer.
