@@ -97,7 +97,15 @@ fn manifold() -> Manifold {
 /// The AC harness's 16 AWG cuts.
 fn wire() -> Wire {
     use hsm_ac_harness_numbers as ac;
-    Wire { mid: ac::MID, short_2: ac::SHORT_2, short: ac::SHORT, dc1: ac::DC1, dc2: ac::DC2, opening_join: ac::OPENING_JOIN }
+    Wire {
+        mid: ac::MID,
+        short_2: ac::SHORT_2,
+        short: ac::SHORT,
+        dc1: ac::DC1,
+        dc2: ac::DC2,
+        opening_join: ac::OPENING_JOIN,
+        carbonator_bond: ac::CARBONATOR_BOND,
+    }
 }
 
 /// The evaporator coil's copper, its tails' stubs and the roll it is cut from.

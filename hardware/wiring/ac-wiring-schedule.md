@@ -48,15 +48,16 @@ Use **16 AWG solid tinned-copper appliance hookup wire** on AC-1, AC-2,
 AC-3, DC-1, DC-2, DC-4 and the fixed AC-4, AC-5 and DC-3 pigtails.
 Land the bare solid conductor directly in each screw cage and WAGO lever
 clamp, one conductor per entry. Solder AC-1 at the C14 inlet's tabs. Use
-black for hot and DC, white for neutral and green for AC-1's earth.
+black for hot and DC, white for neutral and green for AC-1's earth and the
+carbonator vessel bond.
 Keep the UL1007 wire clear of hot refrigeration surfaces. Its stock and
 ordering details are in the [wiring BOM](/hardware/ledger/bom.md#11-wiring--fasteners).
 The [WAGO 221 documentation](https://www.wago.com/us/installation-221-ad)
 covers solid copper. J10 uses the KF301-5.0 screw block.
 
-Use stranded wire for the SJOOW compressor cord, the pump-side DC-3 leads,
-the protective-earth bonds to the vessel and compressor, and the JST and
-Faston harnesses. Keep the SJOOW conductors together in their jacket.
+Use stranded wire for the SJOOW compressor cord, including its protective-earth
+core, the pump-side DC-3 leads, and the JST and Faston harnesses. Keep the
+SJOOW conductors together in their jacket.
 Use ferrules at the stranded screw-cage landings, including the relay
 control leads and the SIG-7 display loom. Their board ends use JST crimps,
 and the display loom flexes during installation and service.
@@ -195,7 +196,7 @@ Single-point chassis ground at the rear PE WAGO below C14, bonded back through t
 
 - **C14 ground pin** → port 1 of the rear PE WAGO below C14 on back-top (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
 - **The PE WAGO** distributes to the SS carbonator inside the cold core (port 2, its bonding wire) and the compressor body (port 3, AC-6). The faucet carries no earth: its only conductors are SIG-6's SELV ribbon, and its tubes are plastic. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
-- The carbonator bond is green-insulated stranded wire, ferruled into the WAGO and ringed at the vessel rim. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
+- The carbonator bond is green 16 AWG solid tinned copper, landed bare in the WAGO and crimped into a closed M3 ring rated for that conductor at the vessel rim. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 
 The PE WAGO is the G block of the rear H/G column, centred at enclosure

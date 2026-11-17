@@ -1,9 +1,9 @@
 {
   "/hardware/ledger/bom.rs": {
     "AERO_FLOATS": "3",
-    "BOM_GRAND": "$1,463.16",
+    "BOM_GRAND": "$1,463.69",
     "BOM_SEC1": "$175.41",
-    "BOM_SEC11": "$34.40",
+    "BOM_SEC11": "$34.93",
     "BOM_SEC12": "$29.78",
     "BOM_SEC13": "$29.21",
     "BOM_SEC14": "$4.29",
@@ -116,7 +116,8 @@
     "SOLENOIDS": "10",
     "SOLID16_BLACK_COST": "$4.81",
     "SOLID16_BLACK_LENGTH": "2.85 m",
-    "SOLID16_GREEN_LENGTH": "0.15 m",
+    "SOLID16_GREEN_COST": "$1.10",
+    "SOLID16_GREEN_LENGTH": "0.65 m",
     "SOLID16_WHITE_COST": "$1.10",
     "SOLID16_WHITE_LENGTH": "0.65 m",
     "STEM_ELBOWS": "24",

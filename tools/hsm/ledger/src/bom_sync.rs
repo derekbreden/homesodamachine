@@ -165,6 +165,7 @@ pub struct Wire {
     pub dc1: f64,
     pub dc2: f64,
     pub opening_join: f64,
+    pub carbonator_bond: f64,
 }
 
 /// The evaporator coil: its pitch, the copper in its laid wrap and in one carbonator's cut, mm,
@@ -361,12 +362,13 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     let dc_black = 2. * w.dc1 + w.dc2 + w.opening_join + 2. * w.mid;
     let black = ac_black + dc_black;
     let white = w.mid + w.short_2 + w.opening_join;
-    let green = w.mid;
+    let green = w.mid + w.carbonator_bond;
     put("SOLID16_BLACK_LENGTH", format!("{} m", decimal_divide_1000(black)));
     put("SOLID16_WHITE_LENGTH", format!("{} m", decimal_divide_1000(white)));
     put("SOLID16_GREEN_LENGTH", format!("{} m", decimal_divide_1000(green)));
     put("SOLID16_BLACK_COST", cost(black / 1000., SOLID16_LENGTH)?);
     put("SOLID16_WHITE_COST", cost(white / 1000., SOLID16_LENGTH)?);
+    put("SOLID16_GREEN_COST", cost(green / 1000., SOLID16_LENGTH)?);
     put("PP1208E_PANEL", count(UMBILICAL_BULKHEADS));
 
     // The cold core's casing, the deck, the reservoir caps and the faucet's base.

@@ -1563,7 +1563,7 @@
   "carbonator-earth": {
     "jacket": false,
     "kind": "Carbonator protective earth",
-    "description": "The earth conductor occupies the center of the shared cap passage and joins the west-wall protective-earth junction above the relays.",
+    "description": "The solid earth conductor occupies the center of the shared cap passage and joins the west-wall protective-earth junction above the relays.",
     "packed_diameter_mm": 6.6,
     "bend_radius_mm": 5.5,
     "fanout_tangent_mm": [

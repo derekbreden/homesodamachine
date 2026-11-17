@@ -77,7 +77,7 @@ pub fn inputs(
         shape: ring,
         colour: Colour::Srgb([0.32, 0.55, 0.30]),
     });
-    records.insert(name.into(), json!({"kind":"M3 closed-ring earth terminal","terminal_ids":["carbonator.PE"],"attachment":"cold-core/carbonator-tube","status":"Nominal owned M3 / 22–16 AWG ring envelope; metal clamp defined by shared rim datums","tongue_thickness_mm":bond.ring_tongue_thickness_mm,"barrel_diameter_mm":bond.ring_barrel_diameter_mm,"barrel_length_mm":bond.ring_barrel_length_mm}));
+    records.insert(name.into(), json!({"kind":"M3 closed-ring earth terminal for solid 16 AWG","terminal_ids":["carbonator.PE"],"attachment":"cold-core/carbonator-tube","status":"Nominal ring envelope and rim clamp datums; terminal selection and physical fit pending","tongue_thickness_mm":bond.ring_tongue_thickness_mm,"barrel_diameter_mm":bond.ring_barrel_diameter_mm,"barrel_length_mm":bond.ring_barrel_length_mm}));
     for header in ["J1", "J2", "J3", "J4", "J5", "J6", "J7", "J9", "J11", "J13"] {
         let mut pins = terminals
             .iter()

@@ -143,7 +143,7 @@ before printing the bridge/setting gauge or fixing the reed heights.
    continuous common up outside the coil, then transfer them over the open
    vessel head at enclosure Z225/Y352 before the body foam pour. Join the
    shared west-side seven-core loom at X−48/Y347; its other cores are the
-   three temperature-bus leads and green 16 AWG carbonator earth lead. The
+   three temperature-bus leads and the solid green carbonator earth lead. The
    loom follows an R5.5 transition to the Ø7.5 mm equipment-lid opening at
    X−78/Y320/Z253.4. Lay it before the pour; foam locates it below the lid.
    Thread the free ends through the lid before fitting outside terminations,

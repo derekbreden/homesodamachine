@@ -47,7 +47,7 @@ pub fn connections() -> Vec<Connection> {
     for (net, port, stock) in [
         ("L", "h", "power16"),
         ("N", "n", "neutral16"),
-        ("PE", "g", "inlet-earth16"),
+        ("PE", "g", "earth16"),
     ] {
         wire(
             &mut out,
@@ -166,7 +166,7 @@ pub fn connections() -> Vec<Connection> {
         "earth16",
         "earth bonds",
         "fixed",
-        "Closed ring clamped directly to the drilled stainless vessel rim; fitted before the body foam pour.",
+        "Bare solid wire at the WAGO and a solid-wire-rated closed ring at the vessel rim. Fit the ring before the body foam pour.",
     );
     for (net, pole) in [("V12", "v12"), ("GND", "gnd")] {
         wire(
