@@ -56,9 +56,10 @@ at its print-up crown using the designed clearance. The axial cavity opens upwar
 
 ## Subassembly procedure
 
-This is a **self-contained subassembly** of three parts (TAISHER
-elbow + SV-125 + printed shroud) plus a tube of 100% RTV silicone
-caulk. Built on the bench; shelves indefinitely after the caulk cures.
+The TAISHER elbow, SV-125 and printed shroud form a bench subassembly.
+The shroud-to-elbow joint needs a seal that keeps insulation foam out of
+the relief cavity. The seal material, amount per joint and working time
+are open.
 
 The LLDPE vent tube and the foam-shell pass-through are not part of
 this subassembly — the LLDPE is pushed into the shroud's barrel hole
@@ -81,20 +82,11 @@ and the carbonator is lowered into the foam shell.
    it down past the cap-side opening, past the hex, past the
    discharge side port, until the open end of the shroud seats on
    the smooth ⌀18.8 mm cylindrical section of the elbow.
-4. Run a bead of **100% RTV silicone caulk** (e.g., GE Silicone II)
-   around the joint between the shroud's open end and the elbow's
-   smooth cylinder. Smooth the bead with a wet fingertip to form a
-   small fillet. The seal needs to be **foam-tight, not airtight or
-   pressure-tight** — only enough to keep the rising body foam from
-   intruding through the joint during the ~5 min foam rise. Cured
-   foam takes over as the structural seal once it sets.
-5. Let the caulk cure at least 20–30 min for skin-over before
-   handling, ≥24 h for full cure before the subassembly is
-   installed on a carbonator.
+4. Complete the foam seal at the shroud-to-elbow joint once the material
+   and method are selected. Keep the relief cavity and its vent open.
 
-After cure, the subassembly is ready. It threads into Port 4 of a
-finished carbonator at [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
-step 9, replacing the elbow + PRV install on that port.
+The prepared subassembly threads into Port 4 of the
+[carbonator](/hardware/assembly/pressure-vessel.md#9-install-elbows-and-prv).
 
 The LLDPE push-in and routing through the foam-shell’s +Y flank happen
 later, at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md)

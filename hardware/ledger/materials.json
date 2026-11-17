@@ -9736,7 +9736,6 @@
       "kind": "assembly",
       "aliases": [
         "PRV assembly",
-        "cured relief unit",
         "shrouded relief valve"
       ],
       "contexts": [
@@ -9752,7 +9751,7 @@
       ],
       "bom": {
         "source": "printed-parts/cold-core/prv-shroud/README.md",
-        "scope": "Street elbow, pressure-relief valve and shroud assembled on the bench with the shroud seal cured. The unit threads into the carbonator; its vent tube is fitted during core assembly. The valve check and installed relief qualification retain their procedure scope.",
+        "scope": "Street elbow, pressure-relief valve and shroud assembled on the bench. The shroud-to-elbow joint needs a foam seal for the pour. Its material selection and usage are open. The vent tube is fitted during core assembly.",
         "items": [
           {
             "material": "HSM-0010",

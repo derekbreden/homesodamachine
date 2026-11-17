@@ -414,24 +414,6 @@
       "stock": "B0GD16CMYL"
     },
     {
-      "id": "100% RTV silicone caulk (e.g. GE Silicone II)",
-      "name": "100% RTV silicone caulk (e.g. GE Silicone II)",
-      "unit": "builds",
-      "supplier": "allowances",
-      "priceBasis": "delivered",
-      "status": "estimate",
-      "note": "Delivered $8/tube allowance; product selection and bead yield are unconfirmed.",
-      "options": [
-        {
-          "quantity": 20,
-          "priceCents": 800,
-          "label": "one caulk tube, provisional 20-build allowance",
-          "available": true
-        }
-      ],
-      "stock": "100% RTV silicone caulk (e.g. GE Silicone II)"
-    },
-    {
       "id": "B01G2F6EMY",
       "name": "Control Devices SV-125 safety valve, 1/4\" NPT, 125 psi set pressure, 49 SCFM relief, brass",
       "unit": "pieces",

@@ -50,8 +50,9 @@ Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.12](MT_KG_PET
 | Silicone funnel — food-contact post-cure bake | Oven at ~200 °C | The drive-off bake is the food-contact acceptance gate, not the room-temp cure. **The maker states no post-cure schedule** ([silicone.md](/hardware/printed-parts/zone-c/funnel-mold/silicone.md)); 4 h at ~200 °C is a placeholder, under the cured material's 230 °C ceiling, until the trial is run | 4.0 |
 | Body foam — pour to trimmable | In the part | Cure time is an **open item** in [cold-core.md](/hardware/assembly/cold-core.md); 4 h is a placeholder for a 2 lb pour foam, not a datasheet figure | 4.0 |
 | Cap foams — pour to trimmable, both caps | In the part | Same open item; the two caps pour together | 4.0 |
-| PRV-shroud caulk — full cure | Bench shelf | ≥24 h for 100 % RTV, but the subassembly is built ahead and shelves indefinitely — off the critical path | 24.0 |
-| **Curing and baking** | | | **[41.0](MT_H_CURE)** |
+| **Curing and baking** | | | **[17.0](MT_H_CURE)** |
+
+The PRV shroud foam seal's working time depends on the material selection.
 
 ## 3. Soaking and holding
 
@@ -101,7 +102,7 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 Pump tube preparation and the small TPU seals have unmeasured production durations; plate handling and physical print yield remain unmeasured.
 
-Runs in parallel with the print when started early enough: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the eleven bench harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
+Carbonator fabrication and fitting, bench harnesses, and the silicone funnel's cure and bake can run alongside printing.
 
 A second unit behind the first does not cost another [5.2](MT_DAYS_TURN) days — it costs the bottleneck's [96.7](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 

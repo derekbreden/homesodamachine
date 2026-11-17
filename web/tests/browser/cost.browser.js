@@ -60,6 +60,15 @@ test('production planning starts at unit two, updates pack coverage, and restore
     assert.match(await page.$eval('#planner-focus-title', el => el.textContent), /second unit/);
     assert.equal(await page.$eval('.planner-milestone[aria-pressed="true"]', el => el.dataset.focus), '2');
     assert.equal(await page.$eval('.planner-basket-total > strong', el => el.textContent), '$0.00');
+    const search = value => page.$eval('#planner-search', (input, value) => {
+      input.value = value;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }, value);
+    await search('PRV shroud foam seal');
+    const seal = '.planner-material-row[data-resource="prv-shroud-foam-seal"]';
+    assert.match(await page.$eval(seal + ' td:last-child', el => el.textContent), /Define input\s*Usage unresolved/);
+    assert.match(await page.$eval(seal + ' .planner-cell', el => el.title), /Through unit 1: Usage unresolved/);
+    await search('');
     const before = await page.$eval('.planner-milestone[data-focus="2"] .planner-forecast-money', el => el.textContent);
     await page.click('#planner-fill');
     await page.waitForFunction(() => document.querySelectorAll('.planner-basket-items > button').length > 0);

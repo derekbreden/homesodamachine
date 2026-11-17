@@ -61,7 +61,7 @@ export function parseTargets(text) {
 function parseCount(cell) {
   const text = plainMarkdown(cell);
   if (
-    /[/]|\b(ft|kg|g|m|in|inches|oz|roll|pair|set|sets|collars?|columns?)\b/i.test(
+    /[/]|\b(ft|kg|g|m|in|inches|mL|oz|roll|pair|set|sets|collars?|columns?)\b/i.test(
       text,
     )
   )
@@ -70,15 +70,14 @@ function parseCount(cell) {
   return match ? parseInt(match[1], 10) : null;
 }
 
-// A quantity cell → { value, unit } when it is a length or a mass per build.
+// A quantity cell carries a physical measure per build.
 function parseMeasure(cell) {
   const match = plainMarkdown(cell).match(
-    /^~?\s*([0-9]+(?:\.[0-9]+)?)\s*(ft|m|mm|in|inches|g|kg)\b/i,
+    /^~?\s*([0-9]+(?:\.[0-9]+)?)\s*(ft|m|mm|in|inches|g|kg|mL)\b/i,
   );
   if (!match) return null;
-  const unit =
-    match[2].toLowerCase() === "inches" ? "in" : match[2].toLowerCase();
-  return { value: Number(match[1]), unit };
+  const unit = match[2].toLowerCase();
+  return { value: Number(match[1]), unit: { inches: "in", ml: "mL" }[unit] || unit };
 }
 
 export function readBomLines(hardwareDir) {
