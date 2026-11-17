@@ -144,7 +144,7 @@ for fixed-width brim types.
 | `display-gasket` | Mark2, right | Bambu TPU 90A, black | Flat, as exported | Glued Engineering Plate, solid, support-free |
 | `reservoir-grips` | Mark2, right | Bambu TPU 90A, white | Broad flanges on the bed, bores upright | Glued Engineering Plate; support-free |
 | `cold-core-petg` | Mark1, left 0.4 | PETG Basic black | Refill plate with PRV shroud cap down and reed bridge on its convex face | Open shroud cavity and bridged lead groove |
-| `small-petg` | Mark1, left 0.4 | PETG Basic black | Funnel cover, PRV shroud, reed bridge and fuse clamp in their established print poses | Support-free. The cover retains its solid infill, three walls, bridge settings and brim-free edge. |
+| `small-petg` | Mark1, left 0.4 | PETG Basic black | Funnel cover, PRV shroud, reed bridge and fuse clamp in their established print poses | Support-free. The cover retains its solid infill, wall count, bridge settings and brim-free edge. |
 | `factory-petg` | Mark1, left 0.4 | PETG Basic black | Coil mandrel and setting gauge as exported | As `small-petg` |
 
 ## Declared features
