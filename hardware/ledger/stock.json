@@ -16,12 +16,6 @@
       "HSM-0093"
     ],
     "colors": {
-      "HSM-0062": "white",
-      "HSM-0063": "blue",
-      "HSM-0064": "black",
-      "HSM-0065": "black",
-      "HSM-0066": "red",
-      "HSM-0067": "white",
       "HSM-0272": "white",
       "HSM-0099": "blue",
       "HSM-0100": "black",
@@ -31,8 +25,37 @@
     },
     "mixes": {
       "HSM-0069": {
-        "black": 0.5,
-        "white": 0.5
+        "black": 0.964339,
+        "white": 0.035661
+      },
+      "HSM-0062": {
+        "white": 0.990106,
+        "black": 0.009894
+      },
+      "HSM-0063": {
+        "blue": 0.984495,
+        "white": 0.015505
+      },
+      "HSM-0064": {
+        "black": 0.980774,
+        "white": 0.019226
+      },
+      "HSM-0065": {
+        "black": 0.980774,
+        "white": 0.019226
+      },
+      "HSM-0066": {
+        "red": 0.990148,
+        "white": 0.009852
+      },
+      "HSM-0067": {
+        "white": 0.983105,
+        "black": 0.016895
+      },
+      "HSM-0579": {
+        "black": 0.975307,
+        "white": 0.016752,
+        "clear": 0.007941
       }
     }
   },
@@ -53,7 +76,9 @@
     "HSM-0578": "B0DJQH3WSX",
     "HSM-0580": "B08G4Z6KPV",
     "HSM-0383": "neofit-ACVUS-44",
-    "HSM-0375": "neofit-AME4-N2-E"
+    "HSM-0375": "neofit-AME4-N2-E",
+    "HSM-0011": "B0FYCJJXCS-rod",
+    "HSM-0459": "B0FYCJJXCS-rod"
   },
   "kits": {
     "B07PCZKG94": [
@@ -286,26 +311,30 @@
       }
     },
     {
-      "id": "B0FYCJJXCS",
-      "name": "Water-inlet jet cap, 316 SS, nominal Ø9.5 × 2 mm with 1/16-inch passage",
-      "unit": "caps",
+      "id": "B0FYCJJXCS-rod",
+      "name": "Hosifiy 316 stainless round rod · jet caps and upper float stops",
+      "unit": "mm",
       "href": "https://www.amazon.com/dp/B0FYCJJXCS",
-      "onHand": 29.0,
+      "onHand": null,
       "incoming": 0,
       "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Recorded purchase supplies 30 caps. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *.",
+      "estimated": false,
+      "asOf": null,
+      "basis": "uncounted",
+      "note": "The jet cap and upper float stop share the same 316 stainless rod. Demand includes the BOM cutting allowances. The usable remainder is uncounted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 96
+          "purchase": "pur-1af507c69de4482da0d7b9c1ecc99b52"
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-129fa4df379f4d1f84fecfdeb5861ef3"
         }
       ],
       "planning": {
         "root": "HSM-0340",
-        "perUnit": 1,
+        "perUnit": 0,
         "materialAllowance": 0
       }
     },
@@ -3793,6 +3822,75 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0
+      }
+    },
+    {
+      "id": "petg-white",
+      "name": "Bambu PETG Basic White 30106",
+      "unit": "kg",
+      "href": "https://us.store.bambulab.com/products/petg-basic",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The stock receipt includes this color for the identification plate. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-6655f4a0c1c747bc8ce06a69596eb432"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0.15
+      }
+    },
+    {
+      "id": "petg-blue",
+      "name": "Bambu PETG Basic Navy Blue 30604",
+      "unit": "kg",
+      "href": "https://us.store.bambulab.com/products/petg-basic",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The stock receipt includes this color for the identification plate. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-6655f4a0c1c747bc8ce06a69596eb432"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0.15
+      }
+    },
+    {
+      "id": "petg-red",
+      "name": "Bambu PETG Basic Red 30201",
+      "unit": "kg",
+      "href": "https://us.store.bambulab.com/products/petg-basic",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": null,
+      "note": "The stock receipt includes this color for the identification plate. The usable spool remainder is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-6655f4a0c1c747bc8ce06a69596eb432"
+        }
+      ],
+      "planning": {
+        "root": "HSM-0340",
+        "perUnit": 0,
+        "materialAllowance": 0.15
       }
     }
   ],

@@ -300,23 +300,22 @@
       "stock": "B0CZ38MYL1"
     },
     {
-      "id": "B0FYCJJXCS",
-      "name": "Water-inlet jet cap, 316 SS, nominal \u00d89.5 \u00d7 2 mm with 1/16-inch passage",
-      "unit": "caps",
+      "id": "B0FYCJJXCS-rod",
+      "name": "Hosifiy 316 stainless round rod \u00b7 jet caps and upper float stops",
+      "unit": "mm",
       "supplier": "amazon",
       "priceBasis": "merchandise",
-      "status": "estimate",
-      "note": "One 400 mm 316 rod nominally yields 30 jet caps. Handling tails, kerf and finishing are allocated in the BOM; production yield remains provisional.",
+      "status": "unconfirmed",
+      "note": "Recorded price for the full rod. Yield follows the BOM allowances and current replenishment availability is unconfirmed.",
       "options": [
         {
-          "quantity": 30,
+          "quantity": 400,
           "priceCents": 999,
-          "label": "400 mm rod, allowance for 30 caps",
-          "available": true
+          "label": "400 mm rod"
         }
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FYCJJXCS",
-      "stock": "B0FYCJJXCS"
+      "stock": "B0FYCJJXCS-rod"
     },
     {
       "id": "B07C9ZV4PG",
@@ -3357,7 +3356,7 @@
       "unit": "pieces",
       "supplier": "fws",
       "priceBasis": "merchandise",
-      "status": "estimate",
+      "status": "unconfirmed",
       "note": "Recorded order merchandise price; current replenishment price and availability are unconfirmed. Shipping and tax follow the forecast allowances.",
       "options": [
         {
@@ -3459,6 +3458,60 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0GHNNYVDH",
       "stock": "svling-B0GHNNYVDH"
+    },
+    {
+      "id": "petg-white",
+      "name": "Bambu PETG Basic White 30106",
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price with spool. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1529,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/petg-basic",
+      "stock": "petg-white"
+    },
+    {
+      "id": "petg-blue",
+      "name": "Bambu PETG Basic Navy Blue 30604",
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price with spool. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1529,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/petg-basic",
+      "stock": "petg-blue"
+    },
+    {
+      "id": "petg-red",
+      "name": "Bambu PETG Basic Red 30201",
+      "unit": "kg",
+      "supplier": "bambu",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Recorded purchase price with spool. Replenishment price and availability are unconfirmed.",
+      "options": [
+        {
+          "quantity": 1,
+          "priceCents": 1529,
+          "label": "1 kg spool"
+        }
+      ],
+      "sourceUrl": "https://us.store.bambulab.com/products/petg-basic",
+      "stock": "petg-red"
     }
   ],
   "allowances": [
