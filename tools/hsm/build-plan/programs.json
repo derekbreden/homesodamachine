@@ -231,16 +231,6 @@
       "name": "umbilical-organizer",
       "output": "hardware/printed-parts/faucet/umbilical-organizer"
     },
-    "hardware/printed-parts/fixtures/fake-countertop/fake_countertop.rs": {
-      "crate": "fake-countertop",
-      "name": "fake-countertop",
-      "output": "hardware/printed-parts/fixtures/fake-countertop"
-    },
-    "hardware/printed-parts/fixtures/tube-miter-box/tube_miter_box.rs": {
-      "crate": "tube-miter-box",
-      "name": "tube-miter-box",
-      "output": "hardware/printed-parts/fixtures/tube-miter-box"
-    },
     "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.rs": {
       "crate": "water-inlet-jet-fixture",
       "name": "water-inlet-jet-fixture",

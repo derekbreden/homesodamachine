@@ -3539,6 +3539,60 @@
           "path": "hardware/assembly/wiring.md"
         }
       ]
+    },
+    {
+      "id": "B0FK5HH8H1",
+      "name": "MECCANIXITY black 16 AWG solid tinned-copper UL1007 hookup wire",
+      "unit": "m",
+      "href": "https://www.amazon.com/dp/B0FK5HH8H1",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-10-19",
+      "basis": "unknown",
+      "note": "The purchase ledger records one 25 ft coil received. The usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md"
+        }
+      ]
+    },
+    {
+      "id": "B0FK5G1Q1J",
+      "name": "MECCANIXITY white 16 AWG solid tinned-copper UL1007 hookup wire",
+      "unit": "m",
+      "href": "https://www.amazon.com/dp/B0FK5G1Q1J",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-10-18",
+      "basis": "unknown",
+      "note": "The purchase ledger records one 25 ft coil received. The usable remainder has not been counted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md"
+        }
+      ]
+    },
+    {
+      "id": "solid16-green",
+      "name": "Green 16 AWG solid tinned-copper UL1007 hookup wire",
+      "unit": "m",
+      "href": null,
+      "onHand": 0,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-11-17",
+      "basis": "unknown",
+      "note": "AC-1 earth link between the inlet solder tab and PE WAGO. Green solid wire remains to source.",
+      "sources": [
+        {
+          "path": "hardware/ledger/unit-1-shopping.md"
+        }
+      ]
     }
   ],
   "observations": [

@@ -1,6 +1,9 @@
 # PET-GF pump-dock production parts
 
-The dock's one PET-GF part is the factory's tube setting jig (`enclosure-pump-tube-setting-jig`). The tee wall, its holes and its bores are front-top's own material, and the pump tees are purchased.
+The tee wall and motor guides print with front-top. Print the independent
+flange retainers with the enclosure parts. The factory uses the separate
+tube setting jig (`enclosure-pump-tube-setting-jig`). The pump tees are
+purchased.
 
 The tube setting jig prints alone on the `factory-tools` plate, as exported, with the shared [petgf.3mf](https://homesodamachine.com/print-archive/e7f2f1c9e55e5bcf29c4533b92afc3b21c22e805/petgf.3mf): 0.20 mm first layers and 0.24 mm body layers, ordinary/auxiliary cooling off, localized overhang/bridge cooling at 70% above the 50% unsupported threshold, and the shared Tree (auto)/Default support decisions.
 

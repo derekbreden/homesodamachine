@@ -71,8 +71,7 @@ paper source is the rear feeder.
 - The finished vessel rod and plate spacing follow their drawings. Check the
   conical register engagement, free float travel and fully seated cap. The
   reservoir rods retain their own endplay and cap-seat requirements.
-- The printed razor miter box is CAD-checked and physically untested. The Mudder
-  remains the illustrated baseline cutter.
+- Cut the LLDPE with the Mudder cutter.
 - Ribbon web peeling, sleeve sizing and the current donor compressor connector
   retain the limits in the current cable/wiring procedures.
 

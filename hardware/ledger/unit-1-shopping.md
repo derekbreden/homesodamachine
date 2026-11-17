@@ -6,10 +6,10 @@ Checked November 10, 2026 against the current BOM, purchase ledger, stock record
 
 | Item | Order quantity | Purpose / evidence | Listed price before shipping/tax |
 |---|---:|---|---:|
-| [MECCANIXITY green 16 AWG solid tinned-copper UL1007 wire — Prime](https://www.amazon.com/dp/B0FK5JHQW7) | 1 spool, 25 ft | Green conductor for AC1 in the [AC wiring schedule](../wiring/ac-wiring-schedule.md). The acquired solid wire is black and white; the acquired stranded green wire serves the separate earth bonds. | $11.99 |
+| Green 16 AWG solid tinned-copper UL1007 wire | 150 mm per build | AC-1 from the C14 earth tab to the PE WAGO. An available spool option is the [Remington green 100 ft spool](https://business.walmart.com/ip/Remington-Industries-16-AWG-Solid-Hook-Up-Wire-UL1007-300V-100-ft-Length-Green/18458067158), sold and shipped by Remington. The acquired black and white wire is supplied in 25 ft coils. | $29.75 for the spool |
 | [BelMetric WSE3SS, M3 DIN 6797-A A2 stainless external-tooth washer](https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS) | 1; select M3 / 6 mm OD | Conditional on the acquired IEAWISL assortment: verify its M3 washer before buying separately. Earth-clamp specification remains 3.2 mm ID, 6 mm OD, 0.4 mm material thickness. Exact BelMetric variant in stock. BelMetric lists same-day weekday dispatch before its cutoff; freight is calculated at checkout. | $0.06 each |
 
-Amazon Prime badges, exact variants, prices and stock were checked in signed-in Mac Chrome on November 10. The remaining Amazon row is $11.99 before tax. The washer's shipping is additional.
+The Remington spool offer was checked November 17. The washer ships from BelMetric with freight at checkout.
 
 ## Conditional purchase for a customer install kit
 

@@ -65,9 +65,9 @@ paint thickness and absolute optical scale are not independently calibrated.
 
 ## Fluidfit check reference
 
-The Fluidfit HCVU 1/4–1/4 check is not part of the appliance, whose two check
-valves are both the [neoFit ACHV44-E](../neofit-achv44-check/README.md). The
-HCVU is modeled from its
+The Fluidfit HCVU 1/4–1/4 model supports the retained layout studies. The
+appliance's check valves use the [neoFit ACVUS-44 stem check](../neofit-acvus44-check/README.md).
+The HCVU is modeled from its
 [exact OEM imperial drawing](https://www.fluidfit.net/eng/open_content/product/view.php?pm_no=262).
 It has 6.35 mm push-connect sockets at both ends, 45.5 mm overall length,
 15.5 mm maximum diameter and 16.1 mm tube insertion from each mouth.

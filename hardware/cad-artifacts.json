@@ -553,14 +553,6 @@
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step": "1a8b27ecefa39627ee552e0643075e1b375ee7c40c8bf30a482636e7c46b2969",
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step.mesh": "b70dcc0260fdd332750ea47c5200fc43521e2d486967350c8cb6739e16923dcb",
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.stl": "cb8278a926caca204f145410dae86a179b7d3a59f845a271ac55173961179198",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step": "48716b2d77e659ded94f18862ad250fdc7d6c2bbaacf3bba7b9c2c02a2dfb6ea",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step.mesh": "c88e6d5ad225f616b1d930ca729e24b77ca98cdff06e4c977ae28c81cd1924b0",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step": "8222dbca2d22862c2a345541c321ab6652b5849cfe83ce21cbc408cb7ea9c72c",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step.mesh": "b0e945426f7fb10294a797fed4c025419915f4f22284298021e0999bdb831810",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.stl": "dd339621c80791d2f72bde2f0f4543cfd7230105449af1c1935dda41d93395d9",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step": "888325dfc1d8de90326611213cc70d12549bb53909bb574d9f8dca331c36972f",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step.mesh": "d88ecbe9a672eb97adb53bfc5174359ea44a2a5af2a86484901007d5a30c10ed",
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.stl": "9f608c3d2e3f09078bd1ae7e55e447ea4b7105e8227cf9823ce5445ec46a4325",
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-fit.step": "7f821538e4c3040c69b41aa6d67f0bb8dd933ebd730d8e963643cfa6b532729a",
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-fit.step.mesh": "eafa6a33593fecb62150ee2979661b89674ee205a40d0950851d71b3f8953ad7",
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl": "7e4205226fc944d9e93a5dd98fdfb1dff67d382bb2bb1b0cc891d327c096ebcb",
@@ -761,9 +753,6 @@
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.npz": "523da86d9c0b50b83777716e9c8987faa7cb318ddc21e27d9a380939aca80476",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "8d357ab7bf93f99130ea024c00c35e0f4e93e0f4de4613e15215db0c0a02c069",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": "4c56e8cc49633d784f0488d69ccbd099be427ab48ec0bae29f91c5d277230b48",
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.json": "6b1423ec97a2aad92c6720c5e7be8fd3e2f9b7442e4a02868f3fab2c82208813",
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh": "d4c3bc20fc3e5094d853e0bd556e75ba60806bda96daf32d524d43a117eb3890",
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step": "d29c77b461831fdb17d19defdb88d887ec972932701b9c6155c42878a18983cf",
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step.mesh": "5e221eba998f9ddfdaa156b4697e486c3580bd7c5493920a869d5153ed810f0f",
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step.npz": "f256702fd2ba90570c71603db8f92682005ea7cd371708995b61876bca65b0eb",
@@ -2942,14 +2931,6 @@
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step": 1794287159.823254,
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.step.mesh": 1794284982.64433,
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/yaw-stop-sector.stl": 1794287159.823254,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step.mesh": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step.mesh": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.stl": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step.mesh": 1793652093,
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.stl": 1793652093,
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-fit.step": 1791863033,
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-fit.step.mesh": 1791863033,
     "hardware/printed-parts/fixtures/tube-insertion/donor-hold-down/donor-hold-down-print.stl": 1791863033,
@@ -3150,9 +3131,6 @@
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step.npz": 1794271411.5702882,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": 1793316034,
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": 1793617993,
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": 1792893021,
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.json": 1793750338,
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh": 1793568839,
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step": 1793774578,
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step.mesh": 1793774578,
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step.npz": 1793774578,
@@ -4720,46 +4698,6 @@
       "commit": "b6538e4b3ac30c8b8d9269fd9bfe93e5644981b5",
       "unproven": true
     },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-assembly.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-frame.stl": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.stl": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
       "inputs": "89f3c994f7e8283e9c1be7d30aa1d35edca0a656cd118e1d4e4d3149f7091a09",
@@ -5458,14 +5396,6 @@
     },
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step.mesh": {
       "commit": "00e3f01d90a166f5f802e8f8a96a4f83d03ec850",
-      "unproven": true
-    },
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
-    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh": {
-      "commit": "4e9210312f017ae063b666cd1635e23eed21a27e",
       "unproven": true
     },
     "hardware/reference/neofit-acvus44-check/neofit-acvus44-check.step": {

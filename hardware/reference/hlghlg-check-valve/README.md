@@ -3,7 +3,7 @@
 One HLGHLG B0FSSZS6HH POM check valve accepts 1/4-inch OD tube at both ends.
 It is not part of the appliance, and its acquisition is not recorded in the
 purchase ledger. The pump-discharge water check is the
-[neoFit ACHV44-E](../neofit-achv44-check/README.md); the assembly's
+[neoFit ACVUS-44](../neofit-acvus44-check/README.md); the assembly's
 `discharge-chain` key names that part.
 
 The envelope uses the listing's dimensioned photograph: **51 mm end to end,

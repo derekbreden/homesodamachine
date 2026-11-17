@@ -47,7 +47,7 @@ pub fn connections() -> Vec<Connection> {
     for (net, port, stock) in [
         ("L", "h", "power16"),
         ("N", "n", "neutral16"),
-        ("PE", "g", "earth16"),
+        ("PE", "g", "inlet-earth16"),
     ] {
         wire(
             &mut out,
@@ -194,12 +194,13 @@ pub fn connections() -> Vec<Connection> {
             "",
         );
     }
-    for (id, net, a, b, schedule, service) in [
+    for (id, net, a, b, stock, schedule, service) in [
         (
             "DC2-V12",
             "V12",
             "wago-v12.2",
             "relay-2.COM",
+            "power16",
             "DC-2",
             "fixed",
         ),
@@ -208,6 +209,7 @@ pub fn connections() -> Vec<Connection> {
             "pump-switched",
             "relay-2.NO",
             "join-pump-positive.3",
+            "power16",
             "DC-3",
             "final join",
         ),
@@ -216,6 +218,7 @@ pub fn connections() -> Vec<Connection> {
             "pump-switched",
             "join-pump-positive.2",
             "diaphragm.positive",
+            "pump16",
             "DC-3",
             "final join",
         ),
@@ -224,6 +227,7 @@ pub fn connections() -> Vec<Connection> {
             "GND",
             "wago-gnd.2",
             "diaphragm.negative",
+            "pump16",
             "DC-3",
             "fixed",
         ),
@@ -235,7 +239,7 @@ pub fn connections() -> Vec<Connection> {
             net,
             a,
             b,
-            "power16",
+            stock,
             schedule,
             service,
             "",

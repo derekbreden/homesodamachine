@@ -107,8 +107,6 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **window cover** | `enclosure-window-cover-west` and `-east`, the printed slabs that close each front flank's tee-carrier window aft of the seated carrier in the Lillium build, each hung on a post of front-top's | cosmetic hole covering plate |
 | **Sculpted** | the faucet style with smooth curves and softly blended transitions | Arc |
 | **Industrial** | the faucet style with simple cylinders and crisp, pronounced shoulders | Stepped |
-| **tube miter box** | the printed bench block with two open troughs and one blade slot, that holds 1/4" and 3/8" LLDPE tube round and guides a razor blade square across it | tube cutter jig, cut guide, cutting block, tube cutting block |
-| **fake countertop** | the printed inverted-U bench stand that stands in for a counter, its legs as far apart as the cavity under Derek's counter: one faucet clamps through its 1-3/8" hole and the umbilical hangs and bends under it | counter stand, dummy counter, photo counter, countertop stand |
 | **install kit** | the box beside the soda machine in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
 | **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |
 | **quick start** | the illustrated one-sheet guide from installation through the first glass, lying face up on top of the packing | quickstart sheet, install sheet |

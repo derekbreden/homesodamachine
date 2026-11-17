@@ -2748,7 +2748,7 @@
     },
     {
       "id": "HSM-0095",
-      "description": "Sculpted faucet shell tip",
+      "description": "Faucet shell tip",
       "kind": "manufactured",
       "models": [
         {
@@ -2756,14 +2756,14 @@
         }
       ],
       "aliases": [
-        "Faucet shell tip",
+        "Sculpted faucet shell tip",
         "Industrial shell tip",
         "Lowered faucet tip"
       ]
     },
     {
       "id": "HSM-0096",
-      "description": "Sculpted faucet display cover",
+      "description": "Faucet display cover",
       "kind": "manufactured",
       "models": [
         {
@@ -2771,7 +2771,7 @@
         }
       ],
       "aliases": [
-        "Faucet display cover",
+        "Sculpted faucet display cover",
         "Industrial display cover"
       ],
       "documents": [

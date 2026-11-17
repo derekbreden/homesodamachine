@@ -77,8 +77,7 @@ cap's east lower corner is cut back along that slope over the cap's aft run, far
 enough to clear it lowered and slid fore on its service path, and its east wall
 roots higher, shorter and stiffer, so it stands whole above that cut. The rear receiver bases are continuous,
 with no enclosed screwdriver tunnels. Release the leaves from their exposed
-edges with the surrounding service room open. The front paired-pump cartridge
-uses its separate open flank pry windows. The nominal catch
+edges with the surrounding service room open. The nominal catch
 clearance is 0.4 mm. One three-mm-high planar bevel on the ASSE receiver's lower
 east fore corner clears the neighboring PISCO cap's service path; the neck
 retains 3 mm of stock and the upper end stop retains its fitted planes.

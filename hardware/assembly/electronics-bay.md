@@ -141,8 +141,9 @@ records the current rigid-slide and final-connection limits.
    wires; keep the terminal entries and screwdriver wells clear. Punch J3 down on the rear
    keystone. Dress every free end forward so it lies within the funnel
    opening's footprint once the box is closed, clear of the seams and every
-   sliding surface, and flag it with its run ID. Retain the specified direct
-   solid-wire clamp and stranded-wire termination choices.
+   sliding surface, and flag it with its run ID. Seat the solid wire
+   directly in the screw cages, including the AC-4 and DC-3 pigtails. Fit
+   the J5 relay-control leads with their specified ferrules.
 4. On the open core, close the three B-fill lid clamps and thread the tube
    before installing the PCB, per [cold-core.md](cold-core.md); the board
    covers the clamp-driver approaches. Land the two prepared J10 power

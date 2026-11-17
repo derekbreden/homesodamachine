@@ -44,25 +44,22 @@ Every low-voltage run below names its board connector and pin labels; the labels
 
 ## Conductor construction
 
-Use **16 AWG solid tinned-copper appliance hookup wire** for fixed runs
-**AC-1, AC-2 (H/N), AC-3, DC-1, DC-2 and DC-4**. Strip and land the solid conductor
-directly in each screw cage and WAGO lever clamp, one conductor per entry;
-no fork, ferrule or solder-added tip on these solid ends. AC-1's other end is
-soldered to the C14 inlet's tabs. Use black for hot and DC, white for neutral
-and green for AC-1's earth. The selected stock is marked UL1007, 300 V / 80°C;
-its [black](https://www.amazon.com/dp/B0FK5HH8H1) and
-[white](https://www.amazon.com/dp/B0FK5G1Q1J) 25 ft spools were bought
-2026-10-17, and its [green](https://www.amazon.com/dp/B0FK5JHQW7) spool is a
-Prime offer verified 2026-10-17, not purchased. Keep this fixed wire away from
-hot refrigeration surfaces. WAGO's [221 documentation](https://www.wago.com/us/installation-221-ad)
-covers solid copper; J10's KF301-5.0 block accepts 14–22 AWG.
+Use **16 AWG solid tinned-copper appliance hookup wire** on AC-1, AC-2,
+AC-3, DC-1, DC-2, DC-4 and the fixed AC-4, AC-5 and DC-3 pigtails.
+Land the bare solid conductor directly in each screw cage and WAGO lever
+clamp, one conductor per entry. Solder AC-1 at the C14 inlet's tabs. Use
+black for hot and DC, white for neutral and green for AC-1's earth.
+Keep the UL1007 wire clear of hot refrigeration surfaces. Its stock and
+ordering details are in the [wiring BOM](/hardware/ledger/bom.md#11-wiring--fasteners).
+The [WAGO 221 documentation](https://www.wago.com/us/installation-221-ad)
+covers solid copper. J10 uses the KF301-5.0 screw block.
 
-The 18 AWG SJOOW compressor cord, DC-3's pump lead, protective-earth bonds
-and the JST / Faston / removable-display harnesses use stranded wire. Retain
-the specified crimps; use a correctly
-sized ferrule where a stranded lead enters a screw cage. A screw at one end
-does not make a moving or crimp-terminated run a solid-wire run. SIG-7's
-JST-to-display loom therefore stays stranded at its display screw terminals.
+Use stranded wire for the SJOOW compressor cord, the pump-side DC-3 leads,
+the protective-earth bonds to the vessel and compressor, and the JST and
+Faston harnesses. Keep the SJOOW conductors together in their jacket.
+Use ferrules at the stranded screw-cage landings, including the relay
+control leads and the SIG-7 display loom. Their board ends use JST crimps,
+and the display loom flexes during installation and service.
 
 The [Mean Well IRM-90-12ST](https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf)
 is an encapsulated Class II module with two AC terminals, L and N, and no
@@ -104,7 +101,7 @@ One 22 AWG 4P ribbon carries RELAYS J5 (`GND` / `V5` / `IO2` / `IO19`) from the 
 |---|---|---|---|---|---|---|---|
 | DC-1 | PSU output | distribution block on the core lid | + + GND | | | Solid copper directly in PSU screw cages and WAGO clamps | PSU max; comfortable. |
 | DC-2 | distribution block | Teyleten relay #2 contact input | + | | | Solid copper directly in relay screw cage and WAGO clamp | Switched to diaphragm pump. |
-| DC-3 | Teyleten relay #2 contact output | G Ganen diaphragm pump | + + GND | | relay pigtail and pump positive; pump negative | Ferrule in the relay screw cage; WAGO 221-413 join under the funnel opening; female disconnects at the pump; negative into the DC GND WAGO | Budgeted at; the pump's current is unmeasured. The relay pigtail is landed on the open back-top and the pump's positive on the open core, each dressed to the funnel opening and joined after the box closes. |
+| DC-3 | Teyleten relay #2 contact output | G Ganen diaphragm pump | + + GND | | relay pigtail and pump positive; pump negative | Bare solid in the relay NO screw cage and WAGO 221-413 join. Stranded pump leads take female disconnects. | Land the solid pigtail on the open back-top and the stranded pump-positive lead on the open core. Join them through the funnel opening after the box closes. The pump-negative lead lands in the DC GND WAGO. |
 | DC-4 | distribution block | Board inlet J10 `V12` + `GND` | + + GND | | | Solid copper directly in J10 screw cages and WAGO clamps | Everything the main board feeds — manifold valves + the V-K supply valve, both peristaltic pumps, the condenser fan, display, and both logic rails — draws through this run: ~ peak (both pumps priming + valves + the fan), against -rated WAGO 221-413 lever nuts. The diaphragm pump's budget on DC-3 parallels it off the same supply — against if a refill overlaps a dispense, which is why relay #2 is gated on the dispense window ([`power.mmd`](/hardware/wiring/power.mmd)). As installed, J10's throats face aft: `V12` seats in the west clamp (X−27.5) and `GND` in the east clamp (X−22.5), each beside its silk label. The Q4 pass FET blocks a reversed pair, which leaves the board unpowered. |
 | DC-5 | PUMPS J13 (`AM2` / `AM1` → pump A, `BM2` / `BM1` → pump B) | Both peristaltic pumps' motor tabs inside the integral upper mount | 2 motor pairs, 4 conductors | 22 | | J13 XH → 22 AWG 4P ribbon → four female Fastons on the motor tabs | Each DRV8870 H-bridge drives one motor differentially, so each conductor carries one motor lead at the pump's published ~. Conductor order, +X to −X: `AM2`, `AM1`, `BM2`, `BM1`; the +X pair serves pump A and the −X pair pump B. DC-5 crosses front-top's common rear electrical passage below SIG-7, then splits through the transverse channel to the motor terminal rooms. With front-top loose, thread its bare pump end through that passage and out underneath, crimp and ring out the Fastons, land them on the loose pumps, then raise each prepared pump motor-first while drawing slack aft. Keep DC-5 bare through the printed channels and below the funnel frame, west of the Y-B stem elbow and over the J6 leads. Plug its XHP-4 into J13 through the funnel opening after closure. |
 | DC-6 | MANIFOLD A J1 (`COM` + `OUT1`–`OUT8`) | 8 Beduan solenoid coils on manifold A | 9-conductor trunk | | to each coil, `COM` to the fan-out, then per valve | XH housing at J1; `COM` into a Wago 221-420 at the manifold; female disconnects per valve | Low-side switching: `COM` carries the shared from the main board's V12 island to every valve +, exploded at the manifold Wago; each valve − returns on its `OUT` conductor to the on-board TBD62083 (U4). Valve ↔ `OUT` mapping per [`valve-control.mmd`](/hardware/wiring/valve-control.mmd). |
@@ -133,7 +130,7 @@ Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 wit
 
 ## Loom terminations
 
-Board end: every low-voltage loom lands in a JST XH crimp housing mating its labeled wafer — one housing per connector, pin labels on the silk, so a loom cannot seat shifted. J4 and J7 share the 7P housing, so those two land by loom label ([`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). The one exception is the inlet J10: ferrules under its 5.0 mm screw clamps.
+Board end: the JST XH looms mate to their labeled wafers. J4 and J7 share a housing size, so seat those two by loom label ([`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). The J10 power inlet clamps the bare solid DC-4 pair directly.
 
 Device end: female disconnects at valves, pumps, and fan; the current donor compressor uses its preserved factory-external electrical interface, whose connector and polarity mapping remain to be recorded; ring terminals land at metalwork earth screws; sensor and reed leads land per device. Shared-rail fan-outs happen at the device cluster, never at the main board — one `COM` / `GND` conductor rides the trunk. Reservoir A uses a continuous common with insulated reed taps; the four branched nodes use appropriately sized Wago lever nuts. The branch WAGOs occupy rooted wells at their device clusters:
 

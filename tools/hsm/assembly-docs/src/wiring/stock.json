@@ -30,7 +30,7 @@
       0.055
     ],
     "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
-    "construction": "solid PVC at fixed cages; stranded at removable device leads"
+    "construction": "solid tinned copper with black PVC insulation"
   },
   "neutral16": {
     "awg": 16,
@@ -41,7 +41,29 @@
       0.87
     ],
     "basis": "3.0 mm nominal layout allowance; purchased insulation OD unmeasured",
-    "construction": "solid PVC"
+    "construction": "solid tinned copper with white PVC insulation"
+  },
+  "inlet-earth16": {
+    "awg": 16,
+    "od_mm": 3.0,
+    "color": [
+      0.06,
+      0.42,
+      0.12
+    ],
+    "basis": "Nominal layout allowance for the C14 earth link",
+    "construction": "solid tinned copper with green PVC insulation"
+  },
+  "pump16": {
+    "awg": 16,
+    "od_mm": 3.0,
+    "color": [
+      0.045,
+      0.045,
+      0.055
+    ],
+    "basis": "Nominal layout allowance for the diaphragm pump leads",
+    "construction": "stranded copper with black silicone insulation"
   },
   "earth16": {
     "awg": 16,

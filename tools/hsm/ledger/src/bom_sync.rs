@@ -253,7 +253,7 @@ const RC62: Pack = Pack("88.28", "30");
 const TEES: Pack = Pack("42.68", "20");
 const FOUR_INCH_TIES: Pack = Pack("4.28", "200");
 const SIX_INCH_TIES: Pack = Pack("6.42", "100");
-const SOLID16_SPOOL: Pack = Pack("12.86", "7.62");
+const SOLID16_LENGTH: Pack = Pack("12.86", "7.62");
 const SMALL_WASHERS: Pack = Pack("7.82", "200");
 const M2X6: Pack = Pack("18.22", "105");
 const M3X6: Pack = Pack("7.64", "120");
@@ -356,13 +356,17 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SIX_INCH_TIES", count(six_inch_ties));
     put("SIX_INCH_TIES_COST", cost(six_inch_ties, SIX_INCH_TIES)?);
     let w = &input.wire;
-    let wire = 5. * w.mid + 2. * w.short_2 + w.short + 2. * w.dc1 + w.dc2 + 2. * w.opening_join;
-    // The allocation is the cut, an exact decimal in metres, rounded up to a tenth of a metre.
-    let (wn, wd) = rational(&wire.to_string())?;
-    let allocation = ((wn + wd * 100 - 1) / (wd * 100)) as f64 / 10.;
-    put("SOLID16_CUT_LENGTH", format!("{} m", decimal_divide_1000(wire)));
-    put("SOLID16_ALLOCATION", format!("{allocation} m"));
-    put("SOLID16_COST", cost(allocation, SOLID16_SPOOL)?);
+    // Black supplies AC-1 through AC-4's pigtail, plus DC-1 through DC-4's solid segments.
+    let ac_black = w.mid + w.short_2 + w.short + w.opening_join;
+    let dc_black = 2. * w.dc1 + w.dc2 + w.opening_join + 2. * w.mid;
+    let black = ac_black + dc_black;
+    let white = w.mid + w.short_2 + w.opening_join;
+    let green = w.mid;
+    put("SOLID16_BLACK_LENGTH", format!("{} m", decimal_divide_1000(black)));
+    put("SOLID16_WHITE_LENGTH", format!("{} m", decimal_divide_1000(white)));
+    put("SOLID16_GREEN_LENGTH", format!("{} m", decimal_divide_1000(green)));
+    put("SOLID16_BLACK_COST", cost(black / 1000., SOLID16_LENGTH)?);
+    put("SOLID16_WHITE_COST", cost(white / 1000., SOLID16_LENGTH)?);
     put("PP1208E_PANEL", count(UMBILICAL_BULKHEADS));
 
     // The cold core's casing, the deck, the reservoir caps and the faucet's base.

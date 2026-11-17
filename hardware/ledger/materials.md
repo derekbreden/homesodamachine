@@ -304,8 +304,8 @@ and connections made through the funnel opening remain on the machine.
 | HSM-0383 — neoFit ACVUS-44 stem check valve | One check goes in the pump discharge elbow and one goes in the PISCO regulator outlet. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve reference](../reference/neofit-acvus44-check/README.md) |
 
 The KPHM600-SW3B17 pump's fitted representation lives in the `kamoer-kphm400`
-reference directory. Both purchased check positions use the shared
-`neofit-achv44-check` reference.
+reference directory. The pump discharge and gas feed use the shared
+`neofit-acvus44-check` reference.
 Manufacturer identity and current assembly descriptions are stated independently
 of those model paths.
 The PISCO secondary regulator uses the envelope modeled from its OEM catalog; its

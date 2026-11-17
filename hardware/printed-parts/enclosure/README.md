@@ -30,9 +30,9 @@ lid, east of the PCB. Their links to Y-A and Y-B are native production routes. S
 **The service bay stands above the Z253.4 cold-core lid.** The pump's motor runs fore–aft
 and its discharge faces −X. The PCB lies flat west/forward on the lid. The PSU stands
 upright on back-top's west sidewall beneath the two raised relays. The ASSE body lies above
-the pump with its vent west; the transverse YZMSZ water regulator feeds V-A. V-K stands on
+the pump with its vent down; the transverse YZMSZ water regulator feeds V-A. V-K stands on
 back-top's east sidewall seat, and the flow meter rides back-top's east-wall carriers. The compact
-PISCO regulator and neoFit ACHV44-E check form a folded gas group beside that wall.
+PISCO regulator and neoFit ACVUS-44 stem check form the gas group beside that wall.
 The [production arrangement](/hardware/manifold-layout/above-core.md) defines their exact
 native poses, supports, cap entries and qualification limits.
 

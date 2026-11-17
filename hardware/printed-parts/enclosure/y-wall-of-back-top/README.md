@@ -33,7 +33,7 @@ The water filter is upstream, on the customer's side of TAP. The threaded
 PP010822E–GAGIRA–ASSE–PI4512F6S–PP061208W chain feeds the raised stem tee,
 V-K and the flavor-water regulator. The ASSE vent points down into a TPU cup
 with its 4 mm DRAIN socket facing fore and clocked 15° toward the meter. PISCO's own inlet neck crosses the rear
-wall; the neoFit ACHV44-E check plugs directly into its outlet. DRAIN remains a
+wall; the neoFit ACVUS-44 stem check plugs directly into its outlet. DRAIN remains a
 dedicated atmospheric return through the umbilical to its separate faucet
 outlet above the bowl. See [internal plumbing](/hardware/assembly/internal-plumbing.md)
 and [ASSE drain assembly](/hardware/assembly/asse-drain.md).

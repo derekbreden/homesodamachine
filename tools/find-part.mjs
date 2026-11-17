@@ -203,7 +203,7 @@ function main(args) {
       console.log(`${hit.id}  ${hit.description}`);
       if (hit.unmatched.length) console.log(`  Unmatched: ${hit.unmatched.join(", ")}`);
       if (hit.corrections.length) console.log(`  Spelling: ${hit.corrections.map(({ from, to }) => `${from} → ${to}`).join(", ")}`);
-      if (hit.links.model) console.log(`  ${hit.links.model}`);
+      console.log(`  ${hit.links.model || hit.links.material}`);
       for (const producer of hit.producers) console.log(`  ${producer.source}${producer.targets.length ? " · " + producer.targets.join(" ") : ""}`);
     }
     for (const feature of result.features) {

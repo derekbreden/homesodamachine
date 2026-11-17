@@ -22,7 +22,6 @@ hsm-shared-data = { path = "../shared-data" }
 zip = { version = "9.1.2", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 hsm-faucet-numbers = { path = "../faucet-numbers" }
 hsm-run-slots = { path = "../run-slots" }
-hsm-fake-countertop-numbers = { path = "../fake-countertop-numbers" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-enclosure-quadrants = { path = "../enclosure-quadrants" }
 hsm-enclosure-retainer-numbers = { path = "../enclosure-retainer-numbers" }
@@ -71,14 +70,6 @@ path = "../../../hardware/printed-parts/faucet/lever-replica/prepare_print.rs"
 [[bin]]
 name = "faucet-print-project"
 path = "../../../hardware/printed-parts/faucet/prepare_print_project.rs"
-
-[[bin]]
-name = "fake-countertop-print-project"
-path = "../../../hardware/printed-parts/fixtures/fake-countertop/prepare_print.rs"
-
-[[bin]]
-name = "tube-miter-box-print-project"
-path = "../../../hardware/printed-parts/fixtures/tube-miter-box/prepare_print.rs"
 
 [[bin]]
 name = "tube-insertion-print-project"
