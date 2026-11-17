@@ -99,10 +99,6 @@
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "e256dd652f0b91612a556c2c54ac70cb349e9ad6857df19da989c96e9a6676ec",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": "aaa7535949e94a34e92caff0b2bf2db8e8e822752411b436abf4e87bc6b09771",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": "88ce9688c63c6614811545febac096fbed1c2096a9c699d1818af29e6f0c007f",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "bd45e743447c9bcc0d5346fd19de77c0987f4fd2e9d778f8f471f9c6bc6af45e",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "ffaf6c36da12bd2a3232ef8274baebeadb86de629da63a68c57479a6c468c28b",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "0875f1614c51830f1b7de392489afa0f280cc182cec8d1d45c0121cbaba0bad9",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": "b4a6e3af8c9246c91761b53cfae926a8c6fbcdcb37ed5b5d9259ba35f910805b",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "44ed9b0b22570627a3744ad13046f85e4e08e8ac9393ef0921a6bbef3a3eae1c",
@@ -210,9 +206,6 @@
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": "767840d418db5df1e83efcef579be8a12b48d047375a7abffd393e3aa28a29ca",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh": "3b43cdd637e09fb1464b486ad93cd606486f009c0a94a49060fee60fadcb0a85",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl": "d7eccc649f29e7d42aa0a93759e7f371df36d08a6e663ef4df52a0e16af8d11f",
-    "hardware/printed-parts/enclosure/data-ring/data-ring.step": "62269718df81afb30e57187d2573971f18b513dc4b8f9e0f35e53f8608d5243d",
-    "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": "d54048f9ddceb8d83473007c064f437b9fbae9bbe222bac656471ad8ad489301",
-    "hardware/printed-parts/enclosure/data-ring/data-ring.stl": "09bf5340b87b42166228c4559ff658dc1ab4e5b96ea890a5ab7f442ccc563e69",
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": "9fcb6cbdffc89c75d6fefa36cd30d68fe41f3b27f60e09d05131559d8422bbd8",
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": "19bdcf779d75646ada2158667b7472329f402657a58cf0cdcee414706f3ffdbf",
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": "44a17deeebd511cd607216cc71944618e5ce37179438c5e3a0d6dc677aaa3608",
@@ -252,12 +245,6 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "3fe2f74e618b969d172dc80ccf23e133d226fa26f23bb543ba7b12bc24a0b64a",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": "e9f635dcf4ed04a199a20c3a2ef225d2d4d094a67f793e6b5b556951d12beb04",
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh": "3bf5e6a4ffe4ab271cd78a8a78463e5073ddaaf57147613a3a62d06560a4f792",
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": "a40a37c889f993742b1f4cc9f8e5e3b4f18f831bee2fe8e686a67b209611c434",
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": "0ae19c97cc7e526ed4d1405564dec24d280e8e2a2541f17875fb1809ab8581a8",
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh": "3abff76b4dc43689210db6404c9d0d3011faffcfb4aad614434eef75ef07c9db",
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": "1bf777f5941dc3031fb1ea476686454c5aef39d2f28e3f0edac39380c7e69cc6",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "71483ed7b5cdce12ef4834fb98ab541df4ca7c09568a862e282966da992a76bf",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "a94edcbe8039f21a121dccc0cec0fef87e93f0faf759826dac1924d77692d736",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "f3dd94fcc1c1082139286c1d8da2cf962a566394d4b3be8a548e269c82fb59c6",
@@ -265,30 +252,6 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "b5e0e30688533e0b8509db1e2a8439bc1784bf25747e9b12a9852d1c8078fa3f",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "464f4852eaefc6fbc1cf545804992936112fc6a0b9e0fe600cf84839949f8a64",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "202055ed1c6b2e89cb5aea3d9a6852bb50a46d3dba40dc98389687d273719d59",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/body.stl": "b458c1aa0b93097bec91c7274ba3cd30d4b38196398c187a591cb0d7bc3310fd",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-shadow-blocker.stl": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-void.stl": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/body.stl": "fd9221e7ea3bfee41c38132576689cf0ff0820ccacb7986ff76b1dc5f1366ac9",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/wet-shadow-blocker.stl": "2835fb117f0643753215316c27da3b871006eaf066dcf335c7f6112e6d7f6c36",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/wet-void.stl": "1479e8ad5f1e037eabc04a2570de2663856a3d800a744c0fe8ded471552912ca",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/body.stl": "b458c1aa0b93097bec91c7274ba3cd30d4b38196398c187a591cb0d7bc3310fd",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/wet-shadow-blocker.stl": "da0da480949fa56fe138e15061c3b97755a89c27f5528556cf35eeaa46f520d2",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/wet-void.stl": "2478736e4b35f301de1189e6e311d2713ac30343bd2130bb553412f52a80d712",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/body.stl": "f0cfbfe4fa1a5286ebd54e8170597ed0f3c8344edfe86aa4c0801aac4fbe5772",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/wet-shadow-blocker.stl": "a904a19011bcac4270efe9f686f4571924fc6f947659a1c1173887a31d19dac5",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/wet-void.stl": "ac84b566027b8f56768197fb13c53b6e8e8135950edcf5799ffaa0464f0afb74",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/body.stl": "9d20b250f427c0f9ab914e135c9800ad9f4db12c6b5c5075afefbd1c68a5ae37",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/wet-shadow-blocker.stl": "c096267230cd9d3e82731e21c45bb56c136a3b687b92922db9a33b83c6550bf4",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/wet-void.stl": "3bda12c368eb452d6fbc610c736350d039bf2b17ecdd3653f8387bf6ea466950",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/body.stl": "9bd38e21d6672004d349746f96057fa7ec08a0a833d6cd9139fafedcb0d2baad",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/wet-shadow-blocker.stl": "f7131e49ab059400ccb3910f64005a47c53e31d21ba0775480ab0e3869d79de3",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/wet-void.stl": "fadfc080981f68aed6865ec6f3d22821ee1f38cfb956de7337f0c156e02fdcde",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/body.stl": "9d20b250f427c0f9ab914e135c9800ad9f4db12c6b5c5075afefbd1c68a5ae37",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/wet-shadow-blocker.stl": "c096267230cd9d3e82731e21c45bb56c136a3b687b92922db9a33b83c6550bf4",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/wet-void.stl": "3bda12c368eb452d6fbc610c736350d039bf2b17ecdd3653f8387bf6ea466950",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": "52846b6501e3de851c8685c8143c2eda01a7318189c51f6d5056824f5cd53ff1",
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": "4ba7d4254b61595c78b71715914ceff958a65f8a926f41e1b25753be8421e7fc",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "cdd3e2125c4d613fb6af2a297513fb95ca9cdce5a84972e8ae28bd42ef5d6207",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "1ac68675f3318bc0aaa9ce58bbf63edee783dc09179a8847863eb7d3194dff98",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "5abc7abedf5d00c5153152233bf69b458858b6e05400e6ca7c4629452b4f9605",
@@ -329,15 +292,6 @@
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": "9113c67ce12eeaa9619bace4dae70fb3cb76ab3750f3e28a80ec30a3aa130fc7",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "d32ce1afe36b7e4b633c39a07e2d22d123a696fdf1ff1d21426cfbb791f09b88",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": "68dd03d8945e9752a5595a67c319a8b7903b07b10485766973d1f64cfc42919c",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh": "6d78f5d4e688cd37afe2fbe6bc43cbfdecfd14f4d2a4c0d61cfe4db3a700652e",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": "d2d1d7389c224b1d6380d2f66ef20e36367725a9e1881666912498c63cb8e1ef",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step": "069a310f571e4ff77fe620c846f8123d74c94557d421b756eb03c0e739943a66",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh": "5c761a2e5dff1981d46608f50c4cc3b888c773b6c7c070a285ab9af69eb86ef3",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": "029939fe08c5372cfdd4894934e74438dc9844658c183bd4bb0daca1a173efa3",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step": "a1c0dd81a71b4092706b331bc1ae55f0d45a89bc5b8f0a1e89ddad1b929c576c",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh": "0f449db8b3f89090bed3370bcec57781d35be41cbc4833bfc1928abc1f00fdc9",
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": "973c076707fc4f8e54b93fe524abd2a76a8a82d1af459b8e5f9ef432576be15e",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/accepted-cover.step": "c1fec95e683e406bf3a08bc0ca92fb10467e256b7f8162fc549a213cdc2709b5",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/added-stock.step": "24db8e68b119cf636f0277f536ea2b46017bea5382abe1f6bcc1f088effaa4b9",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover-print.step": "7ac44e3f72d43be091287266e27a3f61ccf2a6abd18b7ae85b648facda5b201a",
@@ -435,12 +389,6 @@
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": "977d3c6199c918813d11497c9d7b88ec0ea84fa9a729e27a2dda1c633ca1ecad",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": "8844218239d61d6203c49d00a40003d863111ef3eb3413422096f391e530a59c",
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf": "6c21ee4c3f99d22b2a7fa6d8c61d69004d018f04a48896dfd98fc71626b6d099",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": "2f59fc01e901ee0e96b2b87e9f11f51da06abc58251b1a6a0a7ae6d65708ea25",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": "d018bb697acd4bb37d6b36537075a2a9c34ad0fa30db7f9547632eae56f2175a",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": "61fe53df73f8ce6f81fc04b9806ec86f286176939d20a811df140bf1b1c03564",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": "127f9c792fb257e9b56a317cd17e9bae05aaaf847cb38b831ce9680c1173b732",
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": "9e51861af0d4d93e33a418f8d6cc24f5e792f963abeb2ca57704c45665ce39d2",
     "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step": "f5f678627e1121731b9a66e8265e076c0cce75b3e8ff7e3d2cc98599c4930209",
     "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh": "ae21d3b629d2b534444313a051ec08ee8a6953f4e1b779815b4c8d2fb5874b11",
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/axle-collet-spacer.step": "72b2ce8e09b9c6c24984af7e32c3d1ce1a8255cda4b523254955747e0c33f24e",
@@ -639,11 +587,6 @@
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": "8cbfccd482f76a2ad14fd5e7151f565a08ac1cbbcd9f85eb0b81edff19f0e47b",
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step": "a5a56c8e7a5b6e0236ae8fae9bd97d867593159c28ad66994fedb9d652702afe",
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step.mesh": "2e3fc8ab1bd538b80669ceb230c52f6693beae9982756211aa4a873df8b94d67",
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": "f6b07493478079ea8af00d8596706286643620c6dfa0bf0f31e466c809ce538f",
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": "247c10b86ba03026d0c1ad1dbfc2a8488494d804ab68345302737beeeb19ee87",
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": "92ce4d3de42c55aa86f63dc1a857592a978233e9cd6f6ebea75330ff83ebd649",
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": "0ccebcb3ab70d5a50ec9ded27d6325d8bdfb2495004539ab9973619d39bdeb3f",
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": "3fe5a1fdf2df47768bcc2d1395ccd3dddb5499e68e304452793c4a429de8515e",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": "219c3ec136e3af79218f399141eb5e5de7d0a4501bb03b8d1841d4f72007691c",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": "3fce687914e81df967afe732eba98a62577d2be611157f178ef5e71e316cff61",
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": "3da5f4d3fb203ce55222ea330acb72963ca692138ba56bd008acc95c48686105",
@@ -2545,10 +2488,6 @@
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": 1794442189.34567,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step.mesh": 1794442151.438275,
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": 1794442189.34567,
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": 1789519123,
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": 1792922058,
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": 1789519123,
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl": 1792922058,
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": 1793949279,
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step.mesh": 1793949279,
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": 1793934190,
@@ -2656,9 +2595,6 @@
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": 1793568839,
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh": 1793568839,
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl": 1793712586,
-    "hardware/printed-parts/enclosure/data-ring/data-ring.step": 1793626644,
-    "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": 1793626644,
-    "hardware/printed-parts/enclosure/data-ring/data-ring.stl": 1793626644,
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": 1794074754,
@@ -2698,12 +2634,6 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1794805178.621219,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step": 1790727885,
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh": 1790727885,
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.stl": 1790727885,
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step": 1791257167,
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh": 1791257167,
-    "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.stl": 1790801436,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1794805059.108448,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": 1794805049.729284,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794805059.108448,
@@ -2711,30 +2641,6 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": 1794804371.351947,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1794805049.729284,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": 1794804371.351947,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-inner/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-east-outer/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-inner/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-receiver-west-outer/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-inner/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-east-outer/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-inner/wet-void.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": 1792460868,
-    "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": 1792460868,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": 1794791565.990009,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": 1794791549.544964,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": 1794791565.990009,
@@ -2775,15 +2681,6 @@
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": 1793750338,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": 1793568839,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh": 1791366507,
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": 1791366507,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/accepted-cover.step": 1792947439,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/added-stock.step": 1792947439,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover-print.step": 1792947439,
@@ -2881,12 +2778,6 @@
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step": 1793626644,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step.mesh": 1793712586,
     "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl": 1793626644,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2-stock.3mf": 1794292116.424949,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf-mark2.3mf": 1794292116.424949,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop-petgf.3mf": 1794292116.424949,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": 1793626644,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": 1794037810,
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": 1793712586,
     "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step": 1794287159.823254,
     "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh": 1794284982.64433,
     "hardware/printed-parts/fixtures/pgfun-positioner/parts/axle-collet-spacer.step": 1794287159.823254,
@@ -3085,11 +2976,6 @@
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw-print.stl": 1793072533,
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step": 1793072533,
     "hardware/printed-parts/fixtures/tube-insertion/tube-insertion-upper-jaw.step.mesh": 1793072533,
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf-mark2.3mf": 1794292116.424949,
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box-petgf.3mf": 1794292116.424949,
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": 1793626644,
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": 1794037810,
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": 1793712586,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": 1793652093,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step.mesh": 1794037810,
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl": 1793652093,
@@ -4056,21 +3942,6 @@
       "inputs": "6470943030400207079358642fcf7c1aef2547c83591657e5e5b13b5e9aa4296",
       "unproven": true
     },
-    "hardware/printed-parts/enclosure/data-ring/data-ring.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "220438de1ac6bb6a0c57d9615e00af77eae0993091d3ba03e94759200f55f620",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/data-ring/data-ring.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "220438de1ac6bb6a0c57d9615e00af77eae0993091d3ba03e94759200f55f620",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/data-ring/data-ring.stl": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "220438de1ac6bb6a0c57d9615e00af77eae0993091d3ba03e94759200f55f620",
-      "unproven": true
-    },
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": {
       "commit": "01cf2a69485385127989e55d031966469a6504e2",
       "unproven": true
@@ -4424,42 +4295,6 @@
       "inputs": "0303dae46585cd6b3d4c6862c2d2039fcfba8f728f4f16c78487a46eae6e912b",
       "unproven": true
     },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.step.mesh": {
-      "commit": "b99bb1bcee5daba3569ee1c8d7a38b66d5e3b100",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-downstream-bung.stl": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.step.mesh": {
-      "commit": "b99bb1bcee5daba3569ee1c8d7a38b66d5e3b100",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-perimeter-tool.stl": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.step.mesh": {
-      "commit": "b99bb1bcee5daba3569ee1c8d7a38b66d5e3b100",
-      "unproven": true
-    },
-    "hardware/printed-parts/faucet/asse-vent-seals/asse-vent-upstream-bung.stl": {
-      "commit": "68b0da200813bad053518974869e5755bf84f18b",
-      "unproven": true
-    },
     "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-seated.step": {
       "commit": "f1bf63f25f41ac23fa5ef09f46a51b860d7c95aa",
       "inputs": "6289f784db76fc82b801d907abe51025c6ef6728c6777a2e92648abef5095e80",
@@ -4709,21 +4544,6 @@
       "inputs": "60ffadfcf694c773fb5daae484ca40dc85f7f4c23c7e74a79e4f24e4cfc40f7a",
       "unproven": true
     },
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "9f04259e4c3279cd2f95c5b1fed2fcf34987977eecf9a017b8ce7d403e4e6e1b",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.step.mesh": {
-      "commit": "f00ea03ce1d587b39170f0f63504e55898fabf3a",
-      "inputs": "22f82c771f6776f6496e586acc3c8155699678050d8a08a7ae33480b82967381",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/fake-countertop/fake-countertop.stl": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "9f04259e4c3279cd2f95c5b1fed2fcf34987977eecf9a017b8ce7d403e4e6e1b",
-      "unproven": true
-    },
     "hardware/printed-parts/fixtures/pgfun-positioner/assembly.step.mesh": {
       "commit": "b6538e4b3ac30c8b8d9269fd9bfe93e5644981b5",
       "unproven": true
@@ -4938,21 +4758,6 @@
     "hardware/printed-parts/fixtures/tee-valve-bow-trial/tee-valve-bow-trial-gauge.stl": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
       "inputs": "4b86360e7a9b5e5ecaf21ad7a06bf6bd06c35be0529b7e55d6f78e8f5ce47b31",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "c34d11bf65be7978ff8c28074d9611806f1cab4e1b44c5020b158fe8f59c989a",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.step.mesh": {
-      "commit": "f00ea03ce1d587b39170f0f63504e55898fabf3a",
-      "inputs": "5a501c994d732a92931cdd426b7f0ecb6979f473fc645ff4e1a11a1de9a35071",
-      "unproven": true
-    },
-    "hardware/printed-parts/fixtures/tube-miter-box/tube-miter-box.stl": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "c34d11bf65be7978ff8c28074d9611806f1cab4e1b44c5020b158fe8f59c989a",
       "unproven": true
     },
     "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.step": {
