@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync, execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { writeCatalogThumbnail } from "../../tools/render/catalog-thumbnail.mjs";
 import { ensureRunLease } from "../../tools/run-slots.mjs";
 import { FAUCET_FINISHES } from "../contracts/faucet-options.js";
 import { instancesInScene } from "../contracts/material-instances.js";
@@ -142,7 +143,7 @@ function boardView(payload) {
   ] };
 }
 
-function main() {
+async function main() {
   const selected = new Set(process.argv.slice(2));
   if ([...selected].some(id => !/^HSM-\d{4,}$/.test(id))) {
     throw new Error("Usage: node web/scripts/render-part-thumbnails.mjs [HSM-ID ...]");
@@ -177,7 +178,12 @@ function main() {
       if (!fs.existsSync(job.out)) continue;
       const name = path.basename(job.out, ".png") + ".webp";
       const temporary = path.join(run, name);
-      execFileSync("cwebp", ["-quiet", "-q", "84", job.out, "-o", temporary]);
+      // An explicit span keeps the composed detail crop.
+      if (job.span != null) {
+        execFileSync("cwebp", ["-quiet", "-q", "84", job.out, "-o", temporary]);
+      } else {
+        await writeCatalogThumbnail(job.out, temporary);
+      }
       fs.renameSync(temporary, path.join(partThumbnailDirectory, name));
     }
     const found = new Set(jobs.map(job => path.basename(job.out, ".png")));
@@ -189,4 +195,4 @@ function main() {
   }
 }
 
-main();
+await main();
