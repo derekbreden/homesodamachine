@@ -6,6 +6,9 @@
   --site-paper: #f2f5fa;
   --site-image: #e6ecf5;
 }
+/* Reserve space for the page scrollbar. Embedded PDFs scroll inside their viewer. */
+:root:has(> body:not(.pdf-embedded)) { scrollbar-gutter: stable; }
+:root:has(> body.site-interior) { color-scheme: light; }
 .site-inner {
   width: 100%;
   max-width: var(--site-width);
@@ -17,7 +20,7 @@
     padding-inline: calc(env(safe-area-inset-left, 0px) + max(var(--site-gutter), (100vw - 78rem) / 2)) calc(env(safe-area-inset-right, 0px) + max(var(--site-gutter), (100vw - 78rem) / 2));
   }
 }
-.site-nav { border-bottom-color: #ffffff30; }
+.site-nav { color-scheme: dark; border-bottom-color: #ffffff30; }
 .site-nav a.active::before {
   content: ""; position: absolute; height: 3px; left: .375rem; right: .375rem; bottom: 0;
   border-radius: 3px; background: var(--brand-orange);
