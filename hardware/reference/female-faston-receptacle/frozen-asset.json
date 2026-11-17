@@ -1,0 +1,48 @@
+{
+  "source": {
+    "path": "hardware/reference/female-faston-receptacle/model.rs",
+    "sha256": "b4b5b24fc1ac0c3bf6a0139321693c4ba2e47561081213878f082985578f5899"
+  },
+  "members": {
+    "female-faston-receptacle.step": "145cf1f0010b369fc3b1d1fa8e59e6edf352601dd69574b2a7a30a42a3e275d0",
+    "female-faston-receptacle.step.npz": "c22c58e20fb38ba1b80de18900a6986ac5d6f6ac33b03ef580fe1b57211b4d50",
+    "female-faston-receptacle.step.mesh": "e982d349bbdaff4115245c3dafff938b0cc0a9b270286db3979c88635d8655b4"
+  },
+  "fine_models": {
+    "female-faston-receptacle.step": {
+      "path": "female-faston-receptacle.step.npz",
+      "sha256": "c22c58e20fb38ba1b80de18900a6986ac5d6f6ac33b03ef580fe1b57211b4d50",
+      "source_step_sha256": "145cf1f0010b369fc3b1d1fa8e59e6edf352601dd69574b2a7a30a42a3e275d0",
+      "producer": "hardware/reference/female-faston-receptacle/model.rs",
+      "presentation_indices": [
+        0,
+        1
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "female-faston-receptacle.step.mesh",
+    "sha256": "e982d349bbdaff4115245c3dafff938b0cc0a9b270286db3979c88635d8655b4",
+    "source_step_sha256": "145cf1f0010b369fc3b1d1fa8e59e6edf352601dd69574b2a7a30a42a3e275d0",
+    "producer": "hardware/reference/female-faston-receptacle/model.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "stamped-contact",
+        "color": [
+          0.51,
+          0.53,
+          0.56
+        ]
+      },
+      {
+        "name": "insulating-sleeve",
+        "color": [
+          0.76,
+          0.83,
+          0.89
+        ]
+      }
+    ]
+  }
+}

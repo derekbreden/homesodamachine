@@ -1621,11 +1621,18 @@
       "manufacturer_number": "PI010822S",
       "models": [
         {
+          "file": "reference/jg-pi010822s/jg-pi010822s.step"
+        },
+        {
           "file": "reference/taprite-3741-regulator/taprite-3741-regulator.step?component=outlet-connector",
           "context": true
         }
       ],
       "documents": [
+        {
+          "title": "Model evidence",
+          "path": "reference/jg-pi010822s/README.md"
+        },
         {
           "title": "Taprite regulator outlet",
           "path": "reference/taprite-3741-regulator/README.md"
@@ -3681,12 +3688,21 @@
       ],
       "documents": [
         {
+          "title": "Model evidence",
+          "path": "reference/female-faston-receptacle/README.md"
+        },
+        {
           "title": "Pump termination and tab-size scope",
           "path": "ledger/bom.md"
         },
         {
           "title": "Crimping procedure",
           "path": "assembly/cable-assemblies.md"
+        }
+      ],
+      "models": [
+        {
+          "file": "reference/female-faston-receptacle/female-faston-receptacle.step"
         }
       ]
     },
@@ -5523,12 +5539,21 @@
       ],
       "documents": [
         {
+          "title": "Model evidence",
+          "path": "reference/supco-bpv31/README.md"
+        },
+        {
           "title": "Service-port installation",
           "path": "assembly/refrigerant-loop.md"
         },
         {
           "title": "Valve specification",
           "path": "ledger/bom.md"
+        }
+      ],
+      "models": [
+        {
+          "file": "reference/supco-bpv31/supco-bpv31.step"
         }
       ]
     },
@@ -5544,12 +5569,21 @@
       ],
       "documents": [
         {
+          "title": "Model evidence",
+          "path": "reference/copper-slip-coupling/README.md"
+        },
+        {
           "title": "Suction-line tie-in",
           "path": "assembly/refrigerant-loop.md"
         },
         {
           "title": "Coupling specification",
           "path": "ledger/bom.md"
+        }
+      ],
+      "models": [
+        {
+          "file": "reference/copper-slip-coupling/copper-slip-coupling.step"
         }
       ]
     },
@@ -5704,12 +5738,21 @@
       ],
       "documents": [
         {
+          "title": "Model evidence",
+          "path": "reference/siptenk-tube-stiffener/README.md"
+        },
+        {
           "title": "Soda supply connection",
           "path": "assembly/faucet-and-umbilical.md"
         },
         {
           "title": "Stiffener specification",
           "path": "ledger/bom.md"
+        }
+      ],
+      "models": [
+        {
+          "file": "reference/siptenk-tube-stiffener/siptenk-tube-stiffener.step"
         }
       ]
     },
@@ -5725,12 +5768,21 @@
       ],
       "documents": [
         {
+          "title": "Model evidence",
+          "path": "reference/ezyumm-rj11-6p4c/README.md"
+        },
+        {
           "title": "SIG-6 termination",
           "path": "assembly/faucet-and-umbilical.md"
         },
         {
           "title": "Plug and jack wiring",
           "path": "assembly/cable-assemblies.md"
+        }
+      ],
+      "models": [
+        {
+          "file": "reference/ezyumm-rj11-6p4c/ezyumm-rj11-6p4c.step"
         }
       ]
     },
@@ -5928,12 +5980,21 @@
       ],
       "documents": [
         {
+          "title": "Model evidence",
+          "path": "reference/mudder-tube-cutter/README.md"
+        },
+        {
           "title": "Cold kit",
           "path": "assembly/finish-pack-ship.md"
         },
         {
           "title": "Cutter specification",
           "path": "ledger/bom.md"
+        }
+      ],
+      "models": [
+        {
+          "file": "reference/mudder-tube-cutter/mudder-tube-cutter.step"
         }
       ]
     },

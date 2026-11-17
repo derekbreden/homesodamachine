@@ -1,0 +1,75 @@
+{
+  "source": {
+    "path": "hardware/reference/mudder-tube-cutter/model.rs",
+    "sha256": "e0576b0797d9dc16dbfd32edf934f48f04a107ec54e1057bc54d4768424244e3"
+  },
+  "members": {
+    "mudder-tube-cutter.step": "cc59c0660d0e801b9c9b4c8ae1d12abaaa0af2d4f5178896ecfa0d5f5c1179fc",
+    "mudder-tube-cutter.step.npz": "bfb04fdd8d5d56a2c5e3f5399f4d90dbebc5647fbe967633bb153a57ec66feb9",
+    "mudder-tube-cutter.step.mesh": "983d7be615a9c8197ed9ac73ed7096c541c9a68ebcdcb534a801a0e92c4ddc78"
+  },
+  "fine_models": {
+    "mudder-tube-cutter.step": {
+      "path": "mudder-tube-cutter.step.npz",
+      "sha256": "bfb04fdd8d5d56a2c5e3f5399f4d90dbebc5647fbe967633bb153a57ec66feb9",
+      "source_step_sha256": "cc59c0660d0e801b9c9b4c8ae1d12abaaa0af2d4f5178896ecfa0d5f5c1179fc",
+      "producer": "hardware/reference/mudder-tube-cutter/model.rs",
+      "presentation_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "mudder-tube-cutter.step.mesh",
+    "sha256": "983d7be615a9c8197ed9ac73ed7096c541c9a68ebcdcb534a801a0e92c4ddc78",
+    "source_step_sha256": "cc59c0660d0e801b9c9b4c8ae1d12abaaa0af2d4f5178896ecfa0d5f5c1179fc",
+    "producer": "hardware/reference/mudder-tube-cutter/model.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "jaw-base",
+        "color": [
+          0.017389101907610893,
+          0.017389101907610893,
+          0.01960664801299572
+        ]
+      },
+      {
+        "name": "lever",
+        "color": [
+          0.017389101907610893,
+          0.017389101907610893,
+          0.01960664801299572
+        ]
+      },
+      {
+        "name": "pivot-pin",
+        "color": [
+          0.011824589297175407,
+          0.011824589297175407,
+          0.01333252064883709
+        ]
+      },
+      {
+        "name": "blade",
+        "color": [
+          0.47699978947639465,
+          0.4919050335884094,
+          0.5382355451583862
+        ]
+      },
+      {
+        "name": "spring-leaf",
+        "color": [
+          0.47699978947639465,
+          0.4919050335884094,
+          0.5382355451583862
+        ]
+      }
+    ]
+  }
+}

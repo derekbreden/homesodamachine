@@ -1,0 +1,39 @@
+{
+  "source": {
+    "path": "hardware/reference/siptenk-tube-stiffener/model.rs",
+    "sha256": "b78e4a8584274517246b4fdf644af5a106aca011609701220ef4e4d8ce558ed0"
+  },
+  "members": {
+    "siptenk-tube-stiffener.step": "fabc430d285b2ad1b8df5a941209df8c009182304a7c6961047acc44da0c64b4",
+    "siptenk-tube-stiffener.step.npz": "ec51a3313a894d76bb0a52b1aee54757b28bb068e5ccebdd9d7dc978f99a66d6",
+    "siptenk-tube-stiffener.step.mesh": "e13773c61ff4a7b17403eadbaf5e42d7b183ac4c0c861a51b2e8251ed6c99977"
+  },
+  "fine_models": {
+    "siptenk-tube-stiffener.step": {
+      "path": "siptenk-tube-stiffener.step.npz",
+      "sha256": "ec51a3313a894d76bb0a52b1aee54757b28bb068e5ccebdd9d7dc978f99a66d6",
+      "source_step_sha256": "fabc430d285b2ad1b8df5a941209df8c009182304a7c6961047acc44da0c64b4",
+      "producer": "hardware/reference/siptenk-tube-stiffener/model.rs",
+      "presentation_indices": [
+        0
+      ]
+    }
+  },
+  "fine_payload": {
+    "path": "siptenk-tube-stiffener.step.mesh",
+    "sha256": "e13773c61ff4a7b17403eadbaf5e42d7b183ac4c0c861a51b2e8251ed6c99977",
+    "source_step_sha256": "fabc430d285b2ad1b8df5a941209df8c009182304a7c6961047acc44da0c64b4",
+    "producer": "hardware/reference/siptenk-tube-stiffener/model.rs",
+    "color_space": "linear-rgb",
+    "meshes": [
+      {
+        "name": "brass sleeve",
+        "color": [
+          0.4623613655567169,
+          0.27383843064308167,
+          0.0889815241098404
+        ]
+      }
+    ]
+  }
+}
