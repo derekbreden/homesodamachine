@@ -1,6 +1,6 @@
 # Unit 1 shopping list
 
-Checked November 10, 2026 against the current BOM, purchase ledger, stock records and merchant order confirmations. Order and fulfillment updates through November 12. Quantities below are for one integrated machine. Purchase receipts establish acquisitions; remaining development stock is estimated unless counted.
+Checked November 10, 2026 against the current BOM, purchase ledger, stock records and merchant order confirmations. Order updates through November 16. Quantities below are for one integrated machine. Remaining development stock is estimated unless counted.
 
 ## Purchase links
 
@@ -49,11 +49,18 @@ The [purchase ledger](purchases.md) records the ruthex assortment as acquired No
 |---|---|---|
 | CARGEN 1/4-inch ID × 3/8-inch wall nitrile foam | The soda-inlet piece and external insulated segments in [bom.md §9](bom.md) | Count usable stock before buying. The forecast's remaining allowance deducts a provisional development reserve from the acquired rolls; it is not a stocktake. |
 | Heat shrink, ferrules and device terminals | The sizes in the current wiring schedule | Existing assortments are acquired. Their remaining size counts are unknown; an unknown count is not a confirmed shortage. Use the [wiring BOM](bom.md#11-cable-management--wiring) and [cable assembly procedure](../assembly/cable-assemblies.md) for the selected types before replenishing. |
-| PRV shroud foam seal | Keep the relief cavity clear during the cold-core foam pour | Material selection and usage are open in the [shroud procedure](../printed-parts/cold-core/prv-shroud/README.md). |
-| Removable foam-pour masking tape | Cold-core pour masking specified in the assembly instructions | Usable stock is uncounted. |
 | Carton, protective packing and printed installation material | One finished-machine shipment | The forecast carries a $40 allowance; dimensions and a supplier specification are unquoted. This is an outstanding packing specification, not an orderable part number. |
 
 The donor compressor's external electrical mating interface is unresolved in [wiring.md](../assembly/wiring.md#open-items). Its actual termination and polarity determine the connector or splice; there is no selected purchase link yet. The regulators, carbonator port elbows, status LEDs and existing long-screw pack have confirmed delivery records in the purchase ledger.
+
+## Cold-core pour supplies on order
+
+| Item | Quantity ordered | Order total including estimated tax | Unit 1 use |
+|---|---:|---:|---|
+| GE Advanced Silicone 2 Window & Door, clear | One 83 mL squeeze tube | $6.94 | Exterior [PRV shroud seal](../printed-parts/cold-core/prv-shroud/README.md#subassembly-procedure). Usage is pending the bench trial. |
+| 3M ScotchBlue Original 2090-24NC | One 180 ft roll | $4.82 | Approximately 3 ft for [temporary pour masks](../assembly/cold-core.md#6-open-body-foam-pour). |
+
+Both orders were placed November 16 with delivery estimated November 17. Receipt and completed payment are pending in the [purchase ledger](purchases.md#6-refrigeration).
 
 ## Printed parts for this tubing
 

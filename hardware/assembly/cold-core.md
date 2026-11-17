@@ -204,9 +204,10 @@ clears the reservoir cap; its horizontal inlet follows the fore-facing tube run.
 Keep the source end free for the V-I connection. The holder stays with the tube
 and cured foam. It carries no clamp screws.
 
-Mask the gaps around the external tube and copper exits. Temporarily support the
-straight risers at their lid-hole axes. Mask the ten upper insert mouths and keep every tube lumen, reed channel and
-screw-tail passage clear. The top is open: distribute the measured PU charge
+Mask the gaps around the external tube and copper exits with ScotchBlue
+Original tape. Temporarily support the straight risers at their lid-hole
+axes. Mask the upper insert mouths and keep every tube lumen, reed channel
+and screw-tail passage clear. Distribute the measured PU charge
 across the cavity instead of feeding it through the lid. Follow the manufacturer's
 working-time and cure instructions. Foam closes around the outside of the installed
 tubes and the lower B-fill holder.

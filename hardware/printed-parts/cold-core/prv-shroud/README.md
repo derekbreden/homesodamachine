@@ -57,9 +57,10 @@ at its print-up crown using the designed clearance. The axial cavity opens upwar
 ## Subassembly procedure
 
 The TAISHER elbow, SV-125 and printed shroud form a bench subassembly.
-The shroud-to-elbow joint needs a seal that keeps insulation foam out of
-the relief cavity. The seal material, amount per joint and working time
-are open.
+Clear GE Advanced Silicone 2 Window & Door on the exterior
+shroud-to-elbow joint keeps insulation foam out of the relief cavity.
+Use the [GE data sheet](https://gesealants.com/wp-content/uploads/2020/06/TD-GE-Advanced-Silicone-2-WD-June-1-2024.pdf)
+for working and cure conditions.
 
 The LLDPE vent tube and the foam-shell pass-through are not part of
 this subassembly — the LLDPE is pushed into the shroud's barrel hole
@@ -82,8 +83,10 @@ and the carbonator is lowered into the foam shell.
    it down past the cap-side opening, past the hex, past the
    discharge side port, until the open end of the shroud seats on
    the smooth ⌀18.8 mm cylindrical section of the elbow.
-4. Complete the foam seal at the shroud-to-elbow joint once the material
-   and method are selected. Keep the relief cavity and its vent open.
+4. Prove adhesion on scrap printed PETG and stainless before applying
+   the sealant. Seal the exterior shroud-to-elbow joint and verify that
+   the relief cavity and vent stay clear. Let the sealant cure fully before
+   the foam pour. Record sealant usage per joint after the trial.
 
 The prepared subassembly threads into Port 4 of the
 [carbonator](/hardware/assembly/pressure-vessel.md#9-install-elbows-and-prv).

@@ -473,6 +473,14 @@
       "purchase_id": "pur-2457df51398f4e368395d5ee52488c9b"
     },
     {
+      "allocation_id": "alloc-3b0a22fe84c548fbae18f4d0a9abf3b8",
+      "amount_minor": 694,
+      "currency": "USD",
+      "event_id": "evt-95d9935a302643fdb1fa901b9d6b7c1d",
+      "order_id": "amazon:112-9294493-8073803",
+      "purchase_id": "pur-3e68e1bb95ea4eee80c22dc466261cb4"
+    },
+    {
       "allocation_id": "alloc-3b61d87597fd42388d02bd53f3a944ba",
       "amount_minor": 4286,
       "currency": "USD",
@@ -863,6 +871,14 @@
       "event_id": "evt-1bead24454464c688dab3d4b9f2bc2bc",
       "order_id": "apple:MMWHDQG8Z2",
       "purchase_id": "pur-28ab4ada366b40b7a1aafc0f4693b327"
+    },
+    {
+      "allocation_id": "alloc-7498e855482141eea568c9fbbcc4cf4f",
+      "amount_minor": 482,
+      "currency": "USD",
+      "event_id": "evt-afa937140f37458b8384ec75776d3b51",
+      "order_id": "amazon:112-9810422-9839444",
+      "purchase_id": "pur-fcd44116a7094087b680a7ae1ffd83af"
     },
     {
       "allocation_id": "alloc-75cc2db5aa4e467cb4d9e0b91046b0cd",
@@ -3582,6 +3598,26 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-11-16",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-bd98b892a644443b90dc95fa80a8e33e",
+      "evidence_type": "merchant_order_page",
+      "examined_period": {
+        "end": "2026-11-16",
+        "start": "2026-11-16"
+      },
+      "note": "Exact project order only.",
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "stream": "named removable cold-core foam-pour masking order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-11-14",
       "complete_period": null,
       "coverage": "partial",
@@ -3600,6 +3636,26 @@
         "src-e014f62abdb847af827f854538ae2c89"
       ],
       "stream": "named reed sweep rig order",
+      "vendor": "Amazon"
+    },
+    {
+      "checked_at": "2026-11-16",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-bfc5b257b92b42408c92b0ab47a0970b",
+      "evidence_type": "merchant_order_page",
+      "examined_period": {
+        "end": "2026-11-16",
+        "start": "2026-11-16"
+      },
+      "note": "Exact project order only.",
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "stream": "named PRV shroud exterior foam seal order",
       "vendor": "Amazon"
     },
     {
@@ -7297,6 +7353,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-3b0a22fe84c548fbae18f4d0a9abf3b8"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 694,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-95d9935a302643fdb1fa901b9d6b7c1d",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "purchase_ids": [
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4"
+      ],
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-16"
+    },
+    {
+      "allocation_ids": [
         "alloc-c6c5a624b0fe477c9c1b13cc5c9d7a59"
       ],
       "allocation_status": "all_project",
@@ -8045,6 +8125,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Bambu Lab",
       "verified_at": "2026-10-13"
+    },
+    {
+      "allocation_ids": [
+        "alloc-7498e855482141eea568c9fbbcc4cf4f"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 482,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-afa937140f37458b8384ec75776d3b51",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "purchase_ids": [
+        "pur-fcd44116a7094087b680a7ae1ffd83af"
+      ],
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-16"
     },
     {
       "allocation_ids": [
@@ -10087,6 +10191,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-afa937140f37458b8384ec75776d3b51"
+      ],
+      "gap_id": "gap-55aefb37c76140789e0bf094e8e3443f",
+      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "purchase_ids": [
+        "pur-fcd44116a7094087b680a7ae1ffd83af"
+      ],
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "sources_checked": [
+        "Signed-in Amazon Order Details on November 16, 2026"
+      ]
+    },
+    {
       "gap_id": "gap-7b003c39b4994fdd80743a158f753784",
       "missing_fact": "The item price is known, but project tax and the exact project share of the mixed completed charge remain unresolved. No project payment event is recorded.",
       "order_ids": [
@@ -10292,6 +10415,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-95d9935a302643fdb1fa901b9d6b7c1d"
+      ],
+      "gap_id": "gap-d7417370fcd74c91a67a61308fd257a0",
+      "missing_fact": "Actual delivery, completed merchant payment and final tax are pending.",
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "purchase_ids": [
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4"
+      ],
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "sources_checked": [
+        "Signed-in Amazon Order Details on November 16, 2026"
+      ]
+    },
+    {
       "gap_id": "gap-ea9234a1f7fe467ba032c78c31fe270e",
       "missing_fact": "Preserved line allocations total USD 423.94; saved project invoice amount is USD 423.95. The one-cent allocation residual is unresolved; line values are preserved and no balancing payment is invented.",
       "order_ids": [
@@ -10361,7 +10503,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:b22f6f352d79f67ca03461b4a40049832232a53e8bbffc93435c6367bb19500a",
+  "input_fingerprint": "sha256:caff5c9cdfc0b82daa74bf00adad820cfa201d872831cfc8ec1377c3063f3b15",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -15009,6 +15151,25 @@
     },
     {
       "allocation_status": "all_project",
+      "event_ids": [
+        "evt-95d9935a302643fdb1fa901b9d6b7c1d"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "order_id": "amazon:112-9294493-8073803",
+      "purchase_ids": [
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4"
+      ],
+      "reference": "112-9294493-8073803",
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "event_ids": [],
       "order_date": {
         "precision": "day",
@@ -15213,6 +15374,25 @@
       "reference": "112-9768778-8444265",
       "source_ids": [
         "saved-amazon:112-9768778-8444265"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-afa937140f37458b8384ec75776d3b51"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "order_id": "amazon:112-9810422-9839444",
+      "purchase_ids": [
+        "pur-fcd44116a7094087b680a7ae1ffd83af"
+      ],
+      "reference": "112-9810422-9839444",
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
       ],
       "vendor": "Amazon"
     },
@@ -28001,6 +28181,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:114-8354589-7380236"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 694,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube for PRV shroud exterior foam seal. $6.47 item + $0.47 estimated tax. Free shipping.",
+      "event_ids": [
+        "evt-95d9935a302643fdb1fa901b9d6b7c1d"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3e68e1bb95ea4eee80c22dc466261cb4",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "order_ids": [
+        "amazon:112-9294493-8073803"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3e68e1bb95ea4eee80c22dc466261cb4",
+      "purpose": "consumables_materials",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "row_date_basis": "order_date",
+      "section": "6. Refrigeration",
+      "service_period": null,
+      "source_ids": [
+        "src-efc990d31d25466b930702e5a2ba2dee"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -55775,6 +56001,52 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 482,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll for removable cold-core foam-pour masking. $4.49 item + $0.33 estimated tax. Free shipping.",
+      "event_ids": [
+        "evt-afa937140f37458b8384ec75776d3b51"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-fcd44116a7094087b680a7ae1ffd83af",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "order_ids": [
+        "amazon:112-9810422-9839444"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-fcd44116a7094087b680a7ae1ffd83af",
+      "purpose": "consumables_materials",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "row_date_basis": "order_date",
+      "section": "6. Refrigeration",
+      "service_period": null,
+      "source_ids": [
+        "src-c5820eb1e8314a3898e3758aad484fe8"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 685,
       "contributes": true,
@@ -67582,6 +67854,22 @@
       "verified_at": "2026-11-10"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "document_type": "merchant_order_page",
+      "note": "Signed-in Amazon Order Details identifies one 3M ScotchBlue Original 2090-24NC painter’s tape, 0.94 in × 60 yd (180 ft) roll (B00004Z4CP), ordered November 16 for USD 4.49 plus USD 0.33 estimated tax, with free shipping. Displayed order total USD 4.82. Estimated arrival November 17. Fulfillment and completed payment are pending.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-9810422-9839444",
+      "source_id": "src-c5820eb1e8314a3898e3758aad484fe8",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-16"
+    },
+    {
       "document_date": null,
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
@@ -68918,6 +69206,22 @@
       "source_id": "src-ef75a3632eb640eea6986af69e05a1ed",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-16"
+      },
+      "document_type": "merchant_order_page",
+      "note": "Signed-in Amazon Order Details identifies one GE Advanced Silicone 2 Window & Door, clear, 2.8 fl oz (83 mL) squeeze tube (B0C9VT9KD2), ordered November 16 for USD 6.47 plus USD 0.47 estimated tax, with free shipping. Displayed order total USD 6.94. Estimated arrival November 17. Fulfillment and completed payment are pending.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-9294493-8073803",
+      "source_id": "src-efc990d31d25466b930702e5a2ba2dee",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-16"
     },
     {
       "document_date": {
@@ -70268,11 +70572,12 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 50680,
+          "amount_minor": 51856,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+            "pur-3e68e1bb95ea4eee80c22dc466261cb4",
             "pur-4cac3e81d16a4257b9c6b725ba967b74",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
@@ -70280,6 +70585,7 @@
             "pur-c421deec9a2f4c7b868ae95b9e1499c1",
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
+            "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
           "unknown_amount_ids": []
@@ -70298,6 +70604,7 @@
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
         "pur-1c4dede86ac6420db23a61fd3b7eabb8",
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4",
         "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
@@ -70307,6 +70614,7 @@
         "pur-c692f77e911c4e6fa40da3baf52ca7bd",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-dfd251509a3543c5b3bd9e358dcef85f",
+        "pur-fcd44116a7094087b680a7ae1ffd83af",
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
@@ -70318,7 +70626,9 @@
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
-        "evt-a3c8a2e1a259405e85d14c27817deb58"
+        "evt-95d9935a302643fdb1fa901b9d6b7c1d",
+        "evt-a3c8a2e1a259405e85d14c27817deb58",
+        "evt-afa937140f37458b8384ec75776d3b51"
       ],
       "monthly": [
         {
@@ -70687,10 +70997,12 @@
             "evt-8733331cccaa40d2b47ffde578a9bcd0",
             "evt-88d09a48acef421f95613ba1f60d2f08",
             "evt-903eedfb26fd4f999dda301c34468ee4",
+            "evt-95d9935a302643fdb1fa901b9d6b7c1d",
             "evt-998ca791689f49919e825d9ad1e0def0",
             "evt-99939add7e964cfb9fb65ee05dc98a55",
             "evt-a3c8a2e1a259405e85d14c27817deb58",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
+            "evt-afa937140f37458b8384ec75776d3b51",
             "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
             "evt-efe204a6e93f4a538e1f0a7d9274f382"
           ],
@@ -71421,7 +71733,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 45330,
+          "estimate_minor": 46506,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 77008,
           "legacy_unverified_minor": 0,
@@ -71436,6 +71748,7 @@
             "pur-349e89ac22704ecaa32c57926e7c0d7e",
             "pur-36841266e8fb437a8d42247cbf7ee53d",
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
+            "pur-3e68e1bb95ea4eee80c22dc466261cb4",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
             "pur-4cac3e81d16a4257b9c6b725ba967b74",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
@@ -71456,9 +71769,10 @@
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
             "pur-e8d3c873b40848499b387a0bed8978f7",
             "pur-f72407db7ffa450695c514cf2f38539b",
+            "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 122338,
+          "total_minor": 123514,
           "unknown_amount_ids": []
         },
         {
@@ -71480,7 +71794,7 @@
           "purpose": "components"
         },
         {
-          "amount_minor": 659452,
+          "amount_minor": 660628,
           "currency": "USD",
           "purpose": "consumables_materials"
         },
@@ -71513,10 +71827,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 263503,
+          "estimate_minor": 264679,
           "final_vendor_amount_minor": 2913479,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5075290
+          "total_minor": 5076466
         }
       ],
       "undated_unallocated": [
@@ -71664,6 +71978,7 @@
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
         "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
+        "gap-55aefb37c76140789e0bf094e8e3443f",
         "gap-7b003c39b4994fdd80743a158f753784",
         "gap-7dc719f6e334459abab4ecaec07873e1",
         "gap-8703c8fb55124412b9d51de641020ca7",
@@ -71672,6 +71987,7 @@
         "gap-c87a74d7ef6a438d84bd3470c16b1c88",
         "gap-cf741586c53d4ca09c214e6f7686dedb",
         "gap-d38f9a772d7a49e1ad42ab7e1d5f13f9",
+        "gap-d7417370fcd74c91a67a61308fd257a0",
         "gap-ea9234a1f7fe467ba032c78c31fe270e",
         "gap-f83ff884543e4158ac775f607e2c1fe3",
         "gap-fa04dc9a64af48f4a10328dbe9c2c0a5"
@@ -71680,11 +71996,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 263503,
+          "estimated_purchase_minor": 264679,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2476930,
+          "purchases_without_merchant_charge_minor": 2478106,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -71701,6 +72017,7 @@
         "pur-349e89ac22704ecaa32c57926e7c0d7e",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-4cac3e81d16a4257b9c6b725ba967b74",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
@@ -71727,6 +72044,7 @@
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
         "pur-e8d3c873b40848499b387a0bed8978f7",
         "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
+        "pur-fcd44116a7094087b680a7ae1ffd83af",
         "pur-fd0447880897405fb697a1c430b6bba0"
       ],
       "incomplete_coverage_ids": [
@@ -71810,7 +72128,9 @@
         "coverage-bb9e6d8e7ee44541935e7b7717d4e077",
         "coverage-bd073659d99f4c38b20c1d9fac3c8155",
         "coverage-bd8d0957451549b2bd2006065f3ef7cb",
+        "coverage-bd98b892a644443b90dc95fa80a8e33e",
         "coverage-bd9a0f50bc3348cd994c827672c8bd5a",
+        "coverage-bfc5b257b92b42408c92b0ab47a0970b",
         "coverage-c2b991ed7f77417889868ab62b87b299",
         "coverage-c57ca481544248138b803bc112966160",
         "coverage-c6521989f3144cb39f81df95603c72c3",
@@ -72431,6 +72751,7 @@
         "pur-3d23a62e17584a1fb6247b9bbf1c9575",
         "pur-3d76f4776f4b4092b93462762f916385",
         "pur-3e422dd818e94af4b336e62fbe83e26f",
+        "pur-3e68e1bb95ea4eee80c22dc466261cb4",
         "pur-3f24d066bf684d46943a5469ba0b74fc",
         "pur-3f610c61869547abb6f636978fb3c63c",
         "pur-3f6de21c0d6f4fe4a39aed9b05b32fc9",
@@ -72830,6 +73151,7 @@
         "pur-fb6f485b48b34426b671478c8513a450",
         "pur-fb8bbd6de85e488bb5bc76437949ff9d",
         "pur-fc68e8713b2a41ab8baef861721af0d1",
+        "pur-fcd44116a7094087b680a7ae1ffd83af",
         "pur-fcf61f35d1e04f098360e65ab77cce06",
         "pur-fd783b99321f417788c5e4b8e89eddf4",
         "pur-fdc581d6e00244e4a20e069178ea4c50",
@@ -72853,10 +73175,12 @@
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
         "evt-88d09a48acef421f95613ba1f60d2f08",
         "evt-903eedfb26fd4f999dda301c34468ee4",
+        "evt-95d9935a302643fdb1fa901b9d6b7c1d",
         "evt-998ca791689f49919e825d9ad1e0def0",
         "evt-99939add7e964cfb9fb65ee05dc98a55",
         "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
+        "evt-afa937140f37458b8384ec75776d3b51",
         "evt-c73bf4b9bbe14a74b8b42e94dabd00aa",
         "evt-efe204a6e93f4a538e1f0a7d9274f382"
       ],
@@ -72993,7 +73317,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "21 authored evidence gap(s) remain",
+      "23 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-07575d26f1b2453ba683076fe7b7fa9c: evidence coverage is partial",
@@ -73074,7 +73398,9 @@
       "coverage-bb9e6d8e7ee44541935e7b7717d4e077: evidence coverage is partial",
       "coverage-bd073659d99f4c38b20c1d9fac3c8155: evidence coverage is unknown",
       "coverage-bd8d0957451549b2bd2006065f3ef7cb: evidence coverage is partial",
+      "coverage-bd98b892a644443b90dc95fa80a8e33e: evidence coverage is partial",
       "coverage-bd9a0f50bc3348cd994c827672c8bd5a: evidence coverage is partial",
+      "coverage-bfc5b257b92b42408c92b0ab47a0970b: evidence coverage is partial",
       "coverage-c2b991ed7f77417889868ab62b87b299: evidence coverage is partial",
       "coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
       "coverage-c6521989f3144cb39f81df95603c72c3: evidence coverage is partial",
@@ -73102,7 +73428,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "27 legacy named order(s) lack an exact invoice allocation check",
+      "29 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }

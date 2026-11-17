@@ -1634,6 +1634,25 @@
       "stock": "B07BTW7C2N"
     },
     {
+      "id": "B00004Z4CP",
+      "name": "3M ScotchBlue Original 2090-24NC masking tape, 0.94 in \u00d7 60 yd roll",
+      "unit": "ft",
+      "supplier": "amazon",
+      "priceBasis": "merchandise",
+      "status": "unconfirmed",
+      "note": "Merchandise price from the November 16 order. Recheck Prime availability for replenishment.",
+      "options": [
+        {
+          "quantity": 180,
+          "priceCents": 449,
+          "label": "180 ft roll",
+          "available": false
+        }
+      ],
+      "sourceUrl": "https://www.amazon.com/dp/B00004Z4CP",
+      "stock": "B00004Z4CP"
+    },
+    {
       "id": "B08JHH1DBF",
       "name": "Pouring Masters 5 oz / 150 mL graduated mixing cups (50-pk)",
       "unit": "pieces",
@@ -3533,6 +3552,11 @@
   ],
   "inventoryNote": "Stock evidence, receipts and completed assemblies are shared with Build from stock. Unknown balances receive no credit. Supplier offers retain their recorded price and availability dates.",
   "pendingPayments": [
+    {
+      "name": "PRV foam seal and pour masking tape orders",
+      "costCents": 1176,
+      "note": "Two November 16 Amazon orders for one 83 mL tube and one 180 ft roll. Order totals include estimated tax. Deliveries and completed charges are pending."
+    },
     {
       "name": "PI450822S order already delivered",
       "costCents": 9454,
