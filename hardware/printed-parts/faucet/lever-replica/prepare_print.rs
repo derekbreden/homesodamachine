@@ -16,7 +16,7 @@ use serde_json::{json, Value};
 use std::path::{Path, PathBuf};
 
 const HERE: &str = "hardware/printed-parts/faucet/lever-replica";
-const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
+const PROFILE: &str = hsm_print_prep::profile::PETGF_PROFILE;
 
 struct Variant {
     name: &'static str,

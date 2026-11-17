@@ -57,8 +57,8 @@ margins, support count, printed objects and layer heights at the face-up letteri
 
 ## Recipe
 
-A piece starts from [`petgf.3mf`](../../petgf.3mf) unless it names its own saved project as
-`profile`. The petgf.3mf recipe is two ordinary walls, 15% gyroid infill, a 0.20 mm first
+A piece starts from [`petgf.profile.json`](../../petgf.profile.json) unless it names its own settings as
+`profile`. The shared recipe is two ordinary walls, 15% gyroid infill, a 0.20 mm first
 layer, 0.24 mm layers, `auto_brim` and Tree(auto)/Default supports. Two walls and 15% gyroid
 remain the production baseline unless Derek explicitly requests a change. The local solid
 modifiers, six-wall surface bands and part-specific recipes below retain their specified settings.

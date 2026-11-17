@@ -1,6 +1,6 @@
 {
   "editable_project": "hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf",
-  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
   "project": ".cache/prints/2026-09-15-interface-patterns-mark2/petgf-interface-patterns-mark2-input.3mf",
   "project_sha256": "a60134a4a5e14536da3f3744b09f27e0cb563d6968ba1955e601a13f3e8c05eb",

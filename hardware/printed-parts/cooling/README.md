@@ -106,7 +106,7 @@ cooling time, rather than transferable PET-GF temperatures or fan settings.
 
 ## Current projects
 
-[petgf.3mf](../petgf.3mf) contains the selected values in both the project
+[The PET-GF recipe](../petgf.profile.json) contains the selected values in both the project
 settings and embedded filament preset. The `petgf-cooling` program
 ([`petgf_cooling.rs`](../cadlib/petgf_cooling.rs)) applies them when a print preparer
 lays PET-GF out from a source profile, including a retained historical profile. It

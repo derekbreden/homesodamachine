@@ -35,7 +35,7 @@ use serde_json::{json, Map, Value};
 use std::io::Cursor;
 use std::path::{Path, PathBuf};
 
-const PROFILE: &str = "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.3mf";
+const PROFILE: &str = "hardware/printed-parts/faucet/industrial/prints/2026-10-15-all-learnings/mark2/2026-10-15-complete-faucet-all-learnings-mark2-base-arcs-z004.profile.json";
 /// Each part's own space from the shared plate's centre, for its brim and supports: the lever
 /// beyond the above-counter plate, where the toolhead over it stays off the base's foundation.
 const OFFSETS: [[f64; 2]; 5] = [[-77.0, 0.0], [24.0, 47.0], [89.0, 76.0], [43.0, -52.0], [94.0, -58.0]];

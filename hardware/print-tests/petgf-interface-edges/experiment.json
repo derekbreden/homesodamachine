@@ -1,6 +1,6 @@
 {
   "editable_project": "hardware/print-tests/petgf-interface-edges/support-interface.3mf",
-  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "612d1f5c9414acdfc4eec8bb40936817f2a4acb29f2223d96eaa47df3ae3ef44",
   "project": ".cache/prints/2026-09-15-interface-edges-mark2/petgf-interface-edges-mark2-input.3mf",
   "project_sha256": "9ab96ae2461ac813f8da0a1801fbcd9189660f804d79fc4d7f2bd4b3f01153dd",

@@ -37,7 +37,7 @@ fn main() -> Result<()> {
             "position_mm":[x,165.,total/2.],"geometry":written}));
     }
     let recipe = json!({"purpose":"Compare support-roof density while holding the PET-GF process and planned Z gap constant.",
-        "profile":"hardware/printed-parts/petgf.3mf","printer":"Mark1","connection_key":"H2C",
+        "profile":"hardware/printed-parts/petgf.profile.json","printer":"Mark1","connection_key":"H2C",
         "nozzle":"left hardened Standard","nozzle_diameter_mm":0.4,"material":"Polymaker Fiberon PET-GF15",
         "plate":"Textured PEI Plate","z_trim_mm":0.18,"requested_top_z_distance_mm":0.45,
         "interface_layers":2,"interface_pattern":"auto","width_mm":WIDTH,"depth_mm":DEPTH,

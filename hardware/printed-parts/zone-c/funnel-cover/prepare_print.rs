@@ -20,7 +20,7 @@ use std::collections::BTreeSet;
 use std::path::Path;
 
 const HERE: &str = "hardware/printed-parts/zone-c/funnel-cover";
-const PROFILE: &str = "hardware/printed-parts/petgf.3mf";
+const PROFILE: &str = hsm_print_prep::profile::PETGF_PROFILE;
 const JOB: &str = ".cache/prints/funnel-cover-petg-native";
 const ARCHIVE: &str = "funnel-cover.gcode.3mf";
 const TITLE: &str = "Funnel cover - black PETG - unsent";

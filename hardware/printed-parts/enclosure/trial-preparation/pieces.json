@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile": "hardware/printed-parts/petgf.profile.json",
   "regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
   "printers": {
     "Mark1": {
@@ -925,7 +925,7 @@
         "reason": "Mark1's right 0.6 mm with Siraya Tech Flex TPU 85A Clear on the external right spool (asse-drain-adapter/README.md, Print and assemble)."
       },
       "material": "Siraya Tech Flex TPU 85A, clear",
-      "profile": "hardware/printed-parts/asse-drain-adapter/siraya-85a-settings.3mf",
+      "profile": "hardware/printed-parts/asse-drain-adapter/siraya-85a-settings.profile.json",
       "z_trim_mm": {
         "value": 0.0,
         "reason": "The accepted Siraya single's zero user Z trim on the glued Engineering Plate (asse-drain-adapter/README.md)."
@@ -959,7 +959,7 @@
         "reason": "The 2026-10-08 flat gasket plate: Mark2's right 0.6 mm, external slot 255 (prototype-gaskets-2026-10-08/README.md)."
       },
       "material": "Bambu TPU 85A, black",
-      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
+      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.profile.json",
       "spacing_mm": 3,
       "filament_mapping": {
         "value": {
@@ -992,7 +992,7 @@
         "reason": "Use the proven Bambu TPU 90A flat seal profile on the fixed right nozzle."
       },
       "material": "Bambu TPU 90A, black",
-      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.profile.json",
       "z_trim_mm": {
         "value": 0,
         "reason": "The TPU 90A profile uses the glued Engineering Plate with no added user Z trim."
@@ -1026,7 +1026,7 @@
         "reason": "Use the proven white Bambu TPU profile on the fixed right nozzle."
       },
       "material": "Bambu TPU 90A, white",
-      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.3mf",
+      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/white90-faucet/2026-10-08-faucet-counter-gasket-white-tpu90a-right06-engineering-mark2.profile.json",
       "spacing_mm": 2,
       "z_trim_mm": {
         "value": 0,
@@ -1073,7 +1073,7 @@
         "reason": "PETG on the left 0.4 mm, as the black PETG funnel cover (hardware/ledger/machine-time.md)."
       },
       "material": "Bambu PETG Basic, black",
-      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.profile.json",
       "z_trim_mm": {
         "value": 0.18,
         "reason": "Use the black PETG funnel cover’s trim on textured PEI."
@@ -1141,7 +1141,7 @@
         "reason": "PETG on the left 0.4 mm, as the black PETG funnel cover (hardware/ledger/machine-time.md)."
       },
       "material": "Bambu PETG Basic, black",
-      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.profile.json",
       "z_trim_mm": {
         "value": 0.18,
         "reason": "Use the black PETG funnel cover’s trim on textured PEI."
@@ -1190,7 +1190,7 @@
         "reason": "PETG on the left 0.4 mm, as the black PETG funnel cover (hardware/ledger/machine-time.md)."
       },
       "material": "Bambu PETG Basic, black",
-      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.profile.json",
       "z_trim_mm": {
         "value": 0.18,
         "reason": "Use the black PETG funnel cover’s trim on textured PEI."

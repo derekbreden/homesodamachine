@@ -1,6 +1,6 @@
 {
   "purpose": "Print the complete production rail cavity with E contact treatment, retaining the D rail coupon geometry and local tree growth recipe.",
-  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.profile.json",
   "interface_spacing_mm": {
     "E": 0.0
   },

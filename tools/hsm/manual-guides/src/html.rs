@@ -392,11 +392,16 @@ fn print_guide_leaves(root: &Path, guide: &Path, out: &Path, pages: &[PathBuf]) 
             std::fs::read(root.join(&input.path))?
         };
         let source: Value = if let Some(member) = input.member {
-            let mut archive = zip::ZipArchive::new(Cursor::new(bytes))
-                .with_context(|| format!("reading project {}", input.path))?;
-            let entry = archive.by_name(&member)
-                .with_context(|| format!("reading {member} in {}", input.path))?;
-            serde_json::from_reader(entry)
+            if input.path.ends_with(".profile.json") {
+                let mut profile: BTreeMap<String, Value> = serde_json::from_slice(&bytes)?;
+                Ok(profile.remove(&member).with_context(|| format!("reading {member} in {}", input.path))?)
+            } else {
+                let mut archive = zip::ZipArchive::new(Cursor::new(bytes))
+                    .with_context(|| format!("reading project {}", input.path))?;
+                let entry = archive.by_name(&member)
+                    .with_context(|| format!("reading {member} in {}", input.path))?;
+                serde_json::from_reader(entry)
+            }
         } else {
             serde_json::from_slice(&bytes)
         }.with_context(|| input.path.clone())?;

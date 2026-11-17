@@ -1,6 +1,6 @@
 {
   "purpose": "Transfer D contact treatment to the production faucet lower curve, rounded handhold arch and holed pad on Mark2.",
-  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.3mf",
+  "profile": "hardware/print-tests/petgf-dense-roofs/close-contact/2026-11-09-close-contact-DEF-left04-z018-mark1.profile.json",
   "interface_spacing_mm": {
     "D": 0.0
   },

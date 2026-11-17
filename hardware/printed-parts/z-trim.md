@@ -60,12 +60,12 @@ Each carrier adds the value in its name to all four stock branches, so
 −0.02 plus 0.07. The files run 0.01 to 0.20 in 0.01 steps.
 
 What the retained working file and the back-top's history snapshots stand on —
-[`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working profile, whichever models are loaded into
+[`petgf.profile.json`](petgf.profile.json) is the PET-GF 0.4 mm working profile, whichever models are loaded into
 it at the time:
 
 | file | trim | printer preset |
 | --- | --- | --- |
-| [`petgf.3mf`](petgf.3mf) | +0.04 | `Bambu Lab H2C 0.4 nozzle 04 first layer by agent`, first layer 265 °C |
+| [`petgf.profile.json`](petgf.profile.json) | +0.04 | `Bambu Lab H2C 0.4 nozzle 04 first layer by agent`, first layer 265 °C |
 | history-only `git:657c7978c:hardware/printed-parts/petgf.3mf` | +0.17 | `Bambu Lab H2C 0.4 nozzle 17 first layer by agent`, first layer 280 °C |
 | history-only `git:aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
 | history-only `git:366d54ba040ecc7f1465c200e63e52410ffc0d4c:hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf` | +0.02 | the same snapshot turned onto its ceiling, unprinted |

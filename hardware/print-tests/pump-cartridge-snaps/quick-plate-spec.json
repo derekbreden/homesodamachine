@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile": "hardware/printed-parts/petgf.profile.json",
   "filament_mapping": {
     "extruder_ams_count": [
       "1#0|4#0",

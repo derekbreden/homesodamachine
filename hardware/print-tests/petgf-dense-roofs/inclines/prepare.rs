@@ -12,7 +12,7 @@ fn main() -> Result<()> {
     std::fs::create_dir_all(&run)?;
     let run = run.canonicalize()?;
     let spec: Value = serde_json::from_slice(&std::fs::read(here.join("matrix.json"))?)?;
-    let source = root.join("hardware/printed-parts/petgf.3mf");
+    let source = root.join(profile::PETGF_PROFILE);
     let trim = profile::petgf_z_trim(&root, "Mark2")?;
     let profile = profile::load(&source, Some(trim), None, &root)?;
     for declared in spec["plates"].as_array().context("plates")? {

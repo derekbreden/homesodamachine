@@ -76,7 +76,7 @@ settles whether what somebody saw in the viewer was there.
 ## Supports
 
 PET-GF uses Support D's contact and bridge settings from the shared
-[`petgf.3mf`](petgf.3mf). Current preparers inherit those settings even when
+[`petgf.profile.json`](petgf.profile.json). Current preparers inherit those settings even when
 their other settings come from an accepted older print. Keep embedded filament
 bridge speeds consistent with the project. The
 [rollout record](support-D-rollout.json) identifies the current projects and
@@ -202,7 +202,7 @@ no part is thinned, skeletonized or pocketed to use less of it.
 
 Every printable piece in the enclosure assembly follows **Support-removal strategy** in
 [`enclosure/enclosure/README.md`](enclosure/enclosure/README.md#support-removal-strategy).
-Enclosure parts and their receiver coupons use the shared `petgf.3mf` tree supports and their
+Enclosure parts and their receiver coupons use the shared `petgf.profile.json` tree supports and their
 production print orientation. The four-screw nameplate prints without supports, with its flat back
 directly on the bed and counterbores facing upward. Ordinary enclosure walls, webs and joint ends
 use the nominal 3 mm wall section. Remove cut remnants and tapered tips that leave thin fins.
@@ -232,7 +232,7 @@ surface check before claiming the tee result transfers to them.
 PET-GF uses the [localized cooling policy](cooling/README.md): ordinary part
 cooling and auxiliary part cooling are off. High cooling is for the bridges
 and substantially unsupported wall paths and their fresh foundation courses, not whole layers,
-short layer times or ordinary walls. The shared `petgf.3mf` and current
+short layer times or ordinary walls. The shared `petgf.profile.json` and current
 preparers select 70% bridge/overhang cooling at the 50% unsupported-width
 threshold. A 0% threshold cools every exterior wall in Bambu Studio and does
 not express this policy. Keep fan-always-on and fan pre-start off. A feature
