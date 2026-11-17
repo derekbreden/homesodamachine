@@ -722,47 +722,6 @@
       "stock": "neoPure reinforced clear PVC tubing, 3/8\" ID \u00d7 0.594\" OD (10 ft)"
     },
     {
-      "id": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")",
-      "name": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")",
-      "unit": "pieces",
-      "supplier": "fws",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 217,
-          "label": "Single",
-          "available": true,
-          "sku": "WC-316SS-06"
-        },
-        {
-          "quantity": 10.0,
-          "priceCents": 2134,
-          "label": "Pack of 10",
-          "available": true,
-          "sku": "WC-316SS-06:10PK"
-        },
-        {
-          "quantity": 50.0,
-          "priceCents": 10488,
-          "label": "Pack of 50",
-          "available": true,
-          "sku": "WC-316SS-06:50PK"
-        },
-        {
-          "quantity": 1000.0,
-          "priceCents": 206150,
-          "label": "Case of 1,000",
-          "available": true,
-          "sku": "WC-316SS-06:1000PK"
-        }
-      ],
-      "sourceUrl": "https://www.freshwatersystems.com/products/stainless-steel-hose-clamp-316-sae-6-3-8-7-8",
-      "stock": "FWS Basics 316 SS hose clamp, SAE #6 (3/8\"\u20137/8\")"
-    },
-    {
       "id": "B07F35PTFR",
       "name": "G Ganen 12 V diaphragm pump",
       "unit": "pieces",
@@ -780,25 +739,6 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B07F35PTFR",
       "stock": "B07F35PTFR"
-    },
-    {
-      "id": "B0DMP77B6S",
-      "name": "MAACFLOW SS 1/4\" NPT M \u00d7 3/8\" hose barb (4-pk)",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "delivered",
-      "status": "unconfirmed",
-      "note": "No exact priced Prime offer found in the filtered search. Recorded delivered price is an allowance; source/availability unresolved.",
-      "options": [
-        {
-          "quantity": 4,
-          "priceCents": 1296,
-          "label": "4-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0DMP77B6S",
-      "stock": "B0DMP77B6S"
     },
     {
       "id": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)",
@@ -835,40 +775,6 @@
       "stock": "John Guest PP010822E 1/4\" OD \u00d7 1/4\" NPT male connector, black polypropylene (10-pk)"
     },
     {
-      "id": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)",
-      "name": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)",
-      "unit": "pieces",
-      "supplier": "fws",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 403,
-          "label": "Single",
-          "available": true,
-          "sku": "PP450822E"
-        },
-        {
-          "quantity": 10.0,
-          "priceCents": 3406,
-          "label": "Bag of 10",
-          "available": true,
-          "sku": "PP450822E:10PK"
-        },
-        {
-          "quantity": 200.0,
-          "priceCents": 66234,
-          "label": "Box of 200",
-          "available": true,
-          "sku": "PP450822E:200PK"
-        }
-      ],
-      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-black-polypropylene-1-4-x-1-4-nptf",
-      "stock": "John Guest PP450822E female adapter, 1/4\" OD \u00d7 1/4\" NPTF, black polypropylene (bag of 10)"
-    },
-    {
       "id": "B0G2XJGZMQ",
       "name": "GAGIRA 316L SS reducing coupling, 3/8\" NPT F \u00d7 1/4\" NPT F (5-pk, incl. Teflon tape)",
       "unit": "pieces",
@@ -886,40 +792,6 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0G2XJGZMQ",
       "stock": "B0G2XJGZMQ"
-    },
-    {
-      "id": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
-      "name": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)",
-      "unit": "pieces",
-      "supplier": "fws",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 439,
-          "label": "Single",
-          "available": true,
-          "sku": "ABCVU44-E"
-        },
-        {
-          "quantity": 10.0,
-          "priceCents": 4345,
-          "label": "Bag of 10",
-          "available": true,
-          "sku": "ABCVU44-E:10PK"
-        },
-        {
-          "quantity": 200.0,
-          "priceCents": 79560,
-          "label": "Box of 200",
-          "available": true,
-          "sku": "ABCVU44-E:200PK"
-        }
-      ],
-      "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-flow-control-bulkhead-1-4-tube",
-      "stock": "neoFit acetal black flow-control bulkhead, 1/4\" tube (ABCVU44-E)"
     },
     {
       "id": "neoFlo White 1/4\" OD LLDPE tubing, 100 ft (LLDPE4-WHITE)",
@@ -1112,25 +984,6 @@
       "stock": "Taprite 3741 soda primary CO2 regulator, CGA-320, 0\u2013120 PSI working, 130 \u00b1 4 PSI safety blow-off, 160 PSI and 2000 PSI gauges"
     },
     {
-      "id": "B0CGFCJNMG",
-      "name": "Interstate Pneumatics WR1105 1/4\" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar, 230 PSI max inlet, aluminum body",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 2847,
-          "label": "one piece",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0CGFCJNMG",
-      "stock": "B0CGFCJNMG"
-    },
-    {
       "id": "Red 1/4\" OD LLDPE polyethylene tubing",
       "name": "Red 1/4\" OD LLDPE polyethylene tubing",
       "unit": "ft",
@@ -1186,40 +1039,6 @@
       "stock": "Red 1/4\" OD LLDPE polyethylene tubing"
     },
     {
-      "id": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
-      "name": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)",
-      "unit": "pieces",
-      "supplier": "fws",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 272,
-          "label": "Single",
-          "available": true,
-          "sku": "ABU44-E"
-        },
-        {
-          "quantity": 10.0,
-          "priceCents": 2478,
-          "label": "Bag of 10",
-          "available": true,
-          "sku": "ABU44-E:10PK"
-        },
-        {
-          "quantity": 250.0,
-          "priceCents": 57056,
-          "label": "Box of 250",
-          "available": true,
-          "sku": "ABU44-E:250PK"
-        }
-      ],
-      "sourceUrl": "https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-1-4-tube",
-      "stock": "neoFit ABU44-E acetal black bulkhead connector, 1/4\" tube (bag of 10)"
-    },
-    {
       "id": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
       "name": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
       "unit": "pieces",
@@ -1259,40 +1078,6 @@
       ],
       "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-1-4-x-1-4-nptf",
       "stock": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal"
-    },
-    {
-      "id": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
-      "name": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal",
-      "unit": "pieces",
-      "supplier": "fws",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Live supplier catalog checked October 4; all listed sizes compared for the lowest batch purchase total. Full quantity not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 296,
-          "label": "Single",
-          "available": true,
-          "sku": "PI450822S"
-        },
-        {
-          "quantity": 10.0,
-          "priceCents": 2506,
-          "label": "Bag of 10",
-          "available": true,
-          "sku": "PI450822S:10PK"
-        },
-        {
-          "quantity": 400.0,
-          "priceCents": 97464,
-          "label": "Box of 400",
-          "available": true,
-          "sku": "PI450822S:400PK"
-        }
-      ],
-      "sourceUrl": "https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf",
-      "stock": "John Guest PI450822S female adapter NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal"
     },
     {
       "id": "B07PCZKG94",
@@ -1748,45 +1533,6 @@
       "stock": "B07NWCQJK9"
     },
     {
-      "id": "B0968K4JRN",
-      "name": "PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead, white polypropylene (5-pk)",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 5,
-          "priceCents": 1099,
-          "label": "5-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0968K4JRN",
-      "stock": "B0968K4JRN"
-    },
-    {
-      "id": "B07D23JJMR",
-      "name": "uxcell silicone flat washer, \u230016 ID \u00d7 \u230024 OD \u00d7 3 mm, clear (10-pk)",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 10,
-          "priceCents": 615,
-          "label": "10-piece pack",
-          "available": true,
-          "listedPackages": 3
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B07D23JJMR",
-      "stock": "B07D23JJMR"
-    },
-    {
       "id": "B0FM77LLM1",
       "name": "Siptenk 1/4\" OD brass tube stiffener insert (100-pk)",
       "unit": "pieces",
@@ -2175,25 +1921,6 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0DR8KSVQD",
       "stock": "B0DR8KSVQD"
-    },
-    {
-      "id": "B08BKSHJ93",
-      "name": "Zip Ties 8\", 50 lb (100-pack)",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 100.0,
-          "priceCents": 399,
-          "label": "100-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B08BKSHJ93",
-      "stock": "B08BKSHJ93"
     },
     {
       "id": "B0B2RB524Y",
@@ -2598,65 +2325,6 @@
       "stock": "B0DJQGGDP2"
     },
     {
-      "id": "B0DJQHNL3H",
-      "name": "BNUOK M3 \u00d7 60 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 60,
-          "priceCents": 949,
-          "label": "60-piece pack",
-          "available": true,
-          "listedPackages": 17
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0DJQHNL3H",
-      "stock": "B0DJQHNL3H"
-    },
-    {
-      "id": "B0DJR2Q5LP",
-      "name": "BNUOK M3 \u00d7 20 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, full thread, 60 pc",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 60,
-          "priceCents": 759,
-          "label": "60-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0DJR2Q5LP",
-      "stock": "B0DJR2Q5LP"
-    },
-    {
-      "id": "B0FB45MN93",
-      "name": "uxcell M3 flat washer, \u00d89 mm OD \u00d7 0.8 mm, 304 stainless steel, 200 pc",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 200,
-          "priceCents": 797,
-          "label": "200-piece pack",
-          "available": true,
-          "listedPackages": 11
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0FB45MN93",
-      "stock": "B0FB45MN93"
-    },
-    {
       "id": "B0BHZVXNJX",
       "name": "MewuDecor M5 \u00d7 10 mm socket head cap, 12.9 alloy steel, black oxide, fully threaded, 100 pc",
       "unit": "pieces",
@@ -2693,26 +2361,6 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0GSMDY5GL",
       "stock": "B0GSMDY5GL"
-    },
-    {
-      "id": "B0D41KT345",
-      "name": "LVDALAB PTFE Membrane Filter, \u00f813 mm \u00d7 0.45 \u00b5m, 100 pc, non-sterile",
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 100,
-          "priceCents": 1299,
-          "label": "100-piece pack",
-          "available": true,
-          "listedPackages": 5
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0D41KT345",
-      "stock": "B0D41KT345"
     },
     {
       "id": "B08VW15TK8",
@@ -2768,24 +2416,6 @@
         }
       ],
       "stock": "disconnect-4.8 mm"
-    },
-    {
-      "id": "forks",
-      "name": "Insulated #6 fork terminals, 22\u201316 AWG",
-      "unit": "pieces",
-      "supplier": "allowances",
-      "priceBasis": "delivered",
-      "status": "estimate",
-      "note": "100-piece / $10 delivered allowance. Screw fit and production SKU remain open; not treated as a free part.",
-      "options": [
-        {
-          "quantity": 100,
-          "priceCents": 1000,
-          "label": "100 fork terminals",
-          "available": true
-        }
-      ],
-      "stock": "forks"
     },
     {
       "id": "ferrules-16",
@@ -2917,24 +2547,6 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B01MFA3OFA",
       "stock": "heatshrink"
-    },
-    {
-      "id": "large-shrink",
-      "name": "Large-diameter heat shrink for braided sleeve ends",
-      "unit": "m",
-      "supplier": "allowances",
-      "priceBasis": "delivered",
-      "status": "estimate",
-      "note": "Delivered allowance only; exact diameters, cut lengths and SKU await the harness size map.",
-      "options": [
-        {
-          "quantity": 5,
-          "priceCents": 2000,
-          "label": "5 m suitable-diameter roll",
-          "available": true
-        }
-      ],
-      "stock": "large-shrink"
     },
     {
       "id": "xh5",
@@ -3543,7 +3155,7 @@
     "New purchase requirement = batch consumption (including stated process reserve) minus usable stock and already-ordered quantities, floored at zero. Combine shared SKUs, then round only the shortfall to economical whole supplier lots.",
     "The 5-, 10- and 20-machine alternatives use the same opening inventory; do not add the columns. Each includes the current integrated unit under development.",
     "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
-    "The possible-payment reserve covers only identified pending component orders whose stock is credited and whose merchant charge is unresolved. Confirmed charges are excluded: the WR1105 regulators, the Taprite 3741, the FWS drain-line order, and the October PET-GF15 Black, Clear PETG, ASA Aero, Kamoer pump and Beduan valve orders. Release the reserve when payment is confirmed; do not pay the same order twice.",
+    "The possible-payment reserve covers pending component orders credited in this plan whose merchant charge remains unresolved. The purchase ledger records confirmed charges and remaining payment evidence gaps.",
     "Acquired receipt totals alone do not establish remaining stock. Estimated balances and provisional consumption allowances retain their evidence in the stock ledger.",
     "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
@@ -3556,11 +3168,6 @@
       "name": "PRV foam seal and pour masking tape orders",
       "costCents": 1176,
       "note": "Two November 16 Amazon orders for one 83 mL tube and one 180 ft roll. Order totals include estimated tax. Deliveries and completed charges are pending."
-    },
-    {
-      "name": "PI450822S order already delivered",
-      "costCents": 9454,
-      "note": "FWS WEBFWS100708594, delivered October 5. Its account order page link has expired and Gmail holds no payment record, so merchant payment confirmation is absent; the full recorded amount is a conservative possible-balance reserve."
     }
   ]
 }

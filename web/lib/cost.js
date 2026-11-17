@@ -43,14 +43,13 @@ function parseMoney(cell) {
   return m ? parseFloat(m[1].replace(/,/g, "")) : null;
 }
 
-// A BOM qty cell → a discrete piece count, or null when it's a measure sold by
-// length / weight / fraction ("~5 ft", "1/2 roll", "78 g"). The leading integer
-// covers "2 (of 10 pk)", "18 (2 bags of 10)", and the [N](ANCHOR) sync markers.
+// A BOM qty cell holds a count or a measure. Keep decimal counts for cut stock
+// and the leading count in a pack annotation or a [N](ANCHOR) sync marker.
 function parseCount(qtyCell) {
   if (!qtyCell) return null;
   if (/[/]|\b(ft|kg|g|m|mL|oz|roll|pair)\b/i.test(qtyCell)) return null;
-  const m = qtyCell.match(/^\s*\[?~?\s*(\d+)\b/);
-  return m ? parseInt(m[1], 10) : null;
+  const m = qtyCell.match(/^\s*\[?~?\s*(\d+(?:\.\d+)?)\b/);
+  return m ? Number(m[1]) : null;
 }
 
 // Parse bom.md → { total, rowCount, cats: [{ tag, name, sum, parts:[{ name, qty,
