@@ -1,0 +1,68 @@
+{
+  "archive": "hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei.gcode.3mf",
+  "archive_sha256": "1490c727cccce2dd1a262507d545baf3a1ef546a812a89c811908b1f1b3747ac",
+  "bead_envelope_plate_mm": [
+    [
+      135.718,
+      149.7627075
+    ],
+    [
+      189.333,
+      172.641355
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 147.358645,
+    "front": 149.7627075,
+    "left": 135.718,
+    "right": 135.667
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9924734051893503,
+      "second_layer_centerline_outside_first_mm": 3.467864570270432,
+      "second_layer_model_bead_area_mm2": 340.05010521050286
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 230,
+  "minimum_bed_margin_mm": 135.667,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 54224,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 45.6,
+      "shortest_labelled_build_up_mm": 45.6,
+      "support_bodies": 1
+    }
+  },
+  "tie_window_support_crossings": []
+}
