@@ -298,7 +298,7 @@
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "3e026fa634db0962fbfebdc262243c6712d9acfd297c3293549c06c000ffba1a",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": "9113c67ce12eeaa9619bace4dae70fb3cb76ab3750f3e28a80ec30a3aa130fc7",
-    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "d32ce1afe36b7e4b633c39a07e2d22d123a696fdf1ff1d21426cfbb791f09b88",
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "949afb70d4af95f4974cdfe0bd5c2408bf9302c9b6259c936bf521de5260a8e0",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/accepted-cover.step": "c1fec95e683e406bf3a08bc0ca92fb10467e256b7f8162fc549a213cdc2709b5",
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/added-stock.step": "24db8e68b119cf636f0277f536ea2b46017bea5382abe1f6bcc1f088effaa4b9",
@@ -1048,7 +1048,7 @@
       "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": "f41031f281214c6c535e6c267ef1a6c33b0e5b21997c1d239cddb892c5d6b5ee",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "3e026fa634db0962fbfebdc262243c6712d9acfd297c3293549c06c000ffba1a",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": "9113c67ce12eeaa9619bace4dae70fb3cb76ab3750f3e28a80ec30a3aa130fc7",
-      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "d32ce1afe36b7e4b633c39a07e2d22d123a696fdf1ff1d21426cfbb791f09b88",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": "949afb70d4af95f4974cdfe0bd5c2408bf9302c9b6259c936bf521de5260a8e0",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": "cf69dac0a0ce01845ce261d050fbbb876be24baec78d3db77f8d97839bc32990",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover-petgf.3mf": "54863d9bd75978aa6b6835df6691d0f5fcffce5226658e99faddb8683df75ead",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "805c2883b09c8e1ab5a71cf295f6be433d4796c7be06e6263d7eaabe6bf18916",
@@ -2767,7 +2767,7 @@
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.stl": 1793568839,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": 1793568839,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.json": 1793750338,
-    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": 1795017098.402548,
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.stl": 1793568839,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/accepted-cover.step": 1792947439,
     "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/added-stock.step": 1792947439,
@@ -4401,7 +4401,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
+      "commit": "c2abfff1d2310ff8c55861284d01ff5360834dea",
       "inputs": "b0dd76cefade9c229ce41f1e4e972de231b61579c45f55f9f650ba61c44a892a",
       "unproven": true
     },
