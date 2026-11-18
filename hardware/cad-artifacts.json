@@ -115,7 +115,7 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "904274197c8f09920592cf218d3d5a911852d83c4f1cd19b0a00852942a780da",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "8bdebee7fee08aa40af2146410c03c8caa1c33750e9f5925be8dd8e31f0900b5",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "7e08d811f5f7d4def43c7889df241b5af146239880b9e903cf10b650392c0f16",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "56263d2a87f7e8d37c4e67cf70a34162ccebac0aa416b232f2640fb35fa74b2e",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "7d05a772cd098e5caa9dfdaec3155a99a24331b696180ad169d5f6b22b8416a4",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "6ba4bfc8bf542898cfe7f793594c0fda301399ca0f497bc77e4f6463daa0015b",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0292691e1e8418f4f1e5aa4cd30ae096777f5952c1248fe2eafd48bb5e334533",
@@ -357,13 +357,13 @@
     "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-tip.step": "bf8501164de094f48a8dc241b57a841c685a2f13a95551f78d1d20219115ce22",
     "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-tip.stl": "bb6d6c9a916235480b35ee4b56e692bba9478c8ae80556cd02b5697c46dda670",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "e65e6b2faddc02de044fd69dadbf71ac288bd8f9de7157320a6f6d83ee51253c",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "67bff92af5f94e1f9373173828a44490aadc833e0086572c47baa2b2ffda1199",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "d7a1e8520bae75a5cf5e359662a917da55c40631dbf2546dea48c56c54dbcb71",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "04de6d97e88559b546d5e5ed018437f14663e3780227f3031f6edda93d65fbb5",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "5bbb87407821acad2202323b99e74fb390d4bc0e6ed2bdeffb403d82b6090905",
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "8daad3aaeea62938ecedc5c048f34c6004c9206d082f08257d3cee19957eb044",
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "a15e86c44dd9df50e654ae8ee7570821085731c1497d9743917884ae22a47993",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "ab0047f8d2333eb63e7327c80c8c5d5f479b546316553a5c03e6e4f2ba33da88",
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "0c71546edc24e643ccc0748088e1f19f781d796ad1032b854ac78625e9988739",
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step": "1c6f3aeac91ec3b927a830a5004dcc27f81ef20181c6cf288118e318fa88fd1a",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.stl": "95f8c4708d6527fb84f12aed8d4e4b776d39fe78137d51c1c4ced83b0d995af2",
@@ -943,7 +943,7 @@
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "904274197c8f09920592cf218d3d5a911852d83c4f1cd19b0a00852942a780da",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "8bdebee7fee08aa40af2146410c03c8caa1c33750e9f5925be8dd8e31f0900b5",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "7e08d811f5f7d4def43c7889df241b5af146239880b9e903cf10b650392c0f16",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "56263d2a87f7e8d37c4e67cf70a34162ccebac0aa416b232f2640fb35fa74b2e",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "7d05a772cd098e5caa9dfdaec3155a99a24331b696180ad169d5f6b22b8416a4",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "6ba4bfc8bf542898cfe7f793594c0fda301399ca0f497bc77e4f6463daa0015b",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0292691e1e8418f4f1e5aa4cd30ae096777f5952c1248fe2eafd48bb5e334533",
@@ -1077,13 +1077,13 @@
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh": "338effc77a76f2ad1f48cdb8f9fa5277ecf78d984a91212167a4c6d8a17d1da0",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "3edf5831ed82965ebb6b9b24d5a6ca4975c42dc75179806f1c45773ffc132b84",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": "e65e6b2faddc02de044fd69dadbf71ac288bd8f9de7157320a6f6d83ee51253c",
-      "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "67bff92af5f94e1f9373173828a44490aadc833e0086572c47baa2b2ffda1199",
+      "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": "d7a1e8520bae75a5cf5e359662a917da55c40631dbf2546dea48c56c54dbcb71",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": "4dfefcced0e35110d8f7bdac1b07be5a374a66e03bf339beb426236b5d19a894",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": "04de6d97e88559b546d5e5ed018437f14663e3780227f3031f6edda93d65fbb5",
-      "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "5bbb87407821acad2202323b99e74fb390d4bc0e6ed2bdeffb403d82b6090905",
+      "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": "8daad3aaeea62938ecedc5c048f34c6004c9206d082f08257d3cee19957eb044",
       "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "09106291fc6feec82e351353239b9e9f3e27e7ebdc36364ef69950b4f07519d2",
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": "a15e86c44dd9df50e654ae8ee7570821085731c1497d9743917884ae22a47993",
-      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "ab0047f8d2333eb63e7327c80c8c5d5f479b546316553a5c03e6e4f2ba33da88",
+      "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": "0c71546edc24e643ccc0748088e1f19f781d796ad1032b854ac78625e9988739",
       "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "26460411ba94a5180da901ba334f5d59b17662a5d419ff0c35cc6d592c3187d4",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf-white.3mf": "e648a617112747cf9055fa881eef2fbdc766813aec5944f1e2f0751e1887e76b",
       "hardware/printed-parts/faucet/lever-replica/lever-replica-petgf.3mf": "8bf3340a8f5ae73c11fea16fd4133a4bc1eb66412dae4efc337640505ada0bda",
@@ -2699,7 +2699,7 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": 1795017143.287795,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": 1795017184.805793,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": 1795017184.805793,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1795017143.287795,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1795018776.46482,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": 1795017184.805793,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": 1794136040,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": 1794136023,
@@ -2941,13 +2941,13 @@
     "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-tip.step": 1792828088,
     "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-tip.stl": 1792828088,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": 1793626644,
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": 1795018776.46482,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": 1793626644,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": 1793626644,
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": 1795018776.46482,
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": 1793626644,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": 1794593427.648251,
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1794593408.902349,
+    "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": 1795018776.46482,
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": 1794593427.648251,
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.step": 1792893021,
     "hardware/printed-parts/faucet/industrial/prints/2026-10-24-sculpted-cover-uniform024-mark2/sculpted-display-cover-low45.stl": 1792893021,
@@ -3727,7 +3727,7 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": {
-      "commit": "259aa9b8dd3cf05cdb4448ac7a6cd31133662eee",
+      "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
       "inputs": "a4c626a70ab8f418198a48638ab0b8d4937f38e0207d879ef76c2df7e21b83f5",
       "unproven": true
     },
@@ -4656,7 +4656,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
+      "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
       "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
       "unproven": true
     },
@@ -4671,7 +4671,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
+      "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
       "inputs": "f14a46959111daa899f558fe84eec3b09f242758e1a8f25010f1819f7e7246f8",
       "unproven": true
     },
@@ -4686,7 +4686,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": {
-      "commit": "5066cebf56b68515e72acc0ef55a083dd563bfbc",
+      "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
       "inputs": "dd722fd59981595a97dac788fc3f08447db16aa9fa6e9c9d5c1d7b0cad01bb18",
       "unproven": true
     },
