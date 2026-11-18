@@ -1,0 +1,50 @@
+{
+  "purpose": "Bind the rail support repair to its native slice, direct contact reading and published back-top print plan.",
+  "piece": "back-top",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "prepared",
+  "prepared_utc": "2026-11-18T02:43:44+00:00",
+  "source_revision": "fc87ce45aeba1b580b7a7fa6cb6119935fa358bb",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark1 ran this back-top in black PET-GF on its left hardened 0.4 mm Standard-flow hotend (enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/print-job.json, task 1445040105).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "0e188453e622cad8af61b288c92dc2fc6309693bfe35a8faa1e4a98ce28d6138",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_stl_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
+  "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "print_features_sha256": "e3a465ec45b1cccff9ea27ff38d41ab7b7444c3b4f9daa4853b90d77211dee96",
+  "archive": "enclosure-back-top-rail-supports-textured-z004-mark1.gcode.3mf",
+  "archive_sha256": "cbeaa279cc5888bf7d2558a5e471abb3070d351947063aef7034a6ed5ed8f367",
+  "gcode_sha256": "f178acac117a6964c6e89aeff330745a61668b528e4052f74b1b361f208674f6",
+  "project": "enclosure-back-top-rail-supports-textured-z004-mark1.3mf",
+  "project_sha256": "ae10d9d772c76cf84ed3b40c2210e8bf3174c8a3c3df4e628dbe4bde2c22bc98",
+  "preparation": "preparation.json",
+  "native_review": "review.json",
+  "support_audit": "support-audit-1901.json",
+  "layers": 1019,
+  "estimated_seconds": 128330.13683909323,
+  "minimum_bead_bed_margin_mm": 20.232000000000028,
+  "native_slicer_warnings": [],
+  "support_coverage": "support-coverage.json",
+  "previous_print": {
+    "printer_task_id": "1449338494",
+    "physical_result": "https://github.com/derekbreden/homesodamachine/blob/fc87ce45aeba1b580b7a7fa6cb6119935fa358bb/hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/physical-result/physical-result.json"
+  }
+}

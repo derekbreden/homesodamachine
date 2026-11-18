@@ -1,0 +1,96 @@
+{
+  "purpose": "Record emitted rail-bearing backing, cavity-floor roots and retained support interfaces for the prepared back-top plate.",
+  "archive": "enclosure-back-top-rail-supports-textured-z004-mark1.gcode.3mf",
+  "archive_sha256": "cbeaa279cc5888bf7d2558a5e471abb3070d351947063aef7034a6ed5ed8f367",
+  "gcode_sha256": "f178acac117a6964c6e89aeff330745a61668b528e4052f74b1b361f208674f6",
+  "source_stl_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
+  "native_review": "review.json",
+  "native_support_audit": "support-audit-1901.json",
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "protected_support_crossings": 0,
+  "support_topology": {
+    "bed_rooted_bodies": 5,
+    "bodies_without_interface_labels": 1,
+    "explicit_interface_islands": 21,
+    "interface_islands": null,
+    "model_rooted_bodies": 9,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": 7.09,
+    "support_bodies": 14
+  },
+  "rail_contact": {
+    "reader": "tools/hsm/print-prep/src/gcode.rs",
+    "reader_sha256": "99ccfe0103f21f646ba16506184b12fd231131a4b1c222117f7e4b1a814c7162",
+    "scope": "Repository native G-code reader merged at equal height. Nominal bead envelopes include authored support caps whose features are ordinary model roads. The first rail course is compared with prior deposited roads within the recorded top separation. Gap and coverage describe commanded beads, while support release requires a physical observation.",
+    "sampling_step_mm": 0.08,
+    "maximum_prior_top_separation_mm": 0.6,
+    "rails": {
+      "east": {
+        "first_course_top_mm": 186.44,
+        "preceding_cap_top_mm": 185.96,
+        "first_course_top_above_cap_mm": 0.47999999999998977,
+        "model_road_mm": 3301.0279275849175,
+        "road_with_bead_overlap_mm": 3231.19910398685,
+        "road_without_any_bead_overlap_mm": 69.82882359806763,
+        "longest_free_road_by_feature_mm": {
+          "Bridge": 4.157163636363631,
+          "Overhang wall": 0.15996341042457715
+        },
+        "interior_longitudinal_gaps_over_0p5_mm": [],
+        "largest_remaining_interior_release_gap_mm": 0.160000000000025
+      },
+      "west": {
+        "first_course_top_mm": 186.44,
+        "preceding_cap_top_mm": 185.96,
+        "first_course_top_above_cap_mm": 0.47999999999998977,
+        "model_road_mm": 3128.3567658296156,
+        "road_with_bead_overlap_mm": 3049.237802916841,
+        "road_without_any_bead_overlap_mm": 79.1189629127748,
+        "longest_free_road_by_feature_mm": {
+          "Bridge": 4.157163636363638,
+          "Overhang wall": 0.159965811965812
+        },
+        "interior_longitudinal_gaps_over_0p5_mm": [],
+        "largest_remaining_interior_release_gap_mm": 0.160000000000025
+      }
+    },
+    "overhang_wall_contact_heights": [
+      {
+        "extrusion_height_mm": 0.3,
+        "moves": 14,
+        "nominal_gap_to_prior_cap_mm": 0.1799999999999784
+      }
+    ],
+    "roots": {
+      "root_sample_count": 116,
+      "root_samples_shadowed": 116,
+      "deposited_root_centres": 116,
+      "expected_roots_without_deposition": [],
+      "root_first_course_top_mm": 179.96,
+      "root_floor_prior_course_top_mm": 179.72
+    },
+    "vent_passage_interior_road_counts_by_z_mm": {}
+  },
+  "support_interface_comparison": {
+    "purpose": "Compare interface road locations with the recorded back-top print that supplied the physical report.",
+    "reference_archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/enclosure-back-top-nameplate-corbel-petgf-textured-z004-mark1.gcode.3mf",
+    "reference_gcode_sha256": "57b3fb576ce4148c0d87dfcf676739501fd71e24455c78898419360121e466cb",
+    "tolerance_mm": 0.05,
+    "reference_road_length_mm": 24624.108668087174,
+    "prepared_road_length_mm": 24623.631934507386,
+    "reference_length_with_prepared_match_mm": 24620.429501420505,
+    "prepared_length_with_reference_match_mm": 24620.54884359829,
+    "reference_length_with_prepared_match_percent": 99.98505868083893,
+    "prepared_length_with_reference_match_percent": 99.98747913826321
+  },
+  "support_release_observation": "awaiting physical try"
+}
