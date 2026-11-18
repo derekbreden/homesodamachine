@@ -7,6 +7,8 @@ pub mod fits;
 pub mod funnel_mount;
 pub mod input;
 pub mod swept;
+#[path = "../../../../fasteners.rs"]
+pub mod fasteners;
 
 use fits::{running, slip, supported};
 
@@ -19,9 +21,9 @@ pub const REAR_SEAM_CLEAR: f64 = 3.0;
 pub const COND_MOUNT_CLEAR: f64 = 1.0;
 /// How deep the upper Y stacks reach into the side band, which the funnel pocket shares.
 pub const Y_STACK_HIGH_DEPTH: f64 = 13.0;
-/// The M3 insert's bore, and the long insert's length everywhere a station can take it.
-pub const HEATSET_DIA: f64 = 4.0;
-pub const HEATSET_LONG_LEN: f64 = 5.7;
+/// The regular M3 insert and its pilot.
+pub const HEATSET_DIA: f64 = fasteners::M3_PILOT_DIAMETER;
+pub const HEATSET_LONG_LEN: f64 = fasteners::M3_INSERT_LENGTH;
 
 /// Faces that slide along the seams take the running allowance.
 pub fn slide_slip() -> f64 {

@@ -40,7 +40,7 @@ pub struct Snap {
 }
 
 impl Snap {
-    /// The dimension record as the nameplate's Python module writes it.
+    /// The dimension record shared with the enclosure and the cold-core clearance.
     pub fn read(n: &Value) -> Snap {
         let f = |key: &str| n[key].as_f64().expect("mount dimension");
         Snap {
@@ -140,8 +140,7 @@ pub fn snap_receiver_stock(n: &Snap) -> Result<Solid> {
         v2(t + 1., face_top - CORBEL_RISE_PER_DEPTH),
     ]), 2. * n.frame_width)?;
     let mut parts = vec![frame.union(&crown)?.cut(&relief)?];
-    // These short, broad insert lands coincide with the enclosure's existing
-    // rear wall. They keep the standalone receiver model complete as well.
+    // The insert lands continue into the cold core's closed clearance recesses.
     for (x, z) in n.stations() {
         parts.push(cylinder_y(x, z, n.insert_stock_radius,
             n.insert_stock_rear, n.floor_rear + 0.1)?);
@@ -153,10 +152,7 @@ pub fn snap_receiver_cuts(n: &Snap) -> Result<Solid> {
         n.mouth_width, n.mouth_height + n.supported, n.corner + n.slip)?);
     let mut cuts = vec![corbelled_lower_edge(profile, n.thick, n.thick + 1.)?];
     for (x, z) in n.stations() {
-        // Upper bores end against the adjoining support floors. Lower bores
-        // continue through the rear land into the cold-core clearance.
-        let rear = if z > 0. { n.insert_stock_rear } else { n.pilot_rear };
-        cuts.push(cylinder_y(x, z, n.pilot_diameter / 2., rear, 0.01)?);
+        cuts.push(cylinder_y(x, z, n.pilot_diameter / 2., n.pilot_rear, 0.01)?);
     }
     Solid::union_all(&cuts)
 }

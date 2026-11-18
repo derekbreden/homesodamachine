@@ -3,7 +3,7 @@
 Front-top contains tapered pump loading wells, fitted cylindrical motor guides and local
 flange stops in continuous stock up to the display housing and enclosure roof. Each pump
 has an identical solid flange retainer secured from below with socket-head screws and
-short heat-set inserts. Each retainer's straight-sided loading room has a flat ceiling
+regular heat-set inserts. Each retainer's straight-sided loading room has a flat ceiling
 carrying its insert pilots. Continuous stock surrounds the pump wells and joins the
 retainer rooms; solid stock remains between pumps.
 The [mount source](../enclosure/front/mount.rs) and
@@ -51,7 +51,7 @@ The other pump's retainer stays assembled.
 Front-top stands on its seam plane. Tapered loading wells reduce the flat overhang area.
 Each retainer prints with its flange-bearing face on the bed and screw-head recesses
 facing upward. Its screw seats and bearing lip use local solid infill.
-The screw heads sit in shallow counterbores. Accessible cavity supports use Tree Slim;
+The screw heads seat within the counterbores. Accessible cavity supports use Tree Slim;
 inspect their emitted contacts and removal paths in the native slice.
 
 The [accepted holder result](../../../reference/kamoer-kphm400/physical-fit.json) covers

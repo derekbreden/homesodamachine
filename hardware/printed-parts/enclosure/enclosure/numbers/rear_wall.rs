@@ -11,7 +11,7 @@ use crate::{Bounds, P2};
 /// The IEC C14 inlet: its flange across its noses and its long flats, the chord from a nose to a
 /// flat's end, its ears' centres off its axis, the knuckle round between flat and taper, and its
 /// thickness; the rim's stand-off from its ears, the internal pocket's long flats, and the
-/// stock round the cord passage. Washer-backed screws carry the flange on short inserts.
+/// stock round the cord passage. Washer-backed screws carry the flange on regular inserts.
 pub mod c14 {
     pub const FLANGE_W: f64 = 49.77;
     pub const POCKET_H: f64 = 22.17;
@@ -21,7 +21,10 @@ pub mod c14 {
     pub const FLANGE_T: f64 = 3.25;
     pub const RIM_PROUD: f64 = 1.84;
     pub const TUNNEL_WALL: f64 = 6.0;
-    pub const PILOT_DEPTH: f64 = crate::shell::HEATSET_DEPTH;
+    pub const SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
+    pub const WASHER_THICKNESS: f64 = 0.5;
+    pub const SCREW_REACH: f64 = SCREW_LENGTH - FLANGE_T - RIM_PROUD - WASHER_THICKNESS;
+    pub const PILOT_DEPTH: f64 = SCREW_REACH + crate::fasteners::INSERT_RELIEF;
 }
 
 /// The wall hosts' insert faces, screw stack and blind pilots share the relay's scanned PCB datums.
@@ -30,20 +33,32 @@ pub mod hosts {
     use serde_json::Value;
     use std::sync::OnceLock;
 
-    pub const RELAY_SETBACK: f64 = 0.0;
-    /// The acquired Sutemribor socket-cap screw and ruthex insert define the relay hardware.
-    pub const RELAY_SCREW_LENGTH: f64 = 6.0;
-    pub const RELAY_SCREW_RADIUS: f64 = 1.0;
-    pub const RELAY_HEAD_RADIUS: f64 = 1.9;
-    pub const RELAY_HEAD_HEIGHT: f64 = 2.0;
-    pub const RELAY_SOCKET_AF: f64 = 1.5;
-    pub const RELAY_SOCKET_DEPTH: f64 = 1.0;
-    pub const RELAY_INSERT_RADIUS: f64 = 1.8;
-    pub const RELAY_INSERT_LENGTH: f64 = 4.0;
+    /// Regular hardware clamps the board's ends beside its locating holes.
+    pub const RELAY_SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
+    pub const RELAY_SCREW_RADIUS: f64 = 1.5;
+    pub const RELAY_HEAD_RADIUS: f64 = 2.75;
+    pub const RELAY_HEAD_HEIGHT: f64 = 3.0;
+    pub const RELAY_SOCKET_AF: f64 = 2.5;
+    pub const RELAY_SOCKET_DEPTH: f64 = 1.5;
+    pub const RELAY_INSERT_RADIUS: f64 = crate::fasteners::M3_INSERT_DIAMETER / 2.;
+    pub const RELAY_INSERT_LENGTH: f64 = crate::fasteners::M3_INSERT_LENGTH;
     pub const RELAY_INSERT_BORE_RADIUS: f64 = RELAY_SCREW_RADIUS;
-    pub const RELAY_PILOT_RADIUS: f64 = 1.6;
+    pub const RELAY_PILOT_RADIUS: f64 = crate::fasteners::M3_PILOT_DIAMETER / 2.;
     pub const RELAY_TIP_AIR: f64 = 1.0;
-    pub const PILOT_DEPTH: f64 = 5.0;
+    pub const RELAY_LOCATOR_RADIUS: f64 = 1.0;
+    pub const RELAY_LOCATOR_END_AIR: f64 = 0.2;
+    pub const RELAY_CLAMP_AXIS: f64 = 40.5;
+    pub const RELAY_CLAMP_TOE: f64 = 32.4;
+    pub const RELAY_CLAMP_OUTER: f64 = 5.0;
+    pub const RELAY_CLAMP_HALF_WIDTH: f64 = 3.5;
+    pub const RELAY_CLAMP_THICKNESS: f64 = 3.0;
+    pub const RELAY_CLAMP_BRIDGE_THICKNESS: f64 = 2.0;
+    pub const RELAY_CLAMP_HEAD_LAND_RADIUS: f64 = 3.2;
+    pub const PSU_SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
+    pub const PSU_HEAD_REACH: f64 = 6.7;
+    pub const PSU_EAR_ALLOWANCE: f64 = 1.0;
+    pub const PSU_INSERT_LENGTH: f64 = crate::fasteners::M3_INSERT_LENGTH;
+    pub const PILOT_DEPTH: f64 = PSU_SCREW_LENGTH - PSU_HEAD_REACH + PSU_EAR_ALLOWANCE + crate::fasteners::INSERT_RELIEF;
 
     fn relay_reference() -> &'static Value {
         static REFERENCE: OnceLock<Value> = OnceLock::new();
@@ -66,9 +81,21 @@ pub mod hosts {
         relay_reference()["pcb"]["size_mm"][2].as_f64().unwrap()
     }
 
+    pub fn relay_clamp_holes() -> Vec<P2> {
+        vec![[-RELAY_CLAMP_AXIS, 0.], [RELAY_CLAMP_AXIS, 0.]]
+    }
+
+    pub fn relay_setback() -> f64 {
+        -(relay_board_thickness() + crate::catalog::slip())
+    }
+
+    pub fn relay_head_reach() -> f64 {
+        -relay_setback() + RELAY_CLAMP_THICKNESS
+    }
+
     /// The blind pilot clears the selected screw after its complete thread engagement.
     pub fn relay_pilot_depth() -> f64 {
-        RELAY_SCREW_LENGTH - relay_board_thickness() - RELAY_SETBACK + RELAY_TIP_AIR
+        RELAY_SCREW_LENGTH - RELAY_CLAMP_THICKNESS + RELAY_TIP_AIR
     }
 }
 

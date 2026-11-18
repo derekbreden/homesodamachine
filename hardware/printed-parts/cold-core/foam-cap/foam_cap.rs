@@ -21,6 +21,8 @@ use serde::Serialize;
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::PathBuf;
+#[path = "../nameplate_clearance.rs"]
+mod nameplate_clearance;
 
 const OUTPUT: &str = "hardware/printed-parts/cold-core/foam-cap";
 /// How far a cutter runs past the face it opens, and a stock block into the face it joins.
@@ -775,7 +777,8 @@ fn top_lid() -> Result<Solid> {
         let pocket = box3(near, far, s.y0 - fits.running, s.y1 + fits.running, s.bearing, s.ceiling);
         tips.push(pump_cap_world(&pocket, c).transformed(&t));
     }
-    body.cut(&Solid::union_all(&air)?)?.cut(&recess)?.cut_all(&tips)
+    let body = body.cut(&Solid::union_all(&air)?)?.cut(&recess)?.cut_all(&tips)?;
+    nameplate_clearance::apply(body, &outline(0., h, 0.)?, hsm_cold_core_layout::cap::world_to_cap)
 }
 
 // --- The numbers the machine reads -------------------------------------------------------------------

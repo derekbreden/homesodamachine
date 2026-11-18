@@ -157,7 +157,7 @@ Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topol
 pump tees, display and funnel frame absent.** Its upper fitted pump inverses are integral
 with the broad stock continuing into the display housing and roof. The broad
 Each `enclosure-pump-retainer` holds one pump's flange from below. Its screws enter
-from the open underside into short heat-set inserts in front-top. Fixed upper stops and
+from the open underside into regular heat-set inserts in front-top. Fixed upper stops and
 the fitted cylindrical motor guide align the pump. The loading well tapers toward the
 guide and stock separates the independent retainer pockets.
 
@@ -175,7 +175,7 @@ The tee, upper tube and fore valve move together as **HSM-0561** (Y-C to V-E),
    seated tees during the next step. The gauge is a bench tool and stays off the assembly.
 
 2. **Install the inserts and land the motor leads.** With front-top loose and power
-   disconnected, install the short heat-set inserts in the pump-retainer posts. Feed the
+   disconnected, install the regular heat-set inserts in the pump-retainer posts. Feed the
    bare pump end of [DC-5](harnesses/j13.md) through the shared rear wire passage and out
    below. Crimp and ring out its Fastons, then land the +X pair on pump A and the −X pair
    on pump B with the tabs accessible. Support the free board-end slack.

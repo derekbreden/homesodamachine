@@ -1,10 +1,12 @@
 # Cap-weld tube rotator
 
-The rotator is in use and working.
+The rotator holds carbonator tubes for cap welding. Its revised insert walls
+and rail stations require a physical assembly trial.
 
 Printed M5 threaded passages use the shared Ø5.2 mm fit selected in the
 [M5 sample comparison](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/print-tests/m5-seam-bearing/physical-result.json).
-The [native host reading](m5-pass-fit-reading.json) identifies the three affected parts.
+The [native host reading](m5-pass-fit-reading.json) retains its identified M5 passage scope.
+The [fastener reading](fastener-fit-reading.json) binds the current rail access and shoe clearances.
 
 PET-GF fixture that stands a 5-inch 316L carbonator tube vertically and turns
 it under the hand-held laser-weld head. The stationary structure is a
@@ -86,8 +88,8 @@ Each nest retainer is driven from above. Its Ø mm
 straight access well passes through the ID pilot to the recessed head seat in
 the mm base.
 
-Each tube adjuster enters from the collar's outside face through a 5.2 mm-deep
-Ø4.0 heat-set-insert bore. A continuous
+Each tube adjuster enters from the collar's outside face through a regular M3
+heat-set-insert bore. A continuous
 Ø mm passage runs from the insert to the tube guide;
 the screw tip is the tube contact. The adjuster stations are staggered between
 the nest-retainer wells and bear against the tube over the ID pilot.
@@ -131,8 +133,9 @@ pulley's wrap, on the base's four M5 stations. Its rail feet seat the M5
 heads at the same depth as the ground tower's; above the belt's height the
 rails narrow away from the spans. The carriage's arms follow the belt's swept
 path with 2 mm of clearance across the whole 8 mm tension travel and land on
-the rail tops through four slotted M3 × 10 screws. Two side walls with 3 mm
-pads clamp the 57.3 mm frame; the face pilot in the skin, not the pads, takes
+the rail tops, retained by the common M3 screws through slots. The wider rails
+and arms leave a straight driver path beside the insert walls. Side-wall screws
+and pads clamp the motor frame; the face pilot in the skin, not the pads, takes
 the belt tension. Two M5 × countersunk screws come
 up through the arms and the rear pair of the motor's 47.14 mm flange square
 into M5 square nuts in its open corner channels, and hold it down. Their heads
@@ -166,12 +169,12 @@ yield instead of using the fixture as a rigid puller.
   motor-tower-to-base and two ground-tower-to-base.
 - 2 × M5 × countersunk screws through the motor's
   own flange holes, each into an M5 square nut in the motor's corner channel.
-- 31 × ruthex M3 short inserts. Screws from acquired stock: 8 × M3 × 25
+- Regular ruthex M3 inserts. Screws from acquired stock: 8 × M3 × 25
   base-foot retainers, 3 × M3 × 25 spool screws, 3 × M3 × 8 race-ring screws,
-  4 × M3 × 10 carriage screws, 4 × M3 × 8 motor-pad screws,
-  3 × M3 × nest retainers, 3 × M3 × 25 tube
+  common M3 screws for the carriage and motor pads,
+  common M3 nest retainers, 3 × M3 × 25 tube
   adjusters, 2 × M3 × 12 ground-arm retainers, and
-  1 × M3 × 8 ground-shoe side-clamp screw into its printed-arm insert.
+  a common M3 ground-shoe side-clamp screw into its printed-arm insert.
 - Three hex drivers cover the whole fixture: **2.5 mm** for every M3, **4 mm**
   for the six M5 × 10 SHCS, and **3 mm** for the two M5 ×
   countersunk motor screws, which are DIN 7991 and
@@ -290,11 +293,11 @@ ring.
    M5 square nut into the motor's open corner channel over each, and pull them
    down evenly. Confirm both mm heads sit flush
    inside their mm recesses.
-   Slide one pad down each Y side and advance the four M3 × 8 side screws
+   Slide one pad down each Y side and advance the common M3 side screws
    evenly until the frame cannot rock.
 9. Hang the belt on the 90T pulley and hold the free bight open. Lower the
    carriage and motor as one piece: the 20T pulley enters the bight and the
-   arms land on the rail tops. Start four M3 × 10 screws through the carriage
+   arms land on the rail tops. Start the common M3 screws through the carriage
    slots at the inboard end; leave them loose.
 10. Slide the complete carriage outward until the long belt span twists about
    90 degrees with finger pressure, then tighten the four carriage screws.
@@ -309,7 +312,7 @@ ring.
 13. Bolt down the ground tower and flexure arm. Slide the crosscut C110 shoe
     down into the fork until it seats on the printed shelf, with one factory
     broad face toward the tube and the bar's 2-inch width vertical. Tighten the
-    side-clamp M3 × 8 only until the shoe cannot move in the fork. The loaded
+    side-clamp screw only until the shoe cannot move in the fork. The loaded
     tube seats the shoe against the fork's back wall; the delivered stock's
     thickness leaves 0.75–1.50 mm of preload and deflects the long leaf
     outward. Nothing is drilled or tapped in the copper.

@@ -34,28 +34,15 @@ Z = −2 as a conservative tail envelope, except within 8 mm of each mounting ho
 where the model carries the board's own joints instead (`JOINTS` in
 [`numbers.rs`](numbers.rs)): J1 pin 1 stands 6.2 mm from MH2 to its pad edge, J7 pin 1
 6.3 mm from MH3 and J11 pin 1 5.5 mm from MH4, and MH1's nearest, a J14 shield leg, is
-11.3 mm off. In the appliance that envelope is seated nearest the +X wall, so the four wall
-bosses reach 2 mm farther inboard to the actual board underside; the wall is not allowed
-to occupy the solder-tail clearance simply because the fab visualization omits
-detailed clipped leads.
-
-The appliance's mounting sleeves at MH1, MH2 and MH4 are sized off those joints:
-3 mm round the knurl entry at MH1, 2.25 mm at MH4 beside J11 pin 1, and 2 mm at
-MH2, where the sleeve meets relay #2's lower bar flush. MH3 seats on the
-rectangular pad it shares with the upper bar of relay #2, which the enclosure
-assembly reads clear of the whole envelope; its fore face stands 0.5 mm off J7
-pin 1, 2.6 mm from the knurl entry. Each short M3 insert starts 2.25 mm wallward
-of the board's mounting
-face, behind the tail zone and its 0.25 mm supported-face allowance. The complete
-Ø8 mm insert host starts at that recessed seat; a Ø5 mm entry admits the whole
-knurl. M3×8 through the 1.6 mm PCB reaches 4.15 mm into the 4 mm insert, with
-at least 0.85 mm reserve before the blind end. The
-[enclosure audit](../../enclosure/enclosure/heat-set-review/geometry-check.json)
-checks those complete native seats and installed screw stacks.
+11.3 mm off. The appliance carries the board horizontally on the cold-core lid's integral
+columns. The [deck mount dimensions](../../cold-core/foam-cap/numbers/deck.rs)
+own their bearing and insert datums. Regular M3 inserts take the common screws
+through printed spacers above the PCB. The posts keep the solder-tail envelope
+clear beneath the board.
 
 The board's frame **is its pcb frame** (pcbX/pcbY as in `pcba.tsx`), so every mounting
 station is its MH coordinate verbatim. Board footprint **85 × 72.8 mm** as fabbed.
-Keep the west and east edges unobstructed on the wall: the USB-C
+Keep the board edges unobstructed: the USB-C
 programming port (J14) is flush on the west edge, and the J10 12 V screw
 throats face east.
 

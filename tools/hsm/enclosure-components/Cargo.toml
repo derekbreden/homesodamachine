@@ -22,9 +22,16 @@ path = "../../../hardware/printed-parts/enclosure/display-cover/display_cover.rs
 name = "display-gasket"
 path = "../../../hardware/printed-parts/enclosure/display-gasket/display_gasket.rs"
 
+[[bin]]
+name = "equipment-clamps"
+path = "../../../hardware/printed-parts/enclosure/equipment-clamps/equipment_clamps.rs"
+
 [dependencies]
 hsm-bulkhead-ring-numbers = { path = "../bulkhead-ring-numbers" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-foam-cap-numbers = { path = "../foam-cap-numbers" }
+hsm-cold-core-layout = { path = "../cold-core-layout" }
+hsm-enclosure-interface = { path = "../enclosure-interface" }
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-shared-data = { path = "../shared-data" }

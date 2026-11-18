@@ -12,9 +12,10 @@ The enclosure body is 215 × 466.3 × 361 mm. The cold-core lid face is Z253.4.
 Back-top has a 9 mm roof and rear wall. The PSU's shallow running well retains
 7.75 mm of roof over its body. A plain pocket above the ASSE and PISCO caps
 ends at Z348.55, leaving 6.45 mm of roof and 0.5 mm above their pointed tips.
-The PSU's four M3 × 10 screws enter short RX-M3S × 4
-inserts; the modeled ear range gives 2.3–4.3 mm of screw projection and 0.7 mm
-of tip air. The four blind pilots end below the full 3 mm roof show skin.
+The PSU hosts take the common M3 screws and regular inserts from
+[the fastener selection](../fasteners.rs). Its lowered ceiling well keeps the
+blind pilots beneath the roof's show skin.
+
 
 | Equipment | Arrangement | Support |
 |---|---|---|
@@ -29,7 +30,7 @@ of tip air. The four blind pilots end below the full 3 mm roof show skin.
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
-| Teyleten relays | One above the other on the west wall | Board-plane corner bearings and M2 screw-and-insert sets |
+| Teyleten relays | One above the other on the west wall | Pinned corner bearings and printed end clamps with regular M3 fasteners |
 | PCB and V-B | Board flat and connector-up; V-B on its side east of it | Core columns and the integral V-B socket wall |
 
 ASSE, Pisco and meter enter their seats 16 mm fore of their stations and slide
@@ -161,11 +162,13 @@ part sequence and actual insertion-mark method. Native CAD describes placement
 and fit; the named physical acceptance records retain their material and part
 scope.
 
-Seat each relay directly against its wall-mounted corner bearings. Fit the M2
-socket-head screws through every board mounting hole into the RX-M2×4 inserts,
-aligning the board before tightening. The insert mouths share the PCB bearing
-plane. The [wall-host datums](../printed-parts/enclosure/enclosure/numbers/rear_wall.rs)
-own the hole pattern, screw stack and blind pilots; the
+Lower each relay onto the pins in its wall-mounted corner bearings. Fit an end
+clamp across each board end and start the common M3 screws into the regular
+inserts beside the board. Tighten evenly until the clamps retain the board;
+keep the native wire-entry throats clear. Fit the boards and clamps before
+landing the terminal wires. The
+[wall-host datums](../printed-parts/enclosure/enclosure/numbers/rear_wall.rs)
+own the locating pattern, screw stack and blind pilots; the
 [relay reference](../reference/teyleten-relay/README.md) owns the board and component
 geometry. The [BOM](../ledger/bom.md#13-mechanical-attach-hardware) identifies the
-acquired hardware.
+hardware.

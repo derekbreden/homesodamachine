@@ -1,37 +1,6 @@
 {
-  "purpose": "This record locates the nameplate, its receiver and their exterior clearances in the published machine.",
-  "plate_size_mm": [
-    80.0,
-    90.9090909090909,
-    3.36
-  ],
-  "artwork_scale": 0.9090909090909091,
-  "world_plate_back_mm": [
-    -41.4,
-    469.94,
-    220.75
-  ],
-  "world_receiver_bounds_mm": [
-    [
-      -84.55,
-      465.55,
-      171.89545454545456
-    ],
-    [
-      1.75,
-      473.3,
-      271.3545454545455
-    ]
-  ],
-  "corner_root_start_x_mm": -88.33333333333333,
-  "band_top_z_mm": 168.125,
-  "frame_corner_root_gap_mm": 3.7833333333333314,
-  "frame_band_gap_mm": 3.7704545454545553,
-  "frame_label_rail_gap_mm": 2.9000000000000004,
-  "screw_grid_mm": [
-    58.0,
-    68.9090909090909
-  ],
+  "purpose": "Records the nameplate blind hosts and their closed core recesses in the exported machine.",
+  "units": "mm",
   "mount": {
     "clearance_diameter": 3.4,
     "corner": 5.0,
@@ -50,15 +19,15 @@
     "height": 90.9090909090909,
     "hex_key": 2.5,
     "insert_diameter": 4.6,
-    "insert_length": 4.0,
+    "insert_length": 5.7,
     "insert_stock_radius": 6.0,
-    "insert_stock_rear": -4.39,
+    "insert_stock_rear": -13.64,
     "mouth_height": 91.2090909090909,
     "mouth_width": 80.3,
     "pilot_diameter": 4.0,
-    "pilot_rear": -4.64,
+    "pilot_rear": -10.64,
     "screw_diameter": 3.0,
-    "screw_length": 6.0,
+    "screw_length": 12.0,
     "slip": 0.15,
     "stations": [
       [
@@ -82,38 +51,58 @@
     "thick": 3.36,
     "width": 80.0
   },
-  "plate_receiver_intersection_mm3": 0.0,
-  "plate_ink_intersection_mm3": 1.3256777132205494e-15,
-  "plate_receiver_surface_distance_mm": 0.0,
-  "physical_status": "The resized plate and receiver have visual approval. Physical mounting is unqualified.",
-  "visual_approval": "Looks good to me. I was able to see the change pretty quickly there.",
-  "lint_review": {
-    "scope": "Nameplate artwork, screw seats and the relocated receiver.",
-    "nameplate": "Reported relief, counterbores and narrow letter outlines follow the artwork and fastener seats. Ceiling readings use the source height axis; the plate prints face up.",
-    "back_top": "The relocated receiver retains its supported mouth and crown. Other reported features lie outside this edit."
-  },
-  "live_website": {
-    "purpose": "This record verifies the published nameplate from the live website.",
-    "revision": "100b66c03d65380315b6754c051b96c111253d403a11b2b6c7247afb90dfc9bc",
-    "parts": 424,
-    "plate": {
-      "min_mm": [
-        -81.4000015258789,
-        469.94000244140625,
-        175.2954559326172
-      ],
-      "max_mm": [
-        -1.399999976158142,
-        473.29998779296875,
-        266.20452880859375
-      ]
-    },
-    "loaded_seconds": 6.185
+  "geometry_review": {
+    "payload_sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
+    "upper_pilot_end_mm": [
+      -70.4,
+      459.29998779296875,
+      255.20454545454544
+    ],
+    "upper_land_back_mm": [
+      -70.4,
+      456.29998779296875,
+      255.20454545454544
+    ],
+    "backing_mm": 3.0,
+    "overlaps": [
+      {
+        "a": {
+          "id": "#567",
+          "name": "enclosure-back-top"
+        },
+        "b": {
+          "id": "#228",
+          "name": "cold-core/foam-shell"
+        },
+        "volume_mm3": 0.0
+      },
+      {
+        "a": {
+          "id": "#567",
+          "name": "enclosure-back-top"
+        },
+        "b": {
+          "id": "#229",
+          "name": "cold-core/foam-cap-lid-top"
+        },
+        "volume_mm3": 0.0
+      }
+    ]
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "0c4a97387dee88aabca21138014fc69c61a9440684cdee385847ac11682184bd",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step.mesh": "79dd0d14c744ad7c131f6bfc1c20d1b61f141a974daed12f7d88ef56072a9705",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "6420b36c97c82e33a16934f92d669a385053953895412cfa1bf191160868d48c",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "3a0e2e745205a7a40bc4425992eae62326259e9f7e7aa14c9467209f17a1bc1a"
+    "hardware/fasteners.rs": "50162d37160debb41e3ac3f8bdf0df286817725e6d5281cb3ed36a25574e65cd",
+    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "8ad4b799a6e4eaa1de0bba855d0cf3dc26afa3a453b7938017bcac1d611c9281",
+    "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs": "e3bfb964abbda5d7e4319785829d273a9a1e9928730fd838ca6163027ec010ab",
+    "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "db824f284507c47f421c96414c4b3b777b8745db27924c7db7668cd1ea928d5e",
+    "hardware/printed-parts/cold-core/nameplate_clearance.rs": "6b8a9f502e1bd4fec984c9a35983d4f16e36f9d85367bc2e7ab48d36cfcb61e0",
+    "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e",
+    "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866"
+  },
+  "archived_appearance_approval": "https://github.com/derekbreden/homesodamachine/blob/7f726658e69d94842f0a13126b3addc4b90a253b/hardware/printed-parts/enclosure/nameplate/production-fit.json",
+  "physical_status": "The revised blind hosts and casing recesses require physical assembly and support-cleanup confirmation.",
+  "mesh_review": {
+    "scope": "Post-publication STL reading of the receiver and matching shell recesses.",
+    "shell": "The shell has no unaddressed thin-material findings after recess stock is limited to pockets that enter the shell.",
+    "receiver": "The mesh classifier still ranks thin points at the upper pilot/floor intersection; these remain an unresolved classifier reading. Axis rays confirm the full pilot and closed backing. This is not a full print-readiness result."
   }
 }

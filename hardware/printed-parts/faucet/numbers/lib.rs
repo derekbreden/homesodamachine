@@ -10,6 +10,8 @@ pub mod paths;
 pub mod shell;
 pub mod snap;
 pub mod stack;
+#[path = "../../../fasteners.rs"]
+pub mod fasteners;
 
 pub type P2 = [f64; 2];
 pub type P3 = [f64; 3];

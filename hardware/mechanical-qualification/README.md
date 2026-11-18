@@ -354,19 +354,16 @@ observations do not transfer to the pump dock.
 
 ## Screw diameter and insert anchorage
 
-The [enclosure interface](../printed-parts/enclosure/enclosure/interface/lib.rs)
-uses M3 inserts with a 4.0 mm nominal bore. Short inserts are 4.0 mm long; full-length
-inserts are 5.7 mm long. The [compressor floor posts](../printed-parts/enclosure/enclosure/quadrants/floor.rs)
-use M5 inserts 9.5 mm long and a 6.4 mm nominal bore. Thread engagement and blind relief
-are separate dimensions.
+The [fastener selection](../fasteners.rs) owns the regular insert bodies and
+screw lengths. The enclosure, cold-core lid, faucet and weld rotator use those
+bodies. Thread engagement and blind relief remain separate dimensions.
 
 The [ruthex RX-series drawing](https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf)
 specifies the following dimensions. Its minimum surrounding wall is measured from the bore.
 
 | Insert | Knurl OD | Recommended nominal bore | Minimum surrounding wall | Relevant CAD feature |
 | --- | --- | --- | --- | --- |
-| RX-M2x4 | 3.6 mm | 3.2 mm | 1.3 mm | The shared bench-tray engine uses a 5.8 mm boss and a 5.0 mm blind pocket for this family. No M2 insert is specified in the integrated appliance. |
-| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | The PCB's full-length inserts are in the integral equipment-lid posts. The main-board bench tray uses short inserts. [Lid pilots](../printed-parts/cold-core/foam-cap/README.md) |
+| RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | Regular bodies throughout the selected mounts. [Lid pilots](../printed-parts/cold-core/foam-cap/README.md) and [enclosure hosts](../printed-parts/enclosure/enclosure/numbers/rear_wall.rs). |
 | RX-M5x9.5 | 7.1 mm | 6.4 mm | 2.6 mm | Compressor posts are 12.0 mm OD with a 6.4 mm bore, giving a nominal 2.8 mm annulus. CAD checks the M5 manufacturer's minimum surrounding wall. |
 
 Ruthex specifies at least 1.0 mm of blind relief below the installed insert.
@@ -471,7 +468,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 | Joint | Current arrangement and load path | Design basis and evidence limit |
 | --- | --- | --- |
 | Enclosure Y seam | A corner stack at each flank, with one fully threaded M5×100 at each height. The lower stack is back-bottom / front-bottom / back-bottom; the upper is front-top / back-top / front-top. Each end pair captures the other half's middle block on the screw. The telescoping lap locates the halves; hooked rails retain the vertical seams. [Corner-stack geometry](../printed-parts/enclosure/enclosure/README.md#seams--corner-stacks). | Opening loads the fully threaded screws in bearing at two interfaces per station. Tightening seats the head in the same half that owns the insert; the middle block is not directly clamped axially. Block ligaments, wall roots and screw bending carry that load; equal sharing between blocks is unestablished. [Short-drop retention](#short-drop-retention) records the geometry and load-path scope. No assembled impact margin is established. |
-| Cold-core cap stacks | Ten M3×25 stations per face with 5.7 mm inserts and 10.5 mm blind pilots. Dry printed seats have 0.15 mm static allowance; recessed 3M 425 exterior bands seal both casing seams at each end. The nominal stack envelope is 253.4 mm. The [native closure review](../printed-parts/cold-core/foam-cap/dry-closure-review.json) records floor stock, complete insert walls and screw-tip room. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion are unmeasured; the local seam construction does not qualify the complete vapor barrier or lifetime. |
+| Cold-core cap stacks | The common M5 closure screws engage regular inserts in the shell. The [cap dimensions](../printed-parts/cold-core/foam-cap/numbers/lib.rs) own their head seats, blind pilots and closed stock. Exterior foil bands seal the casing seams. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion remain unmeasured. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
 | Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](../printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |

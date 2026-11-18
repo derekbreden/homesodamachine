@@ -30,7 +30,7 @@ pub const DRAIN_TUBE_Y: f64 = LOWER_DRAIN_Y;
 /// The hole the Westbrass's shank passes the countertop stack in.
 pub const SHANK_HOLE_DIAMETER: f64 = 12.6;
 /// The above-counter plate's thickness.
-pub const ABOVE_COUNTER_PLATE_THICKNESS: f64 = 4.0;
+pub const ABOVE_COUNTER_PLATE_THICKNESS: f64 = 6.0;
 /// The above-counter gasket's thickness.
 pub const ABOVE_COUNTER_GASKET_THICKNESS: f64 = 2.0;
 /// The display's housing, across.

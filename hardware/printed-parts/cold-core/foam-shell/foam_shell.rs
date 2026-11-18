@@ -17,6 +17,8 @@ use hsm_print_payload as presentation;
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::PathBuf;
+#[path = "../nameplate_clearance.rs"]
+mod nameplate_clearance;
 
 const NAME: &str = "foam-shell";
 const OUTPUT: &str = "hardware/printed-parts/cold-core/foam-shell";
@@ -429,5 +431,6 @@ fn build() -> Result<Solid> {
         v2(lo[1], shoulder),
     ];
     let notch = Plane::new(v3(lo[0], 0.0, 0.0), V3::Y, V3::X)?.extrude(&Profile::polygon(&window), hi[0] - lo[0])?;
-    shell.cut(&notch)
+    let shell = shell.cut(&notch)?;
+    nameplate_clearance::apply(shell, &outside, cap::world_to_shell)
 }

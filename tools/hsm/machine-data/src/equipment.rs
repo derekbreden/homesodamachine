@@ -447,7 +447,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
     let psu_hardware = [
         Hardware::Screw { shaft_radius: 1.5, head_radius: 2.75, head_height: 3.,
                           socket_af: 2.5, socket_depth: 1.5 },
-        Hardware::Insert { radius: 2.3, length: 4., bore_radius: 1.25 },
+        Hardware::Insert { radius: 2.3, length: hosts::PSU_INSERT_LENGTH, bore_radius: 1.25 },
     ];
     let relay_hardware = [
         Hardware::Screw { shaft_radius: hosts::RELAY_SCREW_RADIUS,
@@ -460,16 +460,16 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
         (
             "psu",
             vec![[-16.5, -49.], [-16.5, 49.], [16.5, -49.], [16.5, 49.]],
-            6.7,
-            10.,
+            hosts::PSU_HEAD_REACH,
+            hosts::PSU_SCREW_LENGTH,
             0.,
             &psu_hardware,
-            "M_STAINLESS",
+            "M_DONOR_BLACK",
         ),
-        ("relay-1", hosts::relay_holes(), hosts::relay_board_thickness(),
-         hosts::RELAY_SCREW_LENGTH, hosts::RELAY_SETBACK, &relay_hardware, "M_DONOR_BLACK"),
-        ("relay-2", hosts::relay_holes(), hosts::relay_board_thickness(),
-         hosts::RELAY_SCREW_LENGTH, hosts::RELAY_SETBACK, &relay_hardware, "M_DONOR_BLACK"),
+        ("relay-1", hosts::relay_clamp_holes(), hosts::relay_head_reach(),
+         hosts::RELAY_SCREW_LENGTH, hosts::relay_setback(), &relay_hardware, "M_DONOR_BLACK"),
+        ("relay-2", hosts::relay_clamp_holes(), hosts::relay_head_reach(),
+         hosts::RELAY_SCREW_LENGTH, hosts::relay_setback(), &relay_hardware, "M_DONOR_BLACK"),
     ] {
         let pose = pose(spec, name)?;
         let axis = vector(&pose["rotation"], [0., 0., 1.])?;

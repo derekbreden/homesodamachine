@@ -1,0 +1,198 @@
+{
+  "purpose": "Records the selected regular insert hosts, carriage head access and ground-shoe clearance.",
+  "units": "mm",
+  "payload_sha256": "d7a746e69e71d20f99f08f4a822d0422e85b3b81265bacce6e4c1598ad7215cd",
+  "source_sha256": {
+    "hardware/fasteners.rs": "50162d37160debb41e3ac3f8bdf0df286817725e6d5281cb3ed36a25574e65cd",
+    "hardware/printed-parts/fixtures/weld-rotator/numbers.rs": "021a4d94a8d896b073caee28efb04f602314c45d14f99015d74461694ec83fda",
+    "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs": "3d696047d5d08c966c9b2d57808426765e4c6df6983efe91595f488a878e1b28"
+  },
+  "selected_inserts": {
+    "M3_length_mm": 5.7,
+    "M5_length_mm": 9.5
+  },
+  "carriage_driver_reading": {
+    "direction": [
+      0,
+      0,
+      -1
+    ],
+    "head_recess_floor_hits": [
+      {
+        "hit": {
+          "distance_mm": 49.849998474121094,
+          "face": 62,
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ],
+          "point": [
+            130.0,
+            49.6,
+            50.150001525878906
+          ],
+          "sources": [
+            {
+              "op": "box",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            },
+            {
+              "op": "cylinder",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            }
+          ],
+          "triangle": 2007
+        },
+        "part": {
+          "id": "#6",
+          "name": "motor-carriage"
+        }
+      },
+      {
+        "hit": {
+          "distance_mm": 49.849998474121094,
+          "face": 71,
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ],
+          "point": [
+            150.0,
+            49.6,
+            50.150001525878906
+          ],
+          "sources": [
+            {
+              "op": "box",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            },
+            {
+              "op": "cylinder",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            }
+          ],
+          "triangle": 2124
+        },
+        "part": {
+          "id": "#6",
+          "name": "motor-carriage"
+        }
+      },
+      {
+        "hit": {
+          "distance_mm": 49.849998474121094,
+          "face": 36,
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ],
+          "point": [
+            130.0,
+            -49.6,
+            50.150001525878906
+          ],
+          "sources": [
+            {
+              "op": "box",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            },
+            {
+              "op": "cylinder",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            }
+          ],
+          "triangle": 1352
+        },
+        "part": {
+          "id": "#6",
+          "name": "motor-carriage"
+        }
+      },
+      {
+        "hit": {
+          "distance_mm": 49.8499984741211,
+          "face": 45,
+          "normal": [
+            -0.0,
+            0.0,
+            1.0
+          ],
+          "point": [
+            150.0,
+            -49.6,
+            50.1500015258789
+          ],
+          "sources": [
+            {
+              "op": "box",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            },
+            {
+              "op": "cylinder",
+              "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:475",
+              "via": {
+                "op": "cut",
+                "src": "hardware/printed-parts/fixtures/weld-rotator/weld_rotator.rs:478"
+              }
+            }
+          ],
+          "triangle": 1470
+        },
+        "part": {
+          "id": "#6",
+          "name": "motor-carriage"
+        }
+      }
+    ],
+    "scope": "Each ray reaches the carriage head bearing with no wall above it. The rail axes lie beyond the enlarged side walls."
+  },
+  "ground_arm_neighbors": [
+    {
+      "part": "c110-ground-shoe",
+      "gap_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "part": "ground-tower",
+      "gap_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "part": "5in-316l-tube",
+      "gap_mm": 0.4999999999999929,
+      "intersection_volume_mm3": 0.0
+    }
+  ],
+  "physical_status": "Revised insert walls, rail stations, adjusters and shoe clamp require physical assembly and hand tightening."
+}

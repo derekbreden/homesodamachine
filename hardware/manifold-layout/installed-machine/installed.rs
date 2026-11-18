@@ -383,5 +383,10 @@ pub fn installed_instances(root: &Path) -> Result<Value> {
     for (index,name) in entry_names(&native)?.iter().enumerate() {
         rows.push(placed(&retainer,name,Some(index),None,None,false));
     }
+    let fittings = model(root, "printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step")?;
+    let native = root.join("hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step.npz");
+    for (index, name) in entry_names(&native)?.iter().enumerate() {
+        rows.push(placed(&fittings, name, Some(index), None, None, false));
+    }
     Ok(json!({"instances": rows}))
 }

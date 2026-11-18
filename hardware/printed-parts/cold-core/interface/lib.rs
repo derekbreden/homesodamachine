@@ -8,6 +8,8 @@
 //! caller reads.
 
 use hsm_carbonator_tube_numbers as tube;
+#[path = "../../../fasteners.rs"]
+pub mod fasteners;
 
 /// The shared fits a printed face is cut to.
 #[derive(Clone, Copy, Debug)]
@@ -266,8 +268,8 @@ pub const MID_SCREW_X_OFFSET: f64 = 45.;
 /// The clamp screws' stations, each with the wall, `"x"` or `"y"`, its boss stands on.
 pub fn attachment_stations() -> Vec<([f64; 2], &'static str)> {
     let mut stations = vec![];
-    for x in [-BOSS_WALL_X, BOSS_WALL_X] {
-        for y in [-60., 0., 60.] {
+    for (x, columns) in [(-BOSS_WALL_X, [-60., 0., 60.]), (BOSS_WALL_X, [-60., 0., 56.])] {
+        for y in columns {
             stations.push(([x, y], "x"));
         }
     }
@@ -285,8 +287,8 @@ pub fn lid_attachment_stations() -> Vec<([f64; 2], &'static str)> {
 }
 
 /// The clamp screw, the insert it reaches, and how far it reaches past each face.
-pub const CAP_SCREW_LENGTH: f64 = 100.;
-pub const INSERT_LENGTH: f64 = 9.5;
+pub const CAP_SCREW_LENGTH: f64 = fasteners::M5_LONG_SCREW_LENGTH;
+pub const INSERT_LENGTH: f64 = fasteners::M5_INSERT_LENGTH;
 pub const CAP_SCREW_TIP_AIR: f64 = 2.5;
 
 pub fn cap_screw_beyond_face(fits: &Fits) -> f64 {
@@ -312,7 +314,7 @@ pub fn top_screw_bore_depth(fits: &Fits) -> f64 {
 /// off the cap.
 pub const DECK_MOUNT_BOSS_RADIUS: f64 = 5.;
 pub const DECK_MOUNT_BORE_RADIUS: f64 = 2.;
-pub const DECK_MOUNT_INSERT_LENGTH: f64 = 5.7;
+pub const DECK_MOUNT_INSERT_LENGTH: f64 = fasteners::M3_INSERT_LENGTH;
 pub const DECK_MOUNT_BORE_RELIEF: f64 = 1.;
 pub const DECK_MOUNT_CAP_GAP: f64 = 1.5;
 

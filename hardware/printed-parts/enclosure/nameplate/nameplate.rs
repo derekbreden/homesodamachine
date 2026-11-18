@@ -6,7 +6,7 @@
 //!     nameplate [--unit <n>] [<output directory>]
 mod artwork;
 mod qr;
-mod snap_dimensions;
+use hsm_enclosure_numbers::nameplate_mount as snap_dimensions;
 // The plate's and the receiver's construction, shared with the enclosure.
 #[allow(dead_code)]
 mod snap_geometry;

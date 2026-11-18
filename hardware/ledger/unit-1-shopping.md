@@ -28,9 +28,13 @@ An [IEAWISL external-tooth washer assortment](https://www.amazon.com/dp/B0D8HVSJ
 
 The [purchase ledger](purchases.md) records two delivered packs of [SVLING M5 × 0.8 × 100 mm screws](https://www.amazon.com/dp/B0GHNNYVDH): 20 delivered October 26 and 20 delivered November 10. These are purchase quantities, not a stocktake. The current BOM allocates 24 screws to one machine; count usable stock after development use before buying another pack.
 
-## Relay hardware
+## Mounting hardware
 
-The [purchase ledger](purchases.md) records the ruthex assortment as acquired November 10, including 70 RX-M2×4 inserts. The Sutemribor M2 × 6 replenishment pack contains 105 screws and was delivered November 11. Their combined purchase totals are $40.73; remaining usable quantities are not counted.
+The current [mechanical BOM](bom.md#13-mechanical-attach-hardware) assigns the
+common M3 screw stock and regular inserts to the printed relay end clamps.
+The compressor's selected M5 floor screws have no acquired stock binding;
+the BOM carries the current distributor quote. Count usable common stock
+before replenishment.
 
 ## Already purchased for the 4 mm flavor path
 

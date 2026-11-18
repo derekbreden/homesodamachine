@@ -17,7 +17,8 @@ leaving the 0.15 mm printed-face fit allowance. The lid installs with its specif
 180° half-turn. Ten recessed M5 × 100 screws engage RX-M5×9.5 inserts in the shell.
 
 The PCB, pump bearing, V-B socket, junction wells and tube/cable retainers belong to
-the lid. The PCB uses four Ø10 mm posts, 3.6 mm standoffs and M3 × 8 screws.
+the lid. The PCB uses integral posts with regular M3 inserts and the common screws.
+Printed spacers above the PCB preserve its placement and the lid's flat underside.
 Its Ø4 × 7.4 mm blind pilots receive RX-M3×5.7 inserts, retain 3.6 mm backing,
 and leave 1 mm beyond the seated screw tip. Install these inserts before mounting
 the board. Complete the ten M5 clamps before fitting equipment over their driver paths.

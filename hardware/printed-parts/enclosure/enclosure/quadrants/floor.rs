@@ -41,7 +41,7 @@ pub fn floor_bosses(g: &mut Graph, mut solid: Shape, inner: &Bounds, stations: &
         );
         let post = g.zcyl(dia / 2.0, sx, sy, inner[4], tip);
         solid = g.union(solid, &[post]);
-        let bore = g.zcyl(FLOOR_HEATSET_DIA / 2.0, sx, sy, tip - FLOOR_HEATSET_DEPTH - MOUNT_BORE_RELIEF, tip);
+        let bore = g.zcyl(FLOOR_HEATSET_DIA / 2.0, sx, sy, tip - FLOOR_BORE_DEPTH, tip);
         solid = g.cut(solid, &[bore]);
     }
     solid

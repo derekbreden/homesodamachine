@@ -1,22 +1,27 @@
 //! Nameplate mount coordinates: plate back Y=0, face +Y, height +Z.
 use serde_json::{Value, json};
+use hsm_enclosure_interface::fasteners;
 
 pub fn dimensions(width: f64, height: f64, thick: f64, slip: f64, supported: f64, proud: f64) -> Value {
     let mouth_w = width + 2. * slip;
     let mouth_h = height + 2. * slip;
     let screw_x = width / 2. - 11.;
     let screw_z = height / 2. - 11.;
+    let counterbore_depth = 1.;
+    let screw_length = fasteners::M3_SCREW_LENGTH;
+    let pilot_depth = screw_length - (thick - counterbore_depth) + fasteners::INSERT_RELIEF;
+    let backing = 3.;
     json!({
         "width":width,"height":height,"thick":thick,"corner":5.,
         "slip":slip,"supported":supported,
         "frame_width":mouth_w+6.,"frame_bottom":-mouth_h/2.-3.-supported,
         "frame_top":mouth_h/2.+proud+3.,"frame_corner":7.,
-        "floor_rear":-3.,"floor_stock":3.,"insert_stock_rear":-4.39,"insert_stock_radius":6.,
+        "floor_rear":-3.,"floor_stock":3.,"insert_stock_rear":-pilot_depth-backing,"insert_stock_radius":6.,
         "field_proud":proud,"crown_y":thick-proud,"mouth_width":mouth_w,"mouth_height":mouth_h,
         "stations":[[-screw_x,-screw_z],[screw_x,-screw_z],[-screw_x,screw_z],[screw_x,screw_z]],
-        "clearance_diameter":3.4,"counterbore_diameter":6.2,"counterbore_depth":1.,
-        "screw_length":6.,"screw_diameter":3.,"head_diameter":5.5,"head_height":3.,
-        "hex_key":2.5,"insert_diameter":4.6,"insert_length":4.,
-        "pilot_diameter":4.,"pilot_rear":-4.64
+        "clearance_diameter":3.4,"counterbore_diameter":6.2,"counterbore_depth":counterbore_depth,
+        "screw_length":screw_length,"screw_diameter":3.,"head_diameter":5.5,"head_height":3.,
+        "hex_key":2.5,"insert_diameter":fasteners::M3_INSERT_DIAMETER,"insert_length":fasteners::M3_INSERT_LENGTH,
+        "pilot_diameter":fasteners::M3_PILOT_DIAMETER,"pilot_rear":-pilot_depth
     })
 }

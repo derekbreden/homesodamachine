@@ -39,7 +39,7 @@ physical assembly force and durability retain the qualification limits below.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the rear SODA, DRAIN and FLAVOR bulkheads), §3 (the PP010822E TAP inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's two M3 × 8 and their inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the rear SODA, DRAIN and FLAVOR bulkheads), §3 (the PP010822E TAP inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's screws, printed spacers and inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
 
 | Item | Source / spec | Notes |
 |---|---|---|
@@ -66,28 +66,29 @@ results.
 
 Print-inspect the enclosure quadrants, pump flange retainers and this unit’s nameplate. Inspect the tapered loading wells, cylindrical motor guides, terminal keyways, flange-bearing lips, screw seats and insert posts. Inspect the closed tee-wall collet openings and teardropped branch bores; flexible pump stubs feed through these openings during loading. Check the shared pump/display wire passage through the continuous upper stock and its shared rear exit at X0/Z280; the display backing's cavity face remains continuous around its required openings. Install the pump-retainer inserts and screw-retain each pump while front-top is loose, before its tees, valves and chassis closure, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel can bind the slide at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
-Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face. The rear nameplate receiver takes four **short RX-M3S × 4** inserts in its Ø4 × 4.64 mm pilots. The upper pair has 3 mm of existing support-floor backing; the lower pair opens through the rear wall. Press their fronts flush with the flat seat; do not drive them beyond it. The four nameplate screws are black M3 × 6, installed at final finishing.
+Install ruthex heat-set inserts everywhere the pieces call for them. Press each
+insert straight down until flush while the carrying part is loose and accessible.
+Use the regular M3 and M5 bodies selected in [the BOM](/hardware/ledger/bom.md#13-mechanical-attach-hardware).
 
-Install the display cover’s short inserts flush with their seats from the open
-display face, before fitting the glass.
+- The nameplate, display and status-plate seats take regular M3 inserts. Clear
+  the display cavity supports before fitting hardware or glass. The nameplate's
+  blind lands stand in matching closed recesses in the cold-core casing.
+- Install regular M3 inserts in the PSU hosts, mains-inlet block, condenser
+  fingers, funnel ledges and pump-retainer hosts before fitting their parts.
+- The core's PCB columns use the [deck mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs).
+  Fit printed screw spacers above the board; keep the lid removed for heat setting.
+- Install regular M3 inserts in the relay end-clamp hosts beside the board
+  bearings. The original board holes locate on pins. Fit each board and its
+  end clamps before landing terminal wires, per [electronics-bay.md](electronics-bay.md).
+- The compressor posts and chassis corner stacks take regular M5 inserts.
+  Use the matching heat-set tip and keep their axes square to the bearing faces.
 
 Clear front-top's functional-cavity support through the empty display seat and
-open underside before installing hardware. The current
+open underside before installing hardware. The
 [native print reading](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/print-review.json)
-identifies those branches; it does not establish physical cleanup effort.
-
-**This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
-
-- **Full-length RX-M3×5.7.** The condenser fingers and the funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The mains inlet's internal mounting block and the PSU hosts take short inserts. Install them before the purchased bodies. Use the screw stacks assigned in the [BOM](/hardware/ledger/bom.md).
-- **Relay corner inserts.** Install the inserts specified in [electronics-bay.md](electronics-bay.md). The relay boards bear directly on their corner posts, with the insert faces at the PCB underside. Lower each board straight onto its posts and fasten every corner before landing the terminal wires. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs) defines the bearing tips and insert-face datums.
-- **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
-
-The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
-checks the complete host walls, blind relief, caps, entry paths and every corner-stack knuckle.
-Use locally solid deposition through these hosts and their roots as specified in
-that review. Installed fit, pullout and assembled drop performance remain physical
-qualification items.
+identifies those branches; physical cleanup and the revised interfaces require
+bench confirmation. Use locally solid deposition through the hosts and their
+wall roots, as specified in the owning print recipes.
 
 **Prepare the supports on the bench.** Seat the ASSE, water regulator,
 PISCO and meter in back-top's integral seats and close their separate snap
@@ -131,8 +132,9 @@ planes 6 mm apart. Its 42 × 38 × 1.8 mm identification
 tiles slide in continuous side channels. Each rail overlaps its edge by 2 mm,
 leaving a 38 × 38 mm visible color face; adjacent tiles have a 0.2 mm seam.
 Load each column's bottom tile first. Install the per-unit nameplate at final
-finishing, centred at world X−45.4/Z217 in the receiver beside the cards. Its four short inserts are pressed during shell preparation; four
-black M3 × 6 screws secure the flat plate. See [`finish-pack-ship.md`](finish-pack-ship.md) §3.
+finishing in the receiver beside the cards, using its regular inserts and the
+common black M3 screws. The rear identification plan owns its placement.
+See [`finish-pack-ship.md`](finish-pack-ship.md) §3.
 Seat the SODA, FLAVOR and DRAIN bulkhead flanges outside and their panel nuts
 on the relieved inside lands. Fit TAP with the threaded backflow-preventer
 assembly and CO₂ with the PISCO secondary regulator assembly, following
@@ -142,7 +144,7 @@ mark the seated depths on the received fittings.
 Install the mains inlet from inside, with its solder tabs facing into the bay.
 Seat the raised rim against the internal pocket floor; the flange and its screws
 stay behind the exterior wall. Fit the washer-backed screws from inside into
-the short inserts, using the hardware listed in the ledger. The washers bear
+the regular inserts, using the hardware listed in the ledger. The washers bear
 on the flat inboard ear faces. Check that the inlet is seated before tightening and
 that the unmodified cord plug reaches it through the rounded exterior passage.
 Fit and tighten the inlet before installing the power supply and relays; the
@@ -168,7 +170,7 @@ The condenser+fan stands east of it, hard against the depth the +X wall's own fu
 Both of the block's Y faces stand 20 mm back over its whole width, leaving 0.4 mm of folded sheet at the crown and at the base of each ([`/hardware/reference/condenser-block/README.md`](/hardware/reference/condenser-block/README.md)). Those four flanges are what the box takes:
 
 4. **Feed the aft end onto the fin.** A single fin stands off the +X wall in the bay's east lane with a finger reaching west off it at either end (`enclosure._cond_mount`). Bring the block in with those fingers entering its aft recess, then push it **forward** until the two fore flanges are 3 mm into the grooves of the front wall's two rails (`enclosure._cond_cradle`) and its fore face is flat against the rails' shoulder. **The rails are the datum in Y and their grooves in Z** — the same bargain the gas sensor's card slot strikes. The block is now standing on the lower rail's crown and the lower finger, 9 mm clear of the slab — the depth the lower finger's own bore takes.
-5. **Two screws close it.** Both go **down** the one vertical line the donor drilled through its aft flanges. Drive an M3 × 8 through the crown flange's Ø5 hole into the upper finger's ruthex, then one through the base flange's into the lower finger's. **The lower one is reached from behind** — in through the open aft face of that recess, on a long ball-end key leaned aft of the upper finger, with the bay's east lane and the core's bay still clear. Snug both; the sheet is four tenths.
+5. **Two screws close it.** Both go **down** the one vertical line the donor drilled through its aft flanges. Place a printed screw spacer on each flange. Drive the common M3 screws through the spacers and flanges into the fingers' regular inserts. **The lower one is reached from behind** — in through the open aft face of that recess, on a long ball-end key leaned aft of the upper finger, with the bay's east lane and the core's bay still clear. Snug both; the sheet is four tenths.
 
 **The gas sensor goes in before either body does.** The MQ-6 card lies ALONG the −X strip and drops straight down into the two grooved posts printed on the floor of it (`enclosure._west_cradle`), can facing WEST toward the flank and header facing EAST into the bay — down until the card lands on the shoulder at the foot of each groove, and there is no screw because the card has no hole. Do it with the front-bottom piece still open on the bench: once the compressor is down, the slot is a reach past a charged assembly for no reason. Its loom lands later, in [`wiring.md`](/hardware/assembly/wiring.md). **Card in the wrong way round is the one error this slot allows** — the can must face the wall, with the four pins standing out into the open bay where the loom can reach them.
 
@@ -220,7 +222,7 @@ insert datums in [electronics-bay.md](electronics-bay.md) and the
 The lid's below-board fluid fittings and routes go in before the PCB.
 
 Fit the PSU into back-top's shallow ceiling recess and both relays to its dry
-west wall. Use four M3 × 10 screws through the PSU ears into short inserts.
+west wall. Use the common M3 screws through the PSU ears into regular inserts.
 Fit the meter to its rear-facing snap seat and prepare its continuous inlet
 and short, straight rear outlet there.
 Seat the mains WAGOs in the west-wall wells above the relays, with their wire
@@ -351,14 +353,14 @@ The machine display sits in the rounded 30° top. Flash the 4.3B on the bench fi
 is enclosed once it is seated. Feed the J9 loom's display end from inside through
 the shared pump/display passage and out the open facet, and land it on the display's terminals
 ([wiring.md](wiring.md) §5). Before seating the display, fit the status light: press the
-status plate's four short inserts flush in its seat, then push the blue prewired LED into the
+status plate's regular inserts flush in its seat, then push the blue prewired LED into the
 bore under the plate's aperture, lens first, feeding its leads down the channel at the bore's
 foot until they come out into the display pocket. Land the LED's blue positive lead on the display's VIN
 terminal beside the loom's V12 and its black lead on DOUT0. Then seat the glass in the shallow
 counterbore with the PCB passing through the housing. Handle it ESD-safe.
 
 Place the flat TPU ring on the glass border, aligned with the cover window.
-Seat the bezel on its housing lands. Start the side screws in the short inserts
+Seat the bezel on its housing lands. Start the side screws in the regular inserts
 before tightening any of them, then draw them down evenly until the cover rests
 on its seats and the glass is retained. The heads sit in their shallow recesses.
 The [cover's mount dimensions](../printed-parts/enclosure/display-cover/mount-dimensions.json)

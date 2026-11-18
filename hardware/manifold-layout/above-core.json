@@ -85,7 +85,7 @@
       "translation_mm": [
         -26.39813995361328,
         398.8,
-        347.0
+        344.7
       ],
       "reference": "hardware/reference/meanwell-irm90/meanwell-irm90.step"
     },
@@ -159,7 +159,7 @@
       ],
       "translation_mm": [
         -68.5,
-        461.21,
+        459.0,
         330.0
       ],
       "reference": "hardware/reference/iec-c14-inlet/iec-c14-inlet.step"
@@ -3935,7 +3935,7 @@
       "c14": {
         "flange_center_mm": [
           -68.5,
-          461.21,
+          459.0,
           330.0
         ],
         "rotation": [

@@ -77,7 +77,7 @@ pub const Y_STACK_CBORE_DEPTH: f64 = Y_STACK_HEAD_RECESS + Y_STACK_HEAD_H;
 pub const Y_STACK_TIP_CLEARANCE: f64 = 2.5;
 pub const Y_STACK_SCREW_LENGTH_TOLERANCE: f64 = 0.8;
 pub const Y_STACK_UPPER_CHAMFER: f64 = 5.1;
-pub const LOWER_ROD_LEN: f64 = 100.0;
+pub const LOWER_ROD_LEN: f64 = crate::fasteners::M5_LONG_SCREW_LENGTH;
 pub const UPPER_ROD_LEN: f64 = LOWER_ROD_LEN;
 pub const Y_STACK_LOWER_ANCHOR_FACE_DROP: f64 = 34.05;
 pub const Y_STACK_LOWER_PLANE_OVER_SEAT: f64 = 0.3;
@@ -85,11 +85,13 @@ pub const Y_STACK_UPPER_DATUM: f64 = 265.0;
 pub const Y_STACK_UPPER_HEAD_DATUM: f64 = 321.5;
 
 /// M3 and M5 inserts and their bosses.
-pub const HEATSET_DEPTH: f64 = 5.25;
 pub const MOUNT_BOSS_DIA: f64 = 8.0;
 pub const MOUNT_BORE_RELIEF: f64 = 1.0;
 pub const FLOOR_HEATSET_DIA: f64 = 6.4;
-pub const FLOOR_HEATSET_DEPTH: f64 = 9.5;
+pub const FLOOR_HEATSET_DEPTH: f64 = crate::fasteners::M5_INSERT_LENGTH;
+pub const FLOOR_SCREW_LENGTH: f64 = crate::fasteners::M5_SCREW_LENGTH;
+pub const FLOOR_WASHER_THICKNESS: f64 = 1.5;
+pub const FLOOR_BORE_DEPTH: f64 = FLOOR_SCREW_LENGTH - FLOOR_WASHER_THICKNESS + crate::fasteners::INSERT_RELIEF;
 pub const FLOOR_HEATSET_MIN_WALL: f64 = 2.6;
 pub const RELIEF_CHAMFER: f64 = 45.0;
 
@@ -101,8 +103,11 @@ pub const MQ6_HEADER_RELIEF: f64 = 2.0;
 /// The condenser's slot cradles and mount.
 pub const COND_RAIL_WALL: f64 = 3.0;
 pub const COND_SLOT_GRIP: f64 = 3.0;
-pub const COND_SCREW_LEN: f64 = 8.0;
-pub const COND_BORE_DEPTH: f64 = COND_SCREW_LEN + MOUNT_BORE_RELIEF;
+pub const COND_SCREW_LEN: f64 = crate::fasteners::M3_SCREW_LENGTH;
+pub const COND_SPACER_HEIGHT: f64 = crate::fasteners::M3_SPACER_HEIGHT;
+pub const COND_SPACER_DIAMETER: f64 = crate::fasteners::M3_SPACER_DIAMETER;
+pub const COND_FLANGE_THICKNESS: f64 = 0.4;
+pub const COND_BORE_DEPTH: f64 = COND_SCREW_LEN - COND_SPACER_HEIGHT + MOUNT_BORE_RELIEF;
 pub const COND_BOSS_T: f64 = COND_BORE_DEPTH + COND_RAIL_WALL;
 /// The lands under the collet plate's ends: their reach inboard, run, section and corbel.
 pub const PLATE_FOOT_REACH: f64 = 10.0;
