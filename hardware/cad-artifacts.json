@@ -4314,7 +4314,8 @@
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": {
       "commit": "21a3302c4dad088863e4b717731efaf6075a3b89",
-      "inputs": "d034390362534a2e67bfec698baf88094d7a1d8f98056b153051f225287eb889"
+      "inputs": "d034390362534a2e67bfec698baf88094d7a1d8f98056b153051f225287eb889",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
       "commit": "648e90e1a94f257d72397147086a67e30b629a22",
@@ -4384,13 +4385,13 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
-      "commit": "3adda619c162d58d32437a6f13ad297f17922fee",
-      "inputs": "16a6fa4d8a91c1141607ba2f45ba7f7dae3db57deef3570d5735abc70f6b4708",
-      "unproven": true
+      "commit": "5710c8a55c61bf34d14e5b57258f2907615b0cac",
+      "inputs": "16a6fa4d8a91c1141607ba2f45ba7f7dae3db57deef3570d5735abc70f6b4708"
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": {
       "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": {
       "commit": "65d07449614b3d52215e65fdae0572d8a43df042",
@@ -4398,7 +4399,8 @@
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": {
       "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
       "commit": "111baed47490511b2c3edc753cfa14120ac0d79d",
