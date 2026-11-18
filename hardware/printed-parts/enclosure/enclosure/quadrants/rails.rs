@@ -249,8 +249,8 @@ impl RearAlignment {
         let mouth_y = back_flank_start(y_joint);
         let fore_y = mouth_y + REAR_RIB_SETBACK;
         let aft_y = fore_y + REAR_RIB_LENGTH;
-        let rail_edge = rail_x(-1.0, Y::Back).arm_end;
-        let [_, _, channel_edge] = rail_channel_span(-1.0, Y::Back);
+        let rail_edge = rail_x(-1.0, Y::Back).hook;
+        let [channel_edge, _, _] = rail_channel_span(-1.0, Y::Back);
         let clearance = slide_slip();
         Self {
             rib_y: [fore_y, aft_y],
