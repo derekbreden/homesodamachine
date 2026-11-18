@@ -771,19 +771,18 @@
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
-    "sha256": "a94f65270fb96dd6c34f84aea03965230fd85f80946e5916208e181cdad679ec",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-bottom-rounded-alignment-mark2/2026-11-17-back-bottom-mark2-9baa7a33.gcode.3mf",
+    "sha256": "8f49c206f741f57d7f4fc519e1b730a15e2bcb5c7c6cb7e14b4870893c7967e5",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-bottom",
-    "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
-    "project_sha256": "4b33e044152daf01484f5ea260ae333fca5ee259a91eb25b7546da3dd884fb93",
-    "archive_sha256": "dce32aedc913edc22b2ba608e691ee6ae36f94e1d48f4400ba7155884cdf1a8f",
-    "gcode_sha256": "e8451bc42df6abe95d2392002065582558d16c1652762e02c1bf75c520730fda",
+    "recipe_sha256": "c5c16b0db605858e98bf21078124af7990c64bc0cacdbf2b5ac2b787304032a7",
+    "project_sha256": "8473989c735d4780cf00500f3da19903d79379a98f9c63e3f43dbd66056c083c",
+    "archive_sha256": "5a7cd929144b3d5ce7b263eacba5035b1fd2f147e4cc72d0931092920fd0d53b",
+    "gcode_sha256": "3142a2b026b1ad7596e75a6292310f8b6d951e9e8b60070ebfb1bb89fc7d1117",
     "kind": "plan",
-    "layers": 788,
-    "recipe_commit": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a",
-    "model_sha256": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
+    "layers": 754,
+    "model_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -799,9 +798,9 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
-      "First-layer Z": "Bambu's textured plate compensation plus 0.04 mm",
-      "Rear alignment": "Rounded integral keys at both sliding rails"
-    }
+      "First-layer Z": "Bambu's textured plate compensation plus 0.04 mm"
+    },
+    "recipe_commit": "c50771abbf3b003df1e3fab6d142e068216e41c0"
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",

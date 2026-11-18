@@ -20,7 +20,7 @@
     {
       "bed_contact_z_mm": 0.0,
       "blocked_facets": 0,
-      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "embedded_vertex_error_mm": 6.210925107552612e-10,
       "layer_ranges": [],
       "modifiers_expected": 6,
       "name": "enclosure-back-bottom",
@@ -39,13 +39,13 @@
         [
           297.974996948,
           288.0,
-          189.0
+          180.800003052
         ]
       ],
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 256495
+      "vertices": 256250
     }
   ],
   "pass": true,

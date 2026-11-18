@@ -1,22 +1,22 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-bottom-rounded-alignment-mark2/2026-11-17-back-bottom-mark2-9baa7a33.gcode.3mf",
-  "archive_sha256": "dce32aedc913edc22b2ba608e691ee6ae36f94e1d48f4400ba7155884cdf1a8f",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.gcode.3mf",
+  "archive_sha256": "5a7cd929144b3d5ce7b263eacba5035b1fd2f147e4cc72d0931092920fd0d53b",
   "bead_envelope_plate_mm": [
     [
       23.693778000000002,
-      59.871995
+      61.888995
     ],
     [
-      302.426005,
-      292.664005
+      302.391005,
+      292.605005
     ]
   ],
   "bed_border_mm": 20.0,
   "bed_margins_mm": {
-    "back": 27.335995000000025,
-    "front": 59.871995,
+    "back": 27.394994999999994,
+    "front": 61.888995,
     "left": 23.693778000000002,
-    "right": 22.573995000000025
+    "right": 22.608994999999993
   },
   "checks": {
     "archive": true,
@@ -37,14 +37,14 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9971348628327348,
-      "second_layer_centerline_outside_first_mm": 36.484210672916085,
-      "second_layer_model_bead_area_mm2": 54174.308690149584
+      "fraction_over_first_layer": 0.9971348625145751,
+      "second_layer_centerline_outside_first_mm": 36.48425930948877,
+      "second_layer_model_bead_area_mm2": 54174.30878769084
     }
   },
   "gcode_md5_matches": true,
-  "layers": 788,
-  "minimum_bed_margin_mm": 22.573995000000025,
+  "layers": 754,
+  "minimum_bed_margin_mm": 22.608994999999993,
   "pass": true,
   "project_check": true,
   "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
@@ -301,7 +301,7 @@
         [
           297.9739969482422,
           87.5,
-          183.8
+          180.7990030517578
         ]
       ],
       "samples": [
@@ -319,18 +319,18 @@
           "coverage": 0.9940762753838533,
           "infill_core_mm2": 958.0372258152466,
           "outline_coverage": 0.9947000138561729,
-          "print_z_mm": 173.48,
+          "print_z_mm": 172.04,
           "sampling_step_mm": 0.13776948293162058,
           "stock_mm2": 1095.8541311474805
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9973273942093541,
-          "infill_core_mm2": 42.611066309167484,
-          "outline_coverage": 0.9976275207591934,
-          "print_z_mm": 183.56,
+          "coverage": 0.9980361068069619,
+          "infill_core_mm2": 2106.9036991460257,
+          "outline_coverage": 0.9981078524124882,
+          "print_z_mm": 180.44,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 48.00150855050538
+          "stock_mm2": 2246.979275699102
         }
       ],
       "source_bounds_mm": [
@@ -342,7 +342,7 @@
         [
           -90.0,
           471.3,
-          177.8
+          174.7990030517578
         ]
       ]
     },
@@ -360,7 +360,7 @@
         [
           297.9739969482422,
           285.0,
-          183.8
+          180.7990030517578
         ]
       ],
       "samples": [
@@ -378,18 +378,18 @@
           "coverage": 0.9941885748171575,
           "infill_core_mm2": 960.21997531438,
           "outline_coverage": 0.9948202685145084,
-          "print_z_mm": 173.48,
+          "print_z_mm": 172.04,
           "sampling_step_mm": 0.13776948293162058,
           "stock_mm2": 1095.6453464127808
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9964365256124722,
-          "infill_core_mm2": 42.611066309167484,
-          "outline_coverage": 0.99644128113879,
-          "print_z_mm": 183.56,
+          "coverage": 0.9982282657077773,
+          "infill_core_mm2": 2174.720777062576,
+          "outline_coverage": 0.998298802587135,
+          "print_z_mm": 180.44,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 48.00150855050538
+          "stock_mm2": 2309.5197939568775
         }
       ],
       "source_bounds_mm": [
@@ -401,12 +401,12 @@
         [
           107.5,
           471.3,
-          177.8
+          174.7990030517578
         ]
       ]
     }
   ],
-  "support_roads": 338525,
+  "support_roads": 337471,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,

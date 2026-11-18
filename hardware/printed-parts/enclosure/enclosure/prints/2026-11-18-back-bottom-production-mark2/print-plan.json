@@ -1,12 +1,12 @@
 {
-  "purpose": "Bind the current rear alignment geometry to its production project, native slice and published replay.",
+  "purpose": "Bind the current rear enclosure mesh to its production project, native slice and published replay.",
   "piece": "back-bottom",
   "material_id": "HSM-0080",
   "printer": "Mark2",
   "connection_key": "Mark2",
   "status": "prepared",
-  "prepared_utc": "2026-11-18T05:13:19+00:00",
-  "source_revision": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a",
+  "prepared_utc": "2026-11-18T17:08:41+00:00",
+  "source_revision": "c50771abbf3b003df1e3fab6d142e068216e41c0",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,38 +24,34 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
+  "recipe_sha256": "c5c16b0db605858e98bf21078124af7990c64bc0cacdbf2b5ac2b787304032a7",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-  "source_stl_sha256": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
+  "source_stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
   "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-  "source_fine_archive_sha256": "c9dee2bd5336ee341613844643550aa838635d9c06d3823c1350811beda2c862",
+  "source_fine_archive_sha256": "bb1fe5491e4ec7b7f31aff3e2e7875379624849c0267278ecf40796c66bbb979",
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "print_regions_sha256": "188abbc61085f2322bfa1c279d54fcf2ae297bc74ac53192eaadef53f651830d",
-  "alignment_features": [
-    "enclosure-back-bottom::west-alignment-key",
-    "enclosure-back-bottom::east-alignment-key"
-  ],
-  "archive": "2026-11-17-back-bottom-mark2-9baa7a33.gcode.3mf",
-  "archive_sha256": "dce32aedc913edc22b2ba608e691ee6ae36f94e1d48f4400ba7155884cdf1a8f",
-  "gcode_sha256": "e8451bc42df6abe95d2392002065582558d16c1652762e02c1bf75c520730fda",
-  "project": "2026-11-17-back-bottom-mark2-9baa7a33.3mf",
-  "project_sha256": "4b33e044152daf01484f5ea260ae333fca5ee259a91eb25b7546da3dd884fb93",
+  "print_regions_sha256": "aa1a674a352201b3765a3bf36000d1efae5413111e50646a79060320f593780c",
+  "archive": "2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.gcode.3mf",
+  "archive_sha256": "5a7cd929144b3d5ce7b263eacba5035b1fd2f147e4cc72d0931092920fd0d53b",
+  "gcode_sha256": "3142a2b026b1ad7596e75a6292310f8b6d951e9e8b60070ebfb1bb89fc7d1117",
+  "project": "2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.3mf",
+  "project_sha256": "8473989c735d4780cf00500f3da19903d79379a98f9c63e3f43dbd66056c083c",
   "preparation": "preparation.json",
   "native_review": "review.json",
   "support_audits": [
     "support-audit-1901.json"
   ],
-  "layers": 788,
-  "estimated_seconds": 111268.71623094525,
-  "minimum_bead_bed_margin_mm": 22.573995000000025,
+  "layers": 754,
+  "estimated_seconds": 111118.13812237898,
+  "minimum_bead_bed_margin_mm": 22.608994999999993,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
     {
       "bed_contact_z_mm": 0.0,
       "blocked_facets": 0,
-      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "embedded_vertex_error_mm": 6.210925107552612e-10,
       "layer_ranges": [],
       "modifiers_expected": 6,
       "name": "enclosure-back-bottom",
@@ -74,15 +70,15 @@
         [
           297.974996948,
           288.0,
-          189.0
+          180.800003052
         ]
       ],
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 256495
+      "vertices": 256250
     }
   ],
-  "replay_sha256": "a94f65270fb96dd6c34f84aea03965230fd85f80946e5916208e181cdad679ec",
-  "replay": "print-playbacks/a94f65270fb96dd6c34f84aea03965230fd85f80946e5916208e181cdad679ec.json.gz"
+  "replay_sha256": "8f49c206f741f57d7f4fc519e1b730a15e2bcb5c7c6cb7e14b4870893c7967e5",
+  "replay": "print-playbacks/8f49c206f741f57d7f4fc519e1b730a15e2bcb5c7c6cb7e14b4870893c7967e5.json.gz"
 }
