@@ -92,6 +92,11 @@ each move accelerates, cruises and brakes. Timing is estimated: firmware actions
 waits, compensation, input shaping and interventions during the print are outside the study.
 This is an on-demand view of a slice and starts no printer operation.
 
+Keep a prepared slice beside its matching `preparation.json`. Playback and the support audit use
+that record's removable stock declarations and the sliced meshes to identify deposited support.
+A move through a shared boundary or retained model material keeps its slicer label. The reading
+runs when generating a replay or auditing a slice.
+
 `PRINT.json` is the `*.print.json` a preparer writes beside its project. It supplies the part's
 identify ID and its pose on the plate, so seams are measured in the part's own CAD frame.
 `--csv` retains each seam reading and `--json` saves the summary. The speed command's

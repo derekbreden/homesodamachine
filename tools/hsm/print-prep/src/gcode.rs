@@ -2,6 +2,7 @@
 //! its roads, the straight runs a bead is laid along, with their heights, plastic, width, feature
 //! and object.
 
+use crate::support_stock::{StockMoves, StockObject};
 use anyhow::{Context, Result};
 use std::io::{BufRead, BufReader, Read};
 use std::path::Path;
@@ -51,17 +52,53 @@ pub fn plate_gcode(archive: &Path) -> Result<Vec<u8>> {
 }
 
 /// Every layer of `gcode`, read in one pass; `each` sees one layer at a time.
-pub fn layers(gcode: &[u8], mut each: impl FnMut(Layer)) {
+pub fn layers(gcode: &[u8], each: impl FnMut(Layer)) {
+    layers_with_stock(gcode, &StockMoves::default(), each);
+}
+
+pub(crate) fn layers_with_stock(gcode: &[u8], stock: &StockMoves, mut each: impl FnMut(Layer)) {
     let mut reader = Reader::default();
-    for line in BufReader::new(gcode).split(b'\n') {
+    let support: Option<Rc<str>> = (!stock.is_empty()).then(|| Rc::from("Support"));
+    for (index, line) in BufReader::new(gcode).split(b'\n').enumerate() {
         let Ok(line) = line else { break };
-        if let Some(layer) = reader.line(&String::from_utf8_lossy(&line)) {
+        let start = reader.roads.len();
+        if let Some(layer) = reader.line(&String::from_utf8_lossy(&line), true) {
             each(layer);
+        } else if let Some(support) = support.as_ref().filter(|_| stock.contains(index + 1)) {
+            for road in &mut reader.roads[start..] {
+                road.feature = support.clone();
+            }
         }
     }
     if let Some(layer) = reader.finish() {
         each(layer);
     }
+}
+
+/// Identify complete G-code moves in a stock section, retaining the decoder's modal position.
+pub(crate) fn stock_lines(gcode: &str, objects: &[StockObject]) -> Vec<usize> {
+    let mut reader = Reader::default();
+    let mut top = 0.0;
+    let mut sections = Vec::new();
+    let mut lines = Vec::new();
+    for (index, line) in gcode.lines().enumerate() {
+        let z = line.trim_start().strip_prefix(';')
+            .and_then(|comment| comment.trim_start().strip_prefix("Z_HEIGHT:"))
+            .and_then(|value| value.trim().parse::<f64>().ok());
+        if let Some(z) = z {
+            let bottom = if z > top { top } else { 0.0 };
+            top = z;
+            sections = objects.iter().flat_map(|object| object.sections(bottom, top)).collect();
+        }
+        reader.line(line, !sections.is_empty());
+        if reader.roads.first().is_some_and(|road| MODEL.contains(&&*road.feature))
+            && sections.iter().any(|section| reader.roads.iter().all(|road| section.contains(road, top)))
+        {
+            lines.push(index + 1);
+        }
+        reader.roads.clear();
+    }
+    lines
 }
 
 struct Reader {
@@ -77,6 +114,7 @@ struct Reader {
     tool: u8,
     z: Option<f64>,
     roads: Vec<Road>,
+    words: Vec<(u8, f64)>,
     absolute: bool,
     relative_e: bool,
 }
@@ -84,7 +122,7 @@ struct Reader {
 impl Default for Reader {
     fn default() -> Reader {
         Reader { x: 0.0, y: 0.0, nz: 0.0, e: 0.0, width: 0.42, height: 0.24, feature: Rc::from(""), object: None, tool: 0, z: None,
-                 roads: Vec::new(), absolute: true, relative_e: true }
+                 roads: Vec::new(), words: Vec::new(), absolute: true, relative_e: true }
     }
 }
 
@@ -112,8 +150,14 @@ fn number(text: &[u8]) -> Option<(f64, usize)> {
 
 /// The letter words of a command, later ones replacing earlier.
 pub fn words(text: &str) -> Vec<(u8, f64)> {
-    let bytes = text.as_bytes();
     let mut out: Vec<(u8, f64)> = Vec::new();
+    read_words(text, &mut out);
+    out
+}
+
+fn read_words(text: &str, out: &mut Vec<(u8, f64)>) {
+    out.clear();
+    let bytes = text.as_bytes();
     let mut at = 0;
     while at < bytes.len() {
         let c = bytes[at];
@@ -129,7 +173,6 @@ pub fn words(text: &str) -> Vec<(u8, f64)> {
         }
         at += 1;
     }
-    out
 }
 
 fn word(words: &[(u8, f64)], key: u8) -> Option<f64> {
@@ -162,7 +205,7 @@ pub(crate) fn arc(x0: f64, y0: f64, x1: f64, y1: f64, words: &[(u8, f64)], clock
 }
 
 impl Reader {
-    fn line(&mut self, raw: &str) -> Option<Layer> {
+    fn line(&mut self, raw: &str, collect: bool) -> Option<Layer> {
         let line = raw.trim();
         if let Some(comment) = line.strip_prefix(';') {
             let text = comment.trim();
@@ -206,18 +249,19 @@ impl Reader {
             "G0" | "G1" | "G2" | "G3" | "G92" => {}
             _ => return None,
         }
-        let words = words(&code[command.len()..]);
+        read_words(&code[command.len()..], &mut self.words);
+        let words = &self.words;
         if command == "G92" {
-            self.x = word(&words, b'X').unwrap_or(self.x);
-            self.y = word(&words, b'Y').unwrap_or(self.y);
-            self.nz = word(&words, b'Z').unwrap_or(self.nz);
-            self.e = word(&words, b'E').unwrap_or(self.e);
+            self.x = word(words, b'X').unwrap_or(self.x);
+            self.y = word(words, b'Y').unwrap_or(self.y);
+            self.nz = word(words, b'Z').unwrap_or(self.nz);
+            self.e = word(words, b'E').unwrap_or(self.e);
             return None;
         }
-        let nx = if self.absolute { word(&words, b'X').unwrap_or(self.x) } else { self.x + word(&words, b'X').unwrap_or(0.0) };
-        let ny = if self.absolute { word(&words, b'Y').unwrap_or(self.y) } else { self.y + word(&words, b'Y').unwrap_or(0.0) };
-        let nz = if self.absolute { word(&words, b'Z').unwrap_or(self.nz) } else { self.nz + word(&words, b'Z').unwrap_or(0.0) };
-        let de = match word(&words, b'E') {
+        let nx = if self.absolute { word(words, b'X').unwrap_or(self.x) } else { self.x + word(words, b'X').unwrap_or(0.0) };
+        let ny = if self.absolute { word(words, b'Y').unwrap_or(self.y) } else { self.y + word(words, b'Y').unwrap_or(0.0) };
+        let nz = if self.absolute { word(words, b'Z').unwrap_or(self.nz) } else { self.nz + word(words, b'Z').unwrap_or(0.0) };
+        let de = match word(words, b'E') {
             Some(v) => {
                 let de = if self.relative_e { v } else { v - self.e };
                 self.e = if self.relative_e { self.e + v } else { v };
@@ -225,9 +269,9 @@ impl Reader {
             }
             None => 0.0,
         };
-        if self.z.is_some() && de > 1e-9 && (nx != self.x || ny != self.y) {
+        if collect && self.z.is_some() && de > 1e-9 && (nx != self.x || ny != self.y) {
             if command == "G2" || command == "G3" {
-                let points = arc(self.x, self.y, nx, ny, &words, command == "G2", CHORD);
+                let points = arc(self.x, self.y, nx, ny, words, command == "G2", CHORD);
                 let chords = (points.len() - 1) as f64;
                 let height = |i: usize| self.nz + (nz - self.nz) * i as f64 / chords;
                 for (i, pair) in points.windows(2).enumerate() {
