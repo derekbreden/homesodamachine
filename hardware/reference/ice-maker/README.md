@@ -4,7 +4,7 @@ The black [Antarctic Star HZB-12/Q, ASIN B0F8NKJD6X](https://www.amazon.com/dp/B
 
 ## Cold core architecture
 
-The wrapped copper evaporator cools the fabricated stainless carbonator. Recover the donor charge before opening the circuit at the old evaporator's suction and capillary connections. Preserve the factory drier and the bonded heat exchanger through the conversion, then evacuate and recharge the new circuit.
+The wrapped copper evaporator cools the fabricated stainless carbonator. Remove the household donor's R-600a charge outdoors and clear residual gas before opening the circuit at the old evaporator's suction and capillary connections. Preserve the factory drier and the bonded heat exchanger through the conversion, then evacuate and recharge the new circuit.
 
 The hot-gas bypass solenoid is deleted.
 
@@ -83,7 +83,7 @@ Keep the bonded cap-tube-plus-suction-line pair intact when re-piping. The helic
 
 ### Process tube (the "dead-end" copper stub)
 
-A short copper tube with a pinched-and-brazed tip sticks out of the compressor body. Use the process tube for recovery, evacuation and recharge through qualified low-side access. [Refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md)
+A short copper tube with a pinched-and-brazed tip sticks out of the compressor body. Use the process tube for charge removal, evacuation and recharge through qualified low-side access. [Refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md)
 
 ### Hot-gas bypass solenoid (DISCARD for our use)
 

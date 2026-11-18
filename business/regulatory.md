@@ -15,11 +15,11 @@ those obligations require review independently of retailer requirements.
 
 ## EPA Section 608 — refrigerant handling
 
-[40 CFR 82.154(a)(1)(ix)](https://www.govinfo.gov/content/pkg/CFR-2025-title40-vol21/pdf/CFR-2025-title40-vol21-sec82-154.pdf)
+[40 CFR 82.154(a)(1)(ix)](https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-82/subpart-F/section-82.154)
 exempts R-600a only in named end-uses: household refrigerators/freezers, retail food
 stand-alone refrigerators/freezers, and vending machines. The exemption covers the
-venting prohibition and Subpart F requirements for those uses. Natural refrigerants
-have no blanket exemption.
+venting prohibition and Subpart F requirements for those uses, including
+[Section 608 technician certification](https://www.ecfr.gov/current/title-40/chapter-I/subchapter-C/part-82/subpart-F/section-82.161).
 
 The [household design basis](/hardware/markings/README.md) places the donor ice maker
 and this residential beverage appliance in an exempt R-600a end-use. This is the
@@ -100,6 +100,9 @@ Applies only if the project pivots to an HFC refrigerant.
 
 Not a regulation, but load-bearing for the build path described in `hardware/reference/ice-maker/README.md` "Cold core architecture" — wherever the refrigerant loop is opened and brazed.
 
-After the factory R-600a charge is vented, residual hydrocarbon remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation is to flow low-pressure argon (a few psi, flowing — not static) through the opened loop during and through the braze, sweeping residual fuel out ahead of the heat.
-
-The documented build path reuses the argon cylinder already present for laser welding, with the appropriate purge-side regulator / tubing setup for refrigeration brazing.
+The verified household donor uses controlled outdoor charge removal with the
+outlet in freely dispersing air. Clear residual hydrocarbon from oil and tubing
+before heating. Verify an open dry-inert flow path through each segment being
+brazed. The existing shop argon and RX Weld flowmeter supply the open purge
+after the refrigeration-side connection and flow are verified. Match the
+separate static-test regulator to its specified gas. [Refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md)

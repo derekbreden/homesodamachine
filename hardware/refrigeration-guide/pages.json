@@ -112,7 +112,7 @@
         },
         {
           "title": "Join and prove the circuit",
-          "body": "Recovery, open work, leak testing and weighing are on pages 11-26. Install the hardware and controls before the powered tests."
+          "body": "Charge removal, open work, leak testing and weighing are on pages 11-26. Install the hardware and controls before the powered tests."
         },
         {
           "title": "Read the bench cards",
@@ -681,7 +681,7 @@
         },
         {
           "title": "Mark the branches on the actual donor",
-          "body": "Tag both ends of the finger plate, then trace the harvest solenoid line back to its discharge tee. Photograph all three locations before recovery."
+          "body": "Tag both ends of the finger plate, then trace the harvest solenoid line back to its discharge tee. Photograph all three locations before removing the charge."
         },
         {
           "title": "Protect the factory drier and capillary",
@@ -700,7 +700,7 @@
     },
     {
       "title": "Stage the refrigeration bench",
-      "subtitle": "Check the tools in the ledger and establish the setup for R600a sealed-system work.",
+      "subtitle": "Use the acquired tools and confirm the remaining fittings and instruments before opening.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [46, 148],
@@ -724,33 +724,33 @@
           {"kind": "label", "value": "TopTes PT520A", "x": 29, "y": 203.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "De-energized localization after A3 area clearance.", "x": 187, "y": 203.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 221], "end": [523, 221], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "R600a kit to confirm", "x": 29, "y": 246.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Recovery, access, dry gas, gauges and vacuum pump.", "x": 187, "y": 239.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "R600a leak wand, reference leak and ambient monitor.", "x": 187, "y": 253.5, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Connect and evacuate", "x": 29, "y": 246.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Confirm short R600a hoses, A3 pump and micron gauge.", "x": 187, "y": 239.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Reuse the Enviro-Safe can and tap after a fit check.", "x": 187, "y": 253.5, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 264], "end": [523, 264], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Charge diagnosis setup", "x": 29, "y": 289.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Low-volume pressure points, contact probes and", "x": 187, "y": 282.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "an immersion probe for a delivered-water measurement.", "x": 187, "y": 296.5, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"}
+          {"kind": "label", "value": "Vent, test and seal", "x": 29, "y": 289.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Confirm discharge hose, access, pressure fixture and seal.", "x": 187, "y": 282.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Stage the R600a wand, reference and ambient monitor.", "x": 187, "y": 296.5, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Confirm R600a training and equipment",
-          "body": "Sealed-system work requires training in flammable R600a service. Verify the equipment ratings. Suitability of the Orion A/C set and modeled BPV31 for this use is unconfirmed."
+          "title": "Check the acquired pump, manifold and tap",
+          "body": "The Orion pump and manifold have no documented R600a suitability. Check the owned BPV31 for tube fit and R600a compatibility. Arrange the qualified set before opening."
         },
         {
-          "title": "Confirm the bench setup before opening",
-          "body": "Record the actual recovery and vacuum setups, gauge locations, circuit test-pressure limit and final process-tube closure. Confirm the complete kit is available before opening the donor."
+          "title": "Use the household donor removal route",
+          "body": "Stage the outdoor discharge on page 13. Record the refrigerant and end-use, the clearance method and the final process-tube seal in the bench log."
         },
         {
-          "title": "Set up the work area and isolation",
-          "body": "Keep ignition sources out. Set up ventilation and the safe disconnect. Prepare and check the ambient and joint detectors on the next page before recovery."
+          "title": "Stage the dry gas and leak instruments",
+          "body": "Use the owned argon supply and RX Weld flowmeter for the open purge. Confirm the static test regulator and limit. Set up the two gas checks on the next page."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "Verify R600a training, equipment and the service method before starting recovery.",
+        "body": "Record the access, gas routing, instrument checks and closure before opening the donor.",
         "y": 699,
         "tone": "#1749D1"
       },
@@ -817,8 +817,8 @@
       "url": "https://www.inficon.com/media/5821/download/Operating-Manual---GAS-Mate-%28English%29.pdf?inline=true&language=en&v=1"
     },
     {
-      "title": "Recover the factory charge",
-      "subtitle": "Recover R600a into a suitable cylinder before cold-opening the circuit.",
+      "title": "Remove the donor charge outdoors",
+      "subtitle": "Use the verified household R600a route and clear residual gas before cutting or heating.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [46, 148],
@@ -834,32 +834,36 @@
           {"kind": "ellipse", "x": 238.09437472, "y": 149.92062829999998, "width": 9, "height": 9, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 1},
           {"kind": "label", "value": "Suction return", "x": 31, "y": 205, "size": 11.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Locate the actual dead-end stub above the suction return.", "x": 29, "y": 284, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "The model marks the station. Connect the qualified recovery set to the actual stub.", "x": 29, "y": 307, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"}
+          {"kind": "label", "value": "Service tap", "x": 29, "y": 307, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "arrow", "start": [91, 304], "end": [116, 304], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "label", "value": "R600a discharge hose", "x": 124, "y": 307, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "arrow", "start": [233, 304], "end": [258, 304], "color": "#1749D1", "width": 1.2, "head": 4},
+          {"kind": "label", "value": "Cleared outdoor outlet", "x": 266, "y": 307, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
           "title": "Identify the actual stub",
-          "body": "Isolate the donor at its supply. Follow the short dead-end process tube on the compressor. The pinch and factory seal distinguish it from the suction and discharge lines."
+          "body": "Isolate power and verify the household R600a donor. Find the short capped process tube. Measure its OD and usable straight length for the access fitting."
         },
         {
-          "title": "Recover through the specified service connection",
-          "body": "Connect the qualified R600a recovery set and cylinder in the cleared work area. Record removed mass, component identity and the recovery check."
+          "title": "Set the hose outlet before opening",
+          "body": "With the detector active, route and secure the qualified hose outdoors away from people, ignition sources, openings and low spots. Let the gas disperse freely. Keep the donor off."
         },
         {
           "title": "Clear retained refrigerant",
-          "body": "Verify circuit and oil clearance by the R600a service method before cutting or heating a tube. Record the actual measurement and equipment used."
+          "body": "After the bulk discharge, clear gas from the circuit and oil by the R600a service method. Record the checks. A gauge at ambient pressure alone leaves residual gas unaccounted for."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "DONE WHEN",
-        "body": "Factory gas is recovered, power isolated and residual refrigerant clearance is recorded.",
+        "body": "Power is isolated and the outdoor discharge and residual-gas clearance are recorded.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "refrigerant-loop.md §2 / Secop hermetic service guide",
-      "url": "https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf"
+      "source": "refrigerant-loop.md §2 / Whirlpool A3 service pp. 19–22",
+      "url": "https://www.whirlpool.com/content/dam/global/documents/202409/technical-manual-w11105483-revb.pdf#page=19"
     },
     {
       "title": "Prove the inert sweep before heat",
@@ -887,7 +891,7 @@
       "actions": [
         {
           "title": "Stage dry gas and regulator",
-          "body": "Identify the dry gas and verify its regulator rating. Keep the drier dry. Complete recovery and circuit clearance before cold-opening any line."
+          "body": "Identify the dry gas and verify its regulator rating. Keep the drier dry. Complete charge removal and clearance before cold-opening any line."
         },
         {
           "title": "Prove flow across the actual joint",
@@ -910,7 +914,7 @@
     },
     {
       "title": "Cut at the evaporator",
-      "subtitle": "Separate the finger plate after recovery. Preserve the entire original metering path.",
+      "subtitle": "Separate the finger plate after charge removal and clearance. Preserve the entire original metering path.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [46, 148],
@@ -1502,7 +1506,7 @@
         },
         {
           "title": "Resolve uncertainty before tuning",
-          "body": "Require delivered-mass uncertainty within 0.25 g to interpret a 1.0 g move. If the amount is uncertain or must come down, recover and weigh a new known total."
+          "body": "Require delivered-mass uncertainty within 0.25 g to interpret a 1.0 g move. If the amount is uncertain or must come down, remove the charge and weigh a new known total."
         }
       ],
       "actions_y": 498,
@@ -1549,7 +1553,7 @@
         },
         {
           "title": "Subtract what came out",
-          "body": "The finger plate and hot-gas branch carried refrigerant. If the removed plate is measured, keep the recovered, isolated scrap separate from the retained circuit."
+          "body": "The finger plate and hot-gas branch carried refrigerant. If the removed plate is measured, keep the cleared, isolated scrap separate from the retained circuit."
         },
         {
           "title": "Keep the largest unknown visible",
@@ -1592,7 +1596,7 @@
           {"kind": "label", "value": "Bench configuration", "x": 20, "y": 272, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "round_rect", "x": 300, "y": 60, "width": 200, "height": 170, "radius": 8, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
           {"kind": "label", "value": "PROCESS-TUBE ACCESS", "x": 316, "y": 88, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Recovery", "x": 316, "y": 118, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Charge removal", "x": 316, "y": 118, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Dry inert purge", "x": 316, "y": 140, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Vacuum", "x": 316, "y": 162, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Recharge", "x": 316, "y": 184, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
@@ -1603,7 +1607,7 @@
       "actions": [
         {
           "title": "Close at the marked circuit boundary",
-          "body": "Close the circuit isolation valve. Recover trapped gas in the attached A3 set before disconnecting. Keep the qualified low-volume running pressure fixture in its intended position."
+          "body": "Close the circuit isolation valve. Clear trapped gas from the attached set via the verified charge-removal route before disconnecting. Keep the qualified low-volume running pressure fixture in its intended position."
         },
         {
           "title": "Check access and closure",
@@ -2158,8 +2162,8 @@
           {"kind": "label", "value": "approved ventilation from outside the affected area.", "x": 199, "y": 94.0, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [18, 114], "end": [522, 114], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "One seam alarms again", "x": 30, "y": 149.0, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Tag the joint from the work record and recover before", "x": 199, "y": 142.0, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "reopening it. Repeat inert, vacuum and charged checks.", "x": 199, "y": 156.0, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Tag the joint. Remove the charge by the method for", "x": 199, "y": 142.0, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "this loop before reopening it. Repeat all leak checks.", "x": 199, "y": 156.0, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [18, 176], "end": [522, 176], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "No above-ambient pressure", "x": 30, "y": 211.0, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Record the charged sweep as inconclusive for that", "x": 199, "y": 204.0, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
@@ -2181,7 +2185,7 @@
         },
         {
           "title": "Use the repair sequence",
-          "body": "Record the joint and the state in which it was found. Recovery, gas clearance, repair, inert test, vacuum and a new weighed charge precede further operation."
+          "body": "Record the joint and the state in which it was found. Charge removal, gas clearance, repair, inert test, vacuum and a new weighed charge precede further operation."
         }
       ],
       "actions_y": 498,
@@ -2423,7 +2427,7 @@
       "actions": [
         {
           "title": "Set up the thermometer",
-          "body": "Use a ThermoPop 2 immersion probe. Check it in a well-stirred ice-water slurry before the session. Keep the same glass and recorded fill mark."
+          "body": "Use the owned stainless DS18B20 on a separate bench reader, or an instant-read immersion probe. Check it in a stirred ice-water slurry. Use the same glass and fill mark."
         },
         {
           "title": "Read at the same point in the test",
@@ -2441,7 +2445,7 @@
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "Acceptance water test / ThermoWorks ThermoPop 2",
+      "source": "Acceptance water test / refrigeration purchases",
       "url": "https://www.thermoworks.com/products/thermopop-2"
     },
     {
@@ -2476,7 +2480,7 @@
           {"kind": "line", "start": [16, 228], "end": [522, 228], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "Inlet superheat near zero or liquid return", "x": 28, "y": 251, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Stop. Diagnose before any restart.", "x": 315, "y": 251, "size": 11.5, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "When excess is confirmed, recover and weigh back 1.0 g less.", "x": 28, "y": 305, "size": 11.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
+          {"kind": "label", "value": "When excess is confirmed, remove the charge and weigh back 1.0 g less.", "x": 28, "y": 305, "size": 11.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
@@ -2490,7 +2494,7 @@
         },
         {
           "title": "Keep a passing charge",
-          "body": "Keep the weighed amount if the repeat tests meet the water duty and preserve inlet margin at the cold end and restart. Recover and weigh a smaller fill only if excess is established."
+          "body": "Keep the weighed amount if the repeat tests meet the water duty and preserve inlet margin at the cold end and restart. Remove the charge and weigh a smaller fill only if excess is established."
         }
       ],
       "actions_y": 498,
@@ -2566,7 +2570,7 @@
     },
     {
       "title": "Repair through the full sequence",
-      "subtitle": "Recover the charge, clear residual gas and repeat the repair, leak test and weighed fill.",
+      "subtitle": "Remove the charge, clear residual gas and repeat the repair, leak test and weighed fill.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [46, 148],
@@ -2581,7 +2585,7 @@
           {"kind": "round_rect", "x": 68, "y": 69, "width": 390, "height": 44, "radius": 8, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
           {"kind": "label", "value": "2", "x": 87, "y": 96, "size": 17, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "REMOVE CHARGE", "x": 119, "y": 87, "size": 11, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "A3 recovery equipment", "x": 119, "y": 104, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Applicable route for the rebuilt loop", "x": 119, "y": 104, "size": 10, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "arrow", "start": [262, 116], "end": [262, 124], "color": "#1749D1", "width": 1.5, "head": 4},
           {"kind": "round_rect", "x": 68, "y": 125, "width": 390, "height": 44, "radius": 8, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
           {"kind": "label", "value": "3", "x": 87, "y": 152, "size": 17, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
@@ -2606,8 +2610,8 @@
           "body": "End the run from the safe disconnect. Record the leaking seam and the pressure state. An ambient alarm calls for the work-area protocol first."
         },
         {
-          "title": "Recover and clear before opening",
-          "body": "Use the qualified A3 equipment and confirm residual clearance. Restore the verified inert sweep and heat protection for the repaired path."
+          "title": "Remove charge and clear before opening",
+          "body": "Use the documented site and end-use route for the rebuilt loop. Confirm residual clearance, then restore the verified inert sweep and heat protection."
         },
         {
           "title": "Repeat the recorded service sequence",

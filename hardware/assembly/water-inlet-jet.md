@@ -50,7 +50,7 @@ The jet cap is per-unit material; its clamping and purge fixtures are shop tools
 | Two owned VALVENTO 1/4-inch OD compression × 1/4-inch MNPT adapters, [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | One after the coupling, one in the trial elbow's female port. |
 | Owned VALVENTO 1/4-inch OD 316 tube, [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | Two straight purge links, cut to suit the bench layout. |
 | Owned TAISHER TC025 304 compression needle valve, 1/4-inch OD both ends, [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | Throttles purge flow independently of torch shielding. |
-| Owned Mudder hose cutter, argon cylinder and RX Weld regulator/flowmeter | Cuts the existing 6 mm OD supply hose square and feeds both branches. The RHP400 is an alternate regulator, not a second simultaneous supply. |
+| Owned Mudder hose cutter, argon cylinder and RX Weld regulator/flowmeter | Cuts the existing 6 mm OD supply hose square and feeds both branches. |
 
 ## Cap dimensions and measured fit
 

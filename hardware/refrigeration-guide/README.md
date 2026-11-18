@@ -1,7 +1,7 @@
 # Refrigeration bench guide
 
 [Refrigeration bench guide](refrigeration-guide.pdf) covers evaporator fabrication,
-the Antarctic Star donor, recovery, brazing, pressure test, vacuum, charge and
+the Antarctic Star donor, charge removal, brazing, pressure test, vacuum, charge and
 water-load commissioning in illustrated Letter pages.
 
 The guide uses vector tables and diagrams alongside views of the current CAD.
@@ -25,7 +25,7 @@ equipment on the bench for the inspections. [Published machine model](https://ho
 | 10 | Trace and tag the donor circuit |
 | 11 | Stage the refrigeration bench |
 | 12 | Set up the detector |
-| 13 | Recover the factory charge |
+| 13 | Remove the donor charge outdoors |
 | 14 | Prove the inert sweep before heat |
 | 15 | Cut at the evaporator |
 | 16 | Remove the hot-gas branch |
@@ -108,14 +108,27 @@ Bench instrument references:
   gives the charged-sweep settings. [Whirlpool A3 service manual](https://www.whirlpool.com/content/dam/global/documents/202409/technical-manual-w11105483-revb.pdf)
   covers work-area monitoring.
 - [ThermoWorks ThermoPop 2](https://www.thermoworks.com/products/thermopop-2)
-  is the recommended immersion probe for dispensed-water samples.
+  is a quick-read option for dispensed-water samples.
+
+## Bench inventory and open items
+
+The [refrigeration purchases](../ledger/purchases.md#6-refrigeration) and [tool ledger](../ledger/tools.md#refrigeration-assembly) record the acquired equipment. The donor retains its capillary, bonded suction line and factory drier. The household donor uses controlled outdoor charge removal. [Household end-use basis](../../business/regulatory.md#epa-section-608--refrigerant-handling)
+
+| Job | On hand | Confirm or obtain |
+|---|---|---|
+| Copper work | ACR copper, cutters, bender, straightener, flaring tool, Knipex wrench, coupling, torch, filler and prep pads | Verify tail and discharge-tee dimensions on the actual donor before choosing the rejoin. |
+| Access and closure | Supco BPV31, flare hardware | Measure the process tube OD and usable straight length. Confirm temporary access for R600a, an outdoor discharge hose and a matched permanent seal. The [Yellow Jacket 61010](https://yellowjacket.com/product/hydrocarbon-charging-kit/) is a documented hydrocarbon tap for its listed tube sizes. Supco's FAQ directs removing its solderless tap after service. [Supco](https://supco.com/web/supco_live/products/BPV31.html) |
+| Purge and pressure test | Airgas argon, RX Weld flowmeter, metal metering branch, separate Uniweld RHP400 nitrogen regulator and SENCTRL pressure gauge | Verify the refrigeration-side connection and open argon flow. Confirm the regulator, pressure limit, isolation and gauge for a static test. The RHP400 uses nitrogen. Obtain bubble fluid if needed. [Uniweld](https://www.uniweld.com/product/nitrogen-regulators/) · [Big Blu RT175B](https://www.refrigtech.com/big-blu-brush-on/) |
+| Evacuation | Orion pump and manifold are in the ledger | Obtain an A3 vacuum pump, a circuit-side micron gauge and short R600a-compatible manifold hoses. The Orion documentation covers other refrigerants. Equipment that meets these roles includes the [CPS VPS6DU](https://www.cpsproducts.com/product-details/vps6du/), [BluVac+ Micro](https://accutools.com/wp-content/uploads/2017/09/BluVacMicro-Manual.pdf) and [Mastercool 93518-TP](https://mastercool.com/product/r600a-r290-r134a-2-way-aluminum-manifold-gauge-sets-thermoplastic-capillary-hoses/). |
+| Weighed fill | Enviro-Safe R600a cans and tap/gauge, Smart Weigh Pro | Confirm the tap-to-hose connection and measured net delivery with the actual fixture. For charge adjustments, verify the pressure and tube-probe precision at the running points on page 17. |
+| Leak checks | TopTes PT520A for cool, isolated localization after clearance. MQ-6 for the appliance interlock. | Obtain the R600a charged-circuit wand and a known reference. Arrange continuous work-area monitoring and the clearance check. [GAS-Mate](https://www.inficon.com/en/products/leak-detectors/gas-mate-combustible-gas-leak-detector) · [R600a TEK-Check reference](https://www.inficon.com/en/products/leak-detectors/tek-check) |
+| Water and first run | Kill A Watt P4400, built-in wall and coil probes, stainless DS18B20 bench spare and separate ESP32 | Check the separate immersion reader against an ice-water reference. Use the wall probe for matching pull-down runs. |
 
 ## Qualification scope
 
-Sealed-system work calls for training in flammable R600a service. The ledger
-records the shop tools. The complete R600a bench kit, including the recovery
-set, vacuum set, charged-circuit wand, reference leak and ambient monitor,
-still needs to be confirmed before the donor is opened. [Bench setup](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf#page=11)
+The Section 608 exemption follows the verified household end-use. Confirm the
+outdoor discharge location, safe bench setup and compatible equipment before opening
+the donor. [Bench setup](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf#page=11)
 
 The certification mass is the first commissioning fill. The inventory example
 describes a modeled operating state. Record the installed refrigerant charge

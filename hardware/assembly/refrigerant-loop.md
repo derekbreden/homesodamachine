@@ -16,21 +16,21 @@ Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-c
 
 ## Safety
 
-R-600a (isobutane) is flammable. Sealed-system work requires training in
-flammable-refrigerant service and a ventilated workspace with ignition sources
-controlled. Confirm the R-600a service equipment and its pressure ratings before
-opening the donor. Use recovery for the donor and the rebuilt loop. The
-end-use scope of the venting exemption is recorded in
-[business/regulatory.md](/business/regulatory.md).
+R-600a (isobutane) is flammable. Confirm the R-600a service equipment, its
+pressure ratings and the work-area controls before opening the donor. The
+verified household R-600a donor uses controlled outdoor charge removal under the
+project's [household end-use basis](/business/regulatory.md#epa-section-608--refrigerant-handling).
+The procedure for removing charge from the rebuilt loop depends on that loop's
+own end-use and the service location.
 [Secop hermetic service guide](https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf)
 
-**Hazard A — Refrigerant removal.** Recover the charge before cold-opening
-the circuit. The A3 service procedure establishes when the circuit can be
-opened or heated. Use a calibrated hydrocarbon detector. Gauge pressure at
-atmosphere and odor give no clearance for hot work.
+**Hazard A — Refrigerant removal.** Remove the charge before cold-opening
+the circuit. Establish residual clearance by the R-600a service method with
+suitable detection. A reading at atmospheric pressure alone leaves residual
+refrigerant in the oil and tubing unaccounted for.
 
 **Hazard B — Residual hydrocarbon at the braze.** R-600a can remain dissolved
-in compressor oil after recovery. Clear residual refrigerant before hot work,
+in compressor oil after charge removal. Clear residual refrigerant before hot work,
 then maintain and verify dry inert flow through every tube segment being
 heated. Protect the retained drier from moisture during open work.
 
@@ -40,7 +40,7 @@ heated. Protect the retained drier from moisture during open work.
 
 The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere. The compressor's terminal block and clip-on PTC module remain under the R-600a donor's own moulded power-box cover. The cover stays installed while the appliance connects only at the donor assembly's factory-external electrical interface; a missing, cracked, modified, loose, or incorrectly retained cover fails the build. The appliance adds no second sheet-metal shroud, and [`/business/regulatory.md`](/business/regulatory.md) carries the qualification still owed on the retained donor cover against the applicable 60335 enclosure provisions.
 
-The AC switching relay lives on the electronics bay, away from the compartment, so its switching arc is not co-located with the leak. A hardware-only backstop is a BOJACK SF76E SEFUSE thermal fuse (, in series with the AC primary feeding the compressor) — a one-shot cutoff that opens on the temperature of its own case, so what makes it a cutoff is contact: its case is pinched against the outside flank of the donor cover by the printed [`fuse-clamp`](/hardware/printed-parts/refrigeration/fuse-clamp/), whose two leaves press into the air gap the power box hangs over its own mounting plate, so the clamp rides the compressor rather than the cabinet — plus an ACEIRMC MQ-6 LPG/iso-butane sensor lying along the floor of the refrigeration bay's open −X strip beside the compressor, card on edge parallel to the flank and mesh horizontal in the well the flank opens for it. The bay's floor is one connected pool — every dominant brazed-joint leak site (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, service connection and compressor process tube) drains into it, and dense R-600a spreads over the slab as one layer — so what the sensor answers to is height, not aim: its mesh comes out below the power box's floor, so the layer reaches the module before it reaches the covered terminal assembly. It drops from above into two grooved posts standing on the bay's own floor (`enclosure._west_cradle`), the module having no mounting hole of its own — both ON-ORDER per [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
+The AC switching relay lives on the electronics bay, away from the compartment, so its switching arc is not co-located with the leak. A hardware-only backstop is a BOJACK SF76E SEFUSE thermal fuse in series with the AC primary feeding the compressor — a one-shot cutoff that opens on the temperature of its own case, so what makes it a cutoff is contact: its case is pinched against the outside flank of the donor cover by the printed [`fuse-clamp`](/hardware/printed-parts/refrigeration/fuse-clamp/), whose two leaves press into the air gap the power box hangs over its own mounting plate, so the clamp rides the compressor rather than the cabinet — plus an ACEIRMC MQ-6 LPG/iso-butane sensor lying along the floor of the refrigeration bay's open −X strip beside the compressor, card on edge parallel to the flank and mesh horizontal in the well the flank opens for it. The bay's floor is one connected pool — every dominant brazed-joint leak site (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, service connection and compressor process tube) drains into it, and dense R-600a spreads over the slab as one layer — so what the sensor answers to is height, not aim: its mesh comes out below the power box's floor, so the layer reaches the module before it reaches the covered terminal assembly. It drops from above into two grooved posts standing on the bay's own floor (`enclosure._west_cradle`), the module having no mounting hole of its own — both acquired per the [refrigeration purchases](/hardware/ledger/purchases.md#6-refrigeration). Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
 
 ## Inputs per appliance
 
@@ -60,7 +60,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 
 Confirm the complete R-600a bench kit before starting. The refrigeration section of the [purchase ledger](/hardware/ledger/purchases.md) records which tools are on hand.
 
-- **A3 service and recovery setup:** confirm process-tube access, recovery equipment and cylinder, hose and fittings for R-600a and the service pressures. Plan the final sealed closure before opening the donor.
+- **Temporary access and outdoor discharge:** check the actual process tube OD and usable straight length. Confirm the R-600a access fitting, hose, outlet site and final sealed closure before opening.
 - **Cap-tube cutter** at the process-tube junction: Mastercool 70025
 - **Tubing cutter, flaring tool:** RIDGID 31622 Model 150 + RIDGID 23332 Model 345
 - **Tube bender + straightener** for the 1/4" ACR evaporator coil: Klein Tools 51006 3-in-1 bender + Wisscool 1/4" handheld straightener
@@ -72,7 +72,7 @@ Confirm the complete R-600a bench kit before starting. The refrigeration section
 - **Braze heat protection** for the printed shell exits (Hazard C): two cotton shop rags and a cup of water, off the bench. Nothing is bought for this and nothing appears in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) — a soaked rag is a boiling-water clamp on the tube, which draws heat from the tube while it remains wet. Heat-blocking paste (~$25/tub) is the alternative and is rejected here: it has to be smeared onto and then cleaned off a tube that is about to be brazed dry, and residue on the OD near a phosphorus-fluxing joint is a contamination risk the rag does not carry.
 - **Filler:** BCuP-5 15 % silver brazing alloy — phosphorus self-fluxes on copper, so every (copper-to-copper) loop joint is brazed **dry, no flux**. Brazing flux is only needed for a dissimilar-metal joint (copper-to-brass/steel), of which the loop has none; flux residue left inside a sealed refrigeration loop is corrosive and can plug the cap tube or drier screen, so it is deliberately omitted.
 - **Copper prep:** 3M Scotch-Brite Maroon General Purpose Hand Pads (cut into strips for ACR copper OD prior to braze).
-- **Dry gas rig:** match the regulator to its specified gas. Uniweld lists the RHP400 for nitrogen. Record the actual dry inert inlet, open outlet and regulator in the A3 service plan. [Uniweld specifications](https://www.uniweld.com/product/nitrogen-regulators/)
+- **Dry gas rig:** use the shop's argon cylinder and RX Weld flowmeter for the open purge once the refrigerant-side connection and flow are verified. The owned RHP400 is specified for nitrogen. Confirm a compatible regulator, gauge, isolation and pressure limit for the static test. [Owned argon hardware](/hardware/ledger/tools.md#welding) · [Uniweld specifications](https://www.uniweld.com/product/nitrogen-regulators/)
 - **Leak detection:** use a qualified R-600a wand, a known reference leak
   and a calibrated ambient monitor. The acquired TopTes PT520A can localize a
   response on the cool, de-energized appliance after the work area is cleared.
@@ -91,14 +91,20 @@ The inspected plate provides no charge mass. Read any markings the actual unit
 carries and resolve a conflicting refrigerant or model identity before opening.
 [Donor evidence](/hardware/reference/ice-maker/README.md#refrigerant)
 
-### 2. Recover the factory charge
+### 2. Remove the factory charge outdoors
 
-Isolate power. Use qualified process-tube access and recover the factory
-R-600a into a suitable recovery cylinder. Confirm recovery and residual
-refrigerant clearance by the A3 service method before opening any tube.
-Record recovered mass as a service observation. Refrigerant can remain in
-oil and the recovery set, so use the certification rating for the first
-trial rather than the cylinder gain.
+Isolate power and verify the household donor and R-600a identity. Check work-area
+air and stage the qualified access and discharge hose before opening the service
+connection. Secure the hose outlet outdoors in freely dispersing air, away from
+ignition sources, people, openings and low places. Keep that location under
+observation for the discharge. The donor stays de-energized.
+
+After bulk discharge, use the R-600a service method to clear retained gas from
+the circuit and oil. Record the outlet conditions and clearance checks before
+cutting or heating. Confirm charge removal throughout the connected circuit.
+If a suitable outdoor discharge is unavailable, establish compatible capture
+before opening. Use the Intertek rating as the first fill.
+[Whirlpool R-600a service manual, pp. 19–22](https://www.whirlpool.com/content/dam/global/documents/202409/technical-manual-w11105483-revb.pdf#page=19)
 
 ### 3. Separate the finger plate and verify each purge path
 
@@ -108,7 +114,7 @@ compressor-to-condenser route and record the actual junction, materials and
 approved rejoin in the A3 service plan. Use the guide's branch diagram to
 identify what stays.
 
-After recovery and clearance, cold-cut the suction and capillary at the old
+After charge removal and clearance, cold-cut the suction and capillary at the old
 evaporator. Protect the factory drier, capillary, terminal helix and bonded
 capillary/suction section. Complete separation of the bypass with the planned
 discharge join. Support the remaining tubing and log each new joint.
@@ -159,7 +165,7 @@ page. Resolve a sustained rise before charging.
 
 ### 8. Meter the first trial
 
-Weigh the R-600a transfer after recovery and evacuation. Use an approved,
+Weigh the R-600a transfer after charge removal and evacuation. Use an approved,
 low-volume delivery assembly. Determine net grams past the circuit valve,
 including the change in refrigerant inventory of hoses, valves and
 instruments. Support the hose independently and check scale repeatability in that position. The display resolution alone gives no measure of
@@ -191,8 +197,9 @@ Use the documented inert test for a location whose pressure or access cannot
 support the charged check. Recheck the final process-tube seal.
 
 For an ambient alarm, withdraw and use the established safe isolation and
-clearance procedure. Recover through the qualified service connection before
-opening a leaking joint. Restore the inert flow and heat protection,
+clearance procedure. Remove the charge through the qualified service connection
+using the route established for the rebuilt loop before opening a leaking joint.
+Restore the inert flow and heat protection,
 pressure-test, evacuate and weigh the next fill.
 [Bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf)
 
@@ -239,7 +246,7 @@ plate and hot-gas branch, plus the change in liquid and vapor stored in
 the retained condenser, drier and lines and in compressor oil. Small
 changes in condenser liquid volume can dominate the calculation. Record
 actual tube and condenser geometry at harvest. A volume measurement of the
-isolated, recovered and discarded evaporator tightens the removed-volume
+removed evaporator after isolation and gas clearance tightens the removed-volume
 term. Keep that measurement off the retained refrigerant path. A full
 cycle model also needs a compressor map, capillary flow with the bonded
 heat exchanger, air and water heat transfer, and measured pressures and
@@ -302,8 +309,8 @@ during a depressurized service cycle and repeat the same load.
   compressor-inlet superheat within uncertainty, liquid return, abnormal
   current or sound, lost airflow, a leak indication or repeated protection
   trips. Resolve the cause before restarting. If the evidence establishes
-  excess charge, recover with A3 equipment and weigh back the lower mass.
-  Keep recovery and evacuation conditions repeatable, including oil
+  excess charge, remove the full charge under the verified handling method,
+  evacuate and weigh back the lower mass. Keep removal and evacuation conditions repeatable, including oil
   equilibration. Never trim the mass by cracking a valve.
 
 Use the lowest measured mass that repeats the required water pull-down,
