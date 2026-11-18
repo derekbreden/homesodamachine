@@ -139,9 +139,8 @@ records Derek's split between the two kinds of pocket. The C14 inlet's flange
 pocket and cord passage take support; its blind pilots stay clear. The meter
 host's fore end shoulder takes a support target. Its aft shoulder sits under the
 Pisco receiver, so a corbel off the east flank carries it, and the Pisco cap's
-east corner and shorter east wall clear that corbel seated and down its service
-path. A second corbel off the flank carries the strip between the hook pocket
-and the flank. The front lip, the bar the meter cap's top wing rides over, takes
+east corner and shorter east wall clear that corbel. The hook and wire pockets
+run flush to the flank. The front lip, the bar the meter cap's top wing rides over, takes
 a support target through the slot's open west side as far as the Pisco
 receiver. Under the Pisco a tree could only root against the receiver's fore end
 stop, so the lip bridges from that support to the aft shoulder. The upper hook
@@ -189,12 +188,16 @@ retained −15° pose. Contact placement, release breaks and bed anchorage belon
 to the specific edge geometry; this result does not establish other features'
 finish or release. Keep each manual support's reason and scope beside its part.
 
-Prefer simple solid stock and broad flat interior walls with few face breaks.
-Set one wall plane that preserves the required hardware clearance and backing
-thickness. Add a curve, step or local recess only for a named fit, bearing,
-drainage or access requirement. Do not contour the wall around every available
-void to gain volume; quantify any useful capacity tradeoff against the simpler
-wall before choosing the boundary.
+Fewer edges takes priority over thicker material. Prefer broad continuous faces
+and simple pocket boundaries. With equally simple boundaries, prefer thicker
+stock and greater printed volume. Add a curve, step or local recess only for
+a named fit, bearing, drainage or access requirement.
+
+A pocket near a wall extends flush to that wall. Do not leave a lip, strip or
+ledge between the pocket and the wall. When a larger pocket with a uniformly
+lower floor replaces a group of small pockets, choose the simpler floor and
+carry it clear to the wall, even when that removes more material. Preserving
+printed volume does not justify extra edges.
 
 One job is one solid object: a part that needs a second part to hold it together is
 redesigned, not covered or keyed. Fewer edges is better. Saving material is not a goal;
