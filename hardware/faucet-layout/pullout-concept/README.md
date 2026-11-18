@@ -9,11 +9,25 @@ the head moves, and their outlets remain separate at the dispense face.
 The study imports the current faucet's lower shell, lever, tip and display. A
 fuller neck and grip surround a smooth sliding-bundle passage. An electronic
 dispense arrangement and a hollow mount serve the moving bundle;
-the lever stands in its familiar position as an electrical input. The electronic valve
-package and an outlet shutoff belong to a subsequent design task.
+the lever stands in its familiar position as an electrical input. The soda path
+requires a dispensing shutoff in the removable head, close to the outlet, so the
+moving hose remains pressurized between pours. The published geometry leaves that
+valve unplaced and does not establish the head's required size or internal layout.
 
-Below the counter, the bundle turns through a hanging loop between the moving
-leg and a fixed anchor. Pulling out the head raises the loop and return weight.
+[Derek's observation of the working fixed faucet](physical-context.json) records
+a quick stop of the main flow followed by fast and then slow outlet dripping
+after releasing the lever. The pull-out design must control the much longer
+downstream water volume. Closing only the enclosure end leaves the hose open to
+the nozzle; pressure falls and dissolved carbon dioxide can leave solution,
+driving afterflow and reducing carbonation in retained water. The
+[gas-solubility reference](https://openstax.org/books/chemistry-2e/pages/11-3-solubility)
+explains the pressure dependence; the expected hose behavior is a design inference,
+not a measured pull-out result.
+
+Below the counter, the bundle hangs freely with a return weight and connects to
+the enclosure. Its low return bend forms the hanging loop. Pulling out the head
+raises the loop and return weight. The enclosure connection supplies the fixed
+anchor; the bracket in the illustration is not required for that arrangement.
 The study keeps the loop's path length in balance with the exposed hose. The
 weight, dock retention and travel are study parameters, not qualified hardware.
 
