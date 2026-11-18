@@ -42,6 +42,10 @@
     "hardware/faucet-layout/faucet-assembly.step.mesh": "cc5d33c812eaa38bf8afdfab8329b845e952f8f30abaab49c11e615c91e3e0ef",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "34eda4a55bb6d6ad5fa734ede1cb5541dcd604c995de7698e1141e864dc155bc",
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "6a0607795cff0f0cfaad95cc23c54ee37985828d022a7af363bc184e02a719c0",
+    "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "46a2a83a2ea3795cd5e03da8e0deed1128edea0720ed5175bc062ab7f110a6bf",
+    "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh": "e953a17f3107184f7d61a1ecd9abfc42d9d3fe62ee5d9519f5912aaaced360b2",
+    "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "d722dea6a70965f9ab6f88b59f2d7d8efc282169339a13240a6bbd41568011b8",
+    "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "b93b380caaf8eae7a010642eb834cc647db9400619ab3608120752f975b58dce",
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "f777688d43515f39d4445c50e2d31ea18b2d7dd9b0eb149cbf4c49fc8d2a01f7",
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "2c9f151c05dca1102d00f63c984b2b3f8b29bc5be2b0aa1e005b408dc32affb2",
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "60d310a111f2437e7197a1721a65494b5030e2e8b1aff8d78c96b1b06ec4328f",
@@ -884,6 +888,10 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh": "cc5d33c812eaa38bf8afdfab8329b845e952f8f30abaab49c11e615c91e3e0ef",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "34eda4a55bb6d6ad5fa734ede1cb5541dcd604c995de7698e1141e864dc155bc",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "6a0607795cff0f0cfaad95cc23c54ee37985828d022a7af363bc184e02a719c0",
+      "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "46a2a83a2ea3795cd5e03da8e0deed1128edea0720ed5175bc062ab7f110a6bf",
+      "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh": "e953a17f3107184f7d61a1ecd9abfc42d9d3fe62ee5d9519f5912aaaced360b2",
+      "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "d722dea6a70965f9ab6f88b59f2d7d8efc282169339a13240a6bbd41568011b8",
+      "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "b93b380caaf8eae7a010642eb834cc647db9400619ab3608120752f975b58dce",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "b710c868bc4fe8abfb11ef21663287dbbbadb03d7bd6f3eae38807cad9d1cb12",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "83cb45a97f2259a20e0155c23a05c9a575d4d3f78edc1f2ec930ad5c134edb91",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2495,6 +2503,10 @@
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1794785824.188713,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1794785845.070223,
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794785836.378333,
+    "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": 1794986742.176017,
+    "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh": 1794986742.176017,
+    "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": 1794986742.176017,
+    "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": 1794986742.176017,
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793830497,
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": 1793830497,
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": 1793830497,
@@ -3412,6 +3424,22 @@
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
       "commit": "340a911bc8f6c2b72110b37faffdaf6954ad2726",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": {
+      "commit": "809a617816b2958a23253e4035b64463a6699275",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh": {
+      "commit": "809a617816b2958a23253e4035b64463a6699275",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": {
+      "commit": "809a617816b2958a23253e4035b64463a6699275",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": {
+      "commit": "809a617816b2958a23253e4035b64463a6699275",
       "unproven": true
     },
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": {
