@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-12ea2620-textured-pei.gcode.3mf",
-  "archive_sha256": "257ce4998f94a11008d53aef0490764d4b0b0f557f8367b0b835d06375c2ebc8",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-ab56b332-textured-pei.gcode.3mf",
+  "archive_sha256": "330188288d225a74bdfbd249eeeb1a87118c691ee4857707587de6e00e06cc36",
   "bead_envelope_plate_mm": [
     [
       20.244,
@@ -219,8 +219,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9954583762524581,
-      "minimum_outline_coverage": 0.9953573274209412,
+      "minimum_coverage": 0.9959971961927249,
+      "minimum_outline_coverage": 0.9955211862985205,
       "name": "Z rail, end stop and wall root -1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -238,12 +238,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.283542,
-          "coverage": 0.9954583762524581,
-          "infill_core_mm2": 2026.9201653256105,
-          "outline_coverage": 0.9953573274209412,
+          "coverage": 0.9960730670091101,
+          "infill_core_mm2": 2039.6939950031472,
+          "outline_coverage": 0.9959221562841892,
           "print_z_mm": 177.56,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 2277.158160078423
+          "stock_mm2": 2290.026891908096
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -278,7 +278,7 @@
       ]
     },
     {
-      "minimum_coverage": 0.995208976263954,
+      "minimum_coverage": 0.9954159437494293,
       "minimum_outline_coverage": 0.9950571671076939,
       "name": "Z rail, end stop and wall root +1",
       "object": 1901,
@@ -297,12 +297,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.281707,
-          "coverage": 0.995208976263954,
-          "infill_core_mm2": 1992.717429695713,
-          "outline_coverage": 0.9950574360023179,
+          "coverage": 0.9958049588020618,
+          "infill_core_mm2": 2017.9234413030958,
+          "outline_coverage": 0.9955857184010303,
           "print_z_mm": 177.56,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 2227.3155497764747
+          "stock_mm2": 2240.1842816061476
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -2048,8 +2048,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9966800723366352,
-      "minimum_outline_coverage": 0.9941352158566386,
+      "minimum_coverage": 0.9953958669051371,
+      "minimum_outline_coverage": 0.986501893866932,
       "name": "Sliding rail 1 transverse bridge",
       "object": 1901,
       "plate_bounds_mm": [
@@ -2067,12 +2067,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.273215,
-          "coverage": 0.9966800723366352,
-          "infill_core_mm2": 1225.4131542496605,
-          "outline_coverage": 0.9941352158566386,
+          "coverage": 0.9953958669051371,
+          "infill_core_mm2": 1245.2033115357603,
+          "outline_coverage": 0.986501893866932,
           "print_z_mm": 177.08,
           "sampling_step_mm": 0.10500074886614463,
-          "stock_mm2": 1421.1978969162685
+          "stock_mm2": 1440.8226768434315
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -2107,8 +2107,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9970702947845805,
-      "minimum_outline_coverage": 0.9955374128091312,
+      "minimum_coverage": 0.9981699859847707,
+      "minimum_outline_coverage": 0.9898077223698609,
       "name": "Sliding rail -1 transverse bridge",
       "object": 1901,
       "plate_bounds_mm": [
@@ -2126,12 +2126,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.270832,
-          "coverage": 0.9970702947845805,
-          "infill_core_mm2": 1215.5235881852418,
-          "outline_coverage": 0.9955374128091312,
+          "coverage": 0.9981699859847707,
+          "infill_core_mm2": 1235.0491416970428,
+          "outline_coverage": 0.9898077223698609,
           "print_z_mm": 177.08,
           "sampling_step_mm": 0.10500074886614463,
-          "stock_mm2": 1390.93384023084
+          "stock_mm2": 1410.5586201580031
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -2472,8 +2472,8 @@
     },
     {
       "bounds_source_mm": [
-        -104.0,
-        -100.5,
+        -103.75,
+        -100.25,
         219.8,
         310.25,
         174.8,
@@ -2482,12 +2482,12 @@
       "box_plate_mm": [
         [
           41.42500915527344,
-          55.75,
+          56.0,
           176.7
         ],
         [
           132.37500915527343,
-          59.75,
+          60.0,
           180.45
         ]
       ],
@@ -2497,8 +2497,8 @@
     },
     {
       "bounds_source_mm": [
-        100.5,
-        104.0,
+        100.25,
+        103.75,
         219.8,
         310.25,
         174.8,
@@ -2507,12 +2507,12 @@
       "box_plate_mm": [
         [
           41.42500915527344,
-          260.25,
+          260.0,
           176.7
         ],
         [
           132.37500915527343,
-          264.25,
+          264.0,
           180.45
         ]
       ],
@@ -3193,7 +3193,7 @@
       }
     }
   ],
-  "support_roads": 265290,
+  "support_roads": 265374,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,
@@ -3201,7 +3201,7 @@
       "explicit_interface_islands": 25,
       "interface_islands": null,
       "model_rooted_bodies": 25,
-      "removable_stock_moves": 32773,
+      "removable_stock_moves": 32846,
       "shortest_build_up_mm": null,
       "shortest_labelled_build_up_mm": 7.09,
       "support_bodies": 30

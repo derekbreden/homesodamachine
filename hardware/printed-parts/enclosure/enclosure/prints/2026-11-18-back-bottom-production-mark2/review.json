@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.gcode.3mf",
-  "archive_sha256": "cb877efdbbe1c5c02ad99b9089d5f645f456c8900450d6d82193703f6bf84a51",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
+  "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
   "bead_envelope_plate_mm": [
     [
       20.493778000000002,
@@ -406,7 +406,7 @@
       ]
     }
   ],
-  "support_roads": 425619,
+  "support_roads": 402492,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 4,
