@@ -26,19 +26,19 @@ The groups take masses from §7 using the `group_of` table of [`printing.json`](
 
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
-| Cold-core shell PET-GF, left 0.4 Standard | Full smooth 2.38 mm shell, round copper exits, three Classic loops, A2 scarf and wipe off ([production preparation](/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/README.md)) | [17.6](MT_RATE_SHELL) h/kg — native duration; rate shown for comparison | [1.798](MT_KG_SHELL) kg | [31.6](MT_H_SHELL) |
-| Cold-core caps/lids PET-GF, left 0.4 Standard | Equipment lid and bottom cap in the [cold-core casing](/hardware/printed-parts/cold-core/foam-cap/README.md) | [17.6](MT_RATE_BULK) h/kg — estimate from the current shell slice | [0.510](MT_KG_BULK) kg | [9.0](MT_H_BULK) |
-| Enclosure exterior PET-GF, 0.4 TC | The four quadrants with front-top's integral upper pump mount, the lower pump retainer, display cover plate, funnel frame and its drain-elbow cradle — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.412](MT_KG_EXT) kg | [106.5](MT_H_EXT) |
+| Cold-core shell PET-GF, left 0.4 Standard | Full smooth 2.38 mm shell, round copper exits, three Classic loops, A2 scarf and wipe off ([production preparation](/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/README.md)) | [17.6](MT_RATE_SHELL) h/kg — native duration; rate shown for comparison | [1.799](MT_KG_SHELL) kg | [31.6](MT_H_SHELL) |
+| Cold-core caps/lids PET-GF, left 0.4 Standard | Equipment lid and bottom cap in the [cold-core casing](/hardware/printed-parts/cold-core/foam-cap/README.md) | [17.6](MT_RATE_BULK) h/kg — estimate from the current shell slice | [0.511](MT_KG_BULK) kg | [9.0](MT_H_BULK) |
+| Enclosure exterior PET-GF, 0.4 TC | The four quadrants with front-top's integral upper pump mount, the lower pump retainer, display cover plate, funnel frame and its drain-elbow cradle — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.420](MT_KG_EXT) kg | [106.7](MT_H_EXT) |
 | Watertight translucent PETG, 0.6 nozzle | Both reservoir bodies + caps — 3 mm walls as 5 × 0.60 mm beads, Arachne, for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)); the nozzle is the one all three logged runs were made on ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) | [26](MT_RATE_TIGHT) h/kg — est., ~½ the measured plate's volumetric rate | [0.872](MT_KG_TIGHT) kg | [22.7](MT_H_TIGHT) |
 | Small PETG parts | Umbilical organizer, PRV shroud, reed bridge and fuse clamp | [36](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.111](MT_KG_SMALL) kg | [4.0](MT_H_SMALL) |
 | Small solid PET-GF parts, 0.4 TC | The install-kit collet press — at least six walls and 100% infill ([collet press](/hardware/printed-parts/collet-press/README.md)) | [36](MT_RATE_TOOL) h/kg — est., the small-part rate until its production slice is logged | [0.109](MT_KG_TOOL) kg | [3.9](MT_H_TOOL) |
 | Rear identification PETG and tube collars PET-GF | Nameplate, rear port plates and tube collars in their assigned colours ([rear-identification/README.md](/hardware/printed-parts/enclosure/rear-identification/README.md), [tube-collar/README.md](/hardware/printed-parts/faucet/tube-collar/README.md)) | [36](MT_RATE_RINGS) h/kg — est., the small-part rate; combined production time estimated | [0.065](MT_KG_RINGS) kg | [2.3](MT_H_RINGS) |
-| Faucet PET-GF, 0.4 TC | Faucet shell, lever, display cover and above-counter plate; 0.24 mm layers, two wall loops and 15 % gyroid ([the faucet plate's recipe](/hardware/printed-parts/faucet/sculpted/README.md)) | [57.7](MT_RATE_PETGF) h/kg — duration from the product plate's motion estimate | [0.123](MT_KG_PETGF) kg | [7.1](MT_H_PETGF) |
+| Faucet PET-GF, 0.4 TC | Faucet shell, lever, display cover and above-counter plate; 0.24 mm layers, two wall loops and 15 % gyroid ([the faucet plate's recipe](/hardware/printed-parts/faucet/sculpted/README.md)) | [57.3](MT_RATE_PETGF) h/kg — duration from the product plate's motion estimate | [0.124](MT_KG_PETGF) kg | [7.1](MT_H_PETGF) |
 | ASA Aero floats, right 0.4 HS | [3](MT_FLOAT_QTY) one-piece floats, carbonator + two reservoirs; RC62 inserted during printing, 0.20 mm layers and nested perimeters ([float record](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md)) | [88.3](MT_FLOAT_MINUTES) min each — v1 native slice estimate, manual pause excluded; v2 unsliced | [0.042](MT_KG_AERO) kg | [4.4](MT_H_AERO) |
 | Funnel cover, black PETG, left 0.4 nozzle | Solid removable plate and locating skirt ([cover recipe](/hardware/printed-parts/zone-c/funnel-cover/README.md)) | [14](MT_RATE_FUNNEL_COVER) h/kg — estimate from the reference native slice; current geometry unsliced | [0.134](MT_KG_FUNNEL_COVER) kg | [1.9](MT_H_FUNNEL_COVER) |
-| **Known printer-time subtotal per unit** | | | **[7.176](MT_KG)** kg | **[193.4](MT_H_PRINT)** |
+| **Known printer-time subtotal per unit** | | | **[7.187](MT_KG)** kg | **[193.6](MT_H_PRINT)** |
 
-Spread across [2](MT_PRINTERS) machines, the known subtotal is **[96.7](MT_H_PRINT_WALL) hours** of estimated wall clock.
+Spread across [2](MT_PRINTERS) machines, the known subtotal is **[96.8](MT_H_PRINT_WALL) hours** of estimated wall clock.
 
 Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.12](MT_KG_PETG_UNIT) kg PETG allocation. PET-GF15 is dried [10 h at 100 °C](MT_PETGF_DRY) and feeds from a PolyDryer Box XL ([tools.md](/hardware/ledger/tools.md) "What dries where"). ASA Aero uses its own drying cycle and the sealed external drybox route recorded in the [float recipe](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md).
 
@@ -77,12 +77,12 @@ The printers are the constraint in this estimate. Per unit, before unmeasured RC
 
 | Machine | Occupied per unit | Units/year at 100 % | |
 |---|---:|---:|---|
-| [2](MT_PRINTERS) × H2C | [96.7](MT_H_PRINT_WALL) h wall | [91](MT_CEIL_PRINT) | **the bottleneck** |
+| [2](MT_PRINTERS) × H2C | [96.8](MT_H_PRINT_WALL) h wall | [90](MT_CEIL_PRINT) | **the bottleneck** |
 | Test bench (burn-in + chill) | [9.0](MT_OCC_BENCH) h | [973](MT_CEIL_BENCH) | |
 | Funnel mold + oven | [9.0](MT_OCC_MOLD) h | [973](MT_CEIL_MOLD) | |
 | Hydro rig, passivation tub, vacuum pump | [2.6](MT_OCC_CARBONATOR) h | [3,369](MT_CEIL_CARBONATOR) | |
 
-At [65 %](MT_DUTY) assumed machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the modeled output is **[~59](MT_UNITS_YEAR) units a year**. A third H2C gives [~88](MT_UNITS_YEAR_3) on the same rates and allocation assumptions. This is an estimate until the selected recipes have physical production results and plate handling, small TPU seals, pump tube preparation and pause handling have production timings.
+At [65 %](MT_DUTY) assumed machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the modeled output is **[~58](MT_UNITS_YEAR) units a year**. A third H2C gives [~88](MT_UNITS_YEAR_3) on the same rates and allocation assumptions. This is an estimate until the selected recipes have physical production results and plate handling, small TPU seals, pump tube preparation and pause handling have production timings.
 
 ## Turnaround — one unit, cold start
 
@@ -90,20 +90,20 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 | Stage | Hours | |
 |---|---:|---|
-| Print the timed parts | [96.7](MT_H_PRINT_WALL) | 2 printers, both on this unit |
+| Print the timed parts | [96.8](MT_H_PRINT_WALL) | 2 printers, both on this unit |
 | Build the cold core; pour the foam and let it cure | 8.0 | carbonator already done, in parallel with the prints |
 | Assembly, plumbing, wiring | 8.0 | one working day |
 | Power-on and test | 2.0 | |
 | First fill and chill-down | 1.0 | |
 | Burn-in | 8.0 | |
 | Finish and pack | 1.0 | |
-| **Turnaround** | **[124.7](MT_H_TURN)** | **[5.2](MT_DAYS_TURN) days** |
+| **Turnaround** | **[124.8](MT_H_TURN)** | **[5.2](MT_DAYS_TURN) days** |
 
 Pump tube preparation and the small TPU seals have unmeasured production durations; plate handling and physical print yield remain unmeasured.
 
 Carbonator fabrication and fitting, bench harnesses, and the silicone funnel's cure and bake can run alongside printing.
 
-A second unit behind the first does not cost another [5.2](MT_DAYS_TURN) days — it costs the bottleneck's [96.7](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
+A second unit behind the first does not cost another [5.2](MT_DAYS_TURN) days — it costs the bottleneck's [96.8](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 
 ## Sources
 [value](NAME) texts are updated by:
