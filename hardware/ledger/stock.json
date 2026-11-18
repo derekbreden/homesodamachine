@@ -3573,13 +3573,13 @@
       "name": "MECCANIXITY green 16 AWG solid tinned-copper UL1007 hookup wire",
       "unit": "m",
       "href": "https://www.amazon.com/dp/B0FK5JHQW7",
-      "onHand": 0,
-      "incoming": 7.62,
+      "onHand": null,
+      "incoming": 0,
       "reserved": 0,
       "estimated": false,
-      "asOf": "2026-11-17",
+      "asOf": "2026-11-18",
       "basis": "unknown",
-      "note": "One 25 ft coil on order for the C14 inlet earth link and the carbonator vessel bond. Receipt is pending.",
+      "note": "One 25 ft coil delivered for the C14 inlet earth link and the carbonator vessel bond. Remaining usable quantity has not been observed.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",

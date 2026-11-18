@@ -10530,7 +10530,7 @@
         "evt-3a8544ddbe8a4823b7685b21f54c008c"
       ],
       "gap_id": "gap-f68df098e9074bbbbe65127bdb70a3a2",
-      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
+      "missing_fact": "Exact delivery calendar date, final tax and completed merchant charge/date remain unverified. Delivered fulfillment is confirmed.",
       "order_ids": [
         "amazon:112-6794186-7953808"
       ],
@@ -10538,12 +10538,14 @@
         "pur-0460bfe098504c85bbbf043b1d7a5bb0"
       ],
       "source_ids": [
+        "src-28ab8dae9eb94257ae7891adc60edfd7",
         "src-56b5905ef743455fa0e61dd424f75261",
         "src-962d5a905e244029954126c9592bc1f9"
       ],
       "sources_checked": [
         "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026",
-        "Exact-order shipment notification received November 18, 2026"
+        "Exact-order shipment notification received November 18, 2026",
+        "Exact-order delivery notification received November 18, 2026"
       ]
     },
     {
@@ -10584,7 +10586,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:95c5d7eb1a3371cfc5acfbf61c7ec4e6f54be74b3c4fdf08b3db0588d50ec9b4",
+  "input_fingerprint": "sha256:078f1d3dcfe598e2dae9219070e94a1fbef48a47b9fda86bb8a15c9d97e09ca6",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13955,6 +13957,7 @@
       ],
       "reference": "112-6794186-7953808",
       "source_ids": [
+        "src-28ab8dae9eb94257ae7891adc60edfd7",
         "src-56b5905ef743455fa0e61dd424f75261",
         "src-962d5a905e244029954126c9592bc1f9"
       ],
@@ -20838,11 +20841,11 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — C14 inlet earth link and carbonator vessel bond. $11.99 item + $0.87 estimated tax, free shipping; shipped, awaiting delivery",
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — C14 inlet earth link and carbonator vessel bond. $11.99 item + $0.87 estimated tax, free shipping; delivered; exact delivery date and completed payment unverified",
       "event_ids": [
         "evt-3a8544ddbe8a4823b7685b21f54c008c"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-0460bfe098504c85bbbf043b1d7a5bb0",
       "merchant_charge_allocated_minor": 0,
@@ -20870,6 +20873,7 @@
       "section": "9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors",
       "service_period": null,
       "source_ids": [
+        "src-28ab8dae9eb94257ae7891adc60edfd7",
         "src-56b5905ef743455fa0e61dd424f75261",
         "src-962d5a905e244029954126c9592bc1f9"
       ],
@@ -63931,6 +63935,22 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": null,
+      "document_type": "delivery_notification",
+      "note": "Exact-order delivery notification confirms the existing green wire coil is delivered. Relative today wording does not independently establish a delivery calendar date. No completed merchant payment or final tax is proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "112-6794186-7953808",
+      "source_id": "src-28ab8dae9eb94257ae7891adc60edfd7",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-18"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-06-28"
@@ -70168,7 +70188,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5047246,
+          "amount_minor": 5048532,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -70183,6 +70203,7 @@
             "pur-03b4e8f12b7c4966b1faf3cbd7ba7617",
             "pur-03f85a9f82274996905b0e588601ade1",
             "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
+            "pur-0460bfe098504c85bbbf043b1d7a5bb0",
             "pur-0504233f1bc64d7cbd4faa23bf63edd9",
             "pur-0528c779989e48999b774c692381a635",
             "pur-05a6b88d898346c09b2c6cafba57c8b5",
@@ -70926,11 +70947,10 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 23483,
+          "amount_minor": 22197,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
-            "pur-0460bfe098504c85bbbf043b1d7a5bb0",
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
@@ -70951,7 +70971,6 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
-        "pur-0460bfe098504c85bbbf043b1d7a5bb0",
         "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
