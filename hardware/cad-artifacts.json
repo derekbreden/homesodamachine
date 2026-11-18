@@ -253,6 +253,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "c2191124c2bfcd40e33ff377d30568223eb97d5538813d6aec50c486274d85de",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
+    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": "a72d13deba1581357f4d85f4dae5d3576d66ea1e5084ee152176ae533b55956c",
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "f2f544801c869938418bd8d014fe462675037115d4184d4bc22e48989cc81745",
+    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": "44c4a418f6acb3cb7ddb11b4d64a4b1e11a890258420755a60bff63e7cbbe6dc",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "71483ed7b5cdce12ef4834fb98ab541df4ca7c09568a862e282966da992a76bf",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "a94edcbe8039f21a121dccc0cec0fef87e93f0faf759826dac1924d77692d736",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "f3dd94fcc1c1082139286c1d8da2cf962a566394d4b3be8a548e269c82fb59c6",
@@ -2781,6 +2784,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1795017501.070831,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
+    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": 1795017520.93376,
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795017520.93376,
+    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": 1795017520.93376,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1794805059.108448,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": 1794805049.729284,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794805059.108448,
@@ -4258,6 +4264,21 @@
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": {
       "commit": "8eb5fa8581205c15700a2e52409ea1c5a29e8513",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": {
+      "commit": "22f9d8537025a2af2aee1c45151284b39412851b",
+      "inputs": "e81f6f39dca27a149bc935d25c847df61689a9e1b9f8596b7d2ba6a2e9dcd3a1",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
+      "commit": "22f9d8537025a2af2aee1c45151284b39412851b",
+      "inputs": "e81f6f39dca27a149bc935d25c847df61689a9e1b9f8596b7d2ba6a2e9dcd3a1",
+      "unproven": true
+    },
+    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": {
+      "commit": "22f9d8537025a2af2aee1c45151284b39412851b",
+      "inputs": "e81f6f39dca27a149bc935d25c847df61689a9e1b9f8596b7d2ba6a2e9dcd3a1",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
