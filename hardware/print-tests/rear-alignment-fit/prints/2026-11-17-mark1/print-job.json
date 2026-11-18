@@ -31,5 +31,6 @@
   "print_plan": "print-plan.json",
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
-  "startup_status": "startup-status.json"
+  "startup_status": "startup-status.json",
+  "printing_status": "printing-status.json"
 }
