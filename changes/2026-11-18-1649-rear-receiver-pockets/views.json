@@ -1,0 +1,236 @@
+{
+  "views": [
+    {
+      "name": "pisco-entry",
+      "caption": "Pisco wing entry beside the flank; the recessed ceiling runs flush to the wall.",
+      "before": "pisco-entry-before.webp",
+      "after": "pisco-entry-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 767.6,
+          "y": 381.3,
+          "r": 84.7,
+          "label": "Wing entry",
+          "at": [
+            91.906,
+            447.707,
+            346
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          142.58789984571186,
+          403.4472600925729,
+          306.4472600925729
+        ],
+        "target": [
+          80,
+          441,
+          344
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3292434431073266,
+        "far": 567.0229910017633,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            94,
+            430,
+            335
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c142258ce7eac5ae72167badca8ee4df4360b845a40463bd444b62d7cba5149a",
+          "commit": "b0cb90277eac387d239e661fbd4e68f04c67b659",
+          "taken": "2026-11-18T22:36:36.469Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "0d0395a5e73df6e4bfba15d2461633c08e9415b2245d15bc1b9a1a973e8818ff",
+          "commit": "e7ff7ff39db5d6a549539af6cee98774375d39c0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter-flank",
+      "caption": "The meter hook and wire pockets reach the flank without narrow backing strips.",
+      "before": "meter-flank-before.webp",
+      "after": "meter-flank-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          33.44132835588823,
+          366.9530626847106,
+          333.0469373152894
+        ],
+        "target": [
+          91,
+          413,
+          287
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.1753915542541434,
+        "far": 490.09704657517176,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            91,
+            413,
+            330
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c142258ce7eac5ae72167badca8ee4df4360b845a40463bd444b62d7cba5149a",
+          "commit": "b0cb90277eac387d239e661fbd4e68f04c67b659",
+          "taken": "2026-11-18T22:36:36.469Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "0d0395a5e73df6e4bfba15d2461633c08e9415b2245d15bc1b9a1a973e8818ff",
+          "commit": "7714ac3b9c527db3dc00d87442bf48960c4a1f0d",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "common-ceiling",
+      "caption": "The ASSE and Pisco share a continuous ceiling recess with plain receiver ends.",
+      "before": "common-ceiling-before.webp",
+      "after": "common-ceiling-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          54.02139125894491,
+          333.7860874105509,
+          253.80747866949582
+        ],
+        "target": [
+          44,
+          434,
+          344
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.10853036882809251,
+        "far": 456.6664538621463,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            430,
+            330
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c142258ce7eac5ae72167badca8ee4df4360b845a40463bd444b62d7cba5149a",
+          "commit": "b0cb90277eac387d239e661fbd4e68f04c67b659",
+          "taken": "2026-11-18T22:36:36.469Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "0d0395a5e73df6e4bfba15d2461633c08e9415b2245d15bc1b9a1a973e8818ff",
+          "commit": "7714ac3b9c527db3dc00d87442bf48960c4a1f0d",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
