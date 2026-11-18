@@ -1,0 +1,165 @@
+{
+  "views": [
+    {
+      "name": "lower-rail",
+      "caption": "The lower rail has a flat crown.",
+      "before": "lower-rail-before.webp",
+      "after": "lower-rail-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 532.1,
+          "r": 93.1,
+          "label": "Rail crown",
+          "at": [
+            96,
+            238,
+            174.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -307.0227555758797,
+          580.5693422394977,
+          459.9159289031158
+        ],
+        "target": [
+          96,
+          238,
+          177.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 14.5,
+        "near": 290.06053834291026,
+        "far": 939.4919848421223,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
+          "commit": "5183dae74f5155a2bb4f3800d08bcfbe6b96d38b",
+          "taken": "2026-11-18T17:04:04.738Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b1a33d2a6966306b2718423a7890287f14027677be153948912f52176c3fcff6",
+          "commit": "21a3302c4dad088863e4b717731efaf6075a3b89",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "upper-wall",
+      "caption": "The upper wall follows its rail channel across the seam.",
+      "before": "upper-wall-before.webp",
+      "after": "upper-wall-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 785.9,
+          "y": 454,
+          "r": 78.8,
+          "label": "Upper wall",
+          "at": [
+            96.1,
+            228,
+            181.3
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -371.5854328505856,
+          -91.30980299540994,
+          -13.385881797245958
+        ],
+        "target": [
+          96,
+          236,
+          183
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 16,
+        "near": 377.12047690869815,
+        "far": 1031.0225397618606,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            96,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
+          "commit": "5183dae74f5155a2bb4f3800d08bcfbe6b96d38b",
+          "taken": "2026-11-18T17:04:04.738Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b1a33d2a6966306b2718423a7890287f14027677be153948912f52176c3fcff6",
+          "commit": "c50771abbf3b003df1e3fab6d142e068216e41c0",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
