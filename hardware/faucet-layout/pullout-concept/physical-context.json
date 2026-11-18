@@ -4,5 +4,14 @@
   "material": "HSM-0002",
   "tried": "The assembled existing Sculpted faucet, with its display powered, flavor selection working and soda dispensed using its lever.",
   "said": "I've got it lit up, and it's functional, and I can push the lever and I get the soda, and it comes out the tip, and I can select the flavor, and it's great. I love it.",
-  "scope": "The existing fixed faucet. The pull-out concept has not been made or tried."
+  "scope": "The existing fixed faucet. The pull-out concept has not been made or tried.",
+  "observations": [
+    {
+      "date": "2026-11-18",
+      "subject": "Soda discharge after releasing the existing fixed faucet's lever",
+      "said": "I should mention, in the existing design, after letting go of the lever, there is a quick stop of the main flow, but immediately a bit of fast drip followed by slow drip for a few seconds as that soda water in the gooseneck does its thing that soda water does.",
+      "observed": "The main flow stops quickly, followed by fast and then slow dripping from the dispense outlet.",
+      "scope": "Derek's physical observation of the current fixed faucet; the pull-out hose has not been tested."
+    }
+  ]
 }
