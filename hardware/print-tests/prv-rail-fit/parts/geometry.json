@@ -1,0 +1,86 @@
+{
+  "pieces": [
+    {
+      "actual_bounds_mm": [
+        [
+          -110.49906568379572,
+          294.0,
+          160.25
+        ],
+        [
+          -90.75,
+          354.0,
+          223.0
+        ]
+      ],
+      "coupon_bed_source_z_mm": 223.0,
+      "name": "prv-rail-top",
+      "omitted_ordinary_layers": 550,
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "production_bed_source_z_mm": 355.0,
+      "source_crop_mm": [
+        [
+          -112.0,
+          294.0,
+          159.0
+        ],
+        [
+          -87.0,
+          354.0,
+          223.0
+        ]
+      ],
+      "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+      "source_sha256": "99f5813c7f40e8d71825a19abbbb5deea8dd4d9068fbf792d6b840989e23cf0c",
+      "stl_sha256": "8954197b29137f9b4552285f355dfe95a00f061aad36dd1bfb635a2e9ccc62eb",
+      "volume_mm3": 35726.52209772826
+    },
+    {
+      "actual_bounds_mm": [
+        [
+          -110.4990656837957,
+          294.0,
+          125.04000000003725
+        ],
+        [
+          -90.75,
+          354.0,
+          174.79999999981374
+        ]
+      ],
+      "coupon_bed_source_z_mm": 125.04,
+      "name": "prv-rail-bottom",
+      "omitted_ordinary_layers": 546,
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "production_bed_source_z_mm": -6.0,
+      "source_crop_mm": [
+        [
+          -112.0,
+          294.0,
+          125.04
+        ],
+        [
+          -87.0,
+          354.0,
+          176.0
+        ]
+      ],
+      "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+      "source_sha256": "bb1fe5491e4ec7b7f31aff3e2e7875379624849c0267278ecf40796c66bbb979",
+      "stl_sha256": "4f372a93c5efc6f89144c39ca9265e499d2a4d819e9c0669e98111b8b3bdc396",
+      "volume_mm3": 24584.216439522515
+    }
+  ],
+  "production_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "production_print_features_sha256": "e3a465ec45b1cccff9ea27ff38d41ab7b7444c3b4f9daa4853b90d77211dee96",
+  "purpose": "Bind the paired vent and rail fit specimens to their production solids, crops and layer phase.",
+  "seated_overlap_mm3": 0.0
+}
