@@ -986,7 +986,7 @@ fn boundaries(src: &Sources, at: &mut State) -> Result<()> {
             [hi[0], c[1] + (i as f64 - 1.) * 5., hi[2] - 7.],
             [1., 0., 0.],
             "donor-interface",
-            "Proposed external landing region beside retained native power box; exact Unit B lead and earth contacts unlocated",
+            "Proposed external landing region beside retained native power box; exact donor lead and earth contacts unlocated",
             "unlocated",
             "",
         );

@@ -1,10 +1,10 @@
-# Ice Maker Teardowns
+# Antarctic Star HZB-12/Q donor
 
-Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/README.md` for how the harvested parts fit into the cold core assembly, and [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for the procedure that uses the components identified below.
+The black [Antarctic Star HZB-12/Q, ASIN B0F8NKJD6X](https://www.amazon.com/dp/B0F8NKJD6X) supplies the compressor, condenser and fan, capillary, suction-line heat exchanger and filter-drier. The delivered machine's labels and harvest measurements establish the exact compressor, connections and mount fit. The teardown notes below describe the HZB-12/Q that supplies the current CAD reference. [Reference teardown record](https://github.com/derekbreden/homesodamachine/blob/b9dde41eabe7e8a8d633337d70f2eb444ea979c4/hardware/ice-maker-teardown.md) · [Current purchase](/hardware/ledger/purchases.md#6-refrigeration) · [Build procedure](/hardware/assembly/refrigerant-loop.md)
 
 ## Cold core architecture
 
-Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/README.md`](/hardware/README.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is vented, the factory drier stays in service, the system is evacuated, and it is recharged.
+The wrapped copper evaporator cools the fabricated stainless carbonator. Recover the donor charge before opening the circuit at the old evaporator's suction and capillary connections. Preserve the factory drier and the bonded heat exchanger through the conversion, then evacuate and recharge the new circuit.
 
 The hot-gas bypass solenoid is deleted.
 
@@ -19,17 +19,9 @@ service equipment.
 
 ---
 
-## Unit A — Antarctic Star HZB-12/Q
-
-- ASIN: **B0F42MT8JX**
-- Brand / Model: Antarctic Star / HZB-12/Q
-- Price: $63.80
-- Rated output: 26 lb/day (8 cubes per 6-minute cycle)
-- First teardown: 2026-04-17
-
 ### Refrigerant
 
-**R600a (isobutane), 15 g** factory charge per the Antarctic Star HZB-12/Q technical-parameters table in the product manual (UK reseller hosts the 220-240 V / 50 Hz variant manual at `adexa.co.uk`; the US Amazon variant we bought is 110-120 V / 60 Hz — same HZB-12/Q model number, same evap + condenser + refrigerant charge across voltage variants, only the compressor electrical spec changes). This is the donor charge; the finished soda machine's charge and applicable limit need their own specification. Brazing anywhere in the sealed loop requires prior charge removal and the documented purge precautions — do not heat a pressurized R600a circuit.
+Use the U.S. HZB-12/Q refrigerant rating in Intertek's constructional report as the baseline in the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf). Derek reports the inspected nameplate gives no charge mass. The report permits several compressors under this model, so check the actual compressor plate, fan and connections against the reference measurements. [Intertek constructional report, ratings](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70.pdf#page=3)
 
 ### Refrigerant circuit topology (verified by disassembly)
 
@@ -65,7 +57,7 @@ Finned-tube forced-convection condenser with its own fan shroud (fan not yet sep
 
 A fat copper cylinder sits between the condenser outlet and the capillary tube inlet. It holds a molecular-sieve desiccant charge that traps residual moisture and debris.
 
-**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares.
+**Disposition: keep in service.** Keep the factory drier, its brazed-on capillary, the capillary helix and the bonded suction-line heat exchanger together. Protect the drier from moisture throughout the open work. [Refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md)
 
 Label on this unit's drier:
 
@@ -78,7 +70,7 @@ Label on this unit's drier:
 
 ### Capillary tube + suction-line heat exchanger
 
-Downstream of the filter-drier, the metering device is a hair-bore **capillary tube**, ID ~0.03″ (well under 1 mm). It drops pressure from condenser side (~100 PSI) to evaporator side (~5–10 PSI for R600a) across its length. Mass flow for a 100 W-class system is a fraction of a gram per second.
+Downstream of the filter-drier, a hair-bore **capillary tube** meters refrigerant. Its inlet state, bore, length and the pressure difference across it determine the flow. Running pressures depend on water load, airflow and refrigerant inventory.
 
 Physical path through this unit, start to finish:
 
@@ -91,7 +83,7 @@ Keep the bonded cap-tube-plus-suction-line pair intact when re-piping. The helic
 
 ### Process tube (the "dead-end" copper stub)
 
-A short (~2″) copper tube closed with a pinched-and-brazed tip sticks out of the compressor body and connects to nothing else. This is the factory charging port: evacuate through this tube, inject the refrigerant charge, then crimp and braze the tip shut. Recovery and recharge taps in here during reassembly — either by cutting the crimped tip and brazing on a piercing saddle / access port, or by installing a bolt-on Schrader saddle over the tube.
+A short copper tube with a pinched-and-brazed tip sticks out of the compressor body. Use the process tube for recovery, evacuation and recharge through qualified low-side access. [Refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md)
 
 ### Hot-gas bypass solenoid (DISCARD for our use)
 
@@ -99,7 +91,7 @@ A small AC solenoid valve is teed into the refrigerant circuit:
 
 - Label: **SOLENOID VALVE — AC 110V 50/60Hz 4/4.5 W — TIANHAQ 25.10.17**
 - Function in ice maker: during the harvest cycle, this valve opens and routes hot compressor discharge gas directly into the evaporator (bypassing the condenser and capillary tube), warming the cold fingers so formed cubes release and drop.
-- Remove the valve entirely when re-piping, or leave physically in place and never energize it.
+- Remove the valve, branch tubing and tee during re-piping.
 
 ### Evaporator cold plate
 
@@ -107,7 +99,7 @@ A stainless-finger cold plate, purpose-built for ice-cube formation. **Discarded
 
 ### Powering and control (AC wiring)
 
-The compressor is a single-phase AC hermetic with a **combined PTC start relay + overload protector** clipped to its terminal block. The module and terminal block sit under the donor's moulded power-box cover; retain that cover and its original retention intact. For Unit A, external connection is **two wires (black + white) coming out of that module**, not directly from the compressor pins, so bench wiring joins those leads outside the cover rather than opening it. Believed to be **110–120 VAC** based on US market origin and the 110 V rating on the hot-gas bypass solenoid — verify the compressor nameplate before energizing.
+The reference compressor is a single-phase AC hermetic with a **combined PTC start relay and overload protector** clipped to its terminal block. Retain the moulded power-box cover and its original retention. The reference teardown found black and white external pigtails. Measure and record the delivered donor's lead function, termination, usable length and earth landing before preparing the mating harness.
 
 For bench testing, plug into standard 120 VAC through an **inline fuse** (5 A fast-blow is comfortable for expected ~1 A running + LRA inrush). A Kill-A-Watt inline lets you observe the LRA spike, steady running draw, and confirm the compressor is doing real work rather than just humming.
 
@@ -128,34 +120,7 @@ For ESP32 control:
 | Condenser + fan | Keep |
 | Capillary tube (bonded to suction line) | Keep — do not separate |
 | Filter-drier | Keep in service — preserved through loop-open period under continuous argon flow per `assembly/refrigerant-loop.md` step 3 |
-| Process tube | Keep — vent/recharge access point |
-| Hot-gas bypass solenoid | Discard / bypass |
+| Process tube | Keep for qualified low-side service access and final closure |
+| Hot-gas bypass solenoid | Remove with its branch and tee |
 | Evaporator finger plate | Discard (replaced by custom copper coil around the SS carbonator) |
 | Thermostat / harvest-cycle controller | Discard (custom ESP32-S3 firmware replaces it) |
-
----
-
-## Unit B — Frigidaire EFIC117-SS
-
-- ASIN: **B07PCZKG94**
-- Price: $78.70
-- Rated output: 26 lb/day
-- Teardown: pending
-
-### Refrigerant (from manufacturer manual, pre-teardown)
-
-**R600a, 23 g (0.81 oz)** factory charge per the EFIC189-family user manual hosted on Amazon's CDN — the EFIC117-SS is listed as one of the model variants the manual covers ("Refrigerant/Refrigerant amount: R600a / 23g. Foaming agent: C5H10"). The same nameplate text — "R600a 0.81oz/23g" — appears verbatim in multiple independent secondhand-listing posts quoting the back-panel rating label. The label is the authoritative source once the housing is opened.
-
-This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge target for this build is *not* the factory mass — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory.
-
-### Compressor (from inspection, pre-teardown)
-
-- Manufacturer: Zhejiang Bingfeng Compressor Co., Ltd
-- Model: **BLC48AD**
-- 115 V ~ 60 Hz, 1 PH, LRA 5.7 A
-- Hermetic reciprocating, thermally protected, UL / CSM listed
-- Body cast-stamp: **45** (mid-housing). **Not** a charge mass — factory charge is 23 g per the manual above. Most likely a compressor displacement or capacity-index code; not decoded.
-
-### Powering and control (teardown pending)
-
-Inspection confirms the compressor's moulded power-box cover over the terminal/PTC assembly; retain it and its original retention intact. Unit B's factory-external electrical interface, lead colors, connector family, polarity mapping, and retained harness length are not yet recorded. Do not inherit Unit A's black/white pigtail details. Close this at teardown before AC-4/5 production wiring; direct access to the terminal block under the cover is not a fallback.

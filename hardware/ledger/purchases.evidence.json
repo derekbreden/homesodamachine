@@ -10218,6 +10218,18 @@
       "source_ids": [
         "src-56b5905ef743455fa0e61dd424f75261"
       ]
+    },
+    "pur-cdb4735a3b244438a2d4e72bf5b582e7": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-4768090-1512212"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eab6c800fa344ade9e74ac626996b6d3"
+      ]
     }
   },
   "orders": {
@@ -16610,6 +16622,18 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-56b5905ef743455fa0e61dd424f75261"
+      ]
+    },
+    "amazon:112-4768090-1512212": {
+      "vendor": "Amazon",
+      "reference": "112-4768090-1512212",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-eab6c800fa344ade9e74ac626996b6d3"
       ]
     }
   },
@@ -35417,6 +35441,21 @@
       ],
       "verified_at": "2026-11-17",
       "note": "Exact-order delivery notification confirms the previously identified shipment delivered. Relative today wording does not independently establish a delivery calendar date. No completed payment or final tax is proved."
+    },
+    "src-eab6c800fa344ade9e74ac626996b6d3": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_page",
+      "reference": "112-4768090-1512212",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-17",
+      "note": "Amazon Order Details identifies one black Antarctic Star countertop ice maker (B0F8NKJD6X). The product details identify HZB-12/Q. Merchandise USD 55.98 with free shipping and USD 4.06 estimated tax. Estimated arrival November 19. Fulfillment and completed payment are pending."
     }
   },
   "coverage": [
@@ -37774,6 +37813,26 @@
       ],
       "order_ids": [
         "amazon:112-9810422-9839444"
+      ],
+      "note": "Exact project order only."
+    },
+    {
+      "coverage_id": "coverage-76a3b357443d4aea9b4407572b138808",
+      "vendor": "Amazon",
+      "stream": "named refrigeration donor order",
+      "evidence_type": "merchant_order_page",
+      "checked_at": "2026-11-17",
+      "examined_period": {
+        "start": "2026-11-17",
+        "end": "2026-11-17"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-eab6c800fa344ade9e74ac626996b6d3"
+      ],
+      "order_ids": [
+        "amazon:112-4768090-1512212"
       ],
       "note": "Exact project order only."
     }

@@ -284,6 +284,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | <!--purchase:pur-0d25c15c3ff844028031133169cd99e6--> Frigidaire EFIC117-SS ice maker, 26 lb/day (donor) | [B07PCZKG94](https://www.amazon.com/dp/B07PCZKG94) | 1 | $78.70 | 112-0852106-5758666 | 2026-04-15 | — | ACQUIRED |
 | <!--purchase:pur-8ddacf1d6302498490f538f3c9c4000f--> Countertop ice maker 26 lb/day (2nd donor) | [B0F42MT8JX](https://www.amazon.com/dp/B0F42MT8JX) | 1 | $63.80 | 112-1812715-8813859 | 2026-04-15 | — | ACQUIRED |
+| <!--purchase:pur-cdb4735a3b244438a2d4e72bf5b582e7--> Antarctic Star HZB-12/Q countertop ice maker, black (refrigeration donor) | [B0F8NKJD6X](https://www.amazon.com/dp/B0F8NKJD6X) | 1 | $60.04 | 112-4768090-1512212 | 2026-11-17 | — | ON-ORDER |
 | <!--purchase:pur-dc62fe3f57474f15be2c4afae3e10359--> GOORY 1/4" OD × 50 ft ACR copper coil | [B0DKSW5VL9](https://www.amazon.com/dp/B0DKSW5VL9) | 1 | $68.63 | 112-4686467-7049865 | 2026-04-15 | — | ACQUIRED |
 | <!--purchase:pur-88c94356779a413f95d4e1b878b4bb18--> RIGID DV1910E Copper Coil Chiller, 12 V (alt path) | [rigidhvac.com](https://www.rigidhvac.com/) (direct order) | 1 | $580.00 | 2604018778275 | 2026-04-01 | — | ACQUIRED |
 | <!--purchase:pur-47eca5f06d344a0d80556ef2d2acd56f--> Fiberglass Supply Depot 2 lb-density 2-part expanding pour foam, closed-cell PU (quart kit) | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $42.89 | 112-5359790-0932202 | 2026-05-15 | 2026-05-16 | ACQUIRED |
@@ -867,17 +868,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$43,830.15](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$50,549.66](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$174.79](LEDGER_ON_ORDER) |
+| ON-ORDER | [$234.83](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$50,777.52](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$50,837.56](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$29,134.79](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,659.65](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,719.69](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$18,983.08](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

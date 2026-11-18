@@ -10,6 +10,10 @@ show the screw layout, saddle split and flare orientation. The photos set the
 casting, cap and screw proportions. Those dimensions are estimates in
 [`model.rs`](model.rs), and the model represents the visible exterior.
 
+The BPV31 is modeled at the compressor process tube. Supco's product FAQ directs
+removal of solderless piercing valves after service. Confirm R-600a suitability
+for bench use and establish the final process-tube seal before acceptance.
+
 - [Supco product specifications](https://supco.com/web/supco_live/products/BPV31.html)
 - [Supco assembled product photo](https://supco.com/web/supco_live/uploads/product/L/BPV31_L.png)
 - [Supco installation leaflet](https://www.siglers.com/mwdownloads/download/link/id/10380)

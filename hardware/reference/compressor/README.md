@@ -74,9 +74,9 @@ shut at the factory ([`../ice-maker/README.md`](/hardware/reference/ice-maker/RE
 z =, mm above the suction's own station, so
 the saddle and the suction leg share one lane down the machine's west side.
 
-`process_tube()` reads mm out along that stub, where the Supco
-BPV31's saddle bands it. The valve goes on once and stays for the life of the appliance —
-[`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
+`process_tube()` reads the modeled station for the Supco BPV31 saddle.
+The refrigerant-loop procedure governs qualified bench access and final closure.
+[Refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md)
 
 ## Holds
 

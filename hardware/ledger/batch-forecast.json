@@ -1080,23 +1080,23 @@
       "stock": "John Guest PI010822S male connector NPTF, 1/4-inch tube \u00d7 1/4-inch NPTF, gray acetal"
     },
     {
-      "id": "B07PCZKG94",
-      "name": "Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)",
+      "id": "B0F8NKJD6X",
+      "name": "Antarctic Star HZB-12/Q ice-maker donor (compressor/condenser/cap-tube/drier)",
       "unit": "pieces",
       "supplier": "amazon",
       "priceBasis": "merchandise",
       "status": "estimate",
-      "note": "Prime result for this ASIN currently names EFIC117-SSCOPPER-COM. Budget $85/donor; internal hardware compatibility with the measured donor and batch stock remain unconfirmed. No alternate donor geometry assumed.",
+      "note": "Single-unit merchandise price from the project order. Batch availability and pricing still need a quote.",
       "options": [
         {
           "quantity": 1,
-          "priceCents": 8500,
+          "priceCents": 5598,
           "label": "one piece",
           "available": true
         }
       ],
-      "sourceUrl": "https://www.amazon.com/dp/B07PCZKG94",
-      "stock": "B07PCZKG94"
+      "sourceUrl": "https://www.amazon.com/dp/B0F8NKJD6X",
+      "stock": "B0F8NKJD6X"
     },
     {
       "id": "B0DKSW5VL9",

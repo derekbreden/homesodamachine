@@ -81,7 +81,7 @@
     "HSM-0459": "B0FYCJJXCS-rod"
   },
   "kits": {
-    "B07PCZKG94": [
+    "B0F8NKJD6X": [
       "HSM-0038",
       "HSM-0179",
       "HSM-0288",
@@ -1015,21 +1015,21 @@
       }
     },
     {
-      "id": "B07PCZKG94",
-      "name": "Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)",
+      "id": "B0F8NKJD6X",
+      "name": "Antarctic Star HZB-12/Q ice-maker donor (compressor/condenser/cap-tube/drier)",
       "unit": "pieces",
-      "href": "https://www.amazon.com/dp/B07PCZKG94",
-      "onHand": 1.0,
-      "incoming": 0,
+      "href": "https://www.amazon.com/dp/B0F8NKJD6X",
+      "onHand": 0,
+      "incoming": 1,
       "reserved": 0,
-      "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "ledger_estimate",
-      "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate.",
+      "estimated": false,
+      "asOf": "2026-11-17",
+      "basis": "order",
+      "note": "One selected donor is ordered. Harvest and fit are verified against the actual donor.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 271
+          "line": 287
         }
       ],
       "planning": {
