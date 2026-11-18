@@ -41,7 +41,7 @@
     "hardware/faucet-layout/faucet-assembly.step": "ddb8c172482d034e136c130b884fe297d528809f3ef1484cc6f09d51b52e79ed",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "2713f62b1a559762765ad5af56c36fb5aba09be0789420ccbad8ac1233da05e8",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "34eda4a55bb6d6ad5fa734ede1cb5541dcd604c995de7698e1141e864dc155bc",
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "6a0607795cff0f0cfaad95cc23c54ee37985828d022a7af363bc184e02a719c0",
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "972b1612661d807b94b4d72eb435e6c1aed36067770f82b4198051e200724305",
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step": "f5bdbab3dead7e9aaf9c1f1eaa19e435ba4547201cd61119a4e00ad03dd353fc",
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "46a2a83a2ea3795cd5e03da8e0deed1128edea0720ed5175bc062ab7f110a6bf",
     "hardware/faucet-layout/pullout-concept/handheld-detail.step": "5ef429048eeb141ca153fdae4e3214125e49e23d60c013f7a3a2f0da7c5bfc84",
@@ -904,7 +904,7 @@
       "hardware/faucet-layout/faucet-assembly.step": "ddb8c172482d034e136c130b884fe297d528809f3ef1484cc6f09d51b52e79ed",
       "hardware/faucet-layout/faucet-assembly.step.mesh": "2713f62b1a559762765ad5af56c36fb5aba09be0789420ccbad8ac1233da05e8",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "34eda4a55bb6d6ad5fa734ede1cb5541dcd604c995de7698e1141e864dc155bc",
-      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "6a0607795cff0f0cfaad95cc23c54ee37985828d022a7af363bc184e02a719c0",
+      "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "972b1612661d807b94b4d72eb435e6c1aed36067770f82b4198051e200724305",
       "hardware/faucet-layout/pullout-concept/docked-above-counter.step": "f5bdbab3dead7e9aaf9c1f1eaa19e435ba4547201cd61119a4e00ad03dd353fc",
       "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "46a2a83a2ea3795cd5e03da8e0deed1128edea0720ed5175bc062ab7f110a6bf",
       "hardware/faucet-layout/pullout-concept/handheld-detail.step": "5ef429048eeb141ca153fdae4e3214125e49e23d60c013f7a3a2f0da7c5bfc84",
@@ -2655,7 +2655,7 @@
     "hardware/faucet-layout/faucet-assembly.step": 1795017184.805793,
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1795017143.287795,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1794785845.070223,
-    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1794785836.378333,
+    "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1795019647.311268,
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step": 1794986750.710438,
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": 1794986742.176017,
     "hardware/faucet-layout/pullout-concept/handheld-detail.step": 1794986750.710438,
@@ -3593,7 +3593,7 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
-      "commit": "340a911bc8f6c2b72110b37faffdaf6954ad2726",
+      "commit": "199e15a630d2e3d2f1c5adbdbcf67c125567d79d",
       "unproven": true
     },
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": {
