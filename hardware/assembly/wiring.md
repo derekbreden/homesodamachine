@@ -161,4 +161,4 @@ The chassis is the input to [`firmware-and-commissioning.md`](/hardware/assembly
 
 ## Open items
 
-1. **The current donor compressor's external electrical interface is not recorded.** Unit A establishes a black/white pigtail pattern for that donor only. The current BOM uses Frigidaire Unit B, whose external lead colors, connector family, polarity mapping, and retained harness length remain pending teardown. Preserve Unit B's donor-side termination at harvest, identify it at the bench, and specify a recognized mating connector or splice for AC-4/5 in the schedule and BOM. Do not inherit Unit A's wire-color assumptions; direct access to the terminal block under the cover is not the fallback.
+1. **Verify the Antarctic Star compressor’s factory-external interface.** Preserve its termination and moulded cover. Record the lead colors, termination, polarity, usable length and earth landing at harvest. Specify the recognized mating connector or splice for AC-4/5 in the schedule and BOM. The reference teardown records black and white external pigtails.

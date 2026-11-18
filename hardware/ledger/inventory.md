@@ -22,6 +22,7 @@ Items purchased and on-hand whose original role has been superseded by a differe
 
 | Item | Source | Why abandoned |
 |---|---|---|
+| **Frigidaire EFIC117-SS ice maker** | [Refrigeration purchase history](/hardware/ledger/purchases.md#6-refrigeration) | Acquired evaluation stock. |
 | **SEAFLO SFDP1-013-100-22 diaphragm pump** | [B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4), [purchases.md §3](/hardware/ledger/purchases.md) | One acquired pump retained as bench stock. The selected production pump is the received G Ganen in [bom.md §3](/hardware/ledger/bom.md); its [measured reference](/hardware/reference/g-ganen-pump/README.md) supplies the enclosure interfaces. |
 | **John Guest MI4508F4SLF brass flare connector, 1/4" tube × 1/4" FFL** | FWS WEBFWS100697928, [purchases.md §3](/hardware/ledger/purchases.md) | Water-service stock; 10 purchased, remaining quantity not counted. John Guest's [brass-family specification](https://www.johnguest.com/us/en/od-tube-fittings/specialty/brass/female-flare-connector-45deg-flare) lists water service and excludes compressed air, without affirmative CO2 approval. The shipped Taprite 3741 holds its tether in a PI010822S outlet adapter ([bom.md §4](/hardware/ledger/bom.md)). Storage: `npt-tub`. |
 | **Pysrych 304 SS reducing compression union, 1/4" × 1/8" OD (2-pack)** | [B0BM4394Z4](https://www.amazon.com/dp/B0BM4394Z4), [purchases.md §7](/hardware/ledger/purchases.md) | Originally joined 1/4" LLDPE supply to 1/8" SS gooseneck tube. That design was replaced by LLDPE-end-to-end through the printed gooseneck — no SS-tube transition needed. |
@@ -122,8 +123,6 @@ Harvest sources. Disassembled for specific subassemblies; remainder discarded or
 
 | Donor | Source | Harvested for |
 |---|---|---|
-| **Frigidaire EFIC117-SS ice maker** | [B07PCZKG94](https://www.amazon.com/dp/B07PCZKG94), [purchases.md §6](/hardware/ledger/purchases.md) | Compressor, condenser + fan, capillary tube, factory drier. R-600a charge mass: 23 g per donor manual. See [reference/ice-maker/README.md](/hardware/reference/ice-maker/README.md). |
-| **Generic 8-cube ice maker, 26 lb/day** | [B0F42MT8JX](https://www.amazon.com/dp/B0F42MT8JX), [purchases.md §6](/hardware/ledger/purchases.md) | Same harvest scope. R-600a charge mass: 15 g per donor manual. |
 | **Westbrass R2031-NL-12 Touch-Flo faucet, oil-rubbed bronze** | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA), [purchases.md §7](/hardware/ledger/purchases.md) | Westbrass harvest for the printed gooseneck. See [reference/touch-flo-faucet/README.md](/hardware/reference/touch-flo-faucet/README.md). |
 | **Westbrass A2031-NL-62 8" Touch-Flo faucet (already owned)** | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38), [purchases.md §7](/hardware/ledger/purchases.md) | Not a harvest donor; pre-existing stock. R2031-NL-12 pattern is the chosen donor. |
 | **Westbrass D203-NL-62 6" Touch-Flo faucet (already owned)** | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW), [purchases.md §7](/hardware/ledger/purchases.md) | Same — pre-existing stock, not a harvest donor. |

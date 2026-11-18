@@ -72,6 +72,9 @@ and routes do not constrain mechanical changes.
 
 Two things decide where a part comes from: lead time and volume. It ships from stock and arrives in days, and it is the high-volume part for its job, the one most people buy for that job today.
 
+Specify one current part for each job in the BOM, procedures and site. When a
+part changes, update its selection and the sources that use it together.
+
 Amazon Prime is the default because a Prime listing usually has both. Any other store that has both is a source I'll like: a manufacturer's or distributor's own shop that ships the part from stock, such as FWS, Digi-Key, Mouser or the maker itself. On Amazon, a listing without the Prime logo doesn't count. Do not read it. Do not mention it.
 
 Your MCP reaches my Chrome on this Mac, which is signed in to my Amazon. The Windows laptop is my work laptop. Never use its Chrome.

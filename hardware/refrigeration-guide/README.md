@@ -1,9 +1,8 @@
 # Refrigeration bench guide
 
-[Refrigeration bench guide](refrigeration-guide.pdf) is 27 illustrated 8.5 x 11 in
-pages, one operation per page. It covers evaporator fabrication, donor preparation,
-the vent, argon-purged brazing, vacuum and recharge of the refrigerant circuit,
-installed mounts and refrigeration commissioning.
+[Refrigeration bench guide](refrigeration-guide.pdf) covers evaporator fabrication,
+the Antarctic Star donor, recovery, brazing, pressure test, vacuum, charge and
+water-load commissioning in illustrated Letter pages.
 
 The diagrams use coral for the current work, copper for refrigerant tubing and blue
 for tools, measurements and movement. They are schematic; dimensions and the
@@ -15,7 +14,7 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
 | Page | Operation |
 |---|---|
 | 1 | Cold-loop map, order and picture conventions |
-| 2 | Read and record donor/compressor labels |
+| 2 | Identify the Antarctic Star donor and the U.S. certification rating |
 | 3 | Trace the circuit; keep the factory drier and capillary, mark what comes out |
 | 4 | Reserve coil stock and the unequal inlet/outlet allowances |
 | 5 | Wind and remove the coil from the printed mandrel |
@@ -23,24 +22,27 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
 | 7 | Transfer the coil; bond the suction-end probe |
 | 8 | Route the two tails and measure protrusion from the shell exits |
 | 9 | Isolate power and support the donor during casing removal |
-| 10 | Clamp the BPV31 on the process tube for life and vent the factory charge |
-| 11 | Rig the argon purge to the BPV31 and start low-pressure flow |
+| 10 | Recover the factory charge through qualified process-tube access |
+| 11 | Set up the argon purge and verify its open flow paths |
 | 12 | Cut the suction line and cap tube at the evaporator; strip the ice-making path |
 | 13 | Wrap a wet rag hard against each shell exit before each braze |
 | 14 | Braze the suction slip coupling dry under argon |
 | 15 | Pinch-swage the coil-inlet stub onto the cap tube and braze it |
-| 16 | Pull vacuum to 500 microns, then hold isolated with no rise |
-| 17 | Mass-meter the recharge from factory mass plus the coil allowance |
-| 18 | Close and cap the BPV31 as the permanent service point; record the charge |
-| 19 | First run-up and leak sweep at every joint |
-| 20 | Orient and seat the low-mounted MQ-6 module |
-| 21 | Lower and fasten the compressor on its four grommet/post stacks |
-| 22 | Seat the condenser/fan in its rails and aft mount fingers |
-| 23 | Seat and inspect the insulated thermal-cutoff clamp |
-| 24 | Prove real probe readings, fan/control path and first start |
-| 25 | Verify firmware limits and the loaded refrigeration result |
-| 26 | Repair a leak through the full sequence |
-| 27 | Keep the per-unit measurements |
+| 16 | Pressure-test, pull vacuum and record the isolated hold |
+| 17 | Meter the first trial charge from the U.S. rating |
+| 18 | Estimate wrapped-coil inventory and see what changes the total |
+| 19 | Seal the access and record the charge between trials |
+| 20 | First run-up and leak sweep at every joint |
+| 21 | Orient and seat the low-mounted MQ-6 module |
+| 22 | Lower and fasten the compressor on its grommet/post stacks |
+| 23 | Seat the condenser/fan in its rails and aft mount fingers |
+| 24 | Seat and inspect the insulated thermal-cutoff clamp |
+| 25 | Prove real probe readings, fan/control path and first start |
+| 26 | Measure pressure, temperature and cooling under the same water load |
+| 27 | Choose and verify the next weighed charge |
+| 28 | Verify firmware limits and the loaded refrigeration result |
+| 29 | Repair a leak through the full sequence |
+| 30 | Keep the per-unit measurements |
 
 ## Responsible sources
 
@@ -53,7 +55,7 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
 - [Donor ice maker](../reference/ice-maker/README.md),
   [compressor](../reference/compressor/README.md) and
   [condenser block](../reference/condenser-block/README.md) supply the actual donor
-  evidence: what stays, what comes out and the permanent service valve.
+  evidence for the harvested assembly and its process-tube location.
 - [Enclosure assembly](../assembly/enclosure-mechanical.md),
   [mechanical fasteners in the BOM](../ledger/bom.md),
   [fuse clamp](../printed-parts/refrigeration/fuse-clamp/README.md) and
@@ -73,15 +75,22 @@ Manufacturer sources:
   copper-to-copper use without flux.
 - [EPA Section 608 venting rules](https://www.epa.gov/section608/stationary-refrigeration-prohibition-venting-refrigerants),
   end-use-specific venting scope.
+- [Intertek constructional report SH10080445-001](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70.pdf#page=3),
+  U.S. HZB-12/Q refrigerant and charge rating.
+- [Secop hermetic service guide](https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf)
+  and [Supco BPV31 product FAQ](https://supco.com/web/supco_live/products/BPV31.html),
+  equipment suitability and service closure.
+- [NIST isobutane properties](https://webbook.nist.gov/cgi/fluid.cgi?ID=C75285&Action=Page),
+  [ORNL void-fraction models](https://info.ornl.gov/sites/publications/Files/Pub57653.pdf)
+  and [ASHRAE capillary systems](https://handbook.ashrae.org/Handbooks/R26/SI/r26_ch11/r26_ch11_si.aspx),
+  the basis for the inventory example and measurement plan.
 
 ## Qualification scope
 
-This guide is a source-reviewed illustrated sequence. It records no completed
-circuit build, charge or load test. The 500-micron evacuation target with its
-15-minute pumping and isolated windows, the +/-1 g metering tolerance and the
-factory-plus-5-15 g starting charge come from the refrigeration procedure; the
-charge target itself is settled on first run-up, its open item 1. The proposed
-acceptance duration and duty-cycle band do not establish lifetime.
+The certification mass is the first commissioning fill. The inventory example
+describes a modeled operating state. Record the installed refrigerant charge
+and repeatable water-load results after the physical trials. Qualification of
+the flammable-refrigerant service setup and final process-tube closure is open.
 
 ## Manual rebuild and printing
 

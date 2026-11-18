@@ -2906,6 +2906,26 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-11-17",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-76a3b357443d4aea9b4407572b138808",
+      "evidence_type": "merchant_order_page",
+      "examined_period": {
+        "end": "2026-11-17",
+        "start": "2026-11-17"
+      },
+      "note": "Exact project order only.",
+      "order_ids": [
+        "amazon:112-4768090-1512212"
+      ],
+      "source_ids": [
+        "src-eab6c800fa344ade9e74ac626996b6d3"
+      ],
+      "stream": "named refrigeration donor order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-10-04",
       "complete_period": null,
       "coverage": "unknown",
@@ -10562,7 +10582,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:8b3dde78ee3300317e3e072e02f29e6d690dad6b680d7dcb446bdb72f23a213e",
+  "input_fingerprint": "sha256:7c151a303b72ea1a2c56cef3184729c7452e33c724e4168f298411857bf30a9e",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12824,6 +12844,23 @@
       "reference": "112-4706100-6171430",
       "source_ids": [
         "saved-amazon:112-4706100-6171430"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "order_id": "amazon:112-4768090-1512212",
+      "purchase_ids": [
+        "pur-cdb4735a3b244438a2d4e72bf5b582e7"
+      ],
+      "reference": "112-4768090-1512212",
+      "source_ids": [
+        "src-eab6c800fa344ade9e74ac626996b6d3"
       ],
       "vendor": "Amazon"
     },
@@ -49404,6 +49441,50 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 6004,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Antarctic Star HZB-12/Q countertop ice maker, black (refrigeration donor)",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-cdb4735a3b244438a2d4e72bf5b582e7",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "order_ids": [
+        "amazon:112-4768090-1512212"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-cdb4735a3b244438a2d4e72bf5b582e7",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "6. Refrigeration",
+      "service_period": null,
+      "source_ids": [
+        "src-eab6c800fa344ade9e74ac626996b6d3"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 1822,
       "contributes": true,
@@ -69225,6 +69306,22 @@
       "verified_at": "2026-10-13"
     },
     {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-17"
+      },
+      "document_type": "merchant_order_page",
+      "note": "Amazon Order Details identifies one black Antarctic Star countertop ice maker (B0F8NKJD6X). The product details identify HZB-12/Q. Merchandise USD 55.98 with free shipping and USD 4.06 estimated tax. Estimated arrival November 19. Fulfillment and completed payment are pending.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-4768090-1512212",
+      "source_id": "src-eab6c800fa344ade9e74ac626996b6d3",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-17"
+    },
+    {
       "document_date": null,
       "document_type": "completed_merchant_transaction",
       "merchant_event_date": {
@@ -70811,14 +70908,15 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 17479,
+          "amount_minor": 23483,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-0460bfe098504c85bbbf043b1d7a5bb0",
             "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-5caf48bbb5b44f2bbac11f37b1608ead"
+            "pur-5caf48bbb5b44f2bbac11f37b1608ead",
+            "pur-cdb4735a3b244438a2d4e72bf5b582e7"
           ],
           "unknown_amount_ids": []
         },
@@ -70840,7 +70938,8 @@
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e"
+        "pur-c887374045604177851c4a81cc779f0e",
+        "pur-cdb4735a3b244438a2d4e72bf5b582e7"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
@@ -71960,7 +72059,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 47792,
+          "estimate_minor": 53796,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 77008,
           "legacy_unverified_minor": 0,
@@ -71993,6 +72092,7 @@
             "pur-a9aeeb7107e24ef68654ee86aa1fbe14",
             "pur-c421deec9a2f4c7b868ae95b9e1499c1",
             "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+            "pur-cdb4735a3b244438a2d4e72bf5b582e7",
             "pur-d6686b26577043b2acf9c6793d085302",
             "pur-dfd251509a3543c5b3bd9e358dcef85f",
             "pur-e8d3c873b40848499b387a0bed8978f7",
@@ -72000,7 +72100,7 @@
             "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 124800,
+          "total_minor": 130804,
           "unknown_amount_ids": []
         },
         {
@@ -72017,7 +72117,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1176855,
+          "amount_minor": 1182859,
           "currency": "USD",
           "purpose": "components"
         },
@@ -72055,10 +72155,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 265965,
+          "estimate_minor": 271969,
           "final_vendor_amount_minor": 2913479,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5077752
+          "total_minor": 5083756
         }
       ],
       "undated_unallocated": [
@@ -72225,11 +72325,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 265965,
+          "estimated_purchase_minor": 271969,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2479392,
+          "purchases_without_merchant_charge_minor": 2485396,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -72266,6 +72366,7 @@
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c421deec9a2f4c7b868ae95b9e1499c1",
         "pur-c692f77e911c4e6fa40da3baf52ca7bd",
+        "pur-cdb4735a3b244438a2d4e72bf5b582e7",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
         "pur-d6686b26577043b2acf9c6793d085302",
@@ -72322,6 +72423,7 @@
         "coverage-6e94055bf3074d6eb35fed6a91a4a83a",
         "coverage-6ef6cf03f4f84bfbb645acce4d20418b",
         "coverage-73c6e929ef054d8e8dd93989f037bd69",
+        "coverage-76a3b357443d4aea9b4407572b138808",
         "coverage-78a9ed2f481043abade203167e2c5d18",
         "coverage-7f9a057786a54dddb3e660fd3d934198",
         "coverage-80e99c778a64491ea0cd0c2669edbab4",
@@ -73285,6 +73387,7 @@
         "pur-cbf5bc63353a4362ae29eb1cfdeb9f61",
         "pur-cc579f0a066248ca8c4da92e94a0286b",
         "pur-cd430b2b91584e61934c6db74a05ee07",
+        "pur-cdb4735a3b244438a2d4e72bf5b582e7",
         "pur-cdbdfd1ceedb4bc9b29c087b510af56b",
         "pur-ce12043d997645c7841cd5a1063bc96e",
         "pur-ce1b4970208b4c6a9adec93c9a7f950e",
@@ -73594,6 +73697,7 @@
       "coverage-6e94055bf3074d6eb35fed6a91a4a83a: evidence coverage is partial",
       "coverage-6ef6cf03f4f84bfbb645acce4d20418b: evidence coverage is partial",
       "coverage-73c6e929ef054d8e8dd93989f037bd69: evidence coverage is partial",
+      "coverage-76a3b357443d4aea9b4407572b138808: evidence coverage is partial",
       "coverage-78a9ed2f481043abade203167e2c5d18: evidence coverage is unknown",
       "coverage-7f9a057786a54dddb3e660fd3d934198: evidence coverage is unknown",
       "coverage-80e99c778a64491ea0cd0c2669edbab4: evidence coverage is partial",
@@ -73660,7 +73764,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "30 legacy named order(s) lack an exact invoice allocation check",
+      "31 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }

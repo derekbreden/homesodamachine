@@ -55,11 +55,12 @@ The relevant leakage/ignition, electrical, mechanical and abnormal-operation tes
 apply to the finished design; the donor's qualification does not establish their
 results for the custom evaporator and enclosure.
 
-Factory donor charges are 15 g (Unit A, Antarctic Star HZB-12/Q) and 23 g (Unit B,
-Frigidaire EFIC117-SS). The [assembly procedure](/hardware/assembly/refrigerant-loop.md)
-targets 5-15 g above the donor charge for the wound evaporator. The expected sub-40 g
-charge is below the household limit; the measured finished-unit charge belongs on
-the unit and in its record. No minimum-room-area or installation-height label is
+The U.S. Antarctic Star HZB-12/Q certification report supplies the first weighed
+trial for the wound evaporator. Establish the finished charge through the loaded trials in the
+[assembly procedure](/hardware/assembly/refrigerant-loop.md#charge-commissioning).
+The household standard's circuit limit does not establish a test ceiling for
+the donor compressor and custom loop. Put the measured finished charge on the
+unit and in its record. No minimum-room-area or installation-height label is
 specified in the reviewed household marking clauses. Installation instructions still
 need the actual ventilation and clearance requirements.
 
