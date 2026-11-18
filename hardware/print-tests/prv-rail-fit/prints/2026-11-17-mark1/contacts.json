@@ -1,0 +1,67 @@
+{
+  "archive": "hardware/print-tests/prv-rail-fit/prints/2026-11-17-mark1/2026-11-17-prv-rail-fit-mark1-86cf75d4-textured-pei.gcode.3mf",
+  "gcode_sha256": "33a1ccc107d2708e7f081f817c526ca6cdad14538c16de63dda2ad987aa2d950",
+  "maximum_prior_course_separation_mm": 0.61,
+  "objects": [
+    {
+      "contact_regions": [
+        {
+          "longest_other_free_span_mm": 0.0594189189189188,
+          "longest_wall_free_span_mm": 0.1792592592592594,
+          "region": "fore vent edge",
+          "road_with_bead_overlap_mm": 41.53718191980426,
+          "sampled_road_mm": 42.072962440324815
+        },
+        {
+          "longest_other_free_span_mm": 0.0594189189189188,
+          "longest_wall_free_span_mm": 0.1792592592592594,
+          "region": "aft vent edge",
+          "road_with_bead_overlap_mm": 150.72131562343836,
+          "sampled_road_mm": 152.50489344125583
+        },
+        {
+          "longest_other_free_span_mm": 4.0999054054053925,
+          "longest_wall_free_span_mm": 0.17995225464191006,
+          "region": "complete bearing",
+          "road_with_bead_overlap_mm": 666.0640187366957,
+          "sampled_road_mm": 679.0141812917808
+        }
+      ],
+      "first_bearing_course_top_mm": 54.44,
+      "identify_id": 1901,
+      "name": "prv-rail-top",
+      "native_support_roads_in_vent": 0
+    },
+    {
+      "contact_regions": [
+        {
+          "longest_other_free_span_mm": 0.3576279069767425,
+          "longest_wall_free_span_mm": 1.0158024691358027,
+          "region": "fore vent edge",
+          "road_with_bead_overlap_mm": 38.30196017213938,
+          "sampled_road_mm": 42.24166910567244
+        },
+        {
+          "longest_other_free_span_mm": 0.3585542168674684,
+          "longest_wall_free_span_mm": 0.5975308641975312,
+          "region": "aft vent edge",
+          "road_with_bead_overlap_mm": 145.16662852600365,
+          "sampled_road_mm": 153.17333702284859
+        },
+        {
+          "longest_other_free_span_mm": 0.3585542168674684,
+          "longest_wall_free_span_mm": 1.0158024691358027,
+          "region": "complete bearing",
+          "road_with_bead_overlap_mm": 651.0568513011797,
+          "sampled_road_mm": 682.0036503020659
+        }
+      ],
+      "first_bearing_course_top_mm": 44.6,
+      "identify_id": 1902,
+      "name": "prv-rail-bottom",
+      "native_support_roads_in_vent": 0
+    }
+  ],
+  "purpose": "Read native backing of both coupon bearings beside the vent.",
+  "sampling_step_mm": 0.06
+}

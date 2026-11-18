@@ -1,0 +1,120 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        -103.75,
+        -93.5,
+        294.0,
+        354.0,
+        159.0,
+        178.05
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 10.25,
+      "name": "Sliding rail 1",
+      "reason": "The fitted sliding bearings retain local solid deposition."
+    }
+  ],
+  "producer": "prv-rail-fit",
+  "removable_support_stock": [
+    {
+      "cap_span_x_mm": [
+        -103.275,
+        -98.5
+      ],
+      "center_x_mm": -101.125,
+      "contact_source_z_mm": 168.7,
+      "name": "Removable west rail support 1",
+      "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
+      "root_source_z_mm": 175.05,
+      "shape": "rail_strips",
+      "span_y_mm": [
+        294.0,
+        317.79999999962746
+      ]
+    },
+    {
+      "cap_span_x_mm": [
+        -103.275,
+        -98.5
+      ],
+      "center_x_mm": -101.125,
+      "contact_source_z_mm": 168.7,
+      "name": "Removable west rail support 2",
+      "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
+      "root_source_z_mm": 175.05,
+      "shape": "rail_strips",
+      "span_y_mm": [
+        329.79999999962746,
+        354.0
+      ]
+    }
+  ],
+  "source_stl_sha256": "8954197b29137f9b4552285f355dfe95a00f061aad36dd1bfb635a2e9ccc62eb",
+  "support_free_regions": [
+    {
+      "blocking_bounds_source_mm": [
+        -107.5,
+        -89.75000000018628,
+        314.79999999962746,
+        340.5499999994412,
+        159.0,
+        222.09999999962744
+      ],
+      "bounds_source_mm": [
+        -101.25,
+        -90.75000000018628,
+        317.79999999962746,
+        329.79999999962746,
+        159.0,
+        208.34999999981372
+      ],
+      "name": "PRV vent mouth",
+      "reason": "The cap root and end-wall backing keep supports out of the clear passage.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -101.25,
+            197.85
+          ],
+          [
+            -101.25,
+            141.85
+          ],
+          [
+            -93.75000000018628,
+            141.85
+          ],
+          [
+            -93.75000000018628,
+            185.6
+          ],
+          [
+            -90.75000000018628,
+            185.6
+          ],
+          [
+            -90.75000000018628,
+            208.34999999981372
+          ]
+        ],
+        "span_y_mm": [
+          317.79999999962746,
+          329.79999999962746
+        ]
+      }
+    }
+  ],
+  "support_regions": []
+}
