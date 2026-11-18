@@ -1,0 +1,99 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.9062268671114e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 1,
+      "name": "east-rear-rail-top",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 1,
+        "normal_part": 2,
+        "support_blocker": 1
+      },
+      "placed_bounds_mm": [
+        [
+          32.074996948000006,
+          172.06641387899998,
+          0.0
+        ],
+        [
+          292.92500305199997,
+          187.585655213,
+          29.869995118
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1033
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.960956504073692e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 1,
+      "name": "east-rear-rail-bottom",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 1,
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          32.074996948000006,
+          132.414344787,
+          0.0
+        ],
+        [
+          292.92500305199997,
+          152.06641387899998,
+          37.880004882
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1603
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.5",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.10 - 0.01",
+    "0.10 - 0.02",
+    "0.10 + 0.01",
+    "0.10"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "error_string": "Success.",
+  "export_time": 1394,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 19,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 238.84840393066406,
+        "Bridge": 1181.068603515625,
+        "Custom": 303.9646911621094,
+        "Flush": 15.0,
+        "Gap infill": 40.4173469543457,
+        "Inner wall": 933.7960815429688,
+        "Internal solid infill": 1089.1671142578125,
+        "Outer wall": 1447.5247802734375,
+        "Overhang wall": 110.31563568115234,
+        "Sparse infill": 5087.91796875,
+        "Support": 772.66162109375,
+        "Support interface": 84.68634033203125,
+        "Top surface": 215.99386596679688,
+        "Travel": 754.8942260742188,
+        "Undefined": 746.8102416992188
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 111.80299377441406,
+          "total_used_g": 111.80300903320312
+        }
+      ],
+      "generate_support_material_time": 367,
+      "id": 1,
+      "infill_time": 202,
+      "layer_filament_change": 0,
+      "main_predication": 11941.8134765625,
+      "make_perimeters_time": 73,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 15.519233703613281,
+            "height": 29.8699951171875,
+            "width": 260.8500061035156,
+            "x": 32.07499694824219,
+            "y": 172.06642150878906,
+            "z": 4.062492564571585e-10
+          },
+          "id": 5,
+          "name": "east-rear-rail-top",
+          "triangle_count": 4672
+        },
+        {
+          "bbox": {
+            "depth": 19.652076721191406,
+            "height": 37.8800048828125,
+            "width": 260.8500061035156,
+            "x": 32.07499694824219,
+            "y": 132.41433715820312,
+            "z": -4.062492564571585e-10
+          },
+          "id": 9,
+          "name": "east-rear-rail-bottom",
+          "triangle_count": 3206
+        }
+      ],
+      "sliced_time": 1777,
+      "sliced_time_with_cache": 1036,
+      "total_predication": 15899.78362931911,
+      "triangle_count": 7878,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
