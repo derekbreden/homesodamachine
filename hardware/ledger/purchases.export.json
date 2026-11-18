@@ -10063,7 +10063,7 @@
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
       "gap_id": "gap-083a0e4705eb4c0b8438f31067c1573e",
-      "missing_fact": "Actual delivery and credit origin remain unverified. Both plates are confirmed shipped. The invoice labels November 15 as Delivery Date, but actual delivery is not established by the subsequent shipment notification. Final net amount and completed payment date are confirmed by the invoice.",
+      "missing_fact": "Origin of the applied credit remains unverified. Final net amount and completed payment date are confirmed by the invoice; actual delivery is confirmed by the carrier for November 18, 2026.",
       "order_ids": [
         "bambu:us798331608108187648"
       ],
@@ -10073,12 +10073,14 @@
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
         "src-979852095e4b4b9f85d0451fa983baec",
-        "src-b0cb6517e7794385aad65450a6e01b2b"
+        "src-b0cb6517e7794385aad65450a6e01b2b",
+        "src-d95b8e3ce34247fea948c9dbdbeff601"
       ],
       "sources_checked": [
         "Exact order confirmation and signed-in merchant order record",
         "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026",
-        "Exact-order merchant shipment notification received November 16, 2026"
+        "Exact-order merchant shipment notification received November 16, 2026",
+        "UPS delivery confirmation matched to the exact-order merchant tracking identity, November 18, 2026"
       ]
     },
     {
@@ -10586,7 +10588,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:078f1d3dcfe598e2dae9219070e94a1fbef48a47b9fda86bb8a15c9d97e09ca6",
+  "input_fingerprint": "sha256:4742dda3fe5baa3616ecc035a6a27ce77fa8c8aada2e333efcf2a691a5ac1b92",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -19184,7 +19186,8 @@
       "reference": "us798331608108187648",
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
-        "src-979852095e4b4b9f85d0451fa983baec"
+        "src-979852095e4b4b9f85d0451fa983baec",
+        "src-d95b8e3ce34247fea948c9dbdbeff601"
       ],
       "vendor": "Bambu Lab"
     },
@@ -23935,11 +23938,17 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount; both plates shipped, awaiting delivery",
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-18"
+        }
+      ],
+      "description": "Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount; both plates delivered November 18, 2026",
       "event_ids": [
         "evt-19293e4645d84cd08d555c566e2820d7"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": {
         "precision": "day",
         "value": "2026-11-15"
@@ -23972,7 +23981,8 @@
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
         "src-979852095e4b4b9f85d0451fa983baec",
-        "src-b0cb6517e7794385aad65450a6e01b2b"
+        "src-b0cb6517e7794385aad65450a6e01b2b",
+        "src-d95b8e3ce34247fea948c9dbdbeff601"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -68755,6 +68765,22 @@
       "verified_at": "2026-11-10"
     },
     {
+      "document_date": null,
+      "document_type": "carrier_delivery_confirmation",
+      "note": "UPS delivery confirmation explicitly states delivered November 18, 2026. Its tracking identity matches the merchant notification identifying both H2C Engineering Plates for this order. The carrier delivery date supersedes the invoice delivery field for actual fulfillment. No new payment is implied.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "us798331608108187648",
+      "source_id": "src-d95b8e3ce34247fea948c9dbdbeff601",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-18"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-13"
@@ -70188,7 +70214,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5048532,
+          "amount_minor": 5056728,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -70266,6 +70292,7 @@
             "pur-1af507c69de4482da0d7b9c1ecc99b52",
             "pur-1b7bb6a7d30446bca9cb2b15f9ab9d21",
             "pur-1bc0635e08404ffa812786a90e5d91eb",
+            "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-1cd523f02fed4209ad9b4bdfb2f73f68",
             "pur-1d09a9a1ecd74b74825b2ec81c59b0a4",
             "pur-1d1f4567c6c34e248390df7f295564d0",
@@ -70947,11 +70974,10 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 22197,
+          "amount_minor": 14001,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
-            "pur-1c4dede86ac6420db23a61fd3b7eabb8",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
             "pur-cdb4735a3b244438a2d4e72bf5b582e7"
@@ -70971,7 +70997,6 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
-        "pur-1c4dede86ac6420db23a61fd3b7eabb8",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-b6c01a5b012340fc888139c1070dc054",

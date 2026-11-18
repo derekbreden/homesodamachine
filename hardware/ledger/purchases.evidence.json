@@ -10160,12 +10160,19 @@
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
         "src-b0cb6517e7794385aad65450a6e01b2b",
-        "src-979852095e4b4b9f85d0451fa983baec"
+        "src-979852095e4b4b9f85d0451fa983baec",
+        "src-d95b8e3ce34247fea948c9dbdbeff601"
       ],
       "invoice_date": {
         "precision": "day",
         "value": "2026-11-15"
-      }
+      },
+      "delivery_dates": [
+        {
+          "precision": "day",
+          "value": "2026-11-18"
+        }
+      ]
     },
     "pur-5caf48bbb5b44f2bbac11f37b1608ead": {
       "vendor": "Amazon",
@@ -16571,7 +16578,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
-        "src-979852095e4b4b9f85d0451fa983baec"
+        "src-979852095e4b4b9f85d0451fa983baec",
+        "src-d95b8e3ce34247fea948c9dbdbeff601"
       ]
     },
     "amazon:112-7519255-8741021": {
@@ -35488,6 +35496,21 @@
       ],
       "verified_at": "2026-11-18",
       "note": "Exact-order delivery notification confirms the existing green wire coil is delivered. Relative today wording does not independently establish a delivery calendar date. No completed merchant payment or final tax is proved."
+    },
+    "src-d95b8e3ce34247fea948c9dbdbeff601": {
+      "vendor": "Bambu Lab",
+      "document_type": "carrier_delivery_confirmation",
+      "reference": "us798331608108187648",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-18",
+      "note": "UPS delivery confirmation explicitly states delivered November 18, 2026. Its tracking identity matches the merchant notification identifying both H2C Engineering Plates for this order. The carrier delivery date supersedes the invoice delivery field for actual fulfillment. No new payment is implied."
     }
   },
   "coverage": [
@@ -38323,13 +38346,15 @@
       "source_ids": [
         "src-2c30f092670c4f8d91381f26b9dff8b0",
         "src-b0cb6517e7794385aad65450a6e01b2b",
-        "src-979852095e4b4b9f85d0451fa983baec"
+        "src-979852095e4b4b9f85d0451fa983baec",
+        "src-d95b8e3ce34247fea948c9dbdbeff601"
       ],
-      "missing_fact": "Actual delivery and credit origin remain unverified. Both plates are confirmed shipped. The invoice labels November 15 as Delivery Date, but actual delivery is not established by the subsequent shipment notification. Final net amount and completed payment date are confirmed by the invoice.",
+      "missing_fact": "Origin of the applied credit remains unverified. Final net amount and completed payment date are confirmed by the invoice; actual delivery is confirmed by the carrier for November 18, 2026.",
       "sources_checked": [
         "Exact order confirmation and signed-in merchant order record",
         "Named Bambu invoice BBLUS2616KM839F11 and signed-in order listing, checked November 16, 2026",
-        "Exact-order merchant shipment notification received November 16, 2026"
+        "Exact-order merchant shipment notification received November 16, 2026",
+        "UPS delivery confirmation matched to the exact-order merchant tracking identity, November 18, 2026"
       ]
     },
     {

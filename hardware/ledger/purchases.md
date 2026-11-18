@@ -686,7 +686,7 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 
 | Order date | Bambu order # | Contents | $ | Status |
 |---|---|---|---|---|
-| <!--purchase:pur-1c4dede86ac6420db23a61fd3b7eabb8--> 2026-11-14 | us798331608108187648 | Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount; both plates shipped, awaiting delivery | $81.96 | ON-ORDER |
+| <!--purchase:pur-1c4dede86ac6420db23a61fd3b7eabb8--> 2026-11-14 | us798331608108187648 | Bambu Engineering Plate for H2C, 2 plates; $87.98 after sale discount, less $11.56 credit + $5.54 tax, free shipping; net order amount; both plates delivered November 18, 2026 | $81.96 | ACQUIRED |
 | <!--purchase:pur-fd5344356f7b483485428f444470b0ab--> 2026-03-22 | us712460111015776257 | Bambu Lab H2C — H2C AMS Combo (printer + integrated AMS) | $2,399.00 | ACQUIRED |
 | <!--purchase:pur-78da6641c19145ed970808c4ef7cc9c5--> 2026-03-22 | us712460111015776257 | Vision Encoder (H2 Series) | $78.75 | ACQUIRED |
 | <!--purchase:pur-c3b3b0a2274849c591fa9619695bc636--> 2026-03-22 | us712460111015776257 | Bambu Engineering Plate (H2C) | $49.49 | ACQUIRED |
@@ -727,7 +727,7 @@ A confirmation carries no order date. The number after `us` is a snowflake ID: `
 | <!--purchase:pur-25f35741f88e40729bec555987f79640--> 2026-10-08 | us784775952755326977 | ASA Aero filament with spool, White 46100, 1 kg ×2 ($99.98) + NE tax $7.25; shipping waived — the magnetic-float material | $107.23 | ACQUIRED (delivered Oct 13; Bambu delivery confirmation in Gmail) |
 | <!--purchase:pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07--> 2026-10-26 | us791135084148191233 | H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived | $171.56 | ACQUIRED (delivery confirmed; exact day unknown) |
 | <!--purchase:pur-6655f4a0c1c747bc8ce06a69596eb432--> 2026-11-07 | us795729195777990656 | PETG Basic filament with spool ×3 — Red 30201, White 30106, Navy Blue 30604 (1 kg each, one of each color; $15.29 each after bulk discount, $45.87 subtotal) + shipping $6.99 + NE tax $3.83 | $56.69 | ACQUIRED (delivered 2026-11-12; all three spools named in shipment notification) |
-| **§15 acquired valuation** | | | **[$9,684.84](LEDGER_SEC15)** | |
+| **§15 acquired valuation** | | | **[$9,766.80](LEDGER_SEC15)** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -865,10 +865,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,843.01](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,924.97](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,562.52](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$221.97](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,644.48](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$140.01](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,837.56](LEDGER_GRAND_TOTAL) |
@@ -909,7 +909,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 12 | Shop / bench infrastructure | [$3,288.29](LEDGER_SEC12) |
 | 13 | Printing consumables | [$4,159.57](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,684.84](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$9,766.80](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$921.02](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$1,388.14](LEDGER_SEC19) |
