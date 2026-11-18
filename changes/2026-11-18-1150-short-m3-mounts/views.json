@@ -1,0 +1,330 @@
+{
+  "views": [
+    {
+      "name": "pcb",
+      "caption": "The PCB screws seat directly on the mounting pads. The tall printed spacers are removed.",
+      "before": "pcb-before.webp",
+      "after": "pcb-after.webp",
+      "width": 1100,
+      "height": 800,
+      "marks": [
+        {
+          "x": 550,
+          "y": 400,
+          "r": 83.1,
+          "label": "Direct screw seating",
+          "at": [
+            -13.2,
+            195.7,
+            259.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          7.229749246431755,
+          175.27025075356823,
+          271.75784954785905
+        ],
+        "target": [
+          -13.2,
+          195.7,
+          259.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.29743697108486616,
+        "far": 488.10392262388467,
+        "aspect": 1.375
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/pcba",
+        "cold-core/foam-cap-lid-top",
+        "pcba-screw-4",
+        "pcba-insert-4",
+        "pcba-screw-spacer-4",
+        "terminal-J11"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b1a33d2a6966306b2718423a7890287f14027677be153948912f52176c3fcff6",
+          "commit": "13917f4e5ab32bc54da4788cdeab0f45eadb34b8",
+          "taken": "2026-11-18T17:26:48.908Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ad725993b0712e4033ac624fa6f9ff885cb6f4043b49801ab73f4c79672dc516",
+          "commit": "f5793c108943e6b737150e041f43777a08301e34",
+          "published": true
+        }
+      },
+      "changed": [
+        "condenser-screw-spacer-1",
+        "condenser-screw-spacer-2",
+        "condenser-washer-1",
+        "condenser-washer-2",
+        "pcba-screw-spacer-1",
+        "pcba-screw-spacer-2",
+        "pcba-screw-spacer-3",
+        "pcba-screw-spacer-4",
+        "enclosure-front-top",
+        "display-screw-1",
+        "display-screw-2",
+        "display-screw-3",
+        "display-screw-4",
+        "status-screw-1",
+        "status-screw-2",
+        "status-screw-3",
+        "status-screw-4",
+        "pcba-screw-1",
+        "pcba-screw-2",
+        "pcba-screw-3",
+        "pcba-screw-4",
+        "nameplate-screw-1",
+        "nameplate-screw-2",
+        "nameplate-screw-3",
+        "nameplate-screw-4",
+        "enclosure-back-top",
+        "cold-core/foam-shell",
+        "condenser-screw-1",
+        "condenser-screw-2",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "nameplate",
+      "caption": "The shorter nameplate screws use shallower blind hosts and matching sealed core recesses.",
+      "before": "nameplate-before.webp",
+      "after": "nameplate-after.webp",
+      "width": 1100,
+      "height": 800,
+      "marks": [
+        {
+          "x": 603.9,
+          "y": 394.5,
+          "r": 56.9,
+          "label": "Closed host backing",
+          "at": [
+            -70.4,
+            460.24,
+            255.20454545454544
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -105.08650868906949,
+          483.81190521344166,
+          262.1418471923593
+        ],
+        "target": [
+          -70.4,
+          463,
+          255.20454545454544
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.40297433456628096,
+        "far": 698.2168412999117,
+        "aspect": 1.375,
+        "section": {
+          "at": [
+            -70.4,
+            463,
+            255.20454545454544
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-lid-top",
+        "nameplate-screw-3",
+        "nameplate-insert-3"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b1a33d2a6966306b2718423a7890287f14027677be153948912f52176c3fcff6",
+          "commit": "13917f4e5ab32bc54da4788cdeab0f45eadb34b8",
+          "taken": "2026-11-18T17:26:48.908Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ad725993b0712e4033ac624fa6f9ff885cb6f4043b49801ab73f4c79672dc516",
+          "commit": "f5793c108943e6b737150e041f43777a08301e34",
+          "published": true
+        }
+      },
+      "changed": [
+        "condenser-screw-spacer-1",
+        "condenser-screw-spacer-2",
+        "condenser-washer-1",
+        "condenser-washer-2",
+        "pcba-screw-spacer-1",
+        "pcba-screw-spacer-2",
+        "pcba-screw-spacer-3",
+        "pcba-screw-spacer-4",
+        "enclosure-front-top",
+        "display-screw-1",
+        "display-screw-2",
+        "display-screw-3",
+        "display-screw-4",
+        "status-screw-1",
+        "status-screw-2",
+        "status-screw-3",
+        "status-screw-4",
+        "pcba-screw-1",
+        "pcba-screw-2",
+        "pcba-screw-3",
+        "pcba-screw-4",
+        "nameplate-screw-1",
+        "nameplate-screw-2",
+        "nameplate-screw-3",
+        "nameplate-screw-4",
+        "enclosure-back-top",
+        "cold-core/foam-shell",
+        "condenser-screw-1",
+        "condenser-screw-2",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "condenser",
+      "caption": "The condenser uses the short screw and the selected flat washer across the donor flange hole.",
+      "before": "condenser-before.webp",
+      "after": "condenser-after.webp",
+      "width": 1100,
+      "height": 800,
+      "marks": [
+        {
+          "x": 550,
+          "y": 462.3,
+          "r": 90.7,
+          "label": "Washer on the flange",
+          "at": [
+            70.5,
+            153,
+            9.9
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          87.84369344576176,
+          170.34369344576177,
+          25.007770084321322
+        ],
+        "target": [
+          70.5,
+          153,
+          12
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.18976665704857112,
+        "far": 313.42659656724095,
+        "aspect": 1.375
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "condenser+fan",
+        "condenser-screw-1",
+        "condenser-insert-1",
+        "condenser-washer-1",
+        "condenser-screw-spacer-1"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b1a33d2a6966306b2718423a7890287f14027677be153948912f52176c3fcff6",
+          "commit": "13917f4e5ab32bc54da4788cdeab0f45eadb34b8",
+          "taken": "2026-11-18T17:26:48.908Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ad725993b0712e4033ac624fa6f9ff885cb6f4043b49801ab73f4c79672dc516",
+          "commit": "6bfa17109ba58fc8c5daa7610358408d140ea5b6",
+          "published": true
+        }
+      },
+      "changed": [
+        "condenser-screw-spacer-1",
+        "condenser-screw-spacer-2",
+        "condenser-washer-1",
+        "condenser-washer-2",
+        "pcba-screw-spacer-1",
+        "pcba-screw-spacer-2",
+        "pcba-screw-spacer-3",
+        "pcba-screw-spacer-4",
+        "enclosure-front-top",
+        "display-screw-1",
+        "display-screw-2",
+        "display-screw-3",
+        "display-screw-4",
+        "status-screw-1",
+        "status-screw-2",
+        "status-screw-3",
+        "status-screw-4",
+        "pcba-screw-1",
+        "pcba-screw-2",
+        "pcba-screw-3",
+        "pcba-screw-4",
+        "nameplate-screw-1",
+        "nameplate-screw-2",
+        "nameplate-screw-3",
+        "nameplate-screw-4",
+        "enclosure-back-top",
+        "cold-core/foam-shell",
+        "condenser-screw-1",
+        "condenser-screw-2",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
