@@ -36,7 +36,8 @@ PISCO regulator and neoFit ACVUS-44 stem check form the gas group beside that wa
 The [production arrangement](/hardware/manifold-layout/above-core.md) defines their exact
 native poses, supports, cap entries and qualification limits.
 
-The funnel frame drops in vertically and takes four recessed screws. Its drain cradle
+The funnel frame drops in vertically. Recessed screws clamp it at a fore and an aft
+station on each front flank and at one station on each rear flank. Its drain cradle
 snaps into the frame's bottom web. Final connections beneath the funnel are made with
 the frame absent. Aft of the funnel opening the ceiling is continuous, with component
 recesses and no access panel.

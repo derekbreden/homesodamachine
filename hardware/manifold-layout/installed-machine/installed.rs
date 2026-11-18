@@ -56,8 +56,11 @@ struct Funnel {
 struct Frame {
     seat: f64,
     roof_floor: f64,
-    screws: Vec<(f64, f64, f64, f64, f64, bool)>,
+    screws: Vec<FrameScrew>,
 }
+
+#[derive(Deserialize)]
+struct FrameScrew(f64, f64, f64, f64, f64, bool, #[serde(default)] Option<String>);
 
 /// The elbow cradle's own numbers: the catch under the funnel's plug and its block's foot.
 #[derive(Deserialize)]
@@ -131,11 +134,12 @@ impl Site {
         self.frame
             .screws
             .iter()
-            .map(|&(dx, dy, head, host_radius, side, front)| {
+            .map(|&FrameScrew(dx, dy, head, host_radius, side, front, ref row)| {
                 let col = if front { "front" } else { "back" };
                 let edge = if side < 0.0 { "west" } else { "east" };
+                let row = row.as_deref().unwrap_or(col);
                 json!({
-                    "name": format!("{col}-{edge}"), "col": col, "side": side as i64,
+                    "name": format!("{row}-{edge}"), "col": col, "side": side as i64,
                     "x": cx + dx, "y": cy + dy, "ledge_z": ledge, "head_seat_z": floor + head,
                     "insert_top_z": ledge, "insert_bottom_z": ledge - shell::HEATSET_LONG_LEN,
                     "host_radius_mm": host_radius,

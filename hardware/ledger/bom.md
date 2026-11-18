@@ -131,7 +131,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-0026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.620 | $40.52 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.620 | $40.54 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
 | Enclosure — pump retainer | 2 | PET-GF | 0.010 | $0.26 <!--@printed--><!--parts HSM-0082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0029--> |
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.503 | $37.60 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
@@ -150,7 +150,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Rear equipment snap caps | 4 | PET-GF | 0.067 | $1.66 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
 | G Ganen pump snap cap | 1 | PET-GF | 0.092 | $2.29 <!--@printed--><!--parts HSM-0455--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-0358--> |
-| Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--><!--parts HSM-0072--> |
+| Funnel frame | 1 | PET-GF | 0.259 | $6.48 <!--@printed--><!--parts HSM-0072--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-0071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.008 | $0.20 <!--@printed--><!--parts HSM-0073--> |
 | Reservoir liquid-tube grips | 4 | Bambu TPU 90A | 0.000785 | $0.04 <!--@printed--><!--parts HSM-0457--> |
@@ -160,9 +160,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
 | Faucet tube sealing thimble | 1 | Bambu TPU 85A | 0.000449 | $0.02 <!--@printed--><!--parts HSM-0090--> |
 | Sculpted faucet mounting gasket | 1 | Bambu TPU 90A | 0.005959 | $0.27 <!--@printed--><!--parts HSM-0093--> |
-| **Printed parts total** | | | **~7.16** | **[$164.65](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.16** | **[$164.66](BOM_SEC7)** |
 
-By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.05 kg / $151.40. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.05 kg / $151.42. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -313,7 +313,7 @@ bearing plane. Both use the T18 heat-set tip.
 8. **IEC C14 inlet** uses [2](C14_INSERTS) short inserts and [2](C14_SCREWS) M3 × 10 screws, fitted from inside the internal flange pocket. A Ø7 × 0.5 mm washer bears on each flat inboard ear face. The screw crosses the [3.25](C14_FLANGE_T) mm ear, washer and rim stand-off, leaving [4.41](C14_SCREW_REACH) mm reach in the [5.25](C14_BORE) mm blind pilot, with solid backing to the exterior.
 9. **Compressor** bolted down to the enclosure floor slab via [4](FLOOR_INSERTS) ruthex **M5** inserts + [4](FLOOR_SCREWS) M5 SHCS + [4](FLOOR_WASHERS) M5 × 25 fender washers — one post per hole in the compressor's own plate pattern (`enclosure_assembly.floor_mounts` / `enclosure._floor_bosses`), each post rising *through* the rubber grommet in that hole to just under the grommet's crown and bored for an insert there. **The post is the sleeve**: the washer spans the grommet's Ø[14](COMPRESSOR_BORE) bore, squeezes its top flange [0.4](GROMMET_SQUEEZE) mm and lands on the post's crown, so the preload is a printed dimension and the limit on it is the same one. The compressor posts, four Y-seam anchors and twenty cold-core closure stations use M5 inserts. Inserts pressed at [`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1, compressor bolted down at its §3.
 10. **Pump tees** take no fastener: [4](DOCK_TEES) PP0208E tees, each standing in its bore through front-top's tee wall. Their four branch collets grip the prepared pump tubes. Each pump’s fitted motor guide and individual flange retainer carry it; [4](PUMP_CLAMP_SCREWS) socket-head screws engage short heat-set inserts in local posts.
-11. **Drop-in funnel frame** uses [4](FUNNEL_FRAME_SCREWS) M3 × 12 screws in [4](ROOF_CLOSURE_INSERTS) full-length inserts. The plug, elbow and cradle travel with the removable frame; disconnect the V-B feed before removing it. The electronics ceiling is continuous.
+11. **Drop-in funnel frame** uses [6](FUNNEL_FRAME_SCREWS) M3 × 12 screws in [6](ROOF_CLOSURE_INSERTS) full-length inserts. The plug, elbow and cradle travel with the removable frame; disconnect the V-B feed before removing it. The electronics ceiling is continuous.
 
 Each reservoir cap carries two flush liquid-tube TPU grips and one air-tube
 TPU grip. The two independent white 4 mm air tubes pass through the foam cap
@@ -325,14 +325,14 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [ruthex RX-M2 × 4 heat-set inserts, 70 pc](https://www.amazon.com/dp/B088QJG676) | Relay corner posts, one insert beneath every board mounting hole. The matching screw enters the blind host through the board. Acquired pack: $10.71/70, [purchase record](/hardware/ledger/purchases.md). | [8](TOTAL_M2_INSERTS) (of 70 pk) | [$0.15](M2_INSERT_UNIT_COST) | [$1.22](M2_INSERTS_COST) <!--@fasteners--><!--parts HSM-0577--> |
-| [ruthex RX-M3 × 5.7 full-length heat-set inserts, 100 pc](https://www.amazon.com/dp/B08BCRZZS3) | Ø4 recommended pilot. [4](FOAM_INSERTS) in the top-lid PCB posts, [12](RES_INSERTS) reservoir caps, [2](COND_INSERTS) condenser fingers and [4](ROOF_CLOSURE_INSERTS) funnel-frame ledges. Stock and blind relief follow each named host. Amazon 112-6100127: $10.71/100. | [22](M3_LONG_INSERTS) (of 100 pk) | $0.11 | [$2.36](M3_LONG_INSERTS_COST) <!--@fasteners--><!--parts HSM-0164--> |
+| [ruthex RX-M3 × 5.7 full-length heat-set inserts, 100 pc](https://www.amazon.com/dp/B08BCRZZS3) | Ø4 recommended pilot. [4](FOAM_INSERTS) in the top-lid PCB posts, [12](RES_INSERTS) reservoir caps, [2](COND_INSERTS) condenser fingers and [6](ROOF_CLOSURE_INSERTS) funnel-frame ledges. Stock and blind relief follow each named host. Amazon 112-6100127: $10.71/100. | [24](M3_LONG_INSERTS) (of 100 pk) | $0.11 | [$2.57](M3_LONG_INSERTS_COST) <!--@fasteners--><!--parts HSM-0164--> |
 | [ruthex RX-M3S × 4 short heat-set inserts, 100 pc](https://www.amazon.com/dp/B09ZHSGHXD) | Ø4 recommended pilot. [3](TOUCHFLO_INSERTS) faucet base, [4](SHELF_INSERTS) PSU and [2](C14_INSERTS) C14, with short inserts also retaining the nameplate, display cover, status plate and independent pump clamps. The PCB mounts use full-length inserts. Amazon 112-4234665: $10.71/100. | [25](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | [$2.68](M3_SHORT_INSERTS_COST) <!--@fasteners--><!--parts HSM-0104 HSM-0136--> |
 | [ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set](https://www.amazon.com/dp/B07YSVXWS8) | M5 × 9.5 mm L × 7.1 mm OD knurled brass, Ø6.4 recommended pilot with at least 2.6 mm surrounding wall. [28](TOTAL_M5_INSERTS) per build: [4](FLOOR_SCREWS) compressor floor posts, [4](SEAM_INSERTS) Y-seam anchors and [20](FOAM_CLAMP_INSERTS) cold-core closure stations. Blind relief and screw-tip clearance are checked on the complete printed hosts. Amazon 112-6038990-5011450 Aug 11: $9.99 + $0.72 tax = $10.71 ÷ 50 = $0.2142/ea | [28](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | [$6.00](M5_INSERTS_COST) <!--@fasteners--><!--parts HSM-0132--> |
 | [Sutemribor M2 × 6 mm socket-head cap screws, 12.9 alloy steel, black oxide, 105 pc](https://www.amazon.com/dp/B0CXQ7Q7L3) | Relay corner fasteners, through every board mounting hole into RX-M2×4 inserts. Acquired pack: $18.22/105, [purchase record](/hardware/ledger/purchases.md). | [8](M2X6_TOTAL) (of 105 pk) | [$0.17](M2X6_UNIT_COST) | [$1.39](M2X6_COST) <!--@fasteners--><!--parts HSM-0576--> |
 | [BNUOK M3 × 6 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQH3WSX) | Rear nameplate, machine display cover and status-plate screws, with visible socket heads in shallow seats. Acquired. | [12](M3X6_TOTAL) (of 120 pk) | $0.06 | [$0.76](M3X6_COST) <!--@fasteners--><!--parts HSM-0578--> |
 | [BNUOK M3 × 8 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | [9](M3X8_TOTAL) per build: [3](TOUCHFLO_SCREWS) faucet base, [4](SHELF_SCREWS_PCBA) PCB and [2](COND_SCREWS) condenser. PCB screws cross the [1.6](PCBA_BOARD_T) mm board into full-length cap inserts, with [6.4](PCBA_SCREW_REACH) mm projection and [1](PCBA_SCREW_TIP) mm pilot tip air. Amazon 112-6198023: $7.71/120. | [9](M3X8_TOTAL) (of 120 pk) | $0.06 | [$0.58](M3X8_COST) <!--@fasteners--><!--parts HSM-0103 HSM-0138--> |
 | [BNUOK M3 × 25 mm socket head cap, alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | Pump flange retainers, driven from the open underside into short heat-set inserts. Acquired stock. | [4](M3X25_TOTAL) (of 60 pk) | $0.14 | [$0.57](M3X25_COST) <!--@fasteners--><!--parts HSM-0137--> |
-| [BNUOK M3 × 12 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Four funnel-frame screws per build. Amazon 112-0144900: $8.57/120, acquired. | [4](M3X12_TOTAL) (of 120 pk) | $0.07 | [$0.29](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
+| [BNUOK M3 × 12 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Funnel-frame screws. Amazon 112-0144900: $8.57/120, acquired. | [6](M3X12_TOTAL) (of 120 pk) | $0.07 | [$0.43](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
 | [BNUOK M3 × 12 mm socket head cap, 304 stainless steel, 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | [12](RES_SCREWS) per build, the reservoir-cap screws: [6](RES_INSERTS_PER_CAP) through each cap and its TPU gasket into the cap's full-length inserts (item 2 above). Amazon 112-3709957-5726619 Jun 2: $8.66/120, ACQUIRED. | [12](RES_SCREWS) (of 120 pk) | $0.07 | [$0.87](RES_SCREWS_COST) <!--@fasteners--><!--parts HSM-0363--> |
 | [BNUOK M3 × 10 mm socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGGDP2) | [6](M3X10_TOTAL) screws: [4](SHELF_SCREWS_PSU) through the ceiling PSU ears and [2](C14_SCREWS) at C14. C14 uses two Ø7 × 0.5 mm washers; its flange, washer and rim stand-off leave [4.41](C14_SCREW_REACH) mm projection into the blind pilot. Amazon 112-6542724: $8.57/120. | [6](M3X10_TOTAL) (of 120 pk) | $0.07 | [$0.43](M3X10_COST) <!--@fasteners--><!--parts HSM-0139--> |
 | [uxcell M3 flat washers, Ø7 mm OD × 0.5 mm, 304 stainless steel, 200 pc](https://www.amazon.com/dp/B0F9KKJ22M) | Two spread the C14 screw loads on the flat inboard ear faces. Amazon 112-4954529: $7.82/200. | [2](SMALL_WASHERS) (of 200 pk) | $0.04 | [$0.08](SMALL_WASHERS_COST) <!--@fasteners--><!--parts HSM-0362--> |
@@ -366,16 +366,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$134.94](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$20.84](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$164.65](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$164.66](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$34.93](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware | [$29.21](BOM_SEC13) |
+| 13. Mechanical attach hardware | [$29.56](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,463.71](BOM_GRAND)** |
+| **Total** | **[$1,464.07](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

@@ -6,6 +6,8 @@ use crate::shapes::{corner_prism, rounded, rounded_prism};
 use crate::shell::*;
 use crate::structure::FUNNEL_SEAT;
 use crate::ystacks::y_stack_axis;
+use hsm_enclosure_numbers::funnel_mount::{self, REAR_ACCESS, SCREW_GRIP};
+pub use hsm_enclosure_numbers::funnel_mount::PAD_HALF_Y;
 
 pub const COLLAR_W: f64 = 165.0;
 const FORWARD: f64 = 41.6085;
@@ -24,12 +26,9 @@ pub const FRAME_WEB: f64 = 3.0;
 pub const FRAME_WIDTH: f64 = 196.5;
 pub const BODY_WIDTH: f64 = 176.5;
 pub const FRAME_DEPTH: f64 = COLLAR_D + 24.6;
-pub const REAR_ACCESS: f64 = 5.0;
 pub const FRAME_CORNER: f64 = 6.0;
 pub const RAIL_BELOW: f64 = 42.1;
-pub const SCREW_GRIP: f64 = 5.8;
 pub const HEAD_H: f64 = 3.0;
-pub const PAD_HALF_Y: f64 = 6.0;
 pub const PILOT_RELIEF: f64 = 1.5;
 pub const CORBEL_FOOT_HALF_DEPTH: f64 = 27.5 + (FORWARD + AFT) / 2.0;
 /// The Y joint the frame's own records are drawn against.
@@ -81,7 +80,7 @@ pub fn roof_datums([_cx, cy]: P2, seat: f64) -> Roof {
     }
 }
 
-/// One of the frame's four screws into the shell's ledges.
+/// A frame screw and its ledge in the shell.
 #[derive(Clone, Copy, Debug)]
 pub struct Fastener {
     pub col: Y,
@@ -96,25 +95,22 @@ pub struct Fastener {
     pub host_radius: f64,
 }
 
-pub fn fasteners(centre: P2, seat: f64) -> [Fastener; 4] {
+pub fn fasteners(centre: P2, seat: f64) -> impl Iterator<Item = Fastener> {
     let r = roof_datums(centre, seat);
     let ledge = r.floor;
     let bore_bottom = ledge - HEATSET_LONG_LEN - PILOT_RELIEF;
-    let row = |col, side: f64, x: f64, y| Fastener {
-        col,
-        side,
-        x: centre[0] + side * x,
-        y,
+    funnel_mount::stations(r.front, r.back).map(move |station| Fastener {
+        col: if station.front { Y::Front } else { Y::Back },
+        side: station.side,
+        x: centre[0] + station.x,
+        y: station.y,
         ledge_z: ledge,
         head_seat_z: ledge + SCREW_GRIP,
         insert_top_z: ledge,
         bore_bottom_z: bore_bottom,
         host_bottom_z: bore_bottom - WALL,
         host_radius: HEATSET_DIA / 2.0 + WALL,
-    };
-    let (front, back) = (r.front + 32.0, r.back - REAR_ACCESS - 11.2);
-    [row(Y::Front, -1.0, 93.0, front), row(Y::Front, 1.0, 93.0, front),
-     row(Y::Back, -1.0, 87.7, back), row(Y::Back, 1.0, 87.7, back)]
+    })
 }
 
 /// The frame's plan blank, stepped in behind the Y stacks when it is wider than their reach.
@@ -185,7 +181,7 @@ pub fn front_roof_clearance(g: &mut Graph, inner: &Bounds, centre: P2, seat: f64
 pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat: f64, col: Y,
                  up: Option<f64>) -> Option<Shape> {
     let mut blocks = Vec::new();
-    for row in fasteners(centre, seat).into_iter().filter(|r| r.col == col) {
+    for row in fasteners(centre, seat).filter(|r| r.col == col) {
         let side = row.side;
         let inside = row.x - side * row.host_radius;
         let (xa, xb) = sorted(inside, if side < 0.0 { outer[0] } else { outer[1] });
@@ -206,7 +202,6 @@ pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat
 /// The heat-set bores one column's frame screws take in the shell.
 pub fn shell_screw_cuts(g: &mut Graph, centre: P2, seat: f64, col: Y) -> Option<Shape> {
     let bores: Vec<Shape> = fasteners(centre, seat)
-        .into_iter()
         .filter(|r| r.col == col)
         .map(|r| g.zcyl(HEATSET_DIA / 2.0, r.x, r.y, r.bore_bottom_z, r.insert_top_z + 1.0))
         .collect();

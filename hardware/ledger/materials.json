@@ -206,12 +206,14 @@
           },
           {
             "material": "HSM-0140",
-            "quantity": 4,
+            "quantity": 6,
             "unit": "ea",
-            "note": "Four funnel-frame screws.",
+            "note": "Funnel-frame screws.",
             "bodies": [
               "funnel-frame-front-east-screw",
               "funnel-frame-front-west-screw",
+              "funnel-frame-front-aft-east-screw",
+              "funnel-frame-front-aft-west-screw",
               "funnel-frame-back-east-screw",
               "funnel-frame-back-west-screw"
             ]
@@ -9344,11 +9346,13 @@
           },
           {
             "material": "HSM-0164",
-            "quantity": 2,
+            "quantity": 4,
             "unit": "ea",
             "bodies": [
               "funnel-frame-front-east-insert",
-              "funnel-frame-front-west-insert"
+              "funnel-frame-front-west-insert",
+              "funnel-frame-front-aft-east-insert",
+              "funnel-frame-front-aft-west-insert"
             ]
           },
           {
@@ -9442,7 +9446,7 @@
             "material": "HSM-0164",
             "quantity": 2,
             "unit": "ea",
-            "note": "Two condenser fingers and four funnel-frame ledges.",
+            "note": "Full-length inserts in the condenser fingers.",
             "bodies": []
           },
           {

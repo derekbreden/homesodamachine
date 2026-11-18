@@ -460,7 +460,7 @@ pump and V-B. The motion records state the actual tested groups and clearances;
 they do not establish flexible tube handling or physical assembly force.
 
 Keep the drop-in funnel frame separate during final cross-quadrant connections.
-Lift the silicone and remove the frame's four recessed screws to reopen that
+Lift the silicone and remove the frame's recessed screws to reopen that
 aperture. Its drain cradle snaps into the frame's original 3 mm web. The plug,
 stub, elbow and cradle travel with the frame; disconnect the V-B feed before
 lifting it. Disconnect and support crossing connections before reversing the
@@ -1292,7 +1292,7 @@ during the back-column ride; the circular bearing retains at least 3.34 mm of
 stock beneath its west edge.
 
 Aft of the funnel opening the slab is continuous, with component recesses and
-no access panel. The funnel opening and its four frame ledges span the front/back
+no access panel. The funnel opening and its frame ledges span the front/back
 roof seam.
 
 The rear nameplate's plain field stands 2.2 mm beyond the rear wall. Its

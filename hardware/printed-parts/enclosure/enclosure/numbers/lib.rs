@@ -16,7 +16,7 @@ pub mod rear_wall;
 pub mod shell;
 pub mod spec;
 pub mod structure;
-pub use hsm_enclosure_interface::input;
+pub use hsm_enclosure_interface::{funnel_mount, input};
 
 /// An axis-aligned box: its X, Y and Z spans, each low then high.
 pub type Bounds = [f64; 6];

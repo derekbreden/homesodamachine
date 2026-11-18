@@ -49,18 +49,18 @@
     "LAB_USD9": "$91.67",
     "NAMEPLATE_SCREWS": "4",
     "RES_SCREWS": "12",
-    "ROOF_CLOSURE_SCREWS": "4",
+    "ROOF_CLOSURE_SCREWS": "6",
     "SEAM_INSERTS": "4",
     "SEAM_RODS": "4",
     "SHELF_INSERTS": "4",
     "SHELF_SCREWS": "16",
     "SOLENOIDS": "10",
     "STATUS_PLATE_SCREWS": "4",
-    "TOTAL_INSERTS": "83",
+    "TOTAL_INSERTS": "85",
     "TOTAL_M2_INSERTS": "8",
-    "TOTAL_M3_INSERTS": "47",
+    "TOTAL_M3_INSERTS": "49",
     "TOTAL_M5_INSERTS": "28",
-    "TOTAL_SCREWS": "79",
+    "TOTAL_SCREWS": "81",
     "TOUCHFLO_SCREWS": "3"
   }
 }

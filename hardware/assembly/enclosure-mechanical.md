@@ -78,7 +78,7 @@ identifies those branches; it does not establish physical cleanup effort.
 
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
-- **Full-length RX-M3×5.7.** The condenser fingers and the four funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs), with the lid removed for insert installation.
+- **Full-length RX-M3×5.7.** The condenser fingers and the funnel-frame ledges take full-length inserts. The core's PCB columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs), with the lid removed for insert installation.
 - **Short RX-M3S×4.0.** The mains inlet's internal mounting block and the PSU hosts take short inserts. Install them before the purchased bodies. Use the screw stacks assigned in the [BOM](/hardware/ledger/bom.md).
 - **Relay corner inserts.** Install the inserts specified in [electronics-bay.md](electronics-bay.md). The relay boards bear directly on their corner posts, with the insert faces at the PCB underside. Lower each board straight onto its posts and fasten every corner before landing the terminal wires. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
@@ -331,7 +331,7 @@ J14's USB console and the rail test points lie beneath the frame
 ([firmware-and-commissioning.md](firmware-and-commissioning.md)). The frame drops in
 after commissioning (§8).
 
-For teardown, lift the silicone, remove the four funnel-frame screws and lift the
+For teardown, lift the silicone, remove the funnel-frame screws and lift the
 frame. The plug, elbow and cradle travel with the frame; disconnect the V-B
 feed before withdrawing it. Disconnect and support the tubing and leads that cross
 the separating quadrants, unplugging J13 by its housing, then reverse the M5 joints
@@ -383,10 +383,10 @@ tops. Complete and inspect the drain connection before fitting the silicone funn
 After commissioning, snap the cradle into the frame, seat the uncut stem elbow
 and fit its aft outlet turn. Make the 36.469 mm descending `fluid-4` link to
 V-B's inlet turn through the open roof, with both 16.891 mm socket engagements
-fully seated. Lower the frame vertically onto its four ledges
-([internal-plumbing.md](internal-plumbing.md) §5). Install four M3 × 12 screws from
-above into the RX-M3×5.7 inserts. Seat the heads in their counterbores without using
-the screws to pull a binding frame home. The [manual drop-in review](/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
+fully seated. Lower the frame vertically onto its ledges
+([internal-plumbing.md](internal-plumbing.md) §5). Install the M3 × 12 screws from
+above into the RX-M3×5.7 inserts. Seat the frame by hand, then tighten in alternating
+left and right stations to hold the flange flush. The [manual drop-in review](/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 models the bare frame with the cradle, elbow and tubing removed, plus the
 static web/socket and screw stack. The plug, elbow and cradle travel with
 the frame; disconnect the V-B feed before withdrawing it. Connected-tube motion,

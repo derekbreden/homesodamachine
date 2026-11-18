@@ -178,7 +178,7 @@ Every wetted and gas joint in the unit: the carbonator's four port elbows, the s
 
 ## 8. Assembly
 
-Everything that is taking the printed parts off the printers and putting parts together with fasteners and hands. Assembly includes the [83](TOTAL_INSERTS) M2/M3/M5 heat-set inserts and [79](TOTAL_SCREWS) matching screws.
+Everything that is taking the printed parts off the printers and putting parts together with fasteners and hands. Assembly includes the [85](TOTAL_INSERTS) M2/M3/M5 heat-set inserts and [81](TOTAL_SCREWS) matching screws.
 
 ### Printed parts
 
@@ -202,8 +202,8 @@ The print model allocates [7.176](LAB_PRINT_KG) kg of filament and [193.4](LAB_P
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
-| Press the [83](TOTAL_INSERTS) M2/M3/M5 heat-set inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the integral front-top pump mount, funnel-frame ledges, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [8](TOTAL_M2_INSERTS) M2, [47](TOTAL_M3_INSERTS) M3 and [28](TOTAL_M5_INSERTS) M5 | 10 <!--parts HSM-0555:41 HSM-0556:41 HSM-0557:164 HSM-0001:138 HSM-0002:18 HSM-0007:18--> |
-| Drive the [79](TOTAL_SCREWS) M2/M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [16](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame, [4](DISPLAY_COVER_SCREWS) display plate, [4](STATUS_PLATE_SCREWS) status plate, [4](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](C14_SCREWS) C14 inlet | 5 <!--parts HSM-0555:6 HSM-0556:6 HSM-0557:20 HSM-0001:32 HSM-0002:3 HSM-0007:3--> |
+| Press the [85](TOTAL_INSERTS) M2/M3/M5 heat-set inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the integral front-top pump mount, funnel-frame ledges, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [8](TOTAL_M2_INSERTS) M2, [49](TOTAL_M3_INSERTS) M3 and [28](TOTAL_M5_INSERTS) M5 | 10 <!--parts HSM-0555:41 HSM-0556:41 HSM-0557:164 HSM-0001:138 HSM-0002:18 HSM-0007:18--> |
+| Drive the [81](TOTAL_SCREWS) M2/M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [16](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [6](ROOF_CLOSURE_SCREWS) funnel-frame, [4](DISPLAY_COVER_SCREWS) display plate, [4](STATUS_PLATE_SCREWS) status plate, [4](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](C14_SCREWS) C14 inlet | 5 <!--parts HSM-0555:6 HSM-0556:6 HSM-0557:20 HSM-0001:32 HSM-0002:3 HSM-0007:3--> |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-0554--> |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | [cold-core](/hardware/assembly/cold-core.md) | | 10 <!--parts HSM-0554--> |
 | Fit the finished reed columns; seat rods and floats; close the reservoirs | [cold-core](/hardware/assembly/cold-core.md) | Cap-grip preparation, reservoir closure and column installation; J6/J7 soldering and insulation are counted in Wiring | 15 <!--parts HSM-0568:1 HSM-0569:1 HSM-0555:4 HSM-0556:4 HSM-0557:5--> |

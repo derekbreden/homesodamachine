@@ -1,7 +1,6 @@
 //! The hardware the BOM counts that no part's numbers count: the screws the supply, the relays
 //! and the C14 inlet take, the washer under each inlet
-//! screw, the compressor plate's hole inset, reservoir A's and the cap's ties, and the seam rods
-//! and the funnel frame's screws.
+//! screw, the compressor plate's hole inset, reservoir A's and the cap's ties, and the seam rods.
 
 /// The supply's ceiling screws, one through each of its mounting ears.
 pub const PSU_SCREWS: usize = 4;
@@ -23,7 +22,5 @@ pub const RESERVOIR_A_TIES: usize = 1;
 /// the only union the lid carries (`hsm-foam-cap-numbers` `unions`).
 pub const CAP_TIE_PATHS: usize = 1;
 
-/// The rods one flank's Y stack takes, lower and upper, and the funnel frame's screws
-/// (`ystacks::y_stack_rods` and `funnel::fasteners` in the enclosure's quadrants).
+/// The rods one flank's Y stack takes, lower and upper.
 pub const SEAM_RODS: usize = 2;
-pub const FUNNEL_SCREWS: usize = 4;

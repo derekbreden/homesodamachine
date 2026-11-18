@@ -180,6 +180,9 @@ pub fn inputs(root: &Path) -> Result<Inputs> {
     let compressor: CompressorReference = read(root, COMPRESSOR)?;
     let placed = facts.pack.placed;
     let relays = above.parts.keys().filter(|name| name.starts_with("relay-") && placed.contains(*name)).count();
+    let funnel_screws = facts.bodies.keys()
+        .filter(|name| name.starts_with("funnel-frame-") && name.ends_with("-screw"))
+        .count();
     Ok(Inputs {
         relays,
         placed,
@@ -212,7 +215,7 @@ pub fn inputs(root: &Path) -> Result<Inputs> {
             reach: bought::C14_SCREW_LENGTH - c14::FLANGE_T - c14::RIM_PROUD - bought::C14_WASHER,
         },
         seam_rods: bought::SEAM_RODS,
-        funnel_screws: bought::FUNNEL_SCREWS,
+        funnel_screws,
         compressor: Compressor {
             bore: compressor.mount_d_mm,
             ligament: bought::COMPRESSOR_HOLE_INSET - compressor.mount_d_mm / 2.0,

@@ -2,13 +2,13 @@
 
 The removable silicone funnel holds nominally. Its PET-GF
 frame lowers vertically through the closed upper enclosure and fastens from above
-with four M3 × 12 screws. The drain cradle snaps into the frame’s 3 mm lower web
+into the front and rear shell ledges. The drain cradle snaps into the frame's lower web
 and supports an uncut NeoFit ATEU44W stem elbow.
 Both flavors share this filling interface.
 
 Complete the four-quadrant joining, plumbing and electrical connections through the
 open roof. Fit the frame after the central connections, engage the drain cradle’s
-snap seat, and tighten the four screws. Complete the drain connection before
+snap seat, and tighten the frame screws. Complete the drain connection before
 seating the silicone funnel and smoothing its apron onto the roof. The plug,
 elbow and cradle travel with the frame; disconnect the V-B feed before
 removing it.
@@ -72,28 +72,24 @@ when the frame and drain are removed. Both upper shells have the matching
 stepped roof pocket.
 
 The flange underside has seating relief above the shell ledges, owned by
-`SEATING_RELIEF` in [the frame's dimensions](../numbers/frame.rs). Its roof top,
-silicone seat and screw-head seats retain their installation datums.
+`SEATING_RELIEF` in [the frame's dimensions](../numbers/frame.rs). The front corner
+coupon seats under light hand pressure in the printed front-top.
+[Coupon photographs and fit record](https://github.com/derekbreden/homesodamachine/tree/635052504/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result)
 The lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
-Plain open-bottom notches pass all four ledges. The lower body carries
+Plain open-bottom notches pass the ledges. The lower body carries
 the drain socket and its 3 mm snap web. The empty frame’s vertical passage is
 reviewed with the drain cradle, elbow and connected tubing removed.
 There are no sliding rails or outboard lower foot wings.
 
-Four broad shell-rooted ledges bear the flange: one pair in front-top and one in
-back-top. Four socket-head screws enter from above
-into full-length RX-M3×5.7 inserts. The front axes are X±93.0, Y125.0;
-the rear axes are X±87.7, Y259.492. Each Ø4 mm pilot has a full 3 mm radial
-surround in its 10 mm host. The rear ledges' inner planes are X±82.7, leaving
-0.251 mm nominal air beside the preinstalled upper valve elbows during the
-back-column ride. The conservative remaining rear flange bearing is 5.55 mm.
-The screw-head bearing planes are Z351.8, and the head tops are Z354.8, below
-the flat silicone apron. The front head wells open fully to the sides above their complete bearing
-floors. The rear pads stand outside the brim's rounded corners. All four
-Ø5.5 mm head-bearing annuli retain the complete 5.8 mm grip, as recorded in
-[the native stock reading](drop-in-review/plain-stock-review.json). Fasten the frame with the silicone funnel absent, then lay the funnel
-and its apron over the heads.
+The front-top has a fore and an aft screw on each flank to clamp the relieved
+flange along its length. The back-top has one screw on each flank. The frame
+and ledges take their axes from [the shared stations](../../enclosure/enclosure/interface/funnel_mount.rs).
+The flank corbels carry the front ledges and their heat-set insert pilots.
+The rear ledges clear the preinstalled upper valve elbows during the back-column ride.
+The front head wells open to the sides above their bearing floors. The rear pads
+stand outside the brim's rounded corners. Install the screws from above before
+seating the silicone apron over the heads.
 
 Each insert opens upward at Z346. Its Ø4.0 mm pilot ends at Z338.8 with
 3 mm of blind backing. The nominal screw takes the complete 5.7 mm insert
@@ -104,8 +100,8 @@ The upper M5 seam blocks and their screw passages retain their own stock and dat
 The frame prints on its lower feet, with the exported individual STEP and STL
 placing their undersides at Z0 and the funnel's plan center at X0, Y0.
 Its flat underside flange and lower corbels are functional bearing/access features;
-use the enclosure's PET-GF support-removal strategy. Printed fit, support cleanup,
-stiffness, insertion force and lifetime remain unqualified.
+use the enclosure's PET-GF support-removal strategy. Clamping and full-frame fit
+with the added screws await a physical assembly.
 
 ## Drain socket and snap web
 
