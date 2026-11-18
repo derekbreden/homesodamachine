@@ -40,7 +40,7 @@
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
     "hardware/faucet-layout/faucet-assembly.step": "ddb8c172482d034e136c130b884fe297d528809f3ef1484cc6f09d51b52e79ed",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "2713f62b1a559762765ad5af56c36fb5aba09be0789420ccbad8ac1233da05e8",
-    "hardware/faucet-layout/faucet-industrial-assembly.step": "34eda4a55bb6d6ad5fa734ede1cb5541dcd604c995de7698e1141e864dc155bc",
+    "hardware/faucet-layout/faucet-industrial-assembly.step": "0a57e60f3f7df567de6f20807ee3a28274c2a73c386a03e401ac7a0b44092aa5",
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "972b1612661d807b94b4d72eb435e6c1aed36067770f82b4198051e200724305",
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step": "f5bdbab3dead7e9aaf9c1f1eaa19e435ba4547201cd61119a4e00ad03dd353fc",
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "46a2a83a2ea3795cd5e03da8e0deed1128edea0720ed5175bc062ab7f110a6bf",
@@ -903,7 +903,7 @@
       "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": "d0104c2e8a994dc859257b9361c9f0a12ed026b5339c1c3f54165c65cd039675",
       "hardware/faucet-layout/faucet-assembly.step": "ddb8c172482d034e136c130b884fe297d528809f3ef1484cc6f09d51b52e79ed",
       "hardware/faucet-layout/faucet-assembly.step.mesh": "2713f62b1a559762765ad5af56c36fb5aba09be0789420ccbad8ac1233da05e8",
-      "hardware/faucet-layout/faucet-industrial-assembly.step": "34eda4a55bb6d6ad5fa734ede1cb5541dcd604c995de7698e1141e864dc155bc",
+      "hardware/faucet-layout/faucet-industrial-assembly.step": "0a57e60f3f7df567de6f20807ee3a28274c2a73c386a03e401ac7a0b44092aa5",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "972b1612661d807b94b4d72eb435e6c1aed36067770f82b4198051e200724305",
       "hardware/faucet-layout/pullout-concept/docked-above-counter.step": "f5bdbab3dead7e9aaf9c1f1eaa19e435ba4547201cd61119a4e00ad03dd353fc",
       "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "46a2a83a2ea3795cd5e03da8e0deed1128edea0720ed5175bc062ab7f110a6bf",
@@ -2654,7 +2654,7 @@
     "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf.json": 1793750338,
     "hardware/faucet-layout/faucet-assembly.step": 1795017184.805793,
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1795017143.287795,
-    "hardware/faucet-layout/faucet-industrial-assembly.step": 1794785845.070223,
+    "hardware/faucet-layout/faucet-industrial-assembly.step": 1795019655.238012,
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1795019647.311268,
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step": 1794986750.710438,
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": 1794986742.176017,
@@ -3588,8 +3588,8 @@
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step": {
-      "commit": "8b2be7a971be9ad0364c2dab4a9b888a92106215",
-      "inputs": "0382ef7326f7fd90d058bbb5129624caf81fb069e6e0ccff7f3561c83cc081c4",
+      "commit": "1323bfe86b136a1815a032f0bcfab6a87f03da9d",
+      "inputs": "33d8f948906fe4281d94e7e67f085d635980e282c296c814b76c74084d9be2e6",
       "unproven": true
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
