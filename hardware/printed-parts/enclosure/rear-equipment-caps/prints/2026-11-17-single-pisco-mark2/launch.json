@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "2808c7a5a16953e61fff7f590504c38eab1d7b4f85b37dce1dc2588d51e8f9ed",
+    "name": "2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.gcode.3mf",
+    "objects": [
+      "pisco-snap-cap"
+    ],
+    "sha256": "47b1029516fe3239168266a180069d1cda2f6c819e3509489a839fdb98073a4f",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 109,
+  "observed_at": "2026-11-18T04:36:52+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1456920845",
+  "subtask_name": "2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.gcode.3mf",
+  "total_layer_num": 174
+}

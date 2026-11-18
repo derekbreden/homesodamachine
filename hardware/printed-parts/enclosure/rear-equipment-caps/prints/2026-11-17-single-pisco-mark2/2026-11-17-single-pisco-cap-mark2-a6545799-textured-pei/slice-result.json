@@ -1,0 +1,70 @@
+{
+  "error_string": "Success.",
+  "export_time": 949,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 20,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 14.237850189208984,
+        "Custom": 303.791259765625,
+        "Flush": 15.0,
+        "Gap infill": 66.91755676269531,
+        "Inner wall": 437.877197265625,
+        "Internal solid infill": 167.80084228515625,
+        "Outer wall": 283.4558410644531,
+        "Prime tower": 4474.49609375,
+        "Sparse infill": 420.2205505371094,
+        "Top surface": 11.270635604858398,
+        "Travel": 366.71954345703125,
+        "Undefined": 358.83953857421875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 14.914389610290527,
+          "total_used_g": 21.071617126464844
+        }
+      ],
+      "generate_support_material_time": 11,
+      "id": 1,
+      "infill_time": 42,
+      "layer_filament_change": 0,
+      "main_predication": 1753.2978515625,
+      "make_perimeters_time": 51,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 28.81122589111328,
+            "height": 41.70428466796875,
+            "width": 34.077396392822266,
+            "x": 145.4613037109375,
+            "y": 170.59439086914062,
+            "z": 1.5624834759364603e-11
+          },
+          "id": 5,
+          "name": "pisco-snap-cap",
+          "triangle_count": 3528
+        }
+      ],
+      "sliced_time": 439,
+      "sliced_time_with_cache": 308,
+      "total_predication": 6563.651807002219,
+      "triangle_count": 3528,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 100.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

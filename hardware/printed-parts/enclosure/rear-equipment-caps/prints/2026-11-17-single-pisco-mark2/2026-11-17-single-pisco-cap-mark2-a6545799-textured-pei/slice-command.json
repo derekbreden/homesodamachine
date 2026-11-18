@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/native",
+  "--export-3mf",
+  "2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/native/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.cli.3mf"
+]

@@ -1,0 +1,56 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      0.0,
+      -1.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -185.0,
+      162.5,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "2808c7a5a16953e61fff7f590504c38eab1d7b4f85b37dce1dc2588d51e8f9ed",
+    "model": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+    "model_sha256": "660695f31b28051ba8faac02162db27288058e93c96b20a66586e0c5dd023d36",
+    "profile": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.3mf",
+    "profile_sha256": "e4acf8795c7df5fd65cf7216795c302cd8853dcaaac52590b04fc1c6b0479154"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "pisco-snap-cap",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}
