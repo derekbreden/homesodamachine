@@ -17,12 +17,12 @@
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
-    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-bottom-rounded-alignment-mark2/2026-11-17-back-bottom-mark2-9baa7a33.gcode.3mf plate_1.gcode, object 1901",
-    "gcode_sha256": "e8451bc42df6abe95d2392002065582558d16c1652762e02c1bf75c520730fda",
+    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "3142a2b026b1ad7596e75a6292310f8b6d951e9e8b60070ebfb1bb89fc7d1117",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-    "model_sha256": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
-    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-bottom-rounded-alignment-mark2/2026-11-17-back-bottom-mark2-9baa7a33.3mf",
-    "profile_sha256": "4b33e044152daf01484f5ea260ae333fca5ee259a91eb25b7546da3dd884fb93"
+    "model_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.3mf",
+    "profile_sha256": "8473989c735d4780cf00500f3da19903d79379a98f9c63e3f43dbd66056c083c"
   },
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
   "interfaces": [
@@ -324,18 +324,18 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        -117.5,
-        236.525,
+        -115.5,
+        236.125,
         -5.8,
-        -101.1,
+        -101.5,
         259.725,
         35.24
       ],
       "bbox_xy_mm": [
         238.4,
-        60.0,
-        261.6,
-        76.4
+        62.0,
+        262.0,
+        76.0
       ],
       "first_interface_z_mm": null,
       "id": "tree-4",
@@ -399,7 +399,7 @@
         -109.1,
         196.125,
         -5.8,
-        -89.9,
+        -88.7,
         214.125,
         60.68
       ],
@@ -407,7 +407,7 @@
         284.0,
         68.4,
         302.0,
-        87.6
+        88.8
       ],
       "first_interface_z_mm": 27.32,
       "id": "tree-7",
@@ -424,7 +424,7 @@
     {
       "base_z_mm": 0.2,
       "bbox_cad_xyz_mm": [
-        89.7,
+        89.3,
         196.125,
         -5.8,
         108.9,
@@ -433,7 +433,7 @@
       ],
       "bbox_xy_mm": [
         284.0,
-        267.2,
+        266.8,
         302.0,
         286.4
       ],
