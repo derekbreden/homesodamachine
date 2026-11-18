@@ -214,15 +214,15 @@
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": "767840d418db5df1e83efcef579be8a12b48d047375a7abffd393e3aa28a29ca",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh": "3b43cdd637e09fb1464b486ad93cd606486f009c0a94a49060fee60fadcb0a85",
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl": "d7eccc649f29e7d42aa0a93759e7f371df36d08a6e663ef4df52a0e16af8d11f",
-    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": "2e2dec5469c3da4c22b61e302f20b616c0b1ef4e80f68646513d3a6b13c726a0",
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": "440c10f7e380e5ccbe4aec2b9c65525317768bb61620fec5ed3f60160fb5a6d8",
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": "fe4a053c6ea28c42d81ae8b12ae681daa3d8eaf9528554857fdb97f025f2afff",
-    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": "f8dfaa45edfdc5a20e39080ca943615696c8055be400815bdf494c3daba57172",
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": "8ea8f59377cff63a12deb565afe9a077f8fd8cc2cdea340d9bdae188aebcf71e",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc9c7d1d36910bc54d8ad1df9b9050f841e6de9f78a27e8f7010b444b9d0db76",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": "bc5a8ae32ba86712cbedba19bcd58106fb47d5998e659b571e304bdf09deb2d8",
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": "96f78042d0f8bc51be376a4a907a2190c621aadd865e24de7bf3e659e420706a",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": "e008c1c73feee032ea72a7613ace5dd16c948ad8e177312bac5b294bc640af5e",
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": "eed9a4e6062aee47ea218dfd1e9c36861cd3562e15f24c1dde946e0a10937fab",
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": "991f2f5db8468085283a93f2cd546e1d4ad07c2fe90ced40bf0b596211b5b51c",
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": "5d1e55329792ab1d13d10353f1d24a1a56d9cefd204eeb44a8e8ec52642d5087",
     "hardware/printed-parts/enclosure/display-cover/status-plate.step": "23b4d22595ca873c895dd45590bd3edb6901c9914a52e889cfe4de1a7e3fc394",
     "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": "b46ea662bdde98c44d4099e84d2d99d97b3e43011e16463c8a0e68e969b9251c",
     "hardware/printed-parts/enclosure/display-cover/status-plate.stl": "33ac2a5347fb7a49618d87461e89233e7ad79c878c9db106f82f7fa7be3ba901",
@@ -256,7 +256,7 @@
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": "a72d13deba1581357f4d85f4dae5d3576d66ea1e5084ee152176ae533b55956c",
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": "172b4888a694ca43716cb7b07782fb3f1196bed5b9405a3c4ed5f68ba8fde863",
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": "47ce368bf30a535af55547152d9375147943df05da36e22e79d8883747694596",
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "f6b0af135f9674ec95253c65d4e33d8574bb6ede3cbc3ab92ae448b51334ff93",
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "cb0b4d65e67df08bd517978ea76fe4c3692899703b50c6ad52b315d19ef92474",
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": "2a6ca72765d757aaa0b41c476ad3e01bf79c13e41da8ce3dab85767025dfe892",
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": "900be16766b197853febd331fb9c08b730e0314bf736482722200407933ff000",
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": "47ce368bf30a535af55547152d9375147943df05da36e22e79d8883747694596",
@@ -2847,15 +2847,15 @@
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step": 1793568839,
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step.mesh": 1793568839,
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.stl": 1793712586,
-    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": 1795017184.805793,
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": 1795023088.950757,
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": 1795023076.485727,
-    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": 1795017184.805793,
+    "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": 1795023088.950757,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": 1793948374,
     "hardware/printed-parts/enclosure/display-cover/display-cover.step.mesh": 1794037810,
     "hardware/printed-parts/enclosure/display-cover/display-cover.stl": 1793948374,
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": 1795017184.805793,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": 1795023088.950757,
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": 1795023076.485727,
-    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": 1795017184.805793,
+    "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": 1795023088.950757,
     "hardware/printed-parts/enclosure/display-cover/status-plate.step": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/status-plate.step.mesh": 1794074754,
     "hardware/printed-parts/enclosure/display-cover/status-plate.stl": 1794074754,
@@ -2889,7 +2889,7 @@
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": 1795017520.93376,
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": 1795018142.298728,
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": 1795018147.350144,
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795019139.574034,
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795023088.950757,
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": 1795018768.078483,
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": 1795018762.192315,
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": 1795018768.078483,
@@ -4242,8 +4242,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step": {
-      "commit": "0e25c152b28e402659a34cf8b6d9e2643528aaf4",
-      "inputs": "05330b033be472aa53dc58c9503e567c98f19d93fdb6e56bf8c82774685e00da",
+      "commit": "5a75a821880d7844b8c394c6eab0b15ef132ff28",
+      "inputs": "dfc4a33dcc659d71be38bc289655d7b6edfa650d93b441ba7bc34ba55ec0a9ec",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.step.mesh": {
@@ -4251,8 +4251,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover-fasteners.stl": {
-      "commit": "0e25c152b28e402659a34cf8b6d9e2643528aaf4",
-      "inputs": "05330b033be472aa53dc58c9503e567c98f19d93fdb6e56bf8c82774685e00da",
+      "commit": "5a75a821880d7844b8c394c6eab0b15ef132ff28",
+      "inputs": "dfc4a33dcc659d71be38bc289655d7b6edfa650d93b441ba7bc34ba55ec0a9ec",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": {
@@ -4269,8 +4269,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step": {
-      "commit": "0e25c152b28e402659a34cf8b6d9e2643528aaf4",
-      "inputs": "05330b033be472aa53dc58c9503e567c98f19d93fdb6e56bf8c82774685e00da",
+      "commit": "5a75a821880d7844b8c394c6eab0b15ef132ff28",
+      "inputs": "dfc4a33dcc659d71be38bc289655d7b6edfa650d93b441ba7bc34ba55ec0a9ec",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.step.mesh": {
@@ -4278,8 +4278,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate-fasteners.stl": {
-      "commit": "0e25c152b28e402659a34cf8b6d9e2643528aaf4",
-      "inputs": "05330b033be472aa53dc58c9503e567c98f19d93fdb6e56bf8c82774685e00da",
+      "commit": "5a75a821880d7844b8c394c6eab0b15ef132ff28",
+      "inputs": "dfc4a33dcc659d71be38bc289655d7b6edfa650d93b441ba7bc34ba55ec0a9ec",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/display-cover/status-plate.step": {
@@ -4396,8 +4396,9 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
-      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
+      "commit": "5a75a821880d7844b8c394c6eab0b15ef132ff28",
+      "inputs": "37b2c764ae94933de5aa0606629c0d4da7612ca64b83685d6fb037923c09443e",
+      "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": {
       "commit": "3d42ac39371c3b57bdc907f93ceaa6f5ff3fefb5",
