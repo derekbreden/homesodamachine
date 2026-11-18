@@ -385,6 +385,14 @@
         {
           "file": "faucet-layout/pullout-concept/handheld-detail.step",
           "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/head-valve-cutaway.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/selected-electronic-valve.step",
+          "context": true
         }
       ],
       "documents": [

@@ -1,0 +1,73 @@
+{
+  "purpose": "This record identifies the head shutoff selected for the pull-out faucet packaging and wet prototype.",
+  "checked_date": "2026-11-18",
+  "manufacturer": "ODE",
+  "body_part": "21L1K1T25",
+  "complete_part": "21L1K1T25U24",
+  "state": "Selected for a wet prototype; not purchased or physically tested.",
+  "function": "Direct acting, normally closed, spring return; installed in the removable head.",
+  "coil": {
+    "voltage_vdc": 12,
+    "power_w": 12,
+    "nominal_current_a": 1
+  },
+  "hydraulics": {
+    "orifice_mm": 2.5,
+    "min_differential_bar": 0,
+    "max_operating_differential_bar_dc": 25,
+    "design_pressure_bar": 40,
+    "kv_l_min_at_1_bar": 3.2,
+    "ports": "G 1/8 BSPP",
+    "body": "AISI 316 stainless steel",
+    "seal": "PTFE"
+  },
+  "mounting_position": "Any, per the manufacturer series sheet.",
+  "supplier_net_weight_lb": 0.73,
+  "source": {
+    "name": "Hydronics Depot",
+    "url": "https://hydronicsdepotinc.com/products/ode-21l1k1t25?variant=68184874483885",
+    "selected_option": "12W 12VDC / 18 inch Leads DIN / No anti-humidity kit",
+    "listed_in_stock": true,
+    "available_in_shopify_variant": true,
+    "price": 373.99,
+    "currency": "CAD",
+    "order_processing_business_days": [
+      1,
+      2
+    ],
+    "us_express_transit_business_days": [
+      1,
+      3
+    ],
+    "shipping_policy": "https://hydronicsdepotinc.com/pages/shipping-policy",
+    "product_photo": "https://cdn.shopify.com/s/files/1/0503/8833/6813/files/21L1K1T25.webp?v=1743716009"
+  },
+  "manufacturer_sources": [
+    {
+      "url": "https://filemanager.ode.it/web/en/general-catalog-page_21L-series.pdf",
+      "supports": [
+        "Operating differential by coil",
+        "Any mounting position",
+        "Materials",
+        "Switching time",
+        "Dimensional envelope"
+      ]
+    },
+    {
+      "url": "https://cdn.shopify.com/s/files/1/0503/8833/6813/files/21L1K1T25.pdf?v=1659735891",
+      "supports": [
+        "Drink service",
+        "DC coil rating",
+        "PTFE seals",
+        "Dimensional drawing"
+      ]
+    }
+  ],
+  "geometry_basis": "The native model is a conservative reconstruction of the dimensional drawings, with a reserved DIN plug envelope. It is not manufacturer CAD. Internal seat geometry is not modeled. The inlet adapter and outlet nozzle are custom fitting concepts.",
+  "prototype_limits": [
+    "Confirm the supplied coil and plug dimensions against the drawings before making the head.",
+    "Measure pour rate, carbonation, coil heat, leakage and outlet afterflow using chilled soda.",
+    "Finish the flavor and drain paths, hose termination, component mounts and sealing before a printable assembly.",
+    "The valve shuts the water path at the head; its downstream internal passage and short nozzle can still release residual drops."
+  ]
+}

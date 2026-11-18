@@ -11,9 +11,9 @@
     "target": [
       -65,
       -95,
-      127
+      167
     ],
-    "span": 195,
+    "span": 230,
     "bg": "#eeede9",
     "materials": [
       {
@@ -38,9 +38,9 @@
     "target": [
       -65,
       -95,
-      127
+      167
     ],
-    "span": 195,
+    "span": 230,
     "bg": "#eeede9",
     "materials": [
       {
@@ -65,9 +65,9 @@
     "target": [
       -15,
       -70,
-      -40
+      0
     ],
-    "span": 345,
+    "span": 390,
     "bg": "#eeede9",
     "materials": [
       {
@@ -93,11 +93,11 @@
     "out": "hardware/faucet-layout/pullout-concept/handheld-detail.png",
     "size": "1400x1000",
     "cam": [
-      0.65,
-      -1.0,
-      0.8
+      1.6,
+      -0.6,
+      0.3
     ],
-    "span": 80,
+    "span": 110,
     "bg": "#eeede9",
     "materials": [
       {
@@ -107,6 +107,42 @@
         "unlit": true
       }
     ],
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/head-valve-cutaway.step",
+    "out": "hardware/faucet-layout/pullout-concept/head-valve-cutaway.png",
+    "size": "1600x1200",
+    "cam": [
+      1.6,
+      -0.6,
+      0.6
+    ],
+    "span": 100,
+    "bg": "#eeede9",
+    "materials": [
+      {
+        "names": [
+          "screen_*"
+        ],
+        "unlit": true
+      }
+    ],
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/selected-electronic-valve.step",
+    "out": "hardware/faucet-layout/pullout-concept/selected-electronic-valve.png",
+    "size": "1200x1200",
+    "cam": [
+      1.2,
+      -1.5,
+      0.8
+    ],
+    "span": 65,
+    "bg": "#eeede9",
     "fog": false,
     "ground": false
   }
