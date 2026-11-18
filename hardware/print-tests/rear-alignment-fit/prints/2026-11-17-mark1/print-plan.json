@@ -39,7 +39,5 @@
   "estimated_seconds": 3910.130566642881,
   "filament_grams": 23.2488956451416,
   "native_review": "review.json",
-  "focused_contacts": "contacts.json",
-  "submitted": false,
-  "physical_result": null
+  "focused_contacts": "contacts.json"
 }
