@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-17",
+  "part": "HSM-0072",
+  "print_launch": "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/launch.json",
+  "observations": [
+    "The funnel frame stands proud of the front-top roof when pushed into the opening.",
+    "The fit is tight. The photos show a raised flange edge."
+  ],
+  "said": [
+    "We are what appears to be about two layers there too high when the funnel frame sets down into the front top there.",
+    "But it looks like even with that, because that is a pretty freaking tight friction fit, we're just a little bit high here, and so we need to add enough more clearance to bring it down based on what you see in the photo there, which I think is about two layers of our print there at the top.",
+    "Just give me a coupon of something I can set in here to test your implementation."
+  ],
+  "photos": [
+    {
+      "file": "1-Photo-1.jpg",
+      "sha256": "1aed849da94a4c29c4512051b5c506cacf617e61392c8dde2e4816e050d5eaec"
+    },
+    {
+      "file": "2-Photo-2.jpg",
+      "sha256": "dde2e2760c4af6bedb58248cee3d232d5b7260e3f3fc2240bfb9786ae120d70e"
+    },
+    {
+      "file": "3-Photo-3.jpg",
+      "sha256": "d30bdbc93cadea02e3f4ffa00c6cb9154c8a13423b73af7f3b65598b01783d5d"
+    },
+    {
+      "file": "4-Photo-4.jpg",
+      "sha256": "ac88c29cdb044f74ea1baaa560e758407883d21ee0a777b98d6cc743ce33aaa6"
+    }
+  ],
+  "scope": "The photographs and hand fit establish incomplete seating. They do not measure the gap or isolate the interfering face."
+}
