@@ -70,5 +70,6 @@
     "other_accepted_at": "2026-11-16T17:42:19+00:00",
     "this_accepted_at": "2026-11-18T03:04:32+00:00",
     "elapsed_seconds": 120133.0
-  }
+  },
+  "printing_status": "printing-status.json"
 }
