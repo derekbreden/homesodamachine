@@ -1,0 +1,26 @@
+{
+  "purpose": "Retain the complete approved east alignment joint and each rear half's real fore face in production coordinates and layer directions.",
+  "top_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "pieces": [
+    {
+      "name": "rear-alignment-top",
+      "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+      "crop_min_mm": [88.0, 199.0, 159.0],
+      "crop_max_mm": [112.0, 260.0, 196.6],
+      "print_up_source": [0, 0, -1],
+      "production_bed_source_z_mm": 355.0,
+      "coupon_bed_source_z_mm": 196.6,
+      "omitted_ordinary_layers": 660
+    },
+    {
+      "name": "rear-alignment-bottom",
+      "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+      "crop_min_mm": [88.0, 199.0, 149.76],
+      "crop_max_mm": [112.0, 260.0, 184.0],
+      "print_up_source": [0, 0, 1],
+      "production_bed_source_z_mm": -6.0,
+      "coupon_bed_source_z_mm": 149.76,
+      "omitted_ordinary_layers": 649
+    }
+  ]
+}
