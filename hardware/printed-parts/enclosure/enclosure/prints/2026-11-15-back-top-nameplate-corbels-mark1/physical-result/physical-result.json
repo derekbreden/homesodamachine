@@ -61,6 +61,18 @@
     "cause": "The rail cap recipe used literal endpoints that left an oversized break beside the vent mouth. The mismatch is present in the commit that introduced those caps.",
     "introduced_by_commit": "e77588ee16b5a6e88f554c674052ddbd93dd5598",
     "review_omission": "The native support audit tracks slicer support paths. Authored rail caps are ordinary model parts. The reviewed checks did not measure backing beneath the complete rail bearing.",
-    "related_omissions": "The west rear end, both fore starts and the east rear end use the same literal endpoint recipe. Other enclosure quadrants use different rail support constructions."
+    "related_omissions": "The west rear end, both fore starts and the east rear end use the same literal endpoint recipe. Other enclosure quadrants use different rail support constructions.",
+    "related_width_omission": {
+      "bearing_width_mm": 5.25,
+      "old_cap_width_mm": 4.3,
+      "wall_side_release_mm": 0.475,
+      "old_open_side_release_mm": 0.475,
+      "first_wall_machine_x_magnitude_mm": 98.71,
+      "first_wall_commanded_width_mm": 0.462876,
+      "nearest_prior_cap_bead_edge_mm": 0.2399879393521269,
+      "nominal_bead_separation_mm": 0.00854993935212689,
+      "longest_unbacked_inner_wall_road_mm": 232.09,
+      "repair": "Carry each cap through the bearing's open edge while preserving its wall-side release air and cavity-floor roots."
+    }
   }
 }

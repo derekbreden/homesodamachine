@@ -136,6 +136,10 @@
   "producer": "enclosure-back-top",
   "removable_support_stock": [
     {
+      "cap_span_x_mm": [
+        -103.275,
+        -98.5
+      ],
       "center_x_mm": -101.125,
       "contact_source_z_mm": 168.7,
       "name": "Removable west rail support 1",
@@ -148,6 +152,10 @@
       ]
     },
     {
+      "cap_span_x_mm": [
+        -103.275,
+        -98.5
+      ],
       "center_x_mm": -101.125,
       "contact_source_z_mm": 168.7,
       "name": "Removable west rail support 2",
@@ -160,6 +168,10 @@
       ]
     },
     {
+      "cap_span_x_mm": [
+        98.5,
+        103.275
+      ],
       "center_x_mm": 101.125,
       "contact_source_z_mm": 168.7,
       "name": "Removable east rail support 1",
