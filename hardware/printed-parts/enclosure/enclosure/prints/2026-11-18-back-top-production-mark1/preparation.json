@@ -1,24 +1,24 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-6dd1f3f0-textured-pei.gcode.3mf",
-  "archive_sha256": "404e1ea1140f578b8ceaee847abc52738b810eaf9cecf4d007ba4252b7351a22",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-12ea2620-textured-pei.gcode.3mf",
+  "archive_sha256": "257ce4998f94a11008d53aef0490764d4b0b0f557f8367b0b835d06375c2ebc8",
   "bed_type": "Textured PEI Plate",
   "brim_allowance_mm": 0.0,
   "connection_key": "H2C",
   "cooling_recovery": {
-    "added_commanded_motion_seconds": 20806.118408995997,
-    "archive_sha256": "404e1ea1140f578b8ceaee847abc52738b810eaf9cecf4d007ba4252b7351a22",
+    "added_commanded_motion_seconds": 21403.48864305569,
+    "archive_sha256": "257ce4998f94a11008d53aef0490764d4b0b0f557f8367b0b835d06375c2ebc8",
     "changed": true,
     "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
-    "input_archive_sha256": "3b92bb72a68d6e0c793c3d5351763c029fd7579f4862a62ebd4a2e240ce31ff7",
+    "input_archive_sha256": "3d2051f9319cb1945c57f77fbb44d08830b0466971e5f0b270549a280e739771",
     "members": [
       {
-        "added_commanded_motion_seconds": 20806.118408995997,
+        "added_commanded_motion_seconds": 21403.48864305569,
         "changed": true,
-        "input_gcode_sha256": "01632e9160abd9ce5a45da5f99424f229a0f039899859bc1056f6a6efb061602",
+        "input_gcode_sha256": "920a55dec6ea22c37d74ff0597786f7b4736e38e284dee37b1035a5868ae40de",
         "member": "Metadata/plate_1.gcode",
-        "native_cooled_seed_moves": 20424,
-        "ordinary_model_moves": 4594939,
-        "output_gcode_sha256": "804ca5442c13e4665eacee24a5d2f386d3e0df8a54e2a51bfd40aef9e2d97c21",
+        "native_cooled_seed_moves": 21236,
+        "ordinary_model_moves": 4612503,
+        "output_gcode_sha256": "b9de7d013e3383cebae7fc238c53f2b2201711aa66b2f136b01fe59bee0fe624",
         "petgf_slots": [
           0
         ],
@@ -29,13 +29,13 @@
         "recovery_by_feature": {
           "Bridge": [
             1119.0,
-            1120.113158228714,
+            1096.4731582287136,
             0.0
           ],
           "Floating vertical shell": [
-            7853.0,
-            23711.196354497348,
-            1458.3388261914185
+            7893.0,
+            26839.610854875533,
+            1650.927830588328
           ],
           "Gap infill": [
             55.0,
@@ -43,19 +43,19 @@
             1.5697897557127065
           ],
           "Inner wall": [
-            2302.0,
-            11795.424654805462,
-            714.6191464411838
+            2592.0,
+            14401.990640416132,
+            874.9076644799969
           ],
           "Internal solid infill": [
-            32065.0,
-            280117.4653355063,
-            17289.439975050296
+            32123.0,
+            281252.2642963374,
+            17356.365072980287
           ],
           "Outer wall": [
-            8564.0,
-            16561.903480177298,
-            635.243458761013
+            10127.0,
+            19799.186490826156,
+            769.9654698287417
           ],
           "Overhang wall": [
             8.0,
@@ -63,33 +63,33 @@
             0.0
           ],
           "Sparse infill": [
-            12747.0,
-            11230.85040846246,
-            689.050778260192
+            13643.0,
+            11926.323591786375,
+            731.720417762057
           ],
           "Top surface": [
-            155.0,
-            291.04233161446746,
-            17.856434536293328
+            160.0,
+            293.91035758963994,
+            18.03239766093561
           ]
         },
         "recovery_fan_percent": [
           "70"
         ],
-        "recovery_moves": 64868,
+        "recovery_moves": 67720,
         "recovery_speed_limit_mm_s": [
           "15",
           "15",
           "15"
         ],
         "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
-        "speed_limited_moves": 62912
+        "speed_limited_moves": 65765
       }
     ]
   },
   "emitted_textured_trim_mm": 0.02,
-  "estimated_seconds": 129778.415283996,
-  "gcode_sha256": "804ca5442c13e4665eacee24a5d2f386d3e0df8a54e2a51bfd40aef9e2d97c21",
+  "estimated_seconds": 130683.0120805557,
+  "gcode_sha256": "b9de7d013e3383cebae7fc238c53f2b2201711aa66b2f136b01fe59bee0fe624",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -123,11 +123,11 @@
         "bodies": 1,
         "boundary_edges": 0,
         "closed_oriented_single_body": true,
-        "edges": 948558,
+        "edges": 948690,
         "inconsistent_edges": 0,
         "nonmanifold_edges": 0
       },
-      "facets": 632372,
+      "facets": 632460,
       "features": [
         {
           "chamfer_area_mm2": 1890.7070656243889,
@@ -192,7 +192,7 @@
           "painted_faces": 3,
           "reason": "The fitted room and the corbelled east catch print without support; the reachable west catch's support stands outside.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -228,7 +228,7 @@
           "painted_faces": 8,
           "reason": "The fitted room and both corbelled catches print without support.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -264,7 +264,7 @@
           "painted_faces": 0,
           "reason": "Keep support out of the lower hook pocket below the wire chamber floor.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -300,7 +300,7 @@
           "painted_faces": 0,
           "reason": "The fitted room prints without support; both reachable catches' support stands on either side.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -334,7 +334,7 @@
           "painted_faces": 201,
           "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "support_print_up_source": [
             0,
             0,
@@ -373,7 +373,7 @@
           "painted_faces": 199,
           "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "support_print_up_source": [
             0,
             0,
@@ -406,7 +406,7 @@
           "painted_faces": 126,
           "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -87.7,
@@ -448,7 +448,7 @@
           "painted_faces": 126,
           "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               87.7,
@@ -490,7 +490,7 @@
           "painted_faces": 2,
           "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -518,7 +518,7 @@
           "painted_faces": 2,
           "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -546,7 +546,89 @@
           "painted_faces": 2,
           "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              -104.25,
+              219.55,
+              174.55
+            ],
+            [
+              -100.25,
+              310.5,
+              178.3
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            -104.0,
+            -100.5,
+            219.8,
+            310.25,
+            174.8,
+            178.05
+          ],
+          "bounds_source_mm": [
+            -104.0,
+            -100.5,
+            219.8,
+            310.25,
+            174.8,
+            178.05
+          ],
+          "kind": "support_free",
+          "name": "west alignment groove",
+          "painted_faces": 3,
+          "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib.",
+          "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
+          "support_print_up_source": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "blocker_source_mm": [
+            [
+              100.25,
+              219.55,
+              174.55
+            ],
+            [
+              104.25,
+              310.5,
+              178.3
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            100.5,
+            104.0,
+            219.8,
+            310.25,
+            174.8,
+            178.05
+          ],
+          "bounds_source_mm": [
+            100.5,
+            104.0,
+            219.8,
+            310.25,
+            174.8,
+            178.05
+          ],
+          "kind": "support_free",
+          "name": "east alignment groove",
+          "painted_faces": 3,
+          "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib.",
+          "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
+          "support_print_up_source": [
+            0,
+            0,
+            -1
+          ]
         },
         {
           "blocker_source_mm": [
@@ -574,7 +656,7 @@
           "painted_faces": 246,
           "reason": "Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -88.5,
@@ -616,7 +698,7 @@
           "painted_faces": 246,
           "reason": "Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -48.5,
@@ -658,7 +740,7 @@
           "painted_faces": 80,
           "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               29.025858982281964,
@@ -699,7 +781,7 @@
           "painted_faces": 80,
           "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               76.5,
@@ -740,7 +822,7 @@
           "painted_faces": 80,
           "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               76.5,
@@ -781,7 +863,7 @@
           "painted_faces": 80,
           "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               76.5,
@@ -822,7 +904,7 @@
           "painted_faces": 80,
           "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               28.7999988712316,
@@ -863,7 +945,7 @@
           "painted_faces": 80,
           "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               28.7999988712316,
@@ -904,7 +986,7 @@
           "painted_faces": 128,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -68.92422725213349,
@@ -946,7 +1028,7 @@
           "painted_faces": 128,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -69.03197827702463,
@@ -988,7 +1070,7 @@
           "painted_faces": 128,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -93.32399783277214,
@@ -1030,7 +1112,7 @@
           "painted_faces": 128,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "end_mm": [
               -93.43174885766328,
@@ -1072,7 +1154,7 @@
           "painted_faces": 80,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               65.55799977207788,
@@ -1113,7 +1195,7 @@
           "painted_faces": 80,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               65.55799977207788,
@@ -1154,7 +1236,7 @@
           "painted_faces": 80,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               89.95799977207788,
@@ -1195,7 +1277,7 @@
           "painted_faces": 80,
           "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "centre_xz_mm": [
               89.95799977207788,
@@ -1244,7 +1326,7 @@
           "painted_faces": 2293,
           "reason": "The cap root and end-wall backing keep supports out of the clear passage.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "void_source": {
             "kind": "prism_y",
             "profile_xz_mm": [
@@ -1310,7 +1392,7 @@
           "painted_faces": 0,
           "reason": "The stop bridges between its complete side rails.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1343,7 +1425,7 @@
           "painted_faces": 0,
           "reason": "The stop bridges between its complete side rails.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1376,7 +1458,7 @@
           "painted_faces": 0,
           "reason": "Bridge the closed well end across the pocket between its side walls.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1409,7 +1491,7 @@
           "painted_faces": 0,
           "reason": "Bridge the closed well end across the pocket between its side walls.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1442,7 +1524,7 @@
           "painted_faces": 0,
           "reason": "Bridge the closed well end across the pocket between its side walls.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1481,7 +1563,7 @@
           "painted_faces": 0,
           "reason": "The fitted sliding bearings retain local solid deposition.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1520,7 +1602,7 @@
           "painted_faces": 0,
           "reason": "The fitted sliding bearings retain local solid deposition.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1548,7 +1630,7 @@
           "painted_faces": 0,
           "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1576,7 +1658,7 @@
           "painted_faces": 0,
           "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1604,7 +1686,7 @@
           "painted_faces": 0,
           "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1632,7 +1714,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1660,7 +1742,7 @@
           "painted_faces": 0,
           "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1688,7 +1770,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at the hook's fitted height. A screwdriver enters above the lip and lifts the support toward the open side.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1716,7 +1798,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1744,7 +1826,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1772,7 +1854,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1800,7 +1882,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1828,7 +1910,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1856,7 +1938,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1884,7 +1966,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1912,7 +1994,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1940,7 +2022,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1968,7 +2050,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -1996,7 +2078,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2024,7 +2106,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2052,7 +2134,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2080,7 +2162,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2108,7 +2190,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2136,7 +2218,7 @@
           "painted_faces": 0,
           "reason": "Support the cantilevered seat from its first underside course, below the protected valve sockets.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2164,7 +2246,7 @@
           "painted_faces": 0,
           "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2192,7 +2274,7 @@
           "painted_faces": 0,
           "reason": "Support the inlet's roof through its open flange pocket and cord passage.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2220,7 +2302,7 @@
           "painted_faces": 0,
           "reason": "Support the inlet's roof through its open flange pocket and cord passage.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2248,7 +2330,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2276,7 +2358,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2304,7 +2386,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2332,7 +2414,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2360,7 +2442,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2388,7 +2470,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2416,7 +2498,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2444,7 +2526,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2472,7 +2554,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2500,7 +2582,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2528,7 +2610,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -2556,20 +2638,20 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "cap_span_x_mm": [
             -103.275,
             -98.5
           ],
-          "center_x_mm": -101.125,
+          "center_x_mm": -99.6,
           "contact_source_z_mm": 168.7,
           "kind": "removable_support_stock",
           "name": "Removable west rail support 1",
           "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "root_source_z_mm": 175.05,
           "shape": "rail_strips",
           "span_y_mm": [
@@ -2582,13 +2664,13 @@
             -103.275,
             -98.5
           ],
-          "center_x_mm": -101.125,
+          "center_x_mm": -99.6,
           "contact_source_z_mm": 168.7,
           "kind": "removable_support_stock",
           "name": "Removable west rail support 2",
           "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "root_source_z_mm": 175.05,
           "shape": "rail_strips",
           "span_y_mm": [
@@ -2601,13 +2683,13 @@
             98.5,
             103.275
           ],
-          "center_x_mm": 101.125,
+          "center_x_mm": 99.6,
           "contact_source_z_mm": 168.7,
           "kind": "removable_support_stock",
           "name": "Removable east rail support 1",
           "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6",
           "root_source_z_mm": 175.05,
           "shape": "rail_strips",
           "span_y_mm": [
@@ -3268,7 +3350,7 @@
           "name": "Nameplate insert land and rear wall root 1",
           "plate_bounds_mm": [
             [
-              278.1750091552734,
+              282.11500915527347,
               83.6,
               162.70454545454544
             ],
@@ -3281,7 +3363,7 @@
           "source_bounds_mm": [
             [
               -76.4,
-              456.3,
+              460.24,
               180.29545454545456
             ],
             [
@@ -3296,7 +3378,7 @@
           "name": "Nameplate insert land and rear wall root 2",
           "plate_bounds_mm": [
             [
-              278.1750091552734,
+              282.11500915527347,
               141.6,
               162.70454545454544
             ],
@@ -3309,7 +3391,7 @@
           "source_bounds_mm": [
             [
               -18.4,
-              456.3,
+              460.24,
               180.29545454545456
             ],
             [
@@ -3324,7 +3406,7 @@
           "name": "Nameplate insert land and rear wall root 3",
           "plate_bounds_mm": [
             [
-              278.1750091552734,
+              282.11500915527347,
               83.6,
               93.79545454545456
             ],
@@ -3337,7 +3419,7 @@
           "source_bounds_mm": [
             [
               -76.4,
-              456.3,
+              460.24,
               249.20454545454544
             ],
             [
@@ -3352,7 +3434,7 @@
           "name": "Nameplate insert land and rear wall root 4",
           "plate_bounds_mm": [
             [
-              278.1750091552734,
+              282.11500915527347,
               141.6,
               93.79545454545456
             ],
@@ -3365,7 +3447,7 @@
           "source_bounds_mm": [
             [
               -18.4,
-              456.3,
+              460.24,
               249.20454545454544
             ],
             [
@@ -3662,7 +3744,7 @@
       "regions": {
         "part_process_overrides": null,
         "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-        "record_sha256": "aa1a674a352201b3765a3bf36000d1efae5413111e50646a79060320f593780c"
+        "record_sha256": "d4e5bb5e095524f7b15c01f8b96963e9a97baa75fff77cbdee610a43c89d0337"
       },
       "removable_support_stock": [
         {
@@ -3694,7 +3776,7 @@
           ],
           "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
           "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "source_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "source_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "bounds_source_mm": [
@@ -3725,7 +3807,7 @@
           ],
           "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
           "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "source_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "source_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "bounds_source_mm": [
@@ -3756,7 +3838,7 @@
           ],
           "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
           "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "source_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "source_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         }
       ],
       "ribbons": [],
@@ -3768,7 +3850,7 @@
       ],
       "step_sha256": null,
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-      "stl_sha256": "e09739511aa7125c8939bdb177f3c1c1ceac900492f3e6d3dfd6e1a0f820d434",
+      "stl_sha256": "ef9a25893e48db79a4a50c9440b2c09a126f75781c788d42f22c69c5866615de",
       "support_free_regions": [
         {
           "bounds_source_mm": [
@@ -4061,6 +4143,54 @@
           ],
           "name": "wago-n insertion pocket",
           "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+        },
+        {
+          "bounds_source_mm": [
+            -104.0,
+            -100.5,
+            219.8,
+            310.25,
+            174.8,
+            178.05
+          ],
+          "box_plate_mm": [
+            [
+              41.42500915527344,
+              55.75,
+              176.7
+            ],
+            [
+              132.37500915527343,
+              59.75,
+              180.45
+            ]
+          ],
+          "name": "west alignment groove",
+          "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib."
+        },
+        {
+          "bounds_source_mm": [
+            100.5,
+            104.0,
+            219.8,
+            310.25,
+            174.8,
+            178.05
+          ],
+          "box_plate_mm": [
+            [
+              41.42500915527344,
+              260.25,
+              176.7
+            ],
+            [
+              132.37500915527343,
+              264.25,
+              180.45
+            ]
+          ],
+          "name": "east alignment groove",
+          "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib."
         },
         {
           "bounds_source_mm": [
@@ -4745,7 +4875,7 @@
           "painted_faces": 0,
           "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4773,7 +4903,7 @@
           "painted_faces": 0,
           "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4801,7 +4931,7 @@
           "painted_faces": 0,
           "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4829,7 +4959,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4857,7 +4987,7 @@
           "painted_faces": 0,
           "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4885,7 +5015,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at the hook's fitted height. A screwdriver enters above the lip and lifts the support toward the open side.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4913,7 +5043,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4941,7 +5071,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4969,7 +5099,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -4997,7 +5127,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5025,7 +5155,7 @@
           "painted_faces": 0,
           "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5053,7 +5183,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5081,7 +5211,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5109,7 +5239,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5137,7 +5267,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5165,7 +5295,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5193,7 +5323,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5221,7 +5351,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5249,7 +5379,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5277,7 +5407,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5305,7 +5435,7 @@
           "painted_faces": 0,
           "reason": "Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5333,7 +5463,7 @@
           "painted_faces": 0,
           "reason": "Support the cantilevered seat from its first underside course, below the protected valve sockets.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5361,7 +5491,7 @@
           "painted_faces": 0,
           "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5389,7 +5519,7 @@
           "painted_faces": 0,
           "reason": "Support the inlet's roof through its open flange pocket and cord passage.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5417,7 +5547,7 @@
           "painted_faces": 0,
           "reason": "Support the inlet's roof through its open flange pocket and cord passage.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5445,7 +5575,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5473,7 +5603,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5501,7 +5631,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5529,7 +5659,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5557,7 +5687,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5585,7 +5715,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5613,7 +5743,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5641,7 +5771,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5669,7 +5799,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5697,7 +5827,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5725,7 +5855,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         },
         {
           "blocker_source_mm": [
@@ -5753,7 +5883,7 @@
           "painted_faces": 0,
           "reason": "Support the initial outer radius of the wall-mounted boss while keeping the pilot bore outside the contact target.",
           "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-          "record_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e"
+          "record_sha256": "9d8da7d01c8276c413f7ac701c3662fb1404ea8512ff679c3c94bcee0a2058f6"
         }
       ],
       "tie_windows": [],
@@ -5776,7 +5906,7 @@
       0.0
     ]
   },
-  "prepared_utc": "2026-11-18T17:08:11+00:00",
+  "prepared_utc": "2026-11-18T18:36:04+00:00",
   "printer": "Mark1",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_changes": {
@@ -5805,8 +5935,8 @@
     }
   },
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
-  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-6dd1f3f0-textured-pei.3mf",
-  "project_sha256": "2cc8bed6f7ee0fcbb0e13d4ee879f1880c37c8273580420699a8bb4cc88aba47",
+  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-12ea2620-textured-pei.3mf",
+  "project_sha256": "b1cb71b4cd5602d8a14aa8f5fa52db9d55d4e597fa138ce2bc45e0c901939637",
   "requested_z_trim_mm": 0.04,
   "settings_changes": {
     "curr_bed_type": {

@@ -1,0 +1,104 @@
+{
+  "gcode_sha256": "b9de7d013e3383cebae7fc238c53f2b2201711aa66b2f136b01fe59bee0fe624",
+  "source_stl_sha256": "ef9a25893e48db79a4a50c9440b2c09a126f75781c788d42f22c69c5866615de",
+  "cavity_floor_plate_z_mm": 179.95,
+  "bearing_face_plate_z_mm": 186.3,
+  "sections": [
+    {
+      "cap": "Removable west rail support 1",
+      "neck_center_source_x_mm": -99.6,
+      "neck_count": 24,
+      "floor_and_first_isolated_neck_layer_counts": [
+        {
+          "prior_plate_z_mm": 179.96,
+          "neck_plate_z_mm": 180.2,
+          "count": 24
+        }
+      ],
+      "missing_neck_courses": [],
+      "neck_footprints_without_five_prior_bead_samples": [],
+      "first_bearing_plate_z_mm": 186.44,
+      "cap_plate_z_mm": 185.96,
+      "cap_to_bearing_layer_top_gap_mm": 0.48,
+      "cap_bead_section_sample_count": 3240,
+      "cap_bead_section_sample_coverage": 1.0,
+      "cap_bead_section_longest_sample_gap_mm": 0.0,
+      "first_bearing_courses_by_feature": {
+        "Overhang wall": {
+          "measured_mm": 183.9949,
+          "unbacked_mm": 1.1995,
+          "longest_unbacked_mm": 0.16
+        },
+        "Bridge": {
+          "measured_mm": 1140.8594,
+          "unbacked_mm": 13.314,
+          "longest_unbacked_mm": 4.0772
+        }
+      }
+    },
+    {
+      "cap": "Removable west rail support 2",
+      "neck_center_source_x_mm": -99.6,
+      "neck_count": 32,
+      "floor_and_first_isolated_neck_layer_counts": [
+        {
+          "prior_plate_z_mm": 179.96,
+          "neck_plate_z_mm": 180.2,
+          "count": 32
+        }
+      ],
+      "missing_neck_courses": [],
+      "neck_footprints_without_five_prior_bead_samples": [],
+      "first_bearing_plate_z_mm": 186.44,
+      "cap_plate_z_mm": 185.96,
+      "cap_to_bearing_layer_top_gap_mm": 0.48,
+      "cap_bead_section_sample_count": 4368,
+      "cap_bead_section_sample_coverage": 1.0,
+      "cap_bead_section_longest_sample_gap_mm": 0.0,
+      "first_bearing_courses_by_feature": {
+        "Overhang wall": {
+          "measured_mm": 248.9984,
+          "unbacked_mm": 2.079,
+          "longest_unbacked_mm": 0.1599
+        },
+        "Bridge": {
+          "measured_mm": 1544.1712,
+          "unbacked_mm": 14.496,
+          "longest_unbacked_mm": 4.0772
+        }
+      }
+    },
+    {
+      "cap": "Removable east rail support 1",
+      "neck_center_source_x_mm": 99.6,
+      "neck_count": 60,
+      "floor_and_first_isolated_neck_layer_counts": [
+        {
+          "prior_plate_z_mm": 179.96,
+          "neck_plate_z_mm": 180.2,
+          "count": 60
+        }
+      ],
+      "missing_neck_courses": [],
+      "neck_footprints_without_five_prior_bead_samples": [],
+      "first_bearing_plate_z_mm": 186.44,
+      "cap_plate_z_mm": 185.96,
+      "cap_to_bearing_layer_top_gap_mm": 0.48,
+      "cap_bead_section_sample_count": 8010,
+      "cap_bead_section_sample_coverage": 1.0,
+      "cap_bead_section_longest_sample_gap_mm": 0.0,
+      "first_bearing_courses_by_feature": {
+        "Overhang wall": {
+          "measured_mm": 460.9978,
+          "unbacked_mm": 3.9989,
+          "longest_unbacked_mm": 0.16
+        },
+        "Bridge": {
+          "measured_mm": 2863.2898,
+          "unbacked_mm": 14.7585,
+          "longest_unbacked_mm": 4.0772
+        }
+      }
+    }
+  ]
+}
