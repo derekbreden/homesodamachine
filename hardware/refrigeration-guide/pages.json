@@ -700,7 +700,7 @@
     },
     {
       "title": "Stage the refrigeration bench",
-      "subtitle": "Lay out the instruments by the measurement or service task they actually perform.",
+      "subtitle": "Check the tools in the ledger and establish the setup for R600a sealed-system work.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [46, 148],
@@ -724,9 +724,9 @@
           {"kind": "label", "value": "TopTes PT520A", "x": 29, "y": 203.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "De-energized localization after A3 area clearance.", "x": 187, "y": 203.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 221], "end": [523, 221], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "A3 technician setup", "x": 29, "y": 246.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Recovery set, dry gas, rated manifold, micron gauge,", "x": 187, "y": 239.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "sealed access and qualified charged-circuit detector.", "x": 187, "y": 253.5, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "R600a kit to confirm", "x": 29, "y": 246.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Recovery, access, dry gas, gauges and vacuum pump.", "x": 187, "y": 239.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "R600a leak wand, reference leak and ambient monitor.", "x": 187, "y": 253.5, "size": 11.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 264], "end": [523, 264], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "Charge diagnosis setup", "x": 29, "y": 289.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Low-volume pressure points, contact probes and", "x": 187, "y": 282.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
@@ -735,12 +735,12 @@
       },
       "actions": [
         {
-          "title": "Check the instrument markings at the bench",
-          "body": "The Orion A/C set and modeled BPV31 have no documented R600a approval here. Use fittings, gauges, pump and recovery gear specified for the actual A3 service."
+          "title": "Confirm R600a training and equipment",
+          "body": "Sealed-system work requires training in flammable R600a service. Verify the equipment ratings. Suitability of the Orion A/C set and modeled BPV31 for this use is unconfirmed."
         },
         {
-          "title": "Write down the service boundary",
-          "body": "List who provides each service device, where its gauge reads, the circuit test-pressure limit and the way the process tube will be sealed before opening the donor."
+          "title": "Confirm the bench setup before opening",
+          "body": "Record the actual recovery and vacuum setups, gauge locations, circuit test-pressure limit and final process-tube closure. Confirm the complete kit is available before opening the donor."
         },
         {
           "title": "Set up the work area and isolation",
@@ -750,7 +750,7 @@
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The table assigns each needed instrument and names the service method before opening.",
+        "body": "Verify R600a training, equipment and the service method before starting recovery.",
         "y": 699,
         "tone": "#1749D1"
       },
@@ -759,7 +759,7 @@
     },
     {
       "title": "Set up the detector",
-      "subtitle": "Separate the shop locator from the technician’s charged-circuit detector and ambient monitor.",
+      "subtitle": "Set up the owned TopTes, the R600a joint detector and the separate ambient monitor for their checks.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [46, 148],
@@ -844,11 +844,11 @@
         },
         {
           "title": "Recover through the specified service connection",
-          "body": "An A3 technician connects the approved recovery set and cylinder in the cleared work area. Record removed mass, component identity and the recovery check."
+          "body": "Connect the qualified R600a recovery set and cylinder in the cleared work area. Record removed mass, component identity and the recovery check."
         },
         {
           "title": "Clear retained refrigerant",
-          "body": "The technician verifies circuit and oil clearance by the approved service method before a tube is cut or heated. Record the actual measurement and equipment used."
+          "body": "Verify circuit and oil clearance by the R600a service method before cutting or heating a tube. Record the actual measurement and equipment used."
         }
       ],
       "actions_y": 498,
@@ -887,7 +887,7 @@
       "actions": [
         {
           "title": "Stage dry gas and regulator",
-          "body": "Have the technician identify the dry gas and regulator combination. Keep the drier dry. Complete recovery and circuit clearance before cold-opening any line."
+          "body": "Identify the dry gas and verify its regulator rating. Keep the drier dry. Complete recovery and circuit clearance before cold-opening any line."
         },
         {
           "title": "Prove flow across the actual joint",
@@ -1383,7 +1383,7 @@
         },
         {
           "title": "Isolate the pump and read the hold",
-          "body": "Leave the micron gauge connected to the circuit. Record at isolation and 15 minutes later. Have the technician resolve a sustained rise before charging."
+          "body": "Leave the micron gauge connected to the circuit. Record at isolation and 15 minutes later. Resolve a sustained rise before charging."
         }
       ],
       "actions_y": 498,

@@ -112,6 +112,11 @@ Bench instrument references:
 
 ## Qualification scope
 
+Sealed-system work calls for training in flammable R600a service. The ledger
+records the shop tools. The complete R600a bench kit, including the recovery
+set, vacuum set, charged-circuit wand, reference leak and ambient monitor,
+still needs to be confirmed before the donor is opened. [Bench setup](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf#page=11)
+
 The certification mass is the first commissioning fill. The inventory example
 describes a modeled operating state. Record the installed refrigerant charge
 and repeatable water-load results after the physical trials. Qualification of
