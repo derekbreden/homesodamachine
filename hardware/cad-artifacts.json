@@ -256,7 +256,7 @@
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": "a72d13deba1581357f4d85f4dae5d3576d66ea1e5084ee152176ae533b55956c",
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": "172b4888a694ca43716cb7b07782fb3f1196bed5b9405a3c4ed5f68ba8fde863",
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": "47ce368bf30a535af55547152d9375147943df05da36e22e79d8883747694596",
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "cb0b4d65e67df08bd517978ea76fe4c3692899703b50c6ad52b315d19ef92474",
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "1ecfb18f79bd265253026d02b7224922f350e268d92fd322538bb983b1fb4b9d",
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": "2a6ca72765d757aaa0b41c476ad3e01bf79c13e41da8ce3dab85767025dfe892",
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": "900be16766b197853febd331fb9c08b730e0314bf736482722200407933ff000",
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": "47ce368bf30a535af55547152d9375147943df05da36e22e79d8883747694596",
@@ -2903,7 +2903,7 @@
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": 1795017520.93376,
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": 1795018142.298728,
     "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": 1795018147.350144,
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795023088.950757,
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795023682.874484,
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": 1795018768.078483,
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": 1795018762.192315,
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": 1795018768.078483,
@@ -4411,8 +4411,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
-      "commit": "5a75a821880d7844b8c394c6eab0b15ef132ff28",
-      "inputs": "37b2c764ae94933de5aa0606629c0d4da7612ca64b83685d6fb037923c09443e",
+      "commit": "3adda619c162d58d32437a6f13ad297f17922fee",
+      "inputs": "16a6fa4d8a91c1141607ba2f45ba7f7dae3db57deef3570d5735abc70f6b4708",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": {
