@@ -1,9 +1,35 @@
 {
-  "purpose": "This record retains Derek's physical confirmation of the angled Pisco snap catches.",
+  "purpose": "This record retains Derek's physical observations of the Pisco snap catches and its insertion into the enclosure.",
   "date": "2026-11-18",
   "material": "HSM-0449",
   "said": "one minor detail I'll mention, the new chamfered wing tip retainer snap works (e.g. what we have on both sides of the pisco), so we don't don't need those overhangs, wherever you put the wings, the channel for the tips can have that angling.",
   "tried": "the chamfered wing-tip catches used on both sides of the Pisco snap",
   "accepted": "The angled wing-tip receiver channels retain the printed snap.",
-  "installation": "The complete Pisco cover needs a clear insertion path in the installed machine."
+  "installation": "The existing cover enters from X with its wing angled; the outer edge of the tip channel blocks the remaining insertion.",
+  "insertion_trial": {
+    "date": "2026-11-18",
+    "said": "Hm, so, that's still not the designed approach apparently, I was actually able to get it in coming from the X direction.\n\nThe only thing I haven't got it past is this edge in the screenshot, because the wing comes in at angle, this edge is too high for it.",
+    "direction": "X",
+    "result": "The cover reaches the receiver; the angled wing remains blocked at the outer tip-channel edge.",
+    "screenshot": "physical-result/x-entry-blocked.png",
+    "edge": {
+      "file": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+      "source_sha256": "b3f875f7727a500a2e01d7999337f2c7f2e2524bacc8da9e1e6b3fe0fdeb872c",
+      "from_mm": [
+        91.906,
+        420.096,
+        346.0
+      ],
+      "to_mm": [
+        91.906,
+        462.3,
+        346.0
+      ],
+      "click_mm": [
+        91.906,
+        447.707,
+        346.0
+      ]
+    }
+  }
 }
