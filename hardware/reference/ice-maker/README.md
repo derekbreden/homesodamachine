@@ -21,7 +21,7 @@ service equipment.
 
 ### Refrigerant
 
-Use the U.S. HZB-12/Q refrigerant rating in Intertek's constructional report as the baseline in the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf). Derek reports the inspected nameplate gives no charge mass. The report permits several compressors under this model, so check the actual compressor plate, fan and connections against the reference measurements. [Intertek constructional report, ratings](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70.pdf#page=3)
+Use the U.S. HZB-12/Q refrigerant rating in Intertek's constructional report as the baseline in the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf). Derek reports the inspected nameplate gives no charge mass. The report permits several compressors under this model, so check the actual compressor plate, fan and connections against the reference measurements. [Intertek constructional report, ratings](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70)
 
 ### Refrigerant circuit topology (verified by disassembly)
 
@@ -66,7 +66,7 @@ Label on this unit's drier:
 - `20251107 A-1` — manufacturing date code, 2025-11-07, line/shift A-1.
 - Small stylized logo at left (manufacturer mark, not identified).
 
-**Desiccant preservation rule:** Once the refrigerant loop is opened (unbrazing for re-piping), the drier's desiccant absorbs atmospheric moisture unless it is kept in a continuous dry inert-gas blanket from the moment of cut until vacuum begins. Continuous low-pressure argon flow through the loop during the entire loop-open period (see [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3) provides that blanket. The same argon flow doubles as the braze-safety hydrocarbon sweep, so the two requirements satisfy each other via one rig. A saturated drier produces short service life and eventual capillary icing.
+**Desiccant preservation.** Protect the drier from atmospheric moisture during open work. Keep the assembly under the dry-inert service method and prove flow through each segment before heating. The refrigerant-loop procedure owns the open-work setup.
 
 ### Capillary tube + suction-line heat exchanger
 
@@ -101,7 +101,7 @@ A stainless-finger cold plate, purpose-built for ice-cube formation. **Discarded
 
 The reference compressor is a single-phase AC hermetic with a **combined PTC start relay and overload protector** clipped to its terminal block. Retain the moulded power-box cover and its original retention. The reference teardown found black and white external pigtails. Measure and record the delivered donor's lead function, termination, usable length and earth landing before preparing the mating harness.
 
-For bench testing, plug into standard 120 VAC through an **inline fuse** (5 A fast-blow is comfortable for expected ~1 A running + LRA inrush). A Kill-A-Watt inline lets you observe the LRA spike, steady running draw, and confirm the compressor is doing real work rather than just humming.
+For the first start, use the protected appliance feed and the normal warm-wall call after the off guard. The P4400 records standby and running readings at that feed. Follow the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
 
 Safety:
 - **R600a is flammable.** Do not energize after physical damage, near open flame, or if a butane smell is present near the compressor. The factory loop is sealed from the factory, so there's no leak risk during teardown *inspection* — leak risk only appears once the loop is opened for re-piping.
@@ -119,7 +119,7 @@ For ESP32 control:
 | Compressor | Keep |
 | Condenser + fan | Keep |
 | Capillary tube (bonded to suction line) | Keep — do not separate |
-| Filter-drier | Keep in service — preserved through loop-open period under continuous argon flow per `assembly/refrigerant-loop.md` step 3 |
+| Filter-drier | Keep the protected upstream assembly through open work per the [refrigerant-loop procedure](/hardware/assembly/refrigerant-loop.md) |
 | Process tube | Keep for qualified low-side service access and final closure |
 | Hot-gas bypass solenoid | Remove with its branch and tee |
 | Evaporator finger plate | Discard (replaced by custom copper coil around the SS carbonator) |

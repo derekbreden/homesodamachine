@@ -80,13 +80,13 @@ Record actual gas-feed and carbonator pressure during refill and a hold with the
 
 ### 5. First and successive carbonated-water dispenses
 
-Run the commissioned refrigeration control to the carbonator-wall setpoint of, retaining the coil freeze cutout and compressor minimum-off protections. Record incoming-water temperature, both probes and the time to the first compressor-off event. Follow [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for charge and thermal-contact diagnostics. A cold wall reading does not prove the bulk water is equally cold.
+Run the commissioned refrigeration control to its carbonator-wall setpoint, retaining the coil freeze cutout and compressor minimum-off protections. Record incoming-water temperature, both probes and the time to the first compressor-off event. Follow [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for charge and thermal-contact diagnostics. A cold wall reading does not prove the bulk water is equally cold.
 
 With flavor injection disabled through the commissioned controls, dispense approximately into the target glass after a recorded idle period. Measure liquid temperature immediately with an immersed probe. Record pour duration, delivered volume, gas setting and any sputter. The log counts the DIGITEN flow meter's pulses through each pour. This is the meter's first check: with both ports made up, commissioning cannot turn its impeller. Compare the carbonation against the agreed strongly carbonated reference at matched temperature and pour conditions; the existing external-carbonator setup can provide that reference. Record dissolved CO2 if suitable measuring equipment is available. Bubble appearance and a ten-second foam head are not standalone pass criteria.
 
 Then run **three successive pours** at the intended home-use cadence, recording the interval between them, every refill start/stop, immediate in-glass temperatures and carbonation judgments. Record any time the machine needs before the next complete pour. Do not insert an unrecorded full chill-down between glasses. Measure recovery to the same initial condition after the sequence. Keep the current level positions, G Ganen, IRM-90 and dispense-then-refill sequence for this qualification.
 
-**Pass:** the first and successive glasses deliver the agreed strong carbonation, each at ≤, with complete pours, flow-meter pulses logged through every pour, and repeatable refill/restart at the recorded cadence. That cadence, refill time, recovery time and carbonation reference become the first-unit performance record and the basis for production limits. **Fail:** a weak first glass, falling carbonation despite cold water, warming successive glasses, incomplete pours, a pour with no logged meter pulses, or refill failure. A sputter is a symptom to diagnose, not a unique indication of inadequate carbonation. [Carbonation Plan B](/future/carbonation-plan-b.md) separates pressure/flow, gas transfer, supply-current and thermal shortfalls.
+**Pass:** the first and successive glasses deliver the agreed strong carbonation, at the agreed delivered-water temperature, with complete pours, flow-meter pulses logged through every pour, and repeatable refill/restart at the recorded cadence. That cadence, refill time, recovery time and carbonation reference become the first-unit performance record and the basis for production limits. **Fail:** a weak first glass, falling carbonation despite cold water, warming successive glasses, incomplete pours, a pour with no logged meter pulses, or refill failure. A sputter is a symptom to diagnose, not a unique indication of inadequate carbonation. [Carbonation Plan B](/future/carbonation-plan-b.md) separates pressure/flow, gas transfer, supply-current and thermal shortfalls.
 
 ### 6. First flavor A dispense + flavor pump metering
 
@@ -186,7 +186,7 @@ A unit that has passed acceptance and burn-in:
 - Gas-feed and carbonator pressures recorded through refill and hold; downstream check reverse sealing qualified; no external leakage or SV-125 relief event during normal operation
 - Dedicated faucet DRAIN outlet open over the bowl; no unexplained vent discharge
 - Initial fill, refill and pump restart completed with measured inlet/discharge/carbonator pressure and supply margin
-- First and successive ~ glasses at ≤ with the agreed strong carbonation; flow-meter pulses logged through each pour; pour cadence, refill timing and recovery recorded
+- First and successive measured glasses at the agreed delivered temperature with the agreed strong carbonation; flow-meter pulses logged through each pour; pour cadence, refill timing and recovery recorded
 - First flavor A dispense at the documented ratio ( volume) with measured pump output
 - First flavor B dispense at the same ratio with channel-to-channel pump agreement within
 - Clean cycle through both channels completed without intervention
