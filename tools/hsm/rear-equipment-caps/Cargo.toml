@@ -16,3 +16,7 @@ serde_json = { workspace = true, features = ["float_roundtrip"] }
 [[bin]]
 name = "rear-equipment-caps"
 path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/rear_equipment_caps.rs"
+
+[[bin]]
+name = "pisco-access-study"
+path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/pisco_access_study.rs"

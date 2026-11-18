@@ -54,6 +54,6 @@
     "flow_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
   },
-  "physical_result": "Not yet reported.",
+  "physical_result": "physical-result.json",
   "startup_status": "startup-status.json"
 }

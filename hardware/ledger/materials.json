@@ -6688,6 +6688,22 @@
       "models": [
         {
           "file": "printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step"
+        },
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step",
+          "context": true
+        },
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-exploded.step",
+          "context": true
+        },
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-seated.step",
+          "context": true
+        },
+        {
+          "file": "printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step",
+          "context": true
         }
       ],
       "aliases": [
@@ -6704,6 +6720,10 @@
         {
           "title": "Rear equipment installation",
           "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Pisco cover access concepts",
+          "path": "printed-parts/enclosure/rear-equipment-caps/pisco-access/README.md"
         }
       ]
     },

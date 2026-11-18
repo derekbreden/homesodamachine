@@ -10,7 +10,9 @@ paths and accepted printer job. [layer-time.json](layer-time.json) reads the
 tower deposition on every cap layer; travel and the firmware snapshot add to
 that time away. [launch.json](launch.json) records the printer's acceptance,
 and [prelaunch-status.json](prelaunch-status.json) records both printers before
-the send. Fit, finish and spring strength await the physical print.
+the send. The [physical result](physical-result.json) records Derek's acceptance
+of the angled wing-tip catches. The complete cover needs a clear insertion
+path in the installed machine.
 
 Prepare from the current recipe without contacting the printer:
 
