@@ -15,6 +15,7 @@ pub mod funnel;
 pub mod handholds;
 pub mod piece;
 pub mod rails;
+pub mod rear_alignment;
 pub mod routes;
 pub mod seam;
 pub mod seat;
