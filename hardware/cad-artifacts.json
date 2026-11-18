@@ -271,7 +271,7 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "f3dd94fcc1c1082139286c1d8da2cf962a566394d4b3be8a548e269c82fb59c6",
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": "55ad2e53f16f7cf78d3feeaab4d2c8eb07a3935bb20ee251bbe4932a99f34bf4",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": "b7772d4427d38ab755fe232ac249f32287f27bf2b8ff9c8757392c56cecc03fa",
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "4bbb03c1818eeeaffefb2e6454e16e1ec74ce038d375f3c11f1b8e5c4f70e026",
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "6db13531cb5868a7ca5724a1cc6b548bc009643eaed9e21258946158f7f6b0dc",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "90b5d9d6760f6213367044996b4c36ba66fe89bffc2fe12415cb1a2ec5af310f",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "cdd3e2125c4d613fb6af2a297513fb95ca9cdce5a84972e8ae28bd42ef5d6207",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "1ac68675f3318bc0aaa9ce58bbf63edee783dc09179a8847863eb7d3194dff98",
@@ -2908,7 +2908,7 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794805059.108448,
     "hardware/printed-parts/enclosure/nameplate/nameplate-fasteners.step": 1795017184.805793,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step": 1795017184.805793,
-    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1795017179.521268,
+    "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1795023210.159912,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": 1795017184.805793,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": 1794791565.990009,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": 1794791549.544964,
@@ -4468,7 +4468,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": {
-      "commit": "7debbd68ee904aefd3e944511d7f880595c01f49",
+      "commit": "950663033bb412b05994e54fb222ad0c04f97460",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": {
