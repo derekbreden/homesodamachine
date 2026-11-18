@@ -3,7 +3,7 @@
   "piece": "back-top",
   "printer": "Mark1",
   "connection_key": "H2C",
-  "status": "running",
+  "status": "finished",
   "printer_task_id": "1449338494",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
@@ -50,5 +50,6 @@
     "this_accepted_at": "2026-11-16T05:08:44+00:00",
     "elapsed_seconds": 10877.0
   },
-  "first_layer_status": "first-layer-status.json"
+  "first_layer_status": "first-layer-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }

@@ -138,37 +138,37 @@
     {
       "center_x_mm": -101.125,
       "contact_source_z_mm": 168.7,
-      "name": "Removable west fore rail support",
-      "reason": "Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed.",
+      "name": "Removable west rail support 1",
+      "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
       "root_source_z_mm": 175.05,
       "shape": "rail_strips",
       "span_y_mm": [
-        224.2,
-        310.0
+        223.8,
+        317.79999999962746
       ]
     },
     {
       "center_x_mm": -101.125,
       "contact_source_z_mm": 168.7,
-      "name": "Removable west aft rail support",
-      "reason": "Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed.",
+      "name": "Removable west rail support 2",
+      "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
       "root_source_z_mm": 175.05,
       "shape": "rail_strips",
       "span_y_mm": [
-        344.2,
-        454.0
+        329.79999999962746,
+        456.3
       ]
     },
     {
       "center_x_mm": 101.125,
       "contact_source_z_mm": 168.7,
-      "name": "Removable east rail support",
-      "reason": "Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed.",
+      "name": "Removable east rail support 1",
+      "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
       "root_source_z_mm": 175.05,
       "shape": "rail_strips",
       "span_y_mm": [
-        224.2,
-        455.95
+        223.8,
+        456.3
       ]
     }
   ],

@@ -741,7 +741,8 @@ raked ends and counterbore roofs above the bed chamfer.
 
 The nameplate receiver's rounded crown and lower mouth edge grow from the
 rear wall on corbels. The lower rear edge of the nameplate follows the mouth
-slope. Each split rail cap starts on narrow roots in its own cavity. Sever the
+slope. Each split rail cap covers the bearing from its stop to its rear end,
+splitting at the vent's open passage, and starts on narrow roots in its own cavity. Sever the
 necks and pull the cap inward through the open sliding lane. The
 native slice review confirms the cap air gaps, bed border and clear fitted
 interiors. Funnel insert pilots bridge between their own walls inside the

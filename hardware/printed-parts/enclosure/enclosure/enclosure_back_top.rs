@@ -193,17 +193,31 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     let rail_contact = b.splits[1] + shell::HOOK_FOOT;
     let rail_floor = b.splits[1] + shell::Z_RISE + shell::slide_slip();
     let mut support_stock = Vec::new();
-    // The caps stay inside the open rail lanes, with a break in the west lane at the vent chase.
-    for (name, side, span) in [
-        ("Removable west fore rail support", 1.0, [224.2, 310.0]),
-        ("Removable west aft rail support", 1.0, [344.2, 454.0]),
-        ("Removable east rail support", -1.0, [224.2, 455.95]),
-    ] {
-        let [open, _, far] = hsm_enclosure_quadrants::rails::rail_channel_span(side, quadrant::Y::Back);
-        let outside = if side > 0.0 { open.min(far) } else { open.max(far) };
-        support_stock.push(json!({"name":name,"shape":"rail_strips","center_x_mm":outside + side * 2.625,
-            "span_y_mm":span,"contact_source_z_mm":rail_contact,"root_source_z_mm":rail_floor,
-            "reason":"Split removable caps root on their own cavity floor and pull inward through the open sliding lane after the necks are severed."}));
+    // Follow the complete bearing, breaking only at the vent's actual open passage.
+    for run in hsm_enclosure_quadrants::rails::z_rail_runs(&b.inner, b.y_joint, quadrant::Y::Back) {
+        let mut spans = vec![[run.y1 + shell::RAIL_STOP_LEN, run.y0]];
+        if run.sx > 0.0 {
+            for station in &b.pack.vent_chase {
+                let half = shell::VENT_CHANNEL_W / 2.0;
+                if station[2] + half <= b.splits[1] {
+                    continue;
+                }
+                let [mouth_fore, mouth_aft] = [station[1] - half, station[1] + half];
+                spans = spans.into_iter().flat_map(|[fore, aft]| {
+                    [[fore, aft.min(mouth_fore)], [fore.max(mouth_aft), aft]]
+                        .into_iter().filter(|[start, end]| start < end)
+                }).collect();
+            }
+        }
+        let side = if run.sx > 0.0 { "west" } else { "east" };
+        let [open, _, far] = hsm_enclosure_quadrants::rails::rail_channel_span(run.sx, quadrant::Y::Back);
+        let outside = if run.sx > 0.0 { open.min(far) } else { open.max(far) };
+        for (index, span) in spans.into_iter().enumerate() {
+            support_stock.push(json!({"name":format!("Removable {side} rail support {}", index + 1),
+                "shape":"rail_strips","center_x_mm":outside + run.sx * 2.625,
+                "span_y_mm":span,"contact_source_z_mm":rail_contact,"root_source_z_mm":rail_floor,
+                "reason":"Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed."}));
+        }
     }
     let wall = &layout::layout().rear_wall;
     let panel = &wall.interior_panel_relief;

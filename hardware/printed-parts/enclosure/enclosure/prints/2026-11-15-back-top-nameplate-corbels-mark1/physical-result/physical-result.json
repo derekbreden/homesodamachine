@@ -1,0 +1,66 @@
+{
+  "purpose": "Keep Derek's photographs and report of the back-top rail support failure with the print.",
+  "printer_task_id": "1449338494",
+  "reported_on": "2026-11-17",
+  "observations": [
+    {
+      "speaker": "Derek",
+      "words": "Please fix this failure to have supports here in where I'm showing in my photos. Please fix it and then find out why it happened. And let's see if there's any more fallout from why that happened that we need to fix here too.",
+      "photos": [
+        "photo-1.jpg",
+        "photo-2.jpg",
+        "photo-3.jpg"
+      ]
+    }
+  ],
+  "visible_result": "Loose sagging roads hang beneath the west sliding rail beside the PRV vent-chase interruption.",
+  "print_job": "../print-job.json",
+  "source_stl_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
+  "source_archive_sha256": "ae6c03e23db549eb667b04a911ee16ad81448a78bda48ecdf44eb9925686059c",
+  "printer_report": "printer-status.json",
+  "diagnosis": {
+    "surface": "enclosure-back-top::west-z-rail",
+    "bearing_source_z_mm": 168.7,
+    "root_source_z_mm": 175.05,
+    "bearing_span_y_mm": [
+      223.8,
+      456.3
+    ],
+    "prv_passage_span_y_mm": [
+      317.8,
+      329.8
+    ],
+    "old_stock_spans_y_mm": [
+      [
+        224.2,
+        310.0
+      ],
+      [
+        344.2,
+        454.0
+      ]
+    ],
+    "old_effective_uncovered_spans_y_mm": [
+      [
+        223.8,
+        224.5
+      ],
+      [
+        309.7,
+        317.8
+      ],
+      [
+        329.8,
+        344.5
+      ],
+      [
+        453.7,
+        456.3
+      ]
+    ],
+    "cause": "The rail cap recipe used literal endpoints that left an oversized break beside the vent mouth. The mismatch is present in the commit that introduced those caps.",
+    "introduced_by_commit": "e77588ee16b5a6e88f554c674052ddbd93dd5598",
+    "review_omission": "The native support audit tracks slicer support paths. Authored rail caps are ordinary model parts. The reviewed checks did not measure backing beneath the complete rail bearing.",
+    "related_omissions": "The west rear end, both fore starts and the east rear end use the same literal endpoint recipe. Other enclosure quadrants use different rail support constructions."
+  }
+}
