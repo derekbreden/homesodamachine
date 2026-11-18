@@ -59,5 +59,6 @@
       "support_bodies": 2
     }
   },
-  "seated_nominal_overlap_mm3": 0.0
+  "seated_nominal_overlap_mm3": 0.0,
+  "print_job": "print-job.json"
 }
