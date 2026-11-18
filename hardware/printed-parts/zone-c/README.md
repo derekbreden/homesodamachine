@@ -8,8 +8,8 @@ rest of the pack stands, and what each face of the box carries:
 ## The opening
 
 The opening behind the display receives the full-width PET-GF funnel frame.
-The frame drops in vertically onto four ledges after the final connections beneath
-it and takes four M3 screws from above; it has no rails. The silicone lifts out
+The frame drops in vertically onto the shell ledges after the final connections beneath
+it and fastens from above. Each front flank has a pair of screws and each rear flank has one. The silicone lifts out
 through the top.
 
 The flavor pumps stand forward of this opening in the pump cradle, which forms the

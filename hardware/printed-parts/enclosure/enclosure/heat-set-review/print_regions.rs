@@ -153,16 +153,8 @@ fn main() -> Result<()> {
     let b = Box::from_document(read(BOX)?).context(BOX)?;
     let mut regions = Regions(PIECES.iter().map(|p| (p.to_string(), json!([]))).collect());
 
-    // The Y seam's knuckles, flank by flank, and the funnel frame's receivers, from the
-    // construction plan.
+    // The Y seam's knuckles, flank by flank, from the construction plan.
     let mut graph = Graph::new();
-    let seat = funnel::seat_z(&b.outer);
-    let mut receivers = Vec::new();
-    for (name, col) in [("front", Y::Front), ("back", Y::Back)] {
-        if let Some(shape) = funnel::receivers(&mut graph, &b.inner, &b.outer, b.pack.funnel, seat, col, None) {
-            receivers.push((name, shape.bounds()));
-        }
-    }
     let silhouette = graph.silhouette(b.outer);
     let (lower, upper) = y_stack(&b.inner);
     for (x_in, sx) in [(b.inner[0], 1.0), (b.inner[1], -1.0)] {
@@ -232,8 +224,19 @@ fn main() -> Result<()> {
                     [x - radius, x + radius, b.inner[3].min(back + number(nameplate, "pilot_rear")? - number(nameplate, "floor_stock")?),
                      back + thick, z - radius, z + radius]);
     }
-    for (col, bounds) in &receivers {
-        regions.add(&format!("{col}-top"), "Funnel frame receiver, blind cap and full flank root 1", *bounds);
+    let seat = funnel::seat_z(&b.outer);
+    for row in funnel::fasteners(b.pack.funnel, seat).filter(|row| row.side > 0.0) {
+        let piece = match row.col {
+            Y::Front => "front-top",
+            Y::Back => "back-top",
+        };
+        let half_y = funnel::PAD_HALF_Y;
+        regions.add(
+            piece,
+            &format!("Funnel frame receivers and flank roots at Y{}", g(row.y)),
+            [b.outer[0], b.outer[1], row.y - half_y, row.y + half_y,
+             row.host_bottom_z, row.ledge_z],
+        );
     }
 
     // The display's side inserts and their continuous housing root, in the cover's placed frame.

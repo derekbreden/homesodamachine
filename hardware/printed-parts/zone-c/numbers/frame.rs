@@ -4,6 +4,7 @@
 //! plane in the machine.
 use crate::{Color, P2, catalog, cradle, funnel};
 use hsm_enclosure_interface as interface;
+use interface::funnel_mount::{self, PAD_HALF_Y, REAR_ACCESS, SCREW_GRIP};
 
 /// The funnel's plan centre in the machine's Y.
 pub const CENTER_Y: f64 = 182.5 + (funnel::AFT - funnel::FORWARD) / 2.0;
@@ -15,17 +16,11 @@ pub const SEATING_RELIEF: f64 = 0.48;
 pub const WIDTH: f64 = 196.5;
 pub const BODY_WIDTH: f64 = 176.5;
 pub const DEPTH: f64 = funnel::COLLAR_D + 24.6;
-pub const REAR_ACCESS: f64 = 5.0;
 pub const CORNER: f64 = 6.0;
 /// The socket the funnel's plug drops into.
 pub const SOCKET_DEPTH: f64 = 19.0;
-/// The M3 screws into the shell's ledges: their length, their grip and their heads.
-pub const SCREW_LENGTH: f64 = 12.0;
-pub const SCREW_GRIP: f64 = 5.8;
+/// The diameter of the screw heads into the shell's ledges.
 pub const HEAD_D: f64 = 5.5;
-/// The ledge pads' half depth along Y, and the relief under each insert's pilot.
-pub const PAD_HALF_Y: f64 = 6.0;
-pub const PILOT_RELIEF: f64 = 1.5;
 /// The interior the frame is drawn against, the brim's seat in it, and the shell's Y seam.
 pub const INNER: [f64; 6] = [-104.5, 104.5, 0.0, 290.0, 0.0, 352.0];
 pub const SEAT: f64 = 349.0;
@@ -58,44 +53,9 @@ fn roof() -> Roof {
     }
 }
 
-/// A screw seat in the machine's frame: where it stands, its side, whether it is a front one, the
-/// head's seat and the insert's host.
-struct Fastener {
-    x: f64,
-    y: f64,
-    side: f64,
-    front: bool,
-    head_seat_z: f64,
-    host_radius: f64,
-}
-
-fn fasteners() -> Vec<Fastener> {
-    let cx = 0.0;
-    let r = roof();
-    let head_seat = r.floor + SCREW_GRIP;
-    let mut rows = vec![];
-    for (front, x, y) in [(true, 93.0, r.front + 32.0), (false, 87.7, r.back - REAR_ACCESS - 11.2)] {
-        for side in [-1.0, 1.0] {
-            rows.push(Fastener { x: cx + side * x, y, side, front, head_seat_z: head_seat, host_radius: interface::HEATSET_DIA / 2.0 + interface::WALL });
-        }
-    }
-    rows
-}
-
-/// The body's half width: inside the front screws' hosts with the slide's slip.
-fn body_half() -> f64 {
-    let cx = 0.0;
-    fasteners()
-        .iter()
-        .filter(|r| r.front)
-        .map(|r| (r.x - cx).abs() - r.host_radius - interface::slide_slip())
-        .reduce(f64::min)
-        .expect("the frame's front screws")
-}
-
 /// A screw in the frame's own frame: its X and Y, its head's seat above the underside, its
-/// insert's host, its side and whether it is a front one.
-pub type Screw = (f64, f64, f64, f64, f64, bool);
+/// insert's host, its side, which shell holds it, and its row's name in the assembly.
+pub type Screw = (f64, f64, f64, f64, f64, bool, &'static str);
 
 /// The frame's numbers, as its geometry draws it.
 pub struct Frame {
@@ -147,6 +107,16 @@ pub fn frame() -> Frame {
     let gap = (2.0 * cradle::SOCKET_HALF - funnel::PLUG_W) / 2.0;
     let rear_limit = INNER[1] - interface::Y_STACK_HIGH_DEPTH - interface::slide_slip();
     let air = interface::funnel_collar_air();
+    let host_radius = interface::HEATSET_DIA / 2.0 + interface::WALL;
+    let head_seat = r.floor + SCREW_GRIP - floor;
+    let screws: Vec<Screw> = funnel_mount::stations(r.front, r.back)
+        .map(|s| (s.x - cx, s.y - cy, head_seat, host_radius, s.side, s.front, s.row))
+        .collect();
+    let body_half_width = screws.iter()
+        .filter(|s| s.5)
+        .map(|s| s.0.abs() - s.3 - interface::slide_slip())
+        .reduce(f64::min)
+        .expect("the frame's front screws");
     Frame {
         color: catalog::petgf_black(),
         roof_width: WIDTH,
@@ -167,8 +137,8 @@ pub fn frame() -> Frame {
         head_radius: interface::head_cbore_dia() / 2.0,
         rear_pad_radius: HEAD_D / 2.0,
         front_head_inside: funnel::COLLAR_W / 2.0 + funnel::OVERHANG + air,
-        screws: fasteners().iter().map(|f| (f.x - cx, f.y - cy, f.head_seat_z - floor, f.host_radius, f.side, f.front)).collect(),
-        body_half_width: body_half(),
+        screws,
+        body_half_width,
         brim_half_size: (funnel::COLLAR_W / 2.0 + funnel::OVERHANG + air, funnel::COLLAR_D / 2.0 + funnel::OVERHANG + air),
         brim_radius: funnel::BRIM_R + air,
         drain_xy: (0.0, 0.0),

@@ -122,7 +122,6 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         }
     }
     for row in funnel::fasteners(b.pack.funnel, funnel::seat_z(&b.outer))
-        .into_iter()
         .filter(|row| row.col == quadrant::Y::Back)
     {
         let side = if row.side < 0.0 { "West" } else { "East" };

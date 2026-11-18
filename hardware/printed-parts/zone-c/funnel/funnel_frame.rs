@@ -131,7 +131,7 @@ fn build(n: &Frame) -> Result<Solid> {
     let pad = n.ledge_pad_half_y;
     let mut screws = vec![];
     let mut rear_pads = vec![];
-    for &(x, y, head, host, side, front) in &n.screws {
+    for &(x, y, head, host, side, front, _) in &n.screws {
         let inside = x - side * (host + slip);
         let outside = side * 150.0;
         cuts.push(block(inside.min(outside), inside.max(outside), y - pad - slip,
@@ -205,7 +205,7 @@ fn main() -> Result<()> {
     zone_files::json(&out.join("funnel-frame.numbers.json"), &json!({
         "seat": n.seat,
         "roof_floor": n.roof_floor,
-        "screws": n.screws.iter().map(|s| json!([s.0, s.1, s.2, s.3, s.4, s.5])).collect::<Vec<_>>(),
+        "screws": n.screws,
     }))?;
     let bounds = solid.bounds();
     println!("{}",json!({"files":[format!("{name}.step"),format!("{name}.step.npz"),
