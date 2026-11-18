@@ -1,0 +1,113 @@
+[
+  {
+    "step": "faucet-layout/pullout-concept/docked-above-counter.step",
+    "out": "hardware/faucet-layout/pullout-concept/docked.png",
+    "size": "1600x1200",
+    "cam": [
+      1.0,
+      -1.0,
+      0.7
+    ],
+    "target": [
+      -65,
+      -95,
+      127
+    ],
+    "span": 195,
+    "bg": "#eeede9",
+    "materials": [
+      {
+        "names": [
+          "screen_*"
+        ],
+        "unlit": true
+      }
+    ],
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/pulled-out-above-counter.step",
+    "out": "hardware/faucet-layout/pullout-concept/pulled-out.png",
+    "size": "1600x1200",
+    "cam": [
+      1.0,
+      -1.0,
+      0.7
+    ],
+    "target": [
+      -65,
+      -95,
+      127
+    ],
+    "span": 195,
+    "bg": "#eeede9",
+    "materials": [
+      {
+        "names": [
+          "screen_*"
+        ],
+        "unlit": true
+      }
+    ],
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/pulled-out.step",
+    "out": "hardware/faucet-layout/pullout-concept/under-counter.png",
+    "size": "1200x1400",
+    "cam": [
+      1.0,
+      -1.0,
+      0.35
+    ],
+    "target": [
+      -15,
+      -70,
+      -40
+    ],
+    "span": 345,
+    "bg": "#eeede9",
+    "materials": [
+      {
+        "names": [
+          "screen_*"
+        ],
+        "unlit": true
+      },
+      {
+        "names": [
+          "countertop"
+        ],
+        "opacity": 0.16,
+        "depth_write": false,
+        "side": "double"
+      }
+    ],
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/handheld-detail.step",
+    "out": "hardware/faucet-layout/pullout-concept/handheld-detail.png",
+    "size": "1400x1000",
+    "cam": [
+      0.65,
+      -1.0,
+      0.8
+    ],
+    "span": 80,
+    "bg": "#eeede9",
+    "materials": [
+      {
+        "names": [
+          "screen_*"
+        ],
+        "unlit": true
+      }
+    ],
+    "fog": false,
+    "ground": false
+  }
+]

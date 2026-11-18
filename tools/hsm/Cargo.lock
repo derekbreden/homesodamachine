@@ -2429,6 +2429,8 @@ dependencies = [
  "anyhow",
  "hsm-aero-float-numbers",
  "hsm-carbonator-tube-numbers",
+ "hsm-faucet",
+ "hsm-faucet-numbers",
  "hsm-kernel",
  "hsm-reed-bridge-numbers",
  "serde_json",
