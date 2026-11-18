@@ -10,6 +10,8 @@ use serde_json::Value;
 enum Stock {
     RailStrips {
         center_x_mm: f64,
+        #[serde(default)]
+        cap_span_x_mm: Option<[f64; 2]>,
         span_y_mm: [f64; 2],
         contact_source_z_mm: f64,
         root_source_z_mm: f64,
@@ -20,11 +22,13 @@ enum Stock {
 pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, String)>)> {
     let Stock::RailStrips {
         center_x_mm,
+        cap_span_x_mm,
         span_y_mm,
         contact_source_z_mm,
         root_source_z_mm,
     } = serde_json::from_value(spec.clone()).context("rear enclosure support stock")?;
-    let solid = rail_supports(center_x_mm, span_y_mm, contact_source_z_mm, root_source_z_mm, gap)?;
+    let cap_span = cap_span_x_mm.unwrap_or([center_x_mm - 2.15, center_x_mm + 2.15]);
+    let solid = rail_supports(center_x_mm, cap_span, span_y_mm, contact_source_z_mm, root_source_z_mm, gap)?;
     let settings = vec![
         ("wall_loops".into(), "2".into()),
         ("sparse_infill_density".into(), "100%".into()),
@@ -37,21 +41,21 @@ fn box_solid(lo: [f64; 3], hi: [f64; 3]) -> Solid {
 }
 
 /// Narrow breakaway necks carry a dense cap directly from the open rail cavity floor.
-fn rail_strip(x: f64, y0: f64, y1: f64, contact: f64, floor: f64, gap: f64) -> Result<Solid> {
+fn rail_strip(x: f64, [x0, x1]: [f64; 2], y0: f64, y1: f64, contact: f64, floor: f64, gap: f64) -> Result<Solid> {
     let cap_top = contact + gap;
     let cap_bottom = cap_top + 0.72;
-    let stem_top = cap_bottom + 1.55;
+    let stem_top = cap_bottom + (x - 0.60 - x0).max(x1 - x - 0.60);
     let stem_bottom = floor - 2.17;
     let neck_top = floor - 0.65;
     let section = Profile::polygon(&[
-        v2(x - 2.15, cap_top),
-        v2(x + 2.15, cap_top),
-        v2(x + 2.15, cap_bottom),
+        v2(x0, cap_top),
+        v2(x1, cap_top),
+        v2(x1, cap_bottom),
         v2(x + 0.60, stem_top),
         v2(x + 0.60, stem_bottom),
         v2(x - 0.60, stem_bottom),
         v2(x - 0.60, stem_top),
-        v2(x - 2.15, cap_bottom),
+        v2(x0, cap_bottom),
     ]);
     let cap = Plane::XZ.at(v3(0.0, y0, 0.0)).extrude(&section, y0 - y1)?;
     let mut pieces = vec![cap];
@@ -72,6 +76,7 @@ fn rail_strip(x: f64, y0: f64, y1: f64, contact: f64, floor: f64, gap: f64) -> R
 
 fn rail_supports(
     x: f64,
+    cap_span: [f64; 2],
     [low, high]: [f64; 2],
     contact: f64,
     floor: f64,
@@ -82,7 +87,7 @@ fn rail_supports(
     let parts: Vec<_> = (0..strips)
         .map(|i| {
             let a = low + pitch * i as f64;
-            rail_strip(x, a + 0.3, a + pitch - 0.3, contact, floor, gap)
+            rail_strip(x, cap_span, a + 0.3, a + pitch - 0.3, contact, floor, gap)
         })
         .collect::<Result<_>>()?;
     Ok(Solid::compose(&parts))
