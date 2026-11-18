@@ -1,0 +1,91 @@
+{
+  "views": [
+    {
+      "name": "flange-seat",
+      "caption": "The flange underside has seating relief above the front insert ledge.",
+      "before": "flange-seat-before.webp",
+      "after": "flange-seat-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 860,
+          "y": 470,
+          "r": 40,
+          "label": "Seating relief",
+          "at": [
+            95,
+            131.5,
+            346.25
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          698.133564441894,
+          125,
+          348
+        ],
+        "target": [
+          95,
+          125,
+          348
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 10,
+        "near": 452.7893837715221,
+        "far": 1106.184078583574,
+        "aspect": 1.5,
+        "section": {
+          "at": [
+            95,
+            125,
+            348
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "funnel-frame"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9298de603b5ad54d11068bd9b2b224331bb4c8144dfeb57b60cb314f3225e4fe",
+          "commit": "741311122b4532e2476dc5baf48cec7bde303212",
+          "taken": "2026-11-18T03:06:25.501Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "7d11776ed5e9d79e89b39123dea3bd580f81fc7c7a02fb815f34ff11172c13f0",
+          "commit": "e4d1024ead73caeee4f89cb9600970c131199682",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "funnel-frame"
+      ]
+    }
+  ]
+}
