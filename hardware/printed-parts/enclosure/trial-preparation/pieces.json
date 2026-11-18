@@ -299,10 +299,10 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          -1.6,
+          -4.8,
           17.5
         ],
-        "reason": "Place the asymmetric part and accessible support envelope within the usable plate border, with the open entry end along the long plate axis."
+        "reason": "Center the occupied span with room for the bed-rooted supports at the open entry end."
       },
       "parts": [
         {
@@ -382,8 +382,8 @@
       ],
       "settings": {
         "tree_support_branch_angle": {
-          "value": "10",
-          "reason": "Keep the rail branches close above their cavity floors and the handhold roots near their accessible contacts."
+          "value": "5",
+          "reason": "Keep the bed-rooted branches near their accessible contacts and the rail trees over the cavity floors."
         },
         "support_style": {
           "value": "default",
