@@ -1,12 +1,12 @@
 {
-  "purpose": "Bind the current rear alignment geometry to its production project, native slice and published replay.",
+  "purpose": "Bind the current rear enclosure mesh to its production project, native slice and published replay.",
   "piece": "back-top",
   "material_id": "HSM-0081",
   "printer": "Mark1",
   "connection_key": "H2C",
   "status": "prepared",
-  "prepared_utc": "2026-11-18T05:07:00+00:00",
-  "source_revision": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a",
+  "prepared_utc": "2026-11-18T17:08:11+00:00",
+  "source_revision": "c50771abbf3b003df1e3fab6d142e068216e41c0",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,37 +24,33 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
+  "recipe_sha256": "c5c16b0db605858e98bf21078124af7990c64bc0cacdbf2b5ac2b787304032a7",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-  "source_stl_sha256": "4d37ecbecbd4c063279ed3d62d77919cdf534b536518432c9f3f69251582fdc9",
+  "source_stl_sha256": "e09739511aa7125c8939bdb177f3c1c1ceac900492f3e6d3dfd6e1a0f820d434",
   "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-  "source_fine_archive_sha256": "e2e5504d48552a89509093c321bb03fe7a4d260217032f750ec2b4dd88a717db",
+  "source_fine_archive_sha256": "e9743b5946b30340a302f6f16d347bda3baa2382693cfd5b105a533720100b27",
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "print_regions_sha256": "188abbc61085f2322bfa1c279d54fcf2ae297bc74ac53192eaadef53f651830d",
-  "alignment_features": [
-    "enclosure-back-top::west-alignment-groove",
-    "enclosure-back-top::east-alignment-groove"
-  ],
-  "archive": "2026-11-17-back-top-mark1-57f7c4af.gcode.3mf",
-  "archive_sha256": "b7283d621cf25b5cd9dea178527e3f1d272f1a4dece686b6338e892811e25043",
-  "gcode_sha256": "7ab8e7929f268f06ee1940648fcb61d5aacb2a873f0a99138c564e29422d21ad",
-  "project": "2026-11-17-back-top-mark1-57f7c4af.3mf",
-  "project_sha256": "7362b47965554e4031ab75079655ab47aad37a231b12c3b5c49ad9a98edca753",
+  "print_regions_sha256": "aa1a674a352201b3765a3bf36000d1efae5413111e50646a79060320f593780c",
+  "archive": "2026-11-18-back-top-mark1-6dd1f3f0-textured-pei.gcode.3mf",
+  "archive_sha256": "404e1ea1140f578b8ceaee847abc52738b810eaf9cecf4d007ba4252b7351a22",
+  "gcode_sha256": "804ca5442c13e4665eacee24a5d2f386d3e0df8a54e2a51bfd40aef9e2d97c21",
+  "project": "2026-11-18-back-top-mark1-6dd1f3f0-textured-pei.3mf",
+  "project_sha256": "2cc8bed6f7ee0fcbb0e13d4ee879f1880c37c8273580420699a8bb4cc88aba47",
   "preparation": "preparation.json",
   "native_review": "review.json",
   "support_audits": [
     "support-audit-1901.json"
   ],
-  "layers": 1019,
-  "estimated_seconds": 129169.18316287055,
-  "minimum_bead_bed_margin_mm": 20.232000000000028,
+  "layers": 1002,
+  "estimated_seconds": 129778.415283996,
+  "minimum_bead_bed_margin_mm": 20.244,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
     {
       "bed_contact_z_mm": 0.0,
-      "blocked_facets": 12666,
+      "blocked_facets": 12672,
       "embedded_vertex_error_mm": 5.000018177270249e-10,
       "layer_ranges": [
         [
@@ -66,14 +62,14 @@
           }
         ]
       ],
-      "modifiers_expected": 31,
+      "modifiers_expected": 35,
       "name": "enclosure-back-top",
       "partially_painted_facets": 0,
       "parts": {
-        "modifier_part": 31,
+        "modifier_part": 35,
         "normal_part": 4,
-        "support_blocker": 30,
-        "support_enforcer": 33
+        "support_blocker": 28,
+        "support_enforcer": 37
       },
       "placed_bounds_mm": [
         [
@@ -90,11 +86,11 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 313924
+      "vertices": 316156
     }
   ],
   "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-  "print_features_sha256": "9521e94fee746b20df7fb865f32f7e7439031cd4f34503cc43ebe6a7e259e7e8",
-  "replay_sha256": "1cf1b5fdf81a516516d94b7b7c3d2cb71f01a153a7591434aaa8455682f7a1ba",
-  "replay": "print-playbacks/1cf1b5fdf81a516516d94b7b7c3d2cb71f01a153a7591434aaa8455682f7a1ba.json.gz"
+  "print_features_sha256": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+  "replay_sha256": "95f910e79534441d8fcf708c2411283e5f25f5cc1cfc73cb4b8caa71057d79da",
+  "replay": "print-playbacks/95f910e79534441d8fcf708c2411283e5f25f5cc1cfc73cb4b8caa71057d79da.json.gz"
 }

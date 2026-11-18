@@ -805,18 +805,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "1cf1b5fdf81a516516d94b7b7c3d2cb71f01a153a7591434aaa8455682f7a1ba",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-top-rounded-alignment-mark1/2026-11-17-back-top-mark1-57f7c4af.gcode.3mf",
+    "sha256": "95f910e79534441d8fcf708c2411283e5f25f5cc1cfc73cb4b8caa71057d79da",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-6dd1f3f0-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
-    "project_sha256": "7362b47965554e4031ab75079655ab47aad37a231b12c3b5c49ad9a98edca753",
-    "archive_sha256": "b7283d621cf25b5cd9dea178527e3f1d272f1a4dece686b6338e892811e25043",
-    "gcode_sha256": "7ab8e7929f268f06ee1940648fcb61d5aacb2a873f0a99138c564e29422d21ad",
+    "recipe_sha256": "c5c16b0db605858e98bf21078124af7990c64bc0cacdbf2b5ac2b787304032a7",
+    "project_sha256": "2cc8bed6f7ee0fcbb0e13d4ee879f1880c37c8273580420699a8bb4cc88aba47",
+    "archive_sha256": "404e1ea1140f578b8ceaee847abc52738b810eaf9cecf4d007ba4252b7351a22",
+    "gcode_sha256": "804ca5442c13e4665eacee24a5d2f386d3e0df8a54e2a51bfd40aef9e2d97c21",
     "kind": "plan",
-    "layers": 1019,
-    "model_sha256": "4d37ecbecbd4c063279ed3d62d77919cdf534b536518432c9f3f69251582fdc9",
+    "layers": 1002,
+    "model_sha256": "e09739511aa7125c8939bdb177f3c1c1ceac900492f3e6d3dfd6e1a0f820d434",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -839,10 +839,9 @@
       "Protected openings": "Pisco catches, ASSE east catch, lower meter cap pocket, cable hooks, valve sockets and insert pilots clear",
       "Snap catches": "Removable supports on the reachable ASSE and water regulator catches. Corbels on ASSE east and both Pisco catches.",
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
-      "Flow-meter receiver": "Dense interface under the upper hook pocket and slide and wire floors. The aft shoulder and flank strip use corbels.",
-      "Rear alignment": "Corbelled receiving grooves for the rounded lower keys"
+      "Flow-meter receiver": "Dense interface under the upper hook pocket and slide and wire floors. The aft shoulder and flank strip use corbels."
     },
-    "recipe_commit": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a"
+    "recipe_commit": "c50771abbf3b003df1e3fab6d142e068216e41c0"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",

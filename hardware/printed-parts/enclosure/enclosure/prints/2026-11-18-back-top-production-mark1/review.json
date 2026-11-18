@@ -1,13 +1,13 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-top-rounded-alignment-mark1/2026-11-17-back-top-mark1-57f7c4af.gcode.3mf",
-  "archive_sha256": "b7283d621cf25b5cd9dea178527e3f1d272f1a4dece686b6338e892811e25043",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-6dd1f3f0-textured-pei.gcode.3mf",
+  "archive_sha256": "404e1ea1140f578b8ceaee847abc52738b810eaf9cecf4d007ba4252b7351a22",
   "bead_envelope_plate_mm": [
     [
       20.244,
       49.291093000000004
     ],
     [
-      304.768,
+      304.653,
       270.707907
     ]
   ],
@@ -16,7 +16,7 @@
     "back": 49.29209300000002,
     "front": 49.291093000000004,
     "left": 20.244,
-    "right": 20.232000000000028
+    "right": 20.34699999999998
   },
   "checks": {
     "archive": true,
@@ -58,11 +58,9 @@
     "Soda valve post socket 1/1": 0,
     "Water regulator receiver": 0,
     "West funnel frame insert pilot": 0,
-    "east alignment groove": 0,
     "wago-g insertion pocket": 0,
     "wago-h insertion pocket": 0,
-    "wago-n insertion pocket": 0,
-    "west alignment groove": 0
+    "wago-n insertion pocket": 0
   },
   "excluded_support_crossing_count": 0,
   "excluded_support_crossings": [],
@@ -86,19 +84,19 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9978249505106895,
+      "fraction_over_first_layer": 0.997824950510305,
       "second_layer_centerline_outside_first_mm": 41.380699463198795,
-      "second_layer_model_bead_area_mm2": 42519.30751860497
+      "second_layer_model_bead_area_mm2": 42519.30751108758
     }
   },
   "gcode_md5_matches": true,
-  "layers": 1019,
-  "minimum_bed_margin_mm": 20.232000000000028,
+  "layers": 1002,
+  "minimum_bed_margin_mm": 20.244,
   "pass": true,
   "project_check": true,
   "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
   "show_face_contacts": [],
-  "show_face_minimum_bead_clearance_mm": 0.22087882586632673,
+  "show_face_minimum_bead_clearance_mm": 0.47771038403392624,
   "solid_host_deposition": [
     {
       "minimum_coverage": 0.9909995262908574,
@@ -238,12 +236,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.283542,
-          "coverage": 0.9969587696050745,
-          "infill_core_mm2": 2184.362835719617,
-          "outline_coverage": 0.9966698722788724,
+          "coverage": 0.9970988230556623,
+          "infill_core_mm2": 2073.915711063472,
+          "outline_coverage": 0.9967601685383828,
           "print_z_mm": 177.56,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 2388.136736786531
+          "stock_mm2": 2261.3664419629545
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -297,12 +295,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.281707,
-          "coverage": 0.9968309455081521,
-          "infill_core_mm2": 2150.1601000897194,
-          "outline_coverage": 0.996461067686139,
+          "coverage": 0.9973386436388,
+          "infill_core_mm2": 2039.7129754335745,
+          "outline_coverage": 0.9969789556799066,
           "print_z_mm": 177.56,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 2338.4080090671464
+          "stock_mm2": 2211.523831661006
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -337,8 +335,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9972608164747038,
-      "minimum_outline_coverage": 0.986104757548033,
+      "minimum_coverage": 0.9971948120524076,
+      "minimum_outline_coverage": 0.9855901189387009,
       "name": "psu bearing pad, insert host and ceiling root and blind floor 1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -350,125 +348,7 @@
         [
           176.67500915527344,
           155.10186004638672,
-          8.0
-        ]
-      ],
-      "samples": [
-        {
-          "bead_radius_inset_mm": 0.210042,
-          "coverage": 1.0,
-          "infill_core_mm2": 92.16000000000003,
-          "outline_coverage": 1.0,
-          "print_z_mm": 0.44,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 100.00000000000001
-        },
-        {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9972608164747038,
-          "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.986104757548033,
-          "print_z_mm": 4.04,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
-        },
-        {
-          "bead_radius_inset_mm": 0.2677435,
-          "coverage": 0.9991566590203751,
-          "infill_core_mm2": 74.11000000000001,
-          "outline_coverage": 0.9992852241537054,
-          "print_z_mm": 7.64,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
-        }
-      ],
-      "source_bounds_mm": [
-        [
-          -14.898139953613281,
-          344.8,
-          347.0
-        ],
-        [
-          -4.898139953613281,
-          354.8,
-          354.999
-        ]
-      ]
-    },
-    {
-      "minimum_coverage": 0.9972608164747038,
-      "minimum_outline_coverage": 0.9862763037511436,
-      "name": "psu bearing pad, insert host and ceiling root and blind floor 2",
-      "object": 1901,
-      "plate_bounds_mm": [
-        [
-          264.6750091552734,
-          145.10186004638672,
-          0.0009999999999763531
-        ],
-        [
-          274.6750091552734,
-          155.10186004638672,
-          8.0
-        ]
-      ],
-      "samples": [
-        {
-          "bead_radius_inset_mm": 0.210042,
-          "coverage": 1.0,
-          "infill_core_mm2": 92.16000000000003,
-          "outline_coverage": 1.0,
-          "print_z_mm": 0.44,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 100.00000000000001
-        },
-        {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9972608164747038,
-          "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9862763037511436,
-          "print_z_mm": 4.04,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
-        },
-        {
-          "bead_radius_inset_mm": 0.268134,
-          "coverage": 0.9991229253811901,
-          "infill_core_mm2": 74.11000000000001,
-          "outline_coverage": 0.9992566331198536,
-          "print_z_mm": 7.64,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
-        }
-      ],
-      "source_bounds_mm": [
-        [
-          -14.898139953613281,
-          442.8,
-          347.0
-        ],
-        [
-          -4.898139953613281,
-          452.8,
-          354.999
-        ]
-      ]
-    },
-    {
-      "minimum_coverage": 0.9971948120524076,
-      "minimum_outline_coverage": 0.9856187099725526,
-      "name": "psu bearing pad, insert host and ceiling root and blind floor 3",
-      "object": 1901,
-      "plate_bounds_mm": [
-        [
-          166.67500915527344,
-          112.10186004638672,
-          0.0009999999999763531
-        ],
-        [
-          176.67500915527344,
-          122.10186004638672,
-          8.0
+          10.300000000000011
         ]
       ],
       "samples": [
@@ -485,49 +365,108 @@
           "bead_radius_inset_mm": 0.225,
           "coverage": 0.9971948120524076,
           "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9856187099725526,
-          "print_z_mm": 4.04,
+          "outline_coverage": 0.9855901189387009,
+          "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
           "stock_mm2": 87.44000000000001
         },
         {
-          "bead_radius_inset_mm": 0.268132,
-          "coverage": 0.9992241262987451,
-          "infill_core_mm2": 74.11000000000001,
-          "outline_coverage": 0.999342406221409,
-          "print_z_mm": 7.64,
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9922336717684498,
+          "print_z_mm": 10.04,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
+          "stock_mm2": 65.99000000000001
         }
       ],
       "source_bounds_mm": [
         [
-          -47.89813995361328,
+          -14.898139953613281,
           344.8,
-          347.0
+          344.7
         ],
         [
-          -37.89813995361328,
+          -4.898139953613281,
           354.8,
           354.999
         ]
       ]
     },
     {
-      "minimum_coverage": 0.9972278142635557,
-      "minimum_outline_coverage": 0.9856758920402562,
-      "name": "psu bearing pad, insert host and ceiling root and blind floor 4",
+      "minimum_coverage": 0.9971948120524076,
+      "minimum_outline_coverage": 0.9860761665141812,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 2",
       "object": 1901,
       "plate_bounds_mm": [
         [
           264.6750091552734,
-          112.10186004638672,
+          145.10186004638672,
           0.0009999999999763531
         ],
         [
           274.6750091552734,
+          155.10186004638672,
+          10.300000000000011
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210042,
+          "coverage": 1.0,
+          "infill_core_mm2": 92.16000000000003,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.00000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9971948120524076,
+          "infill_core_mm2": 75.75250000000001,
+          "outline_coverage": 0.9860761665141812,
+          "print_z_mm": 5.24,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 87.44000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9922336717684498,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -14.898139953613281,
+          442.8,
+          344.7
+        ],
+        [
+          -4.898139953613281,
+          452.8,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9972278142635557,
+      "minimum_outline_coverage": 0.9862477127172918,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 3",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          166.67500915527344,
+          112.10186004638672,
+          0.0009999999999763531
+        ],
+        [
+          176.67500915527344,
           122.10186004638672,
-          8.0
+          10.300000000000011
         ]
       ],
       "samples": [
@@ -544,26 +483,85 @@
           "bead_radius_inset_mm": 0.225,
           "coverage": 0.9972278142635557,
           "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9856758920402562,
-          "print_z_mm": 4.04,
+          "outline_coverage": 0.9862477127172918,
+          "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
           "stock_mm2": 87.44000000000001
         },
         {
-          "bead_radius_inset_mm": 0.2681415,
-          "coverage": 0.9995277290514101,
-          "infill_core_mm2": 74.11000000000001,
-          "outline_coverage": 0.999599725526075,
-          "print_z_mm": 7.64,
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9922336717684498,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -47.89813995361328,
+          344.8,
+          344.7
+        ],
+        [
+          -37.89813995361328,
+          354.8,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9972278142635557,
+      "minimum_outline_coverage": 0.9844464775846294,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 4",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          264.6750091552734,
+          112.10186004638672,
+          0.0009999999999763531
+        ],
+        [
+          274.6750091552734,
+          122.10186004638672,
+          10.300000000000011
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210042,
+          "coverage": 1.0,
+          "infill_core_mm2": 92.16000000000003,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.00000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9972278142635557,
+          "infill_core_mm2": 75.75250000000001,
+          "outline_coverage": 0.9844464775846294,
+          "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
           "stock_mm2": 87.44000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9922336717684498,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
         }
       ],
       "source_bounds_mm": [
         [
           -47.89813995361328,
           442.8,
-          347.0
+          344.7
         ],
         [
           -37.89813995361328,
@@ -591,22 +589,22 @@
       ],
       "samples": [
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9957787158409243,
-          "infill_core_mm2": 112.52500000000002,
-          "outline_coverage": 0.992621359223301,
+          "bead_radius_inset_mm": 0.323072,
+          "coverage": 0.9961174416467561,
+          "infill_core_mm2": 108.82000000000002,
+          "outline_coverage": 0.99386816555953,
           "print_z_mm": 71.96,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31250000000003
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9930171739775148,
-          "infill_core_mm2": 92.72750000000002,
-          "outline_coverage": 0.9898686500274142,
+          "bead_radius_inset_mm": 0.229587,
+          "coverage": 0.995352786094106,
+          "infill_core_mm2": 111.89500000000002,
+          "outline_coverage": 0.9922943280531425,
           "print_z_mm": 76.76,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.87250000000002
+          "stock_mm2": 122.31250000000003
         },
         {
           "bead_radius_inset_mm": 0.228547,
@@ -632,8 +630,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9935157532219442,
-      "minimum_outline_coverage": 0.9902729765168673,
+      "minimum_coverage": 0.9949787820213735,
+      "minimum_outline_coverage": 0.992743402628728,
       "name": "relay-1 bearing pad, insert host and west wall root 2",
       "object": 1901,
       "plate_bounds_mm": [
@@ -659,19 +657,19 @@
           "stock_mm2": 122.30250000000002
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9935157532219442,
-          "infill_core_mm2": 92.91750000000002,
-          "outline_coverage": 0.9902729765168673,
+          "bead_radius_inset_mm": 0.231802,
+          "coverage": 0.9957768194310996,
+          "infill_core_mm2": 111.88250000000002,
+          "outline_coverage": 0.992743402628728,
           "print_z_mm": 63.8,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.86250000000003
+          "stock_mm2": 122.30250000000002
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9956675331600346,
+          "coverage": 0.9949787820213735,
           "infill_core_mm2": 112.52250000000002,
-          "outline_coverage": 0.993213548373909,
+          "outline_coverage": 0.9936223707610229,
           "print_z_mm": 68.36,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.30250000000002
@@ -709,22 +707,22 @@
       ],
       "samples": [
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9946591895320115,
-          "infill_core_mm2": 112.34250000000002,
-          "outline_coverage": 0.9922946430396304,
+          "bead_radius_inset_mm": 0.323082,
+          "coverage": 0.9955563741855271,
+          "infill_core_mm2": 108.58250000000002,
+          "outline_coverage": 0.9928260469679319,
           "print_z_mm": 71.96,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31750000000002
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9928143065535685,
-          "infill_core_mm2": 92.54500000000002,
-          "outline_coverage": 0.9902505303806822,
+          "bead_radius_inset_mm": 0.229732,
+          "coverage": 0.9944716757313279,
+          "infill_core_mm2": 111.69750000000002,
+          "outline_coverage": 0.9919676252375988,
           "print_z_mm": 76.76,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.87750000000003
+          "stock_mm2": 122.31750000000002
         },
         {
           "bead_radius_inset_mm": 0.237512,
@@ -750,8 +748,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9929106690387622,
-      "minimum_outline_coverage": 0.9908458090969772,
+      "minimum_coverage": 0.9941596365996106,
+      "minimum_outline_coverage": 0.9923146104161557,
       "name": "relay-1 bearing pad, insert host and west wall root 4",
       "object": 1901,
       "plate_bounds_mm": [
@@ -777,19 +775,19 @@
           "stock_mm2": 122.31000000000003
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9929106690387622,
-          "infill_core_mm2": 92.74500000000002,
-          "outline_coverage": 0.9908458090969772,
+          "bead_radius_inset_mm": 0.227392,
+          "coverage": 0.9941596365996106,
+          "infill_core_mm2": 111.72250000000003,
+          "outline_coverage": 0.9923146104161557,
           "print_z_mm": 63.56,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.87000000000002
+          "stock_mm2": 122.31000000000003
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9951268357810414,
+          "coverage": 0.996039163328883,
           "infill_core_mm2": 112.35000000000002,
-          "outline_coverage": 0.9933774834437086,
+          "outline_coverage": 0.9952375112419263,
           "print_z_mm": 68.36,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31000000000003
@@ -809,8 +807,126 @@
       ]
     },
     {
-      "minimum_coverage": 0.9931930693069307,
-      "minimum_outline_coverage": 0.9899878423800329,
+      "minimum_coverage": 0.9812808890937492,
+      "minimum_outline_coverage": 0.9809448887723439,
+      "name": "relay-1 bearing pad, insert host and west wall root 5",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          185.22514823452892,
+          52.5,
+          65.09339430622236
+        ],
+        [
+          195.22514823452892,
+          67.22,
+          75.09339430622236
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2532855,
+          "coverage": 0.997595097101187,
+          "infill_core_mm2": 96.67750000000002,
+          "outline_coverage": 0.9954723611298825,
+          "print_z_mm": 65.48,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 110.98500000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9923433048433048,
+          "infill_core_mm2": 84.24000000000002,
+          "outline_coverage": 0.9909406613317228,
+          "print_z_mm": 70.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 99.34500000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.290887,
+          "coverage": 0.9812808890937492,
+          "infill_core_mm2": 97.62750000000001,
+          "outline_coverage": 0.9809448887723439,
+          "print_z_mm": 74.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 114.40500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          363.3501390792555,
+          279.90660569377764
+        ],
+        [
+          -92.78,
+          373.3501390792555,
+          289.90660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9905282687237574,
+      "minimum_outline_coverage": 0.9888760382714752,
+      "name": "relay-1 bearing pad, insert host and west wall root 6",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          266.2251482345289,
+          52.5,
+          65.09339430622236
+        ],
+        [
+          276.2251482345289,
+          67.22,
+          75.09339430622236
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2532855,
+          "coverage": 0.9971660218339535,
+          "infill_core_mm2": 101.44750000000002,
+          "outline_coverage": 0.9946738259683461,
+          "print_z_mm": 65.48,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.46750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9930600798798969,
+          "infill_core_mm2": 88.25750000000002,
+          "outline_coverage": 0.9914585911528475,
+          "print_z_mm": 70.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 103.02750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.290887,
+          "coverage": 0.9905282687237574,
+          "infill_core_mm2": 102.41000000000003,
+          "outline_coverage": 0.9888760382714752,
+          "print_z_mm": 74.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 118.88750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          444.3501390792555,
+          279.90660569377764
+        ],
+        [
+          -92.78,
+          454.3501390792555,
+          289.90660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9957787158409243,
+      "minimum_outline_coverage": 0.9926826775677057,
       "name": "relay-2 bearing pad, insert host and west wall root 1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -828,21 +944,21 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9953565874250166,
+          "coverage": 0.9971117529437903,
           "infill_core_mm2": 112.52500000000002,
-          "outline_coverage": 0.9930710270822688,
+          "outline_coverage": 0.9954011241696474,
           "print_z_mm": 51.56,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31250000000003
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9931930693069307,
-          "infill_core_mm2": 92.92000000000002,
-          "outline_coverage": 0.9899878423800329,
+          "bead_radius_inset_mm": 0.231152,
+          "coverage": 0.995798976559183,
+          "infill_core_mm2": 111.87750000000003,
+          "outline_coverage": 0.9926826775677057,
           "print_z_mm": 56.12,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.87250000000002
+          "stock_mm2": 122.31250000000003
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -895,19 +1011,19 @@
           "stock_mm2": 97.10250000000002
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9926125640334322,
-          "infill_core_mm2": 92.72500000000002,
-          "outline_coverage": 0.9891524615568006,
+          "bead_radius_inset_mm": 0.228952,
+          "coverage": 0.9951749095295537,
+          "infill_core_mm2": 111.91500000000002,
+          "outline_coverage": 0.9918235522577217,
           "print_z_mm": 43.16,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.86250000000003
+          "stock_mm2": 122.30250000000002
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9958452753893666,
-          "infill_core_mm2": 112.52250000000002,
-          "outline_coverage": 0.9929682549416406,
+          "bead_radius_inset_mm": 0.301299,
+          "coverage": 0.9949091909741332,
+          "infill_core_mm2": 109.02000000000002,
+          "outline_coverage": 0.9930295782997077,
           "print_z_mm": 47.96,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.30250000000002
@@ -927,8 +1043,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9927483488340747,
-      "minimum_outline_coverage": 0.9902028557126171,
+      "minimum_coverage": 0.9944703143189756,
+      "minimum_outline_coverage": 0.9919880638502259,
       "name": "relay-2 bearing pad, insert host and west wall root 3",
       "object": 1901,
       "plate_bounds_mm": [
@@ -946,27 +1062,27 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9954825644791597,
+          "coverage": 0.9974853684046554,
           "infill_core_mm2": 112.34250000000002,
-          "outline_coverage": 0.9930508717068285,
+          "outline_coverage": 0.9948699082306293,
           "print_z_mm": 51.56,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31750000000002
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9927483488340747,
-          "infill_core_mm2": 92.73750000000001,
-          "outline_coverage": 0.9902028557126171,
+          "bead_radius_inset_mm": 0.231002,
+          "coverage": 0.9944703143189756,
+          "infill_core_mm2": 111.67000000000002,
+          "outline_coverage": 0.9919880638502259,
           "print_z_mm": 56.12,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.87750000000003
+          "stock_mm2": 122.31750000000002
         },
         {
-          "bead_radius_inset_mm": 0.2800595,
-          "coverage": 0.9928995433789954,
-          "infill_core_mm2": 109.50000000000001,
-          "outline_coverage": 0.9903734134526948,
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9946591895320115,
+          "infill_core_mm2": 112.34250000000002,
+          "outline_coverage": 0.9921720113638686,
           "print_z_mm": 60.92,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31750000000002
@@ -986,8 +1102,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9932742693533575,
-      "minimum_outline_coverage": 0.9907742919805473,
+      "minimum_coverage": 0.9946879925281653,
+      "minimum_outline_coverage": 0.9914902238881572,
       "name": "relay-2 bearing pad, insert host and west wall root 4",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1013,19 +1129,19 @@
           "stock_mm2": 98.71000000000002
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9932742693533575,
-          "infill_core_mm2": 92.55500000000002,
-          "outline_coverage": 0.9907742919805473,
+          "bead_radius_inset_mm": 0.232992,
+          "coverage": 0.9947377849433472,
+          "infill_core_mm2": 111.64500000000002,
+          "outline_coverage": 0.9923554901479846,
           "print_z_mm": 43.16,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 104.87000000000002
+          "stock_mm2": 122.31000000000003
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9951268357810414,
+          "coverage": 0.9963284379172229,
           "infill_core_mm2": 112.35000000000002,
-          "outline_coverage": 0.9933774834437086,
+          "outline_coverage": 0.9956667484261303,
           "print_z_mm": 47.72,
           "sampling_step_mm": 0.05,
           "stock_mm2": 122.31000000000003
@@ -1045,8 +1161,126 @@
       ]
     },
     {
-      "minimum_coverage": 0.9931942044397182,
-      "minimum_outline_coverage": 0.9895057070087727,
+      "minimum_coverage": 0.9671503826657389,
+      "minimum_outline_coverage": 0.9682269131593899,
+      "name": "relay-2 bearing pad, insert host and west wall root 5",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          185.22514823452897,
+          52.5,
+          44.593394306222365
+        ],
+        [
+          195.22514823452897,
+          67.22,
+          54.593394306222365
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9671503826657389,
+          "infill_core_mm2": 100.61000000000001,
+          "outline_coverage": 0.9682269131593899,
+          "print_z_mm": 45.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 114.40500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9923433048433048,
+          "infill_core_mm2": 84.24000000000002,
+          "outline_coverage": 0.9908903316724545,
+          "print_z_mm": 49.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 99.34500000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9936134624157332,
+          "infill_core_mm2": 98.64500000000002,
+          "outline_coverage": 0.9919322307382009,
+          "print_z_mm": 54.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 111.55500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          363.35013907925554,
+          300.40660569377764
+        ],
+        [
+          -92.78,
+          373.35013907925554,
+          310.40660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9692395328966107,
+      "minimum_outline_coverage": 0.9706024603091158,
+      "name": "relay-2 bearing pad, insert host and west wall root 6",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          266.225148234529,
+          52.5,
+          44.593394306222365
+        ],
+        [
+          276.225148234529,
+          67.22,
+          54.593394306222365
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9692395328966107,
+          "infill_core_mm2": 105.33000000000003,
+          "outline_coverage": 0.9706024603091158,
+          "print_z_mm": 45.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 118.88750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9929184488570376,
+          "infill_core_mm2": 88.25750000000002,
+          "outline_coverage": 0.9912887335905463,
+          "print_z_mm": 49.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 103.02750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.988258364402266,
+          "infill_core_mm2": 103.26500000000001,
+          "outline_coverage": 0.9866422492728644,
+          "print_z_mm": 54.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 116.03750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          444.35013907925554,
+          300.40660569377764
+        ],
+        [
+          -92.78,
+          454.35013907925554,
+          310.40660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9953358827560291,
+      "minimum_outline_coverage": 0.9919856799967455,
       "name": "Relay end bar and wall root 1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1064,12 +1298,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9934945476844322,
-          "infill_core_mm2": 93.76750000000001,
-          "outline_coverage": 0.9897886991793227,
+          "coverage": 0.9953358827560291,
+          "infill_core_mm2": 113.09750000000003,
+          "outline_coverage": 0.9920060209104593,
           "print_z_mm": 43.64,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 106.01000000000002
+          "stock_mm2": 122.90500000000003
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -1082,12 +1316,12 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9931942044397182,
-          "infill_core_mm2": 94.03750000000002,
-          "outline_coverage": 0.9895057070087727,
+          "coverage": 0.9953358827560291,
+          "infill_core_mm2": 113.09750000000003,
+          "outline_coverage": 0.9919856799967455,
           "print_z_mm": 76.28,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 106.01000000000002
+          "stock_mm2": 122.90500000000003
         }
       ],
       "source_bounds_mm": [
@@ -1104,8 +1338,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9927825716416321,
-      "minimum_outline_coverage": 0.98993399339934,
+      "minimum_coverage": 0.9942220844771097,
+      "minimum_outline_coverage": 0.9915816015291391,
       "name": "Relay end bar and wall root 2",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1123,12 +1357,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9929960053262317,
-          "infill_core_mm2": 93.87500000000001,
-          "outline_coverage": 0.9900773589785793,
+          "coverage": 0.9942220844771097,
+          "infill_core_mm2": 112.93000000000002,
+          "outline_coverage": 0.9915816015291391,
           "print_z_mm": 43.64,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 106.32250000000002
+          "stock_mm2": 122.94500000000002
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -1141,12 +1375,12 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9927825716416321,
-          "infill_core_mm2": 93.87000000000002,
-          "outline_coverage": 0.98993399339934,
+          "coverage": 0.9942663596918445,
+          "infill_core_mm2": 112.93000000000002,
+          "outline_coverage": 0.9916832730082558,
           "print_z_mm": 76.28,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 106.05000000000003
+          "stock_mm2": 122.94500000000002
         }
       ],
       "source_bounds_mm": [
@@ -1163,60 +1397,60 @@
       ]
     },
     {
-      "minimum_coverage": 0.9954372784957874,
-      "minimum_outline_coverage": 0.9902686354741149,
+      "minimum_coverage": 0.9942288450543167,
+      "minimum_outline_coverage": 0.9888679836939479,
       "name": "C14 internal insert tunnel and wall roots",
       "object": 1901,
       "plate_bounds_mm": [
         [
-          276.9250091552734,
+          274.7150091552734,
           61.5,
           6.0
         ],
         [
-          290.1750091552734,
+          290.12500915527346,
           120.035,
           40.89999999999998
         ]
       ],
       "samples": [
         {
-          "bead_radius_inset_mm": 0.2339615,
-          "coverage": 0.9994622535328692,
-          "infill_core_mm2": 744.2239409499999,
-          "outline_coverage": 0.993875380789804,
+          "bead_radius_inset_mm": 0.266942,
+          "coverage": 0.9998163360715956,
+          "infill_core_mm2": 864.3846779232045,
+          "outline_coverage": 0.994495002357002,
           "print_z_mm": 6.44,
-          "sampling_step_mm": 0.05569878813762468,
-          "stock_mm2": 776.0168749899999
+          "sampling_step_mm": 0.060067440431568406,
+          "stock_mm2": 903.1717249732047
         },
         {
-          "bead_radius_inset_mm": 0.253275,
-          "coverage": 0.9954372784957874,
-          "infill_core_mm2": 146.186069955,
-          "outline_coverage": 0.9902686354741149,
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9942288450543167,
+          "infill_core_mm2": 201.93799528320108,
+          "outline_coverage": 0.9888679836939479,
           "print_z_mm": 23.48,
-          "sampling_step_mm": 0.05569878813762468,
-          "stock_mm2": 174.38337454999998
+          "sampling_step_mm": 0.060067440431568406,
+          "stock_mm2": 230.1244521720012
         },
         {
-          "bead_radius_inset_mm": 0.318332,
-          "coverage": 0.9972301184054435,
-          "infill_core_mm2": 554.4156573399999,
-          "outline_coverage": 0.993681162417912,
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9954477662355209,
+          "infill_core_mm2": 694.3170069742037,
+          "outline_coverage": 0.9918211667609043,
           "print_z_mm": 40.76,
-          "sampling_step_mm": 0.05569878813762468,
-          "stock_mm2": 599.96443345
+          "sampling_step_mm": 0.060067440431568406,
+          "stock_mm2": 727.4573815932039
         }
       ],
       "source_bounds_mm": [
         [
           -98.5,
-          455.04999999999995,
+          452.84,
           314.1
         ],
         [
           -39.965,
-          468.29999999999995,
+          468.25,
           349.0
         ]
       ]
@@ -1228,7 +1462,7 @@
       "object": 1901,
       "plate_bounds_mm": [
         [
-          284.1750091552734,
+          278.1750091552734,
           83.6,
           162.70454545454544
         ],
@@ -1270,7 +1504,7 @@
       "source_bounds_mm": [
         [
           -76.4,
-          462.3,
+          456.3,
           180.29545454545456
         ],
         [
@@ -1287,7 +1521,7 @@
       "object": 1901,
       "plate_bounds_mm": [
         [
-          284.1750091552734,
+          278.1750091552734,
           141.6,
           162.70454545454544
         ],
@@ -1329,7 +1563,7 @@
       "source_bounds_mm": [
         [
           -18.4,
-          462.3,
+          456.3,
           180.29545454545456
         ],
         [
@@ -1340,13 +1574,13 @@
       ]
     },
     {
-      "minimum_coverage": 0.9942420681551116,
-      "minimum_outline_coverage": 0.9903975741239892,
+      "minimum_coverage": 0.9679257025228589,
+      "minimum_outline_coverage": 0.9674613402061856,
       "name": "Nameplate insert land and rear wall root 3",
       "object": 1901,
       "plate_bounds_mm": [
         [
-          284.1750091552734,
+          278.1750091552734,
           83.6,
           93.79545454545456
         ],
@@ -1358,22 +1592,22 @@
       ],
       "samples": [
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9967833092833093,
-          "infill_core_mm2": 83.16000000000001,
-          "outline_coverage": 0.9925108932461874,
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9679257025228589,
+          "infill_core_mm2": 104.44500000000002,
+          "outline_coverage": 0.9674613402061856,
           "print_z_mm": 94.28,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 91.80000000000001
+          "stock_mm2": 116.40000000000002
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9942420681551116,
-          "infill_core_mm2": 63.82500000000001,
-          "outline_coverage": 0.9903975741239892,
+          "coverage": 0.9929034248688676,
+          "infill_core_mm2": 105.33250000000002,
+          "outline_coverage": 0.9910272277227723,
           "print_z_mm": 99.8,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 74.20000000000002
+          "stock_mm2": 121.20000000000002
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -1388,7 +1622,7 @@
       "source_bounds_mm": [
         [
           -76.4,
-          462.3,
+          456.3,
           249.20454545454544
         ],
         [
@@ -1399,13 +1633,13 @@
       ]
     },
     {
-      "minimum_coverage": 0.9942028985507246,
-      "minimum_outline_coverage": 0.9903638814016172,
+      "minimum_coverage": 0.9679257025228589,
+      "minimum_outline_coverage": 0.9675257731958763,
       "name": "Nameplate insert land and rear wall root 4",
       "object": 1901,
       "plate_bounds_mm": [
         [
-          284.1750091552734,
+          278.1750091552734,
           141.6,
           93.79545454545456
         ],
@@ -1417,22 +1651,22 @@
       ],
       "samples": [
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9967532467532467,
-          "infill_core_mm2": 83.16000000000001,
-          "outline_coverage": 0.9925925925925926,
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9679257025228589,
+          "infill_core_mm2": 104.44500000000002,
+          "outline_coverage": 0.9675257731958763,
           "print_z_mm": 94.28,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 91.80000000000001
+          "stock_mm2": 116.40000000000002
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9942028985507246,
-          "infill_core_mm2": 63.82500000000001,
-          "outline_coverage": 0.9903638814016172,
+          "coverage": 0.9929983623288159,
+          "infill_core_mm2": 105.33250000000002,
+          "outline_coverage": 0.9910891089108911,
           "print_z_mm": 99.8,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 74.20000000000002
+          "stock_mm2": 121.20000000000002
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -1447,7 +1681,7 @@
       "source_bounds_mm": [
         [
           -18.4,
-          462.3,
+          456.3,
           249.20454545454544
         ],
         [
@@ -1812,8 +2046,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9965382678751259,
-      "minimum_outline_coverage": 0.9905113927291347,
+      "minimum_coverage": 0.9963436758617481,
+      "minimum_outline_coverage": 0.9916753468605475,
       "name": "Sliding rail 1 transverse bridge",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1831,12 +2065,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.273215,
-          "coverage": 0.9965382678751259,
-          "infill_core_mm2": 1226.1738901007695,
-          "outline_coverage": 0.9905113927291347,
+          "coverage": 0.9963436758617481,
+          "infill_core_mm2": 1185.0390283545644,
+          "outline_coverage": 0.9916753468605475,
           "print_z_mm": 177.08,
           "sampling_step_mm": 0.10500074886614463,
-          "stock_mm2": 1378.0564565482969
+          "stock_mm2": 1323.0739972804529
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -1871,8 +2105,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9985869769355286,
-      "minimum_outline_coverage": 0.9925396942256252,
+      "minimum_coverage": 0.9987042795794462,
+      "minimum_outline_coverage": 0.995650690772642,
       "name": "Sliding rail -1 transverse bridge",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1890,12 +2124,12 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9985869769355286,
-          "infill_core_mm2": 1232.8000096155029,
-          "outline_coverage": 0.9925396942256252,
+          "coverage": 0.9987042795794462,
+          "infill_core_mm2": 1191.2461918933243,
+          "outline_coverage": 0.995650690772642,
           "print_z_mm": 177.08,
           "sampling_step_mm": 0.10500074886614463,
-          "stock_mm2": 1347.7923998628685
+          "stock_mm2": 1292.8099405950245
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -2083,56 +2317,6 @@
     },
     {
       "bounds_source_mm": [
-        -98.5,
-        -93.5,
-        224.0,
-        247.04999999999998,
-        175.3,
-        183.3
-      ],
-      "box_plate_mm": [
-        [
-          45.62500915527343,
-          61.25,
-          171.45
-        ],
-        [
-          69.17500915527341,
-          66.75,
-          179.95
-        ]
-      ],
-      "name": "west alignment groove",
-      "object": 1901,
-      "reason": "The receiving groove opens upward in the ceiling-down print pose. Its floor and standing walls grow from the continuous corbelled receiver; keep the fitted key passage clear."
-    },
-    {
-      "bounds_source_mm": [
-        93.5,
-        98.5,
-        224.0,
-        247.04999999999998,
-        175.3,
-        183.3
-      ],
-      "box_plate_mm": [
-        [
-          45.62500915527343,
-          253.25,
-          171.45
-        ],
-        [
-          69.17500915527341,
-          258.75,
-          179.95
-        ]
-      ],
-      "name": "east alignment groove",
-      "object": 1901,
-      "reason": "The receiving groove opens upward in the ceiling-down print pose. Its floor and standing walls grow from the continuous corbelled receiver; keep the fitted key passage clear."
-    },
-    {
-      "bounds_source_mm": [
         -89.7,
         -85.7,
         257.4915079232813,
@@ -2288,19 +2472,19 @@
       "bounds_source_mm": [
         -90.5,
         -86.5,
-        463.03999999999996,
-        468.29999999999995,
+        460.83,
+        468.25,
         328.0,
         332.0
       ],
       "box_plate_mm": [
         [
-          284.6650091552734,
+          282.4550091552734,
           69.25,
           22.75
         ],
         [
-          290.4250091552734,
+          290.37500915527346,
           73.75,
           27.25
         ]
@@ -2311,14 +2495,14 @@
       "void_source": {
         "end_mm": [
           -88.5,
-          468.29999999999995,
+          468.25,
           330.0
         ],
         "kind": "cylinder",
         "radius_mm": 2.0,
         "start_mm": [
           -88.5,
-          463.03999999999996,
+          460.83,
           330.0
         ]
       }
@@ -2327,19 +2511,19 @@
       "bounds_source_mm": [
         -50.5,
         -46.5,
-        463.03999999999996,
-        468.29999999999995,
+        460.83,
+        468.25,
         328.0,
         332.0
       ],
       "box_plate_mm": [
         [
-          284.6650091552734,
+          282.4550091552734,
           109.25,
           22.75
         ],
         [
-          290.4250091552734,
+          290.37500915527346,
           113.75,
           27.25
         ]
@@ -2350,14 +2534,14 @@
       "void_source": {
         "end_mm": [
           -48.5,
-          468.29999999999995,
+          468.25,
           330.0
         ],
         "kind": "cylinder",
         "radius_mm": 2.0,
         "start_mm": [
           -48.5,
-          463.03999999999996,
+          460.83,
           330.0
         ]
       }
@@ -2957,18 +3141,18 @@
       }
     }
   ],
-  "support_roads": 231981,
+  "support_roads": 250366,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,
       "bodies_without_interface_labels": 18,
-      "explicit_interface_islands": 21,
+      "explicit_interface_islands": 25,
       "interface_islands": null,
-      "model_rooted_bodies": 26,
-      "removable_stock_moves": 16859,
+      "model_rooted_bodies": 25,
+      "removable_stock_moves": 16862,
       "shortest_build_up_mm": null,
       "shortest_labelled_build_up_mm": 7.09,
-      "support_bodies": 31
+      "support_bodies": 30
     }
   },
   "tie_window_support_crossings": []
