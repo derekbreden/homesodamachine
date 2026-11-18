@@ -1,4 +1,4 @@
-//! The relay end clamps and screw spacers print the stock that makes their regular fasteners fit.
+//! The relay end clamps retain the PCB beside its mounting holes and place the installed equipment hardware.
 use anyhow::{Context, Result};
 use hsm_enclosure_numbers::{catalog, fasteners, layout::layout, rear_wall::{c14, hosts}, shell, spec};
 use hsm_kernel::{Affine, Body, Plane, Profile, Solid, V3, v2, v3};
@@ -37,11 +37,9 @@ fn main() -> Result<()> {
         v3(hosts::RELAY_CLAMP_OUTER, hosts::RELAY_CLAMP_HALF_WIDTH, hosts::RELAY_CLAMP_BRIDGE_THICKNESS))
         .union(&Solid::cylinder(V3::ZERO, V3::Z, hosts::RELAY_CLAMP_HEAD_LAND_RADIUS, hosts::RELAY_CLAMP_THICKNESS)?)?
         .cut(&Solid::cylinder(v3(0., 0., -0.1), V3::Z, 1.7, hosts::RELAY_CLAMP_THICKNESS + 0.2)?)?;
-    let spacer = ring(shell::COND_SPACER_DIAMETER, 3.4, shell::COND_SPACER_HEIGHT)?;
-    let pcb_spacer = ring(fasteners::PCB_SPACER_DIAMETER, 3.4, fasteners::M3_SPACER_HEIGHT)?;
-    for (name, solid) in [("relay-clamp", &clamp), ("m3-screw-spacer", &spacer), ("pcb-screw-spacer", &pcb_spacer)] {
-        println!("{}", write_part(&out, name, &[Body { name, color: Some(catalog::wall_color()), solid }])?);
-    }
+    println!("{}", write_part(&out, "relay-clamp", &[Body {
+        name: "relay-clamp", color: Some(catalog::wall_color()), solid: &clamp,
+    }])?);
     let l = layout();
     let mut installed = Vec::new();
     for (name, pose) in [("relay-1", &l.parts.relay_1), ("relay-2", &l.parts.relay_2)] {
@@ -60,17 +58,18 @@ fn main() -> Result<()> {
         let at = hsm_cold_core_layout::cap::cap_to_world([column.xy[0], column.xy[1], column.top]);
         let [x, y, z] = at;
         let bearing = z + hsm_foam_cap_numbers::deck::BOARD_THICKNESS;
-        installed.push((format!("pcba-screw-spacer-{}", i + 1), catalog::wall_color(), pcb_spacer.translate(v3(x, y, bearing))));
         installed.push((format!("pcba-screw-{}", i + 1), steel,
-            screw(3., fasteners::M3_SCREW_LENGTH, 5.5, 3., 2.5)?.translate(v3(x, y, bearing + fasteners::M3_SPACER_HEIGHT))));
+            screw(3., hsm_foam_cap_numbers::deck::SCREW_LENGTH, 5.5, 3., 2.5)?.translate(v3(x, y, bearing))));
         installed.push((format!("pcba-insert-{}", i + 1), brass,
             ring(fasteners::M3_INSERT_DIAMETER, 2.5, fasteners::M3_INSERT_LENGTH)?.translate(v3(x, y, z - fasteners::M3_INSERT_LENGTH))));
     }
     for (i, &[x, y, tip]) in b.pack.cond_mount.3.iter().enumerate() {
         let bearing = tip + shell::COND_FLANGE_THICKNESS;
-        installed.push((format!("condenser-screw-spacer-{}", i + 1), catalog::wall_color(), spacer.translate(v3(x, y, bearing))));
+        installed.push((format!("condenser-washer-{}", i + 1), [0.72; 3],
+            ring(fasteners::M3_WASHER_OUTER_DIAMETER, fasteners::M3_WASHER_INNER_DIAMETER,
+                 shell::COND_WASHER_THICKNESS)?.translate(v3(x, y, bearing))));
         installed.push((format!("condenser-screw-{}", i + 1), steel,
-            screw(3., shell::COND_SCREW_LEN, 5.5, 3., 2.5)?.translate(v3(x, y, bearing + shell::COND_SPACER_HEIGHT))));
+            screw(3., shell::COND_SCREW_LEN, 5.5, 3., 2.5)?.translate(v3(x, y, bearing + shell::COND_WASHER_THICKNESS))));
         installed.push((format!("condenser-insert-{}", i + 1), brass,
             ring(fasteners::M3_INSERT_DIAMETER, 2.5, fasteners::M3_INSERT_LENGTH)?
                 .translate(v3(x, y, tip - fasteners::M3_INSERT_LENGTH))));
@@ -91,7 +90,7 @@ fn main() -> Result<()> {
         installed.push((format!("c14-screw-{}", i + 1), steel,
             screw(3., c14::SCREW_LENGTH, 5.5, 3., 2.5)?.transformed(&frame(-V3::Y, v3(cx + dx, head, cz)))));
         installed.push((format!("c14-washer-{}", i + 1), [0.72; 3],
-            ring(7., 3.4, c14::WASHER_THICKNESS)?.transformed(&frame(V3::Y, v3(cx + dx, head, cz)))));
+            ring(fasteners::M3_WASHER_OUTER_DIAMETER, fasteners::M3_WASHER_INNER_DIAMETER, c14::WASHER_THICKNESS)?.transformed(&frame(V3::Y, v3(cx + dx, head, cz)))));
         installed.push((format!("c14-insert-{}", i + 1), brass,
             ring(fasteners::M3_INSERT_DIAMETER, 2.5, fasteners::M3_INSERT_LENGTH)?.transformed(&frame(V3::Y, v3(cx + dx, face, cz)))));
     }

@@ -29,7 +29,7 @@ ratings, refrigerant warnings and disposal marking low on the enclosure.
 
 ## Four-screw mounting
 
-The common black M3 socket-head screws fasten the plate to regular ruthex
+The short black M3 socket-head screws fasten the plate to regular ruthex
 inserts in back-top's solid receiver. Their centres and head seats come from
 the shared mount record. The heads clear the white border and remain accessible
 from outside the assembled machine.
@@ -66,7 +66,7 @@ Back-top prints roof down using the shared PET-GF tree-support settings. Clear
 the receiver seat and pilots, then press its regular inserts flush while
 back-top is loose. Keep the insert axis normal to the seat; do not press past
 flush. Clean the bearing faces. Set the plate into the receiver and start all
-the common M3 screws before tightening. Seat them lightly by hand with a 2.5 mm
+the short M3 screws before tightening. Seat them lightly by hand with a 2.5 mm
 hex key, alternating diagonal corners. The plate must lie flat without bowing.
 Scan the installed QR and compare the unit number with the build record.
 

@@ -207,12 +207,6 @@
     ],
     "Relay end clamps": [
       "enclosure/equipment-clamps/relay-clamp.step"
-    ],
-    "M3 screw spacers": [
-      "enclosure/equipment-clamps/m3-screw-spacer.step"
-    ],
-    "PCB screw spacers": [
-      "enclosure/equipment-clamps/pcb-screw-spacer.step"
     ]
   },
   "group_of": [
@@ -355,14 +349,6 @@
     [
       "Relay end clamps",
       "solid"
-    ],
-    [
-      "M3 screw spacers",
-      "solid"
-    ],
-    [
-      "PCB screw spacers",
-      "solid"
     ]
   ],
   "instances": {
@@ -371,9 +357,7 @@
     "Reservoir cap gaskets": 2,
     "Display gasket": 1,
     "ASSE drain adapter": 1,
-    "Relay end clamps": 4,
-    "M3 screw spacers": 2,
-    "PCB screw spacers": 4
+    "Relay end clamps": 4
   },
   "material_sources": {
     "Bambu TPU 90A": {

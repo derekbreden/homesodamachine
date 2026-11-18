@@ -36,8 +36,8 @@ where the model carries the board's own joints instead (`JOINTS` in
 6.3 mm from MH3 and J11 pin 1 5.5 mm from MH4, and MH1's nearest, a J14 shield leg, is
 11.3 mm off. The appliance carries the board horizontally on the cold-core lid's integral
 columns. The [deck mount dimensions](../../cold-core/foam-cap/numbers/deck.rs)
-own their bearing and insert datums. Regular M3 inserts take the common screws
-through printed spacers above the PCB. The posts keep the solder-tail envelope
+own their bearing and insert datums. Regular M3 inserts take the short screws
+directly through the PCB. The posts keep the solder-tail envelope
 clear beneath the board.
 
 The board's frame **is its pcb frame** (pcbX/pcbY as in `pcba.tsx`), so every mounting

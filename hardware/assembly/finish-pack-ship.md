@@ -81,7 +81,7 @@ locations. Reject an unreadable code or a plate for another unit.
 
 Check the regular M3 inserts installed flush in back-top's solid
 nameplate receiver at enclosure preparation. Clean its seat, set the plate in
-place and start the common black M3 socket-head screws. Tighten lightly by hand
+place and start the short black M3 socket-head screws. Tighten lightly by hand
 with a 2.5 mm hex key, alternating diagonal corners. Each head seats in a 1 mm
 counterbore and stands 2 mm above the face. Check that the plate lies flat and
 scan the installed QR again.

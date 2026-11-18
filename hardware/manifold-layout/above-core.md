@@ -30,7 +30,7 @@ blind pilots beneath the roof's show skin.
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
-| Teyleten relays | One above the other on the west wall | Pinned corner bearings and printed end clamps with regular M3 fasteners |
+| Teyleten relays | One above the other on the west wall | Locating pins in the M2 board holes and separate printed end clamps |
 | PCB and V-B | Board flat and connector-up; V-B on its side east of it | Core columns and the integral V-B socket wall |
 
 ASSE, Pisco and meter enter their seats 16 mm fore of their stations and slide
@@ -162,9 +162,10 @@ part sequence and actual insertion-mark method. Native CAD describes placement
 and fit; the named physical acceptance records retain their material and part
 scope.
 
-Lower each relay onto the pins in its wall-mounted corner bearings. Fit an end
-clamp across each board end and start the common M3 screws into the regular
-inserts beside the board. Tighten evenly until the clamps retain the board;
+The relay PCB holes take M2 mounting screws. Lower each relay onto the printed
+pins in its wall-mounted corner bearings. Fit an end clamp across each board
+end and start the common M3 screws into the regular inserts outside the PCB. The screws pass through the printed clamps only.
+Tighten evenly until the clamps retain the board;
 keep the native wire-entry throats clear. Fit the boards and clamps before
 landing the terminal wires. The
 [wall-host datums](../printed-parts/enclosure/enclosure/numbers/rear_wall.rs)

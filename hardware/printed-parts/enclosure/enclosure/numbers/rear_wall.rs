@@ -22,7 +22,7 @@ pub mod c14 {
     pub const RIM_PROUD: f64 = 1.84;
     pub const TUNNEL_WALL: f64 = 6.0;
     pub const SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
-    pub const WASHER_THICKNESS: f64 = 0.5;
+    pub const WASHER_THICKNESS: f64 = crate::fasteners::M3_WASHER_THICKNESS;
     pub const SCREW_REACH: f64 = SCREW_LENGTH - FLANGE_T - RIM_PROUD - WASHER_THICKNESS;
     pub const PILOT_DEPTH: f64 = SCREW_REACH + crate::fasteners::INSERT_RELIEF;
 }

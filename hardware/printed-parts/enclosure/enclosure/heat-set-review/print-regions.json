@@ -6,16 +6,16 @@
       ".stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51"
     },
     "back-top": {
-      ".step.npz": "e9743b5946b30340a302f6f16d347bda3baa2382693cfd5b105a533720100b27",
-      ".stl": "e09739511aa7125c8939bdb177f3c1c1ceac900492f3e6d3dfd6e1a0f820d434"
+      ".step.npz": "9dfff97ec322cfb1b4481228fe10678a079f536b900474f95864399a14db5d56",
+      ".stl": "4037d1fc0a15ce282850d477a429e29bc74887a8f5858332c11dc4792d6a9317"
     },
     "front-bottom": {
       ".step.npz": "9c89ffa48a97ee7e3a42220dee42b9516ad4456e47316b11a4f2df6cdabd33b5",
       ".stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007"
     },
     "front-top": {
-      ".step.npz": "574156f33f066a0f64525d1d2e49a7aa46a51cc2bfecb41aba8fb2d578bea778",
-      ".stl": "157a708ababc4fc6c47d5fd828c72cb277ec6b9d30f4d41614e1ec65f8baed27"
+      ".step.npz": "84d6921c894d741b823521663db95786f7c5c594bd276613aba712e34f537062",
+      ".stl": "07fd5469073247c78eee71ddfe0478538074ee32485e7b0bbfb543529c5e59d6"
     },
     "pump-retainer": {
       ".step.npz": "8ca7327bc9431068096a47fc271e6b92604278a4e33b161d1575a00dd47e7188",
@@ -640,7 +640,7 @@
         "applied_source_bounds_mm": [
           -76.4,
           -64.4,
-          456.3,
+          460.24,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -648,7 +648,7 @@
         "machine_bounds_mm": [
           -76.4,
           -64.4,
-          456.3,
+          460.24,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -661,7 +661,7 @@
         "applied_source_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          456.3,
+          460.24,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -669,7 +669,7 @@
         "machine_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          456.3,
+          460.24,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -682,7 +682,7 @@
         "applied_source_bounds_mm": [
           -76.4,
           -64.4,
-          456.3,
+          460.24,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -690,7 +690,7 @@
         "machine_bounds_mm": [
           -76.4,
           -64.4,
-          456.3,
+          460.24,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -703,7 +703,7 @@
         "applied_source_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          456.3,
+          460.24,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -711,7 +711,7 @@
         "machine_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          456.3,
+          460.24,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -1212,16 +1212,16 @@
           -96.0,
           -84.0,
           13.799038105676658,
-          31.191342951089922,
-          295.1160254037844,
+          29.191342951089922,
+          298.5801270189222,
           313.2403810567666
         ],
         "machine_bounds_mm": [
           -96.0,
           -84.0,
           13.799038105676658,
-          31.191342951089922,
-          295.1160254037844,
+          29.191342951089922,
+          298.5801270189222,
           313.2403810567666
         ],
         "name": "Display side insert and continuous housing root 1",
@@ -1233,16 +1233,16 @@
           28.5,
           40.5,
           13.799038105676658,
-          31.191342951089922,
-          295.1160254037844,
+          29.191342951089922,
+          298.5801270189222,
           313.2403810567666
         ],
         "machine_bounds_mm": [
           28.5,
           40.5,
           13.799038105676658,
-          31.191342951089922,
-          295.1160254037844,
+          29.191342951089922,
+          298.5801270189222,
           313.2403810567666
         ],
         "name": "Display side insert and continuous housing root 2",
@@ -1254,16 +1254,16 @@
           -96.0,
           -84.0,
           76.15286717815624,
-          93.5451720235695,
-          331.1160254037844,
+          91.5451720235695,
+          334.5801270189222,
           349.2403810567666
         ],
         "machine_bounds_mm": [
           -96.0,
           -84.0,
           76.15286717815624,
-          93.5451720235695,
-          331.1160254037844,
+          91.5451720235695,
+          334.5801270189222,
           349.2403810567666
         ],
         "name": "Display side insert and continuous housing root 3",
@@ -1275,16 +1275,16 @@
           28.5,
           40.5,
           76.15286717815624,
-          93.5451720235695,
-          331.1160254037844,
+          91.5451720235695,
+          334.5801270189222,
           349.2403810567666
         ],
         "machine_bounds_mm": [
           28.5,
           40.5,
           76.15286717815624,
-          93.5451720235695,
-          331.1160254037844,
+          91.5451720235695,
+          334.5801270189222,
           349.2403810567666
         ],
         "name": "Display side insert and continuous housing root 4",
@@ -1322,10 +1322,10 @@
     "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866",
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
-    "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b49815cda300779ff4aef0e993dbc0e0d4fde22ebae69308605980e09817b0e2",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "51d6e673f0cedda5c5871474ff17ad19c3c3e5dd7e3259d28055a3fa3197f11e",
+    "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b809250d2d8518ed084bf03bb7c449a9e3d2df04a6c88ef702f7ad31433a8986",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "57c8750747059129f529df468a3f0dafaf755d52166dbc9a96240ef8bb57eabc",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "419436b2f8bf646c614c0f356c28781d670dcd39931177686a428b2de8d26a9a",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "9ec61778076884ecbf01314102d6c9943285546b5c18722c24c99fabe6f5793c"
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "4a6ca57e22a457d1a1d1fa7c22afe7255d744f96b470d85d98a47052abe6ca64"
   },
   "use": "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result."
 }

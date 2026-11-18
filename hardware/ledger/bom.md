@@ -122,8 +122,8 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
-| Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.799 | $45.01 <!--@printed--><!--parts HSM-0018--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.320 | $7.99 <!--@printed--><!--parts HSM-0020--> |
+| Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.799 | $45.02 <!--@printed--><!--parts HSM-0018--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.319 | $7.99 <!--@printed--><!--parts HSM-0020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.191 | $4.77 <!--@printed--><!--parts HSM-0021--> |
 | Reservoir B fill bend holder | 1 | PET-GF | 0.003 | $0.07 <!--@printed--><!--parts HSM-0454--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0024--> |
@@ -131,13 +131,11 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-0026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.621 | $40.56 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.621 | $40.55 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
 | Enclosure — pump retainer | 2 | PET-GF | 0.010 | $0.26 <!--@printed--><!--parts HSM-0082--> |
 | Relay end clamps | 4 | PET-GF | 0.001077 | $0.03 <!--@printed--><!--parts HSM-0581--> |
-| M3 screw spacers | 2 | PET-GF | 0.000471 | $0.01 <!--@printed--><!--parts HSM-0582--> |
-| PCB screw spacers | 4 | PET-GF | 0.000336 | $0.01 <!--@printed--><!--parts HSM-0584--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.506 | $37.67 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.505 | $37.66 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-0076--> |
 | Status plate | 1 | PETG (black, white, clear) | 0.012 | $0.14 <!--@printed--><!--parts HSM-0579--> |
 | Rear port identification plates | 6 | PETG (blue, white ×2, red, black ×2) | 0.018 | $0.20 <!--@printed--><!--parts HSM-0062:2327.834 HSM-0063:2427.834 HSM-0064:2530.414 HSM-0065:2530.414 HSM-0066:2582.343 HSM-0067:2528.491--> |
@@ -163,9 +161,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
 | Faucet tube sealing thimble | 1 | Bambu TPU 85A | 0.000449 | $0.02 <!--@printed--><!--parts HSM-0090--> |
 | Sculpted faucet mounting gasket | 1 | Bambu TPU 90A | 0.005959 | $0.27 <!--@printed--><!--parts HSM-0093--> |
-| **Printed parts total** | | | **~7.17** | **[$164.87](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.17** | **[$164.84](BOM_SEC7)** |
 
-By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.06 kg / $151.63. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.06 kg / $151.60. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -306,13 +304,13 @@ bodies are selected in [`hardware/fasteners.rs`](/hardware/fasteners.rs).
 Black socket-head screws fasten the printed mounts; the reservoir caps and
 carbonator earth clamp use stainless stock.
 
-1. **Cold-core casing** uses [20](FOAM_CLAMP_INSERTS) M5 × 100 screws and regular M5 inserts. The PCB mounts on integral top-lid posts with [4](SHELF_SCREWS_PCBA) M3 × 12 screws, slim printed spacers above the board and regular M3 inserts. Its pilots include blind tip relief and full backing below the lid. See [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
+1. **Cold-core casing** uses [20](FOAM_CLAMP_INSERTS) M5 × 100 screws and regular M5 inserts. The PCB mounts on integral top-lid posts with [4](SHELF_SCREWS_PCBA) M3 × 8 screws directly through the board into regular M3 inserts. Its pilots include blind tip relief and full backing below the lid. See [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
 2. **Reservoir caps** use [12](RES_SCREWS) stainless M3 × 12 screws and regular M3 inserts across the reservoir pair, with their TPU gaskets. Their screw stacks belong to [`reservoir/numbers.rs`](/hardware/printed-parts/cold-core/reservoir/numbers.rs).
 3. **Faucet base** uses [3](TOUCHFLO_SCREWS) M3 × 12 screws in regular M3 inserts. The thicker above-counter plate and blind pod relief carry the screw stack while the faucet shell keeps its exterior. See [`faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md).
-4. **Electronics** use the common M3 screws and regular inserts. The PSU fastens through its ceiling ears. Relay corner holes locate on printed pins; [4](SHELF_SCREWS_RELAY) end-clamp screws retain the boards beside those holes. The clamps keep the native wire entries open. See [`electronics-bay.md`](/hardware/assembly/electronics-bay.md).
-5. **Condenser** uses [2](COND_SCREWS) M3 × 12 screws, printed spacers and regular M3 inserts. The spacers bear on the donor flanges and preserve the retained finger stock and exterior floor beneath the blind pilots.
-6. **Nameplate** uses [4](NAMEPLATE_SCREWS) M3 × 12 screws and regular M3 inserts. Its closed insert lands enter matching sealed recesses in the cold-core casing. The plate's show face and head seats follow [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/README.md).
-7. **Display cover and status plate** use the same common screws and regular M3 inserts in the continuous front housing. The flat TPU ring bears between the cover and glass. See [`display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md).
+4. **PSU and printed relay retainers** use the common M3 screws and regular inserts. The PSU fastens through its ceiling ears. The relay PCB holes accept M2 mounting screws and locate on printed pins; [4](SHELF_SCREWS_RELAY) M3 end-clamp screws enter separate wall hosts outside the PCB. The clamps keep the native wire entries open. See [`electronics-bay.md`](/hardware/assembly/electronics-bay.md).
+5. **Condenser** uses [2](COND_SCREWS) M3 × 8 screws and the selected flat washers through the donor flanges into regular M3 inserts. The retained finger stock and exterior floor close the blind pilots.
+6. **Nameplate** uses [4](NAMEPLATE_SCREWS) M3 × 8 screws and regular M3 inserts. Its closed insert lands enter matching sealed recesses in the cold-core casing. The plate's show face and head seats follow [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/README.md).
+7. **Display cover and status plate** use the short M3 screws and regular M3 inserts in the continuous front housing. The flat TPU ring bears between the cover and glass. See [`display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md).
 8. **IEC C14 inlet** uses [2](C14_SCREWS) M3 × 12 screws, regular M3 inserts and flat washers. Its internal flange pocket retains closed exterior backing. The flange and washer leave [6.41](C14_SCREW_REACH) mm reach in the [7.41](C14_BORE) mm blind pilot.
 9. **Compressor** uses [4](FLOOR_SCREWS) M5 × 12 screws, regular M5 inserts and fender washers. The printed post is the grommet sleeve; its crown fixes the compression and carries the washer. The deeper blind pilots clear the screw tips while retaining the floor backing.
 10. **Pump retainers** use [4](PUMP_CLAMP_SCREWS) M3 × 25 screws and regular M3 inserts. Their deeper head seats provide engagement in the longer insert bodies while retaining the fitted flange bearings.
@@ -324,12 +322,13 @@ The T18 tip kit and FX-888D iron are tooling, recorded in the tools ledger.
 |---|---|---:|---:|---:|
 | [ruthex RX-M3 × 5.7 heat-set inserts, 100 pc](https://www.amazon.com/dp/B08BCRZZS3) | Regular inserts at every M3 printed host, including the faucet and relay end clamps. Acquired pack: $10.71/100, [purchase record](/hardware/ledger/purchases.md). | [53](M3_LONG_INSERTS) (of 100 pk) | $0.11 | [$5.68](M3_LONG_INSERTS_COST) <!--@fasteners--><!--parts HSM-0164--> |
 | [ruthex RX-M5 × 9.5 heat-set inserts, 50 pc](https://www.amazon.com/dp/B07YSVXWS8) | Compressor posts, enclosure seams and cold-core closure stations. Acquired pack: $10.71/50. | [28](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | [$6.00](M5_INSERTS_COST) <!--@fasteners--><!--parts HSM-0132--> |
-| [BNUOK M3 × 12 socket-head cap screws, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Common black screw for the faucet, PCB, PSU, relay clamps, condenser, mains inlet, nameplate, display/status plates and funnel frame. Acquired pack: $8.57/120. | [37](M3X12_TOTAL) (of 120 pk) | $0.07 | [$2.64](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
+| [BNUOK M3 × 8 socket-head cap screws, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | PCB, condenser, nameplate, display cover and status plate. The PCB and covers mount directly; the condenser uses the selected flat washers. Acquired pack: $7.71/120. | [18](M3X8_TOTAL) (of 120 pk) | $0.06 | [$1.16](M3X8_COST) <!--@fasteners--><!--parts HSM-0138--> |
+| [BNUOK M3 × 12 socket-head cap screws, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | Faucet base, PSU, relay end clamps, mains inlet and funnel frame. Relay screws remain outside the PCB. Acquired pack: $8.57/120. | [19](M3X12_TOTAL) (of 120 pk) | $0.07 | [$1.36](M3X12_COST) <!--@fasteners--><!--parts HSM-0140--> |
 | [BNUOK M3 × 25 socket-head cap screws, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | Independent pump flange retainers. Acquired stock. | [4](M3X25_TOTAL) (of 60 pk) | $0.14 | [$0.57](M3X25_COST) <!--@fasteners--><!--parts HSM-0137--> |
 | [BNUOK M3 × 12 socket-head cap screws, 304 stainless, 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | Reservoir caps. The carbonator earth-clamp screw in the electronics section is finished from an additional screw in this pack. Acquired pack: $8.66/120. | [12](RES_SCREWS) (of 120 pk) | $0.07 | [$0.87](RES_SCREWS_COST) <!--@fasteners--><!--parts HSM-0363--> |
 | [BoltsandNuts M5 × 12 socket-head cap screws, class 12.9 black oxide, M5C12SHCS12BO/D](https://boltsandnuts.com/products/m5-0-8x12-class-12-9-alloy-socket-head-cap-screws-black-oxide) | Compressor floor screws. Fully threaded DIN 912 / ISO 4762. Selected, not acquired. Quoted merchandise at the 100-piece tier: $12.00/100; freight and tax unallocated. | [4](FLOOR_SCREWS) (of 100 pk) | $0.12 quoted | [$0.48](M5X12_COST) quoted <!--@fasteners--><!--parts HSM-0583--> |
 | [SVLING M5 × 100 socket-head cap screws, class 12.9 black oxide, 20 pc](https://www.amazon.com/dp/B0GHNNYVDH/) | Cold-core closures and enclosure seams. Delivered replenishment pack recorded in [purchases.md](purchases.md). | [24](M5X100_TOTAL) (of 20 pk) | [$0.46](SEAM_SCREW_UNIT_COST) | [$11.00](M5X100_COST) <!--@fasteners--><!--parts HSM-0359--> |
-| [uxcell M3 flat washers, Ø7 × 0.5, 304 stainless, 200 pc](https://www.amazon.com/dp/B0F9KKJ22M) | Mains-inlet flange ears. Acquired pack: $7.82/200. | [2](SMALL_WASHERS) (of 200 pk) | $0.04 | [$0.08](SMALL_WASHERS_COST) <!--@fasteners--><!--parts HSM-0362--> |
+| [uxcell M3 flat washers, Ø7 × 0.5, 304 stainless, 200 pc](https://www.amazon.com/dp/B0F9KKJ22M) | Mains-inlet and condenser flanges. Acquired pack: $7.82/200. | [4](SMALL_WASHERS) (of 200 pk) | $0.04 | [$0.16](SMALL_WASHERS_COST) <!--@fasteners--><!--parts HSM-0362--> |
 | [M5 fender washers, Ø25, 304 stainless, 60 pc](https://www.amazon.com/dp/B0GSMDY5GL) | Span the compressor grommet bores and land on the post crowns. Acquired pack: $8.57/60. | [4](FLOOR_WASHERS) (of 60 pk) | $0.14 | $0.57 <!--@fasteners--><!--parts HSM-0159--> |
 
 ## 14. Cold kit
@@ -358,16 +357,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$134.94](BOM_SEC4) |
 | 5. Refrigeration | [$124.40](BOM_SEC5) |
 | 6. Cold core insulation | [$20.84](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$164.87](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$164.84](BOM_SEC7) |
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$34.93](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware | [$27.89](BOM_SEC13) |
+| 13. Mechanical attach hardware | [$27.85](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,443.95](BOM_GRAND)** |
+| **Total** | **[$1,443.88](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

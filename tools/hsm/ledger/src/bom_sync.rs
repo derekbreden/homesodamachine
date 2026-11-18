@@ -256,6 +256,7 @@ const FOUR_INCH_TIES: Pack = Pack("4.28", "200");
 const SIX_INCH_TIES: Pack = Pack("6.42", "100");
 const SOLID16_LENGTH: Pack = Pack("12.86", "7.62");
 const SMALL_WASHERS: Pack = Pack("7.82", "200");
+const M3X8: Pack = Pack("7.71", "120");
 const M3X12: Pack = Pack("8.57", "120");
 const M3X25: Pack = Pack("8.57", "60");
 const M5X12: Pack = Pack("12.00", "100");
@@ -416,8 +417,8 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("C14_SCREW_REACH", fmt(c14.reach, ".3g"));
     put("C14_INSERTS", count(c14_screws));
     put("C14_SCREWS", count(c14_screws));
-    put("SMALL_WASHERS", fmt(c14_screws, "g"));
-    put("SMALL_WASHERS_COST", cost(c14_screws, SMALL_WASHERS)?);
+    put("SMALL_WASHERS", fmt(c14_screws + condenser, "g"));
+    put("SMALL_WASHERS_COST", cost(c14_screws + condenser, SMALL_WASHERS)?);
 
     let pump_clamps = n(input.bodies.iter().filter(|name| name.starts_with("pump-retainer-") && name.ends_with("-screw")).count());
     put("PUMP_CLAMP_SCREWS",count(pump_clamps));
@@ -426,15 +427,17 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
 
     // The common screws retain each small mounted part; the pump clamps use the deep stock.
     let funnel = n(input.funnel_screws);
-    let m3x12 = pcba + condenser + touchflo + c14_screws + psu + relays + funnel
-        + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS;
+    let m3x8 = pcba + condenser + NAMEPLATE_SCREWS + DISPLAY_COVER_SCREWS + STATUS_PLATE_SCREWS;
+    let m3x12 = touchflo + c14_screws + psu + relays + funnel;
+    put("M3X8_TOTAL", count(m3x8));
+    put("M3X8_COST", cost(m3x8, M3X8)?);
     put("M3X12_TOTAL", count(m3x12));
     put("M3X12_COST", cost(m3x12, M3X12)?);
     put("NAMEPLATE_SCREWS", count(NAMEPLATE_SCREWS));
     put(
         "NAMEPLATE_MOUNT",
         format!(
-            "retained in `enclosure-back-top` by {} black M3 × 12 socket-head screws and {} regular RX-M3 × 5.7 inserts in a solid receiver.",
+            "retained in `enclosure-back-top` by {} black M3 × 8 socket-head screws and {} regular RX-M3 × 5.7 inserts in a solid receiver.",
             fmt(NAMEPLATE_SCREWS, ""),
             fmt(NAMEPLATE_SCREWS, "")
         ),
@@ -512,7 +515,7 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("SODA_FAUCET_FT", fmt(input.faucet.soda_cut / FOOT, ".2f"));
 
     // labor.md's assembly: every insert pressed and every screw driven.
-    let m3_screws = m3x12 + reservoir_inserts + pump_clamps;
+    let m3_screws = m3x8 + m3x12 + reservoir_inserts + pump_clamps;
     let m5_screws = floor + seam_rods + clamp_inserts;
     let mut labor = Variables::new();
     for (name, value) in [

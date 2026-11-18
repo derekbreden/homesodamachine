@@ -10,12 +10,12 @@
       ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "4b51af14fbafa8ebb8a30010ada1ac0522ee3217fbcffd6dcd1acfa77d7350c4",
-      ".stl": "db8e38de9705ef0a815d2fc94a76678213f1400d00e436051b329b8168bed712"
+      ".step": "686511d1c3ae7e9ca2197264c2ba3c36bf2bb70a224539cab21e4fc379d72c7c",
+      ".stl": "4d3a4efa4363958153f7945b9ebd988557bf3d719cda93231e86f9cefe8c358b"
     },
     "foam-shell": {
-      ".step": "1288ef2dc1fc45a4c4644702e6ce90cb353462e9e246c3c9f673fef6fb61d8db",
-      ".stl": "03977d61b19134fe6e017bb241a7c0265a8644d0c5e89633d3c5611cc349dacd"
+      ".step": "2c9eb6734711ae15471c52e53e565c6a6c1273024f642b742e78c39dfd45c173",
+      ".stl": "9f1f0ba8d737e299d669ffeb489bf440f81618a61dd97c9b40703d8263182b7a"
     }
   },
   "part_process_overrides": {},
@@ -775,7 +775,7 @@
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
     "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866",
-    "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "51181390c9f9250f7ba48f1bc9c171307766b968cf63f1462d2825bb24df4cc1",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "3c23dbfeb63228e1f57b28dc54b9352aded2b76fb97235d9881b826280653d86",
     "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "3b8fb0538d8c909b8a6c963173f39da5199700513746251be749369a8e7d6e6d",
     "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0d169aecaf038c88d1cd5f5116541e6a8f541f66ee5e9e2b95479a8e5f839219",
     "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "7f4db18d5a70487e5480e37d35da4a839ad66df8de6b1aa638eb5d50c2c80e10",

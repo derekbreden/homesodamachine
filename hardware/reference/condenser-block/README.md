@@ -52,6 +52,10 @@ vertical line standing **29 in from the intake face** and **15 in from the aft
 face**. The **fore flanges carry no hole**: that end of the block slides into
 something instead.
 
+Use the selected flat washer beneath each M3 screw head to span the donor hole.
+The [mechanical BOM](/hardware/ledger/bom.md#13-mechanical-attach-hardware)
+owns the screw and washer stock.
+
 | Mount | Face | Location |
 |---|---|---|
 | `mount-base` | base, −Z | (29, 139, 0) |

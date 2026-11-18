@@ -103,11 +103,10 @@ pub const MQ6_HEADER_RELIEF: f64 = 2.0;
 /// The condenser's slot cradles and mount.
 pub const COND_RAIL_WALL: f64 = 3.0;
 pub const COND_SLOT_GRIP: f64 = 3.0;
-pub const COND_SCREW_LEN: f64 = crate::fasteners::M3_SCREW_LENGTH;
-pub const COND_SPACER_HEIGHT: f64 = crate::fasteners::M3_SPACER_HEIGHT;
-pub const COND_SPACER_DIAMETER: f64 = crate::fasteners::M3_SPACER_DIAMETER;
+pub const COND_SCREW_LEN: f64 = crate::fasteners::M3_SHORT_SCREW_LENGTH;
+pub const COND_WASHER_THICKNESS: f64 = crate::fasteners::M3_WASHER_THICKNESS;
 pub const COND_FLANGE_THICKNESS: f64 = 0.4;
-pub const COND_BORE_DEPTH: f64 = COND_SCREW_LEN - COND_SPACER_HEIGHT + MOUNT_BORE_RELIEF;
+pub const COND_BORE_DEPTH: f64 = COND_SCREW_LEN + MOUNT_BORE_RELIEF;
 pub const COND_BOSS_T: f64 = COND_BORE_DEPTH + COND_RAIL_WALL;
 /// The lands under the collet plate's ends: their reach inboard, run, section and corbel.
 pub const PLATE_FOOT_REACH: f64 = 10.0;

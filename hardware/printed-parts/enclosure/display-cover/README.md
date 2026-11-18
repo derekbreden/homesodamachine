@@ -1,6 +1,6 @@
 # Machine display cover
 
-The flat PET-GF bezel retains the display with black socket-head screws along its
+The flat PET-GF bezel retains the display with the short black socket-head screws along its
 side borders. Rounded corners, equal screw insets and shallow head seats echo the
 rear nameplate. The heads remain visible above the bezel face.
 

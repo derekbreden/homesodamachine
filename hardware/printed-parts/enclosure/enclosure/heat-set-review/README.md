@@ -41,8 +41,9 @@ The appliance allocation is in [the BOM](/hardware/ledger/bom.md#13-mechanical-a
 The [rear hosts](../numbers/rear_wall.rs), [shell mounts](../numbers/shell.rs),
 [pump retainers](../retainer-numbers/lib.rs) and [nameplate mount](../../nameplate/snap_dimensions.rs)
 own the current pilots and closed stock. Relay fasteners clamp beside the PCB;
-the original corner holes locate on pins. The condenser uses printed screw
-spacers, and the compressor retains its grommet and washer bearing planes.
+the original corner holes locate on pins. The short condenser screws use the
+selected flat washers over the donor holes. The compressor retains its grommet
+and washer bearing planes.
 
 ## Native seam load paths
 
