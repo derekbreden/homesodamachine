@@ -1,0 +1,261 @@
+{
+  "archive_sha256": "cb6c5501182fb2dea8bb4e4510a5e2a617ca8fab58bf04945eadef273eba4d13",
+  "gcode_sha256": "4318d22e87ec132625a61d842b4b6455c1b08dc22ee28f8127dd27cfcdbef6bb",
+  "scope": "Road centerlines sampled against prior deposited bead footprints. Equal-height sections merge before comparison; support gap is included only for bearing/footing contacts. Native review separately checks the complete groove exclusion, solid rail deposition and archive integrity.",
+  "first_model_courses": {
+    "1901": {
+      "first_model_course_print_z_mm": 0.2,
+      "model_road_count": 205,
+      "first_model_bead_plane_above_cropped_bed_mm": 0.2
+    },
+    "1902": {
+      "first_model_course_print_z_mm": 0.2,
+      "model_road_count": 336,
+      "first_model_bead_plane_above_cropped_bed_mm": 0.2
+    }
+  },
+  "checks": [
+    {
+      "name": "Upper rail first bearing course",
+      "object": 1901,
+      "source_xy_mm": [
+        98.5,
+        103.75,
+        223.8,
+        260
+      ],
+      "print_z_range_mm": [
+        28.04,
+        28.04
+      ],
+      "layer_count": 1,
+      "sample_step_mm": 0.1,
+      "prior_top_separation_limit_mm": 0.61,
+      "sampled_centerline_mm": 514.6202170409462,
+      "unbacked_centerline_mm": 18.32073649674008,
+      "maximum_bead_edge_gap_mm": 0.1276545718550409,
+      "backing_features_by_samples": {
+        "Top surface": 3600,
+        "Outer wall": 1627
+      },
+      "longest_unbacked_run_mm": 4.134070295854063,
+      "longest_run_road": {
+        "print_z_mm": 28.04,
+        "feature": "Bridge",
+        "source_start_mm": [
+          99.41906921386717,
+          247.99599694824218
+        ],
+        "source_end_mm": [
+          103.8160692138672,
+          247.99599694824218
+        ]
+      },
+      "unbacked_layers": [
+        {
+          "print_z_mm": 28.04,
+          "unbacked_centerline_mm": 18.32073649674008,
+          "largest_bead_edge_gap_mm": 0.1276545718550409,
+          "worst_source_xy_mm": [
+            103.40549414201216,
+            247.99599694824218
+          ]
+        }
+      ],
+      "authored_strip_break": {
+        "source_y_center_mm": 247.93333333333334,
+        "gap_y_mm": 0.6,
+        "explanation": "The cap is split into removable strips. Transverse bridge roads cross the deliberate strip-break band, with landing stock at the outboard rail wall; adjacent cap fields carry the remaining bearing."
+      }
+    },
+    {
+      "name": "Lower rail first bearing course",
+      "object": 1902,
+      "source_xy_mm": [
+        98.5,
+        103.75,
+        223.8,
+        260
+      ],
+      "print_z_range_mm": [
+        19.88,
+        19.88
+      ],
+      "layer_count": 1,
+      "sample_step_mm": 0.1,
+      "prior_top_separation_limit_mm": 0.61,
+      "sampled_centerline_mm": 490.2799938964841,
+      "unbacked_centerline_mm": 15.031409233621487,
+      "maximum_bead_edge_gap_mm": 0.2425790314103456,
+      "backing_features_by_samples": {
+        "Support interface": 4898,
+        "Outer wall": 40
+      },
+      "longest_unbacked_run_mm": 0.5972195121951204,
+      "longest_run_road": {
+        "print_z_mm": 19.88,
+        "feature": "Bridge",
+        "source_start_mm": [
+          102.58099999999999,
+          224.0289969482422
+        ],
+        "source_end_mm": [
+          97.62200000000001,
+          224.0289969482422
+        ]
+      },
+      "unbacked_layers": [
+        {
+          "print_z_mm": 19.88,
+          "unbacked_centerline_mm": 15.031409233621487,
+          "largest_bead_edge_gap_mm": 0.2425790314103456,
+          "worst_source_xy_mm": [
+            98.74884146341464,
+            224.0289969482422
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Upper receiver corbel and groove standing walls",
+      "object": 1901,
+      "source_xy_mm": [
+        90.5,
+        98.52,
+        224,
+        250.05
+      ],
+      "print_z_range_mm": [
+        2.84,
+        21.32
+      ],
+      "layer_count": 78,
+      "sample_step_mm": 0.1,
+      "prior_top_separation_limit_mm": 0.25,
+      "sampled_centerline_mm": 8548.71251158148,
+      "unbacked_centerline_mm": 5.136612451644233,
+      "maximum_bead_edge_gap_mm": 0.04413895840040424,
+      "backing_features_by_samples": {
+        "Outer wall": 51984,
+        "Inner wall": 33393,
+        "Sparse infill": 226,
+        "Floating vertical shell": 59,
+        "Gap infill": 15,
+        "Top surface": 960
+      },
+      "longest_unbacked_run_mm": 1.0996470588235303,
+      "longest_run_road": {
+        "print_z_mm": 13.4,
+        "feature": "Inner wall",
+        "source_start_mm": [
+          93.18206921386718,
+          245.8259969482422
+        ],
+        "source_end_mm": [
+          93.18206921386718,
+          227.13199694824218
+        ]
+      },
+      "unbacked_layers": [
+        {
+          "print_z_mm": 13.4,
+          "unbacked_centerline_mm": 5.136612451644233,
+          "largest_bead_edge_gap_mm": 0.04413895840040424,
+          "worst_source_xy_mm": [
+            94.07456921386719,
+            247.6229969482422
+          ]
+        }
+      ],
+      "scope": "Receiver outer, inner and overhang walls; sparse-infill and roof-skin bridges are excluded from the standing-wall contact measurement."
+    },
+    {
+      "name": "Lower alignment key",
+      "object": 1902,
+      "source_xy_mm": [
+        94.5,
+        97.5,
+        230,
+        246.8
+      ],
+      "print_z_range_mm": [
+        25.16,
+        33.08
+      ],
+      "layer_count": 34,
+      "sample_step_mm": 0.1,
+      "prior_top_separation_limit_mm": 0.25,
+      "sampled_centerline_mm": 2391.4471235558335,
+      "unbacked_centerline_mm": 0.0,
+      "maximum_bead_edge_gap_mm": -0.16291464683825752,
+      "backing_features_by_samples": {
+        "Sparse infill": 312,
+        "Top surface": 726,
+        "Inner wall": 11168,
+        "Outer wall": 12048
+      },
+      "longest_unbacked_run_mm": 0.0,
+      "longest_run_road": null,
+      "unbacked_layers": [],
+      "scope": "Every key perimeter course above the existing rail head."
+    },
+    {
+      "name": "Lower native tree first footing course",
+      "object": 1902,
+      "source_xy_mm": [
+        98.925,
+        104.925,
+        224.075,
+        260.075
+      ],
+      "print_z_range_mm": [
+        10.76,
+        10.76
+      ],
+      "layer_count": 1,
+      "sample_step_mm": 0.1,
+      "prior_top_separation_limit_mm": 0.61,
+      "sampled_centerline_mm": 119.51830807730332,
+      "unbacked_centerline_mm": 0.0,
+      "maximum_bead_edge_gap_mm": -0.33574741058708585,
+      "backing_features_by_samples": {
+        "Top surface": 1294
+      },
+      "longest_unbacked_run_mm": 0.0,
+      "longest_run_road": null,
+      "unbacked_layers": []
+    }
+  ],
+  "removal_access": {
+    "upper_cap": {
+      "direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "receiver_low_source_z_mm": 175.3,
+      "cap_high_source_z_mm": 175.07000000029802,
+      "vertical_separation_mm": 0.2299999997019806,
+      "reading": "Sever the narrow cavity-floor necks and draw each split cap inward through the open sliding lane, below the receiver."
+    },
+    "lower_tree": {
+      "direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "key_root_source_z_mm": 171.8,
+      "interface_high_source_z_mm": 169.16,
+      "reading": "The floor-rooted support draws inward below the alignment key, through the open rail cavity."
+    }
+  },
+  "native_criteria": {
+    "two_closed_specimens": true,
+    "both_grounded_first_model_courses": true,
+    "groove_support_crossings": 0,
+    "bottom_tree_footing_backed": true,
+    "new_key_perimeters_backed": true,
+    "receiver_perimeters_growth_retained": true,
+    "authored_split_cap_bridges_recorded": true
+  }
+}

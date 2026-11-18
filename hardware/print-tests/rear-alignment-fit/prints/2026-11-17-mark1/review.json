@@ -1,0 +1,235 @@
+{
+  "archive": "hardware/print-tests/rear-alignment-fit/prints/2026-11-17-mark1/2026-11-17-rear-alignment-fit-mark1-0f66035c-textured-pei.gcode.3mf",
+  "archive_sha256": "cb6c5501182fb2dea8bb4e4510a5e2a617ca8fab58bf04945eadef273eba4d13",
+  "bead_envelope_plate_mm": [
+    [
+      136.526,
+      129.95055299999999
+    ],
+    [
+      188.43877700000002,
+      190.207
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 129.793,
+    "front": 129.95055299999999,
+    "left": 136.526,
+    "right": 136.56122299999998
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "excluded_support_counts_by_region": {
+    "east alignment groove": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9950126377874093,
+      "second_layer_centerline_outside_first_mm": 4.68162068633873,
+      "second_layer_model_bead_area_mm2": 419.6487535669392
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9961885258082637,
+      "second_layer_centerline_outside_first_mm": 6.549707255975113,
+      "second_layer_model_bead_area_mm2": 675.3103555848656
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 152,
+  "minimum_bed_margin_mm": 129.793,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.997983935146377,
+      "minimum_outline_coverage": 0.9822404116868346,
+      "name": "Sliding rail -1 transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          139.3759307861328,
+          130.07599694824216,
+          18.300006103515614
+        ],
+        [
+          150.1259307861328,
+          189.9240030517578,
+          36.34900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.997983935146377,
+          "infill_core_mm2": 242.53099248618585,
+          "outline_coverage": 0.9822404116868346,
+          "print_z_mm": 18.68,
+          "sampling_step_mm": 0.0507293234968807,
+          "stock_mm2": 276.04521757608745
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": null,
+          "infill_core_mm2": 0.0,
+          "outline_coverage": 0.9984848484848485,
+          "print_z_mm": 27.56,
+          "sampling_step_mm": 0.0507293234968807,
+          "stock_mm2": 10.190918479306642
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989540798051436,
+          "infill_core_mm2": 179.6149381977796,
+          "outline_coverage": 0.9988493402884321,
+          "print_z_mm": 36.2,
+          "sampling_step_mm": 0.0507293234968807,
+          "stock_mm2": 201.28608075188092
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          93.25,
+          200.15099389648438,
+          160.251
+        ],
+        [
+          104.0,
+          259.999,
+          178.3
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9866941529235382,
+      "minimum_outline_coverage": 0.9864997165971041,
+      "name": "Sliding rail -1 transverse bridge",
+      "object": 1902,
+      "plate_bounds_mm": [
+        [
+          171.125,
+          130.0759969482422,
+          8.990005493164062
+        ],
+        [
+          181.875,
+          189.92400305175784,
+          28.540005493164074
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.275832,
+          "coverage": 0.9932528656648043,
+          "infill_core_mm2": 516.8185339710192,
+          "outline_coverage": 0.9937268307435699,
+          "print_z_mm": 9.56,
+          "sampling_step_mm": 0.0507293234968807,
+          "stock_mm2": 561.6096794589819
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9949137645346743,
+          "infill_core_mm2": 178.60614020689871,
+          "outline_coverage": 0.9952045422575736,
+          "print_z_mm": 18.92,
+          "sampling_step_mm": 0.0507293234968807,
+          "stock_mm2": 201.24233185941924
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9866941529235382,
+          "infill_core_mm2": 41.19601591331837,
+          "outline_coverage": 0.9864997165971041,
+          "print_z_mm": 28.28,
+          "sampling_step_mm": 0.0507293234968807,
+          "stock_mm2": 49.9432209413899
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          93.25,
+          200.15099389648438,
+          158.75
+        ],
+        [
+          104.0,
+          259.999,
+          178.3
+        ]
+      ]
+    }
+  ],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        93.5,
+        98.5,
+        224.0,
+        247.04999999999998,
+        175.3,
+        183.3
+      ],
+      "box_plate_mm": [
+        [
+          139.3759307861328,
+          142.7749969482422,
+          13.050006103515614
+        ],
+        [
+          144.8759307861328,
+          166.3249969482422,
+          21.550006103515614
+        ]
+      ],
+      "name": "east alignment groove",
+      "object": 1901,
+      "reason": "The receiving groove opens upward in the ceiling-down print pose. Its floor and standing walls grow from the continuous corbelled receiver; keep the fitted key passage clear."
+    }
+  ],
+  "support_roads": 7661,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": 8.16,
+      "shortest_labelled_build_up_mm": 8.16,
+      "support_bodies": 1
+    }
+  },
+  "tie_window_support_crossings": []
+}
