@@ -1,0 +1,13 @@
+{
+  "purpose": "Read the native tower motion that keeps the hot nozzle away between Pisco cap layers.",
+  "gcode_sha256": "2808c7a5a16953e61fff7f590504c38eab1d7b4f85b37dce1dc2588d51e8f9ed",
+  "scope": "Lower bound from the tower deposition XY length divided by its commanded feed. Travel, acceleration and the firmware timelapse move add time. Every tower precedes the cap on its layer.",
+  "reader": "Scratch Python reading of the archive; no installed reader reports time away.",
+  "model_layers": 174,
+  "tower_layers": 174,
+  "minimum_tower_deposition_s": 23.919200000000007,
+  "median_tower_deposition_s": 23.919200000000007,
+  "maximum_tower_deposition_s": 119.27320000000003,
+  "single_regulator_reference": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json",
+  "minimum_reference_return_lower_bound_s": 23.81549078680655
+}

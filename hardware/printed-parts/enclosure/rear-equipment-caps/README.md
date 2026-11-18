@@ -150,6 +150,12 @@ emitted timing and physical-review state. The
 [cooling policy](../../cooling/README.md#small-individual-parts) describes the
 batch-time requirement.
 
+For an individual Pisco cover, use `single-pisco-cap`. It retains the current
+accessory plate's Pisco settings and print pose, prints without support, and
+uses the native smooth-timelapse tower between layers. The
+[print record](prints/2026-11-17-single-pisco-mark2/README.md) binds its emitted
+tower timing, reviewed archive and accepted Mark2 job. Select Timelapse On.
+
 Remove the small cavity supports with a tiny flathead screwdriver that fits
 inside the opening. Derek reports that the original trial's small automatic
 cavity supports removed easily with that tool. Preserve the flat catch

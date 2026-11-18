@@ -1,0 +1,59 @@
+{
+  "purpose": "Bind the isolated Pisco snap cover and native cooling tower to the job accepted by Mark2.",
+  "status": "started",
+  "source_commit": "99a5d58980036f087f4a2f9baf7c6ffd4b1e324e",
+  "printer": "Mark2",
+  "printer_task_id": "1456920845",
+  "accepted_at": "2026-11-18T04:36:52+00:00",
+  "material_number": "HSM-0449",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.08
+  ],
+  "objects": [
+    "pisco-snap-cap"
+  ],
+  "project": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.3mf",
+  "project_sha256": "e4acf8795c7df5fd65cf7216795c302cd8853dcaaac52590b04fc1c6b0479154",
+  "project_url": "https://github.com/derekbreden/homesodamachine/releases/download/print-projects/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.3mf",
+  "archive": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.gcode.3mf",
+  "archive_sha256": "47b1029516fe3239168266a180069d1cda2f6c819e3509489a839fdb98073a4f",
+  "archive_url": "https://github.com/derekbreden/homesodamachine/releases/download/print-projects/2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei.gcode.3mf",
+  "gcode_sha256": "2808c7a5a16953e61fff7f590504c38eab1d7b4f85b37dce1dc2588d51e8f9ed",
+  "preparation": "2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/preparation.json",
+  "native_review": "2026-11-17-single-pisco-cap-mark2-a6545799-textured-pei/review.json",
+  "recipe_snapshot": "recipe.json",
+  "layer_time": "layer-time.json",
+  "estimated_seconds": 6563.651807002219,
+  "minimum_bead_bed_margin_mm": 116.52013000000001,
+  "native_slicer_warnings": [],
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "startup_spacing": {
+    "other_printer": "Mark1",
+    "other_task_id": "1456742103",
+    "other_accepted_at": "2026-11-18T03:04:32+00:00",
+    "this_accepted_at": "2026-11-18T04:36:52+00:00",
+    "elapsed_seconds": 5540.0
+  },
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "physical_result": "Not yet reported.",
+  "startup_status": "startup-status.json"
+}
