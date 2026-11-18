@@ -1,4 +1,5 @@
 {
+  "purpose": "Record the emitted support neck roots and bearing coverage for the back-top plate.",
   "gcode_sha256": "b9de7d013e3383cebae7fc238c53f2b2201711aa66b2f136b01fe59bee0fe624",
   "source_stl_sha256": "ef9a25893e48db79a4a50c9440b2c09a126f75781c788d42f22c69c5866615de",
   "cavity_floor_plate_z_mm": 179.95,
