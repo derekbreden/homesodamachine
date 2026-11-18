@@ -102,16 +102,11 @@ After removing the ASSE chain, release the meter leaves, withdraw the cap
 fore and out through the open side. Remove the meter, its disconnected soda
 line/insulation and bend holder before withdrawing the PISCO cap.
 
-Remove VK to expose the PISCO receiver's service room. Spread the PISCO
-leaves, lower the cap 3.6 mm, depress the exposed outlet collet and withdraw
-the stem check. Slide the cap 45 mm fore with the leaves held open. With the
-cap clear of the hardware, squeeze its free wings slightly inward, move it
-west and fore, then withdraw diagonally west and down through the freed bay.
-The [service-path record](../../../print-tests/receiver-tool-access/insertion-removal-review.json)
-retains the complete modeled path and 3.6 mm inward leaf displacement. The
-fore receiver exits end at the hook-bearing plane; the solid stops above that
-plane retain the installed cap. The full rear bore and the approved body and
-neck bearings retain their fits.
+The Pisco cover enters from X with its wing angled. The outer edge of its
+receiver's tip channel blocks the remaining insertion. The
+[physical result](prints/2026-11-17-single-pisco-mark2/physical-result.json)
+records Derek's in-hand approach and the picked edge. The angled catches
+retain their accepted fit; complete installation remains blocked at that edge.
 
 The regulator releases directly downward with its exposed leaves spread.
 The [physical result](../../../print-tests/receiver-tool-access/physical-result/physical-result.json)
