@@ -106,8 +106,7 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
     piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, None));
     piece = g.scoped("handholds", "Lifting handholds", &[], |g| finish_handholds(g, piece, inner));
-    piece = g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]));
-    hsm_enclosure_quadrants::rear_alignment::lower(g, piece)
+    g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]))
 }
 
 /// The panel's STEP and fine model, and its fluted print: its raised disposal warning stands on
