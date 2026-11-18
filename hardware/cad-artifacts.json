@@ -29,7 +29,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "04f8e4b4c492b538fe5743650b7dc4601b45da6e96c82c85dd65d7dd108bfbe2",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "7ece00d939ef35c03b4197da8072b50d92e56acaa95f2e092aab5fc9b9a1ab35",
-    "hardware/cold-core-layout/cold-core-assembly.step": "e987b45961030ed2346d0912b3caf72f4c1868c41ab375314713e1b1708952ab",
+    "hardware/cold-core-layout/cold-core-assembly.step": "a4d699da4e41db0079043f4dda19c8d96994639b7bd2e0f341e57b1ae195bc14",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "e74d833a4a051177d385be252d1564e0eedb4697b542f2061f54344f8451cc2d",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -667,9 +667,9 @@
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "029a6a8bc0a30cbfe88bb6d87c244f124af72b2d83b7f5c76994e6b997940527",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "1f92400699b6dafa1713018f76821af754493801b4aa5bb0b00e516953811d91",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "da57b63e266804b3b77ccfca7bedb3049f0e5a4cde1a77c7389c49c169cb9be8",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "8f505cb1fef02b21fd88f2804aad24f9486a0482ad17777b63ed831acd785832",
     "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": "473415b7d9bb3db42ae500426b0a2e1c0fbbb5b5ccd717096ad1f6e7a5ec8450",
@@ -871,7 +871,7 @@
       "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "04f8e4b4c492b538fe5743650b7dc4601b45da6e96c82c85dd65d7dd108bfbe2",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
       "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "7ece00d939ef35c03b4197da8072b50d92e56acaa95f2e092aab5fc9b9a1ab35",
-      "hardware/cold-core-layout/cold-core-assembly.step": "e987b45961030ed2346d0912b3caf72f4c1868c41ab375314713e1b1708952ab",
+      "hardware/cold-core-layout/cold-core-assembly.step": "a4d699da4e41db0079043f4dda19c8d96994639b7bd2e0f341e57b1ae195bc14",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "e74d833a4a051177d385be252d1564e0eedb4697b542f2061f54344f8451cc2d",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -1303,9 +1303,9 @@
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "029a6a8bc0a30cbfe88bb6d87c244f124af72b2d83b7f5c76994e6b997940527",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "1f92400699b6dafa1713018f76821af754493801b4aa5bb0b00e516953811d91",
       "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "da57b63e266804b3b77ccfca7bedb3049f0e5a4cde1a77c7389c49c169cb9be8",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "8f505cb1fef02b21fd88f2804aad24f9486a0482ad17777b63ed831acd785832",
       "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
       "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
@@ -2467,7 +2467,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1794971243.626679,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1794922703.919207,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1794922645.449127,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1794971258.743524,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1794971251.091162,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": 1794030167,
@@ -3105,9 +3105,9 @@
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": 1793626644,
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": 1794035339,
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": 1793626644,
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1793626644,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1794971258.743524,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": 1794971243.626679,
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1793626644,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1794971258.743524,
     "hardware/printed-parts/zone-c/funnel/funnel.step": 1793626644,
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": 1794034860,
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": 1791611789,
@@ -3347,7 +3347,8 @@
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "commit": "8e53ddc40111849c1c0aa75f2de2164c0b5d11f6",
+      "commit": "1354d53474f59d20a566575d82e806339f86a9b1",
+      "inputs": "e5c10a66c339a2e0ebc86118203898a9e9a66c123115e06b5e1207e6faef790a",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": {
@@ -5174,8 +5175,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "d799b5577cd67364434deabf670b9d39c9a8faeeed913f3e538034c22c50f49b",
+      "commit": "1354d53474f59d20a566575d82e806339f86a9b1",
+      "inputs": "3eab6fddb59a4fec5d67fbd1054c493ec46f807ff71afb203398111fadece26b",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": {
@@ -5184,8 +5185,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
-      "inputs": "d799b5577cd67364434deabf670b9d39c9a8faeeed913f3e538034c22c50f49b",
+      "commit": "1354d53474f59d20a566575d82e806339f86a9b1",
+      "inputs": "3eab6fddb59a4fec5d67fbd1054c493ec46f807ff71afb203398111fadece26b",
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step": {
