@@ -3797,9 +3797,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": {
-      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
-      "inputs": "a4a2a5f95c5a1c7ee1664b2ea655074507f6f7a876f81cf70eb7adfaa53e005a",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "a4a2a5f95c5a1c7ee1664b2ea655074507f6f7a876f81cf70eb7adfaa53e005a"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": {
       "commit": "ebe378dd83ecbb2762ea8d3150a70a1bb75e95e4",
@@ -3807,9 +3806,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": {
-      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
-      "inputs": "a4a2a5f95c5a1c7ee1664b2ea655074507f6f7a876f81cf70eb7adfaa53e005a",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "a4a2a5f95c5a1c7ee1664b2ea655074507f6f7a876f81cf70eb7adfaa53e005a"
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
@@ -4298,9 +4296,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
-      "inputs": "77b65d96d232d6982b8c5dc00ffbc23fa8003875aff9f43d9fe87c54298051e6",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "77b65d96d232d6982b8c5dc00ffbc23fa8003875aff9f43d9fe87c54298051e6"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
       "commit": "77804357fd5b084d4bf78bbadfe4b48cc0d83787",
@@ -4373,9 +4370,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
-      "commit": "f426422c090fdcf8554e2a3266cca08d99ec74b5",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
     },
     "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": {
       "commit": "3d42ac39371c3b57bdc907f93ceaa6f5ff3fefb5",
@@ -4392,32 +4388,28 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step": {
-      "commit": "f426422c090fdcf8554e2a3266cca08d99ec74b5",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
     },
     "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step.mesh": {
       "commit": "65d07449614b3d52215e65fdae0572d8a43df042",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.stl": {
-      "commit": "f426422c090fdcf8554e2a3266cca08d99ec74b5",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": {
-      "commit": "f426422c090fdcf8554e2a3266cca08d99ec74b5",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": {
       "commit": "65d07449614b3d52215e65fdae0572d8a43df042",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": {
-      "commit": "f426422c090fdcf8554e2a3266cca08d99ec74b5",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
       "commit": "111baed47490511b2c3edc753cfa14120ac0d79d",
@@ -4698,9 +4690,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387"
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.step.mesh": {
       "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
@@ -4708,14 +4699,12 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387"
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387"
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.step.mesh": {
       "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
@@ -4723,14 +4712,12 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387"
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387"
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.step.mesh": {
       "commit": "20d0b360f0190296021f3f4a7adc2be698bf5a55",
@@ -4738,9 +4725,8 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "10b9205f45ed8211f3f97992ed000a07451d679cdf3662ea1cf5ffcb9bf4b387"
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
@@ -5088,9 +5074,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step": {
-      "commit": "92e44d97616e0b2a280081816913709428cdf8e2",
-      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8"
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-assembly.step.mesh": {
       "commit": "e7631697da80aa95ed51207a6a029fb2e4b809f9",
@@ -5183,9 +5168,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step": {
-      "commit": "92e44d97616e0b2a280081816913709428cdf8e2",
-      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8"
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.step.mesh": {
       "commit": "e7631697da80aa95ed51207a6a029fb2e4b809f9",
@@ -5193,9 +5177,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-carriage.stl": {
-      "commit": "92e44d97616e0b2a280081816913709428cdf8e2",
-      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8"
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-clamp-pad.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
@@ -5213,9 +5196,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step": {
-      "commit": "92e44d97616e0b2a280081816913709428cdf8e2",
-      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8"
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.step.mesh": {
       "commit": "e7631697da80aa95ed51207a6a029fb2e4b809f9",
@@ -5223,9 +5205,8 @@
       "unproven": true
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-motor-tower.stl": {
-      "commit": "92e44d97616e0b2a280081816913709428cdf8e2",
-      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8",
-      "unproven": true
+      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
+      "inputs": "9551b5b8407eff3dc0d8a26cc0b86032e9ac4b3a6f8e88f225a0b22b8684f4b8"
     },
     "hardware/printed-parts/fixtures/weld-rotator/weld-rotator-race-ring.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
