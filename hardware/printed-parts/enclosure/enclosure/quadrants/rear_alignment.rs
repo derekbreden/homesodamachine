@@ -34,17 +34,6 @@ fn mirrored_bounds(mut bounds: Bounds, sign: f64) -> Bounds {
     bounds
 }
 
-/// The complete lower key, including the stock embedded in the rail head.
-pub fn key_bounds(sign: f64) -> Bounds {
-    mirrored_bounds([KEY_X[0], KEY_X[1], KEY_FORE_Y, KEY_AFT_Y, KEY_ROOT_Z, KEY_TOP_Z], sign)
-}
-
-/// The receiver's continuous outer stock, including its wall overlap.
-pub fn receiver_bounds(sign: f64) -> Bounds {
-    mirrored_bounds([RECEIVER_X[0], RECEIVER_X[1], RECEIVER_FORE_Y, RECEIVER_AFT_Y,
-        RECEIVER_BOTTOM_Z, RECEIVER_RAMP_Z[1]], sign)
-}
-
 /// The groove's void within the receiver; its lower opening stays above the rail supports.
 pub fn groove_bounds(sign: f64) -> Bounds {
     mirrored_bounds([SLOT_MOUTH_X[0], SLOT_MOUTH_X[1], RECEIVER_FORE_Y, SLOT_END_Y,
