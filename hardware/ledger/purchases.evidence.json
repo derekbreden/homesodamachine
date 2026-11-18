@@ -10217,7 +10217,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-56b5905ef743455fa0e61dd424f75261",
-        "src-962d5a905e244029954126c9592bc1f9"
+        "src-962d5a905e244029954126c9592bc1f9",
+        "src-28ab8dae9eb94257ae7891adc60edfd7"
       ]
     },
     "pur-cdb4735a3b244438a2d4e72bf5b582e7": {
@@ -16623,7 +16624,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-56b5905ef743455fa0e61dd424f75261",
-        "src-962d5a905e244029954126c9592bc1f9"
+        "src-962d5a905e244029954126c9592bc1f9",
+        "src-28ab8dae9eb94257ae7891adc60edfd7"
       ]
     },
     "amazon:112-4768090-1512212": {
@@ -35471,6 +35473,21 @@
       "proves": [],
       "verified_at": "2026-11-18",
       "note": "Exact-order shipment notification confirms the green wire coil shipped and corroborates the existing USD12.86 order value. Relative arrival wording does not establish delivery or dispatch date. No completed merchant payment is proved."
+    },
+    "src-28ab8dae9eb94257ae7891adc60edfd7": {
+      "vendor": "Amazon",
+      "document_type": "delivery_notification",
+      "reference": "112-6794186-7953808",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-18",
+      "note": "Exact-order delivery notification confirms the existing green wire coil is delivered. Relative today wording does not independently establish a delivery calendar date. No completed merchant payment or final tax is proved."
     }
   },
   "coverage": [
@@ -38393,12 +38410,14 @@
       ],
       "source_ids": [
         "src-56b5905ef743455fa0e61dd424f75261",
-        "src-962d5a905e244029954126c9592bc1f9"
+        "src-962d5a905e244029954126c9592bc1f9",
+        "src-28ab8dae9eb94257ae7891adc60edfd7"
       ],
-      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
+      "missing_fact": "Exact delivery calendar date, final tax and completed merchant charge/date remain unverified. Delivered fulfillment is confirmed.",
       "sources_checked": [
         "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026",
-        "Exact-order shipment notification received November 18, 2026"
+        "Exact-order shipment notification received November 18, 2026",
+        "Exact-order delivery notification received November 18, 2026"
       ]
     }
   ],

@@ -69,9 +69,9 @@ Both orders were placed November 16 with delivery estimated November 17. Receipt
 
 Print the current faucet base/shared tip for the selected style, organizer, both FLAVOR collars, both metric-bore FLAVOR chips and back-top with its 4 mm flavor sockets. These use acquired filament; no filament purchase is established for unit 1. Dated print archives and physical acceptance records identify their exact articles; they are not a substitute for the current geometry.
 
-## Green earth wire on order
+## Green earth wire
 
-One [MECCANIXITY green 16 AWG solid UL1007 wire coil](https://www.amazon.com/dp/B0FK5JHQW7), 25 ft, was ordered November 16 for $12.86 including estimated tax. The coil supplies the C14 inlet earth link and the carbonator vessel bond. Receipt and completed payment remain pending in the purchase ledger.
+One [MECCANIXITY green 16 AWG solid UL1007 wire coil](https://www.amazon.com/dp/B0FK5JHQW7), 25 ft, was ordered November 16 for $12.86 including estimated tax. The coil supplies the C14 inlet earth link and the carbonator vessel bond. Delivery is confirmed in the purchase ledger; the exact delivery date, final tax and completed payment remain unverified.
 
 ## Carbonator earth terminal
 
