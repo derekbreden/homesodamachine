@@ -16,11 +16,10 @@ Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-c
 
 ## Safety
 
-R-600a (isobutane) is flammable. A technician trained in A3 (flammable)
-refrigeration handles recovery, starting the conversion, pressure testing,
-evacuation, charging and final closure in a ventilated workspace with ignition
-sources controlled. Use equipment specified for the refrigerant and its
-operating pressures. Use recovery for the donor and the rebuilt loop. The
+R-600a (isobutane) is flammable. Sealed-system work requires training in
+flammable-refrigerant service and a ventilated workspace with ignition sources
+controlled. Confirm the R-600a service equipment and its pressure ratings before
+opening the donor. Use recovery for the donor and the rebuilt loop. The
 end-use scope of the venting exemption is recorded in
 [business/regulatory.md](/business/regulatory.md).
 [Secop hermetic service guide](https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf)
@@ -59,7 +58,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Dry purge and test gas | Gas, regulator and fixture qualified for their use | Prove an open sweep path for each heated segment. Use a regulated dry-inert test with a circuit-side gauge. |
 | BOJACK SF76E SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops — SF76E in series with the AC primary feeding the compressor, MQ-6 module on edge along the floor of the refrigeration bay's −X strip (see Safety section above) |
 
-The qualified A3 setup supplies the service instruments below. Owned tooling is recorded in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) in the refrigeration section:
+Confirm the complete R-600a bench kit before starting. The refrigeration section of the [purchase ledger](/hardware/ledger/purchases.md) records which tools are on hand.
 
 - **A3 service and recovery setup:** confirm process-tube access, recovery equipment and cylinder, hose and fittings for R-600a and the service pressures. Plan the final sealed closure before opening the donor.
 - **Cap-tube cutter** at the process-tube junction: Mastercool 70025

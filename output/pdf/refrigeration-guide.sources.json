@@ -23,7 +23,7 @@
   ],
   "pages": 44,
   "pdf": "refrigeration-guide.pdf",
-  "pdf_sha256": "201aa9c177fa884e013ca8aed6abfe4136f13deba97e90790bd4e795bb4d28ab",
+  "pdf_sha256": "ada70cd499c63115adbe48b2fed5c3a56486b31d05a4c936e89eeb7903996974",
   "print_layout": {
     "bleed_layer_scale": 1,
     "bleed_overhang_inches": 0.25,
@@ -42,7 +42,7 @@
     "hardware/assembly/enclosure-mechanical.md": "4e63ab1487c66adfc146e972cdd05a0cb7cf2a43bc7cadf5701c5d449d46008a",
     "hardware/assembly/firmware-and-commissioning.md": "921dbf83262e937a78fae56da71bd146185daf52ba8dc70442c834f709a9ca9d",
     "hardware/assembly/handwork.md": "7137ab1280a70f74ad863e8cf9391a843b7f012fee668eb497c9eed3ecdd1132",
-    "hardware/assembly/refrigerant-loop.md": "06dfb23ccaf5570ec09600edd61c63847a6864bbfe627f6f19b898f232ba9b1d",
+    "hardware/assembly/refrigerant-loop.md": "020b1cce2d5b6be377405504c7ec985b4d95ab0f1d5af69c108935349d42ecce",
     "hardware/cold-core-layout/assembly/numbers.rs": "d781623650c1e952f0a2274bafacce20a800953cfa41f31aacfd220ea69f7f29",
     "hardware/cold-core-layout/evaporator-coil-drawing.pdf": "5da4ceb26c2261cb68630a2ec344b9bfd70c8a1b87596cef2b9c6690695e0493",
     "hardware/guide-assets/fonts/PlexMono-Regular.ttf": "7639b1ca47f4a7dbd8191ba5e0f67ce57ba950a3d3e0c39c87c38bd1883935bb",
@@ -58,7 +58,7 @@
     "hardware/reference/compressor/README.md": "5292816e507a3f84e0dd127d58c10df2075af1b2e8f2c66eb83920ffe934b4d0",
     "hardware/reference/condenser-block/README.md": "54a25fa5cb1f2fcadeb6f8d09a6fc07f0f1d6290aad96997f11ad8b677f1c514",
     "hardware/reference/ice-maker/README.md": "999bedb12eae11d0bf9e1184b885e15aec5b75b1a268cead4d29fe3c03660c5a",
-    "hardware/refrigeration-guide/README.md": "926ac9c27032de429bf116e2a9a91948d29d0f874c8d38cc10dd2aa014a3625b",
+    "hardware/refrigeration-guide/README.md": "eac807b56ae4b196b44fcc8e92aaec3940931a9761cdf92007165e576fc29f4e",
     "hardware/refrigeration-guide/art/bare-wall-and-reed.png": "735408ad3ce39041229a9a080a42883b465761dad692051fe2066bf0f72658c1",
     "hardware/refrigeration-guide/art/coil-exits-before-foam.png": "0867225d1ee481644b2ebbbde2b3d71f71bb31d50e66cfe9b10adafa80d5409a",
     "hardware/refrigeration-guide/art/coil-probe-contact.png": "187247eb63e66e2f1268d3682b30afad1e55fbd2ba6fc33374dbfdd3e745e6be",
@@ -74,7 +74,7 @@
     "hardware/refrigeration-guide/art/mq6-installed-cradle.png": "147d282eeb0cfd1abfb7162e70bee4e7ab524549207fe719010b7a057b19cb4e",
     "hardware/refrigeration-guide/art/render-jobs.json": "ce40dde3f79faf3367b9c8fce2fc679b2ae6e667f8bcf4bbcca8b28950cc651b",
     "hardware/refrigeration-guide/art/winding-mandrel.png": "8b97c82db8144632c2bc61f0a7989e5d0c1aa3b5678578f3734a777b768c46d6",
-    "hardware/refrigeration-guide/pages.json": "605c93ee2286cba51905c424ac22e05902f2c00bcbe06fff3697023d9976e8eb",
+    "hardware/refrigeration-guide/pages.json": "6e135f74b9d5c4cb40a11e4bd8754abbd7141861a18e3e363f7c5f0b795eb939",
     "tools/assembly-guides/guide.rs": "12aebe168f6c98842d1e98ab022a1b1852b42ad94fec0e3c18d2458e116d15d7",
     "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea"
   }
