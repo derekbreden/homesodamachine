@@ -1,0 +1,97 @@
+{
+  "purpose": "This records the focused valve packaging observations against the native head export.",
+  "date": "2026-11-18",
+  "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
+  "payload_sha256": "630862a09c834503843ccf5539e786e60a8bc31f5d0ef1805dc7fad03004a82e",
+  "step_sha256": "6343a3e8edeb43701ff8313b7505bcf94c7c591bac23a41b9dfb60943a2355ec",
+  "head_shell_tip_frame": {
+    "axis_order": [
+      "across",
+      "back along tip",
+      "out through display"
+    ],
+    "units": "mm",
+    "min": [
+      -26,
+      -48,
+      -65
+    ],
+    "max": [
+      26,
+      112.52001021330442,
+      52.45000000052892
+    ]
+  },
+  "stem_extension_mm": 80,
+  "head_soda_hose_centerline_bend_radius_mm": 40.302,
+  "docked_nozzle_lowest_z_mm": 175.7581024169922,
+  "observations": [
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_pressurized_soda_hose"
+      ],
+      "intersection_volume_mm3": 8.546318479716249e-9
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_ODE_12V_12W_coil"
+      ],
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_DIN_connector_envelope"
+      ],
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_short_post_valve_nozzle"
+      ],
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_faucet_display"
+      ],
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_valve_power_pair"
+      ],
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_DIN_connector_envelope",
+        "head_pressurized_soda_hose"
+      ],
+      "clearance_mm": 1.1998830454896265,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_faucet_display",
+        "head_pressurized_soda_hose"
+      ],
+      "clearance_mm": 3.8504684999486978,
+      "intersection_volume_mm3": 0
+    }
+  ],
+  "scope": "The valve and plug are dimensional envelopes. These selected clearances do not qualify a printable assembly, food-contact certification, hose termination, firmware, fluid behavior or physical fit."
+}
