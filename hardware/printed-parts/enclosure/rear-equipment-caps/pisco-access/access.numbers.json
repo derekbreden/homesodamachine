@@ -1,0 +1,840 @@
+{
+  "combined": [
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 98.49422661019373,
+      "translation_mm": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 262.3479740949117,
+      "translation_mm": [
+        -2.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 373.5539349660701,
+      "translation_mm": [
+        -3.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 411.2683085515001,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 411.2683085515001,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 309.8251777419419,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 256.33756431925076,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -2.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 258.25864720358186,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -3.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 258.2586472035815,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -4.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 7.092147768810578
+        }
+      ],
+      "receiver_intersection_mm3": 221.36406810578606,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -5.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 54.655659775988404
+        }
+      ],
+      "receiver_intersection_mm3": 124.30552214353284,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -6.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 132.90159242652862
+        }
+      ],
+      "receiver_intersection_mm3": 53.660896487006546,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -7.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 173.06931567492146
+        }
+      ],
+      "receiver_intersection_mm3": 49.74008524430202,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -8.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 188.47491704290024
+        }
+      ],
+      "receiver_intersection_mm3": 46.63357161038847,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -9.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 188.1500793826761
+        }
+      ],
+      "receiver_intersection_mm3": 43.88365943626141,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -10.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 183.0829909126468
+        }
+      ],
+      "receiver_intersection_mm3": 42.49858332130623,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -11.0
+      ]
+    },
+    {
+      "hardware": [
+        {
+          "part": "digiten-flow",
+          "volume_mm3": 173.99537824508013
+        }
+      ],
+      "receiver_intersection_mm3": 42.480060966156934,
+      "translation_mm": [
+        -4.0,
+        0.0,
+        -12.0
+      ]
+    }
+  ],
+  "hardware_entry": [
+    {
+      "fore_mm": 0,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 1,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 2,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 3,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 4,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 5,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 6,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 7,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 8,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 9,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 10,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 11,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 12,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 13,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 14,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 15,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 16,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 17,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 18,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 19,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 20,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 21,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 22,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 23,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 24,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 25,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 26,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 27,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 28,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 29,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 30,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 31,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 32,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 33,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 34,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 35,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 36,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 37,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 38,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 39,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 40,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 41,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 42,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 43,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 44,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 45,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 46,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 47,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 48,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 49,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 50,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 51,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 52,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 53,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 54,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 55,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 56,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 57,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 58,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 59,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 60,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 61,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 62,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 63,
+      "receiver_intersection_mm3": 0.0
+    },
+    {
+      "fore_mm": 64,
+      "receiver_intersection_mm3": 0.0
+    }
+  ],
+  "purpose": "These sampled moves compare access through the retained receiver geometry. Exploded views separate the parts for inspection and do not describe an installation move.",
+  "separate": [
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -2.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -3.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -4.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -5.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -6.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -7.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -8.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -9.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -10.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -11.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -12.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -13.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -14.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -15.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -16.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -17.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -18.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -19.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -20.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -21.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -22.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -23.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -24.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -25.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -26.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -27.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -28.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -29.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -30.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -31.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -32.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -33.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -34.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -35.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -36.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -37.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -38.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -39.0
+      ]
+    },
+    {
+      "hardware": [],
+      "receiver_intersection_mm3": 0.0,
+      "translation_mm": [
+        0.0,
+        0.0,
+        -40.0
+      ]
+    }
+  ]
+}

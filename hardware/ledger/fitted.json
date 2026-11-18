@@ -415,6 +415,13 @@
       "said": "It does work.",
       "tried": "the paired east-side coupons with the rounded rear alignment joint, slid together by hand",
       "record": "https://github.com/derekbreden/homesodamachine/blob/56f6ca939d519c4271fe137e4eca6c2be5f245d1/hardware/print-tests/rear-alignment-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-18",
+      "said": "one minor detail I'll mention, the new chamfered wing tip retainer snap works (e.g. what we have on both sides of the pisco), so we don't don't need those overhangs, wherever you put the wings, the channel for the tips can have that angling.",
+      "tried": "the chamfered wing-tip catches used on both sides of the Pisco snap",
+      "record": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-17-single-pisco-mark2/physical-result.json"
     }
   ]
 }

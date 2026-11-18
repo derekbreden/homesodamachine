@@ -1,0 +1,104 @@
+[
+  {
+    "step": "printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step",
+    "out": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover.png",
+    "size": "1000x1100",
+    "cam": [
+      -1,
+      -1,
+      -0.25
+    ],
+    "target": [
+      76,
+      432,
+      310
+    ],
+    "span": 60,
+    "ground": false,
+    "fog": false,
+    "edges": true,
+    "annotate": true,
+    "labels": false,
+    "grid": false,
+    "title": "Separate L cover",
+    "caption": [
+      "Orange: removable cover. Blue: fixed receiver."
+    ]
+  },
+  {
+    "step": "printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-seated.step",
+    "out": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover.png",
+    "size": "1000x1100",
+    "cam": [
+      -1,
+      -1,
+      -0.25
+    ],
+    "target": [
+      76,
+      432,
+      310
+    ],
+    "span": 60,
+    "ground": false,
+    "fog": false,
+    "edges": true,
+    "annotate": true,
+    "labels": false,
+    "grid": false,
+    "title": "Shared Pisco and meter cover",
+    "caption": [
+      "Orange: removable cover. Blue: fixed receiver."
+    ]
+  },
+  {
+    "step": "printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-exploded.step",
+    "out": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-exploded.png",
+    "size": "1400x1100",
+    "cam": [
+      -1,
+      -1,
+      0.1
+    ],
+    "target": [
+      57,
+      427,
+      317
+    ],
+    "span": 65,
+    "ground": false,
+    "fog": false,
+    "edges": true
+  },
+  {
+    "step": "printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step",
+    "out": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/l-section.png",
+    "size": "1000x950",
+    "cam": [
+      0,
+      -1,
+      0
+    ],
+    "target": [
+      76,
+      443,
+      333
+    ],
+    "span": 25,
+    "ground": false,
+    "fog": false,
+    "edges": true,
+    "only": [
+      "receiver",
+      "separate-l-cover"
+    ],
+    "context": "hide",
+    "clip": [
+      {
+        "axis": "y",
+        "lo": 443,
+        "hi": 468
+      }
+    ]
+  }
+]
