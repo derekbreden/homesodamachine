@@ -1,6 +1,6 @@
 {
   "purpose": "Bind the paired rear alignment coupons to the job accepted by Mark1.",
-  "status": "running",
+  "status": "completed",
   "printer": "Mark1",
   "connection_key": "H2C",
   "printer_task_id": "1456982811",
@@ -32,5 +32,6 @@
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
   "startup_status": "startup-status.json",
-  "printing_status": "printing-status.json"
+  "printing_status": "printing-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
