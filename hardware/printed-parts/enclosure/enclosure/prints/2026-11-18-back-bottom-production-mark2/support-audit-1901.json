@@ -17,12 +17,12 @@
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
-    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.gcode.3mf plate_1.gcode, object 1901",
-    "gcode_sha256": "0cd16944514d8ce01d7710868dee2eb0cc8fd40475d4b9a4086a9eafc0aa29a1",
+    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-    "model_sha256": "d48e422f5d3d0a298e36f7edf006ef72da4a8bbc5021173d489129bf0e836859",
-    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.3mf",
-    "profile_sha256": "dab46ad4b03887c4fc4323768b7e020a86b689270d861bc521c6b1d4ad7ccd20"
+    "model_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
+    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf",
+    "profile_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9"
   },
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
   "interfaces": [
@@ -171,7 +171,7 @@
       "first_z_mm": 174.68,
       "id": "interface-7",
       "last_z_mm": 175.16,
-      "tree": "tree-1"
+      "tree": "tree-2"
     },
     {
       "bbox_cad_xyz_mm": [
@@ -192,7 +192,7 @@
       "first_z_mm": 174.68,
       "id": "interface-8",
       "last_z_mm": 175.16,
-      "tree": "tree-2"
+      "tree": "tree-1"
     },
     {
       "bbox_cad_xyz_mm": [
@@ -209,7 +209,7 @@
         270.8,
         78.8
       ],
-      "build_up_mm": 32.16,
+      "build_up_mm": 8.16,
       "first_z_mm": 174.68,
       "id": "interface-9",
       "last_z_mm": 175.16,
@@ -246,6 +246,32 @@
     {
       "base_z_mm": 166.52,
       "bbox_cad_xyz_mm": [
+        98.9,
+        224.125,
+        160.52,
+        104.5,
+        456.525,
+        169.16
+      ],
+      "bbox_xy_mm": [
+        38.4,
+        276.4,
+        270.8,
+        282.0
+      ],
+      "first_interface_z_mm": 174.68,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-8"
+      ],
+      "root": "model",
+      "shortest_build_up_mm": 8.16,
+      "top_z_mm": 175.16
+    },
+    {
+      "base_z_mm": 166.52,
+      "bbox_cad_xyz_mm": [
         -104.7,
         329.725,
         160.52,
@@ -260,7 +286,7 @@
         78.8
       ],
       "first_interface_z_mm": 174.68,
-      "id": "tree-1",
+      "id": "tree-2",
       "interface_reading": "explicit_feature",
       "interfaces": [
         "interface-7"
@@ -272,41 +298,15 @@
     {
       "base_z_mm": 166.52,
       "bbox_cad_xyz_mm": [
-        98.9,
-        224.125,
-        160.52,
-        104.9,
-        455.725,
-        169.16
-      ],
-      "bbox_xy_mm": [
-        39.2,
-        276.4,
-        270.8,
-        282.4
-      ],
-      "first_interface_z_mm": 174.68,
-      "id": "tree-2",
-      "interface_reading": "explicit_feature",
-      "interfaces": [
-        "interface-8"
-      ],
-      "root": "model",
-      "shortest_build_up_mm": 8.16,
-      "top_z_mm": 175.16
-    },
-    {
-      "base_z_mm": 142.52,
-      "bbox_cad_xyz_mm": [
         -104.7,
         224.125,
-        136.52,
+        160.52,
         -98.7,
-        320.525,
+        317.725,
         169.16
       ],
       "bbox_xy_mm": [
-        174.4,
+        177.2,
         72.8,
         270.8,
         78.8
@@ -318,7 +318,7 @@
         "interface-9"
       ],
       "root": "model",
-      "shortest_build_up_mm": 32.16,
+      "shortest_build_up_mm": 8.16,
       "top_z_mm": 175.16
     },
     {

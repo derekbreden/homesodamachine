@@ -5,8 +5,8 @@
   "printer": "Mark2",
   "connection_key": "Mark2",
   "status": "prepared",
-  "prepared_utc": "2026-11-18T18:53:10+00:00",
-  "source_revision": "3fde093aee5ec204d04d2e57ed77164e45bbec39",
+  "prepared_utc": "2026-11-18T22:17:28+00:00",
+  "source_revision": "0259387aaf2fb92d7a8c9e5c54cb8c80a0b93c04",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -28,23 +28,23 @@
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-  "source_stl_sha256": "d48e422f5d3d0a298e36f7edf006ef72da4a8bbc5021173d489129bf0e836859",
+  "source_stl_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
   "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-  "source_fine_archive_sha256": "32b8a437b231bd0a4bc4bfbb3bf4d599c6766d3bcdc0b90d3dad4cf62ec2a223",
+  "source_fine_archive_sha256": "dfc2482a1984d6dff155a26f8dcafdf76c37bf0c0fecec9ff23ef3333756e46c",
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "print_regions_sha256": "d4e5bb5e095524f7b15c01f8b96963e9a97baa75fff77cbdee610a43c89d0337",
-  "archive": "2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.gcode.3mf",
-  "archive_sha256": "cb877efdbbe1c5c02ad99b9089d5f645f456c8900450d6d82193703f6bf84a51",
-  "gcode_sha256": "0cd16944514d8ce01d7710868dee2eb0cc8fd40475d4b9a4086a9eafc0aa29a1",
-  "project": "2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.3mf",
-  "project_sha256": "dab46ad4b03887c4fc4323768b7e020a86b689270d861bc521c6b1d4ad7ccd20",
+  "print_regions_sha256": "f05d221d39c205037a28fe5f775ed66d93ee6d6e827307d57cbcbd06bf480feb",
+  "archive": "2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
+  "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
+  "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
+  "project": "2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf",
+  "project_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9",
   "preparation": "preparation.json",
   "native_review": "review.json",
   "support_audits": [
     "support-audit-1901.json"
   ],
   "layers": 765,
-  "estimated_seconds": 112452.03103290791,
+  "estimated_seconds": 112045.73239342646,
   "minimum_bead_bed_margin_mm": 20.493778000000002,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
@@ -76,10 +76,9 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 256275
+      "vertices": 256261
     }
   ],
-  "replay_sha256": "09a87de0840a4b8036351cc95e91522de381cbc014b0123c860fd6a6aad705f5",
-  "replay": "print-playbacks/09a87de0840a4b8036351cc95e91522de381cbc014b0123c860fd6a6aad705f5.json.gz",
-  "west_vent_support": "The narrow branch at the vent ramp is accessible through the exterior mouth and from above before assembly. The long bearing support starts on the cavity floor."
+  "replay_sha256": "48f791ab6e96462064516e4a1d842075e8f476692173ec9ca876f5053732a620",
+  "replay": "print-playbacks/48f791ab6e96462064516e4a1d842075e8f476692173ec9ca876f5053732a620.json.gz"
 }

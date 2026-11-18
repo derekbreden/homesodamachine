@@ -1,24 +1,24 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.gcode.3mf",
-  "archive_sha256": "cb877efdbbe1c5c02ad99b9089d5f645f456c8900450d6d82193703f6bf84a51",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
+  "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
   "bed_type": "Textured PEI Plate",
   "brim_allowance_mm": 0.0,
   "connection_key": "Mark2",
   "cooling_recovery": {
-    "added_commanded_motion_seconds": 26962.44509540791,
-    "archive_sha256": "cb877efdbbe1c5c02ad99b9089d5f645f456c8900450d6d82193703f6bf84a51",
+    "added_commanded_motion_seconds": 26847.341768426457,
+    "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
     "changed": true,
     "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
-    "input_archive_sha256": "16c4381ab8760eb68802e9a939a6369390260fca48b54d81a91f458f9c6a5ee7",
+    "input_archive_sha256": "deee314a4fb0cc1ae4d68b0053d858ccc86c85ccd0f2370c635f265649b32eeb",
     "members": [
       {
-        "added_commanded_motion_seconds": 26962.44509540791,
+        "added_commanded_motion_seconds": 26847.341768426457,
         "changed": true,
-        "input_gcode_sha256": "d9467b4dd0932ea0f362083a92fd9b52e6ad67f5d8fa274cd944923dc817901a",
+        "input_gcode_sha256": "109e3773477ae26add1624d95e59a6697b63d7501c70f7b53454f4a0c1f1b192",
         "member": "Metadata/plate_1.gcode",
-        "native_cooled_seed_moves": 5414,
-        "ordinary_model_moves": 4933799,
-        "output_gcode_sha256": "0cd16944514d8ce01d7710868dee2eb0cc8fd40475d4b9a4086a9eafc0aa29a1",
+        "native_cooled_seed_moves": 5391,
+        "ordinary_model_moves": 4933393,
+        "output_gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
         "petgf_slots": [
           0
         ],
@@ -28,9 +28,9 @@
         },
         "recovery_by_feature": {
           "Floating vertical shell": [
-            1307.0,
-            10242.575011237128,
-            623.823616032881
+            1211.0,
+            10242.049034521402,
+            624.3311421786174
           ],
           "Gap infill": [
             205.0,
@@ -38,43 +38,43 @@
             7.504836641190345
           ],
           "Inner wall": [
-            2433.0,
-            8960.738819456785,
-            549.7717299021908
+            2412.0,
+            8017.601520355987,
+            491.90705658573836
           ],
           "Internal solid infill": [
-            9710.0,
-            401654.25296539575,
-            24796.091709469718
+            9624.0,
+            401653.8039759205,
+            24796.60433178726
           ],
           "Outer wall": [
-            7557.0,
-            20280.210398050258,
-            826.2670612271105
+            7536.0,
+            19334.94088157851,
+            767.9754410446855
           ],
           "Sparse infill": [
-            4375.0,
-            2591.3178472050363,
-            158.98614213495642
+            4374.0,
+            2591.852749229963,
+            159.01896018908093
           ]
         },
         "recovery_fan_percent": [
           "70"
         ],
-        "recovery_moves": 25587,
+        "recovery_moves": 25362,
         "recovery_speed_limit_mm_s": [
           "15",
           "15",
           "15"
         ],
         "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
-        "speed_limited_moves": 25558
+        "speed_limited_moves": 25333
       }
     ]
   },
   "emitted_textured_trim_mm": 0.02,
-  "estimated_seconds": 112452.03103290791,
-  "gcode_sha256": "0cd16944514d8ce01d7710868dee2eb0cc8fd40475d4b9a4086a9eafc0aa29a1",
+  "estimated_seconds": 112045.73239342646,
+  "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -108,11 +108,11 @@
         "bodies": 1,
         "boundary_edges": 0,
         "closed_oriented_single_body": true,
-        "edges": 768843,
+        "edges": 768801,
         "inconsistent_edges": 0,
         "nonmanifold_edges": 0
       },
-      "facets": 512562,
+      "facets": 512534,
       "features": [
         {
           "blocker_source_mm": [
@@ -449,7 +449,7 @@
       "regions": {
         "part_process_overrides": null,
         "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-        "record_sha256": "d4e5bb5e095524f7b15c01f8b96963e9a97baa75fff77cbdee610a43c89d0337"
+        "record_sha256": "f05d221d39c205037a28fe5f775ed66d93ee6d6e827307d57cbcbd06bf480feb"
       },
       "ribbons": [],
       "seam_enforcer": null,
@@ -460,7 +460,7 @@
       ],
       "step_sha256": null,
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-      "stl_sha256": "d48e422f5d3d0a298e36f7edf006ef72da4a8bbc5021173d489129bf0e836859",
+      "stl_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
       "support_free_regions": [],
       "support_targets": [
         {
@@ -608,7 +608,7 @@
       17.5
     ]
   },
-  "prepared_utc": "2026-11-18T18:53:10+00:00",
+  "prepared_utc": "2026-11-18T22:17:28+00:00",
   "printer": "Mark2",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_changes": {
@@ -637,8 +637,8 @@
     }
   },
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
-  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.3mf",
-  "project_sha256": "dab46ad4b03887c4fc4323768b7e020a86b689270d861bc521c6b1d4ad7ccd20",
+  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf",
+  "project_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9",
   "requested_z_trim_mm": 0.04,
   "settings_changes": {
     "curr_bed_type": {
