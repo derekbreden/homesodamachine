@@ -11,7 +11,7 @@ use crate::rear_wall::{
     label_channels, rail_bounds, rail_roots,
 };
 use crate::shapes::{place, rounded};
-use crate::shell::{DISPOSAL_EMBED, WALL, back_top_ceiling_face, shell};
+use crate::shell::{DISPOSAL_EMBED, WALL, shell};
 use crate::spec::Box;
 use crate::supports::supports;
 use crate::valves::{seat, valve};
@@ -31,14 +31,18 @@ const PILOT_RADIUS: f64 = 2.0;
 const PSU_HOLES: P2 = [16.5, 49.0];
 pub const RELAY_BAR_HALF: f64 = 5.0;
 
-/// The PSU's ceiling bosses root at this plane, the relays' bosses and bars this far into the
-/// west flank, and the valve seats this far into their flanks.
+/// The PSU's bosses outside the rear snap bay root at this plane, the relays' bosses and bars
+/// this far into the west flank, and the valve seats this far into their flanks.
 const PSU_ROOT_Z: f64 = 349.25;
 const RELAY_ROOT_X: f64 = -98.52;
 const SEAT_ROOT_X: f64 = 98.51;
 
 /// The rear wall's features on back-top, after its wells; `keep_clear` is the wells' pockets.
 pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>) -> Shape {
+    let bay = g.box_(crate::supports::ceiling_bay_bounds());
+    let bay = g.feature(bay, "rear-equipment-ceiling-pocket", "Rear equipment common ceiling pocket",
+                        &["discharge-chain", "gas-regulator", "digiten-flow"]);
+    piece = g.cut(piece, &[bay]);
     let wall = &layout().rear_wall;
     let relief = rounded(
         g,
@@ -105,7 +109,7 @@ pub fn c14_stock_bounds() -> Bounds {
         floor - plan.flange_pocket_depth_mm,
         floor + c14::PILOT_DEPTH,
         z - half_z - supported(),
-        (z + half_z).max(back_top_ceiling_face() + WALL),
+        (z + half_z).max(crate::supports::ceiling_anchor_z()),
     ]
 }
 
@@ -498,7 +502,9 @@ pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
                 0.0,
                 PILOT_RADIUS,
                 PILOT_DEPTH,
-                |p| [p[0], p[1], PSU_ROOT_Z],
+                |p| [p[0], p[1], if p[1] >= crate::supports::ceiling_bay_bounds()[2] {
+                    crate::supports::ceiling_anchor_z()
+                } else { PSU_ROOT_Z }],
             ),
         ),
         ("relay-1", relay(&parts.relay_1)),

@@ -763,12 +763,13 @@ the ASSE's west one. The ASSE's east pocket faces the Pisco across a narrow
 corridor and the Pisco's pockets face the ASSE and the east flank, so those
 three catches are corbels climbing the neck at the shell's teardrop roof slope;
 they print with neither support nor bridge inside support-free pockets, and
-their caps' hooks seat on the slope. The Pisco entry relief ends below a
-full-thickness fore end stop. The sideways meter host's fore end shoulder takes a
+their caps' hooks seat on the slope. A common ceiling recess over the ASSE and
+Pisco runs between the flanks and flush to the rear wall. Their receivers have
+plain end walls around the fitted passages and wing catches. The sideways meter host's fore end shoulder takes a
 support target beside its cap pocket. The aft shoulder sits under
 the Pisco receiver, where a tree would root in the Pisco's open wing slot, so a
-corbel off the east flank carries its top at the same slope. A second corbel
-off the flank carries the strip between the hook pocket and the flank. The
+corbel off the east flank carries its top at the same slope. The hook and wire
+pockets run flush to the flank. The
 front lip, the bar the cap's top wing rides over, takes a support target through
 the slot's open west side, where a screwdriver slides in along the bar and
 levers the support up off it. The target stops at the Pisco receiver: under it

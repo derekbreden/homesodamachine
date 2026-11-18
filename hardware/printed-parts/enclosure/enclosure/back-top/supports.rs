@@ -42,12 +42,11 @@ const NOSE_LAND: f64 = 1.6;
 /// How far past a cap's ends a turned run still counts toward the widest the cap clears.
 const CAP_OVERLAP: f64 = 0.25;
 /// The Pisco: its seat's split above its axis, its radial relief past running air, its cap's
-/// bearing fit and the bearing's length, and how far past the wings its fore flank exits open.
+/// bearing fit and the bearing's length.
 const PISCO_SPLIT_RISE: f64 = 7.0;
 const PISCO_RADIAL_RELIEF: f64 = 0.25;
 const PISCO_CAP_FIT: f64 = 0.15;
 const PISCO_BEARING_LENGTH: f64 = 3.0;
-const PISCO_SERVICE_FLANK: f64 = 3.2;
 /// The meter's air at its spring station, collar passages and wire chamber; its housing's fit;
 /// how far the soda union's stub may leave it aft of its station; and its seat's and cap's spans
 /// about its station.
@@ -98,7 +97,6 @@ mod meter {
     pub const PORT_COLLAR_RADIUS: f64 = 9.15;
     pub const WIRE_ROOT: P3 = [0.0, 14.8, 26.5];
     pub const WIRE_ROOT_WIDTH: f64 = 6.0;
-    pub const WIRE_ROOT_DEPTH: f64 = 3.0;
     pub const WIRE_BOSS_LEN: f64 = 1.5;
     pub const WIRE_DROP: f64 = 3.0;
     pub const UNDERSIDE_Y: f64 = -9.4;
@@ -200,21 +198,37 @@ pub fn supports(g: &mut Graph) -> [Shape; 4] {
     [asse(g), pisco(g), meter(g), regulator(g)]
 }
 
-/// The complete tip pockets stay open after the receivers join the enclosure ceiling and flank.
+/// The rear snap bay has one ceiling floor between the flanks and flush to the rear wall.
+pub fn ceiling_bay_bounds() -> Bounds {
+    let (asse, pisco) = (asse_station(), pisco_station());
+    let [west, east] = back_top_flank_face();
+    [west, east, asse.y0.min(pisco.y0) - running() - WALL, rear(),
+     back_top_ceiling_face() - INTO, ceiling_floor_z()]
+}
+
+/// The common ceiling floor clears the complete ASSE and Pisco wing points.
+pub fn ceiling_floor_z() -> f64 {
+    asse_station().ceiling.max(pisco_station().ceiling)
+}
+
+/// Ceiling-mounted stock reaches into the roof skin above the common pocket.
+pub fn ceiling_anchor_z() -> f64 {
+    ceiling_floor_z() + INTO
+}
+
+/// The meter and water regulator tip pockets stay clear through the stock they join.
 pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
     let mut cuts = Vec::new();
-    for (st, corbels) in [(asse_station(), ASSE_CORBELS), (pisco_station(), PISCO_CORBELS)] {
-        cuts.extend(tip_pockets(g, &st, corbels));
-    }
     let frame = &layout().parts.digiten_flow;
     let centre = frame.point([meter::BODY_CENTER_X, 0.0, meter::BODY_CENTER_Z]);
     let port = frame.point([0.0; 3]);
     let wx = |y| frame.point([meter::BODY_CENTER_X, y, meter::BODY_CENTER_Z])[0];
     let mx = wx(meter::FLANGE_Y) - METER_AIR;
     let ty = frame.translation_mm[1];
-    let st = station(0.0, port[2] + meter::PORT_COLLAR_RADIUS + METER_AIR - centre[2] + WALL,
+    let mut st = station(0.0, port[2] + meter::PORT_COLLAR_RADIUS + METER_AIR - centre[2] + WALL,
                      [ty + METER_CAP[0], ty + METER_CAP[1]], 0.0,
                      wx(meter::UNDERSIDE_Y) - METER_AIR - mx);
+    st.ceiling = side() - mx;
     for pocket in tip_pockets(g, &st, NO_CORBELS) {
         let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
         cuts.push(g.translate(pocket, [mx, 0.0, centre[2]]));
@@ -351,7 +365,7 @@ pub fn meter_lip_target() -> Bounds {
     [stock[0], stock[0] + s.bearing, cap[0] - a, pisco_station().y0 - a, lip - a, lip + a]
 }
 
-/// The upper hook pocket floor, from the lip's inner edge to the corbel at the flank.
+/// The upper hook pocket floor runs from the lip's inner edge flush to the flank.
 pub fn meter_hook_floor_target() -> Bounds {
     let (stock, cap, s) = meter_print_stock();
     let a = running();
@@ -405,8 +419,9 @@ fn meter_print_stock() -> (Bounds, P2, Station) {
     let mx = wx(meter::FLANGE_Y)-METER_AIR;
     let ty = frame.translation_mm[1];
     let cap = [ty+METER_CAP[0],ty+METER_CAP[1]];
-    let s = station(0.0,port[2]+meter::PORT_COLLAR_RADIUS+METER_AIR-centre[2]+WALL,
+    let mut s = station(0.0,port[2]+meter::PORT_COLLAR_RADIUS+METER_AIR-centre[2]+WALL,
                     cap,0.0,wx(meter::UNDERSIDE_Y)-METER_AIR-mx);
+    s.ceiling = side() - mx;
     ([mx,side()+INTO,ty+METER_SEAT[0],ty+METER_SEAT[1],centre[2]-s.outer,centre[2]+s.outer],cap,s)
 }
 
@@ -420,7 +435,7 @@ fn meter_wire_chamber_bounds() -> Bounds {
     let [fore, aft] = METER_FIT_SWEEP;
     let air = METER_AIR;
     [stock[0] - 1.0,
-     frame.point([meter::BODY_CENTER_X, meter::WIRE_ROOT[1] + meter::WIRE_ROOT_DEPTH / 2.0, meter::BODY_CENTER_Z])[0] + air,
+     side(),
      frame.point([-half, 0.0, 0.0])[1] - fore - air,
      frame.point([half, 0.0, 0.0])[1] + aft + air,
      (root[2] - meter::WIRE_DROP).min(centre[2] - station.neck),
@@ -452,20 +467,15 @@ fn pisco_station() -> Station {
             mouth[2] - REAR_ROOT_DROP)
 }
 
-/// Both flank pockets of one station: beside the ledge from the split to the bearing plane,
-/// beside the neck above it to the pocket's ceiling, less any corbel, and the round at the wing's
-/// root. The station's ends are the cap's shoulders.
+/// Each wing lane opens beside its ledge and into the catch room above it; the ends locate the cap.
 fn pockets(g: &mut Graph, s: &Station, corbels: [bool; 2]) -> Vec<Shape> {
     let a = running();
     let mut out = Vec::new();
     for (side, corbel) in [-1.0, 1.0].into_iter().zip(corbels) {
         let far = s.axis_x + side * (s.outer + 1.0);
         let ledge = s.axis_x + side * s.ledge;
-        let near = s.axis_x + side * (s.inner - s.root_radius - a);
-        for (edge, z0, z1) in [(ledge, s.split - 1.0, s.bearing), (near, s.root - a, s.root + s.root_radius + a)] {
-            let (x0, x1) = sorted(edge, far);
-            out.push(g.box_([x0, x1, s.y0 - a, s.y1 + a, z0, z1]));
-        }
+        let (x0, x1) = sorted(ledge, far);
+        out.push(g.box_([x0, x1, s.y0 - a, s.y1 + a, s.split - 1.0, s.bearing]));
         out.push(catch_pocket(g, s, side, corbel, [s.y0 - a, s.y1 + a]));
     }
     out
@@ -563,8 +573,7 @@ fn clearance_profile(profile: &[P2], radial: f64, axial: f64) -> Vec<P2> {
     kept
 }
 
-/// The ASSE chain's seat: its turned body and both wrenches' hexes, with a bevel at the lower
-/// fore corner for the neighbouring Pisco cap's service path.
+/// The ASSE chain's seat keeps plain end walls around its turned body, wrench flats and wing lanes.
 fn asse(g: &mut Graph) -> Shape {
     let frame = &layout().rear_plumbing.chain_frame;
     let (c, s) = (running(), slip());
@@ -588,13 +597,8 @@ fn asse(g: &mut Graph) -> Shape {
         let hex = hex_prism(g, axis, apothem + c, clock, [lo - SLIDE, hi], corner + c);
         room = g.union(room, &[hex]);
     }
-    let x = st.axis_x + st.neck + WALL;
-    let far = st.axis_x + st.outer + WALL + 1.0;
-    let corner = g.prism(1, st.y0 - c - WALL - 0.1, st.y0 + c,
-                         vec![[x, split - 0.1], [far, split - 0.1], [far, split + WALL], [x + WALL, split + WALL]]);
     let mut cuts = vec![room];
     cuts.extend(pockets(g, &st, ASSE_CORBELS));
-    cuts.push(corner);
     g.cut(stock, &cuts)
 }
 
@@ -618,8 +622,7 @@ fn bearing_profile(runs: &[P3], profile: &[P2], mouth_y: f64) -> Vec<P3> {
     out
 }
 
-/// The Pisco's seat: full receiver walls beside its widened passage, its cap's span from the
-/// outlet neck to a full rear end wall, and its fore flank exits open below the bearing plane.
+/// The Pisco's seat has plain end walls around the fitted passage and angled wing catches.
 fn pisco(g: &mut Graph) -> Shape {
     let frame = &layout().rear_plumbing.gas_frame;
     let c = running();
@@ -634,12 +637,8 @@ fn pisco(g: &mut Graph) -> Shape {
     let stock = g.box_([axis[0] - st.outer, axis[0] + st.outer, cap_y[0] - c - WALL, rear() + INTO, split,
                         ceiling() + INTO]);
     let room = turned(g, profile, axis);
-    let half = st.outer + PISCO_SERVICE_FLANK + c;
-    let service = g.box_([axis[0]-half,axis[0]+half,st.y0-c-WALL-1.0,st.y0+c,
-                          split-1.0,st.bearing-WALL]);
     let mut cuts = vec![room];
     cuts.extend(pockets(g, &st, PISCO_CORBELS));
-    cuts.push(service);
     g.cut(stock, &cuts)
 }
 
@@ -691,15 +690,13 @@ fn meter(g: &mut Graph) -> Shape {
     let ty = frame.translation_mm[1];
     let cap_y = [ty + METER_CAP[0], ty + METER_CAP[1]];
     let west = wx(meter::UNDERSIDE_Y);
-    let st = station(0.0, soda[1] + collar + air - mz + WALL, cap_y, 0.0, west - air - mx);
+    let mut st = station(0.0, soda[1] + collar + air - mz + WALL, cap_y, 0.0, west - air - mx);
+    st.ceiling = side() - mx;
     let wire = g.box_(meter_wire_chamber_bounds());
     cup = g.union(cup, &[wire]);
     let stock = g.box_([mx, side() + INTO, ty + METER_SEAT[0], ty + METER_SEAT[1], mz - st.outer, mz + st.outer]);
-    // The aft end shoulder stands under the Pisco receiver, where a tree would root in the
-    // Pisco's open slot, so a corbel off the flank carries its top instead. A second corbel
-    // carries the strip between the hook pocket and the flank, which would otherwise bridge
-    // the whole pocket's length.
-    let corbels: Vec<Shape> = [meter_aft_corbel(), meter_strip_corbel()].into_iter()
+    // The aft shoulder grows from the flank on its corbel, clear of the Pisco's entry.
+    let corbels: Vec<Shape> = [meter_aft_corbel()].into_iter()
         .map(|[x0, x1, y0, y1, top]| g.prism(1, y0, y1, vec![[x0, top], [x1, top], [x1, top + (x1 - x0) * corbel_slope()]]))
         .collect();
     let stock = g.union(stock, &corbels);
@@ -716,14 +713,6 @@ fn meter(g: &mut Graph) -> Shape {
 fn meter_aft_corbel() -> [f64; 5] {
     let (stock, cap, _) = meter_print_stock();
     [stock[0], stock[1], cap[1] + running(), stock[3], stock[5]]
-}
-
-/// The meter receiver's strip corbel: its west edge on the hook pocket's flank wall, out into
-/// the flank, from the fore shoulder's support into the aft corbel, and the stock's top it climbs
-/// from.
-fn meter_strip_corbel() -> [f64; 5] {
-    let (stock, cap, s) = meter_print_stock();
-    [stock[0] + s.ceiling, stock[1], cap[0] - 2.0 * running(), stock[3], stock[5]]
 }
 
 /// The water regulator's seat: built in its snap's frame round the measured profile, then turned
