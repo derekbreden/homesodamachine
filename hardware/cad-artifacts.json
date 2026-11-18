@@ -253,16 +253,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "e78babf977b3db9639c6ebe5f9aa37225d29ac221b581460436290f0782e4d38",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": "2efdc50cbb438c930dd2ded0c90d45b1f64dac06c187b08181357866e4620e4c",
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": "d4a852d3ee87e8dbd134c7f859a727d29d5a492f744dc6b5fd4fd1a6834c8103",
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": "a72d13deba1581357f4d85f4dae5d3576d66ea1e5084ee152176ae533b55956c",
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": "172b4888a694ca43716cb7b07782fb3f1196bed5b9405a3c4ed5f68ba8fde863",
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": "47ce368bf30a535af55547152d9375147943df05da36e22e79d8883747694596",
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "1ecfb18f79bd265253026d02b7224922f350e268d92fd322538bb983b1fb4b9d",
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": "2a6ca72765d757aaa0b41c476ad3e01bf79c13e41da8ce3dab85767025dfe892",
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": "900be16766b197853febd331fb9c08b730e0314bf736482722200407933ff000",
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": "47ce368bf30a535af55547152d9375147943df05da36e22e79d8883747694596",
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step": "66ab6808b98ab3bfcf3991f7750f249e75ba4679c825fc66e5d0c3213c8e675c",
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step.mesh": "af89e9db914c5c218aab7570f3fee9e5a2c1cb14a32aee332749e8ceadcc2314",
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.stl": "a67999740b0427640b72fc16815044c4d3af8feff4bdd61d68a12bc24b1f93b4",
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": "7f1419cbd97030abfb7b7950e19958cdb8956925f76356ad31664e3ba6268ab9",
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": "e78dc579f1764a570ca3b3ad86de2ea617d75212a25f10e55c7d15d0c688c87d",
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": "45d79c48b76bd73e2519f9e50366584d9b68bdee32eaac3d6fd317a5f5edf323",
@@ -2904,16 +2895,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1795023133.697622,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step": 1791257167,
     "hardware/printed-parts/enclosure/enclosure/magnet-retention/section.step.mesh": 1791257167,
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": 1795017520.93376,
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": 1795018142.298728,
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": 1795018147.350144,
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795023682.874484,
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": 1795018768.078483,
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": 1795018762.192315,
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": 1795018768.078483,
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step": 1795019139.574034,
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step.mesh": 1795019133.054593,
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.stl": 1795019139.574034,
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": 1795019139.574034,
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": 1795019133.054593,
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": 1795019139.574034,
@@ -4401,49 +4383,10 @@
       "commit": "043895a6006fa4937594ff24c13b32e83e1c4b25",
       "unproven": true
     },
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step": {
-      "commit": "22f9d8537025a2af2aee1c45151284b39412851b",
-      "inputs": "e81f6f39dca27a149bc935d25c847df61689a9e1b9f8596b7d2ba6a2e9dcd3a1",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.step.mesh": {
-      "commit": "1c7b21435e39e78d497369d328d9a14e4b2adf77",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/condenser-screw-spacer.stl": {
-      "commit": "ed28eee0b2bc883955b4192c76efb56748c5c87d",
-      "unproven": true
-    },
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
       "commit": "3adda619c162d58d32437a6f13ad297f17922fee",
       "inputs": "16a6fa4d8a91c1141607ba2f45ba7f7dae3db57deef3570d5735abc70f6b4708",
       "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step": {
-      "commit": "3d42ac39371c3b57bdc907f93ceaa6f5ff3fefb5",
-      "inputs": "712c5d7bfbf359653627841b38244ce60f1f3dde5677baf313b2350a9285efa5",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step.mesh": {
-      "commit": "18d8aa4e03deb5ad54b4c4fcb3c6ce8d1c758913",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/m3-screw-spacer.stl": {
-      "commit": "3d42ac39371c3b57bdc907f93ceaa6f5ff3fefb5",
-      "inputs": "712c5d7bfbf359653627841b38244ce60f1f3dde5677baf313b2350a9285efa5",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step": {
-      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step.mesh": {
-      "commit": "65d07449614b3d52215e65fdae0572d8a43df042",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.stl": {
-      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9"
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": {
       "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
