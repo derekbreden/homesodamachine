@@ -799,7 +799,7 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "b8f7e2cb5ea9a11a87d6d37b6dc18bf2a53ac9cb5fcfe8acff73f6dd4455727b",
+    "sha256": "399eaa61637151af01f9208c37a3c05050a9a870e40499b46f278c726a08f501",
     "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-top-rail-supports-mark1/enclosure-back-top-rail-supports-textured-z004-mark1.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
