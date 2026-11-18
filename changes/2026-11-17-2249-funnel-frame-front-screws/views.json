@@ -1,0 +1,189 @@
+{
+  "views": [
+    {
+      "name": "front-screws",
+      "caption": "A second screw on each front flank draws the relieved flange down along its length.",
+      "before": "front-screws-before.webp",
+      "after": "front-screws-after.webp",
+      "width": 1320,
+      "height": 720,
+      "marks": [
+        {
+          "x": 181.7,
+          "y": 248.4,
+          "r": 25.7,
+          "label": "Added screw",
+          "at": [
+            -93,
+            168,
+            354.8
+          ]
+        },
+        {
+          "x": 1138.3,
+          "y": 248.4,
+          "r": 25.7,
+          "label": "Added screw",
+          "at": [
+            93,
+            168,
+            354.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          0,
+          40.15308067454528,
+          942.5939962525263
+        ],
+        "target": [
+          0,
+          147,
+          349
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 70,
+        "near": 440.7368096997452,
+        "far": 1094.1315045117972,
+        "aspect": 1.8333333333333333
+      },
+      "highlight": [
+        "funnel-frame"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "funnel-frame",
+        "funnel-frame-front-*-screw"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "7d11776ed5e9d79e89b39123dea3bd580f81fc7c7a02fb815f34ff11172c13f0",
+          "commit": "99a5d58980036f087f4a2f9baf7c6ffd4b1e324e",
+          "taken": "2026-11-18T04:37:58.543Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9bcb1d0b3faef54a80c2c70b194a8a4dcfc59af789d8fc68fe23a4d6949cf1fe",
+          "commit": "d1523ad6fc4c857c59480f367e1a5ff9dbf2d0da",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame-front-aft-east-screw",
+        "funnel-frame-front-aft-west-screw",
+        "funnel-frame-front-aft-east-insert",
+        "funnel-frame-front-aft-west-insert",
+        "enclosure-front-top",
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "ledge-section",
+      "caption": "The new screw seats in the frame and threads into a heat-set insert in the front-top ledge.",
+      "before": "ledge-section-before.webp",
+      "after": "ledge-section-after.webp",
+      "width": 1200,
+      "height": 800,
+      "marks": [
+        {
+          "x": 573.3,
+          "y": 400,
+          "r": 133.3,
+          "label": "Insert ledge",
+          "at": [
+            93,
+            168,
+            343
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          94,
+          -435.133564441894,
+          343
+        ],
+        "target": [
+          94,
+          168,
+          343
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 15,
+        "near": 336.5524456276768,
+        "far": 989.9471404397286,
+        "aspect": 1.5,
+        "section": {
+          "at": [
+            93,
+            167.999992,
+            345
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "funnel-frame"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "funnel-frame",
+        "funnel-frame-front-aft-east-screw",
+        "funnel-frame-front-aft-east-insert"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "7d11776ed5e9d79e89b39123dea3bd580f81fc7c7a02fb815f34ff11172c13f0",
+          "commit": "99a5d58980036f087f4a2f9baf7c6ffd4b1e324e",
+          "taken": "2026-11-18T04:37:58.543Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9bcb1d0b3faef54a80c2c70b194a8a4dcfc59af789d8fc68fe23a4d6949cf1fe",
+          "commit": "d1523ad6fc4c857c59480f367e1a5ff9dbf2d0da",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame-front-aft-east-screw",
+        "funnel-frame-front-aft-west-screw",
+        "funnel-frame-front-aft-east-insert",
+        "funnel-frame-front-aft-west-insert",
+        "enclosure-front-top",
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
