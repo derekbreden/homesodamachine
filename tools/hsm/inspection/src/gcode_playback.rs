@@ -5,6 +5,7 @@ use anyhow::{Context, Result, ensure};
 use clap::Args;
 use hsm_print_prep::motion::{Motion, Move, distance, read};
 use hsm_print_prep::profile::{SETTINGS_MEMBER, first_text};
+use hsm_print_prep::support_stock::StockMoves;
 use hsm_print_prep::xml;
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -225,6 +226,21 @@ fn mark_infill(motion: &mut Motion, round_height: Option<f64>) {
     }
 }
 
+fn mark_support_stock(motion: &mut Motion, stock: &StockMoves) {
+    if stock.is_empty() {
+        return;
+    }
+    let mut support = motion.features.iter().position(|name| name == "Support");
+    for movement in &mut motion.moves {
+        if movement.extrusion && stock.contains(movement.line) {
+            movement.feature = *support.get_or_insert_with(|| {
+                motion.features.push("Support".into());
+                motion.features.len() - 1
+            });
+        }
+    }
+}
+
 pub fn run(args: Options) -> Result<i32> {
     ensure!(
         args.speed.is_finite() && args.speed > 0.,
@@ -237,6 +253,7 @@ pub fn run(args: Options) -> Result<i32> {
     };
     let text = slice_text(&args.slice, args.plate)?;
     let gcode_sha256 = format!("{:x}", Sha256::digest(text.as_bytes()));
+    let stock = StockMoves::beside(&args.slice, text.as_bytes(), &gcode_sha256)?;
     let mut motion = read(&text, *selected.start(), *selected.end())?;
     let round_height = motion
         .features
@@ -245,6 +262,7 @@ pub fn run(args: Options) -> Result<i32> {
         .then(|| internal_bridge_height(&args.slice, &text))
         .flatten();
     mark_infill(&mut motion, round_height);
+    mark_support_stock(&mut motion, &stock);
     let origin = [motion.bed[0] / 2., motion.bed[1] / 2., 0.];
     let end_times: Vec<_> = motion
         .moves

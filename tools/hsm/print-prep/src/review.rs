@@ -14,6 +14,7 @@
 
 use crate::gcode::{self, Road, MODEL, WALLS};
 use crate::mesh::Mesh;
+use crate::support_stock::StockMoves;
 use crate::{audit, npz, profile, sha256_hex, xml};
 use anyhow::{bail, Context, Result};
 use serde_json::{json, Map, Value};
@@ -82,7 +83,7 @@ fn attribute_values<'a>(text: &'a str, key: &'a str) -> impl Iterator<Item = &'a
 }
 
 /// The vertices and triangles a Bambu object member holds.
-fn object_mesh(text: &str) -> (Vec<[f64; 3]>, Vec<[usize; 3]>) {
+pub(crate) fn object_mesh(text: &str) -> (Vec<[f64; 3]>, Vec<[usize; 3]>) {
     let mut vertices = Vec::new();
     for chunk in text.split("<vertex ").skip(1) {
         let end = chunk.find('>').unwrap_or(chunk.len());
@@ -623,14 +624,14 @@ pub fn section_spans(triangles: &[[[f64; 3]; 3]], z: f64, offset: [f64; 2], pad:
 /// A cross-section at height `z`: its boundary segments, read by even-odd crossings. A plane
 /// through mesh vertices is read just above them, where the count cannot take a hole's loop for
 /// the section.
-struct Section {
+pub(crate) struct Section {
     segments: Vec<[[f64; 2]; 2]>,
     row: f64,
     rows: HashMap<i64, Vec<usize>>,
 }
 
 impl Section {
-    fn new(triangles: &[[[f64; 3]; 3]], z: f64) -> Section {
+    pub(crate) fn new(triangles: &[[[f64; 3]; 3]], z: f64) -> Section {
         let z = if triangles.iter().any(|t| t.iter().any(|p| (p[2] - z).abs() < 1e-7)) { z + 1e-5 } else { z };
         let mut segments = Vec::new();
         for t in triangles {
@@ -657,7 +658,7 @@ impl Section {
         Section { segments, row, rows }
     }
 
-    fn contains(&self, p: [f64; 2]) -> bool {
+    pub(crate) fn contains(&self, p: [f64; 2]) -> bool {
         let mut inside = false;
         for &i in self.rows.get(&((p[1] / self.row).floor() as i64)).into_iter().flatten() {
             let [a, b] = self.segments[i];
@@ -669,6 +670,22 @@ impl Section {
             }
         }
         inside
+    }
+
+    /// Whether a road touches or crosses the section's boundary.
+    pub(crate) fn meets_boundary(&self, a: [f64; 2], b: [f64; 2]) -> bool {
+        let row = |y: f64| (y / self.row).floor() as i64;
+        let side = |p: [f64; 2], q: [f64; 2], r: [f64; 2]| {
+            (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0])
+        };
+        (row(a[1].min(b[1]))..=row(a[1].max(b[1]))).any(|y| {
+            self.rows.get(&y).into_iter().flatten().any(|&i| {
+                let [p, q] = self.segments[i];
+                (0..2).all(|k| a[k].min(b[k]) <= p[k].max(q[k]) && p[k].min(q[k]) <= a[k].max(b[k]))
+                    && side(a, b, p) * side(a, b, q) <= 0.
+                    && side(p, q, a) * side(p, q, b) <= 0.
+            })
+        })
     }
 
     /// Whether any boundary lies within `r` of `p`.
@@ -693,7 +710,7 @@ impl Section {
     }
 }
 
-fn box_triangles(lo: [f64; 3], hi: [f64; 3]) -> Vec<[[f64; 3]; 3]> {
+pub(crate) fn box_triangles(lo: [f64; 3], hi: [f64; 3]) -> Vec<[[f64; 3]; 3]> {
     let ([x0, y0, z0], [x1, y1, z1]) = (lo, hi);
     let v = [[x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0], [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]];
     [[0, 2, 1], [0, 3, 2], [4, 5, 6], [4, 6, 7], [0, 1, 5], [0, 5, 4], [1, 2, 6], [1, 6, 5], [2, 3, 7], [2, 7, 6], [3, 0, 4], [3, 4, 7]]
@@ -830,7 +847,7 @@ fn check_span(layers: &[(f64, f64)], name: &Value, low: f64, high: f64, target: 
 /// Solid-host infill inside each posed modifier: the share of its section an object's model
 /// beads cover, through the infill core a bead radius inside the section's edge, and through the
 /// whole section.
-fn dense_regions(root: &Path, preparation: &Value, gcode: &[u8]) -> Result<Vec<Value>> {
+fn dense_regions(root: &Path, preparation: &Value, gcode: &[u8], stock: &StockMoves) -> Result<Vec<Value>> {
     struct Row { object: i64, record: usize, modifier: usize, samples: Vec<Value> }
     let objects = preparation["objects"].as_array().cloned().unwrap_or_default();
     let mut meshes: HashMap<i64, Vec<[[f64; 3]; 3]>> = HashMap::new();
@@ -863,7 +880,7 @@ fn dense_regions(root: &Path, preparation: &Value, gcode: &[u8]) -> Result<Vec<V
         return Ok(Vec::new());
     }
     let mut stop = false;
-    gcode::layers(gcode, |layer| {
+    gcode::layers_with_stock(gcode, stock, |layer| {
         if stop || wanted.is_empty() {
             stop = true;
             return;
@@ -984,6 +1001,8 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
     };
     let bed_layer_height: Option<f64> = settings["initial_layer_print_height"].as_str().and_then(|v| v.parse().ok());
     let gcode = gcode::plate_gcode(&archive)?;
+    let gcode_digest = sha256_hex(&gcode);
+    let stock = StockMoves::from_preparation(&archive, &preparation, &gcode, &gcode_digest)?;
     let md5 = {
         let mut zip = zip::ZipArchive::new(std::fs::File::open(&archive)?)?;
         let mut text = String::new();
@@ -1031,7 +1050,7 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
     let mut previous: Option<Beads> = None;
     let mut first_two: BTreeMap<i64, Vec<(Beads, Vec<Capsule>)>> = BTreeMap::new();
     let mut problem: Option<anyhow::Error> = None;
-    gcode::layers(&gcode, |layer| {
+    gcode::layers_with_stock(&gcode, &stock, |layer| {
         layers_seen += 1;
         let (z, height) = (layer.z, layer.height);
         if layer.roads.is_empty() {
@@ -1176,7 +1195,7 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
                 "pass": inside.iter().all(|&(z, h)| (h - 0.24).abs() < 0.001 || (z - 0.2).abs() < 0.001)}));
         }
     }
-    let dense = dense_regions(root, &preparation, &gcode)?;
+    let dense = dense_regions(root, &preparation, &gcode, &stock)?;
     let mut audits = Map::new();
     if audit_supports {
         for (oid, record) in &objects {
@@ -1185,10 +1204,10 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
                 piece: record["name"].as_str().unwrap_or("").to_string(), object: Some(*oid), include_unlabelled: true,
                 cad_transform: Some(plate_to_cad(record)), bed_reseat: None,
                 inputs: json!({"gcode": format!("{} plate_1.gcode, object {oid}", preparation["archive"].as_str().unwrap_or("")),
-                               "gcode_sha256": sha256_hex(&gcode), "model": record["stl"], "model_sha256": file_sha(&stl)?,
+                               "gcode_sha256": gcode_digest, "model": record["stl"], "model_sha256": file_sha(&stl)?,
                                "profile": preparation["project"], "profile_sha256": file_sha(&project)?}),
             };
-            let reading = audit::audit(&gcode, &options);
+            let reading = audit::audit_with_stock(&gcode, &options, &stock);
             save(&directory.join(format!("support-audit-{oid}.json")), &reading)?;
             audits.insert(oid.to_string(), reading["summary"].clone());
         }

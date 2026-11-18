@@ -2905,17 +2905,18 @@
       }
     }
   ],
-  "support_roads": 213730,
+  "support_roads": 230584,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,
-      "bodies_without_interface_labels": 1,
+      "bodies_without_interface_labels": 18,
       "explicit_interface_islands": 21,
       "interface_islands": null,
-      "model_rooted_bodies": 9,
+      "model_rooted_bodies": 26,
+      "removable_stock_moves": 16854,
       "shortest_build_up_mm": null,
       "shortest_labelled_build_up_mm": 7.09,
-      "support_bodies": 14
+      "support_bodies": 31
     }
   },
   "tie_window_support_crossings": []

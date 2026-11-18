@@ -18,6 +18,7 @@
 
 use anyhow::{bail, Context, Result};
 use hsm_print_prep::audit::{self, Transform};
+use hsm_print_prep::support_stock::StockMoves;
 use hsm_print_prep::{sha256_hex, slice, xml};
 use serde_json::json;
 use std::io::{Read, Write};
@@ -287,7 +288,9 @@ fn main() -> Result<()> {
         let cad = match &profile { Some(p) => profile_cad_transform(p)?, None => None };
         let options = audit::Options { piece: piece.clone(), object: None, include_unlabelled: unlabelled, cad_transform: cad, bed_reseat: None,
             inputs: inputs(path.file_name().unwrap().to_string_lossy().to_string(), &bytes)? };
-        audit::audit(&bytes, &options)
+        let digest = options.inputs["gcode_sha256"].as_str().context("G-code digest")?;
+        let stock = StockMoves::beside(path, &bytes, digest)?;
+        audit::audit_with_stock(&bytes, &options, &stock)
     };
     let encoded = serde_json::to_string_pretty(&result)? + "\n";
     if let Some(out) = json_out {

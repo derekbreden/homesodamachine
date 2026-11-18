@@ -32,6 +32,7 @@ pub mod seam;
 pub mod slice;
 pub mod sloped_courses;
 pub mod stretch_cooling;
+pub mod support_stock;
 pub mod tip_audit;
 pub mod tip_courses;
 pub mod tip_foundation;

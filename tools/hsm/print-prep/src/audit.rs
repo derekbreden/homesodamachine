@@ -6,6 +6,7 @@
 //! Support paths are marked on a grid in plan. Cells of one layer within a link distance are one
 //! node; a node joins the nodes of the support layer below it within the same distance.
 
+use crate::support_stock::StockMoves;
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 
@@ -236,10 +237,16 @@ pub struct Options {
 struct Node {
     z: f64,
     cells: Vec<Cell>,
+    authored: bool,
 }
 
 /// Read the support topology of `gcode`.
 pub fn audit(gcode: &[u8], options: &Options) -> Value {
+    audit_with_stock(gcode, options, &StockMoves::default())
+}
+
+/// Include the moves of solids declared removable in the bound preparation.
+pub fn audit_with_stock(gcode: &[u8], options: &Options, stock: &StockMoves) -> Value {
     let (mut tree_set, mut island_set) = (DisjointSet::default(), DisjointSet::default());
     let (mut tree_nodes, mut island_nodes): (Vec<Node>, Vec<Node>) = (Vec::new(), Vec::new());
     let mut island_tree_nodes: HashMap<usize, BTreeSet<usize>> = HashMap::new();
@@ -248,6 +255,8 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
     let (mut extrusion_height, mut support_height, mut interface_height): (Option<f64>, Option<f64>, Option<f64>) = (None, None, None);
     let mut z: Option<f64> = None;
     let (mut layer_total, mut layer_interface): (HashSet<Cell>, HashSet<Cell>) = (HashSet::new(), HashSet::new());
+    let mut layer_stock = HashSet::new();
+    let mut stock_moves = 0;
     let mut first_layer_z: Option<f64> = None;
     let (mut x, mut y, mut e) = (0.0, 0.0, 0.0);
     let (mut absolute, mut relative_e) = (true, true);
@@ -257,7 +266,7 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
     let mut current_object: Option<i64> = None;
     let mut settings_seen = 0usize;
 
-    let mut finish_layer = |z: Option<f64>, layer_total: &HashSet<Cell>, layer_interface: &HashSet<Cell>,
+    let mut finish_layer = |z: Option<f64>, layer_total: &HashSet<Cell>, layer_interface: &HashSet<Cell>, layer_stock: &HashSet<Cell>,
                             support_height: Option<f64>, interface_height: Option<f64>,
                             first_layer_z: &mut Option<f64>, previous_tree: &mut HashMap<Cell, usize>,
                             previous_island: &mut HashMap<Cell, usize>, previous_tree_z: &mut Option<f64>,
@@ -290,7 +299,8 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
             for cell in &cells {
                 tree_lookup.insert(*cell, node);
             }
-            tree_nodes.push(Node { z, cells });
+            let authored = !layer_stock.is_empty() && cells.iter().any(|cell| layer_stock.contains(cell));
+            tree_nodes.push(Node { z, cells, authored });
         }
         let mut island_lookup: HashMap<Cell, usize> = HashMap::new();
         for cells in components(layer_interface, INTERFACE_LINK_MM) {
@@ -303,7 +313,7 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
             for cell in &cells {
                 island_lookup.insert(*cell, node);
             }
-            island_nodes.push(Node { z, cells });
+            island_nodes.push(Node { z, cells, authored: false });
         }
         *previous_tree = tree_lookup;
         *previous_island = island_lookup;
@@ -311,7 +321,7 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
         *previous_island_z = if layer_interface.is_empty() { None } else { Some(z) };
     };
 
-    for raw in gcode.split(|b| *b == b'\n') {
+    for (index, raw) in gcode.split(|b| *b == b'\n').enumerate() {
         let text = String::from_utf8_lossy(raw);
         let line = text.trim();
         if let Some(rest) = line.strip_prefix("; ") {
@@ -329,11 +339,12 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
             }
         }
         if let Some(v) = line.strip_prefix("; Z_HEIGHT:") {
-            finish_layer(z, &layer_total, &layer_interface, support_height, interface_height, &mut first_layer_z,
+            finish_layer(z, &layer_total, &layer_interface, &layer_stock, support_height, interface_height, &mut first_layer_z,
                          &mut previous_tree, &mut previous_island, &mut previous_tree_z, &mut previous_island_z);
             z = v.trim().parse().ok();
             layer_total.clear();
             layer_interface.clear();
+            layer_stock.clear();
             support_height = None;
             interface_height = None;
             continue;
@@ -378,9 +389,14 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
         let nx = if absolute { get(b'X').unwrap_or(x) } else { x + get(b'X').unwrap_or(0.0) };
         let ny = if absolute { get(b'Y').unwrap_or(y) } else { y + get(b'Y').unwrap_or(0.0) };
         let de = if relative_e { get(b'E').unwrap_or(0.0) } else { get(b'E').unwrap_or(e) - e };
-        let support = matches!(feature.as_str(), "Support" | "Support transition" | "Support interface");
+        let authored = stock.contains(index + 1) && options.object.is_none_or(|o| current_object == Some(o));
+        let support = authored || crate::gcode::SUPPORT.contains(&feature.as_str());
         if z.is_some() && support && de > 1e-9 && ((nx - x).abs() > 1e-9 || (ny - y).abs() > 1e-9) {
             let interface = feature == "Support interface";
+            if authored {
+                stock_moves += 1;
+                layer_stock.insert((q(x), q(y)));
+            }
             if let Some(h) = extrusion_height {
                 support_height = Some(support_height.unwrap_or(0.0).max(h));
                 if interface {
@@ -408,18 +424,19 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
             e = if relative_e { e + v } else { v };
         }
     }
-    finish_layer(z, &layer_total, &layer_interface, support_height, interface_height, &mut first_layer_z,
+    finish_layer(z, &layer_total, &layer_interface, &layer_stock, support_height, interface_height, &mut first_layer_z,
                  &mut previous_tree, &mut previous_island, &mut previous_tree_z, &mut previous_island_z);
 
-    struct Tree { base: f64, top: f64, bbox: [f64; 4] }
+    struct Tree { base: f64, top: f64, bbox: [f64; 4], authored: bool }
     let mut trees_by_root: BTreeMap<usize, Tree> = BTreeMap::new();
     for (node, reading) in tree_nodes.iter().enumerate() {
         let root = tree_set.find(node);
         let b = bbox(&reading.cells);
-        let row = trees_by_root.entry(root).or_insert(Tree { base: reading.z, top: reading.z, bbox: b });
+        let row = trees_by_root.entry(root).or_insert(Tree { base: reading.z, top: reading.z, bbox: b, authored: false });
         row.base = row.base.min(reading.z);
         row.top = row.top.max(reading.z);
         row.bbox = merge(row.bbox, b);
+        row.authored |= reading.authored;
     }
     struct Island { first: f64, last: f64, bbox: [f64; 4], roots: BTreeSet<usize>, first_by_tree: BTreeMap<usize, f64>, order: usize }
     let mut islands: HashMap<usize, Island> = HashMap::new();
@@ -441,7 +458,9 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
     let reaching: Vec<usize> = if options.include_unlabelled {
         trees_by_root.keys().copied().collect()
     } else {
-        islands.values().flat_map(|i| i.roots.iter().copied()).collect::<BTreeSet<_>>().into_iter().collect()
+        islands.values().flat_map(|i| i.roots.iter().copied())
+            .chain(trees_by_root.iter().filter(|(_, tree)| tree.authored).map(|(&root, _)| root))
+            .collect::<BTreeSet<_>>().into_iter().collect()
     };
     let mut numbered = reaching.clone();
     numbered.sort_by(|a, b| {
@@ -496,8 +515,11 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
             "first_interface_z_mm": first.map(|f| r(f, 3)), "shortest_build_up_mm": build.map(|b| r(b, 3)),
             "top_z_mm": r(row.top, 3), "bbox_xy_mm": row.bbox,
             "interfaces": contacts.iter().map(|&i| interfaces[i]["id"].clone()).collect::<Vec<_>>()});
-        if options.include_unlabelled {
+        if options.include_unlabelled || row.authored {
             tree["interface_reading"] = json!(if contacts.is_empty() { "unlabelled" } else { "explicit_feature" });
+        }
+        if row.authored {
+            tree["declared_removable_stock"] = json!(true);
         }
         if let Some(t) = &options.cad_transform {
             tree["bbox_cad_xyz_mm"] = json!(transform_bbox([row.bbox[0], row.bbox[1], row.base, row.bbox[2], row.bbox[3], row.top], t));
@@ -528,8 +550,15 @@ pub fn audit(gcode: &[u8], options: &Options) -> Value {
                     "shortest_build_up_mm": shortest},
         "trees": trees, "interfaces": interfaces,
     });
-    if options.include_unlabelled {
-        result["interface_feature_policy"] = json!("All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.");
+    if options.include_unlabelled || stock_moves > 0 {
+        result["interface_feature_policy"] = json!(if options.include_unlabelled {
+            "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+        } else {
+            "Declared removable stock is retained; unlabelled interfaces have unknown contact count and build-up."
+        });
+        if stock_moves > 0 {
+            result["summary"]["removable_stock_moves"] = json!(stock_moves);
+        }
         let missing = result["trees"].as_array().unwrap().iter().filter(|t| t["interfaces"].as_array().is_some_and(Vec::is_empty)).count();
         let explicit = interfaces_len(&result);
         let summary = result["summary"].as_object_mut().unwrap();
