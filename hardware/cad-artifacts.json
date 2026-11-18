@@ -224,7 +224,7 @@
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step": "ddf19e78f59b078a6ef957bbbf557144c6f0a0dab87314081efb83999710c13f",
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step": "20b5ca3a7c11e0bedc16b5d01629096866ba36e5289e124ef8b236348da5039e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "8ac32a30b9a07e95c3c4fcd8df36c0cb3d21bf1551c9ba5cc4453851aca19223",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "a0ac761a92bc6cfa1e5a3c8fe57c0357c65192c53d136c0ba8bdb76905b46bee",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "f1d921439226a582a663a79a503138fc29438c0a0e68b298c2cf12d0b6460dd7",
@@ -982,7 +982,7 @@
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.step.mesh": "74d9f97b3c3fdeaa64519c6e40016621b597cca7c19d7a0f765ac965a5fe5460",
       "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": "5bfe020725eb9f1cb4bb741c207454b1e64550e63fa443aadbc61398c7ea4c2a",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "8ac32a30b9a07e95c3c4fcd8df36c0cb3d21bf1551c9ba5cc4453851aca19223",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "a0ac761a92bc6cfa1e5a3c8fe57c0357c65192c53d136c0ba8bdb76905b46bee",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "f1d921439226a582a663a79a503138fc29438c0a0e68b298c2cf12d0b6460dd7",
@@ -2674,7 +2674,7 @@
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/back-top-backing-proposal.step": 1790818809,
     "hardware/printed-parts/enclosure/enclosure/accepted-fit-integration/placed-psu.step": 1790817978,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1794978240.174597,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": 1794442189.34567,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": 1794978252.953313,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": 1794976931.776455,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1794804371.351947,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1794697073.771486,
@@ -4083,7 +4083,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": {
-      "commit": "8bc5f9d2fcade62c4ef8b6b8956b0159e578a4bb",
+      "commit": "cea5cf418b676b76a7a7f2b5de8ef06617741815",
+      "inputs": "266fbb943c37a86131253d5aeab1046400e046a52c46690397734f11096006a2",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": {
