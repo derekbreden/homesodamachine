@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-17",
+  "as_of": "2026-11-18",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10216,7 +10216,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-56b5905ef743455fa0e61dd424f75261"
+        "src-56b5905ef743455fa0e61dd424f75261",
+        "src-962d5a905e244029954126c9592bc1f9"
       ]
     },
     "pur-cdb4735a3b244438a2d4e72bf5b582e7": {
@@ -16621,7 +16622,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-56b5905ef743455fa0e61dd424f75261"
+        "src-56b5905ef743455fa0e61dd424f75261",
+        "src-962d5a905e244029954126c9592bc1f9"
       ]
     },
     "amazon:112-4768090-1512212": {
@@ -35456,6 +35458,19 @@
       ],
       "verified_at": "2026-11-17",
       "note": "Amazon Order Details identifies one black Antarctic Star countertop ice maker (B0F8NKJD6X). The product details identify HZB-12/Q. Merchandise USD 55.98 with free shipping and USD 4.06 estimated tax. Estimated arrival November 19. Fulfillment and completed payment are pending."
+    },
+    "src-962d5a905e244029954126c9592bc1f9": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "112-6794186-7953808",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [],
+      "verified_at": "2026-11-18",
+      "note": "Exact-order shipment notification confirms the green wire coil shipped and corroborates the existing USD12.86 order value. Relative arrival wording does not establish delivery or dispatch date. No completed merchant payment is proved."
     }
   },
   "coverage": [
@@ -38377,11 +38392,13 @@
         "evt-3a8544ddbe8a4823b7685b21f54c008c"
       ],
       "source_ids": [
-        "src-56b5905ef743455fa0e61dd424f75261"
+        "src-56b5905ef743455fa0e61dd424f75261",
+        "src-962d5a905e244029954126c9592bc1f9"
       ],
-      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified.",
+      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
       "sources_checked": [
-        "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026"
+        "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026",
+        "Exact-order shipment notification received November 18, 2026"
       ]
     }
   ],
