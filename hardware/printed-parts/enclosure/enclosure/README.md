@@ -267,6 +267,12 @@ wall's own plane in open air ahead of the box; **back-top enters aft of home and
 over the open Y-seam mouth before the halves telescope. Both broad mouth-to-shoulder
 gaps are 0.25 mm. Front-top's mating shoulder face prints on the bed and adds no
 supported-overhang allowance.
+
+The rear rails carry integral alignment keys near their fore ends. The rounded
+north edges enter the flared grooves in back-top during the final forward slide.
+Each corbelled receiver keeps the seated flanks aligned across X inside the shell.
+The grooves open toward the fore end for the rearward service slide.
+
 At the nominal assembled position, each foot's end face has **0.25 mm of running
 clearance** to its stop block, a local allowance above the 0.15 mm head-on minimum. The blocks
 retain 3.75 mm of length and bound overtravel; the upper seam screws join the two
