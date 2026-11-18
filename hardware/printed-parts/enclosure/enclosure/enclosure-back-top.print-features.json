@@ -140,7 +140,7 @@
         -103.275,
         -98.5
       ],
-      "center_x_mm": -101.125,
+      "center_x_mm": -99.6,
       "contact_source_z_mm": 168.7,
       "name": "Removable west rail support 1",
       "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
@@ -156,7 +156,7 @@
         -103.275,
         -98.5
       ],
-      "center_x_mm": -101.125,
+      "center_x_mm": -99.6,
       "contact_source_z_mm": 168.7,
       "name": "Removable west rail support 2",
       "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
@@ -172,7 +172,7 @@
         98.5,
         103.275
       ],
-      "center_x_mm": 101.125,
+      "center_x_mm": 99.6,
       "contact_source_z_mm": 168.7,
       "name": "Removable east rail support 1",
       "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
@@ -184,7 +184,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "4037d1fc0a15ce282850d477a429e29bc74887a8f5858332c11dc4792d6a9317",
+  "source_stl_sha256": "ef9a25893e48db79a4a50c9440b2c09a126f75781c788d42f22c69c5866615de",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -399,6 +399,56 @@
       ],
       "name": "wago-n insertion pocket",
       "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        -104.0,
+        -100.5,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "bounds_source_mm": [
+        -104.0,
+        -100.5,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "name": "west alignment groove",
+      "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "blocking_bounds_source_mm": [
+        100.5,
+        104.0,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "bounds_source_mm": [
+        100.5,
+        104.0,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "name": "east alignment groove",
+      "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
     },
     {
       "bounds_source_mm": [
