@@ -83,10 +83,16 @@ path = "../../../hardware/print-tests/petgf-dense-roofs/inclines/samples.rs"
 name = "reed-sweep-rig"
 path = "../../../hardware/printed-parts/fixtures/reed-sweep-rig/reed_sweep_rig.rs"
 
+[[example]]
+name = "faucet-pullout-concept"
+path = "../../../hardware/faucet-layout/pullout-concept/concept.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true
 hsm-kernel = { path = "../kernel" }
+hsm-faucet = { path = "../faucet" }
+hsm-faucet-numbers = { path = "../faucet-numbers" }
 hsm-aero-float-numbers = { path = "../aero-float-numbers" }
 hsm-carbonator-tube-numbers = { path = "../carbonator-tube-numbers" }
 hsm-reed-bridge-numbers = { path = "../reed-bridge-numbers" }

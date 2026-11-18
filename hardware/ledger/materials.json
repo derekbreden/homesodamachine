@@ -363,12 +363,32 @@
       "models": [
         {
           "file": "faucet-layout/faucet-assembly.step"
+        },
+        {
+          "file": "faucet-layout/pullout-concept/docked-above-counter.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/pulled-out-above-counter.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/pulled-out.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/handheld-detail.step",
+          "context": true
         }
       ],
       "documents": [
         {
           "title": "Faucet assembly guide",
           "path": "faucet-assembly-guide/faucet-assembly-guide.pdf"
+        },
+        {
+          "title": "Pull-out faucet concept",
+          "path": "faucet-layout/pullout-concept/README.md"
         }
       ],
       "bom": {

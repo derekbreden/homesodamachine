@@ -2,6 +2,13 @@
   "purpose": "The parts Derek has tried in hand and said yes to, in his words. The site shows each as fitted and lists the printed parts with no row here as not fitted yet.",
   "fitted": [
     {
+      "material": "HSM-0002",
+      "date": "2026-11-18",
+      "said": "I've got it lit up, and it's functional, and I can push the lever and I get the soda, and it comes out the tip, and I can select the flavor, and it's great. I love it.",
+      "tried": "the existing assembled Sculpted faucet, selecting flavor on its powered display and dispensing soda with its lever",
+      "record": "hardware/faucet-layout/pullout-concept/physical-context.json"
+    },
+    {
       "material": "HSM-0099",
       "date": "2026-08-17",
       "said": "Printed your new design and it works beautifully, please make a note of it. Goes on easy enough and the slight bend a tube always has because it starts coiled causes enough friction to keep the collar in place.",
