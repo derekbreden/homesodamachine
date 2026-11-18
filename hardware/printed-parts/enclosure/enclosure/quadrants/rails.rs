@@ -222,3 +222,111 @@ pub fn z_rail_channels(g: &mut Graph, inner: &Bounds, y_joint: f64, zj: f64, col
 }
 
 fn x_in_west(x: f64) -> bool { x < 0.0 }
+
+const REAR_RIB_WIDTH: f64 = 3.0;
+const REAR_RIB_STRAIGHT_RISE: f64 = 1.5;
+const REAR_RIB_LENGTH: f64 = 80.0;
+const REAR_RIB_SETBACK: f64 = 10.2;
+const REAR_RIB_ROOT: f64 = 0.8;
+const REAR_EDGE_ROOT: f64 = 0.5;
+const REAR_EDGE_LEAD: f64 = 1.5;
+const REAR_GROOVE_SHOULDER: f64 = 3.0;
+const REAR_SHOULDER_ROOT: f64 = 0.4;
+const REAR_SUPPORT_ROOT_INSET: f64 = 0.9;
+
+/// The matched ribs and grooves locate the rear halves in X during their slide.
+pub struct RearAlignment {
+    rib_y: [f64; 2],
+    groove_y: [f64; 2],
+    rail_edge_x: [f64; 2],
+    groove_x: [f64; 2],
+    crown_z: f64,
+    head_bottom_z: f64,
+}
+
+impl RearAlignment {
+    pub fn new(y_joint: f64, zj: f64) -> Self {
+        let mouth_y = back_flank_start(y_joint);
+        let fore_y = mouth_y + REAR_RIB_SETBACK;
+        let aft_y = fore_y + REAR_RIB_LENGTH;
+        let rail_edge = rail_x(-1.0, Y::Back).arm_end;
+        let [_, _, channel_edge] = rail_channel_span(-1.0, Y::Back);
+        let clearance = slide_slip();
+        Self {
+            rib_y: [fore_y, aft_y],
+            groove_y: [mouth_y, aft_y + clearance],
+            rail_edge_x: [rail_edge, channel_edge],
+            groove_x: [channel_edge - REAR_RIB_WIDTH - clearance, channel_edge + clearance],
+            crown_z: zj + Z_RISE,
+            head_bottom_z: zj + HOOK_FOOT + rail_catch_air(Y::Back),
+        }
+    }
+
+    fn shoulder_z(&self) -> f64 {
+        self.crown_z + REAR_RIB_STRAIGHT_RISE
+    }
+
+    fn groove_peak_z(&self) -> f64 {
+        self.shoulder_z() + REAR_RIB_WIDTH / 2.0 + slide_slip()
+    }
+
+    /// The upper groove opens upward in the ceiling-down print pose.
+    pub fn groove_bounds(&self, sx: f64) -> Bounds {
+        let (x0, x1) = sorted(-sx * self.groove_x[0], -sx * self.groove_x[1]);
+        [x0, x1, self.groove_y[0], self.groove_y[1], self.crown_z, self.groove_peak_z()]
+    }
+
+    /// Breakaway cap necks root in the retained inboard shoulder of the rail cavity.
+    pub fn support_root_x(&self, sx: f64) -> f64 {
+        -sx * (self.groove_x[0] - REAR_SUPPORT_ROOT_INSET)
+    }
+
+    pub fn lower(&self, g: &mut Graph, mut piece: Shape) -> Shape {
+        let [fore, aft] = self.rib_y;
+        let [head, edge] = self.rail_edge_x;
+        let inboard = edge - REAR_RIB_WIDTH;
+        let middle = (inboard + edge) / 2.0;
+        let root = self.crown_z - REAR_RIB_ROOT;
+        let shoulder = self.shoulder_z();
+        let rib = g.xz_prism(fore, aft, vec![
+            [inboard, root], [edge, root], [edge, shoulder],
+            [middle, shoulder + REAR_RIB_WIDTH / 2.0], [inboard, shoulder],
+        ]);
+        let edge_land = g.xy_prism(self.head_bottom_z, self.crown_z, vec![
+            [head - REAR_EDGE_ROOT, fore - REAR_EDGE_LEAD], [head, fore - REAR_EDGE_LEAD],
+            [edge, fore], [edge, aft], [head, aft + REAR_EDGE_LEAD],
+            [head - REAR_EDGE_ROOT, aft + REAR_EDGE_LEAD],
+        ]);
+        for (side, mirror) in [("east", false), ("west", true)] {
+            let (rib, land) = if mirror { (g.mirror(rib, 0), g.mirror(edge_land, 0)) } else { (rib, edge_land) };
+            let rib = g.feature(rib, format!("{side}-alignment-rib"), format!("{side} alignment rib"), &[]);
+            piece = g.union(piece, &[land, rib]);
+        }
+        piece
+    }
+
+    pub fn upper(&self, g: &mut Graph, mut piece: Shape) -> Shape {
+        let [fore, aft] = self.groove_y;
+        let [left, right] = self.groove_x;
+        let middle = (left + right) / 2.0;
+        let inboard = left - REAR_GROOVE_SHOULDER;
+        let overlap = back_top_flank_face()[1] + REAR_SHOULDER_ROOT;
+        let roof = self.crown_z + slide_slip();
+        let peak = self.groove_peak_z();
+        let shoulder = g.xz_prism(fore, aft + REAR_GROOVE_SHOULDER, vec![
+            [inboard, roof], [overlap, roof], [overlap, peak + overlap - inboard], [inboard, peak],
+        ]);
+        let groove = g.xz_prism(fore, aft, vec![
+            [left, self.crown_z], [right, self.crown_z], [right, self.shoulder_z()],
+            [middle, peak], [left, self.shoulder_z()],
+        ]);
+        for (side, mirror) in [("east", false), ("west", true)] {
+            let (shoulder, groove) = if mirror { (g.mirror(shoulder, 0), g.mirror(groove, 0)) } else { (shoulder, groove) };
+            let shoulder = g.feature(shoulder, format!("{side}-alignment-shoulder"), format!("{side} alignment shoulder"), &[]);
+            let groove = g.feature(groove, format!("{side}-alignment-groove"), format!("{side} alignment groove"), &[]);
+            piece = g.union(piece, &[shoulder]);
+            piece = g.cut(piece, &[groove]);
+        }
+        piece
+    }
+}

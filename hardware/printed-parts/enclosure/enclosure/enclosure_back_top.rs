@@ -17,7 +17,7 @@ use hsm_enclosure_numbers::{
     Color, catalog, disposal, field, layout, quadrant, rear_wall, structure,
 };
 use hsm_enclosure_quadrants::piece::{self, Build};
-use hsm_enclosure_quadrants::rails::{z_rail_channels, z_rail_feet};
+use hsm_enclosure_quadrants::rails::{RearAlignment, z_rail_channels, z_rail_feet};
 use hsm_enclosure_quadrants::seam::seam_fit_reliefs;
 use hsm_enclosure_quadrants::vent::{flank_vents, vent_chase};
 use hsm_enclosure_quadrants::ystacks::y_stacks;
@@ -56,6 +56,7 @@ fn main() -> Result<()> {
 fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     use hsm_enclosure_solid::pieces::digest;
     use serde_json::json;
+    let alignment = RearAlignment::new(b.y_joint, b.splits[1]);
     let mut regions = vec![];
     for interior in supports::interiors() {
         let mut blocking = interior.bounds;
@@ -183,9 +184,15 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         let [open, _, far] =
             hsm_enclosure_quadrants::rails::rail_channel_span(run.sx, quadrant::Y::Back);
         let roof = b.splits[1] + shell::Z_RISE + shell::slide_slip();
+        let groove = alignment.groove_bounds(run.sx);
+        let side = if run.sx > 0.0 { "west" } else { "east" };
+        regions.push(json!({"name":format!("{side} alignment groove"),
+            "bounds_source_mm":groove,"blocking_bounds_source_mm":groove,
+            "support_print_up_source":[0,0,-1],
+            "reason":"The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib."}));
         bridges.push(json!({"name":format!("Sliding rail {}",run.sx),
             "bounds_source_mm":[open.min(far),open.max(far),run.y0.min(run.lane_aft),run.y0.max(run.lane_aft),
-                                b.splits[1]-1.0,roof+shell::WALL],
+                                b.splits[1]-1.0,(roof+shell::WALL).max(groove[5])],
             "bridge_span_mm":(far-open).abs(),"bridge_axis_source":[1,0,0],"bridge_print_axis_source":[1,0,0],
             "reason":"The fitted sliding bearings retain local solid deposition."}));
     }
@@ -214,7 +221,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         let wall_edge = open + run.sx * 0.475;
         for (index, span) in spans.into_iter().enumerate() {
             support_stock.push(json!({"name":format!("Removable {side} rail support {}", index + 1),
-                "shape":"rail_strips","center_x_mm":(open + foot) / 2.0,
+                "shape":"rail_strips","center_x_mm":alignment.support_root_x(run.sx),
                 "cap_span_x_mm":[wall_edge.min(foot),wall_edge.max(foot)],
                 "span_y_mm":span,"contact_source_z_mm":rail_contact,"root_source_z_mm":rail_floor,
                 "reason":"Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed."}));
@@ -362,7 +369,8 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
     piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, None));
     let lands = rear::seam_lands(g);
-    g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &lands))
+    piece = g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &lands));
+    RearAlignment::new(y_joint, zj).upper(g, piece)
 }
 
 /// The quadrant's STEP and fine model, and its fluted print: the nameplate field and the raised
