@@ -1,0 +1,166 @@
+{
+  "views": [
+    {
+      "name": "rib-entry",
+      "caption": "The rib starts directly on the straight outboard face of the lower rail.",
+      "before": "rib-entry-before.webp",
+      "after": "rib-entry-after.webp",
+      "width": 1200,
+      "height": 750,
+      "marks": [
+        {
+          "x": 583.6,
+          "y": 369.1,
+          "r": 91.7,
+          "label": "Lower rail face",
+          "at": [
+            103.625,
+            229.25,
+            174.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          510.2939738159781,
+          -40.24396222488346,
+          514.8969984990838
+        ],
+        "target": [
+          103,
+          229.9,
+          174.1
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 4.5,
+        "near": 517.8469351517011,
+        "far": 1163.3252048590407,
+        "aspect": 1.6
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "128be57a4548644b9262a6ebb59b776da3c52b3ef2f2de9fd034f28460c1140e",
+          "commit": "754f062e698e24cbfc7be2ca858a9f797b9fcedf",
+          "taken": "2026-11-18T22:12:12.179Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c142258ce7eac5ae72167badca8ee4df4360b845a40463bd444b62d7cba5149a",
+          "commit": "3161e7311810250129f48e8013263f45c63a08d4",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ]
+    },
+    {
+      "name": "seated-section",
+      "caption": "The upper groove shares the channel wall plane, with running clearance between the halves.",
+      "before": "seated-section-before.webp",
+      "after": "seated-section-after.webp",
+      "width": 1200,
+      "height": 750,
+      "marks": [
+        {
+          "x": 759.8,
+          "y": 387.8,
+          "r": 89.5,
+          "label": "Upper channel wall",
+          "at": [
+            103.875,
+            270,
+            174.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          102,
+          -486.4525716099097,
+          174.95
+        ],
+        "target": [
+          102,
+          270,
+          174.95
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 4.4,
+        "near": 514.7806624986811,
+        "far": 1334.2709484094164,
+        "aspect": 1.6,
+        "section": {
+          "at": [
+            0,
+            270,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "128be57a4548644b9262a6ebb59b776da3c52b3ef2f2de9fd034f28460c1140e",
+          "commit": "754f062e698e24cbfc7be2ca858a9f797b9fcedf",
+          "taken": "2026-11-18T22:12:12.179Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c142258ce7eac5ae72167badca8ee4df4360b845a40463bd444b62d7cba5149a",
+          "commit": "3161e7311810250129f48e8013263f45c63a08d4",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ]
+    }
+  ]
+}
