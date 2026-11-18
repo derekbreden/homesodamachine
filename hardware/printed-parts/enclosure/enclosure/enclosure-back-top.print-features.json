@@ -184,7 +184,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "aab465a4c35b9dbf4826f7889c6044c9c0b54308d2f05832e00079f398a0b292",
+  "source_stl_sha256": "e09739511aa7125c8939bdb177f3c1c1ceac900492f3e6d3dfd6e1a0f820d434",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -306,56 +306,6 @@
       "bridge_span_mm": 42.300000000000004,
       "name": "Identification channel 2",
       "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
-      "support_print_up_source": [
-        0,
-        0,
-        -1
-      ]
-    },
-    {
-      "blocking_bounds_source_mm": [
-        -98.5,
-        -93.5,
-        224.0,
-        247.04999999999998,
-        175.3,
-        183.3
-      ],
-      "bounds_source_mm": [
-        -98.5,
-        -93.5,
-        224.0,
-        247.04999999999998,
-        175.3,
-        183.3
-      ],
-      "name": "west alignment groove",
-      "reason": "The receiving groove opens upward in the ceiling-down print pose. Its floor and standing walls grow from the continuous corbelled receiver; keep the fitted key passage clear.",
-      "support_print_up_source": [
-        0,
-        0,
-        -1
-      ]
-    },
-    {
-      "blocking_bounds_source_mm": [
-        93.5,
-        98.5,
-        224.0,
-        247.04999999999998,
-        175.3,
-        183.3
-      ],
-      "bounds_source_mm": [
-        93.5,
-        98.5,
-        224.0,
-        247.04999999999998,
-        175.3,
-        183.3
-      ],
-      "name": "east alignment groove",
-      "reason": "The receiving groove opens upward in the ceiling-down print pose. Its floor and standing walls grow from the continuous corbelled receiver; keep the fitted key passage clear.",
       "support_print_up_source": [
         0,
         0,
