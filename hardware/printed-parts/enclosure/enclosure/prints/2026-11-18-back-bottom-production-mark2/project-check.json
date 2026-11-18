@@ -32,20 +32,20 @@
       },
       "placed_bounds_mm": [
         [
-          23.825003052,
+          20.625003051999983,
           67.0,
           0.0
         ],
         [
-          297.974996948,
+          294.77499694799997,
           288.0,
-          180.800003052
+          183.800003052
         ]
       ],
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 256250
+      "vertices": 256275
     }
   ],
   "pass": true,

@@ -771,18 +771,18 @@
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
-    "sha256": "8f49c206f741f57d7f4fc519e1b730a15e2bcb5c7c6cb7e14b4870893c7967e5",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-d08d2e44-textured-pei.gcode.3mf",
+    "sha256": "09a87de0840a4b8036351cc95e91522de381cbc014b0123c860fd6a6aad705f5",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-bottom",
-    "recipe_sha256": "c5c16b0db605858e98bf21078124af7990c64bc0cacdbf2b5ac2b787304032a7",
-    "project_sha256": "8473989c735d4780cf00500f3da19903d79379a98f9c63e3f43dbd66056c083c",
-    "archive_sha256": "5a7cd929144b3d5ce7b263eacba5035b1fd2f147e4cc72d0931092920fd0d53b",
-    "gcode_sha256": "3142a2b026b1ad7596e75a6292310f8b6d951e9e8b60070ebfb1bb89fc7d1117",
+    "recipe_sha256": "7363657f40eea55a676e253b484704e5d06b61ffa53b1922d1497abb0c75c0d1",
+    "project_sha256": "dab46ad4b03887c4fc4323768b7e020a86b689270d861bc521c6b1d4ad7ccd20",
+    "archive_sha256": "cb877efdbbe1c5c02ad99b9089d5f645f456c8900450d6d82193703f6bf84a51",
+    "gcode_sha256": "0cd16944514d8ce01d7710868dee2eb0cc8fd40475d4b9a4086a9eafc0aa29a1",
     "kind": "plan",
-    "layers": 754,
-    "model_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+    "layers": 765,
+    "model_sha256": "d48e422f5d3d0a298e36f7edf006ef72da4a8bbc5021173d489129bf0e836859",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -798,9 +798,9 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
-      "First-layer Z": "Bambu's textured plate compensation plus 0.04 mm"
+      "First-layer Z": "0.04 mm requested, 0.02 mm emitted on Textured PEI"
     },
-    "recipe_commit": "c50771abbf3b003df1e3fab6d142e068216e41c0"
+    "recipe_commit": "255984953dff6749b8fc4a33c29dda0b392e5ba9"
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
