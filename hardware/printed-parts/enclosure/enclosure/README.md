@@ -757,27 +757,22 @@ remain clear. The [current review record](../../support-D-rollout.json)
 binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
-A rear receiver catch whose flank pocket a screwdriver reaches prints on
-removable support through that open flank: both of the water regulator's and
-the ASSE's west one. The ASSE's east pocket faces the Pisco across a narrow
-corridor and the Pisco's pockets face the ASSE and the east flank, so those
-three catches are corbels climbing the neck at the shell's teardrop roof slope;
-they print with neither support nor bridge inside support-free pockets, and
-their caps' hooks seat on the slope. A common ceiling recess over the ASSE and
-Pisco runs between the flanks and flush to the rear wall. Their receivers have
-plain end walls around the fitted passages and wing catches. The sideways meter host's fore end shoulder takes a
-support target beside its cap pocket. The aft shoulder sits under
-the Pisco receiver, where a tree would root in the Pisco's open wing slot, so a
-corbel off the east flank carries its top at the same slope. The hook and wire
-pockets run flush to the flank. The
-front lip, the bar the cap's top wing rides over, takes a support target through
-the slot's open west side, where a screwdriver slides in along the bar and
-levers the support up off it. The target stops at the Pisco receiver: under it
-a tree could only root against the receiver's fore end stop, so the lip bridges
-from that support to the aft shoulder. Support the upper hook pocket floor,
-the boss and screw-head channel floors and the wire chamber floor through the
-receiver's open west side. The lower cap pocket stays clear. Approved component
-seats, catch planes and wing travel remain intact.
+Every rear snap catch uses the shared chamfer slope with its matching cap.
+The ASSE, Pisco, meter and water-regulator wing channels stay clear of supports.
+A common ceiling recess over the ASSE and Pisco runs between the flanks and
+flush to the rear wall. Their receivers have plain end walls around the fitted
+passages and wing catches. The Pisco leaves stop ahead of the corner column,
+with the fitted body span retained. The corner column and adjacent rear wall
+meet their common stock plane.
+
+The meter's continuous roof bevel carries its end shoulders from the flank.
+Each sideways hook channel returns to the flank on a bevel rather than a flat
+floor. The complete shoulders retain the landings across the open wing lanes.
+The fitted boss channels, screw-head channels and wire chamber retain accessible
+support through the receiver's open west side. Component bearing profiles and
+spring walls retain their fitted geometry. The
+[corner fit print](../../../print-tests/rear-equipment-corner/README.md) retains
+the complete receivers and enclosure roof in the production layer direction.
 Native construction emits the exclusions beside the STL, bound to its digest;
 preparation carries them through orientation and placement as blockers and
 painted surfaces. The covered bulkhead bores and horizontal valve sockets use

@@ -43,6 +43,8 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     let bay = g.feature(bay, "rear-equipment-ceiling-pocket", "Rear equipment common ceiling pocket",
                         &["discharge-chain", "gas-regulator", "digiten-flow"]);
     piece = g.cut(piece, &[bay]);
+    let stock = rear_snap_corner_stock(g, b);
+    piece = g.union(piece, &[stock]);
     let wall = &layout().rear_wall;
     let relief = rounded(
         g,
@@ -92,6 +94,19 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     let plate_cuts = nameplate_cuts(g);
     let piece = g.cut(piece, &[plate_cuts]);
     g.cut(piece, &inlet)
+}
+
+/// The rear corner column and wall retain their outlines up to the snap bay's wall plane.
+fn rear_snap_corner_stock(g: &mut Graph, b: &Box) -> Shape {
+    let mut bounds = crate::supports::ceiling_bay_bounds();
+    bounds[4] -= WALL;
+    bounds[5] = crate::layout::REAR_SNAP_WALL_TOP_Z;
+    let clip = g.box_(bounds);
+    let column = crate::walls::corner_column(g, &b.inner, 1.0, 1.0, 0.0, [bounds[4], bounds[5]]);
+    let column = g.intersect(column, &[clip]);
+    let wall = g.box_(crate::supports::rear_snap_wall_bounds());
+    let stock = g.union(column, &[wall]);
+    g.feature(stock, "rear-snap-corner-stock", "Rear snap corner column and wall", &["gas-regulator"])
 }
 
 /// The internal inlet tunnel joins the rear wall, west flank and ceiling as plain stock.

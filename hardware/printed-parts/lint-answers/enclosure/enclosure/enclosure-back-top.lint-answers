@@ -314,8 +314,8 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=77.500 y=470.299 z=252.000
 click: x=37.250 y=470.299 z=252.000
 
-[ceiling] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses, lead exit and cap hook, including the 16 mm aft installation sweep and 0.5 mm axial variation. They are the purchased-body and working-catch boundaries of one east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
-alternatives: Filling or corbelling into these faces enters the housing/insertion sweep or cap-hook path. Sloping the catch changes retention; shortening the housing pocket spends the required complete envelope.
+[ceiling] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses and lead exit through their fitted installation sweep. They are the purchased-body boundaries of the east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
+alternatives: Filling or corbelling into these faces enters the fitted housing or its insertion sweep. Shortening the pocket removes part of the required clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=91.525 y=416.000 z=312.500
 click: x=89.500 y=416.000 z=308.400
@@ -375,8 +375,8 @@ click: x=-94.490 y=441.225 z=303.032
 click: x=-94.490 y=441.225 z=307.282
 click: x=-94.490 y=441.225 z=323.532
 
-[ceiling] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses, lead exit and cap hook, including the 16 mm aft installation sweep and 0.5 mm axial variation. They are the purchased-body and working-catch boundaries of one east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
-alternatives: Filling or corbelling into these faces enters the housing/insertion sweep or cap-hook path. Sloping the catch changes retention; shortening the housing pocket spends the required complete envelope.
+[ceiling] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses and lead exit through their fitted installation sweep. They are the purchased-body boundaries of the east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
+alternatives: Filling or corbelling into these faces enters the fitted housing or its insertion sweep. Shortening the pocket removes part of the required clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.625 y=416.000 z=306.750
 click: x=88.300 y=408.010 z=260.300
@@ -391,7 +391,6 @@ click: x=88.300 y=402.926 z=260.300
 click: x=85.625 y=403.421 z=306.750
 click: x=94.700 y=395.335 z=265.300
 click: x=94.700 y=420.335 z=265.300
-click: x=93.350 y=414.759 z=307.100
 
 [ceiling] Functional bottom stops of the two continuous label channels: each 32.3 by 2.0 mm flat locates the sliding tile stack at Z252, with the channel open to the rear before the tiles are inserted. Tree(auto)/Default supports can leave through that mouth before installation; removal quality remains a print-preparation question.
 alternatives: A sloped stop changes the tile’s bottom bearing and bore registration. Filling the channel blocks tile insertion; removing the stop loses its axial datum.
@@ -404,23 +403,6 @@ alternatives: Filling the edge slot occupies the PCB; removing the lip loses the
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-94.120 y=441.225 z=327.157
 click: x=-96.495 y=381.225 z=327.157
-
-[ceiling] Fitted v3 snap catch: the horizontal pocket projects 2.85 mm for 2.60 mm hook engagement and 0.25 mm running allowance. The free cap leaves are 2.0 mm with R1.5 roots; receiver walls retain 3 mm stock. These square faces provide positive capture. Tree(auto)/Default supports leave through the empty flank mouths before hardware and caps are fitted; the exposed leaves can be spread to release the catches. Physical release force and repeated bending remain unqualified.
-alternatives: Filling the pocket occupies the moving hook and leaf. Sloping its bearing makes a withdrawal ramp; reducing its reach reduces the selected capture. Increasing the wall thickness does not remove this working catch surface.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-37.324 y=290.529 z=339.815
-click: x=-37.324 y=324.785 z=339.815
-click: x=50.023 y=417.286 z=343.050
-click: x=66.019 y=441.448 z=343.050
-click: x=7.577 y=417.286 z=343.050
-click: x=86.981 y=441.448 z=343.050
-click: x=7.577 y=428.994 z=343.050
-click: x=50.023 y=428.994 z=343.050
-click: x=66.019 y=453.819 z=343.050
-click: x=86.981 y=453.819 z=343.050
-click: x=7.577 y=403.790 z=343.050
-click: x=50.023 y=403.790 z=343.050
-click: x=-48.519 y=290.529 z=339.815
 
 [thin] Measured regulator outlet-neck bearing: the 1.854 mm minimum is the axial web between the purchased housing shoulder and the outlet collar, from its radius profile near native X48.8–52.1. The receiver keeps 0.30 mm radial and 0.25 mm axial clearance; the matched cap uses 0.25 mm radial clearance. This narrow bearing locates the regulator axially while its broad body saddle carries the housing.
 alternatives: Adding axial stock enters the housing or outlet collar. Removing the web loses shoulder capture; widening the hardware neck requires a different regulator. Thickening the surrounding roof does not change this fitted axial web.
@@ -482,8 +464,8 @@ click: x=88.450 y=421.801 z=267.700
 click: x=94.700 y=394.094 z=268.500
 click: x=94.700 y=419.094 z=268.500
 
-[ledge] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses, lead exit and cap hook, including the 16 mm aft installation sweep and 0.5 mm axial variation. They are the purchased-body and working-catch boundaries of one east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
-alternatives: Filling or corbelling into these faces enters the housing/insertion sweep or cap-hook path. Sloping the catch changes retention; shortening the housing pocket spends the required complete envelope.
+[ledge] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses and lead exit through their fitted installation sweep. They are the purchased-body boundaries of the east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
+alternatives: Filling or corbelling into these faces enters the fitted housing or its insertion sweep. Shortening the pocket removes part of the required clearance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.767 y=418.005 z=260.300
 

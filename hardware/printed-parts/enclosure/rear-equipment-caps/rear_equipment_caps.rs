@@ -17,7 +17,7 @@ use hsm_kernel::part::{write_part, write_shown};
 use hsm_kernel::rule::ring_count;
 use hsm_kernel::{Affine, Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde::Deserialize;
-use stations::{ASSE_CORBELS, Meter, NOSE_LAND, NO_CORBELS, PISCO_CORBELS, REACH, ROOT_RADIUS, WALL, asse, catch_air, clearance_profile,
+use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, WALL, asse, catch_air, clearance_profile,
                corbel_slope, interpolate, meter, tip_rise};
 use std::f64::consts::{PI, TAU};
 use std::path::PathBuf;
@@ -206,7 +206,7 @@ fn asse_cap() -> Result<Cap> {
     let axis = [centre[0], centre[2]];
     let st = stations::asse_station();
     let (stock, adapter) = adapter_capture(chain, &st, axis)?;
-    let cap = along_y(section(&st, Underside::Hex(axis[1]), Wing::pair(&st, ASSE_CORBELS))?, [st.y0, st.y1])?.union(&stock)?;
+    let cap = along_y(section(&st, Underside::Hex(axis[1]), Wing::pair(&st))?, [st.y0, st.y1])?.union(&stock)?;
     let room = along_y(body_room(axis), [st.y0 - ROOM_ENDS, st.y1 + ASSE_ROOM_AFT + ROOM_ENDS])?;
     let pose = &l.parts.asse1022_assembly;
     let [lo, hi] = world_bounds(pose, vent_bounds());
@@ -323,12 +323,18 @@ fn pisco_cap() -> Result<Cap> {
     let bottom = axis[1] - body_radius - WALL;
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     let saddle = axis[1] - (body_radius.powi(2) - (half - WALL).powi(2)).max(0.0).sqrt();
-    let (corbel, east_root) = meter_corbel_clearance(&st, bottom)?;
-    let [west, east] = Wing::pair(&st, PISCO_CORBELS);
-    let wings = [west, Wing { root: east_root.max(st.root), ..east }];
+    let (corbel, east_root) = meter_roof_clearance(&st, bottom)?;
+    let [west, _] = Wing::pair(&st);
+    let wings = [west, Wing { root: east_root.max(st.root) }];
     let cap = along_y(section(&st, Underside::Flat(bottom), wings)?, [st.y0, st.y1])?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, st.y1, bottom, saddle]))?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, lip, bottom, axis[1]]))?;
+    let aft = hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y;
+    let ends = [
+        cuboid([axis[0] - st.outer - THROUGH, axis[0], aft, st.y1 + THROUGH, wings[0].root, st.ceiling + THROUGH]),
+        cuboid([axis[0], axis[0] + st.outer + THROUGH, aft, st.y1 + THROUGH, wings[1].root, st.ceiling + THROUGH]),
+    ];
+    let cap = cap.cut_all(&ends)?;
     let below: Vec<P2> = profile.iter().copied().filter(|p| p[0] <= neck).collect();
     let above: Vec<P2> = profile.iter().copied().filter(|p| p[0] >= neck).collect();
     let body = clipped(&clearance_profile(&below, PISCO_CAP_FIT, running()), window[0], mouth_y - lip);
@@ -338,18 +344,15 @@ fn pisco_cap() -> Result<Cap> {
     Ok(Cap { name: "pisco-snap-cap", installed: cap.cut_all(&bores)?, print: V3::X })
 }
 
-/// The meter receiver's aft shoulder corbel, which climbs the east flank under the Pisco cap's
-/// east side, as the cap clears it seated and down its whole service path: the corbel's slope
-/// raised by the cap's service drop and a running fit, run aft from the corbel's fore face past
-/// the cap's aft end. With it, the height the cap's east wall roots at, a root round above that
-/// cut at its outer face, so the wall stands whole on the trimmed corner.
-fn meter_corbel_clearance(st: &Station, bottom: f64) -> Result<(Solid, f64)> {
+/// The Pisco cap clears the meter's continuous roof bevel throughout its span and lowered
+/// approach. Its east leaf roots above that clearance and retains its complete root round.
+fn meter_roof_clearance(st: &Station, bottom: f64) -> Result<(Solid, f64)> {
     let m = Meter::placed();
     let (top, slope, lift) = (m.z + m.station().outer, corbel_slope(), PISCO_SERVICE_DROP + running());
     let cut = |x: f64| top + (x - m.split) * slope + lift;
     let (x0, x1) = (m.split + (bottom - THROUGH - top - lift) / slope, st.axis_x + st.outer + THROUGH);
     let section = Loop::polygon(&[v2(x0, bottom - THROUGH), v2(x1, bottom - THROUGH), v2(x1, cut(x1))]);
-    Ok((along_y(section, [m.cap[1], st.y1 + THROUGH])?, cut(st.axis_x + st.outer) + ROOT_RADIUS))
+    Ok((along_y(section, [m.cap[0] - running(), st.y1 + THROUGH])?, cut(st.axis_x + st.outer) + ROOT_RADIUS))
 }
 
 /// A profile cut to run from `a` to `b`, its ends where the profile passes them.
@@ -371,7 +374,7 @@ fn meter_cap() -> Result<Cap> {
     let housing: Vec<P2> = clearance_profile(&meter::HOUSING_PROFILE, fit, fit).into_iter().map(|[y, r]| [m.x(y), r]).collect();
     let bottom = m.x(meter::UNDERSIDE_Y) - stations::METER_AIR - METER_BACK - m.split;
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let cap = along_y(section(&st, Underside::Flat(bottom), Wing::pair(&st, NO_CORBELS))?, m.cap)?
+    let cap = along_y(section(&st, Underside::Flat(bottom), Wing::pair(&st))?, m.cap)?
         .union(&cuboid([-half, half, m.cap[0], m.cap[1], bottom, st.root + METER_BEARING_DEPTH]))?
         .rotate(V3::ZERO, V3::Y, 90.0)
         .translate(v3(m.split, 0.0, m.z));
@@ -411,7 +414,7 @@ fn regulator_cap_with_tip(rise: f64, name: &'static str) -> Result<Cap> {
     let [t0, t1, t2] = l.snapshots.reg.translation_mm;
     let frame = Pose { rotation: [r1, r0.map(|v| -v), r2], translation_mm: [t1, -t0, t2] };
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), rise, Wing::pair(st, NO_CORBELS))?, [st.y0, st.y1])?
+    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), rise, Wing::pair(st))?, [st.y0, st.y1])?
         .union(&cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK, mount.cap_bottom,
                         mount.axis[1]]))?
         .cut(&turned(&profile)?.transformed(&affine(&frame)))?;
@@ -437,18 +440,16 @@ fn section(st: &Station, under: Underside, wings: [Wing; 2]) -> Result<Loop> {
     section_with_tip(st, under, tip_rise(), wings)
 }
 
-/// One spring wall of a cap, west then east: whether its hook seats on a corbel, and the height
-/// its root stands at.
+/// One spring wall of a cap, west then east, with the height its root stands at.
 #[derive(Clone, Copy)]
 struct Wing {
-    corbel: bool,
     root: f64,
 }
 
 impl Wing {
-    /// A station's two walls, rooted at its root, hooking over corbels where `corbels` says.
-    fn pair(st: &Station, corbels: [bool; 2]) -> [Wing; 2] {
-        corbels.map(|corbel| Wing { corbel, root: st.root })
+    /// Both spring walls start at the station's root and use chamfered catches.
+    fn pair(st: &Station) -> [Wing; 2] {
+        [Wing { root: st.root }; 2]
     }
 }
 
@@ -461,14 +462,10 @@ fn section_with_tip(st: &Station, under: Underside, rise: f64, wings: [Wing; 2])
     let wall = |side: f64, wing: Wing| {
         let at = |x: f64, z: f64| v2(c + side * x, z);
         let mut points = vec![at(outer, wing.root), at(outer, tip)];
-        if wing.corbel {
-            let slope = corbel_slope();
-            let nose = catch + REACH * slope;
-            points.extend([at(st.ledge, nose + NOSE_LAND + REACH * rise / (outer - hook)), at(hook, nose + NOSE_LAND),
-                           at(hook, nose), at(inner, catch - (inner - st.ledge) * slope)]);
-        } else {
-            points.extend([at(hook, catch + NOSE_LAND), at(hook, catch), at(inner, catch)]);
-        }
+        let slope = corbel_slope();
+        let nose = catch + REACH * slope;
+        points.extend([at(st.ledge, nose + NOSE_LAND + REACH * rise / (outer - hook)), at(hook, nose + NOSE_LAND),
+                       at(hook, nose), at(inner, catch - (inner - st.ledge) * slope)]);
         points.push(at(inner, wing.root + r));
         points
     };

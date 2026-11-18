@@ -206,3 +206,10 @@ pub fn snap_tip_rise() -> f64 {
 pub fn snap_tip_air() -> f64 {
     layout().rear_plumbing.snap_tip_air_mm
 }
+
+/// The rear receiver catches share their chamfer slope with the caps.
+pub const REAR_SNAP_CHAMFER_SLOPE: f64 = 1.0;
+/// The Pisco leaves stop ahead of the rear corner column.
+pub const PISCO_WING_AFT_Y: f64 = 457.911;
+/// The rear corner column and adjoining wall reach this common plane.
+pub const REAR_SNAP_WALL_TOP_Z: f64 = 349.700;
