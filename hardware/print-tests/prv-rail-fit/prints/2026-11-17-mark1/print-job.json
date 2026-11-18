@@ -1,6 +1,6 @@
 {
   "purpose": "Bind the two-piece PRV fit coupon to the job accepted by Mark1.",
-  "status": "running",
+  "status": "completed",
   "printer": "Mark1",
   "connection_key": "H2C",
   "material": "Polymaker Fiberon PET-GF15, black",
@@ -71,5 +71,6 @@
     "this_accepted_at": "2026-11-18T03:04:32+00:00",
     "elapsed_seconds": 120133.0
   },
-  "printing_status": "printing-status.json"
+  "printing_status": "printing-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
