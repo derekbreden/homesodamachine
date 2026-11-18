@@ -1,0 +1,88 @@
+{
+  "purpose": "Bind the current rear alignment geometry to its production project, native slice and published replay.",
+  "piece": "back-bottom",
+  "material_id": "HSM-0080",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "status": "prepared",
+  "prepared_utc": "2026-11-18T05:13:19+00:00",
+  "source_revision": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+  "source_stl_sha256": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
+  "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+  "source_fine_archive_sha256": "c9dee2bd5336ee341613844643550aa838635d9c06d3823c1350811beda2c862",
+  "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "print_regions_sha256": "188abbc61085f2322bfa1c279d54fcf2ae297bc74ac53192eaadef53f651830d",
+  "alignment_features": [
+    "enclosure-back-bottom::west-alignment-key",
+    "enclosure-back-bottom::east-alignment-key"
+  ],
+  "archive": "2026-11-17-back-bottom-mark2-9baa7a33.gcode.3mf",
+  "archive_sha256": "dce32aedc913edc22b2ba608e691ee6ae36f94e1d48f4400ba7155884cdf1a8f",
+  "gcode_sha256": "e8451bc42df6abe95d2392002065582558d16c1652762e02c1bf75c520730fda",
+  "project": "2026-11-17-back-bottom-mark2-9baa7a33.3mf",
+  "project_sha256": "4b33e044152daf01484f5ea260ae333fca5ee259a91eb25b7546da3dd884fb93",
+  "preparation": "preparation.json",
+  "native_review": "review.json",
+  "support_audits": [
+    "support-audit-1901.json"
+  ],
+  "layers": 788,
+  "estimated_seconds": 111268.71623094525,
+  "minimum_bead_bed_margin_mm": 22.573995000000025,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 6,
+      "name": "enclosure-back-bottom",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 6,
+        "normal_part": 1,
+        "support_enforcer": 4
+      },
+      "placed_bounds_mm": [
+        [
+          23.825003052,
+          67.0,
+          0.0
+        ],
+        [
+          297.974996948,
+          288.0,
+          189.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 256495
+    }
+  ],
+  "replay_sha256": "a94f65270fb96dd6c34f84aea03965230fd85f80946e5916208e181cdad679ec",
+  "replay": "print-playbacks/a94f65270fb96dd6c34f84aea03965230fd85f80946e5916208e181cdad679ec.json.gz"
+}

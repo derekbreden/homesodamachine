@@ -771,19 +771,19 @@
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
-    "sha256": "73608c588b3f2391b3c91b94a25561151d0c83ca061b45807ca017d0e9f723e8",
-    "slice": "2026-11-15-back-bottom-mark2-d08d2e44.gcode.3mf",
+    "sha256": "a94f65270fb96dd6c34f84aea03965230fd85f80946e5916208e181cdad679ec",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-bottom-rounded-alignment-mark2/2026-11-17-back-bottom-mark2-9baa7a33.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-bottom",
-    "recipe_sha256": "e8450ef09c78e4140a2f7ac16a3a41ef3ea1ec7ed0685b430f75dcdc9fe50f5c",
-    "project_sha256": "b05d30425aab9bf4c9f3f1813a9bccc7e220a32640c63522dc054e2cfdd14cc0",
-    "archive_sha256": "d82937b10b818fd3a00024b1d663c81470cb6841a09a248a46bdf562c1cf6a5a",
-    "gcode_sha256": "9ffd2026b71b8e5c1f8f1f3246ef99f1af1eab5a4128710d333c4dfb48fd77a9",
+    "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
+    "project_sha256": "4b33e044152daf01484f5ea260ae333fca5ee259a91eb25b7546da3dd884fb93",
+    "archive_sha256": "dce32aedc913edc22b2ba608e691ee6ae36f94e1d48f4400ba7155884cdf1a8f",
+    "gcode_sha256": "e8451bc42df6abe95d2392002065582558d16c1652762e02c1bf75c520730fda",
     "kind": "plan",
-    "layers": 754,
-    "recipe_commit": "bee315aaba371005156a2f8da88467f197fe875f",
-    "model_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+    "layers": 788,
+    "recipe_commit": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a",
+    "model_sha256": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -798,23 +798,25 @@
       "Top interface": "3 layers, 0 mm spacing",
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s"
+      "Filament bridge speed": "15 mm/s",
+      "First-layer Z": "Bambu's textured plate compensation plus 0.04 mm",
+      "Rear alignment": "Rounded integral keys at both sliding rails"
     }
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "b3d4ec4a8b37486974be6034aeb65f64ff27fc904e1b5b62681246ea058b67ff",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-top-rail-supports-mark1/enclosure-back-top-rail-supports-textured-z004-mark1.gcode.3mf",
+    "sha256": "1cf1b5fdf81a516516d94b7b7c3d2cb71f01a153a7591434aaa8455682f7a1ba",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-17-back-top-rounded-alignment-mark1/2026-11-17-back-top-mark1-57f7c4af.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "0e188453e622cad8af61b288c92dc2fc6309693bfe35a8faa1e4a98ce28d6138",
-    "project_sha256": "ae10d9d772c76cf84ed3b40c2210e8bf3174c8a3c3df4e628dbe4bde2c22bc98",
-    "archive_sha256": "cbeaa279cc5888bf7d2558a5e471abb3070d351947063aef7034a6ed5ed8f367",
-    "gcode_sha256": "f178acac117a6964c6e89aeff330745a61668b528e4052f74b1b361f208674f6",
+    "recipe_sha256": "31e3e73d9afc09fe5743bb98eeb65e39e7b1760514ed6a5d9ea3257fad9ef007",
+    "project_sha256": "7362b47965554e4031ab75079655ab47aad37a231b12c3b5c49ad9a98edca753",
+    "archive_sha256": "b7283d621cf25b5cd9dea178527e3f1d272f1a4dece686b6338e892811e25043",
+    "gcode_sha256": "7ab8e7929f268f06ee1940648fcb61d5aacb2a873f0a99138c564e29422d21ad",
     "kind": "plan",
     "layers": 1019,
-    "model_sha256": "d97577ab93354a494da465d8757423b1b83f0c7c0ffd817bc3ea88f1d16da0f0",
+    "model_sha256": "4d37ecbecbd4c063279ed3d62d77919cdf534b536518432c9f3f69251582fdc9",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -837,9 +839,10 @@
       "Protected openings": "Pisco catches, ASSE east catch, lower meter cap pocket, cable hooks, valve sockets and insert pilots clear",
       "Snap catches": "Removable supports on the reachable ASSE and water regulator catches. Corbels on ASSE east and both Pisco catches.",
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
-      "Flow-meter receiver": "Dense interface under the upper hook pocket and slide and wire floors. The aft shoulder and flank strip use corbels."
+      "Flow-meter receiver": "Dense interface under the upper hook pocket and slide and wire floors. The aft shoulder and flank strip use corbels.",
+      "Rear alignment": "Corbelled receiving grooves for the rounded lower keys"
     },
-    "recipe_commit": "fc87ce45aeba1b580b7a7fa6cb6119935fa358bb"
+    "recipe_commit": "0bf5e2e6309bb491c6b66ae5ed7f70de7845857a"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",

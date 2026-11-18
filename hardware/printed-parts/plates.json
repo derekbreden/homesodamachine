@@ -29,7 +29,6 @@
     "filament": "PET-GF",
     "thumbnail": "/parts/plates/back-top.webp",
     "href": "/parts#material:HSM-0081?view=print",
-    "download": "/print-archive/8a62d197a997d735ccaa3ab0973070c71c044fd3/enclosure-back-top.3mf",
     "parts": [{"label": "Enclosure back top", "material": "HSM-0081"}],
     "relatedPrints": [{"label": "ASSE vent sleeve · TPU", "material": "HSM-0088", "href": "/parts#material:HSM-0088?view=print"}]
   },
