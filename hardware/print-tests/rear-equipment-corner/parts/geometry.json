@@ -1,0 +1,63 @@
+{
+  "caps": [
+    {
+      "name": "asse-snap-cap",
+      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+      "stl_sha256": "4de17d99fc68fc167ccef8b4a7ed8433b0c12c81ca3e87b2aa3c03be0bea1cf7"
+    },
+    {
+      "name": "pisco-snap-cap",
+      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+      "stl_sha256": "fc433505e22586612b2ca5a7661fdf7632c0f15485e4864cfb5f2cc9c1f1808f"
+    },
+    {
+      "name": "meter-snap-cap",
+      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+      "stl_sha256": "e2df58035da8e595b050361d2c6e6b5a371e32e554ba8c3b4748850dab788704"
+    }
+  ],
+  "connected_solids": 1,
+  "corner_bounds_mm": [
+    [
+      -1.0,
+      378.0,
+      252.0
+    ],
+    [
+      110.5,
+      474.29999999981374,
+      355.0
+    ]
+  ],
+  "corner_stl_sha256": "d4f0b40d3b37d1747ee6af8b50a8e1fa320ebc8e6a050c5c6c886f1ca0017561",
+  "corner_volume_mm3": 264284.04604794335,
+  "inputs": {
+    "caps": [
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "meter-snap-cap"
+    ],
+    "crop_max_mm": [
+      112.0,
+      475.0,
+      355.0
+    ],
+    "crop_min_mm": [
+      -1.0,
+      378.0,
+      252.0
+    ],
+    "print_up_source": [
+      0,
+      0,
+      -1
+    ],
+    "purpose": "Retain the complete ASSE, Pisco and meter receivers and surrounding enclosure corner for an assembly fit print.",
+    "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+    "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+    "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
+  },
+  "source_model_sha256": "d3bc9ae96e4bb4b016d75675827d2077ca34a4115a14a3d8331208cbf5bac358",
+  "source_stl_sha256": "52dcf4340e9106615af36f5972f2d573e675824f9809778cd86dca7cca8e4067",
+  "watertight": true
+}

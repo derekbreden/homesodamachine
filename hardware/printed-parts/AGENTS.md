@@ -129,25 +129,18 @@ Read the actual rail-tree bases and interfaces from the native slice; allowing
 supports on model material alone does not establish where the slicer roots them.
 
 Back-top prints ceiling-down, with the rear flutes standing clear of the bed.
-A snap receiver's flank pocket that a screwdriver reaches prints its catch on
-removable support: both of the water regulator's, and the ASSE's west one. No
-screwdriver reaches the ASSE's east pocket beside the Pisco or either of the
-Pisco's, so only those three catches are corbels at the shell's teardrop roof
-slope, printing with neither support nor bridge, and their caps' hooks seat on
-the slope. The [stopped Mark 1 back-top](https://github.com/derekbreden/homesodamachine/blob/442ac2b7c23d85ee12d16088b3ad89388730cc91/hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/physical-result/physical-result.json)
-records Derek's split between the two kinds of pocket. The C14 inlet's flange
-pocket and cord passage take support; its blind pilots stay clear. The meter
-host's fore end shoulder takes a support target. Its aft shoulder sits under the
-Pisco receiver, so a corbel off the east flank carries it, and the Pisco cap's
-east corner and shorter east wall clear that corbel. The hook and wire pockets
-run flush to the flank. The front lip, the bar the meter cap's top wing rides over, takes
-a support target through the slot's open west side as far as the Pisco
-receiver. Under the Pisco a tree could only root against the receiver's fore end
-stop, so the lip bridges from that support to the aft shoulder. The upper hook
-pocket floor, both boss channels, both screw-head channels and the wire chamber
-take support through the receiver's open west side. Preserve the
-[approved](../print-tests/pointed-snaps/physical-result/physical-result.json) component seats,
-catch planes and wing travel.
+Every rear receiver catch and its matching cap use the shared snap chamfer.
+The wing channels stay clear of supports. The meter's sideways channels return
+to the flank on bevels, and its continuous roof bevel carries the end shoulders.
+The complete shoulders retain the landings across the open wing lanes.
+The Pisco leaves stop ahead of the rear corner column; its body retains the
+full fitted span and clears the meter roof bevel. The corner column and rear
+wall meet their common stock plane. The ceiling recess runs flush to the walls.
+The C14 inlet's flange pocket and cord passage take support; its blind pilots
+stay clear. The meter's fitted boss channels, screw-head channels and wire
+chamber take support through the receiver's open west side. Preserve the
+[approved](../print-tests/pointed-snaps/physical-result/physical-result.json)
+component seats and the spring walls and roots.
 Receiver coupons retain this production layer direction. Ordinary layers apply
 except where a specific show round requires a fine band.
 Covered rear bulkhead bores and horizontal valve sockets retain teardrop

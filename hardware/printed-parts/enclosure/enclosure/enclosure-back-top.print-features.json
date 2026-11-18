@@ -184,11 +184,11 @@
       ]
     }
   ],
-  "source_stl_sha256": "49a549a1b3ec511555a6cb5514675ceb29a3d47d4a16a71f9f1024e45ebe1467",
+  "source_stl_sha256": "52dcf4340e9106615af36f5972f2d573e675824f9809778cd86dca7cca8e4067",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
-        9.001860222036488,
+        0.1518602220364862,
         57.44813977796352,
         392.9532545933731,
         441.6179848073112,
@@ -196,7 +196,7 @@
         355.0
       ],
       "bounds_source_mm": [
-        9.001860222036488,
+        3.401860222036486,
         54.19813977796352,
         396.2032545933731,
         438.3679848073112,
@@ -204,7 +204,7 @@
         351.8
       ],
       "name": "ASSE receiver",
-      "reason": "The fitted room and the corbelled east catch print without support; the reachable west catch's support stands outside."
+      "reason": "The fitted room and both chamfered catches print without support."
     },
     {
       "blocking_bounds_source_mm": [
@@ -248,23 +248,43 @@
     },
     {
       "blocking_bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        434.0086388104271,
+        305.79999999999995,
+        312.7
+      ],
+      "bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        434.0086388104271,
+        305.79999999999995,
+        312.7
+      ],
+      "name": "Flow meter upper cap pocket",
+      "reason": "The catch and its return to the flank are chamfered, with no flat pocket floor to support."
+    },
+    {
+      "blocking_bounds_source_mm": [
         -61.82391030388001,
         1.6260896961199958,
-        291.95363371499803,
-        323.3600400329926,
+        286.353633714998,
+        328.9600400329926,
         331.75,
         355.0
       ],
       "bounds_source_mm": [
         -58.57391030388001,
         -1.6239103038800042,
-        291.95363371499803,
-        323.3600400329926,
+        286.353633714998,
+        328.9600400329926,
         335.0,
         346.5
       ],
       "name": "Water regulator receiver",
-      "reason": "The fitted room prints without support; both reachable catches' support stands on either side."
+      "reason": "The fitted room and both chamfered catches print without support."
     },
     {
       "bounds_source_mm": [
@@ -911,78 +931,6 @@
     }
   ],
   "support_regions": [
-    {
-      "bounds_source_mm": [
-        6.151860222036486,
-        9.001860222036488,
-        396.2032545933731,
-        438.3679848073112,
-        342.8,
-        343.3
-      ],
-      "name": "Accessible ASSE west catch",
-      "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."
-    },
-    {
-      "bounds_source_mm": [
-        -55.57391030388001,
-        -19.073910303880005,
-        289.103633714998,
-        291.95363371499803,
-        339.56514607709613,
-        340.06514607709613
-      ],
-      "name": "Accessible water regulator fore catch",
-      "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."
-    },
-    {
-      "bounds_source_mm": [
-        -55.57391030388001,
-        -19.073910303880005,
-        323.3600400329926,
-        326.2100400329926,
-        339.56514607709613,
-        340.06514607709613
-      ],
-      "name": "Accessible water regulator aft catch",
-      "reason": "Support the catch through its open flank, where a screwdriver slides in along the catch and peels the support off it."
-    },
-    {
-      "bounds_source_mm": [
-        83.05,
-        98.5,
-        384.7586388104271,
-        395.2586388104271,
-        312.2,
-        312.7
-      ],
-      "name": "Accessible flow meter fore shoulder",
-      "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."
-    },
-    {
-      "bounds_source_mm": [
-        83.05,
-        88.19999999999999,
-        395.5086388104271,
-        420.09571720240064,
-        309.7,
-        310.2
-      ],
-      "name": "Accessible flow meter front lip",
-      "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."
-    },
-    {
-      "bounds_source_mm": [
-        88.19999999999999,
-        98.5,
-        395.5086388104271,
-        434.0086388104271,
-        306.84999999999997,
-        307.34999999999997
-      ],
-      "name": "Accessible flow meter upper hook pocket floor",
-      "reason": "Support the floor at the hook's fitted height. A screwdriver enters above the lip and lifts the support toward the open side."
-    },
     {
       "bounds_source_mm": [
         83.05,

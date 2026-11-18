@@ -2,21 +2,14 @@
 //! the flow meter's and the water regulator's. Each is a block cut round its part's measured
 //! profile, with the flank pockets its snap cap's spring wings ride in.
 use crate::catalog::{clearance, running, slip};
-use crate::layout::{Pose, Station, layout, snap_tip_air, snap_tip_rise};
+use crate::layout::{Pose, Station, layout, snap_tip_air, snap_tip_rise, PISCO_WING_AFT_Y, REAR_SNAP_CHAMFER_SLOPE, REAR_SNAP_WALL_TOP_Z};
 use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
 use crate::quadrant::sorted;
 use crate::shapes::place;
-use crate::shell::{back_top_ceiling_face, shell};
+use crate::shell::back_top_ceiling_face;
 use crate::walls::back_top_flank_face;
 use serde::Deserialize;
 use std::sync::OnceLock;
-
-/// The flanks, west then east, whose pockets no screwdriver reaches. Each catch there is a
-/// corbel off the neck, so it prints with neither support nor bridge; the other flanks' catches
-/// print on removable support.
-const ASSE_CORBELS: [bool; 2] = [false, true];
-const PISCO_CORBELS: [bool; 2] = [true, true];
-const NO_CORBELS: [bool; 2] = [false, false];
 
 /// The aft travel that puts the noses through the wall, and how far a taped joint may leave the
 /// ASSE body's drawn station either way.
@@ -216,6 +209,13 @@ pub fn ceiling_anchor_z() -> f64 {
     ceiling_floor_z() + INTO
 }
 
+/// The rear wall beside the Pisco keeps its existing plan up to the common wall plane.
+pub fn rear_snap_wall_bounds() -> Bounds {
+    let s = pisco_station();
+    [s.axis_x + s.outer, side(), s.y1 + running(), rear(),
+     ceiling_bay_bounds()[4] - INTO, REAR_SNAP_WALL_TOP_Z]
+}
+
 /// The meter and water regulator tip pockets stay clear through the stock they join.
 pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
     let mut cuts = Vec::new();
@@ -229,26 +229,25 @@ pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
                      [ty + METER_CAP[0], ty + METER_CAP[1]], 0.0,
                      wx(meter::UNDERSIDE_Y) - METER_AIR - mx);
     st.ceiling = side() - mx;
-    for pocket in tip_pockets(g, &st, NO_CORBELS) {
+    for pocket in meter_catch_pockets(g, &st) {
         let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
         cuts.push(g.translate(pocket, [mx, 0.0, centre[2]]));
     }
-    for pocket in tip_pockets(g, &layout().rear_plumbing.regulator_mount.station, NO_CORBELS) {
+    for pocket in tip_pockets(g, &layout().rear_plumbing.regulator_mount.station) {
         cuts.push(g.rotate(pocket, [0.0; 3], [0.0, 0.0, 1.0], 90.0));
     }
     cuts
 }
 
-fn tip_pockets(g: &mut Graph, st: &Station, corbels: [bool; 2]) -> Vec<Shape> {
-    [-1.0, 1.0].into_iter().zip(corbels)
-        .map(|(side, corbel)| catch_pocket(g, st, side, corbel, [st.y0 - running(), st.y1 + running()]))
+fn tip_pockets(g: &mut Graph, st: &Station) -> Vec<Shape> {
+    [-1.0, 1.0].into_iter()
+        .map(|side| catch_pocket(g, st, side, [st.y0 - running(), st.y1 + running()]))
         .collect()
 }
 
-/// A corbel's rise for each millimetre it climbs from its edge to its wall: the shell's teardrop
-/// roof slope, which prints without support.
+/// A catch's chamfer rises from its edge to its wall at the shared snap slope.
 fn corbel_slope() -> f64 {
-    shell().teardrop_roof_angle.to_radians().tan()
+    REAR_SNAP_CHAMFER_SLOPE
 }
 
 /// How far a corbelled catch rises from the ledge's edge to the neck.
@@ -258,14 +257,22 @@ fn corbel_rise(s: &Station) -> f64 {
 
 /// One flank's pocket above the bearing plane, from the neck out past the wing to the pocket's
 /// ceiling. A corbelled flank keeps the corbel, which climbs the neck from the ledge's edge.
-fn catch_pocket(g: &mut Graph, s: &Station, side: f64, corbel: bool, [y0, y1]: P2) -> Shape {
+fn catch_pocket(g: &mut Graph, s: &Station, side: f64, [y0, y1]: P2) -> Shape {
     let at = |x: f64| s.axis_x + side * x;
-    if !corbel {
-        let (x0, x1) = sorted(at(s.neck), at(s.outer + 1.0));
-        return g.box_([x0, x1, y0, y1, s.bearing, s.ceiling]);
-    }
     g.prism(1, y0, y1, vec![[at(s.neck), s.ceiling], [at(s.outer + 1.0), s.ceiling], [at(s.outer + 1.0), s.bearing],
                              [at(s.ledge), s.bearing], [at(s.neck), s.bearing + corbel_rise(s)]])
+}
+
+/// Each sideways meter channel returns to the flank on a matching bevel beyond the hook.
+fn meter_catch_pockets(g: &mut Graph, s: &Station) -> Vec<Shape> {
+    let middle = (s.bearing + s.ceiling + (s.ledge - s.outer) / corbel_slope()) / 2.0;
+    let near = s.ledge - (middle - s.bearing) * corbel_slope();
+    [-1.0, 1.0].into_iter().map(|side| {
+        let at = |x: f64| s.axis_x + side * x;
+        g.prism(1, s.y0 - running(), s.y1 + running(),
+            vec![[at(s.outer), s.ceiling], [at(s.outer + 1.0), s.ceiling],
+                 [at(s.outer + 1.0), s.bearing], [at(s.ledge), s.bearing], [at(near), middle]])
+    }).collect()
 }
 
 /// The cap's spring wing clears its hook this far: one face's slip and its supported finish.
@@ -295,82 +302,36 @@ pub struct Interior {
     pub reason: &'static str,
 }
 
-/// Fitted rooms and cap pockets kept clear of supports. The meter's open body room and
-/// upper hook pocket take support at their floors.
+/// Fitted rooms and chamfered wing channels stay clear of support; accessible body floors
+/// retain their own support targets.
 pub fn interiors() -> Vec<Interior> {
     let a = running();
     let (asse, pisco) = (asse_station(), pisco_station());
     let whole = |s: &Station| [s.axis_x - s.outer - a, s.axis_x + s.outer + a, s.y0 - a, s.y1 + a, s.split - a, s.ceiling + a];
-    let mut asse_room = whole(&asse);
-    asse_room[0] = asse.axis_x - asse.neck;
-    let (stock, cap, _) = meter_print_stock();
+    let (stock, cap, meter) = meter_print_stock();
     let lower_pocket = [stock[0], stock[1], cap[0] - a, cap[1] + a, stock[4],
                         meter_wire_chamber_bounds()[4] - 2.0 * a];
     let mount = &layout().rear_plumbing.regulator_mount;
     let [y0, y1] = regulator_seat();
-    let regulator_room = [-y1, -y0, mount.axis[0] - mount.station.neck, mount.axis[0] + mount.station.neck,
+    let regulator_room = [-y1, -y0, mount.axis[0] - mount.station.outer - a, mount.axis[0] + mount.station.outer + a,
                           SPLIT, back_top_ceiling_face() + INTO];
+    let middle = (meter.bearing + meter.ceiling + meter.ledge - meter.outer) / 2.0;
+    let near = meter.ledge - (middle - meter.bearing);
+    let upper_pocket = [stock[0] + meter.bearing, side(), cap[0] - a, cap[1] + a,
+                        stock[5] - meter.outer + near - a, stock[5] + a];
     vec![
-        Interior { name: "ASSE receiver", bounds: asse_room, grows: [false, true, true, true, true, true],
-                   reason: "The fitted room and the corbelled east catch print without support; the reachable west catch's support stands outside." },
+        Interior { name: "ASSE receiver", bounds: whole(&asse), grows: [true; 6],
+                   reason: "The fitted room and both chamfered catches print without support." },
         Interior { name: "Pisco receiver", bounds: whole(&pisco), grows: [true; 6],
                    reason: "The fitted room and both corbelled catches print without support." },
         Interior { name: "Flow meter lower cap pocket", bounds: lower_pocket,
                    grows: [true, true, false, false, true, false],
                    reason: "Keep support out of the lower hook pocket below the wire chamber floor." },
+        Interior { name: "Flow meter upper cap pocket", bounds: upper_pocket, grows: [false; 6],
+                   reason: "The catch and its return to the flank are chamfered, with no flat pocket floor to support." },
         Interior { name: "Water regulator receiver", bounds: regulator_room, grows: [true, true, false, false, true, true],
-                   reason: "The fitted room prints without support; both reachable catches' support stands on either side." },
+                   reason: "The fitted room and both chamfered catches print without support." },
     ]
-}
-
-/// The catches a screwdriver reaches, each print-down face in its own frame: the ASSE's west
-/// catch and both of the water regulator's.
-pub fn catch_targets() -> Vec<(String, Bounds)> {
-    let a = running();
-    let face = |s: &Station, side: f64| {
-        let (x0, x1) = sorted(s.axis_x + side * s.neck, s.axis_x + side * s.ledge);
-        [x0, x1, s.y0 - a, s.y1 + a, s.bearing - a, s.bearing + a]
-    };
-    let mut targets = Vec::new();
-    let asse = asse_station();
-    for ((side, corbel), name) in [-1.0, 1.0].into_iter().zip(ASSE_CORBELS).zip(["west", "east"]) {
-        if !corbel {
-            targets.push((format!("Accessible ASSE {name} catch"), face(&asse, side)));
-        }
-    }
-    // The regulator's snap frame turns a quarter about Z onto the machine.
-    let s = &layout().rear_plumbing.regulator_mount.station;
-    for (side, name) in [(-1.0, "fore"), (1.0, "aft")] {
-        let [x0, x1, y0, y1, z0, z1] = face(s, side);
-        targets.push((format!("Accessible water regulator {name} catch"), [-y1, -y0, x0, x1, z0, z1]));
-    }
-    targets
-}
-
-/// The meter receiver's exposed fore end shoulder; the aft one stands on its corbel.
-pub fn meter_shoulder_target() -> Bounds {
-    let a = running();
-    let (stock, cap, _) = meter_print_stock();
-    [stock[0], side(), stock[2], cap[0] - 2.0 * a, stock[5] - a, stock[5] + a]
-}
-
-/// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
-/// receiver's open west face to the catch, along the cap pocket as far as the Pisco receiver.
-/// Under the Pisco a tree could only root against its fore end stop, so the lip bridges from
-/// this support to the aft shoulder there.
-pub fn meter_lip_target() -> Bounds {
-    let a = running();
-    let (stock, cap, s) = meter_print_stock();
-    let lip = stock[5] - s.outer + s.ledge;
-    [stock[0], stock[0] + s.bearing, cap[0] - a, pisco_station().y0 - a, lip - a, lip + a]
-}
-
-/// The upper hook pocket floor runs from the lip's inner edge flush to the flank.
-pub fn meter_hook_floor_target() -> Bounds {
-    let (stock, cap, s) = meter_print_stock();
-    let a = running();
-    let floor = stock[5] - s.outer + s.neck;
-    [stock[0] + s.bearing, stock[0] + s.ceiling, cap[0] - a, cap[1] + a, floor - a, floor + a]
 }
 
 /// The meter's downhill slide and wire floors face the bed in the ceiling-down pose.
@@ -468,16 +429,22 @@ fn pisco_station() -> Station {
 }
 
 /// Each wing lane opens beside its ledge and into the catch room above it; the ends locate the cap.
-fn pockets(g: &mut Graph, s: &Station, corbels: [bool; 2]) -> Vec<Shape> {
+fn wing_lanes(g: &mut Graph, s: &Station) -> Vec<Shape> {
     let a = running();
     let mut out = Vec::new();
-    for (side, corbel) in [-1.0, 1.0].into_iter().zip(corbels) {
+    for side in [-1.0, 1.0] {
         let far = s.axis_x + side * (s.outer + 1.0);
         let ledge = s.axis_x + side * s.ledge;
         let (x0, x1) = sorted(ledge, far);
         out.push(g.box_([x0, x1, s.y0 - a, s.y1 + a, s.split - 1.0, s.bearing]));
-        out.push(catch_pocket(g, s, side, corbel, [s.y0 - a, s.y1 + a]));
     }
+    out
+}
+
+/// The vertical rear receivers combine open wing lanes with chamfered catches.
+fn pockets(g: &mut Graph, s: &Station) -> Vec<Shape> {
+    let mut out = wing_lanes(g, s);
+    out.extend(tip_pockets(g, s));
     out
 }
 
@@ -598,7 +565,7 @@ fn asse(g: &mut Graph) -> Shape {
         room = g.union(room, &[hex]);
     }
     let mut cuts = vec![room];
-    cuts.extend(pockets(g, &st, ASSE_CORBELS));
+    cuts.extend(pockets(g, &st));
     g.cut(stock, &cuts)
 }
 
@@ -638,7 +605,9 @@ fn pisco(g: &mut Graph) -> Shape {
                         ceiling() + INTO]);
     let room = turned(g, profile, axis);
     let mut cuts = vec![room];
-    cuts.extend(pockets(g, &st, PISCO_CORBELS));
+    let mut wing = st;
+    wing.y1 = PISCO_WING_AFT_Y;
+    cuts.extend(pockets(g, &wing));
     g.cut(stock, &cuts)
 }
 
@@ -695,24 +664,25 @@ fn meter(g: &mut Graph) -> Shape {
     let wire = g.box_(meter_wire_chamber_bounds());
     cup = g.union(cup, &[wire]);
     let stock = g.box_([mx, side() + INTO, ty + METER_SEAT[0], ty + METER_SEAT[1], mz - st.outer, mz + st.outer]);
-    // The aft shoulder grows from the flank on its corbel, clear of the Pisco's entry.
-    let corbels: Vec<Shape> = [meter_aft_corbel()].into_iter()
+    // The continuous roof bevel carries both end shoulders from the flank.
+    let corbels: Vec<Shape> = [meter_roof_corbel()].into_iter()
         .map(|[x0, x1, y0, y1, top]| g.prism(1, y0, y1, vec![[x0, top], [x1, top], [x1, top + (x1 - x0) * corbel_slope()]]))
         .collect();
     let stock = g.union(stock, &corbels);
     let mut cuts = vec![cup];
-    for pocket in pockets(g, &st, NO_CORBELS) {
+    let mut lanes = wing_lanes(g, &st);
+    lanes.extend(meter_catch_pockets(g, &st));
+    for pocket in lanes {
         let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
         cuts.push(g.translate(pocket, [mx, 0.0, mz]));
     }
     g.cut(stock, &cuts)
 }
 
-/// The meter receiver's aft shoulder corbel: its west edge on the shoulder's top, out into the
-/// flank, its span along the shoulder, and the shoulder's top it climbs from.
-fn meter_aft_corbel() -> [f64; 5] {
-    let (stock, cap, _) = meter_print_stock();
-    [stock[0], stock[1], cap[1] + running(), stock[3], stock[5]]
+/// The meter roof grows from its complete open edge to the flank on a continuous bevel.
+fn meter_roof_corbel() -> [f64; 5] {
+    let (stock, _, _) = meter_print_stock();
+    [stock[0], stock[1], stock[2], stock[3], stock[5]]
 }
 
 /// The water regulator's seat: built in its snap's frame round the measured profile, then turned
@@ -734,7 +704,7 @@ fn regulator(g: &mut Graph) -> Shape {
     let [t0, t1, t2] = pose.translation_mm;
     let room = place(g, room, [r1, r0.map(|v| -v), r2], [t1, -t0, t2]);
     let mut cuts = vec![room];
-    cuts.extend(pockets(g, st, NO_CORBELS));
+    cuts.extend(pockets(g, st));
     let seat = g.cut(stock, &cuts);
     g.rotate(seat, [0.0; 3], [0.0, 0.0, 1.0], 90.0)
 }

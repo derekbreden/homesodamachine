@@ -1,0 +1,10 @@
+{
+  "purpose": "Retain the complete ASSE, Pisco and meter receivers and surrounding enclosure corner for an assembly fit print.",
+  "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "crop_min_mm": [-1.0, 378.0, 252.0],
+  "crop_max_mm": [112.0, 475.0, 355.0],
+  "print_up_source": [0, 0, -1],
+  "caps": ["asse-snap-cap", "pisco-snap-cap", "meter-snap-cap"]
+}

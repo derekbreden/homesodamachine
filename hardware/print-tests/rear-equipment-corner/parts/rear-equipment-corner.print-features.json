@@ -1,0 +1,346 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [],
+  "producer": "rear-equipment-corner",
+  "source_stl_sha256": "d4f0b40d3b37d1747ee6af8b50a8e1fa320ebc8e6a050c5c6c886f1ca0017561",
+  "support_free_regions": [
+    {
+      "blocking_bounds_source_mm": [
+        0.1518602220364862,
+        57.44813977796352,
+        392.9532545933731,
+        441.6179848073112,
+        327.95,
+        355.0
+      ],
+      "bounds_source_mm": [
+        3.401860222036486,
+        54.19813977796352,
+        396.2032545933731,
+        438.3679848073112,
+        331.2,
+        351.8
+      ],
+      "name": "ASSE receiver",
+      "reason": "The fitted room and both chamfered catches print without support."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        58.59438431246909,
+        94.40561568753091,
+        416.84571720240064,
+        465.55,
+        334.7,
+        355.0
+      ],
+      "bounds_source_mm": [
+        61.84438431246909,
+        91.15561568753091,
+        420.09571720240064,
+        462.3,
+        337.95,
+        351.8
+      ],
+      "name": "Pisco receiver",
+      "reason": "The fitted room and both corbelled catches print without support."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        79.8,
+        102.25,
+        395.5086388104271,
+        434.0086388104271,
+        254.90000000000003,
+        263.00000000000006
+      ],
+      "bounds_source_mm": [
+        83.05,
+        99.0,
+        395.5086388104271,
+        434.0086388104271,
+        258.15000000000003,
+        263.00000000000006
+      ],
+      "name": "Flow meter lower cap pocket",
+      "reason": "Keep support out of the lower hook pocket below the wire chamber floor."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        434.0086388104271,
+        305.79999999999995,
+        312.7
+      ],
+      "bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        434.0086388104271,
+        305.79999999999995,
+        312.7
+      ],
+      "name": "Flow meter upper cap pocket",
+      "reason": "The catch and its return to the flank are chamfered, with no flat pocket floor to support."
+    },
+    {
+      "bounds_source_mm": [
+        7.6499988712316025,
+        49.9499988712316,
+        469.299,
+        472.799,
+        252.0,
+        355.0
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 42.3,
+      "name": "Identification channel 1",
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        55.35,
+        97.65,
+        469.299,
+        472.799,
+        252.0,
+        355.0
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 42.300000000000004,
+      "name": "Identification channel 2",
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        19.372358982281966,
+        38.67935898228196,
+        458.0,
+        474.55,
+        318.93233266023236,
+        340.5182148810266
+      ],
+      "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          29.025858982281964,
+          330.8647148810266
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 9.6535,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.3,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.55,
+        322.6359030178927,
+        338.1285
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.3,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        68.85,
+        84.15,
+        458.0,
+        474.55,
+        254.5440799721266,
+        271.65
+      ],
+      "name": "Covered bulkhead at X76.5 Z264",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          264.0
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.3,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        67.78,
+        85.22,
+        458.0,
+        474.55,
+        283.4214872362018,
+        302.92
+      ],
+      "name": "Covered bulkhead at X76.5 Z294.2",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 8.72,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.3,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        21.149998871231602,
+        36.4499988712316,
+        458.0,
+        474.55,
+        284.7440799721266,
+        301.84999999999997
+      ],
+      "name": "Covered bulkhead at X28.7999988712316 Z294.2",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          28.7999988712316,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.3,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        21.149998871231602,
+        36.4499988712316,
+        458.0,
+        474.55,
+        254.5440799721266,
+        271.65
+      ],
+      "name": "Covered bulkhead at X28.7999988712316 Z264",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          28.7999988712316,
+          264.0
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.3,
+          474.3
+        ]
+      }
+    }
+  ],
+  "support_regions": [
+    {
+      "bounds_source_mm": [
+        83.05,
+        93.85000000000001,
+        382.16863881042707,
+        406.0186388104271,
+        267.45,
+        267.95
+      ],
+      "name": "Accessible flow meter fore boss channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        93.85000000000001,
+        407.16863881042707,
+        431.0186388104271,
+        267.45,
+        267.95
+      ],
+      "name": "Accessible flow meter aft boss channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        93.55,
+        95.55000000000001,
+        382.9686388104271,
+        405.2186388104271,
+        268.25,
+        268.75
+      ],
+      "name": "Accessible flow meter fore screw-head channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        93.55,
+        95.55000000000001,
+        407.9686388104271,
+        430.2186388104271,
+        268.25,
+        268.75
+      ],
+      "name": "Accessible flow meter aft screw-head channel floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        98.5,
+        394.5186388104271,
+        418.66863881042707,
+        263.25000000000006,
+        263.75000000000006
+      ],
+      "name": "Accessible flow meter wire chamber floor",
+      "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away."
+    }
+  ]
+}
