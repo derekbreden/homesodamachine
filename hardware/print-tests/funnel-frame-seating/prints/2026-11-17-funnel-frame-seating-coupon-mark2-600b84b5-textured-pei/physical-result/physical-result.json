@@ -1,0 +1,18 @@
+{
+  "purpose": "Record the hand fit of the relieved funnel-frame coupon in the printed front-top.",
+  "date": "2026-11-17",
+  "article": "Front-right funnel-frame corner, with the production flange relief and print direction",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "printer": "Mark2",
+  "printer_task_id": "1456756913",
+  "launch_receipt": "../launch.json",
+  "result": "Derek accepts the coupon's fit. It can sit slightly proud at first and seats under light hand pressure. The printed underside has some give.",
+  "derek": [
+    "So that actually turned out pretty well. I think it's actually just about perfect.",
+    "As you can see in my first photo there, initially it looks like it might be sitting just a tiny bit too high, but get a little bit of pressure on it because that bottom surface is just a little bit soft."
+  ],
+  "photos": [
+    {"file": "IMG_8791.jpeg", "view": "Coupon resting in the printed front-top before pressing"},
+    {"file": "IMG_8792.jpeg", "view": "Coupon seating under finger pressure"}
+  ]
+}
