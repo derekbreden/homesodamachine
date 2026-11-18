@@ -1,3 +1,9 @@
+[step] Required alignment-joint fit boundaries: the corbelled receiver's lower boundary remains above the sliding rail's retained cavity floor, and the receiving groove's bearing face remains inboard of the flank. These distinct surfaces retain the approved key passage and running clearances owned by rear_alignment.rs.
+alternatives: Reconciling these planes changes the approved receiver envelope or groove's fitted key clearance. A different joint profile requires its own paired fit trial.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-91.750 y=239.950 z=175.300
+click: x=97.783 y=236.400 z=179.300
+
 [sliver] Unavoidable fitted catch projections: the 1.4 mm upper tang keeper and 1.3 mm lower latch keeper retain the purchased keystone module. Their full native profiles and actual swing/insertion clearances are identified in the receptacle review. This does not establish printed latch life or physical support cleanup.
 alternatives: Filling the keeper openings enters the module envelope. Removing or sloping the working projections changes tang/latch capture; a different retention arrangement requires a complete receptacle redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step

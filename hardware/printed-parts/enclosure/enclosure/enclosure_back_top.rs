@@ -78,6 +78,13 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "support_print_up_source":[0,0,-1],
             "reason":"The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."}));
     }
+    for (side, sign) in [("west", -1.0), ("east", 1.0)] {
+        let bounds = hsm_enclosure_quadrants::rear_alignment::groove_bounds(sign);
+        regions.push(json!({"name":format!("{side} alignment groove"),
+            "bounds_source_mm":bounds,"blocking_bounds_source_mm":bounds,
+            "support_print_up_source":[0,0,-1],
+            "reason":"The receiving groove opens upward in the ceiling-down print pose. Its floor and standing walls grow from the continuous corbelled receiver; keep the fitted key passage clear."}));
+    }
     let mut bridges = vec![];
     for (index, bounds) in rear_wall::label_channels().into_iter().enumerate() {
         let mut stop = bounds;
@@ -362,7 +369,8 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
     piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, None));
     let lands = rear::seam_lands(g);
-    g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &lands))
+    piece = g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &lands));
+    hsm_enclosure_quadrants::rear_alignment::upper(g, piece)
 }
 
 /// The quadrant's STEP and fine model, and its fluted print: the nameplate field and the raised
