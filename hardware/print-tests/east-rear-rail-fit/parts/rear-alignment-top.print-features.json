@@ -1,0 +1,76 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        93.5,
+        103.75,
+        200.0,
+        456.3,
+        159.0,
+        178.05
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 10.25,
+      "name": "Sliding rail -1",
+      "reason": "The fitted sliding bearings retain local solid deposition."
+    }
+  ],
+  "producer": "rear-alignment-fit",
+  "removable_support_stock": [
+    {
+      "cap_span_x_mm": [
+        98.5,
+        103.275
+      ],
+      "center_x_mm": 99.6,
+      "contact_source_z_mm": 168.7,
+      "name": "Removable east rail support 1",
+      "reason": "Split removable caps cover the complete bearing between its stop and rear end, leaving the vent passage open. They root on their own cavity floor and pull inward through the sliding lane after the necks are severed.",
+      "root_source_z_mm": 175.05,
+      "shape": "rail_strips",
+      "span_y_mm": [
+        223.8,
+        456.3
+      ]
+    }
+  ],
+  "source_stl_sha256": "7798ad7a30db3e4e104656230ce3539215abc95d49606b46a2e99faf7fd72700",
+  "support_free_regions": [
+    {
+      "blocking_bounds_source_mm": [
+        100.25,
+        103.75,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "bounds_source_mm": [
+        100.25,
+        103.75,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "name": "east alignment groove",
+      "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ],
+  "support_regions": []
+}

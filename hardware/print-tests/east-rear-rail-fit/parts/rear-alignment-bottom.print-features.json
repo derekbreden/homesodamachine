@@ -1,0 +1,33 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        93.5,
+        103.75,
+        200.0,
+        456.3,
+        159.0,
+        178.05
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_print_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 10.25,
+      "name": "Sliding rail -1",
+      "reason": "The fitted sliding bearings retain local solid deposition."
+    }
+  ],
+  "producer": "rear-alignment-fit",
+  "removable_support_stock": [],
+  "source_stl_sha256": "254cb5dca2f6153e558c3ae6c5102b78c986c1f6221182844a8f32695295be63",
+  "support_free_regions": [],
+  "support_regions": []
+}

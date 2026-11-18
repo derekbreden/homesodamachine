@@ -1,0 +1,92 @@
+{
+  "pieces": [
+    {
+      "actual_bounds_mm": [
+        [
+          94.9798259365621,
+          200.15000000037253,
+          160.25
+        ],
+        [
+          110.49906568379572,
+          461.0,
+          190.12000000011176
+        ]
+      ],
+      "coupon_bed_source_z_mm": 190.12,
+      "coupon_fore_face_source_y_mm": 200.15000000037253,
+      "name": "rear-alignment-top",
+      "omitted_ordinary_layers": 687,
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "production_bed_source_z_mm": 355.0,
+      "production_fore_face_source_y_mm": 200.15000000037253,
+      "source_crop_mm": [
+        [
+          90.847,
+          200.0,
+          139.92
+        ],
+        [
+          112.0,
+          461.0,
+          190.12
+        ]
+      ],
+      "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+      "source_sha256": "7e977e63efa012473f4852f63a86b02ac2f6c8ed07484730e8a5070532f40649",
+      "stl_sha256": "7798ad7a30db3e4e104656230ce3539215abc95d49606b46a2e99faf7fd72700",
+      "volume_mm3": 62984.61022483753
+    },
+    {
+      "actual_bounds_mm": [
+        [
+          90.84700000006706,
+          200.15000000037253,
+          139.9199999999255
+        ],
+        [
+          110.49906568379572,
+          461.0,
+          177.79999999981374
+        ]
+      ],
+      "coupon_bed_source_z_mm": 139.92,
+      "coupon_fore_face_source_y_mm": 200.15000000037253,
+      "name": "rear-alignment-bottom",
+      "omitted_ordinary_layers": 608,
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "production_bed_source_z_mm": -6.0,
+      "production_fore_face_source_y_mm": 200.15000000037253,
+      "source_crop_mm": [
+        [
+          90.847,
+          200.0,
+          139.92
+        ],
+        [
+          112.0,
+          461.0,
+          190.12
+        ]
+      ],
+      "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+      "source_sha256": "dfc2482a1984d6dff155a26f8dcafdf76c37bf0c0fecec9ff23ef3333756e46c",
+      "stl_sha256": "254cb5dca2f6153e558c3ae6c5102b78c986c1f6221182844a8f32695295be63",
+      "volume_mm3": 80625.00818072972
+    }
+  ],
+  "production_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "production_print_features_sha256": "a7c8d29d16ae573e43edd0e0e0f4a274788017aee876bf5dba03abcff0d12253",
+  "purpose": "Bind the paired rear alignment specimens to their production solids, complete fore faces and layer phase.",
+  "seated_overlap_mm3": 0.0,
+  "rear_alignment_source_revision": "0259387aaf2fb92d7a8c9e5c54cb8c80a0b93c04",
+  "production_print_features_revision": "e7ff7ff39db5d6a549539af6cee98774375d39c0"
+}

@@ -1,0 +1,151 @@
+{
+  "purpose": "Check the two coupon meshes at the rail entry, seated position and positions along their Y slide.",
+  "upper_travel_axis": [
+    0,
+    1,
+    0
+  ],
+  "sampled_poses": [
+    {
+      "upper_y_from_seated_mm": 0,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 0.25,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 1,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 5,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 10,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 20,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 20.2,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 28,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 30,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 40,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 50,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 60,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 70,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 80,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 90,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 92,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 100,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 110,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 119.8,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 120,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 130,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 140,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 150,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 160,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 170,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 180,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 190,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 200,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 210,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 220,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 230,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 234.5,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 236,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 236.5,
+      "solid_overlap_mm3": 0.0
+    },
+    {
+      "upper_y_from_seated_mm": 237.5,
+      "solid_overlap_mm3": 0.0
+    }
+  ],
+  "maximum_sampled_overlap_mm3": 0.0
+}

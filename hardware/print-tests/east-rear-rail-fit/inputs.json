@@ -1,0 +1,50 @@
+{
+  "purpose": "Crop the full east sliding rail and alignment joint from the two seated enclosure quadrants.",
+  "top_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "pieces": [
+    {
+      "name": "rear-alignment-top",
+      "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+      "crop_min_mm": [
+        90.847,
+        200.0,
+        139.92
+      ],
+      "crop_max_mm": [
+        112.0,
+        461.0,
+        190.12
+      ],
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "production_bed_source_z_mm": 355.0,
+      "coupon_bed_source_z_mm": 190.12,
+      "omitted_ordinary_layers": 687
+    },
+    {
+      "name": "rear-alignment-bottom",
+      "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
+      "crop_min_mm": [
+        90.847,
+        200.0,
+        139.92
+      ],
+      "crop_max_mm": [
+        112.0,
+        461.0,
+        190.12
+      ],
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "production_bed_source_z_mm": -6.0,
+      "coupon_bed_source_z_mm": 139.92,
+      "omitted_ordinary_layers": 608
+    }
+  ]
+}
