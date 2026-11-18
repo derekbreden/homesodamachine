@@ -29,7 +29,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "66e416b427058be508ae912407648aeccbec0f82d9bf1e10c9c0630a3d7caf79",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "1567372f523134e6c2b74d1a1cad46927d97e981c5a024f502ff8ddb30801c20",
-    "hardware/cold-core-layout/cold-core-assembly.step": "7574aa32dfc20504bcbb7b24fef5fbcc7f77b380e5ffe1f73d508bd08c540fa4",
+    "hardware/cold-core-layout/cold-core-assembly.step": "95964218640e3c79bac5b2fdd1e14c8de95fa37a59538a960693070c35ec6307",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "640530aa11976fac692199053d9ecc53fd617c24d9d3f2839516a754758d78bc",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -123,10 +123,10 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "a175ef9990cd24347acb08f57a8de9c2175e24fcb85268d93b46250aaa52d6d3",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "e35804b576bc4f8fa12e07d7d61d78a3a0571be7bc0a0b2f37e3148d9bbc8159",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "4c1c6b12e8b6014b0fb9571189fe7f50802a2b898251fbfcd226632b34cadd1b",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "7d934265793e7fa92f5db9038fabac9b27abd89d157d07145670ba9a38d84133",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "1288ef2dc1fc45a4c4644702e6ce90cb353462e9e246c3c9f673fef6fb61d8db",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": "4a3ba3a34ff8c70237f0bd33ae052c565b5030824476c43cc6a4b2e8075744f4",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "190e134e183365d92a66191edfb5d9c4aa0a7cb52f24fcb05b677e13dca52369",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "6a398c6dea641829558d6672954a7374b603de40e2702f66133af7870d52bf02",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "03977d61b19134fe6e017bb241a7c0265a8644d0c5e89633d3c5611cc349dacd",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "a79901bdb093a8b59feb85690c7a3f79c58cf592f250e0b2b8310aeb01ef8fe8",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "7ad9d83aa6c6ae3219236f2f0054d7d325e140da9cd640dd6c1497a12a280bee",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1a6227a4c258807fe39b4f7e0e435ea2bbf5a27a8f58a23450f996116efacbde",
@@ -234,7 +234,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d1ba31adc8fe4507a1d7879451255b01f9ee885890a981976464f932eb2b3e51",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "9d2327ed1bfe7b9e06d0e7fa1167585e5e4a8e9eb2b2b305e4b0063300ad951d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "38f4f4e559a782ce4368ca8279c32d9498b6e1255bebf14bed397b2450bc99d7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "aab465a4c35b9dbf4826f7889c6044c9c0b54308d2f05832e00079f398a0b292",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "87b3959005fba13230e467190f6f7da6b0124918a23068861b6427029f1dc28c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "ac42a54cc4c2ed5f5d7023ec6d6333179595a8504577bafa40c7fed89f18bd03",
@@ -892,7 +892,7 @@
       "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "66e416b427058be508ae912407648aeccbec0f82d9bf1e10c9c0630a3d7caf79",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
       "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "1567372f523134e6c2b74d1a1cad46927d97e981c5a024f502ff8ddb30801c20",
-      "hardware/cold-core-layout/cold-core-assembly.step": "7574aa32dfc20504bcbb7b24fef5fbcc7f77b380e5ffe1f73d508bd08c540fa4",
+      "hardware/cold-core-layout/cold-core-assembly.step": "95964218640e3c79bac5b2fdd1e14c8de95fa37a59538a960693070c35ec6307",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "640530aa11976fac692199053d9ecc53fd617c24d9d3f2839516a754758d78bc",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": "62fbd6097b520a520cb0c84140d90f104b9d9ce4d927e5e054f8c39c8d8d1495",
@@ -954,10 +954,10 @@
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": "a175ef9990cd24347acb08f57a8de9c2175e24fcb85268d93b46250aaa52d6d3",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": "e35804b576bc4f8fa12e07d7d61d78a3a0571be7bc0a0b2f37e3148d9bbc8159",
       "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": "4c1c6b12e8b6014b0fb9571189fe7f50802a2b898251fbfcd226632b34cadd1b",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "7d934265793e7fa92f5db9038fabac9b27abd89d157d07145670ba9a38d84133",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "1288ef2dc1fc45a4c4644702e6ce90cb353462e9e246c3c9f673fef6fb61d8db",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": "4a3ba3a34ff8c70237f0bd33ae052c565b5030824476c43cc6a4b2e8075744f4",
       "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": "190e134e183365d92a66191edfb5d9c4aa0a7cb52f24fcb05b677e13dca52369",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "6a398c6dea641829558d6672954a7374b603de40e2702f66133af7870d52bf02",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": "03977d61b19134fe6e017bb241a7c0265a8644d0c5e89633d3c5611cc349dacd",
       "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": "a79901bdb093a8b59feb85690c7a3f79c58cf592f250e0b2b8310aeb01ef8fe8",
       "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": "7ad9d83aa6c6ae3219236f2f0054d7d325e140da9cd640dd6c1497a12a280bee",
       "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": "1a6227a4c258807fe39b4f7e0e435ea2bbf5a27a8f58a23450f996116efacbde",
@@ -1013,7 +1013,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "d1ba31adc8fe4507a1d7879451255b01f9ee885890a981976464f932eb2b3e51",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "9d2327ed1bfe7b9e06d0e7fa1167585e5e4a8e9eb2b2b305e4b0063300ad951d",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "38f4f4e559a782ce4368ca8279c32d9498b6e1255bebf14bed397b2450bc99d7",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "aab465a4c35b9dbf4826f7889c6044c9c0b54308d2f05832e00079f398a0b292",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "87b3959005fba13230e467190f6f7da6b0124918a23068861b6427029f1dc28c",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "ac42a54cc4c2ed5f5d7023ec6d6333179595a8504577bafa40c7fed89f18bd03",
@@ -2643,7 +2643,7 @@
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1795019537.939372,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1795019537.939372,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1795018791.83375,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1795019550.090905,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1795019521.019214,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step.mesh": 1794030167,
@@ -2737,10 +2737,10 @@
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step": 1794899028.111374,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.step.mesh": 1794899012.045988,
     "hardware/printed-parts/cold-core/foam-cap/reservoir-b-fill-guide.stl": 1794899028.111374,
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": 1795017184.805793,
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": 1795019550.090905,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json": 1793750338,
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": 1795019521.019214,
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": 1795017184.805793,
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": 1795019550.090905,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": 1793568839,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step.mesh": 1794020573,
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step": 1793568839,
@@ -2848,7 +2848,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1794978778.044275,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": 1794978252.953313,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": 1795019503.659742,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1795017511.274988,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1795019550.090905,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1795017155.370396,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1795017184.805793,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1795017168.780296,
@@ -3544,8 +3544,8 @@
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
-      "commit": "c0f63053c0abfbd0256020c62acf8be29a62212c",
-      "inputs": "88677747615cb96838aee57f8b011f80475fa14745dd38cdedd05731a60bf24d",
+      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
+      "inputs": "800a836a31cba2e92db63943f594bfaa99602f49125355ec4ce040d29d609e70",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": {
@@ -3797,8 +3797,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": {
-      "commit": "0e25c152b28e402659a34cf8b6d9e2643528aaf4",
-      "inputs": "6113dde301db3b9268a666af2447970c3852f170c6b449b3b56f8ad813da3f90",
+      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
+      "inputs": "a4a2a5f95c5a1c7ee1664b2ea655074507f6f7a876f81cf70eb7adfaa53e005a",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": {
@@ -3807,8 +3807,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": {
-      "commit": "0e25c152b28e402659a34cf8b6d9e2643528aaf4",
-      "inputs": "6113dde301db3b9268a666af2447970c3852f170c6b449b3b56f8ad813da3f90",
+      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
+      "inputs": "a4a2a5f95c5a1c7ee1664b2ea655074507f6f7a876f81cf70eb7adfaa53e005a",
       "unproven": true
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": {
@@ -4298,8 +4298,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "78ae8d82431059ed9ff7e99de0b28de5706e7946",
-      "inputs": "e030ddcebd5870703ee828b29bdb76eb7c56d41dac850e7981d8e33c146d705a",
+      "commit": "669a7fd94305563dc4d721fb4993f398c822be1d",
+      "inputs": "77b65d96d232d6982b8c5dc00ffbc23fa8003875aff9f43d9fe87c54298051e6",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
