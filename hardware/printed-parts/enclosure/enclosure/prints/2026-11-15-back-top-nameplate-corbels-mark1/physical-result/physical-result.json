@@ -74,5 +74,54 @@
       "longest_unbacked_inner_wall_road_mm": 232.09,
       "repair": "Carry each cap through the bearing's open edge while preserving its wall-side release air and cavity-floor roots."
     }
+  },
+  "assembly_fit": {
+    "reported_on": "2026-11-17",
+    "derek": [
+      "where the vent is at, something is catching there, and I'm having trouble even pushing past it even with a lot of force.",
+      "In my first photo here, you'll see that on the negative X side of the enclosure here, that our top half is sitting further in the negative X direction than our bottom half is right there.",
+      "And you'll see in my last two photos there that it doesn't take much to close on this side.",
+      "Just to be specific there, I want both sides, two things I can slide into each other and inspect closely."
+    ],
+    "photos": [
+      {
+        "file": "04-west-side-offset.jpg",
+        "shows": "west side offset"
+      },
+      {
+        "file": "05-inside-prv-joint.jpg",
+        "shows": "inside prv joint"
+      },
+      {
+        "file": "06-east-side-offset.jpg",
+        "shows": "east side offset"
+      },
+      {
+        "file": "07-east-side-light-pressure.jpg",
+        "shows": "east side light pressure"
+      },
+      {
+        "file": "08-east-side-aligned.jpg",
+        "shows": "east side aligned"
+      }
+    ],
+    "nominal_reading": {
+      "seated_overlap_mm3": 0,
+      "sampled_slide_overlap_mm3": 0,
+      "side_running_air_mm": 0.25,
+      "bearing_air_mm": 0.75,
+      "cavity_floor_air_mm": 0.25,
+      "physical_bottom_source_stl_sha256": "a41f94b4d25fcaeb79ba06e64af1f86ee23709d0c2fc89dcd2b52a9d2bda9d51",
+      "matches_current_bottom_source": true,
+      "slide_sample_count": 331,
+      "slide_y_range_mm": [
+        0.0,
+        240.0
+      ],
+      "near_home_sample_step_mm": 0.25,
+      "remaining_sample_step_mm": 1.0,
+      "scope": "Nominal exported solids at the sampled slide positions. Surface distortion and printed fit are tested by the paired coupon."
+    },
+    "inference": "Loose roads beneath the unsupported bearing can protrude into its running space. The nominal model sweep is clear, so a paired coupon with corrected rail supports tests this cause."
   }
 }
