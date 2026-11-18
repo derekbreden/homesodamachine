@@ -1,0 +1,165 @@
+{
+  "views": [
+    {
+      "name": "rounded-key",
+      "caption": "The lower rail grows a rounded alignment key from its crown.",
+      "before": "rounded-key-before.webp",
+      "after": "rounded-key-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 425,
+          "y": 492.6,
+          "r": 80.7,
+          "label": "Alignment key",
+          "at": [
+            96,
+            245.4,
+            178.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -307.0227555758797,
+          580.5693422394977,
+          459.9159289031158
+        ],
+        "target": [
+          96,
+          238,
+          177.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 14.5,
+        "near": 290.06053834291026,
+        "far": 939.4919848421223,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9bcb1d0b3faef54a80c2c70b194a8a4dcfc59af789d8fc68fe23a4d6949cf1fe",
+          "commit": "e99cfbfc5652fc1c9a6d1914f061d2876f63efc4",
+          "taken": "2026-11-18T04:57:29.445Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "59d105d4b9f3958c949a672bbaa6c8e919aa8af19c8f0293ae739d6d2497a86f",
+          "commit": "82e3c9919899a6987b6cdac77045757da3c5a726",
+          "published": false
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "receiving-groove",
+      "caption": "A section through the upper receiver shows the groove and its forward opening.",
+      "before": "receiving-groove-before.webp",
+      "after": "receiving-groove-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 785.9,
+          "y": 454,
+          "r": 78.8,
+          "label": "Receiving groove",
+          "at": [
+            96.1,
+            228,
+            181.3
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -371.5854328505856,
+          -91.30980299540994,
+          -13.385881797245958
+        ],
+        "target": [
+          96,
+          236,
+          183
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 16,
+        "near": 377.12047690869815,
+        "far": 1031.0225397618606,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            96,
+            0,
+            0
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9bcb1d0b3faef54a80c2c70b194a8a4dcfc59af789d8fc68fe23a4d6949cf1fe",
+          "commit": "e99cfbfc5652fc1c9a6d1914f061d2876f63efc4",
+          "taken": "2026-11-18T04:57:29.445Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "59d105d4b9f3958c949a672bbaa6c8e919aa8af19c8f0293ae739d6d2497a86f",
+          "commit": "0891eff958d023f2c0580179abbba23e00057baa",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
