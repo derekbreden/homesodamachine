@@ -588,19 +588,18 @@
     "title": "Flavor-fill funnel frame · Mark2 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "funnel-frame",
-    "recipe_commit": "d3ca777deeee80369268f8f9934e1478607b7c79",
-    "project_sha256": "f4e30759c60be0226b6097e511666f865dd48351e4539190cd6df68a84e91522",
-    "archive_sha256": "c33be822d4f174aed01610ba9627ffaa4707ccfb83f43ab3a30d9fcc27bc20ce",
-    "gcode_sha256": "7b88240a17d604c62b69fdd5868717ebd2de3958389ab643d6d3d3f8f2d4df25",
+    "project_sha256": "b08d0924693171a67fac654fa4387ceb535dcbc21aff82df4ccbd918d7f9f352",
+    "archive_sha256": "dad23b22840825b043381aa6dc60dab891fa165d20d3ec9115d945e5d0c7d3fc",
+    "gcode_sha256": "2087c7c561755670e2ff95e973a2a96a816c0f260c90dee6ca5e6e1de5cda594",
     "kind": "plan",
-    "sha256": "38c9559a8b0be20284da032e8cb988ceff75570bb6f1f797a878ad5382961165",
-    "slice": "2026-11-10-funnel-frame-mark2-793b1fef.gcode.3mf",
+    "sha256": "d7a4b76d8cd22505e7ec331547d02ce95d390c0bc16b48a5ba84a2feddfb7012",
+    "slice": "2026-11-17-funnel-frame-mark2-77d15aea-textured-pei.gcode.3mf",
     "plate": 1,
     "layers": 230,
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
-      "Nozzle": "Left 0.4 mm",
+      "Nozzle": "Left 0.4 mm Standard",
       "Layer heights": "0.2 mm first, 0.24 mm nominal",
       "Build plate": "Textured PEI Plate",
       "Walls": "2",
@@ -610,9 +609,11 @@
       "Top interface": "3 layers, 0 mm spacing",
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s"
+      "Filament bridge speed": "15 mm/s",
+      "First-layer trim": "+0.04 mm over the plate preset"
     },
-    "model_sha256": "9f9948f9488ab0c5c68971f06380582954213a5dc750624b1a34553a327b3768"
+    "model_sha256": "adfbb80a73e0ab83961ca1c909194d9377fb0fb94c047e3d4aa5305dbc7744b1",
+    "recipe_sha256": "844399039ff6008f5d55dc7e320e1bd343d7d1b7b8ce0e420ee4769ce2f3c320"
   },
   "HSM-0073": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -737,18 +738,18 @@
   },
   "HSM-0079": {
     "title": "Enclosure front top · Mark1 print plan",
-    "sha256": "fed9a3725bc379004ed02fe4c3f4004cf154393c8965e159e34ef52a249bbf57",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-13-front-top-wago-mark1/front-top-wago-mark1-ready.gcode.3mf",
+    "sha256": "44285c6c39e42d4c39c3f7b5b84a7c6145d4537e4bb8629ed4c5623ed5f902ce",
+    "slice": "2026-11-17-front-top-mark1-8ee47920-textured-pei.gcode.3mf",
     "plate": 1,
-    "recipe": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-13-front-top-wago-mark1/print-job.json",
+    "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "front-top",
-    "recipe_sha256": "197c038da987569ef793b84320676007d4e179dfbd417a1605ce89449bcc1830",
-    "project_sha256": "a9c5abedae18bd7d10946c67d821ffb0e49a96fb13a4fe4677fa397ab97886d9",
-    "archive_sha256": "d5987fc0ce7408bdfe83ad30ac5a422a811fa3386b757616f29314cf37a29332",
-    "gcode_sha256": "aff1d37dc24777ef6c07bdfbac4b195fe1f29ce9a27081066fd47a691c6b6c9d",
+    "recipe_sha256": "844399039ff6008f5d55dc7e320e1bd343d7d1b7b8ce0e420ee4769ce2f3c320",
+    "project_sha256": "ef4fa788d3e0e1a60dd6a2e5ef2ac5d3f456aaf8e9579753cf8b2da5ecbe461a",
+    "archive_sha256": "f9bba01248e53df64a8ad4548081b0352248735977b23f6192a5276b22b7abd9",
+    "gcode_sha256": "0a699e9918adfbe4cccaa4d3f015891bb7e5f114167d85ad117564e60c555529",
     "kind": "plan",
     "layers": 1090,
-    "model_sha256": "0fe1c4f6cad10a003be82101065b73eaea3d4a4f0824795a60ed37083355e3fc",
+    "model_sha256": "dcf0a3f5d627fa56057b53fd80e57196b9df7383128c6a2561c58ed6b2cd4e27",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -761,9 +762,12 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
-      "Wago pockets": "Pocket roofs bridge between the sidewalls. Support stays out of their openings."
-    },
-    "launch": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-13-front-top-wago-mark1/launch.json"
+      "Wago pockets": "Pocket roofs bridge between the sidewalls. Support stays out of their openings.",
+      "First-layer trim": "+0.04 mm over the plate preset",
+      "Requested top gap": "0.24 mm",
+      "Top interface": "3 layers, 0 mm spacing",
+      "Funnel-frame insert pilots": "Clear of support, with solid infill through the ledges."
+    }
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
