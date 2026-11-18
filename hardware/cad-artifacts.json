@@ -65,7 +65,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "3141e49e12a83d66bf2a40adc4d04968553f788dd9fa850083e0482e8d607291",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "fb894675d9a21bfe1a7132c12cba836ec8ff0e3c2846b9f5bcc0a556ab7217b4",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "c6964f481361f2d3e4c155d8839a2e1fcf18076076439483bd5ff8cd56652233",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -914,7 +914,7 @@
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "d088809e8cb4744a12ae664838b9e78c7ed90cdf95b5513a18009057aaa1dc69",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "b93b380caaf8eae7a010642eb834cc647db9400619ab3608120752f975b58dce",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "3141e49e12a83d66bf2a40adc4d04968553f788dd9fa850083e0482e8d607291",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "fb894675d9a21bfe1a7132c12cba836ec8ff0e3c2846b9f5bcc0a556ab7217b4",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "c6964f481361f2d3e4c155d8839a2e1fcf18076076439483bd5ff8cd56652233",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
       "hardware/pcb/pcba/out/pcba.bottom.svg": "1d1d42e49f2d7ad078065909da9f323ffbbcf98e9cdec497fae3760ba716c731",
@@ -2680,7 +2680,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1795019270.965525,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795021618.491742,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795021635.88243,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794445929.08732,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -3675,7 +3675,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "0bf1de01da23500020a7198d4f0d2b6f591e6c64",
+      "commit": "a526e1ab5f7b00e4f36942b8356642cce512efd9",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
