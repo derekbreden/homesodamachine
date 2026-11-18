@@ -1,0 +1,166 @@
+{
+  "views": [
+    {
+      "name": "rib-length",
+      "caption": "The alignment rib follows the outboard edge of the lower rail.",
+      "before": "rib-length-before.webp",
+      "after": "rib-length-after.webp",
+      "width": 1200,
+      "height": 750,
+      "marks": [
+        {
+          "x": 602.1,
+          "y": 347.3,
+          "r": 60.5,
+          "label": "Alignment rib",
+          "at": [
+            102.25,
+            270,
+            177.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -368.77830514298654,
+          157.13320676568324,
+          523.50594580581
+        ],
+        "target": [
+          101.5,
+          270,
+          175.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 31,
+        "near": 351.68033374345976,
+        "far": 997.1586034507994,
+        "aspect": 1.6
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ad725993b0712e4033ac624fa6f9ff885cb6f4043b49801ab73f4c79672dc516",
+          "commit": "7c5435712ded612e543fe9eb061ae6d41ebafda0",
+          "taken": "2026-11-18T18:26:07.521Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "128be57a4548644b9262a6ebb59b776da3c52b3ef2f2de9fd034f28460c1140e",
+          "commit": "636bb8afd12427ad9a8417b4fd20dd1039685917",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "seated-section",
+      "caption": "The rib seats in the groove with its outboard face flush with the lower rail.",
+      "before": "seated-section-before.webp",
+      "after": "seated-section-after.webp",
+      "width": 1200,
+      "height": 750,
+      "marks": [
+        {
+          "x": 626.8,
+          "y": 312.5,
+          "r": 89.3,
+          "label": "Rib and groove",
+          "at": [
+            102.25,
+            270,
+            176.75
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          101.5,
+          -486.4525716099097,
+          175
+        ],
+        "target": [
+          101.5,
+          270,
+          175
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 10.5,
+        "near": 514.7193913997169,
+        "far": 1334.2096773104522,
+        "aspect": 1.6,
+        "section": {
+          "at": [
+            0,
+            270,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ad725993b0712e4033ac624fa6f9ff885cb6f4043b49801ab73f4c79672dc516",
+          "commit": "7c5435712ded612e543fe9eb061ae6d41ebafda0",
+          "taken": "2026-11-18T18:26:07.521Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "128be57a4548644b9262a6ebb59b776da3c52b3ef2f2de9fd034f28460c1140e",
+          "commit": "636bb8afd12427ad9a8417b4fd20dd1039685917",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
