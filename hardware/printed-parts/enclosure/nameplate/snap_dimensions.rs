@@ -8,8 +8,9 @@ pub fn dimensions(width: f64, height: f64, thick: f64, slip: f64, supported: f64
     let screw_x = width / 2. - 11.;
     let screw_z = height / 2. - 11.;
     let counterbore_depth = 1.;
-    let screw_length = fasteners::M3_SCREW_LENGTH;
-    let pilot_depth = screw_length - (thick - counterbore_depth) + fasteners::INSERT_RELIEF;
+    let screw_length = fasteners::M3_SHORT_SCREW_LENGTH;
+    let pilot_depth = (screw_length - (thick - counterbore_depth))
+        .max(fasteners::M3_INSERT_LENGTH) + fasteners::INSERT_RELIEF;
     let backing = 3.;
     json!({
         "width":width,"height":height,"thick":thick,"corner":5.,

@@ -38,7 +38,7 @@
   ],
   "producer": "enclosure-front-top",
   "purpose": "Bind the front-top Wago pocket support exclusions and bridge direction to the printed mesh.",
-  "source_stl_sha256": "277bd380af22d39eb3fad46455f1fe8c430d3170b530baf0aef945e06153f230",
+  "source_stl_sha256": "07fd5469073247c78eee71ddfe0478538074ee32485e7b0bbfb543529c5e59d6",
   "support_free_regions": [
     {
       "bounds_source_mm": [

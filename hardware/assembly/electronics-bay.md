@@ -77,11 +77,15 @@ run IDs and loom labels. Use the specified connector graph.
 
 The PCB's native mounting-hole pattern follows the four posts integral to the
 cold-core equipment lid.
-Fit the common M3 screws through printed spacers above the board into the regular
-M3 inserts. The spacers preserve the PCB placement and lid underside. Slide the complete rubber foot-and-leg assemblies off the
+Fit the short M3 screws directly through the board mounting pads into the regular
+M3 inserts. Slide the complete rubber foot-and-leg assemblies off the
 water pump's fixed rails. Lower the bare pump into the lid's fitted half pipe
 and close its continuous 54.5 mm upper clip before installing the PCB, per the
 [pump installation](../reference/g-ganen-pump/installation/README.md).
+The relay PCB mounting holes take M2 screws, per the
+[received-board record](../reference/teyleten-relay/mounting-fit.json). The installed
+printed mount uses those holes for locating pins. Its end-clamp screws enter
+separate wall hosts outside the board; they pass through the printed clamps only.
 The PSU ceiling and relay wall-host stacks are defined by
 [`rear.rs`](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to

@@ -8,7 +8,8 @@
     "screw": {
       "material": "HSM-0140",
       "thread": "M3",
-      "length_mm": 12
+      "length_mm": 12,
+      "path": "Through the printed end clamp into its separate wall host, outside the PCB."
     },
     "insert": {
       "material": "HSM-0164",
@@ -158,5 +159,33 @@
     "hardware/wiring/installed/route-overrides.json": "20e99115ee1b43c974f4712725518072a812207c9ac9bc2f8ba1e1c6a47ccb42"
   },
   "archived_physical_inputs": "https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json",
-  "physical_status": "The revised clamps, locating pins and regular insert hosts require bench fit. The archived report retains the received-board observations."
+  "physical_status": "The revised clamps, locating pins and regular insert hosts require bench fit. The archived report retains the received-board observations.",
+  "board_hole_constraint": {
+    "record": "hardware/reference/teyleten-relay/mounting-fit.json",
+    "pcb_mounting_screw_thread": "M2",
+    "unsupported_pcb_mounting_screw_thread": "M3",
+    "hole_use": "Printed locating pins only."
+  },
+  "pcb_clearance_review": {
+    "purpose": "Measures the external clamp screws against the relay PCBs.",
+    "payload_sha256": "588c81c8f3cbf7c25ece67d074d8bb7e9dae180acf1823b67cf0b2bf351e7eba",
+    "pairs": [
+      {
+        "a": "relay-1-screw-1",
+        "b": "relay-1/1",
+        "clearance_mm": 3.839996337890625,
+        "intersection_volume_mm3": 0.0
+      },
+      {
+        "a": "relay-2-screw-2",
+        "b": "relay-2/1",
+        "clearance_mm": 3.839996337890625,
+        "intersection_volume_mm3": 0.0
+      }
+    ],
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs": "1eb9cca6cdc3b44f2ce48bea03b7d1c2097cef2e758d34263eacbd0de9b31411",
+      "hardware/reference/teyleten-relay/mounting-fit.json": "f2b7cf499b4f8876ec9408d784d3072330ee72c96809d9b878f6ddc5d8942332"
+    }
+  }
 }

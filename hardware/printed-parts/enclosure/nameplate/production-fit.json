@@ -21,13 +21,13 @@
     "insert_diameter": 4.6,
     "insert_length": 5.7,
     "insert_stock_radius": 6.0,
-    "insert_stock_rear": -13.64,
+    "insert_stock_rear": -9.7,
     "mouth_height": 91.2090909090909,
     "mouth_width": 80.3,
     "pilot_diameter": 4.0,
-    "pilot_rear": -10.64,
+    "pilot_rear": -6.7,
     "screw_diameter": 3.0,
-    "screw_length": 12.0,
+    "screw_length": 8.0,
     "slip": 0.15,
     "stations": [
       [
@@ -52,22 +52,22 @@
     "width": 80.0
   },
   "geometry_review": {
-    "payload_sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
+    "payload_sha256": "588c81c8f3cbf7c25ece67d074d8bb7e9dae180acf1823b67cf0b2bf351e7eba",
     "upper_pilot_end_mm": [
       -70.4,
-      459.29998779296875,
+      463.239990234375,
       255.20454545454544
     ],
     "upper_land_back_mm": [
       -70.4,
-      456.29998779296875,
+      460.239990234375,
       255.20454545454544
     ],
     "backing_mm": 3.0,
     "overlaps": [
       {
         "a": {
-          "id": "#567",
+          "id": "#561",
           "name": "enclosure-back-top"
         },
         "b": {
@@ -78,7 +78,7 @@
       },
       {
         "a": {
-          "id": "#567",
+          "id": "#561",
           "name": "enclosure-back-top"
         },
         "b": {
@@ -90,8 +90,8 @@
     ]
   },
   "source_sha256": {
-    "hardware/fasteners.rs": "50162d37160debb41e3ac3f8bdf0df286817725e6d5281cb3ed36a25574e65cd",
-    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "8ad4b799a6e4eaa1de0bba855d0cf3dc26afa3a453b7938017bcac1d611c9281",
+    "hardware/fasteners.rs": "a2a6417a74fdbee7daeb29cde762d49bc91ecbdafbbb186b99f372322d5abf49",
+    "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs": "27ff9b4efa776b527a6bb916e90fc6ea55529b446dcbc31884dc023ae50e70f0",
     "hardware/printed-parts/enclosure/nameplate/snap_geometry.rs": "e3bfb964abbda5d7e4319785829d273a9a1e9928730fd838ca6163027ec010ab",
     "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "db824f284507c47f421c96414c4b3b777b8745db27924c7db7668cd1ea928d5e",
     "hardware/printed-parts/cold-core/nameplate_clearance.rs": "6b8a9f502e1bd4fec984c9a35983d4f16e36f9d85367bc2e7ab48d36cfcb61e0",

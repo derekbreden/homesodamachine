@@ -6,6 +6,20 @@ are at positive X; the control terminals are at negative X. The housings' broad
 wire mouths face outward at opposite PCB ends; their narrower rear inspection
 windows face inward. Z rises from the PCB underside toward the components.
 
+## Mounting
+
+The PCB mounting holes take M2 screws. M3 screws do not fit those holes, as
+Derek states in the [mounting-fit record](mounting-fit.json). The visible entry
+rims and optical bore estimates do not override that physical identification.
+
+The installed printed mount uses locating pins in the board holes. Its end
+clamps screw into separate wall hosts outside the PCB. Their fasteners pass
+through the printed clamps; the board holes receive only the locating pins.
+The [installed mounting review](../../printed-parts/enclosure/enclosure/relay-mount-fit.json)
+records that geometry. The printed retainers require their own physical fit.
+
+## Reference geometry
+
 The frozen model uses clean molded housing cross-sections, flat relay-can faces,
 rounded wire mouths, rear inspection windows and recessed terminal screws.
 The substantial control packages and jumper use idealized exterior silhouettes.

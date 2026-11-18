@@ -13,9 +13,7 @@ pub const BOARD_OUTLINE_X: [f64; 2] = [-68.0, 17.0];
 pub const BOARD_OUTLINE_Y: [f64; 2] = [-36.3, 36.5];
 pub const BOARD_THICKNESS: f64 = 1.6;
 /// The M3 screw each column takes through the board.
-pub const SCREW_LENGTH: f64 = core::fasteners::M3_SCREW_LENGTH;
-/// The printed sleeve between the board and each screw head.
-pub const SCREW_SPACER_HEIGHT: f64 = core::fasteners::M3_SPACER_HEIGHT;
+pub const SCREW_LENGTH: f64 = core::fasteners::M3_SHORT_SCREW_LENGTH;
 
 /// A column: its centre in the cap's own frame, and its top's height over the lid's underside.
 #[derive(Clone, Copy, Debug)]
@@ -67,7 +65,7 @@ fn lid_in_the_way() -> f64 {
 
 /// How far a seated screw runs into its column, past the board and whatever lid it crosses.
 pub fn reach() -> f64 {
-    SCREW_LENGTH - (BOARD_THICKNESS + SCREW_SPACER_HEIGHT + lid_in_the_way())
+    SCREW_LENGTH - (BOARD_THICKNESS + lid_in_the_way())
 }
 
 /// The pilot each column is bored to: the insert and its relief, or as deep as a screw through the

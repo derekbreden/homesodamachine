@@ -39,7 +39,7 @@ physical assembly force and durability retain the qualification limits below.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the rear SODA, DRAIN and FLAVOR bulkheads), §3 (the PP010822E TAP inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's screws, printed spacers and inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (printed enclosure parts), §8 (the rear SODA, DRAIN and FLAVOR bulkheads), §3 (the PP010822E TAP inlet), §4 (the PISCO secondary), §5 (the C14 inlet), and §13 (mechanical attach hardware). The compressor's four floor screws, their M5 inserts and their fender washers are §13 rows of their own, and so are the condenser's screws and inserts; **the cold core's grips bill nothing** — they are printed features of the pieces themselves, closed by the seam's corner screws already in §13. Status (ACQUIRED / ON-ORDER) lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §6 + §11. The table below is the procedure-level summary.
 
 | Item | Source / spec | Notes |
 |---|---|---|
@@ -76,10 +76,11 @@ Use the regular M3 and M5 bodies selected in [the BOM](/hardware/ledger/bom.md#1
 - Install regular M3 inserts in the PSU hosts, mains-inlet block, condenser
   fingers, funnel ledges and pump-retainer hosts before fitting their parts.
 - The core's PCB columns use the [deck mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs).
-  Fit printed screw spacers above the board; keep the lid removed for heat setting.
+  Fit the short screws directly through the board; keep the lid removed for heat setting.
 - Install regular M3 inserts in the relay end-clamp hosts beside the board
-  bearings. The original board holes locate on pins. Fit each board and its
-  end clamps before landing terminal wires, per [electronics-bay.md](electronics-bay.md).
+  bearings. The M2 board holes receive locating pins; the clamp screws enter
+  separate hosts outside the PCB. Fit each board and its end clamps before
+  landing terminal wires, per [electronics-bay.md](electronics-bay.md).
 - The compressor posts and chassis corner stacks take regular M5 inserts.
   Use the matching heat-set tip and keep their axes square to the bearing faces.
 
@@ -133,7 +134,7 @@ tiles slide in continuous side channels. Each rail overlaps its edge by 2 mm,
 leaving a 38 × 38 mm visible color face; adjacent tiles have a 0.2 mm seam.
 Load each column's bottom tile first. Install the per-unit nameplate at final
 finishing in the receiver beside the cards, using its regular inserts and the
-common black M3 screws. The rear identification plan owns its placement.
+short black M3 screws. The rear identification plan owns its placement.
 See [`finish-pack-ship.md`](finish-pack-ship.md) §3.
 Seat the SODA, FLAVOR and DRAIN bulkhead flanges outside and their panel nuts
 on the relieved inside lands. Fit TAP with the threaded backflow-preventer
@@ -170,7 +171,7 @@ The condenser+fan stands east of it, hard against the depth the +X wall's own fu
 Both of the block's Y faces stand 20 mm back over its whole width, leaving 0.4 mm of folded sheet at the crown and at the base of each ([`/hardware/reference/condenser-block/README.md`](/hardware/reference/condenser-block/README.md)). Those four flanges are what the box takes:
 
 4. **Feed the aft end onto the fin.** A single fin stands off the +X wall in the bay's east lane with a finger reaching west off it at either end (`enclosure._cond_mount`). Bring the block in with those fingers entering its aft recess, then push it **forward** until the two fore flanges are 3 mm into the grooves of the front wall's two rails (`enclosure._cond_cradle`) and its fore face is flat against the rails' shoulder. **The rails are the datum in Y and their grooves in Z** — the same bargain the gas sensor's card slot strikes. The block is now standing on the lower rail's crown and the lower finger, 9 mm clear of the slab — the depth the lower finger's own bore takes.
-5. **Two screws close it.** Both go **down** the one vertical line the donor drilled through its aft flanges. Place a printed screw spacer on each flange. Drive the common M3 screws through the spacers and flanges into the fingers' regular inserts. **The lower one is reached from behind** — in through the open aft face of that recess, on a long ball-end key leaned aft of the upper finger, with the bay's east lane and the core's bay still clear. Snug both; the sheet is four tenths.
+5. **Two screws close it.** Both go **down** the one vertical line the donor drilled through its aft flanges. Fit the selected flat washers beneath the short M3 screw heads and drive them through the flanges into the fingers' regular inserts. **The lower one is reached from behind** — in through the open aft face of that recess, on a long ball-end key leaned aft of the upper finger, with the bay's east lane and the core's bay still clear. Snug both; the sheet is four tenths.
 
 **The gas sensor goes in before either body does.** The MQ-6 card lies ALONG the −X strip and drops straight down into the two grooved posts printed on the floor of it (`enclosure._west_cradle`), can facing WEST toward the flank and header facing EAST into the bay — down until the card lands on the shoulder at the foot of each groove, and there is no screw because the card has no hole. Do it with the front-bottom piece still open on the bench: once the compressor is down, the slot is a reach past a charged assembly for no reason. Its loom lands later, in [`wiring.md`](/hardware/assembly/wiring.md). **Card in the wrong way round is the one error this slot allows** — the can must face the wall, with the four pins standing out into the open bay where the loom can reach them.
 

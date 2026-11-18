@@ -199,7 +199,7 @@
           },
           {
             "material": "HSM-0140",
-            "quantity": 20,
+            "quantity": 6,
             "unit": "ea",
             "bodies": [
               "funnel-frame-front-east-screw",
@@ -207,21 +207,7 @@
               "funnel-frame-front-aft-east-screw",
               "funnel-frame-front-aft-west-screw",
               "funnel-frame-back-east-screw",
-              "funnel-frame-back-west-screw",
-              "nameplate-screw-1",
-              "nameplate-screw-2",
-              "nameplate-screw-3",
-              "nameplate-screw-4",
-              "display-screw-1",
-              "display-screw-2",
-              "display-screw-3",
-              "display-screw-4",
-              "status-screw-1",
-              "status-screw-2",
-              "status-screw-3",
-              "status-screw-4",
-              "condenser-screw-1",
-              "condenser-screw-2"
+              "funnel-frame-back-west-screw"
             ]
           },
           {
@@ -307,6 +293,27 @@
             "unit": "ea",
             "bodies": [
               "status-led"
+            ]
+          },
+          {
+            "material": "HSM-0138",
+            "quantity": 14,
+            "unit": "ea",
+            "bodies": [
+              "nameplate-screw-1",
+              "nameplate-screw-2",
+              "nameplate-screw-3",
+              "nameplate-screw-4",
+              "display-screw-1",
+              "display-screw-2",
+              "display-screw-3",
+              "display-screw-4",
+              "status-screw-1",
+              "status-screw-2",
+              "status-screw-3",
+              "status-screw-4",
+              "condenser-screw-1",
+              "condenser-screw-2"
             ]
           }
         ]
@@ -707,18 +714,6 @@
             ]
           },
           {
-            "material": "HSM-0140",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "PCB screws into the top-lid posts.",
-            "bodies": [
-              "pcba-screw-1",
-              "pcba-screw-2",
-              "pcba-screw-3",
-              "pcba-screw-4"
-            ]
-          },
-          {
             "material": "HSM-0050",
             "quantity": 4,
             "unit": "ea",
@@ -785,14 +780,14 @@
             "unit": "ea"
           },
           {
-            "material": "HSM-0584",
+            "material": "HSM-0138",
             "quantity": 4,
             "unit": "ea",
             "bodies": [
-              "pcba-screw-spacer-1",
-              "pcba-screw-spacer-2",
-              "pcba-screw-spacer-3",
-              "pcba-screw-spacer-4"
+              "pcba-screw-1",
+              "pcba-screw-2",
+              "pcba-screw-3",
+              "pcba-screw-4"
             ]
           }
         ]
@@ -2167,6 +2162,10 @@
         {
           "title": "Part details",
           "path": "reference/teyleten-relay/README.md"
+        },
+        {
+          "title": "PCB mounting-screw fit",
+          "path": "reference/teyleten-relay/mounting-fit.json"
         }
       ]
     },
@@ -9473,13 +9472,14 @@
             ]
           },
           {
-            "material": "HSM-0582",
+            "material": "HSM-0362",
             "quantity": 2,
             "unit": "ea",
             "bodies": [
-              "condenser-screw-spacer-1",
-              "condenser-screw-spacer-2"
-            ]
+              "condenser-washer-1",
+              "condenser-washer-2"
+            ],
+            "note": "Span the donor flange holes beneath the short screw heads."
           }
         ]
       }
@@ -11288,27 +11288,6 @@
       ]
     },
     {
-      "id": "HSM-0582",
-      "description": "Condenser screw spacer",
-      "kind": "manufactured",
-      "aliases": [
-        "condenser spacer",
-        "condenser-screw-spacer-1",
-        "condenser-screw-spacer-2"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Mounting and printing",
-          "path": "printed-parts/enclosure/equipment-clamps/README.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-0583",
       "description": "M5 \u00d7 12 socket-head screw \u00b7 black oxide",
       "kind": "purchased",
@@ -11320,29 +11299,6 @@
         {
           "title": "Fastener specification",
           "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0584",
-      "description": "PCB screw spacer",
-      "kind": "manufactured",
-      "aliases": [
-        "main board screw spacer",
-        "pcba-screw-spacer-1",
-        "pcba-screw-spacer-2",
-        "pcba-screw-spacer-3",
-        "pcba-screw-spacer-4"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Mounting and printing",
-          "path": "printed-parts/enclosure/equipment-clamps/README.md"
         }
       ]
     }
