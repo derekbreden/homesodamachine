@@ -4111,9 +4111,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": {
-      "commit": "12b774ae734e58fefcb35e163d084c52744f7a8f",
-      "inputs": "ee30d59b69ff65ffefddd310096eb53ac43a5e6ee47391bdd65c5fbecff2e3b6",
-      "unproven": true
+      "commit": "a3a2de6a4af89ead1a3428dc70be98f1a05cf84a",
+      "inputs": "ee30d59b69ff65ffefddd310096eb53ac43a5e6ee47391bdd65c5fbecff2e3b6"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": {
       "commit": "f091ef0afd97a620eecc3ccdc703028f91a55efd",
@@ -5186,9 +5185,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
-      "commit": "12b774ae734e58fefcb35e163d084c52744f7a8f",
-      "inputs": "649b3f206fdc5b1557a5d03b132cf1f022e078aa66415fe685627ccdbaffc422",
-      "unproven": true
+      "commit": "a3a2de6a4af89ead1a3428dc70be98f1a05cf84a",
+      "inputs": "649b3f206fdc5b1557a5d03b132cf1f022e078aa66415fe685627ccdbaffc422"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": {
       "commit": "52e085cc3d3e81092196e02823a43ae8d852c563",
@@ -5196,9 +5194,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": {
-      "commit": "12b774ae734e58fefcb35e163d084c52744f7a8f",
-      "inputs": "649b3f206fdc5b1557a5d03b132cf1f022e078aa66415fe685627ccdbaffc422",
-      "unproven": true
+      "commit": "a3a2de6a4af89ead1a3428dc70be98f1a05cf84a",
+      "inputs": "649b3f206fdc5b1557a5d03b132cf1f022e078aa66415fe685627ccdbaffc422"
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
