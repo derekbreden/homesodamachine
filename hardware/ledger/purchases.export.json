@@ -1849,7 +1849,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-17",
+  "as_of": "2026-11-18",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -10530,7 +10530,7 @@
         "evt-3a8544ddbe8a4823b7685b21f54c008c"
       ],
       "gap_id": "gap-f68df098e9074bbbbe65127bdb70a3a2",
-      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified.",
+      "missing_fact": "Delivery, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
       "order_ids": [
         "amazon:112-6794186-7953808"
       ],
@@ -10538,10 +10538,12 @@
         "pur-0460bfe098504c85bbbf043b1d7a5bb0"
       ],
       "source_ids": [
-        "src-56b5905ef743455fa0e61dd424f75261"
+        "src-56b5905ef743455fa0e61dd424f75261",
+        "src-962d5a905e244029954126c9592bc1f9"
       ],
       "sources_checked": [
-        "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026"
+        "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026",
+        "Exact-order shipment notification received November 18, 2026"
       ]
     },
     {
@@ -10582,7 +10584,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:7c151a303b72ea1a2c56cef3184729c7452e33c724e4168f298411857bf30a9e",
+  "input_fingerprint": "sha256:95c5d7eb1a3371cfc5acfbf61c7ec4e6f54be74b3c4fdf08b3db0588d50ec9b4",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -13953,7 +13955,8 @@
       ],
       "reference": "112-6794186-7953808",
       "source_ids": [
-        "src-56b5905ef743455fa0e61dd424f75261"
+        "src-56b5905ef743455fa0e61dd424f75261",
+        "src-962d5a905e244029954126c9592bc1f9"
       ],
       "vendor": "Amazon"
     },
@@ -20835,7 +20838,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — C14 inlet earth link and carbonator vessel bond. $11.99 item + $0.87 estimated tax, free shipping",
+      "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, green, 25 ft coil — C14 inlet earth link and carbonator vessel bond. $11.99 item + $0.87 estimated tax, free shipping; shipped, awaiting delivery",
       "event_ids": [
         "evt-3a8544ddbe8a4823b7685b21f54c008c"
       ],
@@ -20867,7 +20870,8 @@
       "section": "9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors",
       "service_period": null,
       "source_ids": [
-        "src-56b5905ef743455fa0e61dd424f75261"
+        "src-56b5905ef743455fa0e61dd424f75261",
+        "src-962d5a905e244029954126c9592bc1f9"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -67079,6 +67083,20 @@
       "source_id": "src-9607af49f3bc4589bf5fd7378a4c3aa9",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Exact-order shipment notification confirms the green wire coil shipped and corroborates the existing USD12.86 order value. Relative arrival wording does not establish delivery or dispatch date. No completed merchant payment is proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [],
+      "reference": "112-6794186-7953808",
+      "source_id": "src-962d5a905e244029954126c9592bc1f9",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-18"
     },
     {
       "document_date": {
