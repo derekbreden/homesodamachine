@@ -380,6 +380,20 @@
       "said": "So that actually turned out pretty well. I think it's actually just about perfect.",
       "tried": "the relieved funnel-frame corner coupon in the printed front-top, seating under light hand pressure",
       "record": "https://github.com/derekbreden/homesodamachine/blob/635052504/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0080",
+      "date": "2026-11-17",
+      "said": "The fit seems pretty good on those test parts that you had sent just now. So I guess whatever you changed probably fixed it.",
+      "tried": "the paired back-top and back-bottom coupons slid together at the west pressure-relief vent chase",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/e99cfbfc5652fc1c9a6d1914f061d2876f63efc4/hardware/print-tests/prv-rail-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-17",
+      "said": "The fit seems pretty good on those test parts that you had sent just now. So I guess whatever you changed probably fixed it.",
+      "tried": "the paired back-top and back-bottom coupons slid together at the west pressure-relief vent chase",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/e99cfbfc5652fc1c9a6d1914f061d2876f63efc4/hardware/print-tests/prv-rail-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
     }
   ]
 }

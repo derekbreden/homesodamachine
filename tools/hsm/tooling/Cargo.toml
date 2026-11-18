@@ -11,10 +11,6 @@ name = "rear-snap-retention"
 path = "../../../hardware/print-tests/rear-snap-retention/rear_snap_retention.rs"
 
 [[bin]]
-name = "prv-rail-fit"
-path = "../../../hardware/print-tests/prv-rail-fit/samples.rs"
-
-[[bin]]
 name = "jg-bulkhead-reference"
 path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
 
