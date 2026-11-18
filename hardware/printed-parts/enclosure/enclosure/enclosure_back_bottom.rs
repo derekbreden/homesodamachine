@@ -16,7 +16,7 @@ use hsm_enclosure_numbers::shell::{DISPOSAL_MARGIN, DISPOSAL_RAISE, WALL};
 use hsm_enclosure_numbers::{Color, catalog, quadrant, structure};
 use hsm_enclosure_quadrants::handholds::{finish_handholds, handholds};
 use hsm_enclosure_quadrants::piece::{self, Build};
-use hsm_enclosure_quadrants::rails::z_rail_heads;
+use hsm_enclosure_quadrants::rails::{RearAlignment, z_rail_heads};
 use hsm_enclosure_quadrants::seam::seam_fit_reliefs;
 use hsm_enclosure_quadrants::vent::{flank_vents, vent_chase};
 use hsm_enclosure_quadrants::walls::lip_underwall;
@@ -106,7 +106,8 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
     piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, None));
     piece = g.scoped("handholds", "Lifting handholds", &[], |g| finish_handholds(g, piece, inner));
-    g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]))
+    piece = g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]));
+    RearAlignment::new(y_joint, zj).lower(g, piece)
 }
 
 /// The panel's STEP and fine model, and its fluted print: its raised disposal warning stands on

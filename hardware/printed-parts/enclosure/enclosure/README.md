@@ -273,6 +273,10 @@ clearance** to its stop block, a local allowance above the 0.15 mm head-on minim
 retain 3.75 mm of length and bound overtravel; the upper seam screws join the two
 tops. Reaching the assembled position does not require compressing the rail ends.
 
+Both rear rail heads carry triangular alignment ribs flush with the outboard edges of
+their channels. The matching grooves locate both flanks in X as the top slides home.
+Breakaway support necks root on the grooves' inboard shoulders.
+
 On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
 the nominal 9 mm face on both sides: in front and
  in back. Each bottom hook carries a 5 mm bearing overlap at that
