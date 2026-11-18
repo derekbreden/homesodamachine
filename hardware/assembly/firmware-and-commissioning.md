@@ -17,7 +17,7 @@ Out:
 - Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (carbonator, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within of room ambient; all reed switches ( carbonator + per flavor reservoir × reservoirs) settled to their empty-vessel baseline; the DIGITEN flow meter's pulse input holds still with no flow; the MQ-6 hydrocarbon sensor in the floor strip down the refrigeration bay's −X wall has reached operating temperature and reads its clean-air baseline.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at and, with the DS3231 RTC at also responsive.
 - Valve self-test pass: each of the Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under DRV8870 drive.
-- Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line probe (the DS18S20, family 0x10) reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that the DS18S20 is physically mounted on the suction line (its identity among the two probes is already fixed by family code, not by this test).
+- Relay #1 starts the compressor on a normal warm-wall call after the off guard. The condenser fan moves air, the coil probe trends down and the bench record carries measured standby and running draw.
 - Firmware setpoints loaded with factory defaults: **carbonator target, hysteresis ** (compressor off at, on at), **freeze-protect cutoff ** on the suction-line probe, ** minimum off-time** for the compressor start capacitor, refill threshold on the carbonator's low-level reed.
 - Per-serial commissioning log archived (sensor readings, I²C ACK list, valve click confirmation, compressor-cycle suction-line ΔT).
 
@@ -131,22 +131,24 @@ The firmware exposes a self-test command over the serial console that walks each
 
 Any failure here is loom wiring, a device fault, or a board fault. Resolve and re-run before continuing.
 
-### 8. Relay #1 compressor-cycle smoke test
+### 8. First powered refrigeration run
 
-This is the only step that energizes the AC side. The carbonator is **empty** (no water, no CO2) — the run is brief and intentional, just enough to confirm the AC leg switches and the suction line cools.
+Use the [refrigeration bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf)
+for startup observations and the meter settings. Assemble the compressor
+cover and earth bonds, prove the gas interlock and do the required leak
+checks before supplying power. Use the protected bench disconnect outside
+the service area.
 
-Trigger the firmware-override compressor-on command at the serial console. The firmware drops the minimum-off-time guard for this command only and asserts; the on-board gas→compressor interlock (U15) passes it to J5 only while the MQ-6 reads clear — a missing or cold gas sensor holds relay #1 open (step 6's warm-up is a prerequisite). The relay energizes and closes the AC leg through the SF76E into the verified hot side of the compressor assembly's factory-external electrical interface; the terminal/PTC assembly remains under the donor cover.
+Run `sim off`, then `thermal` and `status` to prove both physical probes.
+Allow the normal off guard to finish. On a warm-wall call, confirm actual
+airflow at the condenser and a steady compressor start. Log the standby and
+running RMS current and active watts on the bench feed, the cold state and
+the coil-temperature trend. End the initial brief run with the bench
+disconnect. Diagnose any stalled start, overload, fan loss, guard trip or
+alarm before the next run.
 
-Watch for, in order:
-
-1. **PSU current bump** at the inline meter — the relay coil pulls ~70 mA additional through the 5 V rail; small but visible.
-2. **Compressor audible start** — the PTC start relay clicks and the hermetic compressor's motor spins up. The clip-on overload should not trip on a healthy compressor; if the overload opens, kill the override immediately and return to [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for diagnosis.
-3. **Current draw at the AC side** — within nameplate (a couple of amps RMS on the 120 VAC leg for the harvested ice-maker compressor). Verify with a clamp meter on the switched-hot run AC-4 if the build bench has one.
-4. **Suction-line probe (DS18S20) temperature** — drops a few degrees within a couple of minutes. The cold core has no water to absorb heat, so the suction line cools faster than it will in normal operation; this is the intended diagnostic, not normal-operation behavior.
-
-After 30–60 seconds, send the firmware-override compressor-off command. The compressor de-energizes, the suction-line probe begins warming back toward ambient, and the minimum off-time guard re-arms.
-
-This is **not** a refrigeration commissioning step. Full thermal cycling under water load happens at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). All this step proves is: (a) relay #1 makes the AC leg, (b) the compressor draws nameplate current, (c) the suction-line probe is on the right probe.
+The subsequent matched water-load runs establish the commissioned charge
+and record the normal cutoff and restart behavior.
 
 ### 9. Verify setpoints loaded
 
@@ -206,7 +208,7 @@ A commissioned unit is:
 - DIGITEN flow meter's pulse input steady with no flow; the faucet display's touch toggle switches the selected flavor
 - MQ-6 warmed to operating temperature and reads clean-air baseline
 - All solenoid valves clicked individually under firmware self-test; both peristaltic pumps spun dry under DRV8870 drive; condenser fan spun briefly
-- Relay #1 verified switching the compressor's AC leg under firmware override; suction-line probe drops a few degrees within a couple of minutes; relay de-energizes cleanly and the guard re-arms
+- Relay #1 starts the compressor on a normal warm-wall call after the off guard. The condenser fan moves air, the coil probe trends down and the bench record carries measured standby and running draw.
 - Factory-default setpoints ( target, hysteresis, freeze cutoff, minimum off-time, low-reed refill threshold) confirmed loaded
 - The three hardware limits confirmed held: -valve ceiling, refill gated on the dispense window, `GPPU` written on both expanders
 - Per-serial commissioning log archived

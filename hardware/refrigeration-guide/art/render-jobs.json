@@ -1,0 +1,1023 @@
+[
+  {
+    "step": "hardware/cold-core-layout/cold-core-assembly.step",
+    "out": "hardware/refrigeration-guide/art/bare-wall-and-reed.png",
+    "cam": [
+      -0.85,
+      -1,
+      0.23
+    ],
+    "target": [
+      -3,
+      -2,
+      110
+    ],
+    "span": 98,
+    "only": [
+      "carbonator-tube",
+      "endcap-*",
+      "reed-bridge",
+      "reed-carb-*",
+      "probe-carbonator-ds18b20*"
+    ],
+    "context": "drop",
+    "materials": [
+      {
+        "names": [
+          "carbonator-tube",
+          "endcap-*"
+        ],
+        "color": "#9ba8b6",
+        "roughness": 0.48,
+        "metalness": 0.5
+      },
+      {
+        "names": [
+          "reed-bridge"
+        ],
+        "color": "#df674f",
+        "roughness": 0.62,
+        "metalness": 0.0
+      },
+      {
+        "names": [
+          "reed-carb-*"
+        ],
+        "color": "#693e37",
+        "roughness": 0.49,
+        "metalness": 0.15
+      },
+      {
+        "names": [
+          "probe-carbonator-ds18b20"
+        ],
+        "color": "#1749d1",
+        "roughness": 0.5,
+        "metalness": 0.1
+      }
+    ],
+    "bg": "#f5f8ff",
+    "fog": false,
+    "ground": false,
+    "size": "2200x1366",
+    "edges": true
+  },
+  {
+    "step": "hardware/cold-core-layout/cold-core-assembly.step",
+    "out": "hardware/refrigeration-guide/art/coil-probe-contact.png",
+    "cam": [
+      0.15,
+      1,
+      0.28
+    ],
+    "target": [
+      -4,
+      68,
+      162
+    ],
+    "span": 28,
+    "only": [
+      "carbonator-tube",
+      "endcap-*",
+      "evap-coil",
+      "evap-tail-outlet",
+      "probe-coil-ds18s20*"
+    ],
+    "context": "drop",
+    "materials": [
+      {
+        "names": [
+          "carbonator-tube",
+          "endcap-*"
+        ],
+        "color": "#9ba8b6",
+        "roughness": 0.48,
+        "metalness": 0.5
+      },
+      {
+        "names": [
+          "evap-coil",
+          "evap-tail-outlet"
+        ],
+        "color": "#c17b3b",
+        "roughness": 0.5,
+        "metalness": 0.43
+      },
+      {
+        "names": [
+          "probe-coil-ds18s20"
+        ],
+        "color": "#1749d1",
+        "roughness": 0.42,
+        "metalness": 0.1
+      }
+    ],
+    "bg": "#f5f8ff",
+    "fog": false,
+    "ground": false,
+    "size": "2200x1366",
+    "edges": true
+  },
+  {
+    "step": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+    "out": "hardware/refrigeration-guide/art/winding-mandrel.png",
+    "cam": [
+      1,
+      0.35,
+      0.42
+    ],
+    "target": [
+      0,
+      0,
+      80
+    ],
+    "span": 103,
+    "materials": [
+      {
+        "names": [
+          "coil-mandrel"
+        ],
+        "color": "#4b75bf",
+        "roughness": 0.52,
+        "metalness": 0.04
+      }
+    ],
+    "bg": "#f5f8ff",
+    "fog": false,
+    "ground": false,
+    "size": "2200x1366",
+    "edges": true
+  },
+  {
+    "step": "hardware/cold-core-layout/cold-core-assembly.step",
+    "out": "hardware/refrigeration-guide/art/installed-coil.png",
+    "cam": [
+      -0.72,
+      0.97,
+      0.28
+    ],
+    "target": [
+      -30,
+      4,
+      101
+    ],
+    "span": 114,
+    "only": [
+      "carbonator-tube",
+      "endcap-*",
+      "evap-*",
+      "probe-*"
+    ],
+    "context": "drop",
+    "materials": [
+      {
+        "names": [
+          "carbonator-tube",
+          "endcap-*"
+        ],
+        "color": "#9ba8b6",
+        "roughness": 0.48,
+        "metalness": 0.5
+      },
+      {
+        "names": [
+          "evap-*"
+        ],
+        "color": "#c17b3b",
+        "roughness": 0.5,
+        "metalness": 0.43
+      },
+      {
+        "names": [
+          "probe-carbonator-ds18b20",
+          "probe-coil-ds18s20"
+        ],
+        "color": "#1749d1",
+        "roughness": 0.5,
+        "metalness": 0.1
+      }
+    ],
+    "bg": "#f5f8ff",
+    "fog": false,
+    "ground": false,
+    "size": "2200x1366",
+    "edges": false
+  },
+  {
+    "step": "hardware/cold-core-layout/cold-core-assembly.step",
+    "out": "hardware/refrigeration-guide/art/exterior-collar-datum.png",
+    "cam": [
+      -1,
+      -0.33,
+      0.07
+    ],
+    "target": [
+      -135,
+      0,
+      42
+    ],
+    "span": 66,
+    "only": [
+      "foam-shell",
+      "evap-tail-inlet",
+      "evap-tail-outlet"
+    ],
+    "context": "drop",
+    "materials": [
+      {
+        "names": [
+          "foam-shell"
+        ],
+        "color": "#8e9da4",
+        "roughness": 0.65,
+        "metalness": 0.05
+      },
+      {
+        "names": [
+          "evap-*"
+        ],
+        "color": "#cf8b42",
+        "roughness": 0.37,
+        "metalness": 0.4
+      }
+    ],
+    "clip": [
+      {
+        "axis": "x",
+        "lo": -145,
+        "hi": -125
+      }
+    ],
+    "bg": "#f5f8ff",
+    "fog": false,
+    "ground": false,
+    "size": "2200x1366",
+    "edges": false
+  },
+  {
+    "step": "hardware/cold-core-layout/cold-core-assembly.step",
+    "out": "hardware/refrigeration-guide/art/coil-exits-before-foam.png",
+    "cam": [
+      -1,
+      -0.32,
+      0.38
+    ],
+    "target": [
+      -5,
+      0,
+      115
+    ],
+    "span": 173,
+    "only": [
+      "carbonator-tube",
+      "endcap-top",
+      "endcap-bottom",
+      "evap-*",
+      "foam-shell",
+      "reed-bridge",
+      "reed-carb-*",
+      "probe-*"
+    ],
+    "xray": [],
+    "shell": [],
+    "context": "drop",
+    "materials": [
+      {
+        "names": [
+          "carbonator-tube",
+          "endcap-top"
+        ],
+        "color": "#9ba8b6",
+        "roughness": 0.48,
+        "metalness": 0.5
+      },
+      {
+        "names": [
+          "evap-*"
+        ],
+        "color": "#c17b3b",
+        "roughness": 0.46,
+        "metalness": 0.48
+      },
+      {
+        "names": [
+          "reed-bridge"
+        ],
+        "color": "#df674f",
+        "roughness": 0.62,
+        "metalness": 0.0
+      },
+      {
+        "names": [
+          "probe-carbonator-ds18b20",
+          "probe-coil-ds18s20"
+        ],
+        "color": "#1749d1",
+        "roughness": 0.5,
+        "metalness": 0.1
+      },
+      {
+        "names": [
+          "foam-shell"
+        ],
+        "color": "#adc4d7",
+        "roughness": 0.79,
+        "metalness": 0.0,
+        "opacity": 0.13,
+        "side": "front",
+        "depth_write": false,
+        "order": 4
+      },
+      {
+        "names": [
+          "reservoir-a",
+          "reservoir-b"
+        ],
+        "color": "#b0bfd0",
+        "roughness": 0.68,
+        "metalness": 0.0,
+        "opacity": 0.18,
+        "side": "front",
+        "depth_write": false,
+        "order": 2
+      },
+      {
+        "names": [
+          "evap-tail-inlet"
+        ],
+        "color": "#b8582f",
+        "roughness": 0.39,
+        "metalness": 0.42
+      },
+      {
+        "names": [
+          "evap-tail-outlet"
+        ],
+        "color": "#ca9348",
+        "roughness": 0.39,
+        "metalness": 0.47
+      }
+    ],
+    "bg": "#f5f8ff",
+    "fog": false,
+    "ground": false,
+    "size": "2200x1366",
+    "edges": true,
+    "ghost": []
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/installed-leak-map.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      -0.104,
+      -0.065,
+      1
+    ],
+    "up": [
+      0,
+      1,
+      0
+    ],
+    "target": [
+      0,
+      112,
+      58
+    ],
+    "span": 121,
+    "distance": 900,
+    "only": [
+      "compressor",
+      "condenser+fan",
+      "mq6-sensor",
+      "cold-core/foam-shell",
+      "cold-core/foam-cap-bottom",
+      "tube-refrig-1",
+      "tube-refrig-2",
+      "tube-refrig-3",
+      "cold-core/evap-tail-inlet",
+      "cold-core/evap-tail-outlet",
+      "enclosure-front-bottom"
+    ],
+    "context": "drop",
+    "clip": [
+      {
+        "axis": "y",
+        "lo": -2,
+        "hi": 223
+      },
+      {
+        "axis": "z",
+        "lo": -7,
+        "hi": 153
+      }
+    ],
+    "materials": [
+      {
+        "names": [
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-bottom"
+        ],
+        "color": "#CFD8E3",
+        "roughness": 0.8,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "tube-refrig-1",
+          "tube-refrig-2",
+          "tube-refrig-3",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet"
+        ],
+        "color": "#D17E3B",
+        "roughness": 0.51,
+        "metalness": 0.09
+      },
+      {
+        "names": [
+          "compressor"
+        ],
+        "color": "#37475A",
+        "roughness": 0.58,
+        "metalness": 0.04
+      },
+      {
+        "names": [
+          "compressor/2"
+        ],
+        "color": "#202A3B",
+        "roughness": 0.64,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "condenser+fan"
+        ],
+        "color": "#8194A9",
+        "roughness": 0.62,
+        "metalness": 0.08
+      },
+      {
+        "names": [
+          "mq6-sensor"
+        ],
+        "color": "#4E8466",
+        "roughness": 0.65,
+        "metalness": 0.025
+      },
+      {
+        "names": [
+          "mq6-sensor/2",
+          "mq6-sensor/3"
+        ],
+        "color": "#A58C56",
+        "roughness": 0.65,
+        "metalness": 0.1
+      },
+      {
+        "names": [
+          "enclosure-front-bottom"
+        ],
+        "color": "#ACC2D9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "opacity": 0.23,
+        "side": "front"
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/compressor-process-tube.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      -1,
+      -0.34,
+      0.21
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      -53,
+      90,
+      70
+    ],
+    "span": 79,
+    "distance": 900,
+    "only": [
+      "compressor",
+      "tube-refrig-3"
+    ],
+    "context": "drop",
+    "clip": [],
+    "materials": [
+      {
+        "names": [
+          "tube-refrig-1",
+          "tube-refrig-2",
+          "tube-refrig-3",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet"
+        ],
+        "color": "#D17E3B",
+        "roughness": 0.51,
+        "metalness": 0.09
+      },
+      {
+        "names": [
+          "compressor"
+        ],
+        "color": "#37475A",
+        "roughness": 0.58,
+        "metalness": 0.04
+      },
+      {
+        "names": [
+          "compressor/2"
+        ],
+        "color": "#202A3B",
+        "roughness": 0.64,
+        "metalness": 0
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/cold-core-tie-ins.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      0,
+      -0.78,
+      1
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      0,
+      181,
+      53
+    ],
+    "span": 74,
+    "distance": 900,
+    "only": [
+      "cold-core/foam-shell",
+      "cold-core/foam-cap-bottom",
+      "tube-refrig-2",
+      "tube-refrig-3",
+      "cold-core/evap-tail-inlet",
+      "cold-core/evap-tail-outlet"
+    ],
+    "context": "drop",
+    "clip": [
+      {
+        "axis": "y",
+        "lo": 123,
+        "hi": 218
+      },
+      {
+        "axis": "z",
+        "lo": -6,
+        "hi": 115
+      }
+    ],
+    "materials": [
+      {
+        "names": [
+          "cold-core/foam-shell",
+          "cold-core/foam-cap-bottom"
+        ],
+        "color": "#CFD8E3",
+        "roughness": 0.8,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "tube-refrig-1",
+          "tube-refrig-2",
+          "tube-refrig-3",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet"
+        ],
+        "color": "#D17E3B",
+        "roughness": 0.51,
+        "metalness": 0.09
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/compressor-floor-mounts.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      0.13,
+      -0.52,
+      1
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      -22,
+      91,
+      8
+    ],
+    "span": 92,
+    "distance": 900,
+    "only": [
+      "compressor",
+      "enclosure-front-bottom"
+    ],
+    "context": "drop",
+    "clip": [
+      {
+        "axis": "x",
+        "lo": -85,
+        "hi": 39
+      },
+      {
+        "axis": "y",
+        "lo": 6,
+        "hi": 175
+      },
+      {
+        "axis": "z",
+        "lo": -1,
+        "hi": 14.98
+      }
+    ],
+    "materials": [
+      {
+        "names": [
+          "compressor"
+        ],
+        "color": "#37475A",
+        "roughness": 0.58,
+        "metalness": 0.04
+      },
+      {
+        "names": [
+          "compressor/2"
+        ],
+        "color": "#202A3B",
+        "roughness": 0.64,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "enclosure-front-bottom"
+        ],
+        "color": "#ACC2D9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "opacity": 0.67,
+        "side": "front"
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/condenser-installed-mounts.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      -0.93,
+      0.46,
+      0.31
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      68,
+      89,
+      76
+    ],
+    "span": 93,
+    "distance": 900,
+    "only": [
+      "condenser+fan",
+      "enclosure-front-bottom"
+    ],
+    "context": "drop",
+    "clip": [
+      {
+        "axis": "x",
+        "lo": 35,
+        "hi": 109
+      },
+      {
+        "axis": "y",
+        "lo": 5,
+        "hi": 177
+      },
+      {
+        "axis": "z",
+        "lo": -5,
+        "hi": 155
+      }
+    ],
+    "materials": [
+      {
+        "names": [
+          "condenser+fan"
+        ],
+        "color": "#8194A9",
+        "roughness": 0.62,
+        "metalness": 0.08
+      },
+      {
+        "names": [
+          "enclosure-front-bottom"
+        ],
+        "color": "#ACC2D9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "opacity": 0.31,
+        "side": "front"
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/condenser-crossflow.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      0,
+      -0.3,
+      1
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      0,
+      87,
+      60
+    ],
+    "span": 102,
+    "distance": 900,
+    "only": [
+      "compressor",
+      "condenser+fan",
+      "tube-refrig-1",
+      "enclosure-front-bottom"
+    ],
+    "context": "drop",
+    "clip": [
+      {
+        "axis": "y",
+        "lo": 4,
+        "hi": 174
+      },
+      {
+        "axis": "z",
+        "lo": -2,
+        "hi": 150
+      }
+    ],
+    "materials": [
+      {
+        "names": [
+          "tube-refrig-1",
+          "tube-refrig-2",
+          "tube-refrig-3",
+          "cold-core/evap-tail-inlet",
+          "cold-core/evap-tail-outlet"
+        ],
+        "color": "#D17E3B",
+        "roughness": 0.51,
+        "metalness": 0.09
+      },
+      {
+        "names": [
+          "compressor"
+        ],
+        "color": "#37475A",
+        "roughness": 0.58,
+        "metalness": 0.04
+      },
+      {
+        "names": [
+          "compressor/2"
+        ],
+        "color": "#202A3B",
+        "roughness": 0.64,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "condenser+fan"
+        ],
+        "color": "#8194A9",
+        "roughness": 0.62,
+        "metalness": 0.08
+      },
+      {
+        "names": [
+          "enclosure-front-bottom"
+        ],
+        "color": "#ACC2D9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "opacity": 0.32,
+        "side": "front"
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/compressor-thermal-cutoff.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      0.9,
+      -0.74,
+      0.5
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      -12,
+      28,
+      45
+    ],
+    "span": 54,
+    "distance": 900,
+    "only": [
+      "compressor",
+      "fuse-clamp",
+      "thermal-fuse"
+    ],
+    "context": "drop",
+    "clip": [],
+    "materials": [
+      {
+        "names": [
+          "compressor"
+        ],
+        "color": "#37475A",
+        "roughness": 0.58,
+        "metalness": 0.04
+      },
+      {
+        "names": [
+          "compressor/2"
+        ],
+        "color": "#202A3B",
+        "roughness": 0.64,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "fuse-clamp"
+        ],
+        "color": "#DA654E",
+        "roughness": 0.65,
+        "metalness": 0
+      },
+      {
+        "names": [
+          "thermal-fuse"
+        ],
+        "color": "#F5BA73",
+        "roughness": 0.52,
+        "metalness": 0.12
+      }
+    ]
+  },
+  {
+    "step": "manifold-layout/enclosure-assembly.step",
+    "out": "hardware/refrigeration-guide/art/mq6-installed-cradle.png",
+    "size": "2400x1500",
+    "bg": "#FFFFFF",
+    "transparent": true,
+    "ground": false,
+    "fog": false,
+    "frame": "posed",
+    "ortho": true,
+    "cam": [
+      0.42,
+      -0.3,
+      1
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "target": [
+      -91,
+      55,
+      18
+    ],
+    "span": 36,
+    "distance": 900,
+    "only": [
+      "mq6-sensor",
+      "enclosure-front-bottom"
+    ],
+    "context": "drop",
+    "clip": [
+      {
+        "axis": "x",
+        "lo": -108,
+        "hi": -72
+      },
+      {
+        "axis": "y",
+        "lo": 28,
+        "hi": 81
+      },
+      {
+        "axis": "z",
+        "lo": 0,
+        "hi": 45
+      }
+    ],
+    "materials": [
+      {
+        "names": [
+          "mq6-sensor"
+        ],
+        "color": "#4E8466",
+        "roughness": 0.65,
+        "metalness": 0.025
+      },
+      {
+        "names": [
+          "mq6-sensor/2",
+          "mq6-sensor/3"
+        ],
+        "color": "#A58C56",
+        "roughness": 0.65,
+        "metalness": 0.1
+      },
+      {
+        "names": [
+          "enclosure-front-bottom"
+        ],
+        "color": "#ACC2D9",
+        "roughness": 0.8,
+        "metalness": 0,
+        "opacity": 0.56,
+        "side": "front"
+      }
+    ]
+  }
+]

@@ -33,8 +33,9 @@ This operation takes the **HSM-0004 carbonator** and produces the
    vessel rim. Orient the crimp barrel upward and support the lead so it
    cannot load the ring. Leave the free end available for lid threading.
    Record the bond reading before covering the attachment. [Rim attachment](pressure-vessel.md#upper-rim-earth-bond) · [Bond measurement](wiring.md#1-chassis-ground-bonds-single-point-ground-on-the-rear-wall)
-2. Fit the DS18B20 wall probe in the bare band below the winding and set
-   the carbonator reed bridge with its gauge at the rod-register azimuth.
+2. Fit the DS18B20 flat against bare steel in the winding gap on the west
+   flank. Turn its insulated leads along the gap before routing them up.
+   Set the carbonator reed bridge with its gauge at the rod-register azimuth.
    Seat the reeds against the steel in their through-pockets. Check the
    float's travel and switching positions while the vessel is accessible.
    [Reed bridge](../printed-parts/cold-core/reed-bridge/README.md) · [Float and reed calibration](../printed-parts/cold-core/magnetic-float/all-aero/installation.md#reed-calibration)
