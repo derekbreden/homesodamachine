@@ -11,7 +11,7 @@ use anyhow::Result;
 use hsm_kernel::{Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use hsm_kernel::write::PrintOutput;
 use hsm_zone_c_numbers::catalog;
-use hsm_zone_c_numbers::frame::{Frame, frame};
+use hsm_zone_c_numbers::frame::{Frame, SEATING_RELIEF, frame};
 use serde_json::json;
 use sha2::{Digest, Sha256};
 
@@ -109,7 +109,7 @@ fn socket(n: &Frame) -> Result<Solid> {
 
 fn build(n: &Frame) -> Result<Solid> {
     let seat = n.seat;
-    let floor = n.roof_floor;
+    let floor = n.roof_floor + SEATING_RELIEF;
     let top = n.roof_top;
     let back = n.back;
     let mut body = Plane::XY.extrude(&blank_plan(n, n.body_width)?, seat)?;

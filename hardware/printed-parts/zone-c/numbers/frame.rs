@@ -9,6 +9,8 @@ use hsm_enclosure_interface as interface;
 pub const CENTER_Y: f64 = 182.5 + (funnel::AFT - funnel::FORWARD) / 2.0;
 /// The frame's bottom web, under the plug's socket.
 pub const WEB: f64 = 3.0;
+/// Relief above the shell's bearing ledges for the frame's printed flange underside.
+pub const SEATING_RELIEF: f64 = 0.48;
 /// The roof's width and the body's, and the frame's depth with the rear roof's access.
 pub const WIDTH: f64 = 196.5;
 pub const BODY_WIDTH: f64 = 176.5;

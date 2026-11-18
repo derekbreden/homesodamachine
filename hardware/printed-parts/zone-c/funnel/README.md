@@ -62,8 +62,8 @@ complete block and cylindrical outlet.
 
 The complete rigid flange is wide ahead of Y199.75 and
  wide aft of that shoulder, beside the upper M5 seam
-blocks. Its full Y envelope is 182.692 mm. The flange's flat underside bears at
-Z346. The front surround finishes at Z355. The rear surround is a flat Z349
+blocks. Its full Y envelope is 182.692 mm. The flange's underside is relieved above
+the enclosure's bearing ledges. The front surround finishes at Z355. The rear surround is a flat Z349
 brim bearing, with two finite screw-head pads at Z351.8. The silicone brim
 retains its complete 3 mm bearing below Z349. Its front stands at Y93.0,
 0.25 mm behind the display backing. The rear flange reaches Y275.692, with
@@ -71,6 +71,9 @@ R6 aft corners. Its 5 mm aft access extension opens the J10 screw-tool passages
 when the frame and drain are removed. Both upper shells have the matching
 stepped roof pocket.
 
+The flange underside has seating relief above the shell ledges, owned by
+`SEATING_RELIEF` in [the frame's dimensions](../numbers/frame.rs). Its roof top,
+silicone seat and screw-head seats retain their installation datums.
 The lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
 Plain open-bottom notches pass all four ledges. The lower body carries
