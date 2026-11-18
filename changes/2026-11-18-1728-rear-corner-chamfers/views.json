@@ -1,0 +1,185 @@
+{
+  "views": [
+    {
+      "name": "corner-stock",
+      "caption": "The corner column and adjacent rear wall meet their common stock plane, clear of the shortened Pisco leaves.",
+      "before": "corner-stock-before.webp",
+      "after": "corner-stock-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 616.1,
+          "y": 503.5,
+          "r": 96.5,
+          "label": "Corner stock",
+          "at": [
+            94.862,
+            461.152,
+            345.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          72.58076047410712,
+          439.58076047410714,
+          332.006532331875
+        ],
+        "target": [
+          94,
+          461,
+          347
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2917346926195807,
+        "far": 548.2686157578904,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            91,
+            460,
+            345
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0d0395a5e73df6e4bfba15d2461633c08e9415b2245d15bc1b9a1a973e8818ff",
+          "commit": "99df0845445a2be465895274eb89dc8e9aa5fcef",
+          "taken": "2026-11-18T23:02:59.251Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ba7ebb8b5578b55092b13a028c7fca110555138f4e6757e28b6ce953d5bdc7ba",
+          "commit": "6736841c22249693de23b1472cd9640ba77ce3e8",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top",
+        "regulator-snap-cap",
+        "meter-snap-cap",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter-channel",
+      "caption": "The sideways meter hook channel uses chamfered catch and return faces, clear to the flank.",
+      "before": "meter-channel-before.webp",
+      "after": "meter-channel-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 660,
+          "y": 477,
+          "r": 150,
+          "label": "Channel bevels",
+          "at": [
+            93,
+            415,
+            307.1
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          91,
+          378.7867965644036,
+          308
+        ],
+        "target": [
+          91,
+          415,
+          308
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2240180735537218,
+        "far": 514.4103062249609,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            415,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "meter-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0d0395a5e73df6e4bfba15d2461633c08e9415b2245d15bc1b9a1a973e8818ff",
+          "commit": "99df0845445a2be465895274eb89dc8e9aa5fcef",
+          "taken": "2026-11-18T23:02:59.251Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ba7ebb8b5578b55092b13a028c7fca110555138f4e6757e28b6ce953d5bdc7ba",
+          "commit": "6736841c22249693de23b1472cd9640ba77ce3e8",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top",
+        "regulator-snap-cap",
+        "meter-snap-cap",
+        "asse-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/2026-11-18-rear-equipment-corner-mark2-c44fb6bd/native",
+  "--export-3mf",
+  "2026-11-18-rear-equipment-corner-mark2-c44fb6bd.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/2026-11-18-rear-equipment-corner-mark2-c44fb6bd/native/2026-11-18-rear-equipment-corner-mark2-c44fb6bd.cli.3mf"
+]
