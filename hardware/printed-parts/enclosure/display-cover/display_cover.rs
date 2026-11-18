@@ -1,5 +1,5 @@
 //! The face-up display bezel, the status plate beside it, and their matching visible screws and
-//! short inserts. Both plates are drawn in the cover's own frame, so the machine places them
+//! regular inserts. Both plates are drawn in the cover's own frame, so the machine places them
 //! with one transform.
 //!
 //!     display-cover [<output directory>]
@@ -29,7 +29,7 @@ fn slab(profile: &Profile, lo: f64, hi: f64) -> Result<Solid> {
 const MARK_SVG: &str = include_str!("../../../../brand/mark.svg");
 const GLYPHS_JSON: &str = include_str!("../nameplate/identification-glyphs.json");
 
-/// Each station's black socket-head screw and short insert, named `<prefix>-screw-<n>` and
+/// Each station's black socket-head screw and regular insert, named `<prefix>-screw-<n>` and
 /// `<prefix>-insert-<n>`.
 fn hardware(prefix: &str, stations: &[[f64; 2]]) -> Result<Vec<(String, Solid, [f64; 3])>> {
     let seat = -m::COUNTERBORE_DEPTH;
@@ -278,8 +278,8 @@ fn main() -> Result<()> {
     println!("{}", write_part(&out, "status-plate-fasteners", &parts)?);
 
     std::fs::write(out.join("mount-dimensions.json"), serde_json::to_vec_pretty(&json!({
-        "screw": "Black M3 x 6 socket-head cap screw",
-        "insert": "ruthex RX-M3S x 4 short heat-set insert",
+        "screw": format!("Black M3 x {} socket-head cap screw", m::SCREW_LENGTH),
+        "insert": format!("ruthex RX-M3 x {} regular heat-set insert", m::INSERT_LENGTH),
         "gasket_thickness_mm": m::GASKET_THICK,
         "glass_thickness_mm": m::GLASS_THICK,
         "cover_mm": [m::WIDTH, m::HEIGHT, m::THICK], "corner_radius_mm": m::CORNER,

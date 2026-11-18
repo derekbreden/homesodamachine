@@ -19,8 +19,7 @@ use crate::walls::back_top_flank_face;
 use serde::{Deserialize, Serialize};
 use std::rc::Rc;
 
-#[path = "../../nameplate/snap_dimensions.rs"]
-mod snap_dimensions;
+use hsm_enclosure_numbers::nameplate_mount as snap_dimensions;
 
 /// The wet ports' bores run through the rear wall from inside its relief to past its face.
 pub const WET_PORT_Y: P2 = [458.0, 472.3];
@@ -85,7 +84,9 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     }
     let tips = g.scoped("receiver-catch-pockets", "Snap receiver catch pockets", &[], crate::supports::tip_clearances);
     piece = g.cut(piece, &tips);
-    // The measured inlet opening stays clear after every integral mount joins.
+    // Integral seats share this wall; clear the complete blind pilots after their stock joins.
+    let plate_cuts = nameplate_cuts(g);
+    let piece = g.cut(piece, &[plate_cuts]);
     g.cut(piece, &inlet)
 }
 
@@ -379,21 +380,20 @@ fn nameplate_receiver(g: &mut Graph, piece: Shape) -> Shape {
         ]),
     );
     let stock = g.translate(stock, shift);
-    let cuts = g.add(
-        Op::NameplateCuts(s.clone()),
-        vec![],
-        Some([
-            -half,
-            half,
-            s.pilot_rear,
-            s.thick,
-            s.frame_bottom,
-            s.frame_top,
-        ]),
-    );
-    let cuts = g.translate(cuts, shift);
     let piece = g.union(piece, &[stock]);
+    let cuts = nameplate_cuts(g);
     g.cut(piece, &[cuts])
+}
+
+/// The receiver mouth and complete blind pilots, reapplied after adjoining stock joins.
+fn nameplate_cuts(g: &mut Graph) -> Shape {
+    let s = snap();
+    let p = &layout().rear_identification.nameplate;
+    let half = s.frame_width / 2.;
+    let cuts = g.add(Op::NameplateCuts(s.clone()), vec![], Some([
+        -half, half, s.pilot_rear, s.thick, s.frame_bottom, s.frame_top,
+    ]));
+    g.translate(cuts, [p.center_x_mm, p.face_y_mm - s.thick, p.center_z_mm])
 }
 
 /// The receiver on its own: its stock with its pocket, for the rear face's print.
@@ -471,18 +471,22 @@ fn axial_cylinder(g: &mut Graph, radius: f64, root: P3, axis: P3, length: f64) -
 /// The parts the wall hosts, each with its mounting holes: the PSU on ceiling bosses, then each
 /// relay on west-flank bosses.
 pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
-    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_PILOT_RADIUS, RELAY_SETBACK, relay_holes, relay_pilot_depth};
+    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_PILOT_RADIUS, relay_holes, relay_pilot_depth, relay_clamp_holes, relay_setback};
     let parts = &layout().parts;
     let holes = relay_holes();
     let relay = |pose| {
-        mounts(
+        let mut supports = mounts(
             pose,
             &holes,
-            RELAY_SETBACK,
+            0.,
             RELAY_PILOT_RADIUS,
             relay_pilot_depth(),
             |p| [RELAY_ROOT_X, p[1], p[2]],
-        )
+        );
+        for mount in &mut supports { mount.threaded = false; }
+        supports.extend(mounts(pose, &relay_clamp_holes(), relay_setback(), RELAY_PILOT_RADIUS,
+            relay_pilot_depth(), |p| [RELAY_ROOT_X, p[1], p[2]]));
+        supports
     };
     vec![
         (
@@ -538,6 +542,11 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
                 m.pilot_depth + 0.01,
             );
             pilots.push(g.feature(pilot, format!("{part}-mount"), format!("{part} mounting bosses"), &[part]));
+        } else {
+            use crate::rear_wall::hosts::{RELAY_LOCATOR_RADIUS, RELAY_LOCATOR_END_AIR, relay_board_thickness};
+            let pin = axial_cylinder(g, RELAY_LOCATOR_RADIUS, m.point, m.axis,
+                relay_board_thickness() - RELAY_LOCATOR_END_AIR);
+            bosses.push(g.feature(pin, format!("{part}-mount"), format!("{part} locating pins"), &[part]));
         }
       }
     }

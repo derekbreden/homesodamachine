@@ -198,37 +198,55 @@
             ]
           },
           {
-            "material": "HSM-0138",
-            "quantity": 2,
-            "unit": "ea",
-            "note": "Condenser mounting screws.",
-            "bodies": []
-          },
-          {
             "material": "HSM-0140",
-            "quantity": 6,
+            "quantity": 20,
             "unit": "ea",
-            "note": "Funnel-frame screws.",
             "bodies": [
               "funnel-frame-front-east-screw",
               "funnel-frame-front-west-screw",
               "funnel-frame-front-aft-east-screw",
               "funnel-frame-front-aft-west-screw",
               "funnel-frame-back-east-screw",
-              "funnel-frame-back-west-screw"
+              "funnel-frame-back-west-screw",
+              "nameplate-screw-1",
+              "nameplate-screw-2",
+              "nameplate-screw-3",
+              "nameplate-screw-4",
+              "display-screw-1",
+              "display-screw-2",
+              "display-screw-3",
+              "display-screw-4",
+              "status-screw-1",
+              "status-screw-2",
+              "status-screw-3",
+              "status-screw-4",
+              "condenser-screw-1",
+              "condenser-screw-2"
             ]
           },
           {
-            "material": "HSM-0133",
+            "material": "HSM-0583",
             "quantity": 4,
             "unit": "ea",
-            "note": "Compressor floor screws."
+            "note": "Compressor floor screws.",
+            "bodies": [
+              "compressor-screw-1",
+              "compressor-screw-2",
+              "compressor-screw-3",
+              "compressor-screw-4"
+            ]
           },
           {
             "material": "HSM-0159",
             "quantity": 4,
             "unit": "ea",
-            "note": "One under each compressor floor screw."
+            "note": "One under each compressor floor screw.",
+            "bodies": [
+              "compressor-washer-1",
+              "compressor-washer-2",
+              "compressor-washer-3",
+              "compressor-washer-4"
+            ]
           },
           {
             "material": "HSM-0359",
@@ -255,26 +273,7 @@
             "note": "DC-2 from the V12 block to relay 2 COM; DC-3's relay 2 NO pigtail and pump positive, joined under the funnel opening, and the pump negative from the DC GND block."
           },
           {
-            "material": "HSM-0578",
-            "quantity": 12,
-            "unit": "ea",
-            "bodies": [
-              "nameplate-screw-1",
-              "nameplate-screw-2",
-              "nameplate-screw-3",
-              "nameplate-screw-4",
-              "display-screw-1",
-              "display-screw-2",
-              "display-screw-3",
-              "display-screw-4",
-              "status-screw-1",
-              "status-screw-2",
-              "status-screw-3",
-              "status-screw-4"
-            ]
-          },
-          {
-            "material": "HSM-0136",
+            "material": "HSM-0164",
             "quantity": 12,
             "unit": "ea",
             "bodies": [
@@ -494,7 +493,7 @@
             ]
           },
           {
-            "material": "HSM-0103",
+            "material": "HSM-0140",
             "quantity": 3,
             "unit": "ea",
             "bodies": [
@@ -504,7 +503,7 @@
             ]
           },
           {
-            "material": "HSM-0104",
+            "material": "HSM-0164",
             "quantity": 3,
             "unit": "ea",
             "bodies": [
@@ -708,10 +707,16 @@
             ]
           },
           {
-            "material": "HSM-0138",
+            "material": "HSM-0140",
             "quantity": 4,
             "unit": "ea",
-            "note": "PCB screws into the top-lid posts."
+            "note": "PCB screws into the top-lid posts.",
+            "bodies": [
+              "pcba-screw-1",
+              "pcba-screw-2",
+              "pcba-screw-3",
+              "pcba-screw-4"
+            ]
           },
           {
             "material": "HSM-0050",
@@ -778,6 +783,17 @@
             "material": "HSM-0570",
             "quantity": 1,
             "unit": "ea"
+          },
+          {
+            "material": "HSM-0584",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "pcba-screw-spacer-1",
+              "pcba-screw-spacer-2",
+              "pcba-screw-spacer-3",
+              "pcba-screw-spacer-4"
+            ]
           }
         ]
       }
@@ -1030,7 +1046,7 @@
             "unit": "ea"
           },
           {
-            "material": "HSM-0136",
+            "material": "HSM-0164",
             "quantity": 31,
             "unit": "ea"
           },
@@ -1041,17 +1057,12 @@
           },
           {
             "material": "HSM-0138",
-            "quantity": 8,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-0139",
-            "quantity": 7,
+            "quantity": 3,
             "unit": "ea"
           },
           {
             "material": "HSM-0140",
-            "quantity": 2,
+            "quantity": 14,
             "unit": "ea"
           },
           {
@@ -1394,7 +1405,7 @@
             ]
           },
           {
-            "material": "HSM-0103",
+            "material": "HSM-0140",
             "quantity": 3,
             "unit": "ea",
             "bodies": [
@@ -1404,7 +1415,7 @@
             ]
           },
           {
-            "material": "HSM-0104",
+            "material": "HSM-0164",
             "quantity": 3,
             "unit": "ea",
             "bodies": [
@@ -2920,26 +2931,6 @@
       ]
     },
     {
-      "id": "HSM-0103",
-      "description": "Faucet base screw \u00b7 M3",
-      "kind": "purchased",
-      "contexts": [
-        {
-          "material": "HSM-0002"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0104",
-      "description": "Faucet base heat-set insert \u00b7 M3",
-      "kind": "purchased",
-      "contexts": [
-        {
-          "material": "HSM-0002"
-        }
-      ]
-    },
-    {
       "id": "HSM-0105",
       "description": "Faucet display signal ribbon",
       "kind": "purchased",
@@ -3288,7 +3279,6 @@
       "description": "M5 \u00d7 10 socket-head screw",
       "kind": "purchased",
       "aliases": [
-        "compressor floor screw",
         "MewuDecor M5x10",
         "B0BHZVXNJX"
       ],
@@ -3308,23 +3298,6 @@
       "id": "HSM-0135",
       "description": "M5 \u00d7 0.8 square nut, 8 \u00d7 4 mm",
       "kind": "purchased"
-    },
-    {
-      "id": "HSM-0136",
-      "description": "ruthex M3 short heat-set insert",
-      "kind": "purchased",
-      "manufacturer_number": "RX-M3Sx4.0",
-      "aliases": [
-        "short insert",
-        "RX-M3S x 4",
-        "B09ZHSGHXD"
-      ],
-      "documents": [
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
     },
     {
       "id": "HSM-0137",
@@ -3378,7 +3351,11 @@
       "kind": "purchased",
       "aliases": [
         "BNUOK M3x12",
-        "B0DJQGVK8S"
+        "B0DJQGVK8S",
+        "faucet base screw",
+        "base_screw_1",
+        "base_screw_2",
+        "base_screw_3"
       ],
       "documents": [
         {
@@ -3570,7 +3547,7 @@
         }
       ],
       "bom": {
-        "scope": "Pumps supported by the integral cylindrical motor guides and independently clamped at their flanges by local retainers, socket screws and short heat-set inserts. Prepared pump tubes and motor receptacles complete this group; the tees, upper tubes, returns and J13 ribbon belong to the machine.",
+        "scope": "Pumps supported by the integral cylindrical motor guides and independently clamped at their flanges by local retainers, socket screws and regular heat-set inserts. Prepared pump tubes and motor receptacles complete this group; the tees, upper tubes, returns and J13 ribbon belong to the machine.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -3643,7 +3620,7 @@
             ]
           },
           {
-            "material": "HSM-0136",
+            "material": "HSM-0164",
             "quantity": 4,
             "unit": "ea",
             "bodies": [
@@ -3669,7 +3646,11 @@
       ],
       "aliases": [
         "full-length insert",
-        "B08BCRZZS3"
+        "B08BCRZZS3",
+        "faucet base heat-set insert",
+        "base_insert_1",
+        "base_insert_2",
+        "base_insert_3"
       ]
     },
     {
@@ -8970,10 +8951,9 @@
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
           {
-            "material": "HSM-0139",
-            "quantity": 6,
+            "material": "HSM-0140",
+            "quantity": 10,
             "unit": "ea",
-            "note": "Four PSU ceiling screws and the two C14 screws.",
             "placements": [
               {
                 "bodies": [
@@ -8995,6 +8975,14 @@
                   "psu-screw-4"
                 ]
               }
+            ],
+            "bodies": [
+              "relay-1-screw-1",
+              "relay-1-screw-2",
+              "relay-2-screw-1",
+              "relay-2-screw-2",
+              "c14-screw-1",
+              "c14-screw-2"
             ]
           },
           {
@@ -9052,10 +9040,9 @@
             ]
           },
           {
-            "material": "HSM-0136",
-            "quantity": 6,
+            "material": "HSM-0164",
+            "quantity": 12,
             "unit": "ea",
-            "note": "PSU ceiling hosts and C14 mounting bosses.",
             "placements": [
               {
                 "bodies": [
@@ -9077,45 +9064,27 @@
                   "psu-insert-4"
                 ]
               }
-            ]
-          },
-          {
-            "material": "HSM-0164",
-            "quantity": 2,
-            "unit": "ea",
+            ],
             "bodies": [
               "funnel-frame-back-east-insert",
-              "funnel-frame-back-west-insert"
-            ]
-          },
-          {
-            "material": "HSM-0576",
-            "quantity": 8,
-            "unit": "ea",
-            "bodies": [
-              "relay-1-screw-1",
-              "relay-1-screw-2",
-              "relay-1-screw-3",
-              "relay-1-screw-4",
-              "relay-2-screw-1",
-              "relay-2-screw-2",
-              "relay-2-screw-3",
-              "relay-2-screw-4"
-            ]
-          },
-          {
-            "material": "HSM-0577",
-            "quantity": 8,
-            "unit": "ea",
-            "bodies": [
+              "funnel-frame-back-west-insert",
               "relay-1-insert-1",
               "relay-1-insert-2",
-              "relay-1-insert-3",
-              "relay-1-insert-4",
               "relay-2-insert-1",
               "relay-2-insert-2",
-              "relay-2-insert-3",
-              "relay-2-insert-4"
+              "c14-insert-1",
+              "c14-insert-2"
+            ]
+          },
+          {
+            "material": "HSM-0581",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "relay-1-clamp-1",
+              "relay-1-clamp-2",
+              "relay-2-clamp-1",
+              "relay-2-clamp-2"
             ]
           }
         ]
@@ -9467,13 +9436,30 @@
             "quantity": 2,
             "unit": "ea",
             "note": "Full-length inserts in the condenser fingers.",
-            "bodies": []
+            "bodies": [
+              "condenser-insert-1",
+              "condenser-insert-2"
+            ]
           },
           {
             "material": "HSM-0132",
             "quantity": 4,
             "unit": "ea",
-            "bodies": []
+            "bodies": [
+              "compressor-insert-1",
+              "compressor-insert-2",
+              "compressor-insert-3",
+              "compressor-insert-4"
+            ]
+          },
+          {
+            "material": "HSM-0582",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "condenser-screw-spacer-1",
+              "condenser-screw-spacer-2"
+            ]
           }
         ]
       }
@@ -10139,7 +10125,13 @@
             "material": "HSM-0164",
             "quantity": 4,
             "unit": "ea",
-            "note": "Four top-lid PCB posts and twelve reservoir-cap inserts."
+            "note": "Regular inserts in the top-lid PCB posts.",
+            "bodies": [
+              "pcba-insert-1",
+              "pcba-insert-2",
+              "pcba-insert-3",
+              "pcba-insert-4"
+            ]
           },
           {
             "material": "HSM-0359",
@@ -11199,81 +11191,6 @@
       ]
     },
     {
-      "id": "HSM-0576",
-      "description": "Sutemribor M2 \u00d7 6 socket-head screw \u00b7 black oxide",
-      "kind": "purchased",
-      "aliases": [
-        "M2-0.4 \u00d7 6 mm",
-        "12.9 alloy steel",
-        "B0CXQ7Q7L3"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0547"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Purchased screw pack",
-          "path": "ledger/purchases.md"
-        },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0577",
-      "description": "ruthex M2 \u00d7 4 heat-set insert \u00b7 brass",
-      "kind": "purchased",
-      "manufacturer_number": "RX-M2x4",
-      "aliases": [
-        "M2 insert",
-        "B088QJG676"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0547"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Purchased insert pack",
-          "path": "ledger/purchases.md"
-        },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0578",
-      "description": "BNUOK M3 \u00d7 6 socket-head screw \u00b7 black oxide",
-      "kind": "purchased",
-      "aliases": [
-        "M3-0.5 \u00d7 6 mm",
-        "12.9 alloy steel",
-        "B0DJQH3WSX"
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Purchased screw pack",
-          "path": "ledger/purchases.md"
-        },
-        {
-          "title": "Fastener specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-0579",
       "description": "Machine status plate \u00b7 black, white and translucent PETG",
       "kind": "manufactured",
@@ -11324,6 +11241,88 @@
         {
           "title": "Lamp and diffuser",
           "path": "printed-parts/enclosure/display-cover/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0581",
+      "description": "Relay end clamp",
+      "kind": "manufactured",
+      "aliases": [
+        "relay clamp",
+        "relay-1-clamp-1",
+        "relay-1-clamp-2",
+        "relay-2-clamp-1",
+        "relay-2-clamp-2"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/enclosure/equipment-clamps/relay-clamp.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mounting and printing",
+          "path": "printed-parts/enclosure/equipment-clamps/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0582",
+      "description": "Condenser screw spacer",
+      "kind": "manufactured",
+      "aliases": [
+        "condenser spacer",
+        "condenser-screw-spacer-1",
+        "condenser-screw-spacer-2"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/enclosure/equipment-clamps/m3-screw-spacer.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mounting and printing",
+          "path": "printed-parts/enclosure/equipment-clamps/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0583",
+      "description": "M5 \u00d7 12 socket-head screw \u00b7 black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "compressor floor screw",
+        "M5C12SHCS12BO/D"
+      ],
+      "documents": [
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0584",
+      "description": "PCB screw spacer",
+      "kind": "manufactured",
+      "aliases": [
+        "main board screw spacer",
+        "pcba-screw-spacer-1",
+        "pcba-screw-spacer-2",
+        "pcba-screw-spacer-3",
+        "pcba-screw-spacer-4"
+      ],
+      "models": [
+        {
+          "file": "printed-parts/enclosure/equipment-clamps/pcb-screw-spacer.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mounting and printing",
+          "path": "printed-parts/enclosure/equipment-clamps/README.md"
         }
       ]
     }

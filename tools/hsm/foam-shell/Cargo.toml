@@ -12,6 +12,7 @@ hsm-cold-core-catalog = { path = "../cold-core-catalog" }
 hsm-cold-core-interface = { path = "../cold-core-interface" }
 hsm-cold-core-layout = { path = "../cold-core-layout" }
 hsm-foam-shell-numbers = { path = "../foam-shell-numbers" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-kernel = { path = "../kernel" }
 hsm-print-payload = { path = "../print-payload" }
 serde_json.workspace = true

@@ -6,16 +6,16 @@
   },
   "native_artifact_sha256": {
     "foam-cap-bottom": {
-      ".step": "91ddfea3e9ca8cf046cb385a8d7e653b0b2deb3a343d6b1c9170ead4ed7c5929",
-      ".stl": "acdcff8c0842d7158aa15ed797dc22ef6173eb27f662f7e19d505000f4c84e0a"
+      ".step": "a0a32a7a2b7301397e5355781787b9190143996da959131f22ee1ef5e238aca8",
+      ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "aea26e786eb41faf10876229596b8da584f9e9477e355c9c96363d9614bc2819",
-      ".stl": "65bf9b7f660b18311346139886c80063635b158cf6b513aaf54382d75a9a4769"
+      ".step": "4b51af14fbafa8ebb8a30010ada1ac0522ee3217fbcffd6dcd1acfa77d7350c4",
+      ".stl": "db8e38de9705ef0a815d2fc94a76678213f1400d00e436051b329b8168bed712"
     },
     "foam-shell": {
-      ".step": "a716b44ef657e0355fbceae6c2dcba6a4de45feefad6417245149f26abef5ad7",
-      ".stl": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164"
+      ".step": "1288ef2dc1fc45a4c4644702e6ce90cb353462e9e246c3c9f673fef6fb61d8db",
+      ".stl": "03977d61b19134fe6e017bb241a7c0265a8644d0c5e89633d3c5611cc349dacd"
     }
   },
   "part_process_overrides": {},
@@ -130,16 +130,16 @@
         "applied_source_bounds_mm": [
           125.52000000000001,
           141.1999969482422,
-          50.120000000000005,
-          69.88,
+          46.120000000000005,
+          65.88,
           0.0,
           19.850000381469727
         ],
         "machine_bounds_mm": [
           125.52000000000001,
           145.28,
-          50.120000000000005,
-          69.88,
+          46.120000000000005,
+          65.88,
           0.0,
           19.850000381469727
         ],
@@ -371,16 +371,16 @@
         "applied_source_bounds_mm": [
           -141.1999969482422,
           -127.9,
-          -67.5,
-          -52.5,
+          -63.5,
+          -48.5,
           0.0,
           7.4
         ],
         "machine_bounds_mm": [
           -142.9,
           -127.9,
-          -67.5,
-          -52.5,
+          -63.5,
+          -48.5,
           0.0,
           7.4
         ],
@@ -667,16 +667,16 @@
         "applied_source_bounds_mm": [
           126.60000000000001,
           141.1999969482422,
-          51.2,
-          68.8,
+          47.2,
+          64.8,
           0.0,
           225.85
         ],
         "machine_bounds_mm": [
           126.60000000000001,
           144.20000000000002,
-          51.2,
-          68.8,
+          47.2,
+          64.8,
           0.0,
           225.85
         ],
@@ -774,12 +774,12 @@
   "scope": "Finite infill-only modifiers through the fore C2 shared base, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
-    "hardware/manifold-layout/above-core.json": "e71cfa6f55454aafdef07faa9b5557f541ec803bf8e3e9dd5361793fcc4b0026",
-    "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "85110044b2737cc62fdb4f96f7229372b2e45e68feb1b56663c2fa5547ff124d",
+    "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "51181390c9f9250f7ba48f1bc9c171307766b968cf63f1462d2825bb24df4cc1",
     "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "3b8fb0538d8c909b8a6c963173f39da5199700513746251be749369a8e7d6e6d",
     "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0d169aecaf038c88d1cd5f5116541e6a8f541f66ee5e9e2b95479a8e5f839219",
     "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "7f4db18d5a70487e5480e37d35da4a839ad66df8de6b1aa638eb5d50c2c80e10",
-    "hardware/printed-parts/cold-core/interface/lib.rs": "489c6b8e3cf4f60909d39219af8c2806144411d4f24720a2e33d7161beae30b3"
+    "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e"
   },
   "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."
 }

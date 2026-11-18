@@ -95,7 +95,7 @@ pub const BASE_POD_COUNTERBORE_DIA: f64 = 6.15;
 /// The insert's pilot, its outside and its length.
 pub const BASE_POD_INSERT_DIA: f64 = 4.0;
 pub const BASE_INSERT_OUTER_DIA: f64 = 4.6;
-pub const BASE_INSERT_LENGTH: f64 = 4.0;
+pub const BASE_INSERT_LENGTH: f64 = crate::fasteners::M3_INSERT_LENGTH;
 /// The plate's pedestal under each pod, which locates the base.
 pub const BASE_PEDESTAL_DIA: f64 = BASE_POD_SHANK_DIA + 2.0 * BASE_POD_WALL;
 pub const BASE_PEDESTAL_HEIGHT: f64 = 2.2;
@@ -103,11 +103,15 @@ pub const BASE_PEDESTAL_CHAMFER: f64 = 0.4;
 /// The socket each pedestal seats in.
 pub const BASE_POD_HOLE_DEPTH: f64 = BASE_PEDESTAL_HEIGHT + 1.0;
 pub const BASE_INSERT_BOTTOM_Z: f64 = BASE_POD_Z_BOTTOM + BASE_POD_HOLE_DEPTH;
-pub const BASE_POD_INSERT_DEPTH: f64 = BASE_INSERT_LENGTH + 1.25;
+pub const BASE_POD_INSERT_DEPTH: f64 = if BASE_INSERT_LENGTH + 1.25 > BASE_SCREW_LENGTH + BASE_SCREW_SEAT_Z - BASE_INSERT_BOTTOM_Z + crate::fasteners::INSERT_RELIEF {
+    BASE_INSERT_LENGTH + 1.25
+} else {
+    BASE_SCREW_LENGTH + BASE_SCREW_SEAT_Z - BASE_INSERT_BOTTOM_Z + crate::fasteners::INSERT_RELIEF
+};
 pub const BASE_POD_Z_TOP: f64 = BASE_INSERT_BOTTOM_Z + BASE_POD_INSERT_DEPTH + BASE_POD_WALL;
 pub const BASE_POD_RADIUS: f64 = BASE_INSERT_OUTER_DIA / 2.0 + BASE_POD_WALL;
 /// The screw and where its head seats in the plate.
-pub const BASE_SCREW_LENGTH: f64 = 8.0;
+pub const BASE_SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
 pub const BASE_SCREW_HEAD_HEIGHT: f64 = 3.0;
 pub const BASE_SCREW_HEAD_RECESS: f64 = 0.2;
 pub const BASE_SCREW_COUNTERBORE_DEPTH: f64 = BASE_SCREW_HEAD_HEIGHT + BASE_SCREW_HEAD_RECESS;

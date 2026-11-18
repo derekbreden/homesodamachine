@@ -8,8 +8,8 @@ pub const PSU_SCREWS: usize = 4;
 /// The C14 inlet's flange screws, one in each ear, their length, and the washer each bears on
 /// over the moulding's countersink.
 pub const C14_SCREWS: usize = 2;
-pub const C14_SCREW_LENGTH: f64 = 10.0;
-pub const C14_WASHER: f64 = 0.5;
+pub const C14_SCREW_LENGTH: f64 = hsm_enclosure_numbers::rear_wall::c14::SCREW_LENGTH;
+pub const C14_WASHER: f64 = hsm_enclosure_numbers::rear_wall::c14::WASHER_THICKNESS;
 
 /// How far in from the compressor plate's edge its bolt holes stand.
 pub const COMPRESSOR_HOLE_INSET: f64 = 14.5;

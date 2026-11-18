@@ -14,6 +14,7 @@ sha2.workspace = true
 hsm-cold-core-interface = { path = "../cold-core-interface" }
 hsm-cold-core-layout = { path = "../cold-core-layout" }
 hsm-foam-cap-numbers = { path = "../foam-cap-numbers" }
+hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-kernel = { path = "../kernel" }
 hsm-print-payload = { path = "../print-payload" }
 hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }

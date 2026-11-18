@@ -6,20 +6,20 @@
       ".stl": "71aaddb583381b0285dcae19a448f716fa5a1698d6ac7f9018d55af817e250c9"
     },
     "back-top": {
-      ".step.npz": "e2e5504d48552a89509093c321bb03fe7a4d260217032f750ec2b4dd88a717db",
-      ".stl": "4d37ecbecbd4c063279ed3d62d77919cdf534b536518432c9f3f69251582fdc9"
+      ".step.npz": "5c1c58833ee8a0624d176681c32043aed9df6b8747eb8241835a0cd5e94cdc5a",
+      ".stl": "aab465a4c35b9dbf4826f7889c6044c9c0b54308d2f05832e00079f398a0b292"
     },
     "front-bottom": {
-      ".step.npz": "6b82ad23d9e2f5ee60e88e78b68af85b04d0995e30044b3cab5f2b797811cfe2",
-      ".stl": "43fe5b773b9ee73c2846dc43c98b51d8f020ece1de33e20b30b9def4e49d05c3"
+      ".step.npz": "9c89ffa48a97ee7e3a42220dee42b9516ad4456e47316b11a4f2df6cdabd33b5",
+      ".stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007"
     },
     "front-top": {
-      ".step.npz": "75a03d34b15a2f330bbcc47a36ba09ce3cc03a23d0fba08632d99710eb8e5000",
-      ".stl": "dcf0a3f5d627fa56057b53fd80e57196b9df7383128c6a2561c58ed6b2cd4e27"
+      ".step.npz": "574156f33f066a0f64525d1d2e49a7aa46a51cc2bfecb41aba8fb2d578bea778",
+      ".stl": "157a708ababc4fc6c47d5fd828c72cb277ec6b9d30f4d41614e1ec65f8baed27"
     },
     "pump-retainer": {
-      ".step.npz": "40d4fca56957b2e4a7bf3ab960fd9bc70c134e61032eca0de47c3b425d5b887d",
-      ".stl": "579faf7f25b348af118b404336d5823cce72c7a49b569b1f39a498f7a554f879"
+      ".step.npz": "8ca7327bc9431068096a47fc271e6b92604278a4e33b161d1575a00dd47e7188",
+      ".stl": "9f2369510b934419be5f28e8fe18e6410962b840770b4f5d7dddf133fdf70582"
     }
   },
   "part_process_overrides": {},
@@ -243,7 +243,7 @@
           -4.898139953613281,
           344.8,
           354.8,
-          347.0,
+          344.7,
           355.0
         ],
         "machine_bounds_mm": [
@@ -251,7 +251,7 @@
           -4.898139953613281,
           344.8,
           354.8,
-          347.0,
+          344.7,
           355.0
         ],
         "name": "psu bearing pad, insert host and ceiling root and blind floor 1",
@@ -264,7 +264,7 @@
           -4.898139953613281,
           442.8,
           452.8,
-          347.0,
+          344.7,
           355.0
         ],
         "machine_bounds_mm": [
@@ -272,7 +272,7 @@
           -4.898139953613281,
           442.8,
           452.8,
-          347.0,
+          344.7,
           355.0
         ],
         "name": "psu bearing pad, insert host and ceiling root and blind floor 2",
@@ -285,7 +285,7 @@
           -37.89813995361328,
           344.8,
           354.8,
-          347.0,
+          344.7,
           355.0
         ],
         "machine_bounds_mm": [
@@ -293,7 +293,7 @@
           -37.89813995361328,
           344.8,
           354.8,
-          347.0,
+          344.7,
           355.0
         ],
         "name": "psu bearing pad, insert host and ceiling root and blind floor 3",
@@ -306,7 +306,7 @@
           -37.89813995361328,
           442.8,
           452.8,
-          347.0,
+          344.7,
           355.0
         ],
         "machine_bounds_mm": [
@@ -314,7 +314,7 @@
           -37.89813995361328,
           442.8,
           452.8,
-          347.0,
+          344.7,
           355.0
         ],
         "name": "psu bearing pad, insert host and ceiling root and blind floor 4",
@@ -408,6 +408,48 @@
       {
         "applied_source_bounds_mm": [
           -107.5,
+          -92.78,
+          363.3501390792555,
+          373.3501390792555,
+          279.90660569377764,
+          289.90660569377764
+        ],
+        "machine_bounds_mm": [
+          -107.5,
+          -92.78,
+          363.3501390792555,
+          373.3501390792555,
+          279.90660569377764,
+          289.90660569377764
+        ],
+        "name": "relay-1 bearing pad, insert host and west wall root 5",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -107.5,
+          -92.78,
+          444.3501390792555,
+          454.3501390792555,
+          279.90660569377764,
+          289.90660569377764
+        ],
+        "machine_bounds_mm": [
+          -107.5,
+          -92.78,
+          444.3501390792555,
+          454.3501390792555,
+          279.90660569377764,
+          289.90660569377764
+        ],
+        "name": "relay-1 bearing pad, insert host and west wall root 6",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -107.5,
           -94.49,
           370.74713907925553,
           380.74713907925553,
@@ -492,6 +534,48 @@
       {
         "applied_source_bounds_mm": [
           -107.5,
+          -92.78,
+          363.35013907925554,
+          373.35013907925554,
+          300.40660569377764,
+          310.40660569377764
+        ],
+        "machine_bounds_mm": [
+          -107.5,
+          -92.78,
+          363.35013907925554,
+          373.35013907925554,
+          300.40660569377764,
+          310.40660569377764
+        ],
+        "name": "relay-2 bearing pad, insert host and west wall root 5",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -107.5,
+          -92.78,
+          444.35013907925554,
+          454.35013907925554,
+          300.40660569377764,
+          310.40660569377764
+        ],
+        "machine_bounds_mm": [
+          -107.5,
+          -92.78,
+          444.35013907925554,
+          454.35013907925554,
+          300.40660569377764,
+          310.40660569377764
+        ],
+        "name": "relay-2 bearing pad, insert host and west wall root 6",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -107.5,
           -94.49,
           370.7471390792555,
           380.7811390792555,
@@ -535,16 +619,16 @@
         "applied_source_bounds_mm": [
           -98.5,
           -39.965,
-          455.04999999999995,
-          468.29999999999995,
+          452.84,
+          468.25,
           314.1,
           349.0
         ],
         "machine_bounds_mm": [
           -98.5,
           -39.965,
-          455.04999999999995,
-          468.29999999999995,
+          452.84,
+          468.25,
           314.1,
           349.0
         ],
@@ -556,7 +640,7 @@
         "applied_source_bounds_mm": [
           -76.4,
           -64.4,
-          462.3,
+          456.3,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -564,7 +648,7 @@
         "machine_bounds_mm": [
           -76.4,
           -64.4,
-          462.3,
+          456.3,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -577,7 +661,7 @@
         "applied_source_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          456.3,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -585,7 +669,7 @@
         "machine_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          456.3,
           473.3,
           180.29545454545456,
           192.29545454545456
@@ -598,7 +682,7 @@
         "applied_source_bounds_mm": [
           -76.4,
           -64.4,
-          462.3,
+          456.3,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -606,7 +690,7 @@
         "machine_bounds_mm": [
           -76.4,
           -64.4,
-          462.3,
+          456.3,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -619,7 +703,7 @@
         "applied_source_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          456.3,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -627,7 +711,7 @@
         "machine_bounds_mm": [
           -18.4,
           -6.399999999999999,
-          462.3,
+          456.3,
           473.3,
           249.20454545454544,
           261.20454545454544
@@ -1128,16 +1212,16 @@
           -96.0,
           -84.0,
           13.799038105676658,
-          27.89134295108992,
-          300.8317930687617,
+          31.191342951089922,
+          295.1160254037844,
           313.2403810567666
         ],
         "machine_bounds_mm": [
           -96.0,
           -84.0,
           13.799038105676658,
-          27.89134295108992,
-          300.8317930687617,
+          31.191342951089922,
+          295.1160254037844,
           313.2403810567666
         ],
         "name": "Display side insert and continuous housing root 1",
@@ -1149,16 +1233,16 @@
           28.5,
           40.5,
           13.799038105676658,
-          27.89134295108992,
-          300.8317930687617,
+          31.191342951089922,
+          295.1160254037844,
           313.2403810567666
         ],
         "machine_bounds_mm": [
           28.5,
           40.5,
           13.799038105676658,
-          27.89134295108992,
-          300.8317930687617,
+          31.191342951089922,
+          295.1160254037844,
           313.2403810567666
         ],
         "name": "Display side insert and continuous housing root 2",
@@ -1170,16 +1254,16 @@
           -96.0,
           -84.0,
           76.15286717815624,
-          90.24517202356951,
-          336.8317930687617,
+          93.5451720235695,
+          331.1160254037844,
           349.2403810567666
         ],
         "machine_bounds_mm": [
           -96.0,
           -84.0,
           76.15286717815624,
-          90.24517202356951,
-          336.8317930687617,
+          93.5451720235695,
+          331.1160254037844,
           349.2403810567666
         ],
         "name": "Display side insert and continuous housing root 3",
@@ -1191,16 +1275,16 @@
           28.5,
           40.5,
           76.15286717815624,
-          90.24517202356951,
-          336.8317930687617,
+          93.5451720235695,
+          331.1160254037844,
           349.2403810567666
         ],
         "machine_bounds_mm": [
           28.5,
           40.5,
           76.15286717815624,
-          90.24517202356951,
-          336.8317930687617,
+          93.5451720235695,
+          331.1160254037844,
           349.2403810567666
         ],
         "name": "Display side insert and continuous housing root 4",
@@ -1235,13 +1319,13 @@
   "producer": "enclosure-print-regions",
   "scope": "Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump clamps and their anchors, roots and seam load paths. No load capacity or lifetime qualification.",
   "source_sha256": {
-    "hardware/manifold-layout/above-core.json": "ef454715ab119437d7d4021941a0a579fe1a4d5d7d87e723bef9344dc6a9514b",
+    "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866",
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
-    "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "0c25cabad302be225ef68b03b1289ed85ad963e2241db39fc0433aedce3b3685",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "9521e94fee746b20df7fb865f32f7e7439031cd4f34503cc43ebe6a7e259e7e8",
+    "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b49815cda300779ff4aef0e993dbc0e0d4fde22ebae69308605980e09817b0e2",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "35e35663b9828925a2d0286d4a4e6e06c5e0e28b22b8a7f39c1fbb4ed5a56dac",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "419436b2f8bf646c614c0f356c28781d670dcd39931177686a428b2de8d26a9a",
-    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "3dd3fb288565e6c63bb5808085a8944e4a34962a9e627b85c95055923678060e"
+    "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "9ec61778076884ecbf01314102d6c9943285546b5c18722c24c99fabe6f5793c"
   },
   "use": "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result."
 }

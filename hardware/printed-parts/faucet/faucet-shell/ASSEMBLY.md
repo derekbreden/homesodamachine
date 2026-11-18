@@ -29,16 +29,16 @@ section. The display is placed inside its cover before the pair seats on the tip
 
 ## Base joint
 
-The × oval plate is thick, with three raised screw-seat pedestals. Three M3 × socket-head screws
-enter from its underside, through 3 mm bearing seats, into ruthex
-RX-M3Sx4.0 inserts heat-set at the ceilings of the shell's pedestal sockets. The three
-chamfered pedestals register the plate. The gasket covers all three screw
-heads on the completed faucet.
+The oval counterplate registers in the shell's pedestal sockets. The common M3
+socket-head screws enter from its underside into regular ruthex inserts at the
+socket ceilings. The counterplate's bearing stock sets their engagement; the
+TPU gasket covers the heads. The [shell dimensions](../numbers/shell.rs) and
+[counterplate interface](../numbers/interface.rs) own the screw seats and blind pilots.
 
 1. Clear the donor cavity, pedestal sockets, tube passages and insert pilots
    of supports and stringing. Dry-fit the printed pieces before heat setting.
-2. Heat-set the three short M3 inserts into the shell's bottom-facing Ø4 mm
-   pilots, with their mouths at Z =. Let them cool without disturbing their alignment.
+2. Heat-set the regular M3 inserts flush at the socket ceilings. Let them cool
+   without disturbing their alignment.
 3. Keep the donor outside the shell, with its own lever removed and set aside,
    soda tube absent and base plate separate. Position the printed lever, in
    the faucet's finish, aft of its working position, lower it onto the valve,

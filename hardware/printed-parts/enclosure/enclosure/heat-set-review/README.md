@@ -4,7 +4,7 @@ The customer outcome is an enclosure that keeps its internal components secured,
 captures each pump in its fitted motor guide and screw-fastened flange retainer and can be handled without its joints opening.
 The current insert schedule is
 [enclosure mechanical §1](/hardware/assembly/enclosure-mechanical.md#1-stage-the-printed-pieces).
-Each independent pump retainer uses socket-head screws and short heat-set inserts in local posts. The flange bearing, screw seats and complete post roots use the local reinforcement regions.
+Each independent pump retainer uses socket-head screws and regular heat-set inserts in local posts. The flange bearing, screw seats and complete post roots use the local reinforcement regions.
 
 The [native audit](geometry-check.json) records 13 insert stations and 12 finished
 knuckles in the five enclosure pieces it hashes. Its three pump-retainer stations belong
@@ -23,7 +23,7 @@ records its bound head floors, blind caps, local assembly motion and screw passa
 ## Supplier constraints and screw stacks
 
 The [ruthex RX table](https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf)
-specifies Ø4.0 mm pilots and 1.6 mm minimum wall for RX-M3Sx4.0 and RX-M3x5.7,
+specifies Ø4.0 mm pilots and 1.6 mm minimum wall for RX-M3x5.7,
 and Ø6.4 mm pilots with 2.6 mm minimum wall for RX-M5x9.5. The audit compares pilot
 diameters to fixed supplier values independently of mutable CAD constants. Every
 pilot has at least 1 mm beyond the installed insert; the enclosure's screw stack
@@ -36,13 +36,13 @@ wall; the upper runs 8 mm down into the roof and on into the funnel opening abov
 frame. The rim at the handhold's R6 lip is in
 [the enclosure specification](../README.md#seams--corner-stacks).
 
-| Station | Body | Pilot depth | Nominal host / screw stack |
-| --- | --- | --- | --- |
-| Four Y-seam stack stations | M5, 9.5 mm | Lower 10.5 mm; upper 20.5 mm | Both are pressed into the top of their knuckles: the lower into back-bottom's knuckle under the Z seam, where the M5 × 100 enters from the deep end and its tip stands past the open top; the upper into front-top's lower knuckle above its closed tip pocket. Both keep full 9.5 mm engagement with the ±0.8 mm length allowance |
-| Electronics stations (above-core hosts) | M3 short, 4.0 mm | At least 5.0 mm | Ø10 mm PSU and relay hosts give 3 mm radial material from the Ø4 pilot; four PSU inserts seat on the ceiling hosts; relay ends neck down only within the pin-field clearance. Four PCBA inserts start 2.25 mm behind the PCB mounting face |
-| Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
-| Two C14 stations (above-core hosts) | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
-| Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
+The current screw and insert selection is [the shared fastener source](/hardware/fasteners.rs).
+The appliance allocation is in [the BOM](/hardware/ledger/bom.md#13-mechanical-attach-hardware).
+The [rear hosts](../numbers/rear_wall.rs), [shell mounts](../numbers/shell.rs),
+[pump retainers](../retainer-numbers/lib.rs) and [nameplate mount](../../nameplate/snap_dimensions.rs)
+own the current pilots and closed stock. Relay fasteners clamp beside the PCB;
+the original corner holes locate on pins. The condenser uses printed screw
+spacers, and the compressor retains its grommet and washer bearing planes.
 
 ## Native seam load paths
 

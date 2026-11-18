@@ -8,6 +8,8 @@
 //! the motor; Z = 0 is the base's bottom face. The feet, the nest and the clamp pads are cut in
 //! frames of their own and placed in this one.
 use hsm_catalog::fits;
+#[path = "../../../fasteners.rs"]
+pub mod fasteners;
 
 const INCH: f64 = 25.4;
 
@@ -123,6 +125,8 @@ pub mod motor {
 
 /// The M3 screws' bores.
 pub mod m3 {
+    pub const INSERT_LENGTH: f64 = super::fasteners::M3_INSERT_LENGTH;
+    pub const INSERT_DEPTH: f64 = INSERT_LENGTH + super::fasteners::INSERT_RELIEF;
     /// The clearance a screw passes through to a head seated in a recess.
     pub const SHANK_D: f64 = 3.5;
     /// The bore an adjusting screw runs in.
@@ -132,7 +136,7 @@ pub mod m3 {
     /// A head's recess depth.
     pub const HEAD_DEPTH: f64 = 3.2;
     /// The bore a heat-set insert is pressed into; every M3 station takes the same insert.
-    pub const INSERT_D: f64 = 4.;
+    pub const INSERT_D: f64 = super::fasteners::M3_PILOT_DIAMETER;
 }
 
 /// The M5 screws: the towers' screws down into the base's heat-set inserts, and the motor's
@@ -203,7 +207,7 @@ pub mod foot {
     /// Each foot's two screws, this far either side of its centre along X.
     pub const SCREW_X: f64 = 10.;
     /// The depth of the insert at the top of each foot's screw holes.
-    pub const INSERT_DEPTH: f64 = 5.2;
+    pub const INSERT_DEPTH: f64 = super::m3::INSERT_DEPTH;
 }
 
 /// The ball race between the base and the turntable: stock polypropylene balls spaced by a
@@ -256,7 +260,7 @@ pub mod race_ring {
     /// Its screws' angles about the axis.
     pub const SCREW_ANGLES: [f64; 3] = [30., 150., 270.];
     /// The depth of the platter's inserts its screws take.
-    pub const INSERT_DEPTH: f64 = 6.;
+    pub const INSERT_DEPTH: f64 = super::m3::INSERT_DEPTH;
 }
 
 /// The turntable: the platter, the pedestal that carries the nest above the belt, the printed
@@ -340,7 +344,7 @@ pub mod spool {
     /// Its screws' angles about the axis.
     pub const SCREW_ANGLES: [f64; 3] = [60., 180., 300.];
     /// The depth of the platter's inserts its screws take.
-    pub const INSERT_DEPTH: f64 = 6.8;
+    pub const INSERT_DEPTH: f64 = 7.2;
 }
 
 /// The tube nest: the replaceable register the tube's end lands in, with an ID pilot inside the
@@ -388,11 +392,11 @@ pub mod nest {
     /// The straight well from above to a retainer's head, through the pilot.
     pub const RETAINER_ACCESS_D: f64 = m3::HEAD_D;
     /// The depth, below the seat, of the turntable's inserts the retainers screw into.
-    pub const INSERT_DEPTH: f64 = 5.2;
+    pub const INSERT_DEPTH: f64 = m3::INSERT_DEPTH;
     /// The tube adjusters' angles, between the retainers.
     pub const ADJUSTER_ANGLES: [f64; 3] = [60., 180., 300.];
     /// The depth of an adjuster's insert in the collar's outside face.
-    pub const ADJUSTER_INSERT_DEPTH: f64 = 5.2;
+    pub const ADJUSTER_INSERT_DEPTH: f64 = m3::INSERT_DEPTH;
     /// The adjusters' axis: its bore's crown at the pilot's top, so the tips bear on the tube
     /// over the pilot.
     pub const ADJUSTER_Z: f64 = BASE_H + PILOT_H - m3::ADJUSTER_SHANK_D / 2.;
@@ -451,7 +455,7 @@ pub mod tower {
     /// The rails' far end, and the rear wall's back face.
     pub const X1: f64 = 178.;
     /// The rails' outer faces, either side of the line of centres.
-    pub const Y_HALF: f64 = 45.;
+    pub const Y_HALF: f64 = 51.;
     /// The feet's inner faces.
     pub const FOOT_Y0: f64 = 30.;
     /// The rails' inner faces above the feet, clear of the belt's spans.
@@ -469,9 +473,9 @@ pub mod tower {
     /// The carriage screws' inserts in the rails' tops, along X.
     pub const RAIL_INSERT_X: [f64; 2] = [130., 150.];
     /// Those inserts, either side of the line of centres.
-    pub const RAIL_INSERT_Y: f64 = 41.;
+    pub const RAIL_INSERT_Y: f64 = 47.;
     /// Those inserts' depth.
-    pub const RAIL_INSERT_DEPTH: f64 = 6.;
+    pub const RAIL_INSERT_DEPTH: f64 = 8.2;
 }
 
 /// The motor carriage: a thin pilot skin under the motor's face, arms that follow the belt's swept
@@ -499,7 +503,7 @@ pub mod carriage {
     /// The side walls' inner faces.
     pub const WALL_Y0: f64 = 32.;
     /// The side walls' outer faces.
-    pub const WALL_Y1: f64 = 37.5;
+    pub const WALL_Y1: f64 = 41.5;
     /// The side walls' half-length along X: the motor's frame and room either end.
     pub const WALL_X_HALF: f64 = motor::FRAME / 2. + 0.35;
     /// The side walls' height above the motor's face.
@@ -544,7 +548,7 @@ pub mod clamp {
     /// The screws' height.
     pub const SCREW_Z: f64 = drive::FACE_Z + 8.;
     /// The inserts' depth in the walls' outer faces.
-    pub const INSERT_DEPTH: f64 = 5.2;
+    pub const INSERT_DEPTH: f64 = super::m3::INSERT_DEPTH;
     /// The socket in a pad that takes a screw's tip.
     pub const SOCKET_D: f64 = 2.85;
     /// The socket's depth.
@@ -640,7 +644,7 @@ pub mod ground {
     /// The fixed jaw's thickness.
     pub const HOLDER_SIDE_T: f64 = 3.;
     /// The clamp jaw's thickness, which takes the clamp screw's insert.
-    pub const HOLDER_CLAMP_T: f64 = 7.;
+    pub const HOLDER_CLAMP_T: f64 = 11.;
     /// The shelf's outer end, under the back wall.
     pub const HOLDER_SHELF_X0: f64 = HOLDER_BACK_FACE_X - HOLDER_BACK_T;
     /// The clamp jaw's inner face, on −Y.
@@ -654,7 +658,7 @@ pub mod ground {
     /// The clamp screw's shank bore through the clamp jaw.
     pub const SHOE_CLAMP_SHANK_D: f64 = 3.4;
     /// The depth of the clamp screw's insert in the jaw's outer face.
-    pub const SHOE_CLAMP_INSERT_DEPTH: f64 = 5.2;
+    pub const SHOE_CLAMP_INSERT_DEPTH: f64 = super::m3::INSERT_DEPTH;
     /// The clamp screw's axis along X: on the shoe's middle.
     pub const SHOE_CLAMP_X: f64 = SHOE_FRONT_X - SHOE_T / 2.;
     /// The clamp screw's axis height: the holder's middle.
@@ -665,5 +669,5 @@ pub mod ground {
     /// The arm's screws' shank bore.
     pub const ARM_SHANK_D: f64 = 3.4;
     /// The depth of the post's inserts under the arm's screws.
-    pub const ARM_INSERT_DEPTH: f64 = 5.2;
+    pub const ARM_INSERT_DEPTH: f64 = super::m3::INSERT_DEPTH;
 }

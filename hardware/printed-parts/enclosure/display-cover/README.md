@@ -5,7 +5,7 @@ side borders. Rounded corners, equal screw insets and shallow head seats echo th
 rear nameplate. The heads remain visible above the bezel face.
 
 The cover section follows the enclosure's nominal wall. Its counterbores retain a
-solid bearing floor; the screws engage short heat-set inserts in broad, continuous
+solid bearing floor; the screws engage regular heat-set inserts in broad, continuous
 housing stock. The [mount dimensions](mount-dimensions.json) define the cover,
 window, screw stations and hardware engagement. Glass clearance and the PCB opening
 belong to the matching enclosure receiver.
@@ -16,7 +16,7 @@ place the ring and cover, start every screw, and draw them down evenly until the
 cover rests on its seats. The gasket retains the glass without hard clamping
 against individual printed high spots.
 
-Install the short inserts through the open display face before fitting the glass.
+Install the regular inserts through the open display face before fitting the glass.
 The cover prints face up on its flat back, without supports. The counterbores face
 upward. Its screw-bearing stock uses solid deposition.
 

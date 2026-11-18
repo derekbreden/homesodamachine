@@ -171,6 +171,11 @@
       "name": "enclosure-pump-tube-setting-jig",
       "output": "hardware/printed-parts/enclosure/enclosure"
     },
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment_clamps.rs": {
+      "crate": "enclosure-components",
+      "name": "equipment-clamps",
+      "output": "hardware/printed-parts/enclosure/equipment-clamps"
+    },
     "hardware/printed-parts/enclosure/nameplate/nameplate.rs": {
       "crate": "enclosure-components",
       "name": "nameplate",

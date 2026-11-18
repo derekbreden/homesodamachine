@@ -29,26 +29,16 @@ ratings, refrigerant warnings and disposal marking low on the enclosure.
 
 ## Four-screw mounting
 
-Four acquired black BNUOK M3 × 6 socket-head screws fasten the plate to four ruthex
-RX-M3S × 4 short heat-set inserts in the solid receiver of `enclosure-back-top`.
-The screw centres form a rectangle centred on the plate, with their edge offsets
-defined in the shared mount record. Each head clears the white border.
-Each Ø3.4 mm
-clearance hole has a Ø6.2 × 1 mm counterbore. The Ø5.5 × 3 mm screw heads stand
-2 mm above the black face; their 2.5 mm hex sockets face directly outward.
+The common black M3 socket-head screws fasten the plate to regular ruthex
+inserts in back-top's solid receiver. Their centres and head seats come from
+the shared mount record. The heads clear the white border and remain accessible
+from outside the assembled machine.
 
 The plate bears on its flat back. Its lower rear bevel follows the receiver
-mouth's corbel. The counterbore floors and screw engagement come from the
-shared mount record. The receiver uses the cold pilots in the shared mount coordinates.
-insert fronts finish flush with the seat. The upper pair ends against the existing
-support floors; the lower pair opens through the rear wall. The closed pilots
-clear the inserts and screw tips.
-The insert lands end on the adjoining cold-core clearance plane.
-The broad seat is
-3 mm thick, with the four insert lands carried into the existing enclosure wall.
-Each land supplies at least 3.7 mm of radial stock around the installed insert.
-The 4.6 mm installed
-insert envelope represents intentional thermal interference with the Ø4 pilot.
+mouth's corbel. The insert fronts finish flush with the seat. Each blind land
+retains stock behind the screw tip and enters a matching closed recess in the
+cold-core casing. The recesses preserve the foam cavity's closed wall and grow
+on corbelled undersides. The adjacent core clamp follows its shared station.
 
 [`snap_dimensions.rs`](snap_dimensions.rs) supplies the shared mount record;
 [`snap_geometry.rs`](snap_geometry.rs) cuts the plate, receiver and separate
@@ -61,9 +51,8 @@ The plate's position comes from the rear identification plan in
 matching clear space beside the rounded corner root and above the seam band,
 and clears the adjacent port-label rail. The rounded crown and the mouth's
 lower edge grow from the rear wall on corbels.
-The short inserts and screw tips clear the cold-core envelope. All screws are
-reached from outside the assembled machine.
-[Production measurements](production-fit.json) record the current geometry review.
+The receiver, core clearance and installed fasteners share the authored geometry;
+the revised interface requires physical fit confirmation.
 
 ## Printing and assembly
 
@@ -74,10 +63,10 @@ without supports. It carries the filament assignments and side-specific trim fro
 the [approved colour registration print](../display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json).
 
 Back-top prints roof down using the shared PET-GF tree-support settings. Clear
-the receiver seat and pilots, then press its four short inserts flush while
+the receiver seat and pilots, then press its regular inserts flush while
 back-top is loose. Keep the insert axis normal to the seat; do not press past
 flush. Clean the bearing faces. Set the plate into the receiver and start all
-four M3 × 6 screws before tightening. Seat them lightly by hand with a 2.5 mm
+the common M3 screws before tightening. Seat them lightly by hand with a 2.5 mm
 hex key, alternating diagonal corners. The plate must lie flat without bowing.
 Scan the installed QR and compare the unit number with the build record.
 

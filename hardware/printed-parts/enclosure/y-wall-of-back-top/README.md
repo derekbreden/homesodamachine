@@ -42,7 +42,7 @@ and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
 
 The mains inlet loads from inside the enclosure. Its flange sits in an internal
 pocket, with the raised rim bearing on the pocket floor. Washer-backed screws
-enter the short inserts from inside; the washers spread the load on the moulded ears. The mounting stock joins the rear wall, west flank and ceiling.
+enter the regular inserts from inside; the washers spread the load on the moulded ears. The mounting stock joins the rear wall, west flank and ceiling.
 Only the rounded cord passage opens on the outside. Its clearance includes the
 cord plug's retention ribs, and the ceiling remains continuous above the pocket.
 The [rear-wall recipe](../enclosure/back-top/rear.rs) owns the geometry and the

@@ -24,11 +24,11 @@ pub const HEAD_DIA: f64 = 5.5;
 pub const HEAD_HEIGHT: f64 = 3.0;
 pub const SOCKET_FLATS: f64 = 2.5;
 pub const SCREW_DIA: f64 = 3.0;
-pub const SCREW_LENGTH: f64 = 6.0;
-pub const INSERT_DIA: f64 = 4.6;
-pub const INSERT_LENGTH: f64 = 4.0;
-pub const PILOT_DIA: f64 = 4.0;
-pub const PILOT_DEPTH: f64 = 4.4;
+pub const SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
+pub const INSERT_DIA: f64 = crate::fasteners::M3_INSERT_DIAMETER;
+pub const INSERT_LENGTH: f64 = crate::fasteners::M3_INSERT_LENGTH;
+pub const PILOT_DIA: f64 = crate::fasteners::M3_PILOT_DIAMETER;
+pub const PILOT_DEPTH: f64 = SCREW_LENGTH - (THICK - COUNTERBORE_DEPTH) + crate::fasteners::INSERT_RELIEF;
 pub const BACKING: f64 = 3.0;
 
 /// The display and the status plate share the facet's flat run, with one margin at each of its

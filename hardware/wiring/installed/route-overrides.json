@@ -3021,10 +3021,10 @@
     "bend_radius_mm": 2.0,
     "end_lands_mm": [
       6.0,
-      6.0
+      16.0
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through retained supports and clear of the larger installed bodies; wires and tubes are excluded from wire obstacles."
+    "note": "The logic lead stays straight through the fore end-clamp region before turning into the west cable aisle."
   },
   "J5-IO2": {
     "stations": [

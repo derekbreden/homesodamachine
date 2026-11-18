@@ -47,7 +47,7 @@ fn write_installed(dir:&Path,name:&str,bodies:&[Body])->Result<()> {
     hsm_kernel::scene::persist(&dir.join(format!("{name}.step.mesh")),&head)
 }
 
-/// Purchased socket screws and short heat-set inserts stand on the printed seats.
+/// Purchased socket screws and regular heat-set inserts stand on the printed seats.
 fn hardware(b:&spec::Box)->Result<Vec<(String,[f64;3],Solid)>> {
     use dimensions::*;
     let d=datums(b);

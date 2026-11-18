@@ -29,17 +29,17 @@ pub const POST_BOTTOM: f64 = -7.174;
 pub const POST_TOP: f64 = 18.326;
 pub const POST_FORE_Y: f64 = 17.0;
 pub const POST_AFT_Y: f64 = BAR_AFT_Y + WALL;
-pub const INSERT_LENGTH: f64 = 4.0;
-pub const INSERT_DIAMETER: f64 = 4.6;
-pub const PILOT_DIAMETER: f64 = 4.0;
+pub const INSERT_LENGTH: f64 = hsm_enclosure_numbers::fasteners::M3_INSERT_LENGTH;
+pub const INSERT_DIAMETER: f64 = hsm_enclosure_numbers::fasteners::M3_INSERT_DIAMETER;
+pub const PILOT_DIAMETER: f64 = hsm_enclosure_numbers::fasteners::M3_PILOT_DIAMETER;
 pub const TIP_ROOM: f64 = 8.0;
-pub const SCREW_LENGTH: f64 = 25.0;
+pub const SCREW_LENGTH: f64 = hsm_enclosure_numbers::fasteners::M3_DEEP_SCREW_LENGTH;
 pub const SCREW_DIAMETER: f64 = 3.0;
 pub const CLEARANCE_DIAMETER: f64 = 3.4;
 pub const HEAD_DIAMETER: f64 = 5.5;
 pub const HEAD_HEIGHT: f64 = 3.0;
 pub const COUNTERBORE_DIAMETER: f64 = 6.2;
-pub const COUNTERBORE_DEPTH: f64 = 1.0;
+pub const COUNTERBORE_DEPTH: f64 = HEAD_HEIGHT;
 pub const HEX_KEY: f64 = 2.5;
 
 /// The mount's bearing planes and the retainer's envelope in the machine frame.

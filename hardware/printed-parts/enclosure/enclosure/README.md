@@ -421,11 +421,10 @@ relax the leaves and move 40 mm fore. This bench sequence leaves room for
 the complete lower leaf to open.
 
 The PSU mounts base-up on its ceiling hosts with its AC end aft. The relay
-boards sit on the dry west wall. Each mounts through every corner hole to
-solid wall-rooted posts. The PCB underside bears directly on the post faces,
-and each short insert opens at that bearing plane. Fit each board straight
-onto its posts and install the complete screw set specified in the BOM.
-Both terminal faces and their screwdriver wells remain open.
+boards sit on pinned corner bearings on the dry west wall. Printed end clamps
+retain them with common M3 screws in regular inserts beside the boards. The
+clamps' relieved bridges leave the native wire entries and screwdriver wells
+open. Fit the boards and clamps before landing their terminal wires.
 
 The shared V69 socket sections carry V-A and V-K. Preserve the
 [accepted valve-fit scope](/hardware/mechanical-qualification/README.md).
@@ -1103,9 +1102,9 @@ pump aligned while local bearings capture its molded flange.
 
 Each pump uses an identical `enclosure-pump-retainer`. The retainer is a solid bar with
 a broad flange-bearing lip, local screw seats and an open relief behind the lip for the
-head. Socket-head screws enter from the underside and engage short heat-set inserts in
+head. Socket-head screws enter from the underside and engage regular heat-set inserts in
 front-top's local posts. Stock separates the retainers; each recess ends at its pump.
-The screw heads stand in shallow seats matching the appliance's other removable covers.
+The screw heads seat within the retainer; their bearing floors set engagement in the regular inserts.
 The dimensions live in [retainer-numbers](retainer-numbers/lib.rs).
 
 The [scan-derived pump](../../../reference/kamoer-kphm400/scan-review.md) supplies the
@@ -1224,7 +1223,7 @@ The flat display bezel uses the enclosure's nominal wall section and the rear
 nameplate's rounded-corner and shallow screw-seat style. Side borders carry the
 screws with equal insets from the nearest outside edges. Its face seats flush with
 the display facet. The [mount dimensions](../display-cover/mount-dimensions.json)
-define its glass lap, gasket stack, counterbores, short inserts and engagement.
+define its glass lap, gasket stack, counterbores, regular inserts and engagement.
 
 Blind insert pilots sit in the broad housing stock beside the glass and PCB.
 Install the inserts from the open display face. The flat gasket ring spreads the
@@ -1234,7 +1233,7 @@ bezel onto its seats.
 The display sits off the box's middle toward −X, and the
 [status plate](../display-cover/README.md#status-plate) takes the rest of the facet's flat
 run, with equal margins at both side edges and between the two. Its seat is the cover's in
-form: a flush pocket with blind pilots for the same short inserts, its screws level with the
+form: a flush pocket with blind pilots for the same regular inserts, its screws level with the
 cover's. Under the plate's light a bore sets the LED back behind the aperture. A channel from
 the bore's foot to the display's PCB pocket carries the LED's leads; its section stands on one
 corner in the print frame, so no face of it overhangs flat. The bore and channel share the
