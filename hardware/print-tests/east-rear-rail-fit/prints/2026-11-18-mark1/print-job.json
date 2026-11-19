@@ -1,6 +1,6 @@
 {
   "purpose": "Bind the east rear rail coupons to the Mark1 print acceptance and model-layer reading.",
-  "status": "running",
+  "status": "finished",
   "printer": "Mark1",
   "connection_key": "H2C",
   "printer_task_id": "1459939932",
@@ -32,5 +32,6 @@
   "native_review": "review.json",
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
-  "printing_status": "printing-status.json"
+  "printing_status": "printing-status.json",
+  "physical_result": "physical-result/observations.json"
 }
