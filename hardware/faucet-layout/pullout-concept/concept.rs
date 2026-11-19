@@ -13,6 +13,7 @@ const HEAD_BORE_R: f64 = 12.0;
 const BORE_R: f64 = 11.5;
 const BUNDLE_R: f64 = 9.8;
 const JOINT_GAP: f64 = 0.6;
+const HEAD_CENTERLINE_LENGTH: f64 = 75.0;
 const HOSE_TAIL: f64 = 65.0;
 const LOOP_R: f64 = 70.0;
 const LOOP_BOTTOM: f64 = -450.0;
@@ -34,7 +35,7 @@ fn tube(path: &Path, start: V3, tangent: V3, outer: f64, inner: f64) -> Result<S
 }
 
 // The head carries a balanced wet cartridge, a dry magnetic actuator and separate beverage lines.
-fn custom_valve(neck: &Gooseneck, steel: [f64; 3], lift: f64) -> Result<(Vec<Item>, Vec<Item>)> {
+fn custom_valve(neck: &Gooseneck, pullout_u: f64, steel: [f64; 3], lift: f64) -> Result<(Vec<Item>, Vec<Item>)> {
     let mut items = vec![];
     let mut fluids = vec![];
     let frame = hsm_faucet::display::tip_plane(neck)?;
@@ -143,12 +144,12 @@ fn custom_valve(neck: &Gooseneck, steel: [f64; 3], lift: f64) -> Result<(Vec<Ite
     }
     add(&mut items, "head_factory_hose_crimp", steel,
         annulus(barb_plane.offset(0.8), 6.3, 5.85, 4.)?);
-    let joint_u = neck.at_angle(paths::JOINT_ANGLE) + JOINT_GAP / 2.;
+    let joint_u = pullout_u + JOINT_GAP / 2.;
     add(&mut items, "head_pressurized_soda_hose", [0.08, 0.33, 0.56], neck.sweep(
         &Profile::circle(v2(0., shell::TUBE_SHELL_CENTER_Y), 5.8)
             .with_hole(Loop::circle(v2(0., shell::TUBE_SHELL_CENTER_Y), 3.35)), join_u, joint_u)?);
 
-    let fan_end = neck.length() - 70.;
+    let fan_end = neck.length() - 52.;
     let routes = [
         ("head_flavor_a_line", 0., -3.0_f64.atan2(9.5), [0.45, 0.64, 0.19]),
         ("head_flavor_b_line", std::f64::consts::PI, std::f64::consts::PI + 3.0_f64.atan2(9.5), [0.60, 0.28, 0.64]),
@@ -170,8 +171,9 @@ fn custom_valve(neck: &Gooseneck, steel: [f64; 3], lift: f64) -> Result<(Vec<Ite
         add(&mut items, name, color, tube(&path, points[0], points[1] - points[0], 1.5, 1.0)?);
     }
 
-    let cable_points = [p(4.5, 48.5, 6.0), p(7.5, 55., 2.0), p(7.0, 65., -5.),
-        p(5.0, 84., -25.), p(0., 100., -47.)];
+    let (cable_end, _, cable_normal) = neck.frame(joint_u);
+    let cable_points = [p(4.5, 48.5, 6.0), p(7.5, 55., 2.0),
+        cable_end + cable_normal * (shell::TUBE_SHELL_CENTER_Y + 7.8)];
     let power_path = Path::new(cable_points[0]).spline_through(&cable_points)?;
     add(&mut items, "head_valve_fly_leads", [0.62, 0.18, 0.12],
         route(&power_path, cable_points[0], cable_points[1] - cable_points[0], 0.7)?);
@@ -221,13 +223,16 @@ fn main() -> Result<()> {
     let neck = Gooseneck::shell();
     let tip_plane = hsm_faucet::display::tip_plane(&neck)?;
     let original_tip_plane = tip_plane;
-    let joint = neck.at_angle(paths::JOINT_ANGLE);
+    let assembly_joint = neck.at_angle(paths::JOINT_ANGLE);
+    let joint = neck.length() - neck.tip
+        - (HEAD_CENTERLINE_LENGTH - neck.tip) * neck.radius / (neck.radius + shell::TUBE_SHELL_CENTER_Y);
     let round = v2(0., shell::TUBE_SHELL_CENTER_Y);
     let outer = Profile::circle(round, NECK_R).with_hole(Loop::circle(round, BORE_R));
     let lower_cut = Solid::cuboid(v3(-100., -150., -2.), v3(100., 100., 62.));
     let lower_bore = Solid::cylinder(v3(0., paths::WATER_Y + round.y, -3.), V3::Z, BORE_R, 75.)?;
     let lower = body("shell_base")?.intersect(&lower_cut)?.cut(&lower_bore)?;
-    let stem = lower.union(&neck.sweep(&outer, -12., joint - JOINT_GAP / 2.)?)?;
+    let stem = lower.union(&neck.sweep(&outer, -12., assembly_joint - JOINT_GAP / 2.)?)?;
+    let upper_neck = neck.sweep(&outer, assembly_joint + JOINT_GAP / 2., joint - JOINT_GAP / 2.)?;
     let center = |u: f64| { let (p, _, n) = neck.frame(u); p + n * round.y };
     let heel = center(joint + JOINT_GAP / 2.);
     let (_, tangent, normal) = neck.frame(joint);
@@ -235,8 +240,8 @@ fn main() -> Result<()> {
     let font = Font::find("Helvetica Neue", Kind::Regular)?;
     let head_profile = Profile::circle(round, HEAD_R).with_hole(Loop::circle(round, HEAD_BORE_R));
     let mut tip = neck.sweep(&head_profile, joint + JOINT_GAP / 2., neck.length() + 1.2)?;
-    let (valve, fluids) = custom_valve(&neck, steel, 0.)?;
-    let (open_valve, open_fluids) = custom_valve(&neck, steel, VALVE_LIFT)?;
+    let (valve, fluids) = custom_valve(&neck, joint, steel, 0.)?;
+    let (open_valve, open_fluids) = custom_valve(&neck, joint, steel, VALVE_LIFT)?;
     let display_shift = Affine::translation(tip_plane.z * DISPLAY_LIFT);
     let screen_center = body("faucet_display_screen")?.transformed(&display_shift).bounds().center();
     let (screen_xy, screen_n) = tip_plane.local(screen_center);
@@ -280,7 +285,9 @@ fn main() -> Result<()> {
     let turn_capacity_fill = 600. * 0.0201 / ((6.6 - 4.6) * 17.);
     let face_height = tip_plane.point(v2(0., -1.)).z;
     let original_bounds = body("shell_base")?.union(body("shell_tip")?)?.bounds();
-    let custom_bounds = stem.union(&tip)?.union(&bezel)?.bounds();
+    let custom_bounds = stem.union(&upper_neck)?.union(&tip)?.union(&bezel)?.bounds();
+    let old_head_length = neck.tip + (neck.radius + round.y) * (neck.turn - paths::JOINT_ANGLE);
+    let pullout_angle = (joint - neck.lift) / neck.radius;
     let design = serde_json::json!({
         "purpose": "This record owns the custom valve's geometry and first-order design budgets for the slim pull-out faucet.",
         "date": "2026-11-18",
@@ -297,6 +304,13 @@ fn main() -> Result<()> {
             "seat_to_outlet_mm": 1.8, "display_outward_shift_mm": DISPLAY_LIFT,
             "flavor_and_drain_tube_od_mm": 3., "flavor_tube_id_mm": 2.,
             "main_hose_od_mm": 11.6, "main_hose_id_mm": 6.7,
+            "assembly_split_angle_deg": paths::JOINT_ANGLE.to_degrees(),
+            "pullout_split_angle_deg": pullout_angle.to_degrees(),
+            "pullout_split_center_mm": [pivot.x, pivot.y, pivot.z],
+            "pullout_head_centerline_length_mm": HEAD_CENTERLINE_LENGTH,
+            "head_centerline_length_at_assembly_split_mm": old_head_length,
+            "head_centerline_shortening_mm": old_head_length - HEAD_CENTERLINE_LENGTH,
+            "head_centerline_shortening_percent": (old_head_length - HEAD_CENTERLINE_LENGTH) / old_head_length * 100.,
             "docked_water_outlet_center_height_mm": face_height,
             "reference_shell_max_z_mm": original_bounds.max.z,
             "custom_shell_max_z_mm": custom_bounds.max.z
@@ -355,6 +369,7 @@ fn main() -> Result<()> {
                 .then(&Affine::rotation(pivot + v3(-145., -165., -28.), V3::X, 12.))
         } else { Affine::IDENTITY };
         add(&mut scene, "fixed_sculpted_stem", black, stem.clone());
+        add(&mut scene, "fixed_upper_neck", black, upper_neck.clone());
         add(&mut scene, "existing_base_lever_electronic_actuation", black, body("lever")?.clone());
         add(&mut scene, "countertop", [0.57, 0.56, 0.53], counter.clone());
         add(&mut scene, "hollow_mounting_shank", steel, shank.clone());

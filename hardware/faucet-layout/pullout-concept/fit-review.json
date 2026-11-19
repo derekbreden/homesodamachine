@@ -2,8 +2,8 @@
   "purpose": "This records the focused packaging measurements for the slim custom-valve faucet. Each observation identifies its measured native payload.",
   "date": "2026-11-18",
   "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
-  "current_payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
-  "current_step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
+  "current_payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+  "current_step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
   "observations": [
     {
       "query": [
@@ -47,69 +47,6 @@
     },
     {
       "query": [
-        "overlap",
-        "pull_off_curved_grip",
-        "head_flavor_a_line"
-      ],
-      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
-      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "overlap",
-        "pull_off_curved_grip",
-        "head_flavor_b_line"
-      ],
-      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
-      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "overlap",
-        "pull_off_curved_grip",
-        "head_fault_drain"
-      ],
-      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
-      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "gap",
-        "head_valve_magnetic_return_yoke",
-        "head_flavor_a_line"
-      ],
-      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
-      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
-      "clearance_mm": 0.7503188323963575,
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "gap",
-        "head_valve_magnetic_return_yoke",
-        "head_flavor_b_line"
-      ],
-      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
-      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
-      "clearance_mm": 0.7503252987590134,
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "gap",
-        "head_valve_magnetic_return_yoke",
-        "head_fault_drain"
-      ],
-      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
-      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
-      "clearance_mm": 0.7693769616268449,
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
         "gap",
         "head_valve_magnetic_return_yoke",
         "head_faucet_display"
@@ -129,11 +66,97 @@
       "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
       "clearance_mm": 0.9611950481455503,
       "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_flavor_a_line"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_flavor_b_line"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_fault_drain"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_valve_fly_leads"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "intersection_volume_mm3": 0.00625055321337264
+    },
+    {
+      "query": [
+        "gap",
+        "fixed_upper_neck",
+        "head_valve_integral_hose_barb"
+      ],
+      "payload_sha256": "4d2f3e8d836117d223a3f54c90bfb1e619357e99c811c9474676fa5dd8d2cb45",
+      "step_sha256": "5b92a8b0998937d06f393fa6c3d152ad51102715357030d6fc9058db73409fc2",
+      "scene": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh",
+      "clearance_mm": 8.29426189217861,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_magnetic_return_yoke",
+        "head_fault_drain"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "clearance_mm": 0.7735771305959683,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_magnetic_return_yoke",
+        "head_flavor_a_line"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "clearance_mm": 0.7502987611839612,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_magnetic_return_yoke",
+        "head_flavor_b_line"
+      ],
+      "payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
+      "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+      "clearance_mm": 0.7503046636939427,
+      "intersection_volume_mm3": 0
     }
   ],
   "notes": [
-    "The bezel shares its cut seat in the shell; the mesh reports nominal contact at that interface.",
-    "The component clearance observations use the same unchanged actuator, tube, flex and display geometry as the current export.",
+    "The bezel shares its cut seat in the shell; its recorded observation is nominal contact at that interface.",
+    "Each observation applies to its identified native payload. The current export shortens the removable shell, repacks the tube fan and terminates the valve leads at the pull-out dock.",
+    "The flexible valve leads have nominal mesh contact with the housing; their final exit and routing need fabrication detail.",
     "Clearance measurements establish the illustrated packaging, not actuator force, pressure rating, hydraulic performance, seal life, sanitation or manufacturing fit."
   ]
 }
