@@ -273,10 +273,10 @@ clearance** to its stop block, a local allowance above the 0.15 mm head-on minim
 retain 3.75 mm of length and bound overtravel; the upper seam screws join the two
 tops. Reaching the assembled position does not require compressing the rail ends.
 
-The outboard face of each rear alignment rib continues the lower rail head's plane.
-Each groove's outboard wall continues the upper channel wall. The grooves locate both
-flanks in X as the top slides home. Breakaway support necks root on the grooves'
-inboard shoulders.
+Each rear alignment rib shares the lower rail head's outboard and fore faces.
+The opening of its groove shares that fore plane in the seated assembly. Each groove's
+outboard wall continues the upper channel wall. The grooves locate both flanks in X
+as the top slides home. Breakaway support necks root on the grooves' inboard shoulders.
 
 On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
 the nominal 9 mm face on both sides: in front and
