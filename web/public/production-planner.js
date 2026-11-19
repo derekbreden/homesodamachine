@@ -40,6 +40,11 @@ if (host) {
     ? `${number(required(row, units))} ${row.unit} needed` : 'Usage unresolved';
   const stateOf = (row, n = scenario.focus) => coverageFor(row, n, row.purchase);
   const badge = (status, extra = '') => `<span class="planner-badge" data-tone="${status}">${escape(extra || labels[status])}</span>`;
+  const availableCell = row => {
+    const related = row.available == null && row.purchaseReference;
+    const quantity = related ? related.quantity : row.available;
+    return `<td class="planner-available"><b>${quantity == null ? '—' : number(quantity)}</b><small>${escape(related ? related.label : row.unit)}${related ? '<br>Related stock' : row.stockEstimated && quantity != null ? '<br>Estimate' : quantity == null ? '<br>No quantity recorded' : ''}${row.incoming ? `<br>+ ${number(row.incoming)} ordered` : ''}</small></td>`;
+  };
   function bar(unit) {
     return `<span class="planner-coverage-bar" aria-hidden="true">${Object.entries(unit.counts).map(([status, count]) => count ? `<i data-tone="${status}" style="flex-grow:${count}"></i>` : '').join('')}</span>`;
   }
@@ -89,7 +94,7 @@ if (host) {
         const state = stateOf(row, i + 1);
         return `<td class="planner-unit-cell${scenario.focus === i + 1 ? ' is-focus' : ''}"><span class="planner-cell" data-tone="${state}" title="Through unit ${i + 1}: ${escape(demandText(row, i + 1))} · ${labels[state]}"><span class="planner-sr-only">${labels[state]}</span></span></td>`;
       }).join('');
-      return `<tr class="planner-material-row" data-resource="${escape(row.id)}"><th scope="row"><button class="planner-material-toggle" id="row-${index}" data-open="${escape(row.id)}" type="button" aria-expanded="${openRow === row.id}"><span><strong>${escape(row.name)}</strong><small>${escape(row.category)}${row.estimated ? ' · estimated usage / stock' : ''}</small></span><span aria-hidden="true">${openRow === row.id ? '−' : '+'}</span></button>${row.purchase.quantity ? `<small class="planner-row-purchase">+ ${number(row.purchase.quantity)} ${escape(row.unit)} planned · ${money(row.purchase.costCents)}${row.purchase.unpriced ? ' + unpriced' : ''}</small>` : ''}</th><td><b>${row.available == null ? '?' : number(row.available)}</b><small>${escape(row.unit)}${row.incoming ? `<br>+ ${number(row.incoming)} ordered` : ''}</small></td>${cells}<td>${badge(status, status === 'unknown' && !row.quantityKnown ? 'Define input' : '')}<small>${escape(demandText(row))}</small></td></tr>${openRow === row.id ? details(row, index) : ''}`;
+      return `<tr class="planner-material-row" data-resource="${escape(row.id)}"><th scope="row"><button class="planner-material-toggle" id="row-${index}" data-open="${escape(row.id)}" type="button" aria-expanded="${openRow === row.id}"><span><strong>${escape(row.name)}</strong><small>${escape(row.category)}${row.estimated ? ' · estimated usage / stock' : ''}</small></span><span aria-hidden="true">${openRow === row.id ? '−' : '+'}</span></button>${row.purchase.quantity ? `<small class="planner-row-purchase">+ ${number(row.purchase.quantity)} ${escape(row.unit)} planned · ${money(row.purchase.costCents)}${row.purchase.unpriced ? ' + unpriced' : ''}</small>` : ''}</th>${availableCell(row)}${cells}<td>${badge(status, status === 'unknown' && !row.quantityKnown ? 'Define input' : '')}<small>${escape(demandText(row))}</small></td></tr>${openRow === row.id ? details(row, index) : ''}`;
     }).join('') || `<tr><td colspan="${scenario.horizon + 3}" class="planner-empty">No materials match this view. Try all materials or another search.</td></tr>`;
     select('#planner-row-count').textContent = `${Math.min(visible, matching.length)} of ${matching.length} material lines`;
     select('#planner-more').hidden = visible >= matching.length;

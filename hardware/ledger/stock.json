@@ -2,7 +2,7 @@
   "schema": 2,
   "opening": {
     "asOf": "2026-10-13",
-    "note": "Opening credits are the dated estimates documented in the batch forecast, including reusable development stock. Remaining usable quantities need observations as work consumes them."
+    "note": "Stock uses dated counts and purchase-based estimates, including reusable development stock. Purchased quantities provide a starting point where the usable remainder is uncounted; prototype consumption is not fully deducted. Related assortments and similar parts are shown separately from confirmed coverage."
   },
   "printing": {
     "faucet": [
@@ -312,13 +312,13 @@
       "name": "Hosifiy 316 stainless round rod · jet caps and upper float stops",
       "unit": "mm",
       "href": "https://www.amazon.com/dp/B0FYCJJXCS",
-      "onHand": null,
+      "onHand": 800,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "basis": "uncounted",
-      "note": "The jet cap and upper float stop share the same 316 stainless rod. Demand includes the BOM cutting allowances. The usable remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -460,17 +460,17 @@
       "name": "PRV shroud foam seal · GE Advanced Silicone 2 Window & Door, clear",
       "unit": "mL",
       "href": "https://www.amazon.com/dp/B0C9VT9KD2",
-      "onHand": null,
+      "onHand": 83,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": "2026-11-17",
-      "basis": "ledger_estimate",
-      "note": "One 83 mL squeeze tube is delivered; remaining usable quantity is unverified. Verify adhesion on scrap PETG and stainless and record usage from the cured exterior joint before setting per-build demand.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted. Per-joint usage remains unmeasured. The shroud procedure records the adhesion qualification.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 322
+          "purchase": "pur-3e68e1bb95ea4eee80c22dc466261cb4"
         },
         {
           "path": "hardware/printed-parts/cold-core/prv-shroud/README.md"
@@ -1424,17 +1424,17 @@
       "name": "3M ScotchBlue Original 2090-24NC masking tape, 0.94 in × 60 yd roll",
       "unit": "ft",
       "href": "https://www.amazon.com/dp/B00004Z4CP",
-      "onHand": null,
+      "onHand": 180,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": "2026-11-17",
-      "basis": "ledger_estimate",
-      "note": "One 180 ft roll is delivered; remaining usable quantity is unverified. The BOM carries a provisional masking allowance for the cold-core pour.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 323
+          "purchase": "pur-fcd44116a7094087b680a7ae1ffd83af"
         }
       ],
       "planning": {
@@ -2802,17 +2802,20 @@
       "name": "Ginsco 580-piece heat-shrink kit — size mix pending",
       "unit": "collars",
       "href": "https://www.amazon.com/dp/B01MFA3OFA",
-      "onHand": null,
+      "onHand": 580,
       "incoming": 0,
       "reserved": 0,
       "estimated": true,
-      "asOf": "2026-10-13",
-      "basis": "unknown",
-      "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *.",
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted. Assortment total across sizes; the size mix is uncounted. The wiring BOM records the assortment yield.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 617
+          "purchase": "pur-e73e854e689a4b5faf230694f17dc72f"
+        },
+        {
+          "path": "hardware/ledger/bom.md"
         }
       ],
       "planning": {
@@ -3271,16 +3274,15 @@
       "name": "BNUOK M3 × 6 mm socket-head cap screws, black oxide, 120 pc",
       "unit": "pieces",
       "href": "https://www.amazon.com/dp/B0DJQH3WSX",
-      "onHand": null,
+      "onHand": 120,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The purchase ledger records the pack; its usable remainder has not been counted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 519,
           "purchase": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63"
         }
       ],
@@ -3288,7 +3290,8 @@
         "root": "HSM-0340",
         "perUnit": 12,
         "materialAllowance": 0
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "B08G4Z6KPV",
@@ -3319,16 +3322,15 @@
       "name": "neoFit ACVUS-44 stem check valve",
       "unit": "pieces",
       "href": "https://www.freshwatersystems.com/products/stem-reducer-check-valve-1-4-od-x-1-4-od-stem",
-      "onHand": null,
+      "onHand": 10,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The purchase ledger records the received pack; its usable remainder has not been counted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
-          "line": 188,
           "purchase": "pur-f6aead3aafe3428fa072646852793bab"
         }
       ],
@@ -3336,7 +3338,8 @@
         "root": "HSM-0340",
         "perUnit": 2,
         "materialAllowance": 0
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "neofit-AME4-N2-E",
@@ -3355,12 +3358,12 @@
       "name": "Bambu TPU 85A · black",
       "unit": "kg",
       "href": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
-      "onHand": null,
+      "onHand": 2,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "Reservoir cap gaskets and the faucet tube sealing thimble use this grade. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -3371,19 +3374,20 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "tpu90a-black",
       "name": "Bambu TPU 90A · black",
       "unit": "kg",
       "href": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
-      "onHand": null,
+      "onHand": 2,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "Reservoir tube grips, the machine display gasket and the black Sculpted faucet mounting gasket use this grade. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -3394,19 +3398,20 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "tpu90a-white",
       "name": "Bambu TPU 90A · white",
       "unit": "kg",
       "href": "https://us.store.bambulab.com/products/tpu-85a-tpu-90a",
-      "onHand": null,
+      "onHand": 1,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The white Sculpted faucet mounting gasket uses this grade. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -3417,19 +3422,20 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "siraya85a-clear",
       "name": "Siraya Tech Flex TPU 85A · clear",
       "unit": "kg",
       "href": "https://www.amazon.com/dp/B0CVXF33Z1",
-      "onHand": null,
+      "onHand": 1,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The ASSE drain adapter uses this grade. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
@@ -3440,20 +3446,25 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "petg-white",
       "name": "Bambu PETG Basic White 30106",
       "unit": "kg",
       "href": "https://us.store.bambulab.com/products/petg-basic",
-      "onHand": null,
+      "onHand": 2,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The stock receipt includes this color for the identification plate. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-21f65cde274b4a3292d28f3ae0db1e33"
+        },
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-6655f4a0c1c747bc8ce06a69596eb432"
@@ -3463,20 +3474,25 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0.15
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "petg-blue",
       "name": "Bambu PETG Basic Navy Blue 30604",
       "unit": "kg",
       "href": "https://us.store.bambulab.com/products/petg-basic",
-      "onHand": null,
+      "onHand": 2,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The stock receipt includes this color for the identification plate. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-21f65cde274b4a3292d28f3ae0db1e33"
+        },
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-6655f4a0c1c747bc8ce06a69596eb432"
@@ -3486,20 +3502,25 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0.15
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "petg-red",
       "name": "Bambu PETG Basic Red 30201",
       "unit": "kg",
       "href": "https://us.store.bambulab.com/products/petg-basic",
-      "onHand": null,
+      "onHand": 2,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "note": "The stock receipt includes this color for the identification plate. The usable spool remainder is uncounted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-21f65cde274b4a3292d28f3ae0db1e33"
+        },
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-6655f4a0c1c747bc8ce06a69596eb432"
@@ -3509,26 +3530,29 @@
         "root": "HSM-0340",
         "perUnit": 0,
         "materialAllowance": 0.15
-      }
+      },
+      "basis": "received_quantity_estimate"
     },
     {
       "id": "rosin-core-solder",
       "name": "Rosin-core electronics solder",
       "unit": "g",
       "href": null,
-      "onHand": null,
+      "onHand": 474.854,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": null,
-      "basis": "unknown",
-      "note": "Kester stock is recorded in the purchase ledger. Remaining usable stock and grams used per build require measurement.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted. Includes the coarse spool and fine wire-to-pad tube. Per-build usage remains unmeasured.",
       "sources": [
         {
-          "path": "hardware/ledger/purchases.md"
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-3185ba3b336046a39ecb13f213d48f8a"
         },
         {
-          "path": "hardware/assembly/wiring.md"
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-9601b0ce543e443498d79da51b9be149"
         }
       ]
     },
@@ -3537,16 +3561,17 @@
       "name": "MECCANIXITY black 16 AWG solid tinned-copper UL1007 hookup wire",
       "unit": "m",
       "href": "https://www.amazon.com/dp/B0FK5HH8H1",
-      "onHand": null,
+      "onHand": 7.62,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": "2026-10-19",
-      "basis": "unknown",
-      "note": "The purchase ledger records one 25 ft coil received. The usable remainder has not been counted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
-          "path": "hardware/ledger/purchases.md"
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-a02ce33a2d984d9fbea615cbad793ab3"
         }
       ]
     },
@@ -3555,16 +3580,17 @@
       "name": "MECCANIXITY white 16 AWG solid tinned-copper UL1007 hookup wire",
       "unit": "m",
       "href": "https://www.amazon.com/dp/B0FK5G1Q1J",
-      "onHand": null,
+      "onHand": 7.62,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
-      "asOf": "2026-10-18",
-      "basis": "unknown",
-      "note": "The purchase ledger records one 25 ft coil received. The usable remainder has not been counted.",
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
-          "path": "hardware/ledger/purchases.md"
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-91bd3b099e80493ab591655550b439ca"
         }
       ]
     },
@@ -3573,19 +3599,164 @@
       "name": "MECCANIXITY green 16 AWG solid tinned-copper UL1007 hookup wire",
       "unit": "m",
       "href": "https://www.amazon.com/dp/B0FK5JHQW7",
-      "onHand": null,
+      "onHand": 7.62,
       "incoming": 0,
       "reserved": 0,
-      "estimated": false,
+      "estimated": true,
       "asOf": "2026-11-18",
-      "basis": "unknown",
-      "note": "One 25 ft coil delivered for the C14 inlet earth link and the carbonator vessel bond. Remaining usable quantity has not been observed.",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
       "sources": [
         {
           "path": "hardware/ledger/purchases.md",
           "purchase": "pur-0460bfe098504c85bbbf043b1d7a5bb0"
         }
       ]
+    },
+    {
+      "id": "B0DJQGVK8S",
+      "name": "BNUOK M3 × 12 socket-head cap screws, black oxide",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B0DJQGVK8S",
+      "onHand": 120,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-e810552194844a54b71434179e0a985f"
+        }
+      ]
+    },
+    {
+      "id": "preciva-ferrules",
+      "name": "Insulated bootlace ferrules (Preciva kit)",
+      "unit": "pieces",
+      "href": null,
+      "onHand": 950,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted. Assortment total across wire sizes; the size mix is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-3f24d066bf684d46943a5469ba0b74fc"
+        }
+      ]
+    },
+    {
+      "id": "B0B9MZJ2ML",
+      "name": "Female spade crimp terminals, mixed-width kit",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B0B9MZJ2ML",
+      "onHand": 60,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted. Assortment total across terminal widths; the width mix is uncounted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-1cd523f02fed4209ad9b4bdfb2f73f68"
+        }
+      ]
+    },
+    {
+      "id": "B07C33VLQ6",
+      "name": "YDS butterfly hose clamp, 10–16 mm, 9 mm band",
+      "unit": "pieces",
+      "href": "https://www.amazon.com/dp/B07C33VLQ6",
+      "onHand": 10,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-8108029584db4221867aed4085f839a3"
+        }
+      ]
+    },
+    {
+      "id": "lulu-install-guide",
+      "name": "Install guide, printed by Lulu",
+      "unit": "pieces",
+      "href": null,
+      "onHand": 6,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": true,
+      "asOf": "2026-11-18",
+      "basis": "received_quantity_estimate",
+      "note": "Purchased quantity used as an estimated starting balance; prototype use is not deducted. Includes both recorded print editions; check the edition before packing a guide.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-632f8bde24194213bf964e7383e422b0"
+        },
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-6bc71f4f15b34503ac9bf8beea6ef815"
+        }
+      ]
+    },
+    {
+      "id": "earth-clamp-washers",
+      "name": "Carbonator earth-clamp external-tooth washer, BelMetric WSE3SS, DIN 6797A M3, A2 stainless",
+      "unit": "pieces",
+      "href": "https://belmetric.com/toothed-external-star-lock-washer-din-6797-a-stainless/?sku=WSE3SS",
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-11-18",
+      "basis": "related_purchase",
+      "note": "The purchased IEAWISL assortment is a starting point across all sizes. Its M3 count, dimensions and thickness are unverified. The specified BelMetric washer has no recorded purchase; related stock is not credited as confirmed coverage.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-6f3e90aba9734990a07d1e24f1f75a86"
+        }
+      ],
+      "purchaseReference": {
+        "quantity": 550,
+        "label": "assorted washers"
+      }
+    },
+    {
+      "id": "solid16-ring-terminal",
+      "name": "M3 closed ring terminal for solid 16 AWG",
+      "unit": "pieces",
+      "href": null,
+      "onHand": null,
+      "incoming": 0,
+      "reserved": 0,
+      "estimated": false,
+      "asOf": "2026-11-18",
+      "basis": "related_purchase",
+      "note": "The purchased smseace ring terminals are similar stock. Suitability for the solid vessel-bond conductor is unverified; the selected solid-wire terminal has no recorded purchase. Related stock is not credited as confirmed coverage.",
+      "sources": [
+        {
+          "path": "hardware/ledger/purchases.md",
+          "purchase": "pur-390442ac5c2d410cb6ba24f1413442bc"
+        }
+      ],
+      "purchaseReference": {
+        "quantity": 150,
+        "label": "similar terminals"
+      }
     }
   ],
   "observations": [

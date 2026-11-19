@@ -51,6 +51,7 @@
 .planner-section-head>a { font-size:.7rem; white-space:nowrap; }
 #planner-focus-title { font-size:1.35rem; }
 #planner-focus-note { font-size:.75rem; color:var(--text-2); line-height:1.65; margin:.65rem 0 1rem; }
+.planner-stock-note { font-size:.72rem; color:var(--text-2); line-height:1.65; margin:0 0 1rem; }
 .planner-filters { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr); gap:.6rem; margin-bottom:1rem; }
 .planner-filters label { min-width:0; }
 .planner-filters input { min-width:0; width:100%; }
@@ -68,6 +69,9 @@
 .planner-material-toggle strong { font-size:.78rem; line-height:1.5; font-weight:550; display:block; overflow-wrap:anywhere; }
 .planner-material-toggle small,.planner-table td>small { display:block; font-size:.64rem; color:var(--text-3); line-height:1.5; margin-top:.2rem; font-weight:400; }
 .planner-table td>b { font-size:.75rem; font-variant-numeric:tabular-nums; font-weight:550; }
+.planner-table .planner-available { width:100px; min-width:100px; }
+.planner-table .planner-available>b { font-size:.95rem; font-weight:650; white-space:nowrap; }
+@media(max-width:560px) { .planner-table th:first-child { width:clamp(150px,48vw,210px); min-width:clamp(150px,48vw,210px); } }
 .planner-row-purchase { color:var(--plan-planned); font-size:.6rem; display:block; margin-top:.3rem; }
 .planner-table .planner-unit-head { text-align:center; }
 .planner-unit-head button { background:none; border:0; padding:.3rem .15rem; color:inherit; }

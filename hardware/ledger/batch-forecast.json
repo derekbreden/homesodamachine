@@ -3157,12 +3157,12 @@
     "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
     "The possible-payment reserve covers pending component orders credited in this plan whose merchant charge remains unresolved. The purchase ledger records confirmed charges and remaining payment evidence gaps.",
     "Acquired receipt totals alone do not establish remaining stock. Estimated balances and provisional consumption allowances retain their evidence in the stock ledger.",
-    "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
+    "Purchased terminal, ferrule and heat-shrink assortment totals provide estimated starting balances; prototype use is not fully deducted and the size mix is uncounted. Cut lengths and wire colours use their recorded allowances.",
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",
     "Development spend, extra tooling, rent, payment fees, installation, warranty/support and business taxes are outside the production-and-delivery forecast. Donor interfaces remain qualification items with positive purchase allowances.",
     "The current BOM defines manufacturing demand. Supplier price and availability observations retain their recorded dates."
   ],
-  "inventoryNote": "Stock evidence, receipts and completed assemblies are shared with Build from stock. Unknown balances receive no credit. Supplier offers retain their recorded price and availability dates.",
+  "inventoryNote": "Stock evidence, receipts and completed assemblies are shared with Build from stock. Purchased quantities provide estimates where the usable remainder is uncounted. Related assortments and similar parts receive no exact-part coverage credit. Supplier offers retain their recorded price and availability dates.",
   "pendingPayments": [
     {
       "name": "PRV foam seal and pour masking tape orders",
