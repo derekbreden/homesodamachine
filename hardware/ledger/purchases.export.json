@@ -193,6 +193,14 @@
       "purchase_id": "pur-57c874cf19f84922b67c2bc3acce9c60"
     },
     {
+      "allocation_id": "alloc-19387176d23144058b5339ff87bb6dd1",
+      "amount_minor": 2198,
+      "currency": "USD",
+      "event_id": "evt-1f1a99360a1d4944896f294cbeb2062e",
+      "order_id": "amazon:112-3250291-4198614",
+      "purchase_id": "pur-3a63430840ba477eb03e79c3cc433bda"
+    },
+    {
       "allocation_id": "alloc-196f6e502a924da3a4eee5fed3f15e48",
       "amount_minor": 5021,
       "currency": "USD",
@@ -3667,6 +3675,26 @@
       "vendor": "Amazon"
     },
     {
+      "checked_at": "2026-11-18",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-bf67eefec272434baea784c255b1d72f",
+      "evidence_type": "merchant_order_and_transaction_pages",
+      "examined_period": {
+        "end": "2026-11-18",
+        "start": "2026-11-18"
+      },
+      "note": "Exact project order only; signed-in Order Details and its related transactions were examined.",
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ],
+      "stream": "named print-bed glue applicator order",
+      "vendor": "Amazon"
+    },
+    {
       "checked_at": "2026-11-16",
       "complete_period": null,
       "coverage": "partial",
@@ -4773,6 +4801,30 @@
       "unallocated_to_purchase_minor": 0,
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "allocation_ids": [
+        "alloc-19387176d23144058b5339ff87bb6dd1"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 2198,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-1f1a99360a1d4944896f294cbeb2062e",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "purchase_ids": [
+        "pur-3a63430840ba477eb03e79c3cc433bda"
+      ],
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-11-18"
     },
     {
       "allocation_ids": [
@@ -10230,6 +10282,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-1f1a99360a1d4944896f294cbeb2062e"
+      ],
+      "gap_id": "gap-406f4b1a03284eca962e6b3bffb8b9c7",
+      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified.",
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "purchase_ids": [
+        "pur-3a63430840ba477eb03e79c3cc433bda"
+      ],
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ],
+      "sources_checked": [
+        "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026"
+      ]
+    },
+    {
       "gap_id": "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
       "missing_fact": "Exact placed and delivery calendar dates; completed merchant charge evidence and event date. Confirmation supplies the final vendor amount and the delivery notice establishes acquired fulfillment.",
       "order_ids": [
@@ -10588,7 +10659,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:4742dda3fe5baa3616ecc035a6a27ce77fa8c8aada2e333efcf2a691a5ac1b92",
+  "input_fingerprint": "sha256:95529da25cdf72ff5da35cfc6da888b8a071de15e2ce48d71a2189443ae41cb0",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12132,6 +12203,25 @@
       "reference": "112-3161139-1981039",
       "source_ids": [
         "saved-amazon:112-3161139-1981039"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-1f1a99360a1d4944896f294cbeb2062e"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "order_id": "amazon:112-3250291-4198614",
+      "purchase_ids": [
+        "pur-3a63430840ba477eb03e79c3cc433bda"
+      ],
+      "reference": "112-3250291-4198614",
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
       ],
       "vendor": "Amazon"
     },
@@ -27630,6 +27720,52 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-6990924-2823418"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 2198,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "PATIKIL round foam pouncers, 2\" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping",
+      "event_ids": [
+        "evt-1f1a99360a1d4944896f294cbeb2062e"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3a63430840ba477eb03e79c3cc433bda",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3a63430840ba477eb03e79c3cc433bda",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 pk (40)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "row_date_basis": "order_date",
+      "section": "13. Printing consumables",
+      "service_period": null,
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -66604,6 +66740,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-18"
+      },
+      "document_type": "merchant_order_record",
+      "note": "Signed-in Amazon Order Details identifies one PATIKIL round foam pouncer pack, all 2-inch diameter, 40 brushes (B0CGKTJYZT), ordered November 18, 2026. Merchandise USD 20.49 plus USD 1.49 estimated tax, free shipping, order total USD 21.98. Seller PATIKIL US. The arrival banner says arriving tomorrow; actual delivery is unconfirmed. The exact-order transaction view states there are no transactions yet. No completed merchant charge or final tax is established.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "112-3250291-4198614",
+      "source_id": "src-8770969e0245423a9a630262748c9afc",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-18"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-25"
       },
       "document_type": "merchant_monetary_receipt",
@@ -70974,10 +71126,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 14001,
+          "amount_minor": 16199,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
+            "pur-3a63430840ba477eb03e79c3cc433bda",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
             "pur-cdb4735a3b244438a2d4e72bf5b582e7"
@@ -70997,6 +71150,7 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
+        "pur-3a63430840ba477eb03e79c3cc433bda",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-b6c01a5b012340fc888139c1070dc054",
@@ -71009,6 +71163,7 @@
       "basis": "Confirmed merchant-evidenced project charges and issued monetary refunds by merchant event calendar month; bank posting is outside this ledger. Expected events, authorizations, noncash credits and unresolved project shares are excluded from charges/refunds/net.",
       "expected_event_ids": [
         "evt-1399a1a835ce4be3a489628c06225b33",
+        "evt-1f1a99360a1d4944896f294cbeb2062e",
         "evt-3a8544ddbe8a4823b7685b21f54c008c",
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
         "evt-5fddb80e882c4533bf9042d5a74088cc",
@@ -71374,6 +71529,7 @@
             "evt-0dd1678555e5406590e6b25b16d55d75",
             "evt-1399a1a835ce4be3a489628c06225b33",
             "evt-1bead24454464c688dab3d4b9f2bc2bc",
+            "evt-1f1a99360a1d4944896f294cbeb2062e",
             "evt-3a8544ddbe8a4823b7685b21f54c008c",
             "evt-4f3044872f6347a3b95f8efefe1bae8d",
             "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
@@ -72121,7 +72277,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 53796,
+          "estimate_minor": 55994,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 77008,
           "legacy_unverified_minor": 0,
@@ -72136,6 +72292,7 @@
             "pur-3161c146b8ef40e5817e13af4dc07846",
             "pur-349e89ac22704ecaa32c57926e7c0d7e",
             "pur-36841266e8fb437a8d42247cbf7ee53d",
+            "pur-3a63430840ba477eb03e79c3cc433bda",
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
             "pur-3e68e1bb95ea4eee80c22dc466261cb4",
             "pur-3fca793e96a64c20b79ac0831efc3b50",
@@ -72162,7 +72319,7 @@
             "pur-fcd44116a7094087b680a7ae1ffd83af",
             "pur-fd0447880897405fb697a1c430b6bba0"
           ],
-          "total_minor": 130804,
+          "total_minor": 133002,
           "unknown_amount_ids": []
         },
         {
@@ -72199,7 +72356,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2410619,
+          "amount_minor": 2412817,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -72217,10 +72374,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 271969,
+          "estimate_minor": 274167,
           "final_vendor_amount_minor": 2913479,
           "legacy_unverified_minor": 1898308,
-          "total_minor": 5083756
+          "total_minor": 5085954
         }
       ],
       "undated_unallocated": [
@@ -72367,6 +72524,7 @@
         "gap-2e0c753bea0943db858dcaadb275439f",
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
+        "gap-406f4b1a03284eca962e6b3bffb8b9c7",
         "gap-40a04fd67b1f469ebec51aa79a1e2aa7",
         "gap-55aefb37c76140789e0bf094e8e3443f",
         "gap-7b003c39b4994fdd80743a158f753784",
@@ -72387,11 +72545,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 271969,
+          "estimated_purchase_minor": 274167,
           "legacy_unverified_purchase_minor": 1898308,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2485396,
+          "purchases_without_merchant_charge_minor": 2487594,
           "undated_charge_minor": 563952,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 975132,
@@ -72407,6 +72565,7 @@
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-2ad02a3c76fc4de6b57a9424c7892858",
         "pur-349e89ac22704ecaa32c57926e7c0d7e",
+        "pur-3a63430840ba477eb03e79c3cc433bda",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-3e68e1bb95ea4eee80c22dc466261cb4",
@@ -72524,6 +72683,7 @@
         "coverage-bd8d0957451549b2bd2006065f3ef7cb",
         "coverage-bd98b892a644443b90dc95fa80a8e33e",
         "coverage-bd9a0f50bc3348cd994c827672c8bd5a",
+        "coverage-bf67eefec272434baea784c255b1d72f",
         "coverage-bfc5b257b92b42408c92b0ab47a0970b",
         "coverage-c2b991ed7f77417889868ab62b87b299",
         "coverage-c57ca481544248138b803bc112966160",
@@ -73138,6 +73298,7 @@
         "pur-390442ac5c2d410cb6ba24f1413442bc",
         "pur-395e856bb32044f180d8c0f6ef913ef4",
         "pur-39eaa2bc1e864273b83e0f52945fef6e",
+        "pur-3a63430840ba477eb03e79c3cc433bda",
         "pur-3b3178c78ce243199ced7cba1eca0b84",
         "pur-3b72c994b94b43c29f76326060b40799",
         "pur-3bd5d44c62d84422b3dbe3310c70a21a",
@@ -73561,6 +73722,7 @@
         "evt-0dd1678555e5406590e6b25b16d55d75",
         "evt-1399a1a835ce4be3a489628c06225b33",
         "evt-1bead24454464c688dab3d4b9f2bc2bc",
+        "evt-1f1a99360a1d4944896f294cbeb2062e",
         "evt-3a8544ddbe8a4823b7685b21f54c008c",
         "evt-4f3044872f6347a3b95f8efefe1bae8d",
         "evt-4fd5e400299c4ee6ac80dde60ce9e9fa",
@@ -73714,7 +73876,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "24 authored evidence gap(s) remain",
+      "25 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-07575d26f1b2453ba683076fe7b7fa9c: evidence coverage is partial",
@@ -73798,6 +73960,7 @@
       "coverage-bd8d0957451549b2bd2006065f3ef7cb: evidence coverage is partial",
       "coverage-bd98b892a644443b90dc95fa80a8e33e: evidence coverage is partial",
       "coverage-bd9a0f50bc3348cd994c827672c8bd5a: evidence coverage is partial",
+      "coverage-bf67eefec272434baea784c255b1d72f: evidence coverage is partial",
       "coverage-bfc5b257b92b42408c92b0ab47a0970b: evidence coverage is partial",
       "coverage-c2b991ed7f77417889868ab62b87b299: evidence coverage is partial",
       "coverage-c57ca481544248138b803bc112966160: evidence coverage is partial",
@@ -73826,7 +73989,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "31 legacy named order(s) lack an exact invoice allocation check",
+      "32 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }

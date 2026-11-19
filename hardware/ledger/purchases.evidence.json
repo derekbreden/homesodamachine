@@ -10239,6 +10239,18 @@
       "source_ids": [
         "src-eab6c800fa344ade9e74ac626996b6d3"
       ]
+    },
+    "pur-3a63430840ba477eb03e79c3cc433bda": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ]
     }
   },
   "orders": {
@@ -16647,6 +16659,18 @@
       "source_ids": [
         "src-eab6c800fa344ade9e74ac626996b6d3"
       ]
+    },
+    "amazon:112-3250291-4198614": {
+      "vendor": "Amazon",
+      "reference": "112-3250291-4198614",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ]
     }
   },
   "events": [
@@ -21089,6 +21113,23 @@
       "order_ids": [
         "amazon:112-6794186-7953808"
       ]
+    },
+    {
+      "event_id": "evt-1f1a99360a1d4944896f294cbeb2062e",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 2198,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ],
+      "verified_at": "2026-11-18",
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ]
     }
   ],
   "allocations": [
@@ -22938,6 +22979,14 @@
       "purchase_id": "pur-0460bfe098504c85bbbf043b1d7a5bb0",
       "order_id": "amazon:112-6794186-7953808",
       "amount_minor": 1286,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-19387176d23144058b5339ff87bb6dd1",
+      "event_id": "evt-1f1a99360a1d4944896f294cbeb2062e",
+      "purchase_id": "pur-3a63430840ba477eb03e79c3cc433bda",
+      "order_id": "amazon:112-3250291-4198614",
+      "amount_minor": 2198,
       "currency": "USD"
     }
   ],
@@ -35511,6 +35560,21 @@
       ],
       "verified_at": "2026-11-18",
       "note": "UPS delivery confirmation explicitly states delivered November 18, 2026. Its tracking identity matches the merchant notification identifying both H2C Engineering Plates for this order. The carrier delivery date supersedes the invoice delivery field for actual fulfillment. No new payment is implied."
+    },
+    "src-8770969e0245423a9a630262748c9afc": {
+      "vendor": "Amazon",
+      "document_type": "merchant_order_record",
+      "reference": "112-3250291-4198614",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-18"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-11-18",
+      "note": "Signed-in Amazon Order Details identifies one PATIKIL round foam pouncer pack, all 2-inch diameter, 40 brushes (B0CGKTJYZT), ordered November 18, 2026. Merchandise USD 20.49 plus USD 1.49 estimated tax, free shipping, order total USD 21.98. Seller PATIKIL US. The arrival banner says arriving tomorrow; actual delivery is unconfirmed. The exact-order transaction view states there are no transactions yet. No completed merchant charge or final tax is established."
     }
   },
   "coverage": [
@@ -37890,6 +37954,26 @@
         "amazon:112-4768090-1512212"
       ],
       "note": "Exact project order only."
+    },
+    {
+      "coverage_id": "coverage-bf67eefec272434baea784c255b1d72f",
+      "vendor": "Amazon",
+      "stream": "named print-bed glue applicator order",
+      "evidence_type": "merchant_order_and_transaction_pages",
+      "checked_at": "2026-11-18",
+      "examined_period": {
+        "start": "2026-11-18",
+        "end": "2026-11-18"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ],
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "note": "Exact project order only; signed-in Order Details and its related transactions were examined."
     }
   ],
   "gaps": [
@@ -38443,6 +38527,26 @@
         "Exact-order confirmation, signed-in order details and order-scoped transactions checked November 17, 2026",
         "Exact-order shipment notification received November 18, 2026",
         "Exact-order delivery notification received November 18, 2026"
+      ]
+    },
+    {
+      "gap_id": "gap-406f4b1a03284eca962e6b3bffb8b9c7",
+      "vendor": "Amazon",
+      "purchase_ids": [
+        "pur-3a63430840ba477eb03e79c3cc433bda"
+      ],
+      "order_ids": [
+        "amazon:112-3250291-4198614"
+      ],
+      "event_ids": [
+        "evt-1f1a99360a1d4944896f294cbeb2062e"
+      ],
+      "source_ids": [
+        "src-8770969e0245423a9a630262748c9afc"
+      ],
+      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified.",
+      "sources_checked": [
+        "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026"
       ]
     }
   ],
