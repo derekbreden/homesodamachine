@@ -391,7 +391,15 @@
           "context": true
         },
         {
-          "file": "faucet-layout/pullout-concept/selected-electronic-valve.step",
+          "file": "faucet-layout/pullout-concept/custom-valve-closed.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/custom-valve-open.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/profile-comparison.step",
           "context": true
         }
       ],
