@@ -3,16 +3,19 @@
   "layout": "refrigeration",
   "title": "Refrigeration bench guide",
   "subtitle": "Coil fabrication, sealed-system work, leak checks and loaded commissioning",
-  "sources": ["hardware/assembly/cold-core.md", "hardware/assembly/handwork.md", "hardware/refrigeration-guide/README.md", "hardware/assembly/refrigerant-loop.md", "hardware/cold-core-layout/evaporator-coil-drawing.pdf", "hardware/reference/ice-maker/README.md", "hardware/reference/compressor/README.md", "hardware/reference/condenser-block/README.md", "hardware/assembly/enclosure-mechanical.md", "hardware/ledger/bom.md", "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/printed-parts/refrigeration/fuse-clamp/README.md", "hardware/assembly/firmware-and-commissioning.md", "firmware/src_appliance/README.md", "firmware/lib/machine_policy/cold_policy.h", "hardware/assembly/acceptance-and-burn-in.md", "hardware/mechanical-qualification/README.md", "business/regulatory.md", "tools/assembly-guides/guide.rs", "tools/hsm/fabrication-guides/src/letter.rs", "hardware/ledger/tools.md", "hardware/cold-core-layout/assembly/numbers.rs", "hardware/refrigeration-guide/art/render-jobs.json", "hardware/refrigeration-guide/art/winding-mandrel.png", "hardware/refrigeration-guide/art/bare-wall-and-reed.png", "hardware/refrigeration-guide/art/installed-coil.png", "hardware/refrigeration-guide/art/coil-probe-contact.png", "hardware/refrigeration-guide/art/coil-exits-before-foam.png", "hardware/refrigeration-guide/art/exterior-collar-datum.png", "hardware/refrigeration-guide/art/installed-leak-map.png", "hardware/refrigeration-guide/art/compressor-process-tube.png", "hardware/refrigeration-guide/art/cold-core-tie-ins.png", "hardware/refrigeration-guide/art/compressor-floor-mounts.png", "hardware/refrigeration-guide/art/condenser-installed-mounts.png", "hardware/refrigeration-guide/art/condenser-crossflow.png", "hardware/refrigeration-guide/art/compressor-thermal-cutoff.png", "hardware/refrigeration-guide/art/mq6-installed-cradle.png"],
+  "sources": ["hardware/assembly/calibration_inputs.rs", "tools/hsm/repo-tools/src/model.rs", "hardware/assembly/cold-core.md", "hardware/assembly/handwork.md", "hardware/refrigeration-guide/README.md", "hardware/assembly/refrigerant-loop.md", "hardware/cold-core-layout/evaporator-coil-drawing.pdf", "hardware/reference/ice-maker/README.md", "hardware/reference/compressor/README.md", "hardware/reference/condenser-block/README.md", "hardware/assembly/enclosure-mechanical.md", "hardware/ledger/bom.md", "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/printed-parts/refrigeration/fuse-clamp/README.md", "hardware/assembly/firmware-and-commissioning.md", "firmware/src_appliance/README.md", "firmware/lib/machine_policy/cold_policy.h", "hardware/assembly/acceptance-and-burn-in.md", "hardware/mechanical-qualification/README.md", "business/regulatory.md", "tools/assembly-guides/guide.rs", "tools/hsm/fabrication-guides/src/letter.rs", "hardware/ledger/tools.md", "hardware/cold-core-layout/assembly/numbers.rs", "hardware/refrigeration-guide/art/render-jobs.json", "hardware/refrigeration-guide/art/winding-mandrel.png", "hardware/refrigeration-guide/art/bare-wall-and-reed.png", "hardware/refrigeration-guide/art/installed-coil.png", "hardware/refrigeration-guide/art/coil-probe-contact.png", "hardware/refrigeration-guide/art/coil-exits-before-foam.png", "hardware/refrigeration-guide/art/exterior-collar-datum.png", "hardware/refrigeration-guide/art/installed-leak-map.png", "hardware/refrigeration-guide/art/compressor-process-tube.png", "hardware/refrigeration-guide/art/cold-core-tie-ins.png", "hardware/refrigeration-guide/art/compressor-floor-mounts.png", "hardware/refrigeration-guide/art/condenser-installed-mounts.png", "hardware/refrigeration-guide/art/condenser-crossflow.png", "hardware/refrigeration-guide/art/compressor-thermal-cutoff.png", "hardware/refrigeration-guide/art/mq6-installed-cradle.png"],
   "extra": {
     "manufacturer_sources": {
       "epa_handling": "https://www.epa.gov/section608/stationary-refrigeration-prohibition-venting-refrigerants",
       "harris_filler": "https://ch-delivery.lincolnelectric.com/api/public/content/7cdc09a3e3364eca8d9ecb0145977257?v=7aae3e72",
       "intertek_hzb_12_q": "https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70",
-      "nist_r600a": "https://webbook.nist.gov/cgi/fluid.cgi?ID=C75285&Action=Page",
+      "nist_r600a": "https://webbook.nist.gov/cgi/fluid.cgi?PLow=5.5&PHigh=140.5&PInc=1&Digits=8&ID=C75285&Action=Load&Type=SatT&TUnit=C&PUnit=psia&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm&RefState=DEF",
       "secop_service": "https://www.secop.com/fileadmin/user_upload/technical-literature/guidelines/repair_of_hermetic_refrigeration_systems_05-2018_desg620a202.pdf",
       "supco_bpv31": "https://supco.com/web/supco_live/products/BPV31.html",
       "ashrae_capillary": "https://handbook.ashrae.org/Handbooks/R26/SI/r26_ch11/r26_ch11_si.aspx",
+      "secop_capillary_diagnostics": "https://www.secop.com/fileadmin/user_upload/technical-literature/danfoss-lectures/operational_defects_in_hermetic_compressors_and_refrigerating_systems.pdf#page=52",
+      "embraco_small_charge_superheat": "https://www.embraco.com/wp-content/uploads/2020/07/1593699607eweb-installation-instructions-052020-en.pdf",
+      "wika_absolute_ranges": "https://www.wika.com/media/Operating-instructions/Operating-instructions/Calibration/Digital-pressure-gauges/oi_cpg1500_en_de.pdf",
       "ornl_void_fraction": "https://info.ornl.gov/sites/publications/Files/Pub57653.pdf",
       "pt520a": "https://cdn.shopify.com/s/files/1/0651/5952/8680/files/PT520A.pdf?v=1768791404",
       "p4400": "https://www.p3international.com/manuals/p4400_manual.pdf",
@@ -1049,65 +1052,70 @@
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/reference/ice-maker/README.md#hot-gas-bypass-solenoid-discard-for-our-use"
     },
     {
-      "title": "Set up pressure and tube probes",
-      "subtitle": "Place probes where each reading answers a specific question before closing the circuit.",
+      "title": "Put the probes on the copper",
+      "subtitle": "Place the clips and pressure points with the circuit clear, before charging.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "label", "value": "A / EVAPORATOR OUTLET", "x": 24, "y": 43, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "B / COMPRESSOR INLET", "x": 316, "y": 43, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 23, "y": 68, "width": 107, "height": 41, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "Wrapped coil", "x": 76, "y": 93, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "arrow", "start": [130, 89], "end": [216, 89], "color": "#B8722C", "width": 3, "head": 6},
-          {"kind": "ellipse", "x": 162.5, "y": 82.5, "width": 13, "height": 13, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 1},
-          {"kind": "round_rect", "x": 216, "y": 68, "width": 109, "height": 41, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "Bonded exchanger", "x": 270, "y": 93, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "arrow", "start": [325, 89], "end": [419, 89], "color": "#B8722C", "width": 3, "head": 6},
-          {"kind": "ellipse", "x": 363.5, "y": 82.5, "width": 13, "height": 13, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 1},
-          {"kind": "round_rect", "x": 419, "y": 68, "width": 95, "height": 41, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "Compressor", "x": 466, "y": 93, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "round_rect", "x": 17, "y": 138, "width": 506, "height": 149, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "round_rect", "x": 17, "y": 138, "width": 506, "height": 32, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "PROBE POINT", "x": 29, "y": 159, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "WHAT THIS READING CAN ANSWER", "x": 179, "y": 159, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [167, 170], "end": [167, 287], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "A / Tube and pressure", "x": 29, "y": 193.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Evaporator outlet superheat before the bonded run.", "x": 179, "y": 193.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 209], "end": [523, 209], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "B / Tube and pressure", "x": 29, "y": 232.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Vapor margin entering the compressor after that run.", "x": 179, "y": 232.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 248], "end": [523, 248], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "C / Condenser outlet", "x": 29, "y": 271.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Subcooling upstream of the drier. Pair pressure and tube T.", "x": 179, "y": 271.5, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Mark the process/access location on the actual circuit before pressure testing.", "x": 29, "y": 313, "size": 10.8, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 19, "y": 10, "width": 504, "height": 222, "radius": 7, "fill": "#F3F6FB", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "image", "path": "hardware/refrigeration-guide/art/installed-leak-map.png", "x": 19, "y": 10, "width": 504, "height": 222},
+          {"kind": "line", "start": [113, 59], "end": [199.35616, 64.76740000000001], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 195.35616, "y": 60.76740000000001, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "A / Coil outlet", "x": 113, "y": 52, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "line", "start": [119, 148], "end": [195.51999999999998, 129.2806], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 191.51999999999998, "y": 125.28059999999999, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "B / Compressor inlet", "x": 119, "y": 141, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "line", "start": [396, 67], "end": [341.00992, 61.06], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 337.00992, "y": 57.06, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "Condenser outlet span", "x": 396, "y": 60, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 19, "y": 242, "width": 504, "height": 78, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "AT EACH POINT", "x": 31, "y": 260, "size": 9.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [34, 291], "end": [259, 291], "color": "#B8722C", "width": 9, "dash": []},
+          {"kind": "round_rect", "x": 125, "y": 279, "width": 77, "height": 25, "radius": 7, "fill": "#E2E8F4", "stroke": "#1749D1", "line_width": 1},
+          {"kind": "ellipse", "x": 163, "y": 287, "width": 6, "height": 6, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "line", "start": [165, 283], "end": [165, 267], "color": "#1749D1", "width": 1, "dash": []},
+          {"kind": "label", "value": "Bare copper", "x": 31, "y": 313, "size": 10, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Insulated clip", "x": 125, "y": 313, "size": 10, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [221, 289], "end": [221, 275], "color": "#1749D1", "width": 1, "dash": []},
+          {"kind": "ellipse", "x": 218, "y": 272, "width": 6, "height": 6, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "Read the clip and local port together.", "x": 270, "y": 283, "size": 10.5, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "C is before the drier. See page 45.", "x": 270, "y": 301, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Clamp on clean copper",
-          "body": "Fit insulated contact probes to bare copper at A and B. Mark the sensor leads. A is immediately after the coil and B is near compressor suction. Log the probe accuracy."
+          "title": "Clip A and B",
+          "body": "Seat and insulate each clip on clean, straight copper. A is at E2 just outside the foam, before the bonded run. B is at compressor suction, after the bonded run."
         },
         {
-          "title": "Plan pressure access before sealing",
-          "body": "Confirm which fitted port represents B. If diagnosing feed, provide rated local C pressure access during the decharged build. Add local A access if outlet superheat is needed."
+          "title": "Pair each reading with its own port",
+          "body": "Use the low-side access at compressor suction for B. The add-gram check needs local A and C ports. Set absolute gauges to psia with tare off and the contact thermometers to C."
         },
         {
-          "title": "Label values from a shared tap",
-          "body": "B pressure with A temperature gives apparent outlet superheat and can bias it high. Keep mass and volume of the running test connections consistent across trials."
+          "title": "Keep the measurement points fixed",
+          "body": "Leave the clips and insulated core in place. Read the paired displays from clear of the fan and live parts. Use the same fixture volume at every charge."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The log identifies each temperature and pressure separately, with its actual reading location.",
+        "body": "B screens for vapor margin. A and C support the underfeed decision only with their own pressure readings.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "Refrigerant-loop commissioning / ASHRAE capillary systems",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#charge-commissioning"
+      "source": "Refrigerant-loop commissioning / installed machine model",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/refrigeration-guide/README.md#measurement-setup"
     },
     {
       "title": "Wet rag on each stub",
@@ -1401,174 +1409,222 @@
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md"
     },
     {
-      "title": "Meter the recharge",
-      "subtitle": "Deliver 16.0 g of R600a into the evacuated loop for the first instrumented trial.",
+      "title": "Weigh in 16.0 g net",
+      "subtitle": "Start the Antarctic Star conversion at the U.S. factory mass.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 21, "y": 197, "width": 183, "height": 58, "radius": 8, "fill": "#EAF0FC", "stroke": "#202337", "line_width": 1},
-          {"kind": "rect", "x": 32, "y": 235, "width": 61, "height": 15, "fill": "#FCFCFA", "stroke": "#202337"},
-          {"kind": "label", "value": "0.1 g", "x": 62, "y": 247, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "round_rect", "x": 67, "y": 46, "width": 103, "height": 150, "radius": 8, "fill": "#E4E8EE", "stroke": "#202337", "line_width": 1},
-          {"kind": "rect", "x": 99, "y": 28, "width": 38, "height": 18, "fill": "#E95A2C", "stroke": "#202337"},
-          {"kind": "label", "value": "R600a", "x": 118, "y": 114, "size": 20, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "CAN", "x": 118, "y": 139, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "line", "start": [137, 34], "end": [208, 34], "color": "#1749D1", "width": 3, "dash": []},
-          {"kind": "line", "start": [208, 34], "end": [208, 163], "color": "#1749D1", "width": 3, "dash": []},
-          {"kind": "line", "start": [208, 163], "end": [325, 163], "color": "#1749D1", "width": 3, "dash": []},
-          {"kind": "rect", "x": 338, "y": 218, "width": 132, "height": 16, "fill": "#E4E8EE", "stroke": "#202337"},
-          {"kind": "ellipse", "x": 347, "y": 90, "width": 114, "height": 136, "fill": "#202337", "stroke": "#202337", "line_width": 1.5},
-          {"kind": "ellipse", "x": 353, "y": 95, "width": 102, "height": 124, "fill": "#33384D", "stroke": "#202337", "line_width": 1.5},
-          {"kind": "rect", "x": 377.78, "y": 170.24, "width": 57.0, "height": 43.52, "fill": "#0F1526", "stroke": "#202337"},
-          {"kind": "ellipse", "x": 344, "y": 222, "width": 7, "height": 5, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
-          {"kind": "ellipse", "x": 458, "y": 222, "width": 7, "height": 5, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1.5},
-          {"kind": "line", "start": [325, 163], "end": [347, 163], "color": "#1749D1", "width": 3, "dash": []},
-          {"kind": "label", "value": "Can + valve on scale", "x": 17, "y": 282, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Short, low-volume transfer path", "x": 213, "y": 69, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [230, 74], "end": [208, 132], "color": "#1749D1", "width": 1, "dash": []},
-          {"kind": "round_rect", "x": 246, "y": 233, "width": 254, "height": 63, "radius": 8, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "16.0 G NET TO THE LOOP", "x": 262, "y": 253, "size": 11, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Account for hose and valve inventory", "x": 262, "y": 277, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "HZB-12/Q U.S. certification baseline", "x": 255, "y": 316, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "center"}
+          {"kind": "round_rect", "x": 18, "y": 25, "width": 236, "height": 235, "radius": 7, "fill": "#F3F6FB", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "TARE THE COMPLETE KIT", "x": 32, "y": 49, "size": 9.8, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 45, "y": 82, "width": 63, "height": 100, "radius": 7, "fill": "#E2E8F4", "stroke": "#202337", "line_width": 1},
+          {"kind": "round_rect", "x": 67, "y": 72, "width": 18, "height": 12, "radius": 2, "fill": "#B8722C", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "R600a", "x": 76, "y": 136, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [77, 72], "end": [77, 64], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "line", "start": [77, 64], "end": [145, 64], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "line", "start": [145, 64], "end": [145, 105], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "round_rect", "x": 122, "y": 105, "width": 53, "height": 32, "radius": 3, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "Valve", "x": 148, "y": 125, "size": 9.2, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [175, 121], "end": [203, 121], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "round_rect", "x": 200, "y": 114, "width": 22, "height": 14, "radius": 2, "fill": "#B8722C", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "Sealed end", "x": 209, "y": 146, "size": 8.8, "color": "#606A78", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 34, "y": 182, "width": 196, "height": 56, "radius": 7, "fill": "#EAF0FC", "stroke": "#202337", "line_width": 1},
+          {"kind": "round_rect", "x": 66, "y": 195, "width": 128, "height": 29, "radius": 2, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "0.0 g", "x": 129, "y": 216, "size": 17, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 286, "y": 25, "width": 236, "height": 235, "radius": 7, "fill": "#F3F6FB", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "WEIGH THE SAME SEALED KIT", "x": 300, "y": 49, "size": 9.8, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 313, "y": 82, "width": 63, "height": 100, "radius": 7, "fill": "#E2E8F4", "stroke": "#202337", "line_width": 1},
+          {"kind": "round_rect", "x": 335, "y": 72, "width": 18, "height": 12, "radius": 2, "fill": "#B8722C", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "R600a", "x": 344, "y": 136, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [345, 72], "end": [345, 64], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "line", "start": [345, 64], "end": [413, 64], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "line", "start": [413, 64], "end": [413, 105], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "round_rect", "x": 390, "y": 105, "width": 53, "height": 32, "radius": 3, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "Valve", "x": 416, "y": 125, "size": 9.2, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "line", "start": [443, 121], "end": [471, 121], "color": "#1749D1", "width": 1.8, "dash": []},
+          {"kind": "round_rect", "x": 468, "y": 114, "width": 22, "height": 14, "radius": 2, "fill": "#B8722C", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "Sealed end", "x": 477, "y": 146, "size": 8.8, "color": "#606A78", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 302, "y": 182, "width": 196, "height": 56, "radius": 7, "fill": "#EAF0FC", "stroke": "#202337", "line_width": 1},
+          {"kind": "round_rect", "x": 334, "y": 195, "width": 128, "height": 29, "radius": 2, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "-16.0 g", "x": 397, "y": 216, "size": 17, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "arrow", "start": [259, 138], "end": [279, 138], "color": "#1749D1", "width": 1.4, "head": 5},
+          {"kind": "round_rect", "x": 18, "y": 274, "width": 504, "height": 46, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "Everything blue travels with the can when weighed.", "x": 30, "y": 293, "size": 11.2, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Stop the transfer and seal both sides before weighing.", "x": 30, "y": 309, "size": 10.2, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Set the scale and isolate the loop",
-          "body": "After pressure test and vacuum, check the Smart Weigh scale with a known small mass on the supported cylinder setup. Keep hoses clear of the pan."
+          "title": "Tare the whole transfer kit",
+          "body": "With the approved low-loss kit sealed, put the can, tap, transfer hose, valve and end fitting on the scale together. Check the loaded scale and its tare on page 24 before you connect."
         },
         {
-          "title": "Deliver a known first charge",
-          "body": "Use the approved low-volume A3 set and transfer method with the compressor stopped. Aim for 16.0 g past the isolation valve. Record the mass and fixture states."
+          "title": "Transfer with the compressor off",
+          "body": "Connect through the marked circuit valve. Watch the supported scale as you approach the target. Shut both sides, then disconnect at the sealed split. Put the same kit back on the pan with its trapped gas still inside."
         },
         {
-          "title": "Check the delivered amount",
-          "body": "Subtract any increase in trapped fixture mass and any amount routed elsewhere. Use page 24 to complete the transfer record before starting the compressor."
+          "title": "Use the display as the charge record",
+          "body": "The first target reads -16.0 g at the original tare. Use the isolated weighing as the final check. If you cannot verify the net amount, stop and reset the fill through the documented service sequence."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "Record the net delivered mass and its uncertainty before first start.",
+        "body": "Write the indicated net loss. Close and check the access before running. Page 24 shows the one-gram repeat.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "refrigerant-loop.md §8 / Intertek SH10080445-001 §2.0",
+      "source": "Intertek SH10080445-001 / refrigerant-loop.md",
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#8-meter-the-first-trial"
     },
     {
-      "title": "Account for one gram",
-      "subtitle": "The isolation valve is the boundary between delivered refrigerant and refrigerant still in the service set.",
+      "title": "Read the gram on the scale",
+      "subtitle": "Weigh the can and the full sealed transfer path as one unit.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 17, "y": 19, "width": 506, "height": 204, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "round_rect", "x": 17, "y": 19, "width": 506, "height": 32, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "ILLUSTRATIVE TRANSFER", "x": 29, "y": 40, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "READINGS / CHANGE", "x": 244, "y": 40, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [232, 51], "end": [232, 223], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "MASS", "x": 397, "y": 40, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [385, 51], "end": [385, 223], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Scale on source cylinder", "x": 29, "y": 76.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "296.0 to 294.4 g", "x": 244, "y": 76.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "1.6 g out", "x": 397, "y": 76.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 94], "end": [523, 94], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Inventory in isolation set", "x": 29, "y": 119.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "0.0 to 0.6 g", "x": 244, "y": 119.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "0.6 g retained", "x": 397, "y": 119.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 137], "end": [523, 137], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Sent elsewhere", "x": 29, "y": 162.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Measured transfer", "x": 244, "y": 162.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "0.0 g", "x": 397, "y": 162.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 180], "end": [523, 180], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Net into the loop", "x": 29, "y": 205.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "1.6 - 0.6 - 0.0", "x": 244, "y": 205.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "1.0 g", "x": 397, "y": 205.5, "size": 11.7, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 17, "y": 246, "width": 506, "height": 55, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "Record both fixture states. A liquid heel and vapor can share one pressure.", "x": 29, "y": 268, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "At 40 C, 2 mL holds about 1.06 g as liquid or 0.027 g as saturated vapor.", "x": 29, "y": 287, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 19, "y": 20, "width": 504, "height": 180, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 19, "y": 20, "width": 504, "height": 30, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "First fill", "x": 28, "y": 78.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "0.0 g on full tared kit", "x": 186, "y": 78.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-16.0 g from that tare", "x": 349, "y": 78.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 101, "width": 502, "height": 48, "radius": 2, "fill": "#EAF0FC", "stroke": "#EAF0FC", "line_width": 1},
+          {"kind": "line", "start": [19, 100], "end": [523, 100], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "One supported addition", "x": 28, "y": 128.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Tare the full kit again", "x": 186, "y": 128.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-1.0 g from the new tare", "x": 349, "y": 128.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 150], "end": [523, 150], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "If the first tare is lost", "x": 28, "y": 178.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Save the gross reading", "x": 186, "y": 178.7, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Add back the target weight.", "x": 349, "y": 172.2, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Match the starting reading.", "x": 349, "y": 185.2, "size": 11, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "TRANSFER", "x": 28, "y": 38.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [177, 50], "end": [177, 200], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "BEFORE TRANSFER", "x": 186, "y": 38.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [340, 50], "end": [340, 200], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "AFTER TRANSFER", "x": 349, "y": 38.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 19, "y": 218, "width": 504, "height": 96, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "CHECK THE SCALE UNDER THE ACTUAL LOAD", "x": 31, "y": 240, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "After tare, add a verified 1.0 g check weight three times.", "x": 31, "y": 264, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Read 1.0 g each time and 0.0 g after lifting it away.", "x": 31, "y": 284, "size": 11.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Keep the hose and fittings entirely on the pan for both readings.", "x": 31, "y": 303, "size": 10.6, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Prove scale repeatability under load",
-          "body": "Support the hose without pulling on the scale. Remove and replace a known check mass near 1 g several times in the loaded position. Record its indicated change and spread."
+          "title": "Check the zero, weight and tare timer",
+          "body": "Rehearse with the load in place. Run the 1.0 g check in the picture and verify the display keeps its tare for the transfer. Save the gross reading before you tare."
         },
         {
-          "title": "Use a known fixture inventory",
-          "body": "Use the specified metered transfer setup or measure the small isolated inventory change. Count recovered fixture liquid in that term once. Log all grams leaving elsewhere."
+          "title": "Keep the same contents and parts on the scale",
+          "body": "The whole kit is weighed at both ends of the transfer. Keep trapped refrigerant with that kit until its final reading. Use a low-loss connection with a proven small loss."
         },
         {
-          "title": "Resolve uncertainty before tuning",
-          "body": "Require delivered-mass uncertainty within 0.25 g to interpret a 1.0 g move. If the amount is uncertain or must come down, remove the charge and weigh a new known total."
+          "title": "Verify the delivered step",
+          "body": "Use the 1.0 g step when delivered-mass error is within 0.25 g. For a lost tare, put 10 g, 5 g and 1 g check weights beside the sealed kit for the 16 g check. For an add step use just 1 g. Match the starting gross reading."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The worksheet records cylinder loss, fixture change, diverted mass and net grams.",
+        "body": "The indicated loss is net to the loop when only the loop received it. Use page 41 to decide when to add.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "Refrigerant-loop §8 / Smart Weigh Pro / NIST phase densities",
+      "source": "Smart Weigh Pro / refrigerant-loop.md",
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#8-meter-the-first-trial"
     },
     {
-      "title": "Estimate the running coil inventory",
-      "subtitle": "Use the tube bore and phase distribution to estimate the mass held by the wrapped coil.",
+      "title": "Follow the 16.0 g trial",
+      "subtitle": "Run the same cooling test twice at the first weighed fill before deciding on another gram.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 16, "y": 20, "width": 506, "height": 65, "radius": 8, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "EVAP-01 INTERNAL VOLUME", "x": 30, "y": 43, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "86 mL before tail trim", "x": 30, "y": 69, "size": 17, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "72 mL in the winding", "x": 496, "y": 69, "size": 13, "color": "#202337", "font": "PlexSemi", "align": "right"},
-          {"kind": "label", "value": "ILLUSTRATIVE RUNNING INVENTORY IN THE NEW COIL", "x": 30, "y": 118, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "-10 C evaporation  /  30 C liquid-equivalent capillary inlet", "x": 30, "y": 141, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Homogeneous flow", "x": 30, "y": 172, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "0.47 g", "x": 230, "y": 172, "size": 13, "color": "#202337", "font": "PlexSemi", "align": "right"},
-          {"kind": "line", "start": [260, 168], "end": [325, 168], "color": "#1749D1", "width": 6, "dash": []},
-          {"kind": "label", "value": "Zivi slip model", "x": 30, "y": 201, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "1.44 g", "x": 230, "y": 201, "size": 13, "color": "#202337", "font": "PlexSemi", "align": "right"},
-          {"kind": "line", "start": [260, 197], "end": [459, 197], "color": "#E95A2C", "width": 6, "dash": []},
-          {"kind": "label", "value": "At -20 to -5 C evaporating and 20-35 C liquid equivalent, the models give 0.3-2.2 g.", "x": 30, "y": 231, "size": 11, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 16, "y": 254, "width": 506, "height": 65, "radius": 8, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "NET CHANGE = NEW COIL - REMOVED PARTS + RETAINED INVENTORY CHANGE", "x": 29, "y": 277, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "At 40 C, about 2 mL more liquid in the condenser shifts about 1 g.", "x": 29, "y": 299, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 42, "y": 18, "width": 458, "height": 54, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "ellipse", "x": 53, "y": 35, "width": 18, "height": 18, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "1", "x": 62, "y": 48, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "Fill to 16.0 g net", "x": 84, "y": 40, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Weigh the whole kit across the circuit boundary.", "x": 84, "y": 60, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PAGE 23–24", "x": 485, "y": 42, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "arrow", "start": [259, 73], "end": [259, 87], "color": "#1749D1", "width": 1.4, "head": 5},
+          {"kind": "round_rect", "x": 42, "y": 89, "width": 458, "height": 54, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "ellipse", "x": 53, "y": 106, "width": 18, "height": 18, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "2", "x": 62, "y": 119, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "Start and sweep the joints", "x": 84, "y": 111, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Use the power meter and clear the leak checks.", "x": 84, "y": 131, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PAGE 33–37", "x": 485, "y": 113, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "arrow", "start": [259, 144], "end": [259, 158], "color": "#1749D1", "width": 1.4, "head": 5},
+          {"kind": "round_rect", "x": 42, "y": 160, "width": 458, "height": 54, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "ellipse", "x": 53, "y": 177, "width": 18, "height": 18, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "3", "x": 62, "y": 190, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "Repeat the same cold run", "x": 84, "y": 182, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Time the wall. Read B. Measure all four glasses.", "x": 84, "y": 202, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PAGE 38–40", "x": 485, "y": 184, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "arrow", "start": [259, 215], "end": [259, 229], "color": "#1749D1", "width": 1.4, "head": 5},
+          {"kind": "round_rect", "x": 42, "y": 231, "width": 458, "height": 54, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "ellipse", "x": 53, "y": 248, "width": 18, "height": 18, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "4", "x": 62, "y": 261, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "Choose the result", "x": 84, "y": 253, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Keep 16.0 g, try 17.0 g once, or stop and diagnose.", "x": 84, "y": 273, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PAGE 41", "x": 485, "y": 255, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "value": "Keep the same air path, foam, fill and instruments for both runs.", "x": 42, "y": 312, "size": 10.8, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Use the bore volume",
-          "body": "Use 4.78 mm bore and the actual trimmed length. For the example, 26% of the inlet mass has flashed. Vapor quality rises linearly to dryout at 90% of the winding."
+          "title": "Begin at the marked fill",
+          "body": "Use 16.0 g net from the U.S. donor rating. Complete the powered and leak checks before the water comparisons."
         },
         {
-          "title": "Subtract what came out",
-          "body": "The finger plate and hot-gas branch carried refrigerant. If the removed plate is measured, keep the cleared, isolated scrap separate from the retained circuit."
+          "title": "Record the same points on both runs",
+          "body": "Use the stopwatch at the wall probe, the paired pressure and temperature at B, and the glass readings. Photograph the exposed copper from the same spot as shown on page 46."
         },
         {
-          "title": "Keep the largest unknown visible",
-          "body": "Phase distribution in the retained condenser and drier, and refrigerant dissolved in oil, can move the total by grams. These cases illustrate the coil contribution."
+          "title": "Make the decision on page 41",
+          "body": "Keep the first charge if the tests pass. The first possible increase is 17.0 g, and it needs the measured A and C clues as well as a clear B margin."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The certification rating supplies the first fill. The loaded test determines the operating fill.",
+        "body": "The first charge and the next possible charge are set. Turn to page 38 for the readings used to choose.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "EVAP-01 / NIST isobutane data / ORNL void-fraction models",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#charge-commissioning"
+      "source": "Intertek SH10080445-001 / charge commissioning",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/refrigeration-guide/README.md#why-the-first-fill-is-160-g"
     },
     {
       "title": "Isolate the service set",
@@ -1607,7 +1663,7 @@
       "actions": [
         {
           "title": "Close at the marked circuit boundary",
-          "body": "Close the circuit isolation valve. Clear trapped gas from the attached set via the verified charge-removal route before disconnecting. Keep the qualified low-volume running pressure fixture in its intended position."
+          "body": "Close both valves and separate the sealed split. Weigh the closed transfer kit before clearing its trapped gas by the approved route. Leave the running measurement fixture sealed in place."
         },
         {
           "title": "Check access and closure",
@@ -2199,313 +2255,333 @@
       "url": "https://www.whirlpool.com/content/dam/global/documents/202409/technical-manual-w11105483-revb.pdf#page=12"
     },
     {
-      "title": "Repeat the same pull-down window",
-      "subtitle": "Time the built-in wall reading through the same interval with the normal water load and airflow.",
+      "title": "Time the wall pull-down",
+      "subtitle": "Use the console, a stopwatch and the real full-level water load.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 280],
+        "panel": [
+          32,
+          140,
+          548,
+          289
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 17, "y": 15, "width": 506, "height": 140, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "WALL TEMPERATURE / ILLUSTRATIVE TRACE", "x": 30, "y": 44, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [69, 56], "end": [69, 130], "color": "#606A78", "width": 1, "dash": []},
-          {"kind": "line", "start": [69, 130], "end": [497, 130], "color": "#606A78", "width": 1, "dash": []},
-          {"kind": "line", "start": [70, 74], "end": [482, 74], "color": "#1749D1", "width": 1, "dash": [4, 3]},
-          {"kind": "line", "start": [70, 111], "end": [482, 111], "color": "#1749D1", "width": 1, "dash": [4, 3]},
-          {"kind": "label", "value": "12 C", "x": 61, "y": 79, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
-          {"kind": "label", "value": "8 C", "x": 61, "y": 115, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
-          {"kind": "line", "start": [103, 58], "end": [166, 74], "color": "#E95A2C", "width": 3, "dash": []},
-          {"kind": "line", "start": [166, 74], "end": [343, 111], "color": "#E95A2C", "width": 3, "dash": []},
-          {"kind": "line", "start": [343, 111], "end": [472, 126], "color": "#E95A2C", "width": 3, "dash": []},
-          {"kind": "ellipse", "x": 160.0, "y": 68.0, "width": 12, "height": 12, "fill": "#E95A2C", "stroke": "#FCFCFA", "line_width": 1},
-          {"kind": "ellipse", "x": 337.0, "y": 105.0, "width": 12, "height": 12, "fill": "#E95A2C", "stroke": "#FCFCFA", "line_width": 1},
-          {"kind": "line", "start": [166, 79], "end": [166, 133], "color": "#606A78", "width": 1, "dash": [3, 3]},
-          {"kind": "line", "start": [343, 115], "end": [343, 133], "color": "#606A78", "width": 1, "dash": [3, 3]},
-          {"kind": "label", "value": "Start time", "x": 156, "y": 145, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "End time", "x": 323, "y": 145, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 17, "y": 172, "width": 506, "height": 92, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "round_rect", "x": 17, "y": 172, "width": 506, "height": 32, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "WHEN", "x": 29, "y": 193, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "WRITE DOWN", "x": 156, "y": 193, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [144, 204], "end": [144, 264], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "At both crossings", "x": 29, "y": 223.0, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Time, wall C, coil C, cold state, live A and W.", "x": 156, "y": 223.0, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 234], "end": [523, 234], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Late on / restart", "x": 29, "y": 253.0, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Pressure and tube temperatures at the fitted points.", "x": 156, "y": 253.0, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 19, "y": 15, "width": 504, "height": 57, "radius": 7, "fill": "#202337", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "status  /  COLD LINE", "x": 34, "y": 36, "size": 9.8, "color": "#B8CAFF", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "value": "cold tank 11.9 C, coil -4.6 C, on", "x": 34, "y": 57, "size": 14, "color": "#FFFFFF", "font": "PlexMono", "align": "left"},
+          {"kind": "line", "start": [60, 114], "end": [483, 114], "color": "#1749D1", "width": 2, "dash": []},
+          {"kind": "ellipse", "x": 67, "y": 109, "width": 10, "height": 10, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "12 C", "x": 72, "y": 103, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "START TIMER", "x": 72, "y": 140, "size": 8.8, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "ellipse", "x": 192, "y": 109, "width": 10, "height": 10, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "8 C", "x": 197, "y": 103, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "STOP TIMER", "x": 197, "y": 140, "size": 8.8, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "ellipse", "x": 326, "y": 109, "width": 10, "height": 10, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "2.5 C", "x": 331, "y": 103, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "READ B ON", "x": 331, "y": 140, "size": 8.8, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "ellipse", "x": 460, "y": 109, "width": 10, "height": 10, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "RESTART", "x": 465, "y": 103, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "value": "READ B AT 30 / 60 S", "x": 465, "y": 140, "size": 8.8, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 19, "y": 158, "width": 504, "height": 114, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 19, "y": 158, "width": 504, "height": 30, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "8 C wall crossing", "x": 28, "y": 205.7, "size": 10.6, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Wall / coil, seconds, B pressure and tube C", "x": 250, "y": 205.7, "size": 10.6, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 216], "end": [523, 216], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "Last on-cycle sample", "x": 28, "y": 233.7, "size": 10.6, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B pressure and tube C, frost reach, cutoff", "x": 250, "y": 233.7, "size": 10.6, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 244], "end": [523, 244], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "After actual relay/fan restart", "x": 28, "y": 261.7, "size": 10.6, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B at 30 and 60 s, room and water conditions", "x": 250, "y": 261.7, "size": 10.6, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "AT THE RUNNING CHECK", "x": 28, "y": 176.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [241, 188], "end": [241, 272], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "RECORD TOGETHER", "x": 250, "y": 176.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Reset to the same fill and starting temperature",
-          "body": "Use the same high-reed fill and match the beginning wall and supply-water readings near ambient. Keep the enclosure, fan and inlet conditions the same. Log the inlet air if measured."
+          "title": "Set up a matched run",
+          "body": "Start near room temperature at full fill and refill idle. Read inlet air at the grille and supply water in a cup with the checked probe. Match both and the starting wall reading within 1 C on run two."
         },
         {
-          "title": "Keep the load fixed while it pulls down",
-          "body": "Pause draws and refills during the comparison window. Keep normal guards active. Read status every 30 s and stamp the first wall readings at or below 12 C and 8 C."
+          "title": "Time 12 C to 8 C",
+          "body": "With cold on, read status every 30 s. Start the stopwatch at the first tank reading of 12 C or colder. Stop it at the first tank reading of 8 C or colder. Record B and take the page 46 photo."
         },
         {
-          "title": "Compare the time and the conditions",
-          "body": "Record the 12 to 8 C elapsed time with net grams and the coil trend. If a guard ends the run early, record which one. A wall trace compares runs through the same setup."
+          "title": "Catch the last on-cycle reading",
+          "body": "At tank 2.5 C, take B pressure and tube temperature. Keep reading about every 10 s until normal wall cutoff. Write the last pair while cold still reads on."
         },
         {
-          "title": "Check the finished cold end",
-          "body": "Record the last on-cycle readings and a normal restart. For refrigerant diagnosis, pair the pressure and tube readings at the points on page 17."
+          "title": "Sample the normal restart",
+          "body": "Watch for the actual fan and relay restart during or after the glass test. Read B 30 and 60 s from that start. Mark a refill, freeze or fault in the timed window as an interrupted lap."
         }
       ],
-      "actions_y": 436,
+      "actions_y": 446,
       "result": {
         "title": "CHECK",
-        "body": "Record wall pull-down time, inlet conditions, charge and cold-end behavior for each trial.",
+        "body": "Two comparable laps plus the cold-end and restart readings. An interrupted lap does not justify adding charge.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "Refrigerant-loop commissioning / shipping cold policy",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#charge-commissioning"
+      "source": "Shipping cold policy / appliance console / calibration inputs",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/firmware/src_appliance/README.md#the-cold-loop-and-the-refill"
     },
     {
-      "title": "Look up R600a saturation",
-      "subtitle": "Use absolute pressure from the matching measurement location and interpolate between rows.",
+      "title": "Read the low-side numbers",
+      "subtitle": "Use the pressure band and compare the indicated tube temperature directly.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 17, "y": 13, "width": 247, "height": 263.0, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "round_rect", "x": 17, "y": 13, "width": 247, "height": 28, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "C", "x": 29, "y": 34, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "kPa abs", "x": 83, "y": 34, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [71, 41], "end": [71, 276.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "psia", "x": 185, "y": 34, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [173, 41], "end": [173, 276.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "-30", "x": 29, "y": 56.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "46.6", "x": 83, "y": 56.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "6.76", "x": 185, "y": 56.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 64.5], "end": [264, 64.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "-25", "x": 29, "y": 80.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "58.4", "x": 83, "y": 80.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "8.47", "x": 185, "y": 80.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 88.0], "end": [264, 88.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "-20", "x": 29, "y": 103.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "72.5", "x": 83, "y": 103.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "10.51", "x": 185, "y": 103.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 111.5], "end": [264, 111.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "-15", "x": 29, "y": 127.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "89.1", "x": 83, "y": 127.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "12.92", "x": 185, "y": 127.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 135.0], "end": [264, 135.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "-10", "x": 29, "y": 150.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "108.45", "x": 83, "y": 150.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "15.73", "x": 185, "y": 150.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 158.5], "end": [264, 158.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "-5", "x": 29, "y": 174.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "131.0", "x": 83, "y": 174.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "19.00", "x": 185, "y": 174.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 182.0], "end": [264, 182.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "0", "x": 29, "y": 197.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "157.0", "x": 83, "y": 197.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "22.76", "x": 185, "y": 197.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 205.5], "end": [264, 205.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "5", "x": 29, "y": 221.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "186.7", "x": 83, "y": 221.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "27.08", "x": 185, "y": 221.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 229.0], "end": [264, 229.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "10", "x": 29, "y": 244.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "220.6", "x": 83, "y": 244.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "32.00", "x": 185, "y": 244.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [17, 252.5], "end": [264, 252.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "15", "x": 29, "y": 268.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "259.0", "x": 83, "y": 268.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "37.56", "x": 185, "y": 268.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 275, "y": 13, "width": 247, "height": 263.0, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "round_rect", "x": 275, "y": 13, "width": 247, "height": 28, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "C", "x": 287, "y": 34, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "kPa abs", "x": 341, "y": 34, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [329, 41], "end": [329, 276.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "psia", "x": 443, "y": 34, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [431, 41], "end": [431, 276.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "20", "x": 287, "y": 56.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "302.2", "x": 341, "y": 56.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "43.83", "x": 443, "y": 56.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 64.5], "end": [522, 64.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "25", "x": 287, "y": 80.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "350.7", "x": 341, "y": 80.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "50.86", "x": 443, "y": 80.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 88.0], "end": [522, 88.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "30", "x": 287, "y": 103.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "404.7", "x": 341, "y": 103.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "58.70", "x": 443, "y": 103.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 111.5], "end": [522, 111.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "35", "x": 287, "y": 127.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "464.8", "x": 341, "y": 127.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "67.41", "x": 443, "y": 127.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 135.0], "end": [522, 135.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "40", "x": 287, "y": 150.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "531.2", "x": 341, "y": 150.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "77.05", "x": 443, "y": 150.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 158.5], "end": [522, 158.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "45", "x": 287, "y": 174.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "604.4", "x": 341, "y": 174.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "87.67", "x": 443, "y": 174.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 182.0], "end": [522, 182.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "50", "x": 287, "y": 197.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "684.9", "x": 341, "y": 197.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "99.34", "x": 443, "y": 197.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 205.5], "end": [522, 205.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "55", "x": 287, "y": 221.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "773.0", "x": 341, "y": 221.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "112.11", "x": 443, "y": 221.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 229.0], "end": [522, 229.0], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "60", "x": 287, "y": 244.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "869.2", "x": 341, "y": 244.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "126.06", "x": 443, "y": 244.75, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [275, 252.5], "end": [522, 252.5], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "65", "x": 287, "y": 268.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "973.9", "x": 341, "y": 268.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "141.25", "x": 443, "y": 268.25, "size": 11.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 17, "y": 289, "width": 505, "height": 37, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "Absolute pressure = signed gauge pressure + measured local air pressure.", "x": 29, "y": 311, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 19, "y": 17, "width": 504, "height": 262, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 19, "y": 17, "width": 504, "height": 28, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "6 to <8", "x": 28, "y": 57.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-18", "x": 137, "y": 57.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-13", "x": 332, "y": 57.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 63], "end": [523, 63], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "8 to <10", "x": 28, "y": 75.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-14", "x": 137, "y": 75.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-9", "x": 332, "y": 75.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 81], "end": [523, 81], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "10 to <12", "x": 28, "y": 93.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-9", "x": 137, "y": 93.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-4", "x": 332, "y": 93.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 100, "width": 502, "height": 16, "radius": 2, "fill": "#EAF0FC", "stroke": "#EAF0FC", "line_width": 1},
+          {"kind": "line", "start": [19, 99], "end": [523, 99], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "12 to <14", "x": 28, "y": 111.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-6", "x": 137, "y": 111.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-1", "x": 332, "y": 111.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 117], "end": [523, 117], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "14 to <16", "x": 28, "y": 129.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "-2", "x": 137, "y": 129.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+3", "x": 332, "y": 129.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 135], "end": [523, 135], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "16 to <18", "x": 28, "y": 147.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+1", "x": 137, "y": 147.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+6", "x": 332, "y": 147.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 153], "end": [523, 153], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "18 to <20", "x": 28, "y": 165.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+4", "x": 137, "y": 165.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+9", "x": 332, "y": 165.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 171], "end": [523, 171], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "20 to <22", "x": 28, "y": 183.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+6", "x": 137, "y": 183.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+11", "x": 332, "y": 183.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 189], "end": [523, 189], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "22 to <24", "x": 28, "y": 201.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+9", "x": 137, "y": 201.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+14", "x": 332, "y": 201.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 207], "end": [523, 207], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "24 to <26", "x": 28, "y": 219.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+11", "x": 137, "y": 219.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+16", "x": 332, "y": 219.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 225], "end": [523, 225], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "26 to <28", "x": 28, "y": 237.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+13", "x": 137, "y": 237.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+18", "x": 332, "y": 237.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 243], "end": [523, 243], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "28 to <30", "x": 28, "y": 255.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+15", "x": 137, "y": 255.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+20", "x": 332, "y": 255.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 261], "end": [523, 261], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "30 to <32", "x": 28, "y": 273.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+17", "x": 137, "y": 273.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+22", "x": 332, "y": 273.7, "size": 10.8, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PRESSURE (PSIA)", "x": 28, "y": 34.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [128, 45], "end": [128, 279], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "B FLOOR (C) / WARMER CLEARS", "x": 137, "y": 34.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [323, 45], "end": [323, 279], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "A (C) / WARM OUTLET CLUE", "x": 332, "y": 34.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 19, "y": 288, "width": 504, "height": 33, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "Example at B   13.0 psia and -5 C clears   |   13.0 psia and -10 C stops", "x": 31, "y": 309, "size": 10.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Convert the gauge reading",
-          "body": "Example with measured station pressure of 14.36 psia: -1.44 psig gives 12.92 psia. The table puts saturation near -15 C. An absolute instrument gives the table input directly."
+          "title": "Read the two displays together",
+          "body": "Use psia and C from the same point while running. The table is for absolute pressure accurate within 0.5 psia and insulated tube readings within 1 C. Use the next row at an upper edge."
         },
         {
-          "title": "Calculate suction superheat",
-          "body": "Subtract saturation from the tube temperature at the same point. At 12.92 psia and a tube at -7 C, superheat is 8 K. Near -15 C, 1 psi pressure error costs about 1.9 K."
+          "title": "Use B as the stop check",
+          "body": "At or above the listed B floor, the pair clears this bench vapor screen. Below the floor, stop and check the return before restarting. For an out-of-range or unclear reading, hold the charge and repeat the check."
         },
         {
-          "title": "Calculate condenser outlet subcooling",
-          "body": "At 531.2 kPa absolute, saturation is 40 C. A nearby liquid-line temperature of 36 C gives 4 K subcooling. Record measured values and the uncertainty."
+          "title": "Use A only with its own pressure",
+          "body": "At or above A's value, mark WARM A. That flags a feed problem worth comparing with C on page 45. Use the 93518-TP dial for service and trends. Use a calibrated absolute gauge for the table."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The table supplies saturation temperatures for measured pressures. Find limits in the service plan.",
+        "body": "These are conservative bench screens. The B floor allows for instrument error and at least 5 C of vapor margin.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "NIST Chemistry WebBook SRD 69 / R600a saturation",
-      "url": "https://webbook.nist.gov/cgi/fluid.cgi?ID=C75285&Action=Page"
+      "source": "NIST Chemistry WebBook SRD 69 / Mastercool gauge data / A3 bench screen",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?PLow=5.5&PHigh=140.5&PInc=1&Digits=8&ID=C75285&Action=Load&Type=SatT&TUnit=C&PUnit=psia&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm&RefState=DEF"
     },
     {
-      "title": "Measure the water in the glass",
-      "subtitle": "Read actual dispensed water temperature at a repeatable point in the pour sequence.",
+      "title": "Measure four cold glasses",
+      "subtitle": "Begin after normal wall cutoff with the full-level refill complete.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 17, "y": 15, "width": 317, "height": 296, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "MEASURE IMMEDIATELY AFTER THE POUR", "x": 31, "y": 44, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "shape", "points": [[86, 117], [107, 257], [229, 257], [250, 117]], "fill": "#FCFCFA", "stroke": "#1749D1", "width": 2, "close": false},
-          {"kind": "shape", "points": [[96, 178], [107, 257], [229, 257], [241, 178]], "fill": "#D3E5F8", "stroke": null, "width": 1, "close": true},
-          {"kind": "line", "start": [133, 110], "end": [190, 225], "color": "#B8722C", "width": 4, "dash": []},
-          {"kind": "ellipse", "x": 185.5, "y": 220.5, "width": 9, "height": 9, "fill": "#E95A2C", "stroke": "#FCFCFA", "line_width": 1},
-          {"kind": "round_rect", "x": 79, "y": 67, "width": 102, "height": 43, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "T probe", "x": 130, "y": 93, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "center"},
-          {"kind": "line", "start": [202, 227], "end": [254, 227], "color": "#1749D1", "width": 1, "dash": []},
-          {"kind": "label", "value": "Mid-water", "x": 252, "y": 250, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Keep the tip clear of glass.", "x": 48, "y": 281, "size": 11, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "round_rect", "x": 349, "y": 15, "width": 173, "height": 296, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "RECORD", "x": 362, "y": 44, "size": 11, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Idle before pour", "x": 362, "y": 84, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Volume and duration", "x": 362, "y": 116, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Immediate water C", "x": 362, "y": 148, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Order of pours", "x": 362, "y": 180, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Refill and recovery", "x": 362, "y": 212, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Check the probe in", "x": 362, "y": 253, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "an ice-water slurry.", "x": 362, "y": 269, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 20, "y": 17, "width": 300, "height": 203, "radius": 7, "fill": "#F3F6FB", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "READ EACH GLASS RIGHT AFTER THE POUR", "x": 34, "y": 37, "size": 9.7, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "shape", "points": [[84, 70], [253, 70], [228, 195], [109, 195]], "fill": "#FCFCFA", "stroke": "#202337", "width": 1.4, "close": true},
+          {"kind": "shape", "points": [[96, 118], [241, 118], [228, 195], [109, 195]], "fill": "#D3E3FF", "stroke": null, "width": 1, "close": true},
+          {"kind": "line", "start": [97, 118], "end": [240, 118], "color": "#1749D1", "width": 1, "dash": []},
+          {"kind": "label", "value": "250 mL", "x": 232, "y": 108, "size": 10.5, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "line", "start": [179, 60], "end": [173, 154], "color": "#202337", "width": 3, "dash": []},
+          {"kind": "round_rect", "x": 155, "y": 46, "width": 44, "height": 25, "radius": 4, "fill": "#FCFCFA", "stroke": "#202337", "line_width": 1},
+          {"kind": "label", "value": "5.4 C", "x": 177, "y": 63, "size": 9.7, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "ellipse", "x": 170, "y": 151, "width": 6, "height": 6, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "Tip at mid-depth", "x": 177, "y": 178, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 333, "y": 17, "width": 190, "height": 203, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "START EACH POUR", "x": 347, "y": 38, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 346, "y": 50, "width": 164, "height": 30, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "0:00", "x": 357, "y": 70, "size": 14, "color": "#202337", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "value": "250 mL", "x": 496, "y": 69, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "round_rect", "x": 346, "y": 89, "width": 164, "height": 30, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "1:00", "x": 357, "y": 109, "size": 14, "color": "#202337", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "value": "250 mL", "x": 496, "y": 108, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "round_rect", "x": 346, "y": 128, "width": 164, "height": 30, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "2:00", "x": 357, "y": 148, "size": 14, "color": "#202337", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "value": "250 mL", "x": 496, "y": 147, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "round_rect", "x": 346, "y": 167, "width": 164, "height": 30, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "3:00", "x": 357, "y": 187, "size": 14, "color": "#202337", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "value": "250 mL", "x": 496, "y": 186, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "round_rect", "x": 20, "y": 239, "width": 503, "height": 75, "radius": 7, "fill": "#E6F3EB", "stroke": "#E6F3EB", "line_width": 1},
+          {"kind": "label", "value": "PASS THIS GLASS TEST", "x": 34, "y": 264, "size": 10, "color": "#176246", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "All four readings at 6 C or colder", "x": 34, "y": 294, "size": 17, "color": "#176246", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Set up the thermometer",
-          "body": "Use the owned stainless DS18B20 on a separate bench reader, or an instant-read immersion probe. Check it in a stirred ice-water slurry. Use the same glass and fill mark."
+          "title": "Mark 250 mL before you start",
+          "body": "Use four room-temperature glasses with the same 250 mL mark. Use the checked immersion probe. Run this test before loading either concentrate, with the flavor lines rinsed."
         },
         {
-          "title": "Read at the same point in the test",
-          "body": "Disable flavor through the normal controls. After the chosen idle, take the first sample and put the probe tip in mid-water as soon as the pour ends. Record when stable."
+          "title": "Pull the normal faucet lever",
+          "body": "Start the timer with the first pour. Start the next glasses at 1:00, 2:00 and 3:00. Leave automatic refill enabled. In each glass, put the tip mid-water, clear of the glass, and record the first stable reading."
         },
         {
-          "title": "Repeat at the selected cadence",
-          "body": "Record each successive pour, volume and temperature, then how long the unit takes to recover. This tests delivered water separately from the wall reading."
+          "title": "Watch the refill and return to cutoff",
+          "body": "Log any incomplete pour, refill fault or freeze trip. Record the time from the fourth pour until the next normal wall cutoff. The glass passes only when every serving is 6 C or colder."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "Save the first and successive water temperatures, sample conditions and recovery time.",
+        "body": "Four temperatures, refill state and time back to normal cutoff. Read the latest restart sample at B.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "Acceptance water test / refrigeration purchases",
-      "url": "https://www.thermoworks.com/products/thermopop-2"
+      "source": "Acceptance and burn-in / calibration_inputs.rs / prototype pour cadence",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/calibration_inputs.rs"
     },
     {
       "title": "Decide the next gram",
-      "subtitle": "Read the water and refrigerant measurements together before changing the weighed charge.",
+      "subtitle": "Start at the top. The stop row takes priority over cooling performance.",
       "series": "REFRIGERATION",
       "illustration": {
-        "origin": [46, 148],
+        "origin": [
+          46,
+          148
+        ],
         "scale": 1,
-        "panel": [32, 140, 548, 340],
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
         "drawing": [
-          {"kind": "round_rect", "x": 16, "y": 18, "width": 506, "height": 256, "radius": 8, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "round_rect", "x": 16, "y": 18, "width": 506, "height": 31, "radius": 8, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "WHAT THE MATCHED RUN SHOWS", "x": 28, "y": 39, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "NEXT MOVE", "x": 315, "y": 39, "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [300, 49], "end": [300, 274], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Water load passes and inlet vapor margin holds", "x": 28, "y": 73, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Keep the current fill and repeat.", "x": 315, "y": 73, "size": 12, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [16, 91], "end": [522, 91], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Warm outlet, high superheat, slow cooling", "x": 28, "y": 110, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Example: from 16.0 to 17.0 g.", "x": 315, "y": 110, "size": 11.5, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Little condenser-outlet subcooling", "x": 28, "y": 128, "size": 11, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Verify limits, airflow and leaks first.", "x": 315, "y": 128, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [16, 141], "end": [522, 141], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "High superheat with strong subcooling", "x": 28, "y": 161, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Check drier, capillary and swage.", "x": 315, "y": 161, "size": 11.5, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "or a distinct temperature drop at the drier", "x": 28, "y": 179, "size": 11, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Keep the charge fixed.", "x": 315, "y": 179, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [16, 191], "end": [522, 191], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Cold coil with poor water cooling", "x": 28, "y": 213, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Check fill, ice and wrap contact.", "x": 315, "y": 213, "size": 11.5, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "line", "start": [16, 228], "end": [522, 228], "color": "#DCE2EB", "width": 1, "dash": []},
-          {"kind": "label", "value": "Inlet superheat near zero or liquid return", "x": 28, "y": 251, "size": 11, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Stop. Diagnose before any restart.", "x": 315, "y": 251, "size": 11.5, "color": "#E95A2C", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "When excess is confirmed, remove the charge and weigh back 1.0 g less.", "x": 28, "y": 305, "size": 11.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
+          {"kind": "round_rect", "x": 19, "y": 19, "width": 504, "height": 254, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 19, "y": 19, "width": 504, "height": 30, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 20, "y": 50, "width": 502, "height": 54, "radius": 2, "fill": "#FBEDE8", "stroke": "#FBEDE8", "line_width": 1},
+          {"kind": "label", "value": "STOP", "x": 28, "y": 80.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B below its floor, frost onto the can,", "x": 131, "y": 74.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "alarm, overload or airflow loss.", "x": 131, "y": 87.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Stop at the safe disconnect.", "x": 380, "y": 74.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Resolve the cause.", "x": 380, "y": 87.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 106, "width": 502, "height": 54, "radius": 2, "fill": "#E6F3EB", "stroke": "#E6F3EB", "line_width": 1},
+          {"kind": "line", "start": [19, 105], "end": [523, 105], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "KEEP 16.0 g", "x": 28, "y": 136.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Two matched runs pass all four glasses.", "x": 131, "y": 130.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B clears cold-end and restart checks.", "x": 131, "y": 143.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Keep this fill. Seal and", "x": 380, "y": 130.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "recheck after tuning.", "x": 380, "y": 143.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 162, "width": 502, "height": 54, "radius": 2, "fill": "#EAF0FC", "stroke": "#EAF0FC", "line_width": 1},
+          {"kind": "line", "start": [19, 161], "end": [523, 161], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "TRY 17.0 g", "x": 28, "y": 192.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Both runs miss 6 C. WARM A and LOW C.", "x": 131, "y": 186.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Air, leaks and drier checks clear.", "x": 131, "y": 199.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Add exactly 1.0 g net.", "x": 380, "y": 186.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Repeat both runs.", "x": 380, "y": 199.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 217], "end": [523, 217], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "HOLD", "x": 28, "y": 248.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Readings conflict or C shows liquid held", "x": 131, "y": 242.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "upstream. A charge change lacks support.", "x": 131, "y": 255.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Leave the mass fixed.", "x": 380, "y": 242.2, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Check the indicated fault.", "x": 380, "y": 255.2, "size": 10.4, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "RESULT", "x": 28, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [122, 49], "end": [122, 273], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "WHAT YOU SAW", "x": 131, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [371, 49], "end": [371, 273], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "NEXT ACTION", "x": 380, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 19, "y": 286, "width": 504, "height": 34, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "After 17.0 g, use the repeat results on page 47.", "x": 31, "y": 307, "size": 11.1, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
-          "title": "Change one measured variable",
-          "body": "Use a weighed 1.0 g step only when the actual evidence points to inventory and the service limits permit it. Keep capillary, instruments, airflow and load fixed."
+          "title": "Take the gate readings first",
+          "body": "Read B on page 39. Use A and C only when adding a gram is under consideration. Compare the glass results and both 12-to-8 C times with the same load and airflow."
         },
         {
-          "title": "Test for a repeatable response",
-          "body": "Compare the same wall window and delivered-water readings. An addition should help cooling and reduce outlet superheat with the inlet margin intact. Diagnose before a second addition."
+          "title": "Make one measured change if it earns a trial",
+          "body": "At 16.0 g, add one net gram only for the TRY row. Keep the gauges, air path and water load fixed. Measure 17.0 g twice with the same schedule."
         },
         {
-          "title": "Keep a passing charge",
-          "body": "Keep the weighed amount if the repeat tests meet the water duty and preserve inlet margin at the cold end and restart. Remove the charge and weigh a smaller fill only if excess is established."
+          "title": "Decide after the repeats",
+          "body": "Keep 17.0 g if it passes both repeats. End the charge increase if it fails. To return to the prior fill, remove the full charge by the established method, evacuate and weigh in 16.0 g again."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "Stop for near-zero inlet vapor margin, leak indication, lost airflow, overload or repeated trips.",
+        "body": "Freeze or an incomplete lap blocks the add-gram decision. A cold or frosted line by itself leaves the charge fixed.",
         "y": 699,
         "tone": "#1749D1"
       },
-      "source": "refrigerant-loop.md commissioning / ASHRAE capillary systems",
-      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#charge-commissioning"
+      "source": "Refrigerant-loop commissioning / Secop capillary diagnostics",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#choose-the-next-measured-charge"
     },
     {
       "title": "Read the cold controls in service",
@@ -2555,7 +2631,7 @@
         },
         {
           "title": "Record what the first unit proves",
-          "body": "Save the measured charge, lowest inlet superheat, wall timing and delivered water results. Confirm final sealed access before treating the installed run as complete."
+          "body": "Save the charge, B table decisions, wall timing and four glass temperatures. Confirm final sealed access before treating the installed run as complete."
         }
       ],
       "actions_y": 498,
@@ -2649,13 +2725,13 @@
           {"kind": "label", "value": "Purge route, pressure/temperature hold and vacuum trace.", "x": 187, "y": 136.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 160], "end": [523, 160], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "Mass transfer", "x": 29, "y": 192.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Scale check, fixture change, net charge and uncertainty.", "x": 187, "y": 192.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Scale check, sealed kit readings, net charge and uncertainty.", "x": 187, "y": 192.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 216], "end": [523, 216], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "Joint evidence", "x": 29, "y": 248.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Location, detector and reference response, pressure state.", "x": 187, "y": 248.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "line", "start": [17, 272], "end": [523, 272], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "Comparison and release", "x": 29, "y": 304.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Wall time, A/B/C readings if fitted, A/W, water in glass,", "x": 187, "y": 297.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Wall time, paired B readings, A/W, glass temperatures,", "x": 187, "y": 297.0, "size": 11.0, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "cutoff and restart, final sealed closure and recheck.", "x": 187, "y": 311.0, "size": 11.0, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
@@ -2670,7 +2746,7 @@
         },
         {
           "title": "Leave a repeatable final result",
-          "body": "Record the charge, acceptable water performance and lowest observed inlet margin. Include the final closure method and its leak result."
+          "body": "Record the charge, four glass readings and the B pairs at the cold end and restart. Include the final closure method and its leak result."
         }
       ],
       "actions_y": 498,
@@ -2682,6 +2758,327 @@
       },
       "source": "Refrigerant-loop output condition / acceptance service log",
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/refrigerant-loop.md#output-condition"
+    },
+    {
+      "title": "Read the condenser outlet",
+      "subtitle": "Use C to tell low liquid supply from refrigerant held upstream of a restriction.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 19, "y": 12, "width": 248, "height": 211.39999999999998, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 19, "y": 12, "width": 248, "height": 29, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "44 to <48", "x": 28, "y": 52.300000000000004, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+22", "x": 114, "y": 52.300000000000004, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+13", "x": 200, "y": 52.300000000000004, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 56.2], "end": [267, 56.2], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "48 to <52", "x": 28, "y": 67.5, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+25", "x": 114, "y": 67.5, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+16", "x": 200, "y": 67.5, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 71.4], "end": [267, 71.4], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "52 to <56", "x": 28, "y": 82.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+27", "x": 114, "y": 82.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+19", "x": 200, "y": 82.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 86.6], "end": [267, 86.6], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "56 to <60", "x": 28, "y": 97.89999999999999, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+30", "x": 114, "y": 97.89999999999999, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+22", "x": 200, "y": 97.89999999999999, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 101.8], "end": [267, 101.8], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "60 to <64", "x": 28, "y": 113.1, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+32", "x": 114, "y": 113.1, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+24", "x": 200, "y": 113.1, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 117.0], "end": [267, 117.0], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "64 to <68", "x": 28, "y": 128.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+34", "x": 114, "y": 128.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+26", "x": 200, "y": 128.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 132.2], "end": [267, 132.2], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "68 to <72", "x": 28, "y": 143.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+36", "x": 114, "y": 143.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+29", "x": 200, "y": 143.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 147.39999999999998], "end": [267, 147.39999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "72 to <76", "x": 28, "y": 158.69999999999996, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+38", "x": 114, "y": 158.69999999999996, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+31", "x": 200, "y": 158.69999999999996, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 162.6], "end": [267, 162.6], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "76 to <80", "x": 28, "y": 173.89999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+40", "x": 114, "y": 173.89999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+33", "x": 200, "y": 173.89999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 177.79999999999998], "end": [267, 177.79999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "80 to <84", "x": 28, "y": 189.09999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+42", "x": 114, "y": 189.09999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+35", "x": 200, "y": 189.09999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 193.0], "end": [267, 193.0], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "84 to <88", "x": 28, "y": 204.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+44", "x": 114, "y": 204.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+37", "x": 200, "y": 204.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [19, 208.2], "end": [267, 208.2], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "88 to <92", "x": 28, "y": 219.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+46", "x": 114, "y": 219.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+38", "x": 200, "y": 219.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PSIA AT C", "x": 28, "y": 30.0, "size": 8.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [105, 41], "end": [105, 223.39999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "LOW MIN (C)", "x": 114, "y": 30.0, "size": 8.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [191, 41], "end": [191, 223.39999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "HELD MAX (C)", "x": 200, "y": 30.0, "size": 8.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 275, "y": 12, "width": 248, "height": 211.39999999999998, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 275, "y": 12, "width": 248, "height": 29, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "92 to <96", "x": 284, "y": 52.300000000000004, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+47", "x": 370, "y": 52.300000000000004, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+40", "x": 456, "y": 52.300000000000004, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 56.2], "end": [523, 56.2], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "96 to <100", "x": 284, "y": 67.5, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+49", "x": 370, "y": 67.5, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+42", "x": 456, "y": 67.5, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 71.4], "end": [523, 71.4], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "100 to <104", "x": 284, "y": 82.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+51", "x": 370, "y": 82.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+44", "x": 456, "y": 82.7, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 86.6], "end": [523, 86.6], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "104 to <108", "x": 284, "y": 97.89999999999999, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+52", "x": 370, "y": 97.89999999999999, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+45", "x": 456, "y": 97.89999999999999, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 101.8], "end": [523, 101.8], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "108 to <112", "x": 284, "y": 113.1, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+54", "x": 370, "y": 113.1, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+47", "x": 456, "y": 113.1, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 117.0], "end": [523, 117.0], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "112 to <116", "x": 284, "y": 128.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+55", "x": 370, "y": 128.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+48", "x": 456, "y": 128.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 132.2], "end": [523, 132.2], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "116 to <120", "x": 284, "y": 143.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+57", "x": 370, "y": 143.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+50", "x": 456, "y": 143.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 147.39999999999998], "end": [523, 147.39999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "120 to <124", "x": 284, "y": 158.69999999999996, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+58", "x": 370, "y": 158.69999999999996, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+51", "x": 456, "y": 158.69999999999996, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 162.6], "end": [523, 162.6], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "124 to <128", "x": 284, "y": 173.89999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+59", "x": 370, "y": 173.89999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+53", "x": 456, "y": 173.89999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 177.79999999999998], "end": [523, 177.79999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "128 to <132", "x": 284, "y": 189.09999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+61", "x": 370, "y": 189.09999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+54", "x": 456, "y": 189.09999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 193.0], "end": [523, 193.0], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "132 to <136", "x": 284, "y": 204.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+62", "x": 370, "y": 204.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+55", "x": 456, "y": 204.29999999999998, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [275, 208.2], "end": [523, 208.2], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "136 to <140", "x": 284, "y": 219.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+63", "x": 370, "y": 219.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "+57", "x": 456, "y": 219.49999999999997, "size": 10.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PSIA AT C", "x": 284, "y": 30.0, "size": 8.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [361, 41], "end": [361, 223.39999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "LOW MIN (C)", "x": 370, "y": 30.0, "size": 8.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [447, 41], "end": [447, 223.39999999999998], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "HELD MAX (C)", "x": 456, "y": 30.0, "size": 8.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 19, "y": 238, "width": 504, "height": 81, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "FLOW OUT OF CONDENSER", "x": 31, "y": 255, "size": 9.6, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [34, 282], "end": [488, 282], "color": "#B8722C", "width": 4, "dash": []},
+          {"kind": "ellipse", "x": 144, "y": 278, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "C / Before drier", "x": 148, "y": 274, "size": 10.1, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 222, "y": 270, "width": 84, "height": 24, "radius": 10, "fill": "#EACA9F", "stroke": "#B8722C", "line_width": 1},
+          {"kind": "label", "value": "Drier", "x": 264, "y": 287, "size": 10.1, "color": "#202337", "font": "PlexSemi", "align": "center"},
+          {"kind": "ellipse", "x": 358, "y": 278, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "After drier", "x": 362, "y": 274, "size": 10.1, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "arrow", "start": [478, 282], "end": [493, 282], "color": "#B8722C", "width": 1.5, "head": 5},
+          {"kind": "label", "value": "At 77.0 psia   40 C or warmer = LOW   |   33 C or colder = HELD", "x": 31, "y": 307, "size": 10.7, "color": "#202337", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Measure at C before the drier",
+          "body": "Read condenser-outlet pressure in psia and bare-tube temperature in C together during the 8 C wall check. Use the same instrument accuracy as on page 39."
+        },
+        {
+          "title": "Compare the temperature to the row",
+          "body": "LOW supports little or no subcooling. HELD shows subcooled liquid at C. A reading between the columns leaves the result undecided. Leave charge fixed when C is unclear."
+        },
+        {
+          "title": "Check for a cold step at the drier",
+          "body": "Clip a second temperature probe just after the drier. A sudden step from warm copper to much colder copper at that fitting, or frost starting just after it, suggests a restriction. For example, 39 C in and 35 C out calls for diagnosis."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "CHECK",
+        "body": "LOW and WARM A together support underfeed only after the leak, airflow and drier checks clear.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "NIST Chemistry WebBook SRD 69 / capillary and drier diagnostics",
+      "url": "https://webbook.nist.gov/cgi/fluid.cgi?PLow=5.5&PHigh=140.5&PInc=1&Digits=8&ID=C75285&Action=Load&Type=SatT&TUnit=C&PUnit=psia&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm&RefState=DEF"
+    },
+    {
+      "title": "Watch the exposed return",
+      "subtitle": "Compare the copper from the foam outlet to the compressor, from the same viewpoint.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 19, "y": 8, "width": 504, "height": 205, "radius": 7, "fill": "#F3F6FB", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "image", "path": "hardware/refrigeration-guide/art/installed-leak-map.png", "x": 19, "y": 8, "width": 504, "height": 205},
+          {"kind": "line", "start": [118, 55], "end": [204.8424, 58.5735], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 200.8424, "y": 54.5735, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "A / E2 outlet", "x": 118, "y": 48, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "line", "start": [118, 126], "end": [201.3, 118.1465], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 197.3, "y": 114.1465, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "B / Return", "x": 118, "y": 119, "size": 10.6, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "round_rect", "x": 19, "y": 224, "width": 504, "height": 95, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "DRY COPPER", "x": 41, "y": 243, "size": 9.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [41, 265], "end": [167, 265], "color": "#B8722C", "width": 10, "dash": []},
+          {"kind": "label", "value": "SWEAT / BEADS", "x": 209, "y": 243, "size": 9.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [209, 265], "end": [335, 265], "color": "#B8722C", "width": 10, "dash": []},
+          {"kind": "label", "value": "WHITE FROST", "x": 374, "y": 243, "size": 9.5, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [374, 265], "end": [500, 265], "color": "#B8722C", "width": 10, "dash": []},
+          {"kind": "ellipse", "x": 225.3, "y": 268.3, "width": 5.4, "height": 5.4, "fill": "#7DB8EF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 239.3, "y": 278.3, "width": 5.4, "height": 5.4, "fill": "#7DB8EF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 252.3, "y": 269.3, "width": 5.4, "height": 5.4, "fill": "#7DB8EF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 267.3, "y": 272.3, "width": 5.4, "height": 5.4, "fill": "#7DB8EF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 299.3, "y": 270.3, "width": 5.4, "height": 5.4, "fill": "#7DB8EF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 312.3, "y": 277.3, "width": 5.4, "height": 5.4, "fill": "#7DB8EF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 380.5, "y": 257.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 387.5, "y": 262.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 393.5, "y": 257.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 402.5, "y": 264.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 411.5, "y": 259.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 420.5, "y": 259.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 427.5, "y": 263.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 439.5, "y": 259.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 447.5, "y": 257.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 453.5, "y": 262.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 466.5, "y": 257.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "ellipse", "x": 477.5, "y": 263.5, "width": 7.0, "height": 7.0, "fill": "#F5F9FF", "stroke": "#FCFCFA", "line_width": 0.6},
+          {"kind": "label", "value": "Write where the wet or frosted part ends, using A, B or the can.", "x": 31, "y": 305, "size": 10.9, "color": "#202337", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Take the same two pictures each run",
+          "body": "From outside the guarded bay, photograph A, the intervening return and B at the 8 C wall crossing and the last on-cycle reading. Leave the probe insulation and foam in place."
+        },
+        {
+          "title": "Write what is actually visible",
+          "body": "Mark dry, clear beads or white frost. Write the furthest point it reaches. Beads or frost at A can occur during normal cooling. At 13.0 psia, a -5 C tube may frost and still clear the B table."
+        },
+        {
+          "title": "Respond if frost travels toward B",
+          "body": "Read B pressure and tube temperature together and use page 39. If B falls below its floor, frost reaches the compressor can, or the sound changes to knocking, use the safe disconnect and diagnose."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "CHECK",
+        "body": "Use the photo to locate a change. Use B and the load test to make the charge decision.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "Installed machine model / Secop operational defects, Fig. 53 / NIST",
+      "url": "https://www.secop.com/fileadmin/user_upload/technical-literature/danfoss-lectures/operational_defects_in_hermetic_compressors_and_refrigerating_systems.pdf#page=52"
+    },
+    {
+      "title": "Follow the example decisions",
+      "subtitle": "Illustrative readings show how to apply the tables at the bench.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 19, "y": 19, "width": 504, "height": 246, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 19, "y": 19, "width": 504, "height": 30, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "round_rect", "x": 20, "y": 50, "width": 502, "height": 52, "radius": 2, "fill": "#E6F3EB", "stroke": "#E6F3EB", "line_width": 1},
+          {"kind": "label", "value": "16.0 g", "x": 28, "y": 79.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "3:30 / 4:00", "x": 114, "y": 79.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "5.0 / 5.3 / 5.5 / 5.9", "x": 220, "y": 79.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B 13.0 psia / -5 C", "x": 374, "y": 73.2, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "KEEP 16.0 g", "x": 374, "y": 86.2, "size": 10.2, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 104, "width": 502, "height": 52, "radius": 2, "fill": "#EAF0FC", "stroke": "#EAF0FC", "line_width": 1},
+          {"kind": "line", "start": [19, 103], "end": [523, 103], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "16.0 g", "x": 28, "y": 133.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "6:00 / 6:30", "x": 114, "y": 133.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "6.8 / 7.0 / 7.2 / 7.3", "x": 220, "y": 133.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B clears. A warm, C low.", "x": 374, "y": 127.19999999999999, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "TRY 17.0 g", "x": 374, "y": 140.2, "size": 10.2, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 158, "width": 502, "height": 52, "radius": 2, "fill": "#E6F3EB", "stroke": "#E6F3EB", "line_width": 1},
+          {"kind": "line", "start": [19, 157], "end": [523, 157], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "17.0 g", "x": 28, "y": 187.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "4:00 / 4:30", "x": 114, "y": 187.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "5.1 / 5.3 / 5.6 / 5.9", "x": 220, "y": 187.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B clears. Refills normal.", "x": 374, "y": 181.2, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "KEEP 17.0 g", "x": 374, "y": 194.2, "size": 10.2, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 20, "y": 212, "width": 502, "height": 52, "radius": 2, "fill": "#FBEDE8", "stroke": "#FBEDE8", "line_width": 1},
+          {"kind": "line", "start": [19, 211], "end": [523, 211], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "Any fill", "x": 28, "y": 241.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "End the run", "x": 114, "y": 241.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "Even with cold water", "x": 220, "y": 241.7, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "B 13.0 psia / -10 C", "x": 374, "y": 235.2, "size": 10.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "STOP", "x": 374, "y": 248.2, "size": 10.2, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "NET FILL", "x": 28, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [105, 49], "end": [105, 265], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "LAP REPEATS", "x": 114, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [211, 49], "end": [211, 265], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "FOUR GLASSES (C)", "x": 220, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [365, 49], "end": [365, 265], "color": "#DCE2EB", "width": 1, "dash": []},
+          {"kind": "label", "value": "RUNNING CHECK", "x": 374, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 19, "y": 280, "width": 504, "height": 41, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
+          {"kind": "label", "value": "For the add decision above   A 13.0 psia / 1 C   |   C 77.0 psia / 40 C", "x": 31, "y": 298, "size": 10.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "The first row is one build. The two middle rows are a different build.", "x": 31, "y": 313, "size": 9.8, "color": "#606A78", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Keep a passing first fill",
+          "body": "In the first example, both 16.0 g runs cool all four servings to 6 C or colder and clear B near cutoff and restart. Frost on the exposed copper adds no reason to change it."
+        },
+        {
+          "title": "Try one gram for the combined pattern",
+          "body": "In the second example, both 16.0 g runs miss the glass target. A and C reach their table triggers. Airflow and leak checks pass and there is no cold step at the drier. One 17.0 g trial is justified."
+        },
+        {
+          "title": "Read the repeated result",
+          "body": "In the example, 17.0 g brings the glass test in and clears B. Keep it. A borderline lap or an unclear gauge pair calls for repeating the same fill. An unsafe return reading stops the run."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "CHECK",
+        "body": "Use the same rows for your measured runs. The examples are worked readings, not measured performance.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "Charge decision table / precomputed R600a screens / calibration_inputs.rs",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/refrigeration-guide/README.md#measurement-setup"
     }
   ]
 }

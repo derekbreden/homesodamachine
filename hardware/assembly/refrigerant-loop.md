@@ -165,11 +165,12 @@ page. Resolve a sustained rise before charging.
 
 ### 8. Meter the first trial
 
-Weigh the R-600a transfer after charge removal and evacuation. Use an approved,
-low-volume delivery assembly. Determine net grams past the circuit valve,
-including the change in refrigerant inventory of hoses, valves and
-instruments. Support the hose independently and check scale repeatability in that position. The display resolution alone gives no measure of
-transfer accuracy.
+Weigh the R-600a transfer after charge removal and evacuation. Use the approved
+low-volume kit with a sealed split at the circuit boundary. Weigh the can, tap,
+transfer hose, valve and end fitting together before and after so refrigerant
+retained in the kit stays in both readings. Account for any transfer loss before
+calling the difference net to the circuit. The [gram-scale page](/hardware/refrigeration-guide/refrigeration-guide.pdf#page=24)
+gives the loaded check and the display targets.
 
 Start at the U.S. HZB-12/Q rating printed on the metering page of the
 [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
@@ -220,109 +221,57 @@ The integrated assembly — cold core + plumbed compressor + condenser — is no
 
 ## Charge commissioning
 
-### Model the installed inventory
+Follow pages 25 and 38–47 of the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+Use 16.0 g net for the first weighed fill. The [charge estimate](/hardware/refrigeration-guide/README.md#why-the-first-fill-is-160-g)
+records the completed coil calculation. The measured bench comparison supplies
+the commissioning result.
 
-Use the [EVAP-01 drawing](/hardware/cold-core-layout/evaporator-coil-drawing.pdf)
-for the finished tube, subtract the actual tail trim and use bore area
-times centreline length. In each boiling segment, multiply its internal
-volume by `(1 - alpha) × liquid_density + alpha × vapor_density`, where
-`alpha` is the fraction of the volume occupied by vapor. Estimate the
-capillary discharge vapor mass fraction from the high-side liquid
-enthalpy after the bonded heat exchanger and the saturation enthalpies at
-evaporating pressure. Integrate from that inlet quality to dryout. Add
-the dry outlet with vapor density. The worked guide example uses the
-homogeneous case with slip ratio `S = 1`
-and the Zivi case with `S = (liquid_density / vapor_density)^(1/3)`.
-For local vapor mass fraction `x`, use
-`alpha = 1 / (1 + ((1 - x) / x) × (vapor_density / liquid_density) × S)`.
-The inlet tail is at inlet quality, the winding rises to dryout and the
-outlet tail contains vapor. The estimates illustrate sensitivity to phase
-distribution. Bottom feed, vertical rise,
-oil and cycling can change the distribution.
-[NIST R-600a properties](https://webbook.nist.gov/cgi/fluid.cgi?ID=C75285&Action=Page) · [ORNL void-fraction models](https://info.ornl.gov/sites/publications/Files/Pub57653.pdf)
+### Compare two runs at the first fill
 
-The inventory change is the new coil and tails less the removed finger
-plate and hot-gas branch, plus the change in liquid and vapor stored in
-the retained condenser, drier and lines and in compressor oil. Small
-changes in condenser liquid volume can dominate the calculation. Record
-actual tube and condenser geometry at harvest. A volume measurement of the
-removed evaporator after isolation and gas clearance tightens the removed-volume
-term. Keep that measurement off the retained refrigerant path. A full
-cycle model also needs a compressor map, capillary flow with the bonded
-heat exchanger, air and water heat transfer, and measured pressures and
-temperatures. Use a charged trial to obtain those operating anchors.
-[R-600a capillary inlet experiments](https://doi.org/10.1016/j.ijrefrig.2019.02.006)
+With a completed high-reed refill, normal controls and unchanged airflow, time
+the wall probe from the first running reading at or below 12 °C to the first
+one at or below 8 °C. Sample at the same interval and compare matched loads.
+Read the paired compressor-inlet pressure and contact temperature at the warm
+crossing, just before normal cutoff, and after the normal restart. Page 39
+gives the temperature floor directly from the pressure band. A run with a
+refill, fault or freeze trip during the timed window is an interrupted lap.
 
-### Repeat the water load and instrument the loop
+After normal wall cutoff and a completed fill, use the faucet before loading
+concentrate. Collect four 250 mL samples starting a minute apart. Measure at
+mid-depth immediately after each pour. The cold-water target is 6 °C or colder
+in every glass, with normal refill, recovery and restart. Record the repeated
+lap times and temperatures separately from the refrigerant readings.
+[Water targets](/hardware/assembly/calibration_inputs.rs) · [Cold policy](/firmware/lib/machine_policy/cold_policy.h)
 
-Use the same high-reed fill, similar initial wall and supply-water
-temperatures, and the same condenser airflow configuration and measurement
-fixture. Keep the ordinary temperature, gas and compressor protections
-active. Time the wall probe through the window in the guide. Record the
-guard that ended a short run. Measure water immediately after a repeatable
-pour in a glass using the immersion probe. Wall pull-down and dispensed
-water temperature describe different parts of the cooling performance.
-Repeat at the cold end and after a normal restart.
-[Bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf)
+### Observe the exposed return
 
-Clamp and insulate a tube probe right after the evaporator and before the
-bonded capillary/suction heat exchanger. Put a second one by the compressor
-inlet after that exchanger. At each point use local running pressure to read
-the R-600a saturation temperature and subtract it from the contact temperature
-to obtain superheat. Use absolute pressure, or add the actual local barometric
-pressure to gauge pressure. The process-tube pressure can represent compressor
-suction if verified. Used at the evaporator outlet it gives apparent superheat,
-biased high by suction-line pressure drop. Record pressure accuracy and
-probe contact error with the readings. The installed coil probe measures
-tube temperature for the freeze guard. A cold inlet and a warm outlet
-with high superheat can indicate early dryout. Frost advancing along
-the return calls for checking compressor-inlet superheat promptly. Frost
-itself shows surface temperature and humidity. Read the probes with the
-foam in its installed state.
-
-On a qualified instrumented bench, read high-side pressure and temperature
-at the condenser outlet upstream of the drier and bonded heat exchanger.
-Saturation temperature less tube temperature is subcooling. Also compare
-tube temperature across the drier. A suction connection alone gives no
-subcooling measurement. If the evidence is ambiguous, add instrumentation
-during a depressurized service cycle and repeat the same load.
-[NIST pressure-temperature data](https://webbook.nist.gov/cgi/cbook.cgi?ID=C75285&Mask=225#Thermo-Phase) · [ASHRAE capillary systems](https://handbook.ashrae.org/Handbooks/R26/SI/r26_ch11/r26_ch11_si.aspx)
+Photograph the same visible suction route at the 8 °C crossing and the last
+running sample. Mark whether the copper is dry, sweating or frosted and the
+furthest point reached. The winding stays foamed. Frost depends on surface
+temperature and the surrounding air. When it spreads toward the compressor,
+check the paired B readings. A B reading below the chart floor, frost reaching
+the compressor can or abnormal knock calls for a safe stop. Use operating
+measurements and the glass test to decide the charge.
+[Secop capillary diagnostics](https://www.secop.com/fileadmin/user_upload/technical-literature/danfoss-lectures/operational_defects_in_hermetic_compressors_and_refrigerating_systems.pdf#page=52)
 
 ### Choose the next measured charge
 
-- **Coil dries out early under load.** High outlet superheat, slow wall pull-down
-  and poor delivered-water cooling and little or no condenser-outlet subcooling support an underfeed
-  caused by low inventory. After leak, airflow and restriction checks, try
-  the guide's single weighed increment within the compressor and test limits.
-  Compare the same water window. Keep the change only if cooling improves
-  and compressor-inlet vapor margin holds near the cold end.
-- **Coil starves with liquid still on the high side.** Preserved or rising
-  subcooling, an abnormal temperature drop at the drier or intermittent
-  feed suggest a capillary, crushed joint, drier or moisture fault. Diagnose
-  these before changing charge. If the clean factory capillary cannot meet
-  both load and inlet-superheat limits at any tested charge, characterize its
-  flow before changing its geometry. Restart the charge trials after any change.
-- **Cooling reaches the coil but little reaches the water.** Check water fill,
-  stratification or ice, contact probes and the coil-to-vessel bond. Investigate
-  fan and condenser airflow when head conditions rise or capacity drops.
-- **Return approaches saturation or the compressor alarms.** Stop for near-zero
-  compressor-inlet superheat within uncertainty, liquid return, abnormal
-  current or sound, lost airflow, a leak indication or repeated protection
-  trips. Resolve the cause before restarting. If the evidence establishes
-  excess charge, remove the full charge under the verified handling method,
-  evacuate and weigh back the lower mass. Keep removal and evacuation conditions repeatable, including oil
-  equilibration. Never trim the mass by cracking a valve.
+- **Keep 16.0 g** when both matched runs pass the four-glass test, B clears
+  the cold-end and restart checks, and the controls run normally.
+- **Try 17.0 g once** when both runs miss the glass target, the local A and C
+  readings meet the WARM A and LOW C lookups, and airflow, leak and drier
+  checks clear. Use the weighed one-gram step and repeat both runs.
+- **Hold the charge** when measurements conflict or are too coarse, when
+  the high side shows liquid held upstream of a possible restriction, or when
+  a refill or freeze trip invalidates the lap. Correct the indicated condition
+  before repeating.
+- **Stop** for a below-floor B reading, frost onto the compressor, abnormal
+  operation, lost airflow, overload or a gas indication. Follow the
+  established safe isolation procedure and diagnose before restarting.
 
-Use the lowest measured mass that repeats the required water pull-down,
-cold-water delivery and refill recovery with compressor-inlet superheat above
-instrument uncertainty and within the verified compressor limits. Check
-normal restart, cold end of cycle and intended hot and light-load conditions.
-If the first trial meets those criteria, keep it. Finalize and leak-test the
-process-tube closure, then record the charge and trace with the unit.
-[Capillary and charge optimization study](https://www.sciencedirect.com/science/article/abs/pii/S014070072030205X)
-
-## Open items
-
-- Establish the first loaded charge and permitted trial envelope from the installed
-  donor hardware and the charge log. Publish the final mass after the repeat tests.
-- Confirm the A3 bench access and equipment and the final sealed process-tube closure.
+Keep the lowest demonstrated passing fill. If the trial at 17.0 g fails, end the
+charge increase. To restore the prior measured fill after a failed addition,
+remove the full charge by the applicable handling method, evacuate and weigh
+in 16.0 g again. Close and leak-check the final service access and save the
+matched runs and finished charge with the unit.
+[Worked examples](/hardware/refrigeration-guide/refrigeration-guide.pdf#page=47)
