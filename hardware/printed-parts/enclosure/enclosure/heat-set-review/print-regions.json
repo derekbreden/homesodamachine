@@ -2,8 +2,8 @@
   "coordinate_frame": "Source STEP/STL coordinates in the appliance frame",
   "native_artifact_sha256": {
     "back-bottom": {
-      ".step.npz": "dfc2482a1984d6dff155a26f8dcafdf76c37bf0c0fecec9ff23ef3333756e46c",
-      ".stl": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a"
+      ".step.npz": "dc5ca503037bf98a7393f77235a073eeeb519bdeceb3a1ff25ff98c3f833f892",
+      ".stl": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf"
     },
     "back-top": {
       ".step.npz": "b3f875f7727a500a2e01d7999337f2c7f2e2524bacc8da9e1e6b3fe0fdeb872c",
