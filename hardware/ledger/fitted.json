@@ -408,6 +408,20 @@
       "said": "It does work.",
       "tried": "the paired east-side coupons with the rounded rear alignment joint, slid together by hand",
       "record": "https://github.com/derekbreden/homesodamachine/blob/56f6ca939d519c4271fe137e4eca6c2be5f245d1/hardware/print-tests/rear-alignment-fit/prints/2026-11-17-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0080",
+      "date": "2026-11-18",
+      "said": "The fit is pretty good, or at least good enough.",
+      "tried": "the full-length east rear rail coupon pair slid together by hand, with some upper-half flex at the forward end under hand pressure",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/3bc217046ae3af30b3ed58c36dacfc389998e7b1/hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/physical-result/observations.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-18",
+      "said": "The fit is pretty good, or at least good enough.",
+      "tried": "the full-length east rear rail coupon pair slid together by hand, with some upper-half flex at the forward end under hand pressure",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/3bc217046ae3af30b3ed58c36dacfc389998e7b1/hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/physical-result/observations.json"
     }
   ]
 }
