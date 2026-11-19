@@ -10286,7 +10286,7 @@
         "evt-1f1a99360a1d4944896f294cbeb2062e"
       ],
       "gap_id": "gap-406f4b1a03284eca962e6b3bffb8b9c7",
-      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
+      "missing_fact": "Exact delivery date, final tax and completed merchant charge/date remain unverified. Delivery is confirmed.",
       "order_ids": [
         "amazon:112-3250291-4198614"
       ],
@@ -10295,11 +10295,13 @@
       ],
       "source_ids": [
         "src-8770969e0245423a9a630262748c9afc",
-        "src-a54ffd05bda844f09bda9a0b1847d536"
+        "src-a54ffd05bda844f09bda9a0b1847d536",
+        "src-e36dd09a6e9543c782db2168bc26ed25"
       ],
       "sources_checked": [
         "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026",
-        "Exact-order shipment notification received November 19, 2026"
+        "Exact-order shipment notification received November 19, 2026",
+        "Exact-order delivery notification received November 19, 2026"
       ]
     },
     {
@@ -10661,7 +10663,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:37e061b5c576bb36977ff7a42b93fa9d2a4d5288a03eae0f8fd0f8955e486bc6",
+  "input_fingerprint": "sha256:795aafa719a633b9b9ef447e191113cc6070226ee0fce7963b3cdf295e066df7",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12224,7 +12226,8 @@
       "reference": "112-3250291-4198614",
       "source_ids": [
         "src-8770969e0245423a9a630262748c9afc",
-        "src-a54ffd05bda844f09bda9a0b1847d536"
+        "src-a54ffd05bda844f09bda9a0b1847d536",
+        "src-e36dd09a6e9543c782db2168bc26ed25"
       ],
       "vendor": "Amazon"
     },
@@ -27737,11 +27740,11 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "PATIKIL round foam pouncers, 2\" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping; shipped, awaiting delivery",
+      "description": "PATIKIL round foam pouncers, 2\" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping; delivered; exact delivery date unverified",
       "event_ids": [
         "evt-1f1a99360a1d4944896f294cbeb2062e"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3a63430840ba477eb03e79c3cc433bda",
       "merchant_charge_allocated_minor": 0,
@@ -27770,7 +27773,8 @@
       "service_period": null,
       "source_ids": [
         "src-8770969e0245423a9a630262748c9afc",
-        "src-a54ffd05bda844f09bda9a0b1847d536"
+        "src-a54ffd05bda844f09bda9a0b1847d536",
+        "src-e36dd09a6e9543c782db2168bc26ed25"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -69358,6 +69362,22 @@
       "verified_at": "2026-10-04"
     },
     {
+      "document_date": null,
+      "document_type": "delivery_confirmation",
+      "note": "Delivery notification matches the existing foam pouncer order and its shipment. Generic Arts & Crafts label is resolved by the exact order and package match to prior merchant evidence. Relative delivered-today wording does not independently establish the calendar delivery date. No completed merchant payment or final tax is proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "PATIKIL foam pouncer pack delivery notification",
+      "source_id": "src-e36dd09a6e9543c782db2168bc26ed25",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-19"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-03-17"
@@ -70400,7 +70420,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5056728,
+          "amount_minor": 5058926,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -70551,6 +70571,7 @@
             "pur-390442ac5c2d410cb6ba24f1413442bc",
             "pur-395e856bb32044f180d8c0f6ef913ef4",
             "pur-39eaa2bc1e864273b83e0f52945fef6e",
+            "pur-3a63430840ba477eb03e79c3cc433bda",
             "pur-3b3178c78ce243199ced7cba1eca0b84",
             "pur-3b72c994b94b43c29f76326060b40799",
             "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a",
@@ -71160,11 +71181,10 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 16199,
+          "amount_minor": 14001,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
-            "pur-3a63430840ba477eb03e79c3cc433bda",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5caf48bbb5b44f2bbac11f37b1608ead",
             "pur-cdb4735a3b244438a2d4e72bf5b582e7"
@@ -71184,7 +71204,6 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
-        "pur-3a63430840ba477eb03e79c3cc433bda",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-b6c01a5b012340fc888139c1070dc054",

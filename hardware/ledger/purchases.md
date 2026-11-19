@@ -635,7 +635,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-2b1b4051619a4c01885f6d2ca0f72b84--> Polymaker order #192064 — Fiberon PET-GF15, 1.75 mm × 3 kg, Black, direct from polymaker.com: $74.99 ea × 4, free Economy shipping, no tax, = **$25.00/kg** | polymaker.com | 4 | $299.96 | — | 2026-09-12 | 2026-09-18 | ACQUIRED |
 | <!--purchase:pur-9552793df9394dc9873ba1f096cffcd5--> SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | <!--purchase:pur-1793c2ba70bf431eae6e2855baaf3447--> Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
-| <!--purchase:pur-3a63430840ba477eb03e79c3cc433bda--> PATIKIL round foam pouncers, 2" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping; shipped, awaiting delivery | [B0CGKTJYZT](https://www.amazon.com/dp/B0CGKTJYZT) | 1 pk (40) | $21.98 | 112-3250291-4198614 | 2026-11-18 | — | ON-ORDER |
+| <!--purchase:pur-3a63430840ba477eb03e79c3cc433bda--> PATIKIL round foam pouncers, 2" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping; delivered; exact delivery date unverified | [B0CGKTJYZT](https://www.amazon.com/dp/B0CGKTJYZT) | 1 pk (40) | $21.98 | 112-3250291-4198614 | 2026-11-18 | — | ACQUIRED |
 | <!--purchase:pur-8a85e9d576814316aeb8ba10a5f0992b--> Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — 4×6 photo stock for borderless printing on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
 | <!--purchase:pur-6dd10d63447c4556b8167bbdd09f099a--> Koala resin-coated 8.5×11 glossy photo paper, 72lb, 50 sheets — print stock for the [Letter shop guides](/hardware/assembly/guides/README.md), borderless on the ET-8550 (`Letter.Fullbleed`). Same RC base as the 4×6 stock: waterproof, and stiff enough at 260 gsm that a letter sheet stands at a bench instead of flopping | [B073WWL82Z](https://www.amazon.com/dp/B073WWL82Z) | 2 pk (50 ea) | $18.22 ea | 112-7818515-5395414 | 2026-07-25 | 2026-07-27 | ACQUIRED |
 | <!--purchase:pur-f0788bb2ff724b8f8cfec5aa85337da4--> A-SUB satin resin-coated 13×19 photo paper, 72lb (260 gsm), warm white, 50 sheets — print stock for the customer's one-sheet quick start ([quickstart/](/hardware/quickstart/README.md), kept at the `archive-quickstart` tag), borderless on the ET-8550 from the rear feed. Same 260 gsm RC base as the Koala stock, satin rather than gloss; $39.99 + $2.90 tax | [B0DSJ9X4CR](https://www.amazon.com/dp/B0DSJ9X4CR) | 1 pk (50) | $42.89 | 112-6847774-7837033 | 2026-09-03 | 2026-09-08 | ACQUIRED |
@@ -866,10 +866,10 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 
 | Status | $ |
 |---|---|
-| Acquired hardware valuation — includes replaced/returned originals | [$43,924.97](LEDGER_ACQUIRED_HW) |
+| Acquired hardware valuation — includes replaced/returned originals | [$43,946.95](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,719.51](LEDGER_LABOR) |
-| Acquired procurement valuation (combined) | [$50,644.48](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$161.99](LEDGER_ON_ORDER) |
+| Acquired procurement valuation (combined) | [$50,666.46](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$140.01](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Recorded procurement valuation — includes commitments** | [$50,859.54](LEDGER_GRAND_TOTAL) |
@@ -908,7 +908,7 @@ Acquired hardware valuation by section (includes replaced/returned originals):
 | 10 | User interface | [$164.11](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$462.78](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$3,288.29](LEDGER_SEC12) |
-| 13 | Printing consumables | [$4,159.57](LEDGER_SEC13) |
+| 13 | Printing consumables | [$4,181.55](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$859.66](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$9,766.80](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,944.02](LEDGER_SEC16) |

@@ -10251,7 +10251,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-8770969e0245423a9a630262748c9afc",
-        "src-a54ffd05bda844f09bda9a0b1847d536"
+        "src-a54ffd05bda844f09bda9a0b1847d536",
+        "src-e36dd09a6e9543c782db2168bc26ed25"
       ]
     }
   },
@@ -16673,7 +16674,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-8770969e0245423a9a630262748c9afc",
-        "src-a54ffd05bda844f09bda9a0b1847d536"
+        "src-a54ffd05bda844f09bda9a0b1847d536",
+        "src-e36dd09a6e9543c782db2168bc26ed25"
       ]
     }
   },
@@ -35605,6 +35607,21 @@
       "proves": [],
       "verified_at": "2026-11-19",
       "note": "Exact-order shipment notification confirms the existing foam pouncer pack shipped. Relative arriving-today wording does not establish actual delivery or dispatch date. No completed merchant payment or final tax is proved."
+    },
+    "src-e36dd09a6e9543c782db2168bc26ed25": {
+      "vendor": "Amazon",
+      "document_type": "delivery_confirmation",
+      "reference": "PATIKIL foam pouncer pack delivery notification",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-19",
+      "note": "Delivery notification matches the existing foam pouncer order and its shipment. Generic Arts & Crafts label is resolved by the exact order and package match to prior merchant evidence. Relative delivered-today wording does not independently establish the calendar delivery date. No completed merchant payment or final tax is proved."
     }
   },
   "coverage": [
@@ -38573,12 +38590,14 @@
       ],
       "source_ids": [
         "src-8770969e0245423a9a630262748c9afc",
-        "src-a54ffd05bda844f09bda9a0b1847d536"
+        "src-a54ffd05bda844f09bda9a0b1847d536",
+        "src-e36dd09a6e9543c782db2168bc26ed25"
       ],
-      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
+      "missing_fact": "Exact delivery date, final tax and completed merchant charge/date remain unverified. Delivery is confirmed.",
       "sources_checked": [
         "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026",
-        "Exact-order shipment notification received November 19, 2026"
+        "Exact-order shipment notification received November 19, 2026",
+        "Exact-order delivery notification received November 19, 2026"
       ]
     }
   ],
