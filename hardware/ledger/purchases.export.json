@@ -1857,7 +1857,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-11-18",
+  "as_of": "2026-11-19",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -10659,7 +10659,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:95529da25cdf72ff5da35cfc6da888b8a071de15e2ce48d71a2189443ae41cb0",
+  "input_fingerprint": "sha256:90fcb65229954043d851f362b23ab448a6a262f0cc69deb2cc90e15f752a0019",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12956,6 +12956,7 @@
       ],
       "reference": "112-4768090-1512212",
       "source_ids": [
+        "src-e3f874b5b26947d887f730d18f71d6ae",
         "src-eab6c800fa344ade9e74ac626996b6d3"
       ],
       "vendor": "Amazon"
@@ -49600,7 +49601,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "Antarctic Star HZB-12/Q countertop ice maker, black (refrigeration donor)",
+      "description": "Antarctic Star HZB-12/Q countertop ice maker, black (refrigeration donor); shipped, awaiting delivery",
       "event_ids": [],
       "fulfillment": "ON-ORDER",
       "invoice_date": null,
@@ -49630,6 +49631,7 @@
       "section": "6. Refrigeration",
       "service_period": null,
       "source_ids": [
+        "src-e3f874b5b26947d887f730d18f71d6ae",
         "src-eab6c800fa344ade9e74ac626996b6d3"
       ],
       "split_charge": false,
@@ -69357,6 +69359,20 @@
       "source_id": "src-e3f808462ef647dbbef3f9ff32fc26e2",
       "vendor": "Apple",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Exact-order shipment notification confirms the existing Antarctic Star refrigeration donor shipped and corroborates USD60.04. Relative arriving-today wording does not establish actual delivery or dispatch date. Completed payment and final tax are not proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [],
+      "reference": "112-4768090-1512212",
+      "source_id": "src-e3f874b5b26947d887f730d18f71d6ae",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-19"
     },
     {
       "document_date": {
