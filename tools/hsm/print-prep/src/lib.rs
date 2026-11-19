@@ -21,6 +21,7 @@ pub mod ids;
 pub mod mesh;
 pub mod motion;
 pub mod npz;
+pub mod plate_picture;
 pub mod plate_rings;
 pub mod plate_sequence;
 pub mod preset;

@@ -1,17 +1,20 @@
 //! Plate layout and settings travel as text. Meshes, triangle paint and previews travel by hash.
 
 use anyhow::{bail, ensure, Context, Result};
-use hsm_print_prep::{profile::{settings_bytes, SETTINGS_MEMBER}, slice};
+use hsm_print_prep::{plate_picture, profile::{settings_bytes, SETTINGS_MEMBER}, slice};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 use std::fs::{self, File};
 use std::io::{self, Read, Write};
 use std::path::Path;
+use std::process::Command;
 use zip::{write::SimpleFileOptions, ZipArchive, ZipWriter};
 
 const ASSET_KEY: &str = "geometry_asset_sha256";
 const MODEL: &str = "3D/3dmodel.model";
+/// Where the Parts page's plate pictures are served from, in the checkout.
+const PLATE_PICTURES: &str = "web/public/parts/plates";
 type Recipe = BTreeMap<String, Value>;
 
 fn asset_digest(path: &Path) -> Result<String> {
@@ -139,6 +142,46 @@ fn build(input: &Path, output: &Path, assets: &Path) -> Result<()> {
     })
 }
 
+/// Draws each `ID=PROJECT.3mf[:PLATE]` as the Parts page's picture of plate ID: `hsm render`
+/// draws the plate's payload, and the Parts tiles' fitter crops and pads it to a WebP.
+fn picture(entries: &[String]) -> Result<()> {
+    let root = hsm_print_prep::root();
+    let runs = root.join(".cache/runs");
+    fs::create_dir_all(&runs)?;
+    let scratch = runs.join(format!("plate-pictures-{}", std::process::id()));
+    fs::create_dir(&scratch).with_context(|| format!("creating {}", scratch.display()))?;
+    let drawn = draw(&root, &scratch, entries);
+    let _ = fs::remove_dir_all(&scratch);
+    drawn
+}
+
+fn draw(root: &Path, scratch: &Path, entries: &[String]) -> Result<()> {
+    let pictures = root.join(PLATE_PICTURES);
+    let (mut jobs, mut fits) = (Vec::new(), Vec::new());
+    for entry in entries {
+        let (id, source) = entry.split_once('=').context("expected ID=PROJECT.3mf[:PLATE]")?;
+        ensure!(Path::new(id).file_name() == Some(id.as_ref()), "an ID must be a filename stem");
+        let (project, plate) = match source.split_once(':') {
+            Some((project, plate)) => (project, plate.parse().with_context(|| format!("plate {plate}"))?),
+            None => (source, 1),
+        };
+        let (mesh, png) = (scratch.join(format!("{id}.mesh")), scratch.join(format!("{id}.png")));
+        fs::write(&mesh, plate_picture::payload(Path::new(project), plate)?)?;
+        jobs.push(plate_picture::job(&mesh, &png));
+        fits.extend([png, pictures.join(format!("{id}.webp"))]);
+    }
+    let manifest = scratch.join("jobs.json");
+    fs::write(&manifest, serde_json::to_vec(&jobs)?)?;
+    let render = Command::new("hsm").arg("render").arg("--root").arg(root).arg("--jobs").arg(&manifest)
+        .current_dir(root).status().context("running hsm render")?;
+    ensure!(render.success(), "hsm render failed");
+    fs::create_dir_all(&pictures)?;
+    let fit = Command::new("node").arg("tools/render/catalog-thumbnail.mjs").args(&fits)
+        .current_dir(root).status().context("running node")?;
+    ensure!(fit.success(), "fitting the pictures to their Parts tiles failed");
+    Ok(())
+}
+
 fn main() -> Result<()> {
     let args: Vec<_> = std::env::args().skip(1).collect();
     match args.as_slice() {
@@ -157,6 +200,7 @@ fn main() -> Result<()> {
             slice::apply_directory(directory, project)?;
             Ok(())
         }
-        _ => bail!("usage: plate-recipe profile PROJECT.3mf PROFILE.json\n       plate-recipe capture PROJECT.3mf RECIPE.json ASSET_DIR\n       plate-recipe build RECIPE.json PROJECT.3mf ASSET_DIR\n       plate-recipe slice PROJECT.3mf NEW_DIRECTORY"),
+        [command, entries @ ..] if command == "picture" && !entries.is_empty() => picture(entries),
+        _ => bail!("usage: plate-recipe profile PROJECT.3mf PROFILE.json\n       plate-recipe capture PROJECT.3mf RECIPE.json ASSET_DIR\n       plate-recipe build RECIPE.json PROJECT.3mf ASSET_DIR\n       plate-recipe slice PROJECT.3mf NEW_DIRECTORY\n       plate-recipe picture ID=PROJECT.3mf[:PLATE]..."),
     }
 }
