@@ -52,6 +52,14 @@ Use `tools/inspect-part.mjs` for a focused view or `--measure-only` for a cleara
 question. Reuse its saved inspection to retain the subject, camera, neighbours and rays while
 reading the next export. These commands run only when the current question needs them.
 
+## Measurements
+
+When a question needs more than a few readings, or readings against a position, a rig takes
+them: a controller or a camera reads, and its log reaches the repo. I assemble and wire rigs
+and I'm good with buying things, so give me the buy list. Ask me to read something by hand
+only when it is one number. The [reed sweep rig](hardware/assembly/reed-sweep-rig.md) is one
+built this way.
+
 ## FDM printing
 
 Start with [Printing the Machine](hardware/printing-the-machine/README.md) when designing
