@@ -1,0 +1,77 @@
+{
+  "views": [
+    {
+      "name": "forward-rail-face",
+      "caption": "The rib begins at the forward face of the lower rail.",
+      "before": "forward-rail-face-before.webp",
+      "after": "forward-rail-face-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 763.3,
+          "y": 363.2,
+          "r": 100,
+          "label": "Forward end of rib",
+          "at": [
+            102,
+            219.8,
+            177.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -326.5194898079246,
+          -95.4646173559434,
+          438.75208368091324
+        ],
+        "target": [
+          100.5,
+          224.8,
+          174
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 13.5,
+        "near": 398.5311076216843,
+        "far": 1044.0093773290241,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "enclosure-back-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ba7ebb8b5578b55092b13a028c7fca110555138f4e6757e28b6ce953d5bdc7ba",
+          "commit": "e2807ecf92dd5d5f0f1a73156f9f557aa288648f",
+          "taken": "2026-11-19T03:48:10.221Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "bb299766eece033b3a5519c0cc44e8e8c0a0a6518000d2b5ac5751de883cfba6",
+          "commit": "73e709f14ce47bdef1a0857da3acaa60032ad881",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
