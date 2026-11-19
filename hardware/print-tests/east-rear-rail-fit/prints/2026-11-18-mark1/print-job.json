@@ -33,5 +33,9 @@
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
   "printing_status": "printing-status.json",
-  "physical_result": "physical-result/observations.json"
+  "physical_result": "physical-result/observations.json",
+  "print_archive": {
+    "project": "9e265c5b2a5ee9747dfe6d6ad6f47c9d2a9769be",
+    "archive": "265db89c671a53c716be4ca2a3c92fd44d7efaaf"
+  }
 }

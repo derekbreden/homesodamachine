@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
-  "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.gcode.3mf",
+  "archive_sha256": "60fd9037f749ca75a232b673a27ddbb152680a79cbafc0b49cb4f7c23c533bea",
   "bead_envelope_plate_mm": [
     [
       20.493778000000002,
@@ -37,9 +37,9 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9971348488525187,
-      "second_layer_centerline_outside_first_mm": 36.47944876758467,
-      "second_layer_model_bead_area_mm2": 54174.309115820266
+      "fraction_over_first_layer": 0.9971348491706784,
+      "second_layer_centerline_outside_first_mm": 36.479400131010046,
+      "second_layer_model_bead_area_mm2": 54174.30901827901
     }
   },
   "gcode_md5_matches": true,
@@ -326,11 +326,11 @@
         {
           "bead_radius_inset_mm": 0.21,
           "coverage": 1.0,
-          "infill_core_mm2": 21.941377573896485,
-          "outline_coverage": 0.9991379310344828,
+          "infill_core_mm2": 24.75048127712891,
+          "outline_coverage": 0.9982188295165394,
           "print_z_mm": 183.56,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 66.05189788681642
+          "stock_mm2": 74.59309157907715
         }
       ],
       "source_bounds_mm": [
@@ -385,11 +385,11 @@
         {
           "bead_radius_inset_mm": 0.21,
           "coverage": 1.0,
-          "infill_core_mm2": 21.941377573896485,
-          "outline_coverage": 0.9991379310344828,
+          "infill_core_mm2": 24.75048127712891,
+          "outline_coverage": 0.9982188295165394,
           "print_z_mm": 183.56,
           "sampling_step_mm": 0.13776948293162058,
-          "stock_mm2": 66.05189788681642
+          "stock_mm2": 74.59309157907715
         }
       ],
       "source_bounds_mm": [

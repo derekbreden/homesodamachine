@@ -402,6 +402,12 @@
       "bytes": 19753809,
       "sha256": "4130181cf557f002106075eb3bbed6ad308a0ff6664f845073732664ae4c6754"
     },
+    "0bf7bb93e70344297e075693747487cf8a2ab55b": {
+      "archive": "rear-rib-fore-flush-mark2-a7c60c912e3b68d4.zip",
+      "bytes": 46642263,
+      "offset": 4997861,
+      "sha256": "60fd9037f749ca75a232b673a27ddbb152680a79cbafc0b49cb4f7c23c533bea"
+    },
     "0c8fce0be9c8b158919d56a087586d60efd93b08": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 295389734,
@@ -1205,6 +1211,12 @@
       "offset": 727677309,
       "bytes": 472103,
       "sha256": "b507965f6d186679db7a01ff4dfa4e477a780962df28021d03c12805d3ec6fc4"
+    },
+    "265db89c671a53c716be4ca2a3c92fd44d7efaaf": {
+      "archive": "rear-rib-fore-flush-mark2-a7c60c912e3b68d4.zip",
+      "bytes": 2613957,
+      "offset": 51743609,
+      "sha256": "43d7c14011f161d98af3819600a5d382a7876a7fcde796b8c48c8c15e84b2aeb"
     },
     "26958da9154286f8f6a5adfdc44e717ddfffc15d": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
@@ -4554,6 +4566,12 @@
       "bytes": 7846968,
       "sha256": "a807963a4b865e4a17634a00e55e59800064d55377908571341d0357396a63e3"
     },
+    "9b3a99b3a2a00e87663de343edad38cc3629c7f2": {
+      "archive": "rear-rib-fore-flush-mark2-a7c60c912e3b68d4.zip",
+      "bytes": 4997687,
+      "offset": 84,
+      "sha256": "85bd22cd37120820a16cdb7bafacf946475afaafd90e582d084a1371071db16e"
+    },
     "9b94954b0be84ec721a381dd8b6decf63b81c376": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
       "offset": 1052776243,
@@ -4619,6 +4637,12 @@
       "offset": 1066403676,
       "bytes": 3688855,
       "sha256": "8f5e371cff4f503b131b8d0698c78d74eeafadb0c45f213a88ad50bbb5f6a699"
+    },
+    "9e265c5b2a5ee9747dfe6d6ad6f47c9d2a9769be": {
+      "archive": "rear-rib-fore-flush-mark2-a7c60c912e3b68d4.zip",
+      "bytes": 103297,
+      "offset": 51640215,
+      "sha256": "10ed204afc6f866ab8585166b64fd3a173f16b29306fb9763db3da37ce0f5aac"
     },
     "9e31f0e9423b81cfa86d1987ee39591a5a248931": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -7616,6 +7640,8 @@
     "hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e.3mf": "e8e4cac2942788a205d0968508d23e34633bbb2d",
     "hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/2026-11-03-asse-body-cap-mark1-55f9455e.gcode.3mf": "f038534cd41e24236b1ab14ac5aa33a796a73e77",
     "hardware/print-tests/asse-body-seating/prints/2026-11-03-asse-body-cap-mark1-55f9455e/coordinates-1901.3mf": "7f17b4981374c5d6237cb0b7d159122d8f28c6e3",
+    "hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/2026-11-18-east-rear-rail-fit-mark1-c9baa82b-textured-pei.3mf": "9e265c5b2a5ee9747dfe6d6ad6f47c9d2a9769be",
+    "hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/2026-11-18-east-rear-rail-fit-mark1-c9baa82b-textured-pei.gcode.3mf": "265db89c671a53c716be4ca2a3c92fd44d7efaaf",
     "hardware/print-tests/enclosure-infill/mark2-v1/input.3mf": "b408ef995e0df01ac1c5231ca4a7fcf5af693a26",
     "hardware/print-tests/enclosure-support-scenarios/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.3mf": "c80dd468ec00920db5693651fce225ef788f062b",
     "hardware/print-tests/enclosure-support-scenarios/ready/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.gcode.3mf": "ba4e433ddd5102f14ab4384edea9487d630bd3e5",
@@ -7809,6 +7835,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-textured-z004-mark1/enclosure-back-top-left04-petgf-textured-z004-mark1.gcode.3mf": "0345a31617b408bcd32e38c278ea7c9c62fd4e9c",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.3mf": "f2b980471450d3bd173f16a6f5956be189aba841",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-5b5cda56-textured-pei.gcode.3mf": "1d560e430b720d5f489f0cb1137db17366603e50",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.3mf": "9b3a99b3a2a00e87663de343edad38cc3629c7f2",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.gcode.3mf": "0bf7bb93e70344297e075693747487cf8a2ab55b",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf": "1b0ad1b27caee444422e04b3f5c311fb149e5596",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf": "07d7d793259df028798f1447f2fefb81fb8d57c8",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-12ea2620-textured-pei.3mf": "a59d1c1a2b67e9bc5d6903bd495044811df16cdc",

@@ -1,44 +1,44 @@
 {
   "error_string": "Success.",
-  "export_time": 8980,
+  "export_time": 9029,
   "layer_height": 0.23999999463558197,
   "plate_index": 0,
-  "prepare_time": 2275,
+  "prepare_time": 535,
   "return_code": 0,
   "sliced_plates": [
     {
       "feature_type_times": {
         "Bottom surface": 1262.454345703125,
-        "Bridge": 7444.896484375,
+        "Bridge": 7444.89697265625,
         "Custom": 296.8072509765625,
         "Flush": 15.0,
-        "Gap infill": 865.1213989257812,
-        "Inner wall": 11180.5263671875,
-        "Internal solid infill": 5307.56201171875,
-        "Outer wall": 13391.240234375,
+        "Gap infill": 865.5166625976562,
+        "Inner wall": 11182.6650390625,
+        "Internal solid infill": 5314.5966796875,
+        "Outer wall": 13388.2021484375,
         "Overhang wall": 112.42809295654297,
-        "Sparse infill": 34036.33203125,
-        "Support": 3351.06591796875,
+        "Sparse infill": 34043.6171875,
+        "Support": 3351.06494140625,
         "Support interface": 242.15728759765625,
-        "Top surface": 940.67626953125,
-        "Travel": 6708.1220703125,
-        "Undefined": 6706.974609375
+        "Top surface": 939.8707275390625,
+        "Travel": 6707.43310546875,
+        "Undefined": 6706.28564453125
       },
       "filament_change_times": 0,
       "filaments": [
         {
           "filament_id": "GFT01",
           "id": 1,
-          "main_used_g": 711.7269287109375,
-          "total_used_g": 711.7269287109375
+          "main_used_g": 711.8858642578125,
+          "total_used_g": 711.8857421875
         }
       ],
-      "generate_support_material_time": 256644,
+      "generate_support_material_time": 81676,
       "id": 1,
-      "infill_time": 62590,
+      "infill_time": 16012,
       "layer_filament_change": 0,
-      "main_predication": 84872.7265625,
-      "make_perimeters_time": 126678,
+      "main_predication": 84883.625,
+      "make_perimeters_time": 22934,
       "obj_cached_cnt": 0,
       "objects": [
         {
@@ -52,13 +52,13 @@
           },
           "id": 5,
           "name": "enclosure-back-bottom",
-          "triangle_count": 512534
+          "triangle_count": 512526
         }
       ],
-      "sliced_time": 551459,
-      "sliced_time_with_cache": 99511,
-      "total_predication": 112045.73239342646,
-      "triangle_count": 512534,
+      "sliced_time": 138169,
+      "sliced_time_with_cache": 15498,
+      "total_predication": 112056.861367374,
+      "triangle_count": 512526,
       "warning_message": ""
     }
   ],

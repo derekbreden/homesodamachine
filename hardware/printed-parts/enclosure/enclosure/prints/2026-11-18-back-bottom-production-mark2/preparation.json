@@ -1,24 +1,24 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
-  "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.gcode.3mf",
+  "archive_sha256": "60fd9037f749ca75a232b673a27ddbb152680a79cbafc0b49cb4f7c23c533bea",
   "bed_type": "Textured PEI Plate",
   "brim_allowance_mm": 0.0,
   "connection_key": "Mark2",
   "cooling_recovery": {
-    "added_commanded_motion_seconds": 26847.341768426457,
-    "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
+    "added_commanded_motion_seconds": 26847.572304874007,
+    "archive_sha256": "60fd9037f749ca75a232b673a27ddbb152680a79cbafc0b49cb4f7c23c533bea",
     "changed": true,
     "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
-    "input_archive_sha256": "deee314a4fb0cc1ae4d68b0053d858ccc86c85ccd0f2370c635f265649b32eeb",
+    "input_archive_sha256": "ac6691d186aaaae35023677c7bb9d6500da6417a9a4b8429bbe2a1e93f7df63a",
     "members": [
       {
-        "added_commanded_motion_seconds": 26847.341768426457,
+        "added_commanded_motion_seconds": 26847.572304874007,
         "changed": true,
-        "input_gcode_sha256": "109e3773477ae26add1624d95e59a6697b63d7501c70f7b53454f4a0c1f1b192",
+        "input_gcode_sha256": "5938d33fb911f970ab77be2b1d08d3e314e2929d9ad5f3c91f1a6f8377d37373",
         "member": "Metadata/plate_1.gcode",
         "native_cooled_seed_moves": 5391,
-        "ordinary_model_moves": 4933393,
-        "output_gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
+        "ordinary_model_moves": 4934020,
+        "output_gcode_sha256": "0839e4f7f9b4024b781adf72ac95e0c3130081c63f652c8f800b1ce912b6adac",
         "petgf_slots": [
           0
         ],
@@ -38,43 +38,43 @@
             7.504836641190345
           ],
           "Inner wall": [
-            2412.0,
-            8017.601520355987,
-            491.90705658573836
+            2409.0,
+            8021.7071759519395,
+            492.1589524868294
           ],
           "Internal solid infill": [
             9624.0,
-            401653.8039759205,
-            24796.60433178726
+            401653.8039759215,
+            24796.60433178727
           ],
           "Outer wall": [
-            7536.0,
-            19334.94088157851,
-            767.9754410446855
+            7516.0,
+            19334.362569951212,
+            767.9540815912703
           ],
           "Sparse infill": [
             4374.0,
-            2591.852749229963,
-            159.01896018908093
+            2591.852749229967,
+            159.01896018908081
           ]
         },
         "recovery_fan_percent": [
           "70"
         ],
-        "recovery_moves": 25362,
+        "recovery_moves": 25339,
         "recovery_speed_limit_mm_s": [
           "15",
           "15",
           "15"
         ],
         "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
-        "speed_limited_moves": 25333
+        "speed_limited_moves": 25310
       }
     ]
   },
   "emitted_textured_trim_mm": 0.02,
-  "estimated_seconds": 112045.73239342646,
-  "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
+  "estimated_seconds": 112056.861367374,
+  "gcode_sha256": "0839e4f7f9b4024b781adf72ac95e0c3130081c63f652c8f800b1ce912b6adac",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -108,11 +108,11 @@
         "bodies": 1,
         "boundary_edges": 0,
         "closed_oriented_single_body": true,
-        "edges": 768801,
+        "edges": 768789,
         "inconsistent_edges": 0,
         "nonmanifold_edges": 0
       },
-      "facets": 512534,
+      "facets": 512526,
       "features": [
         {
           "blocker_source_mm": [
@@ -449,7 +449,7 @@
       "regions": {
         "part_process_overrides": null,
         "record": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-        "record_sha256": "f05d221d39c205037a28fe5f775ed66d93ee6d6e827307d57cbcbd06bf480feb"
+        "record_sha256": "b65fce8ed0165cca465ece695e22c60ece2f4b4e75f36b6c1bf048d0470d5b7f"
       },
       "ribbons": [],
       "seam_enforcer": null,
@@ -460,7 +460,7 @@
       ],
       "step_sha256": null,
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-      "stl_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
+      "stl_sha256": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf",
       "support_free_regions": [],
       "support_targets": [
         {
@@ -608,7 +608,7 @@
       17.5
     ]
   },
-  "prepared_utc": "2026-11-18T22:17:28+00:00",
+  "prepared_utc": "2026-11-19T03:52:17+00:00",
   "printer": "Mark2",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_changes": {
@@ -637,8 +637,8 @@
     }
   },
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
-  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf",
-  "project_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9",
+  "project": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.3mf",
+  "project_sha256": "85bd22cd37120820a16cdb7bafacf946475afaafd90e582d084a1371071db16e",
   "requested_z_trim_mm": 0.04,
   "settings_changes": {
     "curr_bed_type": {
@@ -707,7 +707,7 @@
   "sliced": true,
   "slicer_warnings": [],
   "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "spec_sha256": "7363657f40eea55a676e253b484704e5d06b61ffa53b1922d1497abb0c75c0d1",
+  "spec_sha256": "fd1fe149e5c91f7b61081a93d76ed27d56bc138f6fb6b62077fe5ba0459668ef",
   "submitted": false,
   "tool_sha256": {
     "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "299b750b16c9d65e35cf7b7c3260c385e77ac5e0efe18b39a2f131cd6e2a5cfe",

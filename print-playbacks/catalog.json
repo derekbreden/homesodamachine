@@ -771,18 +771,18 @@
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
-    "sha256": "48f791ab6e96462064516e4a1d842075e8f476692173ec9ca876f5053732a620",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
+    "sha256": "5ffb9e9c09104282219dcb86247a04d7e79142d7b0c63d147fe43fefb3601b60",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-bottom",
-    "recipe_sha256": "7363657f40eea55a676e253b484704e5d06b61ffa53b1922d1497abb0c75c0d1",
-    "project_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9",
-    "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
-    "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
+    "recipe_sha256": "fd1fe149e5c91f7b61081a93d76ed27d56bc138f6fb6b62077fe5ba0459668ef",
+    "project_sha256": "85bd22cd37120820a16cdb7bafacf946475afaafd90e582d084a1371071db16e",
+    "archive_sha256": "60fd9037f749ca75a232b673a27ddbb152680a79cbafc0b49cb4f7c23c533bea",
+    "gcode_sha256": "0839e4f7f9b4024b781adf72ac95e0c3130081c63f652c8f800b1ce912b6adac",
     "kind": "plan",
     "layers": 765,
-    "model_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
+    "model_sha256": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -800,7 +800,7 @@
       "Filament bridge speed": "15 mm/s",
       "First-layer Z": "0.04 mm requested, 0.02 mm emitted on Textured PEI"
     },
-    "recipe_commit": "255984953dff6749b8fc4a33c29dda0b392e5ba9"
+    "recipe_commit": "6c099311fcfd2781c4c898652c067c4178acfbc6"
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
