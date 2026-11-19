@@ -118,6 +118,38 @@ test('the unit outlook, material packs and economics fit phone and desktop width
   } finally { await page.close(); }
 });
 
+test('purchased stock quantities and related assortments are readable in the material table', async () => {
+  const page = await browser.newPage();
+  try {
+    await page.setViewport({ width: 390, height: 950, deviceScaleFactor: 1 });
+    await page.goto(baseUrl + '/cost', { waitUntil: 'networkidle0' });
+    await page.waitForSelector('.production-planner[data-enhanced="true"]');
+    assert.equal(await page.$eval('#planner-filter', el => el.value), 'all');
+    await page.$eval('#planner-search', input => {
+      input.value = 'M3';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    const screw = '.planner-material-row[data-resource="B0DJQGVK8S"]';
+    assert.equal(await page.$eval(screw + ' .planner-available b', el => el.textContent), '120');
+    assert.match(await page.$eval(screw + ' .planner-available small', el => el.textContent), /Estimate/);
+    for (const [id, quantity, label] of [['earth-clamp-washers', '550', 'assorted washers'], ['solid16-ring-terminal', '150', 'similar terminals']]) {
+      const row = `.planner-material-row[data-resource="${id}"]`;
+      assert.equal(await page.$eval(row + ' .planner-available b', el => el.textContent), quantity);
+      assert.match(await page.$eval(row + ' .planner-available small', el => el.textContent), new RegExp(label + 'Related stock'));
+      assert.equal(await page.$eval(row + ' .planner-cell', el => el.dataset.tone), 'unknown');
+      await page.$eval(row + ' button', el => el.click());
+      assert.match(await page.$eval('.planner-detail .planner-evidence', el => el.textContent), /unverified/);
+    }
+    assert.equal(await page.$$eval('.planner-available', els => els.some(el => el.textContent.includes('?'))), false);
+    for (const width of [320, 390]) {
+      await page.setViewport({ width, height: 950, deviceScaleFactor: 1 });
+      assert.ok(await page.$eval('.planner-available', el => el.getBoundingClientRect().right <= el.closest('.planner-table-scroll').getBoundingClientRect().right), `stock column fits at ${width}`);
+    }
+    assert.match(await page.$eval('.planner-stock-note', el => el.textContent), /Prototype use is not fully deducted/);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+  } finally { await page.close(); }
+});
+
 test('stock and cost records remain reachable without JavaScript', async () => {
   const page = await browser.newPage();
   try {

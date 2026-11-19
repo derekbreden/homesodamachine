@@ -25,7 +25,13 @@ Provisional purchasing reserves, such as an unmeasured wire-color allocation,
 belong to the stock definition and shrink with the remaining physical demand.
 Shared BOM-line allocations retain their estimated status.
 
-Unknown balances receive no credit. Estimates retain their evidence and uncertainty.
+Purchased quantities provide estimated starting balances where the usable remainder
+is uncounted. Prototype consumption is not fully deducted. Counts replace those
+estimates; recorded work continues to consume the resulting balance. Estimates
+retain their purchase evidence and uncertainty. `purchaseReference` shows an
+assortment total or similar purchased part for a still-unmatched input; that
+reference receives no coverage credit. Inputs with no recorded quantity remain
+unknown.
 Incoming stock reduces duplicate purchasing and becomes available to build on
 receipt. Completed parts and assemblies satisfy demand before their components
 and manufacturing inputs are expanded. Each browsed plan starts from the same

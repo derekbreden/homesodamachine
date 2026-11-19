@@ -25,6 +25,7 @@ export function productionData(catalog, offers, horizon = PLANNING_HORIZON) {
           category: categoryName(resource.category || quote?.category || 'supplies'), supplier: quote?.supplier || '',
           available: input.available, onHand: resource.onHand ?? null, reserved: resource.reserved || 0,
           incoming: resource.incoming || 0, estimated: Boolean(input.estimated || resource.estimated), quantityKnown: true,
+          stockEstimated: Boolean(resource.estimated), purchaseReference: resource.purchaseReference || null,
           note: resource.note || 'No usable stock count recorded.', asOf: resource.asOf || null,
           href: quote?.sourceUrl || resource.href || null, quote: quote || null,
           needs: Array(horizon + 1).fill(0), active: Array(horizon + 1).fill(false), reusableNeeds: Array(horizon + 1).fill(0), uses: [],
@@ -72,7 +73,8 @@ export function renderProductionPlanner(data) {
     <div class="planner-workspace"><div class="planner-materials">
       <div class="planner-section-head"><div><p class="planner-eyebrow">Follow the materials</p><h3 id="planner-focus-title"></h3></div><a id="planner-build-link" href="/build">Assembly plan ↗</a></div>
       <p id="planner-focus-note"></p>
-      <div class="planner-filters"><label>Find a material<input id="planner-search" type="search" placeholder="Part, stock or material number"></label><label>Show<select id="planner-filter"><option value="attention">Needs attention</option><option value="short">Short of stock</option><option value="unknown">Needs confirmation</option><option value="planned">In my purchase plan</option><option value="all">All materials</option></select></label><label>Supplier<select id="planner-supplier"><option value="all">All suppliers</option>${data.suppliers.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}<option value="none">No supplier quote</option></select></label></div>
+      <p class="planner-stock-note">Available now includes purchase-based estimates. Prototype use is not fully deducted. Related stock shows purchased assortments or similar parts; expand the row for the match to check.</p>
+      <div class="planner-filters"><label>Find a material<input id="planner-search" type="search" placeholder="Part, stock or material number"></label><label>Show<select id="planner-filter"><option value="all">All materials</option><option value="attention">Needs attention</option><option value="short">Short of stock</option><option value="unknown">Needs confirmation</option><option value="planned">In my purchase plan</option></select></label><label>Supplier<select id="planner-supplier"><option value="all">All suppliers</option>${data.suppliers.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}<option value="none">No supplier quote</option></select></label></div>
       <div class="planner-table-scroll" tabindex="0" role="region" aria-label="Material coverage and purchase packs"><table class="planner-table"><thead></thead><tbody></tbody></table></div>
       <div class="planner-list-footer"><span id="planner-row-count"></span><button type="button" id="planner-more">Show more materials</button></div>
     </div><aside class="planner-basket" aria-labelledby="planner-basket-title"></aside></div>

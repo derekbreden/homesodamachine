@@ -128,13 +128,21 @@ test('the published workspace carries every real stock input, unknown usage and 
     assert.ok(rod.quantityKnown && rod.unit === 'mm' && rod.uses.includes('HSM-0011') && rod.uses.includes('HSM-0459'));
     const foamSeal = rows.find(row => row.id === 'prv-shroud-foam-seal');
     assert.ok(foamSeal.active[1] && !foamSeal.quantityKnown);
-    assert.equal(foamSeal.incoming, 83);
+    assert.equal(foamSeal.available, 83);
+    assert.equal(foamSeal.incoming, 0);
     assert.equal(foamSeal.quote, null);
     assert.ok(!rows.some(row => row.name.includes('GE Silicone II')));
     const maskingTape = rows.find(row => row.id === 'B00004Z4CP');
     assert.equal(maskingTape.needs[1], 3);
-    assert.equal(maskingTape.incoming, 180);
-    assert.equal(coverageFor(maskingTape, 1), 'incoming');
+    assert.equal(maskingTape.available, 180);
+    assert.equal(maskingTape.incoming, 0);
+    assert.equal(coverageFor(maskingTape, 1), 'estimate');
+    for (const id of ['earth-clamp-washers', 'solid16-ring-terminal']) {
+      const related = rows.find(row => row.id === id);
+      assert.ok(related.purchaseReference.quantity > 0);
+      assert.equal(related.available, null);
+      assert.equal(coverageFor(related, 1), 'unknown', 'similar purchases do not establish exact-part coverage');
+    }
     assert.ok(!rows.some(row => /HSM-0324|HSM-0334|HSM-0335|HSM-0364/.test(row.id)));
     const screw = rows.find(row => row.id === 'svling-B0GHNNYVDH');
     assert.ok(screw.available >= screw.needs[1] && screw.estimated);
