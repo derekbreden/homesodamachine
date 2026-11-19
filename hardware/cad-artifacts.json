@@ -58,8 +58,6 @@
     "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "0792de06b0f1f47a0d8a014405ce94475ebd475e0da2f5c95e2e2070c3b30cd9",
     "hardware/faucet-layout/pullout-concept/pulled-out.step": "1cf5b106587902c72f11978e98c904ccd50ea76c08d0937275cf61e0fe169fdd",
     "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "a5be5538099a0dbbb0599ab9cc35f373c7cb63409e342006fdd67b68a0bbb303",
-    "hardware/faucet-layout/pullout-concept/selected-electronic-valve.step": "68cdd8fcdbf7020eae68b8999796cab4581bad68f8c0a4ac005cd12ac5d325f7",
-    "hardware/faucet-layout/pullout-concept/selected-electronic-valve.step.mesh": "d00fc5e9e9d4e1938783751b741024271baef723c0a201de48c07a8c38555119",
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": "f777688d43515f39d4445c50e2d31ea18b2d7dd9b0eb149cbf4c49fc8d2a01f7",
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": "2c9f151c05dca1102d00f63c984b2b3f8b29bc5be2b0aa1e005b408dc32affb2",
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": "60d310a111f2437e7197a1721a65494b5030e2e8b1aff8d78c96b1b06ec4328f",
@@ -2736,8 +2734,6 @@
     "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": 1795050735.393075,
     "hardware/faucet-layout/pullout-concept/pulled-out.step": 1795050773.411038,
     "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": 1795050735.393075,
-    "hardware/faucet-layout/pullout-concept/selected-electronic-valve.step": 1795046162.713818,
-    "hardware/faucet-layout/pullout-concept/selected-electronic-valve.step.mesh": 1795046146.347994,
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": 1793830497,
     "hardware/install-guide/plumbing/art/plumbing-tee-installed.png": 1793830497,
     "hardware/install-guide/plumbing/art/plumbing-valve-off.png": 1793830497,
@@ -3699,10 +3695,6 @@
     },
     "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": {
       "commit": "93e679cb1602e1e64330766e5b0b9eb360d66112",
-      "unproven": true
-    },
-    "hardware/faucet-layout/pullout-concept/selected-electronic-valve.step.mesh": {
-      "commit": "26326bec688e75c2ba416eac22395560066877ca",
       "unproven": true
     },
     "hardware/install-guide/plumbing/art/plumbing-pre-tee.png": {
