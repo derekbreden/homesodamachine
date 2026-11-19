@@ -46,6 +46,11 @@
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": "455f2afa55e33bd49605242b32c45d6981031a0b4847015ffb1b1b9f360c2029",
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step": "a79f912ad0898281783434522c3549ae7a6c02e33668c00e3c483cc26f043295",
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh": "956292c50ff63b15155a70a49543fb1d954220c1f3d6ac52a1a3f4dff84a64c7",
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step.mesh": "f47746a674f00dca97d4a88bd2c735e896c152865d6a2df6b9d8c478dd672659",
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-open.step.mesh": "be2a60f1fd56950e0290838614702c51e4ab4b0b37523117a5180e0b0f209fed",
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-parts.step.mesh": "b04c32c7e3171132c57ce011a858bbeef7ed837d1b055aa5a71d190bd6ecdcbf",
+    "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.step.mesh": "b62289ebf8558201313b616df147d0d0f506c83a7720d2face318bb5f9faf37a",
+    "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve.step.mesh": "b19830d79d603d10bc62a173b6002e73088c7548f023b5821facdd77398ff2d3",
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step": "5b92a8b0998937d06f393fa6c3d152ad51102715357030d6fc9058db73409fc2",
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "4d2f3e8d836117d223a3f54c90bfb1e619357e99c811c9474676fa5dd8d2cb45",
     "hardware/faucet-layout/pullout-concept/handheld-detail.step": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
@@ -916,6 +921,11 @@
       "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": "455f2afa55e33bd49605242b32c45d6981031a0b4847015ffb1b1b9f360c2029",
       "hardware/faucet-layout/pullout-concept/custom-valve-open.step": "a79f912ad0898281783434522c3549ae7a6c02e33668c00e3c483cc26f043295",
       "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh": "956292c50ff63b15155a70a49543fb1d954220c1f3d6ac52a1a3f4dff84a64c7",
+      "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step.mesh": "f47746a674f00dca97d4a88bd2c735e896c152865d6a2df6b9d8c478dd672659",
+      "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-open.step.mesh": "be2a60f1fd56950e0290838614702c51e4ab4b0b37523117a5180e0b0f209fed",
+      "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-parts.step.mesh": "b04c32c7e3171132c57ce011a858bbeef7ed837d1b055aa5a71d190bd6ecdcbf",
+      "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.step.mesh": "b62289ebf8558201313b616df147d0d0f506c83a7720d2face318bb5f9faf37a",
+      "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve.step.mesh": "b19830d79d603d10bc62a173b6002e73088c7548f023b5821facdd77398ff2d3",
       "hardware/faucet-layout/pullout-concept/docked-above-counter.step": "5b92a8b0998937d06f393fa6c3d152ad51102715357030d6fc9058db73409fc2",
       "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": "4d2f3e8d836117d223a3f54c90bfb1e619357e99c811c9474676fa5dd8d2cb45",
       "hardware/faucet-layout/pullout-concept/handheld-detail.step": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
@@ -2723,6 +2733,11 @@
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": 1795052523.636727,
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step": 1795050773.411038,
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh": 1795052523.636727,
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step.mesh": 1795070538.0368,
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-open.step.mesh": 1795070538.0368,
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-parts.step.mesh": 1795070538.0368,
+    "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.step.mesh": 1795070538.0368,
+    "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve.step.mesh": 1795070538.0368,
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step": 1795052548.834262,
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": 1795052523.636727,
     "hardware/faucet-layout/pullout-concept/handheld-detail.step": 1795052548.834262,
@@ -3672,6 +3687,26 @@
     },
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh": {
       "commit": "aa987596d2a0ffd961f30fd6ddefcfb8c544cc7e",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step.mesh": {
+      "commit": "c9cc28a2a49fbe23c81ee35ad8d46020cad14f8b",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-open.step.mesh": {
+      "commit": "c9cc28a2a49fbe23c81ee35ad8d46020cad14f8b",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-parts.step.mesh": {
+      "commit": "c9cc28a2a49fbe23c81ee35ad8d46020cad14f8b",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.step.mesh": {
+      "commit": "c9cc28a2a49fbe23c81ee35ad8d46020cad14f8b",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve.step.mesh": {
+      "commit": "c9cc28a2a49fbe23c81ee35ad8d46020cad14f8b",
       "unproven": true
     },
     "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh": {
