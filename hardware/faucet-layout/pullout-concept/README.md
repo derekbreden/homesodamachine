@@ -2,7 +2,10 @@
 
 This is the custom-valve configuration to aim to manufacture. The faucet keeps
 its familiar height, reach, curved neck, base lever and display. Its front pulls
-off at the crown, carrying the electronic shutoff and separate drink outlets.
+off on the descending side of the neck, carrying the electronic shutoff and
+separate drink outlets. The original shell assembly split stays at the crown.
+A fixed upper neck continues from that assembly split to the separate pull-out
+dock, just behind the valve inlet and hose termination.
 The dock sensor selects tap or handheld mode. The bundle stays connected while
 the head moves.
 
