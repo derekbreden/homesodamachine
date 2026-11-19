@@ -225,8 +225,7 @@ fn x_in_west(x: f64) -> bool { x < 0.0 }
 
 const REAR_RIB_WIDTH: f64 = 3.0;
 const REAR_RIB_STRAIGHT_RISE: f64 = 1.5;
-const REAR_RIB_LENGTH: f64 = 80.0;
-const REAR_RIB_SETBACK: f64 = 10.2;
+const REAR_RIB_LENGTH: f64 = 90.2;
 const REAR_RIB_ROOT: f64 = 0.8;
 const REAR_GROOVE_SHOULDER: f64 = 3.0;
 const REAR_SHOULDER_ROOT: f64 = 0.4;
@@ -243,15 +242,14 @@ pub struct RearAlignment {
 
 impl RearAlignment {
     pub fn new(y_joint: f64, zj: f64) -> Self {
-        let mouth_y = back_flank_start(y_joint);
-        let fore_y = mouth_y + REAR_RIB_SETBACK;
+        let fore_y = back_flank_start(y_joint);
         let aft_y = fore_y + REAR_RIB_LENGTH;
         let rib_outboard_x = rail_x(-1.0, Y::Back).hook;
         let [channel_edge, _, _] = rail_channel_span(-1.0, Y::Back);
         let clearance = slide_slip();
         Self {
             rib_y: [fore_y, aft_y],
-            groove_y: [mouth_y, aft_y + clearance],
+            groove_y: [fore_y, aft_y + clearance],
             rib_outboard_x,
             groove_x: [rib_outboard_x - REAR_RIB_WIDTH - clearance, channel_edge],
             crown_z: zj + Z_RISE,
