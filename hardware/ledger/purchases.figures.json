@@ -1,7 +1,7 @@
 {
   "/hardware/ledger/purchases.rs": {
-    "LEDGER_ACQUIRED_COMBINED": "$50,666.46",
-    "LEDGER_ACQUIRED_HW": "$43,946.95",
+    "LEDGER_ACQUIRED_COMBINED": "$50,726.50",
+    "LEDGER_ACQUIRED_HW": "$44,006.99",
     "LEDGER_ESTIMATES": "$2,741.67",
     "LEDGER_FINAL_VENDOR": "$29,134.79",
     "LEDGER_GRAND_TOTAL": "$50,859.54",
@@ -11,7 +11,7 @@
     "LEDGER_MERCHANT_NET": "$26,049.21",
     "LEDGER_MERCHANT_REFUNDS": "$0.00",
     "LEDGER_MISSING": "$53.07",
-    "LEDGER_ON_ORDER": "$140.01",
+    "LEDGER_ON_ORDER": "$79.97",
     "LEDGER_SEC1": "$4,927.99",
     "LEDGER_SEC10": "$164.11",
     "LEDGER_SEC11": "$462.78",
@@ -28,7 +28,7 @@
     "LEDGER_SEC3": "$1,641.36",
     "LEDGER_SEC4": "$604.07",
     "LEDGER_SEC5": "$2,056.56",
-    "LEDGER_SEC6": "$1,996.66",
+    "LEDGER_SEC6": "$2,056.70",
     "LEDGER_SEC7": "$237.65",
     "LEDGER_SEC8": "$1,970.50",
     "LEDGER_SEC9": "$2,584.06"

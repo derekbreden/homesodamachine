@@ -10238,7 +10238,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-eab6c800fa344ade9e74ac626996b6d3",
-        "src-e3f874b5b26947d887f730d18f71d6ae"
+        "src-e3f874b5b26947d887f730d18f71d6ae",
+        "src-b646eeb2bf6e4de7b4bad3735120b63f"
       ]
     },
     "pur-3a63430840ba477eb03e79c3cc433bda": {
@@ -16661,7 +16662,8 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-eab6c800fa344ade9e74ac626996b6d3",
-        "src-e3f874b5b26947d887f730d18f71d6ae"
+        "src-e3f874b5b26947d887f730d18f71d6ae",
+        "src-b646eeb2bf6e4de7b4bad3735120b63f"
       ]
     },
     "amazon:112-3250291-4198614": {
@@ -35622,6 +35624,21 @@
       ],
       "verified_at": "2026-11-19",
       "note": "Delivery notification matches the existing foam pouncer order and its shipment. Generic Arts & Crafts label is resolved by the exact order and package match to prior merchant evidence. Relative delivered-today wording does not independently establish the calendar delivery date. No completed merchant payment or final tax is proved."
+    },
+    "src-b646eeb2bf6e4de7b4bad3735120b63f": {
+      "vendor": "Amazon",
+      "document_type": "delivery_confirmation",
+      "reference": "Antarctic Star refrigeration donor delivery notification",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "verified_at": "2026-11-19",
+      "note": "Delivery notification identifies the exact existing refrigeration-donor order. Generic Appliances label is resolved by prior exact-order merchant evidence. Relative delivered-today wording does not independently establish the calendar delivery date. Completed merchant payment and final tax are not proved."
     }
   },
   "coverage": [
