@@ -87,6 +87,10 @@ path = "../../../hardware/printed-parts/fixtures/reed-sweep-rig/reed_sweep_rig.r
 name = "faucet-pullout-concept"
 path = "../../../hardware/faucet-layout/pullout-concept/concept.rs"
 
+[[example]]
+name = "faucet-direct-valve"
+path = "../../../hardware/faucet-layout/pullout-concept/direct-valve/direct_valve.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true

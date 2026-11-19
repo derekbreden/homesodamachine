@@ -1,0 +1,150 @@
+{
+  "purpose": "This records the focused packaging measurements for the direct head valve in the pull-out faucet's head.",
+  "date": "2026-11-19",
+  "scene": "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve.step.mesh",
+  "payload_sha256": "b19830d79d603d10bc62a173b6002e73088c7548f023b5821facdd77398ff2d3",
+  "step_sha256": "9d1787d114f07a822fc4621283609b1c2f352342d0e869b6b01afaf1af9ba543",
+  "observations": [
+    {
+      "query": [
+        "gap",
+        "head_valve_yoke_cup",
+        "head_faucet_display"
+      ],
+      "clearance_mm": 1.0004773100776596,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_yoke_cup",
+        "head_flavor_a_line"
+      ],
+      "clearance_mm": 0.7518124076949643,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_yoke_cup",
+        "head_flavor_b_line"
+      ],
+      "clearance_mm": 0.7518124076949643,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_yoke_cup",
+        "head_fault_drain"
+      ],
+      "clearance_mm": 1.4174816116052915,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_yoke_cup",
+        "pull_off_curved_grip"
+      ],
+      "clearance_mm": 0.7222614545935658,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_yoke_cup",
+        "head_signal_and_valve_flex"
+      ],
+      "clearance_mm": 0.48402679893579165,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_nose",
+        "pull_off_curved_grip"
+      ],
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 9.480055899967543e-05
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_seat_insert",
+        "pull_off_curved_grip"
+      ],
+      "clearance_mm": 0.19992587640981324,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_pole_and_inlet",
+        "head_signal_and_valve_flex"
+      ],
+      "clearance_mm": 1.1269151445711802,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_coil_leads",
+        "head_faucet_display"
+      ],
+      "clearance_mm": 3.325378437259475,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_coil_leads",
+        "pull_off_curved_grip"
+      ],
+      "clearance_mm": 0.613614354527102,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_coil_leads",
+        "head_signal_and_valve_flex"
+      ],
+      "clearance_mm": 0.1670919678872934,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_plunger",
+        "head_valve_plunger_tube"
+      ],
+      "clearance_mm": 0.06596694212544603,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_plunger",
+        "head_valve_pole_and_inlet"
+      ],
+      "clearance_mm": 0.7999875896456081,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_rubber_plug",
+        "head_valve_seat_insert"
+      ],
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 6.824550831135809e-06
+    }
+  ],
+  "notes": [
+    "The nose seats on a step in the grip's dispense face; its recorded observation is nominal contact at that interface.",
+    "The coil leads end beside the head's signal and valve flex, where they join it.",
+    "The plug's observation is the closed valve, with the plug on the seat's lip.",
+    "Clearance measurements establish the illustrated packaging, not pull, pressure rating, flow, seal life, sanitation or manufacturing fit."
+  ]
+}
