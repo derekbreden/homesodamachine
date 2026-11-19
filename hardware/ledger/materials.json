@@ -401,6 +401,26 @@
         {
           "file": "faucet-layout/pullout-concept/profile-comparison.step",
           "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/direct-valve/head-direct-valve.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/direct-valve/direct-valve-open.step",
+          "context": true
+        },
+        {
+          "file": "faucet-layout/pullout-concept/direct-valve/direct-valve-parts.step",
+          "context": true
         }
       ],
       "documents": [
@@ -411,6 +431,10 @@
         {
           "title": "Pull-out faucet concept",
           "path": "faucet-layout/pullout-concept/README.md"
+        },
+        {
+          "title": "Direct head valve",
+          "path": "faucet-layout/pullout-concept/direct-valve/README.md"
         }
       ],
       "bom": {

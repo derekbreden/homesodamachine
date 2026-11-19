@@ -12,6 +12,13 @@
       "said": "I should mention, in the existing design, after letting go of the lever, there is a quick stop of the main flow, but immediately a bit of fast drip followed by slow drip for a few seconds as that soda water in the gooseneck does its thing that soda water does.",
       "observed": "The main flow stops quickly, followed by fast and then slow dripping from the dispense outlet.",
       "scope": "Derek's physical observation of the current fixed faucet; the pull-out hose has not been tested."
+    },
+    {
+      "date": "2026-11-19",
+      "subject": "Pouring with the existing fixed faucet's lever pressed all the way",
+      "said": "I've found a lot of things work better (I can go into detail if needed, but I suspect you can infer the obvious) when I use full blast on the existing prototype. When I've had guests use it, I've told them to press the lever all the way for this reason. I think one rate is right for us.",
+      "observed": "The prototype pours better with the lever fully pressed, and guests are told to press it all the way.",
+      "scope": "Derek's physical observation of the current fixed faucet on the Lillium-fed prototype; no electric valve has been made or tried."
     }
   ]
 }

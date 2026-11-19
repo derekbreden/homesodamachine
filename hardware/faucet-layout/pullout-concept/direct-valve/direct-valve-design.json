@@ -1,0 +1,106 @@
+{
+  "coil_and_pull": {
+    "bare_wire_area_mm2": 0.0509,
+    "cold_resistance_ohm": 4.4275866330955225,
+    "copper_fill": 0.55,
+    "gap_area_mm2": 27.99944452511903,
+    "gap_flux_density_t_at_full_lift": 1.001770023621956,
+    "hold_ampere_turns": 149.8511063387236,
+    "hold_copper_loss_w": 0.6885251075202121,
+    "hold_current_a": 0.3943450166808516,
+    "hold_force_need_n": 4.527826270820471,
+    "lead_resistance_allowance_ohm": 0.5,
+    "method": "A one-loop magnetic circuit: the working gap, the crossing through the tube wall at the flux washer, and the iron from a coarse curve for annealed magnetic stainless, with a fixed share of the flux taken as leakage.",
+    "peak_ampere_turns": 925.4022992459082,
+    "peak_copper_loss_w": 26.257962443466305,
+    "peak_current_a": 2.4352692085418637,
+    "pull_n_at_full_lift": 11.180098242222373,
+    "share_of_flux_reaching_the_gap": 0.85,
+    "sliding_friction_allowance_n": 0.3,
+    "supply_v": 12.0,
+    "turns": 380.0,
+    "turns_the_window_holds_at_that_fill": 383.3251473477406,
+    "yoke_cup_wall_area_mm2": 26.20088273093886
+  },
+  "date": "2026-11-19",
+  "geometry_mm": {
+    "dispense_face_to_cup_rear": 37.7,
+    "dispense_face_to_inlet_end": 52.5,
+    "lift": 0.7,
+    "nose_diameter": 12.0,
+    "oring_section": 1.0,
+    "plunger_diameter": 7.3,
+    "plunger_length": 20.0,
+    "seal_circle": 3.5,
+    "seat_bore": 3.0,
+    "sliding_seals": 0,
+    "static_orings": 3,
+    "stop_shim": 0.1,
+    "tube_length": 26.5,
+    "tube_outside_diameter": 7.94,
+    "tube_wall": 0.254,
+    "yoke_cup_outside_diameter": 14.5
+  },
+  "open_questions": [
+    "The pull is not from a field solution or a bench pull test.",
+    "Where the supply pressure is shed upstream of the seat, and the outlet's shape, decide foam and the stream.",
+    "Magnetic stainless and EPDM in cold carbonated water over years.",
+    "The thin stock tube is to be confirmed as a stocked size."
+  ],
+  "purpose": "This record owns the one-moving-part head valve's sizes and first-order budgets.",
+  "spring": {
+    "active_coils": 7.0,
+    "closed_force_n": 1.5,
+    "free_length_mm": 9.918695652173913,
+    "mean_diameter_mm": 3.6,
+    "open_force_n": 1.9732510288065843,
+    "rate_n_mm": 0.6760728982951205,
+    "wire_mm": 0.4
+  },
+  "state": "Proposed mechanism and packaging. Forces, flow and coil values are first-order estimates from the drawn sizes, not measurements.",
+  "water": {
+    "cross_hole_area_mm2": 9.42477796076938,
+    "curtain_area_mm2": 6.5973445725385655,
+    "liquid_past_the_seat_mm3": 46.65265090580843,
+    "opening": [
+      {
+        "opening_load_n": 4.686338250485622,
+        "pressure_mpa": 0.3,
+        "pull_over_load": 2.3856788914167337,
+        "water_holds_seat_shut_n": 2.8863382504856223
+      },
+      {
+        "opening_load_n": 7.091620125890308,
+        "pressure_mpa": 0.55,
+        "pull_over_load": 1.5765224368696402,
+        "water_holds_seat_shut_n": 5.291620125890308
+      },
+      {
+        "opening_load_n": 10.09190238215049,
+        "pressure_mpa": 0.8618431031867511,
+        "pull_over_load": 1.107828615345762,
+        "water_holds_seat_shut_n": 8.29190238215049
+      }
+    ],
+    "outlet_speed_m_s_at_2_l_min": 4.71570201753764,
+    "pole_bore_area_mm2": 7.0685834705770345,
+    "pressures_mpa": {
+      "lillium_co2_inlet_range": [
+        0.45,
+        0.55
+      ],
+      "machine_regulator_feed": 0.3,
+      "relief_valve": 0.8618431031867511,
+      "sources": [
+        "hardware/assembly/pressure-vessel.md",
+        "future/model.md"
+      ]
+    },
+    "seal_area_mm2": 9.62112750161874,
+    "seat_bore_area_mm2": 7.0685834705770345,
+    "seat_drop_bar_at_l_min_assuming_cd_0_65": {
+      "1.5": 0.16993583645684535,
+      "2.0": 0.30210815370105837
+    }
+  }
+}

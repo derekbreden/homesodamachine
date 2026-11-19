@@ -1,0 +1,114 @@
+[
+  {
+    "step": "faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step",
+    "out": "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-closed.png",
+    "size": "1600x1200",
+    "cam": [
+      1.8,
+      -1.0,
+      0.6
+    ],
+    "span": 42,
+    "bg": "#eeede9",
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/direct-valve/direct-valve-closed.step",
+    "out": "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-seat-closed.png",
+    "size": "1600x1200",
+    "cam": [
+      1.8,
+      -0.5,
+      0.35
+    ],
+    "target": [
+      0,
+      0,
+      5.5
+    ],
+    "span": 15,
+    "bg": "#eeede9",
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/direct-valve/direct-valve-open.step",
+    "out": "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-open.png",
+    "size": "1600x1200",
+    "cam": [
+      1.8,
+      -1.0,
+      0.6
+    ],
+    "span": 42,
+    "bg": "#eeede9",
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/direct-valve/direct-valve-open.step",
+    "out": "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-seat-open.png",
+    "size": "1600x1200",
+    "cam": [
+      1.8,
+      -0.5,
+      0.35
+    ],
+    "target": [
+      0,
+      0,
+      5.5
+    ],
+    "span": 15,
+    "bg": "#eeede9",
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/direct-valve/direct-valve-parts.step",
+    "out": "hardware/faucet-layout/pullout-concept/direct-valve/direct-valve-parts.png",
+    "size": "2200x700",
+    "cam": [
+      0.1,
+      -1.0,
+      0.28
+    ],
+    "target": [
+      84,
+      0,
+      11
+    ],
+    "span": 37,
+    "bg": "#eeede9",
+    "fog": false,
+    "ground": false
+  },
+  {
+    "step": "faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.step",
+    "out": "hardware/faucet-layout/pullout-concept/direct-valve/head-direct-valve-cutaway.png",
+    "size": "1600x1200",
+    "cam": [
+      1.0,
+      -0.2,
+      0.28
+    ],
+    "target": [
+      0,
+      -116,
+      203
+    ],
+    "span": 64,
+    "materials": [
+      {
+        "names": [
+          "screen_*"
+        ],
+        "unlit": true
+      }
+    ],
+    "bg": "#eeede9",
+    "fog": false,
+    "ground": false
+  }
+]
