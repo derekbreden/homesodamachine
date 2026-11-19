@@ -29,15 +29,15 @@ equipment on the bench for the inspections. [Published machine model](https://ho
 | 14 | Prove the inert sweep before heat |
 | 15 | Cut at the evaporator |
 | 16 | Remove the hot-gas branch |
-| 17 | Set up pressure and tube probes |
+| 17 | Put the probes on the copper |
 | 18 | Wet rag on each stub |
 | 19 | Braze the suction coupling |
 | 20 | Pinch-swage the capillary |
 | 21 | Pressure-test the inert circuit |
 | 22 | Pull vacuum and isolate the pump |
-| 23 | Meter the recharge |
-| 24 | Account for one gram |
-| 25 | Estimate the running coil inventory |
+| 23 | Weigh in 16.0 g net |
+| 24 | Read the gram on the scale |
+| 25 | Follow the 16.0 g trial |
 | 26 | Isolate the service set |
 | 27 | Place the gas sensor first |
 | 28 | Lower the compressor |
@@ -50,13 +50,16 @@ equipment on the bench for the inspections. [Published machine model](https://ho
 | 35 | Locate the joints on the machine |
 | 36 | Find the high and low seams |
 | 37 | Stop on a detector alarm |
-| 38 | Repeat the same pull-down window |
-| 39 | Look up R600a saturation |
-| 40 | Measure the water in the glass |
+| 38 | Time the wall pull-down |
+| 39 | Read the low-side numbers |
+| 40 | Measure four cold glasses |
 | 41 | Decide the next gram |
 | 42 | Read the cold controls in service |
 | 43 | Repair through the full sequence |
 | 44 | Save the checks with the unit |
+| 45 | Read the condenser outlet |
+| 46 | Watch the exposed return |
+| 47 | Follow the example decisions |
 
 ## Responsible sources
 
@@ -97,7 +100,7 @@ Manufacturer sources:
 - [NIST isobutane properties](https://webbook.nist.gov/cgi/fluid.cgi?ID=C75285&Action=Page),
   [ORNL void-fraction models](https://info.ornl.gov/sites/publications/Files/Pub57653.pdf)
   and [ASHRAE capillary systems](https://handbook.ashrae.org/Handbooks/R26/SI/r26_ch11/r26_ch11_si.aspx),
-  the basis for the inventory example and measurement plan.
+  the basis for the charge estimate and tabulated measurement plan.
 
 Bench instrument references:
 
@@ -120,9 +123,51 @@ The [refrigeration purchases](../ledger/purchases.md#6-refrigeration) and [tool 
 | Access and closure | Supco BPV31, flare hardware | Measure the process tube OD and usable straight length. Confirm temporary access for R600a, an outdoor discharge hose and a matched permanent seal. The [Yellow Jacket 61010](https://yellowjacket.com/product/hydrocarbon-charging-kit/) is a documented hydrocarbon tap for its listed tube sizes. Supco's FAQ directs removing its solderless tap after service. [Supco](https://supco.com/web/supco_live/products/BPV31.html) |
 | Purge and pressure test | Airgas argon, RX Weld flowmeter, metal metering branch, separate Uniweld RHP400 nitrogen regulator and SENCTRL pressure gauge | Verify the refrigeration-side connection and open argon flow. Confirm the regulator, pressure limit, isolation and gauge for a static test. The RHP400 uses nitrogen. Obtain bubble fluid if needed. [Uniweld](https://www.uniweld.com/product/nitrogen-regulators/) · [Big Blu RT175B](https://www.refrigtech.com/big-blu-brush-on/) |
 | Evacuation | Orion pump and manifold are in the ledger | Obtain an A3 vacuum pump, a circuit-side micron gauge and short R600a-compatible manifold hoses. The Orion documentation covers other refrigerants. Equipment that meets these roles includes the [CPS VPS6DU](https://www.cpsproducts.com/product-details/vps6du/), [BluVac+ Micro](https://accutools.com/wp-content/uploads/2017/09/BluVacMicro-Manual.pdf) and [Mastercool 93518-TP](https://mastercool.com/product/r600a-r290-r134a-2-way-aluminum-manifold-gauge-sets-thermoplastic-capillary-hoses/). |
-| Weighed fill | Enviro-Safe R600a cans and tap/gauge, Smart Weigh Pro | Confirm the tap-to-hose connection and measured net delivery with the actual fixture. For charge adjustments, verify the pressure and tube-probe precision at the running points on page 17. |
+| Weighed fill | Enviro-Safe R600a cans and tap/gauge, Smart Weigh Pro | Weigh the entire sealed detachable transfer path before and after. It stays within the scale's capacity and uses a proved low-loss split at the circuit valve. Pages 23 and 24 give the display targets. |
 | Leak checks | TopTes PT520A for cool, isolated localization after clearance. MQ-6 for the appliance interlock. | Obtain the R600a charged-circuit wand and a known reference. Arrange continuous work-area monitoring and the clearance check. [GAS-Mate](https://www.inficon.com/en/products/leak-detectors/gas-mate-combustible-gas-leak-detector) · [R600a TEK-Check reference](https://www.inficon.com/en/products/leak-detectors/tek-check) |
 | Water and first run | Kill A Watt P4400, built-in wall and coil probes, stainless DS18B20 bench spare and separate ESP32 | Check the separate immersion reader against an ice-water reference. Use the wall probe for matching pull-down runs. |
+
+## Measurement setup
+
+The blue and red gauges supplied with the Mastercool 93518-TP read pressure for
+service and broad trends. Their class 1.6 dial spans are too wide for the direct
+charge tables. The bench screens on pages 39 and 45 use an absolute gauge within
+0.5 psia of actual local line pressure and an insulated contact reading within
+1 °C of actual tube temperature, including contact error. The installed coil
+probe stays under the foam for freeze protection. Use separately mounted tube
+clips at the paired stations. [Mastercool gauges](https://mastercool.com/product/3-18-gauges-2/) · [Fieldpiece contact-probe manual](https://resources.fieldpiece.com/wp-content/uploads/2020/11/Opman-JL3PC-v21.pdf)
+
+Set the absolute pressure readout to psia with its tare disabled. A calibrated
+intrinsically safe WIKA CPG1500 in the 0–300 psia range at 0.1% of span is one
+instrument choice. Use an R600a-compatible low-volume connection for the actual
+station and keep that fixture in the pressure-tested circuit throughout the
+comparison. A and C are needed to justify an addition. B is the compressor-inlet
+screen. [WIKA operating instructions](https://www.wika.com/media/Operating-instructions/Operating-instructions/Calibration/Digital-pressure-gauges/oi_cpg1500_en_de.pdf) · [WIKA configurator](https://shop.wika.com/en-us/cpg1500.WIKA)
+
+The printed limits use the warmest plausible saturation temperature at the
+upper pressure-bin edge for the B and A temperature floors and the C LOW
+column. B allows a lower-bound vapor margin of 5 K, consistent with conservative
+small hydrocarbon practice. A flags a clearly warm outlet with at least 10 K
+of superheat. C LOW means at most 3 K of subcooling, and C HELD means at least
+5 K, using the coldest plausible saturation temperature for HELD. Whole-degree
+rounding and both measurement errors are already included in the lookups.
+These are prototype comparison screens. Intertek supplies donor design pressure
+ratings and charge, and the finished machine supplies the actual load results.
+[NIST saturation data used by the tables](https://webbook.nist.gov/cgi/fluid.cgi?PLow=5.5&PHigh=140.5&PInc=1&Digits=8&ID=C75285&Action=Load&Type=SatT&TUnit=C&PUnit=psia&RefState=DEF) · [Embraco small-charge hydrocarbon superheat guidance, §11.5](https://www.embraco.com/wp-content/uploads/2020/07/1593699607eweb-installation-instructions-052020-en.pdf)
+
+## Why the first fill is 16.0 g
+
+The U.S. HZB-12/Q entry in Intertek report SH10080445-001 gives the factory
+R600a mass. The nominal EVAP-01 tube has about 86 mL of internal volume before
+tail trim and 72 mL in the winding. At an illustrative -10 °C evaporation
+temperature and 30 °C liquid-equivalent inlet, the homogeneous and Zivi models
+give 0.47 g and 1.44 g in the new coil. Across the modeled -20 to -5 °C evaporation
+and 20 to 35 °C inlet window they span about 0.3 to 2.2 g. The calculation uses
+the nominal tube bore, inlet enthalpy after the bonded exchanger, and dryout
+late in the winding. The removed factory evaporator and bypass also held some
+charge, and about 2 mL of liquid at 40 °C represents about 1 g elsewhere in the
+circuit. That supports a first trial of 16.0 g with no modeled grams added to
+the factory value. [Intertek report](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70) · [EVAP-01](../cold-core-layout/evaporator-coil-drawing.pdf) · [NIST properties](https://webbook.nist.gov/cgi/fluid.cgi?ID=C75285&Action=Page) · [Void-fraction models](https://info.ornl.gov/sites/publications/Files/Pub57653.pdf)
 
 ## Qualification scope
 
