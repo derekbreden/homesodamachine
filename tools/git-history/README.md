@@ -37,6 +37,11 @@ is worth less than the record it was thought to preserve, so the tree is repinne
 table is what a SHA written down somewhere ELSE — an old note, a message, a branch nobody
 kept — is followed with.
 
+The link records [`git why`](../hsm/git-tools/README.md#following-a-line-past-a-rewrite) reads
+are notes on `refs/notes/agent-trace`, keyed by the commit each describes, and their permalinks
+name commits too. They sit on the successors in this table, permalinks repinned, as the tree's
+SHAs do; a rewrite that renames commits moves them with it.
+
 **Twenty-six do not resolve, and none of them can.** Seventeen name commits the rewrite left
 empty and dropped, so there is no successor to point at; the work is in the commit that
 follows. Nine were never commits here — SHAs in the `rectdiff` and `circuit-json-to-gerber`
