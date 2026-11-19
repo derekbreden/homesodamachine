@@ -10663,7 +10663,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:795aafa719a633b9b9ef447e191113cc6070226ee0fce7963b3cdf295e066df7",
+  "input_fingerprint": "sha256:8a9a0f4886db5e0b426c9ff082e39562d2425316d2cce82d15264c22114ffa9f",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12962,6 +12962,7 @@
       ],
       "reference": "112-4768090-1512212",
       "source_ids": [
+        "src-b646eeb2bf6e4de7b4bad3735120b63f",
         "src-e3f874b5b26947d887f730d18f71d6ae",
         "src-eab6c800fa344ade9e74ac626996b6d3"
       ],
@@ -49609,9 +49610,9 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "Antarctic Star HZB-12/Q countertop ice maker, black (refrigeration donor); shipped, awaiting delivery",
+      "description": "Antarctic Star HZB-12/Q countertop ice maker, black (refrigeration donor); delivered; exact delivery date unverified",
       "event_ids": [],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-cdb4735a3b244438a2d4e72bf5b582e7",
       "merchant_charge_allocated_minor": 0,
@@ -49639,6 +49640,7 @@
       "section": "6. Refrigeration",
       "service_period": null,
       "source_ids": [
+        "src-b646eeb2bf6e4de7b4bad3735120b63f",
         "src-e3f874b5b26947d887f730d18f71d6ae",
         "src-eab6c800fa344ade9e74ac626996b6d3"
       ],
@@ -68042,6 +68044,22 @@
       "verified_at": "2026-11-11"
     },
     {
+      "document_date": null,
+      "document_type": "delivery_confirmation",
+      "note": "Delivery notification identifies the exact existing refrigeration-donor order. Generic Appliances label is resolved by prior exact-order merchant evidence. Relative delivered-today wording does not independently establish the calendar delivery date. Completed merchant payment and final tax are not proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [
+        "delivery"
+      ],
+      "reference": "Antarctic Star refrigeration donor delivery notification",
+      "source_id": "src-b646eeb2bf6e4de7b4bad3735120b63f",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-19"
+    },
+    {
       "document_date": {
         "precision": "day",
         "value": "2026-10-11"
@@ -70420,7 +70438,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 5058926,
+          "amount_minor": 5064930,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -71009,6 +71027,7 @@
             "pur-cbf5bc63353a4362ae29eb1cfdeb9f61",
             "pur-cc579f0a066248ca8c4da92e94a0286b",
             "pur-cd430b2b91584e61934c6db74a05ee07",
+            "pur-cdb4735a3b244438a2d4e72bf5b582e7",
             "pur-cdbdfd1ceedb4bc9b29c087b510af56b",
             "pur-ce12043d997645c7841cd5a1063bc96e",
             "pur-ce1b4970208b4c6a9adec93c9a7f950e",
@@ -71181,13 +71200,12 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 14001,
+          "amount_minor": 7997,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
-            "pur-5caf48bbb5b44f2bbac11f37b1608ead",
-            "pur-cdb4735a3b244438a2d4e72bf5b582e7"
+            "pur-5caf48bbb5b44f2bbac11f37b1608ead"
           ],
           "unknown_amount_ids": []
         },
@@ -71207,8 +71225,7 @@
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5caf48bbb5b44f2bbac11f37b1608ead",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e",
-        "pur-cdb4735a3b244438a2d4e72bf5b582e7"
+        "pur-c887374045604177851c4a81cc779f0e"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
