@@ -23557,7 +23557,7 @@
     "reference_candidate": {
       "scope": "One bounded inboard PET-GF frame/cradle correction. Actual unchanged native silicone, retained canonical native frame/cradle, eight exact placed native route bodies read one at a time, and the existing fluid-4 viewer payload. No full enclosure/assembly import or production export.",
       "limits": [
-        "The retained canonical native references are bound by artifact hashes; Git379bf4639 supplies source only and contains no STEP exports.",
+        "The retained canonical native references are bound by artifact hashes; Git05b4a2d12 supplies source only and contains no STEP exports.",
         "Transit uses the existing sampled cantilever deformation model; it does not establish physical force, strain capacity, loaded retention or lifetime.",
         "Fluid-4 is a viewer-payload check; the eight named other routes use exact placed native STEP inputs."
       ],

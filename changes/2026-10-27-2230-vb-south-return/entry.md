@@ -2,7 +2,7 @@
 title: V-B returns on a filled lid pedestal
 lede: V-B sits 5.3 mm south, with its return elbow 30 mm east and level fittings. A broad pedestal carries the elbow while the pump, PCB and WAGOs retain their datums.
 date: 2026-10-27T22:30:19-05:00
-commit: d90fd6598 8fa4e9abb
+commit: 36a922649 4bbb57b2e
 model: manifold-layout/enclosure-assembly.step
 ---
 The return elbow sits on an 11.24 × 11.5 mm pedestal beneath its forward

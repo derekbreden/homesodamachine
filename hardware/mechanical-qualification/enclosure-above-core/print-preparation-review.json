@@ -4022,7 +4022,7 @@
         "tree_support_branch_diameter_angle": {
           "from": "5",
           "to": "0.5",
-          "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git d5f17da3bd). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
+          "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git ff5e6f9c17). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
         },
         "tree_support_branch_diameter": {
           "from": "2",
@@ -4197,7 +4197,7 @@
             {
               "name": "Handhold lifting edge fins",
               "kind": "edge_fins",
-              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
+              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, ac3e08b4f: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
             }
           ],
           "ranges": [
@@ -5033,7 +5033,7 @@
             {
               "name": "Handhold lifting edge fins",
               "kind": "edge_fins",
-              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json. Each fin stands on a 0.44 mm foot, 5 mm outboard and 4 mm inboard of it, as its bed anchor: auto_brim gave each bare 0.9 x 22 x 35 mm fin a 15-17 mm brim, which left back-bottom's bead envelope 18.3 mm from the X edges; on feet the slice emits no brim (2026-10-19 Mark2 slice). The inboard foot stops 6.6 mm short of the recess's inner wall. Back-bottom only."
+              "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, ac3e08b4f: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json. Each fin stands on a 0.44 mm foot, 5 mm outboard and 4 mm inboard of it, as its bed anchor: auto_brim gave each bare 0.9 x 22 x 35 mm fin a 15-17 mm brim, which left back-bottom's bead envelope 18.3 mm from the X edges; on feet the slice emits no brim (2026-10-19 Mark2 slice). The inboard foot stops 6.6 mm short of the recess's inner wall. Back-bottom only."
             }
           ],
           "ranges": [

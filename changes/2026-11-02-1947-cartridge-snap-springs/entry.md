@@ -2,7 +2,7 @@
 title: Cartridge springs print on end with rounded roots and wider catches
 lede: The pump retainer carries the shared 2 mm spring section into matched enclosure receivers. Their release openings keep a complete outer wall.
 date: 2026-11-02T19:47:19-06:00
-commit: ab91e7433
+commit: 73f5851a0
 model: manifold-layout/enclosure-assembly.step
 ---
 The retainer has 22.25 mm from each root to its catch, a 1.5 mm inside blend

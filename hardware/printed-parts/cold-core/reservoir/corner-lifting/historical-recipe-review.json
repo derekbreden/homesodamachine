@@ -208,7 +208,7 @@
     "scope": "Preserve Derek's reported positive experience. Do not substitute May settings as the exact sphere recipe or interpret one NPT-port leak as a failed unpierced shell.",
     "recovered_sources": [
       "archive-plan-b:hardware/printed-parts/plan-b/carbonator-tank-sphere/generate_step_cadquery.py",
-      "b7dc4d576e9dc38794d190f31473f31d71aa4aa1: one printed NPT port wept at 5 psi or less",
+      "be9b7d9fa0fc456728b4b43602dd8be36197cc6d: one printed NPT port wept at 5 psi or less",
       "April 20\u201322 published project posts: sphere development and change from printed threaded port to bulkhead seat",
       "Private April 20 CDT chat: 3D printing pressure vessels with PETG; initial design discussion, no completed local test settings/result"
     ],

@@ -2,7 +2,7 @@
 title: Relay boards fasten at every corner
 lede: Integral posts support each PCB directly, with a screw and heat-set insert at every mounting hole. The terminal faces stay open.
 date: 2026-11-08T14:04:32-06:00
-commit: f4bb137e389058f80b9d9c363065f467275797c3
+commit: 75ffb260efa437c1162fbdfd79c503cf7fa60309
 model: manifold-layout/enclosure-assembly.step
 ---
 The post locations follow the scanned board. Blind pilots clear the selected

@@ -2,7 +2,7 @@
 title: Solid supports and service paths for the rear equipment
 lede: The pump, PSU, relays and meter share one aligned layout. Full support roots and open service passages remove thin cut remnants.
 date: 2026-11-01T23:36:27-06:00
-commit: e333cce06bd5d16238f709a82aeba1e730302fce 9d86331183e89b6ab8961b2186a89e6e3880b1ba c4977c6c8 ea9123701 c1706da8e 5807aa18d 5e3ed25b9
+commit: 5da346309733cb38fd6b7c57bbc2abe1b40f4bdb 55fe0e40df5d4e54d1519dac07f793e0847d6698 b098dcdae 7e0512f27 9ff359563 244875c89 4040340e8
 model: manifold-layout/enclosure-assembly.step
 ---
 The PSU stands clear of the pump cap and ASSE mount, with 3 mm of roof backing above every insert pilot. Two header-end screws and solid terminal-edge rails retain each relay board.

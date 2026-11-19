@@ -2,7 +2,7 @@
 title: Four core junctions stand behind V-B’s wall
 lede: The WAGO wells share a flat wall top 1.25 mm below the funnel frame. V-B and the two reservoir-A under-valve runs sit 1 mm lower, using the fore snap and aft tied seat.
 date: 2026-10-27T00:26:10-05:00
-commit: 451531391826bf29baf7f8eda58ec2856119771d f08e10128
+commit: cd4ca66edef65eec9ab001342832c4f7bf2883a5 c5ca3ec76
 model: manifold-layout/enclosure-assembly.step
 ---
 The four WAGO junctions occupy two rows on the PCB-facing back of V-B’s

@@ -2,7 +2,7 @@
 title: Continuous columns and a rounded seam band
 lede: Smooth standing columns meet a continuous band at the enclosure split. The upper round follows the display lip and sides.
 date: 2026-11-07T16:50:41-06:00
-commit: a5952db29
+commit: c29963cd6
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 

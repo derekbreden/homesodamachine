@@ -2,7 +2,7 @@
 title: One push-connect water check in a plain barrel cradle
 lede: The water-pump discharge uses one 1/4-inch push-connect check. Its fixed barrel rests in a round lid cradle, with one tie and the existing pump elbow.
 date: 2026-10-21T21:54:01-05:00
-commit: 66afca468f088b1b049a6c00557e99e611ccbb09 5e7e7798437dfc8c8c80c78a374afe90547f6d1b
+commit: a876953f50b7e3a595e35e2fc0a36a81c6075675 69b6439a8691db06a4648d4060a882636a389eab
 model: manifold-layout/enclosure-assembly.step
 ---
 The three-fitting PP010822E / GASHER / PP450822E water assembly is replaced by the single HLGHLG check. Its nominal envelope is 51 mm long and 14 mm across; water-6 enters aft and water-5 leaves forward toward the core.

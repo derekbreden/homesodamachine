@@ -1,5 +1,5 @@
 {
-  "geometry": "The display cover as the tree held it at 6a1ecd84f^: 2 mm skirts 34 mm deep with 1.8 mm lips.",
+  "geometry": "The display cover as the tree held it at 4b5390e78^: 2 mm skirts 34 mm deep with 1.8 mm lips.",
   "sources": {
     "display_cover.py": "git show 4b5390e78^:hardware/printed-parts/enclosure/display-cover/display_cover.py",
     "_display_retention.py": "git show 4b5390e78^:hardware/printed-parts/enclosure/enclosure/_display_retention.py",

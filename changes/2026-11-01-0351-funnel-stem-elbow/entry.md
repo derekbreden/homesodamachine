@@ -2,7 +2,7 @@
 title: Uncut stem elbow raises the funnel drain by 9.9 mm
 lede: The elbow stem seals directly in the silicone funnel. Its socket body clears the frame by 1.7 mm.
 date: 2026-11-01T03:51:40-06:00
-commit: 7a6ff00f5be6223a9ed795cbfaa57e175af5ba89
+commit: f8b961d624256fa3c3f80a5e86f7483f0babf651
 model: manifold-layout/enclosure-assembly.step
 ---
 The NeoFit ATEU44W retains its complete 20.912 mm male stem. It enters the

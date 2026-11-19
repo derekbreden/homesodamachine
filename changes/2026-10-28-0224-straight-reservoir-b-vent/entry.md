@@ -2,7 +2,7 @@
 title: The reservoir vent stands forward of a solid valve wall
 lede: One straight tube shares an aligned seat and two guides, clear of the wall and lower junction.
 date: 2026-10-28T02:24:19-05:00
-commit: 50e626035 2ac98443e
+commit: 84db9d648 a16c06f6d
 model: manifold-layout/enclosure-assembly.step
 ---
 Reservoir B's air tube stands at world X32.5/Y214.8 mm. Its reservoir-lid

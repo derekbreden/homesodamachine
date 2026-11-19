@@ -2,7 +2,7 @@
 title: "Scanned SODA bulkhead and stem checks define the rear plumbing"
 lede: "The MINI 2 references capture the actual bulkhead, nut and stem-check exteriors. The meter receiver and cap follow the measured bulkhead mouth."
 date: "2026-11-04T00:39:04-06:00"
-commit: "d2dab279fdec41cdfb3c09072ff30168e8451754"
+commit: d2dab279fdec41cdfb3c09072ff30168e8451754
 model: "manifold-layout/enclosure-assembly.step"
 ---
 The rear SODA station uses the scanned John Guest PP1208E fitting and its separate nut. The nut seats against the 6 mm panel stack. The meter, receiver, cap and inlet holder sit 1.241 mm farther inboard to meet the measured bulkhead mouth; the short blue tube enters each socket by 15.7 mm.

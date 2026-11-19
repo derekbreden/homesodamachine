@@ -2,7 +2,7 @@
 title: Smooth 2.38 mm cold-core casing
 lede: Plain walls preserve the printed reservoirs’ mating cavities. The casing leaves room for foil seals inside the enclosure envelope.
 date: 2026-10-25T16:30:19-05:00
-commit: 5f0e7d016c86
+commit: dddce8a8d78e
 model: manifold-layout/enclosure-assembly.step
 ---
 

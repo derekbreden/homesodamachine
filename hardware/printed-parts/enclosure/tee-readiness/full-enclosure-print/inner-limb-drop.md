@@ -30,7 +30,7 @@ These are bounded component and interface checks. The source-derived valve trays
 complete shell, and simultaneous final tube routes require their full build checks.
 The archived front-bottom and placed body references are evidence inputs, not
 current printable parts. The pump cartridge/cap equality uses the frozen canonical
-geometry in `fit-correction-baseline.zip` (in git at aab7f24fec).
+geometry in `fit-correction-baseline.zip` (in git at c693edfdd0).
 
 Reproduce without writing production outputs. The script this command runs
 is in Git at [`ed7926a69b`](https://github.com/derekbreden/homesodamachine/tree/ed7926a69ba5599f295cba8584c717687608290b):
@@ -41,5 +41,5 @@ HSM_NO_BUILD_LOCK=1 tools/cad-venv/bin/python \
   --output /tmp/inner-limb-drop-check.json
 ```
 
-The reproducer verifies every input digest in `inner-limb-drop-baseline.zip` (in git at aab7f24fec) and
-`fit-correction-baseline.zip` (in git at aab7f24fec) before constructing its local witnesses.
+The reproducer verifies every input digest in `inner-limb-drop-baseline.zip` (in git at c693edfdd0) and
+`fit-correction-baseline.zip` (in git at c693edfdd0) before constructing its local witnesses.

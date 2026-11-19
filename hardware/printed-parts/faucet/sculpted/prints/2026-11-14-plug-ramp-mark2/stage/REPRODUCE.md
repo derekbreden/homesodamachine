@@ -9,7 +9,7 @@ trial="$PWD/$sculpted/prints/2026-11-14-plug-ramp-mark2"
 stage="$trial/stage"
 flat='46b73353f6a2d910bdd5c82f3b3946adc4a84415'
 previous="$sculpted/prints/2026-11-14-tip-shoulder-mark2"
-shaft_store='ddd391f3d32bd8397f08b517ee58614fcd3e93ba:hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/stage'
+shaft_store='fb168201798cac4f7692a9a1e603261232df0449:hardware/printed-parts/faucet/sculpted/prints/2026-11-13-shaft-tilted-mark2/stage'
 cad_py="$PWD/tools/cad-venv/bin/python"
 mkdir -p "$PWD/.cache/runs"
 run="$(mktemp -d "$PWD/.cache/runs/faucet-plug-ramp-repro.XXXXXX")"

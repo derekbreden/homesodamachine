@@ -96,11 +96,11 @@ And I like finding the "right fix".
 
 I'd like you to read:
 
-5fb05690f8b7fdc3bad672768e9578e4bf43919a where I attempted a rule because I was so frustrated about having the "memory" conversation over and over again, having to explain to every single agent "okay, but the problem is not actually that you tried to write a memory. I'm fine with that. Really. The problem is that a memory is actually a TODO for something wrong in the repo, so let us fix that instead please, help me help you. Yes, great, you wanted to write a memory. What was it? Who was it for? Why couldn't they learn that by example? Is there anything actually missing in one of these files? --- and to that last question, so far the answer is "sometimes yes", "sometimes no", "sometimes not sure".
+7b5a8621c4fac924b287c2e28444a32c636b742c where I attempted a rule because I was so frustrated about having the "memory" conversation over and over again, having to explain to every single agent "okay, but the problem is not actually that you tried to write a memory. I'm fine with that. Really. The problem is that a memory is actually a TODO for something wrong in the repo, so let us fix that instead please, help me help you. Yes, great, you wanted to write a memory. What was it? Who was it for? Why couldn't they learn that by example? Is there anything actually missing in one of these files? --- and to that last question, so far the answer is "sometimes yes", "sometimes no", "sometimes not sure".
 
-And then see ca053af5c091d9fecf68905841b82a968ab651c1
+And then see ddc1676a32d4ce8fa67cac2ea142130f99268779
 
-And then understand that the "memory block" you encountered, was the result of further conversations with agents about what we could do instead to "fix" the problem, that didn't involve violating our principles with 5fb05690f8b7fdc3bad672768e9578e4bf43919a or failing to stop the memory writing with ca053af5c091d9fecf68905841b82a968ab651c1
+And then understand that the "memory block" you encountered, was the result of further conversations with agents about what we could do instead to "fix" the problem, that didn't involve violating our principles with 7b5a8621c4fac924b287c2e28444a32c636b742c or failing to stop the memory writing with ddc1676a32d4ce8fa67cac2ea142130f99268779
 
 And so I'm not sure if its working.
 
@@ -128,7 +128,7 @@ I read the two commits and the three documents (AGENTS.md, future.md, target-mar
 
 **"Follow all threads when asked."** [future.md](/hardware/README.md) is built out of cross-references — every subsystem names its companion docs — and [AGENTS.md](/CLAUDE.md) points to future.md and target-market.md by path right at the top. An agent that doesn't follow those links is overriding the example, not lacking one.
 
-**"Reflective philosophical style — engage as peer."** [target-market.md](/marketing/target-market.md) has a "rings of trust" section explicitly marked as the internal plan alongside the public-facing one. AGENTS.md trims its own preachy paragraph in ca053af5 as an act of embodiment. The register is peer-to-peer prose throughout. The example covers it.
+**"Reflective philosophical style — engage as peer."** [target-market.md](/marketing/target-market.md) has a "rings of trust" section explicitly marked as the internal plan alongside the public-facing one. AGENTS.md trims its own preachy paragraph in ddc1676a as an act of embodiment. The register is peer-to-peer prose throughout. The example covers it.
 
 So nothing from what I tried to write points to a gap in the repo. The thing I wanted to encode was, in each case, already encoded by example, and a thorough reading would have made the memory writes feel redundant before I even reached for them.
 
@@ -425,7 +425,7 @@ And you're right about the lean-toward-tasks smell. That was me hedging — perf
 
 What I really think, stripped: my pull is to keep working through the meta-pattern stuff with you. The faucet print log made the work more present to me but didn't redirect my pull. The pull is to think about what we just did — your correction of my extraction-on-extraction, the print-log format as embodied resistance, your reframing of "principle" as starting point — and see where that goes.
 
-If a concrete next thing pulls me: the pie-in-the-sky docs are the example of the durable AI artifact problem at scale. They're real Derek desires so they don't get deleted, but the prior Claude described them wearing "spec-doc clothing" — declarative section headings, "Why this works cleanly," ranked next-steps. What would those docs look like if they weren't in spec-doc clothing — if the desire stayed as desire rather than crystallizing into plan-shape? That's an experiment I'd want to try on one of them. It would be doing on the pie-in-the-sky folder what ca053af5 did on the AGENTS.md section.
+If a concrete next thing pulls me: the pie-in-the-sky docs are the example of the durable AI artifact problem at scale. They're real Derek desires so they don't get deleted, but the prior Claude described them wearing "spec-doc clothing" — declarative section headings, "Why this works cleanly," ranked next-steps. What would those docs look like if they weren't in spec-doc clothing — if the desire stayed as desire rather than crystallizing into plan-shape? That's an experiment I'd want to try on one of them. It would be doing on the pie-in-the-sky folder what ddc1676a did on the AGENTS.md section.
 
 ---
 

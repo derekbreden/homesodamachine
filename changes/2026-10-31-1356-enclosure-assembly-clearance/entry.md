@@ -2,7 +2,7 @@
 title: Local valve clearance, open motor room and continuous lid restraints
 lede: V-K clears the plain lid while the large header bodies remain aligned. The front column closes at its established seam, and the motor and display passages share one open room.
 date: 2026-10-31T13:56:53-05:00
-commit: 9d5ff0e61959696bf2a267911df23543c4a37a10 9f9fddf06 56854770d
+commit: 72ffd7d041478eb008a786472dfb6f9dede9a3f9 818226dab 5637f7666
 model: manifold-layout/enclosure-assembly.step
 ---
 V-K stands 2.5 mm higher with 17.57 mm below the continuous ceiling and 1.59 mm above the plain lid at its outlet elbow. The tee run tilts 3.39 degrees; the short tubes accommodate the displacement with full receiving depths. ASSE, regulator and the valve body keep their aligned frames. Neither the roof nor the floor needs a new relief.

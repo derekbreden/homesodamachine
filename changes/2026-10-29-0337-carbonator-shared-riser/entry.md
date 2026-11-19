@@ -2,7 +2,7 @@
 title: Carbonator leads share a straight west riser
 lede: Temperature, reed and earth leads share one cap passage. The earth ring fastens directly into the existing steel rim.
 date: 2026-10-29T03:37:23-05:00
-commit: 626945c3593ce55e8bc9ad2fe172529d27316592 057c79f6e6f7e23b71e24e60250672e2e85887e7
+commit: 4b4077765a225f0503bb7eef08905f366b512ba0 a0e93a6bc4a5d566b613ab71b69f39ac4d2d9e6b
 model: manifold-layout/enclosure-assembly.step
 ---
 Six sensor conductors surround the green earth lead in one straight Ø7.5 mm

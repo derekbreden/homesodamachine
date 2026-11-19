@@ -88,7 +88,7 @@ changes when something reads better.
     title: M5 hinge passages run on as slots through the 45° knuckle faces
     lede: One or two plain sentences under the picture.
     date: 2026-10-20T21:54:57-05:00
-    commit: 074738cb6936f20c1171bbbf671f4baadcccbd7f
+    commit: e25db5e0b0d6cd79f838b9aeae9e84645e82ac9c
     model: printed-parts/enclosure/enclosure/enclosure.step
     ---
     The detail: what changed, why, and Derek's words where they asked for it.

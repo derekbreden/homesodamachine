@@ -2,7 +2,7 @@
 title: The reservoir vent passes the V-B wall and lower junction
 lede: A straight vent passage and a 2.5 mm westward WAGO offset keep the tube clear, with a broad wall root.
 date: 2026-10-28T00:46:06-05:00
-commit: 0642418f7 f266f9451
+commit: 6db68a968 32aba2e2b
 model: manifold-layout/enclosure-assembly.step
 ---
 Reservoir B's 4 mm vent stands in a straight Ø5.2 mm passage through

@@ -2,7 +2,7 @@
 title: Fan pair clips to the inside east wall
 lede: One integral hook holds both fan leads on the front-top east wall.
 date: 2026-10-29T03:25:19-05:00
-commit: fa3be41c0c8a39082043bd34df0a8799ffef3720
+commit: 0d4c362121c3306a637223347d9129b5421e5abc
 model: printed-parts/enclosure/enclosure/enclosure-front-top.step
 ---
 The hook spans the full 16 mm from Y142 to Y158. Its broad root grows directly

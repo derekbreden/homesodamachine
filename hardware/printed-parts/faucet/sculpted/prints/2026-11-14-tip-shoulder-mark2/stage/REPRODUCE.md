@@ -20,12 +20,12 @@ mkdir "$run/preparer" "$run/shape" "$run/head"
 rustup_bin="$(command -v rustup || printf %s /opt/homebrew/bin/rustup)"
 cargo_bin="$("$rustup_bin" which cargo)"
 export RUSTC="$("$rustup_bin" which rustc)"
-git show "b6f0e6063170eeeb88f62527a1adeae12be4a3f6:$sculpted/prepare_print_project.rs" > "$run/preparer/prepare_print_project.rs"
-git show "b6f0e6063170eeeb88f62527a1adeae12be4a3f6:$sculpted/rim_supports.rs" > "$run/preparer/rim_supports.rs"
-git show "b6f0e6063170eeeb88f62527a1adeae12be4a3f6:$sockets/stage/make_union.py" > "$run/preparer/make_union.py"
-git show "c6cecb9b0acfdb41efaf5bbf9d7ee2777fda6d54:$legacy/stage/finish-selection.json" > "$run/preparer/finish-selection.json"
-git show "ddd391f3d32bd8397f08b517ee58614fcd3e93ba:$prior/stage/link-preparer.py" > "$run/preparer/link-preparer.py"
-git show "ddd391f3d32bd8397f08b517ee58614fcd3e93ba:$prior/stage/map_base.py" > "$run/preparer/map_base.py"
+git show "7b0c4144cc05fa040e183569b1d2779d2a2ab704:$sculpted/prepare_print_project.rs" > "$run/preparer/prepare_print_project.rs"
+git show "7b0c4144cc05fa040e183569b1d2779d2a2ab704:$sculpted/rim_supports.rs" > "$run/preparer/rim_supports.rs"
+git show "7b0c4144cc05fa040e183569b1d2779d2a2ab704:$sockets/stage/make_union.py" > "$run/preparer/make_union.py"
+git show "82e20e2e184a041e39f582923c8947e47ae815fe:$legacy/stage/finish-selection.json" > "$run/preparer/finish-selection.json"
+git show "fb168201798cac4f7692a9a1e603261232df0449:$prior/stage/link-preparer.py" > "$run/preparer/link-preparer.py"
+git show "fb168201798cac4f7692a9a1e603261232df0449:$prior/stage/map_base.py" > "$run/preparer/map_base.py"
 export PYTHONPATH="$run/preparer${PYTHONPATH:+:$PYTHONPATH}"
 patch -d "$run/preparer" -p1 < "$stage/tip-native.patch"
 python3 - "$run/preparer/prepare_print_project.rs" "$run/preparer/finish-selection.json" <<'PY'
@@ -45,7 +45,7 @@ tools/run -- python3 "$run/preparer/link-preparer.py" "$run/preparer/artifacts.j
   "$run/preparer/prepare_print_project.rs" "$run/preparer/prepare"
 
 "$cad_py" "$run/preparer/make_union.py" "$base" "$run/shape/filled-base.stl" "$run/shape/base-fill.json"
-git show "ddd391f3d32bd8397f08b517ee58614fcd3e93ba:$prior/sculpted-faucet-shaft-tilted-black-mark2-ready.gcode.3mf" > "$run/prior.gcode.3mf"
+git show "fb168201798cac4f7692a9a1e603261232df0449:$prior/sculpted-faucet-shaft-tilted-black-mark2-ready.gcode.3mf" > "$run/prior.gcode.3mf"
 unzip -p "$run/prior.gcode.3mf" Metadata/plate_1.gcode > "$run/prior.gcode"
 ```
 
@@ -134,7 +134,7 @@ the trial’s plate receipt. If regenerating with different paths, measure that
 span through the first course using the same playback planner.
 
 ```sh
-git show "ddd391f3d32bd8397f08b517ee58614fcd3e93ba:$prior/stage/package.py" > "$run/package.py"
+git show "fb168201798cac4f7692a9a1e603261232df0449:$prior/stage/package.py" > "$run/package.py"
 tools/run -- hsm-gcode view playback "$run/plate.gcode" --layers all --inline --data \
   --title 'Sculpted faucet tip shoulder trial' --out "$run/estimate.json"
 motion_seconds="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["seconds"])' "$run/estimate.json")"
@@ -160,7 +160,7 @@ Replay the extracted commands with the rasterized left-active toolhead. The
 nozzle windows cover the base, tip, screw-seat rings and display cover.
 
 ```sh
-git show "ddd391f3d32bd8397f08b517ee58614fcd3e93ba:$prior/stage/expand-headmap.py" > "$run/expand-headmap.py"
+git show "fb168201798cac4f7692a9a1e603261232df0449:$prior/stage/expand-headmap.py" > "$run/expand-headmap.py"
 tools/run -- "$cargo_bin" run --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml \
   -p hsm-sandbox --example h2c-toolhead -- "$run/head-model"
 tools/run -- "$cad_py" "$run/expand-headmap.py" \

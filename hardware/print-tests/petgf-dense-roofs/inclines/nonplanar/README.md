@@ -13,7 +13,7 @@ Retain the native plate references when packaging the restored paths with the
 physical target model.
 
 The [Mark1 tree trial](../prints/2026-11-11-faucet-trees-only-mark1/print-job.json) binds the complete
-coupon to the reviewed executable. The [release observation](https://github.com/derekbredensteiner/homesodamachine/blob/b388123d2ac2fdc31fd091f980334b9c99443ab8/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json)
+coupon to the reviewed executable. The [release observation](https://github.com/derekbreden/homesodamachine/blob/534b87cc5f8d6911f8bcfa38378116d8dcdcb6bd/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json)
 records the common interface coming off with the supports and leaving open
 insert pockets.
 

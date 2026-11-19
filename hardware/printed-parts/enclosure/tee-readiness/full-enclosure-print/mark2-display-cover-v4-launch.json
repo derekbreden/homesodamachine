@@ -15,7 +15,7 @@
     "sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f"
   },
   "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
-  "geometry": "The display cover at 6a1ecd84f^: 2 mm skirts 34 mm deep, for the printed front-top",
+  "geometry": "The display cover at 4b5390e78^: 2 mm skirts 34 mm deep, for the printed front-top",
   "orientation": "X180: the visible face on the plate, both skirts pointing up",
   "authority": "Derek: \"I need the display cover for the enclosure front top that already printed, so I can test that enclosure front-top\"",
   "observed_state": {

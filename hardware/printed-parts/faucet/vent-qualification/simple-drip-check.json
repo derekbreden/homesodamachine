@@ -12,7 +12,7 @@
   "socket_overlap_mm": 20.0,
   "plug_overlap_mm": 18.0,
   "diametral_slip_mm": 0.3,
-  "joint_reference_commit": "a17baa69e^",
+  "joint_reference_commit": "4f6daaad7^",
   "joint_and_male_female_assignment_match_reference": true,
   "shared_bundle_opening": "Analytic tangent hull of complete circular tube clearances and rounded ribbon lane. The flavor pair shares one smooth capsule; no separate-bore divider or cusp is stock.",
   "ribbon_width_mm": 4.1,

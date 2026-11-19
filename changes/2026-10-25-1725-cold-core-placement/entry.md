@@ -2,7 +2,7 @@
 title: Seat the cold-core casing in the machine’s assembly frame
 lede: The shell and four cap pieces share the core’s installed position inside the enclosure.
 date: 2026-10-25T17:26:25-05:00
-commit: 83d035210162d20dd789709f4eed1f6d7ddcd9b7
+commit: c7e164ede871c2e0f265a59a364f76f06e6338d6
 model: manifold-layout/enclosure-assembly.step
 ---
 The smooth 2.38 mm casing is carried into the machine with the core’s quarter turn and floor offset. The top and bottom cap stacks retain their assembled orientation and height. The section view shows the casing against the surrounding enclosure.

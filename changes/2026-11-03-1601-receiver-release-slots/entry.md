@@ -2,7 +2,7 @@
 title: Centered receiver openings release the solid pointed snaps
 lede: Small flathead passages reach the catches through the receivers. The solid pointed caps retain their fitted hardware profiles, with reversible assembly and service routes through the enclosure.
 date: 2026-11-03T16:01:17-06:00
-commit: d1daefc96977a79e85ab440cc65526a139958c19 02caa1980cb3f43ea25d6be7f2eeae09d452ce90
+commit: 66b084960f7e1fa5d20302d93c832455610eba27 f307ef77f549ad3cfdf9104d6fdc563a835f6137
 model: printed-parts/enclosure/enclosure/enclosure-back-top.step
 ---
 

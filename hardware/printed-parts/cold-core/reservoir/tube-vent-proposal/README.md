@@ -66,5 +66,5 @@ unmeasured. These previews establish nominal geometry and assembly clearance.
 
 The saved candidate geometry, measurements and provenance records describe this review.
 Its construction and review commands are retained in Git at
-`f90aba23c585bf2e73430e3157dff74474041aa3:hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/`.
+`8af858f9580268468d18dc9582330670dfffa7e0:hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/`.
 The production reservoir uses the Rust sources linked above.

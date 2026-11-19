@@ -2,7 +2,7 @@
 title: The front pump snaps share the longer lead-in
 lede: Both front pump wings use the accepted common ramp, with matching space in the enclosure receivers.
 date: 2026-11-08T05:21:17-06:00
-commit: f88c4b2ba 11ede18a8
+commit: 4a6caba05 d43a24c0b
 model: manifold-layout/enclosure-assembly.step
 ---
 The front pump retainer uses the common lead-in setting shared with the rear equipment caps. Both receiver pockets and the screwdriver-opening corbels clear the longer ramps. The pry openings retain their wall section beneath the flute valleys and leave the screwdriver working envelope clear.

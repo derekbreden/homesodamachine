@@ -2,7 +2,7 @@
 title: Bare pump and PSU pilots preserve the plain lid and full roof skin
 lede: The complete rubber foot-and-leg sliders come off the pump's fixed rails. The ceiling-mounted PSU retains 3 mm of exterior roof stock over every insert pilot.
 date: 2026-11-01T01:02:13-06:00
-commit: 3b308f5d0 5286ecb3f
+commit: ad985f429 a959d3a91
 model: manifold-layout/enclosure-assembly.step
 ---
 The pump installs without all four removable rubber feet and their raised sliding legs. Its fixed casing rails remain. The bare motor occupies the lid's equipment bay while the PSU stays aligned under the ceiling.

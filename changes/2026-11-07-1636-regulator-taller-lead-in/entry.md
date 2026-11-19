@@ -2,7 +2,7 @@
 title: A taller regulator lead-in at the standard lateral position
 lede: The taller tip spreads wing movement over a longer insertion stroke. A matching receiver clears its complete point beneath the enclosure roof.
 date: 2026-11-07T16:36:49-06:00
-commit: a48121052
+commit: 00ac36db3
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The comparison pairs the standard pointed cover with a taller planar lead-in.

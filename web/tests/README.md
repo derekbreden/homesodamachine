@@ -17,7 +17,7 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   top of `smoke.test.js` is the most valuable assertion in the suite. If
   any module under `lib/` throws while loading (the way a stray
   `VIEWER_DEFAULTS` ReferenceError took down a deploy before commit
-  8611dfa), `npm test` fails immediately.
+  08b908b), `npm test` fails immediately.
 - **Route surface.** The public pages, model and document lists, app icons, and browser modules have smoke coverage.
   The retired push worker URLs return the script that removes existing browser registrations.
 - **Legacy redirects.** `/dev`, `/drawings` and `/pcb` return redirects.

@@ -1,6 +1,6 @@
 {
   "purpose": "Bound nonplanar deposition around the supported transition in the regulator snap cap.",
-  "source_evidence": "40e364be6749339bf892c49263a5c9d6c5560ca0:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
+  "source_evidence": "c14a32a2dd9199b5d3c715ba904a48ba3bbe2663:hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/mapping.json",
   "parameters": {
     "band_period_mm": 1.92,
     "bed_blend_mm": [0.44, 4.0],

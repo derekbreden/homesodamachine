@@ -3084,7 +3084,7 @@
     }
   },
   "quadrant_dispositions": {
-    "scope": "Post-LIVE4b5c24b79 text/stdlib review of every fresh FB/FT/BT row. No additional CAD/native/mesh queries or geometry edits during triage. Cradle raw findings belong to hardware helper. This scoped disposition is not a whole-quadrant thin result or physical print/support qualification.",
+    "scope": "Post-LIVE4a7934489 text/stdlib review of every fresh FB/FT/BT row. No additional CAD/native/mesh queries or geometry edits during triage. Cradle raw findings belong to hardware helper. This scoped disposition is not a whole-quadrant thin result or physical print/support qualification.",
     "publication": "4a7934489",
     "verified_live_receipt": {
       "path": ".cache/y-seam-fit/polish2/live-verified.json",

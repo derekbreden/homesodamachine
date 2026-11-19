@@ -2,7 +2,7 @@
 title: Flavor lines snap into two shared roof stations
 lede: Two common filled bases hold the flavor tubes beneath the fixed roof. Gentle rises carry the lines through the service bay.
 date: 2026-10-28T11:47:09-05:00
-commit: 0c120687739750246b73bf8442bd35c8afe7be96
+commit: ec1b38b0184db065ccb7ac69649fec2c12e0bd85
 model: manifold-layout/enclosure-assembly.step
 ---
 The two 4 mm dispense lines rise onto straight roof runs before reaching the

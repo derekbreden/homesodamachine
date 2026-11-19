@@ -80,5 +80,5 @@
  "layer_band": "0.08 mm from print z 187.0 to 195.0 (emitted model layers 187.24-195.00), covering the R6 roof side edges (189-195), the R6 torus (187.392-195) and the R18 above the display (192.588-195); 0.24 elsewhere",
  "curve_check": "Every curved up-facing surface flatter than 26.6 degrees on enclosure-front-top.stl that is an edge round lies in 187-195. Outside it are only horizontal bores: screw-hole and spring-pocket floors and crowns.",
  "filament": "Left extruder on external 254, PET-CF 000000FF (black PET-GF); right idle.",
- "sent_via": "tools/bambu_send.py (755f4fd0d): External chosen on the second attempt from a fresh dialog"
+ "sent_via": "tools/bambu_send.py (9b5f196b8): External chosen on the second attempt from a fresh dialog"
 }

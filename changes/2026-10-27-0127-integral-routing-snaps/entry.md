@@ -2,7 +2,7 @@
 title: Integral snaps hold the tube and cable routes on back-top
 lede: Four tube snaps and three cable hooks join the roof and walls. The quarter-inch C2 bore is 6.35 mm, and the 4P ribbon uses the accepted 16 mm clip.
 date: 2026-10-27T01:27:35-05:00
-commit: bb2f0ec4d7b908671f35a7b4c15a5d5d12d360f8
+commit: d38c63961aa06e3727c901edce1572a87da55f0a
 model: manifold-layout/enclosure-assembly.step
 ---
 Back-top carries direct tube snaps for the reservoir-A fill line, both rear flavor lines and the vent. Their filled roots meet the host faces, and the wall-mounted fill snap has a full 45° corbel. Each wing spans the complete 8 mm along its tube.

@@ -2,7 +2,7 @@
 title: Plain funnel-frame sides and rear brim bearing
 lede: The frame keeps its four complete screw seats while the rear surround meets the silicone bearing plane. The lower sides and front screw wells have plain boundaries.
 date: 2026-10-24T22:28:54-05:00
-commit: 7bdd667a9 b6b4f15d7
+commit: 8912d9fa3 630f403e4
 model: printed-parts/zone-c/funnel/funnel-frame.step
 ---
 The lower body has flat sides through the front ledge passage. The rear surround finishes at the silicone bearing plane, retaining a finite Ø5.5 mm pad at each rear screw head. Each front head well opens to the brim pocket and the exterior.

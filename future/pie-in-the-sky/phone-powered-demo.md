@@ -49,7 +49,7 @@ simplified in other ways first. It is preserved at tag
 **`phone-powered-demo-v1`** (commit `0a21e54a`, built over `16d7e45f`). The clean
 source diff — the design work, without the regenerated `out/` renders:
 
-    git diff 7ac5f02c phone-powered-demo-v1 -- hardware/pcb/pcba ':(exclude)hardware/pcb/pcba/out'
+    git diff f78fa94f phone-powered-demo-v1 -- hardware/pcb/pcba ':(exclude)hardware/pcb/pcba/out'
 
 It held every board invariant at baseline — 95×76, 0 DRC errors, 87/87 JLC-sourced,
 footprint floor −0.238 — except the clearance floor: **0.137 mm** against the main

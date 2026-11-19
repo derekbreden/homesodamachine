@@ -2,7 +2,7 @@
 title: Receiver tube stops get 3 mm of throat behind them; web feet follow the angled socket
 lede: Each pump receiver's tube stops get a 3 mm straight throat behind them, up from 1.25 mm, and the web under the angled lower socket reaches 1.3–1.7 mm lower.
 date: 2026-10-20T19:15:47-05:00
-commit: 0c8bbef50c2e316bd0eb541fdbd52d5e06088147
+commit: 25cb9a9b92683497a31f0a2423cda15a23c774b5
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The four TPU pump receivers each join an upper socket and an angled lower socket through a rounded gallery.

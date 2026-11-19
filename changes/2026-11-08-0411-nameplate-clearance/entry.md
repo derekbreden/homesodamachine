@@ -2,7 +2,7 @@
 title: Nameplate clears the rear corner and seam band
 lede: The plate and its receiver leave matching space beside the rounded corner and above the seam band. The artwork and mounting holes follow the same footprint.
 date: 2026-11-08T04:13:07-06:00
-commit: 47dd0e37162ced85a2e57b5571556fc6972902ab
+commit: 7f726658e69d94842f0a13126b3addc4b90a253b
 model: manifold-layout/enclosure-assembly.step
 ---
 The plate and its artwork share the scale defined with the rear wall. Its receiver, screw stations and installed hardware use the shared mount record. The lettering and QR scale across the face while their relief, the plate thickness and the fastener sizes retain their authored dimensions.

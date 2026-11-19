@@ -391,7 +391,7 @@
         "current_local_volume_mm3": 0.3339308261745126,
         "reference_constructed_local_volume_mm3": 0.33393082617584036,
         "volume_difference_mm3": -1.327771226300456e-12,
-        "reference_scope": "The immediate pre-dock b5b7f1e6c source helpers with their authored Box inputs construct this exact finite window, as recorded in the saved source-construction comparison. Unchanged helper ASTs are checked separately. This is a local inherited-interface scope proof, not a thickness acceptance."
+        "reference_scope": "The immediate pre-dock 61c0b3499 source helpers with their authored Box inputs construct this exact finite window, as recorded in the saved source-construction comparison. Unchanged helper ASTs are checked separately. This is a local inherited-interface scope proof, not a thickness acceptance."
       },
       "insert_host_dimension_basis": {
         "table": "https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf",

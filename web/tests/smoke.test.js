@@ -2,7 +2,7 @@
 //
 // The single most valuable assertion here is the `import { start }` at the
 // top: if server.js fails to evaluate (the way it did when a stray
-// VIEWER_DEFAULTS ReferenceError took down a deploy before commit 8611dfa),
+// VIEWER_DEFAULTS ReferenceError took down a deploy before commit 08b908b),
 // the test errors immediately. That one import is the safety net every
 // future change crosses on its way to production.
 //

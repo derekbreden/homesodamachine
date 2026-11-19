@@ -2,7 +2,7 @@
 title: Pump retainer rooms have flat ceilings around the inserts
 lede: The unused sloping recess is filled around each pump retainer. One flat ceiling carries the insert pilots, with the pump wells and flange capture preserved.
 date: 2026-11-09T19:22:48-06:00
-commit: a17db6087c36c2c59f5a1bdc92c1e09d14387048
+commit: 9233d78fb73424fd037a0c80933c32f0018d0d44
 model: manifold-layout/enclosure-assembly.step
 ---
 The straight retainer rooms meet continuous stock around the pump loading wells. Their ceilings share the insert-entry plane, and the separate post faces disappear. Each retainer remains independently removable from below.

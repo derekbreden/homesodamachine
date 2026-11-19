@@ -420,7 +420,7 @@
   },
   "provider_sources": {
     "hardware/scripts/_rust_part.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_rust_part.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_rust_part.py",
       "sha256": "20d764aaf44cadf633ba64e9f4b5e6208d35bd29a580cd51eb7de39cdb6e39ad"
     },
     "hardware/printed-parts/enclosure/enclosure/_enclosure_datums.py": {
@@ -432,7 +432,7 @@
       "sha256": "c4d44163993814b5a69f2c52964019ad3cb27b0bf023ccba1e034c54e25fef8f"
     },
     "tools/docgen/__init__.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:tools/docgen/__init__.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:tools/docgen/__init__.py",
       "sha256": "1d7766d594df9a0791c4144af96954a7058414bda2d099203b5d1240688f50fb"
     },
     "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
@@ -444,7 +444,7 @@
       "sha256": "f11d0f972620e46b48dfe20bce638562a15782fec33b53f86a5504548b41d8ca"
     },
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/pump-tray/pump_case.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "sha256": "4ae67d365f3ff3d347a07cec0eda4ba69688c4d7f01657e9d652671a1c0c002f"
     },
     "hardware/printed-parts/cadlib/world_workplane.py": {
@@ -468,7 +468,7 @@
       "sha256": "682849cd011c7668735a807ca237a41ed37d1ea70346359cecf87c20e388b864"
     },
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "sha256": "9adf4df4281b9d338f7d1fba9e2907477da5506240a3d68c3b57a0f0855a7d5a"
     },
     "hardware/scripts/_material_base.py": {
@@ -480,7 +480,7 @@
       "sha256": "c9180664d0a57d364ec145319d2c06e5dc12b06be6ba773317e80d8aa182859c"
     },
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "sha256": "5365e57b729a82fe3a0a04142ec24f2852c10ba94a6c62c87f6e7e40692e34ea"
     },
     "hardware/printed-parts/cadlib/fits.py": {
@@ -496,11 +496,11 @@
       "sha256": "92c10e004f6c3bdb59b3ca90e9c587bcb5854e3362d9b5a09a5a7a7dd50fe1e1"
     },
     "hardware/scripts/_cadq_export.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_cadq_export.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_cadq_export.py",
       "sha256": "7650a38267ecb6150b4945cfdbbddad15f915d1f25a4697a02b406611e95b416"
     },
     "hardware/scripts/_document_export.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_document_export.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_document_export.py",
       "sha256": "3ee2ad311d66e6528412c833b7751def42e1052ee20f55567a76b33b48b45743"
     },
     "hardware/scripts/_materials.py": {
@@ -508,11 +508,11 @@
       "sha256": "ce915827df1b5bb2768170a3a76d6c32b5e47a8dd7f020bd833e1e540b19ea98"
     },
     "hardware/scripts/_payload_rules.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_payload_rules.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_payload_rules.py",
       "sha256": "5c2f1e175f9656bc0a55eb1591dd41ee3414b2b589f1e1f75a9ece6d7802a626"
     },
     "hardware/manifold-layout/above_core.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/manifold-layout/above_core.py",
       "sha256": "4ae1006309cfc55676c11ac286d0506a77d8fecd1b107818b2d6a665b787654e"
     },
     "hardware/manifold-layout/_layout_data.py": {
@@ -548,7 +548,7 @@
       "sha256": "b3b480d8678ea13d17bfd2b0720ce1aa7436fd0ae7db423c98747273da2a4d02"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "sha256": "e117fb4c0cb52acaae1ca2b7c3975cd803e990a33a2777a2172308f19e4d6103"
     },
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": {
@@ -568,15 +568,15 @@
       "sha256": "96df0bcdfada1bd888057971031d8cb943357f2bc54fe5136b020e37da015325"
     },
     "hardware/printed-parts/zone-c/funnel/funnel.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/zone-c/funnel/funnel.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/zone-c/funnel/funnel.py",
       "sha256": "13442f739159c56f74e08cca210ff7c6b5e81c31f531af04374ed0333b106b23"
     },
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/zone-c/funnel/funnel_frame.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/zone-c/funnel/funnel_frame.py",
       "sha256": "7a6060b12504ad40eba59d786851f423a3499ae3ec40fabb36ef6a3f97d508f4"
     },
     "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/zone-c/funnel/elbow_cradle.py",
       "sha256": "97d1416c36855cb0e9d93dfb0d183bd94db496b47f279f15c6e6f30de24e80b4"
     },
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": {
@@ -604,15 +604,15 @@
       "sha256": "6f988051954605af0ef959f7c0fcb7cb79ef2d1dd080555d28061527f1e249be"
     },
     "hardware/printed-parts/valve-seat/valve_seat.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/valve-seat/valve_seat.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/valve-seat/valve_seat.py",
       "sha256": "4504c96e79a9ccc67060af6d44a4470ddb55109c6f81f1dd60a2b365c022a11a"
     },
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "sha256": "b08be4fe1d9122eff95fa1bdc44cd720b477709da204b22c6d1f640d2b3b90c0"
     },
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
       "sha256": "9de8bf7e18306f0d2646c92cdf042875df4c82c03850a58baacf01ecdc7b47f1"
     },
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": {
@@ -620,11 +620,11 @@
       "sha256": "9bf17c2ade88ca156c9d859840067829d700ebccded368469ea4ea50700f9013"
     },
     "hardware/printed-parts/enclosure/enclosure/_swept_top.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_swept_top.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/_swept_top.py",
       "sha256": "d550cfd5e4beaf8e83686c19f662d3409a28cd0002b7907eb3a6d8aa359da50c"
     },
     "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
       "sha256": "e3e5f0251ab9f0f82324c82e94e45667cac0e5d9c505cf06fd6f525c6bf3ce82"
     },
     "hardware/printed-parts/enclosure/enclosure/_grip_interface.py": {
@@ -640,15 +640,15 @@
       "sha256": "a49c37fef29c15fceab1a5fc04a485aff9db1fc220d386feffe63fd91253883b"
     },
     "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
       "sha256": "fb290e6f377fc5f33790b7e6532c59ff0fdab0472b2f519d808b17106e8629fc"
     },
     "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
       "sha256": "67b5bc6d6a2920d6f030d3e415258b6532bd3e39fb2690b549e8017ee77ce714"
     },
     "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
       "sha256": "9e46d2df92baa8d055ebe3d79d544103df53b8b60dd15e5ce199922fc6f00294"
     },
     "hardware/reference/compressor/compressor.py": {
@@ -660,11 +660,11 @@
       "sha256": "34c7897fb732e08b07c03611a98d272fba2230590b90a3cb8bc9b84789a8091c"
     },
     "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
       "sha256": "2fee1c2633ab341fc162ec4f2365eaea94066446bc0d4e5292191a7a90c82876"
     },
     "hardware/printed-parts/electronics/module_tray.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/electronics/module_tray.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/electronics/module_tray.py",
       "sha256": "1f848d867aacb2d0c1a667d876a5711527a97e49b75cc122ca55d18500152516"
     },
     "hardware/scripts/_box_spec.py": {
@@ -672,7 +672,7 @@
       "sha256": "b7736cd2c5e3a3b7b7b4927f18c19bc9799185b8aa44b5e107d4417ffb7d87f9"
     },
     "hardware/manifold-layout/above_core_routes.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core_routes.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/manifold-layout/above_core_routes.py",
       "sha256": "3205253fffe5dbb13b996a16b199ec89ff4294155d7145bf494b3711b1556288"
     },
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": {
@@ -692,15 +692,15 @@
       "sha256": "aceb3e758743cfeb90e79c235a161898388ce8b4ad309bcc4839964fbfd86741"
     },
     "hardware/scripts/_carbonator_drawing.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_carbonator_drawing.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_carbonator_drawing.py",
       "sha256": "4718a5d7c987831472e16561323ec867376e43b611bbd0b2e4e6d2b1d3c4f5fc"
     },
     "hardware/scripts/_mesh_projection.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_mesh_projection.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_mesh_projection.py",
       "sha256": "48db1d45914805b317bd5a90a3f2e55b03e4d3a8718af7f7565dea3b367023ae"
     },
     "hardware/scripts/_fabrication_drawing.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_fabrication_drawing.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_fabrication_drawing.py",
       "sha256": "a87ac46413385f68dd66567a026ef1b6a2d3fb947baa984c11ac25b7591e9767"
     },
     "hardware/printed-parts/cadlib/print_mesh.py": {
@@ -720,23 +720,23 @@
       "sha256": "a02224bf754055e126dfa4a600b825d717875c29c509189ff31ed53b06fe067e"
     },
     "hardware/wiring/installed/__init__.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/wiring/installed/__init__.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/wiring/installed/__init__.py",
       "sha256": "ee1b685fb501666211eee4964ae86bb12c9ff7d6ffb75a7410ee0ad4117e3e10"
     },
     "hardware/wiring/installed/retainers.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/wiring/installed/retainers.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/wiring/installed/retainers.py",
       "sha256": "22b3f474029f6d6349d3e2d5cb034e1b7ce403a86dc36f72dfb03d650a129932"
     },
     "hardware/manifold-layout/above_core_parts.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core_parts.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/manifold-layout/above_core_parts.py",
       "sha256": "ed33c15929127ab9b038869a629ac46a16610127c99374388107ccc73be87bff"
     },
     "hardware/manifold-layout/above_core_bom.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/above_core_bom.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/manifold-layout/above_core_bom.py",
       "sha256": "83e37c4fb764fa1c9ef232e69225dc5ff602415ba576e8253409cbca128e119e"
     },
     "hardware/assembly/_pressure_vessel_sync.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/assembly/_pressure_vessel_sync.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/assembly/_pressure_vessel_sync.py",
       "sha256": "43c46b5d9f72deee58869bc142aa80775763249453037faed3151a353a846b40"
     },
     "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": {
@@ -760,7 +760,7 @@
       "sha256": "b9fe7b0d87cf2d3c3eeec8e7a61d7887c588d9af954b24fe921b3fb7080c7708"
     },
     "hardware/scripts/_build_time.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_build_time.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_build_time.py",
       "sha256": "c6deddec54b3f9f9be869fa9a0eee870bbbc44f1c3ada511016a43552124aaed"
     },
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
@@ -776,7 +776,7 @@
       "sha256": "db1d6b1519afffb1e82842728ba00026c29ed5e9482ec33b0a81114177cf69c7"
     },
     "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py",
       "sha256": "14a0786489dc1a7118f7695ad71056203591cb61617522306f947573d5ec51af"
     },
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": {
@@ -808,7 +808,7 @@
       "sha256": "8fb11a5c5069a8e9d02b997c39d52fa63df038ce1b2726cc50058355018b90ea"
     },
     "hardware/scripts/_realized.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_realized.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_realized.py",
       "sha256": "9862766583d34c13d7d7d535a0e549a2bccd8e312f5d83b0e5cbd809072b44a8"
     },
     "hardware/scripts/_clearing.py": {
@@ -816,15 +816,15 @@
       "sha256": "da8783baaa09ed5e561af114fc21dca16a97feb3b3a14a531976844a35baa4ad"
     },
     "hardware/scripts/_meshes.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_meshes.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_meshes.py",
       "sha256": "6dc2b146f36b3ab2d87cbd698bbbdab4a98ddd6f97b400181a89af8e609e4be8"
     },
     "hardware/scripts/_overlap.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/scripts/_overlap.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/scripts/_overlap.py",
       "sha256": "bd2ba9143feaae4ddea1a1cd0b1bc130eeee17ac2721ce4c1b7603843410962a"
     },
     "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
       "sha256": "23211d119a86655e3dd6a43def64c39b69c97203965ad367b8859e2a3156edb0"
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate.py": {
@@ -832,11 +832,11 @@
       "sha256": "8866704b74c02d1833a5e8a9fb5abd9e6bda40ce589de9407a84281345f88198"
     },
     "hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
       "sha256": "c3a59930689b4f5421dbe48d22bbd6048276b41f066fb9077ab7d6fcc4114994"
     },
     "hardware/manifold-layout/_drain.py": {
-      "source": "d6a0b281d2866a4435ffaf056850efe960a74f1f:hardware/manifold-layout/_drain.py",
+      "source": "1c6498164a4fa879bebf758e06cce6ca25b93cff:hardware/manifold-layout/_drain.py",
       "sha256": "0ad93b3c74802ca07367230e1762ffffe9a1b209ae94336f8c442f70667406c2"
     }
   },

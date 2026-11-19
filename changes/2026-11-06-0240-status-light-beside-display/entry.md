@@ -2,7 +2,7 @@
 title: The display slides left for a status plate with one blue light
 lede: The display and its cover move toward the facet's left edge, and the right of the facet takes a status plate in the nameplate's style, with one small light and ON beneath it.
 date: 2026-11-06T02:34:00-06:00
-commit: 296249900
+commit: ecd6124ca
 model: printed-parts/enclosure/enclosure/enclosure-front-top.step
 ---
 The display's pocket, glass seat, PCB opening and insert pilots move with the display. The display and the plate share the facet's flat run, with equal margins at both side edges and between the two. The plate's flush seat carries pilots for the same short inserts as the cover, its screws level with the cover's.

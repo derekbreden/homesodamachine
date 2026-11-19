@@ -2,7 +2,7 @@
 title: Clearance fixes for the pump, reed bridge and routed leads
 lede: Bare-pump anatomy, evaporator relief and conductor routes follow the installed hardware.
 date: 2026-11-09T21:40:45-06:00
-commit: ee9bd362a 1e3a929df 2d76dabc6
+commit: 3465578fb 0392d9aa9 40c2bd031
 model: manifold-layout/enclosure-assembly.step
 ---
 

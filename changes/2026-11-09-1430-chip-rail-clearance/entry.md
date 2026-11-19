@@ -2,7 +2,7 @@
 title: Color chips clear their retaining rails
 lede: The identification chips share the approved side clearance for easier insertion into the rear enclosure.
 date: 2026-11-09T14:30:02-06:00
-commit: 117ada0b44e4ef2e930ac93ad6a9ce5ca95007ce
+commit: a9a0631d583cd4025d162b502d319dc6a0d854ae
 model: manifold-layout/enclosure-assembly.step
 ---
 Symmetric cuts at the chips' vertical edges provide the approved running clearance. The fitting bores, raised lettering, height and thickness retain their accepted geometry.

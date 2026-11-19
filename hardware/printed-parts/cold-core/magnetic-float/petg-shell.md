@@ -19,7 +19,7 @@ the successful May 30 clear reservoir recipe's sealing controls with Translucent
 
 The [reservoir print log, attempt 3](../reservoir/print-log.md)
 records hours of water retention with the gaskets installed. The exact printed
-project is retained in Git at [f25975cd045cc835eccf1a207cb12fe48dc63ada](https://homesodamachine.com/print-archive/7d7e3fabf16884e161e524e9820dbc69758c953a/reservoir.3mf).
+project is retained in Git at [fbde08ba9f2eac1f620ce9d9fb9ac016e95e9be9](https://homesodamachine.com/print-archive/7d7e3fabf16884e161e524e9820dbc69758c953a/reservoir.3mf).
 Its saved preset is `Bambu PETG Water`, using **GFG00, PETG Basic** settings.
 The actual filament was **Bambu PETG clear**, confirmed by Derek on 2026-10-05.
 [petg-water-recipe.json](petg-water-recipe.json) extracts the active left-nozzle
@@ -34,7 +34,7 @@ and 3 mm walls/floor. The reservoir's current
 cooling, floor fill and seam treatment.
 
 The sphere pressure test is recorded in
-[commit b7dc4d576](https://github.com/derekbreden/homesodamachine/commit/be9b7d9fa0fc456728b4b43602dd8be36197cc6d):
+[commit be9b7d9fa](https://github.com/derekbreden/homesodamachine/commit/be9b7d9fa0fc456728b4b43602dd8be36197cc6d):
 its printed NPT port wept at **5 psi or less**. The
 [archived sphere generator](https://github.com/derekbreden/homesodamachine/blob/archive-plan-b/hardware/printed-parts/plan-b/carbonator-tank-sphere/generate_step_cadquery.py)
 has 5 mm walls. The recovered sphere test history is incomplete. This commit

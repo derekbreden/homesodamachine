@@ -4,7 +4,7 @@
   "source_revisions": {
     "before_recipe_port": "1c6498164",
     "head": "b1fd18441",
-    "compile_sources": "a78cf15ba enclosure-data, cold-core-data and hsm-documents, private target directory"
+    "compile_sources": "b1fd18441 enclosure-data, cold-core-data and hsm-documents, private target directory"
   },
   "generated_modules": {
     "form": "One initialize function per module over hsm_documents::interop::Val; Python names resolve at run time through Env scopes; modules outside the compiled set import through the Python adapter callback",
@@ -15,7 +15,7 @@
       "cold-core-data": {"generated_files": 50, "megabytes": 3.09, "python_modules": 50, "python_lines": 8761},
       "guides": {"generated_files": 22, "megabytes": 2.44, "python_modules": 21, "python_lines": 5083}
     },
-    "python_lines_basis": "Non-blank, non-comment lines of the same-named modules at d6a0b281d, docstrings included",
+    "python_lines_basis": "Non-blank, non-comment lines of the same-named modules at 1c6498164, docstrings included",
     "largest_module": {"path": "tools/hsm/enclosure-data/src/compiled/enclosure.rs", "lines": 31539, "closures_in_initialize": 279}
   },
   "bazel_step_durations": {
@@ -44,15 +44,15 @@
     "enclosure-dimensions": {
       "1c6498164": {"cpu_seconds": 2.0, "wall_seconds": 2.63, "max_rss_mb": 113.2},
       "b1fd18441": {"cpu_seconds": 7.34, "wall_seconds": 16.98, "max_rss_mb": 338.9},
-      "a78cf15ba_with_lazy_condenser_ocp": {"cpu_seconds": 3.31, "wall_seconds": 7.68, "python_max_rss_mb": 83.6}
+      "b1fd18441_with_lazy_condenser_ocp": {"cpu_seconds": 3.31, "wall_seconds": 7.68, "python_max_rss_mb": 83.6}
     },
     "concurrent_recompiles_observed_cpu_seconds": [394.4, 257.4, 241.0]
   },
   "native_cad_load": {
-    "observed": "enclosure-dimensions at a78cf15ba loaded OCP.OCP: the generated enclosure modules import hardware/reference/condenser-block/condenser_block.py through the adapter callback, and its module-level OCP imports loaded OpenCASCADE",
+    "observed": "enclosure-dimensions at b1fd18441 loaded OCP.OCP: the generated enclosure modules import hardware/reference/condenser-block/condenser_block.py through the adapter callback, and its module-level OCP imports loaded OpenCASCADE",
     "normal_entrypoints_reading_condenser_block": 8,
     "static_scan": "Of the 341 Python files the build graph reads, condenser_block.py is the only one importing OCP or meshcad at module level",
-    "after_lazy_import": "CadQuery deferred or never imported and no OCP or meshcad module loaded in all eight steps reading condenser_block.py at e3453c8d7 (enclosure-dimensions, asse-drain-sync, enclosure-mechanical-sync, internal-plumbing-sync, fluid-topology-sync, bom-masses, enclosure-box, enclosure-assembly), and in cold-core-sync at a78cf15ba with the lazy import"
+    "after_lazy_import": "CadQuery deferred or never imported and no OCP or meshcad module loaded in all eight steps reading condenser_block.py at a66942127 (enclosure-dimensions, asse-drain-sync, enclosure-mechanical-sync, internal-plumbing-sync, fluid-topology-sync, bom-masses, enclosure-box, enclosure-assembly), and in cold-core-sync at b1fd18441 with the lazy import"
   },
   "compile": {
     "command": "cargo build --release -j2 -p <crate>, private target, deps already built",

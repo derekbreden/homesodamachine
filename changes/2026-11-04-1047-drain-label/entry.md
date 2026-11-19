@@ -2,7 +2,7 @@
 title: DRAIN on the rear port and white tube
 lede: The lower-left white card and its matching tube collar share the name DRAIN. Both guides use the same label.
 date: 2026-11-04T10:47:23-06:00
-commit: fedeef18c245ebd8b1dba711c1e5cf29b7d9109e
+commit: 720e23b1d42f37f14ced6f6a733633303729f245
 model: manifold-layout/enclosure-assembly.step
 ---
 DRAIN identifies the dedicated 4 mm atmospheric-vent connection at the lower

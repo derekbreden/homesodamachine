@@ -2,7 +2,7 @@
 title: The aft meter carrier passes behind the regulator
 lede: A plain dogleg reaches the east wall behind the regulator. The meter and regulator keep their selected positions.
 date: 2026-10-25T01:28:57-05:00
-commit: 588130fad613f37248d5beb434e98c1099bba9a2
+commit: 9ffbb655b98b5ff579a1c1685755065f9478dfaf
 model: manifold-layout/enclosure-assembly.step
 ---
 The section at Z300 shows the aft carrier's path around the regulator. Its fixed-collar quarter bearing and local tie pad retain full 3 mm stock; the wall landing is a plain 3 by 6 mm bridge at Y436. The nominal tie uses the short opening beside the collar.

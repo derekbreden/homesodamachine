@@ -2,7 +2,7 @@
 title: Flush TPU tube grips and independent reservoir air tubes
 lede: Matched countersinks hold the tube grips flush with each reservoir lid. Each reservoir breathes through its own straight tube above the insulation.
 date: 2026-10-26T02:16:25-05:00
-commit: b1c70d7a3ce8713766b0242595e23e50d1bf248f 067c28fbd12f698a782b3a422f7f983176f8a6bf
+commit: 29d61e061e91e3c9e3bd31fd9e125a44b6ff57fc 34279b1fa9f82edee043422aac9e7109406ab9dd
 model: manifold-layout/enclosure-assembly.step
 ---
 Each 4 mm reservoir lid captures two liquid-tube spools and one air-tube spool in matching 45° countersinks. Both TPU faces sit flush with the plate. The machine uses four liquid grips and two air grips in TPU 90A.

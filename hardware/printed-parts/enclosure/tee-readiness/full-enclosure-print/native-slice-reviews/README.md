@@ -42,6 +42,6 @@ their own physical checks.
 | tee-carrier | Mark2 | stopped by Derek after renewed edge failure, task 1279237907; failures lie between infill contacts; actual failure layer unknown | [2026-09-24-tee-carrier-plate-mark2-v13](2026-09-24-tee-carrier-plate-mark2-v13/manifest.json) |
 | tee-carrier | Mark2 | prepared, not sent; six walls only at Z 0–6.1 mm, original wall-first order, speeds and 15% overlap; physical result untested | [2026-09-24-tee-carrier-plate-mark2-v15](2026-09-24-tee-carrier-plate-mark2-v15/manifest.json) |
 
-Reviews retired from this folder, and their rows here, are in git at aab7f24fec.
+Reviews retired from this folder, and their rows here, are in git at c693edfdd0.
 
 The two current Mark2 mounting plates use the shared 7 mm G Ganen feet and corrected screw stations. The shell archives retain their complete native/support reviews; back-top additionally has a native-equivalence proof for its numerical mesh variation. Physical support cleanup and assembled fit are observations from the full enclosure trial.

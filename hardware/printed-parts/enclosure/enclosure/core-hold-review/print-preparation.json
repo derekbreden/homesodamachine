@@ -64,7 +64,7 @@
     "tree_support_branch_diameter_angle": {
       "from": "5",
       "to": "0.5",
-      "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git d5f17da3bd). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
+      "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git ff5e6f9c17). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
     },
     "tree_support_branch_diameter": {
       "from": "2",
@@ -109,7 +109,7 @@
       -5.4,
       0.0
     ],
-    "reason": "With the footprint centered, tree trunks under the rear face root up to 11.6 mm past it while the seam end's beads stay within 0.9 mm of it: emitted bead envelope X 26.05-309.70 mm (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers that envelope, 20.6 mm from both bed edges. Back-top only."
+    "reason": "With the footprint centered, tree trunks under the rear face root up to 11.6 mm past it while the seam end's beads stay within 0.9 mm of it: emitted bead envelope X 26.05-309.70 mm (2026-10-19 Mark2 slice of the 4dd93ff62 mesh). This offset centers that envelope, 20.6 mm from both bed edges. Back-top only."
   },
   "objects": [
     {
