@@ -5,8 +5,8 @@
   "printer": "Mark2",
   "connection_key": "Mark2",
   "status": "prepared",
-  "prepared_utc": "2026-11-18T22:17:28+00:00",
-  "source_revision": "0259387aaf2fb92d7a8c9e5c54cb8c80a0b93c04",
+  "prepared_utc": "2026-11-19T03:52:17+00:00",
+  "source_revision": "845f45b1655b31a2a4ca40f0a843174955f9621f",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,27 +24,27 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "7363657f40eea55a676e253b484704e5d06b61ffa53b1922d1497abb0c75c0d1",
+  "recipe_sha256": "fd1fe149e5c91f7b61081a93d76ed27d56bc138f6fb6b62077fe5ba0459668ef",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-  "source_stl_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
+  "source_stl_sha256": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf",
   "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.npz",
-  "source_fine_archive_sha256": "dfc2482a1984d6dff155a26f8dcafdf76c37bf0c0fecec9ff23ef3333756e46c",
+  "source_fine_archive_sha256": "dc5ca503037bf98a7393f77235a073eeeb519bdeceb3a1ff25ff98c3f833f892",
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "print_regions_sha256": "f05d221d39c205037a28fe5f775ed66d93ee6d6e827307d57cbcbd06bf480feb",
-  "archive": "2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf",
-  "archive_sha256": "ada53259d4a2831c05ef7ed9ec80d73d76f83fd18689aa359944434c86e79b74",
-  "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
-  "project": "2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf",
-  "project_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9",
+  "print_regions_sha256": "b65fce8ed0165cca465ece695e22c60ece2f4b4e75f36b6c1bf048d0470d5b7f",
+  "archive": "2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.gcode.3mf",
+  "archive_sha256": "60fd9037f749ca75a232b673a27ddbb152680a79cbafc0b49cb4f7c23c533bea",
+  "gcode_sha256": "0839e4f7f9b4024b781adf72ac95e0c3130081c63f652c8f800b1ce912b6adac",
+  "project": "2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.3mf",
+  "project_sha256": "85bd22cd37120820a16cdb7bafacf946475afaafd90e582d084a1371071db16e",
   "preparation": "preparation.json",
   "native_review": "review.json",
   "support_audits": [
     "support-audit-1901.json"
   ],
   "layers": 765,
-  "estimated_seconds": 112045.73239342646,
+  "estimated_seconds": 112056.861367374,
   "minimum_bead_bed_margin_mm": 20.493778000000002,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
@@ -76,9 +76,9 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 256261
+      "vertices": 256257
     }
   ],
-  "replay_sha256": "48f791ab6e96462064516e4a1d842075e8f476692173ec9ca876f5053732a620",
-  "replay": "print-playbacks/48f791ab6e96462064516e4a1d842075e8f476692173ec9ca876f5053732a620.json.gz"
+  "replay_sha256": "5ffb9e9c09104282219dcb86247a04d7e79142d7b0c63d147fe43fefb3601b60",
+  "replay": "print-playbacks/5ffb9e9c09104282219dcb86247a04d7e79142d7b0c63d147fe43fefb3601b60.json.gz"
 }

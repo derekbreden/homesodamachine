@@ -17,12 +17,12 @@
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
-    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.gcode.3mf plate_1.gcode, object 1901",
-    "gcode_sha256": "68ae62bdcb30fe6a3c4fc360e5d31cc955492968a873a16a02588c8d5cd4db29",
+    "gcode": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "0839e4f7f9b4024b781adf72ac95e0c3130081c63f652c8f800b1ce912b6adac",
     "model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-    "model_sha256": "57fb5ea9acb4b608b51b96671f0a4c20d74a1ee42d8f25640277e2bb0cb6cb7a",
-    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-8ea9dbf7-textured-pei.3mf",
-    "profile_sha256": "356eff09984967521b7d2b44fc884bffd02402242317129c05af659252b980b9"
+    "model_sha256": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf",
+    "profile": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-bottom-production-mark2/2026-11-18-back-bottom-mark2-6e6f8f58-textured-pei.3mf",
+    "profile_sha256": "85bd22cd37120820a16cdb7bafacf946475afaafd90e582d084a1371071db16e"
   },
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
   "interfaces": [
