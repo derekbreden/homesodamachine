@@ -1,4 +1,6 @@
 // Fit the visible render inside a Parts tile with even padding around its limiting axis.
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 import sharp from "sharp";
 
 const tileAspect = 1.23;
@@ -37,4 +39,13 @@ export async function writeCatalogThumbnail(source, destination) {
     bottom: canvasHeight - crop.height - padY,
     background: { r: 0, g: 0, b: 0, alpha: 0 },
   }).webp({ quality: 84 }).toFile(destination);
+}
+
+// `node tools/render/catalog-thumbnail.mjs SOURCE.png DESTINATION.webp ...` fits each pair.
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
+  const files = process.argv.slice(2);
+  if (!files.length || files.length % 2) {
+    throw new Error("Usage: node tools/render/catalog-thumbnail.mjs SOURCE.png DESTINATION.webp ...");
+  }
+  for (let i = 0; i < files.length; i += 2) await writeCatalogThumbnail(files[i], files[i + 1]);
 }
