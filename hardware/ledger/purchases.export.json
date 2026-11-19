@@ -10286,7 +10286,7 @@
         "evt-1f1a99360a1d4944896f294cbeb2062e"
       ],
       "gap_id": "gap-406f4b1a03284eca962e6b3bffb8b9c7",
-      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified.",
+      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
       "order_ids": [
         "amazon:112-3250291-4198614"
       ],
@@ -10294,10 +10294,12 @@
         "pur-3a63430840ba477eb03e79c3cc433bda"
       ],
       "source_ids": [
-        "src-8770969e0245423a9a630262748c9afc"
+        "src-8770969e0245423a9a630262748c9afc",
+        "src-a54ffd05bda844f09bda9a0b1847d536"
       ],
       "sources_checked": [
-        "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026"
+        "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026",
+        "Exact-order shipment notification received November 19, 2026"
       ]
     },
     {
@@ -10659,7 +10661,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:90fcb65229954043d851f362b23ab448a6a262f0cc69deb2cc90e15f752a0019",
+  "input_fingerprint": "sha256:37e061b5c576bb36977ff7a42b93fa9d2a4d5288a03eae0f8fd0f8955e486bc6",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12221,7 +12223,8 @@
       ],
       "reference": "112-3250291-4198614",
       "source_ids": [
-        "src-8770969e0245423a9a630262748c9afc"
+        "src-8770969e0245423a9a630262748c9afc",
+        "src-a54ffd05bda844f09bda9a0b1847d536"
       ],
       "vendor": "Amazon"
     },
@@ -27734,7 +27737,7 @@
       "contributes": true,
       "currency": "USD",
       "delivery_date": null,
-      "description": "PATIKIL round foam pouncers, 2\" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping",
+      "description": "PATIKIL round foam pouncers, 2\" diameter, 40-pack — Engineering Plate glue-stippling trial; $20.49 item + $1.49 estimated tax, free shipping; shipped, awaiting delivery",
       "event_ids": [
         "evt-1f1a99360a1d4944896f294cbeb2062e"
       ],
@@ -27766,7 +27769,8 @@
       "section": "13. Printing consumables",
       "service_period": null,
       "source_ids": [
-        "src-8770969e0245423a9a630262748c9afc"
+        "src-8770969e0245423a9a630262748c9afc",
+        "src-a54ffd05bda844f09bda9a0b1847d536"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -67641,6 +67645,20 @@
       "source_id": "src-a52cf63205a24f0da7bc25f5963a206c",
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": null,
+      "document_type": "shipment_confirmation",
+      "note": "Exact-order shipment notification confirms the existing foam pouncer pack shipped. Relative arriving-today wording does not establish actual delivery or dispatch date. No completed merchant payment or final tax is proved.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [],
+      "reference": "112-3250291-4198614",
+      "source_id": "src-a54ffd05bda844f09bda9a0b1847d536",
+      "vendor": "Amazon",
+      "verified_at": "2026-11-19"
     },
     {
       "document_date": {
