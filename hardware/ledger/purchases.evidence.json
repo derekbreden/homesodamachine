@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-18",
+  "as_of": "2026-11-19",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10237,7 +10237,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-eab6c800fa344ade9e74ac626996b6d3"
+        "src-eab6c800fa344ade9e74ac626996b6d3",
+        "src-e3f874b5b26947d887f730d18f71d6ae"
       ]
     },
     "pur-3a63430840ba477eb03e79c3cc433bda": {
@@ -16657,7 +16658,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-eab6c800fa344ade9e74ac626996b6d3"
+        "src-eab6c800fa344ade9e74ac626996b6d3",
+        "src-e3f874b5b26947d887f730d18f71d6ae"
       ]
     },
     "amazon:112-3250291-4198614": {
@@ -35575,6 +35577,19 @@
       ],
       "verified_at": "2026-11-18",
       "note": "Signed-in Amazon Order Details identifies one PATIKIL round foam pouncer pack, all 2-inch diameter, 40 brushes (B0CGKTJYZT), ordered November 18, 2026. Merchandise USD 20.49 plus USD 1.49 estimated tax, free shipping, order total USD 21.98. Seller PATIKIL US. The arrival banner says arriving tomorrow; actual delivery is unconfirmed. The exact-order transaction view states there are no transactions yet. No completed merchant charge or final tax is established."
+    },
+    "src-e3f874b5b26947d887f730d18f71d6ae": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "112-4768090-1512212",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [],
+      "verified_at": "2026-11-19",
+      "note": "Exact-order shipment notification confirms the existing Antarctic Star refrigeration donor shipped and corroborates USD60.04. Relative arriving-today wording does not establish actual delivery or dispatch date. Completed payment and final tax are not proved."
     }
   },
   "coverage": [
