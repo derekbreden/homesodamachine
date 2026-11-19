@@ -38,28 +38,32 @@ equipment on the bench for the inspections. [Published machine model](https://ho
 | 23 | Weigh in 16.0 g net |
 | 24 | Read the gram on the scale |
 | 25 | Follow the 16.0 g trial |
-| 26 | Isolate the service set |
-| 27 | Place the gas sensor first |
-| 28 | Lower the compressor |
-| 29 | Seat the condenser and fan |
-| 30 | Seat the thermal cutoff |
-| 31 | Prove the controls before first start |
-| 32 | Check the condenser air path |
-| 33 | Read the first powered run |
-| 34 | Sweep the actual joint seams |
-| 35 | Locate the joints on the machine |
-| 36 | Find the high and low seams |
-| 37 | Stop on a detector alarm |
-| 38 | Time the wall pull-down |
-| 39 | Read the low-side numbers |
-| 40 | Measure four cold glasses |
-| 41 | Decide the next gram |
-| 42 | Read the cold controls in service |
-| 43 | Repair through the full sequence |
-| 44 | Save the checks with the unit |
-| 45 | Read the condenser outlet |
-| 46 | Watch the exposed return |
-| 47 | Follow the example decisions |
+| 26 | Time what the wall probe reads |
+| 27 | Read both instruments at B |
+| 28 | See where the frost ends |
+| 29 | Measure the liquid in the glass |
+| 30 | Isolate the service set |
+| 31 | Place the gas sensor first |
+| 32 | Lower the compressor |
+| 33 | Seat the condenser and fan |
+| 34 | Seat the thermal cutoff |
+| 35 | Prove the controls before first start |
+| 36 | Check the condenser air path |
+| 37 | Read the first powered run |
+| 38 | Sweep the actual joint seams |
+| 39 | Locate the joints on the machine |
+| 40 | Find the high and low seams |
+| 41 | Stop on a detector alarm |
+| 42 | Repeat the run under the same load |
+| 43 | Read the low-side numbers |
+| 44 | Check all four glass readings |
+| 45 | Decide the next gram |
+| 46 | Read the cold controls in service |
+| 47 | Repair through the full sequence |
+| 48 | Save the checks with the unit |
+| 49 | Read the condenser outlet |
+| 50 | Check frost approaching the compressor |
+| 51 | Follow the example decisions |
 
 ## Responsible sources
 
@@ -131,7 +135,7 @@ The [refrigeration purchases](../ledger/purchases.md#6-refrigeration) and [tool 
 
 The blue and red gauges supplied with the Mastercool 93518-TP read pressure for
 service and broad trends. Their class 1.6 dial spans are too wide for the direct
-charge tables. The bench screens on pages 39 and 45 use an absolute gauge within
+charge tables. The bench screens on pages 43 and 49 use an absolute gauge within
 0.5 psia of actual local line pressure and an insulated contact reading within
 1 °C of actual tube temperature, including contact error. The installed coil
 probe stays under the foam for freeze protection. Use separately mounted tube

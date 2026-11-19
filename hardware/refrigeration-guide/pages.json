@@ -3,7 +3,7 @@
   "layout": "refrigeration",
   "title": "Refrigeration bench guide",
   "subtitle": "Coil fabrication, sealed-system work, leak checks and loaded commissioning",
-  "sources": ["hardware/assembly/calibration_inputs.rs", "tools/hsm/repo-tools/src/model.rs", "hardware/assembly/cold-core.md", "hardware/assembly/handwork.md", "hardware/refrigeration-guide/README.md", "hardware/assembly/refrigerant-loop.md", "hardware/cold-core-layout/evaporator-coil-drawing.pdf", "hardware/reference/ice-maker/README.md", "hardware/reference/compressor/README.md", "hardware/reference/condenser-block/README.md", "hardware/assembly/enclosure-mechanical.md", "hardware/ledger/bom.md", "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/printed-parts/refrigeration/fuse-clamp/README.md", "hardware/assembly/firmware-and-commissioning.md", "firmware/src_appliance/README.md", "firmware/lib/machine_policy/cold_policy.h", "hardware/assembly/acceptance-and-burn-in.md", "hardware/mechanical-qualification/README.md", "business/regulatory.md", "tools/assembly-guides/guide.rs", "tools/hsm/fabrication-guides/src/letter.rs", "hardware/ledger/tools.md", "hardware/cold-core-layout/assembly/numbers.rs", "hardware/refrigeration-guide/art/render-jobs.json", "hardware/refrigeration-guide/art/winding-mandrel.png", "hardware/refrigeration-guide/art/bare-wall-and-reed.png", "hardware/refrigeration-guide/art/installed-coil.png", "hardware/refrigeration-guide/art/coil-probe-contact.png", "hardware/refrigeration-guide/art/coil-exits-before-foam.png", "hardware/refrigeration-guide/art/exterior-collar-datum.png", "hardware/refrigeration-guide/art/installed-leak-map.png", "hardware/refrigeration-guide/art/compressor-process-tube.png", "hardware/refrigeration-guide/art/cold-core-tie-ins.png", "hardware/refrigeration-guide/art/compressor-floor-mounts.png", "hardware/refrigeration-guide/art/condenser-installed-mounts.png", "hardware/refrigeration-guide/art/condenser-crossflow.png", "hardware/refrigeration-guide/art/compressor-thermal-cutoff.png", "hardware/refrigeration-guide/art/mq6-installed-cradle.png"],
+  "sources": ["hardware/assembly/calibration_inputs.rs", "tools/hsm/repo-tools/src/model.rs", "hardware/assembly/cold-core.md", "hardware/assembly/handwork.md", "hardware/refrigeration-guide/README.md", "hardware/assembly/refrigerant-loop.md", "hardware/cold-core-layout/evaporator-coil-drawing.pdf", "hardware/reference/ice-maker/README.md", "hardware/reference/compressor/README.md", "hardware/reference/condenser-block/README.md", "hardware/assembly/enclosure-mechanical.md", "hardware/ledger/bom.md", "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.rs", "hardware/printed-parts/cold-core/foam-shell/README.md", "hardware/printed-parts/refrigeration/fuse-clamp/README.md", "hardware/assembly/firmware-and-commissioning.md", "firmware/src_appliance/README.md", "firmware/src_appliance/main.cpp", "firmware/src_appliance/machine.cpp", "firmware/lib/machine_policy/cold_policy.h", "hardware/assembly/acceptance-and-burn-in.md", "hardware/mechanical-qualification/README.md", "business/regulatory.md", "tools/assembly-guides/guide.rs", "tools/hsm/fabrication-guides/src/letter.rs", "hardware/ledger/tools.md", "hardware/cold-core-layout/assembly/numbers.rs", "hardware/refrigeration-guide/art/render-jobs.json", "hardware/refrigeration-guide/art/winding-mandrel.png", "hardware/refrigeration-guide/art/bare-wall-and-reed.png", "hardware/refrigeration-guide/art/installed-coil.png", "hardware/refrigeration-guide/art/coil-probe-contact.png", "hardware/refrigeration-guide/art/coil-exits-before-foam.png", "hardware/refrigeration-guide/art/exterior-collar-datum.png", "hardware/refrigeration-guide/art/installed-leak-map.png", "hardware/refrigeration-guide/art/compressor-process-tube.png", "hardware/refrigeration-guide/art/cold-core-tie-ins.png", "hardware/refrigeration-guide/art/compressor-floor-mounts.png", "hardware/refrigeration-guide/art/condenser-installed-mounts.png", "hardware/refrigeration-guide/art/condenser-crossflow.png", "hardware/refrigeration-guide/art/compressor-thermal-cutoff.png", "hardware/refrigeration-guide/art/mq6-installed-cradle.png"],
   "extra": {
     "manufacturer_sources": {
       "epa_handling": "https://www.epa.gov/section608/stationary-refrigeration-prohibition-venting-refrigerants",
@@ -115,11 +115,11 @@
         },
         {
           "title": "Join and prove the circuit",
-          "body": "Charge removal, open work, leak testing and weighing are on pages 11-26. Install the hardware and controls before the powered tests."
+          "body": "Charge removal, open work, leak testing and weighing are on pages 11–24 and 30. Install the hardware and controls before the powered tests."
         },
         {
           "title": "Read the bench cards",
-          "body": "First run starts on page 33. The leak-route map, pressure-temperature card and charge decisions follow. Jump by task using PDF bookmarks."
+          "body": "First run starts on page 37. The leak-route map, pressure-temperature card and charge decisions follow. Jump by task using PDF bookmarks."
         }
       ],
       "actions_y": 498,
@@ -1090,7 +1090,7 @@
           {"kind": "line", "start": [221, 289], "end": [221, 275], "color": "#1749D1", "width": 1, "dash": []},
           {"kind": "ellipse", "x": 218, "y": 272, "width": 6, "height": 6, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
           {"kind": "label", "value": "Read the clip and local port together.", "x": 270, "y": 283, "size": 10.5, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "C is before the drier. See page 45.", "x": 270, "y": 301, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"}
+          {"kind": "label", "value": "C is before the drier. See page 49.", "x": 270, "y": 301, "size": 10.5, "color": "#606A78", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
@@ -1548,7 +1548,7 @@
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The indicated loss is net to the loop when only the loop received it. Use page 41 to decide when to add.",
+        "body": "The indicated loss is net to the loop when only the loop received it. Use page 45 to decide when to add.",
         "y": 699,
         "tone": "#1749D1"
       },
@@ -1584,21 +1584,21 @@
           {"kind": "label", "value": "2", "x": 62, "y": 119, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
           {"kind": "label", "value": "Start and sweep the joints", "x": 84, "y": 111, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Use the power meter and clear the leak checks.", "x": 84, "y": 131, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "PAGE 33–37", "x": 485, "y": 113, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "value": "PAGE 37–41", "x": 485, "y": 113, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
           {"kind": "arrow", "start": [259, 144], "end": [259, 158], "color": "#1749D1", "width": 1.4, "head": 5},
           {"kind": "round_rect", "x": 42, "y": 160, "width": 458, "height": 54, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
           {"kind": "ellipse", "x": 53, "y": 177, "width": 18, "height": 18, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
           {"kind": "label", "value": "3", "x": 62, "y": 190, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
-          {"kind": "label", "value": "Repeat the same cold run", "x": 84, "y": 182, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "Time the wall. Read B. Measure all four glasses.", "x": 84, "y": 202, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "PAGE 38–40", "x": 485, "y": 184, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "value": "Follow the illustrated readings", "x": 84, "y": 182, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "The next four pages show where to look and what to record.", "x": 84, "y": 202, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "value": "PAGES 26–29", "x": 485, "y": 184, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
           {"kind": "arrow", "start": [259, 215], "end": [259, 229], "color": "#1749D1", "width": 1.4, "head": 5},
           {"kind": "round_rect", "x": 42, "y": 231, "width": 458, "height": 54, "radius": 7, "fill": "#FCFCFA", "stroke": "#DCE2EB", "line_width": 1},
           {"kind": "ellipse", "x": 53, "y": 248, "width": 18, "height": 18, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
           {"kind": "label", "value": "4", "x": 62, "y": 261, "size": 10, "color": "#FCFCFA", "font": "PlexSemi", "align": "center"},
           {"kind": "label", "value": "Choose the result", "x": 84, "y": 253, "size": 13.2, "color": "#202337", "font": "PlexSemi", "align": "left"},
           {"kind": "label", "value": "Keep 16.0 g, try 17.0 g once, or stop and diagnose.", "x": 84, "y": 273, "size": 10.7, "color": "#606A78", "font": "PlexSemi", "align": "left"},
-          {"kind": "label", "value": "PAGE 41", "x": 485, "y": 255, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "value": "PAGE 45", "x": 485, "y": 255, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
           {"kind": "label", "value": "Keep the same air path, foam, fill and instruments for both runs.", "x": 42, "y": 312, "size": 10.8, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
@@ -1608,23 +1608,353 @@
           "body": "Use 16.0 g net from the U.S. donor rating. Complete the powered and leak checks before the water comparisons."
         },
         {
-          "title": "Record the same points on both runs",
-          "body": "Use the stopwatch at the wall probe, the paired pressure and temperature at B, and the glass readings. Photograph the exposed copper from the same spot as shown on page 46."
+          "title": "Follow the next four pages at the bench",
+          "body": "After the powered run and leak sweep, turn the page. Use one illustrated step at a time as you collect the same readings on both runs."
         },
         {
-          "title": "Make the decision on page 41",
+          "title": "Make the decision on page 45",
           "body": "Keep the first charge if the tests pass. The first possible increase is 17.0 g, and it needs the measured A and C clues as well as a clear B margin."
         }
       ],
       "actions_y": 498,
       "result": {
         "title": "CHECK",
-        "body": "The first charge and the next possible charge are set. Turn to page 38 for the readings used to choose.",
+        "body": "The first charge and the next possible charge are set. Turn to page 26 for the first measurement.",
         "y": 699,
         "tone": "#1749D1"
       },
       "source": "Intertek SH10080445-001 / charge commissioning",
       "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/refrigeration-guide/README.md#why-the-first-fill-is-160-g"
+    },
+    {
+      "title": "Time what the wall probe reads",
+      "subtitle": "After the powered run and leak sweep, watch the console and stopwatch side by side.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 19, "y": 14, "width": 504, "height": 88, "fill": "#F6F7FA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 31, "y": 33, "value": "1. WALL STILL ABOVE 12 C", "size": 10.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 31, "y": 43, "width": 337, "height": 45, "fill": "#171E31", "stroke": "#171E31", "radius": 5, "line_width": 1},
+          {"kind": "label", "x": 42, "y": 71, "value": "cold", "size": 12.4, "color": "#C4CCD9", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 84, "y": 53, "width": 105, "height": 20, "fill": "#2F416C", "stroke": "#2F416C", "radius": 3, "line_width": 1},
+          {"kind": "label", "x": 90, "y": 68, "value": "tank 12.23 C", "size": 11.3, "color": "#FFFFFF", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "x": 193, "y": 68, "value": "coil -4.42 C,", "size": 10.7, "color": "#C4CCD9", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 313, "y": 53, "width": 45, "height": 20, "fill": "#234F46", "stroke": "#234F46", "radius": 3, "line_width": 1},
+          {"kind": "label", "x": 335.5, "y": 68, "value": "cooling", "size": 9.6, "color": "#DDFEF1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 380, "y": 30, "width": 129, "height": 59, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 444.5, "y": 59, "value": "00:00", "size": 22, "color": "#171E31", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 444.5, "y": 79, "value": "WAIT", "size": 9.8, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 19, "y": 114, "width": 504, "height": 88, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 31, "y": 133, "value": "2. FIRST RUNNING READING AT OR BELOW 12 C", "size": 10.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 31, "y": 143, "width": 337, "height": 45, "fill": "#171E31", "stroke": "#171E31", "radius": 5, "line_width": 1},
+          {"kind": "label", "x": 42, "y": 171, "value": "cold", "size": 12.4, "color": "#C4CCD9", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 84, "y": 153, "width": 105, "height": 20, "fill": "#2F416C", "stroke": "#2F416C", "radius": 3, "line_width": 1},
+          {"kind": "label", "x": 90, "y": 168, "value": "tank 11.94 C", "size": 11.3, "color": "#FFFFFF", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "x": 193, "y": 168, "value": "coil -4.60 C,", "size": 10.7, "color": "#C4CCD9", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 313, "y": 153, "width": 45, "height": 20, "fill": "#234F46", "stroke": "#234F46", "radius": 3, "line_width": 1},
+          {"kind": "label", "x": 335.5, "y": 168, "value": "cooling", "size": 9.6, "color": "#DDFEF1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 380, "y": 130, "width": 129, "height": 59, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 444.5, "y": 159, "value": "00:00", "size": 22, "color": "#171E31", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 444.5, "y": 179, "value": "PRESS START", "size": 9.8, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "round_rect", "x": 19, "y": 214, "width": 504, "height": 88, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 31, "y": 233, "value": "3. FIRST RUNNING READING AT OR BELOW 8 C", "size": 10.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 31, "y": 243, "width": 337, "height": 45, "fill": "#171E31", "stroke": "#171E31", "radius": 5, "line_width": 1},
+          {"kind": "label", "x": 42, "y": 271, "value": "cold", "size": 12.4, "color": "#C4CCD9", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 84, "y": 253, "width": 105, "height": 20, "fill": "#2F416C", "stroke": "#2F416C", "radius": 3, "line_width": 1},
+          {"kind": "label", "x": 90, "y": 268, "value": "tank 7.94 C", "size": 11.3, "color": "#FFFFFF", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "x": 193, "y": 268, "value": "coil -5.26 C,", "size": 10.7, "color": "#C4CCD9", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 313, "y": 253, "width": 45, "height": 20, "fill": "#234F46", "stroke": "#234F46", "radius": 3, "line_width": 1},
+          {"kind": "label", "x": 335.5, "y": 268, "value": "cooling", "size": 9.6, "color": "#DDFEF1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 380, "y": 230, "width": 129, "height": 59, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 444.5, "y": 259, "value": "03:30", "size": 22, "color": "#171E31", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 444.5, "y": 279, "value": "PRESS STOP", "size": 9.8, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
+          {"kind": "label", "x": 31, "y": 321, "value": "Example status display and stopwatch. Use the numbers on your own displays.", "size": 10, "color": "#566377", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Find the wall number",
+          "body": "While the fan and compressor run, type status in the appliance USB console and press Enter. Read tank on the cold line for the wall temperature. Leave the stopwatch at zero above 12 C."
+        },
+        {
+          "title": "Start and stop on those two readings",
+          "body": "Check status every 30 s. Press START at the first running tank reading of 12 C or colder. Press STOP at the first running reading of 8 C or colder. In the example the timer shows 3:30."
+        },
+        {
+          "title": "Keep the comparison valid",
+          "body": "Use the full-tank setup on page 42 for both runs. Confirm carbonator high=yes and refill idle in status. Mark the lap interrupted if refill starts or cooling stops before 8 C. At 8 C, read B on page 27."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "WRITE THIS DOWN",
+        "body": "Lap time, tank and coil temperatures at the 8 C crossing. Example   3:30 / tank 7.94 C / coil -5.26 C.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "Appliance console / shipping cold policy",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/firmware/src_appliance/README.md#the-cold-loop-and-the-refill"
+    },
+    {
+      "title": "Read both instruments at B",
+      "subtitle": "Use the clip on the suction copper and the absolute gauge on the matching low-side access.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 21, "y": 13, "width": 500, "height": 195, "fill": "#F3F6FB", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "image", "path": "hardware/refrigeration-guide/art/compressor-process-tube.png", "x": 21, "y": 13, "width": 500, "height": 195},
+          {"kind": "line", "start": [129, 145], "end": [226.15, 130.91065], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 222.15, "y": 126.91065, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.8},
+          {"kind": "round_rect", "x": 30, "y": 95, "width": 104, "height": 96, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 40, "y": 112, "value": "TUBE CLIP AT B", "size": 9.3, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 42, "y": 132, "width": 77, "height": 11, "fill": "#AD641E", "stroke": "#AD641E", "radius": 5, "line_width": 1},
+          {"kind": "line", "start": [48, 135], "end": [114, 135], "color": "#E1A96E", "width": 1.3, "dash": []},
+          {"kind": "line", "start": [82, 130], "end": [101, 123], "color": "#171E31", "width": 2, "dash": []},
+          {"kind": "round_rect", "x": 68, "y": 126, "width": 27, "height": 23, "fill": "#171E31", "stroke": "#171E31", "radius": 4, "line_width": 1},
+          {"kind": "round_rect", "x": 64, "y": 123, "width": 34, "height": 29, "fill": "#566377", "stroke": "#8190A6", "radius": 4, "line_width": 1},
+          {"kind": "line", "start": [72, 128], "end": [72, 147], "color": "#A4AEBB", "width": 1.1, "dash": []},
+          {"kind": "label", "x": 40, "y": 169, "value": "Insulate over", "size": 9.5, "color": "#566377", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 40, "y": 182, "value": "the clip.", "size": 9.5, "color": "#566377", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [370, 83], "end": [248.96968, 78.59605], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 244.96968, "y": 74.59605, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.8},
+          {"kind": "label", "x": 379, "y": 72, "value": "Process-tube station", "size": 10.8, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 379, "y": 87, "value": "Verify the suction access", "size": 9.5, "color": "#566377", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 21, "y": 221, "width": 244, "height": 62, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "round_rect", "x": 277, "y": 221, "width": 244, "height": 62, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 34, "y": 239, "value": "ABSOLUTE SUCTION PRESSURE", "size": 9.7, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 289, "y": 239, "value": "TUBE TEMPERATURE AT B", "size": 9.7, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 34, "y": 246, "width": 218, "height": 29, "fill": "#171E31", "stroke": "#171E31", "radius": 4, "line_width": 1},
+          {"kind": "round_rect", "x": 289, "y": 246, "width": 219, "height": 29, "fill": "#171E31", "stroke": "#171E31", "radius": 4, "line_width": 1},
+          {"kind": "label", "x": 44, "y": 267, "value": "13.0 psia", "size": 18, "color": "#D9F2FF", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "x": 299, "y": 267, "value": "-5.0 C", "size": 18, "color": "#D9F2FF", "font": "PlexMono", "align": "left"},
+          {"kind": "round_rect", "x": 21, "y": 295, "width": 500, "height": 34, "fill": "#E6F3EB", "stroke": "#E6F3EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 34, "y": 316, "value": "Example   12 to <14 psia   /   B floor -6 C   /   -5.0 C clears", "size": 11, "color": "#176246", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Find the copper going into the compressor",
+          "body": "With power isolated, clip and insulate the probe on clean copper at B, after the bonded capillary. Use the suction access from page 17. Set the absolute gauge to psia with tare off."
+        },
+        {
+          "title": "Read the pressure and temperature together",
+          "body": "At the 8 C wall crossing, write both values while status says cooling. From 2.5 C wall, read both about every 10 s and keep the last running pair. Read again at 30 and 60 s after actual restart."
+        },
+        {
+          "title": "Compare the temperature to the printed floor",
+          "body": "On page 43, find the band for the pressure you read. Compare the tube reading to the B floor in that row. In the example, -5.0 C clears -6 C. Stop if the tube is colder than its floor."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "WRITE THIS DOWN",
+        "body": "B pressure and copper temperature in the same row. Example   at 8 C / 13.0 psia / -5.0 C / clears.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "Installed compressor model / NIST R600a lookup",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/refrigeration-guide/README.md#measurement-setup"
+    },
+    {
+      "title": "See where the frost ends",
+      "subtitle": "Use the same camera position for the 8 C reading and the last running check.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 21, "y": 11, "width": 500, "height": 188, "fill": "#F3F6FB", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "image", "path": "hardware/refrigeration-guide/art/installed-leak-map.png", "x": 21, "y": 11, "width": 500, "height": 188},
+          {"kind": "line", "start": [110, 61], "end": [210.32864, 57.3796], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 206.32864, "y": 53.3796, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.8},
+          {"kind": "label", "x": 110, "y": 54, "value": "A / Foam outlet", "size": 10.8, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "line", "start": [112, 123], "end": [207.07999999999998, 112.0124], "color": "#1749D1", "width": 1.4, "dash": []},
+          {"kind": "ellipse", "x": 203.07999999999998, "y": 108.0124, "width": 8, "height": 8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.8},
+          {"kind": "label", "x": 112, "y": 116, "value": "B / Suction return", "size": 10.8, "color": "#1749D1", "font": "PlexSemi", "align": "right"},
+          {"kind": "label", "x": 388, "y": 154, "value": "Frame the whole return", "size": 10.2, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 388, "y": 170, "value": "from A to the compressor.", "size": 9.7, "color": "#566377", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 21, "y": 211, "width": 152, "height": 62, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 33, "y": 227, "value": "DRY COPPER", "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 34, "y": 241, "width": 126, "height": 19, "fill": "#AD641E", "stroke": "#AD641E", "radius": 8, "line_width": 1},
+          {"kind": "line", "start": [41, 245], "end": [153, 245], "color": "#E1A96E", "width": 3, "dash": []},
+          {"kind": "line", "start": [41, 257], "end": [153, 257], "color": "#86481A", "width": 2, "dash": []},
+          {"kind": "round_rect", "x": 195, "y": 211, "width": 152, "height": 62, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 207, "y": 227, "value": "SWEAT / DROPS", "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 208, "y": 241, "width": 126, "height": 19, "fill": "#AD641E", "stroke": "#AD641E", "radius": 8, "line_width": 1},
+          {"kind": "line", "start": [215, 245], "end": [327, 245], "color": "#E1A96E", "width": 3, "dash": []},
+          {"kind": "line", "start": [215, 257], "end": [327, 257], "color": "#86481A", "width": 2, "dash": []},
+          {"kind": "ellipse", "x": 218.1, "y": 243.1, "width": 5.8, "height": 5.8, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 219.39999999999998, "y": 244.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 233.7, "y": 250.7, "width": 6.6, "height": 6.6, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 235.39999999999998, "y": 252.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 257.5, "y": 244.5, "width": 5.0, "height": 5.0, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 258.4, "y": 245.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 277.8, "y": 248.8, "width": 8.4, "height": 8.4, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 280.4, "y": 251.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 301.2, "y": 243.2, "width": 5.6, "height": 5.6, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 302.4, "y": 244.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 317.9, "y": 249.9, "width": 6.2, "height": 6.2, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 319.4, "y": 251.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 248.2, "y": 260.2, "width": 5.6, "height": 5.6, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 249.39999999999998, "y": 261.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "ellipse", "x": 286.4, "y": 261.4, "width": 5.2, "height": 5.2, "fill": "#AFD9F1", "stroke": "#66A9D0", "line_width": 0.6},
+          {"kind": "ellipse", "x": 287.4, "y": 262.2, "width": 1.6, "height": 1.6, "fill": "#FFFFFF", "stroke": null, "line_width": 1},
+          {"kind": "round_rect", "x": 369, "y": 211, "width": 152, "height": 62, "fill": "#FCFCFA", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 381, "y": 227, "value": "WHITE FROST", "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 382, "y": 241, "width": 126, "height": 19, "fill": "#AD641E", "stroke": "#AD641E", "radius": 8, "line_width": 1},
+          {"kind": "line", "start": [389, 245], "end": [501, 245], "color": "#E1A96E", "width": 3, "dash": []},
+          {"kind": "line", "start": [389, 257], "end": [501, 257], "color": "#86481A", "width": 2, "dash": []},
+          {"kind": "shape", "points": [[388, 251], [392, 248], [396, 250], [398, 245], [403, 247], [407, 242], [411, 244], [415, 241], [419, 245], [424, 244], [429, 241], [433, 243], [437, 239], [442, 243], [447, 240], [453, 242], [457, 239], [463, 243], [469, 241], [473, 244], [479, 241], [484, 245], [489, 243], [493, 248], [498, 246], [503, 251], [502, 253], [496, 255], [490, 252], [487, 257], [481, 255], [476, 259], [471, 256], [466, 260], [462, 256], [457, 260], [453, 257], [447, 261], [442, 258], [436, 260], [432, 256], [426, 258], [421, 255], [416, 258], [411, 254], [405, 255], [400, 252], [394, 255], [390, 253]], "fill": "#EDF4F9", "stroke": "#C9D8E8", "close": true, "width": 0.5},
+          {"kind": "ellipse", "x": 390.7, "y": 247.09, "width": 2.6, "height": 1.8199999999999998, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 399.4, "y": 249.88, "width": 3.2, "height": 2.2399999999999998, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 404.6, "y": 245.02, "width": 2.8, "height": 1.9599999999999997, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 410.0, "y": 248.6, "width": 4.0, "height": 2.8, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 419.0, "y": 246.3, "width": 2.0, "height": 1.4, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 422.2, "y": 250.74, "width": 3.6, "height": 2.52, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 428.5, "y": 243.95, "width": 3.0, "height": 2.0999999999999996, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 433.4, "y": 252.88, "width": 3.2, "height": 2.2399999999999998, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 438.0, "y": 244.3, "width": 2.0, "height": 1.4, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 441.8, "y": 247.46, "width": 4.4, "height": 3.08, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 448.4, "y": 253.88, "width": 3.2, "height": 2.2399999999999998, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 453.1, "y": 243.67, "width": 3.8, "height": 2.6599999999999997, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 459.3, "y": 249.81, "width": 3.4, "height": 2.38, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 466.6, "y": 245.02, "width": 2.8, "height": 1.9599999999999997, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 470.9, "y": 249.53, "width": 4.2, "height": 2.94, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 476.7, "y": 245.09, "width": 2.6, "height": 1.8199999999999998, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 482.1, "y": 250.67, "width": 3.8, "height": 2.6599999999999997, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 488.6, "y": 247.02, "width": 2.8, "height": 1.9599999999999997, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "ellipse", "x": 496.7, "y": 250.09, "width": 2.6, "height": 1.8199999999999998, "fill": "#FCFCFF", "stroke": "#E0E9F0", "line_width": 0.4},
+          {"kind": "round_rect", "x": 21, "y": 284, "width": 500, "height": 48, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 34, "y": 303, "value": "8 C PHOTO   Example   beads at A, dry at B.", "size": 10.7, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 34, "y": 320, "value": "LAST ON PHOTO   Example   frost ends between A and B.", "size": 10.6, "color": "#566377", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Frame the return without uncovering it",
+          "body": "Keep the foam, guards and clip insulation in place. From outside the bay, frame A through the compressor can. Take the first picture just after the B readings at the 8 C crossing."
+        },
+        {
+          "title": "Catch the last running picture",
+          "body": "From 2.5 C wall, take a photo after each B pair. Save the last one taken while cooling. Use the examples to name the surface. Mark the furthest point you see, from A through the compressor can."
+        },
+        {
+          "title": "Take a B reading if frost advances",
+          "body": "Frost approaching B calls for a paired pressure and tube reading. A below-floor B reading, frost reaching the compressor can or a new knock calls for the safe disconnect. Page 50 shows the stop check."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "WRITE THIS DOWN",
+        "body": "Label each picture with the run and moment. Example   Run 1 / last on / frost ends between A and B.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "Installed machine model / Secop operating diagnostics",
+      "url": "https://www.secop.com/fileadmin/user_upload/technical-literature/danfoss-lectures/operational_defects_in_hermetic_compressors_and_refrigerating_systems.pdf#page=52"
+    },
+    {
+      "title": "Measure the liquid in the glass",
+      "subtitle": "Start after a normal wall cutoff with the refill complete.",
+      "series": "REFRIGERATION",
+      "illustration": {
+        "origin": [
+          46,
+          148
+        ],
+        "scale": 1,
+        "panel": [
+          32,
+          140,
+          548,
+          340
+        ],
+        "drawing": [
+          {"kind": "round_rect", "x": 21, "y": 13, "width": 500, "height": 195, "fill": "#F3F6FB", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 34, "y": 34, "value": "READ THE LIQUID AT MID-DEPTH", "size": 10.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "shape", "points": [[58, 73], [260, 73], [229, 186], [88, 186]], "fill": "#FCFCFA", "stroke": "#202337", "close": true, "width": 1.5},
+          {"kind": "shape", "points": [[70, 117], [248, 117], [229, 186], [88, 186]], "fill": "#C4DDF6", "stroke": null, "close": true, "width": 1},
+          {"kind": "line", "start": [71, 117], "end": [248, 117], "color": "#4C93C8", "width": 2, "dash": []},
+          {"kind": "line", "start": [92, 126], "end": [105, 175], "color": "#EAF6FF", "width": 2.6, "dash": []},
+          {"kind": "line", "start": [153, 70], "end": [148.5, 152], "color": "#171E31", "width": 4, "dash": []},
+          {"kind": "ellipse", "x": 144.5, "y": 147.6, "width": 8, "height": 8.8, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.7},
+          {"kind": "round_rect", "x": 118, "y": 43, "width": 73, "height": 28, "fill": "#171E31", "stroke": "#171E31", "radius": 4, "line_width": 1},
+          {"kind": "label", "x": 154.5, "y": 62, "value": "5.0 C", "size": 13, "color": "#D9F2FF", "font": "PlexMono", "align": "center"},
+          {"kind": "line", "start": [247, 117], "end": [272, 117], "color": "#1749D1", "width": 1, "dash": []},
+          {"kind": "label", "x": 283, "y": 121, "value": "250 mL liquid mark", "size": 12.5, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "line", "start": [153, 151], "end": [276, 153], "color": "#1749D1", "width": 1, "dash": []},
+          {"kind": "label", "x": 283, "y": 155, "value": "Probe tip clear of the glass", "size": 12.4, "color": "#202337", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 283, "y": 175, "value": "Read as soon as the display settles.", "size": 10.5, "color": "#566377", "font": "PlexSemi", "align": "left"},
+          {"kind": "label", "x": 21, "y": 231, "value": "START THE FOUR POURS   /   EXAMPLE TEMPERATURES", "size": 10, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
+          {"kind": "round_rect", "x": 21, "y": 241, "width": 119, "height": 57, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 80.5, "y": 263, "value": "0:00", "size": 13, "color": "#202337", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 80.5, "y": 285, "value": "5.0 C", "size": 12, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 148, "y": 241, "width": 119, "height": 57, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 207.5, "y": 263, "value": "1:00", "size": 13, "color": "#202337", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 207.5, "y": 285, "value": "5.3 C", "size": 12, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 275, "y": 241, "width": 119, "height": 57, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 334.5, "y": 263, "value": "2:00", "size": 13, "color": "#202337", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 334.5, "y": 285, "value": "5.5 C", "size": 12, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "round_rect", "x": 402, "y": 241, "width": 119, "height": 57, "fill": "#EAF0FC", "stroke": "#DCE2EB", "radius": 7, "line_width": 1},
+          {"kind": "label", "x": 461.5, "y": 263, "value": "3:00", "size": 13, "color": "#202337", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 461.5, "y": 285, "value": "5.9 C", "size": 12, "color": "#1749D1", "font": "PlexMono", "align": "center"},
+          {"kind": "label", "x": 21, "y": 321, "value": "Every glass must read 6 C or colder.", "size": 12.2, "color": "#176246", "font": "PlexSemi", "align": "left"}
+        ]
+      },
+      "actions": [
+        {
+          "title": "Set out the four marked glasses",
+          "body": "Use clean room-temperature glasses. Mark 250 mL in each. Run the test before adding concentrate. Use an immersion probe checked in stirred ice water."
+        },
+        {
+          "title": "Fill to the mark and read below the surface",
+          "body": "Start the first pour at 0:00 and the next three a minute apart. After each pour, lower the tip halfway into the liquid, clear of the base and sides. Write the first steady reading."
+        },
+        {
+          "title": "Watch refill and the next cold cycle",
+          "body": "Leave refill enabled. Record any short pour or freeze trip. Note the actual compressor restart and take the B readings on page 27. Time the return to normal cutoff after the fourth glass."
+        }
+      ],
+      "actions_y": 498,
+      "result": {
+        "title": "WRITE THIS DOWN",
+        "body": "Record the four readings in order, any refill interruption, and the elapsed time back to normal cutoff.",
+        "y": 699,
+        "tone": "#1749D1"
+      },
+      "source": "Acceptance and burn-in / project calibration targets",
+      "url": "https://github.com/derekbreden/homesodamachine/blob/main/hardware/assembly/calibration_inputs.rs"
     },
     {
       "title": "Isolate the service set",
@@ -2255,8 +2585,8 @@
       "url": "https://www.whirlpool.com/content/dam/global/documents/202409/technical-manual-w11105483-revb.pdf#page=12"
     },
     {
-      "title": "Time the wall pull-down",
-      "subtitle": "Use the console, a stopwatch and the real full-level water load.",
+      "title": "Repeat the run under the same load",
+      "subtitle": "Use the illustrated steps on pages 26–29 to collect the same readings on both runs.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [
@@ -2273,7 +2603,7 @@
         "drawing": [
           {"kind": "round_rect", "x": 19, "y": 15, "width": 504, "height": 57, "radius": 7, "fill": "#202337", "stroke": "#202337", "line_width": 1},
           {"kind": "label", "value": "status  /  COLD LINE", "x": 34, "y": 36, "size": 9.8, "color": "#B8CAFF", "font": "PlexMono", "align": "left"},
-          {"kind": "label", "value": "cold tank 11.9 C, coil -4.6 C, on", "x": 34, "y": 57, "size": 14, "color": "#FFFFFF", "font": "PlexMono", "align": "left"},
+          {"kind": "label", "value": "cold tank 11.94 C, coil -4.60 C, cooling", "x": 34, "y": 57, "size": 14, "color": "#FFFFFF", "font": "PlexMono", "align": "left"},
           {"kind": "line", "start": [60, 114], "end": [483, 114], "color": "#1749D1", "width": 2, "dash": []},
           {"kind": "ellipse", "x": 67, "y": 109, "width": 10, "height": 10, "fill": "#1749D1", "stroke": "#FCFCFA", "line_width": 0.6},
           {"kind": "label", "value": "12 C", "x": 72, "y": 103, "size": 13, "color": "#1749D1", "font": "PlexSemi", "align": "center"},
@@ -2309,11 +2639,11 @@
         },
         {
           "title": "Time 12 C to 8 C",
-          "body": "With cold on, read status every 30 s. Start the stopwatch at the first tank reading of 12 C or colder. Stop it at the first tank reading of 8 C or colder. Record B and take the page 46 photo."
+          "body": "While status says cooling, read it every 30 s. Start the stopwatch at the first tank reading of 12 C or colder. Stop it at the first tank reading of 8 C or colder. Record B and take the page 28 photo."
         },
         {
           "title": "Catch the last on-cycle reading",
-          "body": "At tank 2.5 C, take B pressure and tube temperature. Keep reading about every 10 s until normal wall cutoff. Write the last pair while cold still reads on."
+          "body": "At tank 2.5 C, take B pressure and tube temperature. Keep reading about every 10 s until normal wall cutoff. Write the last pair while status still says cooling."
         },
         {
           "title": "Sample the normal restart",
@@ -2421,7 +2751,7 @@
         },
         {
           "title": "Use A only with its own pressure",
-          "body": "At or above A's value, mark WARM A. That flags a feed problem worth comparing with C on page 45. Use the 93518-TP dial for service and trends. Use a calibrated absolute gauge for the table."
+          "body": "At or above A's value, mark WARM A. That flags a feed problem worth comparing with C on page 49. Use the 93518-TP dial for service and trends. Use a calibrated absolute gauge for the table."
         }
       ],
       "actions_y": 498,
@@ -2435,8 +2765,8 @@
       "url": "https://webbook.nist.gov/cgi/fluid.cgi?PLow=5.5&PHigh=140.5&PInc=1&Digits=8&ID=C75285&Action=Load&Type=SatT&TUnit=C&PUnit=psia&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm&RefState=DEF"
     },
     {
-      "title": "Measure four cold glasses",
-      "subtitle": "Begin after normal wall cutoff with the full-level refill complete.",
+      "title": "Check all four glass readings",
+      "subtitle": "Use the probe placement on page 29. Compare all four readings and the refill result.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [
@@ -2556,13 +2886,13 @@
           {"kind": "line", "start": [371, 49], "end": [371, 273], "color": "#DCE2EB", "width": 1, "dash": []},
           {"kind": "label", "value": "NEXT ACTION", "x": 380, "y": 37.5, "size": 9.4, "color": "#1749D1", "font": "PlexSemi", "align": "left"},
           {"kind": "round_rect", "x": 19, "y": 286, "width": 504, "height": 34, "radius": 7, "fill": "#EAF0FC", "stroke": "#DCE2EB", "line_width": 1},
-          {"kind": "label", "value": "After 17.0 g, use the repeat results on page 47.", "x": 31, "y": 307, "size": 11.1, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
+          {"kind": "label", "value": "After 17.0 g, use the repeat results on page 51.", "x": 31, "y": 307, "size": 11.1, "color": "#1749D1", "font": "PlexSemi", "align": "left"}
         ]
       },
       "actions": [
         {
           "title": "Take the gate readings first",
-          "body": "Read B on page 39. Use A and C only when adding a gram is under consideration. Compare the glass results and both 12-to-8 C times with the same load and airflow."
+          "body": "Read B on page 43. Use A and C only when adding a gram is under consideration. Compare the glass results and both 12-to-8 C times with the same load and airflow."
         },
         {
           "title": "Make one measured change if it earns a trial",
@@ -2900,7 +3230,7 @@
       "actions": [
         {
           "title": "Measure at C before the drier",
-          "body": "Read condenser-outlet pressure in psia and bare-tube temperature in C together during the 8 C wall check. Use the same instrument accuracy as on page 39."
+          "body": "Read condenser-outlet pressure in psia and bare-tube temperature in C together during the 8 C wall check. Use the same instrument accuracy as on page 43."
         },
         {
           "title": "Compare the temperature to the row",
@@ -2922,8 +3252,8 @@
       "url": "https://webbook.nist.gov/cgi/fluid.cgi?PLow=5.5&PHigh=140.5&PInc=1&Digits=8&ID=C75285&Action=Load&Type=SatT&TUnit=C&PUnit=psia&DUnit=kg%2Fm3&HUnit=kJ%2Fkg&WUnit=m%2Fs&VisUnit=uPa*s&STUnit=N%2Fm&RefState=DEF"
     },
     {
-      "title": "Watch the exposed return",
-      "subtitle": "Compare the copper from the foam outlet to the compressor, from the same viewpoint.",
+      "title": "Check frost approaching the compressor",
+      "subtitle": "Use the two pictures from page 28 to locate the change before checking B.",
       "series": "REFRIGERATION",
       "illustration": {
         "origin": [
@@ -2985,7 +3315,7 @@
         },
         {
           "title": "Respond if frost travels toward B",
-          "body": "Read B pressure and tube temperature together and use page 39. If B falls below its floor, frost reaches the compressor can, or the sound changes to knocking, use the safe disconnect and diagnose."
+          "body": "Read B pressure and tube temperature together and use page 43. If B falls below its floor, frost reaches the compressor can, or the sound changes to knocking, use the safe disconnect and diagnose."
         }
       ],
       "actions_y": 498,

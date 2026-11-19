@@ -221,7 +221,7 @@ The integrated assembly — cold core + plumbed compressor + condenser — is no
 
 ## Charge commissioning
 
-Follow pages 25 and 38–47 of the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+Follow pages 25–29 and 42–51 of the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
 Use 16.0 g net for the first weighed fill. The [charge estimate](/hardware/refrigeration-guide/README.md#why-the-first-fill-is-160-g)
 records the completed coil calculation. The measured bench comparison supplies
 the commissioning result.
@@ -232,7 +232,7 @@ With a completed high-reed refill, normal controls and unchanged airflow, time
 the wall probe from the first running reading at or below 12 °C to the first
 one at or below 8 °C. Sample at the same interval and compare matched loads.
 Read the paired compressor-inlet pressure and contact temperature at the warm
-crossing, just before normal cutoff, and after the normal restart. Page 39
+crossing, just before normal cutoff, and after the normal restart. Page 43
 gives the temperature floor directly from the pressure band. A run with a
 refill, fault or freeze trip during the timed window is an interrupted lap.
 
@@ -274,4 +274,4 @@ charge increase. To restore the prior measured fill after a failed addition,
 remove the full charge by the applicable handling method, evacuate and weigh
 in 16.0 g again. Close and leak-check the final service access and save the
 matched runs and finished charge with the unit.
-[Worked examples](/hardware/refrigeration-guide/refrigeration-guide.pdf#page=47)
+[Worked examples](/hardware/refrigeration-guide/refrigeration-guide.pdf#page=51)
