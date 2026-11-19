@@ -62,7 +62,7 @@ equipment on the bench for the inspections. [Published machine model](https://ho
 | 47 | Repair through the full sequence |
 | 48 | Save the checks with the unit |
 | 49 | Read the condenser outlet |
-| 50 | Check frost approaching the compressor |
+| 50 | Check frost near the compressor |
 | 51 | Follow the example decisions |
 
 ## Responsible sources
