@@ -830,7 +830,7 @@
         "reported_at": "2026-09-22",
         "authority": "Derek (relay of Scan results)",
         "result": "Pulled from H2C. Some supports are impossible to remove without damage: those in the crevice between each display skirt-pocket surround's up-slope end, the housing underside and the ridge wall. The two 2.43 mm carrier-floor strips beside the Z-rail channel read as parts that snap off during assembly.",
-        "geometry_response": "97d94494e: display storey filled solid beside the display opening; the strips deleted",
+        "geometry_response": "6e76d6b6f: display storey filled solid beside the display opening; the strips deleted",
         "replacement": "front-top v5 on Mark2"
       }
     },
@@ -1104,7 +1104,7 @@
       "parts": [
         ".cache/prints/2026-09-22-display-cover-mark2-v4/inputs/display-cover.stl"
       ],
-      "geometry": "The display cover at 6a1ecd84f^: 34 mm skirts, for the printed front-top",
+      "geometry": "The display cover at 4b5390e78^: 34 mm skirts, for the printed front-top",
       "orientation": "Face down (X180), both skirts pointing up",
       "project": ".cache/prints/2026-09-22-display-cover-mark2-v4/display-cover-black-z004-mark2-v4-input.3mf",
       "project_sha256": "90f7e769c196ac27edf592cb67d9023116bc05705478cb467d1616f5562f627f",

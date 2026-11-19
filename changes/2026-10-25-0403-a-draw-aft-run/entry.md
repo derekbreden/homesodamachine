@@ -2,7 +2,7 @@
 title: The Reservoir A draw tube runs low under V-K
 lede: From the aft seat to its guide, fluid-16 stays under V-K's port barrel and clears the soda insulation and the pump.
 date: 2026-10-25T04:03:39-05:00
-commit: 2f572bc33de78b74828274f39631d2a4648e1d4e
+commit: f699ad5a55a1efb7258f2cbb0ee5ed3cf9b318ed
 model: manifold-layout/enclosure-assembly.step
 ---
 The tube keeps its first twelve segments, as far as the aft seat. From there it leaves the seat at Y304.12 and rises only to Z264.9 over the J2-OUT3 lead. It eases to Z264.3 along X78.5, turns west at Y359.5 under the J4 bundle, and rises to Z267.4 on its last turn to the A-draw guide at X45. That is 24 segments, R14 throughout, 414.0 mm long. The bends are illustrative, not tube-cut instructions; Reservoir A's anchors and guides are unchanged, and so is fluid-14.

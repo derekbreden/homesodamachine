@@ -2,7 +2,7 @@
 title: Rear caps locate the adapter hex, PISCO neck and meter housing
 lede: The ASSE cap captures both sides of its inlet adapter hex. Fitted PISCO and meter bearings follow the measured hardware surfaces.
 date: 2026-11-02T18:37:33-06:00
-commit: c9c0612c40b8ff6f9ba3cbbc5128654dd1d00c30 f455ad1bd76cf60bdcbc3f44af5ec4214cb6c0e1 28f3ce3289e7f8e802408581e18c962b68cdd42f
+commit: 393470bc706b2344b3331ac02f0a131feac23a6f 92fc634cfa2627d972118fdf7af6b805822fe4df b78657f0b474bd5540d2c003bdb810b879228595
 model: manifold-layout/enclosure-assembly.step
 ---
 The ASSE cap encloses both axial shoulders of the 1/4 NPT–3/8 NPT adapter's

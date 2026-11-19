@@ -2,7 +2,7 @@
 title: Paired tube seats and a compact ground landing on the core
 lede: Two paired stations retain the Reservoir A tube paths. The ground landing and nearby leads leave the final connection region accessible.
 date: 2026-10-25T01:35:27-05:00
-commit: 7352492ae 0bdf4e3c12ac5b5f58413e3adeaaf9f42877ce0c f57d0d3a8 7ab5fa8bf b98d375f6 779e8d63b
+commit: 6f496dccf ee246f5e3c8d06b75251dc14a43c3c8702c9cab3 d0ab60187 980a33be4 ef39c6acf a4bfd8ded
 model: manifold-layout/enclosure-assembly.step
 ---
 The fore and aft stations each seat both Reservoir A tubes under one shared nominal tie. Their bearings and tie webs retain 3 mm stock. The aft outer quarter is open beside the shell, and the fore tie head faces east of the dressed ground lead. The core seats from its shell footprint and stack floor; the overhanging anchors do not establish the enclosure dimensions.

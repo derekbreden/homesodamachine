@@ -46,7 +46,7 @@ cooling and printer calibration. The [contact comparison](https://github.com/der
 reads the emitted interface and model bead envelopes; it does not measure
 molten material or removal force.
 
-The [stopped rim-fin trial](https://github.com/derekbredensteiner/homesodamachine/blob/b388123d2ac2fdc31fd091f980334b9c99443ab8/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense
+The [stopped rim-fin trial](https://github.com/derekbreden/homesodamachine/blob/534b87cc5f8d6911f8bcfa38378116d8dcdcb6bd/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense
 interface and trees releasing together with open heat-insert pockets.
 The [current Mark1 trial](prints/2026-11-11-faucet-trees-only-mark1/print-job.json) uses trees, a dense roof,
 a perimeter that follows the suspended rim, and bridged insert pockets.

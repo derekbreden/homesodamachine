@@ -2,7 +2,7 @@
 title: The pumps dock once, on four gripping collets
 lede: The pump cradle goes into the bay at the factory and stays. Each pump tee's collet grips its tube, and J13 runs straight to the motor tabs.
 date: 2026-10-25T00:09:27-05:00
-commit: 86c462aed1703bf03a58d0e7b9c9c924815ad40b 6f25d7405e8aaf66f73e6f50eeabecc30175b47e 6764c94e7fbe2f26305ef71120edcda69aeb9e8f
+commit: 141b66b9eb1fc75a20ba602acdc12461e23bf3a6 5ee8634359951328eab443ad5fa92bf457206ebe a886247da732fe79496da862429ab33168309e32
 model: manifold-layout/enclosure-assembly.step
 ---
 [Locate the cradle and pump tees in 3D](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20enclosure-pump-cartridge%0Asolid%3A%20tee-y-c%0Asolid%3A%20tee-y-d%0Asolid%3A%20tee-y-f%0Asolid%3A%20tee-y-g).

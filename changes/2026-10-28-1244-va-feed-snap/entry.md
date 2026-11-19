@@ -2,7 +2,7 @@
 title: V-A feed snaps into the core lid
 lede: One filled clip grows from the cold-core lid to hold the existing straight feed.
 date: 2026-10-28T12:44:50-05:00
-commit: 5bd8fade17aef625d097cc0313dbe13573fa4445
+commit: 0a6fed178cc9a8aa126be78d4d2aac8e5570ba75
 model: manifold-layout/enclosure-assembly.step
 ---
 The continuous white V-A feed presses downward into an integral C2 guide at

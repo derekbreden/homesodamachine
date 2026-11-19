@@ -14,7 +14,7 @@
   },
   "gcode_member": "Metadata/plate_1.gcode",
   "gcode_sha256": "310f8521770c70c1cfebea13965a565bcebe9c6febe6846397e65a82b066711b",
-  "geometry": "The display cover at 6a1ecd84f^: 2 mm skirts 34 mm deep, the pockets of the printed front-top",
+  "geometry": "The display cover at 4b5390e78^: 2 mm skirts 34 mm deep, the pockets of the printed front-top",
   "orientation": "X180: the visible face on the plate, both skirts pointing up",
   "process_overrides": {
     "support_remove_small_overhang": {

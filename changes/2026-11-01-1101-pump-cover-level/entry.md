@@ -2,7 +2,7 @@
 title: The pump cable-cover floor is level at its rear height
 lede: The rigid center cover has a flat lower face, leaving room to lower the pump by 2.36 mm at the same lid clearance.
 date: 2026-11-01T11:01:11-06:00
-commit: 7f2e8f32f1dcc07aa8b47c1035b45f30098d7c07
+commit: bdf6626e456c7c94f86bca4d63131b7d90ecc080
 model: reference/g-ganen-pump/g-ganen-pump.step
 ---
 The center cable-cover lower face lies at native Z4.210583 mm along its full

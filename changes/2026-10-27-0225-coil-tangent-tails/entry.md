@@ -2,7 +2,7 @@
 title: Complete R15 tail forms for the evaporator coil
 lede: The production coil has 9½ right-hand turns and tangent inlet and outlet transitions. EVAP-01 defines every bend, straight, exit station and working end.
 date: 2026-10-27T02:25:27-05:00
-commit: 2ab1ba39b4145fe922df4e676b6be3f27bd7fe6a
+commit: 8b0c9b346379772418aa2dcd8c0aef99efe799e8
 model: cold-core-layout/cold-core-assembly.step
 ---
 

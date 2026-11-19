@@ -2,7 +2,7 @@
 title: Installed Y-seam screws and inserts appear in the appliance model
 lede: The populated appliance includes all four M5×100 seam screws and their heat-set inserts. The five printed enclosure parts keep their current geometry.
 date: 2026-10-25T23:53:35-05:00
-commit: f69d23140698
+commit: 0070d8b6b530
 model: manifold-layout/enclosure-assembly.step
 ---
 The section shows the upper west joint with its installed M5×100 screw and RX-M5x9.5 insert highlighted. The same hardware is included at the upper east and both lower joints. Upper screws enter from the roof; lower screws enter from the handholds. Their tips remain inside the printed joints.

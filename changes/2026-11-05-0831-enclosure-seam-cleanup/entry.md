@@ -2,7 +2,7 @@
 title: Clean insert tails and front-corner mesh seams
 lede: The insert lands and upper blind bores end on the cold-core clearance plane. The lower bores continue through the rear lands.
 date: 2026-11-05T08:31:10-06:00
-commit: bee47bcd7 b599ba6ae
+commit: 0db6c9b02 14277784b
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The nameplate receiver has a continuous backing plane behind its upper insert pilots. Its lower pilots continue into the cold-core clearance. The receiver keeps its approved outer shape, screw positions and artwork, with solid deposition through each insert land and its wall root.

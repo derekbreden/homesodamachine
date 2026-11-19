@@ -105,7 +105,7 @@ the two `reservoir-bulkhead-seal-wet` instances are off the plate (the wet-side
 bulkhead seal is a purchased silicone flat washer, not printed — see bom.md),
 and `reservoir-gasket` and `reservoir-retaining-ring` each drop from 3 to 2.
 `above-counter-gasket` re-sliced from the 2026-06-09 "match the
-plate/shell-foot footprint" revision (961ffac7): footprint 2064.9 mm² (was
+plate/shell-foot footprint" revision (c285e18f): footprint 2064.9 mm² (was
 2111). `first_layer_time` ≈ 1841 s (was 2215); plate bbox ≈ 283 × 270 mm.
 Still sliced in Bambu Studio 02.07.01.57.
 

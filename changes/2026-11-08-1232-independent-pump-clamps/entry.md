@@ -2,7 +2,7 @@
 title: Independent pump clamps retain the fitted motor guides
 lede: Each pump has its own solid flange retainer and local screw pockets. Tapered loading wells and sloped outlet clearances reduce the flat underside area.
 date: 2026-11-08T12:32:22-06:00
-commit: 683565349 9d1d5f020 c1d426cab bc2b1a571 6683c084c bfff9b6ba 888bb3937 4ecddc767
+commit: f2b6771c1 f7488fe03 973052bb3 c6802279b 7363811ae 5e9bd0b1b 218ec9b16 91d29115f
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 Each motor seats in its fitted cylindrical guide, with local tracks for the landed terminals. Fixed stops above the flange and a screw-fastened retainer beneath it capture each pump independently. Continuous stock separates their loading openings.

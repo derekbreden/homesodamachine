@@ -2,7 +2,7 @@
 title: 4 mm flavor lines run from the outlet valves to the glass
 lede: Stem reducers and metric rear bulkheads carry continuous black tubing through a smaller dispense opening. The internal returns keep R25 bends.
 date: 2026-10-21T03:08:06-05:00
-commit: 8742c66249d4e96f56e3635657f041b573e6ab25
+commit: bb9cee4aaae648a5523e50b9b0200156b65fea88
 model: manifold-layout/enclosure-assembly.step
 ---
 Each flavor path uses an ARD4M4-E in its outlet valve, black 4 mm OD / 2.5 mm ID LLDPE, an ABU44M-E rear bulkhead and one continuous black tube to the faucet face. Both faucet finishes use black flavor tubing.

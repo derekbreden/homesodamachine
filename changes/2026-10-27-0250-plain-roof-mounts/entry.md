@@ -2,7 +2,7 @@
 title: Broad roof columns and one flat gas carrier
 lede: The meter and aft ASSE bearing share a plain roof column. Both gas seats join on common flat planes.
 date: 2026-10-27T02:50:32-05:00
-commit: e0d7524dd c9f632d6a
+commit: 2b8266355 337129cfa
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The meter has two roof-rooted supports with broad faces and nominal 3 mm bearing and strap-passage stock. The fore column also carries the ASSE bearing; its open strap approach joins that bore. The aft pier has one flat setback for the meter housing. Both gas seats share Z293/301 planes.

@@ -2,7 +2,7 @@
 title: Full-span wings snap the lower pump retainer into place
 lede: Two broad integral wings replace the three retainer screws and inserts. Each side has a central screwdriver release beneath one continuous 45° roof.
 date: 2026-10-26T09:21:43-05:00
-commit: 504760f89 8fd92f096
+commit: 2c5d3a380 cdfa5e688
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The carrier, wings and lower hooks share one full fore–aft span. Material fills the upper wing gap, leaving the lower 21 mm free to flex inward during upward insertion. The hooks spring outward onto the enclosure’s receiver floors.

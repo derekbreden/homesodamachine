@@ -2,7 +2,7 @@
 title: The bottom carbonator ports turn on one-piece push-fit elbows
 lede: Ports 1 and 3 each take a neoFit AME4-N2-E, and the tube pushes straight into it. The street elbow and its adapter are gone from both.
 date: 2026-10-28T11:34:59-05:00
-commit: c247f4a8c91fa83b956333d383eeffd11a8f49b1
+commit: ac23fe0726a1e4a89b71f9548994d18ce33d0349
 model: cold-core-layout/cold-core-assembly.step
 ---
 Each bottom-plate port carried a TAISHER street elbow with a push-fit adapter threaded into its side: the gray PI010822S on the CO2 inlet, the black PP010822E on the carbonated-water outlet. Each now carries one black acetal neoFit AME4-N2-E. Its 1/4" NPTF thread enters the plate, and its push-fit socket turns the line 90° and takes the tube itself.

@@ -2,7 +2,7 @@
 title: Four visible screws secure the rear nameplate
 lede: A solid receiver holds four short M3 inserts. The screw heads sit in 1 mm counterbores and project 2 mm, within the rear extent of the bulkheads.
 date: 2026-11-04T22:50:19-06:00
-commit: fc74d2e4021fb6efb0a0a56f496b0874644520ab
+commit: 4f2d5750e4ffc7f4fc292a85d054111542423fb6
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The 88 × 100 mm nameplate seats on a continuous backing and fastens with four black M3 × 6 socket-head screws. Their centres form a 70 × 82 mm rectangle. Four RX-M3S × 4 inserts sit flush in Ø4 × 5 mm blind pilots, with 3 mm of backing and 3.64 mm screw engagement.

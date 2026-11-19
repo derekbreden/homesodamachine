@@ -2,7 +2,7 @@
 title: The Pisco receiver retains a full fore bridge anchor
 lede: The receiver bridges between complete end shoulders in the ceiling-down enclosure. Its component seat and snap engagement remain in place.
 date: 2026-11-07T19:14:04-06:00
-commit: c91ec35690354521d17ebe99313b67f98dc133e5 e2a98701e25adfc43a480f04c59aeba86f08726f
+commit: a05ce4ee2b1da4adf5e91f8e65b9cce90d99f880 9b253692c1d1dad4db803b887a036f1492aa3490
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The Pisco service opening ends beneath a full-thickness fore bar, so the catch

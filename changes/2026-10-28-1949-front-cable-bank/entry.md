@@ -2,7 +2,7 @@
 title: Front J1 and J2 leads share a lid cable bank
 lede: Two open channels on one filled base hold seven front J1 leads and four J2 leads beside the PCB.
 date: 2026-10-28T19:49:30-05:00
-commit: d30c501987298aee6bb281b3dd3a3e68dfc1e833 06c56687be8a19d8028fb72b68449cd7f6e7971f
+commit: 187b7d9bc646c7d7f38be8c47728e0ba5ce1ce32 566b95b32ba407efaf4a555938b6f2215d8b5d50
 model: printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 ---
 The cable bank grows directly from the cold-core lid beside the retained PCB.

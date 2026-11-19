@@ -2,7 +2,7 @@
 title: Four fluid routes pass straight through the cap
 lede: Water and soda turn in the open main body, with one exposed water arch above the lid. A-fill and B-draw use aligned reservoir seats; B-fill remains under layout review.
 date: 2026-10-28T11:12:31-05:00
-commit: dd16b1aa9 cf1094637
+commit: c6507055d b19aee0c5
 model: manifold-layout/enclosure-assembly.step
 ---
 The water inlet and soda outlet each have one straight passage through the cup and lid. Their lower turns are installed while the main body is open, before potting. The water check's existing aft stem elbow faces upward into an exposed R18 arch; its barrel, pump connection and carbonator metal fitting keep their installed datums. The soda meter, accepted holder and warm tube route retain their positions.

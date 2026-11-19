@@ -377,7 +377,7 @@ Geometry: 3-piece split shell + above-counter plate, both with the plate-to-shel
 - `62e20b3` — pocket 5.5 → 7 mm, counterbore 5.7 → 6.2 mm (still on the heat-set + ULH-SHCS retention scheme).
 - `9394bcd` — switched McMaster ULH from M3 × 8 (91223A413) to M3 × 6 (91223A412) so the screw shaft would clear the ruthex insert's closed top.
 - `084f057` — pivoted to a screw-free integral-boss press fit (Ø 4.0 plate bosses into Ø 4.05 shell pockets), 0.05 mm CAD gap intended to close into a press fit via FDM tolerances.
-- `bdc42e5a` — boss Ø 4.0 → 3.9 after the first physical test of the e5aa8a1 design snapped a boss off on first insertion (FDM interference was much higher than 0.05 mm in practice).
+- `bdc42e5a` — boss Ø 4.0 → 3.9 after the first physical test of the 084f057 design snapped a boss off on first insertion (FDM interference was much higher than 0.05 mm in practice).
 - `841d38ab` — dowels removed entirely after the Ø 3.9 test print *also* snapped a boss. Root cause was layer-line orientation, not interference: vertically-extruded bosses are weak in shear at their base.
 
 Derek said about the dowel snap-off testing:

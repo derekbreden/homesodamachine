@@ -2,7 +2,7 @@
 title: The pump dock is four off-the-shelf tees behind a printed collet plate
 lede: Each pump tube passes front-top's collet plate into a John Guest PP0208E tee. Pulling the cartridge drags the tees their 1.5 mm collet stroke against the plate, which releases the tubes.
 date: 2026-10-22T11:28:27-05:00
-commit: 53082ce2d42e2fcc490f4e0295303d2f103abe10 e903e67ab9c809c73cb259548c6648b8c0af326a
+commit: 30c40793a507dec32af6e5e61c2751a0fb2cbc3b 3197eedaa4f67f646f797acc292b29415f5808d7
 model: manifold-layout/enclosure-assembly.step
 ---
 [Locate the dock in 3D](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20tee-y-c%0Asolid%3A%20tee-cap-y-c%0Asolid%3A%20tube-fluid-9%0Asolid%3A%20valve-v-e).

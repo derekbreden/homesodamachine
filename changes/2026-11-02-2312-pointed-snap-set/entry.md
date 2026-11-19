@@ -2,7 +2,7 @@
 title: Pointed lead-ins and matching receivers across all six snap families
 lede: Each cap uses a single pointed insertion face. The ASSE adapter keeps its conforming hex with more seating depth on the lower flats.
 date: 2026-11-02T23:12:05-06:00
-commit: ffcc47f64230129a2d1e156517ae5d6a69f1d2a6 8b8ff6dac
+commit: 5224e54945d84f8540d5b21297d0de356f9fda29 70a02943e
 model: manifold-layout/enclosure-assembly.step
 ---
 The ASSE, PISCO, flow-meter, water-regulator and G-Ganen pump caps have one

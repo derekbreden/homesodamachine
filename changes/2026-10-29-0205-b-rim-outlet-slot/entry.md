@@ -2,7 +2,7 @@
 title: B's rim outlet is its own channel, opened through the wall
 lede: Reservoir B's reed conductors leave by the top 6 mm of its 8 mm reed channel, opened straight through the fore wall, with no taper, ramp or step.
 date: 2026-10-29T02:05:33-05:00
-commit: 3d87593492dc60e593195c3f520ef7387e0d00a3 daee7e7ff
+commit: 2546fae53cb97bc7836e0fcdc96539b9c0206da3 241af0c48
 model: printed-parts/cold-core/foam-shell/foam-shell.step
 ---
 The notch's sides are the reed channel's own sides, continued out through the fore face, with a flat floor 6 mm below the rim. The channel's walls stand beside it unchanged from floor to rim, so nothing overhangs and nothing ramps under it.

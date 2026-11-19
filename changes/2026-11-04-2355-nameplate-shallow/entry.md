@@ -2,7 +2,7 @@
 title: A shallow nameplate with evenly inset artwork and screws
 lede: The plate and receiver stand 2 mm from the rear wall, with screw heads reaching 4 mm. The white border and four screw positions have equal nearest-edge spacing.
 date: 2026-11-04T23:55:29-06:00
-commit: c26228198b3e236d9c29c6b6d9d83dc9da99b248
+commit: c983dbcce5f1fc7f4c7803de58febcd1704d5ac4
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The 88 × 100 mm plate retains its logo, lettering and QR sizes. Its white frame is inset 4.79 mm from all four edges. Four black M3 × 6 screws form a centred 66 × 78 mm rectangle; each head has 3.04 mm of clear space to its nearest white borders.

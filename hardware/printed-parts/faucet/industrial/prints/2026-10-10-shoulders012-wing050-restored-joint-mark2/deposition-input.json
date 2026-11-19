@@ -788,7 +788,7 @@
     "base": "female socket",
     "tip": "male plug",
     "tip_rotation_x_degrees": -105.0,
-    "reference_commit": "a17baa69e^"
+    "reference_commit": "4f6daaad7^"
   },
   "geometry_authorization_quote": "We need the \"tight conformance\" carried through everywhere we can.",
   "three_other_meshes_and_placements_preserved": true

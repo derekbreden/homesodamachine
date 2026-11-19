@@ -2,7 +2,7 @@
 title: The round LED pocket shares its lead channel’s floor
 lede: The deeper bulb pocket and diamond lead channel have a continuous sloping floor. The channel retains its roof planes and opens into the display cavity.
 date: 2026-11-09T22:55:24-06:00
-commit: e50eb3e4372a4d5b70248795469c02ed8d51d2d3
+commit: 651f0d96d5fb06c74aea20a49442740bdb2f191f
 model: printed-parts/enclosure/enclosure/enclosure-front-top.step
 ---
 The cylindrical bulb opening sits below the flat status plate. Its bottom follows the lead channel’s lower faces, so the junction has no separate flat shelf or capped end.

@@ -2,7 +2,7 @@
 title: Relay mounts use the acquired M2 socket-head hardware
 lede: The screw heads, PCB bores and printed insert pilots follow the actual relay hardware. The hot lead enters its terminal on a straight approach.
 date: 2026-11-09T23:31:08-06:00
-commit: 71461cdabf7eee563a6f26a1630db9409cd6181e
+commit: ed8ca8c49994eaa4f344bf31db01027e5bf13cc6
 model: manifold-layout/enclosure-assembly.step
 ---
 The relay corners use the acquired Sutemribor socket-head screws and Ruthex inserts. Their material records identify the hardware and its delivered cost.

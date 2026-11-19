@@ -2326,7 +2326,7 @@
   "preparation_context": {
     "physical_source": "ab6e82d6dd6d47d33f46a46fcbcc793fabf8b34a",
     "integration_source": "ffe67f4850ab8b4601a712125e5236fea9d67ba8",
-    "region_source_metadata": "Current committed e793105a6 source_sha256 and all boxes preserved; only lid and bottom STEP/STL bindings identify accepted Rust candidates.",
+    "region_source_metadata": "Current committed 3d30f434b source_sha256 and all boxes preserved; only lid and bottom STEP/STL bindings identify accepted Rust candidates.",
     "current_geometry_identity": "All 16 final producer files and native lid STEP DATA equal the qualified broad-backing capture. WAGO_N is mounted on back-top and is excluded from cold-core cap features.",
     "actual_lid_slice_source": "3e504250c54d8179c40c5de5fefc40bbbc01b3ec",
     "retained_other_parts": "The three qualified project/archive records are unchanged and verified by exact current STL identity."

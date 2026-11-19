@@ -2,7 +2,7 @@
 title: Printed M5 pass-throughs use the selected Ø5.2 mm fit
 lede: The four enclosure quadrants share the Ø5.2 mm passage selected from the printed screw samples. The printed shop fixtures use the same fit.
 date: 2026-10-26T22:38:55-05:00
-commit: 5104eaa42
+commit: 3547d3746
 model: manifold-layout/enclosure-assembly.step
 ---
 The shared printed M5 pass-through diameter is **5.2 mm**. It applies to the enclosure's four screw-bearing quadrants and the tube-insertion and weld-rotator fixtures. The enclosure's mating planes, screw positions and installed pump-retainer pose stay fixed.

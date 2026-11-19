@@ -25,7 +25,7 @@
       ]
     ],
     "minimum_model_edge_margin_mm": 17.5,
-    "source": "study.json in commit 6cc45a11fa6e73c7167f9caa712b1c676ff276d4; model bounds, not a bead-width audit."
+    "source": "study.json in commit b78ec6db2312cc880dfc5090377ebee08f20890f; model bounds, not a bead-width audit."
   },
   "requested_correction": "Compact, centered comparison on Mark2; keep away from unseasoned bed edges. At least 20 mm inset, aiming for 80 mm where the complete test fits.",
   "physical_ironing_comparison_accepted": false,

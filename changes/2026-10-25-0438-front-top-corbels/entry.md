@@ -2,7 +2,7 @@
 title: Front-top's funnel ledges and screw hosts stand on 45° corbels
 lede: Both funnel-seat flank ledges and the two front frame-screw hosts now print on corbels from the wall, and the loose ceiling-tongue bar is gone.
 date: 2026-10-25T04:38:36-05:00
-commit: 05ea057e0afa2f3ab802d02ad282ce90caa21f85
+commit: 68c1e4e57185fda4d572da7dff14e84764bbb866
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 Front-top gains a 45° corbel under each funnel-seat flank ledge at Z343 and under each of the two front frame-screw hosts at Z335.8. The loose 2 × 2.25 mm ceiling-tongue bar aft of the seam is removed. The two east manifold WAGO wells join in one tower with a 45° wedge under it. Together that adds about 11.8 cm³ of printed stock.

@@ -2,7 +2,7 @@
 title: A full wall root for the east cold-core hold
 lede: The 9 mm hold stands on the solid wall left of the rear-port recess, with its complete 40 mm gusset.
 date: 2026-10-27T09:45:23-05:00
-commit: c776f5c4b af6274b2a
+commit: 25ede756b 0a26a1c15
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The east hold occupies X12..21, 3 mm west of the rear-port recess. Its complete 9 mm by 40 mm wall attachment and 8 mm foot bear over the core cap with the selected 0.25 mm allowance. The west hold keeps its full height and geometry.

@@ -64,7 +64,7 @@
     "tree_support_branch_diameter_angle": {
       "from": "5",
       "to": "0.5",
-      "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git d5f17da3bd). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
+      "reason": "Bed-rooted trunks with the profile's 5-degree growth leave less than the 20 mm unseasoned-plate border around back-top's footprint; 0.5 degrees keeps the complete model/support/brim footprint inside it (2026-10-09 preparation, git ff5e6f9c17). The groove ribbons below carry the caught faces that the 2026-10-10 article's trapped stems reached. Back-top only."
     },
     "tree_support_branch_diameter": {
       "from": "2",

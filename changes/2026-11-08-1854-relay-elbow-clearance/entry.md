@@ -2,7 +2,7 @@
 title: Relay pair clears the stem elbows
 lede: The relay pair sits below the stem elbows. Its mounts and wiring follow the placement.
 date: 2026-11-08T18:54:04-06:00
-commit: 5f1f4862d7bce3bf53874cefca924fdcef5b16fd
+commit: 3fe2a3c78f7d0f3f005108a056cbad023ff83853
 model: manifold-layout/enclosure-assembly.step
 ---
 The installed relays clear both stem elbows and the cold-core neighbours below them. Their corner screw stacks, printed seats and local solid-infill regions share the placement datums.

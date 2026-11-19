@@ -2,7 +2,7 @@
 title: Each pump tee returns to its rear valve on two stem elbows, its collet held pressed
 lede: Front-top's collet plate holds each tee's branch collet pressed, so no tee moves. Each lower return is a trimmed NeoFit stem elbow in the tee, one straight tube and a stem elbow in the rear valve.
 date: 2026-10-23T02:40:53-05:00
-commit: b3707a1804f311e6bf73e3a404e38920a88485ed
+commit: 0e6fd37e4a7d2c12e7ebd67607e1ca2be71f0a25
 model: manifold-layout/enclosure-assembly.step
 ---
 [Locate the returns in 3D](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step?find=solid%3A%20stem-elbow-y-c%0Asolid%3A%20stem-elbow-v-c%0Asolid%3A%20tube-fluid-9).

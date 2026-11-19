@@ -2,7 +2,7 @@
 title: Pump casing retains its open grooves and finite wire cover
 lede: The fixed underside follows rigid scan features. Flexible rear leads are excluded from the casing, and the motor cradle uses the approved cylinder region.
 date: 2026-11-01T01:44:06-05:00
-commit: 845a37e5b34180f55208483583bb830628c5e1b5
+commit: 8e144eb1db580a404864c20b09c00dec6527ac25
 model: reference/g-ganen-pump/g-ganen-pump.step
 ---
 The fixed rails follow their three measured faces through the removable-slider

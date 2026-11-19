@@ -2,7 +2,7 @@
 title: Pump pockets continue through front-top into the roof
 lede: One broad piece contains the upper pump pockets, display housing and roof. A plain rectangular retainer secures both pumps with three screws from below.
 date: 2026-10-25T17:56:05-05:00
-commit: ae7a3a7b5b653f7dada9dd6f9e367a7aeee9c8bf 7c311ff2203af2c17996603e441460c0e2e0b0a4 98f4736f210cec3fb1e41b95bd05ca54afdc27ea d57670e384dfb59ac61f5d9b6456e5c61a3aed51
+commit: fc569a7eb5e2044a2c876fbe86f0ae0025bf9357 648d1ddbf2f268f2fd8c4893e94f1aa9087d1921 78e95b0cf0232ff57758ac9e4c0c54983c45d072 9659bf1cc744cc7eecd91c0094b24fb38306b4d0
 model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The upper pump inverse is part of front-top. Its broad stock continues into the display housing and roof, with fitted contours confined to the pump pockets and the required wire and tube passages.

@@ -2,7 +2,7 @@
 title: PISCO retention covers 41.7 mm of the body
 lede: The longer cap reaches toward the rear CO2 wall. Printed samples include the full retaining walls and end stops in all three axes.
 date: 2026-11-02T10:53:33-06:00
-commit: e457351db6baff393fc0ff4e94032131f11889ee
+commit: 5a1620a5101044a4b6e313b9ed1e88985cc58d22
 model: manifold-layout/enclosure-assembly.step
 ---
 

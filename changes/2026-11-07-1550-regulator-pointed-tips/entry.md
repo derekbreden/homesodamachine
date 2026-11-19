@@ -2,7 +2,7 @@
 title: Pointed regulator tips and a matching receiver
 lede: The regulator cover has the full pointed lead-in. Its receiver clears both that cover and the outward-flared entry comparison, while retaining the fitted seats and catch faces.
 date: 2026-11-07T15:50:23-06:00
-commit: 3ccd9d1e9 3e979e594
+commit: d4f4e43da f37b19988
 model: manifold-layout/enclosure-assembly.step
 ---
 The regulator cover's longer entry ramp meets its unchanged retaining nose and
