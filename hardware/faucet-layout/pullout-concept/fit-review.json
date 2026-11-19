@@ -1,62 +1,19 @@
 {
-  "purpose": "This records the focused valve packaging observations against the native head export.",
+  "purpose": "This records the focused packaging measurements for the slim custom-valve faucet. Each observation identifies its measured native payload.",
   "date": "2026-11-18",
   "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
-  "payload_sha256": "630862a09c834503843ccf5539e786e60a8bc31f5d0ef1805dc7fad03004a82e",
-  "step_sha256": "6343a3e8edeb43701ff8313b7505bcf94c7c591bac23a41b9dfb60943a2355ec",
-  "head_shell_tip_frame": {
-    "axis_order": [
-      "across",
-      "back along tip",
-      "out through display"
-    ],
-    "units": "mm",
-    "min": [
-      -26,
-      -48,
-      -65
-    ],
-    "max": [
-      26,
-      112.52001021330442,
-      52.45000000052892
-    ]
-  },
-  "stem_extension_mm": 80,
-  "head_soda_hose_centerline_bend_radius_mm": 40.302,
-  "docked_nozzle_lowest_z_mm": 175.7581024169922,
+  "current_payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+  "current_step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
   "observations": [
     {
       "query": [
         "overlap",
         "pull_off_curved_grip",
-        "head_pressurized_soda_hose"
+        "head_display_bezel"
       ],
-      "intersection_volume_mm3": 8.546318479716249e-9
-    },
-    {
-      "query": [
-        "overlap",
-        "pull_off_curved_grip",
-        "head_ODE_12V_12W_coil"
-      ],
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "overlap",
-        "pull_off_curved_grip",
-        "head_DIN_connector_envelope"
-      ],
-      "intersection_volume_mm3": 0
-    },
-    {
-      "query": [
-        "overlap",
-        "pull_off_curved_grip",
-        "head_short_post_valve_nozzle"
-      ],
-      "intersection_volume_mm3": 0
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
+      "intersection_volume_mm3": 0.0009459501216627022
     },
     {
       "query": [
@@ -64,34 +21,119 @@
         "pull_off_curved_grip",
         "head_faucet_display"
       ],
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
       "intersection_volume_mm3": 0
     },
     {
       "query": [
         "overlap",
         "pull_off_curved_grip",
-        "head_valve_power_pair"
+        "head_valve_magnetic_return_yoke"
       ],
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_pressurized_soda_hose"
+      ],
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_flavor_a_line"
+      ],
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_flavor_b_line"
+      ],
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_fault_drain"
+      ],
+      "payload_sha256": "6cb4415b6f9f659e6b959cf6ff04ebe9cb5a5f83cc4957bf971042a79eac6426",
+      "step_sha256": "9c2b3ba7ca2a98bc53512348f29d758d32a977d09c34b41e3b3714c9b34569e2",
       "intersection_volume_mm3": 0
     },
     {
       "query": [
         "gap",
-        "head_DIN_connector_envelope",
-        "head_pressurized_soda_hose"
+        "head_valve_magnetic_return_yoke",
+        "head_flavor_a_line"
       ],
-      "clearance_mm": 1.1998830454896265,
+      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
+      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
+      "clearance_mm": 0.7503188323963575,
       "intersection_volume_mm3": 0
     },
     {
       "query": [
         "gap",
-        "head_faucet_display",
-        "head_pressurized_soda_hose"
+        "head_valve_magnetic_return_yoke",
+        "head_flavor_b_line"
       ],
-      "clearance_mm": 3.8504684999486978,
+      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
+      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
+      "clearance_mm": 0.7503252987590134,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_magnetic_return_yoke",
+        "head_fault_drain"
+      ],
+      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
+      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
+      "clearance_mm": 0.7693769616268449,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_magnetic_return_yoke",
+        "head_faucet_display"
+      ],
+      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
+      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
+      "clearance_mm": 2.1070001441753856,
+      "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_signal_and_valve_flex",
+        "head_faucet_display"
+      ],
+      "payload_sha256": "df7fa0e02106636150d4d09846bfe4cd687fffb420b69198a5d0720fd9cd648b",
+      "step_sha256": "5b6d745cb525532a3df87b6cea9e2bb4bd624b5183cd9bd4717eaae0ae6666e9",
+      "clearance_mm": 0.9611950481455503,
       "intersection_volume_mm3": 0
     }
   ],
-  "scope": "The valve and plug are dimensional envelopes. These selected clearances do not qualify a printable assembly, food-contact certification, hose termination, firmware, fluid behavior or physical fit."
+  "notes": [
+    "The bezel shares its cut seat in the shell; the mesh reports nominal contact at that interface.",
+    "The component clearance observations use the same unchanged actuator, tube, flex and display geometry as the current export.",
+    "Clearance measurements establish the illustrated packaging, not actuator force, pressure rating, hydraulic performance, seal life, sanitation or manufacturing fit."
+  ]
 }

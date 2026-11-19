@@ -1,130 +1,98 @@
-# Pull-out Sculpted faucet concept
+# Slim pull-out Sculpted faucet
 
-The curved front of the Sculpted faucet pulls out with its display and dispense
-face. Its keyed magnetic seat stands at the crown. Docked, the base lever commands
-dispensing; undocked, the display offers flavor selection and hold-to-pour control.
-A presence sensor in the seat selects the mode. The fluids stay connected while
-the head moves, and their outlets remain separate at the dispense face.
+This is the custom-valve configuration to aim to manufacture. The faucet keeps
+its familiar height, reach, curved neck, base lever and display. Its front pulls
+off at the crown, carrying the electronic shutoff and separate drink outlets.
+The dock sensor selects tap or handheld mode. The bundle stays connected while
+the head moves.
 
-The study imports the current faucet's lower shell, lever and display. A fuller,
-taller neck surrounds a smooth sliding-bundle passage. The removable head contains
-an electronic water shutoff, its connector, the display, an inlet adapter and a
-short outlet nozzle. The extended straight stem restores glass clearance under
-the larger head. The lever stands in its familiar position as an electrical
-input. The valve closes in the head so the moving soda hose remains pressurized
-between pours.
+![Current faucet and custom-valve pull-out design, at one camera and scale](profile-comparison.png)
 
-## Selected electronic valve
+[Rotate the comparison](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fprofile-comparison.step).
+The reference and custom assemblies share the counter height and are placed
+across the camera's horizontal axis so their heights compare directly.
 
-Use the ODE **21L1K1T25U24** for the wet prototype. It is a normally closed,
-direct-acting stainless valve with a PTFE seal. ODE's
-[series sheet](https://filemanager.ode.it/web/en/general-catalog-page_21L-series.pdf)
-permits mounting in any position and gives the operating differential for the
-selected coil. Its [individual data
-sheet](https://cdn.shopify.com/s/files/1/0503/8833/6813/files/21L1K1T25.pdf?v=1659735891)
-includes drink service. The selected voltage, power, pressure, flow coefficient,
-stock observation and price are recorded in [valve-selection.json](valve-selection.json).
+## Custom valve
 
-[Hydronics Depot's selected stock option](https://hydronicsdepotinc.com/products/ode-21l1k1t25?variant=68184874483885)
-includes the leaded DIN connector. Its product page shows real photographs;
-[the shop's shipping policy](https://hydronicsdepotinc.com/pages/shipping-policy)
-lists express service to the United States. Availability and price are the
-recorded observation, not a delivery promise.
+The valve stack runs lengthwise behind the existing display. Its pressure sleeve
+feeds water around a sealed dry actuator well to the outlet chamber. A hollow
+poppet stem connects the outlet to a small wet balance chamber. The balance seal
+and outlet seat have matched effective pressure areas, cancelling most of the
+hydraulic opening load. The return spring closes the face seal when current is
+removed. The valve seat stands at the dispense face, keeping the downstream
+liquid volume small while the long hose stays pressurized.
 
-The cutaway reconstructs the valve's dimensional envelope from the drawings.
-The DIN plug is a reserved envelope rather than a detailed supplier model. The
-head puts the display above the plug and routes the soda hose above both the
-coil and plug. Its hose path uses a straight run and a tangent circular bend.
-A custom stainless inlet adapter turns into the valve's inlet. A short metal
-nozzle leaves the opposite port. Valve power conductors return with the bundle.
+The coil has a closed magnetic return path. Flow-through magnetic spiders connect
+the fixed pole and armature guide to the return yoke while passing water through
+the cartridge. A separate rod seal isolates the dry armature and spring from the
+wet balance chamber. The enclosure supplies current-regulated pull-in and holding
+power through flexible conductors. The magnetic stop retains a nonmagnetic gap.
 
-The head is deliberately larger to contain this commercial valve. The
-[fit observations](fit-review.json) bind the selected clearance questions to the
-exported payload. These are packaging observations, not a print or beverage
-qualification. The valve has not been tested with this machine. Coil heat,
-pour rate, carbonation, shutoff leakage and residual outlet dripping need a wet
-test. The flavor and drain routing, hose retention, mounts and seals still need
-detailing. The valve's internal downstream passage and short nozzle can retain
-water after closure, so locating the valve here does not establish a drip-free
-outlet.
+The [pressure-balancing reference](https://patents.google.com/patent/EP1597501A1/en)
+describes the established use of matched areas and an outlet-connected bore.
+It supports the architecture; it does not validate this valve's geometry or its
+use with beverages.
 
-[Derek's observation of the working fixed faucet](physical-context.json) records
-a quick stop of the main flow followed by fast and then slow outlet dripping
-after releasing the lever. The pull-out design must control the much longer
-downstream water volume. Closing only the enclosure end leaves the hose open to
-the nozzle; pressure falls and dissolved carbon dioxide can leave solution,
-driving afterflow and reducing carbonation in retained water. The
-[gas-solubility reference](https://openstax.org/books/chemistry-2e/pages/11-3-solubility)
-explains the pressure dependence; the expected hose behavior is a design inference,
-not a measured pull-out result.
+![Custom valve behind the display, with the near housing and cartridge walls cut away](head-valve-cutaway.png)
 
-Below the counter, the bundle hangs freely with a return weight and connects to
-the enclosure. Its low return bend forms the hanging loop. Pulling out the head
-raises the loop and return weight. The enclosure connection supplies the fixed
-anchor. No cabinet bracket hangs from the faucet.
-The study keeps the loop's path length in balance with the exposed hose. The
-weight, dock retention and travel are study parameters, not qualified hardware.
+[Rotate the head cutaway](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fhead-valve-cutaway.step).
 
-## Recommended hose construction
+![Section through the closed custom cartridge](custom-valve-closed.png)
 
-Make the bundle from separately stocked tubing, a flexible signal cable and a
-continuous black protective sleeve. Keep the drink paths separate through the
-head. Use flexible beverage tubing through the moving section, with stationary
-transitions below the counter. The braid protects and gathers the lines; it is
-not a pressure boundary. The drain, display conductors and valve power pair share the bundle.
+[Closed valve](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fcustom-valve-closed.step)
+and [open valve](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fcustom-valve-open.step)
+show the poppet, balance piston, isolated spring, armature, pole bridges and
+winding. Blue marks the supply-side water; turquoise marks the small wet balance
+chamber. The near pressure walls and magnetic structure are cut for inspection.
 
-- Soda: Accuflex Bev-Flex reinforced beverage hose, [sold by the foot at Parts
-  Town](https://www.partstown.com/p/lancer/lan172-04102-77), or the blue-trace
-  [stock coil at Installation Parts Supply](https://installationpartssupply.com/172-04122-77.html).
-  [Accuflex's specification](https://www.accuflex.eu/wp-content/uploads/Bev-Flex-172-series.pdf)
-  owns its dimensions, working pressure and bend radius.
-- Flavor: [Tygon beverage tubing at U.S.
-  Plastic](https://www.usplastic.com/catalog/item.aspx?catid=864&itemid=74410).
-  The soft tube is for the pumped flavor path. Its diameter is close to the current
-  flavor bore, and its pressure limit belongs to this line's design.
-- Outer sleeve: [Techflex Flexo PET, black, by the foot at
-  PacRad](https://www.pacrad.com/techflex-expandable-sleeving-pet3-4black.html).
+## Bundle and dock
 
-Each linked shop listed the selected item in stock when this study was prepared.
-The pages show actual product photos. The recommendation identifies prototype
-stock; it makes no production-life or assembled-bundle qualification claim.
-Insulation, flexible cable and flavor outlet control still need selection. The
-drawn bundle is an envelope: its finished diameter and cold bending resistance
-need a physical sample before committing to the neck or grip.
+The moving bundle contains reinforced beverage hose, separate smaller flavor
+lines, a fault drain, flexible signal and valve conductors, thin insulation and
+continuous braid. The selected [Accuflex beverage
+hose](https://www.partstown.com/p/lancer/lan172-04102-77) supplies the soda path;
+its [manufacturer sheet](https://www.accuflex.eu/wp-content/uploads/Bev-Flex-172-series.pdf)
+owns its pressure and bend limits. The small-bore flavor and drain lines are
+part of this compact configuration and need their compound and flex-life
+specification. A factory crimp secures the hose to the cartridge's integral barb.
+The head pulls from its dock without opening a fluid joint.
 
-## Views
+The tubes fan from their compact bundle arrangement into separate lanes around
+the actuator. The display moves outward slightly to retain clearance behind its
+existing controller. A relieved cradle carries the display above the actuator.
+The dry mechanism and the selected tube envelopes fit within the cosmetic shell;
+[fit observations](fit-review.json) bind the focused clearance questions to the
+exported geometry.
 
-The published models use the normal Parts viewer:
+![Pulled out with the handheld controls displayed](pulled-out.png)
 
-- [Docked](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fdocked-above-counter.step)
-- [Pulled out](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fpulled-out-above-counter.step)
-- [Under the counter](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fpulled-out.step)
-- [Handheld head](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fhandheld-detail.step)
-- [Head valve cutaway](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fhead-valve-cutaway.step)
-- [Selected electronic valve](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fselected-electronic-valve.step)
+[Rotate the pulled-out faucet](https://homesodamachine.com/parts#step:faucet-layout%2Fpullout-concept%2Fpulled-out-above-counter.step).
 
-![Head valve cutaway](head-valve-cutaway.png)
+Below the counter the weighted bundle hangs freely and returns to the enclosure.
+Its low bend rises as the head is pulled. The enclosure connection supplies the
+fixed end. The illustrated travel, weight and dock retention are design parameters.
 
-![Selected electronic valve envelope](selected-electronic-valve.png)
+## What the study establishes
 
-![Docked](docked.png)
+[Custom valve design data](custom-valve-design.json) records the source-authored
+dimensions, flow and force budgets, winding estimate, pressure target and nominal
+outlet-connected liquid volume. The geometry demonstrates the compact packaging.
+Electromagnetic force over stroke and temperature, actual seal friction, leak
+tightness, pressure qualification, carbonation, sanitation and service life remain
+engineering requirements. The volume calculation does not establish a drip-free
+outlet. The trim, seals, joining processes and service retention need fabrication
+detail before manufacturing.
 
-![Pulled out](pulled-out.png)
-
-![Moving hose loop](under-counter.png)
-
-![Handheld head and display](handheld-detail.png)
+[Derek's physical observations](physical-context.json) describe the working fixed
+faucet, including its flow stop and subsequent dripping. They are not observations
+of this custom valve. The production faucet remains the source of the imported
+base, lever and display geometry.
 
 ## Generate
 
-`concept.rs` creates this visualization without changing the production faucet.
-It is an explicit sandbox example outside the normal print build.
-
-`render.json` fixes the comparison cameras and lights the display graphics. Its
-under-counter picture makes the countertop translucent to expose the weight and
-the bundle's enclosure end.
-
-Run from the repository root:
+`concept.rs` creates the native visualization and its design data through the
+explicit sandbox example. `render.json` fixes the cameras and display lighting.
+The comparison uses the current faucet's exported solids as its reference.
 
 ```sh
 tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
@@ -132,6 +100,3 @@ tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.to
 tools/run -- hsm render --jobs hardware/faucet-layout/pullout-concept/render.json
 hsm-publish --root .
 ```
-
-This is an appearance, motion and valve packaging study. It is not a printable
-assembly or implemented faucet firmware. The production faucet is unchanged.

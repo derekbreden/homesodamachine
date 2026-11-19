@@ -7,132 +7,189 @@ use hsm_sandbox::{material, out, part, show};
 
 type Item = (String, [f64; 3], Solid);
 
-const NECK_R: f64 = 17.5;
-const BORE_R: f64 = 12.4;
-const BUNDLE_R: f64 = 11.2;
-const JOINT_GAP: f64 = 0.8;
+const NECK_R: f64 = 13.5;
+const HEAD_R: f64 = 14.0;
+const HEAD_BORE_R: f64 = 12.0;
+const BORE_R: f64 = 11.5;
+const BUNDLE_R: f64 = 9.8;
+const JOINT_GAP: f64 = 0.6;
 const HOSE_TAIL: f64 = 65.0;
 const LOOP_R: f64 = 70.0;
 const LOOP_BOTTOM: f64 = -450.0;
 const WEIGHT_DOCK_Z: f64 = -350.0;
-const VALVE_N: f64 = -40.0;
-const VALVE_S: f64 = -28.0;
-const STEM_LIFT: f64 = 80.0;
+const DISPLAY_LIFT: f64 = 0.5;
+const SEAT_D: f64 = 4.0;
+const VALVE_LIFT: f64 = 0.6;
+const ACTUATOR_R: f64 = 7.25;
+const BALANCE_PISTON_S: f64 = 12.0;
+const BALANCE_PISTON_LENGTH: f64 = 2.2;
+const LOW_CHAMBER_END: f64 = 16.3;
+const STEM_R: f64 = 0.8;
+const VENT_R: f64 = 0.3;
 
-fn rounded_section(x: f64, y: f64, radius: f64) -> Profile {
-    let mut points = vec![];
-    for corner in 0..4 {
-        let cx = if corner == 0 || corner == 3 { x - radius } else { radius - x };
-        let cy = if corner < 2 { y - radius } else { radius - y };
-        for sample in 0..=16 {
-            let a = (corner as f64 + sample as f64 / 16.) * std::f64::consts::FRAC_PI_2;
-            points.push(v2(cx + radius * a.cos(), cy + radius * a.sin()));
-        }
-    }
-    Profile::polygon(&points)
+fn tube(path: &Path, start: V3, tangent: V3, outer: f64, inner: f64) -> Result<Solid> {
+    let across = if tangent.cross(V3::X).norm() > 0.1 { V3::X } else { V3::Y };
+    Plane::new(start, across, tangent)?.sweep(
+        &Profile::circle(v2(0., 0.), outer).with_hole(Loop::circle(v2(0., 0.), inner)), path)
 }
 
-fn pod(neck: &Gooseneck, inside: bool) -> Result<Solid> {
-    let (tip, back, normal) = neck.tip_frame();
-    let inset = if inside { 2.5 } else { 0. };
-    let sections = [
-        (-48. + inset, 14., -49., 16.),
-        (-38. + inset, 24., -24., 40.),
-        (-20. + inset, 26., -7., 57.),
-        (48. - inset, 26., -7., 57.),
-        (66. - inset, 22., -4., 44.),
-        (86. - inset, 19., -34., 26.),
-        (104. - inset, 17.5, -42., 17.5),
-    ].into_iter().map(|(s, x, n, r)| {
-        let plane = Plane::new(tip + back * s + normal * n, V3::X, back)?;
-        Ok(rounded_section(x - inset, r - inset, 7.0_f64.min(r - inset - 1.)).place(&plane))
-    }).collect::<Result<Vec<_>>>()?;
-    Solid::loft(&sections)
-}
-
-// The dimensional drawing owns the valve envelope; the plug and adapters are reserved packaging space.
-fn valve_parts(neck: &Gooseneck, steel: [f64; 3]) -> Result<(Vec<Item>, Solid, Solid)> {
-    let tip_plane = hsm_faucet::display::tip_plane(neck)?;
-    let valve_frame = Plane::new(v3(0., VALVE_S, VALVE_N), V3::X, V3::Y)?;
-    let place = |s: Solid| s.placed(&Plane::XY, &valve_frame).placed(&Plane::XY, &tip_plane);
+// The head carries a balanced wet cartridge, a dry magnetic actuator and separate beverage lines.
+fn custom_valve(neck: &Gooseneck, steel: [f64; 3], lift: f64) -> Result<(Vec<Item>, Vec<Item>)> {
     let mut items = vec![];
-    let block = Plane::XY.extrude(&Profile::polygon(&[
-        v2(-17.32, 0.), v2(-8.66, -15.), v2(8.66, -15.),
-        v2(17.32, 0.), v2(8.66, 15.), v2(-8.66, 15.),
-    ]), 22.)?;
-    let bosses = Solid::cylinder(v3(0., -19.5, 7.), V3::Y, 8., 39.)?;
-    let ports = Solid::cylinder(v3(0., -20., 7.), V3::Y, 4.3, 9.)?
-        .union(&Solid::cylinder(v3(0., 20., 7.), -V3::Y, 4.3, 9.)?)?;
-    add(&mut items, "head_ODE_21L1K1T25_stainless_body", steel, place(block.union(&bosses)?.cut(&ports)?));
-    add(&mut items, "head_ODE_armature_tube", steel,
-        place(Solid::cylinder(v3(0., 0., 22.), V3::Z, 6.5, 54.)?));
-    let coil = Solid::cuboid(v3(-18., -30., 34.), v3(18., 18., 73.))
-        .cut(&Solid::cylinder(v3(0., 0., 33.), V3::Z, 6.5, 42.)?)?;
-    add(&mut items, "head_ODE_12V_12W_coil", [0.045, 0.047, 0.050], place(coil));
-    add(&mut items, "head_ODE_coil_retaining_nut", steel,
-        place(Solid::cylinder(v3(0., 0., 73.), V3::Z, 9., 5.)?));
-    for x in [-9.5, 9.5] {
-        add(&mut items, "head_ODE_spade_terminal", [0.65, 0.47, 0.18],
-            place(Solid::cuboid(v3(x - 3., -42., 48.), v3(x + 3., -30., 48.8))));
-    }
-    add(&mut items, "head_DIN_connector_envelope", [0.13, 0.14, 0.15],
-        place(Solid::cuboid(v3(-16.5, -66., 34.), v3(16.5, -30., 67.))));
+    let mut fluids = vec![];
+    let frame = hsm_faucet::display::tip_plane(neck)?;
+    let make = |solid: Solid| solid.placed(&Plane::XY, &frame);
+    let p = |x: f64, s: f64, n: f64| frame.point(v2(x, s)) + frame.z * n;
+    let cyl = |r: f64, s: f64, length: f64| Solid::cylinder(v3(0., s, 0.), V3::Y, r, length);
+    let ring = |outer: f64, inner: f64, s: f64, length: f64| -> Result<Solid> {
+        cyl(outer, s, length)?.cut(&cyl(inner, s - 0.02, length + 0.04)?)
+    };
+    let copper = [0.58, 0.24, 0.085];
+    let polymer = [0.11, 0.13, 0.15];
+    let seal = [0.12, 0.22, 0.19];
+    let magnetic = [0.28, 0.31, 0.34];
 
-    let p = |x: f64, s: f64, n: f64| tip_plane.point(v2(x, s)) + tip_plane.z * n;
-    let make = |s: Solid| s.placed(&Plane::XY, &tip_plane);
-    let blue = [0.12, 0.43, 0.68];
-    let joint = neck.at_angle(paths::JOINT_ANGLE) + JOINT_GAP / 2.;
-    let (heel, heel_tangent, heel_normal) = neck.frame(joint);
-    let heel = heel + heel_normal * shell::TUBE_SHELL_CENTER_Y;
-    let (heel_xy, heel_n) = tip_plane.local(heel);
-    let left = V3::X.cross(heel_tangent);
-    let ts = heel_tangent.dot(tip_plane.y);
-    let tn = heel_tangent.dot(tip_plane.z);
-    let ars = left.dot(tip_plane.y);
-    let arn = left.dot(tip_plane.z) + 1.;
-    let inlet_n = 33.;
-    let ds = 39. - heel_xy.y;
-    let dn = inlet_n - heel_n;
-    let det = ts * arn - tn * ars;
-    let straight = (ds * arn - dn * ars) / det;
-    let bend_radius = (ts * dn - tn * ds) / det;
-    let arc_start = heel + heel_tangent * straight;
-    let arc_center = arc_start + left * bend_radius;
-    let arc_end = arc_center + tip_plane.z * bend_radius;
-    let hose_path = Path::new(heel).line_to(arc_start)
-        .arc_center(arc_center, arc_end, V3::X)?
-        .line_to(p(0., 0., inlet_n));
-    println!("Head soda hose bend radius {bend_radius:.3} mm");
-    add(&mut items, "head_pressurized_soda_hose", blue,
-        route(&hose_path, heel, heel_tangent, 5.8)?);
-    let inlet_s = VALVE_S + 7.;
-    let inlet_port_n = VALVE_N + 19.5;
-    let inlet_path = Path::new(p(0., 0., inlet_n))
-        .line_to(p(0., inlet_s + 6., inlet_n))
-        .arc_center(p(0., inlet_s + 6., inlet_n - 6.), p(0., inlet_s, inlet_n - 6.), V3::X)?
-        .line_to(p(0., inlet_s, inlet_port_n - 6.));
-    let inlet_adapter = route(&inlet_path, p(0., 0., inlet_n), -tip_plane.y, 4.8)?
-        .cut(&route(&inlet_path, p(0., 0., inlet_n), -tip_plane.y, 3.35)?)?;
-    add(&mut items, "head_custom_stainless_inlet_adapter", steel, inlet_adapter);
-    let outlet_s = VALVE_S + 7.;
-    let outlet_n = VALVE_N - 19.5;
-    let outlet_path = Path::new(p(0., outlet_s, outlet_n + 6.))
-        .line_to(p(0., outlet_s, outlet_n - 9.5))
-        .bezier(&[p(0., outlet_s, outlet_n - 9.5), p(0., outlet_s, outlet_n - 18.5),
-            p(0., VALVE_S, outlet_n - 18.5), p(0., VALVE_S - 10., outlet_n - 18.5)])?;
-    let outlet = route(&outlet_path, p(0., outlet_s, outlet_n + 6.), -tip_plane.z, 4.8)?;
-    let bore = route(&outlet_path, p(0., outlet_s, outlet_n + 6.), -tip_plane.z, 2.)?;
-    add(&mut items, "head_short_post_valve_nozzle", steel, outlet.cut(&bore)?);
-    add(&mut items, "head_nozzle_end", steel,
-        make(annulus(Plane::new(v3(0., VALVE_S - 13., outlet_n - 18.5), V3::X, V3::Y)?, 4.8, 2., 3.)?));
-    let wire_start = p(15., VALVE_S + 67., VALVE_N + 52.);
-    let wires = Path::new(wire_start)
-        .bezier(&[wire_start, p(18., 72., 20.), heel + heel_tangent * 20., heel])?;
-    add(&mut items, "head_valve_power_pair", [0.72, 0.18, 0.12],
-        route(&wires, wire_start, p(18., 72., 20.) - wire_start, 1.8)?);
-    let hose_spine = route(&hose_path, heel, heel_tangent, 8.3)?;
-    let hose_clearance = route(&hose_path, heel, heel_tangent, 6.6)?;
-    Ok((items, hose_spine, hose_clearance))
+    let bridge_stations = [(24.0, 3.0), (48.0, 1.2)];
+    let bridge_clearance = |r: f64| -> Result<Solid> {
+        Solid::union_all(&bridge_stations.iter().map(|&(s, length)| cyl(r, s, length))
+            .collect::<Result<Vec<_>>>()?)
+    };
+    let outer_sleeve = ring(4.3, 3.7, 0., 50.5)?.cut(&bridge_clearance(4.4)?)?;
+    add(&mut items, "head_valve_pressure_sleeve", steel, make(outer_sleeve));
+    let inner = cyl(2.9, 0.8, 48.5)?
+        .cut(&cyl(2.5, 0.7, BALANCE_PISTON_S - 0.7)?)?
+        .cut(&cyl(2.0, BALANCE_PISTON_S - 0.02, LOW_CHAMBER_END - BALANCE_PISTON_S + 0.02)?)?
+        .cut(&cyl(0.95, LOW_CHAMBER_END - 0.02, 1.1)?)?
+        .cut(&cyl(2.6, 17.3, 32.1)?)?;
+    let mut liner = inner.cut(&bridge_clearance(3.0)?)?;
+    for s in [4.0, 7.0] {
+        liner = liner.cut(&Solid::cylinder(v3(-4., s, 0.), V3::X, 1.0, 8.)?)?;
+        liner = liner.cut(&Solid::cylinder(v3(0., s, -4.), V3::Z, 1.0, 8.)?)?;
+    }
+    add(&mut items, "head_valve_wet_dry_liner", steel, make(liner));
+    add(&mut items, "head_valve_outlet_seat", steel, make(ring(4.3, 1.9, -1.0, 1.6)?));
+    add(&mut items, "head_valve_front_retainer", polymer, make(ring(5.25, 4.35, -0.8, 1.6)?));
+    add(&mut items, "head_valve_seat_lip", steel,
+        make(Solid::cone(v3(0., 0.6, 0.), V3::Y, 2.1, SEAT_D / 2., 0.2)?
+            .cut(&cyl(1.9, 0.5, 0.4)?)?));
+
+    let moving = Affine::translation(v3(0., lift, 0.));
+    let stem = cyl(STEM_R, 0.8, 35.3)?
+        .cut(&cyl(VENT_R, 0.7, 14.4)?)?
+        .cut(&Solid::cylinder(v3(-1.0, 14.9, 0.), V3::X, VENT_R, 2.)?)?;
+    add(&mut items, "head_valve_hollow_poppet_stem", steel, make(stem.transformed(&moving)));
+    add(&mut items, "head_valve_poppet_face", seal,
+        make(ring(2.2, VENT_R, 0.8, 0.55)?.transformed(&moving)));
+    add(&mut items, "head_valve_balance_piston", steel,
+        make(ring(2.0, STEM_R + 0.01, BALANCE_PISTON_S, BALANCE_PISTON_LENGTH)?.transformed(&moving)));
+    add(&mut items, "head_valve_balance_seal", seal,
+        make(Solid::torus(v3(0., BALANCE_PISTON_S + 1.05, 0.), V3::Y, 1.74, 0.26)?.transformed(&moving)));
+    add(&mut items, "head_valve_dry_rod_seal", seal,
+        make(Solid::torus(v3(0., 16.8, 0.), V3::Y, 1.03, 0.23)?));
+    add(&mut items, "head_valve_spring_washer", steel,
+        make(ring(1.9, STEM_R + 0.03, 17.8, 0.5)?.transformed(&moving)));
+    add(&mut items, "head_valve_fixed_spring_seat", steel,
+        make(ring(2.55, 1.0, 23.1, 0.3)?));
+    let spring_start = v3(1.75, 18.3 + lift, 0.);
+    let pitch = (4.8 - lift) / 8.;
+    let spring_plane = Plane::new(spring_start, V3::X, v3(0., pitch, -std::f64::consts::TAU * 1.75))?;
+    let spring = spring_plane.helix_sweep(&Profile::circle(v2(0., 0.), 0.16),
+        v3(0., 18.3 + lift, 0.), V3::Y, pitch, 8.)?;
+    add(&mut items, "head_valve_return_spring", steel, make(spring));
+
+    add(&mut items, "head_valve_dry_armature", magnetic,
+        make(cyl(2.5, 23.5, 21.7)?.transformed(&moving)));
+    let flow_spider = |s: f64, length: f64, inner_r: f64| -> Result<Solid> {
+        let mut bridge = if inner_r > 0. { ring(ACTUATOR_R, inner_r, s, length)? }
+            else { cyl(ACTUATOR_R, s, length)? };
+        for index in 0..8 {
+            let angle = index as f64 * std::f64::consts::TAU / 8.;
+            let points: Vec<_> = [2.95, 3.65].into_iter().enumerate().flat_map(|(side, radius)| {
+                (0..=8).map(move |j| {
+                    let f = if side == 0 { j as f64 / 8. } else { 1. - j as f64 / 8. };
+                    let a = angle + (f * 24. - 12.).to_radians();
+                    v2(radius * a.cos(), radius * a.sin())
+                })
+            }).collect();
+            let cut = Plane::new(v3(0., s - 0.1, 0.), V3::X, V3::Y)?
+                .extrude(&Profile::polygon(&points), length + 0.2)?;
+            bridge = bridge.cut(&cut)?;
+        }
+        Ok(bridge)
+    };
+    let front_spider = flow_spider(24., 3., 2.6)?;
+    let rear_spider = flow_spider(48., 1.2, 0.)?.union(&cyl(2.5, 45.88, 3.32)?)?;
+    add(&mut items, "head_valve_front_flux_spider", magnetic, make(front_spider.clone()));
+    add(&mut items, "head_valve_fixed_pole_and_rear_spider", magnetic, make(rear_spider.clone()));
+    add(&mut items, "head_valve_nonmagnetic_stop", polymer, make(ring(2.5, 1.7, 45.8, 0.08)?));
+    add(&mut items, "head_valve_coil_bobbin", polymer, make(ring(4.6, 4.35, 27.0, 21.)?));
+    add(&mut items, "head_valve_custom_copper_winding", copper, make(ring(6.6, 4.6, 28.0, 17.)?));
+    add(&mut items, "head_valve_magnetic_return_yoke", magnetic, make(ring(ACTUATOR_R, 6.8, 24., 25.2)?));
+    add(&mut items, "head_valve_pressure_rear_cap", steel, make(ring(4.3, 3.35, 50.5, 1.0)?));
+
+    let join_u = neck.length() - 58.;
+    let (join_path, join_tangent, join_normal) = neck.frame(join_u);
+    let join = join_path + join_normal * shell::TUBE_SHELL_CENTER_Y;
+    let backward = -join_tangent;
+    let adapter_path = Path::new(p(0., 51.4, 0.)).bezier(&[
+        p(0., 51.4, 0.), p(0., 55., 0.), join - backward * 2., join])?;
+    let adapter = tube(&adapter_path, p(0., 51.4, 0.), frame.y, 4.3, 3.35)?;
+    add(&mut items, "head_valve_curved_inlet", steel, adapter);
+    let barb_plane = Plane::new(join, V3::X, backward)?;
+    add(&mut items, "head_valve_integral_hose_barb", steel, annulus(barb_plane, 3.65, 3.0, 12.)?);
+    for distance in [3., 7., 10.5] {
+        add(&mut items, &format!("head_valve_barb_ridge_{distance}"), steel,
+            Solid::torus(join + backward * distance, backward, 3.5, 0.30)?);
+    }
+    add(&mut items, "head_factory_hose_crimp", steel,
+        annulus(barb_plane.offset(0.8), 6.3, 5.85, 4.)?);
+    let joint_u = neck.at_angle(paths::JOINT_ANGLE) + JOINT_GAP / 2.;
+    add(&mut items, "head_pressurized_soda_hose", [0.08, 0.33, 0.56], neck.sweep(
+        &Profile::circle(v2(0., shell::TUBE_SHELL_CENTER_Y), 5.8)
+            .with_hole(Loop::circle(v2(0., shell::TUBE_SHELL_CENTER_Y), 3.35)), join_u, joint_u)?);
+
+    let fan_end = neck.length() - 70.;
+    let routes = [
+        ("head_flavor_a_line", 0., -3.0_f64.atan2(9.5), [0.45, 0.64, 0.19]),
+        ("head_flavor_b_line", std::f64::consts::PI, std::f64::consts::PI + 3.0_f64.atan2(9.5), [0.60, 0.28, 0.64]),
+        ("head_fault_drain", std::f64::consts::FRAC_PI_2, 0.5_f64.atan2(-9.5), [0.73, 0.76, 0.74]),
+    ];
+    for (name, start_angle, end_angle, color) in routes {
+        let end_radius = if name == "head_fault_drain" { 9.513148795 } else { 9.962429423 };
+        let points: Vec<_> = (0..=64).map(|i| {
+            let u = joint_u + (neck.length() + 1.3 - joint_u) * i as f64 / 64.;
+            let f = ((u - joint_u) / (fan_end - joint_u)).clamp(0., 1.);
+            let f = f * f * (3. - 2. * f);
+            let angle = start_angle + (end_angle - start_angle) * f;
+            let radius = 7.3 + (end_radius - 7.3) * f;
+            let (point, _, normal) = neck.frame(u);
+            point + V3::X * (radius * angle.cos())
+                + normal * (shell::TUBE_SHELL_CENTER_Y + radius * angle.sin())
+        }).collect();
+        let path = Path::new(points[0]).spline_through(&points)?;
+        add(&mut items, name, color, tube(&path, points[0], points[1] - points[0], 1.5, 1.0)?);
+    }
+
+    let cable_points = [p(4.5, 48.5, 6.0), p(7.5, 55., 2.0), p(7.0, 65., -5.),
+        p(5.0, 84., -25.), p(0., 100., -47.)];
+    let power_path = Path::new(cable_points[0]).spline_through(&cable_points)?;
+    add(&mut items, "head_valve_fly_leads", [0.62, 0.18, 0.12],
+        route(&power_path, cable_points[0], cable_points[1] - cable_points[0], 0.7)?);
+    let flex_path = Path::new(p(0., 22., 8.1)).bezier(&[
+        p(0., 22., 8.1), p(0., 42., 8.1), p(0., 47., 8.1), p(4.5, 48.5, 6.0)])?;
+    add(&mut items, "head_signal_and_valve_flex", [0.24, 0.23, 0.19],
+        Plane::new(p(0., 22., 8.1), V3::X, frame.y)?
+            .sweep(&Profile::rect(v2(0., 0.), 5., 0.6), &flex_path)?);
+
+    let hp_annulus = ring(3.7, 2.9, 1.0, 49.4)?.cut(&front_spider)?.cut(&rear_spider)?;
+    let hp_core = cyl(2.5, 1.4 + lift, BALANCE_PISTON_S - 1.4)?
+        .cut(&cyl(STEM_R, 1.0, BALANCE_PISTON_S + lift)?)?;
+    add(&mut fluids, "fluid_high_pressure_annulus", [0.06, 0.40, 0.68], make(hp_annulus));
+    add(&mut fluids, "fluid_high_pressure_seat_chamber", [0.06, 0.40, 0.68], make(hp_core));
+    add(&mut fluids, "fluid_low_pressure_balance_chamber", [0.12, 0.72, 0.70],
+        make(ring(2.0, STEM_R, BALANCE_PISTON_S + BALANCE_PISTON_LENGTH + lift,
+            LOW_CHAMBER_END - BALANCE_PISTON_S - BALANCE_PISTON_LENGTH - lift)?));
+    Ok((items, fluids))
 }
 
 fn add(items: &mut Vec<Item>, name: &str, color: [f64; 3], solid: Solid) {
@@ -161,13 +218,11 @@ fn main() -> Result<()> {
     let steel = material("M_STAINLESS")?;
     let green = [0.10, 0.58, 0.29];
     let pale = [0.73, 0.80, 0.74];
-    let original_neck = Gooseneck::shell();
-    let original_tip_plane = hsm_faucet::display::tip_plane(&original_neck)?;
-    let mut neck = original_neck;
-    neck.lift += STEM_LIFT;
+    let neck = Gooseneck::shell();
+    let tip_plane = hsm_faucet::display::tip_plane(&neck)?;
+    let original_tip_plane = tip_plane;
     let joint = neck.at_angle(paths::JOINT_ANGLE);
     let round = v2(0., shell::TUBE_SHELL_CENTER_Y);
-    let hose_profile = Profile::circle(round, BORE_R);
     let outer = Profile::circle(round, NECK_R).with_hole(Loop::circle(round, BORE_R));
     let lower_cut = Solid::cuboid(v3(-100., -150., -2.), v3(100., 100., 62.));
     let lower_bore = Solid::cylinder(v3(0., paths::WATER_Y + round.y, -3.), V3::Z, BORE_R, 75.)?;
@@ -178,43 +233,115 @@ fn main() -> Result<()> {
     let (_, tangent, normal) = neck.frame(joint);
     let pivot = center(joint);
     let font = Font::find("Helvetica Neue", Kind::Regular)?;
-    let head_sleeve_end = neck.length() - 54.;
-    let enlarged_grip = neck.sweep(&outer, joint + JOINT_GAP / 2., head_sleeve_end - 14.)?;
-    let mut blend_sections = vec![];
-    for step in 0..=8 {
-        let f = step as f64 / 8.;
-        let radius = NECK_R + (shell::TUBE_SHELL_OUTER_R - NECK_R) * (f * f * (3. - 2. * f));
-        let polygon: Vec<_> = (0..128).map(|i| {
-            let a = std::f64::consts::TAU * i as f64 / 128.;
-            round + v2(a.cos(), a.sin()) * radius
-        }).collect();
-        blend_sections.push(Profile::polygon(&polygon).place(&neck.plane(head_sleeve_end - 14.2 + f * 14.4)?));
-    }
-    let grip_blend = Solid::loft(&blend_sections)?.cut(&neck.sweep(&hose_profile, joint - 1., head_sleeve_end + 1.)?)?;
-    let trim = neck.plane(joint + JOINT_GAP / 2.)?.extrude(&Profile::rect(v2(0., 0.), 500., 500.), 250.)?;
-    let tip_plane = hsm_faucet::display::tip_plane(&neck)?;
-    let (valve, hose_spine, hose_clearance) = valve_parts(&neck, steel)?;
-    let shell_outer = pod(&neck, false)?.union(&enlarged_grip)?.union(&grip_blend)?
-        .union(&hose_spine)?.intersect(&trim)?;
-    let mut tip = shell_outer.cut(&pod(&neck, true)?)?.cut(&hose_clearance)?;
-    let pcb = body("faucet_display")?.placed(&original_tip_plane, &Plane::XY);
-    let display_shift = Affine::translation(tip_plane.z * (42. - pcb.bounds().min.z));
-    let screen_center = body("faucet_display_screen")?.placed(&original_tip_plane, &tip_plane)
-        .transformed(&display_shift).bounds().center();
+    let head_profile = Profile::circle(round, HEAD_R).with_hole(Loop::circle(round, HEAD_BORE_R));
+    let mut tip = neck.sweep(&head_profile, joint + JOINT_GAP / 2., neck.length() + 1.2)?;
+    let (valve, fluids) = custom_valve(&neck, steel, 0.)?;
+    let (open_valve, open_fluids) = custom_valve(&neck, steel, VALVE_LIFT)?;
+    let display_shift = Affine::translation(tip_plane.z * DISPLAY_LIFT);
+    let screen_center = body("faucet_display_screen")?.transformed(&display_shift).bounds().center();
     let (screen_xy, screen_n) = tip_plane.local(screen_center);
-    let window = tip_plane.offset(40.).shifted(screen_xy).extrude(
-        &Profile::new(Loop::rounded_rect(v2(0., 0.), 26., 46., 3.)?), 40.)?;
+    let window = tip_plane.offset(6.5).shifted(screen_xy).extrude(
+        &Profile::new(Loop::rounded_rect(v2(0., 0.), 25.4, 46., 2.0)?), 30.)?;
     tip = tip.cut(&window)?;
-    tip = tip.cut(&Solid::cylinder(v3(0., VALVE_S + 7., VALVE_N - 45.), V3::Z, 5.3, 40.)?
-        .placed(&Plane::XY, &tip_plane))?;
-    let plinth_profile = Profile::new(Loop::rounded_rect(v2(0., 0.), 30., 50., 4.)?)
-        .with_hole(Loop::rounded_rect(v2(0., 0.), 26., 46., 3.)?);
-    tip = tip.union(&tip_plane.offset(40.).shifted(screen_xy).extrude(&plinth_profile, screen_n - 41.1)?)?;
-    let bezel_plane = tip_plane.offset(screen_n - 1.1).shifted(screen_xy);
-    let bezel = bezel_plane.extrude(&Profile::new(Loop::rounded_rect(v2(0., 0.), 30., 50., 4.)?)
-        .with_hole(Loop::rounded_rect(v2(0., 0.), 18.3, 33.3, 1.8)?), 1.4)?;
-    let envelope = tip.union(&bezel)?.placed(&tip_plane, &Plane::XY).bounds();
-    println!("Head shell in tip frame: {envelope:?}");
+    let plinth_profile = Profile::new(Loop::rounded_rect(v2(0., 0.), 28., 49., 4.5)?)
+        .with_hole(Loop::rounded_rect(v2(0., 0.), 25.4, 46., 2.0)?);
+    tip = tip.union(&tip_plane.offset(6.5).shifted(screen_xy)
+        .extrude(&plinth_profile, screen_n - 7.5)?)?;
+    let bezel = tip_plane.offset(screen_n - 1.0).shifted(screen_xy).extrude(
+        &Profile::new(Loop::rounded_rect(v2(0., 0.), 28., 49., 4.5)?)
+            .with_hole(Loop::rounded_rect(v2(0., 0.), 18.3, 33.3, 1.8)?), 1.3)?;
+    let cap_plane = Plane::new(tip_plane.point(v2(0., -1.2)) + tip_plane.z * round.y, V3::X, tip_plane.y)?;
+    let mut nose = cap_plane.extrude(&Profile::circle(v2(0., 0.), HEAD_R), 1.8)?;
+    for (x, n, r) in [(0., 0., 4.4), (9.5, round.y - 3., 1.6),
+        (-9.5, round.y - 3., 1.6), (-9.5, round.y + 0.5, 1.6)] {
+        let hole = Solid::cylinder(v3(x, -1.4, n), V3::Y, r, 2.3)?.placed(&Plane::XY, &tip_plane);
+        nose = nose.cut(&hole)?;
+    }
+    tip = tip.union(&nose)?.cut(&bezel)?;
+    let actuator_relief = Solid::cylinder(v3(0., 23.5, 0.), V3::Y, 7.75, 26.3)?
+        .placed(&Plane::XY, &tip_plane);
+    tip = tip.cut(&actuator_relief)?;
+    let collar_relief = Solid::cylinder(v3(0., -0.9, 0.), V3::Y, 5.35, 1.7)?
+        .placed(&Plane::XY, &tip_plane);
+    tip = tip.cut(&collar_relief)?;
+    println!("Custom shell tip-frame bounds {:?}", tip.union(&bezel)?.placed(&tip_plane, &Plane::XY).bounds());
+    let pi = std::f64::consts::PI;
+    let seat_area = pi * SEAT_D.powi(2) / 4.;
+    let outlet_volume = pi * 1.9_f64.powi(2) * 1.8;
+    let balance_volume = pi * (2.0_f64.powi(2) - STEM_R.powi(2))
+        * (LOW_CHAMBER_END - BALANCE_PISTON_S - BALANCE_PISTON_LENGTH);
+    let vent_volume = pi * VENT_R.powi(2) * (14.1 + 2.0);
+    let gland_volume = pi * (0.95_f64.powi(2) - STEM_R.powi(2));
+    let spring_rate = 77_000. * 0.32_f64.powi(4) / (8. * 3.5_f64.powi(3) * 6.);
+    let residual_force = 1.6 * pi / 4. * ((SEAT_D + 0.02).powi(2) - SEAT_D.powi(2));
+    let opening_load = 1.2 + spring_rate * VALVE_LIFT + 0.5 + 0.15 + 0.25 + residual_force;
+    let winding_length = 600. * pi * 11.2 / 1000.;
+    let resistance = 0.01724 * winding_length / 0.0201;
+    let turn_capacity_fill = 600. * 0.0201 / ((6.6 - 4.6) * 17.);
+    let face_height = tip_plane.point(v2(0., -1.)).z;
+    let original_bounds = body("shell_base")?.union(body("shell_tip")?)?.bounds();
+    let custom_bounds = stem.union(&tip)?.union(&bezel)?.bounds();
+    let design = serde_json::json!({
+        "purpose": "This record owns the custom valve's geometry and first-order design budgets for the slim pull-out faucet.",
+        "date": "2026-11-18",
+        "state": "Proposed end-state mechanism and packaging; performance values below are requirements or first-order estimates, not qualified hardware ratings.",
+        "geometry": {
+            "stem_od_mm": NECK_R * 2., "stem_sliding_bore_mm": BORE_R * 2.,
+            "head_nominal_od_mm": HEAD_R * 2.,
+            "head_front_depth_at_display_mm": HEAD_R * 2.
+                + (screen_n + 0.3 - round.y - HEAD_R).max(0.),
+            "bundle_envelope_od_mm": BUNDLE_R * 2.,
+            "actuator_od_mm": ACTUATOR_R * 2., "actuator_length_mm": 25.2,
+            "pressure_sleeve_od_mm": 8.6, "effective_seat_and_balance_diameter_mm": SEAT_D,
+            "seat_flow_bore_mm": 3.8, "opening_lift_mm": VALVE_LIFT,
+            "seat_to_outlet_mm": 1.8, "display_outward_shift_mm": DISPLAY_LIFT,
+            "flavor_and_drain_tube_od_mm": 3., "flavor_tube_id_mm": 2.,
+            "main_hose_od_mm": 11.6, "main_hose_id_mm": 6.7,
+            "docked_water_outlet_center_height_mm": face_height,
+            "reference_shell_max_z_mm": original_bounds.max.z,
+            "custom_shell_max_z_mm": custom_bounds.max.z
+        },
+        "hydraulic_targets_and_estimates": {
+            "working_pressure_target_bar": 16., "pour_target_l_min": [1.5, 2.0],
+            "unbalanced_seat_force_at_pressure_target_n": 1.6 * seat_area,
+            "effective_diameter_match_allowance_mm": 0.02,
+            "residual_pressure_force_allowance_n": residual_force,
+            "curtain_area_mm2": pi * SEAT_D * VALVE_LIFT,
+            "seat_only_drop_bar_at_2_l_min_assuming_cd_0_65":
+                (2. / 60000. / (0.65 * pi * SEAT_D * VALVE_LIFT * 1e-6)).powi(2) * 1000. / 2. / 100000.,
+            "nominal_outlet_connected_liquid_volume_mm3": outlet_volume + balance_volume + vent_volume + gland_volume,
+            "volume_scope": "Outlet bore, small wet balance chamber, hollow stem and rod-gland clearance. Seal grooves and films are not included. The armature and return spring occupy a separate dry chamber."
+        },
+        "actuator_targets_and_estimates": {
+            "architecture": "Spring-closed pull solenoid, matched pressure areas, closed magnetic circuit with flow-through flux spiders and an anti-remanence stop.",
+            "coil_turns": 600, "bare_wire_area_mm2": 0.0201,
+            "winding_copper_fill_estimate": turn_capacity_fill,
+            "cold_coil_resistance_estimate_ohm": resistance,
+            "peak_current_target_a": 0.9, "peak_duration_target_ms": 30.,
+            "hold_current_target_a": 0.18,
+            "cold_hold_copper_loss_estimate_w": 0.18_f64.powi(2) * resistance,
+            "cold_peak_copper_loss_estimate_w": 0.9_f64.powi(2) * resistance,
+            "driver": "Current-regulated peak and hold with an enclosure-side boost rail; power off releases the return spring.",
+            "drive_rail_target_v": 24., "pull_force_requirement_n_at_full_stroke": 4.,
+            "spring_preload_target_n": 1.2, "spring_rate_estimate_n_mm": spring_rate,
+            "wet_seal_friction_allowance_n": 0.5, "dry_rod_seal_friction_allowance_n": 0.15,
+            "flow_force_allowance_n": 0.25, "full_stroke_opening_load_budget_n": opening_load,
+            "force_margin_target": 4. / opening_load,
+            "qualification": "Magnetic finite-element analysis, seal friction, force versus stroke and temperature, closure, carbonation and life remain engineering work."
+        },
+        "materials_and_process": {
+            "wet_pressure_tubes_and_seat": "Precision-turned and laser-joined stainless steel; smooth outlet seat.",
+            "flux_bridges": "Passivated magnetic stainless, with axial water passages and sealed interfaces to the dry armature bore.",
+            "dynamic_seals": "Food-contact compound to be specified; low-friction piston seal and a separate low-pressure rod seal.",
+            "coil": "Custom winding on an insulated bobbin, protected inside its magnetic return yoke.",
+            "inlet": "Integral angled barb and factory crimp; no exposed disconnect at the docking seam.",
+            "bundle": "Reinforced beverage hose, smaller separate flavor and drain lines, flexible conductors, a thin insulating layer and continuous protective sleeve."
+        },
+        "architecture_reference": "https://patents.google.com/patent/EP1597501A1/en",
+        "reference_scope": "The pressure-balancing architecture is established. The reference does not validate this geometry, food service, magnetic design or performance."
+    });
+    std::fs::write(dir.join("custom-valve-design.json"), serde_json::to_string_pretty(&design)? + "\n")?;
+
     let sleeve_color = [0.022, 0.025, 0.026];
     let counter = Solid::cuboid(v3(-210., -320., -30.), v3(290., 145., 0.))
         .cut(&Solid::cylinder(v3(0., paths::WATER_Y + round.y, -31.), V3::Z, 17., 33.)?)?;
@@ -251,7 +378,7 @@ fn main() -> Result<()> {
         let head_tangent = pose.vector(tangent);
         let (outside_path, outside_length) = if pulled {
             let start = center(joint - JOINT_GAP / 2.);
-            let mid = v3(-75., -120., 178. + STEM_LIFT);
+            let mid = v3(-75., -120., 178.);
             let p = Path::new(start)
                 .bezier(&[start, start + tangent * 55., mid - v3(-45., -35., -20.), mid])?
                 .bezier(&[mid, mid + v3(-45., -35., -20.), head_heel - head_tangent * 70., head_heel])?;
@@ -271,7 +398,7 @@ fn main() -> Result<()> {
         }
         let heel_plane = Plane::new(heel, V3::X, tangent)?;
         add(&mut scene, "soft_hose_strain_relief", sleeve_color,
-            annulus(heel_plane.offset(-12.), 13.2, BUNDLE_R - 1., 18.)?.transformed(&pose));
+            annulus(heel_plane.offset(-9.), 11.2, BUNDLE_R - 0.2, 14.)?.transformed(&pose));
         let below_y = paths::WATER_Y + round.y;
         let bottom = LOOP_BOTTOM + outside_length / 2.;
         let start = v3(0., below_y, -HOSE_TAIL);
@@ -301,6 +428,29 @@ fn main() -> Result<()> {
         write(&dir, overview_name, &scene)?;
         scene.retain(|(name, _, _)| !["under_counter_moving_loop", "split_return_weight", "hollow_mounting_shank", "sliding_bundle_inside_stem"].contains(&name.as_str()));
         write(&dir, &format!("{overview_name}-above-counter"), &scene)?;
+        if !pulled {
+            let mut comparison = vec![];
+            let left = Affine::translation(v3(-76., -57., 0.));
+            let right = Affine::translation(v3(76., 57., 0.));
+            for name in ["shell_base", "shell_tip", "lever", "faucet-display-cover-seated", "faucet_display", "faucet_display_screen"] {
+                add(&mut comparison, &format!("original_{name}"), black, body(name)?.transformed(&left));
+            }
+            for (name, color, solid) in &scene {
+                if name == "countertop" { continue; }
+                add(&mut comparison, &format!("custom_{name}"), *color, solid.transformed(&right));
+                if name.starts_with("screen_") {
+                    add(&mut comparison, &format!("original_{name}"), *color,
+                        solid.transformed(&Affine::translation(-tip_plane.z * DISPLAY_LIFT)).transformed(&left));
+                }
+            }
+            let stage = Solid::cuboid(v3(-180., -230., -12.), v3(220., 130., 0.));
+            add(&mut comparison, "comparison_counter", [0.57, 0.56, 0.53], stage);
+            for (text, x, y) in [("CURRENT", -76., -127.), ("CUSTOM VALVE", 76., -13.)] {
+                add(&mut comparison, &format!("label_{text}"), [0.05, 0.055, 0.055],
+                    Plane::XY.at(v3(x, y, 0.1)).text(&font, text, 7., 0.12, HAlign::Center, VAlign::Center)?);
+            }
+            write(&dir, "profile-comparison", &comparison)?;
+        }
         if pulled {
             scene.retain(|(name, _, _)| name.starts_with("head_") || name.starts_with("screen_")
                 || ["pull_off_curved_grip", "soft_hose_strain_relief"].contains(&name.as_str()));
@@ -309,14 +459,36 @@ fn main() -> Result<()> {
             let removed_half = Solid::cuboid(v3(0., -120., -100.), v3(150., 160., 130.))
                 .placed(&Plane::XY, &tip_plane).transformed(&pose);
             for (name, _, solid) in &mut cutaway {
-                if name == "pull_off_curved_grip" { *solid = solid.cut(&removed_half)?; }
+                if name == "pull_off_curved_grip" || ["head_valve_pressure_sleeve", "head_valve_wet_dry_liner",
+                    "head_valve_outlet_seat", "head_valve_front_retainer", "head_valve_coil_bobbin",
+                    "head_valve_custom_copper_winding", "head_valve_magnetic_return_yoke",
+                    "head_valve_front_flux_spider", "head_valve_fixed_pole_and_rear_spider"]
+                    .contains(&name.as_str()) { *solid = solid.cut(&removed_half)?; }
             }
             write(&dir, "head-valve-cutaway", &cutaway)?;
-            write(&dir, "selected-electronic-valve", &valve.iter()
-                .filter(|(name, _, _)| name.starts_with("head_ODE") || name == "head_DIN_connector_envelope")
-                .map(|(name, color, solid)| (name.clone(), *color, solid.placed(&tip_plane, &Plane::XY)
-                    .placed(&Plane::new(v3(0., VALVE_S, VALVE_N), V3::X, V3::Y).unwrap(), &Plane::XY)))
-                .collect::<Vec<_>>())?;
+            let section_cut = Solid::cuboid(v3(0., -4., -20.), v3(30., 90., 25.))
+                .placed(&Plane::XY, &tip_plane);
+            let sectioned = |parts: &[Item], fluid_parts: &[Item]| -> Result<Vec<Item>> {
+                let mut output = vec![];
+                for (name, color, solid) in parts {
+                    if !name.starts_with("head_valve_") || name == "head_valve_fly_leads" { continue; }
+                    let s = if ["head_valve_pressure_sleeve", "head_valve_wet_dry_liner", "head_valve_outlet_seat",
+                        "head_valve_front_retainer", "head_valve_seat_lip", "head_valve_coil_bobbin",
+                        "head_valve_custom_copper_winding", "head_valve_magnetic_return_yoke",
+                        "head_valve_front_flux_spider", "head_valve_fixed_pole_and_rear_spider", "head_valve_pressure_rear_cap"]
+                        .contains(&name.as_str()) { solid.cut(&section_cut)? } else { solid.clone() };
+                    add(&mut output, name, *color, s.placed(&tip_plane, &Plane::XY)
+                        .placed(&Plane::new(V3::ZERO, V3::X, V3::Y)?, &Plane::XY));
+                }
+                for (name, color, solid) in fluid_parts {
+                    add(&mut output, name, *color, solid.cut(&section_cut)?.placed(&tip_plane, &Plane::XY)
+                        .placed(&Plane::new(V3::ZERO, V3::X, V3::Y)?, &Plane::XY));
+                }
+                Ok(output)
+            };
+            write(&dir, "custom-valve-closed", &sectioned(&valve, &fluids)?)?;
+            write(&dir, "custom-valve-open", &sectioned(&open_valve, &open_fluids)?)?;
+
         }
         println!("{overview_name}: exposed bundle {outside_length:.1} mm; loop bottom {bottom:.1} mm");
     }
