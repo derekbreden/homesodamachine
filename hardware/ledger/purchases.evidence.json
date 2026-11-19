@@ -10250,7 +10250,8 @@
       ],
       "allocation_status": "all_project",
       "source_ids": [
-        "src-8770969e0245423a9a630262748c9afc"
+        "src-8770969e0245423a9a630262748c9afc",
+        "src-a54ffd05bda844f09bda9a0b1847d536"
       ]
     }
   },
@@ -16671,7 +16672,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-8770969e0245423a9a630262748c9afc"
+        "src-8770969e0245423a9a630262748c9afc",
+        "src-a54ffd05bda844f09bda9a0b1847d536"
       ]
     }
   },
@@ -35590,6 +35592,19 @@
       "proves": [],
       "verified_at": "2026-11-19",
       "note": "Exact-order shipment notification confirms the existing Antarctic Star refrigeration donor shipped and corroborates USD60.04. Relative arriving-today wording does not establish actual delivery or dispatch date. Completed payment and final tax are not proved."
+    },
+    "src-a54ffd05bda844f09bda9a0b1847d536": {
+      "vendor": "Amazon",
+      "document_type": "shipment_confirmation",
+      "reference": "112-3250291-4198614",
+      "document_date": null,
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-19"
+      },
+      "proves": [],
+      "verified_at": "2026-11-19",
+      "note": "Exact-order shipment notification confirms the existing foam pouncer pack shipped. Relative arriving-today wording does not establish actual delivery or dispatch date. No completed merchant payment or final tax is proved."
     }
   },
   "coverage": [
@@ -38557,11 +38572,13 @@
         "evt-1f1a99360a1d4944896f294cbeb2062e"
       ],
       "source_ids": [
-        "src-8770969e0245423a9a630262748c9afc"
+        "src-8770969e0245423a9a630262748c9afc",
+        "src-a54ffd05bda844f09bda9a0b1847d536"
       ],
-      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified.",
+      "missing_fact": "Actual delivery/date, final tax and completed merchant charge/date remain unverified. Shipment is confirmed.",
       "sources_checked": [
-        "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026"
+        "Signed-in Amazon Order Details and exact-order related transactions checked November 18, 2026",
+        "Exact-order shipment notification received November 19, 2026"
       ]
     }
   ],
