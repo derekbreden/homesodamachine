@@ -26,7 +26,7 @@
   ],
   "pages": 51,
   "pdf": "refrigeration-guide.pdf",
-  "pdf_sha256": "8c490a50d1a9d7d3ebfccd937f514b5b630c9d5650d3847724ba8f3128767a8c",
+  "pdf_sha256": "e7f0c458c1a40c442a20172f05176817639c1f1edbef5bb6573f1aaeaf3a74b9",
   "print_layout": {
     "bleed_layer_scale": 1,
     "bleed_overhang_inches": 0.25,
@@ -64,7 +64,7 @@
     "hardware/reference/compressor/README.md": "5292816e507a3f84e0dd127d58c10df2075af1b2e8f2c66eb83920ffe934b4d0",
     "hardware/reference/condenser-block/README.md": "22aebe9f6d881803c53bd489f42a9b7c7c895afeac25676403abc38c26bceda8",
     "hardware/reference/ice-maker/README.md": "657731bd9c2b065c1c9c5716c8ec0a1253f0c8b872d7b8038cb7096f809ef1d6",
-    "hardware/refrigeration-guide/README.md": "faf0b26855bd2444c844c8791cc52a780fe878ef7214d6f300cf412ef7de376c",
+    "hardware/refrigeration-guide/README.md": "1d8a8395695e5fd5a2f5429873453558baa3ec5c43b6f217e9a4192e91cf3d6e",
     "hardware/refrigeration-guide/art/bare-wall-and-reed.png": "735408ad3ce39041229a9a080a42883b465761dad692051fe2066bf0f72658c1",
     "hardware/refrigeration-guide/art/coil-exits-before-foam.png": "0867225d1ee481644b2ebbbde2b3d71f71bb31d50e66cfe9b10adafa80d5409a",
     "hardware/refrigeration-guide/art/coil-probe-contact.png": "187247eb63e66e2f1268d3682b30afad1e55fbd2ba6fc33374dbfdd3e745e6be",
@@ -80,7 +80,7 @@
     "hardware/refrigeration-guide/art/mq6-installed-cradle.png": "147d282eeb0cfd1abfb7162e70bee4e7ab524549207fe719010b7a057b19cb4e",
     "hardware/refrigeration-guide/art/render-jobs.json": "ce40dde3f79faf3367b9c8fce2fc679b2ae6e667f8bcf4bbcca8b28950cc651b",
     "hardware/refrigeration-guide/art/winding-mandrel.png": "8b97c82db8144632c2bc61f0a7989e5d0c1aa3b5678578f3734a777b768c46d6",
-    "hardware/refrigeration-guide/pages.json": "f5d3a5429b869965dce3697892a87bf81716e2076cf33f1602286ffcb73f2a90",
+    "hardware/refrigeration-guide/pages.json": "fb1e83c2966153b2219f3f9419c11df28f84032d26d77ed3d6505079305ddc64",
     "tools/assembly-guides/guide.rs": "12aebe168f6c98842d1e98ab022a1b1852b42ad94fec0e3c18d2458e116d15d7",
     "tools/hsm/fabrication-guides/src/letter.rs": "c882780383eb0ecdc7d1bbe2e596cff57eed40651f982b91031d0a94e4f2c5ea",
     "tools/hsm/repo-tools/src/model.rs": "95cf4f637203816694c68d26d181aa24b4d6f72585357131cac15ff38ea2d547"
