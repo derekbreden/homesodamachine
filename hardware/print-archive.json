@@ -1494,6 +1494,12 @@
       "bytes": 518119,
       "sha256": "d244f563f851c4a2764eadf8a97e8e5076e94244ee3e8154f7f442d9ac68b28f"
     },
+    "2f18f02f5474b3f891e9e2f3db4910264b861e74": {
+      "archive": "rear-equipment-corner-0ad156884284a1a9.zip",
+      "bytes": 7436439,
+      "offset": 239128,
+      "sha256": "7db74cb7ce5150c0e85103472764adadaf53f5eec06105092689b8273800b826"
+    },
     "2f54344c7c972976754dab9e9cbd2f40e7dd07b2": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 961937225,
@@ -5988,6 +5994,12 @@
       "bytes": 1719347,
       "sha256": "bc01f1417c73c4f00d5d30ef0ac8efad6eb87cd45872cdc4a30cd5e650a9666e"
     },
+    "c791e71904283f9f3dd26b4d712ffecf1c99d823": {
+      "archive": "rear-equipment-corner-0ad156884284a1a9.zip",
+      "bytes": 238980,
+      "offset": 74,
+      "sha256": "4078da4db72f6f347a5d5c988383e2a3737c945afdff30979d4052c1e7f165e5"
+    },
     "c7a82a471df410ac320f25e4f1d0bedba981441e": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 958723522,
@@ -7756,6 +7768,8 @@
     "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.3mf": "7e6d4216a89da72225abc30859a5b6888d47af14",
     "hardware/print-tests/pump-mount-fit/prints/2026-11-01-pump-fit-base-mark1-fac38622/2026-11-01-pump-fit-base-mark1-fac38622.gcode.3mf": "8186aa7e595b7032b5e4f16c348081b227cae029",
     "hardware/print-tests/pump-mount-fit/prints/mark2/2026-11-01-pump-fit-clip-mark2.gcode.3mf": "a901268bd99a129f05672a463bf95ccf91f4b8e2",
+    "hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/2026-11-20-rear-equipment-corner-mark2-c5deafe1/2026-11-20-rear-equipment-corner-mark2-c5deafe1.3mf": "c791e71904283f9f3dd26b4d712ffecf1c99d823",
+    "hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/2026-11-20-rear-equipment-corner-mark2-c5deafe1/2026-11-20-rear-equipment-corner-mark2-c5deafe1.gcode.3mf": "2f18f02f5474b3f891e9e2f3db4910264b861e74",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc-print-only.gcode.3mf": "5dc3e362785bceb23dc279f1ce5aeedcb6109de3",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.3mf": "e666a63c9673c6e2e7fa7b8c80824ada346a5905",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf": "1a26cbbfbba373260f5c53d6fd01dd7c0c990815",
