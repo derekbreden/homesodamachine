@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf",
-  "archive_sha256": "f494125816f51a7d3ac35d700c2db7ae86cb5a1da0c77d51a760d198dba2e0e8",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-20-back-top-production-mark1/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei.gcode.3mf",
+  "archive_sha256": "c50b9fdee4d3b14635683e458a74ecd9e60de84ba4da825b849c1c45afbeb00d",
   "bead_envelope_plate_mm": [
     [
       20.243000000000002,
@@ -282,8 +282,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9954159437494293,
-      "minimum_outline_coverage": 0.9950571671076939,
+      "minimum_coverage": 0.9953976805771162,
+      "minimum_outline_coverage": 0.9950405245727029,
       "name": "Z rail, end stop and wall root +1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -301,7 +301,7 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.281707,
-          "coverage": 0.9958049588020618,
+          "coverage": 0.9957955528800934,
           "infill_core_mm2": 2017.9234413030958,
           "outline_coverage": 0.9955857184010303,
           "print_z_mm": 177.56,
@@ -310,18 +310,18 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9954159437494293,
+          "coverage": 0.9953976805771162,
           "infill_core_mm2": 1039.27346804386,
-          "outline_coverage": 0.9950571671076939,
+          "outline_coverage": 0.9950405245727029,
           "print_z_mm": 186.2,
           "sampling_step_mm": 0.13776948293162058,
           "stock_mm2": 1140.477123081936
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9999074845036544,
+          "coverage": 0.9998906635043188,
           "infill_core_mm2": 2256.7541973691336,
-          "outline_coverage": 0.9998642996264249,
+          "outline_coverage": 0.9998483348765925,
           "print_z_mm": 194.6,
           "sampling_step_mm": 0.13776948293162058,
           "stock_mm2": 2377.792402203682
@@ -401,7 +401,7 @@
     },
     {
       "minimum_coverage": 0.9187935034802784,
-      "minimum_outline_coverage": 0.9232459463555084,
+      "minimum_outline_coverage": 0.9232838308834672,
       "name": "psu bearing pad, insert host and ceiling root and blind floor 2",
       "object": 1901,
       "plate_bounds_mm": [
@@ -430,7 +430,7 @@
           "bead_radius_inset_mm": 0.225,
           "coverage": 0.9187935034802784,
           "infill_core_mm2": 56.03000000000001,
-          "outline_coverage": 0.9232459463555084,
+          "outline_coverage": 0.9232838308834672,
           "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
           "stock_mm2": 65.99000000000001
@@ -557,7 +557,7 @@
           "bead_radius_inset_mm": 0.225,
           "coverage": 1.0,
           "infill_core_mm2": 56.03000000000001,
-          "outline_coverage": 0.9921579027125322,
+          "outline_coverage": 0.992195787240491,
           "print_z_mm": 10.04,
           "sampling_step_mm": 0.05,
           "stock_mm2": 65.99000000000001
@@ -1462,8 +1462,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9931503096060058,
-      "minimum_outline_coverage": 0.9889678030303031,
+      "minimum_coverage": 0.9932051071291578,
+      "minimum_outline_coverage": 0.9890151515151515,
       "name": "Nameplate insert land and rear wall root 1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1481,9 +1481,9 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9932051071291578,
+          "coverage": 0.9932599046523097,
           "infill_core_mm2": 45.62250000000001,
-          "outline_coverage": 0.9890625,
+          "outline_coverage": 0.9891098484848485,
           "print_z_mm": 163.16,
           "sampling_step_mm": 0.05,
           "stock_mm2": 52.80000000000001
@@ -1499,9 +1499,9 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9931503096060058,
+          "coverage": 0.9932051071291578,
           "infill_core_mm2": 45.62250000000001,
-          "outline_coverage": 0.9889678030303031,
+          "outline_coverage": 0.9890151515151515,
           "print_z_mm": 174.44,
           "sampling_step_mm": 0.05,
           "stock_mm2": 52.80000000000001
@@ -1521,8 +1521,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9925475368513343,
-      "minimum_outline_coverage": 0.9883522727272728,
+      "minimum_coverage": 0.9927119294207902,
+      "minimum_outline_coverage": 0.9884943181818182,
       "name": "Nameplate insert land and rear wall root 2",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1540,27 +1540,27 @@
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9925475368513343,
+          "coverage": 0.9927119294207902,
           "infill_core_mm2": 45.62250000000001,
-          "outline_coverage": 0.9883522727272728,
+          "outline_coverage": 0.9884943181818182,
           "print_z_mm": 163.16,
           "sampling_step_mm": 0.05,
           "stock_mm2": 52.80000000000001
         },
         {
-          "bead_radius_inset_mm": 0.322867,
-          "coverage": 0.9961764705882353,
+          "bead_radius_inset_mm": 0.322652,
+          "coverage": 0.996078431372549,
           "infill_core_mm2": 25.500000000000004,
-          "outline_coverage": 0.99609375,
+          "outline_coverage": 0.9960227272727272,
           "print_z_mm": 168.92,
           "sampling_step_mm": 0.05,
           "stock_mm2": 35.20000000000001
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.992876321990246,
+          "coverage": 0.9927119294207902,
           "infill_core_mm2": 45.62250000000001,
-          "outline_coverage": 0.9888731060606061,
+          "outline_coverage": 0.9887310606060606,
           "print_z_mm": 174.44,
           "sampling_step_mm": 0.05,
           "stock_mm2": 52.80000000000001
@@ -1617,9 +1617,9 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9932051071291578,
+          "coverage": 0.9932599046523097,
           "infill_core_mm2": 45.62250000000001,
-          "outline_coverage": 0.9885416666666667,
+          "outline_coverage": 0.9885890151515152,
           "print_z_mm": 105.56,
           "sampling_step_mm": 0.05,
           "stock_mm2": 52.80000000000001
@@ -1676,9 +1676,9 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9925475368513343,
+          "coverage": 0.9927119294207902,
           "infill_core_mm2": 45.62250000000001,
-          "outline_coverage": 0.9885416666666667,
+          "outline_coverage": 0.9886837121212121,
           "print_z_mm": 105.56,
           "sampling_step_mm": 0.05,
           "stock_mm2": 52.80000000000001
@@ -2225,19 +2225,19 @@
       "bounds_source_mm": [
         64.59438431246909,
         67.44438431246908,
-        420.09571720240064,
-        462.3,
+        420.34571720240064,
+        462.55,
         340.45,
         351.8
       ],
       "box_plate_mm": [
         [
-          238.47072635767407,
+          238.72072635767407,
           224.3443843124691,
           -0.25
         ],
         [
-          287.6750091552734,
+          287.9250091552734,
           227.69438431246908,
           14.800000000000011
         ]
@@ -2250,19 +2250,19 @@
       "bounds_source_mm": [
         85.55561568753092,
         88.40561568753091,
-        420.09571720240064,
-        462.3,
+        420.34571720240064,
+        462.55,
         340.45,
         351.8
       ],
       "box_plate_mm": [
         [
-          238.47072635767407,
+          238.72072635767407,
           245.30561568753092,
           -0.25
         ],
         [
-          287.6750091552734,
+          287.9250091552734,
           248.6556156875309,
           14.800000000000011
         ]
@@ -2735,7 +2735,7 @@
         "radius_mm": 9.6535,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -2773,7 +2773,7 @@
         "radius_mm": 6.9285,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -2811,7 +2811,7 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -2849,7 +2849,7 @@
         "radius_mm": 8.72,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -2887,7 +2887,7 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -2925,7 +2925,7 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -3297,18 +3297,18 @@
       }
     }
   ],
-  "support_roads": 236362,
+  "support_roads": 237794,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,
-      "bodies_without_interface_labels": 17,
+      "bodies_without_interface_labels": 18,
       "explicit_interface_islands": 22,
       "interface_islands": null,
-      "model_rooted_bodies": 21,
-      "removable_stock_moves": 32769,
+      "model_rooted_bodies": 22,
+      "removable_stock_moves": 34136,
       "shortest_build_up_mm": null,
       "shortest_labelled_build_up_mm": 8.083,
-      "support_bodies": 26
+      "support_bodies": 27
     }
   },
   "tie_window_support_crossings": []
