@@ -1041,20 +1041,14 @@ fn check_archive(root: &Path, archive: &Value) -> Result<(String, &'static str)>
     Ok((source, state))
 }
 
-/// A piece prepared by its own program: a Python script, run with the checkout's Python, or a
-/// program named by its path in the checkout.
+/// A piece prepared by its own program, named by its path in the checkout.
 fn run_external(root: &Path, piece: &Value) -> Result<()> {
-    let mut command: Vec<String> = piece["external"]["command"].as_array().into_iter().flatten().filter_map(Value::as_str).map(|c| {
-        if c.ends_with(".py") { root.join(c).display().to_string() } else { c.to_string() }
-    }).collect();
+    let mut command: Vec<String> =
+        piece["external"]["command"].as_array().into_iter().flatten().filter_map(Value::as_str).map(str::to_string).collect();
     if command.is_empty() {
         bail!("the external command is empty");
     }
-    if !command[0].ends_with(".py") {
-        command[0] = root.join(&command[0]).display().to_string();
-    } else {
-        command.insert(0, root.join("tools/cad-venv/bin/python").display().to_string());
-    }
+    command[0] = root.join(&command[0]).display().to_string();
     println!("{}", command.join(" "));
     let status = std::process::Command::new(&command[0]).args(&command[1..]).current_dir(root).status()?;
     if !status.success() {
