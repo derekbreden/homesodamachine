@@ -353,15 +353,14 @@ pub fn meter_shoulder_targets() -> [Bounds; 2] {
 }
 
 /// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
-/// receiver's open west face toward the catch, along the cap pocket as far as the Pisco receiver.
-/// The target stops short of the catch's edge by the slicer's spread of a contact, so the
-/// support stays out of the catch pocket. From the target's end the lip bridges to the aft
-/// shoulder.
+/// receiver's open west face toward the catch, along the whole cap pocket. The target stops
+/// short of the catch's edge by the slicer's spread of a contact, so the support stays out of
+/// the catch pocket.
 pub fn meter_lip_target() -> Bounds {
     let a = running();
     let (stock, cap, s) = meter_print_stock();
     let lip = stock[5] - s.outer + s.ledge;
-    [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[0] - a, pisco_station().y0 - a, lip - a, lip + a]
+    [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[0] - a, cap[1] + a, lip - a, lip + a]
 }
 
 /// The meter's downhill slide and wire floors face the bed in the ceiling-down pose.

@@ -771,9 +771,9 @@ with the fitted body span retained.
 
 The meter's fore shoulder, the lip its cap's upper leaf rides over and the
 open west edge of its aft shoulder take removable support through the open
-west side. The lip bridges from its support to the aft shoulder, and the aft
-shoulder's first course bridges from its west edge to the flank. Each sideways
-hook channel returns to the flank on a bevel rather than a flat floor.
+west side. The aft shoulder's first course bridges from its west edge to the
+flank. Each sideways hook channel returns to the flank on a bevel rather than a
+flat floor.
 The fitted boss channels, screw-head channels and wire chamber retain accessible
 support through the receiver's open west side. Component bearing profiles and
 spring walls retain their fitted geometry. The

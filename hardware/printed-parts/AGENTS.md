@@ -141,9 +141,8 @@ power-supply bosses and the inlet tunnel. A part that stands on a face takes
 its root from that face's own plane, never from a second number for it.
 The meter's sideways channels return to the flank on bevels.
 The meter's fore shoulder, the lip its cap's upper leaf rides over and the open
-west edge of its aft shoulder take support through the open west side. The lip
-bridges from its support to the aft shoulder, and the aft shoulder's first
-course bridges from its west edge to the flank.
+west edge of its aft shoulder take support through the open west side. The aft
+shoulder's first course bridges from its west edge to the flank.
 The Pisco leaves stop ahead of the rear corner column; its body retains the
 full fitted span.
 The C14 inlet's flange pocket and cord passage take support; its blind pilots
