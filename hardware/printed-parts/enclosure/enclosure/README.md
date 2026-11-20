@@ -1119,29 +1119,17 @@ remain the production datums.
 
 ## Integral routing snaps
 
-Back-top carries six direct tube seats and three single-arm cable clips on its
-existing roof and wall stock. The quarter-inch fill guide uses the selected C2
-section with a **6.35 mm bore** and [source-selected wings](quadrants/routes.rs). The five 4 mm tube seats
-use **4.10 mm bores** and proportionally sized **1.52 mm spring wings**. The cable
-seats match the relay ribbon, DC power pair and one V-K lead; no generic oversized
-pocket gathers unrelated wires.
+Back-top carries the reservoir fill tube in one east-wall seat and has integral
+cable hooks for the relay ribbon, DC power pair and V-K lead. The
+[routing source](quadrants/routes.rs) owns their sections and sites. The tube
+seat's lower jaw has a wall corbel; its free upper jaw and the removable support
+strips use the [production print features](enclosure-back-top.print-features.json).
+The strips root on the lower jaw and can be reached through the tube mouth.
 
-Both flavor tubes follow a broad, gentle rise to Z343 and run beneath two
-paired roof stations at Y354 and Y390. Each station has one common filled base
-with an 8 mm-long seat for each tube. The downward-facing mouths remain
-accessible with back-top open. The funnel frame carries no flavor-tube support.
-
-The [routing review](route-snap-review/README.md) identifies every station, its
-print direction, cable dressing, installation order and current fit basis. These
-features add no separate printed part or fastener. Reservoir A's fore pair seats
-in two integral C2 clips on the cold-core lid at 13.5 mm centre spacing;
-body-retaining ties keep their existing jobs.
-
-The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
-accepts the C2 6.35 mm bore for present use and the 16 mm-span 4P ribbon clip's
-fit and qualitative retention. The 4 mm tube sections, DC-1 pair seat and V-K
-single-wire seat remain provisional. The coupon result does not establish the
-complete back-top print's cleanup, installed release forces or lifetime.
+The [routing review](route-snap-review/README.md) describes the print direction,
+other tube clips and release access. The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json)
+accepts the fill tube's fit in a printed crop of this back-top geometry. Complete
+back-top cleanup and support release still need observation on a full print.
 
 ## Prepared tubes and underside loading
 

@@ -10,5 +10,5 @@ The fill-tube seat on back-top's east wall carries its print-down wing on a
 corbel from the rounded nose to the host wall. The opposite wing retains its
 free spring section.
 
-The [support-free Mark1 fit print](../../hardware/print-tests/tube-snap-corbel/prints/2026-11-19-mark1/print-job.json)
+The [support-free Mark1 fit print](https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-19-mark1/print-job.json)
 records this corbel. Tube insertion, holding and release await Derek's observation.
