@@ -331,11 +331,6 @@ click: x=-85.000 y=461.225 z=263.850
 click: x=-85.000 y=462.225 z=296.350
 click: x=-61.000 y=461.225 z=265.850
 
-[ledge] Complete lower boundary of the six-port nut-seat relief: the rectangular field ends at Z250 below the Z264 row, retaining one flat 6 mm rear panel behind the nuts. The ranked face is the east end of that boundary where it meets the rounded case, rather than an added pad. Back-top prints ceiling-down; Tree(auto)/Default approaches through the empty interior before the fittings and labels are installed.
-alternatives: Extending the relief downward changes the wall adjacent to the identification receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=86.304 y=464.611 z=250.000
-
 [sliver] Fitted PSU case running-well boundary: the case well ends at Z347.25, 1.25 mm above the ordinary inner roof and 0.25 mm above the screw-ear bearing plane. The rectangular boundary clears the complete purchased case while retaining the four mounting-ear planes and 3 mm above every blind insert pilot.
 alternatives: Removing the well lowers the PSU 1.25 mm and enters the pump snap arch by about 0.95 mm. Raising the surrounding inner roof changes the enclosure ceiling and its equipment seats. The well retains the selected mechanical clearance without moving those assemblies.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
@@ -425,12 +420,6 @@ click: x=-96.157 y=442.183 z=287.407
 click: x=-96.157 y=442.183 z=307.907
 click: x=-97.827 y=381.577 z=286.157
 click: x=-97.827 y=381.933 z=306.657
-
-[ledge] Complete lower boundary of the six-port nut-seat relief: the rectangular field ends at Z250 below the Z264 row, retaining one flat 6 mm rear panel behind the nuts. The ranked face is the east end of that boundary where it meets the rounded case, rather than an added pad. Back-top prints ceiling-down; Tree(auto)/Default approaches through the empty interior before the fittings and labels are installed.
-alternatives: Extending the relief downward changes the wall adjacent to the identification receiver. Filling or sloping its floor changes the common nut-installation field; separate local pockets add face breaks around the six fittings.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=85.971 y=464.611 z=250.000
-click: x=86.004 y=464.592 z=250.000
 
 [step] Separate fitted datums beneath the data jack: the common live/neutral roof ends at Z280.05 and the accepted jack receiver floor at Z280.695. The 0.645 mm offset joins two required surfaces; the neutral pocket retains a full 3 mm roof and the jack keeps its accepted catches and insertion profile. The live side is solid up to this common roof.
 alternatives: Making these surfaces coplanar requires thickening the common roof by 0.645 mm or lowering the accepted jack floor by that amount. They locate different components; neither surface is a stray pad or unsupported film.

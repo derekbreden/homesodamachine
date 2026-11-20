@@ -6,7 +6,8 @@ The production arrangement is defined by [above-core.json](../../manifold-layout
 Back-top carries the threaded ASSE header, Pisco/check group, meter,
 regulator, V-A/V-K, ceiling PSU and west-wall relays. The pump, PCB and V-B
 remain on the cold core. Integral seats and removable snap caps share those
-native placements; the rear nut-seat relief ends at the continuous ceiling.
+native placements; the rear nut-seat relief runs from back-top's rim to the
+continuous ceiling, at the face of the core's pocket.
 
 V-K stands 2.5 mm higher with its body upright. The tee and its short tube
 links make the local adjustment; ASSE and the regulator retain their aligned
@@ -117,9 +118,11 @@ and concealed outlet tube. Seat the bare pump and close its snap cap before
 threading this inlet or loading the lid's tube snaps.
 
 The rear label tiles are 1.8 mm thick in 2.0 mm continuous channels. Their
-full roots join the rear wall outside the sliding paths. The flange/nut
-planes remain Y471.3/Y465.3. The accepted nameplate receiver and keystone
-catch profiles retain their fitted interfaces.
+full roots join the rear wall outside the sliding paths. The fittings'
+flanges seat on the rear face, and their nuts and the Pisco's shoulder seat
+on the relief's face; [above-core.json](../../manifold-layout/above-core.json)
+holds both planes. The accepted nameplate receiver and keystone catch
+profiles retain their fitted interfaces.
 
 Keep the cross-quadrant tube ends free while positioning back-top. Turn the
 round pump-side joints as needed during approach; connect and dress the

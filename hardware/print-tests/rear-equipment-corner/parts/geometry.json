@@ -8,7 +8,7 @@
     {
       "name": "pisco-snap-cap",
       "source": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
-      "stl_sha256": "746b8d82a23fa5922982713dc915255fb83ec7e1efffeb06fcbea3ee0d2fdeae"
+      "stl_sha256": "f82eb60611585171a80c188efcd0720129e8a12ed8d759d0f339e6a9b5d1b846"
     },
     {
       "name": "meter-snap-cap",
@@ -29,8 +29,8 @@
       355.0
     ]
   ],
-  "corner_stl_sha256": "48d5ac472c7154e64a276565293b77dae52c1b93c71a4733bbaec4628c37176e",
-  "corner_volume_mm3": 264346.7176025945,
+  "corner_stl_sha256": "eaa87c607fb83bf28b8762fe08874573383897f58218de769813efed144dcf98",
+  "corner_volume_mm3": 263021.0422880633,
   "inputs": {
     "caps": [
       "asse-snap-cap",
@@ -58,7 +58,7 @@
     "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
     "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
   },
-  "source_model_sha256": "f896e4b15edc8132bd7e72391e6e1a729da939b2bd010c8feac25bdf3e21c0d5",
-  "source_stl_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
+  "source_model_sha256": "9a73f8333819f99a108da008804eb7247c5e0a7616b7417e7df9fd7a7af234ab",
+  "source_stl_sha256": "251fd13a5739b8dd7b249e65355fe125d270dda8eeac903ce4fc3f88d46df884",
   "watertight": true
 }

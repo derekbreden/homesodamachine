@@ -468,7 +468,8 @@ pub fn grid(spec: &Value) -> Result<Vec<Value>> {
             let gas = name == "co2-inlet";
             let quarter = name == "bulkhead-water" || name == "bulkhead-carb" || gas;
             rows.push(json!({"name":name,"x":g["columns_x_mm"][column],"z":g["rows_z_mm"][row],"tube_od_mm":if quarter{6.35}else{4.},
-                "flange_y":spec["enclosure"]["rear_y_mm"],"nut_af_mm":if gas{21.0058}else if quarter{20.}else{18.},
+                "flange_y":spec["enclosure"]["rear_y_mm"],
+                "seat_y":spec["rear_wall"]["interior_panel_relief"]["nut_seat_y_mm"],"nut_af_mm":if gas{21.0058}else if quarter{20.}else{18.},
                 "nut_depth_mm":if gas{7.0104}else if quarter{4.}else{6.5},"barrel_d_mm":if gas{17.}else if quarter{17.14}else{15.},
                 "native_kind":if gas{"gas"}else if quarter{"quarter"}else{"four"}}));
         }

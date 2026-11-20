@@ -20,9 +20,11 @@ pitches are 37.0 and 30.2 mm.
 | | SODA: PP1208E, blue 1/4-inch outlet | FLAVOR: ABU44M-E, black 4 mm A outlet |
 | | DRAIN: ABU44M-E, white 4 mm vent | FLAVOR: ABU44M-E, black 4 mm B outlet |
 
-The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
-stack between Y465.3 and Y471.3. Each 1.8 mm identification tile stands in a
-continuous side-rail channel at Y469.3–471.1, leaving 4 mm of printed wall
+The main rear wall is 9 mm stock. The fluid field's relief runs from the rim
+to the ceiling at the face of the core's pocket; the panel behind it is the
+fittings' clamping stack, and [above-core.json](../../../manifold-layout/above-core.json)
+holds its two planes. Each 1.8 mm identification tile stands in a
+continuous side-rail channel at Y469.3–471.1, leaving printed wall
 behind it and 0.2 mm below the fitting flange. The 42 × 38 mm tiles share a
 Z240.6 channel floor; 2 mm rail overlaps leave 38 × 38 mm visible faces.
 The upper pair finish at Z355, with 0.2 mm seams between cards. The bottom

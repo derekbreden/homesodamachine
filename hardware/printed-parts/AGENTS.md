@@ -134,8 +134,9 @@ The ASSE, Pisco and water-regulator catches are cut down into their ledges'
 corners, which seats each hook's nose at the catch plane and leaves the cap's
 whole pointed lead-in under the ceiling. The meter cap's point stops just short
 of the flank. The catch pockets stay clear of supports. The rear ceiling recess runs flush to
-the flanks and to the rear wall, whose panel relief runs up to it, and it runs
-round the connector wells' row. Whatever stands on that ceiling is rooted in
+the flanks and to the rear wall, whose panel relief runs from the rim up to it
+at the face of the core's pocket, and it runs round the connector wells' row.
+The bulkhead nuts and the Pisco's shoulder seat on that relief's face. Whatever stands on that ceiling is rooted in
 it: the ASSE and Pisco receivers, both rear corner columns, the wells, the
 power-supply bosses and the inlet tunnel. A part that stands on a face takes
 its root from that face's own plane, never from a second number for it.
@@ -157,8 +158,9 @@ clearances pointing in the build direction. The vent cap has a rooted chamfer;
 its passage stays clear of supports. Back-top's rail caps have narrow removable
 roots on their own cavity floors. The nameplate receiver's two ledges grow
 from the rear wall on corbels. Manual Tree Slim supports exposed joint ends,
-funnel receivers, the valve seat, initial boss curves and the tube seat's outer
-underside. The cable hooks' beak lands overhang too little to need support, as
+funnel receivers, the valve seat and initial boss curves. The fill tube seat's
+free upper wing prints on breakaway strips rooted on its corbelled lower wing.
+The cable hooks' beak lands overhang too little to need support, as
 front-bottom's same hooks show. Read the
 actual removal openings and first model courses in the native slice. Keep blind pilot roofs
 outside support enforcers. Connector insertion pockets bridge between their well

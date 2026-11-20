@@ -142,7 +142,7 @@ pub struct Frame {
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Nut {
     pub x: f64,
-    pub flange_y: f64,
+    pub seat_y: f64,
     pub z: f64,
     pub nut_af_mm: f64,
     pub barrel_d_mm: f64,
@@ -401,7 +401,7 @@ fn bulkhead(name: &str, from: &Source, sources: &mut BTreeMap<String, Vec<Import
     stock.intersect(&outside.union(&inside)?)
 }
 fn nut(d: &Nut) -> Result<Solid> {
-    let center = v3(d.x, d.flange_y - 6., d.z);
+    let center = v3(d.x, d.seat_y, d.z);
     let mut p = Profile::new(hsm_kernel::Loop::regular(V2::ZERO, 6,
         d.nut_af_mm / (std::f64::consts::PI / 6.).cos()));
     p = p.with_hole(Profile::circle(V2::ZERO, d.barrel_d_mm / 2.).outer);

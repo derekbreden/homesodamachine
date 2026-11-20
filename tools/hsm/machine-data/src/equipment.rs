@@ -414,7 +414,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
                     None,
                     Some(&json!([
                         row["x"],
-                        number(&row["flange_y"])? - 6.
+                        number(&row["seat_y"])?
                             + number(&data["jg"]["captured_nut_gap_mm"])?,
                         row["z"]
                     ])),

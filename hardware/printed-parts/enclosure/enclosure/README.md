@@ -762,8 +762,9 @@ The ASSE, Pisco and water-regulator catches are cut down into their ledges'
 corners, under the caps' whole pointed lead-ins.
 The ASSE, Pisco, meter and water-regulator catch pockets stay clear of supports.
 A common ceiling recess over the ASSE and Pisco runs between the flanks and
-flush to the rear wall, whose panel relief runs up to it, and it runs round the
-connector wells' row on the west flank. The receivers, both rear corner
+flush to the rear wall, whose panel relief runs from the rim up to it at the
+face of the core's pocket, and it runs round the connector wells' row on the
+west flank. The bulkhead nuts and the Pisco's shoulder seat on that relief's face. The receivers, both rear corner
 columns, the power-supply bosses and the inlet tunnel are rooted in that
 recessed ceiling. The receivers have plain end walls around the fitted
 passages and wing catches. The Pisco leaves stop ahead of the corner column,
