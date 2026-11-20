@@ -12,7 +12,7 @@ use hsm_cold_core_layout::b_fill as tube;
 use hsm_cold_core_layout::cap::cap_face_z;
 use hsm_foam_cap_numbers as cap;
 use hsm_foam_cap_numbers::pump::{self, Cradle};
-use hsm_foam_cap_numbers::reservoir_a::{self, Run};
+use hsm_foam_cap_numbers::reservoir_a;
 use hsm_kernel::math::{PI, TAU, cos, sin};
 use hsm_kernel::part::write_printed;
 use hsm_kernel::*;
@@ -506,30 +506,54 @@ fn wells() -> Result<(Solid, Solid)> {
 
 // --- Clips and cable seats -----------------------------------------------------------------------
 
+/// The C2 clip's section across its tube, the tube's axis at the origin and Y down toward the lid:
+/// the filled root `reach` down to the lid's face and the two free jaws. A shoulder fills one side
+/// square from the root up to its jaw's top, `+1.` on +X or `-1.` on -X.
+fn clip_section(ri: f64, wing: f64, tip_degrees: f64, reach: f64, shoulder: Option<f64>) -> Result<Profile> {
+    let (ro, rm, nose) = (ri + wing, ri + wing / 2., wing / 2.);
+    let tip = tip_degrees * PI / 180.;
+    let point = |r: f64, t: f64| v2(r * sin(t), r * cos(t));
+    let (a, b, cc, d) = (point(ro, -tip), point(ro, tip), point(ri, tip), point(ri, -tip));
+    let (cp, cn) = (point(rm, tip), point(rm, -tip));
+    let (right, left) = (cp + v2(nose * cos(tip), -nose * sin(tip)), cn + v2(-nose * cos(-tip), nose * sin(-tip)));
+    let top = cp.y - nose;
+    // The filled root replaces the outer half-circle on the host's side of the tube's axis.
+    let mut outer = Pen::new(v2(-ro, reach)).line_to(v2(ro, reach));
+    outer = if shoulder == Some(1.) {
+        outer.line_to(v2(ro, top)).line_to(v2(cp.x, top)).arc_through(right, cc)?
+    } else {
+        outer.line_to(v2(ro, 0.)).arc_through(point(ro, (PI / 2. + tip) / 2.), b)?.arc_through(right, cc)?
+    };
+    outer = outer.arc_through(v2(0., ri), d)?;
+    outer = if shoulder == Some(-1.) {
+        outer.arc_through(left, v2(cn.x, top))?.line_to(v2(-ro, top))
+    } else {
+        outer.arc_through(left, a)?.arc_through(point(ro, -(PI / 2. + tip) / 2.), v2(-ro, 0.))?
+    };
+    Ok(Profile::new(outer.close()?))
+}
+
 /// A C2 tube clip in the enclosure: the filled root down to the lid's face and the two free jaws,
 /// traced as one section and extruded along the tube.
 fn tube_clip(c: &cap::clips::Clip) -> Result<Solid> {
     let centre = p3(c.centre);
     let u = p3(c.along).unit();
     let plane = Plane::new(centre - u * (c.span / 2.), u.cross(V3::Z), u)?;
-    let (ri, wing, span) = (c.radius, c.wing, c.span);
-    let (ro, rm, nose) = (ri + wing, ri + wing / 2., wing / 2.);
-    let tip = c.tip_degrees * PI / 180.;
-    let point = |r: f64, t: f64| v2(r * sin(t), r * cos(t));
-    let (a, b, cc, d) = (point(ro, -tip), point(ro, tip), point(ri, tip), point(ri, -tip));
-    let (cp, cn) = (point(rm, tip), point(rm, -tip));
-    let reach = centre.z - cap_face_z() + OVERCUT;
-    // The filled root replaces the outer half-circle on the host's side of the tube's axis.
-    let outer = Pen::new(v2(-ro, reach))
-        .line_to(v2(ro, reach))
-        .line_to(v2(ro, 0.))
-        .arc_through(point(ro, (PI / 2. + tip) / 2.), b)?
-        .arc_through(cp + v2(nose * cos(tip), -nose * sin(tip)), cc)?
-        .arc_through(v2(0., ri), d)?
-        .arc_through(cn + v2(-nose * cos(-tip), nose * sin(-tip)), a)?
-        .arc_through(point(ro, -(PI / 2. + tip) / 2.), v2(-ro, 0.))?
-        .close()?;
-    plane.extrude(&Profile::new(outer), span)
+    plane.extrude(&clip_section(c.radius, c.wing, c.tip_degrees, centre.z - cap_face_z() + OVERCUT, None)?, c.span)
+}
+
+/// A C2 clip turned along a line's level turn: the clip's section across the line where the seat
+/// starts, turned about the turn's upright axis to where the seat ends.
+fn turned_clip(seat: &reservoir_a::AftSeat) -> Result<Solid> {
+    use reservoir_a::pair;
+    let (centre, start, end) = (p3(seat.centre), p3(seat.start), p3(seat.end));
+    let out = (start - centre).unit();
+    let plane = Plane::new(start, out, V3::Z.cross(out))?;
+    let shoulder = seat.shoulder_outward.map(|outward| if outward { 1. } else { -1. });
+    let section = clip_section(pair::BORE / 2., pair::WING, pair::TIP_DEGREES, start.z - cap_face_z() + OVERCUT, shoulder)?;
+    let upward = (start - centre).cross(end - centre).z > 0.;
+    let radius = seat.radius();
+    plane.revolve(&section, seat.degrees, v2(-radius, 0.), v2(-radius, if upward { -1. } else { 1. }))
 }
 
 /// The crossover's clip, cut where V-B's wall roots so each half ends on the root's plane, and the
@@ -615,67 +639,12 @@ fn cable_seat(points: &[V2], origin: [f64; 3], span: f64) -> Result<Solid> {
 
 // --- Reservoir A's anchors -------------------------------------------------------------------------
 
-/// A seat's clearance along a whole route: a circle swept on the route's centreline.
-fn route_air(runs: &[Run], radius: f64) -> Result<Solid> {
-    let first = p3(runs[0].first());
-    let mut path = Path::new(first);
-    for run in runs {
-        match run {
-            Run::Line { points } => path = path.line_to(p3(points[1])),
-            Run::Arc { points, .. } => path = path.arc_through(p3(points[1]), p3(points[2]))?,
-        }
-    }
-    // A swept circle has both section and path chord error; the same circular path, subdivided at
-    // half intervals, keeps the combined error within LINEAR.
-    let mut fine = Path::new(first);
-    for leg in &path.legs {
-        match *leg {
-            Leg::Line { b, .. } => fine = fine.line_to(b),
-            Leg::Arc { a, b, c, d, turn } => {
-                let count =
-                    2 * ((hsm_kernel::rule::ring_count((a - c).norm() + radius) as f64 * turn / TAU - 1e-9).ceil() as usize)
-                        .max(1);
-                let v = a - c;
-                for i in 1..=count {
-                    let angle = turn * i as f64 / count as f64;
-                    let end = if i == count {
-                        b
-                    } else {
-                        c + v * cos(angle) + d.cross(v) * sin(angle) + d * (d.dot(v) * (1. - cos(angle)))
-                    };
-                    fine = fine.arc_center(c, end, d)?;
-                }
-            }
-            Leg::Curve { .. } => bail!("a seat's route is lines and circular arcs"),
-        }
-    }
-    let normal = match path.legs.first().context("a route has runs")? {
-        Leg::Line { a, b } => (*b - *a).unit(),
-        Leg::Arc { a, c, d, .. } => d.cross(*a - *c).unit(),
-        _ => bail!("a seat's route is lines and circular arcs"),
-    };
-    let (_, x, _) = hsm_kernel::rule::plane_frame(normal);
-    Plane::new(first, x, normal)?.sweep(&Profile::circle(v2(0., 0.), radius), &fine)
-}
-
-/// Reservoir A's anchors, in the cap's frame: the aft saddle with its seats swept along both
-/// routes and its tie slot and mouths cut, then the fore pair's base with both bores; and the aft
-/// saddle's slot and mouths, which the lid takes too.
-fn a_seats() -> Result<(Solid, Solid)> {
-    use reservoir_a::aft;
+/// Reservoir A's anchors, in the cap's frame: the aft pair's two turned clips, joined where the
+/// lower one's shoulder meets the higher one's root, and the fore pair's base with both bores.
+fn a_seats() -> Result<Solid> {
     let t = world_to_cap();
-    let seat = reservoir_a::aft_seat();
-    let (lo, hi) = (p3(seat.stock[0]), p3(seat.stock[1]));
-    let mut profile = vec![v2(lo.x, lo.z), v2(hi.x, lo.z)];
-    for p in seat.seat_roof.iter().rev() {
-        profile.push(v2(p[0], p[1]));
-    }
-    let mut saddle = Plane::XZ.at(v3(0., hi.y, 0.)).extrude(&Profile::polygon(&profile), hi.y - lo.y)?;
-    for route in aft::ROUTES_WEST_TO_EAST {
-        saddle = saddle.cut(&route_air(&reservoir_a::routes()[route], aft::SEAT_RADIUS)?)?;
-    }
-    let mouths = Solid::union_all(&[cuboid(seat.tie_slot), cuboid(seat.access[0]), cuboid(seat.access[1])])?;
-    let saddle = saddle.cut(&mouths)?.transformed(&t);
+    let [west, east] = reservoir_a::aft_seats();
+    let aft = turned_clip(&west)?.union(&turned_clip(&east)?)?;
     // The fore pair's bores cut the broad common base across its whole span; its clips join the
     // other C2 seats.
     let pair = reservoir_a::pair();
@@ -684,7 +653,7 @@ fn a_seats() -> Result<(Solid, Solid)> {
     for centre in pair.tube_centres {
         base = base.cut(&Solid::cylinder(p3(centre) - V3::Y * (span / 2. + OVERCUT), V3::Y, pair.seat_radius, span + 2. * OVERCUT)?)?;
     }
-    Ok((Solid::union_all(&[saddle, base.transformed(&t)])?, Solid::union_all(&[mouths.transformed(&t)])?))
+    Ok(Solid::union_all(&[aft.transformed(&t), base.transformed(&t)])?)
 }
 
 // --- The lid -------------------------------------------------------------------------------------
@@ -741,8 +710,7 @@ fn top_lid() -> Result<Solid> {
     body = body.union(&support)?.cut(&passage)?;
     let (stock, pockets) = wells()?;
     body = body.union(&stock.intersect(&outline(-1., stock.bounds().max.z + 1., 0.)?)?)?.cut(&pockets)?;
-    let (stock, passages) = a_seats()?;
-    body = body.union(&stock)?.cut(&passages)?;
+    body = body.union(&a_seats()?)?;
     let wall = cap::valve::wall();
     for (i, clip) in cap::clips::clips().iter().enumerate() {
         let clip = if i == 1 { flavor_a_clip(clip, &wall)? } else { tube_clip(clip)? };

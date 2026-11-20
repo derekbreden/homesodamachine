@@ -123,7 +123,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.799 | $45.02 <!--@printed--><!--parts HSM-0018--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.319 | $7.99 <!--@printed--><!--parts HSM-0020--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.320 | $7.99 <!--@printed--><!--parts HSM-0020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.191 | $4.77 <!--@printed--><!--parts HSM-0021--> |
 | Reservoir B fill bend holder | 1 | PET-GF | 0.003 | $0.07 <!--@printed--><!--parts HSM-0454--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0024--> |
@@ -239,7 +239,7 @@ The buzzer is on the main board — an MLT-5020 magnetic transducer (U8) low-sid
 | [smseace #4 (M3) insulated ring terminals, 22–16 AWG (150 pc)](https://www.amazon.com/dp/B08B5VS8ZR) | Compressor body's terminal-box earth screw, on the green stranded SJOOW core. Its WAGO end takes a ferrule. $9.64/150 | 1 (of 150 pk) | $0.06 | $0.06 <!--@wiring--><!--parts HSM-0380--> |
 | M3 closed ring terminal for solid 16 AWG | Carbonator vessel-rim bond. Use a closed barrel specified for the solid conductor and the terminal maker's crimp tooling. [Terminal sourcing](/hardware/ledger/unit-1-shopping.md#carbonator-earth-terminal) tracks the open selection. | 1 | — | — <!--@wiring--><!--parts HSM-0378--> |
 | [Ginsco 580-pc heat-shrink assortment, 2:1, 11 sizes](https://www.amazon.com/dp/B01MFA3OFA) | The finish on every cut end in the harness set, per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) steps 2 + 4: both ends of each of the 13 braided sleeves so they cannot fray (~26), the reed-column lacing between reeds (2 columns, [`cold-core.md`](/hardware/assembly/cold-core.md) §4), the four bare TO-92 probe leads, and the run-ID flags on the staged AC/DC pigtails. ~45 collars/build out of the kit's 580 pieces, so a kit covers about twelve builds: $7.99 ÷ 580 × 45 = $0.62. Sizes 1.06 mm to 9.92 mm, which spans every conductor and sleeve the harness set carries. The kit on the shelf was bought Apr 22 at a different listing ([purchases.md](/hardware/ledger/purchases.md) §14); this is the live one. Prime. | ~45 collars (of 580) | $0.0138 | $0.62 <!--@wiring--><!--parts HSM-0343:2 HSM-0344:2 HSM-0345:2 HSM-0346:2 HSM-0347:2 HSM-0350:2 HSM-0352:2 HSM-0348:6 HSM-0349:6 HSM-0554:4 HSM-0001:15--> |
-| [Zip Ties 4", 18 lb (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | About 15 for cable management, two at the ASSE vent adapter’s recessed lands, and [1](RESERVOIR_A_TIES) shared tie for the aft paired Reservoir A lid seat. The fore pair uses its printed snap cap. The aft nominal closed loop is 47.182 mm before head engagement and tail, leaving 54.418 mm from 101.6 mm stock. Keep collets, the motor and its fixed rails clear. Black UV-nylon, flush-cut, per [cable assemblies](/hardware/assembly/cable-assemblies.md). Installed retention remains unqualified. TANTTI pack paid $4.28/200. | [18](FOUR_INCH_TIES) (of 200 pk) | $0.02 | [$0.39](FOUR_INCH_TIES_COST) <!--@cable-mgmt--><!--parts HSM-0001--> |
+| [Zip Ties 4", 18 lb (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | About 15 for cable management and two at the ASSE vent adapter’s recessed lands. Keep collets, the motor and its fixed rails clear. Black UV-nylon, flush-cut, per [cable assemblies](/hardware/assembly/cable-assemblies.md). Installed retention remains unqualified. TANTTI pack paid $4.28/200. | [17](FOUR_INCH_TIES) (of 200 pk) | $0.02 | [$0.36](FOUR_INCH_TIES_COST) <!--@cable-mgmt--><!--parts HSM-0001--> |
 | [Zip Ties 6-inch, 18 lb (100-pack)](https://www.amazon.com/dp/B0DR8KSVQD) | One on the core-lid V-B return bearing. The rear header, regulator, gas group and meter use snap caps. Thread the empty holder before seating the body. Purchases §9: $6.42/100. | [1](SIX_INCH_TIES) (of 100 pk) | $0.06 | [$0.06](SIX_INCH_TIES_COST) <!--@cable-mgmt--><!--parts HSM-0001--> |
 | [CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2RB524Y) | 4-pin XH — female housings + crimp terminals for the five 4P board looms (FAUCET J3, RELAYS J5, DISPLAY J9, GAS J11, PUMPS J13); the male wafers are on the main board, so the kits' loose housings/terminals are what's consumed. J8 is the I2C expansion header and nothing plugs into it. ~5/unit; $8.45/50 × 5 | 5 (of 50 pk) | $0.17 | $0.85 <!--@wiring--><!--parts HSM-0345 HSM-0347 HSM-0350 HSM-0352 HSM-0353--> |
 | [RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC (10 pk)](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) | **The SIG-6 station on the +Y wall of back-top** — the jack the umbilical's signal plug lands in, and the one connection on that wall that is not a tube or the cord. Snap-in keystone, so the wall cuts a rectangle rather than a bore and the module's own latch is what holds it — no nut, no insert, no fastener. Black through: face, body and the dust cover it ships with, which is what a wall of black PETG asks for and what the four round stations beside it cannot be bought as. 6P4C takes SIG-6's four conductors exactly, and an RJ45 plug will not enter it. Terminated 110 IDC on the inboard face, where the J3 loom lands ([`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). RiteAV #58999 Aug 27: $13.92 + $12.08 ship = $26.00 ÷ 10 = $2.60/ea; 1/build | 1 (of 10 pk) | $2.60 | $2.60 <!--@wiring--><!--parts HSM-0270--> |
@@ -361,12 +361,12 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 8. Flavor subsystem | [$259.45](BOM_SEC8) |
 | 9. Dispensing | [$78.57](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$34.93](BOM_SEC11) |
+| 11. Wiring | [$34.90](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
 | 13. Mechanical attach hardware | [$27.85](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,443.75](BOM_GRAND)** |
+| **Total** | **[$1,443.72](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

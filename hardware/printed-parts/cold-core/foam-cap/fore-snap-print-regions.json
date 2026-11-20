@@ -10,8 +10,8 @@
       ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "686511d1c3ae7e9ca2197264c2ba3c36bf2bb70a224539cab21e4fc379d72c7c",
-      ".stl": "4d3a4efa4363958153f7945b9ebd988557bf3d719cda93231e86f9cefe8c358b"
+      ".step": "c2af72ef5d6d230df6310f6334db983e27f155b90857f6b453dddc86e6098c99",
+      ".stl": "301555ac3403fdeba32669d0bb5369d15dd1033cc84ea964129982bd2f7f42eb"
     },
     "foam-shell": {
       ".step": "2c9eb6734711ae15471c52e53e565c6a6c1273024f642b742e78c39dfd45c173",
@@ -260,6 +260,35 @@
           213.75,
           250.4,
           258.5
+        ]
+      },
+      {
+        "applied_source_bounds_mm": [
+          -70.19999999999999,
+          -57.613170273500884,
+          39.42500000000001,
+          62.913486376976635,
+          4.400000000000006,
+          25.135663655251165
+        ],
+        "machine_bounds_mm": [
+          -70.19999999999999,
+          -57.613170273500884,
+          39.42500000000001,
+          62.913486376976635,
+          4.400000000000006,
+          25.135663655251165
+        ],
+        "name": "Reservoir A aft C2 pair and lid root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "world_bounds_mm": [
+          39.42500000000001,
+          62.913486376976635,
+          381.4131702735009,
+          394.0,
+          250.4,
+          271.13566365525116
         ]
       },
       {
@@ -771,14 +800,14 @@
     ]
   },
   "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
-  "scope": "Finite infill-only modifiers through the fore C2 shared base, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+  "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
-    "hardware/manifold-layout/above-core.json": "6e7bada8f766220403487409a73fb72212543b141ebb1ef6e28accfccdb6f866",
+    "hardware/manifold-layout/above-core.json": "ee6803906932b5aef8f2f4f60403708dcddbcc90380bdb64e82c4dc8de1147de",
     "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "3c23dbfeb63228e1f57b28dc54b9352aded2b76fb97235d9881b826280653d86",
     "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "3b8fb0538d8c909b8a6c963173f39da5199700513746251be749369a8e7d6e6d",
-    "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0d169aecaf038c88d1cd5f5116541e6a8f541f66ee5e9e2b95479a8e5f839219",
-    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "7f4db18d5a70487e5480e37d35da4a839ad66df8de6b1aa638eb5d50c2c80e10",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "cded708104e80fa89bbe688a59a7c37cea8f92b6b3dfef5ff79cdc34dea15e06",
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "6caf3eb489c2c966d7b0706d873845738f7c626f44227e932d1a4c9711619011",
     "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e"
   },
   "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."

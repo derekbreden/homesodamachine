@@ -65,13 +65,15 @@ back of its wall. Their levers open west. The wall and wells retain ordinary 3 m
 The PCB and plumbing poses belong to the [above-core arrangement](../../../manifold-layout/above-core.md).
 
 The [top-lid print recipe](../../enclosure/trial-preparation/pieces.json) uses the PET-GF
-tree support process with a local blocker across the aft saddle's tie passage. Remove the
+tree support process. Remove the
 supports through the open receiver mouths and the underside inlet groove before assembly.
 
 The V-A feed seats in the lid's C2 clip at world (16.608, 207.300, 268.970) mm.
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
-with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft paired seat at Y390 mm
-uses one four-inch narrow tie. The front-going J1/J2 cable bank has ordinary 3 mm
+with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft fill/draw clips are the
+same seats, each turned along its line's last level turn before the reservoir. The draw
+line's stands on the taller root, and the fill line's is filled square against that root
+up to its jaw's top, so the pair is one body. The front-going J1/J2 cable bank has ordinary 3 mm
 outer/shared walls and 16 mm span. These features print above the lid's flat bed face.
 The tube clips' jaws stand side by side at the same print height, with both roots
 on the lid. Their openings face away from the lid, so they do not use the

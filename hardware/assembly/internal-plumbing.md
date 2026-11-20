@@ -256,14 +256,12 @@ their dry spans above the closed reservoirs are located by cured foam, while the
 sections inside remain free
 ([floor and dip tube](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)).
 
-Reservoir A’s two continuous tubes use two integral fore C2 clips on one broad base
-and one aft tied seat. Draw is west of fill: their centreline X stations are
-50.5/64.0 mm at the fore clips, Y209.75 and Z258.5 mm, and approximately X45.584/Z267.4 and X61.144/Z259.5 at the aft
-saddle, Y390.5 mm. Its open grooves follow the actual curved paths. Press each tube down through its clip's open +Z mouth.
-For removal, release the exposed jaws and lift the tube upward.
-At the aft saddle, Y390.5 mm, thread one four-inch narrow tie through the empty transverse
-slot before laying in the pair; retain both tubes there with that shared tie on the
-open core.
+Reservoir A’s two continuous tubes use two pairs of integral C2 clips on the lid: the fore
+pair on one broad base, and the aft pair where each line makes its last level turn before
+the reservoir. Draw is west of fill at both. The fore clips' centreline X stations are
+50.5/64.0 mm, at Y209.75 and Z258.5 mm. The aft clips follow the lines' turns; the draw
+line's stands higher than the fill line's and the two are one body. Press each tube down
+through its clip's open +Z mouth. For removal, release the exposed jaws and lift the tube upward.
 Leave the front valve ends free during the column slide and dress the
 flexible spans clear of passing fittings. Once the column is home, finish
 dressing the free spans and connect the front ends. Keep each tube
@@ -279,9 +277,7 @@ replace the socket allowance with its actual fully seated insertion mark.
 The guide adds no fitting, insertion or cut. Seat the bare pump in its lid saddle
 and close its upper snap per the [pump installation](/hardware/reference/g-ganen-pump/installation/README.md).
 Keep the continuous reservoir tubes clear of the snap's release access.
-The aft saddle has full 3 mm outside stock and 3 mm above its open tie
-passage. Its unequal-height nominal tie witness includes no loose tail;
-threading and retention remain unqualified. Fore snap insertion force, fit and retention have no physical acceptance. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
+Snap insertion force, fit and retention at either pair have no physical acceptance. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
 V-F's outlet and V-E's inlet each receive one ATEU44W stem elbow on front-top. Cut each male stem to the valve's marked tube stop (12.7 mm nominal in CAD), seat it fully and point its tube socket aft. Their reservoir tubes rise gently to the Z295.5 free runs beneath the funnel frame, with 1.225 mm nominal tube/frame air. V-I's outlet takes the same trimmed stem elbow with its socket clocked 15° east of aft. Its B-fill tube descends toward the fore-facing cap entry. Flavor A's 4 mm crossover runs at Y156/Z288.5; the J9 display ribbon's free bends pass below it while the printed cable mouth and connector positions retain their datums.

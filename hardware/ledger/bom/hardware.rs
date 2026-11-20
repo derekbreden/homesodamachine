@@ -14,10 +14,6 @@ pub const C14_WASHER: f64 = hsm_enclosure_numbers::rear_wall::c14::WASHER_THICKN
 /// How far in from the compressor plate's edge its bolt holes stand.
 pub const COMPRESSOR_HOLE_INSET: f64 = 14.5;
 
-/// Reservoir A's tied stations: its aft saddle, whose slot takes the tie over both lines; the
-/// fore pair snaps down into the lid's own seats (`hsm-foam-cap-numbers` `reservoir_a`).
-pub const RESERVOIR_A_TIES: usize = 1;
-
 /// The cap's six-inch tie paths: the one through the lid's support under V-B's outlet return,
 /// the only union the lid carries (`hsm-foam-cap-numbers` `unions`).
 pub const CAP_TIE_PATHS: usize = 1;

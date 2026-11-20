@@ -57,4 +57,3 @@ the same terminal and route.
 The [offline print reading](print/README.md) binds the prepared cap and lid
 jobs and their emitted model/support paths. Physical snap fit, tube restraint,
 insertion and release forces, creep, fatigue and load capacity remain unmeasured.
-The aft Reservoir A station retains its tied seat.

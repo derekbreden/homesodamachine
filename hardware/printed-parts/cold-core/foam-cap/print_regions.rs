@@ -4,8 +4,8 @@
 //!     foam-cap-print-regions [--out FILE]
 //!
 //! Each region is a box of full zig-zag infill through a retention feature and the plate or wall
-//! that roots it: the fore reservoir pair's shared base, the casing's M5 hosts and head bearings,
-//! and the PCB deck's insert posts. A box intersects existing material and adds no geometry; it
+//! that roots it: reservoir A's fore pair's shared base and its aft pair, the casing's M5 hosts and
+//! head bearings, and the PCB deck's insert posts. A box intersects existing material and adds no geometry; it
 //! is clipped to its piece's current mesh, and the record binds each piece's STEP and STL, so
 //! print preparation refuses a piece whose exports have moved since. It reads the cap's numbers
 //! and the current print meshes, and starts no generator, slice or printer.
@@ -90,29 +90,32 @@ fn main() -> Result<()> {
     }
     let f = fits();
 
-    // The fore pair's shared base, carried from the appliance into the cap's own frame.
-    let [low, high] = reservoir_a::pair().base;
-    let world = [low[0], high[0], low[1], high[1], low[2], high[2]];
-    let mut native = [f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY];
-    for x in [low[0], high[0]] {
-        for y in [low[1], high[1]] {
-            for z in [low[2], high[2]] {
-                let p = world_to_cap([x, y, z]);
-                for axis in 0..3 {
-                    native[2 * axis] = native[2 * axis].min(p[axis]);
-                    native[2 * axis + 1] = native[2 * axis + 1].max(p[axis]);
+    // Reservoir A's fore pair's shared base and its aft pair, carried from the appliance into the
+    // cap's own frame.
+    let lid = bounds["foam-cap-lid-top"];
+    let mut lid_rows = Vec::new();
+    for (name, [low, high]) in [("Reservoir A fore direct C2 pair and lid root", reservoir_a::pair().base),
+                                ("Reservoir A aft C2 pair and lid root", reservoir_a::aft_body())] {
+        let mut native = [f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY];
+        for x in [low[0], high[0]] {
+            for y in [low[1], high[1]] {
+                for z in [low[2], high[2]] {
+                    let p = world_to_cap([x, y, z]);
+                    for axis in 0..3 {
+                        native[2 * axis] = native[2 * axis].min(p[axis]);
+                        native[2 * axis + 1] = native[2 * axis + 1].max(p[axis]);
+                    }
                 }
             }
         }
+        let clipped = clip(native, lid.0, lid.1);
+        if (0..3).any(|axis| clipped[2 * axis + 1] <= clipped[2 * axis]) {
+            bail!("the modifier for {name} is outside the current lid bounds");
+        }
+        let mut row = region(name.into(), native, lid);
+        row["world_bounds_mm"] = json!([low[0], high[0], low[1], high[1], low[2], high[2]]);
+        lid_rows.push(row);
     }
-    let lid = bounds["foam-cap-lid-top"];
-    let clipped = clip(native, lid.0, lid.1);
-    if (0..3).any(|axis| clipped[2 * axis + 1] <= clipped[2 * axis]) {
-        bail!("the fore receiver/root modifier is outside the current lid bounds");
-    }
-    let mut fore = region("Reservoir A fore direct C2 pair and lid root".into(), native, lid);
-    fore["world_bounds_mm"] = json!(world);
-    let mut lid_rows = vec![fore];
     let (mut shell_rows, mut bottom_rows) = (Vec::new(), Vec::new());
 
     let bottom = bounds["foam-cap-bottom"];
@@ -143,7 +146,7 @@ fn main() -> Result<()> {
     let frames: Map<String, Value> = paths.iter().map(|(name, _)| (name.to_string(),
         json!("Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates."))).collect();
     let record = json!({
-        "scope": "Finite infill-only modifiers through the fore C2 shared base, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+        "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
         "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
         "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
         "coordinate_frames": frames, "source_sha256": source_sha, "native_artifact_sha256": meshes,
@@ -154,7 +157,8 @@ fn main() -> Result<()> {
         std::fs::create_dir_all(parent)?;
     }
     std::fs::write(&out, serde_json::to_string_pretty(&record)? + "\n")?;
-    println!("{}", serde_json::to_string_pretty(&json!({"path": out.display().to_string(), "source_bounds_mm": clipped,
-        "world_bounds_mm": world, "native_artifact_sha256": record["native_artifact_sha256"]}))?);
+    println!("{}", serde_json::to_string_pretty(&json!({"path": out.display().to_string(),
+        "lid": record["pieces"]["foam-cap-lid-top"].as_array().map(|rows| rows.iter().take(2).cloned().collect::<Vec<_>>()),
+        "native_artifact_sha256": record["native_artifact_sha256"]}))?);
     Ok(())
 }
