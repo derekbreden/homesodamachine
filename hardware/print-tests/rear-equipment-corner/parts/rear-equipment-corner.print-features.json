@@ -6,43 +6,83 @@
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
-        0.1518602220364862,
-        57.44813977796352,
+        6.151860222036486,
+        9.001860222036488,
         392.9532545933731,
         441.6179848073112,
-        327.95,
+        340.45,
         355.0
       ],
       "bounds_source_mm": [
-        3.401860222036486,
-        54.19813977796352,
+        6.151860222036486,
+        9.001860222036488,
         396.2032545933731,
         438.3679848073112,
-        331.2,
+        340.45,
         351.8
       ],
-      "name": "ASSE receiver",
-      "reason": "The fitted room and both chamfered catches print without support."
+      "name": "ASSE west catch pocket",
+      "reason": "The chamfered catch prints without support."
     },
     {
       "blocking_bounds_source_mm": [
-        58.59438431246909,
-        94.40561568753091,
-        416.84571720240064,
-        465.55,
-        334.7,
+        48.59813977796351,
+        51.44813977796352,
+        392.9532545933731,
+        441.6179848073112,
+        340.45,
         355.0
       ],
       "bounds_source_mm": [
-        61.84438431246909,
-        91.15561568753091,
-        420.09571720240064,
-        462.3,
-        337.95,
+        48.59813977796351,
+        51.44813977796352,
+        396.2032545933731,
+        438.3679848073112,
+        340.45,
         351.8
       ],
-      "name": "Pisco receiver",
-      "reason": "The fitted room and both chamfered catches print without support."
+      "name": "ASSE east catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        64.59438431246909,
+        67.44438431246908,
+        416.84571720240064,
+        465.55,
+        340.45,
+        355.0
+      ],
+      "bounds_source_mm": [
+        64.59438431246909,
+        67.44438431246908,
+        420.09571720240064,
+        462.3,
+        340.45,
+        351.8
+      ],
+      "name": "Pisco west catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        85.55561568753092,
+        88.40561568753091,
+        416.84571720240064,
+        465.55,
+        340.45,
+        355.0
+      ],
+      "bounds_source_mm": [
+        85.55561568753092,
+        88.40561568753091,
+        420.09571720240064,
+        462.3,
+        340.45,
+        351.8
+      ],
+      "name": "Pisco east catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
     },
     {
       "blocking_bounds_source_mm": [

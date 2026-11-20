@@ -139,8 +139,7 @@ round the connector wells' row. Whatever stands on that ceiling is rooted in
 it: the ASSE and Pisco receivers, both rear corner columns, the wells, the
 power-supply bosses and the inlet tunnel. A part that stands on a face takes
 its root from that face's own plane, never from a second number for it.
-The meter's sideways channels return to the flank on bevels. The room between
-the meter receiver and the Pisco receiver stays clear, with no corbel in it.
+The meter's sideways channels return to the flank on bevels.
 The meter's fore shoulder, the lip its cap's upper leaf rides over and the open
 west edge of its aft shoulder take support through the open west side. The lip
 bridges from its support to the aft shoulder, and the aft shoulder's first
