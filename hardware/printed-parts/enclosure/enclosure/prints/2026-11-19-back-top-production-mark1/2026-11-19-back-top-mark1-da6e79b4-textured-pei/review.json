@@ -1,13 +1,13 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-ab56b332-textured-pei.gcode.3mf",
-  "archive_sha256": "330188288d225a74bdfbd249eeeb1a87118c691ee4857707587de6e00e06cc36",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf",
+  "archive_sha256": "3001888f5bc333d10f47955aea92610bacab918d6e1d287c959f7b92ae99fabd",
   "bead_envelope_plate_mm": [
     [
-      20.244,
+      20.243000000000002,
       49.291093000000004
     ],
     [
-      304.653,
+      304.451,
       270.707907
     ]
   ],
@@ -15,8 +15,8 @@
   "bed_margins_mm": {
     "back": 49.29209300000002,
     "front": 49.291093000000004,
-    "left": 20.244,
-    "right": 20.34699999999998
+    "left": 20.243000000000002,
+    "right": 20.548999999999978
   },
   "checks": {
     "archive": true,
@@ -33,7 +33,8 @@
     0.02
   ],
   "excluded_support_counts_by_region": {
-    "ASSE receiver": 0,
+    "ASSE east catch pocket": 0,
+    "ASSE west catch pocket": 0,
     "C14 insert pilot 1": 0,
     "C14 insert pilot 2": 0,
     "Covered bulkhead at X28.7999988712316 Z264": 0,
@@ -44,6 +45,7 @@
     "Covered bulkhead at X76.5 Z331.2": 0,
     "East funnel frame insert pilot": 0,
     "Flow meter lower cap pocket": 0,
+    "Flow meter upper cap pocket": 0,
     "Identification channel 1": 0,
     "Identification channel 2": 0,
     "Inlet valve post socket -1/-1": 0,
@@ -51,12 +53,14 @@
     "Inlet valve post socket 1/-1": 0,
     "Inlet valve post socket 1/1": 0,
     "PRV vent mouth": 0,
-    "Pisco receiver": 0,
+    "Pisco east catch pocket": 0,
+    "Pisco west catch pocket": 0,
     "Soda valve post socket -1/-1": 0,
     "Soda valve post socket -1/1": 0,
     "Soda valve post socket 1/-1": 0,
     "Soda valve post socket 1/1": 0,
-    "Water regulator receiver": 0,
+    "Water regulator aft catch pocket": 0,
+    "Water regulator fore catch pocket": 0,
     "West funnel frame insert pilot": 0,
     "east alignment groove": 0,
     "wago-g insertion pocket": 0,
@@ -92,13 +96,13 @@
     }
   },
   "gcode_md5_matches": true,
-  "layers": 1002,
-  "minimum_bed_margin_mm": 20.244,
+  "layers": 1024,
+  "minimum_bed_margin_mm": 20.243000000000002,
   "pass": true,
   "project_check": true,
   "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
   "show_face_contacts": [],
-  "show_face_minimum_bead_clearance_mm": 0.18556520979039898,
+  "show_face_minimum_bead_clearance_mm": 0.47761784750292163,
   "solid_host_deposition": [
     {
       "minimum_coverage": 0.9909995262908574,
@@ -338,7 +342,7 @@
     },
     {
       "minimum_coverage": 0.9971948120524076,
-      "minimum_outline_coverage": 0.9855901189387009,
+      "minimum_outline_coverage": 0.985704483074108,
       "name": "psu bearing pad, insert host and ceiling root and blind floor 1",
       "object": 1901,
       "plate_bounds_mm": [
@@ -367,7 +371,7 @@
           "bead_radius_inset_mm": 0.225,
           "coverage": 0.9971948120524076,
           "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9855901189387009,
+          "outline_coverage": 0.985704483074108,
           "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
           "stock_mm2": 87.44000000000001
@@ -396,8 +400,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9971948120524076,
-      "minimum_outline_coverage": 0.9860761665141812,
+      "minimum_coverage": 0.9187935034802784,
+      "minimum_outline_coverage": 0.9232459463555084,
       "name": "psu bearing pad, insert host and ceiling root and blind floor 2",
       "object": 1901,
       "plate_bounds_mm": [
@@ -424,18 +428,18 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9971948120524076,
-          "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9860761665141812,
+          "coverage": 0.9187935034802784,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9232459463555084,
           "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
+          "stock_mm2": 65.99000000000001
         },
         {
           "bead_radius_inset_mm": 0.225,
           "coverage": 1.0,
           "infill_core_mm2": 56.03000000000001,
-          "outline_coverage": 0.9922336717684498,
+          "outline_coverage": 0.992195787240491,
           "print_z_mm": 10.04,
           "sampling_step_mm": 0.05,
           "stock_mm2": 65.99000000000001
@@ -456,7 +460,7 @@
     },
     {
       "minimum_coverage": 0.9972278142635557,
-      "minimum_outline_coverage": 0.9862477127172918,
+      "minimum_outline_coverage": 0.984503659652333,
       "name": "psu bearing pad, insert host and ceiling root and blind floor 3",
       "object": 1901,
       "plate_bounds_mm": [
@@ -485,7 +489,7 @@
           "bead_radius_inset_mm": 0.225,
           "coverage": 0.9972278142635557,
           "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9862477127172918,
+          "outline_coverage": 0.984503659652333,
           "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
           "stock_mm2": 87.44000000000001
@@ -514,8 +518,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9972278142635557,
-      "minimum_outline_coverage": 0.9844464775846294,
+      "minimum_coverage": 0.9187935034802784,
+      "minimum_outline_coverage": 0.9232838308834672,
       "name": "psu bearing pad, insert host and ceiling root and blind floor 4",
       "object": 1901,
       "plate_bounds_mm": [
@@ -542,18 +546,18 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9972278142635557,
-          "infill_core_mm2": 75.75250000000001,
-          "outline_coverage": 0.9844464775846294,
+          "coverage": 0.9187935034802784,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9232838308834672,
           "print_z_mm": 5.24,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 87.44000000000001
+          "stock_mm2": 65.99000000000001
         },
         {
           "bead_radius_inset_mm": 0.225,
           "coverage": 1.0,
           "infill_core_mm2": 56.03000000000001,
-          "outline_coverage": 0.9922336717684498,
+          "outline_coverage": 0.9921579027125322,
           "print_z_mm": 10.04,
           "sampling_step_mm": 0.05,
           "stock_mm2": 65.99000000000001
@@ -1399,15 +1403,15 @@
       ]
     },
     {
-      "minimum_coverage": 0.9942288450543167,
-      "minimum_outline_coverage": 0.9888679836939479,
+      "minimum_coverage": 0.9941631314498902,
+      "minimum_outline_coverage": 0.9889416111753525,
       "name": "C14 internal insert tunnel and wall roots",
       "object": 1901,
       "plate_bounds_mm": [
         [
           274.7150091552734,
           61.5,
-          6.0
+          2.9499999999999886
         ],
         [
           290.12500915527346,
@@ -1417,22 +1421,22 @@
       ],
       "samples": [
         {
-          "bead_radius_inset_mm": 0.266942,
-          "coverage": 0.9998163360715956,
-          "infill_core_mm2": 864.3846779232045,
-          "outline_coverage": 0.994495002357002,
-          "print_z_mm": 6.44,
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9961998978333187,
+          "infill_core_mm2": 868.7685162642045,
+          "outline_coverage": 0.9945309566231754,
+          "print_z_mm": 3.32,
           "sampling_step_mm": 0.060067440431568406,
           "stock_mm2": 903.1717249732047
         },
         {
-          "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9942288450543167,
-          "infill_core_mm2": 201.93799528320108,
-          "outline_coverage": 0.9888679836939479,
-          "print_z_mm": 23.48,
+          "bead_radius_inset_mm": 0.292852,
+          "coverage": 0.9941631314498902,
+          "infill_core_mm2": 239.84466656760125,
+          "outline_coverage": 0.9889416111753525,
+          "print_z_mm": 22.04,
           "sampling_step_mm": 0.060067440431568406,
-          "stock_mm2": 230.1244521720012
+          "stock_mm2": 271.4624240838014
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -1453,7 +1457,7 @@
         [
           -39.965,
           468.25,
-          349.0
+          352.05
         ]
       ]
     },
@@ -2169,53 +2173,103 @@
   "support_free_regions": [
     {
       "bounds_source_mm": [
+        6.151860222036486,
         9.001860222036488,
-        54.19813977796352,
         396.2032545933731,
         438.3679848073112,
-        331.2,
+        340.45,
         351.8
       ],
       "box_plate_mm": [
         [
           214.57826374864655,
-          168.7518602220365,
+          165.90186022203648,
           -0.25
         ],
         [
           263.7429939625846,
-          217.69813977796352,
-          27.30000000000001
+          169.2518602220365,
+          14.800000000000011
         ]
       ],
-      "name": "ASSE receiver",
+      "name": "ASSE west catch pocket",
       "object": 1901,
-      "reason": "The fitted room and the corbelled east catch print without support; the reachable west catch's support stands outside."
+      "reason": "The chamfered catch prints without support."
     },
     {
       "bounds_source_mm": [
-        61.84438431246909,
-        91.15561568753091,
+        48.59813977796351,
+        51.44813977796352,
+        396.2032545933731,
+        438.3679848073112,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          214.57826374864655,
+          208.34813977796352,
+          -0.25
+        ],
+        [
+          263.7429939625846,
+          211.69813977796352,
+          14.800000000000011
+        ]
+      ],
+      "name": "ASSE east catch pocket",
+      "object": 1901,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        64.59438431246909,
+        67.44438431246908,
         420.09571720240064,
         462.3,
-        337.95,
+        340.45,
         351.8
       ],
       "box_plate_mm": [
         [
           238.47072635767407,
-          218.3443843124691,
+          224.3443843124691,
           -0.25
         ],
         [
           287.6750091552734,
-          254.6556156875309,
-          20.55000000000001
+          227.69438431246908,
+          14.800000000000011
         ]
       ],
-      "name": "Pisco receiver",
+      "name": "Pisco west catch pocket",
       "object": 1901,
-      "reason": "The fitted room and both corbelled catches print without support."
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        85.55561568753092,
+        88.40561568753091,
+        420.09571720240064,
+        462.3,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          238.47072635767407,
+          245.30561568753092,
+          -0.25
+        ],
+        [
+          287.6750091552734,
+          248.6556156875309,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco east catch pocket",
+      "object": 1901,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
     },
     {
       "bounds_source_mm": [
@@ -2244,28 +2298,78 @@
     },
     {
       "bounds_source_mm": [
-        -58.57391030388001,
-        -1.6239103038800042,
-        291.95363371499803,
-        323.3600400329926,
-        335.0,
-        346.5
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        434.0086388104271,
+        305.79999999999995,
+        309.7
       ],
       "box_plate_mm": [
         [
-          113.57864287027147,
-          97.92608969611999,
+          217.13364796570053,
+          247.95,
+          45.05000000000001
+        ],
+        [
+          256.13364796570056,
+          258.75,
+          49.450000000000045
+        ]
+      ],
+      "name": "Flow meter upper cap pocket",
+      "object": 1901,
+      "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
+    },
+    {
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        289.103633714998,
+        291.95363371499803,
+        337.2151460770961,
+        348.56514607709613
+      ],
+      "box_plate_mm": [
+        [
+          110.72864287027144,
+          100.92608969611999,
           -0.25
         ],
         [
-          145.485049188266,
-          161.87608969612,
-          23.5
+          114.07864287027147,
+          144.42608969612,
+          18.034853922903892
         ]
       ],
-      "name": "Water regulator receiver",
+      "name": "Water regulator fore catch pocket",
       "object": 1901,
-      "reason": "The fitted room prints without support; both reachable catches' support stands on either side."
+      "reason": "The chamfered catch prints without support."
+    },
+    {
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        323.3600400329926,
+        326.2100400329926,
+        337.2151460770961,
+        348.56514607709613
+      ],
+      "box_plate_mm": [
+        [
+          144.985049188266,
+          100.92608969611999,
+          -0.25
+        ],
+        [
+          148.33504918826603,
+          144.42608969612,
+          18.034853922903892
+        ]
+      ],
+      "name": "Water regulator aft catch pocket",
+      "object": 1901,
+      "reason": "The chamfered catch prints without support."
     },
     {
       "bounds_source_mm": [
@@ -3193,18 +3297,18 @@
       }
     }
   ],
-  "support_roads": 265374,
+  "support_roads": 231680,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,
-      "bodies_without_interface_labels": 18,
-      "explicit_interface_islands": 25,
+      "bodies_without_interface_labels": 17,
+      "explicit_interface_islands": 22,
       "interface_islands": null,
-      "model_rooted_bodies": 25,
-      "removable_stock_moves": 32846,
+      "model_rooted_bodies": 22,
+      "removable_stock_moves": 32769,
       "shortest_build_up_mm": null,
-      "shortest_labelled_build_up_mm": 7.09,
-      "support_bodies": 30
+      "shortest_labelled_build_up_mm": 8.083,
+      "support_bodies": 27
     }
   },
   "tie_window_support_crossings": []

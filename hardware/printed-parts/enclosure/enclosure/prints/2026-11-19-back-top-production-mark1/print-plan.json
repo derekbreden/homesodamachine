@@ -5,8 +5,8 @@
   "printer": "Mark1",
   "connection_key": "H2C",
   "status": "prepared",
-  "prepared_utc": "2026-11-18T22:16:26+00:00",
-  "source_revision": "0259387aaf2fb92d7a8c9e5c54cb8c80a0b93c04",
+  "prepared_utc": "2026-11-20T05:35:33+00:00",
+  "source_revision": "2a890a19688b8acffb2f6f0c8657e711df26fd0a",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,33 +24,33 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "7363657f40eea55a676e253b484704e5d06b61ffa53b1922d1497abb0c75c0d1",
+  "recipe_sha256": "a866253c1c06001fe7c6cd6a81b6f9a53d7219de9ec134401972ed796c65256a",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-  "source_stl_sha256": "c63df9450f84962520e63810c2ea248f083f440f20931fb05094b50bb2e2737b",
+  "source_stl_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
   "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
-  "source_fine_archive_sha256": "b3f875f7727a500a2e01d7999337f2c7f2e2524bacc8da9e1e6b3fe0fdeb872c",
+  "source_fine_archive_sha256": "f896e4b15edc8132bd7e72391e6e1a729da939b2bd010c8feac25bdf3e21c0d5",
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "print_regions_sha256": "f05d221d39c205037a28fe5f775ed66d93ee6d6e827307d57cbcbd06bf480feb",
-  "archive": "2026-11-18-back-top-mark1-ab56b332-textured-pei.gcode.3mf",
-  "archive_sha256": "330188288d225a74bdfbd249eeeb1a87118c691ee4857707587de6e00e06cc36",
-  "gcode_sha256": "ffad3c0775015eba88e2dfe6b7154f1371c955979c01725fd80cad796ce4f6f8",
-  "project": "2026-11-18-back-top-mark1-ab56b332-textured-pei.3mf",
-  "project_sha256": "010cb51ac68d6b472ed2ebe45d7f38258b8060a575b6b7a0e093ba1c7098cc51",
-  "preparation": "preparation.json",
-  "native_review": "review.json",
+  "print_regions_sha256": "a16df8bf6c08cd4cf51c58225918d02126041aa3fc98ab512cd023c37b0a4548",
+  "archive": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf",
+  "archive_sha256": "3001888f5bc333d10f47955aea92610bacab918d6e1d287c959f7b92ae99fabd",
+  "gcode_sha256": "71dfcaeedd9507f00c9910c0685d98c92bdcd2d994bbcdbcdad7bad14be22fbc",
+  "project": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.3mf",
+  "project_sha256": "5156d06384e65e639fddd00db3a0e0cba3f0281f9a1ebb9d164201e90a7d8cbb",
+  "preparation": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/preparation.json",
+  "native_review": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/review.json",
   "support_audits": [
-    "support-audit-1901.json"
+    "2026-11-19-back-top-mark1-da6e79b4-textured-pei/support-audit-1901.json"
   ],
-  "layers": 1002,
-  "estimated_seconds": 130746.38464784544,
-  "minimum_bead_bed_margin_mm": 20.244,
+  "layers": 1024,
+  "estimated_seconds": 128481.17372611762,
+  "minimum_bead_bed_margin_mm": 20.243000000000002,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
     {
       "bed_contact_z_mm": 0.0,
-      "blocked_facets": 12672,
+      "blocked_facets": 12676,
       "embedded_vertex_error_mm": 5.000018177270249e-10,
       "layer_ranges": [
         [
@@ -68,8 +68,8 @@
       "parts": {
         "modifier_part": 35,
         "normal_part": 4,
-        "support_blocker": 30,
-        "support_enforcer": 37
+        "support_blocker": 34,
+        "support_enforcer": 33
       },
       "placed_bounds_mm": [
         [
@@ -86,12 +86,11 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 316201
+      "vertices": 316065
     }
   ],
   "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-  "print_features_sha256": "28ce930218a8faa488543ae8f023a6621bc4e0c90ad8a880fb51ad2fc4ca1ec8",
-  "replay_sha256": "e5e32c7dbdb26d616eeb5b4428bbf74fa79d8b69c5c8efe4b447cab7f63de3ce",
-  "replay": "print-playbacks/e5e32c7dbdb26d616eeb5b4428bbf74fa79d8b69c5c8efe4b447cab7f63de3ce.json.gz",
-  "support_coverage": "rail-support-coverage.json"
+  "print_features_sha256": "b8aa72a3cd2e136480c7afab3382cb69f373a356dd8f2826753b0d4283c3245e",
+  "replay_sha256": "1c4e28929bc8c5affff2f8133bf7712cb74dcd2f37f2a9c2d5b32701dbe32b02",
+  "replay": "print-playbacks/1c4e28929bc8c5affff2f8133bf7712cb74dcd2f37f2a9c2d5b32701dbe32b02.json.gz"
 }
