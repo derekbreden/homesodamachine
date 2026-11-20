@@ -290,8 +290,8 @@ fn station(axis_x: f64, neck: f64, [y0, y1]: P2, split: f64, root: f64) -> Stati
 
 /// A rear receiver interior that prints with no support: its name, its bounds, and which of its
 /// faces, low then high along X, Y and Z, the box that keeps supports out grows past; a top that
-/// grows reaches the roof. A face beside a reachable catch, an exposed shoulder or a supported
-/// lip stays put, so their support stands clear.
+/// grows reaches the roof. A face beside a reachable catch, an exposed shoulder, a supported lip
+/// or a catch's open lane stays put, so their support stands clear.
 pub struct Interior {
     pub name: &'static str,
     pub bounds: Bounds,
@@ -299,41 +299,52 @@ pub struct Interior {
     pub reason: &'static str,
 }
 
-/// Fitted rooms and chamfered wing channels stay clear of support; accessible body floors
-/// retain their own support targets.
+/// The pocket under each rear receiver catch stays clear of support, from the catch's neck out to
+/// its face and from the catch up to the ceiling. The lane beyond a catch face is open air while
+/// the part prints; the cap's leaf takes it only once the supports are out. Accessible body
+/// floors retain their own support targets.
 pub fn interiors() -> Vec<Interior> {
     let a = running();
     let (asse, pisco) = (asse_station(), pisco_station());
-    let whole = |s: &Station| [s.axis_x - s.outer - a, s.axis_x + s.outer + a, s.y0 - a, s.y1 + a, s.split - a, s.ceiling + a];
+    // A vertical receiver's catch pocket on one side of its axis, along the cap's span.
+    let pocket = |s: &Station, side: f64| {
+        let (x0, x1) = sorted(s.axis_x + side * s.neck, s.axis_x + side * s.ledge);
+        [x0, x1, s.y0 - a, s.y1 + a, seated(s).bearing, s.ceiling + a]
+    };
+    let vertical = [false, false, true, true, false, true];
+    // The water regulator's seat turns a quarter about Z, so its pockets face fore and aft.
+    let regulator = |side: f64| {
+        let [x0, x1, y0, y1, z0, z1] = pocket(&layout().rear_plumbing.regulator_mount.station, side);
+        [-y1, -y0, x0, x1, z0, z1]
+    };
+    let turned = [true, true, false, false, false, true];
+    let unreached = "No tool reaches under this catch to remove support, and the chamfered catch prints without it.";
+    let reached = "The chamfered catch prints without support.";
     let (stock, cap, meter) = meter_print_stock();
     let lower_pocket = [stock[0], stock[1], cap[0] - a, cap[1] + a, stock[4],
                         meter_wire_chamber_bounds()[4] - 2.0 * a];
-    let mount = &layout().rear_plumbing.regulator_mount;
-    let [y0, y1] = regulator_seat();
-    let regulator_room = [-y1, -y0, mount.axis[0] - mount.station.outer - a, mount.axis[0] + mount.station.outer + a,
-                          SPLIT, back_top_ceiling_face() + INTO];
     let middle = (meter.bearing + meter.ceiling + meter.ledge - meter.outer) / 2.0;
     let near = meter.ledge - (middle - meter.bearing);
     let upper_pocket = [stock[0] + meter.bearing, side(), cap[0] - a, cap[1] + a,
                         stock[5] - meter.outer + near - a, stock[5] - meter.outer + meter.ledge - a];
     vec![
-        Interior { name: "ASSE receiver", bounds: whole(&asse), grows: [true; 6],
-                   reason: "The fitted room and both chamfered catches print without support." },
-        Interior { name: "Pisco receiver", bounds: whole(&pisco), grows: [true; 6],
-                   reason: "The fitted room and both chamfered catches print without support." },
+        Interior { name: "ASSE west catch pocket", bounds: pocket(&asse, -1.0), grows: vertical, reason: reached },
+        Interior { name: "ASSE east catch pocket", bounds: pocket(&asse, 1.0), grows: vertical, reason: unreached },
+        Interior { name: "Pisco west catch pocket", bounds: pocket(&pisco, -1.0), grows: vertical, reason: unreached },
+        Interior { name: "Pisco east catch pocket", bounds: pocket(&pisco, 1.0), grows: vertical, reason: unreached },
         Interior { name: "Flow meter lower cap pocket", bounds: lower_pocket,
                    grows: [true, true, false, false, true, false],
                    reason: "Keep support out of the lower hook pocket below the wire chamber floor." },
         Interior { name: "Flow meter upper cap pocket", bounds: upper_pocket, grows: [false; 6],
                    reason: "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support." },
-        Interior { name: "Water regulator receiver", bounds: regulator_room, grows: [true, true, false, false, true, true],
-                   reason: "The fitted room and both chamfered catches print without support." },
+        Interior { name: "Water regulator fore catch pocket", bounds: regulator(-1.0), grows: turned, reason: reached },
+        Interior { name: "Water regulator aft catch pocket", bounds: regulator(1.0), grows: turned, reason: reached },
     ]
 }
 
 /// The meter receiver's two exposed end shoulders, fore then aft. The fore one takes support
-/// under its whole face. The aft one stands over the Pisco receiver, so only its open west edge
-/// takes support, and the rest of its first course bridges from there to the flank.
+/// under its whole face. The aft one takes support under its open west edge, and the rest of its
+/// first course bridges from there to the flank.
 pub fn meter_shoulder_targets() -> [Bounds; 2] {
     let a = running();
     let (stock, cap, s) = meter_print_stock();
@@ -344,8 +355,8 @@ pub fn meter_shoulder_targets() -> [Bounds; 2] {
 /// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
 /// receiver's open west face toward the catch, along the cap pocket as far as the Pisco receiver.
 /// The target stops short of the catch's edge by the slicer's spread of a contact, so the
-/// support stays out of the catch pocket. Under the Pisco a tree could only root against its
-/// fore end stop, so the lip bridges from this support to the aft shoulder there.
+/// support stays out of the catch pocket. From the target's end the lip bridges to the aft
+/// shoulder.
 pub fn meter_lip_target() -> Bounds {
     let a = running();
     let (stock, cap, s) = meter_print_stock();
