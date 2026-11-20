@@ -1,0 +1,93 @@
+{
+  "views": [
+    {
+      "name": "jaw-gap",
+      "caption": "The print-upper jaw moves away from its corbelled lower mate.",
+      "before": "jaw-gap-before.webp",
+      "after": "jaw-gap-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 470.1,
+          "y": 601.9,
+          "r": 39.4,
+          "label": "upper jaw",
+          "at": [
+            92,
+            265,
+            255.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          94.31,
+          245.68629150101523,
+          258.5
+        ],
+        "target": [
+          94.31,
+          265,
+          258.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.262864795684309,
+        "far": 533.8336672902545,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            94.31,
+            265,
+            258.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "69a8a6683792b6daf5e7c3d2c39e74d545831f21e9368acb92f2eb2e8de74b5f",
+          "commit": "09c8da897967c2700022b0dbcd131075b3f2dd6c",
+          "taken": "2026-11-20T06:50:22.463Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8b1c88a2ae7e11d11e9ee985b316fb27defa50ed1412cfdfd004ab32d44f608c",
+          "commit": "fca625e756613d90dc53befb1becd2189f958a1e",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-top",
+        "gas-check",
+        "tube-above-core-gas-core-drop",
+        "gas-regulator",
+        "pisco-snap-cap",
+        "co2-inlet"
+      ]
+    }
+  ]
+}
