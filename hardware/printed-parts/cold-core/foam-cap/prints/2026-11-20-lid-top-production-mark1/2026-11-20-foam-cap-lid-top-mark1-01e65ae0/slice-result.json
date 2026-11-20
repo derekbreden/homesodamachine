@@ -1,0 +1,73 @@
+{
+  "error_string": "Success.",
+  "export_time": 2584,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 58,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 1217.6956787109375,
+        "Bridge": 6560.4619140625,
+        "Custom": 302.9790344238281,
+        "Flush": 15.0,
+        "Gap infill": 150.25904846191406,
+        "Inner wall": 2389.0078125,
+        "Internal solid infill": 4109.07861328125,
+        "Outer wall": 1490.6046142578125,
+        "Overhang wall": 56.44397735595703,
+        "Sparse infill": 8675.611328125,
+        "Support": 707.1124877929688,
+        "Support interface": 52.36343002319336,
+        "Top surface": 829.2559814453125,
+        "Travel": 1879.2467041015625,
+        "Undefined": 1871.966796875
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 250.63436889648438,
+          "total_used_g": 250.63436889648438
+        }
+      ],
+      "generate_support_material_time": 1271,
+      "id": 1,
+      "infill_time": 1135,
+      "layer_filament_change": 0,
+      "main_predication": 28093.125,
+      "make_perimeters_time": 339,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 180.39999389648438,
+            "height": 53.650001525878906,
+            "width": 282.3999938964844,
+            "x": 20.450002670288086,
+            "y": 69.80000305175781,
+            "z": 6.054534651411814e-11
+          },
+          "id": 5,
+          "name": "foam-cap-lid-top",
+          "triangle_count": 43316
+        }
+      ],
+      "sliced_time": 5128,
+      "sliced_time_with_cache": 2308,
+      "total_predication": 42407.370969488904,
+      "triangle_count": 43316,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

@@ -1,0 +1,1013 @@
+{
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.gcode.3mf",
+  "archive_sha256": "e635913d15509b5497b4d7871004e5c3b9f4c3bdedf50659571322adde1dd76c",
+  "bead_envelope_plate_mm": [
+    [
+      20.3282395,
+      69.6782395
+    ],
+    [
+      304.738,
+      250.3217605
+    ]
+  ],
+  "bed_border_mm": 20.0,
+  "bed_margins_mm": {
+    "back": 69.67823949999999,
+    "front": 69.6782395,
+    "left": 20.3282395,
+    "right": 20.262
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "tie_windows_support_free": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9953745999793768,
+      "second_layer_centerline_outside_first_mm": 57.027437846833216,
+      "second_layer_model_bead_area_mm2": 49678.821465398934
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 224,
+  "minimum_bed_margin_mm": 20.262,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.9959696342305038,
+      "minimum_outline_coverage": 0.9913159229208925,
+      "name": "Reservoir A fore direct C2 pair and lid root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          271.70000000000005,
+          204.925,
+          4.400000000000006
+        ],
+        [
+          279.70000000000005,
+          229.575,
+          12.5
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999042198018718,
+          "infill_core_mm2": 182.71000000000004,
+          "outline_coverage": 0.9913159229208925,
+          "print_z_mm": 4.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 197.20000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.255202,
+          "coverage": 0.9959696342305038,
+          "infill_core_mm2": 181.12500000000003,
+          "outline_coverage": 0.9961460446247464,
+          "print_z_mm": 8.6,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 197.20000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.227402,
+          "coverage": 0.9996870109546165,
+          "infill_core_mm2": 79.87500000000001,
+          "outline_coverage": 0.9984053497942387,
+          "print_z_mm": 12.2,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 97.20000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          110.05000000000001,
+          44.925,
+          4.400000000000006
+        ],
+        [
+          118.05000000000001,
+          69.575,
+          12.5
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9935901730876605,
+      "minimum_outline_coverage": 0.993489786371433,
+      "name": "Reservoir A aft C2 pair and lid root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          91.45000000000002,
+          199.425,
+          4.400000000000006
+        ],
+        [
+          104.03682972649912,
+          222.91348637697664,
+          25.135663655251165
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999820727487855,
+          "infill_core_mm2": 278.90500000000003,
+          "outline_coverage": 0.9938618709895306,
+          "print_z_mm": 4.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 296.1000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9935901730876605,
+          "infill_core_mm2": 111.93750000000003,
+          "outline_coverage": 0.993489786371433,
+          "print_z_mm": 14.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 128.26000000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9994531036368608,
+          "infill_core_mm2": 18.285000000000004,
+          "outline_coverage": 0.995774647887324,
+          "print_z_mm": 24.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 26.625000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -70.19999999999999,
+          39.42500000000001,
+          4.400000000000006
+        ],
+        [
+          -57.613170273500884,
+          62.913486376976635,
+          25.135663655251165
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9962560932710186,
+      "minimum_outline_coverage": 0.9878571428571429,
+      "name": "M5 head bearing 1 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          289.55,
+          212.5,
+          0.0010000000000012221
+        ],
+        [
+          302.8489969482422,
+          227.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9979625542161236,
+          "infill_core_mm2": 161.96750000000003,
+          "outline_coverage": 0.9980927806136759,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.27000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9962560932710186,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9878571428571429,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.997311422684557,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9974675324675325,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          127.9,
+          52.5,
+          0.001
+        ],
+        [
+          141.19899694824218,
+          67.5,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9962812201618172,
+      "minimum_outline_coverage": 0.9903246753246753,
+      "name": "M5 head bearing 2 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          289.55,
+          152.5,
+          0.0010000000000012221
+        ],
+        [
+          302.8489969482422,
+          167.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9978082022627996,
+          "infill_core_mm2": 161.96750000000003,
+          "outline_coverage": 0.9980086385819263,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.27000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9962812201618172,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9903246753246753,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9969596462133775,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9971861471861472,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          127.9,
+          -7.5,
+          0.001
+        ],
+        [
+          141.19899694824218,
+          7.5,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9961555857078245,
+      "minimum_outline_coverage": 0.9877272727272727,
+      "name": "M5 head bearing 3 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          289.55,
+          92.5,
+          0.0010000000000012221
+        ],
+        [
+          302.8489969482422,
+          107.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9981940821461096,
+          "infill_core_mm2": 161.96750000000003,
+          "outline_coverage": 0.9983592303808829,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.27000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9961555857078245,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9877272727272727,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9974119302477511,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9975757575757576,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          127.9,
+          -67.5,
+          0.001
+        ],
+        [
+          141.19899694824218,
+          -52.5,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9937892903128077,
+      "minimum_outline_coverage": 0.9853469546772867,
+      "name": "M5 head bearing 4 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          20.451003051757823,
+          212.5,
+          0.0010000000000012221
+        ],
+        [
+          33.75,
+          227.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9979006838213729,
+          "infill_core_mm2": 161.95750000000004,
+          "outline_coverage": 0.9980927271197375,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.26500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9937892903128077,
+          "infill_core_mm2": 99.02250000000002,
+          "outline_coverage": 0.9853469546772867,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9973743341159838,
+          "infill_core_mm2": 99.02250000000002,
+          "outline_coverage": 0.9975542184321025,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -141.19899694824218,
+          52.5,
+          0.001
+        ],
+        [
+          -127.9,
+          67.5,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9892370922167993,
+      "minimum_outline_coverage": 0.9742006132282085,
+      "name": "M5 head bearing 5 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          20.451003051757823,
+          152.5,
+          0.0010000000000012221
+        ],
+        [
+          33.75,
+          167.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9976073970023,
+          "infill_core_mm2": 161.95750000000004,
+          "outline_coverage": 0.9978262698791126,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.26500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9892370922167993,
+          "infill_core_mm2": 97.32500000000002,
+          "outline_coverage": 0.9742006132282085,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 114.15000000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9965065502183406,
+          "infill_core_mm2": 97.32500000000002,
+          "outline_coverage": 0.9966272448532633,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 114.15000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -141.19899694824218,
+          -7.5,
+          0.001
+        ],
+        [
+          -127.9,
+          7.5,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9926531848822238,
+      "minimum_outline_coverage": 0.9854768191853166,
+      "name": "M5 head bearing 6 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          20.451003051757823,
+          96.5,
+          0.0010000000000012221
+        ],
+        [
+          33.75,
+          111.5,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9968664618804316,
+          "infill_core_mm2": 161.95750000000004,
+          "outline_coverage": 0.9971110425490141,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.26500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9926531848822238,
+          "infill_core_mm2": 99.02250000000002,
+          "outline_coverage": 0.9854768191853166,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9960362543866293,
+          "infill_core_mm2": 99.02250000000002,
+          "outline_coverage": 0.9964503701138478,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -141.19899694824218,
+          -63.5,
+          0.001
+        ],
+        [
+          -127.9,
+          -48.5,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9932610606504542,
+      "minimum_outline_coverage": 0.9859206269649611,
+      "name": "M5 head bearing 7 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          109.15,
+          236.9,
+          0.0010000000000012221
+        ],
+        [
+          124.15,
+          250.19899694824218,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9975692445467921,
+          "infill_core_mm2": 156.33000000000004,
+          "outline_coverage": 0.997782672966001,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 172.50500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9932610606504542,
+          "infill_core_mm2": 93.85750000000002,
+          "outline_coverage": 0.9859206269649611,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 109.73500000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9959513091654902,
+          "infill_core_mm2": 93.85750000000002,
+          "outline_coverage": 0.9962637262496014,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 109.73500000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -52.5,
+          76.9,
+          0.001
+        ],
+        [
+          -37.5,
+          90.19899694824218,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9938745032525882,
+      "minimum_outline_coverage": 0.9856499718626899,
+      "name": "M5 head bearing 8 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          109.15,
+          69.80100305175782,
+          0.0010000000000012221
+        ],
+        [
+          124.15,
+          83.1,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9969143459653911,
+          "infill_core_mm2": 161.23000000000002,
+          "outline_coverage": 0.9972092110060864,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.26500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9938745032525882,
+          "infill_core_mm2": 98.76750000000001,
+          "outline_coverage": 0.9856499718626899,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9962538284354672,
+          "infill_core_mm2": 98.76750000000001,
+          "outline_coverage": 0.9965369464525345,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -52.5,
+          -90.19899694824218,
+          0.001
+        ],
+        [
+          -37.5,
+          -76.9,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.993768531081964,
+      "minimum_outline_coverage": 0.987034632034632,
+      "name": "M5 head bearing 9 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          44.150000000000006,
+          236.9,
+          0.0010000000000012221
+        ],
+        [
+          59.150000000000006,
+          250.19899694824218,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9973451464028277,
+          "infill_core_mm2": 161.96750000000003,
+          "outline_coverage": 0.9975458574073035,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.27000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.993768531081964,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.987034632034632,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9978390873913262,
+          "infill_core_mm2": 99.49500000000002,
+          "outline_coverage": 0.9978787878787879,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50000000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -117.5,
+          76.9,
+          0.001
+        ],
+        [
+          -102.5,
+          90.19899694824218,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9938745032525882,
+      "minimum_outline_coverage": 0.9860828535561231,
+      "name": "M5 head bearing 10 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          44.150000000000006,
+          69.80100305175782,
+          0.0010000000000012221
+        ],
+        [
+          59.150000000000006,
+          83.1,
+          7.399999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9984494200831111,
+          "infill_core_mm2": 161.23000000000002,
+          "outline_coverage": 0.998541497209211,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 178.26500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9938745032525882,
+          "infill_core_mm2": 98.76750000000001,
+          "outline_coverage": 0.9860828535561231,
+          "print_z_mm": 3.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9971397473865391,
+          "infill_core_mm2": 98.76750000000001,
+          "outline_coverage": 0.9967100991299078,
+          "print_z_mm": 7.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.50500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -117.5,
+          -90.19899694824218,
+          0.001
+        ],
+        [
+          -102.5,
+          -76.9,
+          7.4
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9983874708695508,
+      "minimum_outline_coverage": 0.9918460400920145,
+      "name": "pcba insert post 1 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          203.74707997994963,
+          72.50000610351563,
+          0.0010000000000012221
+        ],
+        [
+          219.74707997994963,
+          88.50000610351563,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210127,
+          "coverage": 1.0,
+          "infill_core_mm2": 243.36000000000004,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 256.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9983874708695508,
+          "infill_core_mm2": 226.35250000000005,
+          "outline_coverage": 0.9918460400920145,
+          "print_z_mm": 5.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 243.44000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.3342945,
+          "coverage": 1.0,
+          "infill_core_mm2": 51.19000000000001,
+          "outline_coverage": 0.9984846188816487,
+          "print_z_mm": 10.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          42.097079979949626,
+          -87.49999389648437,
+          0.001
+        ],
+        [
+          58.097079979949626,
+          -71.49999389648437,
+          11.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9983874708695508,
+      "minimum_outline_coverage": 0.9919487348011831,
+      "name": "pcba insert post 2 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          203.74707997994963,
+          138.80000610351564,
+          0.0010000000000012221
+        ],
+        [
+          219.74707997994963,
+          154.80000610351564,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210127,
+          "coverage": 1.0,
+          "infill_core_mm2": 243.36000000000004,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 256.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9983874708695508,
+          "infill_core_mm2": 226.35250000000005,
+          "outline_coverage": 0.9919487348011831,
+          "print_z_mm": 5.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 243.44000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.334295,
+          "coverage": 0.9997639282341831,
+          "infill_core_mm2": 63.54000000000001,
+          "outline_coverage": 0.9984181937563421,
+          "print_z_mm": 10.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 83.76500000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          42.097079979949626,
+          -21.199993896484365,
+          0.001
+        ],
+        [
+          58.097079979949626,
+          -5.199993896484365,
+          11.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9983874708695508,
+      "minimum_outline_coverage": 0.9917433453828459,
+      "name": "pcba insert post 3 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          281.7470799799496,
+          72.50000610351563,
+          0.0010000000000012221
+        ],
+        [
+          297.7470799799496,
+          88.50000610351563,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 241.80250000000004,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 256.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9983874708695508,
+          "infill_core_mm2": 226.35250000000005,
+          "outline_coverage": 0.9917433453828459,
+          "print_z_mm": 5.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 243.44000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.334294,
+          "coverage": 1.0,
+          "infill_core_mm2": 51.19000000000001,
+          "outline_coverage": 0.9984846188816487,
+          "print_z_mm": 10.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          120.09707997994963,
+          -87.49999389648437,
+          0.001
+        ],
+        [
+          136.09707997994963,
+          -71.49999389648437,
+          11.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9982438895086204,
+      "minimum_outline_coverage": 0.9929859513637858,
+      "name": "pcba insert post 4 and plate root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          281.7470799799496,
+          138.80000610351564,
+          0.0010000000000012221
+        ],
+        [
+          297.7470799799496,
+          154.80000610351564,
+          11.0
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210127,
+          "coverage": 1.0,
+          "infill_core_mm2": 243.36000000000004,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 256.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9982438895086204,
+          "infill_core_mm2": 226.35250000000005,
+          "outline_coverage": 0.9929859513637858,
+          "print_z_mm": 5.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 243.44000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.334295,
+          "coverage": 1.0,
+          "infill_core_mm2": 51.19000000000001,
+          "outline_coverage": 0.9984846188816487,
+          "print_z_mm": 10.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          120.09707997994963,
+          -21.199993896484365,
+          0.001
+        ],
+        [
+          136.09707997994963,
+          -5.199993896484365,
+          11.0
+        ]
+      ]
+    }
+  ],
+  "support_roads": 82574,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 3,
+      "explicit_interface_islands": 8,
+      "interface_islands": null,
+      "model_rooted_bodies": 10,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": 6.96,
+      "support_bodies": 11
+    }
+  },
+  "tie_window_support_crossings": []
+}
