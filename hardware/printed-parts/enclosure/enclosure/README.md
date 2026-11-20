@@ -1119,7 +1119,7 @@ remain the production datums.
 
 Back-top carries six direct tube seats and three single-arm cable clips on its
 existing roof and wall stock. The quarter-inch fill guide uses the selected C2
-section with a **6.35 mm bore** and **2.40 mm wings**. The five 4 mm tube seats
+section with a **6.35 mm bore** and [source-selected wings](quadrants/routes.rs). The five 4 mm tube seats
 use **4.10 mm bores** and proportionally sized **1.52 mm spring wings**. The cable
 seats match the relay ribbon, DC power pair and one V-K lead; no generic oversized
 pocket gathers unrelated wires.

@@ -1,0 +1,72 @@
+{
+  "error_string": "Success.",
+  "export_time": 880,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 21,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 10.479243278503418,
+        "Bridge": 40.510711669921875,
+        "Custom": 304.6171875,
+        "Flush": 15.0,
+        "Gap infill": 0.5294888019561768,
+        "Inner wall": 53.97245407104492,
+        "Internal solid infill": 41.05385208129883,
+        "Outer wall": 77.90422821044922,
+        "Overhang wall": 3.6774208545684814,
+        "Prime tower": 2539.20166015625,
+        "Sparse infill": 133.42576599121094,
+        "Top surface": 7.111159801483154,
+        "Travel": 126.53009796142578,
+        "Undefined": 117.82212829589844
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 3.235740900039673,
+          "total_used_g": 6.726992130279541
+        }
+      ],
+      "generate_support_material_time": 2,
+      "id": 1,
+      "infill_time": 10,
+      "layer_filament_change": 0,
+      "main_predication": 480.21240234375,
+      "make_perimeters_time": 10,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 16.886173248291016,
+            "height": 25.079986572265625,
+            "width": 24.0,
+            "x": 150.5,
+            "y": 176.55691528320312,
+            "z": -1.3281287181143853e-10
+          },
+          "id": 5,
+          "name": "tube-snap-corbel",
+          "triangle_count": 986
+        }
+      ],
+      "sliced_time": 168,
+      "sliced_time_with_cache": 134,
+      "total_predication": 3517.658258928036,
+      "triangle_count": 986,
+      "warning_message": "It seems object tube-snap-corbel has floating regions. Please re-orient the object or enable support generation."
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

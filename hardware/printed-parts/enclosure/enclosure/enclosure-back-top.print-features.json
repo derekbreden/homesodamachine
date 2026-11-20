@@ -184,7 +184,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "3a20ef0eefef64208bcb51f6eecde427b65379691439cb0102b4f561ddeb0db9",
+  "source_stl_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -1218,18 +1218,6 @@
       ],
       "name": "Accessible soda valve seat underside",
       "reason": "Support the cantilevered seat from its first underside course, below the protected valve sockets."
-    },
-    {
-      "bounds_source_mm": [
-        88.735,
-        99.885,
-        261.0,
-        269.0,
-        262.442120305115,
-        268.365
-      ],
-      "name": "Accessible tube seat outer underside",
-      "reason": "Support the accessible outer contact land while leaving the fitted bore roof outside the target."
     },
     {
       "bounds_source_mm": [

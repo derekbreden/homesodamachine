@@ -1,0 +1,40 @@
+{
+  "bounds_mm": [
+    [
+      90.61382585152984,
+      253.0,
+      250.0
+    ],
+    [
+      107.5,
+      277.0,
+      275.0800000000745
+    ]
+  ],
+  "connected_solids": 1,
+  "coupon_stl_sha256": "780cc17f1aa549d58973d60a136d7608ce5005887125343025e47f5ee5971d9b",
+  "inputs": {
+    "crop_max_mm": [
+      111.0,
+      277.0,
+      275.08
+    ],
+    "crop_min_mm": [
+      86.0,
+      253.0,
+      250.0
+    ],
+    "print_up_source": [
+      0,
+      0,
+      -1
+    ],
+    "purpose": "Retain the production fill tube snap and its complete east wall for a support-free flex and fit print.",
+    "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+    "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
+  },
+  "source_model_sha256": "f896e4b15edc8132bd7e72391e6e1a729da939b2bd010c8feac25bdf3e21c0d5",
+  "source_stl_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
+  "volume_mm3": 5963.324815509518,
+  "watertight": true
+}

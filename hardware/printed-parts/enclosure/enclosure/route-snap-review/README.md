@@ -15,7 +15,7 @@ those sources rather than a second coordinate table here.
 
 | Route | Host | Nominal tube OD | CAD bore | Functional spring wall | Span along tube |
 | --- | --- | ---: | ---: | ---: | ---: |
-| Reservoir A fill, `fluid-14` | East wall | 6.35 mm | 6.35 mm | 2.40 mm | 8 mm |
+| Reservoir A fill, `fluid-14` | East wall | 6.35 mm | 6.35 mm | [source-selected](../quadrants/routes.rs) | 8 mm |
 | Flavor A, `fluid-18`, two seats | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm each |
 | Flavor B, `fluid-28`, two seats | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm each |
 | `drain-vent` | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm |
@@ -24,6 +24,9 @@ Each seat uses the C2 circular section, rounded noses and 125.421° wrap per win
 The 4 mm section scales the functional spring thickness from C2's proportions;
 its fit and flex are estimates. Each clip spans the full 8 mm along its tube.
 Filled roots retain the common simple profile through to the host face.
+The east-wall fill seat has a corbel from its print-down wing tip to the wall,
+leaving the other wing free to spring. Its corbel and wing section print without
+a support target.
 The two flavor tubes share one broad filled base at each roof station, Y354
 and Y390. Flavor A's axis is X−45 and flavor B's is X−55, both at Z343 mm.
 Their gentle rise reaches the straight roof run at Y348; each 8 mm seat
@@ -87,8 +90,8 @@ routing clips.
 ## Evidence and fit scope
 
 The [combined plate's physical result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
-selects **C2 with the 6.35 mm CAD bore** for present use, retaining its 2.40 mm
-wings and 125.421° wrap. A smaller bore is optional future tuning. The selected
+establishes the **C2 6.35 mm CAD bore** and wrap for the quarter-inch tube. The
+east-wall seat uses thinner wings and a corbel; its fit awaits this print trial. The selected
 **16 mm-span 4P ribbon clip** has accepted fit and qualitative retention: the
 ribbon fits perfectly and stays put, with angling and pulling used for entry.
 

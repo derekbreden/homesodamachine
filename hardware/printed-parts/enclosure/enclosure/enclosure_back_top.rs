@@ -163,15 +163,6 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     valve_underside[5] += catalog::running();
     targets.push(json!({"name":"Accessible soda valve seat underside","bounds_source_mm":valve_underside,
         "reason":"Support the cantilevered seat from its first underside course, below the protected valve sockets."}));
-    // A cable hook's beak land overhangs its arm too little to need support; front-bottom prints
-    // the same hook section in the same pose without any. Only the tube seat takes a target.
-    for (name, bounds) in routes::underside_support_regions(quadrant::Quadrant::BACK_TOP)
-        .into_iter()
-        .filter(|(name, _)| !name.starts_with("Accessible cable hook"))
-    {
-        targets.push(json!({"name":name,"bounds_source_mm":bounds,
-            "reason":"Support the accessible outer contact land while leaving the fitted bore roof outside the target."}));
-    }
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(
         &b.inner,
         b.y_joint,
