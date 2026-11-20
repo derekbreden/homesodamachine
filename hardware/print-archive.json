@@ -600,6 +600,12 @@
       "bytes": 247114,
       "sha256": "e1e9f2ed155d709b51d40cf16a7ce9e003da1db2cf348e93319842e781968d03"
     },
+    "12914f6f0ee37aeaf385fd3e752ee3cc694a7438": {
+      "archive": "back-top-meter-shoulder-be7e0bd84f587c28.zip",
+      "bytes": 5870574,
+      "offset": 74,
+      "sha256": "7e1349eebc4ae7a62a90a255cf013e71fd65d95b09bdfd4e5948edb5f0a69526"
+    },
     "12b13dd00eb7e32b8ce7669a896a86b3f46d7fec": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 409520227,
@@ -1787,6 +1793,12 @@
       "offset": 1105347163,
       "bytes": 1519827,
       "sha256": "e84adca58c3387952b190199116571b304755a6cfa6ddc49992271bed49f8b56"
+    },
+    "399c27b43056ee8ee0504847f1f6903fa787033b": {
+      "archive": "back-top-meter-shoulder-be7e0bd84f587c28.zip",
+      "bytes": 45097157,
+      "offset": 5870722,
+      "sha256": "f494125816f51a7d3ac35d700c2db7ae86cb5a1da0c77d51a760d198dba2e0e8"
     },
     "39cd0c104f58bb0388ec688e7e266f5e4c262493": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
@@ -7855,8 +7867,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-12ea2620-textured-pei.gcode.3mf": "7bcacc7cd6fae292fb1d3157ad58dafce466d940",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-ab56b332-textured-pei.3mf": "4f0206ee55a2171c0e1d569168461bd42636dab3",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-ab56b332-textured-pei.gcode.3mf": "b58c7c4f95c70f51e5e54cebbe6db7ed966d9ec7",
-    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.3mf": "598f8cfa80077f5919c9423475a1b19b081cdb76",
-    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf": "c2fe23216420a7d1dfea250118d8c6780388e7f5",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.3mf": "12914f6f0ee37aeaf385fd3e752ee3cc694a7438",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf": "399c27b43056ee8ee0504847f1f6903fa787033b",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf": "7fdee04e0a1bcf37186cb0e630e3486c79d9707b",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf": "61d9703060857159ef65d14852111ccefc55a1f2",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "3083c67d48a9798124749e605cc7b87a738f8dea",
