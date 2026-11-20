@@ -5,8 +5,8 @@
   "printer": "Mark1",
   "connection_key": "H2C",
   "status": "prepared",
-  "prepared_utc": "2026-11-20T05:35:33+00:00",
-  "source_revision": "2a890a19688b8acffb2f6f0c8657e711df26fd0a",
+  "prepared_utc": "2026-11-20T05:57:57+00:00",
+  "source_revision": "71e368eb9ed9070a1153590df8b2c80fb61bca3c",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -34,17 +34,17 @@
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
   "print_regions_sha256": "a16df8bf6c08cd4cf51c58225918d02126041aa3fc98ab512cd023c37b0a4548",
   "archive": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf",
-  "archive_sha256": "3001888f5bc333d10f47955aea92610bacab918d6e1d287c959f7b92ae99fabd",
-  "gcode_sha256": "71dfcaeedd9507f00c9910c0685d98c92bdcd2d994bbcdbcdad7bad14be22fbc",
+  "archive_sha256": "f494125816f51a7d3ac35d700c2db7ae86cb5a1da0c77d51a760d198dba2e0e8",
+  "gcode_sha256": "dca03bf5aa959960fe94adffa3505a7a4061eb1d13edba17318a54c1d7e47c84",
   "project": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.3mf",
-  "project_sha256": "5156d06384e65e639fddd00db3a0e0cba3f0281f9a1ebb9d164201e90a7d8cbb",
+  "project_sha256": "7e1349eebc4ae7a62a90a255cf013e71fd65d95b09bdfd4e5948edb5f0a69526",
   "preparation": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/preparation.json",
   "native_review": "2026-11-19-back-top-mark1-da6e79b4-textured-pei/review.json",
   "support_audits": [
     "2026-11-19-back-top-mark1-da6e79b4-textured-pei/support-audit-1901.json"
   ],
   "layers": 1024,
-  "estimated_seconds": 128481.17372611762,
+  "estimated_seconds": 128589.93935111762,
   "minimum_bead_bed_margin_mm": 20.243000000000002,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
@@ -90,7 +90,7 @@
     }
   ],
   "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-  "print_features_sha256": "b8aa72a3cd2e136480c7afab3382cb69f373a356dd8f2826753b0d4283c3245e",
-  "replay_sha256": "1c4e28929bc8c5affff2f8133bf7712cb74dcd2f37f2a9c2d5b32701dbe32b02",
-  "replay": "print-playbacks/1c4e28929bc8c5affff2f8133bf7712cb74dcd2f37f2a9c2d5b32701dbe32b02.json.gz"
+  "print_features_sha256": "126449bbd0f8d3d747d15a51122bdf8ed6883e8d94fad357f81eef25fbbcc55c",
+  "replay_sha256": "2d9ec847cf0a4a51855c8f7a1819c6bd29178d9018b2d6d07c574d8196913c98",
+  "replay": "print-playbacks/2d9ec847cf0a4a51855c8f7a1819c6bd29178d9018b2d6d07c574d8196913c98.json.gz"
 }

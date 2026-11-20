@@ -1,6 +1,6 @@
 {
   "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf",
-  "archive_sha256": "3001888f5bc333d10f47955aea92610bacab918d6e1d287c959f7b92ae99fabd",
+  "archive_sha256": "f494125816f51a7d3ac35d700c2db7ae86cb5a1da0c77d51a760d198dba2e0e8",
   "bead_envelope_plate_mm": [
     [
       20.243000000000002,
@@ -3297,18 +3297,18 @@
       }
     }
   ],
-  "support_roads": 231680,
+  "support_roads": 236362,
   "support_topology": {
     "1901": {
       "bed_rooted_bodies": 5,
       "bodies_without_interface_labels": 17,
       "explicit_interface_islands": 22,
       "interface_islands": null,
-      "model_rooted_bodies": 22,
+      "model_rooted_bodies": 21,
       "removable_stock_moves": 32769,
       "shortest_build_up_mm": null,
       "shortest_labelled_build_up_mm": 8.083,
-      "support_bodies": 27
+      "support_bodies": 26
     }
   },
   "tie_window_support_crossings": []
