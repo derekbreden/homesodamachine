@@ -1,0 +1,197 @@
+{
+  "views": [
+    {
+      "name": "pisco-hooks",
+      "caption": "Cut through the Pisco cover seated in its receiver, looking aft. Each leaf ends in a point under the ceiling, and each catch is cut into the receiver's corner.",
+      "before": "pisco-hooks-before.webp",
+      "after": "pisco-hooks-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 168,
+          "y": 75.1,
+          "r": 75,
+          "label": "point",
+          "at": [
+            62.1,
+            426,
+            351
+          ]
+        },
+        {
+          "x": 285,
+          "y": 345,
+          "r": 75,
+          "label": "catch",
+          "at": [
+            66,
+            426,
+            342
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          76.5,
+          -177.48121999536215,
+          350.56962439990724
+        ],
+        "target": [
+          76.5,
+          426,
+          338.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 15,
+        "near": 277.09492799476277,
+        "far": 930.9969908479253,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            76.5,
+            426,
+            338
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "16beb1f1e106d9307581515e66e3c25a14abff06e2c839a2a6d3c3b38a14fed2",
+          "commit": "64828ed939f5727fd50ff60f9b49ae1a8d6c8e12",
+          "taken": "2026-11-20T03:24:24.952Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e861c54f99930dac87f38b10e5fdd55f31bedc15cd95cd5c9c1245df4024b041",
+          "commit": "02aa1918c2e084178aff42eeb66a8f893f8eaeb6",
+          "published": true
+        }
+      },
+      "changed": [
+        "regulator-snap-cap",
+        "enclosure-back-top",
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter-hook",
+      "caption": "Cut through the meter cover's upper leaf, looking aft: its point runs to just short of the flank.",
+      "before": "meter-hook-before.webp",
+      "after": "meter-hook-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 995,
+          "y": 280,
+          "r": 75,
+          "label": "point",
+          "at": [
+            97.9,
+            415,
+            312.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          90,
+          -188.48121999536215,
+          321.06962439990724
+        ],
+        "target": [
+          90,
+          415,
+          309
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 9,
+        "near": 285.61394338875243,
+        "far": 939.516006241915,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            90,
+            415,
+            300
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "meter-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "meter-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "16beb1f1e106d9307581515e66e3c25a14abff06e2c839a2a6d3c3b38a14fed2",
+          "commit": "64828ed939f5727fd50ff60f9b49ae1a8d6c8e12",
+          "taken": "2026-11-20T03:24:24.952Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e861c54f99930dac87f38b10e5fdd55f31bedc15cd95cd5c9c1245df4024b041",
+          "commit": "02aa1918c2e084178aff42eeb66a8f893f8eaeb6",
+          "published": true
+        }
+      },
+      "changed": [
+        "regulator-snap-cap",
+        "enclosure-back-top",
+        "asse-snap-cap",
+        "pisco-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
