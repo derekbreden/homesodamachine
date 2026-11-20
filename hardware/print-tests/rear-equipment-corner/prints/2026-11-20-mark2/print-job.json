@@ -67,6 +67,7 @@
   },
   "launch": "launch.json",
   "prelaunch_status": "prelaunch-status.json",
+  "startup_status": "startup-status.json",
   "startup_spacing": {
     "other_printer": "Mark1",
     "other_task_id": "1464748974",
