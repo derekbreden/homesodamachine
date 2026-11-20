@@ -1,0 +1,122 @@
+{
+  "views": [
+    {
+      "name": "clips",
+      "caption": "The lid's aft station for reservoir A's two lines, seen from the south-east. The tied saddle with its slot is replaced by two snap clips that follow the lines' turns: the draw line's on the taller root, the fill line's filled square against it.",
+      "before": "clips-before.webp",
+      "after": "clips-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          68.46847802373975,
+          361.0504351620164,
+          286.45586923323566
+        ],
+        "target": [
+          51,
+          389,
+          262
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.15824857258962838,
+        "far": 418.50972337626575,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8b1c88a2ae7e11d11e9ee985b316fb27defa50ed1412cfdfd004ab32d44f608c",
+          "commit": "3562fcfc326e65ad563ca2a97466401f8f9ec862",
+          "taken": "2026-11-20T23:31:29.974Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f70b15c640097f44cfb6a3d17dbe7301efda5c4ff01b4ec236d481f5bc3e4115",
+          "commit": "f250589af1cb456cf44db319f71cb025b7677224",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "lines",
+      "caption": "The same station from the south-west with both lines in place. They keep their routes and press down into the clips' open mouths.",
+      "before": "lines-before.webp",
+      "after": "lines-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          30.60520934233702,
+          361.18892183045955,
+          284.2488625356323
+        ],
+        "target": [
+          51,
+          389,
+          262
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.15649986059569745,
+        "far": 481.4403035363049,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "tube-fluid-14",
+        "tube-fluid-16"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8b1c88a2ae7e11d11e9ee985b316fb27defa50ed1412cfdfd004ab32d44f608c",
+          "commit": "3562fcfc326e65ad563ca2a97466401f8f9ec862",
+          "taken": "2026-11-20T23:31:29.974Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f70b15c640097f44cfb6a3d17dbe7301efda5c4ff01b4ec236d481f5bc3e4115",
+          "commit": "f250589af1cb456cf44db319f71cb025b7677224",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
