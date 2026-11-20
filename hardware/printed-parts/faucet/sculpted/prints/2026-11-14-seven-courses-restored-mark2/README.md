@@ -23,7 +23,7 @@ each foundation the level courses keep the
 wall and rear scarf settings. On the base, and on the tip below its end, the slicer lays walls
 at their own speed through its shallow overhang points and slows them from there toward its
 steeper points, where the fan comes on; steeper overhangs, bridges and their fan, and the
-cover, mounting plate and lever keep the slicer's recipe. [`stage/overhang-scope.py`](stage/overhang-scope.py)
+cover, mounting plate and lever keep the slicer's recipe. [`stage/overhang-scope.py`](https://github.com/derekbreden/homesodamachine/blob/4beaa725a8/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/stage/overhang-scope.py)
 sets that in the slicer's own settings, and the [course record](course-scope.json) reads it
 back from the slice.
 

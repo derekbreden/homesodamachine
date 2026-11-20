@@ -4,10 +4,13 @@ The [retained inputs](run-inputs.zip) hold the sliced project and its native sli
 wrote it, the [stopped short-foundation plate's](https://github.com/derekbreden/homesodamachine/tree/93eee62ef1197db2fe70e3fbec278826502d2794/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-mark2)
 sliced project and a slice of it as the slicer wrote it, the plate's print report, the base mesh,
 and the tip's inclined donor courses with their warp. The sliced project is the stopped plate's
-with [`stage/overhang-scope.py`](stage/overhang-scope.py) applied, which the first step checks.
+with [`stage/overhang-scope.py`](https://github.com/derekbreden/homesodamachine/blob/4beaa725a8/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2/stage/overhang-scope.py) applied, which the first step checks.
 Slicing either project again lays the same beads apart from the slicer's own tree-support
 differences between runs; the retained slices are the ones this plate was built from, and they
 lay the same beads at the tip's end.
+
+`stage/overhang-scope.py` and the `sculpted-trial` stage `splice-tip-end`, which the commands
+below run, are in Git at [`4beaa725a8`](https://github.com/derekbreden/homesodamachine/tree/4beaa725a8).
 
 ```sh
 trial="$PWD/hardware/printed-parts/faucet/sculpted/prints/2026-11-14-seven-courses-restored-mark2"

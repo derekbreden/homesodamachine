@@ -4,6 +4,9 @@ Run from the checkout root. The prior ready archive supplies the exact base, mou
 and lever. The full native slice supplies the revised cover and the tip’s level source.
 The editable project contains the flat-faced tip and cover in their print poses.
 
+This folder's Python scripts, which the commands below run, are in Git at
+[`4beaa725a8`](https://github.com/derekbreden/homesodamachine/tree/4beaa725a8).
+
 ```sh
 sculpted='hardware/printed-parts/faucet/sculpted'
 trial="$PWD/$sculpted/prints/2026-11-14-tip-shoulder-mark2"

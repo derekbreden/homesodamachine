@@ -3,6 +3,9 @@
 Run from the checkout root. The saved native slices reproduce the exact commands
 accepted by the printer.
 
+This folder's scripts and `sculpted-faucet-print-project`, which the commands below run, are
+in Git at [`4beaa725a8`](https://github.com/derekbreden/homesodamachine/tree/4beaa725a8).
+
 ```sh
 sculpted='hardware/printed-parts/faucet/sculpted'
 trial="$PWD/$sculpted/prints/2026-11-14-plug-ramp-mark2"
