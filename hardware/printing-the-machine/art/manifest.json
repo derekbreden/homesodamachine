@@ -341,16 +341,6 @@
    "source_sha256": "4bb3dcec41807ba0d656f7fd1d6b06b2f8ab846259561cd46a5baedfde3e240e",
    "image_sha256": "b14ad7aa86568f365c0b03836a9a8524c0c0bca021fabf881dc6e7042c8c16dc"
   },
-  "petgf-supports-coupon-in-hand.jpg": {
-   "kind": "Bench photograph",
-   "source": "hardware/print-tests/rear-snap-retention/physical-result/asse-fit.jpg",
-   "revision": null,
-   "max_px": 1700,
-   "width_px": 480,
-   "made_with": "magick auto-orient",
-   "source_sha256": "569b9f2d8f379f80c6cbf921de9febdf830378b875dc28bce75c38fd6e476678",
-   "image_sha256": "077a29144a9f2760f1b7c282169dcfa24848599aa9cd11d0c9c13ed070c2d48d"
-  },
   "petgf-supports-de-ceilings.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/close-contact/photos/01-D-E-undersides.jpg",
