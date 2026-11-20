@@ -1,0 +1,192 @@
+{
+  "views": [
+    {
+      "name": "corner",
+      "caption": "The east corner of the rear wall's relief, seen from inside and above, with the wall cut just ahead of it. The relief's level end face printed as a bridge in the ceiling-down print; the relief now runs straight on to the rim.",
+      "before": "corner-before.webp",
+      "after": "corner-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 618.9,
+          "y": 410.9,
+          "r": 124.6,
+          "label": "bridge",
+          "at": [
+            86.5,
+            464,
+            250
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          77.00484752441758,
+          444.0107722764835,
+          263.99192079263736
+        ],
+        "target": [
+          86,
+          464,
+          249
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.26361705057624396,
+        "far": 534.209794736222,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            462.4,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bc22b2225f2344f6be611a9a977f0a04229778b6eafa51c5429c1d12c0f2b7c4",
+          "commit": "630c3685dc64c1ea9efbd74c67e12ebf4947badb",
+          "taken": "2026-11-20T06:37:38.632Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8b1c88a2ae7e11d11e9ee985b316fb27defa50ed1412cfdfd004ab32d44f608c",
+          "commit": "c228ea327ad04681141c006312888cee3a7fd2cf",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": [
+        "gas-check",
+        "tube-above-core-gas-core-drop",
+        "gas-regulator",
+        "bulkhead-carb-nut",
+        "pisco-snap-cap",
+        "co2-inlet",
+        "bulkhead-drain-nut",
+        "bulkhead-flavor-a-nut",
+        "bulkhead-flavor-b-nut"
+      ]
+    },
+    {
+      "name": "rear-wall",
+      "caption": "The same wall from further back, east to the right, with the two lowest fittings' bores at the top. The relief and the cold core's pocket below it are one face.",
+      "before": "rear-wall-before.webp",
+      "after": "rear-wall-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 781.8,
+          "y": 324,
+          "r": 59.3,
+          "label": "bridge",
+          "at": [
+            88.2,
+            463.8,
+            250
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          30.70177718886417,
+          346.8392572962139,
+          261.88536339483295
+        ],
+        "target": [
+          66,
+          464.5,
+          236
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.06490559107537307,
+        "far": 434.8540649857866,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            462.4,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bc22b2225f2344f6be611a9a977f0a04229778b6eafa51c5429c1d12c0f2b7c4",
+          "commit": "630c3685dc64c1ea9efbd74c67e12ebf4947badb",
+          "taken": "2026-11-20T06:37:38.632Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "8b1c88a2ae7e11d11e9ee985b316fb27defa50ed1412cfdfd004ab32d44f608c",
+          "commit": "c228ea327ad04681141c006312888cee3a7fd2cf",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top"
+      ],
+      "withinMeshing": [
+        "gas-check",
+        "tube-above-core-gas-core-drop",
+        "gas-regulator",
+        "bulkhead-carb-nut",
+        "pisco-snap-cap",
+        "co2-inlet",
+        "bulkhead-drain-nut",
+        "bulkhead-flavor-a-nut",
+        "bulkhead-flavor-b-nut"
+      ]
+    }
+  ]
+}
