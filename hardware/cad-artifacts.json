@@ -17,8 +17,8 @@
     "solids": 1045
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "aaacc6a8b229f3891e9e5900df74c3f23381580818c0a152e563a43e55c65210",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "8662b41ab9540ced1b2c274cfdc1dacb4c56127c57a030c6b21fee6950b7a824",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "c44b1843f81334b1e70083a1b9e21b3dabda35e88b21ad642d194c3fb8b8f184",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "824c8ce46a64b8615071fe17134f4a37dcb6635a4218b7c2d682c2a73294afae",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "a39f0aed07348bc9655fb8731ae3d205e2f4940e669aa83a76a3fefa49ec44c2",
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "08ba3d0664ac57152bef2d5fe939dd536975446b5c1c089999b4bfe7173a63e6",
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "1ef9eb11cc481182d750ec6b94abde0370d89b904926b7a00a3fa65872c9e911",
@@ -83,7 +83,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "13e78820ff73941f18235d3a7b9d7434c284764ac4c96fbedd406f61fdd6764e",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "02582c01f91ee1729281d25f4fa8c00742d437a80b013d96f5f2378a35d3ae8d",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4e9aaaa82d06245f371785b35427b8b76592abf7a7a89e7f938c413a142e0750",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -283,10 +283,10 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": "6db13531cb5868a7ca5724a1cc6b548bc009643eaed9e21258946158f7f6b0dc",
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": "269f001bfd0bfc5b91b6129b5b55718dee694cbba1e550cdd84ff169c7dbc963",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "8825f14169f460c8823d68f4f84a5340d130f50b267748fc04e0638648620f44",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "e664a81f77946423f21c745fb50ce097516d8cc2f20732596587cfe9d158f6c0",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "289185df660108b21170ae0f6f5c80fb36fbd359a14e5583c6b53a2d986a221d",
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "4de17d99fc68fc167ccef8b4a7ed8433b0c12c81ca3e87b2aa3c03be0bea1cf7",
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": "374e90d4a4186a0f737a87e2770da819046ebf8aa1df2cad847479771fbdca2d",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": "64d22eb792e2aca868b30b7862c28cf660e4e98d708fe0b883fe77e976139f1f",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": "de55ee557b926bfe2f363f03282c3c3957a9d499559de0c840eba59b32a028cd",
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "e2df58035da8e595b050361d2c6e6b5a371e32e554ba8c3b4748850dab788704",
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step": "53f82016ccf754bc6e4b253e5a627b98263400844c21f5f1130a22a3a1d7e2b1",
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step.mesh": "95c7ee1e2f7f6c648238105a26672c5d2fea618ca35fec06c77f801cb7fcfdeb",
@@ -297,12 +297,12 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step": "7b8e8f9afe5dafde1c639c50cb80bb5903cee5be1f2ba1c2fa1e585cb2c5d884",
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step.mesh": "0c9155b7f87d794de551442c1c80db6a242fc3af61b3f1bb72f1e9988d1d9421",
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": "69e891a20b74d2967931ece8a1654295103233190afbacc0c6489a36284c0515",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "8681730aec4b6907746e598f769fed5fb8fb5c8ca69367dc3823d99a69653978",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "dac951ce0570e4e3d0d516c490e871ea2d68d9f7ef8e79dc21e409fd21ed4592",
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "c55d290818f79e37fc0a68e48ac217c12d8be26bd1103ad634d2abb38f3f3d01",
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": "c82b5f6edb6afd22dc4263cc73fd018198098762d096f9928cc0728e279d000e",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "3bec269be547a0240154cc8d8b32fbb38d0812aef4bee9240f7f8959b761f84b",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": "6807e4729db934677e0be0c2d4d8fee97613c06e2d2ba7204efdaf654be11a96",
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step": "24749d95d57ffc41c7bacf730bb96caa281f7887e7c7bb5da2bbeb133b1439c9",
-    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "bbad25d354b0d9c8b3dc7a5f894fb457efc8072dceb71ef5f9acca7f173d9f73",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "0dca8b1a80e8fb786daf3526de57c3139c7f459443e7ed94a11cb5188c344d1a",
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "b3c565a56b2c5b35c0be69659c82916a45695e09a562dd001747d2a772f926eb",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "096ad2d847a4b9872bc76f5fc95f1170ebdd0d3ed5aebdab9e2321cb3325850b",
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": "8b35621b1c654199dc4304adf01ee993cab81183e44db444ac46bdff8d25f8d2",
@@ -897,8 +897,8 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "aaacc6a8b229f3891e9e5900df74c3f23381580818c0a152e563a43e55c65210",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "8662b41ab9540ced1b2c274cfdc1dacb4c56127c57a030c6b21fee6950b7a824",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "c44b1843f81334b1e70083a1b9e21b3dabda35e88b21ad642d194c3fb8b8f184",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "824c8ce46a64b8615071fe17134f4a37dcb6635a4218b7c2d682c2a73294afae",
       "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "a39f0aed07348bc9655fb8731ae3d205e2f4940e669aa83a76a3fefa49ec44c2",
       "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "08ba3d0664ac57152bef2d5fe939dd536975446b5c1c089999b4bfe7173a63e6",
       "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "1ef9eb11cc481182d750ec6b94abde0370d89b904926b7a00a3fa65872c9e911",
@@ -949,7 +949,7 @@
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "df279409b3e47acd4e612cd939ce95e2446947c2effaafdfb37ab2e2f5e9a2b9",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "4fe71259cbb9445d5c0775ab5bb4259462240b4f4586aa9954b7e3634fd04f87",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "13e78820ff73941f18235d3a7b9d7434c284764ac4c96fbedd406f61fdd6764e",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "02582c01f91ee1729281d25f4fa8c00742d437a80b013d96f5f2378a35d3ae8d",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "4e9aaaa82d06245f371785b35427b8b76592abf7a7a89e7f938c413a142e0750",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
       "hardware/pcb/pcba/out/pcba.bottom.svg": "1d1d42e49f2d7ad078065909da9f323ffbbcf98e9cdec497fae3760ba716c731",
@@ -1064,10 +1064,10 @@
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "a94edcbe8039f21a121dccc0cec0fef87e93f0faf759826dac1924d77692d736",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "f3dd94fcc1c1082139286c1d8da2cf962a566394d4b3be8a548e269c82fb59c6",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": "8825f14169f460c8823d68f4f84a5340d130f50b267748fc04e0638648620f44",
-      "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "e664a81f77946423f21c745fb50ce097516d8cc2f20732596587cfe9d158f6c0",
+      "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": "289185df660108b21170ae0f6f5c80fb36fbd359a14e5583c6b53a2d986a221d",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": "4de17d99fc68fc167ccef8b4a7ed8433b0c12c81ca3e87b2aa3c03be0bea1cf7",
       "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": "374e90d4a4186a0f737a87e2770da819046ebf8aa1df2cad847479771fbdca2d",
-      "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": "64d22eb792e2aca868b30b7862c28cf660e4e98d708fe0b883fe77e976139f1f",
+      "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": "de55ee557b926bfe2f363f03282c3c3957a9d499559de0c840eba59b32a028cd",
       "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": "e2df58035da8e595b050361d2c6e6b5a371e32e554ba8c3b4748850dab788704",
       "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step": "53f82016ccf754bc6e4b253e5a627b98263400844c21f5f1130a22a3a1d7e2b1",
       "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step.mesh": "95c7ee1e2f7f6c648238105a26672c5d2fea618ca35fec06c77f801cb7fcfdeb",
@@ -1078,10 +1078,10 @@
       "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step": "7b8e8f9afe5dafde1c639c50cb80bb5903cee5be1f2ba1c2fa1e585cb2c5d884",
       "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step.mesh": "0c9155b7f87d794de551442c1c80db6a242fc3af61b3f1bb72f1e9988d1d9421",
       "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": "69e891a20b74d2967931ece8a1654295103233190afbacc0c6489a36284c0515",
-      "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "8681730aec4b6907746e598f769fed5fb8fb5c8ca69367dc3823d99a69653978",
+      "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": "dac951ce0570e4e3d0d516c490e871ea2d68d9f7ef8e79dc21e409fd21ed4592",
       "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": "c55d290818f79e37fc0a68e48ac217c12d8be26bd1103ad634d2abb38f3f3d01",
       "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step": "24749d95d57ffc41c7bacf730bb96caa281f7887e7c7bb5da2bbeb133b1439c9",
-      "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "bbad25d354b0d9c8b3dc7a5f894fb457efc8072dceb71ef5f9acca7f173d9f73",
+      "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": "0dca8b1a80e8fb786daf3526de57c3139c7f459443e7ed94a11cb5188c344d1a",
       "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": "b3c565a56b2c5b35c0be69659c82916a45695e09a562dd001747d2a772f926eb",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "096ad2d847a4b9872bc76f5fc95f1170ebdd0d3ed5aebdab9e2321cb3325850b",
       "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": "8b35621b1c654199dc4304adf01ee993cab81183e44db444ac46bdff8d25f8d2",
@@ -1488,6 +1488,7 @@
     "05ae17bfa3b1a4f21c451ea0b19b7bea153770d28075ba119b8c58d995da661f",
     "06220f730149292488a0765d6c30560ff7a60b802bd1c3f06adf1da468fe1657",
     "0624f034fd4044553dd73df5d4602b6067ecb7ce400d98fef6e2fc43807b52fb",
+    "06cb9192b42ab72b031c0a317cfc01f5490949f08c2735565862bad73063b936",
     "073312e64a2c10b8aae6ce212447b7cf28f40d8058543220e56934e118e8f474",
     "07515a91d9778c79c392e27f2d71c8c25288aab122d951b283578890986c7324",
     "079f7262f1cad815f7e8f69ba596689f95025cd1e93ac0c1ba9fd0b325f31e13",
@@ -1676,11 +1677,13 @@
     "2de5368606ca87d5cc43eeee542df35b7ff0cbc0b802c9c1f05d289fed64508b",
     "2de95827746f876ab60653a2ecd1cce82cc1ce161bd9ea7e13f053b2e5e20639",
     "2df0fa6e93e5299207d70ff254cc457951ee8937c30e6975302e3388bf4c4387",
+    "2df2733fd22092cf8a3ab82c27a967c1c50576206122d8ffbbb7ef4c451b001f",
     "2df6d606c2b534cbcfffb49a7c68e497281549d75740aa9ae946e1c512bac59e",
     "2e0b529210919661be675d45e3a3413daea8c845730b7d4ae1a8ad0675cb6c97",
     "2e34e57fe9ff8ebefcb79ee75d2fd58835bae3f1ab4fe947f71d775c0c5d48e2",
     "2e6570575fa92f2d8d7aaa8a031adf05456e157c08c262cc178cf534a6e16718",
     "2ec9f6eeefa66c6a2461641a8f9e435c2a6d03b7d0ecc96cf3906344e04e29eb",
+    "2f06540737caca21ed55470289b57d3ea21ced91dd0a5b7bb114cd8f526dd5ca",
     "2f378e615f882531b18df5e68a58a0dd4222eb540f87d86de0670aa57b6c55d4",
     "2fab104471221def11d872ff39480c6af1e85707f708c7486e26b1837f1a85c7",
     "2fb50e21b3018aeb6963990efdbf926fc77ad9c036b7bf50e28ccd9e85a8f4b1",
@@ -1853,6 +1856,7 @@
     "4fb535ba0234470a706ae5bdc58a454113ca6219daa7aec33932bf5921971de1",
     "4fd02a3ed653704708af8d367553f887954b6d287bf30940a80415505b90b088",
     "4fd36192a1dc990bb12fc4a78822927f0b144dfe4d229f831b39ef22bcbbedbc",
+    "500f44c3ec13b5b373d04bcb1219881d72f4719faa9cef134b61b4dd4520ba6a",
     "506485e78e8f58d88b5be0c307fb16fa99260ed6eecfd968dc10b4f2ae358cda",
     "507bcc269998489264bdbc2f9ba4e1e9bdba6f52b5ed3bb6a4eb71568bceb03c",
     "5086218ccdcacc082883f2d87894ce2fb789ee9ad1006f7f045518506be2dee4",
@@ -2718,8 +2722,8 @@
     "ffd313a3f9f8d08efec3c588cc762798f5b805c067e8fd48e8332a8230819f9d"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1795141709.107968,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1795141709.107968,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1795141807.425819,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1795141807.425819,
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1795026882.961515,
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1795026882.961515,
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1795026882.961515,
@@ -2784,7 +2788,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1795026773.992124,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795141709.107968,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795141807.425819,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794445929.08732,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -2984,10 +2988,10 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.step.mesh": 1795023210.159912,
     "hardware/printed-parts/enclosure/nameplate/nameplate-receiver.stl": 1795023218.153538,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step": 1795043394.966375,
-    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": 1795043384.864658,
+    "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": 1795141807.425819,
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl": 1795043394.966375,
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": 1795043394.966375,
-    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": 1795141690.552664,
+    "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": 1795141807.425819,
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": 1795043394.966375,
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step": 1795022724.889577,
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step.mesh": 1795022718.12099,
@@ -2998,12 +3002,12 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step": 1795022724.889577,
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/separate-l-cover-seated.step.mesh": 1795022718.12099,
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": 1795141701.312769,
-    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": 1795141690.552664,
+    "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": 1795141807.425819,
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": 1795141701.312769,
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": 1795141701.312769,
-    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": 1795141690.552664,
+    "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": 1795141807.425819,
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step": 1795043394.966375,
-    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": 1795141690.552664,
+    "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": 1795141807.425819,
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl": 1795043394.966375,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": 1794255900.261996,
     "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step.mesh": 1794255849.704094,
@@ -3597,11 +3601,11 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "384c816a0424c797415d9f87d4d9cacfad6f831b",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "384c816a0424c797415d9f87d4d9cacfad6f831b",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
@@ -3814,7 +3818,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "384c816a0424c797415d9f87d4d9cacfad6f831b",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -4554,7 +4558,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.mesh": {
-      "commit": "79f9dfd6a2da55887e45f5c7df403e2de7897721",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "inputs": "4a2633c104c96cac04c0c4b714fa6a4384fd82917d946ee0d1129e88e42d41d3",
       "unproven": true
     },
@@ -4569,7 +4573,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
-      "commit": "2280aec49910075cbd4cb7280585c954d8206eb9",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "inputs": "4a2633c104c96cac04c0c4b714fa6a4384fd82917d946ee0d1129e88e42d41d3",
       "unproven": true
     },
@@ -4600,7 +4604,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
-      "commit": "2280aec49910075cbd4cb7280585c954d8206eb9",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "inputs": "4a2633c104c96cac04c0c4b714fa6a4384fd82917d946ee0d1129e88e42d41d3",
       "unproven": true
     },
@@ -4615,7 +4619,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
-      "commit": "2280aec49910075cbd4cb7280585c954d8206eb9",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "inputs": "4a2633c104c96cac04c0c4b714fa6a4384fd82917d946ee0d1129e88e42d41d3",
       "unproven": true
     },
@@ -4625,7 +4629,7 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step.mesh": {
-      "commit": "2280aec49910075cbd4cb7280585c954d8206eb9",
+      "commit": "57f38233a01fdbd8d4f5890e41b15f0ca2c93eb4",
       "inputs": "4a2633c104c96cac04c0c4b714fa6a4384fd82917d946ee0d1129e88e42d41d3",
       "unproven": true
     },
