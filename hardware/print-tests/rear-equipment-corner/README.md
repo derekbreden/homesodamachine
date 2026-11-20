@@ -10,15 +10,17 @@ The receiver article prints ceiling-down at the production roof datum. The
 covers stand on their production axial ends so the springs bend within their
 layers. The enclosure retains its ordinary wall and infill recipe; the covers
 retain their solid spring recipe. The catch pockets stay clear of supports. The
-meter's fore shoulder, the lip its cover's upper leaf rides over and its fitted
-body floors take removable support through the open west face. The lip bridges
-from that support to the aft shoulder, which stands on its corbel.
+meter's fore shoulder, the lip its cover's upper leaf rides over, the open west
+edge of its aft shoulder and its fitted body floors take removable support
+through the open west face. The lip bridges from its support to the aft
+shoulder, whose first course bridges on to the flank.
 
 The [first plate's physical result](https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json)
 holds Derek's photos and words on the article this one answers.
 
-Clear the supports under the meter's fore shoulder and lip and in its body
-pockets before installing hardware. Try the Pisco cover's angled X-entry with
+Clear the supports under the meter's two shoulders and lip and in its body
+pockets before installing hardware. The aft shoulder's support stands on the
+Pisco receiver's underside. Try the Pisco cover's angled X-entry with
 the meter and ASSE hardware out of the way, checking the shortened leaves
 beside the corner column. Fit the Pisco, then the meter and its cover, then the
 ASSE chain and its cover. Check seating, retention and release through the

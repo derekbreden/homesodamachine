@@ -320,7 +320,7 @@ pub fn interiors() -> Vec<Interior> {
         Interior { name: "ASSE receiver", bounds: whole(&asse), grows: [true; 6],
                    reason: "The fitted room and both chamfered catches print without support." },
         Interior { name: "Pisco receiver", bounds: whole(&pisco), grows: [true; 6],
-                   reason: "The fitted room and both corbelled catches print without support." },
+                   reason: "The fitted room and both chamfered catches print without support." },
         Interior { name: "Flow meter lower cap pocket", bounds: lower_pocket,
                    grows: [true, true, false, false, true, false],
                    reason: "Keep support out of the lower hook pocket below the wire chamber floor." },
@@ -331,11 +331,14 @@ pub fn interiors() -> Vec<Interior> {
     ]
 }
 
-/// The meter receiver's exposed fore end shoulder; the aft one stands on its corbel.
-pub fn meter_shoulder_target() -> Bounds {
+/// The meter receiver's two exposed end shoulders, fore then aft. The fore one takes support
+/// under its whole face. The aft one stands over the Pisco receiver, so only its open west edge
+/// takes support, and the rest of its first course bridges from there to the flank.
+pub fn meter_shoulder_targets() -> [Bounds; 2] {
     let a = running();
-    let (stock, cap, _) = meter_print_stock();
-    [stock[0], side(), stock[2], cap[0] - 2.0 * a, stock[5] - a, stock[5] + a]
+    let (stock, cap, s) = meter_print_stock();
+    [[stock[0], side(), stock[2], cap[0] - 2.0 * a, stock[5] - a, stock[5] + a],
+     [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[1] + 2.0 * a, stock[3], stock[5] - a, stock[5] + a]]
 }
 
 /// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
@@ -681,11 +684,6 @@ fn meter(g: &mut Graph) -> Shape {
     let wire = g.box_(meter_wire_chamber_bounds());
     cup = g.union(cup, &[wire]);
     let stock = g.box_([mx, side() + INTO, ty + METER_SEAT[0], ty + METER_SEAT[1], mz - st.outer, mz + st.outer]);
-    // The aft end shoulder stands under the Pisco receiver, where a tree would root in the
-    // Pisco's open slot, so a corbel off the flank carries its top instead.
-    let [x0, x1, y0, y1, top] = meter_aft_corbel();
-    let corbel = g.prism(1, y0, y1, vec![[x0, top], [x1, top], [x1, top + (x1 - x0) * corbel_slope()]]);
-    let stock = g.union(stock, &[corbel]);
     let mut cuts = vec![cup];
     let mut lanes = wing_lanes(g, &st);
     lanes.extend(meter_catch_pockets(g, &st));
@@ -694,13 +692,6 @@ fn meter(g: &mut Graph) -> Shape {
         cuts.push(g.translate(pocket, [mx, 0.0, mz]));
     }
     g.cut(stock, &cuts)
-}
-
-/// The meter receiver's aft shoulder corbel: its west edge on the shoulder's top, out into the
-/// flank, its span along the shoulder, and the shoulder's top it climbs from.
-fn meter_aft_corbel() -> [f64; 5] {
-    let (stock, cap, _) = meter_print_stock();
-    [stock[0], stock[1], cap[1] + running(), stock[3], stock[5]]
 }
 
 /// The water regulator's seat: built in its snap's frame round the measured profile, then turned

@@ -461,11 +461,12 @@ click: x=88.450 y=423.044 z=267.700
 click: x=94.700 y=394.094 z=268.500
 click: x=94.700 y=419.094 z=268.500
 
-[ceiling] Unavoidable flat boundaries of the meter receiver in the roof-down print: the lip is the plane its cap's upper leaf rides over on the way to the catch, and the fore shoulder is the receiver's end beside it. Both take removable support through the open west side, where a screwdriver slides in along them; the lip bridges from that support to the aft shoulder under the Pisco receiver, and the aft shoulder stands on its corbel.
-alternatives: A corbel under the lip closes the lane the upper leaf flexes in and stands in the Pisco cover's angled entry. A sloped lip changes the leaf's riding plane and the catch edge. A corbel under the fore shoulder stands in the room the meter and its cover load through.
+[ceiling] Unavoidable flat boundaries of the meter receiver in the roof-down print: the lip is the plane its cap's upper leaf rides over on the way to the catch, and the two end shoulders are the receiver's ends beside it. The lip, the fore shoulder and the aft shoulder's open west edge take removable support through the open west side, where a screwdriver slides in along them. The lip bridges from its support to the aft shoulder, and the aft shoulder's first course bridges from its west edge to the flank.
+alternatives: A corbel under any of them stands in the room between the meter and Pisco receivers: in the lane the upper leaf flexes in, or in the Pisco cover's way. A sloped lip changes the leaf's riding plane and the catch edge.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.625 y=414.759 z=309.950
 click: x=90.775 y=390.134 z=312.450
+click: x=90.775 y=439.384 z=312.450
 
 [slope] Unavoidable chamfered catch of the sideways meter receiver: every rear catch and its cover's hook share the snap chamfer, so this face is the upper leaf's bearing. It starts on the supported lip's edge and runs between the two end shoulders, with the return bevel off the flank meeting it at the pocket's root.
 alternatives: A level foot is a flat catch, which needs support inside the channel. A different slope leaves the cover's hook bearing on an edge.

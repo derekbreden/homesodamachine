@@ -184,7 +184,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "9d9c00e1d1655650c5203252bfaa8354df11d013eef59846c2adbfc9977434e2",
+  "source_stl_sha256": "3a20ef0eefef64208bcb51f6eecde427b65379691439cb0102b4f561ddeb0db9",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -224,7 +224,7 @@
         351.8
       ],
       "name": "Pisco receiver",
-      "reason": "The fitted room and both corbelled catches print without support."
+      "reason": "The fitted room and both chamfered catches print without support."
     },
     {
       "blocking_bounds_source_mm": [
@@ -941,7 +941,19 @@
         312.7
       ],
       "name": "Accessible flow meter fore shoulder",
-      "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."
+      "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        86.69999999999999,
+        434.2586388104271,
+        444.7586388104271,
+        312.2,
+        312.7
+      ],
+      "name": "Accessible flow meter aft shoulder",
+      "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."
     },
     {
       "bounds_source_mm": [
