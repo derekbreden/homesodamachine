@@ -36,7 +36,7 @@
       "partially_painted_facets": 0,
       "parts": {
         "modifier_part": 35,
-        "normal_part": 4,
+        "normal_part": 5,
         "support_blocker": 34,
         "support_enforcer": 33
       },
@@ -55,7 +55,7 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 316065
+      "vertices": 316048
     }
   ],
   "pass": true,
