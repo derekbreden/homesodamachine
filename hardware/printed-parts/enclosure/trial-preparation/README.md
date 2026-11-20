@@ -71,7 +71,7 @@ modifiers, six-wall surface bands and part-specific recipes below retain their s
 PET-GF contact and bridge settings inherit Support D from the shared profile, including
 when the rest of a recipe comes from an accepted older project. Embedded filament bridge
 speeds follow the same recipe. Part-specific support styles, roots, fins, manual targets
-and inaccessible-interior exclusions retain their own settings. The
+and support-free regions retain their own settings. The
 [rollout record](../../support-D-rollout.json) binds the current projects and slice status;
 historical machine archives retain their recorded process.
 `filament_from` takes another saved project's filament block: every setting the filament's
@@ -84,8 +84,8 @@ filament maps to.
 available vertical travel, allowing for the requested trim. Back-top retains its ceiling-down pose.
 
 Native support regions distinguish functional interiors from exterior request blockers.
-An exterior blocker marked `review_interior: false` still masks support requests; its
-box does not define an inaccessible void. The native record also names accessible
+An exterior blocker marked `review_interior: false` still masks support requests; the
+review does not read support inside its box. The native record also names
 support targets, which become enforcers in the manual-tree preparation. Back-top's
 same record carries its local rail caps as removable print stock.
 
@@ -175,7 +175,7 @@ gripping surface, with no local layer band or added support fins.
   print pose and plate placement. Downward faces are painted and the named volumes
   block support requests. The native review reads support beads against the actual
   passage profiles, including branches routed toward other features. Back-top uses
-  this for its inaccessible receivers, teardrop bores, valve sockets and vent passage.
+  this for its receiver catch pockets, teardrop bores, valve sockets and vent passage.
   Direction-specific exclusions apply when their source-frame direction matches the
   build direction. Its separate bridge regions add local solid modifiers with the
   corresponding plate-space bridge angle. These do not block supports.

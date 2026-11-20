@@ -176,10 +176,7 @@ underside and subsequent glossy courses require localized foundation cooling.
 The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That
 result applies only where the same access remains available in the complete
-part. A surface counts as reachable for support only where a screwdriver gets in
-at a place it can pry or pull the support in the direction that also peels the
-support's interface layers off the surface they are fused to. Anywhere else the
-surface gets a corbel or a bridge, not support.
+part.
 
 For visible overhang edges with reported roughness, follow the edge with a
 removable fin wall and retain Tree(auto)/Default on the remaining surfaces.
