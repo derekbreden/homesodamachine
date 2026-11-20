@@ -83,7 +83,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "35616f5c8093420a46077884180296bf8db56f90e2d6f05f41f84a8ed3df5b45",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "30e0b32a7068ed900ed9a63b0f04abf53cc297a5030abea7b95bf6733074c866",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "515efca5b30c74aed8242e16db7e13cd10547304dc503f643b5213081e385467",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -949,7 +949,7 @@
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "df279409b3e47acd4e612cd939ce95e2446947c2effaafdfb37ab2e2f5e9a2b9",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "4fe71259cbb9445d5c0775ab5bb4259462240b4f4586aa9954b7e3634fd04f87",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "35616f5c8093420a46077884180296bf8db56f90e2d6f05f41f84a8ed3df5b45",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "30e0b32a7068ed900ed9a63b0f04abf53cc297a5030abea7b95bf6733074c866",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "515efca5b30c74aed8242e16db7e13cd10547304dc503f643b5213081e385467",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
       "hardware/pcb/pcba/out/pcba.bottom.svg": "1d1d42e49f2d7ad078065909da9f323ffbbcf98e9cdec497fae3760ba716c731",
@@ -1969,6 +1969,7 @@
     "642c98f68ab7e3d66ec5db3d3ecd3025e5007b40ebf6da35126271c7cb4832c6",
     "6446d74c780a01ddc74c6fd1e770e25f59b4c589832f5c2234997cad984ec65d",
     "6458450689b9af57e3f4fe79217704113deee8acf384f4292f0fe72e170ea853",
+    "645f3116969cdb0ad2f0f6943f033da9f3e701c65e784ec0abacd65d90e1b1ed",
     "64713cab7ef72fe7113e96225fb55f25867e91d3107b17b99e9845e85859404c",
     "6495cfbc8a7699de410c8e036c1da5f4557933328718bf2dc09793259b43d7b2",
     "64c3f01afeee977405b9ce9a7a422c705602ddec7dd3d89bf5c77f90af216ff3",
@@ -2463,6 +2464,7 @@
     "c5811c42ba5111e9596f5ee406f8c8b10513fbe0a4cd5980bc2fca70058f72f8",
     "c5d1610723e545932b8ce9a38ed550475cdba9546df8ab0d706f270d1c9347f7",
     "c66d5f1871d9cc2c4e44e64702e82a12b2fa60b2aa6172cb8735ed2bddf18bbd",
+    "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
     "c6a4ce920ba93ccfc7977b90d55683ec71a985776eb93d61455f99b92de038f3",
     "c6dcee92c639383f935234db943ac8b8e7cdde3336a7bfc63dc3cc7059bd3062",
     "c6e4df1dcb42bf38eb49217e2fbe3e13f3e166ff1b5d31e8ec60d08e2f8ff3fd",
@@ -2813,7 +2815,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1795156908.278549,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795157814.352566,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795157835.783787,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794445929.08732,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -3843,7 +3845,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "72e257387eb04ec9e9d68c3f61d82154b6d6bc3b",
+      "commit": "3ad27bd7dbfd9541ab8197af104052dc50c8f297",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
