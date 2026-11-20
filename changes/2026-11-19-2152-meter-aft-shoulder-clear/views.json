@@ -1,0 +1,89 @@
+{
+  "views": [
+    {
+      "name": "meter",
+      "caption": "The east flank from inside, cut west of the Pisco: the meter receiver below the Pisco receiver, with the room between them clear.",
+      "before": "meter-before.webp",
+      "after": "meter-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 334.1,
+          "y": 438.5,
+          "r": 74.2,
+          "label": "aft shoulder",
+          "at": [
+            91,
+            439,
+            318
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          24.56645245949744,
+          377.91154885272357,
+          324.74335475405024
+        ],
+        "target": [
+          92,
+          415,
+          318
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.1644844081835527,
+        "far": 484.64347353987637,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            60,
+            415,
+            310
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e861c54f99930dac87f38b10e5fdd55f31bedc15cd95cd5c9c1245df4024b041",
+          "commit": "88f563d771256524b4ec4848e2dd31225a98a3fc",
+          "taken": "2026-11-20T03:44:01.049Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "4b0bf6b434ab117a077fa5475a7df2466d31fd5424fc2c890cc11a1244ed1035",
+          "commit": "24ab8fa2917b51b048f3eb2bbfabca416723ef30",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
