@@ -1,131 +1,49 @@
 # Integral tube and cable routing clips
 
-Back-top carries simple integral clips for accessible straight tube and cable
-runs. Their filled roots join the existing roof or wall, with open mouths for
-installation and release. Tube and wire runs seat directly in the printed part.
+The back-top carries the reservoir A fill tube in one east-wall snap and grows
+cable hooks from its wall stock. The [routing source](../quadrants/routes.rs)
+locates the seat and hooks. The [cable sites](../../../../../tools/hsm/assembly-docs/src/wiring/cable-sites.json)
+and [route dressing](../../../../../tools/hsm/assembly-docs/src/wiring/routes.rs)
+locate the retained conductors.
 
-The [routes recipe](../quadrants/routes.rs) holds each tube seat's straight, host plane and
-section, and builds the seats and hooks. The
-[cable-site datums](/tools/hsm/assembly-docs/src/wiring/cable-sites.json) and
-[route dressing](/tools/hsm/assembly-docs/src/wiring/routes.rs) supply each
-hook's frame, retained conductors and local route dressing. Positions belong to
-those sources rather than a second coordinate table here.
+## Fill tube seat
 
-## Selected tube runs
+The tube lies horizontally along the east wall, with its snap mouth facing the
+interior. Back-top prints ceiling-down, so the wings stack vertically in the
+printing pose. The lower wing reaches the wall through a corbel. The upper wing
+is free to flex and has the source-selected spring section and jaw opening. The
+[production print features](../enclosure-back-top.print-features.json) carry
+separate removable support strips under that wing. Their breakaway feet start
+on the lower wing, and a screwdriver can reach them through the open mouth.
 
-| Route | Host | Nominal tube OD | CAD bore | Functional spring wall | Span along tube |
-| --- | --- | ---: | ---: | ---: | ---: |
-| Reservoir A fill, `fluid-14` | East wall | 6.35 mm | 6.35 mm | [source-selected](../quadrants/routes.rs) | 8 mm |
-| Flavor A, `fluid-18`, two seats | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm each |
-| Flavor B, `fluid-28`, two seats | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm each |
-| `drain-vent` | Roof | 4.00 mm | 4.10 mm | 1.52 mm | 8 mm |
+The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json)
+accepts the fill tube in a printed crop of the production seat. It does not
+establish the complete back-top's cleanup or the support strips' release.
 
-Each seat uses the C2 circular section, rounded noses and 125.421° wrap per wing.
-The 4 mm section scales the functional spring thickness from C2's proportions;
-its fit and flex are estimates. Each clip spans the full 8 mm along its tube.
-Filled roots retain the common simple profile through to the host face.
-The east-wall fill seat has a corbel from its print-down wing tip to the wall,
-leaving the other wing free to spring. Its corbel and wing section print without
-a support target.
-The two flavor tubes share one broad filled base at each roof station, Y354
-and Y390. Flavor A's axis is X−45 and flavor B's is X−55, both at Z343 mm.
-Their gentle rise reaches the straight roof run at Y348; each 8 mm seat
-holds that straight span with its mouth facing installed −Z.
+## Other tube clips
 
-Seat the flavor tubes upward from below while back-top is open, keeping the
-vent clear of their loading approaches. Flavor A connects V-G to the east
-rear socket at X77.5; flavor B connects V-J to the west socket at X37.25.
-Keep those logical identities through the collars and faucet umbilical.
-Seat `fluid-14` before `fluid-16`.
+The [cold-core lid](../../../cold-core/foam-cap/README.md) carries the other
+integral clips for horizontal tube runs. Their mouths face away from the lid,
+and the lid prints on its flat underside. Both jaws therefore stand side by
+side at the same print height. They have no lower wing from which to support
+an upper wing. Their [clip source](../../../cold-core/foam-cap/numbers/clips.rs)
+owns their sections independently of the back-top snap.
 
-Reservoir A's fore pair uses two integral C2 clips on the
-[cold-core lid](../../../cold-core/foam-cap/README.md), with 13.5 mm centre spacing
-at X50.5/64.0, Y209.75, Z258.5 mm. Their 6.35 mm bores and 2.40 mm wings span
-8 mm along the tubes on one broad common base. Insert each tube downward through
-its +Z mouth; release the exposed jaws for upward removal. The aft
-curved, tied seat and purchased-body ties retain their assigned roles and
-quantities. These new routing clips have no counted tie-removal credit.
+## Cable hooks
 
-## Selected cable runs
+Keep the relay ribbon's insulated web flat in its hook, with its conductors
+stacked across the seat height. Finish braid and heat shrink outside the
+retained straight span. The connector order through the web is GND, V5, IO2,
+IO19 from installed positive Z to negative Z. The V-K hook holds
+`J2-positive-K`. The [cable preparation instructions](../../../../assembly/cable-assemblies.md#back-top-clip-preparation-and-service)
+cover dressing and release. The [combined coupon result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
+accepts the relay ribbon's fit and qualitative retention; the other cable
+hooks remain provisional.
 
-| Retained run | Seat depth × height | Span along cable | Hook stock | Retaining beak |
-| --- | ---: | ---: | ---: | ---: |
-| DC-1 pair, two insulated 16 AWG wires | 3.50 × 7.50 mm | 16 mm | 3 mm | 0.75 mm |
-| J5 RELAYS, bare insulated 22 AWG 4P ribbon | 2.20 × 7.75 mm | 16 mm | 3 mm | 0.75 mm |
-| V-K positive lead, nominal 1.70 mm insulated OD | 2.20 × 2.20 mm | 8 mm | 3 mm | 0.60 mm |
+## Installation and service
 
-The seat dimensions describe the clear cavity, not a measured wire section.
-Keep the complete insulated ribbon web flat against the wall, with its four
-conductors stacked across the seat height. The clip holds insulation; bare
-here means unsleeved, not stripped copper. Finish PET braid and heat-shrink
-outside the retained straight span and keep the fan-out beyond it. Original
-connector, relay and WAGO junctions retain their electrical assignments.
-J5 retains connector order through the web: GND, V5, IO2, IO19 from installed
-+Z to −Z. The single V-K seat holds `J2-positive-K`; its 1.60 mm mouth is a
-provisional entry for the modeled 1.70 mm soft-insulated lead.
-The [cable preparation instructions](../../../../assembly/cable-assemblies.md#back-top-clip-preparation-and-service)
-cover the harness dressing and release sequence.
-
-## Print direction and service
-
-Back-top prints ceiling-down, building in machine −Z. Roof tube mouths and all
-cable mouths face installed −Z; the east-wall `fluid-14` mouth faces −X. That
-wall clip has a full 45° root corbel for its hanging edge in this print pose.
-The functional spring section is the thin-stock exception; ordinary host stock
-and cable hooks retain their specified broad sections.
-
-Use back-top's production print orientation and existing PET-GF preparation,
-including Tree(auto)/Default support decisions. The experimental coupon plate's
-whole-layer cooling recipe is scoped to that plate. The new production clips'
-layer direction, supported surfaces and cleanup require their own print reading;
-the coupon archive does not establish those properties for the complete shell.
-
-Release attached tubes and cables from the clips before sliding back-top during
-opening. Support the free runs while separating the existing inter-quadrant
-connections described in the [wiring sequence](../../../../assembly/wiring.md).
-Re-seat the runs in the installation order above when assembling. Open
-mouths provide the release access; no additional tool pocket is part of these
-routing clips.
-
-## Evidence and fit scope
-
-The [combined plate's physical result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
-establishes the **C2 6.35 mm CAD bore** and wrap for the quarter-inch tube. The
-east-wall seat uses thinner wings and a corbel; its fit awaits this print trial. The selected
-**16 mm-span 4P ribbon clip** has accepted fit and qualitative retention: the
-ribbon fits perfectly and stays put, with angling and pulling used for entry.
-
-That acceptance belongs to the identified quarter-inch tube and 4P ribbon
-coupons. The proportionally scaled 4 mm tube clips, DC-1 pair seat and V-K
-single-wire seat remain provisional. The
-[stopped cable coupon](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/physical-result.json)
-records deformation and cancellation, with no accepted cable fit or retention.
-The complete production back-top's print finish, cleanup and installed service
-remain unassessed. Numerical retention force, fatigue and lifetime are unmeasured;
-native clearances alone do not establish them.
-
-The [paired roof-root reading](roof-guided-groups.json) binds both common
-filled bases to the approved native fixtures and generated back-top. Each
-is one valid solid with positive roof attachment and no material missing
-from its host. It also records the affected back-quadrant mass estimate.
-
-Each manual receipt applies to its named geometry and source hashes.
-The [roof-routing production reading](roof-guided-production.json) binds the
-three native hose paths, both shared roof bases, the two adjusted wire fan-outs
-and their installed assembly surfaces. Its local slice reading covers the
-shared snap with nearby roof stock; the 4 mm fit remains a modeled estimate.
-The [roof publication reading](roof-guided-publication.json) identifies the
-uploaded native source and the live viewer's source reading. The
-[post-publication roof reading](roof-guided-post-publication.json) classifies
-the working spring sections and the ordinary shared-root stock.
-The [construction reading](native-review.json), [tube neighborhood reading](tube-clearances.json)
-and [accepted fill-clip/lid reading](fill-lid-clearance.json) bind their local tube
-clearances; the [cable opening reading](cable-clearances.json) covers the hook
-locations and loading space. The [native assembly receipt](native-assemblies.json)
-and [wiring reading](wiring-review.json) identify the retained fixture geometry,
-seated pump retainer and wire endpoints. The [integration receipt](integration.json)
-binds the installed native files and viewer payloads.
-The [publication receipt](publication.json) confirms the live viewer's native
-source, and the [post-publication geometry reading](post-publication-lint-review.json)
-records the working catch/spring faces and the C14 opening's existing
-classification answer.
+Seat the reservoir fill tube in the east-wall snap while back-top is open.
+Release tubes and cables from their clips before sliding back-top during
+opening, and support the free runs while separating the inter-quadrant
+connections in the [wiring sequence](../../../../assembly/wiring.md). The open
+mouth gives access for release; no separate tool pocket is part of the snap.

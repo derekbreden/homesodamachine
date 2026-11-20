@@ -15,10 +15,6 @@ name = "rear-equipment-corner"
 path = "../../../hardware/print-tests/rear-equipment-corner/corner.rs"
 
 [[bin]]
-name = "tube-snap-corbel"
-path = "../../../hardware/print-tests/tube-snap-corbel/coupon.rs"
-
-[[bin]]
 name = "jg-bulkhead-reference"
 path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
 

@@ -401,6 +401,13 @@
       "said": "The fit is pretty good, or at least good enough.",
       "tried": "the full-length east rear rail coupon pair slid together by hand, with some upper-half flex at the forward end under hand pressure",
       "record": "https://github.com/derekbreden/homesodamachine/blob/3bc217046ae3af30b3ed58c36dacfc389998e7b1/hardware/print-tests/east-rear-rail-fit/prints/2026-11-18-mark1/physical-result/observations.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-20",
+      "said": "Fit is good.",
+      "tried": "the reservoir fill tube seated in the printed crop of the back-top east-wall snap",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json"
     }
   ]
 }

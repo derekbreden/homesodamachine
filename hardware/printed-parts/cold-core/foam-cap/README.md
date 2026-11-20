@@ -73,6 +73,9 @@ The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
 with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft paired seat at Y390 mm
 uses one four-inch narrow tie. The front-going J1/J2 cable bank has ordinary 3 mm
 outer/shared walls and 16 mm span. These features print above the lid's flat bed face.
+The tube clips' jaws stand side by side at the same print height, with both roots
+on the lid. Their openings face away from the lid, so they do not use the
+back-top's lower-jaw corbel or upper-jaw support strips.
 
 ## Bottom cap
 
