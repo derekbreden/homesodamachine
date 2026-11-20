@@ -18,7 +18,7 @@ use hsm_kernel::rule::ring_count;
 use hsm_kernel::{Affine, Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde::Deserialize;
 use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, WALL, asse, catch_air, clearance_profile,
-               corbel_slope, interpolate, meter, tip_rise};
+               corbel_slope, interpolate, meter, tip_air, tip_rise};
 use std::f64::consts::{PI, TAU};
 use std::path::PathBuf;
 use std::sync::OnceLock;
@@ -378,7 +378,11 @@ fn meter_cap() -> Result<Cap> {
     let housing: Vec<P2> = clearance_profile(&meter::HOUSING_PROFILE, fit, fit).into_iter().map(|[y, r]| [m.x(y), r]).collect();
     let bottom = m.x(meter::UNDERSIDE_Y) - stations::METER_AIR - METER_BACK - m.split;
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let cap = along_y(section(&st, Underside::Flat(bottom), Wing::pair(&st))?, m.cap)?
+    // The sideways catch climbs from the lip to the pocket's root, and the flank ends the point.
+    let seat = REACH * corbel_slope();
+    let flank = hsm_enclosure_numbers::faces::back_top_flank_face()[1] - m.split;
+    let hook = Hook { seat, rise: flank - tip_air() - (st.bearing + catch_air() + seat + NOSE_LAND) };
+    let cap = along_y(section_with_tip(&st, Underside::Flat(bottom), hook, Wing::pair(&st))?, m.cap)?
         .union(&cuboid([-half, half, m.cap[0], m.cap[1], bottom, st.root + METER_BEARING_DEPTH]))?
         .rotate(V3::ZERO, V3::Y, 90.0)
         .translate(v3(m.split, 0.0, m.z));
@@ -418,7 +422,7 @@ fn regulator_cap_with_tip(rise: f64, name: &'static str) -> Result<Cap> {
     let [t0, t1, t2] = l.snapshots.reg.translation_mm;
     let frame = Pose { rotation: [r1, r0.map(|v| -v), r2], translation_mm: [t1, -t0, t2] };
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), rise, Wing::pair(st))?, [st.y0, st.y1])?
+    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), Hook { seat: 0.0, rise }, Wing::pair(st))?, [st.y0, st.y1])?
         .union(&cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK, mount.cap_bottom,
                         mount.axis[1]]))?
         .cut(&turned(&profile)?.transformed(&affine(&frame)))?;
@@ -433,15 +437,22 @@ enum Underside {
 }
 
 /// A cap's section across its station, in X and Z. Each spring wall rises on the outer face from
-/// the root to its tip, falls along its pointed lead-in to the solid nose and the catch, steps out
-/// to the inner face and turns at the root round into the floor between the walls; the underside
-/// closes it. The hook stands its reach inside the receiver's ledge, the catch its air over the
-/// receiver's bearing plane. Its lead-in is independent of the receiver ceiling's spare room.
-/// On a corbelled flank the catch climbs at the corbel's slope from the wall's inner face to the
-/// nose, its air over the corbel, and the lead-in keeps its slope across the ledge's reach before
-/// meeting the same point. A wall rooted above the station's root is shorter and stiffer.
+/// the root to its pointed free edge, falls along one planar lead-in to the solid nose, and
+/// falls from the nose along the chamfered catch to the inner face, then turns at the root round
+/// into the floor between the walls; the underside closes it. The hook stands its reach inside
+/// the receiver's ledge, the catch its air over the receiver's chamfer. A wall rooted above the
+/// station's root is shorter and stiffer.
 fn section(st: &Station, under: Underside, wings: [Wing; 2]) -> Result<Loop> {
-    section_with_tip(st, under, tip_rise(), wings)
+    section_with_tip(st, under, Hook { seat: 0.0, rise: tip_rise() }, wings)
+}
+
+/// A hook's nose: how far it seats above the station's catch plane, and its lead-in's rise from
+/// the nose land to the point. A vertical receiver's catch is cut down into its ledge, so the
+/// nose seats at the catch plane.
+#[derive(Clone, Copy)]
+struct Hook {
+    seat: f64,
+    rise: f64,
 }
 
 /// One spring wall of a cap, west then east, with the height its root stands at.
@@ -457,21 +468,16 @@ impl Wing {
     }
 }
 
-fn section_with_tip(st: &Station, under: Underside, rise: f64, wings: [Wing; 2]) -> Result<Loop> {
+fn section_with_tip(st: &Station, under: Underside, hook: Hook, wings: [Wing; 2]) -> Result<Loop> {
     let (c, outer, inner, r) = (st.axis_x, st.outer, st.inner, st.root_radius);
-    let hook = st.ledge - REACH;
-    let catch = st.bearing + catch_air();
-    let tip = catch + NOSE_LAND + rise;
+    let reach = st.ledge - REACH;
+    let nose = st.bearing + catch_air() + hook.seat;
+    let tip = nose + NOSE_LAND + hook.rise;
     // One wall, out from the axis by `side`: up the outer face, over the hook, down the inner face.
     let wall = |side: f64, wing: Wing| {
         let at = |x: f64, z: f64| v2(c + side * x, z);
-        let mut points = vec![at(outer, wing.root), at(outer, tip)];
-        let slope = corbel_slope();
-        let nose = catch + REACH * slope;
-        points.extend([at(st.ledge, nose + NOSE_LAND + REACH * rise / (outer - hook)), at(hook, nose + NOSE_LAND),
-                       at(hook, nose), at(inner, catch - (inner - st.ledge) * slope)]);
-        points.push(at(inner, wing.root + r));
-        points
+        vec![at(outer, wing.root), at(outer, tip), at(reach, nose + NOSE_LAND), at(reach, nose),
+             at(inner, nose - (inner - reach) * corbel_slope()), at(inner, wing.root + r)]
     };
     let west = wall(-1.0, wings[0]);
     let east: Vec<V2> = wall(1.0, wings[1]).into_iter().rev().collect();

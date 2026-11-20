@@ -2270,8 +2270,72 @@
           ]
         },
         {
+          "name": "asse-snap-cap",
+          "stl": "hardware/print-tests/rear-equipment-corner/parts/asse-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "Three Classic loops and solid infill retain the complete 2.0 mm spring section."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Fixed-width PET-GF perimeter recipe."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through the cap bodies, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            },
+            "support_type": {
+              "value": "tree(auto)",
+              "reason": "Retain the cap recipe for accessible fitted body surfaces."
+            },
+            "support_style": {
+              "value": "default",
+              "reason": "Retain the cap recipe for accessible fitted body surfaces."
+            }
+          }
+        },
+        {
           "name": "pisco-snap-cap",
           "stl": "hardware/print-tests/rear-equipment-corner/parts/pisco-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "Three Classic loops and solid infill retain the complete 2.0 mm spring section."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Fixed-width PET-GF perimeter recipe."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Solid stock through the cap bodies, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Solid cap deposition."
+            },
+            "support_type": {
+              "value": "tree(auto)",
+              "reason": "Retain the cap recipe for accessible fitted body surfaces."
+            },
+            "support_style": {
+              "value": "default",
+              "reason": "Retain the cap recipe for accessible fitted body surfaces."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The cap retains its support-free production end pose."
+            }
+          }
+        },
+        {
+          "name": "meter-snap-cap",
+          "stl": "hardware/print-tests/rear-equipment-corner/parts/meter-snap-cap.stl",
           "object_settings": {
             "wall_loops": {
               "value": "3",

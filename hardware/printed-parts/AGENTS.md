@@ -130,7 +130,10 @@ supports on model material alone does not establish where the slicer roots them.
 
 Back-top prints ceiling-down, with the rear flutes standing clear of the bed.
 Every rear receiver catch and its matching cap use the shared snap chamfer.
-The catch pockets stay clear of supports. The rear ceiling recess runs flush to
+The ASSE, Pisco and water-regulator catches are cut down into their ledges'
+corners, which seats each hook's nose at the catch plane and leaves the cap's
+whole pointed lead-in under the ceiling. The meter cap's point stops just short
+of the flank. The catch pockets stay clear of supports. The rear ceiling recess runs flush to
 the flanks and to the rear wall, whose panel relief runs up to it, and it runs
 round the connector wells' row. Whatever stands on that ceiling is rooted in
 it: the ASSE and Pisco receivers, both rear corner columns, the wells, the

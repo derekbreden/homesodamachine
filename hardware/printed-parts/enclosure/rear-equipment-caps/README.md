@@ -66,8 +66,12 @@ the meter's aft shoulder corbel. The straight wall above the root blend is 20.75
 the water regulator. Each rear cap has the same planar lead-in ending at a
 pointed free edge above a solid nose land. Its matching receiver ceiling clears
 the complete point. All retaining noses are solid. All rear wings hook over matching chamfered receiver catches.
-Their bearing faces follow the shared snap slope from the ledge edge to the
-nose. The pointed lead-in retains its full height above the solid nose.
+On the ASSE, Pisco and water-regulator receivers the catch is cut down into the
+ledge's corner, so each hook's nose seats at the catch plane and its bearing
+face falls from the nose to the leaf at the shared snap slope. The whole
+pointed lead-in stands above the solid nose, under the ceiling. The meter's
+catch climbs from its lip into the sideways pocket, so its hook's nose seats
+above the catch plane, and its lead-in ends at a point just short of the flank.
 The meter receiver's aft shoulder corbel climbs the east flank under the Pisco
 cap, whose east lower corner is cut back along that slope over the cap's aft
 run and whose east leaf roots above the cut.

@@ -1,9 +1,19 @@
 {
   "caps": [
     {
+      "name": "asse-snap-cap",
+      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+      "stl_sha256": "62de58cac6bfd05cb0bedfde4c21d4c3db33f490de0dcf6cda3c5081acec333d"
+    },
+    {
       "name": "pisco-snap-cap",
       "source": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
-      "stl_sha256": "0890fa6f9dee2edbd08f96f6bf058cc89ded0c064098ceb30ecd02411884f155"
+      "stl_sha256": "ee278f58f78b33853e5e7be75351776719288957ef325cda968c90e0b8286953"
+    },
+    {
+      "name": "meter-snap-cap",
+      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+      "stl_sha256": "7e6dc904e44bcbc243339076330578f6be4dd91595847ed255e462c78559293e"
     }
   ],
   "connected_solids": 1,
@@ -19,11 +29,13 @@
       355.0
     ]
   ],
-  "corner_stl_sha256": "e1074e00cd57efce947d3424cb3cdbbd9bf5b79ed2e9151addbdbfc646cdb8ad",
-  "corner_volume_mm3": 266818.7523329517,
+  "corner_stl_sha256": "98f8269347d69e6f5eb4e64a8ebd6fe241fb36db8f3c891715ab203943e4e3d4",
+  "corner_volume_mm3": 265629.7435401253,
   "inputs": {
     "caps": [
-      "pisco-snap-cap"
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "meter-snap-cap"
     ],
     "crop_max_mm": [
       112.0,
@@ -35,7 +47,7 @@
       378.0,
       252.0
     ],
-    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/2280aec49/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json",
+    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json",
     "print_up_source": [
       0,
       0,
@@ -46,7 +58,7 @@
     "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
     "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
   },
-  "source_model_sha256": "cc2bed092f8abf6f5911d88253c38ebf5b371104b541e0b37ea7b6fc55e1302f",
-  "source_stl_sha256": "6ec4013d174dc21895a34c8852fabe964c45891dbe37b721c3cb940698a25b70",
+  "source_model_sha256": "b8e09dc1707249174f07a03c154223fb4cbc0523b004b729b965965de1de8f68",
+  "source_stl_sha256": "9d9c00e1d1655650c5203252bfaa8354df11d013eef59846c2adbfc9977434e2",
   "watertight": true
 }

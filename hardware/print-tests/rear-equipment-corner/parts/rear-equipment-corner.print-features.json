@@ -2,7 +2,7 @@
   "boundary_overlap_mm": 0.25,
   "bridge_regions": [],
   "producer": "rear-equipment-corner",
-  "source_stl_sha256": "e1074e00cd57efce947d3424cb3cdbbd9bf5b79ed2e9151addbdbfc646cdb8ad",
+  "source_stl_sha256": "98f8269347d69e6f5eb4e64a8ebd6fe241fb36db8f3c891715ab203943e4e3d4",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -297,7 +297,7 @@
     {
       "bounds_source_mm": [
         83.05,
-        88.19999999999999,
+        86.69999999999999,
         395.5086388104271,
         420.09571720240064,
         309.7,

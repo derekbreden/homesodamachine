@@ -1,16 +1,15 @@
 # Rear equipment corner fit
 
 The article retains the complete ASSE, Pisco and meter receivers with the
-surrounding enclosure roof, rear wall, flank and corner column. Its Pisco
-cover is copied from the production mesh. [inputs.json](inputs.json) owns
+surrounding enclosure roof, rear wall, flank and corner column. Its matching
+covers are copied from the production meshes. [inputs.json](inputs.json) owns
 the crop and source paths; [parts/geometry.json](parts/geometry.json) binds the
-article and cover to the exported geometry. The ASSE and meter covers come from
-[the first plate](https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/print-job.json).
+article and covers to the exported geometry.
 
 The receiver article prints ceiling-down at the production roof datum. The
-cover stands on its production axial end so the springs bend within their
-layers. The enclosure retains its ordinary wall and infill recipe; the cover
-retains its solid spring recipe. The catch pockets stay clear of supports. The
+covers stand on their production axial ends so the springs bend within their
+layers. The enclosure retains its ordinary wall and infill recipe; the covers
+retain their solid spring recipe. The catch pockets stay clear of supports. The
 meter's fore shoulder, the lip its cover's upper leaf rides over and its fitted
 body floors take removable support through the open west face. The lip bridges
 from that support to the aft shoulder, which stands on its corbel.
