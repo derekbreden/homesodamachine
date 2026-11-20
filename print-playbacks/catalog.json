@@ -804,18 +804,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "e5e32c7dbdb26d616eeb5b4428bbf74fa79d8b69c5c8efe4b447cab7f63de3ce",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-18-back-top-production-mark1/2026-11-18-back-top-mark1-ab56b332-textured-pei.gcode.3mf",
+    "sha256": "1c4e28929bc8c5affff2f8133bf7712cb74dcd2f37f2a9c2d5b32701dbe32b02",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "7363657f40eea55a676e253b484704e5d06b61ffa53b1922d1497abb0c75c0d1",
-    "project_sha256": "010cb51ac68d6b472ed2ebe45d7f38258b8060a575b6b7a0e093ba1c7098cc51",
-    "archive_sha256": "330188288d225a74bdfbd249eeeb1a87118c691ee4857707587de6e00e06cc36",
-    "gcode_sha256": "ffad3c0775015eba88e2dfe6b7154f1371c955979c01725fd80cad796ce4f6f8",
+    "recipe_sha256": "a866253c1c06001fe7c6cd6a81b6f9a53d7219de9ec134401972ed796c65256a",
+    "project_sha256": "5156d06384e65e639fddd00db3a0e0cba3f0281f9a1ebb9d164201e90a7d8cbb",
+    "archive_sha256": "3001888f5bc333d10f47955aea92610bacab918d6e1d287c959f7b92ae99fabd",
+    "gcode_sha256": "71dfcaeedd9507f00c9910c0685d98c92bdcd2d994bbcdbcdad7bad14be22fbc",
     "kind": "plan",
-    "layers": 1002,
-    "model_sha256": "c63df9450f84962520e63810c2ea248f083f440f20931fb05094b50bb2e2737b",
+    "layers": 1024,
+    "model_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -835,12 +835,13 @@
       "Filament bridge speed": "15 mm/s",
       "Rail roofs": "Breakaway caps carry the bearings, with roots on the inboard shoulders and a clear vent.",
       "Nameplate": "Integral corbels carry the rounded crown and lower lip",
-      "Protected openings": "Pisco catches, ASSE east catch, lower meter cap pocket, cable hooks, valve sockets and insert pilots clear",
-      "Snap catches": "Removable supports on the reachable ASSE and water regulator catches. Corbels on ASSE east and both Pisco catches.",
+      "Protected openings": "Catch pockets, meter cap pockets, connector pockets, valve sockets and insert pilots clear",
+      "Snap catches": "Chamfered catches print without support",
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
-      "Flow-meter receiver": "Dense interface under the upper hook pocket and slide and wire floors. The aft shoulder and flank strip use corbels."
+      "Flow-meter receiver": "Removable supports under both end shoulders, the lip and the slide and wire floors. The aft shoulder's support stands on the Pisco receiver.",
+      "Fill tube snap": "A corbel carries its print-down jaw from the east wall"
     },
-    "recipe_commit": "255984953dff6749b8fc4a33c29dda0b392e5ba9"
+    "recipe_commit": "2a890a19688b8acffb2f6f0c8657e711df26fd0a"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",
