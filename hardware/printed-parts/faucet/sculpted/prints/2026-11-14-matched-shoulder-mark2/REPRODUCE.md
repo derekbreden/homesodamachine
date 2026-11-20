@@ -4,6 +4,9 @@ Run from the checkout root. The rear-seam archive supplies the rest of the
 plate's deposition. The native donor and full rotated template supply the tip
 roads and archive metadata.
 
+The `sculpted-trial` stage `merge` and `sculpted-faucet-print-project`, which the commands
+below run, are in Git at [`4beaa725a8`](https://github.com/derekbreden/homesodamachine/tree/4beaa725a8).
+
 ```sh
 sculpted="$PWD/hardware/printed-parts/faucet/sculpted"
 trial="$sculpted/prints/2026-11-14-matched-shoulder-mark2"
