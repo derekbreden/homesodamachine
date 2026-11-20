@@ -4630,9 +4630,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step": {
-      "commit": "5a7da0e74da8cfd5ea0cae166628b28dddbe16ef",
-      "inputs": "d387d72e07a3e10a2f2fc4b688b57553fe757d39caf910e1becd8d19829e745c",
-      "unproven": true
+      "commit": "72516ea7c5330b0fe98fc41c1012d50544d828b4",
+      "inputs": "d387d72e07a3e10a2f2fc4b688b57553fe757d39caf910e1becd8d19829e745c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step.mesh": {
       "commit": "72e257387eb04ec9e9d68c3f61d82154b6d6bc3b",
@@ -4640,14 +4639,12 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl": {
-      "commit": "5a7da0e74da8cfd5ea0cae166628b28dddbe16ef",
-      "inputs": "d387d72e07a3e10a2f2fc4b688b57553fe757d39caf910e1becd8d19829e745c",
-      "unproven": true
+      "commit": "72516ea7c5330b0fe98fc41c1012d50544d828b4",
+      "inputs": "d387d72e07a3e10a2f2fc4b688b57553fe757d39caf910e1becd8d19829e745c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "5a7da0e74da8cfd5ea0cae166628b28dddbe16ef",
-      "inputs": "d387d72e07a3e10a2f2fc4b688b57553fe757d39caf910e1becd8d19829e745c",
-      "unproven": true
+      "commit": "72516ea7c5330b0fe98fc41c1012d50544d828b4",
+      "inputs": "d387d72e07a3e10a2f2fc4b688b57553fe757d39caf910e1becd8d19829e745c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
       "commit": "72e257387eb04ec9e9d68c3f61d82154b6d6bc3b",
