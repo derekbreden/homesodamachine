@@ -56,7 +56,7 @@ click: x=135.301 y=55.662 z=2.250
 click: x=131.136 y=59.326 z=0.000
 click: x=131.136 y=59.326 z=2.250
 
-[thin] Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+[thin] Deliberate functional C2 spring section: these ranked surface groups belong to the jaws above the tube equators on the fore and aft Reservoir A pairs and the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
 alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=110.930 y=15.583 z=23.065
@@ -128,11 +128,6 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-91.518 y=-47.836 z=14.179
 click: x=-91.518 y=17.473 z=14.179
 
-[ceiling] Functional aft paired-seat tie passage: the 3.2 mm-wide open tunnel has 1.575 mm clear height and a full 3 mm roof under the tube-bearing ridge. Its broad transition joins both tube grooves. The current slice bridges across the short X width with complete anchors on both sides and no support inside the passage.
-alternatives: Opening the roof cuts the tube-bearing ridge; filling the tunnel prevents the tie from passing. A corbel into the passage reduces the selected tie clearance.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-66.700 y=50.763 z=7.175
-
 [thin] Specific 4 mm flavor-line flexures: these four free jaws use the C2 profile scaled from the 6.35 mm section to the 4 mm bore, giving a 1.52 mm working jaw. Their mouths permit direct press-in insertion; the filled roots retain 3 mm stock. The smaller section is a defined spring, with no transferred claim about measured force or fatigue.
 alternatives: A 3 mm jaw changes the spring section and mouth compliance. Filling above the tube equator closes the loading mouth; a rigid saddle with a separate closure adds a part and an assembly step.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
@@ -181,7 +176,7 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=-139.408 y=-32.712 z=6.889
 click: x=-141.200 y=-32.756 z=5.489
 
-[thin] Deliberate functional C2 spring section: these ranked surface groups belong to the six free jaws above the tube equators, four on the fore Reservoir A pair and two on the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
+[thin] Deliberate functional C2 spring section: these ranked surface groups belong to the jaws above the tube equators on the fore and aft Reservoir A pairs and the V-A feed seat. Their measured 2.400 mm wall is the C2 section Derek selected with the 6.35 mm bore on Mark2 task 1379240291, recorded in https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json. Ordinary stock below the equators remains filled; the V-A seat has a full-width root from the plain lid to its Z268.970 tube axis. Only the working upper jaws use this specific flexure exception. This answer preserves the thinness ranking and establishes no full-lid force, lifetime or print result.
 alternatives: Increasing the jaws to 3 mm while keeping the same bore increases each outer radius by 0.6 mm and changes the selected spring section. On the fore pair it also consumes 1.2 mm of spread space: preserving the current conservative 1 mm-per-jaw envelope and its 0.35 mm opposing gap requires wider tube spacing and another routing change. Filling above the equators joins the free jaws and closes the press-in mouths. A rigid cradle with a separate closure adds a part and an assembly step instead of providing the selected direct snap.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=111.110 y=17.587 z=24.407
@@ -194,6 +189,14 @@ click: x=115.053 y=67.174 z=12.527
 click: x=115.053 y=69.573 z=12.585
 click: x=119.577 y=15.618 z=23.767
 click: x=121.889 y=15.628 z=24.407
+click: x=-63.128 y=40.754 z=21.468
+click: x=-63.996 y=42.985 z=21.410
+click: x=-63.710 y=50.951 z=13.433
+click: x=-64.268 y=53.281 z=13.492
+click: x=-66.316 y=48.898 z=21.439
+click: x=-67.179 y=51.136 z=21.498
+click: x=-64.316 y=59.898 z=13.539
+click: x=-65.179 y=62.136 z=13.598
 
 [ledge] Functional flat retaining undersides of the J1/J2 cable hooks. Each 12 mm2 face is the 0.75 mm projection across the 16 mm cable span, backed by 3 mm hook stock. Its flat underside catches the leads beneath the 45-degree entry. The 2.2 mm seat depth, lip and entry follow the accepted cable-hook section; the installed seven-lead J1 grouping has its own physical-fit scope. Tree(auto)/Default supplies the current native support decisions.
 alternatives: Removing or sloping the retaining underside changes the selected cable capture; filling beneath it closes the cable seat. The overhang is the named retaining interface, rather than a cut remnant between unrelated features.

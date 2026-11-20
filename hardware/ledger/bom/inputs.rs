@@ -197,7 +197,6 @@ pub fn inputs(root: &Path) -> Result<Inputs> {
         coil: coil(),
         prv_vent: prv_vent(),
         faucet: faucet()?,
-        reservoir_a_ties: bought::RESERVOIR_A_TIES,
         cap_tie_paths: bought::CAP_TIE_PATHS,
         foam_cap_face_inserts: core::attachment_stations().len(),
         reservoir_cap_inserts: hsm_reservoir_numbers::stations().len(),

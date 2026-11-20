@@ -13,7 +13,7 @@ The 2.4 mm section is the functional spring exception to ordinary 3 mm stock.
 The complete lid station still needs its own printed access and retention trial.
 
 The draw route is exact. The fill approach retains its existing line/arc topology,
-R14 bends, endpoints, aft tied seat and east-wall snap. The fore pair uses no
+R14 bends, endpoints, aft clip pair and east-wall snap. The fore pair uses no
 separate cap, axial shoulders or latch-foot relief pockets. Open air above the
 jaws provides local release access.
 

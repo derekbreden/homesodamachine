@@ -705,7 +705,7 @@
       ],
       "reverse": false,
       "illustrative_length_mm": 452.675189,
-      "note": "Continuous fill tube through the fore snap at Z258.5, below V-B, then rising to Z259.5 for the curved aft seat and fixed reservoir fill guide."
+      "note": "Continuous fill tube through the fore snap at Z258.5, below V-B, then rising to Z259.5 for the curved aft clip and fixed reservoir fill guide."
     },
     "fluid-16": {
       "name": "a-draw",
@@ -1290,10 +1290,10 @@
       ],
       "reverse": true,
       "illustrative_length_mm": 407.906883,
-      "note": "Continuous draw tube from the fixed reservoir guide through the curved aft seat at Z259.5 and fore snap at Z258.5, below V-B, to its fixed front stem elbow."
+      "note": "Continuous draw tube from the fixed reservoir guide through the curved aft clip at Z267.4 and fore snap at Z258.5, below V-B, to its fixed front stem elbow."
     }
   },
-  "scope": "Continuous reservoir A tubes connect the front-valve stem elbows to the equipment lid through the fore paired snaps and aft tied saddle. The fill entry is X56/Y426.3; an internal R14 S bend reaches the fixed reservoir bore. The ATEU44W tube sockets retain their published 16.891 mm receiving length; each male stem is trimmed to its receiving valve's fully seated mark, nominally 12.7 mm in CAD. Each plain guide divides warm/internal CAD spans without a fitting, insertion or physical tube cut.",
+  "scope": "Continuous reservoir A tubes connect the front-valve stem elbows to the equipment lid through the fore and aft paired snaps. The fill entry is X56/Y426.3; an internal R14 S bend reaches the fixed reservoir bore. The ATEU44W tube sockets retain their published 16.891 mm receiving length; each male stem is trimmed to its receiving valve's fully seated mark, nominally 12.7 mm in CAD. Each plain guide divides warm/internal CAD spans without a fitting, insertion or physical tube cut.",
   "constraints": {
     "fixed_guide_and_front_valve_ports": false,
     "intervening_tube_curves": "Line/arc routing uses R14 or larger bends; displayed lengths describe the selected geometry.",
@@ -1316,7 +1316,7 @@
         ]
       }
     ],
-    "anchor_fit_scope": "The fore pair retains its fixed axes. The aft tied saddle follows both curved paths and keeps the tie threading access open.",
+    "anchor_fit_scope": "The fore pair retains its fixed axes. Each aft clip follows its line's last level turn and ends where that turn ends.",
     "front_valve_ports": "Selected front-valve frames and socket engagements.",
     "reservoir_entries": "The reservoir cap bores retain their native stations.",
     "aft_anchor_interface": {
@@ -1325,7 +1325,7 @@
         "fluid-16",
         "fluid-14"
       ],
-      "centres": "Derived from the selected curved tube axes at this Y station."
+      "centres": "Each line's last level turn across this Y station carries its clip."
     }
   }
 }

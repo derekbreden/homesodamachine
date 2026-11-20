@@ -124,8 +124,7 @@ pub struct Inputs {
     /// The PRV vent's tube along its centreline, mm.
     pub prv_vent: f64,
     pub faucet: Faucet,
-    /// Reservoir A's tied stations, and the cap's six-inch tie paths.
-    pub reservoir_a_ties: usize,
+    /// The cap's six-inch tie paths.
     pub cap_tie_paths: usize,
     /// The inserts on each of the foam cap's clamp faces and on each reservoir cap, and the reeds
     /// each reservoir carries.
@@ -343,14 +342,13 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
 
     // The manifold, the ties and the harness.
     let tees = n(input.manifold.purchased_tees) + WATER_SPLIT_TEES;
-    let four_inch_ties = CABLE_TIES + VENT_LAND_TIES + n(input.reservoir_a_ties);
+    let four_inch_ties = CABLE_TIES + VENT_LAND_TIES;
     let six_inch_ties = n(input.cap_tie_paths);
     put("SOLENOIDS", count(n(input.manifold.solenoids)));
     put("TEES", count(tees));
     put("TEES_COST", cost(tees, TEES)?);
     put("FOUR_INCH_TIES", count(four_inch_ties));
     put("FOUR_INCH_TIES_COST", cost(four_inch_ties, FOUR_INCH_TIES)?);
-    put("RESERVOIR_A_TIES", fmt(n(input.reservoir_a_ties), ""));
     put("SIX_INCH_TIES", count(six_inch_ties));
     put("SIX_INCH_TIES_COST", cost(six_inch_ties, SIX_INCH_TIES)?);
     let w = &input.wire;

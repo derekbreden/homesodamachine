@@ -258,7 +258,7 @@ back to their installed clocking and connect the loose pump-inlet link
 [manual closing readings](/hardware/mechanical-qualification/enclosure-above-core/README.md)
 record the named rigid group and seventeen sampled offsets. They do not
 establish a continuous populated path or flexible connection handling.
-Finish Reservoir A's paired-seat ties on the open core. Leave the front
+Seat Reservoir A's lines in both clip pairs on the open core. Leave the front
 valve ends free for the slide and dress the flexible spans clear of passing
 fittings, using the loose elbow joints' rotation as needed. Keep the selected
 anchor stations and core entries; finish dressing the free spans and connect
