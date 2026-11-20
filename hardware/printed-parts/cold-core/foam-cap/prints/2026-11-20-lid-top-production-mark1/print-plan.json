@@ -1,0 +1,83 @@
+{
+  "purpose": "Bind the current foam-cap-lid-top mesh to its production project, native slice and published replay.",
+  "piece": "foam-cap-lid-top",
+  "material_id": "HSM-0020",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "prepared",
+  "prepared_utc": "2026-11-20T23:46:40+00:00",
+  "source_revision": "8f30c1ec6f0bd8788689de04d989d5bcb1a0f8cc",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Top lid: hardened left 0.4 mm Standard nozzle with the shared PET-GF process.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "3a24377d906c58a1e5fbf2997173a60433e9e3412178cabfdc148485496b8611",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+  "source_stl_sha256": "301555ac3403fdeba32669d0bb5369d15dd1033cc84ea964129982bd2f7f42eb",
+  "source_fine_archive": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
+  "source_fine_archive_sha256": "263885d73db5ca835c195ae25c524b291f5becb3bfded8716ba54cd3ed01118a",
+  "print_regions": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+  "print_regions_sha256": "2055f80eab18b9681df11c638aea7e00023a21f1e6d10024edc0a93b38aef7c3",
+  "archive": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.gcode.3mf",
+  "archive_sha256": "e635913d15509b5497b4d7871004e5c3b9f4c3bdedf50659571322adde1dd76c",
+  "gcode_sha256": "530309914f2d74b37e557b15e5a052db86da012e223137a337b6075797716b75",
+  "project": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.3mf",
+  "project_sha256": "a7bf8d3d8f08b7d963ae1ad9beeaab378e118dc9218edbe97a4a13d172f0ef08",
+  "preparation": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/preparation.json",
+  "native_review": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/review.json",
+  "support_audits": [
+    "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/support-audit-1901.json"
+  ],
+  "layers": 224,
+  "estimated_seconds": 42407.370969488904,
+  "minimum_bead_bed_margin_mm": 20.262,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 5.600568897534686e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 16,
+      "name": "foam-cap-lid-top",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 16,
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          20.450003052,
+          69.800003052,
+          0
+        ],
+        [
+          302.849996948,
+          250.199996948,
+          53.650001526
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 21616
+    }
+  ],
+  "replay_sha256": "5d913f716cc7445288e25d622f1b1d13d91cd99b26e5ffcbefa60e2f45589a5d",
+  "replay": "print-playbacks/5d913f716cc7445288e25d622f1b1d13d91cd99b26e5ffcbefa60e2f45589a5d.json.gz"
+}

@@ -570,6 +570,12 @@
       "bytes": 2787709,
       "sha256": "f053b525fc15ce915020f3fed188ebfbd396d9fd8b9a2e87fd619136596349de"
     },
+    "1127ee03eb9005e62643d2f643ccd1a4f8d422be": {
+      "archive": "foam-cap-lid-top-mark1-6eb1ac3d5283e5d9.zip",
+      "bytes": 510332,
+      "offset": 74,
+      "sha256": "a7bf8d3d8f08b7d963ae1ad9beeaab378e118dc9218edbe97a4a13d172f0ef08"
+    },
     "116f8146d709cdbdddd82e6b568864aa04c09022": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 383748976,
@@ -5670,6 +5676,12 @@
       "bytes": 2278033,
       "sha256": "7afe607831e7f7c19b7b7ce39c182a48f8a1d338571e618f7f8eafd9e934177c"
     },
+    "bc678e00d35e67d45ecd924ebad75076f2b4bc44": {
+      "archive": "foam-cap-lid-top-mark1-6eb1ac3d5283e5d9.zip",
+      "bytes": 7466432,
+      "offset": 510480,
+      "sha256": "e635913d15509b5497b4d7871004e5c3b9f4c3bdedf50659571322adde1dd76c"
+    },
     "bcd0e2c9c3f4be6640aca8b0df5c7e910e59424e": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 780541981,
@@ -7834,6 +7846,8 @@
     "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-febf2390/coordinates-1905.3mf": "2d5cdb742171024f88d0c32527dee392a4168c6a",
     "hardware/printed-parts/asse-drain-adapter/siraya-85a-settings.3mf": "052cb987fca4d100b24ddf9c56b9bf90fae68b48",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark1/2026-10-31-foam-cap-bottom-mark1-20a7d979.3mf": "fa792375599261aa9e22c22a72aab2a69fdcce10",
+    "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.3mf": "1127ee03eb9005e62643d2f643ccd1a4f8d422be",
+    "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.gcode.3mf": "bc678e00d35e67d45ecd924ebad75076f2b4bc44",
     "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.3mf": "54cf5372f44b61ccc44117ab4f80ea8d97c5970f",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf": "30fb45aee3c2b5b36ad57b0e99765f4809638484",
     "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/cold-core-shell-mark2.3mf": "234b89311cc07b06c7c1dbbb74ab1697a02611a3",
