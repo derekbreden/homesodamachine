@@ -50,8 +50,10 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     let stock = rear_snap_corner_stock(g, b);
     piece = g.union(piece, &[stock]);
     let wall = &layout().rear_wall;
-    // The panel's relief runs flush to the common pocket's floor above it.
+    // The panel's relief runs flush to the common pocket's floor above it and out through the
+    // rim below it, at the face the core's pocket has there.
     let mut panel = wall.interior_panel_relief.bounds();
+    panel[4] = b.exterior_bounds()[4];
     panel[5] = panel[5].max(crate::supports::ceiling_floor_z());
     let relief = rounded(g, 2, panel, 0.0, &[0, 1, 2, 3]);
     let relief = g.feature(relief, "rear-interior-relief", "Rear interior panel relief", &[]);
