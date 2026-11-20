@@ -1,0 +1,75 @@
+{
+  "views": [
+    {
+      "name": "corbel",
+      "caption": "The corbel reaches the tube snap wing, leaving its opposite wing free to flex.",
+      "before": "corbel-before.webp",
+      "after": "corbel-after.webp",
+      "width": 1000,
+      "height": 800,
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          94.31,
+          238.44365081389594,
+          262
+        ],
+        "target": [
+          94.31,
+          265,
+          262
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.27328571029811694,
+        "far": 539.0441245971585,
+        "aspect": 1.25,
+        "section": {
+          "at": [
+            94.31,
+            265,
+            258.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "0cba63eba7f9f38ecb90eb289436cb079cea8796bb4e8772596282fdb8984ac0",
+          "commit": "8cd21700fa64211e9d5e608f26117abb2ff99a8c",
+          "taken": "2026-11-20T05:16:50.884Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "8e672ccca4625aeb7661770eeb91e418a99812f7ff2eb62ecbf453b60777b820",
+          "commit": "cb9ad2998bfd83181dccf5265a5d62112c13752c",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure_back_top"
+      ]
+    }
+  ]
+}
