@@ -1,11 +1,12 @@
 //! The integral cable hooks each quadrant grows for the wire routes the wiring model lays
 //! against its walls, and the tube seats that hold the fluid routes' straights.
-use crate::catalog::{route_root_overlap, route_tube_tip_degrees};
+use crate::catalog::{route_root_overlap, route_tube_tip_degrees, route_tube_wing, route_upper_wing_lift};
 use crate::plan::{Graph, Op, P2, P3, Shape, Step};
 use crate::quadrant::Quadrant;
 use crate::shapes::place;
 use crate::walls::back_top_flank_face;
 use serde::Deserialize;
+use serde_json::{Value, json};
 use std::sync::OnceLock;
 
 /// One hook: where its root lands and its local frame, and the cable section it seats.
@@ -78,6 +79,7 @@ struct TubeSite {
     outward: P3,
     bore: f64,
     wing: f64,
+    upper_wing_lift: f64,
 }
 
 /// How far each seat runs along its tube, centred on its straight.
@@ -92,8 +94,23 @@ fn tube_sites() -> [TubeSite; 1] {
         face: back_top_flank_face()[1],
         outward: [-1.0, 0.0, 0.0],
         bore: 6.35,
-        wing: 2.35,
+        wing: route_tube_wing(),
+        upper_wing_lift: route_upper_wing_lift(),
     }]
+}
+
+/// Removable strips span the free wing from breakaway feet on the corbelled wing.
+pub fn upper_wing_support_stock(q: Quadrant) -> Vec<Value> {
+    tube_sites().iter().filter(|site| site.host == q).map(|site| {
+        let centre = [0, 1, 2].map(|k| (site.endpoints[0][k] + site.endpoints[1][k]) / 2.0);
+        json!({"name":"Fill tube snap removable upper-wing support",
+            "shape":"tube_wing_strips", "centre_source_mm":centre,
+            "bore_radius_mm":site.bore / 2.0, "wing_thickness_mm":site.wing,
+            "upper_wing_lift_mm":site.upper_wing_lift,
+            "tip_degrees":route_tube_tip_degrees(),
+            "span_y_mm":[centre[1] - TUBE_SEAT_SPAN / 2.0, centre[1] + TUBE_SEAT_SPAN / 2.0],
+            "reason":"Separate contoured caps carry the upper wing from narrow breakaway feet on the lower wing. The open mouth admits a screwdriver under each cap."})
+    }).collect()
 }
 
 /// One seat: a C-section whose spring wings wrap the tube to the tip angle, their noses rounded,
@@ -113,13 +130,19 @@ fn tube_seat(g: &mut Graph, site: &TubeSite, print_up: P3) -> Shape {
     let (cp, cn) = (point(rm, tip), point(rm, -tip));
     let (qp, qn) = ([tip.cos(), -tip.sin()], [(-tip).cos(), -(-tip).sin()]);
     let span = TUBE_SEAT_SPAN;
+    let lift = site.upper_wing_lift;
+    let upper = |p: P2| -> P2 { [p[0] - lift, p[1]] };
     let segments = vec![
-        Step::Arc([0.0, ro], b),
+        Step::Arc(upper(point(ro, -tip / 2.0)), [-lift, ro]),
+        Step::Line([0.0, ro]),
+        Step::Arc(point(ro, tip / 2.0), b),
         Step::Arc([cp[0] + nose * qp[0], cp[1] + nose * qp[1]], c),
-        Step::Arc([0.0, ri], d),
-        Step::Arc([cn[0] + -nose * qn[0], cn[1] + -nose * qn[1]], a),
+        Step::Arc(point(ri, tip / 2.0), [0.0, ri]),
+        Step::Line([-lift, ri]),
+        Step::Arc(upper(point(ri, -tip / 2.0)), upper(d)),
+        Step::Arc(upper([cn[0] - nose * qn[0], cn[1] - nose * qn[1]]), upper(a)),
     ];
-    let body = g.add(Op::ArcPrism { axis: 2, span: [0.0, span], start: a, segments }, vec![], None);
+    let body = g.add(Op::ArcPrism { axis: 2, span: [0.0, span], start: upper(a), segments }, vec![], None);
     let reach = (site.face - centre[site.face_axis]).abs() + route_root_overlap();
     let mut root = g.prism(2, 0.0, span, vec![[-ro, 0.0], [ro, 0.0], [ro, reach], [-ro, reach]]);
     let growth = unit(print_up);
@@ -133,7 +156,9 @@ fn tube_seat(g: &mut Graph, site: &TubeSite, print_up: P3) -> Shape {
         root = g.union(root, &[corbel]);
     }
     let body = g.union(body, &[root]);
-    let bore = g.cylinder(2, ri, 0.0, 0.0, -0.1, span + 0.1);
+    let bore = g.add(Op::ArcPrism { axis: 2, span: [-0.1, span + 0.1], start: [0.0, -ri],
+        segments: vec![Step::Arc([ri, 0.0], [0.0, ri]), Step::Line([-lift, ri]),
+                       Step::Arc([-lift - ri, 0.0], [-lift, -ri]), Step::Line([0.0, -ri])] }, vec![], None);
     let body = g.cut(body, &[bore]);
     let origin = std::array::from_fn(|k| centre[k] - u[k] * span / 2.0);
     frame_place(g, body, origin, t, cross(u, t), u)

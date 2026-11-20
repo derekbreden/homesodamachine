@@ -25,6 +25,8 @@ struct Scalars {
 #[allow(non_snake_case)]
 struct RouteSnap {
     TUBE_TIP_DEGREES: f64,
+    TUBE_WING: f64,
+    UPPER_WING_LIFT: f64,
     ROOT_OVERLAP: f64,
 }
 
@@ -97,6 +99,14 @@ pub fn route_root_overlap() -> f64 {
 /// The arc a tube seat's spring wings wrap round the tube, each side of its mouth.
 pub fn route_tube_tip_degrees() -> f64 {
     scalars().route_snap.TUBE_TIP_DEGREES
+}
+
+pub fn route_tube_wing() -> f64 {
+    scalars().route_snap.TUBE_WING
+}
+
+pub fn route_upper_wing_lift() -> f64 {
+    scalars().route_snap.UPPER_WING_LIFT
 }
 
 pub fn flute_skin() -> FluteSkin {

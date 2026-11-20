@@ -186,6 +186,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     let rail_contact = b.splits[1] + shell::HOOK_FOOT;
     let rail_floor = b.splits[1] + shell::Z_RISE + shell::slide_slip();
     let mut support_stock = Vec::new();
+    support_stock.extend(routes::upper_wing_support_stock(quadrant::Quadrant::BACK_TOP));
     // Follow the complete bearing, breaking only at the vent's actual open passage.
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(&b.inner, b.y_joint, quadrant::Y::Back) {
         let mut spans = vec![[run.y1 + shell::RAIL_STOP_LEN, run.y0]];

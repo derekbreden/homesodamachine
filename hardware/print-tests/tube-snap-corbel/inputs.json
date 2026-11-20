@@ -1,5 +1,5 @@
 {
-  "purpose": "Retain the production fill tube snap and its complete east wall for a support-free flex and fit print.",
+  "purpose": "Retain the production fill tube snap, its complete east wall, and its removable wing supports for a flex and fit print.",
   "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
   "crop_min_mm": [86.0, 253.0, 250.0],

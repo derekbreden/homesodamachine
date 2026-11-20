@@ -32,6 +32,22 @@ fn main() -> Result<()> {
     fs::create_dir_all(&out)?;
     let bytes = stl_bytes(&[&crop])?;
     fs::write(out.join("tube-snap-corbel.stl"), &bytes)?;
+    let production_features: Value = serde_json::from_slice(&fs::read(
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json")?)?;
+    let select = |key: &str| -> Vec<Value> {
+        production_features[key].as_array().into_iter().flatten()
+            .filter(|feature| feature["name"].as_str().is_some_and(|name| name.starts_with("Fill tube snap")))
+            .cloned().collect()
+    };
+    let support_features = json!({
+        "producer": "tube-snap-corbel",
+        "source_stl_sha256": digest(&bytes),
+        "support_regions": select("support_regions"),
+        "support_free_regions": [],
+        "bridge_regions": [],
+        "removable_support_stock": select("removable_support_stock"),
+    });
+    fs::write(out.join("tube-snap-corbel.print-features.json"), serde_json::to_vec_pretty(&support_features)?)?;
     let bounds = crop.bounds();
     let report = json!({
         "inputs": inputs,

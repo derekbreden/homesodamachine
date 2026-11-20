@@ -125,7 +125,8 @@
   },
   "route_snap": {
     "TUBE_DIAMETER_ALLOWANCE": 0.0,
-    "TUBE_WING": 2.4,
+    "TUBE_WING": 2.35,
+    "UPPER_WING_LIFT": 0.15,
     "TUBE_TIP_DEGREES": 125.42102606277044,
     "TUBE_SPAN": 8.0,
     "CABLE_STOCK": 3.0,

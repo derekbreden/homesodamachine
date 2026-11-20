@@ -2192,14 +2192,22 @@
         {
           "name": "tube-snap-corbel",
           "stl": "hardware/print-tests/tube-snap-corbel/parts/tube-snap-corbel.stl",
-          "pose": {"turns": [["x", 180]]}
+          "pose": {"turns": [["x", 180]]},
+          "features": [
+            {
+              "name": "Fill tube snap support",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/tube-snap-corbel/parts/tube-snap-corbel.print-features.json",
+              "reason": "Carry the production upper-wing contact and removable support into the fit coupon."
+            }
+          ]
         }
       ],
       "pose_reason": "Retain the back-top print direction and the complete wall that carries the snap.",
       "settings": {
         "enable_support": {
           "value": "0",
-          "reason": "The corbel carries the print-down wing from the wall without removable support."
+          "reason": "The authored breakaway strips carry the upper wing from the lower one without slicer trees."
         },
         "timelapse_type": {
           "value": "1",

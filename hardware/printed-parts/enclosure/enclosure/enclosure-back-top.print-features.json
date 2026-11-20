@@ -136,6 +136,24 @@
   "producer": "enclosure-back-top",
   "removable_support_stock": [
     {
+      "bore_radius_mm": 3.175,
+      "centre_source_mm": [
+        94.31,
+        265.0,
+        258.5
+      ],
+      "name": "Fill tube snap removable upper-wing support",
+      "reason": "Separate contoured caps carry the upper wing from narrow breakaway feet on the lower wing. The open mouth admits a screwdriver under each cap.",
+      "shape": "tube_wing_strips",
+      "span_y_mm": [
+        261.0,
+        269.0
+      ],
+      "tip_degrees": 125.42102606277044,
+      "upper_wing_lift_mm": 0.15,
+      "wing_thickness_mm": 2.35
+    },
+    {
       "cap_span_x_mm": [
         -103.275,
         -98.5
@@ -184,7 +202,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
+  "source_stl_sha256": "251fd13a5739b8dd7b249e65355fe125d270dda8eeac903ce4fc3f88d46df884",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -230,16 +248,16 @@
       "blocking_bounds_source_mm": [
         64.59438431246909,
         67.44438431246908,
-        416.84571720240064,
-        465.55,
+        417.09571720240064,
+        465.8,
         340.45,
         355.0
       ],
       "bounds_source_mm": [
         64.59438431246909,
         67.44438431246908,
-        420.09571720240064,
-        462.3,
+        420.34571720240064,
+        462.55,
         340.45,
         351.8
       ],
@@ -250,16 +268,16 @@
       "blocking_bounds_source_mm": [
         85.55561568753092,
         88.40561568753091,
-        416.84571720240064,
-        465.55,
+        417.09571720240064,
+        465.8,
         340.45,
         355.0
       ],
       "bounds_source_mm": [
         85.55561568753092,
         88.40561568753091,
-        420.09571720240064,
-        462.3,
+        420.34571720240064,
+        462.55,
         340.45,
         351.8
       ],
@@ -602,7 +620,7 @@
         "radius_mm": 9.6535,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -627,7 +645,7 @@
         "radius_mm": 6.9285,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -652,7 +670,7 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -677,7 +695,7 @@
         "radius_mm": 8.72,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -702,7 +720,7 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
@@ -727,7 +745,7 @@
         "radius_mm": 7.65,
         "roof_angle_deg": 36.0,
         "span_y_mm": [
-          465.3,
+          465.55,
           474.3
         ]
       }
