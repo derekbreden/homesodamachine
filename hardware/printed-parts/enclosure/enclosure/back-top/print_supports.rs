@@ -1,4 +1,4 @@
-//! Removable print stock carries each rail cap from its own open cavity.
+//! Removable print stock carries rail caps from their cavity floors and the tube wing from its mate.
 
 use anyhow::{Context, Result};
 use hsm_kernel::{Plane, Profile, Solid, v2, v3};
@@ -16,24 +16,95 @@ enum Stock {
         contact_source_z_mm: f64,
         root_source_z_mm: f64,
     },
+    TubeWingStrips {
+        centre_source_mm: [f64; 3],
+        bore_radius_mm: f64,
+        wing_thickness_mm: f64,
+        upper_wing_lift_mm: f64,
+        tip_degrees: f64,
+        span_y_mm: [f64; 2],
+    },
 }
 
 /// A separate printable solid and its slicer settings, in the enclosure source frame.
 pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, String)>)> {
-    let Stock::RailStrips {
-        center_x_mm,
-        cap_span_x_mm,
-        span_y_mm,
-        contact_source_z_mm,
-        root_source_z_mm,
-    } = serde_json::from_value(spec.clone()).context("rear enclosure support stock")?;
-    let cap_span = cap_span_x_mm.unwrap_or([center_x_mm - 2.15, center_x_mm + 2.15]);
-    let solid = rail_supports(center_x_mm, cap_span, span_y_mm, contact_source_z_mm, root_source_z_mm, gap)?;
+    let stock: Stock = serde_json::from_value(spec.clone()).context("rear enclosure support stock")?;
+    let solid = match stock {
+        Stock::RailStrips { center_x_mm, cap_span_x_mm, span_y_mm, contact_source_z_mm, root_source_z_mm } => {
+            let cap_span = cap_span_x_mm.unwrap_or([center_x_mm - 2.15, center_x_mm + 2.15]);
+            rail_supports(center_x_mm, cap_span, span_y_mm, contact_source_z_mm, root_source_z_mm, gap)?
+        }
+        Stock::TubeWingStrips { centre_source_mm, bore_radius_mm, wing_thickness_mm,
+                                upper_wing_lift_mm, tip_degrees, span_y_mm } => {
+            tube_wing_strips(centre_source_mm, bore_radius_mm, wing_thickness_mm,
+                             upper_wing_lift_mm, tip_degrees, span_y_mm, gap)?
+        }
+    };
     let settings = vec![
         ("wall_loops".into(), "2".into()),
         ("sparse_infill_density".into(), "100%".into()),
     ];
     Ok((solid, settings))
+}
+
+/// The cap follows the upper wing's nose and bore; slender feet break from the lower wing.
+fn tube_wing_strips(
+    [cx, _cy, cz]: [f64; 3], ri: f64, wing: f64, lift: f64,
+    tip_degrees: f64, [y0, y1]: [f64; 2], gap: f64,
+) -> Result<Solid> {
+    let tip = tip_degrees.to_radians();
+    let nose = wing / 2.0;
+    let rm = ri + nose;
+    let nose_y = rm * tip.cos();
+    let nose_z = -rm * tip.sin();
+    let inner_tip_x = cx + ri * tip.cos();
+    let roof_z = |x: f64| -> f64 {
+        let across = x - cx;
+        let profile_z = if x <= inner_tip_x {
+            nose_z + (nose * nose - (across - nose_y).powi(2)).max(0.0).sqrt()
+        } else {
+            -(ri * ri - across * across).max(0.0).sqrt()
+        };
+        cz - lift + profile_z + gap
+    };
+    let x_start = cx + nose_y - nose + 0.18;
+    let x_end = cx + 1.2;
+    let samples = ((x_end - x_start) / 0.15).ceil() as usize;
+    let mut top: Vec<_> = (0..=samples).map(|i| {
+        let x = x_start + (x_end - x_start) * i as f64 / samples as f64;
+        v2(x, roof_z(x))
+    }).collect();
+    top.push(v2(inner_tip_x, roof_z(inner_tip_x)));
+    top.sort_by(|a, b| a.x.total_cmp(&b.x));
+    let z_stem_start = cz + ri - 1.3;
+    let z_stem_end = cz + ri - 0.65;
+    let z_root = cz + ri + 0.05;
+    let mut outline = top.clone();
+    outline.extend([
+        v2(x_end, roof_z(x_end) + 0.72),
+        v2(cx + 0.55, z_stem_start),
+        v2(cx + 0.55, z_stem_end),
+        v2(cx - 0.55, z_stem_end),
+        v2(cx - 0.55, z_stem_start),
+        v2(x_start, roof_z(x_start) + 0.72),
+    ]);
+    let margin = 0.15;
+    let separation = 0.3;
+    let count = 3;
+    let width = (y1 - y0 - 2.0 * margin - separation * (count - 1) as f64) / count as f64;
+    let mut parts = Vec::new();
+    for i in 0..count {
+        let a = y0 + margin + i as f64 * (width + separation);
+        let b = a + width;
+        let cap = Plane::XZ.at(v3(0.0, a, 0.0)).extrude(&Profile::polygon(&outline), a - b)?;
+        let middle = (a + b) / 2.0;
+        let neck = box_solid(
+            [cx - 0.4, middle - 0.75, z_stem_end - 0.03],
+            [cx + 0.4, middle + 0.75, z_root],
+        );
+        parts.push(Solid::union_all(&[cap, neck])?.simplified()?);
+    }
+    Ok(Solid::compose(&parts))
 }
 
 fn box_solid(lo: [f64; 3], hi: [f64; 3]) -> Solid {
