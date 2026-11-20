@@ -91,8 +91,10 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "reason":"The stop bridges between its complete side rails."}));
     }
     let mut targets = vec![];
-    targets.push(json!({"name":"Accessible flow meter fore shoulder","bounds_source_mm":supports::meter_shoulder_target(),
-        "reason":"Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."}));
+    for (end, bounds) in ["fore", "aft"].into_iter().zip(supports::meter_shoulder_targets()) {
+        targets.push(json!({"name":format!("Accessible flow meter {end} shoulder"),"bounds_source_mm":bounds,
+            "reason":"Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."}));
+    }
     targets.push(json!({"name":"Accessible flow meter front lip","bounds_source_mm":supports::meter_lip_target(),
         "reason":"Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."}));
     for (name, bounds) in supports::meter_floor_targets() {

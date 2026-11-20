@@ -139,12 +139,14 @@ round the connector wells' row. Whatever stands on that ceiling is rooted in
 it: the ASSE and Pisco receivers, both rear corner columns, the wells, the
 power-supply bosses and the inlet tunnel. A part that stands on a face takes
 its root from that face's own plane, never from a second number for it.
-The meter's sideways channels return to the flank on bevels. Its aft shoulder
-stands on a corbel off the flank, under the Pisco receiver. Its fore shoulder
-and the lip its cap's upper leaf rides over take support through the open west
-side, and the lip bridges from that support to the aft shoulder.
+The meter's sideways channels return to the flank on bevels. The room between
+the meter receiver and the Pisco receiver stays clear, with no corbel in it.
+The meter's fore shoulder, the lip its cap's upper leaf rides over and the open
+west edge of its aft shoulder take support through the open west side. The lip
+bridges from its support to the aft shoulder, and the aft shoulder's first
+course bridges from its west edge to the flank.
 The Pisco leaves stop ahead of the rear corner column; its body retains the
-full fitted span, and its east lower corner clears the meter's aft corbel.
+full fitted span.
 The C14 inlet's flange pocket and cord passage take support; its blind pilots
 stay clear. The meter's fitted boss channels, screw-head channels and wire
 chamber take support through the receiver's open west side. Preserve the

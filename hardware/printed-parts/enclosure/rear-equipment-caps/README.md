@@ -61,8 +61,7 @@ reports tight hardware fits, with the ASSE body seating as the exception. The
 [ASSE body cap](../../../print-tests/asse-body-seating/README.md) carries its local seating allowance.
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
-height, and the Pisco's east leaf is shorter, rooted above the cut that clears
-the meter's aft shoulder corbel. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
+height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
 the water regulator. Each rear cap has the same planar lead-in ending at a
 pointed free edge above a solid nose land. Its matching receiver ceiling clears
 the complete point. All retaining noses are solid. All rear wings hook over matching chamfered receiver catches.
@@ -72,9 +71,6 @@ face falls from the nose to the leaf at the shared snap slope. The whole
 pointed lead-in stands above the solid nose, under the ceiling. The meter's
 catch climbs from its lip into the sideways pocket, so its hook's nose seats
 above the catch plane, and its lead-in ends at a point just short of the flank.
-The meter receiver's aft shoulder corbel climbs the east flank under the Pisco
-cap, whose east lower corner is cut back along that slope over the cap's aft
-run and whose east leaf roots above the cut.
 The Pisco leaves end ahead of the rear corner column while the cap body beneath
 their roots keeps its full fitted span. The rear receiver bases are continuous, with no enclosed
 screwdriver tunnels. Release the leaves from their exposed edges with the
