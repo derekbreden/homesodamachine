@@ -758,16 +758,20 @@ binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
 Every rear snap catch uses the shared chamfer slope with its matching cap.
-The ASSE, Pisco, meter and water-regulator wing channels stay clear of supports.
+The ASSE, Pisco, meter and water-regulator catch pockets stay clear of supports.
 A common ceiling recess over the ASSE and Pisco runs between the flanks and
-flush to the rear wall. Their receivers have plain end walls around the fitted
+flush to the rear wall, whose panel relief runs up to it, and it runs round the
+connector wells' row on the west flank. The receivers, both rear corner
+columns, the power-supply bosses and the inlet tunnel are rooted in that
+recessed ceiling. The receivers have plain end walls around the fitted
 passages and wing catches. The Pisco leaves stop ahead of the corner column,
-with the fitted body span retained. The corner column and adjacent rear wall
-meet their common stock plane.
+with the fitted body span retained.
 
-The meter's continuous roof bevel carries its end shoulders from the flank.
-Each sideways hook channel returns to the flank on a bevel rather than a flat
-floor. The complete shoulders retain the landings across the open wing lanes.
+The meter's aft shoulder stands on a corbel off the flank, under the Pisco
+receiver. Its fore shoulder and the lip its cap's upper leaf rides over take
+removable support through the open west side, and the lip bridges from that
+support to the aft shoulder. Each sideways hook channel returns to the flank on
+a bevel rather than a flat floor.
 The fitted boss channels, screw-head channels and wire chamber retain accessible
 support through the receiver's open west side. Component bearing profiles and
 spring walls retain their fitted geometry. The

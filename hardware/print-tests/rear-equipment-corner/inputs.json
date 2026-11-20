@@ -6,5 +6,6 @@
   "crop_min_mm": [-1.0, 378.0, 252.0],
   "crop_max_mm": [112.0, 475.0, 355.0],
   "print_up_source": [0, 0, -1],
-  "caps": ["asse-snap-cap", "pisco-snap-cap", "meter-snap-cap"]
+  "caps": ["pisco-snap-cap"],
+  "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json"
 }

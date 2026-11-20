@@ -1,19 +1,9 @@
 {
   "caps": [
     {
-      "name": "asse-snap-cap",
-      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
-      "stl_sha256": "4de17d99fc68fc167ccef8b4a7ed8433b0c12c81ca3e87b2aa3c03be0bea1cf7"
-    },
-    {
       "name": "pisco-snap-cap",
       "source": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
-      "stl_sha256": "fc433505e22586612b2ca5a7661fdf7632c0f15485e4864cfb5f2cc9c1f1808f"
-    },
-    {
-      "name": "meter-snap-cap",
-      "source": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
-      "stl_sha256": "e2df58035da8e595b050361d2c6e6b5a371e32e554ba8c3b4748850dab788704"
+      "stl_sha256": "0890fa6f9dee2edbd08f96f6bf058cc89ded0c064098ceb30ecd02411884f155"
     }
   ],
   "connected_solids": 1,
@@ -29,13 +19,11 @@
       355.0
     ]
   ],
-  "corner_stl_sha256": "d4f0b40d3b37d1747ee6af8b50a8e1fa320ebc8e6a050c5c6c886f1ca0017561",
-  "corner_volume_mm3": 264284.04604794335,
+  "corner_stl_sha256": "e1074e00cd57efce947d3424cb3cdbbd9bf5b79ed2e9151addbdbfc646cdb8ad",
+  "corner_volume_mm3": 266818.7523329517,
   "inputs": {
     "caps": [
-      "asse-snap-cap",
-      "pisco-snap-cap",
-      "meter-snap-cap"
+      "pisco-snap-cap"
     ],
     "crop_max_mm": [
       112.0,
@@ -47,6 +35,7 @@
       378.0,
       252.0
     ],
+    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/2280aec49/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json",
     "print_up_source": [
       0,
       0,
@@ -57,7 +46,7 @@
     "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
     "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
   },
-  "source_model_sha256": "d3bc9ae96e4bb4b016d75675827d2077ca34a4115a14a3d8331208cbf5bac358",
-  "source_stl_sha256": "52dcf4340e9106615af36f5972f2d573e675824f9809778cd86dca7cca8e4067",
+  "source_model_sha256": "cc2bed092f8abf6f5911d88253c38ebf5b371104b541e0b37ea7b6fc55e1302f",
+  "source_stl_sha256": "6ec4013d174dc21895a34c8852fabe964c45891dbe37b721c3cb940698a25b70",
   "watertight": true
 }

@@ -4984,7 +4984,6 @@
       "gas-check": 17.0,
       "discharge-chain": 16.891
     },
-    "snap_ceiling_z_mm": 349.2,
     "drain_vent": {
       "sleeve_clock_from_fore_deg": 15.0,
       "minimum_radius_mm": 25.4999999999926,

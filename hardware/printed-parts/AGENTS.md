@@ -130,12 +130,18 @@ supports on model material alone does not establish where the slicer roots them.
 
 Back-top prints ceiling-down, with the rear flutes standing clear of the bed.
 Every rear receiver catch and its matching cap use the shared snap chamfer.
-The wing channels stay clear of supports. The meter's sideways channels return
-to the flank on bevels, and its continuous roof bevel carries the end shoulders.
-The complete shoulders retain the landings across the open wing lanes.
+The catch pockets stay clear of supports. The rear ceiling recess runs flush to
+the flanks and to the rear wall, whose panel relief runs up to it, and it runs
+round the connector wells' row. Whatever stands on that ceiling is rooted in
+it: the ASSE and Pisco receivers, both rear corner columns, the wells, the
+power-supply bosses and the inlet tunnel. A part that stands on a face takes
+its root from that face's own plane, never from a second number for it.
+The meter's sideways channels return to the flank on bevels. Its aft shoulder
+stands on a corbel off the flank, under the Pisco receiver. Its fore shoulder
+and the lip its cap's upper leaf rides over take support through the open west
+side, and the lip bridges from that support to the aft shoulder.
 The Pisco leaves stop ahead of the rear corner column; its body retains the
-full fitted span and clears the meter roof bevel. The corner column and rear
-wall meet their common stock plane. The ceiling recess runs flush to the walls.
+full fitted span, and its east lower corner clears the meter's aft corbel.
 The C14 inlet's flange pocket and cord passage take support; its blind pilots
 stay clear. The meter's fitted boss channels, screw-head channels and wire
 chamber take support through the receiver's open west side. Preserve the

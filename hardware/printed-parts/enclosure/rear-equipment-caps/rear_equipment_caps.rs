@@ -323,18 +323,19 @@ fn pisco_cap() -> Result<Cap> {
     let bottom = axis[1] - body_radius - WALL;
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     let saddle = axis[1] - (body_radius.powi(2) - (half - WALL).powi(2)).max(0.0).sqrt();
-    let (corbel, east_root) = meter_roof_clearance(&st, bottom)?;
+    let (corbel, east_root) = meter_corbel_clearance(&st, bottom)?;
     let [west, _] = Wing::pair(&st);
     let wings = [west, Wing { root: east_root.max(st.root) }];
-    let cap = along_y(section(&st, Underside::Flat(bottom), wings)?, [st.y0, st.y1])?
+    // The leaves stop ahead of the rear corner column; the body beneath their roots runs on.
+    let reach = st.inner - ROOT_RADIUS;
+    let beneath = Loop::polygon(&[v2(axis[0] - st.outer, bottom), v2(axis[0] + st.outer, bottom),
+                                  v2(axis[0] + st.outer, wings[1].root), v2(axis[0] + reach, wings[1].root),
+                                  v2(axis[0] - reach, wings[0].root), v2(axis[0] - st.outer, wings[0].root)]);
+    let cap = along_y(section(&st, Underside::Flat(bottom), wings)?,
+                      [st.y0, hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y])?
+        .union(&along_y(beneath, [st.y0, st.y1])?)?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, st.y1, bottom, saddle]))?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, lip, bottom, axis[1]]))?;
-    let aft = hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y;
-    let ends = [
-        cuboid([axis[0] - st.outer - THROUGH, axis[0], aft, st.y1 + THROUGH, wings[0].root, st.ceiling + THROUGH]),
-        cuboid([axis[0], axis[0] + st.outer + THROUGH, aft, st.y1 + THROUGH, wings[1].root, st.ceiling + THROUGH]),
-    ];
-    let cap = cap.cut_all(&ends)?;
     let below: Vec<P2> = profile.iter().copied().filter(|p| p[0] <= neck).collect();
     let above: Vec<P2> = profile.iter().copied().filter(|p| p[0] >= neck).collect();
     let body = clipped(&clearance_profile(&below, PISCO_CAP_FIT, running()), window[0], mouth_y - lip);
@@ -344,15 +345,18 @@ fn pisco_cap() -> Result<Cap> {
     Ok(Cap { name: "pisco-snap-cap", installed: cap.cut_all(&bores)?, print: V3::X })
 }
 
-/// The Pisco cap clears the meter's continuous roof bevel throughout its span and lowered
-/// approach. Its east leaf roots above that clearance and retains its complete root round.
-fn meter_roof_clearance(st: &Station, bottom: f64) -> Result<(Solid, f64)> {
+/// The meter receiver's aft shoulder corbel, which climbs the east flank under the Pisco cap's
+/// east side, as the cap clears it seated and down its whole service path: the corbel's slope
+/// raised by the cap's service drop and a running fit, run aft from the corbel's fore face past
+/// the cap's aft end. With it, the height the cap's east wall roots at, a root round above that
+/// cut at its outer face, so the wall stands whole on the trimmed corner.
+fn meter_corbel_clearance(st: &Station, bottom: f64) -> Result<(Solid, f64)> {
     let m = Meter::placed();
     let (top, slope, lift) = (m.z + m.station().outer, corbel_slope(), PISCO_SERVICE_DROP + running());
     let cut = |x: f64| top + (x - m.split) * slope + lift;
     let (x0, x1) = (m.split + (bottom - THROUGH - top - lift) / slope, st.axis_x + st.outer + THROUGH);
     let section = Loop::polygon(&[v2(x0, bottom - THROUGH), v2(x1, bottom - THROUGH), v2(x1, cut(x1))]);
-    Ok((along_y(section, [m.cap[0] - running(), st.y1 + THROUGH])?, cut(st.axis_x + st.outer) + ROOT_RADIUS))
+    Ok((along_y(section, [m.cap[1], st.y1 + THROUGH])?, cut(st.axis_x + st.outer) + ROOT_RADIUS))
 }
 
 /// A profile cut to run from `a` to `b`, its ends where the profile passes them.

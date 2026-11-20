@@ -455,14 +455,22 @@ click: x=95.550 y=419.360 z=269.825
 [ceiling] The meter's fitted boss and housing passages include their sixteen-millimetre fore-loading corridor. These supported undersides follow that loading envelope. Tree(auto)/Default supplies removable support through the open receiver before hardware insertion, using the cavity post-processing tool recorded for this trial.
 alternatives: Filling these passages blocks the measured bosses or the insertion slide. A ramp within them consumes the hardware's fitted bearing or loading volume. The sample retains the production parent's roof-down print orientation.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=90.775 y=414.759 z=312.450
-click: x=90.950 y=414.759 z=307.100
-click: x=85.625 y=414.759 z=309.950
-click: x=88.300 y=406.594 z=263.500
-click: x=88.450 y=391.387 z=267.700
-click: x=88.450 y=421.801 z=267.700
+click: x=90.775 y=406.594 z=263.500
+click: x=88.450 y=390.144 z=267.700
+click: x=88.450 y=423.044 z=267.700
 click: x=94.700 y=394.094 z=268.500
 click: x=94.700 y=419.094 z=268.500
+
+[ceiling] Unavoidable flat boundaries of the meter receiver in the roof-down print: the lip is the plane its cap's upper leaf rides over on the way to the catch, and the fore shoulder is the receiver's end beside it. Both take removable support through the open west side, where a screwdriver slides in along them; the lip bridges from that support to the aft shoulder under the Pisco receiver, and the aft shoulder stands on its corbel.
+alternatives: A corbel under the lip closes the lane the upper leaf flexes in and stands in the Pisco cover's angled entry. A sloped lip changes the leaf's riding plane and the catch edge. A corbel under the fore shoulder stands in the room the meter and its cover load through.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=85.625 y=414.759 z=309.950
+click: x=90.775 y=390.134 z=312.450
+
+[slope] Unavoidable chamfered catch of the sideways meter receiver: every rear catch and its cover's hook share the snap chamfer, so this face is the upper leaf's bearing. It starts on the supported lip's edge and runs between the two end shoulders, with the return bevel off the flank meeting it at the pocket's root.
+alternatives: A level foot is a flat catch, which needs support inside the channel. A different slope leaves the cover's hook bearing on an edge.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=90.150 y=414.759 z=308.000
 
 [ledge] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses and lead exit through their fitted installation sweep. They are the purchased-body boundaries of the east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
 alternatives: Filling or corbelling into these faces enters the fitted housing or its insertion sweep. Shortening the pocket removes part of the required clearance.
