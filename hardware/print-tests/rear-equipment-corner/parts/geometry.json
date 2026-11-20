@@ -58,7 +58,7 @@
     "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
     "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
   },
-  "source_model_sha256": "88f5a609ee088660341e4119bccc6511bdea4c6cc059be9d006949007f4f868e",
-  "source_stl_sha256": "3a20ef0eefef64208bcb51f6eecde427b65379691439cb0102b4f561ddeb0db9",
+  "source_model_sha256": "f896e4b15edc8132bd7e72391e6e1a729da939b2bd010c8feac25bdf3e21c0d5",
+  "source_stl_sha256": "ef2c6808a312ec12d6ef6ee9e95efc704ef4f32e6a07c77b69930e0b754909cc",
   "watertight": true
 }
