@@ -1,0 +1,185 @@
+{
+  "views": [
+    {
+      "name": "receivers",
+      "caption": "Cut through both receivers, looking aft: the ASSE and Pisco receivers and the pocket between them, under the recessed ceiling.",
+      "before": "receivers-before.webp",
+      "after": "receivers-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 195,
+          "y": 262.3,
+          "r": 45,
+          "label": "ASSE",
+          "at": [
+            28,
+            440,
+            350.6
+          ]
+        },
+        {
+          "x": 922.5,
+          "y": 262.3,
+          "r": 45,
+          "label": "Pisco",
+          "at": [
+            76.5,
+            440,
+            350.6
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          55,
+          -159.30235031913048,
+          409.91628203829566
+        ],
+        "target": [
+          55,
+          440,
+          338
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 30,
+        "near": 270.7606689948709,
+        "far": 924.6627318480334,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            50,
+            440,
+            340
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bb299766eece033b3a5519c0cc44e8e8c0a0a6518000d2b5ac5751de883cfba6",
+          "commit": "e68772fcad6fb5a1f47f8bb64d4a12493be6f13a",
+          "taken": "2026-11-20T02:25:54.927Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "16beb1f1e106d9307581515e66e3c25a14abff06e2c839a2a6d3c3b38a14fed2",
+          "commit": "55d3d5939c1c30147d14fd166e254c3a1638c89e",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "meter",
+      "caption": "The east flank from inside, cut west of the Pisco: the meter receiver below the Pisco receiver, with the corbel above its aft shoulder only.",
+      "before": "meter-before.webp",
+      "after": "meter-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 624.4,
+          "y": 454.1,
+          "r": 73.3,
+          "label": "meter lane",
+          "at": [
+            90,
+            412,
+            318
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          24.56645245949744,
+          377.91154885272357,
+          324.74335475405024
+        ],
+        "target": [
+          92,
+          415,
+          318
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.1644844081835527,
+        "far": 484.64347353987637,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            60,
+            415,
+            310
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "bb299766eece033b3a5519c0cc44e8e8c0a0a6518000d2b5ac5751de883cfba6",
+          "commit": "e68772fcad6fb5a1f47f8bb64d4a12493be6f13a",
+          "taken": "2026-11-20T02:25:54.927Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "16beb1f1e106d9307581515e66e3c25a14abff06e2c839a2a6d3c3b38a14fed2",
+          "commit": "55d3d5939c1c30147d14fd166e254c3a1638c89e",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
