@@ -184,7 +184,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "6ec4013d174dc21895a34c8852fabe964c45891dbe37b721c3cb940698a25b70",
+  "source_stl_sha256": "9d9c00e1d1655650c5203252bfaa8354df11d013eef59846c2adbfc9977434e2",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -946,7 +946,7 @@
     {
       "bounds_source_mm": [
         83.05,
-        88.19999999999999,
+        86.69999999999999,
         395.5086388104271,
         420.09571720240064,
         309.7,

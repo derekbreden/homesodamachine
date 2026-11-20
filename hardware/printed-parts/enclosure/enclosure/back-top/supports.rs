@@ -221,10 +221,19 @@ pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
         let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
         cuts.push(g.translate(pocket, [mx, 0.0, centre[2]]));
     }
-    for pocket in tip_pockets(g, &layout().rear_plumbing.regulator_mount.station) {
+    for pocket in tip_pockets(g, &seated(&layout().rear_plumbing.regulator_mount.station)) {
         cuts.push(g.rotate(pocket, [0.0; 3], [0.0, 0.0, 1.0], 90.0));
     }
     cuts
+}
+
+/// A vertical receiver's station with its catch cut down into the ledge's corner by the
+/// chamfer's rise across the hook's reach. The hook's nose then seats at the station's catch
+/// plane, and its whole pointed lead-in stands under the ceiling.
+fn seated(s: &Station) -> Station {
+    let mut seat = *s;
+    seat.bearing -= REACH * corbel_slope();
+    seat
 }
 
 fn tip_pockets(g: &mut Graph, st: &Station) -> Vec<Shape> {
@@ -238,13 +247,13 @@ fn corbel_slope() -> f64 {
     REAR_SNAP_CHAMFER_SLOPE
 }
 
-/// How far a corbelled catch rises from the ledge's edge to the neck.
+/// How far a chamfered catch rises from the ledge's edge to the neck.
 fn corbel_rise(s: &Station) -> f64 {
     (s.ledge - s.neck) * corbel_slope()
 }
 
-/// One flank's pocket above the bearing plane, from the neck out past the wing to the pocket's
-/// ceiling. A corbelled flank keeps the corbel, which climbs the neck from the ledge's edge.
+/// One flank's pocket above the ledge's edge, from the neck out past the wing to the pocket's
+/// ceiling. The catch climbs from the ledge's edge to the neck at the snap chamfer.
 fn catch_pocket(g: &mut Graph, s: &Station, side: f64, [y0, y1]: P2) -> Shape {
     let at = |x: f64| s.axis_x + side * x;
     g.prism(1, y0, y1, vec![[at(s.neck), s.ceiling], [at(s.outer + 1.0), s.ceiling], [at(s.outer + 1.0), s.bearing],
@@ -330,14 +339,15 @@ pub fn meter_shoulder_target() -> Bounds {
 }
 
 /// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
-/// receiver's open west face to the catch, along the cap pocket as far as the Pisco receiver.
-/// Under the Pisco a tree could only root against its fore end stop, so the lip bridges from
-/// this support to the aft shoulder there.
+/// receiver's open west face toward the catch, along the cap pocket as far as the Pisco receiver.
+/// The target stops short of the catch's edge by the slicer's spread of a contact, so the
+/// support stays out of the catch pocket. Under the Pisco a tree could only root against its
+/// fore end stop, so the lip bridges from this support to the aft shoulder there.
 pub fn meter_lip_target() -> Bounds {
     let a = running();
     let (stock, cap, s) = meter_print_stock();
     let lip = stock[5] - s.outer + s.ledge;
-    [stock[0], stock[0] + s.bearing, cap[0] - a, pisco_station().y0 - a, lip - a, lip + a]
+    [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[0] - a, pisco_station().y0 - a, lip - a, lip + a]
 }
 
 /// The meter's downhill slide and wire floors face the bed in the ceiling-down pose.
@@ -447,10 +457,11 @@ fn wing_lanes(g: &mut Graph, s: &Station) -> Vec<Shape> {
     out
 }
 
-/// The vertical rear receivers combine open wing lanes with chamfered catches.
+/// The vertical rear receivers combine open wing lanes with catches chamfered into their ledges.
 fn pockets(g: &mut Graph, s: &Station) -> Vec<Shape> {
-    let mut out = wing_lanes(g, s);
-    out.extend(tip_pockets(g, s));
+    let seat = seated(s);
+    let mut out = wing_lanes(g, &seat);
+    out.extend(tip_pockets(g, &seat));
     out
 }
 

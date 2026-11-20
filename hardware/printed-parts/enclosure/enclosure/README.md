@@ -758,6 +758,8 @@ binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
 Every rear snap catch uses the shared chamfer slope with its matching cap.
+The ASSE, Pisco and water-regulator catches are cut down into their ledges'
+corners, under the caps' whole pointed lead-ins.
 The ASSE, Pisco, meter and water-regulator catch pockets stay clear of supports.
 A common ceiling recess over the ASSE and Pisco runs between the flanks and
 flush to the rear wall, whose panel relief runs up to it, and it runs round the
