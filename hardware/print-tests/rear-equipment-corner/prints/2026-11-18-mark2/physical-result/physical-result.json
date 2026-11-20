@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-19",
+  "printer": "Mark2",
+  "printer_task_id": "1460022713",
+  "source_commit": "4a74b46bd84816e0b988f34de36c5ee01a5a6e8c",
+  "status": "failed",
+  "derek_report": "There are many things wrong here. There are gaps where there should not be gaps. The flow meter underside is unsupported where it needs to be supported. It's got an extra corbel under it that gets in the way of things. There's just so many things wrong here. Please fix. Please look at it. Please see the things I'm talking about and also find the ones I didn't mention.",
+  "photos": [
+    "photo-1.jpg",
+    "photo-2.jpg",
+    "photo-3.jpg",
+    "photo-4.jpg",
+    "photo-5.jpg",
+    "photo-6.jpg",
+    "photo-7.jpg"
+  ],
+  "visible_observations": [
+    {
+      "photos": [
+        "photo-1.jpg",
+        "photo-2.jpg",
+        "photo-3.jpg"
+      ],
+      "observation": "Loose sagging roads beneath the meter receiver edges."
+    },
+    {
+      "photos": [
+        "photo-5.jpg",
+        "photo-6.jpg"
+      ],
+      "observation": "Open gaps at the column and adjoining receiver-wall roots, with loops near the roots."
+    },
+    {
+      "photos": [
+        "photo-2.jpg",
+        "photo-4.jpg",
+        "photo-7.jpg"
+      ],
+      "observation": "A broad meter corbel projects into the surrounding assembly space."
+    }
+  ]
+}
