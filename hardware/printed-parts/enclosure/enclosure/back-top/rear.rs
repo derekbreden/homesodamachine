@@ -39,20 +39,21 @@ const SEAT_ROOT_X: f64 = 98.51;
 
 /// The rear wall's features on back-top, after its wells; `keep_clear` is the wells' pockets.
 pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>) -> Shape {
-    let bay = g.box_(crate::supports::ceiling_bay_bounds());
+    let mut bay = g.box_(crate::supports::ceiling_bay_bounds());
+    if let Some(row) = well_row() {
+        let row = g.box_(row);
+        bay = g.cut(bay, &[row]);
+    }
     let bay = g.feature(bay, "rear-equipment-ceiling-pocket", "Rear equipment common ceiling pocket",
                         &["discharge-chain", "gas-regulator", "digiten-flow"]);
     piece = g.cut(piece, &[bay]);
     let stock = rear_snap_corner_stock(g, b);
     piece = g.union(piece, &[stock]);
     let wall = &layout().rear_wall;
-    let relief = rounded(
-        g,
-        2,
-        wall.interior_panel_relief.bounds(),
-        0.0,
-        &[0, 1, 2, 3],
-    );
+    // The panel's relief runs flush to the common pocket's floor above it.
+    let mut panel = wall.interior_panel_relief.bounds();
+    panel[5] = panel[5].max(crate::supports::ceiling_floor_z());
+    let relief = rounded(g, 2, panel, 0.0, &[0, 1, 2, 3]);
     let relief = g.feature(relief, "rear-interior-relief", "Rear interior panel relief", &[]);
     piece = g.cut(piece, &[relief]);
     for port in &wall.wet_ports {
@@ -96,17 +97,28 @@ pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, keep_clear: Option<Shape>
     g.cut(piece, &inlet)
 }
 
-/// The rear corner column and wall retain their outlines up to the snap bay's wall plane.
+/// The connector wells the common pocket meets keep the ceiling they hang from: their row's
+/// plan, through the pocket's height.
+fn well_row() -> Option<Bounds> {
+    let bay = crate::supports::ceiling_bay_bounds();
+    let met = |w: &Bounds| w[0] < bay[1] && w[1] > bay[0] && w[2] < bay[3] && w[3] > bay[2] && w[5] > bay[4];
+    crate::above::stock_bounds(crate::quadrant::Y::Back).into_iter().filter(met)
+        .reduce(|a, w| std::array::from_fn(|k| if k % 2 == 0 { a[k].min(w[k]) } else { a[k].max(w[k]) }))
+        .map(|row| [row[0], row[1], row[2], row[3], bay[4] - 1.0, bay[5] + 1.0])
+}
+
+/// Both rear corner columns join the common ceiling along their existing outlines.
 fn rear_snap_corner_stock(g: &mut Graph, b: &Box) -> Shape {
     let mut bounds = crate::supports::ceiling_bay_bounds();
     bounds[4] -= WALL;
-    bounds[5] = crate::layout::REAR_SNAP_WALL_TOP_Z;
+    bounds[5] = crate::supports::ceiling_anchor_z();
     let clip = g.box_(bounds);
-    let column = crate::walls::corner_column(g, &b.inner, 1.0, 1.0, 0.0, [bounds[4], bounds[5]]);
-    let column = g.intersect(column, &[clip]);
-    let wall = g.box_(crate::supports::rear_snap_wall_bounds());
-    let stock = g.union(column, &[wall]);
-    g.feature(stock, "rear-snap-corner-stock", "Rear snap corner column and wall", &["gas-regulator"])
+    let columns: Vec<Shape> = [-1.0, 1.0].into_iter().map(|side| {
+        let column = crate::walls::corner_column(g, &b.inner, side, 1.0, 0.0, [bounds[4], bounds[5]]);
+        g.intersect(column, &[clip])
+    }).collect();
+    let stock = g.union(columns[0], &columns[1..]);
+    g.feature(stock, "rear-snap-corner-stock", "Rear corner columns joined to ceiling", &["gas-regulator", "discharge-chain"])
 }
 
 /// The internal inlet tunnel joins the rear wall, west flank and ceiling as plain stock.

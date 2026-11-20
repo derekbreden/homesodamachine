@@ -184,7 +184,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "52dcf4340e9106615af36f5972f2d573e675824f9809778cd86dca7cca8e4067",
+  "source_stl_sha256": "6ec4013d174dc21895a34c8852fabe964c45891dbe37b721c3cb940698a25b70",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -253,7 +253,7 @@
         395.5086388104271,
         434.0086388104271,
         305.79999999999995,
-        312.7
+        309.7
       ],
       "bounds_source_mm": [
         88.19999999999999,
@@ -261,10 +261,10 @@
         395.5086388104271,
         434.0086388104271,
         305.79999999999995,
-        312.7
+        309.7
       ],
       "name": "Flow meter upper cap pocket",
-      "reason": "The catch and its return to the flank are chamfered, with no flat pocket floor to support."
+      "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
     },
     {
       "blocking_bounds_source_mm": [
@@ -931,6 +931,30 @@
     }
   ],
   "support_regions": [
+    {
+      "bounds_source_mm": [
+        83.05,
+        98.5,
+        384.7586388104271,
+        395.2586388104271,
+        312.2,
+        312.7
+      ],
+      "name": "Accessible flow meter fore shoulder",
+      "reason": "Support the exposed end shoulder from the ceiling beside the receivers, clear of the fitted cap pocket."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        88.19999999999999,
+        395.5086388104271,
+        420.09571720240064,
+        309.7,
+        310.2
+      ],
+      "name": "Accessible flow meter front lip",
+      "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."
+    },
     {
       "bounds_source_mm": [
         83.05,

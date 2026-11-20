@@ -59,6 +59,12 @@ fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
     (stocks, pockets)
 }
 
+/// Each well's closed stock on this top piece, for the ceiling pocket that runs round it.
+pub fn stock_bounds(host: Y) -> Vec<Bounds> {
+    let mut graph = Graph::new();
+    wells(&mut graph, host).0.into_iter().map(|stock| stock.bounds()).collect()
+}
+
 /// The connector insertion pockets that bridge between their surrounding well walls.
 pub fn pocket_regions(host: Y) -> Vec<(String, Bounds)> {
     let mut graph = Graph::new();

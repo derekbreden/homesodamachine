@@ -62,23 +62,25 @@ reports tight hardware fits, with the ASSE body seating as the exception. The
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
 height, and the Pisco's east leaf is shorter, rooted above the cut that clears
-the meter's continuous roof bevel. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
+the meter's aft shoulder corbel. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
 the water regulator. Each rear cap has the same planar lead-in ending at a
 pointed free edge above a solid nose land. Its matching receiver ceiling clears
 the complete point. All retaining noses are solid. All rear wings hook over matching chamfered receiver catches.
 Their bearing faces follow the shared snap slope from the ledge edge to the
 nose. The pointed lead-in retains its full height above the solid nose.
-The meter receiver's continuous roof bevel passes beneath the Pisco cap, whose
-east lower corner follows that bevel and whose east leaf roots above the cut.
-The Pisco leaves end ahead of the rear corner column while the cap body keeps
-its full fitted span. The rear receiver bases are continuous, with no enclosed
+The meter receiver's aft shoulder corbel climbs the east flank under the Pisco
+cap, whose east lower corner is cut back along that slope over the cap's aft
+run and whose east leaf roots above the cut.
+The Pisco leaves end ahead of the rear corner column while the cap body beneath
+their roots keeps its full fitted span. The rear receiver bases are continuous, with no enclosed
 screwdriver tunnels. Release the leaves from their exposed edges with the
 surrounding service room open.
 
 The ASSE and Pisco receivers have plain end walls around their fitted passages
 and wing catches. Their ceiling recess runs between the flanks and flush to the
 rear wall. The meter's hook channels return to the flank on bevels, and its wire
-pocket also runs flush to the flank. All rear wing channels stay clear of supports.
+pocket also runs flush to the flank. The catch pockets stay clear of supports;
+the lip under the meter cap's upper leaf prints on removable support.
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
 regulator enters directly upward. The caps close after their bodies seat.
 

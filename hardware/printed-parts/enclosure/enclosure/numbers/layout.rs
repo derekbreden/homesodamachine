@@ -172,7 +172,6 @@ pub struct RearPlumbing {
     pub gas_frame: Pose,
     /// How far the inlet adapter's fitted room stands above the captured chain's pose.
     pub asse_adapter_rise_mm: f64,
-    pub snap_ceiling_z_mm: f64,
     pub snap_tip_rise_mm: f64,
     pub snap_tip_air_mm: f64,
     pub regulator_mount: RegulatorMount,
@@ -211,5 +210,3 @@ pub fn snap_tip_air() -> f64 {
 pub const REAR_SNAP_CHAMFER_SLOPE: f64 = 1.0;
 /// The Pisco leaves stop ahead of the rear corner column.
 pub const PISCO_WING_AFT_Y: f64 = 457.911;
-/// The rear corner column and adjoining wall reach this common plane.
-pub const REAR_SNAP_WALL_TOP_Z: f64 = 349.700;
