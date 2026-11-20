@@ -228,3 +228,24 @@ finish, fit and strength are observations of the printed part.
 
 `--unbacked` requests adjacent-layer road-shadow statistics throughout every fine
 band. The report records whether this optional diagnostic was requested.
+
+## Print plan and project files
+
+A sliced plate that passes its review becomes its part's print plan with
+[`tools/print-plan.mjs`](../../../../tools/print-plan.mjs):
+
+```sh
+node tools/print-plan.mjs <plate folder> --material HSM-0081
+node tools/print-plan.mjs <plate folder> --material HSM-0081 --dry-run
+```
+
+It encodes the Print tab's replay, updates the part's entry in
+[the playback catalog](../../../../print-playbacks/README.md), writes `print-plan.json` beside
+the plate folder and puts the project and the sliced archive in the print archive. The entry's
+`process` lines are written by hand. `--dry-run` prints the entry and the record and changes
+nothing. Commit the replay, the catalog, the record and the archive's index together.
+
+The 3MF files of any other print go into the archive with
+`node tools/print-archive.mjs add <name> <file>...`, and `node tools/print-archive.mjs <path>`
+brings one back to its place. [`print-archive.json`](../../../print-archive.json) indexes them
+by git blob ID inside the [print projects release](https://github.com/derekbreden/homesodamachine/releases/tag/print-projects).

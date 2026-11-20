@@ -1,5 +1,5 @@
 {
-  "purpose": "Bind the current rear enclosure mesh to its production project, native slice and published replay.",
+  "purpose": "Bind the current back-top mesh to its production project, native slice and published replay.",
   "piece": "back-top",
   "material_id": "HSM-0081",
   "printer": "Mark1",
@@ -20,7 +20,7 @@
   "bed_type": "Textured PEI Plate",
   "requested_z_trim_mm": 0.04,
   "emitted_z_trim_commands_mm": [
-    0.0,
+    0,
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
@@ -49,12 +49,12 @@
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
     {
-      "bed_contact_z_mm": 0.0,
+      "bed_contact_z_mm": 0,
       "blocked_facets": 12676,
       "embedded_vertex_error_mm": 5.000018177270249e-10,
       "layer_ranges": [
         [
-          0.0,
+          0,
           6.1,
           {
             "layer_height": "0.24",
@@ -75,7 +75,7 @@
         [
           22.025003051999988,
           49.5,
-          0.0
+          0
         ],
         [
           296.174996948,
