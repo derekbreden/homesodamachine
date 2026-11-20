@@ -737,8 +737,9 @@ the actual branches and removal openings in the emitted native slice. A smaller
 footprint or an open-looking lane alone does not establish easy cleanup.
 
 Back-top prints ceiling-down with its rear flutes clear of the bed. Manual Tree
-Slim carries the exposed joint ends, funnel receiver shoulders, valve seat and
-the tube seat's outer underside. The cable hooks' beak lands overhang too little
+Slim carries the exposed joint ends, funnel receiver shoulders and valve seat.
+The fill tube seat's free upper wing prints on breakaway strips rooted on its
+corbelled lower wing. The cable hooks' beak lands overhang too little
 to need support, as front-bottom's same hooks print without it. The first model courses on the tube-seat and relay-boss arcs
 have dense interface or adjacent deposited stock throughout the sampled contact
 areas. The native layers retain that local backing. Joint targets follow the
