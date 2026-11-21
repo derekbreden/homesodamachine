@@ -620,19 +620,21 @@ fn turned_clip(seat: &reservoir_a::AftSeat) -> Result<Solid> {
     curved_clip(p3(seat.centre), p3(seat.start), p3(seat.end), seat.degrees, fixed)
 }
 
-/// V-B's continuous tube rests on the whole bend. The radial slot splits both lips down to the
-/// bore floor, leaving each wing free to open and the curved seat joined to the lid beneath it.
-fn vb_return_clip() -> Result<Solid> {
-    use cap::clips::{RETURN_SLOT_WIDTH, vb_return_bend};
+/// Both lips open independently on either side of the radial slot. Its rounded end meets the
+/// bore floor so the tube is supported through the split.
+fn split_clip(bend: &cap::clips::SplitBend, straight: Option<&cap::clips::Clip>) -> Result<Solid> {
     use reservoir_a::pair;
-    let bend = vb_return_bend()?;
     let centre = p3(bend.centre);
-    let [start, middle, end] = bend.points.map(p3);
-    let seat = curved_clip(centre, start, end, bend.degrees, None)?;
+    let middle = p3(bend.slot);
+    let seat = curved_clip(centre, p3(bend.start), p3(bend.end), bend.degrees, None)?;
+    let seat = match straight {
+        Some(span) => seat.union(&tube_clip(span)?)?,
+        None => seat,
+    };
     let radial = (middle - centre).unit();
     let bore = pair::BORE / 2.;
     let reach = bore + pair::WING + OVERCUT;
-    let r = RETURN_SLOT_WIDTH / 2.;
+    let r = cap::clips::WING_SLOT_WIDTH / 2.;
     let side = -bore + r;
     let slot = Pen::new(v2(-r, reach))
         .line_to(v2(-r, side)).arc_through(v2(0., -bore), v2(r, side))?
@@ -791,14 +793,16 @@ fn top_lid() -> Result<Solid> {
             .cut(&cylinder(p, column.top - bore_depth, column.top + OVERCUT, core::DECK_MOUNT_BORE_RADIUS)?)?;
     }
     body = body.union(&pump_cradle()?)?.union(&valve_wall()?)?;
-    body = body.union(&vb_return_clip()?.transformed(&t))?;
+    body = body.union(&split_clip(&cap::clips::vb_return_bend()?, None)?.transformed(&t))?;
     let (stock, pockets) = wells()?;
     body = body.union(&stock.intersect(&outline(-1., stock.bounds().max.z + 1., 0.)?)?)?.cut(&pockets)?;
     body = body.union(&a_seats()?)?;
     let wall = cap::valve::wall();
-    for (i, clip) in cap::clips::clips().iter().enumerate() {
-        let clip = if i == 1 { flavor_a_clip(clip, &wall)? } else { tube_clip(clip)? };
-        body = body.union(&clip.transformed(&t))?;
+    let feed = cap::clips::va_feed()?;
+    body = body.union(&split_clip(&feed.bend, Some(&feed.straight))?.transformed(&t))?;
+    body = body.union(&flavor_a_clip(&cap::clips::flavor_a(), &wall)?.transformed(&t))?;
+    for clip in cap::clips::straight_clips() {
+        body = body.union(&tube_clip(&clip)?.transformed(&t))?;
     }
     let bank = cap::cables::manifold_bank();
     let hook = cap::cables::level_hook();

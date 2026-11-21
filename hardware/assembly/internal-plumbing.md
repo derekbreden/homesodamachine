@@ -337,8 +337,8 @@ flavor-tube seat.
 ### 5. Final connections through the funnel opening
 
 Make the V-A feed and V-B connections with the funnel frame absent.
-Press the straight span of the white V-A feed into the core lid's
-upward-opening clip where the tube turns toward Y-A. Dress
+Lay the white V-A feed in the curved seat beside the PCB. Press the bend
+between the board-side wings, then seat the outgoing straight toward Y-A. Dress
 `PE-carbonator` and `J4-V5` clear of the clip's mouth.
 Release the tube from the lid clip before moving back-top for service.
 Seat J11 at the main board before laying in the V-B return tube, which passes

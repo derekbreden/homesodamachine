@@ -22,6 +22,14 @@ pub struct Column {
     pub top: f64,
 }
 
+/// The installed board's eastern edge, projected from its centered stock outline.
+pub fn board_east_x() -> f64 {
+    let pose = &above_core().parts.pcba;
+    pose.translation_mm[0]
+        + pose.rotation[0][0].abs() * (BOARD_OUTLINE_X[1] - BOARD_OUTLINE_X[0]) / 2.
+        + pose.rotation[0][1].abs() * (BOARD_OUTLINE_Y[1] - BOARD_OUTLINE_Y[0]) / 2.
+}
+
 /// The board's holes in the cap's own frame, by X then Y.
 pub fn hole_xy() -> Vec<[f64; 2]> {
     let pose = above_core().parts.pcba.pose();

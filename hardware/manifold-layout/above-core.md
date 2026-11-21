@@ -96,8 +96,9 @@ V-A's outlet stem elbow clocks 50° downward about the seated valve connection;
 the nested stem elbow clocks 15° outward. Both full stem engagements remain
 coaxial. Its feed crosses above the pump and passes beneath the regulator. Its
 continuous tangent bends pass above the PCB before entering the fore lane.
-The upward-opening snap at X16.608/Y207.300/Z268.970 has one filled root on
-the lid. Y-A's stem elbow points east, keeping the connector on XYZ axes
+Beside the PCB, an upward-opening seat on the lid supports the end of the bend
+and the outgoing straight. The split wings share a solid root. Y-A's stem
+elbow points east, keeping the connector on XYZ axes
 and clear of the drain cradle. Both receiving lengths stay straight through
 the full 16.891 mm socket depth. All bends retain at least R14.
 The funnel’s uncut ATEU44W stem reaches the bowl opening at Z317.315; its bend

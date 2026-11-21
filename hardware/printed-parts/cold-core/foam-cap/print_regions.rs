@@ -4,7 +4,7 @@
 //!     foam-cap-print-regions [--out FILE]
 //!
 //! Each region is a box of full zig-zag infill through a retention feature and the plate or wall
-//! that roots it: reservoir A's fore pair's shared base and its aft pair, the V-B return clip, the casing's M5 hosts and
+//! that roots it: reservoir A's fore pair's shared base and its aft pair, the V-A and V-B clips, the casing's M5 hosts and
 //! head bearings, and the PCB deck's insert posts. A box intersects existing material and adds no geometry; it
 //! is clipped to its piece's current mesh, and the record binds each piece's STEP and STL, so
 //! print preparation refuses a piece whose exports have moved since. It reads the cap's numbers
@@ -96,7 +96,8 @@ fn main() -> Result<()> {
     let mut lid_rows = Vec::new();
     for (name, [low, high]) in [("Reservoir A fore direct C2 pair and lid root", reservoir_a::pair().base),
                                 ("Reservoir A aft C2 pair and lid root", reservoir_a::aft_body()),
-                                ("V-B return clip and lid root", clips::vb_return_bend()?.stock_bounds())] {
+                                ("V-B return clip and lid root", clips::vb_stock_bounds()?),
+                                ("V-A feed clip and lid root", clips::va_feed()?.stock_bounds)] {
         let mut native = [f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY];
         for x in [low[0], high[0]] {
             for y in [low[1], high[1]] {
@@ -147,7 +148,7 @@ fn main() -> Result<()> {
     let frames: Map<String, Value> = paths.iter().map(|(name, _)| (name.to_string(),
         json!("Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates."))).collect();
     let record = json!({
-        "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, the V-B return clip, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+        "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, the V-A feed and V-B return clips, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
         "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
         "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
         "coordinate_frames": frames, "source_sha256": source_sha, "native_artifact_sha256": meshes,

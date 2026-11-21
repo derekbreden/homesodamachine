@@ -46,6 +46,8 @@ pub struct FeedSnap {
 
 #[derive(Deserialize)]
 pub struct ForeSegments {
+    #[serde(rename = "va-fore-feed")]
+    pub va_feed: Vec<hsm_layout_data::Segment>,
     #[serde(rename = "vb-yb-link")]
     pub vb_return: Vec<hsm_layout_data::Segment>,
 }

@@ -77,7 +77,10 @@ splits both lips into independently opening wings. The floor under the tube is
 continuous. Derek seated the black return tube in the crop of the complete
 bend and its lid footing. “Fit is good.” [Mark 1 fit record and photos](https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json).
 
-The V-A feed seats in the lid's C2 clip at world (16.608, 207.300, 268.970) mm.
+The V-A feed presses into an upward-opening C2 seat beside the PCB. The seat
+follows the end of the feed's bend and continues along the straight tube toward
+Y-A. A radial slot separates the wings on each side. The floor supports the
+tube across the slot, and the board-side end leaves clearance to the PCB.
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
 with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft fill/draw clips are the
 same seats, each turned along its line's last level turn before the reservoir. The draw
@@ -148,7 +151,7 @@ lid's integral features above the lid face. The [kernel print and driver review]
 records the Rust meshes, saved recipes, emitted paths and driver envelopes.
 The [native M5 driver reading](m5-lid-driver-review.json) retains the native reference.
 
-The [local solid regions](fore-snap-print-regions.json) give the V-B return clip,
+The [local solid regions](fore-snap-print-regions.json) give the V-A feed and V-B return clips,
 the reservoir A clip pairs, the casing screw hosts and head bearings, and the PCB
 insert posts solid infill through their roots. Before preparing a print project,
 regenerate the regions from the cap dimensions and the exported pieces with

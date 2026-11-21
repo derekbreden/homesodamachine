@@ -88,8 +88,9 @@ informational goal; local fitted allowances remain separate. Conductors are
 excluded from these pack checks.
 
 Each record names its artifact hashes. The V-A feed has full straight
-receiving lengths, tangent circular bends of at least R14 and a filled-root
-C2 snap at X16.608/Y207.300/Z268.970. Y-A's socket points east on XYZ axes.
+receiving lengths and tangent circular bends of at least R14. The split C2
+seat on the lid follows the bend beside the PCB and the outgoing straight.
+Y-A's socket points east on XYZ axes.
 Reservoir A's first bends start outside the full receiving lengths. Reservoir
 B's draw line steps east above its cap mouth to clear the V-B return.
 
