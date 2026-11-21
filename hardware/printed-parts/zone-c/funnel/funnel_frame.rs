@@ -108,9 +108,14 @@ fn socket(n: &Frame) -> Result<Solid> {
     let pocket = rounded(w, d, r, x, y, z0, z1)?.union(&lead)?;
     let wing_front = y + n.slot_y.0;
     let inner = n.slot_x.0;
-    let bar = block(x - w / 2.0, x + w / 2.0, y - d / 2.0, wing_front, z0, n.socket_floor_z);
-    let spine = block(x - inner, x + inner, wing_front, y + d / 2.0, z0, n.socket_floor_z);
-    pocket.cut_all(&[bar, spine])
+    let (left, right) = (x - w / 2.0, x + w / 2.0);
+    let (front, back) = (y - d / 2.0, y + d / 2.0);
+    let floor_plan = Profile::new(Loop::polygon(&[
+        v2(left, front), v2(right, front), v2(right, wing_front), v2(x + inner, wing_front),
+        v2(x + inner, back), v2(x - inner, back), v2(x - inner, wing_front), v2(left, wing_front),
+    ]));
+    let floor = Plane::XY.at(v3(0.0, 0.0, z0)).extrude(&floor_plan, n.socket_floor_z - z0)?;
+    pocket.cut(&floor)
 }
 
 fn build(n: &Frame) -> Result<Solid> {
