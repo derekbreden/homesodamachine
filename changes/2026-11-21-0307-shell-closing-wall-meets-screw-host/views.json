@@ -1,0 +1,88 @@
+{
+  "views": [
+    {
+      "name": "joint",
+      "caption": "A level cut through the shell's rear wall, seen from in front and above. The closing wall of the nameplate recess comes in from the left, the rear west screw host with its screw passage is on the right, and the reservoir's pocket wall crosses the foreground. The step and the hairline groove where the wall ended beside the host are gone: the wall's face runs into the host's round.",
+      "before": "joint-before.webp",
+      "after": "joint-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 687.5,
+          "y": 415.6,
+          "r": 123.5,
+          "label": "the wall's end",
+          "at": [
+            -61.75,
+            458.15,
+            187.6
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -60.27343954574014,
+          453.3615670006283,
+          193.76499345363155
+        ],
+        "target": [
+          -62.2,
+          457.6,
+          187.6
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3106082105252849,
+        "far": 559.4199127670511,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -63,
+            457.9,
+            187.6
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-shell"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e6f2a22938956e3a47493240b810ba782f6831076b93a402f1617a44bd026657",
+          "commit": "42e07084077a1f7b965ddd63835fab433ec4ac48",
+          "taken": "2026-11-21T08:57:19.370Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e8d9b3993c365338c544b503350562d6f79a2645b2667e1e17abc9f137a82f90",
+          "commit": "435127223087912b0df6fdda5faa7306d33d1897",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
