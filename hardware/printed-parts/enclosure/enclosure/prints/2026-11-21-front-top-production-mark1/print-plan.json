@@ -1,0 +1,96 @@
+{
+  "purpose": "Bind the current front-top mesh to its production project, native slice and published replay.",
+  "piece": "front-top",
+  "material_id": "HSM-0079",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "prepared",
+  "prepared_utc": "2026-11-21T18:46:56+00:00",
+  "source_revision": "a310fb1319d386d2cc441cec9da661270632836e",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+  "source_stl_sha256": "e9fefdb8cd70dbe9d3211e33e17bdfb930c9a8b21c14ab38525b402392f99a01",
+  "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
+  "source_fine_archive_sha256": "9355be902b5b513f009828ef116fa6fcae2115a8da6fd75ab3e5a9cd3ea0d146",
+  "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "print_regions_sha256": "e75c05715c88b25c9d352272e6a0be54257ecc490dc61a5934282c113d3dcbec",
+  "archive": "2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.gcode.3mf",
+  "archive_sha256": "a07f8bc95a9c04cb1df942d916fbe9874b8d666a520f891e59d3e781326fad0c",
+  "gcode_sha256": "14fbd64fa62e225ef7aa16eb9d77e72ca7558136b98b1dbc2add2f99d68a0253",
+  "project": "2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.3mf",
+  "project_sha256": "c9c798cdd2fb77ad24df6d8f15e2db2341a3e81a8ccc76dfab491447b2839fe0",
+  "preparation": "2026-11-21-front-top-mark1-4758166e/preparation.json",
+  "native_review": "2026-11-21-front-top-mark1-4758166e/review.json",
+  "support_audits": [
+    "2026-11-21-front-top-mark1-4758166e/support-audit-1901.json"
+  ],
+  "layers": 1298,
+  "estimated_seconds": 137581.12484040906,
+  "minimum_bead_bed_margin_mm": 51.84841799999998,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 8398,
+      "embedded_vertex_error_mm": 4.999947122996673e-10,
+      "layer_ranges": [
+        [
+          188.3904,
+          194.83,
+          {
+            "layer_height": "0.08"
+          }
+        ]
+      ],
+      "modifiers_expected": 19,
+      "name": "enclosure-front-top",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 19,
+        "normal_part": 1,
+        "support_blocker": 11,
+        "support_enforcer": 1
+      },
+      "placed_bounds_mm": [
+        [
+          52,
+          52.099998474,
+          0
+        ],
+        [
+          273,
+          267.900001526,
+          194.75
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 197135
+    }
+  ],
+  "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
+  "print_features_sha256": "2aa48a76d15996abf43bab098f8d011a322818e07b16240c611834d3fcdcc627",
+  "replay_sha256": "f204997274c3ed7bf4c445bd66879379f9856bf2f322884293f239f278f1bc16",
+  "replay": "print-playbacks/f204997274c3ed7bf4c445bd66879379f9856bf2f322884293f239f278f1bc16.json.gz",
+  "replaced_replay_sha256": "44285c6c39e42d4c39c3f7b5b84a7c6145d4537e4bb8629ed4c5623ed5f902ce"
+}

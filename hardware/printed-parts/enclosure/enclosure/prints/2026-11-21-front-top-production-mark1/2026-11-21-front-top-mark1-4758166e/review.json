@@ -1,0 +1,1749 @@
+{
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.gcode.3mf",
+  "archive_sha256": "a07f8bc95a9c04cb1df942d916fbe9874b8d666a520f891e59d3e781326fad0c",
+  "bead_envelope_plate_mm": [
+    [
+      51.848418,
+      51.948688000000004
+    ],
+    [
+      273.151582,
+      268.055101
+    ]
+  ],
+  "bed_border_mm": 20.0,
+  "bed_margins_mm": {
+    "back": 51.94489900000002,
+    "front": 51.948688000000004,
+    "left": 51.848418,
+    "right": 51.84841799999998
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "excluded_support_counts_by_region": {
+    "V-H tube entry 1": 0,
+    "V-H tube entry 2": 0,
+    "V-H tube entry 3": 0,
+    "V-H tube entry 4": 0,
+    "V-H tube entry 5": 0,
+    "V-H tube entry 6": 0,
+    "V-H tube entry 7": 0,
+    "V-H tube entry 8": 0,
+    "V-H wing split": 0,
+    "wago-mana insertion pocket": 0,
+    "wago-manb insertion pocket": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [
+    {
+      "declared_bed_layer_height_mm": 0.2,
+      "first_wall_layer": [
+        188.68,
+        0.079987
+      ],
+      "last_wall_layer": [
+        194.76,
+        0.080002
+      ],
+      "name": "R6 roof side edges, level run",
+      "object": 1901,
+      "pass": true,
+      "print_z_mm": [
+        188.63043212890625,
+        194.75
+      ],
+      "uncovered_intervals_mm": [],
+      "wall_layer_count": 77,
+      "wrong_height_layers": []
+    },
+    {
+      "declared_bed_layer_height_mm": 0.2,
+      "first_wall_layer": [
+        192.52,
+        0.080002
+      ],
+      "last_wall_layer": [
+        194.68,
+        0.079987
+      ],
+      "name": "R18 display-to-roof roll",
+      "object": 1901,
+      "pass": true,
+      "print_z_mm": [
+        192.47518920898438,
+        194.6732177734375
+      ],
+      "uncovered_intervals_mm": [],
+      "wall_layer_count": 28,
+      "wrong_height_layers": []
+    }
+  ],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9724652124596155,
+      "second_layer_centerline_outside_first_mm": 96.97874819904897,
+      "second_layer_model_bead_area_mm2": 14425.89541671047
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 1298,
+  "minimum_bed_margin_mm": 51.84841799999998,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": 0.13009885063773285,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.9933746270981346,
+      "minimum_outline_coverage": 0.9923187028113766,
+      "name": "Y seam knuckle and its wall root +1/231.35",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          55.0,
+          247.0999984741211,
+          70.35
+        ],
+        [
+          71.0,
+          267.89900152587893,
+          104.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9940843788597803,
+          "infill_core_mm2": 115.37250000000002,
+          "outline_coverage": 0.9929913365131899,
+          "print_z_mm": 70.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 128.41250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9938778199767573,
+          "infill_core_mm2": 208.66750000000005,
+          "outline_coverage": 0.9927448345188536,
+          "print_z_mm": 87.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 228.80250000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9933746270981346,
+          "infill_core_mm2": 208.66750000000005,
+          "outline_coverage": 0.9923187028113766,
+          "print_z_mm": 104.6,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 228.80250000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          197.0,
+          230.6
+        ],
+        [
+          -91.5,
+          217.7990030517578,
+          265.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.98989898989899,
+      "minimum_outline_coverage": 0.986879150066401,
+      "name": "Y seam knuckle and its wall root +1/321.5",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          55.0,
+          247.0999984741211,
+          67.1
+        ],
+        [
+          71.0,
+          267.89900152587893,
+          194.74900000000002
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9946694402912306,
+          "infill_core_mm2": 115.37250000000002,
+          "outline_coverage": 0.9935559232940718,
+          "print_z_mm": 67.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 128.41250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.98989898989899,
+          "infill_core_mm2": 38.85750000000001,
+          "outline_coverage": 0.986879150066401,
+          "print_z_mm": 131.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 47.06250000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.302057,
+          "coverage": 0.9922291634923054,
+          "infill_core_mm2": 131.26000000000002,
+          "outline_coverage": 0.9930664317410598,
+          "print_z_mm": 194.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 153.24000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          197.0,
+          227.35
+        ],
+        [
+          -91.5,
+          217.7990030517578,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9933949353631089,
+      "minimum_outline_coverage": 0.9929585474548406,
+      "name": "Y seam knuckle and its wall root -1/231.35",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          254.0,
+          247.0999984741211,
+          70.35
+        ],
+        [
+          270.0,
+          267.89900152587893,
+          104.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9946694402912306,
+          "infill_core_mm2": 115.37250000000002,
+          "outline_coverage": 0.993458580745644,
+          "print_z_mm": 70.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 128.41250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9941753282739745,
+          "infill_core_mm2": 221.04250000000005,
+          "outline_coverage": 0.9937236979516715,
+          "print_z_mm": 87.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 241.78250000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9933949353631089,
+          "infill_core_mm2": 221.04250000000005,
+          "outline_coverage": 0.9929585474548406,
+          "print_z_mm": 104.6,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 241.78250000000006
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          91.5,
+          197.0,
+          230.6
+        ],
+        [
+          107.5,
+          217.7990030517578,
+          265.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9886765746638358,
+      "minimum_outline_coverage": 0.9853917662682603,
+      "name": "Y seam knuckle and its wall root -1/321.5",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          254.0,
+          247.0999984741211,
+          67.1
+        ],
+        [
+          270.0,
+          267.89900152587893,
+          194.74900000000002
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.993997703092158,
+          "infill_core_mm2": 115.37250000000002,
+          "outline_coverage": 0.9926798403582205,
+          "print_z_mm": 67.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 128.41250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9886765746638358,
+          "infill_core_mm2": 38.85750000000001,
+          "outline_coverage": 0.9853917662682603,
+          "print_z_mm": 131.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 47.06250000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.300418,
+          "coverage": 0.9916774586729641,
+          "infill_core_mm2": 131.27000000000004,
+          "outline_coverage": 0.9925933176716262,
+          "print_z_mm": 194.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 153.24000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          91.5,
+          197.0,
+          227.35
+        ],
+        [
+          107.5,
+          217.7990030517578,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9929963516757717,
+      "minimum_outline_coverage": 0.9920864276353372,
+      "name": "Z rail, end stop and wall root -1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          55.0,
+          55.099998474121094,
+          0.0010000000000047748
+        ],
+        [
+          72.5,
+          250.0999984741211,
+          17.55000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9987701615753241,
+          "infill_core_mm2": 1931.2293000000002,
+          "outline_coverage": 0.9988199306462033,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.11683321445547923,
+          "stock_mm2": 2070.5139
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9955832618242391,
+          "infill_core_mm2": 1081.6806000000001,
+          "outline_coverage": 0.9939486812375562,
+          "print_z_mm": 8.84,
+          "sampling_step_mm": 0.11683321445547923,
+          "stock_mm2": 1220.3373000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.275787,
+          "coverage": 0.9929963516757717,
+          "infill_core_mm2": 1444.1973,
+          "outline_coverage": 0.9920864276353372,
+          "print_z_mm": 17.24,
+          "sampling_step_mm": 0.11683321445547923,
+          "stock_mm2": 1624.8414
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          5.0,
+          160.251
+        ],
+        [
+          -90.0,
+          200.0,
+          177.8
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9927420265843281,
+      "minimum_outline_coverage": 0.9918695765614873,
+      "name": "Z rail, end stop and wall root +1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          252.5,
+          55.099998474121094,
+          0.0010000000000047748
+        ],
+        [
+          270.0,
+          250.0999984741211,
+          17.55000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989892778637717,
+          "infill_core_mm2": 1931.24295,
+          "outline_coverage": 0.9990242744689548,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.11683321445547923,
+          "stock_mm2": 2070.4593
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9959928199423573,
+          "infill_core_mm2": 1079.8242,
+          "outline_coverage": 0.9944779847444528,
+          "print_z_mm": 8.84,
+          "sampling_step_mm": 0.11683321445547923,
+          "stock_mm2": 1218.6583500000002
+        },
+        {
+          "bead_radius_inset_mm": 0.275787,
+          "coverage": 0.9927420265843281,
+          "infill_core_mm2": 1450.0122000000001,
+          "outline_coverage": 0.9918695765614873,
+          "print_z_mm": 17.24,
+          "sampling_step_mm": 0.11683321445547923,
+          "stock_mm2": 1621.79745
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          90.0,
+          5.0,
+          160.251
+        ],
+        [
+          107.5,
+          200.0,
+          177.8
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9937579565520923,
+      "minimum_outline_coverage": 0.990739317553028,
+      "name": "Pump retainer insert post and supporting root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          166.225,
+          67.0999984741211,
+          57.25
+        ],
+        [
+          185.225,
+          84.14999847412109,
+          85.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9937579565520923,
+          "infill_core_mm2": 243.51000000000005,
+          "outline_coverage": 0.990739317553028,
+          "print_z_mm": 57.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 260.24000000000007
+        },
+        {
+          "bead_radius_inset_mm": 0.2757615,
+          "coverage": 0.9983931871133607,
+          "infill_core_mm2": 248.94000000000005,
+          "outline_coverage": 0.9939575645756458,
+          "print_z_mm": 71.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 271.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.999959406358588,
+          "infill_core_mm2": 307.93000000000006,
+          "outline_coverage": 0.9942275042444821,
+          "print_z_mm": 85.4,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 323.95000000000005
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          3.7250000000000014,
+          17.0,
+          217.5
+        ],
+        [
+          22.725,
+          34.05,
+          246.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9938293225646943,
+      "minimum_outline_coverage": 0.9904511220411928,
+      "name": "Pump retainer insert post and supporting root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          244.225,
+          67.0999984741211,
+          57.25
+        ],
+        [
+          263.225,
+          84.14999847412109,
+          85.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9938293225646943,
+          "infill_core_mm2": 242.68000000000004,
+          "outline_coverage": 0.9904511220411928,
+          "print_z_mm": 57.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 260.24000000000007
+        },
+        {
+          "bead_radius_inset_mm": 0.27507,
+          "coverage": 0.9972688843593426,
+          "infill_core_mm2": 248.98250000000004,
+          "outline_coverage": 0.992619926199262,
+          "print_z_mm": 71.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 271.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.999959406358588,
+          "infill_core_mm2": 307.93000000000006,
+          "outline_coverage": 0.9942738076863713,
+          "print_z_mm": 85.4,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 323.95000000000005
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          81.725,
+          17.0,
+          217.5
+        ],
+        [
+          100.725,
+          34.05,
+          246.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9937984176693588,
+      "minimum_outline_coverage": 0.9905279741776821,
+      "name": "Pump retainer insert post and supporting root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          61.775000000000006,
+          67.0999984741211,
+          57.25
+        ],
+        [
+          80.775,
+          84.14999847412109,
+          85.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9937984176693588,
+          "infill_core_mm2": 242.68000000000004,
+          "outline_coverage": 0.9905279741776821,
+          "print_z_mm": 57.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 260.24000000000007
+        },
+        {
+          "bead_radius_inset_mm": 0.275765,
+          "coverage": 0.9983931871133607,
+          "infill_core_mm2": 248.94000000000005,
+          "outline_coverage": 0.9937453874538745,
+          "print_z_mm": 71.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 271.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999512876303056,
+          "infill_core_mm2": 307.93000000000006,
+          "outline_coverage": 0.9943586973298348,
+          "print_z_mm": 85.4,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 323.95000000000005
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -100.725,
+          17.0,
+          217.5
+        ],
+        [
+          -81.725,
+          34.05,
+          246.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9938293225646943,
+      "minimum_outline_coverage": 0.9905279741776821,
+      "name": "Pump retainer insert post and supporting root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          139.775,
+          67.0999984741211,
+          57.25
+        ],
+        [
+          158.775,
+          84.14999847412109,
+          85.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9938293225646943,
+          "infill_core_mm2": 242.68000000000004,
+          "outline_coverage": 0.9905279741776821,
+          "print_z_mm": 57.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 260.24000000000007
+        },
+        {
+          "bead_radius_inset_mm": 0.275071,
+          "coverage": 0.9972688843593426,
+          "infill_core_mm2": 248.98250000000004,
+          "outline_coverage": 0.9927675276752768,
+          "print_z_mm": 71.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 271.00000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.999959406358588,
+          "infill_core_mm2": 307.93000000000006,
+          "outline_coverage": 0.9942429387251119,
+          "print_z_mm": 85.4,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 323.95000000000005
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -22.725,
+          17.0,
+          217.5
+        ],
+        [
+          -3.7250000000000014,
+          34.05,
+          246.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9873399875937517,
+      "minimum_outline_coverage": 0.9823178525777588,
+      "name": "V-H entry clip and bulkhead root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          128.75346817760894,
+          139.39999055083982,
+          115.85999207671875
+        ],
+        [
+          143.43369913021348,
+          163.7149984741211,
+          140.54193130647764
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9987148102815178,
+          "infill_core_mm2": 122.55000000000003,
+          "outline_coverage": 0.9917690833239373,
+          "print_z_mm": 116.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 133.03500000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.2916445,
+          "coverage": 0.9950117486446396,
+          "infill_core_mm2": 190.44750000000005,
+          "outline_coverage": 0.9904899339973031,
+          "print_z_mm": 128.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 211.35500000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.232847,
+          "coverage": 0.9873399875937517,
+          "infill_core_mm2": 88.66500000000002,
+          "outline_coverage": 0.9823178525777588,
+          "print_z_mm": 140.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 105.61500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -33.74653182239107,
+          89.29999207671872,
+          276.10999207671875
+        ],
+        [
+          -19.06630086978651,
+          113.615,
+          300.79193130647764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.994366569690558,
+      "minimum_outline_coverage": 0.9925869930990758,
+      "name": "Funnel frame receivers and flank roots at Y125",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          55.0,
+          169.09999055083983,
+          175.55
+        ],
+        [
+          270.0,
+          181.09999055083983,
+          185.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.275787,
+          "coverage": 0.9974182875476238,
+          "infill_core_mm2": 411.7267199999999,
+          "outline_coverage": 0.9947753636531026,
+          "print_z_mm": 176.12,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 448.38335999999987
+        },
+        {
+          "bead_radius_inset_mm": 0.275782,
+          "coverage": 0.9965444997687264,
+          "infill_core_mm2": 379.2909599999999,
+          "outline_coverage": 0.9928796117925334,
+          "print_z_mm": 180.68,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 423.2128799999999
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.994366569690558,
+          "infill_core_mm2": 390.1991999999999,
+          "outline_coverage": 0.9925869930990758,
+          "print_z_mm": 185.48,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 423.2128799999999
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          118.99999207671873,
+          335.8
+        ],
+        [
+          107.5,
+          130.99999207671874,
+          346.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.994456909066913,
+      "minimum_outline_coverage": 0.992726653530857,
+      "name": "Funnel frame receivers and flank roots at Y168",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          55.0,
+          212.09999055083983,
+          175.55
+        ],
+        [
+          270.0,
+          224.09999055083983,
+          185.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.275787,
+          "coverage": 0.9971465044679733,
+          "infill_core_mm2": 412.2943199999999,
+          "outline_coverage": 0.9944888399007992,
+          "print_z_mm": 176.12,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 449.4153599999999
+        },
+        {
+          "bead_radius_inset_mm": 0.275782,
+          "coverage": 0.9968213431862638,
+          "infill_core_mm2": 379.8585599999999,
+          "outline_coverage": 0.9931158627064633,
+          "print_z_mm": 180.68,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 424.2448799999999
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.994456909066913,
+          "infill_core_mm2": 390.9731999999999,
+          "outline_coverage": 0.992726653530857,
+          "print_z_mm": 185.48,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 424.2448799999999
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          161.99999207671874,
+          335.8
+        ],
+        [
+          107.5,
+          173.99999207671874,
+          346.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9930089616665885,
+      "minimum_outline_coverage": 0.9869969040247678,
+      "name": "Display side insert and continuous housing root 1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          66.5,
+          63.89903657979775,
+          138.3301270189222
+        ],
+        [
+          78.5,
+          79.29134142521102,
+          152.99038105676658
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999854731398355,
+          "infill_core_mm2": 172.09500000000003,
+          "outline_coverage": 0.9918290043290043,
+          "print_z_mm": 138.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 184.80000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.3056465,
+          "coverage": 0.9971958873013753,
+          "infill_core_mm2": 149.78000000000003,
+          "outline_coverage": 0.9874042103408791,
+          "print_z_mm": 145.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 170.29500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.277632,
+          "coverage": 0.9930089616665885,
+          "infill_core_mm2": 53.28250000000001,
+          "outline_coverage": 0.9869969040247678,
+          "print_z_mm": 152.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 64.60000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -96.0,
+          13.799038105676658,
+          298.5801270189222
+        ],
+        [
+          -84.0,
+          29.191342951089922,
+          313.2403810567666
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9934312391498147,
+      "minimum_outline_coverage": 0.9860681114551083,
+      "name": "Display side insert and continuous housing root 2",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          191.0,
+          63.89903657979775,
+          138.3301270189222
+        ],
+        [
+          203.0,
+          79.29134142521102,
+          152.99038105676658
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999709462796711,
+          "infill_core_mm2": 172.09500000000003,
+          "outline_coverage": 0.9919101731601732,
+          "print_z_mm": 138.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 184.80000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.3056465,
+          "coverage": 0.9976298571237815,
+          "infill_core_mm2": 149.78000000000003,
+          "outline_coverage": 0.9881382307172847,
+          "print_z_mm": 145.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 170.29500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.277582,
+          "coverage": 0.9934312391498147,
+          "infill_core_mm2": 53.28250000000001,
+          "outline_coverage": 0.9860681114551083,
+          "print_z_mm": 152.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 64.60000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          28.5,
+          13.799038105676658,
+          298.5801270189222
+        ],
+        [
+          40.5,
+          29.191342951089922,
+          313.2403810567666
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9948179554478767,
+      "minimum_outline_coverage": 0.9849882561187323,
+      "name": "Display side insert and continuous housing root 3",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          66.5,
+          126.25286565227734,
+          174.3301270189222
+        ],
+        [
+          78.5,
+          141.6451704976906,
+          188.99038105676658
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999854731398355,
+          "infill_core_mm2": 172.09500000000003,
+          "outline_coverage": 0.9915584415584415,
+          "print_z_mm": 174.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 184.80000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.3055935,
+          "coverage": 0.9948179554478767,
+          "infill_core_mm2": 148.59000000000003,
+          "outline_coverage": 0.988926179457989,
+          "print_z_mm": 181.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 169.09250000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.997016214518472,
+          "infill_core_mm2": 63.67750000000001,
+          "outline_coverage": 0.9849882561187323,
+          "print_z_mm": 188.68,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 73.44250000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -96.0,
+          76.15286717815624,
+          334.5801270189222
+        ],
+        [
+          -84.0,
+          91.5451720235695,
+          349.2403810567666
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9955245978868026,
+      "minimum_outline_coverage": 0.9867243081322122,
+      "name": "Display side insert and continuous housing root 4",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          191.0,
+          126.25286565227734,
+          174.3301270189222
+        ],
+        [
+          203.0,
+          141.6451704976906,
+          188.99038105676658
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999564194195066,
+          "infill_core_mm2": 172.09500000000003,
+          "outline_coverage": 0.9913014069264069,
+          "print_z_mm": 174.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 184.80000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.3055955,
+          "coverage": 0.9955245978868026,
+          "infill_core_mm2": 148.59000000000003,
+          "outline_coverage": 0.9895767109718053,
+          "print_z_mm": 181.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 169.09250000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9981940245769699,
+          "infill_core_mm2": 63.67750000000001,
+          "outline_coverage": 0.9867243081322122,
+          "print_z_mm": 188.68,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 73.44250000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          28.5,
+          76.15286717815624,
+          334.5801270189222
+        ],
+        [
+          40.5,
+          91.5451720235695,
+          349.2403810567666
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9860478009116669,
+      "minimum_outline_coverage": 0.9852296438703022,
+      "name": "wago-mana insertion pocket transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          256.45,
+          216.1499984741211,
+          131.25
+        ],
+        [
+          270.25,
+          238.3499984741211,
+          135.0
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.281287,
+          "coverage": 0.9860478009116669,
+          "infill_core_mm2": 81.17000000000002,
+          "outline_coverage": 0.9852296438703022,
+          "print_z_mm": 131.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 106.63250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.995548650822508,
+          "infill_core_mm2": 226.89750000000004,
+          "outline_coverage": 0.99443924801365,
+          "print_z_mm": 133.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 243.22250000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.263117,
+          "coverage": 0.9959315795891671,
+          "infill_core_mm2": 225.51750000000004,
+          "outline_coverage": 0.9941719430967848,
+          "print_z_mm": 134.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 243.22000000000006
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          93.95,
+          166.05,
+          291.5
+        ],
+        [
+          107.75,
+          188.25,
+          295.25
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9592451552847593,
+      "minimum_outline_coverage": 0.9471277952290611,
+      "name": "wago-manb insertion pocket transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          256.3,
+          216.1999984741211,
+          97.35000000000002
+        ],
+        [
+          270.25,
+          230.8999984741211,
+          101.10000000000002
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.281582,
+          "coverage": 0.9872126489125287,
+          "infill_core_mm2": 68.62250000000002,
+          "outline_coverage": 0.9838137038383048,
+          "print_z_mm": 97.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 89.42750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9959690340861176,
+          "infill_core_mm2": 148.22750000000002,
+          "outline_coverage": 0.9938574938574939,
+          "print_z_mm": 99.32,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 160.76500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.232175,
+          "coverage": 0.9592451552847593,
+          "infill_core_mm2": 147.71250000000003,
+          "outline_coverage": 0.9471277952290611,
+          "print_z_mm": 100.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 160.76500000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          93.8,
+          166.1,
+          257.6
+        ],
+        [
+          107.75,
+          180.8,
+          261.35
+        ]
+      ]
+    }
+  ],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        94.2,
+        104.5,
+        169.3,
+        185.0,
+        262.0,
+        292.0
+      ],
+      "box_plate_mm": [
+        [
+          256.45,
+          219.1499984741211,
+          101.5
+        ],
+        [
+          267.25,
+          235.3499984741211,
+          132.0
+        ]
+      ],
+      "name": "wago-mana insertion pocket",
+      "object": 1901,
+      "reason": "Keep the connector pocket and mouth clear of support."
+    },
+    {
+      "bounds_source_mm": [
+        94.05,
+        104.5,
+        169.35,
+        177.55,
+        227.9,
+        258.1
+      ],
+      "box_plate_mm": [
+        [
+          256.3,
+          219.1999984741211,
+          67.4
+        ],
+        [
+          267.25,
+          227.8999984741211,
+          98.10000000000002
+        ]
+      ],
+      "name": "wago-manb insertion pocket",
+      "object": 1901,
+      "reason": "Keep the connector pocket and mouth clear of support."
+    },
+    {
+      "bounds_source_mm": [
+        -33.0048910358912,
+        -29.5014847412089,
+        104.865,
+        113.615,
+        292.10217530521896,
+        298.5093956673693
+      ],
+      "box_plate_mm": [
+        [
+          128.6451089641088,
+          154.11499847412108,
+          131.00217530521894
+        ],
+        [
+          133.8485152587911,
+          166.36499847412108,
+          139.1093956673693
+        ]
+      ],
+      "name": "V-H tube entry 1",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -33.0048910358912,
+            292.47018678889503
+          ],
+          [
+            -31.04263312161028,
+            298.5093956673693
+          ],
+          [
+            -29.5014847412089,
+            297.9255067775645
+          ],
+          [
+            -32.03354132888421,
+            292.10217530521896
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -32.03354132888421,
+        -28.023394772269164,
+        104.865,
+        113.615,
+        291.642758329784,
+        297.9255067775645
+      ],
+      "box_plate_mm": [
+        [
+          129.6164586711158,
+          154.11499847412108,
+          130.54275832978396
+        ],
+        [
+          135.32660522773085,
+          166.36499847412108,
+          138.52550677756454
+        ]
+      ],
+      "name": "V-H tube entry 2",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -32.03354132888421,
+            292.10217530521896
+          ],
+          [
+            -29.5014847412089,
+            297.9255067775645
+          ],
+          [
+            -28.023394772269164,
+            297.1965934701191
+          ],
+          [
+            -31.101935860833404,
+            291.642758329784
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -31.101935860833404,
+        -26.621972880815996,
+        104.865,
+        113.615,
+        291.09616599183335,
+        297.1965934701191
+      ],
+      "box_plate_mm": [
+        [
+          130.5480641391666,
+          154.11499847412108,
+          129.99616599183332
+        ],
+        [
+          136.728027119184,
+          166.36499847412108,
+          137.79659347011915
+        ]
+      ],
+      "name": "V-H tube entry 3",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -31.101935860833404,
+            291.642758329784
+          ],
+          [
+            -28.023394772269164,
+            297.1965934701191
+          ],
+          [
+            -26.621972880815996,
+            296.32936728958316
+          ],
+          [
+            -30.218652485288686,
+            291.09616599183335
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -30.218652485288686,
+        -25.31012280363369,
+        104.865,
+        113.615,
+        290.46743109676294,
+        296.32936728958316
+      ],
+      "box_plate_mm": [
+        [
+          131.43134751471132,
+          154.11499847412108,
+          129.3674310967629
+        ],
+        [
+          138.03987719636632,
+          166.36499847412108,
+          136.92936728958318
+        ]
+      ],
+      "name": "V-H tube entry 4",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -30.218652485288686,
+            291.09616599183335
+          ],
+          [
+            -26.621972880815996,
+            296.32936728958316
+          ],
+          [
+            -25.31012280363369,
+            295.33181331056846
+          ],
+          [
+            -29.391824125143216,
+            290.46743109676294
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -29.391824125143216,
+        -24.09992353577693,
+        104.865,
+        113.615,
+        289.7623427860459,
+        295.33181331056846
+      ],
+      "box_plate_mm": [
+        [
+          132.2581758748568,
+          154.11499847412108,
+          128.66234278604588
+        ],
+        [
+          139.25007646422307,
+          166.36499847412108,
+          135.9318133105685
+        ]
+      ],
+      "name": "V-H tube entry 5",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -29.391824125143216,
+            290.46743109676294
+          ],
+          [
+            -25.31012280363369,
+            295.33181331056846
+          ],
+          [
+            -24.09992353577693,
+            294.21311661434993
+          ],
+          [
+            -28.629063887905986,
+            289.7623427860459
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -28.629063887905986,
+        -23.002518111976528,
+        104.865,
+        113.615,
+        288.9873932331145,
+        294.21311661434993
+      ],
+      "box_plate_mm": [
+        [
+          133.020936112094,
+          154.11499847412108,
+          127.8873932331145
+        ],
+        [
+          140.34748188802348,
+          166.36499847412108,
+          134.81311661434995
+        ]
+      ],
+      "name": "V-H tube entry 6",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -28.629063887905986,
+            289.7623427860459
+          ],
+          [
+            -24.09992353577693,
+            294.21311661434993
+          ],
+          [
+            -23.002518111976528,
+            292.983577716281
+          ],
+          [
+            -27.937394967228293,
+            288.9873932331145
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -27.937394967228293,
+        -22.028011005996387,
+        104.865,
+        113.615,
+        288.149717866003,
+        292.983577716281
+      ],
+      "box_plate_mm": [
+        [
+          133.7126050327717,
+          154.11499847412108,
+          127.049717866003
+        ],
+        [
+          141.32198899400362,
+          166.36499847412108,
+          133.583577716281
+        ]
+      ],
+      "name": "V-H tube entry 7",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -27.937394967228293,
+            288.9873932331145
+          ],
+          [
+            -23.002518111976528,
+            292.983577716281
+          ],
+          [
+            -22.028011005996387,
+            291.6545177227346
+          ],
+          [
+            -27.323185976122907,
+            288.149717866003
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -27.323185976122907,
+        -21.18537509264793,
+        104.865,
+        113.615,
+        287.25702966715727,
+        291.6545177227346
+      ],
+      "box_plate_mm": [
+        [
+          134.3268140238771,
+          154.11499847412108,
+          126.15702966715725
+        ],
+        [
+          142.16462490735208,
+          166.36499847412108,
+          132.25451772273465
+        ]
+      ],
+      "name": "V-H tube entry 8",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -27.323185976122907,
+            288.149717866003
+          ],
+          [
+            -22.028011005996387,
+            291.6545177227346
+          ],
+          [
+            -21.18537509264793,
+            290.2381740908477
+          ],
+          [
+            -26.79209230730212,
+            287.25702966715727
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -31.700558831509888,
+        -23.001388097267018,
+        104.865,
+        113.615,
+        287.98613682359087,
+        297.81310758374053
+      ],
+      "box_plate_mm": [
+        [
+          129.94944116849013,
+          154.11499847412108,
+          126.88613682359085
+        ],
+        [
+          140.34861190273298,
+          166.36499847412108,
+          138.41310758374055
+        ]
+      ],
+      "name": "V-H wing split",
+      "object": 1901,
+      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -31.700558831509888,
+            289.27171204296394
+          ],
+          [
+            -30.16846994527193,
+            287.98613682359087
+          ],
+          [
+            -23.001388097267018,
+            296.52753236436746
+          ],
+          [
+            -24.533476983504976,
+            297.81310758374053
+          ]
+        ],
+        "span_y_mm": [
+          104.865,
+          113.615
+        ]
+      }
+    }
+  ],
+  "support_roads": 142180,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 7,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 9,
+      "interface_islands": 9,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 56.322,
+      "shortest_labelled_build_up_mm": 56.322,
+      "support_bodies": 7
+    }
+  }
+}
