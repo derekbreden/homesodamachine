@@ -44,7 +44,7 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 21616
+      "vertices": 21629
     }
   ],
   "pass": true,
