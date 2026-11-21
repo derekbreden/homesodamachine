@@ -1081,21 +1081,15 @@ slide's opening remain on their own datums.
 
 ## Fixed fluid supports
 
-The bare ASSE lies above the pump with its vent west. Two 6 mm wide saddles at
-Y346 and Y369 join the fixed roof, open toward −X, and retain 3 mm below the
-nominal barrel. Each has a separate tie window. The straight TPU cuffs and vent
-adapter stay clear of the bearings. Two fixed-roof bearings support the transverse
-water regulator's two native diameters; its collets remain free.
-
-The folded gas regulator and separate check use two east-wall saddles with tie
-windows. Back-top carries those saddles, the meter's collar bearings and the
-continuous ceiling. Main component
+Back-top carries the ASSE chain, the Pisco gas regulator, the flow meter and the water
+regulator in integral snap receivers on its ceiling and east wall
+([`back-top/supports.rs`](back-top/supports.rs)). Each body seats in its receiver and a
+[snap cap](../rear-equipment-caps/README.md) closes over it. Main component
 placements, actual fitting engagement, insulated routes and support loads retain
 the scope stated in the [arrangement](/hardware/manifold-layout/above-core.md).
 
-Thread ties through the empty support windows before fitting bodies. The native
-clearance readings establish geometric separation at the recorded datums; they
-do not establish tie retention, printed load capacity or lifetime.
+The native clearance readings establish geometric separation at the recorded datums; they
+do not establish cap retention, printed load capacity or lifetime.
 
 ## Integral pump mount
 

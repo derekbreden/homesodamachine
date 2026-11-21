@@ -282,7 +282,7 @@ covers easy insertion with zip ties for positive retention. The
 [current hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 from those samples sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
 conditional alternate for a valve or print orientation that does not fit V69 well.
-The shared seat keeps its exterior envelope and tie passages. The
+The shared seat keeps its exterior envelope. The
 [request record](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
 records the intended tighter grip; retention force and endurance remain
 unmeasured.
