@@ -61,16 +61,20 @@ pub fn specifications(
 /// Centreline radius of the reservoir B draw tube at the V-H inlet.
 pub const B_DRAW_RADIUS: f64 = 14.;
 
-/// The final bend and its bulkhead clip share the centre west of the inlet.
-pub fn b_draw_turn_centre(inlet: [f64; 3]) -> [f64; 3] {
-    sub(inlet, [B_DRAW_RADIUS, 0., 0.])
+const B_DRAW_WEST_OFFSET: f64 = 33.65;
+const B_DRAW_LEVEL: f64 = 295.7;
+
+/// Centre of the level return from the west jog, shared by the tube and its upright saddle.
+pub fn b_draw_fore_centre(inlet: [f64; 3]) -> [f64; 3] {
+    [inlet[0] - B_DRAW_WEST_OFFSET + B_DRAW_RADIUS, inlet[1] + B_DRAW_RADIUS, B_DRAW_LEVEL]
 }
 
 /// Reservoir B's draw tube, from its port on the cold core to valve V-H's inlet.
 fn b_draw(stations: &Value) -> Result<Tube> {
     let (a, _) = station(stations, "foam-assembly", "reservoir-b")?;
     let (b, ub) = station(stations, "valve-v-h", "inlet")?;
-    let z = 295.7;
+    let fore = b_draw_fore_centre(b);
+    let z = fore[2];
     let lift = add(a, [0., 0., 3.6]);
     let angle = (1f64 - 13. / 28.).acos();
     let (offset_first, mid) = arc(lift, [0., 0., 1.], [0., 1., 0.], angle, 14.);
@@ -82,7 +86,7 @@ fn b_draw(stations: &Value) -> Result<Tube> {
         14.,
     );
     let radius = B_DRAW_RADIUS;
-    let down_start = add(b_draw_turn_centre(b), [0., 0., radius]);
+    let down_start = add(b, [-radius, 0., radius]);
     let angle = (1. - (down_start[2] - z) / (2. * radius)).acos();
     ensure!(angle.is_finite(), "math domain error");
     let rise_start = [down_start[0] - 2. * radius * angle.sin(), b[1], z];
@@ -94,14 +98,14 @@ fn b_draw(stations: &Value) -> Result<Tube> {
         [end[0], a[1], z],
         [b[0], 214., z],
         [b[0], 138., z],
-        [b[0] - 33.65, 138., z],
-        [b[0] - 33.65, b[1], z],
+        [fore[0] - radius, 138., z],
+        [fore[0] - radius, fore[1] - radius, z],
         rise_start,
     ];
     let mut full = vec![*prefix.last().unwrap().points().last().unwrap()];
     full.extend(points);
     let mut segments = prefix;
-    segments.extend(rounded(&full, 14.)?);
+    segments.extend(rounded(&full, radius)?);
     segments.extend([rise_first, rise_second, down]);
     segments.push(line(b, sub(b, mul(ub, 12.7))));
     let points = sample(&segments)?;

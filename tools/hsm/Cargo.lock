@@ -2479,6 +2479,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "hsm-kernel",
+ "hsm-print-prep",
  "serde_json",
  "sha2 0.10.9",
 ]

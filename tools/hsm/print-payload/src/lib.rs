@@ -304,10 +304,18 @@ fn root(parent: &mut [usize], mut i: usize) -> usize {
     }
     i
 }
+fn join(parent: &mut [usize], a: usize, b: usize) {
+    let a = root(parent, a);
+    let b = root(parent, b);
+    parent[a.max(b)] = a.min(b);
+}
 type Arrays = (Vec<f32>, Vec<f32>, Vec<u32>, Vec<u32>, Option<Vec<Vec<Value>>>, Vec<Value>);
 fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>, features: Option<&Features>) -> Arrays {
     let (normals, areas, edges) = geometry(mesh);
     let mut parent = (0..mesh.faces.len()).collect::<Vec<_>>();
+    // Pick ranges connect across the surface. A shading normal can only connect across
+    // smooth edges incident to its own vertex, even where two sides meet elsewhere.
+    let mut fan = (0..mesh.faces.len() * 3).collect::<Vec<_>>();
     let mut i = 0;
     while i < edges.len() {
         let mut j = i + 1;
@@ -315,9 +323,12 @@ fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>, features: Option<
             j += 1;
         }
         if j - i == 2 && normals[edges[i].face].dot(normals[edges[i + 1].face]).clamp(-1., 1.).acos() <= angle {
-            let a = root(&mut parent, edges[i].face);
-            let b = root(&mut parent, edges[i + 1].face);
-            parent[a.max(b)] = a.min(b);
+            let (a, b) = (edges[i].face, edges[i + 1].face);
+            join(&mut parent, a, b);
+            for v in [edges[i].a, edges[i].b] {
+                let corner = |f: usize| 3 * f + mesh.faces[f].iter().position(|&p| p == v).unwrap();
+                join(&mut fan, corner(a), corner(b));
+            }
         }
         i = j;
     }
@@ -328,8 +339,13 @@ fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>, features: Option<
         let next = regions.len();
         labels.push(*regions.entry(r).or_insert(next));
     }
-    // Counting by region retains face order without sorting all triangles. A packed
-    // (vertex, region) key retains the existing lexicographic corner order.
+    for i in 0..fan.len() {
+        fan[i] = root(&mut fan, i);
+    }
+    let corner_key = |face: usize, corner: usize| {
+        (mesh.faces[face][corner], labels[face] as u32, fan[3 * face + corner] as u32)
+    };
+    // Keep the established pick and vertex ordering, splitting a vertex only between distinct fans.
     let mut starts = vec![0; regions.len() + 1];
     for &label in &labels {
         starts[label + 1] += 1;
@@ -343,17 +359,20 @@ fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>, features: Option<
         order[next[label]] = i;
         next[label] += 1;
     }
-    let mut corners = order.iter().flat_map(|&i| mesh.faces[i].map(|v| ((v as u64) << 32) | labels[i] as u64)).collect::<Vec<_>>();
+    let mut corners = Vec::with_capacity(mesh.faces.len() * 3);
+    for &f in &order {
+        corners.extend((0..3).map(|k| corner_key(f, k)));
+    }
     corners.sort_unstable();
     corners.dedup();
     let mut offsets = vec![0; mesh.points.len() + 1];
-    for &key in &corners {
-        offsets[(key >> 32) as usize + 1] += 1;
+    for &(v, _, _) in &corners {
+        offsets[v as usize + 1] += 1;
     }
     for i in 1..offsets.len() {
         offsets[i] += offsets[i - 1];
     }
-    let positions = corners.iter().flat_map(|&key| mesh.points[(key >> 32) as usize].to_array().map(|x| x as f32)).collect();
+    let positions = corners.iter().flat_map(|&(v, _, _)| mesh.points[v as usize].to_array().map(|x| x as f32)).collect();
     let mut sums = vec![V3::ZERO; corners.len()];
     let mut first_normal = vec![None; corners.len()];
     let mut indices = Vec::with_capacity(mesh.faces.len() * 3);
@@ -374,10 +393,10 @@ fn creased(mesh: &Mesh, angle: f64, sources: Option<&Lineage>, features: Option<
             }
         }
         let weighted = normals[face] * areas[face];
-        for &v in &mesh.faces[face] {
+        for (corner, &v) in mesh.faces[face].iter().enumerate() {
             let begin = offsets[v as usize];
             let end = offsets[v as usize + 1];
-            let key = ((v as u64) << 32) | labels[face] as u64;
+            let key = corner_key(face, corner);
             let k = begin + corners[begin..end].binary_search(&key).unwrap();
             indices.push(k as u32);
             sums[k] += weighted;
@@ -556,4 +575,33 @@ pub fn cut_with_features(mesh: &Mesh, lineage: Option<Lineage>, r: Request, feat
         watertight,
         non_manifold_edges: non_manifold,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_sharp_edge_can_have_one_connected_pick_surface() {
+        // A rounded extrusion with a single square corner. Both sides of its crease
+        // belong to the same pick surface through the long way around the rim.
+        let mut rim = vec![V3::from([1., 1., 0.])];
+        for i in 0..=18 {
+            let a = std::f64::consts::FRAC_PI_2 * (1. + 3. * i as f64 / 18.);
+            rim.push(V3::from([a.cos(), a.sin(), 0.]));
+        }
+        let n = rim.len() as u32;
+        let points = rim.iter().copied().chain(rim.iter().map(|&v| v + V3::Z)).collect();
+        let faces = (0..n).flat_map(|a| {
+            let b = (a + 1) % n;
+            [[a, b, b + n], [a, b + n, a + n]]
+        }).collect();
+        let (positions, normals, _, ranges, _, _) = creased(&Mesh { points, faces }, CREASE_DEG.to_radians(), None, None);
+        assert_eq!(ranges.len(), 2);
+        let at_crease: Vec<_> = positions.chunks_exact(3).zip(normals.chunks_exact(3))
+            .filter(|(p, _)| *p == [1., 1., 0.]).map(|(_, n)| n).collect();
+        assert_eq!(at_crease.len(), 2);
+        assert!(at_crease.iter().any(|n| n[0] > 0.999));
+        assert!(at_crease.iter().any(|n| n[1] > 0.999));
+    }
 }

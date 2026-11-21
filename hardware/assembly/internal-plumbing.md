@@ -260,9 +260,9 @@ through its clip's open +Z mouth. For removal, release the exposed jaws and lift
 Leave the front valve ends free during the column slide and dress the
 flexible spans clear of passing fittings. Once the column is home, finish
 dressing the free spans and connect the front ends. For reservoir B, turn the draw
-tube west in front of the funnel frame and seat its end in the V-H inlet. Through
-the open funnel aperture, press the bend sideways toward the pump bulkhead until
-both pairs of wings capture it. Release the bend toward the aperture for service.
+tube west in front of the funnel frame. With the frame out, seat the tube in the
+V-H inlet and press its level bend downward into the bulkhead clip, one pair of
+wings at a time. Lift the bend through the opening to release it for service.
 
 Keep each tube unbroken through its plain core guide. The valve ports and clips
 locate the tubing. Dress the free spans around the installed hardware, then

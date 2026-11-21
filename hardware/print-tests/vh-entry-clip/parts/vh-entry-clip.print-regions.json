@@ -1,0 +1,33 @@
+{
+  "native_artifact_sha256": {
+    "vh-entry-clip": {
+      ".stl": "e33d263e28b2a9039588c4650f1f490ffd683d4e40d62cf024cec6cc0a994900"
+    }
+  },
+  "pieces": {
+    "vh-entry-clip": [
+      {
+        "applied_source_bounds_mm": [
+          -61.575,
+          -42.0,
+          89.29999207671872,
+          122.03999999999999,
+          287.725,
+          299.4356636552512
+        ],
+        "machine_bounds_mm": [
+          -61.575,
+          -42.0,
+          89.29999207671872,
+          122.03999999999999,
+          287.725,
+          299.4356636552512
+        ],
+        "name": "V-H entry clip and bulkhead root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      }
+    ]
+  },
+  "source": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json"
+}

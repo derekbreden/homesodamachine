@@ -238,22 +238,9 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
                     let low = [flat[0] - overlap, flat[2] - overlap, flat[4] - overlap];
                     let high = [flat[1] + overlap, flat[3] + overlap, flat[5] + overlap];
                     let faces: Vec<usize> = if region_kind == "support_free" {
-                        // A passage can end on an exterior face that takes a removable support interface.
-                        let contact = region.get("exterior_contact_plane_source").map(|p| -> Result<_> {
-                            let point: [f64; 3] = serde_json::from_value(p["point_mm"].clone())?;
-                            let normal: [f64; 3] = serde_json::from_value(p["normal"].clone())?;
-                            Ok((point, normal, mat_vec(&mesh.rotation, normal)))
-                        }).transpose()?;
                         (0..centres.len()).filter(|&i| {
                             let c = centres[i];
-                            if geo.n[i][2] >= 0.0 || !(0..3).all(|k| c[k] >= low[k] && c[k] <= high[k]) {
-                                return false;
-                            }
-                            !contact.is_some_and(|(point, normal, print_normal)| {
-                                let offset: f64 = (0..3).map(|k| (c[k] - point[k]) * normal[k]).sum();
-                                let facing: f64 = (0..3).map(|k| geo.n[i][k] * print_normal[k]).sum();
-                                offset.abs() < 0.02 && facing > 0.999
-                            })
+                            geo.n[i][2] < 0.0 && (0..3).all(|k| c[k] >= low[k] && c[k] <= high[k])
                         }).collect()
                     } else {
                         vec![]

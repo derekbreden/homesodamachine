@@ -57,7 +57,7 @@ fn main() -> Result<()> {
 /// The collet plate locates the valve outlet. Its opposite port and the routed bend locate the clip.
 fn inlet_clip(b: &Box) -> Result<Option<InletClip>> {
     use hsm_foam_cap_numbers::{clips, reservoir_a::pair};
-    use hsm_layout_data::routes::{B_DRAW_RADIUS, b_draw_turn_centre};
+    use hsm_layout_data::routes::{B_DRAW_RADIUS, b_draw_fore_centre};
     #[derive(serde::Deserialize)]
     struct Valve { port_faces_y_mm: [f64; 2] }
 
@@ -67,7 +67,7 @@ fn inlet_clip(b: &Box) -> Result<Option<InletClip>> {
     let [inlet_face, outlet_face] = valve.port_faces_y_mm;
     let inlet = std::array::from_fn(|i| outlet.point[i] - outlet.axis[i] * (outlet_face - inlet_face));
     Ok(Some(InletClip {
-        centre: b_draw_turn_centre(inlet), radius: B_DRAW_RADIUS, bore: pair::BORE / 2.,
+        centre: b_draw_fore_centre(inlet), radius: B_DRAW_RADIUS, bore: pair::BORE / 2.,
         wing: pair::WING, tip_degrees: pair::TIP_DEGREES, slot_width: clips::WING_SLOT_WIDTH,
         wall_y: plate.wall_aft_y.min(funnel::housing_back_y(b.pack.funnel[1])),
     }))
@@ -201,10 +201,13 @@ fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json:
         }));
     }
     if let Some(clip) = clip {
-        exclusions.extend(clip.support_free_regions());
+        exclusions.push(json!({
+            "name": "V-H upright entry clip", "bounds_source_mm": clip.bounds(),
+            "reason": "The sloping shelf carries the upright seat. Keep the tube mouth and flex slot open."
+        }));
     }
     let clip_regions: Vec<_> = clip.into_iter().map(|clip| {
-        let mut bounds = clip.bounds();
+        let mut bounds = clip.reinforcement();
         bounds[2] -= WALL;
         json!({"name": "V-H entry clip and bulkhead root", "bounds_source_mm": bounds})
     }).collect();
@@ -215,7 +218,6 @@ fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json:
         "source_stl_sha256": digest(stl),
         "boundary_overlap_mm": catalog::running(),
         "support_free_regions": exclusions,
-        "support_regions": clip.into_iter().map(InletClip::underside_target).collect::<Vec<_>>(),
         "bridge_regions": bridges
     })
 }
