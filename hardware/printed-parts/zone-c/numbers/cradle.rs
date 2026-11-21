@@ -17,8 +17,6 @@ pub const LOWER_SIDE_RELIEF: f64 = 0.65;
 pub const ROOT_STOCK: f64 = 3.0;
 /// The air between the block's aft end and the elbow's stem body.
 pub const STEM_BODY_AIR: f64 = 1.0;
-/// The frame's drain hole.
-pub const HOLE_D: f64 = 11.25;
 /// The wings' root, and the slots' ends.
 pub const WING_ROOT: f64 = -8.84;
 pub const SLOT_FORE: f64 = -11.24;
@@ -63,6 +61,7 @@ struct Profiles {
 #[derive(Deserialize)]
 struct Elbow {
     bend_radius_mm: f64,
+    stem_od_mm: f64,
     stem_tip_x_mm: f64,
     profiles: Profiles,
 }
@@ -73,6 +72,11 @@ fn elbow() -> &'static Elbow {
         serde_json::from_str(include_str!("../../../reference/neofit-stem-elbow/reference-parameters.json"))
             .expect("the stem elbow's reference parses")
     })
+}
+
+/// The frame guides the bought stem with the machine's radial sliding clearance.
+pub fn stem_passage_radius() -> f64 {
+    elbow().stem_od_mm / 2.0 + fits::slip()
 }
 
 #[derive(Deserialize)]

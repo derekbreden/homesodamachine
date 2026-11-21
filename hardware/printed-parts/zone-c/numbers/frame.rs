@@ -147,7 +147,7 @@ pub fn frame() -> Frame {
         socket_z: cradle::WEB,
         socket_height: SOCKET_DEPTH,
         socket_flare: (2.0, 1.0),
-        hole_radius: cradle::HOLE_D / 2.0,
+        hole_radius: cradle::stem_passage_radius(),
         web_cut_z: (-1.0, cradle::WEB + 1.0),
         slot_x: (snap.slot_in, snap.slot_out),
         slot_y: (cradle::SLOT_FORE - cradle::END_SLIP, cradle::SLOT_AFT + cradle::END_SLIP),
