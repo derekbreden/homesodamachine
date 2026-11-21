@@ -1,0 +1,99 @@
+{
+  "purpose": "Measure the completed meter leaf and the photographed side-entry approach on the production corner.",
+  "geometry": "../../parts/geometry.json",
+  "meter_stl_sha256": "f45512624ea3c12eea103247c0574083386a94f000ec4d7ff547b39114fe424d",
+  "corner_stl_sha256": "1946f326a98b136ee181fcacc7d84bc02ea31e83c8f8164128d18db4439bddc1",
+  "baseline_print": "https://github.com/derekbreden/homesodamachine/blob/d8d3ba9a32b0349a571d50729eaedf48af030e73/hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/physical-result/physical-result.json",
+  "upper_leaf_y_span_mm": [
+    395.7586388104,
+    417.0957172024
+  ],
+  "lower_leaf_y_span_mm": [
+    395.7586388104,
+    433.7586388104
+  ],
+  "upper_hook_or_leaf_past_end_beyond_bearing_mm3": 0.0,
+  "retained_solids": 1,
+  "seated_meter_cap_overlap_with_corner_mm3": 0.0,
+  "shoulder_lowered_mm": 6.55,
+  "wall_over_upper_boss_passage_mm": 3,
+  "removed_corner_material_mm3": 1929.148,
+  "removed_meter_cap_material_mm3": 1273.19,
+  "pisco_and_asse_print_meshes": "Byte-identical to the previous Mark2 corner plate.",
+  "insertion_check": {
+    "method": "Sample the existing Pisco cover tipped about the regulator axis and then swung into its seated position. Include the production corner and installed regulator. The adjacent meter and ASSE hardware are out during insertion as shown in the bench photos.",
+    "frame": "Installed machine millimetres. Rotate about world +Y through X76.5 Z331.2 before applying the translations.",
+    "spring_model": "The free Pisco leaves bend outward with zero displacement at the root. The fitted saddle and spine stay rigid. The bench fit checks spring force and retention.",
+    "waypoint_columns": [
+      "tilt_deg",
+      "x_translation_mm",
+      "z_translation_mm",
+      "west_splay_parameter_mm",
+      "east_splay_parameter_mm"
+    ],
+    "waypoints": [
+      [
+        21.0,
+        -4.6,
+        -11.0,
+        3.8,
+        3.0
+      ],
+      [
+        20.0,
+        -4.55,
+        -9.0,
+        3.8,
+        3.0
+      ],
+      [
+        15.0,
+        -3.4,
+        -6.5,
+        3.8,
+        3.0
+      ],
+      [
+        10.0,
+        -2.4,
+        -4.5,
+        3.8,
+        3.0
+      ],
+      [
+        5.0,
+        -1.25,
+        -2.8,
+        4.0,
+        3.5
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0,
+        3.8,
+        3.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        3.8,
+        3.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "sample_count": 106,
+    "max_old_meter_receiver_intersection_mm3": 102.335,
+    "min_revised_meter_receiver_gap_mm": 0.61,
+    "max_revised_corner_intersection_mm3": 4.7e-05,
+    "max_regulator_intersection_mm3": 0.0,
+    "contact_precision": "The seated Pisco end and the rear wall coincide in the fine model. The float32 corner STL rounds that wall forward by 0.0000122 mm. The measured end-face overlap equals the baseline print."
+  }
+}

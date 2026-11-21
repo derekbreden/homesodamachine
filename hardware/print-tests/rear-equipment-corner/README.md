@@ -15,19 +15,18 @@ edge of its aft shoulder and its fitted body floors take removable support
 through the open west face. The aft shoulder's first course bridges from its
 west edge to the flank.
 
-The [first plate's physical result](https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json)
-holds Derek's photos and words on the article this one answers.
+The [previous corner print](https://github.com/derekbreden/homesodamachine/blob/d8d3ba9a32b0349a571d50729eaedf48af030e73/hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/physical-result/physical-result.json)
+shows the Pisco cover catching the meter receiver when tipped in from the side.
+The [current Mark2 fit print](prints/2026-11-21-pisco-entry-mark2/print-job.json)
+pairs the production corner with the shorter upper spring on the meter cover.
+The Pisco and ASSE covers from the previous plate fit the same seats.
 
-The [Mark2 fit print](prints/2026-11-20-mark2/print-job.json) carries the article and its three
-covers on one textured plate. Its physical fit awaits that print.
-
-Clear the supports under the meter's two shoulders and lip and in its body
-pockets before installing hardware. The supports under the lip's aft end and
-the aft shoulder stand on the Pisco receiver's underside. Try the Pisco cover's
-angled X-entry with the meter and ASSE hardware out of the way, checking the
-shortened leaves beside the corner column. Fit the Pisco, then the meter and
-its cover, then the ASSE chain and its cover. Check seating, retention and
-release through the complete receiver channels.
+Clear the removable support from the meter shoulders, upper lip and fitted
+body passages. With the meter and ASSE hardware out, seat the Pisco and tip
+its cover in from the side as in the photos. Check that it passes the
+recessed shoulder and that both catches seat. Install the meter and its
+matching cover, then the ASSE chain and cover. Check that the meter cover
+holds and releases on both leaves.
 
 Generate the current article and prepare its plate without contacting a printer:
 

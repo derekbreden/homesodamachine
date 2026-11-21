@@ -1,0 +1,110 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -40.096244812,
+      -145.5,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -40.096245,
+      -145.5,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.gcode.3mf plate_1.gcode, object 1903",
+    "gcode_sha256": "50929e2adcfe2e098813294a8a46befcd7d1b4c6cf88c1b5f78762675dc07c1b",
+    "model": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+    "model_sha256": "09ff2ca023ad7e8640c6f6b79bcf4de2608f3846a8270224e266db3abad1ba13",
+    "profile": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.3mf",
+    "profile_sha256": "7bb6a64430b4730d9617e3daf591d257da52a014456b4942b9b1cc900ec71ba5"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -11.296,
+        -11.5,
+        20.84,
+        -0.096,
+        11.7,
+        21.32
+      ],
+      "bbox_xy_mm": [
+        28.8,
+        134.0,
+        40.0,
+        157.2
+      ],
+      "build_up_mm": 20.64,
+      "first_z_mm": 20.84,
+      "id": "interface-1",
+      "last_z_mm": 21.32,
+      "tree": "tree-1"
+    }
+  ],
+  "piece": "regulator-snap-cap",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 1,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "interface_islands": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 20.64,
+    "shortest_labelled_build_up_mm": 20.64,
+    "support_bodies": 1
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -11.296,
+        -11.5,
+        0.2,
+        0.304,
+        11.7,
+        21.32
+      ],
+      "bbox_xy_mm": [
+        28.8,
+        134.0,
+        40.4,
+        157.2
+      ],
+      "first_interface_z_mm": 20.84,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 20.64,
+      "top_z_mm": 21.32
+    }
+  ]
+}

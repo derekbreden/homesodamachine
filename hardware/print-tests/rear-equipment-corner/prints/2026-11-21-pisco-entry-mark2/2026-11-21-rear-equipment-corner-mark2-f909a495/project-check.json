@@ -1,0 +1,98 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 513,
+      "embedded_vertex_error_mm": 5.605329533864278e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "rear-equipment-corner",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 14,
+        "support_enforcer": 8
+      },
+      "placed_bounds_mm": [
+        [
+          78.92499923700001,
+          111.850006104,
+          0.0
+        ],
+        [
+          190.424999237,
+          208.149993896,
+          103.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 5437
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 4.99021268751676e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "meter-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          205.424999237,
+          132.850000381,
+          0.0
+        ],
+        [
+          246.075000763,
+          187.149999619,
+          38.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 929
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.5",
+    "support_style": "tree_slim",
+    "support_type": "tree(manual)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ]
+}

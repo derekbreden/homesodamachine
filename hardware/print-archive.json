@@ -96,6 +96,12 @@
       "bytes": 45334051,
       "sha256": "6435d2e8fd0b3f7953b5cd53e9fd170da678b9a0f01da57ba8758424b044fc38"
     },
+    "0364331a0bbf06a645fc890a19d8d9a30b0724a9": {
+      "archive": "small-petgf-mark2-d6f31f2d7fb9356c.zip",
+      "bytes": 1321622,
+      "offset": 74,
+      "sha256": "7bb6a64430b4730d9617e3daf591d257da52a014456b4942b9b1cc900ec71ba5"
+    },
     "03769a4bf63386e2c34555be1de690b504b85056": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 104055937,
@@ -1470,6 +1476,12 @@
       "bytes": 2937360,
       "sha256": "e29434494b905c6565b8c6393ed42e4c9a69e018864e0fd120e5d97aae107bb3"
     },
+    "2dde4881fe7411cff92a1accf831dca2d76142d6": {
+      "archive": "back-top-mark1-1f40f0c19257c43b.zip",
+      "bytes": 45043532,
+      "offset": 5876190,
+      "sha256": "5eb9d9bd5867d93fd26d689411cda25ce5438c3dca55f95fe601ede8fe090930"
+    },
     "2de3b0bbc18cf63fd5bdc41d5a6237a19eef674d": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 912963200,
@@ -2598,6 +2610,12 @@
       "bytes": 210723,
       "sha256": "9c397e63622c1b4777ac079d244f8ea1a85eed476932f204d4afbe6e857268cf"
     },
+    "54a2f8ee6a4bd0c010ec426ad6e492fe06a19991": {
+      "archive": "small-petgf-mark2-d6f31f2d7fb9356c.zip",
+      "bytes": 10638986,
+      "offset": 1321770,
+      "sha256": "caf37dbe184b7a56657faa07aedddcaf78352a8e2b1ea65af78f4069d09b3feb"
+    },
     "54cf5372f44b61ccc44117ab4f80ea8d97c5970f": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 353243159,
@@ -3065,6 +3083,12 @@
       "offset": 867716955,
       "bytes": 136576,
       "sha256": "9ded8edb0b589277eb42cd1b93e05f4dc3e31c240bc245f60e639634f932e3bc"
+    },
+    "62e3eaa4de6fd097f5425e0b284fa082d4e36548": {
+      "archive": "back-top-mark1-1f40f0c19257c43b.zip",
+      "bytes": 5876042,
+      "offset": 74,
+      "sha256": "efd62d6ea6ac786ae6fe548d01bb75e0aa2875790428d0ebac7a88f269cde181"
     },
     "63d067b1d4d8ec0415eb4b6b12a8fca9434bb0a1": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -5694,6 +5718,12 @@
       "bytes": 45384643,
       "sha256": "636f8658af0ad0f2f44fe7e5224cb3417208fd11b75ebd3875681999f5265e1e"
     },
+    "ba98b34b18eecb9f3d4065861ba96578d3a2b775": {
+      "archive": "rear-corner-pisco-entry-mark2-68016cf981489ad5.zip",
+      "bytes": 172807,
+      "offset": 74,
+      "sha256": "25f577b431bde10cbea5ce92fd821eb193e07ef26056af1f8cbae12121611bc0"
+    },
     "bafabf850a318f9ae1a56ce02b2d808800942d90": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 737761074,
@@ -6311,6 +6341,12 @@
       "offset": 1109730316,
       "bytes": 442758,
       "sha256": "9a0605695a0ebed921949a4fb8dd12f623d5dd6bc79e0c7368f015eb64204c3e"
+    },
+    "d0aeb94b2e09149281430ba6797e8d7c11f8c8e2": {
+      "archive": "rear-corner-pisco-entry-mark2-68016cf981489ad5.zip",
+      "bytes": 5410854,
+      "offset": 172955,
+      "sha256": "cf96340c32b845e1f6e2244b714dbe6d4aa643b4022656932dce30014f867e8e"
     },
     "d0b626e91a5b1d799d321082a0bbda7343803de4": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
@@ -7868,6 +7904,8 @@
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/2026-11-20-rear-equipment-corner-mark2-c5deafe1/2026-11-20-rear-equipment-corner-mark2-c5deafe1.gcode.3mf": "2f18f02f5474b3f891e9e2f3db4910264b861e74",
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/2026-11-21-rear-equipment-corner-mark2-1399160f/2026-11-21-rear-equipment-corner-mark2-1399160f.3mf": "5e7ab2f6944a128fd05c8789e12f8e7bdb48a3f8",
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/2026-11-21-rear-equipment-corner-mark2-1399160f/2026-11-21-rear-equipment-corner-mark2-1399160f.gcode.3mf": "4f5cdb14d38ff7a20969333f4a63f1d47559912b",
+    "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/2026-11-21-rear-equipment-corner-mark2-f909a495/2026-11-21-rear-equipment-corner-mark2-f909a495.3mf": "ba98b34b18eecb9f3d4065861ba96578d3a2b775",
+    "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/2026-11-21-rear-equipment-corner-mark2-f909a495/2026-11-21-rear-equipment-corner-mark2-f909a495.gcode.3mf": "d0aeb94b2e09149281430ba6797e8d7c11f8c8e2",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc-print-only.gcode.3mf": "5dc3e362785bceb23dc279f1ce5aeedcb6109de3",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.3mf": "e666a63c9673c6e2e7fa7b8c80824ada346a5905",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf": "1a26cbbfbba373260f5c53d6fd01dd7c0c990815",
@@ -8009,6 +8047,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-19-back-top-production-mark1/2026-11-19-back-top-mark1-da6e79b4-textured-pei/2026-11-19-back-top-mark1-da6e79b4-textured-pei.gcode.3mf": "399c27b43056ee8ee0504847f1f6903fa787033b",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-20-back-top-production-mark1/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei.3mf": "dc7c419c00a068fd17575b5e60a2352ffb875f8c",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-20-back-top-production-mark1/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei.gcode.3mf": "eed0e1bf9fc2c0fa49a484ff03a276b25375f7b1",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.3mf": "62e3eaa4de6fd097f5425e0b284fa082d4e36548",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.gcode.3mf": "2dde4881fe7411cff92a1accf831dca2d76142d6",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf": "7fdee04e0a1bcf37186cb0e630e3486c79d9707b",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf": "61d9703060857159ef65d14852111ccefc55a1f2",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "3083c67d48a9798124749e605cc7b87a738f8dea",
@@ -8023,6 +8063,8 @@
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-receivers-siraya85a-mark1/2026-10-18-four-pump-receivers-siraya85a-right06-z000-mark1.3mf": "f8c7f76d754125437cdcb71213463ad6ed286e01",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/2026-11-15-small-petgf-mark2-39847f01.3mf": "bdc65db857c31442d30e92e624ada4818e613685",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf": "63fea4bc03d00df349a33a2b9a894fa22682b918",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.3mf": "0364331a0bbf06a645fc890a19d8d9a30b0724a9",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.gcode.3mf": "54a2f8ee6a4bd0c010ec426ad6e492fe06a19991",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.3mf": "2c1c25d31f2c5a59865831172306b29751a141d5",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.gcode.3mf": "6fc082ead3c8a985c83e2f23a20e7873b2c6cf59",
     "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.3mf": "e3f4cf81db5530c6231138009d6f1ea9f30cde0e",

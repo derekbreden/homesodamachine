@@ -1,0 +1,82 @@
+{
+  "purpose": "Identify the production rear corner and shortened meter cover in the reviewed job accepted by Mark2.",
+  "status": "running",
+  "source_commit": "cf44c2eb0c5bf679c9322e95aa158961e4b0fe0d",
+  "enclosure_change": "d8d3ba9a32b0349a571d50729eaedf48af030e73",
+  "printer": "Mark2",
+  "printer_task_id": "1470452037",
+  "previous_task_id": "1470410561",
+  "accepted_at": "2026-11-21T18:20:41+00:00",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark1 ran this back-top in black PET-GF on its left hardened 0.4 mm Standard-flow hotend (enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/print-job.json, task 1445040105).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "objects": [
+    "rear-equipment-corner",
+    "meter-snap-cap"
+  ],
+  "external_spool": {
+    "1": {
+      "colour": "161616",
+      "type": "PET-CF"
+    }
+  },
+  "project": "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/2026-11-21-rear-equipment-corner-mark2-f909a495/2026-11-21-rear-equipment-corner-mark2-f909a495.3mf",
+  "project_sha256": "25f577b431bde10cbea5ce92fd821eb193e07ef26056af1f8cbae12121611bc0",
+  "archive": "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/2026-11-21-rear-equipment-corner-mark2-f909a495/2026-11-21-rear-equipment-corner-mark2-f909a495.gcode.3mf",
+  "archive_sha256": "cf96340c32b845e1f6e2244b714dbe6d4aa643b4022656932dce30014f867e8e",
+  "gcode_sha256": "fc367c66b09459f5064aa4bc9b471e6d2e9d75780a86ce37f225e3ac856d443c",
+  "print_archive_index": "hardware/print-archive.json",
+  "preparation": "2026-11-21-rear-equipment-corner-mark2-f909a495/preparation.json",
+  "native_review": "2026-11-21-rear-equipment-corner-mark2-f909a495/review.json",
+  "support_audits": [
+    "2026-11-21-rear-equipment-corner-mark2-f909a495/support-audit-1901.json",
+    "2026-11-21-rear-equipment-corner-mark2-f909a495/support-audit-1902.json"
+  ],
+  "geometry_record": "../../parts/geometry.json",
+  "clearance": "clearance.json",
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
+  "layers": 740,
+  "estimated_seconds": 25256.514738557635,
+  "minimum_bead_bed_margin_mm": 78.778456,
+  "review_checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "startup_status": "startup-status.json",
+  "options": {
+    "timelapse": "On",
+    "bed_leveling": "On",
+    "flow_calibration": "Auto",
+    "nozzle_offset_calibration": "Auto"
+  },
+  "startup_spacing": {
+    "other_printer": "Mark1",
+    "other_task_id": "1468407647",
+    "other_accepted_at": "2026-11-21T06:38:57+00:00",
+    "other_state_at_send": "FINISH",
+    "this_accepted_at": "2026-11-21T18:20:41+00:00",
+    "elapsed_seconds": 42104.0
+  },
+  "previous_attempt": "https://github.com/derekbreden/homesodamachine/blob/b4b6f613ad86a4e4c4c6386d725303e05e3d5dd5/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/print-job.json"
+}

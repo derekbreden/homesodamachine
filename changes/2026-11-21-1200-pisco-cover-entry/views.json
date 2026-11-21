@@ -1,0 +1,184 @@
+{
+  "views": [
+    {
+      "name": "upper-catch",
+      "caption": "The meter cover’s upper spring ends ahead of the recessed shoulder. The Pisco cover swings through the room above it.",
+      "before": "upper-catch-before.webp",
+      "after": "upper-catch-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 485.6,
+          "y": 419.4,
+          "r": 103.8,
+          "label": "Pisco entry",
+          "at": [
+            85.5,
+            426,
+            309
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -231.1162400201536,
+          768.900953165314,
+          685.2125771673293
+        ],
+        "target": [
+          82,
+          420,
+          305
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 26,
+        "near": 398.5684252126823,
+        "far": 1052.4704880658448,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            0,
+            316
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "meter-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "meter-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e6e8011e87742c946fb10addb69008257383de60eaf2be98d3a081743f7867bc",
+          "commit": "1b5032c63c7b15c08af6eca50e24fcdd66924eab",
+          "taken": "2026-11-21T17:47:47.528Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "6e193fa6aeee604b6594c97537f3a543bf0fe741285cca1614ff0c5d0b6b4319",
+          "commit": "2dfbfcedaf8a0e3c308acfc288a208166966abb6",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-26",
+        "meter-snap-cap",
+        "enclosure-front-top",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "pisco-and-shoulder",
+      "caption": "With the meter removed, the shoulder beside the seated Pisco cover shows where the cover passes on its way in.",
+      "before": "pisco-and-shoulder-before.webp",
+      "after": "pisco-and-shoulder-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 511.8,
+          "y": 289.8,
+          "r": 75,
+          "label": "Meter shoulder",
+          "at": [
+            87,
+            430,
+            308
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -132.07693069492305,
+          -42.50429043316234,
+          11.722211218444443
+        ],
+        "target": [
+          81,
+          431,
+          319.5
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "half": 30,
+        "near": 219.78131341861044,
+        "far": 873.683376271773,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            415,
+            0
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e6e8011e87742c946fb10addb69008257383de60eaf2be98d3a081743f7867bc",
+          "commit": "1b5032c63c7b15c08af6eca50e24fcdd66924eab",
+          "taken": "2026-11-21T17:47:47.528Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f47b76cb0c19751470f6a87716f3bbd6c73c9b8dbe38969227ce9b1e4f610c18",
+          "commit": "f85ba535da9423e85b1d65908bd681bf512985b2",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-26",
+        "meter-snap-cap",
+        "enclosure-front-top",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

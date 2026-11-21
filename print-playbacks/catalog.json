@@ -805,18 +805,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "5c57bcbec849ddad035d3df973fa366da14c7359c42d49227408601c6d8b0678",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-20-back-top-production-mark1/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei.gcode.3mf",
+    "sha256": "51524581f1060e9799c76bb1cbb7d0daad4cca9de41076e0a619f9d46c595231",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "5ab3279c9041c6d61e9fddbc43d27b7c668470464cb7a63c157a5936ccf39399",
-    "project_sha256": "6dd69414d09bd8bf1f5eb2270fe5a38a3a08dd0b9227a60b5242eb4020783b8d",
-    "archive_sha256": "c50b9fdee4d3b14635683e458a74ecd9e60de84ba4da825b849c1c45afbeb00d",
-    "gcode_sha256": "41a7cc263c1a965abc8f03f998c1061032c0cb9a6ff2511e5f304e068a949ce4",
+    "recipe_sha256": "7d50a8aafc39d2f0d8c96c069dc7eeceb4384c0536e04058ca72fa29a9491c2e",
+    "project_sha256": "efd62d6ea6ac786ae6fe548d01bb75e0aa2875790428d0ebac7a88f269cde181",
+    "archive_sha256": "5eb9d9bd5867d93fd26d689411cda25ce5438c3dca55f95fe601ede8fe090930",
+    "gcode_sha256": "b9ad723db0eaf5484bde3973b614172ded7d51991ccbee5c964c93a5178449fb",
     "kind": "plan",
-    "layers": 1024,
-    "model_sha256": "251fd13a5739b8dd7b249e65355fe125d270dda8eeac903ce4fc3f88d46df884",
+    "layers": 1023,
+    "model_sha256": "1d9205f2ca1b9361e1e251110663c8d30b5e066cd1d4d07eb2cc3a57f3fa7fcf",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -842,7 +842,7 @@
       "Flow-meter receiver": "Removable supports under both end shoulders, the whole lip and the slide and wire floors. The supports under the lip's aft end and the aft shoulder stand on the Pisco receiver.",
       "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it."
     },
-    "recipe_commit": "839df4c94b22bb747d403ffd0a22e85d66f6e04a"
+    "recipe_commit": "8c33f60b5a5f2677eff650b14a16a941355364e6"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1756,18 +1756,18 @@
   },
   "HSM-0450": {
     "title": "PET-GF accessory plate · Mark2 print plan",
-    "sha256": "35f5de5eba834ae019c57a09a3a5b16734c93a6bb7954c6355d165f61c2eaf69",
-    "slice": "2026-11-16-small-petgf-mark2-640a0a07.gcode.3mf",
+    "sha256": "d99796d4b2e51133e8bac20a946818428c5320fc70bb9b3f4a4c4b0de0be210c",
+    "slice": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "small-petgf",
-    "recipe_sha256": "c262ffa9dedbcdd952d7f23b9f2aaa9c7d097805f39c0a3df4c26003ae8ec5db",
-    "project_sha256": "4333d4480d9ead8b268730aaf9221ea5665ae747f300140f38026dda124ed8fe",
-    "archive_sha256": "07e8b0e55021aebe2c822faed482f8e262f61cbadd4aeee073e72d9de42c2500",
-    "gcode_sha256": "431cf5907d0b104b5b6d3574b8d557c7c2d466ccee91f18c4fe23de5de031714",
+    "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
+    "project_sha256": "7bb6a64430b4730d9617e3daf591d257da52a014456b4942b9b1cc900ec71ba5",
+    "archive_sha256": "caf37dbe184b7a56657faa07aedddcaf78352a8e2b1ea65af78f4069d09b3feb",
+    "gcode_sha256": "50929e2adcfe2e098813294a8a46befcd7d1b4c6cf88c1b5f78762675dc07c1b",
     "kind": "plan",
     "layers": 269,
-    "model_sha256": "00d14c563b813b71638f8249d87791489888b66cfc06cd7b7471096342acba5a",
+    "model_sha256": "f45512624ea3c12eea103247c0574083386a94f000ec4d7ff547b39114fe424d",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -1780,7 +1780,8 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
-    }
+    },
+    "recipe_commit": "f85ba535da9423e85b1d65908bd681bf512985b2"
   },
   "HSM-0451": {
     "title": "PET-GF accessory plate · Mark2 print plan",

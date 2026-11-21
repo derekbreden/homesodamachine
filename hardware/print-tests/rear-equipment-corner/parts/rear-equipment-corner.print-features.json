@@ -2,7 +2,7 @@
   "boundary_overlap_mm": 0.25,
   "bridge_regions": [],
   "producer": "rear-equipment-corner",
-  "source_stl_sha256": "eaa87c607fb83bf28b8762fe08874573383897f58218de769813efed144dcf98",
+  "source_stl_sha256": "1946f326a98b136ee181fcacc7d84bc02ea31e83c8f8164128d18db4439bddc1",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -109,7 +109,7 @@
         88.19999999999999,
         98.5,
         395.5086388104271,
-        434.0086388104271,
+        417.34571720240064,
         305.79999999999995,
         309.7
       ],
@@ -117,7 +117,7 @@
         88.19999999999999,
         98.5,
         395.5086388104271,
-        434.0086388104271,
+        417.34571720240064,
         305.79999999999995,
         309.7
       ],
@@ -338,10 +338,10 @@
       "bounds_source_mm": [
         83.05,
         86.69999999999999,
-        434.2586388104271,
+        417.59571720240064,
         444.7586388104271,
-        312.2,
-        312.7
+        305.65,
+        306.15
       ],
       "name": "Accessible flow meter aft shoulder",
       "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."
@@ -351,7 +351,7 @@
         83.05,
         86.69999999999999,
         395.5086388104271,
-        434.0086388104271,
+        417.34571720240064,
         309.7,
         310.2
       ],

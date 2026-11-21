@@ -13,7 +13,7 @@
     {
       "name": "meter-snap-cap",
       "source": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
-      "stl_sha256": "7e6dc904e44bcbc243339076330578f6be4dd91595847ed255e462c78559293e"
+      "stl_sha256": "f45512624ea3c12eea103247c0574083386a94f000ec4d7ff547b39114fe424d"
     }
   ],
   "connected_solids": 1,
@@ -29,8 +29,8 @@
       355.0
     ]
   ],
-  "corner_stl_sha256": "eaa87c607fb83bf28b8762fe08874573383897f58218de769813efed144dcf98",
-  "corner_volume_mm3": 263021.0422880633,
+  "corner_stl_sha256": "1946f326a98b136ee181fcacc7d84bc02ea31e83c8f8164128d18db4439bddc1",
+  "corner_volume_mm3": 261091.89990838888,
   "inputs": {
     "caps": [
       "asse-snap-cap",
@@ -47,7 +47,7 @@
       378.0,
       252.0
     ],
-    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json",
+    "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/d8d3ba9a32b0349a571d50729eaedf48af030e73/hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/physical-result/physical-result.json",
     "print_up_source": [
       0,
       0,
@@ -58,7 +58,7 @@
     "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
     "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl"
   },
-  "source_model_sha256": "9a73f8333819f99a108da008804eb7247c5e0a7616b7417e7df9fd7a7af234ab",
-  "source_stl_sha256": "251fd13a5739b8dd7b249e65355fe125d270dda8eeac903ce4fc3f88d46df884",
+  "source_model_sha256": "e7eef1d27df85b04f4ed98cb8ef49201f80cb594c326f30735988f0ab95acdd1",
+  "source_stl_sha256": "1d9205f2ca1b9361e1e251110663c8d30b5e066cd1d4d07eb2cc3a57f3fa7fcf",
   "watertight": true
 }

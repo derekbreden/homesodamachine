@@ -1,0 +1,3313 @@
+{
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.gcode.3mf",
+  "archive_sha256": "5eb9d9bd5867d93fd26d689411cda25ce5438c3dca55f95fe601ede8fe090930",
+  "bead_envelope_plate_mm": [
+    [
+      20.243000000000002,
+      49.291093000000004
+    ],
+    [
+      304.76,
+      270.707907
+    ]
+  ],
+  "bed_border_mm": 20.0,
+  "bed_margins_mm": {
+    "back": 49.29209300000002,
+    "front": 49.291093000000004,
+    "left": 20.243000000000002,
+    "right": 20.24000000000001
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "excluded_support_counts_by_region": {
+    "ASSE east catch pocket": 0,
+    "ASSE west catch pocket": 0,
+    "C14 insert pilot 1": 0,
+    "C14 insert pilot 2": 0,
+    "Covered bulkhead at X28.7999988712316 Z264": 0,
+    "Covered bulkhead at X28.7999988712316 Z294.2": 0,
+    "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+    "Covered bulkhead at X76.5 Z264": 0,
+    "Covered bulkhead at X76.5 Z294.2": 0,
+    "Covered bulkhead at X76.5 Z331.2": 0,
+    "East funnel frame insert pilot": 0,
+    "Flow meter lower cap pocket": 0,
+    "Flow meter upper cap pocket": 0,
+    "Identification channel 1": 0,
+    "Identification channel 2": 0,
+    "Inlet valve post socket -1/-1": 0,
+    "Inlet valve post socket -1/1": 0,
+    "Inlet valve post socket 1/-1": 0,
+    "Inlet valve post socket 1/1": 0,
+    "PRV vent mouth": 0,
+    "Pisco east catch pocket": 0,
+    "Pisco west catch pocket": 0,
+    "Soda valve post socket -1/-1": 0,
+    "Soda valve post socket -1/1": 0,
+    "Soda valve post socket 1/-1": 0,
+    "Soda valve post socket 1/1": 0,
+    "Water regulator aft catch pocket": 0,
+    "Water regulator fore catch pocket": 0,
+    "West funnel frame insert pilot": 0,
+    "east alignment groove": 0,
+    "wago-g insertion pocket": 0,
+    "wago-h insertion pocket": 0,
+    "wago-n insertion pocket": 0,
+    "west alignment groove": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [
+    {
+      "emitted_wall_layer_heights_mm": [
+        0.2,
+        0.24
+      ],
+      "name": "Roof side edge transition",
+      "object": 1901,
+      "pass": true,
+      "transition_band_mm": [
+        0.0,
+        6.099992998780998
+      ]
+    }
+  ],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.997824950510305,
+      "second_layer_centerline_outside_first_mm": 41.380699463198795,
+      "second_layer_model_bead_area_mm2": 42519.30751108758
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 1023,
+  "minimum_bed_margin_mm": 20.24000000000001,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": 0.22092047051548336,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.9909995262908574,
+      "minimum_outline_coverage": 0.9931731142809569,
+      "name": "Y seam knuckle and its wall root +1/265.25",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          22.02600305175781,
+          52.5,
+          0.0009999999999763531
+        ],
+        [
+          41.685009155273434,
+          68.5,
+          90.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995869475423379,
+          "infill_core_mm2": 18.157500000000002,
+          "outline_coverage": 0.998968540484786,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 24.237500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9958241892221409,
+          "infill_core_mm2": 246.06000000000006,
+          "outline_coverage": 0.995428969963149,
+          "print_z_mm": 45.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 265.25750000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.282517,
+          "coverage": 0.9909995262908574,
+          "infill_core_mm2": 31.665000000000006,
+          "outline_coverage": 0.9931731142809569,
+          "print_z_mm": 90.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 45.04250000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          200.15099389648438,
+          264.25
+        ],
+        [
+          -91.5,
+          219.81,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9910784778146218,
+      "minimum_outline_coverage": 0.9932286174168841,
+      "name": "Y seam knuckle and its wall root -1/265.25",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          22.02600305175781,
+          251.5,
+          0.0009999999999763531
+        ],
+        [
+          41.685009155273434,
+          267.5,
+          90.75
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995869475423379,
+          "infill_core_mm2": 18.157500000000002,
+          "outline_coverage": 0.998968540484786,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 24.237500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9953669836625213,
+          "infill_core_mm2": 246.06000000000006,
+          "outline_coverage": 0.9948257824943687,
+          "print_z_mm": 45.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 265.25750000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.282522,
+          "coverage": 0.9910784778146218,
+          "infill_core_mm2": 31.665000000000006,
+          "outline_coverage": 0.9932286174168841,
+          "print_z_mm": 90.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 45.04250000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          91.5,
+          200.15099389648438,
+          264.25
+        ],
+        [
+          107.5,
+          219.81,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9959971961927249,
+      "minimum_outline_coverage": 0.9955211862985205,
+      "name": "Z rail, end stop and wall root -1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          22.02600305175781,
+          52.5,
+          177.2
+        ],
+        [
+          293.1750091552734,
+          70.0,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.283542,
+          "coverage": 0.9960730670091101,
+          "infill_core_mm2": 2039.6939950031472,
+          "outline_coverage": 0.9959221562841892,
+          "print_z_mm": 177.56,
+          "sampling_step_mm": 0.13776948293162058,
+          "stock_mm2": 2290.026891908096
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9959971961927249,
+          "infill_core_mm2": 1028.9670943218653,
+          "outline_coverage": 0.9955211862985205,
+          "print_z_mm": 186.2,
+          "sampling_step_mm": 0.13776948293162058,
+          "stock_mm2": 1131.4993794898487
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9991258895618853,
+          "infill_core_mm2": 2149.6855893290385,
+          "outline_coverage": 0.9990720692854933,
+          "print_z_mm": 194.6,
+          "sampling_step_mm": 0.13776948293162058,
+          "stock_mm2": 2270.458068137605
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          200.15099389648438,
+          160.251
+        ],
+        [
+          -90.0,
+          471.3,
+          177.8
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9953976805771162,
+      "minimum_outline_coverage": 0.9950405245727029,
+      "name": "Z rail, end stop and wall root +1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          22.02600305175781,
+          250.0,
+          177.2
+        ],
+        [
+          293.1750091552734,
+          267.5,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.281707,
+          "coverage": 0.9957955528800934,
+          "infill_core_mm2": 2017.9234413030958,
+          "outline_coverage": 0.9955857184010303,
+          "print_z_mm": 177.56,
+          "sampling_step_mm": 0.13776948293162058,
+          "stock_mm2": 2240.1842816061476
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9953976805771162,
+          "infill_core_mm2": 1039.27346804386,
+          "outline_coverage": 0.9950405245727029,
+          "print_z_mm": 186.2,
+          "sampling_step_mm": 0.13776948293162058,
+          "stock_mm2": 1140.477123081936
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9998906635043188,
+          "infill_core_mm2": 2256.7541973691336,
+          "outline_coverage": 0.9998483348765925,
+          "print_z_mm": 194.6,
+          "sampling_step_mm": 0.13776948293162058,
+          "stock_mm2": 2377.792402203682
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          90.0,
+          200.15099389648438,
+          160.251
+        ],
+        [
+          107.5,
+          471.3,
+          177.8
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9971948120524076,
+      "minimum_outline_coverage": 0.985704483074108,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          166.67500915527344,
+          145.10186004638672,
+          0.0009999999999763531
+        ],
+        [
+          176.67500915527344,
+          155.10186004638672,
+          10.300000000000011
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210042,
+          "coverage": 1.0,
+          "infill_core_mm2": 92.16000000000003,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.00000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9971948120524076,
+          "infill_core_mm2": 75.75250000000001,
+          "outline_coverage": 0.985704483074108,
+          "print_z_mm": 5.24,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 87.44000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9922336717684498,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -14.898139953613281,
+          344.8,
+          344.7
+        ],
+        [
+          -4.898139953613281,
+          354.8,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9186596466178832,
+      "minimum_outline_coverage": 0.9231701772995908,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 2",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          264.6750091552734,
+          145.10186004638672,
+          0.0009999999999763531
+        ],
+        [
+          274.6750091552734,
+          155.10186004638672,
+          10.300000000000011
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210042,
+          "coverage": 1.0,
+          "infill_core_mm2": 92.16000000000003,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.00000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9186596466178832,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9231701772995908,
+          "print_z_mm": 5.24,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.992195787240491,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -14.898139953613281,
+          442.8,
+          344.7
+        ],
+        [
+          -4.898139953613281,
+          452.8,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9972278142635557,
+      "minimum_outline_coverage": 0.984503659652333,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 3",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          166.67500915527344,
+          112.10186004638672,
+          0.0009999999999763531
+        ],
+        [
+          176.67500915527344,
+          122.10186004638672,
+          10.300000000000011
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210042,
+          "coverage": 1.0,
+          "infill_core_mm2": 92.16000000000003,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.00000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9972278142635557,
+          "infill_core_mm2": 75.75250000000001,
+          "outline_coverage": 0.984503659652333,
+          "print_z_mm": 5.24,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 87.44000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9922336717684498,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -47.89813995361328,
+          344.8,
+          344.7
+        ],
+        [
+          -37.89813995361328,
+          354.8,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9187488845261467,
+      "minimum_outline_coverage": 0.9232459463555084,
+      "name": "psu bearing pad, insert host and ceiling root and blind floor 4",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          264.6750091552734,
+          112.10186004638672,
+          0.0009999999999763531
+        ],
+        [
+          274.6750091552734,
+          122.10186004638672,
+          10.300000000000011
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.210042,
+          "coverage": 1.0,
+          "infill_core_mm2": 92.16000000000003,
+          "outline_coverage": 1.0,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.00000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9187488845261467,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.9232459463555084,
+          "print_z_mm": 5.24,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 1.0,
+          "infill_core_mm2": 56.03000000000001,
+          "outline_coverage": 0.992195787240491,
+          "print_z_mm": 10.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 65.99000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -47.89813995361328,
+          442.8,
+          344.7
+        ],
+        [
+          -37.89813995361328,
+          452.8,
+          354.999
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9866106136082237,
+      "minimum_outline_coverage": 0.9838074398249453,
+      "name": "relay-1 bearing pad, insert host and west wall root 1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          192.6221482345289,
+          52.5,
+          71.55939430622237
+        ],
+        [
+          202.6221482345289,
+          65.51,
+          81.55939430622237
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.323072,
+          "coverage": 0.9961174416467561,
+          "infill_core_mm2": 108.82000000000002,
+          "outline_coverage": 0.99386816555953,
+          "print_z_mm": 71.96,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31250000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.229587,
+          "coverage": 0.995352786094106,
+          "infill_core_mm2": 111.89500000000002,
+          "outline_coverage": 0.9922943280531425,
+          "print_z_mm": 76.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31250000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.228547,
+          "coverage": 0.9866106136082237,
+          "infill_core_mm2": 86.82250000000002,
+          "outline_coverage": 0.9838074398249453,
+          "print_z_mm": 81.32,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 97.11250000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          370.7471390792555,
+          273.4406056937776
+        ],
+        [
+          -94.49,
+          380.7471390792555,
+          283.4406056937776
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9949787820213735,
+      "minimum_outline_coverage": 0.992743402628728,
+      "name": "relay-1 bearing pad, insert host and west wall root 2",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          192.6561482345289,
+          52.5,
+          58.629394306222366
+        ],
+        [
+          202.6561482345289,
+          65.51,
+          68.62939430622237
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9958452753893666,
+          "infill_core_mm2": 112.52250000000002,
+          "outline_coverage": 0.9928456082255064,
+          "print_z_mm": 59.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.30250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.231802,
+          "coverage": 0.9957768194310996,
+          "infill_core_mm2": 111.88250000000002,
+          "outline_coverage": 0.992743402628728,
+          "print_z_mm": 63.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.30250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9949787820213735,
+          "infill_core_mm2": 112.52250000000002,
+          "outline_coverage": 0.9936223707610229,
+          "print_z_mm": 68.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.30250000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          370.78113907925547,
+          286.37060569377763
+        ],
+        [
+          -94.49,
+          380.78113907925547,
+          296.37060569377763
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9832628713731395,
+      "minimum_outline_coverage": 0.9809509099801786,
+      "name": "relay-1 bearing pad, insert host and west wall root 3",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          258.97614823452886,
+          52.5,
+          71.56139430622238
+        ],
+        [
+          268.97614823452886,
+          65.51,
+          81.56139430622238
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.323082,
+          "coverage": 0.9955563741855271,
+          "infill_core_mm2": 108.58250000000002,
+          "outline_coverage": 0.9928260469679319,
+          "print_z_mm": 71.96,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.229732,
+          "coverage": 0.9944716757313279,
+          "infill_core_mm2": 111.69750000000002,
+          "outline_coverage": 0.9919676252375988,
+          "print_z_mm": 76.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.237512,
+          "coverage": 0.9832628713731395,
+          "infill_core_mm2": 86.33500000000002,
+          "outline_coverage": 0.9809509099801786,
+          "print_z_mm": 81.32,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 97.11750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          437.10113907925546,
+          273.4386056937776
+        ],
+        [
+          -94.49,
+          447.10113907925546,
+          283.4386056937776
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9941596365996106,
+      "minimum_outline_coverage": 0.9923146104161557,
+      "name": "relay-1 bearing pad, insert host and west wall root 4",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          259.00614823452895,
+          52.5,
+          58.54539430622236
+        ],
+        [
+          269.00614823452895,
+          65.51,
+          68.54539430622236
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9950155763239875,
+          "infill_core_mm2": 112.35000000000002,
+          "outline_coverage": 0.9928869266617611,
+          "print_z_mm": 59.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.227392,
+          "coverage": 0.9941596365996106,
+          "infill_core_mm2": 111.72250000000003,
+          "outline_coverage": 0.9923146104161557,
+          "print_z_mm": 63.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.996039163328883,
+          "infill_core_mm2": 112.35000000000002,
+          "outline_coverage": 0.9952375112419263,
+          "print_z_mm": 68.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31000000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          437.1311390792555,
+          286.45460569377764
+        ],
+        [
+          -94.49,
+          447.1311390792555,
+          296.45460569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9812808890937492,
+      "minimum_outline_coverage": 0.9809448887723439,
+      "name": "relay-1 bearing pad, insert host and west wall root 5",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          185.22514823452892,
+          52.5,
+          65.09339430622236
+        ],
+        [
+          195.22514823452892,
+          67.22,
+          75.09339430622236
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2532855,
+          "coverage": 0.997595097101187,
+          "infill_core_mm2": 96.67750000000002,
+          "outline_coverage": 0.9954723611298825,
+          "print_z_mm": 65.48,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 110.98500000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9923433048433048,
+          "infill_core_mm2": 84.24000000000002,
+          "outline_coverage": 0.9909406613317228,
+          "print_z_mm": 70.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 99.34500000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.290887,
+          "coverage": 0.9812808890937492,
+          "infill_core_mm2": 97.62750000000001,
+          "outline_coverage": 0.9809448887723439,
+          "print_z_mm": 74.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 114.40500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          363.3501390792555,
+          279.90660569377764
+        ],
+        [
+          -92.78,
+          373.3501390792555,
+          289.90660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9905282687237574,
+      "minimum_outline_coverage": 0.9888760382714752,
+      "name": "relay-1 bearing pad, insert host and west wall root 6",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          266.2251482345289,
+          52.5,
+          65.09339430622236
+        ],
+        [
+          276.2251482345289,
+          67.22,
+          75.09339430622236
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2532855,
+          "coverage": 0.9971660218339535,
+          "infill_core_mm2": 101.44750000000002,
+          "outline_coverage": 0.9946738259683461,
+          "print_z_mm": 65.48,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 115.46750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9930600798798969,
+          "infill_core_mm2": 88.25750000000002,
+          "outline_coverage": 0.9914585911528475,
+          "print_z_mm": 70.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 103.02750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.290887,
+          "coverage": 0.9905282687237574,
+          "infill_core_mm2": 102.41000000000003,
+          "outline_coverage": 0.9888760382714752,
+          "print_z_mm": 74.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 118.88750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          444.3501390792555,
+          279.90660569377764
+        ],
+        [
+          -92.78,
+          454.3501390792555,
+          289.90660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9957787158409243,
+      "minimum_outline_coverage": 0.9926826775677057,
+      "name": "relay-2 bearing pad, insert host and west wall root 1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          192.62214823452896,
+          52.5,
+          51.05939430622237
+        ],
+        [
+          202.62214823452896,
+          65.51,
+          61.05939430622237
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9971117529437903,
+          "infill_core_mm2": 112.52500000000002,
+          "outline_coverage": 0.9954011241696474,
+          "print_z_mm": 51.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31250000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.231152,
+          "coverage": 0.995798976559183,
+          "infill_core_mm2": 111.87750000000003,
+          "outline_coverage": 0.9926826775677057,
+          "print_z_mm": 56.12,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31250000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9957787158409243,
+          "infill_core_mm2": 112.52500000000002,
+          "outline_coverage": 0.9927235564639755,
+          "print_z_mm": 60.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31250000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          370.74713907925553,
+          293.9406056937776
+        ],
+        [
+          -94.49,
+          380.74713907925553,
+          303.9406056937776
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9760148135289182,
+      "minimum_outline_coverage": 0.9743312479081383,
+      "name": "relay-2 bearing pad, insert host and west wall root 2",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          192.65614823452896,
+          52.5,
+          38.129394306222366
+        ],
+        [
+          202.65614823452896,
+          65.51,
+          48.129394306222366
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9760148135289182,
+          "infill_core_mm2": 86.40750000000001,
+          "outline_coverage": 0.9743312479081383,
+          "print_z_mm": 38.6,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 97.10250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.228952,
+          "coverage": 0.9951749095295537,
+          "infill_core_mm2": 111.91500000000002,
+          "outline_coverage": 0.9918235522577217,
+          "print_z_mm": 43.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.30250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.301299,
+          "coverage": 0.9949091909741332,
+          "infill_core_mm2": 109.02000000000002,
+          "outline_coverage": 0.9930295782997077,
+          "print_z_mm": 47.96,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.30250000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          370.7811390792555,
+          306.87060569377763
+        ],
+        [
+          -94.49,
+          380.7811390792555,
+          316.87060569377763
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9944703143189756,
+      "minimum_outline_coverage": 0.9919880638502259,
+      "name": "relay-2 bearing pad, insert host and west wall root 3",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          258.976148234529,
+          52.5,
+          51.06139430622238
+        ],
+        [
+          268.976148234529,
+          65.51,
+          61.06139430622238
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9974853684046554,
+          "infill_core_mm2": 112.34250000000002,
+          "outline_coverage": 0.9948699082306293,
+          "print_z_mm": 51.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.231002,
+          "coverage": 0.9944703143189756,
+          "infill_core_mm2": 111.67000000000002,
+          "outline_coverage": 0.9919880638502259,
+          "print_z_mm": 56.12,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9946591895320115,
+          "infill_core_mm2": 112.34250000000002,
+          "outline_coverage": 0.9921720113638686,
+          "print_z_mm": 60.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          437.1011390792555,
+          293.9386056937776
+        ],
+        [
+          -94.49,
+          447.1011390792555,
+          303.9386056937776
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9946879925281653,
+      "minimum_outline_coverage": 0.9914902238881572,
+      "name": "relay-2 bearing pad, insert host and west wall root 4",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          259.00614823452895,
+          52.5,
+          38.04539430622236
+        ],
+        [
+          269.00614823452895,
+          65.51,
+          48.04539430622236
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.278567,
+          "coverage": 0.9946879925281653,
+          "infill_core_mm2": 85.65500000000002,
+          "outline_coverage": 0.9914902238881572,
+          "print_z_mm": 38.6,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 98.71000000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.232992,
+          "coverage": 0.9947377849433472,
+          "infill_core_mm2": 111.64500000000002,
+          "outline_coverage": 0.9923554901479846,
+          "print_z_mm": 43.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9963284379172229,
+          "infill_core_mm2": 112.35000000000002,
+          "outline_coverage": 0.9956667484261303,
+          "print_z_mm": 47.72,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.31000000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          437.13113907925555,
+          306.95460569377764
+        ],
+        [
+          -94.49,
+          447.13113907925555,
+          316.95460569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9671503826657389,
+      "minimum_outline_coverage": 0.9682269131593899,
+      "name": "relay-2 bearing pad, insert host and west wall root 5",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          185.22514823452897,
+          52.5,
+          44.593394306222365
+        ],
+        [
+          195.22514823452897,
+          67.22,
+          54.593394306222365
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9671503826657389,
+          "infill_core_mm2": 100.61000000000001,
+          "outline_coverage": 0.9682269131593899,
+          "print_z_mm": 45.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 114.40500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9923433048433048,
+          "infill_core_mm2": 84.24000000000002,
+          "outline_coverage": 0.9908903316724545,
+          "print_z_mm": 49.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 99.34500000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9936134624157332,
+          "infill_core_mm2": 98.64500000000002,
+          "outline_coverage": 0.9919322307382009,
+          "print_z_mm": 54.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 111.55500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          363.35013907925554,
+          300.40660569377764
+        ],
+        [
+          -92.78,
+          373.35013907925554,
+          310.40660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9692395328966107,
+      "minimum_outline_coverage": 0.9706024603091158,
+      "name": "relay-2 bearing pad, insert host and west wall root 6",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          266.225148234529,
+          52.5,
+          44.593394306222365
+        ],
+        [
+          276.225148234529,
+          67.22,
+          54.593394306222365
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9692395328966107,
+          "infill_core_mm2": 105.33000000000003,
+          "outline_coverage": 0.9706024603091158,
+          "print_z_mm": 45.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 118.88750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9929184488570376,
+          "infill_core_mm2": 88.25750000000002,
+          "outline_coverage": 0.9912887335905463,
+          "print_z_mm": 49.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 103.02750000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.988258364402266,
+          "infill_core_mm2": 103.26500000000001,
+          "outline_coverage": 0.9866422492728644,
+          "print_z_mm": 54.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 116.03750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          444.35013907925554,
+          300.40660569377764
+        ],
+        [
+          -92.78,
+          454.35013907925554,
+          310.40660569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9953358827560291,
+      "minimum_outline_coverage": 0.9919856799967455,
+      "name": "Relay end bar and wall root 1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          192.6221482345289,
+          52.5,
+          43.129394306222366
+        ],
+        [
+          202.65614823452896,
+          65.51,
+          76.55939430622237
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9953358827560291,
+          "infill_core_mm2": 113.09750000000003,
+          "outline_coverage": 0.9920060209104593,
+          "print_z_mm": 43.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.90500000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.99580008399832,
+          "infill_core_mm2": 113.09750000000003,
+          "outline_coverage": 0.9926162483218747,
+          "print_z_mm": 59.96,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.90500000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9953358827560291,
+          "infill_core_mm2": 113.09750000000003,
+          "outline_coverage": 0.9919856799967455,
+          "print_z_mm": 76.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.90500000000003
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          370.7471390792555,
+          278.4406056937776
+        ],
+        [
+          -94.49,
+          380.7811390792555,
+          311.87060569377763
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9942220844771097,
+      "minimum_outline_coverage": 0.9915816015291391,
+      "name": "Relay end bar and wall root 2",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          258.97614823452886,
+          52.5,
+          43.04539430622236
+        ],
+        [
+          269.00614823452895,
+          65.51,
+          76.56139430622238
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9942220844771097,
+          "infill_core_mm2": 112.93000000000002,
+          "outline_coverage": 0.9915816015291391,
+          "print_z_mm": 43.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.94500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9946869742318251,
+          "infill_core_mm2": 112.93000000000002,
+          "outline_coverage": 0.991764610191549,
+          "print_z_mm": 59.96,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.94500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9942663596918445,
+          "infill_core_mm2": 112.93000000000002,
+          "outline_coverage": 0.9916832730082558,
+          "print_z_mm": 76.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 122.94500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          437.10113907925546,
+          278.4386056937776
+        ],
+        [
+          -94.49,
+          447.13113907925555,
+          311.95460569377764
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9941631314498902,
+      "minimum_outline_coverage": 0.9889416111753525,
+      "name": "C14 internal insert tunnel and wall roots",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          274.7150091552734,
+          61.5,
+          2.9499999999999886
+        ],
+        [
+          290.12500915527346,
+          120.035,
+          40.89999999999998
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9961998978333187,
+          "infill_core_mm2": 868.7685162642045,
+          "outline_coverage": 0.9945309566231754,
+          "print_z_mm": 3.32,
+          "sampling_step_mm": 0.060067440431568406,
+          "stock_mm2": 903.1717249732047
+        },
+        {
+          "bead_radius_inset_mm": 0.292852,
+          "coverage": 0.9941631314498902,
+          "infill_core_mm2": 239.84466656760125,
+          "outline_coverage": 0.9889416111753525,
+          "print_z_mm": 22.04,
+          "sampling_step_mm": 0.060067440431568406,
+          "stock_mm2": 271.4624240838014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9954477662355209,
+          "infill_core_mm2": 694.3170069742037,
+          "outline_coverage": 0.9918211667609043,
+          "print_z_mm": 40.76,
+          "sampling_step_mm": 0.060067440431568406,
+          "stock_mm2": 727.4573815932039
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -98.5,
+          452.84,
+          314.1
+        ],
+        [
+          -39.965,
+          468.25,
+          352.05
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9932051071291578,
+      "minimum_outline_coverage": 0.9890151515151515,
+      "name": "Nameplate insert land and rear wall root 1",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          282.11500915527347,
+          83.6,
+          162.70454545454544
+        ],
+        [
+          295.1750091552734,
+          95.6,
+          174.70454545454544
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9932599046523097,
+          "infill_core_mm2": 45.62250000000001,
+          "outline_coverage": 0.9891098484848485,
+          "print_z_mm": 163.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 52.80000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.322652,
+          "coverage": 0.9974509803921568,
+          "infill_core_mm2": 25.500000000000004,
+          "outline_coverage": 0.9969460227272727,
+          "print_z_mm": 168.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 35.20000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9932051071291578,
+          "infill_core_mm2": 45.62250000000001,
+          "outline_coverage": 0.9890151515151515,
+          "print_z_mm": 174.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 52.80000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -76.4,
+          460.24,
+          180.29545454545456
+        ],
+        [
+          -64.4,
+          473.3,
+          192.29545454545456
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9927119294207902,
+      "minimum_outline_coverage": 0.9884943181818182,
+      "name": "Nameplate insert land and rear wall root 2",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          282.11500915527347,
+          141.6,
+          162.70454545454544
+        ],
+        [
+          295.1750091552734,
+          153.6,
+          174.70454545454544
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9927119294207902,
+          "infill_core_mm2": 45.62250000000001,
+          "outline_coverage": 0.9884943181818182,
+          "print_z_mm": 163.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 52.80000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.322652,
+          "coverage": 0.996078431372549,
+          "infill_core_mm2": 25.500000000000004,
+          "outline_coverage": 0.9960227272727272,
+          "print_z_mm": 168.92,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 35.20000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9927119294207902,
+          "infill_core_mm2": 45.62250000000001,
+          "outline_coverage": 0.9887310606060606,
+          "print_z_mm": 174.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 52.80000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -18.4,
+          460.24,
+          180.29545454545456
+        ],
+        [
+          -6.399999999999999,
+          473.3,
+          192.29545454545456
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9845811299749513,
+      "minimum_outline_coverage": 0.9818372336709745,
+      "name": "Nameplate insert land and rear wall root 3",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          282.11500915527347,
+          83.6,
+          93.79545454545456
+        ],
+        [
+          295.1750091552734,
+          95.6,
+          105.79545454545456
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9845811299749513,
+          "infill_core_mm2": 89.82500000000002,
+          "outline_coverage": 0.9818372336709745,
+          "print_z_mm": 94.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.20500000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9923047202009144,
+          "infill_core_mm2": 77.64500000000001,
+          "outline_coverage": 0.9898158482142857,
+          "print_z_mm": 99.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 89.60000000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9932599046523097,
+          "infill_core_mm2": 45.62250000000001,
+          "outline_coverage": 0.9885890151515152,
+          "print_z_mm": 105.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 52.80000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -76.4,
+          460.24,
+          249.20454545454544
+        ],
+        [
+          -64.4,
+          473.3,
+          261.20454545454544
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9845811299749513,
+      "minimum_outline_coverage": 0.9819619779452123,
+      "name": "Nameplate insert land and rear wall root 4",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          282.11500915527347,
+          141.6,
+          93.79545454545456
+        ],
+        [
+          295.1750091552734,
+          153.6,
+          105.79545454545456
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9845811299749513,
+          "infill_core_mm2": 89.82500000000002,
+          "outline_coverage": 0.9819619779452123,
+          "print_z_mm": 94.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 100.20500000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.992433511494623,
+          "infill_core_mm2": 77.64500000000001,
+          "outline_coverage": 0.9897879464285714,
+          "print_z_mm": 99.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 89.60000000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9927119294207902,
+          "infill_core_mm2": 45.62250000000001,
+          "outline_coverage": 0.9886837121212121,
+          "print_z_mm": 105.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 52.80000000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -18.4,
+          460.24,
+          249.20454545454544
+        ],
+        [
+          -6.399999999999999,
+          473.3,
+          261.20454545454544
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9952742345661707,
+      "minimum_outline_coverage": 0.9933820642724944,
+      "name": "Funnel frame receivers and flank roots at Y259.492",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          75.36651707855472,
+          52.5,
+          9.0
+        ],
+        [
+          87.36651707855472,
+          267.5,
+          19.19999999999999
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.289572,
+          "coverage": 0.9961202715809894,
+          "infill_core_mm2": 500.07623999999987,
+          "outline_coverage": 0.9933820642724944,
+          "print_z_mm": 9.56,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 552.0271199999999
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9952742345661707,
+          "infill_core_mm2": 515.3704799999999,
+          "outline_coverage": 0.9943161634103019,
+          "print_z_mm": 14.12,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 551.9651999999999
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9954681068016163,
+          "infill_core_mm2": 546.5265599999999,
+          "outline_coverage": 0.993920429146178,
+          "print_z_mm": 18.92,
+          "sampling_step_mm": 0.10158740079360234,
+          "stock_mm2": 577.1459999999998
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -107.5,
+          253.4915079232813,
+          335.8
+        ],
+        [
+          107.5,
+          265.4915079232813,
+          346.0
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9906247568661013,
+      "minimum_outline_coverage": 0.9772905019841844,
+      "name": "Identification channel 1 stop transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          290.92400915527344,
+          164.39999887123162,
+          111.15
+        ],
+        [
+          294.92400915527344,
+          213.1999988712316,
+          117.65
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2636565,
+          "coverage": 0.9956620532947738,
+          "infill_core_mm2": 24.205000000000005,
+          "outline_coverage": 0.9917525773195877,
+          "print_z_mm": 111.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 43.650000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.2703065,
+          "coverage": 0.9907024793388429,
+          "infill_core_mm2": 24.200000000000006,
+          "outline_coverage": 0.9939862542955327,
+          "print_z_mm": 114.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 43.650000000000006
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9906247568661013,
+          "infill_core_mm2": 64.26500000000001,
+          "outline_coverage": 0.9772905019841844,
+          "print_z_mm": 117.32,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 86.30750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          4.3999988712316025,
+          469.049,
+          237.35
+        ],
+        [
+          53.1999988712316,
+          473.049,
+          243.85
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9889407467532467,
+      "minimum_outline_coverage": 0.9790182736727123,
+      "name": "Identification channel 2 stop transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          290.92400915527344,
+          212.1,
+          111.15
+        ],
+        [
+          294.92400915527344,
+          260.9,
+          117.65
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.271647,
+          "coverage": 0.994825487012987,
+          "infill_core_mm2": 24.640000000000004,
+          "outline_coverage": 0.9924036281179138,
+          "print_z_mm": 111.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 44.10000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.271647,
+          "coverage": 0.9889407467532467,
+          "infill_core_mm2": 24.640000000000004,
+          "outline_coverage": 0.993140589569161,
+          "print_z_mm": 114.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 44.10000000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9913273218080524,
+          "infill_core_mm2": 87.05500000000002,
+          "outline_coverage": 0.9790182736727123,
+          "print_z_mm": 117.32,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 109.85750000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          52.1,
+          469.049,
+          237.35
+        ],
+        [
+          100.9,
+          473.049,
+          243.85
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9995737425404945,
+      "minimum_outline_coverage": 0.9990082644628099,
+      "name": "wago-h insertion pocket transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          206.47500915527345,
+          61.25,
+          11.699999999999989
+        ],
+        [
+          221.67500915527344,
+          72.2,
+          31.30000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 12.2,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 21.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 31.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -98.75,
+          384.6,
+          323.7
+        ],
+        [
+          -87.8,
+          399.8,
+          343.3
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9995737425404945,
+      "minimum_outline_coverage": 0.9990082644628099,
+      "name": "wago-g insertion pocket transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          222.47500915527345,
+          61.25,
+          11.699999999999989
+        ],
+        [
+          237.67500915527344,
+          72.2,
+          31.30000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 12.2,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 21.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 31.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -98.75,
+          400.6,
+          323.7
+        ],
+        [
+          -87.8,
+          415.8,
+          343.3
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9995737425404945,
+      "minimum_outline_coverage": 0.9990082644628099,
+      "name": "wago-n insertion pocket transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          238.47500915527345,
+          61.25,
+          11.699999999999989
+        ],
+        [
+          253.67500915527344,
+          72.2,
+          31.30000000000001
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 12.2,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 21.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9995737425404945,
+          "infill_core_mm2": 46.92000000000001,
+          "outline_coverage": 0.9990082644628099,
+          "print_z_mm": 31.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 60.500000000000014
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -98.75,
+          416.6,
+          323.7
+        ],
+        [
+          -87.8,
+          431.8,
+          343.3
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9953958669051371,
+      "minimum_outline_coverage": 0.986501893866932,
+      "name": "Sliding rail 1 transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          22.02600305175781,
+          56.0,
+          176.7
+        ],
+        [
+          278.4250091552734,
+          66.75,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.273215,
+          "coverage": 0.9953958669051371,
+          "infill_core_mm2": 1245.2033115357603,
+          "outline_coverage": 0.986501893866932,
+          "print_z_mm": 177.08,
+          "sampling_step_mm": 0.10500074886614463,
+          "stock_mm2": 1440.8226768434315
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": null,
+          "infill_core_mm2": 0.0,
+          "outline_coverage": 0.999548532731377,
+          "print_z_mm": 185.96,
+          "sampling_step_mm": 0.10500074886614463,
+          "stock_mm2": 48.8414466726587
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9973833970073225,
+          "infill_core_mm2": 1108.1606067634923,
+          "outline_coverage": 0.9975772536112635,
+          "print_z_mm": 194.6,
+          "sampling_step_mm": 0.10500074886614463,
+          "stock_mm2": 1205.9317013669092
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -104.0,
+          200.15099389648438,
+          160.251
+        ],
+        [
+          -93.25,
+          456.55,
+          178.3
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9981699859847707,
+      "minimum_outline_coverage": 0.9898077223698609,
+      "name": "Sliding rail -1 transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          22.02600305175781,
+          253.25,
+          176.7
+        ],
+        [
+          278.4250091552734,
+          264.0,
+          194.749
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.270832,
+          "coverage": 0.9981699859847707,
+          "infill_core_mm2": 1235.0491416970428,
+          "outline_coverage": 0.9898077223698609,
+          "print_z_mm": 177.08,
+          "sampling_step_mm": 0.10500074886614463,
+          "stock_mm2": 1410.5586201580031
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": null,
+          "infill_core_mm2": 0.0,
+          "outline_coverage": 0.9993562231759656,
+          "print_z_mm": 185.96,
+          "sampling_step_mm": 0.10500074886614463,
+          "stock_mm2": 51.37723284302246
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9991244916403073,
+          "infill_core_mm2": 1171.1363050466134,
+          "outline_coverage": 0.9991764909847434,
+          "print_z_mm": 194.6,
+          "sampling_step_mm": 0.10500074886614463,
+          "stock_mm2": 1271.8621417963673
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          93.25,
+          200.15099389648438,
+          160.251
+        ],
+        [
+          104.0,
+          456.55,
+          178.3
+        ]
+      ]
+    }
+  ],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        6.151860222036486,
+        9.001860222036488,
+        396.2032545933731,
+        438.3679848073112,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          214.57826374864655,
+          165.90186022203648,
+          -0.25
+        ],
+        [
+          263.7429939625846,
+          169.2518602220365,
+          14.800000000000011
+        ]
+      ],
+      "name": "ASSE west catch pocket",
+      "object": 1901,
+      "reason": "The chamfered catch prints without support."
+    },
+    {
+      "bounds_source_mm": [
+        48.59813977796351,
+        51.44813977796352,
+        396.2032545933731,
+        438.3679848073112,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          214.57826374864655,
+          208.34813977796352,
+          -0.25
+        ],
+        [
+          263.7429939625846,
+          211.69813977796352,
+          14.800000000000011
+        ]
+      ],
+      "name": "ASSE east catch pocket",
+      "object": 1901,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        64.59438431246909,
+        67.44438431246908,
+        420.34571720240064,
+        462.55,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          238.72072635767407,
+          224.3443843124691,
+          -0.25
+        ],
+        [
+          287.9250091552734,
+          227.69438431246908,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco west catch pocket",
+      "object": 1901,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        85.55561568753092,
+        88.40561568753091,
+        420.34571720240064,
+        462.55,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          238.72072635767407,
+          245.30561568753092,
+          -0.25
+        ],
+        [
+          287.9250091552734,
+          248.6556156875309,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco east catch pocket",
+      "object": 1901,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        99.0,
+        395.5086388104271,
+        434.0086388104271,
+        258.15000000000003,
+        263.00000000000006
+      ],
+      "box_plate_mm": [
+        [
+          217.13364796570053,
+          239.55,
+          91.74999999999994
+        ],
+        [
+          256.13364796570056,
+          262.5,
+          100.34999999999997
+        ]
+      ],
+      "name": "Flow meter lower cap pocket",
+      "object": 1901,
+      "reason": "Keep support out of the lower hook pocket below the wire chamber floor."
+    },
+    {
+      "bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        417.34571720240064,
+        305.79999999999995,
+        309.7
+      ],
+      "box_plate_mm": [
+        [
+          217.13364796570053,
+          247.95,
+          45.05000000000001
+        ],
+        [
+          239.47072635767407,
+          258.75,
+          49.450000000000045
+        ]
+      ],
+      "name": "Flow meter upper cap pocket",
+      "object": 1901,
+      "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
+    },
+    {
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        289.103633714998,
+        291.95363371499803,
+        337.2151460770961,
+        348.56514607709613
+      ],
+      "box_plate_mm": [
+        [
+          110.72864287027144,
+          100.92608969611999,
+          -0.25
+        ],
+        [
+          114.07864287027147,
+          144.42608969612,
+          18.034853922903892
+        ]
+      ],
+      "name": "Water regulator fore catch pocket",
+      "object": 1901,
+      "reason": "The chamfered catch prints without support."
+    },
+    {
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        323.3600400329926,
+        326.2100400329926,
+        337.2151460770961,
+        348.56514607709613
+      ],
+      "box_plate_mm": [
+        [
+          144.985049188266,
+          100.92608969611999,
+          -0.25
+        ],
+        [
+          148.33504918826603,
+          144.42608969612,
+          18.034853922903892
+        ]
+      ],
+      "name": "Water regulator aft catch pocket",
+      "object": 1901,
+      "reason": "The chamfered catch prints without support."
+    },
+    {
+      "bounds_source_mm": [
+        7.6499988712316025,
+        49.9499988712316,
+        469.299,
+        472.799,
+        240.35,
+        357.0
+      ],
+      "box_plate_mm": [
+        [
+          290.92400915527344,
+          167.39999887123162,
+          -2.25
+        ],
+        [
+          294.92400915527344,
+          210.1999988712316,
+          114.9
+        ]
+      ],
+      "name": "Identification channel 1",
+      "object": 1901,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        55.35,
+        97.65,
+        469.299,
+        472.799,
+        240.35,
+        357.0
+      ],
+      "box_plate_mm": [
+        [
+          290.92400915527344,
+          215.1,
+          -2.25
+        ],
+        [
+          294.92400915527344,
+          257.9,
+          114.9
+        ]
+      ],
+      "name": "Identification channel 2",
+      "object": 1901,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        -89.7,
+        -85.7,
+        257.4915079232813,
+        261.4915079232813,
+        338.8,
+        346.0
+      ],
+      "box_plate_mm": [
+        [
+          79.11651707855472,
+          70.05,
+          8.75
+        ],
+        [
+          83.61651707855472,
+          74.55,
+          16.44999999999999
+        ]
+      ],
+      "name": "West funnel frame insert pilot",
+      "object": 1901,
+      "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
+      "void_source": {
+        "end_mm": [
+          -87.7,
+          259.4915079232813,
+          346.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          -87.7,
+          259.4915079232813,
+          338.8
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        85.7,
+        89.7,
+        257.4915079232813,
+        261.4915079232813,
+        338.8,
+        346.0
+      ],
+      "box_plate_mm": [
+        [
+          79.11651707855472,
+          245.45,
+          8.75
+        ],
+        [
+          83.61651707855472,
+          249.95,
+          16.44999999999999
+        ]
+      ],
+      "name": "East funnel frame insert pilot",
+      "object": 1901,
+      "reason": "Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support.",
+      "void_source": {
+        "end_mm": [
+          87.7,
+          259.4915079232813,
+          346.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          87.7,
+          259.4915079232813,
+          338.8
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        387.85,
+        396.55,
+        323.95,
+        343.05
+      ],
+      "box_plate_mm": [
+        [
+          209.47500915527345,
+          61.25,
+          11.699999999999989
+        ],
+        [
+          218.67500915527344,
+          72.2,
+          31.30000000000001
+        ]
+      ],
+      "name": "wago-h insertion pocket",
+      "object": 1901,
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        403.85,
+        412.55,
+        323.95,
+        343.05
+      ],
+      "box_plate_mm": [
+        [
+          225.47500915527345,
+          61.25,
+          11.699999999999989
+        ],
+        [
+          234.67500915527344,
+          72.2,
+          31.30000000000001
+        ]
+      ],
+      "name": "wago-g insertion pocket",
+      "object": 1901,
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        419.85,
+        428.55,
+        323.95,
+        343.05
+      ],
+      "box_plate_mm": [
+        [
+          241.47500915527345,
+          61.25,
+          11.699999999999989
+        ],
+        [
+          250.67500915527344,
+          72.2,
+          31.30000000000001
+        ]
+      ],
+      "name": "wago-n insertion pocket",
+      "object": 1901,
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -103.75,
+        -100.25,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "box_plate_mm": [
+        [
+          41.42500915527344,
+          56.0,
+          176.7
+        ],
+        [
+          132.37500915527343,
+          60.0,
+          180.45
+        ]
+      ],
+      "name": "west alignment groove",
+      "object": 1901,
+      "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib."
+    },
+    {
+      "bounds_source_mm": [
+        100.25,
+        103.75,
+        219.8,
+        310.25,
+        174.8,
+        178.05
+      ],
+      "box_plate_mm": [
+        [
+          41.42500915527344,
+          260.0,
+          176.7
+        ],
+        [
+          132.37500915527343,
+          264.0,
+          180.45
+        ]
+      ],
+      "name": "east alignment groove",
+      "object": 1901,
+      "reason": "The groove opens upward in the ceiling-down print. Its walls grow from the rail and the corbelled shoulder, leaving a clear path for the rib."
+    },
+    {
+      "bounds_source_mm": [
+        -90.5,
+        -86.5,
+        460.83,
+        468.25,
+        328.0,
+        332.0
+      ],
+      "box_plate_mm": [
+        [
+          282.4550091552734,
+          69.25,
+          22.75
+        ],
+        [
+          290.37500915527346,
+          73.75,
+          27.25
+        ]
+      ],
+      "name": "C14 insert pilot 1",
+      "object": 1901,
+      "reason": "Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support.",
+      "void_source": {
+        "end_mm": [
+          -88.5,
+          468.25,
+          330.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          -88.5,
+          460.83,
+          330.0
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -50.5,
+        -46.5,
+        460.83,
+        468.25,
+        328.0,
+        332.0
+      ],
+      "box_plate_mm": [
+        [
+          282.4550091552734,
+          109.25,
+          22.75
+        ],
+        [
+          290.37500915527346,
+          113.75,
+          27.25
+        ]
+      ],
+      "name": "C14 insert pilot 2",
+      "object": 1901,
+      "reason": "Bridge the blind insert pilot across its own walls while the pocket around its mouth receives removable support.",
+      "void_source": {
+        "end_mm": [
+          -48.5,
+          468.25,
+          330.0
+        ],
+        "kind": "cylinder",
+        "radius_mm": 2.0,
+        "start_mm": [
+          -48.5,
+          460.83,
+          330.0
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        19.372358982281966,
+        38.67935898228196,
+        458.0,
+        474.55,
+        318.93233266023236,
+        340.5182148810266
+      ],
+      "box_plate_mm": [
+        [
+          279.62500915527346,
+          179.12235898228198,
+          14.231785118973391
+        ],
+        [
+          296.6750091552734,
+          198.92935898228197,
+          36.31766733976764
+        ]
+      ],
+      "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
+      "object": 1901,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          29.025858982281964,
+          330.8647148810266
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 9.6535,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.55,
+        322.6359030178927,
+        338.1285
+      ],
+      "box_plate_mm": [
+        [
+          279.62500915527346,
+          229.32150000000001,
+          16.621500000000026
+        ],
+        [
+          296.6750091552734,
+          243.67849999999999,
+          32.6140969821073
+        ]
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "object": 1901,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        68.85,
+        84.15,
+        458.0,
+        474.55,
+        254.5440799721266,
+        271.65
+      ],
+      "box_plate_mm": [
+        [
+          279.62500915527346,
+          228.6,
+          83.10000000000002
+        ],
+        [
+          296.6750091552734,
+          244.4,
+          100.70592002787339
+        ]
+      ],
+      "name": "Covered bulkhead at X76.5 Z264",
+      "object": 1901,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          264.0
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        67.78,
+        85.22,
+        458.0,
+        474.55,
+        283.4214872362018,
+        302.92
+      ],
+      "box_plate_mm": [
+        [
+          279.62500915527346,
+          227.53,
+          51.829999999999984
+        ],
+        [
+          296.6750091552734,
+          245.47,
+          71.82851276379819
+        ]
+      ],
+      "name": "Covered bulkhead at X76.5 Z294.2",
+      "object": 1901,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 8.72,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        21.149998871231602,
+        36.4499988712316,
+        458.0,
+        474.55,
+        284.7440799721266,
+        301.84999999999997
+      ],
+      "box_plate_mm": [
+        [
+          279.62500915527346,
+          180.89999887123162,
+          52.900000000000034
+        ],
+        [
+          296.6750091552734,
+          196.6999988712316,
+          70.5059200278734
+        ]
+      ],
+      "name": "Covered bulkhead at X28.7999988712316 Z294.2",
+      "object": 1901,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          28.7999988712316,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        21.149998871231602,
+        36.4499988712316,
+        458.0,
+        474.55,
+        254.5440799721266,
+        271.65
+      ],
+      "box_plate_mm": [
+        [
+          279.62500915527346,
+          180.89999887123162,
+          83.10000000000002
+        ],
+        [
+          296.6750091552734,
+          196.6999988712316,
+          100.70592002787339
+        ]
+      ],
+      "name": "Covered bulkhead at X28.7999988712316 Z264",
+      "object": 1901,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          28.7999988712316,
+          264.0
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 7.65,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -72.39304631511553,
+        -65.45571068553501,
+        326.41358967835646,
+        334.9722973411118,
+        336.82045921114616,
+        344.02086273593386
+      ],
+      "box_plate_mm": [
+        [
+          148.0385988336299,
+          87.35695368488447,
+          10.72913726406614
+        ],
+        [
+          157.09730649638524,
+          94.79428931446499,
+          18.429540788853842
+        ]
+      ],
+      "name": "Inlet valve post socket -1/-1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -68.92422725213349,
+          330.6929435097341,
+          337.8206609779392
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -68.92458792089849,
+          330.6929435097341,
+          344.02066096744875
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -72.50079734000667,
+        -65.56346171042615,
+        351.26335606994644,
+        359.82206373270185,
+        336.8204529430124,
+        344.0208564678001
+      ],
+      "box_plate_mm": [
+        [
+          172.88836522521987,
+          87.24920265999333,
+          10.729143532199885
+        ],
+        [
+          181.94707288797528,
+          94.68653828957385,
+          18.429547056987587
+        ]
+      ],
+      "name": "Inlet valve post socket -1/1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -69.03197827702463,
+          355.54270990132414,
+          337.82065470980547
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -69.03233894578963,
+          355.54270990132414,
+          344.020654699315
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -96.79281689575417,
+        -89.85548126617365,
+        326.3077898790891,
+        334.8664975418445,
+        336.8190398183822,
+        344.0194433431699
+      ],
+      "box_plate_mm": [
+        [
+          147.93279903436255,
+          62.95718310424583,
+          10.730556656830117
+        ],
+        [
+          156.99150669711796,
+          70.39451873382635,
+          18.43096018161782
+        ]
+      ],
+      "name": "Inlet valve post socket 1/-1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -93.32399783277214,
+          330.5871437104668,
+          337.8192415851753
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -93.32435850153713,
+          330.5871437104668,
+          344.0192415746848
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -96.90056792064532,
+        -89.9632322910648,
+        351.15755627067915,
+        359.7162639334345,
+        336.81903355024843,
+        344.01943707503614
+      ],
+      "box_plate_mm": [
+        [
+          172.78256542595258,
+          62.849432079354685,
+          10.730562924963863
+        ],
+        [
+          181.84127308870794,
+          70.2867677089352,
+          18.430966449751566
+        ]
+      ],
+      "name": "Inlet valve post socket 1/1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "end_mm": [
+          -93.43174885766328,
+          355.43691010205686,
+          337.81923531704155
+        ],
+        "kind": "cylinder",
+        "radius_mm": 3.45,
+        "start_mm": [
+          -93.43210952642828,
+          355.43691010205686,
+          344.0192353065511
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        62.10799977207788,
+        69.00799977207788,
+        295.81499514598534,
+        303.0149951459853,
+        306.8433328886993,
+        315.37220193344785
+      ],
+      "box_plate_mm": [
+        [
+          117.44000430125877,
+          221.85799977207787,
+          39.377798066552145
+        ],
+        [
+          125.14000430125876,
+          229.25799977207788,
+          48.40666711130069
+        ]
+      ],
+      "name": "Soda valve post socket -1/-1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          65.55799977207788,
+          311.1077674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          302.0149951459853
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        62.10799977207788,
+        69.00799977207788,
+        295.81499514598534,
+        303.0149951459853,
+        281.99333288869934,
+        290.5222019334479
+      ],
+      "box_plate_mm": [
+        [
+          117.44000430125877,
+          221.85799977207787,
+          64.22779806655211
+        ],
+        [
+          125.14000430125876,
+          229.25799977207788,
+          73.25666711130066
+        ]
+      ],
+      "name": "Soda valve post socket -1/1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          65.55799977207788,
+          286.2577674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          302.0149951459853
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        86.50799977207788,
+        93.40799977207789,
+        295.81499514598534,
+        303.0149951459853,
+        306.8433328886993,
+        315.37220193344785
+      ],
+      "box_plate_mm": [
+        [
+          117.44000430125877,
+          246.25799977207788,
+          39.377798066552145
+        ],
+        [
+          125.14000430125876,
+          253.6579997720779,
+          48.40666711130069
+        ]
+      ],
+      "name": "Soda valve post socket 1/-1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          89.95799977207788,
+          311.1077674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          302.0149951459853
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        86.50799977207788,
+        93.40799977207789,
+        295.81499514598534,
+        303.0149951459853,
+        281.99333288869934,
+        290.5222019334479
+      ],
+      "box_plate_mm": [
+        [
+          117.44000430125877,
+          246.25799977207788,
+          64.22779806655211
+        ],
+        [
+          125.14000430125876,
+          253.6579997720779,
+          73.25666711130066
+        ]
+      ],
+      "name": "Soda valve post socket 1/1",
+      "object": 1901,
+      "reason": "Open build-axis socket or horizontal teardrop socket; keep supports out of the post fit.",
+      "void_source": {
+        "centre_xz_mm": [
+          89.95799977207788,
+          286.2577674110736
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 3.45,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          295.81499514598534,
+          302.0149951459853
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        -101.25,
+        -90.75000000018628,
+        317.79999999962746,
+        329.79999999962746,
+        159.0,
+        208.34999999981372
+      ],
+      "box_plate_mm": [
+        [
+          136.4250091549009,
+          52.25,
+          132.65000000037256
+        ],
+        [
+          162.67500915471462,
+          70.49999999981372,
+          196.25
+        ]
+      ],
+      "name": "PRV vent mouth",
+      "object": 1901,
+      "reason": "The cap root and end-wall backing keep supports out of the clear passage.",
+      "void_source": {
+        "kind": "prism_y",
+        "profile_xz_mm": [
+          [
+            -101.25,
+            197.85
+          ],
+          [
+            -101.25,
+            141.85
+          ],
+          [
+            -93.75000000018628,
+            141.85
+          ],
+          [
+            -93.75000000018628,
+            185.6
+          ],
+          [
+            -90.75000000018628,
+            185.6
+          ],
+          [
+            -90.75000000018628,
+            208.34999999981372
+          ]
+        ],
+        "span_y_mm": [
+          317.79999999962746,
+          329.79999999962746
+        ]
+      }
+    }
+  ],
+  "support_roads": 240823,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 5,
+      "bodies_without_interface_labels": 18,
+      "explicit_interface_islands": 22,
+      "interface_islands": null,
+      "model_rooted_bodies": 22,
+      "removable_stock_moves": 34012,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": 8.083,
+      "support_bodies": 27
+    }
+  }
+}
