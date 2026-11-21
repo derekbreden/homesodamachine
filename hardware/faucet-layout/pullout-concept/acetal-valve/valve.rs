@@ -377,8 +377,8 @@ fn tubing(p: &mut Vec<Piece>, neck: &Gooseneck, frame: &Plane) -> Result<()> {
     let d = v3(-tangent.dot(frame.x), -tangent.dot(frame.y), -tangent.dot(frame.z));
     let start = SOCKET + V3::Y * 9.;
     let first = SOCKET + V3::Y * 20.1;
-    let side = BYPASS + V3::Y * 31.2;
-    let approach = BYPASS + V3::Y * 40.;
+    let side = BYPASS + V3::Y * 34.5;
+    let approach = BYPASS + V3::Y * 34.8;
     let straight = v3(8.0, 47.2, 4.15);
     let slope = v3(-0.25, 1., -0.34);
     let rail = |s| straight + slope * (s - straight.y);
@@ -386,9 +386,9 @@ fn tubing(p: &mut Vec<Piece>, neck: &Gooseneck, frame: &Plane) -> Result<()> {
     let stop_s = 53.1;
     let path = Path::new(start)
         .line_to(first)
-        .bezier(&[first, first + V3::Y * 4.2, side - V3::Y * 4.2, side])?
+        .bezier(&[first, first + V3::Y * 5.45, side - V3::Y * 5.45, side])?
         .line_to(approach)
-        .bezier(&[approach, approach + V3::Y * 2.60, straight - slope * 2.85, straight])?
+        .bezier(&[approach, approach + V3::Y * 3.72, straight - slope * 4.65, straight])?
         .line_to(rail(stop_s));
     let tube = Plane::new(start, V3::X, V3::Y)?
         .sweep(&Profile::circle(v2(0., 0.), TUBE_R).with_hole(Loop::circle(v2(0., 0.), TUBE_ID_R)), &path)?;
