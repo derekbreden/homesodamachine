@@ -1,0 +1,12 @@
+{
+  "purpose": "Record Derek's hand fit of the cold-core lid's two aft tube clips in their printed crop.",
+  "printer_task_id": "1467888449",
+  "date": "2026-11-20",
+  "material": "HSM-0020",
+  "said": "Fit is good.",
+  "tried": "both quarter-inch tubes seated in the printed crop of the cold-core lid's two aft clips",
+  "photos": ["fit-with-tubes.jpg"],
+  "visible_result": "Both tubes are seated in the photograph, one in each clip, with the crop hanging from them.",
+  "print_job": "../print-job.json",
+  "scope": "The report establishes the tube fit in this crop. The complete lid print was not reported."
+}
