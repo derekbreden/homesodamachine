@@ -42,6 +42,11 @@
     "hardware/faucet-layout/faucet-assembly.step.mesh": "2713f62b1a559762765ad5af56c36fb5aba09be0789420ccbad8ac1233da05e8",
     "hardware/faucet-layout/faucet-industrial-assembly.step": "0a57e60f3f7df567de6f20807ee3a28274c2a73c386a03e401ac7a0b44092aa5",
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "972b1612661d807b94b4d72eb435e6c1aed36067770f82b4198051e200724305",
+    "hardware/faucet-layout/pullout-concept/acetal-valve/exploded.step.mesh": "3d65a2bf19d3a79694e688aa87655fae6057cb4bf15ab08622f72d3f0578b101",
+    "hardware/faucet-layout/pullout-concept/acetal-valve/installed-cutaway.step.mesh": "ef507b0cf233bbb3d691ae7ab8f807104d9da905e1b49d2548d587aa1f4d53f0",
+    "hardware/faucet-layout/pullout-concept/acetal-valve/installed.step.mesh": "2328dd9c8b13cab8ed99085124f16d6d6dfaa62517e5c0d47c2d361bf2a8fb0d",
+    "hardware/faucet-layout/pullout-concept/acetal-valve/seat-closed.step.mesh": "bd79e4b881d72ac0ce840e6027684be81a8e196d990afc4ee7e06d77aafededd",
+    "hardware/faucet-layout/pullout-concept/acetal-valve/seat-open.step.mesh": "38069908f6cdf369121a8fc787c83f03114428683dc71df1c5475b3c58311f8a",
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
@@ -922,6 +927,11 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh": "2713f62b1a559762765ad5af56c36fb5aba09be0789420ccbad8ac1233da05e8",
       "hardware/faucet-layout/faucet-industrial-assembly.step": "0a57e60f3f7df567de6f20807ee3a28274c2a73c386a03e401ac7a0b44092aa5",
       "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": "972b1612661d807b94b4d72eb435e6c1aed36067770f82b4198051e200724305",
+      "hardware/faucet-layout/pullout-concept/acetal-valve/exploded.step.mesh": "3d65a2bf19d3a79694e688aa87655fae6057cb4bf15ab08622f72d3f0578b101",
+      "hardware/faucet-layout/pullout-concept/acetal-valve/installed-cutaway.step.mesh": "ef507b0cf233bbb3d691ae7ab8f807104d9da905e1b49d2548d587aa1f4d53f0",
+      "hardware/faucet-layout/pullout-concept/acetal-valve/installed.step.mesh": "2328dd9c8b13cab8ed99085124f16d6d6dfaa62517e5c0d47c2d361bf2a8fb0d",
+      "hardware/faucet-layout/pullout-concept/acetal-valve/seat-closed.step.mesh": "bd79e4b881d72ac0ce840e6027684be81a8e196d990afc4ee7e06d77aafededd",
+      "hardware/faucet-layout/pullout-concept/acetal-valve/seat-open.step.mesh": "38069908f6cdf369121a8fc787c83f03114428683dc71df1c5475b3c58311f8a",
       "hardware/faucet-layout/pullout-concept/custom-valve-closed.step": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
       "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
       "hardware/faucet-layout/pullout-concept/custom-valve-open.step": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
@@ -2777,6 +2787,11 @@
     "hardware/faucet-layout/faucet-assembly.step.mesh": 1795017143.287795,
     "hardware/faucet-layout/faucet-industrial-assembly.step": 1795019655.238012,
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": 1795019647.311268,
+    "hardware/faucet-layout/pullout-concept/acetal-valve/exploded.step.mesh": 1795233710.425952,
+    "hardware/faucet-layout/pullout-concept/acetal-valve/installed-cutaway.step.mesh": 1795233710.425952,
+    "hardware/faucet-layout/pullout-concept/acetal-valve/installed.step.mesh": 1795233710.425952,
+    "hardware/faucet-layout/pullout-concept/acetal-valve/seat-closed.step.mesh": 1795233710.425952,
+    "hardware/faucet-layout/pullout-concept/acetal-valve/seat-open.step.mesh": 1795233710.425952,
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step": 1795228781.903407,
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": 1795228761.571015,
     "hardware/faucet-layout/pullout-concept/custom-valve-open.step": 1795228781.903407,
@@ -3732,6 +3747,26 @@
     },
     "hardware/faucet-layout/faucet-industrial-assembly.step.mesh": {
       "commit": "199e15a630d2e3d2f1c5adbdbcf67c125567d79d",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/acetal-valve/exploded.step.mesh": {
+      "commit": "53b859b7438ee3605d8618a42a5b3d9fad6c5a58",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/acetal-valve/installed-cutaway.step.mesh": {
+      "commit": "53b859b7438ee3605d8618a42a5b3d9fad6c5a58",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/acetal-valve/installed.step.mesh": {
+      "commit": "53b859b7438ee3605d8618a42a5b3d9fad6c5a58",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/acetal-valve/seat-closed.step.mesh": {
+      "commit": "53b859b7438ee3605d8618a42a5b3d9fad6c5a58",
+      "unproven": true
+    },
+    "hardware/faucet-layout/pullout-concept/acetal-valve/seat-open.step.mesh": {
+      "commit": "53b859b7438ee3605d8618a42a5b3d9fad6c5a58",
       "unproven": true
     },
     "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh": {
