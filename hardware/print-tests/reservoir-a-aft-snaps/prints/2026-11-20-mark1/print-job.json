@@ -1,6 +1,7 @@
 {
   "purpose": "Bind reservoir A's aft tube snap coupon to the job accepted by Mark1.",
-  "status": "running",
+  "status": "finished",
+  "status_basis": "Mark1 reports FINISH on this task at its last layer, with no print error or HMS. The coupon is untried in hand.",
   "source_commit": "9b6ba513f3cac06051958db2a6f2cc856d2ac91f",
   "printer": "Mark1",
   "connection_key": "H2C",
@@ -62,6 +63,7 @@
   "launch": "launch.json",
   "prelaunch_status": "prelaunch-status.json",
   "startup_status": "startup-status.json",
+  "finish_status": "finish-status.json",
   "startup_spacing": {
     "other_printer": "Mark2",
     "other_task_id": "1467454877",
