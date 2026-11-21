@@ -23,7 +23,7 @@ with the existing mating profile retained after print-aid removal.
 
 ## Starting-course evidence
 
-The [failed Mark1 article](../2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+The [failed Mark1 article](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
 is task `1341173963`. Derek reports that the male insertion section fell over
 and points to the detached C-shaped section. The photographs show that curved
 piece beside the body and loose strands within the intended plug region.

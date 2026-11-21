@@ -183,7 +183,7 @@ part.
 For visible overhang edges with reported roughness, follow the edge with a
 removable fin wall and retain Tree(auto)/Default on the remaining surfaces.
 Use interrupted arcs on curved edges, with release gaps away from the most
-visible midpoint. The [accepted faucet-base arc result](faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
+visible midpoint. The [accepted faucet-base arc result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
 records the best observed underside and very easy snap-off in PET-GF at the
 retained −15° pose. Contact placement, release breaks and bed anchorage belong
 to the specific edge geometry; this result does not establish other features'

@@ -16,11 +16,11 @@ Timelapse and all three startup calibration options are On; probing clump
 checks remain Off. The core has no supports and its full deposited
 footprint clears the usable bed by at least 39.565 mm.
 
-[Bound project, native toolpaths and launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md).
+[Bound project, native toolpaths and launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md).
 Finished-core quality, assembled fit and casting results are unassessed.
 At 09:50:36 CDT, the core is RUNNING at layer 1/176 without faults.
 Runtime timelapse is enabled; the read-only card inventory contains 97 clips.
-[timelapse-review.json](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json) records the observation.
+[timelapse-review.json](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/timelapse-review.json) records the observation.
 
 ## Mark1 cavity retry at +0.04 trim — 2026-10-06
 
@@ -46,7 +46,7 @@ the final Send dialog. Probing clump checks remain **Off**; camera AI
 preferences are untouched. Physical adhesion and finished-part results are
 not established by startup telemetry.
 
-The [timelapse/storage inspection](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json)
+The [timelapse/storage inspection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/timelapse-storage-review.json)
 records runtime timelapse disabled despite the Send option On. Remote enable
 is rejected, and the UI tool cannot operate Studio's custom Device toolbar.
 Recording is unconfirmed. The drive reports normal state; read-only FTPS
@@ -56,7 +56,7 @@ existing six-hour, 180 GB rotation deletes no clips in its matching latest
 run and has no local archive option configured. This inspection moves or
 deletes no files.
 
-The [native review and launch](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
+The [native review and launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md)
 bind the project, single-plate archive and G-code hashes to the preflight and
 acceptance. The core was not submitted. Scheduled monitors remain paused.
 
@@ -71,7 +71,7 @@ Derek reports that the complete print was swept onto the extruder and
 continued accumulating filament around it, with loss of the induction heating
 assembly. He reports the spare assembly and a new 0.4 mm nozzle are installed,
 and the filament is drying. The printer's current name is **Mark1**. The
-[physical result](native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json)
+[physical result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/physical-result.json)
 records this failure and the replacement order confirmation. The exact
 failure layer/time and initiating cause are not established.
 
@@ -85,10 +85,10 @@ Bed leveling is on, timelapse is off, and flow dynamic/nozzle offset
 calibration use Auto. Mark2 accepted its running reservoir study at
 01:51:41 CDT; the two launches are over 35 minutes apart.
 
-The [right-nozzle native review](native-slice-reviews/2026-10-06-h2c-right-gyroid15/README.md)
+The [right-nozzle native review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/README.md)
 checks the current meshes, deposited-path bed limits, supports, nozzle and
 trim. The cavity estimate is **355.61 g / 17 h 03 min**. The
-[launch receipt](native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
+[launch receipt](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-h2c-right-gyroid15/launch.json)
 records the exact archive/G-code hashes and startup observations. The
 settings audit (`hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-v1/failed-job-audit.json`, in git at c693edfdd0)
 confirms Timelapse Off, chamber auto-record disabled in the preflight, and no

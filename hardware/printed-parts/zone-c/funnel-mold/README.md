@@ -132,8 +132,8 @@ fill, vent and rod-guide mouths capped for analysis. The guide remains open in
 the native parts. The [overflow review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/overflow-review/README.md)
 binds the apron to its current source and assembly exports.
 
-The [physical print log](print-log.md), [October 6 slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
-[matching core launch](native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
+The [physical print log](print-log.md), [October 6 slice and cavity retry](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),
+[matching core launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-07-mark1-core-matching-cavity-v1/README.md),
 [rod check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/rod-check.json) and [closure check](https://github.com/derekbreden/homesodamachine/blob/045602339b618a84e4a08935ec77335ef975f4c5/hardware/printed-parts/zone-c/funnel-mold/containment-review.json) retain
 their identified artifact scope.
 

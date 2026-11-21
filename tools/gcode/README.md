@@ -135,7 +135,7 @@ Ordinary bead and support reviews use their existing deposited-road representati
 The largest-loop profile includes pedestal, plug and terminal contours when they
 are that layer's exterior. An offset on those contours is not a verdict about
 the exposed main-body seam. The faucet's
-[feature-aware reading](../../hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/README.md)
+[feature-aware reading](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/README.md)
 retains every exterior run and distinguishes those features from its rear show
 surfaces.
 

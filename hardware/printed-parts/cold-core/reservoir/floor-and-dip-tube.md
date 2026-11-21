@@ -39,7 +39,7 @@ Print four [reservoir-tube-grip.step](reservoir-tube-grip.step) parts per machin
 A 6.35 mm nominal tube has 0.15 mm diametral interference with the candidate
 bore; actual tube OD and printed TPU determine sliding feel. No printed
 insertion-force or retention result is recorded. The
-[approved geometry review](tube-vent-proposal/README.md) establishes nominal fit.
+[approved geometry review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/README.md) establishes nominal fit.
 
 ## Open items
 

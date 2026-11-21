@@ -96,7 +96,7 @@ fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the
 interior solid. Each production job requires these regions bound to its current
 mesh and a fresh emitted-path and support-removal review. The
-[RC62 archives](../magnet-retention/queue.json) retain their identified article
+[RC62 archives](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/queue.json) retain their identified article
 scope.
 
 The corner stacks follow manufacturer insert geometry and carry the seam's load

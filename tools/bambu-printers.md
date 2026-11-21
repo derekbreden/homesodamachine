@@ -100,9 +100,9 @@ distinguishes that return from transfers within a layer, including the
 firmware timelapse detour. A path above wall material alone does not establish
 that ooze contacts it or becomes buried.
 
-Mark2's [edge-adhesion report](../hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
+Mark2's [edge-adhesion report](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/physical-result.json)
 records poor first layers near unseasoned edges. The
-[centered fit trial](../hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
+[centered fit trial](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
 uses at least 86.7 mm of full-bead edge clearance. The
 [reservoir comparison placement record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
 records Derek's requirement to move that complete test plate toward the center.
@@ -141,7 +141,7 @@ the starting slot but does not display a backup sequence or priority editor.
 Automatic **A4 → A3 → A1** priority is unverified; apply the preferred order when
 selecting a replacement or a later job's starting slot.
 The current left hotend is **0.8 mm Standard-flow**, confirmed
-by Derek for the [reservoir ironing comparison](../hardware/printed-parts/cold-core/reservoir/ironing-study/README.md).
+by Derek for the [reservoir ironing comparison](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/ironing-study/README.md).
 
 That comparison expects Mark2's **+0.04 mm user Z trim** over stock plate
 compensation. Its verified native G-code clears the trim with `G29.1 Z0` and
@@ -357,7 +357,7 @@ Timelapse On, Bed Leveling On, Flow Calibration Auto and Nozzle Offset Calibrati
 Auto in Studio's own send dialog. The accepted printer name can come from the
 plate name rather than the archive filename. Record that reported name, the new
 task ID, the submitted archive hash and the unchanged G-code hash. The
-[Mark2 back-bottom launch](../hardware/printed-parts/enclosure/bottom-grip-print/mark2/launch.json)
+[Mark2 back-bottom launch](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/bottom-grip-print/mark2/launch.json)
 records an accepted Studio send with LAN acceleration using this packaging.
 
 ### Background accessibility sender

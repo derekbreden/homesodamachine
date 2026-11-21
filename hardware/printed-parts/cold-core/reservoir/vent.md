@@ -41,7 +41,7 @@ over the straight tube after the pour has cured.
 
 ## Qualification
 
-[The approved review](tube-vent-proposal/README.md) records the dimensions
+[The approved review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/README.md) records the dimensions
 and native assembly clearance. Geometry establishes an open path; printed
 grip and installed airflow have no physical acceptance
 result yet. The [manufacturer tubing sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)

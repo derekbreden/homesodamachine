@@ -17,7 +17,7 @@ three Ø4.40 mm flavor/drain bores. The Ø4.40 mm fit is accepted on the white
 drain stock; black 4 mm flavor-stock fit is unmeasured. The measured ribbon uses a 5.4 × 1.8 mm
 flat signal slot in the organizer.
 
-The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
+The [Sculpted texture timing study](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/texture-comparison/2026-09-24/README.md)
 compares selected 0.08 mm regions with the saved 0.24 mm finish and an all-0.08 mm
 plate. It also times the accepted printed lever separately.
 

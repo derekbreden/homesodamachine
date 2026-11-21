@@ -205,18 +205,18 @@ The complete faucet's physical result remains unreported.
 
 ## Rim support candidates — 2026-10-15
 
-The [two single edge-support prints](../finish-coupons/2026-10-15-edge-supports/README.md)
+The [two single edge-support prints](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/README.md)
 are Mark1 task `1341173963`, a −105° tip section with the eight plain fins
 retained and local trees added at the rough seam-side lip, and Mark2 task
 `1341188908`, a −15° foot with seven curved rim fins and Tree(auto)/Default
 on the remaining underside. The starts are 594.405 seconds apart. Each plate
 has one candidate and no repeated control. The
-[Mark2 physical result](../finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
+[Mark2 physical result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
 accepts excellent edge support, very easy arc-fin snap-off and the best faucet
 underside Derek has observed. The complete faucet project selects the exact
 seven curved edge walls and narrow blocker strips, with trees elsewhere.
 Mating fit and complete-height printing with those arcs remain unreported. The
-[Mark1 physical result](../finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+[Mark1 physical result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
 records failure of the male insertion section despite telemetry reporting
 167/167 layers and `FINISH`. Native G-code starts that section at Z0.44 with
 no lower-bead bearing and no model deposition on the bed course. A
@@ -230,9 +230,9 @@ accepts the print and removable disc, with a removal scuff acceptable on the
 hidden male insertion end. That bonded contact is unsuitable for a visible face.
 Dimensional mating fit and removal force are unmeasured.
 
-The [preceding tip result](../finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
+The [preceding tip result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 records the best observed bottom-side rim appearance and a still-rough opposite
-side. The [Full-annulus base result](../finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
+side. The [Full-annulus base result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
 reports tighter material but better underside and front-face finish with trees.
 The [selected complete-faucet recipe](https://github.com/derekbreden/homesodamachine/blob/6faf2eb388be36ce23c3d0d1f26d721018b597dc/hardware/printed-parts/faucet/industrial/finish-selection.json) retains 125% bridge
 flow, 70% cooling after three fan-off layers, 15 mm/s bridges and overhang limits
@@ -271,7 +271,7 @@ confirms the middle neck and reports both lower transitions still misplaced.
 
 ## Rear-center placement correction — prepared 2026-10-13
 
-The [complete corrected slice](seam-placement/rear-center-v1/README.md) retains
+The [complete corrected slice](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v1/README.md) retains
 all settings and geometry of task `1335906696` and adds rear-center seam paint
 to the base neck. Its maximum measured start offset is 0.45 mm. The
 identified candidate carries the height-limited enforcer. Its
@@ -293,7 +293,7 @@ are tagged `faucet-industrial-approved-2026-10-13`.
 ## Selected SB/E complete faucet — launched 2026-10-11, Mark1
 
 - Derek selected SB scarf gap 10% and E eight coarse layers from the
-  [combined coupon plate](../finish-coupons/coarse-start-v1/combined/physical-result.json).
+  [combined coupon plate](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json).
   He reports difficulty distinguishing scarf finishes, ugly recovery through
   four coarse layers, and recovery in the latter four layers of E. The
   supplied images identify the labels; they are not physical surface photos.

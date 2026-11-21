@@ -241,7 +241,7 @@ accessible through the handholds, with their head passages open toward the inner
 `handholds` reads the upward entry space, full lifting sections, complete end posts and inner walls
 on the finished pair, including the inner-wall joint's running clearance. These are geometry
 checks; no physical lifting-load test is recorded.
-The [wall-end check](handhold-joint/geometry-check.json) measures the complete
+The [wall-end check](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/handhold-joint/geometry-check.json) measures the complete
 3 mm section through the wall's full height and verifies the floor overlap,
 lifting roof, screw passages and assembled fit.
 

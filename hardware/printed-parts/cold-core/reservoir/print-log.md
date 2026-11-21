@@ -167,7 +167,7 @@ Bambu Studio 02.08.02.61. Estimated 26 h 12 min, 417.16 g, 984 layers.
 - Aligned scarf seams, inner walls included, conditional scarf disabled, seam gap 0%.
 - Top and bottom shells: 12 layers / 2 mm; 100% infill; top-surface ironing.
 
-[Settings and toolpath inspection](history/seal-trial.md).
+[Settings and toolpath inspection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/history/seal-trial.md).
 
 ### Result — held water (reported 2026-10-05)
 
@@ -282,7 +282,7 @@ Derek said:
 show a lifted cap perimeter strand and separated first-layer lines. Derek
 removed the failed material and reports the bed clear for a retry with the
 +0.18 mm user Z trim removed. A separate
-[earlier corner-lifting report and timelapse review](corner-lifting/README.md)
+[earlier corner-lifting report and timelapse review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/corner-lifting/README.md)
 has no established onset layer.
 
 ## Left reservoir and cap, zero-user-trim PETG retry (2026-10-21, Mark1 task 1359909015)
@@ -468,7 +468,7 @@ The 10° transition threshold is the Arachne parameter default. The recovered
 May file selects Arachne; installed stock H2C 0.8 profiles select Classic.
 The current normal/first layer heights remain **0.24/0.30 mm**. Installed presets
 provide **0.24, 0.32 and 0.40 mm**, with a **0.16–0.56 mm** custom machine range.
-[Recipe and source facts](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+[Recipe and source facts](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The right **0.8 mm Standard** nozzle is selected, with **A3 PETG R**. A3 is the
 only matching loaded spool (39%); A1/A2/A4 are empty. AMS backup is visibly On.
@@ -771,7 +771,7 @@ reservoir, at the line between wall and infill. The
 retain the observation without an unconfirmed task assignment. Earlier
 task-specific hold reports retain their scope.
 
-The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) selects
+The [next candidate](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-26-overlap50/README.md) selects
 50% Infill/Wall overlap with the latest 255/260 °C Engineering Plate / left
 0.8 mm recipe otherwise retained. Archive checks verify the exact setting
 delta and unchanged geometry/placement. Native slicing and physical sealing

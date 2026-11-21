@@ -44,7 +44,7 @@ through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overl
 one-hour water hold** on its intentionally partially printed left body,
 reported October 23, 2026. [Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
 [Launch and startup](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
-[Adaptation, wall-count comparison and installed preset facts](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+[Adaptation, wall-count comparison and installed preset facts](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The project's two plates contain
 the current left and right body/cap pairs. [print-settings.json](print-settings.json) holds every saved machine,
@@ -108,7 +108,7 @@ The recipe uses **0.24 mm** ordinary layers and a **0.30 mm** first layer.
 Installed H2C 0.8 mm presets offer **0.24 mm Balanced Quality**, **0.32 mm Balanced
 Quality/Strength** and **0.40 mm Standard**. Their first-layer height is 0.40 mm.
 The machine profile allows custom layer heights from **0.16 to 0.56 mm**.
-[Installed preset inheritance and hashes](recipe-reviews/2026-10-22-flow105-overlap30/installed-presets.json).
+[Installed preset inheritance and hashes](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/installed-presets.json).
 
 Those stock process presets inherit **Classic**. The recovered May project
 selects **Arachne**, which varies bead widths and counts to fit the geometry.
@@ -128,7 +128,7 @@ describes them.
 Five requested wall loops are the lowest tested count with only wall features
 through both bodies' ordinary straight walls and thick curved corners. Counts
 two through four retain fill there. Broad floor/cap faces and locally thicker
-bosses retain solid fill. The [native comparison](recipe-reviews/2026-10-22-flow105-overlap30/wall-count-review.json)
+bosses retain solid fill. The [native comparison](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/wall-count-review.json)
 examines the complete ordinary wall band, not just a nominal wall-width estimate.
 Native coverage does not establish deposited fusion or water holding. Ironing
 is disabled on every model and support surface.
@@ -178,7 +178,7 @@ envelope stays at least **70.5 mm from the nearest right-nozzle usable bed edge*
 arc extrema and bead width. The matching body and cap envelopes are 10.04 mm
 apart.
 The historical May and September results and complete source identifiers are
-in the [print log](print-log.md), [September inspection](history/seal-trial.md)
+in the [print log](print-log.md), [September inspection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/history/seal-trial.md)
 and [acceptance record](water-hold-acceptance.json).
 
 The reported water hold establishes the result for its printed article and

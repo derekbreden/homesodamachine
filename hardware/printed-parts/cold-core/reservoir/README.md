@@ -22,7 +22,7 @@ the insulation. [Open air tubes and grommets](vent.md) ·
 
 Print four [liquid-tube grips](reservoir-tube-grip.step) and two
 [air-tube grips](reservoir-air-grip.step) in TPU 90A per machine. The
-[approved review](tube-vent-proposal/README.md) defines their geometry;
+[approved review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/README.md) defines their geometry;
 printed grip remains unqualified. Frozen print archives
 retain the geometry of their tested articles. A fresh lid slice is required
 for these countersunk ports.
@@ -110,7 +110,7 @@ retain the **265/270 °C reference recipe** on the current left/right body/cap
 geometry. Its intentionally shortened task **1365626370** has a reported
 one-hour hold on October 23 and remains holding water on October 25.
 [Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
-[Wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+[Wall-count comparison and installed presets](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 The [255/260 °C comparison](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/native-review.json)
 changes only temperature-related executable commands from that reference.
 
@@ -145,7 +145,7 @@ Its exact 59° walls-only settings and launch belong to that print record.
 The preceding walls-only article has [reported seam leakage](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
 The preceding May-adapted article has [reported leakage between floor fill and walls](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json).
 The earlier zero-trim article has [reported corner curl and leaks at many places](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json).
-The [historical review](corner-lifting/historical-recipe-review.json) identifies
+The [historical review](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/corner-lifting/historical-recipe-review.json) identifies
 the successful May source and limits of the recovered sphere record.
 Historical May and September water holds remain scoped to their tested articles
 in [water-hold-acceptance.json](water-hold-acceptance.json).
@@ -186,7 +186,7 @@ tools/run -- tools/hsm/target/release/reservoir-slice-review
 ```
 
 Past settings, reported outcomes and source commits are in the
-[print log](print-log.md) and [September inspection record](history/seal-trial.md).
+[print log](print-log.md) and [September inspection record](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/cold-core/reservoir/history/seal-trial.md).
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. Reported October

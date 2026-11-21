@@ -80,7 +80,7 @@ selected edge supports and localized cooling. The shared tip has the Ø4 mm
 unsealed fault-drip opening and 70° curved joint. Numerical installation force,
 retention force, hydraulic fault discharge and endurance are unmeasured.
 
-The [current-angle faucet foot comparison](../printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/physical-result.json)
+The [current-angle faucet foot comparison](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/stock-vs-tree/mark2/physical-result/physical-result.json)
 records Derek's completed comparison and nine photographs for Mark2 task
 1340828943. He reports stock fins strictly worse on the important front surface
 because of the missing front support, easy fin snap-off, a generally uniform
@@ -88,23 +88,23 @@ bottom face and clear sag. Many other regions he worried about printed okay.
 The necessary support count remains open; easy stock-wall release does not
 establish release for the denser Full-mode layout. Mating fit and quantified
 sag remain unmeasured.
-The [single tip fin iteration](../printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/README.md)
+The [single tip fin iteration](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/README.md)
 is Mark2 task 1341048254: one tip joint section at −105°, eight Full-mode plain
 fin walls and the 125% bridge-flow/70% cooling/15 mm/s Bridge recipe. Its
-[finished result](../printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
+[finished result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-tip-fins/mark2/physical-result/physical-result.json)
 records the best observed bottom-side rim appearance and a still-rough opposite
-side. The [Full-annulus Mark1 result](../printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
+side. The [Full-annulus Mark1 result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-foot-fins-current-angle/full-annulus/mark1/physical-result/physical-result.json)
 reports tighter material but better underside and front-face finish with trees.
-The [two single edge-support candidates](../printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/README.md)
+The [two single edge-support candidates](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/README.md)
 are Mark1 tip task 1341173963, with added seam-side lip trees, and Mark2 base
 task 1341188908, with segmented curved rim walls and trees elsewhere. They
 retain the working material recipe and include no repeat controls. The
-[Mark2 arc-fin result](../printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
+[Mark2 arc-fin result](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json)
 accepts the best observed faucet underside, excellent edge support and very easy
 arc snap-off. The exact seven edge walls and narrow blocker strips are selected
 in the complete faucet project, with Tree(auto)/Default elsewhere. Physical
 acceptance covers this identified base section; assembled fit and a complete-height
-print with those arcs remain unreported. The [Mark1 tip physical failure](../printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
+print with those arcs remain unreported. The [Mark1 tip physical failure](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/tip-mark1/physical-result/physical-result.json)
 records a detached male-insertion section and loose strands despite completed
 telemetry. Its first plug bead at Z0.44 has no lower-bead bearing. The
 [prepared root-anchor correction](../printed-parts/faucet/finish-coupons/2026-10-15-tip-root-anchor/README.md)
@@ -118,7 +118,7 @@ is Mark2 base task `1342687225` and Mark1 tip, cover, rigid plate and lever task
 `1342697013`. It retains the accepted arcs, tip supports and hidden-root disc,
 plus the selected finish and material settings, with no repeat controls.
 The complete faucet's physical result remains unreported. The
-[foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
+[foot and first-shoulder material pair](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 
 The [PET-GF fin screening plate](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/README.md) compares
@@ -252,7 +252,7 @@ linked here are the authority for each observation, including their print bindin
 
 ## Rear identification and DATA frame
 
-The [rear label set](../printed-parts/drain-readiness/README.md) uses 32 mm faces.
+The [rear label set](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/drain-readiness/README.md) uses 32 mm faces.
 The six fluid labels have rounded lower corners. Accepted nameplate and
 display-cover results retain their identified geometry and print scope.
 
@@ -267,7 +267,7 @@ lines do not qualify cleanup. The [front-only flush roof and sliding frame](http
 remove the fixed inward roof ledge, retain complete silicone brim bearing and
 clear the existing back-top in the native seated and insertion checks.
 Revised print cleanup, surface finish and assembled fit remain unqualified.
-The [front-top tree-clearance trial](../printed-parts/enclosure/enclosure/support-bottom-gap/README.md)
+The [front-top tree-clearance trial](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/support-bottom-gap/README.md)
 uses a modest part-specific XY increase for trunk side contact; a Bottom Z
 increase does not separate those contacts in the reference native slice.
 The accepted tee-carrier surface and sliding-fit results retain their scope.
@@ -279,7 +279,7 @@ Derek requests a tighter hand fit in the front-top valve sockets. The
 compare Ø7.20, 7.10, 7.00, 6.90 and 6.80 mm holes in the production print
 orientation. The earlier [Ø7.20 coupon acceptance](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
 covers easy insertion with zip ties for positive retention. The
-[current hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
+[current hand-fit selection](https://github.com/derekbreden/homesodamachine/blob/9a785be8163fcb13a7efd24e78b249419bc0806e/hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
 from those samples sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
 conditional alternate for a valve or print orientation that does not fit V69 well.
 The shared seat keeps its exterior envelope. The
