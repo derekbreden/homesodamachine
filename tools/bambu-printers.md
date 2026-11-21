@@ -45,8 +45,8 @@ Derek's request to start a print on a printer confirms that its bed is clear.
 Proceed without a separate bed-clear question. Check the printer's current job,
 material and nozzle mapping, print errors, and shared-circuit startup spacing.
 
-`status` reports the job state and, for each machine, its two external spools and every
-nozzle it knows.
+`status` reports the job state and task number (`job_id`) and, for each machine, its two
+external spools and every nozzle it knows.
 
 - `gcode_state` is the state of the last job until the next one starts. `FINISH` and
   `FAILED` (a cancelled print) are both idle: the machine takes a job and the send dialog
@@ -68,6 +68,9 @@ the card; its location differs between the left and right nozzle. The sender
 uses the captured choice's position and verifies the resulting external-spool
 tile in the same nozzle column. Missing or ambiguous choices stop the operation.
 Window resizing and fullscreen are not part of filament selection.
+Mark1's dialog opened with the left tile unresolved both times it was opened for the
+[2026-11-20 aft-snap coupon](../hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/launch.json),
+whose sliced type and colour matched the spool; Mark2's send the same day mapped by itself.
 
 ## Placement on unseasoned plates
 
@@ -297,6 +300,14 @@ Bambu Connect’s window using ScreenCaptureKit; macOS Screen Recording access i
 required for unresolved mappings. The previous application and pointer are
 restored when the transaction ends. Input stops if another application takes focus.
 
+macOS gives these commands the privacy permissions of the application it holds
+responsible for the shell that runs them: Codex for a Codex task, Claude Code for a
+session in the Claude desktop application, the terminal for a shell opened there.
+Claude Code has its own entries in System Settings, apart from Claude's. That
+application needs Accessibility for every step and Screen Recording for the filament
+picker. A refusal names the application that lacks one, and without Screen Recording
+the filament tile is left unclicked. Derek grants it under Privacy & Security.
+
 The sender checks the archive's embedded G-code checksum, the target printer, each active
 nozzle's external spool type and colour, and the standing print options. It supports one
 external filament per active nozzle on a single sliced H2C plate. Spool quantity is not a
@@ -375,7 +386,8 @@ tools/bambu-ax/bambu-ax click <x> <y> [x y ...]
 
 `press`, `act` and `value` take a label substring or a `#n` from `tree`, narrowed with
 `--role` and `--nth`. Each one reports whether the frontmost application changed, so a step
-that costs the screen says so. Accessibility trust comes from the calling process.
+that costs the screen says so. Accessibility trust comes from the application responsible
+for the calling shell, as [Print submission](#print-submission) describes.
 
 ### The procedure
 
@@ -419,8 +431,9 @@ that costs the screen says so. Accessibility trust comes from the calling proces
    application has taken the job, so a dialog still open after the press is a press
    that did not land.
 7. **Verify with the printer.** `hsm-printer status <name>` reports `PREPARE` within
-   seconds and then `RUNNING` with the archive's name as `subtask_name`. A 47 MB archive
-   took under ten seconds to land. Record the reading with the job.
+   seconds and then `RUNNING` with the archive's name as `subtask_name` and the new task
+   as `job_id`. A 47 MB archive took under ten seconds to land. Record the reading with
+   the job.
 
    The dialog can close and no job arrive: the job id does not move, the printer's
    `upload` block stays idle, and nothing lands late. This happened to three Mark2 sends
@@ -436,8 +449,11 @@ that costs the screen says so. Accessibility trust comes from the calling proces
 
 ### What the application will not show
 
-The printer selector and filament popover are outside the accessibility tree.
-An `AXPress` on their `AXGroup` divs does not synthesize a Chromium click.
+The printer selector and filament popover are outside the accessibility tree: with
+the printer list open on screen, the tree holds the dialog alone and none of the
+list's rows. An `AXPress` on the selector's or the filament tile's `AXGroup` opens its
+list, which stays open while Bambu Connect stays in the background. A row of it has no
+element to press and takes mouse input alone.
 The shared filament picker combines foreground mouse input, a capture of the
 Bambu Connect window and native Vision text recognition. It requires a single
 matching external choice under the External heading, retains every visible
