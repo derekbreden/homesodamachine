@@ -22,12 +22,12 @@
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
-    "gcode": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.gcode.3mf plate_1.gcode, object 1901",
-    "gcode_sha256": "530309914f2d74b37e557b15e5a052db86da012e223137a337b6075797716b75",
+    "gcode": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-d7a5159a/2026-11-20-foam-cap-lid-top-mark1-d7a5159a.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "9b36b1cc37cb5bf04425bf81cdb9d1f967c425976a2e44cda6819e6a171f7413",
     "model": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-    "model_sha256": "301555ac3403fdeba32669d0bb5369d15dd1033cc84ea964129982bd2f7f42eb",
-    "profile": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.3mf",
-    "profile_sha256": "a7bf8d3d8f08b7d963ae1ad9beeaab378e118dc9218edbe97a4a13d172f0ef08"
+    "model_sha256": "4dd6207248ed4edf0c0ca912f84ab4e4e4a9721226541d25d7a2e59ab6e286f2",
+    "profile": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-d7a5159a/2026-11-20-foam-cap-lid-top-mark1-d7a5159a.3mf",
+    "profile_sha256": "bc7bd1f1142c6d97afb40349aead087d12b961d4a12a1544e240e2a67d29681c"
   },
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
   "interfaces": [

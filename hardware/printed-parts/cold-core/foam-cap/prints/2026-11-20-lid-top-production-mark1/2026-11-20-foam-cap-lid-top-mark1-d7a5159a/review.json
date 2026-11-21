@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.gcode.3mf",
-  "archive_sha256": "e635913d15509b5497b4d7871004e5c3b9f4c3bdedf50659571322adde1dd76c",
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-d7a5159a/2026-11-20-foam-cap-lid-top-mark1-d7a5159a.gcode.3mf",
+  "archive_sha256": "cfaa390c5cf647cd8c81b7f3c9905441867166d8a3f8652165e8c9a60370ecef",
   "bead_envelope_plate_mm": [
     [
       20.3282395,
@@ -37,9 +37,9 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9953745999793768,
-      "second_layer_centerline_outside_first_mm": 57.027437846833216,
-      "second_layer_model_bead_area_mm2": 49678.821465398934
+      "fraction_over_first_layer": 0.9953746061796195,
+      "second_layer_centerline_outside_first_mm": 57.03349660807792,
+      "second_layer_model_bead_area_mm2": 49678.82063065626
     }
   },
   "gcode_md5_matches": true,
@@ -111,8 +111,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9935901730876605,
-      "minimum_outline_coverage": 0.993489786371433,
+      "minimum_coverage": 0.9935894562245036,
+      "minimum_outline_coverage": 0.9934660980476544,
       "name": "Reservoir A aft C2 pair and lid root",
       "object": 1901,
       "plate_bounds_mm": [
@@ -123,28 +123,28 @@
         ],
         [
           104.03682972649912,
-          222.91348637697664,
+          222.99759929831816,
           25.135663655251165
         ]
       ],
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9999820727487855,
-          "infill_core_mm2": 278.90500000000003,
-          "outline_coverage": 0.9938618709895306,
+          "coverage": 0.9999821501883155,
+          "infill_core_mm2": 280.11500000000007,
+          "outline_coverage": 0.9941529336433795,
           "print_z_mm": 4.76,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 296.1000000000001
+          "stock_mm2": 296.7300000000001
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9935901730876605,
-          "infill_core_mm2": 111.93750000000003,
-          "outline_coverage": 0.993489786371433,
+          "coverage": 0.9935894562245036,
+          "infill_core_mm2": 111.53500000000003,
+          "outline_coverage": 0.9934660980476544,
           "print_z_mm": 14.84,
           "sampling_step_mm": 0.05,
-          "stock_mm2": 128.26000000000002
+          "stock_mm2": 127.79500000000003
         },
         {
           "bead_radius_inset_mm": 0.225,
@@ -159,12 +159,12 @@
       "source_bounds_mm": [
         [
           -70.19999999999999,
-          39.42500000000001,
+          39.425000000000004,
           4.400000000000006
         ],
         [
           -57.613170273500884,
-          62.913486376976635,
+          62.997599298318164,
           25.135663655251165
         ]
       ]

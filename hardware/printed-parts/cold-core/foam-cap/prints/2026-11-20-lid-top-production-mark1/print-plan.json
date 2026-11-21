@@ -5,8 +5,8 @@
   "printer": "Mark1",
   "connection_key": "H2C",
   "status": "prepared",
-  "prepared_utc": "2026-11-20T23:46:40+00:00",
-  "source_revision": "8f30c1ec6f0bd8788689de04d989d5bcb1a0f8cc",
+  "prepared_utc": "2026-11-21T01:54:46+00:00",
+  "source_revision": "e4be924e87f99b6b56dc71cba72085ac37377d00",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,27 +24,27 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "3a24377d906c58a1e5fbf2997173a60433e9e3412178cabfdc148485496b8611",
+  "recipe_sha256": "f5e77046606aeee39d4436bdc710c7fd2376d26e03ca80159c6488b0269c0a1d",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-  "source_stl_sha256": "301555ac3403fdeba32669d0bb5369d15dd1033cc84ea964129982bd2f7f42eb",
+  "source_stl_sha256": "4dd6207248ed4edf0c0ca912f84ab4e4e4a9721226541d25d7a2e59ab6e286f2",
   "source_fine_archive": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
-  "source_fine_archive_sha256": "263885d73db5ca835c195ae25c524b291f5becb3bfded8716ba54cd3ed01118a",
+  "source_fine_archive_sha256": "5e7e382d9d8cfc8dae76bd5dc71dd3fbb5428934e52f14428485471fcf6026bb",
   "print_regions": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-  "print_regions_sha256": "2055f80eab18b9681df11c638aea7e00023a21f1e6d10024edc0a93b38aef7c3",
-  "archive": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.gcode.3mf",
-  "archive_sha256": "e635913d15509b5497b4d7871004e5c3b9f4c3bdedf50659571322adde1dd76c",
-  "gcode_sha256": "530309914f2d74b37e557b15e5a052db86da012e223137a337b6075797716b75",
-  "project": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.3mf",
-  "project_sha256": "a7bf8d3d8f08b7d963ae1ad9beeaab378e118dc9218edbe97a4a13d172f0ef08",
-  "preparation": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/preparation.json",
-  "native_review": "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/review.json",
+  "print_regions_sha256": "812c8538a099ca90ed591d83253065987c1ee4219c464f5aa44f083ec9186eee",
+  "archive": "2026-11-20-foam-cap-lid-top-mark1-d7a5159a/2026-11-20-foam-cap-lid-top-mark1-d7a5159a.gcode.3mf",
+  "archive_sha256": "cfaa390c5cf647cd8c81b7f3c9905441867166d8a3f8652165e8c9a60370ecef",
+  "gcode_sha256": "9b36b1cc37cb5bf04425bf81cdb9d1f967c425976a2e44cda6819e6a171f7413",
+  "project": "2026-11-20-foam-cap-lid-top-mark1-d7a5159a/2026-11-20-foam-cap-lid-top-mark1-d7a5159a.3mf",
+  "project_sha256": "bc7bd1f1142c6d97afb40349aead087d12b961d4a12a1544e240e2a67d29681c",
+  "preparation": "2026-11-20-foam-cap-lid-top-mark1-d7a5159a/preparation.json",
+  "native_review": "2026-11-20-foam-cap-lid-top-mark1-d7a5159a/review.json",
   "support_audits": [
-    "2026-11-20-foam-cap-lid-top-mark1-01e65ae0/support-audit-1901.json"
+    "2026-11-20-foam-cap-lid-top-mark1-d7a5159a/support-audit-1901.json"
   ],
   "layers": 224,
-  "estimated_seconds": 42407.370969488904,
+  "estimated_seconds": 42417.76174735416,
   "minimum_bead_bed_margin_mm": 20.262,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
@@ -75,9 +75,9 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 21616
+      "vertices": 21629
     }
   ],
-  "replay_sha256": "5d913f716cc7445288e25d622f1b1d13d91cd99b26e5ffcbefa60e2f45589a5d",
-  "replay": "print-playbacks/5d913f716cc7445288e25d622f1b1d13d91cd99b26e5ffcbefa60e2f45589a5d.json.gz"
+  "replay_sha256": "81eb321d4e58763d60701046b33b0eb8e22596c5682ddba08160ef415c557453",
+  "replay": "print-playbacks/81eb321d4e58763d60701046b33b0eb8e22596c5682ddba08160ef415c557453.json.gz"
 }
