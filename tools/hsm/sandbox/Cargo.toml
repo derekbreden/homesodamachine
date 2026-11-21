@@ -91,6 +91,10 @@ path = "../../../hardware/faucet-layout/pullout-concept/concept.rs"
 name = "faucet-direct-valve"
 path = "../../../hardware/faucet-layout/pullout-concept/direct-valve/direct_valve.rs"
 
+[[example]]
+name = "faucet-acetal-valve"
+path = "../../../hardware/faucet-layout/pullout-concept/acetal-valve/valve.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true
