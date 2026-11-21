@@ -439,6 +439,10 @@
           "context": true
         },
         {
+          "file": "faucet-layout/pullout-concept/acetal-valve/moving-assembly.step",
+          "context": true
+        },
+        {
           "file": "faucet-layout/pullout-concept/acetal-valve/exploded.step",
           "context": true
         }
