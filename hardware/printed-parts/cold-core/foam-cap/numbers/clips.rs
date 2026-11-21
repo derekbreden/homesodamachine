@@ -5,6 +5,9 @@
 use crate::P3;
 use crate::design::above_core;
 use crate::reservoir_a;
+use anyhow::{Context, Result};
+use hsm_cold_core_layout::cap::cap_face_z;
+use hsm_layout_data::Segment;
 
 /// The accepted C2 seat's jaw tips, in degrees off its root's plane.
 pub const TIP_DEGREES: f64 = 125.42102606277044;
@@ -25,6 +28,37 @@ pub struct Clip {
 pub const FEED_RADIUS: f64 = 6.35 / 2.;
 pub const FEED_WING: f64 = 2.4;
 pub const FEED_SPAN: f64 = 8.;
+
+/// The round-ended slot across both wings of the V-B return clip.
+pub const RETURN_SLOT_WIDTH: f64 = 2.;
+
+/// The level arc the return clip shares with the tube between V-B and Y-B.
+pub struct ReturnBend {
+    pub centre: P3,
+    pub points: [P3; 3],
+    pub degrees: f64,
+}
+
+pub fn vb_return_bend() -> Result<ReturnBend> {
+    above_core().fore_routes.native_segments.vb_return.iter().find_map(|run| match run {
+        Segment::Arc { points_mm, center_mm: Some(c), angle_rad: Some(angle), .. } =>
+            Some(ReturnBend { centre: *c, points: *points_mm, degrees: angle.to_degrees() }),
+        _ => None,
+    }).context("V-B's outlet route needs its lid bend")
+}
+
+impl ReturnBend {
+    /// The clip's infill region, from the lid below its root to the tops of the wings.
+    pub fn stock_bounds(&self) -> [P3; 2] {
+        let [start, _, end] = self.points;
+        let radius = reservoir_a::pair::BORE / 2.;
+        let wing = reservoir_a::pair::WING;
+        let outer = radius + wing;
+        let tip = start[2] - (radius + wing / 2.) * TIP_DEGREES.to_radians().cos() + wing / 2.;
+        [[end[0] - outer, end[1], cap_face_z() - reservoir_a::pair::FLOOR],
+         [start[0], start[1] + outer, tip]]
+    }
+}
 
 /// A flavor line's seat: a bore just over the flavor line's size, the jaws' section and the span.
 pub const FLAVOR_RADIUS: f64 = 4.1 / 2.;

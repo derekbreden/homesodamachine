@@ -6,8 +6,7 @@ fn owners(name: &str) -> Option<[&'static str; 2]> {
     match name {
         "drain-vb-east-link" => Some(["drain-outlet-stem", "vb-inlet-turn"]),
         "drain-vb-inlet-link" => Some(["vb-inlet-turn", "valve-v-b"]),
-        "vb-yb-cross" => Some(["vb-outlet-stem", "vb-outlet-return"]),
-        "vb-yb-link" => Some(["vb-outlet-return", "yb-stem-elbow"]),
+        "vb-yb-link" => Some(["vb-outlet-stem", "yb-stem-elbow"]),
         _ => None,
     }
 }
@@ -60,20 +59,6 @@ fn tube(fore: &Value, name: &str, raw: &Value, id: &str) -> Result<Tube> {
                 line(*c.last().unwrap(), *points.last().unwrap()),
             ]);
         }
-    } else if segments.is_none() && name == "vb-yb-link" {
-        let control = fore
-            .get("vb_return_control_mm")
-            .unwrap_or(&fore["b_plumbing"]["return_control_mm"]);
-        let c = points3(control)?;
-        let crown = fore["b_plumbing"]["return_crown_mm"].as_f64().unwrap_or(0.);
-        let mut s = vec![line(points[0], c[0])];
-        if crown != 0. {
-            s.extend(crowned_beziers(&c, crown, 16)?);
-        } else {
-            s.push(bezier(&c));
-        }
-        s.push(line(*c.last().unwrap(), *points.last().unwrap()));
-        segments = Some(s);
     }
     let segments = segments
         .filter(|s| !s.is_empty())

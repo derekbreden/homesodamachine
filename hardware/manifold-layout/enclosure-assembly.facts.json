@@ -1872,20 +1872,12 @@
    375.7225366961211,
    321.4402136588469
   ],
-  "tube-above-core-vb-yb-cross": [
-   6.425866038538516,
-   275.2187400003895,
-   277.2350000003353,
-   39.55863390583545,
-   281.568740000017,
-   283.58499999996275
-  ],
   "tube-above-core-vb-yb-link": [
    -28.398641753010452,
    169.98109016288072,
    276.0452187517658,
-   4.738476037979126,
-   273.5313499998301,
+   39.55863390583545,
+   281.568740000017,
    283.58499999996275
   ],
   "tube-above-core-water-split-stub": [
@@ -2199,14 +2191,6 @@
    48.82998646796103,
    225.61688752928018,
    291.52699593094195
-  ],
-  "vb-outlet-return": [
-   -6.5304044540545245,
-   257.8313500003719,
-   272.2440766532347,
-   22.125866037836083,
-   286.5596633467653,
-   288.57592334676536
   ],
   "vb-outlet-stem": [
    22.667630000039935,
@@ -3319,7 +3303,6 @@
    "tube-above-core-tee-regulator",
    "tube-above-core-tee-vk-link",
    "tube-above-core-va-fore-feed",
-   "tube-above-core-vb-yb-cross",
    "tube-above-core-vb-yb-link",
    "tube-above-core-water-split-stub",
    "tube-drain-vent",
@@ -3360,7 +3343,6 @@
    "valve-v-i",
    "valve-v-j",
    "vb-inlet-turn",
-   "vb-outlet-return",
    "vb-outlet-stem",
    "vk-solenoid",
    "wago-g",
@@ -3582,10 +3564,10 @@
    "to": "valve-v-b.inlet"
   },
   {
-   "corners": 1,
+   "corners": 2,
    "frm": "valve-v-b.outlet",
    "id": "fluid-5",
-   "length": 145.00899785016287,
+   "length": 148.72492642529141,
    "made": "drawn",
    "missing_fittings": [],
    "missing_native_routes": [],

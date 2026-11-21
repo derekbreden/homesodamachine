@@ -1321,14 +1321,14 @@
       {
         "point_mm": [
           -60,
-          283,
+          289,
           256.1
         ]
       },
       {
         "point_mm": [
-          5,
-          283,
+          18.65,
+          289,
           256.1
         ]
       }
@@ -1340,7 +1340,7 @@
       8
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors."
+    "note": "The supply ground crosses aft of the V-B return clip and reaches the distribution junction along its open socket axis."
   },
   "DC1-V12": {
     "stations": [
@@ -1416,8 +1416,22 @@
       },
       {
         "point_mm": [
-          5,
+          -7.1,
           283,
+          260.1
+        ]
+      },
+      {
+        "point_mm": [
+          -7.1,
+          258.8,
+          260.1
+        ]
+      },
+      {
+        "point_mm": [
+          5,
+          258.8,
           260.1
         ]
       },
@@ -1443,16 +1457,23 @@
       8
     ],
     "route_status": "selected_layout",
-    "note": "Dressed through the fixed cable seats and open aisles around the completed equipment. Only larger installed bodies constrain the insulated conductors."
+    "note": "The supply lead passes between the PCB edge and the west side of the V-B clip, then crosses ahead of the clip to its junction."
   },
   "DC4-GND": {
     "stations": [
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -15.299998896484365,
-          8.302970420050428,
-          0.29333613333335506
+          0,
+          25.8,
+          0
+        ]
+      },
+      {
+        "point_mm": [
+          -22.5,
+          288.6442,
+          262.56
         ]
       }
     ],
@@ -1463,7 +1484,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Local dressing around the V-B valve, return bearing and connected tubing; electrical endpoints, cable passages and fixed retainers retain their datums.",
+    "note": "The board ground leaves the junction along its socket axis and crosses to the board aft of the V-B return clip.",
     "endpoint_tangent_fraction": 0.9
   },
   "DC4-V12": {
@@ -2867,19 +2888,31 @@
         ]
       },
       {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          -13.5,
-          49.7558,
-          -12.83333
+        "point_mm": [
+          8.9,
+          259,
+          269.8
         ]
       },
       {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          -17.5,
-          57.7558,
-          -14.83333
+        "point_mm": [
+          9.2,
+          266.4,
+          268
+        ]
+      },
+      {
+        "point_mm": [
+          19.9,
+          268.6,
+          266.7
+        ]
+      },
+      {
+        "point_mm": [
+          19.9,
+          280,
+          266.66667
         ]
       },
       {
@@ -2929,7 +2962,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "selected_layout",
-    "note": "Dressed through the named retained guides and clear of larger installed bodies. Wires and tubing do not obstruct conductors."
+    "note": "The flow-meter ground passes through the inside of the bend and clears the valve end of the V-B clip before crossing to the east aisle."
   },
   "J5-GND": {
     "stations": [

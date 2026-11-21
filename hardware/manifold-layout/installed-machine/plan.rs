@@ -200,7 +200,6 @@ pub fn placement_metadata(root: &Path, equipment_request: &Equipment, runs: Vec<
     let keystone = &above["rear_wall"]["dry_openings"]["keystone"]["face_center_mm"];
     let core = design::read_document(&root.join("hardware/cold-core-layout/cold-core-assembly.scene.npz"))?;
     let core_equipment = hsm_layout_data::equipment_names();
-    let cap = design::read(root.join("hardware/printed-parts/cold-core/foam-cap/foam-cap.numbers.json"))?;
     let casing = design::read(root.join("hardware/printed-parts/cold-core/foam-assembly/foam-assembly.numbers.json"))?;
     let probes: Vec<Value> = casing["report"]["probes"].as_array().context("the casing's probes")?
         .iter().map(|probe| probe["name"].clone()).collect();
@@ -221,7 +220,6 @@ pub fn placement_metadata(root: &Path, equipment_request: &Equipment, runs: Vec<
         "core_alpha_by_name": core.get("alpha_by_name").cloned().unwrap_or(json!({})),
         "wiring_placements": wiring_placements(root)?,
         "wall_mount_datums": wall_mounts(equipment_request)?,
-        "union_supports": cap["union_supports"],
         "cap_conduits": probes,
         "manifold_tube_holders": holders["holders"],
     });

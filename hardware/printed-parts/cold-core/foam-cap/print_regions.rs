@@ -4,7 +4,7 @@
 //!     foam-cap-print-regions [--out FILE]
 //!
 //! Each region is a box of full zig-zag infill through a retention feature and the plate or wall
-//! that roots it: reservoir A's fore pair's shared base and its aft pair, the casing's M5 hosts and
+//! that roots it: reservoir A's fore pair's shared base and its aft pair, the V-B return clip, the casing's M5 hosts and
 //! head bearings, and the PCB deck's insert posts. A box intersects existing material and adds no geometry; it
 //! is clipped to its piece's current mesh, and the record binds each piece's STEP and STL, so
 //! print preparation refuses a piece whose exports have moved since. It reads the cap's numbers
@@ -13,7 +13,7 @@
 use anyhow::{bail, Context, Result};
 use hsm_cold_core_interface as core;
 use hsm_cold_core_layout::cap::world_to_cap;
-use hsm_foam_cap_numbers::{deck, fits, reservoir_a};
+use hsm_foam_cap_numbers::{clips, deck, fits, reservoir_a};
 use serde_json::{json, Map, Value};
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
@@ -95,7 +95,8 @@ fn main() -> Result<()> {
     let lid = bounds["foam-cap-lid-top"];
     let mut lid_rows = Vec::new();
     for (name, [low, high]) in [("Reservoir A fore direct C2 pair and lid root", reservoir_a::pair().base),
-                                ("Reservoir A aft C2 pair and lid root", reservoir_a::aft_body())] {
+                                ("Reservoir A aft C2 pair and lid root", reservoir_a::aft_body()),
+                                ("V-B return clip and lid root", clips::vb_return_bend()?.stock_bounds())] {
         let mut native = [f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY];
         for x in [low[0], high[0]] {
             for y in [low[1], high[1]] {
@@ -137,7 +138,7 @@ fn main() -> Result<()> {
     }
 
     let sources = ["hardware/printed-parts/cold-core/foam-cap/print_regions.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs",
-                   "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
+                   "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
                    "hardware/printed-parts/cold-core/interface/lib.rs", "hardware/cold-core-layout/layout/cap.rs", "hardware/manifold-layout/above-core.json"];
     let mut source_sha = Map::new();
     for s in sources {
@@ -146,7 +147,7 @@ fn main() -> Result<()> {
     let frames: Map<String, Value> = paths.iter().map(|(name, _)| (name.to_string(),
         json!("Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates."))).collect();
     let record = json!({
-        "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+        "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, the V-B return clip, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
         "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
         "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
         "coordinate_frames": frames, "source_sha256": source_sha, "native_artifact_sha256": meshes,

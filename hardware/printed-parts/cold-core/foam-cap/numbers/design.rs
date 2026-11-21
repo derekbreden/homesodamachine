@@ -1,7 +1,7 @@
 //! The written-down designs the cap's numbers are read from: the above-core design
 //! (`hardware/manifold-layout/above-core.json`), where the parts on the crown stand and how the
 //! pump is held; reservoir A's routes (`reservoir-a-routes.json` beside it); and the G Ganen
-//! pump's scanned envelope and the JG elbow's measured body, from their references.
+//! pump's scanned envelope.
 use crate::P3;
 use hsm_cold_core_layout::cap::Pose;
 use serde::{Deserialize, Serialize};
@@ -33,12 +33,6 @@ pub struct Parts {
 }
 
 #[derive(Deserialize)]
-pub struct Snapshots {
-    #[serde(rename = "vb-outlet-return")]
-    pub vb_outlet_return: Placed,
-}
-
-#[derive(Deserialize)]
 pub struct VbMount {
     pub seat_wall_bounds_mm: [P3; 2],
 }
@@ -51,7 +45,14 @@ pub struct FeedSnap {
 }
 
 #[derive(Deserialize)]
+pub struct ForeSegments {
+    #[serde(rename = "vb-yb-link")]
+    pub vb_return: Vec<hsm_layout_data::Segment>,
+}
+
+#[derive(Deserialize)]
 pub struct ForeRoutes {
+    pub native_segments: ForeSegments,
     pub va_feed_snap: FeedSnap,
 }
 
@@ -78,7 +79,6 @@ pub struct PumpMount {
 #[derive(Deserialize)]
 pub struct AboveCore {
     pub parts: Parts,
-    pub snapshots: Snapshots,
     pub vb_mount: VbMount,
     pub cap_guides_world_mm: BTreeMap<String, P3>,
     pub gas_guide_world_mm: P3,
@@ -201,33 +201,5 @@ pub fn pump_reference() -> &'static PumpReference {
             "../../../../reference/g-ganen-pump/reference-parameters.json"
         ))
         .expect("the pump's reference parameters parse")
-    })
-}
-
-// --- The JG elbow's measured body --------------------------------------------------------------
-
-#[derive(Deserialize)]
-pub struct Leg {
-    /// Stations along the leg and the fixed body's radius at each.
-    pub fixed_body: Vec<[f64; 2]>,
-}
-
-#[derive(Deserialize)]
-pub struct Legs {
-    pub z: Leg,
-}
-
-#[derive(Deserialize)]
-pub struct ElbowScan {
-    pub profiles: Legs,
-}
-
-pub fn elbow_scan() -> &'static ElbowScan {
-    static SCAN: OnceLock<ElbowScan> = OnceLock::new();
-    SCAN.get_or_init(|| {
-        serde_json::from_str(include_str!(
-            "../../../../reference/jg-pp0308e-elbow/scan-measurements.json"
-        ))
-        .expect("the JG elbow's scan parses")
     })
 }

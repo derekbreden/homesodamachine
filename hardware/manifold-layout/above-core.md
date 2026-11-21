@@ -105,9 +105,9 @@ is Z290.289 and its collar clears the frame by 1.713 mm. V-B’s inlet turn and
 the attached drain outlet elbow share a 12.725° descending axis. Their straight
 36.469 mm tube includes both 16.891 mm socket engagements and has 2.687 mm
 exposed tube.
-Its return to Y-B retains at least R24.66; the cross-link has 0.542 mm
-exposed tube between full insertions. Complete
-these connections through the uncovered funnel opening before fitting the frame.
+The outlet tube leaves the V-B stem on its socket axis, turns toward the front
+in the split clip on the lid, then curves into the Y-B stem. Both socket
+engagements are straight. Complete these connections through the uncovered funnel opening before fitting the frame.
 
 The two black 4 mm dispense lines use the east pump aisle and approach the
 Z264 rear sockets from below the meter. Flavor A has an upward-opening crossover snap at

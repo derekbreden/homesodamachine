@@ -31,11 +31,6 @@ pub fn unit(a: P3) -> P3 {
     mul(a, 1. / norm(a))
 }
 
-/// The distance between two points.
-pub fn dist(a: P3, b: P3) -> f64 {
-    (a[0] - b[0]).abs().hypot(a[1] - b[1]).hypot(a[2] - b[2])
-}
-
 /// Each axis's least and greatest over `points`.
 pub fn bounds(points: &[P3]) -> [P3; 2] {
     let mut lo = [f64::INFINITY; 3];

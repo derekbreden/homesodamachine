@@ -5,8 +5,7 @@ drinking-water elbow: a vendor STEP close to, but not the same as, the
 **John Guest PP0308E** 1/4" union elbow, black PP. It is a reference only;
 nothing in the machine places it.
 
-The machine's PP0308E, the V-B return union in the [parts list](/hardware/ledger/bom.md), is
-the scanned [PP0308E reference](/hardware/reference/jg-pp0308e-elbow/README.md).
+The [PP0308E scan](/hardware/reference/jg-pp0308e-elbow/README.md) describes the actual fitting in shop stock.
 
 ## Geometry (measured from the STEP)
 

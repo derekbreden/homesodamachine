@@ -28,7 +28,7 @@ The complete enclosure print includes the four shell quadrants (front-top, front
 back-top, back-bottom), lower pump retainer, machine display cover, drop-in
 funnel frame and six rear identification labels. The
 [cold-core equipment lid](../cold-core/foam-cap/README.md) carries its PCB posts,
-V-B wall and fitting bearings as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
+V-B wall and curved return tube clip as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
 [bores](pump-dock/README.md#tees-and-tee-wall), each branch collet extended in the collet plate's
 hole ahead of the bore face. The front flanks are continuous across the fixed dock room.
 

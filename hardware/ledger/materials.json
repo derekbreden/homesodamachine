@@ -765,15 +765,6 @@
             ]
           },
           {
-            "material": "HSM-0074",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "vb-outlet-return"
-            ],
-            "note": "V-B return union."
-          },
-          {
             "material": "HSM-0048",
             "quantity": 1,
             "unit": "ea",
@@ -799,15 +790,6 @@
             "unit": "ea",
             "bodies": [
               "tube-above-core-pump-inlet-link"
-            ],
-            "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
-          },
-          {
-            "material": "HSM-0463",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "tube-above-core-vb-yb-cross"
             ],
             "note": "One fitted run; drawn bends and stepped sections belong to this same tube."
           },
@@ -1820,7 +1802,8 @@
       ],
       "aliases": [
         "foam cap lid top",
-        "Foam cap lid top"
+        "Foam cap lid top",
+        "V-B return tube clip"
       ]
     },
     {
@@ -2591,10 +2574,6 @@
         {
           "file": "reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step"
         }
-      ],
-      "aliases": [
-        "vb-outlet-return",
-        "V-B return union"
       ],
       "documents": [
         {
@@ -4239,7 +4218,7 @@
     },
     {
       "id": "HSM-0286",
-      "description": "Funnel source tee inlet tube \u00b7 1/4 inch black LLDPE",
+      "description": "V-B outlet to Y-B return tube \u00b7 1/4 inch black LLDPE",
       "kind": "manufactured",
       "aliases": [
         "fluid-5",
@@ -7136,35 +7115,6 @@
         {
           "title": "Water-pump connections",
           "path": "assembly/internal-plumbing.md"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-0001"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0463",
-      "description": "Funnel source V-B outlet tube \u00b7 1/4 inch black LLDPE",
-      "kind": "manufactured",
-      "aliases": [
-        "tube-above-core-vb-yb-cross",
-        "above-core-vb-yb-cross",
-        "vb-yb-cross"
-      ],
-      "documents": [
-        {
-          "title": "Tube routing and cut stock",
-          "path": "manifold-layout/installed-machine/routes_plan.rs"
-        },
-        {
-          "title": "Above-core routes",
-          "path": "manifold-layout/above-core.md"
-        },
-        {
-          "title": "Fluid circuit",
-          "path": "topology/fluid-topology.md"
         }
       ],
       "contexts": [

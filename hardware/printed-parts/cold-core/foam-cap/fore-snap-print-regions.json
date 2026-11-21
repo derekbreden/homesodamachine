@@ -10,8 +10,8 @@
       ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "902dfa3a651faf994db73a4cd1ba0f8aca1bd4414b391d7e0cdc7e4d0bab0ad3",
-      ".stl": "4dd6207248ed4edf0c0ca912f84ab4e4e4a9721226541d25d7a2e59ab6e286f2"
+      ".step": "e25e5b6a1041257a1564fc6139d9512aeef13a089fa04e514172f2d9f2b81601",
+      ".stl": "86f875799528cdae6c38e08ee6c3c5b661844d598d2ca097f9a3c13aa28b3f2f"
     },
     "foam-shell": {
       ".step": "2c9eb6734711ae15471c52e53e565c6a6c1273024f642b742e78c39dfd45c173",
@@ -289,6 +289,35 @@
           394.0,
           250.4,
           271.13566365525116
+        ]
+      },
+      {
+        "applied_source_bounds_mm": [
+          39.83126000000004,
+          59.40626000000003,
+          -4.011523961791982,
+          15.563476038208018,
+          4.400000000000006,
+          38.14566365525121
+        ],
+        "machine_bounds_mm": [
+          39.83126000000004,
+          59.40626000000003,
+          -4.011523961791982,
+          15.563476038208018,
+          4.400000000000006,
+          38.14566365525121
+        ],
+        "name": "V-B return clip and lid root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "world_bounds_mm": [
+          -4.011523961791982,
+          15.563476038208018,
+          264.39374,
+          283.96873999999997,
+          250.4,
+          284.1456636552512
         ]
       },
       {
@@ -800,14 +829,15 @@
     ]
   },
   "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
-  "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+  "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, the V-B return clip, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
-    "hardware/manifold-layout/above-core.json": "ee6803906932b5aef8f2f4f60403708dcddbcc90380bdb64e82c4dc8de1147de",
+    "hardware/manifold-layout/above-core.json": "83e80580b7fbc656d385dec5cd1213876ada0c438780e4f36a08053c74d62e6d",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs": "2e22c230db94c81d0c4fe197c5488f4e708f6a8c20861677daf99005664d3122",
     "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "3c23dbfeb63228e1f57b28dc54b9352aded2b76fb97235d9881b826280653d86",
-    "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "3b8fb0538d8c909b8a6c963173f39da5199700513746251be749369a8e7d6e6d",
-    "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0888ea64bb7374960ce35c27e7918bce817a7b8d66b530a5dada42ca528908ec",
-    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "6caf3eb489c2c966d7b0706d873845738f7c626f44227e932d1a4c9711619011",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "11f2ad6dd8b09b2272b1217b5761489f4f220fb8487e5b61e44052644b8ab741",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0f34adc0acc449d45c526b24c53d6605aa403ac9332d39bb1611c68da4e0bb57",
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "ba175fc86544c4bbaeb0ef1720e6143ac22d38a20fbaecca4b2acb154fff767b",
     "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e"
   },
   "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."

@@ -68,6 +68,12 @@ The [top-lid print recipe](../../enclosure/trial-preparation/pieces.json) uses t
 tree support process. Remove the
 supports through the open receiver mouths and the underside inlet groove before assembly.
 
+The V-B return presses into a curved C2 seat that follows the tube from its
+valve-side tangent to its fore-going tangent. A round-bottomed radial slot
+splits both lips into independently opening wings. The floor under the tube is
+continuous. The [fit coupon](../../../print-tests/vb-return-clip/README.md)
+includes the full-height root and the lid under it.
+
 The V-A feed seats in the lid's C2 clip at world (16.608, 207.300, 268.970) mm.
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
 with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft fill/draw clips are the
@@ -134,11 +140,11 @@ lid's integral features above the lid face. The [kernel print and driver review]
 records the Rust meshes, saved recipes, emitted paths and driver envelopes.
 The [native M5 driver reading](m5-lid-driver-review.json) retains the native reference.
 
-The [local solid regions](fore-snap-print-regions.json) fill the M5 head bearings,
-PCB insert posts and their plate/floor roots at 100%. The same record carries
-the fore C2 root and shell M5 hosts. The `foam-cap-print-regions` program
-([`print_regions.rs`](print_regions.rs)) regenerates it from the cap's numbers and the current
-exported pieces; run it before preparing their native print projects.
+The [local solid regions](fore-snap-print-regions.json) give the V-B return clip,
+the reservoir A clip pairs, the casing screw hosts and head bearings, and the PCB
+insert posts solid infill through their roots. Before preparing a print project,
+regenerate the regions from the cap dimensions and the exported pieces with
+[`foam-cap-print-regions`](print_regions.rs).
 
 Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.md).
 

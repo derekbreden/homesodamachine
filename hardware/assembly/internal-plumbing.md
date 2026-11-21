@@ -45,8 +45,7 @@ mark the stop on the actual received fitting, then cut the stem to that depth
 plus any specified showing length. Y-A and Y-B take their stems to the
 PP0208E's measured 10.0 mm stop ([tee connector](/hardware/reference/tee-connector/README.md)).
 Keep the original sealing surface undamaged and verify the actual seated
-engagement before use. The JG union-elbow scan does not establish
-its hidden insertion stop.
+engagement before use.
 
 The carbonator's water-in adapter and the check's upward outlet elbow share
 one continuous white 1/4-inch tube. Combine the internal `water-in` CAD span
@@ -59,14 +58,11 @@ The V-A turn and feed belong to back-top, with their final connection at
 front-top's Y-A. Fit their bare low tube under the pump after the column is
 home, then add the east-turn union and forward feed
 ([assembly staging](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)). The
-V-B return bearing belongs to the core lid. Thread its retaining tie before
-seating the fitting. Keep the tie on the fixed body band and leave both
-release collets free.
+V-B return is one continuous length of black LLDPE between the valve outlet
+stem and the Y-B stem. The lid clip guides its bend.
 
 Prepare the funnel drain's outlet elbow and its straight link to V-B as
-described in the final connections below. The V-B return elbow's forward leg
-sits in the lid's filled pedestal. Thread its tie through the peaked passage
-before seating the elbow, then close the tie on the fixed body band.
+described in the final connections below.
 
 ## Procedure
 
@@ -347,9 +343,11 @@ downward into the core lid's upward-opening C2 clip at world
 (11, 254.5, 261.6) mm. Seat that tube before final dressing of
 `PE-carbonator` and `J4-V5`; keep both leads out of its loading approach.
 Release the tube from the lid clip before moving back-top for service.
-Seat J11 at the main board before the V-B return union and its flexible
-return tube go in; the return lies over J11
-([wiring](wiring.md)). The single Y-A stem points aft and slightly east. The
+Seat J11 at the main board before laying in the V-B return tube, which passes
+over J11. Seat the marked tube ends in the V-B outlet stem and the Y-B stem.
+Lay the bend over the curved seat and press each half down between its pair of
+wings. Both straight legs should leave the clip tangent to the seat.
+See [wiring](wiring.md) for J11 access. The single Y-A stem points aft and slightly east. The
 raised B connections clear that first elbow.
 
 The drain joint is made as the frame goes in, after commissioning. Snap its

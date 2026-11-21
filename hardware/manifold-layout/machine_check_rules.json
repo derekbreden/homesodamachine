@@ -954,10 +954,6 @@
       "va-outlet-elbow",
       "tube-carried"
     ],
-    "vb-outlet-return": [
-      null,
-      "tube-hung"
-    ],
     "reservoir-b-fill-lower": [
       "foam-assembly",
       "cap-pocket"
