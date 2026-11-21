@@ -48,6 +48,27 @@ show the poppet, balance piston, isolated spring, armature, pole bridges and
 winding. Blue marks the supply-side water; turquoise marks the small wet balance
 chamber. The near pressure walls and magnetic structure are cut for inspection.
 
+### Punched outlet seat
+
+A flat washer cut from cured food-contact EPDM sheet forms the stationary seat.
+The poppet is a turned stainless stem with an integral sealing lip. Its axial
+drill opens inside the lip and its cross-drill opens into the balance chamber.
+
+The washer drops into a locating step in the outlet cap. When the cap screws up
+to the metal shoulder on the sleeve, the sleeve's end face squeezes the washer
+around its outer rim. The squeezed rim seals the cap joint and the path behind
+the washer. A relief above the locating step gives displaced rubber room to
+spread. The steel floor supports the exposed inner band all the way to the
+throat. The sleeve mouth admits the poppet before the cap goes on.
+
+Turn the cap, the mating sleeve mouth and the poppet. Punch the washer's two
+diameters with a common center, drop it into the cap and tighten the cap from the
+dispense end using the blind pin holes. Choose the cap pocket depth from the
+measured sheet thickness. [Design data](custom-valve-design.json) gives the
+nominal squeeze, thread and bore sizes. The solids show mating thread envelopes
+and an illustrative shape for the squeezed rubber. The closing load and the
+washer's set and leakage need measurement on assembled valves.
+
 ## Bundle and dock
 
 The moving bundle contains reinforced beverage hose, separate smaller flavor
@@ -94,7 +115,8 @@ base, lever and display geometry.
 ## Generate
 
 `concept.rs` creates the native visualization and its design data through the
-explicit sandbox example. `render.json` fixes the cameras and display lighting.
+explicit sandbox example. `front_seat.rs` owns the turned wet-end profiles and
+the punched washer. `render.json` fixes the cameras and display lighting.
 The comparison uses the current faucet's exported solids as its reference.
 
 ```sh
