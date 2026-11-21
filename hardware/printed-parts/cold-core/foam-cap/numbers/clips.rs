@@ -71,7 +71,7 @@ pub const FLAVOR_SPAN: f64 = 8.;
 /// The V-A seat follows the bend from the board edge and continues onto the outgoing straight.
 pub struct FeedSeat {
     pub bend: SplitBend,
-    pub straight: Clip,
+    pub exit: P3,
     pub stock_bounds: [P3; 2],
 }
 
@@ -100,11 +100,10 @@ pub fn va_feed() -> Result<FeedSeat> {
     let on_arc = |angle: f64| [centre[0] + radius * angle.cos(), centre[1] + radius * angle.sin(), end[2]];
     let slot = on_arc(start_angle + (sweep + span / radius) / 2.);
     let bend = SplitBend { centre, start: on_arc(start_angle), slot, end, degrees: sweep.to_degrees() };
-    let straight = Clip { centre: add(end, mul(along, span / 2.)), along, radius: bore, wing: pair::WING, span, tip_degrees: TIP_DEGREES };
     let exit = add(end, mul(along, span));
     let bounds = stock_bounds([west, centre[1] - radius - outer],
         [exit[0] + along[1].abs() * outer, centre[1] + (radius - outer) * start_angle.sin()], end[2]);
-    Ok(FeedSeat { bend, straight, stock_bounds: bounds })
+    Ok(FeedSeat { bend, exit, stock_bounds: bounds })
 }
 
 /// The crossover's seat, along X beside V-B's wall; its root joins the wall.

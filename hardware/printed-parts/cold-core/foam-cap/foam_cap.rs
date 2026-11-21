@@ -622,17 +622,24 @@ fn turned_clip(seat: &reservoir_a::AftSeat) -> Result<Solid> {
 
 /// Both lips open independently on either side of the radial slot. Its rounded end meets the
 /// bore floor so the tube is supported through the split.
-fn split_clip(bend: &cap::clips::SplitBend, straight: Option<&cap::clips::Clip>) -> Result<Solid> {
+fn split_clip(bend: &cap::clips::SplitBend, straight_end: Option<V3>) -> Result<Solid> {
     use reservoir_a::pair;
     let centre = p3(bend.centre);
     let middle = p3(bend.slot);
-    let seat = curved_clip(centre, p3(bend.start), p3(bend.end), bend.degrees, None)?;
-    let seat = match straight {
-        Some(span) => seat.union(&tube_clip(span)?)?,
-        None => seat,
+    let bore = pair::BORE / 2.;
+    let start = p3(bend.start);
+    let end = p3(bend.end);
+    let seat = match straight_end {
+        Some(exit) => {
+            let radial = (start - centre).unit();
+            let plane = Plane::new(start, radial, V3::Z.cross(radial))?;
+            let section = clip_section(bore, pair::WING, pair::TIP_DEGREES, start.z - cap_face_z() + OVERCUT, None)?;
+            let path = Path::new(start).arc_center(centre, end, V3::Z)?.line_to(exit);
+            plane.sweep(&section, &path)?
+        }
+        None => curved_clip(centre, start, end, bend.degrees, None)?,
     };
     let radial = (middle - centre).unit();
-    let bore = pair::BORE / 2.;
     let reach = bore + pair::WING + OVERCUT;
     let r = cap::clips::WING_SLOT_WIDTH / 2.;
     let side = -bore + r;
@@ -799,7 +806,7 @@ fn top_lid() -> Result<Solid> {
     body = body.union(&a_seats()?)?;
     let wall = cap::valve::wall();
     let feed = cap::clips::va_feed()?;
-    body = body.union(&split_clip(&feed.bend, Some(&feed.straight))?.transformed(&t))?;
+    body = body.union(&split_clip(&feed.bend, Some(p3(feed.exit)))?.transformed(&t))?;
     body = body.union(&flavor_a_clip(&cap::clips::flavor_a(), &wall)?.transformed(&t))?;
     for clip in cap::clips::straight_clips() {
         body = body.union(&tube_clip(&clip)?.transformed(&t))?;
