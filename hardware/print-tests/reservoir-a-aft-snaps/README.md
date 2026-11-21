@@ -14,6 +14,9 @@ One of its jaws is fixed square against the taller clip's root, and its free jaw
 back-top's east-wall fill seat. Each seat follows its line's level turn, so a tube enters bent
 along the seat.
 
+The [Mark1 fit print](prints/2026-11-20-mark1/print-job.json) carries the coupon on a textured
+plate.
+
 Press a length of quarter-inch tube down into each clip. Observe the push each one takes, the
 free jaws during insertion and release, how the fill tube passes the fixed jaw's lip, and how
 securely each tube stays seated. The physical fit awaits that observation.
