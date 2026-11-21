@@ -81,7 +81,7 @@ foreground Send. Its native paths and complete support-removal sweeps are
 reviewed; physical cleanup and assembled fit remain separate observations.
 
 The relevant physical failure is recorded in the
-[`front-top v17 result`](../../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json).
+[`front-top v17 result`](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json).
 The source geometry is a print candidate. Support
 removal, rim finish, full-shell assembly fit and bearing under load need
 their own physical observations; these checks do not qualify them.

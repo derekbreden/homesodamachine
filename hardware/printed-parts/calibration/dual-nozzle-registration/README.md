@@ -45,14 +45,14 @@ checks the actual emitted model paths against the uncorrected native slice;
 the maximum normalized path difference is 0.000691 mm, within export rounding.
 The native purge-tower entry movements are checked separately.
 
-The [raised-artwork nameplate](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
+The [raised-artwork nameplate](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/README.md)
 has user-accepted artwork appearance, recorded in its
-[physical result](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json).
+[physical result](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-nameplate-flat-wings-mark2-v3/physical-result.json).
 Residual XY error and QR scanning remain unmeasured. The
-[TAP and FLAVOR collar print](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
+[TAP and FLAVOR collar print](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/README.md)
 uses the same correction and has
-[user-accepted finish and clear lettering](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json).
+[user-accepted finish and clear lettering](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json).
 Recheck after changing a hotend or calibration condition.
 
 The current native review and launch receipt are retained in
-[`2026-09-29-registration-mark2-v3`](../../enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).
+[`2026-09-29-registration-mark2-v3`](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-registration-mark2-v3/README.md).

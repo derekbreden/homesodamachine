@@ -386,7 +386,7 @@ productive prints running or cancel and replace them, never pause for design ana
   12.639 mm mutual separation. Support-removal lanes are recorded for every body.
 
 The [print job](print-jobs.json) binds the source, project, archive and G-code hashes.
-The [release report](../tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json)
+The [release report](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/2026-09-21-enclosure-front-top-h2c-v3.json)
 carries the native slice and support review. Spring feel, retention, rigidity and physical
 support removal remain readings of the complete enclosure trial.
 
@@ -395,7 +395,7 @@ support removal remain readings of the complete enclosure trial.
 The full pump cartridge and raised, open motor-end cap printed on H2C.
 MQTT confirmed `RUNNING`, layer 0/496, no error, at 2026-09-21T07:47:46.755410+00:00, and
 `FINISH` at 496/496 with no error at 2026-09-21T19:22:46.620569+00:00
-([completion record](../tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json)).
+([completion record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-completion.json)).
 Derek confirmed the plate clear before submission.
 
 - Black PET-GF on left external 254, mapped as PET-CF; fixed left 0.4 mm diamond PCD.
@@ -406,32 +406,32 @@ Derek confirmed the plate clear before submission.
 - Six support bodies have accessible removal lanes before hardware installation.
 - Native current-source reconstruction preserves both parts and their fitted mating surfaces.
 
-The [launch record](../tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
+The [launch record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-pump-cartridge-cap-launch.json)
 binds the accepted archive and local mating proof.
 
 ## 2026-09-21 — front-top v4 on H2C
 
 `enclosure-front-top-black-z018-h2c-v4.gcode.3mf` printed on H2C and was reported finished and
-removed ([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json),
-[completion](../tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json)). Derek's
+removed ([launch](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-launch.json),
+[completion](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v4-completion.json)). Derek's
 readings of the part: the R18 above the display steps about 2 mm at its top layer, and supports
 stood trapped behind the display skirt-pocket surrounds.
 
 ## 2026-09-21 — front-bottom v2 on Mark2
 
 `enclosure-front-bottom-black-z004-mark2-v2.gcode.3mf` printed on Mark2 and was reported finished
-and removed ([launch](../tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json),
-[completion](../tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json)).
+and removed ([launch](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-launch.json),
+[completion](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-front-bottom-v2-completion.json)).
 
 ## 2026-09-22 — display covers v3 and v4 on Mark2
 
-Both printed face down on Mark2 ([v3 completion](../tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json),
-[v4 completion](../tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json)).
+Both printed face down on Mark2 ([v3 completion](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v3-completion.json),
+[v4 completion](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/mark2-display-cover-v4-completion.json)).
 
 ## 2026-09-22 — back-top v2 on H2C
 
 `enclosure-back-top-black-z018-h2c-v2.gcode.3mf`, ceiling down, reported `RUNNING` on H2C at
-2026-09-22T19:04:30.084409+00:00 ([launch](../tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json)).
+2026-09-22T19:04:30.084409+00:00 ([launch](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-back-top-v2-launch.json)).
 It was sliced from the 2026-09-21 inputs, uniformly in 0.24 mm layers.
 
 ## 2026-09-23 — back-top v2 finished on H2C
@@ -442,7 +442,7 @@ H2C reported `FINISH` at 813/813 layers with no error before 16:30 local.
 
 `enclosure-front-top-black-z018-h2c-v12.gcode.3mf` reported `RUNNING` on H2C at
 2026-09-23T21:55:53Z, black PET-GF on the left external spool
-([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v12-launch.json)). Its top 2.6 mm
+([launch](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v12-launch.json)). Its top 2.6 mm
 print in 0.08 mm layers. The support audit reads 4 bed-rooted trees and 9 contacts.
 
 ## 2026-09-23 — TAP and FLAVOR bulkhead rings on Mark2
@@ -463,7 +463,7 @@ rule is 0.08 mm through the entire curve.
 `enclosure-front-top-black-z018-h2c-v13.gcode.3mf` reported `RUNNING` on H2C at
 2026-09-24T00:16:36Z, black PET-GF on the left external spool. It prints 0.08 mm layers
 through the whole of every roof curve, from print z 187.0 to 195.0, and 0.24 mm elsewhere
-([launch](../tee-readiness/full-enclosure-print/h2c-front-top-v13-launch.json)).
+([launch](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/h2c-front-top-v13-launch.json)).
 
 ## 2026-09-24 — bulkhead rings v2 on Mark2
 
@@ -533,7 +533,7 @@ Native estimate: 2 h 5 m 46 s, 44.93 g. Timelapse and bed leveling On; flow and 
 calibration Auto. The exact archive was accepted after a fresh import and a 20-second
 settling wait following an invalid-3MF rejection.
 
-[Slice, hypothesis and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/README.md).
+[Slice, hypothesis and launch record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v12/README.md).
 
 ## Tee carrier with steady part cooling — Mark2, 2026-09-24 UTC
 
@@ -556,7 +556,7 @@ Native estimate: 2 h 5 m 48 s, 44.93 g. Timelapse and bed leveling On; flow and 
 calibration Auto. A fresh import with a 20-second settling wait was accepted on the first
 send attempt.
 
-[Slice, hypothesis and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/README.md).
+[Slice, hypothesis and launch record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-tee-carrier-plate-mark2-v13/README.md).
 
 ## Tee carrier with six walls through the lower curve — Mark2, 2026-09-24 UTC
 
@@ -611,7 +611,7 @@ The first send from a fresh import with a 20-second settling wait was accepted.
 A subsequent reading reports RUNNING with the matching job name and no error or
 HMS alert. Physical finish, cleanup and assembled fit remain unassessed.
 
-[Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md).
+[Native slice, support contact check and launch record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-pump-cartridge-cap-mark2-v8/README.md).
 
 ## Front-bottom with unsupported handhold rounds — H2C, 2026-09-24 UTC
 
@@ -642,7 +642,7 @@ A fresh reading confirms RUNNING with the matching name and 1502-layer total,
 nozzle heating during startup, no print error and no HMS alert. Physical finish
 and cleanup remain unassessed.
 
-[Native slice, support contact check and launch record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
+[Native slice, support contact check and launch record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
 
 ## HSM-0079 complete front top · Mark1
 

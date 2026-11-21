@@ -40,8 +40,8 @@ positions and records a 1.230 mm minimum for its bound mesh.
 
 ![Section through the accepted nameplate wing and its backing](backing-clearance.png)
 
-The [front-top v15 review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/manifest.json)
-identifies a stopped task and the [back-top v4 review](../../tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-back-top-flat-wings-mark2-v4/manifest.json)
+The [front-top v15 review](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-front-top-flat-wings-h2c-v15/manifest.json)
+identifies a stopped task and the [back-top v4 review](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-01-enclosure-back-top-flat-wings-mark2-v4/manifest.json)
 identifies an unsent archive. [`print-hold.json`](print-hold.json) is the associated
 dated instruction and task record. Current launch state comes from the current
 part's native review and receipt in the print-readiness index.

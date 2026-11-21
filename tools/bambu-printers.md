@@ -203,7 +203,7 @@ the coupon source: the right nozzle's paths move X −0.50 mm and Y +0.70 mm (na
 right `extruder_offset` `0.5x-0.7`), with the raised-artwork nameplate appearance
 accepted by the user. The record's `white_correction_mm` names the spool the right
 nozzle carried at measurement. The correction follows the nozzle: the
-[SODA ring](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/README.md)
+[SODA ring](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-soda-raised-mark2-v1/README.md)
 applies it to blue. Residual XY error is unmeasured; the original
 Y choice was tentative. Use the native
 slice's verified tool-coordinate correction; keep the part geometry nominal.
@@ -218,7 +218,7 @@ calibration condition requires a new alignment check.
 On 2026-09-25 Derek reported accidentally unplugging both printers by tripping on
 their power cord. H2C lost power mid-print, mid-extrusion, and recovered with no
 visible defect at the interruption point. The active job was
-[front-bottom, task 1279923918](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
+[front-bottom, task 1279923918](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-24-enclosure-front-bottom-h2c-v7/README.md).
 This is Derek's visual observation of that recovery.
 
 ## Extrusion overload after sitting loaded
@@ -231,7 +231,7 @@ His working recovery sequence for this condition is:
 3. Pull out the entire cut segment.
 4. Reload from the freshly cut spool end, then resume.
 
-The [H2C receiver trial](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json)
+The [H2C receiver trial](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-display-receiver-retention-h2c-v2/startup-recovery.json)
 records this recovery from extrusion-motor overload 0300-801E. Moisture is Derek's
 suspected cause of the recurring idle-time pattern; no moisture measurement or
 controlled comparison establishes the cause. A resume is a printer start for the
@@ -276,7 +276,7 @@ The interval is Derek's proposed trial based on his previous experience. The sen
 foreground lock serializes app access but does not enforce this interval; keep it by
 hand and record both launch times.
 
-The [2026-09-28 startup trial](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/README.md)
+The [2026-09-28 startup trial](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-28-shared-circuit-stagger/README.md)
 records Derek's report of repeated breaker trips when both machines start close together,
 including during his own manual starts. The two cover-job launch receipts are
 54.421746 seconds apart; both machines subsequently report FAILED at layer 0 after
@@ -542,7 +542,7 @@ The printer answers `project_file` with `ERROR STATE`, err_code 84033549 (050240
 "Failed to start a new task: filament loading/unloading not completed"). Its nozzle and
 bed targets already read zero while the loaded nozzle is still hot. The same archive is
 accepted once that nozzle has cooled
-([CO2 ring](../hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json)).
+([CO2 ring](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json)).
 `ams_status` 0x300 and an extruder `stat` with 0x0300 set also appear while a printer
 prints normally, so neither marks an open load.
 

@@ -50,9 +50,10 @@ approved flute and vent sections. The shared motor/display room and joined
 flavor root retain no intervening cut skins. Physical print quality, cleanup
 and load capacity retain their own article scopes.
 
-Every reviewed print archive, the printer and settings it is sliced for, the geometry it binds
-by hash and its support-removal review are in the
-[slice reviews](tee-readiness/full-enclosure-print/native-slice-reviews/README.md). What
+Each reviewed print archive, the printer and settings it is sliced for, the geometry it binds
+by hash and its support-removal review are in that print's folder under
+[`enclosure/prints/`](enclosure/prints/). The reviews of the September and October prints are
+in the [archived slice reviews](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md). What
 printed, when and on which machine is in the [print log](enclosure/print-log.md).
 
 Derek's PET-GF print request is the go and the plate-clear: send the named reviewed archive with the
@@ -117,15 +118,15 @@ the emitted overlap into the next layer. New meshes require fresh slices and
 support reviews; old archives do not establish the new treatment.
 
 Every spool is used fully, with reloading during a print as needed; remaining filament
-quantity is not a launch condition ([filament-use policy](tee-readiness/full-enclosure-print/filament-use-policy.json)).
+quantity is not a launch condition ([filament-use policy](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/filament-use-policy.json)).
 
 ## Reviewed front-top v17 H2C archive
 
-The [front-top v17 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
+The [front-top v17 review](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 binds the native STEP/STL and saved PET-GF recipe to one unmodified H2C archive.
 Its results apply only to the source hashes in that review; they do not certify
 the current recessed insert seats, seam stations or solid host/root regions.
-The [launch receipt](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/front-top-h2c-launch.json)
+The [launch receipt](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/front-top-h2c-launch.json)
 records H2C's acceptance as task **1305315362** at **2026-10-03 15:22:21 UTC**,
 with one Send and 267.488 seconds since Mark2's recorded acceptance.
 It has 878 model layers and estimates **25 h 44 min 45 sec**. All actual model slabs
@@ -137,7 +138,7 @@ through the empty bay, display storey, exposed flanks and aft opening.
 The complete flank jaw retains 3 mm tip stock and 2.532 mm frame clearance;
 its local DC5 entry lane remains clear. Exact source/road records name the
 retained pogo seat, display recess and funnel receiver mating transitions.
-The [physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
+The [physical result](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
 is rejected: top-rim support removal is nearly impossible, supported 0.08 mm
 material has extreme spaghettification, normal snug and tree supports are
 fused into masses too large for their cavities, and one embedded tee-carrier
@@ -155,7 +156,7 @@ frame and back-top geometry.
 
 ## Reviewed back-top v9 native archive
 
-The [back-top v9 review](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
+The [back-top v9 review](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-back-top-current-mark2-v9/README.md)
 binds its corrected PRV crown, native STEP/STL and saved PET-GF recipe to one
 unmodified Mark2 archive. It has 813 model layers and estimates **26 h 8 min
 54 sec**; it has not been submitted. Both initial crown slabs contain model
@@ -177,7 +178,7 @@ load-capacity or drop result.
 | --- | --- |
 | Integral handhold corbels | The bottom pieces' continuous planar corbels form the gripping surfaces, spanning the Y seam and mirrored on both flanks. They use the shared ordinary layer schedule and support-free gripping surfaces. Their bare-surface finish, comfort and loaded lifting remain unqualified on the complete production handholds. |
 | Back-top support cleanup and wall finish | The [Mark1 print record](enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/print-job.json) binds the corbelled nameplate receiver, dense interfaces on the exposed contacts and cavity-rooted rail caps to the textured PEI slice. Native review verifies the bead margins and protected passages. Physical cleanup, finish and installed fit await the full print. |
-| Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. The [seam and frame review](enclosure/y-seam-plain-review.json) records native bearing, closed clearances and sampled assembly motions for its listed artifacts; the [fit review](enclosure/y-seam-fit-review.json) records its identified exports' finite gaps and local stock. The [flush-roof review](../zone-c/funnel/flush-roof-review/README.md) retains its identified geometry scope. Physical cleanup and assembled fit remain pending. [Physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json); [bounded tree-clearance correction](enclosure/support-bottom-gap/README.md). |
+| Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. The [seam and frame review](enclosure/y-seam-plain-review.json) records native bearing, closed clearances and sampled assembly motions for its listed artifacts; the [fit review](enclosure/y-seam-fit-review.json) records its identified exports' finite gaps and local stock. The [flush-roof review](../zone-c/funnel/flush-roof-review/README.md) retains its identified geometry scope. Physical cleanup and assembled fit remain pending. [Physical result](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json); [bounded tree-clearance correction](enclosure/support-bottom-gap/README.md). |
 | Tee-carrier visible rounds | The additive bottom chamfer/taper is physically accepted. It uses a 0.20 mm first layer, 0.24 mm bottom/body, 0.08 mm top R6, six walls in the lower 6.1 mm, and saved wall-first order, speeds and 15% overlap. No supports. Sliding is accepted with 1.00 mm above and 0.25 mm below against the existing front-top, with less tilt reported. Spring return and other parts remain separate checks. [Surface record](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/physical-acceptance.json); [sliding-fit record](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/enclosure/tee-carrier/low-force-trial/physical-acceptance.json). |
 | Kamoer cradle/cap acceptance record | Derek confirms both pumps firmly held with screws tightened and no vertical play in the identified assembled cradle/cap. That physical result remains scoped to that article. The current integral mount preserves its fitted lower-well, boss and motor profiles while using explicit skirt capture and an underside retainer; the report does not establish physical fit or no-play performance of this assembly. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Integral pump mount and lower retainers | The [pump dock](pump-dock/README.md) defines the fitted motor guides and independent screw-fastened flange retainers. Physical support removal, fit, retention, vibration, load capacity and life are unassessed on the complete assembly. |
@@ -187,7 +188,7 @@ load-capacity or drop result.
 | Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
 | Machine display cover | The [screw-mounted bezel](display-cover/README.md) seats over the glass gasket with insert-backed mounting screws. Its [mount record](display-cover/mount-dimensions.json) defines the stations, bearing floors and hardware engagement; [native preparation](trial-preparation/README.md) provides its print project. The [archived flat-wing acceptance](https://github.com/derekbreden/homesodamachine/blob/27c433f164134e1de2bab17fc0ab6501c2fbd401/hardware/printed-parts/enclosure/display-cover/face-up-trial/physical-acceptance.json) records the shake test and appearance of that trial article. |
 | Nameplate | The [screw-mounted nameplate](nameplate/README.md) seats on the rear receiver. The [production fit review](nameplate/production-fit.json) records modeled clearances. Physical fit and support cleanup await an assembled trial. |
-| C14 inlet and cord | The identified inlet/C13 station has earlier acceptance in the [native interface record](tee-readiness/full-enclosure-print/hard-contact-review/README.md). The [October 17 assembly feedback](enclosure/assembly-fit-review/assembly-feedback.json) reports that the female side fits and the mating cord body needs 3 mm more X access. The [assembly-fit review](enclosure/assembly-fit-review/README.md) specifies a centered 28.3 × 19.3 mm cord bore, independent of the flange pocket's 0.65 mm per-edge X/Z clearance, fixed Y seating depth and screw stations. Physical fit of the wider bore is unmeasured. |
+| C14 inlet and cord | The identified inlet/C13 station has earlier acceptance in the [native interface record](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/hard-contact-review/README.md). The [October 17 assembly feedback](enclosure/assembly-fit-review/assembly-feedback.json) reports that the female side fits and the mating cord body needs 3 mm more X access. The [assembly-fit review](enclosure/assembly-fit-review/README.md) specifies a centered 28.3 × 19.3 mm cord bore, independent of the flange pocket's 0.65 mm per-edge X/Z clearance, fixed Y seating depth and screw stations. Physical fit of the wider bore is unmeasured. |
 | G Ganen pump mounting | The [cold-core pump saddle](../cold-core/foam-cap/README.md) seats the bare casing with its discharge toward −X. Remove the rubber feet and legs before seating the motor and closing the upper snap. Check the casing seats and the snap engages during assembly. |
 
 ## Above-core production geometry

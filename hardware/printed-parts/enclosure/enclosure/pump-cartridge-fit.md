@@ -46,5 +46,5 @@ retainer nor qualification of the complete fluid dock.
 
 [`pump-cartridge-generation.json`](pump-cartridge-generation.json) binds its 2026-09-23
 holder snapshot to 50 local geometry checks. The [support audit](pump-support-audit.md)
-and retained [slice reviews](../tee-readiness/full-enclosure-print/native-slice-reviews/README.md)
+and archived [slice reviews](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/README.md)
 identify their own archived articles, input hashes and print processes.

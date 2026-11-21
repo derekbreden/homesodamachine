@@ -258,7 +258,7 @@ display-cover results retain their identified geometry and print scope.
 
 ## Front-top support removal and rim finish
 
-The [front-top v17 physical result](../printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
+The [front-top v17 physical result](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json)
 is rejected. Top-rim supports are nearly impossible to remove, supported 0.08 mm
 material has extreme spaghettification, normal snug supports are fused with tree
 supports into masses too large for their cavities, and one tee-carrier
