@@ -739,18 +739,18 @@
   },
   "HSM-0079": {
     "title": "Enclosure front top · Mark1 print plan",
-    "sha256": "f204997274c3ed7bf4c445bd66879379f9856bf2f322884293f239f278f1bc16",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.gcode.3mf",
+    "sha256": "c9ca0904fad8e520d85706a11d7e02bbcf5c071516a310f5fa8fe7cc7b373113",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "front-top",
-    "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
-    "project_sha256": "c9c798cdd2fb77ad24df6d8f15e2db2341a3e81a8ccc76dfab491447b2839fe0",
-    "archive_sha256": "a07f8bc95a9c04cb1df942d916fbe9874b8d666a520f891e59d3e781326fad0c",
-    "gcode_sha256": "14fbd64fa62e225ef7aa16eb9d77e72ca7558136b98b1dbc2add2f99d68a0253",
+    "recipe_sha256": "0f8bad999db6b14f3bd88daa0586c31e1a1e04dd286f80a09fc418b40a3278d5",
+    "project_sha256": "2614ceaef272e26f4a391394ec86000855da1da04ba1e2e73d86e6b1025cc6aa",
+    "archive_sha256": "201ec1bb353cb87108c56aefbe9381c4f6679a921ba5e5923111d6bd363ef0a0",
+    "gcode_sha256": "5ad2ba1dfc7f5ab5b3e551618a79b0bc02b2d997bb8e70eacb21d86f3cff25f4",
     "kind": "plan",
-    "layers": 1298,
-    "model_sha256": "e9fefdb8cd70dbe9d3211e33e17bdfb930c9a8b21c14ab38525b402392f99a01",
+    "layers": 1090,
+    "model_sha256": "e64f7105d6bb6e528da56e3a77edeb3305cd58343324a523a78498a6daf2a7be",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -768,9 +768,9 @@
       "Requested top gap": "0.24 mm",
       "Top interface": "3 layers, 0 mm spacing",
       "Funnel-frame insert pilots": "Clear of support, with solid infill through the ledges.",
-      "V-H entry clip": "Solid infill reinforces the wings and their roots. Removable support carries the lower wing on its outside face. The tube entry and wing split stay clear."
+      "V-H entry clip": "The shelf grows from the bulkhead under the level bend. The split wings print upright, with solid infill through their roots and no removable support."
     },
-    "recipe_commit": "a310fb1319d386d2cc441cec9da661270632836e"
+    "recipe_commit": "917f89949270cd55b1082f4e2fed0cb7d7a7cc22"
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",

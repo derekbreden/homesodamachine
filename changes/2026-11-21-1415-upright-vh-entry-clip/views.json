@@ -1,0 +1,127 @@
+{
+  "views": [
+    {
+      "name": "saddle",
+      "caption": "The clip and its sloping bulkhead shelf, seen through the funnel opening with the tube removed.",
+      "before": "saddle-before.webp",
+      "after": "saddle-after.webp",
+      "width": 920,
+      "height": 680,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          160.8836043558254,
+          488.0260403374181,
+          622.0665749079709
+        ],
+        "target": [
+          -44,
+          108,
+          285
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 26,
+        "near": 321.03259142835043,
+        "far": 914.4095327183131,
+        "aspect": 1.3529411764705883
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "da066fd6c231375b3d81e056ef42c6ba25d75452d4304ff2a8a272bb717e1e64",
+          "commit": "de66fa519055229c610e4f240d346c6c4965ca66",
+          "taken": "2026-11-21T19:53:59.853Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3acd6045f34b007bafdeb509630e1679e0f3b011f17d3afbeca5b4f064e02f8a",
+          "commit": "917f89949270cd55b1082f4e2fed0cb7d7a7cc22",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "tube",
+      "caption": "Reservoir B’s draw tube seated in the upright clip before it drops into the V-H inlet.",
+      "before": "tube-before.webp",
+      "after": "tube-after.webp",
+      "width": 920,
+      "height": 680,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          80.6435274388992,
+          445.5894599497751,
+          722.5624262052131
+        ],
+        "target": [
+          -43,
+          114,
+          287
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 34,
+        "near": 340.98482782937407,
+        "far": 948.9596782686331,
+        "aspect": 1.3529411764705883
+      },
+      "highlight": [
+        "tube-fluid-26"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "tube-fluid-26",
+        "valve-v-h",
+        "valve-v-i"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "da066fd6c231375b3d81e056ef42c6ba25d75452d4304ff2a8a272bb717e1e64",
+          "commit": "de66fa519055229c610e4f240d346c6c4965ca66",
+          "taken": "2026-11-21T19:53:59.853Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3acd6045f34b007bafdeb509630e1679e0f3b011f17d3afbeca5b4f064e02f8a",
+          "commit": "917f89949270cd55b1082f4e2fed0cb7d7a7cc22",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

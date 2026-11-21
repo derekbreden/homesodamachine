@@ -1,10 +1,10 @@
 {
-  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.gcode.3mf",
-  "archive_sha256": "a07f8bc95a9c04cb1df942d916fbe9874b8d666a520f891e59d3e781326fad0c",
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.gcode.3mf",
+  "archive_sha256": "201ec1bb353cb87108c56aefbe9381c4f6679a921ba5e5923111d6bd363ef0a0",
   "bead_envelope_plate_mm": [
     [
       51.848418,
-      51.948688000000004
+      51.9852865
     ],
     [
       273.151582,
@@ -14,7 +14,7 @@
   "bed_border_mm": 20.0,
   "bed_margins_mm": {
     "back": 51.94489900000002,
-    "front": 51.948688000000004,
+    "front": 51.9852865,
     "left": 51.848418,
     "right": 51.84841799999998
   },
@@ -32,15 +32,7 @@
     0.02
   ],
   "excluded_support_counts_by_region": {
-    "V-H tube entry 1": 0,
-    "V-H tube entry 2": 0,
-    "V-H tube entry 3": 0,
-    "V-H tube entry 4": 0,
-    "V-H tube entry 5": 0,
-    "V-H tube entry 6": 0,
-    "V-H tube entry 7": 0,
-    "V-H tube entry 8": 0,
-    "V-H wing split": 0,
+    "V-H upright entry clip": 0,
     "wago-mana insertion pocket": 0,
     "wago-manb insertion pocket": 0
   },
@@ -95,19 +87,19 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9724652124596155,
-      "second_layer_centerline_outside_first_mm": 96.97874819904897,
+      "fraction_over_first_layer": 0.9724652743990853,
+      "second_layer_centerline_outside_first_mm": 96.97874819904773,
       "second_layer_model_bead_area_mm2": 14425.89541671047
     }
   },
   "gcode_md5_matches": true,
-  "layers": 1298,
+  "layers": 1090,
   "minimum_bed_margin_mm": 51.84841799999998,
   "pass": true,
   "project_check": true,
   "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
   "show_face_contacts": [],
-  "show_face_minimum_bead_clearance_mm": 0.13009885063773285,
+  "show_face_minimum_bead_clearance_mm": null,
   "solid_host_deposition": [
     {
       "minimum_coverage": 0.9933746270981346,
@@ -700,61 +692,61 @@
       ]
     },
     {
-      "minimum_coverage": 0.9873399875937517,
-      "minimum_outline_coverage": 0.9823178525777588,
+      "minimum_coverage": 0.9978182508062986,
+      "minimum_outline_coverage": 0.9907940161104718,
       "name": "V-H entry clip and bulkhead root",
       "object": 1901,
       "plate_bounds_mm": [
         [
-          128.75346817760894,
+          100.925,
           139.39999055083982,
-          115.85999207671875
+          127.47500000000002
         ],
         [
-          143.43369913021348,
-          163.7149984741211,
-          140.54193130647764
+          120.5,
+          172.1399984741211,
+          139.18566365525118
         ]
       ],
       "samples": [
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9987148102815178,
-          "infill_core_mm2": 122.55000000000003,
-          "outline_coverage": 0.9917690833239373,
-          "print_z_mm": 116.36,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 133.03500000000003
+          "coverage": 0.9991765465910849,
+          "infill_core_mm2": 563.4820492180871,
+          "outline_coverage": 0.9975364069173143,
+          "print_z_mm": 127.88,
+          "sampling_step_mm": 0.050631439051175745,
+          "stock_mm2": 585.8412679531542
         },
         {
-          "bead_radius_inset_mm": 0.2916445,
-          "coverage": 0.9950117486446396,
-          "infill_core_mm2": 190.44750000000005,
-          "outline_coverage": 0.9904899339973031,
-          "print_z_mm": 128.36,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 211.35500000000005
+          "bead_radius_inset_mm": 0.2602825,
+          "coverage": 0.9980089693033326,
+          "infill_core_mm2": 265.2343736763335,
+          "outline_coverage": 0.9949939927913496,
+          "print_z_mm": 133.4,
+          "sampling_step_mm": 0.050631439051175745,
+          "stock_mm2": 307.2559643098143
         },
         {
-          "bead_radius_inset_mm": 0.232847,
-          "coverage": 0.9873399875937517,
-          "infill_core_mm2": 88.66500000000002,
-          "outline_coverage": 0.9823178525777588,
-          "print_z_mm": 140.36,
-          "sampling_step_mm": 0.05,
-          "stock_mm2": 105.61500000000002
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9978182508062986,
+          "infill_core_mm2": 108.09946521672883,
+          "outline_coverage": 0.9907940161104718,
+          "print_z_mm": 138.92,
+          "sampling_step_mm": 0.050631439051175745,
+          "stock_mm2": 138.11854930152998
         }
       ],
       "source_bounds_mm": [
         [
-          -33.74653182239107,
+          -61.575,
           89.29999207671872,
-          276.10999207671875
+          287.725
         ],
         [
-          -19.06630086978651,
-          113.615,
-          300.79193130647764
+          -42.0,
+          122.03999999999999,
+          299.4356636552512
         ]
       ]
     },
@@ -1200,15 +1192,15 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9959690340861176,
+          "coverage": 0.9959859000522845,
           "infill_core_mm2": 148.22750000000002,
-          "outline_coverage": 0.9938574938574939,
+          "outline_coverage": 0.9938730445059559,
           "print_z_mm": 99.32,
           "sampling_step_mm": 0.05,
           "stock_mm2": 160.76500000000004
         },
         {
-          "bead_radius_inset_mm": 0.232175,
+          "bead_radius_inset_mm": 0.23217,
           "coverage": 0.9592451552847593,
           "infill_core_mm2": 147.71250000000003,
           "outline_coverage": 0.9471277952290611,
@@ -1284,466 +1276,41 @@
     },
     {
       "bounds_source_mm": [
-        -33.0048910358912,
-        -29.5014847412089,
-        104.865,
-        113.615,
-        292.10217530521896,
-        298.5093956673693
+        -61.575,
+        -42.0,
+        92.29999207671872,
+        122.03999999999999,
+        243.11498811507812,
+        299.4356636552512
       ],
       "box_plate_mm": [
         [
-          128.6451089641088,
-          154.11499847412108,
-          131.00217530521894
+          100.675,
+          142.14999055083982,
+          82.61498811507812
         ],
         [
-          133.8485152587911,
-          166.36499847412108,
-          139.1093956673693
+          120.75,
+          172.3899984741211,
+          139.43566365525118
         ]
       ],
-      "name": "V-H tube entry 1",
+      "name": "V-H upright entry clip",
       "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -33.0048910358912,
-            292.47018678889503
-          ],
-          [
-            -31.04263312161028,
-            298.5093956673693
-          ],
-          [
-            -29.5014847412089,
-            297.9255067775645
-          ],
-          [
-            -32.03354132888421,
-            292.10217530521896
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -32.03354132888421,
-        -28.023394772269164,
-        104.865,
-        113.615,
-        291.642758329784,
-        297.9255067775645
-      ],
-      "box_plate_mm": [
-        [
-          129.6164586711158,
-          154.11499847412108,
-          130.54275832978396
-        ],
-        [
-          135.32660522773085,
-          166.36499847412108,
-          138.52550677756454
-        ]
-      ],
-      "name": "V-H tube entry 2",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -32.03354132888421,
-            292.10217530521896
-          ],
-          [
-            -29.5014847412089,
-            297.9255067775645
-          ],
-          [
-            -28.023394772269164,
-            297.1965934701191
-          ],
-          [
-            -31.101935860833404,
-            291.642758329784
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -31.101935860833404,
-        -26.621972880815996,
-        104.865,
-        113.615,
-        291.09616599183335,
-        297.1965934701191
-      ],
-      "box_plate_mm": [
-        [
-          130.5480641391666,
-          154.11499847412108,
-          129.99616599183332
-        ],
-        [
-          136.728027119184,
-          166.36499847412108,
-          137.79659347011915
-        ]
-      ],
-      "name": "V-H tube entry 3",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -31.101935860833404,
-            291.642758329784
-          ],
-          [
-            -28.023394772269164,
-            297.1965934701191
-          ],
-          [
-            -26.621972880815996,
-            296.32936728958316
-          ],
-          [
-            -30.218652485288686,
-            291.09616599183335
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -30.218652485288686,
-        -25.31012280363369,
-        104.865,
-        113.615,
-        290.46743109676294,
-        296.32936728958316
-      ],
-      "box_plate_mm": [
-        [
-          131.43134751471132,
-          154.11499847412108,
-          129.3674310967629
-        ],
-        [
-          138.03987719636632,
-          166.36499847412108,
-          136.92936728958318
-        ]
-      ],
-      "name": "V-H tube entry 4",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -30.218652485288686,
-            291.09616599183335
-          ],
-          [
-            -26.621972880815996,
-            296.32936728958316
-          ],
-          [
-            -25.31012280363369,
-            295.33181331056846
-          ],
-          [
-            -29.391824125143216,
-            290.46743109676294
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -29.391824125143216,
-        -24.09992353577693,
-        104.865,
-        113.615,
-        289.7623427860459,
-        295.33181331056846
-      ],
-      "box_plate_mm": [
-        [
-          132.2581758748568,
-          154.11499847412108,
-          128.66234278604588
-        ],
-        [
-          139.25007646422307,
-          166.36499847412108,
-          135.9318133105685
-        ]
-      ],
-      "name": "V-H tube entry 5",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -29.391824125143216,
-            290.46743109676294
-          ],
-          [
-            -25.31012280363369,
-            295.33181331056846
-          ],
-          [
-            -24.09992353577693,
-            294.21311661434993
-          ],
-          [
-            -28.629063887905986,
-            289.7623427860459
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -28.629063887905986,
-        -23.002518111976528,
-        104.865,
-        113.615,
-        288.9873932331145,
-        294.21311661434993
-      ],
-      "box_plate_mm": [
-        [
-          133.020936112094,
-          154.11499847412108,
-          127.8873932331145
-        ],
-        [
-          140.34748188802348,
-          166.36499847412108,
-          134.81311661434995
-        ]
-      ],
-      "name": "V-H tube entry 6",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -28.629063887905986,
-            289.7623427860459
-          ],
-          [
-            -24.09992353577693,
-            294.21311661434993
-          ],
-          [
-            -23.002518111976528,
-            292.983577716281
-          ],
-          [
-            -27.937394967228293,
-            288.9873932331145
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -27.937394967228293,
-        -22.028011005996387,
-        104.865,
-        113.615,
-        288.149717866003,
-        292.983577716281
-      ],
-      "box_plate_mm": [
-        [
-          133.7126050327717,
-          154.11499847412108,
-          127.049717866003
-        ],
-        [
-          141.32198899400362,
-          166.36499847412108,
-          133.583577716281
-        ]
-      ],
-      "name": "V-H tube entry 7",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -27.937394967228293,
-            288.9873932331145
-          ],
-          [
-            -23.002518111976528,
-            292.983577716281
-          ],
-          [
-            -22.028011005996387,
-            291.6545177227346
-          ],
-          [
-            -27.323185976122907,
-            288.149717866003
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -27.323185976122907,
-        -21.18537509264793,
-        104.865,
-        113.615,
-        287.25702966715727,
-        291.6545177227346
-      ],
-      "box_plate_mm": [
-        [
-          134.3268140238771,
-          154.11499847412108,
-          126.15702966715725
-        ],
-        [
-          142.16462490735208,
-          166.36499847412108,
-          132.25451772273465
-        ]
-      ],
-      "name": "V-H tube entry 8",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -27.323185976122907,
-            288.149717866003
-          ],
-          [
-            -22.028011005996387,
-            291.6545177227346
-          ],
-          [
-            -21.18537509264793,
-            290.2381740908477
-          ],
-          [
-            -26.79209230730212,
-            287.25702966715727
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
-    },
-    {
-      "bounds_source_mm": [
-        -31.700558831509888,
-        -23.001388097267018,
-        104.865,
-        113.615,
-        287.98613682359087,
-        297.81310758374053
-      ],
-      "box_plate_mm": [
-        [
-          129.94944116849013,
-          154.11499847412108,
-          126.88613682359085
-        ],
-        [
-          140.34861190273298,
-          166.36499847412108,
-          138.41310758374055
-        ]
-      ],
-      "name": "V-H wing split",
-      "object": 1901,
-      "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
-      "void_source": {
-        "kind": "prism_y",
-        "profile_xz_mm": [
-          [
-            -31.700558831509888,
-            289.27171204296394
-          ],
-          [
-            -30.16846994527193,
-            287.98613682359087
-          ],
-          [
-            -23.001388097267018,
-            296.52753236436746
-          ],
-          [
-            -24.533476983504976,
-            297.81310758374053
-          ]
-        ],
-        "span_y_mm": [
-          104.865,
-          113.615
-        ]
-      }
+      "reason": "The sloping shelf carries the upright seat. Keep the tube mouth and flex slot open."
     }
   ],
-  "support_roads": 142180,
+  "support_roads": 111024,
   "support_topology": {
     "1901": {
-      "bed_rooted_bodies": 7,
+      "bed_rooted_bodies": 6,
       "bodies_without_interface_labels": 0,
-      "explicit_interface_islands": 9,
-      "interface_islands": 9,
+      "explicit_interface_islands": 6,
+      "interface_islands": 6,
       "model_rooted_bodies": 0,
       "shortest_build_up_mm": 56.322,
       "shortest_labelled_build_up_mm": 56.322,
-      "support_bodies": 7
+      "support_bodies": 6
     }
   }
 }

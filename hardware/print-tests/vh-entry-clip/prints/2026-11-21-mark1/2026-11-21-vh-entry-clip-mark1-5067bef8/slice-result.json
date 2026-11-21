@@ -1,0 +1,71 @@
+{
+  "error_string": "Success.",
+  "export_time": 502,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 31,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 38.44548797607422,
+        "Bridge": 102.19376373291016,
+        "Custom": 302.63018798828125,
+        "Flush": 15.0,
+        "Gap infill": 3.48740816116333,
+        "Inner wall": 196.89491271972656,
+        "Internal solid infill": 180.64707946777344,
+        "Outer wall": 292.9877624511719,
+        "Prime tower": 7287.52978515625,
+        "Sparse infill": 967.6725463867188,
+        "Top surface": 28.826557159423828,
+        "Travel": 344.3956298828125,
+        "Undefined": 337.67962646484375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 17.790929794311523,
+          "total_used_g": 27.82140350341797
+        }
+      ],
+      "generate_support_material_time": 16,
+      "id": 1,
+      "infill_time": 56,
+      "layer_filament_change": 0,
+      "main_predication": 2139.79931640625,
+      "make_perimeters_time": 36,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 41.73999786376953,
+            "height": 64.90567016601562,
+            "width": 25.57500457763672,
+            "x": 149.71249389648438,
+            "y": 172.1300048828125,
+            "z": -7.815970093361102e-12
+          },
+          "id": 5,
+          "name": "vh-entry-clip",
+          "triangle_count": 16822
+        }
+      ],
+      "sliced_time": 540,
+      "sliced_time_with_cache": 404,
+      "total_predication": 10095.305039145655,
+      "triangle_count": 16822,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

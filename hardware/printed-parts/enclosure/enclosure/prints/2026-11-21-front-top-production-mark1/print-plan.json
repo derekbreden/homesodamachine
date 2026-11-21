@@ -5,8 +5,8 @@
   "printer": "Mark1",
   "connection_key": "H2C",
   "status": "prepared",
-  "prepared_utc": "2026-11-21T18:46:56+00:00",
-  "source_revision": "a310fb1319d386d2cc441cec9da661270632836e",
+  "prepared_utc": "2026-11-21T20:13:59+00:00",
+  "source_revision": "917f89949270cd55b1082f4e2fed0cb7d7a7cc22",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,33 +24,33 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
+  "recipe_sha256": "0f8bad999db6b14f3bd88daa0586c31e1a1e04dd286f80a09fc418b40a3278d5",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-  "source_stl_sha256": "e9fefdb8cd70dbe9d3211e33e17bdfb930c9a8b21c14ab38525b402392f99a01",
+  "source_stl_sha256": "e64f7105d6bb6e528da56e3a77edeb3305cd58343324a523a78498a6daf2a7be",
   "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.npz",
-  "source_fine_archive_sha256": "9355be902b5b513f009828ef116fa6fcae2115a8da6fd75ab3e5a9cd3ea0d146",
+  "source_fine_archive_sha256": "d6fd46ccabf934321a71843e243571d9818ddde19be2e9fe18fb55cc128c1242",
   "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "print_regions_sha256": "e75c05715c88b25c9d352272e6a0be54257ecc490dc61a5934282c113d3dcbec",
-  "archive": "2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.gcode.3mf",
-  "archive_sha256": "a07f8bc95a9c04cb1df942d916fbe9874b8d666a520f891e59d3e781326fad0c",
-  "gcode_sha256": "14fbd64fa62e225ef7aa16eb9d77e72ca7558136b98b1dbc2add2f99d68a0253",
-  "project": "2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.3mf",
-  "project_sha256": "c9c798cdd2fb77ad24df6d8f15e2db2341a3e81a8ccc76dfab491447b2839fe0",
-  "preparation": "2026-11-21-front-top-mark1-4758166e/preparation.json",
-  "native_review": "2026-11-21-front-top-mark1-4758166e/review.json",
+  "print_regions_sha256": "3fb02fb3228708d8d8ab4d3c82082cfb5f99c69ddad7aa3db9f13dde987c6b3d",
+  "archive": "2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.gcode.3mf",
+  "archive_sha256": "201ec1bb353cb87108c56aefbe9381c4f6679a921ba5e5923111d6bd363ef0a0",
+  "gcode_sha256": "5ad2ba1dfc7f5ab5b3e551618a79b0bc02b2d997bb8e70eacb21d86f3cff25f4",
+  "project": "2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.3mf",
+  "project_sha256": "2614ceaef272e26f4a391394ec86000855da1da04ba1e2e73d86e6b1025cc6aa",
+  "preparation": "2026-11-21-front-top-mark1-d57afc83/preparation.json",
+  "native_review": "2026-11-21-front-top-mark1-d57afc83/review.json",
   "support_audits": [
-    "2026-11-21-front-top-mark1-4758166e/support-audit-1901.json"
+    "2026-11-21-front-top-mark1-d57afc83/support-audit-1901.json"
   ],
-  "layers": 1298,
-  "estimated_seconds": 137581.12484040906,
+  "layers": 1090,
+  "estimated_seconds": 136784.80022964434,
   "minimum_bead_bed_margin_mm": 51.84841799999998,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
     {
       "bed_contact_z_mm": 0,
-      "blocked_facets": 8398,
+      "blocked_facets": 7978,
       "embedded_vertex_error_mm": 4.999947122996673e-10,
       "layer_ranges": [
         [
@@ -67,8 +67,7 @@
       "parts": {
         "modifier_part": 19,
         "normal_part": 1,
-        "support_blocker": 11,
-        "support_enforcer": 1
+        "support_blocker": 3
       },
       "placed_bounds_mm": [
         [
@@ -85,12 +84,12 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 197135
+      "vertices": 201280
     }
   ],
   "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
-  "print_features_sha256": "2aa48a76d15996abf43bab098f8d011a322818e07b16240c611834d3fcdcc627",
-  "replay_sha256": "f204997274c3ed7bf4c445bd66879379f9856bf2f322884293f239f278f1bc16",
-  "replay": "print-playbacks/f204997274c3ed7bf4c445bd66879379f9856bf2f322884293f239f278f1bc16.json.gz",
-  "replaced_replay_sha256": "44285c6c39e42d4c39c3f7b5b84a7c6145d4537e4bb8629ed4c5623ed5f902ce"
+  "print_features_sha256": "cd4042fb29f988591e8a9eed560f070422aebd6be09668afc06c6bb17804d7ea",
+  "replay_sha256": "c9ca0904fad8e520d85706a11d7e02bbcf5c071516a310f5fa8fe7cc7b373113",
+  "replay": "print-playbacks/c9ca0904fad8e520d85706a11d7e02bbcf5c071516a310f5fa8fe7cc7b373113.json.gz",
+  "replaced_replay_sha256": "f204997274c3ed7bf4c445bd66879379f9856bf2f322884293f239f278f1bc16"
 }

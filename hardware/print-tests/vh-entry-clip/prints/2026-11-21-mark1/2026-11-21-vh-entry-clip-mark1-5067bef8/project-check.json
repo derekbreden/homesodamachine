@@ -19,42 +19,33 @@
   "objects": [
     {
       "bed_contact_z_mm": 0.0,
-      "blocked_facets": 8398,
-      "embedded_vertex_error_mm": 4.999947122996673e-10,
-      "layer_ranges": [
-        [
-          188.3904,
-          194.83,
-          {
-            "layer_height": "0.08"
-          }
-        ]
-      ],
-      "modifiers_expected": 19,
-      "name": "enclosure-front-top",
+      "blocked_facets": 3390,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 1,
+      "name": "vh-entry-clip",
       "partially_painted_facets": 0,
       "parts": {
-        "modifier_part": 19,
+        "modifier_part": 1,
         "normal_part": 1,
-        "support_blocker": 11,
-        "support_enforcer": 1
+        "support_blocker": 1
       },
       "placed_bounds_mm": [
         [
-          52.0,
-          52.099998474,
+          149.712501526,
+          172.129997253,
           0.0
         ],
         [
-          273.0,
-          267.900001526,
-          194.75
+          175.287498474,
+          213.870002747,
+          64.905670166
         ]
       ],
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 197135
+      "vertices": 8413
     }
   ],
   "pass": true,
@@ -71,9 +62,9 @@
   },
   "z_trim_block": [
     "+0.0",
-    "0.04 - 0.01",
-    "0.04 - 0.02",
-    "0.04 + 0.01",
-    "0.04"
+    "0.10 - 0.01",
+    "0.10 - 0.02",
+    "0.10 + 0.01",
+    "0.10"
   ]
 }

@@ -1,0 +1,111 @@
+{
+  "purpose": "Compare deposited courses through the exposed V-H shelf and its split jaws on the production quadrant and coupon.",
+  "production_stl_sha256": "e64f7105d6bb6e528da56e3a77edeb3305cd58343324a523a78498a6daf2a7be",
+  "coupon_stl_sha256": "e33d263e28b2a9039588c4650f1f490ffd683d4e40d62cf024cec6cc0a994900",
+  "window_source_xy_mm": [
+    -61.7,
+    98.0,
+    -41.9,
+    122.15
+  ],
+  "method": "Use every extrusion in the local window, with the slicer’s bead widths and rounded ends. Check each connected model footprint touching the window against deposited model material on the preceding layer, including paths entering from outside the window. The layer picture overlays the last wing course on its predecessor.",
+  "coupon": {
+    "gcode_sha256": "e862e332fc4e3a9d19420bdc6fd659dde449107cb8832258033fb3f32771f476",
+    "source_axes_to_plate": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "native_review_passed": true,
+    "courses_checked": 175,
+    "source_z_range_mm": [
+      257.65,
+      299.41
+    ],
+    "isolated_deposit_components": 0,
+    "courses_with_support_in_clip": 0,
+    "consecutive_courses_with_four_wings": 15,
+    "last_wing_layer": 258,
+    "last_wing_layer_perimeter_length_mm": 82.1647,
+    "last_wing_layer_perimeter_length_outside_previous_beads_mm": 0.0
+  },
+  "front_top": {
+    "gcode_sha256": "5ad2ba1dfc7f5ab5b3e551618a79b0bc02b2d997bb8e70eacb21d86f3cff25f4",
+    "source_axes_to_plate": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "native_review_passed": true,
+    "courses_checked": 175,
+    "source_z_range_mm": [
+      257.65,
+      299.41
+    ],
+    "isolated_deposit_components": 0,
+    "courses_with_support_in_clip": 0,
+    "consecutive_courses_with_four_wings": 15,
+    "last_wing_layer": 805,
+    "last_wing_layer_perimeter_length_mm": 82.1651,
+    "last_wing_layer_perimeter_length_outside_previous_beads_mm": 0.0
+  },
+  "installed_scene_sha256": "3acd6045f34b007bafdeb509630e1679e0f3b011f17d3afbeca5b4f064e02f8a",
+  "front_top_asset_sha256": "68ed4bca8cdb05228e13c6c106fd532483e9df2d9b8b9408e4b4ff1e5ce7c4c2",
+  "installed_feature_surface_gaps_mm": {
+    "funnel-frame": 0.464,
+    "valve-v-h": 3.755,
+    "valve-v-i": 4.618,
+    "tube-fluid-24": 13.027,
+    "funnel": 22.606,
+    "coil-v-h": 12.435,
+    "tube-fluid-26": 0.0
+  },
+  "jaw_outer_surface_display_normals": [
+    {
+      "radius": 8.425,
+      "triangles": 223,
+      "max_normal_error_deg": 1.412,
+      "corners_over_30deg": 0,
+      "worst_corner": [
+        -50.42499923706055,
+        122.04000091552734,
+        295.70001220703125
+      ]
+    },
+    {
+      "radius": 19.575,
+      "triangles": 138,
+      "max_normal_error_deg": 1.256,
+      "corners_over_30deg": 0,
+      "worst_corner": [
+        -42.0,
+        102.46499633789062,
+        295.70001220703125
+      ]
+    }
+  ]
+}

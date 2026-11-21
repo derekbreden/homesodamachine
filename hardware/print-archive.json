@@ -774,6 +774,12 @@
       "bytes": 32527,
       "sha256": "633c0c429883baa68d5fb3900ca97ecf358338ac0b299451338e0ea5005e9a90"
     },
+    "1761a598b9711f38ff37ac2bfa30388a2056bd2b": {
+      "archive": "front-top-mark1-f7ac9b66ebe1d258.zip",
+      "bytes": 3965499,
+      "offset": 74,
+      "sha256": "2614ceaef272e26f4a391394ec86000855da1da04ba1e2e73d86e6b1025cc6aa"
+    },
     "17694ddaa9460ac11c5e64d12739675a9ecd7909": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 486704539,
@@ -2388,6 +2394,12 @@
       "bytes": 264063,
       "sha256": "65d8b82198f3a5f662380e7dc3088c320c755071a8eb87edb064c3bc031abb86"
     },
+    "4e2e39b7530821392a1a23113869d7014ebb8430": {
+      "archive": "front-top-mark1-f7ac9b66ebe1d258.zip",
+      "bytes": 63579826,
+      "offset": 3965647,
+      "sha256": "201ec1bb353cb87108c56aefbe9381c4f6679a921ba5e5923111d6bd363ef0a0"
+    },
     "4e30b7f706575a3d51c084e3d6a2c651c3498188": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 283669183,
@@ -2627,6 +2639,12 @@
       "offset": 354569529,
       "bytes": 13589,
       "sha256": "55ccd50575fa1824967d3ba5bab539adf6ae225f8dda9f81dd513a48c8eeb6d9"
+    },
+    "54ff3b001c5ccd97ce1f2fe887c20c644dd952ff": {
+      "archive": "vh-entry-clip-mark1-8eb32725783ad98e.zip",
+      "bytes": 900237,
+      "offset": 244844,
+      "sha256": "171db238c9d439479f9029d28cf725c1d6f3e6fb7df08c4f18ec4b01b3f1f654"
     },
     "5505114b70b6bbb05fdaf6c6be57bb8e45ef73f9": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -3629,6 +3647,12 @@
       "offset": 1206152,
       "bytes": 5407871,
       "sha256": "de667d41797da9510ad1ba4f2a3bf4f7e513bcd837b7501042c7a84366cf56fa"
+    },
+    "75c1fa4bcc72d4e01feab9e7e0e1436e6f3645c7": {
+      "archive": "vh-entry-clip-mark1-8eb32725783ad98e.zip",
+      "bytes": 244696,
+      "offset": 74,
+      "sha256": "d22264d1502804ad2068713ccb16b39227785fb9a3ce445cbd1b1b8b600f6c81"
     },
     "7633f7d09784e92a82464e192556a3f4d2bd41fa": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -7996,6 +8020,8 @@
     "hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7.gcode.3mf": "bce1cae76664d08dcec2c62266ac92735f5c3a80",
     "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.3mf": "2ab10f7d2e503fdc759ca458bde15d9b894964a8",
     "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.gcode.3mf": "b520b840f7eab2d7df484208ec7cf84631eacf12",
+    "hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/2026-11-21-vh-entry-clip-mark1-5067bef8/2026-11-21-vh-entry-clip-mark1-5067bef8.3mf": "75c1fa4bcc72d4e01feab9e7e0e1436e6f3645c7",
+    "hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/2026-11-21-vh-entry-clip-mark1-5067bef8/2026-11-21-vh-entry-clip-mark1-5067bef8.gcode.3mf": "54ff3b001c5ccd97ce1f2fe887c20c644dd952ff",
     "hardware/printed-parts/asse-drain-adapter/siraya-85a-settings.3mf": "052cb987fca4d100b24ddf9c56b9bf90fae68b48",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark1/2026-10-31-foam-cap-bottom-mark1-20a7d979.3mf": "fa792375599261aa9e22c22a72aab2a69fdcce10",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.3mf": "1127ee03eb9005e62643d2f643ccd1a4f8d422be",
@@ -8073,6 +8099,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-20-back-top-production-mark1/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei/2026-11-20-back-top-mark1-d2f7b5ea-textured-pei.gcode.3mf": "eed0e1bf9fc2c0fa49a484ff03a276b25375f7b1",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.3mf": "7d18c0fcb93090ff8ba1d0adebe928d5c191665e",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-4758166e/2026-11-21-front-top-mark1-4758166e.gcode.3mf": "66c42654b3e0e9b1eafe703ec7e3dde8ed26d0ec",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.3mf": "1761a598b9711f38ff37ac2bfa30388a2056bd2b",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.gcode.3mf": "4e2e39b7530821392a1a23113869d7014ebb8430",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.3mf": "62e3eaa4de6fd097f5425e0b284fa082d4e36548",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.gcode.3mf": "2dde4881fe7411cff92a1accf831dca2d76142d6",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-relay-m2-production-mark1/2026-11-21-back-top-mark1-c8a8a278-textured-pei/2026-11-21-back-top-mark1-c8a8a278-textured-pei.3mf": "6983b8f6829b77712dbf1ea85f838eab5f00b271",
