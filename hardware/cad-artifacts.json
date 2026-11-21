@@ -4040,9 +4040,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": {
-      "commit": "689c6a63747a0caf7eec2abe6dbeda4c5310012d",
-      "inputs": "ba8fe0a3255340e9e99fa34394c688be3f99b19dffae31ffa65649ddc399d7d0",
-      "unproven": true
+      "commit": "8c45080c5df9276b05d1eac208c8eedcc407702e",
+      "inputs": "ba8fe0a3255340e9e99fa34394c688be3f99b19dffae31ffa65649ddc399d7d0"
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh": {
       "commit": "28efadc074a545a3dc980822ade0af246a451c26",
@@ -4050,9 +4049,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl": {
-      "commit": "689c6a63747a0caf7eec2abe6dbeda4c5310012d",
-      "inputs": "ba8fe0a3255340e9e99fa34394c688be3f99b19dffae31ffa65649ddc399d7d0",
-      "unproven": true
+      "commit": "8c45080c5df9276b05d1eac208c8eedcc407702e",
+      "inputs": "ba8fe0a3255340e9e99fa34394c688be3f99b19dffae31ffa65649ddc399d7d0"
     },
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
