@@ -181,8 +181,7 @@ for their specific print.
 
 The enclosure, faucet and tube-collar preparers read the trim from the print setup and
 write it over the trim the shared [`petgf.profile.json`](../hardware/printed-parts/petgf.profile.json)
-working profile carries. The
-coupon plate specs under `hardware/print-tests` restate it. The fixture preparers and the
+working profile carries. The fixture preparers and the
 lever replica keep each recorded job's own trim in their variant tables and layouts, and
 a project or archive named for a trim holds that trim.
 
