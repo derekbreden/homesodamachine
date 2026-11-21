@@ -358,16 +358,16 @@ fn meter_cap() -> Result<Cap> {
     let seat = REACH * corbel_slope();
     let flank = hsm_enclosure_numbers::faces::back_top_flank_face()[1] - m.split;
     let hook = Hook { seat, rise: flank - tip_air() - (st.bearing + catch_air() + seat + NOSE_LAND) };
+    // End the entire upper spring profile at the catch, including its inward-pointing nose.
+    // The spine below the root and the bearing between the leaves span the housing.
+    let upper_end = hsm_enclosure_numbers::layout::meter_upper_catch_end_y(&stations::pisco_station()) - running();
+    let upper_leaf_tail = cuboid([-st.outer - THROUGH, 0.0, upper_end, m.cap[1] + THROUGH, st.root, flank + THROUGH]);
     let cap = along_y(section_with_tip(&st, Underside::Flat(bottom), hook)?, m.cap)?
+        .cut(&upper_leaf_tail)?
         .union(&cuboid([-half, half, m.cap[0], m.cap[1], bottom, st.root + METER_BEARING_DEPTH]))?
         .rotate(V3::ZERO, V3::Y, 90.0)
         .translate(v3(m.split, 0.0, m.z));
-    // End only the upper leaf and its root blend at the shortened catch. The spine spans the meter.
-    let upper_end = hsm_enclosure_numbers::layout::meter_upper_catch_end_y(&stations::pisco_station()) - running();
-    let upper_leaf_tail = cuboid([m.split + st.root, m.split + flank + THROUGH, upper_end, m.cap[1] + THROUGH,
-                                  m.z + st.inner - ROOT_RADIUS, m.z + st.outer + THROUGH]);
     let cuts = [
-        upper_leaf_tail,
         turned(&housing)?.translate(v3(0.0, m.y, m.z)),
         bore_y(m.soda, meter::PORT_NECK_RADIUS + fit, m.seat)?,
         along_y(corner_bevel(m.split + bottom, m.z), [m.cap[0] - BEVEL_ENDS, m.cap[1] + BEVEL_ENDS])?,
