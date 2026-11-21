@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "cd7be47c345d1d075acd450edafc1ccabd8ae29c5a93d76e72e558d3356f8838",
+    "name": "2026-11-21-rear-equipment-corner-mark2-1399160f.gcode.3mf",
+    "objects": [
+      "rear-equipment-corner",
+      "meter-snap-cap"
+    ],
+    "sha256": "4c3fb2a658585e19fa78954c20c457809fb65213e80f33cf45344bf93360ff14",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 327,
+  "observed_at": "2026-11-21T18:08:55+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1470410561",
+  "subtask_name": "2026-11-21-rear-equipment-corner-mark2-1399160f.gcode.3mf",
+  "total_layer_num": 740
+}

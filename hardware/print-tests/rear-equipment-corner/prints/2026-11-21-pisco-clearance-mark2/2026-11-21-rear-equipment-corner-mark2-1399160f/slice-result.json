@@ -1,0 +1,87 @@
+{
+  "error_string": "Success.",
+  "export_time": 5604,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 80,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 287.502197265625,
+        "Bridge": 1877.08740234375,
+        "Custom": 300.6256103515625,
+        "Flush": 15.0,
+        "Gap infill": 69.51274871826172,
+        "Inner wall": 2167.017333984375,
+        "Internal solid infill": 1527.2432861328125,
+        "Outer wall": 2391.476806640625,
+        "Overhang wall": 60.38058853149414,
+        "Sparse infill": 7197.4638671875,
+        "Support": 1168.4168701171875,
+        "Support interface": 96.766845703125,
+        "Support transition": 286.89825439453125,
+        "Top surface": 266.3343200683594,
+        "Travel": 1954.807861328125,
+        "Undefined": 1949.9879150390625
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 166.8196258544922,
+          "total_used_g": 166.8196258544922
+        }
+      ],
+      "generate_support_material_time": 1898,
+      "id": 1,
+      "infill_time": 1696,
+      "layer_filament_change": 0,
+      "main_predication": 19329.548828125,
+      "make_perimeters_time": 612,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 96.29998779296875,
+            "height": 103.0,
+            "width": 111.5,
+            "x": 78.92499542236328,
+            "y": 111.85000610351562,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "rear-equipment-corner",
+          "triangle_count": 10898
+        },
+        {
+          "bbox": {
+            "depth": 54.29999542236328,
+            "height": 38.0,
+            "width": 40.64999771118164,
+            "x": 205.4250030517578,
+            "y": 132.85000610351562,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "meter-snap-cap",
+          "triangle_count": 1856
+        }
+      ],
+      "sliced_time": 14765,
+      "sliced_time_with_cache": 9336,
+      "total_predication": 25305.460051057635,
+      "triangle_count": 12754,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

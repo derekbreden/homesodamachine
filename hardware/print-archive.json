@@ -2436,6 +2436,12 @@
       "bytes": 1164447,
       "sha256": "55ed4b44d2570fb55e79f023cadb16829cd71148858ce0bbada7a7d3d29ec69c"
     },
+    "4f5cdb14d38ff7a20969333f4a63f1d47559912b": {
+      "archive": "rear-corner-stopped-meter-nose-3359f58934ee009d.zip",
+      "bytes": 5421693,
+      "offset": 173017,
+      "sha256": "4c3fb2a658585e19fa78954c20c457809fb65213e80f33cf45344bf93360ff14"
+    },
     "4f7a1faf440940fe5cc9d24f2e188bbbbe328e59": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 297137162,
@@ -2945,6 +2951,12 @@
       "offset": 785356505,
       "bytes": 192528,
       "sha256": "c3fcca7440df7df54529eddcce48df00e7b1593f8006b0235ed746e82c0203c5"
+    },
+    "5e7ab2f6944a128fd05c8789e12f8e7bdb48a3f8": {
+      "archive": "rear-corner-stopped-meter-nose-3359f58934ee009d.zip",
+      "bytes": 172869,
+      "offset": 74,
+      "sha256": "b74017ea36930fd886305977a669fc4599dcf93c272914625aa1c8b158385728"
     },
     "5e925bf513e4207ace13af979b609fa1559c2bad": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -7854,6 +7866,8 @@
     "hardware/print-tests/pump-mount-fit/prints/mark2/2026-11-01-pump-fit-clip-mark2.gcode.3mf": "a901268bd99a129f05672a463bf95ccf91f4b8e2",
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/2026-11-20-rear-equipment-corner-mark2-c5deafe1/2026-11-20-rear-equipment-corner-mark2-c5deafe1.3mf": "c791e71904283f9f3dd26b4d712ffecf1c99d823",
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/2026-11-20-rear-equipment-corner-mark2-c5deafe1/2026-11-20-rear-equipment-corner-mark2-c5deafe1.gcode.3mf": "2f18f02f5474b3f891e9e2f3db4910264b861e74",
+    "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/2026-11-21-rear-equipment-corner-mark2-1399160f/2026-11-21-rear-equipment-corner-mark2-1399160f.3mf": "5e7ab2f6944a128fd05c8789e12f8e7bdb48a3f8",
+    "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/2026-11-21-rear-equipment-corner-mark2-1399160f/2026-11-21-rear-equipment-corner-mark2-1399160f.gcode.3mf": "4f5cdb14d38ff7a20969333f4a63f1d47559912b",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc-print-only.gcode.3mf": "5dc3e362785bceb23dc279f1ce5aeedcb6109de3",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.3mf": "e666a63c9673c6e2e7fa7b8c80824ada346a5905",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf": "1a26cbbfbba373260f5c53d6fd01dd7c0c990815",
