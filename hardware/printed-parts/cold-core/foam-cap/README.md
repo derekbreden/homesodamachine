@@ -55,7 +55,10 @@ the cap. One 3 mm-rise planar lead-in ends at each pointed free edge above its
 continuous 1.6 mm retaining nose.
 The continuous side pockets clear the complete points by 0.5 mm and
 span X19.75–74.75; the seat leaves
-3 mm of solid axial stock at each end. The clip closes after seating the bare
+3 mm of solid axial stock at each end. The points dip into shallow pockets in the lid
+face. The east pocket's floor runs out to the axis of Reservoir A's air passage, beside
+the cradle's aft corner, and behind the cap aft to it, so its walls end square on the
+passage. The clip closes after seating the bare
 motor and prints on one axial end with a constant outside profile.
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 owns the bearing datums, axial stops and removable sliders.
@@ -134,6 +137,11 @@ screw-tail bores. Bottom-facing blind ends and pilot transitions narrow by
 The upper screws project 97.6 mm beyond their insert mouths, the lower screws 85.4 mm.
 Each blind tail passage has 2.5 mm nominal tip air. All twenty clamp screws are the
 same stock as the enclosure's four seam screws.
+
+The rear nameplate's two upper insert hosts dip into the lid's rear edge, and each takes
+a plain recess there ([`nameplate_clearance.rs`](../nameplate_clearance.rs)). The recess
+beside the rear middle screw opens into that screw's head pocket: one pocket on the
+head's floor, in as far as the screw's axis.
 
 At all ten lid axes, a straight Ø4.8 × 80 mm driver envelope clears the printed
 lid's integral features above the lid face. The [kernel print and driver review](kernel-print-review.json)
