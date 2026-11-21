@@ -61,10 +61,15 @@ pub fn pair() -> Pair {
 }
 
 /// The aft pair: the lines it holds west to east, and a plane across the lid that both lines'
-/// last level turns cross. Its seats are the fore pair's, bore, jaws and span.
+/// last level turns cross. Its seats are the fore pair's, bore, jaws and span. The lower seat's
+/// jaw against the higher seat's root is fixed, so its free jaw takes the fit of a seat with one
+/// fixed jaw, as back-top's east-wall fill seat has it: the free jaw's thickness, and how far it
+/// and its half of the bore stand out from the fixed jaw.
 pub mod aft {
     pub const ROUTES_WEST_TO_EAST: [&str; 2] = ["fluid-16", "fluid-14"];
     pub const WORLD_Y: f64 = 390.5;
+    pub const FREE_WING: f64 = 2.35;
+    pub const FREE_SHIFT: f64 = 0.15;
 }
 
 /// A run of a route: straight between two points, or a circular turn through three points about
@@ -136,10 +141,23 @@ impl AftSeat {
         v[0].hypot(v[1])
     }
 
+    /// How far the seat reaches across its line, toward its turn's centre and away from it: a
+    /// jaw's thickness beyond the bore, and a free jaw's stand-out opposite a fixed one.
+    pub fn reaches(&self) -> [f64; 2] {
+        let jaw = pair::BORE / 2. + pair::WING;
+        let free = pair::BORE / 2. + aft::FREE_WING + aft::FREE_SHIFT;
+        match self.shoulder_outward {
+            Some(true) => [free, jaw],
+            Some(false) => [jaw, free],
+            None => [jaw, jaw],
+        }
+    }
+
     /// The seat's footprint on the lid: its low and high corners across X and Y.
     pub fn footprint(&self) -> [[f64; 2]; 2] {
-        let outer = self.radius() + pair::BORE / 2. + pair::WING;
-        let inner = self.radius() - pair::BORE / 2. - pair::WING;
+        let [toward, away] = self.reaches();
+        let outer = self.radius() + away;
+        let inner = self.radius() - toward;
         let (mut low, mut high) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
         for end in [self.start, self.end] {
             let out = unit(sub(end, self.centre));

@@ -195,8 +195,12 @@ click: x=-63.710 y=50.951 z=13.433
 click: x=-64.268 y=53.281 z=13.492
 click: x=-66.316 y=48.898 z=21.439
 click: x=-67.179 y=51.136 z=21.498
-click: x=-64.316 y=59.898 z=13.539
-click: x=-65.179 y=62.136 z=13.598
+
+[thin] Deliberate free jaw of the aft Reservoir A fill seat, whose opposite jaw is fixed square against the draw seat's root. Its measured 2.350 mm wall is the wing Derek set for a seat with one fixed jaw on back-top's east-wall fill seat and fitted on Mark1 task 1464748974, recorded in https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json. He asked for that fit on this seat on 2026-11-20. Ordinary stock below the equator remains filled. This answer preserves the thinness ranking and establishes no force, lifetime or print result for the lid's seat.
+alternatives: The lid's 2.4 mm jaw gives this seat the fit of two free jaws while only one of its jaws bends. Freeing the fixed jaw moves the fill line east toward the flow meter cap's leg and opens a slot beside the draw seat's root.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-66.332 y=61.888 z=13.568
+click: x=-65.818 y=59.597 z=13.510
 
 [ledge] Functional flat retaining undersides of the J1/J2 cable hooks. Each 12 mm2 face is the 0.75 mm projection across the 16 mm cable span, backed by 3 mm hook stock. Its flat underside catches the leads beneath the 45-degree entry. The 2.2 mm seat depth, lip and entry follow the accepted cable-hook section; the installed seven-lead J1 grouping has its own physical-fit scope. Tree(auto)/Default supplies the current native support decisions.
 alternatives: Removing or sloping the retaining underside changes the selected cable capture; filling beneath it closes the cable seat. The overhang is the named retaining interface, rather than a cut remnant between unrelated features.
