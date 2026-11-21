@@ -1,0 +1,185 @@
+{
+  "views": [
+    {
+      "name": "across-the-wings",
+      "caption": "The section through the drain shows the raised floor between the wings and the lower ledges under the hook tips.",
+      "before": "across-the-wings-before.webp",
+      "after": "across-the-wings-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 751.2,
+          "y": 442.2,
+          "r": 60.6,
+          "label": "Stem guide",
+          "at": [
+            6,
+            179.19575,
+            304.2
+          ]
+        },
+        {
+          "x": 1028.6,
+          "y": 477.9,
+          "r": 50.8,
+          "label": "Hook ledge",
+          "at": [
+            16.9,
+            179.19575,
+            302.9
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          2.3154161491713325,
+          137.0972745605212,
+          314.3246188598697
+        ],
+        "target": [
+          0,
+          179.19575,
+          303.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.09477550240674923,
+        "far": 326.1846404100435,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            179.19575,
+            303
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "funnel-frame"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "elbow-cradle",
+        "funnel-drain-union*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e6f2a22938956e3a47493240b810ba782f6831076b93a402f1617a44bd026657",
+          "commit": "42e07084077a1f7b965ddd63835fab433ec4ac48",
+          "taken": "2026-11-21T08:57:19.370Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "5662234edcdfdf112a7139c0e21cc85b0eeda13cfc24d693eee00b9d077fa573",
+          "commit": "86aad2edb087cba7e3f4efe37cc3e6f034ed7d56",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "bare-socket",
+      "caption": "Looking down into the bare frame, the T spans the socket ahead of the slots and continues back around the stem hole.",
+      "before": "bare-socket-before.webp",
+      "after": "bare-socket-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 571.4,
+          "y": 196.5,
+          "r": 48.6,
+          "label": "T crossbar",
+          "at": [
+            2.015,
+            163.523,
+            305.3
+          ]
+        },
+        {
+          "x": 311,
+          "y": 443,
+          "r": 34.3,
+          "label": "Hook ledge",
+          "at": [
+            16.9,
+            179.19575,
+            302.9
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          11.892639990242417,
+          192.96617525185965,
+          366.74284205390745
+        ],
+        "target": [
+          0,
+          179.19575,
+          304.15
+        ],
+        "up": [
+          0,
+          -1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.08389694580062446,
+        "far": 315.85438161654463,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "funnel-frame"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e6f2a22938956e3a47493240b810ba782f6831076b93a402f1617a44bd026657",
+          "commit": "42e07084077a1f7b965ddd63835fab433ec4ac48",
+          "taken": "2026-11-21T08:57:19.370Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e8d9b3993c365338c544b503350562d6f79a2645b2667e1e17abc9f137a82f90",
+          "commit": "435127223087912b0df6fdda5faa7306d33d1897",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
