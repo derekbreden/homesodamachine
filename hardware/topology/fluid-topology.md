@@ -140,7 +140,7 @@ Four of the liquid conduits in the cold core's top cap are this circuit's: a fil
 | 22 | P-B-O | Y-G-1 | Prepared pump B discharge tube through the collet plate into Y-G's branch collet |
 | 23 | Y-G-3 | V-I-I | Short upper LLDPE tube from Y-G's upper port into V-I's bottom collet; add actual tee and valve insertion |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
-| 26 | Reservoir B draw | V-H-I | The dip tube up off B's floor and out its `reservoir-b` cap conduit, forward west of the funnel drain's elbow |
+| 26 | Reservoir B draw | V-H-I | The dip tube up off B's floor and out its `reservoir-b` cap conduit, forward west of the funnel drain's elbow, then west in front of the funnel frame and through the bulkhead clip into V-H |
 | 27 | Y-G-2 | V-J-I | One straight LLDPE tube between a stem elbow in Y-G's lower port and one in V-J's bottom collet, leaning inboard |
 | 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the +Y wall of back-top |
 

@@ -37,8 +37,21 @@
     }
   ],
   "producer": "enclosure-front-top",
-  "purpose": "Bind the front-top Wago pocket support exclusions and bridge direction to the printed mesh.",
-  "source_stl_sha256": "6ec8df05625c086366799fcc6fef8d3860bd50fc927cf3219c4caeac039a1a18",
+  "purpose": "Bind the tube clip reinforcement and Wago pocket print settings to the front-top mesh.",
+  "solid_infill_regions": [
+    {
+      "bounds_source_mm": [
+        -33.74653182239107,
+        -19.06630086978651,
+        94.886,
+        113.615,
+        281.696,
+        300.79193130647764
+      ],
+      "name": "V-H entry clip and bulkhead root"
+    }
+  ],
+  "source_stl_sha256": "7cac155863fb8ece4f15f14a5942df642a15a0ab5365c21e4ead9b6777dac4b1",
   "support_free_regions": [
     {
       "bounds_source_mm": [

@@ -58,6 +58,14 @@ pub fn specifications(
     (out, unrouted)
 }
 
+/// Centreline radius of the reservoir B draw tube at the V-H inlet.
+pub const B_DRAW_RADIUS: f64 = 14.;
+
+/// The final bend and its bulkhead clip share the centre west of the inlet.
+pub fn b_draw_turn_centre(inlet: [f64; 3]) -> [f64; 3] {
+    sub(inlet, [B_DRAW_RADIUS, 0., 0.])
+}
+
 /// Reservoir B's draw tube, from its port on the cold core to valve V-H's inlet.
 fn b_draw(stations: &Value) -> Result<Tube> {
     let (a, _) = station(stations, "foam-assembly", "reservoir-b")?;
@@ -73,26 +81,21 @@ fn b_draw(stations: &Value) -> Result<Tube> {
         angle,
         14.,
     );
-    let down_start = [b[0] + 14., b[1], b[2] + 14.];
-    let angle = (1. - (down_start[2] - z) / 28.).acos();
+    let radius = B_DRAW_RADIUS;
+    let down_start = add(b_draw_turn_centre(b), [0., 0., radius]);
+    let angle = (1. - (down_start[2] - z) / (2. * radius)).acos();
     ensure!(angle.is_finite(), "math domain error");
-    let rise_start = [down_start[0] + 28. * angle.sin(), b[1], z];
-    let (rise_first, mid) = arc(rise_start, [-1., 0., 0.], [0., 1., 0.], angle, 14.);
-    let (rise_second, _) = arc(
-        mid,
-        [-angle.cos(), 0., angle.sin()],
-        [0., -1., 0.],
-        angle,
-        14.,
-    );
-    let (down, _) = arc(down_start, [-1., 0., 0.], [0., -1., 0.], PI / 2., 14.);
+    let rise_start = [down_start[0] - 2. * radius * angle.sin(), b[1], z];
+    let (rise_first, mid) = arc(rise_start, [1., 0., 0.], [0., -1., 0.], angle, radius);
+    let (rise_second, _) = arc(mid, [angle.cos(), 0., angle.sin()], [0., 1., 0.], angle, radius);
+    let (down, _) = arc(down_start, [1., 0., 0.], [0., 1., 0.], PI / 2., radius);
     let prefix = vec![line(a, lift), offset_first, offset_second];
     let points = vec![
         [end[0], a[1], z],
-        [-22.35, 214., z],
-        [-22.35, 138., z],
-        [b[0] + 33.65, 138., z],
-        [b[0] + 33.65, b[1], z],
+        [b[0], 214., z],
+        [b[0], 138., z],
+        [b[0] - 33.65, 138., z],
+        [b[0] - 33.65, b[1], z],
         rise_start,
     ];
     let mut full = vec![*prefix.last().unwrap().points().last().unwrap()];
@@ -110,7 +113,7 @@ fn b_draw(stations: &Value) -> Result<Tube> {
         to: Some("valve-v-h.inlet".to_owned()),
         owners: Some(vec!["foam-assembly".to_owned(), "valve-v-h".to_owned()]),
         status: Some("selected_native_layout".to_owned()),
-        note: Some("B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor".to_owned()),
+        note: Some("B draw turns west in front of the funnel frame and follows the bulkhead clip into V-H".to_owned()),
         ..Tube::of(segments, 6.35, 4.24, "black").through(points)
     })
 }

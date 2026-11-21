@@ -175,6 +175,7 @@ pub enum Op {
         aft: f64,
         points: Vec<P2>,
     },
+    VhInletClip(crate::vh_clip::InletClip),
     NameplateStock(Rc<Snap>),
     NameplateCuts(Rc<Snap>),
     DisposalLetters(Rc<Letters>),
@@ -842,6 +843,7 @@ pub(crate) fn op_json(op: &Op) -> Map<String, Value> {
             "stadium-profile-x",
             json!({"y": y, "z": z, "fore": fore, "aft": aft, "points": points}),
         ),
+        Op::VhInletClip(clip) => ("vh-inlet-clip", json!(clip)),
         Op::NameplateStock(s) => ("nameplate-stock", json!({"snap": snap_json(s)})),
         Op::NameplateCuts(s) => ("nameplate-cuts", json!({"snap": snap_json(s)})),
         Op::DisposalLetters(l) => (

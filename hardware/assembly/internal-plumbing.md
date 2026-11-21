@@ -259,16 +259,16 @@ line's stands higher than the fill line's and the two are one body. Press each t
 through its clip's open +Z mouth. For removal, release the exposed jaws and lift the tube upward.
 Leave the front valve ends free during the column slide and dress the
 flexible spans clear of passing fittings. Once the column is home, finish
-dressing the free spans and connect the front ends. Keep each tube
-unbroken through its plain core guide. Only the connection points and
-paired-anchor centres/axes are fixed; the bends and displayed lengths between
-them illustrate routing and may change to clear installed hardware and
-wires. The current drawn warm spans are
- for `fluid-14` fill and
- for `fluid-16` draw. Each includes the
-16.891 mm receiving length in its front-valve ATEU44W stem elbow. For the physical blank,
-continue through the guide to the reservoir fill bore or dip-tube tip and
-replace the socket allowance with its actual fully seated insertion mark.
+dressing the free spans and connect the front ends. For reservoir B, turn the draw
+tube west in front of the funnel frame and seat its end in the V-H inlet. Through
+the open funnel aperture, press the bend sideways toward the pump bulkhead until
+both pairs of wings capture it. Release the bend toward the aperture for service.
+
+Keep each tube unbroken through its plain core guide. The valve ports and clips
+locate the tubing. Dress the free spans around the installed hardware, then
+route the wiring. For the reservoir A blanks, include the receiving depth of
+each front-valve stem elbow and the span through the guide to the fill bore
+or dip-tube tip. Use the fully seated insertion mark on the actual fitting.
 The guide adds no fitting, insertion or cut. Seat the bare pump in its lid saddle
 and close its upper snap per the [pump installation](/hardware/reference/g-ganen-pump/installation/README.md).
 Keep the continuous reservoir tubes clear of the snap's release access.

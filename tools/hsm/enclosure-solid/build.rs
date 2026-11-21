@@ -43,6 +43,7 @@ fn main() {
         manifest.join("Cargo.toml"),
         manifest.join("build.rs"),
         root.join("hardware/printed-parts/enclosure/nameplate/snap_geometry.rs"),
+        root.join("hardware/printed-parts/cadlib/tube_clip.rs"),
     ] {
         files(&path, &mut sources);
     }

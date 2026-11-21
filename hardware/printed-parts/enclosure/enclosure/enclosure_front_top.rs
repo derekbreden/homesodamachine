@@ -24,7 +24,8 @@ use hsm_enclosure_quadrants::walls::{flank_bedding_cut, y_lip_channel};
 use hsm_enclosure_quadrants::ystacks::y_stacks;
 use hsm_enclosure_quadrants::{above, funnel, plan, routes, seat, shell, spec, valves, walls};
 use hsm_enclosure_solid::pieces::{digest, keep, payload_with_features as payload, shown};
-use hsm_enclosure_solid::plan::{Graph, Shape};
+use hsm_enclosure_solid::plan::{Graph, Op, Shape};
+use hsm_enclosure_solid::vh_clip::InletClip;
 use hsm_enclosure_solid::sources::Sources;
 use hsm_enclosure_solid::structure::Silhouette;
 use hsm_enclosure_solid::{ops, skin};
@@ -39,7 +40,8 @@ fn main() -> Result<()> {
     let (field, rail) =
         hsm_enclosure_solid::exterior::presentation(&b, rear_wall::front_plain(&b.outer));
     let rails = [rail];
-    let (g, piece) = construction(&b);
+    let clip = inlet_clip(&b)?;
+    let (g, piece) = construction(&b, clip.as_ref());
     write(
         &out,
         &g,
@@ -48,11 +50,31 @@ fn main() -> Result<()> {
         &field,
         &rails,
         catalog::wall_color(),
+        clip.as_ref(),
     )
 }
 
+/// The collet plate locates the valve outlet. Its opposite port and the routed bend locate the clip.
+fn inlet_clip(b: &Box) -> Result<Option<InletClip>> {
+    use hsm_foam_cap_numbers::{clips, reservoir_a::pair};
+    use hsm_layout_data::routes::{B_DRAW_RADIUS, b_draw_turn_centre};
+    #[derive(serde::Deserialize)]
+    struct Valve { port_faces_y_mm: [f64; 2] }
+
+    let plate = &b.pack.collet_plate;
+    let Some(outlet) = plate.upper_ports.values().find(|p| p.valve == "V-H") else { return Ok(None); };
+    let valve: Valve = hsm_enclosure_numbers::input::json("hardware/reference/beduan-solenoid/model-check.json")?;
+    let [a, b] = valve.port_faces_y_mm;
+    let inlet = std::array::from_fn(|i| outlet.point[i] - outlet.axis[i] * (b - a));
+    Ok(Some(InletClip {
+        centre: b_draw_turn_centre(inlet), radius: B_DRAW_RADIUS, bore: pair::BORE / 2.,
+        wing: pair::WING, tip_degrees: pair::TIP_DEGREES, slot_width: clips::WING_SLOT_WIDTH,
+        wall_y: plate.wall_aft_y,
+    }))
+}
+
 /// Front-top's construction: the front half, then its stages in turn.
-fn construction(b: &Box) -> (Graph, Shape) {
+fn construction(b: &Box, clip: Option<&InletClip>) -> (Graph, Shape) {
     let mut g = Graph::new();
     let silhouette = g.silhouette(b.exterior_bounds());
     let half = front_half(&mut g, b, silhouette, Quadrant::FRONT_TOP.z);
@@ -64,6 +86,7 @@ fn construction(b: &Box) -> (Graph, Shape) {
             silhouette,
             half,
         },
+        clip,
     );
     (g, piece)
 }
@@ -73,7 +96,7 @@ fn construction(b: &Box) -> (Graph, Shape) {
 /// loading cuts among them; the above-core wells, the rail channels, the Y telescope's channel,
 /// the funnel's seat, the flank pockets, the route snaps, the Y stacks clear of the funnel, the
 /// seam reliefs, and the pump mount's cuts.
-fn pipeline(g: &mut Graph, k: &Build) -> Shape {
+fn pipeline(g: &mut Graph, k: &Build, clip: Option<&InletClip>) -> Shape {
     let (b, q) = (k.b, k.q);
     let (inner, outer, y_joint) = (&b.inner, &b.outer, b.y_joint);
     let [ox0, ox1, oy0, oy1, _, oz1] = b.exterior_bounds();
@@ -110,6 +133,11 @@ fn pipeline(g: &mut Graph, k: &Build) -> Shape {
     piece = g.scoped("funnel-seat", "Funnel retaining seat", &["funnel"], |g| seat::funnel_seat(g, piece, b, q, k.silhouette, up));
     piece = g.scoped("front-flank-pockets", "Front flank equipment pockets", &[], |g| fronttop::flank_pockets(g, piece, &pack.front_flank_reliefs));
     piece = g.scoped("route-snaps", "Tube and cable retaining snaps", &[], |g| routes::apply(g, piece, q));
+    if let Some(clip) = clip {
+        let guide = g.scoped("vh-inlet-clip", "V-H inlet tube clip", &["valve-v-h", "tube-fluid-26"], |g|
+            g.add(Op::VhInletClip(clip.clone()), vec![], Some(clip.bounds())));
+        piece = g.union(piece, &[guide]);
+    }
     let knuckle_cut = funnel_cut(g, inner, outer, pack.funnel);
     piece = g.scoped("y-joint-fasteners", "Front-back joint screw stations", &[], |g| y_stacks(g, piece, inner, k.silhouette, y_joint, q, Some(knuckle_cut)));
     piece = g.scoped("joint-fit-reliefs", "Joint fit reliefs", &[], |g| seam_fit_reliefs(g, piece, b, q, &[]));
@@ -126,6 +154,7 @@ fn write(
     field: &Field,
     rails: &[Rail],
     color: Color,
+    clip: Option<&InletClip>,
 ) -> Result<()> {
     let name = "enclosure-front-top";
     let (plan, core, band) = hsm_enclosure_solid::pieces::separated(g, result, silhouette)?;
@@ -149,13 +178,13 @@ fn write(
     )?;
     keep(
         &dir.join(format!("{name}.print-features.json")),
-        &serde_json::to_vec_pretty(&wago_print_features(&stl))?,
+        &serde_json::to_vec_pretty(&front_top_print_features(&stl, clip))?,
     )?;
     payload(dir, name, color, &stl, &step, Some(&sources), Some(identities))
 }
 
 /// The Wago roofs bridge along the opening's short path between its two sidewalls.
-fn wago_print_features(stl: &[u8]) -> serde_json::Value {
+fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json::Value {
     let mut exclusions = Vec::new();
     let mut bridges = Vec::new();
     for (name, bounds) in above::pocket_regions(quadrant::Y::Front) {
@@ -171,8 +200,14 @@ fn wago_print_features(stl: &[u8]) -> serde_json::Value {
             "reason": "Bridge the flat roof and mouth between the two sidewalls."
         }));
     }
+    let clip_regions: Vec<_> = clip.into_iter().map(|clip| {
+        let mut bounds = clip.bounds();
+        bounds[2] -= WALL;
+        json!({"name": "V-H entry clip and bulkhead root", "bounds_source_mm": bounds})
+    }).collect();
     json!({
-        "purpose": "Bind the front-top Wago pocket support exclusions and bridge direction to the printed mesh.",
+        "purpose": "Bind the tube clip reinforcement and Wago pocket print settings to the front-top mesh.",
+        "solid_infill_regions": clip_regions,
         "producer": "enclosure-front-top",
         "source_stl_sha256": digest(stl),
         "boundary_overlap_mm": catalog::running(),

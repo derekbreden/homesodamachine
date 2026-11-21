@@ -1438,7 +1438,9 @@ dependencies = [
  "hsm-enclosure-numbers",
  "hsm-enclosure-quadrants",
  "hsm-enclosure-solid",
+ "hsm-foam-cap-numbers",
  "hsm-kernel",
+ "hsm-layout-data",
  "serde",
  "serde_json",
 ]

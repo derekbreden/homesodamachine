@@ -16,3 +16,4 @@ pub mod snap_geometry;
 pub mod sources;
 pub mod structure;
 pub mod text;
+pub mod vh_clip;

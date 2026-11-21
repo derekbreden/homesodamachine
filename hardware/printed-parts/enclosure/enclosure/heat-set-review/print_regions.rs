@@ -33,6 +33,7 @@ const ABOVE_CORE: &str = "hardware/manifold-layout/above-core.json";
 const NAMEPLATE: &str = "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json";
 const DISPLAY_MOUNT: &str = "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json";
 const PLACEMENT: &str = "hardware/manifold-layout/machine-export-physical.numbers.json";
+const FRONT_TOP_FEATURES: &str = "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json";
 const BACK_TOP_FEATURES: &str = "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json";
 /// The pieces with regions, in the order the record lists them.
 const PIECES: [&str; 5] = ["front-bottom", "front-top", "back-bottom", "back-top", "pump-retainer"];
@@ -205,6 +206,11 @@ fn main() -> Result<()> {
         }
     }
 
+    for row in read(FRONT_TOP_FEATURES)?["solid_infill_regions"].as_array().into_iter().flatten() {
+        regions.add("front-top", row["name"].as_str().context("front-top infill region name")?,
+                    bounds6(&row["bounds_source_mm"])?);
+    }
+
     // The rear wall: its equipment hosts, the C14 tunnel, the nameplate's insert lands, and the
     // funnel frame's receivers.
     let features = read(BACK_TOP_FEATURES)?;
@@ -266,7 +272,7 @@ fn main() -> Result<()> {
     }
     let program = enc.join("heat-set-review/print_regions.rs");
     let mut sources = Map::new();
-    for path in [program.clone(), root.join(BOX), root.join(BACK_TOP_FEATURES), root.join(ABOVE_CORE), root.join(NAMEPLATE),
+    for path in [program.clone(), root.join(BOX), root.join(FRONT_TOP_FEATURES), root.join(BACK_TOP_FEATURES), root.join(ABOVE_CORE), root.join(NAMEPLATE),
                  root.join(DISPLAY_MOUNT), root.join(PLACEMENT)] {
         sources.insert(relative(&path, &root), json!(faucet::file_sha(&path)?));
     }
