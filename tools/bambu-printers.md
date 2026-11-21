@@ -399,7 +399,8 @@ for the calling shell, as [Print submission](#print-submission) describes.
 2. **Import.** `import <file.gcode.3mf>` opens the Print tab, walks the chooser to the
    file and opens it. `state` then reads the summary: compatible printer, bed type,
    filament, nozzle diameter, time and weight. A path through a hidden directory is
-   staged as a visible copy first, and a path inside the working tree walks fastest.
+   staged as a visible copy first, in a folder of `~/bambu-ax-staging` named for the
+   file's bytes, and a path inside the working tree walks fastest.
 3. **Open the dialog.** `press "Print" --role AXButton`. In `tree`, the group labelled
    `<name> chevron_down` is the printer offered. When it is not the target, the selector's
    popover chooses it: `click <x+70> <y+32> <x+81> <y+91+36n>` from the selector's `@x,y`,
@@ -488,6 +489,11 @@ panel taking it; setting `AXSelected` on the row's `AXRow` and pressing **Open**
 the application in the background. A sidebar row is the exception — it navigates on
 `AXOpen`, and that action sits on its `AXCell`, not on the `AXStaticText` holding the name.
 `select "<row name>"` chooses a row in a chooser that is already open.
+
+**Open** acts on whichever row holds the selection, so `import` and `select` press it only
+once the wanted row reads selected, and `import` cancels the chooser otherwise. A file
+replaced under the chooser's listing keeps its row, and that row takes no selection, so a
+staged copy is written once and left alone.
 
 Synthesized keyboard input cannot reach the application at all. `CGEvent` delivery to
 `.cghidEventTap` follows the frontmost application, so a keystroke needs the window in

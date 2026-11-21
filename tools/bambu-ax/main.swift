@@ -12,6 +12,7 @@
 
 import AppKit
 import ApplicationServices
+import CryptoKit
 
 let BUNDLE = "com.bambulab.bambu-connect"
 let USAGE = """
@@ -166,6 +167,31 @@ func selectRow(_ e: AXUIElement) -> Bool {
     guard let r = ancestor(e, role: "AXRow") else { return false }
     return AXUIElementSetAttributeValue(r, kAXSelectedAttribute as CFString, kCFBooleanTrue) == .success
 }
+// Open acts on the chooser's selection, whichever row holds it, so a row is opened
+// only once it reads selected. A row whose file was replaced under the listing stays
+// listed and does not take the selection.
+func chooserRow(_ label: String) -> Node? {
+    matches(label, role: "AXTextField").first { $0.label == label }
+}
+func openRow(_ label: String) -> Bool {
+    func selected(_ n: Node) -> Bool {
+        ancestor(n.el, role: "AXRow").map { attr($0, kAXSelectedAttribute) == "1" } ?? false
+    }
+    guard waitFor(8, {
+        guard let row = chooserRow(label) else { return false }
+        if selected(row) { return true }
+        _ = selectRow(row.el)
+        return false
+    }), let open = matches("Open", role: "AXButton").first(where: { $0.label == "Open" && $0.enabled }) else {
+        return false
+    }
+    return perform(open, "AXPress")
+}
+func cancelChooser() {
+    if let cancel = matches("Cancel", role: "AXButton").first(where: { $0.label == "Cancel" }) {
+        perform(cancel, "AXPress")
+    }
+}
 // A sidebar row navigates on AXOpen, but the action lives on its AXCell, not on
 // the AXStaticText that carries the name.
 func openCell(_ e: AXUIElement) -> Bool {
@@ -245,14 +271,12 @@ case "select":
     guard args.count > 1 else { fail("select needs the name of a row in the open chooser") }
     let want = args[1]
     guard !matches("Open", role: "AXButton").isEmpty else { fail("no file chooser is open") }
-    guard let target = matches(want, role: "AXTextField").first else {
+    guard let target = matches(want, role: "AXTextField").first, let label = target.label else {
         fail("no chooser row matching \(want)")
     }
-    guard selectRow(target.el) else { fail("\(target.label ?? want) is not a selectable chooser row") }
-    guard let openButton = matches("Open", role: "AXButton").first else { fail("no Open button") }
-    perform(openButton, "AXPress")
+    guard openRow(label) else { fail("\(label) did not take the selection; Open was not pressed") }
     let closed = waitFor(20, { matches("Open", role: "AXButton").isEmpty })
-    print("select \(target.label ?? want) -> \(closed ? "chooser closed" : "chooser still open")")
+    print("select \(label) -> \(closed ? "chooser closed" : "chooser still open")")
     reportFocus()
     if !closed { exit(1) }
 
@@ -302,14 +326,21 @@ case "import":
 
     // The chooser lists no hidden directory and offers no way to reveal one
     // without a keystroke, so a path through .cache or any other dotted folder
-    // cannot be walked. Stage a visible copy and import that instead.
+    // cannot be walked. Stage a visible copy and import that instead. The copy
+    // goes in a folder named for its bytes, so a file the chooser has listed is
+    // never replaced under it.
     if path.split(separator: "/").dropLast().contains(where: { $0.hasPrefix(".") }) {
-        let staging = NSHomeDirectory() + "/bambu-ax-staging"
-        try? FileManager.default.createDirectory(atPath: staging, withIntermediateDirectories: true)
+        guard let bytes = FileManager.default.contents(atPath: path) else { fail("could not read \(path)") }
+        let digest = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined().prefix(12)
+        let staging = NSHomeDirectory() + "/bambu-ax-staging/" + digest
         let visible = staging + "/" + name
-        try? FileManager.default.removeItem(atPath: visible)
-        do { try FileManager.default.copyItem(atPath: path, toPath: visible) }
-        catch { fail("could not stage a visible copy of \(name): \(error)") }
+        if !FileManager.default.contentsEqual(atPath: path, andPath: visible) {
+            do {
+                try FileManager.default.createDirectory(atPath: staging, withIntermediateDirectories: true)
+                try? FileManager.default.removeItem(atPath: visible)
+                try FileManager.default.copyItem(atPath: path, toPath: visible)
+            } catch { fail("could not stage a visible copy of \(name): \(error)") }
+        }
         print("staged \(visible) — the chooser cannot enter a hidden directory")
         path = visible
     }
@@ -324,13 +355,9 @@ case "import":
         fail("the file chooser did not open")
     }
 
-    // Walk to the file's directory one component at a time. Each row answers
-    // AXOpen, which is what a double-click sends, so no keystroke is needed.
-    func row(_ label: String) -> Node? {
-        matches(label, role: "AXTextField").first { $0.label == label }
-    }
-    func choose(_ n: Node) -> Bool { selectRow(n.el) }
-    if row(name) == nil {
+    // Walk to the file's directory one component at a time, selecting each row
+    // and pressing Open, so no keystroke is needed.
+    if chooserRow(name) == nil {
         let home = (NSHomeDirectory() as NSString).lastPathComponent
         if let side = matches(home, role: "AXStaticText").first {
             guard openCell(side.el) else { fail("could not open the home row in the chooser sidebar") }
@@ -340,16 +367,17 @@ case "import":
             ? String(path.dropFirst(NSHomeDirectory().count + 1))
             : path
         for part in rel.split(separator: "/").dropLast() {
-            guard let d = row(String(part)) else { fail("could not reach \(part) in the chooser") }
-            guard choose(d) else { fail("could not select \(part) in the chooser") }
-            if let open = matches("Open", role: "AXButton").first { perform(open, "AXPress") }
-            _ = waitFor(8, { row(String(part)) == nil })
+            guard waitFor(8, { chooserRow(String(part)) != nil }), openRow(String(part)) else {
+                cancelChooser()
+                fail("could not open \(part) in the chooser; the chooser was cancelled")
+            }
+            _ = waitFor(8, { chooserRow(String(part)) == nil })
         }
     }
-    guard let target = row(name) else { fail("\(name) is not listed in the chooser") }
-    guard choose(target) else { fail("could not select \(name) in the chooser") }
-    guard let openButton = matches("Open", role: "AXButton").first else { fail("no Open button") }
-    perform(openButton, "AXPress")
+    guard waitFor(8, { chooserRow(name) != nil }), openRow(name) else {
+        cancelChooser()
+        fail("\(name) is not listed in the chooser or did not take the selection; the chooser was cancelled")
+    }
     let loaded = waitFor(20, {
         matches("Open", role: "AXButton").isEmpty && !matches(name).isEmpty
     })
