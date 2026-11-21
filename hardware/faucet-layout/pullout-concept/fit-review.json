@@ -1,9 +1,9 @@
 {
   "purpose": "This records the focused packaging measurements for the slim custom-valve faucet. Each observation identifies its measured native payload.",
-  "date": "2026-11-18",
+  "date": "2026-11-20",
   "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
-  "current_payload_sha256": "5257864c3e5b32bb388059f37314d5f9d657f30c4d284ed187a8e8229334235d",
-  "current_step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
+  "current_payload_sha256": "ec6369fed6e94f5964b8ca283336ad109024ea5f379222a00217217cf79cc977",
+  "current_step_sha256": "65484bb0e425f7c2a4b282035790b10cb2091e76f420872e114370ebbe81ab07",
   "observations": [
     {
       "query": [
@@ -151,11 +151,117 @@
       "step_sha256": "da5e8a2a93726f0d2cf8525813a8dcbb06b9cf577f0395435e146cb810f60988",
       "clearance_mm": 0.7503046636939427,
       "intersection_volume_mm3": 0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_fixed_seat_washer",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "d9145234072f265ac3234df13890d699e10ccb5e749980ddc32ad02e7760ac3a",
+      "step_sha256": "60f994ac3affe86b771e4010cdbc9962e96d675449dd0ee5b5a4e6b517b8ac03",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_fixed_seat_washer",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "6a4796c79493da8002014235c69d35b85f016f5b1d230dfcbf96f7fba48513bb",
+      "step_sha256": "47e090c1e17c8245a386d6e2c5b2ec6c9e132d1d4c22211458240a4c029761e1",
+      "clearance_mm": 0.599999964237213,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_fixed_seat_washer",
+        "head_valve_pressure_sleeve"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "d9145234072f265ac3234df13890d699e10ccb5e749980ddc32ad02e7760ac3a",
+      "step_sha256": "60f994ac3affe86b771e4010cdbc9962e96d675449dd0ee5b5a4e6b517b8ac03",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_fixed_seat_washer",
+        "head_valve_outlet_cap"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "d9145234072f265ac3234df13890d699e10ccb5e749980ddc32ad02e7760ac3a",
+      "step_sha256": "60f994ac3affe86b771e4010cdbc9962e96d675449dd0ee5b5a4e6b517b8ac03",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_outlet_cap",
+        "head_valve_pressure_sleeve"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "d9145234072f265ac3234df13890d699e10ccb5e749980ddc32ad02e7760ac3a",
+      "step_sha256": "60f994ac3affe86b771e4010cdbc9962e96d675449dd0ee5b5a4e6b517b8ac03",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 5.568556603742618e-17
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_pressure_sleeve",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "6a4796c79493da8002014235c69d35b85f016f5b1d230dfcbf96f7fba48513bb",
+      "step_sha256": "47e090c1e17c8245a386d6e2c5b2ec6c9e132d1d4c22211458240a4c029761e1",
+      "clearance_mm": 0.5298402200887206,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_outlet_cap",
+        "head_flavor_a_line"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh",
+      "payload_sha256": "4412dd761aa4091f0bbc4ff223096cc4f4af74cebdbb477559234776bffd7a39",
+      "step_sha256": "fca4a9125904e137a1e10c996c3c25e72bfc94fed8e11ee73da4f4a9d908796c",
+      "clearance_mm": 2.8363550579602985,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_valve_outlet_cap"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/docked-above-counter.step.mesh",
+      "payload_sha256": "4412dd761aa4091f0bbc4ff223096cc4f4af74cebdbb477559234776bffd7a39",
+      "step_sha256": "fca4a9125904e137a1e10c996c3c25e72bfc94fed8e11ee73da4f4a9d908796c",
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "overlap",
+        "pull_off_curved_grip",
+        "head_valve_outlet_cap"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
+      "payload_sha256": "ec6369fed6e94f5964b8ca283336ad109024ea5f379222a00217217cf79cc977",
+      "step_sha256": "65484bb0e425f7c2a4b282035790b10cb2091e76f420872e114370ebbe81ab07",
+      "intersection_volume_mm3": 0.0
     }
   ],
   "notes": [
     "The bezel shares its cut seat in the shell; its recorded observation is nominal contact at that interface.",
-    "Each observation applies to its identified native payload. The current export shortens the removable shell, repacks the tube fan and terminates the valve leads at the pull-out dock.",
+    "Each observation applies to its identified native payload.",
     "The flexible valve leads have nominal mesh contact with the housing; their final exit and routing need fabrication detail.",
     "Clearance measurements establish the illustrated packaging, not actuator force, pressure rating, hydraulic performance, seal life, sanitation or manufacturing fit."
   ]

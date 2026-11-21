@@ -23,7 +23,7 @@
     "winding_copper_fill_estimate": 0.3547058823529412
   },
   "architecture_reference": "https://patents.google.com/patent/EP1597501A1/en",
-  "date": "2026-11-18",
+  "date": "2026-11-20",
   "geometry": {
     "actuator_length_mm": 25.2,
     "actuator_od_mm": 14.5,
@@ -43,6 +43,7 @@
     "main_hose_id_mm": 6.7,
     "main_hose_od_mm": 11.6,
     "opening_lift_mm": 0.6,
+    "outlet_bore_mm": 3.8,
     "pressure_sleeve_od_mm": 8.6,
     "pullout_head_centerline_length_mm": 75.0,
     "pullout_split_angle_deg": 102.21967471196142,
@@ -52,7 +53,7 @@
       227.49722126002194
     ],
     "reference_shell_max_z_mm": 242.71051025390625,
-    "seat_flow_bore_mm": 3.8,
+    "seat_flow_bore_mm": 3.6,
     "seat_to_outlet_mm": 1.8,
     "stem_od_mm": 27.0,
     "stem_sliding_bore_mm": 23.0
@@ -60,7 +61,8 @@
   "hydraulic_targets_and_estimates": {
     "curtain_area_mm2": 7.5398223686155035,
     "effective_diameter_match_allowance_mm": 0.02,
-    "nominal_outlet_connected_liquid_volume_mm3": 47.95798265337499,
+    "nominal_outlet_connected_liquid_volume_mm3": 47.78298625114441,
+    "poppet_to_keeper_annulus_mm2": 8.042163033924517,
     "pour_target_l_min": [
       1.5,
       2.0
@@ -69,6 +71,7 @@
     "seat_only_drop_bar_at_2_l_min_assuming_cd_0_65": 0.23130155517737283,
     "unbalanced_seat_force_at_pressure_target_n": 20.106192982974676,
     "volume_scope": "Outlet bore, small wet balance chamber, hollow stem and rod-gland clearance. Seal grooves and films are not included. The armature and return spring occupy a separate dry chamber.",
+    "washer_throat_area_mm2": 10.17876019763093,
     "working_pressure_target_bar": 16.0
   },
   "materials_and_process": {
@@ -77,9 +80,25 @@
     "dynamic_seals": "Food-contact compound to be specified; low-friction piston seal and a separate low-pressure rod seal.",
     "flux_bridges": "Passivated magnetic stainless, with axial water passages and sealed interfaces to the dry armature bore.",
     "inlet": "Integral angled barb and factory crimp; no exposed disconnect at the docking seam.",
-    "wet_pressure_tubes_and_seat": "Precision-turned and laser-joined stainless steel; smooth outlet seat."
+    "seat_washer_retention": "The outlet cap threads onto the machined mouth of the sleeve. A metal stop sets perimeter squeeze. The compressed rim seals the cap joint and blocks flow around the back of the washer.",
+    "wet_pressure_tubes_and_seat": "Precision-turned and laser-joined stainless steel. The turned metal poppet closes on a stationary washer punched from cured EPDM sheet."
   },
   "purpose": "This record owns the custom valve's geometry and first-order design budgets for the slim pull-out faucet.",
   "reference_scope": "The pressure-balancing architecture is established. The reference does not validate this geometry, food service, magnetic design or performance.",
+  "seat_washer": {
+    "balance_bore_mm": 0.6,
+    "outlet_cap_od_mm": 10.44,
+    "outlet_cap_thread_mm": [
+      8.0,
+      0.5
+    ],
+    "poppet_largest_od_mm": 4.3,
+    "washer_blank_id_mm": 3.6,
+    "washer_blank_od_mm": 6.35,
+    "washer_clamped_rim_height_mm": 0.66,
+    "washer_keeper_bore_mm": 5.36,
+    "washer_nominal_rim_squeeze_fraction": 0.16850393700787392,
+    "washer_stock_thickness_mm": 0.79375
+  },
   "state": "Proposed end-state mechanism and packaging; performance values below are requirements or first-order estimates, not qualified hardware ratings."
 }

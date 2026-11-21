@@ -5,6 +5,9 @@ use hsm_faucet_numbers::{paths, shell};
 use hsm_kernel::{Affine, Font, HAlign, Kind, Loop, Path, Plane, Profile, Solid, V3, VAlign, v2, v3};
 use hsm_sandbox::{material, out, part, show};
 
+mod front_seat;
+use front_seat::{SEAT_D, STEM_R, VENT_R};
+
 type Item = (String, [f64; 3], Solid);
 
 const NECK_R: f64 = 13.5;
@@ -19,14 +22,11 @@ const LOOP_R: f64 = 70.0;
 const LOOP_BOTTOM: f64 = -450.0;
 const WEIGHT_DOCK_Z: f64 = -350.0;
 const DISPLAY_LIFT: f64 = 0.5;
-const SEAT_D: f64 = 4.0;
 const VALVE_LIFT: f64 = 0.6;
 const ACTUATOR_R: f64 = 7.25;
 const BALANCE_PISTON_S: f64 = 12.0;
 const BALANCE_PISTON_LENGTH: f64 = 2.2;
 const LOW_CHAMBER_END: f64 = 16.3;
-const STEM_R: f64 = 0.8;
-const VENT_R: f64 = 0.3;
 
 fn tube(path: &Path, start: V3, tangent: V3, outer: f64, inner: f64) -> Result<Solid> {
     let across = if tangent.cross(V3::X).norm() > 0.1 { V3::X } else { V3::Y };
@@ -55,10 +55,11 @@ fn custom_valve(neck: &Gooseneck, pullout_u: f64, steel: [f64; 3], lift: f64) ->
         Solid::union_all(&bridge_stations.iter().map(|&(s, length)| cyl(r, s, length))
             .collect::<Result<Vec<_>>>()?)
     };
-    let outer_sleeve = ring(4.3, 3.7, 0., 50.5)?.cut(&bridge_clearance(4.4)?)?;
-    add(&mut items, "head_valve_pressure_sleeve", steel, make(outer_sleeve));
-    let inner = cyl(2.9, 0.8, 48.5)?
-        .cut(&cyl(2.5, 0.7, BALANCE_PISTON_S - 0.7)?)?
+    let outer_sleeve = front_seat::pressure_sleeve(50.5)?.cut(&bridge_clearance(4.4)?)?;
+    add(&mut items, "head_valve_pressure_sleeve", steel, make(outer_sleeve.clone()));
+    let liner_start = front_seat::LINER_START_S;
+    let inner = cyl(2.9, liner_start, 49.3 - liner_start)?
+        .cut(&cyl(2.5, liner_start - 0.1, BALANCE_PISTON_S - liner_start + 0.1)?)?
         .cut(&cyl(2.0, BALANCE_PISTON_S - 0.02, LOW_CHAMBER_END - BALANCE_PISTON_S + 0.02)?)?
         .cut(&cyl(0.95, LOW_CHAMBER_END - 0.02, 1.1)?)?
         .cut(&cyl(2.6, 17.3, 32.1)?)?;
@@ -67,20 +68,14 @@ fn custom_valve(neck: &Gooseneck, pullout_u: f64, steel: [f64; 3], lift: f64) ->
         liner = liner.cut(&Solid::cylinder(v3(-4., s, 0.), V3::X, 1.0, 8.)?)?;
         liner = liner.cut(&Solid::cylinder(v3(0., s, -4.), V3::Z, 1.0, 8.)?)?;
     }
-    add(&mut items, "head_valve_wet_dry_liner", steel, make(liner));
-    add(&mut items, "head_valve_outlet_seat", steel, make(ring(4.3, 1.9, -1.0, 1.6)?));
-    add(&mut items, "head_valve_front_retainer", polymer, make(ring(5.25, 4.35, -0.8, 1.6)?));
-    add(&mut items, "head_valve_seat_lip", steel,
-        make(Solid::cone(v3(0., 0.6, 0.), V3::Y, 2.1, SEAT_D / 2., 0.2)?
-            .cut(&cyl(1.9, 0.5, 0.4)?)?));
+    add(&mut items, "head_valve_wet_dry_liner", steel, make(liner.clone()));
+    add(&mut items, "head_valve_outlet_cap", [0.47, 0.43, 0.35], make(front_seat::cap()?));
+    let washer = front_seat::installed_washer()?;
+    add(&mut items, "head_valve_fixed_seat_washer", [0.025, 0.34, 0.24], make(washer.clone()));
 
     let moving = Affine::translation(v3(0., lift, 0.));
-    let stem = cyl(STEM_R, 0.8, 35.3)?
-        .cut(&cyl(VENT_R, 0.7, 14.4)?)?
-        .cut(&Solid::cylinder(v3(-1.0, 14.9, 0.), V3::X, VENT_R, 2.)?)?;
-    add(&mut items, "head_valve_hollow_poppet_stem", steel, make(stem.transformed(&moving)));
-    add(&mut items, "head_valve_poppet_face", seal,
-        make(ring(2.2, VENT_R, 0.8, 0.55)?.transformed(&moving)));
+    let poppet = front_seat::poppet()?.transformed(&moving);
+    add(&mut items, "head_valve_hollow_poppet_stem", steel, make(poppet.clone()));
     add(&mut items, "head_valve_balance_piston", steel,
         make(ring(2.0, STEM_R + 0.01, BALANCE_PISTON_S, BALANCE_PISTON_LENGTH)?.transformed(&moving)));
     add(&mut items, "head_valve_balance_seal", seal,
@@ -183,11 +178,18 @@ fn custom_valve(neck: &Gooseneck, pullout_u: f64, steel: [f64; 3], lift: f64) ->
         Plane::new(p(0., 22., 8.1), V3::X, frame.y)?
             .sweep(&Profile::rect(v2(0., 0.), 5., 0.6), &flex_path)?);
 
-    let hp_annulus = ring(3.7, 2.9, 1.0, 49.4)?.cut(&front_spider)?.cut(&rear_spider)?;
-    let hp_core = cyl(2.5, 1.4 + lift, BALANCE_PISTON_S - 1.4)?
-        .cut(&cyl(STEM_R, 1.0, BALANCE_PISTON_S + lift)?)?;
+    let hp_annulus = ring(3.7, 2.9, liner_start, 50.4 - liner_start)?
+        .cut(&front_spider)?.cut(&rear_spider)?;
+    let clamp = front_seat::CLAMP_S;
+    let outlet = front_seat::outlet_volume()?;
+    let balance_passage = front_seat::balance_passage()?.transformed(&moving);
+    let hp_core = cyl(front_seat::KEEPER_BORE_R, clamp, liner_start - clamp + 0.02)?
+        .union(&cyl(2.5, liner_start, BALANCE_PISTON_S + lift - liner_start)?)?
+        .cut(&poppet)?.cut(&washer)?.cut(&outlet)?.cut(&liner)?.cut(&balance_passage)?;
     add(&mut fluids, "fluid_high_pressure_annulus", [0.06, 0.40, 0.68], make(hp_annulus));
     add(&mut fluids, "fluid_high_pressure_seat_chamber", [0.06, 0.40, 0.68], make(hp_core));
+    add(&mut fluids, "fluid_at_outlet", [0.12, 0.72, 0.70], make(outlet));
+    add(&mut fluids, "fluid_through_balance_bore", [0.12, 0.72, 0.70], make(balance_passage));
     add(&mut fluids, "fluid_low_pressure_balance_chamber", [0.12, 0.72, 0.70],
         make(ring(2.0, STEM_R, BALANCE_PISTON_S + BALANCE_PISTON_LENGTH + lift,
             LOW_CHAMBER_END - BALANCE_PISTON_S - BALANCE_PISTON_LENGTH - lift)?));
@@ -272,10 +274,10 @@ fn main() -> Result<()> {
     println!("Custom shell tip-frame bounds {:?}", tip.union(&bezel)?.placed(&tip_plane, &Plane::XY).bounds());
     let pi = std::f64::consts::PI;
     let seat_area = pi * SEAT_D.powi(2) / 4.;
-    let outlet_volume = pi * 1.9_f64.powi(2) * 1.8;
+    let outlet_volume = front_seat::outlet_volume()?.volume();
     let balance_volume = pi * (2.0_f64.powi(2) - STEM_R.powi(2))
         * (LOW_CHAMBER_END - BALANCE_PISTON_S - BALANCE_PISTON_LENGTH);
-    let vent_volume = pi * VENT_R.powi(2) * (14.1 + 2.0);
+    let vent_volume = front_seat::balance_passage()?.volume();
     let gland_volume = pi * (0.95_f64.powi(2) - STEM_R.powi(2));
     let spring_rate = 77_000. * 0.32_f64.powi(4) / (8. * 3.5_f64.powi(3) * 6.);
     let residual_force = 1.6 * pi / 4. * ((SEAT_D + 0.02).powi(2) - SEAT_D.powi(2));
@@ -288,9 +290,21 @@ fn main() -> Result<()> {
     let custom_bounds = stem.union(&upper_neck)?.union(&tip)?.union(&bezel)?.bounds();
     let old_head_length = neck.tip + (neck.radius + round.y) * (neck.turn - paths::JOINT_ANGLE);
     let pullout_angle = (joint - neck.lift) / neck.radius;
+    let seat_washer = serde_json::json!({
+        "outlet_cap_od_mm": front_seat::CAP_R * 2.,
+        "outlet_cap_thread_mm": [front_seat::THREAD_D, front_seat::THREAD_PITCH],
+        "poppet_largest_od_mm": front_seat::POPPET_R * 2.,
+        "washer_blank_od_mm": front_seat::WASHER_R * 2.,
+        "washer_blank_id_mm": front_seat::THROAT_R * 2.,
+        "washer_stock_thickness_mm": front_seat::SHEET_T,
+        "washer_clamped_rim_height_mm": front_seat::CLAMP_HEIGHT,
+        "washer_nominal_rim_squeeze_fraction": 1. - front_seat::CLAMP_HEIGHT / front_seat::SHEET_T,
+        "washer_keeper_bore_mm": front_seat::KEEPER_BORE_R * 2.,
+        "balance_bore_mm": VENT_R * 2.,
+    });
     let design = serde_json::json!({
         "purpose": "This record owns the custom valve's geometry and first-order design budgets for the slim pull-out faucet.",
-        "date": "2026-11-18",
+        "date": "2026-11-20",
         "state": "Proposed end-state mechanism and packaging; performance values below are requirements or first-order estimates, not qualified hardware ratings.",
         "geometry": {
             "stem_od_mm": NECK_R * 2., "stem_sliding_bore_mm": BORE_R * 2.,
@@ -299,9 +313,12 @@ fn main() -> Result<()> {
                 + (screen_n + 0.3 - round.y - HEAD_R).max(0.),
             "bundle_envelope_od_mm": BUNDLE_R * 2.,
             "actuator_od_mm": ACTUATOR_R * 2., "actuator_length_mm": 25.2,
-            "pressure_sleeve_od_mm": 8.6, "effective_seat_and_balance_diameter_mm": SEAT_D,
-            "seat_flow_bore_mm": 3.8, "opening_lift_mm": VALVE_LIFT,
-            "seat_to_outlet_mm": 1.8, "display_outward_shift_mm": DISPLAY_LIFT,
+            "pressure_sleeve_od_mm": front_seat::PRESSURE_SLEEVE_R * 2.,
+            "effective_seat_and_balance_diameter_mm": SEAT_D,
+            "seat_flow_bore_mm": front_seat::THROAT_R * 2., "opening_lift_mm": VALVE_LIFT,
+            "outlet_bore_mm": front_seat::BORE_R * 2.,
+            "seat_to_outlet_mm": front_seat::SEAT_S - front_seat::OUTLET_S,
+            "display_outward_shift_mm": DISPLAY_LIFT,
             "flavor_and_drain_tube_od_mm": 3., "flavor_tube_id_mm": 2.,
             "main_hose_od_mm": 11.6, "main_hose_id_mm": 6.7,
             "assembly_split_angle_deg": paths::JOINT_ANGLE.to_degrees(),
@@ -315,12 +332,15 @@ fn main() -> Result<()> {
             "reference_shell_max_z_mm": original_bounds.max.z,
             "custom_shell_max_z_mm": custom_bounds.max.z
         },
+        "seat_washer": seat_washer,
         "hydraulic_targets_and_estimates": {
             "working_pressure_target_bar": 16., "pour_target_l_min": [1.5, 2.0],
             "unbalanced_seat_force_at_pressure_target_n": 1.6 * seat_area,
             "effective_diameter_match_allowance_mm": 0.02,
             "residual_pressure_force_allowance_n": residual_force,
             "curtain_area_mm2": pi * SEAT_D * VALVE_LIFT,
+            "poppet_to_keeper_annulus_mm2": pi * (front_seat::KEEPER_BORE_R.powi(2) - front_seat::POPPET_R.powi(2)),
+            "washer_throat_area_mm2": pi * front_seat::THROAT_R.powi(2),
             "seat_only_drop_bar_at_2_l_min_assuming_cd_0_65":
                 (2. / 60000. / (0.65 * pi * SEAT_D * VALVE_LIFT * 1e-6)).powi(2) * 1000. / 2. / 100000.,
             "nominal_outlet_connected_liquid_volume_mm3": outlet_volume + balance_volume + vent_volume + gland_volume,
@@ -344,7 +364,8 @@ fn main() -> Result<()> {
             "qualification": "Magnetic finite-element analysis, seal friction, force versus stroke and temperature, closure, carbonation and life remain engineering work."
         },
         "materials_and_process": {
-            "wet_pressure_tubes_and_seat": "Precision-turned and laser-joined stainless steel; smooth outlet seat.",
+            "wet_pressure_tubes_and_seat": "Precision-turned and laser-joined stainless steel. The turned metal poppet closes on a stationary washer punched from cured EPDM sheet.",
+            "seat_washer_retention": "The outlet cap threads onto the machined mouth of the sleeve. A metal stop sets perimeter squeeze. The compressed rim seals the cap joint and blocks flow around the back of the washer.",
             "flux_bridges": "Passivated magnetic stainless, with axial water passages and sealed interfaces to the dry armature bore.",
             "dynamic_seals": "Food-contact compound to be specified; low-friction piston seal and a separate low-pressure rod seal.",
             "coil": "Custom winding on an insulated bobbin, protected inside its magnetic return yoke.",
@@ -475,7 +496,7 @@ fn main() -> Result<()> {
                 .placed(&Plane::XY, &tip_plane).transformed(&pose);
             for (name, _, solid) in &mut cutaway {
                 if name == "pull_off_curved_grip" || ["head_valve_pressure_sleeve", "head_valve_wet_dry_liner",
-                    "head_valve_outlet_seat", "head_valve_front_retainer", "head_valve_coil_bobbin",
+                    "head_valve_outlet_cap", "head_valve_fixed_seat_washer", "head_valve_coil_bobbin",
                     "head_valve_custom_copper_winding", "head_valve_magnetic_return_yoke",
                     "head_valve_front_flux_spider", "head_valve_fixed_pole_and_rear_spider"]
                     .contains(&name.as_str()) { *solid = solid.cut(&removed_half)?; }
@@ -487,8 +508,8 @@ fn main() -> Result<()> {
                 let mut output = vec![];
                 for (name, color, solid) in parts {
                     if !name.starts_with("head_valve_") || name == "head_valve_fly_leads" { continue; }
-                    let s = if ["head_valve_pressure_sleeve", "head_valve_wet_dry_liner", "head_valve_outlet_seat",
-                        "head_valve_front_retainer", "head_valve_seat_lip", "head_valve_coil_bobbin",
+                    let s = if ["head_valve_pressure_sleeve", "head_valve_wet_dry_liner", "head_valve_outlet_cap",
+                        "head_valve_fixed_seat_washer", "head_valve_hollow_poppet_stem", "head_valve_coil_bobbin",
                         "head_valve_custom_copper_winding", "head_valve_magnetic_return_yoke",
                         "head_valve_front_flux_spider", "head_valve_fixed_pole_and_rear_spider", "head_valve_pressure_rear_cap"]
                         .contains(&name.as_str()) { solid.cut(&section_cut)? } else { solid.clone() };
