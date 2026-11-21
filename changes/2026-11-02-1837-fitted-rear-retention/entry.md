@@ -21,7 +21,7 @@ The meter's cap and receiver follow the housing taper and label-side bevel.
 Bosses and screw heads have separate fitted passages. The wire exit and
 sixteen-millimetre hardware loading corridor remain open.
 
-[Three complete retention pairs](../../hardware/print-tests/rear-snap-retention/v5/README.md)
+[Three complete retention pairs](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v5/README.md)
 exercise these fits in black PET-GF, with production print orientations,
 2 mm leaves and centered flathead release entries. The active Mark1 and
 Mark2 trial continues; the backed ASSE revision is separately prepared for

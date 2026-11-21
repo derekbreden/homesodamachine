@@ -10,7 +10,7 @@ Mark1's task 1374272357 was accepted at 11:39:30 CDT, satisfying the shared
 circuit's three-minute start spacing. The existing preflight camera notification
 has the same HMS code in the acceptance reading; the startup reading has no HMS.
 
-The [front-corner study](../../corner-overlap-review/2026-10-25/README.md)
+The [front-corner study](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
 extends the two front skirt edges to overlap the tip ledge by 1.2 mm in side
 projection. It addresses the visible opening in the
 [accepted head's photographs](../../../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json).

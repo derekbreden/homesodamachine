@@ -159,7 +159,7 @@ Angle and pull the J5 ribbon into its mouth; straight sliding entry can be tight
 The [physical result](https://github.com/derekbreden/homesodamachine/blob/1f49ea24e261b5b74e8b82d8c3e9ac5690736952/future/snap-fit-tests/2026-10-26-mark2-combined/physical-result.json)
 accepts the 16 mm-span clip's 4P fit and qualitative retention. The DC-1 pair and
 V-K single-wire seats remain provisional. The
-[review](../printed-parts/enclosure/enclosure/route-snap-review/README.md#evidence-and-fit-scope)
+[review](../printed-parts/enclosure/enclosure/route-snap-review/README.md#cable-hooks)
 retains the coupon scope and the complete production print's separate status.
 
 Before sliding back-top for opening, release its clipped cables and tubes so

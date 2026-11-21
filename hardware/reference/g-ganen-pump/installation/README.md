@@ -70,7 +70,7 @@ slider observations remain independently available in the purchased reference.
 Occupied casing solids describe exterior clearance, not mass or wall thickness.
 Actual snap retention, vibration and assembled fit remain physical qualification.
 
-The [production block check](../../../print-tests/rear-snap-retention/production-pump-block.json)
+The [production block check](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/production-pump-block.json)
 records the isolated base and cap's native fit and printable geometry. The
-[sample trial](../../../print-tests/rear-snap-retention/README.md) records the
+[sample trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/README.md) records the
 replacement cap and physical test scope.

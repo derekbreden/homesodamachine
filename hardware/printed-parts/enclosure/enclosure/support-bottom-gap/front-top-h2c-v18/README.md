@@ -1,7 +1,7 @@
 # Front-top flush-ceiling print
 
 This exact v18 job is cancelled after first-layer progress. The
-[display-strip backing check](../../../../zone-c/funnel/flush-roof-review/display-strip-backing-v18.json)
+[display-strip backing check](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/flush-roof-review/display-strip-backing-v18.json)
 finds approximately 190 mm unsupported spans under the narrow display ceiling.
 The archive is retained as measured evidence and is not approved for another
 start. A separate v19 support preparation addresses that ceiling. Full front-top and

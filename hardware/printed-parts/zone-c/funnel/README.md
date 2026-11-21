@@ -36,7 +36,7 @@ the exterior. The apron is a uniform 3 mm sheet with one flat underside
 resting on the rigid roof at Z355. The bearing brim's underside is Z349;
 the 6 mm shoulder between these planes locates it in the recessed frame.
 
-The [overflow review](overflow-review/README.md) records native coverage,
+The [overflow review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/overflow-review/README.md) records native coverage,
 roof fit, mold fit and lift-out clearance. Water exclusion has not been
 measured on a cast part.
 
@@ -189,13 +189,13 @@ in Git history, measures the authored rigid
 empty frame, ledges, silicone brim bearing, original snap web/socket and screw engagement.
 With production shells included, it also measures the nominal Ø3.3 mm J10 tool
 passages with the frame and its cradled drain removed.
-Its [record](drop-in-review/native-review.json) states whether exported production
+Its [record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json) states whether exported production
 upper shells are included. Its lift scope removes the drain cradle, elbow
 and connected tubing. Sampled geometry does not establish hand access,
 printed fit, support-removal effort, sealing, load capacity or lifetime.
 
-The retained [horizontal rail-motion record](integration-review/rail-motion-check.json)
-and [frame print receipt](flush-roof-review/mark2-v1/README.md) apply only to the
+The retained [horizontal rail-motion record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/integration-review/rail-motion-check.json)
+and [frame print receipt](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/flush-roof-review/mark2-v1/README.md) apply only to the
 artifacts named in those records. The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/35e99c1802cd0ccf5aa9c729bc578b74bcb20630/hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json)
 retains its accepted insertion scope. The drop-in frame and installed drain joint require their own physical print
 and assembly observations.

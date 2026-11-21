@@ -12,7 +12,7 @@ The complete print contains the Industrial base, corrected shared tip,
 corrected Sculpted display cover, rigid Industrial counter plate and side-down
 lever. The TPU mounting gasket is a separate material-specific print.
 
-The [fit review](../../../faucet-display-cover/fit-review/2026-10-24/README.md)
+The [fit review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/README.md)
 binds the two corrections to the reported physical failure. Two approximately
 5.00 × 5.60 mm button pockets are 1.00 mm deep, with 0.50 mm side allowance.
 Nominal clearance beneath each switch is 0.60 mm; the complete vendor switch
@@ -29,7 +29,7 @@ coordinated cover dimensions are one 0.50 mm adjustment.
 The [October 25 physical record and eight photographs](physical-result/physical-result.json)
 report that the Sculpted cover fits very well with the display, tubes and wiring
 in the tip. A front-corner opening exposes internal hardware; the
-[cover-only skirt-overlap trial](../../../faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
+[cover-only skirt-overlap trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
 addresses that cosmetic opening. Numerical seating force, retention and support
 removal effort are unreported.
 

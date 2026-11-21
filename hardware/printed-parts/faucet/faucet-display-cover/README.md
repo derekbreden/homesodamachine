@@ -20,8 +20,8 @@ Numerical force and cycle life have not been measured.
 
 Both faucet styles carry this cover on the tip they share. The tip's ledge holds
 the display low over the tube, with a recess for each of the display's feet and a
-pocket for each of its switches. The [lowered-head fit review](fit-review/2026-10-24/README.md)
-and the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md) record
+pocket for each of its switches. The [lowered-head fit review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/README.md)
+and the [skirt-overlap print trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md) record
 how that head was fitted. The extended-skirt cover's
 [physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 records its working fit and appearance. The

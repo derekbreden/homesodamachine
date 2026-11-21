@@ -95,8 +95,8 @@ The [explicit Slim faucet trial](https://github.com/derekbreden/homesodamachine/
 also failed release despite generating interface paths along the curve. The
 [larger-gap trial](https://github.com/derekbreden/homesodamachine/blob/a261387d7021b9f74675793f5b1a3fd188cfccec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-slim-gap048-mark1/physical-result/physical-result.json)
 records easier release with connected roof mats and essentially unchanged
-underside finish. The [nonplanar faucet result](https://github.com/derekbreden/homesodamachine/blob/542ced3900b6b513c521c525582c22f167c9584d/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records improved underside finish and trapped insert supports. Keep the heat-insert recesses clear of support. Bridge the shoulders and blind pilot roofs, and read the emitted paths through both stages. The [rim-fin release observation](https://github.com/derekbreden/homesodamachine/blob/534b87cc5f8d6911f8bcfa38378116d8dcdcb6bd/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense roof and support coming off together. The [tree and contoured-rim trial](../print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json) uses the dense roof and bridge-only pockets on the complete lower curve.
-The [active incline comparisons](../print-tests/petgf-dense-roofs/inclines/matrix.json)
+underside finish. The [nonplanar faucet result](https://github.com/derekbreden/homesodamachine/blob/542ced3900b6b513c521c525582c22f167c9584d/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-gap024-widebands-mark1/physical-result/physical-result.json) records improved underside finish and trapped insert supports. Keep the heat-insert recesses clear of support. Bridge the shoulders and blind pilot roofs, and read the emitted paths through both stages. The [rim-fin release observation](https://github.com/derekbreden/homesodamachine/blob/534b87cc5f8d6911f8bcfa38378116d8dcdcb6bd/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-10-faucet-nonplanar-rim-fins-mark1/physical-result/physical-result.json) records the dense roof and support coming off together. The [tree and contoured-rim trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/inclines/prints/2026-11-11-faucet-trees-only-mark1/print-job.json) uses the dense roof and bridge-only pockets on the complete lower curve.
+The [archived incline comparisons](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/inclines/matrix.json)
 retain D's dense interface and vary contact gap and tree generation. Interface
 density and the contact footprint selected by the tree algorithm are distinct.
 
@@ -149,7 +149,7 @@ full fitted span.
 The C14 inlet's flange pocket and cord passage take support; its blind pilots
 stay clear. The meter's fitted boss channels, screw-head channels and wire
 chamber take support through the receiver's open west side. Preserve the
-[approved](../print-tests/pointed-snaps/physical-result/physical-result.json)
+[approved](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pointed-snaps/physical-result/physical-result.json)
 component seats and the spring walls and roots.
 Receiver coupons retain this production layer direction. Ordinary layers apply
 except where a specific show round requires a fine band.
@@ -175,7 +175,7 @@ passage clearance, bead margins and access to the tree roots and interfaces.
 The rail supports were removable in the full-size physical article; its loose
 underside and subsequent glossy courses require localized foundation cooling.
 
-The [rear equipment fit trial](../print-tests/rear-snap-retention/physical-result/physical-result.json)
+The [rear equipment fit trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/physical-result/physical-result.json)
 records easy screwdriver removal of tiny supports in accessible coupons. That
 result applies only where the same access remains available in the complete
 part.

@@ -34,7 +34,7 @@ The [engine record](mark2/layout-engine.json) retains every contact line.
 
 The engine's 45° analysis threshold selects this observed defective ledge for
 the experiment. It is not a measured PET-GF failure threshold. The
-[v6 ramps](../../../../print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
+[v6 ramps](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
 accepted 35–42.5° surfaces over their tested reach; they do not establish the
 unsupported tip edge's finish. The local fin choice specifically addresses
 the photographed circumferential lip damage at the retained orientation.

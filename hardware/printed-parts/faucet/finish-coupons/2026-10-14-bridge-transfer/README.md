@@ -30,11 +30,11 @@ worse front edge than trees at the missing contact.
 
 ## Basis and treatment
 
-The [v5 comparison](../../../../print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
+The [v5 comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
 prefers 125% bridge extrusion at 70% fan for closing first-layer gaps. The
-[v7 completed roofs](../../../../print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
+[v7 completed roofs](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
 also prefer 125%; increasing beyond it has no established advantage. The
-[v6 matrix](../../../../print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
+[v6 matrix](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
 accepts the tested 35–42.5° ramps, and its F07/F08 comparison favors 15 over
 25 mm/s within that particular fin geometry. These results select a transfer
 candidate; they do not establish the faucet's physical result.
@@ -57,9 +57,9 @@ after the first three layers. Bridge feed is 25 mm/s. The
 [Mark1](mark1/review.json) and [Mark2](mark2/review.json) reviews retain the
 observed ranges and treatment checks. Native 125% bridge flow's perimeter
 treatment is part of this physical transfer question, as identified in the
-[profile review](../../../../print-tests/petgf-fins/profile-transfer-review.json).
+[profile review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/profile-transfer-review.json).
 
-The [wall-under-roof result](../../../../print-tests/petgf-fins/under-roof-walls-v8/README.md)
+The [wall-under-roof result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md)
 selects a 0.24 mm gap for its narrow wall. It does not establish a replacement
 for the faucet's automatic tree-support gap. These material comparisons retain
 Tree(auto), Default style and the saved 0.45 mm requested top gap.

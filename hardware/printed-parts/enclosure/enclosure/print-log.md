@@ -650,5 +650,5 @@ Black PET-GF on the fixed left hardened 0.4 mm Standard nozzle, Textured PEI,
 +0.16 mm emitted trim. Job **1405624302** accepted 2026-11-04T05:02:44.371197+00:00.
 The complete-part estimate is 36 h 30 min; the native full-bead bed margin is
 53.48 mm. Timelapse and bed leveling are On; flow and nozzle-offset calibrations
-are Auto. The [launch and reviewed slice](../../../print-tests/receiver-tool-access/full-part-review/finished/front-top-mark1/print-job.json)
+are Auto. The [launch and reviewed slice](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/full-part-review/finished/front-top-mark1/print-job.json)
 bind the submitted archive and unchanged full production mesh.

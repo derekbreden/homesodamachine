@@ -11,7 +11,7 @@ before the rear port land. Its lip captures the outlet neck and its body
 bearing extends toward the rear bore. The modeled clearances to the ASSE and
 meter caps are 8.146 mm and 4.523 mm.
 
-The five [retention sample pairs](../../hardware/print-tests/rear-snap-retention/v4/README.md)
+The five [retention sample pairs](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v4/README.md)
 include the production parent stock, complete spring pockets and axial stops.
 The PISCO and ASSE samples include their rear bulkhead holes; the meter sample
 includes its wire exit and rear soda bore. Mark1 is printing the pump receiver,

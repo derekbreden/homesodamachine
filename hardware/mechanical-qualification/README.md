@@ -14,7 +14,7 @@ countertop arrangement. Exact installed articles, revised-part fit and complete
 cutover acceptance remain unspecified by this record; the linked part evidence
 retains its scope.
 
-The [prototype assembly-clearance review](../printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
+The [prototype assembly-clearance review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
 records the October 17 C14 height and cold-core blind-insertion feedback.
 It binds the C14 measurement to the October 10 Mark1 article and retains the
 May 31 foam-shell record's scope. Current passive core crossings are Ø7.5 mm;
@@ -121,51 +121,51 @@ The complete faucet's physical result remains unreported. The
 [foot and first-shoulder material pair](../printed-parts/faucet/finish-coupons/2026-10-14-bridge-transfer/mark2/README.md)
 remains unsent and is not selected for submission.
 
-The [PET-GF fin screening plate](../print-tests/petgf-fins/README.md) compares
+The [PET-GF fin screening plate](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/README.md) compares
 4–32 mm bridges between removable fin contacts, 30–60° unsupported slopes,
 side clearances and horizontal tine widths on Mark2. A16, B16 and Y12 failed
 on the first roof layer; AI detection interrupted the run with no continuation.
 S30 and S35 have reported edge sag; S40 lacks that defect over its shorter,
 partially printed extent. No bridge or full-length angle limit is qualified.
-The [short-span follow-up](../print-tests/petgf-fins/short-spans-v2/README.md)
+The [short-span follow-up](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/short-spans-v2/README.md)
 compares 2–8 mm bridges on solid anchors and fin landings, with fan-off and
 30% part-fan plates. Its ramps finish before its bridge attempts. The
-[fan-off physical result](../print-tests/petgf-fins/short-spans-v2/physical-result-fan0.json)
+[fan-off physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/short-spans-v2/physical-result-fan0.json)
 records stable C bridges whose underside finish is worse than supported surfaces,
 failed F roof formation, and edge sag on four of six full-length ramps.
-The [native landing trace](../print-tests/petgf-fins/short-spans-v2/landing-path-review.json)
+The [native landing trace](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/short-spans-v2/landing-path-review.json)
 shows sparse F teeth beneath a transverse roof perimeter printed before bridge
 fill. That landing failure does not establish a PET-GF free-span limit.
 The 30% comparison and dense-contact geometry candidate remain unprinted;
 neither supplies surface or release acceptance.
 
-The [12 mm fusion and fin trial](../print-tests/petgf-fins/bonding-and-fins-v4/README.md)
+The [12 mm fusion and fin trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/bonding-and-fins-v4/README.md)
 is accepted by Mark1 as task 1340084547 and Mark2 as task 1340093238. Mark1
 compares single bridge layers with normal/thick extrusion and 100%/125%/150%
 volume at fixed spacing within each group. Mark2 has opposing fins in two
 directions, a solid-post control and full 14 mm ramps at 70%/100% cooling.
 Every main first-roof fin raster starts and ends on preceding tooth beads,
-and fill precedes walls. The [Mark1 physical result](../print-tests/petgf-fins/bonding-and-fins-v4/mark1/physical-result.json)
+and fill precedes walls. The [Mark1 physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark1/physical-result.json)
 identifies normal-mode N100 and N125 as the visually preferred pair, with no
 clear winner and no measured bond-strength result. The
-[Mark2 physical result](../print-tests/petgf-fins/bonding-and-fins-v4/mark2/physical-result.json)
+[Mark2 physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/bonding-and-fins-v4/mark2/physical-result.json)
 reports all three roofs formed with objectionable sag/finish, one substantially
 worse than the other two without identified labels. Four ramp edges improve
 with residual sag; two ramps look good, tentatively the 40° pair. Fin removal
 and the better cooling level are unreported. The
-[normal-flow/cooling follow-up](../print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
+[normal-flow/cooling follow-up](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/README.md)
 is Mark1 task 1340156908: normal bridges at 100%/115%/125% extrusion, each at
 70% and 100% cooling, with a single 12 mm first roof layer. Its
-[physical result](../print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
+[physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/normal-flow-cooling-v5/mark1/physical-result.json)
 ranks A125 (125%, 70% fan) first and B125 (125%, 100% fan) second for fewest
 gaps when held to light, both at 25 mm/s. Sag, retained underside finish and
 adjacent-line strength remain unreported for this plate.
-The [40-specimen Mark2 follow-up](../print-tests/petgf-fins/finish-matrix-v6/README.md)
+The [40-specimen Mark2 follow-up](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/README.md)
 is task 1340201019. It compares matched solid-post and fin bridges at 100%/125%
 volume, 15/25 mm/s and 70%/100% fan, with full 14 mm ramps at 35–42.5° facing
 opposing directions. Its fin paths directly land on preceding beads; useful
 retained fin finish and release remain unqualified. The
-[physical result and eight photos](../print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
+[physical result and eight photos](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/physical-result.json)
 accept all 16 ramp surfaces at 35–42.5° from the bed, both orientations and
 70%/100% fan, over the tested 14 mm reach and 12 mm width. R09 is among the
 best-looking; R03 improves on R01, supporting a modest 100% ramp-cooling
@@ -174,28 +174,28 @@ including C07's one low-hanging thread. F01/F08/Y04/Y05 fail severely; F07 is
 worse than C07 but less severe. No individual outcome is assigned to unreported
 bridges. Roof bowing, loose loops and irregular contact remnants are visible;
 the sequence of tooth deformation/attachment loss or handling separation is
-unresolved. The [Mark1 comparison](../print-tests/petgf-fins/finish-matrix-v6/mark2/comparison-with-mark1.json)
+unresolved. The [Mark1 comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/finish-matrix-v6/mark2/comparison-with-mark1.json)
 does not isolate a printer effect because anchor fill, height and plate size differ.
-The [geometry comparison](../print-tests/petgf-fins/geometry-comparison.json)
+The [geometry comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/geometry-comparison.json)
 identifies the v4/v6 fins as local lateral walls with 2.24 mm cantilever teeth.
 Their failures do not qualify or reject PrintFins' published wall-under-ledge
 arrangement with a vertical release gap, whose physical outcome remains unqualified here.
-The [wall-under-roof comparison](../print-tests/petgf-fins/under-roof-walls-v8/README.md)
+The [wall-under-roof comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md)
 is Mark1 task 1340689201: permanent, 0.24 mm and 0.48 mm vertical-gap conditions,
 each in X/Y. A permanent model post anchors one end; a 1 mm vertical wall
 underlies the other. All 30 native bridge strokes per specimen cross wall-top
 beads in XY, with one wall loop and no projecting teeth. Physical formation,
 release and shape are recorded in the
-[confirmed Mark1 result](../print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json):
+[confirmed Mark1 result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/mark1/physical-result.json):
 G1 at 0.24 mm is the preferred column, bends off easily and provides good bridge
 support. G2 at 0.48 mm is okay and basically falls off, with very slight sag.
 X/Y are not separately ranked and C0 is unreported. This is a narrow-wall gap
 candidate, not a tree-support gap or sliding-joint qualification.
-The [eight-specimen Mark1 flow bracket](../print-tests/petgf-fins/flow-bracket-v7/README.md)
+The [eight-specimen Mark1 flow bracket](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/flow-bracket-v7/README.md)
 is task 1340334508, comparing 125%/130%/135%/140% first-roof extrusion at
 70% fan and 25 mm/s. Isolated first layers expose gaps; completed five-course
 roofs expose retained underside shape. All bridge ends directly land on
-preceding beads. Its [physical result](../print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
+preceding beads. Its [physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/flow-bracket-v7/mark1/physical-result.json)
 reports all R roofs look pretty good, with R125 preferred, and L140 adds sag.
 The possible appearance decrease from A125 to L125 is uncertain; the bridge
 recipe matches but anchor deposition, position and plate conditions differ.
@@ -263,7 +263,7 @@ is rejected. Top-rim supports are nearly impossible to remove, supported 0.08 mm
 material has extreme spaghettification, normal snug supports are fused with tree
 supports into masses too large for their cavities, and one tee-carrier
 window-cover holder broke while embedded in the support mass. Native access
-lines do not qualify cleanup. The [front-only flush roof and sliding frame](../printed-parts/zone-c/funnel/flush-roof-review/README.md)
+lines do not qualify cleanup. The [front-only flush roof and sliding frame](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/flush-roof-review/README.md)
 remove the fixed inward roof ledge, retain complete silicone brim bearing and
 clear the existing back-top in the native seated and insertion checks.
 Revised print cleanup, surface finish and assembled fit remain unqualified.
@@ -322,8 +322,8 @@ fixed 1/4-inch LLDPE pump tube to the insertion stop. Front-top’s tee bores lo
 the fittings in X and Z. Fore-valve/tee groups precede the rear valves and lower
 returns. The collets grip the tubes; the printed mount carries the pumps.
 
-The [pump-snap review](../printed-parts/enclosure/enclosure/pump-snap-review/README.md)
-records the current geometric scope. The [three-screw mount receipts](../printed-parts/enclosure/enclosure/pump-mount-review/README.md)
+The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md)
+records the current geometric scope. The [three-screw mount receipts](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
 bind their listed artifacts and motions, support contacts and deposition. They do not
 qualify the snap interface. Physical cleanup, fit, insertion/release forces, retention,
 load capacity, vibration and lifetime of the snap-fit mount are unassessed. The
@@ -471,7 +471,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 | Cold-core cap stacks | The common M5 closure screws engage regular inserts in the shell. The [cap dimensions](../printed-parts/cold-core/foam-cap/numbers/lib.rs) own their head seats, blind pilots and closed stock. Exterior foil bands seal the casing seams. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion remain unmeasured. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
-| Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](../printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |
+| Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |
 
 The [floor thickness is 6.0 mm and grip roofs are 12.0 mm](../printed-parts/enclosure/enclosure/numbers/shell.rs).
 Those geometric dimensions do not define load capacity. Engineering assessment must include
@@ -594,7 +594,7 @@ does not require a physical comparison before choosing a supported starting reci
 wall paths and local solid regions for the load path, choose the sparse pattern for the
 remaining interior, and preserve the identified accepted flexures and surface treatments.
 
-The [Mark2 gyroid comparison](../print-tests/enclosure-infill/README.md) compares
+The [Mark2 gyroid comparison](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/enclosure-infill/README.md) compares
 two/four walls and 15%/25% infill on standing 3 mm wall strips and flat 6 mm floor
 strips. Its recipe and native readings describe those test pieces. The production
 baseline remains two walls and 15% gyroid unless Derek explicitly asks for a change.

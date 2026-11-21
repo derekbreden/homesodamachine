@@ -163,7 +163,7 @@ receiver bases retain their complete stock without enclosed release tunnels.
 Release the exposed wings with the lid loose on the bench and the pump
 plumbing and leads dressed aside. The cap withdraws upward.
 
-The [complete snap set](../../../print-tests/receiver-tool-access/README.md)
+The [complete snap set](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/README.md)
 binds the receiver samples and insertion/removal readings. The
 approved motor cradle, fixed rail stops and cap bearing profile retain their
 fits.

@@ -86,7 +86,7 @@ Use the regular M3 and M5 bodies selected in [the BOM](/hardware/ledger/bom.md#1
 
 Clear front-top's functional-cavity support through the empty display seat and
 open underside before installing hardware. The
-[native print reading](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/print-review.json)
+[native print reading](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/print-review.json)
 identifies those branches; physical cleanup and the revised interfaces require
 bench confirmation. Use locally solid deposition through the hosts and their
 wall roots, as specified in the owning print recipes.
@@ -389,7 +389,7 @@ V-B's inlet turn through the open roof, with both 16.891 mm socket engagements
 fully seated. Lower the frame vertically onto its ledges
 ([internal-plumbing.md](internal-plumbing.md) §5). Install the M3 × 12 screws from
 above into the RX-M3×5.7 inserts. Seat the frame by hand, then tighten in alternating
-left and right stations to hold the flange flush. The [manual drop-in review](/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
+left and right stations to hold the flange flush. The [manual drop-in review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 models the bare frame with the cradle, elbow and tubing removed, plus the
 static web/socket and screw stack. The plug, elbow and cradle travel with
 the frame; disconnect the V-B feed before withdrawing it. Connected-tube motion,

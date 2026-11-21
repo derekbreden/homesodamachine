@@ -129,7 +129,7 @@ The generator reuses the finished funnel model and writes the mold's
 [design record](design.json). Add `--review` when asking about backing or liquid
 containment; the record then includes those measurements, with the intended
 fill, vent and rod-guide mouths capped for analysis. The guide remains open in
-the native parts. The [overflow review](../funnel/overflow-review/README.md)
+the native parts. The [overflow review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/overflow-review/README.md)
 binds the apron to its current source and assembly exports.
 
 The [physical print log](print-log.md), [October 6 slice and cavity retry](native-slice-reviews/2026-10-06-mark1-retry-z004-v2/README.md),

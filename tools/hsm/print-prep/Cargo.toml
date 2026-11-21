@@ -9,10 +9,6 @@ publish = false
 [lib]
 path = "src/lib.rs"
 
-[[bin]]
-name = "incline-support-plates"
-path = "../../../hardware/print-tests/petgf-dense-roofs/inclines/prepare.rs"
-
 [dependencies]
 anyhow.workspace = true
 serde = { workspace = true, features = ["derive"] }

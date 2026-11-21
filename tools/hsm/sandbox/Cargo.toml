@@ -76,10 +76,6 @@ path = "../../../hardware/reference/ezyumm-rj11-6p4c/replica.rs"
 
 # A concept is a file in examples/. README.md says how to run one.
 [[example]]
-name = "support-inclines"
-path = "../../../hardware/print-tests/petgf-dense-roofs/inclines/samples.rs"
-
-[[example]]
 name = "reed-sweep-rig"
 path = "../../../hardware/printed-parts/fixtures/reed-sweep-rig/reed_sweep_rig.rs"
 
