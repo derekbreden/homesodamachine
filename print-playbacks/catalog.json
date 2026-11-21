@@ -1,18 +1,18 @@
 {
   "HSM-0018": {
     "title": "Cold-core insulation shell · Mark2 print plan",
-    "sha256": "be7e992d27b7dc7b8c9d22e1ef1ad9c771b4d3a7da470a9f457d8b6329e04f6c",
-    "slice": "2026-11-10-foam-shell-mark2-e5e3444d.gcode.3mf",
+    "sha256": "0c6cc41f937365cbe62f0be2692be29fc87a9a142006f3548e31b0b79f27f8b2",
+    "slice": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "foam-shell",
-    "recipe_sha256": "22f7972ecab47a7784e6f6813056ffb6c6feb382483cb3496173be9cb861e40d",
-    "project_sha256": "3f57da84e78c4572ded4be3a5b2ec5f589570249ff063a73a999bfc5ac1ef512",
-    "archive_sha256": "d4e485e229457b403361ab9876cc28fb6a7a801d8a2b6b3b23cbfcc5d1f908ff",
-    "gcode_sha256": "6e4bfe10947ee31d8abfbfa7a31a2e63d062204742b9721226947febec084399",
+    "recipe_sha256": "53f4135a69e283aa0d6d6c99b2c15cd839610203901d7856625a63da6972a74b",
+    "project_sha256": "c865c927880fd2028a960cbb8e5d98d923e48314fbff6c5fa888aff4614c7793",
+    "archive_sha256": "b71745b0509d742ef01e7f927bb2911216fe868d17b839534bb0d81d6a86ae4c",
+    "gcode_sha256": "b5262f9124601c9954e37d2cd18ebe6c789e6d20648f8a63433fdf4e956be8a7",
     "kind": "plan",
     "layers": 941,
-    "model_sha256": "132c06ecc887624ae36c98c168f97efaa533deb278a4b93a3d2f725455d93164",
+    "model_sha256": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -25,7 +25,8 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
-    }
+    },
+    "recipe_commit": "378c0fedcec1859b18ba529cbb7e999b6d8e393a"
   },
   "HSM-0020": {
     "title": "Cold-core top cap lid · Mark1 print plan",

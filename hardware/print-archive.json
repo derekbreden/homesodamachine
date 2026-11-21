@@ -3666,6 +3666,12 @@
       "bytes": 13587828,
       "sha256": "0bc08d4b565f6b986b64265c44f5ba0711fefa21ded0e808fef86fc9e14f6df2"
     },
+    "7a491c9fa19540bbeb9753fa2a09567502201947": {
+      "archive": "foam-shell-mark2-c9b85f683ea40d43.zip",
+      "bytes": 360028,
+      "offset": 74,
+      "sha256": "c865c927880fd2028a960cbb8e5d98d923e48314fbff6c5fa888aff4614c7793"
+    },
     "7a4a457e92305722c856485c0cfa15348bfd5610": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
       "offset": 74036712,
@@ -4697,6 +4703,12 @@
       "offset": 1070092605,
       "bytes": 23274,
       "sha256": "71f30961c9f29215286892f8cb6141d5d1d7627d5845d14641f4986006413a50"
+    },
+    "9e4facd586c2cb47c696204b041645a827cfbd26": {
+      "archive": "foam-shell-mark2-c9b85f683ea40d43.zip",
+      "bytes": 49634868,
+      "offset": 360176,
+      "sha256": "b71745b0509d742ef01e7f927bb2911216fe868d17b839534bb0d81d6a86ae4c"
     },
     "9e66af5ddb41c65e8fe60abe101f4a1e2f42af64": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -7908,6 +7920,8 @@
     "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf": "30fb45aee3c2b5b36ad57b0e99765f4809638484",
     "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/cold-core-shell-mark2.3mf": "234b89311cc07b06c7c1dbbb74ab1697a02611a3",
     "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/cold-core-shell-mark2.3mf": "d896e8885a5b0bec43fb70242ed63c6bb0a63ca0",
+    "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.3mf": "7a491c9fa19540bbeb9753fa2a09567502201947",
+    "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.gcode.3mf": "9e4facd586c2cb47c696204b041645a827cfbd26",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/all-aero-float.3mf": "c14e30783c8fad9facaf7b2d8bf916309a759055",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.3mf": "8e03e56e3069f659862a673b8cdfd8931fe12595",
     "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v2/all-aero-float.3mf": "66954ac45836101d72d2c7d3964db54fd5da05ea",

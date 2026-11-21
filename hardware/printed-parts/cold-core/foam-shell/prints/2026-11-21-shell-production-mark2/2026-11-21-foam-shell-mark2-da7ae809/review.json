@@ -1,0 +1,657 @@
+{
+  "archive": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.gcode.3mf",
+  "archive_sha256": "b71745b0509d742ef01e7f927bb2911216fe868d17b839534bb0d81d6a86ae4c",
+  "bead_envelope_plate_mm": [
+    [
+      21.106237,
+      69.60623700000001
+    ],
+    [
+      303.89376300000004,
+      250.393763
+    ]
+  ],
+  "bed_border_mm": 20.0,
+  "bed_margins_mm": {
+    "back": 69.606237,
+    "front": 69.60623700000001,
+    "left": 21.106237,
+    "right": 21.106236999999965
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9962413744070476,
+      "second_layer_centerline_outside_first_mm": 45.0779270509944,
+      "second_layer_model_bead_area_mm2": 50482.587159712166
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 941,
+  "minimum_bed_margin_mm": 21.106236999999965,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.9942952100322072,
+      "minimum_outline_coverage": 0.9946518311331048,
+      "name": "M5 host 1, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          21.301003051757817,
+          91.2,
+          0.0010000000000047748
+        ],
+        [
+          35.89999999999999,
+          108.8,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2377935,
+          "coverage": 0.9969844811101032,
+          "infill_core_mm2": 203.94500000000005,
+          "outline_coverage": 0.9972635044940821,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.74000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9942952100322072,
+          "infill_core_mm2": 145.93000000000004,
+          "outline_coverage": 0.9946518311331048,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 162.67250000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.2377945,
+          "coverage": 0.996920343500148,
+          "infill_core_mm2": 84.42500000000001,
+          "outline_coverage": 0.997090891311788,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.26500000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -141.19899694824218,
+          -68.8,
+          0.001
+        ],
+        [
+          -126.60000000000001,
+          -51.2,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9947731297604925,
+      "minimum_outline_coverage": 0.9951666203403441,
+      "name": "M5 host 2, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          21.301003051757817,
+          151.2,
+          0.0010000000000047748
+        ],
+        [
+          35.89999999999999,
+          168.8,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.237795,
+          "coverage": 0.9981857853833142,
+          "infill_core_mm2": 203.94500000000005,
+          "outline_coverage": 0.9983536531102607,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.74000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9947731297604925,
+          "infill_core_mm2": 145.40250000000003,
+          "outline_coverage": 0.9951666203403441,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 161.89500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.2377945,
+          "coverage": 0.996920343500148,
+          "infill_core_mm2": 84.42500000000001,
+          "outline_coverage": 0.9970419987287928,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.26500000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -141.19899694824218,
+          -8.8,
+          0.001
+        ],
+        [
+          -126.60000000000001,
+          8.8,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9943466045364215,
+      "minimum_outline_coverage": 0.9946979360371299,
+      "name": "M5 host 3, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          21.301003051757817,
+          211.2,
+          0.0010000000000047748
+        ],
+        [
+          35.89999999999999,
+          228.8,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2377935,
+          "coverage": 0.9970089975238422,
+          "infill_core_mm2": 203.94500000000005,
+          "outline_coverage": 0.9972857524250245,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.74000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9943466045364215,
+          "infill_core_mm2": 145.93000000000004,
+          "outline_coverage": 0.9946979360371299,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 162.67250000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.2377945,
+          "coverage": 0.9970387918270655,
+          "infill_core_mm2": 84.42500000000001,
+          "outline_coverage": 0.997090891311788,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.26500000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -141.19899694824218,
+          51.2,
+          0.001
+        ],
+        [
+          -126.60000000000001,
+          68.8,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9944244295762567,
+      "minimum_outline_coverage": 0.9948054343148706,
+      "name": "M5 host 4, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          289.1,
+          91.2,
+          0.0010000000000047748
+        ],
+        [
+          303.6989969482422,
+          108.8,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2377925,
+          "coverage": 0.998761890752182,
+          "infill_core_mm2": 203.94000000000003,
+          "outline_coverage": 0.9988208071908512,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.73000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9944244295762567,
+          "infill_core_mm2": 145.72500000000002,
+          "outline_coverage": 0.9948054343148706,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 162.67000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.2377995,
+          "coverage": 0.9970098880928415,
+          "infill_core_mm2": 84.44500000000002,
+          "outline_coverage": 0.9970910335386721,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.27000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          126.60000000000001,
+          -68.8,
+          0.001
+        ],
+        [
+          141.19899694824218,
+          -51.2,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9948075170646997,
+      "minimum_outline_coverage": 0.9951975045554218,
+      "name": "M5 host 5, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          289.1,
+          151.2,
+          0.0010000000000047748
+        ],
+        [
+          303.6989969482422,
+          168.8,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.237796,
+          "coverage": 0.9969476316563696,
+          "infill_core_mm2": 203.94000000000003,
+          "outline_coverage": 0.9972300093445468,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.73000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9948075170646997,
+          "infill_core_mm2": 145.40250000000003,
+          "outline_coverage": 0.9951975045554218,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 161.89500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.2377995,
+          "coverage": 0.9969802830244537,
+          "infill_core_mm2": 84.44500000000002,
+          "outline_coverage": 0.9970421433460448,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.27000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          126.60000000000001,
+          -8.8,
+          0.001
+        ],
+        [
+          141.19899694824218,
+          8.8,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9947781128823783,
+      "minimum_outline_coverage": 0.9951815415978131,
+      "name": "M5 host 6, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          289.1,
+          207.2,
+          0.0010000000000047748
+        ],
+        [
+          303.6989969482422,
+          224.8,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2377925,
+          "coverage": 0.9981857409041875,
+          "infill_core_mm2": 203.94000000000003,
+          "outline_coverage": 0.9983535798513772,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.73000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9947781128823783,
+          "infill_core_mm2": 145.06250000000003,
+          "outline_coverage": 0.9951815415978131,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 161.87750000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.2377995,
+          "coverage": 0.9970098880928415,
+          "infill_core_mm2": 84.44500000000002,
+          "outline_coverage": 0.9970176982497311,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.27000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          126.60000000000001,
+          47.2,
+          0.001
+        ],
+        [
+          141.19899694824218,
+          64.8,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9967883498001913,
+      "minimum_outline_coverage": 0.9967840279585084,
+      "name": "M5 host 7, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          198.7,
+          69.80100305175782,
+          0.0010000000000047748
+        ],
+        [
+          216.3,
+          84.39999999999999,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.237787,
+          "coverage": 0.9967883498001913,
+          "infill_core_mm2": 203.94500000000005,
+          "outline_coverage": 0.9970855210465427,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.74000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9968009187105241,
+          "infill_core_mm2": 121.91000000000003,
+          "outline_coverage": 0.9967840279585084,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 134.485
+        },
+        {
+          "bead_radius_inset_mm": 0.2377945,
+          "coverage": 0.9970091797453361,
+          "infill_core_mm2": 84.42500000000001,
+          "outline_coverage": 0.9971153376032856,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.26500000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          36.2,
+          -90.19899694824218,
+          0.001
+        ],
+        [
+          53.8,
+          -75.60000000000001,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9968420620924414,
+      "minimum_outline_coverage": 0.9968401486988847,
+      "name": "M5 host 8, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          198.7,
+          235.60000000000002,
+          0.0010000000000047748
+        ],
+        [
+          216.3,
+          250.19899694824218,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.237798,
+          "coverage": 0.9980999313523585,
+          "infill_core_mm2": 203.94000000000003,
+          "outline_coverage": 0.9982757086281315,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.73000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9968420620924414,
+          "infill_core_mm2": 121.91500000000002,
+          "outline_coverage": 0.9968401486988847,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 134.50000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.237787,
+          "coverage": 0.9968914678192906,
+          "infill_core_mm2": 84.44500000000002,
+          "outline_coverage": 0.9969932531534175,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.27000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          36.2,
+          75.60000000000001,
+          0.001
+        ],
+        [
+          53.8,
+          90.19899694824218,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9968507157464213,
+      "minimum_outline_coverage": 0.9968769751273376,
+      "name": "M5 host 9, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          263.7,
+          69.80100305175782,
+          0.0010000000000047748
+        ],
+        [
+          281.3,
+          84.39999999999999,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.237784,
+          "coverage": 0.9982715928314007,
+          "infill_core_mm2": 203.94500000000005,
+          "outline_coverage": 0.9984315208685592,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.74000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9968507157464213,
+          "infill_core_mm2": 122.25000000000003,
+          "outline_coverage": 0.9968769751273376,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 134.485
+        },
+        {
+          "bead_radius_inset_mm": 0.2377955,
+          "coverage": 0.9970387918270655,
+          "infill_core_mm2": 84.42500000000001,
+          "outline_coverage": 0.997090891311788,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.26500000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          101.2,
+          -90.19899694824218,
+          0.001
+        ],
+        [
+          118.8,
+          -75.60000000000001,
+          225.84900610351562
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9969326407917877,
+      "minimum_outline_coverage": 0.9967472118959108,
+      "name": "M5 host 10, both inserts, tail and wall root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          263.7,
+          235.60000000000002,
+          0.0010000000000047748
+        ],
+        [
+          281.3,
+          250.19899694824218,
+          225.84900610351562
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.2377875,
+          "coverage": 0.9981244483671668,
+          "infill_core_mm2": 203.94000000000003,
+          "outline_coverage": 0.9982645841676678,
+          "print_z_mm": 0.44,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 224.73000000000005
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9969326407917877,
+          "infill_core_mm2": 122.25500000000002,
+          "outline_coverage": 0.9967472118959108,
+          "print_z_mm": 113.0,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 134.50000000000003
+        },
+        {
+          "bead_radius_inset_mm": 0.2377945,
+          "coverage": 0.9969506779560661,
+          "infill_core_mm2": 84.44500000000002,
+          "outline_coverage": 0.9971399237312994,
+          "print_z_mm": 225.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 102.27000000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          101.2,
+          75.60000000000001,
+          0.001
+        ],
+        [
+          118.8,
+          90.19899694824218,
+          225.84900610351562
+        ]
+      ]
+    }
+  ],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}
