@@ -54,7 +54,7 @@
   "h2c-two-colour-labels.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/physical-result.jpg",
-   "revision": null,
+   "revision": "ab742311ac0cadb7d16e95c3272dac99a5dab130",
    "max_px": 1700,
    "width_px": 480,
    "made_with": "magick auto-orient",

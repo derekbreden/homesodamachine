@@ -66,7 +66,7 @@ those meshes; the current machine's measurements are in the scorecard.
 
 ## Native slice records
 
-The current [front-top H2C native slice receipt](/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
+The current [front-top H2C native slice receipt](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/README.md)
 is bound to front-top's current STEP and STL, including the complete 16.5 mm
 cable hook. It records the emitted first layers, complete fine roof band,
 show-face support clearance and support-removal lanes. Its physical finish,

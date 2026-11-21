@@ -1,4 +1,8 @@
 {
+  "archived_records": {
+    "purpose": "Say where the job records named under hardware/printed-parts/enclosure/tee-readiness/ are.",
+    "where": "In Git. The folder as it last stood is at the tag archive-compression-2026-11-21, commit ab742311ac0cadb7d16e95c3272dac99a5dab130. A record retired before that is in the parent of the commit that `git log --diff-filter=D -- <path>` names."
+  },
   "jobs": [
     {
       "printer": "H2C",

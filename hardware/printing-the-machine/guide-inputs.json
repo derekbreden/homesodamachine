@@ -173,10 +173,12 @@
     "path": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-11-front-bottom-D-mark2/print-job.json"
   },
   "h2c-refused": {
-    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json"
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/rejected-send.json",
+    "revision": "ab742311ac0cadb7d16e95c3272dac99a5dab130"
   },
   "h2c-accepted": {
-    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/launch.json"
+    "path": "hardware/printed-parts/enclosure/tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-04-bulkhead-co2-raised-mark2-v1/launch.json",
+    "revision": "ab742311ac0cadb7d16e95c3272dac99a5dab130"
   },
   "h2c-idresult": {
     "path": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005/physical-result.json"

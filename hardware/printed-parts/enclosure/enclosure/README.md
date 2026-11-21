@@ -721,8 +721,8 @@ Prepared projects inherit it; the native archive owns the emitted contact planes
 The requested vertical gap does not describe a uniform clearance around an incline.
 
 `petgf.3mf` uses `auto_brim`. Enclosure projects retain that automatic setting by default;
-individual prepared plates record their brim setting in their
-[slice review](../tee-readiness/full-enclosure-print/native-slice-reviews/README.md). Tooling projects may specify a brim.
+individual prepared plates record their brim setting in their own folder under
+[`prints/`](prints/). Tooling projects may specify a brim.
 
 ## Support-removal strategy
 
