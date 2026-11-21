@@ -2,8 +2,7 @@
 
 Four blind sockets locate the Beduan valve's corner posts. The valve's round body
 lands on the surrounding face; the socket floors leave air beneath the post tips.
-The sockets set the valve's position and hand fit. The enclosure trays' zip-tie
-paths provide their positive retention.
+The sockets set the valve's position and hand fit.
 
 [numbers.rs](numbers.rs) defines the shared seat and Beduan dimensions. The
 [enclosure valve decks](../enclosure/enclosure/quadrants/valves.rs),
