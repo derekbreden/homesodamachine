@@ -22,6 +22,7 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use std::path::PathBuf;
 #[path = "../nameplate_clearance.rs"]
+#[allow(dead_code)]
 mod nameplate_clearance;
 
 const OUTPUT: &str = "hardware/printed-parts/cold-core/foam-cap";
@@ -156,6 +157,31 @@ fn head_pockets(top: bool, z: f64, depth: f64) -> Result<Solid> {
         }
     }
     Solid::union_all(&cuts)
+}
+
+/// The rear nameplate's insert hosts dip into the lid's edge. The plate is solid there, so each
+/// host takes its plain recess. A recess nearer than a wall to a head pocket's slot opens into
+/// it: one pocket on the head's floor, in as far as the screw's axis, where its wall meets the
+/// pocket's round square.
+fn host_recesses(envelope: &Solid, z: f64, depth: f64) -> Result<Vec<Solid>> {
+    let r = core::HEAD_CBORE_RADIUS;
+    let reach = core::BOSS_WALL_X;
+    let mut cuts = vec![];
+    for host in nameplate_clearance::clearances(envelope, hsm_cold_core_layout::cap::world_to_cap)? {
+        let b = host.pocket.bounds();
+        for (station, wall) in core::lid_attachment_stations() {
+            let p = xy(station);
+            if wall != "x" || p.x * (b.min.x + b.max.x) <= 0. {
+                continue;
+            }
+            let gap = (b.min.y - (p.y + r)).max(p.y - r - b.max.y);
+            if (0. ..core::OUTER_SHELL_WALL).contains(&gap) {
+                cuts.push(box3(b.min.x.min(reach), b.max.x.max(-reach), b.min.y.min(p.y), b.max.y.max(p.y), z, z + depth));
+            }
+        }
+        cuts.push(host.pocket);
+    }
+    Ok(cuts)
 }
 
 /// The clamp bosses on the casing's walls, `height` tall and `r` round.
@@ -306,6 +332,8 @@ fn b_holder() -> Result<Solid> {
 const ROOM_OVERRUN: f64 = 1.;
 /// The rails' rooms rise to this height in the pump's frame, past everything above them.
 const RAIL_ROOM_TOP: f64 = 100.;
+/// The room the lid leaves outside a wing's pointed tip.
+const TIP_ROOM: f64 = 1.;
 
 /// The motor's room in the snap cap: a cylinder on the can's axis through the band and past it.
 fn pump_room(c: &Cradle) -> Result<Solid> {
@@ -794,15 +822,26 @@ fn top_lid() -> Result<Solid> {
         .transformed(&t);
     // The pointed tips keep their full pockets through the lid stock joined beneath the cradle.
     let s = &c.station;
+    let (y0, y1) = (s.y0 - fits.running, s.y1 + fits.running);
     let mut tips = vec![];
     for side in [-1., 1.] {
         let near = s.axis_x + side * s.neck;
-        let far = s.axis_x + side * (s.outer + 1.);
-        let pocket = box3(near, far, s.y0 - fits.running, s.y1 + fits.running, s.bearing, s.ceiling);
+        let far = s.axis_x + side * (s.outer + TIP_ROOM);
+        let pocket = box3(near, far, y0, y1, s.bearing, s.ceiling);
         tips.push(pump_cap_world(&pocket, c).transformed(&t));
     }
+    // An air tube's passage nearer than a wall to the east pocket's aft corner opens into it: the
+    // pocket's floor runs out to the tube's axis and, behind the cap, aft to it, so both of its
+    // walls end square on the passage.
+    let east = s.axis_x + s.outer;
+    for hole in cap::air_holes() {
+        let p = hsm_cold_core_layout::cap::cap_to_world([hole.xy[0], hole.xy[1], 0.]);
+        if (p[0] - east - TIP_ROOM).hypot(p[1] - y1) - hole.radius < core::OUTER_SHELL_WALL {
+            tips.push(box3(east, p[0], y0, p[1], c.centre[2] - s.ceiling, face + OVERCUT).transformed(&t));
+        }
+    }
     let body = body.cut(&Solid::union_all(&air)?)?.cut(&recess)?.cut_all(&tips)?;
-    nameplate_clearance::apply(body, &outline(0., h, 0.)?, hsm_cold_core_layout::cap::world_to_cap)
+    body.cut_all(&host_recesses(&outline(0., h, 0.)?, h - head_depth, head_depth)?)
 }
 
 // --- The numbers the machine reads -------------------------------------------------------------------
