@@ -1,24 +1,24 @@
 {
-  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.gcode.3mf",
-  "archive_sha256": "004f938561d4ab0461fb70766aa1fb4fa4483fe27ee49c1ccd96ca19e73e4d03",
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.gcode.3mf",
+  "archive_sha256": "bb5192a1fbdd4fefacef775e86f1ed7eb86050d24ab2eac79ac032aafe29c17c",
   "bed_type": "Textured PEI Plate",
   "brim_allowance_mm": 0.0,
   "connection_key": "H2C",
   "cooling_recovery": {
-    "added_commanded_motion_seconds": 13284.500827961727,
-    "archive_sha256": "004f938561d4ab0461fb70766aa1fb4fa4483fe27ee49c1ccd96ca19e73e4d03",
+    "added_commanded_motion_seconds": 12910.580920381215,
+    "archive_sha256": "bb5192a1fbdd4fefacef775e86f1ed7eb86050d24ab2eac79ac032aafe29c17c",
     "changed": true,
     "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
-    "input_archive_sha256": "348ea4a7c2f84a5b7e83a9370980bacc3095c563b1e8c64b2a963eade24a6ea4",
+    "input_archive_sha256": "c59f769d9659b8174adacac478cb65b9e124eee179a5ddb5f1db92a49849efbd",
     "members": [
       {
-        "added_commanded_motion_seconds": 13284.500827961727,
+        "added_commanded_motion_seconds": 12910.580920381215,
         "changed": true,
-        "input_gcode_sha256": "088bc845ec9a61665f440697f086fcc7bd8c716dbc46b5d4939cda67e1855993",
+        "input_gcode_sha256": "011be9ff234c7fd6e550feaa3ef4e4cca755aed2cad7c7015b2c79ac95e9d30a",
         "member": "Metadata/plate_1.gcode",
-        "native_cooled_seed_moves": 7044,
-        "ordinary_model_moves": 986418,
-        "output_gcode_sha256": "68e499719dfdebd887ad109db6b16d5c3df4c629dcdde8df342bed3467fce16d",
+        "native_cooled_seed_moves": 7104,
+        "ordinary_model_moves": 1000898,
+        "output_gcode_sha256": "283bec1f8012d93774060df84ab830f19469cebed1a43cef2994030b0a322fdc",
         "petgf_slots": [
           0
         ],
@@ -33,9 +33,9 @@
             0.0
           ],
           "Floating vertical shell": [
-            617.0,
-            3296.4261276459697,
-            202.79444960937482
+            604.0,
+            3263.5388203706566,
+            200.76985499648703
           ],
           "Gap infill": [
             9.0,
@@ -43,24 +43,24 @@
             0.10926796440441029
           ],
           "Inner wall": [
-            1137.0,
-            1542.8682139117327,
-            87.79981088352174
+            1155.0,
+            1553.5525811494936,
+            88.45533306506985
           ],
           "Internal solid infill": [
-            14109.0,
-            206818.20662957474,
-            12769.785384611052
+            13871.0,
+            200793.31552312284,
+            12397.756089848215
           ],
           "Outer wall": [
-            182.0,
-            761.3561289282791,
-            38.8935492034844
+            199.0,
+            768.8161289282791,
+            39.23479082915213
           ],
           "Sparse infill": [
-            4511.0,
-            2970.602397874266,
-            182.25653621158898
+            4458.0,
+            2956.5398991191646,
+            181.3937541996245
           ],
           "Top surface": [
             23.0,
@@ -71,20 +71,20 @@
         "recovery_fan_percent": [
           "70"
         ],
-        "recovery_moves": 20772,
+        "recovery_moves": 20503,
         "recovery_speed_limit_mm_s": [
           "15",
           "15",
           "15"
         ],
         "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
-        "speed_limited_moves": 20545
+        "speed_limited_moves": 20276
       }
     ]
   },
   "emitted_textured_trim_mm": 0.02,
-  "estimated_seconds": 42103.766452961725,
-  "gcode_sha256": "68e499719dfdebd887ad109db6b16d5c3df4c629dcdde8df342bed3467fce16d",
+  "estimated_seconds": 42084.82701413122,
+  "gcode_sha256": "283bec1f8012d93774060df84ab830f19469cebed1a43cef2994030b0a322fdc",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -118,11 +118,11 @@
         "bodies": 1,
         "boundary_edges": 0,
         "closed_oriented_single_body": true,
-        "edges": 90339,
+        "edges": 108516,
         "inconsistent_edges": 0,
         "nonmanifold_edges": 0
       },
-      "facets": 60226,
+      "facets": 72344,
       "features": [],
       "fins": [],
       "identify_id": 1901,
@@ -208,6 +208,34 @@
               59.40626000000003,
               15.563476038208018,
               38.14566365525121
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "V-A feed clip and lid root",
+          "plate_bounds_mm": [
+            [
+              268.67707240066505,
+              151.80000610351564,
+              4.400000000000006
+            ],
+            [
+              283.7550617900888,
+              180.63200344067275,
+              26.705602753207927
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              107.02707240066505,
+              -8.199993896484365,
+              4.400000000000006
+            ],
+            [
+              122.1050617900888,
+              20.63200344067274,
+              26.705602753207927
             ]
           ],
           "sparse_infill_density": "100%"
@@ -642,7 +670,7 @@
       "regions": {
         "part_process_overrides": null,
         "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-        "record_sha256": "f5f15c6c7c741589b990026283bc1ec8e13d09d70326ff46695705e699ed654f"
+        "record_sha256": "2ea85440063f210ea5bf1cdf3ba87dc57e4c1fe09808d7e46fcbfbf2d2d313eb"
       },
       "ribbons": [],
       "seam_enforcer": null,
@@ -651,9 +679,9 @@
         0.0,
         26.825000762939453
       ],
-      "step_sha256": "d0d559b1ddf4fefacf5b3974381b1a9c21597dce03b58c642176e19f62a5998e",
+      "step_sha256": "93ca40aa10e174066c774d09f6fbc955534257f80568cffdef3fc1f59e707baa",
       "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-      "stl_sha256": "e4f4a47dc99511aa17e7dfc01cebcb7b3738b19fc549889b7cbff8ca69386009",
+      "stl_sha256": "66736e0577c016cbb9e78ecc9ed426d666627644c7d866a930c63681cfd4e5f9",
       "support_free_regions": [],
       "translation_mm": [
         161.65,
@@ -674,7 +702,7 @@
       0.0
     ]
   },
-  "prepared_utc": "2026-11-21T07:11:49+00:00",
+  "prepared_utc": "2026-11-21T17:32:13+00:00",
   "printer": "Mark1",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_changes": {
@@ -703,8 +731,8 @@
     }
   },
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
-  "project": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.3mf",
-  "project_sha256": "c7c6a2cfe4e3eafd43af2bcaeb40b22872dbf1159cb990d852b76dc3acc61bb5",
+  "project": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.3mf",
+  "project_sha256": "70fa5455dafc16eff214ef2c3d604f297af0a29d9c1b7327927601f2487c122a",
   "requested_z_trim_mm": 0.04,
   "settings_changes": {
     "enable_support": {
@@ -779,11 +807,11 @@
     }
   },
   "settings_sha256": "3b8b8dda7c32dd66d8f1cea255b55ced110d724ad590f595690de8d49bfd6813",
-  "show_faces": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-542eb5c4/show-faces.npz",
+  "show_faces": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/show-faces.npz",
   "sliced": true,
   "slicer_warnings": [],
   "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "spec_sha256": "53f4135a69e283aa0d6d6c99b2c15cd839610203901d7856625a63da6972a74b",
+  "spec_sha256": "3a24377d906c58a1e5fbf2997173a60433e9e3412178cabfdc148485496b8611",
   "submitted": false,
   "tool_sha256": {
     "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "10c2089afdc08d37f8a46564b8166d61af35a2f6e4de1c341548918ee3b8d393",

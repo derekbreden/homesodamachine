@@ -1,44 +1,44 @@
 {
   "error_string": "Success.",
-  "export_time": 9530,
+  "export_time": 3208,
   "layer_height": 0.23999999463558197,
   "plate_index": 0,
-  "prepare_time": 224,
+  "prepare_time": 102,
   "return_code": 0,
   "sliced_plates": [
     {
       "feature_type_times": {
         "Bottom surface": 1217.6956787109375,
-        "Bridge": 6492.64111328125,
+        "Bridge": 6434.9150390625,
         "Custom": 302.9790344238281,
         "Flush": 15.0,
-        "Gap infill": 158.4650115966797,
-        "Inner wall": 2440.67822265625,
-        "Internal solid infill": 4099.89892578125,
-        "Outer wall": 1524.8048095703125,
-        "Overhang wall": 56.443504333496094,
-        "Sparse infill": 9040.099609375,
-        "Support": 707.13232421875,
+        "Gap infill": 165.56524658203125,
+        "Inner wall": 2487.61474609375,
+        "Internal solid infill": 4115.3447265625,
+        "Outer wall": 1556.0819091796875,
+        "Overhang wall": 56.44397735595703,
+        "Sparse infill": 9313.533203125,
+        "Support": 707.1309204101562,
         "Support interface": 52.36528778076172,
-        "Top surface": 828.5164184570312,
-        "Travel": 1898.5081787109375,
-        "Undefined": 1891.228271484375
+        "Top surface": 832.0715942382812,
+        "Travel": 1933.072265625,
+        "Undefined": 1925.7923583984375
       },
       "filament_change_times": 0,
       "filaments": [
         {
           "filament_id": "GFT01",
           "id": 1,
-          "main_used_g": 257.1877136230469,
-          "total_used_g": 257.1877136230469
+          "main_used_g": 262.4601745605469,
+          "total_used_g": 262.4601745605469
         }
       ],
-      "generate_support_material_time": 12142,
+      "generate_support_material_time": 2263,
       "id": 1,
-      "infill_time": 5476,
+      "infill_time": 1870,
       "layer_filament_change": 0,
-      "main_predication": 28493.56640625,
-      "make_perimeters_time": 2101,
+      "main_predication": 28848.546875,
+      "make_perimeters_time": 616,
       "obj_cached_cnt": 0,
       "objects": [
         {
@@ -52,13 +52,13 @@
           },
           "id": 5,
           "name": "foam-cap-lid-top",
-          "triangle_count": 60226
+          "triangle_count": 72344
         }
       ],
-      "sliced_time": 28577,
-      "sliced_time_with_cache": 8456,
-      "total_predication": 42103.766452961725,
-      "triangle_count": 60226,
+      "sliced_time": 8427,
+      "sliced_time_with_cache": 3576,
+      "total_predication": 42084.82701413122,
+      "triangle_count": 72344,
       "warning_message": ""
     }
   ],

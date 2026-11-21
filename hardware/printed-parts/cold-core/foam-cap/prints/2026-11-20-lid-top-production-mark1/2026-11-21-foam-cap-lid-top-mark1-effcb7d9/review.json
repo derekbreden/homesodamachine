@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.gcode.3mf",
-  "archive_sha256": "004f938561d4ab0461fb70766aa1fb4fa4483fe27ee49c1ccd96ca19e73e4d03",
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.gcode.3mf",
+  "archive_sha256": "bb5192a1fbdd4fefacef775e86f1ed7eb86050d24ab2eac79ac032aafe29c17c",
   "bead_envelope_plate_mm": [
     [
       20.3282395,
@@ -36,9 +36,9 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9953746110154643,
-      "second_layer_centerline_outside_first_mm": 57.02937920325744,
-      "second_layer_model_bead_area_mm2": 49678.820678366865
+      "fraction_over_first_layer": 0.9953667094608679,
+      "second_layer_centerline_outside_first_mm": 57.02732844571691,
+      "second_layer_model_bead_area_mm2": 49679.215504475294
     }
   },
   "gcode_md5_matches": true,
@@ -224,6 +224,65 @@
           59.40626000000003,
           15.563476038208018,
           38.14566365525121
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9959325450389648,
+      "minimum_outline_coverage": 0.9956729831165999,
+      "name": "V-A feed clip and lid root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          268.67707240066505,
+          151.80000610351564,
+          4.400000000000006
+        ],
+        [
+          283.7550617900888,
+          180.63200344067275,
+          26.705602753207927
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9999819737537855,
+          "infill_core_mm2": 416.06000000000006,
+          "outline_coverage": 0.9956729831165999,
+          "print_z_mm": 4.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 435.6350000000001
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9959325450389648,
+          "infill_core_mm2": 277.81500000000005,
+          "outline_coverage": 0.9957638629495059,
+          "print_z_mm": 15.56,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 294.49000000000007
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9998897504685605,
+          "infill_core_mm2": 68.02750000000002,
+          "outline_coverage": 0.997085098917708,
+          "print_z_mm": 26.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 92.62750000000001
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          107.02707240066505,
+          -8.199993896484365,
+          4.400000000000006
+        ],
+        [
+          122.1050617900888,
+          20.63200344067274,
+          26.705602753207927
         ]
       ]
     },
@@ -916,7 +975,7 @@
           "bead_radius_inset_mm": 0.334295,
           "coverage": 1.0,
           "infill_core_mm2": 51.19000000000001,
-          "outline_coverage": 0.9984846188816487,
+          "outline_coverage": 0.9984467343536899,
           "print_z_mm": 10.76,
           "sampling_step_mm": 0.05,
           "stock_mm2": 65.99000000000001
@@ -995,8 +1054,8 @@
       ]
     },
     {
-      "minimum_coverage": 0.9982438895086204,
-      "minimum_outline_coverage": 0.9929859513637858,
+      "minimum_coverage": 0.9993814956759921,
+      "minimum_outline_coverage": 0.9946701445941505,
       "name": "pcba insert post 4 and plate root",
       "object": 1901,
       "plate_bounds_mm": [
@@ -1023,9 +1082,9 @@
         },
         {
           "bead_radius_inset_mm": 0.225,
-          "coverage": 0.9982438895086204,
+          "coverage": 0.9993814956759921,
           "infill_core_mm2": 226.35250000000005,
-          "outline_coverage": 0.9929859513637858,
+          "outline_coverage": 0.9946701445941505,
           "print_z_mm": 5.72,
           "sampling_step_mm": 0.05,
           "stock_mm2": 243.44000000000005

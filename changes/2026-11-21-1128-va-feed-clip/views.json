@@ -1,0 +1,140 @@
+{
+  "views": [
+    {
+      "name": "seat",
+      "caption": "The board-side pair of wings grips the bend. The outgoing pair continues onto the straight toward Y-A.",
+      "before": "seat-before.webp",
+      "after": "seat-after.webp",
+      "width": 1050,
+      "height": 760,
+      "marks": [
+        {
+          "x": 585.3,
+          "y": 411.5,
+          "r": 36,
+          "label": "Wing split",
+          "at": [
+            7.4,
+            207.4,
+            269
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          47.62699322029412,
+          -33.778962227352935,
+          710.3309312344117
+        ],
+        "target": [
+          3.8,
+          210.4,
+          265.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 19,
+        "near": 354.93837793627733,
+        "far": 906.4305106890833,
+        "aspect": 1.381578947368421
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pcba"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e8d9b3993c365338c544b503350562d6f79a2645b2667e1e17abc9f137a82f90",
+          "commit": "38b0a6594f55e719e3f9c5857466896dcb48fcdf",
+          "taken": "2026-11-21T17:21:11.042Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e6e8011e87742c946fb10addb69008257383de60eaf2be98d3a081743f7867bc",
+          "commit": "be7192440b6d5cec3fd43ee99e04250f3be33d5b",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "tube",
+      "caption": "The feed follows the same tube path past the PCB. The seat holds the end of the bend before the tube heads for Y-A.",
+      "before": "tube-before.webp",
+      "after": "tube-after.webp",
+      "width": 960,
+      "height": 700,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          88.82134534028965,
+          -114.31515713777699,
+          687.3641706456028
+        ],
+        "target": [
+          3.8,
+          211.6,
+          265.8
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 20.5,
+        "near": 370.4023106903028,
+        "far": 954.9664765980133,
+        "aspect": 1.3714285714285714
+      },
+      "highlight": [
+        "tube-above-core-va-fore-feed"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pcba",
+        "tube-above-core-va-fore-feed"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "e8d9b3993c365338c544b503350562d6f79a2645b2667e1e17abc9f137a82f90",
+          "commit": "38b0a6594f55e719e3f9c5857466896dcb48fcdf",
+          "taken": "2026-11-21T17:21:11.042Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e6e8011e87742c946fb10addb69008257383de60eaf2be98d3a081743f7867bc",
+          "commit": "be7192440b6d5cec3fd43ee99e04250f3be33d5b",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

@@ -5,8 +5,8 @@
   "printer": "Mark1",
   "connection_key": "H2C",
   "status": "prepared",
-  "prepared_utc": "2026-11-21T07:11:49+00:00",
-  "source_revision": "a16cf0ab5dfb96a12055a2a1ac0997ab6f34ec36",
+  "prepared_utc": "2026-11-21T17:32:13+00:00",
+  "source_revision": "be7192440b6d5cec3fd43ee99e04250f3be33d5b",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -24,27 +24,27 @@
     0.02
   ],
   "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "recipe_sha256": "53f4135a69e283aa0d6d6c99b2c15cd839610203901d7856625a63da6972a74b",
+  "recipe_sha256": "3a24377d906c58a1e5fbf2997173a60433e9e3412178cabfdc148485496b8611",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
   "source_stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
-  "source_stl_sha256": "e4f4a47dc99511aa17e7dfc01cebcb7b3738b19fc549889b7cbff8ca69386009",
+  "source_stl_sha256": "66736e0577c016cbb9e78ecc9ed426d666627644c7d866a930c63681cfd4e5f9",
   "source_fine_archive": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
-  "source_fine_archive_sha256": "3b2e7e5263b01b326b7e527f75818d8ecc48bf5eb1db70f218d91c0e762ee6cd",
+  "source_fine_archive_sha256": "2b32f8e8f1481561eb8004ece0688ba3125efc113d1174eaa95fcfcc5b0fa489",
   "print_regions": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
-  "print_regions_sha256": "f5f15c6c7c741589b990026283bc1ec8e13d09d70326ff46695705e699ed654f",
-  "archive": "2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.gcode.3mf",
-  "archive_sha256": "004f938561d4ab0461fb70766aa1fb4fa4483fe27ee49c1ccd96ca19e73e4d03",
-  "gcode_sha256": "68e499719dfdebd887ad109db6b16d5c3df4c629dcdde8df342bed3467fce16d",
-  "project": "2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.3mf",
-  "project_sha256": "c7c6a2cfe4e3eafd43af2bcaeb40b22872dbf1159cb990d852b76dc3acc61bb5",
-  "preparation": "2026-11-21-foam-cap-lid-top-mark1-542eb5c4/preparation.json",
-  "native_review": "2026-11-21-foam-cap-lid-top-mark1-542eb5c4/review.json",
+  "print_regions_sha256": "2ea85440063f210ea5bf1cdf3ba87dc57e4c1fe09808d7e46fcbfbf2d2d313eb",
+  "archive": "2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.gcode.3mf",
+  "archive_sha256": "bb5192a1fbdd4fefacef775e86f1ed7eb86050d24ab2eac79ac032aafe29c17c",
+  "gcode_sha256": "283bec1f8012d93774060df84ab830f19469cebed1a43cef2994030b0a322fdc",
+  "project": "2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.3mf",
+  "project_sha256": "70fa5455dafc16eff214ef2c3d604f297af0a29d9c1b7327927601f2487c122a",
+  "preparation": "2026-11-21-foam-cap-lid-top-mark1-effcb7d9/preparation.json",
+  "native_review": "2026-11-21-foam-cap-lid-top-mark1-effcb7d9/review.json",
   "support_audits": [
-    "2026-11-21-foam-cap-lid-top-mark1-542eb5c4/support-audit-1901.json"
+    "2026-11-21-foam-cap-lid-top-mark1-effcb7d9/support-audit-1901.json"
   ],
   "layers": 224,
-  "estimated_seconds": 42103.766452961725,
+  "estimated_seconds": 42084.82701413122,
   "minimum_bead_bed_margin_mm": 20.262,
   "native_slicer_warnings": [],
   "project_source_mesh_checks": [
@@ -53,11 +53,11 @@
       "blocked_facets": 0,
       "embedded_vertex_error_mm": 5.600568897534686e-10,
       "layer_ranges": [],
-      "modifiers_expected": 17,
+      "modifiers_expected": 18,
       "name": "foam-cap-lid-top",
       "partially_painted_facets": 0,
       "parts": {
-        "modifier_part": 17,
+        "modifier_part": 18,
         "normal_part": 1
       },
       "placed_bounds_mm": [
@@ -75,10 +75,10 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 30073
+      "vertices": 36132
     }
   ],
-  "replay_sha256": "010798260f5e24cdd674f814b8123906b947478e1a74151a55c5e841533375ed",
-  "replay": "print-playbacks/010798260f5e24cdd674f814b8123906b947478e1a74151a55c5e841533375ed.json.gz",
-  "replaced_replay_sha256": "81eb321d4e58763d60701046b33b0eb8e22596c5682ddba08160ef415c557453"
+  "replay_sha256": "3a3f6a02d90e3c6ff545e9dcb706fce6a884fcb53964d5836a456f8616f727da",
+  "replay": "print-playbacks/3a3f6a02d90e3c6ff545e9dcb706fce6a884fcb53964d5836a456f8616f727da.json.gz",
+  "replaced_replay_sha256": "010798260f5e24cdd674f814b8123906b947478e1a74151a55c5e841533375ed"
 }
