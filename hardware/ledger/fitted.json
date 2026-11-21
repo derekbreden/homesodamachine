@@ -408,6 +408,13 @@
       "said": "Fit is good.",
       "tried": "the reservoir fill tube seated in the printed crop of the back-top east-wall snap",
       "record": "https://github.com/derekbreden/homesodamachine/blob/9f92649048b4168ef0ad479a5773a7d12fb22977/hardware/print-tests/tube-snap-corbel/prints/2026-11-20-mark1-upper-wing-support/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0020",
+      "date": "2026-11-20",
+      "said": "Fit is good.",
+      "tried": "both quarter-inch tubes seated in the printed crop of the cold-core lid's two aft clips",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json"
     }
   ]
 }

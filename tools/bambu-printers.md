@@ -69,7 +69,7 @@ uses the captured choice's position and verifies the resulting external-spool
 tile in the same nozzle column. Missing or ambiguous choices stop the operation.
 Window resizing and fullscreen are not part of filament selection.
 Mark1's dialog opened with the left tile unresolved both times it was opened for the
-[2026-11-20 aft-snap coupon](../hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/launch.json),
+[2026-11-20 aft-snap coupon](https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/launch.json),
 whose sliced type and colour matched the spool; Mark2's send the same day mapped by itself.
 
 ## Placement on unseasoned plates

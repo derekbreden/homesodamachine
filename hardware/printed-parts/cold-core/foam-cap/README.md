@@ -77,7 +77,8 @@ up to its jaw's top, so the pair is one body. That jaw of the fill clip is squar
 whole length and joined to the root over the aft part of it, so it bends little. The clip's
 free jaw takes the fit of back-top's east-wall fill seat, which has one fixed jaw: a thinner
 jaw, standing further out from the stiff one
-([`reservoir_a::aft`](numbers/reservoir_a.rs)). The front-going J1/J2 cable bank has ordinary 3 mm
+([`reservoir_a::aft`](numbers/reservoir_a.rs)). The pair's [hand fit](https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json)
+is accepted on a printed crop of the lid. The front-going J1/J2 cable bank has ordinary 3 mm
 outer/shared walls and 16 mm span. These features print above the lid's flat bed face.
 The tube clips' jaws stand side by side at the same print height, with both roots
 on the lid. Their openings face away from the lid, so they do not use the
