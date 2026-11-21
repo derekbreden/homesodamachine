@@ -1,5 +1,18 @@
 # Regulatory Posture
 
+Our guide for how we approach things here is the real-world impacts and the safety
+concerns, not meeting a legal requirement. We don't care about UL listings, or about
+meeting the letter of any regulation or standard that doesn't apply to us; matching
+the specifics could not matter less. What we do care about is the actual safety
+guidance they provide: meeting the physical reality of that, or even better, doing
+better than what they guide us to.
+
+If I am selling it, it is on my conscience if something goes wrong, whether or not
+there is some technical legal liability. So what I care about is not offloading legal
+liability but delivering the solution least likely to fail. I would rather take on the
+liability myself when that means I can have more confidence in the long-term
+reliability and safety of something I sell for someone to put in their home.
+
 Current regulatory scope for direct-to-consumer sale via homesodamachine.com.
 The residential machine uses the household R-600a route under EPA SNAP Rule 22 and
 UL 60335-2-24, second edition, April 28, 2017, as its best-supported design basis.
