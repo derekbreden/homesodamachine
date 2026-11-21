@@ -61,7 +61,7 @@ pub fn liner_bore(liner_start: f64, liner_end: f64) -> Result<Solid> {
 }
 
 /// Revolves a volume-equivalent section between the gland root and its mating surface.
-fn compressed_ring(id: f64, section: f64, inner: f64, outer: f64, station: f64) -> Result<Solid> {
+pub(crate) fn compressed_ring(id: f64, section: f64, inner: f64, outer: f64, station: f64) -> Result<Solid> {
     let radial = (outer - inner) / 2.;
     let major = (outer + inner) / 2.;
     let axial = (id + section) / 2. * (section / 2.).powi(2) / (radial * major);
