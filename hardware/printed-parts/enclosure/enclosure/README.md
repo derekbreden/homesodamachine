@@ -861,10 +861,8 @@ because the other numeric gates still pass. Those are design changes reviewed on
 independent design change moves a component, the support audit measures the consequence; support
 count is never the reason that makes the move valid. Preserve the feature. Where the support
 leaves cleanly, take the support: an accessible body is not a debt and is not designed away.
-Where the lane is bad — walled, re-entrant, or under hardware that goes in first — add the
-smallest printed geometry that carries the face, a corbel or a column, never a slope across a
-working face. This policy applies to every printable part in the enclosure assembly, not only
-the four shell quadrants.
+This policy applies to every printable part in the enclosure assembly, not only the four shell
+quadrants.
 
 Each piece's retained slice reading is `<piece>.support-audit.json` beside its STL, and it
 identifies its model, profile and G-code by digest. The readings are bench references outside
