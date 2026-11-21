@@ -1,6 +1,6 @@
 {
   "actuator_targets_and_estimates": {
-    "architecture": "Spring-closed pull solenoid, matched pressure areas, closed magnetic circuit with flow-through flux spiders and an anti-remanence stop.",
+    "architecture": "Spring-closed pull solenoid, near-balanced pressure areas biased toward closure, closed magnetic circuit with flow-through flux spiders and an anti-remanence stop.",
     "bare_wire_area_mm2": 0.0201,
     "coil_turns": 600,
     "cold_coil_resistance_estimate_ohm": 18.107577381980473,
@@ -9,30 +9,102 @@
     "drive_rail_target_v": 24.0,
     "driver": "Current-regulated peak and hold with an enclosure-side boost rail; power off releases the return spring.",
     "dry_rod_seal_friction_allowance_n": 0.15,
-    "flow_force_allowance_n": 0.25,
-    "force_margin_target": 1.5766907110248292,
-    "full_stroke_opening_load_budget_n": 2.5369591968992133,
     "hold_current_target_a": 0.18,
     "peak_current_target_a": 0.9,
     "peak_duration_target_ms": 30.0,
-    "pull_force_requirement_n_at_full_stroke": 4.0,
+    "pull_force_target_at_closed_gap_n": 4.0,
     "qualification": "Magnetic finite-element analysis, seal friction, force versus stroke and temperature, closure, carbonation and life remain engineering work.",
     "spring_preload_target_n": 1.2,
     "spring_rate_estimate_n_mm": 0.39232435374149666,
+    "static_crack_open_load_at_design_pressure_n": 3.386238807605414,
+    "static_pull_target_over_crack_open_load": 1.1812515972045718,
     "wet_seal_friction_allowance_n": 0.5,
     "winding_copper_fill_estimate": 0.3547058823529412
   },
   "architecture_reference": "https://patents.google.com/patent/EP1597501A1/en",
+  "closed_pressure_loads": {
+    "additional_closing_force_per_bar_balance_above_outlet_n": 1.0273007977238624,
+    "additional_opening_force_per_bar_outlet_above_dry_n_with_balance_equal_to_outlet": 0.20106192982974677,
+    "cases": {
+      "carbonator_relief_reference": {
+        "balance_piston_supply_force_away_from_seat_n": 9.097401470702252,
+        "cap_external_separating_load_n_excluding_assembly_preload": 9.816538821536565,
+        "cap_separating_load_if_pressure_reaches_outer_relief_n": 21.66915330908006,
+        "crack_open_load_crest_outer_edge_including_allocated_drag_n": 2.6774980132391026,
+        "net_hydraulic_force_toward_open_at_crest_edges_n": [
+          -0.05421888822940793,
+          -0.8274980132391029
+        ],
+        "net_hydraulic_force_toward_open_n": -0.437541689781394,
+        "poppet_back_force_toward_seat_n": 10.782857546747532,
+        "poppet_head_supply_force_toward_seat_n": 9.534943160483644,
+        "poppet_outer_underside_force_away_from_seat_n": 1.2479143862638877,
+        "seat_contact_n_before_drag": 1.637541689781394,
+        "supply_bar_gauge": 8.61843103186751,
+        "washer_pressure_load_into_cap_n": 8.178997131755171
+      },
+      "nominal_regulator_reference": {
+        "balance_piston_supply_force_away_from_seat_n": 3.1667253948185117,
+        "cap_external_separating_load_n_excluding_assembly_preload": 4.199341338235249,
+        "cap_separating_load_if_pressure_reaches_outer_relief_n": 8.32513213834165,
+        "crack_open_load_crest_outer_edge_including_allocated_drag_n": 2.1380447764260153,
+        "net_hydraulic_force_toward_open_at_crest_edges_n": [
+          -0.01887311786644048,
+          -0.2880447764260152
+        ],
+        "net_hydraulic_force_toward_open_n": -0.1523044118460332,
+        "poppet_back_force_toward_seat_n": 3.753417822876404,
+        "poppet_head_supply_force_toward_seat_n": 3.319029806664544,
+        "poppet_outer_underside_force_away_from_seat_n": 0.43438801621186013,
+        "seat_contact_n_before_drag": 1.3523044118460332,
+        "supply_bar_gauge": 3.0,
+        "washer_pressure_load_into_cap_n": 2.8470369263892157
+      },
+      "valve_design_target": {
+        "balance_piston_supply_force_away_from_seat_n": 16.88920210569873,
+        "cap_external_separating_load_n_excluding_assembly_preload": 17.19648713725466,
+        "cap_separating_load_if_pressure_reaches_outer_relief_n": 39.20070473782213,
+        "crack_open_load_crest_outer_edge_including_allocated_drag_n": 3.3862388076054146,
+        "net_hydraulic_force_toward_open_at_crest_edges_n": [
+          -0.1006566286210159,
+          -1.5362388076054145
+        ],
+        "net_hydraulic_force_toward_open_n": -0.812290196512177,
+        "poppet_back_force_toward_seat_n": 20.01822838867416,
+        "poppet_head_supply_force_toward_seat_n": 17.701492302210905,
+        "poppet_outer_underside_force_away_from_seat_n": 2.3167360864632545,
+        "seat_contact_n_before_drag": 2.012290196512177,
+        "supply_bar_gauge": 16.0,
+        "washer_pressure_load_into_cap_n": 15.184196940742485
+      }
+    },
+    "lip_crest_diameters_mm": [
+      4.01,
+      4.15
+    ],
+    "projected_areas_mm2": {
+      "axial_drill": 0.2827433388230814,
+      "balance_piston_net_supply": 10.555751316061706,
+      "exposed_washer": 9.490123087964053,
+      "piston_bore": 12.566370614359172,
+      "poppet_head_net_supply": 11.063432688881814,
+      "rod": 2.0106192982974678,
+      "seal_circle": 13.074051987179283
+    },
+    "scope": "Quasistatic closed valve with an unrestricted atmospheric outlet, atmospheric dry chamber, sealed piston and equal balance and outlet pressures. Projected areas and crest edges are a sensitivity screen. The actual hydraulic diameter, drag and force during flow require measurement.",
+    "sign": "Positive net force on the poppet is away from the outlet and opens the valve.",
+    "stroke_displacement_of_balance_chamber_ul": 6.333450789637023
+  },
   "date": "2026-11-20",
   "geometry": {
     "actuator_length_mm": 25.2,
     "actuator_od_mm": 14.5,
     "assembly_split_angle_deg": 70.0,
+    "balance_piston_bore_mm": 4.0,
     "bundle_envelope_od_mm": 19.6,
     "custom_shell_max_z_mm": 242.7145401807502,
     "display_outward_shift_mm": 0.5,
     "docked_water_outlet_center_height_mm": 179.62269894850303,
-    "effective_seat_and_balance_diameter_mm": 4.0,
     "flavor_and_drain_tube_od_mm": 3.0,
     "flavor_tube_id_mm": 2.0,
     "head_centerline_length_at_assembly_split_mm": 117.64081167422125,
@@ -42,6 +114,7 @@
     "head_nominal_od_mm": 28.0,
     "main_hose_id_mm": 6.7,
     "main_hose_od_mm": 11.6,
+    "nominal_seat_circle_mm": 4.08,
     "opening_lift_mm": 0.6,
     "outlet_bore_mm": 3.8,
     "pressure_sleeve_od_mm": 8.6,
@@ -58,18 +131,33 @@
     "stem_od_mm": 27.0,
     "stem_sliding_bore_mm": 23.0
   },
+  "glands": {
+    "piston_groove_diameter_mm": 3.14,
+    "piston_groove_width_mm": 0.68,
+    "piston_od_mm": 3.94,
+    "piston_radial_running_clearance_mm": 0.030000000000000027,
+    "piston_ring_id_and_section_mm": [
+      3.0,
+      0.5
+    ],
+    "rod_diameter_mm": 1.6,
+    "rod_groove_diameter_mm": 3.34,
+    "rod_groove_width_mm": 1.27,
+    "rod_ring_id_and_section_mm": [
+      1.5,
+      1.0
+    ]
+  },
   "hydraulic_targets_and_estimates": {
-    "curtain_area_mm2": 7.5398223686155035,
-    "effective_diameter_match_allowance_mm": 0.02,
-    "nominal_outlet_connected_liquid_volume_mm3": 47.78298625114441,
+    "curtain_area_mm2": 7.690618815987813,
+    "nominal_outlet_connected_liquid_volume_mm3": 46.22102107414447,
     "poppet_to_keeper_annulus_mm2": 8.042163033924517,
     "pour_target_l_min": [
       1.5,
       2.0
     ],
-    "residual_pressure_force_allowance_n": 0.20156458465431568,
-    "seat_only_drop_bar_at_2_l_min_assuming_cd_0_65": 0.23130155517737283,
-    "unbalanced_seat_force_at_pressure_target_n": 20.106192982974676,
+    "seat_only_drop_bar_at_2_l_min_assuming_cd_0_65": 0.22231983388828608,
+    "unbalanced_seat_force_at_pressure_target_n": 20.918483179486852,
     "volume_scope": "Outlet bore, small wet balance chamber, hollow stem and rod-gland clearance. Seal grooves and films are not included. The armature and return spring occupy a separate dry chamber.",
     "washer_throat_area_mm2": 10.17876019763093,
     "working_pressure_target_bar": 16.0
@@ -77,7 +165,7 @@
   "materials_and_process": {
     "bundle": "Reinforced beverage hose, smaller separate flavor and drain lines, flexible conductors, a thin insulating layer and continuous protective sleeve.",
     "coil": "Custom winding on an insulated bobbin, protected inside its magnetic return yoke.",
-    "dynamic_seals": "Food-contact compound to be specified; low-friction piston seal and a separate low-pressure rod seal.",
+    "dynamic_seals": "The turned stem includes the balance piston and its seal groove. A second seal in the liner isolates the dry rod. Beverage-contact compounds and friction remain to be qualified.",
     "flux_bridges": "Passivated magnetic stainless, with axial water passages and sealed interfaces to the dry armature bore.",
     "inlet": "Integral angled barb and factory crimp; no exposed disconnect at the docking seam.",
     "seat_washer_retention": "The outlet cap threads onto the machined mouth of the sleeve. A metal stop sets perimeter squeeze. The compressed rim seals the cap joint and blocks flow around the back of the washer.",
