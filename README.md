@@ -19,7 +19,7 @@ The product under development is an integrated under-counter soda machine — cu
 | [`ios/`](/ios/) | iOS companion app: the BLE link to a machine, firmware updates, pictures, mix, care and settings |
 | [`brand/`](brand/README.md) | On tap faucet identity, Big Blue palette, app icons, wordmarks, and shared asset generation |
 | [`marketing/`](/marketing/) | Target market analysis, [Lincoln sales and installation](marketing/lincoln/README.md), unboxing brief, video scripts |
-| [`business/`](/business/) | Incorporation, regulatory (UL 943, ASSE 1022) |
+| [`business/`](/business/) | The safety and regulatory basis: [`regulatory.md`](/business/regulatory.md) |
 | [`future/`](/future/) | Where the project is going — the vision and the plan in [`README.md`](/future/README.md), and the desires not yet committed to plans in [`pie-in-the-sky/`](/future/pie-in-the-sky/) |
 | [`tools/`](/tools/) | [The `hsm` kernel, build and geometry queries](tools/hsm/README.md), render scripts, printer and bench utilities |
 
