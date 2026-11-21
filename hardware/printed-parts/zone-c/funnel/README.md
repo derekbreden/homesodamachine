@@ -78,7 +78,7 @@ coupon seats under light hand pressure in the printed front-top.
 The lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
 Plain open-bottom notches pass the ledges. The lower body carries
-the drain socket and its 3 mm snap web. The empty frame’s vertical passage is
+the drain socket and its hook ledges. The empty frame’s vertical passage is
 reviewed with the drain cradle, elbow and connected tubing removed.
 There are no sliding rails or outboard lower foot wings.
 
@@ -105,16 +105,11 @@ with the added screws await a physical assembly.
 
 ## Drain socket and snap web
 
-The removable frame’s underside is Z299.9 and the socket floor is Z302.9.
-The 3 mm web beneath the socket carries the
-cradle’s two snap hooks. The socket extends 19 mm above that web; its R0.25
-receiver corners and 1 mm mouth lead-in retain room around the square silicone
-plug and released hook tips. The plug’s lower face bears on the hooks at Z306.05.
-
-The drain hole guides the elbow’s rigid stem with a sliding fit. A straight wing
-slot on each side admits the cradle. The complete catches
-bear above the 3 mm web on both sides. The elbow's socket collar stands
-1.713 mm below the frame's underside in the released pose.
+The socket floor forms a T. Its crossbar spans the front of the socket and its
+middle runs between the wing slots. A straight bore through the raised floor
+guides the elbow stem with a sliding fit. Each wing passes through its slot
+and springs outward over the lower ledge. The square silicone plug enters
+through the flared socket mouth and rests on the hook tops, clear of the T.
 
 The cradle and elbow attach to the removable frame and travel with it;
 disconnect the V-B feed before frame withdrawal. The bare-frame lift review
@@ -160,21 +155,12 @@ collar. The flexure roots are at Z290.410;
 the wing slots, hooks and silicone bearing planes share the frame's fixed
 interface datums.
 
-The installed cradle stands below its insertion datum.
-The hook undersides are at Z303.3, above the frame's
-Z302.9 web top: 0.15 mm static allowance plus 0.25 mm for the supported hook
-underside. Each hook is thick, with its top at Z306.05
-under the silicone plug's flat lower face. This finite rectangular snap hook
-is a named local thickness feature; the cradle's body wall and frame web are
-3 mm. The silicone plug, drain seal, elbow and installed joint poses retain
-their specified dimensions.
+The installed cradle hangs below its insertion datum. Each hook's underside
+clears its ledge by the allowances for a static fit and a supported print
+surface. Its flat top supports the silicone plug.
 
-Each hook passes its slot's outer edge with 0.25 mm air while the wing is pinched
-inward. The source's tip-loaded cantilever model sizes a
-inboard lane and estimates deflection over a 12.89 mm free
-length, about nominal root strain. The remaining web from
-the slot to the drain-hole edge is. This model describes
-nominal passage geometry; it does not establish insertion force or strain capacity.
+The tip-loaded cantilever model sets the inner edge of the slot from the
+wing's inward travel as its hook passes the outer edge.
 The [cradle trial](https://github.com/derekbreden/homesodamachine/blob/fa06bf904fc54d0a998a34233ca37fedfd55c3c0/hardware/printed-parts/zone-c/funnel/cradle-trial/README.md) records accepted insertion for its
 identified meshes; it does not establish this joint's loaded retention or lifetime.
 
