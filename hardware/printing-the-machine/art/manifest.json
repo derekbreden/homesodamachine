@@ -14,7 +14,7 @@
   "any-five-coupons.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/rear-snap-retention/v4/physical-result/10-all-five.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 2000,
    "width_px": 1173,
    "made_with": "magick auto-orient",
@@ -154,7 +154,7 @@
   "petgf-fits-rail-pair.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/rail-fit-30/photos/03-mating-rail-fit.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 829,
    "made_with": "magick auto-orient",
@@ -164,7 +164,7 @@
   "petgf-fits-snap-torn-wing.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/rear-snap-retention/physical-result/meter-fracture.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 564,
    "made_with": "magick auto-orient",
@@ -174,7 +174,7 @@
   "petgf-fits-split-base.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/rear-snap-retention/v2/physical-result/pump-base-fracture.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 584,
    "made_with": "magick auto-orient",
@@ -244,7 +244,7 @@
   "petgf-setup-centred-plate.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-fins/photos/01-plate.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 2000,
    "width_px": 617,
    "made_with": "magick auto-orient",
@@ -344,7 +344,7 @@
   "petgf-supports-de-ceilings.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/close-contact/photos/01-D-E-undersides.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 493,
    "made_with": "magick auto-orient",
@@ -384,7 +384,7 @@
   "petgf-supports-mats-on-bed.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/photos/01-separated-supports.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 750,
    "made_with": "magick auto-orient",
@@ -394,7 +394,7 @@
   "petgf-supports-rail-d-one-piece.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/rail-fit-30/photos/01-whole-support-release.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 493,
    "made_with": "magick auto-orient",
@@ -404,7 +404,7 @@
   "petgf-supports-rail-e-corner.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/rail-cavity-30-E/photos/02-pale-roughened-corner.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 594,
    "made_with": "magick auto-orient",
@@ -414,7 +414,7 @@
   "petgf-supports-roof-strands.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/print-tests/petgf-dense-roofs/photos/02-roof-undersides.jpg",
-   "revision": null,
+   "revision": "ed4ebc3cf",
    "max_px": 1700,
    "width_px": 480,
    "made_with": "magick auto-orient",

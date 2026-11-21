@@ -12,6 +12,6 @@ Each pointed cap has a continuous solid retaining nose. The fitted bearing profi
 
 The ASSE receiver's lower fore corner has one 3 mm bevel for the PISCO service route, retaining 3 mm neck stock. PISCO leaves through staged fore, downward and sideways moves with its free wings squeezed after clearing the hardware. The rear unit is serviced loose on the bench with the cold core separate; the inlet header, drain connection, ASSE chain, meter and VK are removed in the recorded order. The pump cap is accessible with the equipment lid loose, and the loaded pump cartridge enters from below before the plumbing handoffs.
 
-[The full retention samples and geometric path readings](../../hardware/print-tests/receiver-tool-access/receiver-finish/README.md) record the production shapes, tool envelopes and assembly order. The five receiver samples reuse the solid pointed caps from the complete-set prints. Release force and repeated bending remain physical checks.
+[The full retention samples and geometric path readings](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/receiver-finish/README.md) record the production shapes, tool envelopes and assembly order. The five receiver samples reuse the solid pointed caps from the complete-set prints. Release force and repeated bending remain physical checks.
 
 Derek: “Just need to make sure that it's actually possible.”

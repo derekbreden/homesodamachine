@@ -50,15 +50,15 @@ with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
 Its body-to-outlet shoulder retains the scanned position. The central cap
 bearing ends 1 mm short of the spring ends beside the outlet release collet.
 The PISCO, water-regulator and flow-meter hardware fits are
-[physically approved](../../../print-tests/pointed-snaps/physical-result/physical-result.json).
+[physically approved](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pointed-snaps/physical-result/physical-result.json).
 The PISCO and meter fits were approved on the
-[fitted-retention samples](../../../print-tests/rear-snap-retention/v5/README.md): receivers cut
+[fitted-retention samples](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v5/README.md): receivers cut
 from back-top, printed roof-down as it prints, with automatic tree supports in their cavities, so
 the meter's channel and wire-chamber floors printed on support. The water regulator's fit is the
-[v4 sample's](../../../print-tests/rear-snap-retention/v4/physical-result/physical-result.json).
-The [latest pointed-set result](../../../print-tests/asse-body-seating/physical-result/physical-result.json)
+[v4 sample's](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json).
+The [latest pointed-set result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/physical-result/physical-result.json)
 reports tight hardware fits, with the ASSE body seating as the exception. The
-[ASSE body cap](../../../print-tests/asse-body-seating/README.md) carries its local seating allowance.
+[ASSE body cap](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/README.md) carries its local seating allowance.
 All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
 root-to-catch length; the water regulator uses 21.25 mm within its retained
 height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
@@ -109,7 +109,7 @@ records Derek's in-hand approach, the accepted angled catches and the picked
 obstruction. Complete installation against the current enclosure awaits a print.
 
 The regulator releases directly downward with its exposed leaves spread.
-The [physical result](../../../print-tests/receiver-tool-access/physical-result/physical-result.json)
+The [physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/physical-result/physical-result.json)
 records the accepted first-job fits and the receiver-base release geometry.
 The [regulator tip reading](regulator-tip-review.json) binds the full lead-in,
 matching receiver pocket, retained bearing geometry and enclosure roof stock
@@ -154,7 +154,7 @@ tower timing, reviewed archive and accepted Mark2 job. Select Timelapse On.
 Remove the small cavity supports with a tiny flathead screwdriver that fits
 inside the opening. Derek reports that the original trial's small automatic
 cavity supports removed easily with that tool. Preserve the flat catch
-undersides while clearing them. The [physical record](../../../print-tests/rear-snap-retention/physical-result/physical-result.json)
+undersides while clearing them. The [physical record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/physical-result/physical-result.json)
 records this removal result and the hardware fit observations.
 
 For release, put a small flat blade into the receiver channel beside the

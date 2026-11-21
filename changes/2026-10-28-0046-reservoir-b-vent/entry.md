@@ -12,7 +12,7 @@ X32.0 backing plane joins their wells to the valve wall.
 
 The valve, PCB, pump, reservoir bore and tube positions retain their
 datums. The twelve junction leads terminate at the selected ports.
-The [review record](/hardware/printed-parts/cold-core/foam-cap/vent-review/README.md)
+The [review record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/cold-core/foam-cap/vent-review/README.md)
 binds the native geometry, printed surface and reviewed Mark1 archive.
 
 Derek: “Good find, but please only raise to me the ones that you can fix entirely on your own, or that you and I can fix together right now quickly.”

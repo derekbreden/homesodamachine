@@ -7,4 +7,4 @@ model: printed-parts/enclosure/enclosure/enclosure.step
 ---
 The retainer follows the exposed rear wall measured in the pump scans. Its clearance blends into the existing skirt bearing and continues across the outlet opening. The fixed mount, pump positions, flange seat and snap wings retain their fitted geometry.
 
-The scan comparison and prepared print are recorded in the [pump fit review](https://github.com/derekbreden/homesodamachine/tree/main/hardware/printed-parts/enclosure/enclosure/pump-fit-review).
+The scan comparison and prepared print are recorded in the [pump fit review](https://github.com/derekbreden/homesodamachine/tree/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-fit-review).

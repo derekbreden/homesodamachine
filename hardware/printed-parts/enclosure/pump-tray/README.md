@@ -36,8 +36,8 @@ and [bench procedure](/hardware/assembly/internal-plumbing.md) define the comple
 ## Verification
 
 The current snap geometry evidence is in the
-[pump-snap review](/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md).
-The [pump-mount receipts](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
+[pump-snap review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md).
+The [pump-mount receipts](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
 bind their identified three-screw articles.
 
 The [accepted physical observation](/hardware/reference/kamoer-kphm400/physical-fit.json)

@@ -55,7 +55,7 @@ removal-route checks. Its native estimate is 9 h 37 m 50 s / 357.43 g; the
 
 The [H2C v18 archive](front-top-h2c-v18/README.md) is cancelled after first-layer
 progress. Its RC62 pause, dense regions and roof-opening checks pass, but the
-[display-strip witness](../../../zone-c/funnel/flush-roof-review/display-strip-backing-v18.json)
+[display-strip witness](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/flush-roof-review/display-strip-backing-v18.json)
 finds approximately 190 mm unsupported roads beneath the retained narrow
 display ceiling. The [launch receipt](h2c-v18-launch.json) records the verified
 stop. A separate v19 local support preparation retains the frozen front-top

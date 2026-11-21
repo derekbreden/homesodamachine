@@ -26,6 +26,6 @@ selected datums.
 
 The native assembly has no volume clashes. The scoped tube clearances,
 snap insertion reading and matching lid slice are recorded in the
-[wall-routing review](https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/cold-core/foam-cap/wago-wall-review/README.md).
+[wall-routing review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/cold-core/foam-cap/wago-wall-review/README.md).
 The slice is prepared for Mark2’s left 0.4 mm Standard nozzle in PET-GF15;
 the preparation launches no print.

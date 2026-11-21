@@ -35,7 +35,7 @@ tools/run -- cargo run --release --locked -j2 \
     --example meanwell-irm90-replica -- hardware/reference/meanwell-irm90
 ```
 
-The [assembly-fit review](../../printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
+The [assembly-fit review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/assembly-fit-review/README.md)
 records the module placement and installed-wire fit scope. The
 [conditional electrical Plan B](/future/carbonation-plan-b.md) depends on
 measured current and voltage under the intended load schedule.

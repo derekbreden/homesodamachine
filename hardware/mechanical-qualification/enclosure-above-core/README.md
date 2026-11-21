@@ -134,7 +134,7 @@ the removable frame, then its four screws and the silicone funnel.
 The [internal plumbing procedure](../../assembly/internal-plumbing.md) gives
 the component sequence and actual insertion-mark method. The
 [core review](../../printed-parts/cold-core/foam-cap/above-core-native-review.json)
-and [funnel record](../../printed-parts/zone-c/funnel/drop-in-review/native-review.json)
+and [funnel record](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 retain their specifically bound equipment, stock and tool-access scopes.
 Accepted physical results retain their articles and materials in the
 [qualification index](../README.md).

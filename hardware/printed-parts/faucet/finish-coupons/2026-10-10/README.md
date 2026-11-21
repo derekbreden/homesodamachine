@@ -52,9 +52,9 @@ height and temperature constant to distinguish those responses. D, E and F ask
 whether a gradual seam helps this material and curvature, and whether doubling
 the overlap length helps or spreads the blemish.
 
-The [PET-GF support evidence](../../../../print-tests/petgf-interface-edges/README.md)
+The [PET-GF support evidence](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-interface-edges/README.md)
 supports the larger gap for clean release. The
-[interface-pattern evidence](../../../../print-tests/petgf-interface-patterns/README.md)
+[interface-pattern evidence](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-interface-patterns/README.md)
 identifies loose retained strands as the model's first bridge layer. Accordingly,
 this plate retains the accepted support separation and tests cooling first.
 

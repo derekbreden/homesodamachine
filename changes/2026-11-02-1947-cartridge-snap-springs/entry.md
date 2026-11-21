@@ -13,7 +13,7 @@ backing and 3 mm behind its centered 5 mm release opening.
 Both complete assemblies and the front-top/pump-mount installation scenes
 carry the seated retainer. The separate print has its relaxed pose.
 
-The [trial](../../hardware/print-tests/pump-cartridge-snaps/README.md) includes
+The [trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pump-cartridge-snaps/README.md) includes
 compact full-length cartridge wings, a complete two-pump fixture and a
 separate pointed-tip comparison. Physical bending, release and retention
 remain to be tested.

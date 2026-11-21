@@ -11,7 +11,7 @@ and TPU grip retain their dimensions. V-B's wall is continuous, with
 3.78 mm nominal air to the tube and 3.66 mm to the lower WAGO. Nearby
 hardware keeps its placement.
 
-The [straight vent review](/hardware/printed-parts/cold-core/reservoir/straight-vent-review/README.md)
+The [straight vent review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/cold-core/reservoir/straight-vent-review/README.md)
 binds the native interfaces, print surface and coordinated publication.
 
 Derek: “I don't like the sound of that. Bends in the cap are an assembly nightmare”

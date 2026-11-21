@@ -57,7 +57,7 @@ Support-block paint covers that plane and the added support surfaces to avoid
 duplicate or recursive slicer supports. Automatic Tree(auto)/Default remains
 enabled elsewhere. B has no support-block paint and retains the requested
 0.45 mm automatic-support top gap. The fins' requested 0.24 mm gap is a local
-candidate supported by the [PET-GF v8 G1 coupon](../../../../../print-tests/petgf-fins/under-roof-walls-v8/README.md),
+candidate supported by the [PET-GF v8 G1 coupon](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md),
 which supported well and bent off easily. The faucet's slope and connected
 support layout still require a physical removal assessment.
 

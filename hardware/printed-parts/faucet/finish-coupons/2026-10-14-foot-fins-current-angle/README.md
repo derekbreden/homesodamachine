@@ -43,7 +43,7 @@ No cutoff override is used in this print.
 
 A uses 1.0 mm walls, 0.6 mm contact tips, a 0.24 mm requested vertical gap,
 12 mm maximum requested span and 0.6 mm free-edge inset. Bed pad and sway
-braces are off. The [PET-GF v8 G1 result](../../../../print-tests/petgf-fins/under-roof-walls-v8/README.md)
+braces are off. The [PET-GF v8 G1 result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md)
 selects that gap as a candidate for an underlying 1 mm wall: it supported well
 and bent off easily on its coupon. This faucet result establishes easy release
 for the eight stock walls at the retained angle and production recipe; the

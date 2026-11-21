@@ -15,4 +15,4 @@ The editable project and native machine archive are retained here.
 The [submitted archive copy](archive-copy.json) preserves the reviewed G-code.
 Full-part finish, support removal and fit await physical results. D's successful
 flat rail result does not qualify inclined faucet contacts; those have a
-[separate comparison study](../../../../../print-tests/petgf-dense-roofs/inclines/).
+[separate comparison study](https://github.com/derekbreden/homesodamachine/tree/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/inclines).

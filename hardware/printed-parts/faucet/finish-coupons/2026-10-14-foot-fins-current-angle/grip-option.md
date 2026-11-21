@@ -54,7 +54,7 @@ recursive supports. **Tree(auto), Default remains enabled elsewhere**, including
 any automatic normal sections. This explicit local support experiment addresses
 the observed scalloping and lifted strands on the plate-mating rim.
 
-The [PET-GF v8 G1 result](../../../../print-tests/petgf-fins/under-roof-walls-v8/README.md)
+The [PET-GF v8 G1 result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-fins/under-roof-walls-v8/README.md)
 selects a 0.24 mm gap candidate for an underlying 1 mm wall: it supported well
 and bent off easily on that coupon. It does not qualify these sloped contacts
 or establish a replacement for automatic tree-support gaps. B tests whether

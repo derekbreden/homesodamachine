@@ -56,7 +56,7 @@ cooling and standing calibration options are retained.
 The [October 25 physical record and eight photographs](prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
 report very good fit of the Sculpted cover with the display, tubes and wiring.
 The remaining front-corner opening has an
-[cover-only skirt-overlap trial](../faucet-display-cover/corner-overlap-review/2026-10-25/README.md).
+[cover-only skirt-overlap trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md).
 Numerical installation force and retention remain unmeasured.
 
 ## Sculpted cover and display-button fit — 2026-10-24
@@ -66,7 +66,7 @@ record repeated installation failure of the lowered Sculpted cover, while the
 square Industrial cover repeatedly fits the same newest printed tip tightly.
 Close photographs identify the side switch housing bearing on the unrelieved
 ledge beside a mounting-post recess. The
-[fit correction](../faucet-display-cover/fit-review/2026-10-24/README.md) has two
+[fit correction](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/README.md) has two
 local 1 mm switch pockets and matches the Industrial control's 0.50 mm cover
 reach and arch offset. The [requested complete fit print](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
 uses 0.20 mm layers in the selected base bands and 0.24 mm elsewhere.
@@ -136,7 +136,7 @@ record an approximately 1.5 mm display/cover gap and substantial apparent tube
 clearance on a black Industrial head. Derek requests removing the earlier
 additional 1.5 mm of clearance, the original supports, and adding 1 mm foot
 recesses at the same locations. The
-[4.5 mm lower review candidate](display-seat-review/2026-10-24/README.md)
+[4.5 mm lower review candidate](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/README.md)
 contains the requested geometry and before/after views. Its conservative
 component model intersects the tube routes and tip. The
 [complete fit print](prints/2026-10-24-lowered-display-complete-mark2/README.md)

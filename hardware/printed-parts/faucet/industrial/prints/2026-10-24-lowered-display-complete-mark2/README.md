@@ -2,7 +2,7 @@
 
 One complete set of five rigid black PET-GF parts: Industrial base, shared tip,
 Industrial display cover, above-counter plate and side-down lever. The tip and
-cover are the exact reviewed [display-seat candidate](../../display-seat-review/2026-10-24/README.md).
+cover are the exact reviewed [display-seat candidate](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/README.md).
 The display and cover sit 4.5 mm lower: 1.5 mm additional tube clearance, 2.0 mm
 original support height and 1.0 mm foot recess depth. Four diameter-4 mm foot
 pockets occupy the original locations. The other three parts use the production

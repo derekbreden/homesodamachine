@@ -224,7 +224,7 @@ surface across the seam.
 
 The printed corbel is the exposed gripping surface and retains the shared ordinary
 layer schedule. Local native tree targets support the back-bottom's rounded mouth
-and seam lip after the [handhold coupon result](../../../print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json).
+and seam lip after the [handhold coupon result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/petgf-dense-roofs/D-representative-mark2/physical-result.json).
 The inclined gripping interior remains outside those forced regions.
 The grip is integral with the quadrant. Surface finish and gripping comfort remain
 unqualified on the complete production handholds.
@@ -508,9 +508,9 @@ Four features bearing on the core's own faces:
   Both retain their complete 40 mm wall legs and the Z253.65 bearing plane.
   The populated back column slides over the core before the final flexible
   handoffs are connected. Printed fit and restraint strength remain unqualified.
-  The [native hold reading](core-hold-review/native.json) binds the complete east profile,
+  The [native hold reading](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/core-hold-review/native.json) binds the complete east profile,
   wall root and cap gap to the current export, and preserves the west hold exactly.
-  The [current slice](core-hold-review/slice.json) binds its print preparation.
+  The [current slice](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/core-hold-review/slice.json) binds its print preparation.
 
 The whole core pocket follows that same rounded plan with 0.25 mm around it,
 from the floor to Z253.65 above its cap crown. The floor under it is the box's one floor
@@ -891,7 +891,7 @@ all interface islands and both plate and CAD coordinates.
 readings describe the four quadrants and separate pump cradle/cap listed by their archived
 STL digests. They do not qualify the integral pump mount, revised front-top or underside
 retainer. Current native print preparation and review are recorded beside the
-[pump-mount review](pump-mount-review/README.md).
+[pump-mount review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md).
 The current integral-mount front-top is STEP `6120cf94…`, paired with retainer
 `bd394956…`. The native assembly record binds these exact parts separately from
 its original complete-path inputs and identifies the M5-joint review for the
@@ -934,7 +934,7 @@ sliding face out past the exterior plane, so each of the four stands on the outs
 with a face exposed down the whole run. Front-bottom's pair is printed and pulled — the easiest
 support on the piece, off cleanly in one piece, reachable without going near the cavity.
 
-Back-top's [support-removal packet](support-removal-review/README.md) binds the native
+Back-top's [support-removal packet](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/enclosure/enclosure/support-removal-review/README.md) binds the native
 paths to their source geometry and printer recipe. It reads the receiver interiors,
 covered bores, valve sockets and vent passage, together with the support bodies and
 their contact islands. Release exposed contacts and remove branches before installing
@@ -1261,7 +1261,7 @@ standing drain stub. Finish the tubing and PCB connections beneath the open
 aperture, then fit the frame, engage the cradle's snap seat and complete the
 drain connection. The plug, stub, elbow and cradle travel with the frame;
 disconnect the V-B feed before lifting it. The
-[drop-in review](../../zone-c/funnel/drop-in-review/native-review.json) records
+[drop-in review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json) records
 nominal fastener stacks and sampled motion; the
 [funnel source](../../zone-c/funnel/README.md) owns its dimensions and physical
 qualification limits.
