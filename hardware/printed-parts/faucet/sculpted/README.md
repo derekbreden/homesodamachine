@@ -99,7 +99,7 @@ filament assignment, cooling, speed commands, complete bead footprint and
 whole-height seam paths. It packages a separate print-only archive with
 unchanged G-code bytes. It is a manual reader, not a build step.
 
-The [native review](prints/2026-10-17-localized-cooling-display-clearance-mark2/native-review.json)
+The [native review](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/native-review.json)
 and per-part seam CSVs bind the submitted commands. Physical white Sculpted
 finish, cleanup and fit remain a result of this complete print.
 
@@ -161,6 +161,6 @@ The replay's toolhead is the committed whole-head map, which `sculpted-trial hea
 from the H2C toolhead model's export.
 
 The display seat, foot recesses and cover bezel use their shared mounted datums.
-The [October 17 clearance reading](prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
+The [October 17 clearance reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
 binds that print's geometry. Current 4 mm tubing and passage evidence are in
 [flavor dispense lines](../flavor-lines/README.md); physical assembly of the current preparation remains unmeasured.

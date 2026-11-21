@@ -798,6 +798,6 @@
   },
   "current_full_parts": {
     "Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-15-back-top-nameplate-corbels-mark1/print-job.json",
-    "Mark2": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json"
+    "Mark2": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-bottom-D-mark2/print-job.json"
   }
 }

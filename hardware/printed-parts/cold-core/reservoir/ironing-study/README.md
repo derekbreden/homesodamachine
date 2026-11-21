@@ -5,7 +5,7 @@ Derek reported that it was the best result by a long shot, the smoothest and
 best feeling. Among the ironed conditions, he tentatively preferred the entire
 **30% flow column: 15/30, 30/30 and 60/30**. **60/30 felt more papery** than
 the other two. No preference between 15/30 and 30/30 was reported.
-[Physical observation](prints/2026-10-06-mark2-squares-v1/physical-result.json).
+[Physical observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 
 ## Printed comparison
 
@@ -13,7 +13,7 @@ Mark2 task **1314288755** printed nine flat **35 × 35 mm squares** and one
 un-ironed **OFF** reference. Each had an uninterrupted top face and a label
 on a lower tab. The material was Bambu PETG Translucent Clear, with the
 **left 0.8 mm Standard hotend** on textured PEI, starting on **A4**.
-[Launch and completion](prints/2026-10-06-mark2-squares-v1/launch.json).
+[Launch and completion](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/launch.json).
 
 Labels read **speed in mm/s / ironing flow in percent**. All nine ironed
 conditions used **0.15 mm spacing**, a 0.31 mm inset and zig-zag ironing.
@@ -51,9 +51,9 @@ The completed project's 3MF and generator/reviewer sources are retained in
 Git at **`7f370a4fcf0a1843fec9b770e8adaea80626c4ed`**, under this directory. The current reservoir project is
 [reservoir.3mf](https://homesodamachine.com/print-archive/28bc36a87e2bc18a620492abcec3dfd787122283/reservoir.3mf).
 
-[Feature-crop comparison observation](prints/2026-10-06-mark2-centered-v3/physical-result.json) ·
-[Centered feature-crop launch](prints/2026-10-06-mark2-centered-v3/launch.json) ·
-[Stopped edge-placement job](prints/2026-10-06-mark2/physical-result.json).
+[Feature-crop comparison observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-centered-v3/physical-result.json) ·
+[Centered feature-crop launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-centered-v3/launch.json) ·
+[Stopped edge-placement job](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json).
 The earlier projects are identified by their launch records and retained in Git.
 
 The calibration used flow, speed and spacing variables described in Prusa's

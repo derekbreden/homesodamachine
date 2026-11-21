@@ -2,14 +2,14 @@
 
 The [completed left 50% article](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json)
 is reported holding water so far. The
-[right body and current matching lid](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+[right body and current matching lid](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
 are running as **Mark1 task 1378532609** with the same saved recipe: **50%
 overlap, 255/260 °C, Engineering Plate / left 0.8 mm**, A2 with Auto Refill,
 zero added/effective Z trim and ironing Off. Native slicing is reviewed;
 startup has no error/HMS. Physical right-article water holding and current
 flush-grip lid fit remain unassessed.
 
-The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+The [left body and matching lid](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
 have recorded launch **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
 03:03:53 UTC October 26**, on the fixed **left 0.8 mm Standard** hotend,
 glued **Engineering Plate**, **0.00 mm Z compensation**, A2 and automatic refill.
@@ -18,12 +18,12 @@ completed 833/833 layers and has a reported water hold. Its body and float-guide
 location match current CAD; current lids carry the flush tube grips. This plate
 contains one left body and its matching lid.
 
-The [preceding right-hotend Engineering Plate article](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+The [preceding right-hotend Engineering Plate article](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 has reported polymer buildup and a photographed motion-step-loss warning.
 Fresh retained status is FAILED with no current error/HMS. The failure's
 cause and actual stop layer are unestablished.
 
-That print's [complete settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+That print's [complete settings](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 retain **255/260 °C**, flow 1.05, five walls, 30% overlap and **70 °C** bed.
 The complete recipe is retained for the opposite-side body/lid pair. **A2**
 starts before matching A3/A4, with A1 empty. Send verifies Timelapse On,
@@ -31,7 +31,7 @@ bed leveling On, flow dynamics Auto
 and nozzle offset calibration Auto. Runtime timelapse activation at deposition
 is unobserved during layer 0 preparation.
 
-The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+The completed [255/260 °C left article](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both
 used Textured PEI with zero added user trim. The table describes the selected
 50% Engineering Plate right repeat; its physical adhesion and sealing are unassessed.
@@ -42,8 +42,8 @@ through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overl
 265/270 °C, no brim, zero added user Z trim and ironing Off**. Arachne uses its
 10° default transition threshold. Mark1 task **1365626370** has a **reported
 one-hour water hold** on its intentionally partially printed left body,
-reported October 23, 2026. [Physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
-[Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
+reported October 23, 2026. [Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
+[Launch and startup](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 [Adaptation, wall-count comparison and installed preset facts](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The project's two plates contain
@@ -51,7 +51,7 @@ the current left and right body/cap pairs. [print-settings.json](print-settings.
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
-Its water hold belongs to the historical May article. The 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
+Its water hold belongs to the historical May article. The 59° article [still leaks at the bottom and has a new vertical-edge defect](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
 ## Current Engineering Plate trial
 
@@ -87,12 +87,12 @@ Its water hold belongs to the historical May article. The 59° article [still le
 The Engineering Plate start block clears trim and emits **`G29.1 Z0`**:
 zero added user trim and **0.00 mm** plate compensation. The preceding Textured
 PEI right print used zero added user trim with stock **`G29.1 Z-0.02`**
-compensation. The earlier [first-layer failure record](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
-and [retry](prints/2026-10-21-mark1-right08-z000/README.md) bind the correction to
+compensation. The earlier [first-layer failure record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
+and [retry](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/README.md) bind the correction to
 this material and article. PET-GF profiles retain their own trim settings.
 
 The project uses the May Water controls, with ironing disabled according to the
-[flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
+[flat-square finish selection](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
 The trial plates explicitly assign the left nozzle in Manual mode; the root reference project retains its right-nozzle assignment. Use the matching
 spool with the least filament remaining first and automatic refill to the other
@@ -150,23 +150,23 @@ and has no physical sealing result.
 The October 26 report records leakage after two hours on the most recent article
 without an explicit task ID.
 [Right Engineering Plate result](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json) ·
-[Left Textured PEI result](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
-[Older physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
+[Left Textured PEI result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
+[Older physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
 
 The preceding walls-only article has reported seam leakage. Its underside photograph shows
 droplets along a branching floor junction resembling the native perimeter
-convergence regions. [Physical result](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
+convergence regions. [Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
 
 The printed 59° transition trial adds center-wall paths at those junctions. The
-[native comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json)
+[native comparison](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json)
 shows about 72% less nominal layer-12 pocket area, with residual modeled pockets.
-The printed article still leaks at the same reported location. The calculation supplies no demonstrated sealing benefit. A [wall-path reading](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) identifies additional short extrusion segments near the curved-wall ends; their causal relation to the edge defect is unverified.
+The printed article still leaks at the same reported location. The calculation supplies no demonstrated sealing benefit. A [wall-path reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) identifies additional short extrusion segments near the curved-wall ends; their causal relation to the edge defect is unverified.
 
-The preceding May-adapted left article has [reported floor-fill/perimeter leakage](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-user-trim left article leaks at many places, as reported by
+The preceding May-adapted left article has [reported floor-fill/perimeter leakage](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-user-trim left article leaks at many places, as reported by
 Derek. Its corner photographs show a distorted band near the floor-to-wall
 transition. Neither the finished shape nor the limited live camera views
 establishes an onset layer. The stopped job's
-[terminal record](prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
+[terminal record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
 records the visibility limit and paused task-bound monitor.
 
 The September 0.24 mm article held water, as reported by Derek. Its recovered

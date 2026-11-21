@@ -49,5 +49,5 @@ Derek selected **SB (scarf slope gap 10%)** and **E (eight coarse lip layers)**
 for the next complete faucet. The [physical result](physical-result.json) records
 recovery in the latter four layers of E and difficulty distinguishing the seam
 swatches. The attached crops identify the choices; they do not show full surfaces.
-The [complete-faucet trial](../../../industrial/prints/2026-10-11-scarf10-lift8-mark1/README.md)
+The [complete-faucet trial](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/README.md)
 retains these provisional choices for confirmation on the actual curved parts.

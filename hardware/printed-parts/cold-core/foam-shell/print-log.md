@@ -16,7 +16,7 @@ profile's 2 mm wipe, painted into the channel's +X inside corner. 888 of 889 lay
 their exterior wall at that corner; layer 1 starts 0.2 mm up the channel's side wall.
 Mark2's +0.04 mm trim emits G29.1 Z0.02. Native estimate **31 h 17 min**, **1,452.4 g**,
 889 layers. Accepted as task **1386110458** at **02:57:02 CDT**; RUNNING at layer 0/889
-with print error 0 and HMS empty. The [print record](prints/2026-10-29-mark2-seam-channel/README.md)
+with print error 0 and HMS empty. The [print record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/README.md)
 binds the project, archive, seam reading and launch.
 
 ### Result — accepted for shipping (2026-11-01)
@@ -26,9 +26,9 @@ lining up with a hole. It is invisible in some lighting and quite visible in
 others. He accepts the photographed defect for shipping: "But this is a defect
 that we are okay shipping with."
 
-The [print result](prints/2026-10-29-mark2-seam-channel/README.md#physical-result--accepted-for-shipping-2026-11-01)
+The [print result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/README.md#physical-result--accepted-for-shipping-2026-11-01)
 shows the finish. The
-[physical-result record](prints/2026-10-29-mark2-seam-channel/physical-result/physical-result.json)
+[physical-result record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/physical-result/physical-result.json)
 preserves his full report and all six original photographs with SHA256 hashes,
 bound to task **1386110458**. The accepted condition is listed in
 [Accepted defects and tolerances](../../../defects-and-tolerances.md#cold-core-shell--small-upper-wall-ripples).
@@ -161,7 +161,7 @@ Derek supplied seven photographs and reported: "Well, this turned out pretty
 awful here, at least in these parts that I've photographed for you here."
 The photographs show a rippled, locally porous patch at an upper long-wall
 corner and rough, porous vertical slot edges. The
-[sent-file audit](prints/2026-10-25-mark2-left04-smooth238-z004/post-print-audit/README.md)
+[sent-file audit](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/foam-shell/prints/2026-10-25-mark2-left04-smooth238-z004/post-print-audit/README.md)
 binds the supplied photographs by hash and checks the launch archive,
 embedded model and emitted paths. The exterior finish is a failed result.
 Fit, leak and load results were not supplied for this shell.

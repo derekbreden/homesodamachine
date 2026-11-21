@@ -38,11 +38,11 @@ quantifies the resulting start and endpoint differences.
 
 The October 13 printed seam starts reach CAD X12.278, Y17.079, Z165.364
 at print Z163.16, then approach the rear center again near the joint.
-The [identified printed article](../../prints/2026-10-13-a2-back-mark2/physical-result.json)
+The [identified printed article](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json)
 has Derek's overall acceptance and tag `faucet-industrial-approved-2026-10-13`.
-The [one-time base-only evaluation](../../prints/2026-10-13-rear-seam-base-only-mark2/README.md)
+The [one-time base-only evaluation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/README.md)
 completed on Mark2 as task 1337160395. Its
-[physical result](../../prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
+[physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
 confirms the middle-neck correction and reports misplaced seams in both lower
 transitions, outside the original native review range.
 

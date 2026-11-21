@@ -116,7 +116,7 @@ L-side part. **The nozzle these runs used is not established.**
 ## 2026-10-13 — saved 85A thimble on Mark1
 
 Derek requested: “Give me a print of TPU o ring on mark 1”.
-Mark1 accepted [one saved thimble](prints/2026-10-13-tpu85a-right06-mark1/README.md)
+Mark1 accepted [one saved thimble](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/README.md)
 as task 1336815709 at 3:49 pm CDT. The mesh and saved 0.30/0.18 mm,
 Classic single-wall TPU process are retained. This job maps black TPU 85A
 to the right fixed 0.6 mm nozzle, uses Mark1's standard +0.18 mm trim,

@@ -153,15 +153,15 @@ comparison adds 560 mm³ per liner without removing the existing grip shape.
 The [physical acceptance record](physical-acceptance.json) accepts functional
 grip and successful insertion with the identified centred plus handle and
 proud TPU inserts. It addresses the
-[earlier grip failure](prints/2026-10-12-liners-d775-mark1/grip-failure.json)
+[earlier grip failure](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/grip-failure.json)
 for this configuration. The individual effects of centering and added
 backing, and the physical pressure distribution, are not measured separately.
 
-The [Mark1 PET-GF jaw launch](prints/2026-10-13-centered-grip-mark1/README.md)
+The [Mark1 PET-GF jaw launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/README.md)
 preserves the exact two-jaw slice for task 1335878319, accepted on October
-13 at 10:08 am CDT. Its [completion observation](prints/2026-10-13-centered-grip-mark1/completion.json)
+13 at 10:08 am CDT. Its [completion observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-grip-mark1/completion.json)
 reports 63/63 layers without errors. The
-[matching TPU insert launch](prints/2026-10-13-centered-liners-mark1/README.md)
+[matching TPU insert launch](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-13-centered-liners-mark1/README.md)
 records task 1336534713, accepted at 1:59 pm CDT with startup free of
 reported errors. The physical acceptance record binds both jobs' exact
 archives and meshes to the reported successful operation.

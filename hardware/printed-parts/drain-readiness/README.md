@@ -72,10 +72,10 @@ require a specific exception under the
 [support-removal strategy](../enclosure/enclosure/README.md#support-removal-strategy).
 A tree-support preparation requires its own native footprint and contact review.
 
-The [Mark1 print observation](prints/2026-10-08-current-back-top-mark1/physical-result.json)
+The [Mark1 print observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/physical-result.json)
 records rejection for impracticable removal of every normal support. Installed
 fit and finished surface qualification for that article remain unassessed.
-The [automatic-support replacement on Mark1](prints/2026-10-10-current-back-top-bridge50-mark1/README.md)
+The [automatic-support replacement on Mark1](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/README.md)
 uses Tree (auto), Default style and a 50 mm maximum bridge length, retaining
 Bambu's automatic support choices. Its native cavity readings contain no
 support in the declared zip-tie channels or ASSE passage. Its complete bead

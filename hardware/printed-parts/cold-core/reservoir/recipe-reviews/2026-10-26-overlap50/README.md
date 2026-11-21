@@ -39,7 +39,7 @@ The completed left body, **Mark1 task 1377101665**, is reported **holding
 water so far**. [Physical result](../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json).
 Duration and water head are unspecified.
 
-The [right body and current matching lid](../../prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+The [right body and current matching lid](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
 are running as **Mark1 task 1378532609**, retaining the same saved recipe.
 Its current lid includes the approved flush-grip ports. Native estimate:
 **5 h 41 min, 443.37 g, 833 layers**. Physical right-article sealing and

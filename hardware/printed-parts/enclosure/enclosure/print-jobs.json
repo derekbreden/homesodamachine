@@ -1,7 +1,7 @@
 {
   "archived_records": {
-    "purpose": "Say where the job records named under hardware/printed-parts/enclosure/tee-readiness/ are.",
-    "where": "In Git. The folder as it last stood is at the tag archive-compression-2026-11-21, commit ab742311ac0cadb7d16e95c3272dac99a5dab130. A record retired before that is in the parent of the commit that `git log --diff-filter=D -- <path>` names."
+    "purpose": "Say where the job records named under hardware/printed-parts/enclosure/tee-readiness/, or under a prints/ folder the tree no longer has, are.",
+    "where": "In Git. tee-readiness as it last stood is at the tag archive-compression-2026-11-21, commit ab742311ac0cadb7d16e95c3272dac99a5dab130. The prints/ folders as they last stood are at the tag archive-print-records-2026-11-21, commit 0016c68223af1b237a3f23bc608fc248a7c0d7d5. A record retired before those is in the parent of the commit that `git log --diff-filter=D -- <path>` names."
   },
   "jobs": [
     {

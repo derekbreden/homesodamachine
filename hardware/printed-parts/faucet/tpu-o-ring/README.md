@@ -62,7 +62,7 @@ The [2026-05-30 physical fit record](print-log.md#v3--85a-seats-successfully-202
 establishes successful tube-plus-sleeve seating in the metal donor. It supplies
 no quantified sealing-pressure, insertion-force or lifetime result.
 
-The [Mark1 print project and launch record](prints/2026-10-13-tpu85a-right06-mark1/README.md)
+The [Mark1 print project and launch record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/tpu-o-ring/prints/2026-10-13-tpu85a-right06-mark1/README.md)
 retain that project's mesh and process, with the filament mapped to the right
 0.6 mm nozzle, Mark1's +0.18 mm trim, and one cap-down sleeve centered on the bed.
 

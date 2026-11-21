@@ -5,8 +5,8 @@ flow**, **30% Infill/Wall overlap** and **265/270 °C** first/subsequent nozzle
 temperatures through Mark1's right **0.8 mm Standard** nozzle. Mark1 task
 **1365626370** identifies the intentionally partially printed left article.
 Derek reports a **one-hour water hold** on October 23, 2026.
-[Physical result](../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
-[Launch and startup](../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
+[Physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
+[Launch and startup](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 The result supports the current recipe for the tested portion; exact print
 height, water head and cap/gasket assembly sealing are unspecified.
 

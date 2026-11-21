@@ -815,7 +815,7 @@ above their local floor, with the sliding lane open until cleanup is complete. T
 retain their flat sliding bearings and local solid stock. Their supports must
 remain reachable through the open sliding lanes. Localized bridge and foundation
 cooling follows the newly supported bearing courses. The
-[full rear enclosure result](prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
+[full rear enclosure result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/enclosure/prints/2026-11-05-back-top-smooth-corners-mark2/physical-result.json)
 records removable rail supports with a loose underside and glossy later courses,
 and inaccessible receiver supports. Inspect the complete part rather than
 applying a coupon's cleanup result where walls block the tool.

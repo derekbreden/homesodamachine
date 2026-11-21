@@ -66,7 +66,7 @@ Tree(auto), Default style and the saved 0.45 mm requested top gap.
 
 ## Geometry and print conditions
 
-The source meshes match the [identified production print](../../industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json).
+The source meshes match the [identified production print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json).
 The base remains at −15° and the tip at −105°. The cropped sections preserve
 the full circumference of the affected regions, original underside and bed
 contact. The source STEP supplies the cuts, tessellated at 0.012 mm; each

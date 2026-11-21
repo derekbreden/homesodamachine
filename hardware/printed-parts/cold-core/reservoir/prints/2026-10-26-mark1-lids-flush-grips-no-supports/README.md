@@ -20,7 +20,7 @@ zero deposited-bead intersections in all six tube-port cores through the
 full print height. Estimate: 1 h 38 min 9 s, 118.64 g, 46 layers.
 [Source and placement](preparation.json) · [Settings](settings.json).
 
-The [preceding printed lid](../2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/physical-result/lid-port-supports.json)
+The [preceding printed lid](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/physical-result/lid-port-supports.json)
 has support in its air opening beneath the baffle. Derek requests plain open
 ports, retaining the tube and TPU grommet. This plate contains PETG lids; TPU
 grips are separate printed parts. Physical lid finish and TPU fit remain

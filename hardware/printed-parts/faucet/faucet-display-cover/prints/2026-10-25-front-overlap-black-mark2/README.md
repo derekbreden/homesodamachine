@@ -13,7 +13,7 @@ has the same HMS code in the acceptance reading; the startup reading has no HMS.
 The [front-corner study](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
 extends the two front skirt edges to overlap the tip ledge by 1.2 mm in side
 projection. It addresses the visible opening in the
-[accepted head's photographs](../../../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json).
+[accepted head's photographs](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json).
 The print retains that cover's glass gap, neck clearance, bezel and snap datums.
 The tip and display have no changes. The
 [physical result and five photographs](physical-result/physical-result.json)

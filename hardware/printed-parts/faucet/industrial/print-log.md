@@ -12,7 +12,7 @@ later layers and no fine bands for subsequent prints.
 | 1366512080 | October 23 complete black Industrial faucet | 0.20 mm |
 | 1369497043 | October 24 lowered display with Industrial cover | 0.20 mm |
 | 1370902777 | [October 24 complete faucet with Sculpted cover](prints/2026-10-24-sculpted-cover-uniform024-mark2/README.md) | 0.24 mm |
-| 1372253517 | [October 24 complete faucet with button relief](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md) | 0.24 mm |
+| 1372253517 | [October 24 complete faucet with button relief](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md) | 0.24 mm |
 | 1374330388 | [October 25 cover with front overlap](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/README.md) | 0.24 mm |
 
 ## Production approval and layer recipe — 2026-10-25
@@ -40,7 +40,7 @@ and appearance with the remaining corner gap.
 
 ## Complete Industrial faucet with button relief — 2026-10-24, Mark2
 
-Mark2 accepted the [complete corrected five-part set](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
+Mark2 accepted the [complete corrected five-part set](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
 as task **1372253517**, observed PREPARE at **20:09:23 CDT**, no print error or
 HMS. At **20:10:37 CDT**, the exact task is RUNNING at 0/1416 merged layer
 planes, 392 minutes remaining, no print error and no HMS. The tip has two local 1 mm switch pockets and retains its lowered display
@@ -53,7 +53,7 @@ The warning-free slice estimates **6 h 32 min 9 s / 160.58 g** and keeps at leas
 Textured PEI, Mark2 +0.04/+0.02 mm trim, selected supports, seams, localized
 cooling and standing calibration options are retained.
 
-The [October 25 physical record and eight photographs](prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
+The [October 25 physical record and eight photographs](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
 report very good fit of the Sculpted cover with the display, tubes and wiring.
 The remaining front-corner opening has an
 [cover-only skirt-overlap trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/README.md).
@@ -68,7 +68,7 @@ Close photographs identify the side switch housing bearing on the unrelieved
 ledge beside a mounting-post recess. The
 [fit correction](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/README.md) has two
 local 1 mm switch pockets and matches the Industrial control's 0.50 mm cover
-reach and arch offset. The [requested complete fit print](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
+reach and arch offset. The [requested complete fit print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
 uses 0.20 mm layers in the selected base bands and 0.24 mm elsewhere.
 
 ## Complete Industrial faucet with Sculpted cover — 2026-10-24, Mark2
@@ -102,12 +102,12 @@ with 384 minutes remaining, no print error and no HMS.
 
 ## Complete faucet with 4.5 mm lower display — 2026-10-24, Mark2
 
-Mark2 accepted the [complete five-part black PET-GF set](prints/2026-10-24-lowered-display-complete-mark2/README.md)
+Mark2 accepted the [complete five-part black PET-GF set](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/README.md)
 as task **1369497043** at **01:20:19 CDT**. It includes the exact reviewed tip
 and Industrial cover, with the display and cover 4.5 mm lower and four 1 mm
 foot recesses. The base, rigid counter plate and side-down lever retain their
 production source geometry. The
-[physical result and eight photographs](prints/2026-10-24-lowered-display-complete-mark2/physical-result/physical-result.json)
+[physical result and eight photographs](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/physical-result/physical-result.json)
 record tight but working fit of this lowered Industrial head. Numerical tube
 clearance and seating force are unmeasured; the review's conservative
 component-envelope overlaps retain their identified scope.
@@ -120,7 +120,7 @@ bridges and qualifying overhangs use 70% after three fan-off layers, with
 seven rim arcs, eight tip fins and hidden-root disc are retained. Timelapse
 and bed leveling are On; flow and nozzle-offset calibration are Auto.
 
-The [complete settings export](prints/2026-10-24-lowered-display-complete-mark2/all-settings.json)
+The [complete settings export](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/all-settings.json)
 records every prepared/native project setting, object/component override,
 filament preset and layer range. The native slice has no warnings, 1245 layers,
 41.8756 mm minimum full-bead bed margin and an estimate of **6 h 47 min 40 s /
@@ -131,7 +131,7 @@ the reported head fit.
 
 ## Display seating feedback — 2026-10-24
 
-The [eight photographs and physical observation](prints/2026-10-23-black-complete-mark2/physical-result/physical-result.json)
+The [eight photographs and physical observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/physical-result/physical-result.json)
 record an approximately 1.5 mm display/cover gap and substantial apparent tube
 clearance on a black Industrial head. Derek requests removing the earlier
 additional 1.5 mm of clearance, the original supports, and adding 1 mm foot
@@ -139,7 +139,7 @@ recesses at the same locations. The
 [4.5 mm lower review candidate](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/README.md)
 contains the requested geometry and before/after views. Its conservative
 component model intersects the tube routes and tip. The
-[complete fit print](prints/2026-10-24-lowered-display-complete-mark2/README.md)
+[complete fit print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/README.md)
 has reported tight but working fit. Production geometry remains the reference.
 
 ## Above-counter mounting gasket — 2026-10-23, Mark2
@@ -165,8 +165,8 @@ disabled, no print error and no HMS. Bambu Connect displays Printing, 1/10.
 
 ## Complete black faucet — 2026-10-23, Mark2
 
-The [complete five-part plate](prints/2026-10-23-black-complete-mark2/README.md)
-is task [1366512080](prints/2026-10-23-black-complete-mark2/launch.json),
+The [complete five-part plate](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/README.md)
+is task [1366512080](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/launch.json),
 observed accepted at 03:06:47 CDT in PREPARE with no reported fault. It contains
 one base, shared tip, Industrial display cover, rigid counter plate and
 side-down lever, using current source geometry, selected rear seams, base fine
@@ -178,7 +178,7 @@ Ordinary part and auxiliary cooling are off; bridges and qualifying overhangs
 receive 70% after three fan-off layers. Bridge flow is 125%, bridges 15 mm/s
 and overhang limits 15/10 mm/s. Timelapse and bed leveling are On, with flow
 dynamic and nozzle-offset calibration Auto. The
-[full settings export](prints/2026-10-23-black-complete-mark2/all-settings.json)
+[full settings export](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/all-settings.json)
 contains the prepared and native dictionaries, object/component settings,
 filament presets and layer ranges. The native slice has no warnings, 1245
 layers, 41.8755 mm minimum full-bead bed margin and an estimate of 6 h 48 min
@@ -245,13 +245,13 @@ scoped to their candidates.
 
 ## Planned production approval — 2026-10-14
 
-Derek's [physical inspection](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
+Derek's [physical inspection](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
 accepts the seam-fixed faucet as the official planned production model,
 tagged `faucet-industrial-production-2026-10-14`. The exact Mark2 task
 `1337767162` contains the corrected base and tip. Their meshes and seam paint
 match the complete [production project](https://homesodamachine.com/print-archive/bb8860df553c4cd22b3bbb116e0372a24315975d/faucet-industrial-petgf.3mf), which
 contains all five rigid parts. The cover, mounting plate and lever retain the
-[accepted complete-print reference](prints/2026-10-13-a2-back-mark2/physical-result.json).
+[accepted complete-print reference](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json).
 
 The saved [recipe](https://github.com/derekbreden/homesodamachine/blob/7d1a1e06b6c183f284545e194f6ba177f3571267/hardware/printed-parts/faucet/industrial/finish-selection.json) applies A2/Back/150% to base, tip
 and mounting plate, complete rear seam enforcement to base and exposed
@@ -261,12 +261,12 @@ requirement is retained.
 
 ## One-time base-only seam evaluation — launched 2026-10-13, Mark2
 
-Derek explicitly limited [this evaluation](prints/2026-10-13-rear-seam-base-only-mark2/README.md)
+Derek explicitly limited [this evaluation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/README.md)
 to the base. Mark2 accepted task `1337160395` at 6:20 pm CDT with no reported
 fault. The copied base retains the rear seam paint and saved recipe; the native
 neck starts remain within 0.45 mm of center. Estimate: 3 h 54 min and 101.67 g.
 The normal project remains the complete five-part faucet. The
-[physical result](prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
+[physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
 confirms the middle neck and reports both lower transitions still misplaced.
 
 ## Rear-center placement correction — prepared 2026-10-13
@@ -275,17 +275,17 @@ The [complete corrected slice](seam-placement/rear-center-v1/README.md) retains
 all settings and geometry of task `1335906696` and adds rear-center seam paint
 to the base neck. Its maximum measured start offset is 0.45 mm. The
 identified candidate carries the height-limited enforcer. Its
-[base-only physical result](prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
+[base-only physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-rear-seam-base-only-mark2/physical-result.json)
 confirms the middle neck and reports both lower transitions still misplaced.
 
 ## Selected Back/A2 recipe — launched 2026-10-13, Mark2
 
-The [complete print](prints/2026-10-13-a2-back-mark2/README.md) is task `1335906696`.
+The [complete print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/README.md) is task `1335906696`.
 Back applies to base, tip and mounting plate; A2 and 150% gap apply to those three.
 Cover and lever use Aligned, 15% gap and scarf off. Wipe is off, and the eight
 coarse lip layers and infill-only foot are retained. The source geometry matches
 task `1334704608`, whose reported seam placement did not match the expected rear
-line. Derek's [physical inspection](prints/2026-10-13-a2-back-mark2/physical-result.json)
+line. Derek's [physical inspection](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json)
 accepts this as the best faucet print so far, with everything checking out well
 apart from a seam swerve on the base gooseneck. The identified article and recipe
 are tagged `faucet-industrial-approved-2026-10-13`.
@@ -297,7 +297,7 @@ are tagged `faucet-industrial-approved-2026-10-13`.
   He reports difficulty distinguishing scarf finishes, ugly recovery through
   four coarse layers, and recovery in the latter four layers of E. The
   supplied images identify the labels; they are not physical surface photos.
-- The [complete five-part plate](prints/2026-10-11-scarf10-lift8-mark1/README.md)
+- The [complete five-part plate](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/README.md)
   uses the current centered Industrial base, shared tip, cover, counter plate
   and side-down lever. Current source geometry retains the reviewed 70° joint,
   smooth common passages, 0.50 mm cover reach and unsealed Ø4 mm fault drip.
@@ -312,7 +312,7 @@ are tagged `faucet-industrial-approved-2026-10-13`.
   Saved temperatures, cooling and Tree(auto)/Default with all automatic
   sections are retained. Timelapse and leveling are On; dynamic-flow and
   nozzle-offset calibration are Auto. Probing clump detection is disabled.
-- The [native review](prints/2026-10-11-scarf10-lift8-mark1/native-check.json)
+- The [native review](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/native-check.json)
   confirms exact meshes/poses, emitted scarf ramps, eight coarse layers,
   first/second-layer footprint contact, absent screw-host partition tracks,
   nominal reinforcement and at least 44.86 mm full-bead bed clearance.
@@ -325,7 +325,7 @@ are tagged `faucet-industrial-approved-2026-10-13`.
   read before the single Send; the peer's known accepted start was over
   three minutes earlier. The two earlier sender transactions stopped before
   importing or sending. Original archive and G-code hashes and actual options
-  are in the [receipt](prints/2026-10-11-scarf10-lift8-mark1/launch.json).
+  are in the [receipt](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-11-scarf10-lift8-mark1/launch.json).
 - Native estimate: 5 h 51 min 5 s, 160.72 g at saved profile density.
   Finish forecast from observed acceptance: 5:22 pm CDT, plus calibration
   and any pauses. Physical underside continuity, cleanup, seam finish and
@@ -355,11 +355,11 @@ are tagged `faucet-industrial-approved-2026-10-13`.
 
 - Derek selects the earlier successful complete five-part print: base, shared
   tip, industrial display cover, counter plate and side-down lever. The
-  [frozen recipe](prints/2026-10-09-two-shoulders008-with-lever-mark2/preparation.json) binds the archive and source
+  [frozen recipe](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/preparation.json) binds the archive and source
   hashes for Mark2 task/job `1322285082`.
 - 0.20 mm first bed layer, 0.24 mm normal layers, and 0.08 mm on the base in
   print Z13.40–29.00 and Z55.16–68.12 mm only. Native estimate: 6 h 13 min 4 s.
-- The [reported physical result](prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
+- The [reported physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json)
   accepts beautiful fine-band finish and removal of their few thin-layer
   supports. Lines/defects beside the screw points remain documented on this
   exact article. No further complete faucet is submitted by this selection.
@@ -372,7 +372,7 @@ are tagged `faucet-industrial-approved-2026-10-13`.
 - Exact accepted task/job `1324374637`,
   `2026-10-09-industrial-faucet-complete008-tip-root024-petgf-left04-z004-v6-mark2.gcode.3mf`.
   Archive SHA-256: `3dfb53e7a76e024790d88a4fbcfee1696c2c9e5a76e51989a1040cfeeb798c01`.
-  The [physical record and five photographs](prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json)
+  The [physical record and five photographs](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json)
   retain the exact G-code hash, original acceptance and process.
 - Complete five-part black PET-GF plate, fixed left hardened 0.4 mm nozzle,
   Textured PEI, Mark2 +0.04 mm requested/+0.02 mm emitted trim. A 0.20 mm first

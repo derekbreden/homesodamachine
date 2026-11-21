@@ -43,6 +43,6 @@ G-code hashes and circuit spacing. Printer 2 has the accepted job and time.
 Mark2's last accepted start remains 19:42:29 UTC; the earliest other-printer
 start or resume after this retry is **22:31:44 UTC / 5:31:44 pm CDT**.
 
-This is a retry of the [fallen-liner job](../2026-10-12-tpu-liners-mark1/failure.json).
+This is a retry of the [fallen-liner job](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json).
 The physical result of this retry is pending. Cleanup, fit, grip performance
 and printed strength remain unassessed.

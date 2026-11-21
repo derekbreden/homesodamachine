@@ -11,8 +11,8 @@ solid construction, useful give and spring, firm snap seating and retention
 for its two identified PET-GF covers. The [acceptance record](physical-acceptance.json)
 preserves the successful STL and reported results. The current cover matches the
 27 mm vent-bearing neck and has a different STL. Both identified current white
-covers [broke during assembly](prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json),
-including display loading. The [fan-off cooling trial](prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
+covers [broke during assembly](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json),
+including display loading. The [fan-off cooling trial](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json)
 passed normal display loading and cover installation. Its acceptance belongs
 to the identified pre-clearance-change STL. The current seat and bezel add
 1.50 mm outward clearance while retaining the neck snap datums.
@@ -131,10 +131,10 @@ across the two flat lower lands and confirms their bed-facing normals and
 height in that print pose. The named cosmetic and lower-land slope findings
 are answered beside the published mesh.
 
-The current [display-clearance reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
-and [retention reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-retention.json)
+The current [display-clearance reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-clearance.json)
+and [retention reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/display-retention.json)
 bind the raised seat, hardware clearance, display loading, axial approach and
-snap geometry. The [rear-opening reading](../sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
+snap geometry. The [rear-opening reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/rear-opening-rim.json)
 measures complete rim boundaries and material sections in both nominal seated
 and relaxed shapes. Current geometry questions use `hsm --scene faucet` and
 [`inspect-part.mjs`](/tools/inspect-part.mjs) against the saved exports. The

@@ -7,7 +7,7 @@ maintenance and tool changes. The geometry, extrusion paths and remaining
 settings match the reviewed identification set.
 
 The editable project and sliced archive are retained beside the review. The
-[preceding physical result](../2026-11-08-identification-set-mark1-dried-rethreaded/physical-result.json)
+[preceding physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-dried-rethreaded/physical-result.json)
 records the failure after drying and rethreading.
 
 The [launch record](launch.json) identifies the accepted job, checked material

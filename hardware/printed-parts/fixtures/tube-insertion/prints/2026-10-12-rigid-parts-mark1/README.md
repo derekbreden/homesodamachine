@@ -27,6 +27,6 @@ hashes, options, printer mapping and startup spacing. Printer 2 retains the
 launch time for job coordination. Physical print quality, support removal,
 fit and strength remain unassessed.
 
-The [base completion reading](../2026-10-11-base-mark1/completion.json) reports
+The [base completion reading](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-11-base-mark1/completion.json) reports
 FINISH at 225/225 layers for job 1331280889 without a machine fault. The
 remaining tool plate contains the two TPU 85A grip liners.

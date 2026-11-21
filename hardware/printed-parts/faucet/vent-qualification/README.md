@@ -36,7 +36,7 @@ wall minimum, print finish, strength or lifetime. The centered set is unprinted.
 
 The [Industrial production selection](../industrial/production-selection.json)
 identifies the approved articles and the generated parts used for preparation.
-The [centered mounting trial](../industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
+The [centered mounting trial](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-11-centered-mounting-review-mark2/README.md)
 records its own native support access and references the
 [complete Industrial print used for comparison](https://github.com/derekbreden/homesodamachine/blob/613b5920fcee631c2d3df5a206e351f883ef16e0/hardware/printed-parts/faucet/industrial/selected-print.json).
 

@@ -18,7 +18,7 @@ job. The opposite printer's preceding launch was more than three minutes earlier
 The section preserves the identified production tip geometry, **−105° X pose**,
 original bed contact and full circumference. It ends at original print Z40 mm,
 above the complete joint ledge. The source mesh and STEP hashes match the
-[identified faucet](../../industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json).
+[identified faucet](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json).
 The curved male plug, rear scarf seam and ordinary 0.24 mm layers remain present.
 
 ## Fin placement and recipe

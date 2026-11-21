@@ -120,7 +120,7 @@ rear pump cap on the cold-core lid. The above-core design owns the common tip
 rise and air above each point. Their complete receivers carry matching pockets
 through any joined ceiling or lid stock. The spring walls, root blends,
 retaining faces, lateral reach and fitted hardware bearings retain their
-approved geometry. The [physical result](prints/2026-11-07-ceiling-down-mark2/physical-result.json)
+approved geometry. The [physical result](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-ceiling-down-mark2/physical-result.json)
 records the regulator tip approval. [production-fit.json](production-fit.json)
 binds the shared profile and receiver clearances to the production solids.
 
@@ -140,7 +140,7 @@ For an individual water-regulator cover, use the `single-regulator-cap`
 [preparation recipe](../trial-preparation/pieces.json). Its native smooth-timelapse
 tower provides time away from the cap between layers while retaining the
 approved cap geometry and production deposition recipe. The
-[print record](prints/2026-11-07-single-regulator-mark2/README.md) identifies the
+[print record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/README.md) identifies the
 emitted timing and physical-review state. The
 [cooling policy](../../cooling/README.md#small-individual-parts) describes the
 batch-time requirement.

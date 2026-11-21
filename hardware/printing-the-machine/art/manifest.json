@@ -24,7 +24,7 @@
   "h2c-inside-mark1.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/physical-result/photo-3.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 607,
    "made_with": "magick auto-orient",
@@ -34,7 +34,7 @@
   "h2c-overload-message.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/physical-result/photo-1.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 869,
    "made_with": "magick auto-orient",
@@ -44,7 +44,7 @@
   "h2c-removed-hotend.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-06-identification-set-mark1-z000/drying/physical-result/photo-4.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 924,
    "made_with": "magick auto-orient",
@@ -84,7 +84,7 @@
   "petg-first-layer-torn.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-dried-rethreaded/physical-result/photo-1.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 2000,
    "width_px": 746,
    "made_with": "magick auto-orient",
@@ -94,7 +94,7 @@
   "petg-floor-seam-drops.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-may-water-right08-z000/physical-result/photo-3.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 673,
    "made_with": "magick auto-orient",
@@ -104,7 +104,7 @@
   "petg-loops-only-drops.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/photo-1.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 827,
    "made_with": "magick auto-orient",
@@ -114,7 +114,7 @@
   "petg-loops-only-paths.png": {
    "kind": "Figure from the record",
    "source": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/floor-wall-paths.png",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 659,
    "made_with": "magick auto-orient",
@@ -124,7 +124,7 @@
   "petgf-design-back-top-loops.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-1.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 547,
    "made_with": "magick auto-orient",
@@ -134,7 +134,7 @@
   "petgf-design-back-top-roof-first.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-2.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 547,
    "made_with": "magick auto-orient",
@@ -254,7 +254,7 @@
   "petgf-setup-cover-cracked.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/fracture-photo.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 2000,
    "width_px": 740,
    "made_with": "magick auto-orient",
@@ -294,7 +294,7 @@
   "petgf-setup-shell-ripples.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-29-mark2-seam-channel/physical-result/photos/03-wall-overview.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 2000,
    "width_px": 741,
    "made_with": "magick auto-orient",
@@ -324,7 +324,7 @@
   "petgf-supports-backtop-ledge.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-3.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 906,
    "made_with": "magick auto-orient",
@@ -334,7 +334,7 @@
   "petgf-supports-backtop-wall-end.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-10-back-top-D-mark1/physical-observation/photo-4.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 1039,
    "made_with": "magick auto-orient",
@@ -474,7 +474,7 @@
   "tpu-liner-loops.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-physical-1.jpg",
-   "revision": null,
+   "revision": "0016c6822",
    "max_px": 1700,
    "width_px": 907,
    "made_with": "magick auto-orient",

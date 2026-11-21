@@ -85,12 +85,12 @@ For TPU and ASA Aero, keep multiple objects close together to shorten travel
 between extrusion stops and starts, while retaining clearance between their
 native model/support/brim beads. Derek reports increasing problems with greater
 object separation on these filaments. The
-[TPU liner observation](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json)
+[TPU liner observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-mark1/failure.json)
 records a fallen liner; the
 [compact retry](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-tpu-liners-close-z000-mark1/README.md)
 uses a 2 mm model gap. The effect of spacing on failure risk is unmeasured.
 
-The [liner wall-start observation](../hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json)
+The [liner wall-start observation](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/fixtures/tube-insertion/prints/2026-10-12-liners-d775-mark1/wall-start-observation.json)
 records intermittent projecting strands appearing on arrival from the other
 object as a wall starts. Derek identifies the second object's end on layer N
 to the first object's start on layer N+1 as the transition of concern.
@@ -104,7 +104,7 @@ Mark2's [edge-adhesion report](../hardware/printed-parts/enclosure/enclosure/sup
 records poor first layers near unseasoned edges. The
 [centered fit trial](../hardware/printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/centered-trial-v4/README.md)
 uses at least 86.7 mm of full-bead edge clearance. The
-[reservoir comparison placement record](../hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
+[reservoir comparison placement record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
 records Derek's requirement to move that complete test plate toward the center.
 
 ## Mark1 clear PETG spool order
@@ -168,7 +168,7 @@ The other textured-plate nozzle setups have their own recipes.
 PET-GF on the glued Engineering Plate takes the printer's `engineering_plate_z_trim_mm`,
 added over Bambu's other-plate compensation.
 
-The [Engineering Plate clear-PETG reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+The [Engineering Plate clear-PETG reservoir retry](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
 retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
 The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
 

@@ -11,7 +11,7 @@ selects A's Ø6.65 mm bore for quarter-inch stock and B's Ø4.40 mm
 bore for the received white 4 mm drain tube. The two flavor bores use 4.40 mm
 on the specified black 4 mm stock; that stock's physical sliding fit is unmeasured. The [physical acceptance record](physical-acceptance.json) binds
 these feature-level selections to the exact printed samples, job and settings.
-The combined production puck has [completed Mark1 print telemetry](prints/2026-10-11-current-mark1/README.md);
+The combined production puck has [completed Mark1 print telemetry](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/README.md);
 its complete fit and flat ribbon slot remain physically unassessed. The selected
 round-bore fits have physical evidence. Quantified sliding force, endurance and complete installed mounting
 access are unmeasured.
@@ -73,10 +73,10 @@ is the first one sent with it. The flat print keeps the passages vertical and em
 without support inside the bores.
 
 PET-GF, flat bottom face on the textured plate with all passages vertical.
-The [white Mark2 right-hotend print](prints/2026-10-16-white-right-mark2/README.md)
+The [white Mark2 right-hotend print](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-16-white-right-mark2/README.md)
 records the three-quarter-inch-bore article and its organizer process, with Mark2’s normal +0.04 mm
 requested/+0.02 mm emitted trim and right-nozzle XY registration.
-The [complete black organizer reference](prints/2026-10-11-current-mark1/README.md)
+The [complete black organizer reference](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/faucet/umbilical-organizer/prints/2026-10-11-current-mark1/README.md)
 uses Mark1’s normal +0.18 mm requested/+0.16 mm emitted trim. Its complete
 production layout and ribbon-slot fit remain pending physical assessment.
 The accepted Mark2 article used its fixed left hardened 0.4 mm nozzle,
