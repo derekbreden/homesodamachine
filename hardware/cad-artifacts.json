@@ -262,7 +262,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "9545d5e9c802f3ccabf105e6a0c5074dbabb5f9eb16eb88db2a496e471fb75aa",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "ad369501bc16778d08108d26a9b9440e90d2091947a710279cb8c84250a10973",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "1d9205f2ca1b9361e1e251110663c8d30b5e066cd1d4d07eb2cc3a57f3fa7fcf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "24c2989dde09e79d2c89cd5946ca99ecbdbe6cad91000247ca1256f2f14c3af5",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "79501469f6a7d0efb66fa68e8e9addc6199234e0589514b867679b2dc38eabf0",
@@ -279,7 +279,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": "7a97b777748a6d31a5b83fac12ef9f624d99a6a697578a20628a2b172b069f09",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "999ce6d737447ad6f22dad674a718929aeeaa70cc50dbe70ec601209d7f58c95",
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "1ecfb18f79bd265253026d02b7224922f350e268d92fd322538bb983b1fb4b9d",
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "8bc611ff92d8e673c1538e62e2a0991a5230478cccdda3cb8aca0edaff66ba3f",
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": "7f1419cbd97030abfb7b7950e19958cdb8956925f76356ad31664e3ba6268ab9",
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": "e78dc579f1764a570ca3b3ad86de2ea617d75212a25f10e55c7d15d0c688c87d",
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": "45d79c48b76bd73e2519f9e50366584d9b68bdee32eaac3d6fd317a5f5edf323",
@@ -1036,7 +1036,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "9545d5e9c802f3ccabf105e6a0c5074dbabb5f9eb16eb88db2a496e471fb75aa",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "ad369501bc16778d08108d26a9b9440e90d2091947a710279cb8c84250a10973",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "1d9205f2ca1b9361e1e251110663c8d30b5e066cd1d4d07eb2cc3a57f3fa7fcf",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "24c2989dde09e79d2c89cd5946ca99ecbdbe6cad91000247ca1256f2f14c3af5",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "79501469f6a7d0efb66fa68e8e9addc6199234e0589514b867679b2dc38eabf0",
@@ -3010,7 +3010,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": 1795284222.091425,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": 1795060214.765067,
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": 1795290083.877035,
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1795284064.053762,
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": 1795290093.565653,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": 1795284265.839666,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": 1795017184.805793,
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": 1795286748.47812,
@@ -3027,7 +3027,7 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh": 1794292191.054735,
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1794162814,
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1795290083.877035,
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795023682.874484,
+    "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795290093.565653,
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": 1795019139.574034,
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": 1795019133.054593,
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": 1795019139.574034,
@@ -4485,8 +4485,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "ee5c4cb1c0b2e96a1424c9fa8568d5c3a54c26fb",
-      "inputs": "3c2b04a43156b998fb750e7f57aa9be7e61cfcae7d89ff780c7108b559e7348c",
+      "commit": "3980d5571601151070cd03cc8afcf38373e48a04",
+      "inputs": "196071743dc5ff01de7438a9fe81559e0497d75042eabed3d236d3dfdc692206",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
@@ -4547,8 +4547,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
-      "commit": "5710c8a55c61bf34d14e5b57258f2907615b0cac",
-      "inputs": "16a6fa4d8a91c1141607ba2f45ba7f7dae3db57deef3570d5735abc70f6b4708",
+      "commit": "3980d5571601151070cd03cc8afcf38373e48a04",
+      "inputs": "c0548d9202e11c7c92d68580c5863165e1780e53f8be8033c9fee27a91410ff7",
       "unproven": true
     },
     "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": {
