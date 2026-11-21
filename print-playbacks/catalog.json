@@ -807,18 +807,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "51524581f1060e9799c76bb1cbb7d0daad4cca9de41076e0a619f9d46c595231",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-pisco-clearance-production-mark1/2026-11-21-back-top-mark1-2fb17c18-textured-pei/2026-11-21-back-top-mark1-2fb17c18-textured-pei.gcode.3mf",
+    "sha256": "ce9cf00f87b1504ccac86ebcb78fa74c5a0a667de97b1cb78251354a5ecef8bd",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-relay-m2-production-mark1/2026-11-21-back-top-mark1-c8a8a278-textured-pei/2026-11-21-back-top-mark1-c8a8a278-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "7d50a8aafc39d2f0d8c96c069dc7eeceb4384c0536e04058ca72fa29a9491c2e",
-    "project_sha256": "efd62d6ea6ac786ae6fe548d01bb75e0aa2875790428d0ebac7a88f269cde181",
-    "archive_sha256": "5eb9d9bd5867d93fd26d689411cda25ce5438c3dca55f95fe601ede8fe090930",
-    "gcode_sha256": "b9ad723db0eaf5484bde3973b614172ded7d51991ccbee5c964c93a5178449fb",
+    "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
+    "project_sha256": "e7f6dc04136285bbd780d8fb0e3fd77d61fbe15b90ac83d9ad741b995818d7db",
+    "archive_sha256": "317685c2629f0df9a7275a9f2a5987442d13b2c61f973fee98e5ec435295dff4",
+    "gcode_sha256": "ccdb861a0c2618a1af0214c25068f363f12ed5f15cc90e6b6f834511cf1265d3",
     "kind": "plan",
-    "layers": 1023,
-    "model_sha256": "1d9205f2ca1b9361e1e251110663c8d30b5e066cd1d4d07eb2cc3a57f3fa7fcf",
+    "layers": 1022,
+    "model_sha256": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -844,7 +844,7 @@
       "Flow-meter receiver": "Removable supports under both end shoulders, the whole lip and the slide and wire floors. The supports under the lip's aft end and the aft shoulder stand on the Pisco receiver.",
       "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it."
     },
-    "recipe_commit": "8c33f60b5a5f2677eff650b14a16a941355364e6"
+    "recipe_commit": "7ed31c14c7fabfdea611eb32d06194fec366070b"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",

@@ -1,0 +1,100 @@
+{
+  "views": [
+    {
+      "name": "relay-boards",
+      "caption": "The highlighted hardware secures each relay to the west wall. The screws enter the four corners of each board.",
+      "before": "relay-boards-before.webp",
+      "after": "relay-boards-after.webp",
+      "width": 1100,
+      "height": 800,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          504.91870233919246,
+          373.06487785964845,
+          360.88105725731117
+        ],
+        "target": [
+          -94,
+          409,
+          295
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 37,
+        "near": 265.11241474341443,
+        "far": 919.014477596577,
+        "aspect": 1.375,
+        "section": {
+          "at": [
+            -65,
+            409,
+            295
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "relay-?-screw-*",
+        "relay-?-clamp-*"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "relay-1*",
+        "relay-2*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8aaa8da2e5105e1656e6c83cf7d3a98980e7cbdc5e183e01675cf60902e9ab24",
+          "commit": "eb3fcef65a04db22ed34da9218c26d0a8c2a002e",
+          "taken": "2026-11-21T19:38:23.821Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "da066fd6c231375b3d81e056ef42c6ba25d75452d4304ff2a8a272bb717e1e64",
+          "commit": "47c3f7b4ad8b06330ca4f1c0bffb4742ee1b51d5",
+          "published": true
+        }
+      },
+      "changed": [
+        "relay-1-screw-3",
+        "relay-1-screw-4",
+        "relay-2-screw-3",
+        "relay-2-screw-4",
+        "relay-1-clamp-1",
+        "relay-1-clamp-2",
+        "relay-2-clamp-1",
+        "relay-2-clamp-2",
+        "relay-1-insert-3",
+        "relay-1-insert-4",
+        "relay-2-insert-3",
+        "relay-2-insert-4",
+        "relay-1-screw-2",
+        "relay-2-screw-2",
+        "relay-1-insert-2",
+        "relay-2-insert-2",
+        "relay-1-screw-1",
+        "relay-2-screw-1",
+        "relay-1-insert-1",
+        "relay-2-insert-1",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

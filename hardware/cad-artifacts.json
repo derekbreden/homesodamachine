@@ -280,9 +280,6 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": "8cca75083a601ffa081cf3ef05e672c1f17bbc4e5e7f32cb4bb9e70298d6dcf9",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "999ce6d737447ad6f22dad674a718929aeeaa70cc50dbe70ec601209d7f58c95",
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": "8bc611ff92d8e673c1538e62e2a0991a5230478cccdda3cb8aca0edaff66ba3f",
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": "7f1419cbd97030abfb7b7950e19958cdb8956925f76356ad31664e3ba6268ab9",
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": "e78dc579f1764a570ca3b3ad86de2ea617d75212a25f10e55c7d15d0c688c87d",
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": "45d79c48b76bd73e2519f9e50366584d9b68bdee32eaac3d6fd317a5f5edf323",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "71483ed7b5cdce12ef4834fb98ab541df4ca7c09568a862e282966da992a76bf",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": "a94edcbe8039f21a121dccc0cec0fef87e93f0faf759826dac1924d77692d736",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": "f3dd94fcc1c1082139286c1d8da2cf962a566394d4b3be8a548e269c82fb59c6",
@@ -3028,9 +3025,6 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl": 1794162814,
     "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": 1795290083.877035,
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": 1795290093.565653,
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": 1795019139.574034,
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": 1795019133.054593,
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": 1795019139.574034,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": 1794805059.108448,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.mesh": 1794805049.729284,
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.stl": 1794805059.108448,
@@ -4548,20 +4542,6 @@
     "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step": {
       "commit": "c3447a1627686581280212b1cb75b145f6e668d1",
       "inputs": "c0548d9202e11c7c92d68580c5863165e1780e53f8be8033c9fee27a91410ff7"
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step": {
-      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh": {
-      "commit": "65d07449614b3d52215e65fdae0572d8a43df042",
-      "unproven": true
-    },
-    "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl": {
-      "commit": "464641905d8035ddef85c95e8180613b5f54b1da",
-      "inputs": "9579d3ab25dd781134f2e10b27193ace19053906e363b772a19388cd767c20d9",
-      "unproven": true
     },
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": {
       "commit": "111baed47490511b2c3edc753cfa14120ac0d79d",
