@@ -78,5 +78,7 @@
     "this_accepted_at": "2026-11-21T18:20:41+00:00",
     "elapsed_seconds": 42104.0
   },
-  "previous_attempt": "https://github.com/derekbreden/homesodamachine/blob/b4b6f613ad86a4e4c4c6386d725303e05e3d5dd5/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/print-job.json"
+  "previous_attempt": "https://github.com/derekbreden/homesodamachine/blob/b4b6f613ad86a4e4c4c6386d725303e05e3d5dd5/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/print-job.json",
+  "first_layer_status": "first-layer-status.json",
+  "printing_status": "printing-status.json"
 }
