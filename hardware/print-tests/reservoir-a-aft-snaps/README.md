@@ -10,8 +10,8 @@ It prints as the lid does: flat face down on textured PEI with the clips standin
 PET-GF wall recipe. A cooling tower gives the small spring sections time between layers.
 
 The taller clip holds the draw line and has two free jaws. The lower clip holds the fill line.
-One of its jaws is fixed square against the taller clip's root, and its free jaw has the fit of
-back-top's east-wall fill seat. Each seat follows its line's level turn, so a tube enters bent
+One of its jaws is filled square and joined to the taller clip's root over the aft part of its
+length, and its free jaw has the fit of back-top's east-wall fill seat. Each seat follows its line's level turn, so a tube enters bent
 along the seat.
 
 The [Mark1 fit print](prints/2026-11-20-mark1/print-job.json) carries the coupon on a textured

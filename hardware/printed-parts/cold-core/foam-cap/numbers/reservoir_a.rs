@@ -62,9 +62,10 @@ pub fn pair() -> Pair {
 
 /// The aft pair: the lines it holds west to east, and a plane across the lid that both lines'
 /// last level turns cross. Its seats are the fore pair's, bore, jaws and span. The lower seat's
-/// jaw against the higher seat's root is fixed, so its free jaw takes the fit of a seat with one
-/// fixed jaw, as back-top's east-wall fill seat has it: the free jaw's thickness, and how far it
-/// and its half of the bore stand out from the fixed jaw.
+/// jaw on the higher seat's side is filled square and joined to that root where the two meet, so
+/// it bends little. Its free jaw takes the fit of a seat with one fixed jaw, as back-top's
+/// east-wall fill seat has it: the free jaw's thickness, and how far it and its half of the bore
+/// stand out from the stiff jaw.
 pub mod aft {
     pub const ROUTES_WEST_TO_EAST: [&str; 2] = ["fluid-16", "fluid-14"];
     pub const WORLD_Y: f64 = 390.5;
