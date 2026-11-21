@@ -73,7 +73,10 @@ The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
 with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft fill/draw clips are the
 same seats, each turned along its line's last level turn before the reservoir. The draw
 line's stands on the taller root, and the fill line's is filled square against that root
-up to its jaw's top, so the pair is one body. The front-going J1/J2 cable bank has ordinary 3 mm
+up to its jaw's top, so the pair is one body. That fixes one jaw of the fill clip. Its free
+jaw takes the fit of back-top's east-wall fill seat, which also has one fixed jaw: a thinner
+jaw, standing further out from the fixed one
+([`reservoir_a::aft`](numbers/reservoir_a.rs)). The front-going J1/J2 cable bank has ordinary 3 mm
 outer/shared walls and 16 mm span. These features print above the lid's flat bed face.
 The tube clips' jaws stand side by side at the same print height, with both roots
 on the lid. Their openings face away from the lid, so they do not use the
