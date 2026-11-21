@@ -176,9 +176,8 @@ records the current rigid-slide and final-connection limits.
      Then seat J1 and J2 on their wafers. Land the V-A, V-B, V-K and fan
      positives in the manifold commons and the meter's GND in the sensor
      common.
-   - Seat J3 and J5. Seat J11 before the V-B return union and its flexible
-     return tube go in ([internal plumbing](internal-plumbing.md)); the
-     return lies over J11 and the J10 clamps.
+   - Seat J3 and J5. Seat J11 before pressing the V-B return tube into its lid clip.
+     The return lies over J11 and the J10 clamps. See [internal plumbing](internal-plumbing.md).
    - Feed the J9 display end from inside through the shared pump/display passage,
      whose rear diamond mouth is centred at X0/Z280, and out the open facet. Land it on the display's terminals,
      seat the display ([enclosure-mechanical.md](enclosure-mechanical.md) §8),
@@ -187,8 +186,7 @@ records the current rigid-slide and final-connection limits.
      retained from the loose front-top bench assembly
      ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)).
    Keep both shared-passage looms clear of the funnel-frame seats. Keep the leads with their mounting parents and dress each crossing below
-   the closing surfaces. Clear the V-B return bearing and its
-   cable-tie path while dressing the leads. Keep the coil leads clear of the
+   the closing surfaces. Dress the leads around the V-B return clip and keep its mouth clear. Keep the coil leads clear of the
    continuous soda inlet's rigid holder; V-K's two downward leads leave through
    the locally compressed side of its foam sleeve.
    Route lengths describe centerlines; allow the

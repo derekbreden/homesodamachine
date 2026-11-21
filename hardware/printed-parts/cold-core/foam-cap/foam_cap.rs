@@ -2,7 +2,7 @@
 //! the parts above the core, the open-topped closure under the core, the R14 holder reservoir B's
 //! fill tube turns in, and the pump's snap cap. Each prints: its STEP, its fine model, the STL the
 //! slicer reads and the payload the page draws, cut from that STL. Beside them, the numbers the
-//! machine places the pump's cap, the wiring's wells, the union support and the cable conduits
+//! machine places the pump's cap, the wiring's wells and the cable conduits
 //! from.
 //!
 //!     foam-cap [<output directory>]
@@ -429,7 +429,7 @@ fn pump_snap() -> Result<Solid> {
     Ok(snap.translate(v3(-(b.min.x + b.max.x) / 2., -(b.min.y + b.max.y) / 2., -b.min.z)))
 }
 
-// --- V-B's wall, the union support and the wells -----------------------------------------------------
+// --- V-B's wall and the wells --------------------------------------------------------------------
 
 /// V-B's upright wall: the bearing block and its root, the valve seat's four blind sockets and its
 /// port channel open through both faces.
@@ -464,21 +464,6 @@ fn valve_wall() -> Result<Solid> {
         .transformed(&t),
     );
     Ok(body.cut(&Solid::union_all(&cuts)?)?.transformed(&world_to_cap()))
-}
-
-/// The union support's bearing, in the cap's frame, and its closed tie passage.
-fn union_support() -> Result<(Solid, Solid)> {
-    use cap::unions;
-    let t = world_to_cap();
-    let d = unions::vb_outlet_return();
-    let stock = Solid::cuboid(p3(d.stock_min), p3(d.stock_max))
-        .cut(&Solid::cylinder(p3(d.bore_origin), p3(d.bore_axis), d.seat_radius, d.bore_length)?)?
-        .transformed(&t);
-    let normal = p3(d.tie_profile_normal);
-    let plane = Plane::new(p3(d.tie_profile_origin) - normal * (unions::TIE_PASSAGE_LENGTH / 2.), p3(d.tie_profile_x), normal)?;
-    let points: Vec<V2> = unions::TIE_PROFILE.iter().map(|p| v2(p[0], p[1])).collect();
-    let passage = plane.extrude(&Profile::polygon(&points), unions::TIE_PASSAGE_LENGTH)?.transformed(&t);
-    Ok((stock, passage))
 }
 
 /// The wiring's wells, their stock and their pockets, in the cap's frame.
@@ -587,22 +572,45 @@ fn tube_clip(c: &cap::clips::Clip) -> Result<Solid> {
     plane.extrude(&clip_section(c.radius, c.wing, c.tip_degrees, centre.z - cap_face_z() + OVERCUT, None)?, c.span)
 }
 
-/// A C2 clip turned along a line's level turn: the clip's section across the line where the seat
-/// starts, turned about the turn's upright axis to where the seat ends.
-fn turned_clip(seat: &reservoir_a::AftSeat) -> Result<Solid> {
+/// Sweeps the lid's C2 section from its first tangent around a level tube bend.
+fn curved_clip(centre: V3, start: V3, end: V3, degrees: f64, fixed: Option<Fixed>) -> Result<Solid> {
     use reservoir_a::pair;
-    let (centre, start, end) = (p3(seat.centre), p3(seat.start), p3(seat.end));
     let out = (start - centre).unit();
     let plane = Plane::new(start, out, V3::Z.cross(out))?;
+    let section = clip_section(pair::BORE / 2., pair::WING, pair::TIP_DEGREES, start.z - cap_face_z() + OVERCUT, fixed)?;
+    let upward = (start - centre).cross(end - centre).z > 0.;
+    let radius = (start.x - centre.x).hypot(start.y - centre.y);
+    plane.revolve(&section, degrees, v2(-radius, 0.), v2(-radius, if upward { -1. } else { 1. }))
+}
+
+fn turned_clip(seat: &reservoir_a::AftSeat) -> Result<Solid> {
     let fixed = seat.shoulder_outward.map(|outward| Fixed {
         side: if outward { 1. } else { -1. },
         free_wing: reservoir_a::aft::FREE_WING,
         free_shift: reservoir_a::aft::FREE_SHIFT,
     });
-    let section = clip_section(pair::BORE / 2., pair::WING, pair::TIP_DEGREES, start.z - cap_face_z() + OVERCUT, fixed)?;
-    let upward = (start - centre).cross(end - centre).z > 0.;
-    let radius = seat.radius();
-    plane.revolve(&section, seat.degrees, v2(-radius, 0.), v2(-radius, if upward { -1. } else { 1. }))
+    curved_clip(p3(seat.centre), p3(seat.start), p3(seat.end), seat.degrees, fixed)
+}
+
+/// V-B's continuous tube rests on the whole bend. The radial slot splits both lips down to the
+/// bore floor, leaving each wing free to open and the curved seat joined to the lid beneath it.
+fn vb_return_clip() -> Result<Solid> {
+    use cap::clips::{RETURN_SLOT_WIDTH, vb_return_bend};
+    use reservoir_a::pair;
+    let bend = vb_return_bend()?;
+    let centre = p3(bend.centre);
+    let [start, middle, end] = bend.points.map(p3);
+    let seat = curved_clip(centre, start, end, bend.degrees, None)?;
+    let radial = (middle - centre).unit();
+    let bore = pair::BORE / 2.;
+    let reach = bore + pair::WING + OVERCUT;
+    let r = RETURN_SLOT_WIDTH / 2.;
+    let side = -bore + r;
+    let slot = Pen::new(v2(-r, reach))
+        .line_to(v2(-r, side)).arc_through(v2(0., -bore), v2(r, side))?
+        .line_to(v2(r, reach)).close()?;
+    let plane = Plane::new(middle - radial * reach, V3::Z.cross(radial), radial)?;
+    seat.cut(&plane.extrude(&Profile::new(slot), 2. * reach)?)
 }
 
 /// The crossover's clip, cut where V-B's wall roots so each half ends on the root's plane, and the
@@ -755,8 +763,7 @@ fn top_lid() -> Result<Solid> {
             .cut(&cylinder(p, column.top - bore_depth, column.top + OVERCUT, core::DECK_MOUNT_BORE_RADIUS)?)?;
     }
     body = body.union(&pump_cradle()?)?.union(&valve_wall()?)?;
-    let (support, passage) = union_support()?;
-    body = body.union(&support)?.cut(&passage)?;
+    body = body.union(&vb_return_clip()?.transformed(&t))?;
     let (stock, pockets) = wells()?;
     body = body.union(&stock.intersect(&outline(-1., stock.bounds().max.z + 1., 0.)?)?)?.cut(&pockets)?;
     body = body.union(&a_seats()?)?;
@@ -800,7 +807,7 @@ fn top_lid() -> Result<Solid> {
 
 // --- The numbers the machine reads -------------------------------------------------------------------
 
-/// `foam-cap.numbers.json`: the pump's mount, the wiring's wells, the union support and the
+/// `foam-cap.numbers.json`: the pump's mount, the wiring's wells and the
 /// conduits the wiring's cables pass, as the whole machine reads them.
 fn machine_numbers(dir: &std::path::Path) -> Result<()> {
     let c = pump::cradle();
@@ -838,24 +845,11 @@ fn machine_numbers(dir: &std::path::Path) -> Result<()> {
         })
         .collect();
 
-    let u = cap::unions::vb_outlet_return();
-    let support = json!({
-        "stock_min_world_mm": u.stock_min, "stock_max_world_mm": u.stock_max,
-        "bore_origin_world_mm": u.bore_origin, "bore_axis_world": u.bore_axis,
-        "bore_length_mm": u.bore_length, "seat_radius_mm": u.seat_radius,
-        "native_leg": cap::unions::NATIVE_LEG, "native_band_mm": cap::unions::NATIVE_BAND,
-        "tie_window_min_world_mm": u.tie_window_min, "tie_window_max_world_mm": u.tie_window_max,
-        "tie_profile_origin_world_mm": u.tie_profile_origin, "tie_profile_x_world": u.tie_profile_x,
-        "tie_profile_normal_world": u.tie_profile_normal, "tie_profile_mm": cap::unions::TIE_PROFILE,
-        "tie_route_native_down_mm": u.tie_route_down, "centre_world_mm": u.centre,
-        "wall_mm": cap::unions::WALL, "parent": cap::unions::HOST, "support_implemented": true,
-    });
-
     let conduits: serde_json::Map<String, Value> =
         cap::conduits::lid_bores().iter().map(|c| (c.name.to_owned(), json!(c.xy))).collect();
 
     let numbers = json!({
-        "pump": datum, "wells": wells, "union_supports": {"vb-outlet-return": support}, "conduits": conduits,
+        "pump": datum, "wells": wells, "conduits": conduits,
     });
     let mut text = Vec::new();
     let mut writer = serde_json::Serializer::with_formatter(&mut text, serde_json::ser::PrettyFormatter::with_indent(b" "));

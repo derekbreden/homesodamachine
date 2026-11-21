@@ -148,6 +148,7 @@ Used during fabrication and documentation but not allocated per-unit in bom.md. 
 
 | Item | Source | Use |
 |---|---|---|
+| **HS narrow six-inch nylon ties** | [Purchases, wiring and terminals](purchases.md) | Shop cable dressing. |
 | **Airgas argon fill, 85 SCF (CY-AR 80)** | Airgas #8162013342, [purchases.md §1](/hardware/ledger/purchases.md) | Recurring fill for the argon cylinder. Consumed across welding + braze-purge sessions. |
 | **Lulu Install Guide, Comic Book** | Lulu USD-C4432578, [purchases.md §22](/hardware/ledger/purchases.md#22-printed-documentation) | Three copies, delivered 2026-09-25 (FedEx). |
 | **Airgas CO2 fill (prototype cylinder), 5 lb** | Airgas #8160436286, [purchases.md §2](/hardware/ledger/purchases.md) | Recurring fill for the prototype's running CO2 cylinder. |
@@ -170,6 +171,7 @@ Items used on the running prototype or test bench but not in the shipped BOM. Th
 
 | Item | Source | Role |
 |---|---|---|
+| **John Guest PP0308E union elbows** | [Fresh Water Systems purchases](purchases.md) | Push-fit bench plumbing. The [scanned fitting](../reference/jg-pp0308e-elbow/README.md) supplies its exterior geometry. |
 | **TAPRITE E-T742 CO2 primary regulator (CGA-320)** | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0), [purchases.md §2](/hardware/ledger/purchases.md) | Prototype's primary regulator. Shipped units carry the Taprite 3741 primary, set to 75 PSI at acceptance (bom.md §4); the in-appliance PISCO secondary holds the gas feed at 0.3 MPa. |
 | **Airgas prototype CO2 cylinder, 5 lb aluminum food-grade CGA-320** | Airgas #8160436286, [purchases.md §2](/hardware/ledger/purchases.md) | Prototype's operational cylinder, in service feeding the prototype's dispense. |
 | **Airgas testing CO2 cylinder, 5 lb aluminum food-grade CGA-320** | Airgas #8162013342, [purchases.md §2](/hardware/ledger/purchases.md) | Test-bench cylinder; carbonator carbonation experiments, sparge/saturation tests. |

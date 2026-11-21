@@ -111,7 +111,7 @@ Four of the liquid conduits in the cold core's top cap are this circuit's: a fil
 | 2 | flow-regulator outlet | V-A-I | Native tube through the regulator-to-V-A elbow above the core |
 | 3 | V-A-O | Y-A-1 | V-A outlet elbow, under-head and forward native tubes, fixed Y-A stem elbow |
 | 4 | funnel-drain-union outlet | V-B-I | Gravity drain, aft off the funnel's drain elbow |
-| 5 | V-B-O | Y-B-1 | V-B outlet stem and return fittings, native tube to the fixed Y-B stem elbow |
+| 5 | V-B-O | Y-B-1 | Continuous tube from the V-B outlet stem around the lid clip to the Y-B stem elbow |
 | 6 | Y-A-3 | Y-B-3 | The crossbar — branch to branch, face to face |
 | 7 | Y-A-2 | V-C-I | Butted |
 | 8 | Y-B-2 | V-D-I | Butted |

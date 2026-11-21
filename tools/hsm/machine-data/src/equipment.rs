@@ -373,7 +373,7 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
     let insert = number(&data["stem"]["published_socket_insertion_mm"])?;
     let mut depths = json!({"tee-fold":12.7,"lower-valve-elbow":12.7,"lower-pump-elbow":insert+number(&rear["water_male_shoulder_land_mm"])?,"reg-va-elbow":12.7,"va-outlet-elbow":12.7,"va-south-elbow":insert,
         "carbonator-fold":number(&data["reducer"]["length_mm"])?-(number(&data["reducer"]["body_face_x_mm"])?-number(&data["reducer"]["body_face_to_stop_display_mm"])?)+number(&rear["water_male_shoulder_land_mm"])?,
-        "ya-stem-elbow":10.,"yb-stem-elbow":10.,"drain-outlet-stem":spec["fore_routes"]["drain_stem_length_mm"],"vb-inlet-turn":12.7,"vb-outlet-stem":12.7,"vb-outlet-return":16.891});
+        "ya-stem-elbow":10.,"yb-stem-elbow":10.,"drain-outlet-stem":spec["fore_routes"]["drain_stem_length_mm"],"vb-inlet-turn":12.7,"vb-outlet-stem":12.7});
     for name in object(&layout::gates())?.keys() {
         depths[name] = json!(12.7);
     }

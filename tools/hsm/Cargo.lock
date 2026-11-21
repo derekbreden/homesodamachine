@@ -1736,6 +1736,7 @@ dependencies = [
  "hsm-cold-core-interface",
  "hsm-cold-core-layout",
  "hsm-enclosure-numbers",
+ "hsm-layout-data",
  "hsm-reservoir-numbers",
  "hsm-valve-seat-numbers",
  "serde",

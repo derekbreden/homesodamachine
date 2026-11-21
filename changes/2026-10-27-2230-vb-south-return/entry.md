@@ -16,7 +16,7 @@ the full 3 mm snap roots. The connected tubes and affected local wires use
 the selected fitting datums.
 
 Both revised parts have reviewed Mark1 slices. The
-[review record](/hardware/printed-parts/cold-core/foam-cap/south-return-review/README.md)
+[review record](https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/printed-parts/cold-core/foam-cap/south-return-review/README.md)
 binds the current artifacts, clearances and slices, and records the
 full-lid lint's memory limit.
 

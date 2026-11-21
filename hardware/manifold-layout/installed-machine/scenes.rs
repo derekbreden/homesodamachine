@@ -202,12 +202,7 @@ fn placed_bodies(spec: &Value, identity: &[(String, Option<[f64; 3]>)]) -> BTree
 /// The fastening rows the plan's selected fittings and stated fasteners spell out, in the
 /// order the machine checks spell them.
 fn selected_mounts(m: &Value, rules: &Value) -> Vec<Value> {
-    let mut fittings: BTreeMap<String, Value> = object(&rules["selected_fittings"]);
-    for (name, r) in plans(&m["union_supports"]) {
-        if r["support_implemented"] == true {
-            fittings.insert(name, json!([r["parent"], "cradle"]));
-        }
-    }
+    let fittings: BTreeMap<String, Value> = object(&rules["selected_fittings"]);
     let selected: Vec<String> = if m["selected_fitting_names"].is_array() {
         strings(&m["selected_fitting_names"])
     } else {

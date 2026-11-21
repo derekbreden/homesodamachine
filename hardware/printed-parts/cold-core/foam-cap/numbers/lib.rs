@@ -19,7 +19,6 @@ pub mod deck;
 mod design;
 pub mod pump;
 pub mod reservoir_a;
-pub mod unions;
 pub mod valve;
 mod vector;
 pub mod wells;

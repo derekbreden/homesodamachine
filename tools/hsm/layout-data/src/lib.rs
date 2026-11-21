@@ -379,7 +379,7 @@ fn reservoir_route(data: &Value, row: &Value) -> Result<Tube> {
 /// The above-core fittings that are NeoFit stem elbows, among those the layout places: every
 /// candidate the layout's `snapshots` stand, unless it stands as a John Guest union elbow.
 pub fn stem_elbow_names(snapshots: &Value) -> Vec<&'static str> {
-    const CANDIDATES: [&str; 23] = [
+    const CANDIDATES: [&str; 22] = [
         "tee-fold",
         "lower-valve-elbow",
         "lower-pump-elbow",
@@ -398,7 +398,6 @@ pub fn stem_elbow_names(snapshots: &Value) -> Vec<&'static str> {
         "drain-outlet-stem",
         "vb-inlet-turn",
         "vb-outlet-stem",
-        "vb-outlet-return",
         "yb-stem-elbow",
         "reservoir-a-fill-turn",
         "reservoir-a-draw-turn",
@@ -412,7 +411,7 @@ pub fn stem_elbow_names(snapshots: &Value) -> Vec<&'static str> {
 
 /// The above-core fittings that stand as John Guest union elbows.
 pub fn union_elbow_names(snapshots: &Value) -> Vec<&'static str> {
-    ["va-east-turn", "ya-fold-inner", "vb-inlet-turn", "vb-outlet-return"]
+    ["va-east-turn", "ya-fold-inner", "vb-inlet-turn"]
         .into_iter()
         .filter(|n| snapshots[n]["geometry"] == "jg-turn-elbow")
         .collect()
@@ -434,7 +433,6 @@ pub fn equipment_names() -> Vec<String> {
         "carbonator-fold".into(),
         "vb-inlet-turn".into(),
         "vb-outlet-stem".into(),
-        "vb-outlet-return".into(),
         "lower-pump-elbow".into(),
     ];
     for side in ["suction", "discharge"] {

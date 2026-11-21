@@ -124,8 +124,6 @@ pub struct Inputs {
     /// The PRV vent's tube along its centreline, mm.
     pub prv_vent: f64,
     pub faucet: Faucet,
-    /// The cap's six-inch tie paths.
-    pub cap_tie_paths: usize,
     /// The inserts on each of the foam cap's clamp faces and on each reservoir cap, and the reeds
     /// each reservoir carries.
     pub foam_cap_face_inserts: usize,
@@ -134,8 +132,7 @@ pub struct Inputs {
     pub deck: Deck,
     /// The TouchFlo base's insert pods.
     pub touchflo_inserts: usize,
-    /// The above-core union elbows and stem elbows.
-    pub union_elbows: usize,
+    /// The above-core stem elbows.
     pub stem_elbows: usize,
     /// The relays the machine places, and the supply's ceiling screws.
     pub relays: usize,
@@ -252,7 +249,6 @@ struct Pack(&'static str, &'static str);
 const RC62: Pack = Pack("88.28", "30");
 const TEES: Pack = Pack("42.68", "20");
 const FOUR_INCH_TIES: Pack = Pack("4.28", "200");
-const SIX_INCH_TIES: Pack = Pack("6.42", "100");
 const SOLID16_LENGTH: Pack = Pack("12.86", "7.62");
 const SMALL_WASHERS: Pack = Pack("7.82", "200");
 const M3X8: Pack = Pack("7.71", "120");
@@ -261,7 +257,6 @@ const M3X25: Pack = Pack("8.57", "60");
 const M5X12: Pack = Pack("12.00", "100");
 const RESERVOIR_SCREWS: Pack = Pack("8.66", "120");
 const M5X100: Pack = Pack("9.17", "20");
-const PP0308E: Pack = Pack("68.49", "30");
 const M3_INSERTS: Pack = Pack("10.71", "100");
 const M5_INSERTS: Pack = Pack("10.71", "50");
 
@@ -343,14 +338,11 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     // The manifold, the ties and the harness.
     let tees = n(input.manifold.purchased_tees) + WATER_SPLIT_TEES;
     let four_inch_ties = CABLE_TIES + VENT_LAND_TIES;
-    let six_inch_ties = n(input.cap_tie_paths);
     put("SOLENOIDS", count(n(input.manifold.solenoids)));
     put("TEES", count(tees));
     put("TEES_COST", cost(tees, TEES)?);
     put("FOUR_INCH_TIES", count(four_inch_ties));
     put("FOUR_INCH_TIES_COST", cost(four_inch_ties, FOUR_INCH_TIES)?);
-    put("SIX_INCH_TIES", count(six_inch_ties));
-    put("SIX_INCH_TIES_COST", cost(six_inch_ties, SIX_INCH_TIES)?);
     let w = &input.wire;
     // Black supplies AC-1 through AC-4's pigtail, plus DC-1 through DC-4's solid segments.
     let ac_black = w.mid + w.short_2 + w.short + w.opening_join;
@@ -459,7 +451,7 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("M5X100_COST", cost(seam_rods + clamp_inserts, M5X100)?);
     put("SEAM_SCREW_UNIT_COST", cost(1.0, M5X100)?);
 
-    // The pump dock and the stem and union elbows.
+    // The pump dock and its stem elbows.
     let returns = n(input.manifold.lower_returns);
     let stem_elbows = FUNNEL_DRAIN_ELBOWS + 2. * returns + n(input.stem_elbows);
     put("DOCK_PUMP_TUBES", fmt(n(input.dock_tees), ""));
@@ -468,8 +460,6 @@ fn figures(input: &Inputs, casting: &Value) -> Result<(Variables, Variables)> {
     put("DOCK_ELBOWS", fmt(2.0 * returns, ""));
     put("STEM_ELBOWS", count(stem_elbows));
     put("STEM_ELBOWS_COST", stem_cost(stem_elbows)?);
-    put("PP0308E_TOTAL", fmt(n(input.union_elbows), ""));
-    put("PP0308E_COST", cost(n(input.union_elbows), PP0308E)?);
 
     // The compressor's floor posts.
     let floor = n(input.floor_bosses);

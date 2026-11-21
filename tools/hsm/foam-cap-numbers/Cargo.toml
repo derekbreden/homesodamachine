@@ -18,6 +18,7 @@ hsm-cold-core-catalog = { path = "../cold-core-catalog" }
 hsm-cold-core-interface = { path = "../cold-core-interface" }
 hsm-cold-core-layout = { path = "../cold-core-layout" }
 hsm-enclosure-numbers = { path = "../enclosure-numbers" }
+hsm-layout-data = { path = "../layout-data" }
 hsm-reservoir-numbers = { path = "../reservoir-numbers" }
 hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }
 
