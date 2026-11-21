@@ -53,11 +53,3 @@ pub fn clearances(envelope: &Solid, local: fn([f64; 3]) -> [f64; 3]) -> Result<V
     }
     Ok(found)
 }
-
-/// A hollow piece takes each host's closing wall and its recess.
-pub fn apply(mut body: Solid, envelope: &Solid, local: fn([f64; 3]) -> [f64; 3]) -> Result<Solid> {
-    for host in clearances(envelope, local)? {
-        body = body.union(&host.stock)?.cut(&host.pocket)?;
-    }
-    Ok(body)
-}

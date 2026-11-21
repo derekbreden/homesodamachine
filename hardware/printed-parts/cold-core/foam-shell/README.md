@@ -66,6 +66,12 @@ Both take the same acquired M5 × 100 stock as the enclosure's seam screws.
 Heads are Ø8.5 × 5 mm, with 4 mm hex sockets, seated in Ø9 outward-open pockets.
 Exterior foil bands cover the dry pocket mouths and perimeter joints.
 
+The rear nameplate's two lower insert hosts dip into the shell's rear wall. Each takes a
+recess from outside, and a corbelled wall closes it off from the foam
+([`nameplate_clearance.rs`](../nameplate_clearance.rs)). The closing walls are casing
+stock that every passage is cut through. The west one ends beside the rear west screw
+host and runs on into it, so its inner face meets the host's round.
+
 ## Plumbing and cable passages
 
 All wet paths are continuous tubes or their specified fittings. The main foam

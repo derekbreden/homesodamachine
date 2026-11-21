@@ -302,6 +302,29 @@ fn at_stations(cutter: impl Fn(f64, f64) -> Result<Solid>) -> Result<Vec<Solid>>
     core::attachment_stations().iter().map(|([x, y], _)| cutter(*x, *y)).collect()
 }
 
+/// The walls that close the rear nameplate's insert recesses off from the foam. One that ends
+/// beside a clamp host, nearer than a wall and with its inner corner outside the host, runs on to
+/// the host's axis, so its end is inside the host.
+fn closing_walls(recesses: &[nameplate_clearance::Clearance], host_radius: f64) -> Vec<Solid> {
+    let mut walls = vec![];
+    for recess in recesses {
+        let b = recess.stock.bounds();
+        for ([x, y], wall) in core::attachment_stations() {
+            if wall != "x" || x * (b.min.x + b.max.x) <= 0. || (b.min.y..=b.max.y).contains(&y) {
+                continue;
+            }
+            let end = if y < b.min.y { b.min.y } else { b.max.y };
+            let corner = if x > 0. { b.min.x } else { b.max.x };
+            let reach = (end - y).abs();
+            if reach < host_radius + core::OUTER_SHELL_WALL && (corner - x).hypot(reach) > host_radius {
+                walls.push(recess.stock.translate(v3(0., y - end, 0.)));
+            }
+        }
+        walls.push(recess.stock.clone());
+    }
+    walls
+}
+
 fn build() -> Result<Solid> {
     let fits = catalog::fits();
     let height = core::foam_shell_rim_z(&fits);
@@ -311,7 +334,9 @@ fn build() -> Result<Solid> {
     let (width, depth, corner) = (core::OUTER_SHELL_X_LENGTH, core::OUTER_SHELL_Y_LENGTH, core::CORNER_ROUND_RADIUS);
     let supported = fits.supported_surface;
 
-    // The outer shell: a rounded box open at the top on its floor, with the clamp hosts.
+    // The outer shell: a rounded box open at the top on its floor, with the clamp hosts and the
+    // closing walls of the rear nameplate's recesses. They go in ahead of every passage, so a wall
+    // fills none.
     let footprint = Loop::rounded_rect(v2(0.0, 0.0), width, depth, corner)?;
     let outside = Plane::XY.extrude(&Profile::new(footprint), height)?;
     let inside = Plane::XY.at(v3(0.0, 0.0, floor)).extrude(
@@ -323,8 +348,13 @@ fn build() -> Result<Solid> {
         )?),
         height - floor,
     )?;
-    let hosts = attachment_hosts(height, core::SCREW_GUARD_DIAMETER / 2.0)?;
+    let host_radius = core::SCREW_GUARD_DIAMETER / 2.0;
+    let hosts = attachment_hosts(height, host_radius)?;
+    let recesses = nameplate_clearance::clearances(&outside, cap::world_to_shell)?;
     let mut outer = outside.cut(&inside)?.union(&hosts)?;
+    for wall in closing_walls(&recesses, host_radius) {
+        outer = outer.union(&wall)?;
+    }
     // The seam channel down the +Y face, with the wall folded in behind it.
     let (face, seam_floor, half) =
         (depth / 2.0, depth / 2.0 - core::SEAM_CHANNEL_DEPTH, core::SEAM_CHANNEL_WIDTH / 2.0);
@@ -431,6 +461,11 @@ fn build() -> Result<Solid> {
         v2(lo[1], shoulder),
     ];
     let notch = Plane::new(v3(lo[0], 0.0, 0.0), V3::Y, V3::X)?.extrude(&Profile::polygon(&window), hi[0] - lo[0])?;
-    let shell = shell.cut(&notch)?;
-    nameplate_clearance::apply(shell, &outside, cap::world_to_shell)
+    shell = shell.cut(&notch)?;
+
+    // The rear nameplate's insert recesses, inside their closing walls.
+    for recess in &recesses {
+        shell = shell.cut(&recess.pocket)?;
+    }
+    Ok(shell)
 }
