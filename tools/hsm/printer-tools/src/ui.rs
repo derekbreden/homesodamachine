@@ -70,7 +70,16 @@ pub struct Ui {
     replies: Receiver<std::io::Result<String>>,
 }
 impl Ui {
+    /// The input process with Bambu Connect brought to the front, for mouse input throughout.
     pub fn open(root: &Path, cache: &Path) -> Result<Self> {
+        Self::start(root, cache, "focus")
+    }
+    /// The input process reading Bambu Connect where it stands. The filament picker takes the
+    /// front itself, for as long as its two clicks need.
+    pub fn attach(root: &Path, cache: &Path) -> Result<Self> {
+        Self::start(root, cache, "attach")
+    }
+    fn start(root: &Path, cache: &Path, command: &str) -> Result<Self> {
         fs::create_dir_all(cache)?;
         let source = root.join("tools/bambu-ui/main.swift");
         let binary = cache.join("bambu-ui");
@@ -105,7 +114,7 @@ impl Ui {
             input,
             replies,
         };
-        ui.call(json!({"command":"focus"}))?;
+        ui.call(json!({ "command": command }))?;
         Ok(ui)
     }
     pub fn settled(&mut self) -> Result<Vec<Node>> {
@@ -365,11 +374,17 @@ pub fn map_external(ui: &mut impl Input, details: &Details) -> Result<()> {
             .unwrap();
         let result=ui.call(json!({"command":"select_external","label":tile.label,"role":"AXGroup","nth":nth,"nozzle":nozzle,"filament":filament.kind}))?;
         wait(ui, 15., |ns| external_mapped(ns, *nozzle, &filament.kind))?;
+        let tries = result["tries"].as_u64().unwrap_or(1);
         println!(
-            "Mapped {} external {}: {}",
+            "Mapped {} external {}: {}{}",
             if *nozzle == 1 { "left" } else { "right" },
             filament.kind,
-            result["clicked"].as_str().unwrap_or("")
+            result["clicked"].as_str().unwrap_or(""),
+            if tries > 1 {
+                format!(", on try {tries} after: {}", result["earlier"])
+            } else {
+                String::new()
+            }
         );
     }
     Ok(())

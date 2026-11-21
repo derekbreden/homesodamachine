@@ -303,12 +303,18 @@ restored when the transaction ends. Input stops if another application takes foc
 macOS gives these commands the privacy permissions of the application it holds
 responsible for the shell that runs them: Codex for a Codex task, Claude Code for a
 session in the Claude desktop application, the terminal for a shell opened there.
-Claude Code has its own entries in System Settings, apart from Claude's. That
-application needs Accessibility for every step and Screen Recording for the filament
-picker. A refusal names the application that lacks one. Without Screen Recording the
-filament tile is left unclicked and the helper asks macOS for the access. macOS shows
-its request once for an application and lists it under Privacy & Security, where Derek
-switches it on.
+Claude Code has its own rows in System Settings, apart from Claude's, and they read
+`claude` in lower case. That application needs Accessibility for every step and Screen
+Recording for the filament picker. A refusal names the application that lacks one as
+System Settings lists it. Without Screen Recording the filament tile is left unclicked
+and the helper asks macOS for the access. macOS shows its request once for an
+application and lists it under Privacy & Security, where Derek switches it on. A shell
+started after the switch has the access, with nothing restarted.
+
+macOS can also answer a capture with its own acknowledgement alert for that application,
+and the alert takes the front of the screen. On 2026-11-20 it came up at the first
+capture after Screen Recording was switched on for `claude`, and at none of the captures
+in the dry runs that followed.
 
 The sender checks the archive's embedded G-code checksum, the target printer, each active
 nozzle's external spool type and colour, and the standing print options. It supports one
@@ -418,8 +424,13 @@ for the calling shell, as [Print submission](#print-submission) describes.
    It selects the card in the required nozzle column, reads the opened popover’s
    **External → Ext <type>** labels and clicks the visible matching choice.
    Its position is measured from the captured window, with no filament-popover
-   offsets. The operation retains foreground focus through opening, recognition
-   and selection. It checks that the window has not moved and reads the resolved
+   offsets. `send` reads the dialog in the background and brings Bambu Connect
+   forward only when a tile is unresolved, for the two clicks this step makes. A
+   click goes out only while Bambu Connect holds the front and is what sits under
+   the pointer. When a system alert or the person at the keyboard takes the front
+   mid-step, the step is made again: it reads the list first and clicks the tile
+   only when the list is not showing, and its report names what stopped the
+   earlier tries. It checks that the window has not moved and reads the resolved
    external-spool tile before continuing. The source type and colour also have
    to match the printer’s external-spool telemetry.
 5. **Read the print options.** Each option is a row of `AXRadioButton`s and the chosen
@@ -456,7 +467,9 @@ The printer selector and filament popover are outside the accessibility tree: wi
 the printer list open on screen, the tree holds the dialog alone and none of the
 list's rows. An `AXPress` on the selector's or the filament tile's `AXGroup` opens its
 list, which stays open while Bambu Connect stays in the background. A row of it has no
-element to press and takes mouse input alone.
+element to press and takes mouse input alone, and only while Bambu Connect is in front:
+a click posted to its process in the background does nothing, with Command held or the
+window named in the event or neither.
 The shared filament picker combines foreground mouse input, a capture of the
 Bambu Connect window and native Vision text recognition. It requires a single
 matching external choice under the External heading, retains every visible

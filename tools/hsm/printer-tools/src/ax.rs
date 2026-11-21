@@ -268,8 +268,8 @@ fn prepare(
     drop(nodes);
     archive::verify_spools(details, reading)?;
     {
-        let mut foreground = Ui::open(root, cache)?;
-        if let Err(error) = ui::map_external(&mut foreground, details) {
+        let mut picker = Ui::attach(root, cache)?;
+        if let Err(error) = ui::map_external(&mut picker, details) {
             ax.close();
             return Err(error);
         }
@@ -312,9 +312,9 @@ fn prepare(
         ax.close();
         bail!("The printer selector changed")
     }
-    let mut foreground = Ui::open(root, cache)?;
+    let mut reader = Ui::attach(root, cache)?;
     use ui::Input;
-    ui::verify(&foreground.nodes()?, &options.printer, details, &desired)?;
+    ui::verify(&reader.nodes()?, &options.printer, details, &desired)?;
     Ok(())
 }
 pub fn send(
