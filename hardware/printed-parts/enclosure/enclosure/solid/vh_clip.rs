@@ -31,14 +31,15 @@ impl InletClip {
         self.wall_y - WALL_EMBED
     }
 
-    /// The corbel ends behind the bore floor so the wings can spread into free air.
+    /// The corbel lands the crown on the receding ridge. Its flat top ends behind the bore floor so each wing can spread.
     fn corbel(&self) -> ([f64; 2], Vec<V2>) {
         let [cx, cy, cz] = self.centre;
-        let middle_x = cx + self.radius * radial((START + END) / 2.).x;
+        let crest = radial(START) * (self.radius + self.bore + self.wing);
+        let middle_x = cx + crest.x;
         let outer_y = cy - self.bore - 0.4;
         let knee_z = cz + 6.1;
         let root_z = knee_z - (outer_y - self.root_y());
-        let top_z = cz + 8.2;
+        let top_z = cz + crest.z;
         ([middle_x - CORBEL_WIDTH / 2., middle_x + CORBEL_WIDTH / 2.],
          vec![v2(self.root_y(), root_z), v2(outer_y, knee_z), v2(outer_y, top_z), v2(self.root_y(), top_z)])
     }
@@ -52,6 +53,14 @@ impl InletClip {
          (x + (self.radius + outer) * radial(END).x).max(rib[1]),
          self.root_y(), y + outer, section[0].y.min(z + (self.radius - outer) * radial(END).z),
          z + (self.radius + outer) * radial(START).z]
+    }
+
+    /// Keep the side entry, seated bore and wing split clear while allowing support below the clip.
+    pub fn entry_bounds(&self) -> [f64; 6] {
+        let [x0, x1, _, y1, _, z1] = self.bounds();
+        let [_, y, z] = self.centre;
+        let bore_bottom = z + (self.radius - self.bore) * radial(END).z;
+        [x0, x1, y - self.bore, y1, bore_bottom, z1]
     }
 
     pub fn solid(&self) -> Result<Solid> {

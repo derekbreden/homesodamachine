@@ -43,15 +43,15 @@
       "bounds_source_mm": [
         -33.74653182239107,
         -19.06630086978651,
-        94.886,
+        89.29999207671872,
         113.615,
-        281.696,
+        276.10999207671875,
         300.79193130647764
       ],
       "name": "V-H entry clip and bulkhead root"
     }
   ],
-  "source_stl_sha256": "7cac155863fb8ece4f15f14a5942df642a15a0ab5365c21e4ead9b6777dac4b1",
+  "source_stl_sha256": "750b7e8836ac183e878d89a82aa9e75804bd46b331f0744883c7828f36dfaf1a",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -76,6 +76,18 @@
       ],
       "name": "wago-manb insertion pocket",
       "reason": "Keep the connector pocket and mouth clear of support."
+    },
+    {
+      "bounds_source_mm": [
+        -33.74653182239107,
+        -19.06630086978651,
+        104.865,
+        113.615,
+        287.25702966715727,
+        300.79193130647764
+      ],
+      "name": "V-H tube entry and wing split",
+      "reason": "Keep the tube seat and independent wings accessible through the side opening."
     }
   ]
 }

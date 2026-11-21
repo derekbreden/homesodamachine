@@ -77,10 +77,10 @@
           "regions": "front-top",
           "features": [
             {
-              "name": "Wago pocket bridges",
+              "name": "V-H tube clip and Wago pockets",
               "kind": "native_support_free",
               "record": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json",
-              "reason": "Bridge the Wago pocket roofs between their sidewalls and keep the pockets clear of supports."
+              "reason": "Keep the V-H tube entry and Wago pockets clear of supports and bridge the pocket roofs between their sidewalls."
             },
             {
               "name": "R6 roof side edges, level run",

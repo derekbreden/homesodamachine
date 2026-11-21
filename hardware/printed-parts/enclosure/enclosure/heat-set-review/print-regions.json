@@ -14,8 +14,8 @@
       ".stl": "02e38d006b5a6d671c18a0c0d634aa880c1e1b652eba8eac5fbf3230ac383007"
     },
     "front-top": {
-      ".step.npz": "5936212aa486fa1e269bab08973f3da01156380c2e452d417e0167308c149ed7",
-      ".stl": "7cac155863fb8ece4f15f14a5942df642a15a0ab5365c21e4ead9b6777dac4b1"
+      ".step.npz": "5495b40f56a7cfbee276c35c6e2b4912c480b3223996851728b776ccedcd88e4",
+      ".stl": "750b7e8836ac183e878d89a82aa9e75804bd46b331f0744883c7828f36dfaf1a"
     },
     "pump-retainer": {
       ".step.npz": "5ad27d141a9bf5174a6176533b32143af9e253bc016d01cefdec25458ede88e7",
@@ -1169,17 +1169,17 @@
         "applied_source_bounds_mm": [
           -33.74653182239107,
           -19.06630086978651,
-          94.886,
+          89.29999207671872,
           113.615,
-          281.696,
+          276.10999207671875,
           300.79193130647764
         ],
         "machine_bounds_mm": [
           -33.74653182239107,
           -19.06630086978651,
-          94.886,
+          89.29999207671872,
           113.615,
-          281.696,
+          276.10999207671875,
           300.79193130647764
         ],
         "name": "V-H entry clip and bulkhead root",
@@ -1345,7 +1345,7 @@
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b809250d2d8518ed084bf03bb7c449a9e3d2df04a6c88ef702f7ad31433a8986",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "9b5af3753a78607e3121592d77b580b4f4a2e65b3ed433e9856b94a58d13ff2a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "c584799b5acd7934704f7ddeea6fabbb3051704db22a2801fac77266f748a43c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "011d48bce270e93eeb060f18b02b09b0959cee5887ab21c230643afb5eba91e3",
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "c51457723dfd84e9872e017326f64b8a2203db1f8481e5ff7f039525ae193d51",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "4a6ca57e22a457d1a1d1fa7c22afe7255d744f96b470d85d98a47052abe6ca64"
   },

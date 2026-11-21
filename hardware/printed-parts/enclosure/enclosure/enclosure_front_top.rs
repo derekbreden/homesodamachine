@@ -64,12 +64,12 @@ fn inlet_clip(b: &Box) -> Result<Option<InletClip>> {
     let plate = &b.pack.collet_plate;
     let Some(outlet) = plate.upper_ports.values().find(|p| p.valve == "V-H") else { return Ok(None); };
     let valve: Valve = hsm_enclosure_numbers::input::json("hardware/reference/beduan-solenoid/model-check.json")?;
-    let [a, b] = valve.port_faces_y_mm;
-    let inlet = std::array::from_fn(|i| outlet.point[i] - outlet.axis[i] * (b - a));
+    let [inlet_face, outlet_face] = valve.port_faces_y_mm;
+    let inlet = std::array::from_fn(|i| outlet.point[i] - outlet.axis[i] * (outlet_face - inlet_face));
     Ok(Some(InletClip {
         centre: b_draw_turn_centre(inlet), radius: B_DRAW_RADIUS, bore: pair::BORE / 2.,
         wing: pair::WING, tip_degrees: pair::TIP_DEGREES, slot_width: clips::WING_SLOT_WIDTH,
-        wall_y: plate.wall_aft_y,
+        wall_y: plate.wall_aft_y.min(funnel::housing_back_y(b.pack.funnel[1])),
     }))
 }
 
@@ -198,6 +198,12 @@ fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json:
             "bounds_source_mm": [x0, x1 + WALL, y0 - WALL, y1 + WALL, roof - catalog::running(), roof + WALL],
             "bridge_print_axis_source": [0, 1, 0],
             "reason": "Bridge the flat roof and mouth between the two sidewalls."
+        }));
+    }
+    if let Some(clip) = clip {
+        exclusions.push(json!({
+            "name": "V-H tube entry and wing split", "bounds_source_mm": clip.entry_bounds(),
+            "reason": "Keep the tube seat and independent wings accessible through the side opening."
         }));
     }
     let clip_regions: Vec<_> = clip.into_iter().map(|clip| {
