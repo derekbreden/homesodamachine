@@ -8,8 +8,8 @@ use interface::funnel_mount::{self, PAD_HALF_Y, REAR_ACCESS, SCREW_GRIP};
 
 /// The funnel's plan centre in the machine's Y.
 pub const CENTER_Y: f64 = 182.5 + (funnel::AFT - funnel::FORWARD) / 2.0;
-/// The frame's bottom web, under the plug's socket.
-pub const WEB: f64 = 3.0;
+/// The roof web beneath the brim's seat.
+pub const ROOF_WEB: f64 = 3.0;
 /// Relief above the shell's bearing ledges for the frame's printed flange underside.
 pub const SEATING_RELIEF: f64 = 0.48;
 /// The roof's width and the body's, and the frame's depth with the rear roof's access.
@@ -17,8 +17,10 @@ pub const WIDTH: f64 = 196.5;
 pub const BODY_WIDTH: f64 = 176.5;
 pub const DEPTH: f64 = funnel::COLLAR_D + 24.6;
 pub const CORNER: f64 = 6.0;
-/// The socket the funnel's plug drops into.
+/// The socket mouth's height above the cradle's hook ledges.
 pub const SOCKET_DEPTH: f64 = 19.0;
+/// The T-shaped stem guide stands this far above the hook ledges.
+pub const SOCKET_FLOOR_RISE: f64 = 2.4;
 /// The diameter of the screw heads into the shell's ledges.
 pub const HEAD_D: f64 = 5.5;
 /// The interior the frame is drawn against, the brim's seat in it, and the shell's Y seam.
@@ -29,11 +31,6 @@ pub const Y_JOINT: f64 = 200.0;
 pub const FORMING_AIR: f64 = 0.3;
 /// The corbels that carry the roof: their half depth at the foot, and their slope.
 pub const CORBEL_HALF_DEPTH: f64 = 27.5 + (funnel::FORWARD + funnel::AFT) / 2.0;
-
-/// The frame's underside and the socket's floor, in the machine's Z.
-fn datums() -> (f64, f64) {
-    (SEAT - funnel::DROP - WEB, SEAT - funnel::DROP)
-}
 
 /// The roof: its front and back in the machine's Y, its floor and its top.
 struct Roof {
@@ -48,7 +45,7 @@ fn roof() -> Roof {
     Roof {
         front: cy - funnel::COLLAR_D / 2.0 - funnel::OVERHANG,
         back: cy + DEPTH / 2.0 + REAR_ACCESS,
-        floor: SEAT - WEB,
+        floor: SEAT - ROOF_WEB,
         top: SEAT + funnel::BRIM_T,
     }
 }
@@ -86,6 +83,7 @@ pub struct Frame {
     pub socket_size: P2,
     pub socket_radius: f64,
     pub socket_z: f64,
+    pub socket_floor_z: f64,
     pub socket_height: f64,
     pub socket_flare: P2,
     pub hole_radius: f64,
@@ -100,7 +98,8 @@ pub struct Frame {
 /// The frame.
 pub fn frame() -> Frame {
     let (cx, cy) = (0.0, CENTER_Y);
-    let (floor, plug) = datums();
+    let floor = SEAT - funnel::DROP - cradle::WEB;
+    let socket_floor_z = cradle::WEB + SOCKET_FLOOR_RISE;
     let r = roof();
     let snap = cradle::stations();
     let half = funnel::PLUG_W / 2.0;
@@ -145,14 +144,15 @@ pub fn frame() -> Frame {
         socket_size: (2.0 * (half + gap), 2.0 * (funnel::plug_half_length(half) + gap)),
         socket_radius: cradle::SOCKET_CORNER,
         socket_z: cradle::WEB,
+        socket_floor_z,
         socket_height: SOCKET_DEPTH,
         socket_flare: (2.0, 1.0),
         hole_radius: cradle::stem_passage_radius(),
-        web_cut_z: (-1.0, cradle::WEB + 1.0),
+        web_cut_z: (-1.0, socket_floor_z + 1.0),
         slot_x: (snap.slot_in, snap.slot_out),
         slot_y: (cradle::SLOT_FORE - cradle::END_SLIP, cradle::SLOT_AFT + cradle::END_SLIP),
         funnel: funnel::dimensions(),
         forming_air: FORMING_AIR,
-        forming_clip_z: (plug - floor, SEAT - floor),
+        forming_clip_z: (socket_floor_z, SEAT - floor),
     }
 }

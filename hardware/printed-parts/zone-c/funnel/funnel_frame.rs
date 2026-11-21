@@ -89,6 +89,7 @@ fn brim(n: &Frame) -> Result<Solid> {
         .extrude(&plan, n.roof_top + 1.0 - n.seat)
 }
 
+/// The socket leaves a raised T around the stem and a lower ledge beyond each wing slot.
 fn socket(n: &Frame) -> Result<Solid> {
     let (w, d) = n.socket_size;
     let (x, y) = n.drain_xy;
@@ -104,7 +105,12 @@ fn socket(n: &Frame) -> Result<Solid> {
         section(w, d, r, z1 - h)?,
         section(w + 2.0 * grow, d + 2.0 * grow, r + grow, z1)?,
     ])?;
-    rounded(w, d, r, x, y, z0, z1)?.union(&lead)
+    let pocket = rounded(w, d, r, x, y, z0, z1)?.union(&lead)?;
+    let wing_front = y + n.slot_y.0;
+    let inner = n.slot_x.0;
+    let bar = block(x - w / 2.0, x + w / 2.0, y - d / 2.0, wing_front, z0, n.socket_floor_z);
+    let spine = block(x - inner, x + inner, wing_front, y + d / 2.0, z0, n.socket_floor_z);
+    pocket.cut_all(&[bar, spine])
 }
 
 fn build(n: &Frame) -> Result<Solid> {
