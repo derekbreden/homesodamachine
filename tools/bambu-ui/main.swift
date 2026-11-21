@@ -8,6 +8,31 @@ import Vision
 let bundle = "com.bambulab.bambu-connect"
 struct Failure: Error { let message: String }
 func refuse(_ text: String) throws -> Never { throw Failure(message: text) }
+// The app macOS holds responsible for this process. Its privacy permissions are this process's.
+func responsibleApp() -> String {
+    typealias Lookup = @convention(c) (pid_t) -> pid_t
+    var pid = getpid()
+    if let lookup = dlsym(UnsafeMutableRawPointer(bitPattern: -2), "responsibility_get_pid_responsible_for_pid") {
+        pid = unsafeBitCast(lookup, to: Lookup.self)(pid)
+    }
+    var buffer = [CChar](repeating: 0, count: Int(MAXPATHLEN) * 4)
+    guard proc_pidpath(pid, &buffer, UInt32(buffer.count)) > 0 else { return "The app running this shell" }
+    let executable = URL(fileURLWithPath: String(cString: buffer))
+    var folder = executable
+    while folder.path != "/" {
+        if folder.pathExtension == "app" {
+            return Bundle(url: folder)?.object(forInfoDictionaryKey: "CFBundleName") as? String
+                ?? folder.deletingPathExtension().lastPathComponent
+        }
+        folder.deleteLastPathComponent()
+    }
+    return executable.lastPathComponent
+}
+func requireScreenRecording() throws {
+    guard CGPreflightScreenCaptureAccess() else {
+        try refuse("\(responsibleApp()) has no macOS Screen Recording permission, so the filament list cannot be read; no click was sent. It is granted in System Settings > Privacy & Security > Screen & System Audio Recording")
+    }
+}
 func attribute(_ element: AXUIElement, _ name: String) -> CFTypeRef? {
     var value: CFTypeRef?
     guard AXUIElementCopyAttributeValue(element, name as CFString, &value) == .success else { return nil }
@@ -183,9 +208,7 @@ func externalChoice(_ words: [VisibleText], filament: String) throws -> VisibleT
     return choices[0]
 }
 func capturePrintWindow() throws -> (CGImage, CGRect) {
-    guard CGPreflightScreenCaptureAccess() else {
-        try refuse("Screen recording access is unavailable; the filament popover cannot be read")
-    }
+    try requireScreenRecording()
     var content: SCShareableContent?, contentError: Error?, contentDone = false
     SCShareableContent.getExcludingDesktopWindows(true, onScreenWindowsOnly: false) { value,error in
         content = value; contentError = error; contentDone = true
@@ -214,7 +237,7 @@ func capturePrintWindow() throws -> (CGImage, CGRect) {
 func handle(_ request: [String: Any]) throws -> [String: Any] {
     switch request["command"] as? String {
     case "focus":
-        guard AXIsProcessTrusted() else { try refuse("This caller has no macOS Accessibility permission") }
+        guard AXIsProcessTrusted() else { try refuse("\(responsibleApp()) has no macOS Accessibility permission") }
         if NSRunningApplication.runningApplications(withBundleIdentifier: bundle).isEmpty {
             let config = NSWorkspace.OpenConfiguration(); config.activates = false
             guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundle) else {
@@ -267,6 +290,7 @@ func handle(_ request: [String: Any]) throws -> [String: Any] {
         guard (node.rect.minX >= divider ? 2 : 1) == nozzle else {
             try refuse("The filament tile is in the wrong nozzle column")
         }
+        try requireScreenRecording()
         try mouse(CGPoint(x:node.rect.midX,y:node.rect.midY),expected:node.element)
         var choice: VisibleText?, shotFrame = CGRect.zero, shotSize = CGSize.zero
         var lastError = "The filament popover did not appear"

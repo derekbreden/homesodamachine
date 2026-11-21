@@ -148,6 +148,7 @@ fn summary(printer: &config::Printer, timeout: Duration) -> Result<Value> {
     let mut result = json!({"printer":printer.name,"observed_at":now(),"external_spools":{},"nozzle_type":status["nozzle_type"],"nozzles":[]});
     for key in [
         "gcode_state",
+        "job_id",
         "subtask_name",
         "mc_percent",
         "layer_num",
