@@ -368,7 +368,7 @@ fn drive(p: &mut Vec<Piece>, lift: f64) -> Result<()> {
     Ok(())
 }
 
-/// The curved tube meets the existing crimped hose on its own centreline and tangent.
+/// A formed stock tube and an end-drilled acetal adapter connect the existing crimped hose to the valve.
 fn tubing(p: &mut Vec<Piece>, neck: &Gooseneck, frame: &Plane) -> Result<()> {
     let (point, tangent, normal) = neck.frame(neck.length() - 58.);
     let join_world = point + normal * shell::TUBE_SHELL_CENTER_Y;
@@ -378,20 +378,45 @@ fn tubing(p: &mut Vec<Piece>, neck: &Gooseneck, frame: &Plane) -> Result<()> {
     let start = SOCKET + V3::Y * 9.;
     let first = SOCKET + V3::Y * 20.1;
     let side = BYPASS + V3::Y * 31.2;
-    let bend = v3(8.30, 46.35, 4.36);
-    let end = join - d * 4.0;
+    let approach = BYPASS + V3::Y * 40.;
+    let straight = v3(8.0, 47.2, 4.15);
+    let slope = v3(-0.25, 1., -0.34);
+    let rail = |s| straight + slope * (s - straight.y);
+    let socket_bore = |r, a, b| bore(rail(a), rail(b), r);
+    let stop_s = 53.1;
     let path = Path::new(start)
         .line_to(first)
         .bezier(&[first, first + V3::Y * 4.2, side - V3::Y * 4.2, side])?
-        .bezier(&[side, side + V3::Y * 5.0, bend - V3::Y * 5.0, bend])?
-        .bezier(&[bend, bend + V3::Y * 5.0, end - d * 4.5, end])?;
+        .line_to(approach)
+        .bezier(&[approach, approach + V3::Y * 2.60, straight - slope * 2.85, straight])?
+        .line_to(rail(stop_s));
     let tube = Plane::new(start, V3::X, V3::Y)?
         .sweep(&Profile::circle(v2(0., 0.), TUBE_R).with_hole(Loop::circle(v2(0., 0.), TUBE_ID_R)), &path)?;
     let bead = torus(TUBE_R, 0.23, 18.50)?.translate(SOCKET);
     add(p, "Stock_316L_soda_tube", STEEL, tube.union(&bead)?, v3(5., 0., 3.), false);
-    let profile = &[(TUBE_ID_R, 0.), (2.85, 0.), (3.65, 3.25), (3.65, 4.0), (3.0, 4.0)];
-    let transition = turn(profile)?.placed(&Plane::XY, &Plane::new(end, V3::X, V3::X.cross(d))?);
-    add(p, "Hose_transition_envelope", ACETAL, transition, v3(5., 0., 3.), false);
+    let port = rail(stop_s + 1.1);
+    let diagonal = (join - port).unit();
+    let hose_face = Plane::new(join, V3::X, d)?;
+    let trim = hose_face.extrude(&Profile::rect(v2(0., 0.), 36., 36.), 16.)?;
+    let distal_seal = socket_bore(TUBE_R + 0.63, 50.9, 51.95)?;
+    let adapter = socket_bore(3.02, 50.1, stop_s + 3.6)?
+        .union(&bore(port - diagonal * 0.32, join, 2.62)?)?
+        .union(&bore(join - d * 2.35, join, 3.65)?)?
+        .cut(&trim)?
+        .cut(&socket_bore(TUBE_R + 0.035, 50.0, stop_s)?)?
+        .cut(&distal_seal)?
+        .cut(&socket_bore(TUBE_ID_R, stop_s - 0.05, stop_s + 1.75)?)?
+        .cut(&bore(port - diagonal * 0.22, join + diagonal * 3.0, TUBE_ID_R)?)?
+        .cut(&bore(join - d * 1.35, join + d * 0.06, 3.0)?)?;
+    add(p, "Acetal_drilled_hose_adapter", ACETAL, adapter, v3(5., 7., 3.), false);
+    add(
+        p,
+        "Hose_adapter_tube_seal",
+        SEAL,
+        Solid::torus(rail(51.425), slope, 2.27, 0.36)?,
+        v3(5., 4., 3.),
+        false,
+    );
     Ok(())
 }
 
