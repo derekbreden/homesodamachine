@@ -1,6 +1,7 @@
 //! The V-H inlet clip seats the draw tube on its west bend and opens toward the funnel corridor.
 use anyhow::Result;
 use hsm_kernel::*;
+use serde_json::{Value, json};
 
 #[path = "../../../cadlib/tube_clip.rs"]
 mod profile;
@@ -56,12 +57,49 @@ impl InletClip {
          z + (self.radius + outer) * radial(START).z]
     }
 
-    /// Keep the side entry, seated bore and wing split clear while allowing support below the clip.
-    pub fn entry_bounds(&self) -> [f64; 6] {
-        let [x0, x1, _, y1, _, z1] = self.bounds();
-        let [_, y, z] = self.centre;
-        let bore_bottom = z + (self.radius - self.bore) * radial(END).z;
-        [x0, x1, y - self.bore, y1, bore_bottom, z1]
+    /// The swept entry and the radial flex slot exclude support. Trees can reach the outside of the lower jaw.
+    pub fn support_free_regions(&self) -> Vec<Value> {
+        let [x, y, z] = self.centre;
+        let outside = self.bore + self.wing;
+        let region = |name: String, corners: [V3; 4]| {
+            let profile = corners.map(|p| [x + p.x, z + p.z]);
+            let range = |axis: usize| {
+                let values = profile.map(|p| p[axis]);
+                [values.into_iter().fold(f64::INFINITY, f64::min),
+                 values.into_iter().fold(f64::NEG_INFINITY, f64::max)]
+            };
+            let ([x0, x1], [z0, z1]) = (range(0), range(1));
+            let span = [y - self.bore, y + outside];
+            let margin = 0.6;
+            json!({"name": name, "bounds_source_mm": [x0, x1, span[0], span[1], z0, z1],
+                "blocking_bounds_source_mm": [x0-margin, x1+margin, span[0]-margin, span[1]+self.wing, z0-margin, z1+margin],
+                "void_source": {"kind": "prism_y", "span_y_mm": span, "profile_xz_mm": profile},
+                "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside."})
+        };
+        let inner = self.radius - self.bore;
+        let outer = self.radius + self.bore;
+        const SECTORS: usize = 8;
+        let station = |i: usize| radial(START + (END - START) * i as f64 / SECTORS as f64);
+        let mut regions: Vec<_> = (0..SECTORS).map(|i| {
+            let (a, b) = (station(i), station(i + 1));
+            region(format!("V-H tube entry {}", i + 1), [a * inner, a * outer, b * outer, b * inner])
+        }).collect();
+        let mid = radial((START + END) / 2.);
+        let side = V3::Y.cross(mid) * (self.slot_width / 2.);
+        let foot = mid * (self.radius - outside);
+        let lip = mid * (self.radius + outside);
+        regions.push(region("V-H wing split".into(), [foot - side, foot + side, lip + side, lip - side]));
+        regions
+    }
+
+    /// A removable interface carries the first course of the lower wing from the bulkhead to its lip.
+    pub fn underside_target(&self) -> Value {
+        let [x, y, z] = self.centre;
+        let bottom = radial(END) * (self.radius - self.bore - self.wing);
+        let (x, z) = (x + bottom.x, z + bottom.z);
+        json!({"name": "Lower V-H snap wing underside",
+            "bounds_source_mm": [x-self.wing, x+self.wing, self.root_y(), y+self.wing, z-self.wing, z+0.4],
+            "reason": "Carry the first cantilevered course on exterior support accessible through the funnel opening."})
     }
 
     pub fn solid(&self) -> Result<Solid> {
