@@ -2,8 +2,8 @@
   "purpose": "This records the focused packaging measurements for the slim custom-valve faucet. Each observation identifies its measured native payload.",
   "date": "2026-11-20",
   "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
-  "current_payload_sha256": "ec6369fed6e94f5964b8ca283336ad109024ea5f379222a00217217cf79cc977",
-  "current_step_sha256": "65484bb0e425f7c2a4b282035790b10cb2091e76f420872e114370ebbe81ab07",
+  "current_payload_sha256": "96bca34cc2765bf1e356ddfeb7dd666c04daf1996fe7652cd106ebb058fbb2d6",
+  "current_step_sha256": "936338ea154470518003f39c461773afde8fd12eeaba3b00a4dcb455e22d7930",
   "observations": [
     {
       "query": [
@@ -256,6 +256,162 @@
       "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
       "payload_sha256": "ec6369fed6e94f5964b8ca283336ad109024ea5f379222a00217217cf79cc977",
       "step_sha256": "65484bb0e425f7c2a4b282035790b10cb2091e76f420872e114370ebbe81ab07",
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_fixed_seat_washer",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 3.37216481212597e-19
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_balance_seal",
+        "head_valve_wet_dry_liner"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 1.8124887823005595e-19
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_balance_seal",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_dry_rod_seal",
+        "head_valve_wet_dry_liner"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_dry_rod_seal",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 2.1027784837908522e-15
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_hollow_poppet_stem",
+        "head_valve_wet_dry_liner"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.029990867748091513,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_fixed_seat_washer",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "d560f6d3e49db5e12777dc845c3f0cedd02496165dea3f97f33beefff47460c0",
+      "step_sha256": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
+      "clearance_mm": 0.5999999642372129,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_hollow_poppet_stem",
+        "head_valve_wet_dry_liner"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "d560f6d3e49db5e12777dc845c3f0cedd02496165dea3f97f33beefff47460c0",
+      "step_sha256": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
+      "clearance_mm": 0.029990867748091347,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_balance_seal",
+        "head_valve_wet_dry_liner"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "d560f6d3e49db5e12777dc845c3f0cedd02496165dea3f97f33beefff47460c0",
+      "step_sha256": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 1.6298328920080296e-19
+    },
+    {
+      "query": [
+        "gap",
+        "head_valve_dry_rod_seal",
+        "head_valve_hollow_poppet_stem"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "d560f6d3e49db5e12777dc845c3f0cedd02496165dea3f97f33beefff47460c0",
+      "step_sha256": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 2.306448445166806e-15
+    },
+    {
+      "query": [
+        "gap",
+        "pull_off_curved_grip",
+        "head_valve_outlet_cap"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/handheld-detail.step.mesh",
+      "payload_sha256": "96bca34cc2765bf1e356ddfeb7dd666c04daf1996fe7652cd106ebb058fbb2d6",
+      "step_sha256": "936338ea154470518003f39c461773afde8fd12eeaba3b00a4dcb455e22d7930",
+      "clearance_mm": 0.051478896802673695,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "fluid_high_pressure_seat_chamber",
+        "fluid_low_pressure_balance_chamber"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-closed.step.mesh",
+      "payload_sha256": "e120db96f0c98604e5f59123f2ea32ecde96259c2b69f4872e6285ae248c2a4c",
+      "step_sha256": "1673eb13d18c4c206c28f74e16632984b18c2cb386608da83910d3f86636bda3",
+      "clearance_mm": 0.0,
+      "intersection_volume_mm3": 0.0
+    },
+    {
+      "query": [
+        "gap",
+        "fluid_high_pressure_seat_chamber",
+        "fluid_low_pressure_balance_chamber"
+      ],
+      "scene": "hardware/faucet-layout/pullout-concept/custom-valve-open.step.mesh",
+      "payload_sha256": "d560f6d3e49db5e12777dc845c3f0cedd02496165dea3f97f33beefff47460c0",
+      "step_sha256": "b4d1145cd4296700ec171c9f3bf8a8a0307afc62bbb855ee7b6ee1fa8faa3fcf",
+      "clearance_mm": 0.0,
       "intersection_volume_mm3": 0.0
     }
   ],

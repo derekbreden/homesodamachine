@@ -19,11 +19,10 @@ across the camera's horizontal axis so their heights compare directly.
 
 The valve stack runs lengthwise behind the existing display. Its pressure sleeve
 feeds water around a sealed dry actuator well to the outlet chamber. A hollow
-poppet stem connects the outlet to a small wet balance chamber. The balance seal
-and outlet seat have matched effective pressure areas, cancelling most of the
-hydraulic opening load. The return spring closes the face seal when current is
-removed. The valve seat stands at the dispense face, keeping the downstream
-liquid volume small while the long hose stays pressurized.
+poppet stem connects the outlet to a small wet balance chamber. The seat crest
+is slightly larger than the hydraulic piston bore, so supply pressure assists
+the return spring. The valve seat stands at the dispense face, keeping the
+downstream liquid volume small while the long hose stays pressurized.
 
 The coil has a closed magnetic return path. Flow-through magnetic spiders connect
 the fixed pole and armature guide to the return yoke while passing water through
@@ -68,6 +67,24 @@ measured sheet thickness. [Design data](custom-valve-design.json) gives the
 nominal squeeze, thread and bore sizes. The solids show mating thread envelopes
 and an illustrative shape for the squeezed rubber. The closing load and the
 washer's set and leakage need measurement on assembled valves.
+
+### Pressure loading
+
+Supply pressure on the exposed face of the washer presses it into the cap
+floor. The clamped perimeter seals the joint and the path around the washer's
+back. The cap threads carry the axial reaction from the washer and the poppet.
+
+Supply pressure pushes the moving head toward the seat and the balance piston
+away from it. The net seated hydraulic load is the pressure difference times
+the difference of the projected seat and piston areas. The piston is integral
+with the stem, with an external seal groove and running clearance in the liner.
+A separate groove in the liner holds the seal around the dry rod.
+
+[Design data](custom-valve-design.json) reports the projected forces, the
+sensitivity to the assumed seal line across the crest, and the crack-open
+load with allotted drag. The rear chamber communicates with the outlet
+through the hollow stem. Its pressure can lag during movement, so the seated
+force calculation is a starting condition for measuring force through a pour.
 
 ## Bundle and dock
 
@@ -116,7 +133,9 @@ base, lever and display geometry.
 
 `concept.rs` creates the native visualization and its design data through the
 explicit sandbox example. `front_seat.rs` owns the turned wet-end profiles and
-the punched washer. `render.json` fixes the cameras and display lighting.
+the punched washer. `balance.rs` defines the moving piston and rod seals.
+`pressure_loads.rs` computes the seated loads. `render.json` fixes the cameras
+and display lighting.
 The comparison uses the current faucet's exported solids as its reference.
 
 ```sh

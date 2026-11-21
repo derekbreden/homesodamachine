@@ -5,7 +5,7 @@ use std::f64::consts::PI;
 
 pub const OUTLET_S: f64 = -1.0;
 pub const SEAT_S: f64 = 0.8;
-pub const SEAT_D: f64 = 4.0;
+pub const SEAT_D: f64 = 4.08;
 pub const STEM_R: f64 = 0.8;
 pub const VENT_R: f64 = 0.30;
 pub const BORE_R: f64 = 1.90;
@@ -32,13 +32,14 @@ const CAP_END_S: f64 = 2.76;
 const SLEEVE_SHOULDER_S: f64 = 2.82;
 const RIM_LOCATOR_R: f64 = WASHER_R + 0.04;
 const RELIEF_S: f64 = FLOOR_S + 0.15;
-const RELIEF_R: f64 = 3.40;
+pub const RELIEF_R: f64 = 3.40;
 const EXPOSED_R: f64 = 2.28;
 const TAPER_START_S: f64 = -0.46;
 const TAPER_END_S: f64 = -0.24;
-const LIP_HALF_WIDTH: f64 = 0.055;
+pub const LIP_HALF_WIDTH: f64 = 0.035;
 const LIP_CREST_IN_R: f64 = SEAT_D / 2.0 - LIP_HALF_WIDTH;
 const LIP_CREST_OUT_R: f64 = SEAT_D / 2.0 + LIP_HALF_WIDTH;
+pub const CREST_DIAMETERS: [f64; 2] = [LIP_CREST_IN_R * 2., LIP_CREST_OUT_R * 2.];
 const LIP_ROOT_IN_R: f64 = 1.88;
 const RECESS_DEPTH: f64 = 0.12;
 const RECESS_S: f64 = SEAT_S + RECESS_DEPTH;
@@ -115,7 +116,7 @@ pub fn poppet() -> Result<Solid> {
         (VENT_R, rear_of_head),
     ])?;
     let stem = cyl(STEM_R, rear_of_head - 0.02, STEM_END_S - rear_of_head + 0.02)?;
-    head.union(&stem)?
+    head.union(&stem)?.union(&crate::balance::piston()?)?
         .cut(&cyl(VENT_R, RECESS_S - 0.03, BALANCE_PORT_S - RECESS_S + VENT_R + 0.03)?)?
         .cut(&Solid::cylinder(v3(-0.9, BALANCE_PORT_S, 0.), V3::X, VENT_R, 1.8)?)
 }
