@@ -1,0 +1,133 @@
+{
+  "views": [
+    {
+      "name": "pocket",
+      "caption": "The rear middle screw's head pocket and the recess for the nameplate's insert host, seen from behind and above. They are one pocket on the head's floor.",
+      "before": "pocket-before.webp",
+      "after": "pocket-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -0.5350272436673924,
+          479.1274046471641,
+          279.32486378166305
+        ],
+        "target": [
+          -6,
+          460,
+          252
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.31091040898087746,
+        "far": 494.8406415718903,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "39c5e924d906f1736cc75b4a9b1d96d0ebf31a6c4d87e006cc4e481788b70fde",
+          "commit": "dead72b29bd98637dde4a6b214cf14a117c5268b",
+          "taken": "2026-11-21T07:04:33.597Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ea98aa808f1c18cc398b651a78bcc3e19c3469aadc50a4eccc0044f864c0f4eb",
+          "commit": "31310b8d0cdcf8439c7c3e8eb30d2a0e4f9c6c77",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "tip",
+      "caption": "A cut through the lid at the aft end of the pump cap's east tip pocket, with Reservoir A's air passage on the right. The web of lid between the two is gone: the pocket's floor runs into the passage.",
+      "before": "tip-before.webp",
+      "after": "tip-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          24.29954035214673,
+          430.7030643190218,
+          256.8986210564402
+        ],
+        "target": [
+          22.5,
+          442.7,
+          251.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.22154407075664864,
+        "far": 450.15747245977593,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            22,
+            442.7,
+            252
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "39c5e924d906f1736cc75b4a9b1d96d0ebf31a6c4d87e006cc4e481788b70fde",
+          "commit": "dead72b29bd98637dde4a6b214cf14a117c5268b",
+          "taken": "2026-11-21T07:04:33.597Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "ea98aa808f1c18cc398b651a78bcc3e19c3469aadc50a4eccc0044f864c0f4eb",
+          "commit": "31310b8d0cdcf8439c7c3e8eb30d2a0e4f9c6c77",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
