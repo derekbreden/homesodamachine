@@ -100,6 +100,6 @@ name the difference. Nothing in this repository is finished by a commit.
 
 There are none here, and there are none anywhere in this tree. A mark is finished when the
 physical thing exists, and the record of when that happened is written after it happens —
-[`updates/`](/updates/) and [`biography/`](/biography/) are where it lands. What this page
+[`updates/`](/updates/) is where it lands. What this page
 holds is the order the marks come in and what each one is owed, which is a plan; a date
 would be a guess dressed as one.

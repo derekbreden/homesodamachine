@@ -108,7 +108,7 @@ The Lillium-fed build, the flavor side in the enclosure with none of the cold co
 | [`wiring/`](/hardware/wiring/) | Wiring schedules, pinouts, and power topology diagrams. |
 | [`battery-backup/`](/hardware/battery-backup/) | Mains-outage dispense ride-through: an architecture the BOM, wiring and firmware do not yet carry. |
 | [`install-guide/`](/hardware/install-guide/) | The bound install guide that ships in the install kit beside it. |
-| [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, tapping plan, fill-from-funnel plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
+| [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (PCBA audit, tapping plan, weld-rotator bench). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
 
 ## Where the solids are
 
