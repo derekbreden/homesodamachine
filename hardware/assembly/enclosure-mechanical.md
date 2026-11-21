@@ -243,13 +243,9 @@ its external continuous inlet/holder/foam and concealed rear join, V-A/V-K
 and their fitted plumbing, the complete inlet header, ASSE and gas group.
 The V-A low feed connects to front-top's Y-A. Complete rear connections on
 the open back-top; keep the funnel opening available for central handoffs.
-Keep the low V-A under-head tube, fore feed and east-turn union disconnected
-during the ride over the core. After the column is home, feed the bare low
-tube west under the pump head into V-A's fitted outlet elbow. Fit the
-east-turn union to the tube's east end afterward, then connect the forward
-feed to Y-A. Keep the pump-side joint clocked apart until this low feed is
-assembled; the [staging plan](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)
-records the local tube-insertion screen and its scope.
+Keep the V-A feed tube loose during the ride over the core. With the column
+home, connect the white tube to the nested outlet elbow, carry it over the
+pump, seat it in the lid clip and connect it to Y-A through the funnel opening.
 Rotate the pump's reinforced suction joint up and the lower
 pump-side push-fit elbow down at their existing round joints so
 they pass each other during the slide. After the column is home, rotate them

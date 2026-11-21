@@ -54,10 +54,9 @@ place of their nominal allowances. The plain lid guide adds no insertion,
 fitting or physical cut. The reported warm span is part of this single tube,
 as with the continuous soda riser through its own plain guide.
 
-The V-A turn and feed belong to back-top, with their final connection at
-front-top's Y-A. Fit their bare low tube under the pump after the column is
-home, then add the east-turn union and forward feed
-([assembly staging](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)). The
+The V-A outlet elbows belong to back-top. Keep its feed tube loose during the
+column slide. With the column home, the continuous white tube runs from the
+nested outlet elbow over the pump, through the lid clip and into Y-A. The
 V-B return is one continuous length of black LLDPE between the valve outlet
 stem and the Y-B stem. The lid clip guides its bend.
 
@@ -327,8 +326,8 @@ bends in [reservoir-a-routes.json](/hardware/manifold-layout/reservoir-a-routes.
 they pass the V-K outlet and the east side of the soda foam before returning
 to their original reservoir mouths. The fill tube enters the 11 mm straight lid passage at X56/Y426.3
 and follows an R14 S bend to the fixed reservoir bore. The passage through
-the printed lid is straight and open at both ends. Keep the paired tie and both collets
-accessible while the core is open.
+the printed lid is straight and open at both ends. Press the fill and draw
+tubes into their curved aft clips while the core is open.
 
 Carry the loose front dispense ends while positioning back-top. Connect V-G
 and V-J through the uncovered funnel opening, matching each faucet tail's
@@ -337,11 +336,10 @@ flavor-tube seat.
 
 ### 5. Final connections through the funnel opening
 
-Make the V-A low feed and V-B high feed/return with the funnel frame absent.
-Press the straight white V-A feed, `fluid-3` / `above-core-va-fore-feed`,
-downward into the core lid's upward-opening C2 clip at world
-(11, 254.5, 261.6) mm. Seat that tube before final dressing of
-`PE-carbonator` and `J4-V5`; keep both leads out of its loading approach.
+Make the V-A feed and V-B connections with the funnel frame absent.
+Press the straight span of the white V-A feed into the core lid's
+upward-opening clip where the tube turns toward Y-A. Dress
+`PE-carbonator` and `J4-V5` clear of the clip's mouth.
 Release the tube from the lid clip before moving back-top for service.
 Seat J11 at the main board before laying in the V-B return tube, which passes
 over J11. Seat the marked tube ends in the V-B outlet stem and the Y-B stem.

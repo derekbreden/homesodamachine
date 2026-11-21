@@ -92,7 +92,7 @@ fitting and support-ring lane. The gas bend retains at least R24.7. The water
 check feeds two tangent bends, minimum R14.246, into the
 straight guide at X−82.5/Y420. Neither guide adds a socket or tube cut.
 
-V-A's outlet union clocks 50° downward about the seated valve connection;
+V-A's outlet stem elbow clocks 50° downward about the seated valve connection;
 the nested stem elbow clocks 15° outward. Both full stem engagements remain
 coaxial. Its feed crosses above the pump and passes beneath the regulator. Its
 continuous tangent bends pass above the PCB before entering the fore lane.
@@ -115,9 +115,9 @@ X26.5/Y266/Z296, backed into V-B’s full wall. Flavor B has its filled
 upward-opening rear snap at X35/Y414/Z264. Their 4.10 mm bores and 1.52 mm spring walls
 retain the selected modeled 4 mm section. Flavor A descends ahead of the meter and runs above its complete lower wing. All free 4 mm bends are R25 or larger.
 
-Reservoir A uses its fore paired C2 snaps and a filled, open paired saddle
-at Y390.5, inside the casing footprint. One tie holds both existing curved
-paths in their unequal-height seats. The front valve fittings and reservoir
+Reservoir A uses paired clips at the front and rear of the lid. Each aft clip
+follows its tube through the last level turn before the reservoir. The draw
+clip stands higher and shares a root with the fill clip. The front valve fittings and reservoir
 mouths retain their datums. The fill entry in the equipment lid is X56/Y426.3;
 an internal R14 S bend joins the fixed reservoir bore through the open space
 beneath the lid. Its external aft seat follows the fill tube 5 mm west. Its free aft bends pass outside the soda foam.

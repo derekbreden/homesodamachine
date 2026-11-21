@@ -415,6 +415,13 @@
       "said": "Fit is good.",
       "tried": "both quarter-inch tubes seated in the printed crop of the cold-core lid's two aft clips",
       "record": "https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0020",
+      "date": "2026-11-21",
+      "said": "Fit is good.",
+      "tried": "black quarter-inch LLDPE tubing seated through the split quarter-turn clip on a printed crop of the cold-core lid",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
     }
   ]
 }

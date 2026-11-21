@@ -74,8 +74,8 @@ supports through the open receiver mouths and the underside inlet groove before 
 The V-B return presses into a curved C2 seat that follows the tube from its
 valve-side tangent to its fore-going tangent. A round-bottomed radial slot
 splits both lips into independently opening wings. The floor under the tube is
-continuous. The [fit coupon](../../../print-tests/vb-return-clip/README.md)
-includes the full-height root and the lid under it.
+continuous. Derek seated the black return tube in the crop of the complete
+bend and its lid footing. “Fit is good.” [Mark 1 fit record and photos](https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json).
 
 The V-A feed seats in the lid's C2 clip at world (16.608, 207.300, 268.970) mm.
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
