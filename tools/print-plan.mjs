@@ -14,7 +14,9 @@
 // The replay is `hsm-gcode view playback --inline --data` of the whole plate, kept gzipped under
 // its own SHA-256 in print-playbacks/. The catalog entry keeps its `process` lines, which are
 // written by hand, and takes the title it had unless `--title` gives one. The replay it replaces
-// leaves when no entry names it. The record is print-plan.json in the folder above PLATE_DIR.
+// stays one publish longer, named in the record, because the site serves it until it reads the new
+// catalog; the next publish removes it when no entry names it. The record is print-plan.json in
+// the folder above PLATE_DIR.
 // Publishing the same plate again changes nothing. `--dry-run` encodes the replay, prints the
 // entry and the record, and changes nothing.
 import { execFileSync } from "node:child_process";
@@ -90,10 +92,14 @@ try {
   };
   catalog[chosen.material] = entry;
   const before = previous?.sha256;
-  const replaced = before && before !== hash && Object.values(catalog).every(other => other.sha256 !== before) ? before : null;
+  const unnamed = sha => Boolean(sha) && Object.values(catalog).every(other => other.sha256 !== sha);
 
   const folder = path.dirname(plate);
   const earlier = existsSync(`${folder}/print-plan.json`) ? read(`${folder}/print-plan.json`) : null;
+  // A new replay leaves the one it replaces in place and removes the one the publish before left.
+  const fresh = before !== hash;
+  const kept = fresh ? (unnamed(before) ? before : null) : earlier?.replaced_replay_sha256 ?? null;
+  const left = fresh && unnamed(earlier?.replaced_replay_sha256) ? earlier.replaced_replay_sha256 : null;
   const within = file => path.relative(folder, file);
   const beside = suffix => part.stl.replace(/\.stl$/, suffix);
   const optional = (key, file) => (file && existsSync(file) ? { [key]: file, [`${key}_sha256`]: sha256(file) } : {});
@@ -135,6 +141,7 @@ try {
     ...optional("print_features", beside(".print-features.json")),
     replay_sha256: hash,
     replay: `print-playbacks/${hash}.json.gz`,
+    ...(kept ? { replaced_replay_sha256: kept } : {}),
   };
 
   const archiveName = chosen.name ?? `${prep.piece}-${prep.printer.toLowerCase()}`;
@@ -143,14 +150,15 @@ try {
     console.log(text({ [chosen.material]: entry }) + text(record));
     execFileSync("node", [...archive, "--dry-run"], { stdio: "inherit" });
     console.log(`replay ${hash} · ${replay.length} bytes${before ? ` · the catalog names ${before}` : ""}`);
+    if (left) console.log(`would remove print-playbacks/${left}.json.gz`);
   } else {
     const packed = `print-playbacks/${hash}.json.gz`;
     if (!existsSync(packed) || digest(gunzipSync(readFileSync(packed))) !== hash) writeFileSync(packed, gzipSync(replay, { level: 9 }));
     writeFileSync(CATALOG, text(catalog));
-    if (replaced) rmSync(`print-playbacks/${replaced}.json.gz`, { force: true });
+    if (left) rmSync(`print-playbacks/${left}.json.gz`, { force: true });
     writeFileSync(`${folder}/print-plan.json`, text(record));
     execFileSync("node", archive, { stdio: "inherit" });
-    console.log(`${packed}\n${CATALOG} · ${chosen.material}\n${folder}/print-plan.json${replaced ? `\nremoved print-playbacks/${replaced}.json.gz` : ""}`);
+    console.log(`${packed}\n${CATALOG} · ${chosen.material}\n${folder}/print-plan.json${left ? `\nremoved print-playbacks/${left}.json.gz` : ""}`);
   }
 } catch (error) {
   console.error(error.message);
