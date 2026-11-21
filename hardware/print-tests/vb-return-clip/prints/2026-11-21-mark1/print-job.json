@@ -1,0 +1,64 @@
+{
+  "purpose": "Identify the production V-B return clip coupon and the plate accepted by Mark 1.",
+  "status": "running",
+  "source_commit": "b2f0972a13e3bca4aea073fc643385695807891f",
+  "printer": "Mark1",
+  "printer_task_id": "1468407647",
+  "previous_task_id": "1467888449",
+  "accepted_at": "2026-11-21T06:38:57+00:00",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "The lid's hardened left 0.4 mm Standard nozzle, for its production snap sections.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.08
+  ],
+  "objects": [
+    "vb-return-clip"
+  ],
+  "external_spool": {
+    "1": {
+      "colour": "000000",
+      "type": "PET-CF"
+    }
+  },
+  "project": "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.3mf",
+  "project_sha256": "163afd092ae1617f39f4d245caad0d414254f1020d145420998cd77b84b874cf",
+  "archive": "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.gcode.3mf",
+  "archive_sha256": "74d2bfbc4b85b3042373a5ee3643bfcedae5dac89749239f3b0de9cdf61cea99",
+  "gcode_sha256": "99548431a98192afc9bac72a6ade1c5b2e0d1cc57008d27dde7e0155262f4445",
+  "print_archive_index": "hardware/print-archive.json",
+  "preparation": "2026-11-21-vb-return-clip-mark1-6bf9695b/preparation.json",
+  "native_review": "2026-11-21-vb-return-clip-mark1-6bf9695b/review.json",
+  "support_audits": [
+    "2026-11-21-vb-return-clip-mark1-6bf9695b/support-audit-1901.json"
+  ],
+  "geometry_record": "../../parts/geometry.json",
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "53f4135a69e283aa0d6d6c99b2c15cd839610203901d7856625a63da6972a74b",
+  "layers": 159,
+  "estimated_seconds": 5525.189453125,
+  "minimum_bead_bed_margin_mm": 116.55097500000001,
+  "support_roads": 0,
+  "native_slicer_warnings": [],
+  "review_checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "startup_status": "startup-status.json"
+}
