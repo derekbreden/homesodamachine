@@ -127,7 +127,8 @@
     "path": "tools/magnetic-float-guide/build-recipe-sources.json"
   },
   "aerostrip": {
-    "path": "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/pair-preflight.json"
+    "path": "hardware/printed-parts/cold-core/magnetic-float/mark2-aero-print/v6/pair-preflight.json",
+    "revision": "9a785be81"
   },
   "aeroprint": {
     "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/v1/float-preflight.json",

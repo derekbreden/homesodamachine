@@ -374,7 +374,7 @@
   "petgf-supports-faucet-slit.jpg": {
    "kind": "Bench photograph",
    "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-10/physical-result/in-progress-photo-2.jpg",
-   "revision": null,
+   "revision": "9a785be81",
    "max_px": 1700,
    "width_px": 862,
    "made_with": "magick auto-orient",
