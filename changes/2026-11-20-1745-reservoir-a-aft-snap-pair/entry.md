@@ -9,7 +9,7 @@ Reservoir A's fill and draw lines cross the lid on their way to the reservoir. A
 
 The aft station now has the same clips as the fore pair. Each is turned along its line's last level turn before the reservoir and ends where that turn ends, so the lines keep their routes. The draw line's clip stands on the taller root. The fill line's is filled square against that root up to its jaw's top, which makes the pair one body with no slot between the two.
 
-The filled side fixes one jaw of the fill line's clip. Its free jaw has the fit of back-top's east-wall fill seat, which also has one fixed jaw: a thinner jaw, standing further out from the fixed one, as Derek set it there and fitted it in hand.
+The filled side squares one jaw of the fill line's clip along its whole length and joins it to the root over the aft part of it, so that jaw bends little. The clip's free jaw has the fit of back-top's east-wall fill seat, which also has one fixed jaw: a thinner jaw, standing further out from the fixed one, as Derek set it there and fitted it in hand.
 
 The tie leaves the parts list and the assembly steps, and the lid's print needs no blocker for a tie passage. The clips' fit awaits the [coupon sent to Mark1](https://github.com/derekbreden/homesodamachine/blob/e4be924e87f99b6b56dc71cba72085ac37377d00/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/print-job.json).
 
