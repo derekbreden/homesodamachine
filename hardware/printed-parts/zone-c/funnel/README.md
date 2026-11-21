@@ -111,8 +111,8 @@ cradle’s two snap hooks. The socket extends 19 mm above that web; its R0.25
 receiver corners and 1 mm mouth lead-in retain room around the square silicone
 plug and released hook tips. The plug’s lower face bears on the hooks at Z306.05.
 
-Only the drain hole and two straight
- wing slots pierce this web. The complete catches
+The drain hole guides the elbow’s rigid stem with a sliding fit. A straight wing
+slot on each side admits the cradle. The complete catches
 bear above the 3 mm web on both sides. The elbow's socket collar stands
 1.713 mm below the frame's underside in the released pose.
 
