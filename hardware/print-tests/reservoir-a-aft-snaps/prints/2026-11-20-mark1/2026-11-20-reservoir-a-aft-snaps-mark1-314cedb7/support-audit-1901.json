@@ -1,0 +1,56 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      0.0,
+      -1.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -248.899997711,
+      213.700000763,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "721d6f946500fe2a514ae9b97f04ba4c079ab3ab146324958a67f69602fe081f",
+    "model": "hardware/print-tests/reservoir-a-aft-snaps/parts/reservoir-a-aft-snaps.stl",
+    "model_sha256": "177a2b51b300eadf88003b8541365a4b5ffb587ebee9b6457f2ec7d5c7c016c4",
+    "profile": "hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7.3mf",
+    "profile_sha256": "e9f033c8c4544aea011cc0d62e07cd5a58c05ed0e773208b4293dc8a41e64b7a"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "reservoir-a-aft-snaps",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}
