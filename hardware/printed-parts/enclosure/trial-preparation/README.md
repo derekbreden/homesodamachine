@@ -190,10 +190,6 @@ gripping surface, with no local layer band or added support fins.
   layer above its floor and stops two empty layers under the caught face, 0.40 mm inside its
   edges. Automatic support is blocked on the caught faces and the ribbons, and the solid-host
   modifiers stop at the ribbons.
-- **`tie_windows`** — each rectangular print-down roof one zip-tie channel wide, inside the
-  exterior skin, is the top of a tie channel; its room down to the floor or the declared
-  cavity depth is a window. `blockers` puts a support blocker in each window;
-  `blocker_roof_overlap_mm` extends it into the requesting roof.
 - **`edge_fins`** — interrupted removable walls from the bed to a flat ceiling's exterior
   edge, with narrow blockers over their contact strips
   ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). `foot_outboard_mm`,
@@ -215,8 +211,8 @@ slicing), then the sliced archive:
 - emitted wall layers across each measured fine span, and ordinary layers through each
   six-wall band;
 - the complete model, support and brim bead envelope against the plate border;
-- support beads against the painted show faces, inside tie windows and inside the declared
-  support-free interiors;
+- support beads against the painted show faces and inside the declared support-free
+  interiors;
 - sampled bead coverage of the model section inside each solid-host modifier;
 - the second layer's beads over the first;
 - each object's support bodies, roots, build-up and interface islands, in plate and CAD

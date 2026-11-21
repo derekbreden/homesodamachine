@@ -186,7 +186,6 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
                 let z = foot.with_context(|| format!("{}: declare its transition band first", feature["name"]))?;
                 found.push(derive::ceiling_inset(&geo, feature, z)?);
             }
-            "tie_windows" => found.push(derive::tie_windows(&geo, feature)?),
             "support_region" => {
                 let (low, high) = pair(&feature["bounds_source_mm"])?;
                 let selected: Vec<usize> = mesh.faces.iter().enumerate().filter_map(|(i, face)| {
@@ -645,10 +644,10 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, bed_override: Option<
             "build_rotation": build_rotation, "translation_mm": translation,
             "plate_bounds_mm": [low, high], "model_bed_margin_mm": margin, "seam_enforcer": mesh.seam_record,
             "object_settings": part.get("object_settings").cloned().unwrap_or(json!({})), "features": [], "ranges": [],
-            "verify_spans": [], "ribbons": [], "tie_windows": [], "modifiers": [], "fins": [], "support_free_regions": []});
+            "verify_spans": [], "ribbons": [], "modifiers": [], "fins": [], "support_free_regions": []});
         for f in inst.features.iter() {
             let mut entry = f.record.clone();
-            for k in ["ribbons", "windows", "fins"] {
+            for k in ["ribbons", "fins"] {
                 entry.remove(k);
             }
             record["features"].as_array_mut().unwrap().push(Value::Object(entry.clone()));
@@ -676,26 +675,6 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, bed_override: Option<
                     let (v, fc) = box_mesh(sub3(lo, mesh.center), sub3(hi, mesh.center));
                     plate.add_part(index, &format!("{} support target", f.record["name"].as_str().unwrap_or("")), v, fc, "support_enforcer", vec![], None);
                     record.as_object_mut().unwrap().entry("support_targets").or_insert(json!([])).as_array_mut().unwrap().push(Value::Object(entry.clone()));
-                }
-                "tie_windows" => {
-                    let overlap = f.record["blocker_roof_overlap_mm"].as_f64().unwrap_or(0.0);
-                    for window in f.record["windows"].as_array().into_iter().flatten() {
-                        let (lo, hi) = pair(&window["box_print_mm"])?;
-                        let cs = corners(lo, hi);
-                        let placed: Vec<[f64; 3]> = cs.iter().map(|c| to_plate(*c)).collect();
-                        let (a, b) = bbox(&placed);
-                        let mut w = window.clone();
-                        w["box_plate_mm"] = json!([a, b]);
-                        record["tie_windows"].as_array_mut().unwrap().push(w);
-                        if f.record["blockers"].as_bool() == Some(true) {
-                            // Intersect the requesting roof; a blocker ending under it leaves supports inside.
-                            let raised: Vec<[f64; 3]> = cs.iter().map(|c| if c[2] == hi[2] { [c[0], c[1], c[2] + overlap] } else { *c }).collect();
-                            let local: Vec<[f64; 3]> = raised.iter().map(|c| mesh.print_to_local(*c)).collect();
-                            let (llo, lhi) = bbox(&local);
-                            let (v, fc) = box_mesh(llo, lhi);
-                            plate.add_part(index, "Tie channel support exclusion", v, fc, "support_blocker", vec![], None);
-                        }
-                    }
                 }
                 "edge_fins" => {
                     for fin in f.record["fins"].as_array().into_iter().flatten() {
@@ -869,9 +848,9 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, bed_override: Option<
     std::fs::write(directory.join("preparation.json"), serde_json::to_string_pretty(&preparation)? + "\n")?;
     println!("{}", relative(&project, root));
     for record in &records {
-        println!("  {}: yaw {}, model margin {:.1} mm, ranges {}, tie windows {}, modifiers {}", record["name"].as_str().unwrap_or(""),
+        println!("  {}: yaw {}, model margin {:.1} mm, ranges {}, modifiers {}", record["name"].as_str().unwrap_or(""),
                  record["yaw_degrees"], record["model_bed_margin_mm"].as_f64().unwrap_or(0.0), record["ranges"].as_array().map_or(0, Vec::len),
-                 record["tie_windows"].as_array().map_or(0, Vec::len), record["modifiers"].as_array().map_or(0, Vec::len));
+                 record["modifiers"].as_array().map_or(0, Vec::len));
     }
     Ok(directory)
 }
