@@ -1,0 +1,754 @@
+{
+  "archive": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.gcode.3mf",
+  "archive_sha256": "b71745b0509d742ef01e7f927bb2911216fe868d17b839534bb0d81d6a86ae4c",
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 12324.72615875264,
+    "archive_sha256": "b71745b0509d742ef01e7f927bb2911216fe868d17b839534bb0d81d6a86ae4c",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "7aebcabce0de840f296d8463b6a15fbdf10a2d04bd2fe7d828e37726110c4ba5",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 12324.72615875264,
+        "changed": true,
+        "input_gcode_sha256": "1cfb37ba646aefb2ffc138b7b2676115949ce5b71a03a1d5caaa1a52dc6dbf5b",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 4645,
+        "ordinary_model_moves": 5933318,
+        "output_gcode_sha256": "b5262f9124601c9954e37d2cd18ebe6c789e6d20648f8a63433fdf4e956be8a7",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Floating vertical shell": [
+            91.0,
+            402.31500000000096,
+            24.726490121460788
+          ],
+          "Gap infill": [
+            14.0,
+            5.015740179738114,
+            0.31315514019963897
+          ],
+          "Inner wall": [
+            293.0,
+            657.5394311952214,
+            38.02357234205288
+          ],
+          "Internal solid infill": [
+            8445.0,
+            196488.24250411737,
+            12133.06350390332
+          ],
+          "Outer wall": [
+            770.0,
+            1378.5166168730825,
+            50.85165189067962
+          ],
+          "Sparse infill": [
+            1995.0,
+            1267.2124819560665,
+            77.74778535514412
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 11608,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 11570
+      }
+    ]
+  },
+  "emitted_textured_trim_mm": 0.02,
+  "estimated_seconds": 162818.21053375263,
+  "gcode_sha256": "b5262f9124601c9954e37d2cd18ebe6c789e6d20648f8a63433fdf4e956be8a7",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 53703,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 35802,
+      "features": [],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 21.300003051757812,
+      "modifiers": [
+        {
+          "name": "M5 host 1, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              91.2,
+              0.0010000000000047748
+            ],
+            [
+              35.89999999999999,
+              108.8,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -141.19899694824218,
+              -68.8,
+              0.001
+            ],
+            [
+              -126.60000000000001,
+              -51.2,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 2, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              151.2,
+              0.0010000000000047748
+            ],
+            [
+              35.89999999999999,
+              168.8,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -141.19899694824218,
+              -8.8,
+              0.001
+            ],
+            [
+              -126.60000000000001,
+              8.8,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 3, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              21.301003051757817,
+              211.2,
+              0.0010000000000047748
+            ],
+            [
+              35.89999999999999,
+              228.8,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              -141.19899694824218,
+              51.2,
+              0.001
+            ],
+            [
+              -126.60000000000001,
+              68.8,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 4, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              289.1,
+              91.2,
+              0.0010000000000047748
+            ],
+            [
+              303.6989969482422,
+              108.8,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              126.60000000000001,
+              -68.8,
+              0.001
+            ],
+            [
+              141.19899694824218,
+              -51.2,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 5, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              289.1,
+              151.2,
+              0.0010000000000047748
+            ],
+            [
+              303.6989969482422,
+              168.8,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              126.60000000000001,
+              -8.8,
+              0.001
+            ],
+            [
+              141.19899694824218,
+              8.8,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 6, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              289.1,
+              207.2,
+              0.0010000000000047748
+            ],
+            [
+              303.6989969482422,
+              224.8,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              126.60000000000001,
+              47.2,
+              0.001
+            ],
+            [
+              141.19899694824218,
+              64.8,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 7, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              198.7,
+              69.80100305175782,
+              0.0010000000000047748
+            ],
+            [
+              216.3,
+              84.39999999999999,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              36.2,
+              -90.19899694824218,
+              0.001
+            ],
+            [
+              53.8,
+              -75.60000000000001,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 8, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              198.7,
+              235.60000000000002,
+              0.0010000000000047748
+            ],
+            [
+              216.3,
+              250.19899694824218,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              36.2,
+              75.60000000000001,
+              0.001
+            ],
+            [
+              53.8,
+              90.19899694824218,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 9, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              263.7,
+              69.80100305175782,
+              0.0010000000000047748
+            ],
+            [
+              281.3,
+              84.39999999999999,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              101.2,
+              -90.19899694824218,
+              0.001
+            ],
+            [
+              118.8,
+              -75.60000000000001,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "M5 host 10, both inserts, tail and wall root",
+          "plate_bounds_mm": [
+            [
+              263.7,
+              235.60000000000002,
+              0.0010000000000047748
+            ],
+            [
+              281.3,
+              250.19899694824218,
+              225.84900610351562
+            ]
+          ],
+          "source_bounds_mm": [
+            [
+              101.2,
+              75.60000000000001,
+              0.001
+            ],
+            [
+              118.8,
+              90.19899694824218,
+              225.84900610351562
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "name": "foam-shell",
+      "object_id": 2,
+      "object_settings": {},
+      "plate_bounds_mm": [
+        [
+          21.300003051757812,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          303.6999969482422,
+          250.1999969482422,
+          225.85000610351562
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "regions": {
+        "part_process_overrides": null,
+        "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+        "record_sha256": "ec6e5b5856c2cf82d3535539de6fd266483050d6865560115d580d7b5330d6d9"
+      },
+      "ribbons": [],
+      "seam_enforcer": {
+        "axis": "y",
+        "center_mm": 88.95,
+        "face_axis": "x",
+        "face_coordinate_mm": 4.75,
+        "face_sign": -1,
+        "half_width_mm": 0.25,
+        "maximum_source_facet_area_error_mm2": 2.27018404075352e-12,
+        "maximum_source_plane_error_mm": 2.9309441606047142e-15,
+        "painted_facets": 5,
+        "project_facets": 35802,
+        "reason": "Seat the plain seam in the seam channel's +X inside corner: a strip of the channel's side wall along that corner, the full height of the shell, where it faces across the channel rather than out of it.",
+        "source_facets": 34234
+      },
+      "source_center_mm": [
+        0.0,
+        0.0,
+        112.92500305175781
+      ],
+      "step_sha256": "3fc58a2945d3906a8e47f755b8ce768ec38719ccd99a581e12bf8e6acfff7feb",
+      "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+      "stl_sha256": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
+      "support_free_regions": [],
+      "translation_mm": [
+        162.5,
+        160.0,
+        112.92500305175781
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    }
+  ],
+  "pause": null,
+  "piece": "foam-shell",
+  "plate_border_mm": 20.0,
+  "plate_offset_mm": null,
+  "prepared_utc": "2026-11-21T09:08:35+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.04,
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.profile.json",
+      "sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    }
+  },
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "project": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.3mf",
+  "project_sha256": "c865c927880fd2028a960cbb8e5d98d923e48314fbff6c5fa888aff4614c7793",
+  "requested_z_trim_mm": 0.04,
+  "settings_changes": {
+    "default_acceleration": {
+      "from": [
+        "8000",
+        "8000",
+        "8000",
+        "8000",
+        "8000"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls.",
+      "to": [
+        "3000",
+        "3000",
+        "3000",
+        "3000",
+        "3000"
+      ]
+    },
+    "enable_support": {
+      "from": "1",
+      "reason": "Allow removable support at accessible surfaces. The blind insert recesses, screw-tail recesses and short copper passages use their own roof geometry or bridge across their walls.",
+      "to": "1"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "filament_density": {
+      "from": [
+        "1.29"
+      ],
+      "reason": "Polymaker Fiberon PET-GF15 TDS density is 1.43 g/cm3; this corrects feed-mass and cost reporting without changing extrusion volume. https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf",
+      "to": [
+        "1.43"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "inner_wall_acceleration": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls.",
+      "to": [
+        "3000",
+        "3000",
+        "3000",
+        "3000",
+        "3000"
+      ]
+    },
+    "inner_wall_speed": {
+      "from": [
+        "300",
+        "300",
+        "300",
+        "300",
+        "300"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls.",
+      "to": [
+        "150",
+        "150",
+        "150",
+        "150",
+        "150"
+      ]
+    },
+    "outer_wall_acceleration": {
+      "from": [
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls.",
+      "to": [
+        "1500",
+        "1500",
+        "1500",
+        "1500",
+        "1500"
+      ]
+    },
+    "outer_wall_speed": {
+      "from": [
+        "200",
+        "200",
+        "200",
+        "200",
+        "200"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls.",
+      "to": [
+        "100",
+        "100",
+        "100",
+        "100",
+        "100"
+      ]
+    },
+    "requested_z_trim_mm": {
+      "from": 0.1,
+      "reason": "A large contact area on the print bed calls for the lower PET-GF trim on textured PEI.",
+      "to": 0.04
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "reason": "Retain 15% gyroid in thicker regions.",
+      "to": "gyroid"
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_style": {
+      "from": "default",
+      "reason": "Use the saved automatic tree style for accessible supports.",
+      "to": "default"
+    },
+    "support_type": {
+      "from": "tree(auto)",
+      "reason": "Generate branches only where the native overhang reading requests accessible support.",
+      "to": "tree(auto)"
+    },
+    "travel_acceleration": {
+      "from": [
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "10000"
+      ],
+      "reason": "Full-height production shell: gentler deposition and motion through the continuous 2.38 mm walls.",
+      "to": [
+        "5000",
+        "5000",
+        "5000",
+        "5000",
+        "5000"
+      ]
+    },
+    "wall_generator": {
+      "from": "classic",
+      "reason": "Three fixed-width perimeters from each wall boundary.",
+      "to": "classic"
+    },
+    "wall_loops": {
+      "from": "2",
+      "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads.",
+      "to": "3"
+    }
+  },
+  "settings_sha256": "83f92ea0f3279d6f82f9dd65d15ed9b1bf7016285ee6d8e5364d84d2664a24b6",
+  "show_faces": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/show-faces.npz",
+  "sliced": true,
+  "slicer_warnings": [],
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "53f4135a69e283aa0d6d6c99b2c15cd839610203901d7856625a63da6972a74b",
+  "submitted": false,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "10c2089afdc08d37f8a46564b8166d61af35a2f6e4de1c341548918ee3b8d393",
+    "tools/hsm/print-prep/src/approaches.rs": "5bf7b4ba8fdbf626534a9f95d048f34cd06b15e9b8eb078d498cec468fccbe29",
+    "tools/hsm/print-prep/src/audit.rs": "d3ee1a1527218b235dcdc9541bcc48eedb737833c22627363a3d95a416498b2c",
+    "tools/hsm/print-prep/src/base_foundation.rs": "dc54df99d1bbd512b50a7261db9f85d4b43fb6513432ab872146ac4a4acf8edf",
+    "tools/hsm/print-prep/src/cooling.rs": "e56accc63143f90c84cbb2f566664500884cd71201238552b104ee18cfaf6a33",
+    "tools/hsm/print-prep/src/course_field.rs": "bc81cf55189faea828141e3ad56bc43fd5112511ff67dbe8da5e070893990b57",
+    "tools/hsm/print-prep/src/derive.rs": "32feb840389e4e7010e4b52075a95f9a53bd5d7d69e7604e6b4763032c0338df",
+    "tools/hsm/print-prep/src/faucet.rs": "39fc4ae61ebccda26039e9a5c3d09c8e91b7c028f1a886eecd51446bdff74f75",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "4d9723455214bc90329f3c61f858758259a305cca925003ba96314f1c3f7844f",
+    "tools/hsm/print-prep/src/faucet_plate.rs": "5c2255971377893cbb937966d92528d7ed85cf79499e0bca9eaba089c3cd50a8",
+    "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/feed_cap.rs": "e2b3652363fea2dc8436cc373fe125b6d583aaeb8378974e8986cbac88561f18",
+    "tools/hsm/print-prep/src/filled_base.rs": "5e4012e59975694f8d51dabdf9704d160ca44d8c55d34c211d07a8929e6c9cf8",
+    "tools/hsm/print-prep/src/foundation_sequence.rs": "97541500add2abceef652ef7a4e1d9683234a794dc6a44093cce53a1a3374731",
+    "tools/hsm/print-prep/src/gcode.rs": "7308b7d617941ccceade09d8d451dc2799df0a2236b1bc4e34a9af28c99d173e",
+    "tools/hsm/print-prep/src/head_map.rs": "f05abcd30e5f7ecd3035e69a0cd2fadd504f0632e4453cb494734ed6f6155853",
+    "tools/hsm/print-prep/src/head_replay.rs": "55c91c184e3e4d73d9b8b15a01baa9cb99a7dd357e31c9336d1ac2a5a40cb0c0",
+    "tools/hsm/print-prep/src/ids.rs": "ecd56bf93b5c1f08b1b8d6f36d983d5a18e1b123c138f5a9884b7fe2f786fbec",
+    "tools/hsm/print-prep/src/lib.rs": "3b7352c81877ee7998807230975c9354fd903f5a8b818baf2a8560b6017d07a1",
+    "tools/hsm/print-prep/src/mesh.rs": "47a9d52e10d0c8cae37eebe42f224480dba51fbe8f743e0ddb8f3d993ccdba65",
+    "tools/hsm/print-prep/src/motion.rs": "27fde46e9a2956e24be849c723dd2b81a922f15dd960362607e959e4b4b47bde",
+    "tools/hsm/print-prep/src/npz.rs": "23c7d5acbe636050d8e095f83943186709027f75b7e01623652c8d235baead21",
+    "tools/hsm/print-prep/src/plate_picture.rs": "a00385d94945c24e54605584f5de54dbd488a776de0bb24858426283c47c0345",
+    "tools/hsm/print-prep/src/plate_rings.rs": "097d6b48ead23ae4c40f59c880cf14bd3d617e9244aac3a4dcc05f9a2b50cca2",
+    "tools/hsm/print-prep/src/plate_sequence.rs": "054606df22b5ceb4d7fb922742019854a390f960e1b72671b2615b31cc4eb1a4",
+    "tools/hsm/print-prep/src/preset.rs": "8897253423900e99f4df09890a747ce633abc4a1c2b3ab73a6119183d3444770",
+    "tools/hsm/print-prep/src/profile.rs": "205384a98e03cfc79498fd1011d300a8b170452593cdf78f4d1a4cc9a91bf7f9",
+    "tools/hsm/print-prep/src/project.rs": "4fcd588d4704c42a82eda45074181419ea47a2b6918131729a3ad952991f54f9",
+    "tools/hsm/print-prep/src/refresh.rs": "2981218c8a9b5e5ff6ad3500644b7d34ee8705e2cb648e1229d39dccbdb8946c",
+    "tools/hsm/print-prep/src/review.rs": "0e985ef76e2bdbcf44f463c9a3bb4aa52441cb04c5c96f440abb3bf643c4ae55",
+    "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
+    "tools/hsm/print-prep/src/slice.rs": "6edbd05ee86cc7d5ab70b28a2f353ee482ee129eb3f70d7a470b72de8eab0c6a",
+    "tools/hsm/print-prep/src/sloped_courses.rs": "4d0bc66757be4465463b837bb151a0cc2524890173637017a1cbbafad217e0f6",
+    "tools/hsm/print-prep/src/stretch_cooling.rs": "2e68af6908e25fa12b29df744991546e86ed7102a6b61b317577fde59ac0c26b",
+    "tools/hsm/print-prep/src/support_stock.rs": "dca974e9035239b0661fffc159a23e4b312241f4a511eb830439cdc1a71b1847",
+    "tools/hsm/print-prep/src/tip_audit.rs": "2957f4a44e8d73f4497b2f6aaf874c2354a017e5ffd5142ff6ffcf20ad0c2d09",
+    "tools/hsm/print-prep/src/tip_courses.rs": "98f53ebfa27d80347db52c22a261585b29abc14b9a9f21b8754b7a0bceae173c",
+    "tools/hsm/print-prep/src/tip_foundation.rs": "4d9b5630a162877506c0df5b6d4cabcbffa8734a32c20db95e89148973e84f4f",
+    "tools/hsm/print-prep/src/tip_supports.rs": "d9c7bd831f4d23324b76131bcba1c3af3c9f392696b5bb1721bcfdfcaf6a6216",
+    "tools/hsm/print-prep/src/tip_warp.rs": "675aae67e5d36ddfdf6c52a572e09f523ba6eca5956a9903ad5c03396f912a23",
+    "tools/hsm/print-prep/src/trial_archive.rs": "0cc8dd5c1a459619ea652a46d216e94a2b8a24caf668e5c2d914b0070ac5271e",
+    "tools/hsm/print-prep/src/xml.rs": "6223880bf228c5c0092df6b2f3728fd792bff174ac3ef243e7d81d659f223407"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}

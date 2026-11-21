@@ -11,6 +11,6 @@ A closing wall that ends beside a screw host now runs on to the host's axis. Its
 
 The closing walls join the casing with the screw hosts, before any passage is cut, so the screw's passage through the host is whole.
 
-The shell's lint reported the strip as a sliver and reports none now.
+The shell's lint reported the strip as a sliver and reports none now. The shell's print plan is sliced from this shell.
 
 Derek, after the same kind of sliver came off the lid: "Yes, fix it"

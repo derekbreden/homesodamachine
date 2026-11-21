@@ -1,0 +1,84 @@
+{
+  "purpose": "Bind the current foam-shell mesh to its production project, native slice and published replay.",
+  "piece": "foam-shell",
+  "material_id": "HSM-0018",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "status": "prepared",
+  "prepared_utc": "2026-11-21T09:08:35+00:00",
+  "source_revision": "378c0fedcec1859b18ba529cbb7e999b6d8e393a",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "53f4135a69e283aa0d6d6c99b2c15cd839610203901d7856625a63da6972a74b",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+  "source_stl_sha256": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
+  "source_fine_archive": "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.npz",
+  "source_fine_archive_sha256": "4ffa4ea8ade04d5878b651d706a9d086ed88fa9e109ba5360347aa3e3b128789",
+  "print_regions": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+  "print_regions_sha256": "ec6e5b5856c2cf82d3535539de6fd266483050d6865560115d580d7b5330d6d9",
+  "archive": "2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.gcode.3mf",
+  "archive_sha256": "b71745b0509d742ef01e7f927bb2911216fe868d17b839534bb0d81d6a86ae4c",
+  "gcode_sha256": "b5262f9124601c9954e37d2cd18ebe6c789e6d20648f8a63433fdf4e956be8a7",
+  "project": "2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.3mf",
+  "project_sha256": "c865c927880fd2028a960cbb8e5d98d923e48314fbff6c5fa888aff4614c7793",
+  "preparation": "2026-11-21-foam-shell-mark2-da7ae809/preparation.json",
+  "native_review": "2026-11-21-foam-shell-mark2-da7ae809/review.json",
+  "support_audits": [
+    "2026-11-21-foam-shell-mark2-da7ae809/support-audit-1901.json"
+  ],
+  "layers": 941,
+  "estimated_seconds": 162818.21053375263,
+  "minimum_bead_bed_margin_mm": 21.106236999999965,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 0.00003327734708747703,
+      "layer_ranges": [],
+      "modifiers_expected": 10,
+      "name": "foam-shell",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 10,
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          21.300003051999994,
+          69.800003052,
+          0
+        ],
+        [
+          303.69999694800003,
+          250.199996948,
+          225.850006104
+        ]
+      ],
+      "seam_painted_facets": 5,
+      "source_comparison": "vertices and facet centroids against the source STL surface",
+      "source_sha256_matches": true,
+      "vertices": 17891
+    }
+  ],
+  "replay_sha256": "0c6cc41f937365cbe62f0be2692be29fc87a9a142006f3548e31b0b79f27f8b2",
+  "replay": "print-playbacks/0c6cc41f937365cbe62f0be2692be29fc87a9a142006f3548e31b0b79f27f8b2.json.gz",
+  "replaced_replay_sha256": "be7e992d27b7dc7b8c9d22e1ef1ad9c771b4d3a7da470a9f457d8b6329e04f6c"
+}

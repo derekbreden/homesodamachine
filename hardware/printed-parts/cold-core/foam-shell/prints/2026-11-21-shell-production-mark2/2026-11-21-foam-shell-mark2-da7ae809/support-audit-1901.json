@@ -1,0 +1,61 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -160.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -160.0,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "b5262f9124601c9954e37d2cd18ebe6c789e6d20648f8a63433fdf4e956be8a7",
+    "model": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+    "model_sha256": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
+    "profile": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/2026-11-21-foam-shell-mark2-da7ae809/2026-11-21-foam-shell-mark2-da7ae809.3mf",
+    "profile_sha256": "c865c927880fd2028a960cbb8e5d98d923e48314fbff6c5fa888aff4614c7793"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "foam-shell",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}
