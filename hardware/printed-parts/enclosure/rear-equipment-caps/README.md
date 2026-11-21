@@ -23,7 +23,9 @@ bearing between its independent leaves. It spans 41.704 mm in Y, ending at
 Y462.05 before a full 3 mm receiver end wall and the PISCO's rear-wall bore.
 The meter cap enters from the west
 and has a solid 9 mm spine, shaped bearing stock extending toward the housing,
-and two complete 38 mm-long leaves. A 6 mm lower outside corner bevel clears
+and two sideways spring leaves. The upper leaf ends at the fore wall of the
+Pisco receiver to make room for the Pisco cover to tip into its seat. The
+lower leaf and spine run the length of the meter cover. A 6 mm lower outside corner bevel clears
 the A-fill tube while retaining the 9 mm central spine, full fitted bearing
 and spring-root geometry. Its flexible
 leads turn west against the housing above the lower leaf. The water regulator
@@ -78,7 +80,7 @@ surrounding service room open.
 
 The ASSE and Pisco receivers have plain end walls around their fitted passages
 and wing catches. Their ceiling recess runs between the flanks and flush to the
-rear wall. The meter's hook channels return to the flank on bevels, and its wire
+rear wall. The aft shoulder above the meter bosses is recessed beneath the Pisco cover's approach. The meter's hook channels return to the flank on bevels, and its wire
 pocket also runs flush to the flank. The catch pockets stay clear of supports;
 the lip under the meter cap's upper leaf prints on removable support.
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The

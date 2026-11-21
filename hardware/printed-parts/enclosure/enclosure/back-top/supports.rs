@@ -2,7 +2,7 @@
 //! the flow meter's and the water regulator's. Each is a block cut round its part's measured
 //! profile, with the flank pockets its snap cap's spring wings ride in.
 use crate::catalog::{clearance, running, slip};
-use crate::layout::{Pose, Station, layout, snap_tip_air, snap_tip_rise, PISCO_WING_AFT_Y, REAR_SNAP_CHAMFER_SLOPE};
+use crate::layout::{Pose, Station, layout, meter_upper_catch_end_y, snap_tip_air, snap_tip_rise, PISCO_WING_AFT_Y, REAR_SNAP_CHAMFER_SLOPE};
 use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
 use crate::quadrant::sorted;
 use crate::shapes::place;
@@ -264,9 +264,11 @@ fn catch_pocket(g: &mut Graph, s: &Station, side: f64, [y0, y1]: P2) -> Shape {
 fn meter_catch_pockets(g: &mut Graph, s: &Station) -> Vec<Shape> {
     let middle = (s.bearing + s.ceiling + (s.ledge - s.outer) / corbel_slope()) / 2.0;
     let near = s.ledge - (middle - s.bearing) * corbel_slope();
-    [-1.0, 1.0].into_iter().map(|side| {
+    let upper_end = meter_upper_catch_end_y(&pisco_station());
+    // The quarter turn onto the east flank takes the negative side of the station upward.
+    [(-1.0, upper_end), (1.0, s.y1 + running())].into_iter().map(|(side, end)| {
         let at = |x: f64| s.axis_x + side * x;
-        g.prism(1, s.y0 - running(), s.y1 + running(),
+        g.prism(1, s.y0 - running(), end,
             vec![[at(s.outer), s.ceiling], [at(s.outer + 1.0), s.ceiling],
                  [at(s.outer + 1.0), s.bearing], [at(s.ledge), s.bearing], [at(near), middle]])
     }).collect()
@@ -325,7 +327,7 @@ pub fn interiors() -> Vec<Interior> {
                         meter_wire_chamber_bounds()[4] - 2.0 * a];
     let middle = (meter.bearing + meter.ceiling + meter.ledge - meter.outer) / 2.0;
     let near = meter.ledge - (middle - meter.bearing);
-    let upper_pocket = [stock[0] + meter.bearing, side(), cap[0] - a, cap[1] + a,
+    let upper_pocket = [stock[0] + meter.bearing, side(), cap[0] - a, meter_upper_catch_end_y(&pisco),
                         stock[5] - meter.outer + near - a, stock[5] - meter.outer + meter.ledge - a];
     vec![
         Interior { name: "ASSE west catch pocket", bounds: pocket(&asse, -1.0), grows: vertical, reason: reached },
@@ -348,8 +350,10 @@ pub fn interiors() -> Vec<Interior> {
 pub fn meter_shoulder_targets() -> [Bounds; 2] {
     let a = running();
     let (stock, cap, s) = meter_print_stock();
+    let aft_roof = meter_aft_shoulder_z(stock[5] - s.outer);
     [[stock[0], side(), stock[2], cap[0] - 2.0 * a, stock[5] - a, stock[5] + a],
-     [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[1] + 2.0 * a, stock[3], stock[5] - a, stock[5] + a]]
+     [stock[0], stock[0] + s.bearing - WALL / 2.0, meter_upper_catch_end_y(&pisco_station()) + a, stock[3],
+      aft_roof - a, aft_roof + a]]
 }
 
 /// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
@@ -360,7 +364,7 @@ pub fn meter_lip_target() -> Bounds {
     let a = running();
     let (stock, cap, s) = meter_print_stock();
     let lip = stock[5] - s.outer + s.ledge;
-    [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[0] - a, cap[1] + a, lip - a, lip + a]
+    [stock[0], stock[0] + s.bearing - WALL / 2.0, cap[0] - a, meter_upper_catch_end_y(&pisco_station()), lip - a, lip + a]
 }
 
 /// The meter's downhill slide and wire floors face the bed in the ceiling-down pose.
@@ -646,6 +650,11 @@ fn stadium(g: &mut Graph, y: f64, z: f64, radius: f64, span: P2, fore: f64, aft:
     g.add(Op::StadiumX { y, z, radius, fore, aft, span }, vec![], Some(bounds))
 }
 
+/// The shoulder under the Pisco insertion path keeps a full wall over the meter's upper boss channel.
+fn meter_aft_shoulder_z(centre_z: f64) -> f64 {
+    centre_z + meter::BOSS_Z + meter::BOSS_RADIUS + METER_HOUSING_FIT + WALL
+}
+
 /// The meter's seat on the east flank: its housing, cover bosses and screw heads swept aft along
 /// its slide, the soda port's collar sleeves, and the chamber its wire lead leaves through. Its
 /// station stands across X, so its pockets turn a quarter about Y onto its axis.
@@ -694,7 +703,9 @@ fn meter(g: &mut Graph) -> Shape {
     let wire = g.box_(meter_wire_chamber_bounds());
     cup = g.union(cup, &[wire]);
     let stock = g.box_([mx, side() + INTO, ty + METER_SEAT[0], ty + METER_SEAT[1], mz - st.outer, mz + st.outer]);
-    let mut cuts = vec![cup];
+    let entry = g.box_([mx, side() + INTO, meter_upper_catch_end_y(&pisco_station()), ty + METER_SEAT[1],
+                        meter_aft_shoulder_z(mz), mz + st.outer]);
+    let mut cuts = vec![cup, entry];
     let mut lanes = wing_lanes(g, &st);
     lanes.extend(meter_catch_pockets(g, &st));
     for pocket in lanes {

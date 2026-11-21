@@ -1,6 +1,6 @@
 {
   "purpose": "Bind the rear enclosure corner and its matching ASSE, Pisco and meter covers to the job accepted by Mark2.",
-  "status": "running",
+  "status": "completed",
   "source_commit": "27a135045892f0ebc8bf0111188ab9a9a25539b4",
   "printer": "Mark2",
   "printer_task_id": "1467454877",
@@ -82,5 +82,6 @@
     "flow_calibration": "Auto",
     "nozzle_offset_calibration": "Auto"
   },
-  "answers": "https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json"
+  "answers": "https://github.com/derekbreden/homesodamachine/blob/2280aec49910075cbd4cb7280585c954d8206eb9/hardware/print-tests/rear-equipment-corner/prints/2026-11-18-mark2/physical-result/physical-result.json",
+  "physical_result": "physical-result/physical-result.json"
 }

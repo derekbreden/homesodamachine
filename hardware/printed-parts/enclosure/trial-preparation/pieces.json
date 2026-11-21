@@ -2171,7 +2171,7 @@
       "settings": {
         "curr_bed_type": {
           "value": "Textured PEI Plate",
-          "reason": "Print the enclosure corner and its caps on Mark2 textured PEI."
+          "reason": "Print the enclosure corner and its meter cover on Mark2 textured PEI."
         },
         "max_bridge_length": {
           "value": "0",
@@ -2221,11 +2221,11 @@
         },
         "timelapse_type": {
           "value": "0",
-          "reason": "The complete corner and cap batch provides time away between spring layers."
+          "reason": "Travel to the enclosure corner gives the meter spring time to cool."
         },
         "enable_prime_tower": {
           "value": "0",
-          "reason": "The complete corner and cap batch provides the cooling interval without a tower."
+          "reason": "The corner and meter cover print together on the textured plate."
         }
       },
       "parts": [
@@ -2248,70 +2248,6 @@
               "reason": "Retain the production support contacts and clear chamfered wing channels in the complete enclosure corner."
             }
           ]
-        },
-        {
-          "name": "asse-snap-cap",
-          "stl": "hardware/print-tests/rear-equipment-corner/parts/asse-snap-cap.stl",
-          "object_settings": {
-            "wall_loops": {
-              "value": "3",
-              "reason": "Three Classic loops and solid infill retain the complete 2.0 mm spring section."
-            },
-            "wall_generator": {
-              "value": "classic",
-              "reason": "Fixed-width PET-GF perimeter recipe."
-            },
-            "sparse_infill_density": {
-              "value": "100%",
-              "reason": "Solid stock through the cap bodies, leaves, roots and hooks."
-            },
-            "sparse_infill_pattern": {
-              "value": "zig-zag",
-              "reason": "Solid cap deposition."
-            },
-            "support_type": {
-              "value": "tree(auto)",
-              "reason": "Retain the cap recipe for accessible fitted body surfaces."
-            },
-            "support_style": {
-              "value": "default",
-              "reason": "Retain the cap recipe for accessible fitted body surfaces."
-            }
-          }
-        },
-        {
-          "name": "pisco-snap-cap",
-          "stl": "hardware/print-tests/rear-equipment-corner/parts/pisco-snap-cap.stl",
-          "object_settings": {
-            "wall_loops": {
-              "value": "3",
-              "reason": "Three Classic loops and solid infill retain the complete 2.0 mm spring section."
-            },
-            "wall_generator": {
-              "value": "classic",
-              "reason": "Fixed-width PET-GF perimeter recipe."
-            },
-            "sparse_infill_density": {
-              "value": "100%",
-              "reason": "Solid stock through the cap bodies, leaves, roots and hooks."
-            },
-            "sparse_infill_pattern": {
-              "value": "zig-zag",
-              "reason": "Solid cap deposition."
-            },
-            "support_type": {
-              "value": "tree(auto)",
-              "reason": "Retain the cap recipe for accessible fitted body surfaces."
-            },
-            "support_style": {
-              "value": "default",
-              "reason": "Retain the cap recipe for accessible fitted body surfaces."
-            },
-            "enable_support": {
-              "value": "0",
-              "reason": "The cap retains its support-free production end pose."
-            }
-          }
         },
         {
           "name": "meter-snap-cap",
@@ -2352,7 +2288,7 @@
         "value": true,
         "reason": "Finish clearance stays inside the saved printer's vertical travel."
       },
-      "pose_reason": "The enclosure corner retains the production ceiling-down layer direction and roof datum; its matching caps stand on their production axial ends.",
+      "pose_reason": "The enclosure corner retains the production ceiling-down layer direction and roof datum; its meter cover stands on its production axial end.",
       "z_trim_mm": {
         "value": 0.04,
         "reason": "Retain the production enclosure roof contact on textured PEI for the complete corner coupon."

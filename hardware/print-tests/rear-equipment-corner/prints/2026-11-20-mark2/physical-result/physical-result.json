@@ -1,0 +1,13 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1467454877",
+  "reported_at": "2026-11-21T17:44:54.372Z",
+  "observation": "The Pisco cover catches the flow-meter receiver as it tips into the corner. The photos show the approach with the other covers out.",
+  "derek": "I'd like to be able to insert the snap for the Pisco like I'm showing in the picture here. I don't think it would take much. There's just that very small part of the flow meter, that the flow meter's receiver that's in the way there. I think if we simply shorten the flow meter wing on that side and create clearance for exactly what I'm showing you there, that will be good. So I'd like you to please make that change and start a new print of the pieces that changed, which I think will be in the enclosure itself, as well as the flow meter receiver. But I think the Pisco and ASSE snap covers can stay the same. Sorry, the flow meter cover will need to be reprinted, I think, along with the enclosure. So please implement and start a new print on one of the available printers. Thanks.",
+  "photos": [
+    "01-pisco-angled-entry.jpg",
+    "02-pisco-angled-entry.jpg",
+    "03-pisco-angled-entry.jpg",
+    "04-pisco-angled-entry.jpg"
+  ]
+}

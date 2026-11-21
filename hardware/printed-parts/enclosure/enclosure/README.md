@@ -771,7 +771,7 @@ recessed ceiling. The receivers have plain end walls around the fitted
 passages and wing catches. The Pisco leaves stop ahead of the corner column,
 with the fitted body span retained.
 
-The meter's fore shoulder, the lip its cap's upper leaf rides over and the
+The meter's upper catch ends at the Pisco receiver's fore wall. Its aft shoulder drops to the wall over the meter boss channel, giving the tilted Pisco cover room to swing in. The meter's fore shoulder, the shortened lip its cap's upper leaf rides over and the
 open west edge of its aft shoulder take removable support through the open
 west side. The aft shoulder's first course bridges from its west edge to the
 flank. Each sideways hook channel returns to the flank on a bevel rather than a

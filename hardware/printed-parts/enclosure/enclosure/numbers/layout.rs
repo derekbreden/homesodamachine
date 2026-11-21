@@ -210,3 +210,8 @@ pub fn snap_tip_air() -> f64 {
 pub const REAR_SNAP_CHAMFER_SLOPE: f64 = 1.0;
 /// The Pisco leaves stop ahead of the rear corner column.
 pub const PISCO_WING_AFT_Y: f64 = 457.911;
+
+/// The meter's upper catch ends at the fore face of the Pisco receiver's end wall.
+pub fn meter_upper_catch_end_y(pisco: &Station) -> f64 {
+    pisco.y0 - crate::catalog::running() - crate::shell::WALL
+}
