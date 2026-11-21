@@ -28,7 +28,7 @@ opens once the Founder Edition run is committed out.
 
 The alternatives a buyer has today are hauling cans, or a countertop carbonator that fizzes warm
 water into a bottle that is flat before it reaches the glass
-([`/marketing/competitors/sodastream.md`](/marketing/competitors/sodastream.md)).
+([archived SodaStream notes](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/marketing/competitors/sodastream.md)).
 
 ## What install asks
 
@@ -102,7 +102,7 @@ that now.
 
 Derek bought his first home in August 2025 and was back on YouTube researching home soda by
 October, fifteen years after giving up on a SodaStream
-([`/biography/2026-04-05.md`](/biography/2026-04-05.md)). The frustration had been there the
+([archived founding chapter](https://github.com/derekbreden/homesodamachine/blob/ab742311ac0cadb7d16e95c3272dac99a5dab130/biography/2026-04-05.md)). The frustration had been there the
 whole time. The house gave it somewhere to go.
 
 ## Qualifying filters

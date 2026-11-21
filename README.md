@@ -4,7 +4,7 @@ A kitchen appliance that dispenses real Pepsi-made diet soda — Diet Mountain D
 
 The public face of the project is **[homesodamachine.com](https://homesodamachine.com)** — what this is, the 3D viewer, and a single signup form to be notified when units are available. This repository is the working substrate behind that.
 
-The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water. The project's biography lives in [`biography/`](/biography/) — [`2026-04-05.md`](/biography/2026-04-05.md) (origin story: failed SodaStream, the business-license wall, the AI design wall) and [`2026-05-23.md`](/biography/2026-05-23.md) (vision into work: welding, marketing, the engineering).
+The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water.
 
 The product under development is an integrated under-counter soda machine — custom-fabricated 316L stainless carbonator, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. The machine as it stands, subsystem by subsystem: [`hardware/README.md`](/hardware/README.md). Where it is going and what done looks like: [`future/README.md`](/future/README.md). Who it is for: [`marketing/target-market.md`](/marketing/target-market.md); the cabinet it has to fit: [`marketing/install-envelope.md`](/marketing/install-envelope.md).
 
@@ -12,7 +12,6 @@ The product under development is an integrated under-counter soda machine — cu
 
 | Path | Contents |
 |---|---|
-| [`biography/`](/biography/) | Project biography by chapter — `2026-04-05.md` (founding), `2026-05-23.md` (vision into work) |
 | [`hardware/`](/hardware/) | The integrated soda machine under development — CAD scripts, [`bom.md`](/hardware/ledger/bom.md), [`purchases.md`](/hardware/ledger/purchases.md), [`assembly/`](/hardware/assembly/) procedures, printed parts, wiring schedules |
 | [`firmware/`](/firmware/) | ESP32 + ESP32-S3 firmware: the main board, the machine display and the faucet display of the soda machine under development, the bare-board bench rig, and the weld rotator — see [`firmware/README.md`](/firmware/README.md) for which tree runs where. |
 | [`web/`](/web/) | homesodamachine.com — Node server, CAD viewer — see [`web/README.md`](/web/README.md) |
