@@ -10663,7 +10663,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:8a9a0f4886db5e0b426c9ff082e39562d2425316d2cce82d15264c22114ffa9f",
+  "input_fingerprint": "sha256:bec8dc4225dbb554b24f71c8c15a81692e353ad0adb3ee85d2ada550366a762d",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -34107,7 +34107,7 @@
         "precision": "day",
         "value": "2026-06-24"
       },
-      "description": "Fresh Water Systems order WEBFWS100684731 — John Guest PP0308E union elbow, black polypropylene 1/4\" (the funnel drain's joint, one per unit in bom.md §8; the rest shop stock — the placed manifold turns no line on a fitting)",
+      "description": "Fresh Water Systems order WEBFWS100684731 — John Guest PP0308E union elbow, black polypropylene 1/4\" (shop stock)",
       "event_ids": [],
       "fulfillment": "ACQUIRED",
       "invoice_date": null,
