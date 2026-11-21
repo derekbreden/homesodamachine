@@ -28,8 +28,11 @@ func responsibleApp() -> String {
     }
     return executable.lastPathComponent
 }
+// A refusal has macOS show its own request, which lists the responsible app in System Settings.
+// macOS shows it once for an app.
 func requireScreenRecording() throws {
     guard CGPreflightScreenCaptureAccess() else {
+        _ = CGRequestScreenCaptureAccess()
         try refuse("\(responsibleApp()) has no macOS Screen Recording permission, so the filament list cannot be read; no click was sent. It is granted in System Settings > Privacy & Security > Screen & System Audio Recording")
     }
 }

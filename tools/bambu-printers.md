@@ -305,8 +305,10 @@ responsible for the shell that runs them: Codex for a Codex task, Claude Code fo
 session in the Claude desktop application, the terminal for a shell opened there.
 Claude Code has its own entries in System Settings, apart from Claude's. That
 application needs Accessibility for every step and Screen Recording for the filament
-picker. A refusal names the application that lacks one, and without Screen Recording
-the filament tile is left unclicked. Derek grants it under Privacy & Security.
+picker. A refusal names the application that lacks one. Without Screen Recording the
+filament tile is left unclicked and the helper asks macOS for the access. macOS shows
+its request once for an application and lists it under Privacy & Security, where Derek
+switches it on.
 
 The sender checks the archive's embedded G-code checksum, the target printer, each active
 nozzle's external spool type and colour, and the standing print options. It supports one
