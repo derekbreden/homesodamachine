@@ -11,7 +11,7 @@ The aft station now has the same clips as the fore pair. Each is turned along it
 
 The filled side squares one jaw of the fill line's clip along its whole length and joins it to the root over the aft part of it, so that jaw bends little. The clip's free jaw has the fit of back-top's east-wall fill seat, which also has one fixed jaw: a thinner jaw, standing further out from the fixed one, as Derek set it there and fitted it in hand.
 
-The tie leaves the parts list and the assembly steps, and the lid's print needs no blocker for a tie passage. The clips' fit awaits the [coupon sent to Mark1](https://github.com/derekbreden/homesodamachine/blob/e4be924e87f99b6b56dc71cba72085ac37377d00/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/print-job.json).
+The tie leaves the parts list and the assembly steps, and the lid's print needs no blocker for a tie passage. Derek seated both tubes in the [crop printed on Mark1](https://github.com/derekbreden/homesodamachine/blob/5a5c589208a470c654f443981a4b9bc1802563cb/hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/physical-result/physical-result.json): "Fit is good."
 
 Derek: "I would like snap tube holders here please."
 
