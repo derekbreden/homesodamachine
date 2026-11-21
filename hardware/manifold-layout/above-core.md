@@ -30,7 +30,7 @@ blind pilots beneath the roof's show skin.
 | Pump joints | Reinforced 3/8-inch PVC, trimmed PP061208W reducers and two butterfly clamps per barb | Clamped barb and reducer engagements |
 | Pump discharge check | ACVUS-44 stem directly in the discharge elbow | Discharge joint; continuous inlet enters the core guide |
 | Mean Well IRM-90 | Base upward in its shallow ceiling well, AC end aft | Four integral ceiling hosts |
-| Teyleten relays | One above the other on the west wall | Locating pins in the M2 board holes and separate printed end clamps |
+| Teyleten relays | One above the other on the west wall | M2 socket screws through each PCB's corners into flush heat-set inserts in the wall bearings |
 | PCB and V-B | Board flat and connector-up; V-B on its side east of it | Core columns and the integral V-B socket wall |
 
 ASSE, Pisco and meter enter their seats 16 mm fore of their stations and slide

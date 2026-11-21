@@ -421,10 +421,9 @@ relax the leaves and move 40 mm fore. This bench sequence leaves room for
 the complete lower leaf to open.
 
 The PSU mounts base-up on its ceiling hosts with its AC end aft. The relay
-boards sit on pinned corner bearings on the dry west wall. Printed end clamps
-retain them with common M3 screws in regular inserts beside the boards. The
-clamps' relieved bridges leave the native wire entries and screwdriver wells
-open. Fit the boards and clamps before landing their terminal wires.
+boards bear on the dry west wall. Each board fastens through its corner holes
+with M2 socket-head screws in flush heat-set inserts. Fit each board before
+landing its terminal wires.
 
 The shared V69 socket sections carry V-A and V-K. Preserve the
 [accepted valve-fit scope](/hardware/mechanical-qualification/README.md).

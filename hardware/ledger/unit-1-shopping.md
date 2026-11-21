@@ -31,7 +31,7 @@ The [purchase ledger](purchases.md) records two delivered packs of [SVLING M5 ×
 ## Mounting hardware
 
 The current [mechanical BOM](bom.md#13-mechanical-attach-hardware) assigns the
-common M3 screw stock and regular inserts to the printed relay end clamps.
+acquired Sutemribor M2 × 6 screws and ruthex RX-M2x4 inserts to the relay PCB mounts.
 The compressor's selected M5 floor screws have no acquired stock binding;
 the BOM carries the current distributor quote. Count usable common stock
 before replenishment.

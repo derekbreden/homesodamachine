@@ -8989,7 +8989,7 @@
           },
           {
             "material": "HSM-0140",
-            "quantity": 10,
+            "quantity": 6,
             "unit": "ea",
             "placements": [
               {
@@ -9014,10 +9014,6 @@
               }
             ],
             "bodies": [
-              "relay-1-screw-1",
-              "relay-1-screw-2",
-              "relay-2-screw-1",
-              "relay-2-screw-2",
               "c14-screw-1",
               "c14-screw-2"
             ]
@@ -9078,7 +9074,7 @@
           },
           {
             "material": "HSM-0164",
-            "quantity": 12,
+            "quantity": 8,
             "unit": "ea",
             "placements": [
               {
@@ -9105,23 +9101,38 @@
             "bodies": [
               "funnel-frame-back-east-insert",
               "funnel-frame-back-west-insert",
-              "relay-1-insert-1",
-              "relay-1-insert-2",
-              "relay-2-insert-1",
-              "relay-2-insert-2",
               "c14-insert-1",
               "c14-insert-2"
             ]
           },
           {
-            "material": "HSM-0581",
-            "quantity": 4,
+            "material": "HSM-0576",
+            "quantity": 8,
             "unit": "ea",
             "bodies": [
-              "relay-1-clamp-1",
-              "relay-1-clamp-2",
-              "relay-2-clamp-1",
-              "relay-2-clamp-2"
+              "relay-1-screw-1",
+              "relay-1-screw-2",
+              "relay-1-screw-3",
+              "relay-1-screw-4",
+              "relay-2-screw-1",
+              "relay-2-screw-2",
+              "relay-2-screw-3",
+              "relay-2-screw-4"
+            ]
+          },
+          {
+            "material": "HSM-0577",
+            "quantity": 8,
+            "unit": "ea",
+            "bodies": [
+              "relay-1-insert-1",
+              "relay-1-insert-2",
+              "relay-1-insert-3",
+              "relay-1-insert-4",
+              "relay-2-insert-1",
+              "relay-2-insert-2",
+              "relay-2-insert-3",
+              "relay-2-insert-4"
             ]
           }
         ]
@@ -11229,6 +11240,56 @@
       ]
     },
     {
+      "id": "HSM-0576",
+      "description": "Sutemribor M2 \u00d7 6 socket-head screw \u00b7 black oxide",
+      "kind": "purchased",
+      "aliases": [
+        "M2-0.4 \u00d7 6 mm",
+        "12.9 alloy steel",
+        "B0CXQ7Q7L3"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0547"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Purchased screw pack",
+          "path": "ledger/purchases.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-0577",
+      "description": "ruthex M2 \u00d7 4 heat-set insert \u00b7 brass",
+      "kind": "purchased",
+      "manufacturer_number": "RX-M2x4",
+      "aliases": [
+        "M2 insert",
+        "B088QJG676"
+      ],
+      "contexts": [
+        {
+          "material": "HSM-0547"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Purchased insert pack",
+          "path": "ledger/purchases.md"
+        },
+        {
+          "title": "Fastener specification",
+          "path": "ledger/bom.md"
+        }
+      ]
+    },
+    {
       "id": "HSM-0579",
       "description": "Machine status plate \u00b7 black, white and translucent PETG",
       "kind": "manufactured",
@@ -11279,29 +11340,6 @@
         {
           "title": "Lamp and diffuser",
           "path": "printed-parts/enclosure/display-cover/README.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-0581",
-      "description": "Relay end clamp",
-      "kind": "manufactured",
-      "aliases": [
-        "relay clamp",
-        "relay-1-clamp-1",
-        "relay-1-clamp-2",
-        "relay-2-clamp-1",
-        "relay-2-clamp-2"
-      ],
-      "models": [
-        {
-          "file": "printed-parts/enclosure/equipment-clamps/relay-clamp.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Mounting and printing",
-          "path": "printed-parts/enclosure/equipment-clamps/README.md"
         }
       ]
     },

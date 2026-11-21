@@ -33,27 +33,19 @@ pub mod hosts {
     use serde_json::Value;
     use std::sync::OnceLock;
 
-    /// Regular hardware clamps the board's ends beside its locating holes.
-    pub const RELAY_SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
-    pub const RELAY_SCREW_RADIUS: f64 = 1.5;
-    pub const RELAY_HEAD_RADIUS: f64 = 2.75;
-    pub const RELAY_HEAD_HEIGHT: f64 = 3.0;
-    pub const RELAY_SOCKET_AF: f64 = 2.5;
-    pub const RELAY_SOCKET_DEPTH: f64 = 1.5;
-    pub const RELAY_INSERT_RADIUS: f64 = crate::fasteners::M3_INSERT_DIAMETER / 2.;
-    pub const RELAY_INSERT_LENGTH: f64 = crate::fasteners::M3_INSERT_LENGTH;
+    pub const RELAY_SETBACK: f64 = 0.0;
+    /// The acquired Sutemribor socket-cap screw and ruthex insert define the relay hardware.
+    pub const RELAY_SCREW_LENGTH: f64 = 6.0;
+    pub const RELAY_SCREW_RADIUS: f64 = 1.0;
+    pub const RELAY_HEAD_RADIUS: f64 = 1.9;
+    pub const RELAY_HEAD_HEIGHT: f64 = 2.0;
+    pub const RELAY_SOCKET_AF: f64 = 1.5;
+    pub const RELAY_SOCKET_DEPTH: f64 = 1.0;
+    pub const RELAY_INSERT_RADIUS: f64 = 1.8;
+    pub const RELAY_INSERT_LENGTH: f64 = 4.0;
     pub const RELAY_INSERT_BORE_RADIUS: f64 = RELAY_SCREW_RADIUS;
-    pub const RELAY_PILOT_RADIUS: f64 = crate::fasteners::M3_PILOT_DIAMETER / 2.;
+    pub const RELAY_PILOT_RADIUS: f64 = 1.6;
     pub const RELAY_TIP_AIR: f64 = 1.0;
-    pub const RELAY_LOCATOR_RADIUS: f64 = 1.0;
-    pub const RELAY_LOCATOR_END_AIR: f64 = 0.2;
-    pub const RELAY_CLAMP_AXIS: f64 = 40.5;
-    pub const RELAY_CLAMP_TOE: f64 = 32.4;
-    pub const RELAY_CLAMP_OUTER: f64 = 5.0;
-    pub const RELAY_CLAMP_HALF_WIDTH: f64 = 3.5;
-    pub const RELAY_CLAMP_THICKNESS: f64 = 3.0;
-    pub const RELAY_CLAMP_BRIDGE_THICKNESS: f64 = 2.0;
-    pub const RELAY_CLAMP_HEAD_LAND_RADIUS: f64 = 3.2;
     pub const PSU_SCREW_LENGTH: f64 = crate::fasteners::M3_SCREW_LENGTH;
     pub const PSU_HEAD_REACH: f64 = 6.7;
     pub const PSU_EAR_ALLOWANCE: f64 = 1.0;
@@ -81,21 +73,9 @@ pub mod hosts {
         relay_reference()["pcb"]["size_mm"][2].as_f64().unwrap()
     }
 
-    pub fn relay_clamp_holes() -> Vec<P2> {
-        vec![[-RELAY_CLAMP_AXIS, 0.], [RELAY_CLAMP_AXIS, 0.]]
-    }
-
-    pub fn relay_setback() -> f64 {
-        -(relay_board_thickness() + crate::catalog::slip())
-    }
-
-    pub fn relay_head_reach() -> f64 {
-        -relay_setback() + RELAY_CLAMP_THICKNESS
-    }
-
     /// The blind pilot clears the selected screw after its complete thread engagement.
     pub fn relay_pilot_depth() -> f64 {
-        RELAY_SCREW_LENGTH - RELAY_CLAMP_THICKNESS + RELAY_TIP_AIR
+        RELAY_SCREW_LENGTH - relay_board_thickness() - RELAY_SETBACK + RELAY_TIP_AIR
     }
 }
 

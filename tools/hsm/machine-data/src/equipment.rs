@@ -466,10 +466,10 @@ pub fn numbers(request: &Value) -> Result<(Equipment, BTreeMap<String, Vec<Strin
             &psu_hardware,
             "M_DONOR_BLACK",
         ),
-        ("relay-1", hosts::relay_clamp_holes(), hosts::relay_head_reach(),
-         hosts::RELAY_SCREW_LENGTH, hosts::relay_setback(), &relay_hardware, "M_DONOR_BLACK"),
-        ("relay-2", hosts::relay_clamp_holes(), hosts::relay_head_reach(),
-         hosts::RELAY_SCREW_LENGTH, hosts::relay_setback(), &relay_hardware, "M_DONOR_BLACK"),
+        ("relay-1", hosts::relay_holes(), hosts::relay_board_thickness(),
+         hosts::RELAY_SCREW_LENGTH, hosts::RELAY_SETBACK, &relay_hardware, "M_DONOR_BLACK"),
+        ("relay-2", hosts::relay_holes(), hosts::relay_board_thickness(),
+         hosts::RELAY_SCREW_LENGTH, hosts::RELAY_SETBACK, &relay_hardware, "M_DONOR_BLACK"),
     ] {
         let pose = pose(spec, name)?;
         let axis = vector(&pose["rotation"], [0., 0., 1.])?;

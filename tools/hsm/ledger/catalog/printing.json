@@ -204,9 +204,6 @@
     ],
     "Sculpted faucet mounting gasket": [
       "faucet/above-counter-gasket/above-counter-gasket.step"
-    ],
-    "Relay end clamps": [
-      "enclosure/equipment-clamps/relay-clamp.step"
     ]
   },
   "group_of": [
@@ -345,10 +342,6 @@
     [
       "Sculpted faucet mounting gasket",
       "solid"
-    ],
-    [
-      "Relay end clamps",
-      "solid"
     ]
   ],
   "instances": {
@@ -356,8 +349,7 @@
     "Reservoir air-tube grips": 2,
     "Reservoir cap gaskets": 2,
     "Display gasket": 1,
-    "ASSE drain adapter": 1,
-    "Relay end clamps": 4
+    "ASSE drain adapter": 1
   },
   "material_sources": {
     "Bambu TPU 90A": {

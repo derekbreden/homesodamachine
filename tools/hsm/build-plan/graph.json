@@ -1747,7 +1747,6 @@
       "hardware/printed-parts/enclosure/enclosure/numbers/shell.rs",
       "hardware/printed-parts/enclosure/enclosure/numbers/spec.rs",
       "hardware/printed-parts/enclosure/enclosure/numbers/structure.rs",
-      "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.npz",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step.npz",
       "hardware/printed-parts/enclosure/nameplate/snap_dimensions.rs",
       "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step.npz",
@@ -7542,11 +7541,7 @@
     "writes": [
       "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step",
       "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step.mesh",
-      "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step.npz",
-      "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step",
-      "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.mesh",
-      "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.step.npz",
-      "hardware/printed-parts/enclosure/equipment-clamps/relay-clamp.stl"
+      "hardware/printed-parts/enclosure/equipment-clamps/equipment-clamps-installed.step.npz"
     ],
     "rewritten": [],
     "program": {

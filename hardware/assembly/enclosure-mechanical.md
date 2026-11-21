@@ -77,10 +77,9 @@ Use the regular M3 and M5 bodies selected in [the BOM](/hardware/ledger/bom.md#1
   fingers, funnel ledges and pump-retainer hosts before fitting their parts.
 - The core's PCB columns use the [deck mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs).
   Fit the short screws directly through the board; keep the lid removed for heat setting.
-- Install regular M3 inserts in the relay end-clamp hosts beside the board
-  bearings. The M2 board holes receive locating pins; the clamp screws enter
-  separate hosts outside the PCB. Fit each board and its end clamps before
-  landing terminal wires, per [electronics-bay.md](electronics-bay.md).
+- Seat the ruthex RX-M2x4 inserts flush in the west-wall relay bearings.
+  Secure each relay through its PCB corner holes with Sutemribor M2 × 6 screws
+  before landing its terminal wires. See [electronics-bay.md](electronics-bay.md).
 - The compressor posts and chassis corner stacks take regular M5 inserts.
   Use the matching heat-set tip and keep their axes square to the bearing faces.
 
@@ -224,6 +223,8 @@ The lid's below-board fluid fittings and routes go in before the PCB.
 
 Fit the PSU into back-top's shallow ceiling recess and both relays to its dry
 west wall. Use the common M3 screws through the PSU ears into regular inserts.
+Fasten each relay through its PCB corners with the Sutemribor M2 × 6 screws
+and ruthex RX-M2x4 inserts specified in the [BOM](/hardware/ledger/bom.md).
 Fit the meter to its rear-facing snap seat and prepare its continuous inlet
 and short, straight rear outlet there.
 Seat the mains WAGOs in the west-wall wells above the relays, with their wire

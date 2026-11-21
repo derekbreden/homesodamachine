@@ -1,191 +1,160 @@
 {
-  "purpose": "Records the selected relay end-clamp mounting and its installed geometry reading.",
+  "purpose": "Records the installed relay screw and insert stack against the two PCB references and the back-top print.",
   "units": "mm",
-  "source_owner": "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs::hosts",
-  "reference_owner": "hardware/reference/teyleten-relay/scan-datums.json",
   "recipe": {
-    "stations_per_board": 2,
+    "owner": "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs::hosts",
+    "datum_owner": "hardware/reference/teyleten-relay/scan-datums.json",
+    "parts": [
+      "relay-1",
+      "relay-2"
+    ],
+    "stations_per_part": 4,
     "screw": {
-      "material": "HSM-0140",
-      "thread": "M3",
-      "length_mm": 12,
-      "path": "Through the printed end clamp into its separate wall host, outside the PCB."
+      "material_id": "HSM-0576",
+      "thread": "M2",
+      "length_mm": 6,
+      "shaft_radius_mm": 1,
+      "head_radius_mm": 1.9,
+      "head_height_mm": 2,
+      "socket_af_mm": 1.5,
+      "socket_depth_mm": 1
     },
     "insert": {
-      "material": "HSM-0164",
-      "manufacturer_number": "RX-M3x5.7"
+      "material_id": "HSM-0577",
+      "manufacturer_number": "RX-M2x4",
+      "outer_radius_mm": 1.8,
+      "length_mm": 4,
+      "nominal_thread_bore_radius_mm": 1
     },
-    "clamp": {
-      "material": "HSM-0581",
-      "pilot_depth_mm": 10,
-      "board_retention_air_mm": 0.15
+    "host": {
+      "pilot_radius_mm": 1.6,
+      "pilot_depth_mm": 5.44,
+      "insert_setback_mm": 0,
+      "screw_tip_air_mm": 1
+    },
+    "reference_bores": {
+      "basis": "Partial native interior-wall observations and repeated-hole inference; the visible top rims are separate entry geometry.",
+      "evidence": "hardware/reference/teyleten-relay/scan-model-evidence.json#bore_wall_estimate"
     }
   },
+  "physical_input": {
+    "received_board": "hardware/reference/teyleten-relay/mounting-fit.json",
+    "cap_head_fit": "I mean, yes, they overlap and they fit, so you need to see it to see what I mean.",
+    "archived_observation": "https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json",
+    "scope": "Derek confirmed the cap heads fit the received board. The revised printed wall and installed inserts await a physical fit."
+  },
   "geometry_review": {
-    "payload_sha256": "7b51aebbf16323e10d7f73138e2b93bda53b3902187df1aa7370dfd5565e0073",
-    "within_mm": 1,
-    "neighbors": [
+    "model": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    "payload_sha256": "da066fd6c231375b3d81e056ef42c6ba25d75452d4304ff2a8a272bb717e1e64",
+    "print_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+    "print_stl_sha256": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
+    "stations": [
       {
-        "part": "relay-1-clamp-1",
-        "neighbors": [
-          {
-            "part": "enclosure-back-top",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-1-insert-1",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-1-screw-1",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-1/1",
-            "gap_mm": 0.15000152587889204,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "wire-J5-GND",
-            "gap_mm": 0.35597556178995676,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "wire-J5-IO19",
-            "gap_mm": 0.6379882934127535,
-            "intersection_volume_mm3": 0.0
-          }
-        ],
-        "unresolved": []
+        "screw": "relay-1-screw-1",
+        "insert": "relay-1-insert-1",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.42004,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
       },
       {
-        "part": "relay-1-clamp-2",
-        "neighbors": [
-          {
-            "part": "enclosure-back-top",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-1-insert-2",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-1-screw-2",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 3.467207396841074e-15
-          },
-          {
-            "part": "relay-1/1",
-            "gap_mm": 0.15000152587889204,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "wire-AC4-pigtail",
-            "gap_mm": 0.7223221039141302,
-            "intersection_volume_mm3": 0.0
-          }
-        ],
-        "unresolved": []
+        "screw": "relay-1-screw-2",
+        "insert": "relay-1-insert-2",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.41254,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
       },
       {
-        "part": "relay-2-clamp-1",
-        "neighbors": [
-          {
-            "part": "enclosure-back-top",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 4.3850924921844144e-14
-          },
-          {
-            "part": "relay-2-insert-1",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-2-screw-1",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-2/1",
-            "gap_mm": 0.15000152587889204,
-            "intersection_volume_mm3": 0.0
-          }
-        ],
-        "unresolved": []
+        "screw": "relay-1-screw-3",
+        "insert": "relay-1-insert-3",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.92534,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
       },
       {
-        "part": "relay-2-clamp-2",
-        "neighbors": [
-          {
-            "part": "enclosure-back-top",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-2-insert-2",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "relay-2-screw-2",
-            "gap_mm": 0.0,
-            "intersection_volume_mm3": 3.467207396841074e-15
-          },
-          {
-            "part": "relay-2/1",
-            "gap_mm": 0.15000152587889204,
-            "intersection_volume_mm3": 0.0
-          },
-          {
-            "part": "wire-DC3-pigtail",
-            "gap_mm": 0.5953117917975062,
-            "intersection_volume_mm3": 0.0
-          }
-        ],
-        "unresolved": []
-      }
-    ]
-  },
-  "source_sha256": {
-    "hardware/fasteners.rs": "50162d37160debb41e3ac3f8bdf0df286817725e6d5281cb3ed36a25574e65cd",
-    "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs": "361597de3558ca35f969da8281389f3be3fb642d95a69e4c732ae57cbe3a3015",
-    "hardware/printed-parts/enclosure/enclosure/back-top/rear.rs": "db824f284507c47f421c96414c4b3b777b8745db27924c7db7668cd1ea928d5e",
-    "hardware/printed-parts/enclosure/equipment-clamps/equipment_clamps.rs": "069f068694366e541930cdbe5104c0fccffa727823d7b29745166f57fb1051ed",
-    "hardware/wiring/installed/route-overrides.json": "20e99115ee1b43c974f4712725518072a812207c9ac9bc2f8ba1e1c6a47ccb42"
-  },
-  "archived_physical_inputs": "https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/printed-parts/enclosure/enclosure/relay-mount-fit.json",
-  "physical_status": "The revised clamps, locating pins and regular insert hosts require bench fit. The archived report retains the received-board observations.",
-  "board_hole_constraint": {
-    "record": "hardware/reference/teyleten-relay/mounting-fit.json",
-    "pcb_mounting_screw_thread": "M2",
-    "unsupported_pcb_mounting_screw_thread": "M3",
-    "hole_use": "Printed locating pins only."
-  },
-  "pcb_clearance_review": {
-    "purpose": "Measures the external clamp screws against the relay PCBs.",
-    "payload_sha256": "588c81c8f3cbf7c25ece67d074d8bb7e9dae180acf1823b67cf0b2bf351e7eba",
-    "pairs": [
-      {
-        "a": "relay-1-screw-1",
-        "b": "relay-1/1",
-        "clearance_mm": 3.839996337890625,
-        "intersection_volume_mm3": 0.0
+        "screw": "relay-1-screw-4",
+        "insert": "relay-1-insert-4",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.94842,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
       },
       {
-        "a": "relay-2-screw-2",
-        "b": "relay-2/1",
-        "clearance_mm": 3.839996337890625,
-        "intersection_volume_mm3": 0.0
+        "screw": "relay-2-screw-1",
+        "insert": "relay-2-insert-1",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.42004,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
+      },
+      {
+        "screw": "relay-2-screw-2",
+        "insert": "relay-2-insert-2",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.41254,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
+      },
+      {
+        "screw": "relay-2-screw-3",
+        "insert": "relay-2-insert-3",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.92534,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
+      },
+      {
+        "screw": "relay-2-screw-4",
+        "insert": "relay-2-insert-4",
+        "pilot_diameter_mm": 3.2,
+        "pilot_depth_mm": 5.44,
+        "insert_engagement_mm": 4.0,
+        "screw_tip_to_printed_floor_mm": 1.0,
+        "printed_backing_on_axis_mm": 6.94842,
+        "head_to_pcb_clearance_mm": 0.0,
+        "screw_pcb_intersection_mm3": 0.0
       }
     ],
-    "source_sha256": {
-      "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs": "1eb9cca6cdc3b44f2ce48bea03b7d1c2097cef2e758d34263eacbd0de9b31411",
-      "hardware/reference/teyleten-relay/mounting-fit.json": "f2b7cf499b4f8876ec9408d784d3072330ee72c96809d9b878f6ddc5d8942332"
+    "method": "The screw and insert axes are compared to the scanned station centers. The assembly ray reads the pilot floor. Intersections with the print STL on the same centerline give the floor and exterior. Screw and insert extents give engagement and tip clearance. The native solid gap measures contact with the PCB.",
+    "nearby_wires": {
+      "within_mm": 1,
+      "screw_wire_pairs": [
+        {
+          "wire": "wire-AC3-L",
+          "screw": "relay-1-screw-3",
+          "clearance_mm": 0.8483,
+          "intersection_volume_mm3": 0.0
+        },
+        {
+          "wire": "wire-DC2-V12",
+          "screw": "relay-2-screw-3",
+          "clearance_mm": 0.8507,
+          "intersection_volume_mm3": 0.0
+        }
+      ]
     }
   }
 }

@@ -1,8 +1,8 @@
-//! The relay end clamps retain the PCB beside its mounting holes and place the installed equipment hardware.
+//! Places the installed fasteners for the main PCB, condenser, compressor and mains inlet.
 use anyhow::{Context, Result};
-use hsm_enclosure_numbers::{catalog, fasteners, layout::layout, rear_wall::{c14, hosts}, shell, spec};
+use hsm_enclosure_numbers::{fasteners, layout::layout, rear_wall::c14, shell, spec};
 use hsm_kernel::{Affine, Body, Plane, Profile, Solid, V3, v2, v3};
-use hsm_kernel::part::{write_part, write_shown};
+use hsm_kernel::part::write_shown;
 use std::path::PathBuf;
 
 fn screw(diameter: f64, length: f64, head_diameter: f64, head_height: f64, key: f64) -> Result<Solid> {
@@ -32,24 +32,8 @@ fn main() -> Result<()> {
         .unwrap_or_else(|| PathBuf::from("hardware/printed-parts/enclosure/equipment-clamps"));
     hsm_kernel::reads::begin();
     std::fs::create_dir_all(&out)?;
-    // The low bridge clears the relay's native wire entries; the raised land carries the head.
-    let clamp = Solid::cuboid(v3(hosts::RELAY_CLAMP_TOE - hosts::RELAY_CLAMP_AXIS, -hosts::RELAY_CLAMP_HALF_WIDTH, 0.),
-        v3(hosts::RELAY_CLAMP_OUTER, hosts::RELAY_CLAMP_HALF_WIDTH, hosts::RELAY_CLAMP_BRIDGE_THICKNESS))
-        .union(&Solid::cylinder(V3::ZERO, V3::Z, hosts::RELAY_CLAMP_HEAD_LAND_RADIUS, hosts::RELAY_CLAMP_THICKNESS)?)?
-        .cut(&Solid::cylinder(v3(0., 0., -0.1), V3::Z, 1.7, hosts::RELAY_CLAMP_THICKNESS + 0.2)?)?;
-    println!("{}", write_part(&out, "relay-clamp", &[Body {
-        name: "relay-clamp", color: Some(catalog::wall_color()), solid: &clamp,
-    }])?);
     let l = layout();
     let mut installed = Vec::new();
-    for (name, pose) in [("relay-1", &l.parts.relay_1), ("relay-2", &l.parts.relay_2)] {
-        for (index, side) in [-1., 1.].into_iter().enumerate() {
-            let axes = [[side, 0., 0.], [0., side, 0.], [0., 0., 1.]].map(|p| V3::from(pose.vector(p)));
-            let origin = V3::from(pose.point([side * hosts::RELAY_CLAMP_AXIS, 0., -hosts::relay_setback()]));
-            let transform = Affine::from_columns(axes[0], axes[1], axes[2], origin);
-            installed.push((format!("{name}-clamp-{}", index + 1), catalog::wall_color(), clamp.transformed(&transform)));
-        }
-    }
     let document = hsm_enclosure_interface::input::json("hardware/manifold-layout/enclosure-box.json")?;
     let b = spec::Box::from_document(document)?;
     let steel = [0.025; 3];

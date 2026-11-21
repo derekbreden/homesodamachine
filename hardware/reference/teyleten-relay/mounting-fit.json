@@ -1,14 +1,16 @@
 {
-  "purpose": "Records the received relay PCB mounting-screw constraint and the printed-retainer interface.",
+  "purpose": "Records the received relay PCB mounting-hole size and the selected direct mounting hardware.",
   "reported_date": "2026-11-18",
   "source": "Derek",
   "statement": "I just remembered that the Teleten relays, the record should be clear that they don't support M3. We need M2 for them, or we need to print something to go into those holes and snap cover on instead or something, but M3s won't work for the Teleten relays in any case.",
   "pcb_mounting_screw_thread": "M2",
   "unsupported_pcb_mounting_screw_thread": "M3",
   "installed_retention": {
-    "pcb_hole_use": "Unthreaded printed locating pins.",
-    "clamp_fastener_path": "Separate wall hosts outside the PCB.",
+    "pcb_hole_use": "A Sutemribor M2 × 6 socket-head screw passes through each mounting hole.",
+    "screw_material": "HSM-0576",
+    "insert_material": "HSM-0577",
+    "insert": "ruthex RX-M2x4 seated flush in the west-wall bearing.",
     "owner": "hardware/printed-parts/enclosure/enclosure/numbers/rear_wall.rs"
   },
-  "physical_scope": "The report identifies the board-hole screw family. Printed end-clamp retention remains subject to physical assembly."
+  "physical_scope": "The received-board observation identifies the mounting thread. The printed wall and its insert installation require a physical fit."
 }

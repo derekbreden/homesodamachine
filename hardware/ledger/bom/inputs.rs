@@ -150,8 +150,8 @@ fn faucet() -> Result<Faucet> {
 /// pilot at the box's west flank, plain and under its flutes.
 fn relay(above: &AboveCore, west: f64) -> Result<Relay> {
     use hsm_enclosure_numbers::rear_wall::hosts::{
-        RELAY_INSERT_LENGTH, RELAY_SCREW_LENGTH, RELAY_CLAMP_THICKNESS, relay_setback,
-        relay_board_thickness, relay_clamp_holes, relay_pilot_depth,
+        RELAY_INSERT_LENGTH, RELAY_SCREW_LENGTH, RELAY_SETBACK,
+        relay_board_thickness, relay_holes, relay_pilot_depth,
     };
     let x = ["relay-1", "relay-2"]
         .iter()
@@ -161,13 +161,13 @@ fn relay(above: &AboveCore, west: f64) -> Result<Relay> {
         .fold(f64::INFINITY, f64::min);
     let board = relay_board_thickness();
     let pilot = relay_pilot_depth();
-    let backing = x - relay_setback() - pilot - west;
+    let backing = x - RELAY_SETBACK - pilot - west;
     Ok(Relay {
-        screws: relay_clamp_holes().len(),
+        screws: relay_holes().len(),
         board,
-        setback: relay_setback(),
+        setback: RELAY_SETBACK,
         insert: RELAY_INSERT_LENGTH,
-        reach: RELAY_SCREW_LENGTH - RELAY_CLAMP_THICKNESS,
+        reach: RELAY_SCREW_LENGTH - board - RELAY_SETBACK,
         bore: pilot,
         backing,
         fluted_backing: backing - FLUTE_DEPTH,

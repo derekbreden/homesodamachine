@@ -12,11 +12,10 @@ The PCB mounting holes take M2 screws. M3 screws do not fit those holes, as
 Derek states in the [mounting-fit record](mounting-fit.json). The visible entry
 rims and optical bore estimates do not override that physical identification.
 
-The installed printed mount uses locating pins in the board holes. Its end
-clamps screw into separate wall hosts outside the PCB. Their fasteners pass
-through the printed clamps; the board holes receive only the locating pins.
+Each board sits on the west-wall bearings. A Sutemribor M2 × 6 socket screw
+passes through each corner into a flush ruthex RX-M2x4 insert.
 The [installed mounting review](../../printed-parts/enclosure/enclosure/relay-mount-fit.json)
-records that geometry. The printed retainers require their own physical fit.
+records the screw engagement, tip clearance and received-board fit observation.
 
 ## Reference geometry
 

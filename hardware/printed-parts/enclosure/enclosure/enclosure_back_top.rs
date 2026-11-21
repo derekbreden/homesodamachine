@@ -305,7 +305,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     let bars = rear::relay_bars(&mounted);
     let hosts: Vec<_> = mounted.into_iter().map(|(part, mounts)| json!({"part": part,
         "stations": mounts.iter().map(|m| json!({"point_mm": m.point, "insert_face_mm": m.face, "root_mm": m.root,
-            "axis": m.axis, "threaded": m.threaded, "pilot_radius_mm": m.pilot_radius, "pilot_depth_mm": m.pilot_depth})).collect::<Vec<_>>()})).collect();
+            "axis": m.axis, "threaded": true, "pilot_radius_mm": m.pilot_radius, "pilot_depth_mm": m.pilot_depth})).collect::<Vec<_>>()})).collect();
     let mut tunnel = rear::c14_stock_bounds();
     tunnel[2] -= shell::WALL;
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),

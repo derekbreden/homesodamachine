@@ -450,13 +450,12 @@ fn identify(g: &mut Graph, mut piece: Shape, b: &Box) -> Shape {
 }
 
 /// One mounting hole the wall carries an insert boss for: the hole, the insert's face behind
-/// it, the boss's root in the wall, the hole's axis, and whether a screw goes in.
+/// it, the boss's root in the wall, the hole's axis and its blind pilot.
 pub struct Mount {
     pub point: P3,
     pub face: P3,
     pub root: P3,
     pub axis: P3,
-    pub threaded: bool,
     pub pilot_radius: f64,
     pub pilot_depth: f64,
 }
@@ -480,7 +479,6 @@ fn mounts(
                 face,
                 root: root(point),
                 axis,
-                threaded: true,
                 pilot_radius,
                 pilot_depth,
             }
@@ -504,22 +502,18 @@ fn axial_cylinder(g: &mut Graph, radius: f64, root: P3, axis: P3, length: f64) -
 /// The parts the wall hosts, each with its mounting holes: the PSU on ceiling bosses, then each
 /// relay on west-flank bosses.
 pub fn wall_mounts() -> Vec<(&'static str, Vec<Mount>)> {
-    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_PILOT_RADIUS, relay_holes, relay_pilot_depth, relay_clamp_holes, relay_setback};
+    use crate::rear_wall::hosts::{PILOT_DEPTH, RELAY_PILOT_RADIUS, RELAY_SETBACK, relay_holes, relay_pilot_depth};
     let parts = &layout().parts;
     let holes = relay_holes();
     let relay = |pose| {
-        let mut supports = mounts(
+        mounts(
             pose,
             &holes,
-            0.,
+            RELAY_SETBACK,
             RELAY_PILOT_RADIUS,
             relay_pilot_depth(),
             |p| [RELAY_ROOT_X, p[1], p[2]],
-        );
-        for mount in &mut supports { mount.threaded = false; }
-        supports.extend(mounts(pose, &relay_clamp_holes(), relay_setback(), RELAY_PILOT_RADIUS,
-            relay_pilot_depth(), |p| [RELAY_ROOT_X, p[1], p[2]]));
-        supports
+        )
     };
     vec![
         (
@@ -567,22 +561,15 @@ fn hosts(g: &mut Graph, mut piece: Shape) -> Shape {
         let length: f64 = (0..3).map(|k| (m.face[k] - m.root[k]) * m.axis[k]).sum();
         let boss = axial_cylinder(g, BOSS_RADIUS, m.root, m.axis, length);
         bosses.push(g.feature(boss, format!("{part}-mount"), format!("{part} mounting bosses"), &[part]));
-        if m.threaded {
-            let start = std::array::from_fn(|k| m.face[k] + 0.01 * m.axis[k]);
-            let pilot = axial_cylinder(
-                g,
-                m.pilot_radius,
-                start,
-                m.axis.map(|u| -u),
-                m.pilot_depth + 0.01,
-            );
-            pilots.push(g.feature(pilot, format!("{part}-mount"), format!("{part} mounting bosses"), &[part]));
-        } else {
-            use crate::rear_wall::hosts::{RELAY_LOCATOR_RADIUS, RELAY_LOCATOR_END_AIR, relay_board_thickness};
-            let pin = axial_cylinder(g, RELAY_LOCATOR_RADIUS, m.point, m.axis,
-                relay_board_thickness() - RELAY_LOCATOR_END_AIR);
-            bosses.push(g.feature(pin, format!("{part}-mount"), format!("{part} locating pins"), &[part]));
-        }
+        let start = std::array::from_fn(|k| m.face[k] + 0.01 * m.axis[k]);
+        let pilot = axial_cylinder(
+            g,
+            m.pilot_radius,
+            start,
+            m.axis.map(|u| -u),
+            m.pilot_depth + 0.01,
+        );
+        pilots.push(g.feature(pilot, format!("{part}-mount"), format!("{part} mounting bosses"), &[part]));
       }
     }
     for bounds in relay_bars(&hosted) {

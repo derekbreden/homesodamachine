@@ -82,10 +82,10 @@ M3 inserts. Slide the complete rubber foot-and-leg assemblies off the
 water pump's fixed rails. Lower the bare pump into the lid's fitted half pipe
 and close its continuous 54.5 mm upper clip before installing the PCB, per the
 [pump installation](../reference/g-ganen-pump/installation/README.md).
-The relay PCB mounting holes take M2 screws, per the
-[received-board record](../reference/teyleten-relay/mounting-fit.json). The installed
-printed mount uses those holes for locating pins. Its end-clamp screws enter
-separate wall hosts outside the board; they pass through the printed clamps only.
+Each relay fastens through its PCB corner holes with the acquired Sutemribor
+M2 × 6 screws. Press ruthex RX-M2x4 inserts flush in the matching west-wall
+bearing faces before placing the board. The [received-board record](../reference/teyleten-relay/mounting-fit.json)
+identifies the screw family.
 The PSU ceiling and relay wall-host stacks are defined by
 [`rear.rs`](/hardware/printed-parts/enclosure/enclosure/back-top/rear.rs)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
@@ -140,7 +140,7 @@ records the current rigid-slide and final-connection limits.
    (DC-1), relay 2 COM (DC-2), the relay 1 NO and N-junction pigtails (AC-4,
    AC-5), the relay 2 NO pigtail (DC-3), and J5 at the two
    relay modules: IO19 to relay 1 IN, IO2 to relay 2 IN, V5 and GND to both
-   modules. Each relay sits on its locating pins and has both end clamps fitted before these
+   modules. Fasten each relay through all its mounting holes before these
    wires; keep the terminal entries and screwdriver wells clear. Punch J3 down on the rear
    keystone. Dress every free end forward so it lies within the funnel
    opening's footprint once the box is closed, clear of the seams and every

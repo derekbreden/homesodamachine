@@ -40,8 +40,8 @@ The current screw and insert selection is [the shared fastener source](/hardware
 The appliance allocation is in [the BOM](/hardware/ledger/bom.md#13-mechanical-attach-hardware).
 The [rear hosts](../numbers/rear_wall.rs), [shell mounts](../numbers/shell.rs),
 [pump retainers](../retainer-numbers/lib.rs) and [nameplate mount](../../nameplate/snap_dimensions.rs)
-own the current pilots and closed stock. Relay fasteners clamp beside the PCB;
-the original corner holes locate on pins. The short condenser screws use the
+own the current pilots and closed stock. Each relay's M2 screws pass through its
+PCB corner holes into inserts in the west-wall bearings. The short condenser screws use the
 selected flat washers over the donor holes. The compressor retains its grommet
 and washer bearing planes.
 
