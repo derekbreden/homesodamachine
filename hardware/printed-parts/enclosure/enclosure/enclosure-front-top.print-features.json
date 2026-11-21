@@ -94,6 +94,18 @@
         292.10217530521896,
         298.5093956673693
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 1",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -139,6 +151,18 @@
         291.642758329784,
         297.9255067775645
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 2",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -184,6 +208,18 @@
         291.09616599183335,
         297.1965934701191
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 3",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -229,6 +265,18 @@
         290.46743109676294,
         296.32936728958316
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 4",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -274,6 +322,18 @@
         289.7623427860459,
         295.33181331056846
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 5",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -319,6 +379,18 @@
         288.9873932331145,
         294.21311661434993
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 6",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -364,6 +436,18 @@
         288.149717866003,
         292.983577716281
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 7",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -409,6 +493,18 @@
         287.25702966715727,
         291.6545177227346
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H tube entry 8",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {
@@ -454,6 +550,18 @@
         287.98613682359087,
         297.81310758374053
       ],
+      "exterior_contact_plane_source": {
+        "normal": [
+          0.46947156278589086,
+          0.0,
+          -0.8829475928589269
+        ],
+        "point_mm": [
+          -36.35,
+          108.03999999999999,
+          282.175
+        ]
+      },
       "name": "V-H wing split",
       "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside.",
       "void_source": {

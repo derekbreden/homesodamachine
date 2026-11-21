@@ -61,6 +61,7 @@ impl InletClip {
     pub fn support_free_regions(&self) -> Vec<Value> {
         let [x, y, z] = self.centre;
         let outside = self.bore + self.wing;
+        let end_normal = V3::Y.cross(radial(END));
         let region = |name: String, corners: [V3; 4]| {
             let profile = corners.map(|p| [x + p.x, z + p.z]);
             let range = |axis: usize| {
@@ -74,6 +75,7 @@ impl InletClip {
             json!({"name": name, "bounds_source_mm": [x0, x1, span[0], span[1], z0, z1],
                 "blocking_bounds_source_mm": [x0-margin, x1+margin, span[0]-margin, span[1]+self.wing, z0-margin, z1+margin],
                 "void_source": {"kind": "prism_y", "span_y_mm": span, "profile_xz_mm": profile},
+                "exterior_contact_plane_source": {"point_mm": self.centre, "normal": [end_normal.x, end_normal.y, end_normal.z]},
                 "reason": "Keep the tube entry and flex slot open. Support can land on the exterior underside."})
         };
         let inner = self.radius - self.bore;
