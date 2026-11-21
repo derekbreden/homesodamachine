@@ -4,7 +4,7 @@
   "source_commit": "9b6ba513f3cac06051958db2a6f2cc856d2ac91f",
   "printer": "Mark1",
   "connection_key": "H2C",
-  "printer_task_id": null,
+  "printer_task_id": "1467888449",
   "previous_task_id": "1464748974",
   "accepted_at": "2026-11-21T01:51:38+00:00",
   "material": "Polymaker Fiberon PET-GF15, black",
