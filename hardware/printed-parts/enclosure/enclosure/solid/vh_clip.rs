@@ -19,7 +19,6 @@ pub struct InletClip {
 const START: f64 = 18.;
 const END: f64 = 62.;
 const WALL_EMBED: f64 = 0.45;
-const CORBEL_WIDTH: f64 = 5.;
 
 fn radial(degrees: f64) -> V3 {
     let (s, c) = degrees.to_radians().sin_cos();
@@ -34,13 +33,15 @@ impl InletClip {
     /// The corbel lands the crown on the receding ridge. Its flat top ends behind the bore floor so each wing can spread.
     fn corbel(&self) -> ([f64; 2], Vec<V2>) {
         let [cx, cy, cz] = self.centre;
-        let crest = radial(START) * (self.radius + self.bore + self.wing);
-        let middle_x = cx + crest.x;
+        let end = radial(START);
+        let outside = self.bore + self.wing;
+        let crest = end * (self.radius + outside);
+        let crown_face = [cx + end.x * (self.radius - outside), cx + crest.x];
         let outer_y = cy - self.bore - 0.4;
         let knee_z = cz + 6.1;
         let root_z = knee_z - (outer_y - self.root_y());
         let top_z = cz + crest.z;
-        ([middle_x - CORBEL_WIDTH / 2., middle_x + CORBEL_WIDTH / 2.],
+        (crown_face,
          vec![v2(self.root_y(), root_z), v2(outer_y, knee_z), v2(outer_y, top_z), v2(self.root_y(), top_z)])
     }
 

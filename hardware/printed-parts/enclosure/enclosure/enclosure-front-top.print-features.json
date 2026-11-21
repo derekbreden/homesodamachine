@@ -51,7 +51,7 @@
       "name": "V-H entry clip and bulkhead root"
     }
   ],
-  "source_stl_sha256": "750b7e8836ac183e878d89a82aa9e75804bd46b331f0744883c7828f36dfaf1a",
+  "source_stl_sha256": "e9fefdb8cd70dbe9d3211e33e17bdfb930c9a8b21c14ab38525b402392f99a01",
   "support_free_regions": [
     {
       "bounds_source_mm": [
@@ -78,6 +78,14 @@
       "reason": "Keep the connector pocket and mouth clear of support."
     },
     {
+      "blocking_bounds_source_mm": [
+        -36.14653182239107,
+        -16.66630086978651,
+        92.29999207671872,
+        116.015,
+        281.6820296671573,
+        303.1919313064776
+      ],
       "bounds_source_mm": [
         -33.74653182239107,
         -19.06630086978651,

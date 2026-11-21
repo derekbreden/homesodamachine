@@ -201,8 +201,15 @@ fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json:
         }));
     }
     if let Some(clip) = clip {
+        let [x0, x1, root, front, _, top] = clip.bounds();
+        let entry = clip.entry_bounds();
+        // Reserve room around the opening for the width and flare of tree interfaces.
+        let clearance = clip.wing;
+        let blocker = [x0 - clearance, x1 + clearance, root, front + clearance,
+                       entry[4] - clip.bore - clearance, top + clearance];
         exclusions.push(json!({
-            "name": "V-H tube entry and wing split", "bounds_source_mm": clip.entry_bounds(),
+            "name": "V-H tube entry and wing split", "bounds_source_mm": entry,
+            "blocking_bounds_source_mm": blocker,
             "reason": "Keep the tube seat and independent wings accessible through the side opening."
         }));
     }
