@@ -717,9 +717,9 @@
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "285e14cf0a12c275ad531a239c88525952fa8685b52036cc28fdc0f76dda21eb",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "6f87b5a766eec57010339c1ae029aaa2aa78967de99a9b0623c692abcf7d53e2",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "0c4c9416ef6e633d2c0a2423f5dff02b66d3d26fe37e739a71886e20d213077f",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "05353346a8f0bab9d9bda19d34cb486b64703398c441a5f293823388900417a5",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
     "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": "473415b7d9bb3db42ae500426b0a2e1c0fbbb5b5ccd717096ad1f6e7a5ec8450",
@@ -1402,9 +1402,9 @@
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "285e14cf0a12c275ad531a239c88525952fa8685b52036cc28fdc0f76dda21eb",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "6f87b5a766eec57010339c1ae029aaa2aa78967de99a9b0623c692abcf7d53e2",
       "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "0c4c9416ef6e633d2c0a2423f5dff02b66d3d26fe37e739a71886e20d213077f",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "05353346a8f0bab9d9bda19d34cb486b64703398c441a5f293823388900417a5",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
       "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
       "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
@@ -3487,9 +3487,9 @@
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": 1793626644,
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": 1794035339,
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": 1793626644,
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1795252141.869526,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1795252299.216376,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": 1795252272.173885,
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1795252141.869526,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1795252299.216376,
     "hardware/printed-parts/zone-c/funnel/funnel.step": 1793626644,
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": 1794034860,
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": 1791611789,
@@ -5675,8 +5675,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
-      "commit": "a458eecbdda5c66a166b65a905c13c2a0f877723",
-      "inputs": "c015aa15c680b80fc250c0efab76ba9a620c78080ac5872f9bd020d761da53da"
+      "commit": "3e11c0ebfcab70d696a4fed1e25018ab6ea16ee6",
+      "inputs": "bbe438ea1fafb8a9ddd378c64f4047221e37954851a43c342079eb57832a8f92"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": {
       "commit": "4fceb64dd026327ade7d1f38ed71555d0c96e43a",
@@ -5684,8 +5684,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": {
-      "commit": "a458eecbdda5c66a166b65a905c13c2a0f877723",
-      "inputs": "c015aa15c680b80fc250c0efab76ba9a620c78080ac5872f9bd020d761da53da"
+      "commit": "3e11c0ebfcab70d696a4fed1e25018ab6ea16ee6",
+      "inputs": "bbe438ea1fafb8a9ddd378c64f4047221e37954851a43c342079eb57832a8f92"
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
