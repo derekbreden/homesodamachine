@@ -76,7 +76,7 @@ hardware installation, following the
 
 The [trial preparation](trial-preparation/README.md) writes each piece's fresh native project
 from its current mesh with this recipe: the measured fine and six-wall bands, support-blocked
-show transitions, back-top's sliding-groove ribbons and tie-channel windows, and the
+show transitions, back-top's sliding-groove ribbons, and the
 solid-host modifiers below. Its review reads each sliced archive for those readings.
 
 Current fastener hosts and their roots also require the local 100% infill

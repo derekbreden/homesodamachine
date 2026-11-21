@@ -1,5 +1,5 @@
-//! Print features read from a piece's mesh in its print frame: the layer bands, painted facets,
-//! fin volumes and review windows a project needs, found from faces chosen by orientation and by
+//! Print features read from a piece's mesh in its print frame: the layer bands, painted facets
+//! and fin volumes a project needs, found from faces chosen by orientation and by
 //! place on the part's own bounds. A feature whose faces are missing, or whose measured extent
 //! leaves its declared range, is an error naming what was found.
 
@@ -404,58 +404,6 @@ fn segment_triangle_distance(s: [[f64; 2]; 2], t: [[f64; 2]; 3]) -> f64 {
 }
 
 pub fn layer_index_below(z: f64) -> i64 { ((z - FIRST_LAYER + LAYER / 2.0) / LAYER).floor() as i64 }
-
-/// The room under each zip-tie channel roof, as a box from the roof down to its floor or the
-/// declared cavity depth.
-pub fn tie_windows(geo: &Geometry, feature: &Value) -> Result<Feature> {
-    let zone = geo.select(feature.get("select").unwrap_or(&json!({})));
-    let up: Vec<usize> = (0..geo.t.len()).filter(|&i| geo.n[i][2] > 0.999).collect();
-    let depth = num(feature, "cavity_depth_mm").unwrap_or(0.0);
-    let widths: Vec<f64> = feature["channel_widths_mm"].as_array().map(|a| a.iter().filter_map(Value::as_f64).collect()).unwrap_or_default();
-    let mask: Vec<bool> = (0..zone.len()).map(|i| zone[i] && geo.n[i][2] < -0.999).collect();
-    let mut windows = Vec::new();
-    for members in geo.components(&mask) {
-        let (mut low, mut high) = ([f64::INFINITY; 3], [f64::NEG_INFINITY; 3]);
-        for &f in &members {
-            for p in &geo.t[f] {
-                for k in 0..3 { low[k] = low[k].min(p[k]); high[k] = high[k].max(p[k]); }
-            }
-        }
-        let size = [high[0] - low[0], high[1] - low[1]];
-        let short = size[0].min(size[1]);
-        let closest = widths.iter().map(|w| (w - short).abs()).fold(f64::INFINITY, f64::min);
-        if closest > num(feature, "width_tolerance_mm").unwrap_or(0.06) || size[0].max(size[1]) > num(feature, "long_side_max_mm").unwrap_or(f64::INFINITY) {
-            continue;
-        }
-        if low[0] < geo.low[0] + 0.5 || low[1] < geo.low[1] + 0.5 || high[0] > geo.high[0] - 0.5 || high[1] > geo.high[1] - 0.5 {
-            continue;
-        }
-        if members.iter().map(|&f| geo.a[f]).sum::<f64>() < 0.85 * size[0] * size[1] {
-            continue;
-        }
-        let mut zs: Vec<f64> = members.iter().map(|&f| geo.c[f][2]).collect();
-        zs.sort_by(|a, b| a.partial_cmp(b).unwrap());
-        let roof = if zs.len() % 2 == 1 { zs[zs.len() / 2] } else { (zs[zs.len() / 2 - 1] + zs[zs.len() / 2]) / 2.0 };
-        if roof - geo.low[2] < depth {
-            continue;
-        }
-        let floors: Vec<f64> = up.iter().filter(|&&i| {
-            let c = geo.c[i];
-            c[0] > low[0] && c[0] < high[0] && c[1] > low[1] && c[1] < high[1] && c[2] < roof && c[2] >= roof - depth
-        }).map(|&i| geo.c[i][2]).collect();
-        let floor = floors.iter().cloned().fold(f64::NEG_INFINITY, f64::max);
-        let floor = if floors.is_empty() { roof - depth } else { floor };
-        windows.push(json!({"roof_print_z_mm": roof, "floor_print_z_mm": floor,
-            "box_print_mm": [[low[0], low[1], floor], [high[0], high[1], roof]], "roof": geo.record(&members)}));
-    }
-    check(feature, "window count", windows.len() as f64, "count")?;
-    let mut m = base(feature, "tie_windows");
-    m.insert("windows".into(), json!(windows));
-    m.insert("blockers".into(), json!(feature.get("blockers").and_then(Value::as_bool).unwrap_or(false)));
-    m.insert("blocker_roof_overlap_mm".into(), json!(num(feature, "blocker_roof_overlap_mm").unwrap_or(0.0)));
-    m.insert("reason".into(), feature["reason"].clone());
-    Ok(Feature::plain(m))
-}
 
 /// Interrupted removable walls from the bed to a flat ceiling's exterior edge.
 pub fn edge_fins(geo: &Geometry, feature: &Value, ceiling: &Feature) -> Result<Feature> {

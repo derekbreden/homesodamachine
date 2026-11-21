@@ -4,7 +4,7 @@
 //! modifier counts, painted facets and layer ranges. `review` reads the sliced archive: its
 //! integrity and Z trim, fine-layer coverage of each measured round span, layer heights through
 //! each transition band, the bead envelope against the bed border, support beads near the painted
-//! show faces and inside tie-channel windows and declared support-free interiors, deposition in
+//! show faces and inside declared support-free interiors, deposition in
 //! the solid-host modifiers, optional unbacked-road statistics, the first-to-second layer bead
 //! stack, and each object's support topology. Removal lanes for the reported support bodies
 //! remain a reading of their positions against the part.
@@ -1037,7 +1037,6 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
             }
         }
     }
-    let windows: Vec<(i64, &Value)> = objects.iter().flat_map(|(o, r)| r["tie_windows"].as_array().into_iter().flatten().map(move |w| (*o, w))).collect();
     let excluded: Vec<(i64, &Value)> = objects.iter().flat_map(|(o, r)| r["support_free_regions"].as_array().into_iter().flatten().map(move |w| (*o, w))).collect();
     let fine: Vec<(i64, &Value)> = objects.iter().flat_map(|(o, r)| r["verify_spans"].as_array().into_iter().flatten().map(move |s| (*o, s))).collect();
     let span = |s: &Value| (s["print_z_mm"][0].as_f64().unwrap_or(0.0), s["print_z_mm"][1].as_f64().unwrap_or(0.0));
@@ -1045,7 +1044,7 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
     let (mut bead_low, mut bead_high) = ([f64::INFINITY; 2], [f64::NEG_INFINITY; 2]);
     let mut support_roads = 0usize;
     let mut show_min: Option<f64> = None;
-    let (mut show_contacts, mut window_crossings, mut excluded_support) = (Vec::new(), Vec::new(), Vec::new());
+    let (mut show_contacts, mut excluded_support) = (Vec::new(), Vec::new());
     let mut unbacked_rows: BTreeMap<(i64, String), [f64; 5]> = BTreeMap::new();
     let mut previous: Option<Beads> = None;
     let mut first_two: BTreeMap<i64, Vec<(Beads, Vec<Capsule>)>> = BTreeMap::new();
@@ -1103,12 +1102,6 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
                         Ok(false) => {}
                         Err(e) => { problem.get_or_insert(e); }
                     }
-                }
-            }
-            for (oid, window) in &windows {
-                let (lo, hi) = (vec3(&window["box_plate_mm"][0]), vec3(&window["box_plate_mm"][1]));
-                if z - height < hi[2] - 0.02 && z > lo[2] + 0.02 && capsule_meets_box(&bead, [lo[0] + 0.02, lo[1] + 0.02], [hi[0] - 0.02, hi[1] - 0.02]) {
-                    window_crossings.push(json!({"object": oid, "z_mm": z, "window": window["box_plate_mm"], "road": road_json(road), "feature": &*road.feature}));
                 }
             }
         }
@@ -1221,7 +1214,6 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
         "bed_border": minimum >= border,
         "fine_and_transition_bands": band_results.iter().all(|r| r["pass"] == json!(true)),
         "show_faces_support_free": show_contacts.is_empty(),
-        "tie_windows_support_free": window_crossings.is_empty(),
         "solid_hosts_sampled": dense.iter().all(|r| r["minimum_coverage"].as_f64().is_none_or(|c| c >= 0.9)),
     });
     let mut result = json!({
@@ -1232,7 +1224,6 @@ pub fn review(root: &Path, directory: &Path, audit_supports: bool, unbacked: boo
         "bead_envelope_plate_mm": [bead_low, bead_high], "bed_margins_mm": margins, "minimum_bed_margin_mm": minimum,
         "bed_border_mm": border, "fine_and_transition_bands": band_results, "support_roads": support_roads,
         "show_face_minimum_bead_clearance_mm": show_min, "show_face_contacts": show_contacts,
-        "tie_window_support_crossings": window_crossings.iter().take(200).collect::<Vec<_>>(),
         "fine_band_unbacked_roads": unbacked_json, "first_second_layer_stack": stack,
         "solid_host_deposition": dense, "support_topology": audits,
         "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
