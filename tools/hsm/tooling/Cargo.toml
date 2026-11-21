@@ -15,6 +15,10 @@ name = "rear-equipment-corner"
 path = "../../../hardware/print-tests/rear-equipment-corner/corner.rs"
 
 [[bin]]
+name = "reservoir-a-aft-snaps"
+path = "../../../hardware/print-tests/reservoir-a-aft-snaps/coupon.rs"
+
+[[bin]]
 name = "jg-bulkhead-reference"
 path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
 
