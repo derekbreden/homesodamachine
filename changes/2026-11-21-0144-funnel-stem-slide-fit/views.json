@@ -1,0 +1,76 @@
+{
+  "views": [
+    {
+      "name": "stem",
+      "caption": "The frame web guides the upright elbow stem beneath the removable silicone funnel.",
+      "before": "stem-before.webp",
+      "after": "stem-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 763.6,
+          "y": 453.8,
+          "r": 100.5,
+          "label": "Stem passage",
+          "at": [
+            4.1,
+            179.19575,
+            302.9
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -3.103465471778264,
+          174.02330754703624,
+          328.76221226481886
+        ],
+        "target": [
+          0,
+          179.19575,
+          302.9
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.029496613640303586,
+        "far": 292.70577413770684,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "funnel-drain-union*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "ea98aa808f1c18cc398b651a78bcc3e19c3469aadc50a4eccc0044f864c0f4eb",
+          "commit": "c8b81459af1fad0239aaf3ccb34ce1b049d89df5",
+          "taken": "2026-11-21T07:43:11.727Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "e6f2a22938956e3a47493240b810ba782f6831076b93a402f1617a44bd026657",
+          "commit": "6fd8d7b318f5dbf4ed866f6ae1adef0588ce5833",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
