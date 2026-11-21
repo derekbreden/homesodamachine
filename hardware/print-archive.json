@@ -1368,6 +1368,12 @@
       "bytes": 5296901,
       "sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372"
     },
+    "2ab10f7d2e503fdc759ca458bde15d9b894964a8": {
+      "archive": "vb-return-clip-2026-11-21-mark1-e7ee126c5edf6463.zip",
+      "bytes": 237427,
+      "offset": 74,
+      "sha256": "163afd092ae1617f39f4d245caad0d414254f1020d145420998cd77b84b874cf"
+    },
     "2ab6716b4ee6a103dfdbc863f13d54703eb139ba": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 851406048,
@@ -5478,6 +5484,12 @@
       "bytes": 4125410,
       "sha256": "5e6bcaa8678e8f200e78201f7613d096e976c2aa66f5f03588d7170dc582fd63"
     },
+    "b520b840f7eab2d7df484208ec7cf84631eacf12": {
+      "archive": "vb-return-clip-2026-11-21-mark1-e7ee126c5edf6463.zip",
+      "bytes": 509185,
+      "offset": 237575,
+      "sha256": "74d2bfbc4b85b3042373a5ee3643bfcedae5dac89749239f3b0de9cdf61cea99"
+    },
     "b52a69a7af8d5211e59f872988b89a586eb91c9e": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 507055762,
@@ -7870,6 +7882,8 @@
     "hardware/print-tests/receiver-tool-access/receiver-finish/prints/2026-11-03-finished-receivers-mark1-mark1-febf2390/coordinates-1905.3mf": "2d5cdb742171024f88d0c32527dee392a4168c6a",
     "hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7.3mf": "6981d9188f3a6007d189f8d9d7cc0a82463c9f10",
     "hardware/print-tests/reservoir-a-aft-snaps/prints/2026-11-20-mark1/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7/2026-11-20-reservoir-a-aft-snaps-mark1-314cedb7.gcode.3mf": "bce1cae76664d08dcec2c62266ac92735f5c3a80",
+    "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.3mf": "2ab10f7d2e503fdc759ca458bde15d9b894964a8",
+    "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.gcode.3mf": "b520b840f7eab2d7df484208ec7cf84631eacf12",
     "hardware/printed-parts/asse-drain-adapter/siraya-85a-settings.3mf": "052cb987fca4d100b24ddf9c56b9bf90fae68b48",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-10-31-bottom-pair/mark1/2026-10-31-foam-cap-bottom-mark1-20a7d979.3mf": "fa792375599261aa9e22c22a72aab2a69fdcce10",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-01e65ae0/2026-11-20-foam-cap-lid-top-mark1-01e65ae0.3mf": "1127ee03eb9005e62643d2f643ccd1a4f8d422be",

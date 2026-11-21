@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "99548431a98192afc9bac72a6ade1c5b2e0d1cc57008d27dde7e0155262f4445",
+    "name": "2026-11-21-vb-return-clip-mark1-6bf9695b.gcode.3mf",
+    "objects": [
+      "vb-return-clip"
+    ],
+    "sha256": "74d2bfbc4b85b3042373a5ee3643bfcedae5dac89749239f3b0de9cdf61cea99",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 92,
+  "observed_at": "2026-11-21T06:38:57+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1468407647",
+  "subtask_name": "2026-11-21-vb-return-clip-mark1-6bf9695b.gcode.3mf",
+  "total_layer_num": 159
+}

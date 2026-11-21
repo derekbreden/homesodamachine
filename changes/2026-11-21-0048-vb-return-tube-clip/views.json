@@ -1,0 +1,156 @@
+{
+  "views": [
+    {
+      "name": "clip",
+      "caption": "The slot at the middle of the bend separates both lips. The floor supports the tube through the full turn.",
+      "before": "clip-before.webp",
+      "after": "clip-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 606.8,
+          "y": 415.3,
+          "r": 38.4,
+          "label": "Tube seat",
+          "at": [
+            5.664,
+            274.293,
+            277.235
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -18.09217648784288,
+          293.12724837943335,
+          310.8882647317643
+        ],
+        "target": [
+          6.5,
+          274,
+          274
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.10425954506576544,
+        "far": 391.5152096143343,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c0493f2c5904ce67c6a4dab3942f7a31dad8f746dd6534baf39a196921c186a4",
+          "commit": "a19ae562d2f796bb47fd4240c8f52509d91080e2",
+          "taken": "2026-11-21T06:25:54.285Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "39c5e924d906f1736cc75b4a9b1d96d0ebf31a6c4d87e006cc4e481788b70fde",
+          "commit": "66e23af25a7ec6213bd263d670bf05fae4646176",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/vb-outlet-return",
+        "cold-core/tube-above-core-vb-yb-cross",
+        "tube-above-core-vb-yb-link",
+        "wire-DC4-GND",
+        "cold-core/foam-cap-lid-top",
+        "wire-flow-GND",
+        "wire-DC1-GND",
+        "wire-DC1-V12"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "tube",
+      "caption": "The highlighted tube leaves the V-B outlet stem, follows the bend and continues to Y-B.",
+      "before": "tube-before.webp",
+      "after": "tube-after.webp",
+      "width": 960,
+      "height": 720,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -5.871996079297734,
+          289.4591956872275,
+          334.5519862775421
+        ],
+        "target": [
+          10,
+          272,
+          279
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.13610240901569323,
+        "far": 418.00738823977576,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/tube-above-core-vb-yb-cross",
+        "tube-above-core-vb-yb-link"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/vb-outlet-return*",
+        "cold-core/vb-outlet-stem*",
+        "cold-core/tube-above-core-vb-yb-cross",
+        "tube-above-core-vb-yb-link"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "c0493f2c5904ce67c6a4dab3942f7a31dad8f746dd6534baf39a196921c186a4",
+          "commit": "a19ae562d2f796bb47fd4240c8f52509d91080e2",
+          "taken": "2026-11-21T06:25:54.285Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "39c5e924d906f1736cc75b4a9b1d96d0ebf31a6c4d87e006cc4e481788b70fde",
+          "commit": "b2f0972a13e3bca4aea073fc643385695807891f",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/vb-outlet-return",
+        "cold-core/tube-above-core-vb-yb-cross",
+        "tube-above-core-vb-yb-link",
+        "wire-DC4-GND",
+        "cold-core/foam-cap-lid-top",
+        "wire-flow-GND",
+        "wire-DC1-GND",
+        "wire-DC1-V12"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
