@@ -21,8 +21,10 @@ func responsibleApp() -> String {
     var folder = executable
     while folder.path != "/" {
         if folder.pathExtension == "app" {
-            return Bundle(url: folder)?.object(forInfoDictionaryKey: "CFBundleName") as? String
-                ?? folder.deletingPathExtension().lastPathComponent
+            // System Settings lists the bundle by its file name, which can differ from its own name.
+            let listed = folder.deletingPathExtension().lastPathComponent
+            let own = Bundle(url: folder)?.object(forInfoDictionaryKey: "CFBundleName") as? String
+            return own == nil || own == listed ? listed : "\(listed) (\(own!))"
         }
         folder.deleteLastPathComponent()
     }
@@ -76,9 +78,10 @@ var nodes: [Node] = []
 let previousApp = NSWorkspace.shared.frontmostApplication
 let previousPointer = CGEvent(source: nil)?.location
 func foreground() -> Bool { NSWorkspace.shared.frontmostApplication?.bundleIdentifier == bundle }
+func frontName() -> String { NSWorkspace.shared.frontmostApplication?.localizedName ?? "another application" }
 func requireForeground() throws {
     tick(0.02)
-    guard foreground() else { try refuse("Bambu Connect lost focus; no input was sent") }
+    guard foreground() else { try refuse("Bambu Connect lost the front of the screen to \(frontName()); no input was sent") }
 }
 func collect(_ element: AXUIElement, parent: Int, depth: Int) {
     guard depth < 50, nodes.count < 12000 else { return }
@@ -127,18 +130,33 @@ func mouse(_ point: CGPoint, expected: AXUIElement? = nil) throws {
         } else {
             owner = expected
         }
-        var hit: AXUIElement?
-        AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(point.x), Float(point.y), &hit)
-        var target = hit
         var matches = false
         var seen: [String] = []
-        for _ in 0..<16 {
-            guard let element = target else { break }
-            seen.append(text(element, kAXRoleAttribute) + " " + text(element, kAXTitleAttribute))
-            if CFEqual(element, owner) { matches = true; break }
-            target = attribute(element, kAXParentAttribute).map { $0 as! AXUIElement }
+        // Chromium answers a hit test from what it last knew and refines it for the next ask.
+        for round in 0..<8 where !matches {
+            if round > 0 { tick(0.15) }
+            var hit: AXUIElement?
+            AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(point.x), Float(point.y), &hit)
+            var target = hit
+            seen = []
+            for _ in 0..<16 {
+                guard let element = target else { break }
+                seen.append(text(element, kAXRoleAttribute) + " " + text(element, kAXTitleAttribute))
+                if CFEqual(element, owner) { matches = true; break }
+                target = attribute(element, kAXParentAttribute).map { $0 as! AXUIElement }
+            }
         }
         guard matches else { try refuse("Control is covered at \(Int(point.x)),\(Int(point.y)): \(seen.joined(separator: " > ")); no click was sent") }
+        try requireForeground()
+    } else {
+        var hit: AXUIElement?
+        AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(point.x), Float(point.y), &hit)
+        var owner: pid_t = 0
+        if let hit { AXUIElementGetPid(hit, &owner) }
+        guard let app, owner == app.processIdentifier else {
+            let name = NSRunningApplication(processIdentifier: owner)?.localizedName ?? "Another application"
+            try refuse("\(name) covers Bambu Connect at \(Int(point.x)),\(Int(point.y)); no click was sent")
+        }
     }
     let source = CGEventSource(stateID: .hidSystemState)
     for kind in [CGEventType.mouseMoved, .leftMouseDown, .leftMouseUp] {
@@ -237,28 +255,53 @@ func capturePrintWindow() throws -> (CGImage, CGRect) {
     guard let image else { try refuse("Bambu Connect's window capture is empty") }
     return (image,window.frame)
 }
+// The External > Ext <filament> choice of the open filament list as a point on screen, with
+// the window frame it was read in.
+func visibleChoice(_ filament: String) throws -> (CGPoint, CGRect) {
+    let (image, frame) = try capturePrintWindow()
+    let choice = try externalChoice(recognizedText(image), filament: filament)
+    let point = CGPoint(x: frame.minX + choice.rect.midX / Double(image.width) * frame.width,
+                        y: frame.minY + choice.rect.midY / Double(image.height) * frame.height)
+    guard frame.contains(point) else { try refuse("The spool choice is outside Bambu Connect") }
+    return (point, frame)
+}
+// Finds Bambu Connect and its accessibility tree where it stands, starting it behind the other
+// applications when it is not running.
+func attach() throws {
+    guard AXIsProcessTrusted() else { try refuse("\(responsibleApp()) has no macOS Accessibility permission") }
+    if NSRunningApplication.runningApplications(withBundleIdentifier: bundle).isEmpty {
+        let config = NSWorkspace.OpenConfiguration(); config.activates = false
+        guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundle) else {
+            try refuse("Bambu Connect is not installed")
+        }
+        NSWorkspace.shared.openApplication(at: url, configuration: config) { _, _ in }
+    }
+    guard wait(30, { app = NSRunningApplication.runningApplications(withBundleIdentifier: bundle).first; return app != nil }),
+          let app else { try refuse("Bambu Connect did not start") }
+    root = AXUIElementCreateApplication(app.processIdentifier)
+    AXUIElementSetAttributeValue(root!, "AXManualAccessibility" as CFString, kCFBooleanTrue)
+    guard wait(20, { !snapshot().isEmpty }) else { try refuse("Bambu Connect has no accessible window") }
+}
+// Brings Bambu Connect and its main window to the front of the screen, for mouse input.
+func comeForward() throws {
+    app?.activate()
+    guard wait(5, foreground) else {
+        try refuse("Bambu Connect did not come forward; \(frontName()) kept the front of the screen")
+    }
+    _ = snapshot()
+    if let window = nodes.first(where: { $0.role == kAXWindowRole && $0.label == "Bambu Connect (Beta)" }) {
+        AXUIElementPerformAction(window.element, kAXRaiseAction as CFString)
+    }
+    tick(0.3)
+}
 func handle(_ request: [String: Any]) throws -> [String: Any] {
     switch request["command"] as? String {
+    case "attach":
+        try attach()
+        return ["nodes": snapshot()]
     case "focus":
-        guard AXIsProcessTrusted() else { try refuse("\(responsibleApp()) has no macOS Accessibility permission") }
-        if NSRunningApplication.runningApplications(withBundleIdentifier: bundle).isEmpty {
-            let config = NSWorkspace.OpenConfiguration(); config.activates = false
-            guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundle) else {
-                try refuse("Bambu Connect is not installed")
-            }
-            NSWorkspace.shared.openApplication(at: url, configuration: config) { _, _ in }
-        }
-        guard wait(30, { app = NSRunningApplication.runningApplications(withBundleIdentifier: bundle).first; return app != nil }),
-              let app else { try refuse("Bambu Connect did not start") }
-        root = AXUIElementCreateApplication(app.processIdentifier)
-        AXUIElementSetAttributeValue(root!, "AXManualAccessibility" as CFString, kCFBooleanTrue)
-        app.activate()
-        guard wait(5, foreground) else { try refuse("Bambu Connect did not come forward") }
-        guard wait(20, { !snapshot().isEmpty }) else { try refuse("Bambu Connect has no accessible window") }
-        if let window = nodes.first(where: { $0.role == kAXWindowRole && $0.label == "Bambu Connect (Beta)" }) {
-            AXUIElementPerformAction(window.element, kAXRaiseAction as CFString)
-        }
-        tick(0.3)
+        try attach()
+        try comeForward()
         return ["nodes": snapshot()]
     case "snapshot": return ["nodes": snapshot(), "foreground": foreground()]
     case "click":
@@ -294,34 +337,39 @@ func handle(_ request: [String: Any]) throws -> [String: Any] {
             try refuse("The filament tile is in the wrong nozzle column")
         }
         try requireScreenRecording()
-        try mouse(CGPoint(x:node.rect.midX,y:node.rect.midY),expected:node.element)
-        var choice: VisibleText?, shotFrame = CGRect.zero, shotSize = CGSize.zero
-        var lastError = "The filament popover did not appear"
-        for _ in 0..<3 {
-            let (image,frame) = try capturePrintWindow()
+        // The list opens on a click of its tile and closes when Bambu Connect loses the front.
+        // A system alert or the person at the keyboard can take the front mid-step, so the step
+        // is made again from whatever that left: after the first try the list is read before
+        // the tile is clicked, because a click on the tile of an open list closes it.
+        var reason = "The filament list did not open"
+        var earlier: [String] = []
+        for attempt in 0..<4 {
             do {
-                choice = try externalChoice(recognizedText(image),filament:filament)
-                shotFrame = frame; shotSize = CGSize(width:image.width,height:image.height)
-                break
-            } catch { lastError = (error as? Failure)?.message ?? error.localizedDescription }
-            tick(0.2)
+                if !foreground() { try comeForward() }
+                var found = attempt == 0 ? nil : try? visibleChoice(filament)
+                if found == nil {
+                    let tile = attempt == 0 ? node : try resolve(request)
+                    try mouse(CGPoint(x: tile.rect.midX, y: tile.rect.midY), expected: tile.element)
+                    for _ in 0..<3 {
+                        do { found = try visibleChoice(filament); break }
+                        catch { reason = (error as? Failure)?.message ?? error.localizedDescription }
+                        tick(0.2)
+                    }
+                }
+                guard let (point, frame) = found else { earlier.append(reason); continue }
+                _ = snapshot()
+                guard let current = nodes.first(where: {
+                    $0.role == kAXWindowRole && $0.label == "Bambu Connect (Beta)"
+                })?.rect, abs(current.minX - frame.minX) < 1, abs(current.minY - frame.minY) < 1,
+                      abs(current.width - frame.width) < 1, abs(current.height - frame.height) < 1 else {
+                    try refuse("Bambu Connect moved while the spool choice was being read")
+                }
+                try mouse(point)
+                return ["clicked": "External > Ext \(filament)", "nozzle": nozzle,
+                        "point": [point.x, point.y], "tries": attempt + 1, "earlier": earlier]
+            } catch let failure as Failure { reason = failure.message; earlier.append(reason) }
         }
-        guard let choice else { try refuse(lastError + "; no spool choice was clicked") }
-        let point = CGPoint(x:shotFrame.minX+choice.rect.midX/shotSize.width*shotFrame.width,
-                            y:shotFrame.minY+choice.rect.midY/shotSize.height*shotFrame.height)
-        guard shotFrame.contains(point) else { try refuse("The spool choice is outside Bambu Connect") }
-        _ = snapshot()
-        guard let currentFrame = nodes.first(where: {
-            $0.role == kAXWindowRole && $0.label == "Bambu Connect (Beta)"
-        })?.rect, abs(currentFrame.minX-shotFrame.minX) < 1,
-              abs(currentFrame.minY-shotFrame.minY) < 1,
-              abs(currentFrame.width-shotFrame.width) < 1,
-              abs(currentFrame.height-shotFrame.height) < 1 else {
-            try refuse("Bambu Connect moved while the spool choice was being read")
-        }
-        try mouse(point)
-        return ["clicked":"External > Ext \(filament)","nozzle":nozzle,
-                "point":[point.x,point.y]]
+        try refuse(reason + "; no spool choice was clicked")
     case "open_path":
         guard let path = request["path"] as? String, FileManager.default.fileExists(atPath: path) else {
             try refuse("The import file does not exist")
