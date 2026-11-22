@@ -205,6 +205,11 @@ export async function start({ port, hardwareDir } = {}) {
   });
 
   app.use("/contracts", express.static(CONTRACTS_DIR));
+  const simplifier = fileURLToPath(import.meta.resolve("meshoptimizer/simplifier"));
+  app.get("/vendor/meshoptimizer/simplifier.js", (_req, res) =>
+    res.links({ license: "/vendor/meshoptimizer/LICENSE.md" }).sendFile(simplifier));
+  app.get("/vendor/meshoptimizer/LICENSE.md", (_req, res) =>
+    res.type("text/plain").sendFile(path.join(path.dirname(simplifier), "LICENSE.md")));
   app.use(express.static(LANDING_PUBLIC));
 
   // Published files reach the viewer as the running site adopts their pointer file.

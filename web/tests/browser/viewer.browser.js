@@ -428,3 +428,38 @@ test("/3d zoom crosses a picked surface instead of stalling against it", async (
     await page.close().catch(() => {});
   }
 });
+
+test("/3d a short counter-scroll reverses on its first frame and settles there", async () => {
+  const page = await browser.newPage();
+  const file = "printed-parts/enclosure/enclosure/enclosure-back-top.step";
+  try {
+    await page.goto(`${baseUrl}/3d#step:${encodeURIComponent(file)}`, { waitUntil: "domcontentloaded" });
+    await page.waitForFunction(file => window.__hsm?.mountedStepFile === file, {}, file);
+    await settled(page);
+    const movement = await page.evaluate(async () => {
+      const { camera, renderer, THREE } = window.__hsm;
+      const canvas = renderer.domElement, rect = canvas.getBoundingClientRect();
+      const forward = camera.getWorldDirection(new THREE.Vector3());
+      const initial = camera.position.clone();
+      const wheel = deltaY => canvas.dispatchEvent(new WheelEvent("wheel", {
+        cancelable: true, clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 2, deltaY,
+      }));
+      const next = () => new Promise(requestAnimationFrame);
+      wheel(-65);
+      await next();
+      const inward = camera.position.clone();
+      // The faster leg has not painted when the counter-scroll arrives.
+      wheel(-30); wheel(3);
+      await next();
+      const reversed = camera.position.clone();
+      await next(); await next();
+      return {
+        inward: inward.clone().sub(initial).dot(forward),
+        reversed: reversed.clone().sub(inward).dot(forward),
+        coast: camera.position.distanceTo(reversed),
+      };
+    });
+    assert.ok(movement.inward > 0 && movement.reversed < 0, JSON.stringify(movement));
+    assert.ok(Math.abs(movement.reversed) < movement.inward && movement.coast < 1e-7, JSON.stringify(movement));
+  } finally { await page.close(); }
+});

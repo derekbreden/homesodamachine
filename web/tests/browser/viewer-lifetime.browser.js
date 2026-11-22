@@ -42,16 +42,76 @@ function payload() {
   return Buffer.concat([length, header, ...chunks]);
 }
 
+function sceneBytes(head) {
+  let header = Buffer.from(JSON.stringify(head));
+  header = Buffer.concat([header, Buffer.alloc((4 - header.length % 4) % 4, 32)]);
+  const length = Buffer.alloc(4); length.writeUInt32LE(header.length);
+  return Buffer.concat([length, header]);
+}
+
 function sharedPayload() {
   const object = payload();
   const sha = createHash("sha256").update(object).digest("hex");
-  let header = Buffer.from(JSON.stringify({ v: 4, src: "fixture", meshes: [
+  const scene = sceneBytes({ v: 4, src: "fixture", meshes: [
     { name: mesh.name, asset: sha, entries: [{ name: mesh.name, color: mesh.color }] },
-  ] }));
-  header = Buffer.concat([header, Buffer.alloc((4 - header.length % 4) % 4, 32)]);
-  const length = Buffer.alloc(4); length.writeUInt32LE(header.length);
-  return { object, sha, scene: Buffer.concat([length, header]) };
+  ] });
+  return { object, sha, scene };
 }
+
+test("a partial assembly fit preserves the saved pose until the full scene is ready", {timeout: 60000}, async () => {
+  const hardwareDir = await fs.mkdtemp(path.join(os.tmpdir(), "hsm-camera-arrival-"));
+  let browser, server, release;
+  try {
+    const first = sharedPayload();
+    const late = Buffer.from(first.object);
+    late.writeFloatLE(-0.75, 4 + late.readUInt32LE(0));
+    const lateHash = createHash("sha256").update(late).digest("hex");
+    const header = JSON.parse(first.scene.subarray(4));
+    header.meshes.push({name: "other", asset: lateHash, entries: [{name: "other", color: mesh.color}],
+      transform: [[1,0,0,200],[0,1,0,0],[0,0,1,0]]});
+    await fs.mkdir(path.dirname(path.join(hardwareDir, file)), { recursive: true });
+    await fs.writeFile(path.join(hardwareDir, file), "fixture");
+    await fs.writeFile(path.join(hardwareDir, file + ".mesh"), sceneBytes(header));
+    ({ server } = await start({ port: 0, hardwareDir }));
+    browser = await launchBrowser();
+    for (const saved of [null, {p:[80,-100,70],u:[0,0,1],t:[30,0,0]}]) {
+      const page = await browser.newPage();
+      const cameraKey = "step-camera:" + file;
+      await page.evaluateOnNewDocument((key, pose) => {
+        if (pose) localStorage.setItem(key, JSON.stringify(pose));
+        else localStorage.removeItem(key);
+      }, cameraKey, saved);
+      const hold = new Promise(resolve => { release = resolve; });
+      await page.setRequestInterception(true);
+      page.on("request", async request => {
+        const url = new URL(request.url());
+        if (url.pathname === "/api/objects") return request.respond({ contentType: "application/json", body: '{"objects":{}}' });
+        if (url.pathname === "/scene-meshes/" + lateHash) {
+          await hold;
+          return request.respond({ contentType: "application/octet-stream", body: late });
+        }
+        if (url.pathname === "/scene-meshes/" + first.sha) return request.respond({ contentType: "application/octet-stream", body: first.object });
+        return request.continue();
+      });
+      await page.goto(`http://127.0.0.1:${server.address().port}/3d#step:${encodeURIComponent(file)}`, {waitUntil:"domcontentloaded"});
+      await page.waitForFunction(() => window.__hsm?.currentGroup?.userData.sceneLoading && window.__hsm.mountedStepFile);
+      const partial = await page.evaluate(async key => {
+        await new Promise(resolve => setTimeout(resolve, 400));
+        return JSON.parse(localStorage.getItem(key));
+      }, cameraKey);
+      assert.deepEqual(partial, saved);
+      release();
+      await page.waitForFunction(x => window.__hsm?.currentGroup?.userData.sceneLoading === false
+        && Math.abs(window.__hsm.controls.target.x - x) < 0.01, {}, saved?.t[0] ?? 100);
+      await page.close();
+    }
+  } finally {
+    release?.();
+    await closeBrowser(browser);
+    await closeServer(server);
+    await fs.rm(hardwareDir, { recursive: true, force: true });
+  }
+});
 
 test("live STEP reloads retain one renderer and release departed x-ray geometry", { timeout: 90000 }, async t => {
   const hardwareDir = await fs.mkdtemp(path.join(os.tmpdir(), "hsm-viewer-lifetime-"));
@@ -251,10 +311,7 @@ test("new shared parts extend clipping bounds while existing GPU geometry stays 
       entries: [{ name: "fixture-added", color: mesh.color }],
       transform: [[1,0,0,200],[0,1,0,0],[0,0,1,0]],
     });
-    let header = Buffer.from(JSON.stringify(head));
-    header = Buffer.concat([header, Buffer.alloc((4 - header.length % 4) % 4, 32)]);
-    const size = Buffer.alloc(4); size.writeUInt32LE(header.length);
-    await fs.writeFile(destination, Buffer.concat([size, header]));
+    await fs.writeFile(destination, sceneBytes(head));
     const after = await page.evaluate(async file => {
       const h = window.__hsm;
       const { state } = await import("/js/viewer/state.js");

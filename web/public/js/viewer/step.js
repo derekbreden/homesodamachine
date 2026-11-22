@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { decodeMeshPayload } from "./mesh-payload.js";
 export { decodeMeshPayload } from "./mesh-payload.js";
 import { resolveScene } from "./shared-scene.js";
+import { prepareMeshSurfaces, prepareSurface } from "./surface-query.js";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
 import * as sceneState from "./scene.js";
@@ -14,14 +15,14 @@ import { beginCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind, findTargetBodies } from "./pick-find.js";
 import { dropHighlight } from "./part-highlight.js";
-import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
+import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents, standsHidden } from "./component-picker.js";
 import { surfaceText } from "./pick-format.js";
 import { fetchMember, memberLoaded, memberUrl, rememberMember } from "./member.js";
 import { FAUCET_FINISHES, faucetStyleFor, hasFaucetFinish, isFaucetFinishBody, showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { stepLocation } from "/contracts/step-locations.js";
 import { matchesBody, materialForFile } from "/contracts/materials.js";
-import { componentUnitsInScene, membersOfInstance, unitForBody } from "/contracts/material-instances.js";
+import { componentGroupsInModel, componentUnitsInScene, membersOfInstance, unitForBody } from "/contracts/material-instances.js";
 import { uncoverContext } from "./instance-view.js";
 
 const { applyXray, syncEdgeResolution, setMeshMaterial } = xray;
@@ -167,22 +168,26 @@ export function forgetMaterials() {
 // highlights and clipboard picks name the body; assembly branches stay intact.
 const bodyName = (name) => (name || "").replace(/\/\d+$/, "");
 
-function buildMesh(result, file = null, finishId = state.faucetFinish) {
+function buildMesh(result, file = null, finishId = state.faucetFinish, interactive = true) {
   const group = new THREE.Group();
   const finish = FAUCET_FINISHES.find((f) => f.id === finishId) || FAUCET_FINISHES[0];
 
   result.meshes.forEach((mesh, occtIndex) => {
-    const attributes=mesh.localAttributes || mesh.attributes;
-    const indices=mesh.localIndex || mesh.index;
+    const attributes = mesh.localAttributes || mesh.attributes;
+    const indices = mesh.localIndex || mesh.index;
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(attributes.position.array), 3));
-    if (attributes.normal) {
-      geo.setAttribute("normal", new THREE.Float32BufferAttribute(new Float32Array(attributes.normal.array), 3));
+    for (const name of ["position", "normal"]) {
+      if (!attributes[name]) continue;
+      const array = attributes[name].array;
+      geo.setAttribute(name, new THREE.BufferAttribute(array instanceof Float32Array ? array : new Float32Array(array), 3));
     }
     if (indices) {
-      geo.setIndex(new THREE.BufferAttribute(new Uint32Array(indices.array), 1));
+      const array = indices.array;
+      geo.setIndex(new THREE.BufferAttribute(array instanceof Uint32Array ? array : new Uint32Array(array), 1));
     }
     geo.computeBoundingBox();
+    geo.boundingSphere = geo.boundingBox.getBoundingSphere(new THREE.Sphere());
+    if (interactive) prepareSurface(geo);
 
     // One double-sided draw per solid, so a thin part still reads from behind.
     // occt-import-js hands us mesh.color per solid when the STEP carries one;
@@ -263,7 +268,10 @@ async function fetchMeshes(file, headers, { mounted = false, signal, onPart, sel
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
-    const result = await resolveScene(bytes, { sourceUrl: resp ? null : url, signal, onPart, select, onTarget, priority });
+    const result = await resolveScene(bytes, {
+      sourceUrl: resp ? null : url, signal, onPart, select, onTarget, priority,
+      preparePart: onPart ? prepareMeshSurfaces : undefined,
+    });
     if (!result) return null; // a payload this code doesn't read is no payload
     // `url` only when the store is where these bytes came from. Whoever mounts them records it
     // as what is on screen; a thumbnail asks through here too and mounts nothing.
@@ -284,6 +292,8 @@ function nameSurface(file, surface) {
 
 // An opened component includes every body of its authored physical placement.
 function componentViewBodies(location, names) {
+  const group = componentGroupsInModel(state.materialCatalog, location.file, names).find(group => group.name === location.component);
+  if (group) return group.bodies;
   const material = materialForFile(state.materialCatalog, location.file);
   const units = componentUnitsInScene(state.materialCatalog, material?.id, names, { finish: state.faucetFinish });
   return unitForBody(units, location.component)?.bodies || [location.component];
@@ -300,9 +310,19 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     group = new THREE.Group(); group.userData.sharedFile = file;
     group.userData.parts = new Map(); state.currentGroup = group; scene.add(group);
     group.userData.fitWhenReady = !preserveCamera;
+    loadHiddenForFile(file);
   }
   const parts = group.userData.parts;
   group.userData.sceneLoading = true;
+  if (group.userData.sharedHead !== head) {
+    const present = new Set(head.meshes.map(part => part.name));
+    for (const [name,part] of parts) if (!present.has(name)) {
+      for (const solid of part.solids) {group.remove(solid);solid.geometry.dispose();if(solid.userData.ownsMaterial)solid.material.dispose();}
+      parts.delete(name);
+      invalidateModelBounds();
+    }
+    group.userData.sharedHead = head;
+  }
   const prior = parts.get(node.name);
   const key = meshes.map(mesh => mesh.objectKey).join('|');
   const sameGeometry=prior && prior.meshes.length===meshes.length && meshes.every((mesh,i)=>
@@ -318,18 +338,14 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     if (prior) for (const solid of prior.solids) { group.remove(solid); solid.geometry.dispose(); if(solid.userData.ownsMaterial)solid.material.dispose(); }
     const replacement = buildMesh({ meshes }, file);
     const solids = [...replacement.children];
-    for (const solid of solids) group.add(solid);
+    for (const solid of solids) {
+      solid.visible &&= !standsHidden(solid.name);
+      group.add(solid);
+    }
     parts.set(node.name, { meshes, solids, key });
     invalidateModelBounds();
     uncoverContext(group, solids);
   }
-  const present = new Set(head.meshes.map(part => part.name));
-  for (const [name,part] of parts) if (!present.has(name)) {
-    for (const solid of part.solids) {group.remove(solid);solid.geometry.dispose();if(solid.userData.ownsMaterial)solid.material.dispose();}
-    parts.delete(name);
-    invalidateModelBounds();
-  }
-  group.userData.sharedHead = head;
   if (group.userData.sharedFrame) return;
   group.userData.sharedFrame = requestAnimationFrame(() => {
     group.userData.sharedFrame = null;
@@ -343,10 +359,8 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
     if (!group.userData.focusedTarget?.find) clearPickFind();
     if (!group.userData.instanceView?.preview) dropHighlight();
     clearComponentPicker({ preserve: true }); applyXray(group);
-    const changedFile = state.mountedDetail?.file !== file;
     state.mountedDetail = {type:'step',file,sourceFile:location.file,surface:'mesh',src:latest.src,cut:latest.cut,scene:true};
     nameSurface(location.file,'mesh');
-    if (changedFile) loadHiddenForFile(file);
     applyHiddenComponents();
     if (group.userData.fitWhenReady) {resetCamera(group);group.userData.fitWhenReady=false;}
     window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_MOUNTED,{detail:{file,part:node.name,revision:latest.src,complete:false}}));
@@ -361,7 +375,10 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
     cancelAnimationFrame(state.currentGroup.userData.sharedFrame);
     state.currentGroup.userData.sharedFrame = null;
   }
-  if (state.currentGroup?.userData.sharedFile === file) state.currentGroup.userData.focusedTarget = null;
+  if (state.currentGroup?.userData.sharedFile === file) {
+    state.currentGroup.userData.focusedTarget = null;
+    state.currentGroup.userData.navigatedDuringLoad = false;
+  }
   await loadFinishes();   // before any material is built, so none is built at the default
   if (!current()) { load.finish(); return; }
   // Loading pill lives inside the current step wrapper (or none if the
@@ -470,8 +487,8 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
       state.currentGroup.userData.failedParts = result.errors;
       state.currentGroup.userData.sceneLoading = false;
       if (result.errors.length) console.warn('Parts retain their last available geometry:',result.errors);
-      const { focusedTarget, instanceView } = state.currentGroup.userData;
-      if (!preserveCamera && !focusedTarget && !instanceView) resetCamera(state.currentGroup);
+      const { focusedTarget, instanceView, navigatedDuringLoad } = state.currentGroup.userData;
+      if (!preserveCamera && !focusedTarget && !instanceView && !navigatedDuringLoad) resetCamera(state.currentGroup);
       const style=faucetStyleFor(file);
       if (style) {state.faucetStyle=style.id;window.dispatchEvent(new CustomEvent(HSM_EVENTS.FAUCET_OPTIONS));}
       if (location.component) window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED,{detail:{file,name:location.component}}));
@@ -486,6 +503,8 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
       if (!result.meshes.length) { failed(`Component ${location.component} is not in this model`); return; }
     }
 
+    await prepareMeshSurfaces(result.meshes, signal);
+    if (!current()) return;
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
       disposeCadGroup(state.currentGroup);
@@ -571,7 +590,7 @@ export function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
 // Build, shade and capture the shared meshes contract. Both thumbnail sources end here,
 // so where the meshes came from can't change how the part looks.
 export function renderMeshes(result, px, file = null, finishId = state.faucetFinish, presentation = "viewer") {
-  const group = buildMesh(result, file, finishId);
+  const group = buildMesh(result, file, finishId, false);
   try {
     applyXray(group);
     return snapThumbnail(group, px, presentation);

@@ -2,11 +2,11 @@
 // labels and listeners; this wrapper keeps the existing viewer exports and
 // per-browser preference.
 
-import { scene, camera, controls, renderer } from "./scene.js";
+import { scene, camera, controls, renderer, requestCadRender } from "./scene.js";
 import { makeToolChip } from "./tool-rail.js";
 import { createAxisRulers } from "./axis-rulers.js";
 
-const rulers = createAxisRulers({ scene, camera, controls, renderer, storageKey: "step-rulers" });
+const rulers = createAxisRulers({ scene, camera, controls, renderer, storageKey: "step-rulers", invalidate: requestCadRender });
 
 export const updateRulers = rulers.update;
 export const setRulersEnabled = rulers.setEnabled;

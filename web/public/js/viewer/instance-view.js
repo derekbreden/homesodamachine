@@ -7,7 +7,8 @@ import { instancesInScene } from "/contracts/material-instances.js";
 import { state } from "./state.js";
 import { camera } from "./scene.js";
 import { clearHighlight, frameParts, highlightParts } from "./part-highlight.js";
-import { selectComponent, setComponentPickEnabled, applyHiddenComponents, loadHiddenForFile } from "./component-picker.js";
+import { nearestSurface } from "./surface-query.js";
+import { hiddenContainsBody, selectComponent, setComponentPickEnabled, applyHiddenComponents, loadHiddenForFile } from "./component-picker.js";
 import { isXrayEnabled, setXrayEnabled } from "./xray.js";
 
 function visibleSolids(group) {
@@ -29,7 +30,7 @@ function sightLines(selected) {
     const ray = new THREE.Raycaster();
     point.set(THREE.MathUtils.lerp(min.x, max.x, u), THREE.MathUtils.lerp(min.y, max.y, v));
     ray.setFromCamera(point, camera);
-    const hit = ray.intersectObjects(selected, false)[0];
+    const hit = nearestSurface(ray, selected);
     if (hit) {
       ray.far = hit.distance - 0.01;
       rays.push(ray);
@@ -43,16 +44,13 @@ export function uncoverContext(group, solids) {
   const view = group.userData.instanceView;
   if (!view?.rays.length || group !== state.currentGroup) return;
   const shown = view.shown ? [...view.shown] : [];
-  const hits = [];
   for (const mesh of solids) {
     if (!mesh.visible || view.names.has(mesh.name) || shown.some(body => standsIn(mesh.name, body))) continue;
     mesh.updateWorldMatrix(true, false);
     for (const ray of view.rays) {
-      ray.intersectObject(mesh, false, hits);
-      if (!hits.length) continue;
+      if (!nearestSurface(ray, mesh)) continue;
       state.autoHiddenComponents.add(mesh.name);
       mesh.visible = false;
-      hits.length = 0;
       break;
     }
   }
@@ -80,7 +78,7 @@ export function uncoverFound(targets, eye) {
     const toward = points[Math.floor(i)].clone().sub(eye), distance = toward.length();
     if (distance < 0.02) continue;
     const ray = new THREE.Raycaster(eye.clone(), toward.divideScalar(distance), 0, distance);
-    const wall = ray.intersectObjects(walls, false)[0];
+    const wall = nearestSurface(ray, walls);
     ray.far = Math.min(distance, wall ? wall.distance : distance) - 0.01;
     if (ray.far > 0) rays.push(ray);
   }
@@ -95,7 +93,7 @@ export function uncoverFound(targets, eye) {
 // A link shows what it points at: the bodies hidden here by hand that hold any of `bodies` come
 // back, as they do for a part entered from the materials list.
 export function revealHidden(bodies) {
-  const reveal = [...state.hiddenComponents].filter(hidden => bodies.some(body => standsIn(body, hidden)));
+  const reveal = [...state.hiddenComponents].filter(hidden => bodies.some(body => hiddenContainsBody(hidden, body)));
   for (const hidden of reveal) state.hiddenComponents.delete(hidden);
   if (reveal.length) applyHiddenComponents();
 }
@@ -140,7 +138,7 @@ function materialLocations(material, members) {
 
 function showContext(group, members, { locations, fly, preview = false, material = null }) {
   const names = new Set(members), previous = group.userData.instanceView;
-  const reveal = material ? [] : [...state.hiddenComponents].filter(hidden => members.some(body => standsIn(body, hidden)));
+  const reveal = material ? [] : [...state.hiddenComponents].filter(hidden => members.some(body => hiddenContainsBody(hidden, body)));
   const keepView = !fly && previous && previous.names.size === names.size
     && !reveal.length && members.every(body => previous.names.has(body));
   if (isXrayEnabled() && (!keepView || !material)) setXrayEnabled(false, { persist: false });

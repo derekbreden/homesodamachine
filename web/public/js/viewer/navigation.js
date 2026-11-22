@@ -2,6 +2,7 @@
 // the same Trackball gestures, surface zoom and ViewCube serve every 3D bench.
 import * as THREE from "three";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import { nearestSurface } from "./surface-query.js";
 
 const NEAR_RATIO = 0.002;   // floor on near, as a fraction of the view distance
 const NEAR_REACH = 1.25;    // how much of the model's radius sits ahead of the near plane
@@ -56,9 +57,8 @@ export function createNavigation({
   }
   const controls = new TrackballControls(camera, canvas);
   controls.rotateSpeed = 3;
-  controls.panSpeed = .2;
-  controls.staticMoving = false;
-  controls.dynamicDampingFactor = .12;
+  controls.panSpeed = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+  controls.staticMoving = true;
   const depthSphere = new THREE.Sphere();
   let mode = "rotate", nativeGesture = null, changeSerial = 0, disposed = false;
 
@@ -96,60 +96,82 @@ export function createNavigation({
   // One wheel notch spent against a surface dollies the rig about an eightieth
   // of the model's radius.
   const ZOOM_FLOOR_RATIO = 0.05;
-  let surfaceZoomActive = false;
+  const anchorPixel = new THREE.Vector2();
+  const samplePixel = new THREE.Vector2();
+  let anchorMesh = null, pendingSample = false, invalidateAnchor = false;
+  let pendingZoom = 0, wheelTimer = 0;
 
-  function visibleInGroup(object, group) {
-    for (let node = object; node; node = node.parent) {
-      if (!node.visible) return false;
-      if (node === group) return true;
-    }
-    return false;
-  }
-
-  function surfaceUnderPointer(clientX, clientY) {
+  function updateAnchor() {
+    if (!pendingSample) return;
+    pendingSample = false;
     const mounted = getGroup();
     const groups = (Array.isArray(mounted) ? mounted : [mounted]).filter(Boolean);
-    if (!groups.length) return null;
+    camera.getWorldDirection(_surfaceForward);
+    if (anchorMesh && !invalidateAnchor && anchorPixel.distanceToSquared(samplePixel) < 64 &&
+        _surfaceOffset.copy(_surfaceAnchor).sub(camera.position).dot(_surfaceForward) > camera.near) {
+      for (let node = anchorMesh; node?.visible; node = node.parent) {
+        if (groups.includes(node)) return;
+      }
+    }
+    invalidateAnchor = false;
+    anchorMesh = null;
+    if (!groups.length || !controls.enabled || controls.noZoom || !camera.isPerspectiveCamera) return;
     const rect = canvas.getBoundingClientRect();
-    if (!(rect.width > 0) || !(rect.height > 0)) return null;
-    _surfacePointer.set(((clientX - rect.left) / rect.width) * 2 - 1,
-      -((clientY - rect.top) / rect.height) * 2 + 1);
+    if (!(rect.width > 0) || !(rect.height > 0)) return;
+    _surfacePointer.set(((samplePixel.x - rect.left) / rect.width) * 2 - 1,
+      -((samplePixel.y - rect.top) / rect.height) * 2 + 1);
     _surfaceRaycaster.layers.mask = camera.layers.mask;
     _surfaceRaycaster.setFromCamera(_surfacePointer, camera);
-    const hit = _surfaceRaycaster.intersectObjects(groups, true).find(({ object, face }) =>
-      face && object.isMesh && !object.userData.hitOnly && groups.some(group => visibleInGroup(object, group)));
-    return hit ? hit.point : null;
+    const solids = [];
+    for (const group of groups) {
+      group.updateWorldMatrix(true, true);
+      group.traverseVisible(object => {
+        if (object.isMesh && !object.userData.hitOnly && !object.userData.isXrayEdge) solids.push(object);
+      });
+    }
+    const hit = nearestSurface(_surfaceRaycaster, solids, hit => !!hit.face);
+    if (!hit) return;
+    const depth = _surfaceOffset.copy(hit.point).sub(camera.position).dot(_surfaceForward);
+    if (!(depth > 1e-6)) return;
+    controls.target.copy(camera.position).addScaledVector(_surfaceForward, depth);
+    _surfaceAnchor.copy(hit.point);
+    anchorMesh = hit.object;
+    anchorPixel.copy(samplePixel);
   }
 
-  function beginSurfaceZoom(clientX, clientY) {
-    surfaceZoomActive = false;
-    if (!controls.enabled || controls.noZoom || !camera.isPerspectiveCamera) return;
-    const point = surfaceUnderPointer(clientX, clientY);
-    if (!point) return;
+  function sampleSurface(x, y, fresh = false) {
+    samplePixel.set(x, y);
+    pendingSample = true;
+    invalidateAnchor ||= fresh;
+  }
 
-    camera.getWorldDirection(_surfaceForward);
-    const depth = _surfaceOffset.copy(point).sub(camera.position).dot(_surfaceForward);
-    if (!(depth > 1e-6)) return;
-
-    // This point lies on the camera's existing forward ray, so changing the
-    // target's depth cannot pan or turn the current picture.
-    controls.target.copy(camera.position).addScaledVector(_surfaceForward, depth);
-    _surfaceAnchor.copy(point);
-    surfaceZoomActive = true;
+  // Safari delivers the trackpad's coast as signed input. A reversal discards any old
+  // travel still awaiting a paint, and each browser sample contributes its distance once.
+  function accumulateZoom(delta, x, y, wheel = false) {
+    if (wheel && delta * pendingZoom < 0) pendingZoom = 0;
+    pendingZoom += delta;
+    sampleSurface(x, y);
+    invalidate();
   }
 
   const trackballZoomCamera = controls._zoomCamera.bind(controls);
   controls._zoomCamera = function surfaceAwareZoomCamera() {
     const distanceBefore = this._eye.length();
     _surfaceTargetBeforeZoom.copy(this.target);
-    trackballZoomCamera();
+    if (this.state === 4 && !(this._touchZoomDistanceStart > 0 && this._touchZoomDistanceEnd > 0)) {
+      this._touchZoomDistanceStart = this._touchZoomDistanceEnd;
+    } else trackballZoomCamera();
+    if (pendingZoom) {
+      this._eye.multiplyScalar(Math.exp(THREE.MathUtils.clamp(pendingZoom, -4, 4)));
+      pendingZoom = 0;
+    }
     if (!this.object.isPerspectiveCamera || !(distanceBefore > 0)) return;
 
     const distanceAfter = this._eye.length();
     const scale = distanceAfter / distanceBefore;
     if (!Number.isFinite(scale) || Math.abs(scale - 1) < 1e-12) return;
 
-    if (surfaceZoomActive) {
+    if (anchorMesh) {
       // Trackball has already scaled `_eye` about target. Translating target by
       // this amount makes the resulting camera + target identical to scaling both
       // about the picked surface point. update() applies target + `_eye` to the
@@ -169,7 +191,7 @@ export function createNavigation({
     if (!(radius > 0) || !(distanceAfter > 0)) return;
     const floorStep = ZOOM_FLOOR_RATIO * radius * (1 - scale);
     _surfaceForward.copy(this._eye).divideScalar(-distanceAfter);
-    if (surfaceZoomActive) {
+    if (anchorMesh) {
       _surfaceOffset.copy(_surfaceAnchor).sub(this.target).sub(this._eye);
       if (_surfaceOffset.dot(_surfaceForward) > Math.abs(floorStep)) {
         this.target.addScaledVector(_surfaceOffset, floorStep / _surfaceOffset.length());
@@ -179,25 +201,43 @@ export function createNavigation({
     this.target.addScaledVector(_surfaceForward, floorStep);
   };
 
-  // Capture runs before TrackballControls' own target-phase handlers, so the new
-  // depth is in place when it records and consumes the gesture.
+  canvas.removeEventListener("wheel", controls._onMouseWheel);
+  function finishWheel() {
+    if (!wheelTimer) return;
+    clearTimeout(wheelTimer);
+    wheelTimer = 0;
+    controls.dispatchEvent({ type: "end" });
+  }
   listen(canvas, "wheel", (e) => {
-    if (e.deltaY) { fitDepth(); beginSurfaceZoom(e.clientX, e.clientY); }
-  }, { capture: true, passive: true });
+    if (!controls.enabled || controls.noZoom || !e.deltaY) return;
+    e.preventDefault();
+    if (nativeGesture || surfaceTouches.size > 1) return;
+    if (!wheelTimer) {
+      invalidateAnchor = true;
+      controls.dispatchEvent({ type: "start" });
+    }
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(finishWheel, 100);
+    const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? canvas.clientHeight : 1;
+    accumulateZoom(e.deltaY * unit * .0025, e.clientX, e.clientY, true);
+  }, { passive: false });
 
   const surfaceTouches = new Map();
   listen(canvas, "pointerdown", (e) => {
+    finishWheel();
+    dropStalledGesture();
     if (e.pointerType === "touch") {
-      if (mode === "zoom") beginSurfaceZoom(e.clientX, e.clientY);
+      if (mode === "zoom") sampleSurface(e.clientX, e.clientY, true);
       surfaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (surfaceTouches.size >= 2) {
+        nativeGesture = null;
         canvas.parentElement?.classList.add("cad-gesturing");
         const pair = [...surfaceTouches.values()].slice(0, 2);
-        beginSurfaceZoom((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2);
+        sampleSurface((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2, true);
       }
     } else if (e.button === 1 || mode === "zoom" || controls.keyState === TRACKBALL_ZOOM_STATE) {
       // Middle-drag, or TrackballControls' S-key + drag zoom mode.
-      beginSurfaceZoom(e.clientX, e.clientY);
+      sampleSurface(e.clientX, e.clientY, true);
     }
   }, true);
   listen(canvas, "pointermove", (e) => {
@@ -205,10 +245,10 @@ export function createNavigation({
       surfaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (surfaceTouches.size >= 2) {
         const pair = [...surfaceTouches.values()].slice(0, 2);
-        beginSurfaceZoom((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2);
-      }
-    } else if (e.pointerType !== "touch" && (e.buttons & 4)) {
-      beginSurfaceZoom(e.clientX, e.clientY);
+        sampleSurface((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2);
+      } else if (mode === "zoom") sampleSurface(e.clientX, e.clientY);
+    } else if (e.pointerType !== "touch" && e.buttons && (controls.state === TRACKBALL_ZOOM_STATE || controls.keyState === TRACKBALL_ZOOM_STATE)) {
+      sampleSurface(e.clientX, e.clientY);
     }
   }, true);
   function forgetSurfaceTouch(e) {
@@ -225,6 +265,7 @@ export function createNavigation({
   function clearTouches() {
     surfaceTouches.clear();
     nativeGesture = null;
+    finishWheel();
     endGesture();
     dropStalledGesture();
     for (const pointer of controls._pointers) {
@@ -250,7 +291,7 @@ export function createNavigation({
   const gestureWaiters = [];
 
   function endGesture() {
-    if (!gesturing) return;
+    if (!gesturing || surfaceTouches.size || nativeGesture || wheelTimer) return;
     gesturing = false;
     for (const resolve of gestureWaiters.splice(0)) resolve();
   }
@@ -280,6 +321,7 @@ export function createNavigation({
     return requested ?? (window.matchMedia("(max-width: 600px)").matches ? 140 : 180);
   }
   let gizmoSize = gizmoEdge();
+  let gizmoDirty = true;
   const gizmoRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   gizmoRenderer.setPixelRatio(renderer.getPixelRatio());
   gizmoRenderer.setSize(gizmoSize, gizmoSize);
@@ -293,11 +335,13 @@ export function createNavigation({
     if (next !== gizmoSize) {
       gizmoSize = next;
       gizmoRenderer.setSize(gizmoSize, gizmoSize);
+      gizmoDirty = true;
     }
     (gizmoStyleTarget || canvas.parentElement || document.documentElement).style.setProperty("--cube-size", gizmoSize + "px");
   }
   syncGizmoSize();
   const gizmoCanvas = gizmoRenderer.domElement;
+  listen(gizmoCanvas, "webglcontextrestored", () => { gizmoDirty = true; invalidate(); });
   gizmoCanvas.style.pointerEvents = "none";
   // .cad-gizmo: position:absolute inside the wrapper (top-right, safe-area
   // padded), pointer-events:none so empty corners pass touches through to
@@ -445,6 +489,7 @@ export function createNavigation({
   function paintFace(index, hot) {
     cubeMaterials[index].map = faceTexture(cubeFaces[index].label, hot);
     cubeMaterials[index].needsUpdate = true;
+    gizmoDirty = true;
   }
 
   listen(document, "mousemove", (e) => {
@@ -520,24 +565,50 @@ export function createNavigation({
     animateSnap();
   }
 
+  const gizmoOrientation = new THREE.Quaternion();
   function renderGizmo() {
-    // Mirror main camera orientation
-    const dir = new THREE.Vector3();
-    camera.getWorldDirection(dir);
-    gizmoCam.position.copy(dir).multiplyScalar(-3);
+    if (!gizmoDirty && gizmoOrientation.angleTo(camera.quaternion) < 1e-6) return;
+    gizmoDirty = false;
+    gizmoOrientation.copy(camera.quaternion);
+    camera.getWorldDirection(gizmoCam.position).multiplyScalar(-3);
     gizmoCam.up.copy(camera.up);
     gizmoCam.lookAt(0, 0, 0);
     gizmoRenderer.render(gizmoScene, gizmoCam);
   }
 
-  const STALL_MS = 400;
+  // Trackball updates its "previous" point at event frequency. Keep the last point
+  // actually drawn so multiple samples between paints contribute their whole drag.
+  const paintedPointer = controls._moveCurr.clone();
+  const rotate = controls._rotateCamera.bind(controls);
+  const releaseRotation = new THREE.Quaternion();
+  let spinSpeed = 0, lastDragAt = 0, lastFrameAt = 0, frameTime = 0;
+  const coastTime = 75;
+  controls._rotateCamera = function rotateFromPaintedPoint() {
+    this._movePrev.copy(paintedPointer);
+    if (!paintedPointer.equals(this._moveCurr)) {
+      paintedPointer.copy(this._moveCurr);
+      rotate();
+      spinSpeed = this._lastAngle / Math.max(8, frameTime);
+      return;
+    }
+    if (!this._pointers.length && spinSpeed && frameTime > 0) {
+      const decay = Math.exp(-frameTime / coastTime);
+      releaseRotation.setFromAxisAngle(this._lastAxis, spinSpeed * coastTime * (1 - decay));
+      this._eye.applyQuaternion(releaseRotation);
+      this.object.up.applyQuaternion(releaseRotation);
+      spinSpeed *= decay;
+      if (spinSpeed < 1e-5) spinSpeed = 0;
+    }
+  };
 
   function dropStalledGesture() {
-    // three@0.170.0 internals; the importmap pins that exact build.
-    controls._movePrev?.copy(controls._moveCurr);  // rotate: the stale delta
-    controls._panStart?.copy(controls._panEnd);    // pan: same shape
-    controls._zoomStart?.copy(controls._zoomEnd);  // zoom: same shape
-    controls._lastAngle = 0;                       // and the rotation flywheel
+    controls._movePrev.copy(controls._moveCurr);
+    paintedPointer.copy(controls._moveCurr);
+    controls._panStart.copy(controls._panEnd);
+    controls._zoomStart.copy(controls._zoomEnd);
+    controls._lastAngle = spinSpeed = pendingZoom = 0;
+    pendingSample = false;
+    anchorMesh = null;
   }
 
 
@@ -558,6 +629,12 @@ export function createNavigation({
   controls._onTouchStart = event => {
     touchStart(event);
     if (mode !== "rotate" && controls._pointers.length === 1) seedSingleTouch(event);
+    if (controls._pointers.length === 2) {
+      const [a, b] = controls._pointers.map(p => controls._pointerPositions[p.pointerId]);
+      controls._touchZoomDistanceStart = controls._touchZoomDistanceEnd = a.distanceTo(b);
+      controls._panStart.copy(controls._getMouseOnScreen((a.x + b.x) / 2, (a.y + b.y) / 2));
+      controls._panEnd.copy(controls._panStart);
+    }
   };
   controls._onTouchMove = event => {
     if (mode === "rotate" || controls._pointers.length !== 1) { touchMove(event); return; }
@@ -567,12 +644,27 @@ export function createNavigation({
     else controls._zoomEnd.copy(point);
   };
   controls._onTouchEnd = event => {
+    const lastPoint = controls._moveCurr.clone();
+    const remainingPan = controls._panEnd.clone().sub(controls._panStart);
+    if (controls.state === 4 && controls._touchZoomDistanceEnd > 0 && controls._touchZoomDistanceStart > 0) {
+      pendingZoom += Math.log(controls._touchZoomDistanceStart / controls._touchZoomDistanceEnd);
+      controls._touchZoomDistanceStart = controls._touchZoomDistanceEnd;
+    }
     touchEnd(event);
-    if (mode === "rotate") return;
     const remaining = controls._pointers.filter(pointer => pointer.pointerId !== event.pointerId);
     if (remaining.length === 1) {
       const point = controls._pointerPositions[remaining[0].pointerId];
-      seedSingleTouch({ pageX: point.x, pageY: point.y });
+      if (mode === "rotate") {
+        controls.state = 3;
+        controls._moveCurr.copy(controls._getMouseOnCircle(point.x, point.y));
+        paintedPointer.copy(controls._moveCurr);
+      } else {
+        seedSingleTouch({ pageX: point.x, pageY: point.y });
+        if (mode === "pan") controls._panStart.sub(remainingPan);
+      }
+    } else if (!remaining.length) {
+      controls.state = -1;
+      controls._moveCurr.copy(lastPoint);
     }
   };
 
@@ -581,8 +673,8 @@ export function createNavigation({
   // consuming each increment once instead of starting another damping tail.
   listen(canvas, "gesturestart", event => {
     if (!controls.enabled || controls.noZoom || surfaceTouches.size > 1) return;
-    event.preventDefault(); dropStalledGesture(); fitDepth();
-    beginSurfaceZoom(event.clientX, event.clientY);
+    event.preventDefault(); finishWheel(); dropStalledGesture();
+    sampleSurface(event.clientX, event.clientY, true);
     nativeGesture = { scale: 1 };
     canvas.parentElement?.classList.add("cad-gesturing");
     controls.dispatchEvent({ type: "start" });
@@ -591,14 +683,8 @@ export function createNavigation({
     if (!nativeGesture || !Number.isFinite(event.scale) || event.scale <= 0) return;
     event.preventDefault();
     if (surfaceTouches.size > 1) return;
-    beginSurfaceZoom(event.clientX, event.clientY);
-    const factor = nativeGesture.scale / event.scale;
+    accumulateZoom(Math.log(nativeGesture.scale / event.scale), event.clientX, event.clientY);
     nativeGesture.scale = event.scale;
-    controls._zoomStart.y = 0;
-    controls._zoomEnd.y = (factor - 1) / controls.zoomSpeed;
-    controls.update();
-    controls._zoomStart.copy(controls._zoomEnd);
-    invalidate();
   }, { passive: false });
   listen(canvas, "gestureend", event => {
     if (!nativeGesture) return;
@@ -608,7 +694,6 @@ export function createNavigation({
     requestAnimationFrame(() => { if (!nativeGesture && !surfaceTouches.size) wrapper?.classList.remove("cad-gesturing"); });
   }, { passive: false });
 
-  let lastFrameAt = 0;
   function fitDepth(bounds = getBounds?.()) {
     if (!bounds) {
       if (getBounds) return null;
@@ -637,11 +722,14 @@ export function createNavigation({
   }
   function update(now = performance.now()) {
     if (disposed) return false;
-    if (lastFrameAt && now - lastFrameAt > STALL_MS) dropStalledGesture();
+    frameTime = lastFrameAt ? now - lastFrameAt : 1000 / 60;
     lastFrameAt = now;
+    if (frameTime > 150) spinSpeed = 0;
     const before = changeSerial;
+    updateAnchor();
     controls.update(); fitDepth(); renderGizmo();
-    return changeSerial !== before || !!snapRafId;
+    frameTime = 0;
+    return changeSerial !== before || !!snapRafId || (!controls._pointers.length && spinSpeed > 0);
   }
   function setMode(next) {
     if (!["rotate", "pan", "zoom"].includes(next)) return;
@@ -650,11 +738,24 @@ export function createNavigation({
     invalidate();
   }
   listen(controls, "change", () => { changeSerial++; invalidate(); });
-  listen(controls, "start", () => { stopSnap(); lastFrameAt = 0; invalidate(); });
+  listen(controls, "start", () => {
+    stopSnap();
+    spinSpeed = 0;
+    paintedPointer.copy(controls._moveCurr);
+    lastFrameAt = performance.now();
+    invalidate();
+  });
+  listen(controls, "end", () => {
+    if (performance.now() - lastDragAt > 70) spinSpeed = 0;
+    invalidate();
+  });
   // Trackball accumulates pointer deltas until update(); unlike TrackballControls,
   // its move handler does not dispatch change. Wake on-demand scene owners.
   listen(canvas, "pointermove", event => {
-    if (controls.enabled && (controls._pointers.length || event.buttons)) invalidate();
+    if (controls.enabled && (controls._pointers.length || event.buttons)) {
+      lastDragAt = performance.now();
+      invalidate();
+    }
   });
   function dispose() {
     if (disposed) return;
@@ -675,6 +776,7 @@ export function createNavigation({
     savePose(key) { return saveCameraPose(camera, controls, key); },
     applyPose(key) { dropStalledGesture(); const applied = applyCameraPose(camera, controls, key); if (applied) { fitDepth(); invalidate(); } return applied; },
     isTouchGesture() { return surfaceTouches.size > 1 || !!nativeGesture; },
+    isInteracting() { return !!(wheelTimer || nativeGesture || controls._pointers.length || spinSpeed || snapRafId); },
     get mode() { return mode; },
     get depthSphere() { return depthSphere; },
   };

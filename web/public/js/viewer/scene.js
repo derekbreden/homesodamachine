@@ -24,7 +24,9 @@ import * as THREE from "three";
 import { createNavigation, saveCameraPose } from "./navigation.js";
 export { depthRangeFor, fitCameraDepth } from "./navigation.js";
 import { state } from "./state.js";
-import { syncEdgeResolution } from "./xray.js";
+import * as xray from "./xray.js";
+import { drawMovingSurfaces, prepareMotionSurfaces } from "./motion-surfaces.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // --- Detail view: Three.js setup ---
 export const canvasHost = document.getElementById("cad-canvas-host");
@@ -51,11 +53,39 @@ renderer.domElement.classList.add("cad-viewport");
 canvasHost.appendChild(renderer.domElement);
 
 export const scene = new THREE.Scene();
+let animating = false, animateRafId = 0, refineTimer = 0, refining = false;
+
+// Camera and scene changes request one display frame, including edits made between gestures.
+export function requestCadRender() {
+  if (!animating) return;
+  clearTimeout(refineTimer);
+  refining = false;
+  if (!animateRafId) animateRafId = requestAnimationFrame(animate);
+}
+
+function watchChildren(object, attach) {
+  if (!object.isScene && !object.isGroup && !object.children.length) return;
+  if (attach) {
+    object.addEventListener("childadded", childAdded);
+    object.addEventListener("childremoved", childRemoved);
+  } else {
+    object.removeEventListener("childadded", childAdded);
+    object.removeEventListener("childremoved", childRemoved);
+  }
+  for (const child of object.children) watchChildren(child, attach);
+}
+function childAdded({ child }) { watchChildren(child, true); requestCadRender(); }
+function childRemoved({ child }) { watchChildren(child, false); requestCadRender(); }
+watchChildren(scene, true);
+for (const type of [HSM_EVENTS.STEP_MOUNTED, HSM_EVENTS.STEP_TOOL, HSM_EVENTS.FAUCET_OPTIONS, HSM_EVENTS.MATERIAL_PICKED]) {
+  window.addEventListener(type, requestCadRender);
+}
 // near/far are seeded here and fitted to the mounted model every frame by
 // updateDepthRange().
 export const camera = new THREE.PerspectiveCamera(45, 1, 1, 1000);
 const navigation = createNavigation({
   camera, renderer, getGroup: () => state.currentGroup, getBounds: navigationDepthBounds,
+  invalidate: requestCadRender,
   defaultUp: new THREE.Vector3(0, 0, 1), gizmoStyleTarget: document.documentElement,
   onDepthFit: sphere => fitFog(scene, camera.position.distanceTo(sphere.center), sphere.radius),
 });
@@ -355,18 +385,23 @@ let _depthBoundsRevision = 0, _seenDepthBoundsRevision = -1;
 export function invalidateModelBounds() {
   _modelBoundsDirty = true;
   _modelShadowDirty = true;
+  requestCadRender();
 }
 
 // Optional scene siblings can extend the camera and fog range while retaining
 // the model's own ground shadow and default framing.
 export function setExtraDepthBounds(key, bounds) {
   if (!bounds || bounds.isEmpty()) {
-    if (_extraDepthBounds.delete(key)) _depthBoundsRevision++;
+    if (_extraDepthBounds.delete(key)) {
+      _depthBoundsRevision++;
+      requestCadRender();
+    }
     return;
   }
   if (_extraDepthBounds.get(key)?.equals(bounds)) return;
   _extraDepthBounds.set(key, bounds.clone());
   _depthBoundsRevision++;
+  requestCadRender();
 }
 
 function navigationDepthBounds() {
@@ -383,6 +418,7 @@ function navigationDepthBounds() {
     _depthGroup = group;
     _modelBoundsDirty = false;
     _modelShadowDirty = true;
+    if (!renderAlpha) prepareMotionSurfaces(group);
   }
   // The shadow follows the completed model; partial arrivals only update camera depth.
   if (_modelShadowDirty && !group.userData.sceneLoading) {
@@ -400,23 +436,37 @@ function navigationDepthBounds() {
 
 export function updateDepthRange() { navigation.fitDepth(); }
 
-let animating = false;
-let animateRafId = 0;
-function animate() {
-  if (!animating) { animateRafId = 0; return; }
-  animateRafId = requestAnimationFrame(animate);
-  navigation.update();
-  syncEdgeResolution(renderer);
-  renderer.render(scene, camera);
+function animate(now) {
+  animateRafId = 0;
+  if (!animating) return;
+  const exact = refining;
+  refining = false;
+  const moving = navigation.update(now);
+  xray.updateBlueprintView?.(renderer, camera, state.currentGroup);
+  xray.syncEdgeResolution(renderer);
+  const draw = () => renderer.render(scene, camera);
+  let reduced = false;
+  if (renderAlpha || xray.isXrayEnabled?.() || (exact && !moving)) draw();
+  else reduced = drawMovingSurfaces(scene, camera, drawnSize.h, draw);
+  if (moving) requestCadRender();
+  if (reduced && !animateRafId) {
+    refineTimer = setTimeout(() => {
+      refining = true;
+      animateRafId = requestAnimationFrame(animate);
+    }, 120);
+  }
 }
 export function startAnimate() {
   if (animating) return;
   animating = true;
   navigation.resetFrameClock(); // a closed modal is not a stall
-  animate();
+  requestCadRender();
 }
 export function stopAnimate() {
   animating = false;
+  clearTimeout(refineTimer);
+  prepareMotionSurfaces(null);
+  _modelBoundsDirty = true;
   if (animateRafId) {
     cancelAnimationFrame(animateRafId);
     animateRafId = 0;
@@ -460,6 +510,8 @@ export function resetCamera(group) {
 // view. Keys are namespaced by file path.
 export function saveCameraState(file) {
   if (!file) return;
+  const view = state.currentGroup?.userData;
+  if (view?.sceneLoading && !view.navigatedDuringLoad) return;
   const key = `step-camera:${file}`;
   if (heldPose?.file === file) saveCameraPose(heldPose, heldPose, key);
   else navigation.savePose(key);
@@ -487,11 +539,16 @@ export function applyCameraState(file) {
 
 let cameraSaveTimer = null;
 controls.addEventListener("change", () => {
-  // Save the camera for whichever file is open. Both STEP and DXF use
-  // the same camera, scoped per-file in localStorage.
-  // Both STEP and DXF use the same camera; saving is keyed by file path.
-  const openFile = state.mountedDetail ? state.mountedDetail.file : null;
-  if (!openFile) return;
   clearTimeout(cameraSaveTimer);
-  cameraSaveTimer = setTimeout(() => saveCameraState(openFile), 250);
+  const openFile = state.mountedDetail?.file;
+  const group = state.currentGroup;
+  if (!openFile || !group) return;
+  if (group.userData.sceneLoading) {
+    if (navigation.isInteracting?.()) group.userData.navigatedDuringLoad = true;
+    // The initial partial fit can contain just one of the arriving parts.
+    if (!group.userData.navigatedDuringLoad) return;
+  }
+  cameraSaveTimer = setTimeout(() => {
+    if (state.currentGroup === group && state.mountedDetail?.file === openFile) saveCameraState(openFile);
+  }, 250);
 });

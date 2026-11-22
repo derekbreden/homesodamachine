@@ -24,7 +24,13 @@
       ],
       "models": [
         {
-          "file": "manifold-layout/enclosure-assembly.step"
+          "file": "manifold-layout/enclosure-assembly.step",
+          "componentGroups": [
+            {
+              "name": "Wiring",
+              "bodyPrefixes": ["wire-", "terminal-"]
+            }
+          ]
         }
       ],
       "documents": [

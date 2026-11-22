@@ -8,9 +8,13 @@ export function decodeMeshPayload(bytes) {
   const head = JSON.parse(new TextDecoder().decode(bytes.subarray(4, 4 + headLen)));
   if (!MESH_PAYLOAD_VERSIONS.includes(head.v)) return null;
   if (head.v === 4) return { meshes: [], scene: head, src: head.src, cut: head.cut };
-  const blob = bytes.buffer.slice(bytes.byteOffset + 4 + headLen, bytes.byteOffset + bytes.byteLength);
+  // Aligned native payloads can back the GPU attributes and inspection arrays directly.
+  const start = bytes.byteOffset + 4 + headLen;
+  const aligned = start % Uint32Array.BYTES_PER_ELEMENT === 0;
+  const blob = aligned ? bytes.buffer : bytes.buffer.slice(start, bytes.byteOffset + bytes.byteLength);
+  const base = aligned ? start : 0;
   const meshes = head.meshes.map((m) => {
-    const fac = new Uint32Array(blob, m.fac[0], m.fac[1]);
+    const fac = new Uint32Array(blob, base + m.fac[0], m.fac[1]);
     const sources = Array.isArray(m.face_sources) && m.face_sources.length === fac.length / 2
       ? m.face_sources : null;
     const brep_faces = [];
@@ -23,10 +27,10 @@ export function decodeMeshPayload(bytes) {
       name: m.name,
       color: m.color || undefined,
       attributes: {
-        position: { array: new Float32Array(blob, m.pos[0], m.pos[1]) },
-        normal: { array: new Float32Array(blob, m.nrm[0], m.nrm[1]) },
+        position: { array: new Float32Array(blob, base + m.pos[0], m.pos[1]) },
+        normal: { array: new Float32Array(blob, base + m.nrm[0], m.nrm[1]) },
       },
-      index: { array: new Uint32Array(blob, m.idx[0], m.idx[1]) },
+      index: { array: new Uint32Array(blob, base + m.idx[0], m.idx[1]) },
       brep_faces,
       features: validFeatures(m.features, m.idx[1] / 3),
     };

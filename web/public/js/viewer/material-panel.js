@@ -5,12 +5,11 @@ import { materialIndex, materialForFile, explodeBom, bomItems, bomCountText, bom
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { instanceBody } from "/contracts/features.js";
 import { highlightParts, clearHighlight, leaveHighlight, scenePartNames } from "./part-highlight.js";
-import { clearComponentSelection } from "./component-picker.js";
+import { clearComponentSelection, hiddenContainsBody } from "./component-picker.js";
 import { instancesInScene, membersOfInstance } from "/contracts/material-instances.js";
 import { materialTab } from "/contracts/material-tabs.js";
 import { makeMaterialLocations } from "./material-locations.js";
 import { clearMaterialView, enterInstance, uncoverMaterialParts } from "./instance-view.js";
-import { standsIn } from "/contracts/body-path.js";
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { sceneFeatures } from "./features.js";
@@ -70,10 +69,12 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const wrapper = workspace.querySelector(".cad-wrapper");
   const toggle = wrapper ? el("button", "materials-toggle", "Materials") : null;
   const sheet = wrapper ? mountMaterialSheet({ workspace, panel }) : null;
+  let panelDirty = false, detailFrame = 0, detailTask = 0;
   function setOpen(open) {
     workspace.classList.toggle("materials-open", open);
     toggle?.setAttribute("aria-expanded", String(open));
     sheet?.setOpen(open);
+    if (open && panelDirty) render();
   }
   if (toggle) {
     toggle.type = "button";
@@ -121,7 +122,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     return Boolean(selectedBody || selectedPath.length || selected !== root || contextPath().length);
   }
   function subjectNames(names) {
-    if (selectedBody) return [...names].filter((name) => standsIn(name, selectedBody));
+    if (selectedBody) return [...names].filter((name) => hiddenContainsBody(selectedBody, name));
     if (selectedPath.length) return bindingsFor(selectedPath, names);
     if (selected !== root) {
       const relation = materialIndex(state.materialCatalog).get(root)?.relations?.find((r) => r.material === selected && r.bodies?.length);
@@ -215,8 +216,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (!fromModel) sheet?.reveal();
     selectedBody = null;
     selected = id; selectedPath = path;
-    render();
-    scroll.querySelector(".material-tree-focus")?.scrollIntoView({ block: "nearest" });
+    render({ fromPick: fromModel });
+    if (!fromModel && workspace.classList.contains("materials-open")) scroll.querySelector(".material-tree-focus")?.scrollIntoView({ block: "nearest" });
     show({ fly: !fromModel });
   }
 
@@ -312,11 +313,39 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     return link;
   }
 
-  function render() {
+  function render({fromPick = false} = {}) {
+    cancelAnimationFrame(detailFrame);
+    clearTimeout(detailTask);
+    panelDirty = false;
     shownRecords = recordsVersion();
     const top = scroll.scrollTop;
     scroll.replaceChildren();
     const index = materialIndex(state.materialCatalog), current = index.get(selected), rootMaterial = index.get(root);
+    const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
+    const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
+    drawingView?.setDrawing(activeDrawing || null);
+    drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
+    drawingView?.setPcb(current?.pcb);
+    const title = current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer";
+    if (toggle && (!workspace.classList.contains("materials-open") || fromPick)) {
+      // The selected identity and toolbar are immediate. Build the record tree when its pane can use it.
+      const heading = el("h2", "", title);
+      const head = el("div", "material-panel-head");
+      head.append(heading);
+      headHost.replaceChildren(head);
+      tabsHost.replaceChildren();
+      panelDirty = true;
+      if (fromPick && workspace.classList.contains("materials-open")) {
+        detailFrame = requestAnimationFrame(() => {
+          detailTask = setTimeout(() => {
+            if (disposed || !workspace.classList.contains("materials-open")) return;
+            render();
+            scroll.querySelector(".material-tree-focus")?.scrollIntoView({block: "nearest"});
+          }, 0);
+        });
+      }
+      return;
+    }
     const head = el("div", "material-panel-head");
     const actions = el("div", "material-actions");
     const identity = el("div", "material-identity");
@@ -326,7 +355,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       back.type = "button"; back.addEventListener("click", up); head.append(back);
     }
     identity.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : selectedBody ? "Component in assembly" : "CAD model"));
-    identity.append(el("h2", "", current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer"));
+    identity.append(el("h2", "", title));
     head.append(identity);
     if (selectedBody) {
       const context = rootMaterial?.bom?.context?.find(item => item.bodies?.some(body => matchesBody(selectedBody, body)));
@@ -334,7 +363,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const open = el("button", "", "Open component"); open.type = "button";
       open.addEventListener("click", async () => {
         const { drillToComponent } = await import("./step-nav.js");
-        drillToComponent(componentLocation(lastFile, selectedBody), selectedBody);
+        drillToComponent(componentLocation(lastFile, selectedBody), subjectNames(scenePartNames()));
       });
       actions.append(open);
     }
@@ -369,11 +398,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const summary = el("summary", "", "⋯"); summary.setAttribute("aria-label", "Material actions"); summary.title = "Material actions";
       actions.classList.add("workspace-menu-body"); menu.append(summary, actions); head.append(menu);
     }
-    const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
-    const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
-    drawingView?.setDrawing(activeDrawing || null);
-    drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
-    drawingView?.setPcb(current?.pcb);
     headHost.replaceChildren(head);
     const focus = current || rootMaterial;
     const rows = focus ? explodeBom(state.materialCatalog, focus.id, options())
@@ -779,8 +803,10 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         (!stepLocation(lastFile).component || !explodeBom(state.materialCatalog, root, options()).some(row => row.item.bodies?.length || row.item.placements?.length || row.item.prefix) || rootMaterial.models?.some(model => model.file === lastFile))) {
       select(root, [], pick); return;
     }
-    const row = explodeBom(state.materialCatalog, root, options()).filter((r) =>
-      bindingsFor(r.path, [event.detail.name]).length).sort((a, b) => b.depth - a.depth)[0];
+    const context = contextPath();
+    const row = context.length ? explodeBom(state.materialCatalog, root, options()).filter(r =>
+      occurrenceBodies(state.materialCatalog, [...context, ...r.path], [event.detail.name], options()).length)
+      .sort((a, b) => b.depth - a.depth)[0] : occurrenceForBody(state.materialCatalog, root, event.detail.name, options());
     if (row) { row.path.forEach((_, i) => expanded.add(pathKey(row.path.slice(0, i + 1)))); select(row.material.id, row.path, pick); }
     else {
       const relation = materialIndex(state.materialCatalog).get(root)?.relations?.find((r) =>
@@ -795,7 +821,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
           select(outside.material.id, outside.path, pick);
         } else {
           selected = null; selectedPath = []; selectedBody = event.detail.name; modelPick = true;
-          render();
+          render({fromPick: true});
           show({ fly: false });
         }
       }
@@ -818,6 +844,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   }
   const handle = { select, setRoot, sync, applyRoute, leave, closeView: () => drawingView?.closeView(), dispose: () => {
     disposed = true;
+    cancelAnimationFrame(detailFrame);
+    clearTimeout(detailTask);
     stopLocations();
     if (state.materialPanel === handle) clearMaterialView();
     drawingView?.dispose();

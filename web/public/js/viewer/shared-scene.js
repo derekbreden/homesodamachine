@@ -11,10 +11,12 @@ let retainedBytes = 0;
 let instanceBytes = 0;
 
 function retainInstance(key, meshes) {
-  const bytes = meshes.reduce((sum,mesh)=>sum+
-    mesh.attributes.position.array.byteLength+mesh.attributes.normal.array.byteLength+mesh.index.array.byteLength+
-    (mesh.attributes===mesh.localAttributes?0:mesh.localAttributes.position.array.byteLength+mesh.localAttributes.normal.array.byteLength)+
-    (mesh.index===mesh.localIndex?0:mesh.localIndex.array.byteLength),0);
+  // Reserve room for the world arrays an inspection of a placed mesh may need.
+  const bytes = meshes.reduce((sum, mesh) => {
+    const { position, normal } = mesh.localAttributes;
+    const localBytes = position.array.byteLength + normal.array.byteLength + mesh.localIndex.array.byteLength;
+    return sum + localBytes * (mesh.placement ? 2 : 1);
+  }, 0);
   instances.set(key,{meshes,bytes});instanceBytes+=bytes;
   for(const [name,value]of instances){
     if(instanceBytes<=INSTANCE_BYTES)break;
@@ -58,6 +60,27 @@ async function object(hash, sourceUrl, priority) {
   return held.promise;
 }
 
+// Surface inspection reads world coordinates; drawing uses the local arrays and the mesh matrix.
+function placedArray(source, matrix, normalize = false) {
+  let saved;
+  return { get array() {
+    if (saved) return saved;
+    const [[xx, xy, xz, tx], [yx, yy, yz, ty], [zx, zy, zz, tz]] = matrix;
+    saved = new Float32Array(source.length);
+    for (let i = 0; i < source.length; i += 3) {
+      const x = source[i], y = source[i + 1], z = source[i + 2];
+      const a = xx * x + xy * y + xz * z + tx;
+      const b = yx * x + yy * y + yz * z + ty;
+      const c = zx * x + zy * y + zz * z + tz;
+      const scale = normalize ? 1 / (Math.hypot(a, b, c) || 1) : 1;
+      saved[i] = a * scale;
+      saved[i + 1] = b * scale;
+      saved[i + 2] = c * scale;
+    }
+    return saved;
+  } };
+}
+
 function placed(mesh, node, index) {
   const entry = node.entries[index];
   const out = { ...mesh, name: entry.name, color: entry.color?.slice(0,3) || undefined, opacity: entry.color?.[3],
@@ -73,28 +96,28 @@ function placed(mesh, node, index) {
     [a[0][2]*a[2][1]-a[0][1]*a[2][2], a[0][0]*a[2][2]-a[0][2]*a[2][0], a[0][1]*a[2][0]-a[0][0]*a[2][1]],
     [a[0][1]*a[1][2]-a[0][2]*a[1][1], a[0][2]*a[1][0]-a[0][0]*a[1][2], a[0][0]*a[1][1]-a[0][1]*a[1][0]],
   ];
-  const transform = (array, normal) => {
-    const result = new Float32Array(array.length);
-    for (let i=0; i<array.length; i+=3) {
-      const p = array.subarray(i,i+3);
-      const q = normal ? co.map(row => row.reduce((v,c,k)=>v+c*p[k]/det,0))
-        : m.map(row => row[3]+row.slice(0,3).reduce((v,c,k)=>v+c*p[k],0));
-      const length = normal ? Math.hypot(...q) || 1 : 1;
-      result.set(q.map(v=>v/length),i);
-    }
-    return result;
+  const normalMatrix = co.map(row => [...row.map(value => value / det), 0]);
+  out.attributes = {
+    position: placedArray(mesh.attributes.position.array, m),
+    normal: placedArray(mesh.attributes.normal.array, normalMatrix, true),
   };
-  out.attributes = { position: { array: transform(mesh.attributes.position.array, false) },
-    normal: { array: transform(mesh.attributes.normal.array, true) } };
   if (det < 0) {
-    const indices = new Uint32Array(mesh.index.array);
-    for (let i=0; i<indices.length; i+=3) [indices[i+1],indices[i+2]]=[indices[i+2],indices[i+1]];
-    out.index = { array: indices };
+    let indices;
+    out.index = { get array() {
+      if (indices) return indices;
+      indices = mesh.index.array.slice();
+      for (let i = 0; i < indices.length; i += 3) {
+        const second = indices[i + 1];
+        indices[i + 1] = indices[i + 2];
+        indices[i + 2] = second;
+      }
+      return indices;
+    } };
   }
   return out;
 }
 
-export async function resolveScene(bytes, { sourceUrl, signal, onPart, select, onTarget, priority } = {}) {
+export async function resolveScene(bytes, { sourceUrl, signal, onPart, preparePart, select, onTarget, priority } = {}) {
   signal?.throwIfAborted();
   const head = sceneHeader(bytes);
   if (!head) return decodeMeshPayload(bytes);
@@ -103,10 +126,26 @@ export async function resolveScene(bytes, { sourceUrl, signal, onPart, select, o
   const context = only ? [] : head.meshes.map((_, index) => index).filter(index => !selected.has(index));
   const results = new Array(head.meshes.length), errors = [];
   const concurrency = priority === "low" ? 4 : 16;
+  let mountTime = 0, nextPaint = null;
+  function mount(node, meshes) {
+    if (!onPart) return;
+    const start = performance.now();
+    onPart(node, meshes, head);
+    mountTime += performance.now() - start;
+    if (mountTime < 4 || nextPaint) return;
+    // A warm cache can supply the entire assembly in microtasks before Safari paints.
+    nextPaint = new Promise(resolve => {
+      if (globalThis.document?.visibilityState === "visible") requestAnimationFrame(resolve);
+      else setTimeout(resolve, 0);
+    }).then(() => { mountTime = 0; nextPaint = null; });
+  }
   async function readNodes(indices) {
     let next = 0;
     const worker = async () => {
       while (next < indices.length) {
+        if (nextPaint) await nextPaint;
+        // Other readers sharing the frame may already have claimed the last part.
+        if (next >= indices.length) return;
         const index = indices[next++], node = head.meshes[index];
         try {
           signal?.throwIfAborted();
@@ -119,7 +158,10 @@ export async function resolveScene(bytes, { sourceUrl, signal, onPart, select, o
             signal?.throwIfAborted();
             results[index]=meshes.map((mesh,i)=>placed(mesh,node,i));retainInstance(key,results[index]);
           }
-          onPart?.(node,results[index],head);
+          if (preparePart) await preparePart(results[index], signal);
+          if (nextPaint) await nextPaint;
+          signal?.throwIfAborted();
+          mount(node, results[index]);
         } catch (error) {
           if (error.name === 'AbortError') throw error;
           errors.push({ name: node.name, message: error.message });

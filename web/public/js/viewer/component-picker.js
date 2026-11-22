@@ -18,25 +18,30 @@ import * as THREE from "three";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { heldBy, leafOf, standsIn } from "/contracts/body-path.js";
 import { iconSvg } from "/contracts/icons.js";
-import { scene, camera, renderer } from "./scene.js";
+import * as viewScene from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
-import { componentLocation, featureUrl, stepLocation } from "/contracts/step-locations.js";
+import { componentLocation, featureUrl, stepLabel, stepLocation } from "/contracts/step-locations.js";
 import { materialForComponent, materialForView } from "/contracts/materials.js";
-import { componentUnitsInScene, unitForBody } from "/contracts/material-instances.js";
+import { mountedFile, installedUnits, unitForKey, componentUnit } from "./component-units.js";
+export { componentOwner } from "./component-units.js";
 import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { drillTo, drillToComponent } from "./step-nav.js";
 import { refreshHighlight } from "./part-highlight.js";
 import { containsTriangle, instanceLabel, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeature, featureGeometry } from "./features.js";
+import { requestFeatureEdges } from "./feature-edges.js";
+import { nearestSurface } from "./surface-query.js";
+import * as xray from "./xray.js";
 import { snapThumbnail } from "./step.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
 const HOVER = 0x9fd8ff; // hover tint — pale blue
-const EDGE_THRESHOLD_DEG = 30;
+const { scene, camera, renderer } = viewScene;
+const requestCadRender = () => viewScene.requestCadRender?.();
 
 let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
@@ -47,36 +52,13 @@ let selectionBodies = null; // the bodies of a compound installed unit
 let hoverName = null;   // hovered component name, or null
 
 // The model on screen, and the bare name of a file the drill-down could reach.
-const mountedFile = () =>
-  (state.mountedDetail && state.mountedDetail.type === "step" ? state.mountedDetail.file : null);
-const stemOf = (file) => file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 const namingOptions = () => ({ finish: state.faucetFinish });
 const componentBody = name => splitFeatureKey(name)?.body || name;
 const materialOf = (name) => materialForComponent(state.materialCatalog, mountedFile(), componentBody(name), namingOptions());
 const componentName = (name) => sceneFeature(name)?.label || materialOf(name)?.description || leafOf(name);
-const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stemOf(file);
+const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stepLabel(file);
 
-// Index authored placements once per scene/catalog/finish, including parts still arriving.
-let unitsCache = null;
-function componentUnit(name) {
-  if (!name || splitFeatureKey(name)) return null;
-  const group = state.currentGroup, catalog = state.materialCatalog, file = mountedFile();
-  if (!group || !file) return null;
-  const head = group.userData.sharedHead, finish = state.faucetFinish;
-  if (!unitsCache || unitsCache.group !== group || unitsCache.catalog !== catalog
-      || unitsCache.file !== file || unitsCache.head !== head || unitsCache.finish !== finish
-      || (!head && unitsCache.count !== group.children.length)) {
-    const material = materialForView(catalog, file, namingOptions());
-    const names = head ? head.meshes.flatMap(node => node.entries?.map(entry => entry.name) || [node.name])
-      : group.children.filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name);
-    const units = componentUnitsInScene(catalog, material?.id, names, namingOptions());
-    unitsCache = { group, catalog, file, head, finish, count: group.children.length, units, bodies: new Map() };
-    for (const unit of units) for (const body of unit.bodies) unitsCache.bodies.set(body, unit);
-  }
-  if (!unitsCache.bodies.has(name)) unitsCache.bodies.set(name, unitForBody(unitsCache.units, name));
-  return unitsCache.bodies.get(name);
-}
-const selectionName = name => componentUnit(name)?.name || name;
+const visibilityName = name => unitForKey(name)?.name || name;
 
 // The opened view defines the selection depth; hiding surrounding parts changes no hierarchy.
 function insideOpenedPart(body) {
@@ -125,8 +107,8 @@ const inFinish = (name) => showsInFaucetFinish(mountedFile(), name, state.faucet
 // Set mesh.visible from state.hiddenComponents and the faucet's finish. Called after each STEP
 // load (step.js), after every hide/show and after a finish change. Unnamed meshes stay visible.
 export function applyHiddenComponents() {
-  state.hiddenComponents = new Set([...state.hiddenComponents].map(selectionName));
-  state.autoHiddenComponents = new Set([...state.autoHiddenComponents].map(selectionName));
+  state.hiddenComponents = new Set([...state.hiddenComponents].map(visibilityName));
+  state.autoHiddenComponents = new Set([...state.autoHiddenComponents].map(visibilityName));
   let repaintSelection = false;
   const selectedNames = selectionBodies || (selection ? [componentBody(selection)] : []);
   if (state.currentGroup) {
@@ -149,8 +131,10 @@ export function applyHiddenComponents() {
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
   refreshHighlight(); // a selection picks out only what is still drawn
-  if (repaintSelection) drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
+  if (repaintSelection) drawOverlay(selGroup, selection);
   refreshPanel();
+  xray.invalidateBlueprintVisibility?.();
+  requestCadRender();
 }
 
 // --- overlay (highlight over the selected / hovered component) ---
@@ -163,6 +147,11 @@ const selEdgeMat = new THREE.LineBasicMaterial({ color: SEL, transparent: true, 
 selEdgeMat.depthWrite = false;
 const hoverEdgeMat = new THREE.LineBasicMaterial({ color: HOVER, transparent: true, opacity: 0.8, depthTest: false });
 hoverEdgeMat.depthWrite = false;
+function shellMaterial(color, opacity) {
+  return new THREE.MeshBasicMaterial({ color, opacity, transparent: true, side: THREE.DoubleSide,
+    depthWrite: false, depthTest: false, forceSinglePass: true });
+}
+const selShellMat = shellMaterial(SEL, 0.18), hoverShellMat = shellMaterial(HOVER, 0.1);
 
 // --- the tree a name spells ---------------------------------------------------
 //
@@ -179,6 +168,8 @@ hoverEdgeMat.depthWrite = false;
 export { heldBy, leafOf };
 
 export function membersOf(group) {
+  const component = installedUnits()?.groupByName.get(group);
+  if (component) return component.bodies;
   const out = new Set();
   if (!state.currentGroup || !group) return [];
   for (const m of state.currentGroup.children) {
@@ -211,7 +202,7 @@ export function isolateComponent(name, { persist = true } = {}) {
     const tops = new Set();
     for (const m of (state.currentGroup ? state.currentGroup.children : [])) {
       const nm = m.isMesh ? (m.name || (m.userData && m.userData.body)) : null;
-      if (!nm || standsIn(nm, name)) continue;
+      if (!nm || hiddenContainsBody(name, nm)) continue;
       // The outermost node that is not the one being isolated, so 62 bodies go out as one name.
       tops.add(heldBy(nm)[0] || nm);
     }
@@ -222,52 +213,96 @@ export function isolateComponent(name, { persist = true } = {}) {
 }
 
 /** Whether `name` is hidden outright or stands inside something that is. */
+export function hiddenContainsBody(hidden, name) {
+  if (standsIn(name, hidden)) return true;
+  const units = installedUnits();
+  return units?.groupByBody.get(name)?.name === hidden || units?.byBody.get(name)?.name === hidden;
+}
+
 export function standsHidden(name) {
   if (!state.hiddenComponents.size && !state.autoHiddenComponents.size) return false;
-  const keys = [selectionName(name), name, ...heldBy(name)];
+  const units = installedUnits();
+  const keys = [name, units?.groupByBody.get(name)?.name, units?.byBody.get(name)?.name, ...heldBy(name)];
   const view = state.currentGroup?.userData.instanceView;
   return keys.some(key => state.hiddenComponents.has(key)) ||
     (!(view?.material && view.names.has(name)) && keys.some(key => state.autoHiddenComponents.has(key)));
 }
 
-// One overlay Group per role so we can rebuild each independently.
+// Each role reuses its marks while other solids arrive in the assembly.
 const selGroup = new THREE.Group(); selGroup.renderOrder = 994; overlay.add(selGroup);
 const hoverGroup = new THREE.Group(); hoverGroup.renderOrder = 993; overlay.add(hoverGroup);
+selGroup.userData.marks = new Map();
+hoverGroup.userData.marks = new Map();
 
-function disposeGroup(g) {
-  for (const c of [...g.children]) {
-    g.remove(c);
-    if (c.geometry) c.geometry.dispose();
-    if (c.material && c.material !== selEdgeMat && c.material !== hoverEdgeMat) c.material.dispose();
-  }
+function removeMark(group, mesh, mark) {
+  mark.cancelEdges?.();
+  mark.shell.removeFromParent();
+  mark.line?.removeFromParent();
+  if (mark.feature) mark.shell.geometry.dispose();
+  group.userData.marks.delete(mesh);
+}
+function disposeGroup(group) {
+  for (const [mesh, mark] of group.userData.marks) removeMark(group, mesh, mark);
+  requestCadRender();
 }
 
-// Bright edges + a faint translucent shell over every (visible) mesh of `name`,
-// depth-test off so it reads through the enclosure. Shared geometry draws once.
-function drawOverlay(g, name, color, edgeMat, shellOpacity) {
-  disposeGroup(g);
-  if (!name || !state.currentGroup) return;
-  const seen = new Set();
-  const feature = sceneFeature(name);
-  const members = g === selGroup && selectionBodies ? selectionBodies
-    : componentUnit(name)?.bodies || [componentBody(name)];
-  // A sub-assembly lights up as the whole of what it holds.
+function addMark(group, mesh, feature) {
+  const selected = group === selGroup;
+  const geometry = feature ? featureGeometry(mesh, feature) : mesh.geometry;
+  const shell = new THREE.Mesh(geometry, selected ? selShellMat : hoverShellMat);
+  shell.matrixAutoUpdate = false;
+  shell.renderOrder = group.renderOrder;
+  group.add(shell);
+  const mark = { shell, feature, source: mesh.geometry, line: null, cancelEdges: null };
+  group.userData.marks.set(mesh, mark);
+  return mark;
+}
+
+// The fill borrows the solid already on the GPU. Feature edges join it when they are ready.
+function drawOverlay(group, name, showEdges = true) {
+  const marks = group.userData.marks;
+  if (!name || !state.currentGroup) { disposeGroup(group); return; }
+  const feature = splitFeatureKey(name);
+  const members = new Set((group === selGroup && selectionBodies) || componentUnit(name)?.bodies || [componentBody(name)]);
+  const keep = new Set();
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || !members.some(body => standsIn(mesh.name, body)) || mesh.visible === false
-        || seen.has(mesh.geometry)) continue;
-    seen.add(mesh.geometry);
-    mesh.updateWorldMatrix(true, false);
+    if (mesh.userData?.side !== "front" || !mesh.visible ||
+        !(members.has(mesh.name) || heldBy(mesh.name).some(body => members.has(body)))) continue;
     const record = feature && mesh.userData.features?.find(f => f.id === feature.id);
     if (feature && !record) continue;
-    const geometry = record ? featureGeometry(mesh, record) : mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
-    g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG), edgeMat));
-    const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-      color, transparent: true, opacity: shellOpacity, side: THREE.DoubleSide,
-      depthWrite: false, depthTest: false,
-    }));
-    shell.renderOrder = 993;
-    g.add(shell);
+    mesh.updateWorldMatrix(true, false);
+    keep.add(mesh);
+    let mark = marks.get(mesh);
+    if (mark && (mark.source !== mesh.geometry || mark.feature !== record ||
+        (record && !mark.pose.equals(mesh.matrixWorld)))) {
+      removeMark(group, mesh, mark);
+      mark = null;
+    }
+    if (!mark) {
+      mark = addMark(group, mesh, record);
+      if (record) mark.pose = mesh.matrixWorld.clone();
+    }
+    if (!record) {
+      mark.shell.matrix.copy(mesh.matrixWorld);
+      mark.shell.matrixWorldNeedsUpdate = true;
+    }
+    if (mark.line) {
+      mark.line.matrix.copy(mark.shell.matrix);
+      mark.line.matrixWorldNeedsUpdate = true;
+    } else if (showEdges && !mark.cancelEdges) {
+      mark.cancelEdges = requestFeatureEdges(mark.shell.geometry, edges => {
+        if (marks.get(mesh) !== mark) return;
+        mark.line = new THREE.LineSegments(edges, group === selGroup ? selEdgeMat : hoverEdgeMat);
+        mark.line.matrix.copy(mark.shell.matrix);
+        mark.line.matrixAutoUpdate = false;
+        mark.line.renderOrder = group.renderOrder;
+        group.add(mark.line);
+        requestCadRender();
+      }, { priority: group === selGroup });
+    }
   }
+  for (const [mesh, mark] of marks) if (!keep.has(mesh)) removeMark(group, mesh, mark);
+  requestCadRender();
 }
 
 // --- component raycasting (front, visible meshes only) ---
@@ -290,25 +325,25 @@ function pickComponent(clientX, clientY) {
     -((clientY - rect.top) / rect.height) * 2 + 1,
   );
   _raycaster.setFromCamera(_ndc, camera);
-  const [hit] = _raycaster.intersectObjects(targets, false);
+  const hit = nearestSurface(_raycaster, targets);
   if (!hit) return null;
   if (insideOpenedPart(hit.object.name)) {
     const feature = hit.object.userData.features?.find(f => containsTriangle(f, hit.faceIndex));
     if (feature) return `${hit.object.name}::${feature.id}`;
   }
-  return selectionName(hit.object.name) || null;
+  return hit.object.name;
 }
 
 // --- selection + hover ---
 export function selectComponent(name, { members = null } = {}) {
-  const unit = componentUnit(name);
+  const unit = componentUnit(name, !members);
   name = unit?.name || name;
   const feature = sceneFeature(name);
   selection = name;
   selectionBodies = members?.length ? [...members] : unit?.bodies || null;
-  drawOverlay(selGroup, name, SEL, selEdgeMat, 0.18);
   setHover(null);
   showPanel();
+  drawOverlay(selGroup, name);
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
     detail: { file: state.mountedDetail?.file, name: componentBody(name), ...(feature ? { feature: feature.id } : {}) },
   }));
@@ -341,7 +376,7 @@ export function clearComponentSelection() {
 
 export function clearComponentPicker({ preserve = false } = {}) {
   if (preserve && selection && (!splitFeatureKey(selection) || sceneFeature(selection))) {
-    drawOverlay(selGroup, selection, SEL, selEdgeMat, 0.18);
+    drawOverlay(selGroup, selection);
     setHover(null); refreshPanel(); return;
   }
   clearSelectionOverlay();
@@ -349,11 +384,15 @@ export function clearComponentPicker({ preserve = false } = {}) {
   hidePanel();
 }
 
+let hoverOutlineTimer = 0;
 function setHover(name) {
+  name = componentUnit(name)?.name || name;
   if (name === selection) name = null; // don't double-paint the selected one
   if (name === hoverName) return;
   hoverName = name;
-  drawOverlay(hoverGroup, name, HOVER, hoverEdgeMat, 0.1);
+  clearTimeout(hoverOutlineTimer);
+  drawOverlay(hoverGroup, name, false);
+  if (name) hoverOutlineTimer = setTimeout(() => drawOverlay(hoverGroup, hoverName), 100);
 }
 
 // Component commands overlay the canvas below the workspace toolbar.
@@ -408,7 +447,13 @@ function buildPanel() {
   hideBtn.addEventListener("click", () => {
     if (!selection) return;
     const focused = document.activeElement === hideBtn;
-    for (const name of selectionBodies || [selection]) state.hiddenComponents.add(selectionName(name));
+    const group = installedUnits()?.groupByName.get(selection);
+    if (group) {
+      for (const body of group.bodies) state.hiddenComponents.delete(visibilityName(body));
+      state.hiddenComponents.add(group.name);
+    } else {
+      for (const name of selectionBodies || [selection]) state.hiddenComponents.add(visibilityName(name));
+    }
     persistHidden();
     clearSelectionOverlay();
     applyHiddenComponents();
@@ -543,7 +588,10 @@ function focusComponentControls(preferred = null) {
 function hiddenNames() {
   const names = new Set(state.hiddenComponents);
   if (!state.currentGroup?.userData.instanceView?.preview) {
-    for (const name of state.autoHiddenComponents) names.add(name);
+    const units = installedUnits();
+    for (const name of state.autoHiddenComponents) {
+      if (!state.hiddenComponents.has(units?.groupByBody.get(name)?.name)) names.add(name);
+    }
   }
   return [...names].sort();
 }
@@ -561,7 +609,7 @@ function updateHiddenRows(names) {
   let next = panel._hiddenItems.firstElementChild;
   for (const name of names) {
     const row = hiddenRows.get(name) || makeHiddenRow(name);
-    const label = `Show ${componentUnit(name)?.label || instanceLabel(name)}`;
+    const label = `Show ${unitForKey(name)?.label || instanceLabel(name)}`;
     if (row.button.title !== label) {
       row.button.title = label;
       row.button.setAttribute("aria-label", label);
@@ -593,7 +641,9 @@ function makeHiddenRow(name) {
     const next = focused && (element.nextElementSibling || element.previousElementSibling)?.querySelector("button");
     const view = state.currentGroup?.userData.instanceView;
     const shown = view?.rays.length ? (view.shown ??= new Set()) : null;
-    for (const body of componentUnit(name)?.bodies || [name]) {
+    state.hiddenComponents.delete(name);
+    state.autoHiddenComponents.delete(name);
+    for (const body of unitForKey(name)?.bodies || [name]) {
       shown?.add(body);
       state.hiddenComponents.delete(body);
       state.autoHiddenComponents.delete(body);
@@ -619,7 +669,7 @@ function queueHiddenThumbnails() {
     if (!group || !panel.classList.contains("show") || !panel.getClientRects().length) return;
     for (const [name, row] of hiddenRows) {
       if (!row.inView) continue;
-      const bodies = componentUnit(name)?.bodies || [name];
+      const bodies = unitForKey(name)?.bodies || [name];
       const meshes = group.children.filter(mesh => mesh.userData.side === "front" && inFinish(mesh.name)
         && bodies.some(body => standsIn(mesh.name, body)));
       const version = meshes.map(mesh => {
@@ -684,7 +734,7 @@ function showPanel(names = hiddenNames()) {
   const bodyName = componentBody(selection);
   const inside = feature || !selection ? [] : membersOf(selection);
   const description = selection ? componentName(selection) : "";
-  const unit = componentUnit(selection);
+  const unit = unitForKey(selection);
   const instance = state.currentGroup?.userData.instanceView;
   const installed = instance && !instance.preview && !instance.found && instance.names.has(bodyName);
   const nameInTrail = !feature && description && [...header.querySelectorAll(".cad-crumb.show :is(.cad-crumb-step, .cad-crumb-here)")]
@@ -772,10 +822,17 @@ function hidePanel() {
 
 // --- pointer wiring (attached once; act only when enabled + STEP open) ---
 let downX = 0, downY = 0;
+let hoverFrame = 0, hoverX = 0, hoverY = 0;
 function active() { return enabled && state.mountedDetail && state.mountedDetail.type === "step"; }
+function cancelHover() {
+  if (hoverFrame) cancelAnimationFrame(hoverFrame);
+  hoverFrame = 0;
+  setHover(null);
+}
 
 renderer.domElement.addEventListener("pointerdown", (e) => {
   downX = e.clientX; downY = e.clientY;
+  cancelHover();
 });
 renderer.domElement.addEventListener("pointerup", (e) => {
   if (!active()) return;
@@ -786,9 +843,15 @@ renderer.domElement.addEventListener("pointerup", (e) => {
   else deselect(); // click on empty space clears the selection
 });
 renderer.domElement.addEventListener("pointermove", (e) => {
-  if (!active() || e.buttons !== 0) return;
-  setHover(pickComponent(e.clientX, e.clientY));
+  if (!active() || e.buttons !== 0 || e.pointerType === "touch") return;
+  hoverX = e.clientX; hoverY = e.clientY;
+  if (!hoverFrame) hoverFrame = requestAnimationFrame(() => {
+    hoverFrame = 0;
+    if (active()) setHover(pickComponent(hoverX, hoverY));
+  });
 });
+renderer.domElement.addEventListener("pointerleave", cancelHover);
+renderer.domElement.addEventListener("wheel", cancelHover, { passive: true });
 
 // --- toggle + mutual exclusion with the edge picker ---
 export function setComponentPickEnabled(on) {

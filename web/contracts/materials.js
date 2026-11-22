@@ -1,8 +1,21 @@
 // Engineering identities and relationships. Files are representations of materials;
 // neither file names nor CAD solid counts allocate identities or quantities.
 import { stepLocation } from "./step-locations.js";
+// A catalog response owns its lookup tables for as long as that revision is in use.
+const catalogIndexes = new WeakMap();
+function catalogIndex(catalog) {
+  const materials = catalog?.materials;
+  if (!materials) return null;
+  let entry = catalogIndexes.get(materials);
+  if (!entry || entry.count !== materials.length) {
+    const byId = new Map(materials.map(material => [material.id, material]));
+    entry = { count: materials.length, byId, bodyBindings: new Map() };
+    catalogIndexes.set(materials, entry);
+  }
+  return entry;
+}
 export function materialIndex(catalog) {
-  return new Map((catalog?.materials || []).map((material) => [material.id, material]));
+  return catalogIndex(catalog)?.byId || new Map();
 }
 
 export function materialForFile(catalog, file) {
@@ -314,25 +327,70 @@ export function matchesBody(name, binding) {
 // into its parent; compounds and text solids may all represent one material. Each
 // leading "../" climbs one frame: a tube the cold core pots names its free end in
 // the machine's model, a binding that names nothing in the cold core's own model.
-export function occurrenceBodies(catalog, path, availableNames, options = {}) {
-  const index = materialIndex(catalog), bindings = [];
+export function occurrenceBindings(catalog, path, options = {}) {
+  const index = materialIndex(catalog), bindings = new Set();
   function collect(item, frames, seen) {
     for (const name of [...(item.bodies || []), ...(item.placements || []).flatMap(placement => placement.bodies || [])]) {
       const up = name.match(/^(\.\.\/)*/)[0].length / 3;
-      if (up <= frames.length) bindings.push(frames.slice(0, frames.length - up).join("") + name.slice(up * 3));
+      if (up <= frames.length) bindings.add(frames.slice(0, frames.length - up).join("") + name.slice(up * 3));
     }
     if (seen.has(item.material)) return;
     for (const child of bomItems(index.get(item.material), options))
       collect(child, [...frames, item.prefix || ""], new Set([...seen, item.material]));
   }
   if (path.length) collect(path.at(-1), path.slice(0, -1).map((item) => item.prefix || ""), new Set());
-  return [...availableNames].filter((name) => bindings.some((binding) => matchesBody(name, binding)));
+  return bindings;
+}
+
+function eachBodyAncestor(name, visit) {
+  let body = normalizedBody(name);
+  for (;;) {
+    if (visit(body)) return true;
+    const slash = body.lastIndexOf("/");
+    if (slash < 0) return false;
+    body = body.slice(0, slash);
+  }
+}
+
+export function occurrenceBodies(catalog, path, availableNames, options = {}) {
+  const bindings = occurrenceBindings(catalog, path, options);
+  if (!bindings.size) return [];
+  return [...availableNames].filter(name => eachBodyAncestor(name, key => bindings.has(key)));
+}
+
+// A model pick and the Materials panel resolve the same most-specific BOM occurrence.
+function modelBindings(catalog, root, options) {
+  const cache = catalogIndex(catalog)?.bodyBindings;
+  if (!cache) return null;
+  const key = JSON.stringify([root, options]);
+  if (cache.has(key)) return cache.get(key);
+  const rows = explodeBom(catalog, root, options);
+  const hits = new Map(), branches = new Map();
+  for (const [order, row] of rows.entries()) {
+    for (const binding of occurrenceBindings(catalog, row.path, options)) {
+      const prior = hits.get(binding);
+      if (!prior || row.depth > prior.row.depth) hits.set(binding, { row, order });
+    }
+    if (row.item.prefix) {
+      const branch = row.path.map(item => item.prefix || "").join("").replace(/\/$/, "");
+      if (!branches.has(branch)) branches.set(branch, row.material);
+    }
+  }
+  const bindings = { hits, branches, hasChildren: rows.length > 0 };
+  cache.set(key, bindings);
+  return bindings;
 }
 
 export function occurrenceForBody(catalog, root, name, options = {}) {
-  // The most specific binding wins, including a nested cold-core component.
-  return explodeBom(catalog, root, options).filter((row) =>
-    occurrenceBodies(catalog, row.path, [name], options).length).sort((a, b) => b.depth - a.depth)[0] || null;
+  const bindings = modelBindings(catalog, root, options);
+  if (!bindings || !name) return null;
+  let best;
+  eachBodyAncestor(name, key => {
+    const hit = bindings.hits.get(key);
+    if (hit && (!best || hit.row.depth > best.row.depth ||
+        (hit.row.depth === best.row.depth && hit.order < best.order))) best = hit;
+  });
+  return best?.row || null;
 }
 
 // A CAD body is an occurrence of a material. Its key still identifies the
@@ -340,16 +398,15 @@ export function occurrenceForBody(catalog, root, name, options = {}) {
 export function materialForComponent(catalog, file, name, options = {}) {
   const parent = materialForFile(catalog, file);
   if (!parent || !name) return null;
-  const rows = explodeBom(catalog, parent.id, options);
   const occurrence = occurrenceForBody(catalog, parent.id, name, options);
   if (occurrence) return occurrence.material;
-  const branch = rows.find((row) => row.item.prefix &&
-    row.path.map((item) => item.prefix || "").join("").replace(/\/$/, "") === name);
-  if (branch) return branch.material;
+  const bindings = modelBindings(catalog, parent.id, options);
+  const branch = bindings.branches.get(name);
+  if (branch) return branch;
   const relation = parent.relations?.find((item) =>
     item.bodies?.some((body) => matchesBody(name, body)));
   if (relation) return materialIndex(catalog).get(relation.material) || null;
-  return rows.length ? null : parent;
+  return bindings.hasChildren ? null : parent;
 }
 
 export function materialForView(catalog, file, options = {}) {

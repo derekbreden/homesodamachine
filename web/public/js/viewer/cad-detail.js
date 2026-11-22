@@ -331,7 +331,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
   }).then(() => {
     const view = state.currentGroup?.userData;
     if (state.currentCadWrapper === wrapper && state.mountedDetail?.file === file
-        && !view?.focusedTarget && !view?.instanceView) applyCameraState(file);
+        && !view?.focusedTarget && !view?.instanceView && !view?.navigatedDuringLoad) applyCameraState(file);
   });
 }
 

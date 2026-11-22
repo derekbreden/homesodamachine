@@ -11,10 +11,12 @@
 
 import * as THREE from "three";
 import { scene, camera, controls, holdCameraPose, releaseCameraPose, visibleShare } from "./scene.js";
+import * as sceneState from "./scene.js";
+import { markSolid } from "./feature-edges.js";
 import { state } from "./state.js";
 
 const HL = 0x35e0d0; // highlight cyan — distinct from pick-find magenta and edge select/hover
-const EDGE_THRESHOLD_DEG = 30;
+
 
 const overlay = new THREE.Group();
 overlay.name = "part-highlight";
@@ -26,12 +28,14 @@ const visibleEdgeMat = new THREE.LineBasicMaterial({ color: HL, depthWrite: fals
 
 let subject = null;
 
+const fillMaterial = new THREE.MeshBasicMaterial({
+  color: HL, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
+  depthWrite: false, depthTest: false,
+});
+
 function clearOverlay() {
-  for (const c of [...overlay.children]) {
-    overlay.remove(c);
-    if (c.geometry) c.geometry.dispose();        // edges + cloned shells are ours to dispose
-    if (c.material && c.material !== edgeMat && c.material !== visibleEdgeMat) c.material.dispose();
-  }
+  overlay.clear();
+  sceneState.requestCadRender?.();
 }
 
 // The distinct component names in the loaded model (STEP assembly node names, stamped onto each
@@ -144,20 +148,11 @@ function draw() {
   report.shown = solids.length;
   if (subject?.fill) {
     for (const mesh of solids) {
-      mesh.updateWorldMatrix(true, false);
-      if (subject.visibleOnly) {
-        const edges = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG).applyMatrix4(mesh.matrixWorld);
-        overlay.add(new THREE.LineSegments(edges, visibleEdgeMat));
-        continue;
-      }
-      const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
-      overlay.add(new THREE.LineSegments(new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG), edgeMat));
-      const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-        color: HL, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
-        depthWrite: false, depthTest: false,
-      }));
-      shell.renderOrder = 995;
-      overlay.add(shell);
+      markSolid(overlay, mesh, {
+        lineMaterial: subject.visibleOnly ? visibleEdgeMat : edgeMat,
+        fillMaterial: subject.visibleOnly ? null : fillMaterial,
+        onChange: sceneState.requestCadRender,
+      });
     }
   }
   subject?.onDraw?.(report);
