@@ -1,0 +1,22 @@
+{
+  "question": "Does the slow 11-burst top-off deliver more when the same pump has just poured a full glass?",
+  "programs": "topoff_n11 (ratio 18, 11 bursts of 51 ms, 494 ms gaps) and steady_glass (ratio 19, 14 bursts of 215 ms) from programs.json, with their frozen forecasts from model-used.json, both copied unchanged from the record at 37aec3c88.",
+  "rested": "First, before any glass and with no pour on either head since the park at 13:32: topoff_n11 on A then on B, from its start level, twice.",
+  "cycles": "Set the cup to steady_glass's start level. A pours steady_glass, waits the cycle's delay, pours topoff_n11. Then B pours steady_glass, waits the same delay, pours topoff_n11. B's glass and top-off return the cup for A's, so each cycle tests both heads with no positioning gate between a glass and its top-off.",
+  "cycle_delays_s": [0, 120, 300, 0, 120],
+  "delay_definition": "From the glass's finishing photograph to the top-off's first motor command. Delay 0 is as soon as a fresh stream, its no-pump bracket and its starting photograph allow; the journal records each actual interval.",
+  "cycle_budget_s": {"0": 170, "120": 370, "300": 730},
+  "last_cycle_end_local": "14:24",
+  "skip_rule": "A cycle that cannot finish by last_cycle_end_local is skipped. The second delay-120 cycle goes first, then the second delay-0 cycle. The single delay-300 cycle is the one-repeat condition.",
+  "bracket_s": 10,
+  "settling_correction": "Each top-off's stream takes a no-pump photograph, waits bracket_s (about the top-off's pour plus its settling wait), then the starting photograph, the pour and the finishing photograph. The level change between the first two, scaled to the start-to-finish interval and taken in the pump's direction, is the settling estimate. Corrected dose = raw dose minus that estimate. Both are reported.",
+  "response": "Settling-corrected dose on the x990 sightline; x1986 reported beside it.",
+  "noise_basis": "Reader noise on x990 is under 0.01 mL per photograph (results/reader-validation.json at 37aec3c88). A's repeat spread on rested 11-burst top-offs at 37aec3c88 was 0.08 mL standard deviation, up to 0.28 on other top-off variants. 0.5 mL is about twice the largest of those; 1.0 mL is the practical tolerance. The effect under test, read from one pour per head, is about 3 mL.",
+  "rule_per_head": {
+    "D": "mean corrected after-glass dose at a delay minus mean corrected rested dose, same head.",
+    "supported": "D at delay 0 is at least 1.0 mL and every delay-0 repeat exceeds the rested mean by more than 0.5 mL.",
+    "ruled_out": "D is below 0.5 mL at every delay tested.",
+    "unresolved": "Anything else."
+  },
+  "B_caveat": "B switched between two short-burst yields at 37aec3c88, with repeat spreads up to about 2.7 mL on one top-off variant. B is scored by the same rule and its spread is reported beside it."
+}

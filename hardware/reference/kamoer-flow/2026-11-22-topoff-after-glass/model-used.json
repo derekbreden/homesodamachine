@@ -1,0 +1,74 @@
+{
+  "purpose": "Predict the concentrate transferred by one bench head from its controller motor-on intervals.",
+  "training_revision": "bc26987f18f42e863b6e2af7df3dad5da07d3eb7",
+  "training_files": [
+    "hardware/reference/kamoer-flow/2026-11-22-pour-predictions/optical-calibration/geometry-results/trials.csv",
+    "hardware/reference/kamoer-flow/2026-11-22-pour-predictions/preregistration.json",
+    "hardware/reference/kamoer-flow/2026-11-22-pour-predictions/fresh-programs.json"
+  ],
+  "controller_source": "firmware/lib/machine_policy/pour_policy.h",
+  "response": "Positive cup-calibrated mL from the x990 settled clear-glass sightline.",
+  "gate_units": "[start_ms, width_ms], relative to the first motor command",
+  "equation": "max(0, sum of each feature times its head coefficient)",
+  "features": {
+    "on_s": "Sum of motor-on durations in seconds.",
+    "pulses": "Number of separate motor-on intervals.",
+    "train_starts": "One for a nonempty schedule plus each motor-off gap exceeding the controller normal off-time limit.",
+    "on_s_above_knee": "Sum of each motor-on interval's positive duration above the width knee in seconds."
+  },
+  "width_knee_source": "Median of the distinct gate widths present in the archived motor schedules.",
+  "normal_off_limit_source": "kPourOffMaxMs in the archived controller source; only one prior program had a gap above this limit.",
+  "weighting": "One mean per unique gate train per head. Minimize squared dose residuals divided by max(1 mL, 5% of the training mean dose) squared.",
+  "conditions": "Bench transfer of undiluted Diet Cola. A withdraws from the OXO cup and B fills it. Starting fill and conditioning varied in the archive.",
+  "width_knee_ms": 140,
+  "normal_off_limit_ms": 1000,
+  "heads": {
+    "A": {
+      "on_s": 14.807456584465,
+      "pulses": -0.16384772892135493,
+      "train_starts": -0.19026174504159218,
+      "on_s_above_knee": -2.8232557118379633
+    },
+    "B": {
+      "on_s": 12.57926493968821,
+      "pulses": -0.02306233677266867,
+      "train_starts": -0.2391729471443099,
+      "on_s_above_knee": -1.756540221489886
+    }
+  },
+  "historical_ranges": {
+    "gate_width_ms": [
+      50,
+      311
+    ],
+    "motor_intervals_per_pour": [
+      2,
+      22
+    ],
+    "off_gap_ms": [
+      195,
+      300,
+      360,
+      420,
+      480,
+      540,
+      600,
+      1301
+    ],
+    "unique_gate_trains_per_head": 15,
+    "observations_per_head": {
+      "A": 104,
+      "B": 104
+    },
+    "starting_x990_ml": {
+      "A": [
+        220.58651411673628,
+        263.4400516617075
+      ],
+      "B": [
+        208.01347441383433,
+        252.95259605692004
+      ]
+    }
+  }
+}
