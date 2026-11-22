@@ -298,9 +298,15 @@ function makeSection(wrapper, pick) {
   canvas.addEventListener("lostpointercapture", () => { drag = null; });
   canvas.addEventListener("wheel", e => { e.preventDefault(); zoomBy(Math.exp(Math.sign(e.deltaY) * 0.15)); }, { passive: false });
 
+  // A responsive pane switch can resize the renderer and the profile together.
+  let resizeFrame = 0;
   const resize = new ResizeObserver(() => {
-    stage.classList.toggle("section-narrow", stage.clientWidth < 680);
-    redraw();
+    if (resizeFrame) return;
+    resizeFrame = requestAnimationFrame(() => {
+      resizeFrame = 0;
+      stage.classList.toggle("section-narrow", stage.clientWidth < 680);
+      redraw();
+    });
   });
   resize.observe(stage); resize.observe(plot);
   window.addEventListener(HSM_EVENTS.BLUEPRINT_VISIBILITY, syncCaps, { signal });
@@ -308,7 +314,7 @@ function makeSection(wrapper, pick) {
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, refresh, { signal });
   function close() {
     if (closed) return false;
-    closed = true; job++; clearTimeout(timer); resize.disconnect(); controller.abort();
+    closed = true; job++; clearTimeout(timer); resize.disconnect(); cancelAnimationFrame(resizeFrame); controller.abort();
     renderer.clippingPlanes = previousPlanes;
     setSurfaceSection(null, null); emptyMarks(); caps.removeFromParent();
     stage.classList.remove("section-open", "section-narrow", "section-profile-open");

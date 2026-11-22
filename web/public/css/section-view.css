@@ -6,7 +6,9 @@
 .section-open > .material-bench, .section-open .bench-model-label { display: none; }
 .section-open .cad-wrapper > :is(.edge-panel,.component-panel,.pick-find-panel,.pick-find-labels,.faucet-options) { display: none; }
 .section-profile {
-  grid-area: 1 / 2; display: grid; grid-template-rows: auto minmax(0,1fr) auto; min-width: 0; min-height: 0;
+  /* Visible part names can wrap as a boundary enters the plot. Their band stays
+     independent of that plot's size, including while the section is arriving. */
+  grid-area: 1 / 2; display: grid; grid-template-rows: auto minmax(0,1fr) clamp(28px,9%,75px); min-width: 0; min-height: 0;
   overflow: hidden; color: #edf1f5; background: #192734; border-inline-start: 1px solid #506371;
 }
 .section-profile-head { display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 8px 12px 0; }
@@ -15,7 +17,7 @@
 .section-profile-canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
 .section-profile-canvas:active { cursor: grabbing; }
 .section-status { position: absolute; left: 12px; bottom: 8px; background: #192734e6; font-size: .8rem; pointer-events: none; }
-.section-legend { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 3px 12px; max-height: 75px; overflow: auto;
+.section-legend { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 3px 12px; min-height: 0; overflow: auto;
   padding: 3px 12px 9px; font: .76rem/1.4 var(--font-sans); touch-action: pan-y; }
 .section-legend span { min-width: 0; overflow-wrap: anywhere; }
 .section-legend span::before { display: inline-block; content: ""; width: .7em; height: .7em; margin-inline-end: 5px; background: var(--swatch); }
