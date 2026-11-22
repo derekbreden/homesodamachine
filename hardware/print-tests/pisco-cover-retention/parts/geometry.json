@@ -3,6 +3,7 @@
   "body": "pisco-snap-cap",
   "installed_source": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
   "mark_depth_mm": 0.6,
+  "seated_catch_gap_reference": "Signed vertical gap with the hooks relaxed and the regulator on its nominal installed axis. A negative gap is overlap before the springs bend.",
   "variants": [
     {
       "added_bearing_volume_mm3": 46.27095059977364,
@@ -27,6 +28,18 @@
       ],
       "seated_catch_gap_z_mm": 0.05,
       "take_up_z_mm": 0.35
+    },
+    {
+      "added_bearing_volume_mm3": 219.7870155913588,
+      "diamonds": 3,
+      "name": "pisco-three-marks",
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ],
+      "seated_catch_gap_z_mm": -0.55,
+      "take_up_z_mm": 0.95
     }
   ],
   "wing_y_mm": [

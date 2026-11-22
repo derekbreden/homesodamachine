@@ -11,6 +11,8 @@ use std::{fs, path::Path};
 
 const SOURCE: &str = "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz";
 const OUTPUT: &str = "hardware/print-tests/pisco-cover-retention/parts";
+/// Free hook overlap with a receiver chamfer at the nominal installed regulator pose.
+const PRELOAD_OVERLAP_Z: f64 = 0.55;
 const MARK_HALF_WIDTH: f64 = 1.4;
 const MARK_DEPTH: f64 = 0.6;
 const MARK_SPACING: f64 = 4.5;
@@ -46,7 +48,11 @@ fn main() -> Result<()> {
     let out = Path::new(OUTPUT);
     fs::create_dir_all(out)?;
     let mut variants = Vec::new();
-    for (name, marks, take_up) in [("pisco-one-mark", 1, 0.20), ("pisco-two-marks", 2, 0.35)] {
+    for (name, marks, take_up) in [
+        ("pisco-one-mark", 1, 0.20),
+        ("pisco-two-marks", 2, 0.35),
+        ("pisco-three-marks", 3, stations::catch_air() + PRELOAD_OVERLAP_Z),
+    ] {
         let west = bearing_fill(&st, -1.0, take_up)?;
         let east = bearing_fill(&st, 1.0, take_up)?;
         let mut held = Solid::union_all(&[source.clone(), west, east])?;
@@ -65,12 +71,15 @@ fn main() -> Result<()> {
         let shift = v3(-(b.min.x + b.max.x) / 2.0, -(b.min.y + b.max.y) / 2.0, -b.min.z);
         fs::write(out.join(format!("{name}.stl")), stl_bytes(&[&turned.translate(shift)])?)?;
         let gap_mm = ((stations::catch_air() - take_up) * 1000.0).round() / 1000.0;
-        variants.push(json!({"name":name,"diamonds":marks,"take_up_z_mm":take_up,
+        let take_up_mm = (take_up * 1000.0).round() / 1000.0;
+        variants.push(json!({"name":name,"diamonds":marks,"take_up_z_mm":take_up_mm,
             "seated_catch_gap_z_mm":gap_mm,"added_bearing_volume_mm3":added,
             "print_translation_after_x90_mm":[shift.x, shift.y, shift.z]}));
     }
     let doc = json!({"installed_source":SOURCE,"body":"pisco-snap-cap",
-        "baseline_catch_gap_z_mm":stations::catch_air(),"wing_y_mm":[st.y0, PISCO_WING_AFT_Y],
+        "baseline_catch_gap_z_mm":stations::catch_air(),
+        "seated_catch_gap_reference":"Signed vertical gap with the hooks relaxed and the regulator on its nominal installed axis. A negative gap is overlap before the springs bend.",
+        "wing_y_mm":[st.y0, PISCO_WING_AFT_Y],
         "mark_depth_mm":MARK_DEPTH,"variants":variants});
     fs::write(out.join("geometry.json"), serde_json::to_string_pretty(&doc)? + "\n")?;
     Ok(())
