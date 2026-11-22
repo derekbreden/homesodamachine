@@ -7,3 +7,14 @@
 {"start_ns": 356951801516041, "done_ns": 356951853245583, "control": "sharpness", "requested": 3, "readback": 3}
 {"start_ns": 356951853310333, "done_ns": 356951892994125, "control": "absolute_focus", "requested": 380, "readback": 380}
 {"start_ns": 356952546487583, "done_ns": 356952589952791, "control": "absolute_focus", "requested": 500, "readback": 500}
+{"start_ns": 362451708030958, "done_ns": 362451755236208, "control": "auto_focus", "requested": 0, "readback": 0}
+{"start_ns": 362451755544500, "done_ns": 362451808260833, "control": "auto_exposure_mode", "requested": 1, "readback": 1}
+{"start_ns": 362451808379375, "done_ns": 362451849209375, "control": "white_balance_temperature_auto", "requested": 0, "readback": 0}
+{"start_ns": 362451849324125, "done_ns": 362451908108625, "control": "absolute_focus", "requested": 650, "readback": 650}
+{"start_ns": 362451908217416, "done_ns": 362451948303125, "control": "absolute_exposure_time", "requested": 275, "readback": 275}
+{"start_ns": 362451948418000, "done_ns": 362452008491208, "control": "gain", "requested": 0, "readback": 0}
+{"start_ns": 362452008598333, "done_ns": 362452048621625, "control": "white_balance_temperature", "requested": 4600, "readback": 4600}
+{"start_ns": 362452048748833, "done_ns": 362452105996916, "control": "sharpness", "requested": 3, "readback": 3}
+{"start_ns": 362452106090500, "done_ns": 362452175698375, "control": "white_balance_temperature_auto", "requested": 1, "readback": 1}
+{"start_ns": 362452175795875, "done_ns": 362452217829666, "control": "auto_exposure_mode", "requested": 8, "readback": 8}
+{"start_ns": 362452217947208, "done_ns": 362452275851041, "control": "auto_focus", "requested": 0, "readback": 0}

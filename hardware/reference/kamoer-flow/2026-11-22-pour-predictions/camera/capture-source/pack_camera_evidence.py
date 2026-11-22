@@ -36,9 +36,9 @@ def compact_photo(window,out,label):
 
 def assemble(final):
     out=HERE/'evidence';sources=out/'capture-source';replay=out/'replay';ref=out/'reference'
-    for item in ('camera.swift','feed.py','endpoint.py','controls.py','close_camera.py','front_preview.py','refresh_results.py','pack_camera_evidence.py','repack_native.py','archive_gates.py','timing_window.py','native_profiles.py','steward.py','timeline.py','stationary_evidence.py','pack_hold_ink.py','collect_holds.py'):
+    for item in ('acquisition.md','camera.swift','feed.py','endpoint.py','controls.py','close_camera.py','front_preview.py','refresh_results.py','pack_camera_evidence.py','repack_native.py','archive_gates.py','timing_window.py','native_profiles.py','steward.py','timeline.py','stationary_evidence.py','pack_hold_ink.py','collect_holds.py'):
         link(HERE/item,sources/item)
-    for item in ('native_profiles.py','rim_measure.py','upper_contact.py','read_pour_timings.py','freeze_rim.py','score_optics.py','score_fill_timing.py','read_hold.py','read_hold_ink.py','hold_variation.py','dry_waves.py','sampling_coverage.py','register_cup.py','replay_native.py','front_wall.py','front_holds.py','inspect_hold_feature.py','score_front_wall.py','audit_native.py','plot_pour_phases.py'):
+    for item in ('native_profiles.py','rim_measure.py','upper_contact.py','read_pour_timings.py','freeze_rim.py','score_optics.py','score_fill_timing.py','read_hold.py','read_hold_ink.py','hold_variation.py','dry_waves.py','sampling_coverage.py','register_cup.py','replay_native.py','front_wall.py','front_holds.py','inspect_hold_feature.py','return_contacts.py','score_front_wall.py','audit_native.py','check_receipts.py','verify_camera_archive.py','plot_pour_phases.py'):
         link(HERE/item,replay/item)
     for item in ('rim-reference.npz','upper-contact-reference.npz','original-uvc.txt','frozen-uvc.txt','clock.json','control-events.jsonl','events.jsonl'):
         link(HERE/item,ref/item)

@@ -1,0 +1,826 @@
+{
+  "A": {
+    "inner": {
+      "pairs": [
+        {
+          "block": 1,
+          "high": {
+            "label": "fill1-001-a-same-open-time-high",
+            "fraction_at_release": 0.7811835253446784,
+            "signed_step_px": 18.310550000000003,
+            "terminal_correlation": 0.95685,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 3.639800000000001,
+            "wave": {
+              "frequency_hz": 3.124999999999996,
+              "amplitude_px": 0.5365872057294958,
+              "fraction_of_detrended_variance": 0.766559432525061,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-000-a-same-open-time-low",
+            "fraction_at_release": 0.8234196795042401,
+            "signed_step_px": 20.47765,
+            "terminal_correlation": 0.9733499999999999,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 3.570149999999998,
+            "wave": {
+              "frequency_hz": 2.849999999999997,
+              "amplitude_px": 0.8528418085011693,
+              "fraction_of_detrended_variance": 0.8645019694496794,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.04223615415956172
+        },
+        {
+          "block": 2,
+          "high": {
+            "label": "fill1-004-a-same-open-time-high",
+            "fraction_at_release": 0.76010397118029,
+            "signed_step_px": 18.88985,
+            "terminal_correlation": 0.97255,
+            "terminal_band_iqr_px": 0.0,
+            "release_to_closure_px": 4.159299999999998,
+            "wave": {
+              "frequency_hz": 2.899999999999997,
+              "amplitude_px": 0.4308852772266198,
+              "fraction_of_detrended_variance": 0.5036295916777829,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-005-a-same-open-time-low",
+            "fraction_at_release": 0.7959687846324343,
+            "signed_step_px": 21.655999999999995,
+            "terminal_correlation": 0.9776,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 4.550700000000006,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.4162627708178055,
+              "fraction_of_detrended_variance": 0.6875475807969017,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.035864813452144206
+        },
+        {
+          "block": 3,
+          "high": {
+            "label": "fill1-010-a-same-open-time-high",
+            "fraction_at_release": 0.7768219462251189,
+            "signed_step_px": 18.703899999999997,
+            "terminal_correlation": 0.975,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.1621500000000005,
+            "wave": {
+              "frequency_hz": 2.9499999999999966,
+              "amplitude_px": 0.5026405690011515,
+              "fraction_of_detrended_variance": 0.5662863175448098,
+              "samples": 35
+            }
+          },
+          "low": {
+            "label": "fill1-011-a-same-open-time-low",
+            "fraction_at_release": 0.7968624778650643,
+            "signed_step_px": 20.8381,
+            "terminal_correlation": 0.9768,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 4.293599999999998,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 0.22339100888305857,
+              "fraction_of_detrended_variance": 0.5468067317209807,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.020040531639945347
+        },
+        {
+          "block": 4,
+          "high": {
+            "label": "fill1-014-a-same-open-time-high",
+            "fraction_at_release": 0.7938405656093922,
+            "signed_step_px": 19.271250000000002,
+            "terminal_correlation": 0.966,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.5615500000000004,
+            "wave": {
+              "frequency_hz": 2.9999999999999964,
+              "amplitude_px": 0.3453907462033587,
+              "fraction_of_detrended_variance": 0.38309532423408477,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-015-a-same-open-time-low",
+            "fraction_at_release": 0.809707347691342,
+            "signed_step_px": 20.3928,
+            "terminal_correlation": 0.9709,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 3.9093000000000018,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 0.2574459554533304,
+              "fraction_of_detrended_variance": 0.48076498737083784,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.015866782081949804
+        },
+        {
+          "block": 5,
+          "high": {
+            "label": "fill1-017-a-same-open-time-high",
+            "fraction_at_release": 0.769812370650943,
+            "signed_step_px": 20.487199999999998,
+            "terminal_correlation": 0.9894,
+            "terminal_band_iqr_px": 0.0,
+            "release_to_closure_px": 4.453150000000001,
+            "wave": {
+              "frequency_hz": 2.9249999999999967,
+              "amplitude_px": 0.17662906891885943,
+              "fraction_of_detrended_variance": 0.31701969634633387,
+              "samples": 35
+            }
+          },
+          "low": {
+            "label": "fill1-016-a-same-open-time-low",
+            "fraction_at_release": 0.8228080582777683,
+            "signed_step_px": 21.071500000000004,
+            "terminal_correlation": 0.975,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 3.825649999999996,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.4391804180818949,
+              "fraction_of_detrended_variance": 0.8397165260905624,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.05299568762682527
+        },
+        {
+          "block": 6,
+          "high": {
+            "label": "fill1-023-a-same-open-time-high",
+            "fraction_at_release": 0.8274714855405895,
+            "signed_step_px": 17.929500000000004,
+            "terminal_correlation": 0.9718,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.0064499999999974,
+            "wave": {
+              "frequency_hz": 3.174999999999996,
+              "amplitude_px": 0.5503425057225286,
+              "fraction_of_detrended_variance": 0.7191703039855424,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-022-a-same-open-time-low",
+            "fraction_at_release": 0.8177584153294889,
+            "signed_step_px": 20.107650000000003,
+            "terminal_correlation": 0.97475,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 3.7308999999999983,
+            "wave": {
+              "frequency_hz": 2.849999999999997,
+              "amplitude_px": 0.4105325661272721,
+              "fraction_of_detrended_variance": 0.6153194952630796,
+              "samples": 35
+            }
+          },
+          "high_minus_low": 0.009713070211100572
+        }
+      ],
+      "unusable_labels": [],
+      "min_step_px": 2.0319125,
+      "complete_pairs": 6,
+      "mean_fraction_difference": -0.026215149791554298,
+      "paired_90_percent_ci": [
+        -0.044621111722302514,
+        -0.007809187860806085
+      ],
+      "inside_declared_band": true
+    },
+    "outer": {
+      "pairs": [
+        {
+          "block": 1,
+          "high": {
+            "label": "fill1-001-a-same-open-time-high",
+            "fraction_at_release": 0.6792245472129419,
+            "signed_step_px": 22.747999999999998,
+            "terminal_correlation": 0.9205000000000001,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 7.415549999999996,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.36751851092871757,
+              "fraction_of_detrended_variance": 0.5513936795286205,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-000-a-same-open-time-low",
+            "fraction_at_release": 0.8273004706547589,
+            "signed_step_px": 24.0516,
+            "terminal_correlation": 0.8567499999999999,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 4.19455,
+            "wave": {
+              "frequency_hz": 2.849999999999997,
+              "amplitude_px": 1.040191747312108,
+              "fraction_of_detrended_variance": 0.9056406845179004,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.14807592344181697
+        },
+        {
+          "block": 2,
+          "high": {
+            "label": "fill1-004-a-same-open-time-high",
+            "fraction_at_release": 0.697597262844214,
+            "signed_step_px": 22.65125,
+            "terminal_correlation": 0.9054,
+            "terminal_band_iqr_px": 2.25,
+            "release_to_closure_px": 6.9533999999999985,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.5157651987528062,
+              "fraction_of_detrended_variance": 0.7711710560169127,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-005-a-same-open-time-low",
+            "fraction_at_release": 0.7542533513933014,
+            "signed_step_px": 24.03105,
+            "terminal_correlation": 0.8532500000000001,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 6.133000000000003,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.6327521409124128,
+              "fraction_of_detrended_variance": 0.8450630671491036,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.056656088549087436
+        },
+        {
+          "block": 3,
+          "high": {
+            "label": "fill1-010-a-same-open-time-high",
+            "fraction_at_release": 0.7122606824804596,
+            "signed_step_px": 22.031399999999998,
+            "terminal_correlation": 0.9264,
+            "terminal_band_iqr_px": 1.5,
+            "release_to_closure_px": 6.636050000000001,
+            "wave": {
+              "frequency_hz": 2.849999999999997,
+              "amplitude_px": 0.6181198482510643,
+              "fraction_of_detrended_variance": 0.6375608011478315,
+              "samples": 35
+            }
+          },
+          "low": {
+            "label": "fill1-011-a-same-open-time-low",
+            "fraction_at_release": 0.7544384981311586,
+            "signed_step_px": 23.544,
+            "terminal_correlation": 0.836,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 5.7999499999999955,
+            "wave": {
+              "frequency_hz": 2.824999999999997,
+              "amplitude_px": 0.4693222289501806,
+              "fraction_of_detrended_variance": 0.6693563801349725,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.042177815650699
+        },
+        {
+          "block": 4,
+          "high": {
+            "label": "fill1-014-a-same-open-time-high",
+            "fraction_at_release": 0.7205552593946472,
+            "signed_step_px": 23.635799999999996,
+            "terminal_correlation": 0.9623,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 6.706799999999998,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.23524152659303496,
+              "fraction_of_detrended_variance": 0.5982701048229672,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-015-a-same-open-time-low",
+            "fraction_at_release": 0.750409864657458,
+            "signed_step_px": 22.9344,
+            "terminal_correlation": 0.8488,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 5.8136499999999955,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.555582978459971,
+              "fraction_of_detrended_variance": 0.7224812528703062,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.029854605262810807
+        },
+        {
+          "block": 5,
+          "high": {
+            "label": "fill1-017-a-same-open-time-high",
+            "fraction_at_release": 0.7140351090915735,
+            "signed_step_px": 24.626100000000005,
+            "terminal_correlation": 0.9237,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 7.351049999999997,
+            "wave": {
+              "frequency_hz": 2.824999999999997,
+              "amplitude_px": 0.3841354341237667,
+              "fraction_of_detrended_variance": 0.5295144685705663,
+              "samples": 35
+            }
+          },
+          "low": {
+            "label": "fill1-016-a-same-open-time-low",
+            "fraction_at_release": 0.7607454138299484,
+            "signed_step_px": 24.426700000000004,
+            "terminal_correlation": 0.8668,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 5.908349999999999,
+            "wave": {
+              "frequency_hz": 2.874999999999997,
+              "amplitude_px": 0.5606670898025511,
+              "fraction_of_detrended_variance": 0.7724394357768523,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.0467103047383749
+        },
+        {
+          "block": 6,
+          "high": {
+            "label": "fill1-023-a-same-open-time-high",
+            "fraction_at_release": 0.7356292823656688,
+            "signed_step_px": 22.184,
+            "terminal_correlation": 0.9367000000000001,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 6.099950000000003,
+            "wave": {
+              "frequency_hz": 2.824999999999997,
+              "amplitude_px": 0.5168545707339023,
+              "fraction_of_detrended_variance": 0.642955850359497,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-022-a-same-open-time-low",
+            "fraction_at_release": 0.7807434739875725,
+            "signed_step_px": 24.0116,
+            "terminal_correlation": 0.8969,
+            "terminal_band_iqr_px": 2.0,
+            "release_to_closure_px": 5.367600000000003,
+            "wave": {
+              "frequency_hz": 2.849999999999997,
+              "amplitude_px": 0.7702325625414589,
+              "fraction_of_detrended_variance": 0.7935866160179603,
+              "samples": 35
+            }
+          },
+          "high_minus_low": -0.045114191621903665
+        }
+      ],
+      "unusable_labels": [],
+      "min_step_px": 0.4534874999999999,
+      "complete_pairs": 6,
+      "mean_fraction_difference": -0.06143148821078213,
+      "paired_90_percent_ci": [
+        -0.09706392814539556,
+        -0.02579904827616869
+      ],
+      "inside_declared_band": true
+    }
+  },
+  "B": {
+    "inner": {
+      "pairs": [
+        {
+          "block": 1,
+          "high": {
+            "label": "fill1-003-b-same-open-time-high",
+            "fraction_at_release": 0.8365036244477133,
+            "signed_step_px": 17.98205,
+            "terminal_correlation": 0.98005,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.514099999999999,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 1.1812765106754413,
+              "fraction_of_detrended_variance": 0.4612588060993903,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-002-b-same-open-time-low",
+            "fraction_at_release": 0.7103544524376796,
+            "signed_step_px": 19.45395,
+            "terminal_correlation": 0.9756,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 6.103250000000003,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 1.6055445906705044,
+              "fraction_of_detrended_variance": 0.3341096034913146,
+              "samples": 36
+            }
+          },
+          "high_minus_low": 0.12614917201003373
+        },
+        {
+          "block": 2,
+          "high": {
+            "label": "fill1-007-b-same-open-time-high",
+            "fraction_at_release": 0.7801236640157021,
+            "signed_step_px": 18.647299999999998,
+            "terminal_correlation": 0.97805,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 4.360599999999998,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 1.4032054951868513,
+              "fraction_of_detrended_variance": 0.6330729644539443,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-006-b-same-open-time-low",
+            "fraction_at_release": 0.8527114552587913,
+            "signed_step_px": 19.345699999999997,
+            "terminal_correlation": 0.9822,
+            "terminal_band_iqr_px": 0.0,
+            "release_to_closure_px": 2.8051999999999992,
+            "wave": {
+              "frequency_hz": 3.2249999999999956,
+              "amplitude_px": 7.271760784564221,
+              "fraction_of_detrended_variance": 0.09652911638945083,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.07258779124308923
+        },
+        {
+          "block": 3,
+          "high": {
+            "label": "fill1-008-b-same-open-time-high",
+            "fraction_at_release": 0.8267691715906784,
+            "signed_step_px": 18.7178,
+            "terminal_correlation": 0.9783,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.6983999999999995,
+            "wave": {
+              "frequency_hz": 3.2249999999999956,
+              "amplitude_px": 3.0047982597580662,
+              "fraction_of_detrended_variance": 0.08228903115960051,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-009-b-same-open-time-low",
+            "fraction_at_release": 0.7951450201952547,
+            "signed_step_px": 19.7076,
+            "terminal_correlation": 0.9816,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 4.187100000000001,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 2.0163889303855367,
+              "fraction_of_detrended_variance": 0.5053534966135481,
+              "samples": 35
+            }
+          },
+          "high_minus_low": 0.03162415139542374
+        },
+        {
+          "block": 4,
+          "high": {
+            "label": "fill1-012-b-same-open-time-high",
+            "fraction_at_release": 0.7948243052637496,
+            "signed_step_px": 18.68155,
+            "terminal_correlation": 0.9763,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 4.42915,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 0.7711385808372854,
+              "fraction_of_detrended_variance": 0.3429970096441084,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-013-b-same-open-time-low",
+            "fraction_at_release": 0.8163175443575875,
+            "signed_step_px": 18.849650000000004,
+            "terminal_correlation": 0.98735,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.367449999999998,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 1.327559767665688,
+              "fraction_of_detrended_variance": 0.24196772797957344,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.021493239093837935
+        },
+        {
+          "block": 5,
+          "high": {
+            "label": "fill1-018-b-same-open-time-high",
+            "fraction_at_release": 0.8213092035542511,
+            "signed_step_px": 18.400500000000005,
+            "terminal_correlation": 0.9831,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 4.280700000000003,
+            "wave": {
+              "frequency_hz": 2.9749999999999965,
+              "amplitude_px": 0.8902479023121961,
+              "fraction_of_detrended_variance": 0.2774091531748131,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-019-b-same-open-time-low",
+            "fraction_at_release": 0.787106326473032,
+            "signed_step_px": 19.316449999999996,
+            "terminal_correlation": 0.97645,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 4.161300000000001,
+            "wave": {
+              "frequency_hz": 3.099999999999996,
+              "amplitude_px": 1.4592684048234583,
+              "fraction_of_detrended_variance": 0.3454045796546875,
+              "samples": 36
+            }
+          },
+          "high_minus_low": 0.03420287708121905
+        },
+        {
+          "block": 6,
+          "high": {
+            "label": "fill1-021-b-same-open-time-high",
+            "fraction_at_release": 0.8107534546161446,
+            "signed_step_px": 18.5187,
+            "terminal_correlation": 0.98055,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 3.910500000000006,
+            "wave": {
+              "frequency_hz": 2.9499999999999966,
+              "amplitude_px": 0.8897208156602322,
+              "fraction_of_detrended_variance": 0.34153129740636723,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-020-b-same-open-time-low",
+            "fraction_at_release": 0.8741686052226337,
+            "signed_step_px": 18.312599999999996,
+            "terminal_correlation": 0.9819,
+            "terminal_band_iqr_px": 0.5,
+            "release_to_closure_px": 2.607999999999997,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 1.714425187008067,
+              "fraction_of_detrended_variance": 0.46399241790319723,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.06341515060648917
+        }
+      ],
+      "unusable_labels": [],
+      "min_step_px": 2.0319125,
+      "complete_pairs": 6,
+      "mean_fraction_difference": 0.005746669923876698,
+      "paired_90_percent_ci": [
+        -0.0554146348983415,
+        0.0669079747460949
+      ],
+      "inside_declared_band": true
+    },
+    "outer": {
+      "pairs": [
+        {
+          "block": 1,
+          "high": {
+            "label": "fill1-003-b-same-open-time-high",
+            "fraction_at_release": 0.8030916291402286,
+            "signed_step_px": 20.629899999999996,
+            "terminal_correlation": 0.9379,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 4.1120500000000035,
+            "wave": {
+              "frequency_hz": 3.174999999999996,
+              "amplitude_px": 1.847740081884069,
+              "fraction_of_detrended_variance": 0.6749431882653956,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-002-b-same-open-time-low",
+            "fraction_at_release": 0.8247875224196968,
+            "signed_step_px": 19.625600000000002,
+            "terminal_correlation": 0.9008499999999999,
+            "terminal_band_iqr_px": 0.25,
+            "release_to_closure_px": 3.7742000000000004,
+            "wave": {
+              "frequency_hz": 2.9749999999999965,
+              "amplitude_px": 1.5985047461939983,
+              "fraction_of_detrended_variance": 0.3989011750736664,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.021695893279468192
+        },
+        {
+          "block": 2,
+          "high": {
+            "label": "fill1-007-b-same-open-time-high",
+            "fraction_at_release": 0.8084564514525652,
+            "signed_step_px": 21.124699999999994,
+            "terminal_correlation": 0.9254,
+            "terminal_band_iqr_px": 1.125,
+            "release_to_closure_px": 4.259399999999999,
+            "wave": {
+              "frequency_hz": 3.124999999999996,
+              "amplitude_px": 1.7763231155740904,
+              "fraction_of_detrended_variance": 0.5117363867355703,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-006-b-same-open-time-low",
+            "fraction_at_release": 0.7744030911004215,
+            "signed_step_px": 21.713949999999997,
+            "terminal_correlation": 0.9128,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 5.138200000000001,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 2.8267066538830483,
+              "fraction_of_detrended_variance": 0.511614150415134,
+              "samples": 36
+            }
+          },
+          "high_minus_low": 0.03405336035214368
+        },
+        {
+          "block": 3,
+          "high": {
+            "label": "fill1-008-b-same-open-time-high",
+            "fraction_at_release": 0.7847138260077009,
+            "signed_step_px": 21.5044,
+            "terminal_correlation": 0.928,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 4.7597999999999985,
+            "wave": {
+              "frequency_hz": 3.0499999999999963,
+              "amplitude_px": 2.041281478391555,
+              "fraction_of_detrended_variance": 0.4558773014815315,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-009-b-same-open-time-low",
+            "fraction_at_release": 0.7737754992676218,
+            "signed_step_px": 22.392799999999998,
+            "terminal_correlation": 0.8844,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 5.7768000000000015,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 2.2304749358413076,
+              "fraction_of_detrended_variance": 0.6149631654016074,
+              "samples": 35
+            }
+          },
+          "high_minus_low": 0.010938326740079107
+        },
+        {
+          "block": 4,
+          "high": {
+            "label": "fill1-012-b-same-open-time-high",
+            "fraction_at_release": 0.8182109628184129,
+            "signed_step_px": 21.522750000000002,
+            "terminal_correlation": 0.9204,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 4.031300000000002,
+            "wave": {
+              "frequency_hz": 2.9999999999999964,
+              "amplitude_px": 1.9562980102838072,
+              "fraction_of_detrended_variance": 0.772843398953447,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-013-b-same-open-time-low",
+            "fraction_at_release": 0.8628463722706357,
+            "signed_step_px": 22.468600000000002,
+            "terminal_correlation": 0.9267000000000001,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 3.0684499999999986,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 2.927658382118277,
+              "fraction_of_detrended_variance": 0.5193431102932283,
+              "samples": 36
+            }
+          },
+          "high_minus_low": -0.044635409452222774
+        },
+        {
+          "block": 5,
+          "high": {
+            "label": "fill1-018-b-same-open-time-high",
+            "fraction_at_release": 0.8359857378902511,
+            "signed_step_px": 20.6982,
+            "terminal_correlation": 0.91875,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 4.489200000000004,
+            "wave": {
+              "frequency_hz": 2.9749999999999965,
+              "amplitude_px": 1.6190526424538239,
+              "fraction_of_detrended_variance": 0.4717801300747786,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-019-b-same-open-time-low",
+            "fraction_at_release": 0.8090124218130561,
+            "signed_step_px": 22.702000000000005,
+            "terminal_correlation": 0.89985,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 4.344800000000003,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 2.5723487616372496,
+              "fraction_of_detrended_variance": 0.6549820841256322,
+              "samples": 36
+            }
+          },
+          "high_minus_low": 0.026973316077194998
+        },
+        {
+          "block": 6,
+          "high": {
+            "label": "fill1-021-b-same-open-time-high",
+            "fraction_at_release": 0.8413585736670478,
+            "signed_step_px": 21.2517,
+            "terminal_correlation": 0.9143,
+            "terminal_band_iqr_px": 1.25,
+            "release_to_closure_px": 3.4433000000000007,
+            "wave": {
+              "frequency_hz": 2.9999999999999964,
+              "amplitude_px": 1.4204996563008585,
+              "fraction_of_detrended_variance": 0.6203322647793426,
+              "samples": 36
+            }
+          },
+          "low": {
+            "label": "fill1-020-b-same-open-time-low",
+            "fraction_at_release": 0.8231377687193672,
+            "signed_step_px": 20.607,
+            "terminal_correlation": 0.9225,
+            "terminal_band_iqr_px": 1.0,
+            "release_to_closure_px": 3.7846999999999973,
+            "wave": {
+              "frequency_hz": 3.999999999999993,
+              "amplitude_px": 1.992893369812769,
+              "fraction_of_detrended_variance": 0.5546137955864991,
+              "samples": 36
+            }
+          },
+          "high_minus_low": 0.018220804947680636
+        }
+      ],
+      "unusable_labels": [],
+      "min_step_px": 0.4534874999999999,
+      "complete_pairs": 6,
+      "mean_fraction_difference": 0.003975750897567909,
+      "paired_90_percent_ci": [
+        -0.02126476531576397,
+        0.029216267110899787
+      ],
+      "inside_declared_band": true
+    }
+  }
+}

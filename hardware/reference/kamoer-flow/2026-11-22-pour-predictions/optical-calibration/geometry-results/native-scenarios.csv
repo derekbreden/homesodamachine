@@ -1,0 +1,9 @@
+head,scenario,forecast_px,scheduled,completed_indices,readable_and_correct_bursts,inside,mean_signed_error_px,meets_count_and_bias
+A,finish_at_full_flow,29.82826666666658,6,6,6,4,2.3415974180174572,False
+A,near_full_glass,68.33499999999982,6,6,6,1,7.468984091001066,False
+A,partial_top_off,12.725599999999933,6,6,6,6,0.42757876392944755,True
+A,short_richer_pour,25.614000000000054,6,6,6,6,0.669573612635889,True
+B,finish_at_full_flow,26.86140000000001,6,6,6,6,2.0462109433959697,False
+B,near_full_glass,61.965000000000046,6,6,6,1,6.915928802401505,False
+B,partial_top_off,11.04239999999999,6,6,6,6,0.8342350335535459,True
+B,short_richer_pour,22.808249999999987,6,6,6,6,1.1043773436879292,True

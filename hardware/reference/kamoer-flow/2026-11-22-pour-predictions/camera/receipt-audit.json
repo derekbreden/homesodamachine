@@ -1,0 +1,82 @@
+{
+  "fill.jsonl": {
+    "journal_sha256": "b77efb53103f0234fb233beb1c7753a9a500ce872c7e3c7a222cd96757e5fe05",
+    "transmitted_direct_gates": 87,
+    "received_direct_completions": 87,
+    "received_metered_openings": 24,
+    "received_metered_closures": 24,
+    "recorded_trial_outcomes": 24
+  },
+  "fresh.jsonl": {
+    "journal_sha256": "0691372e5aac65f2a1b12757a82e3443145b090fb2a2cf85af9d47a2db10f1d0",
+    "transmitted_direct_gates": 36,
+    "received_direct_completions": 36,
+    "received_metered_openings": 48,
+    "received_metered_closures": 48,
+    "recorded_trial_outcomes": 48
+  },
+  "graduations.jsonl": {
+    "journal_sha256": "442a7f3b4b7100ba5db796f969f2250608ebcdf028c92b7dc688ece80e2744a0",
+    "transmitted_direct_gates": 268,
+    "received_direct_completions": 268,
+    "received_metered_openings": 0,
+    "received_metered_closures": 0,
+    "recorded_trial_outcomes": 0
+  },
+  "qualifications.jsonl": {
+    "journal_sha256": "7d060cddaa284e3ea373e0d776af1fde27f5d8e27e59ddfebe1f0787003a2262",
+    "transmitted_direct_gates": 5,
+    "received_direct_completions": 5,
+    "received_metered_openings": 0,
+    "received_metered_closures": 0,
+    "recorded_trial_outcomes": 0
+  },
+  "repeat.jsonl": {
+    "journal_sha256": "0c2f0a7d8ac221008e900e0567de2903756b4700952969cf24868cb881a1ff9a",
+    "transmitted_direct_gates": 18,
+    "received_direct_completions": 18,
+    "received_metered_openings": 16,
+    "received_metered_closures": 16,
+    "recorded_trial_outcomes": 16
+  },
+  "return-final.jsonl": {
+    "journal_sha256": "d8cbba87b2b0d97e2dd85d32acc1925329f9709d06b93993cb9ef76f77bd7ff2",
+    "transmitted_direct_gates": 1,
+    "received_direct_completions": 1,
+    "received_metered_openings": 0,
+    "received_metered_closures": 0,
+    "recorded_trial_outcomes": 0
+  },
+  "return.jsonl": {
+    "journal_sha256": "edb747cbaf2e377df69595be8796c310b00d67d22d315c9e7a17f63d06966a77",
+    "transmitted_direct_gates": 2,
+    "received_direct_completions": 2,
+    "received_metered_openings": 0,
+    "received_metered_closures": 0,
+    "recorded_trial_outcomes": 0
+  },
+  "train.jsonl": {
+    "journal_sha256": "52913c54c5a0e14ea7a2a661fbaab6308495e83608e0ddb97982c36a3f08f58a",
+    "transmitted_direct_gates": 15,
+    "received_direct_completions": 15,
+    "received_metered_openings": 24,
+    "received_metered_closures": 24,
+    "recorded_trial_outcomes": 24
+  },
+  "validation.jsonl": {
+    "journal_sha256": "a7dd1d9d9f8ec2193420a3f8f396f1e825f86c7ed03cbaf6a28d0d86bab63f7b",
+    "transmitted_direct_gates": 93,
+    "received_direct_completions": 93,
+    "received_metered_openings": 96,
+    "received_metered_closures": 96,
+    "recorded_trial_outcomes": 96
+  },
+  "volume.jsonl": {
+    "journal_sha256": "8fd55a72fd33c92b396314baf8236ee91ea79a01f41d0d51f574ec5ff6a811a6",
+    "transmitted_direct_gates": 0,
+    "received_direct_completions": 0,
+    "received_metered_openings": 0,
+    "received_metered_closures": 0,
+    "recorded_trial_outcomes": 0
+  }
+}

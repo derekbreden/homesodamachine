@@ -42,11 +42,12 @@ def draw(rows, out):
         ax.spines[['top','right','left']].set_visible(False)
         ax.grid(axis='x',alpha=.18)
     fig.suptitle('Can two calibration servings predict the next six?',x=.06,y=.98,ha='left',fontweight='bold',fontsize=17)
-    handles=[Patch(color='#d2e9df',label='Recipe forecast tolerance'),
+    handles=[Patch(color='#d2e9df',label='Dose tolerance'),
              Line2D([],[],color='#297150',marker='|',ls='',markersize=12,label='Recipe forecast'),
              Line2D([],[],marker='D',mfc='none',mec='#a6512e',ls='',label='Pulse-width forecast'),
-             Line2D([],[],marker='o',ms=5,color='#164c68',ls='',label='Measured serving')]
-    fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.53,.005),ncols=4,frameon=False)
+             Line2D([],[],marker='o',ms=5,color='#164c68',ls='',label='First sightline'),
+             Line2D([],[],marker='|',ms=8,color='#164c68',ls='',label='Second sightline')]
+    fig.legend(handles=handles,loc='lower center',bbox_to_anchor=(.51,.005),ncols=5,frameon=False)
     fig.subplots_adjust(left=.19,right=.98,top=.82,bottom=.22,wspace=.18)
     fig.savefig(out,dpi=165,facecolor='white')
     plt.close(fig)

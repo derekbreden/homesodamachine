@@ -53,6 +53,24 @@ def score(fresh, extra, local, general):
     return merged,outcome
 
 
+def overall(rows):
+    summary = {}
+    for name, prediction in (('recipe', 'recipe_forecast_ml'), ('width', 'width_model_ml')):
+        summary[name] = {}
+        for site in ('primary_ml', 'heldout_ml'):
+            valid = [r for r in rows if r['prospective'] and r['bursts_ok'] and r[site] is not None]
+            errors = [r[site] - r[prediction] for r in valid]
+            summary[name][site] = {
+                'attempts': len(rows), 'readable_with_matching_receipt': len(valid),
+                'in_practical_band': sum(abs(r[site] - r[prediction]) <= max(1, .1*r[prediction]) for r in valid),
+                'in_five_percent': sum(abs(r[site] - r[prediction]) <= .05*r[prediction] for r in valid),
+                'mean_signed_error_ml': mean(errors) if errors else None,
+                'median_absolute_error_ml': median(abs(e) for e in errors) if errors else None,
+                'largest_absolute_error_ml': max((abs(e) for e in errors), default=None),
+            }
+    return summary
+
+
 if __name__=='__main__':
     a=argparse.ArgumentParser(description=__doc__)
     for name in ('fresh','extra','recipe','general','out'):a.add_argument(name,type=Path)
@@ -62,3 +80,4 @@ if __name__=='__main__':
     with (v.out/'attempts.csv').open('w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     (v.out/'scores.json').write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
+    (v.out/'overall.json').write_text(json.dumps(overall(rows), indent=2, allow_nan=False)+'\n')

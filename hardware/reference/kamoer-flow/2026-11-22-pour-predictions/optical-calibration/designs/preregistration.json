@@ -1,0 +1,1275 @@
+{
+  "provenance": {
+    "source_tree": "0183ad1abb78ee522038fa910030281ce0dc41b4",
+    "policy_files": [
+      "firmware/lib/machine_policy/pour_policy.cpp",
+      "firmware/lib/machine_policy/pour_policy.h"
+    ],
+    "verified_flashed_build": "d6e49a5f6",
+    "earlier_comparator_data": "a21b1685370d62bad7cb620c013c4c01c3b7a19d",
+    "water_pulses_per_litre_assumption": 2280,
+    "hardware": "Undiluted Diet Cola concentrate, two open vessels, A withdraws from the measuring cup and B fills it. No faucet water flows."
+  },
+  "scenarios": {
+    "t_slow": {
+      "phase": "training",
+      "ratio": 20,
+      "meter": [
+        [
+          1,
+          3500
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          50
+        ],
+        [
+          650,
+          50
+        ],
+        [
+          1300,
+          50
+        ],
+        [
+          1950,
+          50
+        ],
+        [
+          2600,
+          50
+        ],
+        [
+          3250,
+          50
+        ]
+      ],
+      "ideal_bursts": 6,
+      "ideal_on_s": 0.3,
+      "ideal_stop_ms": [
+        4900
+      ],
+      "nominal_water_ml": 30.70175438596491,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 3.40208835,
+        "B": 2.97084945
+      }
+    },
+    "t_partial": {
+      "phase": "training",
+      "ratio": 20,
+      "meter": [
+        [
+          3,
+          2700
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          110
+        ],
+        [
+          590,
+          110
+        ],
+        [
+          1180,
+          110
+        ],
+        [
+          1770,
+          110
+        ],
+        [
+          2360,
+          110
+        ]
+      ],
+      "ideal_bursts": 5,
+      "ideal_on_s": 0.55,
+      "ideal_stop_ms": [
+        3950
+      ],
+      "nominal_water_ml": 71.05263157894737,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 6.237161975000001,
+        "B": 5.446557325000001
+      }
+    },
+    "t_full": {
+      "phase": "training",
+      "ratio": 20,
+      "meter": [
+        [
+          6,
+          2250
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          200
+        ],
+        [
+          500,
+          200
+        ],
+        [
+          1000,
+          200
+        ],
+        [
+          1500,
+          200
+        ],
+        [
+          2000,
+          200
+        ]
+      ],
+      "ideal_bursts": 5,
+      "ideal_on_s": 1.0,
+      "ideal_stop_ms": [
+        3500
+      ],
+      "nominal_water_ml": 118.42105263157895,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 11.3402945,
+        "B": 9.9028315
+      }
+    },
+    "t_rich": {
+      "phase": "training",
+      "ratio": 15,
+      "meter": [
+        [
+          6,
+          1760
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          311
+        ],
+        [
+          506,
+          311
+        ],
+        [
+          1012,
+          311
+        ],
+        [
+          1518,
+          311
+        ]
+      ],
+      "ideal_bursts": 4,
+      "ideal_on_s": 1.244,
+      "ideal_stop_ms": [
+        3024
+      ],
+      "nominal_water_ml": 92.63157894736842,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 14.107326358,
+        "B": 12.319122386
+      }
+    },
+    "top_off": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          6,
+          650
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          200
+        ],
+        [
+          500,
+          200
+        ]
+      ],
+      "ideal_bursts": 2,
+      "ideal_on_s": 0.4,
+      "ideal_stop_ms": [
+        2000
+      ],
+      "nominal_water_ml": 34.21052631578947,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 4.5361178,
+        "B": 3.9611326
+      }
+    },
+    "full_glass": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          6,
+          6375
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          200
+        ],
+        [
+          500,
+          200
+        ],
+        [
+          1000,
+          200
+        ],
+        [
+          1500,
+          200
+        ],
+        [
+          2000,
+          200
+        ],
+        [
+          2500,
+          200
+        ],
+        [
+          3000,
+          200
+        ],
+        [
+          3500,
+          200
+        ],
+        [
+          4000,
+          200
+        ],
+        [
+          4500,
+          200
+        ],
+        [
+          5000,
+          200
+        ],
+        [
+          5500,
+          200
+        ],
+        [
+          6000,
+          200
+        ]
+      ],
+      "ideal_bursts": 13,
+      "ideal_on_s": 2.6,
+      "ideal_stop_ms": [
+        7500
+      ],
+      "nominal_water_ml": 335.5263157894737,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 29.484765700000004,
+        "B": 25.7473619
+      }
+    },
+    "partial_glass": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          3,
+          12775
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          110
+        ],
+        [
+          590,
+          110
+        ],
+        [
+          1180,
+          110
+        ],
+        [
+          1770,
+          110
+        ],
+        [
+          2360,
+          110
+        ],
+        [
+          2950,
+          110
+        ],
+        [
+          3540,
+          110
+        ],
+        [
+          4130,
+          110
+        ],
+        [
+          4720,
+          110
+        ],
+        [
+          5310,
+          110
+        ],
+        [
+          5900,
+          110
+        ],
+        [
+          6490,
+          110
+        ],
+        [
+          7080,
+          110
+        ],
+        [
+          7670,
+          110
+        ],
+        [
+          8260,
+          110
+        ],
+        [
+          8850,
+          110
+        ],
+        [
+          9440,
+          110
+        ],
+        [
+          10030,
+          110
+        ],
+        [
+          10620,
+          110
+        ],
+        [
+          11210,
+          110
+        ],
+        [
+          11800,
+          110
+        ],
+        [
+          12390,
+          110
+        ]
+      ],
+      "ideal_bursts": 22,
+      "ideal_on_s": 2.42,
+      "ideal_stop_ms": [
+        13980
+      ],
+      "nominal_water_ml": 336.1842105263158,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 27.443512690000002,
+        "B": 23.964852229999998
+      }
+    },
+    "ease_open": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          2,
+          1375
+        ],
+        [
+          4,
+          1575
+        ],
+        [
+          6,
+          1375
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          80
+        ],
+        [
+          620,
+          80
+        ],
+        [
+          1240,
+          80
+        ],
+        [
+          1860,
+          110
+        ],
+        [
+          2450,
+          140
+        ],
+        [
+          3010,
+          140
+        ],
+        [
+          3570,
+          200
+        ],
+        [
+          4070,
+          200
+        ]
+      ],
+      "ideal_bursts": 8,
+      "ideal_on_s": 1.03,
+      "ideal_stop_ms": [
+        5570
+      ],
+      "nominal_water_ml": 151.75438596491227,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 11.680503335000001,
+        "B": 10.199916445
+      }
+    },
+    "same_open_time": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          6,
+          2100
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          200
+        ],
+        [
+          500,
+          200
+        ],
+        [
+          1000,
+          200
+        ],
+        [
+          1500,
+          200
+        ],
+        [
+          2000,
+          200
+        ]
+      ],
+      "ideal_bursts": 5,
+      "ideal_on_s": 1.0,
+      "ideal_stop_ms": [
+        3500
+      ],
+      "nominal_water_ml": 110.52631578947368,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 11.3402945,
+        "B": 9.9028315
+      }
+    },
+    "release_reopen": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          6,
+          725
+        ],
+        [
+          0,
+          300
+        ],
+        [
+          6,
+          1375
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          200
+        ],
+        [
+          500,
+          200
+        ],
+        [
+          2001,
+          200
+        ]
+      ],
+      "ideal_bursts": 3,
+      "ideal_on_s": 0.6,
+      "ideal_stop_ms": [
+        3501
+      ],
+      "nominal_water_ml": 110.52631578947368,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 6.8041767,
+        "B": 5.9416989
+      }
+    },
+    "stronger_setting": {
+      "phase": "validation",
+      "ratio": 15,
+      "meter": [
+        [
+          6,
+          2325
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          311
+        ],
+        [
+          506,
+          311
+        ],
+        [
+          1012,
+          311
+        ],
+        [
+          1518,
+          311
+        ],
+        [
+          2024,
+          311
+        ]
+      ],
+      "ideal_bursts": 5,
+      "ideal_on_s": 1.555,
+      "ideal_stop_ms": [
+        3530
+      ],
+      "nominal_water_ml": 122.36842105263158,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 17.6341579475,
+        "B": 15.3989029825
+      }
+    },
+    "trickle": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          1,
+          5400
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          50
+        ],
+        [
+          650,
+          50
+        ],
+        [
+          1300,
+          50
+        ],
+        [
+          1950,
+          50
+        ],
+        [
+          2600,
+          50
+        ],
+        [
+          3250,
+          50
+        ],
+        [
+          3900,
+          50
+        ],
+        [
+          4550,
+          50
+        ],
+        [
+          5200,
+          50
+        ]
+      ],
+      "ideal_bursts": 9,
+      "ideal_on_s": 0.45,
+      "ideal_stop_ms": [
+        6850
+      ],
+      "nominal_water_ml": 47.36842105263158,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 5.103132525,
+        "B": 4.456274175
+      }
+    }
+  },
+  "orders": {
+    "training": [
+      {
+        "block": 1,
+        "scenario": "t_slow",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "t_slow",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "t_full",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "t_full",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "t_rich",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "t_rich",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "t_partial",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "t_partial",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "t_full",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "t_full",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "t_rich",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "t_rich",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "t_partial",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "t_partial",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "t_slow",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "t_slow",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "t_partial",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "t_partial",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "t_full",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "t_full",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "t_rich",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "t_rich",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "t_slow",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "t_slow",
+        "head": "A"
+      }
+    ],
+    "validation": [
+      {
+        "block": 1,
+        "scenario": "top_off",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "top_off",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "stronger_setting",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "stronger_setting",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "ease_open",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "ease_open",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "release_reopen",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "release_reopen",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "full_glass",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "full_glass",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "trickle",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "trickle",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "partial_glass",
+        "head": "A"
+      },
+      {
+        "block": 1,
+        "scenario": "partial_glass",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "same_open_time",
+        "head": "B"
+      },
+      {
+        "block": 1,
+        "scenario": "same_open_time",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "partial_glass",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "partial_glass",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "stronger_setting",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "stronger_setting",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "trickle",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "trickle",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "same_open_time",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "same_open_time",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "top_off",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "top_off",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "ease_open",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "ease_open",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "full_glass",
+        "head": "B"
+      },
+      {
+        "block": 2,
+        "scenario": "full_glass",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "release_reopen",
+        "head": "A"
+      },
+      {
+        "block": 2,
+        "scenario": "release_reopen",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "full_glass",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "full_glass",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "release_reopen",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "release_reopen",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "stronger_setting",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "stronger_setting",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "same_open_time",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "same_open_time",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "partial_glass",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "partial_glass",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "top_off",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "top_off",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "ease_open",
+        "head": "A"
+      },
+      {
+        "block": 3,
+        "scenario": "ease_open",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "trickle",
+        "head": "B"
+      },
+      {
+        "block": 3,
+        "scenario": "trickle",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "trickle",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "trickle",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "full_glass",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "full_glass",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "stronger_setting",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "stronger_setting",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "same_open_time",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "same_open_time",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "release_reopen",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "release_reopen",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "top_off",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "top_off",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "partial_glass",
+        "head": "B"
+      },
+      {
+        "block": 4,
+        "scenario": "partial_glass",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "ease_open",
+        "head": "A"
+      },
+      {
+        "block": 4,
+        "scenario": "ease_open",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "partial_glass",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "partial_glass",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "ease_open",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "ease_open",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "release_reopen",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "release_reopen",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "same_open_time",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "same_open_time",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "trickle",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "trickle",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "top_off",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "top_off",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "stronger_setting",
+        "head": "A"
+      },
+      {
+        "block": 5,
+        "scenario": "stronger_setting",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "full_glass",
+        "head": "B"
+      },
+      {
+        "block": 5,
+        "scenario": "full_glass",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "top_off",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "top_off",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "release_reopen",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "release_reopen",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "ease_open",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "ease_open",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "same_open_time",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "same_open_time",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "partial_glass",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "partial_glass",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "full_glass",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "full_glass",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "stronger_setting",
+        "head": "B"
+      },
+      {
+        "block": 6,
+        "scenario": "stronger_setting",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "trickle",
+        "head": "A"
+      },
+      {
+        "block": 6,
+        "scenario": "trickle",
+        "head": "B"
+      }
+    ]
+  },
+  "primary": "Nominal mL change from the settled foreground contact and direct right ruler. Positive dose for each head. Left ruler or independent clear optical region is withheld from model fitting. Preserve both and their disagreement. Never fit to validation observations.",
+  "candidate": "For each head, median per-acknowledged-burst volume at each of four training timings. Given a new ideal motor schedule, sum linear interpolation of the trained per-burst volumes by motor-on duration. All tested off times come from the specified appliance policy and covary with width. Predict concentration delivered before issuing each trace; confirm board start width, ratio, channel, and completed burst count independently.",
+  "qualification": "Use only stationary controls and isolated setup transfers to establish the visible band. Separate from training and validation. Position cup near the reference for each pour; alternate starting volume in six validation blocks by planned offsets 0, +4, -4, +4, -4, 0 mL about a dose-centered pre-level. Record actual start and finish. Stop if the camera or the controller cannot establish a bounded transfer. Do not interrupt a pour to recenter.",
+  "epochs": {
+    "training_blocks": 3,
+    "validation_blocks": 6,
+    "validation_offset_ml": [
+      0,
+      4,
+      -4,
+      4,
+      -4,
+      0
+    ],
+    "seed": 2026112202
+  },
+  "scoring": {
+    "unit": "nominal mL dispensed, calibrated to printed cup",
+    "practical_band": "max(1.0 mL, 10% of stated predicted dose)",
+    "per_head_and_scenario": "At least 5 of 6 fresh complete attempts inside the practical band AND absolute mean signed error <= max(0.6 mL, 5% of prediction). Missing endpoints or wrong burst counts cannot be counted as successful attempts. Show held-out optical bias, coverage and all misses. Only call a result corroborated where at least 5 of 6 independent optical doses also fall within the practical band. Quote the filmed volume span for assessable attempts.",
+    "stricter_band": "Also report individual count within \u00b15% of forecast, relevant to eventual installed ratio acceptance. An uncertain absolute cup scale or unknown water flow cannot establish finished drink ratio.",
+    "baseline": "Before training, score the existing restored head full-power rates and the previously published engineering pump speed/start-loss prior on all validation attempts. Report median absolute error and bias relative to primary. A new model need not win.",
+    "cooldown_hypothesis": "At the same total high-flow meter exposure, release and reopen during cooldown gives at least 20% lower median settled dose on each head and lower dose in at least five of six matched blocks. Predicted burst counts must agree with the actual appliance.",
+    "water": "Nominal water in each trace follows input meter pulses/50ms times duration and the project sensor factor. The catch vessel holds concentrate only.",
+    "repeat_policy": "Log every attempted command. Repeat only interrupted acquisitions or unreadable endpoints with identifiable instrumental cause, never numerical outliers. Keep missing first attempts visible in coverage. Any model changes after seeing validation require a new freeze and fresh test set."
+  }
+}

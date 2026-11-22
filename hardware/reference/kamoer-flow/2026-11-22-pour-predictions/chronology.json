@@ -1,0 +1,232 @@
+{
+  "original": {
+    "scenario_freezes": {
+      "frozen-model.json": {
+        "commit": "4c87368178e670843b46003a035ba84a7348fc1c",
+        "committed_at": "2026-11-22T03:04:38-06:00",
+        "sha256": "351750f0d8585606264c9acad7a97fb88d2634a547b46edd47f1705f7f3608f2"
+      },
+      "preregistration.json": {
+        "commit": "38fd03f50ae2bdc91729e8fd159c4d0fdc0ce328",
+        "committed_at": "2026-11-22T02:57:08-06:00",
+        "sha256": "e267e69d3651c05a5d178d96b4e87f7b436738c52363960018efa5bdcfc2b207"
+      }
+    },
+    "first_logged_prediction_utc": "2026-11-22T09:04:49.935000+00:00",
+    "matched_prospective_trials": 96,
+    "matching_hardware_burst_counts": 96,
+    "count_observed_matches_schedule": true,
+    "final_board_status": [
+      "state    idle",
+      "valves   all closed"
+    ],
+    "halts": [
+      "KeyboardInterrupt()"
+    ]
+  },
+  "fresh": {
+    "scenario_freezes": {
+      "geometry-model.json": {
+        "commit": "fb336cfd476f5fdaecbee0b8d163d1defa526db4",
+        "committed_at": "2026-11-22T03:53:53-06:00",
+        "sha256": "982fffe3f44aeb92a21d0455c4752f301ba3b397112d44d909d5dbcd989180ca"
+      },
+      "fresh-programs.json": {
+        "commit": "46b90834968f8c263f9be89d1797195a5ef50dff",
+        "committed_at": "2026-11-22T03:11:14-06:00",
+        "sha256": "a129a75a08511e938a45a49384cac0886180a79efa748295d3c41b08c938fe40"
+      }
+    },
+    "first_logged_prediction_utc": "2026-11-22T09:54:04.574000+00:00",
+    "matched_prospective_trials": 48,
+    "matching_hardware_burst_counts": 48,
+    "count_observed_matches_schedule": true,
+    "final_board_status": [
+      "state    idle",
+      "valves   all closed"
+    ],
+    "halts": []
+  },
+  "fill": {
+    "scenario_freezes": {
+      "fill-model.json": {
+        "commit": "fb336cfd476f5fdaecbee0b8d163d1defa526db4",
+        "committed_at": "2026-11-22T03:53:53-06:00",
+        "sha256": "e4ab6d490d979cf84ae0148168ce7f275890229ab4e355f501529b2548fa1dd1"
+      },
+      "fill-design.json": {
+        "commit": "dfe576ca2a5ffc51fc3c8fcd4d040b1987e34c9f",
+        "committed_at": "2026-11-22T03:20:09-06:00",
+        "sha256": "d386d898374958510de4b1332fc48663299c74c1c5343393bed8dbab0c798b50"
+      }
+    },
+    "first_logged_prediction_utc": "2026-11-22T10:04:25.704000+00:00",
+    "matched_prospective_trials": 24,
+    "matching_hardware_burst_counts": 24,
+    "count_observed_matches_schedule": true,
+    "final_board_status": [
+      "state    idle",
+      "valves   all closed"
+    ],
+    "halts": []
+  },
+  "repeat": {
+    "scenario_freezes": {
+      "repeat-model.json": {
+        "commit": "d559070dab5ffe1d73fa598d666ab50cc052db04",
+        "committed_at": "2026-11-22T03:57:27-06:00",
+        "sha256": "8bf1f12c5330c485db4abb913f60ace47e58a1162f4375562c3a1aeb463fefb6"
+      },
+      "repeat-design.json": {
+        "commit": "a8d25ae6b2210f713f2e3771b28caba6b86798eb",
+        "committed_at": "2026-11-22T03:57:11-06:00",
+        "sha256": "696ea7cceed8b4997fa41c19823e472138a8a8ff3ffd153fa5fa530963a5bfc5"
+      }
+    },
+    "first_logged_prediction_utc": "2026-11-22T10:18:21.544000+00:00",
+    "matched_prospective_trials": 16,
+    "matching_hardware_burst_counts": 16,
+    "count_observed_matches_schedule": true,
+    "final_board_status": [
+      "state    idle",
+      "valves   all closed"
+    ],
+    "halts": []
+  },
+  "repeat_recipe_timing": {
+    "last_training_index": 15,
+    "table_frozen_utc": "2026-11-22T09:57:17.498670+00:00",
+    "first_scored_fresh_trial_logged_utc": "2026-11-22T09:57:22.343+00:00",
+    "seconds_from_frozen_table_to_first_scored_fresh_prediction": 4.84506175,
+    "table_commit": {
+      "commit": "d559070dab5ffe1d73fa598d666ab50cc052db04",
+      "committed_at": "2026-11-22T03:57:27-06:00",
+      "sha256": "8bf1f12c5330c485db4abb913f60ace47e58a1162f4375562c3a1aeb463fefb6"
+    },
+    "note": "The numeric table was written locally before the first scored command; its Git commit followed shortly afterward. The recipe calibration rule was committed earlier."
+  },
+  "fill_specific_model_timing": {
+    "training_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "freeze": {
+      "commit": "af319f016ae72d9682b4caf747f1bcbd397244cf",
+      "committed_at": "2026-11-22T04:12:15-06:00",
+      "sha256": "e62ae037be996fc5b4d62d070c066e80bc60d9f282259e10694bc0dd6c513d5b"
+    },
+    "first_wet_prediction_utc": "2026-11-22T10:13:39.332+00:00",
+    "seconds_from_local_freeze_to_prediction": 84.57412625
+  },
+  "physical_pours": {
+    "calibration": 24,
+    "initial_validation": 96,
+    "reserved_programs": 48,
+    "fill": 24,
+    "additional_recipe_repeats": 16,
+    "total_distinct_metered_pours": 208,
+    "reused_by_known_recipe_validation": 32,
+    "reused_by_fill_specific_validation": 8
+  },
+  "parked_appliance": {
+    "volume": "volume   0%, quiet hours off",
+    "state": "state    idle",
+    "valves": "valves   all closed",
+    "settings": {
+      "flavor": "A",
+      "A": 20,
+      "B": 15
+    },
+    "broad_positioning_scan": {
+      "utc": "2026-11-22T10:22:18.579+00:00",
+      "mono_ns": 362422269090208,
+      "event": "station_position",
+      "first_window": "station-idle",
+      "last_window": "home-final-settled",
+      "initial": [
+        [
+          972,
+          985.125,
+          26.76
+        ],
+        [
+          990,
+          988.907,
+          48.16
+        ],
+        [
+          1018,
+          886.002,
+          25.64
+        ],
+        [
+          1036,
+          988.025,
+          16.59
+        ],
+        [
+          1450,
+          893.899,
+          45.06
+        ],
+        [
+          1986,
+          930.954,
+          23.66
+        ]
+      ],
+      "final": [
+        [
+          972,
+          985.001,
+          23.77
+        ],
+        [
+          990,
+          988.816,
+          45.22
+        ],
+        [
+          1018,
+          883.988,
+          22.16
+        ],
+        [
+          1036,
+          986.993,
+          16.44
+        ],
+        [
+          1450,
+          892.807,
+          52.66
+        ],
+        [
+          1986,
+          861.752,
+          31.05
+        ]
+      ],
+      "displacement_native_px": {
+        "972": -0.124,
+        "990": -0.091,
+        "1018": -2.014,
+        "1036": -1.032,
+        "1450": -1.092,
+        "1986": -69.202
+      }
+    },
+    "qualified_return_readings": "optical-calibration/geometry-results/return-to-reference.csv",
+    "optical_note": "The broad far-side scanner jumps to a reflection at the returned level. The qualified foreground contacts in the photographs record the return on both sightlines."
+  }
+}

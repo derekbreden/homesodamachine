@@ -14,6 +14,8 @@ from PIL import Image
 import cup_volume as frozen
 import left_ruler
 from mark_crossings import clear_lane
+from mark_crossings_v2 import clear_lane as clear_lane_v2
+from mark_crossings_v3 import clear_lane as clear_lane_v3, LOWER_RANGE_START
 
 HERE = Path(__file__).resolve().parent
 DEFAULT = HERE / "evidence"
@@ -96,12 +98,12 @@ def save_clear(path, dt, meta):
     tmp.replace(dt / "clear.png")
 
 
-def clear_proof(gray, dt, meta):
+def clear_proof(gray, dt, meta, reader=clear_lane):
     recovered = unpack_arrays(dt, meta)["average"]
     output = {}
     for x in (990, 1986):
-        original = clear_lane(gray, x)
-        if clear_lane(recovered, x) != original:
+        original = reader(gray, x)
+        if reader(recovered, x) != original:
             raise ValueError(f"Clear strip differs at {dt.name} x{x}")
         output["x" + str(x)] = {"row": original[0], "contrast": original[1]}
     return output
@@ -113,13 +115,14 @@ def one_pack(path, dest, meta):
     dt.mkdir(parents=True, exist_ok=True)
     if (dt / "capture.json").exists():
         capture = json.loads((dt / "capture.json").read_text())
-        if capture.get("clear_geometry") and (dt / "clear.png").exists():
+        if capture.get("clear_geometry_v2") and (dt / "clear.png").exists():
             return False
         if not (dt / "clear.png").exists():
             save_clear(path, dt, meta)
         native = np.asarray(frozen.crop(path / "average.png").convert("L"))
         capture["clear_lanes_sha256"] = sha(dt / "clear.png")
         capture["clear_geometry"] = clear_proof(native, dt, meta)
+        capture["clear_geometry_v2"] = clear_proof(native, dt, meta, clear_lane_v2)
         atomic_text(
             dt / "capture.json", json.dumps(capture, separators=(",", ":")) + "\n"
         )
@@ -152,6 +155,7 @@ def one_pack(path, dest, meta):
     summary = {
         "clear_lanes_sha256": sha(dt / "clear.png"),
         "clear_geometry": clear_proof(raw["average"], dt, meta),
+        "clear_geometry_v2": clear_proof(raw["average"], dt, meta, clear_lane_v2),
         "label": label,
         "mean_luma": {"mid": window["mid"], "frames": window["frames"]},
         "color": color,
@@ -247,7 +251,30 @@ def main():
                 raise ValueError(dt.name + " digest mismatch")
             if sha(dt / "clear.png") != capture["clear_lanes_sha256"]:
                 raise ValueError(dt.name + " operating strip digest mismatch")
-            if reduced_read(unpack_arrays(dt, saved)) != expected:
+            raw = unpack_arrays(dt, saved)
+            for field, fn in [
+                ("clear_geometry", clear_lane),
+                ("clear_geometry_v2", clear_lane_v2),
+            ]:
+                for x in (990, 1986):
+                    verified = fn(raw["average"], x)
+                    reported = capture[field]["x" + str(x)]
+                    if verified != (reported["row"], reported["contrast"]):
+                        raise ValueError(dt.name + " clear lane revision mismatch")
+            for site in (990, 1986):
+                key = "x" + str(site)
+                original = capture["clear_geometry"][key]
+                reported = (
+                    capture["clear_geometry_v2"][key]
+                    if site == 990 and original["row"] >= LOWER_RANGE_START
+                    else original
+                )
+                if clear_lane_v3(raw["average"], site) != (
+                    reported["row"],
+                    reported["contrast"],
+                ):
+                    raise ValueError(dt.name + " range-limited replay differs")
+            if reduced_read(raw) != expected:
                 raise ValueError(dt.name + " replay mismatch")
         print(json.dumps({"verified_from_pixels": len(windows)}))
         return

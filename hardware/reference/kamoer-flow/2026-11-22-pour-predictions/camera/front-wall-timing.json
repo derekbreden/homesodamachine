@@ -1,0 +1,3965 @@
+{
+  "method": "Front-wall native luma is sampled at three upright columns about each volume sightline with a six-row sensor pitch. The pre-pour photographed contact seeds a continuous sequence of downward intensity transitions into uniformly dark liquid. The path scores all frames using their time spacing, direction-independent smoothness and local contrast. The post-pour photograph supplies only the separate endpoint error. Positions, including fractional estimates, are in native sensor pixels. Camera stamps determine the measured phase windows.",
+  "trials": [
+    {
+      "label": "fresh1-000-a-short-richer-pour",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 1,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 25.201520543827428,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 20.369008319924887,
+            "closure": 23.638918861731327,
+            "settled": 23.922189569781494
+          },
+          "settled_minus_photo_px": -1.2793309740459335,
+          "release_to_closure_px": 3.269910541806439,
+          "median_local_edge_score": 32.30497062702106,
+          "minimum_local_edge_score": 13.599271953855268
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 32.08172018121343,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 28.404499803222734,
+            "closure": 30.165058483079292,
+            "settled": 30.309082139839234
+          },
+          "settled_minus_photo_px": -1.7726380413741936,
+          "release_to_closure_px": 1.7605586798565582,
+          "median_local_edge_score": 20.08400934034234,
+          "minimum_local_edge_score": 17.172416652022328
+        }
+      }
+    },
+    {
+      "label": "fresh1-001-b-short-richer-pour",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 1,
+      "frames": 62,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 23.2172971097159,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 18.05410322536534,
+            "closure": 21.2543521347435,
+            "settled": 22.066140033086526
+          },
+          "settled_minus_photo_px": -1.1511570766293744,
+          "release_to_closure_px": 3.2002489093781605,
+          "median_local_edge_score": 13.87405883105172,
+          "minimum_local_edge_score": 1.4483501291077105
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 30.002805465084293,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 25.47141323503547,
+            "closure": 26.898860775281378,
+            "settled": 26.208413826734272
+          },
+          "settled_minus_photo_px": -3.794391638350021,
+          "release_to_closure_px": 1.4274475402459075,
+          "median_local_edge_score": 20.080479341715268,
+          "minimum_local_edge_score": 5.851989890772571
+        }
+      }
+    },
+    {
+      "label": "fresh1-002-b-near-full-glass",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 1,
+      "frames": 126,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 67.36057851922749,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 79.83870656320369,
+            "closure": 66.84794389683543,
+            "settled": 66.81471743770817
+          },
+          "settled_minus_photo_px": -0.5458610815193197,
+          "release_to_closure_px": -12.990762666368255,
+          "median_local_edge_score": 6.441357322372756,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 85.05452019653694,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 82.75722027309234,
+            "closure": 88.60825557455291,
+            "settled": 84.5997134906197
+          },
+          "settled_minus_photo_px": -0.4548067059172354,
+          "release_to_closure_px": 5.85103530146057,
+          "median_local_edge_score": 17.965325155980672,
+          "minimum_local_edge_score": 10.744716761313306
+        }
+      }
+    },
+    {
+      "label": "fresh1-003-a-near-full-glass",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 1,
+      "frames": 125,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 74.98512442495098,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 71.96278484207369,
+            "closure": 74.25977053693282,
+            "settled": 74.21072993983034
+          },
+          "settled_minus_photo_px": -0.7743944851206379,
+          "release_to_closure_px": 2.2969856948591314,
+          "median_local_edge_score": 20.394184205770497,
+          "minimum_local_edge_score": 5.903697211615647
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 94.06294852454948,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 93.51269055217085,
+            "closure": 94.26056630329765,
+            "settled": 94.16006423509168
+          },
+          "settled_minus_photo_px": 0.09711571054219803,
+          "release_to_closure_px": 0.7478757511267986,
+          "median_local_edge_score": 19.779105699279754,
+          "minimum_local_edge_score": 15.178680864584173
+        }
+      }
+    },
+    {
+      "label": "fresh1-004-a-partial-top-off",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 1,
+      "frames": 69,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 13.174357197811332,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 12.721323247004875,
+            "closure": 12.320389224947803,
+            "settled": 12.52407693593068
+          },
+          "settled_minus_photo_px": -0.6502802618806527,
+          "release_to_closure_px": -0.40093402205707207,
+          "median_local_edge_score": 25.56194266428538,
+          "minimum_local_edge_score": 14.869944921359474
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 17.08995946028074,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 16.62339559441682,
+            "closure": 16.998491964744403,
+            "settled": 17.00249953309526
+          },
+          "settled_minus_photo_px": -0.08745992718547768,
+          "release_to_closure_px": 0.3750963703275829,
+          "median_local_edge_score": 20.823217969189894,
+          "minimum_local_edge_score": 14.921243980801815
+        }
+      }
+    },
+    {
+      "label": "fresh1-005-b-partial-top-off",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 1,
+      "frames": 71,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 133.566666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.040641701583354,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 15.965458814718318,
+            "closure": 12.224872474951894,
+            "settled": 11.736635060008894
+          },
+          "settled_minus_photo_px": -0.30400664157446045,
+          "release_to_closure_px": -3.7405863397664234,
+          "median_local_edge_score": 18.84344837944406,
+          "minimum_local_edge_score": 1.7302054366676776
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 16.036598114351364,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 11.791990920516241,
+            "closure": 16.037450796133612,
+            "settled": 16.373040736853113
+          },
+          "settled_minus_photo_px": 0.3364426225017496,
+          "release_to_closure_px": 4.245459875617371,
+          "median_local_edge_score": 21.82767109051816,
+          "minimum_local_edge_score": 14.768689496267468
+        }
+      }
+    },
+    {
+      "label": "fresh1-006-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 1,
+      "frames": 85,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 28.406791992089097,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 34.65917908535823,
+            "closure": 28.51749179266983,
+            "settled": 27.743067331026623
+          },
+          "settled_minus_photo_px": -0.6637246610624743,
+          "release_to_closure_px": -6.1416872926884025,
+          "median_local_edge_score": 11.211602430042259,
+          "minimum_local_edge_score": 1.7572652047466761
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.079838970948686,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.43923669268827,
+            "closure": 35.20343949402297,
+            "settled": 35.295802567544456
+          },
+          "settled_minus_photo_px": -1.7840364034042295,
+          "release_to_closure_px": 4.764202801334704,
+          "median_local_edge_score": 20.330550193724736,
+          "minimum_local_edge_score": 8.218518293215206
+        }
+      }
+    },
+    {
+      "label": "fresh1-007-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 1,
+      "frames": 83,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 4,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 31.19027495734349,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 26.500317094270713,
+            "closure": 31.161168286116094,
+            "settled": 31.058608944821344
+          },
+          "settled_minus_photo_px": -0.13166601252214605,
+          "release_to_closure_px": 4.660851191845381,
+          "median_local_edge_score": 32.76057853886014,
+          "minimum_local_edge_score": 9.203876860104653
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 40.07339464371512,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 34.32962706142382,
+            "closure": 39.547618994430195,
+            "settled": 39.813828637421466
+          },
+          "settled_minus_photo_px": -0.2595660062936531,
+          "release_to_closure_px": 5.217991933006374,
+          "median_local_edge_score": 20.701287891743977,
+          "minimum_local_edge_score": 17.073227127211535
+        }
+      }
+    },
+    {
+      "label": "fresh1-008-b-near-full-glass",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 2,
+      "frames": 125,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 6
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 68.22751636926023,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 74.00274806005154,
+            "closure": 67.27376955238708,
+            "settled": 67.0673542310551
+          },
+          "settled_minus_photo_px": -1.1601621382051235,
+          "release_to_closure_px": -6.728978507664465,
+          "median_local_edge_score": 6.839051066023903,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 85.98580536434349,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 84.52834544541486,
+            "closure": 85.29473528436392,
+            "settled": 84.64718502468975
+          },
+          "settled_minus_photo_px": -1.338620339653744,
+          "release_to_closure_px": 0.7663898389490669,
+          "median_local_edge_score": 18.87061700510562,
+          "minimum_local_edge_score": 9.054303271989788
+        }
+      }
+    },
+    {
+      "label": "fresh1-009-a-near-full-glass",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 2,
+      "frames": 124,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 75.23641994782724,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 72.65902580457146,
+            "closure": 74.96141858237206,
+            "settled": 75.14071833974663
+          },
+          "settled_minus_photo_px": -0.095701608080617,
+          "release_to_closure_px": 2.3023927778006055,
+          "median_local_edge_score": 18.76577842190475,
+          "minimum_local_edge_score": 5.926627289678307
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 94.97885168239736,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 90.37614765836429,
+            "closure": 95.0684340513385,
+            "settled": 95.19486472123913
+          },
+          "settled_minus_photo_px": 0.2160130388417656,
+          "release_to_closure_px": 4.692286392974211,
+          "median_local_edge_score": 19.94711487400942,
+          "minimum_local_edge_score": 14.882484234036832
+        }
+      }
+    },
+    {
+      "label": "fresh1-010-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 2,
+      "frames": 85,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 32.26817394270972,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 26.97675027818036,
+            "closure": 31.351299844482014,
+            "settled": 31.695085509419982
+          },
+          "settled_minus_photo_px": -0.5730884332897404,
+          "release_to_closure_px": 4.374549566301653,
+          "median_local_edge_score": 30.680090090360096,
+          "minimum_local_edge_score": 11.499851657440132
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 42.01327037033025,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 34.1848967352181,
+            "closure": 39.96922342252583,
+            "settled": 40.42382267694552
+          },
+          "settled_minus_photo_px": -1.5894476933847272,
+          "release_to_closure_px": 5.7843266873077255,
+          "median_local_edge_score": 20.18603002091856,
+          "minimum_local_edge_score": 17.616694506366013
+        }
+      }
+    },
+    {
+      "label": "fresh1-011-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 2,
+      "frames": 83,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 3,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 28.397538890790543,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.46874012714966,
+            "closure": 28.77860480977654,
+            "settled": 27.882311921437804
+          },
+          "settled_minus_photo_px": -0.5152269693527387,
+          "release_to_closure_px": 1.3098646826268805,
+          "median_local_edge_score": 17.94313916877929,
+          "minimum_local_edge_score": 0.5132346580600704
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 38.06977171474864,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.09782515425104,
+            "closure": 35.88347758470013,
+            "settled": 35.976071290846335
+          },
+          "settled_minus_photo_px": -2.0937004239023054,
+          "release_to_closure_px": 5.78565243044909,
+          "median_local_edge_score": 20.658240150990125,
+          "minimum_local_edge_score": 10.075850774132837
+        }
+      }
+    },
+    {
+      "label": "fresh1-012-b-short-richer-pour",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 2,
+      "frames": 62,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.23333399999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 23.940644343821646,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 28.01929823152227,
+            "closure": 22.574046802870384,
+            "settled": 22.710473818732112
+          },
+          "settled_minus_photo_px": -1.2301705250895338,
+          "release_to_closure_px": -5.445251428651886,
+          "median_local_edge_score": 16.420109934188602,
+          "minimum_local_edge_score": 1.5859233907377814
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 30.995104655517366,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.79748177681961,
+            "closure": 30.25944094751219,
+            "settled": 30.10921331438226
+          },
+          "settled_minus_photo_px": -0.8858913411351068,
+          "release_to_closure_px": 2.4619591706925803,
+          "median_local_edge_score": 21.021963072958656,
+          "minimum_local_edge_score": 13.545727439264123
+        }
+      }
+    },
+    {
+      "label": "fresh1-013-a-short-richer-pour",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 2,
+      "frames": 62,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 4,
+        "release": 3,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.07404308187506,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 22.455735769605326,
+            "closure": 27.009914385483057,
+            "settled": 26.937325780759693
+          },
+          "settled_minus_photo_px": -0.13671730111536817,
+          "release_to_closure_px": 4.554178615877731,
+          "median_local_edge_score": 32.857364909382895,
+          "minimum_local_edge_score": 15.442588969299958
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 35.01683462837582,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 30.183996192476343,
+            "closure": 32.04531441070685,
+            "settled": 31.871784160306788
+          },
+          "settled_minus_photo_px": -3.14505046806903,
+          "release_to_closure_px": 1.8613182182305081,
+          "median_local_edge_score": 19.439268711001098,
+          "minimum_local_edge_score": 16.514401249747525
+        }
+      }
+    },
+    {
+      "label": "fresh1-014-a-partial-top-off",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 2,
+      "frames": 72,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 133.533333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.276455659429189,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 12.890668885466653,
+            "closure": 13.123774769995407,
+            "settled": 13.004611859057604
+          },
+          "settled_minus_photo_px": 0.7281561996284154,
+          "release_to_closure_px": 0.23310588452875436,
+          "median_local_edge_score": 31.41180427012901,
+          "minimum_local_edge_score": 18.42642799642775
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 17.969791120130708,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 15.805020568087912,
+            "closure": 16.97131653766803,
+            "settled": 17.073611288262782
+          },
+          "settled_minus_photo_px": -0.8961798318679257,
+          "release_to_closure_px": 1.1662959695801192,
+          "median_local_edge_score": 21.13685681994408,
+          "minimum_local_edge_score": 17.074059614836884
+        }
+      }
+    },
+    {
+      "label": "fresh1-015-b-partial-top-off",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 2,
+      "frames": 70,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 11.19406031453127,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 14.317774490520947,
+            "closure": 12.445463707040858,
+            "settled": 11.469546025945533
+          },
+          "settled_minus_photo_px": 0.27548571141426237,
+          "release_to_closure_px": -1.8723107834800885,
+          "median_local_edge_score": 22.71333762894774,
+          "minimum_local_edge_score": 2.1194171429200304
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 15.95824190096016,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 12.533109615304284,
+            "closure": 16.491235121887712,
+            "settled": 16.296811535591928
+          },
+          "settled_minus_photo_px": 0.33856963463176726,
+          "release_to_closure_px": 3.9581255065834284,
+          "median_local_edge_score": 21.536482898419052,
+          "minimum_local_edge_score": 16.219307092770375
+        }
+      }
+    },
+    {
+      "label": "fresh1-016-a-short-richer-pour",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 3,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 26.036771832628574,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 20.978370802134464,
+            "closure": 25.045010639495672,
+            "settled": 25.15492506042017
+          },
+          "settled_minus_photo_px": -0.8818467722084051,
+          "release_to_closure_px": 4.066639837361208,
+          "median_local_edge_score": 22.254165966080592,
+          "minimum_local_edge_score": 6.999063783939976
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 32.02382633488571,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 27.116874507617354,
+            "closure": 30.761792711607995,
+            "settled": 30.854405447113777
+          },
+          "settled_minus_photo_px": -1.1694208877719348,
+          "release_to_closure_px": 3.644918203990642,
+          "median_local_edge_score": 21.655875403738378,
+          "minimum_local_edge_score": 15.743341333615358
+        }
+      }
+    },
+    {
+      "label": "fresh1-017-b-short-richer-pour",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 3,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 24.917489401085163,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 6.560574610445997,
+            "closure": 24.323978839221922,
+            "settled": 24.09161377114424
+          },
+          "settled_minus_photo_px": -0.8258756299409242,
+          "release_to_closure_px": 17.763404228775926,
+          "median_local_edge_score": 7.0940326145588894,
+          "minimum_local_edge_score": 0.6430758154736548
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 30.041439360013214,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.196558774974847,
+            "closure": 29.83723686041924,
+            "settled": 29.662813808226588
+          },
+          "settled_minus_photo_px": -0.3786255517866266,
+          "release_to_closure_px": 0.6406780854443923,
+          "median_local_edge_score": 20.868673802599318,
+          "minimum_local_edge_score": 10.807412105775946
+        }
+      }
+    },
+    {
+      "label": "fresh1-018-b-partial-top-off",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 3,
+      "frames": 71,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.19999999999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 11.930374013874143,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 11.611883051666382,
+            "closure": 12.311464928924238,
+            "settled": 11.896574066128665
+          },
+          "settled_minus_photo_px": -0.033799947745478676,
+          "release_to_closure_px": 0.6995818772578559,
+          "median_local_edge_score": 14.961202645238744,
+          "minimum_local_edge_score": 0.5260127860963083
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 15.02494515586045,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 13.777752290926514,
+            "closure": 13.92452479111148,
+            "settled": 13.770681641200554
+          },
+          "settled_minus_photo_px": -1.2542635146598968,
+          "release_to_closure_px": 0.1467725001849658,
+          "median_local_edge_score": 21.491283973690315,
+          "minimum_local_edge_score": 15.274751529125815
+        }
+      }
+    },
+    {
+      "label": "fresh1-019-a-partial-top-off",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 3,
+      "frames": 69,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 6
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.945887978382643,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 10.953185579873775,
+            "closure": 11.801832915342516,
+            "settled": 11.701707002565627
+          },
+          "settled_minus_photo_px": -1.2441809758170166,
+          "release_to_closure_px": 0.8486473354687405,
+          "median_local_edge_score": 23.557606354458382,
+          "minimum_local_edge_score": 9.099475965310283
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 16.036162557391776,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 13.450813018527583,
+            "closure": 13.611517367406123,
+            "settled": 13.638489741522562
+          },
+          "settled_minus_photo_px": -2.397672815869214,
+          "release_to_closure_px": 0.16070434887853935,
+          "median_local_edge_score": 21.54986710877262,
+          "minimum_local_edge_score": 12.293307769520355
+        }
+      }
+    },
+    {
+      "label": "fresh1-020-a-near-full-glass",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 3,
+      "frames": 125,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 75.3608822220225,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 72.78545293820389,
+            "closure": 75.23448781080674,
+            "settled": 75.5045845311389
+          },
+          "settled_minus_photo_px": 0.14370230911640647,
+          "release_to_closure_px": 2.4490348726028515,
+          "median_local_edge_score": 26.482375673511857,
+          "minimum_local_edge_score": 4.8397436233635895
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 95.09375956726342,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 94.17000240182631,
+            "closure": 95.3485702361337,
+            "settled": 95.22975865563092
+          },
+          "settled_minus_photo_px": 0.1359990883674982,
+          "release_to_closure_px": 1.1785678343073869,
+          "median_local_edge_score": 19.695496369453352,
+          "minimum_local_edge_score": 13.340403807082128
+        }
+      }
+    },
+    {
+      "label": "fresh1-021-b-near-full-glass",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 3,
+      "frames": 124,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 68.97412059484463,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 79.5616507143576,
+            "closure": 68.3026848927891,
+            "settled": 68.50578183399205
+          },
+          "settled_minus_photo_px": -0.4683387608525891,
+          "release_to_closure_px": -11.258965821568495,
+          "median_local_edge_score": 6.407268486237452,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 85.09056660229317,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 83.42197906522347,
+            "closure": 87.98246089670329,
+            "settled": 84.33919114731566
+          },
+          "settled_minus_photo_px": -0.7513754549775058,
+          "release_to_closure_px": 4.5604818314798194,
+          "median_local_edge_score": 17.371702546628104,
+          "minimum_local_edge_score": 11.97606640178093
+        }
+      }
+    },
+    {
+      "label": "fresh1-022-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 3,
+      "frames": 84,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.036704105189074,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.867824444579355,
+            "closure": 28.329009378343244,
+            "settled": 27.956229162203613
+          },
+          "settled_minus_photo_px": -1.080474942985461,
+          "release_to_closure_px": -2.5388150662361113,
+          "median_local_edge_score": 7.496395295113659,
+          "minimum_local_edge_score": 0.5225316896491542
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.042358432403034,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.100602043116396,
+            "closure": 35.92372265123129,
+            "settled": 35.56529001810975
+          },
+          "settled_minus_photo_px": -0.47706841429328506,
+          "release_to_closure_px": 5.823120608114891,
+          "median_local_edge_score": 20.393992088690887,
+          "minimum_local_edge_score": 14.964178760309139
+        }
+      }
+    },
+    {
+      "label": "fresh1-023-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 3,
+      "frames": 84,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 31.143390056962062,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 26.344169415964075,
+            "closure": 30.738282077469194,
+            "settled": 31.101645270577706
+          },
+          "settled_minus_photo_px": -0.0417447863843563,
+          "release_to_closure_px": 4.394112661505119,
+          "median_local_edge_score": 29.10151805123101,
+          "minimum_local_edge_score": 7.385414231076637
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 39.10699551273683,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 34.81807801262255,
+            "closure": 40.361228541061905,
+            "settled": 40.32294434912387
+          },
+          "settled_minus_photo_px": 1.2159488363870423,
+          "release_to_closure_px": 5.543150528439355,
+          "median_local_edge_score": 20.351258198320746,
+          "minimum_local_edge_score": 15.399999999999999
+        }
+      }
+    },
+    {
+      "label": "fresh1-024-b-partial-top-off",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 4,
+      "frames": 70,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 11.998523352343682,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 19.81753791135111,
+            "closure": 12.134270715489947,
+            "settled": 11.676922271921512
+          },
+          "settled_minus_photo_px": -0.3216010804221696,
+          "release_to_closure_px": -7.683267195861163,
+          "median_local_edge_score": 14.087373539773239,
+          "minimum_local_edge_score": 2.324406522010571
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 14.01970390246106,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 11.693536631541178,
+            "closure": 12.935226750423453,
+            "settled": 13.083942175069524
+          },
+          "settled_minus_photo_px": -0.9357617273915366,
+          "release_to_closure_px": 1.2416901188822749,
+          "median_local_edge_score": 20.512027785207557,
+          "minimum_local_edge_score": 14.36445399774194
+        }
+      }
+    },
+    {
+      "label": "fresh1-025-a-partial-top-off",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 4,
+      "frames": 71,
+      "median_interval_ms": 100.13333349999999,
+      "maximum_interval_ms": 100.233334,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 14.044828547599423,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 12.261476067166086,
+            "closure": 13.499376495795673,
+            "settled": 13.562967087493803
+          },
+          "settled_minus_photo_px": -0.4818614601056197,
+          "release_to_closure_px": 1.2379004286295867,
+          "median_local_edge_score": 24.723093089086866,
+          "minimum_local_edge_score": 11.67109572876742
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 17.0430205287023,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 14.50835469213257,
+            "closure": 17.40217350856949,
+            "settled": 17.421468976745928
+          },
+          "settled_minus_photo_px": 0.37844844804362765,
+          "release_to_closure_px": 2.8938188164369194,
+          "median_local_edge_score": 21.22528164402352,
+          "minimum_local_edge_score": 19.031463450512856
+        }
+      }
+    },
+    {
+      "label": "fresh1-026-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 4,
+      "frames": 86,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.19999999999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 33.04584792794674,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 28.126367267832734,
+            "closure": 32.03018356556777,
+            "settled": 32.60407149714797
+          },
+          "settled_minus_photo_px": -0.44177643079876816,
+          "release_to_closure_px": 3.903816297735034,
+          "median_local_edge_score": 27.186764368302974,
+          "minimum_local_edge_score": 6.791069683454208
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 41.07753163797793,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 33.97376758571909,
+            "closure": 39.946217665456174,
+            "settled": 40.11354934210863
+          },
+          "settled_minus_photo_px": -0.9639822958693003,
+          "release_to_closure_px": 5.9724500797370865,
+          "median_local_edge_score": 21.02986756242909,
+          "minimum_local_edge_score": 16.269609336114772
+        }
+      }
+    },
+    {
+      "label": "fresh1-027-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 4,
+      "frames": 84,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.140264159612343,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 34.5333618997488,
+            "closure": 29.309432433529196,
+            "settled": 29.070876516271937
+          },
+          "settled_minus_photo_px": -0.0693876433404057,
+          "release_to_closure_px": -5.223929466219602,
+          "median_local_edge_score": 9.18464178905053,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.99814158210734,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.41672328200093,
+            "closure": 35.38373324168242,
+            "settled": 35.415222469507285
+          },
+          "settled_minus_photo_px": -1.5829191126000524,
+          "release_to_closure_px": 5.967009959681491,
+          "median_local_edge_score": 20.18558886504614,
+          "minimum_local_edge_score": 13.120365065110285
+        }
+      }
+    },
+    {
+      "label": "fresh1-028-b-short-richer-pour",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 4,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 24.00331622089641,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 9.91049384021369,
+            "closure": 22.553099613228028,
+            "settled": 23.07086914085778
+          },
+          "settled_minus_photo_px": -0.932447080038628,
+          "release_to_closure_px": 12.642605773014338,
+          "median_local_edge_score": 10.000814734302036,
+          "minimum_local_edge_score": 0.7954917230669639
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 29.11365819648097,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.74059715722433,
+            "closure": 29.83749650933032,
+            "settled": 29.59463343104437
+          },
+          "settled_minus_photo_px": 0.4809752345634024,
+          "release_to_closure_px": 2.096899352105993,
+          "median_local_edge_score": 20.613966354624615,
+          "minimum_local_edge_score": 14.581356926712457
+        }
+      }
+    },
+    {
+      "label": "fresh1-029-a-short-richer-pour",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 4,
+      "frames": 61,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.23333399999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 26.009238820098062,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 22.10208851401046,
+            "closure": 24.682363922824152,
+            "settled": 24.936881146091764
+          },
+          "settled_minus_photo_px": -1.0723576740062981,
+          "release_to_closure_px": 2.5802754088136908,
+          "median_local_edge_score": 28.191395643418556,
+          "minimum_local_edge_score": 10.18889768101865
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 32.137842374413935,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 27.580352086918538,
+            "closure": 30.98803365210813,
+            "settled": 31.046667971517195
+          },
+          "settled_minus_photo_px": -1.0911744028967405,
+          "release_to_closure_px": 3.4076815651895913,
+          "median_local_edge_score": 20.888910696651223,
+          "minimum_local_edge_score": 17.500099219930018
+        }
+      }
+    },
+    {
+      "label": "fresh1-030-a-near-full-glass",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 4,
+      "frames": 124,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 1,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 76.16440372118552,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 74.72644092326289,
+            "closure": 75.54969825720843,
+            "settled": 75.47470510397943
+          },
+          "settled_minus_photo_px": -0.6896986172060906,
+          "release_to_closure_px": 0.8232573339455485,
+          "median_local_edge_score": 26.857081717380353,
+          "minimum_local_edge_score": 5.6129950541879365
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 96.0440563962627,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 94.83265719231963,
+            "closure": 95.04228004591926,
+            "settled": 95.3325025284546
+          },
+          "settled_minus_photo_px": -0.7115538678081066,
+          "release_to_closure_px": 0.20962285359962607,
+          "median_local_edge_score": 19.646214002400598,
+          "minimum_local_edge_score": 14.15703260982174
+        }
+      }
+    },
+    {
+      "label": "fresh1-031-b-near-full-glass",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 4,
+      "frames": 125,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 69.34249062933645,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 74.334713084682,
+            "closure": 69.9427488067106,
+            "settled": 69.39251838957557
+          },
+          "settled_minus_photo_px": 0.050027760239117924,
+          "release_to_closure_px": -4.391964277971397,
+          "median_local_edge_score": 5.778012254254933,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 86.07136243960053,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 83.79695757341995,
+            "closure": 88.16099261624993,
+            "settled": 84.94519860271032
+          },
+          "settled_minus_photo_px": -1.126163836890214,
+          "release_to_closure_px": 4.364035042829983,
+          "median_local_edge_score": 17.734583776483277,
+          "minimum_local_edge_score": 12.716305193354538
+        }
+      }
+    },
+    {
+      "label": "fresh1-032-a-near-full-glass",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 5,
+      "frames": 126,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 76.84743529500622,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 73.5216635339682,
+            "closure": 75.38797095458267,
+            "settled": 75.54789822336215
+          },
+          "settled_minus_photo_px": -1.2995370716440675,
+          "release_to_closure_px": 1.8663074206144756,
+          "median_local_edge_score": 17.944154658251584,
+          "minimum_local_edge_score": 6.332894797468611
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 95.11186926553955,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 91.15436685807026,
+            "closure": 95.55006938931933,
+            "settled": 95.60639796667078
+          },
+          "settled_minus_photo_px": 0.49452870113123026,
+          "release_to_closure_px": 4.395702531249071,
+          "median_local_edge_score": 19.398632514214448,
+          "minimum_local_edge_score": 15.594249444953732
+        }
+      }
+    },
+    {
+      "label": "fresh1-033-b-near-full-glass",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 5,
+      "frames": 125,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 69.20874362676204,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 82.25758084191511,
+            "closure": 70.00437422658456,
+            "settled": 69.13037909388345
+          },
+          "settled_minus_photo_px": -0.07836453287859513,
+          "release_to_closure_px": -12.253206615330555,
+          "median_local_edge_score": 6.970640868275318,
+          "minimum_local_edge_score": 0.311553205025025
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 87.01672433639658,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 79.87929473472923,
+            "closure": 85.08714325695541,
+            "settled": 84.27343955851347
+          },
+          "settled_minus_photo_px": -2.7432847778831047,
+          "release_to_closure_px": 5.207848522226186,
+          "median_local_edge_score": 17.995165296994696,
+          "minimum_local_edge_score": 11.242363765617814
+        }
+      }
+    },
+    {
+      "label": "fresh1-034-b-partial-top-off",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 5,
+      "frames": 71,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.19999999999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.028140605010549,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 14.685443370662142,
+            "closure": 11.651893117039208,
+            "settled": 11.780564598259275
+          },
+          "settled_minus_photo_px": -0.24757600675127378,
+          "release_to_closure_px": -3.033550253622934,
+          "median_local_edge_score": 21.453205386645028,
+          "minimum_local_edge_score": 1.530273457638171
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 16.98582465881634,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 14.478469210345907,
+            "closure": 14.069321709127848,
+            "settled": 13.868164837657105
+          },
+          "settled_minus_photo_px": -3.1176598211592363,
+          "release_to_closure_px": -0.4091475012180581,
+          "median_local_edge_score": 20.078120232067022,
+          "minimum_local_edge_score": 12.942165268394643
+        }
+      }
+    },
+    {
+      "label": "fresh1-035-a-partial-top-off",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 5,
+      "frames": 69,
+      "median_interval_ms": 100.13333349999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 6
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 13.31165039384905,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 13.129887926458196,
+            "closure": 13.468002845611409,
+            "settled": 13.386074147943987
+          },
+          "settled_minus_photo_px": 0.07442375409493707,
+          "release_to_closure_px": 0.3381149191532131,
+          "median_local_edge_score": 31.233670277357195,
+          "minimum_local_edge_score": 21.111673787636484
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 19.041956445276583,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 16.816699918245718,
+            "closure": 20.30656028810779,
+            "settled": 20.504873345211195
+          },
+          "settled_minus_photo_px": 1.462916899934612,
+          "release_to_closure_px": 3.489860369862072,
+          "median_local_edge_score": 19.701216672824113,
+          "minimum_local_edge_score": 16.832489394930544
+        }
+      }
+    },
+    {
+      "label": "fresh1-036-a-short-richer-pour",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 5,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 2,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 26.258888597988516,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 21.521873872736478,
+            "closure": 26.17716779561863,
+            "settled": 26.476510854562207
+          },
+          "settled_minus_photo_px": 0.21762225657369072,
+          "release_to_closure_px": 4.6552939228821515,
+          "median_local_edge_score": 34.44022302561544,
+          "minimum_local_edge_score": 14.032362349562378
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.0881512850616,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 27.523434432329623,
+            "closure": 31.712939698887112,
+            "settled": 31.59028078481674
+          },
+          "settled_minus_photo_px": -2.497870500244858,
+          "release_to_closure_px": 4.1895052665574894,
+          "median_local_edge_score": 19.940012366769515,
+          "minimum_local_edge_score": 14.96600261001791
+        }
+      }
+    },
+    {
+      "label": "fresh1-037-b-short-richer-pour",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 5,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 4,
+        "release": 3,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 24.085929938854974,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 22.548743730963224,
+            "closure": 23.3682254984094,
+            "settled": 23.62797785882094
+          },
+          "settled_minus_photo_px": -0.4579520800340333,
+          "release_to_closure_px": 0.8194817674461774,
+          "median_local_edge_score": 17.112153891103972,
+          "minimum_local_edge_score": 1.3086604675859992
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 32.09258580198946,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 25.058141469384054,
+            "closure": 29.55511061592381,
+            "settled": 30.10536354180897
+          },
+          "settled_minus_photo_px": -1.9872222601804879,
+          "release_to_closure_px": 4.4969691465397545,
+          "median_local_edge_score": 20.125315626265916,
+          "minimum_local_edge_score": 8.851032246411819
+        }
+      }
+    },
+    {
+      "label": "fresh1-038-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 5,
+      "frames": 85,
+      "median_interval_ms": 100.13333349999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 2,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.090470917764037,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 34.88156306369956,
+            "closure": 28.168434251958388,
+            "settled": 28.19666628160087
+          },
+          "settled_minus_photo_px": -0.8938046361631677,
+          "release_to_closure_px": -6.713128811741171,
+          "median_local_edge_score": 15.964540666635735,
+          "minimum_local_edge_score": 0.6162125983436992
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 38.041766240559355,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.572217472677266,
+            "closure": 36.235049457022114,
+            "settled": 36.47970559975454
+          },
+          "settled_minus_photo_px": -1.562060640804816,
+          "release_to_closure_px": 5.662831984344848,
+          "median_local_edge_score": 20.348674497752608,
+          "minimum_local_edge_score": 12.208025698953236
+        }
+      }
+    },
+    {
+      "label": "fresh1-039-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 5,
+      "frames": 85,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 33.03679705460854,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 26.890406458120424,
+            "closure": 31.93715912592006,
+            "settled": 32.04053927799271
+          },
+          "settled_minus_photo_px": -0.9962577766158347,
+          "release_to_closure_px": 5.0467526677996375,
+          "median_local_edge_score": 31.92962754723562,
+          "minimum_local_edge_score": 12.545006128656429
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 43.011446424155224,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 35.600689253244695,
+            "closure": 41.87625560188735,
+            "settled": 41.674928929485645
+          },
+          "settled_minus_photo_px": -1.3365174946695788,
+          "release_to_closure_px": 6.275566348642656,
+          "median_local_edge_score": 19.936627928729937,
+          "minimum_local_edge_score": 15.925690205173732
+        }
+      }
+    },
+    {
+      "label": "fresh1-040-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 6,
+      "frames": 85,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 133.533334,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.373895594930787,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 34.19379343902358,
+            "closure": 29.11174353337094,
+            "settled": 29.15707589914348
+          },
+          "settled_minus_photo_px": -0.21681969578730786,
+          "release_to_closure_px": -5.082049905652639,
+          "median_local_edge_score": 11.073329198512731,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.03332579834455,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.876393424164007,
+            "closure": 35.83926038136576,
+            "settled": 35.642213425275145
+          },
+          "settled_minus_photo_px": -0.3911123730694044,
+          "release_to_closure_px": 5.962866957201754,
+          "median_local_edge_score": 19.40884372510417,
+          "minimum_local_edge_score": 12.49421567212355
+        }
+      }
+    },
+    {
+      "label": "fresh1-041-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 6,
+      "frames": 84,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 32.33470056853366,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 26.35661470794139,
+            "closure": 31.538401173163834,
+            "settled": 31.644648671107348
+          },
+          "settled_minus_photo_px": -0.690051897426315,
+          "release_to_closure_px": 5.181786465222444,
+          "median_local_edge_score": 33.72851904565639,
+          "minimum_local_edge_score": 10.444290467193579
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 40.11910698940062,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 34.79247278943296,
+            "closure": 40.61057264211399,
+            "settled": 40.51573768823755
+          },
+          "settled_minus_photo_px": 0.3966306988369297,
+          "release_to_closure_px": 5.81809985268103,
+          "median_local_edge_score": 19.69885643518171,
+          "minimum_local_edge_score": 13.30760462311391
+        }
+      }
+    },
+    {
+      "label": "fresh1-042-a-partial-top-off",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 6,
+      "frames": 70,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 13.165892806504644,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 11.901532370669315,
+            "closure": 12.761511825845446,
+            "settled": 12.872380104640797
+          },
+          "settled_minus_photo_px": -0.2935127018638468,
+          "release_to_closure_px": 0.8599794551761306,
+          "median_local_edge_score": 25.478493461338427,
+          "minimum_local_edge_score": 13.296423993256196
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 16.940526464375125,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 13.749473172893204,
+            "closure": 17.083115173460328,
+            "settled": 17.08515958506098
+          },
+          "settled_minus_photo_px": 0.1446331206858531,
+          "release_to_closure_px": 3.3336420005671243,
+          "median_local_edge_score": 20.381053042543154,
+          "minimum_local_edge_score": 15.389987401034192
+        }
+      }
+    },
+    {
+      "label": "fresh1-043-b-partial-top-off",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 6,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.068070213978217,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 19.962142061886766,
+            "closure": 11.4527247494417,
+            "settled": 11.9746047792936
+          },
+          "settled_minus_photo_px": -0.09346543468461732,
+          "release_to_closure_px": -8.509417312445066,
+          "median_local_edge_score": 19.33251608517591,
+          "minimum_local_edge_score": 1.7475544059173294
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 15.909085920645225,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 11.292982033389194,
+            "closure": 13.497504826394106,
+            "settled": 13.295541987051138
+          },
+          "settled_minus_photo_px": -2.6135439335940873,
+          "release_to_closure_px": 2.2045227930049123,
+          "median_local_edge_score": 20.831808759732414,
+          "minimum_local_edge_score": 14.484718643590803
+        }
+      }
+    },
+    {
+      "label": "fresh1-044-b-near-full-glass",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 6,
+      "frames": 127,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 70.17212307497846,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 84.31087018397636,
+            "closure": 68.78699493724696,
+            "settled": 68.4711062143997
+          },
+          "settled_minus_photo_px": -1.7010168605787612,
+          "release_to_closure_px": -15.523875246729403,
+          "median_local_edge_score": 6.525472257698932,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 88.057546596424,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 87.51287532491438,
+            "closure": 89.43362786833882,
+            "settled": 88.82154509751047
+          },
+          "settled_minus_photo_px": 0.7639985010864621,
+          "release_to_closure_px": 1.9207525434244417,
+          "median_local_edge_score": 18.126076133389574,
+          "minimum_local_edge_score": 12.630673725814463
+        }
+      }
+    },
+    {
+      "label": "fresh1-045-a-near-full-glass",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 6,
+      "frames": 125,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 76.22963893501287,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 73.71906212418799,
+            "closure": 75.12609999032247,
+            "settled": 75.26530446171432
+          },
+          "settled_minus_photo_px": -0.9643344732985497,
+          "release_to_closure_px": 1.4070378661344876,
+          "median_local_edge_score": 19.741719445988082,
+          "minimum_local_edge_score": 5.6680135868542205
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 96.05017851876892,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 94.57754918900253,
+            "closure": 95.95428972439993,
+            "settled": 95.90231529897096
+          },
+          "settled_minus_photo_px": -0.14786321979795503,
+          "release_to_closure_px": 1.3767405353974027,
+          "median_local_edge_score": 20.008155670714217,
+          "minimum_local_edge_score": 14.821696833252426
+        }
+      }
+    },
+    {
+      "label": "fresh1-046-a-short-richer-pour",
+      "head": "A",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 6,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.120978799398017,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 22.34673925015727,
+            "closure": 25.9975209092745,
+            "settled": 26.312915635728245
+          },
+          "settled_minus_photo_px": -0.8080631636697717,
+          "release_to_closure_px": 3.6507816591172286,
+          "median_local_edge_score": 34.66660866809217,
+          "minimum_local_edge_score": 11.27365892874852
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.16668694292116,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 28.13278633352104,
+            "closure": 33.68382826966206,
+            "settled": 33.591899268681686
+          },
+          "settled_minus_photo_px": -0.5747876742394737,
+          "release_to_closure_px": 5.551041936141019,
+          "median_local_edge_score": 20.473204132639346,
+          "minimum_local_edge_score": 17.787224832593946
+        }
+      }
+    },
+    {
+      "label": "fresh1-047-b-short-richer-pour",
+      "head": "B",
+      "journal": "fresh.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 6,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 23.311087047753404,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 13.016533943107675,
+            "closure": 23.395811713942635,
+            "settled": 22.78267805383132
+          },
+          "settled_minus_photo_px": -0.5284089939220848,
+          "release_to_closure_px": 10.37927777083496,
+          "median_local_edge_score": 12.963140658449197,
+          "minimum_local_edge_score": 1.6934840495077201
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 30.115393137656838,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 23.359267947262197,
+            "closure": 29.05706262461831,
+            "settled": 29.601124407985935
+          },
+          "settled_minus_photo_px": -0.5142687296709028,
+          "release_to_closure_px": 5.697794677356114,
+          "median_local_edge_score": 21.267404984923623,
+          "minimum_local_edge_score": 15.069027726936946
+        }
+      }
+    },
+    {
+      "label": "fill1-000-a-same-open-time-low",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 1,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 30.172998573729956,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 25.129475350409166,
+            "closure": 30.743549153489994,
+            "settled": 30.405496484721198
+          },
+          "settled_minus_photo_px": 0.23249791099124195,
+          "release_to_closure_px": 5.614073803080828,
+          "median_local_edge_score": 11.328814263190818,
+          "minimum_local_edge_score": 8.554742993448988
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.96715121486477,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 30.861503273322683,
+            "closure": 37.360195690531896,
+            "settled": 37.05167878848681
+          },
+          "settled_minus_photo_px": -0.9154724263779599,
+          "release_to_closure_px": 6.498692417209213,
+          "median_local_edge_score": 19.11501029239794,
+          "minimum_local_edge_score": 16.33788328813995
+        }
+      }
+    },
+    {
+      "label": "fill1-001-a-same-open-time-high",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 1,
+      "frames": 72,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.026121344739977,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 22.134706022423416,
+            "closure": 28.675377555399336,
+            "settled": 28.70268778560694
+          },
+          "settled_minus_photo_px": -0.3234335591330364,
+          "release_to_closure_px": 6.540671532975921,
+          "median_local_edge_score": 7.2967739627965695,
+          "minimum_local_edge_score": 5.219686556683489
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 35.93416563013636,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 29.31370561348899,
+            "closure": 35.72033884962616,
+            "settled": 35.9274561057897
+          },
+          "settled_minus_photo_px": -0.0067095243466610555,
+          "release_to_closure_px": 6.406633236137168,
+          "median_local_edge_score": 18.3642150858915,
+          "minimum_local_edge_score": 11.338583732894518
+        }
+      }
+    },
+    {
+      "label": "fill1-002-b-same-open-time-low",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 1,
+      "frames": 73,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.266667,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 25.979205843380328,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 28.249076784858516,
+            "closure": 25.918390662773163,
+            "settled": 25.741948887603712
+          },
+          "settled_minus_photo_px": -0.23725695577661554,
+          "release_to_closure_px": -2.3306861220853534,
+          "median_local_edge_score": 21.08611890707234,
+          "minimum_local_edge_score": 0.16779206084727755
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 33.887823578972984,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 28.54264745223543,
+            "closure": 30.990159210769548,
+            "settled": 31.644469085561013
+          },
+          "settled_minus_photo_px": -2.243354493411971,
+          "release_to_closure_px": 2.4475117585341195,
+          "median_local_edge_score": 19.619346145459915,
+          "minimum_local_edge_score": 12.737134628577081
+        }
+      }
+    },
+    {
+      "label": "fill1-003-b-same-open-time-high",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 1,
+      "frames": 72,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 26.969326450575636,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 33.810940400058485,
+            "closure": 27.391696106868153,
+            "settled": 26.869929774675256
+          },
+          "settled_minus_photo_px": -0.0993966759003797,
+          "release_to_closure_px": -6.4192442931903315,
+          "median_local_edge_score": 6.3533507501121225,
+          "minimum_local_edge_score": 0.38048076529141833
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 33.12584061577593,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.513267726843196,
+            "closure": 31.451462249079896,
+            "settled": 31.826549402586238
+          },
+          "settled_minus_photo_px": -1.29929121318969,
+          "release_to_closure_px": 3.9381945222366994,
+          "median_local_edge_score": 11.962048592593609,
+          "minimum_local_edge_score": 8.162482082027369
+        }
+      }
+    },
+    {
+      "label": "fill1-004-a-same-open-time-high",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 2,
+      "frames": 73,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 133.533334,
+      "sample_counts": {
+        "pre": 4,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 28.51018903919976,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 23.96659560779767,
+            "closure": 29.49262353673987,
+            "settled": 29.48265481686383
+          },
+          "settled_minus_photo_px": 0.9724657776640697,
+          "release_to_closure_px": 5.526027928942199,
+          "median_local_edge_score": 6.397082487721067,
+          "minimum_local_edge_score": 4.783881911361098
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.90751499922487,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 29.572569990657144,
+            "closure": 36.091251011843724,
+            "settled": 36.01494919598781
+          },
+          "settled_minus_photo_px": -0.892565803237062,
+          "release_to_closure_px": 6.51868102118658,
+          "median_local_edge_score": 17.804252861417712,
+          "minimum_local_edge_score": 10.08604580259498
+        }
+      }
+    },
+    {
+      "label": "fill1-005-a-same-open-time-low",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 2,
+      "frames": 71,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 31.749779864751417,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 25.772774278806423,
+            "closure": 31.216697516394447,
+            "settled": 31.394710257024485
+          },
+          "settled_minus_photo_px": -0.3550696077269322,
+          "release_to_closure_px": 5.443923237588024,
+          "median_local_edge_score": 11.435165863028084,
+          "minimum_local_edge_score": 10.158901669083962
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 38.93894628996918,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 31.649289264240906,
+            "closure": 37.28250668122132,
+            "settled": 37.29766656240224
+          },
+          "settled_minus_photo_px": -1.641279727566939,
+          "release_to_closure_px": 5.633217416980415,
+          "median_local_edge_score": 19.45013191748656,
+          "minimum_local_edge_score": 16.491486364158696
+        }
+      }
+    },
+    {
+      "label": "fill1-006-b-same-open-time-low",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 2,
+      "frames": 72,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 4,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.80916315517925,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.763129761714254,
+            "closure": 28.283378271616243,
+            "settled": 27.484403970444077
+          },
+          "settled_minus_photo_px": -0.3247591847351714,
+          "release_to_closure_px": 0.5202485099019896,
+          "median_local_edge_score": 19.99190704381512,
+          "minimum_local_edge_score": 0.4562583924347872
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 35.861505451185735,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 24.944944368082815,
+            "closure": 36.20324688928565,
+            "settled": 35.63060367770993
+          },
+          "settled_minus_photo_px": -0.2309017734758072,
+          "release_to_closure_px": 11.258302521202836,
+          "median_local_edge_score": 18.933955158616257,
+          "minimum_local_edge_score": 10.63740296695871
+        }
+      }
+    },
+    {
+      "label": "fill1-007-b-same-open-time-high",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 2,
+      "frames": 73,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 100.233334,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.156753062577195,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.376232621065583,
+            "closure": 26.703354135505833,
+            "settled": 26.02462405769893
+          },
+          "settled_minus_photo_px": -1.1321290048782657,
+          "release_to_closure_px": -3.6728784855597496,
+          "median_local_edge_score": 6.802410372132297,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.09930905022816,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 28.70808768942868,
+            "closure": 34.6617625716184,
+            "settled": 35.03044693428751
+          },
+          "settled_minus_photo_px": 0.9311378840593534,
+          "release_to_closure_px": 5.953674882189716,
+          "median_local_edge_score": 12.3328812104979,
+          "minimum_local_edge_score": 9.207881546990935
+        }
+      }
+    },
+    {
+      "label": "fill1-008-b-same-open-time-high",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 3,
+      "frames": 73,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.266667,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 28.096715934332337,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 32.74999338397936,
+            "closure": 29.736626398101293,
+            "settled": 28.875342397198324
+          },
+          "settled_minus_photo_px": 0.7786264628659865,
+          "release_to_closure_px": -3.013366985878065,
+          "median_local_edge_score": 6.165786887706067,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.031138997142534,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.38910188915918,
+            "closure": 36.03949740206281,
+            "settled": 36.2351240890315
+          },
+          "settled_minus_photo_px": 0.20398509188896696,
+          "release_to_closure_px": 8.650395512903629,
+          "median_local_edge_score": 11.776366610885296,
+          "minimum_local_edge_score": 6.963960796395368
+        }
+      }
+    },
+    {
+      "label": "fill1-009-b-same-open-time-low",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 3,
+      "frames": 72,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 133.566667,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.771943165862922,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 32.07899112573409,
+            "closure": 28.16459003564671,
+            "settled": 27.421945905595408
+          },
+          "settled_minus_photo_px": -0.3499972602675143,
+          "release_to_closure_px": -3.914401090087381,
+          "median_local_edge_score": 18.921131366817335,
+          "minimum_local_edge_score": 1.015376912158273
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.08617392606641,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.2114531950308,
+            "closure": 32.357906853927034,
+            "settled": 32.2156126472338
+          },
+          "settled_minus_photo_px": -1.8705612788326107,
+          "release_to_closure_px": 3.1464536588962346,
+          "median_local_edge_score": 19.042800247526927,
+          "minimum_local_edge_score": 7.406916458839367
+        }
+      }
+    },
+    {
+      "label": "fill1-010-a-same-open-time-high",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 3,
+      "frames": 71,
+      "median_interval_ms": 100.13333349999999,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 28.21865314477509,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 23.950831230467543,
+            "closure": 27.925469389461796,
+            "settled": 27.94890445231897
+          },
+          "settled_minus_photo_px": -0.269748692456119,
+          "release_to_closure_px": 3.974638158994253,
+          "median_local_edge_score": 7.339907224314626,
+          "minimum_local_edge_score": 4.575913575438058
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.04443819673577,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 30.081465786901504,
+            "closure": 36.16588167880013,
+            "settled": 36.35856643301315
+          },
+          "settled_minus_photo_px": 0.3141282362773836,
+          "release_to_closure_px": 6.0844158918986295,
+          "median_local_edge_score": 18.199268409354357,
+          "minimum_local_edge_score": 10.29438969765862
+        }
+      }
+    },
+    {
+      "label": "fill1-011-a-same-open-time-low",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 3,
+      "frames": 72,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.23333399999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 2,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 30.743950669311857,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 24.07459477978523,
+            "closure": 30.18350268818017,
+            "settled": 30.02095910456569
+          },
+          "settled_minus_photo_px": -0.7229915647461667,
+          "release_to_closure_px": 6.10890790839494,
+          "median_local_edge_score": 11.614902044851366,
+          "minimum_local_edge_score": 9.973502240835655
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.0131136789837,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 31.189636051745993,
+            "closure": 36.54212854389198,
+            "settled": 36.613247552702546
+          },
+          "settled_minus_photo_px": -0.3998661262811538,
+          "release_to_closure_px": 5.352492492145984,
+          "median_local_edge_score": 19.338597645471488,
+          "minimum_local_edge_score": 16.259723308466167
+        }
+      }
+    },
+    {
+      "label": "fill1-012-b-same-open-time-high",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 4,
+      "frames": 70,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.96618649251957,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 37.03678667299562,
+            "closure": 28.076653888946908,
+            "settled": 27.053081806885643
+          },
+          "settled_minus_photo_px": -0.9131046856339253,
+          "release_to_closure_px": -8.96013278404871,
+          "median_local_edge_score": 6.660350802084061,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.03817172956326,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.01625405454888,
+            "closure": 36.00634260985919,
+            "settled": 35.209220773023844
+          },
+          "settled_minus_photo_px": -0.8289509565394155,
+          "release_to_closure_px": 5.990088555310308,
+          "median_local_edge_score": 11.505995927069481,
+          "minimum_local_edge_score": 7.910610947318913
+        }
+      }
+    },
+    {
+      "label": "fill1-013-b-same-open-time-low",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 4,
+      "frames": 72,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.114531670715678,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 33.403460570445645,
+            "closure": 26.845070323042137,
+            "settled": 27.56457687493912
+          },
+          "settled_minus_photo_px": 0.45004520422344285,
+          "release_to_closure_px": -6.5583902474035085,
+          "median_local_edge_score": 20.574966479742457,
+          "minimum_local_edge_score": 0.8501811092666969
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.953777144195556,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.08513752878696,
+            "closure": 35.5863884339426,
+            "settled": 35.49670565406825
+          },
+          "settled_minus_photo_px": 0.542928509872695,
+          "release_to_closure_px": 5.5012509051556435,
+          "median_local_edge_score": 19.22019653938557,
+          "minimum_local_edge_score": 13.381500314940167
+        }
+      }
+    },
+    {
+      "label": "fill1-014-a-same-open-time-high",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 4,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.266666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 2,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 30.063721475842954,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 25.469161036728565,
+            "closure": 30.192191367961186,
+            "settled": 30.35086478819312
+          },
+          "settled_minus_photo_px": 0.28714331235016743,
+          "release_to_closure_px": 4.723030331232621,
+          "median_local_edge_score": 7.435102208240577,
+          "minimum_local_edge_score": 6.23366296196148
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.10141342657971,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 29.981392694986653,
+            "closure": 36.68939735069716,
+            "settled": 36.74031402718674
+          },
+          "settled_minus_photo_px": 0.6389006006070304,
+          "release_to_closure_px": 6.708004655710511,
+          "median_local_edge_score": 17.560146797040993,
+          "minimum_local_edge_score": 10.609502088090354
+        }
+      }
+    },
+    {
+      "label": "fill1-015-a-same-open-time-low",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 4,
+      "frames": 71,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.33333399999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 30.013922900794796,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 24.238308144632356,
+            "closure": 28.93149048548389,
+            "settled": 29.000484877636154
+          },
+          "settled_minus_photo_px": -1.013438023158642,
+          "release_to_closure_px": 4.693182340851536,
+          "median_local_edge_score": 11.210658483924433,
+          "minimum_local_edge_score": 8.811056833533883
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.901796392158985,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 30.567328722043158,
+            "closure": 36.65865168425148,
+            "settled": 36.756884709129054
+          },
+          "settled_minus_photo_px": -1.1449116830299317,
+          "release_to_closure_px": 6.091322962208324,
+          "median_local_edge_score": 19.74088920028141,
+          "minimum_local_edge_score": 16.632168759758578
+        }
+      }
+    },
+    {
+      "label": "fill1-016-a-same-open-time-low",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 5,
+      "frames": 73,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.19999999999999,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 31.08047057477711,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 26.334521087371627,
+            "closure": 31.37681963865964,
+            "settled": 31.298655817743224
+          },
+          "settled_minus_photo_px": 0.21818524296611486,
+          "release_to_closure_px": 5.042298551288013,
+          "median_local_edge_score": 10.94464936488211,
+          "minimum_local_edge_score": 9.537167502269359
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 39.03596067883666,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 31.739243065901746,
+            "closure": 37.06527296538411,
+            "settled": 37.12502100849565
+          },
+          "settled_minus_photo_px": -1.9109396703410084,
+          "release_to_closure_px": 5.326029899482364,
+          "median_local_edge_score": 17.879381699389576,
+          "minimum_local_edge_score": 15.728614228792221
+        }
+      }
+    },
+    {
+      "label": "fill1-017-a-same-open-time-high",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 5,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 4,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 31.10720600007835,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 25.306701510969333,
+            "closure": 30.60937277126061,
+            "settled": 30.729620149718016
+          },
+          "settled_minus_photo_px": -0.3775858503603331,
+          "release_to_closure_px": 5.302671260291277,
+          "median_local_edge_score": 7.492230388781394,
+          "minimum_local_edge_score": 4.998587973765273
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.98114142390375,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 30.540496631448377,
+            "closure": 37.18579665623599,
+            "settled": 37.45579957257564
+          },
+          "settled_minus_photo_px": -0.5253418513281076,
+          "release_to_closure_px": 6.645300024787616,
+          "median_local_edge_score": 18.489703033823574,
+          "minimum_local_edge_score": 11.949294979450173
+        }
+      }
+    },
+    {
+      "label": "fill1-018-b-same-open-time-high",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 5,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.96764373547319,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 33.617012201226316,
+            "closure": 28.043209641550675,
+            "settled": 28.11341711985915
+          },
+          "settled_minus_photo_px": 0.14577338438596144,
+          "release_to_closure_px": -5.5738025596756415,
+          "median_local_edge_score": 6.538418904317485,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 35.005508965316494,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 30.356923599356264,
+            "closure": 35.92387399834206,
+            "settled": 35.5314722337846
+          },
+          "settled_minus_photo_px": 0.5259632684681037,
+          "release_to_closure_px": 5.566950398985796,
+          "median_local_edge_score": 11.742326651534317,
+          "minimum_local_edge_score": 8.07963175632427
+        }
+      }
+    },
+    {
+      "label": "fill1-019-b-same-open-time-low",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 5,
+      "frames": 72,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 133.566666,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.852336643655576,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 33.28312769450372,
+            "closure": 27.90844721812914,
+            "settled": 28.10074763047487
+          },
+          "settled_minus_photo_px": 0.24841098681929452,
+          "release_to_closure_px": -5.374680476374579,
+          "median_local_edge_score": 20.7623355858899,
+          "minimum_local_edge_score": 0.01949199642734424
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 35.026742973896035,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.948268360253337,
+            "closure": 36.20073095070143,
+            "settled": 35.68223194984341
+          },
+          "settled_minus_photo_px": 0.6554889759473781,
+          "release_to_closure_px": 6.25246259044809,
+          "median_local_edge_score": 19.002030699299432,
+          "minimum_local_edge_score": 10.771116813798656
+        }
+      }
+    },
+    {
+      "label": "fill1-020-b-same-open-time-low",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 6,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 26.008641159082458,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.770404388185625,
+            "closure": 27.214252879398032,
+            "settled": 26.52244811533683
+          },
+          "settled_minus_photo_px": 0.5138069562543706,
+          "release_to_closure_px": -2.5561515087875932,
+          "median_local_edge_score": 23.792918426537227,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 33.07240900647969,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 29.48767221258663,
+            "closure": 35.63449625582177,
+            "settled": 34.879112723312346
+          },
+          "settled_minus_photo_px": 1.8067037168326578,
+          "release_to_closure_px": 6.146824043235142,
+          "median_local_edge_score": 19.04710197367301,
+          "minimum_local_edge_score": 8.455397077258795
+        }
+      }
+    },
+    {
+      "label": "fill1-021-b-same-open-time-high",
+      "head": "B",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 6,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 4,
+        "settled": 6
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.164813662398274,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 31.756286171082593,
+            "closure": 27.502351268416305,
+            "settled": 26.96643901624043
+          },
+          "settled_minus_photo_px": -0.19837464615784484,
+          "release_to_closure_px": -4.253934902666288,
+          "median_local_edge_score": 6.753137338762382,
+          "minimum_local_edge_score": 0.6047446530096585
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.96419158781407,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 27.88839123715752,
+            "closure": 34.601533088911424,
+            "settled": 34.90630392484525
+          },
+          "settled_minus_photo_px": -0.05788766296882386,
+          "release_to_closure_px": 6.713141851753903,
+          "median_local_edge_score": 11.864971974173208,
+          "minimum_local_edge_score": 7.363982231930234
+        }
+      }
+    },
+    {
+      "label": "fill1-022-a-same-open-time-low",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "low",
+      "block": 6,
+      "frames": 70,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 2,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 30.038187079221416,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 24.746938197748932,
+            "closure": 28.809812521455115,
+            "settled": 29.825382630799368
+          },
+          "settled_minus_photo_px": -0.21280444842204815,
+          "release_to_closure_px": 4.062874323706183,
+          "median_local_edge_score": 11.67691065566074,
+          "minimum_local_edge_score": 8.851079142798332
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.03712731142787,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 30.824834525602228,
+            "closure": 36.64080413379577,
+            "settled": 36.542976019021125
+          },
+          "settled_minus_photo_px": -0.49415129240674105,
+          "release_to_closure_px": 5.815969608193541,
+          "median_local_edge_score": 19.143346150869633,
+          "minimum_local_edge_score": 15.907900913789229
+        }
+      }
+    },
+    {
+      "label": "fill1-023-a-same-open-time-high",
+      "head": "A",
+      "journal": "fill.jsonl",
+      "scenario": "same_open_time",
+      "level": "high",
+      "block": 6,
+      "frames": 71,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 28.798724592050007,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 23.86032103980392,
+            "closure": 28.49049139336546,
+            "settled": 28.338971751424765
+          },
+          "settled_minus_photo_px": -0.45975284062524224,
+          "release_to_closure_px": 4.630170353561539,
+          "median_local_edge_score": 7.265772630789703,
+          "minimum_local_edge_score": 4.432219776692525
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 35.08361559970183,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 29.646234279383748,
+            "closure": 35.617975601871194,
+            "settled": 35.75007535296288
+          },
+          "settled_minus_photo_px": 0.6664597532610514,
+          "release_to_closure_px": 5.971741322487446,
+          "median_local_edge_score": 18.593178061809905,
+          "minimum_local_edge_score": 10.933435990499074
+        }
+      }
+    },
+    {
+      "label": "repeat1-000-a-partial-top-off",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 1,
+      "frames": 69,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.33333299999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 13.007469126732758,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 10.613752668948337,
+            "closure": 12.127617243584837,
+            "settled": 12.240811397273433
+          },
+          "settled_minus_photo_px": -0.7666577294593253,
+          "release_to_closure_px": 1.5138645746365,
+          "median_local_edge_score": 18.171190748699285,
+          "minimum_local_edge_score": 9.629736169893755
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 15.039590868360847,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 14.82550701325124,
+            "closure": 15.478401863866225,
+            "settled": 15.39207661443072
+          },
+          "settled_minus_photo_px": 0.35248574606987404,
+          "release_to_closure_px": 0.6528948506149845,
+          "median_local_edge_score": 22.2293853225449,
+          "minimum_local_edge_score": 16.258237531840635
+        }
+      }
+    },
+    {
+      "label": "repeat1-001-a-short-richer-pour",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 1,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 27.167793168486696,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 21.091443198450975,
+            "closure": 25.890216396561527,
+            "settled": 26.117070978768766
+          },
+          "settled_minus_photo_px": -1.0507221897179306,
+          "release_to_closure_px": 4.798773198110553,
+          "median_local_edge_score": 22.958039896381088,
+          "minimum_local_edge_score": 7.331035263871384
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 32.966560252564705,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 27.7847777771118,
+            "closure": 31.590358840914178,
+            "settled": 31.629498449808352
+          },
+          "settled_minus_photo_px": -1.3370618027563523,
+          "release_to_closure_px": 3.8055810638023786,
+          "median_local_edge_score": 21.23289832623601,
+          "minimum_local_edge_score": 17.497985550432233
+        }
+      }
+    },
+    {
+      "label": "repeat1-002-b-short-richer-pour",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 1,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 24.972723906365218,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 6.646932265244459,
+            "closure": 23.22627139423321,
+            "settled": 23.887909414551928
+          },
+          "settled_minus_photo_px": -1.0848144918132903,
+          "release_to_closure_px": 16.57933912898875,
+          "median_local_edge_score": 7.524502925141363,
+          "minimum_local_edge_score": 0.7557519189506153
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 30.04631998379091,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 26.247291666103706,
+            "closure": 29.72784160743697,
+            "settled": 29.628536930360497
+          },
+          "settled_minus_photo_px": -0.4177830534304121,
+          "release_to_closure_px": 3.4805499413332655,
+          "median_local_edge_score": 20.879171807680244,
+          "minimum_local_edge_score": 13.01142726448628
+        }
+      }
+    },
+    {
+      "label": "repeat1-003-b-partial-top-off",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 1,
+      "frames": 70,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.03599958433017,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 14.054148310236315,
+            "closure": 12.247415441937392,
+            "settled": 11.580446946838947
+          },
+          "settled_minus_photo_px": -0.4555526374912233,
+          "release_to_closure_px": -1.8067328682989228,
+          "median_local_edge_score": 15.313437517067364,
+          "minimum_local_edge_score": 0.9268519807515442
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 15.028370771388381,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 13.589891262058927,
+            "closure": 14.26002913850391,
+            "settled": 14.009117824850364
+          },
+          "settled_minus_photo_px": -1.0192529465380176,
+          "release_to_closure_px": 0.6701378764449828,
+          "median_local_edge_score": 21.577600409991256,
+          "minimum_local_edge_score": 16.73504727551482
+        }
+      }
+    },
+    {
+      "label": "repeat1-004-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 1,
+      "frames": 85,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.29999999999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.10862257026281,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 33.077709428779826,
+            "closure": 28.819312642255227,
+            "settled": 28.21783719164216
+          },
+          "settled_minus_photo_px": -0.8907853786206488,
+          "release_to_closure_px": -4.2583967865245995,
+          "median_local_edge_score": 9.182156626510057,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 36.08842342351238,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 28.41366850764507,
+            "closure": 35.516263655062176,
+            "settled": 35.45013957862773
+          },
+          "settled_minus_photo_px": -0.6382838448846542,
+          "release_to_closure_px": 7.102595147417105,
+          "median_local_edge_score": 19.92188288383794,
+          "minimum_local_edge_score": 11.907664368155217
+        }
+      }
+    },
+    {
+      "label": "repeat1-005-a-near-full-glass",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 1,
+      "frames": 126,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.2,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 78.21517790057442,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 75.74427816544767,
+            "closure": 78.41397151685271,
+            "settled": 78.7321450408142
+          },
+          "settled_minus_photo_px": 0.5169671402397853,
+          "release_to_closure_px": 2.6696933514050443,
+          "median_local_edge_score": 24.96942155922827,
+          "minimum_local_edge_score": 5.746289515840969
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 98.12079079122555,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 95.78985140371151,
+            "closure": 96.77484014198853,
+            "settled": 96.65466557344712
+          },
+          "settled_minus_photo_px": -1.4661252177784263,
+          "release_to_closure_px": 0.9849887382770248,
+          "median_local_edge_score": 19.11265764519853,
+          "minimum_local_edge_score": 12.899704540248642
+        }
+      }
+    },
+    {
+      "label": "repeat1-006-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 1,
+      "frames": 82,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 233.7,
+      "sample_counts": {
+        "pre": 4,
+        "release": 3,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 33.16603399418079,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 27.375019354914457,
+            "closure": 32.87258377295291,
+            "settled": 33.59679927519835
+          },
+          "settled_minus_photo_px": 0.43076528101755684,
+          "release_to_closure_px": 5.497564418038451,
+          "median_local_edge_score": 25.619064193357104,
+          "minimum_local_edge_score": 5.645094997583562
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 41.06737616248654,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 35.03893597257809,
+            "closure": 40.94244759248613,
+            "settled": 40.916664404494554
+          },
+          "settled_minus_photo_px": -0.150711757991985,
+          "release_to_closure_px": 5.903511619908045,
+          "median_local_edge_score": 21.01082820159631,
+          "minimum_local_edge_score": 15.745285051255394
+        }
+      }
+    },
+    {
+      "label": "repeat1-007-b-near-full-glass",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 1,
+      "frames": 126,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.33333299999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 69.12787572613468,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 78.26174692055724,
+            "closure": 68.4899784606115,
+            "settled": 67.92640076345538
+          },
+          "settled_minus_photo_px": -1.201474962679299,
+          "release_to_closure_px": -9.771768459945747,
+          "median_local_edge_score": 6.466525509249308,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 86.07674472790768,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 86.50220208922792,
+            "closure": 89.48005926484325,
+            "settled": 87.80007323596362
+          },
+          "settled_minus_photo_px": 1.7233285080559426,
+          "release_to_closure_px": 2.977857175615327,
+          "median_local_edge_score": 17.795601392884706,
+          "minimum_local_edge_score": 13.23788189496101
+        }
+      }
+    },
+    {
+      "label": "repeat1-008-b-finish-at-full-flow",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 2,
+      "frames": 85,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 29.00851433614821,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 32.84155385786664,
+            "closure": 28.89395323828785,
+            "settled": 28.40820910298703
+          },
+          "settled_minus_photo_px": -0.6003052331611798,
+          "release_to_closure_px": -3.947600619578793,
+          "median_local_edge_score": 18.314570059397095,
+          "minimum_local_edge_score": 1.6677841052172078
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 37.984248266414966,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 28.646269309683703,
+            "closure": 35.2675127901083,
+            "settled": 35.54945661810973
+          },
+          "settled_minus_photo_px": -2.434791648305236,
+          "release_to_closure_px": 6.621243480424596,
+          "median_local_edge_score": 19.97529029100817,
+          "minimum_local_edge_score": 13.429134392536321
+        }
+      }
+    },
+    {
+      "label": "repeat1-009-b-near-full-glass",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 2,
+      "frames": 126,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 2,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 69.34739237166036,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 82.67829904870041,
+            "closure": 69.63660838455053,
+            "settled": 70.39211390069124
+          },
+          "settled_minus_photo_px": 1.0447215290308804,
+          "release_to_closure_px": -13.041690664149883,
+          "median_local_edge_score": 7.973899598341641,
+          "minimum_local_edge_score": 0.0
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 88.00282380749718,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 87.12234391664379,
+            "closure": 89.19746127724841,
+            "settled": 88.16827557942747
+          },
+          "settled_minus_photo_px": 0.16545177193029303,
+          "release_to_closure_px": 2.0751173606046223,
+          "median_local_edge_score": 18.972720630092574,
+          "minimum_local_edge_score": 11.970844049126203
+        }
+      }
+    },
+    {
+      "label": "repeat1-010-a-near-full-glass",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "near_full_glass",
+      "level": null,
+      "block": 2,
+      "frames": 127,
+      "median_interval_ms": 100.13333349999999,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 78.2207505304184,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 76.08490441234028,
+            "closure": 77.10684900398712,
+            "settled": 77.40078689611812
+          },
+          "settled_minus_photo_px": -0.8199636343002794,
+          "release_to_closure_px": 1.021944591646843,
+          "median_local_edge_score": 19.333547027579613,
+          "minimum_local_edge_score": 5.164408160760026
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 98.07127728157843,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 95.62986543015575,
+            "closure": 99.77330663903535,
+            "settled": 100.0953738008717
+          },
+          "settled_minus_photo_px": 2.0240965192932663,
+          "release_to_closure_px": 4.143441208879608,
+          "median_local_edge_score": 19.87173720471832,
+          "minimum_local_edge_score": 15.424917697719904
+        }
+      }
+    },
+    {
+      "label": "repeat1-011-a-partial-top-off",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 2,
+      "frames": 70,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.943448075302967,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 12.533132219557615,
+            "closure": 13.115190810689,
+            "settled": 12.92820252898855
+          },
+          "settled_minus_photo_px": -0.01524554631441788,
+          "release_to_closure_px": 0.5820585911313856,
+          "median_local_edge_score": 31.60494380382827,
+          "minimum_local_edge_score": 14.980193249636493
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 17.149790681520244,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 16.73214517200131,
+            "closure": 16.622580666298973,
+            "settled": 16.680529723938662
+          },
+          "settled_minus_photo_px": -0.46926095758158226,
+          "release_to_closure_px": -0.10956450570233756,
+          "median_local_edge_score": 20.867800408651178,
+          "minimum_local_edge_score": 17.763681996799384
+        }
+      }
+    },
+    {
+      "label": "repeat1-012-a-finish-at-full-flow",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "finish_at_full_flow",
+      "level": null,
+      "block": 2,
+      "frames": 86,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 100.233333,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 33.17773609070173,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 27.331667768165744,
+            "closure": 31.523596124823825,
+            "settled": 32.02271487537939
+          },
+          "settled_minus_photo_px": -1.1550212153223356,
+          "release_to_closure_px": 4.191928356658082,
+          "median_local_edge_score": 25.802651374176587,
+          "minimum_local_edge_score": 9.411904195079444
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 43.09807792540789,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 36.11032081719554,
+            "closure": 41.932635593749296,
+            "settled": 42.137201713904574
+          },
+          "settled_minus_photo_px": -0.9608762115033187,
+          "release_to_closure_px": 5.822314776553753,
+          "median_local_edge_score": 20.02676006885551,
+          "minimum_local_edge_score": 16.937535573195266
+        }
+      }
+    },
+    {
+      "label": "repeat1-013-b-short-richer-pour",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 2,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 2,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 24.047315716828052,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 21.33961735252967,
+            "closure": 24.045431166556227,
+            "settled": 23.61889402354018
+          },
+          "settled_minus_photo_px": -0.4284216932878735,
+          "release_to_closure_px": 2.7058138140265555,
+          "median_local_edge_score": 17.560305142658592,
+          "minimum_local_edge_score": 2.1237670503265633
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 31.089641936493763,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 26.364074276938254,
+            "closure": 30.421492898580937,
+            "settled": 30.376441858544467
+          },
+          "settled_minus_photo_px": -0.7132000779492955,
+          "release_to_closure_px": 4.057418621642682,
+          "median_local_edge_score": 21.22083870082338,
+          "minimum_local_edge_score": 15.440742017894525
+        }
+      }
+    },
+    {
+      "label": "repeat1-014-b-partial-top-off",
+      "head": "B",
+      "journal": "repeat.jsonl",
+      "scenario": "partial_top_off",
+      "level": null,
+      "block": 2,
+      "frames": 70,
+      "median_interval_ms": 100.13333399999999,
+      "maximum_interval_ms": 200.33333399999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 3,
+        "settled": 8
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 12.812637072845519,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 15.58193965426426,
+            "closure": 12.793426737317304,
+            "settled": 12.469691780486983
+          },
+          "settled_minus_photo_px": -0.3429452923585359,
+          "release_to_closure_px": -2.7885129169469565,
+          "median_local_edge_score": 22.25429819667496,
+          "minimum_local_edge_score": 1.5752947068287164
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 16.009547502307782,
+          "signed_front_wall_px": {
+            "pre": -0.0,
+            "release": 12.9868404928352,
+            "closure": 13.705843920292182,
+            "settled": 13.754928743819733
+          },
+          "settled_minus_photo_px": -2.25461875848805,
+          "release_to_closure_px": 0.7190034274569825,
+          "median_local_edge_score": 21.686588091892084,
+          "minimum_local_edge_score": 15.639026399746637
+        }
+      }
+    },
+    {
+      "label": "repeat1-015-a-short-richer-pour",
+      "head": "A",
+      "journal": "repeat.jsonl",
+      "scenario": "short_richer_pour",
+      "level": null,
+      "block": 2,
+      "frames": 62,
+      "median_interval_ms": 100.133333,
+      "maximum_interval_ms": 200.26666699999998,
+      "sample_counts": {
+        "pre": 5,
+        "release": 3,
+        "closure": 4,
+        "settled": 7
+      },
+      "sites": {
+        "x990": {
+          "signed_native_photo_endpoint_px": 26.85345330998325,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 21.48192692468899,
+            "closure": 25.339338378359344,
+            "settled": 25.913871313392747
+          },
+          "settled_minus_photo_px": -0.9395819965905048,
+          "release_to_closure_px": 3.857411453670352,
+          "median_local_edge_score": 33.14922806520339,
+          "minimum_local_edge_score": 16.526783551264817
+        },
+        "x1986": {
+          "signed_native_photo_endpoint_px": 34.03924643554194,
+          "signed_front_wall_px": {
+            "pre": 0.0,
+            "release": 29.169056463769266,
+            "closure": 31.0899053566352,
+            "settled": 30.79533027522166
+          },
+          "settled_minus_photo_px": -3.243916160320282,
+          "release_to_closure_px": 1.9208488928659335,
+          "median_local_edge_score": 20.08309129136228,
+          "minimum_local_edge_score": 17.339748332893823
+        }
+      }
+    }
+  ]
+}

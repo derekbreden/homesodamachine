@@ -1,0 +1,54 @@
+{
+  "x990-y989": {
+    "columns": [
+      986,
+      994
+    ],
+    "rows": [
+      971,
+      1007
+    ],
+    "best_local_displacement_down_px": -0.15,
+    "normalized_profile_correlation": 0.9961304277117625,
+    "on_search_boundary": false
+  },
+  "x1450-y894": {
+    "columns": [
+      1446,
+      1454
+    ],
+    "rows": [
+      876,
+      912
+    ],
+    "best_local_displacement_down_px": -0.35,
+    "normalized_profile_correlation": 0.9950068867775566,
+    "on_search_boundary": false
+  },
+  "x1986-y931": {
+    "columns": [
+      1982,
+      1990
+    ],
+    "rows": [
+      913,
+      949
+    ],
+    "best_local_displacement_down_px": -0.85,
+    "normalized_profile_correlation": 0.9970014966884675,
+    "on_search_boundary": false
+  },
+  "x1986-y862": {
+    "columns": [
+      1982,
+      1990
+    ],
+    "rows": [
+      844,
+      880
+    ],
+    "best_local_displacement_down_px": -1.3,
+    "normalized_profile_correlation": 0.9469719935993081,
+    "on_search_boundary": false
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "frozen_utc": "2026-11-22T09:23:40.160364+00:00",
+  "question": "Does a fixed meter waveform reach a similar fraction of its own settled visible movement at the instant of release from the two starting fills? This is a test of the time course; surface pixels per mL can differ across the cup.",
+  "positions": "Use the direct clear-to-dark inner boundary and the original outer strip, independently. The signed pre-to-release and pre-to-settled windows are the ones specified in timing-analysis-plan.json. Divide the signed release displacement by the signed settled displacement for each pour.",
+  "paired_effect": "Within each head and prescribed block, take the high-fill fraction minus the low-fill fraction. Report all individual fractions and differences.",
+  "acceptance": "Require six completed pairs per head per site, matching reported burst counts, signed settled movement exceeding five times the stationary 95th absolute displacement, and completed source windows. The two-sided 90% paired Student t interval for the mean fraction difference must be entirely within [-0.15,0.15] on both sites. The 15 percentage-point tolerance is fixed before any high/low trial.",
+  "diagnostics": "Report endpoint shape correlation, constituent-lane disagreement, release-to-closure displacement and the same post-motor ring-down fit. Mark an ambiguous site separately. The comparison uses its own settled dose in the denominator and does not measure a volume change between levels."
+}

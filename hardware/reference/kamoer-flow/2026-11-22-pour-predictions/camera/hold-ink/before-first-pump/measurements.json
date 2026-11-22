@@ -1,0 +1,56 @@
+{
+  "photographs": [
+    {
+      "role": "start",
+      "window": "station-idle",
+      "pts_ns": 356954903433333,
+      "seq": 1111
+    },
+    {
+      "role": "finish",
+      "window": "q1-pre",
+      "pts_ns": 357213962566667,
+      "seq": 8866
+    }
+  ],
+  "camera_rows": [
+    893.0,
+    866.0
+  ],
+  "registration": {
+    "inner": {
+      "raw_surface_row": 893.0,
+      "left_and_right_dry_apparent_dy_px": [
+        -0.1300315494228064,
+        0.22047010195285163
+      ],
+      "linear_projection_dy_px": 0.042032897616153,
+      "outside_print_columns": false,
+      "dry_fit_residual_by_face_px": [
+        0.18534139584244513,
+        0.07410381002078503
+      ],
+      "horizontal_spine_shift_by_face_px": [
+        2.0576309155025423,
+        3.150328279322714
+      ]
+    },
+    "outer": {
+      "raw_surface_row": 866.0,
+      "left_and_right_dry_apparent_dy_px": [
+        -0.1980783742557836,
+        0.14048430766124745
+      ],
+      "linear_projection_dy_px": 0.25744232505076725,
+      "outside_print_columns": true,
+      "dry_fit_residual_by_face_px": [
+        0.18534139584244513,
+        0.07410381002078503
+      ],
+      "horizontal_spine_shift_by_face_px": [
+        2.0576309155025423,
+        3.150328279322714
+      ]
+    }
+  }
+}

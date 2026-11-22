@@ -1,0 +1,51 @@
+{
+  "windows": [
+    "ladder2-down-low-00",
+    "ladder2-down-low-inside-hold5"
+  ],
+  "native_average_mid_pts_ns": [
+    359466583000000,
+    359472390966667
+  ],
+  "sites": {
+    "x990-y1033": {
+      "native_columns_inclusive": [
+        986,
+        994
+      ],
+      "native_rows_inclusive": [
+        1016,
+        1050
+      ],
+      "apparent_dy_from_local_shape_px": 0.55,
+      "zero_shift_profile_correlation": 0.9988821592699688,
+      "zero_shift_luma_rms": 0.819299825818081
+    },
+    "x990-y1095": {
+      "native_columns_inclusive": [
+        986,
+        994
+      ],
+      "native_rows_inclusive": [
+        1072,
+        1118
+      ],
+      "apparent_dy_from_local_shape_px": 0.05,
+      "zero_shift_profile_correlation": 0.9976746182953878,
+      "zero_shift_luma_rms": 1.0082402805665795
+    },
+    "x1986-y1066": {
+      "native_columns_inclusive": [
+        1982,
+        1990
+      ],
+      "native_rows_inclusive": [
+        1043,
+        1089
+      ],
+      "apparent_dy_from_local_shape_px": 0.2,
+      "zero_shift_profile_correlation": 0.9996847191462722,
+      "zero_shift_luma_rms": 0.35508242752753816
+    }
+  }
+}

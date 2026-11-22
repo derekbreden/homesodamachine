@@ -1,0 +1,397 @@
+{
+  "native_records": 165473,
+  "native_fps": 29.892312021024402,
+  "pts_ms_percentiles": {
+    "median": 33.366667,
+    "p95": 33.433333,
+    "p99": 33.466667,
+    "max": 400.533333
+  },
+  "callback_ms_percentiles": {
+    "median": 38.7075,
+    "p95": 42.982507999999996,
+    "p99": 159.91424976
+  },
+  "intervals": {
+    "direct_gate": {
+      "captured": 525,
+      "max_active_spacing_ms": 100.166667,
+      "active_windows_with_55ms_gap": 20,
+      "active_windows_with_100ms_gap": 1
+    },
+    "metered_pour": {
+      "captured": 208,
+      "max_active_spacing_ms": 66.833334,
+      "active_windows_with_55ms_gap": 38,
+      "active_windows_with_100ms_gap": 0,
+      "source_frame_count_range": {
+        "pre": [
+          13,
+          15
+        ],
+        "early": [
+          9,
+          11
+        ],
+        "near_closure": [
+          9,
+          11
+        ],
+        "settled": [
+          11,
+          23
+        ]
+      }
+    }
+  },
+  "active_wide_frame_spacings": [
+    {
+      "label": "learn1-002-b-t-full",
+      "journal": "train.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.733334
+    },
+    {
+      "label": "validation1-012-a-partial-glass",
+      "journal": "validation.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 100.166667
+    },
+    {
+      "label": "validation1-018-a-stronger-setting",
+      "journal": "validation.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.733333
+    },
+    {
+      "label": "validation1-078-b-full-glass",
+      "journal": "validation.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation2-084-b-ease-open",
+      "journal": "validation.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation2-092-b-stronger-setting",
+      "journal": "validation.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.766666
+    },
+    {
+      "label": "ladder1-down-low-18",
+      "journal": "graduations.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.766666
+    },
+    {
+      "label": "ladder2-up-high-06",
+      "journal": "graduations.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "ladder4-final-down-35",
+      "journal": "graduations.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.366667
+    },
+    {
+      "label": "ladder5-return-station-30",
+      "journal": "graduations.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fresh1-000-a-short-richer-pour",
+      "journal": "fresh.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.766666
+    },
+    {
+      "label": "fresh1-046-a-short-richer-pour",
+      "journal": "fresh.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "fill1-004-a-same-open-time-high",
+      "journal": "fill.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 60.1
+    },
+    {
+      "label": "fill1-009-b-same-open-time-low",
+      "journal": "fill.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.5
+    },
+    {
+      "label": "fill1-013-b-same-open-time-low",
+      "journal": "fill.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fill1-022-a-same-open-time-low",
+      "journal": "fill.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.733333
+    },
+    {
+      "label": "home",
+      "journal": "return.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "repeat1-001-a-short-richer-pour",
+      "journal": "repeat.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.733333
+    },
+    {
+      "label": "repeat1-005-a-near-full-glass",
+      "journal": "repeat.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.866667
+    },
+    {
+      "label": "repeat1-011-a-partial-top-off",
+      "journal": "repeat.jsonl",
+      "kind": "direct_gate",
+      "max_active_spacing_ms": 66.266667
+    },
+    {
+      "label": "learn1-002-b-t-full",
+      "journal": "train.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.733333
+    },
+    {
+      "label": "learn1-008-b-t-full",
+      "journal": "train.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.466666
+    },
+    {
+      "label": "validation1-003-a-stronger-setting",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation1-004-a-ease-open",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "validation1-011-a-trickle",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation1-012-a-partial-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.833333
+    },
+    {
+      "label": "validation1-017-a-partial-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "validation1-021-a-trickle",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation1-025-a-top-off",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "validation1-027-b-ease-open",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.533333
+    },
+    {
+      "label": "validation1-028-b-full-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.833334
+    },
+    {
+      "label": "validation1-045-b-ease-open",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation1-049-a-trickle",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation1-051-b-full-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766666
+    },
+    {
+      "label": "validation1-052-b-stronger-setting",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "validation1-067-a-ease-open",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.733333
+    },
+    {
+      "label": "validation1-077-b-stronger-setting",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.733333
+    },
+    {
+      "label": "validation1-078-b-full-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "validation2-088-b-partial-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.833334
+    },
+    {
+      "label": "validation2-089-a-partial-glass",
+      "journal": "validation.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fresh1-003-a-near-full-glass",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "fresh1-005-b-partial-top-off",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "fresh1-006-b-finish-at-full-flow",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fresh1-007-a-finish-at-full-flow",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "fresh1-014-a-partial-top-off",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.3
+    },
+    {
+      "label": "fresh1-023-a-finish-at-full-flow",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.833333
+    },
+    {
+      "label": "fresh1-024-b-partial-top-off",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 65.966667
+    },
+    {
+      "label": "fresh1-029-a-short-richer-pour",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "fresh1-030-a-near-full-glass",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766666
+    },
+    {
+      "label": "fresh1-033-b-near-full-glass",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fresh1-040-b-finish-at-full-flow",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fresh1-045-a-near-full-glass",
+      "journal": "fresh.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "fill1-004-a-same-open-time-high",
+      "journal": "fill.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.733334
+    },
+    {
+      "label": "fill1-005-a-same-open-time-low",
+      "journal": "fill.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fill1-009-b-same-open-time-low",
+      "journal": "fill.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.733334
+    },
+    {
+      "label": "fill1-010-a-same-open-time-high",
+      "journal": "fill.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.766667
+    },
+    {
+      "label": "fill1-017-a-same-open-time-high",
+      "journal": "fill.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    },
+    {
+      "label": "repeat1-006-a-finish-at-full-flow",
+      "journal": "repeat.jsonl",
+      "kind": "metered_pour",
+      "max_active_spacing_ms": 66.8
+    }
+  ]
+}
