@@ -1,0 +1,321 @@
+{
+  "coordinate_system": "4656x3496 USB-camera still rotated 180 degrees. Pixels from upper left. Median of five read traces; left75 gives the displayed coordinates. The archived lossless crops start at the native origin given in setup.json. Subtract this origin to locate a recorded pixel in a crop.",
+  "method": "The far-wall liquid contact is fitted on the exposed arc. The first three images have a strong white-glass to dark-syrup edge. Lower images use the first rise in red-minus-blue on the amber band against the gray sink. Foreground tubes and specular points are excluded from the arc fit. Each frame is aligned to its own printed graduations. The two printed columns provide independent scales.",
+  "calibration": "Left thirds: two, one and two thirds, one and one third, one, two thirds, one third. Right quarters: two, one and three quarters, one and a half, one and one quarter, one, optional three quarters, one quarter. Hidden half-cup tick is omitted. Monotone interpolation on the exposed reference image; linear extension below lowest readable graduation. Each trace is offset using the known start at one US customary cup (236.5882365 mL).",
+  "uncertainty": "The practical reading allowances cover interpretation of the liquid edge, choice of scale trace and extrapolation. Kitchen-cup calibration, the hand-set starting level and the change in through-glass sight line with depth have additional unmeasured systematic error. The lowest level is only resolved as below the quarter-cup mark. The allowances express reading sensitivity.",
+  "volume_measurement": "Net withdrawal from the cup. A priming interval can fill an initially dry line. Pump-on rates divide by motor-on time only.",
+  "optical_identity": "Setup photos 2-3: lettered cup leg connects to the pump with the two guides on its opposite leg; unlettered cup leg connects to straight pump. In pilot B the dry unlettered leg visibly shivers, while its lettered neighbor stays steady. At 960x540 the median 20-80% dry-edge width on 49 usable unlettered transects rises from five settled pixels to nine during B; the corresponding A transects remain at five pixels. This supports A guided, B straight.",
+  "reference_still": "frames/rest-before-swap.png",
+  "calibrations": {
+    "left50": {
+      "cups": [
+        2.0,
+        1.6666666666666667,
+        1.3333333333333335,
+        1.0,
+        0.6666666666666667,
+        0.33333333333333326
+      ],
+      "y": [
+        1643.0976430976432,
+        1798.022988505747,
+        1958.0741935483873,
+        2114.0380622837365,
+        2271.0664206642064,
+        2440.133620689655
+      ],
+      "start_offset_px": -57.74792211436443
+    },
+    "left75": {
+      "cups": [
+        2.0,
+        1.6666666666666667,
+        1.3333333333333335,
+        1.0,
+        0.6666666666666667,
+        0.33333333333333326
+      ],
+      "y": [
+        1648.786440677966,
+        1802.9971014492753,
+        1963.5548172757478,
+        2119.4123711340208,
+        2277.0357142857147,
+        2446.136363636364
+      ],
+      "start_offset_px": -59.499057788711525
+    },
+    "left100": {
+      "cups": [
+        2.0,
+        1.6666666666666667,
+        1.3333333333333335,
+        1.0,
+        0.6666666666666667,
+        0.33333333333333326
+      ],
+      "y": [
+        1652.6577777777775,
+        1808.1805157593121,
+        1968.7128378378375,
+        2124.947712418301,
+        2283.308243727599,
+        2452.6544715447158
+      ],
+      "start_offset_px": -60.74342325965699
+    },
+    "right95": {
+      "cups": [
+        2.0,
+        1.75,
+        1.5,
+        1.25,
+        1.0,
+        0.75,
+        0.25
+      ],
+      "y": [
+        1609.9263803680979,
+        1725.0,
+        1841.544061302682,
+        1960.733050847458,
+        2090.6133333333332,
+        2208.0731707317073,
+        2462.6914285714283
+      ],
+      "start_offset_px": -30.147687616727126
+    },
+    "right130": {
+      "cups": [
+        2.0,
+        1.75,
+        1.5,
+        1.25,
+        1.0,
+        0.25
+      ],
+      "y": [
+        1612.0146341463415,
+        1727.8436363636367,
+        1844.1984126984125,
+        1964.4221311475414,
+        2095.303167420814,
+        2468.1032608695655
+      ],
+      "start_offset_px": -28.648165099418293
+    }
+  },
+  "raw_trials": [
+    {
+      "endpoint": "rig-focus",
+      "left75": {
+        "x": 2342.67721070285,
+        "y": 2108.8190131612478,
+        "registered_y": 2059.9133133453092,
+        "print_scale": 0.9840266258773602,
+        "print_offset": 81.80946583020952
+      },
+      "right95": {
+        "x": 2747.7743202209917,
+        "y": 2114.168358451741,
+        "registered_y": 2060.465645716606,
+        "print_scale": 0.9800190843389132,
+        "print_offset": 94.8727030247653
+      }
+    },
+    {
+      "endpoint": "pilot-a",
+      "left75": {
+        "x": 2360.79063467403,
+        "y": 2137.4844206763887,
+        "registered_y": 2096.513678857091,
+        "print_scale": 0.9900403736932153,
+        "print_offset": 61.85123460777672
+      },
+      "right95": {
+        "x": 2764.440268980576,
+        "y": 2144.4682386877203,
+        "registered_y": 2099.5208081161145,
+        "print_scale": 0.9869212985453609,
+        "print_offset": 72.40643641875907
+      }
+    },
+    {
+      "endpoint": "pilot-b",
+      "left75": {
+        "x": 2379.3050551908295,
+        "y": 2169.8252994490163,
+        "registered_y": 2139.5962462724806,
+        "print_scale": 0.9926710622582271,
+        "print_offset": 45.9100208579977
+      },
+      "right95": {
+        "x": 2781.913601401428,
+        "y": 2174.1651155320096,
+        "registered_y": 2140.4784377279734,
+        "print_scale": 0.9920194445244332,
+        "print_offset": 50.76888472057884
+      }
+    },
+    {
+      "endpoint": "wet-a",
+      "left75": {
+        "x": 2398.021585106349,
+        "y": 2271.298014065471,
+        "registered_y": 2244.860430530556,
+        "print_scale": 0.994931277245806,
+        "print_offset": 37.816158679134745
+      },
+      "right95": {
+        "x": 2790.35750268044,
+        "y": 2275.5123612281463,
+        "registered_y": 2246.528364558541,
+        "print_scale": 0.9932909879966765,
+        "print_offset": 44.05598243323538
+      }
+    },
+    {
+      "endpoint": "wet-b",
+      "left75": {
+        "x": 2419.5618062894473,
+        "y": 2377.1374034819505,
+        "registered_y": 2359.3615646099292,
+        "print_scale": 0.9932713192616476,
+        "print_offset": 33.651229586620865
+      },
+      "right95": {
+        "x": 2802.1695988210504,
+        "y": 2380.628466464626,
+        "registered_y": 2360.338714595699,
+        "print_scale": 0.9932754194292347,
+        "print_offset": 36.16203972952257
+      }
+    },
+    {
+      "endpoint": "burst-a",
+      "left75": {
+        "x": 2436.573793124017,
+        "y": 2460.133576436352,
+        "registered_y": 2445.71764240584,
+        "print_scale": 0.996388067995389,
+        "print_offset": 23.24969985735973
+      },
+      "right95": {
+        "x": 2812.327660846737,
+        "y": 2463.273292620941,
+        "registered_y": 2448.5719512935007,
+        "print_scale": 0.9940793185613885,
+        "print_offset": 29.198555830568118
+      }
+    },
+    {
+      "endpoint": "burst-b",
+      "left75": {
+        "x": 2461.9311060135883,
+        "y": 2558.274466257243,
+        "registered_y": 2550.2711155015145,
+        "print_scale": 1.0003550864584116,
+        "print_offset": 7.097784017336015
+      },
+      "right95": {
+        "x": 2829.5628614258944,
+        "y": 2559.817786155404,
+        "registered_y": 2552.242592874507,
+        "print_scale": 0.9987384873948695,
+        "print_offset": 10.794879483158978
+      }
+    },
+    {
+      "endpoint": "rest-before-swap",
+      "left75": {
+        "x": 2474.1787536527254,
+        "y": 2552.1493819716475,
+        "registered_y": 2552.1493819716484,
+        "print_scale": 0.9999999999999999,
+        "print_offset": -2.625485054475693e-13
+      },
+      "right95": {
+        "x": 2841.838831480632,
+        "y": 2552.739582388633,
+        "registered_y": 2552.7395823886336,
+        "print_scale": 1.0000000000000002,
+        "print_offset": -7.95807864051312e-13
+      }
+    }
+  ],
+  "native_readings_and_calculated_volumes": "traces.json",
+  "artifacts": [
+    {
+      "endpoint": "rig-focus",
+      "saved_at": "2026-11-21T23:19:37-06:00",
+      "lossless_scale_crop": "frames/rig-focus.png",
+      "context": "frames/rig-focus-view.jpg",
+      "nominal_cup_ml": 236.6,
+      "read_allowance_ml": null,
+      "extrapolated": false
+    },
+    {
+      "endpoint": "pilot-a",
+      "saved_at": "2026-11-21T23:21:01-06:00",
+      "lossless_scale_crop": "frames/pilot-a.png",
+      "context": "frames/pilot-a-view.jpg",
+      "nominal_cup_ml": 218.0,
+      "read_allowance_ml": 5.0,
+      "extrapolated": false
+    },
+    {
+      "endpoint": "pilot-b",
+      "saved_at": "2026-11-21T23:22:00-06:00",
+      "lossless_scale_crop": "frames/pilot-b.png",
+      "context": "frames/pilot-b-view.jpg",
+      "nominal_cup_ml": 196.3,
+      "read_allowance_ml": 6.0,
+      "extrapolated": false
+    },
+    {
+      "endpoint": "wet-a",
+      "saved_at": "2026-11-21T23:22:50-06:00",
+      "lossless_scale_crop": "frames/wet-a.png",
+      "context": "frames/wet-a-view.jpg",
+      "nominal_cup_ml": 144.6,
+      "read_allowance_ml": 7.0,
+      "extrapolated": false
+    },
+    {
+      "endpoint": "wet-b",
+      "saved_at": "2026-11-21T23:23:24-06:00",
+      "lossless_scale_crop": "frames/wet-b.png",
+      "context": "frames/wet-b-view.jpg",
+      "nominal_cup_ml": 91.2,
+      "read_allowance_ml": 7.0,
+      "extrapolated": false
+    },
+    {
+      "endpoint": "burst-a",
+      "saved_at": "2026-11-21T23:24:13-06:00",
+      "lossless_scale_crop": "frames/burst-a.png",
+      "context": "frames/burst-a-view.jpg",
+      "nominal_cup_ml": 51.2,
+      "read_allowance_ml": 8.0,
+      "extrapolated": true
+    },
+    {
+      "endpoint": "burst-b",
+      "saved_at": "2026-11-21T23:24:52-06:00",
+      "lossless_scale_crop": "frames/burst-b.png",
+      "context": "frames/burst-b-view.jpg",
+      "nominal_cup_ml": 2.4,
+      "read_allowance_ml": 12.0,
+      "extrapolated": true
+    },
+    {
+      "endpoint": "rest-before-swap",
+      "saved_at": "2026-11-21T23:26:56-06:00",
+      "lossless_scale_crop": "frames/rest-before-swap.png",
+      "context": "frames/rest-before-swap-view.jpg",
+      "nominal_cup_ml": 1.7,
+      "read_allowance_ml": 12.0,
+      "extrapolated": true
+    }
+  ]
+}

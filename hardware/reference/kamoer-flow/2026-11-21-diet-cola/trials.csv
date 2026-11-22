@@ -1,0 +1,8 @@
+id,mode,channel,before,after,completed_pulses,commanded_pulse_ms,scheduled_start_interval_ms,pcb_total_on_ms,cup_withdrawal_ml,optical_read_allowance_ml,ml_min_per_motor_on_time,mean_ml_per_pulse,ml_min_per_scheduled_cycle,notes
+pilot-a,dry start,A,rig-focus,pilot-a,1,2000,,2000,18.6,4,,,,includes liquid taken up by dry tubing
+pilot-b,dry start,B,pilot-a,pilot-b,1,2000,,2000,21.6,5,,,,includes liquid taken up by dry tubing
+wet-a,continuous,A,pilot-b,wet-a,1,4000,,4000,51.8,5,777.0,,,receiving dish rose
+wet-b,continuous,B,wet-a,wet-b,1,4000,,4000,53.4,4,801.0,,,receiving dish rose
+burst-a,pulsed,A,wet-b,burst-a,16,200,500,3200,40.2,4,753.8,2.51,301.5,aggregate across the train; below-scale end reading
+burst-b,pulsed,B,burst-a,burst-b,16,200,500,3200,48.6,8,911.2,3.04,364.5,aggregate across the train; below-scale end reading
+rest-before-swap,idle,,burst-b,rest-before-swap,0,0,,0,0.4,2,,,,motors off; below-scale end reading

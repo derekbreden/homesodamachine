@@ -1,0 +1,84 @@
+{
+  "liquid": "SodaStream Diet Cola concentrate, undiluted",
+  "local_start_date": "2026-11-21",
+  "time_zone": "America/Chicago",
+  "pump_face_marking": "Kamoer KPHM",
+  "model_suffix": "unresolved on both pictured motor labels",
+  "vessels": {
+    "graduated": "OXO glass measuring cup, US cups and fluid ounces",
+    "other": "rectangular glass dish"
+  },
+  "initial_graduated_cup_volume_us_cups": 1,
+  "initial_liquid_in_rectangular_dish": "present, volume unmeasured",
+  "initial_line_state": "dry, reported by Derek",
+  "cut_tubes": "equal length, confirmed by Derek. Absolute cut length unmeasured.",
+  "stage_one": {
+    "direction_both_channels": "measuring cup to rectangular dish",
+    "A": {
+      "head": "left viewed from the sink",
+      "dish_side_guided_quarter_turns": 2,
+      "cup_side": "yellow-lettered tube"
+    },
+    "B": {
+      "head": "right viewed from the sink",
+      "dish_side_guided_quarter_turns": 0,
+      "cup_side": "plain tube"
+    },
+    "mapping_evidence": {
+      "setup_photo": "setup/photo-3.jpg",
+      "pilot_video": "video/pilot-b.mp4",
+      "video_size_px": [
+        1920,
+        1080
+      ],
+      "video_frames_per_s": 8,
+      "time_window_s": [
+        1.375,
+        2.25
+      ],
+      "plain_tube": {
+        "row_px": 716,
+        "horizontal_displacement_px": 24.4
+      },
+      "lettered_tube": {
+        "row_px": 549,
+        "horizontal_displacement_px": 1.4
+      },
+      "registered_static_feature_median_residual_px": [
+        0.36,
+        0.44
+      ],
+      "assignment": "B directly from tube movement and photo tracing. A by exclusion."
+    }
+  },
+  "instrumentation": {
+    "controller": "USB serial main PCB, appliance firmware",
+    "firmware_version": "2026.11.15",
+    "firmware_commit": "d6e49a5f6",
+    "motor_drive": "full duty during each timed pump command",
+    "valves": "closed during timed pump commands",
+    "usb_camera": "16MP USB Camera",
+    "native_size_px": [
+      4656,
+      3496
+    ],
+    "upright_rotation_degrees": 180,
+    "archive_native_crop_xywh": [
+      1800,
+      1350,
+      1280,
+      1820
+    ],
+    "overview_size_px": [
+      1148,
+      862
+    ]
+  },
+  "unmeasured_conditions": [
+    "liquid temperature",
+    "liquid density",
+    "motor voltage and speed",
+    "pressure difference at the heads",
+    "syrup-to-water ratio in a glass"
+  ]
+}

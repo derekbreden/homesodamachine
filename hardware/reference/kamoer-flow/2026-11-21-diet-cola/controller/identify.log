@@ -1,0 +1,95 @@
+<<< t=0s  help >>>
+  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)
+  fill <a|b> [s]    the funnel fill: that channel's funnel path open and its pump drawing,
+                    for s seconds (default 80) or until the reservoir's full reed closes
+  clean <a|b> [rounds] [s]   the clean cycle: the funnel pumped through to the faucet, then
+                    tap water pumped in until the full reed closes and pumped out the faucet
+                    until the empty reed closes plus an 8 s tail, rounds times (default 3);
+                    s caps every step (default 141 funnel, 240 in, 248 out)
+  dry [s]           dry the flavor lines: air in then through to the faucet, on each
+                    channel in turn, the funnel dry and open; s caps every step
+  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until
+                    its empty reed opens; s caps every step
+  flow <n> [s]      pretend the meter reads n pulses per 50 ms for s seconds (default 5):
+                    the selected channel pours as if carbonated water were flowing
+  selftest          every solenoid in turn, the fan, then each pump — one at a time
+  thermal           the 1-wire bus: every ROM found, its family and its last reading
+  refill clear      leave a latched refill TIMEOUT or FAULT and try again
+  refill latch      stand a refill latched as one that spent its ceiling does
+  refill forget     drop a refill that is owed, and the flash's note of it
+  refill fill       fill the carbonator now, whatever its reeds read: until the high
+                    reed closes or the pumping ceiling, as any refill
+  sweep             whether the carbonator owes a sweep of its air, and how far one has got
+  sweep owe         the tank was drained and opened: hold its first fill until the lever at
+                    the faucet has let CO2 carry the air out; drops any refill that is owed
+  sweep skip        give the sweep up and fill without it, as the welcome's Skip does; with
+                    gas moving, the fill waits for the lever to be let go
+  sweep forget      drop a sweep that is owed and ask for nothing; with gas moving, the
+                    meter is the pour's again once the lever is let go
+  move              the machine is to be moved: from now no refill, no pour and no cycle,
+                    the faucet says to empty the tank, and the start after the plug comes
+                    out owes a sweep, as Move the machine on its display does
+  move cancel       call the move off
+  hang              stop the loop turning, to see the watchdog restart the board
+  log [n|all|status]   the machine's record: its newest n entries (default 40),
+                    every entry it holds, or where the ring stands
+  sim tank <C> coil <C>   put a reading at the top of the cold loop; -- for a probe
+                    that does not answer. The policy, the relays and the fan then run
+                    for real on it
+  sim reeds <low|high|both|none>   the same for the carbonator's two reeds
+  sim off           back to the probes and the expanders
+  stop              end whatever is running
+  status            machine state, uptime, heap
+  flavor [a|b]      selected flavor (main-board-owned and persisted)
+  ratio [a|b] [6-24]  what a channel pours at, 1:n water to concentrate (persisted)
+  art [a|b <0-7>]  change one channel; art <first> <second> explicitly sets both
+  link              J9 enclosure display and J3 faucet links
+  ping              put a frame on the pair and read its echo back
+  display usb       make the externally-powered display reattach to USB
+  wake              light both glasses, as a finger on either would
+  idle              awake or asleep, and how far into the quiet stretch
+  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)
+  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean
+                    or settings; with a flavor, that flavor's own page; go presses its START
+  ui notice [go|no]      the notice the enclosure puts up, and one of its two answers: no
+                    water's Try again or Not now, the welcome's OK or Skip, then Skip's Skip
+                    or Cancel; a move answers only to no, its Cancel
+  notice [hold <name>…|release]   keep named notices off both glasses while a bench
+                    host goes on asking: no-water, welcome, move
+  sound <name>      play one of the machine's sounds; 'sound list' names them
+  volume [0-100]    how loud everything but the alarm is (persisted)
+  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)
+  rtc [set <YYYY-MM-DD> <HH:MM:SS>]    the clock quiet hours reads
+  ota [<self|faucet|enclosure|art> <size> <crc32>]   firmware over the link
+  versions          what each board on this machine is running
+  identity [<name>] the model and unit a phone sees, and what to call it
+  ble               the radio, asked of the display that has it
+  trust [forget]    how many phones the faucet trusts; 'forget' forgets every one
+  trust yes|no      answer the trust ask that is up, as a tap on a display would
+  images            what pictures each display holds; 'images sync' reconciles now,
+                    'images erase|relay|test <slot>' act on one
+  wifi [on|off|<KB>[q]]   the radio bench: the enclosure sinks, the faucet sends
+  bench j3 [<KB>]   push at J3 as fast as its window will take frames
+  help              this
+  The enclosure opens prime mode for one flavor. Either display can then
+  own the held pump; it stops on lift, a stale hold/session, disconnect, or at
+  the 60 s ceiling.
+<<< t=0s  status >>>
+2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35
+  state    idle
+  uptime   551816 s
+  heap     262520 bytes free
+  flavor   A — main-board-owned, persisted
+  ratio    A 1:20, B 1:15
+  flow     0 pulses since boot on IO25
+  level    A ?/4, B ?/4 — carbonator low=no high=no
+  expanders healthy — cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF
+  reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no
+  valves   all closed
+  relays   compressor open (IO19), refill open (IO2)
+  cold     tank --, coil --, fault, 0 probes on IO26
+  refill   idle
+  notice   none — a host on this console holds no-water welcome off for 895 s more
+  clock    2026-11-22 00:19:22
+  gas      clear (142 mV on the divided DOUT)
+  volume   100%, quiet hours off

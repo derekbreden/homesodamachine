@@ -1,0 +1,64 @@
+{
+  "measurement": "Change of settled liquid level in the rectangular receiving dish. Positive pixel values indicate a rise. The dish has no volumetric calibration.",
+  "geometry": {
+    "orientation": "upright overview",
+    "image_size_px": [
+      1148,
+      862
+    ],
+    "read_x_interval_px": [
+      365,
+      405
+    ],
+    "initial_edge_xy_px": [
+      390,
+      303
+    ]
+  },
+  "method": "Align each consecutive pair to the molded back-wall feature and the front, back and side glass rims with a projective transform. Measure the median vertical displacement of the brown edge in the read interval. The second fit uses only the fixed back-wall feature.",
+  "reference_check": "The final pair spans an idle interval. Pilot displacements are close to the idle difference and the variation with registration. The wet continuous and pulsed blocks all raise the dish clearly.",
+  "pairs": [
+    {
+      "before": "rig-focus",
+      "after": "pilot-a",
+      "rise_px": 0.83,
+      "back_wall_only_rise_px": 0.59
+    },
+    {
+      "before": "pilot-a",
+      "after": "pilot-b",
+      "rise_px": 1.28,
+      "back_wall_only_rise_px": 1.51
+    },
+    {
+      "before": "pilot-b",
+      "after": "wet-a",
+      "rise_px": 8.72,
+      "back_wall_only_rise_px": 8.66
+    },
+    {
+      "before": "wet-a",
+      "after": "wet-b",
+      "rise_px": 8.99,
+      "back_wall_only_rise_px": 9.72
+    },
+    {
+      "before": "wet-b",
+      "after": "burst-a",
+      "rise_px": 6.52,
+      "back_wall_only_rise_px": 6.67
+    },
+    {
+      "before": "burst-a",
+      "after": "burst-b",
+      "rise_px": 7.54,
+      "back_wall_only_rise_px": 7.81
+    },
+    {
+      "before": "burst-b",
+      "after": "rest-before-swap",
+      "rise_px": -0.66,
+      "back_wall_only_rise_px": -0.28
+    }
+  ]
+}
