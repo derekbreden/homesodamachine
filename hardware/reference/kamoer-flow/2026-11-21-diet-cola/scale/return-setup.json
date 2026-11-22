@@ -2,6 +2,55 @@
   "purpose": "The straight pump returns concentrate to the weighed OXO cup for the repeated measurements. A removes concentrate from the cup and B adds concentrate to it.",
   "paired_readings": "return-rig.csv",
   "pair_method": "Each signed change subtracts the before reading from the after reading. The endpoints carry individual host receive timestamps and were read directly from the saved LCD frames. The CSV includes groups with controller acknowledgement.",
+  "independent_display_trace": {
+    "csv": "return-trace.csv",
+    "replay": "return-lcd.mp4",
+    "nominal_sample_hz": 1,
+    "replay_frames_per_second": 5,
+    "replay_frame_index_origin": 0,
+    "timebase": "UTC host receipt of each iPhone frame. The replay follows the sampled LCD in order, with the original timestamp under each frame. A gap occupies a single placeholder frame with its start and end recorded in the CSV.",
+    "display_g": "A visually read sample, or a seven-segment reading whose decodable thresholds agree and that is within 0.4 g of another similarly readable sample within 2.5 seconds. Isolated changing readings and conflicting segments have a separate unchecked candidate when available. Empty readings are missing values.",
+    "replay_processing": "The LCD was rectified and contrast-enhanced from the blue channel. The timestamp is the only overlay on readable frames. The numeric CSV comes from the original crops before video compression.",
+    "controller_session": "Host console session windows from acknowledged trials include setup and settling. The acknowledged board drive durations and trial endpoints accompany each matched measurement in return-rig.csv.",
+    "reconnection": "Camera recovery caused a recording gap across part of shape050-b-r1. Initial frames on reconnection were out of focus. The first readable post-run plateau and the later named sample are both identified in the paired measurements.",
+    "start_utc": "2026-11-22T05:47:11.688+00:00",
+    "end_utc": "2026-11-22T06:14:00.693+00:00",
+    "record_count_including_gap_markers": 1545,
+    "reading_counts": {
+      "camera_gap": 2,
+      "changing_unverified": 166,
+      "check_segments": 38,
+      "optical_read": 1122,
+      "out_of_focus": 16,
+      "partial_digits": 147,
+      "startup_self_test": 1,
+      "startup_transition": 1,
+      "unreadable_display": 41,
+      "visually_read": 11
+    },
+    "signed_numeric_samples": 1133,
+    "camera_gaps": [
+      {
+        "last_sample_utc": "2026-11-22T05:57:00.522+00:00",
+        "next_sample_utc": "2026-11-22T05:57:53.351+00:00",
+        "gap_s": 52.829
+      },
+      {
+        "last_sample_utc": "2026-11-22T06:13:00.691+00:00",
+        "next_sample_utc": "2026-11-22T06:13:22.784+00:00",
+        "gap_s": 22.093
+      }
+    ]
+  },
+  "local_weight_windows": {
+    "csv": "return-windows.csv",
+    "duration_s": 3,
+    "bounds": "Each pair has independent display samples ending at its pre-run still and starting at its post-run still. Windows stop at adjacent named measurements. Some windows include fewer samples than their nominal duration because the camera or digits were unreadable.",
+    "summary": "Minima, medians and maxima describe observed variation in the supported cup, tubing and scale. The signed difference of window medians is included when both windows contain at least two readable samples. The paired readings retain the exact displayed tenth of a gram.",
+    "pairs_with_double_sided_median": 49,
+    "maximum_absolute_difference_from_paired_stills_g": 0.4
+  },
+  "blank_groups": "Rows at zero commanded drive record the supported-cup response with the controller active and both pumps stationary.",
   "turnaround_check": {
     "run": "return-check",
     "channel": "B",
@@ -24,5 +73,49 @@
       "utc": "2026-11-22T05:47:42.709+00:00",
       "file": "display/return-check-settled.png"
     }
-  }
+  },
+  "zero_drive_observations": [
+    {
+      "run": "blank-start",
+      "before_utc": "2026-11-22T05:54:14.772+00:00",
+      "after_utc": "2026-11-22T05:54:25.259+00:00",
+      "signed_cup_change_g": 0.2
+    },
+    {
+      "run": "blank-end",
+      "before_utc": "2026-11-22T06:08:19.702+00:00",
+      "after_utc": "2026-11-22T06:08:30.183+00:00",
+      "signed_cup_change_g": 0.1
+    }
+  ],
+  "observed_load_between_acknowledged_runs": [
+    {
+      "after_run": "repeat-b-r3",
+      "before_run": "blank-start",
+      "start_utc": "2026-11-22T05:51:41.199+00:00",
+      "end_utc": "2026-11-22T05:54:14.772+00:00",
+      "duration_s": 153.573,
+      "first_named_g": 179.5,
+      "last_named_g": 182.6,
+      "range_g": [
+        179.5,
+        183.3
+      ],
+      "valid_samples": 126
+    },
+    {
+      "after_run": "shape110-a-1",
+      "before_run": "shape110-b-1",
+      "start_utc": "2026-11-22T05:58:38.424+00:00",
+      "end_utc": "2026-11-22T05:59:27.190+00:00",
+      "duration_s": 48.766,
+      "first_named_g": 137.6,
+      "last_named_g": 138.1,
+      "range_g": [
+        137.4,
+        138.1
+      ],
+      "valid_samples": 49
+    }
+  ]
 }

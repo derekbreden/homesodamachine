@@ -2,12 +2,21 @@
   "liquid": "Undiluted SodaStream Diet Cola concentrate",
   "series": "Wet runs after exchanging the vessel ends of the straight pump hoses",
   "source": {
+    "trial_table": "dose-results.csv",
     "controller": "controller/<run>.log",
     "scale_endpoints": "scale/return-rig.csv",
     "scale_photographs": "scale/display/",
     "initial_setup": "setup.json",
     "return_setup": "scale/return-setup.json",
-    "optical_volume": "Independent graduated-cup readings are reported separately in the bench archive."
+    "independent_pulse_volume": "pulse-optical-check.json"
+  },
+  "controller_images": {
+    "appliance": [
+      "2026.11.15 d6e49a5f6"
+    ],
+    "pump_calibration": [
+      "311360 bytes, MD5 571fddff0a8de68d31a221a22e8ba072"
+    ]
   },
   "routing": {
     "b_hoses_exchanged": {
@@ -29,38 +38,40 @@
   },
   "comparison_limits": "The original return configuration changes head, transfer direction and tube-guide routing together between channels.",
   "quantity": {
+    "pour_1_to_20": "Low, mid and full identify the appliance's pulse schedules at its 1:20 setting. The motor rig circulated concentrate between vessels. Water flow and mixed beverage ratio were unmeasured.",
+    "cup_level": "The lower-cup series retains the indicated mass at the start of each run. Repositioning runs remain in the CSV. Hydraulic head and vessel elevations were unmeasured.",
     "cup_gain_g": "After minus before on the scale supporting the OXO cup and the contacting hoses.",
     "directed_transfer_g": "Positive in the intended transfer direction. The original return routing removes liquid from the cup on A and adds it on B. Signed endpoint differences are retained.",
     "gate_s": "Board-reported sum of windows at the commanded PWM level. The zero-duty controls have timed windows with their motor off.",
     "train_s": "Board time from the first gate opening to the last gate closing, with pauses between the gates.",
     "full_cycles_s": "Train time plus one scheduled trailing off interval. This models repeated operation over full periods and is the denominator for full_cycles_g_min.",
-    "rates": "Each rate is the directed transfer divided by its named time base. Per-pulse dose is the train total divided by its completed pulse count.",
-    "repeat_statistics": "Each n counts independent timed trials with paired mass readings at the same settings and routing. SD is the sample standard deviation when repeats exist."
+    "rates": "Each rate divides the complete paired transfer by its named time base. Per-pulse dose divides the train total by its completed pulse count. The scale includes delivery during coasting and settling.",
+    "repeat_statistics": "Each n counts separately timed runs with paired mass readings at the same settings and routing. SD is the sample standard deviation when repeats exist."
   },
   "uncertainty": {
     "scale": "Smart Weigh TOP2KG",
     "displayed_increment_g": 0.1,
     "endpoint_difference_rounding_bound_g": 0.1,
-    "blank_n": 1,
+    "blank_n": 2,
     "blank_cup_change_range_g": [
-      0.2,
+      0.1,
       0.2
     ],
     "comparison_allowance_g": 0.3,
     "scope": "The comparison allowance is the largest absolute paired zero-drive change plus the endpoint rounding bound. It indicates what these controls could distinguish. Hose load, drift, and scale calibration contribute additional uncertainty. No absolute mass accuracy or confidence interval was established."
   },
+  "qualified_pairs": {
+    "shape050-b-r1": "First of three consecutive readable 166.9 g frames after camera reconnection. The delayed named after frame at 2026-11-22T05:58:17.683+00:00 is 167.2 g (display/shape050-b-r1-after.png); no intervening motor command.",
+    "shape110-a-1": "The named before image has partially refreshed segments. The selected, fully legible frame immediately precedes the console command.",
+    "shape110-b-1": "The final digit is partially refreshed in the named after frame. This first fully readable following frame begins a plateau.",
+    "shape200-b-2": "The named after frame catches the final digit in transition. The first fully readable following sample supplies the endpoint.",
+    "shape110-a-2": "The named before frame has changing digit segments. The preceding frame is the fourth consecutive 211.8 g reading.",
+    "pwm070-b-2": "The last digit is partially refreshed in the named frame. The first fully legible following frame reads 155.0 g."
+  },
   "unpaired_runs": [
     {
       "run": "return-check",
       "reason": "scale_startup_missing_before"
-    },
-    {
-      "run": "shape050-b-r1",
-      "reason": "unpaired"
-    },
-    {
-      "run": "shape110-a-1",
-      "reason": "unpaired"
     }
   ],
   "unacknowledged_attempts": [
@@ -70,15 +81,135 @@
     },
     {
       "run": "shape050-b-1",
-      "reason": "Controller run was not acknowledged."
+      "reason": "USB serial port busy before the command."
+    }
+  ],
+  "delivery_from_rest": [
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "on_ms": 3000,
+      "within_blank_pct": [
+        40,
+        60
+      ],
+      "above_blank_pct": [
+        65,
+        70,
+        75,
+        80
+      ],
+      "mixed_pct": []
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "on_ms": 3000,
+      "within_blank_pct": [
+        40,
+        60
+      ],
+      "above_blank_pct": [
+        70,
+        75,
+        80
+      ],
+      "mixed_pct": [
+        65
+      ]
+    }
+  ],
+  "off_time_comparisons": [
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "pwm_pct": 100,
+      "on_ms": 110,
+      "pulses": 24,
+      "reference_off_ms": 480,
+      "reference_n": 2,
+      "test_off_ms": 60,
+      "test_n": 1,
+      "test_minus_reference_g_per_pulse": 0.07
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "pwm_pct": 100,
+      "on_ms": 110,
+      "pulses": 24,
+      "reference_off_ms": 480,
+      "reference_n": 2,
+      "test_off_ms": 60,
+      "test_n": 1,
+      "test_minus_reference_g_per_pulse": -0.13
+    }
+  ],
+  "lower_cup_comparisons": [
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "on_ms": 6000,
+      "reference_n": 3,
+      "reference_start_scale_range_g": [
+        155.8,
+        172
+      ],
+      "reference_mean_transfer_g": 66.1,
+      "lower_n": 2,
+      "lower_start_scale_range_g": [
+        103.8,
+        106
+      ],
+      "lower_mean_transfer_g": 71.3,
+      "lower_minus_reference_g": 5.2
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "on_ms": 6000,
+      "reference_n": 3,
+      "reference_start_scale_range_g": [
+        92.9,
+        106.2
+      ],
+      "reference_mean_transfer_g": 74,
+      "lower_n": 2,
+      "lower_start_scale_range_g": [
+        30.6,
+        37.5
+      ],
+      "lower_mean_transfer_g": 76.3,
+      "lower_minus_reference_g": 2.3
     }
   ],
   "conditions": [
     {"setup":"b_hoses_exchanged","channel":"B","condition":"wet_continuous","pwm_pct":100,"on_ms":10000,"off_ms":0,"pulses":1,"n":1,"mean_g":127.1,"mean_g_per_pulse":127.1,"gate_g_min":763,"full_cycles_g_min":763},
     {"setup":"b_hoses_exchanged","channel":"A","condition":"wet_continuous","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":3,"mean_g":66.1,"range_g":[62.6,69.9],"repeat_sd_g":3.7,"mean_g_per_pulse":66.1,"gate_g_min":661,"full_cycles_g_min":661},
     {"setup":"b_hoses_exchanged","channel":"B","condition":"wet_continuous","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":3,"mean_g":74,"range_g":[72.6,76],"repeat_sd_g":1.8,"mean_g_per_pulse":74,"gate_g_min":740,"full_cycles_g_min":740},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":1,"mean_g":49.7,"mean_g_per_pulse":3.11,"gate_g_min":932,"full_cycles_g_min":373},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":1,"mean_g":41.8,"mean_g_per_pulse":2.61,"gate_g_min":784,"full_cycles_g_min":313},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_low","pwm_pct":100,"on_ms":50,"off_ms":600,"pulses":40,"n":1,"mean_g":30.5,"mean_g_per_pulse":0.76,"gate_g_min":915,"full_cycles_g_min":70}
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":4,"mean_g":39.3,"range_g":[31,49.7],"repeat_sd_g":9.5,"mean_g_per_pulse":2.46,"gate_g_min":737,"full_cycles_g_min":295},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":4,"mean_g":38.6,"range_g":[33.9,41.8],"repeat_sd_g":3.5,"mean_g_per_pulse":2.41,"gate_g_min":724,"full_cycles_g_min":289},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_low","pwm_pct":100,"on_ms":50,"off_ms":600,"pulses":40,"n":2,"mean_g":29.4,"range_g":[28.2,30.5],"repeat_sd_g":1.6,"mean_g_per_pulse":0.73,"gate_g_min":881,"full_cycles_g_min":68},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_low","pwm_pct":100,"on_ms":50,"off_ms":600,"pulses":40,"n":2,"mean_g":21.9,"range_g":[18.2,25.5],"repeat_sd_g":5.2,"mean_g_per_pulse":0.55,"gate_g_min":656,"full_cycles_g_min":50},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_mid","pwm_pct":100,"on_ms":110,"off_ms":480,"pulses":24,"n":2,"mean_g":35.4,"range_g":[29.6,41.2],"repeat_sd_g":8.2,"mean_g_per_pulse":1.48,"gate_g_min":805,"full_cycles_g_min":150},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_mid","pwm_pct":100,"on_ms":110,"off_ms":480,"pulses":24,"n":2,"mean_g":38.9,"range_g":[37.7,40.1],"repeat_sd_g":1.7,"mean_g_per_pulse":1.62,"gate_g_min":884,"full_cycles_g_min":165},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":60,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":0,"mean_g_per_pulse":0,"gate_g_min":0,"full_cycles_g_min":0,"within_blank_allowance_n":1},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":60,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":0.2,"mean_g_per_pulse":0.2,"gate_g_min":4,"full_cycles_g_min":4,"within_blank_allowance_n":1},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":80,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":26,"mean_g_per_pulse":26,"gate_g_min":520,"full_cycles_g_min":520},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":80,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":18.9,"mean_g_per_pulse":18.9,"gate_g_min":378,"full_cycles_g_min":378},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":40,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":0.1,"mean_g_per_pulse":0.1,"gate_g_min":2,"full_cycles_g_min":2,"within_blank_allowance_n":1},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":40,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":-0.2,"mean_g_per_pulse":-0.2,"gate_g_min":-4,"full_cycles_g_min":-4,"within_blank_allowance_n":1},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":70,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":4.1,"range_g":[3.5,4.7],"repeat_sd_g":0.8,"mean_g_per_pulse":4.1,"gate_g_min":82,"full_cycles_g_min":82},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":70,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":9.4,"range_g":[7.1,11.6],"repeat_sd_g":3.2,"mean_g_per_pulse":9.4,"gate_g_min":187,"full_cycles_g_min":187},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":75,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":12.5,"mean_g_per_pulse":12.5,"gate_g_min":250,"full_cycles_g_min":250},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":75,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":9.1,"mean_g_per_pulse":9.1,"gate_g_min":182,"full_cycles_g_min":182},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"off_time_test","pwm_pct":100,"on_ms":110,"off_ms":60,"pulses":24,"n":1,"mean_g":37,"mean_g_per_pulse":1.54,"gate_g_min":841,"full_cycles_g_min":544},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"off_time_test","pwm_pct":100,"on_ms":110,"off_ms":60,"pulses":24,"n":1,"mean_g":35.7,"mean_g_per_pulse":1.49,"gate_g_min":811,"full_cycles_g_min":525},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":65,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":3.5,"range_g":[2.7,4.3],"repeat_sd_g":1.1,"mean_g_per_pulse":3.5,"gate_g_min":70,"full_cycles_g_min":70},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":65,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":0.4,"range_g":[0.2,0.5],"repeat_sd_g":0.2,"mean_g_per_pulse":0.4,"gate_g_min":7,"full_cycles_g_min":7,"within_blank_allowance_n":1},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"lower_cup_start","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":2,"mean_g":71.3,"range_g":[68.5,74.1],"repeat_sd_g":4,"mean_g_per_pulse":71.3,"gate_g_min":713,"full_cycles_g_min":713},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"lower_cup_start","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":2,"mean_g":76.3,"range_g":[74.7,77.9],"repeat_sd_g":2.3,"mean_g_per_pulse":76.3,"gate_g_min":763,"full_cycles_g_min":763},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"guide_reference","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":1,"mean_g":69.6,"mean_g_per_pulse":69.6,"gate_g_min":696,"full_cycles_g_min":696},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"guide_reference","pwm_pct":100,"on_ms":5500,"off_ms":0,"pulses":1,"n":1,"mean_g":72.1,"mean_g_per_pulse":72.1,"gate_g_min":787,"full_cycles_g_min":787}
   ]
 }

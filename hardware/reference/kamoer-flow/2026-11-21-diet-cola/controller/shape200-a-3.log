@@ -1,0 +1,5 @@
+<<< t=0s  dose a 100 200 300 16 >>>
+DOSE_BEGIN channel=A duty_pct=100 on_ms=200 off_ms=300 count=16
+DOSE_RESULT channel=A status=done completed=16 on_us=3199922 elapsed_us=7700007 gate_min_us=199937 gate_max_us=199999
+<<< t=9s  info >>>
+PUMP_CALIBRATION state=idle sketch_bytes=311360 sketch_md5=571fddff0a8de68d31a221a22e8ba072

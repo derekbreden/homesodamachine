@@ -186,7 +186,9 @@
         253,
         129
       ]
-    }
+    },
+    "seconds_from_named_a_endpoint_to_first_blank": 279.544,
+    "scale_timeout_observation": "The scale went dark during the idle observation. The elapsed time is relative to the recorded after frame. The internal sleep trigger and timer setting were unobserved."
   },
   "interpretation": "The signed difference is the change in the cup plus everything the scale supports. Local before and after differences account for its changing idle baseline. The recorded idle ranges describe repeatability on this setup. One paired observation is available per channel in this table.",
   "with_straight_pump_hoses_exchanged": "return-setup.json"

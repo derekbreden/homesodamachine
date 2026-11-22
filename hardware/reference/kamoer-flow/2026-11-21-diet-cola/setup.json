@@ -75,7 +75,7 @@
     ],
     "calibration_image": {
       "target": "pump_calibration",
-      "source_commit": "61099a4d1",
+      "source_commit": "61099a4d18ae6a7e09e63af8e99a7f3bcc36c001",
       "sha256": "50fe184e3b413877ef2c6500ecb592bd58236da987b6be5ed37da60c4b0ca3b2",
       "device_reported_sketch_md5": "571fddff0a8de68d31a221a22e8ba072",
       "source": "firmware/src_pump_calibration/main.cpp",
@@ -119,5 +119,44 @@
     "B": "Dish to OXO cup; straight route.",
     "direction_check": "frames/return-check-view.jpg",
     "controller_rotation": "Forward on both channels. Neither driver has its second input connected to an ESP32 output."
+  },
+  "pulse_schedules": {
+    "reference_source": "firmware/lib/machine_policy/pour_policy.cpp, pourCycleTiming",
+    "reference_ratio_water_to_concentrate": 20,
+    "examples": {
+      "shape050": {
+        "input_meter_pulses_per_window": 1,
+        "gate_ms": 50,
+        "off_ms": 600
+      },
+      "shape110": {
+        "input_meter_pulses_per_window": 3,
+        "gate_ms": 110,
+        "off_ms": 480
+      },
+      "shape200": {
+        "input_meter_pulses_per_window": 6,
+        "gate_ms": 200,
+        "off_ms": 300
+      },
+      "gap110": {
+        "gate_ms": 110,
+        "off_ms": 60,
+        "basis": "Short-pause comparison with the mid-flow shape at equal pulse count and on-time."
+      }
+    },
+    "board_scope": "The bench replays the gate timings. Neither water nor the flow sensor is part of this test."
+  },
+  "fill_band_comparison": {
+    "lower_band_id_prefix": "level-low",
+    "reference_runs": "repeat-a-r1 through repeat-b-r3",
+    "controlled_variables": [
+      "same wet head and tube routing within each channel",
+      "full motor duty",
+      "matched 6 s gate"
+    ],
+    "varied_quantity": "amount in cup and complementary amount in rectangular dish",
+    "pressure_difference_at_pump_kpa": null,
+    "context": "Individual before/after images and signed scale readings locate each pair within its fill range."
   }
 }
