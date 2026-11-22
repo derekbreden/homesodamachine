@@ -220,3 +220,11 @@ click: x=-75.993 y=17.473 z=14.179
 click: x=-75.993 y=-47.836 z=14.179
 click: x=-110.259 y=17.473 z=14.179
 click: x=-110.259 y=-47.836 z=14.179
+
+[thin] The two marked faces are the free jaws of the pump-discharge clip. The jaw section comes from the hand-fitted lid return clip, and the filled root continues into the lid. The [return-clip fit record](https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json) documents that section.
+alternatives: Thickening the jaws changes the spring section used to snap the tube in from above.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-81.457 y=-86.591 z=24.457
+click: x=-81.617 y=-84.456 z=23.380
+click: x=-82.079 y=-76.716 z=24.458
+click: x=-81.946 y=-78.853 z=23.380

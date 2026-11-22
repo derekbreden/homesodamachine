@@ -22,11 +22,11 @@
       "blocked_facets": 0,
       "embedded_vertex_error_mm": 5.600568897534686e-10,
       "layer_ranges": [],
-      "modifiers_expected": 18,
+      "modifiers_expected": 19,
       "name": "foam-cap-lid-top",
       "partially_painted_facets": 0,
       "parts": {
-        "modifier_part": 18,
+        "modifier_part": 19,
         "normal_part": 1
       },
       "placed_bounds_mm": [
@@ -44,7 +44,7 @@
       "seam_painted_facets": 0,
       "source_comparison": "source triangles in order",
       "source_sha256_matches": true,
-      "vertices": 36132
+      "vertices": 38875
     }
   ],
   "pass": true,

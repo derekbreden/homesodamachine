@@ -3312,6 +3312,12 @@
       "bytes": 36715,
       "sha256": "3ac5add076e4179abad596fa0f939280682bfc1b9a1c0b343c6a9eb5fe85b009"
     },
+    "6b6c96f55297f92d0d0925b2e30d119d54eb3baf": {
+      "archive": "foam-cap-lid-top-mark1-dcc6186619b843e9.zip",
+      "bytes": 8491210,
+      "offset": 971026,
+      "sha256": "040e0f8d9248b76244849d1b52e1c0cd0d828e2a532440d07b40f15dc2392200"
+    },
     "6b85ae48547771e2df09a25788b942c314418c7f": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 933411071,
@@ -3833,6 +3839,12 @@
       "offset": 120185762,
       "bytes": 1633552,
       "sha256": "fcf3f8be7b52e341d69b317a96b662ecaf0495ab6f8d2c1534ec904dbb07dd7f"
+    },
+    "7e135517e063e0517055b267e818a1cf4d310dc7": {
+      "archive": "foam-cap-lid-top-mark1-dcc6186619b843e9.zip",
+      "bytes": 970878,
+      "offset": 74,
+      "sha256": "c233a056a6907deada0d085f89fdbe2b7634cab6bdf3906cbbcdf0456135b68e"
     },
     "7e23096f9d37b1f784dfe22f01cde8f1418dc534": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -8030,6 +8042,8 @@
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-20-foam-cap-lid-top-mark1-d7a5159a/2026-11-20-foam-cap-lid-top-mark1-d7a5159a.gcode.3mf": "377078cc5ee12b28e8a311cee65dc5fc13683ff2",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.3mf": "ead40df2c35b855f957d72a1700f74033e0429d9",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-542eb5c4/2026-11-21-foam-cap-lid-top-mark1-542eb5c4.gcode.3mf": "c68ab36511f0d8ab707d830c6bf418615de02944",
+    "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-567fc6ef/2026-11-21-foam-cap-lid-top-mark1-567fc6ef.3mf": "7e135517e063e0517055b267e818a1cf4d310dc7",
+    "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-567fc6ef/2026-11-21-foam-cap-lid-top-mark1-567fc6ef.gcode.3mf": "6b6c96f55297f92d0d0925b2e30d119d54eb3baf",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.3mf": "1e6cf779bb75c11060267b153c7bf605c9a67331",
     "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.gcode.3mf": "a34ccab9dd7986d9136ce17ff685b909b7473fdd",
     "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.3mf": "54cf5372f44b61ccc44117ab4f80ea8d97c5970f",

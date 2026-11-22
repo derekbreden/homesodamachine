@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-effcb7d9/2026-11-21-foam-cap-lid-top-mark1-effcb7d9.gcode.3mf",
-  "archive_sha256": "bb5192a1fbdd4fefacef775e86f1ed7eb86050d24ab2eac79ac032aafe29c17c",
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-20-lid-top-production-mark1/2026-11-21-foam-cap-lid-top-mark1-567fc6ef/2026-11-21-foam-cap-lid-top-mark1-567fc6ef.gcode.3mf",
+  "archive_sha256": "040e0f8d9248b76244849d1b52e1c0cd0d828e2a532440d07b40f15dc2392200",
   "bead_envelope_plate_mm": [
     [
       20.3282395,
@@ -36,9 +36,9 @@
   "fine_band_unbacked_statistics_requested": false,
   "first_second_layer_stack": {
     "1901": {
-      "fraction_over_first_layer": 0.9953667094608679,
-      "second_layer_centerline_outside_first_mm": 57.02732844571691,
-      "second_layer_model_bead_area_mm2": 49679.215504475294
+      "fraction_over_first_layer": 0.9953667324676682,
+      "second_layer_centerline_outside_first_mm": 57.028502461778665,
+      "second_layer_model_bead_area_mm2": 49679.2145232077
     }
   },
   "gcode_md5_matches": true,
@@ -283,6 +283,65 @@
           122.1050617900888,
           20.63200344067274,
           26.705602753207927
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.903607091909517,
+      "minimum_outline_coverage": 0.9326361537416814,
+      "name": "Pump discharge clip and lid root",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          76.15097706969695,
+          72.58141378001484,
+          4.400000000000006
+        ],
+        [
+          83.19290946096575,
+          84.08704795759478,
+          25.63205307098633
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.999827294393976,
+          "infill_core_mm2": 72.37750000000001,
+          "outline_coverage": 0.9866481652790626,
+          "print_z_mm": 4.76,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 81.07500000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.994424156751875,
+          "infill_core_mm2": 63.66750000000001,
+          "outline_coverage": 0.9943605730498442,
+          "print_z_mm": 15.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 71.37250000000002
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.903607091909517,
+          "infill_core_mm2": 12.267500000000002,
+          "outline_coverage": 0.9326361537416814,
+          "print_z_mm": 25.4,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 18.407500000000002
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          -85.49902293030306,
+          -87.41858621998516,
+          4.400000000000006
+        ],
+        [
+          -78.45709053903425,
+          -75.91295204240522,
+          25.63205307098633
         ]
       ]
     },
@@ -975,7 +1034,7 @@
           "bead_radius_inset_mm": 0.334295,
           "coverage": 1.0,
           "infill_core_mm2": 51.19000000000001,
-          "outline_coverage": 0.9984467343536899,
+          "outline_coverage": 0.9984846188816487,
           "print_z_mm": 10.76,
           "sampling_step_mm": 0.05,
           "stock_mm2": 65.99000000000001

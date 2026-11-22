@@ -1,0 +1,126 @@
+{
+  "views": [
+    {
+      "name": "discharge",
+      "caption": "The white tube seats between the two jaws as it turns down into the lid.",
+      "before": "discharge-before.webp",
+      "after": "discharge-after.webp",
+      "width": 1050,
+      "height": 760,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -118.66870936000191,
+          408.80049024640044,
+          299.752083547202
+        ],
+        "target": [
+          -82,
+          400,
+          262.35
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.29685990670286166,
+        "far": 487.80972735315765,
+        "aspect": 1.381578947368421
+      },
+      "highlight": [
+        "cold-core/tube-water-5"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/tube-water-5",
+        "cold-core/discharge-chain"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3acd6045f34b007bafdeb509630e1679e0f3b011f17d3afbeca5b4f064e02f8a",
+          "commit": "ea7e312bf7dd732c2d1598d70aa4c52f33edc8b1",
+          "taken": "2026-11-22T01:37:52.416Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f3711c2101f9e837617339025511cde65d37008c53bdf6f91cc8569153edfd78",
+          "commit": "9aa3110a90ffa789d088e195c268c0de55ac2564",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "jaws",
+      "caption": "With the tube lifted out, the open jaws and their foot are visible on the lid.",
+      "before": "jaws-before.webp",
+      "after": "jaws-after.webp",
+      "width": 960,
+      "height": 700,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -97.98119799621597,
+          428.43444166141103,
+          286.36988582755214
+        ],
+        "target": [
+          -81.67,
+          405.78,
+          261.45
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2879649997994126,
+        "far": 483.36227390143307,
+        "aspect": 1.3714285714285714
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3acd6045f34b007bafdeb509630e1679e0f3b011f17d3afbeca5b4f064e02f8a",
+          "commit": "ea7e312bf7dd732c2d1598d70aa4c52f33edc8b1",
+          "taken": "2026-11-22T01:37:52.416Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "f3711c2101f9e837617339025511cde65d37008c53bdf6f91cc8569153edfd78",
+          "commit": "9aa3110a90ffa789d088e195c268c0de55ac2564",
+          "published": true
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
