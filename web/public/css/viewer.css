@@ -556,7 +556,8 @@
 .cad-wrapper > .edge-panel,
 .pcb-wrapper > .edge-panel {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 54px);
+  --readout-top: calc(env(safe-area-inset-top, 0px) + 54px);
+  top: var(--readout-top);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
   z-index: 12;
   /* Clear of the ViewCube's column: it says which way you are looking at what
@@ -1285,7 +1286,7 @@
   /* Nothing readable fits beside the cube at this width, so the readout stands
      under it — the row the find box stands on — and takes the full width. */
   .cad-wrapper > .edge-panel {
-    top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
+    --readout-top: calc(env(safe-area-inset-top, 0px) + var(--cube-size, 140px) + 28px);
     width: calc(100% - 32px);
     max-height: calc(100% - var(--cube-size, 140px) - 44px);
   }
@@ -1298,6 +1299,15 @@
     max-width: calc(100% - 32px - var(--cube-size, 140px) - 28px);
   }
 }
+/* A long face readout leaves the compact footer and its camera return within reach. */
+.cad-wrapper:has(.tool-drawer.compact):has(.previous-view) > .edge-panel.show:not(.collapsed) {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-height: calc(100% - var(--readout-top) - var(--face-on-footer-height) - env(safe-area-inset-bottom, 0px) - 24px);
+}
+.cad-wrapper:has(.previous-view) > .edge-panel > :not(.edge-panel-text) { flex-shrink: 0; }
+.cad-wrapper:has(.previous-view) > .edge-panel > .edge-panel-text { min-height: 3em; }
 /* ── The missing-parts mark: one small round mark above Reset view — a green check when the
    machine on the canvas has everything its plumbing needs, a red x when it does not. It stands
    where no other control does and moves none. A click opens the list behind it. Built by

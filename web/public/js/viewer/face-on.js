@@ -72,6 +72,10 @@ function pickedNormal(pick) {
 export function createFaceOn({ wrapper }) {
   let previous = null, cancelTurn;
   const rail = wrapper.querySelector(".tool-rail") || wrapper;
+  const footer = rail.closest(".cad-footer");
+  // Compact controls can wrap as the available width or text size changes.
+  const measureFooter = () => wrapper.style.setProperty("--face-on-footer-height", footer.offsetHeight + "px");
+  const footerSize = footer && new ResizeObserver(measureFooter);
   const button = makeToolButton({
     className: "previous-view", label: "Previous view", title: "Return to the view before Face on",
     onClick: () => {
@@ -87,6 +91,8 @@ export function createFaceOn({ wrapper }) {
     cancelTurn?.();
     previous = null;
     button.remove();
+    footerSize?.disconnect();
+    wrapper.style.removeProperty("--face-on-footer-height");
   }
   function onMount({ detail }) {
     if (previous && previous.file !== detail.file) forget();
@@ -105,6 +111,10 @@ export function createFaceOn({ wrapper }) {
       previous = { pick, pose, pivot, file: state.mountedDetail?.file, trigger: document.activeElement };
     }
     rail.append(button);
+    if (footer) {
+      measureFooter();
+      footerSize.observe(footer);
+    }
     cancelTurn = moveTo(destination, pivot);
     return true;
   }
