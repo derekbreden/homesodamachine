@@ -83,10 +83,11 @@ function addEdgeHighlight(edge, box) {
 function surfaceMiddle(geo) {
   const p = geo.getAttribute("position").array, mid = new THREE.Vector3(), c = new THREE.Vector3();
   const a = new THREE.Vector3(), b = new THREE.Vector3(), d = new THREE.Vector3();
+  const ab = new THREE.Vector3(), ad = new THREE.Vector3();
   let total = 0;
   for (let i = 0; i < p.length; i += 9) {
     a.fromArray(p, i); b.fromArray(p, i + 3); d.fromArray(p, i + 6);
-    const area = b.clone().sub(a).cross(d.clone().sub(a)).length();
+    const area = ab.subVectors(b, a).cross(ad.subVectors(d, a)).length();
     mid.addScaledVector(c.copy(a).add(b).add(d).multiplyScalar(1 / 3), area);
     total += area;
   }
@@ -150,11 +151,9 @@ const partFill = new THREE.MeshBasicMaterial({ color: FIND, transparent: true, o
 // scorecard highlight, in the find box's own magenta — one color for
 // everything this box turned up, whether it was named or pasted. Returns
 // points on it for the sight lines that uncover it.
-function addPartHighlight(name, box) {
+function addPartHighlight(meshes, box) {
   const points = [];
-  if (!state.currentGroup) return points;
-  for (const mesh of state.currentGroup.children) {
-    if (mesh.userData?.side !== "front" || mesh.name !== name || !mesh.visible) continue;
+  for (const mesh of meshes) {
     markSolid(overlay, mesh, { lineMaterial: partEdges, fillMaterial: partFill, onChange: sceneState.requestCadRender });
     const geometry = mesh.geometry;
     if (!geometry.boundingBox) geometry.computeBoundingBox();
@@ -194,8 +193,9 @@ function landing(box, view = null) {
 }
 
 let flyToken = 0;
+let gestureRevision = 0;
 let findWork = null;
-controls.addEventListener("start", () => { flyToken++; });
+controls.addEventListener("start", () => { flyToken++; gestureRevision++; });
 window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, () => {
   findWork?.abort();
   flyToken++;
@@ -390,6 +390,7 @@ async function runFind(options = {}) {
 }
 
 async function displayFind({ focus = true, text = textarea.value, instant = false, reveal = false }, signal) {
+  const startingGesture = gestureRevision;
   // The box is on screen from the moment the modal opens; a big assembly is
   // still parsing for seconds after that. Say so rather than doing nothing.
   if (!state.mountedDetail || state.mountedDetail.type !== "step") {
@@ -433,6 +434,14 @@ async function displayFind({ focus = true, text = textarea.value, instant = fals
   if (!picks.length && !names.length && !featureQueries.length) { activeFind = null; setStatus("opened — nothing to highlight"); return; }
   const mounted = state.currentGroup;
   activeFind = { file: state.mountedDetail.file, text };
+  setStatus("Finding…");
+  let slice = performance.now();
+  async function yieldToInput() {
+    await new Promise(resolve => setTimeout(resolve, 0));
+    signal.throwIfAborted();
+    if (state.currentGroup !== mounted) throw new DOMException("Model changed", "AbortError");
+    slice = performance.now();
+  }
 
   const box = new THREE.Box3();
   const status = [];
@@ -457,22 +466,29 @@ async function displayFind({ focus = true, text = textarea.value, instant = fals
   // A link brings back what it points at when the reader hid it here by hand.
   if (reveal) revealHidden(nameHits.flatMap((h) => h.names));
   if (nameHits.length) {
-    for (const name of new Set(nameHits.flatMap((h) => h.names))) {
-      targets.push({ points: addPartHighlight(name, box), bodies: [name] });
+    const matches = new Map(nameHits.flatMap(hit => hit.names).map(name => [name, []]));
+    for (const mesh of mounted.children) {
+      if (mesh.userData.side === "front" && mesh.visible) matches.get(mesh.name)?.push(mesh);
+    }
+    for (const [name, meshes] of matches) {
+      if (performance.now() - slice > 4) await yieldToInput();
+      targets.push({ points: addPartHighlight(meshes, box), bodies: [name] });
     }
     status.push(nameStatus(nameHits));
   }
 
   const labels = [];
-  const allFeatures = sceneFeatures();
+  const queries = [...featureQueries, ...names.filter(name => !literalSolids.has(name))];
+  const allFeatures = queries.length ? sceneFeatures() : [];
   const featureMatches = new Map();
-  for (const query of [...featureQueries, ...names.filter(name => !literalSolids.has(name))]) {
+  for (const query of queries) {
     for (const feature of matchFeatures(query, allFeatures)) featureMatches.set(feature.key, feature);
   }
   if (reveal) revealHidden([...featureMatches.values()].flatMap(feature => feature.meshes.map(mesh => mesh.name)));
   for (const feature of featureMatches.values()) {
     for (const mesh of feature.meshes) {
       if (mesh.visible === false) continue;
+      if (performance.now() - slice > 4) await yieldToInput();
       const record = mesh.userData.features.find(f => f.id === feature.id);
       const { at, lit } = addSurfaceHighlight(featureGeometry(mesh, record), box);
       targets.push(litTarget(lit, [mesh.name]));
@@ -523,7 +539,7 @@ async function displayFind({ focus = true, text = textarea.value, instant = fals
   if (reveal) revealHidden(targets.flatMap(target => target.bodies));
 
   setStatus(status.filter(Boolean).join(" · "));
-  if (focus) {
+  if (focus && gestureRevision === startingGesture) {
     uncoverFound(targets, landing(box, view)?.position || camera.position);
     flyToBox(box, view, instant);
   }

@@ -54,11 +54,13 @@ canvasHost.appendChild(renderer.domElement);
 
 export const scene = new THREE.Scene();
 let animating = false, animateRafId = 0, refineTimer = 0, refining = false;
+let commandUntil = 0;
 
 // Camera and scene changes request one display frame, including edits made between gestures.
 export function requestCadRender() {
   if (!animating) return;
   clearTimeout(refineTimer);
+  refineTimer = 0;
   refining = false;
   if (!animateRafId) animateRafId = requestAnimationFrame(animate);
 }
@@ -79,6 +81,25 @@ function childRemoved({ child }) { watchChildren(child, false); requestCadRender
 watchChildren(scene, true);
 for (const type of [HSM_EVENTS.STEP_MOUNTED, HSM_EVENTS.STEP_TOOL, HSM_EVENTS.FAUCET_OPTIONS, HSM_EVENTS.MATERIAL_PICKED]) {
   window.addEventListener(type, requestCadRender);
+}
+
+function refineWhenIdle() {
+  clearTimeout(refineTimer);
+  refineTimer = setTimeout(() => {
+    refineTimer = 0;
+    refining = true;
+    animateRafId = requestAnimationFrame(animate);
+  }, Math.max(120, commandUntil - performance.now()));
+}
+
+// Consecutive CAD commands share the responsive canvas while the controls stay at native resolution.
+for (const type of ["pointerdown", "click", "keydown"]) {
+  window.addEventListener(type, event => {
+    if (!animating || renderAlpha || !hasDenseSurfaces() ||
+        !event.target?.closest?.(".cad-workspace")?.contains(state.currentCadWrapper)) return;
+    commandUntil = performance.now() + 260;
+    if (refineTimer) refineWhenIdle();
+  }, { capture: true, passive: true });
 }
 // near/far are seeded here and fitted to the mounted model every frame by
 // updateDepthRange().
@@ -458,20 +479,16 @@ function animate(now) {
   const exact = refining;
   refining = false;
   const moving = navigation.update(now);
-  setMotionResolution(moving, exact && !moving);
+  const command = performance.now() < commandUntil;
+  setMotionResolution(moving || command, exact && !moving && !command);
   xray.updateBlueprintView?.(renderer, camera, state.currentGroup);
   xray.syncEdgeResolution(renderer);
   const draw = () => renderer.render(scene, camera);
   let reduced = false;
-  if (renderAlpha || (exact && !moving)) draw();
+  if (renderAlpha || (exact && !moving && !command)) draw();
   else reduced = drawMovingSurfaces(scene, camera, drawnSize.h, draw);
   if (moving) requestCadRender();
-  if ((reduced || restingPixelRatio) && !animateRafId) {
-    refineTimer = setTimeout(() => {
-      refining = true;
-      animateRafId = requestAnimationFrame(animate);
-    }, 120);
-  }
+  if ((reduced || restingPixelRatio) && !animateRafId) refineWhenIdle();
 }
 export function startAnimate() {
   if (animating) return;
@@ -482,6 +499,7 @@ export function startAnimate() {
 export function stopAnimate() {
   animating = false;
   clearTimeout(refineTimer);
+  refineTimer = commandUntil = 0;
   prepareMotionSurfaces(null);
   setMotionResolution(false, true);
   _modelBoundsDirty = true;

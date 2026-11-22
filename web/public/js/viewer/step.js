@@ -326,7 +326,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
   if (!meshes.length) return;
   let group = state.currentGroup;
   if (group?.userData.sharedFile !== file) {
-    if (group) { scene.remove(group); disposeCadGroup(group); }
+    if (group) { clearComponentPicker(); scene.remove(group); disposeCadGroup(group); }
     group = new THREE.Group(); group.userData.sharedFile = file;
     group.userData.parts = new Map(); state.currentGroup = group; scene.add(group);
     group.userData.fitWhenReady = !preserveCamera;

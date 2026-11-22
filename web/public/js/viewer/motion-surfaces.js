@@ -1,5 +1,6 @@
 // Dense models draw reduced surfaces during interaction and use the inspection mesh at rest.
 import * as THREE from "three";
+import { isPlainIndexedSurface, prepareMotionBatches } from "./motion-batches.js";
 
 const DENSE_TRIANGLES = 350_000;
 const MIN_TRIANGLES = 1_024;
@@ -11,7 +12,7 @@ const records = new WeakMap();
 const waitingSurfaces = new WeakSet();
 const center = new THREE.Vector3();
 const pending = [];
-let model = null, mountedWork = null, dense = false, current = null, worker = null;
+let model = null, mountedWork = null, batches = null, dense = false, current = null, worker = null;
 let idleTimer = 0, unavailable = false;
 
 function closeWorker() {
@@ -111,7 +112,8 @@ function attachSurface(geometry) {
   preview.setIndex(new THREE.BufferAttribute(job.reduced, 1));
   preview.boundingBox = geometry.boundingBox;
   preview.boundingSphere = geometry.boundingSphere;
-  records.set(geometry, { preview, deviation: job.deviation });
+  records.set(geometry, { preview, deviation: job.deviation, index: geometry.index, indexVersion: geometry.index.version,
+    positionVersion: geometry.attributes.position.version });
   geometry.addEventListener("dispose", function release() {
     geometry.removeEventListener("dispose", release);
     records.delete(geometry);
@@ -121,6 +123,10 @@ function attachSurface(geometry) {
 
 // Earlier scene manifests can cross the drawing threshold as their parts arrive.
 export function prepareMotionSurfaces(group) {
+  if (batches && (group !== batches.model || group.userData.sharedHead !== batches.revision)) {
+    batches.dispose();
+    batches = null;
+  }
   if (group !== model) {
     mountedWork?.abort();
     mountedWork = group ? new AbortController() : null;
@@ -128,7 +134,7 @@ export function prepareMotionSurfaces(group) {
   }
   const surfaces = (group?.children || []).filter(mesh => mesh.userData.side === "front" && mesh.geometry?.index);
   dense = surfaces.reduce((count, mesh) => count + mesh.geometry.index.count / 3, 0) >= DENSE_TRIANGLES;
-  if (unavailable || !dense) return;
+  if (!dense) return;
   for (const mesh of surfaces) {
     const geometry = mesh.geometry;
     if (records.has(geometry) || waitingSurfaces.has(geometry) || geometry.index.count < MIN_TRIANGLES * 3) continue;
@@ -142,19 +148,27 @@ export function prepareMotionSurfaces(group) {
       });
     } else attachSurface(geometry);
   }
+  batches ??= prepareMotionBatches(group, geometry => records.get(geometry)?.preview);
+  batches.collect(surfaces, !group.userData.sceneLoading);
 }
 
 // The original geometry stays on every mesh for selection, surface tracking and measurements.
 export function drawMovingSurfaces(scene, camera, height, render) {
   const swapped = [];
   if (dense) {
+    if (!batches.sealed && !model.userData.sceneLoading) batches.collect(model.children, true);
     camera.updateMatrixWorld();
+    model.updateWorldMatrix(true, false);
     const focal = camera.projectionMatrix.elements[5] * height / 2;
     scene.traverseVisible(mesh => {
-      if (mesh.userData.side !== "front" || !mesh.layers.test(camera.layers)) return;
+      if (mesh.userData.side !== "front" || mesh.isInstancedMesh || mesh.isSkinnedMesh || !mesh.layers.test(camera.layers)) return;
       const geometry = mesh.geometry;
       const record = geometry && records.get(geometry);
-      if (!record) return;
+      if (!record || geometry.index !== record.index || geometry.index.version !== record.indexVersion ||
+          geometry.attributes.position !== record.preview.attributes.position ||
+          geometry.attributes.position.version !== record.positionVersion ||
+          geometry.attributes.normal !== record.preview.attributes.normal || !isPlainIndexedSurface(geometry)) return;
+      mesh.updateWorldMatrix(false, false);
       const scale = mesh.matrixWorld.getMaxScaleOnAxis();
       center.copy(geometry.boundingSphere.center).applyMatrix4(mesh.matrixWorld).applyMatrix4(camera.matrixWorldInverse);
       const depth = Math.max(camera.near, -center.z - geometry.boundingSphere.radius * scale);
@@ -163,7 +177,13 @@ export function drawMovingSurfaces(scene, camera, height, render) {
       mesh.geometry = record.preview;
     });
   }
-  try { render(); }
-  finally { for (const [mesh, geometry] of swapped) mesh.geometry = geometry; }
-  return swapped.length > 0;
+  let grouped = false;
+  try {
+    grouped = batches?.present(camera);
+    render();
+  } finally {
+    batches?.restore();
+    for (const [mesh, geometry] of swapped) mesh.geometry = geometry;
+  }
+  return swapped.length > 0 || !!grouped;
 }

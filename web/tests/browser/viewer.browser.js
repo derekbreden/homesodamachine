@@ -129,7 +129,8 @@ test("/3d opening a selected component and returning keep the exact view", async
       waitUntil: "domcontentloaded",
     });
     await page.waitForFunction(
-      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup
+        && !window.__hsm.currentGroup.userData.sceneLoading,
       { timeout: 30_000 },
       assembly,
     );
@@ -189,7 +190,8 @@ test("/3d opening a selected component and returning keep the exact view", async
 
     await page.click(".component-panel .component-open");
     await page.waitForFunction(
-      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup
+        && !window.__hsm.currentGroup.userData.sceneLoading,
       { timeout: 30_000 },
       part,
     );
@@ -229,7 +231,8 @@ test("/3d opening a selected component and returning keep the exact view", async
 
     await page.click(".cad-crumb-step");
     await page.waitForFunction(
-      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup,
+      (wanted) => window.__hsm?.mountedStepFile === wanted && window.__hsm.currentGroup
+        && !window.__hsm.currentGroup.userData.sceneLoading,
       { timeout: 30_000 },
       assembly,
     );

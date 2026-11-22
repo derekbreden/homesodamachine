@@ -202,6 +202,8 @@ test("assembly clicks and hiding keep physical copies together; opening exposes 
     await clickBody(page,wire,[wire]);
     await page.click(".component-actions .component-open");
     await loaded(machine+"?component=Wiring");
+    assert.equal(await page.$eval(".component-panel .component-hide", button => button.getClientRects().length), 0);
+    assert.equal(await page.evaluate(() => window.__hsm.scene.getObjectByName("component-picker").children[0].children.length), 0);
     assert.deepEqual(await page.evaluate(() => [...new Set(window.__hsm.currentGroup.children
       .filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name))].sort()),wiring.sort());
     assert.equal((await clickBody(page,wire,[wire])).picked.name,wire);

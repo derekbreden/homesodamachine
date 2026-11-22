@@ -162,8 +162,9 @@ export function createXrayRenderer({
     }
     if (record.line) { record.line.visible = false; record.line.removeFromParent(); }
   }
-  function present(mesh, record, on) {
-    record.ghost = on ? ghostMaterial(record.base) : null;
+  function present(mesh, record, on, materials) {
+    record.ghost = on ? materials?.get(record.base) || ghostMaterial(record.base) : null;
+    if (on && materials) materials.set(record.base, record.ghost);
     mesh.material = record.ghost || record.base;
     record.applied = !!record.ghost;
     if (on) updateEdge(mesh, record);
@@ -192,6 +193,7 @@ export function createXrayRenderer({
     if (previous) for (const mesh of previous) if (!meshes.has(mesh)) release(mesh);
     roots.set(root, meshes);
     if (!on) { restore(root); return; }
+    const materials = new Map();
     for (const mesh of meshes) {
       if (included && !included(mesh)) {
         const record = records.get(mesh);
@@ -200,7 +202,7 @@ export function createXrayRenderer({
       }
       const record = meshRecord(mesh);
       mesh.userData.baseMaterial = record.base;
-      present(mesh, record, on);
+      present(mesh, record, on, materials);
     }
   }
   function setMeshMaterial(mesh, material, on = active) {

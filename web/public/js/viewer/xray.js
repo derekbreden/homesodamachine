@@ -38,16 +38,20 @@ function releaseView() {
 }
 function paint() {
   if (!group || !exposed) return;
+  let changed = false;
   for (const solid of group.children) {
     if (solid.userData.side !== 'front') continue;
-    if (exposed.has(solidOwner(solid))) restoreLayer(solid);
-    else {
+    if (exposed.has(solidOwner(solid))) {
+      changed ||= layerMasks.has(solid);
+      restoreLayer(solid);
+    } else {
+      changed ||= !layerMasks.has(solid);
       if (!layerMasks.has(solid)) layerMasks.set(solid, solid.layers.mask);
       solid.layers.mask = 0;
     }
   }
   rendering.apply(group, true, solid => solid.visible && !layerMasks.has(solid));
-  window.dispatchEvent(new Event(HSM_EVENTS.BLUEPRINT_VISIBILITY));
+  if (changed) window.dispatchEvent(new Event(HSM_EVENTS.BLUEPRINT_VISIBILITY));
   invalidate();
 }
 async function classify() {

@@ -1,7 +1,8 @@
 // Resolve each drawn body to its selectable component in the mounted model.
 import { materialForView } from "/contracts/materials.js";
 import { componentGroupsInModel, componentUnitsInScene } from "/contracts/material-instances.js";
-import { splitFeatureKey } from "/contracts/features.js";
+import { instanceBody, splitFeatureKey } from "/contracts/features.js";
+import { heldBy } from "/contracts/body-path.js";
 import { state } from "./state.js";
 
 export const mountedFile = () =>
@@ -21,13 +22,19 @@ export function installedUnits() {
       : group.children.filter(mesh => mesh.userData?.side === "front").map(mesh => mesh.name);
     const units = componentUnitsInScene(catalog, material?.id, names, namingOptions());
     const groups = componentGroupsInModel(catalog, file, names);
+    const paths = new Set();
+    for (const raw of names) {
+      const body = instanceBody(raw);
+      paths.add(body);
+      for (const parent of heldBy(body)) paths.add(parent);
+    }
     const byBody = new Map(), groupByBody = new Map(), groupByName = new Map();
     for (const unit of units) for (const body of unit.bodies) byBody.set(body, unit);
     for (const component of groups) {
       groupByName.set(component.name, component);
       for (const body of component.bodies) groupByBody.set(body, component);
     }
-    unitsCache = { group, catalog, file, head, finish, count: group.children.length, byBody, groupByBody, groupByName };
+    unitsCache = { group, catalog, file, head, finish, count: group.children.length, paths, byBody, groupByBody, groupByName };
   }
   return unitsCache;
 }

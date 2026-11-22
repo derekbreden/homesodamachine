@@ -48,7 +48,9 @@ let enabled = (() => {
 })();
 
 let selection = null;   // selected component name, or null
-let selectionBodies = null; // the bodies of a compound installed unit
+let selectionGroup = null;
+let explicitMembers = null; // a Materials location can select one installation inside Wiring
+const selectedBodies = () => explicitMembers || (selection && unitForKey(selection)?.bodies);
 let hoverName = null;   // hovered component name, or null
 
 // The model on screen, and the bare name of a file the drill-down could reach.
@@ -91,7 +93,7 @@ export function loadHiddenForFile(file) {
 }
 
 function persistHidden() {
-  const file = state.mountedDetail && state.mountedDetail.file;
+  const file = mountedFile();
   if (!file) return;
   try {
     const arr = [...state.hiddenComponents];
@@ -110,7 +112,7 @@ export function applyHiddenComponents() {
   state.hiddenComponents = new Set([...state.hiddenComponents].map(visibilityName));
   state.autoHiddenComponents = new Set([...state.autoHiddenComponents].map(visibilityName));
   let repaintSelection = false;
-  const selectedNames = selectionBodies || (selection ? [componentBody(selection)] : []);
+  const selectedNames = selectedBodies() || (selection ? [componentBody(selection)] : []);
   if (state.currentGroup) {
     for (const m of state.currentGroup.children) {
       // An x-ray edge answers to isMesh — xray.js draws it as LineSegments2,
@@ -251,6 +253,7 @@ function syncOverlayVisibility() {
 window.addEventListener(HSM_EVENTS.BLUEPRINT_VISIBILITY, syncOverlayVisibility);
 
 function removeMark(group, mesh, mark) {
+  mesh.removeEventListener("removed", mark.onRemove);
   mark.cancelEdges?.();
   mark.shell.removeFromParent();
   mark.line?.removeFromParent();
@@ -270,6 +273,8 @@ function addMark(group, mesh, feature) {
   shell.renderOrder = group.renderOrder;
   group.add(shell);
   const mark = { shell, feature, source: mesh.geometry, line: null, cancelEdges: null };
+  mark.onRemove = () => removeMark(group, mesh, mark);
+  mesh.addEventListener("removed", mark.onRemove);
   syncMarkVisibility(mesh, mark);
   group.userData.marks.set(mesh, mark);
   return mark;
@@ -280,7 +285,7 @@ function drawOverlay(group, name, showEdges = true) {
   const marks = group.userData.marks;
   if (!name || !state.currentGroup) { disposeGroup(group); return; }
   const feature = splitFeatureKey(name);
-  const members = new Set((group === selGroup && selectionBodies) || componentUnit(name)?.bodies || [componentBody(name)]);
+  const members = new Set((group === selGroup && selectedBodies()) || componentUnit(name)?.bodies || [componentBody(name)]);
   const keep = new Set();
   for (const mesh of state.currentGroup.children) {
     if (mesh.userData?.side !== "front" || !mesh.visible ||
@@ -359,18 +364,20 @@ export function selectComponent(name, { members = null } = {}) {
   name = unit?.name || name;
   const feature = sceneFeature(name);
   selection = name;
-  selectionBodies = members?.length ? [...members] : unit?.bodies || null;
+  selectionGroup = state.currentGroup;
+  explicitMembers = members?.length ? [...members] : null;
   setHover(null);
   showPanel();
   drawOverlay(selGroup, name);
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
-    detail: { file: state.mountedDetail?.file, name: componentBody(name), ...(feature ? { feature: feature.id } : {}) },
+    detail: { file: mountedFile(), name: componentBody(name), ...(feature ? { feature: feature.id } : {}) },
   }));
 }
 
 function clearSelectionOverlay() {
   selection = null;
-  selectionBodies = null;
+  selectionGroup = null;
+  explicitMembers = null;
   disposeGroup(selGroup);
 }
 
@@ -379,7 +386,7 @@ function deselect() {
   clearSelectionOverlay();
   refreshPanel();
   window.dispatchEvent(new CustomEvent(HSM_EVENTS.MATERIAL_PICKED, {
-    detail: { file: state.mountedDetail?.file, name: null },
+    detail: { file: mountedFile(), name: null },
   }));
 }
 
@@ -394,9 +401,19 @@ export function clearComponentSelection() {
 }
 
 export function clearComponentPicker({ preserve = false } = {}) {
-  if (preserve && selection && (!splitFeatureKey(selection) || sceneFeature(selection))) {
-    drawOverlay(selGroup, selection);
-    setHover(null); refreshPanel(); return;
+  if (preserve && selection && selectionGroup && selectionGroup === state.currentGroup) {
+    const units = installedUnits();
+    const contains = name => units?.paths ? units.paths.has(name)
+      : selectionGroup.children.some(mesh => mesh.userData.side === "front" && standsIn(mesh.name, name));
+    const present = splitFeatureKey(selection) ? sceneFeature(selection) : contains(selection)
+      || units?.groupByName.has(selection) || explicitMembers?.some(contains);
+    if (present) {
+      drawOverlay(selGroup, selection);
+      setHover(null); refreshPanel(); return;
+    }
+    setHover(null);
+    deselect();
+    return;
   }
   clearSelectionOverlay();
   setHover(null);
@@ -454,7 +471,7 @@ function buildPanel() {
     if (!selection) return;
     const body = componentBody(selection);
     const file = sourceFileFor(body, state.allFiles, mountedFile(), state.materialCatalog, { finish: state.faucetFinish });
-    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), body), selectionBodies || body);
+    drillToComponent(file && file !== mountedFile() ? file : componentLocation(mountedFile(), body), selectedBodies() || body);
   });
   actions.appendChild(openBtn);
   panel._openBtn = openBtn;
@@ -471,7 +488,7 @@ function buildPanel() {
       for (const body of group.bodies) state.hiddenComponents.delete(visibilityName(body));
       state.hiddenComponents.add(group.name);
     } else {
-      for (const name of selectionBodies || [selection]) state.hiddenComponents.add(visibilityName(name));
+      for (const name of selectedBodies() || [selection]) state.hiddenComponents.add(visibilityName(name));
     }
     persistHidden();
     clearSelectionOverlay();
@@ -676,6 +693,17 @@ function makeHiddenRow(name) {
   return row;
 }
 
+function thumbnailSource(group, name) {
+  const bodies = new Set(unitForKey(name)?.bodies || [name]);
+  const meshes = group.children.filter(mesh => mesh.userData.side === "front" && inFinish(mesh.name)
+    && (bodies.has(mesh.name) || heldBy(mesh.name).some(body => bodies.has(body))));
+  const version = meshes.map(mesh => {
+    mesh.updateWorldMatrix(true, false);
+    return [mesh.geometry.id, (mesh.userData.baseMaterial || mesh.material).id, ...mesh.matrixWorld.elements].join(",");
+  }).join(";");
+  return { meshes, version };
+}
+
 // Capture one visible tile at a time from the mounted solids, after the viewer can paint.
 function queueHiddenThumbnails() {
   if (thumbnailQueued || !hiddenRows.size) return;
@@ -686,13 +714,7 @@ function queueHiddenThumbnails() {
     const tiles = group.userData.hiddenThumbnails ??= new Map();
     for (const [name, row] of hiddenRows) {
       if (!row.inView) continue;
-      const bodies = new Set(unitForKey(name)?.bodies || [name]);
-      const meshes = group.children.filter(mesh => mesh.userData.side === "front" && inFinish(mesh.name)
-        && (bodies.has(mesh.name) || heldBy(mesh.name).some(body => bodies.has(body))));
-      const version = meshes.map(mesh => {
-        mesh.updateWorldMatrix(true, false);
-        return [mesh.geometry.id, (mesh.userData.baseMaterial || mesh.material).id, ...mesh.matrixWorld.elements].join(",");
-      }).join(";");
+      const { meshes, version } = thumbnailSource(group, name);
       if (version === row.version) continue;
       row.version = version;
       row.image.hidden = true;
@@ -700,8 +722,9 @@ function queueHiddenThumbnails() {
       const current = () => state.currentGroup === group && hiddenRows.get(name) === row && row.version === version;
       const cached = tiles.get(name);
       try {
-        const image = cached?.version === version ? cached.image : await captureHiddenThumbnail(meshes, current);
-        if (image && current()) {
+        const alreadyDrawn = cached?.version === version;
+        const image = alreadyDrawn ? cached.image : await captureHiddenThumbnail(meshes, current);
+        if (image && current() && (alreadyDrawn || thumbnailSource(group, name).version === version)) {
           tiles.delete(name);
           tiles.set(name, { version, image });
           if (tiles.size > 32) tiles.delete(tiles.keys().next().value);
