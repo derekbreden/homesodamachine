@@ -1,256 +1,668 @@
 {
-  "model": {
+  "coordinates": "Coordinates are pixels from the upper-left of the full USB image after rotation to its upright orientation. Subtract the archived crop origin in setup.json to locate a coordinate in a lossless frame.",
+  "reference_frame": "frames/rest-before-swap.png",
+  "registration": "Reference y equals (native y minus offset) divided by scale. Tick detections include partially covered red ink. The printed reference rows are the graduations used for interpolation.",
+  "volume_method": "cup-calibration.json",
+  "traces": {
     "left50": {
-      "reference_y": [
-        1643.0976430976432,
-        1798.022988505747,
-        1958.0741935483873,
-        2114.0380622837365,
-        2271.0664206642064,
-        2440.133620689655
-      ],
-      "cups": [
+      "printed_us_cups": [
         2.0,
-        1.6666666666666667,
-        1.3333333333333335,
+        1.666666667,
+        1.333333333,
         1.0,
-        0.6666666666666667,
-        0.33333333333333326
+        0.666666667,
+        0.333333333
       ],
-      "baseline_minus_one_cup_px": [
-        -57.74792211436443,
-        -64.67744854362445
+      "printed_reference_y_px": [
+        1643.098,
+        1798.023,
+        1958.074,
+        2114.038,
+        2271.066,
+        2440.134
       ],
-      "endpoints": {
+      "start_contact_minus_printed_one_cup_px": -57.7479,
+      "observations": {
         "rig-focus": {
-          "x": 2367.3072449693555,
-          "y": 2105.394992778387,
-          "registered_y": 2056.290140169372,
-          "print_scale": 0.9817733777413985,
-          "print_offset": 86.58407624796874
+          "native_contact_xy_px": [
+            2367.307,
+            2105.395
+          ],
+          "alternate_edge_xy_px": [
+            2366.572,
+            2098.592
+          ],
+          "detected_native_print_y_px": [
+            1699.921,
+            1851.466,
+            2009.151
+          ],
+          "native_to_reference_y": {
+            "scale": 0.981773378,
+            "offset_px": 86.584076
+          },
+          "reference_contact_y_px": 2056.29,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0,
+          "anchored_cup_ml": 236.59
         },
         "pilot-a": {
-          "x": 2385.4024700378022,
-          "y": 2134.0288813540897,
-          "registered_y": 2093.205149497658,
-          "print_scale": 0.9871990315398277,
-          "print_offset": 67.61878495582124
+          "native_contact_xy_px": [
+            2385.402,
+            2134.029
+          ],
+          "alternate_edge_xy_px": [
+            2385.182,
+            2132.064
+          ],
+          "detected_native_print_y_px": [
+            1689.911,
+            1842.178,
+            2000.848
+          ],
+          "native_to_reference_y": {
+            "scale": 0.987199032,
+            "offset_px": 67.618785
+          },
+          "reference_contact_y_px": 2093.205,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0797009,
+          "anchored_cup_ml": 223.08
         },
         "pilot-b": {
-          "x": 2403.8958186798536,
-          "y": 2166.1995549835524,
-          "registered_y": 2135.7400992243392,
-          "print_scale": 0.9916899860637076,
-          "print_offset": 48.20748574806581
+          "native_contact_xy_px": [
+            2403.896,
+            2166.2
+          ],
+          "alternate_edge_xy_px": [
+            2404.96,
+            2175.631
+          ],
+          "detected_native_print_y_px": [
+            1677.76,
+            1831.075,
+            1990.115,
+            2145.113
+          ],
+          "native_to_reference_y": {
+            "scale": 0.991689986,
+            "offset_px": 48.207486
+          },
+          "reference_contact_y_px": 2135.74,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.1717731,
+          "anchored_cup_ml": 207.47
         },
         "wet-a": {
-          "x": 2422.567221851653,
-          "y": 2267.350425157367,
-          "registered_y": 2241.4467907098287,
-          "print_scale": 0.9923036128362765,
-          "print_offset": 43.154676755726534
+          "native_contact_xy_px": [
+            2422.567,
+            2267.35
+          ],
+          "alternate_edge_xy_px": [
+            2423.511,
+            2275.547
+          ],
+          "detected_native_print_y_px": [
+            1673.819,
+            1826.92,
+            1986.365,
+            2141.968
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992303613,
+            "offset_px": 43.154677
+          },
+          "reference_contact_y_px": 2241.447,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.393844,
+          "anchored_cup_ml": 169.84
         },
         "wet-b": {
-          "x": 2444.053172378941,
-          "y": 2372.661894471267,
-          "registered_y": 2355.2008489919212,
-          "print_scale": 0.9918713019574356,
-          "print_offset": 36.60576201039248
+          "native_contact_xy_px": [
+            2444.053,
+            2372.662
+          ],
+          "alternate_edge_xy_px": [
+            2445.119,
+            2382.045
+          ],
+          "detected_native_print_y_px": [
+            1666.552,
+            1819.61,
+            1978.962,
+            2133.874,
+            2290.417
+          ],
+          "native_to_reference_y": {
+            "scale": 0.991871302,
+            "offset_px": 36.605762
+          },
+          "reference_contact_y_px": 2355.201,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.6200448,
+          "anchored_cup_ml": 131.5
         },
         "burst-a": {
-          "x": 2461.089935670225,
-          "y": 2455.866068398387,
-          "registered_y": 2442.8277603918045,
-          "print_scale": 0.9935822587466699,
-          "print_offset": 28.71574449922923
+          "native_contact_xy_px": [
+            2461.09,
+            2455.866
+          ],
+          "alternate_edge_xy_px": [
+            2462.41,
+            2467.504
+          ],
+          "detected_native_print_y_px": [
+            1661.48,
+            1814.783,
+            1974.429,
+            2129.883,
+            2286.548,
+            2470.542
+          ],
+          "native_to_reference_y": {
+            "scale": 0.993582259,
+            "offset_px": 28.715744
+          },
+          "reference_contact_y_px": 2442.828,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.792487,
+          "anchored_cup_ml": 102.27
         },
         "burst-b": {
-          "x": 2486.370203691822,
-          "y": 2553.383798170492,
-          "registered_y": 2546.3101604378244,
-          "print_scale": 0.9987245857328726,
-          "print_offset": 10.321238039821097
+          "native_contact_xy_px": [
+            2486.37,
+            2553.384
+          ],
+          "alternate_edge_xy_px": [
+            2487.249,
+            2561.045
+          ],
+          "detected_native_print_y_px": [
+            1651.526,
+            1805.651,
+            1966.095,
+            2121.779,
+            2278.885,
+            2447.874
+          ],
+          "native_to_reference_y": {
+            "scale": 0.998724586,
+            "offset_px": 10.321238
+          },
+          "reference_contact_y_px": 2546.31,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.9982404,
+          "anchored_cup_ml": 67.4
         },
         "rest-before-swap": {
-          "x": 2498.6092773637743,
-          "y": 2547.195133110154,
-          "registered_y": 2547.195133110154,
-          "print_scale": 0.9999999999999986,
-          "print_offset": 3.675679076265971e-12
+          "native_contact_xy_px": [
+            2498.609,
+            2547.195
+          ],
+          "alternate_edge_xy_px": [
+            2499.565,
+            2555.51
+          ],
+          "detected_native_print_y_px": [
+            1643.098,
+            1798.023,
+            1958.074,
+            2114.038,
+            2271.066,
+            2440.134
+          ],
+          "native_to_reference_y": {
+            "scale": 1.0,
+            "offset_px": 0.0
+          },
+          "reference_contact_y_px": 2547.195,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 1.0,
+          "anchored_cup_ml": 67.1
         }
       }
     },
     "left75": {
-      "reference_y": [
-        1648.786440677966,
-        1802.9971014492753,
-        1963.5548172757478,
-        2119.4123711340208,
-        2277.0357142857147,
-        2446.136363636364
-      ],
-      "cups": [
+      "printed_us_cups": [
         2.0,
-        1.6666666666666667,
-        1.3333333333333335,
+        1.666666667,
+        1.333333333,
         1.0,
-        0.6666666666666667,
-        0.33333333333333326
+        0.666666667,
+        0.333333333
       ],
-      "baseline_minus_one_cup_px": [
-        -59.499057788711525,
-        -66.23694002446109
+      "printed_reference_y_px": [
+        1648.786,
+        1802.997,
+        1963.555,
+        2119.412,
+        2277.036,
+        2446.136
       ],
-      "endpoints": {
+      "start_contact_minus_printed_one_cup_px": -59.4991,
+      "observations": {
         "rig-focus": {
-          "x": 2342.67721070285,
-          "y": 2108.8190131612478,
-          "registered_y": 2059.9133133453092,
-          "print_scale": 0.9840266258773602,
-          "print_offset": 81.80946583020952
+          "native_contact_xy_px": [
+            2342.677,
+            2108.819
+          ],
+          "alternate_edge_xy_px": [
+            2341.961,
+            2102.189
+          ],
+          "detected_native_print_y_px": [
+            1704.195,
+            1856.133,
+            2013.938
+          ],
+          "native_to_reference_y": {
+            "scale": 0.984026626,
+            "offset_px": 81.809466
+          },
+          "reference_contact_y_px": 2059.913,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0,
+          "anchored_cup_ml": 236.59
         },
         "pilot-a": {
-          "x": 2360.79063467403,
-          "y": 2137.4844206763887,
-          "registered_y": 2096.513678857091,
-          "print_scale": 0.9900403736932153,
-          "print_offset": 61.85123460777672
+          "native_contact_xy_px": [
+            2360.791,
+            2137.484
+          ],
+          "alternate_edge_xy_px": [
+            2360.657,
+            2136.292
+          ],
+          "detected_native_print_y_px": [
+            1694.148,
+            1847.025,
+            2005.784,
+            2143.833
+          ],
+          "native_to_reference_y": {
+            "scale": 0.990040374,
+            "offset_px": 61.851235
+          },
+          "reference_contact_y_px": 2096.514,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0786939,
+          "anchored_cup_ml": 223.25
         },
         "pilot-b": {
-          "x": 2379.3050551908295,
-          "y": 2169.8252994490163,
-          "registered_y": 2139.5962462724806,
-          "print_scale": 0.9926710622582271,
-          "print_offset": 45.9100208579977
+          "native_contact_xy_px": [
+            2379.305,
+            2169.825
+          ],
+          "alternate_edge_xy_px": [
+            2380.445,
+            2179.924
+          ],
+          "detected_native_print_y_px": [
+            1682.532,
+            1835.851,
+            1994.997,
+            2150.481
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992671062,
+            "offset_px": 45.910021
+          },
+          "reference_contact_y_px": 2139.596,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.1714172,
+          "anchored_cup_ml": 207.54
         },
         "wet-a": {
-          "x": 2398.021585106349,
-          "y": 2271.298014065471,
-          "registered_y": 2244.860430530556,
-          "print_scale": 0.994931277245806,
-          "print_offset": 37.816158679134745
+          "native_contact_xy_px": [
+            2398.022,
+            2271.298
+          ],
+          "alternate_edge_xy_px": [
+            2398.944,
+            2279.31
+          ],
+          "detected_native_print_y_px": [
+            1678.181,
+            1831.801,
+            1991.356,
+            2146.84,
+            2280.477
+          ],
+          "native_to_reference_y": {
+            "scale": 0.994931277,
+            "offset_px": 37.816159
+          },
+          "reference_contact_y_px": 2244.86,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.3915854,
+          "anchored_cup_ml": 170.22
         },
         "wet-b": {
-          "x": 2419.5618062894473,
-          "y": 2377.1374034819505,
-          "registered_y": 2359.3615646099292,
-          "print_scale": 0.9932713192616476,
-          "print_offset": 33.651229586620865
+          "native_contact_xy_px": [
+            2419.562,
+            2377.137
+          ],
+          "alternate_edge_xy_px": [
+            2420.598,
+            2386.259
+          ],
+          "detected_native_print_y_px": [
+            1671.383,
+            1824.438,
+            1984.032,
+            2139.272,
+            2295.884
+          ],
+          "native_to_reference_y": {
+            "scale": 0.993271319,
+            "offset_px": 33.65123
+          },
+          "reference_contact_y_px": 2359.362,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.6189627,
+          "anchored_cup_ml": 131.68
         },
         "burst-a": {
-          "x": 2436.573793124017,
-          "y": 2460.133576436352,
-          "registered_y": 2445.71764240584,
-          "print_scale": 0.996388067995389,
-          "print_offset": 23.24969985735973
+          "native_contact_xy_px": [
+            2436.574,
+            2460.134
+          ],
+          "alternate_edge_xy_px": [
+            2437.921,
+            2472.016
+          ],
+          "detected_native_print_y_px": [
+            1666.141,
+            1819.617,
+            1979.77,
+            2135.032,
+            2292.153,
+            2473.429
+          ],
+          "native_to_reference_y": {
+            "scale": 0.996388068,
+            "offset_px": 23.2497
+          },
+          "reference_contact_y_px": 2445.718,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.7887058,
+          "anchored_cup_ml": 102.91
         },
         "burst-b": {
-          "x": 2461.9311060135883,
-          "y": 2558.274466257243,
-          "registered_y": 2550.2711155015145,
-          "print_scale": 1.0003550864584116,
-          "print_offset": 7.097784017336015
+          "native_contact_xy_px": [
+            2461.931,
+            2558.274
+          ],
+          "alternate_edge_xy_px": [
+            2462.807,
+            2565.912
+          ],
+          "detected_native_print_y_px": [
+            1656.475,
+            1810.725,
+            1971.355,
+            2126.983,
+            2284.653,
+            2453.752
+          ],
+          "native_to_reference_y": {
+            "scale": 1.000355086,
+            "offset_px": 7.097784
+          },
+          "reference_contact_y_px": 2550.271,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.9962712,
+          "anchored_cup_ml": 67.73
         },
         "rest-before-swap": {
-          "x": 2474.1787536527254,
-          "y": 2552.1493819716475,
-          "registered_y": 2552.1493819716484,
-          "print_scale": 0.9999999999999999,
-          "print_offset": -2.625485054475693e-13
+          "native_contact_xy_px": [
+            2474.179,
+            2552.149
+          ],
+          "alternate_edge_xy_px": [
+            2475.121,
+            2560.343
+          ],
+          "detected_native_print_y_px": [
+            1648.786,
+            1802.997,
+            1963.555,
+            2119.412,
+            2277.036,
+            2446.136
+          ],
+          "native_to_reference_y": {
+            "scale": 1.0,
+            "offset_px": -0.0
+          },
+          "reference_contact_y_px": 2552.149,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 1.0,
+          "anchored_cup_ml": 67.1
         }
       }
     },
     "left100": {
-      "reference_y": [
-        1652.6577777777775,
-        1808.1805157593121,
-        1968.7128378378375,
-        2124.947712418301,
-        2283.308243727599,
-        2452.6544715447158
-      ],
-      "cups": [
+      "printed_us_cups": [
         2.0,
-        1.6666666666666667,
-        1.3333333333333335,
+        1.666666667,
+        1.333333333,
         1.0,
-        0.6666666666666667,
-        0.33333333333333326
+        0.666666667,
+        0.333333333
       ],
-      "baseline_minus_one_cup_px": [
-        -60.74342325965699,
-        -67.24369765448319
+      "printed_reference_y_px": [
+        1652.658,
+        1808.181,
+        1968.713,
+        2124.948,
+        2283.308,
+        2452.654
       ],
-      "endpoints": {
+      "start_contact_minus_printed_one_cup_px": -60.7434,
+      "observations": {
         "rig-focus": {
-          "x": 2318.098690429032,
-          "y": 2112.7197771224455,
-          "registered_y": 2064.204289158644,
-          "print_scale": 0.9818712379832144,
-          "print_offset": 85.93695627598693
+          "native_contact_xy_px": [
+            2318.099,
+            2112.72
+          ],
+          "alternate_edge_xy_px": [
+            2317.409,
+            2106.337
+          ],
+          "detected_native_print_y_px": [
+            1708.862,
+            1860.889,
+            2019.18
+          ],
+          "native_to_reference_y": {
+            "scale": 0.981871238,
+            "offset_px": 85.936956
+          },
+          "reference_contact_y_px": 2064.204,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0,
+          "anchored_cup_ml": 236.59
         },
         "pilot-a": {
-          "x": 2336.2343546077236,
-          "y": 2141.4345073494774,
-          "registered_y": 2101.1411752404083,
-          "print_scale": 0.9869383437463884,
-          "print_offset": 67.737715880369
+          "native_contact_xy_px": [
+            2336.234,
+            2141.435
+          ],
+          "alternate_edge_xy_px": [
+            2336.184,
+            2140.985
+          ],
+          "detected_native_print_y_px": [
+            1699.018,
+            1851.889,
+            2010.939,
+            2147.85
+          ],
+          "native_to_reference_y": {
+            "scale": 0.986938344,
+            "offset_px": 67.737716
+          },
+          "reference_contact_y_px": 2101.141,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0790451,
+          "anchored_cup_ml": 223.19
         },
         "pilot-b": {
-          "x": 2354.7703028658793,
-          "y": 2173.947266731787,
-          "registered_y": 2144.169579282521,
-          "print_scale": 0.9902774708072617,
-          "print_offset": 50.62443877802102
+          "native_contact_xy_px": [
+            2354.77,
+            2173.947
+          ],
+          "alternate_edge_xy_px": [
+            2355.988,
+            2184.733
+          ],
+          "detected_native_print_y_px": [
+            1687.445,
+            1840.771,
+            2000.42,
+            2155.618
+          ],
+          "native_to_reference_y": {
+            "scale": 0.990277471,
+            "offset_px": 50.624439
+          },
+          "reference_contact_y_px": 2144.17,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.1711324,
+          "anchored_cup_ml": 207.58
         },
         "wet-a": {
-          "x": 2373.544449763474,
-          "y": 2275.840712295874,
-          "registered_y": 2250.039923713534,
-          "print_scale": 0.9924501013853123,
-          "print_offset": 42.78836188537668
+          "native_contact_xy_px": [
+            2373.544,
+            2275.841
+          ],
+          "alternate_edge_xy_px": [
+            2374.447,
+            2283.678
+          ],
+          "detected_native_print_y_px": [
+            1683.301,
+            1836.662,
+            1996.96,
+            2152.099
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992450101,
+            "offset_px": 42.788362
+          },
+          "reference_contact_y_px": 2250.04,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.3915703,
+          "anchored_cup_ml": 170.22
         },
         "wet-b": {
-          "x": 2395.1460777071593,
-          "y": 2382.2783901391635,
-          "registered_y": 2365.926176300659,
-          "print_scale": 0.9899723875860738,
-          "print_offset": 40.076804534410364
+          "native_contact_xy_px": [
+            2395.146,
+            2382.278
+          ],
+          "alternate_edge_xy_px": [
+            2396.153,
+            2391.138
+          ],
+          "detected_native_print_y_px": [
+            1676.511,
+            1829.438,
+            1989.386,
+            2144.55,
+            2302.058
+          ],
+          "native_to_reference_y": {
+            "scale": 0.989972388,
+            "offset_px": 40.076805
+          },
+          "reference_contact_y_px": 2365.926,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.6211922,
+          "anchored_cup_ml": 131.3
         },
         "burst-a": {
-          "x": 2412.139546676259,
-          "y": 2465.123322289139,
-          "registered_y": 2452.982987713804,
-          "print_scale": 0.99226360677496,
-          "print_offset": 31.11757554262294
+          "native_contact_xy_px": [
+            2412.14,
+            2465.123
+          ],
+          "alternate_edge_xy_px": [
+            2413.511,
+            2477.222
+          ],
+          "detected_native_print_y_px": [
+            1671.339,
+            1824.621,
+            1984.938,
+            2140.518,
+            2298.376,
+            2478.726
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992263607,
+            "offset_px": 31.117576
+          },
+          "reference_contact_y_px": 2452.983,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.792149,
+          "anchored_cup_ml": 102.33
         },
         "burst-b": {
-          "x": 2437.5803760267504,
-          "y": 2563.935520826728,
-          "registered_y": 2557.37718710315,
-          "print_scale": 0.9980998116243015,
-          "print_offset": 11.417832126787523
+          "native_contact_xy_px": [
+            2437.58,
+            2563.936
+          ],
+          "alternate_edge_xy_px": [
+            2438.453,
+            2571.548
+          ],
+          "detected_native_print_y_px": [
+            1661.039,
+            1815.958,
+            1976.49,
+            2132.303,
+            2290.956,
+            2460.391
+          ],
+          "native_to_reference_y": {
+            "scale": 0.998099812,
+            "offset_px": 11.417832
+          },
+          "reference_contact_y_px": 2557.377,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.9990103,
+          "anchored_cup_ml": 67.27
         },
         "rest-before-swap": {
-          "x": 2449.837098521936,
-          "y": 2557.876644700402,
-          "registered_y": 2557.876644700402,
-          "print_scale": 1.0000000000000016,
-          "print_offset": -4.069501834437324e-12
+          "native_contact_xy_px": [
+            2449.837,
+            2557.877
+          ],
+          "alternate_edge_xy_px": [
+            2450.764,
+            2565.942
+          ],
+          "detected_native_print_y_px": [
+            1652.658,
+            1808.181,
+            1968.713,
+            2124.948,
+            2283.308,
+            2452.654
+          ],
+          "native_to_reference_y": {
+            "scale": 1.0,
+            "offset_px": -0.0
+          },
+          "reference_contact_y_px": 2557.877,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 1.0,
+          "anchored_cup_ml": 67.1
         }
       }
     },
     "right95": {
-      "reference_y": [
-        1609.9263803680979,
-        1725.0,
-        1841.544061302682,
-        1960.733050847458,
-        2090.6133333333332,
-        2208.0731707317073,
-        2462.6914285714283
-      ],
-      "cups": [
+      "printed_us_cups": [
         2.0,
         1.75,
         1.5,
@@ -259,79 +671,228 @@
         0.75,
         0.25
       ],
-      "baseline_minus_one_cup_px": [
-        -30.147687616727126,
-        -37.38451094349102
+      "printed_reference_y_px": [
+        1609.926,
+        1725.0,
+        1841.544,
+        1960.733,
+        2090.613,
+        2208.073,
+        2462.691
       ],
-      "endpoints": {
+      "start_contact_minus_printed_one_cup_px": -30.1477,
+      "observations": {
         "rig-focus": {
-          "x": 2747.7743202209917,
-          "y": 2114.168358451741,
-          "registered_y": 2060.465645716606,
-          "print_scale": 0.9800190843389132,
-          "print_offset": 94.8727030247653
+          "native_contact_xy_px": [
+            2747.774,
+            2114.168
+          ],
+          "alternate_edge_xy_px": [
+            2747.692,
+            2107.076
+          ],
+          "detected_native_print_y_px": [
+            1672.489,
+            1785.848,
+            1899.165,
+            2016.585
+          ],
+          "native_to_reference_y": {
+            "scale": 0.980019084,
+            "offset_px": 94.872703
+          },
+          "reference_contact_y_px": 2060.466,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0,
+          "anchored_cup_ml": 236.59
         },
         "pilot-a": {
-          "x": 2764.440268980576,
-          "y": 2144.4682386877203,
-          "registered_y": 2099.5208081161145,
-          "print_scale": 0.9869212985453609,
-          "print_offset": 72.40643641875907
+          "native_contact_xy_px": [
+            2764.44,
+            2144.468
+          ],
+          "alternate_edge_xy_px": [
+            2764.146,
+            2127.439
+          ],
+          "detected_native_print_y_px": [
+            1661.263,
+            1775.04,
+            1889.523,
+            2007.658,
+            2132.922
+          ],
+          "native_to_reference_y": {
+            "scale": 0.986921299,
+            "offset_px": 72.406436
+          },
+          "reference_contact_y_px": 2099.521,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0831096,
+          "anchored_cup_ml": 222.5
         },
         "pilot-b": {
-          "x": 2781.913601401428,
-          "y": 2174.1651155320096,
-          "registered_y": 2140.4784377279734,
-          "print_scale": 0.9920194445244332,
-          "print_offset": 50.76888472057884
+          "native_contact_xy_px": [
+            2781.914,
+            2174.165
+          ],
+          "alternate_edge_xy_px": [
+            2781.964,
+            2176.26
+          ],
+          "detected_native_print_y_px": [
+            1647.538,
+            1762.643,
+            1877.258,
+            1995.881,
+            2124.643
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992019445,
+            "offset_px": 50.768885
+          },
+          "reference_contact_y_px": 2140.478,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.1731736,
+          "anchored_cup_ml": 207.24
         },
         "wet-a": {
-          "x": 2790.35750268044,
-          "y": 2275.5123612281463,
-          "registered_y": 2246.528364558541,
-          "print_scale": 0.9932909879966765,
-          "print_offset": 44.05598243323538
+          "native_contact_xy_px": [
+            2790.358,
+            2275.512
+          ],
+          "alternate_edge_xy_px": [
+            2790.56,
+            2284.328
+          ],
+          "detected_native_print_y_px": [
+            1643.311,
+            1757.395,
+            1873.037,
+            1991.801,
+            2121.157,
+            2239.603
+          ],
+          "native_to_reference_y": {
+            "scale": 0.993290988,
+            "offset_px": 44.055982
+          },
+          "reference_contact_y_px": 2246.528,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.3950216,
+          "anchored_cup_ml": 169.64
         },
         "wet-b": {
-          "x": 2802.1695988210504,
-          "y": 2380.628466464626,
-          "registered_y": 2360.338714595699,
-          "print_scale": 0.9932754194292347,
-          "print_offset": 36.16203972952257
+          "native_contact_xy_px": [
+            2802.17,
+            2380.628
+          ],
+          "alternate_edge_xy_px": [
+            2802.398,
+            2390.266
+          ],
+          "detected_native_print_y_px": [
+            1635.423,
+            1749.544,
+            1864.886,
+            1984.004,
+            2112.922,
+            2230.047
+          ],
+          "native_to_reference_y": {
+            "scale": 0.993275419,
+            "offset_px": 36.16204
+          },
+          "reference_contact_y_px": 2360.339,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.6223871,
+          "anchored_cup_ml": 131.1
         },
         "burst-a": {
-          "x": 2812.327660846737,
-          "y": 2463.273292620941,
-          "registered_y": 2448.5719512935007,
-          "print_scale": 0.9940793185613885,
-          "print_offset": 29.198555830568118
+          "native_contact_xy_px": [
+            2812.328,
+            2463.273
+          ],
+          "alternate_edge_xy_px": [
+            2812.596,
+            2474.103
+          ],
+          "detected_native_print_y_px": [
+            1629.7,
+            1744.076,
+            1859.347,
+            1978.618,
+            2107.96,
+            2226.276,
+            2475.017
+          ],
+          "native_to_reference_y": {
+            "scale": 0.994079319,
+            "offset_px": 29.198556
+          },
+          "reference_contact_y_px": 2448.572,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.7925457,
+          "anchored_cup_ml": 102.26
         },
         "burst-b": {
-          "x": 2829.5628614258944,
-          "y": 2559.817786155404,
-          "registered_y": 2552.242592874507,
-          "print_scale": 0.9987384873948695,
-          "print_offset": 10.794879483158978
+          "native_contact_xy_px": [
+            2829.563,
+            2559.818
+          ],
+          "alternate_edge_xy_px": [
+            2829.75,
+            2566.877
+          ],
+          "detected_native_print_y_px": [
+            1618.604,
+            1733.775,
+            1849.961,
+            1969.039,
+            2099.08,
+            2216.014,
+            2471.249
+          ],
+          "native_to_reference_y": {
+            "scale": 0.998738487,
+            "offset_px": 10.794879
+          },
+          "reference_contact_y_px": 2552.243,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.9990102,
+          "anchored_cup_ml": 67.27
         },
         "rest-before-swap": {
-          "x": 2841.838831480632,
-          "y": 2552.739582388633,
-          "registered_y": 2552.7395823886336,
-          "print_scale": 1.0000000000000002,
-          "print_offset": -7.95807864051312e-13
+          "native_contact_xy_px": [
+            2841.839,
+            2552.74
+          ],
+          "alternate_edge_xy_px": [
+            2842.044,
+            2560.38
+          ],
+          "detected_native_print_y_px": [
+            1609.926,
+            1725.0,
+            1841.544,
+            1960.733,
+            2090.613,
+            2208.073,
+            2462.691
+          ],
+          "native_to_reference_y": {
+            "scale": 1.0,
+            "offset_px": -0.0
+          },
+          "reference_contact_y_px": 2552.74,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 1.0,
+          "anchored_cup_ml": 67.1
         }
       }
     },
     "right130": {
-      "reference_y": [
-        1612.0146341463415,
-        1727.8436363636367,
-        1844.1984126984125,
-        1964.4221311475414,
-        2095.303167420814,
-        2468.1032608695655
-      ],
-      "cups": [
+      "printed_us_cups": [
         2.0,
         1.75,
         1.5,
@@ -339,1067 +900,219 @@
         1.0,
         0.25
       ],
-      "baseline_minus_one_cup_px": [
-        -28.648165099418293,
-        -35.438124178178896
+      "printed_reference_y_px": [
+        1612.015,
+        1727.844,
+        1844.198,
+        1964.422,
+        2095.303,
+        2468.103
       ],
-      "endpoints": {
+      "start_contact_minus_printed_one_cup_px": -28.6482,
+      "observations": {
         "rig-focus": {
-          "x": 2782.851107022114,
-          "y": 2120.8089804579736,
-          "registered_y": 2066.655002321396,
-          "print_scale": 0.9786054881910438,
-          "print_offset": 98.3690529887815
+          "native_contact_xy_px": [
+            2782.851,
+            2120.809
+          ],
+          "alternate_edge_xy_px": [
+            2782.774,
+            2114.164
+          ],
+          "detected_native_print_y_px": [
+            1676.113,
+            1789.015,
+            1902.929,
+            2020.959
+          ],
+          "native_to_reference_y": {
+            "scale": 0.978605488,
+            "offset_px": 98.369053
+          },
+          "reference_contact_y_px": 2066.655,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0,
+          "anchored_cup_ml": 236.59
         },
         "pilot-a": {
-          "x": 2799.561363201282,
-          "y": 2151.4874526141025,
-          "registered_y": 2106.0429980438958,
-          "print_scale": 0.9862092106033736,
-          "print_offset": 74.48845001646976
+          "native_contact_xy_px": [
+            2799.561,
+            2151.487
+          ],
+          "alternate_edge_xy_px": [
+            2799.239,
+            2132.778
+          ],
+          "detected_native_print_y_px": [
+            1664.15,
+            1778.685,
+            1893.254,
+            2011.76,
+            2138.132
+          ],
+          "native_to_reference_y": {
+            "scale": 0.986209211,
+            "offset_px": 74.48845
+          },
+          "reference_contact_y_px": 2106.043,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.0774205,
+          "anchored_cup_ml": 223.47
         },
         "pilot-b": {
-          "x": 2817.0773026946845,
-          "y": 2180.987315977712,
-          "registered_y": 2147.4899282736046,
-          "print_scale": 0.9894829418279246,
-          "print_offset": 56.08266420370671
+          "native_contact_xy_px": [
+            2817.077,
+            2180.987
+          ],
+          "alternate_edge_xy_px": [
+            2817.118,
+            2182.696
+          ],
+          "detected_native_print_y_px": [
+            1651.259,
+            1765.433,
+            1881.182,
+            1999.755,
+            2129.75
+          ],
+          "native_to_reference_y": {
+            "scale": 0.989482942,
+            "offset_px": 56.082664
+          },
+          "reference_contact_y_px": 2147.49,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.1593402,
+          "anchored_cup_ml": 209.58
         },
         "wet-a": {
-          "x": 2825.5308896932174,
-          "y": 2283.0754194188085,
-          "registered_y": 2254.051918745996,
-          "print_scale": 0.9925099026682319,
-          "print_offset": 45.90656893507855
+          "native_contact_xy_px": [
+            2825.531,
+            2283.075
+          ],
+          "alternate_edge_xy_px": [
+            2825.732,
+            2291.868
+          ],
+          "detected_native_print_y_px": [
+            1645.841,
+            1760.802,
+            1876.322,
+            1995.597,
+            2126.309
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992509903,
+            "offset_px": 45.906569
+          },
+          "reference_contact_y_px": 2254.052,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.3724092,
+          "anchored_cup_ml": 173.47
         },
         "wet-b": {
-          "x": 2837.3666570425908,
-          "y": 2388.9544386544417,
-          "registered_y": 2369.0380920686225,
-          "print_scale": 0.9922157171217779,
-          "print_offset": 38.35760924376473
+          "native_contact_xy_px": [
+            2837.367,
+            2388.954
+          ],
+          "alternate_edge_xy_px": [
+            2837.589,
+            2398.358
+          ],
+          "detected_native_print_y_px": [
+            1638.037,
+            1752.536,
+            1868.0,
+            1987.691,
+            2117.403
+          ],
+          "native_to_reference_y": {
+            "scale": 0.992215717,
+            "offset_px": 38.357609
+          },
+          "reference_contact_y_px": 2369.038,
+          "uses_print_curve_extension": false,
+          "withdrawn_fraction_of_observed_span": 0.607005,
+          "anchored_cup_ml": 133.71
         },
         "burst-a": {
-          "x": 2847.5297950578642,
-          "y": 2471.4383853578647,
-          "registered_y": 2456.184437608607,
-          "print_scale": 0.9946247140810265,
-          "print_offset": 28.456641371137493
+          "native_contact_xy_px": [
+            2847.53,
+            2471.438
+          ],
+          "alternate_edge_xy_px": [
+            2847.798,
+            2482.282
+          ],
+          "detected_native_print_y_px": [
+            1631.845,
+            1746.961,
+            1862.728,
+            1982.346,
+            2112.538,
+            2481.29
+          ],
+          "native_to_reference_y": {
+            "scale": 0.994624714,
+            "offset_px": 28.456641
+          },
+          "reference_contact_y_px": 2456.184,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.787296,
+          "anchored_cup_ml": 103.15
         },
         "burst-b": {
-          "x": 2864.7960529300403,
-          "y": 2568.610085018768,
-          "registered_y": 2560.4485308942653,
-          "print_scale": 0.9993037903495555,
-          "print_offset": 9.94416310117765
+          "native_contact_xy_px": [
+            2864.796,
+            2568.61
+          ],
+          "alternate_edge_xy_px": [
+            2864.979,
+            2575.507
+          ],
+          "detected_native_print_y_px": [
+            1620.885,
+            1736.422,
+            1853.039,
+            1972.934,
+            2103.581,
+            2476.528
+          ],
+          "native_to_reference_y": {
+            "scale": 0.99930379,
+            "offset_px": 9.944163
+          },
+          "reference_contact_y_px": 2560.449,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 0.998029,
+          "anchored_cup_ml": 67.43
         },
         "rest-before-swap": {
-          "x": 2877.072455120876,
-          "y": 2561.4237293578985,
-          "registered_y": 2561.4237293579,
-          "print_scale": 0.9999999999999979,
-          "print_offset": 4.092726157978177e-12
+          "native_contact_xy_px": [
+            2877.072,
+            2561.424
+          ],
+          "alternate_edge_xy_px": [
+            2877.27,
+            2568.749
+          ],
+          "detected_native_print_y_px": [
+            1612.015,
+            1727.844,
+            1844.198,
+            1964.422,
+            2095.303,
+            2468.103
+          ],
+          "native_to_reference_y": {
+            "scale": 1.0,
+            "offset_px": 0.0
+          },
+          "reference_contact_y_px": 2561.424,
+          "uses_print_curve_extension": true,
+          "withdrawn_fraction_of_observed_span": 1.0,
+          "anchored_cup_ml": 67.1
         }
       }
-    }
-  },
-  "native_still_readings": {
-    "rig-focus": {
-      "left50": {
-        "contact": [
-          [
-            2367.3072449693555,
-            2105.394992778387
-          ],
-          [
-            2366.5721604385058,
-            2098.5917682097843
-          ]
-        ],
-        "ticks": [
-          1699.9210526315792,
-          1851.4662756598243,
-          2009.1506410256407
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2342.67721070285,
-            2108.8190131612478
-          ],
-          [
-            2341.9608147702697,
-            2102.188757639244
-          ]
-        ],
-        "ticks": [
-          1704.194690265486,
-          1856.1331360946745,
-          2013.9377049180328
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2318.098690429032,
-            2112.7197771224455
-          ],
-          [
-            2317.4090715065986,
-            2106.337344655167
-          ]
-        ],
-        "ticks": [
-          1708.8620689655172,
-          1860.888563049854,
-          2019.1803278688533
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2747.7743202209917,
-            2114.168358451741
-          ],
-          [
-            2747.6923114454667,
-            2107.0761334815234
-          ]
-        ],
-        "ticks": [
-          1672.4891304347823,
-          1785.8479087452467,
-          1899.1646586345385,
-          2016.5847457627121
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2782.851107022114,
-            2120.8089804579736
-          ],
-          [
-            2782.7742731661033,
-            2114.164289238906
-          ]
-        ],
-        "ticks": [
-          1676.1126760563382,
-          1789.0153256704982,
-          1902.9294605809127,
-          2020.959349593496
-        ]
-      }
-    },
-    "pilot-a": {
-      "left50": {
-        "contact": [
-          [
-            2385.4024700378022,
-            2134.0288813540897
-          ],
-          [
-            2385.1818041224674,
-            2132.0644238353093
-          ]
-        ],
-        "ticks": [
-          1689.910714285714,
-          1842.177570093458,
-          2000.847972972973
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2360.79063467403,
-            2137.4844206763887
-          ],
-          [
-            2360.656638817634,
-            2136.2915073017966
-          ]
-        ],
-        "ticks": [
-          1694.148148148148,
-          1847.0249221183801,
-          2005.7842465753424,
-          2143.8333333333335
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2336.2343546077236,
-            2141.4345073494774
-          ],
-          [
-            2336.183925420591,
-            2140.985498857677
-          ]
-        ],
-        "ticks": [
-          1699.018237082067,
-          1851.8885448916408,
-          2010.9385665529012,
-          2147.85
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2764.440268980576,
-            2144.4682386877203
-          ],
-          [
-            2764.146488504294,
-            2127.439284996604
-          ]
-        ],
-        "ticks": [
-          1661.2625000000003,
-          1775.040322580645,
-          1889.5234042553193,
-          2007.657657657658,
-          2132.9217391304346
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2799.561363201282,
-            2151.4874526141025
-          ],
-          [
-            2799.2385956039316,
-            2132.77826307581
-          ]
-        ],
-        "ticks": [
-          1664.1501976284587,
-          1778.6852589641437,
-          1893.2541666666668,
-          2011.7598253275112,
-          2138.132352941176
-        ]
-      }
-    },
-    "pilot-b": {
-      "left50": {
-        "contact": [
-          [
-            2403.8958186798536,
-            2166.1995549835524
-          ],
-          [
-            2404.9603898022942,
-            2175.631438203646
-          ]
-        ],
-        "ticks": [
-          1677.759643916914,
-          1831.0749999999998,
-          1990.1152542372881,
-          2145.1127272727276
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2379.3050551908295,
-            2169.8252994490163
-          ],
-          [
-            2380.444847669008,
-            2179.923576576684
-          ]
-        ],
-        "ticks": [
-          1682.531914893617,
-          1835.8512658227849,
-          1994.996563573883,
-          2150.4813559322038
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2354.7703028658793,
-            2173.947266731787
-          ],
-          [
-            2355.9876661675153,
-            2184.7327284355824
-          ]
-        ],
-        "ticks": [
-          1687.4447852760738,
-          1840.7708978328171,
-          2000.419795221843,
-          2155.6178343949045
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2781.913601401428,
-            2174.1651155320096
-          ],
-          [
-            2781.9638620649976,
-            2176.259712370808
-          ]
-        ],
-        "ticks": [
-          1647.5384615384617,
-          1762.6428571428569,
-          1877.2583333333334,
-          1995.8805309734514,
-          2124.642857142857
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2817.0773026946845,
-            2180.987315977712
-          ],
-          [
-            2817.118310302034,
-            2182.6962945507103
-          ]
-        ],
-        "ticks": [
-          1651.2586872586874,
-          1765.4325396825393,
-          1881.181818181818,
-          1999.7554585152836,
-          2129.75
-        ]
-      }
-    },
-    "wet-a": {
-      "left50": {
-        "contact": [
-          [
-            2422.567221851653,
-            2267.350425157367
-          ],
-          [
-            2423.510611774161,
-            2275.5468814001515
-          ]
-        ],
-        "ticks": [
-          1673.8193146417445,
-          1826.9203821656056,
-          1986.3648648648648,
-          2141.967857142857
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2398.021585106349,
-            2271.298014065471
-          ],
-          [
-            2398.9437464661614,
-            2279.3100154794392
-          ]
-        ],
-        "ticks": [
-          1678.1809523809522,
-          1831.8006329113925,
-          1991.356401384083,
-          2146.8401360544212,
-          2280.476923076923
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2373.544449763474,
-            2275.840712295874
-          ],
-          [
-            2374.4465345774465,
-            2283.6782619326555
-          ]
-        ],
-        "ticks": [
-          1683.3013698630136,
-          1836.6624203821655,
-          1996.959866220736,
-          2152.09900990099
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2790.35750268044,
-            2275.5123612281463
-          ],
-          [
-            2790.5596147375672,
-            2284.328389949881
-          ]
-        ],
-        "ticks": [
-          1643.3111111111114,
-          1757.395256916996,
-          1873.0365853658536,
-          1991.8008849557523,
-          2121.15668202765,
-          2239.602564102564
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2825.5308896932174,
-            2283.0754194188085
-          ],
-          [
-            2825.7324556914846,
-            2291.8676299609924
-          ]
-        ],
-        "ticks": [
-          1645.8414096916301,
-          1760.8015873015872,
-          1876.3218884120172,
-          1995.5974025974024,
-          2126.3094170403588
-        ]
-      }
-    },
-    "wet-b": {
-      "left50": {
-        "contact": [
-          [
-            2444.053172378941,
-            2372.661894471267
-          ],
-          [
-            2445.1194980693945,
-            2382.044715179648
-          ]
-        ],
-        "ticks": [
-          1666.5521472392636,
-          1819.6097560975606,
-          1978.9617834394908,
-          2133.8736842105263,
-          2290.4169884169887
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2419.5618062894473,
-            2377.1374034819505
-          ],
-          [
-            2420.5984229722662,
-            2386.2587877885176
-          ]
-        ],
-        "ticks": [
-          1671.3834355828221,
-          1824.4382716049383,
-          1984.032258064516,
-          2139.272413793104,
-          2295.883895131086
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2395.1460777071593,
-            2382.2783901391635
-          ],
-          [
-            2396.152894304348,
-            2391.137532185216
-          ]
-        ],
-        "ticks": [
-          1676.511475409836,
-          1829.4382716049383,
-          1989.3863636363637,
-          2144.5499999999997,
-          2302.058181818182
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2802.1695988210504,
-            2380.628466464626
-          ],
-          [
-            2802.397710782055,
-            2390.2664975081548
-          ]
-        ],
-        "ticks": [
-          1635.4227272727271,
-          1749.544061302682,
-          1864.8861788617887,
-          1984.003984063745,
-          2112.922077922078,
-          2230.046511627907
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2837.3666570425908,
-            2388.9544386544417
-          ],
-          [
-            2837.589223003404,
-            2398.3581445320056
-          ]
-        ],
-        "ticks": [
-          1638.0365853658536,
-          1752.5361216730037,
-          1868.0,
-          1987.690763052209,
-          2117.402714932127
-        ]
-      }
-    },
-    "burst-a": {
-      "left50": {
-        "contact": [
-          [
-            2461.089935670225,
-            2455.866068398387
-          ],
-          [
-            2462.4095065597326,
-            2467.5044979841477
-          ]
-        ],
-        "ticks": [
-          1661.4802431610944,
-          1814.7826086956527,
-          1974.4285714285716,
-          2129.8833922261483,
-          2286.5482625482628,
-          2470.5416666666665
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2436.573793124017,
-            2460.133576436352
-          ],
-          [
-            2437.921064211324,
-            2472.016254537068
-          ]
-        ],
-        "ticks": [
-          1666.1406249999998,
-          1819.617283950617,
-          1979.7697160883279,
-          2135.031690140846,
-          2292.152985074627,
-          2473.4294478527604
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2412.139546676259,
-            2465.123322289139
-          ],
-          [
-            2413.511329463724,
-            2477.2221024131163
-          ]
-        ],
-        "ticks": [
-          1671.3392857142858,
-          1824.6211180124226,
-          1984.9383116883116,
-          2140.5181518151817,
-          2298.3759124087596,
-          2478.7261146496817
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2812.327660846737,
-            2463.273292620941
-          ],
-          [
-            2812.595758586256,
-            2474.102939569046
-          ]
-        ],
-        "ticks": [
-          1629.6995305164317,
-          1744.0760456273763,
-          1859.3467741935483,
-          1978.6182572614107,
-          2107.9598214285716,
-          2226.2764705882355,
-          2475.0172413793102
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2847.5297950578642,
-            2471.4383853578647
-          ],
-          [
-            2847.798247743628,
-            2482.2823711006818
-          ]
-        ],
-        "ticks": [
-          1631.8454935622321,
-          1746.9612403100775,
-          1862.728,
-          1982.345528455285,
-          2112.538116591928,
-          2481.2904761904765
-        ]
-      }
-    },
-    "burst-b": {
-      "left50": {
-        "contact": [
-          [
-            2486.370203691822,
-            2553.383798170492
-          ],
-          [
-            2487.248783652859,
-            2561.0446110347675
-          ]
-        ],
-        "ticks": [
-          1651.5263157894738,
-          1805.6513761467893,
-          1966.0946372239746,
-          2121.7785714285715,
-          2278.8846153846157,
-          2447.8744588744594
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2461.9311060135883,
-            2558.274466257243
-          ],
-          [
-            2462.806968034575,
-            2565.911536619628
-          ]
-        ],
-        "ticks": [
-          1656.4746835443038,
-          1810.7253086419755,
-          1971.3546325878592,
-          2126.9826388888896,
-          2284.6531365313654,
-          2453.7520661157023
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2437.5803760267504,
-            2563.935520826728
-          ],
-          [
-            2438.45339808684,
-            2571.5477671314525
-          ]
-        ],
-        "ticks": [
-          1661.0388692579504,
-          1815.9584569732938,
-          1976.4901315789475,
-          2132.303225806452,
-          2290.9555555555553,
-          2460.391129032258
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2829.5628614258944,
-            2559.817786155404
-          ],
-          [
-            2829.750081270076,
-            2566.876755456887
-          ]
-        ],
-        "ticks": [
-          1618.6036866359445,
-          1733.7752808988762,
-          1849.9612403100773,
-          1969.0391304347827,
-          2099.08,
-          2216.0138888888887,
-          2471.2486772486773
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2864.7960529300403,
-            2568.610085018768
-          ],
-          [
-            2864.9789648392593,
-            2575.506627970345
-          ]
-        ],
-        "ticks": [
-          1620.8846153846155,
-          1736.421641791045,
-          1853.0387596899227,
-          1972.933609958506,
-          2103.581081081081,
-          2476.528205128205
-        ]
-      }
-    },
-    "rest-before-swap": {
-      "left50": {
-        "contact": [
-          [
-            2498.6092773637743,
-            2547.195133110154
-          ],
-          [
-            2499.564985680574,
-            2555.5096631918664
-          ]
-        ],
-        "ticks": [
-          1643.0976430976432,
-          1798.022988505747,
-          1958.0741935483873,
-          2114.0380622837365,
-          2271.0664206642064,
-          2440.133620689655
-        ]
-      },
-      "left75": {
-        "contact": [
-          [
-            2474.1787536527254,
-            2552.1493819716475
-          ],
-          [
-            2475.120522219236,
-            2560.3426004442863
-          ]
-        ],
-        "ticks": [
-          1648.786440677966,
-          1802.9971014492753,
-          1963.5548172757478,
-          2119.4123711340208,
-          2277.0357142857147,
-          2446.136363636364
-        ]
-      },
-      "left100": {
-        "contact": [
-          [
-            2449.837098521936,
-            2557.876644700402
-          ],
-          [
-            2450.764142692106,
-            2565.9417133425454
-          ]
-        ],
-        "ticks": [
-          1652.6577777777775,
-          1808.1805157593121,
-          1968.7128378378375,
-          2124.947712418301,
-          2283.308243727599,
-          2452.6544715447158
-        ]
-      },
-      "right95": {
-        "contact": [
-          [
-            2841.838831480632,
-            2552.739582388633
-          ],
-          [
-            2842.0443892333383,
-            2560.380472929037
-          ]
-        ],
-        "ticks": [
-          1609.9263803680979,
-          1725.0,
-          1841.544061302682,
-          1960.733050847458,
-          2090.6133333333332,
-          2208.0731707317073,
-          2462.6914285714283
-        ]
-      },
-      "right130": {
-        "contact": [
-          [
-            2877.072455120876,
-            2561.4237293578985
-          ],
-          [
-            2877.269523076743,
-            2568.749041959553
-          ]
-        ],
-        "ticks": [
-          1612.0146341463415,
-          1727.8436363636367,
-          1844.1984126984125,
-          1964.4221311475414,
-          2095.303167420814,
-          2468.1032608695655
-        ]
-      }
-    }
-  },
-  "trace_volume_mL": {
-    "rig-focus": {
-      "left50": [
-        236.5882365,
-        236.5882365,
-        236.5882365
-      ],
-      "left75": [
-        236.5882365,
-        236.5882365,
-        236.5882365
-      ],
-      "left100": [
-        236.5882365,
-        236.5882365,
-        236.5882365
-      ],
-      "right95": [
-        236.5882365,
-        236.5882365,
-        236.5882365
-      ],
-      "right130": [
-        236.5882365,
-        236.5882365,
-        236.5882365
-      ]
-    },
-    "pilot-a": {
-      "left50": [
-        217.89023822292475,
-        215.37961161112685,
-        217.86274150634293
-      ],
-      "left75": [
-        218.10188262822518,
-        215.30065774823635,
-        218.0024509737867
-      ],
-      "left100": [
-        218.01152937397887,
-        214.96600132380198,
-        217.88515829407706
-      ],
-      "right95": [
-        217.200153413262,
-        222.27938770800432,
-        218.2448113618962
-      ],
-      "right130": [
-        218.35614694478426,
-        224.00455525306975,
-        218.60369419938678
-      ]
-    },
-    "pilot-b": {
-      "left50": [
-        196.28988410778172,
-        187.987629463614,
-        196.36568351239285
-      ],
-      "left75": [
-        196.31982063127558,
-        187.8209624286363,
-        196.26085879213076
-      ],
-      "left100": [
-        196.3697332236465,
-        187.6755054494263,
-        196.24927645621665
-      ],
-      "right95": [
-        196.18969433453242,
-        191.42712853523304,
-        197.63572051560692
-      ],
-      "right130": [
-        199.06450437306748,
-        195.08568590414473,
-        199.3885818063715
-      ]
-    },
-    "wet-a": {
-      "left50": [
-        144.1915756987843,
-        136.94853085999665,
-        142.98760763820556
-      ],
-      "left75": [
-        144.5990815344773,
-        137.55251256649746,
-        143.30824327901826
-      ],
-      "left100": [
-        144.56377169469474,
-        137.7211141794658,
-        143.24885176002178
-      ],
-      "right95": [
-        144.43624696938457,
-        136.78578196836102,
-        144.82274398066195
-      ],
-      "right130": [
-        148.8879471737883,
-        141.44163498750078,
-        149.44339753982655
-      ]
-    },
-    "wet-b": {
-      "left50": [
-        91.1243828258125,
-        83.71177237921292,
-        88.47158490179925
-      ],
-      "left75": [
-        91.1848218022659,
-        83.97272288236087,
-        88.46418406010508
-      ],
-      "left100": [
-        90.59943676839953,
-        83.60472999755939,
-        87.88172129535442
-      ],
-      "right95": [
-        91.39563756035625,
-        83.72152610897932,
-        91.16841343017308
-      ],
-      "right130": [
-        93.64194054184985,
-        85.72072849769016,
-        94.502957026024
-      ]
-    },
-    "burst-a": {
-      "left50": [
-        50.66906311918613,
-        41.972825841448845,
-        48.35759964885432
-      ],
-      "left75": [
-        51.309702008243654,
-        42.60562233715507,
-        48.90427319779678
-      ],
-      "left100": [
-        50.42218984993936,
-        41.716878252248186,
-        48.02708784799481
-      ],
-      "right95": [
-        51.70044855888989,
-        43.27690795367091,
-        51.319244433264714
-      ],
-      "right130": [
-        51.18441596935064,
-        42.76331617711022,
-        52.001678985377964
-      ]
-    },
-    "burst-b": {
-      "left50": [
-        2.398871282271278,
-        -4.411472435070814,
-        0.08740781193949942
-      ],
-      "left75": [
-        2.5495466123434243,
-        -4.15317420507748,
-        0.15145783000136248
-      ],
-      "left100": [
-        1.806916370041375,
-        -4.771883999367539,
-        -0.5881856319031726
-      ],
-      "right95": [
-        3.5356891332059672,
-        -3.110192961715885,
-        3.5059095297798706
-      ],
-      "right130": [
-        1.557970601821912,
-        -4.958662960747932,
-        2.1711285399791223
-      ]
-    },
-    "rest-before-swap": {
-      "left50": [
-        1.986068712512717,
-        -5.124643175017631,
-        -0.3253947578190832
-      ],
-      "left75": [
-        1.6735875241663114,
-        -5.2897659562736665,
-        -0.7245012581757351
-      ],
-      "left100": [
-        1.574324254540267,
-        -5.208601800861629,
-        -0.8207777474042928
-      ],
-      "right95": [
-        3.304790780307345,
-        -3.607306012846631,
-        3.275011176881236
-      ],
-      "right130": [
-        1.093806652824949,
-        -5.624620917218384,
-        1.7069645909821816
-      ]
     }
   }
 }

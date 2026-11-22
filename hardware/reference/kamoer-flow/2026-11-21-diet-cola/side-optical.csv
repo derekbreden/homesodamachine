@@ -1,0 +1,14 @@
+endpoint,same_fill_anchor,front_quarter_scale_ml,front_thirds_scale_ml,all_readable_positions_anchored_cup_ml,common_positions_anchored_cup_ml,common_positions_cup_read_allowance_ml,withdrawal_since_previous_common_positions_ml,withdrawal_read_allowance_ml,quarter_trace_extrapolated,thirds_trace_extrapolated,note,optical_series,direct_rerouted_cup_ml,direct_rerouted_read_allowance_ml,rerouted_cup_change_since_previous_ml
+side-initial,True,65.6,68.5,67.1,67.1,5,,,False,True,Same fill as rest-before-swap.,first side probes,,,
+side-focus,True,65.7,68.3,67.1,67.1,5,0.0,2,False,True,Sharp same-fill reading after refocusing.,first side probes,,,
+side-b0,False,52.9,53.8,54.0,54.0,8,13.1,5,True,True,Blur softens the ticks. One outer thirds trace is readable.,first side probes,,,
+side-a0,False,32.6,39.5,35.6,34.0,8,20.0,5,True,True,Sharp reading below both lowest printed marks.,first side probes,,,
+swapped-start,False,26.6,37.0,,,,,,True,True,New baseline after moving the tubes. Both scales require an extension below their lowest visible marks.,rerouted,31.9,9,
+return-check,False,88.2,91.2,,,,,8,False,False,Direct front level after return to the cup.,rerouted,90.0,6,58.1
+return-long,False,227.1,229.2,,,,,6,False,False,Direct front level after return to the cup.,rerouted,228.2,6,138.2
+repeat-a-r1,False,154.8,151.3,,,,,6,False,True,Alternating full-drive runs at overlapping cup levels.,rerouted,153.0,6,-75.1
+repeat-b-r1,False,237.7,244.3,,,,,7,False,False,Alternating full-drive runs at overlapping cup levels.,rerouted,241.2,6,88.2
+repeat-a-r2,False,162.0,166.9,,,,,6,False,False,Alternating full-drive runs at overlapping cup levels.,rerouted,164.5,6,-76.8
+repeat-b-r2,False,246.6,251.1,,,,,5,False,False,Alternating full-drive runs at overlapping cup levels.,rerouted,248.9,6,84.4
+repeat-a-r3,False,168.9,173.4,,,,,5,False,False,Alternating full-drive runs at overlapping cup levels.,rerouted,171.0,6,-77.9
+repeat-b-r3,False,254.6,257.8,,,,,5,False,False,Alternating full-drive runs at overlapping cup levels.,rerouted,256.2,6,85.2

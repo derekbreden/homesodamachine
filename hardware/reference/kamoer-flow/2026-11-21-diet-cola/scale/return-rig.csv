@@ -1,0 +1,14 @@
+run,board_channel,firmware_mode,drive_percent_command,on_ms_command,off_ms_command,count,before_utc,before_g,after_utc,after_g,cup_gain_g_signed,before_lcd,after_lcd,endpoint_note
+return-long,B,appliance,100,10000,0,1,2026-11-22T05:48:27.489+00:00,29.7,2026-11-22T05:48:43.482+00:00,156.8,127.1,display/return-long-before.png,display/return-long-after.png,
+repeat-a-r1,A,appliance,100,6000,0,1,2026-11-22T05:50:01.238+00:00,155.8,2026-11-22T05:50:13.231+00:00,93.2,-62.6,display/repeat-a-r1-before.png,display/repeat-a-r1-after.png,
+repeat-b-r1,B,appliance,100,6000,0,1,2026-11-22T05:50:18.952+00:00,92.9,2026-11-22T05:50:30.982+00:00,168.9,76.0,display/repeat-b-r1-before.png,display/repeat-b-r1-after.png,
+repeat-a-r2,A,appliance,100,6000,0,1,2026-11-22T05:50:36.447+00:00,169.0,2026-11-22T05:50:48.448+00:00,99.1,-69.9,display/repeat-a-r2-before.png,display/repeat-a-r2-after.png,
+repeat-b-r2,B,appliance,100,6000,0,1,2026-11-22T05:50:53.956+00:00,99.1,2026-11-22T05:51:05.977+00:00,171.7,72.6,display/repeat-b-r2-before.png,display/repeat-b-r2-after.png,
+repeat-a-r3,A,appliance,100,6000,0,1,2026-11-22T05:51:11.719+00:00,172.0,2026-11-22T05:51:23.708+00:00,106.3,-65.7,display/repeat-a-r3-before.png,display/repeat-a-r3-after.png,
+repeat-b-r3,B,appliance,100,6000,0,1,2026-11-22T05:51:29.474+00:00,106.2,2026-11-22T05:51:41.199+00:00,179.5,73.3,display/repeat-b-r3-before.png,display/repeat-b-r3-after.png,
+blank-start,A,bench,0,4000,0,1,2026-11-22T05:54:14.772+00:00,182.6,2026-11-22T05:54:25.259+00:00,182.8,0.2,display/blank-start-before.png,display/blank-start-after.png,
+shape200-a-1,A,bench,100,200,300,16,2026-11-22T05:54:31.750+00:00,182.8,2026-11-22T05:54:45.990+00:00,133.1,-49.7,display/shape200-a-1-before.png,display/shape200-a-1-after.png,
+shape200-b-1,B,bench,100,200,300,16,2026-11-22T05:54:51.990+00:00,133.9,2026-11-22T05:55:06.251+00:00,175.7,41.8,display/shape200-b-1-before.png,display/shape200-b-1-after.png,
+shape050-a-1,A,bench,100,50,600,40,2026-11-22T05:55:11.990+00:00,176.7,2026-11-22T05:55:44.009+00:00,146.2,-30.5,display/shape050-a-1-before.png,display/shape050-a-1-after.png,
+shape050-b-r1,B,bench,100,50,600,40,2026-11-22T05:56:58.770+00:00,148.7,2026-11-22T05:58:10.187+00:00,166.9,18.2,display/shape050-b-r1-before.png,display/shape050-b-r1-first-readable.png,First of three consecutive readable 166.9 g frames after camera reconnection. The delayed named after frame at 2026-11-22T05:58:17.683+00:00 is 167.2 g (display/shape050-b-r1-after.png); no intervening motor command.
+shape110-a-1,A,bench,100,110,480,24,2026-11-22T05:58:17.955+00:00,167.2,2026-11-22T05:58:38.424+00:00,137.6,-29.6,display/shape110-a-1-last-readable.png,display/shape110-a-1-after.png,"The named before image has partially refreshed segments. The selected, fully legible frame immediately precedes the console command."

@@ -1,0 +1,84 @@
+{
+  "liquid": "Undiluted SodaStream Diet Cola concentrate",
+  "series": "Wet runs after exchanging the vessel ends of the straight pump hoses",
+  "source": {
+    "controller": "controller/<run>.log",
+    "scale_endpoints": "scale/return-rig.csv",
+    "scale_photographs": "scale/display/",
+    "initial_setup": "setup.json",
+    "return_setup": "scale/return-setup.json",
+    "optical_volume": "Independent graduated-cup readings are reported separately in the bench archive."
+  },
+  "routing": {
+    "b_hoses_exchanged": {
+      "A": {
+        "head": "left, from the sink",
+        "cup_tube": "yellow-lettered",
+        "direction": "cup_to_dish",
+        "guided_line": "discharge_to_dish",
+        "quarter_turn_guides": 2
+      },
+      "B": {
+        "head": "right, from the sink",
+        "cup_tube": "original straight run after its vessel ends were exchanged",
+        "direction": "dish_to_cup",
+        "guided_line": "none",
+        "quarter_turn_guides": 0
+      }
+    }
+  },
+  "comparison_limits": "The original return configuration changes head, transfer direction and tube-guide routing together between channels.",
+  "quantity": {
+    "cup_gain_g": "After minus before on the scale supporting the OXO cup and the contacting hoses.",
+    "directed_transfer_g": "Positive in the intended transfer direction. The original return routing removes liquid from the cup on A and adds it on B. Signed endpoint differences are retained.",
+    "gate_s": "Board-reported sum of windows at the commanded PWM level. The zero-duty controls have timed windows with their motor off.",
+    "train_s": "Board time from the first gate opening to the last gate closing, with pauses between the gates.",
+    "full_cycles_s": "Train time plus one scheduled trailing off interval. This models repeated operation over full periods and is the denominator for full_cycles_g_min.",
+    "rates": "Each rate is the directed transfer divided by its named time base. Per-pulse dose is the train total divided by its completed pulse count.",
+    "repeat_statistics": "Each n counts independent timed trials with paired mass readings at the same settings and routing. SD is the sample standard deviation when repeats exist."
+  },
+  "uncertainty": {
+    "scale": "Smart Weigh TOP2KG",
+    "displayed_increment_g": 0.1,
+    "endpoint_difference_rounding_bound_g": 0.1,
+    "blank_n": 1,
+    "blank_cup_change_range_g": [
+      0.2,
+      0.2
+    ],
+    "comparison_allowance_g": 0.3,
+    "scope": "The comparison allowance is the largest absolute paired zero-drive change plus the endpoint rounding bound. It indicates what these controls could distinguish. Hose load, drift, and scale calibration contribute additional uncertainty. No absolute mass accuracy or confidence interval was established."
+  },
+  "unpaired_runs": [
+    {
+      "run": "return-check",
+      "reason": "scale_startup_missing_before"
+    },
+    {
+      "run": "shape050-b-r1",
+      "reason": "unpaired"
+    },
+    {
+      "run": "shape110-a-1",
+      "reason": "unpaired"
+    }
+  ],
+  "unacknowledged_attempts": [
+    {
+      "run": "repeat-a-1",
+      "reason": "Controller run was not acknowledged."
+    },
+    {
+      "run": "shape050-b-1",
+      "reason": "Controller run was not acknowledged."
+    }
+  ],
+  "conditions": [
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"wet_continuous","pwm_pct":100,"on_ms":10000,"off_ms":0,"pulses":1,"n":1,"mean_g":127.1,"mean_g_per_pulse":127.1,"gate_g_min":763,"full_cycles_g_min":763},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"wet_continuous","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":3,"mean_g":66.1,"range_g":[62.6,69.9],"repeat_sd_g":3.7,"mean_g_per_pulse":66.1,"gate_g_min":661,"full_cycles_g_min":661},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"wet_continuous","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":3,"mean_g":74,"range_g":[72.6,76],"repeat_sd_g":1.8,"mean_g_per_pulse":74,"gate_g_min":740,"full_cycles_g_min":740},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":1,"mean_g":49.7,"mean_g_per_pulse":3.11,"gate_g_min":932,"full_cycles_g_min":373},
+    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":1,"mean_g":41.8,"mean_g_per_pulse":2.61,"gate_g_min":784,"full_cycles_g_min":313},
+    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_low","pwm_pct":100,"on_ms":50,"off_ms":600,"pulses":40,"n":1,"mean_g":30.5,"mean_g_per_pulse":0.76,"gate_g_min":915,"full_cycles_g_min":70}
+  ]
+}

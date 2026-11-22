@@ -1,0 +1,28 @@
+{
+  "purpose": "The straight pump returns concentrate to the weighed OXO cup for the repeated measurements. A removes concentrate from the cup and B adds concentrate to it.",
+  "paired_readings": "return-rig.csv",
+  "pair_method": "Each signed change subtracts the before reading from the after reading. The endpoints carry individual host receive timestamps and were read directly from the saved LCD frames. The CSV includes groups with controller acknowledgement.",
+  "turnaround_check": {
+    "run": "return-check",
+    "channel": "B",
+    "command_start_utc_to_second": "2026-11-22T05:47:11Z",
+    "reported_on_ms": 4000,
+    "before_g": null,
+    "mass_change_g": null,
+    "observation": "The scale performed its display self-test as the command began. The increasing indication shows transfer toward the cup. The endpoint pair is open because startup obscured the initial weight.",
+    "startup_self_test": {
+      "utc": "2026-11-22T05:47:11.688+00:00",
+      "file": "display/return-check-startup.png"
+    },
+    "first_numeric_sample": {
+      "g": 4.2,
+      "utc": "2026-11-22T05:47:13.686+00:00",
+      "file": "display/return-check-first-reading.png"
+    },
+    "settled_sample": {
+      "g": 30.4,
+      "utc": "2026-11-22T05:47:42.709+00:00",
+      "file": "display/return-check-settled.png"
+    }
+  }
+}

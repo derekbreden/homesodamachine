@@ -63,16 +63,31 @@
       3496
     ],
     "upright_rotation_degrees": 180,
-    "archive_native_crop_xywh": [
+    "overview_size_px": [
+      1148,
+      862
+    ],
+    "archive_native_crop_xywh_initial_series": [
       1800,
       1350,
       1280,
       1820
     ],
-    "overview_size_px": [
-      1148,
-      862
-    ]
+    "calibration_image": {
+      "target": "pump_calibration",
+      "source_commit": "61099a4d1",
+      "sha256": "50fe184e3b413877ef2c6500ecb592bd58236da987b6be5ed37da60c4b0ca3b2",
+      "device_reported_sketch_md5": "571fddff0a8de68d31a221a22e8ba072",
+      "source": "firmware/src_pump_calibration/main.cpp",
+      "motor_pwm_hz": 20000,
+      "scope": "Dedicated open-hose bench firmware. PCB dose timestamps bracket software gate operations; the scale and cup camera measure transfer."
+    },
+    "controller_hardware": {
+      "efuse_mac": "58:2a:bd:7a:fc:20",
+      "batch": 2,
+      "fabricated_design_commit": "5bf5dd2c2761bc25c87661bcff1751a08dea1e4e",
+      "motor_inputs": "A IN1=GPIO17, B IN1=GPIO4; IN2 is wired directly to ground on both motor drivers."
+    }
   },
   "unmeasured_conditions": [
     "liquid temperature",
@@ -80,5 +95,29 @@
     "motor voltage and speed",
     "pressure difference at the heads",
     "syrup-to-water ratio in a glass"
-  ]
+  ],
+  "after_camera_move": {
+    "side_camera_native_crop_xywh": [
+      1980,
+      485,
+      2410,
+      2725
+    ],
+    "initial_volume_continuity": "Derek confirmed the same amount throughout the move.",
+    "measurement_side": "Near wall of the OXO cup against front US markings.",
+    "scale": "Smart Weigh TOP2KG under the measuring cup, digits recorded using the iPhone camera. See scale/measurements.json.",
+    "first_post_move_commands": [
+      "side-b0",
+      "side-a0"
+    ],
+    "first_post_move_direction": "Both channels still withdraw from the measuring cup."
+  },
+  "after_straight_tube_exchange": {
+    "begin_still": "frames/swapped-start-view.jpg",
+    "change": "Derek exchanged the straight head’s two loose tube ends between the vessels.",
+    "A": "OXO cup to dish; two guides on the dish-side tube.",
+    "B": "Dish to OXO cup; straight route.",
+    "direction_check": "frames/return-check-view.jpg",
+    "controller_rotation": "Forward on both channels. Neither driver has its second input connected to an ESP32 output."
+  }
 }
