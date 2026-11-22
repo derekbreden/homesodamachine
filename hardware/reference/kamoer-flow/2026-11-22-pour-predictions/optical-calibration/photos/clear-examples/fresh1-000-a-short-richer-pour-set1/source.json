@@ -1,0 +1,18 @@
+{
+  "native_hashes": {
+    "average.png": "614d10ff4a4e01196f46804edd3fe44f45f0594f1e8f16716f862858df9f7df8",
+    "color.png": "6e2010bc659fbd19b77c03203bedf7734dd51dc47852675294d19d7537dd13ac",
+    "window.json": "9cc9f249f253d1e7f55eede4bbf53f6a4273e1c92e80102e8b286603507f531e",
+    "color.json": "478700675fa12f9d0017c4b101e45f22d27e05a7b8fcb05e813bae07d86e1683"
+  },
+  "crop_ltrb": [
+    950,
+    650,
+    2045,
+    1340
+  ],
+  "crop_sha256": {
+    "average.png": "2f7ec592e811971c0bd82635ab3b6b8c24c3fe47341c69daeb7cd0800ca71762",
+    "color.png": "5806b94a19169fd56f1c664e03ced5b0c3b74e334e6b4513b19950316e872f80"
+  }
+}
