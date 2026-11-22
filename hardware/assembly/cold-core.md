@@ -153,7 +153,8 @@ Work with the shell upright and its equipment lid off.
    Keep the installed tube lumens and relief path open.
 4. **Pour through the open shell.** Use the measured charge and
    distribute it through the connected body cavity within the kit's
-   working time. Let the foam cure with the equipment lid off.
+   working time. The foam covers both closed reservoir caps and surrounds
+   the staged risers. Let it cure with the equipment lid off.
 5. **Clear the lid seat and B-fill route.** Pull the locator from
    the front and remove the temporary masks. Trim the foam below
    the equipment lid's seating plane. Clear the B-fill approach for
