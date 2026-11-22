@@ -46,7 +46,8 @@ def figure(scores, attempts_path, output, fresh=False):
     values += [p * 1.1 + 1 for r in results.values() if (p := r["forecast_ml"]) is not None]
     if not values:
         raise ValueError("The plot needs a trained forecast or an independently read dose")
-    x_max = math.ceil(max(values) / 5) * 5
+    upper = max(values) * (1.02 if fresh else 1)
+    x_max = math.ceil(upper / 5) * 5
     x_min = min(0, math.floor(min(values) / 5) * 5)
     fig, axes = plt.subplots(1, 2, sharex=True, sharey=True, figsize=(12.2, 4.9 if fresh else 6.65), dpi=170)
     fig.set_facecolor("white")
