@@ -170,6 +170,12 @@
     "change": "The two clips were removed from the previously bent outlet tube on A. The resulting curvature and cross section were unmeasured.",
     "comparison": "Head, free-end assignment and tube length identify each tested path. No same-head straight-before-forming baseline exists for A.",
     "A": "Measuring cup to rectangular dish, previously bent discharge tubing with clips off.",
-    "B": "Rectangular dish to measuring cup."
+    "B": "Rectangular dish to measuring cup.",
+    "primary_measurement": "Camera-only displacement of the liquid surface on the graduated cup.",
+    "native_single_shots": "native-single-shots.json",
+    "duration_and_pulse_tests": "released/summary.json",
+    "surface_timing": "dynamic-timing-check.json",
+    "native_shot_timestamps": "released/native-command-events.jsonl",
+    "native_shot_controller": "controller/released-native-shots.log"
   }
 }

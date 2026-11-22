@@ -1,0 +1,137 @@
+{"t_ns": 348755096277833, "event": "tx", "command": "status"}
+{"t_ns": 348755103905375, "event": "rx", "line": "2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"t_ns": 348755103949708, "event": "rx", "line": "state    idle"}
+{"t_ns": 348755106740958, "event": "rx", "line": "uptime   289 s"}
+{"t_ns": 348755109472250, "event": "rx", "line": "heap     262520 bytes free"}
+{"t_ns": 348755112229416, "event": "rx", "line": "flavor   A \u2014 main-board-owned, persisted"}
+{"t_ns": 348755114972000, "event": "rx", "line": "ratio    A 1:20, B 1:15"}
+{"t_ns": 348755117772291, "event": "rx", "line": "flow     0 pulses since boot on IO25"}
+{"t_ns": 348755123725625, "event": "rx", "line": "level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"t_ns": 348755141455375, "event": "rx", "line": "expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"t_ns": 348755146959625, "event": "rx", "line": "reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"t_ns": 348755149735500, "event": "rx", "line": "valves   all closed"}
+{"t_ns": 348755152564750, "event": "rx", "line": "relays   compressor open (IO19), refill open (IO2)"}
+{"t_ns": 348755158077291, "event": "rx", "line": "cold     tank --, coil --, fault, 0 probes on IO26"}
+{"t_ns": 348755158116708, "event": "rx", "line": "refill   idle"}
+{"t_ns": 348755166314791, "event": "rx", "line": "notice   none \u2014 a host on this console holds no-water welcome off for 895 s more"}
+{"t_ns": 348755169074750, "event": "rx", "line": "clock    2026-11-22 01:34:24"}
+{"t_ns": 348755174567583, "event": "rx", "line": "gas      clear (142 mV on the divided DOUT)"}
+{"t_ns": 348755177189583, "event": "rx", "line": "volume   100%, quiet hours off"}
+{"t_ns": 348755710244875, "event": "test_start", "trial": 1, "head": "b", "gate_ms": 200, "count": 1, "gap_ms": 0, "coarse_pre_y": 386.0}
+{"t_ns": 348755710309125, "event": "tx", "command": "pump b 200"}
+{"t_ns": 348755717469083, "event": "rx", "line": ">"}
+{"t_ns": 348755724771666, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348755917158666, "event": "rx", "line": ">"}
+{"t_ns": 348755919226416, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 348755919273833, "event": "test_done", "trial": 1}
+{"t_ns": 348760031196041, "event": "settled", "trial": 1, "coarse_post_y": 380.0}
+{"t_ns": 348760038552458, "event": "test_start", "trial": 2, "head": "a", "gate_ms": 200, "count": 1, "gap_ms": 0, "coarse_pre_y": 380.0}
+{"t_ns": 348760038593125, "event": "tx", "command": "pump a 200"}
+{"t_ns": 348760053518041, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348760246017166, "event": "rx", "line": ">"}
+{"t_ns": 348760248237458, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 348760248265458, "event": "test_done", "trial": 2}
+{"t_ns": 348764357234583, "event": "settled", "trial": 2, "coarse_post_y": 385.0}
+{"t_ns": 348764365694208, "event": "test_start", "trial": 3, "head": "a", "gate_ms": 1000, "count": 1, "gap_ms": 0, "coarse_pre_y": 385.0}
+{"t_ns": 348764365762625, "event": "tx", "command": "pump a 1000"}
+{"t_ns": 348764378799458, "event": "rx", "line": "[machine] pump A at full for 1000 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348765373328916, "event": "rx", "line": ">"}
+{"t_ns": 348765375602250, "event": "rx", "line": "[machine] pump A done after 1000 ms"}
+{"t_ns": 348765375631750, "event": "test_done", "trial": 3}
+{"t_ns": 348769486642375, "event": "settled", "trial": 3, "coarse_post_y": 415.0}
+{"t_ns": 348769495616416, "event": "test_start", "trial": 4, "head": "b", "gate_ms": 1000, "count": 1, "gap_ms": 0, "coarse_pre_y": 415.0}
+{"t_ns": 348769495683875, "event": "tx", "command": "pump b 1000"}
+{"t_ns": 348769510481333, "event": "rx", "line": "[machine] pump B at full for 1000 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348770503228000, "event": "rx", "line": ">"}
+{"t_ns": 348770505568958, "event": "rx", "line": "[machine] pump B done after 1000 ms"}
+{"t_ns": 348770505688500, "event": "test_done", "trial": 4}
+{"t_ns": 348774619371416, "event": "settled", "trial": 4, "coarse_post_y": 384.0}
+{"t_ns": 348774627558333, "event": "test_start", "trial": 5, "head": "b", "gate_ms": 60, "count": 1, "gap_ms": 0, "coarse_pre_y": 384.0}
+{"t_ns": 348774627608416, "event": "tx", "command": "pump b 60"}
+{"t_ns": 348774642117250, "event": "rx", "line": "[machine] pump B at full for 60 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348774694953625, "event": "rx", "line": ">"}
+{"t_ns": 348774697089333, "event": "rx", "line": "[machine] pump B done after 60 ms"}
+{"t_ns": 348774697138166, "event": "test_done", "trial": 5}
+{"t_ns": 348778811998083, "event": "settled", "trial": 5, "coarse_post_y": 392.0}
+{"t_ns": 348778820979416, "event": "test_start", "trial": 6, "head": "a", "gate_ms": 60, "count": 1, "gap_ms": 0, "coarse_pre_y": 392.0}
+{"t_ns": 348778821029625, "event": "tx", "command": "pump a 60"}
+{"t_ns": 348778835594125, "event": "rx", "line": "[machine] pump A at full for 60 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348778888157958, "event": "rx", "line": ">"}
+{"t_ns": 348778890216750, "event": "rx", "line": "[machine] pump A done after 60 ms"}
+{"t_ns": 348778890243750, "event": "test_done", "trial": 6}
+{"t_ns": 348783006893833, "event": "settled", "trial": 6, "coarse_post_y": 394.0}
+{"t_ns": 348783015368041, "event": "test_start", "trial": 7, "head": "a", "gate_ms": 6000, "count": 1, "gap_ms": 0, "coarse_pre_y": 394.0}
+{"t_ns": 348783015414666, "event": "tx", "command": "pump a 6000"}
+{"t_ns": 348783028527916, "event": "rx", "line": "[machine] pump A at full for 6000 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348789023216500, "event": "rx", "line": ">"}
+{"t_ns": 348789025501750, "event": "rx", "line": "[machine] pump A done after 6000 ms"}
+{"t_ns": 348789025518625, "event": "test_done", "trial": 7}
+{"t_ns": 348793135967250, "event": "settled", "trial": 7, "coarse_post_y": 557.0}
+{"t_ns": 348793144318041, "event": "test_start", "trial": 8, "head": "b", "gate_ms": 6000, "count": 1, "gap_ms": 0, "coarse_pre_y": 557.0}
+{"t_ns": 348793144352708, "event": "tx", "command": "pump b 6000"}
+{"t_ns": 348793159024583, "event": "rx", "line": "[machine] pump B at full for 6000 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348799152040833, "event": "rx", "line": ">"}
+{"t_ns": 348799154282333, "event": "rx", "line": "[machine] pump B done after 6000 ms"}
+{"t_ns": 348799154328166, "event": "test_done", "trial": 8}
+{"t_ns": 348803262603875, "event": "settled", "trial": 8, "coarse_post_y": 381.0}
+{"t_ns": 348803270648375, "event": "test_start", "trial": 9, "head": "b", "gate_ms": 500, "count": 1, "gap_ms": 0, "coarse_pre_y": 381.0}
+{"t_ns": 348803270691291, "event": "tx", "command": "pump b 500"}
+{"t_ns": 348803285451208, "event": "rx", "line": "[machine] pump B at full for 500 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348803777835500, "event": "rx", "line": ">"}
+{"t_ns": 348803780093625, "event": "rx", "line": "[machine] pump B done after 500 ms"}
+{"t_ns": 348803780141375, "event": "test_done", "trial": 9}
+{"t_ns": 348807890093250, "event": "settled", "trial": 9, "coarse_post_y": 368.0}
+{"t_ns": 348807898514208, "event": "test_start", "trial": 10, "head": "a", "gate_ms": 500, "count": 1, "gap_ms": 0, "coarse_pre_y": 367.0}
+{"t_ns": 348807898549958, "event": "tx", "command": "pump a 500"}
+{"t_ns": 348807913444500, "event": "rx", "line": "[machine] pump A at full for 500 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348808406153083, "event": "rx", "line": ">"}
+{"t_ns": 348808408406583, "event": "rx", "line": "[machine] pump A done after 500 ms"}
+{"t_ns": 348808408457625, "event": "test_done", "trial": 10}
+{"t_ns": 348812523540375, "event": "settled", "trial": 10, "coarse_post_y": 375.0}
+{"t_ns": 348812532931166, "event": "test_start", "trial": 11, "head": "a", "gate_ms": 125, "count": 1, "gap_ms": 0, "coarse_pre_y": 375.0}
+{"t_ns": 348812532990583, "event": "tx", "command": "pump a 125"}
+{"t_ns": 348812547873125, "event": "rx", "line": "[machine] pump A at full for 125 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348812666239708, "event": "rx", "line": ">"}
+{"t_ns": 348812668319875, "event": "rx", "line": "[machine] pump A done after 125 ms"}
+{"t_ns": 348812668365708, "event": "test_done", "trial": 11}
+{"t_ns": 348816777678958, "event": "settled", "trial": 11, "coarse_post_y": 378.0}
+{"t_ns": 348816786118333, "event": "test_start", "trial": 12, "head": "b", "gate_ms": 125, "count": 1, "gap_ms": 0, "coarse_pre_y": 378.0}
+{"t_ns": 348816786181458, "event": "tx", "command": "pump b 125"}
+{"t_ns": 348816800738583, "event": "rx", "line": "[machine] pump B at full for 125 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348816918712208, "event": "rx", "line": ">"}
+{"t_ns": 348816920932708, "event": "rx", "line": "[machine] pump B done after 125 ms"}
+{"t_ns": 348816920977041, "event": "test_done", "trial": 12}
+{"t_ns": 348821028812125, "event": "settled", "trial": 12, "coarse_post_y": 386.0}
+{"t_ns": 348821036639791, "event": "test_start", "trial": 13, "head": "a", "gate_ms": 3200, "count": 1, "gap_ms": 0, "coarse_pre_y": 386.0}
+{"t_ns": 348821036672250, "event": "tx", "command": "pump a 3200"}
+{"t_ns": 348821049547208, "event": "rx", "line": "[machine] pump A at full for 3200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 348824243585000, "event": "rx", "line": ">"}
+{"t_ns": 348824246016208, "event": "rx", "line": "[machine] pump A done after 3200 ms"}
+{"t_ns": 348824246042666, "event": "test_done", "trial": 13}
+{"t_ns": 348828359361250, "event": "settled", "trial": 13, "coarse_post_y": 471.0}
+{"t_ns": 348828367148375, "event": "test_start", "trial": 14, "head": "b", "gate_ms": 3200, "count": 1, "gap_ms": 0, "coarse_pre_y": 471.0}
+{"t_ns": 348828367197875, "event": "tx", "command": "pump b 3200"}
+{"t_ns": 348828381734666, "event": "rx", "line": "[machine] pump B at full for 3200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 348831574803458, "event": "rx", "line": ">"}
+{"t_ns": 348831577101333, "event": "rx", "line": "[machine] pump B done after 3200 ms"}
+{"t_ns": 348831577156166, "event": "test_done", "trial": 14}
+{"t_ns": 348835690260416, "event": "settled", "trial": 14, "coarse_post_y": 377.0}
+{"t_ns": 348835690341583, "event": "tx", "command": "status"}
+{"t_ns": 348835698228458, "event": "rx", "line": "2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"t_ns": 348835698326833, "event": "rx", "line": "state    idle"}
+{"t_ns": 348835700992583, "event": "rx", "line": "uptime   370 s"}
+{"t_ns": 348835703642875, "event": "rx", "line": "heap     262520 bytes free"}
+{"t_ns": 348835706485375, "event": "rx", "line": "flavor   A \u2014 main-board-owned, persisted"}
+{"t_ns": 348835709250041, "event": "rx", "line": "ratio    A 1:20, B 1:15"}
+{"t_ns": 348835712026333, "event": "rx", "line": "flow     0 pulses since boot on IO25"}
+{"t_ns": 348835717968416, "event": "rx", "line": "level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"t_ns": 348835735634208, "event": "rx", "line": "expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"t_ns": 348835741161250, "event": "rx", "line": "reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"t_ns": 348835743877333, "event": "rx", "line": "valves   all closed"}
+{"t_ns": 348835746654833, "event": "rx", "line": "relays   compressor open (IO19), refill open (IO2)"}
+{"t_ns": 348835752312583, "event": "rx", "line": "cold     tank --, coil --, fault, 0 probes on IO26"}
+{"t_ns": 348835752329041, "event": "rx", "line": "refill   idle"}
+{"t_ns": 348835760465500, "event": "rx", "line": "notice   none \u2014 a host on this console holds no-water welcome off for 815 s more"}
+{"t_ns": 348835763207666, "event": "rx", "line": "clock    2026-11-22 01:35:44"}
+{"t_ns": 348835768768666, "event": "rx", "line": "gas      clear (142 mV on the divided DOUT)"}
+{"t_ns": 348835771209750, "event": "rx", "line": "volume   100%, quiet hours off"}

@@ -1,0 +1,332 @@
+{
+  "purpose": "Measure individual pump shots with the camera fixed and the bend guides removed from A’s previously bent dish-side tube.",
+  "before_after_measurements": "native-single-shots.csv",
+  "evidence_figure": "native-single-shots.png",
+  "native_crops": "native-single-frames",
+  "timing": "The command sequence interleaves both directions and durations. Each before image is the previous settled endpoint. Capture starts after a nominal 1.25 s wait following completion or the idle response. Full camera acquisition takes additional time. Board-reported durations are in the CSV.",
+  "direction": "Positive signed cup change is a gain. A withdraws from the cup and B returns to it. Directional transfer uses the corresponding sign. No scale values enter the calculation.",
+  "camera": {
+    "native_width_height_px": [4656, 3496],
+    "rotation_to_upright_degrees": 180,
+    "locked_focus_setting": 650,
+    "gain_setting": 0,
+    "automatic_exposure_and_white_balance": true,
+    "coordinates": "Native coordinates use the upright full frame with origin at the upper left. Crops preserve the RGB samples without resampling."
+  },
+  "scale": {
+    "us_cup_ml": 236.5882365,
+    "front_printed_ticks": {
+      "left1.0000": [2591.99, 1965.86],
+      "left1.2500": [2546.63, 1641.13],
+      "right1.0000": [3280.95, 1949.87],
+      "right1.3333": [3248.72, 1524.34]
+    },
+    "ml_per_vertical_native_px": [0.18214, 0.18533],
+    "interpolation": "The height is between the adjacent front marks at both columns. Use the left quarter-cup or right third-cup difference divided by its native spacing, interpolating the sensitivity between columns."
+  },
+  "registration": "Fit small two-dimensional translations of the eight stationary red-ink windows using the red color excess, robust least squares and local intensity adjustment. An affine estimate from the reliable windows follows cup translation, rotation and scale. A separate translation-only reduction checks sensitivity to the registration model.",
+  "edge": "An arc through clear glass locates the near-wall contact. In each nonoverlapping window, track the same falling red/green intensity edge before and after. Mask opaque red print. The primary estimate is the median of the patchwise volume shifts from matched profiles. A second estimate uses the positive-gradient centroid around the same matched ridge. Both estimates are evaluated on the left and right halves with both registrations. A separately located gradient edge on the right provides an additional check. Switching between two reflections on the left can give spurious shifts when the two images are fitted separately.",
+  "windows": {
+    "center_x_px": [2130, 2210, 2290, 2370, 2450, 2530, 2610, 2690, 2770, 2850, 2930, 3010, 3090, 3170, 3250, 3330, 3410, 3490, 3570, 3650, 3730, 3810, 3890, 3970, 4050],
+    "patch_width_px": 59,
+    "within_patch_column_step_px": 2,
+    "half_split_x_px": 3075,
+    "arc_cubic_origin_x_px": 3075,
+    "arc_cubic_horizontal_scale_px": 1000,
+    "arc_basis": "y = c0 + c1 u + c2 u² + c3 u³, with u equal to the centered and scaled native x."
+  },
+  "no_drive": {
+    "indices": [1, 8, 15, 22],
+    "signed_medians_ml": [-0.047, 0.237, -0.052, -0.148],
+    "largest_absolute_half_view_median_ml": 0.3178,
+    "added_one_native_pixel_ml": 0.1853,
+    "working_half_view_threshold_ml": 0.5032,
+    "rule": "A transfer clears the guarded threshold when each half independently exceeds the largest absolute control half-view response plus one native pixel in the pump direction under both edge estimators and both registration models. The unguarded column compares with the observed controls alone. The threshold is empirical for this setup. Four quiet pairs do not establish a statistical detection limit or absolute cup accuracy."
+  },
+  "results": [
+    {
+      "head": "A",
+      "nominal_ms": 50,
+      "n": 3,
+      "indices": [2, 12, 20],
+      "mean_directional_ml": 0.704,
+      "sample_sd_ml": 0.124,
+      "individual_directional_range_ml": [0.561, 0.786],
+      "sum_of_separate_shots_ml": 2.112,
+      "above_observed_blank_count": 3,
+      "above_blank_plus_one_pixel_count": 3
+    },
+    {
+      "head": "B",
+      "nominal_ms": 50,
+      "n": 3,
+      "indices": [3, 11, 21],
+      "mean_directional_ml": 0.573,
+      "sample_sd_ml": 0.07,
+      "individual_directional_range_ml": [0.501, 0.64],
+      "sum_of_separate_shots_ml": 1.718,
+      "above_observed_blank_count": 3,
+      "above_blank_plus_one_pixel_count": 1
+    },
+    {
+      "head": "A",
+      "nominal_ms": 125,
+      "n": 3,
+      "indices": [5, 13, 17],
+      "mean_directional_ml": 1.793,
+      "sample_sd_ml": 0.18,
+      "individual_directional_range_ml": [1.617, 1.976],
+      "sum_of_separate_shots_ml": 5.379,
+      "above_observed_blank_count": 3,
+      "above_blank_plus_one_pixel_count": 3
+    },
+    {
+      "head": "B",
+      "nominal_ms": 125,
+      "n": 3,
+      "indices": [4, 14, 16],
+      "mean_directional_ml": 1.877,
+      "sample_sd_ml": 0.364,
+      "individual_directional_range_ml": [1.487, 2.209],
+      "sum_of_separate_shots_ml": 5.63,
+      "above_observed_blank_count": 3,
+      "above_blank_plus_one_pixel_count": 3
+    },
+    {
+      "head": "A",
+      "nominal_ms": 200,
+      "n": 3,
+      "indices": [6, 10, 18],
+      "mean_directional_ml": 2.838,
+      "sample_sd_ml": 0.329,
+      "individual_directional_range_ml": [2.465, 3.089],
+      "sum_of_separate_shots_ml": 8.514,
+      "above_observed_blank_count": 3,
+      "above_blank_plus_one_pixel_count": 3
+    },
+    {
+      "head": "B",
+      "nominal_ms": 200,
+      "n": 3,
+      "indices": [7, 9, 19],
+      "mean_directional_ml": 2.932,
+      "sample_sd_ml": 0.032,
+      "individual_directional_range_ml": [2.903, 2.966],
+      "sum_of_separate_shots_ml": 8.795,
+      "above_observed_blank_count": 3,
+      "above_blank_plus_one_pixel_count": 3
+    }
+  ],
+  "uncertainty": "Individual patch percentiles show spatial variation in a single image pair. The group sample standard deviation describes the three separately commanded shots. The sum of paired changes is calculated from those individual estimates; a single cumulative image comparison was not available because the two directions were interleaved.",
+  "evidence_atlas": {
+    "dimensions_px": [2048, 416],
+    "source_rectangles": [
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [2048, 1592, 256, 304],
+        "atlas_xy": [0, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [2304, 1574, 256, 304],
+        "atlas_xy": [256, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [2560, 1555, 256, 304],
+        "atlas_xy": [512, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [2816, 1534, 256, 304],
+        "atlas_xy": [768, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [3072, 1514, 256, 304],
+        "atlas_xy": [1024, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [3328, 1495, 256, 304],
+        "atlas_xy": [1280, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [3584, 1474, 256, 304],
+        "atlas_xy": [1536, 0]
+      },
+      {
+        "feature": "liquid_contact",
+        "native_xywh": [3840, 1455, 256, 304],
+        "atlas_xy": [1792, 0]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [2015, 1903, 224, 112],
+        "atlas_xy": [0, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [2546, 1910, 224, 112],
+        "atlas_xy": [256, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [3081, 1893, 224, 112],
+        "atlas_xy": [512, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [3856, 1841, 224, 112],
+        "atlas_xy": [768, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [2164, 1591, 224, 112],
+        "atlas_xy": [1024, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [2499, 1585, 224, 112],
+        "atlas_xy": [1280, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [3049, 1470, 224, 112],
+        "atlas_xy": [1536, 304]
+      },
+      {
+        "feature": "stationary_print",
+        "native_xywh": [3491, 1445, 224, 112],
+        "atlas_xy": [1792, 304]
+      }
+    ],
+    "frame_table": [
+      {
+        "file": "000.png",
+        "saved_utc": "2026-11-22T06:40:48.444+00:00",
+        "arc_coefficients": [1672.980573, -87.968669, 5.285894, 6.470648]
+      },
+      {
+        "file": "001.png",
+        "saved_utc": "2026-11-22T06:40:52.986+00:00",
+        "arc_coefficients": [1672.906532, -85.455445, 5.547115, 3.534208]
+      },
+      {
+        "file": "002.png",
+        "saved_utc": "2026-11-22T06:40:57.564+00:00",
+        "arc_coefficients": [1677.692124, -83.443533, 5.623963, 1.948095]
+      },
+      {
+        "file": "003.png",
+        "saved_utc": "2026-11-22T06:41:02.236+00:00",
+        "arc_coefficients": [1676.350428, -88.352975, 4.249607, 6.536749]
+      },
+      {
+        "file": "004.png",
+        "saved_utc": "2026-11-22T06:41:06.972+00:00",
+        "arc_coefficients": [1666.090871, -89.601726, 4.725813, 4.456574]
+      },
+      {
+        "file": "005.png",
+        "saved_utc": "2026-11-22T06:41:11.702+00:00",
+        "arc_coefficients": [1678.323776, -79.96932, -8.796764, 10.940536]
+      },
+      {
+        "file": "006.png",
+        "saved_utc": "2026-11-22T06:41:16.452+00:00",
+        "arc_coefficients": [1687.656313, -70.471072, -18.480903, 11.620498]
+      },
+      {
+        "file": "007.png",
+        "saved_utc": "2026-11-22T06:41:21.269+00:00",
+        "arc_coefficients": [1680.721057, -84.861266, 3.215687, 1.959243]
+      },
+      {
+        "file": "008.png",
+        "saved_utc": "2026-11-22T06:41:25.748+00:00",
+        "arc_coefficients": [1679.294996, -85.346905, 3.858476, 4.360902]
+      },
+      {
+        "file": "009.png",
+        "saved_utc": "2026-11-22T06:41:30.530+00:00",
+        "arc_coefficients": [1663.204291, -83.745104, 6.212753, 2.936486]
+      },
+      {
+        "file": "010.png",
+        "saved_utc": "2026-11-22T06:41:35.646+00:00",
+        "arc_coefficients": [1673.01078, -56.96927, -12.497976, -7.489425]
+      },
+      {
+        "file": "011.png",
+        "saved_utc": "2026-11-22T06:41:40.201+00:00",
+        "arc_coefficients": [1673.850266, -82.085734, 6.732241, 0.5903]
+      },
+      {
+        "file": "012.png",
+        "saved_utc": "2026-11-22T06:41:44.735+00:00",
+        "arc_coefficients": [1679.10907, -85.223515, 4.269507, 3.897752]
+      },
+      {
+        "file": "013.png",
+        "saved_utc": "2026-11-22T06:41:49.440+00:00",
+        "arc_coefficients": [1686.936102, -79.203805, 4.51624, -2.571892]
+      },
+      {
+        "file": "014.png",
+        "saved_utc": "2026-11-22T06:41:53.990+00:00",
+        "arc_coefficients": [1677.115962, -87.229715, 4.92745, 4.570363]
+      },
+      {
+        "file": "015.png",
+        "saved_utc": "2026-11-22T06:41:58.533+00:00",
+        "arc_coefficients": [1676.531776, -84.096712, 3.975028, 2.123601]
+      },
+      {
+        "file": "016.png",
+        "saved_utc": "2026-11-22T06:42:03.228+00:00",
+        "arc_coefficients": [1668.001873, -80.715537, 4.982002, 1.684588]
+      },
+      {
+        "file": "017.png",
+        "saved_utc": "2026-11-22T06:42:07.911+00:00",
+        "arc_coefficients": [1677.403958, -80.454095, 5.154373, -1.465018]
+      },
+      {
+        "file": "018.png",
+        "saved_utc": "2026-11-22T06:42:12.554+00:00",
+        "arc_coefficients": [1689.764924, -69.481822, -24.296578, 17.598647]
+      },
+      {
+        "file": "019.png",
+        "saved_utc": "2026-11-22T06:42:17.247+00:00",
+        "arc_coefficients": [1675.862906, -83.474026, 5.157393, 3.726953]
+      },
+      {
+        "file": "020.png",
+        "saved_utc": "2026-11-22T06:42:21.862+00:00",
+        "arc_coefficients": [1679.488574, -82.993297, 4.297134, 1.771019]
+      },
+      {
+        "file": "021.png",
+        "saved_utc": "2026-11-22T06:42:26.399+00:00",
+        "arc_coefficients": [1676.723899, -84.852876, 4.388586, 2.982527]
+      },
+      {
+        "file": "022.png",
+        "saved_utc": "2026-11-22T06:42:30.807+00:00",
+        "arc_coefficients": [1676.940911, -82.788842, 4.155936, 0.694193]
+      }
+    ]
+  },
+  "verifications": {
+    "native_source_images": 23,
+    "controller_intervals": 22,
+    "no_drive_intervals": 4,
+    "pixel_regions_compared_at_full_resolution": 368,
+    "stored_region_samples_equal_to_original": true,
+    "intervals_reproduced_from_native_atlases": 22,
+    "largest_atlas_replay_vs_rounded_csv_difference_ml": 0.0005
+  }
+}

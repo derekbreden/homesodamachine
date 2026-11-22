@@ -1,0 +1,617 @@
+{"t_ns": 349072174881833, "event": "tx", "command": "status"}
+{"t_ns": 349072182956291, "event": "rx", "line": "2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"t_ns": 349072182994000, "event": "rx", "line": "state    idle"}
+{"t_ns": 349072185702375, "event": "rx", "line": "uptime   606 s"}
+{"t_ns": 349072188381875, "event": "rx", "line": "heap     262520 bytes free"}
+{"t_ns": 349072191161291, "event": "rx", "line": "flavor   A \u2014 main-board-owned, persisted"}
+{"t_ns": 349072193965125, "event": "rx", "line": "ratio    A 1:20, B 1:15"}
+{"t_ns": 349072196657750, "event": "rx", "line": "flow     0 pulses since boot on IO25"}
+{"t_ns": 349072202533791, "event": "rx", "line": "level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"t_ns": 349072220349458, "event": "rx", "line": "expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"t_ns": 349072225871583, "event": "rx", "line": "reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"t_ns": 349072228616500, "event": "rx", "line": "valves   all closed"}
+{"t_ns": 349072231404458, "event": "rx", "line": "relays   compressor open (IO19), refill open (IO2)"}
+{"t_ns": 349072237014291, "event": "rx", "line": "cold     tank --, coil --, fault, 0 probes on IO26"}
+{"t_ns": 349072237040416, "event": "rx", "line": "refill   idle"}
+{"t_ns": 349072245177583, "event": "rx", "line": "notice   none \u2014 a host on this console holds no-water welcome off for 895 s more"}
+{"t_ns": 349072247958750, "event": "rx", "line": "clock    2026-11-22 01:39:41"}
+{"t_ns": 349072253392500, "event": "rx", "line": "gas      clear (142 mV on the divided DOUT)"}
+{"t_ns": 349072256045416, "event": "rx", "line": "volume   100%, quiet hours off"}
+{"t_ns": 349072789787125, "event": "test_start", "trial": 1, "head": "b", "gate_ms": 100, "count": 20, "gap_ms": 150, "coarse_pre_y": 356.0}
+{"t_ns": 349072789845916, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349072797385083, "event": "rx", "line": ">"}
+{"t_ns": 349072804690375, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349072897138416, "event": "rx", "line": ">"}
+{"t_ns": 349072899382625, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349073041834750, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349073056180625, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349073149731208, "event": "rx", "line": ">"}
+{"t_ns": 349073151780875, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349073291918625, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349073306184583, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349073399282125, "event": "rx", "line": ">"}
+{"t_ns": 349073401490416, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349073544693583, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349073558885625, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349073652454416, "event": "rx", "line": ">"}
+{"t_ns": 349073654594958, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349073790194291, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349073804941541, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349073898563375, "event": "rx", "line": ">"}
+{"t_ns": 349073900785708, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349074044868166, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349074059613125, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349074152397625, "event": "rx", "line": ">"}
+{"t_ns": 349074154558208, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349074294869041, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349074309320666, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349074402250125, "event": "rx", "line": ">"}
+{"t_ns": 349074404591875, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349074544866250, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349074559362875, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349074652478291, "event": "rx", "line": ">"}
+{"t_ns": 349074654671916, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349074794861708, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349074809586291, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349074901945208, "event": "rx", "line": ">"}
+{"t_ns": 349074904219416, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349075044869333, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349075059297541, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349075152549125, "event": "rx", "line": ">"}
+{"t_ns": 349075154788416, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349075293489208, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349075307501375, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349075400025750, "event": "rx", "line": ">"}
+{"t_ns": 349075402213125, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349075544865791, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349075559229833, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349075652287375, "event": "rx", "line": ">"}
+{"t_ns": 349075654585458, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349075789960416, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349075804165833, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349075897449875, "event": "rx", "line": ">"}
+{"t_ns": 349075899647541, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349076044870916, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349076058959750, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349076152548125, "event": "rx", "line": ">"}
+{"t_ns": 349076154801291, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349076294881583, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349076309616125, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349076401979750, "event": "rx", "line": ">"}
+{"t_ns": 349076404350458, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349076544151291, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349076558206875, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349076651641875, "event": "rx", "line": ">"}
+{"t_ns": 349076653902625, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349076794863333, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349076809142083, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349076902543208, "event": "rx", "line": ">"}
+{"t_ns": 349076904677250, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349077044861833, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349077059005708, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349077152194000, "event": "rx", "line": ">"}
+{"t_ns": 349077154402791, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349077294882583, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349077309061125, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349077402062958, "event": "rx", "line": ">"}
+{"t_ns": 349077404222125, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349077544884291, "event": "tx", "command": "pump b 100"}
+{"t_ns": 349077559164250, "event": "rx", "line": "[machine] pump B at full for 100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349077652086458, "event": "rx", "line": ">"}
+{"t_ns": 349077654324500, "event": "rx", "line": "[machine] pump B done after 100 ms"}
+{"t_ns": 349077654372583, "event": "test_done", "trial": 1}
+{"t_ns": 349081768126458, "event": "settled", "trial": 1, "coarse_post_y": 277.0}
+{"t_ns": 349081777106125, "event": "test_start", "trial": 2, "head": "a", "gate_ms": 100, "count": 20, "gap_ms": 150, "coarse_pre_y": 277.0}
+{"t_ns": 349081777155125, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349081791883375, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349081884914208, "event": "rx", "line": ">"}
+{"t_ns": 349081887047041, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349082032189166, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349082046739166, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349082139303375, "event": "rx", "line": ">"}
+{"t_ns": 349082141465541, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349082282207708, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349082296440208, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349082389323666, "event": "rx", "line": ">"}
+{"t_ns": 349082391399666, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349082532190875, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349082546722000, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349082639019666, "event": "rx", "line": ">"}
+{"t_ns": 349082641267125, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349082782200166, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349082796898208, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349082889916833, "event": "rx", "line": ">"}
+{"t_ns": 349082891998750, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349083032175708, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349083046606083, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349083139007625, "event": "rx", "line": ">"}
+{"t_ns": 349083141232333, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349083280257791, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349083295143750, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349083388058958, "event": "rx", "line": ">"}
+{"t_ns": 349083390322375, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349083532179500, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349083546711666, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349083639240458, "event": "rx", "line": ">"}
+{"t_ns": 349083641475375, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349083782194541, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349083796887916, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349083890203458, "event": "rx", "line": ">"}
+{"t_ns": 349083892399166, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349084032191291, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349084046919500, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349084140391333, "event": "rx", "line": ">"}
+{"t_ns": 349084142591333, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349084282175208, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349084296826041, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349084390267916, "event": "rx", "line": ">"}
+{"t_ns": 349084392477458, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349084532188250, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349084546741916, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349084638964500, "event": "rx", "line": ">"}
+{"t_ns": 349084641125708, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349084777822250, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349084792323958, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349084885368875, "event": "rx", "line": ">"}
+{"t_ns": 349084887626833, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349085028252708, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349085042476041, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349085135066083, "event": "rx", "line": ">"}
+{"t_ns": 349085137368166, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349085282176833, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349085296645250, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349085389339750, "event": "rx", "line": ">"}
+{"t_ns": 349085391557875, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349085532178708, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349085546689875, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349085640395375, "event": "rx", "line": ">"}
+{"t_ns": 349085642672833, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349085782190250, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349085796890916, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349085890011875, "event": "rx", "line": ">"}
+{"t_ns": 349085892249583, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349086028062791, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349086042692625, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349086135399583, "event": "rx", "line": ">"}
+{"t_ns": 349086137666625, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349086279554916, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349086293782750, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349086386081750, "event": "rx", "line": ">"}
+{"t_ns": 349086388268291, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349086531741250, "event": "tx", "command": "pump a 100"}
+{"t_ns": 349086546073750, "event": "rx", "line": "[machine] pump A at full for 100 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349086638935666, "event": "rx", "line": ">"}
+{"t_ns": 349086641133041, "event": "rx", "line": "[machine] pump A done after 100 ms"}
+{"t_ns": 349086641151458, "event": "test_done", "trial": 2}
+{"t_ns": 349090751997833, "event": "settled", "trial": 2, "coarse_post_y": 353.0}
+{"t_ns": 349090762093208, "event": "test_start", "trial": 3, "head": "a", "gate_ms": 50, "count": 40, "gap_ms": 75, "coarse_pre_y": 353.0}
+{"t_ns": 349090762167125, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349090776705458, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349090818958625, "event": "rx", "line": ">"}
+{"t_ns": 349090821093291, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349090892212583, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349090906273083, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349090948799625, "event": "rx", "line": ">"}
+{"t_ns": 349090950833000, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091017087875, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091031702791, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091074251291, "event": "rx", "line": ">"}
+{"t_ns": 349091076245791, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091142181333, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091156667375, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091199197666, "event": "rx", "line": ">"}
+{"t_ns": 349091201386666, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091267188166, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091281089041, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091323939250, "event": "rx", "line": ">"}
+{"t_ns": 349091326155125, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091392182583, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091406529916, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091449065333, "event": "rx", "line": ">"}
+{"t_ns": 349091451296166, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091517183458, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091531606916, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091574717458, "event": "rx", "line": ">"}
+{"t_ns": 349091576913208, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091642184541, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091656763666, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091699972458, "event": "rx", "line": ">"}
+{"t_ns": 349091702160916, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091767190541, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091781388208, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091823833833, "event": "rx", "line": ">"}
+{"t_ns": 349091825928541, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349091892183958, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349091906623500, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349091949870208, "event": "rx", "line": ">"}
+{"t_ns": 349091951930041, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092017179500, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092031651708, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092074178541, "event": "rx", "line": ">"}
+{"t_ns": 349092076327791, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092142180958, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092156225250, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092198732333, "event": "rx", "line": ">"}
+{"t_ns": 349092200935416, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092267187958, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092281311000, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092323778541, "event": "rx", "line": ">"}
+{"t_ns": 349092325866541, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092387356708, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092401767291, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092444866916, "event": "rx", "line": ">"}
+{"t_ns": 349092447070916, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092517183958, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092531515791, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092574166416, "event": "rx", "line": ">"}
+{"t_ns": 349092576255541, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092639253750, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092653414958, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092696020500, "event": "rx", "line": ">"}
+{"t_ns": 349092698139875, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092767183500, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092781151291, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092823661708, "event": "rx", "line": ">"}
+{"t_ns": 349092825806916, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349092890411083, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349092904345125, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349092946937875, "event": "rx", "line": ">"}
+{"t_ns": 349092949114916, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093015490333, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093030267833, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093073091875, "event": "rx", "line": ">"}
+{"t_ns": 349093075246833, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093142182000, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093156282708, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093198793666, "event": "rx", "line": ">"}
+{"t_ns": 349093200998458, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093267181375, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093281363541, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093323915541, "event": "rx", "line": ">"}
+{"t_ns": 349093326093291, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093391781875, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093405847458, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093448985250, "event": "rx", "line": ">"}
+{"t_ns": 349093451071625, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093517185333, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093531481041, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093574061500, "event": "rx", "line": ">"}
+{"t_ns": 349093576195791, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093642180500, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093656563666, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093699106958, "event": "rx", "line": ">"}
+{"t_ns": 349093701157416, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093764581541, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093778421666, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093820941333, "event": "rx", "line": ">"}
+{"t_ns": 349093823184500, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349093892183000, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349093905947125, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349093949139625, "event": "rx", "line": ">"}
+{"t_ns": 349093951167041, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094016022166, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094030062250, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094072691208, "event": "rx", "line": ">"}
+{"t_ns": 349094074825333, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094141089375, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094155464583, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094198092875, "event": "rx", "line": ">"}
+{"t_ns": 349094200224916, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094267181208, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094281334541, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094324051833, "event": "rx", "line": ">"}
+{"t_ns": 349094326190166, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094387314291, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094401477458, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094443982583, "event": "rx", "line": ">"}
+{"t_ns": 349094446061416, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094517186333, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094531663416, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094574713791, "event": "rx", "line": ">"}
+{"t_ns": 349094576950708, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094642177250, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094656465416, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094699026625, "event": "rx", "line": ">"}
+{"t_ns": 349094701200625, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094764661583, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094779037166, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094822056541, "event": "rx", "line": ">"}
+{"t_ns": 349094824215208, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349094890291875, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349094904127083, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349094946697916, "event": "rx", "line": ">"}
+{"t_ns": 349094948899458, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095017180541, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349095031673458, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349095074161583, "event": "rx", "line": ">"}
+{"t_ns": 349095076374166, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095142177000, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349095156554416, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349095199111791, "event": "rx", "line": ">"}
+{"t_ns": 349095201321125, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095267192541, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349095281670041, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349095324740416, "event": "rx", "line": ">"}
+{"t_ns": 349095326938250, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095392179125, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349095406636916, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349095449689041, "event": "rx", "line": ">"}
+{"t_ns": 349095451894208, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095512837125, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349095527999208, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349095571086500, "event": "rx", "line": ">"}
+{"t_ns": 349095573250166, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095638549291, "event": "tx", "command": "pump a 50"}
+{"t_ns": 349095652746000, "event": "rx", "line": "[machine] pump A at full for 50 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349095696056333, "event": "rx", "line": ">"}
+{"t_ns": 349095698336416, "event": "rx", "line": "[machine] pump A done after 50 ms"}
+{"t_ns": 349095698415541, "event": "test_done", "trial": 3}
+{"t_ns": 349099810533375, "event": "settled", "trial": 3, "coarse_post_y": 421.0}
+{"t_ns": 349099820310375, "event": "test_start", "trial": 4, "head": "b", "gate_ms": 50, "count": 40, "gap_ms": 75, "coarse_pre_y": 421.0}
+{"t_ns": 349099820362250, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349099834402750, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349099876963083, "event": "rx", "line": ">"}
+{"t_ns": 349099879167041, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349099950379583, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349099964611083, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100007798291, "event": "rx", "line": ">"}
+{"t_ns": 349100010020500, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100075448333, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100089556500, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100132992125, "event": "rx", "line": ">"}
+{"t_ns": 349100135112416, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100197960291, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100211777333, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100254979250, "event": "rx", "line": ">"}
+{"t_ns": 349100257190500, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100325379958, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100339424000, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100382776375, "event": "rx", "line": ">"}
+{"t_ns": 349100384882000, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100449897083, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100464001833, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100507290833, "event": "rx", "line": ">"}
+{"t_ns": 349100509529291, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100574694291, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100588513333, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100631982291, "event": "rx", "line": ">"}
+{"t_ns": 349100634035833, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100697379958, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100711283958, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100753999500, "event": "rx", "line": ">"}
+{"t_ns": 349100756190083, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100825374666, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100839740416, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349100883116916, "event": "rx", "line": ">"}
+{"t_ns": 349100885125500, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349100948505125, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349100962930208, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101006313083, "event": "rx", "line": ">"}
+{"t_ns": 349101008363750, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101075394750, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101089758083, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101132922916, "event": "rx", "line": ">"}
+{"t_ns": 349101134987916, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101200390791, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101214226291, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101257239708, "event": "rx", "line": ">"}
+{"t_ns": 349101259463291, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101325376083, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101339306458, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101381940333, "event": "rx", "line": ">"}
+{"t_ns": 349101384012000, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101450377333, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101464376541, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101507694750, "event": "rx", "line": ">"}
+{"t_ns": 349101510022625, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101571046708, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101585098833, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101627784583, "event": "rx", "line": ">"}
+{"t_ns": 349101629841541, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101699692000, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101713691000, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101756791000, "event": "rx", "line": ">"}
+{"t_ns": 349101759015750, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101825382333, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101839592250, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349101882940833, "event": "rx", "line": ">"}
+{"t_ns": 349101885022125, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349101945392458, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349101959560750, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102002924916, "event": "rx", "line": ">"}
+{"t_ns": 349102005221041, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102072143458, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102086408750, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102128993750, "event": "rx", "line": ">"}
+{"t_ns": 349102131192500, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102200378500, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102214258125, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102256983208, "event": "rx", "line": ">"}
+{"t_ns": 349102259157958, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102325375458, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102339353333, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102382772750, "event": "rx", "line": ">"}
+{"t_ns": 349102384869708, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102450381083, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102464344958, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102507040500, "event": "rx", "line": ">"}
+{"t_ns": 349102509050125, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102574307750, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102588228083, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102631019333, "event": "rx", "line": ">"}
+{"t_ns": 349102633163375, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102700380875, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102714072750, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102756901500, "event": "rx", "line": ">"}
+{"t_ns": 349102758946375, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102825378125, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102839327000, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349102881898916, "event": "rx", "line": ">"}
+{"t_ns": 349102884021291, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349102949698750, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349102963787375, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103006996333, "event": "rx", "line": ">"}
+{"t_ns": 349103009142541, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103075379083, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103089539208, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103133344625, "event": "rx", "line": ">"}
+{"t_ns": 349103135473083, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103200380500, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103214693750, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103257982458, "event": "rx", "line": ">"}
+{"t_ns": 349103260089125, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103322657833, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103336551541, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103379755250, "event": "rx", "line": ">"}
+{"t_ns": 349103382002916, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103450381458, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103464879916, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103508127375, "event": "rx", "line": ">"}
+{"t_ns": 349103510334041, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103575375083, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103589294541, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103631894958, "event": "rx", "line": ">"}
+{"t_ns": 349103634081291, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103699561708, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103713950875, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103757148125, "event": "rx", "line": ">"}
+{"t_ns": 349103759320708, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103825378875, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103839491125, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349103882862041, "event": "rx", "line": ">"}
+{"t_ns": 349103884919375, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349103950388750, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349103964667583, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104007873500, "event": "rx", "line": ">"}
+{"t_ns": 349104010089458, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104075381333, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349104089439708, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104132110166, "event": "rx", "line": ">"}
+{"t_ns": 349104134361791, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104197563333, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349104211496708, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104255244250, "event": "rx", "line": ">"}
+{"t_ns": 349104257293375, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104325380291, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349104339830291, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104383060000, "event": "rx", "line": ">"}
+{"t_ns": 349104385229208, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104450382083, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349104464271625, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104506927958, "event": "rx", "line": ">"}
+{"t_ns": 349104509061291, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104575377458, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349104589412208, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104632025958, "event": "rx", "line": ">"}
+{"t_ns": 349104634172500, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104699427583, "event": "tx", "command": "pump b 50"}
+{"t_ns": 349104713309958, "event": "rx", "line": "[machine] pump B at full for 50 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349104755968166, "event": "rx", "line": ">"}
+{"t_ns": 349104758083250, "event": "rx", "line": "[machine] pump B done after 50 ms"}
+{"t_ns": 349104758104458, "event": "test_done", "trial": 4}
+{"t_ns": 349108871611416, "event": "settled", "trial": 4, "coarse_post_y": 345.0}
+{"t_ns": 349108879819875, "event": "test_start", "trial": 5, "head": "b", "gate_ms": 200, "count": 10, "gap_ms": 300, "coarse_pre_y": 345.0}
+{"t_ns": 349108879883041, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349108894776541, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349109088229958, "event": "rx", "line": ">"}
+{"t_ns": 349109090299041, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349109383905500, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349109398563666, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349109590902125, "event": "rx", "line": ">"}
+{"t_ns": 349109593067625, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349109883878541, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349109898043833, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349110091372083, "event": "rx", "line": ">"}
+{"t_ns": 349110093658208, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349110384194333, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349110398449041, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349110591121625, "event": "rx", "line": ">"}
+{"t_ns": 349110593346083, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349110883003041, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349110897516791, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349111091126166, "event": "rx", "line": ">"}
+{"t_ns": 349111093379500, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349111383909375, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349111398051041, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349111591162958, "event": "rx", "line": ">"}
+{"t_ns": 349111593297291, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349111884923625, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349111899314041, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349112092243791, "event": "rx", "line": ">"}
+{"t_ns": 349112094445958, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349112384908875, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349112399178041, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349112592115583, "event": "rx", "line": ">"}
+{"t_ns": 349112594257541, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349112883898666, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349112898615458, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349113091930458, "event": "rx", "line": ">"}
+{"t_ns": 349113094125125, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349113384905750, "event": "tx", "command": "pump b 200"}
+{"t_ns": 349113399369833, "event": "rx", "line": "[machine] pump B at full for 200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"t_ns": 349113592683041, "event": "rx", "line": ">"}
+{"t_ns": 349113594923208, "event": "rx", "line": "[machine] pump B done after 200 ms"}
+{"t_ns": 349113594957208, "event": "test_done", "trial": 5}
+{"t_ns": 349117706377666, "event": "settled", "trial": 5, "coarse_post_y": 278.0}
+{"t_ns": 349117715726333, "event": "test_start", "trial": 6, "head": "a", "gate_ms": 200, "count": 10, "gap_ms": 300, "coarse_pre_y": 278.0}
+{"t_ns": 349117715787208, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349117730240375, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349117923001250, "event": "rx", "line": ">"}
+{"t_ns": 349117925094458, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349118216284833, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349118231026250, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349118424197041, "event": "rx", "line": ">"}
+{"t_ns": 349118426392166, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349118720821875, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349118735358125, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349118927938875, "event": "rx", "line": ">"}
+{"t_ns": 349118930168041, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349119220824916, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349119235096333, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349119428233833, "event": "rx", "line": ">"}
+{"t_ns": 349119430306250, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349119720810958, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349119735361625, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349119927901875, "event": "rx", "line": ">"}
+{"t_ns": 349119930012291, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349120217196166, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349120231776041, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349120424750666, "event": "rx", "line": ">"}
+{"t_ns": 349120427031250, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349120720825125, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349120735744333, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349120928638750, "event": "rx", "line": ">"}
+{"t_ns": 349120930769791, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349121217171083, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349121231753166, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349121424990750, "event": "rx", "line": ">"}
+{"t_ns": 349121427106333, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349121717182333, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349121731438083, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349121924122458, "event": "rx", "line": ">"}
+{"t_ns": 349121926344208, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349122217166208, "event": "tx", "command": "pump a 200"}
+{"t_ns": 349122231519416, "event": "rx", "line": "[machine] pump A at full for 200 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"t_ns": 349122423905458, "event": "rx", "line": ">"}
+{"t_ns": 349122426064833, "event": "rx", "line": "[machine] pump A done after 200 ms"}
+{"t_ns": 349122426120833, "event": "test_done", "trial": 6}
+{"t_ns": 349126538696208, "event": "settled", "trial": 6, "coarse_post_y": 347.0}
+{"t_ns": 349126538760666, "event": "tx", "command": "status"}
+{"t_ns": 349126546466916, "event": "rx", "line": "2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"t_ns": 349126546596125, "event": "rx", "line": "state    idle"}
+{"t_ns": 349126549243708, "event": "rx", "line": "uptime   661 s"}
+{"t_ns": 349126551979708, "event": "rx", "line": "heap     262520 bytes free"}
+{"t_ns": 349126554711875, "event": "rx", "line": "flavor   A \u2014 main-board-owned, persisted"}
+{"t_ns": 349126557435375, "event": "rx", "line": "ratio    A 1:20, B 1:15"}
+{"t_ns": 349126560210958, "event": "rx", "line": "flow     0 pulses since boot on IO25"}
+{"t_ns": 349126566058125, "event": "rx", "line": "level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"t_ns": 349126584064291, "event": "rx", "line": "expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"t_ns": 349126589524375, "event": "rx", "line": "reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"t_ns": 349126592263500, "event": "rx", "line": "valves   all closed"}
+{"t_ns": 349126595013291, "event": "rx", "line": "relays   compressor open (IO19), refill open (IO2)"}
+{"t_ns": 349126600548583, "event": "rx", "line": "cold     tank --, coil --, fault, 0 probes on IO26"}
+{"t_ns": 349126600562958, "event": "rx", "line": "refill   idle"}
+{"t_ns": 349126608831708, "event": "rx", "line": "notice   none \u2014 a host on this console holds no-water welcome off for 841 s more"}
+{"t_ns": 349126611596500, "event": "rx", "line": "clock    2026-11-22 01:40:35"}
+{"t_ns": 349126617169250, "event": "rx", "line": "gas      clear (142 mV on the divided DOUT)"}
+{"t_ns": 349126619676083, "event": "rx", "line": "volume   100%, quiet hours off"}

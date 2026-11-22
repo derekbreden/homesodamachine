@@ -1,0 +1,363 @@
+{
+  "quantity": "Signed cup-volume changes come from the USB camera alone. Positive directed volume is withdrawal on A or refill on B. Negative or sub-resolution readings remain in the dataset.",
+  "physical_setup": "A retained its previously bent discharge tube after the clips were removed. B refilled the measuring cup through its straight path. The graduated cup was the source on A and the receiver on B.",
+  "time": "Each motor gate is bounded by the restored appliance firmware. Events carry the host monotonic times for the write and printed acknowledgements. The column exposure_monotonic_ns in frames.csv is the CoreMedia sample presentation timestamp converted to the host monotonic clock. The callback column records arrival. The camera does not report shutter midpoint or motor shaft position.",
+  "camera": "The active USB camera and native modes are in each capture.json. The upright video window retains both front print columns. The recording has a nominal playback frame rate. Join by frame index to the original presentation times for timing measurements. The sharp matrix uses a fixed focus and manual exposure. The preliminary recordings identify the softer focus and are excluded from the dose summaries.",
+  "extraction": {
+    "endpoint_images": "Use the frame indices in each optical.json. Each before and after is the pixelwise median of nine frames sampled between 0.95 and 0.27 seconds before host command transmission and between 2.90 and 3.65 seconds after the last completion acknowledgement. Each command is followed by a settled interval. An additional window from 1.60 to 2.29 seconds after completion checks the later change.",
+    "graduations": "Identify red quarter- and third-cup marks in the same frame as the near-wall contact. Each entry in pre/post contains crop x, near-wall y, [marked y, marked cups] pairs, and interpolated mL. Monotone cubic interpolation uses 236.5882365 mL per US cup. The camera views the same curved cup from different sightlines.",
+    "contact": "A robust cubic follows the continuous bright-to-dark boundary in unprinted glass on each endpoint. The initial search fits slope and curvature, then robust fits use successively narrower vertical neighborhoods. The pre/post fit arrays store coarse contrast score, number of contributing stations and median absolute residual in pixels.",
+    "small_changes": "Match brightness-centered edge profiles across the two settled images using normalized cross-correlation. Mask red print and low contrast. Refine each local correlation peak to subpixel position. For single gates up to 500 ms the search around zero allows either sign. Take the median of the available local volume changes when at least four sightlines span both printed columns. Each matched_profiles item gives crop x, vertical shift, local change in mL, and number of matched profiles. Larger displacements use the paired arc heights at the same calibrations.",
+    "uncertainty": "The sightline range shows disagreement among optical readings. It is neither an absolute accuracy interval nor trial-to-trial spread. The kitchen cup has no independent volumetric calibration. Its calibration, liquid on the wall, surface movement and perspective can shift every reading together. A quiet result near zero can have either sign. Repeated native-resolution small shots and their independent no-drive controls are recorded separately.",
+    "configuration_comparison": "The measurements apply to previously bent tubing after clip release. The previous guided runs used the same installed head but a different time, liquid history and optical acquisition. Neither supplies a straight-before-forming baseline."
+  },
+  "conditions": [
+    {
+      "channel": "A",
+      "gate_ms": 50,
+      "pulses": 40,
+      "pause_ms": 75,
+      "repeats": 2,
+      "median_directed_volume_ml": 34.88,
+      "range_directed_volume_ml": [
+        33.1,
+        36.66
+      ],
+      "median_gate_on_rate_ml_min": 1046.4,
+      "scheduled_complete_cycles_ms": 5000
+    },
+    {
+      "channel": "A",
+      "gate_ms": 60,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 1.02,
+      "range_directed_volume_ml": [
+        0.77,
+        1.91
+      ],
+      "median_gate_on_rate_ml_min": 1021.0,
+      "scheduled_complete_cycles_ms": 60
+    },
+    {
+      "channel": "A",
+      "gate_ms": 100,
+      "pulses": 20,
+      "pause_ms": 150,
+      "repeats": 2,
+      "median_directed_volume_ml": 31.65,
+      "range_directed_volume_ml": [
+        29.82,
+        33.48
+      ],
+      "median_gate_on_rate_ml_min": 949.5,
+      "scheduled_complete_cycles_ms": 5000
+    },
+    {
+      "channel": "A",
+      "gate_ms": 125,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 2.07,
+      "range_directed_volume_ml": [
+        1.93,
+        2.21
+      ],
+      "median_gate_on_rate_ml_min": 991.7,
+      "scheduled_complete_cycles_ms": 125
+    },
+    {
+      "channel": "A",
+      "gate_ms": 200,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 2.68,
+      "range_directed_volume_ml": [
+        2.57,
+        2.93
+      ],
+      "median_gate_on_rate_ml_min": 803.4,
+      "scheduled_complete_cycles_ms": 200
+    },
+    {
+      "channel": "A",
+      "gate_ms": 200,
+      "pulses": 10,
+      "pause_ms": 300,
+      "repeats": 2,
+      "median_directed_volume_ml": 28.13,
+      "range_directed_volume_ml": [
+        25.63,
+        30.63
+      ],
+      "median_gate_on_rate_ml_min": 843.8,
+      "scheduled_complete_cycles_ms": 5000
+    },
+    {
+      "channel": "A",
+      "gate_ms": 500,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 6.59,
+      "range_directed_volume_ml": [
+        6.38,
+        7.38
+      ],
+      "median_gate_on_rate_ml_min": 790.3,
+      "scheduled_complete_cycles_ms": 500
+    },
+    {
+      "channel": "A",
+      "gate_ms": 1000,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 12.97,
+      "range_directed_volume_ml": [
+        12.82,
+        14.24
+      ],
+      "median_gate_on_rate_ml_min": 778.2,
+      "scheduled_complete_cycles_ms": 1000
+    },
+    {
+      "channel": "A",
+      "gate_ms": 3200,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 42.49,
+      "range_directed_volume_ml": [
+        41.62,
+        44.93
+      ],
+      "median_gate_on_rate_ml_min": 796.6,
+      "scheduled_complete_cycles_ms": 3200
+    },
+    {
+      "channel": "A",
+      "gate_ms": 6000,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 81.5,
+      "range_directed_volume_ml": [
+        81.07,
+        84.92
+      ],
+      "median_gate_on_rate_ml_min": 815.0,
+      "scheduled_complete_cycles_ms": 6000
+    },
+    {
+      "channel": "B",
+      "gate_ms": 50,
+      "pulses": 40,
+      "pause_ms": 75,
+      "repeats": 2,
+      "median_directed_volume_ml": 37.42,
+      "range_directed_volume_ml": [
+        36.8,
+        38.03
+      ],
+      "median_gate_on_rate_ml_min": 1122.5,
+      "scheduled_complete_cycles_ms": 5000
+    },
+    {
+      "channel": "B",
+      "gate_ms": 60,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 0.31,
+      "range_directed_volume_ml": [
+        -0.56,
+        0.48
+      ],
+      "median_gate_on_rate_ml_min": 308.0,
+      "scheduled_complete_cycles_ms": 60
+    },
+    {
+      "channel": "B",
+      "gate_ms": 100,
+      "pulses": 20,
+      "pause_ms": 150,
+      "repeats": 2,
+      "median_directed_volume_ml": 30.92,
+      "range_directed_volume_ml": [
+        27.19,
+        34.65
+      ],
+      "median_gate_on_rate_ml_min": 927.5,
+      "scheduled_complete_cycles_ms": 5000
+    },
+    {
+      "channel": "B",
+      "gate_ms": 125,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 1.92,
+      "range_directed_volume_ml": [
+        1.01,
+        1.97
+      ],
+      "median_gate_on_rate_ml_min": 921.1,
+      "scheduled_complete_cycles_ms": 125
+    },
+    {
+      "channel": "B",
+      "gate_ms": 200,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 2.67,
+      "range_directed_volume_ml": [
+        1.81,
+        2.92
+      ],
+      "median_gate_on_rate_ml_min": 799.8,
+      "scheduled_complete_cycles_ms": 200
+    },
+    {
+      "channel": "B",
+      "gate_ms": 200,
+      "pulses": 10,
+      "pause_ms": 300,
+      "repeats": 2,
+      "median_directed_volume_ml": 29.28,
+      "range_directed_volume_ml": [
+        28.62,
+        29.93
+      ],
+      "median_gate_on_rate_ml_min": 878.3,
+      "scheduled_complete_cycles_ms": 5000
+    },
+    {
+      "channel": "B",
+      "gate_ms": 500,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 6.7,
+      "range_directed_volume_ml": [
+        5.16,
+        7.39
+      ],
+      "median_gate_on_rate_ml_min": 803.8,
+      "scheduled_complete_cycles_ms": 500
+    },
+    {
+      "channel": "B",
+      "gate_ms": 1000,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 13.82,
+      "range_directed_volume_ml": [
+        13.78,
+        14.05
+      ],
+      "median_gate_on_rate_ml_min": 829.2,
+      "scheduled_complete_cycles_ms": 1000
+    },
+    {
+      "channel": "B",
+      "gate_ms": 3200,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 45.54,
+      "range_directed_volume_ml": [
+        45.11,
+        48.03
+      ],
+      "median_gate_on_rate_ml_min": 854.0,
+      "scheduled_complete_cycles_ms": 3200
+    },
+    {
+      "channel": "B",
+      "gate_ms": 6000,
+      "pulses": 1,
+      "pause_ms": 0,
+      "repeats": 3,
+      "median_directed_volume_ml": 85.24,
+      "range_directed_volume_ml": [
+        85.12,
+        91.09
+      ],
+      "median_gate_on_rate_ml_min": 852.4,
+      "scheduled_complete_cycles_ms": 6000
+    }
+  ],
+  "recordings": {
+    "start-stop": {
+      "purpose": "setup and timing check",
+      "frames": 710,
+      "recorded_time_span_s": 28.516,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 2,
+      "video_sha256": "64a39d24e8cc48cd568e6eafb864591f0146555142b57ea42abd3ccbb80dc21d"
+    },
+    "duration-1": {
+      "purpose": "stationary hold after the last withdrawal; the soft pilot is excluded from the dose curve",
+      "frames": 2511,
+      "recorded_time_span_s": 100.5458,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 7,
+      "video_sha256": "c1a6edb4d1753674ede70bb93043d8506b05e698d978efca6dde8aebbc1f25f0"
+    },
+    "return-after-hold": {
+      "purpose": "setup and timing check",
+      "frames": 345,
+      "recorded_time_span_s": 14.6379,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 1,
+      "video_sha256": "5832977dd7fe1b7129f2139b3c46713ceb8569f48b0aef86d4dd68d29041002f"
+    },
+    "focus-duration-1": {
+      "purpose": "matched duration replicates",
+      "frames": 2093,
+      "recorded_time_span_s": 84.228,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 14,
+      "video_sha256": "07b99ea24b2a97b8960e69db6e5c955ef4483b73d8ca47b1906f4abdd75c77c4"
+    },
+    "focus-duration-2": {
+      "purpose": "matched duration replicates",
+      "frames": 2094,
+      "recorded_time_span_s": 84.388,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 14,
+      "video_sha256": "e1cbe5f852ff13e86961e1918e2e12ab6301deb925aa6a38da7d345c0e28afbb"
+    },
+    "focus-duration-3": {
+      "purpose": "matched duration replicates",
+      "frames": 2093,
+      "recorded_time_span_s": 84.3082,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 14,
+      "video_sha256": "f74622eebd1ec40d3f81756a2ecc3caf7ab98ccfd113fdcb3c5ae7f035ad1617"
+    },
+    "segments-1": {
+      "purpose": "equal on-time trains",
+      "frames": 1436,
+      "recorded_time_span_s": 58.0717,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 6,
+      "video_sha256": "ef00888db215ee1def12ac10c29bbd6e87a96b2fe9327b67c6b73ffac282bebe"
+    },
+    "segments-2": {
+      "purpose": "equal on-time trains",
+      "frames": 1436,
+      "recorded_time_span_s": 58.1118,
+      "median_frame_interval_ms": 40.0,
+      "controller_acknowledged_tests": 6,
+      "video_sha256": "5e8fef090bf97745018918a1d96851889dce0a62918d3e1c2cd2329047a75141"
+    }
+  },
+  "condition_rates": "The gate-time rate divides settled volume by the summed motor on-time. The transfer includes any coasting. For a pulse train, full-cycle pumping throughput uses the scheduled period including its final pause."
+}
