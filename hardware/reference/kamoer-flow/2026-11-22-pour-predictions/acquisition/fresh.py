@@ -42,7 +42,7 @@ def run(phase, start, end, tag):
     design = json.loads((RECORD / design_file).read_text())
     forecasts = json.loads((RECORD / model_file).read_text())['forecasts']
     sys.path.insert(0, str(RECORD / 'optical-calibration'))
-    calibration = json.loads((RECORD / 'optical-calibration/geometry-lowering.json').read_text())
+    calibration = json.loads((RECORD / 'optical-calibration/geometry-used.json').read_text())
     log = HERE / f'{phase}.jsonl'
     journal = Journal(log)
     done = {r['index'] for r in map(json.loads, log.read_text().splitlines()) if r['event'] == 'trial'}

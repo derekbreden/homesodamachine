@@ -75,12 +75,15 @@ def sweep(board,j,tag,legs,start_hints):
                 desired=min(desired,2.6)
             if 1096<y<1106 or 1114<y<1123:
                 desired=min(desired,1.7)
+            upper_return = leg=='return-station' and 839<y<862
+            if upper_return:
+                desired=min(desired,1.7)
             ms=round(max(65,min(600,desired/(27 if head=='A' else 24)*1000)))
             label=f'{tag}-{leg}-{i:02d}'
             live()
             receipt=board.gate(head,ms)
             j.append('ladder_gate',label=label,leg=leg,target_y=target,head=head,width_ms=ms,**receipt)
-            time.sleep(2.6)
+            time.sleep(8.0 if upper_return else 2.6)
             previous=points
             points=observe(label,{x:v['row']+direction*desired for x,v in previous.items()},j,14)
             shift=points[990]['row']-y
