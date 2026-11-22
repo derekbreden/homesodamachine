@@ -13,8 +13,8 @@
 // stay de-energized, and nothing but a command naming one ever drives it:
 //   IO2  -> J5.IO2   relay (carbonator diaphragm-pump 12 V gate)   arm + drive
 //   IO19 -> U15.A    compressor interlock -> J5.IO19 relay         arm + drive, interlock
-//   IO17 -> U11.IN1  pump A H-bridge                               pump a, boot self-test
-//   IO4  -> U12.IN1  pump B H-bridge                               pump b, boot self-test
+//   IO17 -> U11.IN1  pump A H-bridge                               pump a, dose a
+//   IO4  -> U12.IN1  pump B H-bridge                               pump b, dose b
 // `arm` gates IO2/IO19, which hold their level until the next `drive`. The pump runs
 // are bounded and park their pin back to an input on every exit path.
 // The MCP23017 GPA/GPB pins reach the TBD62083 valve drivers, so the MCP probe
@@ -29,6 +29,7 @@
 #include "proto_link.h"
 #include "rs485_echo.h"
 #include "sound.h"
+#include "pump_dose.h"
 #include "fw_version.h"
 
 // ── Status LEDs — active high, through 470R to GND (D2/D3/D4) ──────────────
@@ -86,12 +87,6 @@ static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip
 // brakes for 25 us and drives again, at any duty. Batch-1 and batch-2 boards ground
 // ISEN, so there the motor sees the 12 V rail through the bridge up to the driver's
 // 3.7-6.4 A overcurrent shutdown.
-static const int PIN_PUMP_A = 17;        // U11.IN1 -> OUT1/OUT2 -> J13.AM1 / J13.AM2
-static const int PIN_PUMP_B = 4;         // U12.IN1 -> OUT1/OUT2 -> J13.BM1 / J13.BM2
-static const int PUMP_PWM_HZ   = 20000;  // above hearing — every sound in the room is mechanical
-static const int PUMP_PWM_BITS = 8;      // ledcWrite(255) is a true 100%: the core maps it to full-on
-static const int PUMP_MAX_S    = 60;     // ceiling on a held run, whatever the command asks for
-
 // ── Off-board signal pins, all read as inputs here ─────────────────────────
 struct NamedPin { const char *name; int gpio; bool input_only; };
 static const NamedPin kSignalPins[] = {
@@ -662,28 +657,13 @@ static void cmdDrive(const String &line) {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// Pumps. A peristaltic head on J13 is audible across the room. The staged run below
-// goes off by itself at the end of boot and answers to `pump` from the prompt; every
-// exit path from it runs through pumpPark().
-
-static void pumpPark(int pin) {
-    ledcWrite(pin, 0);
-    ledcDetach(pin);
-    pinMode(pin, INPUT);   // back to the boot parking — IN1's own pull-down coasts the bridge
-}
+// The pump commands exercise a head on J13 and park the driver when they finish.
 
 // A terminal sends CR LF and loop() dispatches on the CR, so the LF is still queued
 // when the command starts. This empties the buffer and holds it empty for 60 ms.
 static void pumpDrain() {
     unsigned long t0 = millis();
     while (millis() - t0 < 60) { while (Serial.available()) Serial.read(); delay(4); }
-}
-
-// Any byte on the console is the stop, and it is eaten here rather than left for loop().
-static bool pumpKey() {
-    if (!Serial.available()) return false;
-    while (Serial.available()) Serial.read();
-    return true;
 }
 
 // Hold the current duty for ms. Returns true if a key arrived.
@@ -695,14 +675,6 @@ static bool pumpHold(unsigned long ms) {
     }
     return false;
 }
-
-static void pumpSet(int pin, int pct) { ledcWrite(pin, (uint32_t)(pct * 255 + 50) / 100); }
-
-struct Pump { const char *who; int pin; const char *driver; const char *j13; int mark; };
-static const Pump kPump[] = {
-    {"A", PIN_PUMP_A, "U11", "AM2 + AM1 (the two WEST pins)", 1},
-    {"B", PIN_PUMP_B, "U12", "BM2 + BM1 (the two EAST pins)", 2},
-};
 
 // Three full-duty jabs, 80 ms on and 400 ms off. A head with current in it twitches.
 static bool pumpBump(int pin) {
@@ -1193,6 +1165,7 @@ static void cmdHelp() {
     Serial.println("  drive <io2|io4|io17|io19|io32> <0|1>   drive one pin, then meter it");
     Serial.println("  pump <a|b>   run a pump on J13 through a staged exercise (audible)");
     Serial.println("  pump <a|b> <duty%> [s]  /  pump stop");
+    Serial.println(kDoseUsage);
     Serial.println("  rtc    DS3231: temp, EOSC, OSF, time, tick check");
     Serial.println("  rtc set <YYYY-MM-DD> <HH:MM:SS>   set the clock, run on battery, clear OSF");
     Serial.println("  mcp    both MCP23017s: registers + safe write round-trip");
@@ -1276,7 +1249,7 @@ void setup() {
 
 // One command table for both sources. What a command prints goes to the USB console
 // either way; what goes back over J9 is one line naming whether the command was known.
-static bool dispatch(const String &line) {
+static bool dispatch(const String &line, char terminator) {
     if      (line == "all")  cmdAll();
     else if (line == "info") cmdInfo();
     else if (line == "scan") cmdScan();
@@ -1331,6 +1304,7 @@ static bool dispatch(const String &line) {
     else if (line == "arm")   cmdArm();
     else if (line.startsWith("drive ")) cmdDrive(line);
     else if (line == "pump" || line.startsWith("pump ")) cmdPump(line);
+    else if (isDoseCommand(line)) cmdDose(line, terminator, primeActive);
     else if (line == "mcp")  { probeMcp(ADDR_MCP_A, "U2 north"); probeMcp(ADDR_MCP_B, "U3 south"); }
     else if (line == "in")   cmdInputs();
     else if (line == "walk") cmdLedWalk();
@@ -1444,7 +1418,7 @@ void loop() {
             line.trim();
             if (line.length()) {
                 digitalWrite(PIN_LED_ACT, HIGH);
-                if (!dispatch(line)) Serial.printf("unknown: '%s' (try 'help')\n", line.c_str());
+                if (!dispatch(line, c)) Serial.printf("unknown: '%s' (try 'help')\n", line.c_str());
                 digitalWrite(PIN_LED_ACT, LOW);
                 Serial.println("\n> ");
                 line = "";

@@ -68,6 +68,7 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
 | `interlock` | IO19 raised alone until the next reset, so J5.IO19 carries U15's verdict on the gas line — probe it against GND with J5 empty |
 | `pump` | Run a peristaltic pump on J13 through a DRV8870 (audible) |
+| `dose` | Time a motor pulse train while a camera or scale measures the delivered liquid |
 | `all` | The whole sweep |
 
 `watch` walks a whole net — ESP32 pad, via, trace, connector barrel — with nothing but a
@@ -133,6 +134,26 @@ shorted high or a bridge latched on holds full speed through all three.
 `pump <a|b> <duty%> [seconds]` holds a single duty (max 60 s) for a longer listen or a
 meter on the OUT pair, and `pump stop` parks both. A Kamoer head does not break away
 part-throttle — 60% for a second turns nothing — so a run meant to be heard wants 100.
+
+`dose <a|b> <duty_pct> <on_ms> <off_ms> <count>` runs the selected motor at the
+requested PWM duty during each on-window. Enter unsigned decimal integers. The
+on-time and count must be positive. Gaps fall only between pulses. A zero gap
+holds the motor continuously, and zero duty gives a blank run. The entire
+train must fit the same time limit as a held pump run.
+
+The board prints `DOSE_BEGIN` with the settings and `DOSE_RESULT` after it parks
+the driver. Any serial byte during the train stops it, including during a gap.
+`completed` counts full on-windows. `on_us` sums the measured windows at the
+requested duty, including an interrupted window. `elapsed_us` includes the
+gaps. `gate_min_us` and `gate_max_us` reveal the shortest and longest measured
+gate. A continuous drive has a single gate. Record the independent scale or
+volume reading alongside these times.
+
+The `pump_calibration` build runs this command by itself in an appliance app
+slot. Build it with `tools/run -- pio run -e pump_calibration -j 2`. Its image
+is `.pio/build/pump_calibration/firmware.bin`. On reset it parks both motor
+pins and waits for USB commands. `info` identifies the running image by its
+size and MD5, and `help` prints the dose syntax.
 
 PWM is 20 kHz, above hearing — every sound the pump makes is mechanical. `IN2` is on the
 GND plane, so `IN1` high drives and `IN1` low coasts, one direction only; polarity at the
