@@ -18,13 +18,8 @@ path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
 name = "stem-check-reference"
 path = "../../../hardware/reference/neofit-acvus44-check/neofit_acvus44_check.rs"
 
-[[bin]]
-name = "vh-entry-clip-coupon"
-path = "../../../hardware/print-tests/vh-entry-clip/coupon.rs"
-
 [dependencies]
 anyhow.workspace = true
 hsm-kernel = { path = "../kernel" }
-hsm-print-prep = { path = "../print-prep" }
 serde_json.workspace = true
 sha2.workspace = true

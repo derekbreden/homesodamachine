@@ -422,6 +422,13 @@
       "said": "Fit is good.",
       "tried": "black quarter-inch LLDPE tubing seated through the split quarter-turn clip on a printed crop of the cold-core lid",
       "record": "https://github.com/derekbreden/homesodamachine/blob/6f1ace30ded2ef1eec928d2c04f39be1b1b485dd/hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0079",
+      "date": "2026-11-21",
+      "said": "Okay. It is good enough.",
+      "tried": "the upright V-H draw-tube entry clip on the printed crop of the front-top pump bulkhead",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/feb1783dff3c65d92c01a6c2881fbec7e88d60d9/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
     }
   ]
 }

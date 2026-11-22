@@ -1110,6 +1110,11 @@ remain the production datums.
 
 ## Integral routing snaps
 
+Front-top carries the V-H reservoir draw tube on a sloping shelf integral with the pump
+bulkhead. The split clip follows the level bend before the tube drops into the valve.
+Its jaws open upward with the funnel frame out. The [hand-fit record](https://github.com/derekbreden/homesodamachine/blob/feb1783dff3c65d92c01a6c2881fbec7e88d60d9/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json)
+covers the printed crop of this seat.
+
 Back-top carries the reservoir fill tube in one east-wall seat and has integral
 cable hooks for the relay ribbon, DC power pair and V-K lead. The
 [routing source](quadrants/routes.rs) owns their sections and sites. The tube
