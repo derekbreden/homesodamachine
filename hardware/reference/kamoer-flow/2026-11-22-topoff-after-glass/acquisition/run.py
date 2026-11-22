@@ -214,6 +214,34 @@ def main(a):
                 b.arrange(PROGRAMS['topoff_n11']['start_ml'])
                 b.measured('A', 'topoff_n11', 'exp3-after', dict(repeat=i + 1))
                 b.measured('B', 'topoff_n11', 'exp3-after', dict(repeat=i + 1))
+        elif a.mode == 'reproduce':
+            plan = json.loads((RECORD / 'design.json').read_text())['amendment']
+            bracket = plan['bracket_s']
+
+            def wait_until(t):
+                while time.time() < t:
+                    time.sleep(.5)
+
+            def episode(name, pairs, gates, index):
+                b.arrange(PROGRAMS['steady_glass']['start_ml'])
+                for p in range(pairs):
+                    for head in 'AB':
+                        b.measured(head, 'steady_glass', f'{name}-glass', dict(episode=index, pair=p + 1))
+                last = time.time()
+                b.log.append('pause_start', episode=index, name=name, gates=gates)
+                if gates:
+                    b.arrange(PROGRAMS['topoff_n11']['start_ml'])
+                wait_until(last + plan['pause_s'] - 6.5 - bracket)
+                for k in (1, 2):
+                    for head in 'AB':
+                        b.measured(head, 'topoff_n11', f'{name}-topoff{k}', dict(episode=index, gates=gates), bracket)
+
+            for i in range(2):
+                b.arrange(PROGRAMS['topoff_n11']['start_ml'])
+                b.measured('A', 'topoff_n11', 'rested', dict(repeat=i + 1), bracket)
+                b.measured('B', 'topoff_n11', 'rested', dict(repeat=i + 1), bracket)
+            for i, (name, pairs, gates) in enumerate(plan['episodes']):
+                episode(name, pairs, gates, i)
         elif a.mode == 'afterglass':
             plan = json.loads((RECORD / 'design.json').read_text())
             deadline = time.mktime(time.strptime(time.strftime('%Y-%m-%d ') + plan['last_cycle_end_local'], '%Y-%m-%d %H:%M'))
@@ -255,7 +283,7 @@ def main(a):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('mode', choices=('direction', 'glass', 'exp1', 'sit', 'history', 'afterglass', 'park', 'photo'))
+    p.add_argument('mode', choices=('direction', 'glass', 'exp1', 'sit', 'history', 'reproduce', 'afterglass', 'park', 'photo'))
     p.add_argument('work', type=Path)
     p.add_argument('--tag', required=True)
     p.add_argument('--kind', default='glass')

@@ -3,9 +3,19 @@
   "programs": "topoff_n11 (ratio 18, 11 bursts of 51 ms, 494 ms gaps) and steady_glass (ratio 19, 14 bursts of 215 ms) from programs.json, with their frozen forecasts from model-used.json, both copied unchanged from the record at 37aec3c88.",
   "rested": "First, before any glass and with no pour on either head since the park at 13:32: topoff_n11 on A then on B, from its start level, twice.",
   "cycles": "Set the cup to steady_glass's start level. A pours steady_glass, waits the cycle's delay, pours topoff_n11. Then B pours steady_glass, waits the same delay, pours topoff_n11. B's glass and top-off return the cup for A's, so each cycle tests both heads with no positioning gate between a glass and its top-off.",
-  "cycle_delays_s": [0, 120, 300, 0, 120],
+  "cycle_delays_s": [
+    0,
+    120,
+    300,
+    0,
+    120
+  ],
   "delay_definition": "From the glass's finishing photograph to the top-off's first motor command. Delay 0 is as soon as a fresh stream, its no-pump bracket and its starting photograph allow; the journal records each actual interval.",
-  "cycle_budget_s": {"0": 170, "120": 370, "300": 730},
+  "cycle_budget_s": {
+    "0": 170,
+    "120": 370,
+    "300": 730
+  },
   "last_cycle_end_local": "14:24",
   "skip_rule": "A cycle that cannot finish by last_cycle_end_local is skipped. The second delay-120 cycle goes first, then the second delay-0 cycle. The single delay-300 cycle is the one-repeat condition.",
   "bracket_s": 10,
@@ -18,5 +28,36 @@
     "ruled_out": "D is below 0.5 mL at every delay tested.",
     "unresolved": "Anything else."
   },
-  "B_caveat": "B switched between two short-burst yields at 37aec3c88, with repeat spreads up to about 2.7 mL on one top-off variant. B is scored by the same rule and its spread is reported beside it."
+  "B_caveat": "B switched between two short-burst yields at 37aec3c88, with repeat spreads up to about 2.7 mL on one top-off variant. B is scored by the same rule and its spread is reported beside it.",
+  "amendment": {
+    "registered_before": "Registered after the original plan was stopped before its first measured pour (two positioning gates ran) and before any part of this amendment ran. It replaces the original order; the delay cycles run afterwards only if time remains, under the original deadline.",
+    "question": "Does the raised top-off seen at 13:27:56 come back when the event before it is repeated?",
+    "order": "1. Rested: topoff_n11 on A then B, twice, before any glass. 2. Three steady_glass pairs (A then B) back to back, the pause, then topoff_n11 on A then B, then a second topoff_n11 pair at once; twice, once with positioning gates on A during the pause (gates true) and once without (gates false, the top-off starts where the glasses left the cup). 3. One steady_glass pair, the same pause, the same two top-off pairs, without gates.",
+    "episodes": [
+      [
+        "three-glasses-gates",
+        3,
+        true
+      ],
+      [
+        "three-glasses-nogates",
+        3,
+        false
+      ],
+      [
+        "one-glass-nogates",
+        1,
+        false
+      ]
+    ],
+    "pause_s": 95,
+    "pause_definition": "From the return of the last glass's measurement (its finishing photograph) to the first top-off's motor start, matching 13:26:15 to about 13:27:49 in the record at 37aec3c88. Each top-off keeps the no-pump bracket and settling correction above.",
+    "bracket_s": 10,
+    "raised_cut": {
+      "A": 7.0,
+      "B": 6.3,
+      "basis": "Corrected x990 dose of an 11-burst top-off. This morning A's unraised 11-burst top-offs ran 5.24 to 6.08 mL and its raised ones 7.4 to 8.7 overnight and 8.47 today; B's unraised ran 4.75 to 5.58 and its raised ones 6.59 to 7.48."
+    },
+    "rule": "On each head, the first top-off after three glasses: raised in two of two episodes supports a run of glasses as the cause; raised in none of two rules the glasses out as a reliable cause; one of two is unresolved. A's base rate of a raised 11-burst top-off this session is about one pour in thirty. The second top-off pair and the one-glass episode are reported against the same cut without a separate ruling."
+  }
 }
