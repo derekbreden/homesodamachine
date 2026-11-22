@@ -12,7 +12,7 @@ from freeze import interp
 
 
 def read_window(window,calibration):
-    from mark_crossings import clear_lane
+    from mark_crossings_v2 import clear_lane
     from cup_volume import crop
     gray=np.asarray(crop(window/'average.png').convert('L'))
     readings={}
