@@ -131,7 +131,7 @@ test(recordsOnly ? "material record trees and combined sections retain their sta
         const entered = await context(page);
         assert.ok(entered.hidden.includes('enclosure-back-top'), JSON.stringify(entered));
         assert.equal(entered.ghosted, false); assert.equal(entered.xray, false);
-        assert.equal(await page.$eval('.xray-toggle', node => node.getAttribute('aria-pressed')), 'false');
+        assert.equal(await page.$eval('.blueprint-toggle', node => node.getAttribute('aria-pressed')), 'false');
         assert.ok(entered.selectedMeshes >= 4, JSON.stringify(entered));
         if (viewport.isMobile) {
           assert.ok(await page.$eval('.component-panel', node => node.getBoundingClientRect().height < 110));

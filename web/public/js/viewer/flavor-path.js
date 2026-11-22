@@ -120,13 +120,13 @@ export function mountFlavorPath(wrapper, chips) {
     clear();
     if (!supported && oldXray !== null) {
       if (oldXray === false && isXrayEnabled()) setXrayEnabled(false, { persist: false });
-      wrapper.querySelector(".xray-toggle")?.refresh();
+      wrapper.querySelector(".blueprint-toggle")?.refresh();
       oldXray = null;
     }
     if (!supported || !enabled || !state.currentGroup) return;
     if (oldXray === null) oldXray = isXrayEnabled();
     if (!isXrayEnabled()) setXrayEnabled(true, { persist: false });
-    wrapper.querySelector(".xray-toggle")?.refresh();
+    wrapper.querySelector(".blueprint-toggle")?.refresh();
     mountedGroup = state.currentGroup;
     const wanted = new Set(STOPS.flatMap(s => s.bodies));
     const found = new Set();
@@ -173,7 +173,7 @@ export function mountFlavorPath(wrapper, chips) {
       history.replaceState(history.state, "", url);
       if (!on && oldXray !== null) {
         if (oldXray === false && isXrayEnabled()) setXrayEnabled(false, { persist: false });
-        wrapper.querySelector(".xray-toggle")?.refresh();
+        wrapper.querySelector(".blueprint-toggle")?.refresh();
         oldXray = null;
       }
       refresh();

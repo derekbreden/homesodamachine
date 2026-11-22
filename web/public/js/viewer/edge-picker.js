@@ -41,11 +41,9 @@
 // length actually walked: a decimated payload bridges a feature it could not draw with long
 // skinny triangles, and those are pickable, real on this surface, and nothing the solid has.
 //
-// Picking is screen-space: project every edge segment to pixels and take the
-// one nearest the cursor (front-most on a near tie). Zoom-independent, and the
-// click snaps onto the edge so the reported point is ON the geometry, not a
-// float in space. Reconstruction is lazy (first enable / first pick) and cached
-// per loaded model; setActiveEdges() invalidates it on each new load.
+// The cursor's screen-space window selects candidate edge bounds. Projecting their
+// segments picks the nearest edge and snaps the click onto it. A worker recovers the
+// topology of requested solids, and unchanged solids retain it as the assembly arrives.
 //
 // While the toggle is on, the whole reconstructed edge set is also drawn as a
 // faint always-on layer. The x-ray crease renderer (xray.js) only draws
@@ -55,21 +53,22 @@
 // it, you can see it" hold exactly.
 
 import * as THREE from "three";
+import { nearestSurface, visitSurfaceRanges } from "./surface-query.js";
 import { Line2 } from "three/addons/lines/Line2.js";
 import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { scene, camera, renderer } from "./scene.js";
+import * as sceneState from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
-import { fnum, fpt, formatFace, fileLine } from "./pick-format.js";
+import { fnum, fpt, formatFace, fileLine, MATCH_TOLERANCE } from "./pick-format.js";
 import { roundFitMeasured, arcFitMeasured } from "./round-fit.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-edge-pick";
 const PICK_THRESHOLD_PX = 11; // cursor-to-edge distance that counts as a hit
-const QUANT = 1e4;            // position grid for boundary matching (0.1 micron)
 const STRAIGHT_TOL = 1e-3;    // max deviation from the chord to call an edge straight
 const HIGHLIGHT = 0xffd400;   // selected edge (warm yellow)
 const HOVER = 0x59d0ff;       // hovered edge (cool cyan)
@@ -82,214 +81,150 @@ let enabled = (() => {
 
 // --- edge + face data (lazy, per loaded model) ---
 let edgeSource = null;  // occt result.meshes for the live model
-let activeEdges = null; // reconstructed BREP edges, or null until built
-let isAssembly = false; // >1 solid — then occt carries real component names
-let meshRecs = null;    // per occt-mesh: {name, pos, idx, nrm, faces, triFace}
-let faceTable = null;   // global face id -> {rec, fi}
-let faceClass = null;   // global face id -> classified record (cache)
-let faceBoxes = null;   // global face id -> [minx, miny, minz, maxx, maxy, maxz] (cache)
+let isAssembly = false;
+let meshRecs = null, faceTable = null, faceClass = null;
+let inspectionRevision = 0;
 
 export function setActiveEdges(result) {
-  edgeSource = (result && result.meshes) || null;
+  edgeSource = result?.meshes || null;
   isAssembly = !!(edgeSource && edgeSource.length > 1);
-  activeEdges = null; // invalidate — rebuild on demand
-  meshRecs = null;
-  faceTable = null;
-  faceClass = null;
-  faceBoxes = null;
-  clearSelection();
+  inspectionRevision++;
+  meshRecs = faceTable = faceClass = null;
+  if (selection) {
+    const source = selection.type === "edge" ? selection.edge.source : selection.source;
+    const rec = ensureFaces().find(rec => rec?.mesh === source);
+    if (!rec) clearSelection();
+    else if (selection.type === "face") selection.gid = rec.base + selection.localFace;
+    else selection.edge = describeEdge(rec, topologies.get(source).data, selection.edge.localEdge);
+  }
   setHover(null);
-  disposeAllEdgesLayer();
-  ensureAllEdgesLayer(); // no-op unless the toggle is on
+  refreshEdgeLayers();
 }
 
-// A component out of the view: hidden by hand (component-picker.js), or a body the faucet's
-// finish leaves out — a Black faucet has no union, a White one no bridge.
-// A body hidden here by hand, unless `hidden` takes those in too, or one the faucet's finish leaves out.
-function offView(solid, hidden = false) {
-  return (!hidden && state.hiddenComponents && state.hiddenComponents.has(solid))
-    || !showsInFaucetFinish(state.mountedDetail?.file, solid, state.faucetFinish);
-}
-
-function ensureEdges() {
-  if (activeEdges) return activeEdges;
-  activeEdges = edgeSource ? reconstructEdges(edgeSource) : [];
-  return activeEdges;
-}
-
-// --- BREP edge reconstruction from face-boundary topology ---
-function reconstructEdges(meshes) {
-  const edges = [];
-  let faceBase = 0; // namespace face ids across meshes so pairs don't merge
-  meshRecs = [];
+function ensureFaces() {
+  if (meshRecs) return meshRecs;
+  let faceBase = 0;
   faceTable = [];
-
-  for (const mesh of meshes) {
-    const pos = mesh.attributes && mesh.attributes.position && mesh.attributes.position.array;
-    const idx = mesh.index && mesh.index.array;
-    const faces = mesh.brep_faces;
-    if (!pos || !idx || !faces) {
-      meshRecs.push(null);
-      faceBase += faces ? faces.length : 0;
-      continue;
-    }
-
-    const triCount = idx.length / 3;
-    const triFace = new Int32Array(triCount).fill(-1);
-    faces.forEach((f, fi) => {
-      for (let t = f.first; t <= f.last; t++) triFace[t] = faceBase + fi;
-    });
-
-    const nrm = mesh.attributes.normal && mesh.attributes.normal.array;
-    const rec = { name: mesh.name, pos, idx, nrm, faces, triFace };
-    meshRecs.push(rec);
-    faces.forEach((f, fi) => { faceTable[faceBase + fi] = { rec, fi }; });
-
-    const byPair = boundarySegments(pos, idx, triFace);
-
-    for (const [pk, segs] of byPair.entries()) {
-      const faceIds = pk.split(",").map(Number);
-      for (const path of chainSegments(segs)) {
-        const e = makeEdge(path.map(id => {
-          const offset = (id - 1) * 3;
-          return new THREE.Vector3(pos[offset], pos[offset + 1], pos[offset + 2]);
-        }));
-        e.solid = mesh.name; // assembly component name (occt), for the blob
-        e.faceIds = faceIds; // the two bordering BREP faces
-        edges.push(e);
-      }
-    }
+  const solids = [];
+  for (const mesh of state.currentGroup?.children || []) {
+    if (mesh.userData.side === "front") solids[mesh.userData.occtIndex] = mesh;
+  }
+  meshRecs = (edgeSource || []).map((mesh, mi) => {
+    const faces = mesh.brep_faces || [];
+    const base = faceBase;
     faceBase += faces.length;
+    if (!mesh.attributes?.position || !mesh.index || !mesh.brep_faces) return null;
+    const solid = solids[mi];
+    solid?.updateWorldMatrix(true, false);
+    const rec = { mesh, mi, solid, name: mesh.name, faces, base,
+      ordered: faces.every((f, i) => !i || faces[i - 1].last < f.first),
+      get pos() { return mesh.attributes.position.array; },
+      get nrm() { return mesh.attributes.normal?.array; },
+      get idx() { return mesh.index.array; },
+    };
+    faces.forEach((_, fi) => { faceTable[base + fi] = { rec, fi }; });
+    return rec;
+  });
+  return meshRecs;
+}
+
+function faceAtTriangle(rec, tri) {
+  if (!rec) return -1;
+  if (!rec.ordered) {
+    const i = rec.faces.findLastIndex(f => f.first <= tri && tri <= f.last);
+    return i < 0 ? -1 : rec.base + i;
   }
-
-  edges.forEach((e, i) => { e.id = i; });
-  return edges;
-}
-
-function tableSize(entries) {
-  return 2 ** Math.ceil(Math.log2(Math.max(1, entries * 1.5)));
-}
-
-function sameCoordinate(a, b) {
-  return a === b || (Number.isNaN(a) && Number.isNaN(b));
-}
-
-// Keep the topology pass in compact tables. Weld each vertex once and retain
-// the first exact position at each quantized coordinate.
-function boundarySegments(pos, idx, triFace) {
-  const vertexIds = new Uint32Array(pos.length / 3);
-  const welded = new Uint32Array(tableSize(vertexIds.length));
-  const weldMask = welded.length - 1;
-  const vertexId = (index) => {
-    if (vertexIds[index]) return vertexIds[index];
-    if (index >= vertexIds.length) return vertexIds.length + 1;
-    const i = index * 3;
-    const x = Math.round(pos[i] * QUANT);
-    const y = Math.round(pos[i + 1] * QUANT);
-    const z = Math.round(pos[i + 2] * QUANT);
-    let slot = (Math.imul(x, 73856093) ^ Math.imul(y, 19349663) ^ Math.imul(z, 83492791)) & weldMask;
-    while (welded[slot]) {
-      const j = (welded[slot] - 1) * 3;
-      if (sameCoordinate(x, Math.round(pos[j] * QUANT)) &&
-          sameCoordinate(y, Math.round(pos[j + 1] * QUANT)) &&
-          sameCoordinate(z, Math.round(pos[j + 2] * QUANT))) {
-        vertexIds[index] = welded[slot];
-        return vertexIds[index];
-      }
-      slot = (slot + 1) & weldMask;
-    }
-    welded[slot] = index + 1;
-    vertexIds[index] = index + 1;
-    return vertexIds[index];
-  };
-
-  // Each record holds the first directed segment and the lowest two distinct
-  // face IDs. The slots find a record while the array keeps triangle order.
-  const slots = new Uint32Array(tableSize(idx.length));
-  const mask = slots.length - 1;
-  const segments = new Int32Array(idx.length * 4);
-  const noSecondFace = 0x7fffffff;
-  let length = 0;
-  const add = (p, q, face) => {
-    if (p === q) return;
-    let slot = (Math.imul(Math.min(p, q), 73856093) ^ Math.imul(Math.max(p, q), 19349663)) & mask;
-    while (slots[slot]) {
-      const i = (slots[slot] - 1) * 4;
-      const a = segments[i], b = segments[i + 1];
-      if ((p === a && q === b) || (p === b && q === a)) {
-        const first = segments[i + 2];
-        if (face < first) {
-          segments[i + 3] = first;
-          segments[i + 2] = face;
-        } else if (face > first && face < segments[i + 3]) {
-          segments[i + 3] = face;
-        }
-        return;
-      }
-      slot = (slot + 1) & mask;
-    }
-    slots[slot] = length / 4 + 1;
-    segments[length++] = p;
-    segments[length++] = q;
-    segments[length++] = face;
-    segments[length++] = noSecondFace;
-  };
-  for (let t = 0; t < triFace.length; t++) {
-    const i = t * 3;
-    const a = vertexId(idx[i]), b = vertexId(idx[i + 1]), c = vertexId(idx[i + 2]);
-    const face = triFace[t];
-    add(a, b, face);
-    add(b, c, face);
-    add(c, a, face);
+  let lo = 0, hi = rec.faces.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >>> 1, face = rec.faces[mid];
+    if (tri < face.first) hi = mid;
+    else if (tri > face.last) lo = mid + 1;
+    else return rec.base + mid;
   }
-
-  const byPair = new Map();
-  for (let i = 0; i < length; i += 4) {
-    const second = segments[i + 3];
-    if (second === noSecondFace) continue;
-    const key = segments[i + 2] + "," + second;
-    let list = byPair.get(key);
-    if (!list) { list = []; byPair.set(key, list); }
-    list.push({ a: segments[i], b: segments[i + 1] });
-  }
-  return byPair;
+  return -1;
 }
 
-// Chain boundary segments (all sharing one face-pair) into polylines. Walks
-// through degree-2 nodes and stops at a node of any other degree — a real BREP
-// vertex (junction or open end). Loops (a closed rim with no vertex) come back
-// to their start.
-function chainSegments(segs) {
-  const adj = new Map();
-  const link = (n, to, i) => {
-    let a = adj.get(n);
-    if (!a) { a = []; adj.set(n, a); }
-    a.push({ to, i });
-  };
-  segs.forEach((s, i) => { link(s.a, s.b, i); link(s.b, s.a, i); });
-
-  const used = new Array(segs.length).fill(false);
-  const out = [];
-  // open chains first (start at degree-1 ends), then whatever's left (loops)
-  const starts = [...adj.keys()].filter((n) => adj.get(n).length === 1).concat([...adj.keys()]);
-
-  for (const start of starts) {
-    let edge = adj.get(start).find((e) => !used[e.i]);
-    if (!edge) continue;
-    let cur = start;
-    const path = [cur];
-    while (edge) {
-      used[edge.i] = true;
-      cur = edge.to;
-      path.push(cur);
-      const inc = adj.get(cur);
-      if (inc.length !== 2) break; // BREP vertex
-      edge = inc.find((e) => !used[e.i]);
-    }
-    if (path.length >= 2) out.push(path);
+// The detailed outline is optional work. Only a requested solid occupies the worker.
+const topologies = new WeakMap();
+let topologyWorker = null, activeJob = null;
+const topologyQueue = [];
+function cancelDepartedJobs(wanted) {
+  if (activeJob && !wanted.has(activeJob.rec.mesh)) {
+    topologyWorker?.terminate();
+    topologyWorker = null;
+    topologies.delete(activeJob.rec.mesh);
+    activeJob.resolve(null);
+    activeJob = null;
   }
-  return out;
+  for (let i = topologyQueue.length - 1; i >= 0; i--) {
+    const job = topologyQueue[i];
+    if (wanted.has(job.rec.mesh)) continue;
+    topologyQueue.splice(i, 1);
+    topologies.delete(job.rec.mesh);
+    job.resolve(null);
+  }
+  runTopologyJob();
 }
+
+function runTopologyJob() {
+  if (activeJob || !topologyQueue.length) return;
+  activeJob = topologyQueue.shift();
+  const { rec, resolve, reject } = activeJob;
+  try {
+    topologyWorker ??= new Worker(new URL("./brep-edges-worker.js", import.meta.url));
+    topologyWorker.onmessage = ({ data }) => {
+      topologies.set(rec.mesh, { data });
+      activeJob = null;
+      resolve(data);
+      runTopologyJob();
+    };
+    topologyWorker.onerror = event => {
+      topologyWorker.terminate(); topologyWorker = null;
+      topologies.delete(rec.mesh); activeJob = null;
+      reject(new Error(event.message || "Could not prepare surface edges"));
+      runTopologyJob();
+    };
+    const positions = Float32Array.from(rec.pos), indices = Uint32Array.from(rec.idx);
+    const ranges = new Uint32Array(rec.faces.length * 2);
+    rec.faces.forEach((face, i) => { ranges[i * 2] = face.first; ranges[i * 2 + 1] = face.last; });
+    topologyWorker.postMessage({ positions, indices, ranges }, [positions.buffer, indices.buffer, ranges.buffer]);
+  } catch (error) {
+    topologies.delete(rec.mesh); activeJob = null; reject(error);
+    runTopologyJob();
+  }
+}
+
+function prepareEdges(rec) {
+  const job = topologies.get(rec.mesh);
+  if (job) return job.data || job.promise;
+  const promise = new Promise((resolve, reject) => topologyQueue.push({ rec, resolve, reject }));
+  topologies.set(rec.mesh, { promise });
+  runTopologyJob();
+  return promise;
+}
+
+function describeEdge(rec, data, i) {
+  rec.descriptions ??= new Map();
+  if (rec.descriptions.has(i)) return rec.descriptions.get(i);
+  const points = [];
+  for (let p = data.starts[i]; p < data.starts[i + 1]; p++) points.push(new THREE.Vector3().fromArray(data.points, p * 3));
+  const edge = makeEdge(points);
+  edge.solid = rec.name;
+  edge.source = rec.mesh;
+  edge.localEdge = i;
+  edge.id = rec.mi + "/" + i;
+  edge.faceIds = [data.pairs[i * 2], data.pairs[i * 2 + 1]].map(fi => fi < 0 ? -1 : rec.base + fi);
+  rec.descriptions.set(i, edge);
+  return edge;
+}
+
+function offView(rec, hidden = false) {
+  const body = rec.solid?.name || rec.name;
+  return !showsInFaucetFinish(state.mountedDetail?.file, body, state.faucetFinish) ||
+    (!hidden && (rec.solid ? !rec.solid.visible || !rec.solid.layers.test(camera.layers) : state.hiddenComponents.has(body)));
+}
+
+function yieldToInput() { return new Promise(resolve => setTimeout(resolve, 0)); }
 
 // Classify a polyline into a self-describing edge record.
 function makeEdge(points) {
@@ -501,15 +436,15 @@ export function faceHighlightGeometry(gid) {
   if (!entry) return null;
   const { rec, fi } = entry;
   const f = rec.faces[fi];
-  const positions = [];
-  for (let t = f.first; t <= f.last; t++) {
-    for (let k = 0; k < 3; k++) {
-      const vi = rec.idx[t * 3 + k];
-      positions.push(rec.pos[vi * 3], rec.pos[vi * 3 + 1], rec.pos[vi * 3 + 2]);
-    }
+  const positions = new Float32Array((f.last - f.first + 1) * 9);
+  const pos = rec.pos, idx = rec.idx;
+  let next = 0;
+  for (let i = f.first * 3; i < (f.last + 1) * 3; i++) {
+    const v = idx[i] * 3;
+    positions[next++] = pos[v]; positions[next++] = pos[v + 1]; positions[next++] = pos[v + 2];
   }
   const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   geo.userData.bodies = [rec.name];
   return geo;
 }
@@ -525,41 +460,26 @@ export function faceBody(gid) {
 // stand a little off every triangle; `tol` is how far it may. Returns the global
 // face id, or -1 when no shown face comes that near.
 export function faceNearest(p, tol = 0.5, { hidden = false } = {}) {
-  ensureEdges();
-  if (!faceTable) return -1;
-  if (!faceBoxes) {
-    faceBoxes = faceTable.map((entry) => {
-      if (!entry) return null;
-      const { rec, fi } = entry, f = rec.faces[fi], b = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
-      for (let t = f.first; t <= f.last; t++) {
-        for (let k = 0; k < 3; k++) {
-          const v = rec.idx[t * 3 + k] * 3;
-          for (let j = 0; j < 3; j++) {
-            b[j] = Math.min(b[j], rec.pos[v + j]);
-            b[j + 3] = Math.max(b[j + 3], rec.pos[v + j]);
-          }
-        }
+  const q = new THREE.Vector3(p.x, p.y, p.z);
+  const box = new THREE.Box3(q.clone(), q.clone()).expandByScalar(tol);
+  const tri = new THREE.Triangle(), near = new THREE.Vector3();
+  let best = -1, bestD = tol * tol;
+  for (const rec of ensureFaces()) {
+    if (!rec?.solid || offView(rec, hidden)) continue;
+    visitSurfaceRanges(rec.solid, box, (start, end) => {
+      const pos = rec.pos, idx = rec.idx;
+      for (let t = start; t < end; t++) {
+        const i = t * 3;
+        tri.a.fromArray(pos, idx[i] * 3);
+        tri.b.fromArray(pos, idx[i + 1] * 3);
+        tri.c.fromArray(pos, idx[i + 2] * 3);
+        const d = tri.closestPointToPoint(q, near).distanceToSquared(q);
+        if (d >= bestD) continue;
+        const gid = faceAtTriangle(rec, t);
+        if (gid >= 0) { best = gid; bestD = d; }
       }
-      return b;
     });
   }
-  const q = new THREE.Vector3(p.x, p.y, p.z), tri = new THREE.Triangle(), near = new THREE.Vector3();
-  let best = -1, bestD = tol;
-  faceTable.forEach((entry, gid) => {
-    const b = faceBoxes[gid];
-    if (!entry || offView(entry.rec.name, hidden)) return;
-    const out = Math.hypot(Math.max(b[0] - q.x, 0, q.x - b[3]), Math.max(b[1] - q.y, 0, q.y - b[4]),
-      Math.max(b[2] - q.z, 0, q.z - b[5]));
-    if (out > bestD) return;
-    const { rec, fi } = entry, f = rec.faces[fi];
-    for (let t = f.first; t <= f.last; t++) {
-      tri.a.fromArray(rec.pos, rec.idx[t * 3] * 3);
-      tri.b.fromArray(rec.pos, rec.idx[t * 3 + 1] * 3);
-      tri.c.fromArray(rec.pos, rec.idx[t * 3 + 2] * 3);
-      const d = tri.closestPointToPoint(q, near).distanceTo(q);
-      if (d < bestD) { bestD = d; best = gid; }
-    }
-  });
   return best;
 }
 
@@ -571,9 +491,11 @@ export function faceNearest(p, tol = 0.5, { hidden = false } = {}) {
 // its content, and stays dark. Non-indexed triangle soup, like
 // faceHighlightGeometry, with the bodies it came off in userData.bodies; null
 // when the box holds no surface. `hidden` takes in bodies hidden by hand.
-export function boxHighlightGeometry(lo, hi, { hidden = false } = {}) {
-  ensureEdges();
-  if (!meshRecs) return null;
+export async function boxHighlightGeometry(lo, hi, { hidden = false, signal } = {}) {
+  signal?.throwIfAborted();
+  const revision = inspectionRevision;
+  const bounds = new THREE.Box3(new THREE.Vector3(lo.x,lo.y,lo.z), new THREE.Vector3(hi.x,hi.y,hi.z));
+  let slice = performance.now();
   const e = 1e-4;
   const planes = [[1, 0, 0, hi.x - e], [-1, 0, 0, -lo.x - e], [0, 1, 0, hi.y - e], [0, -1, 0, -lo.y - e],
     [0, 0, 1, hi.z - e], [0, 0, -1, -lo.z - e]];
@@ -582,10 +504,19 @@ export function boxHighlightGeometry(lo, hi, { hidden = false } = {}) {
   const keep = (poly) => {
     for (let i = 1; i < poly.length - 1; i++) out.push(...poly[0], ...poly[i], ...poly[i + 1]);
   };
-  for (const rec of meshRecs) {
-    if (!rec || offView(rec.name, hidden)) continue;
+  for (const rec of ensureFaces()) {
+    if (!rec?.solid || offView(rec, hidden)) continue;
+    const ranges = [];
+    visitSurfaceRanges(rec.solid, bounds, (start, end) => ranges.push([start, end]));
+    if (!ranges.length) continue;
     const { pos, idx } = rec;
-    for (let t = 0; t < idx.length; t += 3) {
+    for (const [start, end] of ranges) for (let t = start * 3; t < end * 3; t += 3) {
+      if ((t % 768 === 0) && performance.now() - slice > 4) {
+        await yieldToInput();
+        signal?.throwIfAborted();
+        if (revision !== inspectionRevision) throw new DOMException("The displayed geometry changed", "AbortError");
+        slice = performance.now();
+      }
       let poly = [0, 1, 2].map((k) => [pos[idx[t + k] * 3], pos[idx[t + k] * 3 + 1], pos[idx[t + k] * 3 + 2]]);
       if (poly.every((v) => v[0] < lo.x) || poly.every((v) => v[0] > hi.x)
           || poly.every((v) => v[1] < lo.y) || poly.every((v) => v[1] > hi.y)
@@ -615,14 +546,44 @@ export function boxHighlightGeometry(lo, hi, { hidden = false } = {}) {
   return geo;
 }
 
-// Everything the find box needs: reconstructed edges plus every face
-// classified. Classification is cached, so repeated finds are cheap.
-export function getFindData() {
-  const edges = ensureEdges();
-  const faces = [];
-  if (faceTable) {
-    for (let gid = 0; gid < faceTable.length; gid++) {
-      faces[gid] = faceTable[gid] ? classifyFace(gid) : null;
+// Point and box requests use the triangle ranges directly. An edge request only
+// reconstructs solids that could contain its endpoints or circle centre.
+export async function getFindData(picks = [], { signal, hidden = false } = {}) {
+  signal?.throwIfAborted();
+  const revision = inspectionRevision;
+  function current() {
+    signal?.throwIfAborted();
+    if (revision !== inspectionRevision) throw new DOMException("The displayed geometry changed", "AbortError");
+  }
+  const edgeQueries = picks.filter(p => p.a && p.b || p.kind === "circle");
+  const classification = picks.some(p => p.kind === "face-plane" || p.kind === "face-cylinder");
+  const edges = [], faces = [];
+  if (!edgeQueries.length && !classification) { ensureFaces(); return { edges, faces }; }
+  const box = new THREE.Box3();
+  const couldHold = pick => pick.kind === "circle" ? box.containsPoint(pick.center)
+    : box.containsPoint(pick.a) && box.containsPoint(pick.b);
+  let slice = performance.now();
+  for (const rec of ensureFaces()) {
+    if (!rec?.solid || offView(rec, hidden)) continue;
+    if (classification) for (let i = 0; i < rec.faces.length; i++) {
+      const gid = rec.base + i;
+      faces[gid] = classifyFace(gid);
+      if (performance.now() - slice > 4) {
+        await yieldToInput(); current(); slice = performance.now();
+      }
+    }
+    if (!edgeQueries.length) continue;
+    box.copy(rec.solid.geometry.boundingBox).applyMatrix4(rec.solid.matrixWorld).expandByScalar(MATCH_TOLERANCE * 2);
+    if (!edgeQueries.some(couldHold)) continue;
+    const data = await prepareEdges(rec); current();
+    if (!data || offView(rec, hidden)) continue;
+    for (let i = 0; i + 1 < data.starts.length; i++) {
+      box.min.fromArray(data.boxes, i * 6); box.max.fromArray(data.boxes, i * 6 + 3);
+      box.expandByScalar(MATCH_TOLERANCE * 2);
+      if (edgeQueries.some(couldHold)) edges.push(describeEdge(rec, data, i));
+      if (performance.now() - slice > 4) {
+        await yieldToInput(); current(); slice = performance.now();
+      }
     }
   }
   return { edges, faces };
@@ -648,39 +609,57 @@ function segDistPx(px, py, ax, ay, bx, by) {
   return { d: Math.hypot(px - cx, py - cy), t };
 }
 
-function pickEdge(clientX, clientY) {
-  const edges = ensureEdges();
-  if (!edges.length) return null;
+const pickFrustum = new THREE.Frustum(), crop = new THREE.Matrix4();
+const edgeBounds = new THREE.Box3(), edgePoint = new THREE.Vector3();
+function edgeCandidates(clientX, clientY) {
   const rect = renderer.domElement.getBoundingClientRect();
   const px = clientX - rect.left, py = clientY - rect.top;
-  const e = _vp.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse).elements;
+  const sx = rect.width / (2 * PICK_THRESHOLD_PX), sy = rect.height / (2 * PICK_THRESHOLD_PX);
+  crop.set(sx,0,0,-sx*(2*px/rect.width-1), 0,sy,0,-sy*(1-2*py/rect.height), 0,0,1,0, 0,0,0,1);
+  _vp.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+  pickFrustum.setFromProjectionMatrix(crop.multiply(_vp));
+  return { rect, px, py, recs: ensureFaces().filter(rec => {
+    if (!rec?.solid || offView(rec)) return false;
+    edgeBounds.copy(rec.solid.geometry.boundingBox).applyMatrix4(rec.solid.matrixWorld);
+    return pickFrustum.intersectsBox(edgeBounds);
+  }) };
+}
 
+function pickEdge({ rect, px, py, recs }) {
+  const e = _vp.elements;
   let best = null;
-  for (const edge of edges) {
-    if (offView(edge.solid)) continue; // hidden component — not in view
-    const pts = edge.points;
-    let prev = projectPixels(pts[0], rect, e);
-    for (let i = 1; i < pts.length; i++) {
-      const cur = projectPixels(pts[i], rect, e);
-      if (prev && cur) {
-        const { d, t } = segDistPx(px, py, prev.x, prev.y, cur.x, cur.y);
-        if (d <= PICK_THRESHOLD_PX) {
-          const depth = prev.depth + (cur.depth - prev.depth) * t;
-          // nearest to cursor; front-most breaks a near tie (overlapping edges)
-          if (!best || d < best.d - 1.5 || (Math.abs(d - best.d) <= 1.5 && depth < best.depth)) {
-            best = { edge, d, depth, point: pts[i - 1].clone().lerp(pts[i], t) };
+  for (const rec of recs) {
+    const data = topologies.get(rec.mesh)?.data;
+    if (!data) continue;
+    for (let edge = 0; edge + 1 < data.starts.length; edge++) {
+      edgeBounds.min.fromArray(data.boxes, edge * 6); edgeBounds.max.fromArray(data.boxes, edge * 6 + 3);
+      if (!pickFrustum.intersectsBox(edgeBounds)) continue;
+      const start = data.starts[edge], end = data.starts[edge + 1];
+      let prev = projectPixels(edgePoint.fromArray(data.points, start * 3), rect, e);
+      for (let p = start + 1; p < end; p++) {
+        const cur = projectPixels(edgePoint.fromArray(data.points, p * 3), rect, e);
+        if (prev && cur) {
+          const { d, t } = segDistPx(px, py, prev.x, prev.y, cur.x, cur.y);
+          if (d <= PICK_THRESHOLD_PX) {
+            const depth = prev.depth + (cur.depth - prev.depth) * t;
+            if (!best || d < best.d - 1.5 || (Math.abs(d - best.d) <= 1.5 && depth < best.depth)) {
+              best = { rec, data, edge, p, t, d, depth };
+            }
           }
         }
+        prev = cur;
       }
-      prev = cur;
     }
   }
-  return best;
+  if (!best) return null;
+  const { rec, data, edge, p, t } = best;
+  const point = new THREE.Vector3().fromArray(data.points, (p - 1) * 3).lerp(edgePoint.fromArray(data.points, p * 3), t);
+  return { edge: describeEdge(rec, data, edge), point, d: best.d, depth: best.depth };
 }
 
 // Face under the cursor — used when a click misses every edge. Raycasts
 // the rendered meshes (step.js tags each with its occt mesh index) and
-// maps the hit triangle back to its BREP face via triFace.
+// maps the original hit triangle to its authored B-rep face range.
 const _raycaster = new THREE.Raycaster();
 const _ndc = new THREE.Vector2();
 
@@ -703,12 +682,12 @@ function edgeOccluded(edgeHit) {
   const de = edgeHit.point.distanceTo(camera.position);
   _occDir.copy(edgeHit.point).sub(camera.position).normalize();
   _raycaster.set(camera.position, _occDir);
-  const hits = _raycaster.intersectObjects(frontMeshes(), false);
-  return hits.length > 0 && hits[0].distance < de - Math.max(0.5, de * 0.002);
+  const hit = nearestSurface(_raycaster, frontMeshes());
+  return !!hit && hit.distance < de - Math.max(0.5, de * 0.002);
 }
 function pickFace(clientX, clientY) {
   if (!state.currentGroup) return null;
-  ensureEdges(); // builds meshRecs + faceTable
+  ensureFaces();
   if (!meshRecs) return null;
   const rect = renderer.domElement.getBoundingClientRect();
   _ndc.set(
@@ -716,69 +695,79 @@ function pickFace(clientX, clientY) {
     -((clientY - rect.top) / rect.height) * 2 + 1,
   );
   _raycaster.setFromCamera(_ndc, camera);
-  const hits = _raycaster.intersectObjects(frontMeshes(), false);
-  for (const h of hits) {
-    const mi = h.object.userData ? h.object.userData.occtIndex : undefined;
-    if (mi == null || h.faceIndex == null) continue;
-    const rec = meshRecs[mi];
-    if (!rec) continue;
-    const gid = rec.triFace[h.faceIndex];
-    if (gid == null || gid < 0) continue;
-    return { type: "face", gid, solid: rec.name, face: classifyFace(gid), point: h.point.clone() };
-  }
-  return null;
+  const hit = nearestSurface(_raycaster, frontMeshes(), h => {
+    return faceAtTriangle(meshRecs[h.object.userData.occtIndex], h.faceIndex) >= 0;
+  });
+  if (!hit) return null;
+  const rec = meshRecs[hit.object.userData.occtIndex], gid = faceAtTriangle(rec, hit.faceIndex);
+  return { type: "face", gid, source: rec.mesh, localFace: gid - rec.base, solid: rec.name,
+    face: classifyFace(gid), point: hit.point.clone() };
 }
 
 // --- faint all-edges layer (every BREP edge, shown while picking is on) ---
-// Depth-tested (hidden edges stay hidden in solid shading; in x-ray the
-// surfaces don't write depth, so it reads through the ghost like the crease
-// lines do) and faint enough to sit under them.
+// The faint lines depth-test against solid shading and follow the same
+// component visibility as Blueprint's feature edges.
 const ALL_EDGES_COLOR = 0xdce6f5;
 const ALL_EDGES_OPACITY = 0.14;
-let allEdgesLine = null;
+const edgeLayers = new THREE.Group();
+edgeLayers.name = "edge-picker-all-edges";
+scene.add(edgeLayers);
+const linesBySource = new Map();
+const edgeLayerMaterial = new THREE.LineBasicMaterial({
+  color: ALL_EDGES_COLOR, transparent: true, opacity: ALL_EDGES_OPACITY, depthWrite: false,
+});
+let layerTicket = 0, layerTimer = 0;
 
-function disposeAllEdgesLayer() {
-  if (!allEdgesLine) return;
-  scene.remove(allEdgesLine);
-  allEdgesLine.geometry.dispose();
-  allEdgesLine.material.dispose();
-  allEdgesLine = null;
+function refreshEdgeLayers() {
+  const wanted = new Set(edgeSource || []);
+  cancelDepartedJobs(wanted);
+  for (const [source, line] of linesBySource) if (!wanted.has(source)) {
+    edgeLayers.remove(line); line.geometry.dispose(); linesBySource.delete(source);
+  }
+  invalidateAllEdgesLayer();
 }
 
-// Drop the faint all-edges layer so it rebuilds honoring the current hidden set
-// (component-picker.js hides/shows a solid while this layer is off; it rebuilds
-// from scratch, skipping hidden solids, the next time the picker is armed).
 export function invalidateAllEdgesLayer() {
-  disposeAllEdgesLayer();
-  ensureAllEdgesLayer(); // no-op unless the toggle is on
-}
-
-function ensureAllEdgesLayer() {
+  const ticket = ++layerTicket;
+  clearTimeout(layerTimer);
+  edgeLayers.visible = enabled;
   if (!enabled || !edgeSource) return;
-  if (allEdgesLine) { allEdgesLine.visible = true; return; }
-  const edges = ensureEdges();
-  if (!edges.length) return;
-  const flat = [];
-  for (const e of edges) {
-    if (offView(e.solid)) continue; // hidden component — off the view
-    const p = e.points;
-    for (let i = 1; i < p.length; i++) {
-      flat.push(p[i - 1].x, p[i - 1].y, p[i - 1].z, p[i].x, p[i].y, p[i].z);
+  pickTicket++;
+  hoverPoint = null;
+  setHover(null);
+  const recs = ensureFaces().filter(rec => rec?.solid);
+  const selectedSource = selection?.edge?.source || selection?.source;
+  for (const rec of recs) {
+    const line = linesBySource.get(rec.mesh);
+    const shown = !offView(rec);
+    if (line) line.visible = shown;
+    if (!shown && rec.mesh === selectedSource) clearSelection();
+  }
+  async function drawEdges() {
+    let slice = performance.now();
+    for (const rec of recs) {
+      if (ticket !== layerTicket) return;
+      if (offView(rec) || linesBySource.has(rec.mesh)) continue;
+      const data = await prepareEdges(rec);
+      if (ticket !== layerTicket) return;
+      if (data?.lines.length && !offView(rec)) {
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute("position", new THREE.BufferAttribute(data.points, 3));
+        geo.setIndex(new THREE.BufferAttribute(data.lines, 1));
+        geo.boundingSphere = rec.solid.geometry.boundingBox.getBoundingSphere(new THREE.Sphere()).applyMatrix4(rec.solid.matrixWorld);
+        const line = new THREE.LineSegments(geo, edgeLayerMaterial);
+        linesBySource.set(rec.mesh, line);
+        edgeLayers.add(line);
+        sceneState.requestCadRender?.();
+      }
+      if (performance.now() - slice > 4) { await yieldToInput(); slice = performance.now(); }
     }
   }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute("position", new THREE.Float32BufferAttribute(flat, 3));
-  const mat = new THREE.LineBasicMaterial({
-    color: ALL_EDGES_COLOR,
-    transparent: true,
-    opacity: ALL_EDGES_OPACITY,
-    depthWrite: false,
-  });
-  allEdgesLine = new THREE.LineSegments(geo, mat);
-  allEdgesLine.name = "edge-picker-all-edges";
-  allEdgesLine.frustumCulled = false;
-  scene.add(allEdgesLine);
+  layerTimer = setTimeout(() => drawEdges().catch(error => console.warn("Surface edges:", error)), 0);
+  sceneState.requestCadRender?.();
 }
+
+window.addEventListener(HSM_EVENTS.BLUEPRINT_VISIBILITY, invalidateAllEdgesLayer);
 
 // --- overlay (highlight line + markers), drawn over everything ---
 const overlay = new THREE.Group();
@@ -837,6 +826,7 @@ let hoverLine = null;
 let hoverId = -1;
 
 function clearSelection() {
+  if (selection) sceneState.requestCadRender?.();
   disposeObj(selObjs.line); disposeObj(selObjs.face); disposeObj(selObjs.ends); disposeObj(selObjs.click);
   selObjs = { line: null, face: null, ends: null, click: null };
   selection = null;
@@ -870,6 +860,7 @@ function drawSelection(sel) {
   selection = sel;
   setHover(null);
   showPanel(sel);
+  sceneState.requestCadRender?.();
 }
 
 function setHover(hit) {
@@ -883,6 +874,7 @@ function setHover(hit) {
     hoverLine = lineFromPoints(hit.edge.points, hoverLineMat);
     overlay.add(hoverLine);
   }
+  sceneState.requestCadRender?.();
 }
 
 // --- text formatting for the copy blob ---
@@ -1090,12 +1082,14 @@ function fallbackCopy(text, done) {
 }
 
 // --- pointer wiring (attached once; act only when enabled + STEP open) ---
-let downX = 0, downY = 0;
+let downX = 0, downY = 0, pickTicket = 0, hoverFrame = 0, hoverPoint = null;
 function active() { return enabled && state.mountedDetail && state.mountedDetail.type === "step"; }
 
 renderer.domElement.addEventListener("pointerdown", (e) => {
+  pickTicket++; hoverPoint = null;
   downX = e.clientX; downY = e.clientY;
 });
+renderer.domElement.addEventListener("wheel", () => { pickTicket++; hoverPoint = null; }, { passive: true });
 renderer.domElement.addEventListener("pointerup", (e) => {
   if (!active()) return;
   if (renderer.domElement.parentElement?.classList.contains("cad-gesturing")) return;
@@ -1108,36 +1102,53 @@ renderer.domElement.addEventListener("pointerup", (e) => {
   // depth, while the surface point under the cursor sits measurably
   // nearer on a grazing view — comparing those two stole flush edges
   // and answered with the face. Occluded means something solid stands
-  // clearly in front of the edge point itself — and in x-ray mode it
-  // doesn't apply at all: the ghosted surfaces hide nothing, so an edge
-  // you can see and aim at (a bore seam under a web) wins the click.
-  const edgeHit = pickEdge(e.clientX, e.clientY);
-  const faceHit = pickFace(e.clientX, e.clientY);
-  let sel = null;
-  if (edgeHit && faceHit) {
-    sel = !isXrayEnabled() && edgeOccluded(edgeHit)
-      ? faceHit
-      : { type: "edge", edge: edgeHit.edge, point: edgeHit.point };
-  } else if (edgeHit) {
-    sel = { type: "edge", edge: edgeHit.edge, point: edgeHit.point };
-  } else if (faceHit) {
-    sel = faceHit;
+  // clearly in front of the edge point itself. Blueprint shows edges through
+  // translucent faces of the included components, so a visible bore seam or
+  // rear edge can win a click anywhere on one of those components.
+  const { clientX, clientY } = e;
+  const candidates = edgeCandidates(clientX, clientY);
+  const face = pickFace(clientX, clientY);
+  function selectAt(candidates) {
+    const edge = pickEdge(candidates);
+    if (edge && (!face || isXrayEnabled() || !edgeOccluded(edge))) {
+      drawSelection({ type: "edge", edge: edge.edge, point: edge.point });
+    } else if (face) drawSelection(face);
+    else clearSelection();
   }
-  if (sel) drawSelection(sel);
-  else clearSelection(); // click on empty space clears
+  selectAt(candidates);
+  const missing = candidates.recs.filter(rec => !topologies.get(rec.mesh)?.data);
+  if (!missing.length) return;
+  const ticket = ++pickTicket, revision = inspectionRevision;
+  const pose = camera.matrixWorld.clone();
+  async function refine() {
+    for (const rec of missing) {
+      if (!active() || pickTicket !== ticket || revision !== inspectionRevision || !pose.equals(camera.matrixWorld)) return;
+      await prepareEdges(rec);
+    }
+    if (active() && pickTicket === ticket && revision === inspectionRevision && pose.equals(camera.matrixWorld)) {
+      selectAt(edgeCandidates(clientX, clientY));
+    }
+  }
+  setTimeout(() => refine().catch(error => console.warn("Surface pick:", error)), 0);
 });
-renderer.domElement.addEventListener("pointermove", (e) => {
-  if (!active() || e.buttons !== 0) { return; }
-  setHover(pickEdge(e.clientX, e.clientY));
+renderer.domElement.addEventListener("pointermove", e => {
+  if (!active() || e.buttons || e.pointerType === "touch") { hoverPoint = null; return; }
+  hoverPoint = [e.clientX, e.clientY];
+  if (hoverFrame) return;
+  hoverFrame = requestAnimationFrame(() => {
+    hoverFrame = 0;
+    if (active() && hoverPoint) setHover(pickEdge(edgeCandidates(...hoverPoint)));
+  });
 });
+renderer.domElement.addEventListener("pointerleave", () => { hoverPoint = null; setHover(null); });
 
 // --- public API ---
 export function clearEdgePicker() {
   clearSelection();
   setHover(null);
-  disposeAllEdgesLayer();
   edgeSource = null;
-  activeEdges = null;
+  inspectionRevision++;
+  refreshEdgeLayers();
   isAssembly = false;
   meshRecs = null;
   faceTable = null;
@@ -1146,16 +1157,17 @@ export function clearEdgePicker() {
 
 export function setEdgePickEnabled(on) {
   enabled = !!on;
+  pickTicket++; hoverPoint = null;
   try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
   if (enabled) {
-    ensureAllEdgesLayer();
+    invalidateAllEdgesLayer();
     // Arming edge-select disarms the component picker so a click doesn't feed
     // both. Only announce on arm, so disarming can't ping-pong.
     window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_TOOL, { detail: "edge" }));
   } else {
     clearSelection();
     setHover(null);
-    if (allEdgesLine) allEdgesLine.visible = false;
+    invalidateAllEdgesLayer();
   }
 }
 
@@ -1175,7 +1187,7 @@ window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
     try { localStorage.setItem(LS_KEY, "0"); } catch {}
     clearSelection();
     setHover(null);
-    if (allEdgesLine) allEdgesLine.visible = false;
+    invalidateAllEdgesLayer();
     if (toggleRefresh) toggleRefresh();
   }
 });

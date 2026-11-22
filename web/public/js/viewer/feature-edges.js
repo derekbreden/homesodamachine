@@ -16,12 +16,19 @@ function pump() {
   active = job;
   try {
     if (!worker) {
-      worker = new Worker(new URL('./feature-edge-worker.js', import.meta.url), { type: 'module' });
-      worker.onmessage = ({data}) => {
+      const current = new Worker(new URL('./feature-edge-worker.js', import.meta.url), { type: 'module' });
+      worker = current;
+      current.onmessage = ({data}) => {
+        if (worker !== current) return;
         const geometry = new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(data, 3));
         finish(geometry);
       };
-      worker.onerror = () => { worker.terminate(); worker = null; finish(null); };
+      current.onerror = () => {
+        if (worker !== current) return;
+        current.terminate();
+        worker = null;
+        finish(null);
+      };
     }
     const position = job.source.getAttribute('position');
     // CAD geometry uses tightly packed floats. Other Three.js attribute layouts use their accessors.

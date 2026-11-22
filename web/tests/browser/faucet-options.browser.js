@@ -175,7 +175,7 @@ test("style swaps actual geometry in place; finish covers the exterior, lever, d
     assert.deepEqual(await materials(page), white);
     assert.equal(await page.evaluate(() => window.__hsm.currentGroup.children[0].geometry.boundingBox.max.x), 7);
     assert.ok(decodeURIComponent(await page.evaluate(() => location.hash)).includes(industrial.assembly));
-    assert.equal(await page.$eval('[data-faucet]', (e) => e.dataset.file), industrial.assembly);
+    assert.equal(await page.$eval('[name="faucet-style"]:checked', input => input.value), industrial.id);
     await page.evaluate(async () => (await import("/js/viewer/xray.js")).setXrayEnabled(true));
     await choose(page, "finish", "black");
     await page.evaluate(async () => (await import("/js/viewer/xray.js")).setXrayEnabled(false));
@@ -237,25 +237,26 @@ test("machine assembly has no faucet controls or recoloring", async () => {
   } finally { await page.close(); }
 });
 
-test("every model opens solid; a chosen x-ray survives style changes and carries to the machine", async () => {
-  const ghosted = (page) => page.evaluate(() => window.__hsm.currentGroup.children.find((m) => m.userData.side === "front").material.transparent);
-  const pressed = (page) => page.$eval(".xray-toggle", (e) => e.getAttribute("aria-pressed"));
+test("models open solid and retain Blueprint through style and model changes", async () => {
+  const hasBlueprintComponent = () => window.__hsm.currentGroup.children.some(mesh =>
+    mesh.userData.side === "front" && mesh.visible && mesh.layers.test(window.__hsm.camera.layers) && mesh.material.transparent);
+  const pressed = (page) => page.$eval(".blueprint-toggle", (e) => e.getAttribute("aria-pressed"));
   const fresh = await openPage(machine, null);
   try {
-    assert.equal(await ghosted(fresh.page), false);
+    assert.equal(await fresh.page.evaluate(hasBlueprintComponent), false);
     assert.equal(await pressed(fresh.page), "false");
   } finally { await fresh.page.close(); }
   const { page } = await openPage(sculpted.assembly, null);
   try {
-    assert.equal(await ghosted(page), false);
+    assert.equal(await page.evaluate(hasBlueprintComponent), false);
     assert.equal(await pressed(page), "false");
-    await page.click(".xray-toggle");
+    await page.click(".blueprint-toggle");
     await choose(page, "style", "industrial");
     await mounted(page, industrial.assembly);
-    assert.equal(await ghosted(page), true);
-    assert.equal(await page.evaluate(() => localStorage.getItem("step-xray")), "1");
+    await page.waitForFunction(hasBlueprintComponent);
+    assert.equal(await page.evaluate(() => localStorage.getItem("step-blueprint")), "1");
     await page.evaluate(async (file) => (await import("/js/viewer/step-nav.js")).jumpToStep(file), machine);
-    assert.equal(await ghosted(page), true);
+    await page.waitForFunction(hasBlueprintComponent);
   } finally { await page.close(); }
 });
 

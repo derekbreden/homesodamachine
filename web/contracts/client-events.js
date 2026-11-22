@@ -8,6 +8,7 @@ export const HSM_EVENTS = {
   CONTENT_VIEWER_CHANGED: "hsm:content-viewer-changed", // the foreground modal opened or finished closing
   STEP_TOOL: "hsm:step-tool",                         // viewer-internal: STEP edge-picker / component-picker tool switch
   STEP_MOUNTED: "hsm:step-mounted",                  // { file } — the STEP now drawn in the modal
+  BLUEPRINT_VISIBILITY: "hsm:blueprint-visibility",    // Exposed components changed in the settled view
   MATERIAL_PICKED: "hsm:material-picked",             // { file, name } — component selected in the model; name null when the selection is let go
   DOCUMENT_ESCAPE: "hsm:document-escape",             // embedded document asks to return to its parent view
   DOCUMENT_COMMAND: "hsm:document-command",           // same-origin host → embedded reader: { command, page? }

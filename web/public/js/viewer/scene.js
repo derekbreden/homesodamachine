@@ -25,7 +25,7 @@ import { createNavigation, saveCameraPose } from "./navigation.js";
 export { depthRangeFor, fitCameraDepth } from "./navigation.js";
 import { state } from "./state.js";
 import * as xray from "./xray.js";
-import { drawMovingSurfaces, prepareMotionSurfaces } from "./motion-surfaces.js";
+import { drawMovingSurfaces, hasDenseSurfaces, prepareMotionSurfaces } from "./motion-surfaces.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // --- Detail view: Three.js setup ---
@@ -340,6 +340,22 @@ export function resizeRenderer() {
   navigation.resize();
 }
 const drawnSize = { w: 0, h: 0, ratio: 0 };
+const motionPixelRatio = 1.25;
+let restingPixelRatio = 0;
+
+// Only the moving model changes resolution. Its CSS viewport, input coordinates and ViewCube stay fixed.
+function setMotionResolution(moving, settling) {
+  const dense = !renderAlpha && hasDenseSurfaces();
+  const ratio = renderer.getPixelRatio();
+  if (dense && moving && !restingPixelRatio && ratio > motionPixelRatio) {
+    restingPixelRatio = ratio;
+    renderer.setPixelRatio(motionPixelRatio);
+  } else if (restingPixelRatio && (settling || !dense)) {
+    renderer.setPixelRatio(restingPixelRatio);
+    restingPixelRatio = 0;
+  }
+  drawnSize.ratio = renderer.getPixelRatio();
+}
 
 // A phone's Materials sheet covers the bottom of the model. The canvas keeps its full height
 // under the sheet, so moving it never reallocates the drawing buffer or rescales a gesture
@@ -442,14 +458,15 @@ function animate(now) {
   const exact = refining;
   refining = false;
   const moving = navigation.update(now);
+  setMotionResolution(moving, exact && !moving);
   xray.updateBlueprintView?.(renderer, camera, state.currentGroup);
   xray.syncEdgeResolution(renderer);
   const draw = () => renderer.render(scene, camera);
   let reduced = false;
-  if (renderAlpha || xray.isXrayEnabled?.() || (exact && !moving)) draw();
+  if (renderAlpha || (exact && !moving)) draw();
   else reduced = drawMovingSurfaces(scene, camera, drawnSize.h, draw);
   if (moving) requestCadRender();
-  if (reduced && !animateRafId) {
+  if ((reduced || restingPixelRatio) && !animateRafId) {
     refineTimer = setTimeout(() => {
       refining = true;
       animateRafId = requestAnimationFrame(animate);
@@ -466,6 +483,7 @@ export function stopAnimate() {
   animating = false;
   clearTimeout(refineTimer);
   prepareMotionSurfaces(null);
+  setMotionResolution(false, true);
   _modelBoundsDirty = true;
   if (animateRafId) {
     cancelAnimationFrame(animateRafId);

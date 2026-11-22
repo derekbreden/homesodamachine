@@ -157,6 +157,14 @@ test("assembly clicks and hiding keep physical copies together; opening exposes 
       assert.equal(await page.$$eval(".component-hidden-row", rows => rows.length),1,body);
       assert.ok(await page.$eval(".component-hidden-row .component-show", button =>
         !button.textContent.trim() && /^Show .+/.test(button.getAttribute("aria-label"))), body);
+      if (body === "pump-b-mount") {
+        await page.waitForFunction(() => {
+          const tile = document.querySelector(".component-hidden-thumb canvas");
+          if (!tile || tile.hidden) return false;
+          const { data } = tile.getContext("2d").getImageData(0, 0, tile.width, tile.height);
+          return new Set(new Uint32Array(data.buffer)).size > 5;
+        });
+      }
       await page.click(".component-hidden-row .component-show");
       assert.ok(await page.evaluate(members => window.__hsm.currentGroup.children
         .filter(mesh => mesh.userData?.side === "front" && members.includes(mesh.name)).every(mesh => mesh.visible),unit.bodies));

@@ -49,10 +49,14 @@ export const COST_KINDS = [
   { id: "unallocated", label: "Not yet on a part" },
 ];
 
+const dollarsWith = digits => new Intl.NumberFormat("en-US", {
+  minimumFractionDigits: digits, maximumFractionDigits: digits,
+}).format;
+const centsFormat = dollarsWith(2), wholeFormat = dollarsWith(0);
 export function money(usd, { cents = true } = {}) {
   if (usd == null || Number.isNaN(usd)) return "—";
-  const digits = cents || Math.abs(usd) < 100 ? 2 : 0;
-  return "$" + usd.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  const format = cents || Math.abs(usd) < 100 ? centsFormat : wholeFormat;
+  return "$" + format(usd);
 }
 
 // Minutes the way a person says them: 45 m, 2 h, 1 h 15 m. A share of a shared

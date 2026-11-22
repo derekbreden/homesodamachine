@@ -11,6 +11,8 @@ export function createXrayRenderer({
   edgeThreshold = 30,
   edgeWidth = 1.4,
   isMeshVisible = () => true,
+  requestEdges,
+  invalidate = () => {},
 } = {}) {
   let active = !!enabled;
   const variants = new WeakMap();
@@ -82,6 +84,8 @@ export function createXrayRenderer({
     return meshes;
   }
   function removeEdge(record) {
+    record?.cancel?.();
+    if (record) record.cancel = null;
     if (!record?.line) return;
     record.line.removeFromParent();
     record.line.geometry.dispose();
@@ -110,19 +114,29 @@ export function createXrayRenderer({
     const indexVersion = geometry.index?.version;
     if (record.geometry !== geometry || record.positionVersion !== positionVersion || record.indexVersion !== indexVersion) {
       removeEdge(record);
-      const edges = new THREE.EdgesGeometry(geometry, edgeThreshold);
-      const positions = edges.getAttribute("position");
-      if (positions?.count) {
-        const lineGeometry = new LineSegmentsGeometry().setPositions(positions.array);
-        record.line = new LineSegments2(lineGeometry, edgeMaterial(record.base));
-        record.line.userData.isXrayEdge = true;
-        record.line.userData.sourceMesh = mesh;
-      }
-      edges.dispose();
       record.geometry = geometry;
       record.positionVersion = positionVersion;
       record.indexVersion = indexVersion;
+      const attach = edges => {
+        if (records.get(mesh) !== record || !record.applied || mesh.geometry !== geometry) return;
+        const positions = edges.getAttribute("position");
+        if (!positions?.count) return;
+        record.line = new LineSegments2(new LineSegmentsGeometry().setPositions(positions.array), edgeMaterial(record.base));
+        record.line.userData.isXrayEdge = true;
+        record.line.userData.sourceMesh = mesh;
+        placeEdge(mesh, record);
+        invalidate();
+      };
+      if (requestEdges) record.cancel = requestEdges(geometry, attach);
+      else {
+        const edges = new THREE.EdgesGeometry(geometry, edgeThreshold);
+        attach(edges);
+        edges.dispose();
+      }
     }
+    placeEdge(mesh, record);
+  }
+  function placeEdge(mesh, record) {
     const line = record.line;
     if (!line) return;
     // Siblings retain the flat CAD viewer's component picking contract,
@@ -141,6 +155,11 @@ export function createXrayRenderer({
   }
 
   function detachEdge(record) {
+    if (record.cancel && !record.line) {
+      record.cancel();
+      record.cancel = null;
+      record.geometry = null;
+    }
     if (record.line) { record.line.visible = false; record.line.removeFromParent(); }
   }
   function present(mesh, record, on) {
@@ -164,7 +183,7 @@ export function createXrayRenderer({
       detachEdge(record);
     }
   }
-  function apply(root, on = active) {
+  function apply(root, on = active, included = null) {
     if (!root) return;
     const meshes = meshesIn(root);
     const previous = roots.get(root);
@@ -174,6 +193,11 @@ export function createXrayRenderer({
     roots.set(root, meshes);
     if (!on) { restore(root); return; }
     for (const mesh of meshes) {
+      if (included && !included(mesh)) {
+        const record = records.get(mesh);
+        if (record?.applied) present(mesh, record, false);
+        continue;
+      }
       const record = meshRecord(mesh);
       mesh.userData.baseMaterial = record.base;
       present(mesh, record, on);
@@ -199,5 +223,5 @@ export function createXrayRenderer({
   function setEnabled(on) { active = !!on; }
   function isEnabled() { return active; }
 
-  return { apply, restore, setEnabled, isEnabled, syncEdgeResolution, makeEdgeMaterial, setMeshMaterial, forgetEdgeMaterials, dispose };
+  return { apply, restore, release, setEnabled, isEnabled, syncEdgeResolution, makeEdgeMaterial, setMeshMaterial, forgetEdgeMaterials, dispose };
 }

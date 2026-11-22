@@ -24,6 +24,9 @@ import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
 import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick-format.js";
+import { markSolid } from "./feature-edges.js";
+import { nearestSurface } from "./surface-query.js";
+import * as sceneState from "./scene.js";
 import { getFindData, faceHighlightGeometry, faceNearest, faceBody, boxHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
 import { jumpToStep } from "./step-nav.js";
@@ -35,7 +38,7 @@ import { matchFeatures, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeatures, featureGeometry } from "./features.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
-const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
+
 
 // --- overlay ---
 const overlay = new THREE.Group();
@@ -60,6 +63,7 @@ function clearOverlay() {
     if (child.material && child.material !== findLineMat) child.material.dispose();
   }
   clearLabels();
+  sceneState.requestCadRender?.();
 }
 
 function addEdgeHighlight(edge, box) {
@@ -115,22 +119,31 @@ function surfacePoints(geo, count = 5) {
   const corner = (t, k) => (index ? index[t * 3 + k] : t * 3 + k) * 3;
   const tris = index ? index.length / 3 : p.length / 9;
   const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
-  const shares = [];
+  // A few sight lines need representative surface points even on a finely tessellated body.
+  const sampleCount = Math.min(tris, 2048);
+  const sampleAt = i => Math.floor((i + 0.5) * tris / sampleCount);
+  const shares = new Float64Array(sampleCount);
   let total = 0;
-  for (let t = 0; t < tris; t++) {
+  for (let i = 0; i < sampleCount; i++) {
+    const t = sampleAt(i);
     a.fromArray(p, corner(t, 0)); b.fromArray(p, corner(t, 1)); c.fromArray(p, corner(t, 2));
     total += b.sub(a).cross(c.sub(a)).length();
-    shares.push(total);
+    shares[i] = total;
   }
   const points = [];
-  for (let k = 0, t = 0; total && k < count; k++) {
-    while (t < tris - 1 && shares[t] < (k + 0.5) / count * total) t++;
+  for (let k = 0, i = 0; total && k < count; k++) {
+    while (i < sampleCount - 1 && shares[i] < (k + 0.5) / count * total) i++;
+    const t = sampleAt(i);
     a.fromArray(p, corner(t, 0)); b.fromArray(p, corner(t, 1)); c.fromArray(p, corner(t, 2));
     const middle = a.clone().add(b).add(c).multiplyScalar(1 / 3);
     if (!points.some(q => q.distanceToSquared(middle) < 1e-6)) points.push(middle);
   }
   return points;
 }
+
+const partEdges = new THREE.LineBasicMaterial({ color: FIND, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false });
+const partFill = new THREE.MeshBasicMaterial({ color: FIND, transparent: true, opacity: 0.16,
+  side: THREE.DoubleSide, depthWrite: false, depthTest: false });
 
 // A whole named solid: its feature edges plus a faint shell, depth-test off
 // so it reads through the enclosure walls. Same shape as part-highlight.js's
@@ -140,30 +153,13 @@ function surfacePoints(geo, count = 5) {
 function addPartHighlight(name, box) {
   const points = [];
   if (!state.currentGroup) return points;
-  const seen = new Set();
   for (const mesh of state.currentGroup.children) {
-    // Locally hidden stays hidden — the same rule the pickers and the scorecard
-    // highlight keep (component-picker.js).
-    if (!mesh.isMesh || mesh.name !== name || mesh.visible === false
-        || seen.has(mesh.geometry)) continue;
-    seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
-    mesh.updateWorldMatrix(true, false);
-    const geometry = mesh.geometry.clone().applyMatrix4(mesh.matrixWorld);
-    geometry.computeBoundingBox();
-    const edges = new THREE.LineSegments(
-      new THREE.EdgesGeometry(geometry, EDGE_THRESHOLD_DEG),
-      new THREE.LineBasicMaterial({ color: FIND, transparent: true, opacity: 0.95, depthTest: false, depthWrite: false }),
-    );
-    edges.renderOrder = 998;
-    overlay.add(edges);
-    const shell = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-      color: FIND, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
-      depthWrite: false, depthTest: false,
-    }));
-    shell.renderOrder = 997;
-    overlay.add(shell);
-    box.union(geometry.boundingBox);
-    points.push(...surfacePoints(geometry, 9));
+    if (mesh.userData?.side !== "front" || mesh.name !== name || !mesh.visible) continue;
+    markSolid(overlay, mesh, { lineMaterial: partEdges, fillMaterial: partFill, onChange: sceneState.requestCadRender });
+    const geometry = mesh.geometry;
+    if (!geometry.boundingBox) geometry.computeBoundingBox();
+    box.union(geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld));
+    points.push(...surfacePoints(geometry, 9).map(point => point.applyMatrix4(mesh.matrixWorld)));
   }
   return points;
 }
@@ -198,6 +194,12 @@ function landing(box, view = null) {
 }
 
 let flyToken = 0;
+let findWork = null;
+controls.addEventListener("start", () => { flyToken++; });
+window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, () => {
+  findWork?.abort();
+  flyToken++;
+});
 function flyToBox(box, view = null, instant = false) {
   const pose = landing(box, view);
   if (!pose) return;
@@ -281,7 +283,7 @@ function buildPanel() {
   clear.type = "button";
   clear.className = "edge-panel-all";
   clear.textContent = "Clear";
-  clear.addEventListener("click", () => { activeFind = null; clearOverlay(); releaseFound(); setStatus(""); });
+  clear.addEventListener("click", () => { findWork?.abort(); flyToken++; activeFind = null; clearOverlay(); releaseFound(); setStatus(""); });
   buttons.appendChild(go);
   buttons.appendChild(clear);
   panel.appendChild(buttons);
@@ -370,7 +372,24 @@ function nameStatus(hits) {
   return out.join(" · ");
 }
 
-async function runFind({ focus = true, text = textarea.value, instant = false, reveal = false } = {}) {
+async function runFind(options = {}) {
+  findWork?.abort();
+  const work = findWork = new AbortController();
+  flyToken++;
+  try {
+    await displayFind(options, work.signal);
+  } catch (error) {
+    if (!work.signal.aborted && error.name !== "AbortError") {
+      setStatus("Could not finish the geometry search.");
+      console.warn("Geometry search:", error);
+    }
+  } finally {
+    if (findWork === work) findWork = null;
+    sceneState.requestCadRender?.();
+  }
+}
+
+async function displayFind({ focus = true, text = textarea.value, instant = false, reveal = false }, signal) {
   // The box is on screen from the moment the modal opens; a big assembly is
   // still parsing for seconds after that. Say so rather than doing nothing.
   if (!state.mountedDetail || state.mountedDetail.type !== "step") {
@@ -404,12 +423,15 @@ async function runFind({ focus = true, text = textarea.value, instant = false, r
   const wanted = files.length ? pickFileToViewerPath(files[0]) : null;
   if (wanted && wanted !== state.mountedDetail.file) {
     setStatus(`opening ${wanted.split("/").pop()}…`);
-    if (!(await jumpToStep(wanted))) {
+    const opened = await jumpToStep(wanted);
+    signal.throwIfAborted();
+    if (!opened) {
       setStatus(`couldn't open ${wanted}`);
       return;
     }
   }
   if (!picks.length && !names.length && !featureQueries.length) { activeFind = null; setStatus("opened — nothing to highlight"); return; }
+  const mounted = state.currentGroup;
   activeFind = { file: state.mountedDetail.file, text };
 
   const box = new THREE.Box3();
@@ -459,7 +481,9 @@ async function runFind({ focus = true, text = textarea.value, instant = false, r
   }
   if (featureQueries.length || featureMatches.size) status.push(`${featureMatches.size} feature${featureMatches.size === 1 ? "" : "s"} matched`);
   if (picks.length) {
-    const { edges, faces } = getFindData();
+    const { edges, faces } = await getFindData(picks, { signal, hidden: reveal });
+    signal.throwIfAborted();
+    if (state.currentGroup !== mounted) return;
     const results = matchPicks(picks, edges, faces);
     let matched = 0;
     for (const r of results) {
@@ -487,7 +511,9 @@ async function runFind({ focus = true, text = textarea.value, instant = false, r
         targets.push(lit ? litTarget(lit) : spotTarget(pick.p));
         at = pick.p;
       } else if (r.type === "box") {
-        const geo = boxHighlightGeometry(pick.lo, pick.hi, { hidden: reveal });
+        const geo = await boxHighlightGeometry(pick.lo, pick.hi, { hidden: reveal, signal });
+        signal.throwIfAborted();
+        if (state.currentGroup !== mounted) { geo?.dispose(); return; }
         if (geo) { ({ lit, at } = addSurfaceHighlight(geo, box)); targets.push(litTarget(lit)); matched++; }
       }
       if (pick.text && at) labels.push({ at: new THREE.Vector3(at.x, at.y, at.z), lit, text: pick.text });
@@ -512,10 +538,9 @@ async function runFind({ focus = true, text = textarea.value, instant = false, r
 // where the thing is without claiming it can be seen. A label's own lit surface
 // does not hide it — the middle of a lit bar lies inside the bar, and what is
 // seen of it is the lit face in front. That reading waits for the view to
-// settle, since a ray through a whole model costs more than a frame, and is
-// skipped on a model too heavy to cast through at all.
+// settle before testing the solid in front of each label.
 const SVGNS = "http://www.w3.org/2000/svg";
-const LABEL_CAST_MAX_TRIS = 600000;
+
 const ray = new THREE.Raycaster();
 let labelLayer = null, labelMarks = [], labelFrame = 0, labelPose = "", labelSettle = 0;
 
@@ -558,6 +583,11 @@ function clearLabels() {
 function placeLabels() {
   if (!labelLayer || !labelLayer.isConnected) return;
   const W = labelLayer.clientWidth, H = labelLayer.clientHeight;
+  const pose = [...camera.position.toArray(), ...camera.quaternion.toArray(), ...camera.projectionMatrix.elements, W, H].join(",");
+  if (pose === labelPose) return;
+  labelPose = pose;
+  clearTimeout(labelSettle);
+  labelSettle = setTimeout(hideLabels, 150);
   const placed = [];
   for (const m of labelMarks) {
     const v = m.at.clone().project(camera);
@@ -585,26 +615,17 @@ function placeLabels() {
     dot.setAttribute("cy", y);
     words.style.transform = `translate(${lx}px, ${ly}px)`;
   }
-  const pose = [...camera.position.toArray(), ...controls.target.toArray(), W, H]
-    .map((n) => n.toFixed(3)).join(",");
-  if (pose !== labelPose) {
-    labelPose = pose;
-    clearTimeout(labelSettle);
-    labelSettle = setTimeout(hideLabels, 150);
-  }
 }
 
 function hideLabels() {
-  const solids = (state.currentGroup?.children || []).filter((c) => c.isMesh && c.visible !== false);
-  const tris = solids.reduce((n, c) => n + (c.geometry.index ? c.geometry.index.count : 0) / 3, 0);
-  if (tris > LABEL_CAST_MAX_TRIS) return;
+  const solids = (state.currentGroup?.children || []).filter(c => c.userData?.side === "front" && c.visible);
   for (const m of labelMarks) {
     const to = m.at.clone().sub(camera.position);
     const dist = to.length();
     ray.set(camera.position, to.normalize());
     ray.far = dist;
-    const hit = ray.intersectObjects(solids, false)[0];
-    const own = m.lit ? ray.intersectObject(m.lit, false)[0] : null;
+    const hit = nearestSurface(ray, solids);
+    const own = m.lit ? nearestSurface(ray, m.lit) : null;
     const reach = own ? own.distance : dist;
     const behind = !!hit && hit.distance < reach - Math.max(0.5, reach * 0.004);
     m.parts.forEach((el) => el.classList.toggle("is-behind", behind));
@@ -626,13 +647,15 @@ export function findWhenMounted(file, text) {
 }
 
 function runPendingFind(instant = false) {
-  const { text } = pendingFind;
+  const { text, file } = pendingFind;
   pendingFind = null;
   if (!panel) buildPanel();
   textarea.value = text;
   // A frame on, past the camera the open restores, which is the one it flies from.
   if (instant) runFind({ text, instant, reveal: true });
-  else requestAnimationFrame(() => runFind({ text, reveal: true }));
+  else requestAnimationFrame(() => {
+    if (state.mountedDetail?.file === file && textarea.value === text && !pendingFind) runFind({ text, reveal: true });
+  });
 }
 
 window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {
@@ -658,6 +681,7 @@ export function clearPickFind() {
 // holding the last query), so what has to reset is the open flag — otherwise
 // the first Find click in the next modal toggles a panel nothing can see.
 export function closePickFind() {
+  findWork?.abort();
   activeFind = null;
   clearPickFind();
   releaseFound();

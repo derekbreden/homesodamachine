@@ -120,8 +120,8 @@ The harnesses and CAD viewer share `public/js/viewer/navigation.js`: free
 Trackball rotation, right-drag and two-finger pan, surface-aware zoom,
 ViewCube snaps and camera persistence. Rotate, Pan and Zoom choose the
 one-finger or left-drag action. Reset view preserves the assembly state.
-`axis-rulers.js` and `xray-render.js` provide the same instance-owned rulers
-and x-ray rendering to both viewers. Harness rulers switch to the native
+`axis-rulers.js` and `xray-render.js` provide the rulers and outlined surfaces
+for harness X-ray and CAD Blueprint. Harness rulers switch to the native
 PCB view, where the geometry has a physical millimeter scale. Find searches
 conductors, endpoints and parts; selections can be hidden and restored.
 
@@ -243,7 +243,7 @@ Refresh made-to-order and off-the-shelf stills from the repo root with `tools/ru
 | `scene.js` | Three.js renderer/camera/controls/scene/lighting + ViewCube + animate loop + per-file camera persistence + canvas reparenting (canvases live in `#cad-canvas-host` between opens). |
 | `step.js` | STEP loader (occt-import-js), parser, mesher, thumbnail renderer. |
 | `faucet-options.js` | The faucet's Sculpted/Industrial style and Black/White finish controls. Style swaps actual assembly payloads in the same view; finish recolors the printed exterior, lever, above-counter gasket, soda faucet tube, including their direct part views. The continuous black 4 mm flavor tubes retain their stock color in both finishes. On narrow screens the choices expand from a compact summary. |
-| `xray.js` | The X-ray toggle. Models draw solid until x-ray is turned on. The browser keeps the choice under `step-xray`. |
+| `xray.js` | Blueprint draws every exposed component with translucent faces and feature edges. The visible component set follows the settled camera and the reader’s visibility choices. |
 | `dxf.js` | DXF loader, parser and extrusion mesher. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
 | `grid.js` | Guide shelf and document search. |

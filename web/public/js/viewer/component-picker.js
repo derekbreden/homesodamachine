@@ -35,7 +35,7 @@ import { sceneFeature, featureGeometry } from "./features.js";
 import { requestFeatureEdges } from "./feature-edges.js";
 import { nearestSurface } from "./surface-query.js";
 import * as xray from "./xray.js";
-import { snapThumbnail } from "./step.js";
+import { captureHiddenThumbnail } from "./hidden-thumbnail.js";
 
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
@@ -132,6 +132,7 @@ export function applyHiddenComponents() {
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
   refreshHighlight(); // a selection picks out only what is still drawn
   if (repaintSelection) drawOverlay(selGroup, selection);
+  syncOverlayVisibility();
   refreshPanel();
   xray.invalidateBlueprintVisibility?.();
   requestCadRender();
@@ -234,6 +235,21 @@ const hoverGroup = new THREE.Group(); hoverGroup.renderOrder = 993; overlay.add(
 selGroup.userData.marks = new Map();
 hoverGroup.userData.marks = new Map();
 
+function syncMarkVisibility(mesh, mark) {
+  mark.shell.layers.mask = mesh.layers.mask;
+  mark.shell.visible = mesh.visible;
+  if (mark.line) {
+    mark.line.layers.mask = mesh.layers.mask;
+    mark.line.visible = mesh.visible;
+  }
+}
+function syncOverlayVisibility() {
+  for (const group of [selGroup, hoverGroup]) {
+    for (const [mesh, mark] of group.userData.marks) syncMarkVisibility(mesh, mark);
+  }
+}
+window.addEventListener(HSM_EVENTS.BLUEPRINT_VISIBILITY, syncOverlayVisibility);
+
 function removeMark(group, mesh, mark) {
   mark.cancelEdges?.();
   mark.shell.removeFromParent();
@@ -254,6 +270,7 @@ function addMark(group, mesh, feature) {
   shell.renderOrder = group.renderOrder;
   group.add(shell);
   const mark = { shell, feature, source: mesh.geometry, line: null, cancelEdges: null };
+  syncMarkVisibility(mesh, mark);
   group.userData.marks.set(mesh, mark);
   return mark;
 }
@@ -296,6 +313,7 @@ function drawOverlay(group, name, showEdges = true) {
         mark.line.matrix.copy(mark.shell.matrix);
         mark.line.matrixAutoUpdate = false;
         mark.line.renderOrder = group.renderOrder;
+        syncMarkVisibility(mesh, mark);
         group.add(mark.line);
         requestCadRender();
       }, { priority: group === selGroup });
@@ -325,6 +343,7 @@ function pickComponent(clientX, clientY) {
     -((clientY - rect.top) / rect.height) * 2 + 1,
   );
   _raycaster.setFromCamera(_ndc, camera);
+  _raycaster.layers.mask = camera.layers.mask;
   const hit = nearestSurface(_raycaster, targets);
   if (!hit) return null;
   if (insideOpenedPart(hit.object.name)) {
@@ -630,9 +649,7 @@ function makeHiddenRow(name) {
   thumb.className = "component-hidden-thumb";
   thumb.setAttribute("aria-hidden", "true");
   thumb.innerHTML = iconSvg("cube", "tool-icon");
-  const image = document.createElement("img");
-  image.alt = "";
-  image.decoding = "async";
+  const image = document.createElement("canvas");
   image.hidden = true;
   thumb.appendChild(image);
   button.appendChild(thumb);
@@ -663,15 +680,15 @@ function makeHiddenRow(name) {
 function queueHiddenThumbnails() {
   if (thumbnailQueued || !hiddenRows.size) return;
   thumbnailQueued = true;
-  const paint = () => {
-    thumbnailQueued = false;
+  const paint = async () => {
     const group = state.currentGroup;
     if (!group || !panel.classList.contains("show") || !panel.getClientRects().length) return;
+    const tiles = group.userData.hiddenThumbnails ??= new Map();
     for (const [name, row] of hiddenRows) {
       if (!row.inView) continue;
-      const bodies = unitForKey(name)?.bodies || [name];
+      const bodies = new Set(unitForKey(name)?.bodies || [name]);
       const meshes = group.children.filter(mesh => mesh.userData.side === "front" && inFinish(mesh.name)
-        && bodies.some(body => standsIn(mesh.name, body)));
+        && (bodies.has(mesh.name) || heldBy(mesh.name).some(body => bodies.has(body))));
       const version = meshes.map(mesh => {
         mesh.updateWorldMatrix(true, false);
         return [mesh.geometry.id, (mesh.userData.baseMaterial || mesh.material).id, ...mesh.matrixWorld.elements].join(",");
@@ -680,27 +697,37 @@ function queueHiddenThumbnails() {
       row.version = version;
       row.image.hidden = true;
       if (!meshes.length) continue;
-      const thumbnail = new THREE.Group();
-      for (const mesh of meshes) {
-        const copy = new THREE.Mesh(mesh.geometry, mesh.userData.baseMaterial || mesh.material);
-        copy.matrix.copy(mesh.matrixWorld);
-        copy.matrixAutoUpdate = false;
-        thumbnail.add(copy);
-      }
+      const current = () => state.currentGroup === group && hiddenRows.get(name) === row && row.version === version;
+      const cached = tiles.get(name);
       try {
-        row.image.src = snapThumbnail(thumbnail, 64, "shelf");
-        row.image.hidden = false;
+        const image = cached?.version === version ? cached.image : await captureHiddenThumbnail(meshes, current);
+        if (image && current()) {
+          tiles.delete(name);
+          tiles.set(name, { version, image });
+          if (tiles.size > 32) tiles.delete(tiles.keys().next().value);
+          row.image.width = image.width;
+          row.image.height = image.height;
+          row.image.getContext("2d").putImageData(image, 0, 0);
+          row.image.hidden = false;
+        }
       } catch (error) {
         console.warn("Hidden part thumbnail:", error);
-      } finally {
-        thumbnail.removeFromParent();
       }
-      queueHiddenThumbnails();
-      break;
+      return true;
     }
+    return false;
   };
-  if (window.requestIdleCallback) requestIdleCallback(paint);
-  else requestAnimationFrame(() => setTimeout(paint, 0));
+  const next = async () => {
+    let more;
+    try {
+      more = await paint();
+    } finally {
+      thumbnailQueued = false;
+    }
+    if (more) queueHiddenThumbnails();
+  };
+  if (window.requestIdleCallback) requestIdleCallback(next);
+  else requestAnimationFrame(() => setTimeout(next, 0));
 }
 
 function refreshPanel() {

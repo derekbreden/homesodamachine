@@ -16,44 +16,72 @@ function visibleSolids(group) {
 }
 
 // Fix the rays in the entrance pose so later context can be tested as it arrives.
-function sightLines(selected) {
+function* sightLines(selected, entrance) {
   const box = new THREE.Box3(), p = new THREE.Vector3();
   for (const mesh of selected) box.expandByObject(mesh);
-  if (box.isEmpty()) return [];
+  if (box.isEmpty()) return;
   const min = new THREE.Vector2(Infinity, Infinity), max = new THREE.Vector2(-Infinity, -Infinity);
   for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
-    p.set(x, y, z).project(camera);
+    p.set(x, y, z).project(entrance);
     min.min(p); max.max(p);
   }
-  const rays = [], point = new THREE.Vector2();
+  const point = new THREE.Vector2();
   for (const u of [0.25, 0.5, 0.75]) for (const v of [0.25, 0.5, 0.75]) {
     const ray = new THREE.Raycaster();
     point.set(THREE.MathUtils.lerp(min.x, max.x, u), THREE.MathUtils.lerp(min.y, max.y, v));
-    ray.setFromCamera(point, camera);
+    ray.setFromCamera(point, entrance);
     const hit = nearestSurface(ray, selected);
     if (hit) {
       ray.far = hit.distance - 0.01;
-      rays.push(ray);
     }
+    yield hit ? ray : null;
   }
-  return rays;
 }
+
+const wasShown = (view, name) => view.shown && [...view.shown].some(body => standsIn(name, body));
+const obstructs = (view, mesh) => !view.names.has(mesh.name) && !wasShown(view, mesh.name)
+  && view.rays.some(ray => nearestSurface(ray, mesh));
 
 // Run before an arriving solid can be painted over the selected location.
 export function uncoverContext(group, solids) {
   const view = group.userData.instanceView;
   if (!view?.rays.length || group !== state.currentGroup) return;
-  const shown = view.shown ? [...view.shown] : [];
   for (const mesh of solids) {
-    if (!mesh.visible || view.names.has(mesh.name) || shown.some(body => standsIn(mesh.name, body))) continue;
+    if (!mesh.visible) continue;
     mesh.updateWorldMatrix(true, false);
-    for (const ray of view.rays) {
-      if (!nearestSurface(ray, mesh)) continue;
+    if (obstructs(view, mesh)) {
       state.autoHiddenComponents.add(mesh.name);
       mesh.visible = false;
-      break;
     }
   }
+}
+
+// Existing parts can uncover a selected location after input has been painted.
+function prepareContext(group, view, lines) {
+  function* work() {
+    for (const ray of lines) {
+      if (ray) view.rays.push(ray);
+      yield;
+    }
+    const hidden = [];
+    for (const mesh of visibleSolids(group)) {
+      if (obstructs(view, mesh)) hidden.push(mesh);
+      yield;
+    }
+    if (!hidden.length) return;
+    for (const mesh of hidden) {
+      if (mesh.parent === group && !wasShown(view, mesh.name)) state.autoHiddenComponents.add(mesh.name);
+    }
+    applyHiddenComponents();
+  }
+  const pending = work();
+  function advance() {
+    if (state.currentGroup !== group || group.userData.instanceView !== view) return;
+    const until = performance.now() + 3;
+    do { if (pending.next().done) return; } while (performance.now() < until);
+    setTimeout(advance, 0);
+  }
+  advance();
 }
 
 // Sight lines a find casts at most, spread across its targets: each one is tested against every solid.
@@ -73,21 +101,21 @@ export function uncoverFound(targets, eye) {
   const walls = solids.filter(mesh => names.has(mesh.name));
   const points = targets.flatMap(target => target.points);
   const stride = Math.max(1, points.length / FOUND_SIGHT_LINES);
-  const rays = [];
-  for (let i = 0; i < points.length; i += stride) {
-    const toward = points[Math.floor(i)].clone().sub(eye), distance = toward.length();
-    if (distance < 0.02) continue;
-    const ray = new THREE.Raycaster(eye.clone(), toward.divideScalar(distance), 0, distance);
-    const wall = nearestSurface(ray, walls);
-    ray.far = Math.min(distance, wall ? wall.distance : distance) - 0.01;
-    if (ray.far > 0) rays.push(ray);
+  function* foundLines() {
+    for (let i = 0; i < points.length; i += stride) {
+      const toward = points[Math.floor(i)].clone().sub(eye), distance = toward.length();
+      if (distance < 0.02) continue;
+      const ray = new THREE.Raycaster(eye.clone(), toward.divideScalar(distance), 0, distance);
+      const wall = nearestSurface(ray, walls);
+      ray.far = Math.min(distance, wall ? wall.distance : distance) - 0.01;
+      yield ray.far > 0 ? ray : null;
+    }
   }
-  if (!rays.length) return;
-  group.userData.instanceView = { names, rays, found: true };
+  if (!points.length) return;
+  const view = group.userData.instanceView = { names, rays: [], found: true };
   state.autoHiddenComponents.clear();
   state.autoHiddenFile = state.mountedDetail?.file;
-  uncoverContext(group, solids);
-  applyHiddenComponents();
+  prepareContext(group, view, foundLines());
 }
 
 // A link shows what it points at: the bodies hidden here by hand that hold any of `bodies` come
@@ -156,11 +184,13 @@ function showContext(group, members, { locations, fly, preview = false, material
   if (fly) frameParts(members, { outward: true, instant: true });
   group.updateWorldMatrix(true, true);
   camera.updateMatrixWorld();
+  const entrance = camera.clone();
   const solids = visibleSolids(group);
   const targets = locations || materialLocations(material, members);
-  view.rays = targets.flatMap(location => sightLines(solids.filter(mesh => location.includes(mesh.name))));
-  uncoverContext(group, solids);
-  applyHiddenComponents();
+  function* locationLines() {
+    for (const location of targets) yield* sightLines(solids.filter(mesh => location.includes(mesh.name)), entrance);
+  }
+  prepareContext(group, view, locationLines());
 }
 
 export function uncoverMaterialParts(material, members, { fly }) {

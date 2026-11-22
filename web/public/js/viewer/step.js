@@ -6,10 +6,12 @@ import { decodeMeshPayload } from "./mesh-payload.js";
 export { decodeMeshPayload } from "./mesh-payload.js";
 import { resolveScene } from "./shared-scene.js";
 import { prepareMeshSurfaces, prepareSurface } from "./surface-query.js";
+import { denseSceneNodes, prepareMotionIndices } from "./motion-surfaces.js";
 import { state } from "./state.js";
-import { scene, camera, resetCamera, fitCameraDepth, fitFog, BG_COLOR } from "./scene.js";
+import { scene, camera, resetCamera, fitFog, BG_COLOR } from "./scene.js";
 import * as sceneState from "./scene.js";
 import * as xray from "./xray.js";
+import { frameThumbnail } from "./hidden-thumbnail.js";
 import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
 import { beginCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { setActiveEdges } from "./edge-picker.js";
@@ -268,9 +270,19 @@ async function fetchMeshes(file, headers, { mounted = false, signal, onPart, sel
       if (!resp.ok) return null;
       bytes = new Uint8Array(await resp.arrayBuffer());
     }
+    let dense = false;
+    const selectedScene = head => {
+      const selected = select?.(head);
+      const nodes = selected?.only ? selected.first.map(i => head.meshes[i]) : head.meshes;
+      dense = denseSceneNodes(nodes);
+      return selected;
+    };
+    const preparePart = (meshes, abort) => Promise.all([
+      prepareMeshSurfaces(meshes, abort), prepareMotionIndices(meshes, abort, dense),
+    ]);
     const result = await resolveScene(bytes, {
-      sourceUrl: resp ? null : url, signal, onPart, select, onTarget, priority,
-      preparePart: onPart ? prepareMeshSurfaces : undefined,
+      sourceUrl: resp ? null : url, signal, onPart, select: onPart ? selectedScene : select, onTarget, priority,
+      preparePart: onPart ? preparePart : undefined,
     });
     if (!result) return null; // a payload this code doesn't read is no payload
     // `url` only when the store is where these bytes came from. Whoever mounts them records it
@@ -299,6 +311,14 @@ function componentViewBodies(location, names) {
   return unitForBody(units, location.component)?.bodies || [location.component];
 }
 
+// A departing solid releases its Blueprint overlay before releasing its surface.
+function removeSceneSolid(group, solid) {
+  xray.releaseBlueprintSolid?.(solid);
+  group.remove(solid);
+  solid.geometry.dispose();
+  if (solid.userData.ownsMaterial) solid.material.dispose();
+}
+
 // Completed parts replace their own GPU meshes while unfinished parts keep their last drawing.
 function mountScenePart(node, meshes, head, file, location, { current, preserveCamera, componentBodies }) {
   if (!current()) return;
@@ -317,7 +337,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
   if (group.userData.sharedHead !== head) {
     const present = new Set(head.meshes.map(part => part.name));
     for (const [name,part] of parts) if (!present.has(name)) {
-      for (const solid of part.solids) {group.remove(solid);solid.geometry.dispose();if(solid.userData.ownsMaterial)solid.material.dispose();}
+      for (const solid of part.solids) removeSceneSolid(group, solid);
       parts.delete(name);
       invalidateModelBounds();
     }
@@ -328,14 +348,12 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
   const sameGeometry=prior && prior.meshes.length===meshes.length && meshes.every((mesh,i)=>
     mesh.geometryKey===prior.meshes[i].geometryKey && JSON.stringify(mesh.color)===JSON.stringify(prior.meshes[i].color) && mesh.opacity===prior.meshes[i].opacity);
   if (prior && prior.key!==key && sameGeometry) {
-    xray.disposeXray?.(group);
     meshes.forEach((mesh,i)=>placeSharedMesh(prior.solids[i],mesh));
     prior.meshes=meshes;prior.key=key;
     invalidateModelBounds();
     uncoverContext(group, prior.solids);
   } else if (!prior || prior.key !== key) {
-    xray.disposeXray?.(group);
-    if (prior) for (const solid of prior.solids) { group.remove(solid); solid.geometry.dispose(); if(solid.userData.ownsMaterial)solid.material.dispose(); }
+    if (prior) for (const solid of prior.solids) removeSceneSolid(group, solid);
     const replacement = buildMesh({ meshes }, file);
     const solids = [...replacement.children];
     for (const solid of solids) {
@@ -503,7 +521,7 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
       if (!result.meshes.length) { failed(`Component ${location.component} is not in this model`); return; }
     }
 
-    await prepareMeshSurfaces(result.meshes, signal);
+    await Promise.all([prepareMeshSurfaces(result.meshes, signal), prepareMotionIndices(result.meshes, signal)]);
     if (!current()) return;
     if (state.currentGroup) {
       scene.remove(state.currentGroup);
@@ -511,7 +529,7 @@ export async function loadStepFile(file, { preserveCamera = false, target = null
     }
 
     state.currentGroup = buildMesh(result, file);
-    applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
+    applyXray(state.currentGroup);
     setActiveEdges(result); // face-range edges for the picker, lazily reconstructed from triangles
     clearPickFind(); // stale find highlights reference the old geometry
     dropHighlight(); // the selection's owner draws its overlay again on STEP_MOUNTED
@@ -560,25 +578,8 @@ export function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   thumbScene.fog.color.set(background);
   thumbScene.add(group);
 
-  const box = new THREE.Box3().setFromObject(group);
-  const center = box.getCenter(new THREE.Vector3());
-  const size = box.getSize(new THREE.Vector3());
-  const maxDim = Math.max(size.x, size.y, size.z);
-  const dist = maxDim * (shelf ? 2.25 : 2.5);
-  // +Z-up CAD-standard front-iso — matches resetCamera in scene.js so
-  // the thumbnail shows the same orientation as the detail view's
-  // default. Camera at +X, -Y, +Z (front-right-above).
-  const el = Math.atan(1 / Math.sqrt(2));
-  const az = -Math.PI / 4;
-  thumbCam.up.set(0, 0, 1);
-  thumbCam.position.set(
-    center.x + dist * Math.cos(el) * Math.cos(az),
-    center.y + dist * Math.cos(el) * Math.sin(az),
-    center.z + dist * Math.sin(el)
-  );
-  thumbCam.lookAt(center);
-  fitCameraDepth(thumbCam, center, size.length() / 2);
-  fitFog(thumbScene, dist, size.length() / 2);
+  const { distance, radius } = frameThumbnail(new THREE.Box3().setFromObject(group), thumbCam, shelf);
+  fitFog(thumbScene, distance, radius);
   syncEdgeResolution(thumbRenderer);
 
   thumbRenderer.render(thumbScene, thumbCam);
@@ -592,7 +593,6 @@ export function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
 export function renderMeshes(result, px, file = null, finishId = state.faucetFinish, presentation = "viewer") {
   const group = buildMesh(result, file, finishId, false);
   try {
-    applyXray(group);
     return snapThumbnail(group, px, presentation);
   } finally {
     group.removeFromParent();

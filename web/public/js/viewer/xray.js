@@ -1,78 +1,137 @@
-// X-ray render mode for the CAD viewer. A toggle (stacked above the rulers
-// toggle, persisted per-browser in localStorage under "step-xray") that
-// switches the loaded assembly from solid shading to a ghosted view:
-// every solid's surfaces drop to a low opacity and every solid gets its
-// feature edges drawn as crisp lines. The faint surfaces give bulk; the
-// edges carry the structure — so you can read a part nested inside a part
-// nested inside a part, which solid shading hides.
-//
-// Why edges + ghost rather than plain transparency: low-opacity surfaces
-// alone blend into mush — you can tell *something* is in there but not
-// what. Drawing each solid's feature edges (EdgesGeometry at a ~30° crease
-// threshold, so the tessellation facets on curved walls stay quiet) keeps
-// every part's silhouette legible through the ghost. depthWrite is off on
-// the surfaces so a near shell never hides the ones stacked behind it —
-// everything blends, which is the point.
-//
-// Materials note: the live shading materials are shared with the offscreen
-// thumbnail renderer (step.js's _matCache), so we must NOT mutate them in
-// place — a transparent thumbnail would leak out. Instead each mesh's
-// material is swapped for a cached x-ray *clone* and the original parked on
-// mesh.userData.baseMaterial, to be restored on toggle off.
-//
-// step.js calls applyXray() on the group after every load (so switching
-// files keeps the mode) and inside renderThumbnail (so a grid card matches the
-// detail view it opens). The toggle re-applies to the live detail group only.
-// Every model opens solid. Turning x-ray on is remembered across models.
+// Blueprint draws whole exposed components with translucent faces and their feature edges.
+import * as THREE from 'three';
+import { HSM_EVENTS } from '/contracts/client-events.js';
+import {createXrayRenderer} from './xray-render.js';
+import {createBlueprintExposure} from './blueprint-visibility.js';
+import {requestFeatureEdges} from './feature-edges.js';
+import * as picker from './component-units.js';
+import * as scene from './scene.js';
+import {state} from './state.js';
+import {makeToolChip} from './tool-rail.js';
 
-import { createXrayRenderer } from "./xray-render.js";
-import { state } from "./state.js";
-import { makeToolChip } from "./tool-rail.js";
-import { heldBy } from "/contracts/body-path.js";
+const preference = 'step-blueprint';
+let chip, enabled = false;
+try { enabled = (localStorage.getItem(preference) ?? localStorage.getItem('step-xray')) === '1'; } catch {}
+const invalidate = () => scene.requestCadRender?.();
+const rendering = createXrayRenderer({enabled, requestEdges:requestFeatureEdges, invalidate});
+const layerMasks = new Map();
+let group = null, classifier = null, exposed = null, timer = 0, revision = 0, reading = false;
+let viewMatrix = new THREE.Matrix4(), projection = new THREE.Matrix4(), width = 0, height = 0;
+const size = new THREE.Vector2();
+const solidOwner = solid => picker.componentOwner?.(solid.name) || solid.name || solid.uuid;
 
-const LS_KEY = "step-xray";
-let chip = null;
-let enabled = (() => {
-  try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
-})();
-const rendering = createXrayRenderer({
-  enabled,
-  isMeshVisible: mesh => ![mesh.name, ...heldBy(mesh.name || "")].some(name =>
-    state.hiddenComponents.has(name) || state.autoHiddenComponents.has(name)),
-});
-
-// These exports also serve STEP thumbnails and the standalone render tools.
-export const makeEdgeMaterial = params => rendering.makeEdgeMaterial(params);
-export const syncEdgeResolution = renderer => rendering.syncEdgeResolution(renderer);
-export const forgetEdgeMaterials = () => rendering.forgetEdgeMaterials();
-export function applyXray(group, on = enabled) { rendering.apply(group, on); }
-export function disposeXray(group) { rendering.dispose(group); }
-export function setMeshMaterial(_group, mesh, material) {
-  rendering.setMeshMaterial(mesh, material, enabled);
+function restoreLayer(solid) {
+  if (!layerMasks.has(solid)) return;
+  solid.layers.mask = layerMasks.get(solid);
+  layerMasks.delete(solid);
+}
+function releaseView() {
+  clearTimeout(timer); timer = 0;
+  revision++;
+  for (const solid of layerMasks.keys()) restoreLayer(solid);
+  classifier?.dispose();
+  classifier = null;
+  group = null;
+  exposed = null;
+  width = height = 0;
+  window.dispatchEvent(new Event(HSM_EVENTS.BLUEPRINT_VISIBILITY));
+}
+function paint() {
+  if (!group || !exposed) return;
+  for (const solid of group.children) {
+    if (solid.userData.side !== 'front') continue;
+    if (exposed.has(solidOwner(solid))) restoreLayer(solid);
+    else {
+      if (!layerMasks.has(solid)) layerMasks.set(solid, solid.layers.mask);
+      solid.layers.mask = 0;
+    }
+  }
+  rendering.apply(group, true, solid => solid.visible && !layerMasks.has(solid));
+  window.dispatchEvent(new Event(HSM_EVENTS.BLUEPRINT_VISIBILITY));
+  invalidate();
+}
+async function classify() {
+  timer = 0;
+  if (!enabled || !group || reading) return;
+  const ticket = revision, mounted = group;
+  const solids = group.children.filter(mesh => mesh.userData.side === 'front');
+  const current = () => ticket === revision && group === mounted;
+  reading = true;
+  try {
+    classifier ||= createBlueprintExposure();
+    const names = await classifier.exposedComponents(scene.renderer, scene.camera, solids, solidOwner, current);
+    if (!current() || !names) return;
+    exposed = names;
+    paint();
+  } catch (error) {
+    if (ticket !== revision || group !== mounted) return;
+    console.warn('Blueprint visibility:', error);
+    // Keep components accessible if the browser loses its offscreen target.
+    exposed = new Set(solids.map(solidOwner));
+    paint();
+  } finally {
+    reading = false;
+    if (enabled && group && revision !== ticket && !timer) invalidateBlueprintVisibility();
+  }
+}
+export function invalidateBlueprintVisibility() {
+  if (!enabled || !group) return;
+  revision++;
+  clearTimeout(timer);
+  timer = setTimeout(classify, 160);
+}
+export function updateBlueprintView(renderer, camera, mounted) {
+  if (!enabled || !mounted || group !== mounted) return;
+  camera.updateWorldMatrix(true, false);
+  renderer.getDrawingBufferSize(size);
+  if (viewMatrix.equals(camera.matrixWorld) && projection.equals(camera.projectionMatrix)
+      && width === size.x && height === size.y) return;
+  viewMatrix.copy(camera.matrixWorld);
+  projection.copy(camera.projectionMatrix);
+  width = size.x; height = size.y;
+  invalidateBlueprintVisibility();
 }
 
-export function setXrayEnabled(on, { persist = true } = {}) {
+export const makeEdgeMaterial = params => rendering.makeEdgeMaterial(params);
+export const syncEdgeResolution = rendering.syncEdgeResolution;
+export const forgetEdgeMaterials = rendering.forgetEdgeMaterials;
+export function applyXray(mounted, on = enabled) {
+  if (!mounted || mounted !== state.currentGroup) return;
+  if (group && group !== mounted) { rendering.restore(group); releaseView(); }
+  if (!on) {
+    if (group) { releaseView(); rendering.apply(mounted, false); }
+    invalidate();
+    return;
+  }
+  group = mounted;
+  if (exposed) paint();
+  invalidateBlueprintVisibility();
+  invalidate();
+}
+export function disposeXray(mounted) {
+  if (group === mounted) releaseView();
+  rendering.dispose(mounted);
+}
+export function releaseBlueprintSolid(solid) {
+  restoreLayer(solid);
+  rendering.release(solid);
+}
+export function setMeshMaterial(_group, mesh, material) {
+  rendering.setMeshMaterial(mesh, material, enabled && !!exposed && !layerMasks.has(mesh));
+}
+export function setXrayEnabled(on, {persist = true} = {}) {
   enabled = !!on;
   rendering.setEnabled(enabled);
-  if (persist) {
-    try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
-  }
+  if (persist) { try { localStorage.setItem(preference, enabled ? '1' : '0'); } catch {} }
   applyXray(state.currentGroup);
   chip?.refresh();
 }
-
-export function isXrayEnabled() {
-  return enabled;
-}
-
+export function isXrayEnabled() { return enabled; }
 export function makeXrayToggle() {
   chip = makeToolChip({
-    className: "xray-toggle",
-    label: "X-ray",
-    icon: "xray",
-    title: "Ghost every solid's surfaces and draw its feature edges, so nested parts read through",
-    read: isXrayEnabled,
-    write: setXrayEnabled,
+    className:'blueprint-toggle', label:'Blueprint', icon:'xray',
+    title:'Draw the complete outline of each exposed component',
+    read:isXrayEnabled, write:setXrayEnabled,
   });
   return chip;
 }

@@ -94,6 +94,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const expanded = new Set();
   let lastFile = file;
   const scroll = el("div", "material-panel-scroll");
+  function revealMaterialFocus() {
+    const focus = scroll.querySelector(".material-tree-focus");
+    if (!focus) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      observer.disconnect();
+      if (focus.isConnected && workspace.classList.contains("materials-open") && entry.intersectionRatio < 1) {
+        focus.scrollIntoView({ block: "nearest" });
+      }
+    }, { root: scroll, threshold: 1 });
+    observer.observe(focus);
+  }
   const headHost = el("div", "material-head-host"), tabsHost = el("div", "material-tabs-host");
   const search = makeMaterialSearch({ compact: true, featuresInView: sceneFeatures });
   panel.append(search, headHost, tabsHost, scroll);
@@ -217,7 +228,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     selectedBody = null;
     selected = id; selectedPath = path;
     render({ fromPick: fromModel });
-    if (!fromModel && workspace.classList.contains("materials-open")) scroll.querySelector(".material-tree-focus")?.scrollIntoView({ block: "nearest" });
+    if (!fromModel && workspace.classList.contains("materials-open")) revealMaterialFocus();
     show({ fly: !fromModel });
   }
 
@@ -250,7 +261,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const model = contextPath().length ? materialForFile(state.materialCatalog, lastFile) : null;
     if (model) reroot(model.id);
     selectedBody = null; selected = root; selectedPath = []; modelPick = false;
-    render();
+    render({ fromPick: fromModel });
     show({ fly: !fromModel });
     return true;
   }
@@ -313,12 +324,13 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     return link;
   }
 
-  function render({fromPick = false} = {}) {
+  function render({ fromPick = false, resetScroll = false } = {}) {
     cancelAnimationFrame(detailFrame);
     clearTimeout(detailTask);
     panelDirty = false;
     shownRecords = recordsVersion();
-    const top = scroll.scrollTop;
+    const deferDetails = toggle && (!workspace.classList.contains("materials-open") || fromPick);
+    const top = deferDetails || resetScroll ? 0 : scroll.scrollTop;
     scroll.replaceChildren();
     const index = materialIndex(state.materialCatalog), current = index.get(selected), rootMaterial = index.get(root);
     const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
@@ -327,7 +339,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
     drawingView?.setPcb(current?.pcb);
     const title = current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer";
-    if (toggle && (!workspace.classList.contains("materials-open") || fromPick)) {
+    if (deferDetails) {
       // The selected identity and toolbar are immediate. Build the record tree when its pane can use it.
       const heading = el("h2", "", title);
       const head = el("div", "material-panel-head");
@@ -339,8 +351,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         detailFrame = requestAnimationFrame(() => {
           detailTask = setTimeout(() => {
             if (disposed || !workspace.classList.contains("materials-open")) return;
-            render();
-            scroll.querySelector(".material-tree-focus")?.scrollIntoView({block: "nearest"});
+            render({ resetScroll: true });
+            if (modelPick) revealMaterialFocus();
           }, 0);
         });
       }
@@ -439,7 +451,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     }
     if (tab === "location") renderLocations(content, current);
     if (tab === "docs") renderDocs(content, docs);
-    scroll.scrollTop = top;
+    if (top) scroll.scrollTop = top;
     if (pendingSection) {
       const target = pendingSection;
       requestAnimationFrame(() => {

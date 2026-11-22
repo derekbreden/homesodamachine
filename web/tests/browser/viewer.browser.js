@@ -463,3 +463,131 @@ test("/3d a short counter-scroll reverses on its first frame and settles there",
     assert.ok(Math.abs(movement.reversed) < movement.inward && movement.coast < 1e-7, JSON.stringify(movement));
   } finally { await page.close(); }
 });
+
+test("/3d coordinate and edge picks retain their placed surface and face identities", async () => {
+  const page = await browser.newPage();
+  const file = "reference/compressor/compressor.step";
+  try {
+    await page.goto(`${baseUrl}/3d#step:${encodeURIComponent(file)}`);
+    await page.waitForFunction(file => window.__hsm?.mountedStepFile === file, {}, file);
+    const result = await page.evaluate(async () => {
+      const { THREE, scene } = window.__hsm;
+      const picker = await import("/js/viewer/edge-picker.js");
+      const { state } = await import("/js/viewer/state.js");
+      const { matchPicks } = await import("/js/viewer/pick-format.js");
+      const { prepareMeshSurfaces, prepareSurface } = await import("/js/viewer/surface-query.js");
+      const geometry = new THREE.BoxGeometry(8, 8, 8, 16, 16, 16);
+      const placed = geometry.clone().translate(20, 0, 0);
+      const mesh = new THREE.Mesh(geometry);
+      mesh.name = "placed-block"; mesh.position.x = 20;
+      mesh.userData = { side: "front", occtIndex: 0 };
+      state.currentGroup = new THREE.Group();
+      state.currentGroup.add(mesh);
+      state.currentGroup.updateWorldMatrix(true, true);
+      const source = { name: mesh.name, attributes: placed.attributes, localAttributes: geometry.attributes,
+        localIndex: geometry.index, index: placed.index, brep_faces: geometry.groups.map(g => ({
+          first: g.start / 3, last: (g.start + g.count) / 3 - 1,
+        })) };
+      await prepareMeshSurfaces([source]); prepareSurface(geometry);
+      picker.setActiveEdges({ meshes: [source] });
+      const point = { x: 24, y: .3, z: .25 };
+      const found = picker.faceNearest(point);
+      mesh.visible = false;
+      const hidden = picker.faceNearest(point), restored = picker.faceNearest(point,.5,{hidden:true});
+      mesh.visible = true;
+      const clipped = await picker.boxHighlightGeometry({ x: 23, y: 0, z: 0 }, { x: 25, y: 1, z: 1 });
+      clipped.computeBoundingBox();
+      const query = { kind: "edge", a: { x: 24, y: 4, z: -4 }, b: { x: 24, y: 4, z: 4 } };
+      picker.setEdgePickEnabled(true);
+      const enabled = picker.isEdgePickEnabled();
+      const {edges, faces} = await picker.getFindData([query]);
+      const [match] = matchPicks([query], edges, faces);
+      const edge = edges[match.index];
+      for (let i = 0; i < 20 && !scene.getObjectByName("edge-picker-all-edges").children.length; i++) {
+        await new Promise(requestAnimationFrame);
+      }
+      const lines = scene.getObjectByName("edge-picker-all-edges").children.length;
+      picker.setEdgePickEnabled(false);
+      mesh.layers.disableAll();
+      const covered = await picker.getFindData([query], {hidden:false});
+      const revealed = await picker.getFindData([query], {hidden:true});
+      return { found, body:picker.faceBody(found), hidden, restored,
+        clipped:[clipped.boundingBox.min.toArray(), clipped.boundingBox.max.toArray()],
+        enabled, lines, score:match.score, adjacent:edge?.faceIds, solid:edge?.solid,
+        coveredEdges:covered.edges.length, revealed:matchPicks([query], revealed.edges, revealed.faces)[0].score };
+    });
+    assert.equal(result.found, 0);
+    assert.equal(result.body, "placed-block");
+    assert.equal(result.hidden, -1);
+    assert.equal(result.restored, result.found);
+    assert.equal(result.clipped[0][0], 24); assert.equal(result.clipped[1][0], 24);
+    assert.equal(result.enabled, true); assert.equal(result.lines, 1);
+    assert.equal(result.score, 0); assert.equal(result.solid, result.body);
+    assert.deepEqual(result.adjacent, [0, 2]);
+    assert.equal(result.coveredEdges, 0); assert.equal(result.revealed, 0);
+  } finally { await page.close(); }
+});
+
+test("/3d Blueprint excludes covered components from precision outlines and clicks", async () => {
+  const page = await browser.newPage();
+  const file = "reference/compressor/compressor.step";
+  try {
+    await page.goto(`${baseUrl}/3d#step:${encodeURIComponent(file)}`);
+    await page.waitForFunction(file => window.__hsm?.mountedStepFile === file, {}, file);
+    await settled(page);
+    const edgePixel = await page.evaluate(async () => {
+      const {THREE, scene, camera, renderer, controls} = window.__hsm;
+      const {state} = await import("/js/viewer/state.js");
+      const {invalidateModelBounds} = await import("/js/viewer/scene.js");
+      const edges = await import("/js/viewer/edge-picker.js");
+      const blueprint = await import("/js/viewer/xray.js");
+      const {applyHiddenComponents} = await import("/js/viewer/component-picker.js");
+      scene.remove(state.currentGroup);
+      const group = state.currentGroup = new THREE.Group(), sources = [];
+      scene.add(group);
+      function addBody(name, geometry) {
+        const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial());
+        mesh.name = name;
+        mesh.userData = {side:"front", occtIndex:sources.length};
+        geometry.computeBoundingBox();
+        group.add(mesh);
+        sources.push({name, attributes:geometry.attributes, index:geometry.index, brep_faces:geometry.groups.map(g=>({
+          first:g.start/3, last:(g.start+g.count)/3-1,
+        }))});
+        return mesh;
+      }
+      const panel = addBody("cover", new THREE.BoxGeometry(8,8,.5).translate(0,0,2));
+      const valve = addBody("valve", new THREE.BoxGeometry(1.5,1.5,1.5));
+      camera.position.set(0,0,24); camera.up.set(0,1,0);
+      controls.target.set(0,0,0); camera.lookAt(controls.target); controls.update();
+      invalidateModelBounds();
+      group.updateWorldMatrix(true,true); camera.updateMatrixWorld();
+      edges.setActiveEdges({meshes:sources});
+      edges.setEdgePickEnabled(true);
+      const faint = scene.getObjectByName("edge-picker-all-edges");
+      window.blueprintPick = {
+        showCover(on) {
+          if (on) state.hiddenComponents.delete(panel.name); else state.hiddenComponents.add(panel.name);
+          applyHiddenComponents();
+        },
+        includesValve:()=>valve.layers.test(camera.layers),
+        drawn:()=>faint.children.filter(line=>line.visible).length,
+        text:()=>document.querySelector(".edge-panel.show .edge-panel-text")?.value || "",
+        disable:()=>blueprint.setXrayEnabled(false,{persist:false}),
+      };
+      window.blueprintPick.showCover(false);
+      blueprint.setXrayEnabled(true,{persist:false});
+      const p = new THREE.Vector3(.75,0,.75).project(camera), rect = renderer.domElement.getBoundingClientRect();
+      return [rect.left + (1+p.x)*rect.width/2, rect.top + (1-p.y)*rect.height/2];
+    });
+    await page.waitForFunction(()=>window.blueprintPick.drawn() === 1 && window.blueprintPick.includesValve());
+    await page.mouse.click(...edgePixel);
+    await page.waitForFunction(()=>window.blueprintPick.text().includes("solid: valve") && window.blueprintPick.text().includes("edge:"));
+    await page.evaluate(()=>window.blueprintPick.showCover(true));
+    await page.waitForFunction(()=>!window.blueprintPick.includesValve() && window.blueprintPick.drawn() === 1 && !window.blueprintPick.text());
+    await page.mouse.click(...edgePixel);
+    await page.waitForFunction(()=>window.blueprintPick.text().includes("solid: cover") && window.blueprintPick.text().includes("face:"));
+    await page.evaluate(()=>window.blueprintPick.disable());
+    await page.waitForFunction(()=>window.blueprintPick.includesValve() && window.blueprintPick.drawn() === 2);
+  } finally { await page.close(); }
+});
