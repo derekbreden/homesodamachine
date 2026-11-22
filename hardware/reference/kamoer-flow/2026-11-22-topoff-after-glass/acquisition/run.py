@@ -246,7 +246,7 @@ def main(a):
             plan = json.loads((RECORD / 'design.json').read_text())
             deadline = time.mktime(time.strptime(time.strftime('%Y-%m-%d ') + plan['last_cycle_end_local'], '%Y-%m-%d %H:%M'))
             bracket = plan['bracket_s']
-            for i in range(2):
+            for i in range(0 if a.skip_rested else 2):
                 b.arrange(PROGRAMS['topoff_n11']['start_ml'])
                 b.measured('A', 'topoff_n11', 'rested', dict(repeat=i + 1), bracket)
                 b.measured('B', 'topoff_n11', 'rested', dict(repeat=i + 1), bracket)
@@ -292,5 +292,6 @@ if __name__ == '__main__':
     p.add_argument('--index', type=int, default=0)
     p.add_argument('--target', type=float, default=233.2)
     p.add_argument('--repeat', type=int, default=1)
+    p.add_argument('--skip-rested', action='store_true', help='delay cycles after the reproduce run, whose rested top-offs stand')
     p.add_argument('--after-only', action='store_true', help='resume a history run after its glasses')
     main(p.parse_args())
