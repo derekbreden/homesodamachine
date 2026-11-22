@@ -215,6 +215,8 @@ The open-hose bench record gives the concentrate volume each head delivered at i
 
 The controller’s lever history affects the concentrate dose even at the same simulated water volume. On the open-hose rig, calibrating on repeated servings of a known lever program predicted the later concentrate dose more closely than estimating from pulse width alone. The installed ratio test also measures the water delivered at the faucet. [Meter-driven concentrate predictions and repeatability](https://github.com/derekbreden/homesodamachine/tree/bc26987f18f42e863b6e2af7df3dad5da07d3eb7/hardware/reference/kamoer-flow/2026-11-22-pour-predictions)
 
+On previously unmeasured lever programs, the open-hose model met the serving target across the tested refill-head pours and overshot the measured accuracy limit on the withdrawal head’s slow top-off. Extending a single pause in a full glass gave the expected dose change within the registered margin on the refill head. The size of that correction remains unresolved on the withdrawal head. [Unfamiliar lever movements, forecasts and measured endpoints](https://github.com/derekbreden/homesodamachine/tree/cffe141025fa0fd353335083c6159bead7591ace/hardware/reference/kamoer-flow/2026-11-22-unseen-pours)
+
 **Setup.** The Lillium-fed build pouring, reservoirs primed. The Smart Weigh, a cup, the phone's
 stopwatch, four glasses, the refractometer. The main board's console on USB for step 3, while
 it can be reached.
