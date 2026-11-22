@@ -211,6 +211,8 @@ pour in the appliance. Acceptance step 6's on the total
 cannot see the ratio: 1:20 and 1:10 differ by. The cups and the
 refractometer can.
 
+The open-hose bench record gives the concentrate volume each head delivered at its tested pulse lengths. The faucet measurements include the installed valve path and flowing water. [Bench measurements by pump and pulse length](https://github.com/derekbreden/homesodamachine/tree/30f0c9078f5905d1041d60111efb0b832e3c554e/hardware/reference/kamoer-flow/2026-11-21-diet-cola)
+
 **Setup.** The Lillium-fed build pouring, reservoirs primed. The Smart Weigh, a cup, the phone's
 stopwatch, four glasses, the refractometer. The main board's console on USB for step 3, while
 it can be reached.
