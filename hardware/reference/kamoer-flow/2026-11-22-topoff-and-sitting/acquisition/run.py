@@ -89,7 +89,7 @@ class Bench:
         try:
             pre = cam.photograph(s, lab + '-pre', self.endpoints)
             start = self.confirmed(pre)
-            edge = start + sign * (2 * forecast + 3)
+            edge = start + sign * (1.25 * forecast + 3)
             if not 182 < edge < 291:
                 raise RuntimeError(('expected excursion leaves the reader band', lab, start, forecast))
             configure(self.board, self.settings, head, prog['ratio'])
@@ -188,6 +188,20 @@ def main(a):
             b.measured('B', 'top_off', 'exp2-sat', info)
             b.measured('A', 'top_off', 'exp2-conditioned', info)
             b.measured('B', 'top_off', 'exp2-conditioned', info)
+        elif a.mode == 'history':
+            for i in range(2):
+                b.arrange(PROGRAMS['topoff_n11']['start_ml'])
+                b.measured('A', 'topoff_n11', 'exp3-before', dict(repeat=i + 1))
+                b.measured('B', 'topoff_n11', 'exp3-before', dict(repeat=i + 1))
+            for i in range(3):
+                if i == 0:
+                    b.arrange(PROGRAMS['steady_glass']['start_ml'])
+                b.measured('A', 'steady_glass', 'glass-late' if i == 0 else 'exp3-running', dict(repeat=i + 1))
+                b.measured('B', 'steady_glass', 'glass-late' if i == 0 else 'exp3-running', dict(repeat=i + 1))
+            for i in range(3):
+                b.arrange(PROGRAMS['topoff_n11']['start_ml'])
+                b.measured('A', 'topoff_n11', 'exp3-after', dict(repeat=i + 1))
+                b.measured('B', 'topoff_n11', 'exp3-after', dict(repeat=i + 1))
         elif a.mode == 'park':
             b.arrange(a.target, tolerance=.3)
             time.sleep(8)
@@ -208,7 +222,7 @@ def main(a):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('mode', choices=('direction', 'glass', 'exp1', 'sit', 'park', 'photo'))
+    p.add_argument('mode', choices=('direction', 'glass', 'exp1', 'sit', 'history', 'park', 'photo'))
     p.add_argument('work', type=Path)
     p.add_argument('--tag', required=True)
     p.add_argument('--kind', default='glass')

@@ -1,0 +1,7 @@
+{
+  "question": "Does a run of full glasses raise pump A's yield from the slow top-off's short bursts?",
+  "why": "Experiment 1 did not reproduce Codex's excess. A moved less per short burst than the frozen model predicts, by a nearly fixed amount per burst whatever the gap or level, while Codex's overnight top-offs on A moved more. Codex's session ran many full glasses between its top-offs; this session's experiment 1 ran top-offs only, after the bench had sat for hours.",
+  "procedure": "After the last sit: topoff_n11 on A with B's return, twice, each from its start_ml. Then three steady_glass pairs, A then B, back to back; the first pair is the session's late glass check. Then topoff_n11 on A with B's return, three times. Forecasts are the frozen ones in programs.json.",
+  "prediction": "If running raises the short-burst yield, the mean A dose of the three top-offs after the glasses exceeds the mean of the two before by at least 1.0 mL on x990, moving toward Codex's doses.",
+  "ruled_out": "A difference below 0.5 mL rules out a run of full glasses as what raised Codex's top-off doses. Between 0.5 and 1.0 mL is reported as unresolved."
+}

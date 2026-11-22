@@ -1,4 +1,4 @@
-"""Replay Codex's archived endpoint pixels through the frozen reader on the NumPy filters and compare with his journal."""
+"""Replay archived endpoint pixels (this record's, or Codex's) through the frozen reader on the NumPy filters and compare with the journal."""
 import json, sys, glob
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
