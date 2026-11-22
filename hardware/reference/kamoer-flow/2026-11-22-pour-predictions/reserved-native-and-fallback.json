@@ -1,0 +1,29 @@
+{
+  "question": "Does a new lever trace yield the predicted final clear-glass position without assuming a mL scale?",
+  "freeze": "Same training-derived native-pixel medians frozen before the original held-out programs. New forecasts depend only on the reserved ideal burst waveforms.",
+  "criterion": "At least five of six within max(2.5 native pixels, 10% of prediction), and absolute mean signed error <= max(1.5 pixels, 5% of prediction). A subtracts volume, increasing the sensor row; B does the reverse.",
+  "measure": "Use (post x990 row minus pre x990 row) with the expected transfer sign. Keep wrong pulse counts and unreadable trials in the denominator.",
+  "forecasts_px": {
+    "near_full_glass": {
+      "A": 68.33499999999982,
+      "B": 61.965000000000046
+    },
+    "partial_top_off": {
+      "A": 12.725599999999933,
+      "B": 11.04239999999999
+    },
+    "finish_at_full_flow": {
+      "A": 29.82826666666658,
+      "B": 26.86140000000001
+    },
+    "short_richer_pour": {
+      "A": 25.614000000000054,
+      "B": 22.808249999999987
+    },
+    "same_open_time": {
+      "A": 26.213999999999956,
+      "B": 24.081000000000028
+    }
+  },
+  "if_calibration_incomplete": "Retain the original three-anchor result as failed. For an explicitly provisional volume grid, use all available qualifying lowering anchors. For a missing anchor, prefer the first qualifying exploratory rising crossing at the same printed mark, before the wholly new confirmation pass. If neither qualified at a mark, use the nearest signed lowering pair with good cap status within 35 px and report the full width and both rows. Freeze this grid before pumping and score the unaltered prospective practical and bias limits on it. Do not call a substituted anchor direction-validated. Preserve the separate native and two-sightline scores."
+}
