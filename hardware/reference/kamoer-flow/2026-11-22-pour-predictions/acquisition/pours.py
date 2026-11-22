@@ -80,9 +80,9 @@ def window(label,journal):
     return {'label':label,'operating_ml':operating,'optics':optic}
 
 
-def arrange(board,journal,label,target):
+def arrange(board,journal,label,target,max_steps=4):
     at=window(label+'-entry',journal)
-    for i in range(4):
+    for i in range(max_steps):
         error=target-at['operating_ml']
         if abs(error)<=1.25:break
         ch='B' if error>0 else 'A'
