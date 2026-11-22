@@ -1,0 +1,28 @@
+{"op": "readback", "mono_ns": 355493047328500, "wall_ns": 1795336009312196000, "file": "wet-end-uvc.txt"}
+{"op": "window_requested", "mono_ns": 355493047372208, "wall_ns": 1795336009312239000, "label": "final-focus-fixed"}
+{"op": "window_recorded", "mono_ns": 355494196894333, "wall_ns": 1795336010461779000, "label": "final-focus-fixed"}
+{"op": "set", "mono_ns": 355494240069166, "wall_ns": 1795336010504955000, "control": "auto_focus", "asked": 1, "readback": "1", "start_ns": 355494196943791}
+{"op": "readback", "mono_ns": 355495313964291, "wall_ns": 1795336011578865000, "file": "af-early-uvc.txt"}
+{"op": "window_requested", "mono_ns": 355495313988916, "wall_ns": 1795336011578889000, "label": "final-focus-auto-early"}
+{"op": "window_recorded", "mono_ns": 355496450722541, "wall_ns": 1795336012715639000, "label": "final-focus-auto-early"}
+{"op": "readback", "mono_ns": 355498318165833, "wall_ns": 1795336014583107000, "file": "af-late-uvc.txt"}
+{"op": "window_requested", "mono_ns": 355498318190666, "wall_ns": 1795336014583131000, "label": "final-focus-auto-late"}
+{"op": "window_recorded", "mono_ns": 355499456895416, "wall_ns": 1795336015721851000, "label": "final-focus-auto-late"}
+{"op": "set", "mono_ns": 355499509128583, "wall_ns": 1795336015774085000, "control": "auto_focus", "asked": 0, "readback": "0", "start_ns": 355499456938083}
+{"op": "set", "mono_ns": 355499548547375, "wall_ns": 1795336015813504000, "control": "absolute_focus", "asked": 380, "readback": "380", "start_ns": 355499509175458}
+{"op": "set", "mono_ns": 355500276458500, "wall_ns": 1795336016541424000, "control": "absolute_focus", "asked": 500, "readback": "500", "start_ns": 355500208638541}
+{"op": "readback", "mono_ns": 355501756029958, "wall_ns": 1795336018021013000, "file": "af-return-uvc.txt"}
+{"op": "window_requested", "mono_ns": 355501756059500, "wall_ns": 1795336018021042000, "label": "final-focus-fixed-return"}
+{"op": "window_recorded", "mono_ns": 355502898513375, "wall_ns": 1795336019163510000, "label": "final-focus-fixed-return"}
+{"op": "set", "mono_ns": 355502946792250, "wall_ns": 1795336019211789000, "control": "auto_focus", "asked": 0, "readback": "0", "start_ns": 355502898553541}
+{"op": "set", "mono_ns": 355502985113083, "wall_ns": 1795336019250110000, "control": "absolute_focus", "asked": 650, "readback": "650", "start_ns": 355502946844708}
+{"op": "set", "mono_ns": 355503023918750, "wall_ns": 1795336019288916000, "control": "auto_exposure_mode", "asked": 1, "readback": "1", "start_ns": 355502985165208}
+{"op": "set", "mono_ns": 355503080359375, "wall_ns": 1795336019345358000, "control": "absolute_exposure_time", "asked": 275, "readback": "275", "start_ns": 355503023970875}
+{"op": "set", "mono_ns": 355503119276708, "wall_ns": 1795336019384275000, "control": "gain", "asked": 0, "readback": "0", "start_ns": 355503080406166}
+{"op": "set", "mono_ns": 355503157936875, "wall_ns": 1795336019422936000, "control": "white_balance_temperature_auto", "asked": 0, "readback": "0", "start_ns": 355503119331958}
+{"op": "set", "mono_ns": 355503213870375, "wall_ns": 1795336019478870000, "control": "white_balance_temperature", "asked": 4600, "readback": "4600", "start_ns": 355503157991291}
+{"op": "set", "mono_ns": 355503252488333, "wall_ns": 1795336019517488000, "control": "sharpness", "asked": 3, "readback": "3", "start_ns": 355503213907708}
+{"op": "set", "mono_ns": 355503291618750, "wall_ns": 1795336019556620000, "control": "white_balance_temperature_auto", "asked": 1, "readback": "1", "start_ns": 355503252543541}
+{"op": "set", "mono_ns": 355503345536333, "wall_ns": 1795336019610537000, "control": "auto_exposure_mode", "asked": 8, "readback": "8", "start_ns": 355503291669666}
+{"op": "readback", "mono_ns": 355504028737666, "wall_ns": 1795336020293746000, "file": "restored-uvc.txt"}
+{"op": "compare", "mono_ns": 355504029307750, "wall_ns": 1795336020294316000, "original": {"auto_exposure_mode": 8, "auto_exposure_priority": 0, "absolute_exposure_time": 275, "absolute_focus": 650, "absolute_zoom": 0, "absolute_pan_tilt": 0, "auto_focus": 0, "brightness": 0, "contrast": 32, "hue": 0, "saturation": 64, "sharpness": 3, "gamma": 100, "white_balance_temperature": 4600, "backlight_compensation": 1, "gain": 0, "power_line_frequency": 2, "white_balance_temperature_auto": 1}, "restored": {"auto_exposure_mode": 8, "auto_exposure_priority": 0, "absolute_exposure_time": 275, "absolute_focus": 650, "absolute_zoom": 0, "absolute_pan_tilt": 0, "auto_focus": 0, "brightness": 0, "contrast": 32, "hue": 0, "saturation": 64, "sharpness": 3, "gamma": 100, "white_balance_temperature": 4600, "backlight_compensation": 1, "gain": 0, "power_line_frequency": 2, "white_balance_temperature_auto": 1}, "differences": {}}

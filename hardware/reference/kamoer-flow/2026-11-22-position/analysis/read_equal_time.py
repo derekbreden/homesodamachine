@@ -60,6 +60,7 @@ def summarize(record):
     contrasts=[]
     held=[]
     for head in ("A","B"):
+        pooled=[r["positive_dose_px"] for r in rows if r["head"]==head and r["block"]<=2]
         for cond in design["conditions"]:
             group=[r for r in rows if r["head"]==head and r["condition"]==cond]
             fields=["positive_dose_px","right_ml","projected_left_ml","first_start_px","mean_intergate_off_ms"]
@@ -73,6 +74,8 @@ def summarize(record):
                                  training_n=len(train),observed_px=r["positive_dose_px"],
                                  setting_prediction_px=statistics.mean(train),null_prediction_px=r["null_dose_px"],
                                  setting_error_px=statistics.mean(train)-r["positive_dose_px"],
+                                 pooled_prediction_px=statistics.mean(pooled),
+                                 pooled_error_px=statistics.mean(pooled)-r["positive_dose_px"],
                                  null_error_px=r["null_dose_px"]-r["positive_dose_px"]))
         for c,d in (("close","single"),("medium","single"),("long","single"),("close","medium"),("close","long"),("medium","long")):
             pairs=[]
@@ -88,9 +91,9 @@ def summarize(record):
                "first_minus_second":{k:stats(z[k] for z in pairs if z[k] is not None) for k in
                                      ("positive_dose_px","right_ml","projected_left_ml","first_start_px")}})
     return rows,dict(scope="Restored tube ends and electrical connections. Positive dose means cup emptying on A or filling on B. Optical-volume units are nominal. The two printed scales share the same cup.",
-        design="Matched comparisons subtract dose within head and block. The conditional model fits separate means on the first two blocks and is evaluated on the later two. This secondary split is retrospective; the equal-on-time null and ordering were frozen before any trains ran.",
+        design="Matched comparisons subtract dose within head and block. The conditional model fits separate means on the first two blocks and is evaluated on the later two. The pooled model fits one head-specific mean on those same training blocks across all timings. This secondary split is retrospective; the equal-on-time null and ordering were frozen before any trains ran.",
         complete=len(rows),unscored=skipped,settings=by_setting,paired_contrasts=contrasts,
-        heldout_errors_px={h:{k:stats(abs(r[k]) for r in held if r["head"]==h) for k in ("setting_error_px","null_error_px")} for h in ("A","B")},
+        heldout_errors_px={h:{k:stats(abs(r[k]) for r in held if r["head"]==h) for k in ("setting_error_px","pooled_error_px","null_error_px")} for h in ("A","B")},
         heldout=held)
 
 
@@ -108,15 +111,15 @@ def plot(rows, destination):
             block_rows=[r for r in part if r["block"]==block]
             keep=sorted(block_rows,key=lambda r:order.index(r["condition"]))
             ax.plot([order.index(r["condition"]) for r in keep],[r["positive_dose_px"] for r in keep],
-                color=col,alpha=.38,marker="o",lw=1)
+                color=col,alpha=.38,marker="o",lw=1,label="Matched run" if block==min(r["block"] for r in part) else None)
         means=[statistics.mean(g) if (g:=[r["positive_dose_px"] for r in part if r["condition"]==cond]) else np.nan for cond in order]
-        ax.plot(range(4),means,color=col,lw=2.5,marker="D",label="Block mean")
+        ax.plot(range(4),means,color=col,lw=2.5,marker="D",label="Mean across runs")
         if part:ax.axhline(part[0]["null_dose_px"],ls="--",color="#585858",lw=1,label="Single-shot prediction")
         ax.set_title("A  ·  draws from cup" if head=="A" else "B  ·  refills cup")
         ax.set_xticks(range(4),names,rotation=12);ax.grid(axis="y",alpha=.22);ax.set_xlabel("Pause between 100 ms pulses")
         ax.spines[["right","top"]].set_visible(False)
     axs[0].set_ylabel("Settled liquid movement (camera pixels)");axs[1].legend(fontsize=8,loc="best")
-    fig.suptitle("Equal total drive time, different pulse spacing",fontsize=15)
+    fig.suptitle(f"{rows[0]['board_total_ms']} ms of total drive, delivered continuously or in pulses",fontsize=15)
     fig.savefig(destination,dpi=170);plt.close(fig)
 
 

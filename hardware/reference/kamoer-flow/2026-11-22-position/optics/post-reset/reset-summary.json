@@ -1,5 +1,28 @@
 {
   "reference": "after-user-reset-inspect",
+  "return_to_reference": [
+    {
+      "endpoint": "return-to-reference-before",
+      "operating_x980_px": 5.248388263477176,
+      "heldout_x980_equivalent_px": 7.4707578429419925,
+      "heldout_patch_mad_px": 1.3488350787948775,
+      "heldout_patches": 6
+    },
+    {
+      "endpoint": "return-to-reference-after1",
+      "operating_x980_px": -0.6927030853697043,
+      "heldout_x980_equivalent_px": 0.43036319017523084,
+      "heldout_patch_mad_px": 1.4007186409107817,
+      "heldout_patches": 6
+    },
+    {
+      "endpoint": "return-to-reference-at-rest",
+      "operating_x980_px": -0.6637995724937578,
+      "heldout_x980_equivalent_px": 0.44828449124904707,
+      "heldout_patch_mad_px": 0.7484661323887281,
+      "heldout_patches": 6
+    }
+  ],
   "unreadable_target_scores": [],
   "baseline_right_nominal_ml": 245.92924173212464,
   "baseline_left_projected_nominal_ml": 240.64813047358098,

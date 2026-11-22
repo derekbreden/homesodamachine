@@ -1,0 +1,137 @@
+{
+  "balance-4600-before": {
+    "frames": 27,
+    "right": {
+      "centroid_mean_px": 807.566,
+      "centroid_frame_sd_px": 0.157,
+      "normalized_template_shift_mean_px": 0.087,
+      "normalized_template_frame_sd_px": 0.074,
+      "above_mean_y8": 61.89,
+      "below_mean_y8": 42.78,
+      "early_late_centroid_px": -0.021,
+      "early_late_template_px": -0.005
+    },
+    "mid": {
+      "centroid_mean_px": 842.568,
+      "centroid_frame_sd_px": 0.125,
+      "normalized_template_shift_mean_px": 0.159,
+      "normalized_template_frame_sd_px": 0.089,
+      "above_mean_y8": 49.64,
+      "below_mean_y8": 30.85,
+      "early_late_centroid_px": 0.007,
+      "early_late_template_px": 0.01
+    },
+    "lit_cup_rgb": [
+      62.0,
+      36.0,
+      31.0
+    ]
+  },
+  "balance-3000-low": {
+    "frames": 27,
+    "right": {
+      "centroid_mean_px": 807.566,
+      "centroid_frame_sd_px": 0.119,
+      "normalized_template_shift_mean_px": 0.011,
+      "normalized_template_frame_sd_px": 0.09,
+      "above_mean_y8": 56.82,
+      "below_mean_y8": 39.9,
+      "early_late_centroid_px": -0.005,
+      "early_late_template_px": -0.01
+    },
+    "mid": {
+      "centroid_mean_px": 843.652,
+      "centroid_frame_sd_px": 0.154,
+      "normalized_template_shift_mean_px": 0.83,
+      "normalized_template_frame_sd_px": 0.145,
+      "above_mean_y8": 43.76,
+      "below_mean_y8": 29.22,
+      "early_late_centroid_px": 0.004,
+      "early_late_template_px": -0.03
+    },
+    "lit_cup_rgb": [
+      40.0,
+      37.0,
+      36.0
+    ]
+  },
+  "balance-6500-high": {
+    "frames": 27,
+    "right": {
+      "centroid_mean_px": 807.561,
+      "centroid_frame_sd_px": 0.166,
+      "normalized_template_shift_mean_px": 0.05,
+      "normalized_template_frame_sd_px": 0.09,
+      "above_mean_y8": 63.87,
+      "below_mean_y8": 43.93,
+      "early_late_centroid_px": 0.037,
+      "early_late_template_px": -0.002
+    },
+    "mid": {
+      "centroid_mean_px": 842.349,
+      "centroid_frame_sd_px": 0.149,
+      "normalized_template_shift_mean_px": -0.172,
+      "normalized_template_frame_sd_px": 0.079,
+      "above_mean_y8": 51.54,
+      "below_mean_y8": 31.66,
+      "early_late_centroid_px": -0.036,
+      "early_late_template_px": -0.007
+    },
+    "lit_cup_rgb": [
+      73.0,
+      36.0,
+      22.0
+    ]
+  },
+  "balance-4600-return": {
+    "frames": 27,
+    "right": {
+      "centroid_mean_px": 807.561,
+      "centroid_frame_sd_px": 0.169,
+      "normalized_template_shift_mean_px": -0.015,
+      "normalized_template_frame_sd_px": 0.083,
+      "above_mean_y8": 62.24,
+      "below_mean_y8": 43.05,
+      "early_late_centroid_px": -0.026,
+      "early_late_template_px": 0.012
+    },
+    "mid": {
+      "centroid_mean_px": 842.536,
+      "centroid_frame_sd_px": 0.109,
+      "normalized_template_shift_mean_px": 0.02,
+      "normalized_template_frame_sd_px": 0.136,
+      "above_mean_y8": 49.89,
+      "below_mean_y8": 31.02,
+      "early_late_centroid_px": -0.033,
+      "early_late_template_px": 0.035
+    },
+    "lit_cup_rgb": [
+      62.0,
+      37.0,
+      31.0
+    ]
+  },
+  "locked-idle": {
+    "frames": 2547,
+    "right": {
+      "centroid_mean_px": 807.447,
+      "centroid_frame_sd_px": 0.153,
+      "normalized_template_shift_mean_px": -0.037,
+      "normalized_template_frame_sd_px": 0.078,
+      "above_mean_y8": 62.33,
+      "below_mean_y8": 42.87,
+      "early_late_centroid_px": -0.012,
+      "early_late_template_px": 0.072
+    },
+    "mid": {
+      "centroid_mean_px": 842.513,
+      "centroid_frame_sd_px": 0.149,
+      "normalized_template_shift_mean_px": -0.019,
+      "normalized_template_frame_sd_px": 0.139,
+      "above_mean_y8": 49.93,
+      "below_mean_y8": 30.87,
+      "early_late_centroid_px": 0.204,
+      "early_late_template_px": 0.137
+    }
+  }
+}

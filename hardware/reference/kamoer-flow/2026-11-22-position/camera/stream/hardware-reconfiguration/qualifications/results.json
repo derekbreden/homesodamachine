@@ -1,0 +1,152 @@
+[
+  {
+    "label": "rewired-a-00-idle",
+    "rim": {
+      "inner_clear": {
+        "x_center": 1450.0,
+        "bands": 11,
+        "start_upper_rim_y": 892.0000000000007,
+        "delta_y": 6.394884621840902e-13,
+        "quantiles_15_85_px": [
+          6.394884621840902e-13,
+          6.394884621840902e-13
+        ],
+        "median_normalized_residual": 0.013907267855738993
+      },
+      "intermediate": {
+        "x_center": 1690.0,
+        "bands": 9,
+        "start_upper_rim_y": 879.9000000000007,
+        "delta_y": 6.394884621840902e-13,
+        "quantiles_15_85_px": [
+          6.394884621840902e-13,
+          0.10000000000064091
+        ],
+        "median_normalized_residual": 0.03520952833871736
+      },
+      "outer_clear": {
+        "x_center": 1920.0,
+        "bands": 13,
+        "start_upper_rim_y": 868.0000000000007,
+        "delta_y": 6.394884621840902e-13,
+        "quantiles_15_85_px": [
+          6.394884621840902e-13,
+          0.10000000000064091
+        ],
+        "median_normalized_residual": 0.02778171738456407
+      }
+    },
+    "tubes": {
+      "diagonal": {
+        "dry_rows": 71,
+        "median_dx": -0.0023913350085954105,
+        "median_dx_at_rows_245_to_329": 0.0033152618714344024
+      },
+      "upright": {
+        "dry_rows": 79,
+        "median_dx": -0.018453269939207373,
+        "median_dx_at_rows_245_to_329": -0.02201567078083419
+      }
+    }
+  },
+  {
+    "label": "rewired-a-01-A",
+    "rim": {
+      "inner_clear": {
+        "x_center": 1450.0,
+        "bands": 11,
+        "start_upper_rim_y": 892.0000000000007,
+        "delta_y": 11.200000000000799,
+        "quantiles_15_85_px": [
+          10.800000000000793,
+          11.650000000000805
+        ],
+        "median_normalized_residual": 0.10470832641315793
+      },
+      "intermediate": {
+        "x_center": 1690.0,
+        "bands": 9,
+        "start_upper_rim_y": 880.0000000000007,
+        "delta_y": 11.100000000000797,
+        "quantiles_15_85_px": [
+          -13.799999999999558,
+          11.580000000000805
+        ],
+        "median_normalized_residual": 0.09445360617546732
+      },
+      "outer_clear": {
+        "x_center": 1920.0,
+        "bands": 13,
+        "start_upper_rim_y": 868.0000000000007,
+        "delta_y": 13.100000000000826,
+        "quantiles_15_85_px": [
+          12.380000000000816,
+          13.520000000000831
+        ],
+        "median_normalized_residual": 0.266694913852713
+      }
+    },
+    "tubes": {
+      "diagonal": {
+        "dry_rows": 71,
+        "median_dx": 5.698077163126012,
+        "median_dx_at_rows_245_to_329": 6.187204738014873
+      },
+      "upright": {
+        "dry_rows": 79,
+        "median_dx": 3.921780309515768,
+        "median_dx_at_rows_245_to_329": 4.186383624232906
+      }
+    }
+  },
+  {
+    "label": "rewired-a-02-B",
+    "rim": {
+      "inner_clear": {
+        "x_center": 1450.0,
+        "bands": 11,
+        "start_upper_rim_y": 903.1000000000008,
+        "delta_y": -8.799999999999486,
+        "quantiles_15_85_px": [
+          -9.499999999999496,
+          -8.599999999999483
+        ],
+        "median_normalized_residual": 0.09536444220316978
+      },
+      "intermediate": {
+        "x_center": 1690.0,
+        "bands": 9,
+        "start_upper_rim_y": 891.1000000000008,
+        "delta_y": -0.2999999999993648,
+        "quantiles_15_85_px": [
+          -9.559999999999496,
+          25.360000000000998
+        ],
+        "median_normalized_residual": 0.21888354806906501
+      },
+      "outer_clear": {
+        "x_center": 1920.0,
+        "bands": 13,
+        "start_upper_rim_y": 880.4000000000008,
+        "delta_y": -10.399999999999508,
+        "quantiles_15_85_px": [
+          -11.21999999999952,
+          -10.159999999999505
+        ],
+        "median_normalized_residual": 0.20969167817479814
+      }
+    },
+    "tubes": {
+      "diagonal": {
+        "dry_rows": 73,
+        "median_dx": 0.14031810070224376,
+        "median_dx_at_rows_245_to_329": -0.14404333326720622
+      },
+      "upright": {
+        "dry_rows": 74,
+        "median_dx": 18.23760079649898,
+        "median_dx_at_rows_245_to_329": 20.116513841420346
+      }
+    }
+  }
+]

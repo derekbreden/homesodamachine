@@ -137,6 +137,8 @@ def evaluate(trial, points, design):
                     row[site + "_after_first_ml"] = post_ml
                     row[site + "_signed_cup_change_ml"] = post_ml - pre_ml
                     row[site + "_directed_dose_ml"] = cup_sign * (post_ml - pre_ml)
+        elif event == "final_score":
+            row["final_image_after_first_stop_s"] = (post["pts_ns"] - gates["first"]["done_ack_ns"]) / 1e9
     row["correction_commands"] = int("correct" in gates)
     row["status"] = ("scored_final" if "final_score" in es else "scored_first_only" if "first_score" in es
                      else "driven_without_score" if gates else "no_acknowledged_gate")
@@ -162,6 +164,8 @@ def summaries(rows, keys):
                                  "absolute_error_px": describe([abs(r[field]) for r in accepted]),
                                  "image_seconds_after_last_stop": describe([r[stage + "_image_after_stop_s"] for r in accepted])}
         outputs.append(dict(zip(keys, key), outcomes=len(batch), applied_corrections=sum(r["correction_commands"] for r in batch),
+                            corrections_that_reversed_direction=sum(r.get("correct_head") != r["first_head"] for r in batch if r.get("correct_board_ms")),
+                            final_image_after_first_stop_s=describe([r["final_image_after_first_stop_s"] for r in batch if "final_image_after_first_stop_s" in r]),
                             distance_requested_px=describe([abs(r["target_px"] - r["start_px"]) for r in batch]), **stages))
     return outputs
 
@@ -255,7 +259,7 @@ def timing_summary(rows, folder):
                 "additional_directional_motion_done_to_4s_px": describe([g[v]["additional_directional_motion_done_to_4s_px"] for g in subset])}
             for v in ("native", "preview")
         }
-    return {"source": "Gate-aligned upper-rim optical tracks at native-row spacing and a second camera region on the preview. Each uses the same sensor, with separate visible regions. Both are distinct from the x980 target contact.",
+    return {"source": "Gate-aligned upper-rim optical tracks at native-row spacing and a second region on the preview. Both use the same sensor and view a different surface feature from the x980 target contact. The controller used the x980 endpoint for steering.",
             "definition": "Record the first sustained displacement in the driven direction above the larger of one pixel or the largest absolute pre-command displacement plus a quarter pixel. The native record requires three successive frames and the preview two. Include gates in head summaries only when both regions reach a directional three-pixel movement by four seconds after the stop and each crosses its threshold. These are visible threshold-crossing times measured from the host write. Sampling and serial timing limit inference to shaft motion.",
             "first_gate_records": len(primary), "first_with_corroborated_threshold": len(qualified),
             "first_shots_by_head": by_head, "gate_results": gates}
@@ -300,11 +304,68 @@ def summarize(rows, design, files, halts):
     }
 
 
+def draw_figure(rows, summary, destination):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+
+    trials = [r for r in rows if "final_error_px" in r]
+    styles = {"hold": ("#126d77", "o"), "correct": ("#98411e", "s")}
+    targets = sorted({r["target_px"] for r in trials})
+    places = {t: i for i,t in enumerate(targets)}
+    fig, (position, errors) = plt.subplots(1, 2, figsize=(10, 5.8), gridspec_kw={"width_ratios": [1, 1.08]})
+    fig.subplots_adjust(left=.095, right=.975, top=.78, bottom=.24, wspace=.32)
+    fig.suptitle("Predicted and measured liquid positions after rewiring", x=.095, y=.977,
+                 ha="left", fontsize=17, weight="bold")
+    fig.text(.095, .907, "Positions use the clear liquid contact at a fixed point on the cup. A positive value lies below the reset reference.", fontsize=10.4)
+    results = {r["policy"]: r["final"]["absolute_error_px"]["mean"] for r in summary["by_policy"]}
+    fig.text(.095, .864, f"Mean absolute late miss was {results['hold']:.2f} px with a hold and {results['correct']:.2f} px with one optional correction.", fontsize=10.4)
+    lo = math.floor(min([*targets, *[r["first_px"] for r in trials]])) - 1
+    hi = math.ceil(max([*targets, *[r["first_px"] for r in trials]])) + 1
+    position.plot([lo, hi], [lo, hi], color="#74808a", lw=1.15, ls="--", zorder=1)
+    for r in trials:
+        color, symbol = styles[r["policy"]]
+        position.scatter(r["target_px"], r["first_px"], marker=symbol, edgecolors=color,
+                         facecolors="white", s=45, lw=1.35, zorder=3)
+        y = places[r["target_px"]] + (.15 if r["policy"] == "correct" else -.15)
+        a, b = r["first_error_px"], r["final_error_px"]
+        errors.plot([a,b], [y,y], color=color, lw=1.45, zorder=2)
+        errors.scatter(a, y, marker=symbol, edgecolors=color, facecolors="white", s=51, lw=1.15, zorder=3)
+        errors.scatter(b, y, marker=symbol, edgecolors=color, facecolors=color, s=18, lw=1.1, zorder=4)
+    position.set(xlim=(lo,hi), ylim=(lo,hi), xlabel="Requested position (px)", ylabel="Observed after first gate (px)")
+    position.set_aspect("equal", adjustable="box")
+    position.set_title("Requested vs. observed", loc="left", fontweight="bold", fontsize=12, pad=9)
+    errors.axvline(0, color="#66737b", ls="--", lw=1, zorder=1)
+    errors.set(yticks=list(places.values()), yticklabels=[f"{t:+g}" for t in targets],
+               ylim=(-.55, len(targets)-.45), ylabel="Requested position (px)", xlabel="Observed minus requested position (px)")
+    errors.set_title("First and late misses at each destination", loc="left", fontweight="bold", fontsize=12, pad=9)
+    for ax in (position, errors):
+        ax.grid(color="#e0e5e6", linewidth=.7, axis="both")
+        ax.set_axisbelow(True)
+        ax.spines[["right","top"]].set_visible(False)
+    handles = [
+        Line2D([], [], color=styles["hold"][0], marker="o", ls="none", label="Hold"),
+        Line2D([], [], color=styles["correct"][0], marker="s", ls="none", label="Optional correction"),
+        Line2D([], [], color="#37434a", marker="o", markerfacecolor="white", ls="none", label="First reading"),
+        Line2D([], [], color="#37434a", marker="o", markersize=4.5, ls="none", label="Late reading"),
+        Line2D([], [], color="#74808a", ls="--", label="Exact target"),
+    ]
+    fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(.525, .073), ncol=5, frameon=False,
+               handletextpad=.45, columnspacing=1.6, fontsize=9.5)
+    first_s = summary["all"][0]["first"]["image_seconds_after_last_stop"]["median"]
+    last_s = summary["all"][0]["final"]["image_seconds_after_last_stop"]["median"]
+    fig.text(.095, .044, f"Median capture time was {first_s:.1f} s after the first stop and {last_s:.1f} s after the last stop. Each destination was tested under both policies.", fontsize=9, color="#38474a")
+    fig.savefig(destination, dpi=170, facecolor="white")
+    plt.close(fig)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("journals", type=Path)
     p.add_argument("--design", type=Path)
     p.add_argument("--responses", type=Path, help="Directory of gate-aligned optical response CSVs and their JSON metadata.")
+    p.add_argument("--figure", action="store_true", help="Render the two position comparisons with Matplotlib.")
     p.add_argument("--out", type=Path, default=Path(__file__).parent)
     args = p.parse_args()
     design = json.loads((args.design or args.journals / "rewired-design.json").read_text())
@@ -325,6 +386,8 @@ def main():
         writer = csv.DictWriter(output, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
+    if args.figure:
+        draw_figure(rows, summary, args.out / "position_validation.png")
 
 
 if __name__ == "__main__":

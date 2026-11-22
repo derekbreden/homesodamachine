@@ -1,0 +1,5 @@
+# Source for the restored bench run
+
+The USB console client records motor start and completion acknowledgements against the host's monotonic clock. The direction check captures both sides of each isolated command. The destination and equal-time drivers record a prediction and read the cup through a shared camera stream before and after applying power. The journals in the record are the original on-bench outputs. The offline readers in the parent directory operate directly on the archived frames, with the pumps disconnected if desired.
+
+These files capture the experiment's local working layout. The acquisition scripts read the frozen design JSON files alongside the scripts, import the archived optics directory through Python's module path, and communicate with the sibling camera directory's loopback endpoint. The optical templates, ROI coordinates and serial device refer to the photographed apparatus. The packet includes the control state, timestamp mapping, motion samples and persisted firmware identity. [Experiment record and offline replay](../README.md)

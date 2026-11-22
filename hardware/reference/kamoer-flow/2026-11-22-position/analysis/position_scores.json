@@ -23,6 +23,15 @@
     {
       "outcomes": 16,
       "applied_corrections": 4,
+      "corrections_that_reversed_direction": 4,
+      "final_image_after_first_stop_s": {
+        "n": 16,
+        "mean": 9.5648325213125,
+        "median": 8.313723146000001,
+        "min": 8.293407209,
+        "max": 13.371734625,
+        "sample_sd": 2.2461179882803135
+      },
       "distance_requested_px": {
         "n": 16,
         "mean": 14.897881047374426,
@@ -116,6 +125,15 @@
       "first_head": "B",
       "outcomes": 8,
       "applied_corrections": 3,
+      "corrections_that_reversed_direction": 3,
+      "final_image_after_first_stop_s": {
+        "n": 8,
+        "mean": 10.198161844125,
+        "median": 8.3150060835,
+        "min": 8.301989917,
+        "max": 13.371734625,
+        "sample_sd": 2.6050667441817374
+      },
       "distance_requested_px": {
         "n": 8,
         "mean": 14.18157468175654,
@@ -207,6 +225,15 @@
       "first_head": "A",
       "outcomes": 8,
       "applied_corrections": 1,
+      "corrections_that_reversed_direction": 1,
+      "final_image_after_first_stop_s": {
+        "n": 8,
+        "mean": 8.9315031985,
+        "median": 8.309376063,
+        "min": 8.293407209,
+        "max": 13.294245584,
+        "sample_sd": 1.7628460985215415
+      },
       "distance_requested_px": {
         "n": 8,
         "mean": 15.614187412992312,
@@ -300,6 +327,15 @@
       "policy": "hold",
       "outcomes": 8,
       "applied_corrections": 0,
+      "corrections_that_reversed_direction": 0,
+      "final_image_after_first_stop_s": {
+        "n": 8,
+        "mean": 8.312332391125,
+        "median": 8.311852520999999,
+        "min": 8.301989917,
+        "max": 8.327354626,
+        "sample_sd": 0.007536944953654831
+      },
       "distance_requested_px": {
         "n": 8,
         "mean": 14.067661335317482,
@@ -365,6 +401,15 @@
       "policy": "correct",
       "outcomes": 8,
       "applied_corrections": 4,
+      "corrections_that_reversed_direction": 4,
+      "final_image_after_first_stop_s": {
+        "n": 8,
+        "mean": 10.8173326515,
+        "median": 10.804735791999999,
+        "min": 8.293407209,
+        "max": 13.371734625,
+        "sample_sd": 2.6879409911267484
+      },
       "distance_requested_px": {
         "n": 8,
         "mean": 15.72810075943137,
@@ -459,6 +504,15 @@
       "policy": "hold",
       "outcomes": 4,
       "applied_corrections": 0,
+      "corrections_that_reversed_direction": 0,
+      "final_image_after_first_stop_s": {
+        "n": 4,
+        "mean": 8.3113816565,
+        "median": 8.313723146000001,
+        "min": 8.301989917,
+        "max": 8.316090417,
+        "sample_sd": 0.00636189776552742
+      },
       "distance_requested_px": {
         "n": 4,
         "mean": 13.271793791831893,
@@ -525,6 +579,15 @@
       "policy": "correct",
       "outcomes": 4,
       "applied_corrections": 1,
+      "corrections_that_reversed_direction": 1,
+      "final_image_after_first_stop_s": {
+        "n": 4,
+        "mean": 9.54972327125,
+        "median": 8.305620145999999,
+        "min": 8.293407209,
+        "max": 13.294245584,
+        "sample_sd": 2.496367168261761
+      },
       "distance_requested_px": {
         "n": 4,
         "mean": 16.364845947181553,
@@ -617,6 +680,15 @@
       "policy": "correct",
       "outcomes": 4,
       "applied_corrections": 3,
+      "corrections_that_reversed_direction": 3,
+      "final_image_after_first_stop_s": {
+        "n": 4,
+        "mean": 12.08494203175,
+        "median": 13.330113771499999,
+        "min": 8.307805959,
+        "max": 13.371734625,
+        "sample_sd": 2.518264743756971
+      },
       "distance_requested_px": {
         "n": 4,
         "mean": 15.091355571681186,
@@ -709,6 +781,15 @@
       "policy": "hold",
       "outcomes": 4,
       "applied_corrections": 0,
+      "corrections_that_reversed_direction": 0,
+      "final_image_after_first_stop_s": {
+        "n": 4,
+        "mean": 8.31328312575,
+        "median": 8.309376063,
+        "min": 8.307025751,
+        "max": 8.327354626,
+        "sample_sd": 0.00946900865079519
+      },
       "distance_requested_px": {
         "n": 4,
         "mean": 14.86352887880307,
@@ -1256,7 +1337,7 @@
     }
   },
   "continuous_surface_response": {
-    "source": "Gate-aligned upper-rim optical tracks at native-row spacing and a second camera region on the preview. Each uses the same sensor, with separate visible regions. Both are distinct from the x980 target contact.",
+    "source": "Gate-aligned upper-rim optical tracks at native-row spacing and a second region on the preview. Both use the same sensor and view a different surface feature from the x980 target contact. The controller used the x980 endpoint for steering.",
     "definition": "Record the first sustained displacement in the driven direction above the larger of one pixel or the largest absolute pre-command displacement plus a quarter pixel. The native record requires three successive frames and the preview two. Include gates in head summaries only when both regions reach a directional three-pixel movement by four seconds after the stop and each crosses its threshold. These are visible threshold-crossing times measured from the host write. Sampling and serial timing limit inference to shaft motion.",
     "first_gate_records": 16,
     "first_with_corroborated_threshold": 16,

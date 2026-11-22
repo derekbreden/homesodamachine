@@ -16,6 +16,7 @@ from reduce import round_row, stats, write_table
 HERE=Path(__file__).resolve().parent
 BASE="after-user-reset-inspect"
 IDENTIFIERS=["rewired-a-00-idle","rewired-a-01-A","rewired-a-02-B"]
+RETURN_LABELS=["return-to-reference-before","return-to-reference-after1","return-to-reference-at-rest"]
 # The design froze these ratios on the qualification strokes before the destination block.
 STRETCH={"center":.82,"right":.91,"outer_right":1.31,"heldout_shoulder":1.0027992727774695}
 
@@ -77,7 +78,7 @@ def target_events(logdir):
     for file in sorted(logdir.glob("*.jsonl")):
         rows=[json.loads(x) for x in file.read_text().splitlines()]
         accepted=[v for v in rows if v["event"]=="endpoint" and "left_clear" in v.get("readings",{})]
-        if not accepted:continue
+        if not accepted or not any(v["event"] in ("first_score","final_score","blank") for v in rows):continue
         labels.update(v["label"] for v in accepted)
         events.extend(v for v in rows if v["event"] in ("first_score","final_score","blank"))
     return labels,events
@@ -94,6 +95,7 @@ def main():
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     labels,events=target_events(args.logs or args.record/"logs")
     labels.update(name+"-"+phase for name in IDENTIFIERS for phase in ("pre","post"));labels.add(BASE)
+    labels.update(name for name in RETURN_LABELS if all(path.is_file() for path in paths(name,args)))
     refsource,cc=paths(BASE,args);refgray=reset_check.luma(args.reference_luma or refsource)
     endpoints=[];readings={};primary={};held={}
     for name in sorted(labels):
@@ -150,7 +152,10 @@ def main():
             k=s+"_x980_equivalent_px";row[s+"_equivalent_error_px"]=r[k]-target if k in r else None
         scores.append(round_row(row))
     write_table(args.output/"reset-targets.csv",scores);write_table(args.output/"reset-idles.csv",blank)
-    summary={"reference":BASE,"unreadable_target_scores":[r["trial"]+" "+r["phase"] for r in scores if r["heldout_shoulder_error_px"] is None],
+    return_rows=[{"endpoint":name,"operating_x980_px":primary[name]["left_clear_delta_px"],
+                  "heldout_x980_equivalent_px":held.get(name),"heldout_patch_mad_px":readings[name]["heldout_shoulder"].get("mad_px"),
+                  "heldout_patches":readings[name]["heldout_shoulder"].get("patches")} for name in RETURN_LABELS if name in primary]
+    summary={"reference":BASE,"return_to_reference":return_rows,"unreadable_target_scores":[r["trial"]+" "+r["phase"] for r in scores if r["heldout_shoulder_error_px"] is None],
              "baseline_right_nominal_ml":readings[BASE]["right"]["nominal_ml"],"baseline_left_projected_nominal_ml":readings[BASE]["projected_left"]["nominal_ml"],
              "direction":direction,"target_errors":{},"idle_drift_px":stats(r["heldout_shoulder_drift_px"] for r in blank)}
     for phase in ("first","final"):

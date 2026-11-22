@@ -12,8 +12,11 @@ Use Python with NumPy, Pillow and SciPy. Run from the dated record directory. Th
 
 ```sh
 python optics/audit_reset.py . --output /tmp/restored-cup-replay
+python optics/audit_pulses.py . --output /tmp/restored-cup-replay
 python optics/verify_optics.py . /tmp/cup-registration-replay.json
 ```
+
+The pulse audit pairs each schedule with its comparators within the same block and head. It uses every completed gate receipt and the original settled photograph. The reviewed trial and partial attempt retain their identities in the table.
 
 The raw reference is available under `camera`. The endpoint crops and color tiles are in `frames` and `ink`. Inspect an individual endpoint with its own color sample by passing the two source paths to `reset_check.py`. The direction figure pairs actual luminance crops from the same camera window used by the reader. Every panel uses the same display stretch.
 

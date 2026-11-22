@@ -1,0 +1,110 @@
+{
+  "qualification-a-003": {
+    "reference_right_and_mid_y": [
+      802.5081,
+      846.3091
+    ],
+    "color_windows": [
+      {
+        "file": "cup-ink/qualification-a-003-post.png",
+        "pts_ns": 353267860100000,
+        "from_done_s": 2.49792325
+      },
+      {
+        "file": "cup-ink/width-1-002-pre.png",
+        "pts_ns": 353297901800000,
+        "from_done_s": 32.53962325
+      }
+    ]
+  },
+  "width-1-005": {
+    "reference_right_and_mid_y": [
+      856.5503,
+      904.3233
+    ],
+    "color_windows": [
+      {
+        "file": "cup-ink/width-1-005-post.png",
+        "pts_ns": 353316928133333,
+        "from_done_s": 2.421855
+      },
+      {
+        "file": "cup-ink/width-1b-002-pre.png",
+        "pts_ns": 353379514866667,
+        "from_done_s": 65.008588334
+      }
+    ]
+  },
+  "width-1b-012": {
+    "reference_right_and_mid_y": [
+      874.8745,
+      921.3078
+    ],
+    "color_windows": [
+      {
+        "file": "cup-ink/width-1b-012-post.png",
+        "pts_ns": 353435592500000,
+        "from_done_s": 2.678598584
+      },
+      {
+        "file": "cup-ink/width-2-002-pre.png",
+        "pts_ns": 353491169566667,
+        "from_done_s": 58.255665251
+      }
+    ]
+  },
+  "width-2-008": {
+    "reference_right_and_mid_y": [
+      911.2449,
+      956.2461
+    ],
+    "color_windows": [
+      {
+        "file": "cup-ink/width-2-008-post.png",
+        "pts_ns": 353526218066667,
+        "from_done_s": 2.738403126
+      },
+      {
+        "file": "cup-ink/width-2b-002-pre.png",
+        "pts_ns": 353623853400000,
+        "from_done_s": 100.373736459
+      }
+    ]
+  },
+  "width-2b-002": {
+    "reference_right_and_mid_y": [
+      914.9307,
+      961.1832
+    ],
+    "color_windows": [
+      {
+        "file": "cup-ink/width-2b-002-post.png",
+        "pts_ns": 353626857566667,
+        "from_done_s": 2.551304792
+      },
+      {
+        "file": "cup-ink/width-2c-002-pre.png",
+        "pts_ns": 353767085200000,
+        "from_done_s": 142.778938125
+      }
+    ]
+  },
+  "width-2c-002": {
+    "reference_right_and_mid_y": [
+      863.4939,
+      911.8284
+    ],
+    "color_windows": [
+      {
+        "file": "cup-ink/width-2c-002-post.png",
+        "pts_ns": 353772592833333,
+        "from_done_s": 2.6222895
+      },
+      {
+        "file": "cup-ink/width-2d-002-pre.png",
+        "pts_ns": 353854706600000,
+        "from_done_s": 84.736056167
+      }
+    ]
+  }
+}

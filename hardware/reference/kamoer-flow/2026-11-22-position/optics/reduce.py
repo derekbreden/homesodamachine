@@ -169,7 +169,7 @@ def summarize(endpoints,trials,scores):
         "destination":{coordinate:{k:stats(s[k] for s in scores if s['coordinate']==coordinate) for k in [
             "independent_first_error_px","independent_final_error_px","independent_first_error_from_own_origin_px","independent_final_error_from_own_origin_px"]}
             for coordinate in ["raw","registered"]},
-        "interpretation":"All patches in one exposure observe the same cup. Separate command pairs are the repeat unit. Side-to-side agreement tests regional sensitivity. Every nominal volume shares the cup's unknown calibration and perspective; observed idle variation is local to these conditions."
+        "interpretation":"All patches in one exposure observe the same cup. Separate command pairs are the repeat unit. Side-to-side agreement tests regional sensitivity. Every nominal volume shares the cup's unknown calibration and perspective. The idle variation describes these conditions."
     }
 
 

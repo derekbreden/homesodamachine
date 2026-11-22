@@ -1,0 +1,22 @@
+
+camera unit id=1
+  auto_exposure_mode               1
+  auto_exposure_priority           0
+  absolute_exposure_time           275  [1..5000]
+  absolute_focus                   700  [1..1023]
+  absolute_zoom                    0  [0..9]
+  absolute_pan_tilt                0  [-154614527725568..154618822692000]
+  auto_focus                       1
+
+processing unit id=2
+  brightness                       0  [-64..64]
+  contrast                         32  [0..64]
+  hue                              0  [-40..40]
+  saturation                       64  [0..128]
+  sharpness                        3  [0..6]
+  gamma                            100  [72..500]
+  white_balance_temperature        4600  [2800..6500]
+  backlight_compensation           1  [0..2]
+  gain                             12  [0..100]
+  power_line_frequency             2  [0..2]
+  white_balance_temperature_auto   0
