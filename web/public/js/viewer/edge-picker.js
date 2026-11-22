@@ -478,7 +478,7 @@ function projectPixels(p, rect, e) {
   const z = e[2] * p.x + e[6] * p.y + e[10] * p.z + e[14];
   const w = e[3] * p.x + e[7] * p.y + e[11] * p.z + e[15];
   if (w <= 1e-6) return null; // behind camera
-  return { x: (x / w * 0.5 + 0.5) * rect.width, y: (-y / w * 0.5 + 0.5) * rect.height, depth: z / w };
+  return { x: (x / w * 0.5 + 0.5) * rect.width, y: (-y / w * 0.5 + 0.5) * rect.height, depth: z / w, w };
 }
 
 function segDistPx(px, py, ax, ay, bx, by) {
@@ -525,10 +525,12 @@ function pickEdge({ rect, px, py, recs }) {
           const { d, t } = segDistPx(px, py, prev.x, prev.y, cur.x, cur.y);
           if (d <= PICK_THRESHOLD_PX) {
             const depth = prev.depth + (cur.depth - prev.depth) * t;
+            // The screen-space fraction maps back through perspective to the point under the cursor.
+            const along = t * prev.w / ((1 - t) * cur.w + t * prev.w);
             if ((!best || d < best.d - 1.5 || (Math.abs(d - best.d) <= 1.5 && depth < best.depth)) &&
                 (!testPoint || planes.every(plane => plane.distanceToPoint(
-                  testPoint.fromArray(data.points, (p - 1) * 3).lerp(edgePoint, t)) >= -1e-5))) {
-              best = { rec, data, edge, p, t, d, depth };
+                  testPoint.fromArray(data.points, (p - 1) * 3).lerp(edgePoint, along)) >= -1e-5))) {
+              best = { rec, data, edge, p, along, d, depth };
             }
           }
         }
@@ -537,8 +539,8 @@ function pickEdge({ rect, px, py, recs }) {
     }
   }
   if (!best) return null;
-  const { rec, data, edge, p, t } = best;
-  const point = new THREE.Vector3().fromArray(data.points, (p - 1) * 3).lerp(edgePoint.fromArray(data.points, p * 3), t);
+  const { rec, data, edge, p, along } = best;
+  const point = new THREE.Vector3().fromArray(data.points, (p - 1) * 3).lerp(edgePoint.fromArray(data.points, p * 3), along);
   return { edge: describeEdge(rec, data, edge), object: rec.solid, point, d: best.d, depth: best.depth };
 }
 
