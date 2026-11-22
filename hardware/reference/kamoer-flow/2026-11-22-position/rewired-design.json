@@ -1,0 +1,15 @@
+{
+  "coordinate": "Left clear front liquid contact at x980, native 2320 by 1744 camera. Values are pixel offsets below the photographed reset reference. The cup print and three other regions are retained in every sample.",
+  "calibration": "The isolated 600 ms A and B checks provide one rate each. The previous fall and vessel movement break the previous view. This local test uses a new photographed reference and new single-shot rate per head.",
+  "pixels_per_second": {"A": 26.68, "B": -21.33},
+  "relative_stretch": {"center": 0.82, "right": 0.91, "outer_right": 1.31},
+  "first_endpoint_delay_s": 4.0,
+  "final_endpoint_delay_s": 8.0,
+  "correction_deadband_px": 0.85,
+  "timing": "Each recorded window spans 0.6 s after the named minimum time. A late score is relative to the latest motor stop. Hold trials serve as a settling comparison. All primary positions are in pixels.",
+  "trials": [
+    [null,"idle"],[-8,"hold"],[9,"correct"],[-3,"correct"],[6,"hold"],[-11,"correct"],[8,"hold"],[-5,"hold"],[10,"correct"],
+    [null,"idle"],[-8,"correct"],[9,"hold"],[-3,"hold"],[6,"correct"],[-11,"hold"],[8,"correct"],[-5,"correct"],[10,"hold"],[null,"idle"]
+  ],
+  "analysis": "Predeclare the same eight destinations in two blocks with exchanged policies. Score first and late absolute misses, actual moves and sham drift. The correction policy permits one further timed command when outside the deadband. Matched timing starts from the last motor stop. The leading target in each block can have a different initial level."
+}
