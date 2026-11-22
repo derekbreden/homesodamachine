@@ -22,7 +22,7 @@ export function mountPdfjsAssets(app) {
   }
 }
 
-export function renderDocumentReader({ file, title, embedded = false, hostControls = false }) {
+export function renderDocumentReader({ file, title, embedded = false, hostControls = false, caseLinks = [] }) {
   hostControls = embedded && hostControls;
   const url = `/docs/${file.split("/").map(encodeURIComponent).join("/")}`;
   const readUrl = `/read/${file.split("/").map(encodeURIComponent).join("/")}`;
@@ -62,6 +62,7 @@ export function renderDocumentReader({ file, title, embedded = false, hostContro
       </div>
     </details>
   </header>
+  ${caseLinks.map(link => `<a class="pdf-bench" data-bench-page="${escape(link.page)}" href="${escape(link.url)}" hidden>${escape(link.title)} · Bench photo and current model</a>`).join("")}
   <p id="pdf-status" role="status">Loading document…</p>
   <button id="pdf-retry" type="button" hidden>Try again</button>
   <noscript><p>Enable JavaScript to read this document here, or use Download PDF.</p></noscript>

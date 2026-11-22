@@ -38,7 +38,8 @@ function wantFromHash(raw) {
     const file = modelForMaterial(state.materialCatalog, id)?.file;
     const remembered = history.state?.materialPath;
     const path = file && Array.isArray(remembered) && remembered.at(-1) === file ? remembered : [file];
-    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab, panel, instance, view };
+    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab, panel, instance, view,
+      benchCase: params.get("case"), landmark: params.get("landmark") };
   }
   for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
     if (!raw.startsWith(prefix)) continue;

@@ -205,6 +205,7 @@ export async function start({ port, hardwareDir } = {}) {
   });
 
   app.use("/contracts", express.static(CONTRACTS_DIR));
+  app.use("/print-cases", express.static(path.join(HARDWARE_DIR, "printing-the-machine", "cases")));
   const simplifier = fileURLToPath(import.meta.resolve("meshoptimizer/simplifier"));
   app.get("/vendor/meshoptimizer/simplifier.js", (_req, res) =>
     res.links({ license: "/vendor/meshoptimizer/LICENSE.md" }).sendFile(simplifier));

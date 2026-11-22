@@ -11,11 +11,13 @@ export function materialTab(value) {
   return Object.hasOwn(sections, value) ? sections[value] : { tab: tabs.has(value) ? value : null, section: null };
 }
 
-export function materialHash(id, { tab = null, panel = null, instance = null, view = null } = {}) {
+export function materialHash(id, { tab = null, panel = null, instance = null, view = null, benchCase = null, landmark = null } = {}) {
   const query = new URLSearchParams();
   if (materialTab(tab).tab) query.set("tab", tab);
   if (panel === "materials") query.set("panel", panel);
   if (instance) query.set("instance", instance);
-  if (view === "pcb" || view === "print") query.set("view", view);
+  if (["pcb", "print", "bench"].includes(view)) query.set("view", view);
+  if (view === "bench" && benchCase) query.set("case", benchCase);
+  if (view === "bench" && landmark) query.set("landmark", landmark);
   return "material:" + encodeURIComponent(id) + (query.size ? "?" + query : "");
 }

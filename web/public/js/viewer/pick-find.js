@@ -389,7 +389,7 @@ async function runFind(options = {}) {
   }
 }
 
-async function displayFind({ focus = true, text = textarea.value, instant = false, reveal = false }, signal) {
+async function displayFind({ focus = true, text = textarea.value, instant = false, reveal = false, owner }, signal) {
   const startingGesture = gestureRevision;
   // The box is on screen from the moment the modal opens; a big assembly is
   // still parsing for seconds after that. Say so rather than doing nothing.
@@ -433,7 +433,7 @@ async function displayFind({ focus = true, text = textarea.value, instant = fals
   }
   if (!picks.length && !names.length && !featureQueries.length) { activeFind = null; setStatus("opened — nothing to highlight"); return; }
   const mounted = state.currentGroup;
-  activeFind = { file: state.mountedDetail.file, text };
+  activeFind = { file: state.mountedDetail.file, text, owner };
   setStatus("Finding…");
   let slice = performance.now();
   async function yieldToInput() {
@@ -656,21 +656,31 @@ function hideLabels() {
 // the text, for whoever opens it to see what lit and why.
 let pendingFind = null;
 
-export function findWhenMounted(file, text) {
-  pendingFind = { file, text };
+export function findWhenMounted(file, text, owner) {
+  if (owner?.aborted) return;
+  const request = pendingFind = { file, text, owner };
+  owner?.addEventListener("abort", () => {
+    if (pendingFind === request) pendingFind = null;
+    if (activeFind?.owner !== owner) return;
+    findWork?.abort();
+    activeFind = null;
+    clearPickFind();
+    releaseFound();
+    sceneState.requestCadRender?.();
+  }, { once: true });
   if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file
       && !state.currentGroup?.userData.sceneLoading) runPendingFind();
 }
 
 function runPendingFind(instant = false) {
-  const { text, file } = pendingFind;
+  const { text, file, owner } = pendingFind;
   pendingFind = null;
   if (!panel) buildPanel();
   textarea.value = text;
   // A frame on, past the camera the open restores, which is the one it flies from.
-  if (instant) runFind({ text, instant, reveal: true });
+  if (instant) runFind({ text, instant, reveal: true, owner });
   else requestAnimationFrame(() => {
-    if (state.mountedDetail?.file === file && textarea.value === text && !pendingFind) runFind({ text, reveal: true });
+    if (!owner?.aborted && state.mountedDetail?.file === file && textarea.value === text && !pendingFind) runFind({ text, reveal: true, owner });
   });
 }
 
@@ -680,7 +690,7 @@ window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {
     return;
   }
   if (pendingFind && e.detail?.file === pendingFind.file) runPendingFind();
-  else if (activeFind && activeFind.file === e.detail?.file) runFind({ focus: false, text: activeFind.text });
+  else if (activeFind && activeFind.file === e.detail?.file) runFind({ focus: false, text: activeFind.text, owner: activeFind.owner });
 });
 
 // --- public API ---

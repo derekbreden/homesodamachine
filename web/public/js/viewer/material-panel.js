@@ -80,13 +80,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     toggle.type = "button";
     toggle.addEventListener("click", () => {
       const open = !workspace.classList.contains("materials-open");
+      if (open) drawingView?.closeBench();
       setOpen(open);
       if (!open) keepSelection();
     });
     workspace.querySelector(".cad-header-actions").append(toggle);
     setOpen(false);
   }
-  const drawingView = wrapper ? mountMaterialDrawing(wrapper) : null;
+  const drawingView = wrapper ? mountMaterialDrawing(wrapper, { hideMaterials: () => setOpen(false) }) : null;
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = null;
   let selectedBody = null;
@@ -337,6 +338,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
     drawingView?.setDrawing(activeDrawing || null);
     drawingView?.setPrint(current?.id, state.materialCatalog?.printPlaybacks?.[current?.id]);
+    drawingView?.setBench(current);
     drawingView?.setPcb(current?.pcb);
     const title = current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer";
     if (deferDetails) {
@@ -844,7 +846,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
   // Visibility belongs to this navigation. Manual toggles last for this view;
   // model links start closed, and material lookups open the pane.
-  function applyRoute({ panel = null, tab: requestedTab = null, instance = null, view = null, fly = true } = {}) {
+  function applyRoute({ panel = null, tab: requestedTab = null, instance = null, view = null, fly = true, benchCase = null, landmark = null } = {}) {
     stopLocations();
     pendingInstance = instance ? { name: instance, fly } : null;
     const route = materialTab(requestedTab);
@@ -852,7 +854,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     setOpen(panel === "materials" || !!tab);
     render();
     showInstalled();
-    drawingView?.applyRoute(view);
+    drawingView?.applyRoute(view, { benchCase, landmark });
   }
   const handle = { select, setRoot, sync, applyRoute, leave, closeView: () => drawingView?.closeView(), dispose: () => {
     disposed = true;

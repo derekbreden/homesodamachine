@@ -18,6 +18,7 @@ const fit = document.getElementById("pdf-fit");
 const pagination = document.getElementById("pdf-pagination");
 const actions = reader.querySelector(".pdf-actions");
 const menuZoom = [...reader.querySelectorAll("[data-pdf-zoom]")];
+const caseLinks = [...reader.querySelectorAll("[data-bench-page]")];
 const retry = document.getElementById("pdf-retry");
 const MAX_PIXELS = 4 * 1024 * 1024;
 const MAX_DIMENSION = 4096;
@@ -37,6 +38,7 @@ function updateControls() {
   zoomIn.disabled = !pdf || zoom >= 4;
   fit.disabled = !pdf;
   pagination.hidden = !pdf || pdf.numPages <= 1;
+  for (const link of caseLinks) link.hidden = !pdf || Number(link.dataset.benchPage) !== currentPage;
   fit.querySelector('[value="custom"]').hidden = zoom === 1;
   fit.value = zoom === 1 ? fitMode : "custom";
   for (const control of menuZoom) control.disabled = control.dataset.pdfZoom === "out" ? zoomOut.disabled : zoomIn.disabled;

@@ -7,6 +7,8 @@ model: manifold-layout/enclosure-assembly.step
 ---
 The stopped Mark 1 back-top printed its snap catches as long flat bridges, and they sagged. A catch whose pocket a screwdriver can reach now prints on removable support: both of the water regulator's catches and the ASSE's west one, along with the C14 inlet's pocket and passage roofs.
 
+[See the stopped print beside the current ASSE receiver](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=stopped-shell&landmark=asse-receiver)
+
 The ASSE's east pocket faces the Pisco across a narrow gap, and the Pisco's pockets face the ASSE and the east flank, so no screwdriver gets in to peel support off those three catches. Each is now a corbel that climbs its pocket wall at the slope the enclosure's teardrop roofs print at, and prints with neither support nor bridge. The caps' hooks on those three catches take the same slope under the catch, so a pull spreads the wing and those three lift off more easily, as Derek accepted: "this means the snap is going to lift off quite a bit easier, but I actually think it's still going to hold quite well for our purposes".
 
 The meter receiver's aft shoulder sits under the Pisco, where a support tree would root in the Pisco's open wing slot. A corbel off the east flank now carries its top. The Pisco cap's east corner is cut back along that slope so the cap clears the corbel seated and when it is lowered and slid fore for service, and its east wing roots higher, so it is shorter and stiffer.

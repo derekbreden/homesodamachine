@@ -13,6 +13,7 @@ not a rule for another, so read the part for the plastic you are printing.
 | --- | --- |
 | Cut a relief, pocket or opening near a roof | [A bridge needs two landings](06-a-bridge-needs-two-landings.html) |
 | Decide what holds an overhang up | [Every course lands on something](05-every-course-lands-on-something.html) |
+| Choose how to support a back-top catch or leave room for a cover to swing in | [Stopped shell and current receivers](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=stopped-shell) · [Assembled corner and current seats](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=assembled-corner) · [Photographs, observations and landmarks](cases/enclosure-back-top.json) |
 | Compare two fits, or change a height by less than a layer | [Height moves one layer at a time](07-height-moves-one-layer-at-a-time.html) · [A coupon has to print like the part](08-a-coupon-has-to-print-like-the-part.html) |
 | Run a trial of any kind | [Change one thing](09-change-one-thing.html) |
 | Carry a setting from one plastic to another | [The same question, a different answer](10-the-same-question-a-different-answer.html) |

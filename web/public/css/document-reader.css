@@ -21,6 +21,7 @@ body:has(.pdf-reader) { height: 100svh; min-height: 0; overflow: hidden; }
 #pdf-retry { position: absolute; align-self: center; top: 50%; z-index: 1; }
 .pdf-viewport { flex: 1; min-height: 0; overflow: auto; background: #e7edf7; padding: 12px max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); overscroll-behavior: contain; scrollbar-gutter: stable; }
 .pdf-paper { position: relative; margin-inline: auto; background: white; box-shadow: 0 1px 6px #0003; }
+.pdf-bench { display: block; padding: 10px 16px; color: var(--accent); background: var(--surface); border-bottom: 1px solid var(--border); font-size: .85rem; text-underline-offset: .18em; }
 #pdf-canvas { display: block; }
 .pdf-paper .textLayer { --total-scale-factor: var(--scale-factor); }
 .pdf-reader [hidden] { display: none; }

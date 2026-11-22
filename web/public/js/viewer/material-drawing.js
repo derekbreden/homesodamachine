@@ -1,6 +1,8 @@
 import { startAnimate, stopAnimate } from "./scene.js";
 import { state } from "./state.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { materialHash, openMaterial } from "./material-nav.js";
+import { mountMaterialBench } from "./material-bench.js";
 
 const button = (text, label) => {
   const node = document.createElement("button");
@@ -10,14 +12,15 @@ const button = (text, label) => {
 };
 
 // The material workspace switches views and keeps its camera-bearing model mounted.
-export function mountMaterialDrawing(wrapper) {
+export function mountMaterialDrawing(wrapper, { hideMaterials }) {
   const workspace = wrapper.closest(".cad-workspace");
   const switcher = document.createElement("div");
   switcher.className = "material-view-switch";
   switcher.setAttribute("role", "group"); switcher.setAttribute("aria-label", "Material view");
   switcher.hidden = true;
   const model = button("3D"), drawing = button("Drawing"), print = button("Print"), pcb = button("PCB");
-  const modes = { model, drawing, print, pcb };
+  const bench = button("Bench", "Bench photos");
+  const modes = { model, drawing, print, pcb, bench };
   for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === "model"));
   switcher.append(model);
   workspace.querySelector(".cad-view-slot").append(switcher);
@@ -52,7 +55,8 @@ export function mountMaterialDrawing(wrapper) {
 
   let selected = null, frame = null, replay = null, printFrame = null, mode = "model";
   let board = null, boardView = null;
-  const syncSwitcher = () => { switcher.hidden = !selected && !replay && !board; };
+  let benchMaterial = null, benchView = null;
+  const syncSwitcher = () => { switcher.hidden = !selected && !replay && !board && !benchMaterial; };
   const command = (command, extra = {}) => frame?.contentWindow?.postMessage({
     type: HSM_EVENTS.DOCUMENT_COMMAND, command, ...extra,
   }, location.origin);
@@ -63,6 +67,15 @@ export function mountMaterialDrawing(wrapper) {
   }
   function show(nextMode) {
     if (mode === nextMode) return false;
+    if (mode === "bench") {
+      benchView?.dispose();
+      benchView = null;
+      const [identity, query] = location.hash.slice(1).split("?");
+      if (identity === materialHash(benchMaterial.id) && new URLSearchParams(query).get("view") === "bench") {
+        history.replaceState(history.state, "", "#" + materialHash(benchMaterial.id,
+          { view: ["print", "pcb"].includes(nextMode) ? nextMode : null }));
+      }
+    }
     mode = nextMode;
     menu.open = false;
     tools.hidden = mode !== "drawing";
@@ -73,7 +86,7 @@ export function mountMaterialDrawing(wrapper) {
     wrapper.classList.toggle("print-open", mode === "print");
     wrapper.classList.toggle("pcb-open", mode === "pcb");
     for (const [name, control] of Object.entries(modes)) control.setAttribute("aria-pressed", String(name === mode));
-    if (mode !== "model") stopAnimate();
+    if (mode !== "model" && mode !== "bench") stopAnimate();
     else if (wrapper.isConnected) startAnimate();
     return true;
   }
@@ -120,6 +133,29 @@ export function mountMaterialDrawing(wrapper) {
     wrapper.append(printFrame);
     show("print");
   }
+  function setBench(material) {
+    const next = material?.print_cases ? material : null;
+    if (next?.id === benchMaterial?.id) return;
+    if (mode === "bench") show("model");
+    benchMaterial = next;
+    if (next) switcher.append(bench);
+    else bench.remove();
+    syncSwitcher();
+  }
+  function showBench(options = {}) {
+    if (!benchMaterial) return;
+    const file = benchMaterial.models?.find(model => !model.type || model.type === "step")?.file;
+    if (!file) return;
+    if (state.currentDetail?.file !== file) {
+      openMaterial(benchMaterial.id, true, { view: "bench", ...options });
+      return;
+    }
+    hideMaterials();
+    show("bench");
+    history.replaceState(history.state, "", "#" + materialHash(benchMaterial.id, { ...options, view: "bench" }));
+    benchView ||= mountMaterialBench(wrapper, benchMaterial, file);
+    benchView.go(options);
+  }
   function setPcb(source = null) {
     if (source === board) return;
     if (mode === "pcb") show("model");
@@ -156,10 +192,11 @@ export function mountMaterialDrawing(wrapper) {
       console.warn("PCB view:", error.message);
     }
   }
-  function applyRoute(view) {
+  function applyRoute(view, options) {
     if (view === "pcb") showPcb();
     else if (view === "print") showPrint();
-    else if (mode === "pcb" || mode === "print") show("model");
+    else if (view === "bench") showBench(options);
+    else if (mode === "pcb" || mode === "print" || mode === "bench") show("model");
   }
   function closeView() {
     if (mode === "pcb" || mode === "print") {
@@ -176,7 +213,7 @@ export function mountMaterialDrawing(wrapper) {
     if (closed) model.focus();
     return closed;
   }
-  const mounted = () => { if (mode !== "model") stopAnimate(); };
+  const mounted = () => { if (mode !== "model" && mode !== "bench") stopAnimate(); };
   const message = event => {
     if (event.source === printFrame?.contentWindow && event.origin === "null" && event.data?.type === HSM_EVENTS.DOCUMENT_ESCAPE) {
       closeView();
@@ -204,10 +241,12 @@ export function mountMaterialDrawing(wrapper) {
   model.addEventListener("click", closeView);
   drawing.addEventListener("click", () => showDrawing());
   print.addEventListener("click", showPrint);
+  bench.addEventListener("click", () => { if (mode !== "bench") showBench(); });
   pcb.addEventListener("click", showPcb);
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.addEventListener("message", message);
-  return { setDrawing, setPrint, setPcb, showDrawing, applyRoute, drawingPath: () => selected?.path, closeView, dispose: () => {
+  return { setDrawing, setPrint, setPcb, setBench, showDrawing, applyRoute, drawingPath: () => selected?.path, closeView,
+    closeBench: () => { if (mode === "bench") closeView(); }, dispose: () => {
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, mounted); window.removeEventListener("message", message);
-    removeBoardView(); frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
+    benchView?.dispose(); removeBoardView(); frame?.remove(); printFrame?.remove(); switcher.remove(); tools.remove();
   } };
 }

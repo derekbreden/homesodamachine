@@ -10,6 +10,7 @@ import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 import { FACTS_SUFFIX, missingRuns } from "../contracts/missing-parts.js";
 import { mountPdfjsAssets, renderDocumentReader } from "./document-reader.js";
 import { readMaterialCatalog } from "./material-catalog.js";
+import { materialHash } from "../contracts/material-tabs.js";
 import { readFitted } from "./fitted.js";
 import { numberedModels } from "../contracts/materials.js";
 import { readPartCosts } from "./part-costs.js";
@@ -353,9 +354,20 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     const doc = documentFile(req, res);
     if (!doc) return;
     const meta = readSidecar(hardwareDir, doc.rel);
+    const caseLinks = [];
+    const caseDir = path.join(hardwareDir, "printing-the-machine/cases");
+    if (doc.rel === "printing-the-machine/printing-the-machine.pdf" && req.query.embed !== "1" && fs.existsSync(caseDir)) {
+      for (const name of fs.readdirSync(caseDir).filter(name => name.endsWith(".json"))) {
+        const record = readSidecar(caseDir, path.basename(name, ".json"));
+        for (const entry of record?.cases || []) if (entry.guidePage) caseLinks.push({
+          page: entry.guidePage, title: entry.title,
+          url: "/parts#" + materialHash(record.material, { view: "bench", benchCase: entry.id }),
+        });
+      }
+    }
     res.set("Cache-Control", "no-cache");
     res.type("html").send(renderDocumentReader({
-      file: doc.rel, title: meta?.title || path.basename(doc.rel, ".pdf"),
+      file: doc.rel, title: meta?.title || path.basename(doc.rel, ".pdf"), caseLinks,
       embedded: req.query.embed === "1",
       hostControls: req.query.controls === "host",
     }));

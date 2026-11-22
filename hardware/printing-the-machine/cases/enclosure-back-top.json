@@ -1,0 +1,77 @@
+{
+  "material": "HSM-0081",
+  "body": "enclosure-back-top",
+  "view": "az=-130 el=-38",
+  "cases": [
+    {
+      "id": "stopped-shell",
+      "title": "Stopped back-top",
+      "guidePage": 25,
+      "guideTitle": "Painted supports",
+      "date": "2026-11-15",
+      "setup": "Mark1 · Black Fiberon PET-GF15 · Glued Engineering Plate · Left hardened 0.4 mm nozzle",
+      "revision": "f1a8a0e612087147eede751fd8ef90765965634a",
+      "folder": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1",
+      "record": "physical-observation/support-failure.json",
+      "photo": "physical-observation/01-flow-meter-and-asse.jpg",
+      "alt": "Loose black strands hang from the flow-meter ledge. A fallen support fork lies on the printed floor beside the ASSE receiver.",
+      "quote": "I couldn't even see where the support is under some of that, though, at all. It looks like we're missing supports in some critical places.",
+      "landmarks": [
+        {
+          "feature": "flow-meter-receiver",
+          "label": "Flow-meter ledge",
+          "point": [0.446, 0.414],
+          "observation": "The fore fork came down before the ledge printed. Loose strands hang below the meter seat. The narrow strip beside its hook pocket was changed to grow out of the flank.",
+          "change": "2026-11-15-2015-meter-strip-corbel",
+          "changeLabel": "See the strip grow from the wall"
+        },
+        {
+          "feature": "asse-receiver",
+          "label": "ASSE catch",
+          "point": [0.631, 0.531],
+          "observation": "The long bridge sagged into the insertion opening. A screwdriver can reach the west catch to peel support away. The east catch faces the Pisco, so its roof was sloped to print from the wall.",
+          "change": "2026-11-15-1916-back-top-catch-corbels",
+          "changeLabel": "See the reachable and enclosed catches"
+        }
+      ]
+    },
+    {
+      "id": "assembled-corner",
+      "title": "Assembled rear corner",
+      "guidePage": 28,
+      "guideTitle": "The roof is the first layer",
+      "date": "2026-11-21",
+      "setup": "Mark2 · Black Fiberon PET-GF15 · Textured PEI · Left hardened 0.4 mm nozzle",
+      "revision": "5e6d64bf900d873c59c141b13b64fa9c34e123b3",
+      "folder": "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2",
+      "record": "physical-result/physical-result.json",
+      "photo": "physical-result/assembled.jpg",
+      "alt": "The black printed corner held at the bench with the white flow meter above the Pisco fitting and the ASSE on the right. All three snap covers are in place.",
+      "quote": "It worked.",
+      "landmarks": [
+        {
+          "feature": "pisco-receiver",
+          "label": "Pisco seat",
+          "point": [0.513, 0.679],
+          "observation": "The Pisco cover could tip past the meter shoulder and seat with the hardware installed. When Derek rocked the covers by hand, the Pisco had the most play.",
+          "change": "2026-11-21-1200-pisco-cover-entry",
+          "changeLabel": "See the change that opened the entry"
+        },
+        {
+          "feature": "flow-meter-receiver",
+          "label": "Flow-meter seat",
+          "point": [0.47, 0.405],
+          "observation": "The meter cover seated with the Pisco installed. Derek found its fit tighter than the Pisco and looser than the ASSE. The shortened meter shoulder leaves the adjacent cover room to swing in.",
+          "change": "2026-11-21-1200-pisco-cover-entry",
+          "changeLabel": "See the shortened meter shoulder"
+        },
+        {
+          "feature": "asse-receiver",
+          "label": "ASSE seat",
+          "point": [0.735, 0.54],
+          "observation": "The ASSE cover had the tightest fit of the three. Derek judged it good enough on this printed corner."
+        }
+      ]
+    }
+  ]
+}

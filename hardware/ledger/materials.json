@@ -2692,6 +2692,7 @@
       "id": "HSM-0081",
       "description": "Enclosure back top",
       "kind": "manufactured",
+      "print_cases": "enclosure-back-top.json",
       "models": [
         {
           "file": "printed-parts/enclosure/enclosure/enclosure-back-top.step"
