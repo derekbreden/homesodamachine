@@ -104,11 +104,10 @@ After removing the ASSE chain, release the meter leaves, withdraw the cap
 fore and out through the open side. Remove the meter, its disconnected soda
 line/insulation and bend holder before withdrawing the PISCO cap.
 
-The Pisco cover enters from X with its wing angled. Its shortened leaves clear the rear column, and the common ceiling recess
-clears the complete wing points to the flank and rear wall. The
-[physical result](prints/2026-11-17-single-pisco-mark2/physical-result.json)
-records Derek's in-hand approach, the accepted angled catches and the picked
-obstruction. Complete installation against the current enclosure awaits a print.
+The Pisco cover enters from X with its wing angled past the meter shoulder.
+Its shortened leaves clear the rear column. The Pisco, meter and ASSE covers
+all seat on the assembled corner. The Pisco cover has the most play when
+rocked by hand. [Assembled corner fit](https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json)
 
 The regulator releases directly downward with its exposed leaves spread.
 The [physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/physical-result/physical-result.json)

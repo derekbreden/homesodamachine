@@ -20,3 +20,7 @@ path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/rear_equip
 [[bin]]
 name = "pisco-access-study"
 path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/pisco_access_study.rs"
+
+[[bin]]
+name = "pisco-cover-retention"
+path = "../../../hardware/print-tests/pisco-cover-retention/fit.rs"

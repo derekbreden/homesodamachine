@@ -1,0 +1,113 @@
+{
+  "basis_print_task": "1470452037",
+  "original_pisco_mesh_sha256": "f82eb60611585171a80c188efcd0720129e8a12ed8d759d0f339e6a9b5d1b846",
+  "tested_corner_mesh_sha256": "1946f326a98b136ee181fcacc7d84bc02ea31e83c8f8164128d18db4439bddc1",
+  "method": "Check both as-sliced STL surfaces against the tested corner at multiple points on each mating face. Replay the previously checked tilted entry with the regulator installed and the meter and ASSE out.",
+  "waypoint_columns": [
+    "tilt_deg",
+    "x_translation_mm",
+    "z_translation_mm",
+    "west_splay_parameter_mm",
+    "east_splay_parameter_mm"
+  ],
+  "waypoints": [
+    [
+      21.0,
+      -4.6,
+      -11.0,
+      3.8,
+      3.0
+    ],
+    [
+      20.0,
+      -4.55,
+      -9.0,
+      3.8,
+      3.0
+    ],
+    [
+      15.0,
+      -3.4,
+      -6.5,
+      3.8,
+      3.0
+    ],
+    [
+      10.0,
+      -2.4,
+      -4.5,
+      3.8,
+      3.15
+    ],
+    [
+      5.0,
+      -1.25,
+      -2.8,
+      4.0,
+      3.65
+    ],
+    [
+      0.0,
+      0.0,
+      -1.0,
+      3.8,
+      3.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      3.8,
+      3.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "spring_model": "The tilted path uses the previously checked approach. The east leaf opens an additional 0.15 mm at the ten-degree and five-degree waypoints to pass the thicker hooks. The leaves return to their relaxed position once seated.",
+  "tilt_degrees": 21.0,
+  "chamfer_vertical_samples_per_cap": 12,
+  "variants": [
+    {
+      "name": "pisco-one-mark",
+      "stl_sha256": "74f62e333406ebc2544728c5cd8a67153129017f4557b61589c910ed5940d741",
+      "connected_solids": 1,
+      "measured_vertical_catch_gap_range_mm": [
+        0.2,
+        0.2
+      ],
+      "surface_normal_gap_mm": 0.1414,
+      "material_added_at_hooks_mm3": 46.271,
+      "material_removed_at_marks_mm3": 2.352,
+      "seated_corner_overlap_mm3": 5.39e-05,
+      "sampled_insertion_poses": 421,
+      "max_corner_overlap_mm3": 5.39e-05,
+      "max_regulator_overlap_mm3": 0.0,
+      "min_meter_receiver_gap_mm": 0.6067
+    },
+    {
+      "name": "pisco-two-marks",
+      "stl_sha256": "2a23c90ebde32d02777c2520d4ddb30f39d69f2212ca0e79c2bf2ef178e759a0",
+      "connected_solids": 1,
+      "measured_vertical_catch_gap_range_mm": [
+        0.05,
+        0.05
+      ],
+      "surface_normal_gap_mm": 0.0354,
+      "material_added_at_hooks_mm3": 80.974,
+      "material_removed_at_marks_mm3": 4.704,
+      "seated_corner_overlap_mm3": 5.39e-05,
+      "sampled_insertion_poses": 421,
+      "max_corner_overlap_mm3": 5.39e-05,
+      "max_regulator_overlap_mm3": 0.0,
+      "min_meter_receiver_gap_mm": 0.6067
+    }
+  ],
+  "original_seated_corner_overlap_mm3": 5.39e-05,
+  "seated_contact": "The as-printed meshes give the original cover and both samples the same coincident end-wall contact within STL rounding.",
+  "source_assembly_sha256": "045d17cdf13460c20308924547d75eae85ddb25d6dae3ef77754d72ff24ac51b"
+}

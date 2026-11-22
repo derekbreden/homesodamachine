@@ -1,0 +1,36 @@
+{
+  "baseline_catch_gap_z_mm": 0.4,
+  "body": "pisco-snap-cap",
+  "installed_source": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "mark_depth_mm": 0.6,
+  "variants": [
+    {
+      "added_bearing_volume_mm3": 46.27095059977364,
+      "diamonds": 1,
+      "name": "pisco-one-mark",
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ],
+      "seated_catch_gap_z_mm": 0.2,
+      "take_up_z_mm": 0.2
+    },
+    {
+      "added_bearing_volume_mm3": 80.9741636842773,
+      "diamonds": 2,
+      "name": "pisco-two-marks",
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ],
+      "seated_catch_gap_z_mm": 0.05,
+      "take_up_z_mm": 0.35
+    }
+  ],
+  "wing_y_mm": [
+    420.59571720240064,
+    457.911
+  ]
+}

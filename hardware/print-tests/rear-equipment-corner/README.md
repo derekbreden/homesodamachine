@@ -15,11 +15,10 @@ edge of its aft shoulder and its fitted body floors take removable support
 through the open west face. The aft shoulder's first course bridges from its
 west edge to the flank.
 
-The [previous corner print](https://github.com/derekbreden/homesodamachine/blob/d8d3ba9a32b0349a571d50729eaedf48af030e73/hardware/print-tests/rear-equipment-corner/prints/2026-11-20-mark2/physical-result/physical-result.json)
-shows the Pisco cover catching the meter receiver when tipped in from the side.
-The [current Mark2 fit print](prints/2026-11-21-pisco-entry-mark2/print-job.json)
-pairs the production corner with the shorter upper spring on the meter cover.
-The Pisco and ASSE covers from the previous plate fit the same seats.
+The Pisco cover tips past the recessed meter shoulder. The flow meter, Pisco
+and ASSE fit together with all three covers installed. Derek found the ASSE
+cover tightest, the meter cover next and the Pisco cover loosest.
+[Assembled corner and bench observations](https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json)
 
 Clear the removable support from the meter shoulders, upper lip and fitted
 body passages. With the meter and ASSE hardware out, seat the Pisco and tip
