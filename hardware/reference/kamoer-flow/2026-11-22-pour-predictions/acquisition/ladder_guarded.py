@@ -26,7 +26,7 @@ def observe(name,hints,j,radius):
     rr={x:local_edge(gray,x,hint,radius) for x,hint in hints.items()}
     main=rr[990]
     # Center the local search on the photographed motion of nearby glass lanes.
-    shifts=[rr[x]['row']-hints[x] for x in (972,1018,1036)
+    shifts=[rr[x]['row']-hints[x] for x in rr if x!=990
             if rr[x]['contrast']>=7 and not rr[x]['on_edge']]
     if len(shifts)<2:
         raise ValueError(('neighboring contacts unresolved',name,rr))
@@ -60,6 +60,8 @@ def dwell(label,points,j):
 
 def sweep(board,j,tag,legs,start_hints):
     points=observe(tag+'-entry',start_hints,j,13)
+    if tag=='ladder4':
+        points=dwell(tag+'-upper-inside',points,j)
     for leg,target in legs:
         inside_held=False
         for i in range(110):
@@ -69,8 +71,10 @@ def sweep(board,j,tag,legs,start_hints):
             head='A' if gap>0 else 'B'
             distance_to_anchor=min(abs(y-c) for c in (848,985,1005,1130))
             desired=min(abs(gap),4.2 if distance_to_anchor<25 else 12.5)
-            if 1097<y<1126 or 815<y<870:
+            if 1078<y<1130 or 818<y<901:
                 desired=min(desired,2.6)
+            if 1096<y<1106 or 1114<y<1123:
+                desired=min(desired,1.7)
             ms=round(max(65,min(600,desired/(27 if head=='A' else 24)*1000)))
             label=f'{tag}-{leg}-{i:02d}'
             live()
@@ -80,12 +84,12 @@ def sweep(board,j,tag,legs,start_hints):
             previous=points
             points=observe(label,{x:v['row']+direction*desired for x,v in previous.items()},j,14)
             shift=points[990]['row']-y
-            agreement=[x for x in (972,1018,1036) if not points[x]['on_edge'] and points[x]['contrast']>6 and
+            agreement=[x for x in points if x!=990 and not points[x]['on_edge'] and points[x]['contrast']>6 and
                        abs((points[x]['row']-previous[x]['row'])-shift)<max(5,abs(shift)*.52)]
             j.append('ladder_step',label=label,leg=leg,head=head,operating_y=points[990]['row'],
                      independent_agreement=agreement,step_px=shift)
             print(label,head,ms,round(points[990]['row'],2),'Δ',round(shift,2),'others',agreement,flush=True)
-            if shift*direction<.35 or abs(shift)>max(8,1.8*desired+3) or not agreement:
+            if shift*direction<.35 or abs(shift)>max(8,1.8*desired+3) or len(agreement)<2:
                 raise RuntimeError(('uncertain step',label,shift,agreement))
             if leg in ('down-low','up-high') and not inside_held:
                 interior = 1092 if leg=='down-low' else 875
@@ -102,7 +106,7 @@ if __name__=='__main__':
     a=ap.parse_args();goal=[(s.split('=')[0],float(s.split('=')[1])) for s in a.legs]
     if any(not 798<=x<=1170 for _,x in goal):raise ValueError(goal)
     j=Journal(HERE/'graduations.jsonl');b=Board('/dev/cu.usbserial-120',j)
-    try:sweep(b,j,a.tag,goal,{990:a.hint,972:a.hint-5,1018:a.hint+3,1036:a.hint+8})
+    try:sweep(b,j,a.tag,goal,({x:a.hint+d for x,d in ((960,0),(972,1),(980,1),(990,0),(998,-1),(1018,-3),(1036,-4))} if a.hint<940 else {x:a.hint+d for x,d in ((960,-5),(972,-4),(980,-2),(990,0),(998,1),(1018,2),(1036,4))}))
     except BaseException as e:j.append('halt',error=repr(e));raise
     finally:
         b.close();j.append('closed')
