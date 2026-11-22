@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "08a8d0119922202b15b6c43899d80917a7c8b355fb4f1b2d60709ca39c4238d4",
+    "name": "2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei.gcode.3mf",
+    "objects": [
+      "pisco-three-marks"
+    ],
+    "sha256": "537739366e99e6cffd251d97f643897264cee4ce6470caef9b3b097b2cc0dee4",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 109,
+  "observed_at": "2026-11-22T04:22:09+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1472054183",
+  "subtask_name": "2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei.gcode.3mf",
+  "total_layer_num": 174
+}

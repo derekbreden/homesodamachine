@@ -2616,6 +2616,12 @@
       "bytes": 1212408,
       "sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
     },
+    "53fc4a217c4d8ef0b453d9c9b06120a4421ac61f": {
+      "archive": "pisco-cover-preload-mark1-382164dfb093bd03.zip",
+      "bytes": 477648,
+      "offset": 53737,
+      "sha256": "537739366e99e6cffd251d97f643897264cee4ce6470caef9b3b097b2cc0dee4"
+    },
     "5466b1c74161cc08c71b32643f017757058ff778": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 345832289,
@@ -6138,6 +6144,12 @@
       "bytes": 80183,
       "sha256": "b60e5797c9a1156f04f9ac71a9afaeb782495686bf3e5f524e30f5903e1009e1"
     },
+    "c6531f35707532d4978de6ae96a302e43691e6eb": {
+      "archive": "pisco-cover-preload-mark1-382164dfb093bd03.zip",
+      "bytes": 53589,
+      "offset": 74,
+      "sha256": "da5e9943ded150cd6cd14ea5faab9bb60e804c4a59081e7775089e8a97bd9523"
+    },
     "c68ab36511f0d8ab707d830c6bf418615de02944": {
       "archive": "foam-cap-lid-top-mark1-af0539d90bc3f120.zip",
       "bytes": 8021056,
@@ -7936,6 +7948,8 @@
     "hardware/print-tests/petgf-support-interface/support-interface.3mf": "4878b4daa3dbf52407448a34da39ce54f8cbb71c",
     "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.3mf": "674bbd76b20d2561f1ed8c365fd507ba4b166207",
     "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.gcode.3mf": "2381035dd156d7b474a710a18ddfffd87a6afbf4",
+    "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei.3mf": "c6531f35707532d4978de6ae96a302e43691e6eb",
+    "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei.gcode.3mf": "53fc4a217c4d8ef0b453d9c9b06120a4421ac61f",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a-print-only.gcode.3mf": "79dd245d93c2cfc8eb0bd47f2a1a5a1591f758c5",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.3mf": "e0fba84e7a539921ab2b769086b72f4e509ba668",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.gcode.3mf": "153f35916911b98a2fe3dfc61b23d5ad34f69d81",

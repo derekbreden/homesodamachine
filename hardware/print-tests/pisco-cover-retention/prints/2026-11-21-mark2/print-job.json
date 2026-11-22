@@ -80,5 +80,7 @@
     "other_accepted_at": "2026-11-21T20:08:59+00:00",
     "other_state_at_send": "FINISH",
     "elapsed_seconds": 28604.0
-  }
+  },
+  "first_layer_status": "first-layer-status.json",
+  "printing_status": "printing-status.json"
 }
