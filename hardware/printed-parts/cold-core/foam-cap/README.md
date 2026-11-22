@@ -81,6 +81,11 @@ The V-A feed presses into an upward-opening C2 seat beside the PCB. The seat
 follows the end of the feed's bend and continues along the straight tube toward
 Y-A. A radial slot separates the wings on each side. The floor supports the
 tube across the slot, and the board-side end leaves clearance to the PCB.
+
+The white pump-discharge tube snaps down into a short seat between the check
+valve and the water-in passage. Its two free jaws follow the crest of the bend.
+The foot and jaws print upright on the lid.
+
 The Reservoir A fore fill/draw clips remain at X50.5/64.0, Y209.75, Z258.5 mm,
 with Ø6.35 seats, 2.40 mm spring walls and 8 mm spans. The aft fill/draw clips are the
 same seats, each turned along its line's last level turn before the reservoir. The draw
@@ -151,7 +156,7 @@ lid's integral features above the lid face. The [kernel print and driver review]
 records the Rust meshes, saved recipes, emitted paths and driver envelopes.
 The [native M5 driver reading](m5-lid-driver-review.json) retains the native reference.
 
-The [local solid regions](fore-snap-print-regions.json) give the V-A feed and V-B return clips,
+The [local solid regions](fore-snap-print-regions.json) give the V-A feed, V-B return and pump-discharge clips,
 the reservoir A clip pairs, the casing screw hosts and head bearings, and the PCB
 insert posts solid infill through their roots. Before preparing a print project,
 regenerate the regions from the cap dimensions and the exported pieces with

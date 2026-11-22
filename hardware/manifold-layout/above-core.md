@@ -52,7 +52,8 @@ The water elbows retain 0.4 mm exposed male shoulder lands outside their full
 receiving depths. The suction PVC has a 12.119 mm free span on two tangent
 arcs, minimum R27.343. Its elbow rotates 3.307° around the seated V-K stem.
 The discharge elbow rotates 4.745° around the check's seated stem; the PVC
-cuff bends 10.289°. The check and core water guide keep their fixed frames.
+cuff bends 10.289°. A short clip on the lid holds the crest of the white inlet
+tube between the discharge check and the water-in passage.
 The bare pump and V-K keep their aligned body frames.
 
 The pump cap has a 6.2 mm filled crown, one east clearance shoulder and two

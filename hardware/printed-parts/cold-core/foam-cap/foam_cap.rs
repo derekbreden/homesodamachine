@@ -551,6 +551,27 @@ fn turned_clip(seat: &reservoir_a::AftSeat) -> Result<Solid> {
     curved_clip(p3(seat.centre), p3(seat.start), p3(seat.end), seat.degrees, fixed)
 }
 
+/// The discharge seat follows the crown of the vertical tube bend. Parallel end faces give
+/// both jaws the same span, and the flat foot joins the lid below the curved bore.
+fn pump_discharge_clip() -> Result<Solid> {
+    use reservoir_a::pair;
+    let bend = cap::clips::pump_discharge()?;
+    let half = cap::clips::DISCHARGE_SPAN / 2.;
+    let bore = pair::BORE / 2.;
+    let width = bore + pair::WING;
+    let skirt = width + 0.3;
+    let section = clip_section(bore, pair::WING, cap::clips::TIP_DEGREES, skirt, None)?;
+    let plane = Plane::new(V3::Z * bend.radius, V3::X, V3::Y)?;
+    let sweep = ((half + OVERCUT) / (bend.radius - skirt)).asin().to_degrees();
+    let crown = plane.revolve(&section, 2. * sweep, v2(0., bend.radius), v2(-1., bend.radius))?
+        .rotate(V3::ZERO, -V3::X, -sweep);
+    let floor = cap_face_z() - bend.centre[2] - OVERCUT;
+    let ends = Solid::cuboid(v3(-width - OVERCUT, -half, floor), v3(width + OVERCUT, half, bend.radius + width));
+    let foot = Solid::cuboid(v3(-width, -half, floor), v3(width, half, bend.radius - skirt + OVERCUT));
+    let yaw = (-bend.axis[1]).atan2(-bend.axis[0]).to_degrees();
+    Ok(crown.intersect(&ends)?.union(&foot)?.rotate(V3::ZERO, V3::Z, yaw).translate(p3(bend.centre)))
+}
+
 /// Both lips open independently on either side of the radial slot. Its rounded end meets the
 /// bore floor so the tube is supported through the split.
 fn split_clip(bend: &cap::clips::SplitBend, straight_end: Option<V3>) -> Result<Solid> {
@@ -738,6 +759,7 @@ fn top_lid() -> Result<Solid> {
     let wall = cap::valve::wall();
     let feed = cap::clips::va_feed()?;
     body = body.union(&split_clip(&feed.bend, Some(p3(feed.exit)))?.transformed(&t))?;
+    body = body.union(&pump_discharge_clip()?.transformed(&t))?;
     body = body.union(&flavor_a_clip(&cap::clips::flavor_a(), &wall)?.transformed(&t))?;
     for clip in cap::clips::straight_clips() {
         body = body.union(&tube_clip(&clip)?.transformed(&t))?;

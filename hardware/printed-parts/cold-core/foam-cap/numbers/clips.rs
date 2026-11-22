@@ -1,7 +1,6 @@
 //! The lid's tube clips: each a C2 seat whose filled root stands on the lid's face and whose two
-//! free jaws close over a tube along its axis. The V-A feed's, where the above-core design places
-//! it; the two flavor lines', the crossover's root joined to V-B's wall; and reservoir A's fore
-//! pair, which the pair's base joins (`reservoir_a`).
+//! free jaws close over a tube along its axis. The water seats follow their routed bends and
+//! the flavor-line seats and reservoir pair follow their mounting datums.
 use crate::P3;
 use crate::design::above_core;
 use crate::{deck, reservoir_a};
@@ -61,6 +60,36 @@ pub fn vb_stock_bounds() -> Result<[P3; 2]> {
     let bend = vb_return_bend()?;
     let outer = reservoir_a::pair::BORE / 2. + reservoir_a::pair::WING;
     Ok(stock_bounds([bend.end[0] - outer, bend.end[1]], [bend.start[0], bend.start[1] + outer], bend.start[2]))
+}
+
+/// Width of the pump-discharge seat along the tangent at the crown.
+pub const DISCHARGE_SPAN: f64 = 6.4;
+
+/// The vertical bend that carries pump discharge down into the lid passage.
+pub struct DischargeBend {
+    pub centre: P3,
+    pub axis: P3,
+    pub radius: f64,
+}
+
+pub fn pump_discharge() -> Result<DischargeBend> {
+    let runs = &above_core().rear_plumbing.water5_bend.segments;
+    let [.., Segment::Arc { center_mm: Some(centre), axis: Some(axis), radius_mm: Some(radius), .. },
+        Segment::Line { .. }] = runs.as_slice() else {
+        anyhow::bail!("the pump-discharge seat needs the bend leading into the lid passage");
+    };
+    Ok(DischargeBend { centre: *centre, axis: *axis, radius: *radius })
+}
+
+impl DischargeBend {
+    pub fn stock_bounds(&self) -> [P3; 2] {
+        let width = reservoir_a::pair::BORE / 2. + reservoir_a::pair::WING;
+        let half = DISCHARGE_SPAN / 2.;
+        let [x, y, z] = self.centre;
+        let dx = self.axis[0].abs() * width + self.axis[1].abs() * half;
+        let dy = self.axis[1].abs() * width + self.axis[0].abs() * half;
+        stock_bounds([x - dx, y - dy], [x + dx, y + dy], z + self.radius)
+    }
 }
 
 /// A flavor line's seat: a bore just over the flavor line's size, the jaws' section and the span.

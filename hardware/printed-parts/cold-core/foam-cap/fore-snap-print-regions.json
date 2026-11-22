@@ -10,8 +10,8 @@
       ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "93ca40aa10e174066c774d09f6fbc955534257f80568cffdef3fc1f59e707baa",
-      ".stl": "66736e0577c016cbb9e78ecc9ed426d666627644c7d866a930c63681cfd4e5f9"
+      ".step": "8884a5099e2545214fab0c96a7171e28e7bef2efb129fe0bc9168b5320c5ccff",
+      ".stl": "bc2c5261bf7f37e6700db61bf6208517d655ec104d378cb70d11a3b580306ef5"
     },
     "foam-shell": {
       ".step": "3fc58a2945d3906a8e47f755b8ce768ec38719ccd99a581e12bf8e6acfff7feb",
@@ -347,6 +347,35 @@
           216.77292759933496,
           250.4,
           272.7056027532079
+        ]
+      },
+      {
+        "applied_source_bounds_mm": [
+          -85.49902293030306,
+          -78.45709053903425,
+          -87.41858621998516,
+          -75.91295204240522,
+          4.400000000000006,
+          25.63205307098633
+        ],
+        "machine_bounds_mm": [
+          -85.49902293030306,
+          -78.45709053903425,
+          -87.41858621998516,
+          -75.91295204240522,
+          4.400000000000006,
+          25.63205307098633
+        ],
+        "name": "Pump discharge clip and lid root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "world_bounds_mm": [
+          -87.41858621998516,
+          -75.91295204240522,
+          402.25709053903427,
+          409.29902293030307,
+          250.4,
+          271.63205307098633
         ]
       },
       {
@@ -858,15 +887,16 @@
     ]
   },
   "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
-  "scope": "Finite infill-only modifiers through reservoir A's fore C2 shared base and aft C2 pair, the V-A feed and V-B return clips, all M5 casing hosts/head bearings and PCB insert posts, each with its supporting plate/wall root. No load capacity or lifetime qualification.",
+  "scope": "Solid infill through reservoir A's fore and aft seats, the V-A feed, V-B return and pump-discharge clips, the casing screw hosts and head bearings, and the PCB insert posts. Each region includes its supporting plate or wall root.",
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
     "hardware/manifold-layout/above-core.json": "83e80580b7fbc656d385dec5cd1213876ada0c438780e4f36a08053c74d62e6d",
-    "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs": "a5526590875c54e0cbd223375ec1fb4453f32001dbc3f7f6ca9817c26b048a3d",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs": "aad4a6211b8cf82180a93169d9765251cb9a0f50162f2596c6dae15a63f76fdf",
     "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "db1643812b547b81a2be6f6c97b5033780d073860b966547cf0fc124e138c9d8",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/design.rs": "6f8aac00c5799dd6f20b87d1d0499f1c27baed901b22190e56eb552678b3f4f6",
     "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "11f2ad6dd8b09b2272b1217b5761489f4f220fb8487e5b61e44052644b8ab741",
     "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0f34adc0acc449d45c526b24c53d6605aa403ac9332d39bb1611c68da4e0bb57",
-    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "db8e1ecc3d1b4fbca4f1326bbf3ef76051e6592767a8dc533912b37d49b9a45a",
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "8d940e0748f5528b2570519ace8ad68ec99601390e1ee59a9438378f8f590f6c",
     "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e"
   },
   "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."

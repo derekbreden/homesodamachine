@@ -58,6 +58,16 @@ pub struct ForeRoutes {
     pub va_feed_snap: FeedSnap,
 }
 
+#[derive(Deserialize)]
+pub struct RoutedBend {
+    pub segments: Vec<hsm_layout_data::Segment>,
+}
+
+#[derive(Deserialize)]
+pub struct RearPlumbing {
+    pub water5_bend: RoutedBend,
+}
+
 /// How the lid holds the pump: the motor bands the cradle and the snap cap take, the rail stops,
 /// the cap's arch and the lid's recess under the molded cover, with the design's own account of
 /// each.
@@ -85,6 +95,7 @@ pub struct AboveCore {
     pub cap_guides_world_mm: BTreeMap<String, P3>,
     pub gas_guide_world_mm: P3,
     pub fore_routes: ForeRoutes,
+    pub rear_plumbing: RearPlumbing,
     pub pump_mount: PumpMount,
 }
 

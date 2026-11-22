@@ -133,10 +133,10 @@ plate with its inlet above its outlet.
    selected clear position, fit the trimmed stem elbow and insert the ACVUS-44
    check directly into that elbow. Follow the check's arrow away from the pump.
 5. Seat the bare pump in the lid's rail seats and engage both upper-cap hooks
-   before fitting the PCB. The continuous white inlet turns at least R14.246
-   from the check into the straight core guide at
-   X−82.5/Y420/Z253.4, then reaches the carbonator's existing water
-   fitting. The cap guide adds no joint or tube cut.
+   before fitting the PCB. Seat the continuous white inlet to its mark in
+   the discharge check. Press the crest of its bend down into the lid clip
+   between the check and the water-in passage. To release the tube, lift the
+   bend out of the clip before pressing the check's collet.
 6. Fit the downward vent cup, its two ties and the direct white 4 mm return
    to DRAIN. Its [assembly record](asse-drain.md) defines the open faucet outlet.
 
