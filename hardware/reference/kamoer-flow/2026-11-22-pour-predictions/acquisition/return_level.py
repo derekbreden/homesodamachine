@@ -1,16 +1,17 @@
 """Bring the settled syrup back to its first photographed level and verify the appliance state."""
+import sys
 import time
 from board import Board, Journal
 from lab import HERE, WINDOWS, scan
 from pours import REF, REF_ML, USB, arrange, restore, window
 
 
-def return_level():
-    journal = Journal(HERE / 'return.jsonl')
+def return_level(tag):
+    journal = Journal(HERE / ('return.jsonl' if tag=='home' else 'return-final.jsonl'))
     reference = scan(REF)
     board = Board(USB, journal)
     try:
-        at = arrange(board, journal, 'home', REF_ML)
+        at = arrange(board, journal, tag, REF_ML)
         for index in range(4):
             error_ml = REF_ML - at['operating_ml']
             if abs(error_ml) < 0.28:
@@ -20,9 +21,9 @@ def return_level():
             journal.append('home_trim', head=head, error_in_positioning_units=error_ml,
                            **board.gate(head, duration))
             time.sleep(3)
-            at = window(f'home-trim-{index}', journal)
+            at = window(f'{tag}-trim-{index}', journal)
         time.sleep(9)
-        end = window('home-settled', journal)
+        end = window(tag+'-settled', journal)
         lanes = scan(WINDOWS / end['label'])
         journal.append('station_position', first_window=REF.name, last_window=end['label'],
                        initial=reference, final=lanes,
@@ -34,4 +35,4 @@ def return_level():
 
 
 if __name__ == '__main__':
-    return_level()
+    return_level(sys.argv[1] if len(sys.argv)>1 else "home")

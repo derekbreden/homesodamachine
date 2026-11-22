@@ -38,6 +38,7 @@ def run(phase, start, end, tag):
     design_file, model_file = {
         'fresh': ('fresh-programs.json', 'geometry-model.json'),
         'fill': ('fill-design.json', 'fill-model.json'),
+        'repeat': ('repeat-design.json', 'repeat-model.json'),
     }[phase]
     design = json.loads((RECORD / design_file).read_text())
     forecasts = json.loads((RECORD / model_file).read_text())['forecasts']

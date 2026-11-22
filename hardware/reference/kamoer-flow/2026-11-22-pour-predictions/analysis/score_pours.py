@@ -664,6 +664,28 @@ def score(preregistration, archive, training, validation, output):
                 "clear_pixel_result": result["clear_pixel_model"]["result"],
             })
     write_csv(output / "by-scenario.csv", compact)
+    block_rows = []
+    split_sources = [(r["scenario"], r["head"], r["repeat_diagnostics"]) for r in conditions]
+    split_sources += [("all scenarios", head, splits) for head, splits in summary["repeat_diagnostics_by_head"].items()]
+    for name, head, splits in split_sources:
+        for period in ("first_three_blocks", "last_three_blocks"):
+            d = splits[period]
+            block_rows.append({
+                "scenario": name, "head": head, "validation_blocks": "1–3" if period == "first_three_blocks" else "4–6",
+                "observed_pours": d["observed_pours"], "readable_primary": d["primary_error_ml"]["n"],
+                "primary_within_band": d["primary_within_band"], "primary_bias_ml": d["primary_error_ml"].get("mean"),
+                "readable_heldout": d["heldout_error_ml"]["n"],
+                "heldout_within_band": d["heldout_within_band"], "heldout_bias_ml": d["heldout_error_ml"].get("mean"),
+                "readable_clear_pixels": d["clear_error_px"]["n"],
+                "clear_within_band": d["clear_within_band"], "clear_bias_px": d["clear_error_px"].get("mean"),
+                "primary_median_relative_error_pct": d["primary_relative_error_pct"].get("median"),
+                "heldout_median_relative_error_pct": d["heldout_relative_error_pct"].get("median"),
+                "clear_median_relative_error_pct": d["clear_relative_error_pct"].get("median"),
+                "paired_sightline_readings": d["half_sightline_disagreement_ml"]["n"],
+                "median_half_sightline_gap_ml": d["half_sightline_disagreement_ml"].get("median"),
+                "disjoint_sightline_tolerance_intervals": d["sightline_gap_exceeds_both_tolerances"],
+            })
+    write_csv(output / "block-comparison.csv", block_rows)
     return summary
 
 
@@ -676,4 +698,6 @@ if __name__ == "__main__":
     ap.add_argument("--output", type=Path, required=True)
     args = ap.parse_args()
     result = score(args.design, args.priors, args.train, args.validation, args.output)
-    print(f'{result["validation_numeric_expected_waveform"]} observed pours with the registered burst count out of {result["planned_validation"]} planned.')
+    seen = result["measurement_availability_expected_waveform"]
+    print(f'{seen["photographed"]} of {result["planned_validation"]} scheduled pour waveforms photographed. '
+          f'The cup yielded {seen["primary_ruler"]} primary and {seen["heldout_ruler"]} secondary volumes.')

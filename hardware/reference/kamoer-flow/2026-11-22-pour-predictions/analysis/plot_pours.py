@@ -51,8 +51,13 @@ def figure(scores, attempts_path, output, fresh=False):
     fig, axes = plt.subplots(1, 2, sharex=True, sharey=True, figsize=(12.2, 4.9 if fresh else 6.65), dpi=170)
     fig.set_facecolor("white")
     fig.subplots_adjust(left=0.20, right=0.97, bottom=0.23 if fresh else 0.20, top=0.71 if fresh else 0.75, wspace=0.17)
-    title = "New pour forecasts after calibrating the cup" if fresh else "Predicted and measured syrup dose"
-    subtitle = "Four unseen lever sequences, measured independently at two clear positions on the cup" if fresh else "Appliance pour timing on the open-hose Diet Cola bench"
+    title = "Syrup dose on four new lever sequences" if fresh else "Predicted and measured syrup dose"
+    if fresh:
+        status = scores.get("calibration_status", "")
+        subtitle = ("Provisional cup volumes at two clear-glass sightlines" if "provisional" in status.lower()
+                    else "Graduation-calibrated cup volumes at two clear-glass sightlines")
+    else:
+        subtitle = "Appliance pour timing on the open-hose Diet Cola bench"
     fig.text(0.035, 0.95, title, fontsize=22, weight="bold", color=INK, va="top")
     fig.text(0.035, 0.85 if fresh else 0.876, subtitle,
              fontsize=12.3, color=MUTED, va="top")
