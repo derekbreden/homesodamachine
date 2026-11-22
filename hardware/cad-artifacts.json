@@ -3944,9 +3944,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": {
-      "commit": "3acefa442006fc7a17f912fd426ff9aeca497faa",
-      "inputs": "bf9e8e3088a97020419e8158e2223fdc89680bc209848ed0281de0145a2337ea",
-      "unproven": true
+      "commit": "5cb5486a782bc83dcd47af9125053dc1a591f4fd",
+      "inputs": "bf9e8e3088a97020419e8158e2223fdc89680bc209848ed0281de0145a2337ea"
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": {
       "commit": "ea7e312bf7dd732c2d1598d70aa4c52f33edc8b1",
@@ -3954,9 +3953,8 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": {
-      "commit": "3acefa442006fc7a17f912fd426ff9aeca497faa",
-      "inputs": "bf9e8e3088a97020419e8158e2223fdc89680bc209848ed0281de0145a2337ea",
-      "unproven": true
+      "commit": "5cb5486a782bc83dcd47af9125053dc1a591f4fd",
+      "inputs": "bf9e8e3088a97020419e8158e2223fdc89680bc209848ed0281de0145a2337ea"
     },
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": {
       "commit": "38f1ef1bdd1c65493faecc2f4ca713749d87cd00",
