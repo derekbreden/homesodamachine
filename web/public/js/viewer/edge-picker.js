@@ -53,6 +53,7 @@
 // it, you can see it" hold exactly.
 
 import * as THREE from "three";
+import { classifyFaceRange, faceIndexAtTriangle } from "./picked-face.js";
 import { nearestSurface, visitSurfaceRanges } from "./surface-query.js";
 import { Line2 } from "three/addons/lines/Line2.js";
 import { LineGeometry } from "three/addons/lines/LineGeometry.js";
@@ -62,6 +63,7 @@ import { showsInFaucetFinish } from "/contracts/faucet-options.js";
 import { scene, camera, renderer } from "./scene.js";
 import * as sceneState from "./scene.js";
 import { state } from "./state.js";
+import { addSurfaceActions, surfacePick } from "./surface-actions.js";
 import { isXrayEnabled } from "./xray.js";
 import { fnum, fpt, formatFace, fileLine, MATCH_TOLERANCE } from "./pick-format.js";
 import { roundFitMeasured, arcFitMeasured } from "./round-fit.js";
@@ -117,7 +119,6 @@ function ensureFaces() {
     const solid = solids[mi];
     solid?.updateWorldMatrix(true, false);
     const rec = { mesh, mi, solid, name: mesh.name, faces, base,
-      ordered: faces.every((f, i) => !i || faces[i - 1].last < f.first),
       get pos() { return mesh.attributes.position.array; },
       get nrm() { return mesh.attributes.normal?.array; },
       get idx() { return mesh.index.array; },
@@ -129,19 +130,8 @@ function ensureFaces() {
 }
 
 function faceAtTriangle(rec, tri) {
-  if (!rec) return -1;
-  if (!rec.ordered) {
-    const i = rec.faces.findLastIndex(f => f.first <= tri && tri <= f.last);
-    return i < 0 ? -1 : rec.base + i;
-  }
-  let lo = 0, hi = rec.faces.length;
-  while (lo < hi) {
-    const mid = (lo + hi) >>> 1, face = rec.faces[mid];
-    if (tri < face.first) hi = mid;
-    else if (tri > face.last) lo = mid + 1;
-    else return rec.base + mid;
-  }
-  return -1;
+  const index = faceIndexAtTriangle(rec?.faces, tri);
+  return index < 0 ? -1 : rec.base + index;
 }
 
 // The detailed outline is optional work. Only a requested solid occupies the worker.
@@ -315,119 +305,10 @@ function classifyFace(gid) {
   if (!faceClass) faceClass = new Map();
   if (faceClass.has(gid)) return faceClass.get(gid);
   const entry = faceTable && faceTable[gid];
-  const out = entry ? classifyFaceImpl(entry.rec, entry.rec.faces[entry.fi]) : null;
+  const out = entry ? classifyFaceRange(entry.rec, entry.rec.faces[entry.fi]) : null;
   if (out && entry.rec.faces[entry.fi].sources) out.sources = entry.rec.faces[entry.fi].sources;
   faceClass.set(gid, out);
   return out;
-}
-
-function classifyFaceImpl(rec, f) {
-  const seen = new Set();
-  const pts = [];
-  const nrms = [];
-  const triCount = f.last - f.first + 1;
-  const stride = Math.max(1, Math.ceil(triCount / 300));
-  for (let t = f.first; t <= f.last; t += stride) {
-    for (let k = 0; k < 3; k++) {
-      const vi = rec.idx[t * 3 + k];
-      if (seen.has(vi)) continue;
-      seen.add(vi);
-      pts.push(new THREE.Vector3(rec.pos[vi * 3], rec.pos[vi * 3 + 1], rec.pos[vi * 3 + 2]));
-      if (rec.nrm) {
-        const n = new THREE.Vector3(rec.nrm[vi * 3], rec.nrm[vi * 3 + 1], rec.nrm[vi * 3 + 2]);
-        if (n.lengthSq() > 1e-12) nrms.push(n.normalize());
-      }
-    }
-  }
-  const centroid = new THREE.Vector3();
-  for (const p of pts) centroid.add(p);
-  if (pts.length) centroid.multiplyScalar(1 / pts.length);
-  if (pts.length < 3) return { kind: "curved", near: centroid };
-
-  // no vertex normals in the mesh — fall back to sampled triangle normals
-  if (!nrms.length) {
-    const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
-    for (let t = f.first; t <= f.last; t += stride) {
-      a.fromArray(rec.pos, rec.idx[t * 3] * 3);
-      b.fromArray(rec.pos, rec.idx[t * 3 + 1] * 3);
-      c.fromArray(rec.pos, rec.idx[t * 3 + 2] * 3);
-      const n = b.clone().sub(a).cross(c.clone().sub(a));
-      if (n.lengthSq() > 1e-12) nrms.push(n.normalize());
-    }
-    if (!nrms.length) return { kind: "curved", near: centroid };
-  }
-
-  // plane?
-  const navg = new THREE.Vector3();
-  for (const n of nrms) navg.add(n);
-  if (navg.lengthSq() > 1e-9) {
-    navg.normalize();
-    let planar = true;
-    for (const n of nrms) if (Math.abs(n.dot(navg)) < 0.999) { planar = false; break; }
-    if (planar) {
-      let maxOff = 0;
-      const d = new THREE.Vector3();
-      for (const p of pts) maxOff = Math.max(maxOff, Math.abs(d.copy(p).sub(centroid).dot(navg)));
-      if (maxOff < 0.02) return { kind: "plane", n: navg, thru: centroid };
-    }
-  }
-
-  // cylinder?
-  const axis = new THREE.Vector3();
-  const n0 = nrms[0];
-  for (let i = 1; i < nrms.length; i++) {
-    const c = new THREE.Vector3().crossVectors(n0, nrms[i]);
-    if (c.lengthSq() < 1e-6) continue;
-    if (axis.lengthSq() > 0 && c.dot(axis) < 0) c.negate();
-    axis.add(c);
-  }
-  if (axis.lengthSq() > 1e-9) {
-    axis.normalize();
-    let cyl = true;
-    for (const n of nrms) if (Math.abs(n.dot(axis)) > 0.02) { cyl = false; break; }
-    if (cyl) {
-      const u = new THREE.Vector3();
-      u.crossVectors(axis, Math.abs(axis.x) > 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0)).normalize();
-      const v = new THREE.Vector3().crossVectors(axis, u);
-      // Kåsa circle fit: x² + y² = A·x + B·y + C, center (A/2, B/2)
-      let Sxx = 0, Sxy = 0, Syy = 0, Sx = 0, Sy = 0, Sxz = 0, Syz = 0, Sz = 0;
-      const xy = [];
-      const d = new THREE.Vector3();
-      for (const p of pts) {
-        d.copy(p).sub(centroid);
-        const x = d.dot(u), y = d.dot(v), z = x * x + y * y;
-        xy.push([x, y]);
-        Sxx += x * x; Sxy += x * y; Syy += y * y; Sx += x; Sy += y;
-        Sxz += x * z; Syz += y * z; Sz += z;
-      }
-      const N = xy.length;
-      const det3 = (m) =>
-        m[0] * (m[4] * m[8] - m[5] * m[7]) - m[1] * (m[3] * m[8] - m[5] * m[6]) + m[2] * (m[3] * m[7] - m[4] * m[6]);
-      const D = det3([Sxx, Sxy, Sx, Sxy, Syy, Sy, Sx, Sy, N]);
-      if (Math.abs(D) > 1e-9) {
-        const A = det3([Sxz, Sxy, Sx, Syz, Syy, Sy, Sz, Sy, N]) / D;
-        const B = det3([Sxx, Sxz, Sx, Sxy, Syz, Sy, Sx, Sz, N]) / D;
-        const C = det3([Sxx, Sxy, Sxz, Sxy, Syy, Syz, Sx, Sy, Sz]) / D;
-        const cx = A / 2, cy = B / 2;
-        const r = Math.sqrt(Math.max(0, C + cx * cx + cy * cy));
-        let maxRes = 0, xlo = Infinity, xhi = -Infinity, ylo = Infinity, yhi = -Infinity;
-        for (const [x, y] of xy) {
-          maxRes = Math.max(maxRes, Math.abs(Math.hypot(x - cx, y - cy) - r));
-          if (x < xlo) xlo = x;
-          if (x > xhi) xhi = x;
-          if (y < ylo) ylo = y;
-          if (y > yhi) yhi = y;
-        }
-        // The chord is taken in the axis-normal plane: a cylinder's axial run
-        // is not arc, and letting it stand in for sweep passes a flat patch.
-        if (roundFitMeasured(r, Math.hypot(xhi - xlo, yhi - ylo), maxRes)) {
-          const axisPoint = centroid.clone().addScaledVector(u, cx).addScaledVector(v, cy);
-          return { kind: "cylinder", r, axis: axisPoint, dir: axis };
-        }
-      }
-    }
-  }
-  return { kind: "curved", near: centroid };
 }
 
 // Non-indexed triangle soup of one face, for highlight overlays.
@@ -627,6 +508,8 @@ function edgeCandidates(clientX, clientY) {
 
 function pickEdge({ rect, px, py, recs }) {
   const e = _vp.elements;
+  const planes = renderer.clippingPlanes;
+  const testPoint = planes?.length ? new THREE.Vector3() : null;
   let best = null;
   for (const rec of recs) {
     const data = topologies.get(rec.mesh)?.data;
@@ -642,7 +525,9 @@ function pickEdge({ rect, px, py, recs }) {
           const { d, t } = segDistPx(px, py, prev.x, prev.y, cur.x, cur.y);
           if (d <= PICK_THRESHOLD_PX) {
             const depth = prev.depth + (cur.depth - prev.depth) * t;
-            if (!best || d < best.d - 1.5 || (Math.abs(d - best.d) <= 1.5 && depth < best.depth)) {
+            if ((!best || d < best.d - 1.5 || (Math.abs(d - best.d) <= 1.5 && depth < best.depth)) &&
+                (!testPoint || planes.every(plane => plane.distanceToPoint(
+                  testPoint.fromArray(data.points, (p - 1) * 3).lerp(edgePoint, t)) >= -1e-5))) {
               best = { rec, data, edge, p, t, d, depth };
             }
           }
@@ -654,7 +539,7 @@ function pickEdge({ rect, px, py, recs }) {
   if (!best) return null;
   const { rec, data, edge, p, t } = best;
   const point = new THREE.Vector3().fromArray(data.points, (p - 1) * 3).lerp(edgePoint.fromArray(data.points, p * 3), t);
-  return { edge: describeEdge(rec, data, edge), point, d: best.d, depth: best.depth };
+  return { edge: describeEdge(rec, data, edge), object: rec.solid, point, d: best.d, depth: best.depth };
 }
 
 // Face under the cursor — used when a click misses every edge. Raycasts
@@ -700,8 +585,9 @@ function pickFace(clientX, clientY) {
   });
   if (!hit) return null;
   const rec = meshRecs[hit.object.userData.occtIndex], gid = faceAtTriangle(rec, hit.faceIndex);
+  const face = classifyFace(gid);
   return { type: "face", gid, source: rec.mesh, localFace: gid - rec.base, solid: rec.name,
-    face: classifyFace(gid), point: hit.point.clone() };
+    face, point: hit.point, surface: surfacePick(hit, face, gid) };
 }
 
 // --- faint all-edges layer (every BREP edge, shown while picking is on) ---
@@ -1016,6 +902,11 @@ function buildPanel() {
   panel.appendChild(head);
   panel._fileEl = fileEl;
 
+  const actions = document.createElement("div");
+  actions.className = "edge-surface-actions";
+  panel._surfaceActions = addSurfaceActions(actions);
+  panel.appendChild(actions);
+
   const text = document.createElement("textarea");
   text.className = "edge-panel-text";
   text.readOnly = true;
@@ -1040,6 +931,7 @@ function showPanel(sel) {
   const file = currentFile();
   panel._fileEl.textContent = file ? headerName(file) : "";
   panel._fileEl.title = file ? repoPath(file) : "";
+  panel._surfaceActions(sel.surface);
   // On screen before the blob is measured: the panel is display:none until it
   // carries `show`, and a hidden textarea reports a scrollHeight of 0.
   panel.classList.add("show");
@@ -1111,7 +1003,8 @@ renderer.domElement.addEventListener("pointerup", (e) => {
   function selectAt(candidates) {
     const edge = pickEdge(candidates);
     if (edge && (!face || isXrayEnabled() || !edgeOccluded(edge))) {
-      drawSelection({ type: "edge", edge: edge.edge, point: edge.point });
+      drawSelection({ type: "edge", edge: edge.edge, point: edge.point,
+        surface: { kind: "edge", edge: edge.edge, object: edge.object, point: edge.point, ownerName: edge.object.name } });
     } else if (face) drawSelection(face);
     else clearSelection();
   }

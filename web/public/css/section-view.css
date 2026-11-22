@@ -1,0 +1,58 @@
+/* A section keeps the camera and its companion profile in the same CAD stage. */
+.cad-stage.section-open {
+  display: grid; grid-template: minmax(0,1fr) auto / minmax(0,1fr) minmax(235px,34%);
+}
+.section-open > .cad-wrapper { grid-area: 1 / 1; }
+.section-open > .material-bench, .section-open .bench-model-label { display: none; }
+.section-open .cad-wrapper > :is(.edge-panel,.component-panel,.pick-find-panel,.pick-find-labels,.faucet-options) { display: none; }
+.section-profile {
+  grid-area: 1 / 2; display: grid; grid-template-rows: auto minmax(0,1fr) auto; min-width: 0; min-height: 0;
+  overflow: hidden; color: #edf1f5; background: #192734; border-inline-start: 1px solid #506371;
+}
+.section-profile-head { display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 8px 12px 0; }
+.section-profile h2 { margin: 0; font: 600 .9rem var(--font-sans); }
+.section-plot { position: relative; min-height: 0; }
+.section-profile-canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.section-profile-canvas:active { cursor: grabbing; }
+.section-status { position: absolute; left: 12px; bottom: 8px; background: #192734e6; font-size: .8rem; pointer-events: none; }
+.section-legend { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 3px 12px; max-height: 75px; overflow: auto;
+  padding: 3px 12px 9px; font: .76rem/1.4 var(--font-sans); touch-action: pan-y; }
+.section-legend span { min-width: 0; overflow-wrap: anywhere; }
+.section-legend span::before { display: inline-block; content: ""; width: .7em; height: .7em; margin-inline-end: 5px; background: var(--swatch); }
+.section-bar {
+  grid-area: 2 / 1 / 3 / -1; display: flex; flex-wrap: wrap; align-items: center;
+  gap: 5px 9px; padding: 6px 10px max(6px,env(safe-area-inset-bottom)); border-top: 1px solid var(--border);
+  background: var(--surface); color: var(--text); font: .85rem/1.25 var(--font-sans); z-index: 14;
+}
+.section-bar label { display: inline-flex; align-items: center; gap: 5px; margin: 0; }
+.section-bar button, .section-bar select, .section-number, .section-zoom button, .section-panes button {
+  min-height: 36px; margin: 0; padding: 4px 9px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--bg); color: var(--text); font: inherit; cursor: pointer; touch-action: manipulation;
+}
+.section-bar .section-offset { flex: 1; min-width: 135px; white-space: nowrap; }
+.section-offset input { width: 100%; min-width: 44px; height: 36px; margin: 0; accent-color: var(--accent); touch-action: none; }
+.section-bar .section-number { min-height: 36px; gap: 3px; padding-inline: 4px 7px; color: var(--text-2); }
+.section-number input { box-sizing: content-box; width: 5ch; min-width: 0; padding: 0; border: 0; color: var(--text);
+  background: transparent; font: inherit; text-align: right; font-variant-numeric: tabular-nums; appearance: textfield; }
+.section-number input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.section-panes { display: none; }
+.section-zoom { display: flex; gap: 3px; }
+.section-zoom button { width: 36px; min-height: 36px; padding: 0; color: #eff5fa; background: #263a49; border-color: #607481; font-size: 1.1rem; }
+.section-bar [aria-pressed=true] { background: var(--accent); border-color: var(--accent); color: white; }
+.cad-stage.section-open.section-narrow { grid-template: minmax(0,1fr) auto / minmax(0,1fr); }
+.section-narrow > .section-profile { display: none; }
+.section-narrow.section-profile-open > .section-profile { display: grid; grid-area: 1 / 1; z-index: 13; border: none; }
+.section-narrow.section-profile-open > .cad-wrapper { visibility: hidden; }
+.section-narrow .section-bar { display: grid; grid-template-columns: auto auto minmax(42px,1fr) auto; gap: 3px 5px; }
+.section-narrow .section-panes { grid-area: 1 / 1 / 2 / 4; display: flex; gap: 3px; }
+.section-narrow .section-bar > button:last-child { grid-area: 1 / 4; justify-self: end; white-space: nowrap; }
+.section-narrow .section-plane { grid-area: 2 / 1; }
+.section-narrow .section-plane span { display: none; }
+.section-narrow .section-plane select { max-width: 105px; }
+.section-narrow .section-bar > button[aria-label="Keep the other side"] { grid-area: 2 / 2; }
+.section-narrow .section-offset { grid-area: 2 / 3; min-width: 0; display: grid; gap: 0; }
+.section-narrow .section-offset span { font-size: .67rem; color: var(--text-2); }
+.section-narrow .section-offset input { height: 24px; min-height: 24px; }
+.section-narrow .section-number { grid-area: 2 / 4; justify-content: center; }
+.section-narrow :is(.section-bar button,.section-plane select,.section-zoom button,.section-bar .section-number) { min-height: 40px; }
+.section-narrow .section-zoom button { width: 40px; }

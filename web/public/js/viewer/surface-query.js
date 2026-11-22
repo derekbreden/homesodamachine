@@ -6,7 +6,13 @@ const coordinates = 6;
 const surfaceBounds = new WeakMap();
 const arrays = new WeakMap();
 const pending = new Set();
-let scheduled = false;
+let scheduled = false, sectionRoot = null, sectionPlane = null;
+
+// Surface hits in the mounted cut must land on the material the renderer keeps.
+export function setSurfaceSection(root, plane) {
+  sectionRoot = root;
+  sectionPlane = plane;
+}
 
 function schedulePreparation() {
   if (scheduled || !pending.size) return;
@@ -152,14 +158,12 @@ function visible(mesh) {
   return true;
 }
 
-// A coordinate inspection visits only original triangle ranges overlapping its world-space box.
-export function visitSurfaceRanges(mesh, bounds, visit) {
+function visitRanges(mesh, accepts, visit) {
   const geometry = mesh.geometry;
   const length = geometry.index?.count || geometry.attributes.position?.count || 0;
   if (!length) return;
-  const local = bounds.clone().applyMatrix4(inverse.copy(mesh.matrixWorld).invert());
   if (!geometry.boundingBox) geometry.computeBoundingBox();
-  if (!local.intersectsBox(geometry.boundingBox)) return;
+  if (!accepts(geometry.boundingBox)) return;
   const binding = surfaceBounds.get(geometry), entry = binding?.ranges;
   if (!entry || entry.positions !== geometry.attributes.position.array || entry.indices !== geometry.index?.array ||
       binding.positionVersion !== geometry.attributes.position.version || binding.indexVersion !== geometry.index?.version) {
@@ -169,9 +173,9 @@ export function visitSurfaceRanges(mesh, bounds, visit) {
   let open = -1;
   for (let i = 0; i < entry.next; i++) {
     const offset = i * coordinates, values = entry.boxes;
-    const overlaps = values[offset] <= local.max.x && values[offset + 1] <= local.max.y && values[offset + 2] <= local.max.z &&
-      values[offset + 3] >= local.min.x && values[offset + 4] >= local.min.y && values[offset + 5] >= local.min.z;
-    if (overlaps) {
+    box.min.fromArray(values, offset);
+    box.max.fromArray(values, offset + 3);
+    if (accepts(box)) {
       if (open < 0) open = i * trianglesPerBox;
     } else if (open >= 0) {
       visit(open, i * trianglesPerBox);
@@ -180,6 +184,17 @@ export function visitSurfaceRanges(mesh, bounds, visit) {
   }
   if (open < 0) open = entry.next * trianglesPerBox;
   if (open < length / 3) visit(open, length / 3);
+}
+
+// A coordinate inspection visits only original triangle ranges overlapping its world-space box.
+export function visitSurfaceRanges(mesh, bounds, visit) {
+  const local = bounds.clone().applyMatrix4(inverse.copy(mesh.matrixWorld).invert());
+  visitRanges(mesh, box => local.intersectsBox(box), visit);
+}
+
+// The section reads the same triangle index as the picker; its plane is in mesh space.
+export function visitSectionRanges(mesh, plane, visit) {
+  visitRanges(mesh, box => plane.intersectsBox(box), visit);
 }
 
 function castRanges(raycaster, mesh, hits) {
@@ -234,8 +249,15 @@ export function nearestSurface(raycaster, meshes, acceptHit) {
       if (distance > raycaster.far) break;
       hits.length = 0;
       castRanges(raycaster, mesh, hits);
+      let clipped = false;
+      if (sectionRoot) {
+        for (let node = mesh; node; node = node.parent) {
+          if (node === sectionRoot) { clipped = true; break; }
+        }
+      }
       for (const hit of hits) {
         if ((!nearest || hit.distance < nearest.distance || (hit.distance === nearest.distance && order < nearestOrder))
+            && (!clipped || sectionPlane.distanceToPoint(hit.point) >= -1e-5)
             && (!acceptHit || acceptHit(hit))) {
           nearest = hit;
           nearestOrder = order;

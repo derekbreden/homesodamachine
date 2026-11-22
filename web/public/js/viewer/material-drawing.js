@@ -3,6 +3,7 @@ import { state } from "./state.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { materialHash, openMaterial } from "./material-nav.js";
 import { mountMaterialBench } from "./material-bench.js";
+import { clearSurfaceViews } from "./surface-actions.js";
 
 const button = (text, label) => {
   const node = document.createElement("button");
@@ -67,6 +68,7 @@ export function mountMaterialDrawing(wrapper, { hideMaterials }) {
   }
   function show(nextMode) {
     if (mode === nextMode) return false;
+    clearSurfaceViews();
     if (mode === "bench") {
       benchView?.dispose();
       benchView = null;

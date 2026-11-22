@@ -9,11 +9,23 @@ function setIdColor(_renderer, _scene, _camera, _geometry, ink) {
 
 export function createBlueprintExposure() {
   const idScene = new THREE.Scene(), proxies = new WeakMap();
-  const ink = new THREE.RawShaderMaterial({
+  const ink = new THREE.ShaderMaterial({
     uniforms: { componentColor: { value: new THREE.Vector3() } },
-    vertexShader: 'precision highp float; attribute vec3 position; uniform mat4 modelViewMatrix,projectionMatrix; void main(){ gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
-    fragmentShader: 'precision highp float; uniform vec3 componentColor; void main(){ gl_FragColor=vec4(componentColor,1.0); }',
-    side: THREE.DoubleSide, blending: THREE.NoBlending,
+    vertexShader: `
+      #include <clipping_planes_pars_vertex>
+      void main() {
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_Position = projectionMatrix * mvPosition;
+        #include <clipping_planes_vertex>
+      }`,
+    fragmentShader: `
+      uniform vec3 componentColor;
+      #include <clipping_planes_pars_fragment>
+      void main() {
+        #include <clipping_planes_fragment>
+        gl_FragColor = vec4(componentColor, 1.0);
+      }`,
+    side: THREE.DoubleSide, blending: THREE.NoBlending, clipping: true,
   });
   const target = new THREE.WebGLRenderTarget(1, 1, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter });
   const size = new THREE.Vector2(), color = new THREE.Color();

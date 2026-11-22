@@ -530,11 +530,50 @@ export function createNavigation({
     snapToFace(face.normal);
   }, true);
 
-  let snapRafId = 0;
-  function stopSnap() { if (snapRafId) cancelAnimationFrame(snapRafId); snapRafId = 0; }
-  function snapToFace(normal) {
+  let snapRafId = 0, currentTurn = null, paintingTurn = false;
+  function stopSnap() {
+    if (snapRafId) cancelAnimationFrame(snapRafId);
+    snapRafId = 0;
+    currentTurn = null;
+  }
+  function interruptTurn() {
+    if (!currentTurn) return;
+    stopSnap();
+    controls.dispatchEvent({ type: "end" });
+  }
+  // A fresh navigation input always owns the next frame, including a command on the toolbar.
+  listen(document, "pointerdown", interruptTurn, true);
+  listen(document, "keydown", interruptTurn, true);
+  listen(canvas, "wheel", interruptTurn, { capture: true, passive: true });
+  function turnCamera(paint, finished) {
+    finishWheel();
     controls.dispatchEvent({ type: "start" });
     dropStalledGesture();
+    const turn = {};
+    currentTurn = turn;
+    const duration = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 300;
+    const startTime = performance.now();
+    function frame() {
+      if (currentTurn !== turn) return;
+      const t = duration ? Math.min((performance.now() - startTime) / duration, 1) : 1;
+      paintingTurn = true;
+      try {
+        paint(t * (2 - t));
+        controls.update();
+      } finally {
+        paintingTurn = false;
+      }
+      invalidate();
+      if (t < 1) snapRafId = requestAnimationFrame(frame);
+      else {
+        interruptTurn();
+        finished?.();
+      }
+    }
+    frame();
+    return () => { if (currentTurn === turn) interruptTurn(); };
+  }
+  function snapToFace(normal) {
     normal = normal.isVector3 ? normal.clone() : new THREE.Vector3(...normal);
     const target = controls.target.clone();
     const dist = camera.position.distanceTo(target);
@@ -548,21 +587,11 @@ export function createNavigation({
 
     const startPos = camera.position.clone();
     const startUp = camera.up.clone();
-    const duration = 300;
-    const startTime = performance.now();
-
-    function animateSnap() {
-      const t = Math.min((performance.now() - startTime) / duration, 1);
-      const ease = t * (2 - t); // ease-out quad
+    turnCamera(ease => {
       camera.position.lerpVectors(startPos, dest, ease);
       camera.up.lerpVectors(startUp, up, ease).normalize();
       camera.lookAt(target);
-      controls.update();
-      invalidate();
-      if (t < 1) snapRafId = requestAnimationFrame(animateSnap);
-      else { snapRafId = 0; controls.dispatchEvent({ type: "end" }); }
-    }
-    animateSnap();
+    });
   }
 
   const gizmoOrientation = new THREE.Quaternion();
@@ -737,7 +766,10 @@ export function createNavigation({
     controls.mouseButtons.LEFT = next === "pan" ? THREE.MOUSE.PAN : next === "zoom" ? THREE.MOUSE.DOLLY : THREE.MOUSE.ROTATE;
     invalidate();
   }
-  listen(controls, "change", () => { changeSerial++; invalidate(); });
+  listen(controls, "change", () => {
+    if (!paintingTurn) interruptTurn();
+    changeSerial++; invalidate();
+  });
   listen(controls, "start", () => {
     stopSnap();
     spinSpeed = 0;
@@ -771,12 +803,12 @@ export function createNavigation({
   }
   return {
     controls, gizmoCanvas, update, resize, fitDepth, clearTouches, afterGesture,
-    renderGizmo, syncGizmoSize, snapToFace, setMode, dropStalledGesture, dispose,
+    renderGizmo, syncGizmoSize, snapToFace, turnCamera, setMode, dropStalledGesture, dispose,
     resetFrameClock() { lastFrameAt = 0; },
     savePose(key) { return saveCameraPose(camera, controls, key); },
     applyPose(key) { dropStalledGesture(); const applied = applyCameraPose(camera, controls, key); if (applied) { fitDepth(); invalidate(); } return applied; },
     isTouchGesture() { return surfaceTouches.size > 1 || !!nativeGesture; },
-    isInteracting() { return !!(wheelTimer || nativeGesture || controls._pointers.length || spinSpeed || snapRafId); },
+    isInteracting() { return !!(wheelTimer || nativeGesture || controls._pointers.length || spinSpeed || currentTurn); },
     get mode() { return mode; },
     get depthSphere() { return depthSphere; },
   };

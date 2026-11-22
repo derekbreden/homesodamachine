@@ -32,6 +32,7 @@ import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { cancelCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { clearEdgePicker } from "./edge-picker.js";
+import { clearSurfaceViews, closeSection } from "./surface-actions.js";
 import { clearComponentPicker, closeComponentDetails } from "./component-picker.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
 import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton, mountToolDrawer, closeToolDrawer } from "./tool-rail.js";
@@ -60,6 +61,7 @@ import { dismissViewerHistory } from "./viewer-history.js";
 // up + target. resetAnimToken cancels an in-flight animation if the user
 // clicks again before it finishes.
 let resetAnimToken = 0;
+controls.addEventListener("start", () => { resetAnimToken++; });
 
 function makeResetViewButton() {
   const btn = makeToolButton({
@@ -214,7 +216,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
     if (e.key !== "Escape" || !wrapper.isConnected) return;
     const menu = workspace.querySelector(".workspace-menu[open]");
     if (menu) { menu.open = false; menu.querySelector("summary")?.focus(); e.preventDefault(); e.stopPropagation(); return; }
-    if (materialPanel?.closeView()) { e.preventDefault(); e.stopPropagation(); return; }
+    if (closeSection() || materialPanel?.closeView()) { e.preventDefault(); e.stopPropagation(); return; }
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
     if (closeRelated(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }
@@ -260,6 +262,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
     },
     onClose: () => {
       cancelCadLoad();
+      clearSurfaceViews();
       // Persist camera state defensively. The debounced save (controls
       // "change" handler) usually has already fired, but if the user
       // dismissed mid-gesture the trailing save may not have. Prefer the

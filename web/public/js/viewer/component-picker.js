@@ -34,6 +34,7 @@ import { containsTriangle, instanceLabel, splitFeatureKey } from "/contracts/fea
 import { sceneFeature, featureGeometry } from "./features.js";
 import { requestFeatureEdges } from "./feature-edges.js";
 import { nearestSurface } from "./surface-query.js";
+import { addSurfaceActions, refreshSection, surfacePick } from "./surface-actions.js";
 import * as xray from "./xray.js";
 import { captureHiddenThumbnail } from "./hidden-thumbnail.js";
 
@@ -49,6 +50,7 @@ let enabled = (() => {
 
 let selection = null;   // selected component name, or null
 let selectionGroup = null;
+let selectedSurface = null;
 let explicitMembers = null; // a Materials location can select one installation inside Wiring
 const selectedBodies = () => explicitMembers || (selection && unitForKey(selection)?.bodies);
 let hoverName = null;   // hovered component name, or null
@@ -136,6 +138,7 @@ export function applyHiddenComponents() {
   if (repaintSelection) drawOverlay(selGroup, selection);
   syncOverlayVisibility();
   refreshPanel();
+  refreshSection();
   xray.invalidateBlueprintVisibility?.();
   requestCadRender();
 }
@@ -344,7 +347,10 @@ function pickComponent(clientX, clientY) {
   );
   _raycaster.setFromCamera(_ndc, camera);
   _raycaster.layers.mask = camera.layers.mask;
-  const hit = nearestSurface(_raycaster, targets);
+  return nearestSurface(_raycaster, targets);
+}
+
+function nameAtHit(hit) {
   if (!hit) return null;
   if (insideOpenedPart(hit.object.name)) {
     const feature = hit.object.userData.features?.find(f => containsTriangle(f, hit.faceIndex));
@@ -354,12 +360,13 @@ function pickComponent(clientX, clientY) {
 }
 
 // --- selection + hover ---
-export function selectComponent(name, { members = null } = {}) {
+export function selectComponent(name, { members = null, pick = null } = {}) {
   const unit = componentUnit(name, !members);
   name = unit?.name || name;
   const feature = sceneFeature(name);
   selection = name;
   selectionGroup = state.currentGroup;
+  selectedSurface = pick;
   explicitMembers = members?.length ? [...members] : null;
   setHover(null);
   showPanel();
@@ -372,6 +379,7 @@ export function selectComponent(name, { members = null } = {}) {
 function clearSelectionOverlay() {
   selection = null;
   selectionGroup = null;
+  selectedSurface = null;
   explicitMembers = null;
   disposeGroup(selGroup);
 }
@@ -492,6 +500,7 @@ function buildPanel() {
   });
   actions.appendChild(hideBtn);
   panel._hideBtn = hideBtn;
+  panel._surfaceActions = addSurfaceActions(actions);
 
   const copy = document.createElement("button");
   copy.type = "button"; copy.className = "component-command component-copy";
@@ -834,6 +843,7 @@ function showPanel(names = hiddenNames()) {
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Hidden" : "Hide";
   panel._hideBtn.title = selection ? `Hide ${description}` : "";
+  panel._surfaceActions(selectedSurface);
 
   panel._copy.hidden = !feature;
   panel._copy.textContent = "Copy link";
@@ -883,8 +893,8 @@ renderer.domElement.addEventListener("pointerup", (e) => {
   if (!active()) return;
   if (renderer.domElement.parentElement?.classList.contains("cad-gesturing")) return;
   if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return; // a drag, not a click
-  const name = pickComponent(e.clientX, e.clientY);
-  if (name) selectComponent(name);
+  const hit = pickComponent(e.clientX, e.clientY);
+  if (hit) selectComponent(nameAtHit(hit), { pick: surfacePick(hit) });
   else deselect(); // click on empty space clears the selection
 });
 renderer.domElement.addEventListener("pointermove", (e) => {
@@ -892,7 +902,7 @@ renderer.domElement.addEventListener("pointermove", (e) => {
   hoverX = e.clientX; hoverY = e.clientY;
   if (!hoverFrame) hoverFrame = requestAnimationFrame(() => {
     hoverFrame = 0;
-    if (active()) setHover(pickComponent(hoverX, hoverY));
+    if (active()) setHover(nameAtHit(pickComponent(hoverX, hoverY)));
   });
 });
 renderer.domElement.addEventListener("pointerleave", cancelHover);

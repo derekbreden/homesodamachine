@@ -15,6 +15,7 @@ import { frameThumbnail } from "./hidden-thumbnail.js";
 import { getOcct, getThumbnailRuntime, stepRuntime } from "./step-runtime.js";
 import { beginCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { setActiveEdges } from "./edge-picker.js";
+import { clearSurfaceViews } from "./surface-actions.js";
 import { clearPickFind, findTargetBodies } from "./pick-find.js";
 import { dropHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents, standsHidden } from "./component-picker.js";
@@ -203,6 +204,7 @@ function buildMesh(result, file = null, finishId = state.faucetFinish, interacti
     const solid = new THREE.Mesh(geo, material);
     solid.userData.ownsMaterial=owned;
     solid.userData.occtIndex = occtIndex;
+    solid.userData.brepFaces = mesh.brep_faces;
     solid.userData.features = mesh.features || [];
     solid.userData.side = "front"; // the name the face raycast selects on
     // Carry the component name (backfilled from the STEP assembly node) onto the mesh so
@@ -387,6 +389,7 @@ function mountScenePart(node, meshes, head, file, location, { current, preserveC
 
 export async function loadStepFile(file, { preserveCamera = false, target = null } = {}) {
   const location = stepLocation(file);
+  if (state.mountedDetail?.file !== file) clearSurfaceViews();
   const load = beginCadLoad();
   const { current, signal } = load;
   if (state.currentGroup?.userData.sharedFrame) {
