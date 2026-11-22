@@ -145,6 +145,19 @@ def main():
             w.writeheader()
             w.writerows(e2rows)
         (OUT / 'sitting.json').write_text(json.dumps(dict(summary=e2sum, registered_verdict_x990=verdict), indent=1) + '\n')
+    hist = {}
+    for head in 'AB':
+        hist[head] = {}
+        for site in SITES:
+            before = [r[f'{site}_dose_ml'] for r in rows if r['kind'] == 'exp3-before' and r['head'] == head]
+            after = [r[f'{site}_dose_ml'] for r in rows if r['kind'] == 'exp3-after' and r['head'] == head]
+            if before and after:
+                d = st.mean(after) - st.mean(before)
+                hist[head][site] = dict(before_ml=before, after_ml=after, after_minus_before_ml=d,
+                                        registered_ruling=None if head != 'A' or site != 'x990' else
+                                        ('supported' if d >= 1.0 else 'ruled out' if d < .5 else 'unresolved'))
+    (OUT / 'history.json').write_text(json.dumps(hist, indent=1) + '\n')
+    print(json.dumps(hist))
     glass = [dict(label=r['label'], head=r['head'], kind=r['kind'], forecast_ml=r['forecast_ml'],
                   **{f'{k}_dose_ml': r[f'{k}_dose_ml'] for k in SITES}, **{f'{k}_inside': r[f'{k}_inside'] for k in SITES})
              for r in rows if r['program'] == 'steady_glass']

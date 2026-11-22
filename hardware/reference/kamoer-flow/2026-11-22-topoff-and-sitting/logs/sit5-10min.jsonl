@@ -1,0 +1,208 @@
+{"utc":"2026-11-22T18:38:52.770+00:00","mono_ns":392216333439666,"event":"session","tag":"sit5-10min","inputs_sha256":{"model-used.json":"3b02baa03414c9c9b4988a316738f5f6fdb168ffb50d123c5fecdb643b2eb3fa","programs.json":"09754ff451245f43e7aee957c1088b51e3e5b049c425a9dfddd32df759872e8d","design.json":"e7787e5ff090c8485903d743fa4cd431f52746dbb56a3dbeac1bf037e60cc3a4"}}
+{"utc":"2026-11-22T18:38:54.228+00:00","mono_ns":392217791188791,"event":"tx","command":"status"}
+{"utc":"2026-11-22T18:38:54.236+00:00","mono_ns":392217799767916,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T18:38:54.237+00:00","mono_ns":392217800217708,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T18:38:54.239+00:00","mono_ns":392217802274375,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T18:38:54.241+00:00","mono_ns":392217804964083,"event":"rx","line":"heap     262752 bytes free"}
+{"utc":"2026-11-22T18:38:54.244+00:00","mono_ns":392217807926333,"event":"rx","line":"flavor   B \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T18:38:54.247+00:00","mono_ns":392217810614875,"event":"rx","line":"ratio    A 1:20, B 1:20"}
+{"utc":"2026-11-22T18:38:54.250+00:00","mono_ns":392217813518583,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T18:38:54.255+00:00","mono_ns":392217818896083,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T18:38:54.273+00:00","mono_ns":392217837050291,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T18:38:54.279+00:00","mono_ns":392217842520250,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T18:38:54.282+00:00","mono_ns":392217845246833,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T18:38:54.285+00:00","mono_ns":392217848156125,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T18:38:54.290+00:00","mono_ns":392217853559708,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T18:38:54.290+00:00","mono_ns":392217853795750,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T18:38:54.293+00:00","mono_ns":392217856464000,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T18:38:54.296+00:00","mono_ns":392217859180416,"event":"rx","line":"clock    2026-11-22 13:38:47"}
+{"utc":"2026-11-22T18:38:54.298+00:00","mono_ns":392217862060583,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T18:38:54.301+00:00","mono_ns":392217864752750,"event":"rx","line":"volume   0%, quiet hours off"}
+{"utc":"2026-11-22T18:38:54.302+00:00","mono_ns":392217865362916,"event":"tx","command":"status"}
+{"utc":"2026-11-22T18:38:54.307+00:00","mono_ns":392217870904333,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:38:54.310+00:00","mono_ns":392217873813916,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T18:38:54.311+00:00","mono_ns":392217874114333,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T18:38:54.313+00:00","mono_ns":392217876646666,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T18:38:54.316+00:00","mono_ns":392217879325625,"event":"rx","line":"heap     262752 bytes free"}
+{"utc":"2026-11-22T18:38:54.319+00:00","mono_ns":392217882617000,"event":"rx","line":"flavor   B \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T18:38:54.321+00:00","mono_ns":392217884843750,"event":"rx","line":"ratio    A 1:20, B 1:20"}
+{"utc":"2026-11-22T18:38:54.324+00:00","mono_ns":392217887630916,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T18:38:54.330+00:00","mono_ns":392217893337000,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T18:38:54.347+00:00","mono_ns":392217911006750,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T18:38:54.353+00:00","mono_ns":392217916897750,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T18:38:54.356+00:00","mono_ns":392217919251458,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T18:38:54.358+00:00","mono_ns":392217922057541,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T18:38:54.364+00:00","mono_ns":392217927652583,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T18:38:54.364+00:00","mono_ns":392217927955041,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T18:38:54.367+00:00","mono_ns":392217930386708,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T18:38:54.370+00:00","mono_ns":392217933372083,"event":"rx","line":"clock    2026-11-22 13:38:47"}
+{"utc":"2026-11-22T18:38:54.372+00:00","mono_ns":392217935979875,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T18:38:54.375+00:00","mono_ns":392217938737000,"event":"rx","line":"volume   0%, quiet hours off"}
+{"utc":"2026-11-22T18:38:54.375+00:00","mono_ns":392217938875750,"event":"settings_found","settings":{"flavor":"B","A":20,"B":20}}
+{"utc":"2026-11-22T18:38:58.730+00:00","mono_ns":392222293418750,"event":"camera_frozen","stream":"sit5-10min-001-set240","first_frame_s":0.742,"ready_s":4.354,"writes":[[1.552,"auto_focus",0,"0"],[1.765,"auto_exposure_mode",1,"1"],[1.81,"absolute_exposure_time",275,"275"],[1.849,"gain",12,"12"],[1.886,"white_balance_temperature_auto",0,"0"],[1.924,"white_balance_temperature",4600,"4600"],[1.977,"sharpness",3,"3"],[2.016,"absolute_focus",380,"380"],[2.713,"absolute_focus",500,"500"]],"readback":{"auto_focus":0,"auto_exposure_mode":1,"absolute_exposure_time":275,"gain":12,"white_balance_temperature_auto":0,"white_balance_temperature":4600,"sharpness":3,"absolute_focus":500},"mismatched":{}}
+{"utc":"2026-11-22T18:38:59.312+00:00","mono_ns":392222875575875,"event":"image","label":"sit5-10min-001-set240","readings":{"x990":{"row":980.4157243872364,"contrast":37.73359457423534,"ml":240.30074156373752},"x1986":{"row":919.9925692444629,"contrast":19.52111087504838,"ml":240.98610216035556}},"stream":"sit5-10min-001-set240","wall_mid":1795372739.0104759,"span_s":0.534,"patch_luma":55.02}
+{"utc":"2026-11-22T18:39:02.886+00:00","mono_ns":392226449844583,"event":"sit_start","minutes":10.0,"index":5}
+{"utc":"2026-11-22T18:48:55.900+00:00","mono_ns":392819464620583,"event":"sit_end","minutes":10.0,"index":5,"sat_s":593.0105979442596}
+{"utc":"2026-11-22T18:49:00.745+00:00","mono_ns":392824305258250,"event":"camera_frozen","stream":"sit5-10min-002-a-top_off","first_frame_s":1.116,"ready_s":4.828,"writes":[[1.925,"auto_focus",0,"0"],[2.202,"auto_exposure_mode",1,"1"],[2.26,"absolute_exposure_time",275,"275"],[2.3,"gain",12,"12"],[2.339,"white_balance_temperature_auto",0,"0"],[2.394,"white_balance_temperature",4600,"4600"],[2.432,"sharpness",3,"3"],[2.47,"absolute_focus",380,"380"],[3.187,"absolute_focus",500,"500"]],"readback":{"auto_focus":0,"auto_exposure_mode":1,"absolute_exposure_time":275,"gain":12,"white_balance_temperature_auto":0,"white_balance_temperature":4600,"sharpness":3,"absolute_focus":500},"mismatched":{}}
+{"utc":"2026-11-22T18:49:01.333+00:00","mono_ns":392824893777416,"event":"image","label":"sit5-10min-002-a-top_off-pre","readings":{"x990":{"row":983.7475776403992,"contrast":34.53700452926838,"ml":238.86824477070567},"x1986":{"row":923.9721142198207,"contrast":17.6148958950837,"ml":239.60367631149447}},"stream":"sit5-10min-002-a-top_off","wall_mid":1795373341.0339382,"span_s":0.535,"patch_luma":55.1}
+{"utc":"2026-11-22T18:49:01.333+00:00","mono_ns":392824893832458,"event":"tx","command":"flavor a"}
+{"utc":"2026-11-22T18:49:01.344+00:00","mono_ns":392824904472375,"event":"rx","line":"flavor A (persistence pending), artwork 4/5"}
+{"utc":"2026-11-22T18:49:01.344+00:00","mono_ns":392824904498208,"event":"prediction","label":"sit5-10min-002-a-top_off","head":"A","program":"top_off","kind":"exp2-sat","dose_ml":5.066234745481142,"start":{"x990":238.86824477070567,"x1986":239.60367631149447},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:01.344+00:00","mono_ns":392824904889458,"event":"tx","command":"flow 6 1"}
+{"utc":"2026-11-22T18:49:01.350+00:00","mono_ns":392824910450500,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:01.355+00:00","mono_ns":392824916082000,"event":"rx","line":"the meter reads 6 pulses per 50 ms for 1 s \u2014 flavor A pours at 1:20"}
+{"utc":"2026-11-22T18:49:01.400+00:00","mono_ns":392824960452291,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:01.406+00:00","mono_ns":392824966297916,"event":"rx","line":"[machine] pour A at 1:20: valves E G open, pump A bursting 200 on / 300 off"}
+{"utc":"2026-11-22T18:49:01.406+00:00","mono_ns":392824966471041,"event":"board_pour_start","head":"A","ratio":20,"first_on":200,"first_off":300,"valves":"E G","first_receipt_clock":392824.966446166}
+{"utc":"2026-11-22T18:49:02.056+00:00","mono_ns":392825617075458,"event":"tx","command":"flow 0 0"}
+{"utc":"2026-11-22T18:49:02.068+00:00","mono_ns":392825628759541,"event":"rx","line":"the meter reads 0 pulses per 50 ms for 0 s \u2014 flavor A pours at 1:20"}
+{"utc":"2026-11-22T18:49:02.176+00:00","mono_ns":392825737102166,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:03.405+00:00","mono_ns":392826965259375,"event":"rx","line":"[machine] pour A: flow stopped after 2001 ms, 2 bursts \u2014 valves closed"}
+{"utc":"2026-11-22T18:49:03.405+00:00","mono_ns":392826965383958,"event":"board_pour_end","head":"A","elapsed_ms":2001,"bursts":2,"receipt_clock":392826.965373916}
+{"utc":"2026-11-22T18:49:06.943+00:00","mono_ns":392830503680125,"event":"image","label":"sit5-10min-002-a-top_off-post","readings":{"x990":{"row":994.6394079796687,"contrast":35.75957632510274,"ml":233.9649686530598},"x1986":{"row":937.0223463454267,"contrast":19.499854415582007,"ml":234.98485932710815}},"stream":"sit5-10min-002-a-top_off","wall_mid":1795373346.641764,"span_s":0.534,"patch_luma":55.12}
+{"utc":"2026-11-22T18:49:13.252+00:00","mono_ns":392836812461291,"event":"trial","label":"sit5-10min-002-a-top_off","head":"A","program":"top_off","kind":"exp2-sat","forecast_ml":5.066234745481142,"dose_ml":{"x990":4.9032761176458735,"x1986":4.618816984386314},"pre":{"x990":{"row":983.7475776403992,"contrast":34.53700452926838,"ml":238.86824477070567},"x1986":{"row":923.9721142198207,"contrast":17.6148958950837,"ml":239.60367631149447}},"post":{"x990":{"row":994.6394079796687,"contrast":35.75957632510274,"ml":233.9649686530598},"x1986":{"row":937.0223463454267,"contrast":19.499854415582007,"ml":234.98485932710815}},"receipt":{"bursts":2,"elapsed_ms":2001,"end_clock":392826.965373916,"first_on":200,"first_off":300,"valves":"E G"},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:17.584+00:00","mono_ns":392841144332708,"event":"camera_frozen","stream":"sit5-10min-003-b-top_off","first_frame_s":0.752,"ready_s":4.329,"writes":[[1.555,"auto_focus",0,"0"],[1.748,"auto_exposure_mode",1,"1"],[1.787,"absolute_exposure_time",275,"275"],[1.826,"gain",12,"12"],[1.881,"white_balance_temperature_auto",0,"0"],[1.92,"white_balance_temperature",4600,"4600"],[1.958,"sharpness",3,"3"],[2.012,"absolute_focus",380,"380"],[2.71,"absolute_focus",500,"500"]],"readback":{"auto_focus":0,"auto_exposure_mode":1,"absolute_exposure_time":275,"gain":12,"white_balance_temperature_auto":0,"white_balance_temperature":4600,"sharpness":3,"absolute_focus":500},"mismatched":{}}
+{"utc":"2026-11-22T18:49:18.196+00:00","mono_ns":392841756719708,"event":"image","label":"sit5-10min-003-b-top_off-pre","readings":{"x990":{"row":995.5072745512849,"contrast":34.026705706219445,"ml":233.5576059018844},"x1986":{"row":937.9580452817429,"contrast":18.83470995920051,"ml":234.6415291003624}},"stream":"sit5-10min-003-b-top_off","wall_mid":1795373357.8935041,"span_s":0.533,"patch_luma":54.26}
+{"utc":"2026-11-22T18:49:18.196+00:00","mono_ns":392841756763333,"event":"tx","command":"flavor b"}
+{"utc":"2026-11-22T18:49:18.198+00:00","mono_ns":392841758115416,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T18:49:18.206+00:00","mono_ns":392841766148416,"event":"rx","line":"flavor B (persistence pending), artwork 4/5"}
+{"utc":"2026-11-22T18:49:18.206+00:00","mono_ns":392841766174458,"event":"prediction","label":"sit5-10min-003-b-top_off","head":"B","program":"top_off","kind":"exp2-sat","dose_ml":4.535623528606851,"start":{"x990":233.5576059018844,"x1986":234.6415291003624},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:18.206+00:00","mono_ns":392841766195958,"event":"tx","command":"flow 6 1"}
+{"utc":"2026-11-22T18:49:18.211+00:00","mono_ns":392841771387958,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:18.216+00:00","mono_ns":392841777053166,"event":"rx","line":"the meter reads 6 pulses per 50 ms for 1 s \u2014 flavor B pours at 1:20"}
+{"utc":"2026-11-22T18:49:18.251+00:00","mono_ns":392841811498166,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:18.257+00:00","mono_ns":392841817296958,"event":"rx","line":"[machine] pour B at 1:20: valves H J open, pump B bursting 200 on / 300 off"}
+{"utc":"2026-11-22T18:49:18.257+00:00","mono_ns":392841817415750,"event":"board_pour_start","head":"B","ratio":20,"first_on":200,"first_off":300,"valves":"H J","first_receipt_clock":392841.81740225}
+{"utc":"2026-11-22T18:49:18.908+00:00","mono_ns":392842468250375,"event":"tx","command":"flow 0 0"}
+{"utc":"2026-11-22T18:49:18.919+00:00","mono_ns":392842479674458,"event":"rx","line":"the meter reads 0 pulses per 50 ms for 0 s \u2014 flavor B pours at 1:20"}
+{"utc":"2026-11-22T18:49:19.024+00:00","mono_ns":392842584965833,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:20.256+00:00","mono_ns":392843816213958,"event":"rx","line":"[machine] pour B: flow stopped after 2003 ms, 2 bursts \u2014 valves closed"}
+{"utc":"2026-11-22T18:49:20.256+00:00","mono_ns":392843816339541,"event":"board_pour_end","head":"B","elapsed_ms":2003,"bursts":2,"receipt_clock":392843.816327}
+{"utc":"2026-11-22T18:49:23.736+00:00","mono_ns":392847296356250,"event":"image","label":"sit5-10min-003-b-top_off-post","readings":{"x990":{"row":984.559435642929,"contrast":34.92016946725173,"ml":238.51919458852336},"x1986":{"row":923.9883394116541,"contrast":17.834061341659996,"ml":239.59803995740572}},"stream":"sit5-10min-003-b-top_off","wall_mid":1795373363.4339771,"span_s":0.535,"patch_luma":54.31}
+{"utc":"2026-11-22T18:49:30.192+00:00","mono_ns":392853752764250,"event":"trial","label":"sit5-10min-003-b-top_off","head":"B","program":"top_off","kind":"exp2-sat","forecast_ml":4.535623528606851,"dose_ml":{"x990":4.961588686638976,"x1986":4.956510857043327},"pre":{"x990":{"row":995.5072745512849,"contrast":34.026705706219445,"ml":233.5576059018844},"x1986":{"row":937.9580452817429,"contrast":18.83470995920051,"ml":234.6415291003624}},"post":{"x990":{"row":984.559435642929,"contrast":34.92016946725173,"ml":238.51919458852336},"x1986":{"row":923.9883394116541,"contrast":17.834061341659996,"ml":239.59803995740572}},"receipt":{"bursts":2,"elapsed_ms":2003,"end_clock":392843.816327,"first_on":200,"first_off":300,"valves":"H J"},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:34.542+00:00","mono_ns":392858101977000,"event":"camera_frozen","stream":"sit5-10min-004-a-top_off","first_frame_s":0.74,"ready_s":4.349,"writes":[[1.55,"auto_focus",0,"0"],[1.749,"auto_exposure_mode",1,"1"],[1.801,"absolute_exposure_time",275,"275"],[1.839,"gain",12,"12"],[1.877,"white_balance_temperature_auto",0,"0"],[1.934,"white_balance_temperature",4600,"4600"],[1.973,"sharpness",3,"3"],[2.011,"absolute_focus",380,"380"],[2.724,"absolute_focus",500,"500"]],"readback":{"auto_focus":0,"auto_exposure_mode":1,"absolute_exposure_time":275,"gain":12,"white_balance_temperature_auto":0,"white_balance_temperature":4600,"sharpness":3,"absolute_focus":500},"mismatched":{}}
+{"utc":"2026-11-22T18:49:35.116+00:00","mono_ns":392858676352416,"event":"image","label":"sit5-10min-004-a-top_off-pre","readings":{"x990":{"row":984.5169166914088,"contrast":36.875364581243836,"ml":238.53747518405615},"x1986":{"row":924.996688871754,"contrast":18.503047022146227,"ml":239.24775660416836}},"stream":"sit5-10min-004-a-top_off","wall_mid":1795373374.8163211,"span_s":0.535,"patch_luma":54.82}
+{"utc":"2026-11-22T18:49:35.116+00:00","mono_ns":392858676423541,"event":"tx","command":"flavor a"}
+{"utc":"2026-11-22T18:49:35.117+00:00","mono_ns":392858677793583,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T18:49:35.125+00:00","mono_ns":392858685549041,"event":"rx","line":"flavor A (persistence pending), artwork 4/5"}
+{"utc":"2026-11-22T18:49:35.125+00:00","mono_ns":392858685571125,"event":"prediction","label":"sit5-10min-004-a-top_off","head":"A","program":"top_off","kind":"exp2-conditioned","dose_ml":5.066234745481142,"start":{"x990":238.53747518405615,"x1986":239.24775660416836},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:35.125+00:00","mono_ns":392858685589125,"event":"tx","command":"flow 6 1"}
+{"utc":"2026-11-22T18:49:35.130+00:00","mono_ns":392858690954041,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:35.136+00:00","mono_ns":392858696739458,"event":"rx","line":"the meter reads 6 pulses per 50 ms for 1 s \u2014 flavor A pours at 1:20"}
+{"utc":"2026-11-22T18:49:35.150+00:00","mono_ns":392858710412666,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:35.156+00:00","mono_ns":392858716403916,"event":"rx","line":"[machine] pour A at 1:20: valves E G open, pump A bursting 200 on / 300 off"}
+{"utc":"2026-11-22T18:49:35.156+00:00","mono_ns":392858716586583,"event":"board_pour_start","head":"A","ratio":20,"first_on":200,"first_off":300,"valves":"E G","first_receipt_clock":392858.716540416}
+{"utc":"2026-11-22T18:49:35.807+00:00","mono_ns":392859367689166,"event":"tx","command":"flow 0 0"}
+{"utc":"2026-11-22T18:49:35.818+00:00","mono_ns":392859378960583,"event":"rx","line":"the meter reads 0 pulses per 50 ms for 0 s \u2014 flavor A pours at 1:20"}
+{"utc":"2026-11-22T18:49:35.928+00:00","mono_ns":392859488931875,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:37.155+00:00","mono_ns":392860715190333,"event":"rx","line":"[machine] pour A: flow stopped after 2002 ms, 2 bursts \u2014 valves closed"}
+{"utc":"2026-11-22T18:49:37.155+00:00","mono_ns":392860715331708,"event":"board_pour_end","head":"A","elapsed_ms":2002,"bursts":2,"receipt_clock":392860.715320666}
+{"utc":"2026-11-22T18:49:40.653+00:00","mono_ns":392864213890458,"event":"image","label":"sit5-10min-004-a-top_off-post","readings":{"x990":{"row":995.3547102107487,"contrast":37.291524546935,"ml":233.62921717431345},"x1986":{"row":938.0561116627657,"contrast":20.489519452786354,"ml":234.6055462093641}},"stream":"sit5-10min-004-a-top_off","wall_mid":1795373380.3580732,"span_s":0.534,"patch_luma":55.0}
+{"utc":"2026-11-22T18:49:47.208+00:00","mono_ns":392870768207208,"event":"trial","label":"sit5-10min-004-a-top_off","head":"A","program":"top_off","kind":"exp2-conditioned","forecast_ml":5.066234745481142,"dose_ml":{"x990":4.9082580097426955,"x1986":4.642210394804266},"pre":{"x990":{"row":984.5169166914088,"contrast":36.875364581243836,"ml":238.53747518405615},"x1986":{"row":924.996688871754,"contrast":18.503047022146227,"ml":239.24775660416836}},"post":{"x990":{"row":995.3547102107487,"contrast":37.291524546935,"ml":233.62921717431345},"x1986":{"row":938.0561116627657,"contrast":20.489519452786354,"ml":234.6055462093641}},"receipt":{"bursts":2,"elapsed_ms":2002,"end_clock":392860.715320666,"first_on":200,"first_off":300,"valves":"E G"},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:51.458+00:00","mono_ns":392875017891291,"event":"camera_frozen","stream":"sit5-10min-005-b-top_off","first_frame_s":0.75,"ready_s":4.249,"writes":[[1.557,"auto_focus",0,"0"],[1.644,"auto_exposure_mode",1,"1"],[1.684,"absolute_exposure_time",275,"275"],[1.723,"gain",12,"12"],[1.777,"white_balance_temperature_auto",0,"0"],[1.815,"white_balance_temperature",4600,"4600"],[1.854,"sharpness",3,"3"],[1.908,"absolute_focus",380,"380"],[2.606,"absolute_focus",500,"500"]],"readback":{"auto_focus":0,"auto_exposure_mode":1,"absolute_exposure_time":275,"gain":12,"white_balance_temperature_auto":0,"white_balance_temperature":4600,"sharpness":3,"absolute_focus":500},"mismatched":{}}
+{"utc":"2026-11-22T18:49:52.068+00:00","mono_ns":392875628649625,"event":"image","label":"sit5-10min-005-b-top_off-pre","readings":{"x990":{"row":995.307487957662,"contrast":38.73794410641307,"ml":233.65138254807394},"x1986":{"row":939.0417398625827,"contrast":20.7845636878694,"ml":234.24389574659617}},"stream":"sit5-10min-005-b-top_off","wall_mid":1795373391.7755637,"span_s":0.538,"patch_luma":55.46}
+{"utc":"2026-11-22T18:49:52.068+00:00","mono_ns":392875628706916,"event":"tx","command":"flavor b"}
+{"utc":"2026-11-22T18:49:52.070+00:00","mono_ns":392875630081583,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T18:49:52.078+00:00","mono_ns":392875638090166,"event":"rx","line":"flavor B (persistence pending), artwork 4/5"}
+{"utc":"2026-11-22T18:49:52.078+00:00","mono_ns":392875638117333,"event":"prediction","label":"sit5-10min-005-b-top_off","head":"B","program":"top_off","kind":"exp2-conditioned","dose_ml":4.535623528606851,"start":{"x990":233.65138254807394,"x1986":234.24389574659617},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:49:52.078+00:00","mono_ns":392875638137666,"event":"tx","command":"flow 6 1"}
+{"utc":"2026-11-22T18:49:52.083+00:00","mono_ns":392875643180500,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:52.088+00:00","mono_ns":392875648887666,"event":"rx","line":"the meter reads 6 pulses per 50 ms for 1 s \u2014 flavor B pours at 1:20"}
+{"utc":"2026-11-22T18:49:52.112+00:00","mono_ns":392875672292500,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:52.117+00:00","mono_ns":392875677294333,"event":"rx","line":"[machine] pour B at 1:20: valves H J open, pump B bursting 200 on / 300 off"}
+{"utc":"2026-11-22T18:49:52.117+00:00","mono_ns":392875677470875,"event":"board_pour_start","head":"B","ratio":20,"first_on":200,"first_off":300,"valves":"H J","first_receipt_clock":392875.677457791}
+{"utc":"2026-11-22T18:49:52.767+00:00","mono_ns":392876327867208,"event":"tx","command":"flow 0 0"}
+{"utc":"2026-11-22T18:49:52.779+00:00","mono_ns":392876339124041,"event":"rx","line":"the meter reads 0 pulses per 50 ms for 0 s \u2014 flavor B pours at 1:20"}
+{"utc":"2026-11-22T18:49:52.883+00:00","mono_ns":392876443008541,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:49:54.116+00:00","mono_ns":392877676157833,"event":"rx","line":"[machine] pour B: flow stopped after 2002 ms, 2 bursts \u2014 valves closed"}
+{"utc":"2026-11-22T18:49:54.116+00:00","mono_ns":392877676264125,"event":"board_pour_end","head":"B","elapsed_ms":2002,"bursts":2,"receipt_clock":392877.676251291}
+{"utc":"2026-11-22T18:49:57.623+00:00","mono_ns":392881183593208,"event":"image","label":"sit5-10min-005-b-top_off-post","readings":{"x990":{"row":984.5524814608817,"contrast":35.897977388101665,"ml":238.5221844691465},"x1986":{"row":925.0917246359326,"contrast":19.126157783055838,"ml":239.2147428054099}},"stream":"sit5-10min-005-b-top_off","wall_mid":1795373397.3154507,"span_s":0.532,"patch_luma":55.15}
+{"utc":"2026-11-22T18:50:04.201+00:00","mono_ns":392887761397041,"event":"trial","label":"sit5-10min-005-b-top_off","head":"B","program":"top_off","kind":"exp2-conditioned","forecast_ml":4.535623528606851,"dose_ml":{"x990":4.8708019210725695,"x1986":4.970847058813746},"pre":{"x990":{"row":995.307487957662,"contrast":38.73794410641307,"ml":233.65138254807394},"x1986":{"row":939.0417398625827,"contrast":20.7845636878694,"ml":234.24389574659617}},"post":{"x990":{"row":984.5524814608817,"contrast":35.897977388101665,"ml":238.5221844691465},"x1986":{"row":925.0917246359326,"contrast":19.126157783055838,"ml":239.2147428054099}},"receipt":{"bursts":2,"elapsed_ms":2002,"end_clock":392877.676251291,"first_on":200,"first_off":300,"valves":"H J"},"sit_min":10.0,"sit_index":5}
+{"utc":"2026-11-22T18:50:04.201+00:00","mono_ns":392887761700333,"event":"tx","command":"status"}
+{"utc":"2026-11-22T18:50:04.203+00:00","mono_ns":392887763239666,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T18:50:04.209+00:00","mono_ns":392887769560250,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T18:50:04.209+00:00","mono_ns":392887769625291,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T18:50:04.212+00:00","mono_ns":392887772338208,"event":"rx","line":"uptime   671 s"}
+{"utc":"2026-11-22T18:50:04.215+00:00","mono_ns":392887775050041,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T18:50:04.218+00:00","mono_ns":392887777839375,"event":"rx","line":"flavor   B \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T18:50:04.220+00:00","mono_ns":392887780513500,"event":"rx","line":"ratio    A 1:20, B 1:20"}
+{"utc":"2026-11-22T18:50:04.223+00:00","mono_ns":392887783388416,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T18:50:04.229+00:00","mono_ns":392887789310500,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.247+00:00","mono_ns":392887807083125,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T18:50:04.252+00:00","mono_ns":392887812571000,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.255+00:00","mono_ns":392887815274041,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T18:50:04.258+00:00","mono_ns":392887818128875,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T18:50:04.263+00:00","mono_ns":392887823656000,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T18:50:04.263+00:00","mono_ns":392887823755916,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T18:50:04.266+00:00","mono_ns":392887826365125,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T18:50:04.269+00:00","mono_ns":392887829175250,"event":"rx","line":"clock    2026-11-22 13:49:57"}
+{"utc":"2026-11-22T18:50:04.272+00:00","mono_ns":392887831987291,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T18:50:04.274+00:00","mono_ns":392887834762166,"event":"rx","line":"volume   0%, quiet hours off"}
+{"utc":"2026-11-22T18:50:04.275+00:00","mono_ns":392887834986208,"event":"tx","command":"status"}
+{"utc":"2026-11-22T18:50:04.279+00:00","mono_ns":392887839265750,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:50:04.282+00:00","mono_ns":392887842050250,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T18:50:04.282+00:00","mono_ns":392887842216750,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T18:50:04.284+00:00","mono_ns":392887844733250,"event":"rx","line":"uptime   671 s"}
+{"utc":"2026-11-22T18:50:04.287+00:00","mono_ns":392887847622916,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T18:50:04.290+00:00","mono_ns":392887850504208,"event":"rx","line":"flavor   B \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T18:50:04.293+00:00","mono_ns":392887853236083,"event":"rx","line":"ratio    A 1:20, B 1:20"}
+{"utc":"2026-11-22T18:50:04.296+00:00","mono_ns":392887856030000,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T18:50:04.303+00:00","mono_ns":392887862885958,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.319+00:00","mono_ns":392887879523583,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T18:50:04.325+00:00","mono_ns":392887885028125,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.327+00:00","mono_ns":392887887707875,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T18:50:04.330+00:00","mono_ns":392887890579000,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T18:50:04.336+00:00","mono_ns":392887896091000,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T18:50:04.336+00:00","mono_ns":392887896306791,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T18:50:04.339+00:00","mono_ns":392887898885708,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T18:50:04.341+00:00","mono_ns":392887901617375,"event":"rx","line":"clock    2026-11-22 13:49:57"}
+{"utc":"2026-11-22T18:50:04.344+00:00","mono_ns":392887904409125,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T18:50:04.347+00:00","mono_ns":392887907243125,"event":"rx","line":"volume   0%, quiet hours off"}
+{"utc":"2026-11-22T18:50:04.347+00:00","mono_ns":392887907364500,"event":"tx","command":"ratio b 15"}
+{"utc":"2026-11-22T18:50:04.353+00:00","mono_ns":392887913712375,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:50:04.357+00:00","mono_ns":392887917058708,"event":"rx","line":"ratio A 1:20, B 1:15 (persistence pending)"}
+{"utc":"2026-11-22T18:50:04.357+00:00","mono_ns":392887917215041,"event":"tx","command":"flavor a"}
+{"utc":"2026-11-22T18:50:04.363+00:00","mono_ns":392887923203125,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:50:04.366+00:00","mono_ns":392887926510791,"event":"rx","line":"flavor A (persistence pending), artwork 4/5"}
+{"utc":"2026-11-22T18:50:04.366+00:00","mono_ns":392887926658333,"event":"tx","command":"status"}
+{"utc":"2026-11-22T18:50:04.371+00:00","mono_ns":392887931472250,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:50:04.374+00:00","mono_ns":392887934136083,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T18:50:04.374+00:00","mono_ns":392887934578875,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T18:50:04.377+00:00","mono_ns":392887937056208,"event":"rx","line":"uptime   671 s"}
+{"utc":"2026-11-22T18:50:04.379+00:00","mono_ns":392887939790000,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T18:50:04.385+00:00","mono_ns":392887945258541,"event":"rx","line":"flavor   A \u2014 main-board-owned, persistence pending"}
+{"utc":"2026-11-22T18:50:04.385+00:00","mono_ns":392887945742250,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T18:50:04.390+00:00","mono_ns":392887950698208,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T18:50:04.395+00:00","mono_ns":392887955014250,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.412+00:00","mono_ns":392887971978666,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T18:50:04.417+00:00","mono_ns":392887977397875,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.420+00:00","mono_ns":392887980050708,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T18:50:04.423+00:00","mono_ns":392887982880166,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T18:50:04.428+00:00","mono_ns":392887988501041,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T18:50:04.428+00:00","mono_ns":392887988799541,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T18:50:04.431+00:00","mono_ns":392887991196291,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T18:50:04.434+00:00","mono_ns":392887993961583,"event":"rx","line":"clock    2026-11-22 13:49:57"}
+{"utc":"2026-11-22T18:50:04.437+00:00","mono_ns":392887996998791,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T18:50:04.439+00:00","mono_ns":392887999540250,"event":"rx","line":"volume   0%, quiet hours off"}
+{"utc":"2026-11-22T18:50:04.439+00:00","mono_ns":392887999700208,"event":"settings_restored","settings":{"flavor":"A","A":20,"B":15}}
+{"utc":"2026-11-22T18:50:04.439+00:00","mono_ns":392887999806166,"event":"tx","command":"status"}
+{"utc":"2026-11-22T18:50:04.444+00:00","mono_ns":392888004659916,"event":"rx","line":">"}
+{"utc":"2026-11-22T18:50:04.447+00:00","mono_ns":392888007492000,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T18:50:04.447+00:00","mono_ns":392888007741416,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T18:50:04.450+00:00","mono_ns":392888010167000,"event":"rx","line":"uptime   671 s"}
+{"utc":"2026-11-22T18:50:04.453+00:00","mono_ns":392888013153000,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T18:50:04.458+00:00","mono_ns":392888018406375,"event":"rx","line":"flavor   A \u2014 main-board-owned, persistence pending"}
+{"utc":"2026-11-22T18:50:04.458+00:00","mono_ns":392888018771375,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T18:50:04.464+00:00","mono_ns":392888023897458,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T18:50:04.468+00:00","mono_ns":392888028094666,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.484+00:00","mono_ns":392888044739166,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T18:50:04.490+00:00","mono_ns":392888050433541,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T18:50:04.493+00:00","mono_ns":392888053041291,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T18:50:04.496+00:00","mono_ns":392888055999625,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T18:50:04.501+00:00","mono_ns":392888061458916,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T18:50:04.501+00:00","mono_ns":392888061826375,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T18:50:04.504+00:00","mono_ns":392888064131333,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T18:50:04.506+00:00","mono_ns":392888066797333,"event":"rx","line":"clock    2026-11-22 13:49:57"}
+{"utc":"2026-11-22T18:50:04.509+00:00","mono_ns":392888069787625,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T18:50:04.512+00:00","mono_ns":392888072520958,"event":"rx","line":"volume   0%, quiet hours off"}
+{"utc":"2026-11-22T18:50:04.519+00:00","mono_ns":392888079577041,"event":"closed"}

@@ -189,11 +189,11 @@ def main(a):
             b.measured('A', 'top_off', 'exp2-conditioned', info)
             b.measured('B', 'top_off', 'exp2-conditioned', info)
         elif a.mode == 'history':
-            for i in range(2):
+            for i in range(0 if a.after_only else 2):
                 b.arrange(PROGRAMS['topoff_n11']['start_ml'])
                 b.measured('A', 'topoff_n11', 'exp3-before', dict(repeat=i + 1))
                 b.measured('B', 'topoff_n11', 'exp3-before', dict(repeat=i + 1))
-            for i in range(3):
+            for i in range(0 if a.after_only else 3):
                 if i == 0:
                     b.arrange(PROGRAMS['steady_glass']['start_ml'])
                 b.measured('A', 'steady_glass', 'glass-late' if i == 0 else 'exp3-running', dict(repeat=i + 1))
@@ -231,4 +231,5 @@ if __name__ == '__main__':
     p.add_argument('--index', type=int, default=0)
     p.add_argument('--target', type=float, default=233.2)
     p.add_argument('--repeat', type=int, default=1)
+    p.add_argument('--after-only', action='store_true', help='resume a history run after its glasses')
     main(p.parse_args())
