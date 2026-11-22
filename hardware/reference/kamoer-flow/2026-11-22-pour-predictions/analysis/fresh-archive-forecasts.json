@@ -1,0 +1,329 @@
+{
+  "preregistration_sha256": "a129a75a08511e938a45a49384cac0886180a79efa748295d3c41b08c938fe40",
+  "specification": {
+    "restored_constant_rate": {
+      "source_git": "a21b1685370d62bad7cb620c013c4c01c3b7a19d",
+      "files": [
+        "hardware/reference/kamoer-flow/2026-11-22-position/analysis/position_trials.csv",
+        "hardware/reference/kamoer-flow/2026-11-22-position/analysis/position_scores.json"
+      ],
+      "formula": "The slope fitted through zero to nominal cup volume against acknowledged board-on seconds, multiplied by total planned on-seconds. It has no allowance for a restart, pause or valve opening.",
+      "rulers": "Direct right glass marks and independently projected left marks share the same cup. The two predictions show volume-scale sensitivity. Each middle-80 band resamples whole archived shots in paired ruler measurements and propagates slope uncertainty. Neither band covers future individual-pour variation, common cup accuracy, geometry changes or transfer between rigs.",
+      "models": {
+        "A": {
+          "calibration_shots": 8,
+          "gate_seconds_fit_range": [
+            0.335,
+            0.801
+          ],
+          "rulers": {
+            "right": {
+              "rate_ml_s": 11.688923194412917,
+              "rate_fit_middle_80_ml_s": [
+                11.504525769088051,
+                11.891530390174516
+              ]
+            },
+            "projected_left": {
+              "rate_ml_s": 10.991666246720566,
+              "rate_fit_middle_80_ml_s": [
+                10.890475781405112,
+                11.101766050020007
+              ]
+            }
+          }
+        },
+        "B": {
+          "calibration_shots": 8,
+          "gate_seconds_fit_range": [
+            0.539,
+            0.838
+          ],
+          "rulers": {
+            "right": {
+              "rate_ml_s": 10.296783275911068,
+              "rate_fit_middle_80_ml_s": [
+                9.948617088708552,
+                10.595172739371392
+              ]
+            },
+            "projected_left": {
+              "rate_ml_s": 9.50888021007522,
+              "rate_fit_middle_80_ml_s": [
+                9.171034961234556,
+                9.797558230760586
+              ]
+            }
+          }
+        }
+      }
+    },
+    "engineering_dead_time": {
+      "source_git": "7c59ea2198bfe600d591236d43cd6bdb5f04b81d",
+      "file": "tools/hsm/repo-tools/src/model.rs",
+      "formula": "For each engineering prior draw, sum rate_ml_min * max(0, width_ms - loss_ms) / 60000 across all planned gates. All gates of the pour share the same rate and loss. Use the exact seeded model quantiles.",
+      "distribution": "Independent uniform engineering inputs. Rate = 600 * spread * (supply_V - drop_V - armature_V) / (12 - armature_V) * (1 - slip). Ranges: spread 0.9–1.1, supply 11.8–12.2 V, drop 0.5–1.0 V, armature 2.5–5 V, slip 0–0.03, loss per gate 10–40 ms.",
+      "interpretation": "These are engineering-parameter prior quantiles, shared by the heads. They are not calibrated bounds on future measurements. The model subtracts spin-up even when firmware briefly parks at the transition of a nominal continuous ratio cycle.",
+      "rate_prior_ml_min_p10_p50_p90": [
+        490.50621102469154,
+        537.0716758923476,
+        583.7874030255055
+      ]
+    }
+  },
+  "units": "Predicted nominal mL of undiluted concentrate on the open-hose bench. Water is an equivalent calculated from synthetic readings and the assumed meter factor. The bench dispenses concentrate only.",
+  "schedules": {
+    "near_full_glass": {
+      "phase": "validation",
+      "lever_open_s": 7.65,
+      "meter_trace_elapsed_s": 7.65,
+      "water_equivalent_ml": 335.5263157894737,
+      "recipe_target_concentrate_ml": 16.776315789473685,
+      "heads": {
+        "A": {
+          "head": "A",
+          "gates": 15,
+          "total_nominal_on_ms": 2550.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 29.806754145752937,
+              "rate_fit_middle_80_dose_ml": [
+                29.33654071117453,
+                30.323402494945014
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 28.028748929137443,
+              "rate_fit_middle_80_dose_ml": [
+                27.77071324258303,
+                28.309503427551018
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 17.223076830489667,
+            "p50_ml": 19.40151153143472,
+            "p90_ml": 21.700957095716404
+          },
+          "restored_ruler_mean_ml": 28.91775153744519
+        },
+        "B": {
+          "head": "B",
+          "gates": 15,
+          "total_nominal_on_ms": 2550.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 26.25679735357322,
+              "rate_fit_middle_80_dose_ml": [
+                25.368973576206805,
+                27.017690485397047
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 24.247644535691812,
+              "rate_fit_middle_80_dose_ml": [
+                23.386139151148114,
+                24.983773488439493
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 17.223076830489667,
+            "p50_ml": 19.40151153143472,
+            "p90_ml": 21.700957095716404
+          },
+          "restored_ruler_mean_ml": 25.252220944632516
+        }
+      }
+    },
+    "partial_top_off": {
+      "phase": "validation",
+      "lever_open_s": 2.025,
+      "meter_trace_elapsed_s": 2.025,
+      "water_equivalent_ml": 53.28947368421053,
+      "recipe_target_concentrate_ml": 2.6644736842105265,
+      "heads": {
+        "A": {
+          "head": "A",
+          "gates": 4,
+          "total_nominal_on_ms": 440.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 5.143126205541684,
+              "rate_fit_middle_80_dose_ml": [
+                5.061991338398743,
+                5.232273371676787
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 4.836333148557049,
+              "rate_fit_middle_80_dose_ml": [
+                4.791809343818249,
+                4.884777062008803
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 2.569331782443441,
+            "p50_ml": 3.0336535730301764,
+            "p90_ml": 3.522842225601254
+          },
+          "restored_ruler_mean_ml": 4.989729677049366
+        },
+        "B": {
+          "head": "B",
+          "gates": 4,
+          "total_nominal_on_ms": 440.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 4.5305846414008695,
+              "rate_fit_middle_80_dose_ml": [
+                4.377391519031763,
+                4.661876005323412
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 4.183907292433097,
+              "rate_fit_middle_80_dose_ml": [
+                4.0352553829432045,
+                4.310925621534658
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 2.569331782443441,
+            "p50_ml": 3.0336535730301764,
+            "p90_ml": 3.522842225601254
+          },
+          "restored_ruler_mean_ml": 4.357245966916983
+        }
+      }
+    },
+    "finish_at_full_flow": {
+      "phase": "validation",
+      "lever_open_s": 3.375,
+      "meter_trace_elapsed_s": 3.375,
+      "water_equivalent_ml": 145.39473684210526,
+      "recipe_target_concentrate_ml": 7.269736842105263,
+      "heads": {
+        "A": {
+          "head": "A",
+          "gates": 7,
+          "total_nominal_on_ms": 1100.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 12.85781551385421,
+              "rate_fit_middle_80_dose_ml": [
+                12.654978345996858,
+                13.08068342919197
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 12.090832871392625,
+              "rate_fit_middle_80_dose_ml": [
+                11.979523359545624,
+                12.211942655022009
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 7.274823754452886,
+            "p50_ml": 8.252726937003567,
+            "p90_ml": 9.276559686125028
+          },
+          "restored_ruler_mean_ml": 12.474324192623417
+        },
+        "B": {
+          "head": "B",
+          "gates": 7,
+          "total_nominal_on_ms": 1100.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 11.326461603502176,
+              "rate_fit_middle_80_dose_ml": [
+                10.943478797579408,
+                11.654690013308533
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 10.459768231082744,
+              "rate_fit_middle_80_dose_ml": [
+                10.088138457358012,
+                10.777314053836646
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 7.274823754452886,
+            "p50_ml": 8.252726937003567,
+            "p90_ml": 9.276559686125028
+          },
+          "restored_ruler_mean_ml": 10.893114917292461
+        }
+      }
+    },
+    "short_richer_pour": {
+      "phase": "validation",
+      "lever_open_s": 1.325,
+      "meter_trace_elapsed_s": 1.325,
+      "water_equivalent_ml": 69.73684210526316,
+      "recipe_target_concentrate_ml": 4.6491228070175445,
+      "heads": {
+        "A": {
+          "head": "A",
+          "gates": 3,
+          "total_nominal_on_ms": 933.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 10.905765340387251,
+              "rate_fit_middle_80_dose_ml": [
+                10.733722542559152,
+                11.094797854032825
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 10.25522460819029,
+              "rate_fit_middle_80_dose_ml": [
+                10.16081390405097,
+                10.357947724668668
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 6.957858792655961,
+            "p50_ml": 7.658600870262281,
+            "p90_ml": 8.39681272632935
+          },
+          "restored_ruler_mean_ml": 10.58049497428877
+        },
+        "B": {
+          "head": "B",
+          "gates": 3,
+          "total_nominal_on_ms": 933.0,
+          "restored_constant_rate": {
+            "right": {
+              "dose_ml": 9.606898796425027,
+              "rate_fit_middle_80_dose_ml": [
+                9.28205974376508,
+                9.885296165833509
+              ]
+            },
+            "projected_left": {
+              "dose_ml": 8.871785236000182,
+              "rate_fit_middle_80_dose_ml": [
+                8.556575618831841,
+                9.141121829299628
+              ]
+            }
+          },
+          "engineering_dead_time": {
+            "p10_ml": 6.957858792655961,
+            "p50_ml": 7.658600870262281,
+            "p90_ml": 8.39681272632935
+          },
+          "restored_ruler_mean_ml": 9.239342016212603
+        }
+      }
+    }
+  }
+}
