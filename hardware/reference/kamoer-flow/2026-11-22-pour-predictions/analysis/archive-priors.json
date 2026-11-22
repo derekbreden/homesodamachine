@@ -1,0 +1,71 @@
+{
+  "restored_constant_rate": {
+    "source_git": "a21b1685370d62bad7cb620c013c4c01c3b7a19d",
+    "files": [
+      "hardware/reference/kamoer-flow/2026-11-22-position/analysis/position_trials.csv",
+      "hardware/reference/kamoer-flow/2026-11-22-position/analysis/position_scores.json"
+    ],
+    "formula": "The slope fitted through zero to nominal cup volume against acknowledged board-on seconds, multiplied by total planned on-seconds. It has no allowance for a restart, pause or valve opening.",
+    "rulers": "Direct right glass marks and independently projected left marks share the same cup. The two predictions show volume-scale sensitivity. Each middle-80 band resamples whole archived shots in paired ruler measurements and propagates slope uncertainty. Neither band covers future individual-pour variation, common cup accuracy, geometry changes or transfer between rigs.",
+    "models": {
+      "A": {
+        "calibration_shots": 8,
+        "gate_seconds_fit_range": [
+          0.335,
+          0.801
+        ],
+        "rulers": {
+          "right": {
+            "rate_ml_s": 11.688923194412917,
+            "rate_fit_middle_80_ml_s": [
+              11.504525769088051,
+              11.891530390174516
+            ]
+          },
+          "projected_left": {
+            "rate_ml_s": 10.991666246720566,
+            "rate_fit_middle_80_ml_s": [
+              10.890475781405112,
+              11.101766050020007
+            ]
+          }
+        }
+      },
+      "B": {
+        "calibration_shots": 8,
+        "gate_seconds_fit_range": [
+          0.539,
+          0.838
+        ],
+        "rulers": {
+          "right": {
+            "rate_ml_s": 10.296783275911068,
+            "rate_fit_middle_80_ml_s": [
+              9.948617088708552,
+              10.595172739371392
+            ]
+          },
+          "projected_left": {
+            "rate_ml_s": 9.50888021007522,
+            "rate_fit_middle_80_ml_s": [
+              9.171034961234556,
+              9.797558230760586
+            ]
+          }
+        }
+      }
+    }
+  },
+  "engineering_dead_time": {
+    "source_git": "7c59ea2198bfe600d591236d43cd6bdb5f04b81d",
+    "file": "tools/hsm/repo-tools/src/model.rs",
+    "formula": "For each engineering prior draw, sum rate_ml_min * max(0, width_ms - loss_ms) / 60000 across all planned gates. All gates of the pour share the same rate and loss. Use the exact seeded model quantiles.",
+    "distribution": "Independent uniform engineering inputs. Rate = 600 * spread * (supply_V - drop_V - armature_V) / (12 - armature_V) * (1 - slip). Ranges: spread 0.9–1.1, supply 11.8–12.2 V, drop 0.5–1.0 V, armature 2.5–5 V, slip 0–0.03, loss per gate 10–40 ms.",
+    "interpretation": "These are engineering-parameter prior quantiles, shared by the heads. They are not calibrated bounds on future measurements. The model subtracts spin-up even when firmware briefly parks at the transition of a nominal continuous ratio cycle.",
+    "rate_prior_ml_min_p10_p50_p90": [
+      490.50621102469154,
+      537.0716758923476,
+      583.7874030255055
+    ]
+  }
+}
