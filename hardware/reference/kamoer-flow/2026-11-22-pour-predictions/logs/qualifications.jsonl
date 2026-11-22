@@ -1,0 +1,290 @@
+{"utc":"2026-11-22T08:54:43.498+00:00","mono_ns":357167222376708,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:54:43.504+00:00","mono_ns":357167228657750,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T08:54:43.510+00:00","mono_ns":357167234038666,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:54:43.510+00:00","mono_ns":357167234078000,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:54:43.512+00:00","mono_ns":357167236775583,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T08:54:43.512+00:00","mono_ns":357167236853000,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:54:43.518+00:00","mono_ns":357167242343750,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:54:43.521+00:00","mono_ns":357167245063083,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:54:43.523+00:00","mono_ns":357167247852250,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:54:43.528+00:00","mono_ns":357167252795541,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:54:43.545+00:00","mono_ns":357167269918208,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:54:43.551+00:00","mono_ns":357167275575791,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:54:43.554+00:00","mono_ns":357167278158625,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:54:43.556+00:00","mono_ns":357167280941916,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:54:43.562+00:00","mono_ns":357167286529583,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:54:43.562+00:00","mono_ns":357167286707250,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:54:43.565+00:00","mono_ns":357167289304291,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:54:43.567+00:00","mono_ns":357167291994250,"event":"rx","line":"clock    2026-11-22 03:54:36"}
+{"utc":"2026-11-22T08:54:43.570+00:00","mono_ns":357167294730000,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:54:43.573+00:00","mono_ns":357167297509250,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:54:44.322+00:00","mono_ns":357168046705875,"event":"before","label":"q0","window":"q0-pre","lanes":[[972,985.192,25.77],[990,989.056,45.77],[1018,884.949,24.19],[1036,988.963,16.04],[1450,893.854,47.07],[1986,932.079,24.93]]}
+{"utc":"2026-11-22T08:54:47.579+00:00","mono_ns":357171303883333,"event":"after","label":"q0","window":"q0-post","lanes":[[972,985.189,25.94],[990,989.056,46.59],[1018,885.006,24.52],[1036,988.958,16.59],[1450,893.87,47.97],[1986,932.045,25.21]]}
+{"utc":"2026-11-22T08:54:47.580+00:00","mono_ns":357171303999458,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:54:47.581+00:00","mono_ns":357171305454666,"event":"rx","line":"> [J3 faucet] CONNECTED"}
+{"utc":"2026-11-22T08:54:47.581+00:00","mono_ns":357171305627791,"event":"rx","line":"[J3] text: images: 51 slots, 199520 B each, 6 held"}
+{"utc":"2026-11-22T08:54:47.587+00:00","mono_ns":357171311645791,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:54:47.587+00:00","mono_ns":357171311694291,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:54:47.590+00:00","mono_ns":357171314421291,"event":"rx","line":"uptime   5 s"}
+{"utc":"2026-11-22T08:54:47.593+00:00","mono_ns":357171317207583,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:54:47.595+00:00","mono_ns":357171319919583,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:54:47.598+00:00","mono_ns":357171322716416,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:54:47.601+00:00","mono_ns":357171325504458,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:54:47.607+00:00","mono_ns":357171331147958,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:54:47.625+00:00","mono_ns":357171349185208,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:54:47.630+00:00","mono_ns":357171354695416,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:54:47.633+00:00","mono_ns":357171357429041,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:54:47.636+00:00","mono_ns":357171360200083,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:54:47.641+00:00","mono_ns":357171365726250,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:54:47.641+00:00","mono_ns":357171365765416,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:54:47.644+00:00","mono_ns":357171368510416,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:54:47.647+00:00","mono_ns":357171371254958,"event":"rx","line":"clock    2026-11-22 03:54:40"}
+{"utc":"2026-11-22T08:54:47.650+00:00","mono_ns":357171374067500,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:54:47.652+00:00","mono_ns":357171376795666,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:54:47.653+00:00","mono_ns":357171377839125,"event":"closed"}
+{"utc":"2026-11-22T08:55:29.742+00:00","mono_ns":357213466467500,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:55:29.745+00:00","mono_ns":357213469660916,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T08:55:29.751+00:00","mono_ns":357213475062750,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:55:29.751+00:00","mono_ns":357213475308708,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:55:29.754+00:00","mono_ns":357213477763416,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T08:55:29.754+00:00","mono_ns":357213477991041,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:55:29.759+00:00","mono_ns":357213483372083,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:55:29.762+00:00","mono_ns":357213486000333,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:55:29.765+00:00","mono_ns":357213488978458,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:55:29.769+00:00","mono_ns":357213493703208,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:55:29.788+00:00","mono_ns":357213511835500,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:55:29.793+00:00","mono_ns":357213517381958,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:55:29.796+00:00","mono_ns":357213520020875,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:55:29.799+00:00","mono_ns":357213522833875,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:55:29.804+00:00","mono_ns":357213528441875,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:55:29.805+00:00","mono_ns":357213528754458,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:55:29.807+00:00","mono_ns":357213531074541,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:55:29.810+00:00","mono_ns":357213533841125,"event":"rx","line":"clock    2026-11-22 03:55:22"}
+{"utc":"2026-11-22T08:55:29.812+00:00","mono_ns":357213536682375,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:55:29.815+00:00","mono_ns":357213539563958,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:55:30.544+00:00","mono_ns":357214268262583,"event":"before","label":"q1","window":"q1-pre","lanes":[[972,985.217,25.59],[990,989.056,46.37],[1018,884.969,23.93],[1036,988.946,16.42],[1450,893.865,47.15],[1986,932.056,24.43]]}
+{"utc":"2026-11-22T08:55:30.544+00:00","mono_ns":357214268408833,"event":"tx","command":"pump a 650"}
+{"utc":"2026-11-22T08:55:30.547+00:00","mono_ns":357214271092375,"event":"rx","line":"> [J3 faucet] CONNECTED"}
+{"utc":"2026-11-22T08:55:30.547+00:00","mono_ns":357214271203791,"event":"rx","line":"[J3] text: images: 51 slots, 199520 B each, 6 held"}
+{"utc":"2026-11-22T08:55:30.559+00:00","mono_ns":357214282888541,"event":"rx","line":"[machine] pump A at full for 650 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"utc":"2026-11-22T08:55:30.664+00:00","mono_ns":357214388709250,"event":"rx","line":">"}
+{"utc":"2026-11-22T08:55:31.204+00:00","mono_ns":357214928115000,"event":"rx","line":"[machine] pump A done after 650 ms"}
+{"utc":"2026-11-22T08:55:31.204+00:00","mono_ns":357214928146166,"event":"qualification_gate","label":"q1","head":"A","tx_ns":357214268408833,"start_ack_ns":357214282912791,"done_ack_ns":357214928142208,"board_ms":650}
+{"utc":"2026-11-22T08:55:34.449+00:00","mono_ns":357218173325750,"event":"after","label":"q1","window":"q1-post","lanes":[[972,1004.1,19.03],[990,1007.117,46.48],[1018,1009.669,37.45],[1036,1007.099,17.06],[1450,907.013,51.62],[1986,878.35,40.12]]}
+{"utc":"2026-11-22T08:55:34.449+00:00","mono_ns":357218173365583,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:55:34.457+00:00","mono_ns":357218180769958,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:55:34.457+00:00","mono_ns":357218180816708,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:55:34.459+00:00","mono_ns":357218183562125,"event":"rx","line":"uptime   5 s"}
+{"utc":"2026-11-22T08:55:34.462+00:00","mono_ns":357218186273541,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:55:34.465+00:00","mono_ns":357218189092791,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:55:34.468+00:00","mono_ns":357218191827583,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:55:34.470+00:00","mono_ns":357218194592166,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:55:34.476+00:00","mono_ns":357218200336666,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:55:34.494+00:00","mono_ns":357218218337541,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:55:34.500+00:00","mono_ns":357218223868625,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:55:34.502+00:00","mono_ns":357218226588208,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:55:34.505+00:00","mono_ns":357218229389041,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:55:34.511+00:00","mono_ns":357218234915708,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:55:34.511+00:00","mono_ns":357218234950083,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:55:34.513+00:00","mono_ns":357218237664458,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:55:34.516+00:00","mono_ns":357218240433000,"event":"rx","line":"clock    2026-11-22 03:55:27"}
+{"utc":"2026-11-22T08:55:34.519+00:00","mono_ns":357218243297583,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:55:34.522+00:00","mono_ns":357218245990666,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:55:34.523+00:00","mono_ns":357218247469291,"event":"closed"}
+{"utc":"2026-11-22T08:56:42.603+00:00","mono_ns":357286326960791,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:56:42.612+00:00","mono_ns":357286335348833,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T08:56:42.617+00:00","mono_ns":357286340539250,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:56:42.617+00:00","mono_ns":357286340681958,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:56:42.619+00:00","mono_ns":357286343223833,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T08:56:42.620+00:00","mono_ns":357286343417041,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:56:42.625+00:00","mono_ns":357286348825083,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:56:42.628+00:00","mono_ns":357286351600166,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:56:42.631+00:00","mono_ns":357286354396500,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:56:42.635+00:00","mono_ns":357286359263125,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:56:42.653+00:00","mono_ns":357286376318458,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:56:42.658+00:00","mono_ns":357286381835083,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:56:42.661+00:00","mono_ns":357286384623291,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:56:42.664+00:00","mono_ns":357286387412916,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:56:42.669+00:00","mono_ns":357286392857625,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:56:42.669+00:00","mono_ns":357286393029000,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:56:42.672+00:00","mono_ns":357286395603000,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:56:42.675+00:00","mono_ns":357286398365875,"event":"rx","line":"clock    2026-11-22 03:56:35"}
+{"utc":"2026-11-22T08:56:42.677+00:00","mono_ns":357286401162333,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:56:42.680+00:00","mono_ns":357286404099833,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:56:43.414+00:00","mono_ns":357287137545500,"event":"before","label":"q2","window":"q2-pre","lanes":[[972,1004.04,21.52],[990,1007.877,45.15],[1018,1009.755,37.01],[1036,1007.071,17.24],[1450,907.035,50.32],[1986,878.269,40.83]]}
+{"utc":"2026-11-22T08:56:43.414+00:00","mono_ns":357287137832041,"event":"tx","command":"pump a 900"}
+{"utc":"2026-11-22T08:56:43.416+00:00","mono_ns":357287140150041,"event":"rx","line":"> [J3 faucet] CONNECTED"}
+{"utc":"2026-11-22T08:56:43.417+00:00","mono_ns":357287140256083,"event":"rx","line":"[J3] text: images: 51 slots, 199520 B each, 6 held"}
+{"utc":"2026-11-22T08:56:43.429+00:00","mono_ns":357287152478208,"event":"rx","line":"[machine] pump A at full for 900 ms (IO17 -> U11.IN1 -> J13.AM1 + AM2 (the two WEST pins))"}
+{"utc":"2026-11-22T08:56:43.530+00:00","mono_ns":357287253984500,"event":"rx","line":">"}
+{"utc":"2026-11-22T08:56:44.324+00:00","mono_ns":357288047437125,"event":"rx","line":"[machine] pump A done after 900 ms"}
+{"utc":"2026-11-22T08:56:44.324+00:00","mono_ns":357288047566291,"event":"qualification_gate","label":"q2","head":"A","tx_ns":357287137832041,"start_ack_ns":357287152489583,"done_ack_ns":357288047555333,"board_ms":900}
+{"utc":"2026-11-22T08:56:47.545+00:00","mono_ns":357291268528333,"event":"after","label":"q2","window":"q2-post","lanes":[[972,1028.964,18.34],[990,1032.046,40.14],[1018,1034.83,45.33],[1036,1034.903,17.09],[1450,925.406,51.81],[1986,897.453,39.55]]}
+{"utc":"2026-11-22T08:56:47.545+00:00","mono_ns":357291268574500,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:56:47.552+00:00","mono_ns":357291276114541,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:56:47.552+00:00","mono_ns":357291276201083,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:56:47.555+00:00","mono_ns":357291278782708,"event":"rx","line":"uptime   6 s"}
+{"utc":"2026-11-22T08:56:47.558+00:00","mono_ns":357291281545708,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:56:47.561+00:00","mono_ns":357291284380791,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:56:47.563+00:00","mono_ns":357291287081958,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:56:47.566+00:00","mono_ns":357291289877208,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:56:47.572+00:00","mono_ns":357291295627208,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:56:47.590+00:00","mono_ns":357291313564666,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:56:47.595+00:00","mono_ns":357291319049458,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:56:47.598+00:00","mono_ns":357291321848625,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:56:47.601+00:00","mono_ns":357291324668333,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:56:47.606+00:00","mono_ns":357291330104166,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:56:47.606+00:00","mono_ns":357291330149458,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:56:47.609+00:00","mono_ns":357291332849583,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:56:47.612+00:00","mono_ns":357291335608750,"event":"rx","line":"clock    2026-11-22 03:56:40"}
+{"utc":"2026-11-22T08:56:47.615+00:00","mono_ns":357291338423916,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:56:47.617+00:00","mono_ns":357291341180333,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:56:47.618+00:00","mono_ns":357291342220166,"event":"closed"}
+{"utc":"2026-11-22T08:57:19.177+00:00","mono_ns":357322900988291,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:57:19.212+00:00","mono_ns":357322935088625,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T08:57:19.217+00:00","mono_ns":357322940401833,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:57:19.217+00:00","mono_ns":357322940461375,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:57:19.220+00:00","mono_ns":357322943162041,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T08:57:19.220+00:00","mono_ns":357322943230125,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:57:19.225+00:00","mono_ns":357322948717416,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:57:19.228+00:00","mono_ns":357322951463583,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:57:19.231+00:00","mono_ns":357322954250000,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:57:19.236+00:00","mono_ns":357322959122458,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:57:19.253+00:00","mono_ns":357322976296541,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:57:19.258+00:00","mono_ns":357322981842750,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:57:19.261+00:00","mono_ns":357322984664791,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:57:19.264+00:00","mono_ns":357322987445750,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:57:19.269+00:00","mono_ns":357322992857458,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:57:19.269+00:00","mono_ns":357322992899833,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:57:19.272+00:00","mono_ns":357322995604916,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:57:19.275+00:00","mono_ns":357322998384125,"event":"rx","line":"clock    2026-11-22 03:57:12"}
+{"utc":"2026-11-22T08:57:19.278+00:00","mono_ns":357323001162125,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:57:19.280+00:00","mono_ns":357323003955750,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:57:20.024+00:00","mono_ns":357323747603875,"event":"before","label":"q3","window":"q3-pre","lanes":[[972,1029.058,18.17],[990,1032.132,39.28],[1018,1034.936,46.46],[1036,1034.942,18.17],[1450,925.397,50.87],[1986,896.844,38.98]]}
+{"utc":"2026-11-22T08:57:20.024+00:00","mono_ns":357323747829541,"event":"tx","command":"pump b 1100"}
+{"utc":"2026-11-22T08:57:20.027+00:00","mono_ns":357323750083375,"event":"rx","line":"> [J3 faucet] CONNECTED"}
+{"utc":"2026-11-22T08:57:20.027+00:00","mono_ns":357323750203750,"event":"rx","line":"[J3] text: images: 51 slots, 199520 B each, 6 held"}
+{"utc":"2026-11-22T08:57:20.039+00:00","mono_ns":357323762145500,"event":"rx","line":"[machine] pump B at full for 1100 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"utc":"2026-11-22T08:57:20.143+00:00","mono_ns":357323866988875,"event":"rx","line":">"}
+{"utc":"2026-11-22T08:57:21.135+00:00","mono_ns":357324858196000,"event":"rx","line":"[machine] pump B done after 1100 ms"}
+{"utc":"2026-11-22T08:57:21.135+00:00","mono_ns":357324858232166,"event":"qualification_gate","label":"q3","head":"B","tx_ns":357323747829541,"start_ack_ns":357323762160041,"done_ack_ns":357324858227208,"board_ms":1100}
+{"utc":"2026-11-22T08:57:24.360+00:00","mono_ns":357328083324250,"event":"after","label":"q3","window":"q3-post","lanes":[[972,1002.132,16.92],[990,1005.908,40.02],[1018,1007.729,32.45],[1036,1005.059,17.33],[1450,904.98,49.88],[1986,876.377,39.26]]}
+{"utc":"2026-11-22T08:57:24.360+00:00","mono_ns":357328083362875,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:57:24.367+00:00","mono_ns":357328090960333,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:57:24.368+00:00","mono_ns":357328091015666,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:57:24.370+00:00","mono_ns":357328093674833,"event":"rx","line":"uptime   6 s"}
+{"utc":"2026-11-22T08:57:24.373+00:00","mono_ns":357328096400250,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:57:24.376+00:00","mono_ns":357328099196916,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:57:24.378+00:00","mono_ns":357328101933583,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:57:24.381+00:00","mono_ns":357328104713208,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:57:24.387+00:00","mono_ns":357328110387833,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:57:24.405+00:00","mono_ns":357328128425375,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:57:24.410+00:00","mono_ns":357328133894791,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:57:24.413+00:00","mono_ns":357328136841166,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:57:24.416+00:00","mono_ns":357328139789500,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:57:24.422+00:00","mono_ns":357328144989541,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:57:24.422+00:00","mono_ns":357328145060000,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:57:24.424+00:00","mono_ns":357328147738333,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:57:24.427+00:00","mono_ns":357328150488291,"event":"rx","line":"clock    2026-11-22 03:57:17"}
+{"utc":"2026-11-22T08:57:24.430+00:00","mono_ns":357328153282416,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:57:24.433+00:00","mono_ns":357328156043625,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:57:24.434+00:00","mono_ns":357328157345750,"event":"closed"}
+{"utc":"2026-11-22T08:58:18.535+00:00","mono_ns":357382258432166,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:58:18.542+00:00","mono_ns":357382265502291,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T08:58:18.548+00:00","mono_ns":357382270812500,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:58:18.548+00:00","mono_ns":357382271033458,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:58:18.550+00:00","mono_ns":357382273544291,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T08:58:18.551+00:00","mono_ns":357382273799583,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:58:18.556+00:00","mono_ns":357382279040375,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:58:18.559+00:00","mono_ns":357382281771416,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:58:18.561+00:00","mono_ns":357382284645666,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:58:18.566+00:00","mono_ns":357382289471958,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:18.584+00:00","mono_ns":357382306751958,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:58:18.589+00:00","mono_ns":357382312156500,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:18.592+00:00","mono_ns":357382314842541,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:58:18.595+00:00","mono_ns":357382317803083,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:58:18.600+00:00","mono_ns":357382323241041,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:58:18.600+00:00","mono_ns":357382323444666,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:58:18.603+00:00","mono_ns":357382325959833,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:58:18.605+00:00","mono_ns":357382328642291,"event":"rx","line":"clock    2026-11-22 03:58:11"}
+{"utc":"2026-11-22T08:58:18.608+00:00","mono_ns":357382331461875,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:58:18.611+00:00","mono_ns":357382334199291,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:58:19.348+00:00","mono_ns":357383071529833,"event":"before","label":"q4","window":"q4-pre","lanes":[[972,1002.166,21.99],[990,1005.98,46.23],[1018,1007.983,34.01],[1036,1005.247,17.54],[1450,905.965,50.35],[1986,876.487,39.29]]}
+{"utc":"2026-11-22T08:58:19.349+00:00","mono_ns":357383071658875,"event":"tx","command":"pump b 1250"}
+{"utc":"2026-11-22T08:58:19.351+00:00","mono_ns":357383074091083,"event":"rx","line":"> [J3 faucet] CONNECTED"}
+{"utc":"2026-11-22T08:58:19.351+00:00","mono_ns":357383074200958,"event":"rx","line":"[J3] text: images: 51 slots, 199520 B each, 6 held"}
+{"utc":"2026-11-22T08:58:19.363+00:00","mono_ns":357383086256291,"event":"rx","line":"[machine] pump B at full for 1250 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"utc":"2026-11-22T08:58:19.468+00:00","mono_ns":357383191333333,"event":"rx","line":">"}
+{"utc":"2026-11-22T08:58:20.609+00:00","mono_ns":357384332280958,"event":"rx","line":"[machine] pump B done after 1250 ms"}
+{"utc":"2026-11-22T08:58:20.609+00:00","mono_ns":357384332422208,"event":"qualification_gate","label":"q4","head":"B","tx_ns":357383071658875,"start_ack_ns":357383086295000,"done_ack_ns":357384332411916,"board_ms":1250}
+{"utc":"2026-11-22T08:58:23.843+00:00","mono_ns":357387566129250,"event":"after","label":"q4","window":"q4-post","lanes":[[972,972.019,23.4],[990,974.93,38.38],[1018,884.961,23.11],[1036,970.159,16.39],[1450,884.944,44.96],[1986,849.687,23.77]]}
+{"utc":"2026-11-22T08:58:23.843+00:00","mono_ns":357387566162833,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:58:23.850+00:00","mono_ns":357387573491500,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:58:23.850+00:00","mono_ns":357387573550625,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:58:23.853+00:00","mono_ns":357387576204958,"event":"rx","line":"uptime   6 s"}
+{"utc":"2026-11-22T08:58:23.856+00:00","mono_ns":357387578995125,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:58:23.859+00:00","mono_ns":357387581761500,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:58:23.861+00:00","mono_ns":357387584482041,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:58:23.864+00:00","mono_ns":357387587264625,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:58:23.870+00:00","mono_ns":357387592946750,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:23.888+00:00","mono_ns":357387611046208,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:58:23.893+00:00","mono_ns":357387616603958,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:23.896+00:00","mono_ns":357387619277333,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:58:23.899+00:00","mono_ns":357387622133125,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:58:23.904+00:00","mono_ns":357387627567875,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:58:23.905+00:00","mono_ns":357387627607750,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:58:23.907+00:00","mono_ns":357387630339208,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:58:23.910+00:00","mono_ns":357387633104541,"event":"rx","line":"clock    2026-11-22 03:58:16"}
+{"utc":"2026-11-22T08:58:23.913+00:00","mono_ns":357387635885166,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:58:23.916+00:00","mono_ns":357387638652625,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:58:23.916+00:00","mono_ns":357387639417500,"event":"closed"}
+{"utc":"2026-11-22T08:58:49.479+00:00","mono_ns":357413201827750,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:58:49.487+00:00","mono_ns":357413210007708,"event":"rx","line":"[settings] persisted"}
+{"utc":"2026-11-22T08:58:49.492+00:00","mono_ns":357413215277083,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:58:49.493+00:00","mono_ns":357413215468125,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:58:49.495+00:00","mono_ns":357413218047041,"event":"rx","line":"uptime   1 s"}
+{"utc":"2026-11-22T08:58:49.495+00:00","mono_ns":357413218243000,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:58:49.501+00:00","mono_ns":357413223623958,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:58:49.503+00:00","mono_ns":357413226228541,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:58:49.506+00:00","mono_ns":357413229047583,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:58:49.511+00:00","mono_ns":357413233815041,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:49.528+00:00","mono_ns":357413251163583,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:58:49.534+00:00","mono_ns":357413256695583,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:49.536+00:00","mono_ns":357413259287500,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:58:49.539+00:00","mono_ns":357413262158583,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:58:49.545+00:00","mono_ns":357413267576625,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:58:49.545+00:00","mono_ns":357413267701833,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:58:49.547+00:00","mono_ns":357413270433916,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:58:49.550+00:00","mono_ns":357413273240375,"event":"rx","line":"clock    2026-11-22 03:58:42"}
+{"utc":"2026-11-22T08:58:49.553+00:00","mono_ns":357413276020833,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:58:49.556+00:00","mono_ns":357413278809208,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:58:50.284+00:00","mono_ns":357414007060166,"event":"before","label":"q5","window":"q5-pre","lanes":[[972,971.222,28.38],[990,975.006,43.24],[1018,884.982,23.87],[1036,972.083,14.51],[1450,884.965,44.29],[1986,850.625,23.92]]}
+{"utc":"2026-11-22T08:58:50.284+00:00","mono_ns":357414007278166,"event":"tx","command":"pump b 1200"}
+{"utc":"2026-11-22T08:58:50.293+00:00","mono_ns":357414015726333,"event":"rx","line":">"}
+{"utc":"2026-11-22T08:58:50.300+00:00","mono_ns":357414023146958,"event":"rx","line":"[machine] pump B at full for 1200 ms (IO4 -> U12.IN1 -> J13.BM1 + BM2 (the two EAST pins))"}
+{"utc":"2026-11-22T08:58:50.402+00:00","mono_ns":357414124448875,"event":"rx","line":">"}
+{"utc":"2026-11-22T08:58:51.495+00:00","mono_ns":357415218066333,"event":"rx","line":"[machine] pump B done after 1200 ms"}
+{"utc":"2026-11-22T08:58:51.495+00:00","mono_ns":357415218105958,"event":"qualification_gate","label":"q5","head":"B","tx_ns":357414007278166,"start_ack_ns":357414023165416,"done_ack_ns":357415218100916,"board_ms":1200}
+{"utc":"2026-11-22T08:58:54.719+00:00","mono_ns":357418441498083,"event":"after","label":"q5","window":"q5-post","lanes":[[972,943.858,21.87],[990,945.616,35.98],[1018,883.989,23.25],[1036,937.102,18.58],[1450,865.045,43.45],[1986,878.034,21.2]]}
+{"utc":"2026-11-22T08:58:54.719+00:00","mono_ns":357418441545625,"event":"tx","command":"status"}
+{"utc":"2026-11-22T08:58:54.720+00:00","mono_ns":357418442790416,"event":"rx","line":"[J3 faucet] CONNECTED"}
+{"utc":"2026-11-22T08:58:54.720+00:00","mono_ns":357418442948041,"event":"rx","line":"[J3] text: images: 51 slots, 199520 B each, 6 held"}
+{"utc":"2026-11-22T08:58:54.726+00:00","mono_ns":357418449274666,"event":"rx","line":"2026.11.15 d6e49a5f6  Nov 15 2026 13:29:35"}
+{"utc":"2026-11-22T08:58:54.726+00:00","mono_ns":357418449318541,"event":"rx","line":"state    idle"}
+{"utc":"2026-11-22T08:58:54.729+00:00","mono_ns":357418451982375,"event":"rx","line":"uptime   6 s"}
+{"utc":"2026-11-22T08:58:54.732+00:00","mono_ns":357418454790125,"event":"rx","line":"heap     262568 bytes free"}
+{"utc":"2026-11-22T08:58:54.735+00:00","mono_ns":357418457532333,"event":"rx","line":"flavor   A \u2014 main-board-owned, persisted"}
+{"utc":"2026-11-22T08:58:54.737+00:00","mono_ns":357418460268916,"event":"rx","line":"ratio    A 1:20, B 1:15"}
+{"utc":"2026-11-22T08:58:54.740+00:00","mono_ns":357418463032291,"event":"rx","line":"flow     0 pulses since boot on IO25"}
+{"utc":"2026-11-22T08:58:54.746+00:00","mono_ns":357418468763916,"event":"rx","line":"level    A ?/4, B ?/4 \u2014 carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:54.764+00:00","mono_ns":357418486748708,"event":"rx","line":"expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF"}
+{"utc":"2026-11-22T08:58:54.769+00:00","mono_ns":357418492239000,"event":"rx","line":"reeds    raw=FF/FF, closed A=0 B=0, carbonator low=no high=no"}
+{"utc":"2026-11-22T08:58:54.772+00:00","mono_ns":357418494973125,"event":"rx","line":"valves   all closed"}
+{"utc":"2026-11-22T08:58:54.775+00:00","mono_ns":357418497769875,"event":"rx","line":"relays   compressor open (IO19), refill open (IO2)"}
+{"utc":"2026-11-22T08:58:54.780+00:00","mono_ns":357418503284208,"event":"rx","line":"cold     tank --, coil --, fault, 0 probes on IO26"}
+{"utc":"2026-11-22T08:58:54.780+00:00","mono_ns":357418503322791,"event":"rx","line":"refill   idle"}
+{"utc":"2026-11-22T08:58:54.783+00:00","mono_ns":357418506070500,"event":"rx","line":"notice   none"}
+{"utc":"2026-11-22T08:58:54.786+00:00","mono_ns":357418508832416,"event":"rx","line":"clock    2026-11-22 03:58:47"}
+{"utc":"2026-11-22T08:58:54.789+00:00","mono_ns":357418511603833,"event":"rx","line":"gas      clear (142 mV on the divided DOUT)"}
+{"utc":"2026-11-22T08:58:54.791+00:00","mono_ns":357418514368041,"event":"rx","line":"volume   100%, quiet hours off"}
+{"utc":"2026-11-22T08:58:54.792+00:00","mono_ns":357418515130833,"event":"closed"}
