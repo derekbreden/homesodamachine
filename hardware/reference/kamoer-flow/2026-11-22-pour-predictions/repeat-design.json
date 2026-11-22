@@ -1,0 +1,307 @@
+{
+  "question": "After measuring the same lever program twice, can its mean dose predict the next six servings on that head?",
+  "training": "Use the first two fresh blocks only; arithmetic mean primary dose separately for each head and program. Freeze numeric table before issuing any scored commands. No later outcomes enter fitting.",
+  "validation": "Score the first pours from fresh blocks 3\u20136 and both additional blocks below. Count camera or hardware failures against coverage. If any planned validation command predates the numeric freeze, record it as unscored for this alternative and collect a genuinely new replacement at the same head/program regardless of outcome.",
+  "criterion": "Per head and program, at least five of six doses within max(1.0 nominal mL, 10% forecast), and absolute mean bias <= max(0.6 mL, 5% forecast) on the primary. For corroboration also require the separate x1986 sightline to meet count and bias. Report every signed error, both acceptance rates, and both median absolute errors on exactly the same servings versus the original fixed-width interpolation model.",
+  "scope": "Repeated known program over this session. A held-out new waveform and repeated servings of a known waveform are different prediction questions.",
+  "scenarios": {
+    "near_full_glass": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          5,
+          7650
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          170
+        ],
+        [
+          530,
+          170
+        ],
+        [
+          1060,
+          170
+        ],
+        [
+          1590,
+          170
+        ],
+        [
+          2120,
+          170
+        ],
+        [
+          2650,
+          170
+        ],
+        [
+          3180,
+          170
+        ],
+        [
+          3710,
+          170
+        ],
+        [
+          4240,
+          170
+        ],
+        [
+          4770,
+          170
+        ],
+        [
+          5300,
+          170
+        ],
+        [
+          5830,
+          170
+        ],
+        [
+          6360,
+          170
+        ],
+        [
+          6890,
+          170
+        ],
+        [
+          7420,
+          170
+        ]
+      ],
+      "ideal_bursts": 15,
+      "ideal_on_s": 2.55,
+      "ideal_stop_ms": [
+        8950
+      ],
+      "nominal_water_ml": 335.5263157894737,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 28.917750975,
+        "B": 25.252220324999996
+      }
+    },
+    "partial_top_off": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          3,
+          2025
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          110
+        ],
+        [
+          590,
+          110
+        ],
+        [
+          1180,
+          110
+        ],
+        [
+          1770,
+          110
+        ]
+      ],
+      "ideal_bursts": 4,
+      "ideal_on_s": 0.44,
+      "ideal_stop_ms": [
+        3360
+      ],
+      "nominal_water_ml": 53.28947368421053,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 4.9897295800000006,
+        "B": 4.35724586
+      }
+    },
+    "finish_at_full_flow": {
+      "phase": "validation",
+      "ratio": 20,
+      "meter": [
+        [
+          3,
+          1225
+        ],
+        [
+          6,
+          2150
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          110
+        ],
+        [
+          590,
+          110
+        ],
+        [
+          1180,
+          110
+        ],
+        [
+          1770,
+          170
+        ],
+        [
+          2300,
+          200
+        ],
+        [
+          2800,
+          200
+        ],
+        [
+          3300,
+          200
+        ]
+      ],
+      "ideal_bursts": 7,
+      "ideal_on_s": 1.1,
+      "ideal_stop_ms": [
+        4800
+      ],
+      "nominal_water_ml": 145.39473684210526,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 12.474323950000002,
+        "B": 10.893114650000001
+      }
+    },
+    "short_richer_pour": {
+      "phase": "validation",
+      "ratio": 15,
+      "meter": [
+        [
+          6,
+          1325
+        ]
+      ],
+      "ideal_gates_start_ms_width_ms": [
+        [
+          0,
+          311
+        ],
+        [
+          506,
+          311
+        ],
+        [
+          1012,
+          311
+        ]
+      ],
+      "ideal_bursts": 3,
+      "ideal_on_s": 0.933,
+      "ideal_stop_ms": [
+        2518
+      ],
+      "nominal_water_ml": 69.73684210526316,
+      "old_middle_ruler_rate_prediction_ml": {
+        "A": 10.580494768500001,
+        "B": 9.239341789500001
+      }
+    }
+  },
+  "orders": {
+    "validation": [
+      {
+        "scenario": "partial_top_off",
+        "head": "A",
+        "block": 1
+      },
+      {
+        "scenario": "short_richer_pour",
+        "head": "A",
+        "block": 1
+      },
+      {
+        "scenario": "short_richer_pour",
+        "head": "B",
+        "block": 1
+      },
+      {
+        "scenario": "partial_top_off",
+        "head": "B",
+        "block": 1
+      },
+      {
+        "scenario": "finish_at_full_flow",
+        "head": "B",
+        "block": 1
+      },
+      {
+        "scenario": "near_full_glass",
+        "head": "A",
+        "block": 1
+      },
+      {
+        "scenario": "finish_at_full_flow",
+        "head": "A",
+        "block": 1
+      },
+      {
+        "scenario": "near_full_glass",
+        "head": "B",
+        "block": 1
+      },
+      {
+        "scenario": "finish_at_full_flow",
+        "head": "B",
+        "block": 2
+      },
+      {
+        "scenario": "near_full_glass",
+        "head": "B",
+        "block": 2
+      },
+      {
+        "scenario": "near_full_glass",
+        "head": "A",
+        "block": 2
+      },
+      {
+        "scenario": "partial_top_off",
+        "head": "A",
+        "block": 2
+      },
+      {
+        "scenario": "finish_at_full_flow",
+        "head": "A",
+        "block": 2
+      },
+      {
+        "scenario": "short_richer_pour",
+        "head": "B",
+        "block": 2
+      },
+      {
+        "scenario": "partial_top_off",
+        "head": "B",
+        "block": 2
+      },
+      {
+        "scenario": "short_richer_pour",
+        "head": "A",
+        "block": 2
+      }
+    ]
+  },
+  "epochs": {
+    "validation_offset_ml": [
+      3,
+      -3
+    ]
+  }
+}
