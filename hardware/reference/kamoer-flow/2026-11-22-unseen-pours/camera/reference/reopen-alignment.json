@@ -1,0 +1,70 @@
+{
+  "dry_print": {
+    "1180,412": {
+      "dx_px": -2.239186863854358,
+      "dy_px": 3.6268955874732343,
+      "correlation": 0.9823907613754272,
+      "contrast_ratio": 0.9897568821907043,
+      "vertical_feature_gradient_ratio": 0.9924825429916382,
+      "mean_luma_difference": -0.7735862731933594
+    },
+    "1180,554": {
+      "dx_px": -1.5886476077438734,
+      "dy_px": 2.461851911189672,
+      "correlation": 0.9908586740493774,
+      "contrast_ratio": 0.9920345544815063,
+      "vertical_feature_gradient_ratio": 1.024309515953064,
+      "mean_luma_difference": -0.9573745727539062
+    },
+    "1180,684": {
+      "dx_px": -2.019826746010948,
+      "dy_px": 1.3554018137594432,
+      "correlation": 0.9888867735862732,
+      "contrast_ratio": 1.017948865890503,
+      "vertical_feature_gradient_ratio": 1.0331798791885376,
+      "mean_luma_difference": -1.4192886352539062
+    },
+    "1730,328": {
+      "dx_px": -6.0,
+      "dy_px": 3.78880173564753,
+      "correlation": 0.9905275106430054,
+      "contrast_ratio": 1.0147813558578491,
+      "vertical_feature_gradient_ratio": 1.0554012060165405,
+      "mean_luma_difference": -1.2152366638183594
+    },
+    "1730,542": {
+      "dx_px": -6.0,
+      "dy_px": 2.3075432513119103,
+      "correlation": 0.9955863356590271,
+      "contrast_ratio": 1.0529508590698242,
+      "vertical_feature_gradient_ratio": 1.0603090524673462,
+      "mean_luma_difference": -0.8106231689453125
+    },
+    "1730,756": {
+      "dx_px": -6.0,
+      "dy_px": 0.84105182837354,
+      "correlation": 0.9949813485145569,
+      "contrast_ratio": 0.9912092089653015,
+      "vertical_feature_gradient_ratio": 0.9729979038238525,
+      "mean_luma_difference": -1.2459793090820312
+    }
+  },
+  "liquid_features": {
+    "990,989": {
+      "dy_px": -0.75,
+      "correlation": 0.9964522139383797
+    },
+    "1450,894": {
+      "dy_px": -0.05,
+      "correlation": 0.9976230452627787
+    },
+    "1986,931": {
+      "dy_px": -1.15,
+      "correlation": 0.9973778019290052
+    },
+    "1986,862": {
+      "dy_px": 0.35,
+      "correlation": 0.8292249309813678
+    }
+  }
+}

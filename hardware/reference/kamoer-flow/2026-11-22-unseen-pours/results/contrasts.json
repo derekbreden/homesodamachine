@@ -1,0 +1,294 @@
+{
+  "restart": {
+    "A": {
+      "forecast_ml": -0.190261745041596,
+      "near": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": -2.0576069393399337
+          },
+          {
+            "block": 2,
+            "measured_ml": -1.0478590077590582
+          },
+          {
+            "block": 3,
+            "measured_ml": -0.5453680364232127
+          },
+          {
+            "block": 4,
+            "measured_ml": -0.42622409037480224
+          },
+          {
+            "block": 5,
+            "measured_ml": 0.12071217466589701
+          },
+          {
+            "block": 6,
+            "measured_ml": -0.14069100923262567
+          }
+        ],
+        "mean_measured_ml": -0.6828394847439558,
+        "mean_measured_minus_forecast_ml": -0.4925777397023599,
+        "paired_90pct_error_interval_ml": [
+          -1.134826786467465,
+          0.14967130706274528
+        ],
+        "corroborated": false
+      },
+      "far": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": -2.1514070810188173
+          },
+          {
+            "block": 2,
+            "measured_ml": -0.8261642391128134
+          },
+          {
+            "block": 3,
+            "measured_ml": -0.3825136704587351
+          },
+          {
+            "block": 4,
+            "measured_ml": -1.2691264009270355
+          },
+          {
+            "block": 5,
+            "measured_ml": 0.3908548196024242
+          },
+          {
+            "block": 6,
+            "measured_ml": -0.950432623460614
+          }
+        ],
+        "mean_measured_ml": -0.8647981992292652,
+        "mean_measured_minus_forecast_ml": -0.6745364541876692,
+        "paired_90pct_error_interval_ml": [
+          -1.3761411133441235,
+          0.027068204968785037
+        ],
+        "corroborated": false
+      }
+    },
+    "B": {
+      "forecast_ml": -0.23917294714431137,
+      "near": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": 0.3124452396898789
+          },
+          {
+            "block": 2,
+            "measured_ml": -0.6711665983084742
+          },
+          {
+            "block": 3,
+            "measured_ml": 0.8549371541971595
+          },
+          {
+            "block": 4,
+            "measured_ml": -0.06123431856150319
+          },
+          {
+            "block": 5,
+            "measured_ml": 0.09970486977675819
+          },
+          {
+            "block": 6,
+            "measured_ml": -0.5477129495695863
+          }
+        ],
+        "mean_measured_ml": -0.002171100462627834,
+        "mean_measured_minus_forecast_ml": 0.23700184668168353,
+        "paired_90pct_error_interval_ml": [
+          -0.2272844317715356,
+          0.7012881251349027
+        ],
+        "corroborated": true
+      },
+      "far": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": -0.0019163578424752359
+          },
+          {
+            "block": 2,
+            "measured_ml": -0.27772723981144054
+          },
+          {
+            "block": 3,
+            "measured_ml": 0.6518876030869762
+          },
+          {
+            "block": 4,
+            "measured_ml": 0.30961343842798783
+          },
+          {
+            "block": 5,
+            "measured_ml": -0.2716455364336241
+          },
+          {
+            "block": 6,
+            "measured_ml": -0.7207294065769645
+          }
+        ],
+        "mean_measured_ml": -0.05175291652492339,
+        "mean_measured_minus_forecast_ml": 0.18742003061938797,
+        "paired_90pct_error_interval_ml": [
+          -0.2113909140635695,
+          0.5862309753023455
+        ],
+        "corroborated": true
+      }
+    }
+  },
+  "added_burst": {
+    "A": {
+      "forecast_ml": 2.8080112583507724,
+      "near": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": 2.8519557448677606
+          },
+          {
+            "block": 2,
+            "measured_ml": 2.8687564191410764
+          },
+          {
+            "block": 3,
+            "measured_ml": 2.9051684091486174
+          },
+          {
+            "block": 4,
+            "measured_ml": 2.904825562627766
+          },
+          {
+            "block": 5,
+            "measured_ml": 2.9365246255178894
+          },
+          {
+            "block": 6,
+            "measured_ml": 2.885066962972504
+          }
+        ],
+        "mean_measured_ml": 2.8920496207126023,
+        "mean_measured_minus_forecast_ml": 0.08403836236182993,
+        "paired_90pct_error_interval_ml": [
+          0.05932572119922823,
+          0.10875100352443164
+        ]
+      },
+      "far": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": 2.8843403328334754
+          },
+          {
+            "block": 2,
+            "measured_ml": 2.881361098316264
+          },
+          {
+            "block": 3,
+            "measured_ml": 2.8600059291743447
+          },
+          {
+            "block": 4,
+            "measured_ml": 2.955341456356682
+          },
+          {
+            "block": 5,
+            "measured_ml": 2.884107916013385
+          },
+          {
+            "block": 6,
+            "measured_ml": 2.9376744014551943
+          }
+        ],
+        "mean_measured_ml": 2.9004718556915576,
+        "mean_measured_minus_forecast_ml": 0.0924605973407852,
+        "paired_90pct_error_interval_ml": [
+          0.061844637096061666,
+          0.12307655758550873
+        ]
+      }
+    },
+    "B": {
+      "forecast_ml": 2.549739108648555,
+      "near": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": 2.471498849564398
+          },
+          {
+            "block": 2,
+            "measured_ml": 2.604011651624614
+          },
+          {
+            "block": 3,
+            "measured_ml": 2.553065023397903
+          },
+          {
+            "block": 4,
+            "measured_ml": 2.5814631543854647
+          },
+          {
+            "block": 5,
+            "measured_ml": 2.560589880049253
+          },
+          {
+            "block": 6,
+            "measured_ml": 2.6229516574134775
+          }
+        ],
+        "mean_measured_ml": 2.565596702739185,
+        "mean_measured_minus_forecast_ml": 0.015857594090630183,
+        "paired_90pct_error_interval_ml": [
+          -0.027755614139504902,
+          0.059470802320765265
+        ]
+      },
+      "far": {
+        "pairs": [
+          {
+            "block": 1,
+            "measured_ml": 2.5073630684168595
+          },
+          {
+            "block": 2,
+            "measured_ml": 2.598066648595005
+          },
+          {
+            "block": 3,
+            "measured_ml": 2.5264258769290633
+          },
+          {
+            "block": 4,
+            "measured_ml": 2.548918349672472
+          },
+          {
+            "block": 5,
+            "measured_ml": 2.575960850007804
+          },
+          {
+            "block": 6,
+            "measured_ml": 2.6337214707466567
+          }
+        ],
+        "mean_measured_ml": 2.56507604406131,
+        "mean_measured_minus_forecast_ml": 0.01533693541275527,
+        "paired_90pct_error_interval_ml": [
+          -0.023256629206340577,
+          0.05393050003185112
+        ]
+      }
+    }
+  }
+}

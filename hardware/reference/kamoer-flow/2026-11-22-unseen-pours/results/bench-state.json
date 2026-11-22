@@ -1,0 +1,46 @@
+{
+  "qualified": {
+    "status_utc": "2026-11-22T10:39:30.180+00:00",
+    "settings": {
+      "flavor": "A",
+      "A": 20,
+      "B": 15
+    },
+    "readbacks": [
+      "state    idle",
+      "expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF",
+      "valves   all closed",
+      "volume   0%, quiet hours off"
+    ]
+  },
+  "parked": {
+    "status_utc": "2026-11-22T11:01:08.079+00:00",
+    "settings": {
+      "flavor": "A",
+      "A": 20,
+      "B": 15
+    },
+    "readbacks": [
+      "state    idle",
+      "expanders healthy \u2014 cfg=ok, plan=ok, parked=yes, OLATA=00/00, GPPUB=FF/FF",
+      "valves   all closed",
+      "volume   0%, quiet hours off"
+    ]
+  },
+  "stationary_pretest_change_ml": {
+    "x990": -0.038198324750311485,
+    "x1986": -1.054169498702521
+  },
+  "initial_position_ml": {
+    "x990": 237.04556198276597,
+    "x1986": 238.20052895818836
+  },
+  "parked_position_ml": {
+    "x990": 237.041657089836,
+    "x1986": 237.49516675550103
+  },
+  "parked_minus_initial_ml": {
+    "x990": -0.0039048929299667634,
+    "x1986": -0.7053622026873256
+  }
+}

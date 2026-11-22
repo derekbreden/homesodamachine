@@ -1,0 +1,190 @@
+{
+  "unit": "Concentrate volume indicated by the printed cup, nominal mL; error is measured dose minus forecast.",
+  "design_revision": "cd4b81349d685eb61ad615c59f2408cad7ca8e2d",
+  "forecasts_revision": "0bc951783366815b7d9e5d1566ea9ec3bc3965ac",
+  "freeze_utc": "2026-11-22T10:38:20.263380+00:00",
+  "validation_journal_sha256": "f00afa3545c170a1455fcdc8dbd99408730d71ddc0022b96bb6495e8612b5e97",
+  "first_wet_position_utc": "2026-11-22T10:42:03.576+00:00",
+  "first_reserved_flow_utc": "2026-11-22T10:42:11.516+00:00",
+  "planned": 72,
+  "forecast_logged": 72,
+  "measured": 72,
+  "eligible": 72,
+  "passed_conditions": 11,
+  "all_conditions_pass": false,
+  "failed_conditions": [
+    [
+      "A",
+      "low_topoff"
+    ]
+  ],
+  "maximum_abs_stage_timing_error_ms": 4.763834003824741,
+  "closure_error_ms": [
+    0,
+    1,
+    2,
+    2,
+    3,
+    1,
+    1,
+    3,
+    2,
+    2,
+    1,
+    2,
+    2,
+    1,
+    2,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    3,
+    1,
+    2,
+    2,
+    3,
+    1,
+    2,
+    1,
+    2,
+    3,
+    1,
+    2,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    2,
+    2,
+    2,
+    1,
+    2,
+    1,
+    2,
+    2,
+    0,
+    2,
+    1,
+    2,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    2,
+    3,
+    1,
+    2,
+    1,
+    2,
+    1,
+    2,
+    0
+  ],
+  "aggregate": {
+    "both": {
+      "near": {
+        "planned": 72,
+        "scorable": 72,
+        "mean_error_ml": 0.47806787896803343,
+        "mean_absolute_error_ml": 0.6529175606996622,
+        "max_absolute_error_ml": 2.4189576535018107,
+        "within_practical": 66,
+        "within_five_percent": 54,
+        "previous_width_forecast_mean_error_ml": 2.338755888102318,
+        "previous_width_forecast_mean_absolute_error_ml": 2.3522917851586924
+      },
+      "far": {
+        "planned": 72,
+        "scorable": 72,
+        "mean_error_ml": 0.5365734442821367,
+        "mean_absolute_error_ml": 0.7257813498141426,
+        "max_absolute_error_ml": 2.4013867474777912,
+        "within_practical": 67,
+        "within_five_percent": 49,
+        "previous_width_forecast_mean_error_ml": 2.397261453416421,
+        "previous_width_forecast_mean_absolute_error_ml": 2.4094300318359023
+      }
+    },
+    "A": {
+      "near": {
+        "planned": 36,
+        "scorable": 36,
+        "mean_error_ml": 0.8186709298777577,
+        "mean_absolute_error_ml": 0.9007647229897959,
+        "max_absolute_error_ml": 2.4189576535018107,
+        "within_practical": 31,
+        "within_five_percent": 25,
+        "previous_width_forecast_mean_error_ml": 2.6569396253739104,
+        "previous_width_forecast_mean_absolute_error_ml": 2.6676251215204716
+      },
+      "far": {
+        "planned": 36,
+        "scorable": 36,
+        "mean_error_ml": 0.9013598612126016,
+        "mean_absolute_error_ml": 0.9808126405063483,
+        "max_absolute_error_ml": 2.4013867474777912,
+        "within_practical": 31,
+        "within_five_percent": 22,
+        "previous_width_forecast_mean_error_ml": 2.7396285567087544,
+        "previous_width_forecast_mean_absolute_error_ml": 2.752196653402958
+      }
+    },
+    "B": {
+      "near": {
+        "planned": 36,
+        "scorable": 36,
+        "mean_error_ml": 0.13746482805830917,
+        "mean_absolute_error_ml": 0.4050703984095284,
+        "max_absolute_error_ml": 1.189826296492484,
+        "within_practical": 35,
+        "within_five_percent": 29,
+        "previous_width_forecast_mean_error_ml": 2.020572150830725,
+        "previous_width_forecast_mean_absolute_error_ml": 2.0369584487969132
+      },
+      "far": {
+        "planned": 36,
+        "scorable": 36,
+        "mean_error_ml": 0.17178702735167192,
+        "mean_absolute_error_ml": 0.47075005912193674,
+        "max_absolute_error_ml": 1.2879782239476896,
+        "within_practical": 36,
+        "within_five_percent": 27,
+        "previous_width_forecast_mean_error_ml": 2.054894350124088,
+        "previous_width_forecast_mean_absolute_error_ml": 2.066663410268847
+      }
+    }
+  },
+  "near_minus_far_dose_ml": {
+    "n": 72,
+    "mean_ml": -0.058505565314103336,
+    "median_absolute_ml": 0.17685376966987576,
+    "max_absolute_ml": 0.585753964621091
+  },
+  "adjacent_stationary_changes": {
+    "near": {
+      "n": 71,
+      "mean_ml": -0.041012514098279614,
+      "median_absolute_ml": 0.010890299902399647,
+      "max_absolute_ml": 0.38074951055014594
+    },
+    "far": {
+      "n": 71,
+      "mean_ml": -0.03324898105383276,
+      "median_absolute_ml": 0.008770107502726887,
+      "max_absolute_ml": 0.3544713713067438
+    }
+  }
+}

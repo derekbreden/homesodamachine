@@ -1,0 +1,122 @@
+{
+  "resumed_glass": {
+    "label": "unseen1-000-a-resumed-glass",
+    "head": "A",
+    "native_crop_ltrb": [
+      950,
+      780,
+      2045,
+      1150
+    ],
+    "start_window": {
+      "label": "unseen1-000-a-resumed-glass-set2",
+      "picture": "unseen1-000-a-resumed-glass-set2.png",
+      "mid_pts_ns": 363614672866667
+    },
+    "finish_window": {
+      "label": "unseen1-000-a-resumed-glass-post",
+      "picture": "unseen1-000-a-resumed-glass-post.png",
+      "mid_pts_ns": 363627156800000
+    }
+  },
+  "ease_and_finish": {
+    "label": "unseen1-002-b-ease-and-finish",
+    "head": "B",
+    "native_crop_ltrb": [
+      950,
+      780,
+      2045,
+      1150
+    ],
+    "start_window": {
+      "label": "unseen1-002-b-ease-and-finish-set2",
+      "picture": "unseen1-002-b-ease-and-finish-set2.png",
+      "mid_pts_ns": 363649454366667
+    },
+    "finish_window": {
+      "label": "unseen1-002-b-ease-and-finish-post",
+      "picture": "unseen1-002-b-ease-and-finish-post.png",
+      "mid_pts_ns": 363660002333333
+    }
+  },
+  "steady_glass": {
+    "label": "unseen1-004-b-steady-glass",
+    "head": "B",
+    "native_crop_ltrb": [
+      950,
+      780,
+      2045,
+      1150
+    ],
+    "start_window": {
+      "label": "unseen1-004-b-steady-glass-set1",
+      "picture": "unseen1-004-b-steady-glass-set1.png",
+      "mid_pts_ns": 363679128866667
+    },
+    "finish_window": {
+      "label": "unseen1-004-b-steady-glass-post",
+      "picture": "unseen1-004-b-steady-glass-post.png",
+      "mid_pts_ns": 363690644800000
+    }
+  },
+  "quick_taste": {
+    "label": "unseen1-006-a-quick-taste",
+    "head": "A",
+    "native_crop_ltrb": [
+      950,
+      780,
+      2045,
+      1150
+    ],
+    "start_window": {
+      "label": "unseen1-006-a-quick-taste-set2",
+      "picture": "unseen1-006-a-quick-taste-set2.png",
+      "mid_pts_ns": 363715145400000
+    },
+    "finish_window": {
+      "label": "unseen1-006-a-quick-taste-post",
+      "picture": "unseen1-006-a-quick-taste-post.png",
+      "mid_pts_ns": 363720319200000
+    }
+  },
+  "low_topoff": {
+    "label": "unseen1-008-b-low-topoff",
+    "head": "B",
+    "native_crop_ltrb": [
+      950,
+      780,
+      2045,
+      1150
+    ],
+    "start_window": {
+      "label": "unseen1-008-b-low-topoff-set1",
+      "picture": "unseen1-008-b-low-topoff-set1.png",
+      "mid_pts_ns": 363730433266667
+    },
+    "finish_window": {
+      "label": "unseen1-008-b-low-topoff-post",
+      "picture": "unseen1-008-b-low-topoff-post.png",
+      "mid_pts_ns": 363741181466667
+    }
+  },
+  "varied_glass": {
+    "label": "unseen1-010-a-varied-glass",
+    "head": "A",
+    "native_crop_ltrb": [
+      950,
+      780,
+      2045,
+      1150
+    ],
+    "start_window": {
+      "label": "unseen1-010-a-varied-glass-set3",
+      "picture": "unseen1-010-a-varied-glass-set3.png",
+      "mid_pts_ns": 363764580533333
+    },
+    "finish_window": {
+      "label": "unseen1-010-a-varied-glass-post",
+      "picture": "unseen1-010-a-varied-glass-post.png",
+      "mid_pts_ns": 363778633333333
+    }
+  }
+}
