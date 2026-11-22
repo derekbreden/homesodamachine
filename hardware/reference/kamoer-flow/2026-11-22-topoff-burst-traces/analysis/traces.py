@@ -101,6 +101,16 @@ def main():
                     burst_rows.append(dict(label=lab, head=tr['head'], kind=tr['kind'], site=k, burst=i + 1,
                                            start_s=gs / 1000, end_s=(gs + gw) / 1000, before_ml=b, after_ml=a,
                                            frames_before=nb, frames_after=na, step_ml=step, gap_drift_ml=gap))
+            # Frame-to-frame scatter while the bursts run (not registered; reported beside the registered sigma).
+            during = (t > 0.1) & (t < gates[-1][0] / 1000 + 0.5) & np.isfinite(y)
+            d = np.diff(y[during])
+            pour_sigma = float(np.std(d) / np.sqrt(2)) if d.size > 3 else float('nan')
+            # Per-period delivery: level just before each burst to just before the next (after the last, its after-window).
+            befores = [window_mean(t, y, g[0] / 1000 + BEFORE[0], g[0] / 1000 + BEFORE[1])[0] for g in gates]
+            last_after = window_mean(t, y, gates[-1][0] / 1000 + AFTER[0], gates[-1][0] / 1000 + AFTER[1])[0]
+            period = [(nb_ - b_) * sign for b_, nb_ in zip(befores, befores[1:] + [last_after])]
+            rec.update({f'{k}_pour_frame_sigma_ml': pour_sigma, f'{k}_period_delivery_ml': [round(v, 3) for v in period],
+                        f'{k}_bursts_resolved_vs_pour_sigma': sum(1 for v in steps if np.isfinite(v) and v > 5 * pour_sigma)})
             last = gates[-1][0] / 1000
             a_last, _ = window_mean(t, y, last + AFTER[0], last + AFTER[1])
             end = t[-1]
@@ -112,7 +122,8 @@ def main():
                         f'{k}_steps_ml': [round(v, 3) for v in steps], f'{k}_gaps_ml': [round(v, 3) for v in gaps]})
         summary.append(rec)
         print(lab, tr['kind'], 'dose', round(rec['dose_x990'], 2), 'fps', rec['fps'], 'sigma', round(rec['x990_frame_sigma_ml'], 4),
-              'resolved', rec['x990_bursts_resolved'], '\n  steps', rec['x990_steps_ml'], '\n  gaps ', rec['x990_gaps_ml'],
+              'resolved', rec['x990_bursts_resolved'], 'pour sigma', round(rec['x990_pour_frame_sigma_ml'], 3),
+              'resolved vs pour sigma', rec['x990_bursts_resolved_vs_pour_sigma'], '\n  periods', rec['x990_period_delivery_ml'], '\n  steps', rec['x990_steps_ml'], '\n  gaps ', rec['x990_gaps_ml'],
               '\n  sum steps', round(rec['x990_sum_steps_ml'], 2), 'sum gaps', round(rec['x990_sum_gap_drift_ml'], 2),
               'settle', round(rec['x990_settle_after_last_ml'], 3))
     with (OUT / 'bursts.csv').open('w', newline='') as fh:

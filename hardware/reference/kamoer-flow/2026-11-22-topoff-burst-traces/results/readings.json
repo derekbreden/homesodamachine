@@ -1,0 +1,97 @@
+{
+ "raised": [
+  "rt-004-a-topoff_n11",
+  "tr-006-a-topoff_n11",
+  "tr-007-a-topoff_n11",
+  "tr-030-a-topoff_n11",
+  "tr-031-a-topoff_n11"
+ ],
+ "normal": [
+  "tr-014-a-topoff_n11",
+  "tr-015-a-topoff_n11",
+  "tr-022-a-topoff_n11",
+  "tr-023-a-topoff_n11"
+ ],
+ "dose_difference_ml": 2.6226745977478405,
+ "uniform": {
+  "overall_step_ratio": 1.1980162779256418,
+  "position_ratios": [
+   1.7579902302861128,
+   0.9323899371069182,
+   1.201607501674481,
+   0.9926136363636364,
+   1.0148302148302146,
+   1.1358148263997498,
+   1.0505544933078392,
+   1.5471280276816608,
+   1.2863059452237808,
+   1.0833069369654735,
+   1.4491932310114128
+  ],
+  "positions_within_25pct": 9,
+  "reading": "holds"
+ },
+ "two_sizes": {
+  "per_raised_pour_low_high_counts": [
+   [
+    2,
+    8
+   ],
+   [
+    5,
+    6
+   ],
+   [
+    1,
+    10
+   ],
+   [
+    2,
+    9
+   ],
+   [
+    2,
+    7
+   ]
+  ],
+  "reading": "false"
+ },
+ "give_back": {
+  "median_step_raised": 0.771,
+  "median_step_normal": 0.684,
+  "normal_sum_gap_ml": -2.00787245362347,
+  "reading": "neither"
+ },
+ "early": {
+  "share_of_difference_in_bursts_1_2": 0.08714386458627454,
+  "reading": "false"
+ },
+ "gap_flow": {
+  "raised_sum_gap_ml": -0.6656625078405967,
+  "share": -0.25381055980494815,
+  "reading": "false"
+ },
+ "pour_frame_sigma_ml": {
+  "A": [
+   0.576,
+   0.809,
+   0.728,
+   0.894,
+   0.877,
+   1.037,
+   0.904,
+   0.68,
+   0.69
+  ],
+  "B": [
+   0.625,
+   0.605,
+   0.56,
+   0.597,
+   0.652,
+   0.733,
+   0.617,
+   0.674
+  ]
+ }
+}
