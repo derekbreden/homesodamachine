@@ -126,11 +126,13 @@ function makeSection(wrapper, pick) {
   flip.setAttribute("aria-pressed", "false");
   const offsetLabel = node("label", "section-offset");
   const slider = node("input"); slider.type = "range"; slider.value = "0";
-  offsetLabel.append(node("span", "", "Offset from pick"), slider);
+  const offsetText = node("span", "", "Offset"); offsetText.append(node("span", "section-wide-word", " from pick"));
+  offsetLabel.append(offsetText, slider); slider.setAttribute("aria-label", "Section offset from picked point");
   const numberBox = node("label", "section-number"), number = node("input");
   number.type = "number"; number.step = "any"; number.value = "0"; number.setAttribute("aria-label", "Offset from pick in millimeters");
   numberBox.append(number, " mm");
   const done = button("Close section", "Close section", close);
+  done.replaceChildren("Close", node("span", "section-wide-word", " section"));
   bar.append(views, axisLabel, flip, offsetLabel, numberBox, done);
   stage.classList.add("section-open");
   stage.append(panel, bar);

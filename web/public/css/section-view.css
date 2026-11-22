@@ -38,21 +38,23 @@
 .section-panes { display: none; }
 .section-zoom { display: flex; gap: 3px; }
 .section-zoom button { width: 36px; min-height: 36px; padding: 0; color: #eff5fa; background: #263a49; border-color: #607481; font-size: 1.1rem; }
-.section-bar [aria-pressed=true] { background: var(--accent); border-color: var(--accent); color: white; }
+.section-bar [aria-pressed=true] { background: var(--action); border-color: var(--action); color: var(--on-action); }
 .cad-stage.section-open.section-narrow { grid-template: minmax(0,1fr) auto / minmax(0,1fr); }
 .section-narrow > .section-profile { display: none; }
 .section-narrow.section-profile-open > .section-profile { display: grid; grid-area: 1 / 1; z-index: 13; border: none; }
 .section-narrow.section-profile-open > .cad-wrapper { visibility: hidden; }
-.section-narrow .section-bar { display: grid; grid-template-columns: auto auto minmax(42px,1fr) auto; gap: 3px 5px; }
+.section-narrow .section-bar { display: grid; grid-template-columns: auto auto minmax(42px,1fr) 60px; gap: 3px 5px; }
+.section-narrow .section-wide-word { display: none; }
 .section-narrow .section-panes { grid-area: 1 / 1 / 2 / 4; display: flex; gap: 3px; }
 .section-narrow .section-bar > button:last-child { grid-area: 1 / 4; justify-self: end; white-space: nowrap; }
 .section-narrow .section-plane { grid-area: 2 / 1; }
 .section-narrow .section-plane span { display: none; }
-.section-narrow .section-plane select { max-width: 105px; }
+.section-narrow .section-plane select { font-size: .8rem; padding-inline: 4px; }
 .section-narrow .section-bar > button[aria-label="Keep the other side"] { grid-area: 2 / 2; }
 .section-narrow .section-offset { grid-area: 2 / 3; min-width: 0; display: grid; gap: 0; }
 .section-narrow .section-offset span { font-size: .67rem; color: var(--text-2); }
 .section-narrow .section-offset input { height: 24px; min-height: 24px; }
 .section-narrow .section-number { grid-area: 2 / 4; justify-content: center; }
+.section-narrow .section-number input { width: 4ch; }
 .section-narrow :is(.section-bar button,.section-plane select,.section-zoom button,.section-bar .section-number) { min-height: 40px; }
 .section-narrow .section-zoom button { width: 40px; }
