@@ -1,0 +1,7 @@
+# Predicting syrup level on the pump bench
+
+The USB camera follows undiluted SodaStream Diet Cola in the graduated OXO cup. Pump A withdraws from it and B refills it from the rectangular dish. A’s previously bent dish-side tube has its clips removed. Both pumps run on the production appliance’s bounded full-drive commands. Derek’s scale carries forces from the tubing. The cup images supply every position and volume observation in this record. [Earlier pump bench measurements](https://github.com/derekbreden/homesodamachine/tree/30f0c9078f5905d1041d60111efb0b832e3c554e/hardware/reference/kamoer-flow/2026-11-21-diet-cola)
+
+The controller records the requested destination and expected endpoint before sending each command. It reads the liquid again after settling and retains both readings across the cup. The fixed camera’s right-side liquid boundary supplies the position coordinate. Rows increase down the image as A empties the cup. The printed graduations give nominal millilitres. [Experimental design](prospective-design.json) · [Predictions recorded before the pause sweep](pause-forecasts.json)
+
+The frame index identifies the camera samples included in each endpoint. Its crop preserves the pixels used for the two sightlines and the stationary markings used for registration. The controller logs include the original start and completion messages and contemporaneous camera guards. [Camera reference](camera/fixed-reference.png) · [Endpoint images and timing index](frames) · [Controller and prediction logs](logs) · [Offline measurement code](analysis)

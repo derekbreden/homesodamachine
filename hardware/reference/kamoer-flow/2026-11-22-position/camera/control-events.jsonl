@@ -1,0 +1,21 @@
+{"op": "set", "start_ns": 353052819749541, "control": "auto_focus", "asked": 0, "readback": "0", "mono_ns": 353053023754791, "wall_ns": 1795333569277984000}
+{"op": "set", "start_ns": 353053023861875, "control": "auto_exposure_mode", "asked": 1, "readback": "1", "mono_ns": 353053024564333, "wall_ns": 1795333569278788000}
+{"op": "set", "start_ns": 353053024595791, "control": "absolute_exposure_time", "asked": 275, "readback": "275", "mono_ns": 353053025271166, "wall_ns": 1795333569279495000}
+{"op": "set", "start_ns": 353053025284416, "control": "gain", "asked": 12, "readback": "12", "mono_ns": 353053025747333, "wall_ns": 1795333569279971000}
+{"op": "set", "start_ns": 353053025762583, "control": "white_balance_temperature_auto", "asked": 0, "readback": "0", "mono_ns": 353053026410333, "wall_ns": 1795333569280634000}
+{"op": "set", "start_ns": 353053026422083, "control": "white_balance_temperature", "asked": 4600, "readback": "4600", "mono_ns": 353053027009625, "wall_ns": 1795333569281233000}
+{"op": "set", "start_ns": 353053027021791, "control": "sharpness", "asked": 3, "readback": "3", "mono_ns": 353053050129583, "wall_ns": 1795333569304354000}
+{"op": "set", "start_ns": 353053050150750, "control": "absolute_focus", "asked": 380, "readback": "380", "mono_ns": 353053050799541, "wall_ns": 1795333569305024000}
+{"op": "set", "start_ns": 353053710823666, "control": "absolute_focus", "asked": 500, "readback": "500", "mono_ns": 353053715115250, "wall_ns": 1795333569969345000}
+{"op": "start_window", "label": "balance-4600-before", "mono_ns": 353055122012625, "wall_ns": 1795333571376254000}
+{"op": "end_window", "label": "balance-4600-before", "mono_ns": 353056295256625, "wall_ns": 1795333572549505000}
+{"op": "set", "start_ns": 353056295315583, "control": "white_balance_temperature", "asked": 3000, "readback": "3000", "mono_ns": 353056296041416, "wall_ns": 1795333572550290000}
+{"op": "start_window", "label": "balance-3000-low", "mono_ns": 353057406074166, "wall_ns": 1795333573660332000}
+{"op": "end_window", "label": "balance-3000-low", "mono_ns": 353058561854583, "wall_ns": 1795333574816121000}
+{"op": "set", "start_ns": 353058561906416, "control": "white_balance_temperature", "asked": 6500, "readback": "6500", "mono_ns": 353058562607583, "wall_ns": 1795333574816873000}
+{"op": "start_window", "label": "balance-6500-high", "mono_ns": 353059672682083, "wall_ns": 1795333575926957000}
+{"op": "end_window", "label": "balance-6500-high", "mono_ns": 353060873942416, "wall_ns": 1795333577128226000}
+{"op": "set", "start_ns": 353060874007000, "control": "white_balance_temperature", "asked": 4600, "readback": "4600", "mono_ns": 353060891784708, "wall_ns": 1795333577146068000}
+{"op": "start_window", "label": "balance-4600-return", "mono_ns": 353062001840666, "wall_ns": 1795333578256133000}
+{"op": "end_window", "label": "balance-4600-return", "mono_ns": 353063195505625, "wall_ns": 1795333579449807000}
+{"op": "frozen_for_wet_runs", "mono_ns": 353063195574166, "wall_ns": 1795333579449875000}
