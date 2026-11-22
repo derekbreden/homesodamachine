@@ -213,6 +213,8 @@ refractometer can.
 
 The open-hose bench record gives the concentrate volume each head delivered at its tested pulse lengths. At equal motor-on time, the withdrawing channel delivered more concentrate with closely spaced pulses in every matched repeat. The faucet measurements include the installed valve path and flowing water. [Bench measurements by pump and pulse length](https://github.com/derekbreden/homesodamachine/tree/30f0c9078f5905d1041d60111efb0b832e3c554e/hardware/reference/kamoer-flow/2026-11-21-diet-cola) · [Equal-time pulse comparisons and measured delivery rates](https://github.com/derekbreden/homesodamachine/tree/a21b1685370d62bad7cb620c013c4c01c3b7a19d/hardware/reference/kamoer-flow/2026-11-22-position)
 
+The controller’s lever history affects the concentrate dose even at the same simulated water volume. On the open-hose rig, calibrating on repeated servings of a known lever program predicted the later concentrate dose more closely than estimating from pulse width alone. The installed ratio test also measures the water delivered at the faucet. [Meter-driven concentrate predictions and repeatability](https://github.com/derekbreden/homesodamachine/tree/bc26987f18f42e863b6e2af7df3dad5da07d3eb7/hardware/reference/kamoer-flow/2026-11-22-pour-predictions)
+
 **Setup.** The Lillium-fed build pouring, reservoirs primed. The Smart Weigh, a cup, the phone's
 stopwatch, four glasses, the refractometer. The main board's console on USB for step 3, while
 it can be reached.

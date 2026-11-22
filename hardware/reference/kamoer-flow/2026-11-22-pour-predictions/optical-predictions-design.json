@@ -1,8 +1,0 @@
-{
-  "status": "Secondary test specified during training, before any validation pour.",
-  "question": "Can the same four measured burst widths predict the visible settled movement in a single clear patch, independently of interpolation through the printed scale?",
-  "signal": "The acquisition journal stores a working coordinate as 246.17 minus 0.42 times the clear foreground displacement at sensor column 990. Divide observed operating_change_ml by 0.42 to recover native image pixels. No physical mL accuracy is assumed for this working coordinate.",
-  "fit": "Use training only. For each head and nominal pulse width take the median clear-pixel dose per reported burst. Sum linear interpolations of those four anchors over the precomputed valve-program schedule. Compare each frozen prediction with the before-to-after clear-pixel difference. The closeup and flow feedback receive no correction from the future image.",
-  "failure": "Within a scenario and head, require at least five of six fresh predictions inside max(2.5 native pixels, 10% of prediction) and absolute mean signed error no larger than max(1.5 pixels, 5%). Show misses. A pass in image coordinates is distinct from a pass on the scaled volume and does not qualify the installed drink ratio.",
-  "equal_water_comparison": "Compare full_glass minus partial_glass within each head and validation block. Both traces represent practically the same water volume under the sensor conversion. Test whether a faster lever opening gives more concentrate in at least five of six matched primary readings and whether the unseen left face agrees. Report paired effect size even if sign criterion fails."
-}

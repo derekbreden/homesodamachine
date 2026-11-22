@@ -1,6 +1,0 @@
-{
-  "utc": "2026-11-22T09:07:39.312914+00:00",
-  "training_observation": "In two of the full-flow training trials, the original inner template jumped to a parallel lower reflection and reversed the sign of its net reading. The training endpoint photographs visibly show the clear-to-dark transition moving with the outer strip.",
-  "amendment": "Preserve and score the frozen tracker. As a separately labelled optical measurement, locate the uppermost strong clear-to-dark step across the inner native columns, as defined in upper_contact.py. Three retained columns span that strip. The search has no remembered last position and uses no pump command, head, trial endpoint or outer station. Report step contrast, competitor margin, within-site disagreement and normalized reference shape. The original outer reading is preserved. This alternate was specified using only the training photographs, after validation acquisition began and before viewing its optical outcomes.",
-  "source_sha256": "845be97c46e14f4c136dd3d8ba3479a8312fa45910ae3da3bc6d87baca1ce46d"
-}
