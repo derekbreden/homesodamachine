@@ -1,6 +1,6 @@
 {
   "purpose": "Identify the production rear corner and shortened meter cover in the reviewed job accepted by Mark2.",
-  "status": "running",
+  "status": "finished",
   "source_commit": "cf44c2eb0c5bf679c9322e95aa158961e4b0fe0d",
   "enclosure_change": "d8d3ba9a32b0349a571d50729eaedf48af030e73",
   "printer": "Mark2",
@@ -80,5 +80,7 @@
   },
   "previous_attempt": "https://github.com/derekbreden/homesodamachine/blob/b4b6f613ad86a4e4c4c6386d725303e05e3d5dd5/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/print-job.json",
   "first_layer_status": "first-layer-status.json",
-  "printing_status": "printing-status.json"
+  "printing_status": "printing-status.json",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
