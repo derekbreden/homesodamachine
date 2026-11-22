@@ -429,6 +429,34 @@
       "said": "Okay. It is good enough.",
       "tried": "the upright V-H draw-tube entry clip on the printed crop of the front-top pump bulkhead",
       "record": "https://github.com/derekbreden/homesodamachine/blob/feb1783dff3c65d92c01a6c2881fbec7e88d60d9/hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-21",
+      "said": "It worked.",
+      "tried": "the production rear-corner crop with the meter, ASSE and Pisco installed together. The Pisco cover tilted past the shortened meter shoulder and clicked in.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0448",
+      "date": "2026-11-21",
+      "said": "It worked.",
+      "tried": "the ASSE cover installed on the fitting in the assembled rear corner. Derek judged it the tightest of the three and good enough.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-21",
+      "said": "It worked.",
+      "tried": "the Pisco cover installed over the seated regulator through the revised side entry. It clicked into both catches and had the most rocking play of the three.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0450",
+      "date": "2026-11-21",
+      "said": "It worked.",
+      "tried": "the cover on the flow meter in the same printed corner. Its retention fell between the ASSE and Pisco covers.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
     }
   ]
 }
