@@ -87,6 +87,12 @@
       "batch": 2,
       "fabricated_design_commit": "5bf5dd2c2761bc25c87661bcff1751a08dea1e4e",
       "motor_inputs": "A IN1=GPIO17, B IN1=GPIO4; IN2 is wired directly to ground on both motor drivers."
+    },
+    "scale_loading": "Derek observed that the scale fluctuates and carries load from the pump and tubing. Its displayed differences include forces transmitted through those tubes. Volume readings come directly from the cup camera.",
+    "restoration": {
+      "image_verification": "controller/restored-image.json",
+      "appliance_status": "controller/restored-status.log",
+      "nvs": "The flash operation wrote the active application sectors only. The original partition table and OTA selection matched on readback. The separate mutable settings partition had changed between reads. The production console printed its settings-persisted message on startup."
     }
   },
   "unmeasured_conditions": [
@@ -158,5 +164,12 @@
     "varied_quantity": "amount in cup and complementary amount in rectangular dish",
     "pressure_difference_at_pump_kpa": null,
     "context": "Individual before/after images and signed scale readings locate each pair within its fill range."
+  },
+  "after_guide_release": {
+    "reported_by": "Derek",
+    "change": "The two clips were removed from the previously bent outlet tube on A. The resulting curvature and cross section were unmeasured.",
+    "comparison": "Head, free-end assignment and tube length identify each tested path. No same-head straight-before-forming baseline exists for A.",
+    "A": "Measuring cup to rectangular dish, previously bent discharge tubing with clips off.",
+    "B": "Rectangular dish to measuring cup."
   }
 }

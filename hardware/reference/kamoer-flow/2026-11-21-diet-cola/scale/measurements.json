@@ -5,7 +5,19 @@
     "make": "Smart Weigh",
     "model_on_face": "TOP2KG",
     "maximum_g": 2000,
-    "display_increment_g": 0.1
+    "display_increment_g": 0.1,
+    "face_marking": {
+      "file": "display/instrument-marking.png",
+      "source_utc": "2026-11-22T06:01:56.442+00:00",
+      "source_sha256": "8950fd69c97540bbfd47a41db7f9726d7a5e85dc7c0d4f687efa8280ddb08b55",
+      "crop_xywh_in_source": [
+        150,
+        35,
+        233,
+        60
+      ]
+    },
+    "load_measured": "The supported cup, its contents and force transmitted by the hoses."
   },
   "acquisition": {
     "camera": "iPhone (89) Camera, viewing the scale LCD",
@@ -51,7 +63,6 @@
         ]
       },
       "after_minus_before_g": -18.2,
-      "mass_removed_from_cup_g": 18.2,
       "before_window": {
         "first_utc": "2026-11-22T05:37:34.151+00:00",
         "last_utc": "2026-11-22T05:37:44.151+00:00",
@@ -67,7 +78,8 @@
         "minimum_g": -15.4,
         "median_g": -15.1,
         "maximum_g": -15.1
-      }
+      },
+      "directional_supported_load_change_g": 18.2
     },
     {
       "run": "side-a0",
@@ -99,7 +111,6 @@
         ]
       },
       "after_minus_before_g": -19.5,
-      "mass_removed_from_cup_g": 19.5,
       "before_window": {
         "first_utc": "2026-11-22T05:38:21.110+00:00",
         "last_utc": "2026-11-22T05:38:24.121+00:00",
@@ -115,7 +126,8 @@
         "minimum_g": -33.1,
         "median_g": -33.1,
         "maximum_g": -33.1
-      }
+      },
+      "directional_supported_load_change_g": 19.5
     }
   ],
   "between_runs": {
@@ -161,7 +173,8 @@
     },
     "out_of_focus": {
       "first_utc": "2026-11-22T05:38:49.316+00:00",
-      "last_utc": "2026-11-22T05:39:05.186+00:00"
+      "last_utc": "2026-11-22T05:39:05.186+00:00",
+      "source_observation": "Consecutive saved JPEG crops had identical image data through this interval."
     },
     "last_lit": {
       "utc": "2026-11-22T05:43:10.895+00:00",
@@ -190,6 +203,7 @@
     "seconds_from_named_a_endpoint_to_first_blank": 279.544,
     "scale_timeout_observation": "The scale went dark during the idle observation. The elapsed time is relative to the recorded after frame. The internal sleep trigger and timer setting were unobserved."
   },
-  "interpretation": "The signed difference is the change in the cup plus everything the scale supports. Local before and after differences account for its changing idle baseline. The recorded idle ranges describe repeatability on this setup. One paired observation is available per channel in this table.",
-  "with_straight_pump_hoses_exchanged": "return-setup.json"
+  "interpretation": "The signed difference is the total supported load after the command minus the total supported load before it. The directional change reverses that sign for a withdrawal. Hose forces act on the scale. Optical volume measurements independently describe the liquid moved. The idle ranges record local variation in supported load.",
+  "with_straight_pump_hoses_exchanged": "return-setup.json",
+  "optical_source": "../side-optical.csv"
 }

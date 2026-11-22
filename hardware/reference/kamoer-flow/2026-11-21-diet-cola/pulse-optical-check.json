@@ -1,7 +1,6 @@
 {
   "purpose": "Compare repeated full-drive pulse trains against an independent change in the graduated cup.",
   "setup": "b_hoses_exchanged",
-  "mass_source": "dose-results.csv",
   "volume_method": "side-optical-traces.json",
   "coordinates": "Upright full-resolution native pixels. The side-crop origin is in setup.json.",
   "selection": "Each comparison spans consecutive stills within one of two recorded groups. Other motor runs intervene between groups.",
@@ -935,5 +934,6 @@
         }
       }
     }
-  }
+  },
+  "supported_load_source": "dose-results.csv"
 }

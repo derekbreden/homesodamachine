@@ -1,7 +1,7 @@
 {
   "purpose": "The straight pump returns concentrate to the weighed OXO cup for the repeated measurements. A removes concentrate from the cup and B adds concentrate to it.",
   "paired_readings": "return-rig.csv",
-  "pair_method": "Each signed change subtracts the before reading from the after reading. The endpoints carry individual host receive timestamps and were read directly from the saved LCD frames. The CSV includes groups with controller acknowledgement.",
+  "pair_method": "The signed change is the after display minus the before display. These indications include forces transmitted by the hoses. Endpoint UTC times identify visually read LCD frames. The CSV includes groups acknowledged by the controller.",
   "independent_display_trace": {
     "csv": "return-trace.csv",
     "replay": "return-lcd.mp4",
@@ -14,21 +14,22 @@
     "controller_session": "Host console session windows from acknowledged trials include setup and settling. The acknowledged board drive durations and trial endpoints accompany each matched measurement in return-rig.csv.",
     "reconnection": "Camera recovery caused a recording gap across part of shape050-b-r1. Initial frames on reconnection were out of focus. The first readable post-run plateau and the later named sample are both identified in the paired measurements.",
     "start_utc": "2026-11-22T05:47:11.688+00:00",
-    "end_utc": "2026-11-22T06:14:00.693+00:00",
-    "record_count_including_gap_markers": 1545,
+    "end_utc": "2026-11-22T06:15:53.778+00:00",
+    "record_count_including_gap_markers": 1657,
     "reading_counts": {
       "camera_gap": 2,
       "changing_unverified": 166,
       "check_segments": 38,
-      "optical_read": 1122,
-      "out_of_focus": 16,
-      "partial_digits": 147,
+      "display_off": 1,
+      "frozen_camera_frame": 56,
+      "frozen_out_of_focus": 16,
+      "optical_read": 1214,
+      "partial_digits": 151,
       "startup_self_test": 1,
       "startup_transition": 1,
-      "unreadable_display": 41,
       "visually_read": 11
     },
-    "signed_numeric_samples": 1133,
+    "signed_numeric_samples": 1225,
     "camera_gaps": [
       {
         "last_sample_utc": "2026-11-22T05:57:00.522+00:00",
@@ -40,7 +41,10 @@
         "next_sample_utc": "2026-11-22T06:13:22.784+00:00",
         "gap_s": 22.093
       }
-    ]
+    ],
+    "frozen_camera_frames": "The host continued to receive images during brief Continuity Camera freezes. Consecutive byte-identical saved JPEG crops are marked as missing throughout the duplicate interval.",
+    "parked_reconnection": "The camera was reopened after the guide-on reference and before any further pump commands.",
+    "sampling_resolution": "The independent trace samples supported load through complete controller batches. Each named scale pair measures total supported load change across a batch."
   },
   "local_weight_windows": {
     "csv": "return-windows.csv",
@@ -57,8 +61,7 @@
     "command_start_utc_to_second": "2026-11-22T05:47:11Z",
     "reported_on_ms": 4000,
     "before_g": null,
-    "mass_change_g": null,
-    "observation": "The scale performed its display self-test as the command began. The increasing indication shows transfer toward the cup. The endpoint pair is open because startup obscured the initial weight.",
+    "observation": "The display performed its self-test as the command began. Subsequent indications rose. Its before reading is missing during startup. The cup’s camera measurements for this train are in ../side-optical.csv.",
     "startup_self_test": {
       "utc": "2026-11-22T05:47:11.688+00:00",
       "file": "display/return-check-startup.png"
@@ -72,7 +75,8 @@
       "g": 30.4,
       "utc": "2026-11-22T05:47:42.709+00:00",
       "file": "display/return-check-settled.png"
-    }
+    },
+    "supported_load_change_g": null
   },
   "zero_drive_observations": [
     {
@@ -117,5 +121,31 @@
       ],
       "valid_samples": 49
     }
+  ],
+  "scale_power_down": {
+    "last_lit": {
+      "utc": "2026-11-22T06:15:52.778+00:00",
+      "g": 175.5,
+      "file": "display/return-last-lit.png"
+    },
+    "first_blank": {
+      "utc": "2026-11-22T06:15:53.778+00:00",
+      "g": null,
+      "file": "display/return-first-blank.png"
+    },
+    "last_completed_run_before_sleep": "guide-on-b-ref-1",
+    "seconds_from_its_after_reading_to_first_blank": 176.849,
+    "observation": "The moving phone images continued to show the physical scale and its dark LCD. The final lit indication is local to the previous tare."
+  },
+  "guide_condition": "The two tube guides were fitted on A during all powered runs in this record. The series ends at the first dark scale display after the final guided reference.",
+  "raw_csv_fields": {
+    "return-rig.csv": "before_g and after_g are total supported load indications. cup_gain_g_signed is their signed difference.",
+    "return-windows.csv": "The pre and post fields summarize the same supported load. median_cup_gain_g_signed is the difference of the local window medians."
+  },
+  "optical_sources": [
+    "../pulse-cup/measurements.csv",
+    "../pulse-optical-check.json",
+    "../side-optical.csv",
+    "../fill-band-optical.json"
   ]
 }

@@ -2,13 +2,18 @@
   "liquid": "Undiluted SodaStream Diet Cola concentrate",
   "series": "Wet runs after exchanging the vessel ends of the straight pump hoses",
   "source": {
-    "trial_table": "dose-results.csv",
+    "run_table": "dose-results.csv",
+    "optical_short_and_medium_pulses": "pulse-cup/measurements.csv",
+    "optical_short_and_medium_geometry": "pulse-cup/method.json",
+    "optical_full_pulses": "pulse-optical-check.json",
+    "optical_continuous_runs": "side-optical.csv",
+    "optical_lower_fill": "fill-band-optical.json",
     "controller": "controller/<run>.log",
-    "scale_endpoints": "scale/return-rig.csv",
-    "scale_photographs": "scale/display/",
+    "scale_endpoint_pairs": "scale/return-rig.csv",
+    "scale_trace": "scale/return-trace.csv",
+    "scale_endpoint_images": "scale/display/",
     "initial_setup": "setup.json",
-    "return_setup": "scale/return-setup.json",
-    "independent_pulse_volume": "pulse-optical-check.json"
+    "scale_setup": "scale/return-setup.json"
   },
   "controller_images": {
     "appliance": [
@@ -38,37 +43,999 @@
   },
   "comparison_limits": "The original return configuration changes head, transfer direction and tube-guide routing together between channels.",
   "quantity": {
-    "pour_1_to_20": "Low, mid and full identify the appliance's pulse schedules at its 1:20 setting. The motor rig circulated concentrate between vessels. Water flow and mixed beverage ratio were unmeasured.",
-    "cup_level": "The lower-cup series retains the indicated mass at the start of each run. Repositioning runs remain in the CSV. Hydraulic head and vessel elevations were unmeasured.",
-    "cup_gain_g": "After minus before on the scale supporting the OXO cup and the contacting hoses.",
-    "directed_transfer_g": "Positive in the intended transfer direction. The original return routing removes liquid from the cup on A and adds it on B. Signed endpoint differences are retained.",
-    "gate_s": "Board-reported sum of windows at the commanded PWM level. The zero-duty controls have timed windows with their motor off.",
-    "train_s": "Board time from the first gate opening to the last gate closing, with pauses between the gates.",
-    "full_cycles_s": "Train time plus one scheduled trailing off interval. This models repeated operation over full periods and is the denominator for full_cycles_g_min.",
-    "rates": "Each rate divides the complete paired transfer by its named time base. Per-pulse dose divides the train total by its completed pulse count. The scale includes delivery during coasting and settling.",
-    "repeat_statistics": "Each n counts separately timed runs with paired mass readings at the same settings and routing. SD is the sample standard deviation when repeats exist."
+    "volume": "The side camera independently traces the near liquid boundary against the front graduations. Each optical transfer is the measured change of liquid volume in the cup across a complete command or pulse train. A withdraws liquid and B returns it.",
+    "optical_mean_ml_per_pulse": "Complete optically measured train volume divided by the acknowledged pulse count. Each exposure pair brackets the whole train.",
+    "optical_full_cycle_ml_min": "Complete optically measured volume divided by the board-reported full cycle duration, converted to mL/min. A recurring pulse schedule includes the pause after the final gate.",
+    "supported_load": "The scale supports the OXO cup, its contents and the forces the hoses exert on it. Tube movement can change the indicated load while the liquid level stays fixed.",
+    "supported_load_change_g": "After minus before on the scale display. The directional_load_change_g column reverses this sign for an A withdrawal and retains it for a B return. A zero-drive control keeps the signed change in supported_load_change_g.",
+    "gate_s": "Board-reported total duration of commanded on-windows. In the zero-duty controls the timed windows leave the motor off.",
+    "train_s": "Board time between the first gate opening and final gate closing, including internal pauses.",
+    "full_cycles_s": "Train time plus the final scheduled off interval.",
+    "appliance_schedule": "Low, mid and full identify the pulse schedules at the appliance’s 1:20 setting. This rig measures undiluted concentrate between two vessels. Water flow and mixed beverage ratio require a water-channel measurement."
   },
+  "optical_pulse_schedules": [
+    {
+      "channel": "A",
+      "on_ms": 50,
+      "off_ms": 600,
+      "pulses": 40,
+      "n": 2,
+      "runs": [
+        "shape050-a-1",
+        "shape050-a-2"
+      ],
+      "optical_train_volumes_ml": [
+        32.3,
+        29.1
+      ],
+      "mean_optical_train_volume_ml": 30.7,
+      "mean_optical_ml_per_pulse": 0.767,
+      "mean_optical_full_cycle_ml_min": 70.8,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "B",
+      "on_ms": 50,
+      "off_ms": 600,
+      "pulses": 40,
+      "n": 2,
+      "runs": [
+        "shape050-b-r1",
+        "shape050-b-2"
+      ],
+      "optical_train_volumes_ml": [
+        27.4,
+        23.1
+      ],
+      "mean_optical_train_volume_ml": 25.25,
+      "mean_optical_ml_per_pulse": 0.631,
+      "mean_optical_full_cycle_ml_min": 58.3,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "A",
+      "on_ms": 110,
+      "off_ms": 480,
+      "pulses": 24,
+      "n": 2,
+      "runs": [
+        "shape110-a-1",
+        "shape110-a-2"
+      ],
+      "optical_train_volumes_ml": [
+        37.5,
+        34.2
+      ],
+      "mean_optical_train_volume_ml": 35.85,
+      "mean_optical_ml_per_pulse": 1.494,
+      "mean_optical_full_cycle_ml_min": 151.9,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "B",
+      "on_ms": 110,
+      "off_ms": 480,
+      "pulses": 24,
+      "n": 2,
+      "runs": [
+        "shape110-b-1",
+        "shape110-b-2"
+      ],
+      "optical_train_volumes_ml": [
+        35.2,
+        31.8
+      ],
+      "mean_optical_train_volume_ml": 33.5,
+      "mean_optical_ml_per_pulse": 1.396,
+      "mean_optical_full_cycle_ml_min": 141.9,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "A",
+      "on_ms": 110,
+      "off_ms": 60,
+      "pulses": 24,
+      "n": 1,
+      "runs": [
+        "gap110-a-1"
+      ],
+      "optical_train_volumes_ml": [
+        40.5
+      ],
+      "mean_optical_train_volume_ml": 40.5,
+      "mean_optical_ml_per_pulse": 1.688,
+      "mean_optical_full_cycle_ml_min": 595.8,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "B",
+      "on_ms": 110,
+      "off_ms": 60,
+      "pulses": 24,
+      "n": 1,
+      "runs": [
+        "gap110-b-1"
+      ],
+      "optical_train_volumes_ml": [
+        42.6
+      ],
+      "mean_optical_train_volume_ml": 42.6,
+      "mean_optical_ml_per_pulse": 1.775,
+      "mean_optical_full_cycle_ml_min": 626.4,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "A",
+      "on_ms": 200,
+      "off_ms": 300,
+      "pulses": 16,
+      "n": 2,
+      "runs": [
+        "shape200-a-1",
+        "shape200-a-2"
+      ],
+      "optical_train_volumes_ml": [
+        42.3,
+        36.6
+      ],
+      "mean_optical_train_volume_ml": 39.45,
+      "mean_optical_ml_per_pulse": 2.466,
+      "mean_optical_full_cycle_ml_min": 295.9,
+      "source": "pulse-optical-check.json"
+    },
+    {
+      "channel": "B",
+      "on_ms": 200,
+      "off_ms": 300,
+      "pulses": 16,
+      "n": 2,
+      "runs": [
+        "shape200-b-1",
+        "shape200-b-2"
+      ],
+      "optical_train_volumes_ml": [
+        46.6,
+        42.9
+      ],
+      "mean_optical_train_volume_ml": 44.75,
+      "mean_optical_ml_per_pulse": 2.797,
+      "mean_optical_full_cycle_ml_min": 335.6,
+      "source": "pulse-optical-check.json"
+    }
+  ],
+  "optical_off_interval_comparisons": [
+    {
+      "channel": "A",
+      "on_ms": 110,
+      "pulses": 24,
+      "long_gap_off_ms": 480,
+      "long_gap_volumes_ml": [
+        37.5,
+        34.2
+      ],
+      "short_gap_off_ms": 60,
+      "short_gap_volumes_ml": [
+        40.5
+      ],
+      "observed_short_minus_long_mean_ml_per_train": 4.65,
+      "source": "pulse-cup/measurements.csv"
+    },
+    {
+      "channel": "B",
+      "on_ms": 110,
+      "pulses": 24,
+      "long_gap_off_ms": 480,
+      "long_gap_volumes_ml": [
+        35.2,
+        31.8
+      ],
+      "short_gap_off_ms": 60,
+      "short_gap_volumes_ml": [
+        42.6
+      ],
+      "observed_short_minus_long_mean_ml_per_train": 9.1,
+      "source": "pulse-cup/measurements.csv"
+    }
+  ],
+  "optical_continuous_runs": [
+    {
+      "condition": "turnaround",
+      "channel": "B",
+      "on_ms": 4000,
+      "n": 1,
+      "runs": [
+        "return-check"
+      ],
+      "optical_volume_ml": [
+        58.1
+      ],
+      "mean_optical_volume_ml": 58.1,
+      "mean_optical_ml_min_over_gate": 871.5,
+      "source": "side-optical.csv"
+    },
+    {
+      "condition": "wet_continuous",
+      "channel": "B",
+      "on_ms": 10000,
+      "n": 1,
+      "runs": [
+        "return-long"
+      ],
+      "optical_volume_ml": [
+        138.2
+      ],
+      "mean_optical_volume_ml": 138.2,
+      "mean_optical_ml_min_over_gate": 829.2,
+      "source": "side-optical.csv"
+    },
+    {
+      "condition": "wet_continuous",
+      "channel": "A",
+      "on_ms": 6000,
+      "n": 3,
+      "runs": [
+        "repeat-a-r1",
+        "repeat-a-r2",
+        "repeat-a-r3"
+      ],
+      "optical_volume_ml": [
+        75.1,
+        76.8,
+        77.9
+      ],
+      "mean_optical_volume_ml": 76.6,
+      "mean_optical_ml_min_over_gate": 766.0,
+      "source": "side-optical.csv"
+    },
+    {
+      "condition": "wet_continuous",
+      "channel": "B",
+      "on_ms": 6000,
+      "n": 3,
+      "runs": [
+        "repeat-b-r1",
+        "repeat-b-r2",
+        "repeat-b-r3"
+      ],
+      "optical_volume_ml": [
+        88.2,
+        84.4,
+        85.2
+      ],
+      "mean_optical_volume_ml": 85.93,
+      "mean_optical_ml_min_over_gate": 859.3,
+      "source": "side-optical.csv"
+    },
+    {
+      "condition": "lower_cup_start",
+      "channel": "A",
+      "on_ms": 6000,
+      "n": 2,
+      "runs": [
+        "level-low-a-1",
+        "level-low-a-2"
+      ],
+      "optical_volume_ml": [
+        78.3,
+        77.6
+      ],
+      "mean_optical_volume_ml": 77.95,
+      "mean_optical_ml_min_over_gate": 779.5,
+      "source": "fill-band-optical.json"
+    },
+    {
+      "condition": "lower_cup_start",
+      "channel": "B",
+      "on_ms": 6000,
+      "n": 2,
+      "runs": [
+        "level-low-b-1",
+        "level-low-b-2"
+      ],
+      "optical_volume_ml": [
+        85.0,
+        86.1
+      ],
+      "mean_optical_volume_ml": 85.55,
+      "mean_optical_ml_min_over_gate": 855.5,
+      "source": "fill-band-optical.json"
+    }
+  ],
+  "supported_load_by_condition": [
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "wet_continuous",
+      "pwm_pct": 100,
+      "on_ms": 10000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "return-long"
+      ],
+      "signed_supported_load_changes_g": [
+        127.1
+      ],
+      "directional_load_changes_g": [
+        127.1
+      ],
+      "mean_directional_load_change_g": 127.1
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "wet_continuous",
+      "pwm_pct": 100,
+      "on_ms": 6000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 3,
+      "runs": [
+        "repeat-a-r1",
+        "repeat-a-r2",
+        "repeat-a-r3"
+      ],
+      "signed_supported_load_changes_g": [
+        -62.6,
+        -69.9,
+        -65.7
+      ],
+      "directional_load_changes_g": [
+        62.6,
+        69.9,
+        65.7
+      ],
+      "mean_directional_load_change_g": 66.07
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "wet_continuous",
+      "pwm_pct": 100,
+      "on_ms": 6000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 3,
+      "runs": [
+        "repeat-b-r1",
+        "repeat-b-r2",
+        "repeat-b-r3"
+      ],
+      "signed_supported_load_changes_g": [
+        76.0,
+        72.6,
+        73.3
+      ],
+      "directional_load_changes_g": [
+        76.0,
+        72.6,
+        73.3
+      ],
+      "mean_directional_load_change_g": 73.97
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "zero_drive",
+      "pwm_pct": 0,
+      "on_ms": 4000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "blank-start"
+      ],
+      "signed_supported_load_changes_g": [
+        0.2
+      ]
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pour_1_to_20_full",
+      "pwm_pct": 100,
+      "on_ms": 200,
+      "off_ms": 300,
+      "pulses": 16,
+      "n": 4,
+      "runs": [
+        "shape200-a-1",
+        "shape200-a-2",
+        "shape200-a-3",
+        "shape200-a-4"
+      ],
+      "signed_supported_load_changes_g": [
+        -49.7,
+        -31.4,
+        -45.1,
+        -31.0
+      ],
+      "directional_load_changes_g": [
+        49.7,
+        31.4,
+        45.1,
+        31.0
+      ],
+      "mean_directional_load_change_g": 39.3
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pour_1_to_20_full",
+      "pwm_pct": 100,
+      "on_ms": 200,
+      "off_ms": 300,
+      "pulses": 16,
+      "n": 4,
+      "runs": [
+        "shape200-b-1",
+        "shape200-b-2",
+        "shape200-b-3",
+        "shape200-b-4"
+      ],
+      "signed_supported_load_changes_g": [
+        41.8,
+        37.9,
+        33.9,
+        40.8
+      ],
+      "directional_load_changes_g": [
+        41.8,
+        37.9,
+        33.9,
+        40.8
+      ],
+      "mean_directional_load_change_g": 38.6
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pour_1_to_20_low",
+      "pwm_pct": 100,
+      "on_ms": 50,
+      "off_ms": 600,
+      "pulses": 40,
+      "n": 2,
+      "runs": [
+        "shape050-a-1",
+        "shape050-a-2"
+      ],
+      "signed_supported_load_changes_g": [
+        -30.5,
+        -28.2
+      ],
+      "directional_load_changes_g": [
+        30.5,
+        28.2
+      ],
+      "mean_directional_load_change_g": 29.35
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pour_1_to_20_low",
+      "pwm_pct": 100,
+      "on_ms": 50,
+      "off_ms": 600,
+      "pulses": 40,
+      "n": 2,
+      "runs": [
+        "shape050-b-r1",
+        "shape050-b-2"
+      ],
+      "signed_supported_load_changes_g": [
+        18.2,
+        25.5
+      ],
+      "directional_load_changes_g": [
+        18.2,
+        25.5
+      ],
+      "mean_directional_load_change_g": 21.85
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pour_1_to_20_mid",
+      "pwm_pct": 100,
+      "on_ms": 110,
+      "off_ms": 480,
+      "pulses": 24,
+      "n": 2,
+      "runs": [
+        "shape110-a-1",
+        "shape110-a-2"
+      ],
+      "signed_supported_load_changes_g": [
+        -29.6,
+        -41.2
+      ],
+      "directional_load_changes_g": [
+        29.6,
+        41.2
+      ],
+      "mean_directional_load_change_g": 35.4
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pour_1_to_20_mid",
+      "pwm_pct": 100,
+      "on_ms": 110,
+      "off_ms": 480,
+      "pulses": 24,
+      "n": 2,
+      "runs": [
+        "shape110-b-1",
+        "shape110-b-2"
+      ],
+      "signed_supported_load_changes_g": [
+        40.1,
+        37.7
+      ],
+      "directional_load_changes_g": [
+        40.1,
+        37.7
+      ],
+      "mean_directional_load_change_g": 38.9
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 60,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm060-a-1"
+      ],
+      "signed_supported_load_changes_g": [
+        0.0
+      ],
+      "directional_load_changes_g": [
+        0.0
+      ],
+      "mean_directional_load_change_g": 0.0
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 60,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm060-b-1"
+      ],
+      "signed_supported_load_changes_g": [
+        0.2
+      ],
+      "directional_load_changes_g": [
+        0.2
+      ],
+      "mean_directional_load_change_g": 0.2
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 80,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm080-a-1"
+      ],
+      "signed_supported_load_changes_g": [
+        -26.0
+      ],
+      "directional_load_changes_g": [
+        26.0
+      ],
+      "mean_directional_load_change_g": 26.0
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 80,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm080-b-1"
+      ],
+      "signed_supported_load_changes_g": [
+        18.9
+      ],
+      "directional_load_changes_g": [
+        18.9
+      ],
+      "mean_directional_load_change_g": 18.9
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 40,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm040-a-1"
+      ],
+      "signed_supported_load_changes_g": [
+        -0.1
+      ],
+      "directional_load_changes_g": [
+        0.1
+      ],
+      "mean_directional_load_change_g": 0.1
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 40,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm040-b-1"
+      ],
+      "signed_supported_load_changes_g": [
+        -0.2
+      ],
+      "directional_load_changes_g": [
+        -0.2
+      ],
+      "mean_directional_load_change_g": -0.2
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 70,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 2,
+      "runs": [
+        "pwm070-b-1",
+        "pwm070-b-2"
+      ],
+      "signed_supported_load_changes_g": [
+        4.7,
+        3.5
+      ],
+      "directional_load_changes_g": [
+        4.7,
+        3.5
+      ],
+      "mean_directional_load_change_g": 4.1
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 70,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 2,
+      "runs": [
+        "pwm070-a-1",
+        "pwm070-a-2"
+      ],
+      "signed_supported_load_changes_g": [
+        -7.1,
+        -11.6
+      ],
+      "directional_load_changes_g": [
+        7.1,
+        11.6
+      ],
+      "mean_directional_load_change_g": 9.35
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 75,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm075-a-1"
+      ],
+      "signed_supported_load_changes_g": [
+        -12.5
+      ],
+      "directional_load_changes_g": [
+        12.5
+      ],
+      "mean_directional_load_change_g": 12.5
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 75,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "pwm075-b-1"
+      ],
+      "signed_supported_load_changes_g": [
+        9.1
+      ],
+      "directional_load_changes_g": [
+        9.1
+      ],
+      "mean_directional_load_change_g": 9.1
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "off_time_test",
+      "pwm_pct": 100,
+      "on_ms": 110,
+      "off_ms": 60,
+      "pulses": 24,
+      "n": 1,
+      "runs": [
+        "gap110-a-1"
+      ],
+      "signed_supported_load_changes_g": [
+        -37.0
+      ],
+      "directional_load_changes_g": [
+        37.0
+      ],
+      "mean_directional_load_change_g": 37.0
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "off_time_test",
+      "pwm_pct": 100,
+      "on_ms": 110,
+      "off_ms": 60,
+      "pulses": 24,
+      "n": 1,
+      "runs": [
+        "gap110-b-1"
+      ],
+      "signed_supported_load_changes_g": [
+        35.7
+      ],
+      "directional_load_changes_g": [
+        35.7
+      ],
+      "mean_directional_load_change_g": 35.7
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 65,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 2,
+      "runs": [
+        "pwm065-a-1",
+        "pwm065-a-2"
+      ],
+      "signed_supported_load_changes_g": [
+        -2.7,
+        -4.3
+      ],
+      "directional_load_changes_g": [
+        2.7,
+        4.3
+      ],
+      "mean_directional_load_change_g": 3.5
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "pwm_from_rest",
+      "pwm_pct": 65,
+      "on_ms": 3000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 2,
+      "runs": [
+        "pwm065-b-1",
+        "pwm065-b-2"
+      ],
+      "signed_supported_load_changes_g": [
+        0.5,
+        0.2
+      ],
+      "directional_load_changes_g": [
+        0.5,
+        0.2
+      ],
+      "mean_directional_load_change_g": 0.35
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "zero_drive",
+      "pwm_pct": 0,
+      "on_ms": 4000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "blank-end"
+      ],
+      "signed_supported_load_changes_g": [
+        0.1
+      ]
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "cup_level_repositioning",
+      "pwm_pct": 100,
+      "on_ms": 4265,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "level-set-low"
+      ],
+      "signed_supported_load_changes_g": [
+        -51.4
+      ],
+      "directional_load_changes_g": [
+        51.4
+      ],
+      "mean_directional_load_change_g": 51.4
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "lower_cup_start",
+      "pwm_pct": 100,
+      "on_ms": 6000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 2,
+      "runs": [
+        "level-low-a-1",
+        "level-low-a-2"
+      ],
+      "signed_supported_load_changes_g": [
+        -74.1,
+        -68.5
+      ],
+      "directional_load_changes_g": [
+        74.1,
+        68.5
+      ],
+      "mean_directional_load_change_g": 71.3
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "lower_cup_start",
+      "pwm_pct": 100,
+      "on_ms": 6000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 2,
+      "runs": [
+        "level-low-b-1",
+        "level-low-b-2"
+      ],
+      "signed_supported_load_changes_g": [
+        74.7,
+        77.9
+      ],
+      "directional_load_changes_g": [
+        74.7,
+        77.9
+      ],
+      "mean_directional_load_change_g": 76.3
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "cup_level_repositioning",
+      "pwm_pct": 100,
+      "on_ms": 4000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "level-set-return"
+      ],
+      "signed_supported_load_changes_g": [
+        50.3
+      ],
+      "directional_load_changes_g": [
+        50.3
+      ],
+      "mean_directional_load_change_g": 50.3
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "A",
+      "condition": "guide_reference",
+      "pwm_pct": 100,
+      "on_ms": 6000,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "guide-on-a-1"
+      ],
+      "signed_supported_load_changes_g": [
+        -69.6
+      ],
+      "directional_load_changes_g": [
+        69.6
+      ],
+      "mean_directional_load_change_g": 69.6
+    },
+    {
+      "setup": "b_hoses_exchanged",
+      "channel": "B",
+      "condition": "guide_reference",
+      "pwm_pct": 100,
+      "on_ms": 5500,
+      "off_ms": 0,
+      "pulses": 1,
+      "n": 1,
+      "runs": [
+        "guide-on-b-ref-1"
+      ],
+      "signed_supported_load_changes_g": [
+        72.1
+      ],
+      "directional_load_changes_g": [
+        72.1
+      ],
+      "mean_directional_load_change_g": 72.1
+    }
+  ],
   "uncertainty": {
     "scale": "Smart Weigh TOP2KG",
     "displayed_increment_g": 0.1,
     "endpoint_difference_rounding_bound_g": 0.1,
-    "blank_n": 2,
-    "blank_cup_change_range_g": [
-      0.1,
-      0.2
+    "zero_drive_supported_load_change_g": [
+      0.2,
+      0.1
     ],
-    "comparison_allowance_g": 0.3,
-    "scope": "The comparison allowance is the largest absolute paired zero-drive change plus the endpoint rounding bound. It indicates what these controls could distinguish. Hose load, drift, and scale calibration contribute additional uncertainty. No absolute mass accuracy or confidence interval was established."
+    "supported_load_blank_comparison_allowance_g": 0.3,
+    "scale_scope": "The observed zero-drive load changes plus display rounding give a local scale comparison band. The scale cannot partition hose force from changes in liquid mass. Optical level evidence is required to distinguish small fluid displacements.",
+    "optical_scope": "Sightline ranges, alternative definitions of the liquid boundary, shared endpoints, and practical reading allowances are reported in each optical source. Absolute vessel-graduation accuracy was unmeasured."
   },
-  "qualified_pairs": {
-    "shape050-b-r1": "First of three consecutive readable 166.9 g frames after camera reconnection. The delayed named after frame at 2026-11-22T05:58:17.683+00:00 is 167.2 g (display/shape050-b-r1-after.png); no intervening motor command.",
+  "qualified_scale_pairs": {
+    "shape050-b-r1": "First of three consecutive readable 166.9 g frames after camera reconnection. The delayed named after frame at 2026-11-22T05:58:17.683+00:00 is 167.2 g (scale/display/shape050-b-r1-after.png); no intervening motor command.",
     "shape110-a-1": "The named before image has partially refreshed segments. The selected, fully legible frame immediately precedes the console command.",
     "shape110-b-1": "The final digit is partially refreshed in the named after frame. This first fully readable following frame begins a plateau.",
     "shape200-b-2": "The named after frame catches the final digit in transition. The first fully readable following sample supplies the endpoint.",
     "shape110-a-2": "The named before frame has changing digit segments. The preceding frame is the fourth consecutive 211.8 g reading.",
     "pwm070-b-2": "The last digit is partially refreshed in the named frame. The first fully legible following frame reads 155.0 g."
   },
-  "unpaired_runs": [
+  "unpaired_scale_runs": [
     {
       "run": "return-check",
       "reason": "scale_startup_missing_before"
@@ -83,133 +1050,5 @@
       "run": "shape050-b-1",
       "reason": "USB serial port busy before the command."
     }
-  ],
-  "delivery_from_rest": [
-    {
-      "setup": "b_hoses_exchanged",
-      "channel": "A",
-      "on_ms": 3000,
-      "within_blank_pct": [
-        40,
-        60
-      ],
-      "above_blank_pct": [
-        65,
-        70,
-        75,
-        80
-      ],
-      "mixed_pct": []
-    },
-    {
-      "setup": "b_hoses_exchanged",
-      "channel": "B",
-      "on_ms": 3000,
-      "within_blank_pct": [
-        40,
-        60
-      ],
-      "above_blank_pct": [
-        70,
-        75,
-        80
-      ],
-      "mixed_pct": [
-        65
-      ]
-    }
-  ],
-  "off_time_comparisons": [
-    {
-      "setup": "b_hoses_exchanged",
-      "channel": "A",
-      "pwm_pct": 100,
-      "on_ms": 110,
-      "pulses": 24,
-      "reference_off_ms": 480,
-      "reference_n": 2,
-      "test_off_ms": 60,
-      "test_n": 1,
-      "test_minus_reference_g_per_pulse": 0.07
-    },
-    {
-      "setup": "b_hoses_exchanged",
-      "channel": "B",
-      "pwm_pct": 100,
-      "on_ms": 110,
-      "pulses": 24,
-      "reference_off_ms": 480,
-      "reference_n": 2,
-      "test_off_ms": 60,
-      "test_n": 1,
-      "test_minus_reference_g_per_pulse": -0.13
-    }
-  ],
-  "lower_cup_comparisons": [
-    {
-      "setup": "b_hoses_exchanged",
-      "channel": "A",
-      "on_ms": 6000,
-      "reference_n": 3,
-      "reference_start_scale_range_g": [
-        155.8,
-        172
-      ],
-      "reference_mean_transfer_g": 66.1,
-      "lower_n": 2,
-      "lower_start_scale_range_g": [
-        103.8,
-        106
-      ],
-      "lower_mean_transfer_g": 71.3,
-      "lower_minus_reference_g": 5.2
-    },
-    {
-      "setup": "b_hoses_exchanged",
-      "channel": "B",
-      "on_ms": 6000,
-      "reference_n": 3,
-      "reference_start_scale_range_g": [
-        92.9,
-        106.2
-      ],
-      "reference_mean_transfer_g": 74,
-      "lower_n": 2,
-      "lower_start_scale_range_g": [
-        30.6,
-        37.5
-      ],
-      "lower_mean_transfer_g": 76.3,
-      "lower_minus_reference_g": 2.3
-    }
-  ],
-  "conditions": [
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"wet_continuous","pwm_pct":100,"on_ms":10000,"off_ms":0,"pulses":1,"n":1,"mean_g":127.1,"mean_g_per_pulse":127.1,"gate_g_min":763,"full_cycles_g_min":763},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"wet_continuous","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":3,"mean_g":66.1,"range_g":[62.6,69.9],"repeat_sd_g":3.7,"mean_g_per_pulse":66.1,"gate_g_min":661,"full_cycles_g_min":661},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"wet_continuous","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":3,"mean_g":74,"range_g":[72.6,76],"repeat_sd_g":1.8,"mean_g_per_pulse":74,"gate_g_min":740,"full_cycles_g_min":740},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":4,"mean_g":39.3,"range_g":[31,49.7],"repeat_sd_g":9.5,"mean_g_per_pulse":2.46,"gate_g_min":737,"full_cycles_g_min":295},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_full","pwm_pct":100,"on_ms":200,"off_ms":300,"pulses":16,"n":4,"mean_g":38.6,"range_g":[33.9,41.8],"repeat_sd_g":3.5,"mean_g_per_pulse":2.41,"gate_g_min":724,"full_cycles_g_min":289},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_low","pwm_pct":100,"on_ms":50,"off_ms":600,"pulses":40,"n":2,"mean_g":29.4,"range_g":[28.2,30.5],"repeat_sd_g":1.6,"mean_g_per_pulse":0.73,"gate_g_min":881,"full_cycles_g_min":68},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_low","pwm_pct":100,"on_ms":50,"off_ms":600,"pulses":40,"n":2,"mean_g":21.9,"range_g":[18.2,25.5],"repeat_sd_g":5.2,"mean_g_per_pulse":0.55,"gate_g_min":656,"full_cycles_g_min":50},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pour_1_to_20_mid","pwm_pct":100,"on_ms":110,"off_ms":480,"pulses":24,"n":2,"mean_g":35.4,"range_g":[29.6,41.2],"repeat_sd_g":8.2,"mean_g_per_pulse":1.48,"gate_g_min":805,"full_cycles_g_min":150},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pour_1_to_20_mid","pwm_pct":100,"on_ms":110,"off_ms":480,"pulses":24,"n":2,"mean_g":38.9,"range_g":[37.7,40.1],"repeat_sd_g":1.7,"mean_g_per_pulse":1.62,"gate_g_min":884,"full_cycles_g_min":165},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":60,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":0,"mean_g_per_pulse":0,"gate_g_min":0,"full_cycles_g_min":0,"within_blank_allowance_n":1},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":60,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":0.2,"mean_g_per_pulse":0.2,"gate_g_min":4,"full_cycles_g_min":4,"within_blank_allowance_n":1},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":80,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":26,"mean_g_per_pulse":26,"gate_g_min":520,"full_cycles_g_min":520},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":80,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":18.9,"mean_g_per_pulse":18.9,"gate_g_min":378,"full_cycles_g_min":378},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":40,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":0.1,"mean_g_per_pulse":0.1,"gate_g_min":2,"full_cycles_g_min":2,"within_blank_allowance_n":1},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":40,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":-0.2,"mean_g_per_pulse":-0.2,"gate_g_min":-4,"full_cycles_g_min":-4,"within_blank_allowance_n":1},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":70,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":4.1,"range_g":[3.5,4.7],"repeat_sd_g":0.8,"mean_g_per_pulse":4.1,"gate_g_min":82,"full_cycles_g_min":82},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":70,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":9.4,"range_g":[7.1,11.6],"repeat_sd_g":3.2,"mean_g_per_pulse":9.4,"gate_g_min":187,"full_cycles_g_min":187},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":75,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":12.5,"mean_g_per_pulse":12.5,"gate_g_min":250,"full_cycles_g_min":250},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":75,"on_ms":3000,"off_ms":0,"pulses":1,"n":1,"mean_g":9.1,"mean_g_per_pulse":9.1,"gate_g_min":182,"full_cycles_g_min":182},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"off_time_test","pwm_pct":100,"on_ms":110,"off_ms":60,"pulses":24,"n":1,"mean_g":37,"mean_g_per_pulse":1.54,"gate_g_min":841,"full_cycles_g_min":544},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"off_time_test","pwm_pct":100,"on_ms":110,"off_ms":60,"pulses":24,"n":1,"mean_g":35.7,"mean_g_per_pulse":1.49,"gate_g_min":811,"full_cycles_g_min":525},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"pwm_from_rest","pwm_pct":65,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":3.5,"range_g":[2.7,4.3],"repeat_sd_g":1.1,"mean_g_per_pulse":3.5,"gate_g_min":70,"full_cycles_g_min":70},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"pwm_from_rest","pwm_pct":65,"on_ms":3000,"off_ms":0,"pulses":1,"n":2,"mean_g":0.4,"range_g":[0.2,0.5],"repeat_sd_g":0.2,"mean_g_per_pulse":0.4,"gate_g_min":7,"full_cycles_g_min":7,"within_blank_allowance_n":1},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"lower_cup_start","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":2,"mean_g":71.3,"range_g":[68.5,74.1],"repeat_sd_g":4,"mean_g_per_pulse":71.3,"gate_g_min":713,"full_cycles_g_min":713},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"lower_cup_start","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":2,"mean_g":76.3,"range_g":[74.7,77.9],"repeat_sd_g":2.3,"mean_g_per_pulse":76.3,"gate_g_min":763,"full_cycles_g_min":763},
-    {"setup":"b_hoses_exchanged","channel":"A","condition":"guide_reference","pwm_pct":100,"on_ms":6000,"off_ms":0,"pulses":1,"n":1,"mean_g":69.6,"mean_g_per_pulse":69.6,"gate_g_min":696,"full_cycles_g_min":696},
-    {"setup":"b_hoses_exchanged","channel":"B","condition":"guide_reference","pwm_pct":100,"on_ms":5500,"off_ms":0,"pulses":1,"n":1,"mean_g":72.1,"mean_g_per_pulse":72.1,"gate_g_min":787,"full_cycles_g_min":787}
   ]
 }

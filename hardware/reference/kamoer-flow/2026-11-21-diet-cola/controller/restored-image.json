@@ -1,0 +1,20 @@
+{
+  "partition_table": {
+    "bytes": 4096,
+    "matches_original": true
+  },
+  "nvs": {
+    "bytes": 20480,
+    "matches_original": false
+  },
+  "ota_selection": {
+    "bytes": 8192,
+    "matches_original": true,
+    "restored_sha256": "437c90c61f36b1c6c5471bcefe69b2379fea5f5bb5e8e2ea7f9ec04438039997"
+  },
+  "all_rewritten_application_sectors": {
+    "bytes": 315392,
+    "matches_original": true,
+    "restored_sha256": "93ad37074fabed729a36070fc185cdd389cf1ce3b9a9c3fd17aaa9823c1a7b70"
+  }
+}
