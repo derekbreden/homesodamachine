@@ -40,7 +40,7 @@ import { captureHiddenThumbnail } from "./hidden-thumbnail.js";
 const LS_KEY = "step-component-pick";
 const SEL = 0xffa733;   // selection highlight — warm amber (distinct from edge yellow, part-highlight cyan, find magenta)
 const HOVER = 0x9fd8ff; // hover tint — pale blue
-const { scene, camera, renderer } = viewScene;
+const { componentMarks: overlay, camera, renderer, requestSelectionRender } = viewScene;
 const requestCadRender = () => viewScene.requestCadRender?.();
 
 let enabled = (() => {
@@ -139,12 +139,6 @@ export function applyHiddenComponents() {
   xray.invalidateBlueprintVisibility?.();
   requestCadRender();
 }
-
-// --- overlay (highlight over the selected / hovered component) ---
-const overlay = new THREE.Group();
-overlay.name = "component-picker";
-overlay.renderOrder = 994;
-scene.add(overlay);
 
 const selEdgeMat = new THREE.LineBasicMaterial({ color: SEL, transparent: true, opacity: 0.95, depthTest: false });
 selEdgeMat.depthWrite = false;
@@ -261,8 +255,9 @@ function removeMark(group, mesh, mark) {
   group.userData.marks.delete(mesh);
 }
 function disposeGroup(group) {
+  if (!group.userData.marks.size) return;
   for (const [mesh, mark] of group.userData.marks) removeMark(group, mesh, mark);
-  requestCadRender();
+  requestSelectionRender();
 }
 
 function addMark(group, mesh, feature) {
@@ -320,12 +315,12 @@ function drawOverlay(group, name, showEdges = true) {
         mark.line.renderOrder = group.renderOrder;
         syncMarkVisibility(mesh, mark);
         group.add(mark.line);
-        requestCadRender();
+        requestSelectionRender();
       }, { priority: group === selGroup });
     }
   }
   for (const [mesh, mark] of marks) if (!keep.has(mesh)) removeMark(group, mesh, mark);
-  requestCadRender();
+  requestSelectionRender();
 }
 
 // --- component raycasting (front, visible meshes only) ---

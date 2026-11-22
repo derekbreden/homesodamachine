@@ -34,6 +34,7 @@ const fillMaterial = new THREE.MeshBasicMaterial({
 });
 
 function clearOverlay() {
+  if (!overlay.children.length) return;
   overlay.clear();
   sceneState.requestCadRender?.();
 }

@@ -26,6 +26,7 @@ export { depthRangeFor, fitCameraDepth } from "./navigation.js";
 import { state } from "./state.js";
 import * as xray from "./xray.js";
 import { drawMovingSurfaces, hasDenseSurfaces, prepareMotionSurfaces } from "./motion-surfaces.js";
+import { createSelectionFrame } from "./selection-frame.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // --- Detail view: Three.js setup ---
@@ -53,19 +54,27 @@ renderer.domElement.classList.add("cad-viewport");
 canvasHost.appendChild(renderer.domElement);
 
 export const scene = new THREE.Scene();
-let animating = false, animateRafId = 0, refineTimer = 0, refining = false;
-let commandUntil = 0;
+export const componentMarks = new THREE.Group();
+componentMarks.name = "component-picker";
+componentMarks.renderOrder = 994;
+const selectionFrame = createSelectionFrame(renderer, scene, componentMarks);
+let animating = false, animateRafId = 0, refineTimer = 0;
+let worldDirty = true, marksDirty = false, cameraMoved = false;
 
-// Camera and scene changes request one display frame, including edits made between gestures.
+function wake() {
+  if (animating && !animateRafId) animateRafId = requestAnimationFrame(animate);
+}
 export function requestCadRender() {
-  if (!animating) return;
-  clearTimeout(refineTimer);
-  refineTimer = 0;
-  refining = false;
-  if (!animateRafId) animateRafId = requestAnimationFrame(animate);
+  worldDirty = true;
+  wake();
+}
+export function requestSelectionRender() {
+  marksDirty = true;
+  wake();
 }
 
 function watchChildren(object, attach) {
+  if (object === selectionFrame.layer) return;
   if (!object.isScene && !object.isGroup && !object.children.length) return;
   if (attach) {
     object.addEventListener("childadded", childAdded);
@@ -79,7 +88,7 @@ function watchChildren(object, attach) {
 function childAdded({ child }) { watchChildren(child, true); requestCadRender(); }
 function childRemoved({ child }) { watchChildren(child, false); requestCadRender(); }
 watchChildren(scene, true);
-for (const type of [HSM_EVENTS.STEP_MOUNTED, HSM_EVENTS.STEP_TOOL, HSM_EVENTS.FAUCET_OPTIONS, HSM_EVENTS.MATERIAL_PICKED]) {
+for (const type of [HSM_EVENTS.STEP_MOUNTED, HSM_EVENTS.STEP_TOOL, HSM_EVENTS.FAUCET_OPTIONS]) {
   window.addEventListener(type, requestCadRender);
 }
 
@@ -87,36 +96,32 @@ function refineWhenIdle() {
   clearTimeout(refineTimer);
   refineTimer = setTimeout(() => {
     refineTimer = 0;
-    refining = true;
-    animateRafId = requestAnimationFrame(animate);
-  }, Math.max(120, commandUntil - performance.now()));
+    requestCadRender();
+  }, 120);
 }
 
-// Consecutive CAD commands share the responsive canvas while the controls stay at native resolution.
-for (const type of ["pointerdown", "click", "keydown"]) {
-  window.addEventListener(type, event => {
-    if (!animating || renderAlpha || !hasDenseSurfaces() ||
-        !event.target?.closest?.(".cad-workspace")?.contains(state.currentCadWrapper)) return;
-    commandUntil = performance.now() + 260;
-    if (refineTimer) refineWhenIdle();
-  }, { capture: true, passive: true });
-}
 // near/far are seeded here and fitted to the mounted model every frame by
 // updateDepthRange().
 export const camera = new THREE.PerspectiveCamera(45, 1, 1, 1000);
 const navigation = createNavigation({
   camera, renderer, getGroup: () => state.currentGroup, getBounds: navigationDepthBounds,
-  invalidate: requestCadRender,
+  invalidate: wake,
   defaultUp: new THREE.Vector3(0, 0, 1), gizmoStyleTarget: document.documentElement,
   onDepthFit: sphere => fitFog(scene, camera.position.distanceTo(sphere.center), sphere.radius),
 });
 export const controls = navigation.controls;
+controls.addEventListener("change", () => { cameraMoved = true; });
+renderer.domElement.addEventListener("webglcontextrestored", () => {
+  selectionFrame.release();
+  requestCadRender();
+});
 export const gizmoCanvas = navigation.gizmoCanvas;
 gizmoCanvas.id = "gizmoCanvas";
 canvasHost.appendChild(gizmoCanvas);
 export const clearSurfaceTouches = () => navigation.clearTouches();
 export const afterGesture = () => navigation.afterGesture();
 export const syncGizmoSize = () => navigation.syncGizmoSize();
+export const turnCamera = navigation.turnCamera;
 
 // THE ENVIRONMENT IS WHAT A SPECULAR SURFACE HAS TO LOOK AT, and on this machine that is most
 // of what a surface is. A metal has no diffuse term at all — every photon it sends back is the
@@ -365,13 +370,12 @@ const motionPixelRatio = 1.25;
 let restingPixelRatio = 0;
 
 // Only the moving model changes resolution. Its CSS viewport, input coordinates and ViewCube stay fixed.
-function setMotionResolution(moving, settling) {
-  const dense = !renderAlpha && hasDenseSurfaces();
+function setMotionResolution(moving) {
   const ratio = renderer.getPixelRatio();
-  if (dense && moving && !restingPixelRatio && ratio > motionPixelRatio) {
+  if (moving && !restingPixelRatio && ratio > motionPixelRatio) {
     restingPixelRatio = ratio;
     renderer.setPixelRatio(motionPixelRatio);
-  } else if (restingPixelRatio && (settling || !dense)) {
+  } else if (restingPixelRatio && !moving) {
     renderer.setPixelRatio(restingPixelRatio);
     restingPixelRatio = 0;
   }
@@ -473,22 +477,42 @@ function navigationDepthBounds() {
 
 export function updateDepthRange() { navigation.fitDepth(); }
 
+const drawnView = new THREE.Matrix4(), drawnProjection = new THREE.Matrix4();
+let drawnWidth = 0, drawnHeight = 0, drawnLayers = 0;
+
 function animate(now) {
   animateRafId = 0;
   if (!animating) return;
-  const exact = refining;
-  refining = false;
-  const moving = navigation.update(now);
-  const command = performance.now() < commandUntil;
-  setMotionResolution(moving || command, exact && !moving && !command);
+  const continuing = navigation.update(now);
+  const moving = cameraMoved || continuing;
+  cameraMoved = false;
+  if (continuing) wake();
+  const dense = !renderAlpha && hasDenseSurfaces();
+  if (moving && dense) refineWhenIdle();
+  const fast = dense && (!!refineTimer || state.currentGroup?.userData.sceneLoading);
+  setMotionResolution(fast);
+  camera.updateMatrixWorld();
+  const canvas = renderer.domElement;
+  const changed = worldDirty || !drawnView.equals(camera.matrixWorld) || !drawnProjection.equals(camera.projectionMatrix)
+    || drawnLayers !== camera.layers.mask || drawnWidth !== canvas.width || drawnHeight !== canvas.height;
+  if (!changed && !marksDirty && !moving) return;
+  worldDirty = marksDirty = false;
+  drawnView.copy(camera.matrixWorld);
+  drawnProjection.copy(camera.projectionMatrix);
+  drawnLayers = camera.layers.mask;
+  drawnWidth = canvas.width;
+  drawnHeight = canvas.height;
   xray.updateBlueprintView?.(renderer, camera, state.currentGroup);
   xray.syncEdgeResolution(renderer);
-  const draw = () => renderer.render(scene, camera);
-  let reduced = false;
-  if (renderAlpha || (exact && !moving && !command)) draw();
-  else reduced = drawMovingSurfaces(scene, camera, drawnSize.h, draw);
-  if (moving) requestCadRender();
-  if ((reduced || restingPixelRatio) && !animateRafId) refineWhenIdle();
+  if (fast) {
+    selectionFrame.invalidate();
+    drawMovingSurfaces(scene, camera, drawnSize.h, () => renderer.render(scene, camera));
+  } else if (dense) {
+    selectionFrame.draw(camera, changed);
+  } else {
+    selectionFrame.release();
+    renderer.render(scene, camera);
+  }
 }
 export function startAnimate() {
   if (animating) return;
@@ -499,9 +523,11 @@ export function startAnimate() {
 export function stopAnimate() {
   animating = false;
   clearTimeout(refineTimer);
-  refineTimer = commandUntil = 0;
+  refineTimer = 0;
+  cameraMoved = false;
+  selectionFrame.release();
   prepareMotionSurfaces(null);
-  setMotionResolution(false, true);
+  setMotionResolution(false);
   _modelBoundsDirty = true;
   if (animateRafId) {
     cancelAnimationFrame(animateRafId);
