@@ -1,0 +1,85 @@
+{
+  "software_translations": [
+    {
+      "source": "pre_reset",
+      "applied_vertical_px": -39.0,
+      "recovered_minus_applied_px": {
+        "left": -1.4210854715202004e-14,
+        "right": 2.1316282072803006e-14
+      }
+    },
+    {
+      "source": "pre_reset",
+      "applied_vertical_px": -31.5,
+      "recovered_minus_applied_px": {
+        "left": 0.055861205748037435,
+        "right": -0.005713209675782593
+      }
+    },
+    {
+      "source": "pre_reset",
+      "applied_vertical_px": 29.5,
+      "recovered_minus_applied_px": {
+        "left": 0.0558612057480552,
+        "right": -0.005713209675779041
+      }
+    },
+    {
+      "source": "pre_reset",
+      "applied_vertical_px": 40.0,
+      "recovered_minus_applied_px": {
+        "left": 0.0,
+        "right": 7.105427357601002e-15
+      }
+    },
+    {
+      "source": "restored",
+      "applied_vertical_px": -39.0,
+      "recovered_minus_applied_px": {
+        "left": -7.105427357601002e-15,
+        "right": 7.105427357601002e-15
+      }
+    },
+    {
+      "source": "restored",
+      "applied_vertical_px": -31.5,
+      "recovered_minus_applied_px": {
+        "left": 0.08332214129698556,
+        "right": 0.054366383771149884
+      }
+    },
+    {
+      "source": "restored",
+      "applied_vertical_px": 29.5,
+      "recovered_minus_applied_px": {
+        "left": 0.08332214129700333,
+        "right": 0.05436638377115699
+      }
+    },
+    {
+      "source": "restored",
+      "applied_vertical_px": 40.0,
+      "recovered_minus_applied_px": {
+        "left": 1.4210854715202004e-14,
+        "right": 0.0
+      }
+    }
+  ],
+  "native_and_packed": {
+    "pre_reset": {
+      "all_registration_fields_identical": true,
+      "regenerated_profiles_identical": true,
+      "packed_bytes": 40925
+    },
+    "restored": {
+      "all_registration_fields_identical": true,
+      "regenerated_profiles_identical": true,
+      "packed_bytes": 56135
+    }
+  },
+  "partly_covered_left_surface": {
+    "endpoint": "width-2-008-post",
+    "independent_left_raw_row": 958.2217292251144,
+    "independent_right_raw_row": 910.8306406573281
+  }
+}
