@@ -1,6 +1,6 @@
 {
   "purpose": "Identify the production V-H entry clip coupon accepted by Mark 1.",
-  "status": "started",
+  "status": "finished",
   "printer": "Mark1",
   "printer_task_id": "1470822260",
   "previous_task_id": "1468407647",
@@ -50,5 +50,7 @@
   "native_slicer_warnings": [],
   "launch": "launch.json",
   "prelaunch_status": "prelaunch-status.json",
-  "startup_status": "startup-status.json"
+  "startup_status": "startup-status.json",
+  "finish_status": "finish-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
