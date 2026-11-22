@@ -1,0 +1,23 @@
+{
+  "question": "What does each single 51 ms burst of the 11-burst top-off do to the cup, in a raised pour and in a normal one?",
+  "programs": "topoff_n11 and steady_glass from programs.json with Codex's frozen model, unchanged from 39fe9a11b.",
+  "trace": "Each traced top-off keeps every dumped frame (every second frame of the 30 fps stream) from its no-pump bracket photograph to its finishing photograph, with frame times. Each frame is read alone by the frozen reader. Burst times are the policy replay's gate starts and widths, placed from the controller's first pour receipt.",
+  "windows": "A burst's step is the mean level from 0.20 to 0.45 s after its commanded start minus the mean from 0.25 s before it to its start, taken in the pump's direction. Gap drift is the level from the end of one after-window to the next burst's before-window. Settling after the last burst is the last 0.6 s of the trace minus the last burst's after-window.",
+  "resolved_cut_sigma": 5,
+  "resolved": "Frame scatter sigma is the standard deviation of single-frame x990 readings about a line through the quiet bracket before the pour. Bursts resolve on a pour when at least 10 of its 11 steps exceed 5 sigma. The resolution test is one A top-off, taken first; if it does not resolve, the round stops and the bench parks.",
+  "cycles": 4,
+  "delay_s": 120,
+  "bracket_s": 10,
+  "cycle_budget_s": 450,
+  "last_cycle_end_local": "15:20",
+  "procedure": "Each cycle: set the cup to steady_glass's start level; A pours steady_glass, waits delay_s, pours a traced topoff_n11 (after-own-glass), then at once another (after-topoff); then B does the same. B's glass and top-offs return the cup.",
+  "raised": "A pour is raised when its corrected x990 dose is at least 7.0 mL on A or 6.3 mL on B (the cut registered at 39ddefc13); normal otherwise. Readings compare raised and normal A pours by burst position.",
+  "readings": {
+    "uniform": "Every burst of a raised pour is larger by about the same factor: the raised-to-normal ratio of the mean step at each burst position lies within 25 percent of the overall ratio at 9 or more of 11 positions. False if fewer.",
+    "two_sizes": "A raised pour mixes two burst sizes: each raised pour has at least two steps at or below 0.57 mL and at least two at or above 0.62 mL. False if any raised pour has all but one of its steps in one band.",
+    "give_back": "The bursts are the same size and a normal pour gives some back in the gaps: median step differs between raised and normal pours by under 0.05 mL, and the normal pours' summed gap drift is negative by at least half the dose difference. False if the median steps differ by more than 0.1 mL.",
+    "early": "The extra arrives in the first burst or two: bursts 1 and 2 carry at least 70 percent of the raised-minus-normal dose difference. False if they carry under 40 percent.",
+    "gap_flow": "The extra arrives between bursts: in raised pours the summed gap drift in the pump's direction is at least half the raised-minus-normal dose difference. False if it is under a quarter."
+  },
+  "B": "B's returns are traced the same way. B pours into the cup, so its surface may be too disturbed to read by burst; the same resolved cut says so."
+}
