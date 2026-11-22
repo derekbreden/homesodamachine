@@ -1158,6 +1158,12 @@
       "bytes": 202717,
       "sha256": "d23d6fa0bff98624d3b85f0f3f90ad35a11aa9fe68cc41f8279e744919b842aa"
     },
+    "2381035dd156d7b474a710a18ddfffd87a6afbf4": {
+      "archive": "pisco-cover-retention-mark2-d2d966570ccbc9d7.zip",
+      "bytes": 904416,
+      "offset": 91379,
+      "sha256": "d33a1640966007dc7a0aa92b2d5b72045fa84253c00f7fac3f7b833e140d698a"
+    },
     "23af75a896d5722ef8a3a925fe7c8185eff67c5f": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 690113423,
@@ -3203,6 +3209,12 @@
       "offset": 913141092,
       "bytes": 2853108,
       "sha256": "6459df6d2bb8339e9634a36ebe3d7ca52f6afa2e227510e077ee543ed12b330e"
+    },
+    "674bbd76b20d2561f1ed8c365fd507ba4b166207": {
+      "archive": "pisco-cover-retention-mark2-d2d966570ccbc9d7.zip",
+      "bytes": 91231,
+      "offset": 74,
+      "sha256": "d085269a365bcb55db8a4c009aa3598fd3516cc7cc178011f71e8610772151a5"
     },
     "676cfcb2c37879436cb06d6d48eb083ba8688035": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -7922,6 +7934,8 @@
     "hardware/print-tests/petgf-interface-edges/support-interface.3mf": "abdbb763d83c2d4e7fa20328f4a70a5ef0eb108b",
     "hardware/print-tests/petgf-interface-patterns/interface-patterns.3mf": "518fe468b81867a58030e5cc5c9acc240b5b96b6",
     "hardware/print-tests/petgf-support-interface/support-interface.3mf": "4878b4daa3dbf52407448a34da39ce54f8cbb71c",
+    "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.3mf": "674bbd76b20d2561f1ed8c365fd507ba4b166207",
+    "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.gcode.3mf": "2381035dd156d7b474a710a18ddfffd87a6afbf4",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a-print-only.gcode.3mf": "79dd245d93c2cfc8eb0bd47f2a1a5a1591f758c5",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.3mf": "e0fba84e7a539921ab2b769086b72f4e509ba668",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.gcode.3mf": "153f35916911b98a2fe3dfc61b23d5ad34f69d81",

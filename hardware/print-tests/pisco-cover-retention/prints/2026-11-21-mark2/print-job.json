@@ -1,0 +1,84 @@
+{
+  "purpose": "Compare the retaining faces of two Pisco covers in the corner that passed the assembly test.",
+  "status": "running",
+  "printer": "Mark2",
+  "printer_task_id": "1472025092",
+  "accepted_at": "2026-11-22T04:05:43+00:00",
+  "source_commit": "c0445bb4b06ded2d0df54713f571be7b40567067",
+  "baseline_print_task": "1470452037",
+  "physical_evidence": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json",
+  "geometry": "../../parts/geometry.json",
+  "fit_check": "../../fit-check.json",
+  "printer_recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "d54a38b2e509ee693b91d0e280cc5fc3fb9f18b88c3df7bae4fd27e77fa100ab",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "emitted_z_trim_commands_mm": [
+    0.0,
+    0.08
+  ],
+  "objects": [
+    {
+      "name": "pisco-one-mark",
+      "mark_count": 1,
+      "nominal_catch_gap_z_mm": 0.2,
+      "plate_center_xy_mm": [
+        142.0943841934204,
+        185.0
+      ],
+      "stl_sha256": "74f62e333406ebc2544728c5cd8a67153129017f4557b61589c910ed5940d741"
+    },
+    {
+      "name": "pisco-two-marks",
+      "mark_count": 2,
+      "nominal_catch_gap_z_mm": 0.05,
+      "plate_center_xy_mm": [
+        182.9056158065796,
+        185.0
+      ],
+      "stl_sha256": "2a23c90ebde32d02777c2520d4ddb30f39d69f2212ca0e79c2bf2ef178e759a0"
+    }
+  ],
+  "archive": "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.gcode.3mf",
+  "archive_sha256": "d33a1640966007dc7a0aa92b2d5b72045fa84253c00f7fac3f7b833e140d698a",
+  "gcode_sha256": "934160aeeb414d576ec009bcfe1ae31581d627436b8b4832b8a9cd8e92e865c7",
+  "project": "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.3mf",
+  "project_sha256": "d085269a365bcb55db8a4c009aa3598fd3516cc7cc178011f71e8610772151a5",
+  "print_archive_index": "hardware/print-archive.json",
+  "preparation": "2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/preparation.json",
+  "project_check": "2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/project-check.json",
+  "native_review": "2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/review.json",
+  "retaining_paths": "2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/retaining-paths.json",
+  "layers": 174,
+  "minimum_bead_bed_margin_mm": 116.537225,
+  "slicer_estimated_seconds": 8187.16185854503,
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "startup_status": "startup-status.json",
+  "external_spool": {
+    "1": {
+      "colour": "161616",
+      "type": "PET-CF"
+    }
+  },
+  "timelapse": "On",
+  "startup_spacing": {
+    "other_printer": "Mark1",
+    "other_task_id": "1470822260",
+    "other_accepted_at": "2026-11-21T20:08:59+00:00",
+    "other_state_at_send": "FINISH",
+    "elapsed_seconds": 28604.0
+  }
+}
