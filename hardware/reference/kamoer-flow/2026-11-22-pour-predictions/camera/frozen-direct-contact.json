@@ -1,0 +1,157 @@
+{
+  "frozen_utc": "2026-11-22T09:09:17.362097+00:00",
+  "predictions": {
+    "A": {
+      "inner": {
+        "predicted_signed_px": {
+          "full_glass": 50.0734,
+          "partial_glass": 48.566759999999995
+        },
+        "full_partial_ratio": 1.031022040589078,
+        "training": {
+          "t_full": [
+            {
+              "label": "learn1-003-a-t-full",
+              "settled_px_per_reported_burst": 3.86672
+            },
+            {
+              "label": "learn1-009-a-t-full",
+              "settled_px_per_reported_burst": 3.6605800000000004
+            },
+            {
+              "label": "learn1-019-a-t-full",
+              "settled_px_per_reported_burst": 3.8518
+            }
+          ],
+          "t_partial": [
+            {
+              "label": "learn1-007-a-t-partial",
+              "settled_px_per_reported_burst": 1.90074
+            },
+            {
+              "label": "learn1-013-a-t-partial",
+              "settled_px_per_reported_burst": 2.2075799999999997
+            },
+            {
+              "label": "learn1-016-a-t-partial",
+              "settled_px_per_reported_burst": 2.34314
+            }
+          ]
+        }
+      },
+      "outer": {
+        "predicted_signed_px": {
+          "full_glass": 56.040400000000005,
+          "partial_glass": 57.22046
+        },
+        "full_partial_ratio": 0.9793769571233787,
+        "training": {
+          "t_full": [
+            {
+              "label": "learn1-003-a-t-full",
+              "settled_px_per_reported_burst": 4.20929
+            },
+            {
+              "label": "learn1-009-a-t-full",
+              "settled_px_per_reported_burst": 4.3108
+            },
+            {
+              "label": "learn1-019-a-t-full",
+              "settled_px_per_reported_burst": 4.34099
+            }
+          ],
+          "t_partial": [
+            {
+              "label": "learn1-007-a-t-partial",
+              "settled_px_per_reported_burst": 2.60093
+            },
+            {
+              "label": "learn1-013-a-t-partial",
+              "settled_px_per_reported_burst": 2.60662
+            },
+            {
+              "label": "learn1-016-a-t-partial",
+              "settled_px_per_reported_burst": 2.51656
+            }
+          ]
+        }
+      }
+    },
+    "B": {
+      "inner": {
+        "predicted_signed_px": {
+          "full_glass": 44.95855,
+          "partial_glass": 44.445060000000005
+        },
+        "full_partial_ratio": 1.011553364985895,
+        "training": {
+          "t_full": [
+            {
+              "label": "learn1-002-b-t-full",
+              "settled_px_per_reported_burst": 3.54784
+            },
+            {
+              "label": "learn1-008-b-t-full",
+              "settled_px_per_reported_burst": 3.3719799999999998
+            },
+            {
+              "label": "learn1-018-b-t-full",
+              "settled_px_per_reported_burst": 3.4583500000000003
+            }
+          ],
+          "t_partial": [
+            {
+              "label": "learn1-006-b-t-partial",
+              "settled_px_per_reported_burst": 1.86388
+            },
+            {
+              "label": "learn1-012-b-t-partial",
+              "settled_px_per_reported_burst": 2.02023
+            },
+            {
+              "label": "learn1-017-b-t-partial",
+              "settled_px_per_reported_burst": 2.12393
+            }
+          ]
+        }
+      },
+      "outer": {
+        "predicted_signed_px": {
+          "full_glass": 51.125490000000006,
+          "partial_glass": 47.747040000000005
+        },
+        "full_partial_ratio": 1.0707572657907172,
+        "training": {
+          "t_full": [
+            {
+              "label": "learn1-002-b-t-full",
+              "settled_px_per_reported_burst": 3.7964399999999996
+            },
+            {
+              "label": "learn1-008-b-t-full",
+              "settled_px_per_reported_burst": 3.9327300000000003
+            },
+            {
+              "label": "learn1-018-b-t-full",
+              "settled_px_per_reported_burst": 3.96824
+            }
+          ],
+          "t_partial": [
+            {
+              "label": "learn1-006-b-t-partial",
+              "settled_px_per_reported_burst": 2.1703200000000002
+            },
+            {
+              "label": "learn1-012-b-t-partial",
+              "settled_px_per_reported_burst": 2.1629899999999997
+            },
+            {
+              "label": "learn1-017-b-t-partial",
+              "settled_px_per_reported_burst": 2.25581
+            }
+          ]
+        }
+      }
+    }
+  }
+}

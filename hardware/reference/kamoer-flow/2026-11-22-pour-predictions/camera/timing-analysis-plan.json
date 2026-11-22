@@ -1,0 +1,46 @@
+{
+  "utc": "2026-11-22T09:02:35.962500+00:00",
+  "reference": "station-idle fixed-setting native photos; upper-rim independent of front contact",
+  "signed_displacement": "positive signed down for A, up for B after subtracting the median level in the pre-start window",
+  "metrics": {
+    "pre_s_relative_to_board_pour_start": [
+      -0.58,
+      -0.08
+    ],
+    "settled_s_after_board_pour_end": [
+      2.35,
+      3.1
+    ],
+    "early_s_after_board_start": [
+      1.55,
+      1.9
+    ],
+    "during_release_s_relative_to_final_zero_meter_tx": [
+      -0.2,
+      0.04
+    ],
+    "near_closure_s_relative_to_board_end": [
+      -0.17,
+      0.17
+    ],
+    "after_done_s_relative_to_board_end": [
+      0.5,
+      0.85
+    ],
+    "post_burst_ringdown_s_after_last_simulated_motor_off": [
+      0.1,
+      1.3
+    ],
+    "harmonic_search_hz": [
+      2.0,
+      4.0
+    ],
+    "match_quality": "Record median native correlation and lane IQR on both strips for every observation. Report the count of poor or missing views and retain them. Use settled medians and predeclared time windows. A surface oscillation can occur with unchanged cup contents."
+  },
+  "tests": {
+    "reopen_quiet_interval": "Matched by head and planned validation block. The continuous opening produces more displacement than release-reopen between 1.55 and 1.90 seconds after the start. That window is after the two extra modeled starts at 1.0 and 1.5 s and before the next modeled start at 2.0 s. Pass threshold: direction agrees in at least five of six matched repeats on each sightline separately.",
+    "equal_water_training_forecast": "Use independent training-only median signed settled pixels per reported burst for each head, sightline and matching meter schedule. Predict full-glass and partial-glass dose ratio from those medians and their prescribed burst counts. Compare held-out amplitude/order. Report any mismatch.",
+    "quiet_position": "Compute position changes on non-overlapping pairs of one-second medians 3 s apart, in the stationary time between control settling and first direct pump command. Use their empirical 95th absolute percentile as a comparator for late settled drift at both sightlines.",
+    "cooldown": "Report paired release-to-controller-closed and controller-closed-to-late-settled displacements by scenario and head. Separately characterize ring-down amplitude and frequency by fitting both native sightlines after last modeled motor shutoff. Actual board reports burst count and closure time, not every individual switching edge."
+  }
+}
