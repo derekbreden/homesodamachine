@@ -457,6 +457,13 @@
       "said": "It worked.",
       "tried": "the cover on the flow meter in the same printed corner. Its retention fell between the ASSE and Pisco covers.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-22",
+      "said": "two-diamond is better than what we had - still basically the same behavior of rocking, but slightly less so.",
+      "tried": "the two-diamond Pisco test cover over the regulator in the printed rear corner. Derek preferred this sample and could still rock it gradually.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/physical-result/physical-result.json"
     }
   ]
 }

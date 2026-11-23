@@ -72,6 +72,52 @@
           "observation": "The ASSE cover had the tightest fit of the three. Derek judged it good enough on this printed corner."
         }
       ]
+    },
+    {
+      "id": "pisco-two-diamond",
+      "title": "Two-diamond Pisco cover",
+      "date": "2026-11-22",
+      "setup": "Mark2 · Black Fiberon PET-GF15 · Textured PEI · Left hardened 0.4 mm nozzle",
+      "revision": "6343b3ef52a582988ff37589afacd196ac068471",
+      "folder": "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2",
+      "record": "physical-result/physical-result.json",
+      "photo": "physical-result/two-diamond-seated.jpg",
+      "alt": "The white Pisco collet sits above the black cover while Derek presses its lower edge inside the enclosure.",
+      "quote": "If you made me pick one of these, I would pick two-diamond.",
+      "landmarks": [
+        {
+          "feature": "pisco-receiver",
+          "label": "Pisco cover in its receiver",
+          "point": [
+            0.531,
+            0.568
+          ],
+          "observation": "The cover rocks gradually, with slightly less movement than the original. Derek preferred this fit. He found the one-diamond sample hard to distinguish from the original."
+        }
+      ]
+    },
+    {
+      "id": "pisco-three-diamond",
+      "title": "Three-diamond Pisco cover",
+      "date": "2026-11-22",
+      "setup": "Mark1 · Black Fiberon PET-GF15 · Textured PEI · Left hardened 0.4 mm nozzle",
+      "revision": "6343b3ef52a582988ff37589afacd196ac068471",
+      "folder": "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1",
+      "record": "physical-result/physical-result.json",
+      "photo": "physical-result/three-diamond-seated.jpg",
+      "alt": "Derek holds the corner at an angle and rocks the black cover beneath the white Pisco collet.",
+      "quote": "three-diamond is the only one that exhibits different behavior, shifting from one firm position to another.",
+      "landmarks": [
+        {
+          "feature": "pisco-receiver",
+          "label": "Pisco cover in its receiver",
+          "point": [
+            0.466,
+            0.635
+          ],
+          "observation": "The cover snaps between two firm resting positions. The retaining surfaces on the wings are hidden inside the receiver."
+        }
+      ]
     }
   ]
 }
