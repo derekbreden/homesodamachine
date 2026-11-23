@@ -1,0 +1,17 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-23T01:06:37+00:00",
+  "job_id": "1475705523",
+  "subtask_name": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0,
+  "nozzle_temper": 281.0,
+  "nozzle_target_temper": 280.0,
+  "layer_num": 2,
+  "total_layer_num": 391,
+  "mc_percent": 5,
+  "mc_remaining_time": 205
+}

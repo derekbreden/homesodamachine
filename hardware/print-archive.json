@@ -1866,6 +1866,12 @@
       "bytes": 70678,
       "sha256": "69f8f7153a87ae7d9739dcb1e7a1c848148bb11a2b9a2fdd91df22d11d7aabf2"
     },
+    "3a509e9efd9293756411f98f4cab61fe838a073c": {
+      "archive": "pisco-rocking-stops-mark1-ff6a8fe09d5c25aa.zip",
+      "bytes": 154663,
+      "offset": 74,
+      "sha256": "e030d8acf93e19883a202da7f583c1b628423287ce73ab6b1b7a65b06f5d7f22"
+    },
     "3a93184f6be7f418678d5997667ec49c6fbe2711": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 1107530443,
@@ -2142,6 +2148,12 @@
       "bytes": 637716,
       "sha256": "ac43898d1c60cd38813ac78bca875e8b117c8d7ad5fa6bde78223cd6313dd44a"
     },
+    "4353b7fb317921e77ea2b7a34832739a4cb1af39": {
+      "archive": "pisco-rocking-bridges-mark2-629cf1fea385eaa4.zip",
+      "bytes": 3092040,
+      "offset": 164314,
+      "sha256": "d0a366ec105cf23a0663fdfb6805266c179cf316b2cef6963e499e4cfbe15977"
+    },
     "43ab8e853ed64e66bfad19fe312b4dba56aa7652": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 165242922,
@@ -2357,6 +2369,12 @@
       "offset": 269028461,
       "bytes": 34890,
       "sha256": "61d5259014da0965a5bff2a0e2c342dbda0acb07e1f6d13269a3af2642368405"
+    },
+    "4b727699d67d4ea635607f8353e8f8ae9595cdde": {
+      "archive": "pisco-rocking-stops-mark1-ff6a8fe09d5c25aa.zip",
+      "bytes": 3568336,
+      "offset": 154811,
+      "sha256": "d546c64496713e8a8ef4bbd44c6285d3f49ec107778842d61991b54f99889a32"
     },
     "4b741f836e22b7c0202877f08414df9e61e2b3dd": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -5220,6 +5238,12 @@
       "bytes": 4757390,
       "sha256": "0ac271db398311e7b24977c6dccec531851c577f6be0d3a28fb90e9932f75941"
     },
+    "abc67035bcf45aa5391969f074f1b2aa2c2b147f": {
+      "archive": "pisco-rocking-bridges-mark2-629cf1fea385eaa4.zip",
+      "bytes": 164166,
+      "offset": 74,
+      "sha256": "6716f3996ac7291fb2897b911db1723d03e11fa69abb87e18924f3593696ff30"
+    },
     "abdbb763d83c2d4e7fa20328f4a70a5ef0eb108b": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 167120960,
@@ -7950,6 +7974,10 @@
     "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei/2026-11-21-pisco-cover-retention-mark2-9921b543-textured-pei.gcode.3mf": "2381035dd156d7b474a710a18ddfffd87a6afbf4",
     "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei.3mf": "c6531f35707532d4978de6ae96a302e43691e6eb",
     "hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei/2026-11-21-pisco-cover-preload-mark1-984a8a18-textured-pei.gcode.3mf": "53fc4a217c4d8ef0b453d9c9b06120a4421ac61f",
+    "hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei/2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei.3mf": "abc67035bcf45aa5391969f074f1b2aa2c2b147f",
+    "hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei/2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei.gcode.3mf": "4353b7fb317921e77ea2b7a34832739a4cb1af39",
+    "hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei/2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei.3mf": "3a509e9efd9293756411f98f4cab61fe838a073c",
+    "hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei/2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei.gcode.3mf": "4b727699d67d4ea635607f8353e8f8ae9595cdde",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a-print-only.gcode.3mf": "79dd245d93c2cfc8eb0bd47f2a1a5a1591f758c5",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.3mf": "e0fba84e7a539921ab2b769086b72f4e509ba668",
     "hardware/print-tests/pointed-snaps/prints/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a/2026-11-02-pointed-pumps-meter-mark2-mark2-fc2a806a.gcode.3mf": "153f35916911b98a2fe3dfc61b23d5ad34f69d81",

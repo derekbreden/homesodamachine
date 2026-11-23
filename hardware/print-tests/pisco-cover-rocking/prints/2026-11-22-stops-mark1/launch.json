@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "gcode_sha256": "f90daaa285049dea6e84faee36d0a37683b205c585c1eb514709ce4c84b5190e",
+    "name": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei.gcode.3mf",
+    "objects": [
+      "pisco-base-a",
+      "pisco-cover-a",
+      "pisco-base-b",
+      "pisco-cover-b"
+    ],
+    "sha256": "d546c64496713e8a8ef4bbd44c6285d3f49ec107778842d61991b54f99889a32",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 237,
+  "observed_at": "2026-11-23T00:52:55+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1475716069",
+  "subtask_name": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei.gcode.3mf",
+  "total_layer_num": 378
+}

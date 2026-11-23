@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "gcode_sha256": "255ef1404e850318974986dc432fb96e6005741f25047dc927c08748e53ad64c",
+    "name": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei.gcode.3mf",
+    "objects": [
+      "pisco-base-c",
+      "pisco-cover-c",
+      "pisco-base-d",
+      "pisco-cover-d"
+    ],
+    "sha256": "d0a366ec105cf23a0663fdfb6805266c179cf316b2cef6963e499e4cfbe15977",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 216,
+  "observed_at": "2026-11-23T00:48:46+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1475705523",
+  "subtask_name": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei.gcode.3mf",
+  "total_layer_num": 391
+}

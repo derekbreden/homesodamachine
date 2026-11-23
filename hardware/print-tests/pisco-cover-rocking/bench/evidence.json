@@ -85,5 +85,22 @@
       "observations": "Earlier square Pisco catches printed with removable support passed Derek's fit check."
     }
   ],
-  "comparison": "C and D have equal total open length per side on permanent lands. D has fewer tooth lead-ins and more actual horizontal tooth bearing area. The comparison changes both the distribution and area of contact."
+  "comparison": "C and D have equal total open length per side on permanent lands. D has fewer tooth lead-ins and more actual horizontal tooth bearing area. The comparison changes both the distribution and area of contact.",
+  "assembled_corner": {
+    "source": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json",
+    "video": "loose.mp4",
+    "sha256": "79bbf79a4cf1209af2e352419645316b4099666b64aab8f41a252fec62cbc6af",
+    "pisco_rocking_source_seconds": 159,
+    "observations": "The original revised corner accepts all three assemblies. Derek demonstrates the Pisco rocking with the neighboring meter and ASSE removed, so movement of those removable assemblies is unnecessary for the rocking."
+  },
+  "previous_fixed_center_model": {
+    "source": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/physical-result/rib-seating-check.json",
+    "cover": "three-diamond",
+    "wing_tip_to_roof_at_center_mm": 0.233,
+    "roll_at_first_roof_contact_fixed_center_deg": [
+      -0.9079,
+      0.9079
+    ],
+    "interpretation": "With both springs loaded and the cap center held at its modeled resting height, a pointed tip reaches the roof well inside the observed projected sweep. A changing pivot, displacement or compliance could allow further movement. The video cannot identify the hidden contacts."
+  }
 }

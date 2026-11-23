@@ -1,0 +1,171 @@
+{
+  "purpose": "Check that the B receiver and cover deposit permanent stock at each rigid stop and compare the same installed coordinates on the A controls.",
+  "gcode_sha256": "f90daaa285049dea6e84faee36d0a37683b205c585c1eb514709ce4c84b5190e",
+  "method": "Intersect variable-width model bead footprints with a rectangle inside the end of each aft post and near the bearing edge of each outlet post. Exclude support and travel. Horizontal areas are relative to the print bed. An empty layer map means no model bead touches that volume.",
+  "contacts": [
+    {
+      "object": "pisco-base-a",
+      "contact": "rear heel west",
+      "probe_xy_plate_mm": [
+        69.38876838684081,
+        137.5889938964844,
+        70.98876838684082,
+        139.78899389648439
+      ],
+      "probe_height_interval_plate_mm": [
+        33.02,
+        33.720000000000006
+      ],
+      "sampled_course_fraction_covered_by_model": {},
+      "model_feature_types": []
+    },
+    {
+      "object": "pisco-base-a",
+      "contact": "rear heel east",
+      "probe_xy_plate_mm": [
+        95.38876838684082,
+        137.5889938964844,
+        96.98876838684082,
+        139.78899389648439
+      ],
+      "probe_height_interval_plate_mm": [
+        33.02,
+        33.720000000000006
+      ],
+      "sampled_course_fraction_covered_by_model": {},
+      "model_feature_types": []
+    },
+    {
+      "object": "pisco-cover-a",
+      "contact": "outlet lip west",
+      "probe_xy_plate_mm": [
+        198.0943841934204,
+        156.39129999989643,
+        199.69438419342043,
+        157.49129999989646
+      ],
+      "probe_height_interval_plate_mm": [
+        0.4500000004599315,
+        1.6500000004599316
+      ],
+      "sampled_course_fraction_covered_by_model": {},
+      "model_feature_types": []
+    },
+    {
+      "object": "pisco-cover-a",
+      "contact": "outlet lip east",
+      "probe_xy_plate_mm": [
+        216.4943841934204,
+        156.39129999989643,
+        218.0943841934204,
+        157.49129999989646
+      ],
+      "probe_height_interval_plate_mm": [
+        0.4500000004599315,
+        1.6500000004599316
+      ],
+      "sampled_course_fraction_covered_by_model": {},
+      "model_feature_types": []
+    },
+    {
+      "object": "pisco-base-b",
+      "contact": "rear heel west",
+      "probe_xy_plate_mm": [
+        136.8887683868408,
+        137.5889938964844,
+        138.48876838684083,
+        139.78899389648439
+      ],
+      "probe_height_interval_plate_mm": [
+        33.02,
+        33.720000000000006
+      ],
+      "sampled_course_fraction_covered_by_model": {
+        "33.08": 0.8135,
+        "33.32": 0.8135,
+        "33.56": 0.9298
+      },
+      "model_feature_types": [
+        "Inner wall",
+        "Outer wall",
+        "Top surface"
+      ]
+    },
+    {
+      "object": "pisco-base-b",
+      "contact": "rear heel east",
+      "probe_xy_plate_mm": [
+        162.8887683868408,
+        137.5889938964844,
+        164.48876838684083,
+        139.78899389648439
+      ],
+      "probe_height_interval_plate_mm": [
+        33.02,
+        33.720000000000006
+      ],
+      "sampled_course_fraction_covered_by_model": {
+        "33.08": 0.8135,
+        "33.32": 0.8135,
+        "33.56": 0.9279
+      },
+      "model_feature_types": [
+        "Inner wall",
+        "Outer wall",
+        "Top surface"
+      ]
+    },
+    {
+      "object": "pisco-cover-b",
+      "contact": "outlet lip west",
+      "probe_xy_plate_mm": [
+        241.9056158065796,
+        156.39129999989643,
+        243.5056158065796,
+        157.49129999989646
+      ],
+      "probe_height_interval_plate_mm": [
+        0.4500000004599315,
+        1.6500000004599316
+      ],
+      "sampled_course_fraction_covered_by_model": {
+        "0.68": 0.9995,
+        "0.92": 0.9995,
+        "1.16": 0.9995,
+        "1.4": 0.9995,
+        "1.64": 0.9995
+      },
+      "model_feature_types": [
+        "Gap infill",
+        "Inner wall",
+        "Outer wall"
+      ]
+    },
+    {
+      "object": "pisco-cover-b",
+      "contact": "outlet lip east",
+      "probe_xy_plate_mm": [
+        260.30561580657957,
+        156.39129999989643,
+        261.9056158065796,
+        157.49129999989646
+      ],
+      "probe_height_interval_plate_mm": [
+        0.4500000004599315,
+        1.6500000004599316
+      ],
+      "sampled_course_fraction_covered_by_model": {
+        "0.68": 0.9995,
+        "0.92": 0.9995,
+        "1.16": 0.9995,
+        "1.4": 0.9995,
+        "1.64": 0.9995
+      },
+      "model_feature_types": [
+        "Gap infill",
+        "Inner wall",
+        "Outer wall"
+      ]
+    }
+  ]
+}
