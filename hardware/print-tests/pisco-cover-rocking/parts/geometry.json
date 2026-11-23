@@ -1,0 +1,944 @@
+{
+  "back_top_sha256": "678b67af924d68c73f4669ccbc0ed3f39b23049850b7d176fb73906b6bc71797",
+  "caps_sha256": "045d17cdf13460c20308924547d75eae85ddb25d6dae3ef77754d72ff24ac51b",
+  "crop_bounds_mm": [
+    52.0,
+    104.5,
+    403.5,
+    474.31,
+    302.0,
+    355.01
+  ],
+  "locators": {
+    "bounds_order": [
+      "xmin",
+      "xmax",
+      "ymin",
+      "ymax",
+      "zmin",
+      "zmax"
+    ],
+    "front_cover_post_bounds_mm": [
+      [
+        66.2,
+        68.4,
+        420.59571720240064,
+        422.69571720240066,
+        330.8,
+        338.02
+      ],
+      [
+        84.6,
+        86.8,
+        420.59571720240064,
+        422.69571720240066,
+        330.8,
+        338.02
+      ]
+    ],
+    "front_receiver_flat_z_mm": 338.2,
+    "nominal_gap_z_mm": 0.18,
+    "rear_base_shoulder_bounds_mm": [
+      [
+        62.12,
+        65.12,
+        458.811,
+        461.811,
+        322.5,
+        339.0
+      ],
+      [
+        87.88,
+        90.88,
+        458.811,
+        461.811,
+        322.5,
+        339.0
+      ]
+    ],
+    "rear_base_tip_bounds_mm": [
+      [
+        62.4,
+        64.6,
+        458.811,
+        461.611,
+        321.38,
+        322.9
+      ],
+      [
+        88.4,
+        90.6,
+        458.811,
+        461.611,
+        321.38,
+        322.9
+      ]
+    ],
+    "rear_heel_top_z_mm": 321.2
+  },
+  "moderate_free_hook_gap_z_mm": -0.35,
+  "moderate_hook_take_up_z_mm": 0.75,
+  "original_roof_z_mm": 351.55,
+  "pocket_roof_relief_mm": 0.8,
+  "production_back_top": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "production_caps": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "revised_roof_skin_mm": 2.649999999999989,
+  "source_axis_x_mm": 76.5,
+  "source_corner_features": "hardware/print-tests/rear-equipment-corner/parts/rear-equipment-corner.print-features.json",
+  "variants": [
+    {
+      "base": "pisco-base-a",
+      "base_stl_sha256": "d54758e7416c5bae97856caca6e3a2d6d152eed8348024e39a4df754f33df2a2",
+      "bridge": null,
+      "cover": "pisco-cover-a",
+      "cover_stl_sha256": "d0ed33b02d2a68dcca5f8839fd2bed5b64a4117dcc9a65e4ba03367759197039",
+      "letter": "a",
+      "mark": 1,
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ]
+    },
+    {
+      "base": "pisco-base-b",
+      "base_stl_sha256": "575752a2a32f5db24b7c9f853c71211bb1f379054287e152b8afd0fb88243a4b",
+      "bridge": null,
+      "cover": "pisco-cover-b",
+      "cover_stl_sha256": "ac52635f9340d8d0a99579e1880b671a72056987662e3ddaa5928b515f6e7f86",
+      "letter": "b",
+      "mark": 2,
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ]
+    },
+    {
+      "base": "pisco-base-c",
+      "base_stl_sha256": "29867b79cc57c13e0fea08fd6944cfdc4cf3586556d9e60688aeff416dde8be8",
+      "bridge": {
+        "bounds_order": [
+          "xmin",
+          "xmax",
+          "ymin",
+          "ymax",
+          "zmin",
+          "zmax"
+        ],
+        "bridge_regions": [
+          {
+            "bounds_source_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              423.65877376192054,
+              430.0587737619205,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco west shoulder 1",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              423.65877376192054,
+              430.0587737619205,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco east shoulder 1",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              431.92183032144044,
+              438.3218303214404,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco west shoulder 2",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              431.92183032144044,
+              438.3218303214404,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco east shoulder 2",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              440.1848868809603,
+              446.58488688096025,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco west shoulder 3",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              440.1848868809603,
+              446.58488688096025,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco east shoulder 3",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              448.4479434404802,
+              454.84794344048015,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco west shoulder 4",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              448.4479434404802,
+              454.84794344048015,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 4.0,
+            "name": "Pisco east shoulder 4",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          }
+        ],
+        "engaged_flat_width_x_mm": 1.9499999999999993,
+        "flat_inset_from_ledge_edge_mm": 0.65,
+        "fore_ramp_angle_to_print_bed_deg": 45.0,
+        "fore_ramp_run_at_nose_y_mm": 1.590990257669732,
+        "full_width_bearing_length_per_side_mm": 7.636038969321072,
+        "full_width_bearing_length_per_tooth_mm": 1.909009742330268,
+        "ledge_edge_z_mm": 340.45,
+        "nose_capture_x_mm": 2.6,
+        "nose_to_neck_x_mm": 0.25,
+        "original_chamfer_gap_z_mm": 0.4,
+        "projected_flat_bearing_area_per_side_mm2": 20.267823061099776,
+        "shoulder_tooth_nominal_gap_z_mm": 0.1,
+        "tooth_end_air_y_mm": 0.25,
+        "uncut_landing_y_mm": 4.263056559519873,
+        "windows": [
+          {
+            "bridge_override_bounds_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              423.65877376192054,
+              430.0587737619205,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              65.2443843124691,
+              67.19438431246908
+            ],
+            "full_width_tooth_y_mm": [
+              426.69976401959025,
+              428.60877376192053
+            ],
+            "receiver_flat_x_mm": [
+              65.2443843124691,
+              67.44438431246908
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "west",
+            "tooth_flat_x_mm": [
+              64.94438431246908,
+              67.19438431246908
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              425.10877376192053,
+              428.60877376192053
+            ],
+            "window_index": 1,
+            "window_y_mm": [
+              424.85877376192053,
+              428.85877376192053
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              423.65877376192054,
+              430.0587737619205,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              85.80561568753092,
+              87.7556156875309
+            ],
+            "full_width_tooth_y_mm": [
+              426.69976401959025,
+              428.60877376192053
+            ],
+            "receiver_flat_x_mm": [
+              85.55561568753092,
+              87.7556156875309
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "east",
+            "tooth_flat_x_mm": [
+              85.80561568753092,
+              88.05561568753092
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              425.10877376192053,
+              428.60877376192053
+            ],
+            "window_index": 1,
+            "window_y_mm": [
+              424.85877376192053,
+              428.85877376192053
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              431.92183032144044,
+              438.3218303214404,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              65.2443843124691,
+              67.19438431246908
+            ],
+            "full_width_tooth_y_mm": [
+              434.96282057911014,
+              436.8718303214404
+            ],
+            "receiver_flat_x_mm": [
+              65.2443843124691,
+              67.44438431246908
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "west",
+            "tooth_flat_x_mm": [
+              64.94438431246908,
+              67.19438431246908
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              433.3718303214404,
+              436.8718303214404
+            ],
+            "window_index": 2,
+            "window_y_mm": [
+              433.1218303214404,
+              437.1218303214404
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              431.92183032144044,
+              438.3218303214404,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              85.80561568753092,
+              87.7556156875309
+            ],
+            "full_width_tooth_y_mm": [
+              434.96282057911014,
+              436.8718303214404
+            ],
+            "receiver_flat_x_mm": [
+              85.55561568753092,
+              87.7556156875309
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "east",
+            "tooth_flat_x_mm": [
+              85.80561568753092,
+              88.05561568753092
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              433.3718303214404,
+              436.8718303214404
+            ],
+            "window_index": 2,
+            "window_y_mm": [
+              433.1218303214404,
+              437.1218303214404
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              440.1848868809603,
+              446.58488688096025,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              65.2443843124691,
+              67.19438431246908
+            ],
+            "full_width_tooth_y_mm": [
+              443.22587713863,
+              445.13488688096027
+            ],
+            "receiver_flat_x_mm": [
+              65.2443843124691,
+              67.44438431246908
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "west",
+            "tooth_flat_x_mm": [
+              64.94438431246908,
+              67.19438431246908
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              441.63488688096027,
+              445.13488688096027
+            ],
+            "window_index": 3,
+            "window_y_mm": [
+              441.38488688096027,
+              445.38488688096027
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              440.1848868809603,
+              446.58488688096025,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              85.80561568753092,
+              87.7556156875309
+            ],
+            "full_width_tooth_y_mm": [
+              443.22587713863,
+              445.13488688096027
+            ],
+            "receiver_flat_x_mm": [
+              85.55561568753092,
+              87.7556156875309
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "east",
+            "tooth_flat_x_mm": [
+              85.80561568753092,
+              88.05561568753092
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              441.63488688096027,
+              445.13488688096027
+            ],
+            "window_index": 3,
+            "window_y_mm": [
+              441.38488688096027,
+              445.38488688096027
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              448.4479434404802,
+              454.84794344048015,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              65.2443843124691,
+              67.19438431246908
+            ],
+            "full_width_tooth_y_mm": [
+              451.4889336981499,
+              453.39794344048016
+            ],
+            "receiver_flat_x_mm": [
+              65.2443843124691,
+              67.44438431246908
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "west",
+            "tooth_flat_x_mm": [
+              64.94438431246908,
+              67.19438431246908
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              449.89794344048016,
+              453.39794344048016
+            ],
+            "window_index": 4,
+            "window_y_mm": [
+              449.64794344048016,
+              453.64794344048016
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              448.4479434404802,
+              454.84794344048015,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              85.80561568753092,
+              87.7556156875309
+            ],
+            "full_width_tooth_y_mm": [
+              451.4889336981499,
+              453.39794344048016
+            ],
+            "receiver_flat_x_mm": [
+              85.55561568753092,
+              87.7556156875309
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "east",
+            "tooth_flat_x_mm": [
+              85.80561568753092,
+              88.05561568753092
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              449.89794344048016,
+              453.39794344048016
+            ],
+            "window_index": 4,
+            "window_y_mm": [
+              449.64794344048016,
+              453.64794344048016
+            ]
+          }
+        ],
+        "wing_y_mm": [
+          420.59571720240064,
+          457.911
+        ]
+      },
+      "cover": "pisco-cover-c",
+      "cover_stl_sha256": "8e3e928d35caed43488cb0201ed977f360e3cc2906337eef60e7e33794c4b1a1",
+      "letter": "c",
+      "mark": 3,
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ]
+    },
+    {
+      "base": "pisco-base-d",
+      "base_stl_sha256": "074ebdc000a8155f608c5770c55e396a4fc7e45ff7af39fc8ffa39dd8b863eaa",
+      "bridge": {
+        "bounds_order": [
+          "xmin",
+          "xmax",
+          "ymin",
+          "ymax",
+          "zmin",
+          "zmax"
+        ],
+        "bridge_regions": [
+          {
+            "bounds_source_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              426.5008114682671,
+              436.9008114682671,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 8.0,
+            "name": "Pisco west shoulder 1",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              426.5008114682671,
+              436.9008114682671,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 8.0,
+            "name": "Pisco east shoulder 1",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              441.60590573413356,
+              452.00590573413353,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 8.0,
+            "name": "Pisco west shoulder 2",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          },
+          {
+            "bounds_source_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              441.60590573413356,
+              452.00590573413353,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "bridge_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_print_axis_source": [
+              0,
+              1,
+              0
+            ],
+            "bridge_span_mm": 8.0,
+            "name": "Pisco east shoulder 2",
+            "reason": "The bridge roads land on the uncut chamfer at each end of the window."
+          }
+        ],
+        "engaged_flat_width_x_mm": 1.9499999999999993,
+        "flat_inset_from_ledge_edge_mm": 0.65,
+        "fore_ramp_angle_to_print_bed_deg": 45.0,
+        "fore_ramp_run_at_nose_y_mm": 1.590990257669732,
+        "full_width_bearing_length_per_side_mm": 11.818019484660535,
+        "full_width_bearing_length_per_tooth_mm": 5.909009742330268,
+        "ledge_edge_z_mm": 340.45,
+        "nose_capture_x_mm": 2.6,
+        "nose_to_neck_x_mm": 0.25,
+        "original_chamfer_gap_z_mm": 0.4,
+        "projected_flat_bearing_area_per_side_mm2": 25.733911530549882,
+        "shoulder_tooth_nominal_gap_z_mm": 0.1,
+        "tooth_end_air_y_mm": 0.25,
+        "uncut_landing_y_mm": 7.105094265866455,
+        "windows": [
+          {
+            "bridge_override_bounds_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              426.5008114682671,
+              436.9008114682671,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              65.2443843124691,
+              67.19438431246908
+            ],
+            "full_width_tooth_y_mm": [
+              429.5418017259368,
+              435.4508114682671
+            ],
+            "receiver_flat_x_mm": [
+              65.2443843124691,
+              67.44438431246908
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "west",
+            "tooth_flat_x_mm": [
+              64.94438431246908,
+              67.19438431246908
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              427.9508114682671,
+              435.4508114682671
+            ],
+            "window_index": 1,
+            "window_y_mm": [
+              427.7008114682671,
+              435.7008114682671
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              426.5008114682671,
+              436.9008114682671,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              85.80561568753092,
+              87.7556156875309
+            ],
+            "full_width_tooth_y_mm": [
+              429.5418017259368,
+              435.4508114682671
+            ],
+            "receiver_flat_x_mm": [
+              85.55561568753092,
+              87.7556156875309
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "east",
+            "tooth_flat_x_mm": [
+              85.80561568753092,
+              88.05561568753092
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              427.9508114682671,
+              435.4508114682671
+            ],
+            "window_index": 1,
+            "window_y_mm": [
+              427.7008114682671,
+              435.7008114682671
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              64.7443843124691,
+              67.94438431246908,
+              441.60590573413356,
+              452.00590573413353,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              65.2443843124691,
+              67.19438431246908
+            ],
+            "full_width_tooth_y_mm": [
+              444.64689599180326,
+              450.55590573413355
+            ],
+            "receiver_flat_x_mm": [
+              65.2443843124691,
+              67.44438431246908
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "west",
+            "tooth_flat_x_mm": [
+              64.94438431246908,
+              67.19438431246908
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              443.05590573413355,
+              450.55590573413355
+            ],
+            "window_index": 2,
+            "window_y_mm": [
+              442.80590573413355,
+              450.80590573413355
+            ]
+          },
+          {
+            "bridge_override_bounds_mm": [
+              85.05561568753092,
+              88.2556156875309,
+              441.60590573413356,
+              452.00590573413353,
+              340.34999999999997,
+              341.84999999999997
+            ],
+            "engaged_flat_x_mm": [
+              85.80561568753092,
+              87.7556156875309
+            ],
+            "full_width_tooth_y_mm": [
+              444.64689599180326,
+              450.55590573413355
+            ],
+            "receiver_flat_x_mm": [
+              85.55561568753092,
+              87.7556156875309
+            ],
+            "receiver_flat_z_mm": 341.09999999999997,
+            "side": "east",
+            "tooth_flat_x_mm": [
+              85.80561568753092,
+              88.05561568753092
+            ],
+            "tooth_flat_z_mm": 341.2,
+            "tooth_y_mm": [
+              443.05590573413355,
+              450.55590573413355
+            ],
+            "window_index": 2,
+            "window_y_mm": [
+              442.80590573413355,
+              450.80590573413355
+            ]
+          }
+        ],
+        "wing_y_mm": [
+          420.59571720240064,
+          457.911
+        ]
+      },
+      "cover": "pisco-cover-d",
+      "cover_stl_sha256": "05791dfd0522bcd6ea7e177a123b5708ecc73db24a4e2471d84b05c4fe5dfc4f",
+      "letter": "d",
+      "mark": 4,
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ]
+    }
+  ],
+  "wing_y_mm": [
+    420.59571720240064,
+    457.911
+  ]
+}

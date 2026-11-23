@@ -1,0 +1,167 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [],
+  "producer": "pisco-base-a",
+  "source_stl_sha256": "d54758e7416c5bae97856caca6e3a2d6d152eed8348024e39a4df754f33df2a2",
+  "support_free_regions": [
+    {
+      "blocking_bounds_source_mm": [
+        64.59438431246909,
+        67.44438431246908,
+        417.09571720240064,
+        465.8,
+        340.45,
+        355.0
+      ],
+      "bounds_source_mm": [
+        64.59438431246909,
+        67.44438431246908,
+        420.34571720240064,
+        462.55,
+        340.45,
+        351.8
+      ],
+      "name": "Pisco west catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        85.55561568753092,
+        88.40561568753091,
+        417.09571720240064,
+        465.8,
+        340.45,
+        355.0
+      ],
+      "bounds_source_mm": [
+        85.55561568753092,
+        88.40561568753091,
+        420.34571720240064,
+        462.55,
+        340.45,
+        351.8
+      ],
+      "name": "Pisco east catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        403.5,
+        417.34571720240064,
+        305.79999999999995,
+        309.7
+      ],
+      "bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        403.5,
+        417.34571720240064,
+        305.79999999999995,
+        309.7
+      ],
+      "name": "Flow meter upper cap pocket",
+      "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
+    },
+    {
+      "bounds_source_mm": [
+        55.35,
+        97.65,
+        469.299,
+        472.799,
+        302.0,
+        355.0
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 42.300000000000004,
+      "name": "Identification channel 2",
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.31,
+        322.6359030178927,
+        338.1285
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        67.78,
+        85.22,
+        458.0,
+        474.31,
+        302.0,
+        302.92
+      ],
+      "name": "Covered bulkhead at X76.5 Z294.2",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          294.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 8.72,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    }
+  ],
+  "support_regions": [
+    {
+      "bounds_source_mm": [
+        83.05,
+        86.69999999999999,
+        417.59571720240064,
+        444.7586388104271,
+        305.65,
+        306.15
+      ],
+      "name": "Accessible flow meter aft shoulder",
+      "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."
+    },
+    {
+      "bounds_source_mm": [
+        83.05,
+        86.69999999999999,
+        403.5,
+        417.34571720240064,
+        309.7,
+        310.2
+      ],
+      "name": "Accessible flow meter front lip",
+      "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it."
+    }
+  ]
+}

@@ -12,6 +12,7 @@ hsm-enclosure-numbers = { path = "../enclosure-numbers" }
 hsm-kernel = { path = "../kernel" }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true, features = ["float_roundtrip"] }
+sha2.workspace = true
 
 [[bin]]
 name = "rear-equipment-caps"
@@ -20,3 +21,7 @@ path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/rear_equip
 [[bin]]
 name = "pisco-access-study"
 path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/pisco_access_study.rs"
+
+[[bin]]
+name = "pisco-cover-rocking"
+path = "../../../hardware/print-tests/pisco-cover-rocking/fit.rs"
