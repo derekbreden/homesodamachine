@@ -2197,6 +2197,10 @@
           "value": "0.5",
           "reason": "Fit the native tree feet within the usable bed border."
         },
+        "tree_support_branch_angle": {
+          "value": "10",
+          "reason": "Keep the removable meter support upright through the adjacent Pisco catch pocket."
+        },
         "tree_support_branch_distance": {
           "value": "3",
           "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
