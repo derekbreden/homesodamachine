@@ -1,6 +1,6 @@
 {
   "purpose": "Test a Pisco cover that takes up the original clearance and keeps both catches spring-loaded against the fitted regulator at rest.",
-  "status": "running",
+  "status": "finished",
   "printer": "Mark1",
   "connection_key": "H2C",
   "printer_task_id": "1472054183",
@@ -81,5 +81,7 @@
     "elapsed_seconds": 986.0
   },
   "first_layer_status": "first-layer-status.json",
-  "printing_status": "printing-status.json"
+  "printing_status": "printing-status.json",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }

@@ -1,0 +1,197 @@
+{
+  "subject": "Pisco hook and pocket at the two-position bench result",
+  "basis": "../../../preload-check.json",
+  "corner_sha256": "1946f326a98b136ee181fcacc7d84bc02ea31e83c8f8164128d18db4439bddc1",
+  "free_covers": [
+    {
+      "diamonds": 1,
+      "stl_sha256": "74f62e333406ebc2544728c5cd8a67153129017f4557b61589c910ed5940d741",
+      "nominal_point_heights_z_mm": [
+        351.05,
+        351.05
+      ],
+      "nominal_vertical_gaps_to_pocket_roof_mm": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "diamonds": 2,
+      "stl_sha256": "2a23c90ebde32d02777c2520d4ddb30f39d69f2212ca0e79c2bf2ef178e759a0",
+      "nominal_point_heights_z_mm": [
+        351.05,
+        351.05
+      ],
+      "nominal_vertical_gaps_to_pocket_roof_mm": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "diamonds": 3,
+      "stl_sha256": "ba67dfe4a039f2278dfc31fa8f56668c28ae2e08db15ce8600db08601e0dd190",
+      "nominal_point_heights_z_mm": [
+        351.05,
+        351.05
+      ],
+      "nominal_vertical_gaps_to_pocket_roof_mm": [
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "assumptions": "Use the exported test corner and cover STLs, the purchased regulator mesh and the clamped-leaf shape from the preload check. Hold cap translation at the centered loaded height and rotate only about the regulator axis. At each angle let each leaf spread just enough to clear its own ledge. Measure the pointed tip to the roof separately from the retaining rib below it.",
+  "attitude_reference": "Positive roll about installed Y lifts the west wing. West is first in each pair of gaps.",
+  "cap_translation_up_from_nominal_mm": 0.267,
+  "regulator_translation_up_from_nominal_mm": 0.12,
+  "probe_y_mm": [
+    425.6,
+    441.7,
+    452.3
+  ],
+  "centered_retaining_face_samples": [
+    {
+      "side": "west",
+      "face_samples": [
+        {
+          "distance_into_ledge_from_edge_mm": 0.005,
+          "vertical_face_gap_mm": [
+            0.0001,
+            0.0001
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 0.5,
+          "vertical_face_gap_mm": [
+            0.0127,
+            0.0127
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 1,
+          "vertical_face_gap_mm": [
+            0.0253,
+            0.0253
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 1.5,
+          "vertical_face_gap_mm": [
+            0.038,
+            0.038
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 2,
+          "vertical_face_gap_mm": [
+            0.0506,
+            0.0506
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 2.2,
+          "vertical_face_gap_mm": [
+            0.0557,
+            0.0557
+          ]
+        }
+      ]
+    },
+    {
+      "side": "east",
+      "face_samples": [
+        {
+          "distance_into_ledge_from_edge_mm": 0.005,
+          "vertical_face_gap_mm": [
+            0.0001,
+            0.0001
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 0.5,
+          "vertical_face_gap_mm": [
+            0.0127,
+            0.0127
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 1,
+          "vertical_face_gap_mm": [
+            0.0253,
+            0.0253
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 1.5,
+          "vertical_face_gap_mm": [
+            0.038,
+            0.038
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 2,
+          "vertical_face_gap_mm": [
+            0.0506,
+            0.0506
+          ]
+        },
+        {
+          "distance_into_ledge_from_edge_mm": 2.2,
+          "vertical_face_gap_mm": [
+            0.0557,
+            0.0557
+          ]
+        }
+      ]
+    }
+  ],
+  "roll_cases": [
+    {
+      "roll_deg": -0.9079,
+      "point_to_roof_gap_mm": [
+        0.4727,
+        0.0
+      ],
+      "max_cap_corner_intersection_mm3": 6.52e-05,
+      "cap_regulator_intersection_mm3": 0.0
+    },
+    {
+      "roll_deg": -0.5,
+      "point_to_roof_gap_mm": [
+        0.3641,
+        0.1041
+      ],
+      "max_cap_corner_intersection_mm3": 6.02e-05,
+      "cap_regulator_intersection_mm3": 0.0
+    },
+    {
+      "roll_deg": 0,
+      "point_to_roof_gap_mm": [
+        0.233,
+        0.233
+      ],
+      "max_cap_corner_intersection_mm3": 5.39e-05,
+      "cap_regulator_intersection_mm3": 0.0
+    },
+    {
+      "roll_deg": 0.5,
+      "point_to_roof_gap_mm": [
+        0.1041,
+        0.3641
+      ],
+      "max_cap_corner_intersection_mm3": 4.76e-05,
+      "cap_regulator_intersection_mm3": 0.0
+    },
+    {
+      "roll_deg": 0.9079,
+      "point_to_roof_gap_mm": [
+        0.0,
+        0.4727
+      ],
+      "max_cap_corner_intersection_mm3": 4.24e-05,
+      "cap_regulator_intersection_mm3": 0.0
+    }
+  ],
+  "mesh_precision": "The seated control has a small rounding intersection along the common STL end wall.",
+  "scope": "The modeled center pose can put both ribs in contact near the ledge edges. At this fixed cap height, a small roll takes up the roof clearance on one pointed tip while opening the other side. The camera shows the external face. The contact at each hidden rib, actual roll angle, spring force and stability of the two observed positions remain unmeasured."
+}
