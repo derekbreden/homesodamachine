@@ -1,0 +1,286 @@
+{
+  "views": [
+    {
+      "name": "pisco-roof",
+      "caption": "The Pisco wing (amber) reaches 0.20 mm closer to the roof than the earlier two-bar cover. Derek pressed both covers on the same regulator and preferred the four-bar, +0.40 mm tip.",
+      "before": "pisco-roof-before.webp",
+      "after": "pisco-roof-after.webp",
+      "width": 960,
+      "height": 620,
+      "marks": [
+        {
+          "x": 417.3,
+          "y": 162.9,
+          "r": 57.8,
+          "label": "Wing tip",
+          "at": [
+            62.55,
+            435,
+            351.45
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          129.14812141978427,
+          -164.98292199803882,
+          350.05
+        ],
+        "target": [
+          63.15,
+          435,
+          350.05
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 2.95,
+        "near": 275.21963112121875,
+        "far": 929.1216939743813,
+        "aspect": 1.5483870967741935,
+        "section": {
+          "at": [
+            62.55,
+            435,
+            351.45
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "352053871cc5d8c40098e5283c58ddab776ff190f00a829c88e7f8371ebbbfd1",
+          "commit": "81af69339f6a91c032c34e3389a2f0d2464abeed",
+          "taken": "2026-11-24T05:32:49.049Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "6a939aebaf7364f88ef0f5fbaf906a8f287f6ab770e0652082cdf95fba7e5ebc",
+          "commit": "90bac11c4e97db87622ba0bd6ec3b5d7e0b20205",
+          "taken": "2026-11-24T05:49:50.762Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap",
+        "asse-snap-cap",
+        "regulator-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": [
+        "pisco-snap-cap"
+      ]
+    },
+    {
+      "name": "pump-pocket",
+      "caption": "The pump wing points down into the cold-core lid. This flat and its pocket floor will be tested with the bare motor seated on its rails.",
+      "before": "pump-pocket-before.webp",
+      "after": "pump-pocket-after.webp",
+      "width": 960,
+      "height": 620,
+      "marks": [
+        {
+          "x": 596.9,
+          "y": 469.9,
+          "r": 58.6,
+          "label": "Lid pocket",
+          "at": [
+            20.95,
+            415.3,
+            251.78
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          49.881320002996716,
+          -95.22200004994528,
+          289.83654000349617
+        ],
+        "target": [
+          19.25,
+          415.3,
+          254.1
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 4.5,
+        "near": 208.49020557472033,
+        "far": 763.9012602473615,
+        "aspect": 1.5483870967741935,
+        "section": {
+          "at": [
+            20.95,
+            415.3,
+            251.78
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/pump-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "352053871cc5d8c40098e5283c58ddab776ff190f00a829c88e7f8371ebbbfd1",
+          "commit": "81af69339f6a91c032c34e3389a2f0d2464abeed",
+          "taken": "2026-11-24T05:32:49.049Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "6a939aebaf7364f88ef0f5fbaf906a8f287f6ab770e0652082cdf95fba7e5ebc",
+          "commit": "90bac11c4e97db87622ba0bd6ec3b5d7e0b20205",
+          "taken": "2026-11-24T05:49:50.762Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap",
+        "asse-snap-cap",
+        "regulator-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": [
+        "pisco-snap-cap"
+      ]
+    },
+    {
+      "name": "meter-shoulder",
+      "caption": "Loose strands on the earlier flow-meter shoulder prompted this slope back to the flank. Its forward taper leaves room for the cover to enter.",
+      "before": "meter-shoulder-before.webp",
+      "after": "meter-shoulder-after.webp",
+      "width": 960,
+      "height": 620,
+      "marks": [
+        {
+          "x": 480,
+          "y": 335.2,
+          "r": 59.5,
+          "label": "Backing",
+          "at": [
+            91,
+            436,
+            310.5
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -15.677030331207249,
+          -156.6501685067069,
+          352.9855117954695
+        ],
+        "target": [
+          91,
+          436,
+          311.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 12.25,
+        "near": 251.74076838639294,
+        "far": 905.6428312395556,
+        "aspect": 1.5483870967741935,
+        "section": {
+          "at": [
+            90.5,
+            436,
+            310.5
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "352053871cc5d8c40098e5283c58ddab776ff190f00a829c88e7f8371ebbbfd1",
+          "commit": "81af69339f6a91c032c34e3389a2f0d2464abeed",
+          "taken": "2026-11-24T05:32:49.049Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "6a939aebaf7364f88ef0f5fbaf906a8f287f6ab770e0652082cdf95fba7e5ebc",
+          "commit": "90bac11c4e97db87622ba0bd6ec3b5d7e0b20205",
+          "taken": "2026-11-24T05:49:50.762Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/pump-snap-cap",
+        "asse-snap-cap",
+        "regulator-snap-cap",
+        "meter-snap-cap"
+      ],
+      "withinMeshing": [
+        "pisco-snap-cap"
+      ]
+    }
+  ]
+}
