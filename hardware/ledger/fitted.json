@@ -468,6 +468,13 @@
     {
       "material": "HSM-0449",
       "date": "2026-11-23",
+      "said": "The +0.20 mm cover is great. Works very well, more than just good enough.",
+      "tried": "the full-length, two-bar Pisco regulator cover printed on Mark1 with both wing tips raised 0.20 mm",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-23",
       "said": "It's really the one that feels firmest so far, especially in terms of what it does here.",
       "tried": "the three-diamond Pisco cover in the original rear enclosure quadrant, pressing the exposed outlet and rocking the fitted cover between its two resting positions.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json"
