@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "e171e9bb714f95489ae0a89cf59653839e221a7deb023fa492b1f1336e57fa97",
+    "name": "2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.gcode.3mf",
+    "objects": [
+      "meter-snap-cap"
+    ],
+    "sha256": "976d3e80ef8a98bb74c88737969f3e9c24ca6de2ecbceae81a7250cc6d5bf82e",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 118,
+  "observed_at": "2026-11-24T19:29:06+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1482567259",
+  "subtask_name": "2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.gcode.3mf",
+  "total_layer_num": 159
+}

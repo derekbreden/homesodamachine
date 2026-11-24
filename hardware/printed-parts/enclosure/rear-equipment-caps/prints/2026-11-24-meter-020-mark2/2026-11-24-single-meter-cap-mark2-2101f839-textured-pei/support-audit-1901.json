@@ -1,0 +1,56 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      0.0,
+      -1.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -185.0,
+      162.5,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "e171e9bb714f95489ae0a89cf59653839e221a7deb023fa492b1f1336e57fa97",
+    "model": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+    "model_sha256": "ef6026fd1c4b02726cfc414782e203711869e80477d1a5591e9d9b6eac2a93a2",
+    "profile": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.3mf",
+    "profile_sha256": "bbbc2f91c5eb5bf5db61d6d316bd87ae0c3c1f1f8bc2ebb527234f02406b1f64"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "meter-snap-cap",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}

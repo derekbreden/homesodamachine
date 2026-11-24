@@ -1,0 +1,47 @@
+{
+  "purpose": "Identify the production flow-meter cover and exact test plate started on Mark2.",
+  "status": "started",
+  "printer": "Mark2",
+  "previous_job_id": "1480269399",
+  "printer_task_id": "1482567259",
+  "accepted_at": "2026-11-24T19:29:06+00:00",
+  "source_commit": "69d74939a5d30c09825d7ff40f85c6b5cdde31a2",
+  "recipe": "single-meter-cap",
+  "cover": {
+    "object": "meter-snap-cap",
+    "stl_sha256": "ef6026fd1c4b02726cfc414782e203711869e80477d1a5591e9d9b6eac2a93a2",
+    "crest_rise_from_original_point_mm": 0.2,
+    "material_number": "HSM-0450"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "external_feed": "254",
+  "nozzle": {
+    "side": "left",
+    "hardened": true,
+    "diameter_mm": 0.4,
+    "flow": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "timelapse": "On",
+  "total_layers": 159,
+  "slicer_estimate_seconds": 7149,
+  "project": {
+    "file": "2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.3mf",
+    "git_blob": "aa2bd363421bfd1d113f09f567d7cae057f5424b",
+    "sha256": "bbbc2f91c5eb5bf5db61d6d316bd87ae0c3c1f1f8bc2ebb527234f02406b1f64"
+  },
+  "archive": {
+    "file": "2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.gcode.3mf",
+    "git_blob": "c4f6de72203bb671b4f5491f89421ba51f81589f",
+    "sha256": "976d3e80ef8a98bb74c88737969f3e9c24ca6de2ecbceae81a7250cc6d5bf82e"
+  },
+  "gcode_sha256": "e171e9bb714f95489ae0a89cf59653839e221a7deb023fa492b1f1336e57fa97",
+  "native_preparation": "2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/preparation.json",
+  "toolpath_review": "2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/review.json",
+  "crest_and_cooling_measurement": "crest-paths.json",
+  "launch": "launch.json",
+  "project_and_slice_release_zip": "https://github.com/derekbreden/homesodamachine/releases/download/print-projects/meter-cover-020-mark2-20261124-29e4b7a55025fd5c.zip",
+  "printing_confirmed_at": "2026-11-24T19:39:01+00:00",
+  "printing_status": "printing-status.json",
+  "production_accessory_plate": "../2026-11-24-meter-production-mark2/print-plan.json"
+}
