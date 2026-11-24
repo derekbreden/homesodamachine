@@ -90,5 +90,6 @@
   "prelaunch": "prelaunch-status.json",
   "startup": "startup-status.json",
   "first_layer": "first-layer-status.json",
-  "confirmed_progress": "printing-status.json"
+  "confirmed_progress": "printing-status.json",
+  "physical_result": "physical-result.json"
 }
