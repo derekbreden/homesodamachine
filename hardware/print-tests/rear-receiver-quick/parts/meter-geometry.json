@@ -1,0 +1,33 @@
+{
+  "aft_y_mm": 444.7586388104271,
+  "backing_added_mm3": 2657.165144712523,
+  "crop_bounds_source_mm": [
+    83.05,
+    107.5,
+    417.34571720240064,
+    444.7586388104271,
+    302.0,
+    322.6
+  ],
+  "feature_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "flank_x_mm": 98.5,
+  "fore_taper_y_mm": [
+    417.34571720240064,
+    432.7957172024006
+  ],
+  "part": "meter-shoulder-backed",
+  "print_up_source": [
+    0,
+    0,
+    -1
+  ],
+  "production_bed_z_mm": 355.0,
+  "purpose": "Check the printed edge and boss-channel crown against the loose strands on the four-notch trial. The slope grows from the flank and its fore end tapers clear of the meter cap.",
+  "shoulder_face_z_mm": 305.9,
+  "slope_rise_per_run": 1.0,
+  "source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "source_sha256": "678b67af924d68c73f4669ccbc0ed3f39b23049850b7d176fb73906b6bc71797",
+  "stl_sha256": "dc1be9d8587fcdc6ffb7674b235cedfa1a7990ba638738394584e6fdd4eee49f",
+  "volume_mm3": 9275.644534844958,
+  "west_edge_x_mm": 83.05
+}

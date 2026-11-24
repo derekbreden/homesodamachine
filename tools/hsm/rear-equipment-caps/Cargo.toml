@@ -25,3 +25,11 @@ path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/pisco_acce
 [[bin]]
 name = "pisco-cover-rocking"
 path = "../../../hardware/print-tests/pisco-cover-rocking/fit.rs"
+
+[[bin]]
+name = "pisco-roof-collars"
+path = "../../../hardware/print-tests/rear-receiver-quick/pisco.rs"
+
+[[bin]]
+name = "pisco-meter-lip-quick"
+path = "../../../hardware/print-tests/rear-receiver-quick/meter.rs"

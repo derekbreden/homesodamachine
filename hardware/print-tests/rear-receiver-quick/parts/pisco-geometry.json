@@ -1,0 +1,60 @@
+{
+  "crest_rise_mm": 0.2,
+  "crest_width_mm": 0.9,
+  "fore_to_aft_gap_mm": 17.704282797599376,
+  "free_retaining_overlap_mm": 0.55,
+  "parts": [
+    {
+      "installed_y_mm": [
+        420.59571720240064,
+        432.59571720240064
+      ],
+      "marks": 1,
+      "name": "pisco-front-control",
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -420.5957172019407
+      ],
+      "stl_sha256": "6a3f45cc040c3a1c3ea3efe488969a2ab915a9b81b8db731b04fdc0c7c26b0d5",
+      "volume_mm3": 4005.2278637773425
+    },
+    {
+      "installed_y_mm": [
+        420.59571720240064,
+        432.59571720240064
+      ],
+      "marks": 2,
+      "name": "pisco-front-roof",
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.11129999998957,
+        -420.5957172019407
+      ],
+      "stl_sha256": "12647a2c66ed67fb40a2d3b9cdc7a12a4dcfd434d35eaaa400c9c3c97f941b96",
+      "volume_mm3": 4080.540863746911
+    },
+    {
+      "installed_y_mm": [
+        450.3,
+        462.3
+      ],
+      "marks": 0,
+      "name": "pisco-common-rear",
+      "print_translation_after_x90_mm": [
+        -76.5,
+        334.01129999989644,
+        -450.29999999981374
+      ],
+      "stl_sha256": "a0a97f2e0e60d65d98d227307aceadc47f1cea9741a39367371f4615e48f95d8",
+      "volume_mm3": 2823.6672301662115
+    }
+  ],
+  "production_cap": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "production_source_sha256": "045d17cdf13460c20308924547d75eae85ddb25d6dae3ef77754d72ff24ac51b",
+  "receiver_roof_z_mm": 351.55,
+  "reference_receiver": "hardware/print-tests/rear-equipment-corner/parts/rear-equipment-corner.stl",
+  "regulator_mesh_key": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+  "three_diamond_reference": "6343b3ef52a582988ff37589afacd196ac068471:hardware/print-tests/pisco-cover-retention/parts/pisco-three-marks.stl",
+  "wing_tip_unloaded_z_mm": 351.05
+}
