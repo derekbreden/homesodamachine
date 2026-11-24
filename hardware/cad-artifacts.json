@@ -145,7 +145,7 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "904274197c8f09920592cf218d3d5a911852d83c4f1cd19b0a00852942a780da",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "871cb5286b65acd93a8af029cb59b5527b6141eef2ce1886503bc527f410c71f",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "53638645161a013796963fe97436dc370bdbe95715bef36b97e2078e9f5b7102",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "43388ca96aae5e3e99a37f1712db85a76fb5ef07b1a07b165a8772cc7bc69c96",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "b7c9a52068ff61bea95fcc32415b980744faef6868296ef37d0b5cb18d936eba",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "726a4380da628978ad517aa5bbd4e605d49ce40c16f6b1ec609696f394cea894",
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0e39785f4955d0aa6711bc5de199f2b1c355f4e0ceb1f1b44101d71aa3d28fd6",
@@ -966,7 +966,7 @@
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": "904274197c8f09920592cf218d3d5a911852d83c4f1cd19b0a00852942a780da",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "871cb5286b65acd93a8af029cb59b5527b6141eef2ce1886503bc527f410c71f",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "53638645161a013796963fe97436dc370bdbe95715bef36b97e2078e9f5b7102",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "43388ca96aae5e3e99a37f1712db85a76fb5ef07b1a07b165a8772cc7bc69c96",
       "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "b7c9a52068ff61bea95fcc32415b980744faef6868296ef37d0b5cb18d936eba",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": "726a4380da628978ad517aa5bbd4e605d49ce40c16f6b1ec609696f394cea894",
       "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": "0e39785f4955d0aa6711bc5de199f2b1c355f4e0ceb1f1b44101d71aa3d28fd6",
@@ -2915,7 +2915,7 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh": 1795017143.287795,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": 1795017184.805793,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": 1795499058.705789,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1795498975.749454,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1795499115.355862,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": 1795499058.705789,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step": 1795498870.168317,
     "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.mesh": 1795498860.172561,
@@ -3966,7 +3966,7 @@
       "unproven": true
     },
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": {
-      "commit": "2f3d8321738ab028ec6bcd55b66c4fe3a7a6f9a6",
+      "commit": "87dbf7eb205cbd08004e79b907f87a4d5eba93aa",
       "inputs": "a4c626a70ab8f418198a48638ab0b8d4937f38e0207d879ef76c2df7e21b83f5",
       "unproven": true
     },
