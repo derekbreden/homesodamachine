@@ -335,6 +335,8 @@ also runs while a printer is busy, when Send is disabled. Connect can disable
 filament selection while busy; an unresolved mapping then stops the dry run. An ordinary run refuses a busy
 printer before opening the application. A Send click is made only once per dialog.
 
+### Confirming a print start
+
 Success requires a new printer job ID, the archive's name, and PREPARE or RUNNING with no
 print error. The MQTT connection stays open throughout the transaction. A fresh-dialog
 retry is allowed only when no command reply, upload or new job was observed, the printer
@@ -343,6 +345,9 @@ results stop the sender. Up to three attempts are made; `--attempts 1` selects o
 The acceptance wait samples Connect's visible text for short-lived request and upload
 errors, including “Resource does not exist,” and stops without a repeat send when one
 appears.
+
+To verify that the job has progressed from preparation into printing, read
+`hsm-printer status <name>` for RUNNING and an advancing layer number on that job.
 
 Successful launches write `.cache/printer-control/<printer>-<job-id>-launch.json`, including
 the original archive and G-code hashes. Bambu Connect's imported copy is separate because

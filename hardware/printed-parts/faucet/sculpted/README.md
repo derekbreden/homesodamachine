@@ -1,5 +1,7 @@
 # Complete Sculpted faucet
 
+For a repeat print, use the [saved Mark2 plate](../faucet-petgf.md#printing-the-saved-plate).
+
 The [faucet plate's selections](../../../../tools/hsm/print-prep/faucet-plate.json) start from
 the recorded Industrial printing settings and apply the Sculpted finish and supports. The
 complete PET-GF plate contains the Sculpted base, tip, display cover,

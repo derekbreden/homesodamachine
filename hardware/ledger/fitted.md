@@ -13,9 +13,11 @@ The site uses this record alone to mark each printed part as fitted or not fitte
 The list behind the machine's mark names its printed parts still awaiting a fit.
 The [website contract](../../web/contracts/README.md) describes where those marks appear.
 
-Archive completed and retired trials in Git with their physical evidence, then remove
-their working-tree copies. When current instructions rely on a past observation,
-link to the archived file at its Git SHA.
+## Retiring a print trial
+
+The Git commit containing the full trial and its physical evidence is the archive.
+Its SHA is sufficient. Link any current instructions that rely on an observation to
+the evidence file at that SHA, then remove the trial’s working-tree copy.
 
 ## Evidence for a fit claim
 

@@ -1,7 +1,8 @@
 # Home Soda Machine
 
-The [README](README.md) maps the project. Read `AGENTS.md` along the path to your work.
-Follow the applicable guide anywhere, including in chat.
+Read `AGENTS.md` along the path to your work, even when you arrive by search.
+Follow the linked section for your task, including in chat. Stop reading once the
+evidence answers the question. The [README](README.md) maps other topics.
 
 - [Editing code or documentation](calibration/editing.md)
 - [Hardware, purchases, drawings and printing](hardware/AGENTS.md)
