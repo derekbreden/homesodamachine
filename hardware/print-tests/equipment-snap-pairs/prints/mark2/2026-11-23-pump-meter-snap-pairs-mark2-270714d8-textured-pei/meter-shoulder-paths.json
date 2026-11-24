@@ -1,0 +1,71 @@
+{
+  "purpose": "Read the deposited perimeter of the tapered, solid meter shoulder on this plate and locate the removable support interfaces.",
+  "archive_sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+  "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
+  "method": "Clip each outer or overhang perimeter to the production shoulder region in the installed frame. Buffer preceding model roads by half their emitted width and each current centerline by its own bead radius for the contact test. The support figures describe the section aft of the fore-lip interface.",
+  "region_source_mm": [
+    83.05,
+    98.5,
+    417.59571720240064,
+    444.7586388104271,
+    305.9,
+    321.34999999999997
+  ],
+  "print_layer_range": [
+    8,
+    122
+  ],
+  "perimeter_length_mm": 2777.154,
+  "centerline_without_preceding_model_bead_contact_mm": 0,
+  "longest_segment_without_contact_mm": 0,
+  "aft_interface_probe_source_xy_mm": [
+    83.05,
+    419.09571720240064,
+    98.5,
+    444.5086388104271
+  ],
+  "support_interface_length_inside_aft_probe_mm": 0.0,
+  "interface_bounds_source_mm": [
+    [
+      81.879,
+      383.85,
+      312.8,
+      97.879,
+      396.65,
+      313.349
+    ],
+    [
+      81.879,
+      394.65,
+      310.16,
+      87.879,
+      418.25,
+      310.693
+    ],
+    [
+      81.879,
+      417.45,
+      267.92,
+      96.679,
+      430.25,
+      269.679
+    ],
+    [
+      81.879,
+      383.85,
+      267.92,
+      96.679,
+      395.45,
+      269.4
+    ],
+    [
+      81.879,
+      393.45,
+      263.84,
+      97.879,
+      419.85,
+      264.389
+    ]
+  ],
+  "exterior_support_root": "bed"
+}

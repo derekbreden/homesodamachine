@@ -1,0 +1,211 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 89,
+      "embedded_vertex_error_mm": 8.437481824330462e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "asse-receiver",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 5
+      },
+      "placed_bounds_mm": [
+        [
+          46.814492941,
+          89.435548782,
+          0.0
+        ],
+        [
+          103.114493727,
+          173.53552436799998,
+          51.77999878
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 905
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.194423000735696e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "asse-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          115.446244239,
+          188.535524368,
+          0.0
+        ],
+        [
+          165.74252414699998,
+          230.56445121800002,
+          64.625
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 977
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 101,
+      "embedded_vertex_error_mm": 9.437997050554259e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-receiver",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 4
+      },
+      "placed_bounds_mm": [
+        [
+          118.114493727,
+          103.881029129,
+          0.0
+        ],
+        [
+          152.934497237,
+          159.09004402099998,
+          44.230010986
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 693
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.86331008587149e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          180.74252414699998,
+          192.311286926,
+          0.0
+        ],
+        [
+          209.553755761,
+          226.78868866000002,
+          41.704284668
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1736
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 4,
+      "embedded_vertex_error_mm": 8.481038094032556e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "water-regulator-receiver",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 2
+      },
+      "placed_bounds_mm": [
+        [
+          167.934497237,
+          107.425539016,
+          0.0
+        ],
+        [
+          230.89449906299998,
+          155.545534134,
+          20.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2713
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.16896772448672e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "regulator-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          245.89449906299998,
+          110.432332992,
+          0.0
+        ],
+        [
+          278.185507059,
+          152.538740158,
+          36.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2111
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.4",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.10 - 0.01",
+    "0.10 - 0.02",
+    "0.10 + 0.01",
+    "0.10"
+  ]
+}

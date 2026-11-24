@@ -1,0 +1,114 @@
+{
+  "error_string": "Success.",
+  "export_time": 1594,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 24,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 337.37847900390625,
+        "Bridge": 1706.201171875,
+        "Brim": 50.16872787475586,
+        "Custom": 302.2832946777344,
+        "Flush": 15.0,
+        "Gap infill": 188.96615600585938,
+        "Inner wall": 2614.267578125,
+        "Internal solid infill": 1668.3905029296875,
+        "Outer wall": 1806.99853515625,
+        "Overhang wall": 52.18206024169922,
+        "Sparse infill": 7413.60888671875,
+        "Support": 722.9478149414062,
+        "Support interface": 83.17858123779297,
+        "Support transition": 247.45164489746094,
+        "Top surface": 258.8870544433594,
+        "Travel": 1612.306640625,
+        "Undefined": 1605.878662109375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 200.1022186279297,
+          "total_used_g": 200.1022186279297
+        }
+      ],
+      "generate_support_material_time": 171,
+      "id": 1,
+      "infill_time": 299,
+      "layer_filament_change": 0,
+      "main_predication": 18748.28515625,
+      "make_perimeters_time": 168,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 91.36061096191406,
+            "height": 36.02934646606445,
+            "width": 109.0,
+            "x": 46.370819091796875,
+            "y": 79.66969299316406,
+            "z": -3.2226665780399344e-11
+          },
+          "id": 5,
+          "name": "pump-receiver",
+          "triangle_count": 912
+        },
+        {
+          "bbox": {
+            "depth": 61.45950698852539,
+            "height": 54.5,
+            "width": 73.15837097167969,
+            "x": 205.47080993652344,
+            "y": 94.62024688720703,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "pump-snap-cap",
+          "triangle_count": 640
+        },
+        {
+          "bbox": {
+            "depth": 65.0,
+            "height": 70.66000366210938,
+            "width": 20.099998474121094,
+            "x": 170.37081909179688,
+            "y": 92.8499984741211,
+            "z": -5.469047437145491e-11
+          },
+          "id": 13,
+          "name": "meter-receiver",
+          "triangle_count": 3304
+        },
+        {
+          "bbox": {
+            "depth": 54.29999923706055,
+            "height": 38.0,
+            "width": 41.04999542236328,
+            "x": 141.97500610351562,
+            "y": 186.03030395507812,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "meter-snap-cap",
+          "triangle_count": 1862
+        }
+      ],
+      "sliced_time": 2465,
+      "sliced_time_with_cache": 1601,
+      "total_predication": 24315.100503811576,
+      "triangle_count": 6718,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

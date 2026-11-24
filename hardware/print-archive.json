@@ -1398,6 +1398,12 @@
       "bytes": 5296901,
       "sha256": "a5b490cdcdfdfc755ce955216f4f68ed3e19e0cce4723f94485082a8e07b8372"
     },
+    "2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0": {
+      "archive": "equipment-snap-pairs-mark2-20261123-2ae84d51e84ffb90.zip",
+      "bytes": 5257348,
+      "offset": 96902,
+      "sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea"
+    },
     "2ab10f7d2e503fdc759ca458bde15d9b894964a8": {
       "archive": "vb-return-clip-2026-11-21-mark1-e7ee126c5edf6463.zip",
       "bytes": 237427,
@@ -4410,6 +4416,12 @@
       "bytes": 43442,
       "sha256": "9b851dc4a8f0bf48e43adb32effbc4a8a00d262820dc6f33a7b49ab2120fe02e"
     },
+    "8e709ce4bff2d275120e27711d806193688230db": {
+      "archive": "equipment-snap-pairs-20261123-f7c246f0949195d6.zip",
+      "bytes": 7667594,
+      "offset": 264994,
+      "sha256": "fddee0e7e3c57100e6c1ce7cbd679c2e94dcf2a5f67dcdaee632dbba73a3d3d1"
+    },
     "8e719c569c6bd920c748e351fb09d7994b042421": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
       "offset": 743528498,
@@ -5538,6 +5550,12 @@
       "bytes": 10307848,
       "sha256": "c64ca246fef512af2c17ce4a6050331fbbb230ab8bbd56dd8fb97e5b0220aeed"
     },
+    "b186460d15bfdd6f09d1de8155857bb111e91f03": {
+      "archive": "equipment-snap-pairs-mark2-20261123-2ae84d51e84ffb90.zip",
+      "bytes": 96754,
+      "offset": 74,
+      "sha256": "e36bda3d0e89440f1ff7b75b9cc30078d30b6653c2825624bcd3ca9d356e911e"
+    },
     "b19289390f3efe94777f2be65940742c43ea9177": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 365316186,
@@ -6647,6 +6665,12 @@
       "offset": 123415667,
       "bytes": 466351,
       "sha256": "17d78aa094e7bea332fcbdf9a15c1e2a233bbde36f97e7e580b5690ef7391ca5"
+    },
+    "d5728da890ae5c9ac78f1a3a6633da1f0cb7dddf": {
+      "archive": "equipment-snap-pairs-20261123-f7c246f0949195d6.zip",
+      "bytes": 264846,
+      "offset": 74,
+      "sha256": "9ebef016a948c2e62ae70b0f589720238e6550995c9b036aff8df07e819f2556"
     },
     "d58893b0c5917e8a231351f60dd2159458c0e99e": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
@@ -7981,6 +8005,10 @@
     "hardware/print-tests/enclosure-infill/mark2-v1/input.3mf": "b408ef995e0df01ac1c5231ca4a7fcf5af693a26",
     "hardware/print-tests/enclosure-support-scenarios/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.3mf": "c80dd468ec00920db5693651fce225ef788f062b",
     "hardware/print-tests/enclosure-support-scenarios/ready/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.gcode.3mf": "ba4e433ddd5102f14ab4384edea9487d630bd3e5",
+    "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.3mf": "d5728da890ae5c9ac78f1a3a6633da1f0cb7dddf",
+    "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf": "8e709ce4bff2d275120e27711d806193688230db",
+    "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf": "b186460d15bfdd6f09d1de8155857bb111e91f03",
+    "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf": "2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0",
     "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf": "1f85f083fa607c4ab47032e089ec3e71b96872a4",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf": "b086f05a4191b3010d0527e6a0b034e0a2ab4434",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/ready/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf": "58628627b1d854406e5d3b573b66204fe9f3a7c5",

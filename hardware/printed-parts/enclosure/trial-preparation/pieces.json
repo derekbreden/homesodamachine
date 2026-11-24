@@ -1575,7 +1575,7 @@
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl"
         }
       ],
-      "pose_reason": "The continuous 54.5 mm box half-pipe stands on one axial end as exported. Its 6.2 mm crown,2.0 mm spring leaves and flat hooks grow as vertical walls; spring bending lies within the layer plane. Retain PET-GF Tree(auto)/Default.",
+      "pose_reason": "The continuous 54.5 mm box half-pipe stands on one axial end as exported. The crown, spring leaves, inclined hooks and flat crests grow as vertical walls with spring bending in the layer plane. Retain PET-GF Tree(auto)/Default.",
       "plate_border_mm": 80.0,
       "settings": {
         "wall_loops": {
@@ -2758,10 +2758,6 @@
       "z_trim_mm": {
         "value": 0.1,
         "reason": "Use the textured PEI trim from the individual receiver and cap trials."
-      },
-      "filament_colour": {
-        "value": "#000000",
-        "reason": "Match the black PET-GF on the left external feed."
       },
       "settings": {
         "overhang_2_4_speed": {

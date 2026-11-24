@@ -1,0 +1,1313 @@
+{
+  "archive": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+  "archive_sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 5240.959878811578,
+    "archive_sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "9ba155c6f4f9cc650fff78e7fa1d81ea7b20e04827c812032bf6fc6caa109501",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 5240.959878811578,
+        "changed": true,
+        "input_gcode_sha256": "92f5b16b29cc181945e331c022ac9c74ec99d92ab3a2eb4e7debac58b55534b1",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 3843,
+        "ordinary_model_moves": 491056,
+        "output_gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            312.0,
+            258.9914227125538,
+            0.0
+          ],
+          "Floating vertical shell": [
+            1387.0,
+            5445.995553238885,
+            331.9762820382488
+          ],
+          "Inner wall": [
+            568.0,
+            1993.3018170714008,
+            119.37381091677466
+          ],
+          "Internal solid infill": [
+            7804.0,
+            72388.78470900333,
+            4468.819579496898
+          ],
+          "Outer wall": [
+            868.0,
+            3911.1557229132677,
+            154.32609799064033
+          ],
+          "Overhang wall": [
+            1.0,
+            0.09200000000001296,
+            0.0
+          ],
+          "Sparse infill": [
+            3423.0,
+            2602.8248056070133,
+            159.69213307543393
+          ],
+          "Top surface": [
+            31.0,
+            110.37654101564532,
+            6.771975293268277
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 14394,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 14050
+      }
+    ]
+  },
+  "emitted_textured_trim_mm": 0.08,
+  "estimated_seconds": 24315.100503811576,
+  "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 1368,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 912,
+      "features": [],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 46.370819091796875,
+      "modifiers": [],
+      "name": "pump-receiver",
+      "object_id": 2,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Tree(auto)/Default supports the WAGO well end walls, pump spring pockets and other receiving ceilings where needed. The B-fill window passes through the plate.",
+          "value": "1"
+        },
+        "sparse_infill_pattern": {
+          "reason": "Retain 15% gyroid in thicker regions.",
+          "value": "gyroid"
+        },
+        "tree_support_branch_angle": {
+          "reason": "The automatic-tree placement on the current full lid splayed beyond the 20 mm bed border at its west WAGO end wall. Keep Tree(auto)/Default and its automatic contact decisions; limit branch inclination on this wide lid so those supports rise near their supported wall.",
+          "value": "10"
+        },
+        "wall_generator": {
+          "reason": "Three fixed-width perimeters from each wall boundary.",
+          "value": "classic"
+        },
+        "wall_loops": {
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          46.370819091796875,
+          79.66969585418701,
+          0.0
+        ],
+        [
+          155.37081909179688,
+          171.03030490875244,
+          36.02934646606445
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        -75.76805114746094,
+        -14.080304145812988,
+        18.014673233032227
+      ],
+      "step_sha256": null,
+      "stl": "hardware/print-tests/pump-seated-snaps/parts/pump-receiver.stl",
+      "stl_sha256": "9230f227e2127402d94b367e03ccbdb65177e2f6932aa0df4cb276cb5a58f13e",
+      "support_free_regions": [],
+      "translation_mm": [
+        100.87081909179688,
+        125.35000038146973,
+        18.014673233032227
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 960,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 640,
+      "features": [],
+      "fins": [],
+      "identify_id": 1902,
+      "model_bed_margin_mm": 46.370819091796875,
+      "modifiers": [],
+      "name": "pump-snap-cap",
+      "object_id": 4,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Removable trees reach the fitted surfaces from the open end.",
+          "value": "1"
+        },
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The pump-snap-cap recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The pump-snap-cap recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_generator": {
+          "reason": "Match the end-on production spring cover.",
+          "value": "classic"
+        },
+        "wall_loops": {
+          "reason": "The pump-snap-cap recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          205.47081756591797,
+          94.62024688720703,
+          0.0
+        ],
+        [
+          278.6291809082031,
+          156.07975387573242,
+          54.5
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        27.25
+      ],
+      "step_sha256": "726a4380da628978ad517aa5bbd4e605d49ce40c16f6b1ec609696f394cea894",
+      "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "stl_sha256": "d2824112b8c9383e8e9fab13ae6df3d2eb84d23d0aba3dd00f6e5fce9971e3cf",
+      "support_free_regions": [],
+      "translation_mm": [
+        242.04999923706055,
+        125.35000038146973,
+        27.25
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 4956,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 3304,
+      "features": [
+        {
+          "blocker_source_mm": [
+            [
+              80.75,
+              395.2586388104271,
+              254.65000000000003
+            ],
+            [
+              102.5,
+              434.2586388104271,
+              263.25000000000006
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            81.0,
+            102.25,
+            395.5086388104271,
+            434.0086388104271,
+            254.90000000000003,
+            263.00000000000006
+          ],
+          "bounds_source_mm": [
+            83.05,
+            99.0,
+            395.5086388104271,
+            434.0086388104271,
+            258.15000000000003,
+            263.00000000000006
+          ],
+          "kind": "support_free",
+          "name": "Flow meter lower cap pocket",
+          "painted_faces": 0,
+          "reason": "Keep support out of the lower hook pocket below the wire chamber floor.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              87.94999999999999,
+              395.2586388104271,
+              305.09999999999997
+            ],
+            [
+              98.75,
+              417.59571720240064,
+              309.95
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            88.19999999999999,
+            98.5,
+            395.5086388104271,
+            417.34571720240064,
+            305.34999999999997,
+            309.7
+          ],
+          "bounds_source_mm": [
+            88.19999999999999,
+            98.5,
+            395.5086388104271,
+            417.34571720240064,
+            305.34999999999997,
+            309.7
+          ],
+          "kind": "support_free",
+          "name": "Flow meter upper cap pocket",
+          "painted_faces": 6,
+          "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              417.34571720240064,
+              305.65
+            ],
+            [
+              98.75,
+              445.0086388104271,
+              321.59999999999997
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            83.05,
+            98.5,
+            417.59571720240064,
+            444.7586388104271,
+            305.9,
+            321.34999999999997
+          ],
+          "bounds_source_mm": [
+            83.05,
+            98.5,
+            417.59571720240064,
+            444.7586388104271,
+            305.9,
+            321.34999999999997
+          ],
+          "kind": "support_free",
+          "name": "Backed flow meter aft shoulder",
+          "painted_faces": 6,
+          "reason": "The permanent slope supports the boss crown. Trees pass beside its exposed face to reach the fore shoulder, lip and channels.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e",
+          "review_interior": false
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              384.5086388104271,
+              311.95
+            ],
+            [
+              98.75,
+              395.5086388104271,
+              312.95
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            98.5,
+            384.7586388104271,
+            395.2586388104271,
+            312.2,
+            312.7
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter fore shoulder",
+          "painted_faces": 0,
+          "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              395.2586388104271,
+              309.45
+            ],
+            [
+              86.94999999999999,
+              417.59571720240064,
+              310.45
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            86.69999999999999,
+            395.5086388104271,
+            417.34571720240064,
+            309.7,
+            310.2
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter front lip",
+          "painted_faces": 0,
+          "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              381.91863881042707,
+              267.2
+            ],
+            [
+              94.10000000000001,
+              406.2686388104271,
+              268.2
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            93.85000000000001,
+            382.16863881042707,
+            406.0186388104271,
+            267.45,
+            267.95
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter fore boss channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              406.91863881042707,
+              267.2
+            ],
+            [
+              94.10000000000001,
+              431.2686388104271,
+              268.2
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            93.85000000000001,
+            407.16863881042707,
+            431.0186388104271,
+            267.45,
+            267.95
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter aft boss channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              93.3,
+              382.7186388104271,
+              268.0
+            ],
+            [
+              95.80000000000001,
+              405.4686388104271,
+              269.0
+            ]
+          ],
+          "bounds_source_mm": [
+            93.55,
+            95.55000000000001,
+            382.9686388104271,
+            405.2186388104271,
+            268.25,
+            268.75
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter fore screw-head channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              93.3,
+              407.7186388104271,
+              268.0
+            ],
+            [
+              95.80000000000001,
+              430.4686388104271,
+              269.0
+            ]
+          ],
+          "bounds_source_mm": [
+            93.55,
+            95.55000000000001,
+            407.9686388104271,
+            430.2186388104271,
+            268.25,
+            268.75
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter aft screw-head channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              394.2686388104271,
+              263.00000000000006
+            ],
+            [
+              98.75,
+              418.91863881042707,
+              264.00000000000006
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            98.5,
+            394.5186388104271,
+            418.66863881042707,
+            263.25000000000006,
+            263.75000000000006
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter wire chamber floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        }
+      ],
+      "fins": [],
+      "identify_id": 1903,
+      "model_bed_margin_mm": 92.85000038146973,
+      "modifiers": [],
+      "name": "meter-receiver",
+      "object_id": 6,
+      "object_settings": {
+        "elefant_foot_compensation": {
+          "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py.",
+          "value": "0"
+        },
+        "enable_support": {
+          "reason": "Use the native painted receiver targets.",
+          "value": "1"
+        },
+        "max_bridge_length": {
+          "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression.",
+          "value": "0"
+        },
+        "support_object_xy_distance": {
+          "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces.",
+          "value": "0.5"
+        },
+        "support_on_build_plate_only": {
+          "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors.",
+          "value": "0"
+        },
+        "support_style": {
+          "reason": "Cavity supports must be branching trees that can be removed through their access openings.",
+          "value": "tree_slim"
+        },
+        "support_type": {
+          "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts.",
+          "value": "tree(manual)"
+        },
+        "tree_support_branch_distance": {
+          "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          170.37081909179688,
+          92.85000038146973,
+          0.0
+        ],
+        [
+          190.47081756591797,
+          157.85000038146973,
+          70.66000366210938
+        ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        93.10000228881836,
+        414.5,
+        287.27000427246094
+      ],
+      "step_sha256": null,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.stl",
+      "stl_sha256": "a41ae35a2d1ffe44c27080d04798992e099af9fb7d94a82c982fdfe966a4a7fa",
+      "support_free_regions": [
+        {
+          "bounds_source_mm": [
+            83.05,
+            99.0,
+            395.5086388104271,
+            434.0086388104271,
+            258.15000000000003,
+            263.00000000000006
+          ],
+          "box_plate_mm": [
+            [
+              168.07081604003906,
+              105.59136157104263,
+              59.35000610351557
+            ],
+            [
+              189.82081604003906,
+              144.59136157104263,
+              67.95000610351559
+            ]
+          ],
+          "name": "Flow meter lower cap pocket",
+          "reason": "Keep support out of the lower hook pocket below the wire chamber floor."
+        },
+        {
+          "bounds_source_mm": [
+            88.19999999999999,
+            98.5,
+            395.5086388104271,
+            417.34571720240064,
+            305.34999999999997,
+            309.7
+          ],
+          "box_plate_mm": [
+            [
+              175.27081604003905,
+              122.25428317906909,
+              12.650006103515636
+            ],
+            [
+              186.07081604003906,
+              144.59136157104263,
+              17.50000610351566
+            ]
+          ],
+          "name": "Flow meter upper cap pocket",
+          "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
+        }
+      ],
+      "support_targets": [
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              384.5086388104271,
+              311.95
+            ],
+            [
+              98.75,
+              395.5086388104271,
+              312.95
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            98.5,
+            384.7586388104271,
+            395.2586388104271,
+            312.2,
+            312.7
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter fore shoulder",
+          "painted_faces": 0,
+          "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              395.2586388104271,
+              309.45
+            ],
+            [
+              86.94999999999999,
+              417.59571720240064,
+              310.45
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            86.69999999999999,
+            395.5086388104271,
+            417.34571720240064,
+            309.7,
+            310.2
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter front lip",
+          "painted_faces": 0,
+          "reason": "Support the bar the cap's wing rides over through the slot's open west side, where a screwdriver slides in along the bar and levers the support up off it.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              381.91863881042707,
+              267.2
+            ],
+            [
+              94.10000000000001,
+              406.2686388104271,
+              268.2
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            93.85000000000001,
+            382.16863881042707,
+            406.0186388104271,
+            267.45,
+            267.95
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter fore boss channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              406.91863881042707,
+              267.2
+            ],
+            [
+              94.10000000000001,
+              431.2686388104271,
+              268.2
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            93.85000000000001,
+            407.16863881042707,
+            431.0186388104271,
+            267.45,
+            267.95
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter aft boss channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              93.3,
+              382.7186388104271,
+              268.0
+            ],
+            [
+              95.80000000000001,
+              405.4686388104271,
+              269.0
+            ]
+          ],
+          "bounds_source_mm": [
+            93.55,
+            95.55000000000001,
+            382.9686388104271,
+            405.2186388104271,
+            268.25,
+            268.75
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter fore screw-head channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              93.3,
+              407.7186388104271,
+              268.0
+            ],
+            [
+              95.80000000000001,
+              430.4686388104271,
+              269.0
+            ]
+          ],
+          "bounds_source_mm": [
+            93.55,
+            95.55000000000001,
+            407.9686388104271,
+            430.2186388104271,
+            268.25,
+            268.75
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter aft screw-head channel floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              82.8,
+              394.2686388104271,
+              263.00000000000006
+            ],
+            [
+              98.75,
+              418.91863881042707,
+              264.00000000000006
+            ]
+          ],
+          "bounds_source_mm": [
+            83.05,
+            98.5,
+            394.5186388104271,
+            418.66863881042707,
+            263.25000000000006,
+            263.75000000000006
+          ],
+          "kind": "support_required",
+          "name": "Accessible flow meter wire chamber floor",
+          "painted_faces": 0,
+          "reason": "Support the floor at its fitted height. The open west face admits a screwdriver above the support to pry it away.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.print-features.json",
+          "record_sha256": "437f326528b22437b12135e95d63bfc4d18d5680fec7ba0628b8d9f57e45609e"
+        }
+      ],
+      "translation_mm": [
+        180.42081832885742,
+        125.35000038146973,
+        35.33000183105469
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 2793,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 1862,
+      "features": [],
+      "fins": [],
+      "identify_id": 1904,
+      "model_bed_margin_mm": 79.66969585418701,
+      "modifiers": [],
+      "name": "meter-snap-cap",
+      "object_id": 18,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Both wings print as continuous perimeters on the axial end.",
+          "value": "0"
+        },
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_generator": {
+          "reason": "Match the end-on production spring cover.",
+          "value": "classic"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          141.97500038146973,
+          186.03030490875244,
+          0.0
+        ],
+        [
+          183.02499961853027,
+          240.330304145813,
+          38.0
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        19.0
+      ],
+      "step_sha256": "c942ec031c6918976086a097fefd545abd438c6f6d3258004ae853f5bff273ed",
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+      "stl_sha256": "65cccb35667f7d375a63df4e6a77af0d00f88cfccdfb974fa73083b6ee6a7084",
+      "support_free_regions": [],
+      "translation_mm": [
+        162.5,
+        213.18030452728271,
+        19.0
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    }
+  ],
+  "pause": null,
+  "piece": "pump-meter-snap-pairs",
+  "plate_border_mm": 40.0,
+  "plate_offset_mm": null,
+  "prepared_utc": "2026-11-24T05:52:39+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.1,
+      "to_sha256": "3dbe43733a8338e4b7a7ef67b171d1fc8b613de10576da61d48810a7dbf1ae10"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.profile.json",
+      "sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+    }
+  },
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "project": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf",
+  "project_sha256": "e36bda3d0e89440f1ff7b75b9cc30078d30b6653c2825624bcd3ca9d356e911e",
+  "requested_z_trim_mm": 0.1,
+  "settings_changes": {
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "reason": "Plate selected on the command line.",
+      "to": "Textured PEI Plate"
+    },
+    "enable_prime_tower": {
+      "from": "1",
+      "reason": "The receivers and covers share this plate.",
+      "to": "0"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here.",
+      "to": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here.",
+      "to": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35"
+      ]
+    },
+    "override_process_overhang_speed": {
+      "from": [
+        "1",
+        "0",
+        "0"
+      ],
+      "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply.",
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "requested_z_trim_mm": {
+      "from": 0.1,
+      "reason": "Use the textured PEI trim from the individual receiver and cap trials.",
+      "to": 0.1
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "timelapse_type": {
+      "from": "0",
+      "reason": "The other parts give the springs time away from the nozzle.",
+      "to": "0"
+    }
+  },
+  "settings_sha256": "c4683a4ef350305a199839bdfb28a42890cec76bd431e278ecb040279f2318dc",
+  "show_faces": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/show-faces.npz",
+  "sliced": true,
+  "slicer_warnings": [],
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "90b134be2261fcf23b3083a7fc1d60db4f41e2348cc7c95e851cfff5a62daec8",
+  "submitted": false,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "c7525228550859d16c84a966f8870b65596ec6523d30850adcd64119d0c09be2",
+    "tools/hsm/print-prep/src/approaches.rs": "5bf7b4ba8fdbf626534a9f95d048f34cd06b15e9b8eb078d498cec468fccbe29",
+    "tools/hsm/print-prep/src/audit.rs": "d3ee1a1527218b235dcdc9541bcc48eedb737833c22627363a3d95a416498b2c",
+    "tools/hsm/print-prep/src/base_foundation.rs": "dc54df99d1bbd512b50a7261db9f85d4b43fb6513432ab872146ac4a4acf8edf",
+    "tools/hsm/print-prep/src/cooling.rs": "e56accc63143f90c84cbb2f566664500884cd71201238552b104ee18cfaf6a33",
+    "tools/hsm/print-prep/src/course_field.rs": "bc81cf55189faea828141e3ad56bc43fd5112511ff67dbe8da5e070893990b57",
+    "tools/hsm/print-prep/src/derive.rs": "32feb840389e4e7010e4b52075a95f9a53bd5d7d69e7604e6b4763032c0338df",
+    "tools/hsm/print-prep/src/faucet.rs": "39fc4ae61ebccda26039e9a5c3d09c8e91b7c028f1a886eecd51446bdff74f75",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "4d9723455214bc90329f3c61f858758259a305cca925003ba96314f1c3f7844f",
+    "tools/hsm/print-prep/src/faucet_plate.rs": "5c2255971377893cbb937966d92528d7ed85cf79499e0bca9eaba089c3cd50a8",
+    "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/feed_cap.rs": "e2b3652363fea2dc8436cc373fe125b6d583aaeb8378974e8986cbac88561f18",
+    "tools/hsm/print-prep/src/filled_base.rs": "5e4012e59975694f8d51dabdf9704d160ca44d8c55d34c211d07a8929e6c9cf8",
+    "tools/hsm/print-prep/src/foundation_sequence.rs": "97541500add2abceef652ef7a4e1d9683234a794dc6a44093cce53a1a3374731",
+    "tools/hsm/print-prep/src/gcode.rs": "7308b7d617941ccceade09d8d451dc2799df0a2236b1bc4e34a9af28c99d173e",
+    "tools/hsm/print-prep/src/head_map.rs": "f05abcd30e5f7ecd3035e69a0cd2fadd504f0632e4453cb494734ed6f6155853",
+    "tools/hsm/print-prep/src/head_replay.rs": "55c91c184e3e4d73d9b8b15a01baa9cb99a7dd357e31c9336d1ac2a5a40cb0c0",
+    "tools/hsm/print-prep/src/ids.rs": "ecd56bf93b5c1f08b1b8d6f36d983d5a18e1b123c138f5a9884b7fe2f786fbec",
+    "tools/hsm/print-prep/src/lib.rs": "3b7352c81877ee7998807230975c9354fd903f5a8b818baf2a8560b6017d07a1",
+    "tools/hsm/print-prep/src/mesh.rs": "47a9d52e10d0c8cae37eebe42f224480dba51fbe8f743e0ddb8f3d993ccdba65",
+    "tools/hsm/print-prep/src/motion.rs": "27fde46e9a2956e24be849c723dd2b81a922f15dd960362607e959e4b4b47bde",
+    "tools/hsm/print-prep/src/npz.rs": "23c7d5acbe636050d8e095f83943186709027f75b7e01623652c8d235baead21",
+    "tools/hsm/print-prep/src/plate_picture.rs": "a00385d94945c24e54605584f5de54dbd488a776de0bb24858426283c47c0345",
+    "tools/hsm/print-prep/src/plate_rings.rs": "097d6b48ead23ae4c40f59c880cf14bd3d617e9244aac3a4dcc05f9a2b50cca2",
+    "tools/hsm/print-prep/src/plate_sequence.rs": "054606df22b5ceb4d7fb922742019854a390f960e1b72671b2615b31cc4eb1a4",
+    "tools/hsm/print-prep/src/preset.rs": "8897253423900e99f4df09890a747ce633abc4a1c2b3ab73a6119183d3444770",
+    "tools/hsm/print-prep/src/profile.rs": "205384a98e03cfc79498fd1011d300a8b170452593cdf78f4d1a4cc9a91bf7f9",
+    "tools/hsm/print-prep/src/project.rs": "4fcd588d4704c42a82eda45074181419ea47a2b6918131729a3ad952991f54f9",
+    "tools/hsm/print-prep/src/refresh.rs": "2981218c8a9b5e5ff6ad3500644b7d34ee8705e2cb648e1229d39dccbdb8946c",
+    "tools/hsm/print-prep/src/review.rs": "0e985ef76e2bdbcf44f463c9a3bb4aa52441cb04c5c96f440abb3bf643c4ae55",
+    "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
+    "tools/hsm/print-prep/src/slice.rs": "6edbd05ee86cc7d5ab70b28a2f353ee482ee129eb3f70d7a470b72de8eab0c6a",
+    "tools/hsm/print-prep/src/sloped_courses.rs": "4d0bc66757be4465463b837bb151a0cc2524890173637017a1cbbafad217e0f6",
+    "tools/hsm/print-prep/src/stretch_cooling.rs": "2e68af6908e25fa12b29df744991546e86ed7102a6b61b317577fde59ac0c26b",
+    "tools/hsm/print-prep/src/support_stock.rs": "dca974e9035239b0661fffc159a23e4b312241f4a511eb830439cdc1a71b1847",
+    "tools/hsm/print-prep/src/tip_audit.rs": "2957f4a44e8d73f4497b2f6aaf874c2354a017e5ffd5142ff6ffcf20ad0c2d09",
+    "tools/hsm/print-prep/src/tip_courses.rs": "98f53ebfa27d80347db52c22a261585b29abc14b9a9f21b8754b7a0bceae173c",
+    "tools/hsm/print-prep/src/tip_foundation.rs": "4d9b5630a162877506c0df5b6d4cabcbffa8734a32c20db95e89148973e84f4f",
+    "tools/hsm/print-prep/src/tip_supports.rs": "d9c7bd831f4d23324b76131bcba1c3af3c9f392696b5bb1721bcfdfcaf6a6216",
+    "tools/hsm/print-prep/src/tip_warp.rs": "675aae67e5d36ddfdf6c52a572e09f523ba6eca5956a9903ad5c03396f912a23",
+    "tools/hsm/print-prep/src/trial_archive.rs": "0cc8dd5c1a459619ea652a46d216e94a2b8a24caf668e5c2d914b0070ac5271e",
+    "tools/hsm/print-prep/src/xml.rs": "6223880bf228c5c0092df6b2f3728fd792bff174ac3ef243e7d81d659f223407"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}

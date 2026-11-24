@@ -1,0 +1,170 @@
+{
+  "archive": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+  "archive_sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+  "bead_envelope_plate_mm": [
+    [
+      46.246468,
+      79.545468
+    ],
+    [
+      278.77882999999997,
+      240.47983
+    ]
+  ],
+  "bed_border_mm": 40.0,
+  "bed_margins_mm": {
+    "back": 79.52017000000001,
+    "front": 79.545468,
+    "left": 46.246468,
+    "right": 46.22117000000003
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "excluded_support_counts_by_region": {
+    "Flow meter lower cap pocket": 0,
+    "Flow meter upper cap pocket": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9926894111930151,
+      "second_layer_centerline_outside_first_mm": 16.719279733334794,
+      "second_layer_model_bead_area_mm2": 9718.413855069479
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9510849731886951,
+      "second_layer_centerline_outside_first_mm": 12.405025747175813,
+      "second_layer_model_bead_area_mm2": 1189.3561184232685
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.9933782003170253,
+      "second_layer_centerline_outside_first_mm": 20.175146090504,
+      "second_layer_model_bead_area_mm2": 302.205108601138
+    },
+    "1904": {
+      "fraction_over_first_layer": 0.9416071574820329,
+      "second_layer_centerline_outside_first_mm": 7.106671211706821,
+      "second_layer_model_bead_area_mm2": 726.6949596415554
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 489,
+  "minimum_bed_margin_mm": 46.22117000000003,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": 0.07086270629532243,
+  "solid_host_deposition": [],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        83.05,
+        99.0,
+        395.5086388104271,
+        434.0086388104271,
+        258.15000000000003,
+        263.00000000000006
+      ],
+      "box_plate_mm": [
+        [
+          168.07081604003906,
+          105.59136157104263,
+          59.35000610351557
+        ],
+        [
+          189.82081604003906,
+          144.59136157104263,
+          67.95000610351559
+        ]
+      ],
+      "name": "Flow meter lower cap pocket",
+      "object": 1903,
+      "reason": "Keep support out of the lower hook pocket below the wire chamber floor."
+    },
+    {
+      "bounds_source_mm": [
+        88.19999999999999,
+        98.5,
+        395.5086388104271,
+        417.34571720240064,
+        305.34999999999997,
+        309.7
+      ],
+      "box_plate_mm": [
+        [
+          175.27081604003905,
+          122.25428317906909,
+          12.650006103515636
+        ],
+        [
+          186.07081604003906,
+          144.59136157104263,
+          17.50000610351566
+        ]
+      ],
+      "name": "Flow meter upper cap pocket",
+      "object": 1903,
+      "reason": "Beyond the supported lip's plane the catch and its return to the flank are chamfered, with no flat pocket floor to support."
+    }
+  ],
+  "support_roads": 74585,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1903": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 5,
+      "interface_islands": 5,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 9.051,
+      "shortest_labelled_build_up_mm": 9.051,
+      "support_bodies": 1
+    },
+    "1904": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}
