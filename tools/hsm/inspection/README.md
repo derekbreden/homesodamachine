@@ -22,30 +22,14 @@ The library's `pick_format::Compose` and `Pick` types expose the same interface 
 It creates no scene. The site hides the parts standing in front of what the link lights;
 a `view: az=… el=…` line picks the side to look from when the part a spot lies on would hide it. `demo` prints each geometric pick kind without building geometry.
 
-## Reading a surface
-
 The reader names each measured file, its hash and its representation. Authored readings
 use the fine `.step.npz` model with analytic face records and complete source contributors.
 For a standalone STEP with no fine model, the reader uses its existing import payload.
 Printed readings use the sibling STL; drawn readings use every selected body in the
 viewer payload. `solid:` lines restrict body identity when the export carries it.
 Missing representations are reported separately; no import or geometry build starts.
-Nearest points lie on the measured facets, including their edges and vertices.
-
-The Rust source records the construction. The STL is the tessellation the slicer reads.
-The viewer draws the mesh payload and the placements it references. [Geometry queries](../README.md)
-read those exported meshes as they stand, and see a source edit when its producer exports again.
-A payload can bridge a feature smaller than its tolerance and still meet its distance bound.
-The bridge itself can be the defect someone saw on screen. A feature lost at that
-scale may also be too small to print. Compare the exports at the pick to locate the
-difference. The physical print establishes what was made.
-
-## Annotations in the model and slice
-
-The [enclosure source](../../../hardware/printed-parts/enclosure/enclosure/quadrants/display.rs)
-names the status LED lead channel so the viewer can highlight the cut.
-In emitted G-code, `; FEATURE:` tells [slice review](../print-prep/src/review.rs)
-which moves belong to a wall.
+Nearest points lie on the measured facets, including their edges and vertices. A reading
+locates a surface; deciding what that surface means remains the current design question.
 
 ## Saved printer commands
 

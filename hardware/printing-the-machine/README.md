@@ -14,7 +14,7 @@ not a rule for another. Start with [Before any filament](#before-any-filament) a
 | Cut a relief, pocket or opening near a roof | [A bridge needs two landings](06-a-bridge-needs-two-landings.html) |
 | Decide what holds an overhang up | [Every course lands on something](05-every-course-lands-on-something.html) |
 | Choose how to support a back-top catch or leave room for a cover to swing in | [Stopped shell and current receivers](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=stopped-shell) · [Assembled corner and current seats](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=assembled-corner) · [Photographs, observations and landmarks](cases/enclosure-back-top.json) |
-| Compare two fits, or change a height by less than a layer | [Comparing fits](#comparing-fits) |
+| Compare two fits, or change a height by less than a layer | [Height moves one layer at a time](07-height-moves-one-layer-at-a-time.html) · [A coupon has to print like the part](08-a-coupon-has-to-print-like-the-part.html) |
 | Run a trial of any kind | [Change one thing](09-change-one-thing.html) |
 | Carry a setting from one plastic to another | [The same question, a different answer](10-the-same-question-a-different-answer.html) |
 | Prepare a PET-GF part | [PET-GF: one file holds the recipe](12-petgf-one-file-holds-the-recipe.html) · [PET-GF: a first-layer trim does not travel](13-petgf-a-trim-does-not-travel.html) · [PET-GF: fan only where the plastic is over air](15-petgf-fan-only-over-air.html) |
@@ -31,13 +31,6 @@ not a rule for another. Start with [Before any filament](#before-any-filament) a
 | Send a job | [The H2C: a send is proven only by a new job number](55-a-send-is-proven-only-by-a-new-job-number.html) · [The H2C: start the second printer three minutes after the first](54-start-the-second-printer-three-minutes-after-the-first.html) |
 | Diagnose an overload message | [The H2C: one overload message, three causes](56-one-message-three-causes.html) |
 
-## Comparing fits
-
-Keep the production orientation, first layer and layer schedule. Report the
-opening the slice emits. Change the layer schedule in its own trial.
-A coupon’s support-removal result applies where the full part offers the same access.
-[Height moves one layer at a time](07-height-moves-one-layer-at-a-time.html) · [A coupon has to print like the part](08-a-coupon-has-to-print-like-the-part.html)
-
 ## The owning files
 
 The current recipes and rules are owned by these files, and the book's pages link into them.
@@ -47,8 +40,8 @@ The current recipes and rules are owned by these files, and the book's pages lin
 | The print rules for every printed part | [`hardware/printed-parts/AGENTS.md`](../printed-parts/AGENTS.md) |
 | Preparing a plate: part recipes, declared layer features, the review before a send | [`trial-preparation/README.md`](../printed-parts/enclosure/trial-preparation/README.md) |
 | Reading a print mesh | [`tools/hsm/mesh-review/README.md`](../../tools/hsm/mesh-review/README.md) |
-| PET-GF: recipe, cooling, supports | [Shared profile](../printed-parts/petgf.profile.json) · [Cooling](../printed-parts/cooling/README.md) · [Supports](../printed-parts/petgf-supports.md) · [Enclosure support removal](../printed-parts/enclosure/enclosure/README.md#support-removal-strategy) |
-| PET-GF faucets | [Industrial](../printed-parts/faucet/industrial/faucet-industrial-petgf.md) · [Sculpted](../printed-parts/faucet/sculpted/README.md) · [Inclined support and rim-fin trials](../printed-parts/faucet/finish-coupons/README.md) |
+| PET-GF: recipe, cooling, supports | [`petgf.profile.json`](../printed-parts/petgf.profile.json) · [`cooling/README.md`](../printed-parts/cooling/README.md) · [`support-D-rollout.json`](../printed-parts/support-D-rollout.json) · [support-removal strategy](../printed-parts/enclosure/enclosure/README.md#support-removal-strategy) |
+| PET-GF faucets | [Industrial](../printed-parts/faucet/industrial/faucet-industrial-petgf.md) · [Sculpted](../printed-parts/faucet/sculpted/README.md) |
 | PETG: reservoirs and lids, the funnel cover, the molds | [`reservoir/README.md`](../printed-parts/cold-core/reservoir/README.md) · [`funnel-cover/README.md`](../printed-parts/zone-c/funnel-cover/README.md) · [`funnel-mold/print-log.md`](../printed-parts/zone-c/funnel-mold/print-log.md) |
 | TPU: the sleeve, gaskets, elbows | [`tpu-o-ring/README.md`](../printed-parts/faucet/tpu-o-ring/README.md) · [`gaskets-print-log.md`](../printed-parts/gaskets-print-log.md) · [`pump-elbow-exploration`](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/README.md) |
 | ASA Aero: the float | [`all-aero/README.md`](../printed-parts/cold-core/magnetic-float/all-aero/README.md) |

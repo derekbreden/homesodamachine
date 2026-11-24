@@ -90,7 +90,7 @@ to the east wall on bevels, with room for their flat crests. A permanent
 slope from the flank backs the aft meter shoulder under the Pisco approach.
 The fore shoulder and the lip under the meter's upper leaf take removable
 support through the open west side. The leaves release from their exposed
-edges. [Back-top receivers](../enclosure/back-top/README.md)
+edges. [Back-top receivers](../enclosure/README.md#support-removal-strategy)
 
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
 regulator enters directly upward. The caps close after their bodies seat.

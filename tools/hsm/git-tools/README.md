@@ -36,14 +36,6 @@ Focused Git fixtures run on demand:
 tools/run -- cargo test --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-git-tools
 ```
 
-## Working on main
-
-Coordinate with any other session editing the same files and integrate both
-changes. Stage new files. Commit only this session’s paths with
-`git commit -- <paths>`, follow the [commit message and setting provenance rules](#commit-messages)
-and push directly to `main` without asking for confirmation. The post-commit hook
-lands the commit with `hsm-land`.
-
 ## Commit messages
 
 End the message with one trailer block.

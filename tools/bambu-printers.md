@@ -283,9 +283,6 @@ power restoration. Electrical load and the exact trip time were not measured.
 
 ## Print submission
 
-Before a send or resume, check [printer readiness](#what-ready-looks-like-from-software),
-[work allocation](#work-allocation) and [shared-circuit startup spacing](#shared-circuit-startup-spacing).
-
 Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to the account
 holding both printers. Its application identifier is `com.bambulab.bambu-connect`.
 
@@ -320,9 +317,8 @@ in the dry runs that followed.
 
 The sender checks the archive's embedded G-code checksum, the target printer, each active
 nozzle's external spool type and colour, and the standing print options. It supports one
-external filament per active nozzle on a single sliced H2C plate. Use each spool through
-runout. Launch a ready print with the correct material mapping without asking for a
-spool weight or estimate. Ask for a reload only when the spool actually runs out.
+external filament per active nozzle on a single sliced H2C plate. Spool quantity is not a
+launch condition.
 
 On a two-nozzle Mark2 plate the dialog's left tile reads `Ext PET-CF` and the right
 `Ext PET-CF R`. For about a second after the dialog opens, the right tile reads
@@ -335,8 +331,6 @@ also runs while a printer is busy, when Send is disabled. Connect can disable
 filament selection while busy; an unresolved mapping then stops the dry run. An ordinary run refuses a busy
 printer before opening the application. A Send click is made only once per dialog.
 
-### Confirming a print start
-
 Success requires a new printer job ID, the archive's name, and PREPARE or RUNNING with no
 print error. The MQTT connection stays open throughout the transaction. A fresh-dialog
 retry is allowed only when no command reply, upload or new job was observed, the printer
@@ -345,9 +339,6 @@ results stop the sender. Up to three attempts are made; `--attempts 1` selects o
 The acceptance wait samples Connect's visible text for short-lived request and upload
 errors, including “Resource does not exist,” and stops without a repeat send when one
 appears.
-
-To verify that the job has progressed from preparation into printing, read
-`hsm-printer status <name>` for RUNNING and an advancing layer number on that job.
 
 Successful launches write `.cache/printer-control/<printer>-<job-id>-launch.json`, including
 the original archive and G-code hashes. Bambu Connect's imported copy is separate because

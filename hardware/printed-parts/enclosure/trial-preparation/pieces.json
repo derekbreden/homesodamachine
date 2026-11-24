@@ -271,7 +271,7 @@
                   5000
                 ]
               },
-              "reason": "Back-top's roof side edges print on the bed with the additive chamfer. See hardware/printed-parts/enclosure/enclosure/README.md#print-down-show-rounds."
+              "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
             },
             {
               "name": "Rear support and bridge regions",

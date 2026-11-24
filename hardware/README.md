@@ -128,19 +128,9 @@ A generated `.step` is on this disk and in no index. [`cad-artifacts.json`](/har
 
     source → changed solid → local view → pointer moved → /3d
 
-For a part or named feature, [find its source and build target](../tools/hsm/README.md#find-and-inspect-a-part).
-Start concepts, throwaway parts and studies in the [Rust sandbox](../tools/hsm/sandbox/README.md).
-For layout, [place wiring around the finished mechanics](wiring/README.md#routing-and-assembly).
-
 The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) draws a generated STEP's payload from this disk, the bytes `/3d` serves, in the viewer's look, with [`hsm render`](/tools/hsm/README.md#render). [`hsm-pack --write`](/tools/hsm/publication/README.md) packages the generated solids on this disk; after its pointer file is committed and pushed, Render fetches that bundle and `/3d` serves it. Each commit runs [`hsm-publish`](/tools/hsm/publication/README.md) from `.githooks/post-commit`, which publishes the solids on this disk and moves the pointer file. The solid an agent judges locally is the solid that goes in front of Derek.
 
-A [focused print build](../tools/hsm/print-build/README.md#publishing-a-changed-part) publishes the changed producer.
-Before rebuilding changed enclosure geometry, take the [before snapshot](../changes/README.md#recording-a-change).
-Measure positions, gaps and interference on the exported viewer meshes with [`hsm`](../tools/hsm/README.md#geometry).
-Show Derek a part or location in the published model with [`hsm-pick link`](../tools/hsm/inspection/README.md#picks-and-published-links).
-`inspect-part.mjs` provides the next local picture and targeted measurements.
-Broader builds and checks answer broader questions when those questions arise.
-The iteration speed that matters is the time from an edit to the next informed look — first by the agent, then by Derek.
+A focused print-build target writes and publishes the changed producer. `hsm` reads the exported geometry, and `inspect-part.mjs` provides the next local picture and targeted measurements. Broader builds and checks answer broader questions when those questions arise. The iteration speed that matters is the time from an edit to the next informed look — first by the agent, then by Derek.
 
 ## Bench measurements
 

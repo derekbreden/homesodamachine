@@ -3,37 +3,16 @@
 `hsm-print-build` carries completed producers into the checkout and publishes them
 while the remaining print build continues.
 
-## What the build preserves
-
-The machine is the same when the site shows the same things and the same solids
-print within the [kernel's rule](../kernel/src/rule.rs). Keep fabrication order
-files generatable on demand. An output, check, report or costly site detail that
-serves none of these can go.
-
 The print build is the normal build for parts made here on the H2C and Mark2.
 For orders, the cut build makes DXFs and drawings for SendCutSend and the PCB
 build makes Gerbers, the parts list and the placement file for JLCPCB. Keep both
 available on demand outside the normal build. Bought parts have no manufacturing
 build. The website's model shows every part.
 
-## Publishing a changed part
-
-[Find the affected targets](../README.md#find-and-inspect-a-part). Include the
-assembly when installation or membership changes. For enclosure geometry, take
-the [before snapshot](../../../changes/README.md#recording-a-change) before rebuilding.
-
 ```sh
 tools/run -- hsm-print-build --
 tools/run -- hsm-print-build -- //:enclosure-back-top //:installed-machine
 ```
-
-Share the first published part while the other targets and focused review continue.
-Tell Derek what he can see, what geometry has been checked and what is ready to print.
-After publishing a changed printed solid, [lint its STL](../mesh-review/README.md).
-Fix the defect wherever it recurs or [record an anchored answer](../../../hardware/printed-parts/lint-answers/AGENTS.md).
-Record an enclosure change from its before snapshot.
-
-## Producer execution
 
 The native planner selects declared producers and their prerequisites. The engine
 reuses compiled programs and completed results by their actual source and input

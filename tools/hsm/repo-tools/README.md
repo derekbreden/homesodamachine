@@ -33,8 +33,8 @@ source revisions, artifact hashes and measurements. Remove the temporary files
 when the run's work is finished.
 
 Keep current deliverables and active print records at their recorded paths outside
-`.cache`. Archive completed experiments in Git and link to the files at their commit.
-For print trials, [preserve the bench evidence with the trial](../../../hardware/ledger/fitted.md#retiring-a-print-trial).
+`.cache`. Archive completed experiments and their print records in Git and link to
+the archived files at their commit.
 
 Delete build outputs, cache entries, plates and installed builds wherever they live
 once Git can regenerate them and they have gone unused for days. Derek authorizes

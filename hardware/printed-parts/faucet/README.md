@@ -104,9 +104,6 @@ editable project, its report and its plate record at the production project abov
 its print-only archive on this Mac. [`faucet-plate`'s header](/tools/hsm/print-prep/src/bin/faucet_plate.rs)
 shows how it is built and installed. Preparing a plate does not submit it to a printer.
 
-The [support trials](finish-coupons/README.md) record which inclined contacts and rim
-fins released from the tested bases.
-
 `hsm --scene faucet` reads the current exported assembly for positions,
 clearances, intersections, sections and rays. [`inspect-part.mjs`](/tools/inspect-part.mjs)
 retains the selected geometry, camera and targeted measurements between exports.
