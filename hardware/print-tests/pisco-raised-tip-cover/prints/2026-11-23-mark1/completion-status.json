@@ -1,0 +1,12 @@
+{
+  "printer": "H2C",
+  "job_id": "1479934717",
+  "subtask_name": "2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei.gcode.3mf",
+  "gcode_state": "FINISH",
+  "mc_percent": 100,
+  "layer_num": 174,
+  "total_layer_num": 174,
+  "hms": [],
+  "print_error": 0,
+  "observed_at": "2026-11-24T05:17:04+00:00"
+}
