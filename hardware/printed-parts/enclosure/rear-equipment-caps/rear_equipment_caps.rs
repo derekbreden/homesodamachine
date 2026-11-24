@@ -1,6 +1,6 @@
 //! The four snap caps that close the rear equipment's receivers on back-top: the ASSE chain's,
 //! the Pisco's, the flow meter's and the water regulator's. Each cap is one solid drawn from the
-//! station of the receiver it snaps into: two spring walls with their pointed catches over the
+//! station of the receiver it snaps into: two spring walls with their catches over the
 //! cap's body, the bearing stock between them, less the fitted room its hardware takes. Each
 //! prints standing on one axial end; the installed set, which the installed machine places,
 //! keeps the four where they go.
@@ -49,6 +49,9 @@ const ADAPTER_SHOULDER_X: f64 = -13.825;
 const PISCO_NECK_RADIUS: f64 = 6.5;
 const PISCO_CAP_AIR: f64 = 0.4;
 const PISCO_CAP_FIT: f64 = 0.15;
+const PISCO_FREE_HOOK_OVERLAP: f64 = 0.55;
+const PISCO_CREST_RISE: f64 = 0.20;
+const PISCO_CREST_WIDTH: f64 = 0.90;
 /// The meter: the cap's solid spine between its leaves, its bearing stock's depth past the
 /// root, its housing's fit, and its lower outside bevel's top below the housing's axis, the
 /// depth its cutter reaches and how far past the cap's ends it runs.
@@ -321,8 +324,8 @@ fn pisco_cap() -> Result<Cap> {
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     let saddle = axis[1] - (body_radius.powi(2) - (half - WALL).powi(2)).max(0.0).sqrt();
     // The leaves stop ahead of the rear corner column; the body beneath their roots runs on.
-    let cap = along_y(section(&st, Underside::Flat(bottom))?,
-                      [st.y0, hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y])?
+    let wings = section_with_tip(&st, Underside::Flat(bottom), Hook::Pisco)?;
+    let cap = along_y(wings, [st.y0, hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y])?
         .union(&cuboid([axis[0] - st.outer, axis[0] + st.outer, st.y0, st.y1, bottom, st.root]))?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, st.y1, bottom, saddle]))?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, lip, bottom, axis[1]]))?;
@@ -357,7 +360,7 @@ fn meter_cap() -> Result<Cap> {
     // The sideways catch climbs from the lip to the pocket's root, and the flank ends the point.
     let seat = REACH * corbel_slope();
     let flank = hsm_enclosure_numbers::faces::back_top_flank_face()[1] - m.split;
-    let hook = Hook { seat, rise: flank - tip_air() - (st.bearing + catch_air() + seat + NOSE_LAND) };
+    let hook = Hook::Pointed { seat, rise: flank - tip_air() - (st.bearing + catch_air() + seat + NOSE_LAND) };
     // End the entire upper spring profile at the catch, including its inward-pointing nose.
     // The spine below the root and the bearing between the leaves span the housing.
     let upper_end = hsm_enclosure_numbers::layout::meter_upper_catch_end_y(&stations::pisco_station()) - running();
@@ -403,7 +406,7 @@ fn regulator_cap_with_tip(rise: f64, name: &'static str) -> Result<Cap> {
     let [t0, t1, t2] = l.snapshots.reg.translation_mm;
     let frame = Pose { rotation: [r1, r0.map(|v| -v), r2], translation_mm: [t1, -t0, t2] };
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), Hook { seat: 0.0, rise })?, [st.y0, st.y1])?
+    let cap = along_y(section_with_tip(st, Underside::Flat(mount.cap_bottom), Hook::Pointed { seat: 0.0, rise })?, [st.y0, st.y1])?
         .union(&cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK, mount.cap_bottom,
                         mount.axis[1]]))?
         .cut(&turned(&profile)?.transformed(&affine(&frame)))?;
@@ -417,34 +420,39 @@ enum Underside {
     Hex(f64),
 }
 
-/// A cap's section across its station, in X and Z. Each spring wall rises on the outer face from
-/// the root to its pointed free edge, falls along one planar lead-in to the solid nose, and
-/// falls from the nose along the chamfered catch to the inner face, then turns at the root round
-/// into the floor between the walls; the underside closes it. The hook stands its reach inside
-/// the receiver's ledge, the catch its air over the receiver's chamfer.
 fn section(st: &Station, under: Underside) -> Result<Loop> {
-    section_with_tip(st, under, Hook { seat: 0.0, rise: tip_rise() })
+    section_with_tip(st, under, Hook::Pointed { seat: 0.0, rise: tip_rise() })
 }
 
-/// A hook's nose: how far it seats above the station's catch plane, and its lead-in's rise from
-/// the nose land to the point. A vertical receiver's catch is cut down into its ledge, so the
-/// nose seats at the catch plane.
 #[derive(Clone, Copy)]
-struct Hook {
-    seat: f64,
-    rise: f64,
+enum Hook {
+    Pointed { seat: f64, rise: f64 },
+    Pisco,
 }
 
 fn section_with_tip(st: &Station, under: Underside, hook: Hook) -> Result<Loop> {
     let (c, outer, inner, r, root) = (st.axis_x, st.outer, st.inner, st.root_radius, st.root);
     let reach = st.ledge - REACH;
-    let nose = st.bearing + catch_air() + hook.seat;
-    let tip = nose + NOSE_LAND + hook.rise;
+    let (bearing, shoulder, tip, flat) = match hook {
+        Hook::Pointed { seat, rise } => {
+            let bearing = st.bearing + catch_air() + seat;
+            let shoulder = bearing + NOSE_LAND;
+            (bearing, shoulder, shoulder + rise, 0.0)
+        }
+        // The Pisco's free bearing overlaps the catch. Its crest approaches the roof as the saddle seats.
+        Hook::Pisco => (st.bearing - PISCO_FREE_HOOK_OVERLAP, st.bearing + catch_air() + NOSE_LAND,
+                        st.ceiling - tip_air() + PISCO_CREST_RISE, PISCO_CREST_WIDTH),
+    };
     // One wall, out from the axis by `side`: up the outer face, over the hook, down the inner face.
     let wall = |side: f64| {
         let at = |x: f64, z: f64| v2(c + side * x, z);
-        vec![at(outer, root), at(outer, tip), at(reach, nose + NOSE_LAND), at(reach, nose),
-             at(inner, nose - (inner - reach) * corbel_slope()), at(inner, root + r)]
+        let mut points = vec![at(outer, root), at(outer, tip)];
+        if flat > 0.0 {
+            points.push(at(outer - flat, tip));
+        }
+        points.extend([at(reach, shoulder), at(reach, bearing),
+                       at(inner, bearing - (inner - reach) * corbel_slope()), at(inner, root + r)]);
+        points
     };
     let west = wall(-1.0);
     let east: Vec<V2> = wall(1.0).into_iter().rev().collect();
