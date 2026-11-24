@@ -18,6 +18,11 @@ pointed tip. At the measured crest stop, about 0.17 mm of vertical clearance
 remains with the pump resting on its rails. The centered spring model gives
 2.11 mm of hook engagement on each flank. [Seating, roll and release](parts/fit-check.json)
 
+The final Mark2 slice lays a straight outer wall on both crests in all 227 cap
+layers. Its 226 regular layers reach the requested rise within 0.001 mm.
+First-layer foot compensation draws the bed-contact edge in by 0.15 mm.
+[Mark2 crest roads and sliced archive](parts/mark2-crest-roads.json)
+
 After building the production lid, generate its crop from the repository root.
 
 ```sh

@@ -1,0 +1,65 @@
+{
+  "purpose": "Verify the two raised G-Ganen pump crests in the exact Mark2 slice.",
+  "part": "pump-snap-cap",
+  "gcode_object_label": 1902,
+  "three_mf_object_id": 4,
+  "slicer": "BambuStudio 02.08.02.61",
+  "archive_url": "https://homesodamachine.com/print-archive/2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+  "archive_sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
+  "printed_cap_stl_sha256": "d2824112b8c9383e8e9fab13ae6df3d2eb84d23d0aba3dd00f6e5fce9971e3cf",
+  "method": "Select positive-extrusion straight outer-wall moves parallel to each measured CAD crest. Read the commanded line width and add half of it to the bed Y centerline. Subtract the placement Y and transform the resulting source Y to installed Z. Compare with the original pointed tip in the same installed frame.",
+  "frame": {
+    "plate_y_minus_cap_y_mm": 125.35,
+    "installed_z_plus_cap_y_mm": 282.5091,
+    "former_installed_tip_z_mm": 252.179347,
+    "current_installed_crest_z_mm": 251.779347,
+    "reference": "fit-check.json"
+  },
+  "cap_extrusion_layers": 227,
+  "layers_with_both_straight_crest_roads": 227,
+  "support_extrusion_moves_on_cap": 0,
+  "programmed_first_layer_foot_compensation_mm": 0.15,
+  "printed_road_groups": [
+    {
+      "first_z_mm": 0.2,
+      "last_z_mm": 0.2,
+      "layers_per_crest": 1,
+      "width_mm": 0.5,
+      "bed_centerline_y_mm": 155.68,
+      "straight_centerline_length_mm": 0.261,
+      "nominal_bead_edge_bed_y_mm": 155.93,
+      "installed_bead_edge_z_mm": 251.9291,
+      "rise_from_previous_tip_toward_lid_mm": 0.250247,
+      "west_bed_x_range_mm": [
+        205.871,
+        206.132
+      ],
+      "east_bed_x_range_mm": [
+        277.968,
+        278.229
+      ]
+    },
+    {
+      "first_z_mm": 0.44,
+      "last_z_mm": 54.44,
+      "layers_per_crest": 226,
+      "width_mm": 0.42,
+      "bed_centerline_y_mm": 155.87,
+      "straight_centerline_length_mm": 0.564,
+      "nominal_bead_edge_bed_y_mm": 156.08,
+      "installed_bead_edge_z_mm": 251.7791,
+      "rise_from_previous_tip_toward_lid_mm": 0.400247,
+      "west_bed_x_range_mm": [
+        205.681,
+        206.245
+      ],
+      "east_bed_x_range_mm": [
+        277.855,
+        278.419
+      ]
+    }
+  ],
+  "scope": "The bead edge is calculated from the slicer's centerline and commanded width. Actual bead shape, fit and spring load depend on the printed pair."
+}
