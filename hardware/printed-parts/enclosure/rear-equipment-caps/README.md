@@ -80,7 +80,7 @@ The modeled stop leaves 0.45 mm of inclined-face overlap for the springs to
 take up at every station. In that centered position the ASSE inlet coupling
 and water regulator have begun moving toward their far seats. The Pisco and
 meter crests reach the fixed wall first. Plumbing and gravity can shift each
-piece of hardware within its seat. [Production mesh readings](production-fit.json)
+piece of hardware within its seat. [Production mesh readings](production-fit.json) · [Crest roads on the two production-orientation plates](crest-paths.json)
 
 The ASSE and Pisco seats have plain end walls around the fitted passages.
 The ASSE and water pockets extend outboard to admit the crests when the hooks
@@ -120,6 +120,8 @@ as the whole wing bending. The production saddle, outlet lip, retaining
 faces and crests match that print. The four exterior identification grooves
 are filled. The current cover clears the backed meter shoulder throughout
 its modeled tilt path. [Bench video and observations](https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json) · [Production Pisco comparison](pisco-fit.json)
+
+On the paired Mark1 plate, the two Pisco roof surfaces finish at installed Z351.44 mm. The deposited crest edge reaches Z351.45 mm, giving about 0.01 mm of nominal overlap in the sliced geometry. The hand test establishes the actual fit. [Paired-slice measurements](crest-paths.json)
 
 The solid retaining face spans each hook. An earlier trial’s segmented bridge
 strands separated during removal. For a hand fit, press alternately on the two

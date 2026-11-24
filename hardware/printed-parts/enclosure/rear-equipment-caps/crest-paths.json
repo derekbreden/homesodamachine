@@ -1,0 +1,230 @@
+{
+  "purpose": "Measure the deposited flat crest on each of the eight rear equipment springs on the final two PET-GF plates.",
+  "method": "Read each cap\u2019s object ID and XY placement from the 3MF. On every interior layer from 0.68 mm to 0.36 mm short of the wing end, find the extruding outer-wall move along each STL crest. Compare its normal coordinate plus half the declared line width with the STL crest. The G-code coordinates are in mm.",
+  "plates": {
+    "Mark1": {
+      "recipe": "rear-snap-pairs",
+      "print_record": "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/preparation.json",
+      "archive_filename": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf",
+      "archive_sha256": "fddee0e7e3c57100e6c1ce7cbd679c2e94dcf2a5f67dcdaee632dbba73a3d3d1",
+      "gcode_sha256": "07a2262a2287dd0289261d01fa020388c229993ad7b032fcd159f05dab33dcc1"
+    },
+    "Mark2": {
+      "recipe": "pump-meter-snap-pairs",
+      "print_record": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/preparation.json",
+      "archive_filename": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+      "archive_sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+      "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59"
+    }
+  },
+  "caps": {
+    "asse": {
+      "plate": "Mark1",
+      "wings": {
+        "west": {
+          "layers": 170,
+          "layer_range_mm": [
+            0.68,
+            41.24
+          ],
+          "straight_nozzle_path_mm": [
+            0.577,
+            0.577
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.00048
+        },
+        "east": {
+          "layers": 170,
+          "layer_range_mm": [
+            0.68,
+            41.24
+          ],
+          "straight_nozzle_path_mm": [
+            0.577,
+            0.577
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.00048
+        }
+      },
+      "receiver": {
+        "west": {
+          "plate_xy_mm": [
+            49.30449,
+            153.73554
+          ],
+          "last_model_layer_mm": 3.32,
+          "emitted_roof_source_mm": 351.68,
+          "witness": "Top surface",
+          "toolpath_clearance_to_nominal_crest_mm": 0.23
+        },
+        "east": {
+          "plate_xy_mm": [
+            100.62449,
+            153.73554
+          ],
+          "last_model_layer_mm": 3.32,
+          "emitted_roof_source_mm": 351.68,
+          "witness": "Top surface",
+          "toolpath_clearance_to_nominal_crest_mm": 0.23
+        }
+      }
+    },
+    "pisco": {
+      "plate": "Mark1",
+      "wings": {
+        "west": {
+          "layers": 152,
+          "layer_range_mm": [
+            0.68,
+            36.92
+          ],
+          "straight_nozzle_path_mm": [
+            0.576,
+            0.577
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.00171
+        },
+        "east": {
+          "layers": 152,
+          "layer_range_mm": [
+            0.68,
+            36.92
+          ],
+          "straight_nozzle_path_mm": [
+            0.577,
+            0.577
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.00029
+        }
+      },
+      "receiver": {
+        "west": {
+          "plate_xy_mm": [
+            120.61449,
+            138.18004
+          ],
+          "last_model_layer_mm": 3.56,
+          "emitted_roof_source_mm": 351.44,
+          "witness": "Top surface",
+          "toolpath_clearance_to_nominal_crest_mm": -0.01
+        },
+        "east": {
+          "plate_xy_mm": [
+            150.43449,
+            138.18004
+          ],
+          "last_model_layer_mm": 3.56,
+          "emitted_roof_source_mm": 351.44,
+          "witness": "Top surface",
+          "toolpath_clearance_to_nominal_crest_mm": -0.01
+        }
+      }
+    },
+    "regulator": {
+      "plate": "Mark1",
+      "wings": {
+        "fore": {
+          "layers": 146,
+          "layer_range_mm": [
+            0.68,
+            35.48
+          ],
+          "straight_nozzle_path_mm": [
+            0.577,
+            0.577
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.00049
+        },
+        "aft": {
+          "layers": 146,
+          "layer_range_mm": [
+            0.68,
+            35.48
+          ],
+          "straight_nozzle_path_mm": [
+            0.577,
+            0.577
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.00049
+        }
+      },
+      "receiver": {
+        "fore": {
+          "plate_xy_mm": [
+            192.5145,
+            153.09554
+          ],
+          "last_model_layer_mm": 6.44,
+          "emitted_roof_source_mm": 348.56,
+          "witness": "Top surface",
+          "toolpath_clearance_to_nominal_crest_mm": 0.3449
+        },
+        "aft": {
+          "plate_xy_mm": [
+            192.5145,
+            109.87554
+          ],
+          "last_model_layer_mm": 6.44,
+          "emitted_roof_source_mm": 348.56,
+          "witness": "Top surface",
+          "toolpath_clearance_to_nominal_crest_mm": 0.3449
+        }
+      }
+    },
+    "meter": {
+      "plate": "Mark2",
+      "wings": {
+        "upper": {
+          "layers": 85,
+          "layer_range_mm": [
+            0.68,
+            20.84
+          ],
+          "straight_nozzle_path_mm": [
+            0.585,
+            0.585
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.0
+        },
+        "lower": {
+          "layers": 155,
+          "layer_range_mm": [
+            0.68,
+            37.64
+          ],
+          "straight_nozzle_path_mm": [
+            0.585,
+            0.585
+          ],
+          "width_mm": 0.42,
+          "maximum_nominal_bead_edge_error_mm": 0.0
+        }
+      },
+      "receiver": {
+        "lower": {
+          "plate_y_mm": 135.85,
+          "layer_mm": 65.0,
+          "emitted_wall_source_mm": 98.50018,
+          "witness": "Outer wall",
+          "toolpath_clearance_to_nominal_crest_mm": 0.1002
+        },
+        "upper": {
+          "plate_y_mm": 135.85,
+          "layer_mm": 9.8,
+          "emitted_wall_source_mm": 98.50018,
+          "witness": "Outer wall",
+          "toolpath_clearance_to_nominal_crest_mm": 0.1002
+        }
+      }
+    }
+  },
+  "scope": "These are commanded paths on the production-orientation covers. Physical crest width, wear and spring force require printed hardware. The four-bar Pisco hand result is linked from pisco-fit.json.",
+  "receiver_method": "At each flexed crest, transform its XY witness into the receiver\u2019s plate coordinates. For the roof-down ASSE, Pisco and water receiver, find the last model road covering the witness in the measured roof band. Transform the commanded layer height back to machine Z. For the meter, find the west edge of the deposited outer wall on the layer containing each crest, at the cap station along Y. Negative nominal clearance means the two toolpath envelopes overlap."
+}

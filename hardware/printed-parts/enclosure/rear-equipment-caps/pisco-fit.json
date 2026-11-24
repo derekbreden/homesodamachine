@@ -39,5 +39,7 @@
     }
   },
   "reference_comparison_points": "production-fit.json",
-  "prior_two_bar_mesh_and_slice": "https://github.com/derekbreden/homesodamachine/blob/81af69339f6a91c032c34e3389a2f0d2464abeed/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-fit.json"
+  "prior_two_bar_mesh_and_slice": "https://github.com/derekbreden/homesodamachine/blob/81af69339f6a91c032c34e3389a2f0d2464abeed/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-fit.json",
+  "production_geometry_commit": "4fb591987d",
+  "native_crest_paths": "crest-paths.json"
 }
