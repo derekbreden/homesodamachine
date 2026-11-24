@@ -162,7 +162,7 @@
      "contact_scope": "Motor-side saddle native X16.75–77.75 and one continuous upper clip X20–74.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
      "cover_channel_fore_native_x_mm": -20.0,
      "cover_channel_recess_mm": 2.5,
-     "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
+     "insertion": "Lower the bare pump onto the fixed rail seats above the shallow lid recess. The cap closes over the motor. Its inclined catches draw the arch toward the barrel until the flat crests meet the floors of the side pockets.",
      "motor_band_native_x_mm": [
       16.75,
       77.75
@@ -191,8 +191,8 @@
     "snap_station": {
      "axis_x": -15.181429835394722,
      "bearing": 21.85,
-     "catch": 22.25,
-     "ceiling": 30.35,
+     "catch": 20.85,
+     "ceiling": 30.84,
      "hook": 31.479180708991777,
      "inner": 34.57918070899178,
      "ledge": 34.07918070899178,
@@ -202,7 +202,7 @@
      "root": 0.0,
      "root_radius": 1.5,
      "split": 0.0,
-     "tip": 29.85,
+     "tip": 30.25,
      "tool_angle_degrees": -65.0,
      "tool_end_stock": 10.0,
      "tool_outer_edges": [
@@ -300,7 +300,7 @@
    "contact_scope": "Motor-side saddle native X16.75–77.75 and one continuous upper clip X20–74.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
    "cover_channel_fore_native_x_mm": -20.0,
    "cover_channel_recess_mm": 2.5,
-   "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
+   "insertion": "Lower the bare pump onto the fixed rail seats above the shallow lid recess. The cap closes over the motor. Its inclined catches draw the arch toward the barrel until the flat crests meet the floors of the side pockets.",
    "motor_band_native_x_mm": [
     16.75,
     77.75
@@ -329,8 +329,8 @@
   "snap_station": {
    "axis_x": -15.181429835394722,
    "bearing": 21.85,
-   "catch": 22.25,
-   "ceiling": 30.35,
+   "catch": 20.85,
+   "ceiling": 30.84,
    "hook": 31.479180708991777,
    "inner": 34.57918070899178,
    "ledge": 34.07918070899178,
@@ -340,7 +340,7 @@
    "root": 0.0,
    "root_radius": 1.5,
    "split": 0.0,
-   "tip": 29.85,
+   "tip": 30.25,
    "tool_angle_degrees": -65.0,
    "tool_end_stock": 10.0,
    "tool_outer_edges": [

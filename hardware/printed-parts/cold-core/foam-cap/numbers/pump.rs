@@ -18,6 +18,16 @@ pub mod wing {
     pub const ROOT_RADIUS: f64 = 1.5;
     pub const LEDGE: f64 = 3.0;
     pub const NOSE_LAND: f64 = 1.6;
+    /// The cap travels from its installed datum to the barrel with the bare pump on its rail floors.
+    pub const SEATING_TRAVEL: f64 = 0.76;
+    pub const LOADED_CATCH_DRAW: f64 = 0.24;
+    /// The crests meet their pockets before the rigid motor saddle reaches the full rail-seated travel.
+    pub const CREST_TRAVEL: f64 = 0.59;
+    pub const LOADED_SHOULDER_AIR: f64 = 0.09;
+    pub const CREST_WIDTH: f64 = 0.90;
+    pub const CREST_RISE: f64 = 0.40;
+    /// The crest swings farther than the hook when a leaf is spread for release.
+    pub const TIP_RELEASE_ROOM: f64 = 5.0;
 }
 
 /// The cap's split: its wings root on the pump's axis.
@@ -211,14 +221,16 @@ fn work() -> Cradle {
         can.radius_mm.max(largest(upper.iter().filter(|p| p[2] >= axis_z(p[0])).map(radial))) + fits.slip;
     let neck = largest([bore_radius].into_iter().chain(rails.iter().map(|r| r.outer_y.abs()))) + wing::WALL;
 
-    // The rear snaps' station: the ledge a reach and the running fit past the neck, the wings'
-    // free length up from their root to the catch, the catch on the supported fit.
+    // The inclined ledge passes through the original bearing datum at the nose.
     let catch_fit = fits.slip + fits.supported_surface;
     let ledge = neck + wing::REACH + fits.running;
     let inner = ledge + wing::SIDE;
     let root = SPLIT;
-    let catch = (root + wing::FREE_LENGTH).max(SPLIT + wing::LEDGE + catch_fit);
-    let tip = catch + wing::NOSE_LAND + hsm_enclosure_numbers::layout::snap_tip_rise();
+    let station_height = (root + wing::FREE_LENGTH).max(SPLIT + wing::LEDGE + catch_fit);
+    let bearing = station_height - catch_fit;
+    let catch = bearing - wing::SEATING_TRAVEL - wing::LOADED_CATCH_DRAW;
+    let tip = station_height + wing::NOSE_LAND + hsm_enclosure_numbers::layout::snap_tip_rise() + wing::CREST_RISE;
+    let ceiling = tip + wing::CREST_TRAVEL;
     let outer = inner + wing::WING;
     let ty = frame.translation_mm[1];
     let station = Station {
@@ -231,10 +243,10 @@ fn work() -> Cradle {
         inner,
         outer,
         hook: ledge - wing::REACH,
-        bearing: catch - catch_fit,
+        bearing,
         catch,
         tip,
-        ceiling: tip + hsm_enclosure_numbers::layout::snap_tip_air(),
+        ceiling,
         root,
         root_radius: wing::ROOT_RADIUS,
         nose_land: wing::NOSE_LAND,

@@ -335,8 +335,6 @@ fn b_holder() -> Result<Solid> {
 const ROOM_OVERRUN: f64 = 1.;
 /// The rails' rooms rise to this height in the pump's frame, past everything above them.
 const RAIL_ROOM_TOP: f64 = 100.;
-/// The room the lid leaves outside a wing's pointed tip.
-const TIP_ROOM: f64 = 1.;
 
 /// The motor's room in the snap cap: a cylinder on the can's axis through the band and past it.
 fn pump_room(c: &Cradle) -> Result<Solid> {
@@ -404,17 +402,20 @@ fn pump_cradle() -> Result<Solid> {
         body = body.cut(&Solid::loft(&profiles)?)?;
     }
     let s = &c.station;
+    let slope = hsm_enclosure_numbers::layout::REAR_SNAP_CHAMFER_SLOPE;
+    let shoulder = pump::wing::SEATING_TRAVEL + pump::wing::LOADED_SHOULDER_AIR - cap::fits().slip;
     for side in [-1., 1.] {
-        let far = s.axis_x + side * (wide + 1.);
-        for (start, z0, z1) in [(s.ledge, s.split - 1., s.bearing), (s.neck, s.bearing, s.ceiling)] {
-            let x = s.axis_x + side * start;
-            let pocket = box3(x, far, s.y0 - running, s.y1 + running, z0, z1);
-            body = body.cut(&pump_cap_world(&pocket, c))?;
-        }
-        let radius = s.root_radius;
-        let near = s.axis_x + side * (s.inner - radius - running);
-        let relief = box3(near, far, s.y0 - running, s.y1 + running, s.root - running, s.root + radius + running);
-        body = body.cut(&pump_cap_world(&relief, c))?;
+        let at = |u, z| v2(s.axis_x + side * u, z);
+        let edge = |u: f64| s.bearing + (s.hook - u) * slope;
+        let profile = Loop::polygon(&[
+            at(half, s.split - 1.), at(wide + 1., s.split - 1.), at(wide + 1., s.ceiling),
+            at(s.neck, s.ceiling), at(s.neck, edge(s.neck)), at(s.ledge, edge(s.ledge)),
+            at(s.ledge, s.root + s.root_radius + running),
+            at(s.inner - s.root_radius - running, shoulder), at(half, shoulder),
+        ]);
+        let pocket = Plane::XZ.at(v3(0., s.y1 + running, 0.))
+            .extrude(&Profile::new(profile), s.y1 - s.y0 + 2. * running)?;
+        body = body.cut(&pump_cap_world(&pocket, c))?;
     }
     // The air passage opens through this outside corner behind the cap; the whole bearing lands
     // stay inboard of the spring's outer face.
@@ -434,12 +435,14 @@ fn pump_snap() -> Result<Solid> {
     let root = s.root_radius;
     let k = root / 2_f64.sqrt();
     let r = c.bore_radius + c.selected.cap_arch_wall_mm;
+    let slope = hsm_enclosure_numbers::layout::REAR_SNAP_CHAMFER_SLOPE;
     let west = [
         v2(x - w, 0.),
         v2(x - w, s.tip),
+        v2(x - w + pump::wing::CREST_WIDTH, s.tip),
         v2(x - h, s.catch + s.nose_land),
         v2(x - h, s.catch),
-        v2(x - wi, s.catch),
+        v2(x - wi, s.catch - (wi - h) * slope),
         v2(x - wi, base + root),
     ];
     let mut pen = Pen::new(west[0]);
@@ -784,14 +787,14 @@ fn top_lid() -> Result<Solid> {
     let half = pump::CHANNEL_HALF_WIDTH;
     let recess = box3(cx - half, cx + half, fy + fore - OVERCUT, fy + aft + OVERCUT, face - c.selected.cover_channel_recess_mm, face + OVERCUT)
         .transformed(&t);
-    // The pointed tips keep their full pockets through the lid stock joined beneath the cradle.
+    // The pocket floor continues under the whole crest as the hook springs over the ledge.
     let s = &c.station;
     let (y0, y1) = (s.y0 - fits.running, s.y1 + fits.running);
     let mut tips = vec![];
     for side in [-1., 1.] {
         let near = s.axis_x + side * s.neck;
-        let far = s.axis_x + side * (s.outer + TIP_ROOM);
-        let pocket = box3(near, far, y0, y1, s.bearing, s.ceiling);
+        let far = s.axis_x + side * (s.outer + pump::wing::TIP_RELEASE_ROOM);
+        let pocket = box3(near, far, y0, y1, c.centre[2] - face - OVERCUT, s.ceiling);
         tips.push(pump_cap_world(&pocket, c).transformed(&t));
     }
     // An air tube's passage nearer than a wall to the east pocket's aft corner opens into it: the
@@ -800,7 +803,7 @@ fn top_lid() -> Result<Solid> {
     let east = s.axis_x + s.outer;
     for hole in cap::air_holes() {
         let p = hsm_cold_core_layout::cap::cap_to_world([hole.xy[0], hole.xy[1], 0.]);
-        if (p[0] - east - TIP_ROOM).hypot(p[1] - y1) - hole.radius < core::OUTER_SHELL_WALL {
+        if (p[0] - east - pump::wing::TIP_RELEASE_ROOM).hypot(p[1] - y1) - hole.radius < core::OUTER_SHELL_WALL {
             tips.push(box3(east, p[0], y0, p[1], c.centre[2] - s.ceiling, face + OVERCUT).transformed(&t));
         }
     }

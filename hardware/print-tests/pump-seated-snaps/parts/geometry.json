@@ -1,0 +1,37 @@
+{
+  "air_passage_crop_bounds_lid_mm": [
+    [
+      -125.6,
+      20.4,
+      0.0
+    ],
+    [
+      -114.4,
+      31.6,
+      7.400000000000006
+    ]
+  ],
+  "bed_z_mm": 0.0,
+  "connected_solids": 1,
+  "crop_bounds_lid_mm": [
+    [
+      -130.26805044206617,
+      -59.7606105443865,
+      0.0
+    ],
+    [
+      -21.26805044206617,
+      29.397750873597055,
+      39.029346931498935
+    ]
+  ],
+  "print_up_lid": [
+    0,
+    0,
+    1
+  ],
+  "source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz",
+  "source_sha256": "0276e21fb94a84c7a592048f6321a3b81434b7aeee162e31bcdbb79fb1372807",
+  "stl_sha256": "9230f227e2127402d94b367e03ccbdb65177e2f6932aa0df4cb276cb5a58f13e",
+  "volume_mm3": 95762.35360234843
+}

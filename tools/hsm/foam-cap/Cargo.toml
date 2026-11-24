@@ -22,3 +22,7 @@ hsm-valve-seat-numbers = { path = "../valve-seat-numbers" }
 [[bin]]
 name = "foam-cap"
 path = "../../../hardware/printed-parts/cold-core/foam-cap/foam_cap.rs"
+
+[[bin]]
+name = "pump-receiver-coupon"
+path = "../../../hardware/print-tests/pump-seated-snaps/crop.rs"

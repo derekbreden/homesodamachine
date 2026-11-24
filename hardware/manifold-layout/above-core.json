@@ -5504,7 +5504,7 @@
         83.0
       ]
     ],
-    "insertion": "The bare pump lowers into the two fixed-rail seats above a straight shallow lid recess. A filled box half-pipe with one east clearance shoulder closes over the motor, using two independent spring leaves with flat catches. The continuous receiving pockets retain 3 mm solid axial end stock.",
+    "insertion": "Lower the bare pump onto the fixed rail seats above the shallow lid recess. The cap closes over the motor. Its inclined catches draw the arch toward the barrel until the flat crests meet the floors of the side pockets.",
     "print_pose": "The cap stands on one axial end; its filled body, leaves and hooks grow as vertical walls.",
     "cap_arch_wall_mm": 6.2,
     "contact_scope": "Motor-side saddle native X16.75–77.75 and one continuous upper clip X20–74.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",

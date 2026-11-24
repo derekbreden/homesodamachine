@@ -10,8 +10,9 @@ wiring use those same frames. Front is −Y, rear is +Y and up is +Z.
 
 The enclosure body is 215 × 466.3 × 361 mm. The cold-core lid face is Z253.4.
 Back-top has a 9 mm roof and rear wall. The PSU's shallow running well retains
-7.75 mm of roof over its body. A plain pocket above the ASSE and PISCO caps
-ends at Z348.55, leaving 6.45 mm of roof and 0.5 mm above their pointed tips.
+7.75 mm of roof over its body. The ASSE and Pisco caps each close into a
+pair of catch pockets cut into the ceiling. Their stops and service
+approaches are described in the [rear equipment caps](../printed-parts/enclosure/rear-equipment-caps/README.md).
 The PSU hosts take the common M3 screws and regular inserts from
 [the fastener selection](../fasteners.rs). Its lowered ceiling well keeps the
 blind pilots beneath the roof's show skin.
@@ -56,11 +57,10 @@ cuff bends 10.289°. A short clip on the lid holds the crest of the white inlet
 tube between the discharge check and the water-in passage.
 The bare pump and V-K keep their aligned body frames.
 
-The pump cap has a 6.2 mm filled crown, one east clearance shoulder and two
-independent 2.6 mm spring leaves with 22.5 mm free lengths. Its flat catches overlap by 2.6 mm. The
-straight 49.62 mm cover channel is recessed 2.5 mm, retaining 4.9 mm of lid
-floor. The four rear snap caps use the same flat-catch section; their leaves
-have 3.2 mm of outward release travel.
+The pump cap's filled crown clears the ASSE on its east side. Two independent
+leaves engage the sloping lid catches. Their flat crests stop in the lid
+pockets. The fixed rail floors and end walls support and locate the bare pump
+beside its recessed wire-cover channel. [Pump cradle and removable cap](../printed-parts/cold-core/foam-cap/README.md#receiver-service)
 
 Viewed from behind, the left port column is X76.5 and the right is X28.8;
 rows are Z331.2, Z294.2 and Z264. TAP's bore follows the scanned inlet adapter's

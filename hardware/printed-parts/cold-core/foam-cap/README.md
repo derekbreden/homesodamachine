@@ -48,18 +48,17 @@ the lid face, leaving a 4.9 mm floor. A single fore plane clears both head lugs.
 are 3.419 mm and 3.329 mm wide.
 One continuous 54.5 mm filled box half-pipe spans native X20–74.5, with a
 6.2 mm crown and one straight east shoulder for ASSE clearance. Independent
-2.0 mm spring leaves have 1.5 mm inside root blends and 22.25 mm root-to-catch
-lengths. Their solid flat catches have 2.6 mm overlap. Nominal catch clearance
-is 0.4 mm. Ease each leaf outward through its receiver entry before withdrawing
-the cap. One 3 mm-rise planar lead-in ends at each pointed free edge above its
-continuous 1.6 mm retaining nose.
-The continuous side pockets clear the complete points by 0.5 mm and
-span X19.75–74.75; the seat leaves
-3 mm of solid axial stock at each end. The points dip into shallow pockets in the lid
-face. The east pocket's floor runs out to the axis of Reservoir A's air passage, beside
-the cradle's aft corner, and behind the cap aft to it, so its walls end square on the
-passage. The clip closes after seating the bare
-motor and prints on one axial end with a constant outside profile.
+2.0 mm spring leaves have 1.5 mm inside root blends. Each full-length hook bears on
+a matching 45° ledge. Its lead-in ends in a 0.90 mm flat crest raised 0.40 mm
+toward the lid. The straight pockets extend outboard for release. The east pocket
+opens into Reservoir A's air passage beside the aft corner.
+
+From the nominal installed position, the arch reaches the rigid motor at
+0.454 mm of downward travel. The crest stops at 0.590 mm. With the bare motor
+already resting on its rail floors, the rigid arch still has 0.168 mm of
+vertical travel to the barrel when the crests meet the pocket floors. The
+benchtop pair preserves both rail seats, end stops and the lid's print face.
+[Loaded fit and release measurements](../../../print-tests/pump-seated-snaps/parts/fit-check.json)
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 owns the bearing datums, axial stops and removable sliders.
 
@@ -166,12 +165,10 @@ Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.m
 
 ## Receiver service
 
-The G-Ganen cap has solid pointed noses and continuous spring walls. The
-receiver bases retain their complete stock without enclosed release tunnels.
-Release the exposed wings with the lid loose on the bench and the pump
-plumbing and leads dressed aside. The cap withdraws upward.
+With the lid on the bench, dress the pump plumbing and leads aside, spread the
+exposed leaves until both hooks clear their ledges and lift the cap straight up.
+The pocket floors give both raised crests room to swing out with the leaves.
 
 The [complete snap set](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/README.md)
-binds the receiver samples and insertion/removal readings. The
-approved motor cradle, fixed rail stops and cap bearing profile retain their
-fits.
+records the earlier receiver trials. The [independent pump pair](../../../print-tests/pump-seated-snaps/README.md)
+fits the complete bare pump for checking cover movement and release.

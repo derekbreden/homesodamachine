@@ -1,0 +1,153 @@
+{
+  "purpose": "Check the two continuous +0.40 mm pump crests, catch draw, actual motor and rail contact, and independent coupon against the production lid.",
+  "units": "mm unless an area, volume or angle is named.",
+  "sources": {
+    "previous_source_commit": "81af69339f",
+    "previous_lid_native_sha256": "6c1fce9a990ecf4454e6bceb77a21bc04147caeb1b5884b72d3fd4869cddca37",
+    "previous_cap_native_sha256": "4c5203b0a000f5c2cd8cdde59582c03ab366d9feb427c8d1b8c14789337f17ae",
+    "lid_native_sha256": "0276e21fb94a84c7a592048f6321a3b81434b7aeee162e31bcdbb79fb1372807",
+    "cap_native_sha256": "1668dd7f322d49d28a2d6bb2435550aae4ec12cb3c4115fd0793f1fcf3694e87",
+    "lid_stl_sha256": "02287822d9a124a563ddc265223aacf20320dabeeab0d731274977a69fcc9b2f",
+    "cap_stl_sha256": "d2824112b8c9383e8e9fab13ae6df3d2eb84d23d0aba3dd00f6e5fce9971e3cf",
+    "coupon_stl_sha256": "9230f227e2127402d94b367e03ccbdb65177e2f6932aa0df4cb276cb5a58f13e",
+    "pump_native_sha256": "ea7e209cbb8333bc91a4d151f231a1db9beb44c4c63f0f65a5eea501b53eddbc",
+    "pump_scope": "Union of the 21 installed rigid exterior bodies. The four removable rubber sliders are excluded."
+  },
+  "coupon": {
+    "production_print_footprint_mm": [
+      109.0,
+      91.36061,
+      36.02935
+    ],
+    "production_crop_to_coupon_symmetric_difference_mm3": 0.0025402,
+    "pump_to_full_lid_travel_mm": 0.303298,
+    "pump_to_coupon_travel_mm": 0.303298,
+    "rail_floor_symmetric_difference_from_previous_mm3": 0.0,
+    "complete_rail_end_stop_symmetric_difference_from_previous_mm3": [
+      0.0,
+      0.0
+    ]
+  },
+  "centered_seating": {
+    "method": "Translate in installed -Z. Find first intersection of native solids to 1e-9 mm\u00b3; cast vertical rays at the two shoulder lands and at mid-width of each swung crest. Fit the cap to the lid and the motor independently.",
+    "previous_tip_depth_from_motor_center_mm": 29.85,
+    "current_crest_depth_from_motor_center_mm": 30.25,
+    "rise_from_original_each_side_mm": [
+      0.4,
+      0.4
+    ],
+    "crest_width_mm": 0.9,
+    "crest_axial_length_mm": 54.5,
+    "previous_rigid_shoulder_stop_mm": 0.15,
+    "arch_to_nominal_motor_travel_mm": 0.454377,
+    "motor_to_rail_floors_travel_mm": 0.303298,
+    "arch_to_rail_seated_motor_travel_mm": 0.757676,
+    "crest_floor_travel_mm": 0.59,
+    "rigid_shoulder_travel_mm": 0.85,
+    "old_rigid_shoulder_to_rail_seated_motor_lost_travel_mm": 0.607676,
+    "crest_lead_over_rail_seated_motor_mm": 0.167676,
+    "remaining_lid_floor_thickness_under_crests_mm": 5.189347,
+    "roof_limited_cap_travel_measured_mm": 0.589,
+    "measured_west_east_crest_gaps_mm": [
+      0.001,
+      0.001
+    ],
+    "measured_west_east_shoulder_gaps_mm": [
+      0.261,
+      0.261
+    ],
+    "nominal_pump_motion_at_first_crest_contact_mm": 0.135623,
+    "pump_case": "From nominal, the cap reaches the motor barrel and may drive the pump toward its rail floors before its crests stop it. With the pump sitting on those floors first, the rigid cap has the stated remaining motor clearance when the crests stop it."
+  },
+  "snap_and_release": {
+    "method": "Hold the cap arch rigid. Spread each leaf outward as a root-clamped cantilever under a point load at the hook nose, continuing along the tangent beyond that point. Sample the leaf in 1.5 mm increments. Find the first collision-free spread at a center 0.001 mm shy of both pocket floors and reverse the sampled insertion path for release.",
+    "free_nominal_hook_overlap_at_nose_vertical_mm": 1.0,
+    "remaining_parallel_face_overlap_before_splay_mm": 0.411,
+    "modeled_splay_mm_at_hook_nose_each_side": 0.487423,
+    "modeled_tip_outward_motion_mm_each_side": 0.817047,
+    "horizontal_original_reach_mm": 2.6,
+    "closed_hook_engagement_after_splay_mm": 2.112577,
+    "seated_overlap_with_lid_mm3": 0.0,
+    "seated_overlap_with_rail_seated_pump_mm3": 0.0,
+    "pull_up_0_25_at_seated_spread_overlap_mm3": 48.72827275,
+    "release_spread_at_nose_mm_each_side": 2.8,
+    "crest_outward_travel_at_release_mm": 4.693525,
+    "release_clearance_to_pocket_edge_mm": 0.306475,
+    "approach_waypoints_travel_and_splay_mm": [
+      [
+        -33.0,
+        0.0
+      ],
+      [
+        -27.0,
+        0.0
+      ],
+      [
+        -25.5,
+        0.5
+      ],
+      [
+        -23.0,
+        1.7
+      ],
+      [
+        -21.0,
+        2.75
+      ],
+      [
+        -20.0,
+        2.8
+      ],
+      [
+        0.589,
+        2.8
+      ],
+      [
+        0.589,
+        0.487423
+      ]
+    ],
+    "sampled_poses": 245,
+    "maximum_fixture_overlap_in_path_mm3": 0,
+    "maximum_pump_overlap_in_path_mm3": 0
+  },
+  "centered_roll": [
+    {
+      "roll_deg": -0.5,
+      "receiver_overlap_mm3": 26.86077902,
+      "crest_penetration_into_floor_mm3": 17.1645913
+    },
+    {
+      "roll_deg": -0.2,
+      "receiver_overlap_mm3": 8.0913725,
+      "crest_penetration_into_floor_mm3": 6.50013079
+    },
+    {
+      "roll_deg": -0.1,
+      "receiver_overlap_mm3": 3.60434286,
+      "crest_penetration_into_floor_mm3": 3.16892271
+    },
+    {
+      "roll_deg": 0,
+      "receiver_overlap_mm3": 0.0,
+      "crest_penetration_into_floor_mm3": 0.0
+    },
+    {
+      "roll_deg": 0.1,
+      "receiver_overlap_mm3": 3.60434291,
+      "crest_penetration_into_floor_mm3": 3.16892271
+    },
+    {
+      "roll_deg": 0.2,
+      "receiver_overlap_mm3": 8.09137259,
+      "crest_penetration_into_floor_mm3": 6.50013079
+    },
+    {
+      "roll_deg": 0.5,
+      "receiver_overlap_mm3": 26.86077915,
+      "crest_penetration_into_floor_mm3": 17.1645913
+    }
+  ],
+  "four_bar_reference": "hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+  "scope": "The centered reference position, ray gaps, overlap and loaded spring shape describe rigid geometry with approximate elastic splay. The body's as-printed play, spring force, tool release effort and running-pump vibration need bench observation."
+}
