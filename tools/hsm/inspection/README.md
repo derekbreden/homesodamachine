@@ -40,6 +40,13 @@ The bridge itself can be the defect someone saw on screen. A feature lost at tha
 scale may also be too small to print. Compare the exports at the pick to locate the
 difference. The physical print establishes what was made.
 
+## Annotations in the model and slice
+
+The [enclosure source](../../../hardware/printed-parts/enclosure/enclosure/quadrants/display.rs)
+names the status LED lead channel so the viewer can highlight the cut.
+In emitted G-code, `; FEATURE:` tells [slice review](../print-prep/src/review.rs)
+which moves belong to a wall.
+
 ## Saved printer commands
 
 [`tools/gcode`](../../gcode/README.md) documents the seam, speed and HTML view commands.

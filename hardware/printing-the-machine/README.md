@@ -14,7 +14,7 @@ not a rule for another. Start with [Before any filament](#before-any-filament) a
 | Cut a relief, pocket or opening near a roof | [A bridge needs two landings](06-a-bridge-needs-two-landings.html) |
 | Decide what holds an overhang up | [Every course lands on something](05-every-course-lands-on-something.html) |
 | Choose how to support a back-top catch or leave room for a cover to swing in | [Stopped shell and current receivers](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=stopped-shell) · [Assembled corner and current seats](https://homesodamachine.com/parts#material:HSM-0081?view=bench&case=assembled-corner) · [Photographs, observations and landmarks](cases/enclosure-back-top.json) |
-| Compare two fits, or change a height by less than a layer | [Height moves one layer at a time](07-height-moves-one-layer-at-a-time.html) · [A coupon has to print like the part](08-a-coupon-has-to-print-like-the-part.html) |
+| Compare two fits, or change a height by less than a layer | [Comparing fits](#comparing-fits) |
 | Run a trial of any kind | [Change one thing](09-change-one-thing.html) |
 | Carry a setting from one plastic to another | [The same question, a different answer](10-the-same-question-a-different-answer.html) |
 | Prepare a PET-GF part | [PET-GF: one file holds the recipe](12-petgf-one-file-holds-the-recipe.html) · [PET-GF: a first-layer trim does not travel](13-petgf-a-trim-does-not-travel.html) · [PET-GF: fan only where the plastic is over air](15-petgf-fan-only-over-air.html) |
@@ -30,6 +30,13 @@ not a rule for another. Start with [Before any filament](#before-any-filament) a
 | Load a printer or choose a nozzle | [The H2C: each plastic has its side, plate and feed](52-each-plastic-has-its-side-plate-and-feed.html) |
 | Send a job | [The H2C: a send is proven only by a new job number](55-a-send-is-proven-only-by-a-new-job-number.html) · [The H2C: start the second printer three minutes after the first](54-start-the-second-printer-three-minutes-after-the-first.html) |
 | Diagnose an overload message | [The H2C: one overload message, three causes](56-one-message-three-causes.html) |
+
+## Comparing fits
+
+Keep the production orientation, first layer and layer schedule. Report the
+opening the slice emits. Change the layer schedule in its own trial.
+A coupon’s support-removal result applies where the full part offers the same access.
+[Height moves one layer at a time](07-height-moves-one-layer-at-a-time.html) · [A coupon has to print like the part](08-a-coupon-has-to-print-like-the-part.html)
 
 ## The owning files
 

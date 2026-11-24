@@ -283,6 +283,9 @@ power restoration. Electrical load and the exact trip time were not measured.
 
 ## Print submission
 
+Before a send or resume, check [printer readiness](#what-ready-looks-like-from-software),
+[work allocation](#work-allocation) and [shared-circuit startup spacing](#shared-circuit-startup-spacing).
+
 Bambu Connect is installed at `/Applications/Bambu Connect.app`, signed in to the account
 holding both printers. Its application identifier is `com.bambulab.bambu-connect`.
 

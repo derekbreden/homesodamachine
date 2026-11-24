@@ -1,47 +1,38 @@
 # Home Soda Machine
 
-The [README](README.md) maps the machine, the product plans and the market.
-Read the `AGENTS.md` files along the directory path to your work. Follow the
-guide for the task wherever it comes up, including in chat.
+The [README](README.md) maps the project. Read `AGENTS.md` along the path to your work.
+Follow the applicable guide anywhere, including in chat.
 
-- [Parts, sourcing, drawings and print trials](hardware/AGENTS.md)
-- [Builds, scratch files and chat visuals](tools/AGENTS.md)
-- [Writing or editing code and documentation](calibration/editing.md)
+- [Editing code or documentation](calibration/editing.md)
+- [Hardware, purchases, drawings and printing](hardware/AGENTS.md)
+- [Print builds, scratch files, timing and chat visuals](tools/AGENTS.md)
 
-Keep instructions at the narrowest scope that needs them. Link to the procedure
-or evidence that holds the details.
+Keep instructions at the narrowest scope that needs them. Link to the procedure or evidence.
 
 ## What Counts
 
-What Derek sees on the website and what he prints are the measure of the work.
-The machine is the same when the site shows the same things and the same solids
-print within the kernel's rule. Keep fabrication order files generatable on demand.
-An output, check, report or costly site detail that serves none of these can go.
+Judge the work by what Derek sees on the site and what he prints. For build changes,
+follow the [output and fabrication rules](tools/hsm/print-build/README.md#what-the-build-preserves).
 
 ## Speed
 
-Minimize the time from Derek's request to the first relevant source-authored change
-visible on the site. Publish completed parts while other parts and focused review
-continue. Tell Derek what he can see, what geometry is checked and what is ready to print.
+Minimize the time from request to first relevant source-authored change visible on the site.
+[Publish completed parts](tools/hsm/print-build/README.md#publishing-a-changed-part) while other work continues.
 
 ## What Runs Every Time
 
-Add work to every edit, commit or build only when Derek asks for that specific thing.
-Run a check when someone asks the question it answers. In your own loop, check
-what the change touched once. The cost of a recurring check is enough reason to remove it.
+Add recurring work to edits, commits or builds only when Derek asks for it specifically.
+Its cost alone justifies removal. Run checks when someone asks the question they answer.
+Check what your change touched once.
 
 ## Shared checkout
 
-Use `/Users/derekbredensteiner/Developer/homesodamachine` on `main` for all work
-on this Mac. Keep it current with `origin/main`. Coordinate overlapping edits with
-the other session and integrate both changes. Stage new files, commit only your
-session's paths with `git commit -- <paths>`, and push directly to `main` without
-asking for confirmation. Follow the [commit message and setting provenance rules](tools/hsm/git-tools/README.md#commit-messages).
+Work in `/Users/derekbredensteiner/Developer/homesodamachine` on `main`, current with `origin/main`.
+Coordinate overlapping edits. [Commit only your paths and push directly to main](tools/hsm/git-tools/README.md#working-on-main).
 Use [`tools/run`](tools/hsm/run-slots/README.md) for Cargo, slicing and rendering.
 
 ## Working with Derek
 
-Look in the repo before asking Derek for information. Use only this Mac when
-you need his Chrome.
+Look in the repo before asking Derek. Use only this Mac for his Chrome.
 
 If there is a broader interpretation of my request that you could take, more you could do for me here, please offer to do that for me at the end.

@@ -16,3 +16,12 @@ The [website contract](../../web/contracts/README.md) describes where those mark
 Archive completed and retired trials in Git with their physical evidence, then remove
 their working-tree copies. When current instructions rely on a past observation,
 link to the archived file at its Git SHA.
+
+## Evidence for a fit claim
+
+- **Did the print fit in hand?** When Derek says it fits well enough, record what
+  he tried and his exact words in [the fitted record](fitted.json).
+- **What clearance does the model show?** Measure the named parts or features in
+  the current export with [`hsm gap`](../../tools/hsm/README.md#geometry) when asked.
+- **Why was a dimension chosen?** Record the reason and its evidence in the commit
+  that sets it. Follow the setting’s line back with [`git why`](../../tools/hsm/git-tools/README.md#following-a-line-past-a-rewrite).

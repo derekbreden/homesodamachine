@@ -43,6 +43,15 @@ destroyed is a part that comes out by being destroyed.
 
 **Access for hands or tools after assembly.** A fitting buried behind three bodies is buried.
 
+## Printed part shape
+
+A part for one job must hold together as a single solid. Prefer broad continuous
+faces. Extend a pocket flush to the adjacent wall, including when one level floor
+can replace several small pockets.
+Add a curve, step or recess only for a named fit, bearing, drainage or access
+requirement. Choose fewer edges first, then thicker stock. Leave stock in place
+when removing it would only save material.
+
 ## What follows for placement
 
 - **Design a tube's complete path and its supports together.** Intermediate waypoints are
