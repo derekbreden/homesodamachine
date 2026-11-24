@@ -1,7 +1,7 @@
 {
-  "purpose": "Measure both 0.40 mm roof-bearing crests on each production rear cover and test their receivers with the equipment installed.",
+  "purpose": "Measure the two flat crests on each production rear cover against the receiver and the installed hardware.",
   "back_top_stl_sha256": "c8b0f3d18d5cf0678c9a7689ecb6b72f3913b5535e3b2742271f277cf3ded226",
-  "installed_covers_mesh_sha256": "cd0e09429883921d21ea5269bb83bfc79c7b0257c3ac2755eb3e559ede23b80b",
+  "installed_covers_mesh_sha256": "9cda94c98bf270ad1f0d82a02f27613f881dde3c20f2569f78a968af9d2b3a36",
   "pointed_reference_commit": "55bdc1dcbf",
   "pointed_profile_measurements": "https://github.com/derekbreden/homesodamachine/blob/81af69339f6a91c032c34e3389a2f0d2464abeed/hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
   "four_bar_bench": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json",
@@ -134,7 +134,7 @@
       }
     },
     "meter": {
-      "stl_sha256": "65cccb35667f7d375a63df4e6a77af0d00f88cfccdfb974fa73083b6ee6a7084",
+      "stl_sha256": "ef6026fd1c4b02726cfc414782e203711869e80477d1a5591e9d9b6eac2a93a2",
       "pointed_stl_sha256": "f45512624ea3c12eea103247c0574083386a94f000ec4d7ff547b39114fe424d",
       "connected_solids": 1,
       "closing_axis": "+X",
@@ -144,10 +144,10 @@
       ],
       "old_point_mm": 98.0,
       "new_crests_mm": [
-        98.4,
-        98.4
+        98.2,
+        98.2
       ],
-      "rise_mm_each": 0.4,
+      "rise_mm_each": 0.2,
       "crest_widths_mm": [
         0.9,
         0.9
@@ -160,12 +160,12 @@
         98.5,
         98.5
       ],
-      "centered_travel_to_stop_mm": 0.1,
+      "centered_travel_to_stop_mm": 0.3,
       "free_hook_overlap_mm": 0.55,
-      "residual_catch_overlap_before_flex_mm": 0.45,
+      "residual_catch_overlap_before_flex_mm": 0.25,
       "flexed_hook_engagement_past_lip_mm": [
-        2.071,
-        2.071
+        2.301,
+        2.301
       ],
       "cap_to_stationary_hardware_mm": 0.15,
       "housing_to_far_seat_mm": 0.15,
@@ -181,17 +181,17 @@
         "digiten-flow/11",
         "digiten-flow/12"
       ],
-      "hardware_far_seat_travel_remaining_at_stop_mm": 0.2,
-      "centered_hardware_displacement_mm": 0.0,
-      "outward_crest_deflection_mm": 0.844,
+      "hardware_far_seat_travel_remaining_at_stop_mm": 0.0,
+      "centered_hardware_displacement_mm": 0.149,
+      "outward_crest_deflection_mm": 0.472,
       "centered_receiver_overlap_mm3": 0.0,
       "fixed_center_roll_deg": [
         -0.1,
         0.1
       ],
       "fixed_center_roll_receiver_overlap_mm3": [
-        1.7931,
-        1.1945
+        1.8876,
+        1.3896
       ],
       "modeled_entry_and_reverse_release": {
         "sampled_poses": 104,
@@ -199,7 +199,38 @@
         "outward_crest_splay_mm": 6.2,
         "maximum_receiver_overlap_mm3": 0.0,
         "maximum_hardware_overlap_mm3": 0.0
-      }
+      },
+      "installed_solid_comparison": {
+        "method": "Boolean differences of closed solids decoded from the two published installed meter meshes in the same machine coordinates.",
+        "previous_meter_mesh_sha256": "391ba1eaadb033562c51f376b657645e5480dfea53ba89fc99f87e166ddf8557",
+        "current_meter_mesh_sha256": "2c55b08ac7e2b8a2cc37234fcda407b96752089a13d46f2b44f3e376c2a413d1",
+        "added_mm3": 0.0,
+        "removed_mm3": 35.60312
+      },
+      "wall_measurement": {
+        "method": "Cast rays from the lower and upper crest flats along installed +X into enclosure-back-top. The opposite hardware travel follows the unchanged captured housing profile.",
+        "origins_mm": [
+          [
+            98.2,
+            405.0,
+            258.6
+          ],
+          [
+            98.2,
+            405.0,
+            312.0
+          ]
+        ],
+        "wall_x_mm": [
+          98.5,
+          98.5
+        ],
+        "clearances_mm": [
+          0.3,
+          0.3
+        ]
+      },
+      "single_cover_toolpaths": "prints/2026-11-24-meter-020-mark2/crest-paths.json"
     },
     "regulator": {
       "stl_sha256": "76491433b0bb93d9c78ef6a52dbf8bf070b002084b564e74fcb103b92cc151e2",
@@ -264,7 +295,7 @@
       }
     }
   },
-  "scope": "These are centered mesh measurements with a clamped cantilever deflection. Plumbing can hold the hardware at another point in its travel. Bench evidence for the four-bar cover is limited to Pisco in the original corner. The individual pairs provide the other three hand fits.",
+  "scope": "Closure and hardware travel use nominal centered geometry. The loaded flex and roll figures are simulations for the specified covers. Plumbing can hold the hardware elsewhere within its travel. The four-bar Pisco was tested in the original corner.",
   "meter_wire_chamber_section": {
     "method": "Vertical rays at Y406 on the earlier rear-corner STL and the production receiver. Follow the two bevels on either side of the open cable passage where they meet its Z263.50 floor.",
     "retaining_nose_limit_x_mm": 90.8,

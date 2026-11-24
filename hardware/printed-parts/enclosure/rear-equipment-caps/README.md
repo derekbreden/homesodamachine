@@ -63,8 +63,9 @@ reports tight hardware fits, with the ASSE body seating as the exception. The
 [ASSE body cap](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/README.md) carries its local seating allowance.
 Each rear cap has two 2.0 mm spring leaves, a 1.5 mm inside root radius
 and solid 45° retaining faces. Root-to-catch length is 22.25 mm on the ASSE,
-Pisco and meter, and 21.25 mm on the water regulator. Both leaves end in the
-four-bar Pisco’s 0.90 mm-wide flat, raised 0.40 mm beyond the original point.
+Pisco and meter, and 21.25 mm on the water regulator. Both leaves end in a
+0.90 mm-wide flat. It extends 0.20 mm beyond the original point on the flow
+meter and 0.40 mm on the ASSE, Pisco and water regulator.
 The inclined hooks draw the cover toward its hardware until the crests reach
 the fixed receiver. The meter closes against the east wall. The other three
 close upward against the pocket roofs.
@@ -73,14 +74,16 @@ close upward against the pocket roofs.
 | --- | ---: | ---: | ---: | ---: |
 | ASSE | 0.23 mm | 0.68 mm | 0.147 mm | 0.250 mm |
 | Pisco | 0.10 mm | 0.55 mm | 0.147 mm | 0.121 mm |
-| Flow meter | 0.10 mm | 0.55 mm | 0.150 mm | 0.150 mm |
+| Flow meter | 0.30 mm | 0.55 mm | 0.150 mm | 0.150 mm |
 | Water regulator | 0.33 mm | 0.78 mm | 0.248 mm | 0.251 mm |
 
-The modeled stop leaves 0.45 mm of inclined-face overlap for the springs to
-take up at every station. In that centered position the ASSE inlet coupling
-and water regulator have begun moving toward their far seats. The Pisco and
-meter crests reach the fixed wall first. Plumbing and gravity can shift each
-piece of hardware within its seat. [Production mesh readings](production-fit.json) · [Crest roads on the two production-orientation plates](crest-paths.json)
+At the modeled stop the flow-meter springs take up 0.25 mm of inclined-face
+overlap. With the meter centered, its housing reaches its far seat at the
+same travel that brings the crests to the east wall. On the other three caps
+the overlap at the stop is 0.45 mm. The ASSE inlet coupling and water
+regulator have begun moving toward their far seats when the crests touch.
+The Pisco crests reach the roof first. Plumbing and gravity can shift each
+piece of hardware within its seat. [Production mesh readings](production-fit.json) · [Paired-plate toolpaths](crest-paths.json) · [Single flow-meter cover toolpaths](prints/2026-11-24-meter-020-mark2/crest-paths.json)
 
 The ASSE and Pisco seats have plain end walls around the fitted passages.
 The ASSE and water pockets extend outboard to admit the crests when the hooks

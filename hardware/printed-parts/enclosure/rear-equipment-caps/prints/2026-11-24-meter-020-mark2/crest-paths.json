@@ -1,0 +1,44 @@
+{
+  "archive_sha256": "976d3e80ef8a98bb74c88737969f3e9c24ca6de2ecbceae81a7250cc6d5bf82e",
+  "gcode_sha256": "e171e9bb714f95489ae0a89cf59653839e221a7deb023fa492b1f1336e57fa97",
+  "object": "meter-snap-cap",
+  "method": "Read every interior layer from 0.68 mm to 0.36 mm before each wing end. At the flat, add half the outer-wall extrusion width to the straight nozzle path and transform that edge into the installed frame. Compare with the east wall on the previously printed Mark2 receiver.",
+  "receiver_paths": "../../crest-paths.json",
+  "wings": {
+    "lower": {
+      "interior_layers": 155,
+      "layer_heights_mm": [
+        0.68,
+        37.64
+      ],
+      "straight_outer_wall_centerline_length_mm": [
+        0.587,
+        0.587
+      ],
+      "extrusion_width_mm": 0.42,
+      "installed_nominal_bead_edge_x_mm": 98.2,
+      "maximum_nominal_bead_edge_error_mm": 0.0,
+      "clearance_to_previous_receiver_toolpath_mm": 0.3002
+    },
+    "upper": {
+      "interior_layers": 85,
+      "layer_heights_mm": [
+        0.68,
+        20.84
+      ],
+      "straight_outer_wall_centerline_length_mm": [
+        0.587,
+        0.587
+      ],
+      "extrusion_width_mm": 0.42,
+      "installed_nominal_bead_edge_x_mm": 98.2,
+      "maximum_nominal_bead_edge_error_mm": 0.0,
+      "clearance_to_previous_receiver_toolpath_mm": 0.3002
+    }
+  },
+  "cooling": {
+    "method": "Sum XY lengths of positive-extrusion G1 moves inside native wipe-tower blocks divided by their modal feed. Travel and camera parking add time.",
+    "tower_layers": 159,
+    "minimum_tower_extrusion_seconds_per_layer": 23.692
+  }
+}
