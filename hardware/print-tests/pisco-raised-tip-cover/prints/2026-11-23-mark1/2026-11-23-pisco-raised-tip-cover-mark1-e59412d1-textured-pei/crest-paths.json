@@ -1,0 +1,19 @@
+{
+  "purpose": "Verify the full-width crest road on both springs and the cooling tower on the single-cover plate.",
+  "gcode_sha256": "955ca03c8880130f8945363bf452ca71b923bc288afa6928164d4921ecafa47b",
+  "archive_sha256": "a590e0df2be10c4275ee2c50221d26521232b1f848ddc089d1b7b5e35580a301",
+  "projection": "Transform each outer-wall line from plate coordinates to the installed wing profile. Report the highest path centerline plus half the outer-wall width. The straight length is measured at that height on each wing.",
+  "interior_layer_count_checked_on_both_wings": 151,
+  "laid_perimeter_width_mm": 0.42,
+  "linear_roof_bearing_paths_mm": [
+    0.579,
+    0.579
+  ],
+  "unloaded_nominal_bead_edges_z_mm": [
+    351.2503,
+    351.2503
+  ],
+  "tower_deposition_layers": 174,
+  "min_commanded_tower_deposition_seconds": 23.919,
+  "tower_timing_scope": "Sum line lengths divided by command feed while depositing tower material. Travel, shutter and acceleration add time away from the part."
+}

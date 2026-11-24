@@ -23,10 +23,6 @@ name = "pisco-access-study"
 path = "../../../hardware/printed-parts/enclosure/rear-equipment-caps/pisco_access_study.rs"
 
 [[bin]]
-name = "pisco-roof-collars"
-path = "../../../hardware/print-tests/rear-receiver-quick/pisco.rs"
-
-[[bin]]
 name = "pisco-meter-lip-quick"
 path = "../../../hardware/print-tests/rear-receiver-quick/meter.rs"
 

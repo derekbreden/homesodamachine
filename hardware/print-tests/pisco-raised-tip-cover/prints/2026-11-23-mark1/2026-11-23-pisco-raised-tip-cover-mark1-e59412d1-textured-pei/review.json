@@ -1,0 +1,66 @@
+{
+  "archive": "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei.gcode.3mf",
+  "archive_sha256": "a590e0df2be10c4275ee2c50221d26521232b1f848ddc089d1b7b5e35580a301",
+  "bead_envelope_plate_mm": [
+    [
+      133.54182999999998,
+      116.54183
+    ],
+    [
+      190.45817000000002,
+      199.49902699999998
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 120.50097300000002,
+    "front": 116.54183,
+    "left": 133.54182999999998,
+    "right": 134.54182999999998
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9210517386087992,
+      "second_layer_centerline_outside_first_mm": 5.527763649546427,
+      "second_layer_model_bead_area_mm2": 447.23957512188815
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 174,
+  "minimum_bed_margin_mm": 116.54183,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

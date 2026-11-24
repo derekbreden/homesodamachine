@@ -1,37 +1,32 @@
 {
   "coordinate_frame": {
     "plate_to_cad_transform": [
-      1.0,
       0.0,
-      0.0,
-      0.0,
-      1.0,
-      0.0,
-      0.0,
+      -1.0,
       0.0,
       1.0,
-      -203.311231613,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
       -185.0,
-      0.0
-    ],
-    "plate_to_cad_translation_mm": [
-      -203.311232,
-      -185.0,
+      162.5,
       0.0
     ]
   },
   "first_layer_z_mm": 0.2,
   "inputs": {
-    "gcode": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.gcode.3mf plate_1.gcode, object 1903",
-    "gcode_sha256": "bce89718763006246150c296d416d92dc9cdb8db7388f8b62c8e80cb445195d6",
-    "model": "hardware/print-tests/rear-receiver-quick/parts/pisco-common-rear.stl",
-    "model_sha256": "a0a97f2e0e60d65d98d227307aceadc47f1cea9741a39367371f4615e48f95d8",
-    "profile": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.3mf",
-    "profile_sha256": "91b6ed9b5a35f39711b6f26c8b9062ffa5f65457a9dd9b27b0f37af149d6f9a6"
+    "gcode": "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "6d9c9060208c9c7fcebf29f77c5834d9c1f10da3f5c3f4268596af89879c074b",
+    "model": "hardware/print-tests/pisco-raised-tip-cover/parts/pisco-raised-tip-cover-040.stl",
+    "model_sha256": "c44fe9511ac2a2650fb72ca57424b7489514d4bbd1d300e2b14bdb6ccae9eabe",
+    "profile": "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei.3mf",
+    "profile_sha256": "a4d91281028a01efc5969dc322f28b58d7c73152b2723a3dffcef4730a7bfaec"
   },
   "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
   "interfaces": [],
-  "piece": "pisco-common-rear",
+  "piece": "pisco-raised-tip-cover-040",
   "schema": 1,
   "slicer": "BambuStudio 02.08.02.61",
   "slicer_settings": {

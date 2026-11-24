@@ -1,0 +1,32 @@
+[
+  {
+    "printer": "H2C",
+    "job_id": "1479934717",
+    "observed_at": "2026-11-24T03:07:40+00:00",
+    "subtask_name": "2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "hms": [],
+    "print_error": 0,
+    "layer_num": 0,
+    "total_layer_num": 174,
+    "external_spool": {
+      "colour": "000000FF",
+      "type": "PET-CF"
+    }
+  },
+  {
+    "printer": "Mark2",
+    "job_id": "1479709921",
+    "observed_at": "2026-11-24T03:07:41+00:00",
+    "subtask_name": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf",
+    "gcode_state": "FINISH",
+    "hms": [],
+    "print_error": 0,
+    "layer_num": 86,
+    "total_layer_num": 86,
+    "external_spool": {
+      "colour": "161616FF",
+      "type": "PET-CF"
+    }
+  }
+]

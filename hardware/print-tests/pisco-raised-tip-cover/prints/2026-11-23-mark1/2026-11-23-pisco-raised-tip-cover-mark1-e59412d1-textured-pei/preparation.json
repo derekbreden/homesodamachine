@@ -1,24 +1,24 @@
 {
-  "archive": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.gcode.3mf",
-  "archive_sha256": "3aa3d66c82a052666af04a9a0c5f5faa6461532505a340fe7fb1cb4f8698fb32",
+  "archive": "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei.gcode.3mf",
+  "archive_sha256": "a590e0df2be10c4275ee2c50221d26521232b1f848ddc089d1b7b5e35580a301",
   "bed_type": "Textured PEI Plate",
   "brim_allowance_mm": 0.0,
   "connection_key": "H2C",
   "cooling_recovery": {
-    "added_commanded_motion_seconds": 4.458659163828222,
-    "archive_sha256": "3aa3d66c82a052666af04a9a0c5f5faa6461532505a340fe7fb1cb4f8698fb32",
+    "added_commanded_motion_seconds": 9.701114205802472,
+    "archive_sha256": "a590e0df2be10c4275ee2c50221d26521232b1f848ddc089d1b7b5e35580a301",
     "changed": true,
     "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
-    "input_archive_sha256": "7cfba50d5147153e2098198d4188998606c0bb592ca12f5903a66f89e54ee9fa",
+    "input_archive_sha256": "025d53eb995638bcdd7f5856709679518fec162e33ebdb5f74d1c1506a8d7f4c",
     "members": [
       {
-        "added_commanded_motion_seconds": 4.458659163828222,
+        "added_commanded_motion_seconds": 9.701114205802472,
         "changed": true,
-        "input_gcode_sha256": "26fa0c24d8817fa2858ae199f9ef0cae6d2aedaa676488c8f20e320bb43f950e",
+        "input_gcode_sha256": "5535dad841d8d349f4d068c7aa97826904d9ce19e857e7da70a4f972b7cff18e",
         "member": "Metadata/plate_1.gcode",
-        "native_cooled_seed_moves": 33,
-        "ordinary_model_moves": 49540,
-        "output_gcode_sha256": "bce89718763006246150c296d416d92dc9cdb8db7388f8b62c8e80cb445195d6",
+        "native_cooled_seed_moves": 74,
+        "ordinary_model_moves": 55483,
+        "output_gcode_sha256": "955ca03c8880130f8945363bf452ca71b923bc288afa6928164d4921ecafa47b",
         "petgf_slots": [
           0
         ],
@@ -28,33 +28,33 @@
         },
         "recovery_by_feature": {
           "Inner wall": [
-            64.0,
-            36.67066049812273,
-            2.2498694432353723
+            148.0,
+            84.465902008655,
+            5.182269676716474
           ],
           "Outer wall": [
-            66.0,
-            36.57626200644038,
-            2.2087897205928493
+            144.0,
+            78.38532122633036,
+            4.518844529085991
           ]
         },
         "recovery_fan_percent": [
           "70"
         ],
-        "recovery_moves": 130,
+        "recovery_moves": 292,
         "recovery_speed_limit_mm_s": [
           "15",
           "15",
           "15"
         ],
         "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
-        "speed_limited_moves": 130
+        "speed_limited_moves": 292
       }
     ]
   },
   "emitted_textured_trim_mm": 0.08,
-  "estimated_seconds": 3051.307047835703,
-  "gcode_sha256": "bce89718763006246150c296d416d92dc9cdb8db7388f8b62c8e80cb445195d6",
+  "estimated_seconds": 6593.604922799553,
+  "gcode_sha256": "955ca03c8880130f8945363bf452ca71b923bc288afa6928164d4921ecafa47b",
   "material": "Polymaker Fiberon PET-GF15, black",
   "nozzle": {
     "diameter_mm": 0.4,
@@ -69,13 +69,13 @@
     {
       "build_rotation": [
         [
-          1.0,
           0.0,
+          -1.0,
           0.0
         ],
         [
-          0.0,
           1.0,
+          0.0,
           0.0
         ],
         [
@@ -88,17 +88,17 @@
         "bodies": 1,
         "boundary_edges": 0,
         "closed_oriented_single_body": true,
-        "edges": 3351,
+        "edges": 5328,
         "inconsistent_edges": 0,
         "nonmanifold_edges": 0
       },
-      "facets": 2234,
+      "facets": 3552,
       "features": [],
       "fins": [],
       "identify_id": 1901,
-      "model_bed_margin_mm": 117.96129989624023,
+      "model_bed_margin_mm": 120.59438419342041,
       "modifiers": [],
-      "name": "pisco-front-control",
+      "name": "pisco-raised-tip-cover",
       "object_id": 2,
       "object_settings": {
         "overhang_1_4_speed": {
@@ -124,14 +124,14 @@
       },
       "plate_bounds_mm": [
         [
-          148.0943841934204,
-          167.96129989624023,
+          145.3612995147705,
+          170.5943841934204,
           0.0
         ],
         [
-          176.9056158065796,
-          202.03870010375977,
-          12.0
+          179.6387004852295,
+          199.4056158065796,
+          41.70428466796875
         ]
       ],
       "pose": null,
@@ -158,235 +158,23 @@
       "source_center_mm": [
         0.0,
         0.0,
-        6.0
+        20.852142333984375
       ],
       "step_sha256": null,
-      "stl": "hardware/print-tests/rear-receiver-quick/parts/pisco-front-control.stl",
-      "stl_sha256": "6a3f45cc040c3a1c3ea3efe488969a2ab915a9b81b8db731b04fdc0c7c26b0d5",
+      "stl": "hardware/print-tests/pisco-raised-tip-cover/parts/pisco-raised-tip-cover.stl",
+      "stl_sha256": "1382d98655a89e473cead9bb7efae0ae49870c79ba8582e7fa0b878bb8f63995",
       "support_free_regions": [],
       "translation_mm": [
         162.5,
         185.0,
-        6.0
+        20.852142333984375
       ],
       "verify_spans": [],
-      "yaw_degrees": 0.0
-    },
-    {
-      "build_rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "closed": {
-        "bodies": 1,
-        "boundary_edges": 0,
-        "closed_oriented_single_body": true,
-        "edges": 3411,
-        "inconsistent_edges": 0,
-        "nonmanifold_edges": 0
-      },
-      "facets": 2274,
-      "features": [],
-      "fins": [],
-      "identify_id": 1902,
-      "model_bed_margin_mm": 107.28315258026123,
-      "modifiers": [],
-      "name": "pisco-front-roof",
-      "object_id": 4,
-      "object_settings": {
-        "overhang_1_4_speed": {
-          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
-          "value": "0,0,0,0,0"
-        },
-        "overhang_2_4_speed": {
-          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
-          "value": "0,0,0,0,0"
-        },
-        "sparse_infill_density": {
-          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
-          "value": "100%"
-        },
-        "sparse_infill_pattern": {
-          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
-          "value": "zig-zag"
-        },
-        "wall_loops": {
-          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
-          "value": "3"
-        }
-      },
-      "plate_bounds_mm": [
-        [
-          107.28315258026123,
-          167.8612995147705,
-          0.0
-        ],
-        [
-          136.0943841934204,
-          202.1387004852295,
-          12.0
-        ]
-      ],
-      "pose": null,
-      "pose_rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "ranges": [],
-      "ribbons": [],
-      "seam_enforcer": null,
-      "source_center_mm": [
-        0.0,
-        0.0,
-        6.0
-      ],
-      "step_sha256": null,
-      "stl": "hardware/print-tests/rear-receiver-quick/parts/pisco-front-roof.stl",
-      "stl_sha256": "12647a2c66ed67fb40a2d3b9cdc7a12a4dcfd434d35eaaa400c9c3c97f941b96",
-      "support_free_regions": [],
-      "translation_mm": [
-        121.68876838684082,
-        185.0,
-        6.0
-      ],
-      "verify_spans": [],
-      "yaw_degrees": 0.0
-    },
-    {
-      "build_rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "closed": {
-        "bodies": 1,
-        "boundary_edges": 0,
-        "closed_oriented_single_body": true,
-        "edges": 1692,
-        "inconsistent_edges": 0,
-        "nonmanifold_edges": 0
-      },
-      "facets": 1128,
-      "features": [],
-      "fins": [],
-      "identify_id": 1903,
-      "model_bed_margin_mm": 107.28315258026123,
-      "modifiers": [],
-      "name": "pisco-common-rear",
-      "object_id": 6,
-      "object_settings": {
-        "overhang_1_4_speed": {
-          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
-          "value": "0,0,0,0,0"
-        },
-        "overhang_2_4_speed": {
-          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
-          "value": "0,0,0,0,0"
-        },
-        "sparse_infill_density": {
-          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
-          "value": "100%"
-        },
-        "sparse_infill_pattern": {
-          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
-          "value": "zig-zag"
-        },
-        "wall_loops": {
-          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
-          "value": "3"
-        }
-      },
-      "plate_bounds_mm": [
-        [
-          188.9056158065796,
-          167.96129989624023,
-          0.0
-        ],
-        [
-          217.71684741973877,
-          202.03870010375977,
-          12.0
-        ]
-      ],
-      "pose": null,
-      "pose_rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "ranges": [],
-      "ribbons": [],
-      "seam_enforcer": null,
-      "source_center_mm": [
-        0.0,
-        0.0,
-        6.0
-      ],
-      "step_sha256": null,
-      "stl": "hardware/print-tests/rear-receiver-quick/parts/pisco-common-rear.stl",
-      "stl_sha256": "a0a97f2e0e60d65d98d227307aceadc47f1cea9741a39367371f4615e48f95d8",
-      "support_free_regions": [],
-      "translation_mm": [
-        203.31123161315918,
-        185.0,
-        6.0
-      ],
-      "verify_spans": [],
-      "yaw_degrees": 0.0
+      "yaw_degrees": 90.0
     }
   ],
   "pause": null,
-  "piece": "pisco-quick-roof",
+  "piece": "pisco-raised-tip-cover",
   "plate_border_mm": 80.0,
   "plate_offset_mm": {
     "reason": "Center the combined cap and tower envelope with separate brim footprints.",
@@ -395,7 +183,7 @@
       25
     ]
   },
-  "prepared_utc": "2026-11-24T01:21:26+00:00",
+  "prepared_utc": "2026-11-24T03:00:21+00:00",
   "printer": "Mark1",
   "profile": "hardware/printed-parts/petgf.profile.json",
   "profile_changes": {
@@ -424,8 +212,8 @@
     }
   },
   "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
-  "project": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.3mf",
-  "project_sha256": "91b6ed9b5a35f39711b6f26c8b9062ffa5f65457a9dd9b27b0f37af149d6f9a6",
+  "project": "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei.3mf",
+  "project_sha256": "9474331d9e6a6f2627a4a7170ebb3f3226dbd18003db383d5fc4fd65665b667e",
   "requested_z_trim_mm": 0.1,
   "settings_changes": {
     "curr_bed_type": {
@@ -590,11 +378,11 @@
     }
   },
   "settings_sha256": "239c524cf6b25f7e4ee1f467c91ba62e584f47cd0572e59a70c30d29260ef664",
-  "show_faces": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/show-faces.npz",
+  "show_faces": "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei/show-faces.npz",
   "sliced": true,
   "slicer_warnings": [],
   "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-  "spec_sha256": "a3ebc885e78ea949ec4b758dd2bdc33f918304c1f59eafdaf2d18c6f808f6d8c",
+  "spec_sha256": "438d055795cbdb31269aab97a5fe5200eed6e91a72f36a4e16c391f17fd4ff27",
   "submitted": false,
   "tool_sha256": {
     "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "c7525228550859d16c84a966f8870b65596ec6523d30850adcd64119d0c09be2",

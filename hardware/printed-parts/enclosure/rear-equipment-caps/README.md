@@ -111,6 +111,8 @@ rocked by hand. [Assembled corner fit](https://github.com/derekbreden/homesodama
 
 In the original rear quadrant the three-diamond Pisco cover holds the outlet most firmly and still snaps between two resting positions. The same cover is loose in the deeper, cropped receiver. The segmented catches on the other test receivers shed their bridge strands when the covers are removed. [Corner and collar comparison](https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json) · [Catch teardown](https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/physical-result/physical-result.json)
 
+The raised flat on each wing tip holds the front Pisco collar steady in the original quadrant. The full-length covers compare two crest heights at the same receiver. [Fitted collar](https://github.com/derekbreden/homesodamachine/blob/e62039246607676c41560a80c5378a1b932ebf89/hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/physical-result.json) · [Full-length trials](../../../print-tests/pisco-raised-tip-cover/README.md)
+
 The regulator releases directly downward with its exposed leaves spread.
 The [physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/physical-result/physical-result.json)
 records the accepted first-job fits and the receiver-base release geometry.

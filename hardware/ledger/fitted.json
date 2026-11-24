@@ -471,6 +471,13 @@
       "said": "It's really the one that feels firmest so far, especially in terms of what it does here.",
       "tried": "the three-diamond Pisco cover in the original rear enclosure quadrant, pressing the exposed outlet and rocking the fitted cover between its two resting positions.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-23",
+      "said": "That is what happened.",
+      "tried": "the raised two-bar front and one-bar control with the common rear Pisco collar and real regulator in the original quadrant. The raised front stayed put during the hand-rocking test.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/e62039246607676c41560a80c5378a1b932ebf89/hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/physical-result.json"
     }
   ]
 }
