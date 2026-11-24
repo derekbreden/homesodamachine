@@ -2158,6 +2158,105 @@
         }
       }
     },
+    "meter-quick-shoulder": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark1 ran this back-top in black PET-GF on its left hardened 0.4 mm Standard-flow hotend (enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/print-job.json, task 1445040105)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "settings": {
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Match the textured plate used on the assembled rear corner and the retention comparison."
+        },
+        "elefant_foot_compensation": {
+          "value": "0",
+          "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+        },
+        "resolution": {
+          "value": "0.05",
+          "reason": "Resolve the enclosure toolpaths well below bead width without retaining the mesh tessellation in support polygons."
+        },
+        "z_hop_types": {
+          "value": [
+            "Normal Lift",
+            "Normal Lift",
+            "Normal Lift",
+            "Normal Lift",
+            "Normal Lift"
+          ],
+          "reason": "Use the saved lift height as a fixed vertical hop before travel."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Smooth timelapse parks away and uses the native tower before returning to the cap."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "Reprime on the native tower after each timelapse departure."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "A constant perimeter provides time away on every cap layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "12",
+          "reason": "The tower keeps the nozzle away while the shoulder sets and leaves time for printer startup in this short test."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "120"
+          ],
+          "reason": "Separate the tower brim from the cap brim."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The aft shoulder grows out of the flank on its own printed slope. Keep the specimen clear for an underside inspection."
+        }
+      },
+      "parts": [
+        {
+          "name": "meter-shoulder-backed",
+          "stl": "hardware/print-tests/rear-receiver-quick/parts/meter-shoulder-backed.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
+        }
+      ],
+      "pose_reason": "Print ceiling-down like the installed back-top so the permanent slope carries the shoulder course by course.",
+      "z_trim_mm": {
+        "value": 0.04,
+        "reason": "Retain the production enclosure roof contact on textured PEI for the complete corner coupon."
+      },
+      "spacing_mm": 15.0,
+      "plate_border_mm": 20.0,
+      "plate_offset_mm": {
+        "value": [
+          0,
+          25
+        ],
+        "reason": "Center the combined cap and tower envelope with separate brim footprints."
+      }
+    },
     "pisco-quick-roof": {
       "printer": "Mark1",
       "nozzle": {

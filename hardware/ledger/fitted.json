@@ -464,6 +464,13 @@
       "said": "two-diamond is better than what we had - still basically the same behavior of rocking, but slightly less so.",
       "tried": "the two-diamond Pisco test cover over the regulator in the printed rear corner. Derek preferred this sample and could still rock it gradually.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-23",
+      "said": "It's really the one that feels firmest so far, especially in terms of what it does here.",
+      "tried": "the three-diamond Pisco cover in the original rear enclosure quadrant, pressing the exposed outlet and rocking the fitted cover between its two resting positions.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json"
     }
   ]
 }

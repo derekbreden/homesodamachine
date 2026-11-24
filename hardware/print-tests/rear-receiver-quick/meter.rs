@@ -1,6 +1,6 @@
 //! This coupon prints the meter's recessed aft shoulder on a permanent slope rooted in the enclosure flank.
 use anyhow::{Context, Result, ensure};
-use hsm_enclosure_numbers::{Bounds, layout::REAR_SNAP_CHAMFER_SLOPE, shell::BACK_TOP_FLANK_T};
+use hsm_enclosure_numbers::{Bounds, catalog::running, layout::REAR_SNAP_CHAMFER_SLOPE, shell::BACK_TOP_FLANK_T};
 use hsm_kernel::{Solid, import, stl_bytes, v3};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -32,12 +32,16 @@ fn main() -> Result<()> {
     let face = (shoulder[4] + shoulder[5]) / 2.0;
     let run = flank - west;
     let rise = run * REAR_SNAP_CHAMFER_SLOPE;
+    let seam = running();
+    let taper_end = fore + run - seam;
     ensure!(aft - fore > run, "the fore taper must reach the flank within the shoulder");
 
     // The flank backs each successive course. The fore taper gives the meter's upper spring room at the step.
     let backing = Solid::hull(&[
         v3(west, fore, face), v3(flank, fore, face), v3(flank, aft, face), v3(west, aft, face),
-        v3(flank, fore + run, face + rise), v3(flank, aft, face + rise),
+        v3(west + seam, fore, face + seam * REAR_SNAP_CHAMFER_SLOPE),
+        v3(flank, fore, face + seam * REAR_SNAP_CHAMFER_SLOPE),
+        v3(flank, taper_end, face + rise), v3(flank, aft, face + rise),
     ])?;
     let profile: Value = serde_json::from_slice(&fs::read(PROFILE)?)?;
     let pitch: f64 = profile["Metadata/project_settings.config"]["layer_height"]
@@ -45,10 +49,12 @@ fn main() -> Result<()> {
     let production_bed = source.bounds().max.z;
     let required_bed = face + rise + FLANK_LEAD;
     let bed = production_bed - ((production_bed - required_bed) / pitch).floor() * pitch;
-    let low = v3(west, fore, face - CROWN_DEPTH);
+    // Start the section on the aft shoulder, clear of the adjacent catch's end face.
+    let low = v3(west, shoulder[2], face - CROWN_DEPTH);
     let high = v3(flank + BACK_TOP_FLANK_T, aft, bed);
-    let stock = source.intersect(&Solid::cuboid(low, high))?;
-    let sample = stock.union(&backing)?;
+    let crop = Solid::cuboid(low, high);
+    let stock = source.intersect(&crop)?;
+    let sample = stock.union(&backing.intersect(&crop)?)?;
     sample.check()?;
     ensure!(sample.components().len() == 1, "the shoulder and flank must form one part");
     let added = sample.volume() - stock.volume();
@@ -60,7 +66,7 @@ fn main() -> Result<()> {
         "feature_source":FEATURES, "stl_sha256":sha, "print_up_source":[0,0,-1],
         "crop_bounds_source_mm":[low.x,high.x,low.y,high.y,low.z,high.z], "production_bed_z_mm":production_bed,
         "shoulder_face_z_mm":face, "west_edge_x_mm":west, "flank_x_mm":flank, "slope_rise_per_run":REAR_SNAP_CHAMFER_SLOPE,
-        "fore_taper_y_mm":[fore, fore + run], "aft_y_mm":aft, "backing_added_mm3":added, "volume_mm3":sample.volume(),
+        "fore_taper_y_mm":[fore, taper_end], "aft_y_mm":aft, "backing_added_mm3":added, "volume_mm3":sample.volume(),
         "purpose":"Check the printed edge and boss-channel crown against the loose strands on the four-notch trial. The slope grows from the flank and its fore end tapers clear of the meter cap."});
     let mut report = serde_json::to_vec_pretty(&data)?;
     report.push(b'\n');

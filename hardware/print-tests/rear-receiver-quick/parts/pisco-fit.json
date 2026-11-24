@@ -5,7 +5,6 @@
     "purchased_regulator_mesh": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
     "three_diamond_reference": "6343b3ef52a582988ff37589afacd196ac068471:hardware/print-tests/pisco-cover-retention/parts/pisco-three-marks.stl"
   },
-  "meter_distance_search_limit_mm": 5.0,
   "method": "Restore the exported sections to installed coordinates, spread the spring leaves about their actual roots and interpolate the physically tested three-diamond tilt path. Check the real corner, seated regulator, shortened meter shoulder and clearance between the two installed collars. Roof clearance uses the old centered loaded height.",
   "entry_reference": "6343b3ef52a582988ff37589afacd196ac068471:hardware/print-tests/pisco-cover-retention/preload-check.json",
   "samples_per_collar": 281,
@@ -92,7 +91,7 @@
       "print_sha256": "a0a97f2e0e60d65d98d227307aceadc47f1cea9741a39367371f4615e48f95d8",
       "max_receiver_overlap_mm3": 4.67e-05,
       "max_regulator_overlap_mm3": 0.0,
-      "min_original_meter_gap_mm": 5.0,
+      "min_original_meter_gap_mm": 5.5745,
       "fixed_center_roof_gap_mm": 0.233,
       "stock_above_old_three_diamond_mm3": 0.0
     }
