@@ -485,6 +485,20 @@
       "said": "That is what happened.",
       "tried": "the raised two-bar front and one-bar control with the common rear Pisco collar and real regulator in the original quadrant. The raised front stayed put during the hand-rocking test.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/e62039246607676c41560a80c5378a1b932ebf89/hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-23",
+      "said": "I think it's actually the best we've had so far.",
+      "tried": "the full-length four-bar Pisco cover from Mark2, with both wing tips raised 0.40 mm. It stayed engaged under hand pressure in the original quadrant. Derek attributed the remaining movement to the wing bending.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-23",
+      "said": "it's also, you can see, pretty good",
+      "tried": "the full-length two-bar Pisco cover from Mark1, with both wing tips raised 0.20 mm. Derek put it back over the same regulator and felt a tiny amount more play than with the four-bar cover.",
+      "record": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result/physical-result.json"
     }
   ]
 }
