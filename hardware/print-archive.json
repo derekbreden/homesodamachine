@@ -1812,6 +1812,12 @@
       "bytes": 25440678,
       "sha256": "3b4a12aa563f9eefe872d80f36e992056834b363565f8fa023c34cc85b3c4b55"
     },
+    "381ec4a4538c09dede84f0ce0d4e41507370909a": {
+      "archive": "meter-quick-shoulder-mark2-e578a2a50dba33c5.zip",
+      "bytes": 17767,
+      "offset": 74,
+      "sha256": "3fbe9bc02846f0e0bc54c27ae4e0ad934dc9e3ab8b9446cc427d7491b51efa46"
+    },
     "38247e82cdf9de2133627cb3aac1fe1da97a8f26": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 1097829737,
@@ -2916,6 +2922,12 @@
       "bytes": 206529,
       "sha256": "f4f5de6e1993b083e4d17bb177c72814a603b02e8066249e95db08fb94f0d244"
     },
+    "5adec7c04b94ad386857295b22a6e2d689ad253b": {
+      "archive": "pisco-quick-roof-mark1-6004777d7822ac1c.zip",
+      "bytes": 637409,
+      "offset": 75827,
+      "sha256": "3aa3d66c82a052666af04a9a0c5f5faa6461532505a340fe7fb1cb4f8698fb32"
+    },
     "5bccaafcb54f986b31002ea780be10d7fa2ce62d": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 587470132,
@@ -3641,6 +3653,12 @@
       "offset": 1183731635,
       "bytes": 1015600,
       "sha256": "01357a83ad618d40826c7852936860611612e0309b3dd3538d929ee413175206"
+    },
+    "732d1506f2b5c77856297fe802a4311fcd97ab1a": {
+      "archive": "pisco-quick-roof-mark1-6004777d7822ac1c.zip",
+      "bytes": 75679,
+      "offset": 74,
+      "sha256": "91b6ed9b5a35f39711b6f26c8b9062ffa5f65457a9dd9b27b0f37af149d6f9a6"
     },
     "7357dcb7299e1a81755d1bbaf253f2f3ad0fc62c": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -6378,6 +6396,12 @@
       "bytes": 52068255,
       "sha256": "db3286e3fdb5a69864ffa9c286072480ef63cc57a1cb016cc03651494cec524b"
     },
+    "ce111623742fddcaad66a9f5dfd5d06650e4484c": {
+      "archive": "meter-quick-shoulder-mark2-e578a2a50dba33c5.zip",
+      "bytes": 170099,
+      "offset": 17915,
+      "sha256": "aabde5d2731118f8dfbde2177b60dcd138b1577759a2b53f2ba99dc608dc631b"
+    },
     "ce1bd21d21bb9796c957c3b7c97fff1ff7f378cd": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 1094721079,
@@ -8022,6 +8046,10 @@
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-clearance-mark2/2026-11-21-rear-equipment-corner-mark2-1399160f/2026-11-21-rear-equipment-corner-mark2-1399160f.gcode.3mf": "4f5cdb14d38ff7a20969333f4a63f1d47559912b",
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/2026-11-21-rear-equipment-corner-mark2-f909a495/2026-11-21-rear-equipment-corner-mark2-f909a495.3mf": "ba98b34b18eecb9f3d4065861ba96578d3a2b775",
     "hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/2026-11-21-rear-equipment-corner-mark2-f909a495/2026-11-21-rear-equipment-corner-mark2-f909a495.gcode.3mf": "d0aeb94b2e09149281430ba6797e8d7c11f8c8e2",
+    "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-meter-mark2/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.3mf": "381ec4a4538c09dede84f0ce0d4e41507370909a",
+    "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-meter-mark2/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf": "ce111623742fddcaad66a9f5dfd5d06650e4484c",
+    "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.3mf": "732d1506f2b5c77856297fe802a4311fcd97ab1a",
+    "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.gcode.3mf": "5adec7c04b94ad386857295b22a6e2d689ad253b",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc-print-only.gcode.3mf": "5dc3e362785bceb23dc279f1ce5aeedcb6109de3",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.3mf": "e666a63c9673c6e2e7fa7b8c80824ada346a5905",
     "hardware/print-tests/rear-snap-retention/prints/2026-11-01-pump-box-cap-mark2-ea19cdbc/2026-11-01-pump-box-cap-mark2-ea19cdbc.gcode.3mf": "1a26cbbfbba373260f5c53d6fd01dd7c0c990815",

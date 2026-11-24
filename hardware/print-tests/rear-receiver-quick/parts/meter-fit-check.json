@@ -1,0 +1,123 @@
+{
+  "stl": "meter-shoulder-backed.stl",
+  "sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
+  "enclosure_mesh_sha256": "678b67af924d68c73f4669ccbc0ed3f39b23049850b7d176fb73906b6bc71797",
+  "pisco_reference": {
+    "archive": "6343b3ef52a582988ff37589afacd196ac068471",
+    "file": "hardware/print-tests/pisco-cover-retention/parts/pisco-three-marks.stl",
+    "sha256": "ba67dfe4a039f2278dfc31fa8f56668c28ae2e08db15ce8600db08601e0dd190"
+  },
+  "waypoints_source": "https://github.com/derekbreden/homesodamachine/blob/4fc4e86e02bc6b6a7aff3063de65197ecba55d2b/hardware/print-tests/pisco-cover-rocking/parts/fit-check.json",
+  "gas_regulator_installed_asset_sha256": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+  "meter_installed_asset_sha256": "3f74b690e93ce9884c86e2cb1d550532e6b8b05b1ab202bece36c9d385e2ffe7",
+  "installed_caps_sha256": "045d17cdf13460c20308924547d75eae85ddb25d6dae3ef77754d72ff24ac51b",
+  "basis": "Clearances measure the triangular surfaces of the printed STL and the installed meshes. The Pisco uses the archived insertion path and three-diamond cover. The meter uses its fore slide and the cap's west-then-fore withdrawal.",
+  "mesh": {
+    "connected_components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "edges": 228,
+    "edges_with_other_than_two_faces": 0,
+    "bed_facing_area_shallower_than_45deg_away_from_bed_mm2": 0.0,
+    "slope_area_mm2": 593.4993
+  },
+  "production_crown_comparison": {
+    "method": "Compare the exported coupon with its production mesh crop below the original shoulder face. Exclude print-coordinate rounding at the cut boundaries.",
+    "removed_mm3": 0.000204,
+    "added_mm3": 0.000763
+  },
+  "pisco_cover": {
+    "original_shoulder": {
+      "minimum_gap_mm": 0.60666,
+      "closest_pose": [
+        16.41667,
+        -3.72583,
+        -7.20833,
+        3.8,
+        3.30667
+      ],
+      "sampled_poses": 421,
+      "continuous_gap_lower_bound_mm": 0.56
+    },
+    "backed_shoulder": {
+      "minimum_gap_mm": 0.60668,
+      "closest_pose": [
+        16.41667,
+        -3.72583,
+        -7.20833,
+        3.8,
+        3.30667
+      ],
+      "sampled_poses": 421,
+      "continuous_gap_lower_bound_mm": 0.56
+    },
+    "spring_envelope": {
+      "minimum_gap_mm": 0.96158,
+      "closest_pose": [
+        21.0,
+        -4.6,
+        -11.0,
+        3.8,
+        3.0
+      ],
+      "sampled_poses": 421,
+      "continuous_gap_lower_bound_mm": 0.915
+    },
+    "spring_envelope_method": "The convex hull of each height band and its outward shear bounds spring displacement from the fixed root. The bound grows linearly with height, preserves the clamped root and continues above the hook.",
+    "spring_envelope_dimensions_mm": {
+      "root_z": 321.2,
+      "height_band_boundaries_z": [
+        321.2,
+        325.2,
+        331.2,
+        365.0
+      ],
+      "outward_shear_rise": 4.0,
+      "outward_shear_reference_span": 18.0
+    },
+    "closest_pose_columns": [
+      "tilt_deg",
+      "x_translation_mm",
+      "z_translation_mm",
+      "west_splay_parameter_mm",
+      "east_splay_parameter_mm"
+    ],
+    "bound_radius_mm": 32.0
+  },
+  "gas_regulator": {
+    "minimum_gap_mm": 2.34534,
+    "closest_pose": [
+      -5.0,
+      -16.0,
+      -19.0
+    ],
+    "sampled_poses": 481,
+    "continuous_gap_lower_bound_mm": 2.151
+  },
+  "flow_meter": {
+    "minimum_gap_mm": 3.15083,
+    "closest_pose": [
+      0.0,
+      -9.6,
+      0.0
+    ],
+    "sampled_poses": 81,
+    "continuous_gap_lower_bound_mm": 3.05
+  },
+  "meter_cover": {
+    "rigid_withdrawal": {
+      "minimum_gap_mm": 1.0253,
+      "closest_pose": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "sampled_poses": 181,
+      "continuous_gap_lower_bound_mm": 0.691
+    },
+    "upper_leaf_aft_y_mm": 417.09572,
+    "coupon_begins_y_mm": 417.59572,
+    "spring_clearance": "The upper leaf flexes in Z ahead of the coupon. The lower leaf opens below the meter body, away from the slope."
+  },
+  "motion_between_samples": "A lower bound for the full linear interpolation subtracts half of the largest change between neighboring poses from the smallest sampled gap. The Pisco bound includes the angular arc at a radius enclosing the cover and the sheared spring mesh."
+}

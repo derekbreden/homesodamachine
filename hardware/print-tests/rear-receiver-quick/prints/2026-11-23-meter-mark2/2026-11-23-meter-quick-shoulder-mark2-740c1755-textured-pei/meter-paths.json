@@ -1,0 +1,149 @@
+{
+  "purpose": "Read the material below the exposed meter shoulder as the print grows from the enclosure flank, across its fore turn and out to its broad aft edge.",
+  "archive_sha256": "aabde5d2731118f8dfbde2177b60dcd138b1577759a2b53f2ba99dc608dc631b",
+  "gcode_sha256": "d0ba4910f16dbe485f15d32ba17c80a6902b93126e964d291ba0ee31435b0a35",
+  "stl_sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
+  "estimated_seconds_including_startup": 3162.919,
+  "perimeter": {
+    "method": "Transform the outer-wall paths back into installed XY and buffer all preceding model roads by half their emitted widths. A perimeter point has contact if its finite-width bead reaches the preceding footprint. Intersect the full path with that reach, including corners and ends. Straight-run width measures the preceding plastic across the new road normal, away from turns. The corner radial reach is the bead radius left after reaching the preceding footprint. All distances describe nominal toolpaths.",
+    "checked_layers_inclusive": [
+      6,
+      86
+    ],
+    "region_source_xy_mm": [
+      82.95,
+      99.05,
+      417.4957172024006,
+      444.8586388104271
+    ],
+    "outer_wall_length_checked_mm": 3710.115,
+    "longest_outer_wall_centerline_without_lower_bead_contact_mm": 0,
+    "sampling_spacing_max_mm_for_width_and_radial_readings": 0.05,
+    "outer_wall_width_mm": 0.42,
+    "developed_slope_step_per_course_mm": 0.24,
+    "developed_straight_overlap_mm": 0.18,
+    "minimum_straight_transverse_overlap_mm": {
+      "west_edge": 0.167,
+      "fore_taper": 0.155,
+      "aft_cut_end": 0.42
+    },
+    "smallest_sampled_corner_radial_reach_mm": 0.08,
+    "smallest_corner_layer": 68,
+    "smallest_corner_installed_xy_mm": [
+      83.8,
+      417.845
+    ],
+    "first_and_last_west_courses": [
+      {
+        "layer": 6,
+        "print_z_mm": 1.4,
+        "straight_width_over_previous_mm": [
+          0.391,
+          0.403
+        ]
+      },
+      {
+        "layer": 7,
+        "print_z_mm": 1.64,
+        "straight_width_over_previous_mm": [
+          0.167,
+          0.179
+        ]
+      },
+      {
+        "layer": 70,
+        "print_z_mm": 16.76,
+        "straight_width_over_previous_mm": [
+          0.18,
+          0.18
+        ]
+      },
+      {
+        "layer": 71,
+        "print_z_mm": 17.0,
+        "straight_width_over_previous_mm": [
+          0.36,
+          0.36
+        ]
+      },
+      {
+        "layer": 72,
+        "print_z_mm": 17.24,
+        "straight_width_over_previous_mm": [
+          0.42,
+          0.42
+        ]
+      },
+      {
+        "layer": 86,
+        "print_z_mm": 20.6,
+        "straight_width_over_previous_mm": [
+          0.42,
+          0.42
+        ]
+      }
+    ]
+  },
+  "bearing_strip": {
+    "feature_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+    "feature": "Accessible flow meter aft shoulder",
+    "source_xy_bounds_mm": [
+      83.05,
+      86.7,
+      417.596,
+      444.759
+    ],
+    "fore_aft_divide_y_mm": 432.546,
+    "method": "Areas count the emitted two-dimensional bead footprints within the production face, then intersect those footprints with plastic actually deposited on the preceding course. The last advancing course and the first full-width course span the nominal shoulder face.",
+    "areas_by_layer": {
+      "70": {
+        "fore": {
+          "model_deposit_mm2": 28.2,
+          "direct_overlap_mm2": 23.085
+        },
+        "aft": {
+          "model_deposit_mm2": 23.148,
+          "direct_overlap_mm2": 19.171
+        }
+      },
+      "71": {
+        "fore": {
+          "model_deposit_mm2": 26.636,
+          "direct_overlap_mm2": 24.228
+        },
+        "aft": {
+          "model_deposit_mm2": 21.714,
+          "direct_overlap_mm2": 19.859
+        }
+      }
+    }
+  },
+  "internal_infill": {
+    "method": "Inside the built perimeter, the upper solid skin spans the cells in the gyroid. Distances report the nearest bridge centerline to the west edge and the longest connected bridge run with no direct contact to the previous layer.",
+    "bridged_skin_courses": [
+      {
+        "layer": 78,
+        "print_z_mm": 18.68,
+        "nearest_bridge_centerline_to_west_mm": 0.76,
+        "longest_contiguous_centerline_without_lower_bead_contact_mm": 5.341
+      },
+      {
+        "layer": 82,
+        "print_z_mm": 19.64,
+        "nearest_bridge_centerline_to_west_mm": 0.76,
+        "longest_contiguous_centerline_without_lower_bead_contact_mm": 5.072
+      }
+    ]
+  },
+  "cooling": {
+    "method": "Sum the lengths of commanded moves divided by feed between each final meter bead and the next course. The lower bound includes explicit tower deposition and XYZ travel. Acceleration, pure retractions and firmware actions add time.",
+    "model_layers": 86,
+    "tower_layers": 86,
+    "width_setting_mm": 50.0,
+    "speed_setting_mm_s": 12.0,
+    "minimum_tower_deposition_s": 18.821,
+    "minimum_return_s": 18.964,
+    "shortest_return_after_layer": 71
+  },
+  "scope": "The coupon tests edge formation and removable strands at the actual layer phase and pose. As-printed bonding and the feel of the edge require the bench sample."
+}

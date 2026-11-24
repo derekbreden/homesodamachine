@@ -1,0 +1,92 @@
+{
+  "purpose": "Print the aft meter shoulder on its permanent, tapered backing and inspect the underside that shed strands on the corner.",
+  "status_at_record": "running",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "printer_task_id": "1479709921",
+  "accepted_at": "2026-11-24T01:29:50+00:00",
+  "paired_printer_task_id": "1479693006",
+  "acceptances_apart_s": 392.0,
+  "source_commit": "88b7c77663123b231dfb291f51048c2149c51e61",
+  "native_recipe": "meter-quick-shoulder",
+  "recipe_spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_spec_sha256": "956358dfd3259b45d1703fba0a5ad9ad70083507e594f24b71291db959844501",
+  "geometry": "../../parts/meter-geometry.json",
+  "fit_check": "../../parts/meter-fit-check.json",
+  "physical_baseline": "https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/physical-result/physical-result.json",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "side": "left",
+    "flow": "Standard",
+    "hardened": true,
+    "diameter_mm": 0.4
+  },
+  "external_spool_mapping": {
+    "1": {
+      "colour": "161616",
+      "type": "PET-CF"
+    }
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "cooling_tower": true,
+  "timelapse_requested": true,
+  "layers": 86,
+  "minimum_bed_margin_mm": 117.919355,
+  "slicer_seconds_including_startup": 3163,
+  "objects": [
+    {
+      "name": "meter-shoulder-backed",
+      "stl": "hardware/print-tests/rear-receiver-quick/parts/meter-shoulder-backed.stl",
+      "sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
+      "plate_center_xy_mm": [
+        162.5,
+        185.0
+      ],
+      "build_rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ]
+    }
+  ],
+  "files": {
+    "project": {
+      "path": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.3mf",
+      "sha256": "3fbe9bc02846f0e0bc54c27ae4e0ad934dc9e3ab8b9446cc427d7491b51efa46",
+      "archive_blob": "381ec4a4538c09dede84f0ce0d4e41507370909a",
+      "release_asset": "meter-quick-shoulder-mark2-e578a2a50dba33c5.zip",
+      "restore_verified": true
+    },
+    "archive": {
+      "path": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf",
+      "sha256": "aabde5d2731118f8dfbde2177b60dcd138b1577759a2b53f2ba99dc608dc631b",
+      "archive_blob": "ce111623742fddcaad66a9f5dfd5d06650e4484c",
+      "release_asset": "meter-quick-shoulder-mark2-e578a2a50dba33c5.zip",
+      "restore_verified": true
+    }
+  },
+  "gcode_sha256": "d0ba4910f16dbe485f15d32ba17c80a6902b93126e964d291ba0ee31435b0a35",
+  "native_review": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/review.json",
+  "project_check": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/project-check.json",
+  "path_check": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/meter-paths.json",
+  "launch": "launch.json",
+  "prelaunch": "prelaunch-status.json",
+  "first_layer": "first-layer-status.json",
+  "confirmed_progress": "printing-status.json"
+}

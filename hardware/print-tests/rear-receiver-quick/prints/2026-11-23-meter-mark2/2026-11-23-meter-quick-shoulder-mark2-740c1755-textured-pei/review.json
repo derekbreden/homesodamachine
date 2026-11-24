@@ -1,0 +1,66 @@
+{
+  "archive": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-meter-mark2/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf",
+  "archive_sha256": "aabde5d2731118f8dfbde2177b60dcd138b1577759a2b53f2ba99dc608dc631b",
+  "bead_envelope_plate_mm": [
+    [
+      134.919355,
+      117.919355
+    ],
+    [
+      189.080645,
+      197.35351699999998
+    ]
+  ],
+  "bed_border_mm": 20.0,
+  "bed_margins_mm": {
+    "back": 122.64648300000002,
+    "front": 117.919355,
+    "left": 134.919355,
+    "right": 135.919355
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9956675924867673,
+      "second_layer_centerline_outside_first_mm": 2.8349116525483375,
+      "second_layer_model_bead_area_mm2": 243.8904283870846
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 86,
+  "minimum_bed_margin_mm": 117.919355,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

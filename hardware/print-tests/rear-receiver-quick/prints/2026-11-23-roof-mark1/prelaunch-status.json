@@ -1,0 +1,32 @@
+[
+  {
+    "printer": "H2C",
+    "observed_at": "2026-11-24T01:22:40+00:00",
+    "job_id": "1475716069",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 378,
+    "total_layer_num": 378,
+    "external_spool": {
+      "colour": "000000FF",
+      "type": "PET-CF"
+    }
+  },
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-11-24T01:22:40+00:00",
+    "job_id": "1475705523",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei.gcode.3mf",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 391,
+    "total_layer_num": 391,
+    "external_spool": {
+      "colour": "161616FF",
+      "type": "PET-CF"
+    }
+  }
+]

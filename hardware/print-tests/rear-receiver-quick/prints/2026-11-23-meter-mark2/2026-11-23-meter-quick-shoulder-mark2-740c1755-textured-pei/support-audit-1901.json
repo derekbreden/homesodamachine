@@ -1,0 +1,56 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      0.0,
+      1.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -89.724998474,
+      268.6771698,
+      322.600006104
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-meter-mark2/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "d0ba4910f16dbe485f15d32ba17c80a6902b93126e964d291ba0ee31435b0a35",
+    "model": "hardware/print-tests/rear-receiver-quick/parts/meter-shoulder-backed.stl",
+    "model_sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
+    "profile": "hardware/print-tests/rear-receiver-quick/prints/2026-11-23-meter-mark2/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei/2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.3mf",
+    "profile_sha256": "3fbe9bc02846f0e0bc54c27ae4e0ad934dc9e3ab8b9446cc427d7491b51efa46"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "meter-shoulder-backed",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}

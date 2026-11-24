@@ -1,0 +1,17 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-24T01:41:41+00:00",
+  "job_id": "1479709921",
+  "subtask_name": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "bed_temper": 80.0,
+  "bed_target_temper": 80.0,
+  "nozzle_temper": 265.0,
+  "nozzle_target_temper": 265.0,
+  "layer_num": 1,
+  "total_layer_num": 86,
+  "mc_percent": 14,
+  "mc_remaining_time": 37
+}

@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "d0ba4910f16dbe485f15d32ba17c80a6902b93126e964d291ba0ee31435b0a35",
+    "name": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf",
+    "objects": [
+      "meter-shoulder-backed"
+    ],
+    "sha256": "aabde5d2731118f8dfbde2177b60dcd138b1577759a2b53f2ba99dc608dc631b",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 44,
+  "observed_at": "2026-11-24T01:29:50+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1479709921",
+  "subtask_name": "2026-11-23-meter-quick-shoulder-mark2-740c1755-textured-pei.gcode.3mf",
+  "total_layer_num": 86
+}

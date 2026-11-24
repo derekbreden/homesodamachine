@@ -1,0 +1,144 @@
+{
+  "purpose": "Compare the stock three-diamond spring profile with a raised roof-bearing crest at the real outlet, using the same rear collar in the original quadrant.",
+  "status_at_record": "running",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "printer_task_id": "1479693006",
+  "accepted_at": "2026-11-24T01:23:18+00:00",
+  "paired_printer_task_id": "1479709921",
+  "acceptances_apart_s": 392.0,
+  "source_commit": "65db4ab5498118ac15fd3bac520c9bba9b647843",
+  "native_recipe": "pisco-quick-roof",
+  "recipe_spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_spec_sha256": "a3ebc885e78ea949ec4b758dd2bdc33f918304c1f59eafdaf2d18c6f808f6d8c",
+  "geometry": "../../parts/pisco-geometry.json",
+  "fit_check": "../../parts/pisco-fit.json",
+  "physical_baseline": "https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-stops-mark1/physical-result/physical-result.json",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "side": "left",
+    "flow": "Standard",
+    "hardened": true,
+    "diameter_mm": 0.4
+  },
+  "external_spool_mapping": {
+    "1": {
+      "colour": "000000",
+      "type": "PET-CF"
+    }
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "emitted_textured_trim_mm": 0.08,
+  "cooling_tower": true,
+  "timelapse_requested": true,
+  "layers": 50,
+  "minimum_bed_margin_mm": 107.17854599999998,
+  "slicer_seconds_including_startup": 3051,
+  "objects": [
+    {
+      "name": "pisco-front-control",
+      "stl": "hardware/print-tests/rear-receiver-quick/parts/pisco-front-control.stl",
+      "sha256": "6a3f45cc040c3a1c3ea3efe488969a2ab915a9b81b8db731b04fdc0c7c26b0d5",
+      "plate_center_xy_mm": [
+        162.5,
+        185.0
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "pisco-front-roof",
+      "stl": "hardware/print-tests/rear-receiver-quick/parts/pisco-front-roof.stl",
+      "sha256": "12647a2c66ed67fb40a2d3b9cdc7a12a4dcfd434d35eaaa400c9c3c97f941b96",
+      "plate_center_xy_mm": [
+        121.68876838684082,
+        185.0
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "pisco-common-rear",
+      "stl": "hardware/print-tests/rear-receiver-quick/parts/pisco-common-rear.stl",
+      "sha256": "a0a97f2e0e60d65d98d227307aceadc47f1cea9741a39367371f4615e48f95d8",
+      "plate_center_xy_mm": [
+        203.31123161315918,
+        185.0
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "files": {
+    "project": {
+      "path": "2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.3mf",
+      "sha256": "91b6ed9b5a35f39711b6f26c8b9062ffa5f65457a9dd9b27b0f37af149d6f9a6",
+      "archive_blob": "732d1506f2b5c77856297fe802a4311fcd97ab1a",
+      "release_asset": "pisco-quick-roof-mark1-6004777d7822ac1c.zip",
+      "restore_verified": true
+    },
+    "archive": {
+      "path": "2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei.gcode.3mf",
+      "sha256": "3aa3d66c82a052666af04a9a0c5f5faa6461532505a340fe7fb1cb4f8698fb32",
+      "archive_blob": "5adec7c04b94ad386857295b22a6e2d689ad253b",
+      "release_asset": "pisco-quick-roof-mark1-6004777d7822ac1c.zip",
+      "restore_verified": true
+    }
+  },
+  "gcode_sha256": "bce89718763006246150c296d416d92dc9cdb8db7388f8b62c8e80cb445195d6",
+  "native_review": "2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/review.json",
+  "project_check": "2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/project-check.json",
+  "path_check": "2026-11-23-pisco-quick-roof-mark1-0b8c41bb-textured-pei/collar-paths.json",
+  "launch": "launch.json",
+  "prelaunch": "prelaunch-status.json",
+  "first_layer": "first-layer-status.json",
+  "confirmed_progress": "printing-status.json"
+}

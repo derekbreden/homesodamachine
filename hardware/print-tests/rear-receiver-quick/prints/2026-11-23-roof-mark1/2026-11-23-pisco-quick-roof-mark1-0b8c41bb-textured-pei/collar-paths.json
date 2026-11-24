@@ -1,0 +1,73 @@
+{
+  "purpose": "Measure how long each collar cools between courses and where its wing tips print against the original receiver roof.",
+  "archive_sha256": "3aa3d66c82a052666af04a9a0c5f5faa6461532505a340fe7fb1cb4f8698fb32",
+  "gcode_sha256": "bce89718763006246150c296d416d92dc9cdb8db7388f8b62c8e80cb445195d6",
+  "native_estimated_seconds_including_startup": 3051.3,
+  "requested_textured_trim_mm": 0.1,
+  "emitted_textured_trim_mm": 0.08,
+  "cooling": {
+    "method": "Between the last bead of one collar course and the first bead of its next course, sum the deposited XY path lengths on the other objects divided by their commanded feed rates. Travel, acceleration and firmware motion add time. Figures describe commanded motion.",
+    "tower_width_setting_mm": 50.0,
+    "tower_layers": 50,
+    "minimum_tower_deposition_s": 22.04,
+    "returns_by_collar": {
+      "pisco-front-control": {
+        "layers": 50,
+        "other_collars_only_min_s": 5.723,
+        "other_collars_and_tower_min_s": 27.762,
+        "other_collars_and_tower_median_s": 29.759,
+        "shortest_return_after_layer": 49
+      },
+      "pisco-front-roof": {
+        "layers": 50,
+        "other_collars_only_min_s": 5.632,
+        "other_collars_and_tower_min_s": 27.671,
+        "other_collars_and_tower_median_s": 29.661,
+        "shortest_return_after_layer": 49
+      },
+      "pisco-common-rear": {
+        "layers": 50,
+        "other_collars_only_min_s": 7.68,
+        "other_collars_and_tower_min_s": 29.719,
+        "other_collars_and_tower_median_s": 29.809,
+        "shortest_return_after_layer": 33
+      }
+    },
+    "bench_reference": {
+      "accepted_project": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/print-job.json",
+      "accepted_gcode_sha256": "08a8d0119922202b15b6c43899d80917a7c8b355fb4f1b2d60709ca39c4238d4",
+      "minimum_other_deposition_s": 23.919
+    }
+  },
+  "front_crest": {
+    "method": "Transform the wing-tip XY roads from the plate into installed coordinates. The nominal road edge projects half the G-code line width above its centerline. Both wings share the recorded peak on every interior layer sampled. The horizontal length measures the straight path at that peak.",
+    "interior_layers_inclusive": [
+      3,
+      48
+    ],
+    "installed_roof_z_mm": 351.55,
+    "support_roads_on_plate": 0,
+    "fronts": {
+      "pisco-front-control": {
+        "nominal_unloaded_tip_z_mm": 351.05,
+        "highest_outer_wall_centerline_z_mm": 350.478,
+        "highest_nominal_bead_edge_z_mm": 350.688,
+        "horizontal_outer_road_length_mm": {
+          "west": 0.0,
+          "east": 0.0
+        }
+      },
+      "pisco-front-roof": {
+        "nominal_unloaded_tip_z_mm": 351.25,
+        "highest_outer_wall_centerline_z_mm": 351.04,
+        "highest_nominal_bead_edge_z_mm": 351.25,
+        "horizontal_outer_road_length_mm": {
+          "west": 0.579,
+          "east": 0.578
+        }
+      }
+    },
+    "projected_tip_reach_difference_mm": 0.562,
+    "scope": "Toolpaths describe the unloaded collar. Seating, spring deflection, and as-printed bead shape determine the contact in hand."
+  }
+}
