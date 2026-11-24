@@ -4627,9 +4627,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
-      "commit": "d380dc64c55e807f35504668144b7e606f51e4f2",
-      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c",
-      "unproven": true
+      "commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
+      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
       "commit": "1a8a3195ecabefe7aa527d37571fa625469238be",
@@ -4637,9 +4636,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": {
-      "commit": "d380dc64c55e807f35504668144b7e606f51e4f2",
-      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c",
-      "unproven": true
+      "commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
+      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step.mesh": {
       "commit": "03ad8a2cb2c440a9493f267d16c233ad567e5fba",
@@ -4673,9 +4671,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "d380dc64c55e807f35504668144b7e606f51e4f2",
-      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c",
-      "unproven": true
+      "commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
+      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
       "commit": "1a8a3195ecabefe7aa527d37571fa625469238be",
