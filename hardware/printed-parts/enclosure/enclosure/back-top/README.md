@@ -13,21 +13,19 @@ goes around the row of connector wells. Root the wells, rear receivers, corner
 columns, power-supply bosses and inlet tunnel on their actual ceiling face. The
 [rear wall](rear.rs) and [receiver seats](supports.rs) take those planes from the shell.
 
-Each rear snap catch uses the shared chamfer slope of its matching cap. On the ASSE,
-Pisco and water regulator, the catch sits down in the ledge's corner. The hook nose
-seats at the catch plane and its pointed lead-in fits under the ceiling. The ASSE
-and Pisco have plain end walls around their passages and wing catches. The Pisco
-leaves end ahead of the rear corner column while the body keeps its full fitted span.
-Keep the catch pockets clear of support and preserve the fitted seats, spring walls
-and roots. [Cap geometry](../../rear-equipment-caps/README.md) · [Pointed-snap fit trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pointed-snaps/physical-result/physical-result.json)
+Each rear catch has a solid 45° face. As the hooks return, the two flat crests
+on each cover meet their pocket roof or the meter’s east wall. The ASSE and
+water roofs have local recesses for their measured seating travel. Their
+outboard clearance lets the crests sweep past the roof skin while releasing
+the hooks. The Pisco wings stop ahead of the rear corner column.
+[Measured rear cap fits](../../rear-equipment-caps/production-fit.json)
 
-The meter cap's point stops just short of the flank. The upper catch ends at the
-Pisco receiver's fore wall. The aft shoulder drops to the wall over the boss channel
-to give the tilted Pisco cover room to swing in. The sideways hook channels return
-to the flank on bevels. Support the fore shoulder, the lip under the cap's upper
-leaf and the open west edge of the aft shoulder through the west side. The aft
-shoulder's first course bridges from that edge to the flank. The fitted boss
-channels, screw-head channels and wire chamber also take support through the open side.
+The meter’s upper catch ends at the Pisco receiver’s fore wall. Both
+sideways channels return to the flank on bevels. The aft boss-channel crown
+grows from a permanent 45° slope with a taper at the upper spring’s end.
+The Pisco clears the shoulder as it tips in. Support the fore shoulder, upper
+lip, boss channels, screw-head channels and wire chamber through the open
+west side. Leave the two catch pockets clear. [Backed shoulder specimen](../../../../print-tests/rear-receiver-quick/README.md)
 
 ## Removable supports and open passages
 

@@ -61,27 +61,37 @@ the meter's channel and wire-chamber floors printed on support. The water regula
 The [latest pointed-set result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/physical-result/physical-result.json)
 reports tight hardware fits, with the ASSE body seating as the exception. The
 [ASSE body cap](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/README.md) carries its local seating allowance.
-All leaves are 2.0 mm thick, with a 1.5 mm inside root radius and 22.25 mm
-root-to-catch length; the water regulator uses 21.25 mm within its retained
-height. The straight wall above the root blend is 20.75 mm, or 19.75 mm on
-the water regulator. Each rear cap has a planar lead-in and a solid retaining
-nose. The ASSE and water-regulator hooks come to a point. Their bearing faces
-follow the catches cut into the receiver ledges. On the Pisco the free hook
-faces overlap the ledges. As the leaves close, the inclined faces draw the
-saddle toward the regulator. The flat crest on each wing approaches the roof
-of its pocket at that seated height. The meter's
-catch climbs from its lip into the sideways pocket, so its hook's nose seats
-above the catch plane, and its lead-in ends at a point just short of the flank.
-The Pisco leaves end ahead of the rear corner column while the cap body beneath
-their roots keeps its full fitted span. The rear receiver bases are continuous, with no enclosed
-screwdriver tunnels. Release the leaves from their exposed edges with the
-surrounding service room open.
+Each rear cap has two 2.0 mm spring leaves, a 1.5 mm inside root radius
+and solid 45° retaining faces. Root-to-catch length is 22.25 mm on the ASSE,
+Pisco and meter, and 21.25 mm on the water regulator. Both leaves end in the
+four-bar Pisco’s 0.90 mm-wide flat, raised 0.40 mm beyond the original point.
+The inclined hooks draw the cover toward its hardware until the crests reach
+the fixed receiver. The meter closes against the east wall. The other three
+close upward against the pocket roofs.
 
-The ASSE and Pisco receivers have plain end walls around their fitted passages
-and wing catches. Their ceiling recess runs between the flanks and flush to the
-rear wall. The aft shoulder above the meter bosses is recessed beneath the Pisco cover's approach. The meter's hook channels return to the flank on bevels, and its wire
-pocket also runs flush to the flank. The catch pockets stay clear of supports;
-the lip under the meter cap's upper leaf prints on removable support.
+| Station | Closure to the crest stop | Free catch overlap | Closure to contact the nominal hardware | Additional hardware travel to its far seat |
+| --- | ---: | ---: | ---: | ---: |
+| ASSE | 0.23 mm | 0.68 mm | 0.147 mm | 0.250 mm |
+| Pisco | 0.10 mm | 0.55 mm | 0.147 mm | 0.121 mm |
+| Flow meter | 0.10 mm | 0.55 mm | 0.150 mm | 0.150 mm |
+| Water regulator | 0.33 mm | 0.78 mm | 0.248 mm | 0.251 mm |
+
+The modeled stop leaves 0.45 mm of inclined-face overlap for the springs to
+take up at every station. In that centered position the ASSE inlet coupling
+and water regulator have begun moving toward their far seats. The Pisco and
+meter crests reach the fixed wall first. Plumbing and gravity can shift each
+piece of hardware within its seat. [Production mesh readings](production-fit.json)
+
+The ASSE and Pisco seats have plain end walls around the fitted passages.
+The ASSE and water pockets extend outboard to admit the crests when the hooks
+spread for removal. The Pisco leaves stop ahead of the rear corner column.
+The meter's upper leaf ends at the Pisco fore wall. Both meter channels return
+to the east wall on bevels, with room for their flat crests. A permanent
+slope from the flank backs the aft meter shoulder under the Pisco approach.
+The fore shoulder and the lip under the meter's upper leaf take removable
+support through the open west side. The leaves release from their exposed
+edges. [Back-top receivers](../enclosure/back-top/README.md)
+
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
 regulator enters directly upward. The caps close after their bodies seat.
 
@@ -103,35 +113,19 @@ After removing the ASSE chain, release the meter leaves, withdraw the cap
 fore and out through the open side. Remove the meter, its disconnected soda
 line/insulation and bend holder before withdrawing the PISCO cap.
 
-The Pisco cover tips in from X past the meter shoulder. Test its stability with
-the regulator in the original rear quadrant. The raised front collar stayed
-put under alternating pressure, and Derek accepted the full-length cover with
-that crest on both wings. The production hooks, crests, saddle and outlet lip
-match the fitted print. [Front collar comparison](https://github.com/derekbreden/homesodamachine/blob/e62039246607676c41560a80c5378a1b932ebf89/hardware/print-tests/rear-receiver-quick/prints/2026-11-23-roof-mark1/physical-result.json) · [Full-length bench result](https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json) · [Production mesh and slice](pisco-fit.json)
+The Pisco cover tips in from X past the meter shoulder. Derek pressed on the
+two-bar and four-bar covers in the same original quadrant with the regulator
+installed. He preferred the four-bar cover and described the remaining motion
+as the whole wing bending. The production saddle, outlet lip, retaining
+faces and crests match that print. The four exterior identification grooves
+are filled. The current cover clears the backed meter shoulder throughout
+its modeled tilt path. [Bench video and observations](https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json) · [Production Pisco comparison](pisco-fit.json)
 
-For a roof stop, check the gap on each side with the hardware seated and the
-leaves on their catches. The Pisco mesh has a small positive gap there.
-Rolling the cover at a fixed center brings the rising crest to the roof.
-The actual contact at rest and the spring force are open bench questions.
-Keep a continuous bearing surface at the catch. Segmented bridges separated
-when the covers were removed. [Seated roll check](https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check.json) · [Catch teardown](https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/physical-result/physical-result.json)
-
-The flow-meter cover closes toward the east wall. Its clearance there depends
-on how far the cover moves the meter into its far seat. Observe the housing
-and cover separately against the fixed receiver when loading the outlet.
-[Meter seating measurements](pisco-fit.json)
-
-The regulator releases directly downward with its exposed leaves spread.
-The [physical result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/physical-result/physical-result.json)
-records the accepted first-job fits and the receiver-base release geometry.
-The [regulator tip reading](regulator-tip-review.json) binds the full lead-in,
-matching receiver pocket, retained bearing geometry and enclosure roof stock
-to their generated solids and prepared print.
-
-The ASSE, meter, water regulator and cold-core pump use the common pointed
-lead-in. The above-core design owns its rise and nominal tip clearance. The
-receivers carry matching pockets through the joined ceiling or lid stock.
-[Regulator tip fit](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-ceiling-down-mark2/physical-result.json) · [Pointed-profile measurements](production-fit.json)
+The solid retaining face spans each hook. An earlier trial’s segmented bridge
+strands separated during removal. For a hand fit, press alternately on the two
+sides with the hardware in place, then release the covers and inspect the
+bearing surfaces. The water-regulator cover releases straight down, the meter
+straight west. [Catch teardown](https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/physical-result/physical-result.json) · [Individual receiver and cover pairs](../../../print-tests/equipment-snap-pairs/README.md)
 
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.

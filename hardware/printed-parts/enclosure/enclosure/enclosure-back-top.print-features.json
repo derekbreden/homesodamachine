@@ -202,7 +202,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
+  "source_stl_sha256": "c8b0f3d18d5cf0678c9a7689ecb6b72f3913b5535e3b2742271f277cf3ded226",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -310,7 +310,7 @@
         98.5,
         395.5086388104271,
         417.34571720240064,
-        305.79999999999995,
+        305.34999999999997,
         309.7
       ],
       "bounds_source_mm": [
@@ -318,7 +318,7 @@
         98.5,
         395.5086388104271,
         417.34571720240064,
-        305.79999999999995,
+        305.34999999999997,
         309.7
       ],
       "name": "Flow meter upper cap pocket",
@@ -363,6 +363,27 @@
       ],
       "name": "Water regulator aft catch pocket",
       "reason": "The chamfered catch prints without support."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        83.05,
+        98.5,
+        417.59571720240064,
+        444.7586388104271,
+        305.9,
+        321.34999999999997
+      ],
+      "bounds_source_mm": [
+        83.05,
+        98.5,
+        417.59571720240064,
+        444.7586388104271,
+        305.9,
+        321.34999999999997
+      ],
+      "name": "Backed flow meter aft shoulder",
+      "reason": "The permanent slope supports the boss crown. Trees pass beside its exposed face to reach the fore shoulder, lip and channels.",
+      "review_interior": false
     },
     {
       "bounds_source_mm": [
@@ -1019,18 +1040,6 @@
         312.7
       ],
       "name": "Accessible flow meter fore shoulder",
-      "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."
-    },
-    {
-      "bounds_source_mm": [
-        83.05,
-        86.69999999999999,
-        417.59571720240064,
-        444.7586388104271,
-        305.65,
-        306.15
-      ],
-      "name": "Accessible flow meter aft shoulder",
       "reason": "Support the exposed end shoulder through the open west side, clear of the fitted cap pocket."
     },
     {

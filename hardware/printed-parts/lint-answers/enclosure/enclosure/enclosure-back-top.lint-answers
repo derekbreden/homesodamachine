@@ -450,17 +450,16 @@ click: x=88.450 y=423.044 z=267.700
 click: x=94.700 y=394.094 z=268.500
 click: x=94.700 y=419.094 z=268.500
 
-[ceiling] Unavoidable flat boundaries of the meter receiver in the roof-down print: the lip is the plane its cap's upper leaf rides over on the way to the catch, and the two end shoulders are the receiver's ends beside it. The lip, the fore shoulder and the aft shoulder's open west edge take removable support through the open west side, where a screwdriver slides in along them. The aft shoulder's first course bridges from its west edge to the flank.
-alternatives: A corbel under any of them stands in the room between the meter and Pisco receivers: in the lane the upper leaf flexes in, or in the Pisco cover's way. A sloped lip changes the leaf's riding plane and the catch edge.
+[ceiling] The upper meter leaf enters along this flat lip. The exposed fore shoulder and lip receive removable support through the open west side. The aft shoulder grows from a permanent slope at the flank.
+alternatives: Sloping the lip would change the upper leaf's approach to its catch. Filling the opening would take its spring travel.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=85.625 y=414.759 z=309.950
+click: x=85.625 y=406.427 z=309.950
 click: x=90.775 y=390.134 z=312.450
-click: x=90.775 y=439.384 z=312.450
 
-[slope] Unavoidable chamfered catch of the sideways meter receiver: every rear catch and its cover's hook share the snap chamfer, so this face is the upper leaf's bearing. It starts on the supported lip's edge and runs between the two end shoulders, with the return bevel off the flank meeting it at the pocket's root.
-alternatives: A level foot is a flat catch, which needs support inside the channel. A different slope leaves the cover's hook bearing on an edge.
+[slope] The sideways meter catch bears on the matching 45° face of the upper spring. The supported lip forms the leading edge and the return bevel joins the flank beside the flat crest.
+alternatives: A level foot enters the spring channel. A different slope reduces the hook's bearing to an edge.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=90.150 y=414.759 z=308.000
+click: x=90.375 y=406.427 z=307.775
 
 [ledge] Fitted meter housing and snap profiles: the flat faces bound the complete housing flange, screw bosses and lead exit through their fitted installation sweep. They are the purchased-body boundaries of the east-wall seat. Tree(auto)/Default reaches them through the empty west/fore opening before the meter is installed; geometric access does not establish easy support removal.
 alternatives: Filling or corbelling into these faces enters the fitted housing or its insertion sweep. Shortening the pocket removes part of the required clearance.
@@ -487,3 +486,26 @@ click: x=-83.329 y=462.253 z=312.728
 alternatives: Filling the mouth prevents fitting the full plate. A slope in the locating seat changes the rectangular seating profile or leaves a tapered lip; an open-bottom receiver removes this locating edge and the continuous protective frame.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-41.400 y=471.620 z=174.895
+
+[step] The ASSE crest stops 0.13 mm inside the common roof. The step provides the measured travel against the inlet coupling while the inclined hooks remain sprung.
+alternatives: Removing the recess makes the crests contact the common roof before the cover reaches the coupling. Moving the whole roof also changes the bench-proven Pisco stop.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=0.402 y=417.286 z=351.680
+
+[sliver] The 0.13 mm strip is the vertical end of the fitted ASSE roof recess. Each crest sweeps outward over this floor as the hook clears the full ledge during release.
+alternatives: Reducing the fitted depth changes the crest stop. Narrowing the recess puts roof material in the modeled release path.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=60.513 y=417.286 z=351.615
+click: x=-2.848 y=417.286 z=351.615
+
+[thin] The meter lead opening crosses the lower snap channel. At Y406 its floor at Z263.50 meets the catch at X91.05 and the return bevel at X94.05. A transverse section shows the chamfer running from full stock to the edge of the open cable passage. The retaining nose ends at X90.80. The earlier fitted receiver has the same two boundaries, with its return ending at X93.15.
+alternatives: Closing the gap changes the wire exit or the spring channel. Cutting the termination back along the retaining chamfer removes some of the continuous bearing, while shortening the east bevel changes the crest passage.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=94.070 y=395.857 z=263.480
+click: x=94.070 y=395.857 z=263.500
+click: x=91.029 y=418.323 z=263.479
+click: x=91.029 y=418.323 z=263.500
+click: x=94.239 y=402.171 z=263.311
+click: x=94.239 y=402.171 z=263.500
+click: x=90.772 y=413.177 z=263.500
+click: x=90.911 y=413.177 z=263.361

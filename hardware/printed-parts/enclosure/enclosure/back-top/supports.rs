@@ -2,7 +2,8 @@
 //! the flow meter's and the water regulator's. Each is a block cut round its part's measured
 //! profile, with the flank pockets its snap cap's spring wings ride in.
 use crate::catalog::{clearance, running, slip};
-use crate::layout::{Pose, Station, layout, meter_upper_catch_end_y, snap_tip_air, snap_tip_rise, PISCO_WING_AFT_Y, REAR_SNAP_CHAMFER_SLOPE};
+use crate::layout::{Pose, Station, layout, meter_upper_catch_end_y, snap_tip_air, snap_tip_rise,
+                    PISCO_WING_AFT_Y, REAR_SNAP_CHAMFER_SLOPE, REAR_SNAP_CREST_WIDTH};
 use crate::plan::{Bounds, Graph, Op, P2, P3, Shape};
 use crate::quadrant::sorted;
 use crate::shapes::place;
@@ -32,6 +33,11 @@ const REAR_ROOT_DROP: f64 = 10.0;
 /// The ledge's height off the split, and the hook's solid nose and pointed lead-in above it.
 const LEDGE: f64 = 3.0;
 const NOSE_LAND: f64 = 1.6;
+/// These local roof recesses let the ASSE and water crests close toward their hardware before stopping the leaves.
+const ASSE_CREST_RECESS: f64 = 0.13;
+const REGULATOR_CREST_RECESS: f64 = 0.23;
+/// The spread crest passes outside its free wall while the hook clears the entire 2.6 mm ledge.
+const CREST_RELEASE_ROOM: f64 = 6.5;
 /// How far past a cap's ends a turned run still counts toward the widest the cap clears.
 const CAP_OVERLAP: f64 = 0.25;
 /// The Pisco: its seat's split above its axis, its radial relief past running air, its cap's
@@ -204,9 +210,11 @@ pub fn ceiling_anchor_z() -> f64 {
     ceiling_floor_z() + INTO
 }
 
-/// The meter and water regulator tip pockets stay clear through the stock they join.
+/// The equipment crest pockets continue through the roof or flank stock they join.
 pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
-    let mut cuts = Vec::new();
+    let asse = recessed(asse_station(), ASSE_CREST_RECESS);
+    let mut cuts = tip_pockets(g, &seated(&asse));
+    cuts.extend(crest_release(g, &asse, ceiling_floor_z()));
     let frame = &layout().parts.digiten_flow;
     let centre = frame.point([meter::BODY_CENTER_X, 0.0, meter::BODY_CENTER_Z]);
     let port = frame.point([0.0; 3]);
@@ -221,10 +229,27 @@ pub fn tip_clearances(g: &mut Graph) -> Vec<Shape> {
         let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
         cuts.push(g.translate(pocket, [mx, 0.0, centre[2]]));
     }
-    for pocket in tip_pockets(g, &seated(&layout().rear_plumbing.regulator_mount.station)) {
+    let water = recessed(layout().rear_plumbing.regulator_mount.station, REGULATOR_CREST_RECESS);
+    let mut pockets = tip_pockets(g, &seated(&water));
+    pockets.extend(crest_release(g, &water, back_top_ceiling_face()));
+    for pocket in pockets {
         cuts.push(g.rotate(pocket, [0.0; 3], [0.0, 0.0, 1.0], 90.0));
     }
     cuts
+}
+
+/// Continue the crest's outward sweep into the roof skin alongside each spring, above the receiver walls.
+fn crest_release(g: &mut Graph, s: &Station, skin: f64) -> Vec<Shape> {
+    [-1.0, 1.0].into_iter().map(|side| {
+        let (lo, hi) = sorted(s.axis_x + side * s.outer, s.axis_x + side * (s.outer + CREST_RELEASE_ROOM));
+        g.box_([lo, hi, s.y0 - running(), s.y1 + running(), skin, s.ceiling])
+    }).collect()
+}
+
+/// Move just the pocket roof while preserving the hardware seat and inclined retaining ledge.
+fn recessed(mut station: Station, depth: f64) -> Station {
+    station.ceiling += depth;
+    station
 }
 
 /// A vertical receiver's station with its catch cut down into the ledge's corner by the
@@ -260,16 +285,23 @@ fn catch_pocket(g: &mut Graph, s: &Station, side: f64, [y0, y1]: P2) -> Shape {
                              [at(s.ledge), s.bearing], [at(s.neck), s.bearing + corbel_rise(s)]])
 }
 
-/// Each sideways meter channel returns to the flank on a matching bevel beyond the hook.
-fn meter_catch_pockets(g: &mut Graph, s: &Station) -> Vec<Shape> {
-    let middle = (s.bearing + s.ceiling + (s.ledge - s.outer) / corbel_slope()) / 2.0;
+/// The intersection of a meter catch with the bevel that returns to the east wall beside the flat crest.
+fn meter_pocket_corner(s: &Station) -> P2 {
+    let end = s.outer - REAR_SNAP_CREST_WIDTH;
+    let middle = (s.bearing + s.ceiling + (s.ledge - end) / corbel_slope()) / 2.0;
     let near = s.ledge - (middle - s.bearing) * corbel_slope();
+    [near, middle]
+}
+
+/// The return bevels leave a full crest width at the east wall while keeping both catch faces intact.
+fn meter_catch_pockets(g: &mut Graph, s: &Station) -> Vec<Shape> {
+    let [near, middle] = meter_pocket_corner(s);
     let upper_end = meter_upper_catch_end_y(&pisco_station());
     // The quarter turn onto the east flank takes the negative side of the station upward.
     [(-1.0, upper_end), (1.0, s.y1 + running())].into_iter().map(|(side, end)| {
         let at = |x: f64| s.axis_x + side * x;
         g.prism(1, s.y0 - running(), end,
-            vec![[at(s.outer), s.ceiling], [at(s.outer + 1.0), s.ceiling],
+            vec![[at(s.outer - REAR_SNAP_CREST_WIDTH), s.ceiling], [at(s.outer + 1.0), s.ceiling],
                  [at(s.outer + 1.0), s.bearing], [at(s.ledge), s.bearing], [at(near), middle]])
     }).collect()
 }
@@ -325,8 +357,7 @@ pub fn interiors() -> Vec<Interior> {
     let (stock, cap, meter) = meter_print_stock();
     let lower_pocket = [stock[0], stock[1], cap[0] - a, cap[1] + a, stock[4],
                         meter_wire_chamber_bounds()[4] - 2.0 * a];
-    let middle = (meter.bearing + meter.ceiling + meter.ledge - meter.outer) / 2.0;
-    let near = meter.ledge - (middle - meter.bearing);
+    let [near, _] = meter_pocket_corner(&meter);
     let upper_pocket = [stock[0] + meter.bearing, side(), cap[0] - a, meter_upper_catch_end_y(&pisco),
                         stock[5] - meter.outer + near - a, stock[5] - meter.outer + meter.ledge - a];
     vec![
@@ -344,16 +375,19 @@ pub fn interiors() -> Vec<Interior> {
     ]
 }
 
-/// The meter receiver's two exposed end shoulders, fore then aft. The fore one takes support
-/// under its whole face. The aft one takes support under its open west edge, and the rest of its
-/// first course bridges from there to the flank.
-pub fn meter_shoulder_targets() -> [Bounds; 2] {
+/// The exposed aft corbel slopes from the meter flank to the boss crown, with removable trees alongside it.
+pub fn meter_aft_backing_bounds() -> Bounds {
+    let (stock, _, s) = meter_print_stock();
+    let face = meter_aft_shoulder_z(stock[5] - s.outer);
+    [stock[0], side(), meter_upper_catch_end_y(&pisco_station()) + running(), stock[3], face,
+     face + (side() - stock[0]) * corbel_slope()]
+}
+
+/// The exposed fore shoulder takes support through the meter receiver's open west side.
+pub fn meter_fore_shoulder_target() -> Bounds {
     let a = running();
-    let (stock, cap, s) = meter_print_stock();
-    let aft_roof = meter_aft_shoulder_z(stock[5] - s.outer);
-    [[stock[0], side(), stock[2], cap[0] - 2.0 * a, stock[5] - a, stock[5] + a],
-     [stock[0], stock[0] + s.bearing - WALL / 2.0, meter_upper_catch_end_y(&pisco_station()) + a, stock[3],
-      aft_roof - a, aft_roof + a]]
+    let (stock, cap, _) = meter_print_stock();
+    [stock[0], side(), stock[2], cap[0] - 2.0 * a, stock[5] - a, stock[5] + a]
 }
 
 /// The meter receiver's front lip: the top of the bar the cap's top wing rides over, from the
@@ -599,7 +633,7 @@ fn asse(g: &mut Graph) -> Shape {
         room = g.union(room, &[hex]);
     }
     let mut cuts = vec![room];
-    cuts.extend(pockets(g, &st));
+    cuts.extend(pockets(g, &recessed(st, ASSE_CREST_RECESS)));
     g.cut(stock, &cuts)
 }
 
@@ -655,6 +689,18 @@ fn meter_aft_shoulder_z(centre_z: f64) -> f64 {
     centre_z + meter::BOSS_Z + meter::BOSS_RADIUS + METER_HOUSING_FIT + WALL
 }
 
+/// Back the aft boss crown on the flank and taper the fore end beside the upper spring's entry.
+fn meter_aft_backing(g: &mut Graph, west: f64, fore: f64, aft: f64, face: f64) -> Shape {
+    let flank = side();
+    let run = flank - west;
+    let top = face + run * corbel_slope();
+    let end = fore + run - running();
+    let slope = g.xz_prism(fore, aft, vec![[west, face], [flank, face], [flank, top]]);
+    let taper = g.yz_prism(west, flank, vec![[fore, face], [aft, face], [aft, top], [end, top],
+                                              [fore, face + running() * corbel_slope()]]);
+    g.intersect(slope, &[taper])
+}
+
 /// The meter's seat on the east flank: its housing, cover bosses and screw heads swept aft along
 /// its slide, the soda port's collar sleeves, and the chamber its wire lead leaves through. Its
 /// station stands across X, so its pockets turn a quarter about Y onto its axis.
@@ -703,8 +749,10 @@ fn meter(g: &mut Graph) -> Shape {
     let wire = g.box_(meter_wire_chamber_bounds());
     cup = g.union(cup, &[wire]);
     let stock = g.box_([mx, side() + INTO, ty + METER_SEAT[0], ty + METER_SEAT[1], mz - st.outer, mz + st.outer]);
-    let entry = g.box_([mx, side() + INTO, meter_upper_catch_end_y(&pisco_station()), ty + METER_SEAT[1],
-                        meter_aft_shoulder_z(mz), mz + st.outer]);
+    let fore_end = meter_upper_catch_end_y(&pisco_station());
+    let aft_y = ty + METER_SEAT[1];
+    let face = meter_aft_shoulder_z(mz);
+    let entry = g.box_([mx, side() + INTO, fore_end, aft_y, face, mz + st.outer]);
     let mut cuts = vec![cup, entry];
     let mut lanes = wing_lanes(g, &st);
     lanes.extend(meter_catch_pockets(g, &st));
@@ -712,7 +760,9 @@ fn meter(g: &mut Graph) -> Shape {
         let pocket = g.rotate(pocket, [0.0; 3], [0.0, 1.0, 0.0], 90.0);
         cuts.push(g.translate(pocket, [mx, 0.0, mz]));
     }
-    g.cut(stock, &cuts)
+    let stock = g.cut(stock, &cuts);
+    let backing = meter_aft_backing(g, mx, fore_end, aft_y, face);
+    g.union(stock, &[backing])
 }
 
 /// The water regulator's seat: built in its snap's frame round the measured profile, then turned
@@ -734,7 +784,7 @@ fn regulator(g: &mut Graph) -> Shape {
     let [t0, t1, t2] = pose.translation_mm;
     let room = place(g, room, [r1, r0.map(|v| -v), r2], [t1, -t0, t2]);
     let mut cuts = vec![room];
-    cuts.extend(pockets(g, st));
+    cuts.extend(pockets(g, &recessed(*st, REGULATOR_CREST_RECESS)));
     let seat = g.cut(stock, &cuts);
     g.rotate(seat, [0.0; 3], [0.0, 0.0, 1.0], 90.0)
 }

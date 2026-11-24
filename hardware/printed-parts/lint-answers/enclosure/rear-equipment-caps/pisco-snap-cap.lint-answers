@@ -1,21 +1,21 @@
-[thin] Each leaf bends between its root and its hook as the Pisco cap tips around the meter shoulder and closes over the regulator.
-alternatives: Thickening the leaf changes both the entry deflection and the return of the hook onto its ledge. The full-length fitted cover supplies the spring section.
+[sliver] The long strip at each tip is the four-bar cover’s flat bearing against its receiver pocket. The production crest is 0.90 mm wide over the entire spring span.
+alternatives: Rounding off this bearing restores the narrow contact of the pointed trial. Widening it changes the fitted lead-in and retaining geometry.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
-click: x=-14.406 y=-5.262 z=22.002
-click: x=-12.406 y=-5.262 z=22.002
-click: x=12.406 y=-5.073 z=36.254
-click: x=14.406 y=-5.073 z=36.254
+click: x=-13.956 y=-17.239 z=18.658
+click: x=13.956 y=-17.239 z=18.658
 
-[sliver] The strip is the flat on top of the spring tip. As the seated cap rolls, the rising strip approaches the roof of its receiver pocket. The full-length fitted cover uses this bearing width.
-alternatives: Removing the strip restores a pointed lead-in. Derek observed the pointed front collar toggle and the raised flat front collar stay put in the same quadrant.
+[thin] The lead-in narrows toward the 0.90 mm flat crest, which is raised 0.40 mm. This continuous taper spreads the leaf over the ledge during assembly.
+alternatives: Thickening the ramp would shorten the usable lead-in or widen the four-bar bearing. Both change entry and catch contact at the actual receiver.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
-click: x=-13.956 y=-17.139 z=18.658
-click: x=13.956 y=-17.139 z=18.658
+click: x=-13.037 y=-16.525 z=2.345
+click: x=-14.406 y=-16.525 z=2.345
+click: x=13.037 y=-16.525 z=34.970
+click: x=14.406 y=-16.525 z=34.970
 
-[thin] The inclined lead-in runs down from the roof bearing to the nose and cams the spring out over the receiver ledge during insertion. Its taper and flat crest match the fitted cover.
-alternatives: Changing the lead-in angle changes how the leaves spread on entry. Widening the crest changes the tested roof bearing.
+[thin] The 2.0 mm spring leaf and its R1.5 root flex in the print plane as the cover engages and releases.
+alternatives: Derek tested thicker leaves that bent at their corners and a thinner version that he wanted stiffened. Changing thickness alters the return onto the 45° ledge.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.step
-click: x=-13.037 y=-16.447 z=2.348
-click: x=-14.406 y=-16.447 z=2.348
-click: x=13.037 y=-16.447 z=34.967
-click: x=14.406 y=-16.447 z=34.967
+click: x=-14.406 y=-5.016 z=21.682
+click: x=-12.406 y=-5.016 z=21.682
+click: x=12.406 y=-4.973 z=36.254
+click: x=14.406 y=-4.973 z=36.254

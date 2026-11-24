@@ -208,6 +208,8 @@ pub fn snap_tip_air() -> f64 {
 
 /// The rear receiver catches share their chamfer slope with the caps.
 pub const REAR_SNAP_CHAMFER_SLOPE: f64 = 1.0;
+/// The printable flat across a rear cover wing and the width its pocket admits at the wall.
+pub const REAR_SNAP_CREST_WIDTH: f64 = 0.90;
 /// The Pisco leaves stop ahead of the rear corner column.
 pub const PISCO_WING_AFT_Y: f64 = 457.911;
 

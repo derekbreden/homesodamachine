@@ -1,8 +1,8 @@
 {
-  "purpose": "Identify the current regulator pointed tip, matching receiver and physical acceptance.",
+  "purpose": "Locate the water-regulator crest, full hardware seat and release sweep in production.",
   "production_geometry": "production-fit.json",
-  "station_source": "hardware/manifold-layout/above-core.json:rear_plumbing.regulator_mount.station",
-  "physical_result": "prints/2026-11-07-ceiling-down-mark2/physical-result.json",
-  "prepared_plate_record": "prints/2026-11-07-ceiling-down-mark2/job.json",
-  "scope": "The accepted comparison archive identifies the physically tested longer regulator cover. Production artifacts and receiver clearances are bound by the production geometry record."
+  "station_source": "hardware/manifold-layout/above-core.json#rear_plumbing.regulator_mount.station",
+  "original_longer_pointed_entry": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-ceiling-down-mark2/physical-result.json",
+  "scope": "The pointed entry comparison established the spring length and lead-in. The individual receiver and four-bar-profile production cover test the new crest and retaining face.",
+  "station": "regulator"
 }

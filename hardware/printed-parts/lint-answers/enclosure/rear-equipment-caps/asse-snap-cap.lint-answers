@@ -1,57 +1,51 @@
-[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
-alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
+[ceiling] The axial end faces of the fitted ASSE cavity capture its inlet adapter and both wrench shoulders. The production plate reaches the transition through the open passage with its dense interface.
+alternatives: Extending the larger cavity through these ends removes axial capture. Ramping into the passage consumes the threaded-joint travel.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-24.012 y=7.600 z=28.202
-click: x=-22.655 y=6.147 z=28.202
-click: x=24.012 y=7.600 z=13.459
-click: x=22.655 y=6.147 z=13.459
-click: x=-24.012 y=8.600 z=28.202
-click: x=-22.655 y=7.147 z=28.202
-click: x=24.012 y=8.600 z=13.459
-click: x=22.655 y=7.147 z=13.459
+click: x=-0.015 y=6.704 z=42.175
+click: x=17.206 y=4.236 z=38.665
+click: x=-17.172 y=4.236 z=38.665
 
-[sliver] The measured adapter wrench flat meets the cap's horizontal open edge at this narrow planar face. Its captured clocking and slightly tilted axis define the intersection. This is the fitted wrench profile at the opening.
-alternatives: A round bore through the clipped corner radius adds about 1.5 mm radial space at a wrench flat. Changing the clock or axis changes the registered hardware fit. Lowering the whole open edge removes the corresponding wrench coverage.
+[ceiling] The channel closes across the ASSE vent and drain-sleeve windows at the fitted end stations. The opening provides screwdriver access to remove the dense interface before fitting the sleeve.
+alternatives: Closing these windows sooner would enter the sleeve at an allowed thread position. Lengthening the windows would remove adapter-shoulder stock.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-12.459 y=-3.315 z=55.216
+click: x=0.070 y=19.425 z=50.300
+click: x=0.070 y=15.927 z=30.865
 
-[ceiling] The solid adapter bridge closes around the smaller measured adapter profile behind the ASSE wrench passage. Its axial transition faces retain the complete wrench passage and threaded-joint adjustment room. Tree(auto)/Default supports these faces through the open cavity before hardware insertion; a tiny flathead reaches the support contacts.
-alternatives: Filling the cavity enters the measured adapter or ASSE clearance. A ramp in the large wrench passage consumes the specified threaded-joint adjustment room. Splitting the bridge into a separate piece violates the one-solid cap construction.
+[sliver] The long strip at each tip is the four-bar cover’s flat bearing against its receiver pocket. The production crest is 0.90 mm wide over the entire spring span.
+alternatives: Rounding off this bearing restores the narrow contact of the pointed trial. Widening it changes the fitted lead-in and retaining geometry.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-0.015 y=5.004 z=42.171
-click: x=17.206 y=2.536 z=38.661
-click: x=-17.172 y=2.536 z=38.661
+click: x=-24.698 y=-21.014 z=20.832
+click: x=24.698 y=-21.014 z=20.832
 
-[ceiling] These are the closing ends of the vent and drain-sleeve clearance windows. The long sleeve window ends at Z309.4 and spans the complete threaded-joint adjustment. Tree(auto)/Default supports the ends through their open lower channel; the small flathead reaches them before hardware installation.
-alternatives: Filling or shortening the windows enters the measured vent/sleeve volume at a permitted thread position. Ramping within the clearance removes that axial adjustment. The roof height supplies solid backing below the fitted adapter pocket.
+[sliver] The measured adapter wrench flat meets the rounded boundary of its captured hex. Its width follows the six-plane hex at the installed clock over the whole wrench band.
+alternatives: Broaching that face into a circle removes the mating flat. Adjusting the clock moves all six fitted planes relative to the adapter.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=0.070 y=16.725 z=50.300
-click: x=0.070 y=13.102 z=30.865
-click: x=0.070 y=17.725 z=50.300
-click: x=0.070 y=14.227 z=30.865
+click: x=-12.629 y=-0.470 z=55.318
 
-[thin] The free edge ends the physically approved longer planar lead-in Derek requests across the rear caps. The taper approaches a mathematical point on the outside spring wall. The fitted spring section and solid retaining nose retain their approved geometry.
-alternatives: A flat land removes the requested point. Thickening the spring changes the approved flexure; extending the nose changes the fitted catch. The requested point is integral with the full spring wall along the cap.
+[thin] The sampled pair crosses two adjacent exterior faces at the 60° corner of the ASSE adapter housing. In this section the cap’s flat rim meets the solid sloping flank all along the adapter. The number describes distance through that corner near its edge.
+alternatives: A wall-thickness reading across the housing uses the opposing wrench-pocket face. Extending or flattening the exterior angle would change the full fitted cap outline relative to its measured adapter housing.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-25.127 y=-20.790 z=0.348
-click: x=-25.148 y=-20.790 z=0.348
-click: x=25.127 y=-20.790 z=41.317
-click: x=25.148 y=-20.790 z=41.317
-click: x=25.148 y=-20.739 z=0.351
-click: x=25.111 y=-20.771 z=0.351
-click: x=-25.148 y=-20.712 z=41.306
-click: x=-25.098 y=-20.755 z=41.306
-click: x=25.148 y=-20.551 z=2.586
-click: x=25.018 y=-20.662 z=2.586
-click: x=24.970 y=-20.605 z=35.703
-click: x=25.148 y=-20.605 z=35.703
-click: x=24.960 y=-20.593 z=32.169
-click: x=25.148 y=-20.593 z=32.169
-click: x=25.148 y=-20.509 z=23.479
-click: x=24.997 y=-20.637 z=23.479
+click: x=25.133 y=-0.764 z=64.276
+click: x=25.144 y=-0.758 z=64.276
+click: x=-25.133 y=-0.764 z=64.276
+click: x=-25.144 y=-0.758 z=64.276
+click: x=25.084 y=-0.653 z=42.040
+click: x=25.084 y=-0.764 z=42.040
+click: x=25.035 y=-0.568 z=53.269
+click: x=25.035 y=-0.764 z=53.269
 
-[sliver] This 0.676 mm-wide face is one of the adapter pocket's specified conforming hex flats, over the complete 10.25 mm hex band. The flat's direction and the 12.874 mm rounded-corner boundary define the selected fitted section. Derek explicitly retains the conforming hex and ensures its clock when assembling the taped joint.
-alternatives: Removing this plane changes the selected hex fit. Removing the corner boundary opens its rounded-corner envelope; replacing the flat with a circular room removes the hex conformity Derek requests. Adding exterior material does not widen this interior mating face.
+[thin] The lead-in narrows toward the 0.90 mm flat crest, which is raised 0.40 mm. This continuous taper spreads the leaf over the ledge during assembly.
+alternatives: Thickening the ramp would shorten the usable lead-in or widen the four-bar bearing. Both change entry and catch contact at the actual receiver.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
-click: x=-12.582 y=-2.080 z=55.318
-click: x=-12.629 y=-2.170 z=55.318
+click: x=25.148 y=-19.979 z=3.009
+click: x=24.044 y=-20.703 z=3.009
+click: x=-23.758 y=-20.267 z=6.544
+click: x=-25.148 y=-20.267 z=6.544
+
+[thin] The 2.0 mm spring leaf and its R1.5 root flex in the print plane as the cover engages and releases.
+alternatives: Derek tested thicker leaves that bent at their corners and a thinner version that he wanted stiffened. Changing thickness alters the return onto the 45° ledge.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.step
+click: x=24.012 y=10.300 z=13.460
+click: x=22.655 y=8.847 z=13.460
+click: x=-22.656 y=8.846 z=40.623
+click: x=-24.015 y=10.297 z=40.623

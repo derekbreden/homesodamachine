@@ -1,103 +1,43 @@
 {
-  "purpose": "Compare the production Pisco cover with the fitted Mark1 print and its deposited crest paths.",
-  "production_commit": "8e210c8e20958be04ec9165c12243f24307520be",
+  "purpose": "Bind the production Pisco cover to the full-length four-bar Mark2 cover preferred in the original rear quadrant.",
   "material": "HSM-0449",
-  "bench": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json",
-  "loaded_fit_and_entry": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check.json",
+  "bench": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json",
+  "observation": "Derek preferred four bars to two in the same corner. The fitted PET-GF cover stayed engaged during the hard alternating press. He described the remaining movement as bending of the whole wing.",
+  "fitted_part": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/pisco-raised-tip-cover-040.stl",
   "stl_comparison": {
-    "frame": "The two exported STLs on their axial print ends, with their original origins.",
-    "production_sha256": "bc9a1759f1d354d6b2f16cbfe0085a2c758d8743c28e60aa7f8ab4b3fde2a753",
-    "fitted_sha256": "1382d98655a89e473cead9bb7efae0ae49870c79ba8582e7fa0b878bb8f63995",
+    "production_sha256": "c02fe2e2253a3878b1508d06d5f02de286f40e952a68e05f6b19650cb007583c",
+    "fitted_sha256": "c44fe9511ac2a2650fb72ca57424b7489514d4bbd1d300e2b14bdb6ccae9eabe",
     "production_connected_solids": 1,
     "fitted_material_absent_in_production_mm3": 0.0,
-    "production_only_material": "The two trial identification grooves on the exposed back are filled.",
+    "production_only_material": "The four trial identification grooves in the exposed back are filled.",
     "production_only_volumes_mm3": [
-      3.886998,
-      3.886997
+      3.887009,
+      3.88701,
+      3.887008,
+      3.887007
     ],
-    "symmetric_volume_difference_after_cutting_same_grooves_mm3": 6.72e-06
+    "symmetric_volume_difference_after_cutting_same_grooves_mm3": 4.146e-05
   },
-  "machine_mesh": {
-    "sha256": "352053871cc5d8c40098e5283c58ddab776ff190f00a829c88e7f8371ebbbfd1",
-    "method": "Opposed vertical rays to the flat crest and the pocket roof in the published assembly pose.",
-    "probe_xy_mm": [
-      [
-        62.5444,
-        435.0
-      ],
-      [
-        90.4556,
-        435.0
-      ]
-    ],
-    "crest_z_mm": 351.25,
-    "pocket_roof_z_mm": 351.54999,
-    "nominal_gap_mm": 0.29999,
-    "centered_loaded_gap_from_fitted_model_mm": 0.033023,
-    "seating_reference": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/preload-check.json",
-    "modeled_upward_travel_saddle_to_nominal_regulator_mm": 0.147,
-    "modeled_upward_travel_regulator_to_upper_seat_mm": 0.12,
-    "scope": "The centered fit assumes rigid hardware translation and clamped spring leaves. The hand fit is observed. Actual contact on each surface, spring force and part-to-part variation are unmeasured."
-  },
-  "native_slice": {
-    "recipe": "single-pisco-cap",
-    "printer": "Mark1",
-    "plate": "Textured PEI Plate",
-    "production_archive_sha256": "90d8472fc285f2f1bfc8d0322edb82b4fb67316f64998714517dc054e1b6a809",
-    "fitted_archive_sha256": "a590e0df2be10c4275ee2c50221d26521232b1f848ddc089d1b7b5e35580a301",
-    "production_gcode_sha256": "bcfb0152e975d90056b29f79c360bbcad31cce421dd7ab7dfec13dee63ce0f6a",
-    "fitted_gcode_sha256": "955ca03c8880130f8945363bf452ca71b923bc288afa6928164d4921ecafa47b",
-    "review_pass": true,
-    "support_roads": 0,
-    "layers": 174,
-    "emitted_textured_trim_mm": 0.08,
-    "check": "Compare XY endpoints and width of the two straight outer-wall crest roads at matching interior layer heights in the production and fitted G-code.",
-    "compared_layers": 152,
-    "compared_layer_range_mm": [
-      0.68,
-      36.92
-    ],
-    "both_paths_identical_on_all_compared_layers": true,
-    "perimeter_width_mm": 0.42,
-    "straight_nozzle_path_mm": {
-      "west": 0.579,
-      "east": 0.579
-    },
-    "nominal_deposited_outer_edge_z_mm": {
-      "west": 351.2503,
-      "east": 351.2503
+  "machine": {
+    "roof_z_mm": 351.55,
+    "old_point_z_mm": 351.05,
+    "new_crest_z_mm": 351.45,
+    "rise_mm": 0.4,
+    "crest_width_mm": 0.9,
+    "nominal_roof_gap_mm": 0.1,
+    "modeled_crest_clearance_at_centered_stop_mm": 0.001,
+    "saddle_to_stationary_hardware_mm": 0.147,
+    "remaining_travel_from_stop_to_far_seated_hardware_mm": 0.168,
+    "free_hook_overlap_mm": 0.55,
+    "remaining_catch_overlap_before_flex_mm": 0.45,
+    "entry": {
+      "waypoints": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+      "sampled_poses": 281,
+      "maximum_receiver_overlap_mm3": 0,
+      "maximum_hardware_overlap_mm3": 3e-08,
+      "minimum_backed_meter_shoulder_clearance_mm": 0.6072
     }
   },
-  "meter_comparison": {
-    "method": "Translate the cap and meter separately toward the east wall in the same machine mesh. Find first rigid contact along X. The reverse translation puts the cap on its inclined catches.",
-    "cap": "meter-snap-cap",
-    "cap_to_nominal_housing_mm": 0.15,
-    "cap_contacts": "digiten-flow/1",
-    "nominal_housing_to_fixed_seat_mm": 0.15,
-    "far_seat_contacts": "The label-side cover and screw-head envelopes meet enclosure-back-top.",
-    "nominal_tip_to_wall_mm": 0.5,
-    "tip_gap_after_cap_contacts_stationary_meter_mm": 0.35,
-    "tip_gap_after_meter_reaches_far_seat_mm": 0.2,
-    "nominal_outward_cap_travel_to_catches_mm": 0.4,
-    "scope": "Two straight, centered seating cases. How far the plumbing lets the meter move and which hooks or tips carry a rocking load in the printed assembly are bench questions."
-  },
-  "pisco_receiver_comparison": {
-    "method": "Intersect the printed bench-corner STL and the current production back-top STL with the same box around the Pisco seat, catches and adjacent meter shoulder. Compare the two cropped solids in installed coordinates.",
-    "region_xyz_mm": [
-      [
-        51,
-        400,
-        292
-      ],
-      [
-        103,
-        469,
-        354
-      ]
-    ],
-    "production_shell_stl_sha256": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
-    "bench_corner_stl_sha256": "1946f326a98b136ee181fcacc7d84bc02ea31e83c8f8164128d18db4439bddc1",
-    "production_only_mm3": 6.25e-05,
-    "fixture_only_mm3": 0.0
-  }
+  "reference_comparison_points": "production-fit.json",
+  "prior_two_bar_mesh_and_slice": "https://github.com/derekbreden/homesodamachine/blob/81af69339f6a91c032c34e3389a2f0d2464abeed/hardware/printed-parts/enclosure/rear-equipment-caps/pisco-fit.json"
 }

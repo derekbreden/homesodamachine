@@ -1,26 +1,32 @@
-[thin] Functional axial bearing at the measured water-regulator body-to-neck shoulder. The short native neck between the housing shoulder and outlet collar bounds this approximately 2 mm axial web. Its surfaces follow the actual installed radial profile with 0.25 mm radial and axial cap air; this is the shoulder that constrains axial movement.
-alternatives: Increasing the axial web to 3 mm intersects the adjacent housing or outlet collar unless their fitted cavity is enlarged. Enlarging that cavity removes the measured axial capture. Additional radial stock does not widen the available axial neck.
+[sliver] The long strip at each tip is the four-bar cover’s flat bearing against its receiver pocket. The production crest is 0.90 mm wide over the entire spring span.
+alternatives: Rounding off this bearing restores the narrow contact of the pointed trial. Widening it changes the fitted lead-in and retaining geometry.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
-click: x=-4.303 y=3.807 z=23.549
-click: x=-4.243 y=3.781 z=21.576
+click: x=16.146 y=20.603 z=18.000
+click: x=16.146 y=-20.603 z=18.000
 
-[thin] The specified 2.0 mm spring leaves and R1.5 root transitions provide the intermediate section Derek requests between the physically tested 1.3 and 2.6 mm leaves. These are the flexures, printed on an axial end so bending lies in the layer plane. Repeated insertion and bending distribution are physical checks on the complete pointed samples.
-alternatives: Thickening the leaves to 2.6 mm repeats the section Derek reports bending only at its corners; 1.3 mm repeats the thinner section he requests an intermediate value above. The broad central bearing stock is independent of these spring lengths.
+[step] The central regulator bearing ends 1 mm inside the spring ends alongside the outlet collet. This step provides the axial clearance for the collet while the two complete springs reach their receiver end faces.
+alternatives: Carrying the bearing to the spring end crowds the release collet. Cutting the springs back shortens both continuous catches.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
-click: x=10.448 y=-21.053 z=30.884
-click: x=10.448 y=-19.053 z=30.884
-click: x=-8.553 y=21.053 z=32.631
-click: x=-8.553 y=19.053 z=32.631
+click: x=-12.205 y=-0.600 z=35.000
 
-
-[thin] The free edge ends the physically approved longer planar lead-in Derek requests across the rear caps. The taper approaches a mathematical point on the outside spring wall. The fitted spring section and solid retaining nose retain their approved geometry.
-alternatives: A flat land removes the requested point. Thickening the spring changes the approved flexure; extending the nose changes the fitted catch. The requested point is integral with the full spring wall along the cap.
+[thin] The lead-in narrows toward the 0.90 mm flat crest, which is raised 0.40 mm. This continuous taper spreads the leaf over the ledge during assembly.
+alternatives: Thickening the ramp would shorten the usable lead-in or widen the four-bar bearing. Both change entry and catch contact at the actual receiver.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
-click: x=15.917 y=-21.029 z=0.348
-click: x=15.917 y=-21.053 z=0.348
-click: x=15.917 y=21.029 z=35.652
-click: x=15.917 y=21.053 z=35.652
-click: x=15.836 y=-21.053 z=35.640
-click: x=15.882 y=-20.999 z=35.640
-click: x=15.836 y=21.053 z=0.360
-click: x=15.882 y=20.999 z=0.360
+click: x=15.466 y=-19.707 z=5.152
+click: x=15.466 y=-21.053 z=5.152
+click: x=15.466 y=19.707 z=30.848
+click: x=15.466 y=21.053 z=30.848
+
+[thin] The short axial web fits between the water-regulator housing shoulder and outlet collar and captures the measured body-to-neck transition.
+alternatives: Thickening this web enters the adjacent housing or outlet collar. Enlarging the bore would lose axial capture.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+click: x=-7.003 y=3.807 z=23.549
+click: x=-6.943 y=3.781 z=21.576
+
+[thin] The 2.0 mm spring leaf and its R1.5 root flex in the print plane as the cover engages and releases.
+alternatives: Derek tested thicker leaves that bent at their corners and a thinner version that he wanted stiffened. Changing thickness alters the return onto the 45° ledge.
+file: hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.step
+click: x=3.789 y=-21.053 z=20.231
+click: x=3.789 y=-19.053 z=20.231
+click: x=3.658 y=19.053 z=34.947
+click: x=3.658 y=21.053 z=34.947
