@@ -192,7 +192,7 @@ gripping surface, with no local layer band or added support fins.
   modifiers stop at the ribbons.
 - **`edge_fins`** — interrupted removable walls from the bed to a flat ceiling's exterior
   edge, with narrow blockers over their contact strips
-  ([printed-parts/AGENTS.md](../../AGENTS.md#supports)). `foot_outboard_mm`,
+  ([edge fins](../../petgf-supports.md#edge-fins)). `foot_outboard_mm`,
   `foot_inboard_mm` and `foot_height_mm` give each fin a flat foot as its bed anchor.
 
 A part may also declare one **`pause`**: parts loaded into closed slots mid-print. Its slot

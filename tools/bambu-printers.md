@@ -317,8 +317,9 @@ in the dry runs that followed.
 
 The sender checks the archive's embedded G-code checksum, the target printer, each active
 nozzle's external spool type and colour, and the standing print options. It supports one
-external filament per active nozzle on a single sliced H2C plate. Spool quantity is not a
-launch condition.
+external filament per active nozzle on a single sliced H2C plate. Use each spool through
+runout. Launch a ready print with the correct material mapping without asking for a
+spool weight or estimate. Ask for a reload only when the spool actually runs out.
 
 On a two-nozzle Mark2 plate the dialog's left tile reads `Ext PET-CF` and the right
 `Ext PET-CF R`. For about a second after the dialog opens, the right tile reads

@@ -725,9 +725,9 @@ individual prepared plates record their brim setting in their own folder under
 
 ## Support-removal strategy
 
-Enclosure parts and receiver test coupons use the tree support settings from
-`../../petgf.3mf` in each part's production print orientation. The screw-mounted
-nameplate prints with its flat back on the bed and its screw seats facing upward.
+PET-GF enclosure parts and receiver test coupons use the [shared support settings](../../petgf-supports.md)
+in each part's production print orientation. The [screw-mounted nameplate](../nameplate/README.md#printing-and-assembly)
+prints without support, with its flat back on the bed and its screw seats facing upward.
 
 Use Tree (auto) for accessible exterior features. Supports inside enclosed cavities
 must be branching trees; normal rectangular supports are not removable there. The rear
@@ -735,59 +735,10 @@ enclosure, front pump cavities and lower pump retainer select Tree Slim. Inspect
 the actual branches and removal openings in the emitted native slice. A smaller
 footprint or an open-looking lane alone does not establish easy cleanup.
 
-Back-top prints ceiling-down with its rear flutes clear of the bed. Manual Tree
-Slim carries the exposed joint ends, funnel receiver shoulders and valve seat.
-The fill tube seat's free upper wing prints on breakaway strips rooted on its
-corbelled lower wing. The cable hooks' beak lands overhang too little
-to need support, as front-bottom's same hooks print without it. The first model courses on the tube-seat and relay-boss arcs
-have dense interface or adjacent deposited stock throughout the sampled contact
-areas. The native layers retain that local backing. Joint targets follow the
-raked ends and counterbore roofs above the bed chamfer.
+For back-top's receiver catches, joint ends, removable rail caps and clear passages,
+follow the [back-top print and removal instructions](back-top/README.md).
 
-The nameplate receiver's rounded crown and lower mouth edge grow from the
-rear wall on corbels. The lower rear edge of the nameplate follows the mouth
-slope. Each split rail cap covers the bearing from its stop to its rear end,
-splitting at the vent's open passage, and starts on narrow roots in its own cavity. Sever the
-necks and pull the cap inward through the open sliding lane. The
-native slice review confirms the cap air gaps, bed border and clear fitted
-interiors. Funnel insert pilots bridge between their own walls inside the
-supported shoulders, and so do the power inlet's blind pilots inside its
-supported flange pocket and cord passage. The connector insertion pockets
-remain clear. The [current review record](../../support-D-rollout.json)
-binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
-and fit of this prepared plate await its first print.
-
-Every rear snap catch uses the shared chamfer slope with its matching cap.
-The ASSE, Pisco and water-regulator catches are cut down into their ledges'
-corners, under the caps' whole pointed lead-ins.
-The ASSE, Pisco, meter and water-regulator catch pockets stay clear of supports.
-A common ceiling recess over the ASSE and Pisco runs between the flanks and
-flush to the rear wall, whose panel relief runs from the rim up to it at the
-face of the core's pocket, and it runs round the connector wells' row on the
-west flank. The bulkhead nuts and the Pisco's shoulder seat on that relief's face. The receivers, both rear corner
-columns, the power-supply bosses and the inlet tunnel are rooted in that
-recessed ceiling. The receivers have plain end walls around the fitted
-passages and wing catches. The Pisco leaves stop ahead of the corner column,
-with the fitted body span retained.
-
-The meter's upper catch ends at the Pisco receiver's fore wall. Its aft shoulder drops to the wall over the meter boss channel, giving the tilted Pisco cover room to swing in. The meter's fore shoulder, the shortened lip its cap's upper leaf rides over and the
-open west edge of its aft shoulder take removable support through the open
-west side. The aft shoulder's first course bridges from its west edge to the
-flank. Each sideways hook channel returns to the flank on a bevel rather than a
-flat floor.
-The fitted boss channels, screw-head channels and wire chamber retain accessible
-support through the receiver's open west side. Component bearing profiles and
-spring walls retain their fitted geometry. The
-[corner fit print](../../../print-tests/rear-equipment-corner/README.md) retains
-the complete receivers and enclosure roof in the production layer direction.
-Native construction emits the exclusions beside the STL, bound to its digest;
-preparation carries them through orientation and placement as blockers and
-painted surfaces. The covered bulkhead bores and horizontal valve sockets use
-teardrop roofs pointing in the build direction; build-axis valve sockets remain
-circular and open. The PRV cap has a rooted chamfer and end-wall backing, and
-its short mouth lip bridges between the side walls. The native review reads
-support beads inside these named regions, including ordinary support paths
-without interface labels.
+### Rail supports
 
 A production-profile slice reports the connected support bodies which reach the model and their
 separate interface islands. One body can reach several distinct contact regions. Two further
@@ -805,7 +756,7 @@ meshes to their prepared native projects and measured roots. The front-bottom re
 keeps its rail trees inside their cavities; front-top's gabled rail roofs print without
 support contacts.
 
-Back-bottom's automatic trees root on their rail cavity floors. Its local handhold
+Back-bottom's Tree (auto)/Default supports root on their rail cavity floors. Its local handhold
 requests produce dense support under the flat seam lips and tree tips under the
 rounded mouths. The handhold interiors use their integral corbels.
 
@@ -822,10 +773,12 @@ applying a coupon's cleanup result where walls block the tool.
 The audit records each support's actual root. Its position, contact and removal
 lane determine whether it is accessible in the ceiling-down part.
 
+### Print-down show rounds
+
 **Expanding print-down show rounds use an additive chamfer/taper at 0.24 mm.**
 The shared [native construction](interface/lib.rs) fills the lower corner
 inside its unrounded envelope, with a 0.5 outward/build-rise slope tangent to the
-retained circular taper. R6 has a 3.317 mm straight transition and a 2.292 mm initial
+retained circular taper as defined in [the structure geometry](numbers/structure.rs). R6 has a 3.317 mm straight transition and a 2.292 mm initial
 inset; each 0.24 mm layer advances at most 0.12 mm on that section. The enclosure applies it to
 roof side edges. Handhold lifting roofs use their continuous planar corbels and the shared
 ordinary layer schedule. Mating planes keep their required dimensions.
@@ -838,6 +791,8 @@ complete top R6 and qualifies the chamfer/taper's surface on that article; slidi
 surfaces remain separate checks. Each fresh slice must verify first/second-layer
 bead overlap and absence of support contacts on the show transitions, including
 short support bodies without an interface label.
+
+### Working faces
 
 Printed working faces meet the clearance, supported-surface and stock requirements.
 A seating or bearing role does not waive them. The face keeps its required working
@@ -1155,6 +1110,10 @@ the loading run. Its flank rails run beside the pump wells, and the tee wall's l
 retain their chassis interfaces.
 
 ## Pump retention, printing and service
+
+The [retainer producer](enclosure_pump_retainer.rs) exports one printable clamp.
+The seated model places a copy and its purchased fasteners at each pump in the
+assembly and its named views. Include the assembly producer when changing that installation.
 
 The motor guide keeps the pump straight. Broad fixed stops above the flange and the local
 retainer below it resist axial movement. The insert posts root in surrounding stock. Their
