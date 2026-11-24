@@ -132,6 +132,13 @@ The local render and the deployed viewer are two stops on one geometry path. [`t
 
 A focused print-build target writes and publishes the changed producer. `hsm` reads the exported geometry, and `inspect-part.mjs` provides the next local picture and targeted measurements. Broader builds and checks answer broader questions when those questions arise. The iteration speed that matters is the time from an edit to the next informed look — first by the agent, then by Derek.
 
+## Bench measurements
+
+Ask Derek for a single reading by hand. For a series of readings or readings
+against position, give him the buy list for a rig he can assemble and wire.
+A controller or camera takes the readings and its log goes in the repo. The
+[reed sweep rig](assembly/reed-sweep-rig.md) records a reed's changes against the slide position.
+
 ## What a build costs
 
 The normal print build runs the native producers whose declared inputs changed:

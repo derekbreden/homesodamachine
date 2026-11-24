@@ -36,6 +36,28 @@ Focused Git fixtures run on demand:
 tools/run -- cargo test --release --locked -j 2 --manifest-path tools/hsm/Cargo.toml -p hsm-git-tools
 ```
 
+## Commit messages
+
+End the message with one trailer block.
+
+```text
+Session: <session title>
+Derek: "<his words, exactly as typed>"
+Derek: "<another passage, with ... marking a cut; a long one wraps onto
+ lines that start with a space>"
+Co-Authored-By: <the harness's line, when it adds one>
+```
+
+`python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the
+session title. It marks an unnamed title `(auto-generated)`. In a cloud session
+the `Claude-Session:` link names the session. Quote a passage from Derek exactly
+for each request the commit answers. Omit `Derek:` for a commit he did not request.
+Read the passages with `git log --format='%(trailers:key=Derek)'`.
+
+The commit that sets a value says what it does on the part and where its evidence
+is. A commit that moves a setting carries Derek's original words with it. When a
+rewrite breaks blame, record the link with [`git why link`](#following-a-line-past-a-rewrite).
+
 ## Following a line past a rewrite
 
 `git why` follows a line back past the commits where git loses track of it. It runs

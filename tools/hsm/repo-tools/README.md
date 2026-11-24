@@ -24,9 +24,28 @@ repo-tools checks --list
 repo-tools paths selftest
 ```
 
+## Temporary build files
+
+Reuse the artifacts held by `hsm`. Leave full build trees there. For a comparison,
+publication or handoff, save only the files needed in `.cache/runs/<purpose>-<run-id>`.
+Keep private benchmark caches inside the same run directory. Keep concise results,
+source revisions, artifact hashes and measurements. Remove the temporary files
+when the run's work is finished.
+
+Keep current deliverables and active print records at their recorded paths outside
+`.cache`. Archive completed experiments and their print records in Git and link to
+the archived files at their commit.
+
+Delete build outputs, cache entries, plates and installed builds wherever they live
+once Git can regenerate them and they have gone unused for days. Derek authorizes
+that cleanup. The scheduled `repo-tools cache-gc` handles caches and installed
+builds and keeps what active builds use.
+
 `cache-gc` lists what Git can rebuild that nothing has used within `DAYS` in [cache.rs](src/cache.rs). `--apply` removes it. Each child of `runs`, `prints`, `printer-control`, `printer-control/imports` and `meshes/publication` ages independently by its newest write; a fresh run keeps no older run alive. A mesh object in `meshes/scene-assets` stays while a payload in the tree, a tracked JSON file or a pointer file in the cache names it, and goes once nothing has named, written or read it within that time. An entry of `meshes` or `realized` that no tracked file names by its `.cache/` path ages like scratch. An enclosure stage in `realized/rust-stages` goes once it is that old and no build has read it since it was written; the stage cache bounds the rest of its storage itself. A build in `~/.local/lib/hsm` stays while a launcher in `~/.local/bin`, `launcher.json` or `runtime.json` names it, or a running program executes it. The printer-control environment and installed runtimes remain. `--cache PATH`, `--prefix PATH` and `--days DURATION` select the locations and age.
 
 `cache-gc` also lists the cargo units in `tools/hsm/target` whose fingerprints no build has read within `UNIT_DAYS`, and `--apply` removes them with their outputs and build-script directories. On macOS a read moves a file's access time only while it is older than the file's last write, so each pass sets every kept fingerprint's access time just before its write time, and `.cache/cache-gc-uses.json` keeps the last use each pass saw. A unit that record has not seen counts as read now. It holds each profile's cargo locks while it works and passes over a profile a build holds. Top-level binaries and dep-info remain. `--target PATH` selects another target.
+
+## Other commands
 
 `time-to-site` reads the served commit and the current deployment filter. `missing-tools` reads the repository's Claude and Codex transcripts, including iCloud files, and counts scratch code and blocking waits. It uses installed `sqlite3` read-only for the Codex index. `--show` reuses a recent reading in `.cache/missing_tools.json`.
 

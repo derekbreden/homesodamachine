@@ -5,7 +5,7 @@ What nine months of printing the Home Soda Machine taught us about FDM, one plas
 
 Each page of the book is one HTML file in this folder, built on one real print. Its title is the rule that print taught.
 Every page says which plastic, printer, plate and nozzle its evidence comes from. A lesson learned in one plastic is
-not a rule for another, so read the part for the plastic you are printing.
+not a rule for another. Start with [Before any filament](#before-any-filament) and the part for the plastic you are printing.
 
 ## Where to start
 
@@ -46,7 +46,7 @@ The current recipes and rules are owned by these files, and the book's pages lin
 | TPU: the sleeve, gaskets, elbows | [`tpu-o-ring/README.md`](../printed-parts/faucet/tpu-o-ring/README.md) · [`gaskets-print-log.md`](../printed-parts/gaskets-print-log.md) · [`pump-elbow-exploration`](https://github.com/derekbreden/homesodamachine/blob/e59c4f46ec277160e3eba3883aac7b79aba253e3/future/pump-elbow-exploration/README.md) |
 | ASA Aero: the float | [`all-aero/README.md`](../printed-parts/cold-core/magnetic-float/all-aero/README.md) |
 | The printers: runbook, first-layer trims, maintenance, what dries where | [`tools/bambu-printers.md`](../../tools/bambu-printers.md) · [`z-trim.md`](../printed-parts/z-trim.md) · [`tools/bambu-maintenance.md`](../../tools/bambu-maintenance.md) · [`ledger/tools.md`](../ledger/tools.md) |
-| What Derek has tried in hand, in his words | [`hardware/ledger/fitted.json`](../ledger/fitted.json) |
+| What Derek has tried in hand, in his words | [`hardware/ledger/fitted.json`](../ledger/fitted.json) · [Recording print results and physical fit](../ledger/fitted.md) |
 
 ## Every page, by part
 

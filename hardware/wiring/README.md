@@ -127,6 +127,10 @@ temperature and reed commons keep their separate existing WAGO connections.
 
 ## Routing and assembly
 
+Finish the mechanical layout before placing Wagos or routing wires. Position
+them around the finished mechanics. Existing Wago positions and wire routes
+can move to accommodate a mechanical change.
+
 Insulated wires may lie against a surface or another wire. They need room
 to occupy their routed space: avoid trapping them on all sides in a narrow
 channel or sending them through solid stock. A uniform 1 mm gap around each

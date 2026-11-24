@@ -2,8 +2,9 @@
 
 Concerns that are already answered, by stage of the machine's life, each with where its answer
 lives, so no one raises them again. Agents don't write their own concerns here: an agent tells
-Derek the concern, and only an answer he gives is recorded. A concern that stands is work to do,
-not a row. Physical records and fastener specifications are in
+Derek the concern, and only an answer he gives is recorded. Until he responds, the concern
+still needs to reach him. A concern that stands is work to do, not a row.
+Physical records and fastener specifications are in
 [mechanical evidence and qualification](/hardware/mechanical-qualification/README.md), the safety
 and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), and the cabinet is
 [`/marketing/install-envelope.md`](/marketing/install-envelope.md).

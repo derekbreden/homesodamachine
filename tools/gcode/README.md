@@ -65,6 +65,8 @@ that feature. It then lists the layers that differ and the longest stretches onl
 lays. Beads are matched where they lie, so sloped and warped courses compare as level ones
 do. `--tolerance` sets how close counts as on; `--json` writes every group.
 
+## Print playback
+
 ```bash
 hsm-gcode view playback SLICE.gcode.3mf --layers FIRST-LAST --title "Print motion" --out PAGE.html
 hsm-gcode view playback SLICE.gcode.3mf --layers all --inline --title "Whole plate" --out PAGE.html
@@ -96,6 +98,8 @@ Keep a prepared slice beside its matching `preparation.json`. Playback and the s
 that record's removable stock declarations and the sliced meshes to identify deposited support.
 A move through a shared boundary or retained model material keeps its slicer label. The reading
 runs when generating a replay or auditing a slice.
+
+## Seams and speed
 
 `PRINT.json` is the `*.print.json` a preparer writes beside its project. It supplies the part's
 identify ID and its pose on the plate, so seams are measured in the part's own CAD frame.

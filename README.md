@@ -22,7 +22,7 @@ The product under development is an integrated under-counter soda machine — cu
 | [`future/`](/future/) | Where the project is going — the vision and the plan in [`README.md`](/future/README.md), and the desires not yet committed to plans in [`pie-in-the-sky/`](/future/pie-in-the-sky/) |
 | [`tools/`](/tools/) | [The `hsm` kernel, build and geometry queries](tools/hsm/README.md), render scripts, printer and bench utilities |
 
-Agents and collaborators landing in this repo: [`CLAUDE.md`](/CLAUDE.md) is the entry point.
+The [project instructions](AGENTS.md) cover working in this shared checkout.
 
 ## License
 

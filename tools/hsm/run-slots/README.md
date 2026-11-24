@@ -1,5 +1,9 @@
 # Heavy runs
 
+Run Cargo, slicing and rendering through `tools/run -- <command>`. Add `--cad`
+for native CadQuery/OCP work and `--timing` when a timing run needs the Mac to
+itself. The wrapper handles admission for ordinary runs.
+
 `hsm-run-slots` owns the four host-wide flock slots. `tools/run` executes the native
 `hsm-run` command wrapper. Native commands and optional oracle commands inherit
 the same verified descriptors. New logical runs use the live count in `/tmp/hsm-<uid>/heavy/count`

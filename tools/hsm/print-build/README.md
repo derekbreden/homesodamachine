@@ -3,9 +3,15 @@
 `hsm-print-build` carries completed producers into the checkout and publishes them
 while the remaining print build continues.
 
+The print build is the normal build for parts made here on the H2C and Mark2.
+For orders, the cut build makes DXFs and drawings for SendCutSend and the PCB
+build makes Gerbers, the parts list and the placement file for JLCPCB. Keep both
+available on demand outside the normal build. Bought parts have no manufacturing
+build. The website's model shows every part.
+
 ```sh
-tools/run -- hsm-print-build
-tools/run -- hsm-print-build //:enclosure-back-top //:installed-machine
+tools/run -- hsm-print-build --
+tools/run -- hsm-print-build -- //:enclosure-back-top //:installed-machine
 ```
 
 The native planner selects declared producers and their prerequisites. The engine
