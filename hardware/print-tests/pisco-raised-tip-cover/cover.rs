@@ -1,4 +1,4 @@
-//! The full-length Pisco trial carries the fitted front collar's raised crests along both spring wings.
+//! The full-length Pisco covers compare two roof contact heights with the fitted spring and outlet profile.
 #[allow(dead_code)]
 #[path = "../../printed-parts/enclosure/rear-equipment-caps/stations.rs"]
 mod stations;
@@ -13,8 +13,10 @@ use std::{fs, path::Path};
 const SOURCE: &str = "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz";
 const OUT: &str = "hardware/print-tests/pisco-raised-tip-cover/parts";
 const NAME: &str = "pisco-raised-tip-cover";
+const HIGHER_NAME: &str = "pisco-raised-tip-cover-040";
 const FREE_HOOK_OVERLAP: f64 = 0.55;
 const CREST_RISE: f64 = 0.20;
+const HIGHER_CREST_RISE: f64 = 0.40;
 const CREST_WIDTH: f64 = 0.90;
 const MARK_FROM_FRONT: f64 = 6.0;
 const MARK_SPACING: f64 = 3.0;
@@ -23,7 +25,7 @@ fn sha256(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }
 
-fn raised_cover(body: Solid, st: &Station) -> Result<Solid> {
+fn raised_cover(body: Solid, st: &Station, rise: f64, marks: u32) -> Result<Solid> {
     let nose = st.ledge - stations::REACH;
     let nose_z = st.bearing + stations::catch_air();
     let inner_z = nose_z - (st.inner - nose) * stations::corbel_slope();
@@ -43,8 +45,8 @@ fn raised_cover(body: Solid, st: &Station) -> Result<Solid> {
         ]);
         let crest = Profile::polygon(&[
             at(nose, shoulder),
-            at(st.outer - CREST_WIDTH, top + CREST_RISE),
-            at(st.outer, top + CREST_RISE),
+            at(st.outer - CREST_WIDTH, top + rise),
+            at(st.outer, top + rise),
             at(st.outer, top - 0.60),
             at(nose + 0.60, shoulder - 0.20),
         ]);
@@ -53,8 +55,9 @@ fn raised_cover(body: Solid, st: &Station) -> Result<Solid> {
     }
     let mut cover = Solid::union_all(&stock)?;
     let bottom = cover.bounds().min.z;
-    for sign in [-1.0, 1.0] {
-        let y = st.y0 + MARK_FROM_FRONT + sign * MARK_SPACING / 2.0;
+    let mark_center = st.y0 + MARK_FROM_FRONT;
+    for index in 0..marks {
+        let y = mark_center + (f64::from(index) - f64::from(marks - 1) / 2.0) * MARK_SPACING;
         let notch = Solid::cuboid(
             v3(st.axis_x - 2.3, y - 0.65, bottom - 0.10),
             v3(st.axis_x + 2.3, y + 0.65, bottom + 0.65),
@@ -66,25 +69,17 @@ fn raised_cover(body: Solid, st: &Station) -> Result<Solid> {
     Ok(cover)
 }
 
-fn main() -> Result<()> {
+fn export(name: &str, file: &str, cover: &Solid, st: &Station, rise: f64, marks: u32) -> Result<()> {
     let out = Path::new(OUT);
-    fs::create_dir_all(out)?;
-    let source = hsm_kernel::import::model(SOURCE)?
-        .into_iter()
-        .find(|body| body.name == "pisco-snap-cap")
-        .context("installed Pisco cap")?
-        .solid;
-    let st = stations::pisco_station();
-    let cover = raised_cover(source, &st)?;
     cover.check()?;
     ensure!(cover.components().len() == 1, "the full cover is one connected solid");
     let built = cover.rotate(V3::ZERO, V3::X, 90.0);
     let b = built.bounds();
     let shift = v3(-(b.min.x + b.max.x) / 2.0, -(b.min.y + b.max.y) / 2.0, -b.min.z);
     let bytes = stl_bytes(&[&built.translate(shift)])?;
-    fs::write(out.join(format!("{NAME}.stl")), &bytes)?;
+    fs::write(out.join(format!("{name}.stl")), &bytes)?;
     let manifest = json!({
-        "name":NAME,
+        "name":name,
         "production_cap":SOURCE,
         "production_source_sha256":sha256(&fs::read(SOURCE)?),
         "stl_sha256":sha256(&bytes),
@@ -93,16 +88,34 @@ fn main() -> Result<()> {
         "installed_cover_y_mm":[st.y0, st.y1],
         "installed_wing_y_mm":[st.y0, PISCO_WING_AFT_Y],
         "spring_free_retaining_overlap_mm":FREE_HOOK_OVERLAP,
-        "roof_contact_rise_mm":CREST_RISE,
+        "roof_contact_rise_mm":rise,
         "roof_contact_width_mm":CREST_WIDTH,
         "original_tip_z_mm":st.ceiling - stations::tip_air(),
         "nominal_roof_z_mm":st.ceiling,
         "print_translation_after_x90_mm":[shift.x,shift.y,shift.z],
         "volume_mm3":cover.volume(),
-        "identification_bars":2
+        "identification_bars":marks
     });
     let mut manifest = serde_json::to_vec_pretty(&manifest)?;
     manifest.push(b'\n');
-    fs::write(out.join("geometry.json"), manifest)?;
+    fs::write(out.join(file), manifest)?;
+    Ok(())
+}
+
+fn main() -> Result<()> {
+    fs::create_dir_all(OUT)?;
+    let source = hsm_kernel::import::model(SOURCE)?
+        .into_iter()
+        .find(|body| body.name == "pisco-snap-cap")
+        .context("installed Pisco cap")?
+        .solid;
+    let st = stations::pisco_station();
+    for (name, record, rise, marks) in [
+        (NAME, "geometry.json", CREST_RISE, 2),
+        (HIGHER_NAME, "geometry-040.json", HIGHER_CREST_RISE, 4),
+    ] {
+        let cover = raised_cover(source.clone(), &st, rise, marks)?;
+        export(name, record, &cover, &st, rise, marks)?;
+    }
     Ok(())
 }
