@@ -1770,6 +1770,12 @@
       "bytes": 36705,
       "sha256": "dd8b987e4efbd67e9853f0a8644a601f4509394f5140c85fe57df52bfaf4826b"
     },
+    "353f3c99b51c2647ce9447d183efdffa5a6aea5d": {
+      "archive": "meter-production-mark2-20261124-eb3e53fd32be8afe.zip",
+      "bytes": 10789774,
+      "offset": 1322112,
+      "sha256": "f70870f90d729cd208fe57f4b71137e3f6845160238b914478b4653e86db3965"
+    },
     "358a1b070606e9b2d34e69bc63a4b39673ed1d53": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 1059027764,
@@ -5214,6 +5220,12 @@
       "bytes": 263998,
       "sha256": "969b965053c4f7b2e6a9eb34dfa4a50cadb4bf71ef49c171fe8e26df3a011334"
     },
+    "aa2bd363421bfd1d113f09f567d7cae057f5424b": {
+      "archive": "meter-cover-020-mark2-20261124-29e4b7a55025fd5c.zip",
+      "bytes": 36164,
+      "offset": 74,
+      "sha256": "bbbc2f91c5eb5bf5db61d6d316bd87ae0c3c1f1f8bc2ebb527234f02406b1f64"
+    },
     "aa509d866bfe005fd66d2022d197b2f5141537cd": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 143880814,
@@ -5573,6 +5585,12 @@
       "offset": 368634624,
       "bytes": 36549,
       "sha256": "259d5d99428a71fb85ca0c04838ca71f492b699d1196eb901dfe67041e020589"
+    },
+    "b1e308369254a1ff530dea64255a2e035d7aaac4": {
+      "archive": "meter-production-mark2-20261124-eb3e53fd32be8afe.zip",
+      "bytes": 1321964,
+      "offset": 74,
+      "sha256": "2227a68b4f3489bf6db5c6d031643af7eaa21d27012c9d83f5b3caa4b94dad53"
     },
     "b1e5c307122585533ef7fef8b931160aefbffcf8": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
@@ -6173,6 +6191,12 @@
       "offset": 869365036,
       "bytes": 8277306,
       "sha256": "67c051551922042580b1573ed64a562548e5de1e2c314e370d85b2d91a62b8f0"
+    },
+    "c4f6de72203bb671b4f5491f89421ba51f81589f": {
+      "archive": "meter-cover-020-mark2-20261124-29e4b7a55025fd5c.zip",
+      "bytes": 422575,
+      "offset": 36312,
+      "sha256": "976d3e80ef8a98bb74c88737969f3e9c24ca6de2ecbceae81a7250cc6d5bf82e"
     },
     "c52703514373837a0a310e2782eb6762b5cdf592": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
@@ -8275,6 +8299,10 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-15-small-petgf-mark2/2026-11-15-small-petgf-mark2-39847f01.gcode.3mf": "63fea4bc03d00df349a33a2b9a894fa22682b918",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.3mf": "0364331a0bbf06a645fc890a19d8d9a30b0724a9",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.gcode.3mf": "54a2f8ee6a4bd0c010ec426ad6e492fe06a19991",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.3mf": "aa2bd363421bfd1d113f09f567d7cae057f5424b",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.gcode.3mf": "c4f6de72203bb671b4f5491f89421ba51f81589f",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-production-mark2/2026-11-24-small-petgf-mark2-2cecd4ca/2026-11-24-small-petgf-mark2-2cecd4ca.3mf": "b1e308369254a1ff530dea64255a2e035d7aaac4",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-production-mark2/2026-11-24-small-petgf-mark2-2cecd4ca/2026-11-24-small-petgf-mark2-2cecd4ca.gcode.3mf": "353f3c99b51c2647ce9447d183efdffa5a6aea5d",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.3mf": "2c1c25d31f2c5a59865831172306b29751a141d5",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.gcode.3mf": "6fc082ead3c8a985c83e2f23a20e7873b2c6cf59",
     "hardware/printed-parts/faucet/above-counter-gasket/prints/2026-10-16-white-tpu90a-right-mark1/2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1.3mf": "e3f4cf81db5530c6231138009d6f1ea9f30cde0e",

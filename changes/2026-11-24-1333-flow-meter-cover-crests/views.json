@@ -1,0 +1,91 @@
+{
+  "views": [
+    {
+      "name": "upper-wing",
+      "caption": "The amber flow-meter wing faces the blue receiver wall. The gap at its flat tip increases from 0.10 to 0.30 mm.",
+      "before": "upper-wing-before.webp",
+      "after": "upper-wing-after.webp",
+      "width": 960,
+      "height": 600,
+      "marks": [
+        {
+          "x": 516,
+          "y": 240,
+          "r": 54,
+          "label": "Crest to wall",
+          "at": [
+            98.39,
+            405,
+            312
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          98.15,
+          -198.60190417215006,
+          311.6
+        ],
+        "target": [
+          98.15,
+          405,
+          311.6
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 2,
+        "near": 295.90872838682856,
+        "far": 949.8107912399911,
+        "aspect": 1.6,
+        "section": {
+          "at": [
+            98.2,
+            405,
+            312
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "meter-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "meter-snap-cap",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "6a939aebaf7364f88ef0f5fbaf906a8f287f6ab770e0652082cdf95fba7e5ebc",
+          "commit": "9685395782e91cd6a473d771628e83d825b61759",
+          "taken": "2026-11-24T19:23:06.838Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "4f6e86e0e22111d6e54dd8038c679ed0c0ef0ea31c85c30263f04f86a1924327",
+          "commit": "d0a7a4d1fa3f33451ae20fe74723cddbca6374fd",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "meter-snap-cap"
+      ]
+    }
+  ]
+}

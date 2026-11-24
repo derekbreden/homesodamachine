@@ -1758,18 +1758,18 @@
   },
   "HSM-0450": {
     "title": "PET-GF accessory plate · Mark2 print plan",
-    "sha256": "d99796d4b2e51133e8bac20a946818428c5320fc70bb9b3f4a4c4b0de0be210c",
-    "slice": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.gcode.3mf",
+    "sha256": "6c27d0943208b40f61734ebeb2e4ba4e6dfab03279db35f188b937a8bf7b1fc9",
+    "slice": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-production-mark2/2026-11-24-small-petgf-mark2-2cecd4ca/2026-11-24-small-petgf-mark2-2cecd4ca.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "small-petgf",
-    "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
-    "project_sha256": "7bb6a64430b4730d9617e3daf591d257da52a014456b4942b9b1cc900ec71ba5",
-    "archive_sha256": "caf37dbe184b7a56657faa07aedddcaf78352a8e2b1ea65af78f4069d09b3feb",
-    "gcode_sha256": "50929e2adcfe2e098813294a8a46befcd7d1b4c6cf88c1b5f78762675dc07c1b",
+    "recipe_sha256": "d9f7ffcb6052238c48cf4728efdee807319be76af577d3aef6bf1fb475434e4e",
+    "project_sha256": "2227a68b4f3489bf6db5c6d031643af7eaa21d27012c9d83f5b3caa4b94dad53",
+    "archive_sha256": "f70870f90d729cd208fe57f4b71137e3f6845160238b914478b4653e86db3965",
+    "gcode_sha256": "2e3f68d42b9d9515ed437030fd5bb9148bdea4d5c74ae07a9b93e9380e49a3a0",
     "kind": "plan",
     "layers": 269,
-    "model_sha256": "f45512624ea3c12eea103247c0574083386a94f000ec4d7ff547b39114fe424d",
+    "model_sha256": "ef6026fd1c4b02726cfc414782e203711869e80477d1a5591e9d9b6eac2a93a2",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark2",
@@ -1783,7 +1783,7 @@
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s"
     },
-    "recipe_commit": "f85ba535da9423e85b1d65908bd681bf512985b2"
+    "recipe_commit": "d0a7a4d1fa3f33451ae20fe74723cddbca6374fd"
   },
   "HSM-0451": {
     "title": "PET-GF accessory plate · Mark2 print plan",
