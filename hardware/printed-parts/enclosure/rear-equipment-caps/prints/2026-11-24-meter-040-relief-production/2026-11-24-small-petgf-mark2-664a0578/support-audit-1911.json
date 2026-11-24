@@ -1,0 +1,157 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -245.499259949,
+      -141.764920235,
+      -0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -245.49926,
+      -141.76492,
+      -0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-production/2026-11-24-small-petgf-mark2-664a0578/2026-11-24-small-petgf-mark2-664a0578.gcode.3mf plate_1.gcode, object 1911",
+    "gcode_sha256": "791b9ddf35736739f77dffd862451d59d88a830f0f27802ea3009d0baa1b46a0",
+    "model": "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl",
+    "model_sha256": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
+    "profile": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-production/2026-11-24-small-petgf-mark2-664a0578/2026-11-24-small-petgf-mark2-664a0578.3mf",
+    "profile_sha256": "48b99614109333b501489fd3293e87204a9c3bd752eff5940ff6c00b1f59c12d"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -18.299,
+        -10.965,
+        23.24,
+        -15.499,
+        18.635,
+        23.72
+      ],
+      "bbox_xy_mm": [
+        227.2,
+        130.8,
+        230.0,
+        160.4
+      ],
+      "build_up_mm": 23.04,
+      "first_z_mm": 23.24,
+      "id": "interface-1",
+      "last_z_mm": 23.72,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        15.701,
+        -10.965,
+        23.24,
+        18.101,
+        18.635,
+        23.72
+      ],
+      "bbox_xy_mm": [
+        261.2,
+        130.8,
+        263.6,
+        160.4
+      ],
+      "build_up_mm": 23.04,
+      "first_z_mm": 23.24,
+      "id": "interface-2",
+      "last_z_mm": 23.72,
+      "tree": "tree-2"
+    }
+  ],
+  "piece": "elbow-cradle",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 2,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 2,
+    "interface_islands": 2,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 23.04,
+    "shortest_labelled_build_up_mm": 23.04,
+    "support_bodies": 2
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -23.899,
+        -12.165,
+        0.2,
+        -14.699,
+        18.635,
+        23.72
+      ],
+      "bbox_xy_mm": [
+        221.6,
+        129.6,
+        230.8,
+        160.4
+      ],
+      "first_interface_z_mm": 23.24,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 23.04,
+      "top_z_mm": 23.72
+    },
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        14.901,
+        -11.365,
+        0.2,
+        23.701,
+        18.635,
+        23.72
+      ],
+      "bbox_xy_mm": [
+        260.4,
+        130.4,
+        269.2,
+        160.4
+      ],
+      "first_interface_z_mm": 23.24,
+      "id": "tree-2",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-2"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 23.04,
+      "top_z_mm": 23.72
+    }
+  ]
+}

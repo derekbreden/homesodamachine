@@ -1,0 +1,178 @@
+{
+  "views": [
+    {
+      "name": "saddle",
+      "caption": "Section through the housing taper. The amber saddle moves 0.40 mm west, giving the molded meter face more room.",
+      "before": "saddle-before.webp",
+      "after": "saddle-after.webp",
+      "width": 960,
+      "height": 600,
+      "marks": [
+        {
+          "x": 457.3,
+          "y": 344.6,
+          "r": 46.2,
+          "label": "Saddle at the housing taper",
+          "at": [
+            67.52,
+            415,
+            270.7
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          67.8,
+          277.6242825624188,
+          271.25
+        ],
+        "target": [
+          67.8,
+          415,
+          271.25
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 3.7,
+        "near": 80.97551022717977,
+        "far": 229.79920411789277,
+        "aspect": 1.6,
+        "section": {
+          "at": [
+            67.2,
+            415,
+            270.7
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "meter-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "meter-snap-cap",
+        "digiten-flow"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4f6e86e0e22111d6e54dd8038c679ed0c0ef0ea31c85c30263f04f86a1924327",
+          "commit": "1a8a3195ecabefe7aa527d37571fa625469238be",
+          "taken": "2026-11-24T22:45:49.835Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fce5cf0edb686c275ffc2bae26c80acaefab7c2619a2ea58fe8b8629e4ba475e",
+          "commit": "af2cc00f57e0501d68253e0d41fd75f051ef3c47",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "meter-snap-cap"
+      ]
+    },
+    {
+      "name": "wing-tip",
+      "caption": "The upper wing regains the +0.40 mm crest. The gap to the fixed east wall decreases from 0.30 to 0.10 mm in the nominal installation.",
+      "before": "wing-tip-before.webp",
+      "after": "wing-tip-after.webp",
+      "width": 960,
+      "height": 600,
+      "marks": [
+        {
+          "x": 516,
+          "y": 240,
+          "r": 54,
+          "label": "Crest to wall",
+          "at": [
+            98.39,
+            405,
+            312
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          98.15,
+          -198.60190417215006,
+          311.6
+        ],
+        "target": [
+          98.15,
+          405,
+          311.6
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 2,
+        "near": 295.90872838682856,
+        "far": 949.8107912399911,
+        "aspect": 1.6,
+        "section": {
+          "at": [
+            98.2,
+            405,
+            312
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "meter-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "meter-snap-cap",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4f6e86e0e22111d6e54dd8038c679ed0c0ef0ea31c85c30263f04f86a1924327",
+          "commit": "1a8a3195ecabefe7aa527d37571fa625469238be",
+          "taken": "2026-11-24T22:45:49.835Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "fce5cf0edb686c275ffc2bae26c80acaefab7c2619a2ea58fe8b8629e4ba475e",
+          "commit": "af2cc00f57e0501d68253e0d41fd75f051ef3c47",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "meter-snap-cap"
+      ]
+    }
+  ]
+}

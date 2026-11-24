@@ -846,6 +846,12 @@
       "bytes": 2129131,
       "sha256": "e0cd9925f8ab6aea85f3542d72ebd8e5e321ad9932b0d1402d73146749ccd7a8"
     },
+    "1912b800e2f2969d77c6dabbdcd993aa30bcf7d4": {
+      "archive": "meter-040-relief-production-mark2-20261124-0dab83a3af9ddddf.zip",
+      "bytes": 1321948,
+      "offset": 74,
+      "sha256": "48b99614109333b501489fd3293e87204a9c3bd752eff5940ff6c00b1f59c12d"
+    },
     "1983b46dc9c1a7195d9eaf9ab16111a2e8ec3e7d": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 496119301,
@@ -4050,6 +4056,12 @@
       "bytes": 4932627,
       "sha256": "ecc428cc942d77e5dcb3b1c98755514661e5de97febbdddf9b796ec7d879408f"
     },
+    "80fe64dd0af6b14207b92ff1259a0495f70dcf32": {
+      "archive": "meter-cover-040-relief-mark2-20261124-0c8910b66e80e639.zip",
+      "bytes": 36146,
+      "offset": 74,
+      "sha256": "60e71e130d93b1113a71e81bdef2d01ee98d0675f9dbb179b8fe30051b49dcb3"
+    },
     "813ae80784b74d2958cdbce27fdef7bb4aeccc82": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
       "offset": 196070773,
@@ -4589,6 +4601,12 @@
       "offset": 885706469,
       "bytes": 442762,
       "sha256": "2dba145b9e564e37c953e116c1d3327eaa4c664b33fe1beb4bdb375b9c41e6b1"
+    },
+    "937cfdc73c84d2d884262249656dbee9173fb0e6": {
+      "archive": "meter-040-relief-production-mark2-20261124-0dab83a3af9ddddf.zip",
+      "bytes": 10793307,
+      "offset": 1322096,
+      "sha256": "07b377d4d655b7981a2902e7d9d14e4ff96290e07dba3212553f092348bbd692"
     },
     "94491f10d35cfbe693a89d6a4af914a231960914": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -7038,6 +7056,12 @@
       "bytes": 590586,
       "sha256": "5829e02cd958d97ac80ebb33275b4b0f9bcd69271ab4b47af614a4568e688b18"
     },
+    "e2ba22a8158c7c1e40300a09e7f0e421cbd81f97": {
+      "archive": "meter-cover-040-relief-mark2-20261124-0c8910b66e80e639.zip",
+      "bytes": 461309,
+      "offset": 36294,
+      "sha256": "b7c0501403b2bf412a602ec33368b797177ba6068b721e37eb64c953ac81226b"
+    },
     "e2df63dd48f2b432465f1698f6ff1d3d54a43c73": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 379195330,
@@ -8301,6 +8325,10 @@
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-21-meter-production-mark2/2026-11-21-small-petgf-mark2-762d0954/2026-11-21-small-petgf-mark2-762d0954.gcode.3mf": "54a2f8ee6a4bd0c010ec426ad6e492fe06a19991",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.3mf": "aa2bd363421bfd1d113f09f567d7cae057f5424b",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei/2026-11-24-single-meter-cap-mark2-2101f839-textured-pei.gcode.3mf": "c4f6de72203bb671b4f5491f89421ba51f81589f",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-mark2/2026-11-24-single-meter-cap-mark2-f89dc9d9-textured-pei/2026-11-24-single-meter-cap-mark2-f89dc9d9-textured-pei.3mf": "80fe64dd0af6b14207b92ff1259a0495f70dcf32",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-mark2/2026-11-24-single-meter-cap-mark2-f89dc9d9-textured-pei/2026-11-24-single-meter-cap-mark2-f89dc9d9-textured-pei.gcode.3mf": "e2ba22a8158c7c1e40300a09e7f0e421cbd81f97",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-production/2026-11-24-small-petgf-mark2-664a0578/2026-11-24-small-petgf-mark2-664a0578.3mf": "1912b800e2f2969d77c6dabbdcd993aa30bcf7d4",
+    "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-production/2026-11-24-small-petgf-mark2-664a0578/2026-11-24-small-petgf-mark2-664a0578.gcode.3mf": "937cfdc73c84d2d884262249656dbee9173fb0e6",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-production-mark2/2026-11-24-small-petgf-mark2-2cecd4ca/2026-11-24-small-petgf-mark2-2cecd4ca.3mf": "b1e308369254a1ff530dea64255a2e035d7aaac4",
     "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-production-mark2/2026-11-24-small-petgf-mark2-2cecd4ca/2026-11-24-small-petgf-mark2-2cecd4ca.gcode.3mf": "353f3c99b51c2647ce9447d183efdffa5a6aea5d",
     "hardware/printed-parts/enclosure/rear-identification/prints/2026-11-09-co2-width-mark1/HSM-CO2-width-Mark1-right-z005.3mf": "2c1c25d31f2c5a59865831172306b29751a141d5",

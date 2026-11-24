@@ -1,0 +1,230 @@
+{
+  "error_string": "Success.",
+  "export_time": 2710,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 428,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 555.5050048828125,
+        "Bridge": 438.7486877441406,
+        "Custom": 302.8039855957031,
+        "Flush": 15.0,
+        "Gap infill": 405.83538818359375,
+        "Inner wall": 4048.992431640625,
+        "Internal solid infill": 2115.419921875,
+        "Outer wall": 2597.944580078125,
+        "Overhang wall": 92.29376220703125,
+        "Prime tower": 7227.44580078125,
+        "Sparse infill": 10808.3994140625,
+        "Support": 933.3833618164062,
+        "Support interface": 70.37860870361328,
+        "Top surface": 325.719482421875,
+        "Travel": 2880.303955078125,
+        "Undefined": 2873.564208984375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 277.4967346191406,
+          "total_used_g": 287.4448547363281
+        }
+      ],
+      "generate_support_material_time": 577,
+      "id": 1,
+      "infill_time": 542,
+      "layer_filament_change": 0,
+      "main_predication": 25308.607421875,
+      "make_perimeters_time": 624,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 42.0289306640625,
+            "height": 64.625,
+            "width": 50.29628372192383,
+            "x": 71.24174499511719,
+            "y": 124.48553466796875,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "asse-snap-cap",
+          "triangle_count": 1962
+        },
+        {
+          "bbox": {
+            "depth": 34.47740936279297,
+            "height": 41.70428466796875,
+            "width": 28.811235427856445,
+            "x": 136.53802490234375,
+            "y": 128.26129150390625,
+            "z": 1.5624834759364603e-11
+          },
+          "id": 9,
+          "name": "pisco-snap-cap",
+          "triangle_count": 3468
+        },
+        {
+          "bbox": {
+            "depth": 42.10641098022461,
+            "height": 36.0,
+            "width": 32.29100799560547,
+            "x": 23.950740814208984,
+            "y": 124.44679260253906,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "regulator-snap-cap",
+          "triangle_count": 144576
+        },
+        {
+          "bbox": {
+            "depth": 54.29999923706055,
+            "height": 38.0,
+            "width": 41.44999313354492,
+            "x": 261.10418701171875,
+            "y": 40.79679489135742,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "meter-snap-cap",
+          "triangle_count": 1862
+        },
+        {
+          "bbox": {
+            "depth": 61.45950698852539,
+            "height": 54.5,
+            "width": 73.15836334228516,
+            "x": 172.94581604003906,
+            "y": 37.217041015625,
+            "z": 0.0
+          },
+          "id": 21,
+          "name": "pump-snap-cap",
+          "triangle_count": 640
+        },
+        {
+          "bbox": {
+            "depth": 83.0,
+            "height": 3.0,
+            "width": 135.5,
+            "x": 22.445817947387695,
+            "y": 26.446796417236328,
+            "z": 0.0
+          },
+          "id": 25,
+          "name": "display-cover",
+          "triangle_count": 5168
+        },
+        {
+          "bbox": {
+            "depth": 20.999996185302734,
+            "height": 13.799999237060547,
+            "width": 91.0,
+            "x": 64.0,
+            "y": 181.55320739746094,
+            "z": 4.697264799347067e-10
+          },
+          "id": 29,
+          "name": "enclosure-pump-retainer-1",
+          "triangle_count": 2084
+        },
+        {
+          "bbox": {
+            "depth": 20.999996185302734,
+            "height": 13.799999237060547,
+            "width": 91.0,
+            "x": 170.0,
+            "y": 181.55320739746094,
+            "z": 4.697264799347067e-10
+          },
+          "id": 33,
+          "name": "enclosure-pump-retainer-2",
+          "triangle_count": 2084
+        },
+        {
+          "bbox": {
+            "depth": 19.399993896484375,
+            "height": 12.20832633972168,
+            "width": 19.849998474121094,
+            "x": 210.88807678222656,
+            "y": 217.85321044921875,
+            "z": 1.3915979479861562e-10
+          },
+          "id": 37,
+          "name": "reservoir-b-fill-guide",
+          "triangle_count": 21490
+        },
+        {
+          "bbox": {
+            "depth": 22.39999771118164,
+            "height": 12.20832633972168,
+            "width": 22.39999771118164,
+            "x": 278.6492614746094,
+            "y": 134.3000030517578,
+            "z": 1.3915979479861562e-10
+          },
+          "id": 41,
+          "name": "soda-bend-holder",
+          "triangle_count": 49150
+        },
+        {
+          "bbox": {
+            "depth": 29.95016098022461,
+            "height": 26.80796241760254,
+            "width": 36.30000305175781,
+            "x": 227.34925842285156,
+            "y": 130.52491760253906,
+            "z": 1.9872992140790302e-10
+          },
+          "id": 45,
+          "name": "elbow-cradle",
+          "triangle_count": 6390
+        },
+        {
+          "bbox": {
+            "depth": 32.0,
+            "height": 10.0,
+            "width": 32.0,
+            "x": 180.34925842285156,
+            "y": 129.5,
+            "z": 0.0
+          },
+          "id": 49,
+          "name": "umbilical-organizer",
+          "triangle_count": 6176
+        },
+        {
+          "bbox": {
+            "depth": 19.999996185302734,
+            "height": 17.86878776550293,
+            "width": 101.62615203857422,
+            "x": 94.26192474365234,
+            "y": 217.55320739746094,
+            "z": 2.4853541447100724e-10
+          },
+          "id": 53,
+          "name": "collet-press",
+          "triangle_count": 1060
+        }
+      ],
+      "sliced_time": 5308,
+      "sliced_time_with_cache": 3311,
+      "total_predication": 34329.63428938674,
+      "triangle_count": 246110,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
