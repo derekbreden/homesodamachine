@@ -1,0 +1,72 @@
+{
+  "error_string": "Success.",
+  "export_time": 1195,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 18,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 25.754629135131836,
+        "Bridge": 3.833441734313965,
+        "Custom": 303.9708251953125,
+        "Flush": 15.0,
+        "Gap infill": 64.28209686279297,
+        "Inner wall": 508.5307922363281,
+        "Internal solid infill": 232.50894165039062,
+        "Outer wall": 323.4755859375,
+        "Overhang wall": 4.614532470703125,
+        "Prime tower": 4075.261962890625,
+        "Sparse infill": 1207.800537109375,
+        "Top surface": 17.572223663330078,
+        "Travel": 370.3913269042969,
+        "Undefined": 362.3313293457031
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 29.942529678344727,
+          "total_used_g": 35.54807662963867
+        }
+      ],
+      "generate_support_material_time": 9,
+      "id": 1,
+      "infill_time": 53,
+      "layer_filament_change": 0,
+      "main_predication": 2743.250732421875,
+      "make_perimeters_time": 48,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 41.45000457763672,
+            "height": 38.0,
+            "width": 54.29999542236328,
+            "x": 135.35000610351562,
+            "y": 164.27499389648438,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "meter-snap-cap",
+          "triangle_count": 1862
+        }
+      ],
+      "sliced_time": 432,
+      "sliced_time_with_cache": 292,
+      "total_predication": 7159.935267291571,
+      "triangle_count": 1862,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 100.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 3
+}

@@ -1,0 +1,21 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-11-24T22:50:44+00:00",
+  "gcode_state": "FINISH",
+  "job_id": "1482567259",
+  "layer_num": 159,
+  "total_layer_num": 159,
+  "external_spools": {
+    "254": {
+      "colour": "161616FF",
+      "type": "PET-CF"
+    },
+    "255": {
+      "colour": "161616FF",
+      "type": "TPU"
+    }
+  },
+  "nozzle_type": "HS01-0.4",
+  "print_error": 0,
+  "hms": []
+}
