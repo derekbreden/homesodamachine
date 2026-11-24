@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-11-24T05:58:45+00:00",
+  "printer": "H2C",
+  "job_id": "1480263050",
+  "subtask_name": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 269,
+  "mc_percent": 0,
+  "mc_remaining_time": 295,
+  "bed_temper": 36.0,
+  "bed_target_temper": 36.0,
+  "nozzle_temper": 170.0,
+  "nozzle_target_temper": 0.0,
+  "print_error": 0,
+  "hms": []
+}

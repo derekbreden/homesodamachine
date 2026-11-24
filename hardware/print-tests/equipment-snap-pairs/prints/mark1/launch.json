@@ -1,0 +1,31 @@
+{
+  "archive": {
+    "gcode_sha256": "07a2262a2287dd0289261d01fa020388c229993ad7b032fcd159f05dab33dcc1",
+    "name": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf",
+    "objects": [
+      "asse-receiver",
+      "asse-snap-cap",
+      "pisco-receiver",
+      "pisco-snap-cap",
+      "water-regulator-receiver",
+      "regulator-snap-cap"
+    ],
+    "sha256": "fddee0e7e3c57100e6c1ce7cbd679c2e94dcf2a5f67dcdaee632dbba73a3d3d1",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 295,
+  "observed_at": "2026-11-24T05:56:23+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1480263050",
+  "subtask_name": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf",
+  "total_layer_num": 269
+}

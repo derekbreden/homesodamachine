@@ -1,0 +1,94 @@
+{
+  "purpose": "Test each matched receiver and full-length production cover with its installed equipment.",
+  "printer": "Mark1",
+  "printer_connection_key": "H2C",
+  "printer_task_id": "1480263050",
+  "job_name": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf",
+  "accepted_at": "2026-11-24T05:56:23+00:00",
+  "status_at_record": "RUNNING",
+  "verified_layer": 1,
+  "total_layers": 269,
+  "print_status_at": "2026-11-24T06:08:40+00:00",
+  "reported_remaining_minutes": 290,
+  "slice_estimate_seconds": 21888,
+  "slice_filament_g": 153.51,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "plate": "Textured PEI Plate",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "name": "asse-receiver",
+      "object_id": 1901,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/asse-receiver.stl",
+      "stl_sha256": "81adeb9968e03694956b1cd2268b658c1b67fd9fa478366bc711502374bf709c"
+    },
+    {
+      "name": "asse-snap-cap",
+      "object_id": 1902,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
+      "stl_sha256": "f34f987d6f74b260b26840a0fd74b6265cedb55247d4c9caa63688fc0afd6b1a"
+    },
+    {
+      "name": "pisco-receiver",
+      "object_id": 1903,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/pisco-receiver.stl",
+      "stl_sha256": "2ccec997833a20009b7c40aca7b0cd35bec3ae3343c6fed9f9fcef0dd98d3ee5"
+    },
+    {
+      "name": "pisco-snap-cap",
+      "object_id": 1904,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
+      "stl_sha256": "c02fe2e2253a3878b1508d06d5f02de286f40e952a68e05f6b19650cb007583c"
+    },
+    {
+      "name": "water-regulator-receiver",
+      "object_id": 1905,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/water-regulator-receiver.stl",
+      "stl_sha256": "439aa45bb8f11c52782cff40085aa8def25babc94444494162e2698311e6d64c"
+    },
+    {
+      "name": "regulator-snap-cap",
+      "object_id": 1906,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
+      "stl_sha256": "76491433b0bb93d9c78ef6a52dbf8bf070b002084b564e74fcb103b92cc151e2"
+    }
+  ],
+  "source_geometry": {
+    "rear_caps": "4fb591987d428d62925d81f8739ad86551976a05",
+    "back_top": "4fb591987d428d62925d81f8739ad86551976a05",
+    "pump": "0dc7c9317e581614e15ab756cbbb4555cd644229",
+    "rear_receiver_crops": "df7afb5f0a95f997a5a4dcde94192cd393869548"
+  },
+  "native_recipe": "rear-snap-pairs",
+  "recipe_repository_commit": "df7afb5f0a95f997a5a4dcde94192cd393869548",
+  "recipe_sha256": "78e861c7994da1c7631b103712448a94318e1a48b3e7c4175b63d81375fc74cf",
+  "review": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/review.json",
+  "preparation": "2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/preparation.json",
+  "minimum_bed_margin_mm": 46.656939,
+  "protected_receiver_support_crossings": 0,
+  "artifacts": {
+    "project": {
+      "path": "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.3mf",
+      "sha256": "9ebef016a948c2e62ae70b0f589720238e6550995c9b036aff8df07e819f2556",
+      "archive_blob": "d5728da890ae5c9ac78f1a3a6633da1f0cb7dddf"
+    },
+    "slice": {
+      "path": "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf",
+      "sha256": "fddee0e7e3c57100e6c1ce7cbd679c2e94dcf2a5f67dcdaee632dbba73a3d3d1",
+      "archive_blob": "8e709ce4bff2d275120e27711d806193688230db"
+    }
+  },
+  "gcode_sha256": "07a2262a2287dd0289261d01fa020388c229993ad7b032fcd159f05dab33dcc1",
+  "archive_restore": "Both the native project and sliced archive were restored byte-for-byte from the release.",
+  "bench_result": null,
+  "paired_job_id": "1480269399",
+  "acceptances_apart_seconds": 218.0
+}

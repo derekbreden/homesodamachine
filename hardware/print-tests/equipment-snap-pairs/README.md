@@ -10,6 +10,8 @@ Each full-length production cover prints beside a separate receiver that accepts
 | Mark2 | Flow-meter cover and receiver | The flank carries the complete meter cup, both catches, the wire exit, port and screw-head channels and the backed shoulder. |
 | Mark2 | Cold-core pump cover and receiver | The lid section retains both motor rails and end stops, the head opening, the spring pockets and the cover shoulders. |
 
+The [Mark1 job](prints/mark1/print-job.json) and [Mark2 job](prints/mark2/print-job.json) identify the accepted files and their matching parts. The [rear cover and receiver paths](../../printed-parts/enclosure/rear-equipment-caps/crest-paths.json) and [pump crest paths](../pump-seated-snaps/parts/mark2-crest-roads.json) measure the deposited outlines in those files.
+
 ## At the bench
 
 Remove the accessible trees, including those beneath the flow-meter fore shoulder and lip. Seat the actual component against its fixed bearing before fitting its cover. Press alternately near either wing and then each end of the cover. Movement that returns when released and a shift that stays in a second resting position are different observations. After release, look at both crests and the two receiver ledges for exposed strands or chipped edges. The flow meter’s aft shoulder grows from the side wall on a continuous slope.

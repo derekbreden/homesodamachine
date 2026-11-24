@@ -1,0 +1,82 @@
+{
+  "purpose": "Test each matched receiver and full-length production cover with its installed equipment.",
+  "printer": "Mark2",
+  "printer_connection_key": "Mark2",
+  "printer_task_id": "1480269399",
+  "job_name": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+  "accepted_at": "2026-11-24T06:00:01+00:00",
+  "status_at_record": "RUNNING",
+  "verified_layer": 1,
+  "total_layers": 489,
+  "print_status_at": "2026-11-24T06:11:06+00:00",
+  "reported_remaining_minutes": 312,
+  "slice_estimate_seconds": 24315,
+  "slice_filament_g": 200.1,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "plate": "Textured PEI Plate",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "name": "pump-receiver",
+      "object_id": 1901,
+      "stl": "hardware/print-tests/pump-seated-snaps/parts/pump-receiver.stl",
+      "stl_sha256": "9230f227e2127402d94b367e03ccbdb65177e2f6932aa0df4cb276cb5a58f13e"
+    },
+    {
+      "name": "pump-snap-cap",
+      "object_id": 1902,
+      "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
+      "stl_sha256": "d2824112b8c9383e8e9fab13ae6df3d2eb84d23d0aba3dd00f6e5fce9971e3cf"
+    },
+    {
+      "name": "meter-receiver",
+      "object_id": 1903,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/meter-receiver.stl",
+      "stl_sha256": "a41ae35a2d1ffe44c27080d04798992e099af9fb7d94a82c982fdfe966a4a7fa"
+    },
+    {
+      "name": "meter-snap-cap",
+      "object_id": 1904,
+      "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
+      "stl_sha256": "65cccb35667f7d375a63df4e6a77af0d00f88cfccdfb974fa73083b6ee6a7084"
+    }
+  ],
+  "source_geometry": {
+    "rear_caps": "4fb591987d428d62925d81f8739ad86551976a05",
+    "back_top": "4fb591987d428d62925d81f8739ad86551976a05",
+    "pump": "0dc7c9317e581614e15ab756cbbb4555cd644229",
+    "rear_receiver_crops": "df7afb5f0a95f997a5a4dcde94192cd393869548"
+  },
+  "native_recipe": "pump-meter-snap-pairs",
+  "recipe_repository_commit": "094b01a8368fa4bc6d19578da40444e21315cc3d",
+  "recipe_sha256": "90b134be2261fcf23b3083a7fc1d60db4f41e2348cc7c95e851cfff5a62daec8",
+  "review": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/review.json",
+  "preparation": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/preparation.json",
+  "minimum_bed_margin_mm": 46.22117000000003,
+  "protected_receiver_support_crossings": 0,
+  "artifacts": {
+    "project": {
+      "path": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf",
+      "sha256": "e36bda3d0e89440f1ff7b75b9cc30078d30b6653c2825624bcd3ca9d356e911e",
+      "archive_blob": "b186460d15bfdd6f09d1de8155857bb111e91f03"
+    },
+    "slice": {
+      "path": "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+      "sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+      "archive_blob": "2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0"
+    }
+  },
+  "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
+  "archive_restore": "Both the native project and sliced archive were restored byte-for-byte from the release.",
+  "bench_result": null,
+  "paired_job_id": "1480263050",
+  "acceptances_apart_seconds": 218.0
+}

@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
+    "name": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+    "objects": [
+      "pump-receiver",
+      "pump-snap-cap",
+      "meter-receiver",
+      "meter-snap-cap"
+    ],
+    "sha256": "625b24574746df080971a976d68af6c474bfb3827f3dd8f623addba8aff351ea",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 317,
+  "observed_at": "2026-11-24T06:00:01+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1480269399",
+  "subtask_name": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+  "total_layer_num": 489
+}

@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-11-24T06:00:34+00:00",
+  "printer": "Mark2",
+  "job_id": "1480269399",
+  "subtask_name": "2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "layer_num": 0,
+  "total_layer_num": 489,
+  "mc_percent": 0,
+  "mc_remaining_time": 317,
+  "bed_temper": 38.0,
+  "bed_target_temper": 38.0,
+  "nozzle_temper": 198.0,
+  "nozzle_target_temper": 200.0,
+  "print_error": 0,
+  "hms": []
+}
