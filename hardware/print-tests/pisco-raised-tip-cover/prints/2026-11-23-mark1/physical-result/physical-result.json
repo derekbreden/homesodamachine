@@ -1,0 +1,66 @@
+{
+  "reported_local_date": "2026-11-23",
+  "material": "HSM-0449",
+  "printer": "Mark1",
+  "printer_task_id": "1479934717",
+  "print_job": "https://github.com/derekbreden/homesodamachine/blob/28db775ffbc3650516a81910b1d5a603cd326bb7/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/print-job.json",
+  "original_fit_result": "https://github.com/derekbreden/homesodamachine/blob/28db775ffbc3650516a81910b1d5a603cd326bb7/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json",
+  "trial_mesh_sha256": "1382d98655a89e473cead9bb7efae0ae49870c79ba8582e7fa0b878bb8f63995",
+  "configuration": "Full-length two-bar Pisco cover with both wing tips raised 0.20 mm. Derek puts it back on the same regulator in the original rear quadrant after testing the four-bar cover.",
+  "recording": {
+    "filename": "A_0001C023A261124_0022343A_CANON.MP4",
+    "sha256": "9dae263b6f487ea9cf8ff28b1d38156f019bf2821789cc60e82e4f7e811ee529",
+    "duration_s": 113.646867,
+    "camera_creation_time_utc": "2026-11-24T06:22:35Z",
+    "time_reference": "Seconds from the start of the Canon recording. Clips preserve original speed and include Derek’s voice."
+  },
+  "visible": "The regulator is uncovered at 57 s. Derek installs the second cover and presses beside the white outlet. At 104.5 s the camera shows two recessed bars on the installed cover.",
+  "reported": "Derek still finds the two-bar cover good and feels a tiny amount more play than with the four-bar cover.",
+  "testimony": [
+    {
+      "source_seconds": [
+        81.2,
+        84.6
+      ],
+      "derek": "it's also, you can see, pretty good"
+    },
+    {
+      "source_seconds": [
+        88.9,
+        92.9
+      ],
+      "derek": "allowing a little bit more play. A tiny, tiny amount"
+    },
+    {
+      "source_seconds": [
+        101.3,
+        108.5
+      ],
+      "derek": "at least for this right here, it seems like the 0.4 fits even better."
+    }
+  ],
+  "comparison": "../../2026-11-23-mark2/physical-result/physical-result.json",
+  "media": [
+    {
+      "file": "regulator-between-covers.jpg",
+      "source_seconds": 57.0,
+      "view": "Regulator in the same quadrant during the swap.",
+      "sha256": "0b49685a82a9a8db5b96a772722d3423e97fde6b87fcd2de40ad6b5d68e21f8a"
+    },
+    {
+      "file": "two-bar-press.mp4",
+      "source_seconds": [
+        78.0,
+        109.2
+      ],
+      "view": "End view under hand pressure, two-bar marks and Derek’s comparison.",
+      "sha256": "64991c5a827357cd35d4fd44f1dcd780505f60f0f08f0d5223f7d83c69c39b48"
+    },
+    {
+      "file": "two-bar-cover.jpg",
+      "source_seconds": 104.5,
+      "view": "Two recessed marks beside the regulator outlet.",
+      "sha256": "2332f230e67979f5d6d73513f482fd2629d91528b7980967b3896d89f31c7c16"
+    }
+  ]
+}

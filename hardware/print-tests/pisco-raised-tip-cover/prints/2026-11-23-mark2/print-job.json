@@ -1,6 +1,6 @@
 {
   "purpose": "Fit this full-length Pisco cover in the original quadrant and compare tip height, outlet movement and release with the other printed cover.",
-  "status_at_record": "running",
+  "status_at_record": "finished",
   "printer": "Mark2",
   "connection_key": "Mark2",
   "printer_task_id": "1479946885",
@@ -90,5 +90,7 @@
   "prelaunch": "prelaunch-status.json",
   "startup": "startup-status.json",
   "first_layer": "first-layer-status.json",
-  "confirmed_progress": "printing-status.json"
+  "confirmed_progress": "printing-status.json",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }

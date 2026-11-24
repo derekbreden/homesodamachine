@@ -1,0 +1,66 @@
+{
+  "reported_local_date": "2026-11-23",
+  "material": "HSM-0449",
+  "printer": "Mark2",
+  "printer_task_id": "1479946885",
+  "print_job": "../print-job.json",
+  "trial_mesh_sha256": "c44fe9511ac2a2650fb72ca57424b7489514d4bbd1d300e2b14bdb6ccae9eabe",
+  "configuration": "Full-length four-bar Pisco cover with both wing tips raised 0.40 mm, over the regulator in the original rear quadrant.",
+  "recording": {
+    "filename": "A_0001C023A261124_0022343A_CANON.MP4",
+    "sha256": "9dae263b6f487ea9cf8ff28b1d38156f019bf2821789cc60e82e4f7e811ee529",
+    "duration_s": 113.646867,
+    "camera_creation_time_utc": "2026-11-24T06:22:35Z",
+    "time_reference": "Seconds from the start of the Canon recording. Clips preserve original speed and include Derek’s voice."
+  },
+  "visible": "Four recessed bars appear on the installed cover at 6.5 s. Derek holds the quadrant and presses on the cover next to the white regulator outlet. The cover stays engaged during the press.",
+  "reported": "Derek reports that he is pressing as hard as he can. He attributes the small movement to bending of the whole wing and prefers this cover to the two-bar cover when he compares them in the same fixture.",
+  "testimony": [
+    {
+      "source_seconds": [
+        10.3,
+        17.3
+      ],
+      "derek": "I think it's actually the best we've had so far."
+    },
+    {
+      "source_seconds": [
+        29.6,
+        31.5
+      ],
+      "derek": "pressing as hard as I can on it"
+    },
+    {
+      "source_seconds": [
+        39.4,
+        42.5
+      ],
+      "derek": "the whole wing bending"
+    },
+    {
+      "source_seconds": [
+        101.3,
+        108.5
+      ],
+      "derek": "at least for this right here, it seems like the 0.4 fits even better."
+    }
+  ],
+  "comparison": "../../2026-11-23-mark1/physical-result/physical-result.json",
+  "media": [
+    {
+      "file": "four-bar-cover.jpg",
+      "source_seconds": 6.5,
+      "view": "Four recessed marks beside the regulator outlet.",
+      "sha256": "61aa886563f748e13cd9e71d70a998a03dedba20855f78535f57fc5c008c196b"
+    },
+    {
+      "file": "four-bar-press.mp4",
+      "source_seconds": [
+        22.4,
+        48.8
+      ],
+      "view": "End view under hand pressure and Derek’s account of wing bending.",
+      "sha256": "ea66da616c66102d64123dd2a2ac1810823e775fd666c49fe89400ad3c8e177f"
+    }
+  ]
+}
