@@ -1,6 +1,6 @@
 {
   "purpose": "Compare the stock three-diamond spring profile with a raised roof-bearing crest at the real outlet, using the same rear collar in the original quadrant.",
-  "status_at_record": "running",
+  "status_at_record": "finished",
   "printer": "Mark1",
   "connection_key": "H2C",
   "printer_task_id": "1479693006",
@@ -140,5 +140,7 @@
   "launch": "launch.json",
   "prelaunch": "prelaunch-status.json",
   "first_layer": "first-layer-status.json",
-  "confirmed_progress": "printing-status.json"
+  "confirmed_progress": "printing-status.json",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result.json"
 }

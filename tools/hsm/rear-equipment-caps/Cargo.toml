@@ -29,3 +29,7 @@ path = "../../../hardware/print-tests/rear-receiver-quick/pisco.rs"
 [[bin]]
 name = "pisco-meter-lip-quick"
 path = "../../../hardware/print-tests/rear-receiver-quick/meter.rs"
+
+[[bin]]
+name = "pisco-raised-tip-cover"
+path = "../../../hardware/print-tests/pisco-raised-tip-cover/cover.rs"

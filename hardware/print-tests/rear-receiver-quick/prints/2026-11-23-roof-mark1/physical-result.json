@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-23",
+  "printer": "Mark1",
+  "printer_task_id": "1479693006",
+  "material": "HSM-0449",
+  "configuration": "The original rear quadrant and regulator with the common unmarked rear collar. The one-bar and two-bar front collars exchange on the same setup.",
+  "question_answered": "If the one-bar front toggles and the two-bar front stays put, that supports carrying the raised tips into a full-length cover.",
+  "derek": "That is what happened.",
+  "result": "The one-bar front toggled and the two-bar front stayed put.",
+  "trial_meshes": {
+    "pisco-front-control": "6a3f45cc040c3a1c3ea3efe488969a2ab915a9b81b8db731b04fdc0c7c26b0d5",
+    "pisco-front-roof": "12647a2c66ed67fb40a2d3b9cdc7a12a4dcfd434d35eaaa400c9c3c97f941b96",
+    "pisco-common-rear": "a0a97f2e0e60d65d98d227307aceadc47f1cea9741a39367371f4615e48f95d8"
+  },
+  "requested_successor": "Both printers are available. Please start a full-length cover on each, at least one of which is this 0.20 mm higher on each wing tip you described."
+}
