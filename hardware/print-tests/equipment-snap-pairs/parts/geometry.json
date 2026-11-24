@@ -1,0 +1,104 @@
+{
+  "receivers": [
+    {
+      "bounds_source_mm": [
+        [
+          0.650000000372529,
+          390.20000000018626,
+          303.21999999973923
+        ],
+        [
+          56.950000000186265,
+          474.29999999981374,
+          355.0
+        ]
+      ],
+      "connected_solids": 1,
+      "name": "asse-receiver",
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "removed_disconnected_volume_mm3": 0.0,
+      "sha256": "81adeb9968e03694956b1cd2268b658c1b67fd9fa478366bc711502374bf709c",
+      "volume_mm3": 75462.77190189678
+    },
+    {
+      "bounds_source_mm": [
+        [
+          59.08999999985099,
+          414.089999999851,
+          310.76999999955297
+        ],
+        [
+          93.91000000014901,
+          469.2989999996498,
+          355.0
+        ]
+      ],
+      "connected_solids": 1,
+      "name": "pisco-receiver",
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "removed_disconnected_volume_mm3": 373.08585355714604,
+      "sha256": "2ccec997833a20009b7c40aca7b0cd35bec3ae3343c6fed9f9fcef0dd98d3ee5",
+      "volume_mm3": 23367.852756891734
+    },
+    {
+      "bounds_source_mm": [
+        [
+          -61.580000000074506,
+          283.59999999962747,
+          335.0
+        ],
+        [
+          1.3799999998882413,
+          331.71999999973923,
+          355.0
+        ]
+      ],
+      "connected_solids": 1,
+      "name": "water-regulator-receiver",
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "removed_disconnected_volume_mm3": 0.0,
+      "sha256": "439aa45bb8f11c52782cff40085aa8def25babc94444494162e2698311e6d64c",
+      "volume_mm3": 39354.12624237235
+    },
+    {
+      "bounds_source_mm": [
+        [
+          83.04999999981374,
+          382.0,
+          251.94000000040978
+        ],
+        [
+          103.15000000037253,
+          447.0,
+          322.59999999962747
+        ]
+      ],
+      "connected_solids": 1,
+      "name": "meter-receiver",
+      "print_up_source": [
+        0,
+        0,
+        -1
+      ],
+      "removed_disconnected_volume_mm3": 0.0,
+      "sha256": "a41ae35a2d1ffe44c27080d04798992e099af9fb7d94a82c982fdfe966a4a7fa",
+      "volume_mm3": 46223.52348531065
+    }
+  ],
+  "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "source_model_sha256": "c8793920ba71f573465ad0fe44a98d17fcc4da55c111f4cae497cbfd87c613de",
+  "source_print_features_sha256": "2f585a916fbdfe1a527b49b2fdba96f51469015d8da516cd20a819d638c263b6",
+  "source_stl_sha256": "c8b0f3d18d5cf0678c9a7689ecb6b72f3913b5535e3b2742271f277cf3ded226"
+}

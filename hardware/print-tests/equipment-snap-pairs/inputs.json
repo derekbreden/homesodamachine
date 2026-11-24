@@ -1,0 +1,60 @@
+{
+  "source_model": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "receivers": [
+    {
+      "name": "asse-receiver",
+      "min_mm": [
+        0.65,
+        390.2,
+        303.22
+      ],
+      "max_mm": [
+        56.95,
+        474.31,
+        355.0
+      ]
+    },
+    {
+      "name": "pisco-receiver",
+      "min_mm": [
+        59.09,
+        414.09,
+        310.77
+      ],
+      "max_mm": [
+        93.91,
+        474.31,
+        355.0
+      ],
+      "omit_region_substring": "flow meter"
+    },
+    {
+      "name": "water-regulator-receiver",
+      "min_mm": [
+        -61.58,
+        283.6,
+        312.92
+      ],
+      "max_mm": [
+        1.38,
+        331.72,
+        355.0
+      ]
+    },
+    {
+      "name": "meter-receiver",
+      "min_mm": [
+        81.0,
+        382.0,
+        251.94
+      ],
+      "max_mm": [
+        103.15,
+        447.0,
+        322.6
+      ]
+    }
+  ]
+}

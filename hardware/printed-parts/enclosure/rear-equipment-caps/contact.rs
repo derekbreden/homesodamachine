@@ -143,6 +143,7 @@ pub fn specification(object: &Object, selection: &Value, defaults: &Value) -> Re
     Ok(
         json!({"object": object.name, "selection": selection, "sampled_roof_triangles": triangles.len(),
         "bounds_mm": bounds, "edge_blend_mm": selection["edge_blend_mm"], "parameters": parameters,
+        "refine_mesh_interiors": true,
         "height_field": {"bounds_mm": bounds, "samples": [nx, ny], "z_mm": heights}}),
     )
 }

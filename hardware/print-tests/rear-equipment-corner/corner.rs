@@ -1,4 +1,5 @@
 //! The rear equipment fit article crops the production enclosure and keeps its matching caps.
+mod regions;
 use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Solid, stl_bytes, v3};
 use serde_json::{Value, json};
@@ -11,19 +12,6 @@ fn digest(bytes: &[u8]) -> String { format!("{:x}", Sha256::digest(bytes)) }
 fn write_json(path: &Path, value: &Value) -> Result<()> {
     fs::write(path, serde_json::to_vec_pretty(value)?)?;
     Ok(())
-}
-
-fn clip_bounds(row: &mut Value, key: &str, lo: [f64; 3], hi: [f64; 3]) -> bool {
-    let Some(b) = row.get(key).and_then(Value::as_array) else { return true; };
-    let mut b: Vec<f64> = b.iter().filter_map(Value::as_f64).collect();
-    if b.len() != 6 { return false; }
-    for k in 0..3 {
-        b[2*k] = b[2*k].max(lo[k]);
-        b[2*k+1] = b[2*k+1].min(hi[k]);
-        if b[2*k] >= b[2*k+1] { return false; }
-    }
-    row[key] = json!(b);
-    true
 }
 
 fn main() -> Result<()> {
@@ -44,16 +32,7 @@ fn main() -> Result<()> {
     let crop_sha = digest(&bytes);
     fs::write(out.join("rear-equipment-corner.stl"), bytes)?;
     let native: Value = serde_json::from_slice(&fs::read(spec["source_print_features"].as_str().context("print features")?)?)?;
-    let mut regions = json!({"producer":"rear-equipment-corner", "source_stl_sha256":crop_sha,
-                             "boundary_overlap_mm":native["boundary_overlap_mm"]});
-    for key in ["support_free_regions", "support_regions", "bridge_regions"] {
-        let rows: Vec<Value> = native[key].as_array().into_iter().flatten().filter_map(|r| {
-            let mut row = r.clone();
-            (clip_bounds(&mut row, "bounds_source_mm", lo, hi)
-             && clip_bounds(&mut row, "blocking_bounds_source_mm", lo, hi)).then_some(row)
-        }).collect();
-        regions[key] = json!(rows);
-    }
+    let regions = regions::crop_regions(&native, "rear-equipment-corner", &crop_sha, lo, hi, |_| true);
     write_json(&out.join("rear-equipment-corner.print-features.json"), &regions)?;
     let mut caps = Vec::new();
     for cap in spec["caps"].as_array().context("caps")? {

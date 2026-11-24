@@ -11,6 +11,10 @@ name = "rear-equipment-corner"
 path = "../../../hardware/print-tests/rear-equipment-corner/corner.rs"
 
 [[bin]]
+name = "equipment-snap-receivers"
+path = "../../../hardware/print-tests/equipment-snap-pairs/receivers.rs"
+
+[[bin]]
 name = "jg-bulkhead-reference"
 path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
 

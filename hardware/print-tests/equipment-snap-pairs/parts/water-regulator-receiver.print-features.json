@@ -1,0 +1,49 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [],
+  "producer": "equipment-snap-receivers",
+  "source_stl_sha256": "439aa45bb8f11c52782cff40085aa8def25babc94444494162e2698311e6d64c",
+  "support_free_regions": [
+    {
+      "blocking_bounds_source_mm": [
+        -58.82391030388001,
+        -15.823910303880005,
+        289.103633714998,
+        291.95363371499803,
+        337.2151460770961,
+        355.0
+      ],
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        289.103633714998,
+        291.95363371499803,
+        337.2151460770961,
+        348.56514607709613
+      ],
+      "name": "Water regulator fore catch pocket",
+      "reason": "The chamfered catch prints without support."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        -58.82391030388001,
+        -15.823910303880005,
+        323.3600400329926,
+        326.2100400329926,
+        337.2151460770961,
+        355.0
+      ],
+      "bounds_source_mm": [
+        -55.57391030388001,
+        -19.073910303880005,
+        323.3600400329926,
+        326.2100400329926,
+        337.2151460770961,
+        348.56514607709613
+      ],
+      "name": "Water regulator aft catch pocket",
+      "reason": "The chamfered catch prints without support."
+    }
+  ],
+  "support_regions": []
+}
