@@ -4505,9 +4505,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "24f01c60753a0400475160aeb2032234f7ce9cb0",
-      "inputs": "7cfbccbab8f4a4677ddf047e1deadbbc5e5b7c6ad34bf5f47732681135f08e94",
-      "unproven": true
+      "commit": "4fb591987d428d62925d81f8739ad86551976a05",
+      "inputs": "7cfbccbab8f4a4677ddf047e1deadbbc5e5b7c6ad34bf5f47732681135f08e94"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
       "commit": "e3b1cda98230e20f1d887d7915aa1dbb8beefc35",
