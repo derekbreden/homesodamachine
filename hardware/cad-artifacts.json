@@ -17,18 +17,18 @@
     "solids": 1045
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": "b25047dc1ebde1715d8ef62ababb3e3644bbf61d405cda2ed7bf16a8c1505bb5",
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": "2a7004a3fc9dbbf87172d5795d65f1676557dba3cece35e0437f905a731032d8",
-    "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "758be742b0f0be237069a018b83a66e731247bc72319267f9fe6ef15ecd0ff73",
-    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "cb4239217161c0dcb81c4fcd3b5a19692fc0db0a4c2c2cc45ec28d9da175078b",
-    "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "f781479c12110221ac464e6ea29a1beea1fb661063bc7472b1bd0b77ed79fab1",
-    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "12ee4585aac56e65df6e37cd980f00a26cd39fb047b0cd4501d2523d5e069d6a",
-    "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "8e7c81b624edd79e0c6e491a85c3cdc8b1da6ed8085180e366b65cf32ffb507d",
-    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "cb3c1690e9928a2965366707cc51b2427e904cb78a903849098ec1b14ae0be0e",
-    "hardware/assembly/scenes/glb/front-top.glb.mesh": "74997313e3ff5fa504f44374dc010bce3f371888fca83e3b6be6c14040569680",
-    "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "d65723d98e43888e895762d9630ac4714c93ea8804b936ff91ae386f11d50def",
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": "c1b9569befd740968d1088cb6a7f184b19a5412e456c97063aadbba707196b30",
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": "acad3ef878db9a7d7cc7ecf684f48877536d3d98cef94a37a0f0823aa700f19b",
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "e647ced48b07abc28502732ec3ea80e067830c1df97bc44f24cc1898c9f2dade",
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "83b4ec1ccb1175dd15686960c34aaf171db7e9a5ac2f168e2ff4d7dbb571986f",
+    "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "596b02cd32285bac0f3882c9e2033a639097039a1421c267ed4921944d3420a9",
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": "d0871f08ceffe186763045a3a67403b416b4cff4541000384b4390d49719cb22",
+    "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "fd9a28b782bb667dc98d967a49bbb62a009c4544b48bd418c20b76a3db326586",
+    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "dccb650c38f886c48567156fe388c17df4156eba042efc84ea492e55bc265932",
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": "45f7cfc6c8307cfaffb5bb6e935fd55c0186279d20d783245bbdfd4cab32b119",
+    "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "97413113529b17d81b8751a4e24a33f60634013e3bec032dade114c251425719",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
-    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "b5fe1a8cc88b82fb2d4a1176e2531b797c2c6934c178f8002f43ec9db2925ef8",
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "a0f04a7cc785b70492ab26d261599ca3d154f8c4f8a35b3c17bef5f525530edb",
     "hardware/cold-core-layout/cold-core-assembly.step": "a936ab075021dc5ca53019de7595bfda1b483c72c0d9af627204125102180e46",
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": "401c8508daa783748f075c271595fc87de5d0d5f202eb8dc5e632c10c88379c6",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
@@ -870,18 +870,18 @@
   "sidecars": {},
   "website": {
     "solids": {
-      "hardware/assembly/scenes/glb/back-half.glb.mesh": "b25047dc1ebde1715d8ef62ababb3e3644bbf61d405cda2ed7bf16a8c1505bb5",
-      "hardware/assembly/scenes/glb/back-top.glb.mesh": "2a7004a3fc9dbbf87172d5795d65f1676557dba3cece35e0437f905a731032d8",
-      "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "758be742b0f0be237069a018b83a66e731247bc72319267f9fe6ef15ecd0ff73",
-      "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "cb4239217161c0dcb81c4fcd3b5a19692fc0db0a4c2c2cc45ec28d9da175078b",
-      "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "f781479c12110221ac464e6ea29a1beea1fb661063bc7472b1bd0b77ed79fab1",
-      "hardware/assembly/scenes/glb/cold-core.glb.mesh": "12ee4585aac56e65df6e37cd980f00a26cd39fb047b0cd4501d2523d5e069d6a",
-      "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "8e7c81b624edd79e0c6e491a85c3cdc8b1da6ed8085180e366b65cf32ffb507d",
-      "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "cb3c1690e9928a2965366707cc51b2427e904cb78a903849098ec1b14ae0be0e",
-      "hardware/assembly/scenes/glb/front-top.glb.mesh": "74997313e3ff5fa504f44374dc010bce3f371888fca83e3b6be6c14040569680",
-      "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "d65723d98e43888e895762d9630ac4714c93ea8804b936ff91ae386f11d50def",
+      "hardware/assembly/scenes/glb/back-half.glb.mesh": "c1b9569befd740968d1088cb6a7f184b19a5412e456c97063aadbba707196b30",
+      "hardware/assembly/scenes/glb/back-top.glb.mesh": "acad3ef878db9a7d7cc7ecf684f48877536d3d98cef94a37a0f0823aa700f19b",
+      "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": "e647ced48b07abc28502732ec3ea80e067830c1df97bc44f24cc1898c9f2dade",
+      "hardware/assembly/scenes/glb/cap-lid.glb.mesh": "83b4ec1ccb1175dd15686960c34aaf171db7e9a5ac2f168e2ff4d7dbb571986f",
+      "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": "596b02cd32285bac0f3882c9e2033a639097039a1421c267ed4921944d3420a9",
+      "hardware/assembly/scenes/glb/cold-core.glb.mesh": "d0871f08ceffe186763045a3a67403b416b4cff4541000384b4390d49719cb22",
+      "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": "fd9a28b782bb667dc98d967a49bbb62a009c4544b48bd418c20b76a3db326586",
+      "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": "dccb650c38f886c48567156fe388c17df4156eba042efc84ea492e55bc265932",
+      "hardware/assembly/scenes/glb/front-top.glb.mesh": "45f7cfc6c8307cfaffb5bb6e935fd55c0186279d20d783245bbdfd4cab32b119",
+      "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": "97413113529b17d81b8751a4e24a33f60634013e3bec032dade114c251425719",
       "hardware/assembly/scenes/glb/pump-cartridge.glb": "8329920973ebf1302d8a0d0e3053f8fbd41766bd3e5fe57909db932a2c1ecb2e",
-      "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "b5fe1a8cc88b82fb2d4a1176e2531b797c2c6934c178f8002f43ec9db2925ef8",
+      "hardware/assembly/scenes/glb/pump-mount.glb.mesh": "a0f04a7cc785b70492ab26d261599ca3d154f8c4f8a35b3c17bef5f525530edb",
       "hardware/cold-core-layout/cold-core-assembly.step": "a936ab075021dc5ca53019de7595bfda1b483c72c0d9af627204125102180e46",
       "hardware/cold-core-layout/cold-core-assembly.step.mesh": "401c8508daa783748f075c271595fc87de5d0d5f202eb8dc5e632c10c88379c6",
       "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "360d0b80c538b44809405087d75429f55f368fe283f2ea515392232985f271f5",
@@ -2789,18 +2789,18 @@
     "ffd313a3f9f8d08efec3c588cc762798f5b805c067e8fd48e8332a8230819f9d"
   ],
   "moved": {
-    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1795499249.424901,
-    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1795499249.424901,
-    "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/front-top.glb.mesh": 1795499151.74147,
-    "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1795499151.74147,
+    "hardware/assembly/scenes/glb/back-half.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/back-top.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/cap-lid.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/cold-core.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/front-top.glb.mesh": 1795499340.857508,
+    "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": 1795499340.857508,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792921613,
-    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1795499151.74147,
+    "hardware/assembly/scenes/glb/pump-mount.glb.mesh": 1795499340.857508,
     "hardware/cold-core-layout/cold-core-assembly.step": 1795499135.936446,
     "hardware/cold-core-layout/cold-core-assembly.step.mesh": 1795499121.625971,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1793626644,
@@ -3641,54 +3641,54 @@
   },
   "made": {
     "hardware/assembly/scenes/glb/back-half.glb.mesh": {
-      "commit": "4bbe7a5674f413e332b52d93d82a5ab5e0ed4e27",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/back-top.glb.mesh": {
-      "commit": "4bbe7a5674f413e332b52d93d82a5ab5e0ed4e27",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid-fill.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cap-lid.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cold-core-open.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/cold-core.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/en04-compressor-bay.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/en07-electronics-bay.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/front-top.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/funnel-drain.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "inputs": "28c63a0577528f514fb04e534605997066cd7569f6d0c5f9e05c499efc425efb",
       "unproven": true
     },
     "hardware/assembly/scenes/glb/pump-mount.glb.mesh": {
-      "commit": "41f99ebe68a9f4d985064f22533e9218d7f8e51c",
+      "commit": "57879096943cc730e70e5fa3e01d546c3cda40ca",
       "unproven": true
     },
     "hardware/cold-core-layout/cold-core-assembly.step": {
