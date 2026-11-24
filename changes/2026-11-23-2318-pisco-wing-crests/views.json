@@ -1,0 +1,77 @@
+{
+  "views": [
+    {
+      "name": "wing-profile",
+      "caption": "The outside of the Pisco wing ends in a flat crest. The sloped face underneath the nose bears on the receiver catch.",
+      "before": "wing-profile-before.webp",
+      "after": "wing-profile-after.webp",
+      "width": 960,
+      "height": 620,
+      "marks": [
+        {
+          "x": 388.5,
+          "y": 89.2,
+          "r": 60.4,
+          "label": "Crest",
+          "at": [
+            62.6,
+            420.6,
+            351.25
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          73.46937442503746,
+          329.40625574962536,
+          352.06565593377064
+        ],
+        "target": [
+          64.35,
+          420.6,
+          347.05
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 5.9,
+        "near": 75.26745293482867,
+        "far": 174.70198522950585,
+        "aspect": 1.5483870967741935
+      },
+      "highlight": [
+        "pisco-snap-cap"
+      ],
+      "ghost": [],
+      "only": [
+        "pisco-snap-cap"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "f3711c2101f9e837617339025511cde65d37008c53bdf6f91cc8569153edfd78",
+          "commit": "ce5698aa0134a778ff7fa2c7b29f23641d290ecd",
+          "taken": "2026-11-24T05:13:01.640Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "352053871cc5d8c40098e5283c58ddab776ff190f00a829c88e7f8371ebbbfd1",
+          "commit": "8e210c8e20958be04ec9165c12243f24307520be",
+          "published": true
+        }
+      },
+      "changed": [
+        "pisco-snap-cap"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

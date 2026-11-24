@@ -87,7 +87,8 @@
   ],
   "pump_lid_overlap_mm3": 0.0,
   "pump_old_lid_overlap_mm3": 0.0,
-  "purpose": "Read the approved lower cap profiles and longer tips against the full production receivers.",
+  "purpose": "Read the pointed cap profiles against their full receivers.",
+  "pisco_flat_crest_fit": "pisco-fit.json",
   "rear_added_mm3": 0.0,
   "rear_caps": [
     {

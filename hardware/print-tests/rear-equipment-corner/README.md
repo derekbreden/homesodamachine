@@ -16,9 +16,10 @@ through the open west face. The aft shoulder's first course bridges from its
 west edge to the flank.
 
 The Pisco cover tips past the recessed meter shoulder. The flow meter, Pisco
-and ASSE fit together with all three covers installed. Derek found the ASSE
-cover tightest, the meter cover next and the Pisco cover loosest.
-[Assembled corner and bench observations](https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json)
+and ASSE fit together with all three covers installed. The original pointed
+Pisco cover rocks in this corner. The production Pisco cover uses the full-length
+raised flats that Derek fitted in the same quadrant.
+[Fitted Pisco cover](https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result.json) · [Assembled corner and bench observations](https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json)
 
 Clear the removable support from the meter shoulders, upper lip and fitted
 body passages. With the meter and ASSE hardware out, seat the Pisco and tip
