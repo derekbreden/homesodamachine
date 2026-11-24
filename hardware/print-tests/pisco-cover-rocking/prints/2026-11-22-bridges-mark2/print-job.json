@@ -1,6 +1,6 @@
 {
   "purpose": "Compare closely spaced short flat catches with longer flat catches, bridged between permanent lands.",
-  "status_at_record": "running",
+  "status_at_record": "finished",
   "printer": "Mark2",
   "connection_key": "Mark2",
   "printer_task_id": "1475705523",
@@ -178,5 +178,7 @@
   "subsequent_printing": "printing-status.json",
   "project_check": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei/project-check.json",
   "native_review": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei/review.json",
-  "first_course_bridge_check": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei/bridge-paths.json"
+  "first_course_bridge_check": "2026-11-22-pisco-rocking-bridges-mark2-dbad0823-textured-pei/bridge-paths.json",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }

@@ -1,0 +1,182 @@
+{
+  "reported_local_date": "2026-11-23",
+  "printer": "Mark1",
+  "printer_task_id": "1475716069",
+  "paired_comparison_task": "1475705523",
+  "printed_materials": [
+    "HSM-0081",
+    "HSM-0449"
+  ],
+  "fixture": "Purchased Pisco regulator installed in the printed receiver.",
+  "bench_result": "The original and older three-diamond covers were loose in A. The matched A cover also rocked. Derek rejected the projections on B and preferred the older three-diamond cover in its previous quadrant.",
+  "time_reference": "All times are seconds from the start of each original Canon recording. Excerpts preserve original speed and audio.",
+  "recordings": [
+    {
+      "source_video": "A_0001C015A261123_1926453A_CANON.MP4",
+      "sha256": "8ebc75251a42f500e775e00b49765d4432478422d60d7de8c2b932cab634c76a",
+      "configuration": "A receiver with the older three-diamond cover.",
+      "bench_observation": "Derek installs the cover and shifts it between two positions by fingertip pressure.",
+      "testimony": [
+        {
+          "source_seconds": [
+            25,
+            36.1
+          ],
+          "derek": "that is incredibly loose, shifting from one position to another"
+        },
+        {
+          "source_seconds": [
+            60,
+            71.3
+          ],
+          "derek": "it's a pretty large shift"
+        }
+      ],
+      "media": [
+        {
+          "file": "three-diamond-in-a.mp4",
+          "source_seconds": [
+            48.8,
+            57.3
+          ],
+          "sha256": "ed3f2b46b991878d99c3520e72898d6158f0305e8bb5d3b35949c1dce21f93bd"
+        }
+      ]
+    },
+    {
+      "source_video": "A_0001C016A261123_1931343A_CANON.MP4",
+      "sha256": "88df1f1da7bf5d8c84de072578acad608361a4e417dbdedf4d96bb4a7ead6d29",
+      "configuration": "B receiver and B cover. The opening shows two long parallel recessed bars on the cover. Derek calls it two diamond aloud.",
+      "bench_observation": "Derek points out projections on both sides of the regulator, shows their ends and presses in the cover. He thinks a projection snapped during insertion and rejects these stops. Which feature snapped is unresolved.",
+      "testimony": [
+        {
+          "source_seconds": [
+            16.3,
+            19.4
+          ],
+          "derek": "but that just gets in the way. This is impossible to print."
+        },
+        {
+          "source_seconds": [
+            53.5,
+            56
+          ],
+          "derek": "I think one of those snapped, of course."
+        },
+        {
+          "source_seconds": [
+            92.1,
+            95.2
+          ],
+          "derek": "No, no, I don't think those are a very good idea."
+        }
+      ],
+      "media": [
+        {
+          "file": "b-markings.jpg",
+          "source_seconds": 2,
+          "sha256": "33d0f0a56834cb3b7c00dab127c9367784ad84f798e05f854774ca9586e35b5a",
+          "view": "Matched bars and notches before assembly."
+        },
+        {
+          "file": "b-receiver-stop.jpg",
+          "source_seconds": 40,
+          "sha256": "3600212373098eb8a699a6f63d010995ffb1c83d323e4af7cedaed47f5bbd819",
+          "view": "Receiver stop beside the seated regulator before the cover goes on."
+        }
+      ]
+    },
+    {
+      "source_video": "A_0001C020A261123_1951220N_CANON.MP4",
+      "sha256": "ba4b840d8a187a0c2ecdff20ad4c27cc72190828bdfae114dc39c9652e4afa38",
+      "configuration": "A receiver with the unmarked original cover.",
+      "bench_observation": "Derek seats the original cover, presses opposite sides and demonstrates the movement at the outlet.",
+      "testimony": [
+        {
+          "source_seconds": [
+            22.9,
+            25
+          ],
+          "derek": "Incredibly loose."
+        }
+      ],
+      "media": [
+        {
+          "file": "original-in-a.mp4",
+          "source_seconds": [
+            20,
+            30
+          ],
+          "sha256": "3a5d0720d7eb137c58200a27eaca81fc35bbf2906ac11e800c60f0809702a6ca"
+        }
+      ]
+    },
+    {
+      "source_video": "A_0001C021A261123_195259V1_CANON.MP4",
+      "sha256": "52fed70c402afdeb8e727c56a5c64ee8bafa32631e7d8d4cceaf9fe8dc2b4d14",
+      "configuration": "A receiver with its one-bar A cover.",
+      "bench_observation": "The one-bar cover is visible before insertion. Derek alternates fingertip pressure after seating it.",
+      "testimony": [
+        {
+          "source_seconds": [
+            21.7,
+            24.4
+          ],
+          "derek": "Rocks like that."
+        }
+      ],
+      "media": [
+        {
+          "file": "a-in-a.mp4",
+          "source_seconds": [
+            20,
+            30
+          ],
+          "sha256": "ffbfe70702d5300e5f61f69b37d445dc93354f169a6003e9dacfaed048f8d5bc"
+        }
+      ]
+    },
+    {
+      "source_video": "A_0001C022A261123_2000483A_CANON.MP4",
+      "sha256": "900a62994aa7ddb050b58cfe02c66c550eefeb239c604d75942f85f877b5175f",
+      "configuration": "Older three-diamond cover in the previous enclosure quadrant.",
+      "bench_observation": "Derek tests the cover inside the quadrant, turns the wall toward the camera and manipulates the exposed white outlet. The inside view shows all three diamond marks.",
+      "testimony": [
+        {
+          "source_seconds": [
+            15,
+            22
+          ],
+          "derek": "The one that I said originally had a nice snap to it when it shifts between positions."
+        },
+        {
+          "source_seconds": [
+            22,
+            28.3
+          ],
+          "derek": "It's really the one that feels firmest so far, especially in terms of what it does here."
+        },
+        {
+          "source_seconds": [
+            54.6,
+            58
+          ],
+          "derek": "Consider how this one is still the best so far."
+        }
+      ],
+      "media": [
+        {
+          "file": "three-diamond-original-quadrant.jpg",
+          "source_seconds": [
+            28.2,
+            36.2
+          ],
+          "sha256": "5a3cdb7a6c6370595c4a4afb28be46d77fa50c9bce8d39b563a7c7e9721748b2",
+          "view": "Source stills, left to right. Outside outlet under hand pressure and inside view of the marked cover."
+        }
+      ]
+    }
+  ],
+  "prior_three_diamond_result": "https://github.com/derekbreden/homesodamachine/blob/6343b3ef52a582988ff37589afacd196ac068471/hardware/print-tests/pisco-cover-retention/prints/2026-11-21-preload-mark1/physical-result/physical-result.json",
+  "paired_result": "../../2026-11-22-bridges-mark2/physical-result/physical-result.json"
+}

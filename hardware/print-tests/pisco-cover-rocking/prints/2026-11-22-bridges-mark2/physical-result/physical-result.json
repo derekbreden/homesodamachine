@@ -1,0 +1,119 @@
+{
+  "reported_local_date": "2026-11-23",
+  "printer": "Mark2",
+  "printer_task_id": "1475705523",
+  "paired_comparison_task": "1475716069",
+  "printed_materials": [
+    "HSM-0081",
+    "HSM-0449"
+  ],
+  "fixture": "Purchased Pisco regulator installed in the printed receiver.",
+  "bench_result": "C and D initially felt steady in the receivers. On removal Derek found the load-bearing Pisco bridges had fallen apart. He rejects these bridges for retention.",
+  "time_reference": "All times are seconds from the start of each original Canon recording. Excerpts preserve original speed and audio.",
+  "recordings": [
+    {
+      "source_video": "A_0001C017A261123_1936453A_CANON.MP4",
+      "sha256": "55f81ce53d4f5df438a48dbf0e4d13f0c79839343ec4c0d43a8f172bd3d55258",
+      "configuration": "C receiver with tree supports still attached.",
+      "bench_observation": "Loops hang below an edge of the three-notch print. The camera turns the receiver to show the strands before the hand-fit test.",
+      "testimony": [
+        {
+          "source_seconds": [
+            13.6,
+            18.4
+          ],
+          "derek": "there's a lot of hanging strands under there."
+        }
+      ],
+      "media": [
+        {
+          "file": "c-printed-strands.jpg",
+          "source_seconds": 16.3,
+          "sha256": "44ea605d9a8a0f460fd4936c0ff40613f4e5fe219352c0d7d7600da347d7fe43"
+        }
+      ]
+    },
+    {
+      "source_video": "A_0001C018A261123_193818C6_CANON.MP4",
+      "sha256": "a07a6d89a83c2dde99c48d15b14f4391a58384bcc5d4dd95ebba3bdf75f780b0",
+      "configuration": "C receiver with its three-bar C cover and regulator installed.",
+      "bench_observation": "Derek shows a joint pushed out at one side and probes it with a screwdriver, then applies fingertip pressure again. In the assembled state he suspects the bridge strands account for the remaining give.",
+      "testimony": [
+        {
+          "source_seconds": [
+            38.6,
+            44.2
+          ],
+          "derek": "It's pretty good except we've got something pushing us just a bit on that side."
+        },
+        {
+          "source_seconds": [
+            75.1,
+            81.1
+          ],
+          "derek": "Here's me trying to wiggle it. Same force I used on the others."
+        },
+        {
+          "source_seconds": [
+            105.8,
+            108.2
+          ],
+          "derek": "So this seems good."
+        }
+      ],
+      "media": [
+        {
+          "file": "c-in-c.mp4",
+          "source_seconds": [
+            74.6,
+            89
+          ],
+          "sha256": "3c4cceac30c24d1328dccf55200f2280a12a152f064e8e31c1a3163f441a8622"
+        }
+      ]
+    },
+    {
+      "source_video": "A_0001C019A261123_1942173J_CANON.MP4",
+      "sha256": "6b69b52c99a613fd32e4c162f68ef0f9b55deff7d83fc8d52d4bcdecc8036a2e",
+      "configuration": "D receiver with its four-bar D cover and regulator installed.",
+      "bench_observation": "Derek shows one side of the joint standing proud before he presses it in. By hand he feels the receiver wall move more than the cover. He initially prefers this simpler pair to C.",
+      "testimony": [
+        {
+          "source_seconds": [
+            92.4,
+            101.4
+          ],
+          "derek": "Because to me it feels like I'm wiggling this wall a lot more than I'm able to wiggle this thing."
+        }
+      ],
+      "media": [
+        {
+          "file": "d-in-d.mp4",
+          "source_seconds": [
+            89,
+            112
+          ],
+          "sha256": "48f11c16fcf94fdd355a426dbb19ce573b2ab9077036d90ea4a67a00cd94d18c"
+        }
+      ],
+      "flow_meter_receiver": {
+        "source_seconds": [
+          114,
+          129.3
+        ],
+        "observation": "Derek turns the assembled coupon, points to loose strands across the exposed shoulder of the adjacent flow-meter receiver and says that bridge needs to be fixed.",
+        "media": {
+          "file": "flow-meter-receiver-shoulder.jpg",
+          "source_seconds": 126,
+          "sha256": "08dd5ef311d870cae5e960c1ed02f1a2e3001827d0b6736816984314fd4d181b",
+          "view": "As-printed shoulder beside the installed Pisco cover."
+        }
+      }
+    }
+  ],
+  "after_removal": {
+    "source": "Derek's written observation after removing the C and D snaps.",
+    "derek": "One thing I need to add - after removal the bridges on C/D fell apart, and so that \"little bit of give\" I felt was actually the bridge strands separating and shifting, and after removing the snap I could see the unreliability/inconsistency of this approach and so that is why I don't think we can use even a bridge as small as those were in this sort of load bearing use case."
+  },
+  "paired_result": "../../2026-11-22-stops-mark1/physical-result/physical-result.json"
+}

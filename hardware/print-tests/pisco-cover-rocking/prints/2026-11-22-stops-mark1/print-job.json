@@ -1,6 +1,6 @@
 {
   "purpose": "Isolate wing-tip headroom and preload, then front and aft rigid anti-rocking stops.",
-  "status_at_record": "running",
+  "status_at_record": "finished",
   "printer": "Mark1",
   "connection_key": "H2C",
   "printer_task_id": "1475716069",
@@ -178,5 +178,7 @@
   "subsequent_printing": "printing-status.json",
   "project_check": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei/project-check.json",
   "native_review": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei/review.json",
-  "rigid_stop_deposition_check": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei/rigid-stop-paths.json"
+  "rigid_stop_deposition_check": "2026-11-22-pisco-rocking-stops-mark1-3c6ba015-textured-pei/rigid-stop-paths.json",
+  "completion_status": "completion-status.json",
+  "physical_result": "physical-result/physical-result.json"
 }
