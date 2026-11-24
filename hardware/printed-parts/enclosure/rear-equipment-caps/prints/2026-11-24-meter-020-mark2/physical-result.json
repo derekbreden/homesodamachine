@@ -1,0 +1,20 @@
+{
+  "purpose": "Record how the three flow-meter covers fit and which ones showed incomplete seating on the bench.",
+  "date": "2026-11-24",
+  "material": "HSM-0450",
+  "tried": "Derek compared flow-meter covers with wing crests at +0.00 mm, +0.20 mm and +0.40 mm relative to the original points.",
+  "prints": [
+    {
+      "crest_rise_mm": 0.20,
+      "print_record": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/print-job.json"
+    },
+    {
+      "crest_rise_mm": 0.40,
+      "print_record": "hardware/print-tests/equipment-snap-pairs/prints/mark2/print-job.json"
+    }
+  ],
+  "said": "So on this flow meter cover +0.40 mm fits better than +0.20 mm and +0.20 mm fits better than +0.00 mm, but on both +0.40 mm and +0.20 mm we are getting clear evidence of failing to fully seat that we don't have on the others. I think it is perhaps to do with the fancy edges on the cylinder face making our scan to model process not as precise as we'd like.",
+  "observed": "The +0.40 mm cover fit best overall. Both raised covers showed incomplete seating.",
+  "hypothesis": "Derek suspects the scan-to-model process may have reproduced the edges of the cylinder face imprecisely.",
+  "next_trial": "Keep the +0.40 mm wing crests and add 0.40 mm of clearance at the cover saddle. Compare seating with the earlier +0.40 mm cover."
+}

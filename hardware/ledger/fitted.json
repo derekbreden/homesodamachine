@@ -161,13 +161,6 @@
       "record": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json"
     },
     {
-      "material": "HSM-0450",
-      "date": "2026-11-02",
-      "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
-      "tried": "the flow sensor snapped into its printed cap and receiver",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pointed-snaps/physical-result/physical-result.json"
-    },
-    {
       "material": "HSM-0451",
       "date": "2026-11-02",
       "said": "On the most recent round of finished prints there for the snap prints, the water regulator and the pisco and the flow meter are all perfect, or close enough to perfect, that we definitely want to call these approved and good for all aspects of fit other than the wing tips",
@@ -449,13 +442,6 @@
       "date": "2026-11-21",
       "said": "It worked.",
       "tried": "the Pisco cover installed over the seated regulator through the revised side entry. It clicked into both catches and had the most rocking play of the three.",
-      "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
-    },
-    {
-      "material": "HSM-0450",
-      "date": "2026-11-21",
-      "said": "It worked.",
-      "tried": "the cover on the flow meter in the same printed corner. Its retention fell between the ASSE and Pisco covers.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/5e6d64bf900d873c59c141b13b64fa9c34e123b3/hardware/print-tests/rear-equipment-corner/prints/2026-11-21-pisco-entry-mark2/physical-result/physical-result.json"
     },
     {

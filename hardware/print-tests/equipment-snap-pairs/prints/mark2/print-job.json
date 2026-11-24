@@ -76,7 +76,9 @@
   },
   "gcode_sha256": "84164ebc551dad2001bcaa2a0622ec76555c0be4e402006b63ea37f9d8ef9b59",
   "archive_restore": "Both the native project and sliced archive were restored byte-for-byte from the release.",
-  "bench_result": null,
+  "bench_result": {
+    "meter-snap-cap": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-020-mark2/physical-result.json"
+  },
   "paired_job_id": "1480263050",
   "acceptances_apart_seconds": 218.0
 }

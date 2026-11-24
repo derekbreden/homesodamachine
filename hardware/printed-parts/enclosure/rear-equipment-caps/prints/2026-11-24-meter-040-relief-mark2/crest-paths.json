@@ -1,0 +1,44 @@
+{
+  "archive_sha256": "b7c0501403b2bf412a602ec33368b797177ba6068b721e37eb64c953ac81226b",
+  "gcode_sha256": "4b6e1af78767000bb7272d5c23eacaa0f7e5d7f333b9bd5fa6e8b42f919f59fe",
+  "object": "meter-snap-cap",
+  "method": "Read the straight outer-wall moves on each interior layer from 0.68 mm to 0.36 mm before the end of each wing. Transform the nominal outer bead edge into the installed frame and compare with the east wall on the previously printed receiver.",
+  "receiver_paths": "../../crest-paths.json",
+  "wings": {
+    "lower": {
+      "interior_layers": 155,
+      "layer_heights_mm": [
+        0.68,
+        37.64
+      ],
+      "straight_outer_wall_centerline_length_mm": [
+        0.585,
+        0.585
+      ],
+      "extrusion_width_mm": 0.42,
+      "installed_nominal_bead_edge_x_mm": 98.4,
+      "maximum_nominal_bead_edge_error_mm": 0.0,
+      "clearance_to_previous_receiver_toolpath_mm": 0.1002
+    },
+    "upper": {
+      "interior_layers": 85,
+      "layer_heights_mm": [
+        0.68,
+        20.84
+      ],
+      "straight_outer_wall_centerline_length_mm": [
+        0.585,
+        0.585
+      ],
+      "extrusion_width_mm": 0.42,
+      "installed_nominal_bead_edge_x_mm": 98.4,
+      "maximum_nominal_bead_edge_error_mm": 0.0,
+      "clearance_to_previous_receiver_toolpath_mm": 0.1002
+    }
+  },
+  "cooling": {
+    "method": "The sum of extruding XY move lengths divided by commanded feed in the native tower blocks.",
+    "tower_layers": 159,
+    "minimum_tower_extrusion_seconds_per_layer": 23.692
+  }
+}

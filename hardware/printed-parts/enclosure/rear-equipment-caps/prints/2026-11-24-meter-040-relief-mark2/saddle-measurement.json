@@ -1,0 +1,64 @@
+{
+  "reference": "Earlier +0.40 mm cover measured in its installed axes. The plane at X75 crosses only the two straight leaves. West of the plane, compare the entire new crossbar with the earlier one translated 0.40 mm west. East of the plane compare the complete leaves and hooks with no translation.",
+  "previous_installed_mesh_sha256": "391ba1eaadb033562c51f376b657645e5480dfea53ba89fc99f87e166ddf8557",
+  "relieved_installed_mesh_sha256": "44efe3ba92d11adb5fc9f69321c6918fb45735e285f3e4ffdb9ab606da915ba8",
+  "separating_plane_x_mm": 75,
+  "crossbar_symmetric_difference_after_translation_mm3": 0.0104801,
+  "hook_region_symmetric_difference_in_place_mm3": 0.0,
+  "root_to_crest_mm": {
+    "prior": 32.05,
+    "relieved": 32.45
+  },
+  "spine_thickness_mm": {
+    "prior": 9.0,
+    "relieved": 9.0
+  },
+  "wing_tip_x_mm": [
+    98.4,
+    98.4
+  ],
+  "saddle_face_witnesses": {
+    "housing underside": {
+      "y_mm": 405.0,
+      "z_mm": 285.0,
+      "original_inner_x_mm": 66.95,
+      "relieved_inner_x_mm": 66.55,
+      "relieved_outer_x_mm": 56.95
+    },
+    "side port neck": {
+      "y_mm": 397.0,
+      "z_mm": 293.0,
+      "original_inner_x_mm": 68.4895,
+      "relieved_inner_x_mm": 68.0895,
+      "relieved_outer_x_mm": 56.95
+    },
+    "bearing pad": {
+      "y_mm": 397.0,
+      "z_mm": 303.0,
+      "original_inner_x_mm": 70.35,
+      "relieved_inner_x_mm": 69.95,
+      "relieved_outer_x_mm": 56.95
+    },
+    "upper spring root ledge": {
+      "y_mm": 420.0,
+      "z_mm": 312.0,
+      "original_inner_x_mm": 66.35,
+      "relieved_inner_x_mm": 65.95,
+      "relieved_outer_x_mm": 56.95
+    }
+  },
+  "lower_bevel_to_a_fill_tube": {
+    "tube": "tube-fluid-14",
+    "surface_distance_mm": 3.775,
+    "cover_point_mm": [
+      62.95,
+      421.2439,
+      264.1707
+    ],
+    "tube_point_mm": [
+      59.175,
+      421.2439,
+      264.1707
+    ]
+  }
+}

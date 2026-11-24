@@ -1,21 +1,21 @@
 [sliver] The long strip at each tip is the flat bearing that meets the east receiver wall. The production crest is 0.90 mm wide over the entire spring span.
 alternatives: Rounding off this bearing restores the narrow contact of the pointed trial. Widening it changes the fitted lead-in and retaining geometry.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
-click: x=20.425 y=26.700 z=19.000
-click: x=20.425 y=-26.700 z=10.669
+click: x=20.725 y=26.700 z=19.000
+click: x=20.725 y=-26.700 z=10.669
 
 [thin] The lead-in narrows toward the flat bearing at the end of each leaf. This continuous taper spreads the leaf over the ledge during assembly.
 alternatives: Thickening the ramp would shorten the usable lead-in or widen the flat bearing. Both change entry and catch contact at the actual receiver.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
-click: x=19.191 y=27.150 z=3.978
-click: x=20.093 y=25.991 z=3.978
-click: x=19.687 y=-25.676 z=8.769
-click: x=19.687 y=-27.150 z=8.769
+click: x=20.003 y=-25.709 z=17.571
+click: x=20.003 y=-27.150 z=17.571
+click: x=20.000 y=25.706 z=31.381
+click: x=20.000 y=27.150 z=31.381
 
 [thin] The 2.0 mm spring leaf and its R1.5 root flex in the print plane as the cover engages and releases.
 alternatives: Derek tested thicker leaves that bent at their corners and a thinner version that he wanted stiffened. Changing thickness alters the return onto the 45° ledge.
 file: hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step
-click: x=9.202 y=-27.150 z=1.406
-click: x=9.202 y=-25.150 z=1.406
-click: x=9.138 y=25.150 z=36.945
-click: x=9.138 y=27.150 z=36.945
+click: x=9.396 y=-27.150 z=1.406
+click: x=9.396 y=-25.150 z=1.406
+click: x=9.233 y=25.150 z=36.940
+click: x=9.233 y=27.150 z=36.940

@@ -42,8 +42,6 @@ const ASSE_ROOM_AFT: f64 = 0.5;
 const ROOM_ENDS: f64 = 0.01;
 /// The fitted four-bar cover raises both crests this far beyond the original pointed lead-in.
 const CREST_RISE: f64 = 0.40;
-/// The meter crests reach toward the enclosure flank from the pointed-tip datum.
-const METER_CREST_RISE: f64 = 0.20;
 /// The free retaining faces overlap their catches enough to keep the leaves sprung at the roof stop.
 const PISCO_METER_FREE_HOOK_OVERLAP: f64 = 0.55;
 const ASSE_FREE_HOOK_OVERLAP: f64 = 0.68;
@@ -62,6 +60,9 @@ const PISCO_CAP_FIT: f64 = 0.15;
 const METER_BACK: f64 = 9.0;
 const METER_BEARING_DEPTH: f64 = 4.0;
 const METER_HOUSING_FIT: f64 = 0.15;
+/// The whole meter saddle and spine sit this far west of the captured bearing, lengthening
+/// both spring leaves to their fixed receiver hooks.
+const METER_SADDLE_SETBACK: f64 = 0.40;
 const METER_BEVEL_DROP: f64 = 8.0;
 const METER_BEVEL_REACH: f64 = 40.0;
 const BEVEL_ENDS: f64 = 0.1;
@@ -210,7 +211,7 @@ fn asse_cap() -> Result<Cap> {
     let axis = [centre[0], centre[2]];
     let st = stations::asse_station();
     let (stock, adapter) = adapter_capture(chain, &st, axis)?;
-    let wings = section(&st, Underside::Hex(axis[1]), st.bearing, ASSE_FREE_HOOK_OVERLAP, st.ceiling, CREST_RISE)?;
+    let wings = section(&st, Underside::Hex(axis[1]), st.bearing, ASSE_FREE_HOOK_OVERLAP, st.ceiling)?;
     let cap = along_y(wings, [st.y0, st.y1])?.union(&stock)?;
     let room = along_y(body_room(axis), [st.y0 - ROOM_ENDS, st.y1 + ASSE_ROOM_AFT + ROOM_ENDS])?;
     let pose = &l.parts.asse1022_assembly;
@@ -329,7 +330,7 @@ fn pisco_cap() -> Result<Cap> {
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     let saddle = axis[1] - (body_radius.powi(2) - (half - WALL).powi(2)).max(0.0).sqrt();
     // The leaves stop ahead of the rear corner column; the body beneath their roots runs on.
-    let wings = section(&st, Underside::Flat(bottom), st.bearing, PISCO_METER_FREE_HOOK_OVERLAP, st.ceiling, CREST_RISE)?;
+    let wings = section(&st, Underside::Flat(bottom), st.bearing, PISCO_METER_FREE_HOOK_OVERLAP, st.ceiling)?;
     let cap = along_y(wings, [st.y0, hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y])?
         .union(&cuboid([axis[0] - st.outer, axis[0] + st.outer, st.y0, st.y1, bottom, st.root]))?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, st.y1, bottom, saddle]))?
@@ -357,15 +358,16 @@ fn clipped(points: &[P2], a: f64, b: f64) -> Vec<P2> {
 /// clear the fill tube.
 fn meter_cap() -> Result<Cap> {
     let m = Meter::placed();
-    let st = m.station();
+    let mut st = m.station();
+    st.root -= METER_SADDLE_SETBACK;
     let fit = METER_HOUSING_FIT;
     let housing: Vec<P2> = clearance_profile(&meter::HOUSING_PROFILE, fit, fit).into_iter().map(|[y, r]| [m.x(y), r]).collect();
-    let bottom = m.x(meter::UNDERSIDE_Y) - stations::METER_AIR - METER_BACK - m.split;
+    let bottom = st.root - METER_BACK;
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     // The sideways catch climbs from its lip to the nose. The east flank stops the flat crest.
     let catch = st.bearing + REACH * corbel_slope();
     let flank = hsm_enclosure_numbers::faces::back_top_flank_face()[1] - m.split;
-    let wings = section(&st, Underside::Flat(bottom), catch, PISCO_METER_FREE_HOOK_OVERLAP, flank, METER_CREST_RISE)?;
+    let wings = section(&st, Underside::Flat(bottom), catch, PISCO_METER_FREE_HOOK_OVERLAP, flank)?;
     // End the entire upper spring profile at the catch, including its inward-pointing nose.
     // The spine below the root and the bearing between the leaves span the housing.
     let upper_end = hsm_enclosure_numbers::layout::meter_upper_catch_end_y(&stations::pisco_station()) - running();
@@ -376,8 +378,8 @@ fn meter_cap() -> Result<Cap> {
         .rotate(V3::ZERO, V3::Y, 90.0)
         .translate(v3(m.split, 0.0, m.z));
     let cuts = [
-        turned(&housing)?.translate(v3(0.0, m.y, m.z)),
-        bore_y(m.soda, meter::PORT_NECK_RADIUS + fit, m.seat)?,
+        turned(&housing)?.translate(v3(-METER_SADDLE_SETBACK, m.y, m.z)),
+        bore_y([m.soda[0] - METER_SADDLE_SETBACK, m.soda[1]], meter::PORT_NECK_RADIUS + fit, m.seat)?,
         along_y(corner_bevel(m.split + bottom, m.z), [m.cap[0] - BEVEL_ENDS, m.cap[1] + BEVEL_ENDS])?,
     ];
     Ok(Cap { name: "meter-snap-cap", installed: cap.cut_all(&cuts)?, print: V3::X })
@@ -407,7 +409,7 @@ fn regulator_cap() -> Result<Cap> {
     let [t0, t1, t2] = l.snapshots.reg.translation_mm;
     let frame = Pose { rotation: [r1, r0.map(|v| -v), r2], translation_mm: [t1, -t0, t2] };
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let wings = section(st, Underside::Flat(mount.cap_bottom), st.bearing, REGULATOR_FREE_HOOK_OVERLAP, st.ceiling, CREST_RISE)?;
+    let wings = section(st, Underside::Flat(mount.cap_bottom), st.bearing, REGULATOR_FREE_HOOK_OVERLAP, st.ceiling)?;
     let cap = along_y(wings, [st.y0, st.y1])?
         .union(&cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK, mount.cap_bottom,
                         mount.axis[1]]))?
@@ -423,12 +425,12 @@ enum Underside {
 }
 
 /// Draw both full-length hooks, with a solid inclined retaining face, planar lead-in and flat crest.
-fn section(st: &Station, under: Underside, catch: f64, free_overlap: f64, pointed_pocket: f64, crest_rise: f64) -> Result<Loop> {
+fn section(st: &Station, under: Underside, catch: f64, free_overlap: f64, pointed_pocket: f64) -> Result<Loop> {
     let (c, outer, inner, r, root) = (st.axis_x, st.outer, st.inner, st.root_radius, st.root);
     let reach = st.ledge - REACH;
     let bearing = catch - free_overlap;
     let shoulder = catch + catch_air() + NOSE_LAND;
-    let tip = pointed_pocket - tip_air() + crest_rise;
+    let tip = pointed_pocket - tip_air() + CREST_RISE;
     // One wall, out from the axis by `side`: up the outer face, over the hook, down the inner face.
     let wall = |side: f64| {
         let at = |x: f64, z: f64| v2(c + side * x, z);
