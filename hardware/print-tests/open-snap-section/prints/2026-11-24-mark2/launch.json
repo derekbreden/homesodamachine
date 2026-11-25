@@ -1,0 +1,28 @@
+{
+  "archive": {
+    "gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+    "name": "2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf",
+    "objects": [
+      "section-receiver",
+      "section-cover",
+      "cooling-wall"
+    ],
+    "sha256": "b4cf6d1d537ac10695074e85ef0674dbe4a734642ede873f1c7fd9b03f0d6a2f",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 56,
+  "observed_at": "2026-11-25T02:04:17+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1483733351",
+  "subtask_name": "2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf",
+  "total_layer_num": 145
+}

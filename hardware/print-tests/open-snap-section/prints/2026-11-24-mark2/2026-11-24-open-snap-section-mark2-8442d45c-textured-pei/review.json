@@ -1,0 +1,96 @@
+{
+  "archive": "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf",
+  "archive_sha256": "b4cf6d1d537ac10695074e85ef0674dbe4a734642ede873f1c7fd9b03f0d6a2f",
+  "bead_envelope_plate_mm": [
+    [
+      94.579554,
+      142.656554
+    ],
+    [
+      230.420446,
+      177.343446
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 142.656554,
+    "front": 142.656554,
+    "left": 94.579554,
+    "right": 94.579554
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.996824446530765,
+      "second_layer_centerline_outside_first_mm": 3.4557303184661756,
+      "second_layer_model_bead_area_mm2": 417.1137407371409
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.889726866927036,
+      "second_layer_centerline_outside_first_mm": 3.4861583681925823,
+      "second_layer_model_bead_area_mm2": 288.5031023163306
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.9992237147816189,
+      "second_layer_centerline_outside_first_mm": 0.0,
+      "second_layer_model_bead_area_mm2": 96.33648708490641
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 145,
+  "minimum_bed_margin_mm": 94.579554,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1903": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

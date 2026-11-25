@@ -1,0 +1,70 @@
+{
+  "purpose": "Print a short open-ended receiver and cover for comparing the visible hook seating with the firm fit of the five installed equipment snaps.",
+  "printer": "Mark2",
+  "previous_finished_job": "1483225394",
+  "printer_task_id": "1483733351",
+  "accepted_at": "2026-11-25T02:04:17+00:00",
+  "first_layer_verified_at": "2026-11-25T02:14:45+00:00",
+  "firmware_layer": 1,
+  "firmware_total_layers": 145,
+  "firmware_remaining_minutes": 51,
+  "source_commit": "8b5ac3b90e9db6e84894fd102ca01c1d1c65cae4",
+  "printer_recipe": "open-snap-section",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "left_external_feed": "254",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 3596,
+  "filament_g": 10.08,
+  "minimum_bed_margin_mm": 94.58,
+  "objects": [
+    {
+      "name": "section-receiver",
+      "object_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/receiver.stl",
+      "sha256": "1fe0eeb3a54b0b2a08eb5c027f61aadc11227d528c3926170e8e9b8455c87d00"
+    },
+    {
+      "name": "section-cover",
+      "object_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/cover.stl",
+      "sha256": "418a6fee46c80bf26bd3be97aa6e74db5411766f01f0c97447938543a1f0c94a"
+    },
+    {
+      "name": "cooling-wall",
+      "object_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31"
+    }
+  ],
+  "source_geometry": "../../parts/geometry.json",
+  "contact_course_review": "section-check.json",
+  "interlayer_cooling": "cooling.json",
+  "project": {
+    "file": "2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.3mf",
+    "git_blob": "0de0dcfce0fb61ca7121b366008968649845ddbd",
+    "sha256": "082a076a582b55a18e5db4a7cbbe11dc33728ba1be14f7c926f9732643d3b3f4",
+    "release_archive": "open-snap-section-mark2-20261124-bdeb440cb2832377.zip"
+  },
+  "slice": {
+    "file": "2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf",
+    "git_blob": "9691a90bb3109a7268aa8f5d2c4e70bc27dfa275",
+    "sha256": "b4cf6d1d537ac10695074e85ef0674dbe4a734642ede873f1c7fd9b03f0d6a2f",
+    "release_archive": "open-snap-section-mark2-20261124-bdeb440cb2832377.zip"
+  },
+  "gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+  "native_review": "2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/review.json",
+  "launch": "launch.json",
+  "printer_status": "printing-status.json",
+  "physical_fit": null,
+  "archive_restore": "Both 3MF files were downloaded from the print-projects release and verified against the submitted SHA-256 digests."
+}
