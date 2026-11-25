@@ -1,6 +1,6 @@
 //! Two open ends expose the working Pisco wing and catch while a crowned integral stop stands in for the regulator.
 use anyhow::{Context, Result, ensure};
-use hsm_kernel::{Affine, Plane, Profile, Solid, V3, import, profile::Pen, reads, v2, v3, write_stl};
+use hsm_kernel::{Affine, Plane, Profile, Solid, V2, V3, import, profile::Pen, reads, v2, v3, write_stl};
 use serde_json::{Value, json};
 use std::{fs, path::Path};
 
@@ -15,6 +15,9 @@ const DONOR_WIDTH: f64 = 0.25;
 const FILLER_CONTACT_TRAVEL: f64 = 0.10;
 const FILLER_HALF_WIDTH: f64 = 3.0;
 const FILLER_NOSE_RADIUS: f64 = 5.0;
+const POST_SHORTENING: f64 = 0.48;
+const CORNER_LEG: f64 = 3.0;
+const FLANK_RELIEF: f64 = 0.20;
 
 /// Extend the two identical section faces to bench length, preserving every X and Z coordinate.
 fn section_bar(source: &Solid, y: f64, xz_min: [f64; 2], xz_max: [f64; 2]) -> Result<Solid> {
@@ -43,6 +46,37 @@ fn filler(x: f64, y: f64, nose_z: f64, roof_z: f64) -> Result<Solid> {
         .line_to(v2(x + FILLER_HALF_WIDTH, roof_z))
         .close()?;
     Plane::XZ.at(v3(0., y - LENGTH / 2., 0.)).extrude(&Profile::new(loop_), -LENGTH)
+}
+
+/// Carry a section edit through both open ends and mirror it to the opposing hook.
+fn mirrored_bars(points: &[V2], axis_x: f64, y: f64) -> Result<[Solid; 2]> {
+    let bar = Plane::XZ.at(v3(0., y - LENGTH / 2., 0.)).extrude(&Profile::polygon(points), -LENGTH)?;
+    let opposite = bar.mirror(v3(axis_x, 0., 0.), V3::X);
+    Ok([bar, opposite])
+}
+
+/// Fill the pockets from the existing intersections of the neck with the roof over each crest.
+fn filled_corners(receiver: &Solid, axis_x: f64, y: f64, pocket_roof_z: f64) -> Result<Solid> {
+    let neck_x = receiver.verts().iter().filter(|p| p.x > axis_x && (p.z - pocket_roof_z).abs() < 1e-6)
+        .map(|p| p.x).reduce(f64::min).context("right roof-to-neck corner")?;
+    let corner = v2(neck_x, pocket_roof_z);
+    let [right, left] = mirrored_bars(&[corner, corner + v2(CORNER_LEG, 0.), corner - v2(0., CORNER_LEG)], axis_x, y)?;
+    receiver.union(&right)?.union(&left)
+}
+
+/// Sweep the existing 45-degree retaining face toward its crest over the original nose land.
+fn relieved_flanks(cover: &Solid, axis_x: f64, y: f64, axis_z: f64) -> Result<Solid> {
+    let end = cover.face_edges("<Y")?;
+    let (a, b) = end.iter().find_map(|edge| {
+        let a = edge.pts[0];
+        let b = *edge.pts.last()?;
+        let d = (b - a).unit();
+        (a.x > axis_x && a.z > axis_z && d.y.abs() < 1e-6 && d.x.abs() > 0.5 && (d.x + d.z).abs() < 1e-6)
+            .then_some((v2(a.x, a.z), v2(b.x, b.z)))
+    }).context("right retaining face on the open cover section")?;
+    let shift = v2(0., FLANK_RELIEF);
+    let cuts = mirrored_bars(&[a, b, b + shift, a + shift], axis_x, y)?;
+    cover.cut_all(&cuts)
 }
 
 /// A separate hollow wall keeps the nozzle away from the snap between courses.
@@ -114,9 +148,17 @@ fn main() -> Result<()> {
         .map(|p| p.z).reduce(f64::min).context("roof over the west crest")?;
     let receiver_pose = Affine { m: [[1., 0., 0., 0.], [0., -1., 0., 0.], [0., 0., -1., 0.]] };
     let cover_pose = Affine { m: [[1., 0., 0., 0.], [0., 0., -1., 0.], [0., 1., 0., 0.]] };
+    let short_post = seat.union(&filler(axis_x, y, nose_z + POST_SHORTENING, roof_z)?)?;
+    let filled = filled_corners(&receiver, axis_x, y, pocket_roof_z)?;
+    let relieved = relieved_flanks(&cover, axis_x, y, axis_z)?;
     let result = json!({
         "cover": print_part(&dir, "cover", &cover, cover_pose)?,
         "receiver": print_part(&dir, "receiver", &receiver, receiver_pose)?,
+        "variants": {
+            "receiver-short-post": print_part(&dir, "receiver-short-post", &short_post, receiver_pose)?,
+            "receiver-filled-corners": print_part(&dir, "receiver-filled-corners", &filled, receiver_pose)?,
+            "cover-relieved-flanks": print_part(&dir, "cover-relieved-flanks", &relieved, cover_pose)?
+        },
         "cover_source": CAPS, "cover_source_body": "pisco-snap-cap", "receiver_source": shell_path,
         "receiver_footprint_source": RECEIVERS, "housing_scan": SCAN,
         "section_y_mm": y, "donor_width_mm": DONOR_WIDTH, "section_length_mm": LENGTH,
