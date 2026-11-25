@@ -1,0 +1,155 @@
+{
+  "views": [
+    {
+      "name": "section",
+      "caption": "A section through the former receiver at Y211 shows the solid frame over the tube.",
+      "before": "section-before.webp",
+      "after": "section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -33,
+          160.44350593524217,
+          297.2082629451432
+        ],
+        "target": [
+          -33,
+          211,
+          301
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.24117823651694675,
+        "far": 553.319506845934,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -33,
+            211.001,
+            301
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "tube-fluid-18"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "funnel-dispense-clip",
+        "tube-fluid-18"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "79b2e7d62c56d241d86a2ffef093211466ca60353bea8931902a75e21d601ec4",
+          "commit": "00a33ca47f658c03e632e8a687c04433fd8b6dda",
+          "taken": "2026-11-25T01:24:25.401Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "0d5fa8845778ea5f2bf1114a9d932a0daaa3ef5c38d813166b00763fbfac586c",
+          "commit": "8741740aaa1e8c3b440ef8aab2dfea82f2c1a556",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-dispense-clip",
+        "wire-J2-COM",
+        "wire-J2-FAN",
+        "wire-J2-OUT2",
+        "wire-J1-OUT5",
+        "wire-J1-OUT6",
+        "funnel-frame",
+        "wire-J1-OUT8"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "underside",
+      "caption": "The highlighted V-G tube follows the same line under the frame before and after the change.",
+      "before": "underside-before.webp",
+      "after": "underside-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -63.77266328781031,
+          231.85791455488143,
+          241.73590876116924
+        ],
+        "target": [
+          -32,
+          212,
+          298
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.18934946850268092,
+        "far": 527.405122838801,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "tube-fluid-18"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "funnel-dispense-clip",
+        "tube-fluid-18"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "79b2e7d62c56d241d86a2ffef093211466ca60353bea8931902a75e21d601ec4",
+          "commit": "00a33ca47f658c03e632e8a687c04433fd8b6dda",
+          "taken": "2026-11-25T01:24:25.401Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "0d5fa8845778ea5f2bf1114a9d932a0daaa3ef5c38d813166b00763fbfac586c",
+          "commit": "8741740aaa1e8c3b440ef8aab2dfea82f2c1a556",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-dispense-clip",
+        "wire-J2-COM",
+        "wire-J2-FAN",
+        "wire-J2-OUT2",
+        "wire-J1-OUT5",
+        "wire-J1-OUT6",
+        "funnel-frame",
+        "wire-J1-OUT8"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
