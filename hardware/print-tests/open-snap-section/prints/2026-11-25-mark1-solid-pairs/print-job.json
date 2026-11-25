@@ -1,0 +1,128 @@
+{
+  "purpose": "Compare square seating, bearing width and retaining shoulder clearance on three open Pisco coupon pairs.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1486975766",
+  "previous_job": {
+    "id": "1486850876",
+    "state": "FAILED"
+  },
+  "accepted_at": "2026-11-25T21:24:55+00:00",
+  "first_layer_verified_at": "2026-11-25T21:34:48+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 145,
+  "source_and_recipe_commit": "41d24bdc56c061245290b24ed5d2f87f40e4af63",
+  "printer_recipe": "solid-snap-pairs",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 5834,
+  "filament_g": 26.2,
+  "minimum_bed_margin_mm": 98.21,
+  "plate_identification": "From the door, covers form the front row, and corresponding receivers the next row. One, two and three recessed dots run left to right across both rows. The stepped cooling wall is at the back.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/solid-pairs/geometry.json",
+  "objects": [
+    {
+      "name": "cover-1",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/solid-pairs/cover-1.stl",
+      "sha256": "e329d7878ac59ad693df56e953f6902c97b255bda7ed2c737412483c2a5b4b9c",
+      "bed_center_xy_mm": [
+        121.689,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-2",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/solid-pairs/cover-2.stl",
+      "sha256": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "bed_center_xy_mm": [
+        162.5,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-3",
+      "identify_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/solid-pairs/cover-3.stl",
+      "sha256": "4d19477eca2774764603cee6b206d2478aab0820c27ce25f36be868c3c7d24a1",
+      "bed_center_xy_mm": [
+        203.311,
+        138.0
+      ]
+    },
+    {
+      "name": "receiver-1",
+      "identify_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/solid-pairs/receiver-1.stl",
+      "sha256": "139111d7ba0f7e9cb437c7d23e8b09af3a7b2b9949a11636ef3946901c38398e",
+      "bed_center_xy_mm": [
+        115.68,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-2",
+      "identify_id": 1905,
+      "stl": "hardware/print-tests/open-snap-section/parts/solid-pairs/receiver-2.stl",
+      "sha256": "b7aad04ca5e35a2acdf182d7a6208c03f5fd4fe1f269d3269628ea43628e7ad9",
+      "bed_center_xy_mm": [
+        162.5,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-3",
+      "identify_id": 1906,
+      "stl": "hardware/print-tests/open-snap-section/parts/solid-pairs/receiver-3.stl",
+      "sha256": "10306a3967bd9642ae33b168b3e48f6415f6a7817a53cc9bc6bcae662159dc39",
+      "bed_center_xy_mm": [
+        209.32,
+        173.256
+      ]
+    },
+    {
+      "name": "cooling-wall",
+      "identify_id": 1907,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "bed_center_xy_mm": [
+        162.5,
+        195.256
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "55319876a8452a37fa63aff0c7c3f43ee217d729b680a480a1abc34d3ac091bc",
+  "project": {
+    "file": "2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.3mf",
+    "sha256": "d146bc48b7ec0b80249fde51bbe5a2bc3cc50c42b47a5063653308bdf0d49f3f",
+    "git_blob": "22627d79ede6858de2f89e3976c221565f1aba0c",
+    "release_archive": "2026-11-25-solid-snap-pairs-mark1-1ffe7dfeddfb83b7.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.gcode.3mf",
+    "sha256": "4de26c793a7bac4e5da2913ae973e27717e72ea907902bf242dc0dce58093eca",
+    "git_blob": "88af34ebc8cdbcbbec4e6c823e091e221ae668de",
+    "release_archive": "2026-11-25-solid-snap-pairs-mark1-1ffe7dfeddfb83b7.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "identification_and_paths": "native-paths.json",
+  "mating_surfaces_in_toolpaths": "section-check.json"
+}
