@@ -1,0 +1,53 @@
+{
+  "purpose": "Record what changed in hand when Derek tried the shorter post, relieved cover and filled receiver corners against the original open snap.",
+  "date": "2026-11-25",
+  "printer": "Mark2",
+  "printer_task_id": "1484115447",
+  "print_job": "print-job.json",
+  "plate_key": "plate-key.png",
+  "sliced_sections": "section-check.json",
+  "recording": {
+    "filename": "A_0001C025A261125_1120299V_CANON.MP4",
+    "sha256": "020e0faedbdf75c5c4414757db356d06d84ced3ab765177e01f1e2f737afa587",
+    "camera_creation_time_utc": "2026-11-25T17:20:30Z",
+    "duration_s": 107.774333,
+    "time_reference": "Seconds from the start of the recording. In each end view the receiver base is at the right and its post points left toward the cover saddle."
+  },
+  "trials": [
+    {
+      "pair": "Original cover and receiver",
+      "source_seconds": [1.8, 11.96],
+      "reported": "Derek identifies the first assembly as the original and demonstrates its movement.",
+      "observed": "He holds the receiver and works the cover with the fingers of his other hand. Both hooks remain behind the fixed catches.",
+      "photo": "physical-result/05.51-original.jpg",
+      "photo_seconds": 5.505
+    },
+    {
+      "pair": "Short-post receiver with a cover",
+      "source_seconds": [13.2, 34.82],
+      "derek": "You can see the tip isn't making contact with the saddle there, and that does allow it to move just a little bit more, I guess.",
+      "reported": "Derek describes the extra movement as lateral and says the fit otherwise feels much the same.",
+      "observed": "The blue background is visible between the nose and the saddle while both hooks are engaged. He identifies the receiver by its shorter tip.",
+      "photo": "physical-result/19.49-short-post.jpg",
+      "photo_seconds": 19.486
+    },
+    {
+      "pair": "Original cover at left and relieved cover at right, each on an original-height square-corner receiver",
+      "source_seconds": [36.86, 82.82],
+      "derek": "You can tell that things shifted just a little bit, but that smaller cover is making a relatively minimal difference in how that sits there.",
+      "observed": "Derek holds two engaged pairs side by side. At 73.8 seconds he moves the left assembly away and identifies the right-hand cover as the smaller one. He brings the left one back and points to it at 82.5 seconds. Both assemblies still show space at the lower catch beside the hook.",
+      "receiver_identification": "Both pockets have square corners. In the full-size still, following the ridges on the end faces from the center of each post nose to its base gives 145 courses. The original receiver has 145 post courses and the shorter receiver has 143 in the submitted toolpaths.",
+      "photo": "physical-result/42.51-covers-side-by-side.jpg",
+      "photo_seconds": 42.509
+    },
+    {
+      "pair": "Filled-corner receiver with a cover",
+      "source_seconds": [88.22, 106.12],
+      "derek": "And that, of course, doesn't interfere at all, as one would expect it to not interfere at all.",
+      "observed": "Derek turns the assembled pair in his fingers. At the exposed end, daylight separates each diagonal corner fill from the adjacent hook. Both hooks are engaged.",
+      "photo": "physical-result/101.80-filled-corners.jpg",
+      "photo_seconds": 101.802
+    }
+  ],
+  "scope": "Derek identifies the receiver in the short-post and filled-corner trials. The intended mate for both is the original cover. The recording shows the assembled pairs and does not establish which cover was used in either trial. Finger pressure, free play through the depth and release force were unmeasured."
+}

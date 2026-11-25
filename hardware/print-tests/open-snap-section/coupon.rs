@@ -4,6 +4,8 @@ use hsm_kernel::{Affine, Plane, Profile, Solid, V2, V3, import, profile::Pen, re
 use serde_json::{Value, json};
 use std::{fs, path::Path};
 
+mod flush;
+
 const CAPS: &str = "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz";
 const RECEIVERS: &str = "hardware/print-tests/equipment-snap-pairs/inputs.json";
 const LAYOUT: &str = "hardware/manifold-layout/above-core.json";
@@ -148,6 +150,7 @@ fn main() -> Result<()> {
         .map(|p| p.z).reduce(f64::min).context("roof over the west crest")?;
     let receiver_pose = Affine { m: [[1., 0., 0., 0.], [0., -1., 0., 0.], [0., 0., -1., 0.]] };
     let cover_pose = Affine { m: [[1., 0., 0., 0.], [0., 0., -1., 0.], [0., 1., 0., 0.]] };
+    flush::write(&dir, &cover, &seat, &stop, axis_x, axis_z, y, pocket_roof_z, nose_z, housing_radius, receiver_pose, cover_pose)?;
     let short_post = seat.union(&filler(axis_x, y, nose_z + POST_SHORTENING, roof_z)?)?;
     let filled = filled_corners(&receiver, axis_x, y, pocket_roof_z)?;
     let relieved = relieved_flanks(&cover, axis_x, y, axis_z)?;

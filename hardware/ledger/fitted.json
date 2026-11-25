@@ -499,6 +499,13 @@
       "said": "It worked well. Mimics what we have elsewhere in a way that can be examined.",
       "tried": "a 12 mm open section of the Pisco cover in its matching coupon receiver with a printed post standing in for the regulator. The cover lifted under hand pressure and returned on release.",
       "record": "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-25",
+      "said": "And that, of course, doesn't interfere at all, as one would expect it to not interfere at all.",
+      "tried": "the filled corners of the back-top receiver on the 12 mm Pisco snap coupon. Both corner fills cleared the hooks with the cover engaged. The fit comparison still showed gaps at the catches.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/physical-result.json"
     }
   ]
 }
