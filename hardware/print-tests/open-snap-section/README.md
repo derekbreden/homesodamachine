@@ -19,4 +19,8 @@ The source takes a constant section from the production bodies. To change only t
 ```sh
 tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
   -p hsm-sandbox --example open-snap-section -- hardware/print-tests/open-snap-section/parts
+tools/run -- tools/hsm/target/release/enclosure-print-prep open-snap-section \
+  --printer Mark2 --bed 'Textured PEI Plate' --slice --review
 ```
+
+On the Mark2 plate the receiver sits on its flat back and the cover stands on one open end, matching their production layer directions. The third piece is a hollow cooling wall. Its wide section lasts until the fixed catches finish, then a narrow column continues alongside the center post. It gives the cover at least 23 seconds between layers and keeps the plate to about an hour. [Cooling measured from the toolpaths](prints/2026-11-24-mark2/cooling.json)

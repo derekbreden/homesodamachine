@@ -1,0 +1,104 @@
+{
+  "files": {
+    "archive": "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf",
+    "archive_sha256": "b4cf6d1d537ac10695074e85ef0674dbe4a734642ede873f1c7fd9b03f0d6a2f",
+    "gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+    "cover_stl_sha256": "418a6fee46c80bf26bd3be97aa6e74db5411766f01f0c97447938543a1f0c94a",
+    "receiver_stl_sha256": "1fe0eeb3a54b0b2a08eb5c027f61aadc11227d528c3926170e8e9b8455c87d00"
+  },
+  "stl": {
+    "single_closed_oriented_solids_each": 1,
+    "cover_section_sample_count": 1000,
+    "cover_max_production_profile_difference_mm": 2e-06,
+    "receiver_samples_outside_post": 828,
+    "receiver_max_production_profile_difference_mm": 1.4e-05,
+    "end_section_length_mm": 12,
+    "saddle_and_both_crests_at_0p10_closure_gap_tolerance_mm": 2e-06
+  },
+  "witness_method": "Compare the emitted XY envelope of enclosing outer-wall paths (commanded width / 2 on either side) on the end-on cover with the last emitted model course at the center and roof points in the roof-down receiver at mid-length. Receiver roof samples align with the centers of the two crests after the production model\u2019s 0.951 mm outward tip deflection. All results are planned bead geometry.",
+  "mid_length": {
+    "cover_plate_layer_top_mm": 6.2,
+    "cover_plate_xy_center_saddle_mm": [
+      109.09,
+      173.98893
+    ],
+    "nominal_crest_x_mm": [
+      62.54438,
+      90.45562
+    ],
+    "loaded_crest_roof_x_mm": [
+      61.59338,
+      91.40662
+    ],
+    "cover_crest_z_mm": [
+      351.4503,
+      351.4503
+    ],
+    "roof_last_course_mm": [
+      3.56,
+      3.56
+    ],
+    "roof_z_mm": [
+      351.44,
+      351.44
+    ],
+    "crest_to_roof_travel_from_nominal_mm": [
+      -0.0103,
+      -0.0103
+    ],
+    "cover_saddle_z_mm": 320.22237,
+    "post_last_course_mm": 34.76,
+    "post_center_feature": [
+      "Gap infill"
+    ],
+    "post_z_mm": 320.24,
+    "post_last_course_width_across_x_mm": 1.197,
+    "post_last_course_x_range_relative_to_axis_mm": [
+      -0.59862,
+      0.59838
+    ],
+    "post_center_to_saddle_travel_from_nominal_mm": 0.01763,
+    "post_center_gap_at_first_crest_roof_contact_mm": 0.02793,
+    "post_first_contact_gap_anywhere_on_last_course_at_crest_stop_mm": 0.00982,
+    "penultimate_course_width_mm": 3.279,
+    "penultimate_course_minimum_gap_at_crest_stop_mm": 0.14411
+  },
+  "interior_cover_courses": {
+    "count": 46,
+    "first_last_layer_tops_mm": [
+      0.68,
+      11.48
+    ],
+    "west_east_crest_z_ranges_mm": [
+      [
+        351.4503,
+        351.4503
+      ],
+      [
+        351.4503,
+        351.4503
+      ]
+    ],
+    "saddle_z_range_mm": [
+      320.22237,
+      320.22237
+    ]
+  },
+  "all_cover_courses": {
+    "count": 50,
+    "first_last_layer_tops_mm": [
+      0.2,
+      11.96
+    ],
+    "first_layer_saddle_z_mm": 320.07238,
+    "first_layer_crest_z_mm": [
+      351.3003,
+      351.3003
+    ],
+    "last_layer_saddle_z_mm": 320.22237,
+    "last_layer_crest_z_mm": [
+      351.4503,
+      351.4503
+    ]
+  }
+}

@@ -45,6 +45,19 @@ fn filler(x: f64, y: f64, nose_z: f64, roof_z: f64) -> Result<Solid> {
     Plane::XZ.at(v3(0., y - LENGTH / 2., 0.)).extrude(&Profile::new(loop_), -LENGTH)
 }
 
+/// A separate hollow wall keeps the nozzle away from the snap between courses.
+/// Its wide section lasts through the catches, then one cell continues alongside the center post.
+fn cooling_wall(post_height: f64) -> Result<Solid> {
+    let (width, depth, wide_height, cell_width, thickness) = (48.0, 8.0, 17.24, 10.0, 0.86);
+    let height = (post_height / 0.24).ceil() * 0.24;
+    let base = Solid::cuboid(v3(0., 0., 0.), v3(width, depth, wide_height));
+    let cell = Solid::cuboid(v3(0., 0., 0.), v3(cell_width, depth, height));
+    let opening = |lo, hi| Solid::cuboid(v3(lo, thickness, -1.), v3(hi, depth - thickness, height + 1.));
+    let wall = base.union(&cell)?.cut_all(&[opening(thickness, cell_width - thickness), opening(cell_width, width - thickness)])?;
+    wall.check()?;
+    Ok(wall)
+}
+
 /// One print-ready part and its rigid transform back to the nominal machine geometry.
 fn print_part(dir: &Path, name: &str, source: &Solid, turn: Affine) -> Result<Value> {
     let b = source.transformed(&turn).bounds();
@@ -92,6 +105,7 @@ fn main() -> Result<()> {
     let nose_z = saddle_z + FILLER_CONTACT_TRAVEL;
     let stop = filler(axis_x, y, nose_z, roof_z)?;
     let receiver = seat.union(&stop)?;
+    write_stl(dir.join("cooling-wall.stl"), &[&cooling_wall(roof_z - nose_z)?])?;
     let closed = cover.translate(V3::Z * FILLER_CONTACT_TRAVEL);
     ensure!(closed.gap_within(&stop, 1.0)? < 1e-5 && closed.shared_volume(&stop)? < 1e-6,
         "the rounded stop must just meet the center of the production saddle");

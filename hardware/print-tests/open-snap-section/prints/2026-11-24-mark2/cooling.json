@@ -1,0 +1,31 @@
+{
+  "purpose": "Identify the minimum commanded cooling time between successive deposits on each working part of this coupon.",
+  "archive_sha256": "b4cf6d1d537ac10695074e85ef0674dbe4a734642ede873f1c7fd9b03f0d6a2f",
+  "gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+  "method": "Sum commanded extruding XY distance divided by feed on the other objects between the last deposit on one layer and the first deposit on the next for the same article. Time for travel, acceleration and camera operation is additional.",
+  "without_cooling_wall": {
+    "cover_minimum_seconds_on_other_part": 0.99,
+    "receiver_seconds_on_other_part_after_cover_ends": 0
+  },
+  "cover": {
+    "count": 49,
+    "minimum_s": 23.05,
+    "median_s": 23.09,
+    "maximum_s": 58.48
+  },
+  "receiver_through_fixed_catches": {
+    "count": 69,
+    "minimum_s": 22.06,
+    "median_s": 25.92,
+    "maximum_s": 32.57,
+    "catch_geometry_ends_at_print_height_mm": 16.8
+  },
+  "receiver_center_post_above_catches": {
+    "count": 75,
+    "minimum_s": 6.25,
+    "median_s": 6.25,
+    "maximum_s": 22.06
+  },
+  "reference": "https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/job.json",
+  "scope": "The cover and catches use the production part settings. The stepped cooling wall is a disposable print aid. The post section above the catches has a shorter return interval."
+}
