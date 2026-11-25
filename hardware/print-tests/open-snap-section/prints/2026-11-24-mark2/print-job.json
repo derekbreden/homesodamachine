@@ -48,6 +48,14 @@
   ],
   "source_geometry": "../../parts/geometry.json",
   "contact_course_review": "section-check.json",
+  "physical_result": "physical-result.json",
+  "completion_observed": {
+    "at": "2026-11-25T04:47:45+00:00",
+    "gcode_state": "FINISH",
+    "layer_num": 145,
+    "total_layer_num": 145,
+    "print_error": 0
+  },
   "interlayer_cooling": "cooling.json",
   "project": {
     "file": "2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.3mf",

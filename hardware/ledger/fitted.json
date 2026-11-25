@@ -492,6 +492,13 @@
       "said": "That fit good enough.",
       "tried": "the full-length Mark2 flow-meter cover with +0.40 mm wing crests and 0.40 mm saddle relief on the meter in the earlier printed receiver. It held firmly. The wings sat very slightly short of full seating.",
       "record": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-24",
+      "said": "It worked well. Mimics what we have elsewhere in a way that can be examined.",
+      "tried": "a 12 mm open section of the Pisco cover in its matching coupon receiver with a printed post standing in for the regulator. The cover lifted under hand pressure and returned on release.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/physical-result.json"
     }
   ]
 }

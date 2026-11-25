@@ -12,6 +12,12 @@ The center of the post stands **34.68 mm above the receiver’s flat print face*
 
 Press the cover on from above with the receiver resting on its flat back. Look into an open end and press alternately over the two wings. Compare the gap at each tip, contact at the center post and whether either wing shifts and stays in a second position after release. A firm hold with a small visible gap is the equipment reference for this trial.
 
+In the Mark2 bench test, the upper tip lifted under hand pressure. Both hooks stayed captured when Derek let go, and he saw the cover return to its previous position. He confirmed that the coupon reproduces the equipment fit. [Filmed result and four stills](prints/2026-11-24-mark2/physical-result.json)
+
+## Proposed comparisons
+
+Use the filmed pair as the control. A receiver with a shorter center post tests how much the saddle contributes to spring-back. Filling the square corner behind each lead-in tests how much of the old pocket the hook uses during entry and release. A cover with the retaining face relieved tests whether the wings can sit straighter and keep their grip. Each proposal changes one part and uses its original mate. [Proposed sections, clearances and Mark2 perimeter measurements](proposed-comparisons.json)
+
 ## Reproduce the pair
 
 The source takes a constant section from the production bodies. To change only the center support in a later trial, change `FILLER_CONTACT_TRAVEL`. A larger value shortens the post and lets the cover travel farther before touching it. [Coupon source](coupon.rs)

@@ -1,0 +1,59 @@
+{
+  "purpose": "Record how the open snap section moves and holds when Derek works the cover by hand.",
+  "date": "2026-11-24",
+  "printer": "Mark2",
+  "printer_task_id": "1483733351",
+  "print_job": "print-job.json",
+  "tried": "The 12 mm Pisco-section cover and receiver with the rounded post printed into the receiver.",
+  "derek": "It worked well. Mimics what we have elsewhere in a way that can be examined.",
+  "recording": {
+    "filename": "A_0001C024A261124_233024QH_CANON.MP4",
+    "sha256": "29b20795a6350e553d8ee0e2d46b49d40a528506fc3990dfaeee343bdf48620c",
+    "camera_creation_time_utc": "2026-11-25T05:30:24Z",
+    "duration_s": 52.919533,
+    "time_reference": "Seconds from the start of the Canon recording. The receiver is on the right of the image."
+  },
+  "observed": "The recording opens with the cover already engaged. Both hooks are visible behind the receiver lips as Derek works the cover. From 25.5 to 27.3 s the gap at the upper wing tip opens while the lower tip remains closer to the wall. The upper gap narrows again by 28.5 s. Around 37.5 s he takes his fingers off the cover. At 39.51 s he holds the receiver alone and both wings remain captured. The pieces are still together as they leave the frame near 52 s.",
+  "reported": "Derek says the section reproduces the fit of the other snaps. He can lift the cover under hand load and sees it return to its prior position when he lets go.",
+  "contact_evidence": "The open end shows the post nose close to the saddle, the hook flanks close to the inclined catches and open space behind the hooks. Which surfaces carry the resting load, the clearances through the 12 mm depth and the force applied remain undetermined. This trial shows loading the assembled cover and releasing finger pressure.",
+  "testimony": [
+    {
+      "source_seconds": [2.76, 10.7],
+      "derek": "So this is pretty accurate to what we were seeing on the others."
+    },
+    {
+      "source_seconds": [18.26, 22.46],
+      "derek": "considering its size, holding up to force pretty well"
+    },
+    {
+      "source_seconds": [31.22, 41.08],
+      "derek": "I can put quite a lot of force on it, get it to lift up, but then I let go and it goes back to the position it was before."
+    },
+    {
+      "source_seconds": [44.4, 48.86],
+      "derek": "very good grip on there"
+    }
+  ],
+  "photos": [
+    {
+      "file": "physical-result/03.00-upper-hook.jpg",
+      "source_seconds": 3.003,
+      "shows": "Close view of the upper hook, the inclined catch and the round post nose beside the saddle."
+    },
+    {
+      "file": "physical-result/27.26-wing-tip-gap.jpg",
+      "source_seconds": 27.261,
+      "shows": "Both wings remain behind the catches. The spacing at the upper tip is visible against the fingertip."
+    },
+    {
+      "file": "physical-result/36.50-under-hand-load.jpg",
+      "source_seconds": 36.503,
+      "shows": "Both hands on the coupon while Derek describes lifting the cover."
+    },
+    {
+      "file": "physical-result/39.51-after-release.jpg",
+      "source_seconds": 39.506,
+      "shows": "The hand on the cover has withdrawn. The other hand holds the receiver and the cover remains engaged."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "purpose": "Define three independent changes to compare with the fitted open section and retain the geometric evidence for each proposal.",
+  "bench_control": "prints/2026-11-24-mark2/physical-result.json",
+  "printed_control_paths": "prints/2026-11-24-mark2/section-check.json",
+  "section": "parts/geometry.json",
+  "status": "Proposed coupon variants. The hand test used the original pair.",
+  "receiver_corner": {
+    "mate": "Original cover",
+    "geometry": "Add a right triangle in each square roof-to-neck corner. Both legs are 3 mm, the new face is at 45 degrees, and the triangle runs the full 12 mm length.",
+    "triangle_coordinates": "Pairs are [absolute distance from the regulator centerline, distance from the receiver's flat print face] in mm. Mirror across the centerline.",
+    "triangle_mm": [[9.0556, 3.45], [12.0556, 3.45], [9.0556, 6.45]],
+    "added_volume_both_corners_mm3": 108.0,
+    "old_square_pocket": "https://github.com/derekbreden/homesodamachine/blob/82e474c2362b3d661aa140b3c55a46da79c65d2c/hardware/manifold-layout/studies/rear-port-rebuild/slide_seats.py#L166-L175",
+    "motion_reference": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+    "check": "Compare the mirrored triangles to the two-dimensional sweep of the cover section through the referenced Pisco entry and reverse path about the regulator axis. Bound each side's outward displacement from 0 to 8 mm. Include between-sample motion on the rotating segments and the continuous final straight translation.",
+    "minimum_clearance_on_modeled_path_mm": 1.2128,
+    "clearance_at_centered_fixed_root_pose_mm": 1.9643,
+    "bench_comparison": "Check entry, off-axis pressing, spring-back and release with the usual tool. Its hand and tool paths can differ from the modeled cover path."
+  },
+  "cover_retaining_face": {
+    "mate": "Original receiver",
+    "geometry": "Translate both endpoints of each cover's 45-degree retaining face 0.20 mm along closure toward the crest. The cut shortens the axial nose land from 2.55 to 2.35 mm. The crest, entry ramp and spring root retain the original coordinates.",
+    "removed_volume_both_hooks_mm3": 14.88,
+    "values_in_order": ["Original cover", "Relieved cover"],
+    "free_axial_overlap_mm": [0.55, 0.35],
+    "axial_overlap_at_crest_stop_before_flex_mm": [0.45, 0.25],
+    "fixed_root_approximation": "Use t = distance along the wing from its drawn root divided by root-to-crest length, limited to [0, 1]. Move the section outward by s times t²(3−t)/2. At 0.099 mm closure solve s to just clear the fixed receiver lip, then measure the hook projection beyond it. This is a shape and clearance calculation. The true rotation, load and release force require the print.",
+    "outward_crest_deflection_mm": [0.9508, 0.5292],
+    "hook_projection_past_lip_mm": [2.0588, 2.2940],
+    "native_slice": {
+      "method": "Replace only the eight retaining-face vertices in the original Mark2 input. Read commanded centerlines and outer bead edges at seven positions across the middle half of both flanks on each interior cover layer.",
+      "baseline_gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+      "trial_gcode_sha256_before_project_cooling_pass": "819fdbc5c4e04e6e192f8a56bab00749d87d933e715d164cc3609313cb94db80",
+      "interior_layers": 46,
+      "retreat_normal_to_face_mm": 0.141421,
+      "commanded_wall_width_mm": 0.42
+    },
+    "bench_comparison": "Compare spring-back, wing-tip height, grip and release effort at the same contact point."
+  },
+  "post_height_control": {
+    "mate": "Original cover",
+    "geometry": "Shorten only the integral post by 0.48 mm along its axis. Keep the 6 mm width and 5 mm radius. This corresponds to increasing FILLER_CONTACT_TRAVEL from 0.10 to 0.58 mm.",
+    "print_layer_heights_removed": 2,
+    "removed_volume_mm3": 34.56,
+    "bench_comparison": "Compare the return after a light alternating press and look for center contact when pressed harder. A small transfer mark can also identify where the post or crest touched during the test."
+  }
+}
