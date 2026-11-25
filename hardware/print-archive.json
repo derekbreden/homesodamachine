@@ -1398,6 +1398,12 @@
       "bytes": 7982217,
       "sha256": "60bf4cc7f96578be28045e7f524a168fa4f77e0a73b9cd1e2c7851bf1612cc95"
     },
+    "2a7950eb69f71829d34bb312c1b5c2c00343c4f8": {
+      "archive": "funnel-frame-lift-out-mark2-a709ac1f76a56e2f.zip",
+      "bytes": 15049322,
+      "offset": 771005,
+      "sha256": "1b57ab4660ec7f7361a2027974faa5136191f5c489eaf64a05c944ac1685bd93"
+    },
     "2a8194e817c808e06122194ac8138030bbf3ad8a": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 846109073,
@@ -7104,6 +7110,12 @@
       "bytes": 5439080,
       "sha256": "14bda7d3ae7403ea9a26e705a9684a422ef29a91e2f558d7ce91535e3c1056ec"
     },
+    "e399abb7e436b3ca7608f1b7aa4bea200e5a3657": {
+      "archive": "funnel-frame-lift-out-mark2-a709ac1f76a56e2f.zip",
+      "bytes": 770857,
+      "offset": 74,
+      "sha256": "0bbbf93126656b1ece3bc0a8a1e36a4dc52f96d8ea0211c1e6657ccb2fddb6dc"
+    },
     "e3f4cf81db5530c6231138009d6f1ea9f30cde0e": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 388541709,
@@ -8081,8 +8093,6 @@
     "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf": "8e709ce4bff2d275120e27711d806193688230db",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf": "b186460d15bfdd6f09d1de8155857bb111e91f03",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf": "2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0",
-    "hardware/print-tests/funnel-dispense-snap/prints/mark1/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei.3mf": "2f424c74e421365f3d84162e3521d0e706e8d8ba",
-    "hardware/print-tests/funnel-dispense-snap/prints/mark1/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei.gcode.3mf": "b81a79cafdfe42dad84a7cbd267c91421d99b92b",
     "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf": "1f85f083fa607c4ab47032e089ec3e71b96872a4",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf": "b086f05a4191b3010d0527e6a0b034e0a2ab4434",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/ready/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf": "58628627b1d854406e5d3b573b66204fe9f3a7c5",
@@ -8517,7 +8527,7 @@
     "hardware/printed-parts/zone-c/funnel/flush-roof-review/mark2-v1/2026-10-05-funnel-frame-mark2-v1-input.3mf": "4311adc5db8fde2afe0dbefa343b0b59c5efd87a",
     "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.3mf": "145788c5e451710afa54161715a0c9c609225e71",
     "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf": "24754c9a28e7f9539b3bfaf9c5b95ea5731e47d9",
-    "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.3mf": "fd084eebf775c54d6640693e21cc374b7b4016e7",
-    "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf": "730704476bac7b4ca73c3b09c1d2a5e220c513f0"
+    "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.3mf": "e399abb7e436b3ca7608f1b7aa4bea200e5a3657",
+    "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.gcode.3mf": "2a7950eb69f71829d34bb312c1b5c2c00343c4f8"
   }
 }

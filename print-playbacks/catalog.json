@@ -586,15 +586,15 @@
     }
   },
   "HSM-0072": {
-    "title": "Funnel frame and dispense tube clip · Mark2 print plan",
+    "title": "Flavor-fill funnel frame · Mark2 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "funnel-frame",
-    "project_sha256": "a58e50ee1d530c54582f77f62dfc5aed50a5aaff6b8547db1ea4d6d188a9cf86",
-    "archive_sha256": "2eae598fe38c568d41db6cbd4540c447d29badf10393ae093dde716bb06043a2",
-    "gcode_sha256": "e9a8cf6cdcf9c3b774cd1b07c9f7d454d56897a5eb7549c69c4d14c308a9c0d2",
+    "project_sha256": "0bbbf93126656b1ece3bc0a8a1e36a4dc52f96d8ea0211c1e6657ccb2fddb6dc",
+    "archive_sha256": "1b57ab4660ec7f7361a2027974faa5136191f5c489eaf64a05c944ac1685bd93",
+    "gcode_sha256": "93f6ee9649d19afe62ee196edfe559805b72d40e8aca2f8bf40fab5df3509a58",
     "kind": "plan",
-    "sha256": "072b2d03f20cf86c8374bdfb60fe81097a0a11ac1117c034aafaa069655887a7",
-    "slice": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf",
+    "sha256": "f0d9f1afbd69782292c03f5f3eb9f63fed101eece0c341b89cfd438e226f77e3",
+    "slice": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.gcode.3mf",
     "plate": 1,
     "layers": 230,
     "process": {
@@ -613,9 +613,9 @@
       "Filament bridge speed": "15 mm/s",
       "First-layer trim": "+0.04 mm over the plate preset"
     },
-    "model_sha256": "d8af81a68af6d367303f531c416c605a6e03cc483ff8baedb64bd3275086f3b1",
-    "recipe_sha256": "ce489e0c8c583c0271757666d32129d3b209ee2d0d92fc57cfcc983c65ce18bf",
-    "recipe_commit": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f"
+    "model_sha256": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
+    "recipe_sha256": "d9f7ffcb6052238c48cf4728efdee807319be76af577d3aef6bf1fb475434e4e",
+    "recipe_commit": "92f6387ceabf42b01da34afcfea2f4bf78d8961e"
   },
   "HSM-0073": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1987,37 +1987,5 @@
     "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
     "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
-  },
-  "HSM-0585": {
-    "title": "Funnel frame and dispense tube clip · Mark2 print plan",
-    "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
-    "recipe_target": "funnel-frame",
-    "project_sha256": "a58e50ee1d530c54582f77f62dfc5aed50a5aaff6b8547db1ea4d6d188a9cf86",
-    "archive_sha256": "2eae598fe38c568d41db6cbd4540c447d29badf10393ae093dde716bb06043a2",
-    "gcode_sha256": "e9a8cf6cdcf9c3b774cd1b07c9f7d454d56897a5eb7549c69c4d14c308a9c0d2",
-    "kind": "plan",
-    "sha256": "072b2d03f20cf86c8374bdfb60fe81097a0a11ac1117c034aafaa069655887a7",
-    "slice": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf",
-    "plate": 1,
-    "layers": 230,
-    "process": {
-      "Material": "Polymaker Fiberon PET-GF15, black",
-      "Printer": "Mark2",
-      "Nozzle": "Left 0.4 mm Standard",
-      "Layer heights": "0.2 mm first, 0.24 mm nominal",
-      "Build plate": "Textured PEI Plate",
-      "Walls": "3",
-      "Infill": "100%",
-      "Supports": "No support paths on the clip",
-      "Requested top gap": "0.24 mm",
-      "Top interface": "3 layers, 0 mm spacing",
-      "Bridge flow": "1.25",
-      "Process bridge speed": "15 mm/s",
-      "Filament bridge speed": "15 mm/s",
-      "First-layer trim": "+0.04 mm over the plate preset"
-    },
-    "model_sha256": "af3cef2fd2abc7661baebb541f894055ba0f1a906cfd4682b7a2ade337227d77",
-    "recipe_sha256": "ce489e0c8c583c0271757666d32129d3b209ee2d0d92fc57cfcc983c65ce18bf",
-    "recipe_commit": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f"
   }
 }

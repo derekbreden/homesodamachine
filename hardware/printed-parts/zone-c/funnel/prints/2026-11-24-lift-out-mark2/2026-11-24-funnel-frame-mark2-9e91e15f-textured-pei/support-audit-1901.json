@@ -1,0 +1,110 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -154.849998474,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -154.849998,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "93f6ee9649d19afe62ee196edfe559805b72d40e8aca2f8bf40fab5df3509a58",
+    "model": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+    "model_sha256": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
+    "profile": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.3mf",
+    "profile_sha256": "0bbbf93126656b1ece3bc0a8a1e36a4dc52f96d8ea0211c1e6657ccb2fddb6dc"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        -98.1,
+        -86.05,
+        45.8,
+        98.3,
+        96.35,
+        46.28
+      ],
+      "bbox_xy_mm": [
+        64.4,
+        68.8,
+        260.8,
+        251.2
+      ],
+      "build_up_mm": 45.6,
+      "first_z_mm": 45.8,
+      "id": "interface-1",
+      "last_z_mm": 46.28,
+      "tree": "tree-1"
+    }
+  ],
+  "piece": "funnel-frame",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.5",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 1,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 1,
+    "interface_islands": 1,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 45.6,
+    "shortest_labelled_build_up_mm": 45.6,
+    "support_bodies": 1
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        -100.5,
+        -86.05,
+        0.2,
+        100.7,
+        101.15,
+        46.28
+      ],
+      "bbox_xy_mm": [
+        62.0,
+        68.8,
+        263.2,
+        256.0
+      ],
+      "first_interface_z_mm": 45.8,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 45.6,
+      "top_z_mm": 46.28
+    }
+  ]
+}

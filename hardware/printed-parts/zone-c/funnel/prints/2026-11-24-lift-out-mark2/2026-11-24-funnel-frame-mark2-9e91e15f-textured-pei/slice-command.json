@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/native",
+  "--export-3mf",
+  "2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei/native/2026-11-24-funnel-frame-mark2-9e91e15f-textured-pei.cli.3mf"
+]
