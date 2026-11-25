@@ -1,0 +1,137 @@
+{
+  "purpose": "Check the three geometry changes in the actual Mark2 bead paths and compare the printed controls with the filmed plate.",
+  "archive_sha256": "c54d58668b9454da2ec51a7cec821a43ac18afdaadc1d91381f8742a6e59a809",
+  "gcode_sha256": "82a4d052e10e047180fca9ab753f132fd0722f5b076962f55270e9284ad01e44",
+  "fitted_reference_gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+  "plate_from_front_left_to_right": [
+    [
+      "cover-original",
+      "cover-relieved-flanks"
+    ],
+    [
+      "receiver-original",
+      "receiver-short-post",
+      "receiver-filled-corners"
+    ],
+    [
+      "cooling-wall"
+    ]
+  ],
+  "minimum_distance_between_commanded_object_bead_bounds_mm": 12.0,
+  "profile_comparison": {
+    "method": "Compare both 12 mm extrusion ends from the sliced archive against the fitted coupon and the three proposed edits. Volume also agrees with the same section extruded through 12 mm.",
+    "unit": "mm³ of material change relative to the fitted part",
+    "original_cover": 0,
+    "original_receiver": 0,
+    "relieved_cover": -14.88,
+    "short_post": -34.56,
+    "filled_corners": 108.0
+  },
+  "cover_outer_walls": {
+    "method": "Intersect actual exterior perimeters normally at seven positions across the middle half of each retaining face on all 50 courses. Apply commanded road width for the material boundary.",
+    "probes_per_retaining_face": 350,
+    "face_order": [
+      "left",
+      "right"
+    ],
+    "normal_centerline_retreat_mm": [
+      0.14159,
+      0.14126
+    ],
+    "normal_bead_edge_retreat_mm": [
+      0.14159,
+      0.14126
+    ],
+    "axial_translation_equivalent_mm": [
+      0.20024,
+      0.19977
+    ],
+    "maximum_crest_height_difference_mm": 0.0,
+    "maximum_entry_ramp_difference_mm": 0.00044,
+    "maximum_saddle_or_root_difference_mm": 0.00023,
+    "maximum_straight_spring_wall_difference_mm": 0.00337,
+    "maximum_original_vs_fitted_wall_difference_mm": 0.00062
+  },
+  "receiver_courses": {
+    "part_order": [
+      "original",
+      "short post",
+      "filled corners"
+    ],
+    "post_top_mm": [
+      34.76,
+      34.28,
+      34.76
+    ],
+    "post_courses": [
+      145,
+      143,
+      145
+    ],
+    "post_crown_samples_per_part": 21,
+    "short_post_height_change_at_every_sample_mm": -0.48,
+    "pocket_roof_top_at_both_loaded_crests_on_all_receivers_mm": 3.56,
+    "fixed_catch_top_on_each_side_mm": 16.76,
+    "center_saddle_gap_at_first_crest_to_roof_contact_mm": [
+      0.02792,
+      0.50792,
+      0.02792
+    ],
+    "gap_method": "Mid-length original cover, centered. Compare the commanded crest and saddle bead edges with the receiver roof and post deposition heights. The hand test determines contact under load.",
+    "last_two_course_widths_at_post_midlength_mm": {
+      "receiver-original": [
+        3.278,
+        1.196
+      ],
+      "receiver-short-post": [
+        3.278,
+        1.196
+      ],
+      "receiver-filled-corners": [
+        3.278,
+        1.196
+      ]
+    }
+  },
+  "filled_corners": {
+    "triangle_legs_mm": [
+      3,
+      3
+    ],
+    "length_mm": 12,
+    "courses_on_each_side": 12,
+    "first_and_last_added_course_top_mm": [
+      3.8,
+      6.44
+    ],
+    "outer_edge_distance_from_axis_first_and_last_added_course_mm": [
+      11.826,
+      9.186
+    ],
+    "minimum_full_length_outer_bead_area_above_previous_model_beads_pct": 99.9799,
+    "support_method": "Intersect the commanded bead footprints beyond each original square neck, including both open ends, with all model beads one course below. Each 0.24 mm rise steps the face toward the center.",
+    "inward_step_per_course_mm": 0.24
+  },
+  "cooling": {
+    "method": "Minimum seconds extruding other objects between deposits on successive courses. Travel and acceleration add time.",
+    "cover_original_and_relieved_min_s": [
+      28.84,
+      28.89
+    ],
+    "receiver_original_short_and_filled_through_catch_min_s": [
+      25.13,
+      25.22,
+      25.17
+    ],
+    "receiver_above_catches_min_s": [
+      6.43,
+      7.08,
+      6.75
+    ],
+    "fitted_print_cover_catches_and_post_min_s": [
+      23.05,
+      22.06,
+      6.25
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "error_string": "Success.",
+  "export_time": 1149,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 21,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 70.90702056884766,
+        "Bridge": 139.22454833984375,
+        "Custom": 303.99951171875,
+        "Flush": 15.0,
+        "Gap infill": 34.507633209228516,
+        "Inner wall": 423.4195251464844,
+        "Internal solid infill": 270.0411682128906,
+        "Outer wall": 2493.27392578125,
+        "Sparse infill": 616.08544921875,
+        "Top surface": 51.71995162963867,
+        "Travel": 468.12744140625,
+        "Undefined": 459.8994445800781
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 21.25264549255371,
+          "total_used_g": 21.25264549255371
+        }
+      ],
+      "generate_support_material_time": 15,
+      "id": 1,
+      "infill_time": 55,
+      "layer_filament_change": 0,
+      "main_predication": 4552.38671875,
+      "make_perimeters_time": 72,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 34.47740173339844,
+            "height": 12.0,
+            "width": 28.811233520507812,
+            "x": 127.68876647949219,
+            "y": 120.76129913330078,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "cover-original",
+          "triangle_count": 468
+        },
+        {
+          "bbox": {
+            "depth": 34.47740173339844,
+            "height": 12.0,
+            "width": 28.81123161315918,
+            "x": 168.5,
+            "y": 120.76129913330078,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "cover-relieved-flanks",
+          "triangle_count": 476
+        },
+        {
+          "bbox": {
+            "depth": 11.999992370605469,
+            "height": 34.677398681640625,
+            "width": 34.820003509521484,
+            "x": 98.2699966430664,
+            "y": 167.23870849609375,
+            "z": 1.7968915244637174e-10
+          },
+          "id": 13,
+          "name": "receiver-original",
+          "triangle_count": 276
+        },
+        {
+          "bbox": {
+            "depth": 11.999992370605469,
+            "height": 34.1973991394043,
+            "width": 34.820003509521484,
+            "x": 145.08999633789062,
+            "y": 167.23870849609375,
+            "z": 2.978524094032764e-10
+          },
+          "id": 17,
+          "name": "receiver-short-post",
+          "triangle_count": 276
+        },
+        {
+          "bbox": {
+            "depth": 11.999992370605469,
+            "height": 34.677398681640625,
+            "width": 34.81999588012695,
+            "x": 191.91000366210938,
+            "y": 167.23870849609375,
+            "z": 1.7968915244637174e-10
+          },
+          "id": 21,
+          "name": "receiver-filled-corners",
+          "triangle_count": 288
+        },
+        {
+          "bbox": {
+            "depth": 7.999992370605469,
+            "height": 34.79999923706055,
+            "width": 48.0,
+            "x": 138.5,
+            "y": 191.23870849609375,
+            "z": 4.69725591756287e-10
+          },
+          "id": 25,
+          "name": "cooling-wall",
+          "triangle_count": 70
+        }
+      ],
+      "sliced_time": 602,
+      "sliced_time_with_cache": 418,
+      "total_predication": 5371.825303725628,
+      "triangle_count": 1854,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

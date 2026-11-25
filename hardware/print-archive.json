@@ -5784,6 +5784,12 @@
       "bytes": 3816319,
       "sha256": "892b3eb14e3c0957075691c6f75b4e695414155a95c7a2c7fc8e7c4e7fbaf4fd"
     },
+    "b547305ce93e99dfab1f6a5222691da92cff8ea2": {
+      "archive": "open-snap-comparisons-mark2-20261124-ba8de8d5c453829f.zip",
+      "bytes": 35166,
+      "offset": 74,
+      "sha256": "e46747623d76b37dcaf3ab91a3997b5c6bcde19dccac088aba0f65b8e2b33a80"
+    },
     "b554f281ec529547d386d6225a954651a8085a05": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 510872155,
@@ -7002,6 +7008,12 @@
       "bytes": 17934119,
       "sha256": "7a3e848c5202c0247b549cba9de20cb517c3f6640eada07e0c85ef0fdd70b9f4"
     },
+    "df78d237f366126c3cd9fb6612a800ef84f8ce65": {
+      "archive": "open-snap-comparisons-mark2-20261124-ba8de8d5c453829f.zip",
+      "bytes": 700996,
+      "offset": 35314,
+      "sha256": "c54d58668b9454da2ec51a7cec821a43ac18afdaadc1d91381f8742a6e59a809"
+    },
     "df8a171700bcbe4c21db32af02ea5764e8ea7b3b": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 320254367,
@@ -8105,6 +8117,8 @@
     "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf": "8e709ce4bff2d275120e27711d806193688230db",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf": "b186460d15bfdd6f09d1de8155857bb111e91f03",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf": "2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0",
+    "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.3mf": "b547305ce93e99dfab1f6a5222691da92cff8ea2",
+    "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.gcode.3mf": "df78d237f366126c3cd9fb6612a800ef84f8ce65",
     "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.3mf": "0de0dcfce0fb61ca7121b366008968649845ddbd",
     "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf": "9691a90bb3109a7268aa8f5d2c4e70bc27dfa275",
     "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf": "1f85f083fa607c4ab47032e089ec3e71b96872a4",

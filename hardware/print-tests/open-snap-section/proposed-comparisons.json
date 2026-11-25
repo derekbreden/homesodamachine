@@ -3,7 +3,8 @@
   "bench_control": "prints/2026-11-24-mark2/physical-result.json",
   "printed_control_paths": "prints/2026-11-24-mark2/section-check.json",
   "section": "parts/geometry.json",
-  "status": "Proposed coupon variants. The hand test used the original pair.",
+  "status": "The filmed hand test used the original pair. The three comparison variants share a Mark2 plate with a fresh pair of controls.",
+  "comparison_plate": "prints/2026-11-24-comparisons-mark2/print-job.json",
   "receiver_corner": {
     "mate": "Original cover",
     "geometry": "Add a right triangle in each square roof-to-neck corner. Both legs are 3 mm, the new face is at 45 degrees, and the triangle runs the full 12 mm length.",

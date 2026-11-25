@@ -1,0 +1,61 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -209.319999695,
+      -173.238700867,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -209.32,
+      -173.238701,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.gcode.3mf plate_1.gcode, object 1905",
+    "gcode_sha256": "82a4d052e10e047180fca9ab753f132fd0722f5b076962f55270e9284ad01e44",
+    "model": "hardware/print-tests/open-snap-section/parts/receiver-filled-corners.stl",
+    "model_sha256": "ab471ced6ee661a3d8190038801a58db2c7320f2ee922c6270db83ca66f2bfe8",
+    "profile": "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.3mf",
+    "profile_sha256": "e46747623d76b37dcaf3ab91a3997b5c6bcde19dccac088aba0f65b8e2b33a80"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "receiver-filled-corners",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}

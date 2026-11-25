@@ -1,0 +1,118 @@
+{
+  "purpose": "Compare post height, pocket corners and retaining flanks separately against the filmed open snap using an original receiver and cover printed on the same plate.",
+  "printer": "Mark2",
+  "printer_task_id": "1484115447",
+  "previous_finished_job": "1483733351",
+  "accepted_at": "2026-11-25T05:08:42+00:00",
+  "preceding_mark1_start": {
+    "task_id": "1484074801",
+    "accepted_at": "2026-11-25T04:46:04+00:00"
+  },
+  "first_layer_verified_at": "2026-11-25T05:19:22+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 145,
+  "firmware_remaining_minutes_at_verification": 75,
+  "source_commit": "3f6de1a20eccd0739c333399c55383d6b184849b",
+  "recipe_commit": "19576789acc8358f71c9c9547a6e368758b80426",
+  "printer_recipe": "open-snap-comparisons",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 5372,
+  "filament_g": 21.25,
+  "minimum_bed_margin_mm": 98.166,
+  "objects": [
+    {
+      "name": "cover-original",
+      "object_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/cover.stl",
+      "sha256": "418a6fee46c80bf26bd3be97aa6e74db5411766f01f0c97447938543a1f0c94a",
+      "bed_center_xy_mm": [
+        142.094,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-relieved-flanks",
+      "object_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/cover-relieved-flanks.stl",
+      "sha256": "3b7c3be29df02fbe9019435b013299483233c5d01616d7da07141a5a1870d1d0",
+      "bed_center_xy_mm": [
+        182.906,
+        138.0
+      ]
+    },
+    {
+      "name": "receiver-original",
+      "object_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/receiver.stl",
+      "sha256": "1fe0eeb3a54b0b2a08eb5c027f61aadc11227d528c3926170e8e9b8455c87d00",
+      "bed_center_xy_mm": [
+        115.68,
+        173.239
+      ]
+    },
+    {
+      "name": "receiver-short-post",
+      "object_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/receiver-short-post.stl",
+      "sha256": "6929aea8e56884d0c6181b3ad3eecb6b25d5b031e2df9a195931c4cec9d503b5",
+      "bed_center_xy_mm": [
+        162.5,
+        173.239
+      ]
+    },
+    {
+      "name": "receiver-filled-corners",
+      "object_id": 1905,
+      "stl": "hardware/print-tests/open-snap-section/parts/receiver-filled-corners.stl",
+      "sha256": "ab471ced6ee661a3d8190038801a58db2c7320f2ee922c6270db83ca66f2bfe8",
+      "bed_center_xy_mm": [
+        209.32,
+        173.239
+      ]
+    },
+    {
+      "name": "cooling-wall",
+      "object_id": 1906,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "bed_center_xy_mm": [
+        162.5,
+        195.239
+      ]
+    }
+  ],
+  "plate_key": "plate-key.png",
+  "source_geometry": "../../parts/geometry.json",
+  "comparisons": "../../proposed-comparisons.json",
+  "project": {
+    "file": "2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.3mf",
+    "git_blob": "b547305ce93e99dfab1f6a5222691da92cff8ea2",
+    "sha256": "e46747623d76b37dcaf3ab91a3997b5c6bcde19dccac088aba0f65b8e2b33a80",
+    "release_archive": "open-snap-comparisons-mark2-20261124-ba8de8d5c453829f.zip"
+  },
+  "slice": {
+    "file": "2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.gcode.3mf",
+    "git_blob": "df78d237f366126c3cd9fb6612a800ef84f8ce65",
+    "sha256": "c54d58668b9454da2ec51a7cec821a43ac18afdaadc1d91381f8742a6e59a809",
+    "release_archive": "open-snap-comparisons-mark2-20261124-ba8de8d5c453829f.zip"
+  },
+  "gcode_sha256": "82a4d052e10e047180fca9ab753f132fd0722f5b076962f55270e9284ad01e44",
+  "native_review": "2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/review.json",
+  "archive_restore": "Both 3MF files were restored from the print-projects release and matched the files used for this job by SHA-256.",
+  "interlayer_cooling": "cooling.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "contact_course_review": "section-check.json"
+}

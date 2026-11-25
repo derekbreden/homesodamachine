@@ -14,9 +14,11 @@ Press the cover on from above with the receiver resting on its flat back. Look i
 
 In the Mark2 bench test, the upper tip lifted under hand pressure. Both hooks stayed captured when Derek let go, and he saw the cover return to its previous position. He confirmed that the coupon reproduces the equipment fit. [Filmed result and four stills](prints/2026-11-24-mark2/physical-result.json)
 
-## Proposed comparisons
+## Comparing the three changes
 
-Use the filmed pair as the control. A receiver with a shorter center post tests how much the saddle contributes to spring-back. Filling the square corner behind each lead-in tests how much of the old pocket the hook uses during entry and release. A cover with the retaining face relieved tests whether the wings can sit straighter and keep their grip. Each proposal changes one part and uses its original mate. [Proposed sections, clearances and Mark2 perimeter measurements](proposed-comparisons.json)
+The Mark2 comparison plate carries the three variants and a fresh copy of the filmed pair. From the printer door, the two covers are in front. The original is on the left and the relieved cover is on the right. In the next row the receivers are, from left to right, the original, the shorter post, and the filled corners. The stepped cooling wall sits behind them. [Plate key](prints/2026-11-24-comparisons-mark2/plate-key.png) · [Mark2 job](prints/2026-11-24-comparisons-mark2/print-job.json)
+
+Fit the two originals first. With the same cover, try the receiver whose center post is 0.48 mm shorter and feel for a change in spring-back. Then try the receiver with the 3 × 3 mm corner fills and compare entry and release. Return to the original receiver and try the cover with 0.20 mm relieved along closure on each retaining face. Compare wing seating and grip. Both covers keep the +0.40 mm crests. [Design and model predictions](proposed-comparisons.json) · [Contact surfaces in the submitted toolpaths](prints/2026-11-24-comparisons-mark2/section-check.json)
 
 ## Reproduce the pair
 
@@ -30,3 +32,5 @@ tools/run -- tools/hsm/target/release/enclosure-print-prep open-snap-section \
 ```
 
 On the Mark2 plate the receiver sits on its flat back and the cover stands on one open end, matching their production layer directions. The third piece is a hollow cooling wall. Its wide section lasts until the fixed catches finish, then a narrow column continues alongside the center post. It gives the cover at least 23 seconds between layers and keeps the plate to about an hour. [Cooling measured from the toolpaths](prints/2026-11-24-mark2/cooling.json) · [Mark2 print record](prints/2026-11-24-mark2/print-job.json)
+
+To reproduce the five comparison coupons on one plate, use `open-snap-comparisons` in the slicer command above. The geometry command writes the originals and the three variants together.
