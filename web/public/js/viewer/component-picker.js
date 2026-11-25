@@ -438,6 +438,7 @@ function setHover(name) {
 let panel = null;
 let hiddenObserver = null;
 let thumbnailQueued = false;
+let hiddenLabelButton = null;
 const hiddenRows = new Map();
 
 function buildPanel() {
@@ -582,6 +583,7 @@ function buildPanel() {
   const count = document.createElement("span");
   toggle.appendChild(count);
   toggle.addEventListener("click", () => {
+    closeHiddenThumbnailLabel();
     toggle.setAttribute("aria-expanded", String(toggle.getAttribute("aria-expanded") === "false"));
   });
   const items = document.createElement("div");
@@ -611,6 +613,16 @@ function buildPanel() {
   panel._hiddenToggle = toggle;
   panel._hiddenCount = count;
   panel._hiddenItems = items;
+  const hiddenLabel = document.createElement("span");
+  hiddenLabel.className = "component-hidden-label";
+  hiddenLabel.setAttribute("aria-hidden", "true");
+  hiddenLabel.hidden = true;
+  panel._hiddenLabel = hiddenLabel;
+  panel.addEventListener("scroll", () => {
+    if (hiddenLabelButton?.matches(":focus-visible")) showHiddenThumbnailLabel(hiddenLabelButton);
+    else closeHiddenThumbnailLabel();
+  }, { capture: true });
+  window.addEventListener("resize", closeHiddenThumbnailLabel);
 
   hiddenObserver = new IntersectionObserver(entries => {
     for (const entry of entries) {
@@ -619,6 +631,35 @@ function buildPanel() {
     }
     queueHiddenThumbnails();
   }, { root: items });
+}
+
+// Anchor the restore label in the viewer so the scrolling grid leaves it visible.
+function showHiddenThumbnailLabel(button) {
+  const label = panel._hiddenLabel;
+  const wrapper = label.parentElement;
+  const { left, top, width, bottom } = button.getBoundingClientRect();
+  const grid = panel._hiddenItems.getBoundingClientRect();
+  if (bottom <= grid.top || top >= grid.bottom) {
+    closeHiddenThumbnailLabel();
+    return;
+  }
+  const bounds = wrapper.getBoundingClientRect();
+  hiddenLabelButton = button;
+  label.textContent = button.getAttribute("aria-label");
+  label.hidden = false;
+  const { offsetWidth, offsetHeight } = label;
+  const centered = left - bounds.left + (width - offsetWidth) / 2;
+  const below = bottom - bounds.top + 4;
+  label.style.left = `${Math.max(8, Math.min(centered, wrapper.clientWidth - offsetWidth - 8))}px`;
+  label.style.top = `${below + offsetHeight + 4 <= wrapper.clientHeight
+    ? below : Math.max(4, top - bounds.top - offsetHeight - 4)}px`;
+}
+
+export function closeHiddenThumbnailLabel() {
+  if (!hiddenLabelButton) return false;
+  hiddenLabelButton = null;
+  panel._hiddenLabel.hidden = true;
+  return true;
 }
 
 function setComponentDetails(open) {
@@ -657,6 +698,7 @@ function updateHiddenRows(names) {
   const keep = new Set(names);
   for (const [name, row] of hiddenRows) {
     if (keep.has(name)) continue;
+    if (row.button === hiddenLabelButton) closeHiddenThumbnailLabel();
     hiddenObserver.unobserve(row.element);
     row.element.remove();
     hiddenRows.delete(name);
@@ -665,8 +707,7 @@ function updateHiddenRows(names) {
   for (const name of names) {
     const row = hiddenRows.get(name) || makeHiddenRow(name);
     const label = `Show ${unitForKey(name)?.label || instanceLabel(name)}`;
-    if (row.button.title !== label) {
-      row.button.title = label;
+    if (row.button.getAttribute("aria-label") !== label) {
       row.button.setAttribute("aria-label", label);
     }
     if (row.element !== next) panel._hiddenItems.insertBefore(row.element, next);
@@ -689,6 +730,18 @@ function makeHiddenRow(name) {
   image.hidden = true;
   thumb.appendChild(image);
   button.appendChild(thumb);
+  button.addEventListener("pointerenter", event => {
+    if (event.pointerType !== "touch") showHiddenThumbnailLabel(button);
+  });
+  button.addEventListener("pointerleave", () => {
+    if (button === hiddenLabelButton && !button.matches(":focus-visible")) closeHiddenThumbnailLabel();
+  });
+  button.addEventListener("focus", () => {
+    if (button.matches(":focus-visible")) showHiddenThumbnailLabel(button);
+  });
+  button.addEventListener("blur", () => {
+    if (button === hiddenLabelButton && !button.matches(":hover")) closeHiddenThumbnailLabel();
+  });
   button.addEventListener("click", () => {
     const focused = document.activeElement === button;
     const next = focused && (element.nextElementSibling || element.previousElementSibling)?.querySelector("button");
@@ -787,7 +840,8 @@ function showPanel(names = hiddenNames()) {
   if (!header) return;
   if (!panel) buildPanel();
   if (panel.parentElement !== wrapper) {
-    wrapper.prepend(panel);
+    closeHiddenThumbnailLabel();
+    wrapper.prepend(panel, panel._hiddenLabel);
     header.querySelector(".cad-context")?.appendChild(panel._model);
   }
   const file = mountedFile();
@@ -886,6 +940,7 @@ function showPanel(names = hiddenNames()) {
 function hidePanel() {
   if (!panel) return;
   panel.classList.remove("show");
+  closeHiddenThumbnailLabel();
   setComponentDetails(false);
   panel._hiddenToggle.setAttribute("aria-expanded", "false");
   if (!state.currentGroup) updateHiddenRows([]);
