@@ -15,6 +15,10 @@ name = "equipment-snap-receivers"
 path = "../../../hardware/print-tests/equipment-snap-pairs/receivers.rs"
 
 [[bin]]
+name = "pisco-wide-snap"
+path = "../../../hardware/print-tests/pisco-wide-snap/pair.rs"
+
+[[bin]]
 name = "jg-bulkhead-reference"
 path = "../../../hardware/reference/jg-bulkhead-union/jg_bulkhead_union.rs"
 

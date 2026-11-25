@@ -1,0 +1,139 @@
+{
+  "bearing": {
+    "cover_closure_at_printed_stop_mm": -0.0103,
+    "far_seated_housing_rise_mm": 0.035,
+    "housing_radius_mm": 10.8274,
+    "land_width_mm": 8.0,
+    "land_y_mm": [
+      438.875,
+      440.875
+    ]
+  },
+  "centered_spring": {
+    "axial_retaining_face_interference_mm": 0.0,
+    "centered_radial_capture_mm": 1.8000000000000007,
+    "crest_land_width_mm": 2.0,
+    "flange_identification_notches": 1,
+    "saddle_to_post_interference_mm3": 0.0,
+    "straight_target_overlap_mm3": 0.0
+  },
+  "coupon_parts": "hardware/print-tests/open-snap-section/parts",
+  "cover_body_y_mm": [
+    420.5957172019407,
+    462.29999999981374
+  ],
+  "donor_stl_sha256": [
+    "2bb364234a54d0b04f98b6c37b2dcb17b4d9d5ced98c6b062433a5928830d875",
+    "6fc55c59329b7894d37185c18e22c6b14b2e60f5a0edb7b437d79d2472e52631"
+  ],
+  "free_inward_tip_bias_mm": 0.8,
+  "guide_radial_air_mm": 0.22,
+  "parts": {
+    "pisco-cover": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.2113000000827
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -420.5957172019407
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          62.0943843126297,
+          420.5957172019407,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          462.29999999981374,
+          351.45000000018626
+        ]
+      ],
+      "sha256": "e241e2daf755904615ac941deb5fc3231faedcd9ff7d50569dd4cbe54c07fcbc",
+      "stl": "pisco-cover.stl",
+      "volume_mm3": 11857.829106755154
+    },
+    "pisco-receiver": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          59.08999999985099,
+          414.089999999851,
+          310.76999999955297
+        ],
+        [
+          93.91000000014901,
+          469.2989999996498,
+          355.0
+        ]
+      ],
+      "sha256": "676d53b91162dc736b082b0bc4a1dfb7dcb04de430bbee6005801d03498d4668",
+      "stl": "pisco-receiver.stl",
+      "volume_mm3": 24738.51018788536
+    }
+  },
+  "pocket_roof_z_mm": 351.54999999981374,
+  "pocket_y_mm": [
+    420.3457172019407,
+    458.1610000003129
+  ],
+  "print_directions_in_machine": {
+    "cover": [
+      0,
+      1,
+      0
+    ],
+    "receiver": [
+      0,
+      0,
+      -1
+    ]
+  },
+  "production_cover_sha256": "e004691a6b2da77994d2954e9be43c74fa6d1a7352bd3b21d55f72edf8071738",
+  "production_cover_source": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "production_receiver_sha256": "c8793920ba71f573465ad0fe44a98d17fcc4da55c111f4cae497cbfd87c613de",
+  "production_receiver_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "purpose": "Transfer the neutral wide Mark2 snap to the production hardware seat and axial stages.",
+  "spring_y_mm": [
+    420.5957172019407,
+    457.9110000003129
+  ],
+  "working_profiles": [
+    "cover-wide-preloaded.stl",
+    "receiver-wide-neutral.stl"
+  ]
+}

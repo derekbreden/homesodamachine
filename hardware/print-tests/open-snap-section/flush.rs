@@ -5,6 +5,9 @@ use hsm_kernel::{Affine, Plane, Profile, Solid, V2, V3, v2, v3};
 use serde_json::json;
 use std::{fs, path::Path};
 
+#[path = "matched_trios.rs"]
+mod matched_trios;
+
 // Dimensions in the end view. Heights are measured from the receiver's flat print face.
 const RUNNING_GAP: f64 = 0.22;
 const FIRM_OFFSET: f64 = 0.12;
@@ -54,7 +57,7 @@ impl Section {
         let [right, left] = mirrored_bars(&points, self.axis, self.y)?;
         let receiver = trimmed_seat.union(&right)?.union(&left)?.union(post)?;
 
-        // One or two open V notches identify the fit on the outboard edge of the backplate.
+        // The open V notches identify the fit on the outboard edge of the backplate.
         let edge = receiver.bounds().max.x;
         let mut notches = Vec::new();
         for i in 0..marks {
@@ -74,7 +77,7 @@ impl Section {
         tip_bias * deflection / tip_deflection
     }
 
-    fn wide_cover(&self, cover: &Solid, hook: Hook, tip_bias: f64) -> Result<Solid> {
+    fn wide_cover(&self, cover: &Solid, hook: Hook, tip_bias: f64, rotate_with_leaf: bool) -> Result<Solid> {
         let bounds = cover.bounds();
         let join_z = self.back_z - self.join_h - FILLER_CONTACT_TRAVEL;
         let spine = cover.intersect(&Solid::cuboid(bounds.min - v3(1., 1., 1.), v3(bounds.max.x + 1., bounds.max.y + 1., join_z)))?;
@@ -91,8 +94,14 @@ impl Section {
         for (a, b) in vertices.iter().zip(vertices.iter().cycle().skip(1)) {
             let n = ((a.y - b.y).abs() / 0.60).ceil().max(1.) as usize;
             for i in 0..n {
-                let p = *a + (*b - *a) * (i as f64 / n as f64);
+                let mut p = *a + (*b - *a) * (i as f64 / n as f64);
                 let shift = self.inward_shift(p.y, lip_h, tip_bias);
+                if rotate_with_leaf {
+                    let angle = matched_trios::free_angle(self, p.y, lip_h, tip_bias);
+                    let mid_r = (self.outer_r + self.inner_r) / 2.;
+                    let dr = p.x - mid_r;
+                    p = v2(mid_r + dr * angle.cos(), p.y - dr * angle.sin());
+                }
                 points.push(v2(self.axis + p.x - shift, self.back_z - p.y - FILLER_CONTACT_TRAVEL));
             }
         }
@@ -134,8 +143,8 @@ pub(super) fn write(dir: &Path, cover: &Solid, seat: &Solid, original_post: &Sol
                             v3(bounds.max.x + 1., bounds.max.y + 1., roof_z));
     let trimmed = seat.cut_all(&[cut.clone(), cut.mirror(v3(axis, 0., 0.), V3::X)])?;
     let full_post = s.housing_post(cover, axis_z, nose_z, housing_radius)?;
-    let biased = s.wide_cover(cover, wide, FREE_TIP_BIAS)?;
-    let straight = s.wide_cover(cover, wide, 0.)?;
+    let biased = s.wide_cover(cover, wide, FREE_TIP_BIAS, false)?;
+    let straight = s.wide_cover(cover, wide, 0., false)?;
     let mut parts = serde_json::Map::new();
     parts.insert("cover-wide-preloaded".into(), print_part(dir, "cover-wide-preloaded", &biased, cover_pose)?);
     let mut target_checks = serde_json::Map::new();
@@ -164,5 +173,5 @@ pub(super) fn write(dir: &Path, cover: &Solid, seat: &Solid, original_post: &Sol
         "post_apex_h_mm": back_z - nose_z, "mark2_free_inward_tip_bias_each_mm": FREE_TIP_BIAS,
         "mark2_straightening_model": "Clamped beam with transverse load at the retaining lip and unloaded length beyond it. The model gives a geometric target; movement and retention require the bench test."});
     fs::write(dir.join("flush-geometry.json"), format!("{}\n", serde_json::to_string_pretty(&dimensions)?))?;
-    Ok(())
+    matched_trios::write(&dir.join("matched-trios"), &s, cover, &trimmed, &full_post, wide, receiver_pose, cover_pose)
 }
