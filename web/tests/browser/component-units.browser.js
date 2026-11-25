@@ -133,6 +133,9 @@ test("assembly clicks and hiding keep physical copies together; opening exposes 
     assert.deepEqual(migrated.hidden,["pump-b-head"]);
     assert.equal(migrated.visible,false);
     assert.equal(await page.$$eval(".component-hidden-row",rows => rows.length),1);
+    await page.waitForSelector(".component-show-all", { hidden: true });
+    await page.click(".component-hidden-toggle");
+    await page.waitForSelector(".component-show-all", { visible: true });
     await page.click(".component-show-all");
     for (const body of ["pump-b-mount", "coil-v-c", "bulkhead-drain-nut", "nameplate-ink"]) {
       const unit = units.find(unit => unit.bodies.includes(body)); assert.ok(unit, body);

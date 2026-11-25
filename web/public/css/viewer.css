@@ -917,6 +917,7 @@
 }
 .component-hidden-toggle .tool-icon { transform: rotate(90deg); }
 .component-hidden-toggle[aria-expanded="true"] .tool-icon { transform: rotate(-90deg); }
+.component-hidden-toggle[aria-expanded="false"] + .component-show-all { display: none; }
 .component-hidden:has(.component-hidden-toggle[aria-expanded="false"]) .component-hidden-row:nth-child(n + 3) {
   display: none;
 }
