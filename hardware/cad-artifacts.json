@@ -95,7 +95,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
     "hardware/manifold-layout/enclosure-assembly.facts.json": "a7d7b4defe00b42c5eee06c3f4474a3b0668ccba1926b3fd54fc15bbed38d657",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "318fcc26b5102e274235e79dcdf3e6ca89b29924ebeece2cbd7ea3928290519f",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "6381be19779d986879ab76ceb64e3f777d6a98b237d554d106f3224bdd51c36a",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
     "hardware/manifold-layout/manifold-layout.step.mesh": "bab8b49406c2fc510d46d51e99acfcc8bd70c6e1608564d3e03e6dbd0f4dafbe",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -374,7 +374,7 @@
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": "46a1b7460149e02f8eeb9700565a0a6ce8efb37315a82d3243b695e2c7835fe6",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step": "52bfa5a37ed10229e454913f1d935bf3f022bbe0fae9964b1ccaed3a0b773dd9",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "d3f6dd56fa2bb5d230b1c5207436840126a5b56ddd0146aa45f05010173c20c5",
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "22830d395223bc9adf3a7611685b32015463329592673c1bea5a33e3ed9748ca",
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": "5275fe3c7f38852a067156749cf0308538fab7a18ef19ccf6de4ef35b09c5e67",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "fb9549e28f27122c3cbb50c9a29c21699d7b8570dad12a47b45bad134aec3faa",
@@ -937,7 +937,7 @@
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "e86275b2ea50d6296309303490b8bcfc94ebafdd14e8c4c59e7523c9064d417b",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "9820e6a86e9d98a5a1da4a5ec1b7bbed25885a336d0684b28dbec653b4ca235b",
       "hardware/manifold-layout/enclosure-assembly.facts.json": "a7d7b4defe00b42c5eee06c3f4474a3b0668ccba1926b3fd54fc15bbed38d657",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh": "318fcc26b5102e274235e79dcdf3e6ca89b29924ebeece2cbd7ea3928290519f",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh": "6381be19779d986879ab76ceb64e3f777d6a98b237d554d106f3224bdd51c36a",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
       "hardware/pcb/pcba/out/pcba.bottom.svg": "1d1d42e49f2d7ad078065909da9f323ffbbcf98e9cdec497fae3760ba716c731",
@@ -1118,7 +1118,7 @@
       "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "19d420b9193d0d691959aadb80095523164afe380189aae1af9eb0c13f8f2d21",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": "46a1b7460149e02f8eeb9700565a0a6ce8efb37315a82d3243b695e2c7835fe6",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.step": "52bfa5a37ed10229e454913f1d935bf3f022bbe0fae9964b1ccaed3a0b773dd9",
-      "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "d3f6dd56fa2bb5d230b1c5207436840126a5b56ddd0146aa45f05010173c20c5",
+      "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": "22830d395223bc9adf3a7611685b32015463329592673c1bea5a33e3ed9748ca",
       "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": "ee18c91f4891228a6a76ae1381414d2fb31e17694e746bb298a5f2c524e512ee",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": "5275fe3c7f38852a067156749cf0308538fab7a18ef19ccf6de4ef35b09c5e67",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": "fb9549e28f27122c3cbb50c9a29c21699d7b8570dad12a47b45bad134aec3faa",
@@ -2886,7 +2886,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
     "hardware/manifold-layout/enclosure-assembly.facts.json": 1795565061.388152,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795565329.504245,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795565342.036109,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1794445929.08732,
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": 1792828088,
@@ -3165,7 +3165,7 @@
     "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": 1793626644,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.frame.json": 1793750338,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step": 1793626644,
-    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": 1793712586,
+    "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": 1795565342.036109,
     "hardware/printed-parts/faucet/lever-replica/lever-replica.stl": 1793626644,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": 1793626644,
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step.mesh": 1794017515,
@@ -3903,7 +3903,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.step.mesh": {
-      "commit": "573bcc5543fa0ca95ed90b5363753774b7660292",
+      "commit": "34122f5749a1583f748a5d4136fc31989e789e72",
       "unproven": true
     },
     "hardware/manifold-layout/manifold-layout.step": {
@@ -4943,7 +4943,7 @@
       "unproven": true
     },
     "hardware/printed-parts/faucet/lever-replica/lever-replica.step.mesh": {
-      "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
+      "commit": "34122f5749a1583f748a5d4136fc31989e789e72",
       "inputs": "b07fcf0a06c0c287a853ad0db3b4d53900c4f92e06b901e75716dcfbbd011b7d",
       "unproven": true
     },
