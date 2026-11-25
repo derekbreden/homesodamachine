@@ -32,7 +32,7 @@ import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { cancelCadLoad, disposeCadGroup } from "./cad-resources.js";
 import { clearEdgePicker } from "./edge-picker.js";
-import { clearSurfaceViews, closeSection } from "./surface-actions.js";
+import { clearSurfaceViews, closeSection, makeSectionToggle } from "./surface-actions.js";
 import { clearComponentPicker, closeHiddenThumbnailLabel } from "./component-picker.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
 import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton, mountToolDrawer, closeToolDrawer } from "./tool-rail.js";
@@ -170,15 +170,16 @@ export function openCadDetail(type, file, pushHistory = true, path = null, targe
   loadingPill.textContent = "Loading...";
   loadingEl.appendChild(loadingPill);
   wrapper.appendChild(loadingEl);
-  // The rail, top of the column down: the Find pill, the pick modes, then the
-  // overlays. X-ray, the pickers and the find box are STEP's — a DXF is one
-  // flat plate with nothing inside it and no reconstructable solid edges — so
-  // a DXF reaches the rail carrying rulers alone.
+  // The rail groups STEP inspection commands, pick modes, and overlays. DXF
+  // views carry rulers for their flat geometry.
   const rail = makeToolRail();
   const chips = makeChipRow();
   let clearFlavorPath = () => {};
   if (type === "step") {
-    rail.appendChild(makePickFindToggle());
+    const inspection = document.createElement("div");
+    inspection.className = "section-tool-row";
+    inspection.append(makePickFindToggle(), makeSectionToggle(wrapper));
+    rail.appendChild(inspection);
     rail.appendChild(makeToolGroup("Select", makePickModeControl())).classList.add("tool-group-select");
     chips.appendChild(makeXrayToggle());
     clearFlavorPath = mountFlavorPath(wrapper, chips);

@@ -1,4 +1,4 @@
-// The cut and its face-on profile share a plane fixed to the installed model.
+// Preview a plane on the intact model before sharing it between the cut and its profile.
 import * as THREE from "three";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { camera, renderer, scene, requestCadRender } from "./scene.js";
@@ -28,10 +28,10 @@ function colorFor(name, selected) {
 }
 function optionsFor(pick) {
   const forward = camera.getWorldDirection(new THREE.Vector3()), opts = [];
-  const curve = sectionCurveAt(pick), face = pick.face?.n || pick.normal;
+  const curve = pick && sectionCurveAt(pick), face = pick?.face?.n || pick?.normal;
   if (curve?.axis?.lengthSq()) opts.push(["Across curve", curve.axis, curve.radius]);
-  if (pick.edge?.kind === "straight") opts.push(["Across edge", pick.edge.dir]);
-  if (pick.face?.kind === "plane") {
+  if (pick?.edge?.kind === "straight") opts.push(["Across edge", pick.edge.dir]);
+  if (pick?.face?.kind === "plane") {
     const along = forward.clone().addScaledVector(face, -forward.dot(face));
     if (along.lengthSq() < 0.04) {
       along.set(1, 0, 0).applyQuaternion(camera.quaternion);
@@ -40,13 +40,51 @@ function optionsFor(pick) {
     if (along.lengthSq() > 1e-8) opts.push(["Through face", along]);
     opts.push(["Parallel to face", face]);
   }
-  opts.push(["Facing view", forward], ["X", new THREE.Vector3(1, 0, 0)],
-    ["Y", new THREE.Vector3(0, 1, 0)], ["Z", new THREE.Vector3(0, 0, 1)]);
+  opts.push(["X", new THREE.Vector3(1, 0, 0)], ["Y", new THREE.Vector3(0, 1, 0)],
+    ["Z", new THREE.Vector3(0, 0, 1)], ["Facing view"]);
   return opts.map(([label, vector, radius]) => {
+    if (!vector) return { label };
     const normal = vector.clone().normalize();
     if (normal.dot(forward) < 0) normal.negate();
     return { label, normal, radius };
   });
+}
+
+// Draw the plane and the direction of removal without changing any model material.
+function makePlaneGuide(span) {
+  const group = new THREE.Group();
+  group.name = "Section plane preview";
+  group.matrixAutoUpdate = false;
+  const color = "#ffbd78";
+  const sheet = new THREE.Mesh(new THREE.PlaneGeometry(span, span), new THREE.MeshBasicMaterial({
+    color, side: THREE.DoubleSide, transparent: true, opacity: 0.16, depthTest: false, depthWrite: false, toneMapped: false,
+  }));
+  const half = span / 2;
+  const corners = [[-half, -half], [half, -half], [half, half], [-half, half]].map(([x, y]) => new THREE.Vector3(x, y, 0));
+  const outline = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(corners), new THREE.LineBasicMaterial({
+    color, transparent: true, depthTest: false, depthWrite: false, toneMapped: false,
+  }));
+  const arrow = new THREE.ArrowHelper(new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, span * 0.34, 0), span * 0.26, color);
+  sheet.renderOrder = 1100;
+  outline.renderOrder = 1101;
+  for (const child of arrow.children) {
+    child.renderOrder = 1101;
+    Object.assign(child.material, { transparent: true, depthTest: false, depthWrite: false, toneMapped: false });
+  }
+  group.add(sheet, outline, arrow);
+  return {
+    group,
+    orient(frame, flipped) {
+      group.matrix.copy(frame);
+      group.matrixWorldNeedsUpdate = true;
+      arrow.setDirection(new THREE.Vector3(0, 0, flipped ? 1 : -1));
+    },
+    dispose() {
+      group.removeFromParent();
+      for (const mark of [sheet, outline]) mark.geometry.dispose();
+      group.traverse(mark => mark.material?.dispose());
+    },
+  };
 }
 
 function cutMarks(row, color) {
@@ -75,27 +113,40 @@ function cutMarks(row, color) {
   return group;
 }
 
-function makeSection(wrapper, pick) {
+export function startSectionPreview({ wrapper, toggle, pick }) {
   const root = state.currentGroup, stage = wrapper.closest(".cad-stage");
+  const box = new THREE.Box3();
+  root.updateWorldMatrix(true, false);
+  root.traverseVisible(mesh => {
+    if (mesh.isMesh && mesh.userData.side === "front") box.expandByObject(mesh);
+  });
+  if (box.isEmpty()) return null;
+  const boxCenter = box.getCenter(new THREE.Vector3()), boxSize = box.getSize(new THREE.Vector3());
+  const anchor = pick?.point?.isVector3 && pick.point.toArray().every(Number.isFinite) ? pick.point.clone() : boxCenter;
+  const reference = anchor === boxCenter ? "model center" : "picked point";
   const options = optionsFor(pick);
-  const selected = componentOwner(pick.object?.name) || pick.ownerName || "";
+  const selected = componentOwner(pick?.object?.name) || pick?.ownerName || "";
+  const visibleSpan = 2 * camera.position.distanceTo(anchor) * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+  const partSpan = (pick?.object ? new THREE.Box3().setFromObject(pick.object).getSize(new THREE.Vector3()) : boxSize).length();
+  const startSpan = Math.max(0.5, options[0].radius > 0 ? options[0].radius * 9 :
+    Math.min(visibleSpan * 0.65, partSpan * 1.15) || 20);
+  const guide = makePlaneGuide(Math.max(0.5, Math.min(boxSize.length() * 1.15, visibleSpan * 0.86)));
   const plane = new THREE.Plane(), normal = new THREE.Vector3(), right = new THREE.Vector3(), up = new THREE.Vector3();
   const center = new THREE.Vector3(), frame = new THREE.Matrix4(), pan = new THREE.Vector2();
   const caps = new THREE.Group();
   caps.name = "Section cut"; caps.matrixAutoUpdate = false;
   const previousPlanes = renderer.clippingPlanes;
-  renderer.clippingPlanes = [...previousPlanes, plane];
-  setSurfaceSection(root, plane);
-  scene.add(caps);
+  scene.add(guide.group);
   const controller = new AbortController(), { signal } = controller;
-  let rows = [], flipped = false, offset = 0, scale, timer, job = 0, closed = false;
-  const initialFocus = document.activeElement;
+  let rows = [], flipped = false, offset = 0, scale, timer, job = 0, closed = false, applied = false;
+  let span = startSpan;
 
   const panel = node("section", "section-profile");
+  panel.hidden = true;
   panel.setAttribute("aria-label", "Section profile");
   const title = node("h2", "", "Section profile");
   const canvas = node("canvas", "section-profile-canvas");
-  canvas.setAttribute("role", "img"); canvas.setAttribute("aria-label", "Face-on cross section through the picked point");
+  canvas.setAttribute("role", "img"); canvas.setAttribute("aria-label", "Face-on cross section");
   const plot = node("div", "section-plot"), legend = node("div", "section-legend");
   const status = node("span", "section-status");
   status.setAttribute("role", "status");
@@ -107,9 +158,12 @@ function makeSection(wrapper, pick) {
   panel.append(heading, plot, legend);
 
   const bar = node("div", "section-bar"), views = node("div", "section-panes");
+  bar.setAttribute("role", "region");
+  bar.setAttribute("aria-label", "Section controls");
   const cut = button("3D cut", "3D cut", () => setPane(false));
-  const profile = button("Section profile", "Section profile", () => setPane(true));
+  const profile = button("Profile", "Section profile", () => setPane(true));
   views.setAttribute("role", "group"); views.setAttribute("aria-label", "Section view"); views.append(cut, profile);
+  views.hidden = true;
   function setPane(show) {
     stage.classList.toggle("section-profile-open", show);
     cut.setAttribute("aria-pressed", String(!show));
@@ -126,30 +180,58 @@ function makeSection(wrapper, pick) {
   flip.setAttribute("aria-pressed", "false");
   const offsetLabel = node("label", "section-offset");
   const slider = node("input"); slider.type = "range"; slider.value = "0";
-  const offsetText = node("span", "", "Offset"); offsetText.append(node("span", "section-wide-word", " from pick"));
-  offsetLabel.append(offsetText, slider); slider.setAttribute("aria-label", "Section offset from picked point");
+  offsetLabel.append(node("span", "", "Offset"), slider);
+  slider.setAttribute("aria-label", `Section offset from ${reference}`);
   const numberBox = node("label", "section-number"), number = node("input");
-  number.type = "number"; number.step = "any"; number.value = "0"; number.setAttribute("aria-label", "Offset from pick in millimeters");
+  number.type = "number"; number.step = "any"; number.value = "0";
+  number.setAttribute("aria-label", `Offset from ${reference} in millimeters`);
   numberBox.append(number, " mm");
-  const done = button("Close section", "Close section", close);
+  const previewNote = node("span", "section-preview-note", "Preview · Arrow shows the side to remove");
+  const apply = button("Apply cut", "Apply cut", () => setApplied(!applied));
+  apply.className = "section-apply";
+  const done = button("Close section", "Close section", () => close());
   done.replaceChildren("Close", node("span", "section-wide-word", " section"));
-  bar.append(views, axisLabel, flip, offsetLabel, numberBox, done);
-  stage.classList.add("section-open");
+  const planeControls = node("div", "section-plane-controls"), commands = node("div", "section-commands");
+  planeControls.append(axisLabel, flip, offsetLabel, numberBox);
+  commands.append(apply, done);
+  bar.append(previewNote, views, planeControls, commands);
+  stage.classList.add("section-active");
   stage.append(panel, bar);
+  toggle.setAttribute("aria-expanded", "true");
   setPane(false);
 
-  const visibleSpan = 2 * camera.position.distanceTo(pick.point) * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-  const box = new THREE.Box3().setFromObject(pick.object || root);
-  const partSpan = box.getSize(new THREE.Vector3()).length();
-  const startSpan = Math.max(0.5, options[0].radius > 0 ? options[0].radius * 9 :
-    Math.min(visibleSpan * 0.65, partSpan * 1.15) || 20);
-  let span = startSpan;
-  const baselineRange = Math.max(1, startSpan / 2);
+  function setApplied(value) {
+    applied = value;
+    panel.hidden = views.hidden = !applied;
+    previewNote.hidden = applied;
+    guide.group.visible = !applied;
+    stage.classList.toggle("section-open", applied);
+    const label = applied ? "Preview plane" : "Apply cut";
+    apply.textContent = label;
+    apply.title = label;
+    apply.setAttribute("aria-label", label);
+    renderer.clippingPlanes = applied ? [...previousPlanes, plane] : previousPlanes;
+    setSurfaceSection(applied ? root : null, applied ? plane : null);
+    if (applied) {
+      scene.add(caps);
+      refresh();
+    } else {
+      job++; clearTimeout(timer);
+      emptyMarks();
+      caps.removeFromParent();
+      setPane(false);
+    }
+    invalidateBlueprintVisibility();
+    requestCadRender();
+  }
+
   function range() {
-    const extent = Math.ceil(Math.max(Math.abs(offset), baselineRange));
-    slider.min = String(-extent); slider.max = String(extent); slider.step = extent > 100 ? "0.5" : "0.1";
+    const midpoint = normal.dot(boxCenter) - normal.dot(anchor);
+    const reach = (Math.abs(normal.x) * boxSize.x + Math.abs(normal.y) * boxSize.y + Math.abs(normal.z) * boxSize.z) / 2;
+    const min = Math.min(offset, 0, Math.floor(midpoint - reach)), max = Math.max(offset, 0, Math.ceil(midpoint + reach));
+    slider.min = String(min); slider.max = String(max); slider.step = max - min > 200 ? "0.5" : "0.1";
     slider.value = String(offset);
-    slider.setAttribute("aria-valuetext", offset + " millimeters from pick");
+    slider.setAttribute("aria-valuetext", `${offset} millimeters from ${reference}`);
     number.value = String(offset);
   }
   function setOffset(value) {
@@ -160,15 +242,18 @@ function makeSection(wrapper, pick) {
   number.addEventListener("input", () => { if (Number.isFinite(number.valueAsNumber)) { offset = number.valueAsNumber; movePlane(); } });
   number.addEventListener("change", () => { range(); });
   axis.addEventListener("change", () => {
-    pan.set(0, 0); offset = 0; range(); orient();
+    pan.set(0, 0); offset = 0; orient();
   });
 
   function orient() {
-    normal.copy(options[Number(axis.value)].normal);
+    const option = options[Number(axis.value)];
+    if (option.normal) normal.copy(option.normal);
+    else camera.getWorldDirection(normal);
     up.set(0, 0, 1);
     if (Math.abs(up.dot(normal)) > 0.98) up.set(0, 1, 0).applyQuaternion(camera.quaternion);
     if (Math.abs(up.dot(normal)) > 0.98) up.set(0, 1, 0);
     right.crossVectors(normal, up).normalize(); up.crossVectors(right, normal).normalize();
+    range();
     movePlane();
   }
   function emptyMarks() {
@@ -176,15 +261,19 @@ function makeSection(wrapper, pick) {
     caps.clear(); rows = [];
   }
   function movePlane() {
-    center.copy(pick.point).addScaledVector(normal, offset);
+    center.copy(anchor).addScaledVector(normal, offset);
     plane.setFromNormalAndCoplanarPoint(normal, center);
     if (flipped) plane.negate();
     frame.makeBasis(right, up, normal).setPosition(center);
+    guide.orient(frame, flipped);
     caps.matrix.copy(frame);
     caps.matrix.setPosition(center.clone().addScaledVector(plane.normal, 0.0004));
     caps.matrixWorldNeedsUpdate = true;
-    emptyMarks(); redraw(); refresh();
-    invalidateBlueprintVisibility();
+    if (applied) {
+      emptyMarks();
+      refresh();
+      invalidateBlueprintVisibility();
+    }
     requestCadRender();
   }
   function zoomBy(factor) {
@@ -260,12 +349,14 @@ function makeSection(wrapper, pick) {
   }
   function refresh() {
     if (closed) return;
+    if (state.currentGroup !== root) { close(false); return; }
+    if (!applied) return;
     const ticket = ++job;
     clearTimeout(timer);
     syncCaps();
     panel.setAttribute("aria-busy", "true"); redraw();
     timer = setTimeout(() => {
-      if (state.currentGroup !== root) { close(); return; }
+      if (state.currentGroup !== root) { close(false); return; }
       emptyMarks();
       const iterator = sectionRows(root, frame.clone().invert(), profileWindow(0.6));
       function next() {
@@ -305,42 +396,28 @@ function makeSection(wrapper, pick) {
     resizeFrame = requestAnimationFrame(() => {
       resizeFrame = 0;
       stage.classList.toggle("section-narrow", stage.clientWidth < 680);
-      redraw();
+      if (applied) redraw();
     });
   });
   resize.observe(stage); resize.observe(plot);
   window.addEventListener(HSM_EVENTS.BLUEPRINT_VISIBILITY, syncCaps, { signal });
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, refresh, { signal });
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, refresh, { signal });
-  function close() {
+  function close(restoreFocus = true) {
     if (closed) return false;
     closed = true; job++; clearTimeout(timer); resize.disconnect(); cancelAnimationFrame(resizeFrame); controller.abort();
     renderer.clippingPlanes = previousPlanes;
     setSurfaceSection(null, null); emptyMarks(); caps.removeFromParent();
-    stage.classList.remove("section-open", "section-narrow", "section-profile-open");
+    guide.dispose();
+    stage.classList.remove("section-active", "section-open", "section-narrow", "section-profile-open");
+    toggle.setAttribute("aria-expanded", "false");
     bar.remove(); panel.remove(); invalidateBlueprintVisibility(); requestCadRender();
-    if (initialFocus?.isConnected && initialFocus.getClientRects().length) initialFocus.focus({ preventScroll: true });
+    const focus = toggle.closest(".tool-drawer.compact:not([open])")?.querySelector("summary") || toggle;
+    if (restoreFocus && focus.getClientRects().length) focus.focus({ preventScroll: true });
     return true;
   }
   stage.classList.toggle("section-narrow", stage.clientWidth < 680);
-  range(); orient();
-  done.focus({ preventScroll: true });
-  return { close, refresh, get closed() { return closed; } };
-}
-
-export function createSectionView({ wrapper }) {
-  let active;
-  const canUse = pick => !!(state.currentGroup && wrapper.closest(".cad-stage") && pick?.point?.isVector3 &&
-    pick.point.toArray().every(Number.isFinite));
-  return {
-    canUse,
-    start(pick) {
-      if (!canUse(pick)) return false;
-      active?.close(); active = makeSection(wrapper, pick);
-      return true;
-    },
-    refresh() { if (active && !active.closed) active.refresh(); },
-    close() { return active?.close() || false; },
-    dispose() { active?.close(); active = null; },
-  };
+  orient();
+  axis.focus({ preventScroll: true });
+  return { close, refresh };
 }

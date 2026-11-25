@@ -31,6 +31,8 @@ export const ICON_INNER = {
   // ── The 3D viewer's tool rail ──────────────────────────────────────────────
   // Magnifier — Find: type a part name or paste pick text.
   find: '<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>',
+  // A plane through a solid — cross-section inspection.
+  section: '<path d="M3 7l9-5 9 5v10l-9 5-9-5zM3 12l9 5 9-5"></path>',
   // Four corners closing on one solid — Reset view, the part re-framed.
   "reset-view": '<path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M12 8.5l3.5 3.5-3.5 3.5-3.5-3.5z"></path>',
   // Struck-through circle — the pick modes off, clicks only orbit.

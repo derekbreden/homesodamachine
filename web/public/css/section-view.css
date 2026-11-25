@@ -1,10 +1,15 @@
 /* A section keeps the camera and its companion profile in the same CAD stage. */
-.cad-stage.section-open {
-  display: grid; grid-template: minmax(0,1fr) auto / minmax(0,1fr) minmax(235px,34%);
+.section-tool-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.section-tool-toggle:disabled { cursor: default; opacity: 0.55; }
+.cad-stage.section-active {
+  display: grid; grid-template: minmax(0,1fr) auto / minmax(0,1fr);
 }
-.section-open > .cad-wrapper { grid-area: 1 / 1; }
-.section-open > .material-bench, .section-open .bench-model-label { display: none; }
-.section-open .cad-wrapper > :is(.edge-panel,.component-panel,.pick-find-panel,.pick-find-labels,.faucet-options) { display: none; }
+.cad-stage.section-open { grid-template-columns: minmax(0,1fr) minmax(235px,34%); }
+.section-active > .cad-wrapper { grid-area: 1 / 1; }
+.section-active > .material-bench, .section-active .bench-model-label { display: none; }
+.section-active .cad-wrapper > :is(.edge-panel,.component-panel,.component-hidden-label,.pick-find-panel,.pick-find-labels,.faucet-options),
+.section-active .cad-wrapper > .cad-footer > .tool-rail { display: none; }
+.section-active .cad-wrapper .reset-view { margin-inline-start: auto; }
 .section-profile {
   /* Visible part names can wrap as a boundary enters the plot. Their band stays
      independent of that plot's size, including while the section is arriving. */
@@ -26,12 +31,17 @@
   gap: 5px 9px; padding: 6px 10px max(6px,env(safe-area-inset-bottom)); border-top: 1px solid var(--border);
   background: var(--surface); color: var(--text); font: .85rem/1.25 var(--font-sans); z-index: 14;
 }
+.section-bar [hidden], .section-profile[hidden] { display: none; }
+.section-preview-note { color: var(--text-2); font-size: .78rem; }
+.section-plane-controls, .section-commands { display: flex; align-items: center; gap: 6px; }
+.section-plane-controls { flex: 1; min-width: 0; }
+.section-commands { flex: none; }
 .section-bar label { display: inline-flex; align-items: center; gap: 5px; margin: 0; }
-.section-bar button, .section-bar select, .section-number, .section-zoom button, .section-panes button {
+.section-bar button, .section-bar select, .section-number, .section-zoom button {
   min-height: 36px; margin: 0; padding: 4px 9px; border: 1px solid var(--border); border-radius: 6px;
   background: var(--bg); color: var(--text); font: inherit; cursor: pointer; touch-action: manipulation;
 }
-.section-bar .section-offset { flex: 1; min-width: 135px; white-space: nowrap; }
+.section-bar .section-offset { flex: 1; min-width: 90px; white-space: nowrap; }
 .section-offset input { width: 100%; min-width: 44px; height: 36px; margin: 0; accent-color: var(--accent); touch-action: none; }
 .section-bar .section-number { min-height: 36px; gap: 3px; padding-inline: 4px 7px; color: var(--text-2); }
 .section-number input { box-sizing: content-box; width: 5ch; min-width: 0; padding: 0; border: 0; color: var(--text);
@@ -40,23 +50,25 @@
 .section-panes { display: none; }
 .section-zoom { display: flex; gap: 3px; }
 .section-zoom button { width: 36px; min-height: 36px; padding: 0; color: #eff5fa; background: #263a49; border-color: #607481; font-size: 1.1rem; }
-.section-bar [aria-pressed=true] { background: var(--action); border-color: var(--action); color: var(--on-action); }
+.section-bar [aria-pressed=true], .section-active:not(.section-open) .section-apply {
+  background: var(--action); border-color: var(--action); color: var(--on-action);
+}
 .cad-stage.section-open.section-narrow { grid-template: minmax(0,1fr) auto / minmax(0,1fr); }
 .section-narrow > .section-profile { display: none; }
 .section-narrow.section-profile-open > .section-profile { display: grid; grid-area: 1 / 1; z-index: 13; border: none; }
 .section-narrow.section-profile-open > .cad-wrapper { visibility: hidden; }
-.section-narrow .section-bar { display: grid; grid-template-columns: auto auto minmax(42px,1fr) 60px; gap: 3px 5px; }
+.section-narrow .section-bar { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 5px; }
 .section-narrow .section-wide-word { display: none; }
-.section-narrow .section-panes { grid-area: 1 / 1 / 2 / 4; display: flex; gap: 3px; }
-.section-narrow .section-bar > button:last-child { grid-area: 1 / 4; justify-self: end; white-space: nowrap; }
-.section-narrow .section-plane { grid-area: 2 / 1; }
+.section-narrow.section-open .section-panes { display: flex; gap: 3px; }
+.section-narrow .section-bar button { padding-inline: 6px; white-space: nowrap; font-size: .8rem; }
+.section-narrow .section-commands { grid-area: 1 / 2; }
+.section-narrow .section-plane-controls { grid-column: 1 / -1; }
 .section-narrow .section-plane span { display: none; }
-.section-narrow .section-plane select { font-size: .8rem; padding-inline: 4px; }
-.section-narrow .section-bar > button[aria-label="Keep the other side"] { grid-area: 2 / 2; }
-.section-narrow .section-offset { grid-area: 2 / 3; min-width: 0; display: grid; gap: 0; }
+.section-narrow .section-plane select { max-width: min(112px,34vw); font-size: .8rem; padding-inline: 4px; }
+.section-narrow .section-offset { min-width: 0; display: grid; gap: 0; }
 .section-narrow .section-offset span { font-size: .67rem; color: var(--text-2); }
 .section-narrow .section-offset input { height: 24px; min-height: 24px; }
-.section-narrow .section-number { grid-area: 2 / 4; justify-content: center; }
+.section-narrow .section-number { justify-content: center; }
 .section-narrow .section-number input { width: 4ch; }
-.section-narrow :is(.section-bar button,.section-plane select,.section-zoom button,.section-bar .section-number) { min-height: 40px; }
-.section-narrow .section-zoom button { width: 40px; }
+.section-narrow :is(.section-bar button,.section-plane select,.section-zoom button,.section-bar .section-number) { min-height: 44px; }
+.section-narrow .section-zoom button { width: 44px; }

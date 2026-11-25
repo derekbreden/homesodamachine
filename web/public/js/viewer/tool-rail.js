@@ -66,7 +66,7 @@ export function mountToolDrawer(rail) {
   observer.observe(body, { subtree: true, childList: true, attributes: true, attributeFilter: ["aria-checked"] });
   sync();
   body.addEventListener("click", (e) => {
-    if (e.target.closest(".tool-seg-btn, .pick-find-toggle, .tube-toggle, .flavor-path-toggle")) {
+    if (e.target.closest(".tool-seg-btn, .pick-find-toggle, .section-tool-toggle, .tube-toggle, .flavor-path-toggle")) {
       closeToolDrawer(rail.closest(".cad-wrapper"), !!e.target.closest(".tool-seg-btn"));
     }
   });
