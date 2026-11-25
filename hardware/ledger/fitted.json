@@ -485,13 +485,6 @@
       "said": "it's also, you can see, pretty good",
       "tried": "the full-length two-bar Pisco cover from Mark1, with both wing tips raised 0.20 mm. Derek put it back over the same regulator and felt a tiny amount more play than with the four-bar cover.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result/physical-result.json"
-    },
-    {
-      "material": "HSM-0585",
-      "date": "2026-11-24",
-      "said": "It is good enough.",
-      "tried": "the Mark1 receiver and insert coupon. The insert latched and guided the 4 mm V-G dispense tube. Derek retired the frame-mounted design so the funnel frame can lift out independently of this line.",
-      "record": "hardware/print-tests/funnel-dispense-snap/prints/mark1/physical-result.json"
     }
   ]
 }

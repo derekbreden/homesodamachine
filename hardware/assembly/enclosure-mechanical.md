@@ -383,16 +383,14 @@ tops. Complete and inspect the drain connection before fitting the silicone funn
 After commissioning, snap the cradle into the frame, seat the uncut stem elbow
 and fit its aft outlet turn. Make the 36.469 mm descending `fluid-4` link to
 V-B's inlet turn through the open roof, with both 16.891 mm socket engagements
-fully seated. Snap the flavor A clip into the pocket under the frame and
-press the black V-G tube into its downward-opening jaws while the frame
-is loose. Lower the frame vertically onto its ledges
+fully seated. Lower the frame vertically onto its ledges
 ([internal-plumbing.md](internal-plumbing.md) §5). Install the M3 × 12 screws from
 above into the RX-M3×5.7 inserts. Seat the frame by hand, then tighten in alternating
 left and right stations to hold the flange flush. The [manual drop-in review](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 models the bare frame with the cradle, elbow and tubing removed, plus the
-static web/socket and screw stack. The plug, elbow and cradle travel with
-the frame. Disconnect the V-B feed and release the V-G tube downward before
-withdrawing the frame. Connected-tube motion,
+static web/socket and screw stack. Disconnect the V-B feed before withdrawing
+the frame with its plug, elbow and cradle. The V-G dispense tube stays in
+the machine. Connected-tube motion,
 snap-release access and force, physical fit and the drain seal remain separate
 qualifications.
 

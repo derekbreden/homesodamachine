@@ -360,32 +360,14 @@ pub fn flavor_rear(flavor: &str, destination: V3) -> Result<Vec<Segment>> {
     Ok(fall)
 }
 
-const FLAVOR_RADIUS: f64 = 25.;
-const FLAVOR_A_X: f64 = -33.;
-const FLAVOR_A_FRONT_Y: f64 = 156.;
-const FLAVOR_A_CROSS_Y: f64 = 266.;
-const FLAVOR_A_CROSS_Z: f64 = 296.;
-
-/// The level-ended rise along the V-G lane. The funnel clip seats the same curve.
-pub fn flavor_a_rise() -> [V3; 6] {
-    let start = FLAVOR_A_FRONT_Y + FLAVOR_RADIUS;
-    let end = FLAVOR_A_CROSS_Y - FLAVOR_RADIUS - 10.;
-    std::array::from_fn(|i| [
-        FLAVOR_A_X,
-        start + (end - start) * i as f64 / 5.,
-        if i < 3 { 288.5 } else { FLAVOR_A_CROSS_Z },
-    ])
-}
-
 /// The two flavor lines from their valves to their bulkheads. A line that is not laid out is
 /// left out of them and listed beside them.
 pub fn flavor_routes(stations: &Value) -> (Routes, Vec<Unrouted>) {
-    let radius = FLAVOR_RADIUS;
-    let rise = flavor_a_rise();
+    let radius = 25.;
     let mut out = Vec::new();
     let mut unrouted = Vec::new();
     for (flavor, valve, lane, cross_y, aisle, cross_z, lift_y) in [
-        ("a", "valve-v-g", FLAVOR_A_X, FLAVOR_A_CROSS_Y, 55.5, FLAVOR_A_CROSS_Z, 291.),
+        ("a", "valve-v-g", -33., 266., 55.5, 296., 291.),
         ("b", "valve-v-j", -40., 274., 35., 293., 299.),
     ] {
         let bulkhead = format!("bulkhead-flavor-{flavor}");
@@ -404,13 +386,13 @@ pub fn flavor_routes(stations: &Value) -> (Routes, Vec<Unrouted>) {
                             sub(source, mul(axis, 10.)),
                             source,
                             [source[0], source[1], 292.5],
-                            [35., FLAVOR_A_FRONT_Y, rise[0][2]],
-                            [lane, FLAVOR_A_FRONT_Y, rise[0][2]],
-                            rise[0],
+                            [35., 156., 288.5],
+                            [lane, 156., 288.5],
+                            [lane, 181., 288.5],
                         ],
                         radius,
                     )?,
-                    rise[0],
+                    [lane, 181., 288.5],
                 )
             } else {
                 (
@@ -434,7 +416,15 @@ pub fn flavor_routes(stations: &Value) -> (Routes, Vec<Unrouted>) {
                 segments.extend(s);
                 approach = end;
             } else {
-                segments.push(bezier(&rise));
+                let step = (approach[1] - lead_end[1]) / 5.;
+                segments.push(bezier(&[
+                    lead_end,
+                    [lead_end[0], lead_end[1] + step, lead_end[2]],
+                    [lead_end[0], lead_end[1] + 2. * step, lead_end[2]],
+                    [approach[0], lead_end[1] + 3. * step, approach[2]],
+                    [approach[0], lead_end[1] + 4. * step, approach[2]],
+                    approach,
+                ]));
             }
             segments.extend(rounded(
                 &[

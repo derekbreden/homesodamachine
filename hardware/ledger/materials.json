@@ -9588,7 +9588,7 @@
         }
       ],
       "bom": {
-        "scope": "Removable funnel frame with the flavor A dispense tube clip, drain cradle, outlet fittings and V-B feed tube, carrying the silicone funnel and cover. The frame fasteners and final V-B connection are installed after commissioning.",
+        "scope": "Removable funnel frame with its drain cradle, outlet fittings and V-B feed tube, carrying the silicone funnel and cover. The frame fasteners and final V-B connection are installed after commissioning.",
         "source": "assembly/enclosure-mechanical.md",
         "items": [
           {
@@ -9613,14 +9613,6 @@
             "unit": "ea",
             "bodies": [
               "funnel-frame"
-            ]
-          },
-          {
-            "material": "HSM-0585",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "funnel-dispense-clip"
             ]
           },
           {
@@ -11371,26 +11363,6 @@
           "title": "Fastener specification",
           "path": "ledger/bom.md"
         }
-      ]
-    },
-    {
-      "id": "HSM-0585",
-      "description": "Flavor A dispense tube clip",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/zone-c/funnel/funnel-dispense-clip.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Funnel frame and clip",
-          "path": "printed-parts/zone-c/funnel/README.md"
-        }
-      ],
-      "aliases": [
-        "funnel-dispense-clip",
-        "V-G dispense tube clip"
       ]
     }
   ]

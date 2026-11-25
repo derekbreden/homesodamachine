@@ -175,9 +175,6 @@
     "Funnel frame": [
       "zone-c/funnel/funnel-frame.step"
     ],
-    "Flavor A dispense tube clip": [
-      "zone-c/funnel/funnel-dispense-clip.step"
-    ],
     "Funnel cover": [
       "zone-c/funnel-cover/funnel-cover.step"
     ],
@@ -308,10 +305,6 @@
     ],
     [
       "Funnel frame",
-      "ext"
-    ],
-    [
-      "Flavor A dispense tube clip",
       "ext"
     ],
     [

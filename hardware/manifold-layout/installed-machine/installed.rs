@@ -55,7 +55,6 @@ struct Funnel {
 #[derive(Deserialize)]
 struct Frame {
     seat: f64,
-    dispense_clip_xy: P2,
     roof_floor: f64,
     screws: Vec<FrameScrew>,
 }
@@ -344,10 +343,6 @@ pub fn installed_instances(root: &Path) -> Result<Value> {
         Some(petgf),
         false,
     )];
-    let [dx, dy] = site.frame.dispense_clip_xy;
-    let clip = model(root, "printed-parts/zone-c/funnel/funnel-dispense-clip.step")?;
-    rows.push(placed(&clip, "funnel-dispense-clip", None,
-        Some([cx + dx, cy + dy, site.frame_floor()]), Some(petgf), false));
 
     let labels = root.join("hardware/printed-parts/enclosure/rear-identification");
     let tiles: Identification = serde_json::from_value(design::read(labels.join("rear-identification.numbers.json"))?)?;
