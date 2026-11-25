@@ -506,6 +506,20 @@
       "said": "And that, of course, doesn't interfere at all, as one would expect it to not interfere at all.",
       "tried": "the filled corners of the back-top receiver on the 12 mm Pisco snap coupon. Both corner fills cleared the hooks with the cover engaged. The fit comparison still showed gaps at the catches.",
       "record": "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-25",
+      "said": "And you can see there's not much waggle allowed.",
+      "tried": "the 12 mm Mark2 Pisco cover with broad crests and preloaded wings, rocking it by hand in the matching coupon receivers. A narrow gap remained beside the lower hook.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-25",
+      "said": "I mean, I guess the one snap feels just a little bit more well-seated, but it's kind of hard to see.",
+      "tried": "the one-notch neutral back-top receiver on the 12 mm Mark2 Pisco snap coupon, directly after trying the two-notch receiver with the same cover. Derek found it hard to distinguish the two fits.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/physical-result.json"
     }
   ]
 }

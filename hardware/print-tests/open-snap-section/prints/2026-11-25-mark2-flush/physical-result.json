@@ -1,0 +1,53 @@
+{
+  "purpose": "Record how the preloaded Mark2 Pisco cover sits and moves in each of its two coupon receivers.",
+  "date": "2026-11-25",
+  "printer": "Mark2",
+  "printer_task_id": "1485929009",
+  "print_job": "print-job.json",
+  "sliced_sections": "section-check.json",
+  "mark1_comparison": "../2026-11-25-mark1-flush/physical-result.json",
+  "tried": "The 12 mm open cover with broad crests and inward-curved free tips, first on one receiver and then on the other. Both receivers have the broad printed crown in place of the regulator.",
+  "recording": {
+    "filename": "A_0001C026A261125_1514073A_CANON.MP4",
+    "sha256": "7137f145aaf5249b4ee68584315a82a39747effb97af1a2651ceb1fddddfe567",
+    "camera_creation_time_utc": "2026-11-25T21:14:07Z",
+    "duration_s": 128.261467,
+    "time_reference": "Seconds from the start of the recording. In the end views the cover is on the left and the receiver backplate is on the right."
+  },
+  "trials": [
+    {
+      "pair": "First receiver, firm, with the preloaded cover",
+      "source_seconds": [1.82, 25.7],
+      "derek": "And you can see there's not much waggle allowed.",
+      "observed": "Derek holds the receiver and rocks the cover with the other hand. At 21.99 s his fingers hold the cover alone and both hooks still capture the receiver. Blue shows between the lower hook's long slope and the pocket, with the flat tip close to the backplate.",
+      "identification": "He shows both Mark2 receivers at the start and exchanges them at about 26 s. The second has a visible single notch. The other receiver on this plate is the two-notch firm version.",
+      "photos": [
+        {
+          "file": "physical-result/21.99-firm-end.jpg",
+          "source_seconds": 21.989,
+          "shows": "The cover carries the receiver while both hooks remain engaged."
+        }
+      ]
+    },
+    {
+      "pair": "Second receiver, one-notch neutral, with the same preloaded cover",
+      "source_seconds": [25.7, 40.8],
+      "derek": "I mean, I guess the one snap feels just a little bit more well-seated, but it's kind of hard to see.",
+      "observed": "Derek fits the second receiver, turns its backplate toward the camera, then returns it to an end view. There is one V centered on the edge. He keeps this pair in hand while describing the slight difference in seating. Both hooks remain captured and a narrow gap is visible along the lower hook's long slope.",
+      "photos": [
+        {
+          "file": "physical-result/32.60-neutral-notch.jpg",
+          "source_seconds": 32.599,
+          "shows": "A single notch in the near edge of the receiver backplate."
+        },
+        {
+          "file": "physical-result/40.01-neutral-end.jpg",
+          "source_seconds": 40.007,
+          "shows": "The same receiver and cover from the open end."
+        }
+      ]
+    }
+  ],
+  "reported": "Both felt good to Derek and he found them hard to tell apart. His slight preference was for the fit he held after the receiver exchange.",
+  "scope": "Derek judged the seating and rocking by hand. Entry force, release force and displacement were unmeasured. The full-length cover and regulator were outside this trial."
+}

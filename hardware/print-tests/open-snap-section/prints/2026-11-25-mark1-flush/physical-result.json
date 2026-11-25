@@ -1,0 +1,53 @@
+{
+  "purpose": "Record which part of the original straight Pisco hook appears to bear as Derek rocks it in the two matching-pocket Mark1 receivers.",
+  "date": "2026-11-25",
+  "printer": "Mark1",
+  "printer_task_id": "1485915061",
+  "print_job": "print-job.json",
+  "sliced_sections": "section-check.json",
+  "recording": {
+    "filename": "A_0001C026A261125_1514073A_CANON.MP4",
+    "recording_metadata_and_mark2_comparison": "../2026-11-25-mark2-flush/physical-result.json",
+    "time_reference": "Seconds from the start of the recording. The close views show the lower hook on the cover entering the receiver backplate at the right."
+  },
+  "tried": "The 12 mm straight-wing cover, with narrow flat crests, in both of the matching-pocket receivers from the Mark1 plate.",
+  "trials": [
+    {
+      "pair": "First Mark1 receiver and straight cover",
+      "source_seconds": [41.48, 95.25],
+      "derek": "the tip is what's making contact there instead of the top of the foot, as we'd expect",
+      "observed": "Derek points to the lower hook and rocks the assembled pair. At 75.01 s blue shows between the hook and pocket across its long angled face. The flat end of the hook remains close to the backplate. At 78.01 s the same gap has narrowed. The hook stays behind the catch.",
+      "photos": [
+        {
+          "file": "physical-result/75.01-first-receiver-open-gap.jpg",
+          "source_seconds": 75.008,
+          "shows": "Blue between the lower hook and the pocket, with the tip at the backplate."
+        },
+        {
+          "file": "physical-result/78.01-first-receiver-rocked.jpg",
+          "source_seconds": 78.011,
+          "shows": "The same hook rocked closer to the pocket wall."
+        }
+      ]
+    },
+    {
+      "pair": "Second Mark1 receiver and the same straight cover",
+      "source_seconds": [95.25, 124.22],
+      "observed": "Derek transfers the cover to the other receiver and repeats the movement. Daylight opens around the lower hook at 115.01 s, including near the short retaining shoulder. It narrows again at 118.99 s. The tip stays near the backplate in both positions.",
+      "photos": [
+        {
+          "file": "physical-result/115.01-second-receiver-open-gap.jpg",
+          "source_seconds": 115.015,
+          "shows": "Light between the lower hook and the pocket on the second receiver."
+        },
+        {
+          "file": "physical-result/118.99-second-receiver-rocked.jpg",
+          "source_seconds": 118.986,
+          "shows": "The same hook closer to the pocket wall as the rocking reverses."
+        }
+      ]
+    }
+  ],
+  "reported": "Derek felt more rocking on Mark1. He attributed it to the tips bearing while the top of the foot made less contact than before. He reported similar behavior on the second receiver.",
+  "scope": "The plate carried one neutral and one firm receiver. The Mark1 notch counts are indistinct in these end views, so the observations follow handling order. Contact pressure and displacement were unmeasured."
+}
