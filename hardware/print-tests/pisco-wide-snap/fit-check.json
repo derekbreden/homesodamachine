@@ -1,0 +1,213 @@
+{
+  "purpose": "Check the physical Pisco fit, housing pickup and reversible entry of the two full-length Mark2 print meshes.",
+  "parts": "parts/geometry.json",
+  "filmed_reference": "../open-snap-section/prints/2026-11-25-mark2-flush/physical-result.json",
+  "installed_fitted_predecessor": "../../printed-parts/enclosure/rear-equipment-caps/pisco-fit.json",
+  "archive": {
+    "preparation": "prints/2026-11-25-mark2/2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei/preparation.json",
+    "plate_sha256": "d7bd745ba02e318c61a7695e3d25c8d08f6276087246098e1b2e0a2123faeac9",
+    "gcode_sha256": "f4c04d8c4d201c6550859829d7122c53474d6e1b0031b03d5c73013548464b35",
+    "stl_sha256": {
+      "pisco-cover": "e241e2daf755904615ac941deb5fc3231faedcd9ff7d50569dd4cbe54c07fcbc",
+      "pisco-receiver": "676d53b91162dc736b082b0bc4a1dfb7dcb04de430bbee6005801d03498d4668"
+    }
+  },
+  "production_transfer": {
+    "measurement": "Compare the full print meshes in machine coordinates. Intersect the wing and catch zones at nine Y stations with corresponding open Mark2 end profiles. Compare the unmodified hardware regions by symmetric volume.",
+    "y_stations_mm": [
+      421.0,
+      425.0,
+      430.0,
+      435.0,
+      439.8,
+      445.0,
+      450.0,
+      454.0,
+      457.7
+    ],
+    "maximum_open_coupon_profile_symmetric_area_difference_mm2": {
+      "springs": 1e-05,
+      "cheeks": 0.00015
+    },
+    "outside_wings_and_pad_cap_symmetric_difference_mm3": 0.00158,
+    "original_outlet_neck_lip_symmetric_difference_mm3": 9e-05,
+    "original_rear_spine_symmetric_difference_mm3": 0.00039,
+    "full_receiver_middle_chord_17p84_mm_symmetric_difference_mm3": 0.0,
+    "whole_receiver_aft_of_pocket_symmetric_difference_mm3": 0.0,
+    "pad_addition_mm3": 2.5908
+  },
+  "purchased_housing": {
+    "installed_assembly": "../../manifold-layout/enclosure-assembly.step.mesh",
+    "placed_mesh_asset_sha256": {
+      "co2-inlet": "46764fd42ca28efdb0a4e6a7da0b28d59df27a6db3486074081f4f6fe519b7ab",
+      "gas-regulator/1": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/2": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/3": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-check": "169beeb4e8189bfdf1d515e99d01cc124d91b2c92dffb0d743c89f68e52a1b58"
+    },
+    "smooth_profile": "../../reference/compact-inline-candidates/dimensions.json",
+    "coordinate_frame": "World +Z closes the cover and takes the housing toward the rooted receiver. Housing and cover have independent travel.",
+    "cad": {
+      "cover_first_contact_at_nominal_housing_mm": -0.04553,
+      "housing_rise_to_fixed_far_seat_mm": 0.11966,
+      "cover_first_contact_at_far_housing_mm": 0.07413,
+      "crest_stop_travel_mm": 0.1
+    },
+    "native_print": {
+      "measurement": "Read the enclosing Mark2 model extrusions with their commanded widths and the layer edges of the roof-down receiver. Compare the end-on saddle to the complete smooth scan radius profile and separately to the triangle sections of the installed purchased bodies. A negative signed gap means these registered envelopes touch before the crests land.",
+      "cover_axial_courses_measured": 155,
+      "receiver_crest_roof_layer_top_mm": [
+        3.56,
+        3.56
+      ],
+      "first_crest_travel_mm": -0.0103,
+      "housing_rise_to_first_fixed_contact_mm": {
+        "smooth_profile": 0.01169,
+        "installed_mesh": 0.02902
+      },
+      "limiting_receiver_surface": "Rear passage near Y465.55 on the Z17.00 mm print course.",
+      "housing_rise_to_central_bearing_only_mm": {
+        "smooth_profile": 0.03236,
+        "installed_mesh": 0.03363
+      },
+      "pad_signed_gap_at_printed_crest_stop_mm": {
+        "at_nominal_housing": {
+          "smooth_profile": -0.0463,
+          "installed_mesh": -0.04377
+        },
+        "at_housing_far_seat": {
+          "smooth_profile": -0.03462,
+          "installed_mesh": -0.01475
+        }
+      },
+      "at_widest_housing_station_y_mm": 439.875,
+      "representative_saddle_chord_on_far_installed_mesh": {
+        "x_relative_to_center_mm": [
+          -3.55,
+          -2.8,
+          -1.55,
+          -0.3,
+          0.95,
+          2.2,
+          3.45
+        ],
+        "signed_gaps_mm": [
+          0.00145,
+          -0.00468,
+          -0.00842,
+          -0.00793,
+          -0.01352,
+          -0.00472,
+          -0.00958
+        ]
+      },
+      "extra_axial_opening_for_lateral_saddle_shift_mm": {
+        "shift_mm": [
+          -0.5,
+          -0.25,
+          0.25,
+          0.5
+        ],
+        "opening_mm": [
+          0.16734,
+          0.08599,
+          0.081,
+          0.16134
+        ],
+        "basis": "Smooth fitted housing at the widest station against the printed saddle, relative to the centered contact."
+      }
+    }
+  },
+  "snap_and_access": {
+    "source_path": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+    "assembly": "Full cover held 0.085 mm forward of its rear end plane. Shift west and tilt about the regulator axis. Square up 1.8 mm short of nominal; finish along +Z. Reversing the same path with the exposed wings spread releases the cover.",
+    "full_cover_waypoints_tilt_deg_world_x_world_z_mm": [
+      [
+        21.0,
+        -4.6,
+        -11.0
+      ],
+      [
+        20.0,
+        -4.55,
+        -9.0
+      ],
+      [
+        15.0,
+        -3.4,
+        -6.5
+      ],
+      [
+        10.0,
+        -2.4,
+        -4.5
+      ],
+      [
+        5.0,
+        -1.0,
+        -2.9
+      ],
+      [
+        0.0,
+        0.0,
+        -1.8
+      ]
+    ],
+    "cover_y_offset_mm": -0.085,
+    "held_west_east_crest_spread_from_free_mm": [
+      5.45,
+      4.85
+    ],
+    "spread_model": "Each wing bends from its free STL with a clamped root and a transverse load at the lip; the free extension beyond the lip follows the tangent. Both tests preserve the production seat and the full fitted outlet lip.",
+    "geometric_crest_spread_from_free_at_printed_roof_mm": 1.00908,
+    "geometric_centered_radial_hook_capture_at_printed_roof_mm": 1.67402,
+    "method": "Compute full 3D mesh-to-mesh distances to the changed holder, remaining production shell, backed shoulder and installed hardware. For each of the five tilted segments, subtract half of the largest translation-plus-rotation step (192 intervals per segment). For the final rise use 144 intervals. For spring return use 512 intervals and stop 0.03 mm of radial travel short of first lip contact. The half-step bound accounts for possible contact between samples. The moving housing picks up on the pad during the final rise.",
+    "minimum_continuous_clearance_in_tilt_mm": {
+      "receiver": 0.0748,
+      "surrounding_production_shell": 0.07481,
+      "backed_meter_shoulder": 0.59311,
+      "gas-regulator/1": 0.83812,
+      "gas-regulator/2": 0.23099,
+      "gas-regulator/3": 0.22969,
+      "co2-inlet": 17.86846,
+      "gas-check": 1.98755
+    },
+    "final_rise_with_housing_at_rigid_far_seat_minimum_clearance_mm": {
+      "receiver": 0.07877,
+      "surrounding_production_shell": 0.07878,
+      "backed_meter_shoulder": 0.99574,
+      "gas-regulator/1": 0.07244,
+      "gas-regulator/2": 0.10951,
+      "gas-regulator/3": 0.2008,
+      "co2-inlet": 17.42365,
+      "gas-check": 1.82749
+    },
+    "spring_return_up_to_first_lip_contact_margin_minimum_clearance_mm": {
+      "receiver": 0.00694,
+      "surrounding_production_shell": 0.08069,
+      "backed_meter_shoulder": 2.26316,
+      "gas-regulator/1": 0.07434,
+      "gas-regulator/2": 0.11141,
+      "gas-regulator/3": 0.2027,
+      "co2-inlet": 17.42556,
+      "gas-check": 1.82939
+    },
+    "bench_straight_25_mm_approach_lower_bounds_mm": {
+      "bench_receiver": 0.06546,
+      "gas-regulator/1": 0.05913,
+      "gas-regulator/2": 0.0962,
+      "gas-regulator/3": 0.18749,
+      "co2-inlet": 17.41034
+    },
+    "regulator_loading": {
+      "source": "https://github.com/derekbreden/homesodamachine/blob/4fc4e86e02bc6b6a7aff3063de65197ecba55d2b/hardware/print-tests/pisco-cover-rocking/parts/fit-check.json",
+      "description": "Load from the open side with the meter and ASSE removed; start 16 mm fore and slide the regulator aft. All four purchased solids travel together. Each of six straight segments uses 256 intervals with its own half-step displacement bound.",
+      "clearance_lower_bounds_mm": {
+        "receiver": 0.05585,
+        "surrounding_production_shell": 0.05587,
+        "backed_meter_shoulder": 2.28475
+      }
+    }
+  },
+  "scope": "The native prescription and installed geometry predict contact, clearance and a reversible path. The bench fit establishes the force, rocking and release of the full-length PET-GF wings."
+}

@@ -1,0 +1,124 @@
+{
+  "purpose": "Compare three separately keyed open Pisco sections with compensated feet, wider bearing lands and a relieved retaining shoulder.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1486850876",
+  "previous_finished_job": "1485915061",
+  "accepted_at": "2026-11-25T20:48:19+00:00",
+  "first_layer_verified_at": "2026-11-25T20:59:02+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 145,
+  "source_and_recipe_commit": "72b9cc10d9e57a0277f5db731c4940d49a0dde69",
+  "printer_recipe": "keyed-snap-trios",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 6782,
+  "filament_g": 30.83,
+  "minimum_bed_margin_mm": 98.149,
+  "plate_identification": "From the door, numbered covers form the front row and matching receivers the next row, with 1, 2, 3 running from left to right. The stepped cooling wall is at the back.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/matched-trios/geometry.json",
+  "objects": [
+    {
+      "name": "cover-1",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/matched-trios/cover-1.stl",
+      "sha256": "120d0bd5686ff5d3936dc926ce5274073d5cf80227480d575bbfc8913d2963c6",
+      "bed_center_xy_mm": [
+        121.689,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-2",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/matched-trios/cover-2.stl",
+      "sha256": "47d0f7213ee4dfb8448e2cf06caed7a7c8937b00edaf599d1df37b05e27ad6ad",
+      "bed_center_xy_mm": [
+        162.5,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-3",
+      "identify_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/matched-trios/cover-3.stl",
+      "sha256": "e0d39e1f2ddb1b431235c7f65d3eb8c227e2ce10acd358d7ff429f3f6f2bb450",
+      "bed_center_xy_mm": [
+        203.311,
+        138.0
+      ]
+    },
+    {
+      "name": "receiver-1",
+      "identify_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/matched-trios/receiver-1.stl",
+      "sha256": "677517b450d816c524dde85f85c90f5cf5e43da73922e7569fe4710fb1964c22",
+      "bed_center_xy_mm": [
+        115.68,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-2",
+      "identify_id": 1905,
+      "stl": "hardware/print-tests/open-snap-section/parts/matched-trios/receiver-2.stl",
+      "sha256": "016608275991ccab1a08517ed8b99a370cb7de6766e4f28a736b866ae49a1024",
+      "bed_center_xy_mm": [
+        162.5,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-3",
+      "identify_id": 1906,
+      "stl": "hardware/print-tests/open-snap-section/parts/matched-trios/receiver-3.stl",
+      "sha256": "7d716589cd2309780bf672590854ee30ec49a8700d922ecec64761d252240a8b",
+      "bed_center_xy_mm": [
+        209.32,
+        173.256
+      ]
+    },
+    {
+      "name": "cooling-wall",
+      "identify_id": 1907,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "bed_center_xy_mm": [
+        162.5,
+        195.256
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "c7cbb2c79eacf6ad5f63b2633c303bfbec3ec6491a275ff788b0e383365339f8",
+  "project": {
+    "file": "2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.3mf",
+    "sha256": "d5a618c228f2a00adc55496ad8c1bef13f6cf531bca84328f29a91ea10308380",
+    "git_blob": "99cff96f545c360c9498e1c3778b0413c3da0147",
+    "release_archive": "2026-11-25-keyed-snap-trios-mark1-c1d5bf4324e3e3fa.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.gcode.3mf",
+    "sha256": "57a248248a7911104a7c00235bc3543c3ca34574009ba18b5bdc917880ab75dd",
+    "git_blob": "d8968f2e94e2b62bd46e2b8b8bbd65ccb1acf448",
+    "release_archive": "2026-11-25-keyed-snap-trios-mark1-c1d5bf4324e3e3fa.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "toolpath_key_and_mark_check": "section-check.json"
+}

@@ -1,0 +1,24 @@
+{
+  "gcode_sha256": "f4c04d8c4d201c6550859829d7122c53474d6e1b0031b03d5c73013548464b35",
+  "method": "Commanded extrusion time on other objects or the tower after the last extrusion on a part and before the next course on that part. Travel, acceleration and camera moves add time.",
+  "object_intervals": {
+    "pisco-wide-cover": {
+      "all_courses": {
+        "intervals": 173,
+        "minimum_s": 24.825,
+        "minimum_at_next_z_mm": 23.72,
+        "median_s": 25.456
+      }
+    },
+    "pisco-wide-receiver": {
+      "all_courses": {
+        "intervals": 183,
+        "minimum_s": 24.071,
+        "minimum_at_next_z_mm": 41.96,
+        "median_s": 27.891
+      }
+    }
+  },
+  "tower_courses_through_last_cover_course": 174,
+  "minimum_tower_commanded_s": 24.071
+}

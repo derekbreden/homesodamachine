@@ -1,7 +1,7 @@
 {
   "bearing": {
     "cover_closure_at_printed_stop_mm": -0.0103,
-    "far_seated_housing_rise_mm": 0.035,
+    "design_housing_rise_mm": 0.035,
     "housing_radius_mm": 10.8274,
     "land_width_mm": 8.0,
     "land_y_mm": [
@@ -9,7 +9,8 @@
       440.875
     ]
   },
-  "centered_spring": {
+  "coupon_parts": "hardware/print-tests/open-snap-section/parts",
+  "coupon_straight_neutral_target": {
     "axial_retaining_face_interference_mm": 0.0,
     "centered_radial_capture_mm": 1.8000000000000007,
     "crest_land_width_mm": 2.0,
@@ -17,7 +18,6 @@
     "saddle_to_post_interference_mm3": 0.0,
     "straight_target_overlap_mm3": 0.0
   },
-  "coupon_parts": "hardware/print-tests/open-snap-section/parts",
   "cover_body_y_mm": [
     420.5957172019407,
     462.29999999981374

@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "f4c04d8c4d201c6550859829d7122c53474d6e1b0031b03d5c73013548464b35",
+    "name": "2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei.gcode.3mf",
+    "objects": [
+      "pisco-wide-cover",
+      "pisco-wide-receiver"
+    ],
+    "sha256": "d7bd745ba02e318c61a7695e3d25c8d08f6276087246098e1b2e0a2123faeac9",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 143,
+  "observed_at": "2026-11-25T20:51:57+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1486863598",
+  "subtask_name": "2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei.gcode.3mf",
+  "total_layer_num": 184
+}

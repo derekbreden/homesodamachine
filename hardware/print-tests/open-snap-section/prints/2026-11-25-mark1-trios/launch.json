@@ -1,0 +1,32 @@
+{
+  "archive": {
+    "gcode_sha256": "c7cbb2c79eacf6ad5f63b2633c303bfbec3ec6491a275ff788b0e383365339f8",
+    "name": "2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.gcode.3mf",
+    "objects": [
+      "cover-1",
+      "cover-2",
+      "cover-3",
+      "receiver-1",
+      "receiver-2",
+      "receiver-3",
+      "cooling-wall"
+    ],
+    "sha256": "57a248248a7911104a7c00235bc3543c3ca34574009ba18b5bdc917880ab75dd",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 102,
+  "observed_at": "2026-11-25T20:48:19+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1486850876",
+  "subtask_name": "2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.gcode.3mf",
+  "total_layer_num": 145
+}

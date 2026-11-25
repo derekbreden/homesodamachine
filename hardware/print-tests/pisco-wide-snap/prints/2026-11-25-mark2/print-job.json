@@ -1,0 +1,74 @@
+{
+  "purpose": "Test the filmed one-notch wide Pisco snap at installed length on the real regulator.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1486863598",
+  "previous_finished_job": "1485929009",
+  "accepted_at": "2026-11-25T20:51:57+00:00",
+  "first_layer_verified_at": "2026-11-25T21:01:53+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 184,
+  "source_and_recipe_commit": "72b9cc10d9e57a0277f5db731c4940d49a0dde69",
+  "printer_recipe": "pisco-wide-pair",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (smooth)",
+  "estimated_seconds": 9180,
+  "filament_g": 34.83,
+  "minimum_bed_margin_mm": 107.3,
+  "plate_identification": "From the door, the full receiver is on the left and its cover is on the right. A separate native cooling tower keeps the nozzle away between courses.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/geometry.json",
+  "objects": [
+    {
+      "name": "pisco-wide-cover",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/pisco-cover.stl",
+      "sha256": "e241e2daf755904615ac941deb5fc3231faedcd9ff7d50569dd4cbe54c07fcbc",
+      "bed_center_xy_mm": [
+        187.41,
+        185.0
+      ]
+    },
+    {
+      "name": "pisco-wide-receiver",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/pisco-receiver.stl",
+      "sha256": "676d53b91162dc736b082b0bc4a1dfb7dcb04de430bbee6005801d03498d4668",
+      "bed_center_xy_mm": [
+        140.594,
+        185.0
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "f4c04d8c4d201c6550859829d7122c53474d6e1b0031b03d5c73013548464b35",
+  "project": {
+    "file": "2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei/2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei.3mf",
+    "sha256": "76430ab72fd9470a1e5b5fdc2aba7823c0391535021e83a7dd105b1fe9252c06",
+    "git_blob": "566105c56018df90026605d0bafd771ca6d7d9f2",
+    "release_archive": "2026-11-25-pisco-wide-pair-mark2-0533ddbc2c193c7f.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei/2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei.gcode.3mf",
+    "sha256": "d7bd745ba02e318c61a7695e3d25c8d08f6276087246098e1b2e0a2123faeac9",
+    "git_blob": "3eb08d9c07a1dd6c4fe0561e77e4fce199798ff3",
+    "release_archive": "2026-11-25-pisco-wide-pair-mark2-0533ddbc2c193c7f.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "seconds_after_mark1_accepted": 218
+}

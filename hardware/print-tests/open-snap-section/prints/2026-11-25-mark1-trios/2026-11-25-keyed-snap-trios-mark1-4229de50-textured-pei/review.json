@@ -1,0 +1,156 @@
+{
+  "archive": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.gcode.3mf",
+  "archive_sha256": "57a248248a7911104a7c00235bc3543c3ca34574009ba18b5bdc917880ab75dd",
+  "bead_envelope_plate_mm": [
+    [
+      98.149158,
+      120.630158
+    ],
+    [
+      226.850842,
+      199.37684199999998
+    ]
+  ],
+  "bed_border_mm": 75.0,
+  "bed_margins_mm": {
+    "back": 120.62315800000002,
+    "front": 120.630158,
+    "left": 98.149158,
+    "right": 98.149158
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.8787008959969056,
+      "second_layer_centerline_outside_first_mm": 3.0169609672894624,
+      "second_layer_model_bead_area_mm2": 345.1187381007999
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.8778854122504933,
+      "second_layer_centerline_outside_first_mm": 3.992684203078607,
+      "second_layer_model_bead_area_mm2": 345.14310118279377
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.8764011160841227,
+      "second_layer_centerline_outside_first_mm": 4.603084081826271,
+      "second_layer_model_bead_area_mm2": 342.86849491117255
+    },
+    "1904": {
+      "fraction_over_first_layer": 0.9959009048997852,
+      "second_layer_centerline_outside_first_mm": 4.474096627229767,
+      "second_layer_model_bead_area_mm2": 415.68947289514614
+    },
+    "1905": {
+      "fraction_over_first_layer": 0.9948188859535421,
+      "second_layer_centerline_outside_first_mm": 5.918373986136289,
+      "second_layer_model_bead_area_mm2": 414.0304253002563
+    },
+    "1906": {
+      "fraction_over_first_layer": 0.9960482532069187,
+      "second_layer_centerline_outside_first_mm": 4.500142502041822,
+      "second_layer_model_bead_area_mm2": 412.34907541739625
+    },
+    "1907": {
+      "fraction_over_first_layer": 0.9992167635065028,
+      "second_layer_centerline_outside_first_mm": 0.0,
+      "second_layer_model_bead_area_mm2": 96.33648708490642
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 145,
+  "minimum_bed_margin_mm": 98.149158,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1903": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1904": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1905": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1906": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1907": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

@@ -39,6 +39,22 @@ Keep each cover with its own plate. Fit the **one-notch receiver** first. It tar
 
 With the receiver on its back, look at both crests end-on, press each side and let go, then compare the effort to release it. A pair that stays square, springs back and grips like the filmed original is the one to try at full equipment length. [Mark1 plate and print record](prints/2026-11-25-mark1-flush/print-job.json) · [Mark2 plate and print record](prints/2026-11-25-mark2-flush/print-job.json) · [Mark1 toolpath sections](prints/2026-11-25-mark1-flush/section-check.json) · [Mark2 toolpath sections](prints/2026-11-25-mark2-flush/section-check.json)
 
+## Three numbered Mark1 pairs
+
+Derek felt little rocking in either broad-foot Mark2 pair. The one-notch receiver seated slightly better in his hand. On the narrower Mark1 feet, he saw the tips touching and could rock each foot farther toward its pocket. The three numbered pairs use the Mark2 crown and camber. Each free foot turns inward with its wing so its bearing face levels as the wing straightens. [Mark2 end views](prints/2026-11-25-mark2-flush/physical-result.json) · [Mark1 end views](prints/2026-11-25-mark1-flush/physical-result.json)
+
+Match the grooves across the cover back to the notches in the receiver flange. Internal blades with a different spacing on each cover prevent a wrong pair from seating square in either end orientation. A wrong cover tipped 45° and displaced a full coupon length can catch both hooks at the exposed end, then slide free along that end. All three matched pairs retain 1.80 mm of modeled hook engagement at the square position. [Numbered parts and dimensions](parts/matched-trios/geometry.json) · [Seating and cross-fit measurements](parts/matched-trios/fit-check.json)
+
+| Marks on both pieces | What to compare |
+| --- | --- |
+| One | Start here. Both 2.00 mm feet aim to bear flat on the pocket roofs with the same retaining shoulder as the preferred Mark2 pair. |
+| Two | Press over each wing and release. The 2.60 mm feet give a wider bearing with the same retaining shoulder. |
+| Three | Compare grip and removal with pair two. The feet keep their width. Each receiver shoulder moves back 0.12 mm to take up the extra material seen in the printed shoulder profile. |
+
+Look along the flat end of each foot where it meets the roof while pressing opposite sides of the cover. The long sloping face alongside each hook has clearance for entry. At the square-foot position, the sliced retaining shoulders project about 0.11 mm into the first two covers at the middle of a layer. The third has about 0.01 mm of clearance there. [Crest and shoulder toolpath measurements](parts/matched-trios/fit-check.json) · [Printed key and mark sections](prints/2026-11-25-mark1-trios/section-check.json)
+
+The three pairs are arranged left to right on Mark1. The full Pisco cover and receiver on Mark2 carry the one-notch fit over to the regulator. [Mark1 plate key](prints/2026-11-25-mark1-trios/plate-key.png) · [Full Pisco trial](../pisco-wide-snap/README.md)
+
 ## Reproduce the pair
 
 The source takes a constant section from the production bodies. To change only the center support in a later trial, change `FILLER_CONTACT_TRAVEL`. A larger value shortens the post and lets the cover travel farther before touching it. [Coupon source](coupon.rs)
@@ -55,3 +71,5 @@ On the Mark2 plate the receiver sits on its flat back and the cover stands on on
 To reproduce the five comparison coupons on one plate, use `open-snap-comparisons` in the slicer command above. The geometry command writes the originals and the three variants together.
 
 For the matching-pocket trials, use `open-snap-flush-mark1 --printer Mark1` and `open-snap-flush-mark2 --printer Mark2` with the same bed and review options. [Pocket and spring geometry source](flush.rs)
+
+The same geometry command writes the three numbered pairs under `parts/matched-trios`. Select `keyed-snap-trios --printer Mark1` for their plate. [Numbered coupon source](matched_trios.rs)

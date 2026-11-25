@@ -1,0 +1,90 @@
+{
+  "gcode_sha256": "c7cbb2c79eacf6ad5f63b2633c303bfbec3ec6491a275ff788b0e383365339f8",
+  "method": "Commanded extrusion time on other objects or the tower after the last extrusion on a part and before the next course on that part. Travel, acceleration and camera moves add time.",
+  "object_intervals": {
+    "cover-1": {
+      "all_courses": {
+        "intervals": 49,
+        "minimum_s": 34.266,
+        "minimum_at_next_z_mm": 10.28,
+        "median_s": 34.966
+      }
+    },
+    "cover-2": {
+      "all_courses": {
+        "intervals": 49,
+        "minimum_s": 34.265,
+        "minimum_at_next_z_mm": 10.28,
+        "median_s": 34.954
+      }
+    },
+    "cover-3": {
+      "all_courses": {
+        "intervals": 49,
+        "minimum_s": 34.308,
+        "minimum_at_next_z_mm": 10.52,
+        "median_s": 35.003
+      }
+    },
+    "receiver-1": {
+      "all_courses": {
+        "intervals": 144,
+        "minimum_s": 6.768,
+        "minimum_at_next_z_mm": 34.76,
+        "median_s": 28.001
+      },
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 24.66,
+        "minimum_at_next_z_mm": 15.32,
+        "median_s": 38.137
+      },
+      "post_above_catches": {
+        "intervals": 75,
+        "minimum_s": 6.768,
+        "minimum_at_next_z_mm": 34.76,
+        "median_s": 8.248
+      }
+    },
+    "receiver-2": {
+      "all_courses": {
+        "intervals": 144,
+        "minimum_s": 7.266,
+        "minimum_at_next_z_mm": 34.76,
+        "median_s": 25.423
+      },
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 24.321,
+        "minimum_at_next_z_mm": 12.44,
+        "median_s": 38.253
+      },
+      "post_above_catches": {
+        "intervals": 75,
+        "minimum_s": 7.266,
+        "minimum_at_next_z_mm": 34.76,
+        "median_s": 8.66
+      }
+    },
+    "receiver-3": {
+      "all_courses": {
+        "intervals": 144,
+        "minimum_s": 7.415,
+        "minimum_at_next_z_mm": 29.72,
+        "median_s": 24.663
+      },
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 24.334,
+        "minimum_at_next_z_mm": 12.44,
+        "median_s": 38.238
+      },
+      "post_above_catches": {
+        "intervals": 75,
+        "minimum_s": 7.415,
+        "minimum_at_next_z_mm": 29.72,
+        "median_s": 8.81
+      }
+    }
+  }
+}

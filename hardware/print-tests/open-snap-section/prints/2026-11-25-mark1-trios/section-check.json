@@ -1,0 +1,264 @@
+{
+  "purpose": "Verify the keys and the one, two and three marks survive in the actual Mark1 toolpaths.",
+  "gcode_sha256": "c7cbb2c79eacf6ad5f63b2633c303bfbec3ec6491a275ff788b0e383365339f8",
+  "method": "At a registered height of 27.92 mm through the collar top skin, intersect deposited roads expanded by their commanded radii at three axial positions. Read the two cover blades and the receiver material at the same positions. Check the seated pose and both end-for-end orientations over continuous lateral shifts of \u00b11.00 mm, wider than the 0.80 mm guide clearance, by evaluating every interval-end coincidence. Measure cover back and receiver flange marks from outer-wall roads.",
+  "axial_stations_mm": [
+    -4.5,
+    0,
+    4.5
+  ],
+  "key_height_mm": 27.92,
+  "samples": [
+    {
+      "pair": 1,
+      "east_blade_edges_mm_by_axial_station": {
+        "-4.5": [
+          4.7802,
+          6.1802
+        ],
+        "0.0": [
+          4.7802,
+          6.1802
+        ],
+        "4.5": [
+          4.7802,
+          6.1802
+        ]
+      },
+      "receiver_material_at_center_axial_station_mm": [
+        [
+          -9.65,
+          -6.8
+        ],
+        [
+          -4.16,
+          -3.342
+        ],
+        [
+          -2.9455,
+          -2.2756
+        ],
+        [
+          -1.1448,
+          -0.4756
+        ],
+        [
+          3.001,
+          4.16
+        ],
+        [
+          6.8,
+          9.65
+        ]
+      ]
+    },
+    {
+      "pair": 2,
+      "east_blade_edges_mm_by_axial_station": {
+        "-4.5": [
+          6.6,
+          8.0
+        ],
+        "0.0": [
+          6.6,
+          8.0
+        ],
+        "4.5": [
+          6.6,
+          8.0
+        ]
+      },
+      "receiver_material_at_center_axial_station_mm": [
+        [
+          -9.65,
+          -8.62
+        ],
+        [
+          -5.98,
+          -2.2754
+        ],
+        [
+          -1.1448,
+          -0.4756
+        ],
+        [
+          2.2882,
+          5.98
+        ],
+        [
+          8.62,
+          9.65
+        ]
+      ]
+    },
+    {
+      "pair": 3,
+      "east_blade_edges_mm_by_axial_station": {
+        "-4.5": [
+          8.4198,
+          9.8198
+        ],
+        "0.0": [
+          8.4198,
+          9.8198
+        ],
+        "4.5": [
+          8.4198,
+          9.8198
+        ]
+      },
+      "receiver_material_at_center_axial_station_mm": [
+        [
+          -7.8,
+          -2.2754
+        ],
+        [
+          -1.1448,
+          -0.4756
+        ],
+        [
+          2.2882,
+          7.8
+        ]
+      ]
+    }
+  ],
+  "registered_fit_matrix_cover_receiver": {
+    "1-1": {
+      "fits": true,
+      "least_blade_to_wall_air_mm": 0.62
+    },
+    "1-2": {
+      "fits": false,
+      "least_width_of_each_centered_blade_intersecting_receiver_material_mm": 1.2,
+      "least_total_obstructed_blade_width_within_0p8_mm_guide_limit_mm": 1.8,
+      "least_total_obstructed_blade_width_within_1p0_mm_lateral_shift_mm": 1.6
+    },
+    "1-3": {
+      "fits": false,
+      "least_width_of_each_centered_blade_intersecting_receiver_material_mm": 1.4,
+      "least_total_obstructed_blade_width_within_0p8_mm_guide_limit_mm": 2.8,
+      "least_total_obstructed_blade_width_within_1p0_mm_lateral_shift_mm": 2.8
+    },
+    "2-1": {
+      "fits": false,
+      "least_width_of_each_centered_blade_intersecting_receiver_material_mm": 1.2,
+      "least_total_obstructed_blade_width_within_0p8_mm_guide_limit_mm": 1.8,
+      "least_total_obstructed_blade_width_within_1p0_mm_lateral_shift_mm": 1.6
+    },
+    "2-2": {
+      "fits": true,
+      "least_blade_to_wall_air_mm": 0.62
+    },
+    "2-3": {
+      "fits": false,
+      "least_width_of_each_centered_blade_intersecting_receiver_material_mm": 1.2,
+      "least_total_obstructed_blade_width_within_0p8_mm_guide_limit_mm": 1.8,
+      "least_total_obstructed_blade_width_within_1p0_mm_lateral_shift_mm": 1.6
+    },
+    "3-1": {
+      "fits": false,
+      "least_width_of_each_centered_blade_intersecting_receiver_material_mm": 1.23,
+      "least_total_obstructed_blade_width_within_0p8_mm_guide_limit_mm": 1.83,
+      "least_total_obstructed_blade_width_within_1p0_mm_lateral_shift_mm": 1.63
+    },
+    "3-2": {
+      "fits": false,
+      "least_width_of_each_centered_blade_intersecting_receiver_material_mm": 1.03,
+      "least_total_obstructed_blade_width_within_0p8_mm_guide_limit_mm": 0.83,
+      "least_total_obstructed_blade_width_within_1p0_mm_lateral_shift_mm": 0.43
+    },
+    "3-3": {
+      "fits": true,
+      "least_blade_to_wall_air_mm": 0.62
+    }
+  },
+  "cover_marks": {
+    "cover-1": {
+      "section_z_mm": 5.96,
+      "outer_groove_x_ranges_mm": [
+        [
+          -0.6,
+          0.6
+        ]
+      ],
+      "largest_depth_mm": 0.85
+    },
+    "cover-2": {
+      "section_z_mm": 5.96,
+      "outer_groove_x_ranges_mm": [
+        [
+          -2.4,
+          -1.2
+        ],
+        [
+          1.2,
+          2.4
+        ]
+      ],
+      "largest_depth_mm": 0.85
+    },
+    "cover-3": {
+      "section_z_mm": 5.96,
+      "outer_groove_x_ranges_mm": [
+        [
+          -4.2,
+          -3.0
+        ],
+        [
+          -0.6,
+          0.6
+        ],
+        [
+          3.0,
+          4.2
+        ]
+      ],
+      "largest_depth_mm": 0.85
+    }
+  },
+  "receiver_marks": {
+    "receiver-1": {
+      "course_top_mm": 1.16,
+      "outer_flange_notch_axial_ranges_mm": [
+        [
+          -0.9,
+          0.9
+        ]
+      ],
+      "largest_depth_mm": 1.2
+    },
+    "receiver-2": {
+      "course_top_mm": 1.16,
+      "outer_flange_notch_axial_ranges_mm": [
+        [
+          -2.7,
+          -0.9
+        ],
+        [
+          0.9,
+          2.7
+        ]
+      ],
+      "largest_depth_mm": 1.2
+    },
+    "receiver-3": {
+      "course_top_mm": 1.16,
+      "outer_flange_notch_axial_ranges_mm": [
+        [
+          -4.5,
+          -2.7
+        ],
+        [
+          -0.9,
+          0.9
+        ],
+        [
+          2.7,
+          4.5
+        ]
+      ],
+      "largest_depth_mm": 1.2
+    }
+  }
+}
