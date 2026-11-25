@@ -124,5 +124,7 @@
   "launch": "launch.json",
   "printing_status": "printing-status.json",
   "identification_and_paths": "native-paths.json",
-  "mating_surfaces_in_toolpaths": "section-check.json"
+  "mating_surfaces_in_toolpaths": "section-check.json",
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-25T23:06:37+00:00"
 }
