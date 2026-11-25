@@ -3,6 +3,7 @@
 //! machine places it by.
 //!
 //!     funnel-frame [<output directory>]
+mod dispense_clip;
 #[allow(dead_code)]
 mod funnel_geometry;
 #[allow(dead_code)]
@@ -118,7 +119,7 @@ fn socket(n: &Frame) -> Result<Solid> {
     pocket.cut(&floor)
 }
 
-fn build(n: &Frame) -> Result<Solid> {
+fn build(n: &Frame, clip: &dispense_clip::Station) -> Result<Solid> {
     let seat = n.seat;
     let floor = n.roof_floor + SEATING_RELIEF;
     let top = n.roof_top;
@@ -166,7 +167,7 @@ fn build(n: &Frame) -> Result<Solid> {
     let forming = forming.intersect(&block(-200.0, 200.0, -200.0, 200.0, clip0, clip1))?;
     let (dx, dy) = n.drain_xy;
     let (z0, z1) = n.web_cut_z;
-    let mut tools = vec![socket(n)?, forming, brim(n)?, cylinder(dx, dy, n.hole_radius, z0, z1)?];
+    let mut tools = vec![socket(n)?, dispense_clip::receiver(clip)?, forming, brim(n)?, cylinder(dx, dy, n.hole_radius, z0, z1)?];
     let (sx0, sx1) = n.slot_x;
     let (sy0, sy1) = n.slot_y;
     for side in [-1.0, 1.0] {
@@ -187,7 +188,8 @@ fn build(n: &Frame) -> Result<Solid> {
 fn main() -> Result<()> {
     let out = zone_files::out_dir("hardware/printed-parts/zone-c/funnel")?;
     let n = frame();
-    let solid = build(&n)?.simplified()?;
+    let clip = dispense_clip::Station::new(&n);
+    let solid = build(&n, &clip)?.simplified()?;
     let name = "funnel-frame";
     let color = Some(n.color);
     let size = solid.bounds().size();
@@ -213,8 +215,14 @@ fn main() -> Result<()> {
                          (stl_name,printed.stl_bytes())] {
         zone_files::keep(&out.join(file),bytes)?;
     }
+    let keeper = dispense_clip::keeper(&clip)?.simplified()?;
+    let result = hsm_kernel::part::write_part(&out, dispense_clip::NAME, &[
+        Body { name: dispense_clip::NAME, color, solid: &keeper },
+    ])?;
+    println!("{result}");
     zone_files::json(&out.join("funnel-frame.numbers.json"), &json!({
         "seat": n.seat,
+        "dispense_clip_xy": clip.frame_xy,
         "roof_floor": n.roof_floor,
         "screws": n.screws,
     }))?;

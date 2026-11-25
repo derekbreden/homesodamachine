@@ -466,6 +466,24 @@
       "parts": [
         {
           "stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"
+        },
+        {
+          "name": "funnel-dispense-clip",
+          "stl": "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl",
+          "pose": {
+            "turns": [["x", 90]],
+            "reason": "The clip lies on its fore end so a continuous perimeter follows each spring leaf, its hook and the common root."
+          },
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "Three walls follow the PET-GF snap-cap recipe and fill the 1.50 mm leaves."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The spring roots and the fixed center tongue use solid stock, as on the PET-GF snap caps."
+            }
+          }
         }
       ]
     },

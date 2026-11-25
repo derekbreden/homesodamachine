@@ -312,7 +312,7 @@ Use the actual seating marks for the meter and union depths.
 
 Flavor A runs from V-G to X28.8/Z294.2, the middle-right rear fitting;
 flavor B runs from V-J to X28.8/Z264, the bottom-right rear fitting.
-Both use black 4 mm tubing with R25 or larger bends. Their free fore runs
+Both use black 4 mm tubing with R25 or larger bends. Their fore runs
 cross below the funnel frame, use the pump's east aisle and enter the rear
 sockets beside the meter. Flavor A turns into the X30/Z276.5 lane between
 the pump and meter caps, then rises aft of the ASSE vent sleeve to its rear
@@ -331,8 +331,8 @@ tubes into their curved aft clips while the core is open.
 
 Carry the loose front dispense ends while positioning back-top. Connect V-G
 and V-J through the uncovered funnel opening, matching each faucet tail's
-collar to its logical rear socket. The removable funnel frame carries no
-flavor-tube seat.
+collar to its logical rear socket. Flavor A's front bend lines up with its aft
+bend at X−33. The removable frame clips the middle of this run at Y211.
 
 ### 5. Final connections through the funnel opening
 
@@ -357,11 +357,14 @@ clock V-B’s inlet turn west and up to face it.
 
 Cut the straight black `fluid-4` link to 36.469 mm, including the 16.891 mm
 insertion at each socket. Mark and fully seat both ends; the exposed span is
-2.687 mm. Connect it through the open roof, then lower the frame onto its
-ledges. Complete and inspect the joint before fitting the silicone funnel.
+2.687 mm. Connect it through the open roof. Press the flavor A clip into
+the blind pocket under the frame until both catches seat. With the frame
+still loose, support the black V-G tube and press it up between the jaws.
+Lower the frame onto its ledges. Inspect both connections before fitting
+the silicone funnel.
 The funnel’s straight bore presses over 11.265 mm of the uncut stem, whose
-tip finishes at the bowl opening. The elbow and cradle travel with the frame;
-disconnect the V-B feed before withdrawing it.
+tip finishes at the bowl opening. For removal, disconnect the V-B feed and
+release the V-G tube downward as the frame lifts. Both V-G tube ends stay connected.
 
 Confirm every push-fit witness, trim engagement, clamp and tie on the made-up
 hardware. Keep wiring clear of wet joints and preserve access to moving

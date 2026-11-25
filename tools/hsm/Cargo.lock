@@ -1777,6 +1777,7 @@ dependencies = [
  "anyhow",
  "hsm-geometry",
  "hsm-kernel",
+ "hsm-layout-data",
  "hsm-manifold",
  "hsm-zone-c-numbers",
  "serde_json",

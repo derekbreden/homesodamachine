@@ -123,7 +123,7 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.799 | $45.02 <!--@printed--><!--parts HSM-0018--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.324 | $8.10 <!--@printed--><!--parts HSM-0020--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.324 | $8.11 <!--@printed--><!--parts HSM-0020--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.191 | $4.77 <!--@printed--><!--parts HSM-0021--> |
 | Reservoir B fill bend holder | 1 | PET-GF | 0.003 | $0.07 <!--@printed--><!--parts HSM-0454--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0024--> |
@@ -131,10 +131,10 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--><!--parts HSM-0026--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0027--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--><!--parts HSM-0028--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.622 | $40.58 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.625 | $40.65 <!--@printed--><!--parts HSM-0078:630 HSM-0079:956--> |
 | Enclosure — pump retainer | 2 | PET-GF | 0.010 | $0.26 <!--@printed--><!--parts HSM-0082--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--><!--parts HSM-0029--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.499 | $37.50 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.499 | $37.51 <!--@printed--><!--parts HSM-0080:688.8 HSM-0081:766.1--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--><!--parts HSM-0076--> |
 | Status plate | 1 | PETG (black, white, clear) | 0.012 | $0.14 <!--@printed--><!--parts HSM-0579--> |
 | Rear port identification plates | 6 | PETG (blue, white ×2, red, black ×2) | 0.018 | $0.20 <!--@printed--><!--parts HSM-0062:2327.834 HSM-0063:2427.834 HSM-0064:2530.414 HSM-0065:2530.414 HSM-0066:2582.343 HSM-0067:2528.491--> |
@@ -147,10 +147,11 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Above-counter plate | 1 | PET-GF | 0.010 | $0.26 <!--@printed--><!--parts HSM-0092 HSM-0111--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--><!--parts HSM-0268--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--><!--parts HSM-0098--> |
-| Rear equipment snap caps | 4 | PET-GF | 0.065 | $1.62 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
-| G Ganen pump snap cap | 1 | PET-GF | 0.092 | $2.29 <!--@printed--><!--parts HSM-0455--> |
+| Rear equipment snap caps | 4 | PET-GF | 0.066 | $1.65 <!--@printed--><!--parts HSM-0448:22.44 HSM-0450:16.66 HSM-0449:11.52 HSM-0451:13.62--> |
+| G Ganen pump snap cap | 1 | PET-GF | 0.093 | $2.33 <!--@printed--><!--parts HSM-0455--> |
 | Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--><!--parts HSM-0358--> |
 | Funnel frame | 1 | PET-GF | 0.260 | $6.50 <!--@printed--><!--parts HSM-0072--> |
+| Flavor A dispense tube clip | 1 | PET-GF | 0.001 | $0.03 <!--@printed--><!--parts HSM-0585--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--><!--parts HSM-0071--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.008 | $0.20 <!--@printed--><!--parts HSM-0073--> |
 | Reservoir liquid-tube grips | 4 | Bambu TPU 90A | 0.000785 | $0.04 <!--@printed--><!--parts HSM-0457--> |
@@ -160,9 +161,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | ASSE drain adapter | 1 | Siraya TPU 85A (clear) | 0.005709 | $0.19 <!--@printed--><!--parts HSM-0088--> |
 | Faucet tube sealing thimble | 1 | Bambu TPU 85A | 0.000449 | $0.02 <!--@printed--><!--parts HSM-0090--> |
 | Sculpted faucet mounting gasket | 1 | Bambu TPU 90A | 0.005959 | $0.27 <!--@printed--><!--parts HSM-0093--> |
-| **Printed parts total** | | | **~7.16** | **[$164.77](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.17** | **[$164.96](BOM_SEC7)** |
 
-By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.06 kg / $151.52. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
+By material: PETG ≈ 1.08 kg / $12.11 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.76 — and PET-GF ≈ 6.06 kg / $151.71. Bambu TPU 85A ≈ 0.011551 kg / $0.56. Bambu TPU 90A ≈ 0.008301 kg / $0.37. Siraya TPU 85A ≈ 0.005709 kg / $0.19.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -211,7 +212,7 @@ The funnel is cast platinum-cure silicone and billed in the flavor subsystem. Th
 |---|---|---:|---:|---:|
 | [Westbrass A2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | donor faucet; its body, washer and nut, with the printed lever in place of its own; assembly sequence in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Base joint" | 1 | $32.18 | $32.18 <!--@faucet--><!--parts HSM-0089--> |
 | SendCutSend 0.060" 316 SS under-counter plate (`under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Tubes and countertop mounting"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 <!--@cut-parts--><!--parts HSM-0269--> |
-| [neoFlo black 4 mm OD LLDPE, 100 ft (LLDPE4M-BLACK)](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | **Flavor dispense, V-G/V-J to the glass.** 4 mm OD / 2.5 mm ID; R25 minimum. Two continuous [1963](FLAVOR_CUT) mm faucet/umbilical runs plus the two internal valve-to-bulkhead routes. Internal native paths include nominal 10 mm insertion at each end; use the actual receiving marks when cutting blanks. Black through either faucet finish. FWS catalog checked 2026-10-21: $13/100 ft = $0.13/ft; shipping/tax unallocated. | ~[16.08](FLAVOR_4MM_FT) ft (of 100 ft) | $0.13 | [$2.09](FLAVOR_4MM_COST) <!--@plumbing--><!--parts HSM-0107:3926 HSM-0304:632.3 HSM-0303:501.3--> |
+| [neoFlo black 4 mm OD LLDPE, 100 ft (LLDPE4M-BLACK)](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | **Flavor dispense, V-G/V-J to the glass.** 4 mm OD / 2.5 mm ID; R25 minimum. Two continuous [1963](FLAVOR_CUT) mm faucet/umbilical runs plus the two internal valve-to-bulkhead routes. Internal native paths include nominal 10 mm insertion at each end; use the actual receiving marks when cutting blanks. Black through either faucet finish. FWS catalog checked 2026-10-21: $13/100 ft = $0.13/ft; shipping/tax unallocated. | ~[16.04](FLAVOR_4MM_FT) ft (of 100 ft) | $0.13 | [$2.08](FLAVOR_4MM_COST) <!--@plumbing--><!--parts HSM-0107:3926 HSM-0304:632.3 HSM-0303:501.3--> |
 | [neoFit ARD4M4-E 4 mm tube × 1/4" stem reducer](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-reducer-4mm-5-32-tube-x-1-4-stem?variant=42404048339128) | One directly in V-G-O and one in V-J-O. Each accepts the 4 mm dispense run. Bag of 10 recorded delivered October 9, WEBFWS100711469 ([purchases.md §3](/hardware/ledger/purchases.md)). FWS single-unit list $1.20, shipping/tax unallocated. | 2 | $1.20 | $2.40 <!--@plumbing--><!--parts HSM-0357--> |
 | [neoFit ABU44M-E 4 mm black acetal bulkhead](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | Two rear-wall **FLAVOR** ports. M15 × 1.5 barrel; matching metric-bore black identification chips. The separate DRAIN port in §3 takes a third fitting from the same delivered bag of ten. FWS single-unit list $2.78, shipping/tax unallocated. | 2 | $2.78 | $5.56 <!--@plumbing--><!--parts HSM-0061--> |
 | [neoFlo White 3/8" OD LLDPE tubing, 25 ft (LLDPE6-WHITE)](https://www.freshwatersystems.com/products/white-3-8-od-lldpe-polyethylene-tubing) | **White faucet — the soda faucet tube**, the 3/8" tube from the TPU thimble in the Westbrass's top port to the printed tip, cut [330](SODA_FAUCET_CUT) mm ([`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §1). A Black faucet cuts the same length from the black 3/8" stock (FWS `WEBFWS100673540`, [purchases.md](/hardware/ledger/purchases.md)). FWS list, 25 ft @ $6.50 = $0.26/ft. | [1.08](SODA_FAUCET_FT) ft (of 25 ft) | $0.26 | $0.28 <!--@plumbing--><!--parts HSM-0574--> |
@@ -311,7 +312,7 @@ carbonator earth clamp use stainless stock.
 8. **IEC C14 inlet** uses [2](C14_SCREWS) M3 × 12 screws, regular M3 inserts and flat washers. Its internal flange pocket retains closed exterior backing. The flange and washer leave [6.41](C14_SCREW_REACH) mm reach in the [7.41](C14_BORE) mm blind pilot.
 9. **Compressor** uses [4](FLOOR_SCREWS) M5 × 12 screws, regular M5 inserts and fender washers. The printed post is the grommet sleeve; its crown fixes the compression and carries the washer. The deeper blind pilots clear the screw tips while retaining the floor backing.
 10. **Pump retainers** use [4](PUMP_CLAMP_SCREWS) M3 × 25 screws and regular M3 inserts. Their deeper head seats provide engagement in the longer insert bodies while retaining the fitted flange bearings.
-11. **Funnel frame** uses [6](FUNNEL_FRAME_SCREWS) M3 × 12 screws in regular M3 inserts. The electronics ceiling stays continuous; disconnect the V-B feed before lifting the frame.
+11. **Funnel frame** uses [6](FUNNEL_FRAME_SCREWS) M3 × 12 screws in regular M3 inserts. Disconnect the V-B feed and release the V-G tube from the underside clip before removing the frame.
 
 The T18 tip kit and FX-888D iron are tooling, recorded in the tools ledger.
 
@@ -356,16 +357,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$134.94](BOM_SEC4) |
 | 5. Refrigeration | [$124.40](BOM_SEC5) |
 | 6. Cold core insulation | [$20.84](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$164.77](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$164.96](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.17](BOM_SEC8) |
-| 9. Dispensing | [$78.57](BOM_SEC9) |
+| 9. Dispensing | [$78.56](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$34.84](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
 | 13. Mechanical attach hardware | [$29.00](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,442.59](BOM_GRAND)** |
+| **Total** | **[$1,442.77](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

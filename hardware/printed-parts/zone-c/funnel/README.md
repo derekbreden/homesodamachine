@@ -103,6 +103,19 @@ Its flat underside flange and lower corbels are functional bearing/access featur
 use the enclosure's PET-GF support-removal strategy. Clamping and full-frame fit
 with the added screws await a physical assembly.
 
+## Flavor A dispense tube clip
+
+The black 4 mm tube from V-G passes under the frame on the X−33 lane. A
+separate PET-GF clip seats in a blind pocket on the dry underside at machine
+Y211. Its two hooks enter on 45° ramps and catch 0.60 mm behind each shoulder.
+The pocket closes on two 45° roof faces. The frame prints on its feet and
+the clip prints beside it on its flat fore end, with each spring in the layer plane.
+
+Press the clip into the frame first. Support the tube with the frame still
+loose and press it through the 3.20 mm opening. The two lips retain it below
+and the center tongue sets its upper limit. Release the tube downward as
+the frame lifts for service. The valve and rear socket can stay connected.
+
 ## Drain socket and snap web
 
 The socket floor forms a T. Its crossbar spans the front of the socket and its

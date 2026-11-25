@@ -90,7 +90,10 @@
     "filament": "PET-GF",
     "thumbnail": "/parts/plates/funnel-frame.webp",
     "href": "/parts#material:HSM-0072?view=print",
-    "parts": [{"label": "Flavor-fill funnel frame", "material": "HSM-0072"}]
+    "parts": [
+      {"label": "Flavor-fill funnel frame", "material": "HSM-0072"},
+      {"label": "Flavor A dispense tube clip", "material": "HSM-0585"}
+    ]
   },
   {
     "id": "small-petgf",

@@ -91,6 +91,7 @@ hardware/wiring/enclosure-wiring.json
 hardware/wiring/enclosure-wiring.csv
 hardware/wiring/enclosure-wiring.numbers.json
 hardware/printed-parts/zone-c/funnel/funnel-frame.stl
+hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl
 hardware/printed-parts/enclosure/electronics-access-panel/electronics-access-panel.stl
 hardware/printed-parts/enclosure/rear-identification/rear-label-*.stl
 hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl

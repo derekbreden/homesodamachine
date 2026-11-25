@@ -30,6 +30,7 @@ path = "../../../hardware/printed-parts/zone-c/funnel-mold/funnel_mold.rs"
 anyhow.workspace = true
 hsm-geometry = { path = "../geometry" }
 hsm-kernel = { path = "../kernel" }
+hsm-layout-data = { path = "../layout-data" }
 hsm-zone-c-numbers = { path = "../zone-c-numbers" }
 hsm-manifold = { path = "../manifold" }
 serde_json.workspace = true
