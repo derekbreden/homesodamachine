@@ -90,5 +90,7 @@
   "contact_course_review": "section-check.json",
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
-  "printing_status": "printing-status.json"
+  "printing_status": "printing-status.json",
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-25T17:53:14+00:00"
 }

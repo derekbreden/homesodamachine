@@ -91,5 +91,7 @@
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
   "printing_status": "printing-status.json",
-  "seconds_after_mark1_accepted": 217.0
+  "seconds_after_mark1_accepted": 217.0,
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-25T17:57:52+00:00"
 }
