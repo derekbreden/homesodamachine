@@ -1,0 +1,59 @@
+{
+  "purpose": "Measure the off-object cooling time between deposited courses of each working snap and compare with the filmed open coupon.",
+  "method": "Sum commanded extrusion time on the other objects from the final road on one course to the first road of the next. Travel, acceleration and camera motion add time.",
+  "control": "../2026-11-24-mark2/cooling.json",
+  "control_minimum_s": {
+    "cover": 23.05,
+    "through_fixed_catches": 22.06,
+    "post_above_fixed_catches": 6.25
+  },
+  "fixed_catch_height_mm": {
+    "receiver-wide-neutral": 16.8,
+    "receiver-wide-firm": 16.8
+  },
+  "archive_sha256": "9cac07082791fea093e4d77566104af118eac84cf909a0c06235eb03da5e0b41",
+  "gcode_sha256": "312b2fd6789e64d8edd261d921b5bd68d6feeffc2e4ce1923bbf6c46bcc0af93",
+  "coupon_intervals": {
+    "cover-wide-preloaded": {
+      "cover": {
+        "intervals": 49,
+        "minimum_s": 24.131,
+        "minimum_at_next_course_z_mm": 10.28,
+        "median_s": 24.753,
+        "maximum_s": 70.422
+      }
+    },
+    "receiver-wide-neutral": {
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 23.739,
+        "minimum_at_next_course_z_mm": 15.56,
+        "median_s": 27.08,
+        "maximum_s": 49.789
+      },
+      "post_above_fixed_catches": {
+        "intervals": 75,
+        "minimum_s": 6.509,
+        "minimum_at_next_course_z_mm": 34.76,
+        "median_s": 6.837,
+        "maximum_s": 22.648
+      }
+    },
+    "receiver-wide-firm": {
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 23.199,
+        "minimum_at_next_course_z_mm": 12.44,
+        "median_s": 27.105,
+        "maximum_s": 50.098
+      },
+      "post_above_fixed_catches": {
+        "intervals": 75,
+        "minimum_s": 6.832,
+        "minimum_at_next_course_z_mm": 22.76,
+        "median_s": 6.838,
+        "maximum_s": 23.761
+      }
+    }
+  }
+}

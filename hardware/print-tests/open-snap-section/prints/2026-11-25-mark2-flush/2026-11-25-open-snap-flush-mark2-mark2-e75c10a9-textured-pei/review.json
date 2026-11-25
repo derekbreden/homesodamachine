@@ -1,0 +1,111 @@
+{
+  "archive": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei.gcode.3mf",
+  "archive_sha256": "9cac07082791fea093e4d77566104af118eac84cf909a0c06235eb03da5e0b41",
+  "bead_envelope_plate_mm": [
+    [
+      121.559158,
+      120.640158
+    ],
+    [
+      203.440842,
+      199.359842
+    ]
+  ],
+  "bed_border_mm": 96.0,
+  "bed_margins_mm": {
+    "back": 120.64015800000001,
+    "front": 120.640158,
+    "left": 121.559158,
+    "right": 121.559158
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.8880510701656755,
+      "second_layer_centerline_outside_first_mm": 3.813017558146313,
+      "second_layer_model_bead_area_mm2": 277.9317961079981
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.995904329918166,
+      "second_layer_centerline_outside_first_mm": 4.4867587745401565,
+      "second_layer_model_bead_area_mm2": 415.6887244860842
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.9948269961120596,
+      "second_layer_centerline_outside_first_mm": 5.924973899981645,
+      "second_layer_model_bead_area_mm2": 414.029515229753
+    },
+    "1904": {
+      "fraction_over_first_layer": 0.9992234846083266,
+      "second_layer_centerline_outside_first_mm": 0.0,
+      "second_layer_model_bead_area_mm2": 96.33648708490642
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 145,
+  "minimum_bed_margin_mm": 120.640158,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1903": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1904": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "purpose": "Read both receiver jaw profiles and the free cover tips from the emitted model paths of this plate.",
+  "archive_sha256": "9cac07082791fea093e4d77566104af118eac84cf909a0c06235eb03da5e0b41",
+  "gcode_sha256": "312b2fd6789e64d8edd261d921b5bd68d6feeffc2e4ce1923bbf6c46bcc0af93",
+  "control_gcode_sha256": "fed2c4773d736de1717e3c1ad1c92132ff952f076a011814aafb19340fc86d36",
+  "cover": {
+    "name": "cover-wide-preloaded",
+    "method": "On all 46 interior axial courses from Z 0.68 through 11.48 mm, intersect the outer-wall roads, expanded by their commanded radii, at measured distances back from the front face of the free crests. The span runs across both wings.",
+    "lands_0p03_mm_inside_free_crest": {
+      "cad_tip_land_widths_mm": [
+        2.00937,
+        2.00937
+      ],
+      "emitted_west_land_width_mm": [
+        1.84759,
+        1.85533
+      ],
+      "emitted_east_land_width_mm": [
+        1.85533,
+        1.85533
+      ]
+    },
+    "filmed_cover_lands_at_same_setback": {
+      "cad_tip_land_widths_mm": [
+        0.91969,
+        0.91969
+      ],
+      "emitted_west_land_width_mm": [
+        0.79433,
+        0.79433
+      ],
+      "emitted_east_land_width_mm": [
+        0.79433,
+        0.79433
+      ]
+    },
+    "stations_mm_back_from_free_crest": {
+      "0.48": {
+        "cad_outer_width_mm": 27.24534,
+        "emitted_outer_width_mm": [
+          27.24538,
+          27.24539
+        ],
+        "filmed_cover_emitted_width_mm": [
+          28.812,
+          28.812
+        ]
+      },
+      "2.4": {
+        "cad_outer_width_mm": 27.38177,
+        "emitted_outer_width_mm": [
+          27.38117,
+          27.38124
+        ],
+        "filmed_cover_emitted_width_mm": [
+          28.812,
+          28.812
+        ]
+      },
+      "5.0": {
+        "cad_outer_width_mm": 27.56652,
+        "emitted_outer_width_mm": [
+          27.56506,
+          27.5652
+        ],
+        "filmed_cover_emitted_width_mm": [
+          28.812,
+          28.812
+        ]
+      }
+    }
+  },
+  "receivers": {
+    "method": "Intersect the commanded outer-wall widths at axial stations -4.5, 0 and +4.5 mm on both jaws, from the first full course beyond the roof to the end of the fixed catches. Compare the outermost radial bead edges with the archived CAD at each ordinary course midpoint. Outward change is firm minus neutral. The post height is the highest model course intersecting its axis. At the three axial stations on each jaw, expansion compares the outward-stepping outer-wall interval with the immediately preceding course of model material.",
+    "neutral": {
+      "name": "receiver-wide-neutral",
+      "source_catch_height_mm": 16.8,
+      "saddle_post_last_course_mm": [
+        34.76,
+        34.76
+      ],
+      "growing_retaining_faces": {
+        "samples": 54,
+        "maximum_outward_step_per_course_mm": 0.24,
+        "minimum_fraction_of_outermost_wall_interval_over_previous_model_material": 0.4286
+      }
+    },
+    "firm": {
+      "name": "receiver-wide-firm",
+      "source_catch_height_mm": 16.8,
+      "saddle_post_last_course_mm": [
+        34.76,
+        34.76
+      ],
+      "growing_retaining_faces": {
+        "samples": 60,
+        "maximum_outward_step_per_course_mm": 0.24,
+        "minimum_fraction_of_outermost_wall_interval_over_previous_model_material": 0.4286
+      }
+    },
+    "matched_layer_range_mm": [
+      3.8,
+      16.76
+    ],
+    "outward_change_bands": [
+      {
+        "full_0p12_offset_interior": {
+          "samples": 48,
+          "layer_tops_mm": [
+            12.44,
+            14.12
+          ],
+          "deposited_outward_change_mm": [
+            0.12,
+            0.12
+          ]
+        },
+        "layer_tops_mm": [
+          12.2,
+          14.12
+        ],
+        "layers": 9,
+        "samples": 54,
+        "cad_outward_change_mm": [
+          0.02,
+          0.12
+        ],
+        "deposited_outward_change_mm": [
+          0.02,
+          0.12
+        ],
+        "maximum_absolute_difference_between_bead_and_cad_changes_mm": 0.0
+      }
+    ]
+  },
+  "crown": {
+    "method": "At axial stations -4.5, 0 and +4.5 mm, register both free crest lands with the printed roof at their straight seated targets. The Mark2 crest shifts outward by its prescribed 0.80 mm on each side. The cover saddle stays centered. Across every exposed crown terrace, intersect the commanded cover outer-wall edges at the receiver course edges and at a pitch of at most 0.02 mm. A negative gap is projected overlap in that rigid registration. The flange identification count samples the outer edge of the receiver backplate at print Z 1.16 mm.",
+    "neutral": {
+      "full_post_width_mm": 8.0,
+      "actual_crest_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "constrained_crest_travel_from_nominal_mm": [
+        -0.0103,
+        -0.0103
+      ],
+      "crown_center_gap_at_crest_stop_mm": [
+        0.02793,
+        0.02793
+      ],
+      "least_crown_to_saddle_gap_at_crest_stop_mm": [
+        -0.01189,
+        -0.00919
+      ],
+      "terraces_in_print_order": [
+        {
+          "top_z_mm": 33.8,
+          "crown_width_mm": [
+            8.0,
+            8.0
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            0.22951,
+            0.22951
+          ],
+          "x_radius_at_closest_gap_mm": [
+            4.0,
+            4.0
+          ]
+        },
+        {
+          "top_z_mm": 34.04,
+          "crown_width_mm": [
+            7.956,
+            7.956
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.00198,
+            -0.00198
+          ],
+          "x_radius_at_closest_gap_mm": [
+            3.978,
+            3.978
+          ]
+        },
+        {
+          "top_z_mm": 34.28,
+          "crown_width_mm": [
+            6.598,
+            6.598
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.00198,
+            -0.00198
+          ],
+          "x_radius_at_closest_gap_mm": [
+            3.299,
+            3.299
+          ]
+        },
+        {
+          "top_z_mm": 34.52,
+          "crown_width_mm": [
+            4.84,
+            4.84
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.01189,
+            -0.00674
+          ],
+          "x_radius_at_closest_gap_mm": [
+            2.42,
+            2.42
+          ]
+        },
+        {
+          "top_z_mm": 34.76,
+          "crown_width_mm": [
+            1.718,
+            1.718
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.00919,
+            -0.00914
+          ],
+          "x_radius_at_closest_gap_mm": [
+            0.859,
+            0.859
+          ]
+        }
+      ],
+      "flange_identifier": {
+        "layer_top_mm": 1.16,
+        "visible_notches": 1,
+        "y_centers_mm": [
+          0.0
+        ],
+        "greatest_inward_depth_mm": [
+          1.2003
+        ]
+      }
+    },
+    "firm": {
+      "full_post_width_mm": 8.0,
+      "actual_crest_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "constrained_crest_travel_from_nominal_mm": [
+        -0.0103,
+        -0.0103
+      ],
+      "crown_center_gap_at_crest_stop_mm": [
+        0.02793,
+        0.02793
+      ],
+      "least_crown_to_saddle_gap_at_crest_stop_mm": [
+        -0.01189,
+        -0.00919
+      ],
+      "terraces_in_print_order": [
+        {
+          "top_z_mm": 33.8,
+          "crown_width_mm": [
+            8.0,
+            8.0
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            0.22951,
+            0.22951
+          ],
+          "x_radius_at_closest_gap_mm": [
+            4.0,
+            4.0
+          ]
+        },
+        {
+          "top_z_mm": 34.04,
+          "crown_width_mm": [
+            7.956,
+            7.956
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.00198,
+            -0.00198
+          ],
+          "x_radius_at_closest_gap_mm": [
+            3.978,
+            3.978
+          ]
+        },
+        {
+          "top_z_mm": 34.28,
+          "crown_width_mm": [
+            6.598,
+            6.598
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.00198,
+            -0.00198
+          ],
+          "x_radius_at_closest_gap_mm": [
+            3.299,
+            3.299
+          ]
+        },
+        {
+          "top_z_mm": 34.52,
+          "crown_width_mm": [
+            4.84,
+            4.84
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.01189,
+            -0.00674
+          ],
+          "x_radius_at_closest_gap_mm": [
+            2.42,
+            2.42
+          ]
+        },
+        {
+          "top_z_mm": 34.76,
+          "crown_width_mm": [
+            1.718,
+            1.718
+          ],
+          "closest_gap_to_saddle_at_crest_stop_mm": [
+            -0.00919,
+            -0.00914
+          ],
+          "x_radius_at_closest_gap_mm": [
+            0.859,
+            0.859
+          ]
+        }
+      ],
+      "flange_identifier": {
+        "layer_top_mm": 1.16,
+        "visible_notches": 2,
+        "y_centers_mm": [
+          -1.781,
+          1.812
+        ],
+        "greatest_inward_depth_mm": [
+          1.1881,
+          1.1878
+        ]
+      }
+    }
+  },
+  "shoulders_at_printed_roof_stop": {
+    "method": "At the printed crest-roof stop, read the enclosing roads on both cover flanks and both receiver flanks at the middle height of each steady 45-degree shoulder course and at three axial stations. Restrict the samples to at least 0.40 mm inside each end of the target flank. For Mark2 apply the source straightening to the printed free cover at each height. A positive projection is the additional radial distance the two contours occupy in a rigid registration. Bead rounding, elastic deflection and hand force are physical variables.",
+    "receivers": {
+      "receiver-wide-neutral": {
+        "sample_count": 24,
+        "receiver_layer_tops_mm": [
+          13.16,
+          13.88
+        ],
+        "radial_overlap_at_course_midheight_mm": [
+          0.11045,
+          0.11079
+        ]
+      },
+      "receiver-wide-firm": {
+        "sample_count": 24,
+        "receiver_layer_tops_mm": [
+          13.16,
+          13.88
+        ],
+        "radial_overlap_at_course_midheight_mm": [
+          0.23045,
+          0.23079
+        ]
+      }
+    }
+  }
+}

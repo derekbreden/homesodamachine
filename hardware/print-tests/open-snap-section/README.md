@@ -20,6 +20,25 @@ The Mark2 comparison plate carries the three variants and a fresh copy of the fi
 
 Fit the two originals first. With the same cover, try the receiver whose center post is 0.48 mm shorter and feel for a change in spring-back. Then try the receiver with the 3 × 3 mm corner fills and compare entry and release. Return to the original receiver and try the cover with 0.20 mm relieved along closure on each retaining face. Compare wing seating and grip. Both covers keep the +0.40 mm crests. [Design and model predictions](proposed-comparisons.json) · [Contact surfaces in the submitted toolpaths](prints/2026-11-24-comparisons-mark2/section-check.json)
 
+In the comparison video, daylight opens between the shorter post and the saddle, and Derek feels more sideways movement. The relieved cover still sits at about the same angle. Light passes between each filled corner and the hook beside it. The filmed fit establishes the full-height post as the reference for the next two plates. [Comparison video observations and stills](prints/2026-11-24-comparisons-mark2/physical-result.json)
+
+## Straight wings and matching pockets
+
+Both designs carry the pocket wall along the angled face of the hook, leaving 0.22 mm of lateral room for entry. On the filmed receiver, that space widens to about 4.45 mm beside the crest when the original cover is drawn straight. The new retaining faces meet the straight wings at the closure where the crests and saddle reach their stops. [Coupon geometry](parts/flush-geometry.json)
+
+![End sections of the original coupon and the two matching-pocket trials](flush-sections.png)
+
+| Plate | Cover | Receiver |
+| --- | --- | --- |
+| Mark1 | The filmed cover, including its 0.90 mm flat crests. | Matches the existing hooks and keeps the original 6 mm-wide post. The hooks reach 2.60 mm past the catches at the straight design position. |
+| Mark2 | 2.00 mm flat crests and an inward curve of 0.80 mm per free tip. | The 8 mm-wide post follows the regulator's radius at the same crown height. Each hook reaches 1.80 mm past its catch at the straight design position. |
+
+On Mark2 the catch opens each curved wing as it seats. The wing can then push inward while the outside face looks straight. The wider flat crests give the cover two bearing surfaces farther apart than the center post, so pressure on one side can bear on that side's crest. In the model, moving the saddle sideways by 0.50 mm requires 0.20 mm of lift over the new crown, compared with 0.02 mm on the original. In the sliced paths the edges of the broad crown meet the saddle about 0.01 mm before the crests reach their stops. An end-on look will show which surfaces bear on the print. [Insertion paths, spring travel and crown contact](flush-fit-check.json)
+
+Keep each cover with its own plate. Fit the **one-notch receiver** first. It targets straight wings with the retaining faces just touching in CAD. The **two-notch receiver** moves each retaining face 0.12 mm toward the seated hook to test a firmer grip. On both plates the slicer puts the crest stop 0.11 mm above its CAD height. With the crests registered to this printed height, the commanded shoulders overlap the straight cover by about 0.11 mm radially on the one-notch receiver and 0.23 mm on the two-notch receiver at mid-layer. Both can therefore put some spring load into the wings.
+
+With the receiver on its back, look at both crests end-on, press each side and let go, then compare the effort to release it. A pair that stays square, springs back and grips like the filmed original is the one to try at full equipment length. [Mark1 toolpath sections](prints/2026-11-25-mark1-flush/section-check.json) · [Mark2 toolpath sections](prints/2026-11-25-mark2-flush/section-check.json)
+
 ## Reproduce the pair
 
 The source takes a constant section from the production bodies. To change only the center support in a later trial, change `FILLER_CONTACT_TRAVEL`. A larger value shortens the post and lets the cover travel farther before touching it. [Coupon source](coupon.rs)
@@ -34,3 +53,5 @@ tools/run -- tools/hsm/target/release/enclosure-print-prep open-snap-section \
 On the Mark2 plate the receiver sits on its flat back and the cover stands on one open end, matching their production layer directions. The third piece is a hollow cooling wall. Its wide section lasts until the fixed catches finish, then a narrow column continues alongside the center post. It gives the cover at least 23 seconds between layers and keeps the plate to about an hour. [Cooling measured from the toolpaths](prints/2026-11-24-mark2/cooling.json) · [Mark2 print record](prints/2026-11-24-mark2/print-job.json)
 
 To reproduce the five comparison coupons on one plate, use `open-snap-comparisons` in the slicer command above. The geometry command writes the originals and the three variants together.
+
+For the matching-pocket trials, use `open-snap-flush-mark1 --printer Mark1` and `open-snap-flush-mark2 --printer Mark2` with the same bed and review options. [Pocket and spring geometry source](flush.rs)

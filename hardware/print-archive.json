@@ -1806,6 +1806,12 @@
       "bytes": 4474871,
       "sha256": "05c9ca0ce4769859fd0980c9e2eabceb6484345e1f05e68b915354763d6f7218"
     },
+    "35c163662d5a7203f6c4db01993d9dedd2c9261c": {
+      "archive": "open-snap-flush-coupons-20261125-f8b1ed0786de4d07.zip",
+      "bytes": 34786,
+      "offset": 435850,
+      "sha256": "f0c1bd6d8a8458e402f97f832af75ae7916595254ee7484ed3fa0ac67f7f1898"
+    },
     "35dc816a5935e7e15d35e20572ddd1cb1cd3b72d": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 1063502709,
@@ -1973,6 +1979,12 @@
       "offset": 1136426094,
       "bytes": 873081,
       "sha256": "0e4b7b28b5a472282457d4c7e9c812db1f9274116ba608c8545bdee293e02e4e"
+    },
+    "3cd9e91f0d0404004f07cb066d800ac1d4e34360": {
+      "archive": "open-snap-flush-coupons-20261125-f8b1ed0786de4d07.zip",
+      "bytes": 440693,
+      "offset": 470710,
+      "sha256": "9cac07082791fea093e4d77566104af118eac84cf909a0c06235eb03da5e0b41"
     },
     "3d6990b6c79cf53a0e3c938a423a40b1077312c0": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
@@ -2705,6 +2717,12 @@
       "bytes": 10638986,
       "offset": 1321770,
       "sha256": "caf37dbe184b7a56657faa07aedddcaf78352a8e2b1ea65af78f4069d09b3feb"
+    },
+    "54c2b87e68156c1a895c278942459aa5835b309e": {
+      "archive": "open-snap-flush-coupons-20261125-f8b1ed0786de4d07.zip",
+      "bytes": 28874,
+      "offset": 74,
+      "sha256": "b76eed300ff0e6f4ce822a235c3ee3ffe6c7216907b11a7b5ad602d9085ab3d8"
     },
     "54cf5372f44b61ccc44117ab4f80ea8d97c5970f": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -6870,6 +6888,12 @@
       "bytes": 321372,
       "sha256": "f8e24726c607ea57563d406d83e8b500af511e7053a513f467892afb1d03116f"
     },
+    "da2560499210e6950a01a64c5068add7b6dced4f": {
+      "archive": "open-snap-flush-coupons-20261125-f8b1ed0786de4d07.zip",
+      "bytes": 406754,
+      "offset": 29022,
+      "sha256": "5806df4da2f74c2ecf4cdd5132e68622df062285c1155b7b3f85d3d1013d8018"
+    },
     "da4186c0a5a69d2172ffe9c47bf7b1d44bebd2a2": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 156879737,
@@ -8121,6 +8145,10 @@
     "hardware/print-tests/open-snap-section/prints/2026-11-24-comparisons-mark2/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei/2026-11-24-open-snap-comparisons-mark2-7ef9c6f1-textured-pei.gcode.3mf": "df78d237f366126c3cd9fb6612a800ef84f8ce65",
     "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.3mf": "0de0dcfce0fb61ca7121b366008968649845ddbd",
     "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf": "9691a90bb3109a7268aa8f5d2c4e70bc27dfa275",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-flush/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.3mf": "54c2b87e68156c1a895c278942459aa5835b309e",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-flush/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.gcode.3mf": "da2560499210e6950a01a64c5068add7b6dced4f",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei.3mf": "35c163662d5a7203f6c4db01993d9dedd2c9261c",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei.gcode.3mf": "3cd9e91f0d0404004f07cb066d800ac1d4e34360",
     "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf": "1f85f083fa607c4ab47032e089ec3e71b96872a4",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf": "b086f05a4191b3010d0527e6a0b034e0a2ab4434",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/ready/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf": "58628627b1d854406e5d3b573b66204fe9f3a7c5",

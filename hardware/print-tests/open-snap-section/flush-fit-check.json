@@ -1,0 +1,153 @@
+{
+  "purpose": "Measure straight seating, positive hook capture and the reversible insertion corridor for the two printed comparison families.",
+  "coordinate_frame": {
+    "closing": "World +Z",
+    "x": "X - 76.5",
+    "h": "355 - Z",
+    "cover_nominal_to_seated_mm": 0.1,
+    "axis_z_mm": 331.2
+  },
+  "geometry": "parts/flush-geometry.json",
+  "provenance": {
+    "stl_sha256": {
+      "cover.stl": "418a6fee46c80bf26bd3be97aa6e74db5411766f01f0c97447938543a1f0c94a",
+      "cover-wide-preloaded.stl": "2bb364234a54d0b04f98b6c37b2dcb17b4d9d5ced98c6b062433a5928830d875",
+      "receiver-matched-neutral.stl": "1c8118e36a2636202eb4fb8fb3321a3ca547ac138ddf184d344bc328948cc359",
+      "receiver-matched-firm.stl": "408b2d6a2ab4221fc1170ccecd16bb874bbbb78df23cf364d42dc510a4e9f8b2",
+      "receiver-wide-neutral.stl": "6fc55c59329b7894d37185c18e22c6b14b2e60f5a0edb7b437d79d2472e52631",
+      "receiver-wide-firm.stl": "7804e2c39e39329f0083467163ac5fa4060b1614c50ff1a730a3cc4cac5da024"
+    },
+    "meter_shoulder": "../rear-receiver-quick/parts/meter-shoulder-backed.stl",
+    "meter_shoulder_sha256": "6402c48bce65ebe96b9e1d75d56883c764bf1c82e5be4e59c0046897a16b2a9f",
+    "tilt_waypoints": "https://github.com/derekbreden/homesodamachine/blob/f1e8c6ba98e640ec28c19d8b89ce5f78908c782e/hardware/print-tests/pisco-raised-tip-cover/parts/fit-check-040.json",
+    "submitted_toolpath_checks": [
+      "prints/2026-11-25-mark1-flush/section-check.json",
+      "prints/2026-11-25-mark2-flush/section-check.json"
+    ]
+  },
+  "measurement": {
+    "section": "Transform each exported print STL back to machine coordinates and project its solid onto the open end. Both end contours agree with each complete projection within 0.00001 mm². The outboard identification notches lie inside this projected envelope.",
+    "spring": "The saddle stays rigid. Each leaf bends outward in X from its own free STL. The clamped-beam shape has a transverse point load at the retaining lip, with the tip continuing at the tangent. The original cover uses its h33.7 root and h15.0 load in the seated frame. The wide cover uses its h31.85 spring join and h14.20 load. Each sampled contour edge is at most 0.055 mm long.",
+    "fit": "At 0.10 mm closure solve each side just clear of its fixed lip. Read horizontal hook projection at h12.40, outward crest travel and normal clearance to the matched entry face. Each wing gave the same seated result to 0.0001 mm.",
+    "spread": "Search each side independently at 421 poses on the archived tilted path and 201 centered straight coupon poses from 25 mm open. Spread pairs give west and east. Each family shares the same peak values across its two receivers. The straight stroke is available on the loose coupon. The meter shoulder dictates tilted entry in the machine.",
+    "path_bound": "Hold the stated crest spreads along the archived waypoints. Across the five tilted segments, subtract the largest possible half-step translation and rotation from each sampled clearance (96 intervals per segment). Project the complete backed meter shoulder across its depth. Sweep every polygon edge through the remaining straight stroke to 0.099 mm closure and throughout spring-back to 0.005 mm beyond first lip contact. Reverse this path for tool-assisted release. Sweep the full 25 mm straight coupon stroke at the same held spread. Family clearances give the lower result across both receivers.",
+    "scope": "The two-dimensional clearance bounds and the measured undercuts apply to these 12 mm coupon solids. Bending, grip, sideways play and tool release require the printed parts."
+  },
+  "fit_by_receiver": {
+    "receiver-matched-neutral": {
+      "seated_entry_face_min_clearance_mm": 0.1839,
+      "seated_crest_outward_from_straight_each_wing_mm": 0.0,
+      "seated_crest_spread_from_free_each_wing_mm": 0.0,
+      "seated_crest_to_roof_each_wing_mm": 0.0,
+      "seated_hook_capture_past_lip_each_wing_mm": 2.6
+    },
+    "receiver-matched-firm": {
+      "seated_entry_face_min_clearance_mm": 0.3243,
+      "seated_crest_outward_from_straight_each_wing_mm": 0.2289,
+      "seated_crest_spread_from_free_each_wing_mm": 0.2289,
+      "seated_crest_to_roof_each_wing_mm": 0.0,
+      "seated_hook_capture_past_lip_each_wing_mm": 2.4564
+    },
+    "receiver-wide-neutral": {
+      "seated_entry_face_min_clearance_mm": 0.21,
+      "seated_crest_outward_from_straight_each_wing_mm": 0.0,
+      "seated_crest_spread_from_free_each_wing_mm": 0.8,
+      "seated_crest_to_roof_each_wing_mm": 0.0,
+      "seated_hook_capture_past_lip_each_wing_mm": 1.8
+    },
+    "receiver-wide-firm": {
+      "seated_entry_face_min_clearance_mm": 0.3603,
+      "seated_crest_outward_from_straight_each_wing_mm": 0.2272,
+      "seated_crest_spread_from_free_each_wing_mm": 1.0272,
+      "seated_crest_to_roof_each_wing_mm": 0.0,
+      "seated_hook_capture_past_lip_each_wing_mm": 1.6631
+    }
+  },
+  "center_post_saddle": {
+    "method": "Read the exported post and saddle outlines vertically. For a shifted cover, compare the two piecewise-linear faces at every profile corner to find how much axial opening clears the post alone.",
+    "matched": {
+      "sample_radii_mm": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "at_crest_stop_axial_gaps_mm": [
+        0.0,
+        0.0543,
+        0.2326,
+        0.5789
+      ],
+      "additional_axial_opening_for_0_25_and_0_50_mm_saddle_shift_mm": [
+        0.0061,
+        0.0224
+      ]
+    },
+    "wide": {
+      "sample_radii_mm": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "at_crest_stop_axial_gaps_mm": [
+        0.0,
+        0.0007,
+        0.0026,
+        0.0061,
+        0.0078
+      ],
+      "additional_axial_opening_for_0_25_and_0_50_mm_saddle_shift_mm": [
+        0.0914,
+        0.2022
+      ]
+    }
+  },
+  "motion_by_family": {
+    "matched": {
+      "peak_needed_tilt_spread_from_free_mm": [
+        5.0487,
+        4.6218
+      ],
+      "peak_needed_straight_coupon_spread_from_free_mm": [
+        4.1442,
+        4.1442
+      ],
+      "held_spread_from_free_mm": [
+        5.5,
+        5.15
+      ],
+      "nearest_sampled_shoulder_mm": 0.6067,
+      "tilted_receiver_lower_bound_mm": 0.2758,
+      "tilted_backed_meter_shoulder_lower_bound_mm": 0.5794,
+      "tilted_housing_post_lower_bound_mm": 1.0753,
+      "tilted_entry_guide_lower_bound_mm": 3.6266,
+      "final_translation_receiver_gap_mm": 0.001,
+      "spring_return_receiver_gap_mm": 0.001,
+      "straight_coupon_clearance_with_held_spread_mm": 0.001
+    },
+    "wide": {
+      "peak_needed_tilt_spread_from_free_mm": [
+        4.9642,
+        4.2807
+      ],
+      "peak_needed_straight_coupon_spread_from_free_mm": [
+        3.7872,
+        3.7872
+      ],
+      "held_spread_from_free_mm": [
+        5.45,
+        4.85
+      ],
+      "nearest_sampled_shoulder_mm": 0.6067,
+      "tilted_receiver_lower_bound_mm": 0.3085,
+      "tilted_backed_meter_shoulder_lower_bound_mm": 0.5796,
+      "tilted_housing_post_lower_bound_mm": 0.9993,
+      "tilted_entry_guide_lower_bound_mm": 2.7104,
+      "final_translation_receiver_gap_mm": 0.001,
+      "spring_return_receiver_gap_mm": 0.001,
+      "straight_coupon_clearance_with_held_spread_mm": 0.001
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "gcode_sha256": "f6744418b03249bacfa7d96f7c8609336d10bdea7014bf2bbd02d878751a1ce8",
+    "name": "2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.gcode.3mf",
+    "objects": [
+      "cover-original",
+      "receiver-matched-neutral",
+      "receiver-matched-firm",
+      "cooling-wall"
+    ],
+    "sha256": "5806df4da2f74c2ecf4cdd5132e68622df062285c1155b7b3f85d3d1013d8018",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 65,
+  "observed_at": "2026-11-25T16:38:52+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1485915061",
+  "subtask_name": "2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.gcode.3mf",
+  "total_layer_num": 145
+}
