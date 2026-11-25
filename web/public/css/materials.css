@@ -94,6 +94,10 @@
 .material-sheet-grabber::before { content: ""; width: 36px; height: 5px; border-radius: 3px; background: var(--text-3); }
 .material-panel .material-search label { grid-template-columns: auto minmax(0, 1fr); align-items: center; font-size: 0.8rem; }
 .material-panel .material-search input { font-size: 0.8rem; min-height: 44px; padding: 10px; background: var(--bg); }
+/* iOS uses 16px as the reference size when zooming to a focused field. */
+@media (any-pointer: coarse) {
+  .material-panel .material-search input { font-size: 16px; }
+}
 .material-panel .material-search-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .material-panel .material-search-results { position: absolute; top: 100%; left: 16px; right: 16px; max-height: min(45vh, 360px); z-index: 40; box-shadow: 0 8px 30px #0004; }
 .material-panel-scroll { overflow-y: auto; overscroll-behavior: contain; flex: 1; min-height: 0; touch-action: pan-y; padding-bottom: 30px; }

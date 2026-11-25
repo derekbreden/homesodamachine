@@ -271,7 +271,11 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await page.waitForSelector(".cad-wrapper:not(.drawing-open)");
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
     assert.deepEqual(await cameraPose(page), pose);
-    await page.type(".material-panel .material-search input", "HSM-0008");
+    const viewerSearch = await page.waitForSelector(".material-panel .material-search input", { visible: true });
+    await viewerSearch.tap();
+    const searchFontSize = await viewerSearch.evaluate(input => parseFloat(getComputedStyle(input).fontSize));
+    assert.ok(searchFontSize >= 16, `Phone search needs 16px to avoid iOS focus zoom. Found ${searchFontSize}px.`);
+    await viewerSearch.type("HSM-0008");
     await page.locator(".material-panel .material-search-results a").click();
     await materialReady(page, "cut-parts/carbonation/carbonator-tube/carbonator-tube.step");
     await assertPane(page, true);
