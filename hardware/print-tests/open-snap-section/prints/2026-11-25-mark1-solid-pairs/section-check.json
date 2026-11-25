@@ -1,0 +1,144 @@
+{
+  "purpose": "Compare the three open snap fits in the submitted Mark1 toolpaths.",
+  "gcode_sha256": "55319876a8452a37fa63aff0c7c3f43ee217d729b680a480a1abc34d3ac091bc",
+  "assembly_dimensions": "../../parts/solid-pairs/geometry.json",
+  "method": "At both tips on all 46 interior cover courses, intersect the outer-wall paths expanded by half their commanded width. Use the modeled square position to measure bearing width 0.03 mm inside the end face and height variation over its center. At three axial positions, align the feet to the deposited receiver roofs. Measure the 45-degree retaining shoulder at the middle of each interior shoulder course and sample the whole center support against the inside saddle every 0.01 mm. A positive shoulder overlap or negative crown gap represents interference.",
+  "scope": "The 0.24 mm receiver courses form steps. Midheight projections and crest registration describe the commanded geometry. Actual contact, hand force and rocking require the physical pairs.",
+  "pairs": [
+    {
+      "dots": 1,
+      "interior_axial_courses": 46,
+      "straight_interior_unloaded_crest_angle_deg": [
+        1.78663,
+        2.0329
+      ],
+      "deposited_crest_width_0p03_mm_inside_loaded_foot_mm": [
+        1.84237,
+        1.85225
+      ],
+      "loaded_flat_height_range_across_central_face_mm": [
+        4e-05,
+        0.00563
+      ],
+      "modeled_square_foot_lowest_h_before_roof_registration_mm": [
+        3.44992,
+        3.45077
+      ],
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "squared_foot_opening_from_cad_seat_to_emitted_roof_mm": [
+        0.11008,
+        0.11008
+      ],
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.11013,
+        0.11054
+      ],
+      "sampled_retaining_shoulder_courses_mm": [
+        13.16,
+        13.88
+      ],
+      "shoulder_samples": 24,
+      "centered_crown_gap_at_printed_stop_mm": [
+        0.02696,
+        0.02696
+      ],
+      "minimum_crown_gap_on_0p01_mm_grid_mm": [
+        -0.01099,
+        -0.00852
+      ]
+    },
+    {
+      "dots": 2,
+      "interior_axial_courses": 46,
+      "straight_interior_unloaded_crest_angle_deg": [
+        1.85759,
+        2.03804
+      ],
+      "deposited_crest_width_0p03_mm_inside_loaded_foot_mm": [
+        2.42715,
+        2.43756
+      ],
+      "loaded_flat_height_range_across_central_face_mm": [
+        0.00011,
+        0.00587
+      ],
+      "modeled_square_foot_lowest_h_before_roof_registration_mm": [
+        3.45002,
+        3.4507
+      ],
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "squared_foot_opening_from_cad_seat_to_emitted_roof_mm": [
+        0.10998,
+        0.10998
+      ],
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.11038,
+        0.11045
+      ],
+      "sampled_retaining_shoulder_courses_mm": [
+        13.16,
+        13.88
+      ],
+      "shoulder_samples": 24,
+      "centered_crown_gap_at_printed_stop_mm": [
+        0.02687,
+        0.02687
+      ],
+      "minimum_crown_gap_on_0p01_mm_grid_mm": [
+        -0.01297,
+        -0.0086
+      ]
+    },
+    {
+      "dots": 3,
+      "interior_axial_courses": 46,
+      "straight_interior_unloaded_crest_angle_deg": [
+        1.85759,
+        2.03896
+      ],
+      "deposited_crest_width_0p03_mm_inside_loaded_foot_mm": [
+        2.42715,
+        2.43756
+      ],
+      "loaded_flat_height_range_across_central_face_mm": [
+        0.00011,
+        0.00587
+      ],
+      "modeled_square_foot_lowest_h_before_roof_registration_mm": [
+        3.44999,
+        3.45069
+      ],
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "squared_foot_opening_from_cad_seat_to_emitted_roof_mm": [
+        0.11001,
+        0.11001
+      ],
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        -0.00994,
+        -0.00953
+      ],
+      "sampled_retaining_shoulder_courses_mm": [
+        13.16,
+        13.88
+      ],
+      "shoulder_samples": 24,
+      "centered_crown_gap_at_printed_stop_mm": [
+        0.02689,
+        0.02689
+      ],
+      "minimum_crown_gap_on_0p01_mm_grid_mm": [
+        -0.01294,
+        -0.0086
+      ]
+    }
+  ]
+}

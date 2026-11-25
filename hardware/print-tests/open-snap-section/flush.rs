@@ -5,8 +5,8 @@ use hsm_kernel::{Affine, Plane, Profile, Solid, V2, V3, v2, v3};
 use serde_json::json;
 use std::{fs, path::Path};
 
-#[path = "matched_trios.rs"]
-mod matched_trios;
+#[path = "solid_pairs.rs"]
+mod solid_pairs;
 
 // Dimensions in the end view. Heights are measured from the receiver's flat print face.
 const RUNNING_GAP: f64 = 0.22;
@@ -37,7 +37,7 @@ struct Hook {
 }
 
 impl Section {
-    fn receiver(&self, trimmed_seat: &Solid, post: &Solid, hook: Hook, offset: f64, marks: usize) -> Result<Solid> {
+    fn receiver(&self, trimmed_seat: &Solid, post: &Solid, hook: Hook, offset: f64) -> Result<Solid> {
         let entry_bottom = self.roof_h + ENTRY_DEPTH;
         let return_start = entry_bottom + NOSE_LENGTH;
         let neck_r = hook.nose_r - RUNNING_GAP;
@@ -55,9 +55,11 @@ impl Section {
         ];
         let points: Vec<_> = cheek.iter().map(|&(r, h)| v2(self.axis + r, self.back_z - h)).collect();
         let [right, left] = mirrored_bars(&points, self.axis, self.y)?;
-        let receiver = trimmed_seat.union(&right)?.union(&left)?.union(post)?;
+        trimmed_seat.union(&right)?.union(&left)?.union(post)
+    }
 
-        // The open V notches identify the fit on the outboard edge of the backplate.
+    /// The open V notches identify the neutral and firm receivers in the filmed comparison.
+    fn flange_notches(&self, receiver: &Solid, marks: usize) -> Result<Solid> {
         let edge = receiver.bounds().max.x;
         let mut notches = Vec::new();
         for i in 0..marks {
@@ -75,6 +77,15 @@ impl Section {
         let deflection = if t <= 1.0 { t * t * (3. - t) / 2. } else { (3. * t - 1.) / 2. };
         let tip_deflection = (3. * (self.join_h - self.roof_h) / load_length - 1.) / 2.;
         tip_bias * deflection / tip_deflection
+    }
+
+    /// Turning each cross section with the free leaf levels the foot when its camber is straightened.
+    fn free_angle(&self, h: f64, lip_h: f64, bias: f64) -> f64 {
+        let span = self.join_h - lip_h;
+        let t = ((self.join_h - h) / span).clamp(0., 1.);
+        let slope = 1.5 * t * (2. - t);
+        let tip_deflection = (3. * (self.join_h - self.roof_h) / span - 1.) / 2.;
+        (bias * slope / (span * tip_deflection)).atan()
     }
 
     fn wide_cover(&self, cover: &Solid, hook: Hook, tip_bias: f64, rotate_with_leaf: bool) -> Result<Solid> {
@@ -97,7 +108,7 @@ impl Section {
                 let mut p = *a + (*b - *a) * (i as f64 / n as f64);
                 let shift = self.inward_shift(p.y, lip_h, tip_bias);
                 if rotate_with_leaf {
-                    let angle = matched_trios::free_angle(self, p.y, lip_h, tip_bias);
+                    let angle = self.free_angle(p.y, lip_h, tip_bias);
                     let mid_r = (self.outer_r + self.inner_r) / 2.;
                     let dr = p.x - mid_r;
                     p = v2(mid_r + dr * angle.cos(), p.y - dr * angle.sin());
@@ -153,7 +164,7 @@ pub(super) fn write(dir: &Path, cover: &Solid, seat: &Solid, original_post: &Sol
         let crown_interference = closed.shared_volume(post)?;
         ensure!(crown_interference < 1e-5 && closed.gap_within(post, 1.)? < 1e-5, "{family} crown must touch the centered saddle");
         for (name, offset, marks) in [("neutral", 0., 1), ("firm", FIRM_OFFSET, 2)] {
-            let receiver = s.receiver(&trimmed, post, hook, offset, marks)?;
+            let receiver = s.flange_notches(&s.receiver(&trimmed, post, hook, offset)?, marks)?;
             let name = format!("receiver-{family}-{name}");
             let overlap = receiver.shared_volume(&closed)?;
             if offset == 0. { ensure!(overlap < 1e-5, "{name}: straight neutral overlap {overlap} mm³"); }
@@ -173,5 +184,5 @@ pub(super) fn write(dir: &Path, cover: &Solid, seat: &Solid, original_post: &Sol
         "post_apex_h_mm": back_z - nose_z, "mark2_free_inward_tip_bias_each_mm": FREE_TIP_BIAS,
         "mark2_straightening_model": "Clamped beam with transverse load at the retaining lip and unloaded length beyond it. The model gives a geometric target; movement and retention require the bench test."});
     fs::write(dir.join("flush-geometry.json"), format!("{}\n", serde_json::to_string_pretty(&dimensions)?))?;
-    matched_trios::write(&dir.join("matched-trios"), &s, cover, &trimmed, &full_post, wide, receiver_pose, cover_pose)
+    solid_pairs::write(&dir.join("solid-pairs"), &s, cover, &trimmed, &full_post, wide, receiver_pose, cover_pose)
 }

@@ -1,0 +1,121 @@
+{
+  "purpose": "Check open space, existing spring stock, square bearing and the entry and release motion of the three numbered Pisco coupons.",
+  "dimensions": "geometry.json",
+  "filmed_reference": "../../prints/2026-11-25-mark2-flush/physical-result.json",
+  "emitted_paths": "../../prints/2026-11-25-mark1-solid-pairs/section-check.json",
+  "provenance": {
+    "control_receiver": "../receiver-wide-neutral.stl",
+    "control_receiver_sha256": "6fc55c59329b7894d37185c18e22c6b14b2e60f5a0edb7b437d79d2472e52631",
+    "stl_sha256": {
+      "cover-1.stl": "e329d7878ac59ad693df56e953f6902c97b255bda7ed2c737412483c2a5b4b9c",
+      "receiver-1.stl": "139111d7ba0f7e9cb437c7d23e8b09af3a7b2b9949a11636ef3946901c38398e",
+      "cover-2.stl": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "receiver-2.stl": "b7aad04ca5e35a2acdf182d7a6208c03f5fd4fe1f269d3269628ea43628e7ad9",
+      "cover-3.stl": "4d19477eca2774764603cee6b206d2478aab0820c27ce25f36be868c3c7d24a1",
+      "receiver-3.stl": "10306a3967bd9642ae33b168b3e48f6415f6a7817a53cc9bc6bcae662159dc39"
+    }
+  },
+  "open_section_and_marks": {
+    "scan_height_above_receiver_back_mm": [
+      17.0,
+      31.6
+    ],
+    "continuous_center_post_width_mm": 8.0,
+    "minimum_clear_width_between_free_wings_mm": 24.1712,
+    "minimum_open_gap_each_side_of_center_post_mm": 8.0856,
+    "minimum_stock_below_cover_dot_patch_mm": 5.014,
+    "receiver_dot_margin_to_top_or_flat_back_mm": 0.725,
+    "measured_depth_mm": 0.6,
+    "removed_volume_per_dot_mm3": 0.6281
+  },
+  "pairs": [
+    {
+      "dots": 1,
+      "minimum_to_maximum_leaf_normal_thickness_mm": [
+        1.9999,
+        2.0001
+      ],
+      "square_foot_width_west_east_mm": [
+        2.0,
+        2.0
+      ],
+      "square_foot_gap_to_roof_west_east_mm": [
+        0.0,
+        0.0
+      ],
+      "hook_capture_west_east_mm": [
+        1.8,
+        1.8
+      ],
+      "scanned_crown_outline_difference_from_filmed_control_mm2": 0.0,
+      "maximum_sampled_opening_spread_per_tip_from_free_mm": 3.7454,
+      "exterior_dot_axial_centers_mm": [
+        0.0
+      ],
+      "swept_wing_interference_mm2": 1.6e-07,
+      "swept_saddle_interference_mm2": 0.0
+    },
+    {
+      "dots": 2,
+      "minimum_to_maximum_leaf_normal_thickness_mm": [
+        1.9999,
+        2.0001
+      ],
+      "square_foot_width_west_east_mm": [
+        2.6,
+        2.6
+      ],
+      "square_foot_gap_to_roof_west_east_mm": [
+        0.0,
+        0.0
+      ],
+      "hook_capture_west_east_mm": [
+        1.8,
+        1.8
+      ],
+      "scanned_crown_outline_difference_from_filmed_control_mm2": 0.0,
+      "maximum_sampled_opening_spread_per_tip_from_free_mm": 3.7454,
+      "exterior_dot_axial_centers_mm": [
+        -1.7,
+        1.7
+      ],
+      "swept_wing_interference_mm2": 4e-08,
+      "swept_saddle_interference_mm2": 0.0
+    },
+    {
+      "dots": 3,
+      "minimum_to_maximum_leaf_normal_thickness_mm": [
+        1.9999,
+        2.0001
+      ],
+      "square_foot_width_west_east_mm": [
+        2.6,
+        2.6
+      ],
+      "square_foot_gap_to_roof_west_east_mm": [
+        0.0,
+        0.0
+      ],
+      "hook_capture_west_east_mm": [
+        1.8,
+        1.8
+      ],
+      "scanned_crown_outline_difference_from_filmed_control_mm2": 0.0,
+      "maximum_sampled_opening_spread_per_tip_from_free_mm": 3.7454,
+      "exterior_dot_axial_centers_mm": [
+        -3.4,
+        0.0,
+        3.4
+      ],
+      "swept_wing_interference_mm2": 0.0,
+      "swept_saddle_interference_mm2": 0.0
+    }
+  ],
+  "methods": {
+    "section": "Transform the print meshes back to the seated Pisco datum. Compare each open end with the complete working-profile projection. Over the stated height band the receiver has a single rectangular 8 mm post section and the cover contains its two spring leaves. Measure each leaf perpendicular to its neutral axis at 67 heights. Compare the complete post and crown above h17 with the filmed wide receiver.",
+    "marks": "Read the depth and axial locations at the recessed dot tips. Subtract the exported volume from the intact end-profile area times 12 mm to isolate the material removed by the dots. Across the full cover dot patch, subtract the maximum dot depth from the thinnest intact column.",
+    "seat": "In the free mesh, undo the camber and local section rotation about each leaf neutral axis to register the foot flat against the receiver. Each wing opens 0.80 mm to this target. Read the width along the crest, its roof clearance and its radial hook projection. The saddle and receiver stay rigid.",
+    "motion": "Solve the needed independent tip spread on 271 sampled positions over the 25 mm straight stroke, in the clamped-beam model with transverse load at the retaining lip. Separately check a continuous reversible path. From the square seat, increase the transverse spread from 0.80 to 4.20 mm over the first 1.0625 mm of opening at 24 beam poses. Hold the spread until 25 mm open and release. The convex hull of each contour edge at successive poses bounds its linear sweep with contour stations at most 0.10 mm apart. Check every hull and each enclosed wing area against the receiver. Sweep the rigid saddle over the same travel. The residual areas below 0.000001 mm² occur at the intended seated contact in the STL.",
+    "bench": "These are geometric measurements. Contact patches, feel, release force and rocking follow from trying the physical coupons."
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "assembly_frame": "r = X minus the regulator axis. h = back face Z minus Z. The seated cover moves +Z from its nominal pose.",
+  "assembly_frame": "r is distance from the regulator axis. h is height above the receiver back face. The seated cover moves +Z from its nominal machine pose.",
   "axis_x_mm": 76.5,
   "axis_y_mm": 439.875,
   "back_face_z_mm": 355.0,
@@ -8,23 +8,27 @@
   "cover_seating_travel_mm": 0.1,
   "free_tip_bias_each_mm": 0.8,
   "join_h_mm": 31.84999999981369,
-  "keys": {
-    "blade_tip_h_mm": 19.04,
-    "blade_width_mm": 1.4,
-    "collar_outer_radius_mm": 9.65,
-    "collar_top_h_mm": 28.76,
-    "guide_clearance_each_side_mm": 0.8000000000000007,
-    "guide_inner_radius_mm": 10.450000000000001,
-    "guide_width_mm": 1.1,
-    "nominal_slot_side_clearance_mm": 0.62
+  "marks": {
+    "cover_group_center_machine_mm": [
+      84.3,
+      439.875,
+      316.97259999997914
+    ],
+    "depth_mm": 0.6,
+    "form": "Blind conical recesses spaced along Y on the solid saddle back and receiver flange.",
+    "opening_diameter_mm": 2.0,
+    "pitch_mm": 3.4,
+    "receiver_group_center_machine_mm": [
+      93.91000000014901,
+      439.875,
+      353.27499999990687
+    ]
   },
-  "marks": "One, two or three V-grooves across the cover back and the same count of V-notches in the receiver flange.",
   "pairs": [
     {
       "crest_land_width_mm": 2.0,
       "free_crest_angle_to_roof_deg": 2.0348194496228973,
       "free_outer_edge_closer_to_roof_mm": 0.07101366811463769,
-      "key_blade_center_radius_mm": 5.48,
       "number": 1,
       "retaining_shoulder_offset_mm": 0.0,
       "straight_seated_overlap_mm3": 0.0
@@ -33,7 +37,6 @@
       "crest_land_width_mm": 2.6,
       "free_crest_angle_to_roof_deg": 2.0348194496228973,
       "free_outer_edge_closer_to_roof_mm": 0.092317768549029,
-      "key_blade_center_radius_mm": 7.3,
       "number": 2,
       "retaining_shoulder_offset_mm": 0.0,
       "straight_seated_overlap_mm3": 0.0
@@ -42,7 +45,6 @@
       "crest_land_width_mm": 2.6,
       "free_crest_angle_to_roof_deg": 2.0348194496228973,
       "free_outer_edge_closer_to_roof_mm": 0.092317768549029,
-      "key_blade_center_radius_mm": 9.12,
       "number": 3,
       "retaining_shoulder_offset_mm": -0.12,
       "straight_seated_overlap_mm3": 0.0
@@ -106,7 +108,7 @@
         0.0
       ],
       "stl": "cover-1.stl",
-      "volume_mm3": 4157.794422396384
+      "volume_mm3": 3347.160154030773
     },
     "cover-2": {
       "assembly_to_print_matrix_mm": [
@@ -165,7 +167,7 @@
         0.0
       ],
       "stl": "cover-2.stl",
-      "volume_mm3": 4160.423354736548
+      "volume_mm3": 3392.6411626231024
     },
     "cover-3": {
       "assembly_to_print_matrix_mm": [
@@ -224,7 +226,7 @@
         0.0
       ],
       "stl": "cover-3.stl",
-      "volume_mm3": 4140.638360031703
+      "volume_mm3": 3392.0130963928796
     },
     "receiver-1": {
       "assembly_to_print_matrix_mm": [
@@ -283,7 +285,7 @@
         -1.0
       ],
       "stl": "receiver-1.stl",
-      "volume_mm3": 7656.694564124232
+      "volume_mm3": 6519.190639345937
     },
     "receiver-2": {
       "assembly_to_print_matrix_mm": [
@@ -342,7 +344,7 @@
         -1.0
       ],
       "stl": "receiver-2.stl",
-      "volume_mm3": 7605.64656408013
+      "volume_mm3": 6472.482573070226
     },
     "receiver-3": {
       "assembly_to_print_matrix_mm": [
@@ -401,10 +403,12 @@
         -1.0
       ],
       "stl": "receiver-3.stl",
-      "volume_mm3": 7801.742163865492
+      "volume_mm3": 6466.036906858507
     }
   },
-  "purpose": "Register the six print meshes to the seated Pisco section and identify each marked mate.",
+  "post_apex_h_mm": 34.67740000039339,
+  "purpose": "Register the six numbered open coupons to the scanned Pisco section and locate the exterior identification dots.",
   "roof_h_mm": 3.4500000001862645,
-  "section_length_mm": 12.0
+  "section_length_mm": 12.0,
+  "spring_wall_thickness_mm": 2.0
 }

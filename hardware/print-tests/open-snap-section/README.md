@@ -39,21 +39,21 @@ Keep each cover with its own plate. Fit the **one-notch receiver** first. It tar
 
 With the receiver on its back, look at both crests end-on, press each side and let go, then compare the effort to release it. A pair that stays square, springs back and grips like the filmed original is the one to try at full equipment length. [Mark1 plate and print record](prints/2026-11-25-mark1-flush/print-job.json) · [Mark2 plate and print record](prints/2026-11-25-mark2-flush/print-job.json) · [Mark1 toolpath sections](prints/2026-11-25-mark1-flush/section-check.json) · [Mark2 toolpath sections](prints/2026-11-25-mark2-flush/section-check.json)
 
-## Three numbered Mark1 pairs
+## Three marked Mark1 pairs
 
-Derek felt little rocking in either broad-foot Mark2 pair. The one-notch receiver seated slightly better in his hand. On the narrower Mark1 feet, he saw the tips touching and could rock each foot farther toward its pocket. The three numbered pairs use the Mark2 crown and camber. Each free foot turns inward with its wing so its bearing face levels as the wing straightens. [Mark2 end views](prints/2026-11-25-mark2-flush/physical-result.json) · [Mark1 end views](prints/2026-11-25-mark1-flush/physical-result.json)
+Derek felt the least rocking on the broad-foot Mark2 coupon with the one-notch receiver. Each of these three pairs starts with its 8 mm-wide center post, 2.00 mm spring walls and 0.80 mm of free inward curvature at each tip. The hooks extend 1.80 mm past the catches in the modeled square seat. Both open ends expose the hooks and the center contact. [Filmed Mark2 fit](prints/2026-11-25-mark2-flush/physical-result.json) · [Full-length Pisco on Mark2](../pisco-wide-snap/README.md)
 
-Match the grooves across the cover back to the notches in the receiver flange. Internal blades with a different spacing on each cover prevent a wrong pair from seating square in either end orientation. A wrong cover tipped 45° and displaced a full coupon length can catch both hooks at the exposed end, then slide free along that end. All three matched pairs retain 1.80 mm of modeled hook engagement at the square position. [Numbered parts and dimensions](parts/matched-trios/geometry.json) · [Seating and cross-fit measurements](parts/matched-trios/fit-check.json)
+Count the recessed dots on the outer back of the cover and the outer edge of the receiver base. Each pair tests one change relative to the preceding fit.
 
-| Marks on both pieces | What to compare |
-| --- | --- |
-| One | Start here. Both 2.00 mm feet aim to bear flat on the pocket roofs with the same retaining shoulder as the preferred Mark2 pair. |
-| Two | Press over each wing and release. The 2.60 mm feet give a wider bearing with the same retaining shoulder. |
-| Three | Compare grip and removal with pair two. The feet keep their width. Each receiver shoulder moves back 0.12 mm to take up the extra material seen in the printed shoulder profile. |
+| Dots on both pieces | Change | What to look for |
+| --- | --- | --- |
+| One | The two 2.00 mm feet turn with the springs. Each free foot is angled 2.03° so it levels when its wing straightens. | Look into either end as the hooks engage. Check whether the full width of each foot meets its stop. |
+| Two | The bearing at the end of each foot widens to 2.60 mm. | Press alternately over each wing. Compare how much the opposite foot lifts and whether it returns square. |
+| Three | The feet keep the 2.60 mm bearings. Each receiver’s sloping retaining shoulder moves back 0.12 mm along the direction of closure. | Compare seating, grip and removal effort with pair two. |
 
-Look along the flat end of each foot where it meets the roof while pressing opposite sides of the cover. The long sloping face alongside each hook has clearance for entry. At the square-foot position, the sliced retaining shoulders project about 0.11 mm into the first two covers at the middle of a layer. The third has about 0.01 mm of clearance there. [Crest and shoulder toolpath measurements](parts/matched-trios/fit-check.json) · [Printed key and mark sections](prints/2026-11-25-mark1-trios/section-check.json)
+The native paths give about 1.85 mm of bearing width on the first pair and 2.43 mm on the other two, measured 0.03 mm inside the squared foot. At mid-layer the retaining faces project about 0.11 mm into the hook in pairs one and two. Pair three has about 0.01 mm of clearance there. Each receiver shoulder is built from 0.24 mm courses, so these section measurements describe one height in each step. [Submitted contact surfaces](prints/2026-11-25-mark1-solid-pairs/section-check.json)
 
-The three pairs are arranged left to right on Mark1. The full Pisco cover and receiver on Mark2 carry the one-notch fit over to the regulator. [Mark1 plate key](prints/2026-11-25-mark1-trios/plate-key.png) · [Full Pisco trial](../pisco-wide-snap/README.md)
+The cover and receiver for each trial were designed together. The earlier plate with added key blades was stopped. [Reason for stopping the earlier plate](https://github.com/derekbreden/homesodamachine/blob/13cbca49379e124335d453e543eb243e80613245/hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/physical-result.json)
 
 ## Reproduce the pair
 
@@ -72,4 +72,4 @@ To reproduce the five comparison coupons on one plate, use `open-snap-comparison
 
 For the matching-pocket trials, use `open-snap-flush-mark1 --printer Mark1` and `open-snap-flush-mark2 --printer Mark2` with the same bed and review options. [Pocket and spring geometry source](flush.rs)
 
-The same geometry command writes the three numbered pairs under `parts/matched-trios`. Select `keyed-snap-trios --printer Mark1` for their plate. [Numbered coupon source](matched_trios.rs)
+The geometry command also writes the three marked pairs to `parts/solid-pairs`. Select `solid-snap-pairs --printer Mark1` for their plate. Viewed from the printer door, the covers sit in front of their corresponding receivers. The one-, two- and three-dot pairs run left to right. [Plate layout](prints/2026-11-25-mark1-solid-pairs/plate-key.png) · [Part dimensions](parts/solid-pairs/geometry.json) · [Coupon source](solid_pairs.rs)
