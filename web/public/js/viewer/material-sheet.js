@@ -220,10 +220,6 @@ export function mountMaterialSheet({ workspace, panel }) {
   };
   panel.addEventListener("wheel", onWheel, { passive: false });
 
-  // Typing a search wants the room above a phone's keyboard, so the sheet rises for it.
-  const onFocus = (e) => { if (active() && level < 2 && e.target.matches?.(".material-search input")) settleAt(2); };
-  panel.addEventListener("focusin", onFocus);
-
   // --- The model makes room for itself ---
   // A drag, a pinch or a wheel on the model lowers the sheet; a tap on it does not.
   const canvas = renderer.domElement;

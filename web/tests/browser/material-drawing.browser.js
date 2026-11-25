@@ -271,8 +271,12 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await page.waitForSelector(".cad-wrapper:not(.drawing-open)");
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
     assert.deepEqual(await cameraPose(page), pose);
+    await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }]);
+    const sheetHeight = await page.$eval(".material-panel", panel => panel.offsetHeight);
     const viewerSearch = await page.waitForSelector(".material-panel .material-search input", { visible: true });
     await viewerSearch.tap();
+    assert.equal(await page.$eval(".material-panel", panel => panel.offsetHeight), sheetHeight,
+      "Focusing Find keeps the sheet at its current height");
     const searchFontSize = await viewerSearch.evaluate(input => parseFloat(getComputedStyle(input).fontSize));
     assert.ok(searchFontSize >= 16, `Phone search needs 16px to avoid iOS focus zoom. Found ${searchFontSize}px.`);
     await viewerSearch.type("HSM-0008");
