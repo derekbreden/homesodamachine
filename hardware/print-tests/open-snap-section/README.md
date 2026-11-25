@@ -51,9 +51,13 @@ Count the recessed dots on the outer back of the cover and the outer edge of the
 | Two | The bearing at the end of each foot widens to 2.60 mm. | Press alternately over each wing. Compare how much the opposite foot lifts and whether it returns square. |
 | Three | The feet keep the 2.60 mm bearings. Each receiver’s sloping retaining shoulder moves back 0.12 mm along the direction of closure. | Compare seating, grip and removal effort with pair two. |
 
+![End section of the seated pair with enlarged views of the foot and retaining shoulder](prints/2026-11-25-mark1-solid-pairs/fit-sections.png)
+
 The native paths give about 1.85 mm of bearing width on the first pair and 2.43 mm on the other two, measured 0.03 mm inside the squared foot. At mid-layer the retaining faces project about 0.11 mm into the hook in pairs one and two. Pair three has about 0.01 mm of clearance there. Each receiver shoulder is built from 0.24 mm courses, so these section measurements describe one height in each step. [Submitted contact surfaces](prints/2026-11-25-mark1-solid-pairs/section-check.json)
 
-The cover and receiver for each trial were designed together. The earlier plate with added key blades was stopped. [Reason for stopping the earlier plate](https://github.com/derekbreden/homesodamachine/blob/13cbca49379e124335d453e543eb243e80613245/hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/physical-result.json)
+Each cover and its receiver share a dot count. The spring walls measure 2.00 mm throughout the bending section, and the cover has at least 5.01 mm of material under its dot patches. [Measured sections and insertion path](parts/solid-pairs/fit-check.json) · [Marks in the print paths](prints/2026-11-25-mark1-solid-pairs/native-paths.json)
+
+The earlier plate with added key blades was stopped. [Reason for stopping the earlier plate](https://github.com/derekbreden/homesodamachine/blob/13cbca49379e124335d453e543eb243e80613245/hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/physical-result.json)
 
 ## Reproduce the pair
 

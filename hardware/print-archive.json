@@ -1152,6 +1152,12 @@
       "bytes": 980800,
       "sha256": "3425cc335b5b12b3e7cd813b92a65e007847831c90b8fa18f132e06c70c830a0"
     },
+    "22627d79ede6858de2f89e3976c221565f1aba0c": {
+      "archive": "2026-11-25-solid-snap-pairs-mark1-1ffe7dfeddfb83b7.zip",
+      "bytes": 90236,
+      "offset": 74,
+      "sha256": "d146bc48b7ec0b80249fde51bbe5a2bc3cc50c42b47a5063653308bdf0d49f3f"
+    },
     "232f5249eb7a72984dc35b07bace7ecef8f787a3": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 684603691,
@@ -4325,6 +4331,12 @@
       "offset": 446921558,
       "bytes": 469287,
       "sha256": "54ff8d936d43ae849e6b91afbfc72e90e75ace271b35c1ae1234c7e084a55870"
+    },
+    "88af34ebc8cdbcbbec4e6c823e091e221ae668de": {
+      "archive": "2026-11-25-solid-snap-pairs-mark1-1ffe7dfeddfb83b7.zip",
+      "bytes": 974651,
+      "offset": 90384,
+      "sha256": "4de26c793a7bac4e5da2913ae973e27717e72ea907902bf242dc0dce58093eca"
     },
     "89054693316fafbf39fdc1e99b34ce7da71146f4": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -8171,6 +8183,8 @@
     "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf": "9691a90bb3109a7268aa8f5d2c4e70bc27dfa275",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-flush/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.3mf": "54c2b87e68156c1a895c278942459aa5835b309e",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-flush/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.gcode.3mf": "da2560499210e6950a01a64c5068add7b6dced4f",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-solid-pairs/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.3mf": "22627d79ede6858de2f89e3976c221565f1aba0c",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-solid-pairs/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.gcode.3mf": "88af34ebc8cdbcbbec4e6c823e091e221ae668de",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.3mf": "99cff96f545c360c9498e1c3778b0413c3da0147",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei/2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.gcode.3mf": "d8968f2e94e2b62bd46e2b8b8bbd65ccb1acf448",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei.3mf": "35c163662d5a7203f6c4db01993d9dedd2c9261c",

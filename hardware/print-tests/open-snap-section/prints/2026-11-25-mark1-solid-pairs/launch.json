@@ -1,0 +1,32 @@
+{
+  "archive": {
+    "gcode_sha256": "55319876a8452a37fa63aff0c7c3f43ee217d729b680a480a1abc34d3ac091bc",
+    "name": "2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.gcode.3mf",
+    "objects": [
+      "cover-1",
+      "cover-2",
+      "cover-3",
+      "receiver-1",
+      "receiver-2",
+      "receiver-3",
+      "cooling-wall"
+    ],
+    "sha256": "4de26c793a7bac4e5da2913ae973e27717e72ea907902bf242dc0dce58093eca",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 90,
+  "observed_at": "2026-11-25T21:24:55+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1486975766",
+  "subtask_name": "2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.gcode.3mf",
+  "total_layer_num": 145
+}

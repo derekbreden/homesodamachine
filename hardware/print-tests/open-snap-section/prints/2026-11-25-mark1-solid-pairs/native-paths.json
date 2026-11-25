@@ -1,0 +1,191 @@
+{
+  "purpose": "Identify each submitted snap and the separate cooling wall, and measure the ID dots in the deposited perimeter paths.",
+  "archive_sha256": "4de26c793a7bac4e5da2913ae973e27717e72ea907902bf242dc0dce58093eca",
+  "gcode_sha256": "55319876a8452a37fa63aff0c7c3f43ee217d729b680a480a1abc34d3ac091bc",
+  "slicer_estimate_with_localized_cooling_seconds": 5834,
+  "filament_g": 26.2,
+  "native_review": "2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/review.json",
+  "mesh_comparison": "Every oriented triangle embedded in the sliced 3MF matched its source STL in plate coordinates.",
+  "objects": {
+    "cover-1": {
+      "identify_id": 1901,
+      "sha256": "e329d7878ac59ad693df56e953f6902c97b255bda7ed2c737412483c2a5b4b9c",
+      "mesh_facets": 1502,
+      "largest_vertex_error_in_sliced_archive_mm": 4e-07,
+      "extruding_courses": 50,
+      "first_last_course_top_mm": [
+        0.2,
+        11.96
+      ],
+      "commanded_deposition_s": 191.8
+    },
+    "cover-2": {
+      "identify_id": 1902,
+      "sha256": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "mesh_facets": 1760,
+      "largest_vertex_error_in_sliced_archive_mm": 1e-07,
+      "extruding_courses": 50,
+      "first_last_course_top_mm": [
+        0.2,
+        11.96
+      ],
+      "commanded_deposition_s": 194.7
+    },
+    "cover-3": {
+      "identify_id": 1903,
+      "sha256": "4d19477eca2774764603cee6b206d2478aab0820c27ce25f36be868c3c7d24a1",
+      "mesh_facets": 2018,
+      "largest_vertex_error_in_sliced_archive_mm": 5e-07,
+      "extruding_courses": 50,
+      "first_last_course_top_mm": [
+        0.2,
+        11.96
+      ],
+      "commanded_deposition_s": 194.6
+    },
+    "receiver-1": {
+      "identify_id": 1904,
+      "sha256": "139111d7ba0f7e9cb437c7d23e8b09af3a7b2b9949a11636ef3946901c38398e",
+      "mesh_facets": 534,
+      "largest_vertex_error_in_sliced_archive_mm": 1.1e-06,
+      "extruding_courses": 145,
+      "first_last_course_top_mm": [
+        0.2,
+        34.76
+      ],
+      "commanded_deposition_s": 355.9
+    },
+    "receiver-2": {
+      "identify_id": 1905,
+      "sha256": "b7aad04ca5e35a2acdf182d7a6208c03f5fd4fe1f269d3269628ea43628e7ad9",
+      "mesh_facets": 792,
+      "largest_vertex_error_in_sliced_archive_mm": 1.1e-06,
+      "extruding_courses": 145,
+      "first_last_course_top_mm": [
+        0.2,
+        34.76
+      ],
+      "commanded_deposition_s": 363.1
+    },
+    "receiver-3": {
+      "identify_id": 1906,
+      "sha256": "10306a3967bd9642ae33b168b3e48f6415f6a7817a53cc9bc6bcae662159dc39",
+      "mesh_facets": 1050,
+      "largest_vertex_error_in_sliced_archive_mm": 1.1e-06,
+      "extruding_courses": 145,
+      "first_last_course_top_mm": [
+        0.2,
+        34.76
+      ],
+      "commanded_deposition_s": 363.8
+    },
+    "cooling-wall": {
+      "identify_id": 1907,
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "mesh_facets": 70,
+      "largest_vertex_error_in_sliced_archive_mm": 7e-07,
+      "extruding_courses": 145,
+      "first_last_course_top_mm": [
+        0.2,
+        34.76
+      ],
+      "commanded_deposition_s": 2027.3
+    }
+  },
+  "dot_method": "Intersect the outer wall paths expanded by half their commanded widths. Subtract the exterior edge at the marks from the median unmarked edge on the same face. Separate recessed regions at 0.15 mm depth. Coordinates use each source STL\u2019s print pose.",
+  "printed_marks": {
+    "cover-1": {
+      "source_print_x_mm": 7.8,
+      "sample_axis": "print Z at the middle of each native course",
+      "native_dot_count": 1,
+      "dots": [
+        {
+          "center_mm": 5.96,
+          "deepest_commanded_recession_mm": 0.552
+        }
+      ]
+    },
+    "cover-2": {
+      "source_print_x_mm": 7.8,
+      "sample_axis": "print Z at the middle of each native course",
+      "native_dot_count": 2,
+      "dots": [
+        {
+          "center_mm": 4.28,
+          "deepest_commanded_recession_mm": 0.539
+        },
+        {
+          "center_mm": 7.64,
+          "deepest_commanded_recession_mm": 0.564
+        }
+      ]
+    },
+    "cover-3": {
+      "source_print_x_mm": 7.8,
+      "sample_axis": "print Z at the middle of each native course",
+      "native_dot_count": 3,
+      "dots": [
+        {
+          "center_mm": 2.6,
+          "deepest_commanded_recession_mm": 0.528
+        },
+        {
+          "center_mm": 5.96,
+          "deepest_commanded_recession_mm": 0.552
+        },
+        {
+          "center_mm": 9.32,
+          "deepest_commanded_recession_mm": 0.575
+        }
+      ]
+    },
+    "receiver-1": {
+      "source_print_z_mm": 1.725,
+      "native_course_top_mm": 1.88,
+      "sample_axis": "print Y at 0.05 mm intervals",
+      "native_dot_count": 1,
+      "dots": [
+        {
+          "center_mm": 0.0,
+          "deepest_commanded_recession_mm": 0.579
+        }
+      ]
+    },
+    "receiver-2": {
+      "source_print_z_mm": 1.725,
+      "native_course_top_mm": 1.88,
+      "sample_axis": "print Y at 0.05 mm intervals",
+      "native_dot_count": 2,
+      "dots": [
+        {
+          "center_mm": -1.7,
+          "deepest_commanded_recession_mm": 0.579
+        },
+        {
+          "center_mm": 1.7,
+          "deepest_commanded_recession_mm": 0.579
+        }
+      ]
+    },
+    "receiver-3": {
+      "source_print_z_mm": 1.725,
+      "native_course_top_mm": 1.88,
+      "sample_axis": "print Y at 0.05 mm intervals",
+      "native_dot_count": 3,
+      "dots": [
+        {
+          "center_mm": -3.4,
+          "deepest_commanded_recession_mm": 0.579
+        },
+        {
+          "center_mm": 0.0,
+          "deepest_commanded_recession_mm": 0.579
+        },
+        {
+          "center_mm": 3.4,
+          "deepest_commanded_recession_mm": 0.579
+        }
+      ]
+    }
+  }
+}
