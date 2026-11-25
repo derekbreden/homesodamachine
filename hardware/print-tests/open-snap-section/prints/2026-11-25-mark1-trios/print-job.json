@@ -120,5 +120,7 @@
   "prelaunch_status": "prelaunch-status.json",
   "launch": "launch.json",
   "printing_status": "printing-status.json",
-  "toolpath_key_and_mark_check": "section-check.json"
+  "toolpath_key_and_mark_check": "section-check.json",
+  "cancellation_status": "cancellation-status.json",
+  "cancellation_observed_at": "2026-11-25T21:11:11+00:00"
 }

@@ -1,0 +1,16 @@
+{
+  "printer": "H2C",
+  "job_id": "1486850876",
+  "subtask_name": "2026-11-25-keyed-snap-trios-mark1-4229de50-textured-pei.gcode.3mf",
+  "observed_at": "2026-11-25T21:11:11+00:00",
+  "gcode_state": "FAILED",
+  "print_error": 50348044,
+  "error_code_hex": "0300400C",
+  "mc_percent": 0,
+  "mc_remaining_time": 0,
+  "layer_num": 0,
+  "total_layer_num": 145,
+  "hms": [],
+  "firmware_message": "The task was canceled.",
+  "previously_verified_deposition": "printing-status.json"
+}
