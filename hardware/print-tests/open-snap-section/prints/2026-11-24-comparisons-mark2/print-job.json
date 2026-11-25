@@ -114,5 +114,7 @@
   "interlayer_cooling": "cooling.json",
   "launch": "launch.json",
   "printing_status": "printing-status.json",
-  "contact_course_review": "section-check.json"
+  "contact_course_review": "section-check.json",
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-25T06:43:02+00:00"
 }
