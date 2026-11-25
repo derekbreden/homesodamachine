@@ -1,0 +1,30 @@
+{
+  "archive": {
+    "gcode_sha256": "b84f31cec9262e58dbaf624b6ded4c6224cf8584ed77bdf8605073673974997a",
+    "name": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.gcode.3mf",
+    "objects": [
+      "push rod",
+      "reed comb",
+      "float sled near",
+      "float sled nominal",
+      "float sled far"
+    ],
+    "sha256": "ea7608f8417ac795e446587feeaa06c6060be9e0203db2b33af398a4a1aaf55a",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 146,
+  "observed_at": "2026-11-25T04:46:04+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1484074801",
+  "subtask_name": "reed-sweep-rig-small-parts-petgf-left04-z018-mark1.gcode.3mf",
+  "total_layer_num": 219
+}
