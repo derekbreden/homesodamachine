@@ -387,12 +387,12 @@ pub fn flavor_routes(stations: &Value) -> (Routes, Vec<Unrouted>) {
                             source,
                             [source[0], source[1], 292.5],
                             [35., 156., 288.5],
-                            [-45., 156., 288.5],
-                            [-45., 181., 288.5],
+                            [lane, 156., 288.5],
+                            [lane, 181., 288.5],
                         ],
                         radius,
                     )?,
-                    [-45., 181., 288.5],
+                    [lane, 181., 288.5],
                 )
             } else {
                 (
