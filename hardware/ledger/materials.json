@@ -17,6 +17,7 @@
     {
       "id": "HSM-0001",
       "description": "Soda machine",
+      "shortName": "Soda machine",
       "kind": "assembly",
       "aliases": [
         "integrated machine",
@@ -366,6 +367,7 @@
     {
       "id": "HSM-0002",
       "description": "Faucet \u00b7 Sculpted",
+      "shortName": "Sculpted faucet",
       "kind": "assembly",
       "aliases": [
         "tap",
@@ -713,6 +715,7 @@
     {
       "id": "HSM-0003",
       "description": "Cold core",
+      "shortName": "Cold core",
       "kind": "assembly",
       "aliases": [
         "foam assembly",
@@ -852,6 +855,7 @@
     {
       "id": "HSM-0004",
       "description": "Carbonator vessel",
+      "shortName": "Carbonator vessel",
       "kind": "assembly",
       "aliases": [
         "pressure vessel",
@@ -1337,6 +1341,7 @@
     {
       "id": "HSM-0007",
       "description": "Faucet \u00b7 Industrial",
+      "shortName": "Industrial faucet",
       "kind": "assembly",
       "aliases": [
         "industrial faucet",
@@ -1595,6 +1600,7 @@
     {
       "id": "HSM-0008",
       "description": "Carbonator tube \u00b7 316L stainless, 5 inch OD",
+      "shortName": "Carbonator tube",
       "kind": "manufactured",
       "models": [
         {
@@ -1608,6 +1614,7 @@
     {
       "id": "HSM-0009",
       "description": "Carbonator endcap \u00b7 316 stainless, 2 ports",
+      "shortName": "Carbonator endcap",
       "kind": "manufactured",
       "models": [
         {
@@ -1628,6 +1635,7 @@
     {
       "id": "HSM-0010",
       "description": "TAISHER 316L street elbow \u00b7 1/4 inch NPT",
+      "shortName": "Street elbow",
       "kind": "purchased",
       "aliases": [
         "carbonator elbows"
@@ -1641,6 +1649,7 @@
     {
       "id": "HSM-0011",
       "description": "Carbonator water-inlet jet cap",
+      "shortName": "Water-inlet jet cap",
       "kind": "manufactured",
       "aliases": [
         "water inlet jet",
@@ -1670,6 +1679,7 @@
     {
       "id": "HSM-0012",
       "description": "Control Devices SV-125 pressure relief valve",
+      "shortName": "Pressure relief valve",
       "kind": "purchased",
       "aliases": [
         "PRV"
@@ -1683,6 +1693,7 @@
     {
       "id": "HSM-0013",
       "description": "John Guest PP010822E \u00b7 water port connector",
+      "shortName": "TAP connector",
       "kind": "purchased",
       "models": [
         {
@@ -1697,6 +1708,7 @@
     {
       "id": "HSM-0014",
       "description": "John Guest PI010822S \u00b7 Taprite CO\u2082 outlet adapter",
+      "shortName": "Taprite outlet adapter",
       "kind": "purchased",
       "aliases": [
         "primary regulator outlet adapter",
@@ -1726,6 +1738,7 @@
     {
       "id": "HSM-0015",
       "description": "Evaporator coil \u00b7 formed ACR copper tubing",
+      "shortName": "Evaporator coil",
       "kind": "manufactured",
       "aliases": [
         "evaporator coil"
@@ -1754,6 +1767,7 @@
     {
       "id": "HSM-0016",
       "description": "DS18B20 carbonator temperature sensor",
+      "shortName": "Carbonator temperature sensor",
       "kind": "purchased",
       "aliases": [
         "carbonator probe"
@@ -1767,6 +1781,7 @@
     {
       "id": "HSM-0017",
       "description": "DS18S20 evaporator temperature sensor",
+      "shortName": "Evaporator temperature sensor",
       "kind": "purchased",
       "aliases": [
         "coil probe"
@@ -1780,6 +1795,7 @@
     {
       "id": "HSM-0018",
       "description": "Cold-core insulation shell",
+      "shortName": "Insulation shell",
       "kind": "manufactured",
       "models": [
         {
@@ -1800,6 +1816,7 @@
     {
       "id": "HSM-0020",
       "description": "Cold-core insulation cap lid \u00b7 top",
+      "shortName": "Insulation top cap",
       "kind": "manufactured",
       "models": [
         {
@@ -1815,6 +1832,7 @@
     {
       "id": "HSM-0021",
       "description": "Cold-core insulation cap \u00b7 bottom",
+      "shortName": "Insulation bottom cap",
       "kind": "manufactured",
       "models": [
         {
@@ -1829,6 +1847,7 @@
     {
       "id": "HSM-0024",
       "description": "Carbonator pressure-relief valve shroud",
+      "shortName": "Relief valve shroud",
       "kind": "manufactured",
       "models": [
         {
@@ -1848,6 +1867,7 @@
     {
       "id": "HSM-0025",
       "description": "Flavor reservoir \u00b7 channel B",
+      "shortName": "Flavor reservoir B",
       "kind": "manufactured",
       "models": [
         {
@@ -1868,6 +1888,7 @@
     {
       "id": "HSM-0026",
       "description": "Flavor reservoir \u00b7 channel A",
+      "shortName": "Flavor reservoir A",
       "kind": "manufactured",
       "models": [
         {
@@ -1888,6 +1909,7 @@
     {
       "id": "HSM-0027",
       "description": "Flavor reservoir cap \u00b7 channel B",
+      "shortName": "Reservoir B cap",
       "kind": "manufactured",
       "models": [
         {
@@ -1908,6 +1930,7 @@
     {
       "id": "HSM-0028",
       "description": "Flavor reservoir cap \u00b7 channel A",
+      "shortName": "Reservoir A cap",
       "kind": "manufactured",
       "models": [
         {
@@ -1928,6 +1951,7 @@
     {
       "id": "HSM-0029",
       "description": "Carbonator reed bridge",
+      "shortName": "Carbonator reed bridge",
       "kind": "manufactured",
       "models": [
         {
@@ -1947,6 +1971,7 @@
     {
       "id": "HSM-0032",
       "description": "Magnetic level float",
+      "shortName": "Level float",
       "kind": "assembly",
       "models": [
         {
@@ -1994,6 +2019,7 @@
     {
       "id": "HSM-0033",
       "description": "Magnetic level float body \u00b7 ASA Aero",
+      "shortName": "Float body",
       "kind": "manufactured",
       "models": [
         {
@@ -2007,6 +2033,7 @@
     {
       "id": "HSM-0034",
       "description": "K&J Magnetics RC62 N42 ring magnet",
+      "shortName": "Ring magnet",
       "kind": "purchased",
       "aliases": [
         "RC62",
@@ -2028,6 +2055,7 @@
     {
       "id": "HSM-0036",
       "description": "Littelfuse MDSR-7-10-15 reed switch",
+      "shortName": "Reed switch",
       "kind": "purchased",
       "aliases": [
         "reeds"
@@ -2041,6 +2069,7 @@
     {
       "id": "HSM-0038",
       "description": "Refrigeration compressor",
+      "shortName": "Compressor",
       "kind": "purchased",
       "models": [
         {
@@ -2057,6 +2086,7 @@
     {
       "id": "HSM-0039",
       "description": "MQ-6 gas sensor",
+      "shortName": "Gas sensor",
       "kind": "purchased",
       "models": [
         {
@@ -2070,6 +2100,7 @@
     {
       "id": "HSM-0040",
       "description": "BOJACK SF76E thermal cutoff",
+      "shortName": "Thermal cutoff",
       "kind": "purchased",
       "models": [
         {
@@ -2086,6 +2117,7 @@
     {
       "id": "HSM-0041",
       "description": "Compressor thermal-cutoff clamp",
+      "shortName": "Thermal cutoff clamp",
       "kind": "manufactured",
       "models": [
         {
@@ -2105,6 +2137,7 @@
     {
       "id": "HSM-0042",
       "description": "Beduan 12 V solenoid valve",
+      "shortName": "Solenoid valve",
       "kind": "purchased",
       "models": [
         {
@@ -2122,6 +2155,7 @@
     {
       "id": "HSM-0043",
       "description": "John Guest PP0208E \u00b7 1/4 inch tee",
+      "shortName": "John Guest tee",
       "kind": "purchased",
       "models": [
         {
@@ -2146,6 +2180,7 @@
     {
       "id": "HSM-0330",
       "description": "neoFit ATEU44W \u00b7 1/4 inch tube \u00d7 1/4 inch stem elbow",
+      "shortName": "Stem elbow",
       "kind": "purchased",
       "models": [
         {
@@ -2163,6 +2198,7 @@
     {
       "id": "HSM-0044",
       "description": "Kamoer KPHM600-SW3B17 flavor pump",
+      "shortName": "Flavor pump",
       "kind": "purchased",
       "models": [
         {
@@ -2192,6 +2228,7 @@
     {
       "id": "HSM-0046",
       "description": "Mean Well IRM-90-12ST power supply",
+      "shortName": "Mean Well power supply",
       "kind": "purchased",
       "models": [
         {
@@ -2209,6 +2246,7 @@
     {
       "id": "HSM-0047",
       "description": "Teyleten 3.3 V relay module",
+      "shortName": "Relay module",
       "kind": "purchased",
       "models": [
         {
@@ -2229,6 +2267,7 @@
     {
       "id": "HSM-0048",
       "description": "Main control PCBA",
+      "shortName": "Main control board",
       "kind": "purchased",
       "models": [
         {
@@ -2248,6 +2287,7 @@
     {
       "id": "HSM-0049",
       "description": "IEC C14 mains inlet",
+      "shortName": "C14 mains inlet",
       "kind": "purchased",
       "models": [
         {
@@ -2264,6 +2304,7 @@
     {
       "id": "HSM-0050",
       "description": "WAGO 221-413 \u00b7 3-way lever connector",
+      "shortName": "WAGO 3-way",
       "kind": "purchased",
       "models": [
         {
@@ -2281,6 +2322,7 @@
     {
       "id": "HSM-0052",
       "description": "WAGO 221-420 \u00b7 10-way lever connector",
+      "shortName": "WAGO 10-way",
       "kind": "purchased",
       "models": [
         {
@@ -2298,6 +2340,7 @@
     {
       "id": "HSM-0053",
       "description": "WAGO 221-415 \u00b7 5-way lever connector",
+      "shortName": "WAGO 5-way",
       "kind": "purchased",
       "models": [
         {
@@ -2315,6 +2358,7 @@
     {
       "id": "HSM-0059",
       "description": "John Guest PP1208E bulkhead union \u00b7 1/4 inch",
+      "shortName": "1/4 inch bulkhead union",
       "kind": "purchased",
       "models": [
         {
@@ -2329,6 +2373,7 @@
     {
       "id": "HSM-0060",
       "description": "DIGITEN water flow sensor",
+      "shortName": "Flow sensor",
       "kind": "purchased",
       "models": [
         {
@@ -2345,6 +2390,7 @@
     {
       "id": "HSM-0061",
       "description": "neoFit ABU44M-E bulkhead union \u00b7 4 mm",
+      "shortName": "4 mm bulkhead union",
       "kind": "purchased",
       "models": [
         {
@@ -2366,6 +2412,7 @@
     {
       "id": "HSM-0062",
       "description": "Enclosure port identification plate \u00b7 tap water",
+      "shortName": "Tap water port plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2385,6 +2432,7 @@
     {
       "id": "HSM-0063",
       "description": "Enclosure port identification plate \u00b7 carbonated water",
+      "shortName": "Soda port plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2404,6 +2452,7 @@
     {
       "id": "HSM-0064",
       "description": "Enclosure port identification plate \u00b7 flavor A",
+      "shortName": "Flavor A port plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2423,6 +2472,7 @@
     {
       "id": "HSM-0065",
       "description": "Enclosure port identification plate \u00b7 flavor B",
+      "shortName": "Flavor B port plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2442,6 +2492,7 @@
     {
       "id": "HSM-0066",
       "description": "Enclosure port identification plate \u00b7 CO\u2082",
+      "shortName": "CO\u2082 port plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2461,6 +2512,7 @@
     {
       "id": "HSM-0067",
       "description": "Enclosure port identification plate \u00b7 vent return",
+      "shortName": "Vent return port plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2480,6 +2532,7 @@
     {
       "id": "HSM-0069",
       "description": "Enclosure nameplate",
+      "shortName": "Nameplate",
       "kind": "manufactured",
       "models": [
         {
@@ -2499,6 +2552,7 @@
     {
       "id": "HSM-0070",
       "description": "Flavor-fill funnel \u00b7 silicone",
+      "shortName": "Fill funnel",
       "kind": "manufactured",
       "models": [
         {
@@ -2518,6 +2572,7 @@
     {
       "id": "HSM-0071",
       "description": "Flavor-fill funnel cover",
+      "shortName": "Funnel cover",
       "kind": "manufactured",
       "models": [
         {
@@ -2537,6 +2592,7 @@
     {
       "id": "HSM-0072",
       "description": "Flavor-fill funnel frame",
+      "shortName": "Funnel frame",
       "kind": "manufactured",
       "models": [
         {
@@ -2556,6 +2612,7 @@
     {
       "id": "HSM-0073",
       "description": "Flavor-fill funnel drain-elbow cradle",
+      "shortName": "Funnel drain cradle",
       "kind": "manufactured",
       "models": [
         {
@@ -2591,6 +2648,7 @@
     {
       "id": "HSM-0075",
       "description": "Waveshare ESP32-S3-Touch-LCD-4.3B display",
+      "shortName": "Machine display",
       "kind": "purchased",
       "models": [
         {
@@ -2608,6 +2666,7 @@
     {
       "id": "HSM-0076",
       "description": "Machine display cover",
+      "shortName": "Machine display cover",
       "kind": "manufactured",
       "models": [
         {
@@ -2624,6 +2683,7 @@
     {
       "id": "HSM-0077",
       "description": "Machine display gasket",
+      "shortName": "Machine display gasket",
       "kind": "manufactured",
       "models": [
         {
@@ -2643,6 +2703,7 @@
     {
       "id": "HSM-0078",
       "description": "Enclosure front bottom",
+      "shortName": "Enclosure front bottom",
       "kind": "manufactured",
       "models": [
         {
@@ -2659,6 +2720,7 @@
     {
       "id": "HSM-0079",
       "description": "Enclosure front top",
+      "shortName": "Enclosure front top",
       "kind": "manufactured",
       "models": [
         {
@@ -2675,6 +2737,7 @@
     {
       "id": "HSM-0080",
       "description": "Enclosure back bottom",
+      "shortName": "Enclosure back bottom",
       "kind": "manufactured",
       "models": [
         {
@@ -2691,6 +2754,7 @@
     {
       "id": "HSM-0081",
       "description": "Enclosure back top",
+      "shortName": "Enclosure back top",
       "kind": "manufactured",
       "print_cases": "enclosure-back-top.json",
       "models": [
@@ -2708,6 +2772,7 @@
     {
       "id": "HSM-0082",
       "description": "Lower pump retainer",
+      "shortName": "Lower pump retainer",
       "kind": "manufactured",
       "models": [
         {
@@ -2730,6 +2795,7 @@
     {
       "id": "HSM-0088",
       "description": "ASSE 1022 vent adapter sleeve \u00b7 TPU 85A",
+      "shortName": "Vent adapter sleeve",
       "kind": "manufactured",
       "models": [
         {
@@ -2749,6 +2815,7 @@
     {
       "id": "HSM-0089",
       "description": "Westbrass R2031-NL faucet valve assembly",
+      "shortName": "Westbrass faucet valve",
       "kind": "purchased",
       "models": [
         {
@@ -2769,6 +2836,7 @@
     {
       "id": "HSM-0090",
       "description": "Faucet tube sealing thimble \u00b7 TPU 85A",
+      "shortName": "Sealing thimble",
       "kind": "manufactured",
       "models": [
         {
@@ -2792,6 +2860,7 @@
     {
       "id": "HSM-0092",
       "description": "Sculpted faucet mounting plate \u00b7 above counter",
+      "shortName": "Sculpted mounting plate",
       "kind": "manufactured",
       "models": [
         {
@@ -2816,6 +2885,7 @@
     {
       "id": "HSM-0093",
       "description": "Sculpted faucet mounting gasket \u00b7 above counter",
+      "shortName": "Sculpted mounting gasket",
       "kind": "manufactured",
       "models": [
         {
@@ -2829,6 +2899,7 @@
     {
       "id": "HSM-0094",
       "description": "Sculpted faucet shell base",
+      "shortName": "Sculpted shell base",
       "kind": "manufactured",
       "models": [
         {
@@ -2842,6 +2913,7 @@
     {
       "id": "HSM-0095",
       "description": "Faucet shell tip",
+      "shortName": "Faucet shell tip",
       "kind": "manufactured",
       "models": [
         {
@@ -2857,6 +2929,7 @@
     {
       "id": "HSM-0096",
       "description": "Faucet display cover",
+      "shortName": "Faucet display cover",
       "kind": "manufactured",
       "models": [
         {
@@ -2877,6 +2950,7 @@
     {
       "id": "HSM-0097",
       "description": "Waveshare ESP32-S3 1.47 inch faucet touch display",
+      "shortName": "Faucet display",
       "kind": "purchased",
       "aliases": [
         "B0FCF1MGT3",
@@ -2891,6 +2965,7 @@
     {
       "id": "HSM-0098",
       "description": "Faucet umbilical organizer",
+      "shortName": "Umbilical organizer",
       "kind": "manufactured",
       "models": [
         {
@@ -2910,6 +2985,7 @@
     {
       "id": "HSM-0099",
       "description": "Faucet tube identification collar \u00b7 carbonated water",
+      "shortName": "Soda tube collar",
       "kind": "manufactured",
       "models": [
         {
@@ -2929,6 +3005,7 @@
     {
       "id": "HSM-0100",
       "description": "Faucet tube identification collar \u00b7 flavor A",
+      "shortName": "Flavor A tube collar",
       "kind": "manufactured",
       "models": [
         {
@@ -2948,6 +3025,7 @@
     {
       "id": "HSM-0101",
       "description": "Faucet tube identification collar \u00b7 flavor B",
+      "shortName": "Flavor B tube collar",
       "kind": "manufactured",
       "models": [
         {
@@ -2967,6 +3045,7 @@
     {
       "id": "HSM-0102",
       "description": "Faucet tube identification collar \u00b7 vent return",
+      "shortName": "Vent return tube collar",
       "kind": "manufactured",
       "models": [
         {
@@ -2986,6 +3065,7 @@
     {
       "id": "HSM-0105",
       "description": "Faucet display signal ribbon",
+      "shortName": "Display signal ribbon",
       "kind": "purchased",
       "contexts": [
         {
@@ -3032,6 +3112,7 @@
     {
       "id": "HSM-0107",
       "description": "Faucet flavor tubing",
+      "shortName": "Faucet flavor tubing",
       "kind": "purchased",
       "contexts": [
         {
@@ -3042,6 +3123,7 @@
     {
       "id": "HSM-0108",
       "description": "Faucet drain tubing",
+      "shortName": "Faucet drain tubing",
       "kind": "purchased",
       "aliases": [
         "Vent-return umbilical tube \u00b7 4 mm white LLDPE",
@@ -3058,6 +3140,7 @@
     {
       "id": "HSM-0109",
       "description": "CARGEN cold-line foam insulation",
+      "shortName": "Cold-line insulation",
       "kind": "purchased",
       "contexts": [
         {
@@ -3090,6 +3173,7 @@
     {
       "id": "HSM-0110",
       "description": "Faucet umbilical braided sleeve",
+      "shortName": "Umbilical sleeve",
       "kind": "purchased",
       "contexts": [
         {
@@ -3100,6 +3184,7 @@
     {
       "id": "HSM-0111",
       "description": "Industrial faucet mounting plate \u00b7 above counter",
+      "shortName": "Industrial mounting plate",
       "kind": "manufactured",
       "models": [
         {
@@ -3113,6 +3198,7 @@
     {
       "id": "HSM-0112",
       "description": "Industrial faucet mounting gasket \u00b7 above counter",
+      "shortName": "Industrial mounting gasket",
       "kind": "manufactured",
       "models": [
         {
@@ -3126,6 +3212,7 @@
     {
       "id": "HSM-0113",
       "description": "Industrial faucet shell base",
+      "shortName": "Industrial shell base",
       "kind": "manufactured",
       "models": [
         {
@@ -3314,6 +3401,7 @@
     {
       "id": "HSM-0132",
       "description": "ruthex M5 \u00d7 9.5 heat-set insert",
+      "shortName": "M5 heat-set insert",
       "kind": "purchased",
       "manufacturer_number": "RX-M5x9.5",
       "aliases": [
@@ -3355,6 +3443,7 @@
     {
       "id": "HSM-0137",
       "description": "M3 \u00d7 25 socket-head screw",
+      "shortName": "M3 \u00d7 25 screw",
       "kind": "purchased",
       "aliases": [
         "foam-cap clamp screw",
@@ -3371,6 +3460,7 @@
     {
       "id": "HSM-0138",
       "description": "M3 \u00d7 8 socket-head screw",
+      "shortName": "M3 \u00d7 8 screw",
       "kind": "purchased",
       "aliases": [
         "BNUOK M3x8",
@@ -3401,6 +3491,7 @@
     {
       "id": "HSM-0140",
       "description": "M3 \u00d7 12 socket-head screw",
+      "shortName": "M3 \u00d7 12 socket-head screw",
       "kind": "purchased",
       "aliases": [
         "BNUOK M3x12",
@@ -3555,6 +3646,7 @@
     {
       "id": "HSM-0159",
       "description": "M5 fender washer, OD 25 mm",
+      "shortName": "M5 fender washer",
       "kind": "purchased",
       "aliases": [
         "compressor floor washer",
@@ -3575,6 +3667,7 @@
     {
       "id": "HSM-0161",
       "description": "Fixed pump assembly",
+      "shortName": "Fixed pump assembly",
       "kind": "assembly",
       "aliases": [
         "fixed pump mount",
@@ -3689,6 +3782,7 @@
     {
       "id": "HSM-0164",
       "description": "ruthex M3 \u00d7 5.7 heat-set insert",
+      "shortName": "M3 heat-set insert",
       "kind": "purchased",
       "manufacturer_number": "RX-M3x5.7",
       "documents": [
@@ -3709,6 +3803,7 @@
     {
       "id": "HSM-0168",
       "description": "Pump connecting tube \u00b7 1/4 inch LLDPE",
+      "shortName": "Pump connecting tube",
       "kind": "manufactured",
       "aliases": [
         "pump barb tube",
@@ -3737,6 +3832,7 @@
     {
       "id": "HSM-0170",
       "description": "Female Faston receptacle \u00b7 pump motor",
+      "shortName": "Faston receptacle",
       "kind": "purchased",
       "aliases": [
         "female spade terminal",
@@ -3765,6 +3861,7 @@
     {
       "id": "HSM-0173",
       "description": "Multiplex 19-0897 ASSE 1022 backflow preventer",
+      "shortName": "Backflow preventer",
       "kind": "purchased",
       "manufacturer_number": "19-0897",
       "models": [
@@ -3782,6 +3879,7 @@
     {
       "id": "HSM-0178",
       "description": "G Ganen 12 V diaphragm water pump",
+      "shortName": "Diaphragm water pump",
       "kind": "purchased",
       "aliases": [
         "G Ganen water pump",
@@ -3812,6 +3910,7 @@
     {
       "id": "HSM-0179",
       "description": "Refrigeration condenser and fan assembly",
+      "shortName": "Condenser and fan",
       "kind": "purchased",
       "aliases": [
         "condenser+fan",
@@ -3838,6 +3937,7 @@
     {
       "id": "HSM-0268",
       "description": "Faucet lever \u00b7 PET-GF",
+      "shortName": "Faucet lever",
       "kind": "manufactured",
       "aliases": [
         "lever",
@@ -3868,6 +3968,7 @@
     {
       "id": "HSM-0269",
       "description": "Faucet mounting plate \u00b7 under counter, 316 stainless",
+      "shortName": "Under-counter plate",
       "kind": "manufactured",
       "aliases": [
         "under counter plate",
@@ -3903,6 +4004,7 @@
     {
       "id": "HSM-0270",
       "description": "RiteAV RJ11 6P4C keystone jack",
+      "shortName": "RJ11 keystone jack",
       "kind": "purchased",
       "aliases": [
         "keystone",
@@ -3924,6 +4026,7 @@
     {
       "id": "HSM-0272",
       "description": "Installation tube identification collar \u00b7 tap water",
+      "shortName": "Tap water tube collar",
       "kind": "manufactured",
       "models": [
         {
@@ -3943,6 +4046,7 @@
     {
       "id": "HSM-0273",
       "description": "Installation tube identification collar \u00b7 CO\u2082",
+      "shortName": "CO\u2082 tube collar",
       "kind": "manufactured",
       "models": [
         {
@@ -3962,6 +4066,7 @@
     {
       "id": "HSM-0277",
       "description": "Flavor A pump suction flex tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor A pump suction tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-10",
@@ -3991,6 +4096,7 @@
     {
       "id": "HSM-0278",
       "description": "Flavor A reservoir return flex tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor A return tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-13",
@@ -4020,6 +4126,7 @@
     {
       "id": "HSM-0279",
       "description": "Flavor B pump suction flex tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor B pump suction tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-20",
@@ -4049,6 +4156,7 @@
     {
       "id": "HSM-0280",
       "description": "Flavor B reservoir return flex tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor B return tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-23",
@@ -4078,6 +4186,7 @@
     {
       "id": "HSM-0281",
       "description": "Flavor A shared-source tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor A source tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-9",
@@ -4107,6 +4216,7 @@
     {
       "id": "HSM-0282",
       "description": "Flavor A dispense valve feed tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor A dispense feed tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-17",
@@ -4136,6 +4246,7 @@
     {
       "id": "HSM-0283",
       "description": "Flavor B shared-source tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor B source tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-19",
@@ -4165,6 +4276,7 @@
     {
       "id": "HSM-0284",
       "description": "Flavor B dispense valve feed tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Flavor B dispense feed tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-27",
@@ -4194,6 +4306,7 @@
     {
       "id": "HSM-0285",
       "description": "Tap-water source tee inlet tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Tap water tee inlet tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-3",
@@ -4226,6 +4339,7 @@
     {
       "id": "HSM-0286",
       "description": "V-B outlet to Y-B return tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "V-B to Y-B return tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-5",
@@ -4259,6 +4373,7 @@
     {
       "id": "HSM-0288",
       "description": "Refrigerant suction tube \u00b7 ACR copper",
+      "shortName": "Refrigerant suction tube",
       "kind": "manufactured",
       "aliases": [
         "refrig-3",
@@ -4288,6 +4403,7 @@
     {
       "id": "HSM-0289",
       "description": "Refrigerant discharge tube \u00b7 ACR copper",
+      "shortName": "Refrigerant discharge tube",
       "kind": "manufactured",
       "aliases": [
         "refrig-1",
@@ -4317,6 +4433,7 @@
     {
       "id": "HSM-0290",
       "description": "Refrigerant evaporator feed tube \u00b7 ACR copper",
+      "shortName": "Evaporator feed tube",
       "kind": "manufactured",
       "aliases": [
         "refrig-2",
@@ -4346,6 +4463,7 @@
     {
       "id": "HSM-0293",
       "description": "Water-pump outlet tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Water pump outlet tube",
       "kind": "manufactured",
       "aliases": [
         "water-5",
@@ -4385,6 +4503,7 @@
     {
       "id": "HSM-0294",
       "description": "Backflow preventer outlet tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Backflow outlet tube",
       "kind": "manufactured",
       "aliases": [
         "water-2",
@@ -4416,6 +4535,7 @@
     {
       "id": "HSM-0295",
       "description": "Flavor clean-water regulator inlet tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Flavor regulator inlet tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-1",
@@ -4447,6 +4567,7 @@
     {
       "id": "HSM-0296",
       "description": "Carbonator fill-valve supply tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Carbonator fill valve tube",
       "kind": "manufactured",
       "aliases": [
         "water-3",
@@ -4478,6 +4599,7 @@
     {
       "id": "HSM-0299",
       "description": "CO\u2082 check-valve outlet tube \u00b7 1/4 inch red LLDPE",
+      "shortName": "CO\u2082 check outlet tube",
       "kind": "manufactured",
       "aliases": [
         "co2-2",
@@ -4519,6 +4641,7 @@
     {
       "id": "HSM-0300",
       "description": "Flavor clean-water regulator outlet tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Flavor regulator outlet tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-2",
@@ -4550,6 +4673,7 @@
     {
       "id": "HSM-0301",
       "description": "Carbonated-water flow-sensor inlet tube \u00b7 1/4 inch blue LLDPE",
+      "shortName": "Flow sensor inlet tube",
       "kind": "manufactured",
       "aliases": [
         "carb-1",
@@ -4592,6 +4716,7 @@
     {
       "id": "HSM-0302",
       "description": "Carbonated-water flow-sensor outlet tube \u00b7 1/4 inch blue LLDPE",
+      "shortName": "Flow sensor outlet tube",
       "kind": "manufactured",
       "aliases": [
         "carb-2",
@@ -4623,6 +4748,7 @@
     {
       "id": "HSM-0303",
       "description": "Flavor B dispense outlet tube \u00b7 4 mm black LLDPE \u00b7 V-J to west rear flavor port X37.25",
+      "shortName": "Flavor B dispense outlet tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-28",
@@ -4648,6 +4774,7 @@
     {
       "id": "HSM-0304",
       "description": "Flavor A dispense outlet tube \u00b7 4 mm black LLDPE \u00b7 V-G to east rear flavor port X77.5",
+      "shortName": "Flavor A dispense outlet tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-18",
@@ -4673,6 +4800,7 @@
     {
       "id": "HSM-0305",
       "description": "Flavor B reservoir fill tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Reservoir B fill tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-24",
@@ -4708,6 +4836,7 @@
     {
       "id": "HSM-0306",
       "description": "Flavor B reservoir draw tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Reservoir B draw tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-26",
@@ -4747,6 +4876,7 @@
     {
       "id": "HSM-0307",
       "description": "Flavor A reservoir fill tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Reservoir A fill tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-14",
@@ -4786,6 +4916,7 @@
     {
       "id": "HSM-0308",
       "description": "Flavor A reservoir draw tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Reservoir A draw tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-16",
@@ -4825,6 +4956,7 @@
     {
       "id": "HSM-0309",
       "description": "Flavor-fill funnel drain tube \u00b7 1/4 inch black LLDPE",
+      "shortName": "Funnel drain tube",
       "kind": "manufactured",
       "aliases": [
         "fluid-4",
@@ -4856,6 +4988,7 @@
     {
       "id": "HSM-0310",
       "description": "Backflow preventer vent-return tube \u00b7 4 mm white LLDPE",
+      "shortName": "Backflow vent return tube",
       "kind": "manufactured",
       "aliases": [
         "drain-vent",
@@ -4885,6 +5018,7 @@
     {
       "id": "HSM-0311",
       "description": "Install-kit water connection tubing",
+      "shortName": "Install kit water tubing",
       "kind": "manufactured",
       "aliases": [
         "tube-customer-water",
@@ -4904,6 +5038,7 @@
     {
       "id": "HSM-0312",
       "description": "Cylinder CO\u2082 tether tube",
+      "shortName": "CO\u2082 tether tube",
       "kind": "manufactured",
       "aliases": [
         "tube-customer-co2"
@@ -4922,6 +5057,7 @@
     {
       "id": "HSM-0315",
       "description": "Cold-core pressure-relief vent tube",
+      "shortName": "Pressure relief vent tube",
       "kind": "manufactured",
       "aliases": [
         "line-prv-vent",
@@ -4967,6 +5103,7 @@
     {
       "id": "HSM-0325",
       "description": "YDS butterfly hose clamp \u00b7 10\u201316 mm, 9 mm band",
+      "shortName": "Hose clamp",
       "kind": "purchased",
       "manufacturer_number": "B07C33VLQ6",
       "documents": [
@@ -4992,6 +5129,7 @@
     {
       "id": "HSM-0326",
       "description": "Water-pump suction tube \u00b7 1/4 inch white LLDPE",
+      "shortName": "Water pump suction tube",
       "kind": "manufactured",
       "aliases": [
         "water-7",
@@ -5023,6 +5161,7 @@
     {
       "id": "HSM-0331",
       "description": "PISCO RVFUP1/4-1/4-0.3 preset regulator \u00b7 CO\u2082 secondary \u00b7 0.3 MPa",
+      "shortName": "CO\u2082 secondary regulator",
       "kind": "purchased",
       "models": [
         {
@@ -5053,6 +5192,7 @@
     {
       "id": "HSM-0332",
       "description": "YZMSZ fixed water regulator \u00b7 flavor-water feed \u00b7 0.3 MPa",
+      "shortName": "Flavor water regulator",
       "kind": "purchased",
       "models": [
         {
@@ -5082,6 +5222,7 @@
     {
       "id": "HSM-0336",
       "description": "Carbonator float guide rod \u00b7 316 stainless",
+      "shortName": "Carbonator float guide rod",
       "kind": "manufactured",
       "aliases": [
         "carbonator rod",
@@ -5113,6 +5254,7 @@
     {
       "id": "HSM-0338",
       "description": "Carbonator water-inlet jet elbow",
+      "shortName": "Water-inlet jet elbow",
       "kind": "assembly",
       "aliases": [
         "welded water inlet jet",
@@ -5165,6 +5307,7 @@
     {
       "id": "HSM-0339",
       "description": "Reservoir float guide rod \u00b7 316 stainless",
+      "shortName": "Reservoir float guide rod",
       "kind": "manufactured",
       "aliases": [
         "reservoir float rod",
@@ -5196,6 +5339,7 @@
     {
       "id": "HSM-0340",
       "description": "Soda machine \u00b7 as shipped",
+      "shortName": "Soda machine package",
       "kind": "assembly",
       "aliases": [
         "finished unit",
@@ -5243,6 +5387,7 @@
     {
       "id": "HSM-0341",
       "description": "Install kit",
+      "shortName": "Install kit",
       "kind": "assembly",
       "aliases": [
         "install-kit",
@@ -5305,6 +5450,7 @@
     {
       "id": "HSM-0342",
       "description": "Cold kit",
+      "shortName": "Cold kit",
       "kind": "assembly",
       "aliases": [
         "cold-kit",
@@ -5331,6 +5477,7 @@
     {
       "id": "HSM-0343",
       "description": "Manifold A harness \u00b7 J1",
+      "shortName": "Manifold A harness",
       "kind": "manufactured",
       "aliases": [
         "J1",
@@ -5348,6 +5495,7 @@
     {
       "id": "HSM-0344",
       "description": "Manifold B harness \u00b7 J2",
+      "shortName": "Manifold B harness",
       "kind": "manufactured",
       "aliases": [
         "J2",
@@ -5368,6 +5516,7 @@
     {
       "id": "HSM-0345",
       "description": "Faucet display harness \u00b7 J3",
+      "shortName": "Faucet display harness",
       "kind": "manufactured",
       "aliases": [
         "J3",
@@ -5385,6 +5534,7 @@
     {
       "id": "HSM-0346",
       "description": "Sensor harness \u00b7 J4",
+      "shortName": "Sensor harness",
       "kind": "manufactured",
       "aliases": [
         "J4",
@@ -5401,6 +5551,7 @@
     {
       "id": "HSM-0347",
       "description": "Relay harness \u00b7 J5",
+      "shortName": "Relay harness",
       "kind": "manufactured",
       "aliases": [
         "J5",
@@ -5417,6 +5568,7 @@
     {
       "id": "HSM-0348",
       "description": "Reservoir A reed harness \u00b7 J6",
+      "shortName": "Reservoir A reed harness",
       "kind": "assembly",
       "aliases": [
         "J6",
@@ -5455,6 +5607,7 @@
     {
       "id": "HSM-0349",
       "description": "Reservoir B and carbonator reed harness \u00b7 J7",
+      "shortName": "Reservoir B reed harness",
       "kind": "assembly",
       "aliases": [
         "J7",
@@ -5494,6 +5647,7 @@
     {
       "id": "HSM-0350",
       "description": "Machine display harness \u00b7 J9",
+      "shortName": "Machine display harness",
       "kind": "manufactured",
       "aliases": [
         "J9",
@@ -5510,6 +5664,7 @@
     {
       "id": "HSM-0351",
       "description": "Main board supply lead \u00b7 J10",
+      "shortName": "Main board supply lead",
       "kind": "manufactured",
       "aliases": [
         "J10",
@@ -5526,6 +5681,7 @@
     {
       "id": "HSM-0352",
       "description": "Gas sensor harness \u00b7 J11",
+      "shortName": "Gas sensor harness",
       "kind": "manufactured",
       "aliases": [
         "J11",
@@ -5542,6 +5698,7 @@
     {
       "id": "HSM-0353",
       "description": "Pump harness \u00b7 J13",
+      "shortName": "Pump harness",
       "kind": "manufactured",
       "aliases": [
         "J13",
@@ -5562,6 +5719,7 @@
     {
       "id": "HSM-0354",
       "description": "Duracell CR2032 3 V lithium coin cell \u00b7 RTC backup",
+      "shortName": "RTC battery",
       "kind": "purchased",
       "manufacturer_number": "CR2032",
       "aliases": [
@@ -5585,6 +5743,7 @@
     {
       "id": "HSM-0355",
       "description": "Supco BPV31 bullet piercing valve \u00b7 compressor service port",
+      "shortName": "Piercing valve",
       "kind": "purchased",
       "manufacturer_number": "BPV31",
       "aliases": [
@@ -5616,6 +5775,7 @@
     {
       "id": "HSM-0356",
       "description": "Copper slip coupling \u00b7 1/4 inch ACR, sweat \u00d7 sweat",
+      "shortName": "Copper slip coupling",
       "kind": "purchased",
       "aliases": [
         "slip coupling",
@@ -5646,6 +5806,7 @@
     {
       "id": "HSM-0357",
       "description": "neoFit ARD4M4-E \u00b7 4 mm tube \u00d7 1/4 inch stem reducer",
+      "shortName": "4 mm stem reducer",
       "kind": "purchased",
       "manufacturer_number": "ARD4M4-E",
       "aliases": [
@@ -5672,6 +5833,7 @@
     {
       "id": "HSM-0358",
       "description": "Soda inlet bend holder \u00b7 PET-GF",
+      "shortName": "Soda inlet bend holder",
       "kind": "manufactured",
       "models": [
         {
@@ -5698,6 +5860,7 @@
     {
       "id": "HSM-0359",
       "description": "M5 \u00d7 100 socket-head screw \u00b7 black oxide",
+      "shortName": "M5 \u00d7 100 screw",
       "kind": "purchased",
       "aliases": [
         "seam rod",
@@ -5719,6 +5882,7 @@
     {
       "id": "HSM-0362",
       "description": "M3 flat washer \u00b7 \u00d87 \u00d7 0.5 mm, 304 stainless",
+      "shortName": "M3 flat washer",
       "kind": "purchased",
       "aliases": [
         "DIN 125A M3 washer",
@@ -5740,6 +5904,7 @@
     {
       "id": "HSM-0363",
       "description": "M3 \u00d7 12 socket-head screw \u00b7 304 stainless",
+      "shortName": "M3 \u00d7 12 stainless screw",
       "kind": "purchased",
       "aliases": [
         "reservoir cap screw",
@@ -5760,6 +5925,7 @@
     {
       "id": "HSM-0365",
       "description": "Cold-core flavor reservoir air tube \u00b7 4 mm white LLDPE",
+      "shortName": "Reservoir air tube",
       "kind": "manufactured",
       "aliases": [
         "reservoir air tube",
@@ -5785,6 +5951,7 @@
     {
       "id": "HSM-0366",
       "description": "Siptenk 1/4 inch brass tube stiffener",
+      "shortName": "Brass tube stiffener",
       "kind": "purchased",
       "aliases": [
         "tube stiffener",
@@ -5815,6 +5982,7 @@
     {
       "id": "HSM-0367",
       "description": "EZYUMM RJ11 6P4C modular plug \u00b7 3-prong",
+      "shortName": "RJ11 plug",
       "kind": "purchased",
       "aliases": [
         "RJ11 plug",
@@ -5845,6 +6013,7 @@
     {
       "id": "HSM-0368",
       "description": "Waterdrop 15UC-UF inline water filter",
+      "shortName": "Inline water filter",
       "kind": "purchased",
       "manufacturer_number": "15UC-UF",
       "aliases": [
@@ -5870,6 +6039,7 @@
     {
       "id": "HSM-0369",
       "description": "John Guest ASVPP1LF angle stop adapter valve",
+      "shortName": "Angle stop adapter",
       "kind": "purchased",
       "manufacturer_number": "ASVPP1LF",
       "aliases": [
@@ -5895,6 +6065,7 @@
     {
       "id": "HSM-0370",
       "description": "Taprite 3741 CO\u2082 primary regulator \u00b7 CGA-320",
+      "shortName": "CO\u2082 primary regulator",
       "kind": "purchased",
       "manufacturer_number": "3741",
       "aliases": [
@@ -5934,6 +6105,7 @@
     {
       "id": "HSM-0371",
       "description": "Monoprice NEMA 5-15P to IEC C13 line cord \u00b7 18 AWG, 6 ft",
+      "shortName": "Line cord",
       "kind": "purchased",
       "aliases": [
         "line cord",
@@ -5955,6 +6127,7 @@
     {
       "id": "HSM-0372",
       "description": "Collet press \u00b7 PET-GF",
+      "shortName": "Collet press",
       "kind": "manufactured",
       "models": [
         {
@@ -6002,6 +6175,7 @@
     {
       "id": "HSM-0373",
       "description": "Install guide \u00b7 printed and bound",
+      "shortName": "Install guide",
       "kind": "purchased",
       "aliases": [
         "install guide",
@@ -6027,6 +6201,7 @@
     {
       "id": "HSM-0374",
       "description": "Mudder tube cutter \u00b7 up to 3/4 inch OD",
+      "shortName": "Tube cutter",
       "kind": "purchased",
       "aliases": [
         "tube cutter",
@@ -6057,6 +6232,7 @@
     {
       "id": "HSM-0375",
       "description": "neoFit AME4-N2-E \u00b7 1/4 inch tube \u00d7 1/4 inch NPTF male elbow",
+      "shortName": "NPTF elbow",
       "kind": "purchased",
       "aliases": [
         "bottom-plate elbows",
@@ -6083,6 +6259,7 @@
     {
       "id": "HSM-0378",
       "description": "Carbonator earth bond \u00b7 16 AWG solid green",
+      "shortName": "Carbonator earth bond",
       "kind": "manufactured",
       "aliases": [
         "PE-carbonator",
@@ -6104,6 +6281,7 @@
     {
       "id": "HSM-0380",
       "description": "Compressor lead \u00b7 18/3 SJOOW",
+      "shortName": "Compressor lead",
       "kind": "manufactured",
       "aliases": [
         "AC-4",
@@ -6127,6 +6305,7 @@
     {
       "id": "HSM-0381",
       "description": "M3 external-tooth washer \u00b7 DIN 6797A, A2 stainless",
+      "shortName": "M3 external-tooth washer",
       "kind": "purchased",
       "aliases": [
         "carbonator earth-clamp washer",
@@ -6154,6 +6333,7 @@
     {
       "id": "HSM-0382",
       "description": "M3 \u00d7 4 socket-head screw \u00b7 carbonator earth clamp, 304 stainless",
+      "shortName": "M3 \u00d7 4 screw",
       "kind": "manufactured",
       "aliases": [
         "carbonator earth-clamp screw",
@@ -6180,6 +6360,7 @@
     {
       "id": "HSM-0383",
       "description": "neoFit ACVUS-44 stem check valve \u00b7 1/4 inch tube \u00d7 1/4 inch stem",
+      "shortName": "Stem check valve",
       "kind": "purchased",
       "manufacturer_number": "ACVUS-44",
       "aliases": [
@@ -6207,6 +6388,7 @@
     {
       "id": "HSM-0384",
       "description": "Mains inlet lead \u00b7 AC-1",
+      "shortName": "Mains inlet lead",
       "kind": "manufactured",
       "aliases": [
         "AC-1",
@@ -6235,6 +6417,7 @@
     {
       "id": "HSM-0385",
       "description": "Power supply mains lead \u00b7 AC-2",
+      "shortName": "Power supply mains lead",
       "kind": "manufactured",
       "aliases": [
         "AC-2",
@@ -6262,6 +6445,7 @@
     {
       "id": "HSM-0386",
       "description": "Compressor relay leads \u00b7 AC-3, AC-4/AC-5 pigtails",
+      "shortName": "Compressor relay leads",
       "kind": "manufactured",
       "aliases": [
         "AC-3",
@@ -6292,6 +6476,7 @@
     {
       "id": "HSM-0387",
       "description": "Power supply 12 V output lead \u00b7 DC-1",
+      "shortName": "Power supply output lead",
       "kind": "manufactured",
       "aliases": [
         "DC-1",
@@ -6314,6 +6499,7 @@
     {
       "id": "HSM-0388",
       "description": "Water-pump leads \u00b7 DC-2, DC-3",
+      "shortName": "Water pump leads",
       "kind": "manufactured",
       "aliases": [
         "DC-2",
@@ -6711,6 +6897,7 @@
     {
       "id": "HSM-0448",
       "description": "ASSE 1022 snap cap \u00b7 PET-GF",
+      "shortName": "Backflow snap cap",
       "kind": "manufactured",
       "models": [
         {
@@ -6737,6 +6924,7 @@
     {
       "id": "HSM-0449",
       "description": "CO\u2082 secondary-regulator snap cap \u00b7 PET-GF",
+      "shortName": "CO\u2082 regulator snap cap",
       "kind": "manufactured",
       "models": [
         {
@@ -6783,6 +6971,7 @@
     {
       "id": "HSM-0450",
       "description": "Carbonated-water flow-sensor snap cap \u00b7 PET-GF",
+      "shortName": "Flow sensor snap cap",
       "kind": "manufactured",
       "models": [
         {
@@ -6810,6 +6999,7 @@
     {
       "id": "HSM-0451",
       "description": "Flavor-water regulator snap cap \u00b7 PET-GF",
+      "shortName": "Flavor regulator snap cap",
       "kind": "manufactured",
       "models": [
         {
@@ -6836,6 +7026,7 @@
     {
       "id": "HSM-0452",
       "description": "GAGIRA reducing coupling \u00b7 3/8 inch FNPT \u00d7 1/4 inch FNPT, 316L stainless",
+      "shortName": "Reducing coupling",
       "kind": "purchased",
       "models": [
         {
@@ -6866,6 +7057,7 @@
     {
       "id": "HSM-0453",
       "description": "John Guest PI4512F6S \u00b7 3/8 inch tube \u00d7 3/8 inch FFL flare adapter",
+      "shortName": "Flare adapter",
       "kind": "purchased",
       "manufacturer_number": "PI4512F6S",
       "aliases": [
@@ -6891,6 +7083,7 @@
     {
       "id": "HSM-0454",
       "description": "Reservoir B fill bend holder \u00b7 PET-GF",
+      "shortName": "Reservoir B bend holder",
       "kind": "manufactured",
       "models": [
         {
@@ -6917,6 +7110,7 @@
     {
       "id": "HSM-0455",
       "description": "G Ganen pump snap cap \u00b7 PET-GF",
+      "shortName": "Water pump snap cap",
       "kind": "manufactured",
       "models": [
         {
@@ -6947,6 +7141,7 @@
     {
       "id": "HSM-0456",
       "description": "Flavor reservoir gasket \u00b7 TPU 85A",
+      "shortName": "Reservoir gasket",
       "kind": "manufactured",
       "models": [
         {
@@ -6973,6 +7168,7 @@
     {
       "id": "HSM-0457",
       "description": "Flavor reservoir tube grip \u00b7 TPU 90A",
+      "shortName": "Reservoir tube grip",
       "kind": "manufactured",
       "models": [
         {
@@ -7001,6 +7197,7 @@
     {
       "id": "HSM-0458",
       "description": "Flavor reservoir air-tube grip \u00b7 TPU 90A",
+      "shortName": "Reservoir air-tube grip",
       "kind": "manufactured",
       "models": [
         {
@@ -7026,6 +7223,7 @@
     {
       "id": "HSM-0459",
       "description": "Carbonator upper float stop \u00b7 316 stainless",
+      "shortName": "Float stop",
       "kind": "manufactured",
       "aliases": [
         "float-stop-carb-top",
@@ -7051,6 +7249,7 @@
     {
       "id": "HSM-0460",
       "description": "John Guest PP061208W \u00b7 1/4 inch tube \u00d7 3/8 inch stem reducer",
+      "shortName": "1/4 inch stem reducer",
       "kind": "purchased",
       "models": [
         {
@@ -7083,6 +7282,7 @@
     {
       "id": "HSM-0461",
       "description": "Water-pump suction joint tube \u00b7 3/8 inch ID reinforced PVC",
+      "shortName": "Suction joint tube",
       "kind": "manufactured",
       "aliases": [
         "suction-tube",
@@ -7108,6 +7308,7 @@
     {
       "id": "HSM-0462",
       "description": "Water-pump discharge joint tube \u00b7 3/8 inch ID reinforced PVC",
+      "shortName": "Discharge joint tube",
       "kind": "manufactured",
       "aliases": [
         "discharge-tube",
@@ -8643,6 +8844,7 @@
     {
       "id": "HSM-0547",
       "description": "Enclosure back top assembly",
+      "shortName": "Back top assembly",
       "kind": "assembly",
       "aliases": [
         "populated back top",
@@ -9148,6 +9350,7 @@
     {
       "id": "HSM-0548",
       "description": "Enclosure front top assembly",
+      "shortName": "Front top assembly",
       "kind": "assembly",
       "aliases": [
         "populated front top",
@@ -9434,6 +9637,7 @@
     {
       "id": "HSM-0549",
       "description": "Enclosure front bottom assembly",
+      "shortName": "Front bottom assembly",
       "kind": "assembly",
       "aliases": [
         "prepared front bottom",
@@ -9523,6 +9727,7 @@
     {
       "id": "HSM-0550",
       "description": "Enclosure back bottom assembly",
+      "shortName": "Back bottom assembly",
       "kind": "assembly",
       "aliases": [
         "prepared back bottom",
@@ -9567,6 +9772,7 @@
     {
       "id": "HSM-0551",
       "description": "Flavor-fill funnel assembly",
+      "shortName": "Funnel assembly",
       "kind": "assembly",
       "aliases": [
         "complete funnel",
@@ -9646,6 +9852,7 @@
     {
       "id": "HSM-0552",
       "description": "Refrigeration assembly",
+      "shortName": "Refrigeration assembly",
       "kind": "assembly",
       "aliases": [
         "complete refrigeration loop",
@@ -9773,6 +9980,7 @@
     {
       "id": "HSM-0553",
       "description": "Carbonator pressure-relief assembly",
+      "shortName": "Pressure relief assembly",
       "kind": "assembly",
       "aliases": [
         "PRV assembly",
@@ -9823,6 +10031,7 @@
     {
       "id": "HSM-0554",
       "description": "Instrumented carbonator and coil assembly",
+      "shortName": "Carbonator and coil",
       "kind": "assembly",
       "aliases": [
         "instrumented vessel",
@@ -9929,6 +10138,7 @@
     {
       "id": "HSM-0555",
       "description": "Fitted flavor reservoir assembly \u00b7 channel A",
+      "shortName": "Fitted reservoir A",
       "kind": "assembly",
       "aliases": [
         "prepared reservoir A",
@@ -10004,6 +10214,7 @@
     {
       "id": "HSM-0556",
       "description": "Fitted flavor reservoir assembly \u00b7 channel B",
+      "shortName": "Fitted reservoir B",
       "kind": "assembly",
       "aliases": [
         "prepared reservoir B",
@@ -10079,6 +10290,7 @@
     {
       "id": "HSM-0557",
       "description": "Insulated cold-core assembly",
+      "shortName": "Insulated cold core",
       "kind": "assembly",
       "aliases": [
         "foamed core",
@@ -10333,6 +10545,7 @@
     {
       "id": "HSM-0558",
       "description": "Backflow-preventer threaded assembly",
+      "shortName": "Backflow preventer assembly",
       "kind": "assembly",
       "aliases": [
         "ASSE threaded chain",
@@ -10403,6 +10616,7 @@
     {
       "id": "HSM-0559",
       "description": "CO\u2082 secondary regulator and check assembly",
+      "shortName": "Secondary regulator assembly",
       "kind": "assembly",
       "aliases": [
         "prepared gas regulator",
@@ -10447,6 +10661,7 @@
     {
       "id": "HSM-0560",
       "description": "Water-pump discharge joint assembly",
+      "shortName": "Discharge joint assembly",
       "kind": "assembly",
       "aliases": [
         "prepared pump discharge joint",
@@ -10519,6 +10734,7 @@
     {
       "id": "HSM-0561",
       "description": "Flavor A fore-valve assembly \u00b7 Y-C to V-E",
+      "shortName": "V-E valve assembly",
       "kind": "assembly",
       "aliases": [
         "Y-C to V-E group",
@@ -10572,6 +10788,7 @@
     {
       "id": "HSM-0562",
       "description": "Flavor A fore-valve assembly \u00b7 Y-D to V-F",
+      "shortName": "V-F valve assembly",
       "kind": "assembly",
       "aliases": [
         "Y-D to V-F group",
@@ -10625,6 +10842,7 @@
     {
       "id": "HSM-0563",
       "description": "Flavor B fore-valve assembly \u00b7 Y-F to V-H",
+      "shortName": "V-H valve assembly",
       "kind": "assembly",
       "aliases": [
         "Y-F to V-H group",
@@ -10678,6 +10896,7 @@
     {
       "id": "HSM-0564",
       "description": "Flavor B fore-valve assembly \u00b7 Y-G to V-I",
+      "shortName": "V-I valve assembly",
       "kind": "assembly",
       "aliases": [
         "Y-G to V-I group",
@@ -10731,6 +10950,7 @@
     {
       "id": "HSM-0565",
       "description": "Carbonator bottom endcap and guide assembly",
+      "shortName": "Bottom endcap assembly",
       "kind": "assembly",
       "aliases": [
         "bottom cap with rod",
@@ -10773,6 +10993,7 @@
     {
       "id": "HSM-0566",
       "description": "Carbonator top endcap and stop assembly",
+      "shortName": "Top endcap assembly",
       "kind": "assembly",
       "aliases": [
         "top cap with stop",
@@ -10815,6 +11036,7 @@
     {
       "id": "HSM-0567",
       "description": "Carbonator vessel weldment",
+      "shortName": "Carbonator weldment",
       "kind": "assembly",
       "aliases": [
         "bare carbonator weldment",
@@ -10873,6 +11095,7 @@
     {
       "id": "HSM-0568",
       "description": "Flavor reservoir cap assembly \u00b7 channel A",
+      "shortName": "Reservoir A cap assembly",
       "kind": "assembly",
       "aliases": [
         "prepared reservoir A cap",
@@ -10924,6 +11147,7 @@
     {
       "id": "HSM-0569",
       "description": "Flavor reservoir cap assembly \u00b7 channel B",
+      "shortName": "Reservoir B cap assembly",
       "kind": "assembly",
       "aliases": [
         "prepared reservoir B cap",
@@ -10975,6 +11199,7 @@
     {
       "id": "HSM-0570",
       "description": "Water-pump suction joint assembly",
+      "shortName": "Suction joint assembly",
       "kind": "assembly",
       "aliases": [
         "prepared suction joint",
@@ -11038,6 +11263,7 @@
     {
       "id": "HSM-0571",
       "description": "Faucet valve insert assembly",
+      "shortName": "Valve insert assembly",
       "kind": "assembly",
       "aliases": [
         "valve lever and soda tube",
@@ -11100,6 +11326,7 @@
     {
       "id": "HSM-0572",
       "description": "Filtered installation water-line assembly",
+      "shortName": "Filtered water line",
       "kind": "assembly",
       "aliases": [
         "prepared customer water run",
@@ -11152,6 +11379,7 @@
     {
       "id": "HSM-0573",
       "description": "Primary CO\u2082 regulator and tether assembly",
+      "shortName": "Regulator and tether",
       "kind": "assembly",
       "aliases": [
         "prepared CO2 supply",
@@ -11203,6 +11431,7 @@
     {
       "id": "HSM-0574",
       "description": "Faucet dispensing tube \u00b7 3/8 inch LLDPE",
+      "shortName": "Faucet dispensing tube",
       "kind": "manufactured",
       "aliases": [
         "soda_faucet_tube"
@@ -11226,6 +11455,7 @@
     {
       "id": "HSM-0575",
       "description": "Faucet supply tube \u00b7 1/4 inch blue LLDPE",
+      "shortName": "Faucet supply tube",
       "kind": "manufactured",
       "aliases": [
         "soda_umbilical_tube"
@@ -11249,6 +11479,7 @@
     {
       "id": "HSM-0576",
       "description": "Sutemribor M2 \u00d7 6 socket-head screw \u00b7 black oxide",
+      "shortName": "M2 \u00d7 6 screw",
       "kind": "purchased",
       "aliases": [
         "M2-0.4 \u00d7 6 mm",
@@ -11274,6 +11505,7 @@
     {
       "id": "HSM-0577",
       "description": "ruthex M2 \u00d7 4 heat-set insert \u00b7 brass",
+      "shortName": "M2 heat-set insert",
       "kind": "purchased",
       "manufacturer_number": "RX-M2x4",
       "aliases": [
@@ -11299,6 +11531,7 @@
     {
       "id": "HSM-0579",
       "description": "Machine status plate \u00b7 black, white and translucent PETG",
+      "shortName": "Status plate",
       "kind": "manufactured",
       "aliases": [
         "status plate",
@@ -11324,6 +11557,7 @@
     {
       "id": "HSM-0580",
       "description": "CHANZON prewired blue status LED \u00b7 clear lens",
+      "shortName": "Status LED",
       "kind": "purchased",
       "aliases": [
         "B08G4Z6KPV",
@@ -11353,6 +11587,7 @@
     {
       "id": "HSM-0583",
       "description": "M5 \u00d7 12 socket-head screw \u00b7 black oxide",
+      "shortName": "M5 \u00d7 12 screw",
       "kind": "purchased",
       "aliases": [
         "compressor floor screw",

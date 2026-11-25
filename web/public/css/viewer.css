@@ -779,11 +779,10 @@
   inset-inline-start: 12px;
   z-index: 16;
   width: max-content;
-  max-width: min(calc(100% - var(--cube-size, 180px) - 40px), 900px);
+  max-width: min(calc(100% - var(--cube-size, 180px) - 40px), 460px);
   max-height: 100%;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  gap: 4px 18px;
   box-sizing: border-box;
   min-width: 0;
   overflow: auto;
@@ -800,22 +799,21 @@
 .component-selection { min-width: 0; }
 .component-selection-bar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 4px 12px;
   min-height: 42px;
 }
 .component-selection[hidden],
-.component-hidden[hidden],
-.component-details[hidden] { display: none; }
-.component-actions,
-.component-detail-actions {
+.component-hidden[hidden] { display: none; }
+.component-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 4px;
 }
 .edge-surface-actions { display: flex; flex-wrap: wrap; gap: 4px; }
-.component-actions { flex: 0 0 auto; }
-.component-detail-actions { flex-wrap: wrap; min-width: 0; max-width: 100%; }
 .component-command {
   box-sizing: border-box;
   flex: 0 0 auto;
@@ -830,8 +828,7 @@
   cursor: pointer;
   white-space: nowrap;
 }
-.component-command:hover,
-.component-details-toggle[aria-expanded="true"] { background: var(--surface-2); }
+.component-command:hover { background: var(--surface-2); }
 .component-command:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .component-command:disabled { opacity: .5; cursor: default; }
 .component-open {
@@ -839,50 +836,36 @@
   border-color: var(--border);
   background: color-mix(in srgb, var(--surface-2) 70%, var(--surface));
 }
-.component-details-toggle {
-  min-width: 34px;
-  padding-inline: 0;
-  font-size: 1.1rem;
-  line-height: 1;
-}
-.component-related { white-space: normal; max-width: 100%; text-align: left; }
-.component-details {
+.component-selection-path {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 12px;
-  max-width: 640px;
-  margin-top: 4px;
-  padding-top: 6px;
-  border-top: 1px solid var(--border);
+  gap: 2px 6px;
+  color: var(--text-2);
+  font-size: .75rem;
 }
-/* --- the path a body's name spells ------------------------------------------
-   The name row of the component panel is the branch the body hangs on, and each
-   step above it is a button that takes the whole of that sub-assembly. A body at
-   the top of the machine has one step and reads as it always did. */
+.component-selection-path:empty { display: none; }
 .component-held-step {
-  flex: 0 1 auto;
-  max-width: 40%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 1px 5px;
-  background: rgba(23, 73, 209, 0.55);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 5px;
+  max-width: 100%;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
   font: inherit;
+  text-align: start;
+  overflow-wrap: anywhere;
   cursor: pointer;
 }
-.component-held-step:hover { border-color: var(--accent); color: var(--accent); }
-.component-held-sep { flex: 0 0 auto; opacity: 0.45; padding: 0 1px; }
-.component-held-here { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-/* The row is a path now, so it lays out as one rather than as a single string. */
+.component-held-step:hover { color: var(--text); text-decoration: underline; }
+.component-held-step:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.component-held-sep { opacity: .55; }
 .component-panel .edge-panel-file {
-  display: flex;
+  display: grid;
   flex: 0 1 auto;
-  align-items: center;
-  gap: 4px;
-  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
   color: var(--text);
   opacity: 1;
   font-family: inherit;
@@ -890,53 +873,26 @@
   font-weight: 600;
   line-height: 1.2;
 }
-.component-identity { flex: 1 1 240px; min-width: 0; }
-.component-catalog-name { font-size: .8rem; overflow-wrap: anywhere; }
-.component-feature-path {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 4px;
-  font-size: .75rem;
-}
-.component-feature-path:empty { display: none; }
-.component-feature-path > .component-held-step { max-width: 100%; white-space: nowrap; }
-.component-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  margin-top: 3px;
-}
-.component-material-number {
-  color: var(--text-2);
-  font: 0.72rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-}
-.component-body-name {
-  display: block;
+.component-placement {
   color: var(--text-2);
   font-size: 0.75rem;
   font-weight: normal;
-  overflow-wrap: anywhere;
 }
+.component-placement:empty { display: none; }
 
 .component-hidden {
   --hidden-tile-size: 3rem;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: max-content minmax(0, 1fr);
   align-items: center;
   align-self: start;
-  grid-column: 2;
   min-width: 0;
-  padding-inline-start: 14px;
-  border-inline-start: 1px solid var(--border);
   gap: 4px 8px;
 }
-.component-selection[hidden] + .component-hidden,
-.component-hidden:has(.component-hidden-toggle[aria-expanded="true"]) {
-  grid-column: 1 / -1;
-  justify-self: start;
-  padding-inline-start: 0;
-  border-inline-start: 0;
+.component-selection:not([hidden]) + .component-hidden {
+  border-block-start: 1px solid var(--border);
+  margin-block-start: 2px;
+  padding-block-start: 4px;
 }
 .cad-wrapper > .component-panel:has(.component-hidden-toggle[aria-expanded="true"]) {
   width: 460px;
@@ -1022,25 +978,8 @@
 }
 
 @container (max-width: 620px) {
-  .component-selection-bar:has([data-surface-action]:not([hidden])) {
-    flex-wrap: wrap;
-    gap: 0 8px;
-  }
-  .component-selection-bar:has([data-surface-action]:not([hidden])) .component-actions {
-    flex: 0 1 auto;
-    flex-wrap: wrap;
-    max-width: 100%;
-  }
   .cad-wrapper > .component-panel {
     max-width: calc(100% - 24px);
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .component-hidden,
-  .component-selection[hidden] + .component-hidden {
-    grid-column: 1;
-    justify-self: stretch;
-    padding-inline-start: 0;
-    border-inline-start: 0;
   }
 }
 @container (max-width: 320px) {
@@ -1303,7 +1242,6 @@
     min-height: 36px;
   }
   .component-command { min-height: 44px; }
-  .component-details-toggle { width: 44px; height: 44px; }
   .edge-panel-close, .edge-panel-collapse {
     display: inline-flex;
     align-items: center;

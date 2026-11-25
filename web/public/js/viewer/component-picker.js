@@ -23,12 +23,11 @@ import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
 import { sourceFileFor } from "/contracts/component-sources.js";
 import { componentLocation, featureUrl, stepLabel, stepLocation } from "/contracts/step-locations.js";
-import { materialForComponent, materialForView } from "/contracts/materials.js";
+import { materialForComponent, materialForView, materialIndex } from "/contracts/materials.js";
 import { mountedFile, installedUnits, unitForKey, componentUnit } from "./component-units.js";
 export { componentOwner } from "./component-units.js";
-import { relatedStepsForComponent } from "/contracts/related-steps.js";
 import { showsInFaucetFinish } from "/contracts/faucet-options.js";
-import { drillTo, drillToComponent } from "./step-nav.js";
+import { drillToComponent } from "./step-nav.js";
 import { refreshHighlight } from "./part-highlight.js";
 import { containsTriangle, instanceLabel, splitFeatureKey } from "/contracts/features.js";
 import { sceneFeature, featureGeometry } from "./features.js";
@@ -59,8 +58,18 @@ let hoverName = null;   // hovered component name, or null
 const namingOptions = () => ({ finish: state.faucetFinish });
 const componentBody = name => splitFeatureKey(name)?.body || name;
 const materialOf = (name) => materialForComponent(state.materialCatalog, mountedFile(), componentBody(name), namingOptions());
-const componentName = (name) => sceneFeature(name)?.label || materialOf(name)?.description || leafOf(name);
 const modelName = (file) => materialForView(state.materialCatalog, file, namingOptions())?.description || stepLabel(file);
+
+function componentNames(name) {
+  const unit = unitForKey(name);
+  const material = unit ? materialIndex(state.materialCatalog).get(unit.material) : materialOf(name);
+  return {
+    short: material?.shortName,
+    full: material?.description,
+    placement: unit?.label || instanceLabel(name),
+    unit,
+  };
+}
 
 const visibilityName = name => unitForKey(name)?.name || name;
 
@@ -455,6 +464,11 @@ function buildPanel() {
   panel.appendChild(selected);
   panel._selected = selected;
 
+  const path = document.createElement("div");
+  path.className = "component-selection-path";
+  selected.appendChild(path);
+  panel._path = path;
+
   const selectionBar = document.createElement("div");
   selectionBar.className = "component-selection-bar";
   selected.appendChild(selectionBar);
@@ -462,6 +476,13 @@ function buildPanel() {
   nameEl.className = "edge-panel-file";
   selectionBar.appendChild(nameEl);
   panel._nameEl = nameEl;
+  const selectedName = document.createElement("span");
+  selectedName.className = "component-held-here";
+  const placement = document.createElement("span");
+  placement.className = "component-placement";
+  nameEl.append(selectedName, placement);
+  panel._selectedName = selectedName;
+  panel._placement = placement;
 
   const actions = document.createElement("div");
   actions.className = "component-actions";
@@ -511,64 +532,9 @@ function buildPanel() {
     await navigator.clipboard.writeText(new URL(featureUrl(selection, mountedFile()), location.origin).href);
     copy.textContent = "Link copied";
   });
-  const more = document.createElement("button");
-  more.type = "button";
-  more.className = "component-command component-details-toggle";
-  more.title = "Selection details";
-  more.setAttribute("aria-label", more.title);
-  more.setAttribute("aria-controls", "component-selection-details");
-  more.setAttribute("aria-expanded", "false");
-  more.textContent = "⋯";
-  more.addEventListener("click", () => setComponentDetails(panel._details.hidden));
-  actions.appendChild(more);
+  actions.appendChild(copy);
   selectionBar.appendChild(actions);
   panel._copy = copy;
-  panel._more = more;
-
-  const details = document.createElement("div");
-  details.className = "component-details";
-  details.id = "component-selection-details";
-  details.hidden = true;
-  panel._details = details;
-
-  const identity = document.createElement("div");
-  identity.className = "component-identity";
-  const description = document.createElement("div");
-  description.className = "component-catalog-name";
-  identity.appendChild(description);
-  const featurePath = document.createElement("div");
-  featurePath.className = "component-feature-path";
-  identity.appendChild(featurePath);
-  const metadata = document.createElement("div");
-  metadata.className = "component-meta";
-  identity.appendChild(metadata);
-  details.appendChild(identity);
-  panel._description = description;
-  panel._featurePath = featurePath;
-  panel._metadata = metadata;
-
-  // Related models offered by the selected float, manifold body or tube.
-  const relatedBtn = document.createElement("button");
-  relatedBtn.type = "button";
-  relatedBtn.className = "component-command component-related";
-  relatedBtn.addEventListener("click", () => {
-    const related = selection && relatedStepsForComponent(selection, state.allFiles)[0];
-    if (related) drillTo(related.file);
-  });
-  const clear = document.createElement("button");
-  clear.type = "button";
-  clear.className = "component-command component-clear";
-  clear.textContent = "Clear selection";
-  clear.addEventListener("click", () => {
-    const focused = document.activeElement === clear;
-    deselect();
-    if (focused) focusComponentControls();
-  });
-  const detailActions = document.createElement("div");
-  detailActions.className = "component-detail-actions";
-  detailActions.append(copy, relatedBtn, clear);
-  details.appendChild(detailActions);
-  panel._relatedBtn = relatedBtn;
 
   const hidden = document.createElement("div");
   hidden.className = "component-hidden";
@@ -607,7 +573,6 @@ function buildPanel() {
   });
   hiddenHeader.append(toggle, showAll);
   hidden.append(hiddenHeader, items);
-  selected.appendChild(details);
   panel.appendChild(hidden);
   panel._hidden = hidden;
   panel._hiddenToggle = toggle;
@@ -662,21 +627,9 @@ export function closeHiddenThumbnailLabel() {
   return true;
 }
 
-function setComponentDetails(open) {
-  panel._details.hidden = !open;
-  panel._more.setAttribute("aria-expanded", String(open));
-}
-
-export function closeComponentDetails() {
-  if (!panel || panel._details.hidden || !panel.getClientRects().length) return false;
-  setComponentDetails(false);
-  panel._more.focus();
-  return true;
-}
-
 function focusComponentControls(preferred = null) {
   const target = preferred?.getClientRects().length ? preferred : panel._hiddenItems.querySelector(".component-show")
-    || (selection ? panel._more : panel.closest(".cad-workspace")?.querySelector(".materials-toggle"));
+    || (selection ? panel._openBtn : panel.closest(".cad-workspace")?.querySelector(".materials-toggle"));
   target?.focus();
 }
 
@@ -704,11 +657,21 @@ function updateHiddenRows(names) {
     hiddenRows.delete(name);
   }
   let next = panel._hiddenItems.firstElementChild;
-  for (const name of names) {
+  const named = names.map(name => [name, componentNames(name)]);
+  const counts = new Map();
+  for (const [, part] of named) {
+    const label = part.short || part.placement;
+    counts.set(label, (counts.get(label) || 0) + 1);
+  }
+  for (const [name, part] of named) {
     const row = hiddenRows.get(name) || makeHiddenRow(name);
-    const label = `Show ${unitForKey(name)?.label || instanceLabel(name)}`;
+    const caption = part.short || part.placement;
+    const placement = part.short && part.placement !== caption && counts.get(caption) > 1
+      ? ` · ${part.placement}` : "";
+    const label = `Show ${caption}${placement}`;
     if (row.button.getAttribute("aria-label") !== label) {
       row.button.setAttribute("aria-label", label);
+      if (row.button === hiddenLabelButton) showHiddenThumbnailLabel(row.button);
     }
     if (row.element !== next) panel._hiddenItems.insertBefore(row.element, next);
     next = row.element.nextElementSibling;
@@ -848,100 +811,72 @@ function showPanel(names = hiddenNames()) {
   const model = file ? modelName(file) : "";
   if (panel._model.textContent !== model) panel._model.textContent = model;
   panel._selected.hidden = !selection;
-  if (panel._nameEl.title !== (selection || "")) setComponentDetails(false);
-  // Material descriptions name the walkable path; CAD keys identify the selected geometry.
-  panel._nameEl.textContent = "";
-  panel._featurePath.replaceChildren();
-  panel._nameEl.title = selection || "";
+  if (selection) renderSelectedComponent(file);
+  else panel._surfaceActions(null);
+  updateHiddenRows(names);
+  panel.classList.add("show");
+  queueHiddenThumbnails();
+}
+
+function renderSelectedComponent(file) {
   const feature = sceneFeature(selection);
-  const bodyName = componentBody(selection);
-  const inside = feature || !selection ? [] : membersOf(selection);
-  const description = selection ? componentName(selection) : "";
-  const unit = unitForKey(selection);
+  const body = componentBody(selection);
+  const part = componentNames(body);
   const instance = state.currentGroup?.userData.instanceView;
-  const installed = instance && !instance.preview && !instance.found && instance.names.has(bodyName);
-  const nameInTrail = !feature && description && [...header.querySelectorAll(".cad-crumb.show :is(.cad-crumb-step, .cad-crumb-here)")]
-    .some(crumb => crumb.textContent === description);
-  if (selection) {
-    const parents = [...heldBy(bodyName), ...(feature ? [bodyName] : [])];
-    const path = feature ? panel._featurePath : panel._nameEl;
-    parents.forEach((held, i) => {
-      const step = document.createElement("button");
-      step.type = "button";
-      step.className = "component-held-step";
-      step.textContent = componentName(held);
-      step.title = `Take the whole of ${held}`;
-      step.addEventListener("click", () => selectComponent(held));
-      path.appendChild(step);
-      if (!feature || i + 1 < parents.length) {
-        const sep = document.createElement("span");
-        sep.className = "component-held-sep";
-        sep.textContent = "/";
-        path.appendChild(sep);
-      }
+  const installed = instance && !instance.preview && !instance.found && instance.names.has(body);
+  const hasPlacement = part.unit || installed;
+  const caption = feature?.label || part.short || (hasPlacement ? part.placement : part.full || part.placement);
+  panel._nameEl.title = selection;
+  panel._selectedName.textContent = caption;
+  panel._selectedName.title = feature?.label || part.full || caption;
+  panel._placement.textContent = !feature && hasPlacement && part.placement !== caption ? part.placement : "";
+
+  panel._path.replaceChildren();
+  const parents = [...heldBy(body), ...(feature ? [body] : [])];
+  parents.forEach((parent, index) => {
+    const parentNames = componentNames(parent);
+    const step = document.createElement("button");
+    step.type = "button";
+    step.className = "component-held-step";
+    step.textContent = parentNames.short || parentNames.full || parentNames.placement;
+    step.title = `Select ${parentNames.full || step.textContent}`;
+    step.addEventListener("click", () => {
+      const focused = document.activeElement === step;
+      selectComponent(parent);
+      if (focused) panel._openBtn.focus();
     });
-    const here = document.createElement("span");
-    here.className = "component-held-here";
-    here.textContent = unit?.label || (installed || nameInTrail ? instanceLabel(bodyName) : description);
-    here.title = description;
-    panel._nameEl.appendChild(here);
-  }
-  panel._description.textContent = description;
-  panel._metadata.replaceChildren();
-  if (selection) {
-    const material = materialOf(selection);
-    if (material) {
-      const number = document.createElement("span");
-      number.className = "component-material-number";
-      number.textContent = material.id;
-      panel._metadata.appendChild(number);
+    if (index) {
+      const sep = document.createElement("span");
+      sep.className = "component-held-sep";
+      sep.setAttribute("aria-hidden", "true");
+      sep.textContent = "/";
+      panel._path.appendChild(sep);
     }
-    const body = document.createElement("span");
-    body.className = "component-body-name";
-    body.textContent = `CAD body: ${bodyName}`;
-    panel._metadata.appendChild(body);
-    if (inside.length) {
-      const count = document.createElement("span");
-      count.className = "component-body-name";
-      count.textContent = `${inside.length} inside`;
-      panel._metadata.appendChild(count);
-    }
-  }
-  const already = selection && standsHidden(selection);
-  panel._hideBtn.hidden = !selection || !!feature;
+    panel._path.appendChild(step);
+  });
+
+  const already = standsHidden(selection);
+  panel._hideBtn.hidden = !!feature;
   panel._hideBtn.disabled = !!already;
   panel._hideBtn.textContent = already ? "Hidden" : "Hide";
-  panel._hideBtn.title = selection ? `Hide ${description}` : "";
+  panel._hideBtn.title = `Hide ${caption}`;
   panel._surfaceActions(selectedSurface);
-
   panel._copy.hidden = !feature;
   panel._copy.textContent = "Copy link";
-  const source = selection ? sourceFileFor(bodyName, state.allFiles, file, state.materialCatalog, { finish: state.faucetFinish }) : null;
+  const source = sourceFileFor(body, state.allFiles, file, state.materialCatalog, namingOptions());
   const goes = source && source !== file ? source : null;
   const destination = goes && materialForView(state.materialCatalog, goes, namingOptions());
-  const selectedMaterial = selection && materialOf(selection);
+  const selectedMaterial = materialOf(selection);
   const openLabel = feature ? "Open containing part" : goes && destination?.id !== selectedMaterial?.id
     ? `Open ${modelName(goes)}` : "Open component";
   panel._openBtn.title = goes ? `Open ${goes}` : openLabel;
   panel._openBtn.setAttribute("aria-label", openLabel);
-
-  // The destination is named beside the selected component, unless Open part already goes there.
-  const offered = selection ? relatedStepsForComponent(selection, state.allFiles)[0] : null;
-  const related = offered && offered.file !== goes ? offered : null;
-  panel._relatedBtn.hidden = !related;
-  panel._relatedBtn.textContent = related ? `Open ${modelName(related.file)}` : "";
-  panel._relatedBtn.title = related ? `Open ${related.file}` : "";
-
-  updateHiddenRows(names);
-  panel.classList.add("show");
-  queueHiddenThumbnails();
 }
 
 function hidePanel() {
   if (!panel) return;
   panel.classList.remove("show");
   closeHiddenThumbnailLabel();
-  setComponentDetails(false);
   panel._hiddenToggle.setAttribute("aria-expanded", "false");
   if (!state.currentGroup) updateHiddenRows([]);
 }

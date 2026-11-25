@@ -138,9 +138,7 @@ test("selecting and clearing the display cover leaves the viewport and its contr
       assert.equal(await page.$eval(".material-view-switch", node => node.hidden), false);
       assert.deepEqual(await layout(), before);
       samePose(await pose(page), cameraBefore);
-      await page.click(".component-details-toggle");
-      await page.waitForSelector(".component-details", { visible: true });
-      assert.deepEqual(await layout(), before);
+      assert.equal(await page.$(".component-details-toggle"), null);
       await page.mouse.click(...empty);
       await page.waitForSelector(".component-panel", { hidden: true, timeout: 3000 });
       assert.equal(await page.$eval(".material-view-switch", node => node.hidden), true);
