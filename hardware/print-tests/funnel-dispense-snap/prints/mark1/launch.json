@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "e8b8a79add39a347ac83ee018748c0be1865002d66d3095ddd606d5fe588b08a",
+    "name": "VG-funnel-receiver-and-insert-Mark1.gcode.3mf",
+    "objects": [
+      "vg-funnel-receiver",
+      "funnel-dispense-clip"
+    ],
+    "sha256": "1e386b76e3ea66696b4cca7fb971ede84d113ae6f1e3a40244773a50580b012b",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 19,
+  "observed_at": "2026-11-25T00:19:41+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1483465690",
+  "subtask_name": "VG-funnel-receiver-and-insert-Mark1.gcode.3mf",
+  "total_layer_num": 82
+}

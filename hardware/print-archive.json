@@ -1560,6 +1560,12 @@
       "offset": 239128,
       "sha256": "7db74cb7ce5150c0e85103472764adadaf53f5eec06105092689b8273800b826"
     },
+    "2f424c74e421365f3d84162e3521d0e706e8d8ba": {
+      "archive": "vg-funnel-snap-coupon-mark1-0c75569dd029901d.zip",
+      "bytes": 39867,
+      "offset": 74,
+      "sha256": "11e8e6e3bf6f07a49bc85eaa7fefe5804ef7ad40d76308fcff027210cdb9c702"
+    },
     "2f54344c7c972976754dab9e9cbd2f40e7dd07b2": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 961937225,
@@ -3671,6 +3677,12 @@
       "offset": 1181471066,
       "bytes": 2260495,
       "sha256": "8ca4abaa6ed7dbd41de259ab1160728fecd275a72717b96e6ee7d26cd4147702"
+    },
+    "730704476bac7b4ca73c3b09c1d2a5e220c513f0": {
+      "archive": "vg-funnel-production-mark2-d0fab0d413930109.zip",
+      "bytes": 15192015,
+      "offset": 773748,
+      "sha256": "2eae598fe38c568d41db6cbd4540c447d29badf10393ae093dde716bb06043a2"
     },
     "7329961ceab03601b474dccbcc882db19852b82d": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -5856,6 +5868,12 @@
       "bytes": 1400192,
       "sha256": "526a886bda8deea909af435614bed857ad61ec39d3cdbdac01318cd1a16bd8fb"
     },
+    "b81a79cafdfe42dad84a7cbd267c91421d99b92b": {
+      "archive": "vg-funnel-snap-coupon-mark1-0c75569dd029901d.zip",
+      "bytes": 280635,
+      "offset": 40015,
+      "sha256": "1e386b76e3ea66696b4cca7fb971ede84d113ae6f1e3a40244773a50580b012b"
+    },
     "b88e241851d505403b793ff4290fed19548cc8fd": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 634385398,
@@ -7968,6 +7986,12 @@
       "bytes": 12227,
       "sha256": "9fad45124c1276fb045f25fbe3916133948b110d5d8e517872f951b5819b301e"
     },
+    "fd084eebf775c54d6640693e21cc374b7b4016e7": {
+      "archive": "vg-funnel-production-mark2-d0fab0d413930109.zip",
+      "bytes": 773600,
+      "offset": 74,
+      "sha256": "a58e50ee1d530c54582f77f62dfc5aed50a5aaff6b8547db1ea4d6d188a9cf86"
+    },
     "fdbec8168ebcc37e403f5d0cb8742e16453c2a70": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 1136246803,
@@ -8057,6 +8081,8 @@
     "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf": "8e709ce4bff2d275120e27711d806193688230db",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf": "b186460d15bfdd6f09d1de8155857bb111e91f03",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.gcode.3mf": "2a9aefc3c896c6a9c45c120b5adc2c420b5e89e0",
+    "hardware/print-tests/funnel-dispense-snap/prints/mark1/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei.3mf": "2f424c74e421365f3d84162e3521d0e706e8d8ba",
+    "hardware/print-tests/funnel-dispense-snap/prints/mark1/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei/2026-11-24-funnel-frame-mark1-a407bd32-textured-pei.gcode.3mf": "b81a79cafdfe42dad84a7cbd267c91421d99b92b",
     "hardware/print-tests/petgf-dense-roofs/2026-11-09-dense-roofs-left04-z018-mark1.3mf": "1f85f083fa607c4ab47032e089ec3e71b96872a4",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.3mf": "b086f05a4191b3010d0527e6a0b034e0a2ab4434",
     "hardware/print-tests/petgf-dense-roofs/D-representative-mark2/ready/2026-11-09-D-faucet-arch-pad-left04-z004-mark2.gcode.3mf": "58628627b1d854406e5d3b573b66204fe9f3a7c5",
@@ -8490,6 +8516,8 @@
     "hardware/printed-parts/zone-c/funnel-mold/native-slice-reviews/2026-10-06-mark1-retry-z004-v2/funnel-mold-mark1-retry-z004.3mf": "7944e684d3831a2f709a080d2376c4481812f0fa",
     "hardware/printed-parts/zone-c/funnel/flush-roof-review/mark2-v1/2026-10-05-funnel-frame-mark2-v1-input.3mf": "4311adc5db8fde2afe0dbefa343b0b59c5efd87a",
     "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.3mf": "145788c5e451710afa54161715a0c9c609225e71",
-    "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf": "24754c9a28e7f9539b3bfaf9c5b95ea5731e47d9"
+    "hardware/printed-parts/zone-c/funnel/prints/2026-11-16-textured-z004-mark2/2026-11-16-funnel-frame-textured-z004-mark2.gcode.3mf": "24754c9a28e7f9539b3bfaf9c5b95ea5731e47d9",
+    "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.3mf": "fd084eebf775c54d6640693e21cc374b7b4016e7",
+    "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf": "730704476bac7b4ca73c3b09c1d2a5e220c513f0"
   }
 }

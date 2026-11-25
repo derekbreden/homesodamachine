@@ -1,0 +1,158 @@
+{
+  "views": [
+    {
+      "name": "underside",
+      "caption": "Flavor A runs down the X−33 lane and clips to the underside of the funnel frame.",
+      "before": "underside-before.webp",
+      "after": "underside-after.webp",
+      "width": 940,
+      "height": 700,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -95.26553190597103,
+          243.256812239461,
+          173.97275104215606
+        ],
+        "target": [
+          -24,
+          212,
+          299
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.3161608462214658,
+        "far": 590.8108116981934,
+        "aspect": 1.3428571428571427
+      },
+      "highlight": [
+        "tube-fluid-18",
+        "funnel-dispense-clip"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "funnel-dispense-clip",
+        "tube-fluid-18"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "fce5cf0edb686c275ffc2bae26c80acaefab7c2619a2ea58fe8b8629e4ba475e",
+          "commit": "808c385f603d87c77dcccc83f8ea13b786bc940b",
+          "taken": "2026-11-24T23:51:27.294Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "79b2e7d62c56d241d86a2ffef093211466ca60353bea8931902a75e21d601ec4",
+          "commit": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-dispense-clip",
+        "tube-fluid-18",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "wire-J2-OUT2",
+        "wire-J1-OUT5",
+        "wire-J1-OUT6",
+        "funnel-frame",
+        "wire-J1-OUT8"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "catch",
+      "caption": "Section at Y211. Both hooks seat in blind 45° shoulders and the tube enters between the lower jaws.",
+      "before": "catch-before.webp",
+      "after": "catch-after.webp",
+      "width": 940,
+      "height": 700,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -33,
+          170.0585534084164,
+          298.13409873858916
+        ],
+        "target": [
+          -33,
+          211,
+          301
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.22277910121622618,
+        "far": 544.1199391955737,
+        "aspect": 1.3428571428571427,
+        "section": {
+          "at": [
+            -33,
+            211.001,
+            301
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "funnel-dispense-clip"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "funnel-dispense-clip",
+        "tube-fluid-18"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "fce5cf0edb686c275ffc2bae26c80acaefab7c2619a2ea58fe8b8629e4ba475e",
+          "commit": "808c385f603d87c77dcccc83f8ea13b786bc940b",
+          "taken": "2026-11-24T23:51:27.294Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "79b2e7d62c56d241d86a2ffef093211466ca60353bea8931902a75e21d601ec4",
+          "commit": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f",
+          "published": true
+        }
+      },
+      "changed": [
+        "funnel-dispense-clip",
+        "tube-fluid-18",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "wire-J2-OUT2",
+        "wire-J1-OUT5",
+        "wire-J1-OUT6",
+        "funnel-frame",
+        "wire-J1-OUT8"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

@@ -586,15 +586,15 @@
     }
   },
   "HSM-0072": {
-    "title": "Flavor-fill funnel frame · Mark2 print plan",
+    "title": "Funnel frame and dispense tube clip · Mark2 print plan",
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "funnel-frame",
-    "project_sha256": "b08d0924693171a67fac654fa4387ceb535dcbc21aff82df4ccbd918d7f9f352",
-    "archive_sha256": "dad23b22840825b043381aa6dc60dab891fa165d20d3ec9115d945e5d0c7d3fc",
-    "gcode_sha256": "2087c7c561755670e2ff95e973a2a96a816c0f260c90dee6ca5e6e1de5cda594",
+    "project_sha256": "a58e50ee1d530c54582f77f62dfc5aed50a5aaff6b8547db1ea4d6d188a9cf86",
+    "archive_sha256": "2eae598fe38c568d41db6cbd4540c447d29badf10393ae093dde716bb06043a2",
+    "gcode_sha256": "e9a8cf6cdcf9c3b774cd1b07c9f7d454d56897a5eb7549c69c4d14c308a9c0d2",
     "kind": "plan",
-    "sha256": "d7a4b76d8cd22505e7ec331547d02ce95d390c0bc16b48a5ba84a2feddfb7012",
-    "slice": "2026-11-17-funnel-frame-mark2-77d15aea-textured-pei.gcode.3mf",
+    "sha256": "072b2d03f20cf86c8374bdfb60fe81097a0a11ac1117c034aafaa069655887a7",
+    "slice": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf",
     "plate": 1,
     "layers": 230,
     "process": {
@@ -613,8 +613,9 @@
       "Filament bridge speed": "15 mm/s",
       "First-layer trim": "+0.04 mm over the plate preset"
     },
-    "model_sha256": "adfbb80a73e0ab83961ca1c909194d9377fb0fb94c047e3d4aa5305dbc7744b1",
-    "recipe_sha256": "844399039ff6008f5d55dc7e320e1bd343d7d1b7b8ce0e420ee4769ce2f3c320"
+    "model_sha256": "d8af81a68af6d367303f531c416c605a6e03cc483ff8baedb64bd3275086f3b1",
+    "recipe_sha256": "ce489e0c8c583c0271757666d32129d3b209ee2d0d92fc57cfcc983c65ce18bf",
+    "recipe_commit": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f"
   },
   "HSM-0073": {
     "title": "PET-GF accessory plate · Mark2 print plan",
@@ -1986,5 +1987,37 @@
     "model_sha256": "25a3d016205296d4384aee21d2ca13e3f7123a10227772b3587905def9f9ac16",
     "recipe_commit": "b3577898bb10ec23d4348f0cbf94258056f53fc0",
     "recipe_sha256": "6a623e487c4dc105fb9a7aeae5f72f909dcf503b63f9776f7815f81dcf2e90d0"
+  },
+  "HSM-0585": {
+    "title": "Funnel frame and dispense tube clip · Mark2 print plan",
+    "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+    "recipe_target": "funnel-frame",
+    "project_sha256": "a58e50ee1d530c54582f77f62dfc5aed50a5aaff6b8547db1ea4d6d188a9cf86",
+    "archive_sha256": "2eae598fe38c568d41db6cbd4540c447d29badf10393ae093dde716bb06043a2",
+    "gcode_sha256": "e9a8cf6cdcf9c3b774cd1b07c9f7d454d56897a5eb7549c69c4d14c308a9c0d2",
+    "kind": "plan",
+    "sha256": "072b2d03f20cf86c8374bdfb60fe81097a0a11ac1117c034aafaa069655887a7",
+    "slice": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-dispense-clip-mark2/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf",
+    "plate": 1,
+    "layers": 230,
+    "process": {
+      "Material": "Polymaker Fiberon PET-GF15, black",
+      "Printer": "Mark2",
+      "Nozzle": "Left 0.4 mm Standard",
+      "Layer heights": "0.2 mm first, 0.24 mm nominal",
+      "Build plate": "Textured PEI Plate",
+      "Walls": "3",
+      "Infill": "100%",
+      "Supports": "No support paths on the clip",
+      "Requested top gap": "0.24 mm",
+      "Top interface": "3 layers, 0 mm spacing",
+      "Bridge flow": "1.25",
+      "Process bridge speed": "15 mm/s",
+      "Filament bridge speed": "15 mm/s",
+      "First-layer trim": "+0.04 mm over the plate preset"
+    },
+    "model_sha256": "af3cef2fd2abc7661baebb541f894055ba0f1a906cfd4682b7a2ade337227d77",
+    "recipe_sha256": "ce489e0c8c583c0271757666d32129d3b209ee2d0d92fc57cfcc983c65ce18bf",
+    "recipe_commit": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f"
   }
 }

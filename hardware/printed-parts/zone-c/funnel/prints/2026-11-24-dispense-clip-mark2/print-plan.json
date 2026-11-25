@@ -1,0 +1,110 @@
+{
+  "purpose": "Bind the current funnel-frame mesh to its production project, native slice and published replay.",
+  "piece": "funnel-frame",
+  "material_id": "HSM-0072",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "status": "prepared",
+  "prepared_utc": "2026-11-25T00:09:08+00:00",
+  "source_revision": "b7e5bf2fdbea1225ff15b78f2a08d2810cfbb38f",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "ce489e0c8c583c0271757666d32129d3b209ee2d0d92fc57cfcc983c65ce18bf",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl",
+  "source_stl_sha256": "d8af81a68af6d367303f531c416c605a6e03cc483ff8baedb64bd3275086f3b1",
+  "source_fine_archive": "hardware/printed-parts/zone-c/funnel/funnel-frame.step.npz",
+  "source_fine_archive_sha256": "6844dbe07d65c3b0ef8d2f165cfb4cd642867d8f8695f8598b0aec2537859268",
+  "archive": "2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.gcode.3mf",
+  "archive_sha256": "2eae598fe38c568d41db6cbd4540c447d29badf10393ae093dde716bb06043a2",
+  "gcode_sha256": "e9a8cf6cdcf9c3b774cd1b07c9f7d454d56897a5eb7549c69c4d14c308a9c0d2",
+  "project": "2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei.3mf",
+  "project_sha256": "a58e50ee1d530c54582f77f62dfc5aed50a5aaff6b8547db1ea4d6d188a9cf86",
+  "preparation": "2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/preparation.json",
+  "native_review": "2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/review.json",
+  "support_audits": [
+    "2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/support-audit-1901.json",
+    "2026-11-24-funnel-frame-mark2-21c5c7ef-textured-pei/support-audit-1902.json"
+  ],
+  "layers": 230,
+  "estimated_seconds": 56367.767768758626,
+  "minimum_bead_bed_margin_mm": 50.210139999999996,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 5.60547164241143e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "funnel-frame",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          52.75,
+          68.654243469,
+          0
+        ],
+        [
+          249.25,
+          251.345756531,
+          55.099998474
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 28658
+    },
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 6.325686641162065e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "funnel-dispense-clip",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          261.25,
+          148.327251434,
+          0
+        ],
+        [
+          272.25,
+          171.672748566,
+          6.400000096
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 80
+    }
+  ],
+  "replay_sha256": "072b2d03f20cf86c8374bdfb60fe81097a0a11ac1117c034aafaa069655887a7",
+  "replay": "print-playbacks/072b2d03f20cf86c8374bdfb60fe81097a0a11ac1117c034aafaa069655887a7.json.gz",
+  "replaced_replay_sha256": "d7a4b76d8cd22505e7ec331547d02ce95d390c0bc16b48a5ba84a2feddfb7012"
+}
