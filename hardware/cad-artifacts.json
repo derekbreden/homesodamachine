@@ -4529,9 +4529,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": {
-      "commit": "4fb591987d428d62925d81f8739ad86551976a05",
-      "inputs": "7cfbccbab8f4a4677ddf047e1deadbbc5e5b7c6ad34bf5f47732681135f08e94",
-      "unproven": true
+      "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
+      "inputs": "7cfbccbab8f4a4677ddf047e1deadbbc5e5b7c6ad34bf5f47732681135f08e94"
     },
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": {
       "commit": "e3b1cda98230e20f1d887d7915aa1dbb8beefc35",
@@ -4644,9 +4643,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step": {
-      "commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
-      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c",
-      "unproven": true
+      "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
+      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.step.mesh": {
       "commit": "1a8a3195ecabefe7aa527d37571fa625469238be",
@@ -4654,9 +4652,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl": {
-      "commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
-      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c",
-      "unproven": true
+      "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
+      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-access/combined-cover-exploded.step.mesh": {
       "commit": "03ad8a2cb2c440a9493f267d16c233ad567e5fba",
@@ -4690,9 +4687,8 @@
       "unproven": true
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step": {
-      "commit": "69873dc2ed26f56f74d4842401f8eeff7eab7e24",
-      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c",
-      "unproven": true
+      "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
+      "inputs": "b53936b3f948120d0ee5b03c9a75ca5dd129d7f2f41b92e11e4a1b0bf43bdf7c"
     },
     "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.mesh": {
       "commit": "1a8a3195ecabefe7aa527d37571fa625469238be",
@@ -5661,9 +5657,8 @@
       "inputs": "347ce0d3bc9043e49f69fb46dc4fe9815ccb97dbefb7cb6bf3bb39bc11ce6ab1"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
-      "commit": "13549ec20c4bb34dd28cd5736e5aa81dcedcfa0d",
-      "inputs": "b769dcd6d95698884bcc5503adb29a13266c30b3c64929cd5fb8b9cdb0b0612a",
-      "unproven": true
+      "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
+      "inputs": "b769dcd6d95698884bcc5503adb29a13266c30b3c64929cd5fb8b9cdb0b0612a"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": {
       "commit": "58f35ce9e1336dfb37f06bd2e3833dc7f65dfe6c",
@@ -5671,9 +5666,8 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": {
-      "commit": "13549ec20c4bb34dd28cd5736e5aa81dcedcfa0d",
-      "inputs": "b769dcd6d95698884bcc5503adb29a13266c30b3c64929cd5fb8b9cdb0b0612a",
-      "unproven": true
+      "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
+      "inputs": "b769dcd6d95698884bcc5503adb29a13266c30b3c64929cd5fb8b9cdb0b0612a"
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
