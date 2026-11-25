@@ -267,8 +267,8 @@ fn derive_features(root: &Path, mesh: &Mesh, declared: &[Value]) -> Result<Vec<F
     Ok(found)
 }
 
-/// Yaw and plate-centre XY for each footprint, packed in rows and centred.
-fn layout(footprints: &[[f64; 2]], low: [f64; 2], high: [f64; 2], spacing: f64, border: f64, yaw_choice: &Value) -> Vec<(f64, f64, f64)> {
+/// Yaw and plate-centre XY for each footprint. Declared rows keep related trial parts together.
+fn layout(footprints: &[[f64; 2]], low: [f64; 2], high: [f64; 2], spacing: f64, border: f64, yaw_choice: &Value, row_starts: &[usize]) -> Vec<(f64, f64, f64)> {
     let (width, depth) = (high[0] - low[0], high[1] - low[1]);
     let (cx, cy) = ((low[0] + high[0]) / 2.0, (low[1] + high[1]) / 2.0);
     if footprints.len() == 1 {
@@ -285,11 +285,13 @@ fn layout(footprints: &[[f64; 2]], low: [f64; 2], high: [f64; 2], spacing: f64, 
         return vec![(yaw, cx, cy)];
     }
     let mut order: Vec<usize> = (0..footprints.len()).collect();
-    order.sort_by(|&a, &b| footprints[b][1].partial_cmp(&footprints[a][1]).unwrap());
+    if row_starts.is_empty() {
+        order.sort_by(|&a, &b| footprints[b][1].partial_cmp(&footprints[a][1]).unwrap());
+    }
     let (mut rows, mut row, mut x): (Vec<Vec<(usize, f64, f64, f64)>>, Vec<(usize, f64, f64, f64)>, f64) = (vec![], vec![], 0.0);
     for i in order {
         let [dx, dy] = footprints[i];
-        if !row.is_empty() && x + dx > width - 2.0 * border {
+        if !row.is_empty() && (row_starts.contains(&i) || x + dx > width - 2.0 * border) {
             rows.push(std::mem::take(&mut row));
             x = 0.0;
         }
@@ -583,7 +585,10 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, bed_override: Option<
     let offset = piece.get("plate_offset_mm").and_then(|o| o.get("value")).and_then(Value::as_array)
         .map(|a| [a[0].as_f64().unwrap_or(0.0), a[1].as_f64().unwrap_or(0.0)]).unwrap_or([0.0, 0.0]);
     let border = border.unwrap_or_else(|| piece.get("plate_border_mm").and_then(Value::as_f64).unwrap_or(20.0));
-    let placements: Vec<(f64, f64, f64)> = layout(&footprints, usable_low, usable_high, spacing, border, &yaw_choice)
+    let row_starts: Vec<_> = instances.iter().enumerate()
+        .filter(|(_, inst)| inst.part["start_plate_row"].as_bool() == Some(true))
+        .map(|(i, _)| i).collect();
+    let placements: Vec<(f64, f64, f64)> = layout(&footprints, usable_low, usable_high, spacing, border, &yaw_choice, &row_starts)
         .into_iter().map(|(y, cx, cy)| (y, cx + offset[0], cy + offset[1])).collect();
     let brim_type = first_text(&plate.settings, "brim_type").unwrap_or("").to_string();
     let brim = if brim_type == "outer_only" || brim_type == "outer_and_inner" {

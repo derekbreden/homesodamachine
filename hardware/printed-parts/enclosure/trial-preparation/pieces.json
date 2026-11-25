@@ -2551,6 +2551,226 @@
         }
       }
     },
+    "open-snap-comparisons": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "cover-original",
+          "stl": "hardware/print-tests/open-snap-section/parts/cover.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            }
+          }
+        },
+        {
+          "name": "cover-relieved-flanks",
+          "stl": "hardware/print-tests/open-snap-section/parts/cover-relieved-flanks.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            }
+          }
+        },
+        {
+          "name": "receiver-original",
+          "stl": "hardware/print-tests/open-snap-section/parts/receiver.stl",
+          "object_settings": {
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "Match the roof-down Pisco receiver."
+            }
+          },
+          "start_plate_row": true
+        },
+        {
+          "name": "receiver-short-post",
+          "stl": "hardware/print-tests/open-snap-section/parts/receiver-short-post.stl",
+          "object_settings": {
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "Match the roof-down Pisco receiver."
+            }
+          }
+        },
+        {
+          "name": "receiver-filled-corners",
+          "stl": "hardware/print-tests/open-snap-section/parts/receiver-filled-corners.stl",
+          "object_settings": {
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "Match the roof-down Pisco receiver."
+            }
+          }
+        },
+        {
+          "name": "cooling-wall",
+          "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+          "object_settings": {
+            "inner_wall_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "outer_wall_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "initial_layer_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "initial_layer_infill_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "top_surface_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "internal_solid_infill_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "gap_infill_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "sparse_infill_speed": {
+              "value": "10.4,10.4,10.4,10.4,10.4",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "sparse_infill_density": {
+              "value": "0%",
+              "reason": "Both cells are open to the bed."
+            },
+            "top_shell_layers": {
+              "value": "0",
+              "reason": "The cooling wall is open."
+            },
+            "bottom_shell_layers": {
+              "value": "0",
+              "reason": "The cooling wall is open."
+            },
+            "wall_loops": {
+              "value": "2",
+              "reason": "Deliver cooling time on this wall while the cover and receiver retain their print speeds."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Two continuous perimeter roads follow each slim wall."
+            },
+            "filter_out_gap_fill": {
+              "value": "1000",
+              "reason": "The two outer roads already hold the cooling wall; skip the short gap fills between them."
+            }
+          },
+          "start_plate_row": true
+        }
+      ],
+      "spacing_mm": 12.0,
+      "plate_border_mm": 96.0,
+      "pose_reason": "All three receivers rest on their flat roof and both covers stand on an open axial end, matching the tested open snap section.",
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the textured PEI trim from the individual receiver and cap trials."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the fitted cap trials."
+        },
+        "timelapse_type": {
+          "value": "0",
+          "reason": "Keep the traditional camera mode used for the filmed fitted control."
+        },
+        "enable_prime_tower": {
+          "value": "0",
+          "reason": "The separate stepped wall supplies off-part cooling time through the final post course in the filmed coupon recipe."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "Each coupon has open ends; the receiver catches and center post build from the flat roof."
+        }
+      }
+    },
     "rear-snap-pairs": {
       "printer": "Mark1",
       "nozzle": {
