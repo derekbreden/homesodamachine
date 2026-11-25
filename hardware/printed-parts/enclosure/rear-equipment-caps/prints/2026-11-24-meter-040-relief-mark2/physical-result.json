@@ -1,0 +1,42 @@
+{
+  "purpose": "Record the relieved flow-meter cover's fit in the earlier receiver and the visible seating of its wings.",
+  "date": "2026-11-24",
+  "material": "HSM-0450",
+  "printer": "Mark2",
+  "printer_task_id": "1483225394",
+  "print_job": "print-job.json",
+  "tried": "The full-length flow-meter cover with +0.40 mm wing crests and 0.40 mm saddle relief, fitted over the meter in the earlier printed receiver.",
+  "derek": [
+    "That fit good enough.",
+    "And even better, we now have the same fit on all of them. This fit is firm and holds well. But it is not perfect."
+  ],
+  "observed": "Derek accepted the firm hold. The wings sat very slightly short of full seating. He could see this at the exposed cross section or by looking very closely.",
+  "receiver_scope": "The bench receivers predate this cover shape. Which contact gives the firm hold, and whether it would persist with the wings fully seated, remain open.",
+  "earlier_comparison": "../2026-11-24-meter-020-mark2/physical-result.json",
+  "photos": [
+    {
+      "file": "physical-result/IMG_8868.jpeg",
+      "shows": "Exposed cross section of the wing tip and receiver catch beside the white meter."
+    },
+    {
+      "file": "physical-result/IMG_8869.jpeg",
+      "shows": "Second angle on the wing tip and the inclined face of the catch."
+    },
+    {
+      "file": "physical-result/IMG_8870.jpeg",
+      "shows": "Edge-on view along the wing and receiver above the meter."
+    },
+    {
+      "file": "physical-result/IMG_8871.jpeg",
+      "shows": "Close view across the printed surfaces where the wing meets the receiver."
+    },
+    {
+      "file": "physical-result/IMG_8872.jpeg",
+      "shows": "Shallow-angle view along the exposed edge of the fitted cover."
+    },
+    {
+      "file": "physical-result/IMG_8873.jpeg",
+      "shows": "Wider end view showing the installed cover, white meter body and leads."
+    }
+  ]
+}

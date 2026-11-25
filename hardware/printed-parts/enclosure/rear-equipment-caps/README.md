@@ -62,7 +62,11 @@ the meter's channel and wire-chamber floors printed on support. The water regula
 [v4 sample's](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json).
 Derek found the +0.40 mm meter cover fit better than +0.20 mm, and +0.20 mm
 better than the original point. Both raised covers showed incomplete seating.
-The relieved saddle is the next fit test. [Flow-meter bench comparison](prints/2026-11-24-meter-020-mark2/physical-result.json)
+With the +0.40 mm crests and 0.40 mm saddle relief, the meter cover held firmly
+and Derek accepted the fit. The wings sat very slightly short of full seating,
+visible at the exposed cross section or on very close inspection. The bench
+receivers predate this cover shape. Which contact gives the firm hold remains
+unknown. [Earlier comparison](prints/2026-11-24-meter-020-mark2/physical-result.json) · [Relieved cover fit and photos](prints/2026-11-24-meter-040-relief-mark2/physical-result.json)
 
 The [latest pointed-set result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/physical-result/physical-result.json)
 reports tight hardware fits, with the ASSE body seating as the exception. The

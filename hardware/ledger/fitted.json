@@ -485,6 +485,13 @@
       "said": "it's also, you can see, pretty good",
       "tried": "the full-length two-bar Pisco cover from Mark1, with both wing tips raised 0.20 mm. Derek put it back over the same regulator and felt a tiny amount more play than with the four-bar cover.",
       "record": "https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/physical-result/physical-result.json"
+    },
+    {
+      "material": "HSM-0450",
+      "date": "2026-11-24",
+      "said": "That fit good enough.",
+      "tried": "the full-length Mark2 flow-meter cover with +0.40 mm wing crests and 0.40 mm saddle relief on the meter in the earlier printed receiver. It held firmly. The wings sat very slightly short of full seating.",
+      "record": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-24-meter-040-relief-mark2/physical-result.json"
     }
   ]
 }

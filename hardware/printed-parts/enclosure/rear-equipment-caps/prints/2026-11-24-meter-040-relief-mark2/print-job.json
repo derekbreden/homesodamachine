@@ -1,6 +1,6 @@
 {
   "purpose": "Identify the full-length flow-meter cover with +0.40 mm crests and a 0.40 mm recessed saddle sent to Mark2.",
-  "status": "started",
+  "status": "finished",
   "printer": "Mark2",
   "previous_job_id": "1482567259",
   "printer_task_id": "1483225394",
@@ -44,6 +44,7 @@
   "toolpath_review": "2026-11-24-single-meter-cap-mark2-f89dc9d9-textured-pei/review.json",
   "crest_and_cooling_measurement": "crest-paths.json",
   "saddle_measurement": "saddle-measurement.json",
+  "physical_result": "physical-result.json",
   "previous_bench_comparison": "../2026-11-24-meter-020-mark2/physical-result.json",
   "launch": "launch.json",
   "production_accessory_plate": "../2026-11-24-meter-040-relief-production/print-plan.json",
