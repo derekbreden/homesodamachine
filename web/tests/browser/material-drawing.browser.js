@@ -242,7 +242,12 @@ test("phone searches open the pane under the model; drawings keep the pane and t
     await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     await page.goto(baseUrl + "/parts", { waitUntil: "domcontentloaded" });
     await page.type("#site-search-input", "HSM-0009");
-    await page.locator("#site-search-results a").click();
+    const result = await page.waitForSelector("#site-search-results [data-search-result]", { visible: true });
+    await page.$eval("#site-search-results", results => {
+      // Simulate the focus loss Safari can deliver before activating a tap.
+      results.addEventListener("pointerdown", () => document.getElementById("site-search-input").blur(), { once: true });
+    });
+    await result.tap();
     await materialReady(page);
     await assertPane(page, true);
     // The pane takes the lower part of the screen, and the model stays in view above it.

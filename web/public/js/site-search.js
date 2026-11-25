@@ -146,9 +146,11 @@ function mountSearch(form) {
     const next = current + (event.key === "ArrowDown" ? 1 : -1);
     (links[next] || (current === -1 ? links.at(-1) : input)).focus();
   });
-  form.addEventListener("focusout", event => {
-    if (!form.contains(event.relatedTarget)) hide();
-  });
-  document.addEventListener("pointerdown", event => { if (!form.contains(event.target)) hide(); });
+  function dismissOutside(event) {
+    if (!form.contains(event.target)) hide();
+  }
+  // A tap can blur the search field before the result link activates.
+  document.addEventListener("focusin", dismissOutside);
+  document.addEventListener("pointerdown", dismissOutside);
   if (input.value.trim()) input.focus({ preventScroll: true });
 }
