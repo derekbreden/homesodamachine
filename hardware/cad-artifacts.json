@@ -93,7 +93,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "b5a23a874034a28586a4a608ca0c23eca5a2325b2b89a4fc21f1ee8c4a017d69",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "89e2ac476080e1b181b2c036c4efaaad3f606758aaeac269dfa9e7ae0c9ce65c",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "fbf089b9272dce6d3ee3546cb878222915ff2258150cab81499ad67e252590d8",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
@@ -681,9 +681,9 @@
     "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step": "f28c79215c18b0e50d41aace9a99dde460ab6e24ff76224b1ae961e42169859b",
     "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step.mesh": "15c9d57c8b52625e21b28ca84ecda1042677b816236bf3d9e5ecff298291d068",
     "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl": "af3cef2fd2abc7661baebb541f894055ba0f1a906cfd4682b7a2ade337227d77",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "4a97790b1daf6892191e294acd004f3a8699437c78d495552b84d805d730fd01",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "6f87b5a766eec57010339c1ae029aaa2aa78967de99a9b0623c692abcf7d53e2",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "0c4c9416ef6e633d2c0a2423f5dff02b66d3d26fe37e739a71886e20d213077f",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "d8af81a68af6d367303f531c416c605a6e03cc483ff8baedb64bd3275086f3b1",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
     "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": "473415b7d9bb3db42ae500426b0a2e1c0fbbb5b5ccd717096ad1f6e7a5ec8450",
@@ -936,7 +936,7 @@
       "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "f258efbdc1e0adbf7b9dc83a0237273ab9bd0508569eca1cc5d9e2d38727f966",
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "e86275b2ea50d6296309303490b8bcfc94ebafdd14e8c4c59e7523c9064d417b",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "9820e6a86e9d98a5a1da4a5ec1b7bbed25885a336d0684b28dbec653b4ca235b",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "b5a23a874034a28586a4a608ca0c23eca5a2325b2b89a4fc21f1ee8c4a017d69",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "89e2ac476080e1b181b2c036c4efaaad3f606758aaeac269dfa9e7ae0c9ce65c",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "fbf089b9272dce6d3ee3546cb878222915ff2258150cab81499ad67e252590d8",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
@@ -1363,9 +1363,9 @@
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
       "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "4a97790b1daf6892191e294acd004f3a8699437c78d495552b84d805d730fd01",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "6f87b5a766eec57010339c1ae029aaa2aa78967de99a9b0623c692abcf7d53e2",
       "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "0c4c9416ef6e633d2c0a2423f5dff02b66d3d26fe37e739a71886e20d213077f",
-      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "d8af81a68af6d367303f531c416c605a6e03cc483ff8baedb64bd3275086f3b1",
+      "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
       "hardware/printed-parts/zone-c/funnel/funnel.step": "6353f25fbb61dfda34a6d537d1ba51e1c458f1a273aa19f88c37ff5a099603d5",
       "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": "1ec2f5ec3e0f447bf4d003f25cf18205bfd61bd1baffe32f20cb6338b7566adf",
       "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
@@ -2887,7 +2887,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1795565358.565612,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1795569936.198191,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
     "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795569928.735542,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
@@ -3475,9 +3475,9 @@
     "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step": 1795565358.565612,
     "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step.mesh": 1795565329.504245,
     "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl": 1795565358.565612,
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1795565358.565612,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1795569936.198191,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": 1795569928.735542,
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1795565358.565612,
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1795569936.198191,
     "hardware/printed-parts/zone-c/funnel/funnel.step": 1793626644,
     "hardware/printed-parts/zone-c/funnel/funnel.step.mesh": 1794034860,
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": 1791611789,
@@ -3897,8 +3897,7 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "commit": "69f62a910f797bfec27f4a0c11781e3c6e72d2a0",
-      "inputs": "9f7f686b641cbbd65df41b1e18ef246855eaf53d230746e5fb2a294d6e86d0f9",
+      "commit": "13549ec20c4bb34dd28cd5736e5aa81dcedcfa0d",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
@@ -5662,8 +5661,9 @@
       "inputs": "347ce0d3bc9043e49f69fb46dc4fe9815ccb97dbefb7cb6bf3bb39bc11ce6ab1"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
-      "commit": "51da77538505941defdfd7f5e5da0cf0f8432730",
-      "inputs": "347ce0d3bc9043e49f69fb46dc4fe9815ccb97dbefb7cb6bf3bb39bc11ce6ab1"
+      "commit": "13549ec20c4bb34dd28cd5736e5aa81dcedcfa0d",
+      "inputs": "b769dcd6d95698884bcc5503adb29a13266c30b3c64929cd5fb8b9cdb0b0612a",
+      "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": {
       "commit": "58f35ce9e1336dfb37f06bd2e3833dc7f65dfe6c",
@@ -5671,8 +5671,9 @@
       "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": {
-      "commit": "51da77538505941defdfd7f5e5da0cf0f8432730",
-      "inputs": "347ce0d3bc9043e49f69fb46dc4fe9815ccb97dbefb7cb6bf3bb39bc11ce6ab1"
+      "commit": "13549ec20c4bb34dd28cd5736e5aa81dcedcfa0d",
+      "inputs": "b769dcd6d95698884bcc5503adb29a13266c30b3c64929cd5fb8b9cdb0b0612a",
+      "unproven": true
     },
     "hardware/printed-parts/zone-c/funnel/funnel.step": {
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
