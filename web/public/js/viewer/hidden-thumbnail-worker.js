@@ -55,7 +55,7 @@ function draw({ positions, indices, transform, normal, mirrored, color, metalnes
         const at = y*side + x;
         if (z >= depth[at]) continue;
         depth[at] = z;
-        pixels[at*4] = r; pixels[at*4+1] = g; pixels[at*4+2] = bl;
+      pixels[at*4] = r; pixels[at*4+1] = g; pixels[at*4+2] = bl; pixels[at*4+3] = 255;
       }
     }
   }
@@ -67,9 +67,6 @@ self.onmessage = ({ data }) => {
     light = data.light;
     depth = new Float32Array(side*side).fill(Infinity);
     pixels = new Uint8ClampedArray(side*side*4);
-    for (let i = 0; i < pixels.length; i += 4) {
-      pixels[i] = 230; pixels[i+1] = 236; pixels[i+2] = 245; pixels[i+3] = 255;
-    }
   } else if (data.finish) {
     self.postMessage(pixels, [pixels.buffer]);
     depth = pixels = null;

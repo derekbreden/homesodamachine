@@ -571,10 +571,22 @@ function buildPanel() {
 
   const hidden = document.createElement("div");
   hidden.className = "component-hidden";
+  const hiddenHeader = document.createElement("div");
+  hiddenHeader.className = "component-hidden-header";
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "component-command component-hidden-toggle";
+  toggle.setAttribute("aria-controls", "component-hidden-items");
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.innerHTML = iconSvg("chevron", "tool-icon");
   const count = document.createElement("span");
-  count.className = "component-hidden-count";
+  toggle.appendChild(count);
+  toggle.addEventListener("click", () => {
+    toggle.setAttribute("aria-expanded", String(toggle.getAttribute("aria-expanded") === "false"));
+  });
   const items = document.createElement("div");
   items.className = "component-hidden-items";
+  items.id = "component-hidden-items";
   items.setAttribute("role", "group");
   items.setAttribute("aria-label", "Show hidden components");
   const showAll = document.createElement("button");
@@ -591,10 +603,12 @@ function buildPanel() {
     applyHiddenComponents();
     if (focused) focusComponentControls();
   });
-  hidden.append(count, items, showAll);
+  hiddenHeader.append(toggle, showAll);
+  hidden.append(hiddenHeader, items);
   selected.appendChild(details);
   panel.appendChild(hidden);
   panel._hidden = hidden;
+  panel._hiddenToggle = toggle;
   panel._hiddenCount = count;
   panel._hiddenItems = items;
 
@@ -620,7 +634,7 @@ export function closeComponentDetails() {
 }
 
 function focusComponentControls(preferred = null) {
-  const target = preferred?.isConnected ? preferred : panel._hiddenItems.querySelector(".component-show")
+  const target = preferred?.getClientRects().length ? preferred : panel._hiddenItems.querySelector(".component-show")
     || (selection ? panel._more : panel.closest(".cad-workspace")?.querySelector(".materials-toggle"));
   target?.focus();
 }
@@ -638,6 +652,7 @@ function hiddenNames() {
 
 function updateHiddenRows(names) {
   panel._hidden.hidden = !names.length;
+  if (!names.length) panel._hiddenToggle.setAttribute("aria-expanded", "false");
   panel._hiddenCount.textContent = `Hidden ${names.length}`;
   const keep = new Set(names);
   for (const [name, row] of hiddenRows) {
@@ -872,6 +887,7 @@ function hidePanel() {
   if (!panel) return;
   panel.classList.remove("show");
   setComponentDetails(false);
+  panel._hiddenToggle.setAttribute("aria-expanded", "false");
   if (!state.currentGroup) updateHiddenRows([]);
 }
 
