@@ -122,5 +122,6 @@
   "printing_status": "printing-status.json",
   "toolpath_key_and_mark_check": "section-check.json",
   "cancellation_status": "cancellation-status.json",
-  "cancellation_observed_at": "2026-11-25T21:11:11+00:00"
+  "cancellation_observed_at": "2026-11-25T21:11:11+00:00",
+  "physical_result": "physical-result.json"
 }

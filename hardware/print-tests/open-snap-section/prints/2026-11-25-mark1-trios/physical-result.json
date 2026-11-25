@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-25",
+  "printer": "Mark1",
+  "printer_job_id": "1486850876",
+  "result": "Derek stopped this plate because all three coupon designs added thin features. He requested a replacement that refines the fit of each cover and receiver. The trial produced no reported fit or release-force result.",
+  "design": "The covers had 1.40 mm blades and 1.10 mm runners. The receivers had a slotted collar. Their sole purpose was to prevent cross-fitting.",
+  "reported": [
+    "I've stopped the job on mark1.",
+    "Do not add new thin features as you did on all three of those.",
+    "Do try further refinements to the fit.",
+    "What I was speaking to there, was your propensity to attempt to give me a coupon that can work on existing things, and I was simply trying to drop that constraint, so that you give me pairs that go together."
+  ],
+  "firmware": "cancellation-status.json"
+}
