@@ -1,0 +1,95 @@
+{
+  "purpose": "Test a preloaded cover, wider crest lands and a broad housing crown with neutral and firm retaining faces.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1485929009",
+  "previous_finished_job": "1484115447",
+  "accepted_at": "2026-11-25T16:42:29+00:00",
+  "first_layer_verified_at": "2026-11-25T16:52:26+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 145,
+  "source_and_recipe_commit": "01ab64051c11124c527dc4db4c5af6b7a860323d",
+  "printer_recipe": "open-snap-flush-mark2",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 4238,
+  "filament_g": 14.15,
+  "minimum_bed_margin_mm": 120.64,
+  "objects": [
+    {
+      "name": "cover-wide-preloaded",
+      "object_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/cover-wide-preloaded.stl",
+      "sha256": "2bb364234a54d0b04f98b6c37b2dcb17b4d9d5ced98c6b062433a5928830d875",
+      "bed_center_xy_mm": [
+        162.5,
+        138.0
+      ]
+    },
+    {
+      "name": "receiver-wide-neutral",
+      "object_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/receiver-wide-neutral.stl",
+      "sha256": "6fc55c59329b7894d37185c18e22c6b14b2e60f5a0edb7b437d79d2472e52631",
+      "bed_center_xy_mm": [
+        139.09,
+        173.239
+      ]
+    },
+    {
+      "name": "receiver-wide-firm",
+      "object_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/receiver-wide-firm.stl",
+      "sha256": "7804e2c39e39329f0083467163ac5fa4060b1614c50ff1a730a3cc4cac5da024",
+      "bed_center_xy_mm": [
+        185.91,
+        173.239
+      ]
+    },
+    {
+      "name": "cooling-wall",
+      "object_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "bed_center_xy_mm": [
+        162.5,
+        195.239
+      ]
+    }
+  ],
+  "plate_identification": "From the door the cover is in front, one-notch neutral receiver at rear left, two-notch firm receiver at rear right, cooling wall behind both.",
+  "source_geometry": "../../parts/flush-geometry.json",
+  "motion_and_contact": "../../flush-fit-check.json",
+  "native_review": "2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/review.json",
+  "project": {
+    "file": "2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei.3mf",
+    "git_blob": "35c163662d5a7203f6c4db01993d9dedd2c9261c",
+    "sha256": "f0c1bd6d8a8458e402f97f832af75ae7916595254ee7484ed3fa0ac67f7f1898",
+    "release_archive": "open-snap-flush-coupons-20261125-f8b1ed0786de4d07.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei/2026-11-25-open-snap-flush-mark2-mark2-e75c10a9-textured-pei.gcode.3mf",
+    "git_blob": "3cd9e91f0d0404004f07cb066d800ac1d4e34360",
+    "sha256": "9cac07082791fea093e4d77566104af118eac84cf909a0c06235eb03da5e0b41",
+    "release_archive": "open-snap-flush-coupons-20261125-f8b1ed0786de4d07.zip"
+  },
+  "gcode_sha256": "312b2fd6789e64d8edd261d921b5bd68d6feeffc2e4ce1923bbf6c46bcc0af93",
+  "archive_restore": "Both release members matched the submitted files by SHA-256.",
+  "interlayer_cooling": "cooling.json",
+  "contact_course_review": "section-check.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "seconds_after_mark1_accepted": 217.0
+}

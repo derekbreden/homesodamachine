@@ -37,7 +37,7 @@ On Mark2 the catch opens each curved wing as it seats. The wing can then push in
 
 Keep each cover with its own plate. Fit the **one-notch receiver** first. It targets straight wings with the retaining faces just touching in CAD. The **two-notch receiver** moves each retaining face 0.12 mm toward the seated hook to test a firmer grip. On both plates the slicer puts the crest stop 0.11 mm above its CAD height. With the crests registered to this printed height, the commanded shoulders overlap the straight cover by about 0.11 mm radially on the one-notch receiver and 0.23 mm on the two-notch receiver at mid-layer. Both can therefore put some spring load into the wings.
 
-With the receiver on its back, look at both crests end-on, press each side and let go, then compare the effort to release it. A pair that stays square, springs back and grips like the filmed original is the one to try at full equipment length. [Mark1 toolpath sections](prints/2026-11-25-mark1-flush/section-check.json) · [Mark2 toolpath sections](prints/2026-11-25-mark2-flush/section-check.json)
+With the receiver on its back, look at both crests end-on, press each side and let go, then compare the effort to release it. A pair that stays square, springs back and grips like the filmed original is the one to try at full equipment length. [Mark1 plate and print record](prints/2026-11-25-mark1-flush/print-job.json) · [Mark2 plate and print record](prints/2026-11-25-mark2-flush/print-job.json) · [Mark1 toolpath sections](prints/2026-11-25-mark1-flush/section-check.json) · [Mark2 toolpath sections](prints/2026-11-25-mark2-flush/section-check.json)
 
 ## Reproduce the pair
 
