@@ -678,9 +678,6 @@
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "4d1eac2b83e2cab19e34ab1e52bbecffcfddd2b684ed94dd17ccba614ebb63bb",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": "bfa80274f4c56711d9f8f4303dc68db0a0d36ac73453feed2dc3b52970bcf126",
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step": "f28c79215c18b0e50d41aace9a99dde460ab6e24ff76224b1ae961e42169859b",
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step.mesh": "15c9d57c8b52625e21b28ca84ecda1042677b816236bf3d9e5ecff298291d068",
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl": "af3cef2fd2abc7661baebb541f894055ba0f1a906cfd4682b7a2ade337227d77",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "6f87b5a766eec57010339c1ae029aaa2aa78967de99a9b0623c692abcf7d53e2",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "0c4c9416ef6e633d2c0a2423f5dff02b66d3d26fe37e739a71886e20d213077f",
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "426b058deb2d06b9a0df5b35d5ee2a2b7ae7ca291014c8841a2dfaf6220e3c1e",
@@ -2197,7 +2194,6 @@
     "8b7a4270e732900faaafd3b107e20046972e03af3f2db38480afcb0f152a1802",
     "8badcc0c694d5676ac9bec8c7fffaaa14101f8f0d2f3acfef4b40241dc33361e",
     "8bfa563b3e5d2623fc613802acbd8142b3bad6bcd1bd0773598b63e28d224a2d",
-    "8c353c0ce73fab09da1e13ae82e4fe3709a38f0ea90133494e935f8ae19d4209",
     "8c3a8410cd66c8e68779dd2545262c81d9c4629b056ac8f372e3f751543f66f0",
     "8c585cdcb1ba544ece83e64e28ad0ba6d5566239b92102279571bc20980d7c8f",
     "8c5b4291c416984ac14cf59d108640fa576d6b65b10281f543522d75ad123894",
@@ -3472,9 +3468,6 @@
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": 1793626644,
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.step.mesh": 1794035339,
     "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl": 1793626644,
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step": 1795565358.565612,
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step.mesh": 1795565329.504245,
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl": 1795565358.565612,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": 1795569936.198191,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": 1795569928.735542,
     "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": 1795569936.198191,
@@ -5643,18 +5636,6 @@
       "commit": "a95736ec9f39c7fc10da9d185d1783f715a8b8d7",
       "inputs": "9bc2436d7becb1625dd9bc5c56e19b34bc359c10482f603db940c654a0820b6a",
       "unproven": true
-    },
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step": {
-      "commit": "51da77538505941defdfd7f5e5da0cf0f8432730",
-      "inputs": "347ce0d3bc9043e49f69fb46dc4fe9815ccb97dbefb7cb6bf3bb39bc11ce6ab1"
-    },
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.step.mesh": {
-      "commit": "573bcc5543fa0ca95ed90b5363753774b7660292",
-      "unproven": true
-    },
-    "hardware/printed-parts/zone-c/funnel/funnel-dispense-clip.stl": {
-      "commit": "51da77538505941defdfd7f5e5da0cf0f8432730",
-      "inputs": "347ce0d3bc9043e49f69fb46dc4fe9815ccb97dbefb7cb6bf3bb39bc11ce6ab1"
     },
     "hardware/printed-parts/zone-c/funnel/funnel-frame.step": {
       "commit": "5fc5c7157295f3fc7bcc31997ec3327eadbffadd",
