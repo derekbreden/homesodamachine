@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-24",
+  "printer": "Mark1",
+  "printer_task_id": "1483465690",
+  "material": "HSM-0585",
+  "article": "Full V-G dispense tube insert and cropped funnel-frame receiver in black PET-GF",
+  "observed": "The insert stayed seated. The insert guided the 4 mm dispense tube in the intended direction with nominal retention.",
+  "assembly_decision": "Retire the frame-mounted receiver and insert. The dispense tube stays with the machine when the funnel frame lifts out.",
+  "operator_words": [
+    "That did work, in terms of retaining the insert in the receiver and at least nominally retaining (or at least redirecting) the cable in a general direction. It is good enough.",
+    "Sorry tube not cable.",
+    "That said, I think we are necessarily skipping this, removing this that you just added, because of how the device will be assembled, and this funnel frame being inserted, and anything we have to attach to the funnel frame also necessarily pulls out."
+  ]
+}
