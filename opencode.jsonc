@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "hsm": {
+        "type": "local",
+        "command": ["hsm", "mcp"],
+        "environment": {
+          "PATH": "{env:HOME}/.local/bin:{env:PATH}"
+        }
+      }
+    }
+  },
+  "instructions": [
+    "~/.claude/projects/-Users-derekbredensteiner-Developer-homesodamachine/memory/MEMORY.md"
+  ]
+}

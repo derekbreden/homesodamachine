@@ -268,6 +268,10 @@ measures the turn's workspace when it names one other than the server's checkout
 `tool_timeout_sec` leaves a cold scene and a payload fetch time to finish. `codex mcp list`
 shows the server.
 
+OpenCode reads [`opencode.jsonc`](../../opencode.jsonc), which runs `hsm mcp` with `~/.local/bin`
+on its path. Sessions measure the shared checkout. `opencode mcp list` shows the server. The same
+file loads the project's memory index into an OpenCode session's instructions.
+
 The socket uses one newline-terminated JSON request and response per connection:
 
 ```json
