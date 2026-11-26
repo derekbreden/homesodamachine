@@ -2,6 +2,10 @@
 
 This trial pairs a full-length cover and receiver with the real Pisco RVFUP1/4–1/4-0.3 regulator. They carry the wide, inward-curved wings and the one-notch receiver from the Mark2 comparison. Derek felt very little waggle in either coupon and thought the one-notch pair seated slightly better. The full cover has an 8 mm-wide, 2 mm-long contoured pad over the widest part of the molded housing. The neck lip, release-collet clearance, rear inlet passage and 3 mm upper bearing come from the fitted production assembly. [Filmed choice](../open-snap-section/prints/2026-11-25-mark2-flush/physical-result.json) · [Full parts and dimensions](parts/geometry.json)
 
+## Three dots on the full Pisco
+
+In C037 Derek could press the full one-dot pair together easily, found no perceptible wobble and felt significantly less end travel at the rigid fitting. Of the three short pairs on the same plate he preferred the three-dot snap. The full three-dot cover and receiver carry those two working profiles on the full one-dot hardware seats. Look for three recessed dots on the cover back and three on the receiver flange. [Filmed full-pair result](prints/2026-11-26-mark2-easy-entry/physical-result.json) · [Three-dot pair and bench comparison](parts/three-dot/README.md)
+
 ## Two dots and a 0.20 mm closer saddle
 
 The first full cover sat flush and stayed firm in hand while the regulator inside could wiggle and spin. This pair uses the 2.60 mm feet and neutral catches from the two-dot coupon. The inner cradle moves 0.20 mm toward the molded regulator body, measured at the same snap position. A short lead at the outlet end eases the transition into the raised cradle. [First full pair in hand](prints/2026-11-25-mark2/physical-result.json) · [Two-dot coupon in hand](../open-snap-section/prints/2026-11-25-mark1-solid-pairs/physical-result.json) · [Full-size trial geometry](parts/two-dot-drop/geometry.json)

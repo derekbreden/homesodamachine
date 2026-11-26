@@ -4,6 +4,7 @@ mod easy_entry;
 #[allow(dead_code)]
 #[path = "../../../tools/hsm/print-prep/src/mesh.rs"]
 mod mesh;
+mod three_dot;
 mod two_dot;
 
 use anyhow::{Context, Result, ensure};
@@ -47,11 +48,11 @@ fn hash(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }
 
-/// Restore a printed coupon to its machine frame before transferring its prismatic working faces.
-fn coupon(parts: &Path, row: &Value, register: impl Fn(V3) -> V3) -> Result<Solid> {
-    let file = parts.join(row["stl"].as_str().context("coupon STL")?);
+/// Restore a printed solid to its assembly frame before transferring its working faces.
+fn installed(parts: &Path, row: &Value, matrix: &str, register: impl Fn(V3) -> V3) -> Result<Solid> {
+    let file = parts.join(row["stl"].as_str().context("source STL")?);
     let mesh = mesh::Mesh::read_stl(&file)?;
-    let m: [[f64; 4]; 3] = serde_json::from_value(row["assembly_to_print_matrix_mm"].clone())?;
+    let m: [[f64; 4]; 3] = serde_json::from_value(row[matrix].clone())?;
     let vertices: Vec<_> = mesh
         .vertices
         .iter()
@@ -99,12 +100,31 @@ fn bearing(axis: f64, z: f64, y: f64, radius: f64, width: f64) -> Result<Solid> 
         .extrude(&Profile::polygon(&pts), -BEARING_LENGTH)
 }
 
+/// Emit a closed, single-body print mesh and the exact transform back to its installed surfaces.
+fn write_part(out: &Path, name: &str, solid: &Solid, transform: Affine) -> Result<Value> {
+    solid.check()?;
+    ensure!(solid.components().len() == 1, "{name} must be one connected solid");
+    let bytes = stl_bytes(&[&solid.transformed(&transform)])?;
+    mesh::Mesh::from_corners(&mesh::stl_corners(&bytes)?).check_closed_single_body(name)?;
+    fs::write(out.join(format!("{name}.stl")), &bytes)?;
+    let bb = solid.bounds();
+    Ok(json!({"stl":format!("{name}.stl"),"sha256":hash(&bytes),"connected_solids":1,
+        "volume_mm3":solid.volume(),"installed_bounds_mm":[bb.min.to_array(),bb.max.to_array()],
+        "assembly_to_stl_matrix_mm":transform.m}))
+}
+
 fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1).peekable();
+    if args.next_if(|v| v == "--three-dot").is_some() {
+        let output = args.next().map(PathBuf::from).unwrap_or_else(|| Path::new(HERE).join("three-dot"));
+        ensure!(args.next().is_none(), "expected --three-dot [output directory]");
+        return three_dot::write(&output);
+    }
     let easy = args.next_if(|v| v == "--easy-entry").is_some();
     let axial = easy || args.next_if(|v| v == "--axial-grip").is_some();
     let numbered_trial = axial || args.next_if(|v| v == "--two-dot-drop").is_some();
     let dots = if easy { 1 } else { 2 };
+    let mark_offsets: &[f64] = if dots == 1 { &[0.] } else { &[-0.5, 0.5] };
     let default_out = if easy {
         Path::new(HERE).join("easy-entry")
     } else if axial {
@@ -117,7 +137,7 @@ fn main() -> Result<()> {
     let out = args.next().map(PathBuf::from).unwrap_or(default_out);
     ensure!(
         args.next().is_none(),
-        "expected [--two-dot-drop | --axial-grip | --easy-entry] [output directory]"
+        "expected [--two-dot-drop | --axial-grip | --easy-entry | --three-dot] [output directory]"
     );
     fs::create_dir_all(&out)?;
     let coupons = Path::new(COUPONS);
@@ -207,7 +227,7 @@ fn main() -> Result<()> {
         }
         p
     };
-    let face = coupon(&donor_dir, free_cover, register)?;
+    let face = installed(&donor_dir, free_cover, "assembly_to_print_matrix_mm", register)?;
     let donor = along(&face, wings_y)?;
     let lower = b.min - v3(1., 1., 1.);
     let upper = b.max + v3(1., 1., 1.);
@@ -227,7 +247,7 @@ fn main() -> Result<()> {
                 &raised,
                 &numbered["marks"],
                 "cover_group_center_machine_mm",
-                dots,
+                mark_offsets,
                 -V3::Z,
             )?,
             change,
@@ -235,7 +255,7 @@ fn main() -> Result<()> {
     } else {
         (cover, Value::Null)
     };
-    let part = coupon(&donor_dir, neutral, register)?;
+    let part = installed(&donor_dir, neutral, "assembly_to_print_matrix_mm", register)?;
     let cheeks = along(&part, pockets_y)?;
     // Start inside the old pocket neck and outside every station of the through-passage.
     let cheek_min = axis + outer - 5.40;
@@ -257,7 +277,7 @@ fn main() -> Result<()> {
             &fixed,
             &numbered["marks"],
             "receiver_group_center_machine_mm",
-            dots,
+            mark_offsets,
             V3::X,
         )?
     } else {
@@ -298,21 +318,7 @@ fn main() -> Result<()> {
         (cap_name, &cover, print),
         (receiver_name, &receiver, Affine::IDENTITY),
     ] {
-        solid.check()?;
-        ensure!(
-            solid.components().len() == 1,
-            "{name} must be one connected solid"
-        );
-        let bytes = stl_bytes(&[&solid.transformed(&transform)])?;
-        mesh::Mesh::from_corners(&mesh::stl_corners(&bytes)?).check_closed_single_body(name)?;
-        fs::write(out.join(format!("{name}.stl")), &bytes)?;
-        let bb = solid.bounds();
-        outputs.insert(
-            name.into(),
-            json!({"stl":format!("{name}.stl"),"sha256":hash(&bytes),"connected_solids":1,
-            "volume_mm3":solid.volume(),"installed_bounds_mm":[bb.min.to_array(),bb.max.to_array()],
-            "assembly_to_stl_matrix_mm":transform.m}),
-        );
+        outputs.insert(name.into(), write_part(&out, name, solid, transform)?);
     }
     let mut features = reads::json(Path::new(RECEIVERS).join("parts/pisco-receiver.print-features.json"))?;
     features["source_stl_sha256"] = outputs[receiver_name]["sha256"].clone();

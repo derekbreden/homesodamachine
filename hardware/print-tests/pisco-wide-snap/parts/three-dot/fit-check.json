@@ -1,0 +1,432 @@
+{
+  "purpose": "Compare the complete Pisco snap to the three filmed coupons at the start, at both retaining faces, and with its purchased regulator in place.",
+  "physical_baseline": "../../prints/2026-11-26-mark2-easy-entry/physical-result.json",
+  "previous_full_checks": "../easy-entry/fit-check.json",
+  "coupon_print_checks": "../../prints/2026-11-26-mark2-easy-entry/coupon-section-check.json",
+  "geometry": "geometry.json",
+  "mark2_slice": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/preparation.json",
+  "gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+  "archive_sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+  "full_size_geometry": {
+    "method": "Return both full pairs and each coupon to machine coordinates. Intersect with planes normal to the regulator axis. Compare both working wings above Z332 and both fixed cheeks within the catch lanes. Separately take volume symmetric differences of the old and new loaded-hardware datums.",
+    "axial_stations_mm": [
+      420.615,
+      421.0,
+      425.0,
+      430.0,
+      435.0,
+      439.8,
+      445.0,
+      450.0,
+      454.0,
+      457.7,
+      457.89
+    ],
+    "three_dot_coupon_max_section_area_difference_mm2": {
+      "cover": 7.3e-05,
+      "receiver": 0.000202
+    },
+    "full_spring_length_mm": 37.315283,
+    "coupon_spring_length_mm": 12.0,
+    "full_to_coupon_spring_width_ratio": 3.109607,
+    "hard_datum_symmetric_difference_vs_full_one_dot_mm3": {
+      "purchased_hardware_bearings_and_collet_lip": 1e-06,
+      "rear_corner_lead_and_stop": 0,
+      "rigid_receiver_central_hardware_opening": 6e-06,
+      "rear_receiver_hard_stop": 6e-06,
+      "outboard_fore_wing_end_walls": 1.1e-05
+    },
+    "watertight_single_positive_bodies": {
+      "cover": {
+        "watertight": true,
+        "positive": true,
+        "solids": 1
+      },
+      "receiver": {
+        "watertight": true,
+        "positive": true,
+        "solids": 1
+      }
+    }
+  },
+  "printed_section_comparison": {
+    "method": "Register the actual plate objects and expand outer-wall roads by their commanded radii. Keep the full width of each receiver course up to its upper and lower boundary. At the midstation, bend each measured wing about its clamped neutral line until it clears both the holding and running faces. Compare all five shapes at first foot contact with the roof and at the same full-hardware bearing height. The coupons have an integral center post. The two specified seating heights are common geometric references. Measure pilot air over the leading 0.18 mm of each relaxed toe.",
+    "first_radial_contact_cover_z_mm": -0.22658,
+    "columns": [
+      "west/east free toe air past incoming rim, mm",
+      "west/east radial hook capture with feet at the roof, mm",
+      "west/east radial hook capture at full hardware height, mm",
+      "west/east foot clearance to roof at full hardware height, mm"
+    ],
+    "pairs": {
+      "previous-full-one": [
+        [
+          0.677918,
+          0.677609
+        ],
+        [
+          0.963838,
+          0.963833
+        ],
+        [
+          0.795354,
+          0.795385
+        ],
+        [
+          0.173927,
+          0.173879
+        ]
+      ],
+      "short-one": [
+        [
+          0.678146,
+          0.677391
+        ],
+        [
+          0.963845,
+          0.963804
+        ],
+        [
+          0.795321,
+          0.795282
+        ],
+        [
+          0.173962,
+          0.173933
+        ]
+      ],
+      "short-two": [
+        [
+          0.608377,
+          0.609161
+        ],
+        [
+          1.545784,
+          1.545817
+        ],
+        [
+          1.368273,
+          1.368286
+        ],
+        [
+          0.171124,
+          0.171153
+        ]
+      ],
+      "short-three": [
+        [
+          0.656968,
+          0.657273
+        ],
+        [
+          1.556538,
+          1.556543
+        ],
+        [
+          1.368333,
+          1.368302
+        ],
+        [
+          0.188911,
+          0.188948
+        ]
+      ],
+      "new-full-three": [
+        [
+          0.656983,
+          0.657258
+        ],
+        [
+          1.557548,
+          1.557566
+        ],
+        [
+          1.36881,
+          1.368772
+        ],
+        [
+          0.189424,
+          0.189458
+        ]
+      ]
+    },
+    "fore_middle_aft_stations_mm": [
+      425.0,
+      439.875,
+      454.0
+    ],
+    "new_full_pilot_air_at_six_stations_mm": [
+      0.656983,
+      0.657259
+    ],
+    "new_full_lip_radius_mm": [
+      12.205998,
+      12.206002
+    ],
+    "new_full_max_ramp_increment_per_0p24_mm_course_mm": 0.151,
+    "embedded_triangle_max_vertex_error_mm": {
+      "pisco-snap-cap": 1e-06,
+      "pisco-receiver": 0.0
+    },
+    "three_recessed_dots_on_each_full_part": {
+      "cover": {
+        "count": 3,
+        "machine_y_center_and_max_recess_mm": [
+          [
+            436.395717,
+            0.575008
+          ],
+          [
+            439.875717,
+            0.599098
+          ],
+          [
+            443.355717,
+            0.57537
+          ]
+        ]
+      },
+      "receiver": {
+        "count": 3,
+        "machine_y_center_and_max_recess_mm": [
+          [
+            436.475,
+            0.578778
+          ],
+          [
+            439.875,
+            0.578954
+          ],
+          [
+            443.275,
+            0.578778
+          ]
+        ]
+      }
+    }
+  },
+  "straight_press": {
+    "method": "For the deposited midsection, sweep both free toes through all actual receiver courses in 0.02\u20130.04 mm closure steps. The two bead models round each receiver edge by 0.12 mm or keep its full width to the course boundary. For the purchased body, project the actual molded housing and aluminum outlet across the complete wing span. Solve unconstrained outward tip travel at each 0.05 mm of direct closure. A separate 3-D run checks the complete, elastically bent cover and each actual hardware body through 367 square, centered poses up to 0.002 mm from intentional rigid saddle contact.",
+    "native_empty_peak_spread_each_wing_from_free_mm": {
+      "one": {
+        "west": [
+          2.762027,
+          2.762469
+        ],
+        "east": [
+          2.762558,
+          2.763
+        ]
+      },
+      "three": {
+        "west": [
+          3.73067,
+          3.731201
+        ],
+        "east": [
+          3.730228,
+          3.730759
+        ]
+      }
+    },
+    "native_empty_first_contact_opening_rounded_flat_mm": {
+      "one": [
+        11.645,
+        11.725
+      ],
+      "three": [
+        11.985,
+        12.065
+      ]
+    },
+    "actual_hardware_first_contacts_free_feet_at_opening_mm": 20.2,
+    "actual_hardware_alone_max_tip_spread_mm": 1.497363,
+    "actual_hardware_and_receiver_max_tip_spread_mm": 3.745496,
+    "full_plus_minus_0p4_mm_off_center_tip_travel_by_side_mm": [
+      3.097937,
+      4.389392
+    ],
+    "full_solid_approach": {
+      "sampled_poses": 367,
+      "min_clearance_mm": {
+        "receiver": 0.008988,
+        "gas-regulator/1": 0.001021,
+        "gas-regulator/2": 0.037918,
+        "gas-regulator/3": 0.173456,
+        "co2-inlet": 17.443836
+      },
+      "largest_spread_with_working_clearance_mm": 3.785496,
+      "clear_start_free_spread_mm": 0.0,
+      "last_bearing_approach_cover_z_mm": -0.127867,
+      "cover_y_mm": -0.121,
+      "regulator_y_z_mm": [
+        0.0,
+        0.119664
+      ]
+    },
+    "interpretation": "The full one-dot and short one-dot have the same local snap. The three-dot receiver has a larger retaining lip. The full leaves are wider along the axis, the round regulator cams them before the receiver does, and both full end walls locate the cover. The short coupons have open ends. Under simultaneous loading, equal-section leaves have stiffness proportional to that width. A hand can seat the wings progressively. Hand force is unmeasured."
+  },
+  "fore_and_aft_alignment": {
+    "method": "Check both front wing end walls, the rear corner post, the actual outlet and the release collar through the axial range while flexing the wings. Square entry keeps the Y offset inside the feasible corridor. A fixed 0.6-degree yaw in either direction eventually brings one end against its wall.",
+    "opening_mm": [
+      20.0,
+      13.48,
+      10.76,
+      9.4,
+      7.2,
+      4.8,
+      2.4,
+      0.24
+    ],
+    "square_clear_y_offset_interval_mm": [
+      [
+        -1.0,
+        0.93
+      ],
+      [
+        -1.0,
+        0.93
+      ],
+      [
+        -0.129933,
+        0.93
+      ],
+      [
+        -0.129933,
+        0.076811
+      ],
+      [
+        -0.129933,
+        3.5e-05
+      ],
+      [
+        -0.129933,
+        -0.014321
+      ],
+      [
+        -0.129933,
+        -0.065078
+      ],
+      [
+        -0.129933,
+        -0.083022
+      ]
+    ],
+    "square_y_offset_clear_at_all_samples_mm": -0.121,
+    "minimum_opening_in_sampled_yawed_corridor_mm": {
+      "-0.6": 7.5,
+      "0.6": 9.57
+    },
+    "fore_and_aft_end_contact_planes_y_mm": [
+      420.465717,
+      462.3
+    ],
+    "axial_lead_length_and_height_mm": [
+      0.8,
+      1.25
+    ]
+  },
+  "deposited_hardware_seats": {
+    "method": "Project the radial and short aluminum taper surfaces through the actual cover courses at housing Y minus cover Y +0.118 mm. Project the installed housing triangles through the fixed receiver courses to recover the first roof contact. Compare the rigid outlet and collet with the end-on cover courses and the rear molded shoulder with the printed receiver. Positive gaps are unloaded model clearance. Axial hand travel depends on bearing friction, print dimensions and deformation.",
+    "native_fixed_bearing_housing_z_mm": 0.029126,
+    "first_contact_on_fixed_bearing_course_height_mm": 17.0,
+    "first_radial_saddle_hardware_relative_cover_z_mm": -0.255706,
+    "cover_z_at_first_radial_contact_mm": -0.22658,
+    "cover_z_at_first_lower_taper_contact_mm": -0.204823,
+    "additional_closure_to_rigid_taper_mm": 0.021757,
+    "radial_saddle_max_section_edge_drift_vs_one_dot_mm": 0.001102,
+    "short_taper_working_courses_mm": [
+      4.04,
+      4.28,
+      4.52,
+      4.76
+    ],
+    "forward_cover_end_offset_mm": -0.129996,
+    "rear_housing_limiting_y_at_nominal_and_raised_z_mm": [
+      0.040189,
+      9e-06
+    ],
+    "relative_housing_minus_cover_y_at_rigid_neck_lip_mm": 0.113989,
+    "simultaneous_pose_mm": {
+      "cover_y": -0.122,
+      "housing_y": -0.004,
+      "cover_z": -0.22658,
+      "housing_z": 0.029126,
+      "air_to_forward_wing_wall": 0.007996,
+      "air_to_rigid_front_shoulder": 0.004011,
+      "air_to_rear_housing_stop": 0.004009,
+      "air_to_white_outlet_release_ring": 0.141996
+    },
+    "short_release_ring_service": {
+      "release_stroke_mm": 2.1,
+      "cap_off_minimum_clearance_mm": 4.883052,
+      "positions": 97
+    }
+  },
+  "installed_service": {
+    "method": "Remove the ASSE and meter groups for Pisco service. Pass the cover around the receiver and backed meter shoulder with both springs spread. Bound the five tilt segments between samples using the maximum vertex speed and sweep seven purchased-regulator heights. Return the leaves gradually through 3,073 whole-cap positions. The final sample is 0.002 mm short of intentional molded-body contact. Reverse the same path to release.",
+    "tilt_waypoints_roll_deg_x_mm_z_mm": [
+      [
+        21.0,
+        -4.6,
+        -11.0
+      ],
+      [
+        20.0,
+        -4.55,
+        -9.0
+      ],
+      [
+        15.0,
+        -3.4,
+        -6.5
+      ],
+      [
+        10.0,
+        -2.4,
+        -4.5
+      ],
+      [
+        5.0,
+        -1.0,
+        -2.9
+      ],
+      [
+        0.0,
+        0.0,
+        -1.8
+      ]
+    ],
+    "spread_from_free_west_east_mm": [
+      5.45,
+      4.85
+    ],
+    "tilted_clearance_lower_bounds_mm": {
+      "receiver": 0.003945,
+      "surrounding_production_shell": 0.11719,
+      "backed_meter_shoulder": 0.601554,
+      "gas-check": 1.993931
+    },
+    "tilted_clearance_over_hardware_height_range_mm": {
+      "gas-regulator/1": 0.97559,
+      "gas-regulator/2": 0.021189,
+      "gas-regulator/3": 0.188765,
+      "co2-inlet": 17.838514
+    },
+    "straight_final_approach_clearance_lower_bounds_mm": {
+      "receiver": 0.007997,
+      "surrounding_production_shell": 0.120007,
+      "backed_meter_shoulder": 1.000968,
+      "gas-regulator/1": 0.000872,
+      "gas-regulator/2": 0.036927,
+      "gas-regulator/3": 0.172465,
+      "co2-inlet": 17.442844,
+      "gas-check": 1.835594
+    },
+    "purchased_regulator_loading_clearance_lower_bounds_mm": {
+      "receiver": 0.055853,
+      "surrounding_production_shell": 0.055866,
+      "backed_meter_shoulder": 2.284752
+    }
+  }
+}

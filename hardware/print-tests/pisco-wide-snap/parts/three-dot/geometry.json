@@ -1,0 +1,292 @@
+{
+  "axial_entry_guides": {
+    "aft_removed_stock_mm3": 1.6500000022933818,
+    "entry_rise_z_mm": 1.25,
+    "fore_and_aft_entry_y_relief_mm": 0.8,
+    "forward_lead_z_mm": [
+      338.20000000018626,
+      339.45000000018626
+    ],
+    "forward_removed_stock_mm3": 5.438524956371111,
+    "forward_wing_stop_seated_y_mm": 420.4657172019407,
+    "outlet_shoulder_bearing": {
+      "added_stock_mm3": 3.4369292896335537,
+      "aft_relief_mm": 0.52,
+      "central_chord_width_mm": 7.5,
+      "free_y_registration_mm": 0.118,
+      "inner_profile_y_radius_mm": [
+        [
+          424.265,
+          9.38
+        ],
+        [
+          424.273,
+          9.38
+        ],
+        [
+          424.423,
+          9.38
+        ],
+        [
+          424.485,
+          9.38
+        ],
+        [
+          424.723,
+          9.763200000000005
+        ],
+        [
+          424.995,
+          9.902010666666666
+        ],
+        [
+          425.023,
+          9.938031343283601
+        ],
+        [
+          425.473,
+          10.336285074626865
+        ],
+        [
+          425.665,
+          10.483529333333333
+        ]
+      ],
+      "minimum_working_radius_mm": 9.38,
+      "native_half_course_mm": 0.12,
+      "radial_rise_from_fitted_shoulder_mm": 0.216,
+      "rigid_aluminum_shoulder_y_mm": [
+        424.265,
+        425.665
+      ]
+    },
+    "rear_tail_lead_z_mm": [
+      319.95000000018626,
+      321.20000000018626
+    ],
+    "rear_tail_stop_seated_y_mm": 462.29999999981374,
+    "solid_tail_height_on_original_aft_plane_mm": 2.977400000207126
+  },
+  "axial_stops": {
+    "lip_added_mm3": 30.13323799153295,
+    "new_rigid_outlet_lip_y_mm": 424.365,
+    "new_wing_forward_stop_y_mm": 420.4657172019407,
+    "previous_rigid_outlet_lip_y_mm": 424.125,
+    "previous_wing_forward_stop_y_mm": 420.3457172019407,
+    "rigid_outlet_lip_advance_mm": 0.24,
+    "total_nominal_grip_reduction_mm": 0.36,
+    "wing_end_walls_added_mm3": 10.854800851509935,
+    "wing_forward_stop_advance_mm": 0.12
+  },
+  "bearing": {
+    "housing_radius_mm": 10.8274,
+    "land_width_mm": 8.0,
+    "land_y_mm": [
+      438.875,
+      440.875
+    ],
+    "previous_pair_crest_registration_mm": -0.0103,
+    "previous_pair_housing_rise_input_mm": 0.035
+  },
+  "centered_hook_capture_mm": 1.8000000000000007,
+  "coupon_parts": "hardware/print-tests/open-snap-section/parts/easy-entry",
+  "coupon_straight_target": {
+    "backed_entrance_extension_mm": 0.0,
+    "centered_hook_capture_mm": 1.8000000000000007,
+    "cover_intermediate_straight_guide_r_h_mm": [
+      [
+        11.2806156873703,
+        5.850000000186265
+      ]
+    ],
+    "crest_land_width_mm": 2.0,
+    "free_crest_angle_to_roof_deg": 2.0348194496228973,
+    "guide_design": "wing-side lead-in and full retaining lip",
+    "number": 3,
+    "primary_full_pisco_donor": false,
+    "receiver_entrance_r_h_mm": [
+      [
+        12.205615687370301,
+        14.200000000186265
+      ],
+      [
+        12.205615687370301,
+        14.560000000186264
+      ],
+      [
+        10.8,
+        16.799999999813735
+      ]
+    ],
+    "receiver_guide_r_h_mm": [
+      [
+        12.587615687370299,
+        3.4500000001862645
+      ],
+      [
+        11.4408656873703,
+        5.850000000186265
+      ],
+      [
+        10.529615687370299,
+        9.850000000186265
+      ]
+    ],
+    "retaining_lip_reduction_mm": 0.0
+  },
+  "cover_body_y_mm": [
+    420.5957172019407,
+    462.29999999981374
+  ],
+  "donor_stl_sha256": [
+    "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+    "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a"
+  ],
+  "free_inward_tip_bias_mm": 0.8,
+  "full_size_source": "hardware/print-tests/pisco-wide-snap/parts/easy-entry",
+  "full_size_stl_sha256": [
+    "44b6bf510f4518956cdafded2be5cae1da94e87c77dd82c4480d281e4ba7134a",
+    "32ee4bcac11e09a14dd0613cc6795ad1f7bcf47fa520536db02783538ec7a73c"
+  ],
+  "marks": {
+    "centers_y_mm": [
+      436.475,
+      439.875,
+      443.275
+    ],
+    "cover_group_center_machine_mm": [
+      84.3,
+      439.875,
+      316.97259999997914
+    ],
+    "depth_mm": 0.6,
+    "form": "Recessed conical dots on the saddle back and fixed flange.",
+    "opening_diameter_mm": 2.0,
+    "pitch_mm": 3.4,
+    "receiver_group_center_machine_mm": [
+      93.91000000014901,
+      439.875,
+      353.27499999990687
+    ]
+  },
+  "parts": {
+    "cover": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.2290529888123
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -420.5957172019407
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          62.09438419342041,
+          420.5957172019407,
+          316.9726004283875
+        ],
+        [
+          90.90561580657959,
+          462.30000186990947,
+          351.48550554923713
+        ]
+      ],
+      "sha256": "95882ef5cce90972c4ea6def9fd467a0497186644683524c605df4b19ec055d6",
+      "stl": "cover.stl",
+      "volume_mm3": 12076.36728742438
+    },
+    "receiver": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          59.09000015258789,
+          414.0899963378906,
+          310.7699890136719
+        ],
+        [
+          93.91000366210938,
+          469.29901123046875,
+          355.0
+        ]
+      ],
+      "sha256": "299021a11a9075af646cd14295962ff75fd3468fc4ef633185543a906eee9f8f",
+      "stl": "receiver.stl",
+      "volume_mm3": 24756.141429153562
+    }
+  },
+  "pocket_roof_z_mm": 351.54999999981374,
+  "pocket_y_mm": [
+    420.4657172019407,
+    458.1610000003129
+  ],
+  "print_directions_in_machine": {
+    "cover": [
+      0,
+      1,
+      0
+    ],
+    "receiver": [
+      0,
+      0,
+      -1
+    ]
+  },
+  "purpose": "Fit the selected three-dot retaining faces to the complete Pisco cover and receiver tried in C037.",
+  "saddle_change_from_previous_full_pair": {
+    "added_stock_mm3": 96.35600127820726,
+    "axial_lead_length_mm": 0.6,
+    "backed_cradle_width_mm": 20.8112313747406,
+    "body_to_outlet_fitting_junction_y_mm": 438.85,
+    "full_height_y_mm": [
+      439.45000000000005,
+      462.29999999981374
+    ],
+    "working_surface_move_machine_xyz_mm": [
+      0.0,
+      0.0,
+      0.2
+    ]
+  },
+  "spring_wall_thickness_mm": 2.0,
+  "spring_y_mm": [
+    420.5957172019407,
+    457.9110000003129
+  ],
+  "working_profiles": [
+    "cover-3.stl",
+    "receiver-3.stl"
+  ]
+}
