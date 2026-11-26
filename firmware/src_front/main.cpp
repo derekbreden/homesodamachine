@@ -203,7 +203,6 @@ static uint32_t frameDoneTimeouts = 0;
 #define PANE_W          TASK_W
 #define PANE_H          (SCREEN_H - HEADER_H - 2 * PANE_PAD)
 #define DETAIL_W        (PANE_W - 2 * PANE_PAD)
-#define SETTINGS_H       72
 #define SETTINGS_W      (SCREEN_W - RAIL_W)
 #define SETTINGS_CONTENT_W (SETTINGS_W - 2 * PANE_PAD)
 #define TEXT_H_20        22
@@ -236,8 +235,8 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 #define RAIL_CELL_FOOT       345
 #define RAIL_NUMBER_Y        130   // a card's number under its thumbnail, from inside its border
 #define RAIL_BIG_NUMBER_Y     38   // the selected card's number, from inside its border
-#define HERO_ART_Y            18
-#define HERO_CAPTION_Y       348
+#define HERO_ART_Y            44
+#define HERO_CAPTION_Y       384
 
 // ── The resting pane ──
 // At rest the pane beside the portrait runs the glass's full height, with the reservoir's
@@ -3516,9 +3515,9 @@ static void refreshStatusThermal() {
   using front_ui::Degrees;
   front_ui::formatTemperature(reading, sizeof(reading), ctrlStatus.tankCx10, available, unit, Degrees::Whole);
   const auto state = front_ui::coolingState(available, ctrlStatus);
-  coolingStrip.update(reading, tankRead ? ctrlStatus.tankCx10 : TEMP_UNREAD,
-                      state, ctrlStatus.startupCoolingS);
   updateReading(tankValue, reading);
+  const char *missing = unit == TEMP_UNIT_CELSIUS ? "--°C" : "--°F";
+  coolingStrip.update(tankRead ? reading : missing, state, ctrlStatus.startupCoolingS);
   front_ui::formatTemperature(reading, sizeof(reading), ctrlStatus.tankCx10, available, unit, Degrees::Tenths);
   updateReading(sensorTank, reading);
   front_ui::formatTemperature(reading, sizeof(reading), ctrlStatus.coilCx10, available, unit, Degrees::Tenths);
@@ -3582,7 +3581,10 @@ static void refreshStatusThermal() {
   updateReading(sensorRefill, available && ctrlStatus.refillState < sizeof(refill) / sizeof(*refill)
                               ? refill[ctrlStatus.refillState] : "--");
   const bool simulated = connected && (ctrlStatus.levelFlags & LEVEL_F_SIMULATED);
-  if (simulated == lv_obj_has_flag(simulatedNote, LV_OBJ_FLAG_HIDDEN)) showIf(simulatedNote, simulated);
+  if (simulated == lv_obj_has_flag(simulatedNote, LV_OBJ_FLAG_HIDDEN)) {
+    showIf(simulatedNote, simulated);
+    lv_obj_align(systemTitle, LV_ALIGN_CENTER, 0, simulated ? -11 : 0);
+  }
 }
 
 // ── Page builders ──
@@ -4478,7 +4480,7 @@ static void testScreenHide() {
 // main board carries it here. The task page uses trust_text.h's request and
 // grant text; an answer goes back the same way and nothing here keeps it.
 //
-// Remote requests enter a small inbox in the flavor rail. Only a local tap
+// Remote requests appear in the upper right of the current page. Only a local tap
 // opens their page, which has Back over it like a task's; the rail and Back
 // remain available.
 // Forget's local confirmation, the no-water ask and the welcome's Skip use a modal. A
@@ -4518,13 +4520,12 @@ static void trustInboxCb(lv_event_t *e) {
 }
 
 static void buildTrustInbox(lv_obj_t *scr) {
-  // This slot is permanently reserved between the two flavor portraits and
-  // Settings. A request's arrival does not move any existing touch target.
-  trustInbox = mkBtn(scr, 84, 56, COL_ACCENT);
-  lv_obj_set_pos(trustInbox, 10, 352);
+  // The same slot clears the resting reservoir gauge, the task Back label and the machine title.
+  trustInbox = mkBtn(scr, 170, 48, COL_ACCENT);
+  lv_obj_align(trustInbox, LV_ALIGN_TOP_RIGHT, -PANE_PAD, 7);
   lv_obj_clear_flag(trustInbox, LV_OBJ_FLAG_PRESS_LOCK);
   lv_obj_add_event_cb(trustInbox, trustInboxCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_t *label = mkText(trustInbox, "Phone\nrequest", &lv_font_montserrat_20, COL_INK);
+  lv_obj_t *label = mkText(trustInbox, "Phone request", &lv_font_montserrat_20, COL_INK);
   lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_center(label);
   lv_obj_add_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
@@ -4593,7 +4594,6 @@ static void buildAsk(lv_obj_t *scr) {
   lv_obj_center(askYesLabel);
 
   lv_obj_add_flag(askScreen, LV_OBJ_FLAG_HIDDEN);
-  buildTrustInbox(scr);
 }
 
 static void askShow(AskMode mode, const char *title, const char *body,
@@ -4639,7 +4639,6 @@ static void trustShow(const TrustShowPayload &ask) {
   lv_label_set_text(trustTaskBody, body);
   lv_obj_clear_state(trustTaskNo, LV_STATE_DISABLED);
   lv_obj_clear_state(trustTaskYes, LV_STATE_DISABLED);
-  if (!lockActive && askMode == ASK_NONE) lv_obj_clear_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
 }
 
 // Answered at the faucet, timed out, or the phone left.
@@ -4721,7 +4720,7 @@ static void askService() {
   if (askMode != ASK_NONE && now - askShownMs >= ASK_MS) askHide();
   if (trustAskId && now - trustReceivedMs >= 60000) trustClose(trustAskId);
   if (trustInbox) {
-    if (trustAskId && !lockActive && askMode == ASK_NONE && !testActive)
+    if (trustAskId && activePage != PAGE_TRUST && !lockActive && askMode == ASK_NONE && !testActive)
       lv_obj_clear_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
     else lv_obj_add_flag(trustInbox, LV_OBJ_FLAG_HIDDEN);
     if (holding || primeStopPending || (primeSessionKnown && primeSession.phase == PRIME_SESSION_RUNNING))
@@ -5154,7 +5153,7 @@ static void buildRail(lv_obj_t *scr) {
     railCheck[i] = mkStroke(b, check, 3, COL_INK);
     lv_obj_add_flag(railCheck[i], LV_OBJ_FLAG_HIDDEN);
   }
-  heroPanel = mkBtn(scr, HERO_W, SCREEN_H - SETTINGS_H, COL_DIM);
+  heroPanel = mkBtn(scr, HERO_W, SCREEN_H, COL_DIM);
   lv_obj_set_pos(heroPanel, RAIL_W, 0);
   lv_obj_set_style_bg_color(heroPanel, lv_color_hex(COL_DIM), LV_STATE_PRESSED);
   lv_obj_add_event_cb(heroPanel, flavorBackCb, ACT_EVENT, NULL);
@@ -5230,9 +5229,6 @@ static void settingsBackCb(lv_event_t *) {
   else showPage(PAGE_HOME);
 }
 
-// The hairline over the Settings cell, where the rail's flavors end.
-#define SETTINGS_RULE 0x5675c9
-
 // Back across a band `w` wide: the chevron and the word at its left, a hairline on the band's
 // last row across the pane's text, and the whole band its target.
 static lv_obj_t *mkBackRow(lv_obj_t *band, lv_coord_t w, lv_event_cb_t cb, lv_obj_t **label = nullptr) {
@@ -5248,12 +5244,15 @@ static lv_obj_t *mkBackRow(lv_obj_t *band, lv_coord_t w, lv_event_cb_t cb, lv_ob
 }
 
 static void buildSettingsButton(lv_obj_t *scr) {
-  settingsBtn = mkBtn(scr, TASK_X, SETTINGS_H, COL_CARD);
-  lv_obj_set_pos(settingsBtn, 0, SCREEN_H - SETTINGS_H);
+  settingsBtn = mkBtn(scr, RAIL_W, SCREEN_H - RAIL_CELL_FOOT, COL_BLUE);
+  lv_obj_set_pos(settingsBtn, 0, RAIL_CELL_FOOT);
   lv_obj_clear_flag(settingsBtn, LV_OBJ_FLAG_SCROLLABLE);
-  lv_obj_set_style_border_width(settingsBtn, 1, 0);
+  lv_obj_set_style_border_width(settingsBtn, 2, 0);
   lv_obj_set_style_border_side(settingsBtn, LV_BORDER_SIDE_TOP, 0);
-  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(SETTINGS_RULE), 0);
+  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(COL_OFF), 0);
+  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(COL_DIM), LV_STATE_CHECKED);
+  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(COL_CARD_ON), LV_STATE_CHECKED);
+  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(COL_OFF), LV_STATE_PRESSED);
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
   coolingStrip.build(settingsBtn, RAIL_W, lv_color_hex(COL_DIM), lv_color_hex(COL_WARN));
 
@@ -5263,9 +5262,9 @@ static void buildSettingsButton(lv_obj_t *scr) {
   systemBand = mkFlat(scr, RAIL_W, 0, SETTINGS_W, HEADER_H, THEME_BG);
   systemBack = mkBackRow(systemBand, SETTINGS_W, settingsBackCb, &systemBackLabel);
   systemTitle = mkText(systemBand, "Settings", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(systemTitle, LV_ALIGN_RIGHT_MID, -PANE_PAD, 0);
+  lv_obj_center(systemTitle);
   simulatedNote = mkText(systemBand, "Simulated readings", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(simulatedNote, LV_ALIGN_CENTER, -24, 0);
+  lv_obj_align(simulatedNote, LV_ALIGN_CENTER, 0, 17);
   showIf(simulatedNote, false);
 }
 
@@ -5281,10 +5280,8 @@ static void refreshShell() {
   showIf(backRow, task && back);
   showIf(systemBand, machine);
   showIf(systemBack, machine && back);
-  // The gear stays anchored while the machine page takes the place of the portrait and its readout.
-  lv_obj_set_width(settingsBtn, machine ? RAIL_W : TASK_X);
-  lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_BLUE : COL_CARD), 0);
-  lv_obj_set_style_border_color(settingsBtn, lv_color_hex(machine ? COL_BLUE : SETTINGS_RULE), 0);
+  if (machine) lv_obj_add_state(settingsBtn, LV_STATE_CHECKED);
+  else lv_obj_clear_state(settingsBtn, LV_STATE_CHECKED);
   lv_obj_set_style_opa(settingsBtn, lockActive || holding ? LV_OPA_50 : LV_OPA_COVER, 0);
 }
 
@@ -5908,8 +5905,9 @@ static void buildUi() {
   buildSettings(pageObj[PAGE_SETUP]);
   // After the panes so it draws above them, before the lock so that still covers it.
   buildSettingsButton(scr);
+  buildTrustInbox(scr);
   buildLockScreen(scr);
-  buildAsk(scr);          // local Forget confirmation and the nonmodal phone inbox
+  buildAsk(scr);          // local confirmations
   buildWelcome(scr);      // a new machine's first start
   buildMove(scr);         // and the drain before a move
   buildTestScreen(scr);   // above the lock: the camera reads it through anything

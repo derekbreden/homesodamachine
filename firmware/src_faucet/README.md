@@ -117,8 +117,8 @@ A phone asks to be trusted with `BLE_FRAME_TRUST_ASK` (reason, channel, iPhone o
 ask fills this glass in navy: [`trust_text.h`](/firmware/lib/proto_link/trust_text.h)'s
 **Trust this iPhone?** or **Trust this iPad?**, the device on a line of its own, over
 **Settings + cycles**, with **Don't Trust** above **Trust**, each the glass's width. Through the main
-board (`MSG_TRUST_SHOW`) it also stands on the machine's display, as **Phone request** in its
-rail, which opens a page of its own ([Trusted phones](/firmware/src_front/README.md#trusted-phones)).
+board (`MSG_TRUST_SHOW`) it also stands at the upper right of the machine's display, where
+**Phone request** opens its own page ([Trusted phones](/firmware/src_front/README.md#trusted-phones)).
 **Trust** or **Don't Trust** on either display answers for both. The ask also ends when
 [`trust_policy.h`](trust_policy.h)'s `kAskMs` runs out, when an ask the phone leases
 (`BLE_TRUST_ASK_LEASED`) goes `kLeaseMs` without its heartbeat, when the phone withdraws it, or

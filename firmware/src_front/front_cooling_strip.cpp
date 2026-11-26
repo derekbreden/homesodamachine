@@ -3,6 +3,13 @@
 
 namespace {
 
+constexpr lv_coord_t gearY = -40;
+constexpr lv_coord_t activityY = 39;
+constexpr lv_coord_t quietShift = 18;
+constexpr lv_coord_t timeX = 32;
+constexpr lv_coord_t hourglassX = 16;
+constexpr lv_coord_t readingInset = 4;
+
 // All marks use the same optical center as the panel's numeric labels.
 struct Mark {
   lv_draw_ctx_t *ctx;
@@ -42,35 +49,21 @@ struct Mark {
   }
 };
 
-void thermometer(const Mark &m, int column, lv_color_t ice, lv_color_t background) {
-  m.line(0, -15, 0, 8, 11, ice);
-  m.disc(0, 11, 8, ice);
-  m.line(0, -15, 0, 9, 6, background);
-  m.disc(0, 11, 5, background);
-  m.line(8, -10, 11, -10, 2, ice);
-  m.line(8, -2, 10, -2, 2, ice);
-  if (column >= 0) {
-    m.line(0, 8 - column, 0, 10, 3, ice);
-    m.disc(0, 11, 3, ice);
-  }
-}
-
 void hourglass(const Mark &m, uint16_t seconds, lv_color_t ice) {
-  m.line(-10, -14, 10, -14, 3, ice);
-  m.line(-10, 14, 10, 14, 3, ice);
+  m.line(-8, -11, 8, -11, 2, ice);
+  m.line(-8, 11, 8, 11, 2, ice);
   for (int side = -1; side <= 1; side += 2) {
-    m.line(side * 8, -13, side * 8, -9, 3, ice);
-    m.line(side * 8, -9, side, -1, 3, ice);
-    m.line(side, -1, side, 1, 3, ice);
-    m.line(side, 1, side * 8, 9, 3, ice);
-    m.line(side * 8, 9, side * 8, 13, 3, ice);
+    m.line(side * 6, -10, side * 6, -7, 2, ice);
+    m.line(side * 6, -7, 0, 0, 2, ice);
+    m.line(0, 0, side * 6, 7, 2, ice);
+    m.line(side * 6, 7, side * 6, 10, 2, ice);
   }
   if (seconds == 0) return;  // The controller also reports restart holds with no duration.
   constexpr unsigned duration = machine_policy::kMinOffMs / 1000;
   const unsigned remaining = seconds < duration ? seconds : duration;
-  const int top = (7 * remaining + duration / 2) / duration;
+  const int top = (5 * remaining + duration / 2) / duration;
   m.sand(-2 - top, top, -2, ice);
-  m.sand(11, 7 - top, 4 + top, ice);
+  m.sand(9, 5 - top, 4 + top, ice);
 }
 
 void snowflake(const Mark &m, lv_color_t ice) {
@@ -98,16 +91,16 @@ void warningTriangle(const Mark &m, lv_color_t color) {
   m.disc(0, 7, 1, color);
 }
 
-lv_obj_t *stripLabel(lv_obj_t *parent, int x, const char *value, const lv_font_t *font, lv_color_t ink) {
+lv_obj_t *stripLabel(lv_obj_t *parent, const char *value, const lv_font_t *font, lv_color_t ink) {
   lv_obj_t *label = lv_label_create(parent);
   lv_label_set_text(label, value);
   lv_obj_set_style_text_font(label, font, 0);
   lv_obj_set_style_text_color(label, ink, 0);
-  lv_obj_align(label, LV_ALIGN_LEFT_MID, x, 0);
+  lv_obj_clear_flag(label, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE);
   return label;
 }
 
-// Keep the degree suffix and the last second inside their own columns.
+// Wide signed temperatures and long timers keep their units and final digit on the glass.
 void fitReading(lv_obj_t *label, const char *text, lv_coord_t width,
                 const lv_font_t *normal, const lv_font_t *smaller) {
   if (strcmp(lv_label_get_text(label), text) == 0) return;
@@ -131,42 +124,46 @@ void CoolingStrip::build(lv_obj_t *button, lv_coord_t railWidth, lv_color_t ice,
   railWidth_ = railWidth;
   ice_ = ice;
   warning_ = warning;
-  lv_obj_t *gear = stripLabel(button, 0, LV_SYMBOL_SETTINGS, &lv_font_montserrat_32, lv_color_white());
-  lv_obj_set_width(gear, railWidth);
-  lv_obj_set_style_text_align(gear, LV_TEXT_ALIGN_CENTER, 0);
-  temperature_ = stripLabel(button, railWidth + 29, "--", &lv_font_montserrat_32, lv_color_white());
-  countdown_ = stripLabel(button, railWidth + 154, "", &lv_font_montserrat_28, ice);
+  gear_ = stripLabel(button, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, lv_color_white());
+  temperature_ = stripLabel(button, "--°F", &lv_font_montserrat_36, lv_color_white());
+  positionReadings();
+  countdown_ = stripLabel(button, "", &lv_font_montserrat_28, ice);
+  lv_obj_align(countdown_, LV_ALIGN_LEFT_MID, timeX, activityY);
   lv_obj_add_event_cb(button, draw, LV_EVENT_DRAW_MAIN_END, this);
 }
 
-void CoolingStrip::update(const char *reading, int16_t tankCx10, CoolingState state, uint16_t seconds) {
-  fitReading(temperature_, reading, 87, &lv_font_montserrat_32, &lv_font_montserrat_28);
-  // The bulb is empty without a reading. Its column spans freezing to room temperature.
-  const int column = tankCx10 == TEMP_UNREAD ? -1 : LV_CLAMP(0, int(tankCx10), 200) * 23 / 200;
+void CoolingStrip::positionReadings() {
+  // With no activity mark, center the gear and temperature as a pair.
+  const lv_coord_t shift = state_ == CoolingState::Idle || state_ == CoolingState::Unavailable ? quietShift : 0;
+  lv_obj_align(gear_, LV_ALIGN_CENTER, 0, gearY + shift);
+  lv_obj_align(temperature_, LV_ALIGN_CENTER, 0, shift);
+}
+
+void CoolingStrip::update(const char *reading, CoolingState state, uint16_t seconds) {
+  fitReading(temperature_, reading, railWidth_ - 2 * readingInset, &lv_font_montserrat_36, &lv_font_montserrat_28);
   if (state != CoolingState::StartupWait) seconds = 0;
-  if (state == state_ && column == column_ && seconds == seconds_) return;
+  if (state == state_ && seconds == seconds_) return;
   if (seconds != seconds_) {
     char time[12] = {};
     if (seconds) formatHoldTime(time, sizeof(time), seconds);
-    fitReading(countdown_, time, 77, &lv_font_montserrat_28, &lv_font_montserrat_24);
+    fitReading(countdown_, time, railWidth_ - timeX - readingInset, &lv_font_montserrat_28, &lv_font_montserrat_24);
   }
-  state_ = state;
-  column_ = column;
+  if (state != state_) {
+    state_ = state;
+    positionReadings();
+  }
   seconds_ = seconds;
-  if (lv_obj_get_width(button_) > railWidth_) lv_obj_invalidate(button_);
+  lv_obj_invalidate(button_);
 }
 
 void CoolingStrip::draw(lv_event_t *event) {
   const auto &strip = *static_cast<CoolingStrip *>(lv_event_get_user_data(event));
-  if (lv_obj_get_width(strip.button_) <= strip.railWidth_) return;
   lv_area_t area;
   lv_obj_get_content_coords(strip.button_, &area);
-  const lv_coord_t y = (area.y1 + area.y2 + 1) / 2;
-  const lv_coord_t railEnd = area.x1 + strip.railWidth_;
+  const lv_coord_t y = (area.y1 + area.y2 + 1) / 2 + activityY;
+  const lv_coord_t x = strip.seconds_ ? area.x1 + hourglassX : (area.x1 + area.x2 + 1) / 2;
   lv_draw_ctx_t *ctx = lv_event_get_draw_ctx(event);
-  const Mark temperature{ctx, lv_coord_t(railEnd + 9), y};
-  thermometer(temperature, strip.column_, strip.ice_, lv_obj_get_style_bg_color(strip.button_, LV_PART_MAIN));
-  const Mark activity{ctx, lv_coord_t(railEnd + 134), y};
+  const Mark activity{ctx, x, y};
   switch (strip.state_) {
     case CoolingState::StartupWait:
     case CoolingState::RestartHold:

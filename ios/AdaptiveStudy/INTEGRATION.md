@@ -96,7 +96,7 @@ withdraws when its context leaves, and offers an explicit retry after expiry or
 physical decline. The firmware owns per-identity and global rate limits.
 
 The faucet's compact tray leaves normal controls available. The enclosure's
-**Phone request** rail entry opens a normal task page only on a local tap.
+**Phone request** button at the upper right opens a normal task page on a local tap.
 Remote arrival never replaces the current task or its controls. Trust is keyed
 by pairing; re-pairing requires approval again. The shared appliance name and
 settings survive removing the accessory relationship on a phone.

@@ -110,8 +110,8 @@ Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
-On a warm restart, the gear sits beside the tank temperature and an hourglass with a
-minutes-and-seconds countdown. The sand moves with the main board's reported time.
+On a warm restart, the Settings button shows an hourglass and a minutes-and-seconds
+countdown below the tank temperature. The sand moves with the main board's reported time.
 The display stays awake and the menu remains usable through the wait. A snowflake
 appears when the compressor relay closes and clears when the cold loop comes to rest.
 
@@ -365,9 +365,11 @@ cannot undo the wake.
 The design exploration Big Blue grew from is in Git at [`10a22374d0`](https://github.com/derekbreden/homesodamachine/blob/10a22374d0/future/enclosure-display-studies/README.md).
 The sixteen-direction colour and type study is in Git at [`49738f2694`](https://github.com/derekbreden/homesodamachine/blob/49738f2694/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
-The rail holds the two flavor targets and a reserved slot for phone requests. A single
-Settings button spans the foot of the rail and the portrait. Its gear, thermometer, tank
-reading in the selected unit, and cooling activity share a single row. Touching anywhere in it opens Settings.
+One **Settings** button fills the rail from the bottom of flavor 2 to the edge of the
+glass. The gear sits above the tank temperature. Cooling activity appears underneath.
+When the machine is idle, the gear and temperature sit together in the center. Touching
+anywhere in the blue block opens the Settings overview. The portrait beside it runs
+the full height of the screen.
 
 **The flavor on tap** has an ice-colored rail cell and a checkmark. Beside the large
 portrait, the cell holds the flavor number with the check underneath. When Settings or
@@ -376,7 +378,7 @@ with the check beside its number. The other flavor keeps its muted thumbnail and
 number. Tapping it puts that flavor on tap. While the machine's selection is unknown,
 both thumbnails appear in color with their numbers.
 
-**At rest** nothing stands over the pane: it runs the glass's full height, with the
+**At rest** the pane runs the glass's full height, with the
 reservoir's caption and gauge at its top, then Fill, Prime and Clean, and apart from them
 Change image and Ratio, each a full-width row with a chevron that opens its task's page. A
 hairline parts two rows of one group, and none stands above the first row, between the groups
@@ -384,14 +386,15 @@ or under the last.
 
 **A task's page** (Fill, Prime, Clean, Ratio or Change image) and the **phone request page**
 have **Back** in the band over the pane: a chevron pointing left and the word, over a hairline
-on the band's last row, with the whole band its target. Back returns to rest. It is gone while
+on the band's last row. A pending **Phone request** has its own target at the upper right.
+Back returns to rest. It is gone while
 an operation is pending or running and while a finger holds Prime, when Stop or the held pad is
 the pane's one control.
 
 **Settings** opens to the right of the flavor rail. **Temperature unit** offers **°F** and
 **°C** directly below the cooling card. Its Back band returns to On tap.
 **Water & sensors** opens the detail view, where **‹ Settings** returns to the overview.
-The gear keeps its position in the rail on both views.
+Both views keep the live rail button highlighted.
 
 | Page | Contents |
 |---|---|
@@ -415,7 +418,7 @@ update, the display caches rail and picker renditions in PSRAM. The inactive rai
 uses a separate copy with Rec. 709 luma blended over the rail's navy. Factory and uploaded
 pictures take the same path.
 
-Either flavor and the rail background return to On tap. On a flavor page the portrait
+Either flavor and the space around the flavor buttons return to On tap. On a flavor page the portrait
 and Back also return there.
 Selecting a different flavor queues a causal prime cancellation before the new selection.
 A held prime takes Back away, keeps the flavors, rail and portrait as its exits, and blocks
@@ -582,7 +585,7 @@ display distinguishes a running compressor, an idle loop, freeze protection, a m
 probe, and a controller that has stopped answering. The compact readout on every flavor
 page uses the same sample. An untimed restart hold shows the hourglass alone. A warning
 triangle points to the explanation in Settings when a fault or protection stops cooling.
-A missing tank reading leaves the thermometer empty and shows two dashes. Each available
+A missing tank reading shows two dashes and the selected unit in the rail. Each available
 probe keeps its own reading.
 
 **Water & sensors** shows the tank wall and cooling coil to one decimal place in the
@@ -598,10 +601,9 @@ the status frame expires. A console-injected reading marks the Settings header
 Any phone reads the machine; changing it takes a phone the faucet trusts, and a tap on either
 glass trusts one. The faucet runs each request and the main board carries it here as
 `MSG_TRUST_SHOW { askId, reason, channel, kind }`. A request wakes a dark glass and puts
-**Phone request** in the flavor rail, in a slot kept for it between the flavors and Settings, so
-no other target moves. It leaves the rail while an operation lock or one of this glass's own
-asks is up and comes back after them while it stands, and it is disabled during a live hold or
-a running prime.
+**Phone request** at the upper right, above the reservoir gauge on Home and at the end
+of the header on other pages. The button clears when its request page opens. The lock
+and local confirmations take precedence, and a live hold or running prime disables it.
 
 A tap opens the request's own page beside the portrait: the title and body
 [`trust_text.h`](../lib/proto_link/trust_text.h) gives it, with **Don't Trust** beside

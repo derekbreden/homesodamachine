@@ -227,7 +227,7 @@ request. Leaving its page, opening management, discarding the change, or enterin
 the background withdraws it. System pairing's inactive phase does not withdraw it.
 
 The faucet shows a compact Trust tray beside its normal controls. The enclosure
-offers **Phone request** in its navigation rail; opening it is the person's choice.
+offers **Phone request** at the upper right of its display.
 Neither remote arrival nor renewal replaces a local task or covers a held Prime
 pad, Stop, pouring controls, or Forget confirmation. Approval resumes the latest
 owned change once. Decline retains it and never automatically re-asks.
