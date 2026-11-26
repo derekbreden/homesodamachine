@@ -55,22 +55,25 @@ pub(super) fn supported_saddle(cover: &Solid, axis: f64, axis_z: f64, base: &Val
     Ok((raised, record))
 }
 
-/// The same two shallow conical dots as the trial coupon, on the cover back and outer receiver flange.
-pub(super) fn dots(stock: &Solid, marks: &Value, which: &str, outside: V3) -> Result<Solid> {
+/// Match the shallow exterior marks on the selected coupon.
+pub(super) fn dots(stock: &Solid, marks: &Value, which: &str, count: usize, outside: V3) -> Result<Solid> {
     let center: [f64; 3] = serde_json::from_value(marks[which].clone())?;
     let depth = number(marks, "depth_mm")?;
     let pitch = number(marks, "pitch_mm")?;
     let radius = number(marks, "opening_diameter_mm")? / 2.;
     let height = depth + 0.15;
-    let cutters = [-0.5, 0.5].map(|n| {
-        Solid::cone(
-            V3::from(center) + V3::Y * (n * pitch) - outside * depth,
-            outside,
-            0.,
-            radius * height / depth,
-            height,
-        )
-    });
-    let [a, b] = cutters;
-    stock.cut_all(&[a?, b?])
+    let offsets: &[f64] = if count == 1 { &[0.] } else { &[-0.5, 0.5] };
+    let cutters: Vec<Solid> = offsets
+        .iter()
+        .map(|n| {
+            Solid::cone(
+                V3::from(center) + V3::Y * (n * pitch) - outside * depth,
+                outside,
+                0.,
+                radius * height / depth,
+                height,
+            )
+        })
+        .collect::<Result<_>>()?;
+    stock.cut_all(&cutters)
 }

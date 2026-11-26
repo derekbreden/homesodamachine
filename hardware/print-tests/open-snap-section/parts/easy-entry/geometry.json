@@ -26,6 +26,7 @@
   },
   "pairs": [
     {
+      "backed_entrance_extension_mm": 0.0,
       "centered_hook_capture_mm": 1.200000000000001,
       "cover_intermediate_straight_guide_r_h_mm": [],
       "crest_land_width_mm": 2.6,
@@ -60,11 +61,12 @@
       "retaining_lip_reduction_mm": 0.6
     },
     {
+      "backed_entrance_extension_mm": 0.96,
       "centered_hook_capture_mm": 1.8000000000000007,
       "cover_intermediate_straight_guide_r_h_mm": [],
       "crest_land_width_mm": 2.6,
       "free_crest_angle_to_roof_deg": 2.0348194496228973,
-      "guide_design": "open pilot and full retaining lip",
+      "guide_design": "extended solid bevel and full retaining lip",
       "number": 2,
       "primary_full_pisco_donor": false,
       "receiver_entrance_r_h_mm": [
@@ -77,8 +79,8 @@
           14.560000000186264
         ],
         [
-          10.25,
-          16.799999999813735
+          10.3,
+          17.759999999813736
         ]
       ],
       "receiver_guide_r_h_mm": [
@@ -94,6 +96,7 @@
       "retaining_lip_reduction_mm": 0.0
     },
     {
+      "backed_entrance_extension_mm": 0.0,
       "centered_hook_capture_mm": 1.8000000000000007,
       "cover_intermediate_straight_guide_r_h_mm": [
         [
@@ -431,7 +434,7 @@
         -1.0
       ],
       "stl": "receiver-2.stl",
-      "volume_mm3": 6489.591463428056
+      "volume_mm3": 6555.406598185504
     },
     "receiver-3": {
       "assembly_to_print_matrix_mm": [

@@ -5,7 +5,7 @@ use super::{
     LENGTH, NOSE_LENGTH, Section, TWO_DOT, WIDE_POST_HALF_WIDTH, guide_contact::tight_diagonal,
     numbered, print_part,
 };
-use anyhow::Result;
+use anyhow::{Context, Result};
 use hsm_kernel::{Affine, Solid, V2, V3, v2};
 use serde_json::{Map, json};
 use std::{fs, path::Path};
@@ -17,6 +17,7 @@ struct Entry {
     fit: &'static str,
     pilot_r: f64,
     lip_reduction: f64,
+    entrance_extension: f64,
     foot: f64,
 }
 
@@ -25,18 +26,21 @@ const PAIRS: [Entry; 3] = [
         fit: "open pilot and shorter retaining lip",
         pilot_r: 10.25,
         lip_reduction: 0.60,
+        entrance_extension: 0.,
         foot: TWO_DOT.foot_width,
     },
     Entry {
-        fit: "open pilot and full retaining lip",
-        pilot_r: 10.25,
+        fit: "extended solid bevel and full retaining lip",
+        pilot_r: 10.30,
         lip_reduction: 0.00,
+        entrance_extension: 0.96,
         foot: TWO_DOT.foot_width,
     },
     Entry {
         fit: "wing-side lead-in and full retaining lip",
         pilot_r: 10.80,
         lip_reduction: 0.00,
+        entrance_extension: 0.,
         foot: 2.00,
     },
 ];
@@ -56,7 +60,33 @@ fn ease_mouth(s: &Section, receiver: &Solid, profile: &[(f64, f64); 3]) -> Resul
         .map(|(r, h)| v2(s.axis + r, s.back_z - h))
         .collect::<Vec<_>>();
     debug_assert!(pilot_r < crest_r);
-    receiver.cut_all(&mirrored_bars(&cutter, s.axis, s.y)?)
+    let mut stock = receiver.clone();
+    if rim_h > s.rim_h {
+        let inner = receiver
+            .verts()
+            .iter()
+            .filter_map(|p| {
+                let r = p.x - s.axis;
+                (r > WIDE_POST_HALF_WIDTH + 1. && (s.back_z - p.z - s.rim_h).abs() < 1e-5)
+                    .then_some(r)
+            })
+            .reduce(f64::min)
+            .context("inner wall of the backed receiver mouth")?;
+        let footprint = [
+            (inner, s.rim_h - 0.12),
+            (crest_r, s.rim_h - 0.12),
+            (crest_r, rim_h),
+            (inner, rim_h),
+        ];
+        let profile: Vec<_> = footprint
+            .iter()
+            .map(|(r, h)| v2(s.axis + r, s.back_z - h))
+            .collect();
+        for side in mirrored_bars(&profile, s.axis, s.y)? {
+            stock = stock.union(&side)?;
+        }
+    }
+    stock.cut_all(&mirrored_bars(&cutter, s.axis, s.y)?)
 }
 
 fn guides(s: &Section, control: Hook, hook: Hook) -> (Vec<V2>, Vec<(f64, f64)>) {
@@ -108,7 +138,7 @@ pub(super) fn write(
         let mouth = [
             (crest_r, crest_h),
             (crest_r, crest_h + CREST_HEIGHT),
-            (entry.pilot_r, s.rim_h),
+            (entry.pilot_r, s.rim_h + entry.entrance_extension),
         ];
         let receiver = ease_mouth(s, &receiver, &mouth)?;
         for (kind, stock, mark, normal, pose) in [
@@ -124,6 +154,7 @@ pub(super) fn write(
         settings.push(json!({"number":dots,"primary_full_pisco_donor":dots==1,"guide_design":entry.fit,
             "crest_land_width_mm":entry.foot,"free_crest_angle_to_roof_deg":angle.to_degrees(),
             "receiver_entrance_r_h_mm":mouth,"retaining_lip_reduction_mm":entry.lip_reduction,
+            "backed_entrance_extension_mm":entry.entrance_extension,
             "centered_hook_capture_mm":crest_r-hook.nose_r,"receiver_guide_r_h_mm":receiver_guide,
             "cover_intermediate_straight_guide_r_h_mm":cover_guide.iter().map(|p| [p.x,p.y]).collect::<Vec<_>>()}));
     }

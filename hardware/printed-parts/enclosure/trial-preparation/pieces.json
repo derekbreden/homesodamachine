@@ -4424,6 +4424,332 @@
         "reason": "Center the combined cap and tower envelope with separate brim footprints."
       }
     },
+    "pisco-easy-entry-set": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "pisco-easy-cover",
+          "stl": "hardware/print-tests/pisco-wide-snap/parts/easy-entry/cover.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "Both wings print as continuous perimeters on the axial end."
+            }
+          }
+        },
+        {
+          "name": "cover-1",
+          "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/cover-1.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The open-ended coupons use their support-free end-on cover and roof-down receiver orientations from snap-guide-contact."
+            }
+          }
+        },
+        {
+          "name": "cover-2",
+          "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/cover-2.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The open-ended coupons use their support-free end-on cover and roof-down receiver orientations from snap-guide-contact."
+            }
+          }
+        },
+        {
+          "name": "cover-3",
+          "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/cover-3.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The open-ended coupons use their support-free end-on cover and roof-down receiver orientations from snap-guide-contact."
+            }
+          }
+        },
+        {
+          "name": "pisco-easy-receiver",
+          "stl": "hardware/print-tests/pisco-wide-snap/parts/easy-entry/receiver.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
+          "features": [
+            {
+              "name": "Production receiver support regions",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/pisco-wide-snap/parts/easy-entry/receiver.print-features.json",
+              "reason": "Use the production contact targets and keep the catch pockets accessible."
+            }
+          ],
+          "object_settings": {
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+            },
+            "support_type": {
+              "value": "tree(manual)",
+              "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
+            },
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+            },
+            "support_object_xy_distance": {
+              "value": "0.5",
+              "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
+            },
+            "support_on_build_plate_only": {
+              "value": "0",
+              "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
+            },
+            "max_bridge_length": {
+              "value": "0",
+              "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
+            },
+            "tree_support_branch_distance": {
+              "value": "3",
+              "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the native painted receiver targets."
+            }
+          },
+          "start_plate_row": true
+        },
+        {
+          "name": "receiver-1",
+          "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/receiver-1.stl",
+          "object_settings": {
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "Match the roof-down Pisco receiver."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The open-ended coupons use their support-free end-on cover and roof-down receiver orientations from snap-guide-contact."
+            }
+          }
+        },
+        {
+          "name": "receiver-2",
+          "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/receiver-2.stl",
+          "object_settings": {
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "Match the roof-down Pisco receiver."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The open-ended coupons use their support-free end-on cover and roof-down receiver orientations from snap-guide-contact."
+            }
+          }
+        },
+        {
+          "name": "receiver-3",
+          "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/receiver-3.stl",
+          "object_settings": {
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "Match the roof-down Pisco receiver."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The open-ended coupons use their support-free end-on cover and roof-down receiver orientations from snap-guide-contact."
+            }
+          }
+        }
+      ],
+      "spacing_mm": 12,
+      "plate_border_mm": 70.0,
+      "pose_reason": "Covers stand on their open axial end and receivers print roof-down. From the door, the full Pisco and the one-, two- and three-dot pairs run left to right with each cover in front of its receiver. The native tower cools the full-length wings through their last course.",
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the textured PEI trim from the individual receiver and cap trials."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the fitted cap trials."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Smooth timelapse parks away and uses the native tower before returning to the cap."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "Reprime on the native tower after each timelapse departure."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "A constant perimeter provides time away on every cap layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Time on the tower cools the cap while retaining the model print recipe."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "94"
+          ],
+          "reason": "Keep the tower and its brim clear of all four covers in the front row."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          14
+        ],
+        "reason": "Center both rows and the cooling tower together. The tower stands in front of the covers."
+      }
+    },
     "rear-snap-pairs": {
       "printer": "Mark1",
       "nozzle": {

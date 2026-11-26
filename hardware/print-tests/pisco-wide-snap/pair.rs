@@ -1,5 +1,6 @@
 //! The full bench pair carries the filmed Mark2 profiles on the production Pisco spring and pocket stations.
 mod axial_grip;
+mod easy_entry;
 #[allow(dead_code)]
 #[path = "../../../tools/hsm/print-prep/src/mesh.rs"]
 mod mesh;
@@ -100,11 +101,15 @@ fn bearing(axis: f64, z: f64, y: f64, radius: f64, width: f64) -> Result<Solid> 
 
 fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1).peekable();
-    let axial = args.next_if(|v| v == "--axial-grip").is_some();
-    let two_dots = axial || args.next_if(|v| v == "--two-dot-drop").is_some();
-    let default_out = if axial {
+    let easy = args.next_if(|v| v == "--easy-entry").is_some();
+    let axial = easy || args.next_if(|v| v == "--axial-grip").is_some();
+    let numbered_trial = axial || args.next_if(|v| v == "--two-dot-drop").is_some();
+    let dots = if easy { 1 } else { 2 };
+    let default_out = if easy {
+        Path::new(HERE).join("easy-entry")
+    } else if axial {
         Path::new(HERE).join("axial-grip")
-    } else if two_dots {
+    } else if numbered_trial {
         Path::new(HERE).join("two-dot-drop")
     } else {
         PathBuf::from(HERE)
@@ -112,7 +117,7 @@ fn main() -> Result<()> {
     let out = args.next().map(PathBuf::from).unwrap_or(default_out);
     ensure!(
         args.next().is_none(),
-        "expected [--two-dot-drop | --axial-grip] [output directory]"
+        "expected [--two-dot-drop | --axial-grip | --easy-entry] [output directory]"
     );
     fs::create_dir_all(&out)?;
     let coupons = Path::new(COUPONS);
@@ -164,20 +169,25 @@ fn main() -> Result<()> {
             .filter(|p| (p.x - old_lip).abs() < 1e-5 && (p.z - rim_z).abs() < 1e-5)
             .map(|p| p.y),
     )?;
-    let donor_dir = if axial {
+    let donor_dir = if easy {
+        coupons.join("easy-entry")
+    } else if axial {
         coupons.join("next-pairs")
-    } else if two_dots {
+    } else if numbered_trial {
         coupons.join("solid-pairs")
     } else {
         coupons.to_path_buf()
     };
-    let numbered = if two_dots {
+    let numbered = if numbered_trial {
         reads::json(donor_dir.join("geometry.json"))?
     } else {
         Value::Null
     };
-    let (free_cover, neutral) = if two_dots {
-        (&numbered["parts"]["cover-2"], &numbered["parts"]["receiver-2"])
+    let (free_cover, neutral) = if numbered_trial {
+        (
+            &numbered["parts"][format!("cover-{dots}")],
+            &numbered["parts"][format!("receiver-{dots}")],
+        )
     } else {
         (
             &wide["parts"]["cover-wide-preloaded"],
@@ -210,13 +220,14 @@ fn main() -> Result<()> {
     let radius = number(&base, "scanned_housing_radius_mm")?;
     let pad = bearing(axis, axis_z, y, radius, width)?;
     let cover = body.union(&new_wings)?.union(&pad)?;
-    let (cover, saddle_change) = if two_dots {
+    let (cover, saddle_change) = if numbered_trial {
         let (raised, change) = two_dot::supported_saddle(&cover, axis, axis_z, &base)?;
         (
             two_dot::dots(
                 &raised,
                 &numbered["marks"],
                 "cover_group_center_machine_mm",
+                dots,
                 -V3::Z,
             )?,
             change,
@@ -241,11 +252,12 @@ fn main() -> Result<()> {
         .cut_all(&[old.clone(), mirror(&old)])?
         .union(&right)?
         .union(&mirror(&right))?;
-    let receiver = if two_dots {
+    let receiver = if numbered_trial {
         two_dot::dots(
             &fixed,
             &numbered["marks"],
             "receiver_group_center_machine_mm",
+            dots,
             V3::X,
         )?
     } else {
@@ -266,12 +278,17 @@ fn main() -> Result<()> {
     } else {
         (cover, receiver, Value::Null)
     };
+    let (cover, receiver, entry_settings) = if easy {
+        easy_entry::guides(cover, receiver, axis, axis_z, rim_z, &axial_settings, &base)?
+    } else {
+        (cover, receiver, Value::Null)
+    };
     let turn = Affine {
         m: [[1., 0., 0., 0.], [0., 0., -1., 0.], [0., 1., 0., 0.]],
     };
     let cb = cover.transformed(&turn).bounds();
     let print = Affine::translation(v3(-cb.center().x, -cb.center().y, -cb.min.z)).then_after(&turn);
-    let (cap_name, receiver_name) = if two_dots {
+    let (cap_name, receiver_name) = if numbered_trial {
         ("cover", "receiver")
     } else {
         ("pisco-cover", "pisco-receiver")
@@ -334,7 +351,7 @@ fn main() -> Result<()> {
         "coupon_straight_neutral_target":wide["straight_seated_target"]["receiver-wide-neutral"],"free_inward_tip_bias_mm":wide["mark2_free_inward_tip_bias_each_mm"],
         "guide_radial_air_mm":wide["running_gap_radial_mm"],"bearing":{"land_width_mm":width,"land_y_mm":[y-BEARING_LENGTH/2.,y+BEARING_LENGTH/2.],
         "housing_radius_mm":radius,"design_housing_rise_mm":SEATED_HOUSING_RISE,"cover_closure_at_printed_stop_mm":PAD_TO_PRINTED_STOP}});
-    if two_dots {
+    if numbered_trial {
         record["purpose"] = json!(
             "Test the two-dot wing and receiver profiles over the real Pisco with 0.20 mm more saddle take-up."
         );
@@ -344,8 +361,8 @@ fn main() -> Result<()> {
             .remove("coupon_straight_neutral_target");
         record["coupon_straight_target"] = numbered["pairs"]
             .as_array()
-            .and_then(|rows| rows.iter().find(|r| r["number"] == 2))
-            .context("two-dot coupon settings")?
+            .and_then(|rows| rows.iter().find(|r| r["number"] == dots))
+            .context("selected numbered coupon settings")?
             .clone();
         record["centered_hook_capture_mm"] = numbered["centered_hook_capture_mm"].clone();
         record["spring_wall_thickness_mm"] = numbered["spring_wall_thickness_mm"].clone();
@@ -373,6 +390,15 @@ fn main() -> Result<()> {
             .unwrap()
             .remove("guide_radial_air_mm")
             .unwrap();
+    }
+    if easy {
+        record["purpose"] = json!(
+            "Fit the real Pisco with the first push-on coupon profile and guided axial starts at the full cover ends."
+        );
+        record["axial_entry_guides"] = entry_settings;
+        record["centered_hook_capture_mm"] =
+            record["coupon_straight_target"]["centered_hook_capture_mm"].clone();
+        record.as_object_mut().unwrap().remove("guide_nose_air_mm");
     }
     write_json(&out.join("geometry.json"), &record)?;
     Ok(())
