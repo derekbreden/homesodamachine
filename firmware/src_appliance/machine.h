@@ -256,6 +256,7 @@ struct MachineThermal {
     bool    refillRelay;
     uint8_t probeCount;       // devices answering on the 1-wire bus
     uint32_t holdRemainingMs; // 0 unless the cold loop is inside its minimum off-time
+    uint16_t startupCoolingS; // the warm restart indication carried by StatusPayload
     uint32_t refillPumpedMs;
     bool    simulated;        // a reading injected from the console, not a probe
 };

@@ -1575,6 +1575,7 @@ uint32_t machineFlowPulsesTotal() { return flowTotal; }
 // outranks it: flow at the faucet stops the draw where it is and the ask
 // returns to Queued.
 static machine_policy::Cold   cold;
+static bool startupCooling = true;   // ends when the first cooling demand clears or a probe reaches the freeze cutout
 static machine_policy::Refill refill;
 static bool     compressorRelay = false;
 static bool     refillRelay     = false;
@@ -1694,6 +1695,8 @@ static void coldService(uint32_t now) {
         case machine_policy::ColdAction::CompressorOff: compressorRelaySet(false); break;
         case machine_policy::ColdAction::None: break;
     }
+    if (cold.state() == machine_policy::ColdState::Off || cold.state() == machine_policy::ColdState::Freeze)
+        startupCooling = false;
 
     // A compressor run is its own entry. What is noted here is the loop losing its readings
     // or reaching the freeze cutout, and its way back out of either. A boot starts with no
@@ -1911,6 +1914,14 @@ void machineThermal(MachineThermal &t) {
     t.refillRelay      = refillRelay;
     t.probeCount       = oneWireDeviceCount();
     t.holdRemainingMs  = cold.holdRemainingMs(millis());
+    if (startupCooling && machineIoReady() && !machineGasTripped()) {
+        if (compressorRelay) {
+            t.startupCoolingS = STARTUP_COOLING_RUNNING;
+        } else if (cold.state() == machine_policy::ColdState::Holding) {
+            // Keep the last second on screen until the relay has actually closed.
+            t.startupCoolingS = t.holdRemainingMs ? (t.holdRemainingMs + 999) / 1000 : 1;
+        }
+    }
     t.refillPumpedMs   = refill.pumpedMs(millis());
     t.simulated        = simThermalOn || simReedsOn;
 }
@@ -2262,6 +2273,7 @@ void machineBegin() {
     // from here: a board that restarted cannot know how long the compressor it
     // inherited has been stopped.
     cold.reset(millis());
+    startupCooling = true;
     refill.reset(millis());
     // A refill that was owed when the power went is owed still, with the pumping time
     // already spent on it: a refill that had spent its ceiling comes up latched.

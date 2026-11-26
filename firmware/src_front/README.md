@@ -110,6 +110,11 @@ Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
+If the tank is warm at startup, a second line under **On tap.** reads **Cooling starts in 2:47**,
+with the time remaining from the main board. The menu is usable throughout. When the
+compressor relay closes, the line reads **Cooling** until the first cooling cycle ends.
+A cold start at serving temperature opens directly onto the usual home screen.
+
 A machine that owes a sweep (`NOTICE_SWEEP`) opens from boot onto **Welcome**: the still
 mark where the boot's animation stood and, in a card like the boot's but taller and out to
 the mark, the step at the faucet, **Skip** and **OK**. **Skip** asks **Skip this step?** first, and its **Skip** sends

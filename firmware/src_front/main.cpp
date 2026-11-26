@@ -238,6 +238,7 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 #define HERO_ART_H           368
 #define HERO_ART_Y            24
 #define HERO_CAPTION_Y       408
+#define HERO_COOLING_INSET     8   // space beneath the second caption on a warm restart
 
 // ── The resting pane ──
 // At rest the pane beside the portrait runs the glass's full height, with the reservoir's
@@ -273,7 +274,7 @@ enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
 static lv_obj_t *pageObj[PAGE_COUNT];
-static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
+static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption, *heroCooling;
 static lv_obj_t *taskHeader, *backRow, *systemBand, *systemBack;
 static lv_obj_t *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
@@ -2206,7 +2207,8 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       ctrlStatus.tankCx10 = TEMP_UNREAD;
       ctrlStatus.coilCx10 = TEMP_UNREAD;
     }
-    ctrlStatusThermal = taken >= sizeof(ctrlStatus);
+    ctrlStatusThermal = taken >= offsetof(StatusPayload, startupCoolingS);
+    if (taken < sizeof(ctrlStatus)) ctrlStatus.startupCoolingS = 0;
     ctrlStatusMs = millis();
     // The gauges, and — unless a step of this glass's is still unanswered —
     // what each channel pours at.
@@ -3444,9 +3446,20 @@ static void refreshHomeLevel() {
   const bool known = n != LEVEL_UNKNOWN && levelValid && fresh;
   const bool pouring = fresh && pouringShown == channel;
   const bool connecting = homeFlavorShown < 0;
+  const uint16_t cooling = activePage == PAGE_HOME && fresh && !connecting && !pouring
+                               ? ctrlStatus.startupCoolingS : 0;
+  static uint16_t shownCooling = 0;
+  const bool captionLayoutChanged = (cooling != 0) != (shownCooling != 0);
+  if (cooling != shownCooling) {
+    if (cooling == STARTUP_COOLING_RUNNING) lv_label_set_text(heroCooling, "Cooling");
+    else if (cooling) lv_label_set_text_fmt(heroCooling, "Cooling starts in %u:%02u",
+                                             unsigned(cooling / 60), unsigned(cooling % 60));
+    showIf(heroCooling, cooling != 0);
+    shownCooling = cooling;
+  }
   static int16_t shown = -1;
   const int16_t reading = (channel << 8) | (known ? n : 15) | (pouring ? 0x20 : 0) | (connecting ? 0x40 : 0);
-  if (reading == shown) return;
+  if (reading == shown && !captionLayoutChanged) return;
   shown = reading;
   lv_obj_set_style_border_color(homeGauge, lv_color_hex(known ? COL_DIM : COL_OFF), 0);
   for (uint8_t k = 0; k < LEVEL_SEGMENTS; ++k) {
@@ -3462,7 +3475,8 @@ static void refreshHomeLevel() {
                           (font->line_height - font->base_line);
   lv_obj_set_style_text_font(heroCaption, font, 0);
   lv_label_set_text(heroCaption, connecting ? "Connecting" : pouring ? "Pouring." : "On tap.");
-  lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y + rise);
+  if (cooling) lv_obj_align_to(heroCaption, heroCooling, LV_ALIGN_OUT_TOP_MID, 0, 0);
+  else lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y + rise);
 }
 
 // The reeds on the Settings landing. A reed the main board reads closed is a
@@ -5153,6 +5167,9 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_clear_flag(heroImage, LV_OBJ_FLAG_CLICKABLE);
   heroCaption = mkText(heroPanel, "On tap.", &lv_font_montserrat_44, COL_INK);
   lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y);
+  heroCooling = mkText(heroPanel, "", &lv_font_montserrat_20, COL_INK);
+  lv_obj_align(heroCooling, LV_ALIGN_BOTTOM_MID, 0, -HERO_COOLING_INSET);
+  showIf(heroCooling, false);
 }
 
 // The rail's selection, the same on every page: the selected flavor's cell in the portrait
@@ -5678,6 +5695,7 @@ static void showPage(Page p) {
   // pages invalidate only when their cached visible state actually changes.
   animRun(lockActive && !screenIdle);
   if (p == PAGE_HOME)    refreshHomeSelection();
+  else                   refreshHomeLevel();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_DETAIL);
   if (p == PAGE_SERVICE) { activeSvc = SVC_PRIME_PICK; showOnly(svcView, SVC_COUNT, -1); }
   if (p == PAGE_SETUP)   { refreshStatusReeds(); refreshStatusThermal(); }

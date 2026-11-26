@@ -849,6 +849,47 @@ void test_a_compressor_run_is_noted_with_its_length_and_coldest_coil() {
     TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Cold).size());
 }
 
+void test_warm_restart_counts_down_then_names_only_the_first_cooling_run() {
+    const uint32_t boot = host::now;
+    MachineThermal thermal;
+    runAt(boot + 1000);
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT16(0, thermal.startupCoolingS);
+
+    machineSimThermal(8.0f, true, 5.0f, true);
+    runAt(boot + 2250);
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT16((machine_policy::kMinOffMs - 2000) / 1000, thermal.startupCoolingS);
+    runAt(boot + machine_policy::kMinOffMs - 1);
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT16(1, thermal.startupCoolingS);
+    runAt(host::now + 1000);
+    machineThermal(thermal);
+    TEST_ASSERT_TRUE(thermal.compressorRelay);
+    TEST_ASSERT_EQUAL_UINT16(STARTUP_COOLING_RUNNING, thermal.startupCoolingS);
+
+    machineSimThermal(1.5f, true, -4.0f, true);
+    runAt(host::now + machine_policy::kMinOnMs);
+    machineThermal(thermal);
+    TEST_ASSERT_EQUAL_UINT16(0, thermal.startupCoolingS);
+    machineSimThermal(8.0f, true, 5.0f, true);
+    runAt(host::now + machine_policy::kMinOffMs);
+    machineThermal(thermal);
+    TEST_ASSERT_TRUE(thermal.compressorRelay);
+    TEST_ASSERT_EQUAL_UINT16(0, thermal.startupCoolingS);
+}
+
+void test_a_cold_boot_keeps_the_home_caption_clear_when_the_tank_later_warms() {
+    MachineThermal thermal;
+    machineSimThermal(2.0f, true, -4.0f, true);
+    runAt(host::now + 1000);
+    machineSimThermal(8.0f, true, 5.0f, true);
+    runAt(host::now + 1000);
+    machineThermal(thermal);
+    TEST_ASSERT_GREATER_THAN_UINT32(0, thermal.holdRemainingMs);
+    TEST_ASSERT_EQUAL_UINT16(0, thermal.startupCoolingS);
+}
+
 void test_probes_that_never_answer_are_noted_once_the_readings_are_overdue() {
     runAt(host::now + machine_policy::kReadingStaleMs - 1000);
     TEST_ASSERT_EQUAL_UINT32(0, notedOf(machine_log::Kind::Cold).size());
@@ -1366,6 +1407,8 @@ int main(int, char **) {
     RUN_TEST(test_a_refill_that_times_out_sounds_the_fault_and_is_noted_once);
     RUN_TEST(test_a_pour_that_takes_the_refill_down_notes_both);
     RUN_TEST(test_a_compressor_run_is_noted_with_its_length_and_coldest_coil);
+    RUN_TEST(test_warm_restart_counts_down_then_names_only_the_first_cooling_run);
+    RUN_TEST(test_a_cold_boot_keeps_the_home_caption_clear_when_the_tank_later_warms);
     RUN_TEST(test_probes_that_never_answer_are_noted_once_the_readings_are_overdue);
     RUN_TEST(test_a_probe_that_chatters_cannot_fill_the_record);
     RUN_TEST(test_the_gas_alarm_is_noted_when_it_trips);

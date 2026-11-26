@@ -824,9 +824,11 @@ struct __attribute__((packed)) StatusPayload {
   uint8_t  refillState;   // machine_policy::RefillState
   uint8_t  probeCount;    // devices found on the 1-wire bus
   uint8_t  notice;        // NOTICE_*: what stops the machine making soda, 0 from a board built before it
+  uint16_t startupCoolingS; // warm restart: seconds until cooling, STARTUP_COOLING_RUNNING, or 0 when hidden
 };
 
-static_assert(sizeof(StatusPayload) == 40, "main board status wire layout drift");
+constexpr uint16_t STARTUP_COOLING_RUNNING = UINT16_MAX;
+static_assert(sizeof(StatusPayload) == 42, "main board status wire layout drift");
 
 // A probe whose reading failed its CRC, whose family code is not the one that
 // station carries, or that is not on the bus at all.
@@ -1072,8 +1074,8 @@ struct __attribute__((packed)) LogEntryPayload {
   uint8_t  entry[LOG_ENTRY_BYTES];
 };
 
-static_assert(sizeof(LogEntryPayload) == sizeof(StatusPayload),
-              "a record answer rides the frame a status answer does");
+static_assert(sizeof(LogEntryPayload) <= sizeof(StatusPayload),
+              "a record answer must fit in the status reply buffer");
 
 // ── Why there is no soda (0x78..) ─────────────────────────────────────────
 // A refill that spends its pumping ceiling stands latched: the machine cannot tell a supply

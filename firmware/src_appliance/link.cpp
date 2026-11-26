@@ -342,6 +342,7 @@ void linkFillStatus(StatusPayload &s) {
     s.refillState = th.refillState;
     s.probeCount  = th.probeCount;
     s.notice      = machineNotice();
+    s.startupCoolingS = th.startupCoolingS;
     s.flags |= (th.compressorRelay ? STATUS_F_COMPRESSOR : 0)
              | (th.refillRelay     ? STATUS_F_REFILL     : 0);
 }
