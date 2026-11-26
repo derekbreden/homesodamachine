@@ -198,6 +198,13 @@ static void unit_changes_need_a_fresh_machine_revision() {
     TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
     TEST_ASSERT_FALSE(s.select(TEMP_UNIT_CELSIUS, 6000, write));
     TEST_ASSERT_EQUAL(TemperatureUnitSetting::State::Waiting, s.state(6000));
+    unitReadback(s, SETTING_OK, 45, TEMP_UNIT_CELSIUS, 6100);
+    s.observeControllerUptime(100, 820, 720000);  // The glass slept while the controller kept running.
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_CELSIUS, s.unit());
+    s.observeControllerUptime(820, 10, 15000);
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
+    TEST_ASSERT_FALSE(s.canChange(6200));
+    TEST_ASSERT_TRUE(s.queryDue(6200));
 }
 
 static void lost_unit_acknowledgments_reconcile_without_overwriting_a_phone_change() {

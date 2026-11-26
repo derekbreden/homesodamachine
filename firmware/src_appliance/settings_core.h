@@ -72,6 +72,7 @@ void key(uint8_t index, uint8_t &kind, uint8_t &channel);
 bool validValue(uint8_t kind, const uint8_t *bytes, uint8_t length);
 bool validImage(const Image &image);
 Image defaults();
+void restoreTemperatureUnit(Image &image, uint8_t saved);
 // Returns zero unless a strictly newer epoch was committed successfully.
 uint32_t reserveBootEpoch(uint32_t previous, PersistEpoch persist, void *context);
 uint64_t readLE64(const uint8_t *bytes);

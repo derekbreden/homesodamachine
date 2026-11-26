@@ -10,6 +10,12 @@ public:
 
   uint8_t unit() const { return unit_; }
 
+  void observeControllerUptime(uint32_t previous, uint32_t current, uint32_t elapsedMs) {
+    // A different boot invalidates the stamp, including when rolled back to a board that cannot answer a unit GET.
+    if (current < previous || (previous && current <= elapsedMs / 1000))
+      *this = TemperatureUnitSetting{};
+  }
+
   State state(uint32_t now) const {
     if (state_ == State::Updating)
       return now - changeAt_ < kAnswerMs ? State::Updating : State::Unconfirmed;

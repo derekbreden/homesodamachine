@@ -89,6 +89,11 @@ Image defaults() {
     return image;
 }
 
+void restoreTemperatureUnit(Image &image, uint8_t saved) {
+    // Damage to this independent key must never discard valid picture, mix or name fields.
+    image.values[kTemperatureField].bytes[0] = saved == TEMP_UNIT_CELSIUS ? saved : TEMP_UNIT_FAHRENHEIT;
+}
+
 uint64_t readLE64(const uint8_t *p) {
     uint64_t value = 0;
     for (uint8_t i = 0; i < 8; ++i) value |= uint64_t(p[i]) << (8 * i);

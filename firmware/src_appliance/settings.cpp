@@ -111,7 +111,7 @@ void settingsBegin() {
             if (valid) stamped_settings::copyStoredSettings(original, image);
         }
         if (prefs.isKey("tempUnit")) storedUnit = prefs.getUChar("tempUnit", UINT8_MAX);
-        image.values[stamped_settings::kTemperatureField].bytes[0] = storedUnit;
+        stamped_settings::restoreTemperatureUnit(image, storedUnit);
         valid = valid && stamped_settings::validImage(image);
         // A state without its monotonic epoch is a damaged store, not a new
         // machine. Never restart its sequence at one and reuse old stamps.

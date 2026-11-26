@@ -43,7 +43,7 @@ static Authority boot(Disk &disk) {
     Authority a;
     auto image = defaults();
     copyStoredSettings(disk.saved, image);
-    image.values[kTemperatureField].bytes[0] = disk.unit;
+    restoreTemperatureUnit(image, disk.unit);
     a.begin(image, reserveBootEpoch(disk.epoch, writeEpoch, &disk));
     return a;
 }
@@ -161,6 +161,13 @@ int main() {
           thirdBoot.snapshot(SETTING_ART, 0).value.bytes[0] == FLAVOR_ART_CUSTOM &&
           thirdBoot.snapshot(SETTING_ART, 1).value.bytes[0] == 3,
           "Celsius and both saved pictures survive a reboot and an older firmware editing the pictures");
+    Disk damagedUnit = disk;
+    damagedUnit.unit = UINT8_MAX;
+    auto recovered = boot(damagedUnit);
+    check(recovered.ready() && recovered.snapshot(SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL).value.bytes[0] == TEMP_UNIT_FAHRENHEIT &&
+          recovered.snapshot(SETTING_ART, 0).value.bytes[0] == FLAVOR_ART_CUSTOM &&
+          recovered.snapshot(SETTING_ART, 1).value.bytes[0] == 3 && recovered.snapshot(SETTING_RATIO, 0).value.bytes[0] == 19,
+          "An unreadable unit key keeps both pictures and the mix available");
     check(thirdBoot.snapshot(SETTING_RATIO, 0).value.bytes[0] == 19 && thirdBoot.snapshot(SETTING_RATIO, 0).revision != durableBase,
           "A flushed value survives reboot while its revision is still made fresh");
 

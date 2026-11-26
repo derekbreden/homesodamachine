@@ -2191,6 +2191,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   // gauges, the reed diagram, the ratio mirror and the pouring caption are all
   // in the core, so a main board that has not grown the tail still draws them.
   if (type == MSG_RESP_STATUS && plen >= STATUS_CORE_BYTES) {
+    const uint32_t previousUptime = ctrlStatus.uptimeS;
     ctrlStatus = StatusPayload{};
     const size_t taken = plen < sizeof(ctrlStatus) ? (size_t)plen : sizeof(ctrlStatus);
     memcpy(&ctrlStatus, payload, taken);
@@ -2200,7 +2201,9 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     }
     ctrlStatusThermal = taken >= offsetof(StatusPayload, notice);
     if (taken < sizeof(ctrlStatus)) ctrlStatus.startupCoolingS = 0;
-    ctrlStatusMs = millis();
+    const uint32_t now = millis();
+    if (ctrlStatusMs) temperatureUnit.observeControllerUptime(previousUptime, ctrlStatus.uptimeS, now - ctrlStatusMs);
+    ctrlStatusMs = now;
     // The gauges, and — unless a step of this glass's is still unanswered —
     // what each channel pours at.
     const bool valid = (ctrlStatus.levelFlags & LEVEL_F_VALID) != 0;
