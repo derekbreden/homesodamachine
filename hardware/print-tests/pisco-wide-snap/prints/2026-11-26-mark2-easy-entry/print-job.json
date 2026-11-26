@@ -139,5 +139,12 @@
   "axial_bearing_figure": "shoulder.png",
   "coupon_native_sections": "coupon-section-check.json",
   "completion_status": "completion-status.json",
-  "finish_observed_at": "2026-11-26T10:58:14+00:00"
+  "finish_observed_at": "2026-11-26T10:58:14+00:00",
+  "chamber_photo": {
+    "file": "finished-plate.jpg",
+    "source": "Mark2 layer timelapse",
+    "printer_filename": "video_2026-11-26_15-33-44.mp4",
+    "source_sha256": "a4ef26dc49b13c6ad9a0ae803f6a797f250bafedc2ee1e2441f6834567144a31",
+    "frame_seconds": 9.041522
+  }
 }
