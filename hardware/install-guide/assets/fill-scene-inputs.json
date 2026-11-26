@@ -62,9 +62,9 @@
     373.0
   ],
   "outputs_sha256": {
-    "hardware/install-guide/assets/fill-screen-framed.png": "4899be567557306d5f78679350277395de671c67948f8d75d57cd92d16b01c8c",
-    "hardware/install-guide/assets/steps/fill-closed.png": "b0ad4d00f9fffaadf3d737474b8c6a4ba2cd53cf4c5422539638f050d9228c3a",
-    "hardware/install-guide/assets/steps/fill-ready.png": "5f23fe780a089c6f0e978c463bdb31caacbaacefd7492682a23718b06103d733"
+    "hardware/install-guide/assets/fill-screen-framed.png": "aa260e261feb55507b4bf707636ec534cd1c750a65f35816873b70fd30a1f33b",
+    "hardware/install-guide/assets/steps/fill-closed.png": "75bca89354865450228a78d73c9545571a165bdf63fffa9855e371d13e98c330",
+    "hardware/install-guide/assets/steps/fill-ready.png": "91024ac2383688fe77a4298af5b5de9478cba96016213f9d8d98dd82b478a99d"
   },
   "pose": {
     "cam": [
@@ -104,7 +104,7 @@
     "width": 99.8
   },
   "sources": {
-    "hardware/install-guide/assets/fill-screen.png": "e3e235197bcebf3a309ffce15ec791d636114ec2a734ded8ff3d9dd49344ff7c",
+    "hardware/install-guide/assets/fill-screen.png": "6f8fe77e657feda32b73f37860c36ecf4e6d771b50d9899cad5e07f68eccca62",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868",
     "tools/hsm/install-art/Cargo.toml": "9f094fb35e1d031e025e6cb2e1f9f940145cc3444f80ac4a2029e4dbca4a4b9e",
     "tools/hsm/install-art/src/main.rs": "607cd4f61b1e98c1cadd2564545701e718f41894c9f6d4646e70a136b57973ff",
@@ -114,15 +114,15 @@
   },
   "views": {
     "fill-closed": {
-      "render_sha256": "b0ad4d00f9fffaadf3d737474b8c6a4ba2cd53cf4c5422539638f050d9228c3a",
+      "render_sha256": "75bca89354865450228a78d73c9545571a165bdf63fffa9855e371d13e98c330",
       "source_payload_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
     },
     "fill-ready": {
-      "render_sha256": "5f23fe780a089c6f0e978c463bdb31caacbaacefd7492682a23718b06103d733",
+      "render_sha256": "91024ac2383688fe77a4298af5b5de9478cba96016213f9d8d98dd82b478a99d",
       "source_payload_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
     },
     "fill-screen-framed": {
-      "render_sha256": "4899be567557306d5f78679350277395de671c67948f8d75d57cd92d16b01c8c",
+      "render_sha256": "aa260e261feb55507b4bf707636ec534cd1c750a65f35816873b70fd30a1f33b",
       "source_payload_sha256": "6f5e2f155644b694d10069a175067873174beda6bb99cd8da70905fcd0045868"
     }
   }

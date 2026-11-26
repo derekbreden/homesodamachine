@@ -1,9 +1,9 @@
 {
   "_": "Written by hsm-publish-firmware. The images are fetched, not committed — web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "bundle": {
-    "bytes": 2265084,
+    "bytes": 2265819,
     "images": 4,
-    "sha256": "c7461cfdaebfe4147195c54004fffc1d9474bf3f1155a771d9bc595d5ba164d7"
+    "sha256": "c832d2268f359cc2b54863e9db0d79fb33ad0eb1acbcc9ca088855f0545e37d2"
   },
   "images": {
     "appliance": {
@@ -32,15 +32,15 @@
       "what": "the machine display's loading animation"
     },
     "enclosure": {
-      "build_epoch": 1795666988,
-      "bytes": 1656640,
-      "crc32": 3102529846,
+      "build_epoch": 1795672712,
+      "bytes": 1658160,
+      "crc32": 3953529118,
       "env": "esp32s3_front",
       "file": "enclosure.bin",
       "kind": "app",
       "machine": "appliance",
-      "sha256": "91930eae53a655ee630e06d8a92984f43e95666bbeaa2028513bc72dd08610cc",
-      "version": "2026.11.25 24765ba8be",
+      "sha256": "d120298877ddfe09854293e5834ab57eb7cc8e3ffd72daac1f6e7f7c99d01eb8",
+      "version": "2026.11.25 d653898cc1",
       "what": "the 4.3\" machine display"
     },
     "faucet": {
@@ -57,11 +57,11 @@
     }
   },
   "release": {
-    "asset": "fw-c7461cfdaebfe414.tar.gz",
+    "asset": "fw-c832d2268f359cc2.tar.gz",
     "tag": "firmware",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-c7461cfdaebfe414.tar.gz"
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-c832d2268f359cc2.tar.gz"
   },
   "source": {
-    "commit": "24765ba8bed1b272f0befdee8be9d928910bfdbf"
+    "commit": "d653898cc1126eef74130dd0d574e8ca631fd23c"
   }
 }
