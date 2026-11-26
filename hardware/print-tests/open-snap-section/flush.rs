@@ -44,20 +44,24 @@ impl Section {
     fn receiver_with_guide(&self, trimmed_seat: &Solid, post: &Solid, hook: Hook, offset: f64,
                            entry_gap: f64, blend_length: f64) -> Result<Solid> {
         let entry_bottom = self.roof_h + ENTRY_DEPTH;
-        let return_start = entry_bottom + NOSE_LENGTH;
-        let neck_r = hook.nose_r - RUNNING_GAP;
-        let lip_h = return_start + (hook.lip_r - hook.nose_r) - offset;
-        let mut cheek = vec![
-            (self.trim_r - 0.02, self.roof_h - 0.05),
-            (hook.crest_inner_r - entry_gap, self.roof_h - 0.05),
-            (hook.crest_inner_r - entry_gap, self.roof_h),
-        ];
+        let mut guide = vec![(hook.crest_inner_r - entry_gap, self.roof_h)];
         if blend_length > 0. {
             let r = hook.nose_r + (hook.crest_inner_r - hook.nose_r) * blend_length / ENTRY_DEPTH;
-            cheek.push((r - entry_gap, entry_bottom - blend_length));
+            guide.push((r - entry_gap, entry_bottom - blend_length));
         }
+        guide.push((hook.nose_r - RUNNING_GAP, entry_bottom));
+        self.receiver_with_profile(trimmed_seat, post, hook, offset, &guide)
+    }
+
+    /// The fully backed guide runs from the roof to the hook nose and joins the existing retaining shoulder.
+    fn receiver_with_profile(&self, trimmed_seat: &Solid, post: &Solid, hook: Hook, offset: f64,
+                             guide: &[(f64, f64)]) -> Result<Solid> {
+        let return_start = self.roof_h + ENTRY_DEPTH + NOSE_LENGTH;
+        let neck_r = hook.nose_r - RUNNING_GAP;
+        let lip_h = return_start + (hook.lip_r - hook.nose_r) - offset;
+        let mut cheek = vec![(self.trim_r - 0.02, self.roof_h - 0.05), (guide[0].0, self.roof_h - 0.05)];
+        cheek.extend_from_slice(guide);
         cheek.extend([
-            (neck_r, entry_bottom),
             (neck_r, return_start - RUNNING_GAP - offset),
             (hook.lip_r, lip_h),
             (hook.lip_r, self.rim_h - RIM_CHAMFER),
@@ -100,18 +104,26 @@ impl Section {
     }
 
     fn wide_cover(&self, cover: &Solid, hook: Hook, tip_bias: f64, rotate_with_leaf: bool) -> Result<Solid> {
+        self.cover_with_profile(cover, hook, tip_bias, rotate_with_leaf, &[])
+    }
+
+    fn cover_with_profile(&self, cover: &Solid, hook: Hook, tip_bias: f64, rotate_with_leaf: bool,
+                          guide: &[V2]) -> Result<Solid> {
         let bounds = cover.bounds();
         let join_z = self.back_z - self.join_h - FILLER_CONTACT_TRAVEL;
         let spine = cover.intersect(&Solid::cuboid(bounds.min - v3(1., 1., 1.), v3(bounds.max.x + 1., bounds.max.y + 1., join_z)))?;
         let nose_top = self.roof_h + ENTRY_DEPTH;
         let return_start = nose_top + NOSE_LENGTH;
         let lip_h = return_start + hook.lip_r - hook.nose_r;
-        let vertices = [
+        let mut vertices = vec![
             v2(self.outer_r, self.join_h + 0.05), v2(self.outer_r, self.roof_h),
-            v2(hook.crest_inner_r, self.roof_h), v2(hook.nose_r, nose_top),
+            v2(hook.crest_inner_r, self.roof_h),
+        ];
+        vertices.extend_from_slice(guide);
+        vertices.extend([v2(hook.nose_r, nose_top),
             v2(hook.nose_r, return_start), v2(self.inner_r, return_start + self.inner_r - hook.nose_r),
             v2(self.inner_r, self.join_h + 0.05),
-        ];
+        ]);
         let mut points = Vec::new();
         for (a, b) in vertices.iter().zip(vertices.iter().cycle().skip(1)) {
             let n = ((a.y - b.y).abs() / 0.60).ceil().max(1.) as usize;

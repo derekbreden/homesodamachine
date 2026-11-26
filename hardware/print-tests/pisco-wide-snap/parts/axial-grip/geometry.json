@@ -1,0 +1,189 @@
+{
+  "axial_stops": {
+    "lip_added_mm3": 30.13323799153295,
+    "new_rigid_outlet_lip_y_mm": 424.365,
+    "new_wing_forward_stop_y_mm": 420.4657172019407,
+    "previous_rigid_outlet_lip_y_mm": 424.125,
+    "previous_wing_forward_stop_y_mm": 420.3457172019407,
+    "rigid_outlet_lip_advance_mm": 0.24,
+    "total_nominal_grip_reduction_mm": 0.36,
+    "wing_end_walls_added_mm3": 10.409106840663298,
+    "wing_forward_stop_advance_mm": 0.12
+  },
+  "bearing": {
+    "housing_radius_mm": 10.8274,
+    "land_width_mm": 8.0,
+    "land_y_mm": [
+      438.875,
+      440.875
+    ],
+    "previous_pair_crest_registration_mm": -0.0103,
+    "previous_pair_housing_rise_input_mm": 0.035
+  },
+  "centered_hook_capture_mm": 1.8000000000000007,
+  "coupon_parts": "hardware/print-tests/open-snap-section/parts/next-pairs",
+  "coupon_straight_target": {
+    "crest_land_width_mm": 2.6,
+    "free_crest_angle_to_roof_deg": 2.0348194496228973,
+    "free_outer_edge_closer_to_roof_mm": 0.092317768549029,
+    "number": 2,
+    "receiver_guide": {
+      "blend_length_to_original_nose_mm": 1.2,
+      "nose_running_gap_mm": 0.22,
+      "offset_from_reference_ramp_mm": 0.1,
+      "reference_foot_width_mm": 2.6
+    },
+    "retaining_shoulder_offset_mm": 0.0,
+    "straight_seated_overlap_mm3": 0.0
+  },
+  "cover_body_y_mm": [
+    420.5957172019407,
+    462.29999999981374
+  ],
+  "donor_stl_sha256": [
+    "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+    "5b264ddf4d104bb83bcd5073384fdcc097f5f093fe13dd25534a6608a1109d5f"
+  ],
+  "free_inward_tip_bias_mm": 0.8,
+  "guide_nose_air_mm": 0.22,
+  "marks": {
+    "cover_group_center_machine_mm": [
+      84.3,
+      439.875,
+      316.97259999997914
+    ],
+    "depth_mm": 0.6,
+    "form": "Blind conical recesses spaced along Y on the solid saddle back and receiver flange.",
+    "opening_diameter_mm": 2.0,
+    "pitch_mm": 3.4,
+    "receiver_group_center_machine_mm": [
+      93.91000000014901,
+      439.875,
+      353.27499999990687
+    ]
+  },
+  "parts": {
+    "cover": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.2290529888123
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -420.5957172019407
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          62.0943843126297,
+          420.5957172019407,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          462.29999999981374,
+          351.4855059776455
+        ]
+      ],
+      "sha256": "911749784a6688233ac0dc2e116d711aae5ca54d5e18b28f569e4f51e0374eae",
+      "stl": "cover.stl",
+      "volume_mm3": 12128.976884806227
+    },
+    "receiver": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          59.08999999985099,
+          414.089999999851,
+          310.76999999955297
+        ],
+        [
+          93.91000000014901,
+          469.2989999996498,
+          355.0
+        ]
+      ],
+      "sha256": "6f9dc3d5ea6e6942364121f0c038889567c5ad0e33278608e046add2dcef5f54",
+      "stl": "receiver.stl",
+      "volume_mm3": 24660.05932087447
+    }
+  },
+  "pocket_roof_z_mm": 351.54999999981374,
+  "pocket_y_mm": [
+    420.4657172019407,
+    458.1610000003129
+  ],
+  "print_directions_in_machine": {
+    "cover": [
+      0,
+      1,
+      0
+    ],
+    "receiver": [
+      0,
+      0,
+      -1
+    ]
+  },
+  "production_cover_sha256": "e004691a6b2da77994d2954e9be43c74fa6d1a7352bd3b21d55f72edf8071738",
+  "production_cover_source": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "production_receiver_sha256": "c8793920ba71f573465ad0fe44a98d17fcc4da55c111f4cae497cbfd87c613de",
+  "production_receiver_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "purpose": "Reduce end travel of the purchased regulator at its rigid outlet shoulder with the latest two-dot guide.",
+  "saddle_change_from_previous_full_pair": {
+    "added_stock_mm3": 96.35600127820726,
+    "axial_lead_length_mm": 0.6,
+    "backed_cradle_width_mm": 20.8112313747406,
+    "body_to_outlet_fitting_junction_y_mm": 438.85,
+    "full_height_y_mm": [
+      439.45000000000005,
+      462.29999999981374
+    ],
+    "working_surface_move_machine_xyz_mm": [
+      0.0,
+      0.0,
+      0.2
+    ]
+  },
+  "spring_wall_thickness_mm": 2.0,
+  "spring_y_mm": [
+    420.5957172019407,
+    457.9110000003129
+  ],
+  "working_profiles": [
+    "cover-2.stl",
+    "receiver-2.stl"
+  ]
+}

@@ -1,4 +1,5 @@
 //! The full bench pair carries the filmed Mark2 profiles on the production Pisco spring and pocket stations.
+mod axial_grip;
 #[allow(dead_code)]
 #[path = "../../../tools/hsm/print-prep/src/mesh.rs"]
 mod mesh;
@@ -99,8 +100,11 @@ fn bearing(axis: f64, z: f64, y: f64, radius: f64, width: f64) -> Result<Solid> 
 
 fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1).peekable();
-    let two_dots = args.next_if(|v| v == "--two-dot-drop").is_some();
-    let default_out = if two_dots {
+    let axial = args.next_if(|v| v == "--axial-grip").is_some();
+    let two_dots = axial || args.next_if(|v| v == "--two-dot-drop").is_some();
+    let default_out = if axial {
+        Path::new(HERE).join("axial-grip")
+    } else if two_dots {
         Path::new(HERE).join("two-dot-drop")
     } else {
         PathBuf::from(HERE)
@@ -108,7 +112,7 @@ fn main() -> Result<()> {
     let out = args.next().map(PathBuf::from).unwrap_or(default_out);
     ensure!(
         args.next().is_none(),
-        "expected [--two-dot-drop] [output directory]"
+        "expected [--two-dot-drop | --axial-grip] [output directory]"
     );
     fs::create_dir_all(&out)?;
     let coupons = Path::new(COUPONS);
@@ -160,7 +164,9 @@ fn main() -> Result<()> {
             .filter(|p| (p.x - old_lip).abs() < 1e-5 && (p.z - rim_z).abs() < 1e-5)
             .map(|p| p.y),
     )?;
-    let donor_dir = if two_dots {
+    let donor_dir = if axial {
+        coupons.join("next-pairs")
+    } else if two_dots {
         coupons.join("solid-pairs")
     } else {
         coupons.to_path_buf()
@@ -254,6 +260,11 @@ fn main() -> Result<()> {
                 .at(v3(0., 0., roof_z - 1.))
                 .extrude(&notch, hi[2] - roof_z + 2.)?,
         )?
+    };
+    let (cover, receiver, axial_settings) = if axial {
+        axial_grip::stops(cover, receiver, axis, axis_z, pockets_y[0], outer)?
+    } else {
+        (cover, receiver, Value::Null)
     };
     let turn = Affine {
         m: [[1., 0., 0., 0.], [0., 0., -1., 0.], [0., 1., 0., 0.]],
@@ -350,6 +361,18 @@ fn main() -> Result<()> {
             .unwrap()
             .remove("cover_closure_at_printed_stop_mm")
             .context("original crest datum")?;
+    }
+    if axial {
+        record["purpose"] = json!(
+            "Reduce end travel of the purchased regulator at its rigid outlet shoulder with the latest two-dot guide."
+        );
+        record["axial_stops"] = axial_settings;
+        record["pocket_y_mm"][0] = record["axial_stops"]["new_wing_forward_stop_y_mm"].clone();
+        record["guide_nose_air_mm"] = record
+            .as_object_mut()
+            .unwrap()
+            .remove("guide_radial_air_mm")
+            .unwrap();
     }
     write_json(&out.join("geometry.json"), &record)?;
     Ok(())

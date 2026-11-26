@@ -1,0 +1,97 @@
+{
+  "boundary_overlap_mm": 0.25,
+  "bridge_regions": [],
+  "producer": "pisco-wide-snap",
+  "source_stl_sha256": "6f9dc3d5ea6e6942364121f0c038889567c5ad0e33278608e046add2dcef5f54",
+  "support_free_regions": [
+    {
+      "blocking_bounds_source_mm": [
+        64.0943843126297,
+        66.3143843126297,
+        417.09571720240064,
+        465.8,
+        340.45,
+        355.0
+      ],
+      "bounds_source_mm": [
+        64.0943843126297,
+        66.3143843126297,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "name": "Pisco west catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        86.6856156873703,
+        88.9056156873703,
+        417.09571720240064,
+        465.8,
+        340.45,
+        355.0
+      ],
+      "bounds_source_mm": [
+        86.6856156873703,
+        88.9056156873703,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "name": "Pisco east catch pocket",
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        59.09,
+        93.91,
+        469.299,
+        472.799,
+        310.77,
+        355.0
+      ],
+      "bridge_axis_source": [
+        1,
+        0,
+        0
+      ],
+      "bridge_span_mm": 42.300000000000004,
+      "name": "Identification channel 2",
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+      "support_print_up_source": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.31,
+        322.6359030178927,
+        338.1285
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    }
+  ],
+  "support_regions": []
+}

@@ -8,6 +8,9 @@ use hsm_kernel::{Affine, Solid, V3, v3};
 use serde_json::{Map, json};
 use std::{fs, path::Path};
 
+#[path = "guide_contact.rs"]
+mod guide_contact;
+
 const DOT_RADIUS: f64 = 1.00;
 const DOT_DEPTH: f64 = 0.60;
 const DOT_PITCH: f64 = 3.40;
@@ -163,5 +166,16 @@ pub(super) fn write(
             format!("{}\n", serde_json::to_string_pretty(&geometry)?),
         )?;
     }
-    Ok(())
+    guide_contact::write(
+        &dir.join("guide-contact"),
+        s,
+        original,
+        trimmed,
+        post,
+        wide,
+        receiver_pose,
+        cover_pose,
+        back_mark,
+        flange_mark,
+    )
 }
