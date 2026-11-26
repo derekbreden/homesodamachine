@@ -1,21 +1,21 @@
 {
   "_": "Written by hsm-publish-firmware. The images are fetched, not committed — web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "bundle": {
-    "bytes": 2264029,
+    "bytes": 2264346,
     "images": 4,
-    "sha256": "f21ddab06c0e87d78cdd8f974fa1b629933923a40389d7a92c685fe6507d2947"
+    "sha256": "b5a9adfdf3876a9a3024ca4b2877653da926d7e323e7bca267d8af8dcfd33deb"
   },
   "images": {
     "appliance": {
-      "build_epoch": 1794772760,
-      "bytes": 523488,
-      "crc32": 3085605365,
+      "build_epoch": 1795663338,
+      "bytes": 523696,
+      "crc32": 1758257783,
       "env": "appliance",
       "file": "appliance.bin",
       "kind": "app",
       "machine": "appliance",
-      "sha256": "fdd670a5220b5c609af593f6ffe416b219eedbbc2612459934c78392be2a56e2",
-      "version": "2026.11.15 ab38574f8",
+      "sha256": "abeb0afb96640218d36e52478b1a7e4e271220a246464678e60497749547c4d4",
+      "version": "2026.11.25 91b72332f0",
       "what": "the main board's own firmware"
     },
     "art": {
@@ -32,15 +32,15 @@
       "what": "the machine display's loading animation"
     },
     "enclosure": {
-      "build_epoch": 1794772760,
-      "bytes": 1654592,
-      "crc32": 1123007750,
+      "build_epoch": 1795663094,
+      "bytes": 1654864,
+      "crc32": 1538812181,
       "env": "esp32s3_front",
       "file": "enclosure.bin",
       "kind": "app",
       "machine": "appliance",
-      "sha256": "513496e0ca32e35a5a8ed5ddd8a993b167458b1ed5e287ebd903ec857fc151f6",
-      "version": "2026.11.15 ab38574f8",
+      "sha256": "5db7f45d70ed8ed15626495bb2376bbeb5e84c7afd29b90e813add0e4ac9a101",
+      "version": "2026.11.25 5fd8b74345",
       "what": "the 4.3\" machine display"
     },
     "faucet": {
@@ -57,28 +57,11 @@
     }
   },
   "release": {
-    "asset": "fw-f21ddab06c0e87d7.tar.gz",
+    "asset": "fw-b5a9adfdf3876a9a.tar.gz",
     "tag": "firmware",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-f21ddab06c0e87d7.tar.gz"
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-b5a9adfdf3876a9a.tar.gz"
   },
   "source": {
-    "commit": "85c748e6f1296479c94465bc754505d088d8c2d6"
-  },
-  "unproven": {
-    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
-    "paths": [
-      "tools/hsm/print-prep/src/base_courses.rs",
-      "tools/hsm/print-prep/src/base_foundation.rs",
-      "tools/hsm/print-prep/src/bin/faucet_plate.rs",
-      "tools/hsm/print-prep/src/bin/sculpted_trial.rs",
-      "tools/hsm/print-prep/src/filled_base.rs",
-      "tools/hsm/print-prep/src/foundation_sequence.rs",
-      "tools/hsm/print-prep/src/lib.rs",
-      "tools/hsm/print-prep/src/plate_sequence.rs",
-      "tools/hsm/print-prep/src/shaft_join_cooling.rs",
-      "tools/hsm/print-prep/src/shaft_stitch.rs",
-      "tools/hsm/print-prep/src/tip_courses.rs",
-      "tools/hsm/print-prep/src/trial_archive.rs"
-    ]
+    "commit": "91b72332f0f8516d9ddff2b6464c4303114f03e8"
   }
 }
