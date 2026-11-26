@@ -2,6 +2,7 @@
 #[allow(dead_code)]
 #[path = "../../../tools/hsm/print-prep/src/mesh.rs"]
 mod mesh;
+mod two_dot;
 
 use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Affine, Face, Plane, Profile, Solid, V3, import, reads, stl_bytes, v2, v3};
@@ -97,10 +98,18 @@ fn bearing(axis: f64, z: f64, y: f64, radius: f64, width: f64) -> Result<Solid> 
 }
 
 fn main() -> Result<()> {
-    let out = std::env::args_os()
-        .nth(1)
-        .map(PathBuf::from)
-        .unwrap_or_else(|| PathBuf::from(HERE));
+    let mut args = std::env::args_os().skip(1).peekable();
+    let two_dots = args.next_if(|v| v == "--two-dot-drop").is_some();
+    let default_out = if two_dots {
+        Path::new(HERE).join("two-dot-drop")
+    } else {
+        PathBuf::from(HERE)
+    };
+    let out = args.next().map(PathBuf::from).unwrap_or(default_out);
+    ensure!(
+        args.next().is_none(),
+        "expected [--two-dot-drop] [output directory]"
+    );
     fs::create_dir_all(&out)?;
     let coupons = Path::new(COUPONS);
     let base = reads::json(coupons.join("geometry.json"))?;
@@ -151,8 +160,24 @@ fn main() -> Result<()> {
             .filter(|p| (p.x - old_lip).abs() < 1e-5 && (p.z - rim_z).abs() < 1e-5)
             .map(|p| p.y),
     )?;
-    let free_cover = &wide["parts"]["cover-wide-preloaded"];
-    let neutral = &wide["parts"]["receiver-wide-neutral"];
+    let donor_dir = if two_dots {
+        coupons.join("solid-pairs")
+    } else {
+        coupons.to_path_buf()
+    };
+    let numbered = if two_dots {
+        reads::json(donor_dir.join("geometry.json"))?
+    } else {
+        Value::Null
+    };
+    let (free_cover, neutral) = if two_dots {
+        (&numbered["parts"]["cover-2"], &numbered["parts"]["receiver-2"])
+    } else {
+        (
+            &wide["parts"]["cover-wide-preloaded"],
+            &wide["parts"]["receiver-wide-neutral"],
+        )
+    };
     let register = |mut p: V3| {
         for plane in [roof_z, rim_z, join_z, b.max.z] {
             if (p.z - plane).abs() < 2e-6 {
@@ -166,7 +191,7 @@ fn main() -> Result<()> {
         }
         p
     };
-    let face = coupon(coupons, free_cover, register)?;
+    let face = coupon(&donor_dir, free_cover, register)?;
     let donor = along(&face, wings_y)?;
     let lower = b.min - v3(1., 1., 1.);
     let upper = b.max + v3(1., 1., 1.);
@@ -179,7 +204,21 @@ fn main() -> Result<()> {
     let radius = number(&base, "scanned_housing_radius_mm")?;
     let pad = bearing(axis, axis_z, y, radius, width)?;
     let cover = body.union(&new_wings)?.union(&pad)?;
-    let part = coupon(coupons, neutral, register)?;
+    let (cover, saddle_change) = if two_dots {
+        let (raised, change) = two_dot::supported_saddle(&cover, axis, axis_z, &base)?;
+        (
+            two_dot::dots(
+                &raised,
+                &numbered["marks"],
+                "cover_group_center_machine_mm",
+                -V3::Z,
+            )?,
+            change,
+        )
+    } else {
+        (cover, Value::Null)
+    };
+    let part = coupon(&donor_dir, neutral, register)?;
     let cheeks = along(&part, pockets_y)?;
     // Start inside the old pocket neck and outside every station of the through-passage.
     let cheek_min = axis + outer - 5.40;
@@ -196,26 +235,40 @@ fn main() -> Result<()> {
         .cut_all(&[old.clone(), mirror(&old)])?
         .union(&right)?
         .union(&mirror(&right))?;
-    let edge = seat.bounds().max.x;
-    let notch = Profile::polygon(&[
-        v2(edge + 0.2, y - 1.4),
-        v2(edge - 1.2, y),
-        v2(edge + 0.2, y + 1.4),
-    ]);
-    let receiver = fixed.cut(
-        &Plane::XY
-            .at(v3(0., 0., roof_z - 1.))
-            .extrude(&notch, hi[2] - roof_z + 2.)?,
-    )?;
+    let receiver = if two_dots {
+        two_dot::dots(
+            &fixed,
+            &numbered["marks"],
+            "receiver_group_center_machine_mm",
+            V3::X,
+        )?
+    } else {
+        let edge = seat.bounds().max.x;
+        let notch = Profile::polygon(&[
+            v2(edge + 0.2, y - 1.4),
+            v2(edge - 1.2, y),
+            v2(edge + 0.2, y + 1.4),
+        ]);
+        fixed.cut(
+            &Plane::XY
+                .at(v3(0., 0., roof_z - 1.))
+                .extrude(&notch, hi[2] - roof_z + 2.)?,
+        )?
+    };
     let turn = Affine {
         m: [[1., 0., 0., 0.], [0., 0., -1., 0.], [0., 1., 0., 0.]],
     };
     let cb = cover.transformed(&turn).bounds();
     let print = Affine::translation(v3(-cb.center().x, -cb.center().y, -cb.min.z)).then_after(&turn);
+    let (cap_name, receiver_name) = if two_dots {
+        ("cover", "receiver")
+    } else {
+        ("pisco-cover", "pisco-receiver")
+    };
     let mut outputs = serde_json::Map::new();
     for (name, solid, transform) in [
-        ("pisco-cover", &cover, print),
-        ("pisco-receiver", &receiver, Affine::IDENTITY),
+        (cap_name, &cover, print),
+        (receiver_name, &receiver, Affine::IDENTITY),
     ] {
         solid.check()?;
         ensure!(
@@ -234,7 +287,7 @@ fn main() -> Result<()> {
         );
     }
     let mut features = reads::json(Path::new(RECEIVERS).join("parts/pisco-receiver.print-features.json"))?;
-    features["source_stl_sha256"] = outputs["pisco-receiver"]["sha256"].clone();
+    features["source_stl_sha256"] = outputs[receiver_name]["sha256"].clone();
     features["producer"] = json!("pisco-wide-snap");
     for row in features["support_free_regions"].as_array_mut().unwrap() {
         let name = row["name"].as_str().unwrap_or("");
@@ -251,17 +304,53 @@ fn main() -> Result<()> {
         row["bounds_source_mm"][2] = json!(pockets_y[0]);
         row["bounds_source_mm"][3] = json!(pockets_y[1]);
     }
-    write_json(&out.join("pisco-receiver.print-features.json"), &features)?;
-    let record = json!({"purpose":"Transfer the neutral wide Mark2 snap to the production hardware seat and axial stages.",
+    write_json(
+        &out.join(format!("{receiver_name}.print-features.json")),
+        &features,
+    )?;
+    let donor_hash = |row: &Value| -> Result<String> {
+        Ok(hash(&fs::read(
+            donor_dir.join(row["stl"].as_str().context("working coupon STL")?),
+        )?))
+    };
+    let mut record = json!({"purpose":"Transfer the neutral wide Mark2 snap to the production hardware seat and axial stages.",
         "parts":outputs,"production_cover_source":caps_path,"production_receiver_source":source,
         "production_cover_sha256":hash(&fs::read(caps_path)?),"production_receiver_sha256":hash(&fs::read(source)?),
-        "coupon_parts":COUPONS,"working_profiles":[free_cover["stl"],neutral["stl"]],
-        "donor_stl_sha256":[hash(&fs::read(coupons.join("cover-wide-preloaded.stl"))?),hash(&fs::read(coupons.join("receiver-wide-neutral.stl"))?)],
+        "coupon_parts":donor_dir,"working_profiles":[free_cover["stl"],neutral["stl"]],
+        "donor_stl_sha256":[donor_hash(free_cover)?,donor_hash(neutral)?],
         "cover_body_y_mm":[b.min.y,b.max.y],"spring_y_mm":wings_y,"pocket_y_mm":pockets_y,
         "pocket_roof_z_mm":roof_z,"print_directions_in_machine":{"cover":[0,1,0],"receiver":[0,0,-1]},
         "coupon_straight_neutral_target":wide["straight_seated_target"]["receiver-wide-neutral"],"free_inward_tip_bias_mm":wide["mark2_free_inward_tip_bias_each_mm"],
         "guide_radial_air_mm":wide["running_gap_radial_mm"],"bearing":{"land_width_mm":width,"land_y_mm":[y-BEARING_LENGTH/2.,y+BEARING_LENGTH/2.],
         "housing_radius_mm":radius,"design_housing_rise_mm":SEATED_HOUSING_RISE,"cover_closure_at_printed_stop_mm":PAD_TO_PRINTED_STOP}});
+    if two_dots {
+        record["purpose"] = json!(
+            "Test the two-dot wing and receiver profiles over the real Pisco with 0.20 mm more saddle take-up."
+        );
+        record
+            .as_object_mut()
+            .unwrap()
+            .remove("coupon_straight_neutral_target");
+        record["coupon_straight_target"] = numbered["pairs"]
+            .as_array()
+            .and_then(|rows| rows.iter().find(|r| r["number"] == 2))
+            .context("two-dot coupon settings")?
+            .clone();
+        record["centered_hook_capture_mm"] = numbered["centered_hook_capture_mm"].clone();
+        record["spring_wall_thickness_mm"] = numbered["spring_wall_thickness_mm"].clone();
+        record["saddle_change_from_previous_full_pair"] = saddle_change;
+        record["marks"] = numbered["marks"].clone();
+        record["bearing"]["previous_pair_housing_rise_input_mm"] = record["bearing"]
+            .as_object_mut()
+            .unwrap()
+            .remove("design_housing_rise_mm")
+            .context("original housing-rise datum")?;
+        record["bearing"]["previous_pair_crest_registration_mm"] = record["bearing"]
+            .as_object_mut()
+            .unwrap()
+            .remove("cover_closure_at_printed_stop_mm")
+            .context("original crest datum")?;
+    }
     write_json(&out.join("geometry.json"), &record)?;
     Ok(())
 }

@@ -59,6 +59,18 @@ Each cover and its receiver share a dot count. The spring walls measure 2.00 mm 
 
 The earlier plate with added key blades was stopped. [Reason for stopping the earlier plate](https://github.com/derekbreden/homesodamachine/blob/13cbca49379e124335d453e543eb243e80613245/hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-trios/physical-result.json)
 
+## Closing the gap along the hook
+
+On the first dotted plate, Derek saw a smaller gap beside the three-dot hook and could rock that pair a little more than the two-dot pair. The next three start from the firm two-dot fit. Match the recessed dots on the cover back and receiver base. Both ends expose the sloping face in the video. [Filmed comparison](prints/2026-11-25-mark1-solid-pairs/physical-result.json)
+
+| Dots | Change from the filmed two-dot pair | What to compare |
+| --- | --- | --- |
+| 1 | Move the retaining shoulder back 0.06 mm, halfway to the filmed three-dot pair. | Does the cover settle farther before you can feel it rock? |
+| 2 | Bring the receiver wall 0.12 mm closer along the long guide face. Blend it back to the original opening at the nose. | Does the slit narrow while the cover still clicks in and releases cleanly? |
+| 3 | Widen the solid foot on the cover from 2.60 to 2.76 mm. Its slope pivots about the existing hook nose. | Does the slit close near the tip while the cover stays square under alternating thumb pressure? |
+
+The 2 and 3 pairs keep the filmed two-dot retaining shoulder. All three retain 2.00 mm wing stock and the 8 mm-wide center post. The geometry command below writes `parts/next-pairs`. Slice `snap-fit-refinements --printer Mark1`. [Measured coupon geometry](parts/next-pairs/geometry.json) · [Mark1 print](prints/2026-11-25-mark1-refinements/print-job.json) · [Fit sections](prints/2026-11-25-mark1-refinements/fit-sections.png)
+
 ## Reproduce the pair
 
 The source takes a constant section from the production bodies. To change only the center support in a later trial, change `FILLER_CONTACT_TRAVEL`. A larger value shortens the post and lets the cover travel farther before touching it. [Coupon source](coupon.rs)

@@ -38,21 +38,32 @@ struct Hook {
 
 impl Section {
     fn receiver(&self, trimmed_seat: &Solid, post: &Solid, hook: Hook, offset: f64) -> Result<Solid> {
+        self.receiver_with_guide(trimmed_seat, post, hook, offset, RUNNING_GAP, 0.)
+    }
+
+    fn receiver_with_guide(&self, trimmed_seat: &Solid, post: &Solid, hook: Hook, offset: f64,
+                           entry_gap: f64, blend_length: f64) -> Result<Solid> {
         let entry_bottom = self.roof_h + ENTRY_DEPTH;
         let return_start = entry_bottom + NOSE_LENGTH;
         let neck_r = hook.nose_r - RUNNING_GAP;
         let lip_h = return_start + (hook.lip_r - hook.nose_r) - offset;
-        let cheek = [
+        let mut cheek = vec![
             (self.trim_r - 0.02, self.roof_h - 0.05),
-            (hook.crest_inner_r - RUNNING_GAP, self.roof_h - 0.05),
-            (hook.crest_inner_r - RUNNING_GAP, self.roof_h),
+            (hook.crest_inner_r - entry_gap, self.roof_h - 0.05),
+            (hook.crest_inner_r - entry_gap, self.roof_h),
+        ];
+        if blend_length > 0. {
+            let r = hook.nose_r + (hook.crest_inner_r - hook.nose_r) * blend_length / ENTRY_DEPTH;
+            cheek.push((r - entry_gap, entry_bottom - blend_length));
+        }
+        cheek.extend([
             (neck_r, entry_bottom),
             (neck_r, return_start - RUNNING_GAP - offset),
             (hook.lip_r, lip_h),
             (hook.lip_r, self.rim_h - RIM_CHAMFER),
             (hook.lip_r - RIM_CHAMFER, self.rim_h),
             (self.trim_r - 0.02, self.rim_h),
-        ];
+        ]);
         let points: Vec<_> = cheek.iter().map(|&(r, h)| v2(self.axis + r, self.back_z - h)).collect();
         let [right, left] = mirrored_bars(&points, self.axis, self.y)?;
         trimmed_seat.union(&right)?.union(&left)?.union(post)
@@ -184,5 +195,5 @@ pub(super) fn write(dir: &Path, cover: &Solid, seat: &Solid, original_post: &Sol
         "post_apex_h_mm": back_z - nose_z, "mark2_free_inward_tip_bias_each_mm": FREE_TIP_BIAS,
         "mark2_straightening_model": "Clamped beam with transverse load at the retaining lip and unloaded length beyond it. The model gives a geometric target; movement and retention require the bench test."});
     fs::write(dir.join("flush-geometry.json"), format!("{}\n", serde_json::to_string_pretty(&dimensions)?))?;
-    solid_pairs::write(&dir.join("solid-pairs"), &s, cover, &trimmed, &full_post, wide, receiver_pose, cover_pose)
+    solid_pairs::write(dir, &s, cover, &trimmed, &full_post, wide, receiver_pose, cover_pose)
 }

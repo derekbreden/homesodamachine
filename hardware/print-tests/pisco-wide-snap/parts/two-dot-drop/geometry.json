@@ -1,0 +1,172 @@
+{
+  "bearing": {
+    "housing_radius_mm": 10.8274,
+    "land_width_mm": 8.0,
+    "land_y_mm": [
+      438.875,
+      440.875
+    ],
+    "previous_pair_crest_registration_mm": -0.0103,
+    "previous_pair_housing_rise_input_mm": 0.035
+  },
+  "centered_hook_capture_mm": 1.8000000000000007,
+  "coupon_parts": "hardware/print-tests/open-snap-section/parts/solid-pairs",
+  "coupon_straight_target": {
+    "crest_land_width_mm": 2.6,
+    "free_crest_angle_to_roof_deg": 2.0348194496228973,
+    "free_outer_edge_closer_to_roof_mm": 0.092317768549029,
+    "number": 2,
+    "retaining_shoulder_offset_mm": 0.0,
+    "straight_seated_overlap_mm3": 0.0
+  },
+  "cover_body_y_mm": [
+    420.5957172019407,
+    462.29999999981374
+  ],
+  "donor_stl_sha256": [
+    "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+    "b7aad04ca5e35a2acdf182d7a6208c03f5fd4fe1f269d3269628ea43628e7ad9"
+  ],
+  "free_inward_tip_bias_mm": 0.8,
+  "guide_radial_air_mm": 0.22,
+  "marks": {
+    "cover_group_center_machine_mm": [
+      84.3,
+      439.875,
+      316.97259999997914
+    ],
+    "depth_mm": 0.6,
+    "form": "Blind conical recesses spaced along Y on the solid saddle back and receiver flange.",
+    "opening_diameter_mm": 2.0,
+    "pitch_mm": 3.4,
+    "receiver_group_center_machine_mm": [
+      93.91000000014901,
+      439.875,
+      353.27499999990687
+    ]
+  },
+  "parts": {
+    "cover": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.2290529888123
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -420.5957172019407
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          62.0943843126297,
+          420.5957172019407,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          462.29999999981374,
+          351.4855059776455
+        ]
+      ],
+      "sha256": "3da5274007dcebb7b3c951cb52f49910326854f7b96a1404fb5a27ac8e81039f",
+      "stl": "cover.stl",
+      "volume_mm3": 12098.843646814694
+    },
+    "receiver": {
+      "assembly_to_stl_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "connected_solids": 1,
+      "installed_bounds_mm": [
+        [
+          59.08999999985099,
+          414.089999999851,
+          310.76999999955297
+        ],
+        [
+          93.91000000014901,
+          469.2989999996498,
+          355.0
+        ]
+      ],
+      "sha256": "fdf85e844751c29162588a0edfc738f3c0fb5734af85948795dbe280764ab909",
+      "stl": "receiver.stl",
+      "volume_mm3": 24597.011499313718
+    }
+  },
+  "pocket_roof_z_mm": 351.54999999981374,
+  "pocket_y_mm": [
+    420.3457172019407,
+    458.1610000003129
+  ],
+  "print_directions_in_machine": {
+    "cover": [
+      0,
+      1,
+      0
+    ],
+    "receiver": [
+      0,
+      0,
+      -1
+    ]
+  },
+  "production_cover_sha256": "e004691a6b2da77994d2954e9be43c74fa6d1a7352bd3b21d55f72edf8071738",
+  "production_cover_source": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "production_receiver_sha256": "c8793920ba71f573465ad0fe44a98d17fcc4da55c111f4cae497cbfd87c613de",
+  "production_receiver_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "purpose": "Test the two-dot wing and receiver profiles over the real Pisco with 0.20 mm more saddle take-up.",
+  "saddle_change_from_previous_full_pair": {
+    "added_stock_mm3": 96.35600127820726,
+    "axial_lead_length_mm": 0.6,
+    "backed_cradle_width_mm": 20.8112313747406,
+    "body_to_outlet_fitting_junction_y_mm": 438.85,
+    "full_height_y_mm": [
+      439.45000000000005,
+      462.29999999981374
+    ],
+    "working_surface_move_machine_xyz_mm": [
+      0.0,
+      0.0,
+      0.2
+    ]
+  },
+  "spring_wall_thickness_mm": 2.0,
+  "spring_y_mm": [
+    420.5957172019407,
+    457.9110000003129
+  ],
+  "working_profiles": [
+    "cover-2.stl",
+    "receiver-2.stl"
+  ]
+}
