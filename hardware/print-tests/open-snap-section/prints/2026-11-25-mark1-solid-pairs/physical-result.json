@@ -1,0 +1,63 @@
+{
+  "purpose": "Record the gap Derek points out and the movement he feels on the three matched Mark1 Pisco snap coupons.",
+  "date": "2026-11-25",
+  "printer": "Mark1",
+  "printer_task_id": "1486975766",
+  "print_job": "print-job.json",
+  "sliced_sections": "section-check.json",
+  "recording": {
+    "filename": "A_0001C028A261125_185652C6_CANON.MP4",
+    "sha256": "747fa88f30bbb154f837c244c13eab72a84893621b602429b84624d2bbe43b4f",
+    "camera_creation_time_utc": "2026-11-26T00:56:52Z",
+    "duration_s": 131.7316,
+    "time_reference": "Seconds from the start of the recording. In the end views the cover is on the left, the receiver backplate on the right. Derek names the pairs as he exchanges them."
+  },
+  "tried": "Each 12 mm cover in its matching receiver, with the printed center post standing in for the regulator. Derek compares the gaps, then presses and rocks each assembled pair in his hands.",
+  "trials": [
+    {
+      "pair": "Three dots, then one dot",
+      "source_seconds": [3.4, 26.4],
+      "derek_on_three": "we've got a much smaller gap there",
+      "derek_on_one": "we have a slightly larger gap there",
+      "observed": "Derek places a fingertip above the upper hook on each pair. Light passes between the hook's long sloping entry face and the facing pocket wall, running toward the backplate. Both clips of this interface show the flat end of the foot beside the backplate. Derek says one moves about “not at all” under his hand.",
+      "photos": [
+        {
+          "file": "physical-result/10.71-three-dot-guide.jpg",
+          "source_seconds": 10.711,
+          "shows": "The three-dot hook and pocket. The strip of blue beneath the long face is the gap Derek points out."
+        },
+        {
+          "file": "physical-result/17.82-one-dot-guide.jpg",
+          "source_seconds": 17.818,
+          "shows": "The same view of the one-dot hook, with a wider strip of blue along the entry face."
+        }
+      ]
+    },
+    {
+      "pair": "Two dots, three dots, then two dots again",
+      "source_seconds": [26.5, 97.3],
+      "derek_on_two": "there's just not as much play there",
+      "observed": "Derek initially describes the movement on two as “not at all.” On three he sees a little more play, and on returning to two he feels less. The flat feet remain behind the catches on both. A line of daylight is still visible along the lower hook's guide on the three-dot pair.",
+      "photos": [
+        {
+          "file": "physical-result/67.90-three-dot-rocking.jpg",
+          "source_seconds": 67.901,
+          "shows": "The three-dot pair held at its two wings during the rocking test. Blue shows along the lower hook's long slope."
+        },
+        {
+          "file": "physical-result/86.82-two-dot-recheck.jpg",
+          "source_seconds": 86.82,
+          "shows": "Derek holds the two-dot pair in the same grip for the repeat comparison."
+        }
+      ]
+    },
+    {
+      "pair": "Three dots, final check",
+      "source_seconds": [99.6, 129.9],
+      "derek": "it's got less tension there",
+      "observed": "Derek returns to three. He says the change allowed its gap to close a bit more and attributes the extra play to the reduced tension."
+    }
+  ],
+  "comparison": "Pairs two and three both have 2.60 mm feet. The three-dot receiver gives the short retaining shoulder 0.12 mm more room along closure. Two retains the neutral shoulder. These are separate surfaces from the long guide where Derek shows daylight.",
+  "scope": "These hand tests establish Derek's comparison on the open coupons. There was no force or displacement measurement, and the full-length cover and purchased regulator were tested separately."
+}

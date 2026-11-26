@@ -1,0 +1,57 @@
+{
+  "purpose": "Record how the full Mark2 cover seats and how the actual Pisco regulator moves inside the assembled pair.",
+  "date": "2026-11-25",
+  "printer": "Mark2",
+  "printer_task_id": "1486863598",
+  "print_job": "print-job.json",
+  "geometry_reference": "../../fit-check.json",
+  "recording": {
+    "filename": "A_0001C029A261125_1902223A_CANON.MP4",
+    "sha256": "2ff186e23f7a5155640d1fba5152a748dbe932d09259b8b209b25185d23d0a7c",
+    "camera_creation_time_utc": "2026-11-26T01:02:22Z",
+    "duration_s": 95.562133,
+    "time_reference": "Seconds from the start of the recording. The final end views show the regulator's white release ring in the opening between the two black printed parts."
+  },
+  "tried": "The full-length cover and one-notch receiver from Mark2, first empty and then with the purchased Pisco RVFUP1/4–1/4-0.3 regulator installed. This cover carries the original 2.00 mm wide feet and the 8 mm wide saddle pad.",
+  "trials": [
+    {
+      "assembly": "Cover on the empty receiver",
+      "source_seconds": [0, 20.2],
+      "derek": "very flush there too",
+      "observed": "Derek turns the empty printed assembly and inspects both sides. The exterior of the seated cover follows the sides of the receiver. He calls the fit good, then removes the cover.",
+      "photos": [
+        {
+          "file": "physical-result/07.01-empty-cover.jpg",
+          "source_seconds": 7.007,
+          "shows": "Side view of the closed cover during Derek's inspection of the outside fit."
+        }
+      ]
+    },
+    {
+      "assembly": "The same cover and receiver with the actual regulator",
+      "source_seconds": [23.5, 93.5],
+      "derek_on_cover": "as far as the cover itself, it is now solid in there",
+      "derek_on_regulator": "it's still pretty loose in there",
+      "derek_on_rotation": "and spins freely",
+      "observed": "Derek places the actual regulator in the open receiver and refits the cover. While the cover stays seated he wiggles the regulator. At 83.28 and 83.45 s the outlet shifts relative to the edge of the cover opening. Derek also reports free rotation. He asks for the saddle to come down slightly to reduce the wiggle.",
+      "photos": [
+        {
+          "file": "physical-result/28.33-regulator-in-receiver.jpg",
+          "source_seconds": 28.328,
+          "shows": "The regulator in the open receiver, before Derek puts the cover back on."
+        },
+        {
+          "file": "physical-result/83.28-regulator-first-position.jpg",
+          "source_seconds": 83.283,
+          "shows": "First position of the white outlet ring relative to the edges of the cover opening."
+        },
+        {
+          "file": "physical-result/83.45-regulator-second-position.jpg",
+          "source_seconds": 83.45,
+          "shows": "The outlet has moved toward the lower slot in the same end view. Both wings remain seated."
+        }
+      ]
+    }
+  ],
+  "scope": "The hand test establishes the fit of the printed cover and the looseness of the regulator in this bench receiver. The film gives no measured clearance, force or saddle adjustment. The two-dot profile and 0.20 mm saddle change belong to the following trial."
+}

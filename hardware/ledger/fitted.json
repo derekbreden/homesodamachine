@@ -520,6 +520,34 @@
       "said": "I mean, I guess the one snap feels just a little bit more well-seated, but it's kind of hard to see.",
       "tried": "the one-notch neutral back-top receiver on the 12 mm Mark2 Pisco snap coupon, directly after trying the two-notch receiver with the same cover. Derek found it hard to distinguish the two fits.",
       "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark2-flush/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-25",
+      "said": "there's just not as much play there",
+      "tried": "the two-dot Mark1 Pisco cover, rocking it in its matched 12 mm receiver immediately after the three-dot pair. The three-dot pair showed a smaller guide gap than one dot and had more play than two dots.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-solid-pairs/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-25",
+      "said": "there's just not as much play there",
+      "tried": "the two-dot Mark1 coupon of the back-top receiver with its matching Pisco cover. It held with less play than the three-dot receiver and cover during the repeat comparison.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-solid-pairs/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-25",
+      "said": "as far as the cover itself, it is now solid in there",
+      "tried": "the full-length Mark2 Pisco cover in its one-notch bench receiver with the actual regulator installed. The cover sat solidly. The regulator still wiggled inside the saddle and spun freely.",
+      "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-25",
+      "said": "very flush there too",
+      "tried": "both sides of the full-length one-notch Mark2 bench receiver with the Pisco cover seated. The cover stayed seated with the actual regulator installed, and the regulator still wiggled and spun in the assembly.",
+      "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2/physical-result.json"
     }
   ]
 }
