@@ -123,5 +123,7 @@
   "fit_toolpaths": "section-check.json",
   "printed_dot_check": "native-paths.json",
   "fit_sections": "fit-sections.png",
-  "seconds_after_other_printer_accepted": 225.0
+  "seconds_after_other_printer_accepted": 225.0,
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-26T02:04:34+00:00"
 }
