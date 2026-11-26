@@ -1,0 +1,55 @@
+{
+  "purpose": "Record the full two-dot cover's grip on the purchased Pisco regulator and measure its remaining push-pull travel from Derek's film.",
+  "date": "2026-11-25",
+  "printer": "Mark2",
+  "printer_task_id": "1487482297",
+  "print_job": "print-job.json",
+  "geometry_reference": "../../parts/two-dot-drop/fit-check.json",
+  "previous_pair": "../2026-11-25-mark2/physical-result.json",
+  "recording": {
+    "filename": "A_0001C035A261125_2217513A_CANON.MP4",
+    "sha256": "bb254f94a7017573848d80a203be6510826e0fb6e8159bf3b5a4dc2d92f7a7ba",
+    "camera_creation_time_utc": "2026-11-26T04:17:52Z",
+    "duration_s": 243.8436,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the beginning of the video. Frame indices start at zero."
+  },
+  "tried": "Derek installed the purchased Pisco RVFUP1/4–1/4-0.3 regulator in the matching full-length two-dot cover and receiver. The saddle on this cover sits 0.20 mm closer to the housing than on the preceding full cover.",
+  "trials": [
+    {
+      "source_seconds": [13, 60.7],
+      "derek": "That is really good.",
+      "derek_on_rotation": "We are getting friction now.",
+      "derek_on_wiggle": "hardly any wiggle at all there",
+      "observed": "After seating the cover he turns the exposed fitting and tries to wiggle the regulator. He reports friction while turning and very little wiggle under this hand test."
+    },
+    {
+      "source_seconds": [61, 76.9],
+      "derek": "We get a little bit of back and forth travel there.",
+      "observed": "Derek reverses pressure along the fitting axis. The molded housing's seam, chevron and round mold mark move lengthwise past the edges of the rectangular rear opening. Both black printed parts remain seated.",
+      "photos": [
+        {"file": "physical-result/72.01-body-position.jpg", "frame": 2158, "source_seconds": 72.0053},
+        {"file": "physical-result/72.61-body-position.jpg", "frame": 2176, "source_seconds": 72.6059}
+      ]
+    },
+    {
+      "source_seconds": [81.5, 98.8],
+      "derek": "maybe this face right here could head in the positive Y direction there a bit to hold that tighter",
+      "observed": "He turns the short outlet toward the camera and indicates the printed face beside the metal fitting and white release collet.",
+      "photos": [
+        {"file": "physical-result/86.99-outlet-end-indicated.jpg", "frame": 2607, "source_seconds": 86.9869}
+      ]
+    }
+  ],
+  "axial_travel": {
+    "annotated_photo": "physical-result/axial-travel.jpg",
+    "representative_push_pull_mm": 0.55,
+    "approximate_range_across_observed_pushes_mm": [0.45, 0.65],
+    "scale": "The cover was printed along machine Y. Six patches of its broad outside face at 72.005 s have 6.59–6.71 image pixels between adjacent printed courses. The submitted 0.24 mm layer height gives about 27.7 pixels/mm along Y. The projected movement is measured perpendicular to those courses.",
+    "layer_height_source": "2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/slice-result.json",
+    "print_direction_source": "../../parts/two-dot-drop/geometry.json",
+    "registration": "Match the printed texture on the block beside the housing, then repeat the registration separately on the rear flange and the cover. At 72.005–72.606 s the independent printed references agree along Y. Fixed check patches differ by up to about 2 pixels. The chevron, circular mark and circumferential seam move 14.3, 13.7 and 15.1 pixels against the block. An affine fit of 46 tracking points on the body gives 15.4–15.5 pixels against the three printed references.",
+    "other_pushes": "The return at 70.003–70.337 s moves the molded features about 12–14 pixels. The position at 75.208 s lies 17–18 pixels from the 72.005 s position, with more change in viewing angle.",
+    "scope": "The range describes the observed hand strokes. Housing rotation, viewing angle, different depths of the housing and printed surfaces, and hand load limit the precision. A stop-to-stop clearance or a stock adjustment would require an independent dimension."
+  }
+}

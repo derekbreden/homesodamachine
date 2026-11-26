@@ -548,6 +548,34 @@
       "said": "very flush there too",
       "tried": "both sides of the full-length one-notch Mark2 bench receiver with the Pisco cover seated. The cover stayed seated with the actual regulator installed, and the regulator still wiggled and spun in the assembly.",
       "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-25",
+      "said": "We are getting friction now.",
+      "tried": "the full-length Mark2 two-dot Pisco cover with the 0.20 mm closer saddle, turning and wiggling the purchased regulator in its matching receiver. Derek felt hardly any wiggle. The regulator still moved along its axis under a push and pull.",
+      "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-two-dot-drop/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-25",
+      "said": "That is really good.",
+      "tried": "the full-length two-dot Mark2 bench receiver with the matching cover and actual Pisco regulator seated. Both printed pieces stayed engaged while he turned and pushed the regulator. Lengthwise travel remained visible through the receiver opening.",
+      "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-two-dot-drop/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-25",
+      "said": "All of 4 these (newest 3 and last two-dot) fit right to me, and look the same to me",
+      "tried": "the three new one-, two- and three-dot Mark1 Pisco cover coupons, each pressed in its matched 12 mm receiver against a printed stand-in post and compared with the previous two-dot pair. The hooks stayed engaged. Light remained visible along individual guides as Derek turned and pressed the samples.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-refinements/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-25",
+      "said": "All of 4 these (newest 3 and last two-dot) fit right to me, and look the same to me",
+      "tried": "the three new Mark1 back-top receiver coupons with their matching marked covers and printed regulator stand-in posts. Derek compared all three with the previous two-dot control. Small guide openings and movement under hand pressure remained visible.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-refinements/physical-result.json"
     }
   ]
 }

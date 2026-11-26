@@ -1,0 +1,66 @@
+{
+  "purpose": "Record the physical gaps and wing movement in Derek's comparison of the previous two-dot control and three new Mark1 coupons.",
+  "date": "2026-11-25",
+  "printer": "Mark1",
+  "printer_task_id": "1487491851",
+  "print_job": "print-job.json",
+  "submitted_sections": "section-check.json",
+  "control": "../2026-11-25-mark1-solid-pairs/physical-result.json",
+  "bench_reference": "../../parts/next-pairs/bench.md",
+  "recording": {
+    "filename": "A_0001C035A261125_2217513A_CANON.MP4",
+    "sha256": "bb254f94a7017573848d80a203be6510826e0fb6e8159bf3b5a4dc2d92f7a7ba",
+    "camera_creation_time_utc": "2026-11-26T04:17:52Z",
+    "duration_s": 243.8436,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the beginning of C035. Derek names the control and the new coupons as he picks them up for the individual presses. The plate's bench instructions identify the previous two-dot pair as the control."
+  },
+  "tried": "Each marked 12 mm cover in its matching receiver, with the printed center post standing in for the regulator. Derek sights through the guides side by side, then presses each assembly in turn and repeats the new two-dot pair.",
+  "derek_on_one_dot": "indistinguishable as far as I can tell",
+  "derek_on_the_four": "it's just really hard for me to tell on these",
+  "derek_in_writing_after_the_test": "All of 4 these (newest 3 and last two-dot) fit right to me, and look the same to me",
+  "side_by_side_seconds": [110, 175],
+  "guide_comparison_photo": "physical-result/four-coupon-guides.jpg",
+  "individual_presses": [
+    {
+      "pair": "Previous two-dot control",
+      "source_seconds": [175.6, 182.2],
+      "observed": "Finger color shows through the upper long guide. The lower guide is dark at the same instant.",
+      "photo": "physical-result/179.01-control.jpg",
+      "photo_seconds": 179.0122
+    },
+    {
+      "pair": "New two-dot",
+      "source_seconds": [183.5, 194.2],
+      "observed": "The two seams look mostly dark at 187.99 s. Blue becomes visible in the lower guide on the later repeat of this same pair.",
+      "photo": "physical-result/187.99-two-dot-first.jpg",
+      "photo_seconds": 187.9878
+    },
+    {
+      "pair": "New one-dot",
+      "source_seconds": [195.7, 215.6],
+      "observed": "Both hooks stay engaged throughout the focused press. A thin line of blue is visible toward the upper toe at 214.01 s.",
+      "photo": "physical-result/214.01-one-dot.jpg",
+      "photo_seconds": 214.0138
+    },
+    {
+      "pair": "New three-dot",
+      "source_seconds": [217.7, 226.4],
+      "observed": "Blue is visible at the lower guide. The lower wing makes the largest individual excursion tracked in these presses, around 223–225 s.",
+      "photo": "physical-result/222.99-three-dot.jpg",
+      "photo_seconds": 222.9894
+    },
+    {
+      "pair": "New two-dot repeat",
+      "source_seconds": [228, 239.4],
+      "observed": "At 236.00 s the blue mat shows through the lower guide beside the hook nose, while the upper guide looks dark.",
+      "photo": "physical-result/236.00-two-dot-repeat.jpg",
+      "photo_seconds": 236.0024
+    }
+  ],
+  "motion_in_the_film": {
+    "method": "Register the end face of the rigid receiver in each frame using its printed grain. Track the texture of each wing near its toe and measure the change across the guide, subtracting the apparent movement of an adjacent patch of receiver. Use the 8 mm center post in the same end view for the approximate scale. The frames cover the changes in pose and hand pressure during the presses.",
+    "reported_spans": "Central 90 percent of positions among focused frames with at least 28 matching points in both the wing and local reference, at least 100 in the receiver registration and under 0.8 pixel of residual movement in the nearby reference. At the lower wing, 2.4–3.2 pixels occur on the one-dot, old control and first two-dot press, 4.2 pixels on the two-dot repeat and 5.6 pixels on three-dot. The 8 mm post spans approximately 165–192 pixels across the reference images. These excursions are roughly 0.1–0.25 mm under the hand loads seen.",
+    "interpretation": "All four remain caught. The old upper guide and the new two-dot and three-dot lower guides pass light in the selected frames. The repeat of the same new two-dot pair shows how the visible slit changes with angle, side and pressure. The film supports these individual observations. The hand force, near-face shadows and depth of the 12 mm slots limit a physical clearance or stiffness ranking across all four pairs."
+  }
+}
