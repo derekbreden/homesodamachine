@@ -1,0 +1,433 @@
+{
+  "cover_donor_sha256": "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+  "donor": "hardware/print-tests/open-snap-section/parts/easy-entry",
+  "purpose": "Register the full hardware-specific three-dot covers, their matched receiver fixtures and the exact coupon they reproduce.",
+  "receiver_donor_sha256": "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a",
+  "source_caps_sha256": "e004691a6b2da77994d2954e9be43c74fa6d1a7352bd3b21d55f72edf8071738",
+  "source_installed_caps": "hardware/printed-parts/enclosure/rear-equipment-caps/rear-equipment-caps-installed.step.npz",
+  "source_receiver": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "source_receiver_sha256": "c8793920ba71f573465ad0fe44a98d17fcc4da55c111f4cae497cbfd87c613de",
+  "stations": [
+    {
+      "cover": "asse-snap-cap",
+      "meshes": {
+        "asse-receiver": {
+          "assembly_to_stl_matrix_mm": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "connected_solids": 1,
+          "installed_bounds_mm": [
+            [
+              0.650000000372529,
+              390.20000000018626,
+              303.21999999973923
+            ],
+            [
+              56.950000000186265,
+              474.29999999981374,
+              355.0
+            ]
+          ],
+          "sha256": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda",
+          "volume_mm3": 76397.26746175619
+        },
+        "asse-snap-cap": {
+          "assembly_to_stl_matrix_mm": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -28.800000000279397
+            ],
+            [
+              0.0,
+              6.123233995736766e-17,
+              -1.0,
+              330.43553604744375
+            ],
+            [
+              0.0,
+              1.0,
+              6.123233995736766e-17,
+              -396.45325459353626
+            ]
+          ],
+          "connected_solids": 1,
+          "installed_bounds_mm": [
+            [
+              3.651860222220421,
+              396.45325459353626,
+              309.42107209470123
+            ],
+            [
+              53.94813977833837,
+              461.07825459353626,
+              351.4855059776455
+            ]
+          ],
+          "sha256": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+          "volume_mm3": 33072.48696243928
+        }
+      },
+      "receiver": "asse-receiver",
+      "wings": [
+        {
+          "cover_reference_z": 351.45000000018626,
+          "lip_x": 5.85186022222042,
+          "lip_z": 340.929999999702,
+          "outer_wall_x": 3.651860222220421,
+          "pilot_x": 7.25747590959072,
+          "pilot_z": 338.3300000000745,
+          "receiver_stop_z": 351.679999999702,
+          "receiver_y": [
+            396.20325459353626,
+            438.3679848071188
+          ],
+          "sign": -1.0,
+          "spring_join_z": 323.0500000001863,
+          "spring_y": [
+            396.45325459353626,
+            438.1179848071188
+          ]
+        },
+        {
+          "cover_reference_z": 351.45000000018626,
+          "lip_x": 51.74813977833837,
+          "lip_z": 340.929999999702,
+          "outer_wall_x": 53.94813977833837,
+          "pilot_x": 50.34252409096807,
+          "pilot_z": 338.3300000000745,
+          "receiver_stop_z": 351.679999999702,
+          "receiver_y": [
+            396.20325459353626,
+            438.3679848071188
+          ],
+          "sign": 1.0,
+          "spring_join_z": 323.0500000001863,
+          "spring_y": [
+            396.45325459353626,
+            438.1179848071188
+          ]
+        }
+      ],
+      "working_to_machine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "cover": "meter-snap-cap",
+      "meshes": {
+        "meter-receiver": {
+          "assembly_to_stl_matrix_mm": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "connected_solids": 1,
+          "installed_bounds_mm": [
+            [
+              83.04999999981374,
+              382.0,
+              251.94000000040978
+            ],
+            [
+              103.15000000037253,
+              447.0,
+              322.59999999962747
+            ]
+          ],
+          "sha256": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+          "volume_mm3": 46537.035075049826
+        },
+        "meter-snap-cap": {
+          "assembly_to_stl_matrix_mm": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              -77.675
+            ],
+            [
+              0.0,
+              6.123233995736766e-17,
+              -1.0,
+              285.3
+            ],
+            [
+              0.0,
+              1.0,
+              6.123233995736766e-17,
+              -395.7586388103664
+            ]
+          ],
+          "connected_solids": 1,
+          "installed_bounds_mm": [
+            [
+              56.950000000372526,
+              395.7586388103664,
+              258.1499999996275
+            ],
+            [
+              98.43550597690046,
+              433.7586388103664,
+              312.45000000037254
+            ]
+          ],
+          "sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+          "volume_mm3": 24046.979857867344
+        }
+      },
+      "receiver": "meter-receiver",
+      "wings": [
+        {
+          "cover_reference_z": 98.39999999962747,
+          "lip_x": -310.25000000037255,
+          "lip_z": 87.75,
+          "outer_wall_x": -312.45000000037254,
+          "pilot_x": -308.84438431300225,
+          "pilot_z": 85.15000000037253,
+          "receiver_stop_z": 98.5,
+          "receiver_y": [
+            395.5086388103664,
+            417.3457172019407
+          ],
+          "sign": -1.0,
+          "spring_join_z": 67.80000000037252,
+          "spring_y": [
+            395.7586388103664,
+            417.0957172019407
+          ]
+        },
+        {
+          "cover_reference_z": 98.39999999962747,
+          "lip_x": -260.34999999962747,
+          "lip_z": 87.75,
+          "outer_wall_x": -258.1499999996275,
+          "pilot_x": -261.75561568699777,
+          "pilot_z": 85.15000000037253,
+          "receiver_stop_z": 98.5,
+          "receiver_y": [
+            395.5086388103664,
+            434.0086388103664
+          ],
+          "sign": 1.0,
+          "spring_join_z": 67.80000000037252,
+          "spring_y": [
+            395.7586388103664,
+            433.7586388103664
+          ]
+        }
+      ],
+      "working_to_machine": [
+        [
+          -0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "cover": "regulator-snap-cap",
+      "meshes": {
+        "regulator-snap-cap": {
+          "assembly_to_stl_matrix_mm": [
+            [
+              6.123233995736766e-17,
+              0.0,
+              1.0,
+              -332.06964183645323
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              -307.6568368738517
+            ],
+            [
+              -1.0,
+              0.0,
+              6.123233995736766e-17,
+              -19.323910304345187
+            ]
+          ],
+          "connected_solids": 1,
+          "installed_bounds_mm": [
+            [
+              -55.323910304345176,
+              286.6036337148398,
+              315.92413759604096
+            ],
+            [
+              -19.32391030434517,
+              328.7100400328636,
+              348.25065205432475
+            ]
+          ],
+          "sha256": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+          "volume_mm3": 17978.012866379016
+        },
+        "water-regulator-receiver": {
+          "assembly_to_stl_matrix_mm": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          ],
+          "connected_solids": 1,
+          "installed_bounds_mm": [
+            [
+              -61.580000000074506,
+              283.59999999962747,
+              335.0
+            ],
+            [
+              1.3799999998882413,
+              331.71999999973923,
+              355.0
+            ]
+          ],
+          "sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+          "volume_mm3": 40723.41376239041
+        }
+      },
+      "receiver": "water-regulator-receiver",
+      "wings": [
+        {
+          "cover_reference_z": 348.2151460768655,
+          "lip_x": 288.8036337148398,
+          "lip_z": 337.79514607694,
+          "outer_wall_x": 286.6036337148398,
+          "pilot_x": 290.2092494022101,
+          "pilot_z": 335.19514607731253,
+          "receiver_stop_z": 348.54514607694,
+          "receiver_y": [
+            19.073910304345173,
+            55.573910304345176
+          ],
+          "sign": -1.0,
+          "spring_join_z": 320.8151460768655,
+          "spring_y": [
+            19.323910304345173,
+            55.323910304345176
+          ]
+        },
+        {
+          "cover_reference_z": 348.2151460768655,
+          "lip_x": 326.5100400328636,
+          "lip_z": 337.79514607694,
+          "outer_wall_x": 328.7100400328636,
+          "pilot_x": 325.1044243454933,
+          "pilot_z": 335.19514607731253,
+          "receiver_stop_z": 348.54514607694,
+          "receiver_y": [
+            19.07391030434517,
+            55.57391030434517
+          ],
+          "sign": 1.0,
+          "spring_join_z": 320.8151460768655,
+          "spring_y": [
+            19.32391030434517,
+            55.32391030434517
+          ]
+        }
+      ],
+      "working_to_machine": [
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.0,
+          1.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "working_frame": "X across wings, Y along hooks, +Z closing. Receiver STLs retain machine coordinates and print -Z up. Covers retain their production slicer frames."
+}

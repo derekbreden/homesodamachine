@@ -1,0 +1,371 @@
+{
+  "purpose": "Measure the selected three-dot snap on complete ASSE, flow-meter and water-regulator fixture meshes with their purchased hardware.",
+  "geometry": "geometry.json",
+  "bench_donor": "../../../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/physical-result.json",
+  "original_hardware_fits": "../../../../printed-parts/enclosure/rear-equipment-caps/production-fit.json",
+  "methods": {
+    "faces": "Intersect the independent cover and receiver STL triangles with four transverse planes per wing, 0.04 mm inside each working end and at 30 and 50 percent of its length. Compare both walls of each cap hook and the outer contour of each fixed cheek with the actual three-dot coupon STLs at the same transverse radii and closing heights.",
+    "motion": "Transform the complete cover and its hardware to the installed station frame. A cantilever loaded at its retaining lip straightens the measured free wing with the same rotation of its section as on the coupon. At each sampled closing depth, use the straight three-dot coupon spread plus up to 0.055 mm of outward clearance, or the closest collision-free spread near the fixed foot stop. Find triangle-to-triangle distances to the full receiver and each listed purchased component.",
+    "hardware_loading": "Starting 35 mm outside each fixture, advance the real hardware along the closing axis. The ASSE and meter start 16 mm forward of their installed stations and then slide back along their axes. Compare the original fixed receiver against the full-size trial through the same sampled poses. Flexible plumbing and the removable ASSE vent sleeve are taken off for installation and release."
+  },
+  "stations": {
+    "asse": {
+      "mesh_sha256": {
+        "asse-receiver": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda",
+        "asse-snap-cap": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f"
+      },
+      "donor_sections": {
+        "cover": {
+          "-1.0": {
+            "compared_face_crossings": 1312,
+            "max_radial_difference_mm": 2e-05
+          },
+          "1.0": {
+            "compared_face_crossings": 1312,
+            "max_radial_difference_mm": 2e-05
+          }
+        },
+        "receiver": {
+          "-1.0": {
+            "compared_face_crossings": 688,
+            "max_radial_difference_mm": 1.2e-05
+          },
+          "1.0": {
+            "compared_face_crossings": 688,
+            "max_radial_difference_mm": 1.1e-05
+          }
+        }
+      },
+      "full_cover_direct_press": {
+        "samples": 228,
+        "all_sampled_poses_clear": true,
+        "peak_opening_per_wing_from_free_mm": 3.800422,
+        "relaxed_start_mm": 30.0,
+        "relaxed_start_spread_mm": 0.0,
+        "hardware_closing_displacement_mm": 0.091,
+        "gear_available_to_far_seat_mm": 0.25
+      },
+      "loaded_retention": {
+        "cover_closing_translation_from_original_nominal_mm": 0.2217,
+        "sampled_distance_before_nominal_foot_stop_mm": 0.0083,
+        "sides": [
+          {
+            "side": -1,
+            "loaded_hook_capture_past_lip_mm": 1.676385,
+            "loaded_wing_spread_from_free_mm": 0.984178
+          },
+          {
+            "side": 1,
+            "loaded_hook_capture_past_lip_mm": 1.676385,
+            "loaded_wing_spread_from_free_mm": 0.984178
+          }
+        ]
+      },
+      "purchased_hardware_at_nominal_pose": [
+        {
+          "part": "asse1022-assembly",
+          "original_cap_nominal_mm": 0.25,
+          "three_dot_cap_nominal_mm": 0.25,
+          "original_receiver_nominal_mm": 0.245069,
+          "three_dot_receiver_nominal_mm": 0.245069
+        },
+        {
+          "part": "gagira-coupling",
+          "original_cap_nominal_mm": 0.147133,
+          "three_dot_cap_nominal_mm": 0.147132,
+          "original_receiver_nominal_mm": 0.297261,
+          "three_dot_receiver_nominal_mm": 0.297261
+        }
+      ],
+      "hardware_loading_and_reverse": {
+        "station_frame_waypoints_mm": [
+          [
+            0.0,
+            -16.0,
+            -35.0
+          ],
+          [
+            0.0,
+            -16.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "samples": 258,
+        "sampled_contacts": 0,
+        "smallest_original_clearance_mm": 0.245069,
+        "smallest_trial_clearance_mm": 0.245069
+      }
+    },
+    "meter": {
+      "mesh_sha256": {
+        "meter-receiver": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+        "meter-snap-cap": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3"
+      },
+      "donor_sections": {
+        "cover": {
+          "-1.0": {
+            "compared_face_crossings": 1312,
+            "max_radial_difference_mm": 8e-06
+          },
+          "1.0": {
+            "compared_face_crossings": 1312,
+            "max_radial_difference_mm": 8e-06
+          }
+        },
+        "receiver": {
+          "-1.0": {
+            "compared_face_crossings": 688,
+            "max_radial_difference_mm": 1.2e-05
+          },
+          "1.0": {
+            "compared_face_crossings": 688,
+            "max_radial_difference_mm": 1.3e-05
+          }
+        }
+      },
+      "full_cover_direct_press": {
+        "samples": 228,
+        "all_sampled_poses_clear": true,
+        "peak_opening_per_wing_from_free_mm": 3.800422,
+        "relaxed_start_mm": 30.0,
+        "relaxed_start_spread_mm": 0.0,
+        "hardware_closing_displacement_mm": 0.0,
+        "gear_available_to_far_seat_mm": 0.15
+      },
+      "loaded_retention": {
+        "cover_closing_translation_from_original_nominal_mm": 0.0917,
+        "sampled_distance_before_nominal_foot_stop_mm": 0.0083,
+        "sides": [
+          {
+            "side": -1,
+            "loaded_hook_capture_past_lip_mm": 1.676384,
+            "loaded_wing_spread_from_free_mm": 0.984178
+          },
+          {
+            "side": 1,
+            "loaded_hook_capture_past_lip_mm": 1.676384,
+            "loaded_wing_spread_from_free_mm": 0.984178
+          }
+        ]
+      },
+      "purchased_hardware_at_nominal_pose": [
+        {
+          "part": "digiten-flow/1",
+          "original_cap_nominal_mm": 0.22852,
+          "three_dot_cap_nominal_mm": 0.22852,
+          "original_receiver_nominal_mm": 0.149994,
+          "three_dot_receiver_nominal_mm": 0.149994
+        },
+        {
+          "part": "digiten-flow/2",
+          "original_cap_nominal_mm": 0.472575,
+          "three_dot_cap_nominal_mm": 0.472575,
+          "original_receiver_nominal_mm": 1.750019,
+          "three_dot_receiver_nominal_mm": 1.750019
+        },
+        {
+          "part": "digiten-flow/3",
+          "original_cap_nominal_mm": 0.472575,
+          "three_dot_cap_nominal_mm": 0.472575,
+          "original_receiver_nominal_mm": 0.649994,
+          "three_dot_receiver_nominal_mm": 0.649994
+        },
+        {
+          "part": "digiten-flow/4",
+          "original_cap_nominal_mm": 4.6,
+          "three_dot_cap_nominal_mm": 5.147117,
+          "original_receiver_nominal_mm": 0.151184,
+          "three_dot_receiver_nominal_mm": 0.151184
+        },
+        {
+          "part": "digiten-flow/5",
+          "original_cap_nominal_mm": 8.181504,
+          "three_dot_cap_nominal_mm": 8.181504,
+          "original_receiver_nominal_mm": 5.242693,
+          "three_dot_receiver_nominal_mm": 5.242693
+        },
+        {
+          "part": "digiten-flow/6",
+          "original_cap_nominal_mm": 8.201049,
+          "three_dot_cap_nominal_mm": 8.201049,
+          "original_receiver_nominal_mm": 0.918404,
+          "three_dot_receiver_nominal_mm": 0.918404
+        },
+        {
+          "part": "digiten-flow/7",
+          "original_cap_nominal_mm": 4.549988,
+          "three_dot_cap_nominal_mm": 5.079267,
+          "original_receiver_nominal_mm": 0.150002,
+          "three_dot_receiver_nominal_mm": 0.150002
+        },
+        {
+          "part": "digiten-flow/8",
+          "original_cap_nominal_mm": 4.450012,
+          "three_dot_cap_nominal_mm": 4.979291,
+          "original_receiver_nominal_mm": 0.899994,
+          "three_dot_receiver_nominal_mm": 0.899994
+        },
+        {
+          "part": "digiten-flow/9",
+          "original_cap_nominal_mm": 5.474474,
+          "three_dot_cap_nominal_mm": 6.156685,
+          "original_receiver_nominal_mm": 0.149994,
+          "three_dot_receiver_nominal_mm": 0.149994
+        },
+        {
+          "part": "digiten-flow/10",
+          "original_cap_nominal_mm": 5.47448,
+          "three_dot_cap_nominal_mm": 6.156691,
+          "original_receiver_nominal_mm": 0.149994,
+          "three_dot_receiver_nominal_mm": 0.149994
+        },
+        {
+          "part": "digiten-flow/11",
+          "original_cap_nominal_mm": 10.36893,
+          "three_dot_cap_nominal_mm": 10.812443,
+          "original_receiver_nominal_mm": 0.149994,
+          "three_dot_receiver_nominal_mm": 0.149994
+        },
+        {
+          "part": "digiten-flow/12",
+          "original_cap_nominal_mm": 5.47448,
+          "three_dot_cap_nominal_mm": 6.156691,
+          "original_receiver_nominal_mm": 0.149994,
+          "three_dot_receiver_nominal_mm": 0.149994
+        }
+      ],
+      "hardware_loading_and_reverse": {
+        "station_frame_waypoints_mm": [
+          [
+            0.0,
+            -16.0,
+            -35.0
+          ],
+          [
+            0.0,
+            -16.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "samples": 258,
+        "sampled_contacts": 0,
+        "smallest_original_clearance_mm": 0.100006,
+        "smallest_trial_clearance_mm": 0.100006
+      }
+    },
+    "regulator": {
+      "mesh_sha256": {
+        "regulator-snap-cap": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+        "water-regulator-receiver": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2"
+      },
+      "donor_sections": {
+        "cover": {
+          "-1.0": {
+            "compared_face_crossings": 1312,
+            "max_radial_difference_mm": 2.6e-05
+          },
+          "1.0": {
+            "compared_face_crossings": 1312,
+            "max_radial_difference_mm": 2.6e-05
+          }
+        },
+        "receiver": {
+          "-1.0": {
+            "compared_face_crossings": 688,
+            "max_radial_difference_mm": 1.8e-05
+          },
+          "1.0": {
+            "compared_face_crossings": 688,
+            "max_radial_difference_mm": 2e-05
+          }
+        }
+      },
+      "full_cover_direct_press": {
+        "samples": 228,
+        "all_sampled_poses_clear": true,
+        "peak_opening_per_wing_from_free_mm": 3.800422,
+        "relaxed_start_mm": 30.0,
+        "relaxed_start_spread_mm": 0.0,
+        "hardware_closing_displacement_mm": 0.09,
+        "gear_available_to_far_seat_mm": 0.251
+      },
+      "loaded_retention": {
+        "cover_closing_translation_from_original_nominal_mm": 0.3217,
+        "sampled_distance_before_nominal_foot_stop_mm": 0.0083,
+        "sides": [
+          {
+            "side": -1,
+            "loaded_hook_capture_past_lip_mm": 1.676384,
+            "loaded_wing_spread_from_free_mm": 0.984178
+          },
+          {
+            "side": 1,
+            "loaded_hook_capture_past_lip_mm": 1.676384,
+            "loaded_wing_spread_from_free_mm": 0.984178
+          }
+        ]
+      },
+      "purchased_hardware_at_nominal_pose": [
+        {
+          "part": "flow-regulator",
+          "original_cap_nominal_mm": 0.24619,
+          "three_dot_cap_nominal_mm": 0.24619,
+          "original_receiver_nominal_mm": 0.25,
+          "three_dot_receiver_nominal_mm": 0.25
+        }
+      ],
+      "hardware_loading_and_reverse": {
+        "station_frame_waypoints_mm": [
+          [
+            0.0,
+            -0.0,
+            -35.0
+          ],
+          [
+            0.0,
+            -0.0,
+            0.0
+          ]
+        ],
+        "samples": 129,
+        "sampled_contacts": 0,
+        "smallest_original_clearance_mm": 0.25,
+        "smallest_trial_clearance_mm": 0.25
+      },
+      "fixed_shoulder_backing": {
+        "method": "An independent section and ray check spans the continuous working shoulder at 51 axial stations on each flank. A single unbroken shoulder must extend out from the backing at every sampled height.",
+        "mesh_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+        "sides": [
+          {
+            "sign": -1.0,
+            "longitudinal_sections": 51,
+            "at_each_section": 41,
+            "ray_count": 2091,
+            "max_abs_ray_error_mm": 3.7511810928592126e-06,
+            "max_abs_section_error_mm": 1.7763568394002505e-15,
+            "split_lips": 0
+          },
+          {
+            "sign": 1.0,
+            "longitudinal_sections": 51,
+            "at_each_section": 41,
+            "ray_count": 2091,
+            "max_abs_ray_error_mm": 2.0113351436812366e-05,
+            "max_abs_section_error_mm": 2.0000000001463292e-05,
+            "split_lips": 0
+          }
+        ]
+      }
+    }
+  }
+}

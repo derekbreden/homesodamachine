@@ -1,5 +1,40 @@
 # Individual equipment snap pairs
 
+## Full-size three-dot pairs
+
+Derek preferred the three-dot pair for its easy start and steadier hold in the
+[C037 hand comparison](../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/physical-result.json).
+The [full ASSE, flow-meter and water-regulator pairs](parts/three-dot) carry both
+working sides of that snap on their fitted hardware seats. The
+[full Pisco pair](../pisco-wide-snap/parts/three-dot) also carries its short-outlet bearing and end stops.
+
+| Hardware | Fit the hardware into its receiver | Fit the cover |
+| --- | --- | --- |
+| ASSE and threaded inlet coupling | With the drain sleeve off, place the chain 16 mm forward and slide the inlet into the rear bore. | Align the drain opening with the vent and the extended end with the coupling. Press toward the fixture roof. |
+| Digiten flow meter | Dress its flexible leads into the wire exit. Enter 16 mm forward and slide aft under the fixed shoulders. | Put the shorter upper wing toward the Pisco side. Press straight from the west toward the flank. |
+| YZMSZ water regulator | Place the housing and smaller outlet into their fitted bores. | Align the cover’s outlet relief with the collet and press toward the fixture roof. |
+
+Clear the accessible supports first. At each station, press on the rigid spine with the
+component seated. Check the start, the click on both sides, and whether the rigid
+component or the cover can move separately. Spread the exposed wings to release
+the cover. The ASSE retains the wrench flats, inlet-adapter shoulders and vent opening.
+The meter retains the relieved saddle, wire passage and backed upper shoulder.
+The water regulator retains its fitted body-to-outlet transition and collet access.
+
+The six hooks have 1.68 mm of modeled radial capture near the seated stop. The
+complete hardware enters all three fixtures along the original loading paths.
+The [mesh and loading measurements](parts/three-dot/fit-check.json) and
+[print frames](parts/three-dot/geometry.json) identify each checked file.
+The ASSE, meter and regulator covers stand on their production axial ends.
+Their separate receivers retain the enclosure’s ceiling-down print orientation.
+
+```sh
+tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
+  -p hsm-tooling --bin equipment-snap-receivers -- --three-dot
+```
+
+## Raised-crest pairs
+
 Each full-length production cover prints beside a separate receiver that accepts the actual component. The test transfers the raised, flat wing crests that held the Pisco cover steady in Derek’s [filmed comparison](https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json).
 
 | Plate | Matched parts | What the fixture retains |

@@ -1,6 +1,7 @@
 //! The individual bench receivers retain each complete production seat and its rooted enclosure stock.
 #[path = "../rear-equipment-corner/regions.rs"]
 mod regions;
+mod three_dot;
 
 use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Solid, import, stl_bytes, v3};
@@ -17,6 +18,11 @@ fn write_json(path: &Path, data: &Value) -> Result<()> {
 }
 
 fn main() -> Result<()> {
+    let mut args = std::env::args_os().skip(1);
+    if let Some(arg) = args.next() {
+        ensure!(arg == "--three-dot" && args.next().is_none(), "usage: equipment-snap-receivers [--three-dot]");
+        return three_dot::write();
+    }
     let here = Path::new(HERE);
     let spec: Value = serde_json::from_slice(&fs::read(here.join("inputs.json"))?)?;
     let model = spec["source_model"].as_str().context("production enclosure model")?;
