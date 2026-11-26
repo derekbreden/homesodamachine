@@ -1,0 +1,230 @@
+{
+  "purpose": "Record Derek's comparison of the three Mark2 snap coupons and his hand test of the full one-dot Pisco cover with its real regulator.",
+  "date": "2026-11-26",
+  "printer": "Mark2",
+  "printer_task_id": "1488385307",
+  "print_job": "print-job.json",
+  "recording": {
+    "filename": "A_0001C037A261126_1335393A_CANON.MP4",
+    "sha256": "d28c9c64279693ed504209bf61223025fdf0603172b4494252233d29e7a1e6ac",
+    "camera_creation_time_utc": "2026-11-26T19:35:40Z",
+    "duration_s": 228.394833,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the beginning of the Canon recording. Frame indices start at zero."
+  },
+  "coupons": {
+    "scope": "Three 12 mm matched cover and receiver pairs with a printed center post. Derek shows all three dot patterns at the start, presses the pairs together and compares how steady each feels while seated.",
+    "photo": "physical-result/three-seated-coupons.jpg",
+    "source_geometry": "../../../open-snap-section/parts/easy-entry/geometry.json",
+    "one_dot": {
+      "entry_seconds": [
+        14,
+        23
+      ],
+      "derek_on_entry": "We are very good there. Love it.",
+      "seated_seconds": [
+        24,
+        32
+      ],
+      "derek_on_fit": "It feels pretty stable, but not as stable as the three-dot did.",
+      "repeat_seconds": [
+        60,
+        91
+      ],
+      "photo_frame": 2038,
+      "photo_seconds": 68.0013,
+      "observed": "He points at the lower wing and its guide. He describes the visible gap as smaller than on three dots and feels slightly more movement in the one-dot pair.",
+      "derek_interprets": "He suggests that less bearing area at the tension points allows the extra motion. The recording shows the seam from its open end. Contact area through the part was unmeasured."
+    },
+    "two_dots": {
+      "entry_seconds": [
+        92,
+        100
+      ],
+      "derek_on_entry": "Slips on good.",
+      "seated_seconds": [
+        104,
+        110
+      ],
+      "derek_on_fit": "It feels just a little bit loose",
+      "photo_frame": 2967,
+      "photo_seconds": 98.9989,
+      "observed": "He fits the two-dot pair, holds it up to the lens and rocks it. He qualifies the looseness as relative during the comparison."
+    },
+    "three_dots": {
+      "entry_seconds": [
+        32,
+        39
+      ],
+      "derek_on_entry": "Comes on easy.",
+      "seated_seconds": [
+        40,
+        58
+      ],
+      "derek_on_fit": "It feels just a little bit more steady in there.",
+      "photo_frame": 1475,
+      "photo_seconds": 49.2158,
+      "observed": "Both hooks catch. A narrow strip of blue is visible at the lower guide. Derek points out the gap and says it may be present even when the fit is snug.",
+      "choice_seconds": [
+        111,
+        116
+      ],
+      "derek_after_correcting_the_dot_count": "Three just feels the best of those."
+    }
+  },
+  "full_pisco": {
+    "hardware": "Pisco RVFUP1/4-1/4-0.3 regulator",
+    "source_sections": "../../parts/easy-entry/fit-check.json",
+    "pair_identity": "The full cover carries one exterior dot. Sections of the two full-size STLs match the one-dot coupon cover and receiver along the 37.315 mm working length. The full pair adds the saddle, end guides, axial stops and short-outlet taper bearing. The two- and three-dot pairs on the plate are 12 mm coupons.",
+    "photo": "physical-result/full-pisco.jpg",
+    "photo_frames": [
+      3596,
+      4016,
+      6533
+    ],
+    "installation_seconds": [
+      117,
+      134
+    ],
+    "observed_installation": "Derek puts the purchased regulator in its receiver, presses the full cover over it and works the exposed fitting along its axis. The single dot is visible on the cover as he turns the assembled pair.",
+    "axial_test_seconds": [
+      135,
+      211
+    ],
+    "derek_on_remaining_motion": "We do have a small amount of movement still, but it seems to be significantly less than it was.",
+    "observed_motion": "Derek shows the short outlet up close, calls out alternate positions and turns the pair to show the long inlet in the receiver's rear bore. The white release collets have travel of their own.",
+    "final_verdict_seconds": [
+      210,
+      227
+    ],
+    "derek_on_amount": "Not much. Pretty much perfect.",
+    "derek_on_the_snap": "A clean, well-seated snap, and it doesn't wobble, and it's easy to get on.",
+    "preceding_full_trial": "../2026-11-25-mark2-axial-grip/physical-result.json",
+    "axial_motion": {
+      "representative_hand_stroke_mm": 0.25,
+      "approximate_cover_registered_range_mm": [
+        0.2,
+        0.3
+      ],
+      "approximate_uncertainty_mm": 0.1,
+      "photo": "physical-result/rigid-outlet-stroke.jpg",
+      "frames": [
+        {
+          "frame": 4958,
+          "seconds": 165.4319,
+          "file": "physical-result/165.43-short-outlet.jpg"
+        },
+        {
+          "frame": 4962,
+          "seconds": 165.5654,
+          "file": "physical-result/165.57-short-outlet.jpg"
+        }
+      ],
+      "tracked_surface": "Two edges of the bright band on the rigid metal fitting behind the short white release collet. The PET-GF cover lip to the left of the outlet is the reference.",
+      "method": "Register the texture on the printed cover face to frame 4780 by an affine fit using up to 160 matched corners. On each metal edge track 28 intensity profiles along the projected regulator axis, spread across a 54-degree arc of the ring. Take the median shift of each edge. For each of three reversals compare the medians of the frames on either side. Repeat the registration on a smaller patch of the same print and on the opposite receiver face.",
+      "scale": {
+        "scan": "../../../../reference/compact-inline-candidates/dimensions.json",
+        "short_collet_diameter_mm": 12.248,
+        "ellipse_frame": 4780,
+        "fitted_collet_major_minor_px": [
+          328.45,
+          279.75
+        ],
+        "points_on_outline": 294,
+        "projected_regulator_axis_px_per_mm": 14.05,
+        "projection": "The release ring supplies its diameter only. Its elliptical outline gives scale and viewing angle. The projected axial scale is the square root of major diameter squared minus minor diameter squared, divided by the physical diameter."
+      },
+      "strokes": [
+        {
+          "before_frames": [
+            4798,
+            4800,
+            4802
+          ],
+          "after_frames": [
+            4810,
+            4812,
+            4814,
+            4816,
+            4818
+          ],
+          "cover_registered_edges_mm": [
+            0.23,
+            0.23
+          ],
+          "receiver_registered_edges_mm": [
+            0.16,
+            0.13
+          ]
+        },
+        {
+          "before_frames": [
+            4862,
+            4864,
+            4866,
+            4868
+          ],
+          "after_frames": [
+            4874,
+            4876,
+            4878,
+            4880
+          ],
+          "cover_registered_edges_mm": [
+            0.3,
+            0.3
+          ],
+          "receiver_registered_edges_mm": [
+            0.39,
+            0.4
+          ]
+        },
+        {
+          "before_frames": [
+            4954,
+            4956,
+            4958
+          ],
+          "after_frames": [
+            4962,
+            4964,
+            4966,
+            4968
+          ],
+          "cover_registered_edges_mm": [
+            0.2,
+            0.19
+          ],
+          "receiver_registered_edges_mm": [
+            0.16,
+            0.16
+          ]
+        }
+      ],
+      "pictured_stroke": {
+        "frames": [
+          4958,
+          4962
+        ],
+        "cover_registered_edges_px": [
+          3.63,
+          3.63
+        ],
+        "cover_registered_edges_mm": [
+          0.26,
+          0.26
+        ],
+        "receiver_registered_edges_mm": [
+          0.25,
+          0.24
+        ],
+        "second_cover_patch_edges_mm": [
+          0.18,
+          0.2
+        ]
+      },
+      "limitations": "The two metal edges agree within 0.01 mm on each cover-registered reversal. The two printed reference faces give differences of up to about 0.10 mm in the same film. Derek changes the viewing angle and hand load as he works the assembly. Those effects, possible movement of the fitted cover, and local deflection limit interpretation as a static end clearance. The preceding full trial showed about 0.4 mm on its representative hand stroke."
+    }
+  },
+  "transfer": "The three-dot coupon combines the preferred seated feel with an easy start. Its matched sections carry a 2.00 mm crest and a full 1.80 mm nominal hook capture. The real one-dot Pisco test supports carrying the existing cradle, taper bearing and axial stops into the next Pisco version. These features acted together. C037 provides the 12 mm comparison for three dots and a full-size test for the one-dot Pisco. The full three-dot Pisco, ASSE, flow meter and water-regulator pairs each require their own in-hand comparison."
+}

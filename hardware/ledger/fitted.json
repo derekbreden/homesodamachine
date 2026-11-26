@@ -590,6 +590,20 @@
       "said": "That one also looks pretty good up there.",
       "tried": "both seated guides of the two-dot Mark1 back-top receiver coupon with its matching cover. Derek also liked the one-dot seating. On a direct push the broad cover feet caught at the entrances of the new receivers.",
       "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-26",
+      "said": "it doesn't wobble, and it's easy to get on",
+      "tried": "the full-length one-dot Mark2 Pisco cover with the real regulator and its matching bench receiver. The snap stayed seated. Derek still felt a small amount of axial movement in the regulator and called it significantly less than before.",
+      "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-26",
+      "said": "a clean, well-seated snap",
+      "tried": "the full-length one-dot Pisco receiver printed as a separate back-top section on Mark2. He seated the matching cover over the purchased regulator and worked the fittings from both ends. A little lengthwise regulator motion remained. He tried the three-dot profile separately on a 12 mm coupon.",
+      "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/physical-result.json"
     }
   ]
 }
