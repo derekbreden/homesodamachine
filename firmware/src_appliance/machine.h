@@ -261,6 +261,7 @@ struct MachineThermal {
     bool    simulated;        // a reading injected from the console, not a probe
 };
 void machineThermal(MachineThermal &thermal);
+bool machineStartupCoolingHeld();
 
 // The two state enums as words, for the console and the glass.
 const char *machineColdStateName(uint8_t coldState);

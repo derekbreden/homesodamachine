@@ -111,8 +111,9 @@ complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
 If the tank is warm at startup, a second line under **On tap.** reads **Cooling starts in 2:47**,
-with the time remaining from the main board. The menu is usable throughout. When the
-compressor relay closes, the line reads **Cooling** until the first cooling cycle ends.
+with the time remaining from the main board. The display stays awake and the menu is usable
+throughout the countdown. When the compressor relay closes, the line reads **Cooling** until
+the first cooling cycle ends.
 A cold start at serving temperature opens directly onto the usual home screen.
 
 A machine that owes a sweep (`NOTICE_SWEEP`) opens from boot onto **Welcome**: the still

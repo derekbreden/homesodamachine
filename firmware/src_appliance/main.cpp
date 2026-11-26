@@ -248,10 +248,9 @@ void loop() {
         machineMove(moving);
         if (moving.flowing) idleTouched();
     }
-    // A fill or a clean cycle is something a person asked for and is watching.
-    // Both glasses stay lit for the length of it, and the quiet stretch starts
-    // when it ends.
-    if (machineIsFilling() || machineIsCleaning() || machineIsAiring()) idleTouched();
+    // Someone watching a cycle or the restart countdown sees its ending before the glasses sleep.
+    if (machineIsFilling() || machineIsCleaning() || machineIsAiring() || machineStartupCoolingHeld())
+        idleTouched();
     if (idleService()) {
         // An offered action is withdrawn with the light. Both glasses learn of
         // the sleep and the closed session from the same pair of publications.

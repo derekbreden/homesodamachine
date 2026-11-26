@@ -1902,6 +1902,10 @@ static void ioService(uint32_t now) {
     }
 }
 
+bool machineStartupCoolingHeld() {
+    return startupCooling && cold.state() == machine_policy::ColdState::Holding;
+}
+
 void machineThermal(MachineThermal &t) {
     t = {};
     t.tankC            = cold.tankC();
@@ -1914,12 +1918,12 @@ void machineThermal(MachineThermal &t) {
     t.refillRelay      = refillRelay;
     t.probeCount       = oneWireDeviceCount();
     t.holdRemainingMs  = cold.holdRemainingMs(millis());
-    if (startupCooling && machineIoReady() && !machineGasTripped()) {
-        if (compressorRelay) {
-            t.startupCoolingS = STARTUP_COOLING_RUNNING;
-        } else if (cold.state() == machine_policy::ColdState::Holding) {
+    if (machineIoReady() && !machineGasTripped()) {
+        if (machineStartupCoolingHeld()) {
             // Keep the last second on screen until the relay has actually closed.
             t.startupCoolingS = t.holdRemainingMs ? (t.holdRemainingMs + 999) / 1000 : 1;
+        } else if (startupCooling && compressorRelay) {
+            t.startupCoolingS = STARTUP_COOLING_RUNNING;
         }
     }
     t.refillPumpedMs   = refill.pumpedMs(millis());

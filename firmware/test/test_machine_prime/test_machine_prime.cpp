@@ -859,6 +859,7 @@ void test_warm_restart_counts_down_then_names_only_the_first_cooling_run() {
     machineSimThermal(8.0f, true, 5.0f, true);
     runAt(boot + 2250);
     machineThermal(thermal);
+    TEST_ASSERT_TRUE(machineStartupCoolingHeld());
     TEST_ASSERT_EQUAL_UINT16((machine_policy::kMinOffMs - 2000) / 1000, thermal.startupCoolingS);
     runAt(boot + machine_policy::kMinOffMs - 1);
     machineThermal(thermal);
@@ -867,6 +868,7 @@ void test_warm_restart_counts_down_then_names_only_the_first_cooling_run() {
     machineThermal(thermal);
     TEST_ASSERT_TRUE(thermal.compressorRelay);
     TEST_ASSERT_EQUAL_UINT16(STARTUP_COOLING_RUNNING, thermal.startupCoolingS);
+    TEST_ASSERT_FALSE(machineStartupCoolingHeld());
 
     machineSimThermal(1.5f, true, -4.0f, true);
     runAt(host::now + machine_policy::kMinOnMs);
