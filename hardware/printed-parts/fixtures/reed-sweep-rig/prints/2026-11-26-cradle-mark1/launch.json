@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "a5ec84597269bbd3812d197f6b064a42b511485f5e5b33b1979aff927aba77ce",
+    "name": "reed-sweep-rig-cradle-petgf-left04-z018-mark1.gcode.3mf",
+    "objects": [
+      "cradle"
+    ],
+    "sha256": "492d0e5521976d33a12f7cc5f23c8ba5e8ad063646234a36fba99e75c5e28880",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 191,
+  "observed_at": "2026-11-26T06:48:40+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1488314891",
+  "submission_method": "Bambu Connect send dialog",
+  "subtask_name": "reed-sweep-rig-cradle-petgf-left04-z018-mark1.gcode.3mf",
+  "total_layer_num": 101
+}

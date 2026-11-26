@@ -8,7 +8,8 @@ against the slide's step count. It does by motor the sweep that step 3 of the fl
 asks for by hand.
 
 Mark1 started the [small-parts plate](prints/2026-11-24-small-parts-mark1/launch.json)
-on November 24. The cradle is sliced and awaits its first print. The endstops, motor supply,
+on November 24 and the [cradle plate](prints/2026-11-26-cradle-mark1/launch.json)
+on November 26. The endstops, motor supply,
 slide, driver, carrier and controller are [acquired](/hardware/ledger/purchases.md). Every fit to a bought
 part comes from its maker's drawing. The [controller's program](/firmware/src_reed_rig/README.md)
 and the [log reader](/tools/hsm/peripheral/src/reed.rs) are written and tested on this Mac, and
