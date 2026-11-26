@@ -1,0 +1,61 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -187.410001755,
+      -185.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -187.410002,
+      -185.0,
+      0.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-two-dot-drop/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei.gcode.3mf plate_1.gcode, object 1901",
+    "gcode_sha256": "9abd5d318956b9f5e097ef3be275b3e766124276503b44b5de246ffec2a1d024",
+    "model": "hardware/print-tests/pisco-wide-snap/parts/two-dot-drop/cover.stl",
+    "model_sha256": "3da5274007dcebb7b3c951cb52f49910326854f7b96a1404fb5a27ac8e81039f",
+    "profile": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-two-dot-drop/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei.3mf",
+    "profile_sha256": "11dd197758c91cad440126cd5343a1cd6aec2fef2f48f25b57eb0c996c7c256e"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "pisco-two-dot-cover",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}

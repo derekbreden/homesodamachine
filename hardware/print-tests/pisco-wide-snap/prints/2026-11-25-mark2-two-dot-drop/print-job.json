@@ -1,0 +1,75 @@
+{
+  "purpose": "Test the two-dot snap at full length with the backed saddle shifted 0.20 mm toward the molded Pisco body.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1487482297",
+  "previous_finished_job": "1486863598",
+  "accepted_at": "2026-11-26T00:19:17+00:00",
+  "first_layer_verified_at": "2026-11-26T00:28:52+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 184,
+  "source_and_recipe_commit": "ba3d695059f6ff9ef4363f2fb918be51a95acd13",
+  "printer_recipe": "pisco-two-dot-drop",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (smooth)",
+  "estimated_seconds": 9171,
+  "filament_g": 35.07,
+  "minimum_bed_margin_mm": 107.3,
+  "plate_identification": "From the door, the full receiver is on the left and its cover is on the right. A separate native cooling tower keeps the nozzle away between courses.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/two-dot-drop/geometry.json",
+  "objects": [
+    {
+      "name": "pisco-two-dot-cover",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/two-dot-drop/cover.stl",
+      "sha256": "3da5274007dcebb7b3c951cb52f49910326854f7b96a1404fb5a27ac8e81039f",
+      "bed_center_xy_mm": [
+        187.41,
+        185.0
+      ]
+    },
+    {
+      "name": "pisco-two-dot-receiver",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/two-dot-drop/receiver.stl",
+      "sha256": "fdf85e844751c29162588a0edfc738f3c0fb5734af85948795dbe280764ab909",
+      "bed_center_xy_mm": [
+        140.594,
+        185.0
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "9abd5d318956b9f5e097ef3be275b3e766124276503b44b5de246ffec2a1d024",
+  "project": {
+    "file": "2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei.3mf",
+    "sha256": "11dd197758c91cad440126cd5343a1cd6aec2fef2f48f25b57eb0c996c7c256e",
+    "git_blob": "8a64290ae242f8f746ce86a0125adc6ec1c2b65e",
+    "release_archive": "2026-11-25-pisco-two-dot-drop-mark2-a68dc6b8c18bed2b.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei.gcode.3mf",
+    "sha256": "62f4e0c7bbed7d2f461e33e36a76fcc2bf44e610dff26e7c786e1b1de7d51d8d",
+    "git_blob": "e2856e6274b39bd30e5d6484ac456943815799cf",
+    "release_archive": "2026-11-25-pisco-two-dot-drop-mark2-a68dc6b8c18bed2b.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "saddle_section": "saddle-section.png",
+  "saddle_fit_check": "../../parts/two-dot-drop/fit-check.json"
+}

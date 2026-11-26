@@ -6,7 +6,7 @@ This trial pairs a full-length cover and receiver with the real Pisco RVFUP1/4鈥
 
 The first full cover sat flush and stayed firm in hand while the regulator inside could wiggle and spin. This pair uses the 2.60 mm feet and neutral catches from the two-dot coupon. The inner cradle moves 0.20 mm toward the molded regulator body, measured at the same snap position. A short lead at the outlet end eases the transition into the raised cradle. [First full pair in hand](prints/2026-11-25-mark2/physical-result.json) 路 [Two-dot coupon in hand](../open-snap-section/prints/2026-11-25-mark1-solid-pairs/physical-result.json) 路 [Full-size trial geometry](parts/two-dot-drop/geometry.json)
 
-With the regulator installed, compare motion at its white outlet while holding the receiver, then press each cover edge to see whether both feet still sit flush. Wiggling the outlet checks radial play. Turning it checks friction against the round housing. [Mark2 print](prints/2026-11-25-mark2-two-dot-drop/print-job.json) 路 [Plate layout](prints/2026-11-25-mark2-two-dot-drop/plate-key.png)
+With the regulator installed, compare motion at its white outlet while holding the receiver, then press each cover edge to see whether both feet still sit flush. Wiggling the outlet checks radial play. Turning it checks friction against the round housing. [Saddle before and after](prints/2026-11-25-mark2-two-dot-drop/saddle-section.png) 路 [Mark2 print](prints/2026-11-25-mark2-two-dot-drop/print-job.json)
 
 To reproduce this pair, pass `-- --two-dot-drop` to the Cargo command below and select `pisco-two-dot-drop` when slicing.
 

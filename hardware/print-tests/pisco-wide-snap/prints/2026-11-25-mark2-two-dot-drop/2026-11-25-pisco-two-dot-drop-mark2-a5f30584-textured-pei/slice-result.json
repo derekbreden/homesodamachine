@@ -1,0 +1,84 @@
+{
+  "error_string": "Success.",
+  "export_time": 1073,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 27,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 76.73653411865234,
+        "Bridge": 243.0946044921875,
+        "Custom": 303.6715393066406,
+        "Flush": 15.0,
+        "Gap infill": 55.02634811401367,
+        "Inner wall": 604.7632446289062,
+        "Internal solid infill": 420.6906433105469,
+        "Outer wall": 512.7178344726562,
+        "Prime tower": 4759.87646484375,
+        "Sparse infill": 965.2713623046875,
+        "Top surface": 65.72846221923828,
+        "Travel": 562.4421997070312,
+        "Undefined": 554.6822509765625
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 28.520095825195312,
+          "total_used_g": 35.068214416503906
+        }
+      ],
+      "generate_support_material_time": 19,
+      "id": 1,
+      "infill_time": 90,
+      "layer_filament_change": 0,
+      "main_predication": 3490.93115234375,
+      "make_perimeters_time": 85,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 34.512908935546875,
+            "height": 41.70428466796875,
+            "width": 28.81123924255371,
+            "x": 173.00437927246094,
+            "y": 167.74354553222656,
+            "z": 1.5624834759364603e-11
+          },
+          "id": 5,
+          "name": "pisco-two-dot-cover",
+          "triangle_count": 5088
+        },
+        {
+          "bbox": {
+            "depth": 55.209014892578125,
+            "height": 44.230010986328125,
+            "width": 34.82000732421875,
+            "x": 123.18437957763672,
+            "y": 157.39549255371094,
+            "z": -1.6406076497332833e-10
+          },
+          "id": 9,
+          "name": "pisco-two-dot-receiver",
+          "triangle_count": 1930
+        }
+      ],
+      "sliced_time": 879,
+      "sliced_time_with_cache": 647,
+      "total_predication": 9170.78097025407,
+      "triangle_count": 7018,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

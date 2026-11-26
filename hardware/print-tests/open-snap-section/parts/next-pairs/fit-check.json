@@ -1,0 +1,137 @@
+{
+  "purpose": "Measure the open section, seated entry ramp and reversible motion of the three follow-up Pisco coupons.",
+  "dimensions": "geometry.json",
+  "filmed_reference": "../../prints/2026-11-25-mark1-solid-pairs/physical-result.json",
+  "emitted_paths": "../../prints/2026-11-25-mark1-refinements/section-check.json",
+  "provenance": {
+    "control_receiver": "../receiver-wide-neutral.stl",
+    "control_receiver_sha256": "6fc55c59329b7894d37185c18e22c6b14b2e60f5a0edb7b437d79d2472e52631",
+    "stl_sha256": {
+      "cover-1.stl": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+      "receiver-1.stl": "db964fe036cb814ee78c301472daa52723721ae9958c9d72ee72d1d27d7f79bb",
+      "cover-2.stl": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "receiver-2.stl": "5b264ddf4d104bb83bcd5073384fdcc097f5f093fe13dd25534a6608a1109d5f",
+      "cover-3.stl": "6a31a2c4f21a4745e378d596a06d25629b3f988e1b3a69d83059465e755de660",
+      "receiver-3.stl": "f51103ad4624bbfd081717b689382db75f8b3b83e9c9213f0f6f99dbbcd99222"
+    }
+  },
+  "open_section_and_marks": {
+    "scan_height_above_receiver_back_mm": [
+      17.0,
+      31.6
+    ],
+    "continuous_center_post_width_mm": 8.0,
+    "minimum_clear_width_between_free_wings_mm": 24.1712,
+    "minimum_open_gap_each_side_of_center_post_mm": 8.0856,
+    "minimum_stock_below_cover_dot_patch_mm": 5.014,
+    "receiver_dot_margin_to_top_or_flat_back_mm": 0.725,
+    "measured_depth_mm": 0.6,
+    "removed_volume_per_dot_mm3": 0.6281
+  },
+  "pairs": [
+    {
+      "dots": 1,
+      "minimum_to_maximum_leaf_normal_thickness_mm": [
+        1.9999,
+        2.0001
+      ],
+      "square_foot_width_west_east_mm": [
+        2.6,
+        2.6
+      ],
+      "square_foot_gap_to_roof_west_east_mm": [
+        0.0,
+        0.0
+      ],
+      "hook_capture_west_east_mm": [
+        1.8,
+        1.8
+      ],
+      "scanned_crown_outline_difference_from_filmed_control_mm2": 0.0,
+      "maximum_sampled_opening_spread_per_tip_from_free_mm": 3.7454,
+      "exterior_dot_axial_centers_mm": [
+        0.0
+      ],
+      "swept_wing_interference_mm2": 0.0,
+      "swept_saddle_interference_mm2": 0.0,
+      "straight_target_radial_ramp_gap_mm_at_0p05_3p20_6p35_mm_from_toe": [
+        0.22,
+        0.22,
+        0.22
+      ]
+    },
+    {
+      "dots": 2,
+      "minimum_to_maximum_leaf_normal_thickness_mm": [
+        1.9999,
+        2.0001
+      ],
+      "square_foot_width_west_east_mm": [
+        2.6,
+        2.6
+      ],
+      "square_foot_gap_to_roof_west_east_mm": [
+        0.0,
+        0.0
+      ],
+      "hook_capture_west_east_mm": [
+        1.8,
+        1.8
+      ],
+      "scanned_crown_outline_difference_from_filmed_control_mm2": 0.0,
+      "maximum_sampled_opening_spread_per_tip_from_free_mm": 3.7454,
+      "exterior_dot_axial_centers_mm": [
+        -1.7,
+        1.7
+      ],
+      "swept_wing_interference_mm2": 4e-08,
+      "swept_saddle_interference_mm2": 0.0,
+      "straight_target_radial_ramp_gap_mm_at_0p05_3p20_6p35_mm_from_toe": [
+        0.1,
+        0.1,
+        0.215
+      ]
+    },
+    {
+      "dots": 3,
+      "minimum_to_maximum_leaf_normal_thickness_mm": [
+        1.9999,
+        2.0001
+      ],
+      "square_foot_width_west_east_mm": [
+        2.76,
+        2.76
+      ],
+      "square_foot_gap_to_roof_west_east_mm": [
+        0.0,
+        0.0
+      ],
+      "hook_capture_west_east_mm": [
+        1.8,
+        1.8
+      ],
+      "scanned_crown_outline_difference_from_filmed_control_mm2": 0.0,
+      "maximum_sampled_opening_spread_per_tip_from_free_mm": 3.7454,
+      "exterior_dot_axial_centers_mm": [
+        -3.4,
+        0.0,
+        3.4
+      ],
+      "swept_wing_interference_mm2": 2.1e-07,
+      "swept_saddle_interference_mm2": 0.0,
+      "straight_target_radial_ramp_gap_mm_at_0p05_3p20_6p35_mm_from_toe": [
+        0.0612,
+        0.14,
+        0.2187
+      ]
+    }
+  ],
+  "methods": {
+    "section": "Transform the print meshes back to the seated Pisco datum. Compare each open end with the complete working-profile projection. Over the stated height band the receiver has a single rectangular 8 mm post section and the cover contains its two spring leaves. Measure each leaf perpendicular to its neutral axis at 67 heights. Compare the complete post and crown above h17 with the filmed wide receiver.",
+    "marks": "Read the depth and axial locations at the recessed dot tips. Subtract the exported volume from the intact end-profile area times 12 mm to isolate the material removed by the dots. Across the full cover dot patch, subtract the maximum dot depth from the thinnest intact column.",
+    "seat": "In the free mesh, undo the camber and local section rotation about each leaf neutral axis to register the foot flat against the receiver. Each wing opens 0.80 mm to this target. Read the width along the crest, its roof clearance and its radial hook projection. The saddle and receiver stay rigid.",
+    "motion": "Solve the needed independent tip spread on 271 sampled positions over the 25 mm straight stroke, in the clamped-beam model with transverse load at the retaining lip. Separately check a continuous reversible path. From the square seat, increase the transverse spread from 0.80 to 4.20 mm over the first 1.0625 mm of opening at 24 beam poses. Hold the spread until 25 mm open and release. The convex hull of each contour edge at successive poses bounds its linear sweep with contour stations at most 0.10 mm apart. Check every hull and each enclosed wing area against the receiver. Sweep the rigid saddle over the same travel. The residual areas below 0.000001 mm² occur at the intended seated contact in the STL.",
+    "bench": "These are geometric measurements. Contact patches, feel, release force and rocking follow from trying the physical coupons.",
+    "ramp": "At 0.05, 3.20 and 6.35 mm from a flat foot, intersect the squared cover and the actual exported receiver horizontally. The final plate record separately measures the native course edges and midpoints against the recorded two-dot fit."
+  }
+}

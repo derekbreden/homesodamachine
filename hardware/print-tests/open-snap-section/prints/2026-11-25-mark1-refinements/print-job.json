@@ -1,0 +1,127 @@
+{
+  "purpose": "Compare a halfway shoulder setback, a closer backed entry flank, and a wider solid toe against the filmed two-dot reference.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1487491851",
+  "previous_finished_job": "1486975766",
+  "accepted_at": "2026-11-26T00:23:02+00:00",
+  "first_layer_verified_at": "2026-11-26T00:33:45+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 145,
+  "source_and_recipe_commit": "ba3d695059f6ff9ef4363f2fb918be51a95acd13",
+  "printer_recipe": "snap-fit-refinements",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 5821,
+  "filament_g": 26.26,
+  "minimum_bed_margin_mm": 98.209,
+  "plate_identification": "From the door, covers form the front row and their matching receivers the next row. Each row has one, two and three recessed dots from left to right. The stepped cooling wall is at the back.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/next-pairs/geometry.json",
+  "objects": [
+    {
+      "name": "cover-1",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/next-pairs/cover-1.stl",
+      "sha256": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+      "bed_center_xy_mm": [
+        121.689,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-2",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/next-pairs/cover-2.stl",
+      "sha256": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "bed_center_xy_mm": [
+        162.5,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-3",
+      "identify_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/next-pairs/cover-3.stl",
+      "sha256": "6a31a2c4f21a4745e378d596a06d25629b3f988e1b3a69d83059465e755de660",
+      "bed_center_xy_mm": [
+        203.311,
+        138.0
+      ]
+    },
+    {
+      "name": "receiver-1",
+      "identify_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/next-pairs/receiver-1.stl",
+      "sha256": "db964fe036cb814ee78c301472daa52723721ae9958c9d72ee72d1d27d7f79bb",
+      "bed_center_xy_mm": [
+        115.68,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-2",
+      "identify_id": 1905,
+      "stl": "hardware/print-tests/open-snap-section/parts/next-pairs/receiver-2.stl",
+      "sha256": "5b264ddf4d104bb83bcd5073384fdcc097f5f093fe13dd25534a6608a1109d5f",
+      "bed_center_xy_mm": [
+        162.5,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-3",
+      "identify_id": 1906,
+      "stl": "hardware/print-tests/open-snap-section/parts/next-pairs/receiver-3.stl",
+      "sha256": "f51103ad4624bbfd081717b689382db75f8b3b83e9c9213f0f6f99dbbcd99222",
+      "bed_center_xy_mm": [
+        209.32,
+        173.256
+      ]
+    },
+    {
+      "name": "cooling-wall",
+      "identify_id": 1907,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "bed_center_xy_mm": [
+        162.5,
+        195.256
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "c903e26179086c2a47807c69fddef269c8fecd5aee34ee3110497ba59658076f",
+  "project": {
+    "file": "2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei/2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei.3mf",
+    "sha256": "eded91deb7a0296764b5c936601d769f0107b376816d8eb424934107fdfb7bde",
+    "git_blob": "e04b97d05104b3117503afc449fb2e58453f02f8",
+    "release_archive": "2026-11-25-snap-fit-refinements-mark1-6790a8c6c5b834f4.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei/2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei.gcode.3mf",
+    "sha256": "4c1a962f09269a939c4c3d311b917373152183bf69b39193af4b1a484af3732e",
+    "git_blob": "cf8510d8742c044282cfa88f28db5ea030fa04bd",
+    "release_archive": "2026-11-25-snap-fit-refinements-mark1-6790a8c6c5b834f4.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "fit_toolpaths": "section-check.json",
+  "printed_dot_check": "native-paths.json",
+  "fit_sections": "fit-sections.png",
+  "seconds_after_other_printer_accepted": 225.0
+}

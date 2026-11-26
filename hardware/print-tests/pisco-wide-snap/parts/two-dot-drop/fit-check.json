@@ -1,0 +1,557 @@
+{
+  "purpose": "Measure the full two-dot cover and receiver on the purchased Pisco geometry and on the submitted Mark2 toolpaths.",
+  "evidence": {
+    "parts": "geometry.json",
+    "two_dot_coupon_geometry": "../../../open-snap-section/parts/solid-pairs/geometry.json",
+    "two_dot_coupon_hand_test": "../../../open-snap-section/prints/2026-11-25-mark1-solid-pairs/physical-result.json",
+    "previous_full_pair_hand_test": "../../prints/2026-11-25-mark2/physical-result.json",
+    "previous_full_pair_fit": "../../fit-check.json",
+    "native_preparation": "../../prints/2026-11-25-mark2-two-dot-drop/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/preparation.json",
+    "native_gcode_sha256": "9abd5d318956b9f5e097ef3be275b3e766124276503b44b5de246ffec2a1d024",
+    "native_archive_sha256": "62f4e0c7bbed7d2f461e33e36a76fcc2bf44e610dff26e7c786e1b1de7d51d8d",
+    "previous_full_preparation": "../../prints/2026-11-25-mark2/2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei/preparation.json",
+    "previous_full_gcode_sha256": "f4c04d8c4d201c6550859829d7122c53474d6e1b0031b03d5c73013548464b35",
+    "new_stl_sha256": {
+      "cover": "3da5274007dcebb7b3c951cb52f49910326854f7b96a1404fb5a27ac8e81039f",
+      "receiver": "fdf85e844751c29162588a0edfc738f3c0fb5734af85948795dbe280764ab909"
+    }
+  },
+  "cap_and_receiver": {
+    "method": "Intersect the installed full STL geometry with transverse planes over both working wing and cheek lanes. Compare these to the Mark1 two-dot donor STLs. For the receiver passage and outlet fitting lip, compare symmetric volumes against the preceding fitted full pair. A micrometre-scale volume difference can arise from the independently rounded STL vertices.",
+    "connected_watertight_solids_per_print": 1,
+    "spring_y_mm": [
+      420.595717,
+      457.911
+    ],
+    "fixed_pocket_y_mm": [
+      420.345717,
+      458.161
+    ],
+    "nominal_pocket_end_clearance_mm_each": 0.25,
+    "two_dot_donor_comparison_y_mm": [
+      421.0,
+      425.0,
+      430.0,
+      435.0,
+      439.8,
+      445.0,
+      450.0,
+      454.0,
+      457.7
+    ],
+    "maximum_cross_section_symmetric_difference_mm2": {
+      "leaf": 1.8e-05,
+      "receiver_cheek": 0.000164
+    },
+    "short_outlet_fitting_cradle_and_lip_symmetric_difference_mm3": 0.000631,
+    "receiver_central_17p84_mm_chord_symmetric_difference_mm3": 0.0,
+    "whole_receiver_behind_pockets_symmetric_difference_mm3": 0.0,
+    "saddle": {
+      "face_displacement_in_rigid_body_zone_world_xyz_mm": [
+        0.0,
+        0.0,
+        0.2
+      ],
+      "fore_transition_y_mm": [
+        438.85,
+        439.45
+      ],
+      "full_height_y_mm": [
+        439.45,
+        462.3
+      ],
+      "molded_cradle_chord_width_mm": 20.811231,
+      "widest_body_local_contoured_pad_width_by_axial_length_mm": [
+        8.0,
+        2.0
+      ],
+      "width_of_chord_sampled_for_solid_backing_mm": 7.5,
+      "continuous_solid_thickness_on_pad_mm": [
+        3.645301,
+        4.315472
+      ],
+      "verified_working_surface_travel_on_248_rays_mm": [
+        0.199999,
+        0.200001
+      ],
+      "saddle_added_volume_mm3": 96.356001
+    },
+    "dot_depths_mm": {
+      "cad_cover": 0.6,
+      "cad_receiver": 0.59999,
+      "remaining_cover_thickness_at_two_dot_tips_mm": [
+        5.18872,
+        5.38872
+      ],
+      "native": {
+        "cover": [
+          0.59,
+          0.583
+        ],
+        "receiver": [
+          0.579,
+          0.579
+        ]
+      }
+    }
+  },
+  "installed_hardware": {
+    "fitted_scan": "../../../../reference/compact-inline-candidates/dimensions.json",
+    "displayed_assembly": "../../../../manifold-layout/enclosure-assembly.step.mesh",
+    "placed_assets": {
+      "co2-inlet": "46764fd42ca28efdb0a4e6a7da0b28d59df27a6db3486074081f4f6fe519b7ab",
+      "gas-regulator/1": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/2": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/3": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-check": "169beeb4e8189bfdf1d515e99d01cc124d91b2c92dffb0d743c89f68e52a1b58"
+    },
+    "machine_frame": "The centerline is X76.5 Z331.2. The inlet mouth is Y481.05. The cover closes in +Z. Travel is measured from the nominal installed cover, and the purchased regulator has its own translation.",
+    "component_y_ranges_mm": {
+      "long_inlet_collet": [
+        478.85,
+        481.05
+      ],
+      "molded_body": [
+        438.85,
+        478.85
+      ],
+      "short_outlet_fitting": [
+        420.335717,
+        438.85
+      ],
+      "short_outlet_release_collet": [
+        418.235717,
+        420.335717
+      ]
+    },
+    "nominal_short_collet_to_cover_lip_axial_air_mm": 0.26,
+    "long_collet_to_aft_receiver_extremity_axial_air_mm": 9.551,
+    "long_collet_to_cover_end_axial_air_mm": 16.55,
+    "modeled_regulator_rear_shoulder_aft_travel_to_receiver_at_nominal_axis_height_mm": {
+      "stl": 0.111492,
+      "native_rear_bore": 0.039991,
+      "native_limiting_course_mm": [
+        17.0
+      ],
+      "native_method": "Intersect the rear molded housing projected through each receiver course with the model-road footprint. At fixed assembly Z, translate aft until the first intersection."
+    },
+    "source_solid_closure_mm": {
+      "housing_rise_to_fixed_seat": 0.119664,
+      "cover_first_contact_nominal_housing": -0.245531,
+      "cover_first_contact_housing_against_receiver": -0.125867,
+      "squared_crest_roof_stop": 0.1
+    }
+  },
+  "native_closure": {
+    "method": "Expand outer-wall centerlines by half commanded width. Register the printed receiver roof against both cover feet after inverse rotation of the free wings. Compare full covers in the same installed coordinate frame at identical source axial stations and across a 7 mm chord at 0.025 mm spacing.",
+    "cover_comparison": {
+      "transverse_chord_mm": 7.0,
+      "transverse_spacing_mm": 0.025,
+      "columns": [
+        "machine Y",
+        "cover course height",
+        "move at axis",
+        "smallest move",
+        "largest move"
+      ],
+      "world_z_change_mm": [
+        [
+          423.0,
+          2.6,
+          -0.000247,
+          -0.000247,
+          0.000266
+        ],
+        [
+          431.0,
+          10.52,
+          -0.000247,
+          -0.00939,
+          0.010369
+        ],
+        [
+          435.0,
+          14.6,
+          0.008073,
+          -0.008176,
+          0.008538
+        ],
+        [
+          438.5,
+          17.96,
+          0.000744,
+          -0.000458,
+          0.000753
+        ],
+        [
+          439.3,
+          18.92,
+          0.180124,
+          0.170488,
+          0.191094
+        ],
+        [
+          439.6,
+          19.16,
+          0.198376,
+          0.188805,
+          0.209677
+        ],
+        [
+          439.875,
+          19.4,
+          0.197616,
+          0.188805,
+          0.209677
+        ],
+        [
+          440.65,
+          20.12,
+          0.190914,
+          0.188985,
+          0.209377
+        ],
+        [
+          443.0,
+          22.52,
+          0.199753,
+          0.199753,
+          0.200753
+        ],
+        [
+          447.0,
+          26.6,
+          0.191764,
+          0.19125,
+          0.208001
+        ],
+        [
+          452.0,
+          31.64,
+          0.199753,
+          0.187899,
+          0.201902
+        ],
+        [
+          456.0,
+          35.48,
+          0.208732,
+          0.191527,
+          0.208732
+        ],
+        [
+          460.0,
+          39.56,
+          0.199753,
+          0.199753,
+          0.199753
+        ],
+        [
+          461.9,
+          41.48,
+          0.199763,
+          0.199753,
+          0.20074
+        ]
+      ]
+    },
+    "full_cover_feet": {
+      "interior_axial_courses": 152,
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "world_z_displacement_to_foot_stop_mm": [
+        -0.00998,
+        -0.009385
+      ],
+      "free_angle_deg": [
+        1.883372,
+        2.038044
+      ],
+      "loaded_foot_width_0p03_from_end_mm": [
+        2.428792,
+        2.437556
+      ],
+      "loaded_foot_central_height_range_mm": [
+        0.000107,
+        0.005019
+      ],
+      "fixed_hook_midcourse_overlap_mm": [
+        0.109762,
+        0.110066
+      ],
+      "hook_measurements": 40,
+      "complete_native_foot_courses": 156,
+      "cover_y_midpoints": [
+        420.695717,
+        457.875717
+      ],
+      "net_world_z_travel_mm": [
+        -0.00998,
+        0.139592
+      ],
+      "first_axial_course_mm": 0.2,
+      "last_axial_course_mm": 37.4,
+      "end_courses": "The first bed-contact course has an extra 0.150 mm of crest relief. The interior courses set the common first square-foot roof registration."
+    },
+    "mark1_two_dot_reference": {
+      "source": "../../../open-snap-section/prints/2026-11-25-mark1-solid-pairs/section-check.json",
+      "loaded_foot_width_0p03_from_end_mm": [
+        2.42715,
+        2.43756
+      ],
+      "fixed_hook_midcourse_overlap_mm": [
+        0.11038,
+        0.11045
+      ]
+    },
+    "signed_gap_convention": "Negative values measure how far the registered surfaces would intersect as rigid parts. Positive values are clearance. The first fully squared foot datum lets the two prints be compared on the same basis.",
+    "body_and_fixed_seat": {
+      "housing_axis_rise_to_printed_fixed_seat_facet_mm": 0.029016,
+      "housing_axis_rise_to_printed_fixed_seat_fitted_surface_of_revolution_mm": 0.011686,
+      "angular_installed_mesh_first_pad_gap_at_crest_mm": {
+        "nominal_axis": -0.246114,
+        "against_receiver": -0.217098
+      },
+      "fitted_surface_of_revolution_first_pad_gap_at_crest_mm": {
+        "nominal_axis": -0.246378,
+        "against_receiver": -0.234692
+      },
+      "angular_contact_chord_at_439p875_y_signed_gap_against_fixed_receiver_mm": [
+        -0.217098,
+        -0.173476
+      ],
+      "contact_chord_x_mm": [
+        -3.775,
+        3.8
+      ],
+      "angular_contact_sample_machine_x_y_z_mm": [
+        79.85,
+        439.875,
+        321.150258
+      ],
+      "native_axial_course_of_first_contact_mm": 19.4,
+      "fixed_seat_machine_contact_y_mm": 465.553
+    },
+    "prior_full_pair_at_its_printed_foot_stop_signed_gap_mm": {
+      "nominal_axis": -0.043767,
+      "at_fixed_stop": -0.014751
+    },
+    "rigid_cradle_survey": {
+      "method": "Across the rigid cradle at 0.10 mm transverse spacing, sample both sides and the middle of each model course, the scanned radius breaks and the bearing Y. Compare the inward contour with the installed hardware at its far printed seat. The 0.025 mm pad comparison above further resolves the local extremum.",
+      "sample_count": 111951,
+      "radial_x_range_mm": [
+        -10.38,
+        10.38
+      ],
+      "columns": [
+        "signed axial-closing gap",
+        "X from axis",
+        "machine Y",
+        "cover course height"
+      ],
+      "minimum_at_squared_foot_datum_mm": {
+        "short_outlet_fitting": [
+          0.002502,
+          3.32,
+          438.795767,
+          18.44
+        ],
+        "rest_of_molded_body": [
+          -0.015925,
+          -1.58,
+          454.725,
+          34.28
+        ],
+        "beside_pad": [
+          -0.000908,
+          4.52,
+          439.875,
+          19.4
+        ],
+        "widest_body_pad": [
+          -0.215788,
+          3.32,
+          439.875,
+          19.4
+        ]
+      }
+    },
+    "shoulder_and_foot_motion": {
+      "method": "At three axial stations on both wings, expand actual outer-wall lines by half their commanded width, undo free camber and rotation, and bend each leaf until it clears the actual 0.24 mm stepped catch. Intersect the deformed feet with the roof and measure the radial distance the hook nose lies behind the lip.",
+      "world_y_stations_mm": [
+        425.0,
+        439.875,
+        454.0
+      ],
+      "results": [
+        {
+          "position": "first_foot_with_shoulders_on_printed_steps",
+          "cover_z_move_mm": [
+            -0.036361,
+            -0.036334
+          ],
+          "crest_spread_mm": [
+            1.216594,
+            1.217027
+          ],
+          "radial_capture_mm": [
+            1.546876,
+            1.546901
+          ],
+          "closest_crest_to_roof_mm": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "position": "pad_at_far_housing",
+          "cover_z_move_mm": [
+            -0.227078,
+            -0.227078
+          ],
+          "crest_spread_mm": [
+            1.509487,
+            1.509872
+          ],
+          "radial_capture_mm": [
+            1.368318,
+            1.368322
+          ],
+          "closest_crest_to_roof_mm": [
+            0.172123,
+            0.172148
+          ]
+        },
+        {
+          "position": "pad_at_nominal_housing",
+          "cover_z_move_mm": [
+            -0.256094,
+            -0.256094
+          ],
+          "crest_spread_mm": [
+            1.552842,
+            1.553226
+          ],
+          "radial_capture_mm": [
+            1.341841,
+            1.341845
+          ],
+          "closest_crest_to_roof_mm": [
+            0.198389,
+            0.198414
+          ]
+        }
+      ],
+      "far_housing_contact_before_first_foot_edge_mm": [
+        0.190716,
+        0.190744
+      ],
+      "far_housing_contact_before_squaring_both_feet_mm": 0.217098
+    },
+    "regulator_a_quarter_mm_forward": {
+      "purpose": "Check axial registration while the housing is still approaching its rear locator.",
+      "widest_body_world_y_mm": 439.625,
+      "cap_course_mm": 19.16,
+      "housing_rise_to_first_fixed_contact_mm": 0.033626,
+      "pad_signed_gap_at_that_stop_and_square_foot_datum_mm": -0.212489
+    }
+  },
+  "installation_and_removal": {
+    "method": "Measure closest distances with the actual moving full solids and their rotation-compensated wing contours. On the five tilted segments use 192 intervals, subtract half the rotation-plus-translation displacement per interval and hold the cover 0.085 mm toward the open end. During straight closing, relax both springs progressively and subtract the translation-plus-spring displacement bound across 2304 intervals. Reversing the trajectory gives removal.",
+    "service_sequence": "Remove the ASSE and meter groups. Pass the backed meter shoulder in a tilt, square the cover, and finish along +Z. On the loose receiver the first movement can be straight.",
+    "stationary_parts_and_regulator_keys": {
+      "gas-regulator/1": "molded housing",
+      "gas-regulator/2": "short outlet fitting",
+      "gas-regulator/3": "short release collet",
+      "co2-inlet": "long inlet release collet"
+    },
+    "tilt_world_roll_deg_x_z_mm": [
+      [
+        21.0,
+        -4.6,
+        -11.0
+      ],
+      [
+        20.0,
+        -4.55,
+        -9.0
+      ],
+      [
+        15.0,
+        -3.4,
+        -6.5
+      ],
+      [
+        10.0,
+        -2.4,
+        -4.5
+      ],
+      [
+        5.0,
+        -1.0,
+        -2.9
+      ],
+      [
+        0.0,
+        0.0,
+        -1.8
+      ]
+    ],
+    "forward_cover_offset_world_y_mm": -0.085,
+    "held_west_east_crest_spread_from_free_mm": [
+      5.45,
+      4.85
+    ],
+    "tilt_continuous_clearance_at_nominal_housing_mm": {
+      "receiver": 0.074832,
+      "surrounding_production_shell": 0.074844,
+      "backed_meter_shoulder": 0.593149,
+      "gas-regulator/1": 0.981107,
+      "gas-regulator/2": 0.23103,
+      "gas-regulator/3": 0.229727,
+      "co2-inlet": 17.811141,
+      "gas-check": 1.987586
+    },
+    "conservative_tilt_clearance_both_housing_extremes_mm": {
+      "gas-regulator/1": 0.861443,
+      "gas-regulator/2": 0.111366,
+      "gas-regulator/3": 0.110063,
+      "co2-inlet": 17.691476
+    },
+    "last_straight_approach_with_housing_at_fixed_seat": {
+      "from_to_cover_world_z_mm": [
+        -1.8,
+        -0.127867
+      ],
+      "final_margin_before_intended_pad_contact_mm": 0.002,
+      "end_spread_margin_before_shoulder_contact_mm": 0.035,
+      "maximum_vertex_travel_per_mm_of_crest_spread_mm": 1.071058,
+      "subtracted_half_interval_displacement_mm": 0.001346,
+      "continuous_clearance_mm": {
+        "receiver": 0.013596,
+        "surrounding_production_shell": 0.083652,
+        "backed_meter_shoulder": 1.000613,
+        "gas-regulator/1": 0.000517,
+        "gas-regulator/2": 0.185802,
+        "gas-regulator/3": 0.206513,
+        "co2-inlet": 17.408088,
+        "gas-check": 1.835239
+      }
+    },
+    "bench_straight_approach_from_minus25_to_minus1p8_mm": {
+      "bench_receiver": 0.066861,
+      "gas-regulator/1": 1.214695,
+      "gas-regulator/2": 0.235996,
+      "gas-regulator/3": 0.288668,
+      "co2-inlet": 17.83731
+    },
+    "regulator_16mm_forward_start_and_aft_slide": {
+      "receiver": 0.055853,
+      "surrounding_production_shell": 0.055866,
+      "backed_meter_shoulder": 2.284752
+    }
+  },
+  "scope": "The model and submitted extrusion widths describe the geometric take-up and hook engagement. The first full-pair hand test found perceptible wiggle and free spinning at its smaller modeled take-up. Contact force, friction, seated foot contact and release effort of this new print require the purchased regulator and the cooled parts."
+}

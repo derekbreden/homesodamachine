@@ -1,0 +1,605 @@
+{
+  "purpose": "Measure the photographed long running face, foot bearings, crown and retaining shoulders in the new Mark1 toolpaths against the plate Derek tried in hand.",
+  "gcode_sha256": "c903e26179086c2a47807c69fddef269c8fecd5aee34ee3110497ba59658076f",
+  "previous_plate_gcode_sha256": "55319876a8452a37fa63aff0c7c3f43ee217d729b680a480a1abc34d3ac091bc",
+  "prior_hand_test": "../2026-11-25-mark1-solid-pairs/physical-result.json",
+  "assembly_dimensions": "../../parts/next-pairs/geometry.json",
+  "methods": {
+    "paths": "Read each identified part from the final native archive, remove its plate placement and expand each outer road by half its commanded width. Positive ramp gap is horizontal air from the receiver guide to the inside cover face. Positive retaining-shoulder overlap means the registered faces occupy common radial space.",
+    "square_registration": "At both feet on all 46 interior cover courses, invert the free spring camber and local rotation. Measure the crest 0.03 mm inside the deposited face. At the −4.5, 0 and +4.5 mm axial stations align the two feet to the measured receiver roof, compare the 45° shoulders at ordinary course midheight, and sample the crown at 0.01 mm spacing. The square_feet ramp values use this registration.",
+    "shoulder_loaded_registration": "Starting with the same measured contours, solve the additional signed outward spring displacement of each tip until the largest mid-course retaining-shoulder overlap just clears. At every trial displacement the lowest rotated foot meets the printed 3.56 mm roof. The beam bends about its neutral axis and the saddle stays rigid. This calculation estimates how shoulder tension could open the approach gap. It does not measure the deflected shape, pressure or force of the printed plastic.",
+    "ramp_sampling": "For each of three axial stations on both hooks, intersect the cover envelope near both edges and at the midpoint of every receiver course from 0.24 to 6.16 mm behind the toe. The measured inward step is the reduction in the fixed receiver radius from one emitted 0.24 mm course to the next on this slope. Three additional radial-gap measurements are at 0.55, 3.20 and 5.85 mm from the deposited roof. The endpoint bevels, toolpath corner rounding and bead compression lie outside this interior comparison."
+  },
+  "prior_plate": [
+    {
+      "dots": 1,
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.11013,
+        0.11054
+      ],
+      "entry_ramp": {
+        "receiver_inward_step_per_0p24_mm_course_on_guide_mm": [
+          0.075,
+          0.075
+        ],
+        "square_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.21639,
+            0.29192
+          ],
+          "midcourse_radial_gap_mm": [
+            0.25389,
+            0.26692
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.26951,
+            0.26998
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.26642,
+            0.26689
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.26333,
+            0.26379
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.21639,
+            "receiver_h_mm": 4.04,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 4.04
+          }
+        },
+        "shoulder_loaded_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.34879,
+            0.47713
+          ],
+          "midcourse_radial_gap_mm": [
+            0.38739,
+            0.43854
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.45178,
+            0.45242
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.42441,
+            0.42502
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.39704,
+            0.39763
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.34879,
+            "receiver_h_mm": 9.56,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 9.56
+          }
+        },
+        "tip_outward_beyond_square_to_clear_deposited_midcourse_shoulders_mm": [
+          0.18768,
+          0.18786
+        ],
+        "opening_from_cad_seat_at_estimated_shoulder_load_mm": [
+          0.11712,
+          0.11714
+        ]
+      }
+    },
+    {
+      "dots": 2,
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.11038,
+        0.11045
+      ],
+      "entry_ramp": {
+        "receiver_inward_step_per_0p24_mm_course_on_guide_mm": [
+          0.052,
+          0.053
+        ],
+        "square_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.21765,
+            0.27103
+          ],
+          "midcourse_radial_gap_mm": [
+            0.24389,
+            0.25306
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.25534,
+            0.25534
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.25285,
+            0.25285
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.25135,
+            0.25135
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.21765,
+            "receiver_h_mm": 4.04,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 4.04
+          }
+        },
+        "shoulder_loaded_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.3598,
+            0.46409
+          ],
+          "midcourse_radial_gap_mm": [
+            0.38714,
+            0.43675
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.44646,
+            0.44646
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.41972,
+            0.41972
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.39397,
+            0.39397
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.3598,
+            "receiver_h_mm": 9.56,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 9.56
+          }
+        },
+        "tip_outward_beyond_square_to_clear_deposited_midcourse_shoulders_mm": [
+          0.19645,
+          0.19645
+        ],
+        "opening_from_cad_seat_at_estimated_shoulder_load_mm": [
+          0.12235,
+          0.12235
+        ]
+      }
+    },
+    {
+      "dots": 3,
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        -0.00994,
+        -0.00953
+      ],
+      "entry_ramp": {
+        "receiver_inward_step_per_0p24_mm_course_on_guide_mm": [
+          0.052,
+          0.053
+        ],
+        "square_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.21737,
+            0.27084
+          ],
+          "midcourse_radial_gap_mm": [
+            0.24363,
+            0.25283
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.25511,
+            0.25552
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.2526,
+            0.25262
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.25067,
+            0.25112
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.21737,
+            "receiver_h_mm": 9.32,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 9.32
+          }
+        },
+        "shoulder_loaded_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.20485,
+            0.26147
+          ],
+          "midcourse_radial_gap_mm": [
+            0.23101,
+            0.24369
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.24258,
+            0.24272
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.24146,
+            0.24171
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.24119,
+            0.24184
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.20485,
+            "receiver_h_mm": 4.04,
+            "axial_station_mm": -4.5,
+            "west_or_east": 1,
+            "receiver_course_top_mm": 4.04
+          }
+        },
+        "tip_outward_beyond_square_to_clear_deposited_midcourse_shoulders_mm": [
+          -0.01346,
+          -0.01317
+        ],
+        "opening_from_cad_seat_at_estimated_shoulder_load_mm": [
+          0.11046,
+          0.11049
+        ]
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "dots": 1,
+      "interior_axial_courses": 46,
+      "straight_interior_unloaded_crest_angle_deg": [
+        1.85759,
+        2.03896
+      ],
+      "deposited_crest_width_0p03_mm_inside_loaded_foot_mm": [
+        2.42714,
+        2.43756
+      ],
+      "loaded_flat_height_range_across_central_face_mm": [
+        0.00011,
+        0.00587
+      ],
+      "modeled_square_foot_lowest_h_before_roof_registration_mm": [
+        3.44999,
+        3.4507
+      ],
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "squared_foot_opening_from_cad_seat_to_emitted_roof_mm": [
+        0.11001,
+        0.11001
+      ],
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.05006,
+        0.05047
+      ],
+      "sampled_retaining_shoulder_courses_mm": [
+        13.16,
+        13.88
+      ],
+      "shoulder_samples": 24,
+      "centered_crown_gap_at_printed_stop_mm": [
+        0.02689,
+        0.02689
+      ],
+      "minimum_crown_gap_on_0p01_mm_grid_mm": [
+        -0.01106,
+        -0.00859
+      ],
+      "entry_ramp": {
+        "receiver_inward_step_per_0p24_mm_course_on_guide_mm": [
+          0.052,
+          0.053
+        ],
+        "square_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.21737,
+            0.27084
+          ],
+          "midcourse_radial_gap_mm": [
+            0.24363,
+            0.25283
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.25511,
+            0.25552
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.2526,
+            0.25262
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.25067,
+            0.25112
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.21737,
+            "receiver_h_mm": 9.32,
+            "axial_station_mm": -4.5,
+            "west_or_east": 1,
+            "receiver_course_top_mm": 9.32
+          }
+        },
+        "shoulder_loaded_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.28192,
+            0.35835
+          ],
+          "midcourse_radial_gap_mm": [
+            0.30868,
+            0.33159
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.34164,
+            0.34222
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.32816,
+            0.32829
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.31537,
+            0.31569
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.28192,
+            "receiver_h_mm": 9.56,
+            "axial_station_mm": -4.5,
+            "west_or_east": 1,
+            "receiver_course_top_mm": 9.56
+          }
+        },
+        "tip_outward_beyond_square_to_clear_deposited_midcourse_shoulders_mm": [
+          0.08896,
+          0.08915
+        ],
+        "opening_from_cad_seat_at_estimated_shoulder_load_mm": [
+          0.11552,
+          0.11553
+        ]
+      }
+    },
+    {
+      "dots": 2,
+      "interior_axial_courses": 46,
+      "straight_interior_unloaded_crest_angle_deg": [
+        1.85759,
+        2.03804
+      ],
+      "deposited_crest_width_0p03_mm_inside_loaded_foot_mm": [
+        2.42715,
+        2.43756
+      ],
+      "loaded_flat_height_range_across_central_face_mm": [
+        0.00011,
+        0.00587
+      ],
+      "modeled_square_foot_lowest_h_before_roof_registration_mm": [
+        3.45002,
+        3.4507
+      ],
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "squared_foot_opening_from_cad_seat_to_emitted_roof_mm": [
+        0.10998,
+        0.10998
+      ],
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.11038,
+        0.11045
+      ],
+      "sampled_retaining_shoulder_courses_mm": [
+        13.16,
+        13.88
+      ],
+      "shoulder_samples": 24,
+      "centered_crown_gap_at_printed_stop_mm": [
+        0.02687,
+        0.02687
+      ],
+      "minimum_crown_gap_on_0p01_mm_grid_mm": [
+        -0.01297,
+        -0.0086
+      ],
+      "entry_ramp": {
+        "receiver_inward_step_per_0p24_mm_course_on_guide_mm": [
+          0.052,
+          0.077
+        ],
+        "square_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.09765,
+            0.25355
+          ],
+          "midcourse_radial_gap_mm": [
+            0.12389,
+            0.23606
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.13534,
+            0.13534
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.13285,
+            0.13285
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.21035,
+            0.21035
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.09765,
+            "receiver_h_mm": 4.04,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 4.04
+          }
+        },
+        "shoulder_loaded_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.24851,
+            0.3948
+          ],
+          "midcourse_radial_gap_mm": [
+            0.27585,
+            0.37657
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.32646,
+            0.32646
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.29972,
+            0.29972
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.35297,
+            0.35297
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.24851,
+            "receiver_h_mm": 8.6,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 8.6
+          }
+        },
+        "tip_outward_beyond_square_to_clear_deposited_midcourse_shoulders_mm": [
+          0.19645,
+          0.19645
+        ],
+        "opening_from_cad_seat_at_estimated_shoulder_load_mm": [
+          0.12235,
+          0.12235
+        ]
+      }
+    },
+    {
+      "dots": 3,
+      "interior_axial_courses": 46,
+      "straight_interior_unloaded_crest_angle_deg": [
+        1.85694,
+        2.02562
+      ],
+      "deposited_crest_width_0p03_mm_inside_loaded_foot_mm": [
+        2.5812,
+        2.59228
+      ],
+      "loaded_flat_height_range_across_central_face_mm": [
+        0.00033,
+        0.00639
+      ],
+      "modeled_square_foot_lowest_h_before_roof_registration_mm": [
+        3.44963,
+        3.45017
+      ],
+      "receiver_roof_course_mm": [
+        3.56,
+        3.56
+      ],
+      "squared_foot_opening_from_cad_seat_to_emitted_roof_mm": [
+        0.11037,
+        0.11037
+      ],
+      "retaining_shoulder_radial_overlap_at_course_midheight_mm": [
+        0.11042,
+        0.11083
+      ],
+      "sampled_retaining_shoulder_courses_mm": [
+        13.16,
+        13.88
+      ],
+      "shoulder_samples": 24,
+      "centered_crown_gap_at_printed_stop_mm": [
+        0.02725,
+        0.02725
+      ],
+      "minimum_crown_gap_on_0p01_mm_grid_mm": [
+        -0.01258,
+        -0.00824
+      ],
+      "entry_ramp": {
+        "receiver_inward_step_per_0p24_mm_course_on_guide_mm": [
+          0.052,
+          0.053
+        ],
+        "square_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.06955,
+            0.26044
+          ],
+          "midcourse_radial_gap_mm": [
+            0.09281,
+            0.24494
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.10899,
+            0.10952
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.17248,
+            0.17302
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.23697,
+            0.23751
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.06955,
+            "receiver_h_mm": 4.04,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 4.04
+          }
+        },
+        "shoulder_loaded_feet": {
+          "signed_radial_ramp_gap_across_courses_mm": [
+            0.26431,
+            0.40424
+          ],
+          "midcourse_radial_gap_mm": [
+            0.28867,
+            0.38801
+          ],
+          "gap_0p55_mm_from_toe_mm": [
+            0.3031,
+            0.30338
+          ],
+          "gap_at_middle_3p20_mm_mm": [
+            0.34223,
+            0.34253
+          ],
+          "gap_5p85_mm_from_toe_mm": [
+            0.38235,
+            0.38269
+          ],
+          "worst_gap_location": {
+            "gap_mm": 0.26431,
+            "receiver_h_mm": 4.04,
+            "axial_station_mm": -4.5,
+            "west_or_east": -1,
+            "receiver_course_top_mm": 4.04
+          }
+        },
+        "tip_outward_beyond_square_to_clear_deposited_midcourse_shoulders_mm": [
+          0.19914,
+          0.19941
+        ],
+        "opening_from_cad_seat_at_estimated_shoulder_load_mm": [
+          0.12441,
+          0.12445
+        ]
+      }
+    }
+  ]
+}
