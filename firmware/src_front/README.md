@@ -110,10 +110,10 @@ Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
-On a warm restart, the Settings button shows the tank temperature and **Cooling starts in
-2:47**, counting down with the main board. The display stays awake and the menu remains
-usable through the wait. The button reads **Cooling** when the compressor relay closes and
-**Holding temperature** when the cold loop comes to rest.
+On a warm restart, the gear sits beside the tank temperature and an hourglass with a
+minutes-and-seconds countdown. The sand moves with the main board's reported time.
+The display stays awake and the menu remains usable through the wait. A snowflake
+appears when the compressor relay closes and clears when the cold loop comes to rest.
 
 A machine that owes a sweep (`NOTICE_SWEEP`) opens from boot onto **Welcome**: the still
 mark where the boot's animation stood and, in a card like the boot's but taller and out to
@@ -367,8 +367,8 @@ The design exploration Big Blue grew from is in Git at [`10a22374d0`](https://gi
 The sixteen-direction colour and type study is in Git at [`49738f2694`](https://github.com/derekbreden/homesodamachine/blob/49738f2694/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 The rail holds the two flavor targets and a reserved slot for phone requests. A single
-Settings button spans the foot of the rail and the portrait. Its gear stays at the left,
-with the tank temperature and cooling state beside it. Touching either part opens Settings.
+Settings button spans the foot of the rail and the portrait. Its gear, thermometer, tank
+reading in °F, and cooling activity share a single row. Touching anywhere in it opens Settings.
 
 **The rail is the same on every page.** The selected flavor's cell is the portrait panel's
 own ice, from the glass edge into the portrait, so the two read as one. It holds no thumbnail,
@@ -575,7 +575,10 @@ degree Celsius, with the controller's cooling state. A timed startup wait shows 
 until the compressor starts. A later protective restart wait says **Cooling soon**. The
 display distinguishes a running compressor, an idle loop, freeze protection, a missing
 probe, and a controller that has stopped answering. The compact readout on every flavor
-page uses the same sample. Each available probe keeps its own reading.
+page uses the same sample. An untimed restart hold shows the hourglass alone. A warning
+triangle points to the explanation in Settings when a fault or protection stops cooling.
+A missing tank reading leaves the thermometer empty and shows two dashes. Each available
+probe keeps its own reading.
 
 **Water & sensors** shows the tank wall and cooling coil in Celsius, the number of probes
 detected and the water refill state. The side view locates the four level switches for each

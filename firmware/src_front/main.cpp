@@ -8,7 +8,7 @@
 #include "esp_lcd_panel_ops.h"
 #include "freertos/semphr.h"
 #include "fw_version.h"
-#include "front_cooling.h"
+#include "front_cooling_strip.h"
 #include "front_ui_policy.h"
 #include "proto_link.h"
 #include "trust_text.h"
@@ -656,7 +656,8 @@ static unsigned long airStartSentMs = 0;
 static unsigned long airQueryMs = 0;
 static unsigned long airUiMs = 0;
 static unsigned long airCardUntilMs = 0;
-static lv_obj_t *settingsBtn, *dockTank, *dockState;
+static lv_obj_t *settingsBtn;
+static front_ui::CoolingStrip coolingStrip;
 static lv_obj_t *tankValue, *tankMetric, *coolingTitle, *coolingDetail;
 static lv_obj_t *sensorTank, *sensorCoil, *sensorProbes, *sensorRefill;
 
@@ -3475,14 +3476,16 @@ static void updateReading(lv_obj_t *label, const char *text) {
 
 // The same status sample drives the Settings button, its landing and the sensor detail.
 static void refreshStatusThermal() {
-  if (!dockState) return;
+  if (!uiReady) return;
   const bool connected = front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
   const bool available = connected && ctrlStatusThermal;
   const bool tankRead = front_ui::temperatureAvailable(available, ctrlStatus.tankCx10);
-  char fahrenheit[16], celsius[16], countdown[24], dockCountdown[36], coilReading[32], probes[8];
+  char fahrenheit[16], celsius[16], countdown[24], coilReading[32], probes[8];
   front_ui::formatFahrenheit(fahrenheit, sizeof(fahrenheit), ctrlStatus.tankCx10, available);
   front_ui::formatCelsius(celsius, sizeof(celsius), ctrlStatus.tankCx10, available);
-  updateReading(dockTank, fahrenheit);
+  const auto state = front_ui::coolingState(available, ctrlStatus);
+  coolingStrip.update(fahrenheit, tankRead ? ctrlStatus.tankCx10 : TEMP_UNREAD,
+                      state, ctrlStatus.startupCoolingS);
   updateReading(tankValue, fahrenheit);
   updateReading(tankMetric, tankRead ? celsius : "No reading");
   updateReading(sensorTank, celsius);
@@ -3494,18 +3497,16 @@ static void refreshStatusThermal() {
   updateReading(sensorProbes, available ? probes : "--");
 
   using front_ui::CoolingState;
-  const char *compact = "Waiting for machine";
   const char *headline = "Waiting for machine";
   const char *detail = "Waiting for a fresh reading.";
-  switch (front_ui::coolingState(available, ctrlStatus)) {
+  switch (state) {
     case CoolingState::Unavailable:
       if (connected) {
-        compact = headline = "Status unavailable";
+        headline = "Status unavailable";
         detail = "No cooling status from the controller.";
       }
       break;
     case CoolingState::ProbeFault:
-      compact = "Cooling paused";
       headline = "Waiting for sensors";
       if (ctrlStatus.tankCx10 == TEMP_UNREAD && ctrlStatus.coilCx10 == TEMP_UNREAD)
         detail = ctrlStatus.probeCount ? "Both temperature readings are missing." : "No temperature probes detected.";
@@ -3514,39 +3515,34 @@ static void refreshStatusThermal() {
       else detail = "The controller needs fresh readings.";
       break;
     case CoolingState::FreezeProtection:
-      compact = headline = "Freeze protection";
+      headline = "Freeze protection";
       detail = "Cooling resumes when the coil warms.";
       break;
     case CoolingState::Running:
-      compact = "Cooling";
       headline = "Compressor running";
       detail = coilReading;
       break;
     case CoolingState::StartupWait: {
       char time[8];
-      snprintf(time, sizeof(time), "%u:%02u",
-               unsigned(ctrlStatus.startupCoolingS / 60), unsigned(ctrlStatus.startupCoolingS % 60));
+      front_ui::formatHoldTime(time, sizeof(time), ctrlStatus.startupCoolingS);
       snprintf(countdown, sizeof(countdown), "Starts in %s", time);
-      snprintf(dockCountdown, sizeof(dockCountdown), "Cooling starts in %s", time);
       headline = countdown;
-      compact = dockCountdown;
       detail = "Compressor restart delay.";
       break;
     }
     case CoolingState::RestartHold:
-      compact = headline = "Cooling soon";
+      headline = "Cooling soon";
       detail = "Waiting to restart the compressor.";
       break;
     case CoolingState::Idle:
-      compact = headline = "Holding temperature";
+      headline = "Holding temperature";
       detail = coilReading;
       break;
     case CoolingState::Paused:
-      compact = headline = "Cooling paused";
+      headline = "Cooling paused";
       detail = (ctrlStatus.flags & STATUS_F_GAS_TRIP) ? "The gas alarm is active." : "Compressor is off.";
       break;
   }
-  updateReading(dockState, compact);
   updateReading(coolingTitle, headline);
   updateReading(coolingDetail, detail);
 
@@ -5222,19 +5218,7 @@ static void buildSettingsButton(lv_obj_t *scr) {
   lv_obj_set_style_border_side(settingsBtn, LV_BORDER_SIDE_TOP, 0);
   lv_obj_set_style_border_color(settingsBtn, lv_color_hex(SETTINGS_RULE), 0);
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
-  lv_obj_t *gear = mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_set_width(gear, RAIL_W);
-  lv_obj_set_style_text_align(gear, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_pos(gear, 0, 6);
-  lv_obj_t *label = mkText(settingsBtn, "Settings", &lv_font_montserrat_20, COL_TEXT);
-  lv_obj_set_width(label, RAIL_W);
-  lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_pos(label, 0, 40);
-  lv_obj_set_pos(mkText(settingsBtn, "Tank", &lv_font_montserrat_20, COL_DIM), 112, 12);
-  dockTank = mkText(settingsBtn, "--", &lv_font_montserrat_32, COL_TEXT);
-  lv_obj_set_pos(dockTank, 173, 2);
-  dockState = mkText(settingsBtn, "Waiting for machine", &lv_font_montserrat_20, COL_DIM);
-  lv_obj_set_pos(dockState, 112, 40);
+  coolingStrip.build(settingsBtn, RAIL_W, lv_color_hex(COL_DIM), lv_color_hex(COL_WARN));
 
   // The band over the pane. A task's pane and the phone request page have Back there.
   taskHeader = mkFlat(scr, TASK_X, 0, TASK_W, HEADER_H, THEME_BG);

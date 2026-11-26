@@ -59,4 +59,8 @@ inline void formatCelsius(char *out, size_t n, int16_t cx10, bool available) {
   snprintf(out, n, "%s%d.%d°C", cx10 < 0 ? "-" : "", magnitude / 10, magnitude % 10);
 }
 
+inline void formatHoldTime(char *out, size_t n, uint16_t seconds) {
+  snprintf(out, n, "%u:%02u", unsigned(seconds / 60), unsigned(seconds % 60));
+}
+
 }  // namespace front_ui
