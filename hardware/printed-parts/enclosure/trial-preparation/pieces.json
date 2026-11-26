@@ -4750,6 +4750,551 @@
         "reason": "Center both rows and the cooling tower together. The tower stands in front of the covers."
       }
     },
+    "three-dot-pisco-asse": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "pisco-snap-cap",
+          "stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/cover.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "Both wings print as continuous perimeters on the axial end."
+            }
+          }
+        },
+        {
+          "name": "asse-snap-cap",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Removable trees reach the fitted surfaces from the open end."
+            }
+          }
+        },
+        {
+          "name": "pisco-receiver",
+          "stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
+          "features": [
+            {
+              "name": "Production receiver support regions",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.print-features.json",
+              "reason": "Use the production contact targets and keep the catch pockets accessible."
+            }
+          ],
+          "object_settings": {
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+            },
+            "support_type": {
+              "value": "tree(manual)",
+              "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
+            },
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+            },
+            "support_object_xy_distance": {
+              "value": "0.5",
+              "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
+            },
+            "support_on_build_plate_only": {
+              "value": "0",
+              "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
+            },
+            "max_bridge_length": {
+              "value": "0",
+              "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
+            },
+            "tree_support_branch_distance": {
+              "value": "3",
+              "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the native painted receiver targets."
+            }
+          },
+          "start_plate_row": true
+        },
+        {
+          "name": "asse-receiver",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
+          "features": [
+            {
+              "name": "Production receiver support regions",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.print-features.json",
+              "reason": "Use the production contact targets and keep the catch pockets accessible."
+            }
+          ],
+          "object_settings": {
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+            },
+            "support_type": {
+              "value": "tree(manual)",
+              "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
+            },
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+            },
+            "support_object_xy_distance": {
+              "value": "0.5",
+              "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
+            },
+            "support_on_build_plate_only": {
+              "value": "0",
+              "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
+            },
+            "max_bridge_length": {
+              "value": "0",
+              "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
+            },
+            "tree_support_branch_distance": {
+              "value": "3",
+              "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the native painted receiver targets."
+            }
+          }
+        }
+      ],
+      "spacing_mm": 15.0,
+      "plate_border_mm": 60.0,
+      "pose_reason": "The full covers stand on their established axial ends. The matching receivers keep their roof-down production layer direction in the second row.",
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the textured PEI trim from the individual receiver and cap trials."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the fitted cap trials."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Use the prior Pisco smooth-timelapse return interval at the upper courses of the full-size pair."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "The earlier full-pair toolpaths return directly to the ASSE cover or the flow-meter receiver once the other objects end. Keep the hot nozzle away between these top courses."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "A constant perimeter provides time away on every cap layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Time on the tower cools the cap while retaining the model print recipe."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "78"
+          ],
+          "reason": "The tower stands clear of both front covers and their first-layer stock."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          16
+        ],
+        "reason": "Center the two model rows and their smooth-timelapse tower together on the textured plate."
+      }
+    },
+    "three-dot-meter-water": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "meter-snap-cap",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "Both wings print as continuous perimeters on the axial end."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            }
+          }
+        },
+        {
+          "name": "regulator-snap-cap",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/regulator-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Removable trees reach the fitted surfaces from the open end."
+            }
+          }
+        },
+        {
+          "name": "meter-receiver",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-receiver.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
+          "features": [
+            {
+              "name": "Production receiver support regions",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-receiver.print-features.json",
+              "reason": "Use the production contact targets and keep the catch pockets accessible."
+            }
+          ],
+          "object_settings": {
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+            },
+            "support_type": {
+              "value": "tree(manual)",
+              "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
+            },
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+            },
+            "support_object_xy_distance": {
+              "value": "0.5",
+              "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
+            },
+            "support_on_build_plate_only": {
+              "value": "0",
+              "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
+            },
+            "max_bridge_length": {
+              "value": "0",
+              "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
+            },
+            "tree_support_branch_distance": {
+              "value": "3",
+              "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the native painted receiver targets."
+            }
+          },
+          "start_plate_row": true
+        },
+        {
+          "name": "water-regulator-receiver",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
+          "features": [
+            {
+              "name": "Production receiver support regions",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.print-features.json",
+              "reason": "Use the production contact targets and keep the catch pockets accessible."
+            }
+          ],
+          "object_settings": {
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+            },
+            "support_type": {
+              "value": "tree(manual)",
+              "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts."
+            },
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+            },
+            "support_object_xy_distance": {
+              "value": "0.5",
+              "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces."
+            },
+            "support_on_build_plate_only": {
+              "value": "0",
+              "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
+            },
+            "max_bridge_length": {
+              "value": "0",
+              "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression."
+            },
+            "tree_support_branch_distance": {
+              "value": "3",
+              "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the native painted receiver targets."
+            }
+          }
+        }
+      ],
+      "spacing_mm": 15.0,
+      "plate_border_mm": 60.0,
+      "pose_reason": "The full covers stand on their established axial ends. The matching receivers keep their roof-down production layer direction in the second row.",
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the textured PEI trim from the individual receiver and cap trials."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the fitted cap trials."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Use the prior Pisco smooth-timelapse return interval at the upper courses of the full-size pair."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "The earlier full-pair toolpaths return directly to the ASSE cover or the flow-meter receiver once the other objects end. Keep the hot nozzle away between these top courses."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "A constant perimeter provides time away on every cap layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Time on the tower cools the cap while retaining the model print recipe."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "81"
+          ],
+          "reason": "The tower stands clear of both front covers and their first-layer stock."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          16
+        ],
+        "reason": "Center the two model rows and their smooth-timelapse tower together on the textured plate."
+      },
+      "filament_colour": {
+        "value": "#000000",
+        "reason": "Match the black PET-GF on the left external feed."
+      },
+      "nonplanar_contacts": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json"
+    },
     "rear-snap-pairs": {
       "printer": "Mark1",
       "nozzle": {

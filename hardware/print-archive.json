@@ -3546,6 +3546,12 @@
       "bytes": 21797798,
       "sha256": "b8bee56dba1803598ef9287d945e88daa23f480290ac746534fecfb3da60b46d"
     },
+    "6e467ba6887a0ecf4108b62b2bfa824911ebdb86": {
+      "archive": "2026-11-26-three-dot-pisco-asse-mark2-caa9c790d691995f.zip",
+      "bytes": 4418116,
+      "offset": 166038,
+      "sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af"
+    },
     "6e6f570bad1e7fced8347e41b28bb459a64d09c8": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 1060965570,
@@ -3876,6 +3882,12 @@
       "bytes": 1296346,
       "sha256": "c6cd113c6a54ca5b501ada5258d33baace7f3ed391ebdaca7b847b8019771246"
     },
+    "794a0b2c8163177dc0fc022e3fb6bd5bfaa80f51": {
+      "archive": "2026-11-26-three-dot-pisco-asse-mark2-caa9c790d691995f.zip",
+      "bytes": 165890,
+      "offset": 74,
+      "sha256": "a52b0c0846f95131e0e21279ce93d846d7b7cdd35b33980318fed43436db3983"
+    },
     "79930e4626f8d566c98d31cb543edbdb14fbe157": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
       "offset": 48394630,
@@ -3983,6 +3995,12 @@
       "bytes": 970878,
       "offset": 74,
       "sha256": "c233a056a6907deada0d085f89fdbe2b7634cab6bdf3906cbbcdf0456135b68e"
+    },
+    "7e186140412cf2333f8591b347b89af5bc98cf5d": {
+      "archive": "2026-11-26-three-dot-meter-water-mark1-9198218334cb089a.zip",
+      "bytes": 232198,
+      "offset": 74,
+      "sha256": "48a8c8a8c0ebe050daf062deb077ea64011d81fdb755ccfd4d8723822ee7fa12"
     },
     "7e23096f9d37b1f784dfe22f01cde8f1418dc534": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -4241,6 +4259,12 @@
       "offset": 313707251,
       "bytes": 418046,
       "sha256": "75611f86e6c3c137cb044a00bf44414ca3181d962acc3059d647018d791f8636"
+    },
+    "84d9726edcc68851824e636cf38fdae477962d8c": {
+      "archive": "2026-11-26-three-dot-meter-water-mark1-9198218334cb089a.zip",
+      "bytes": 6211854,
+      "offset": 232346,
+      "sha256": "8f0e161294528f445d1cebe0b5621422a33bffea1dbec27628b3178d6c586100"
     },
     "84e27b487e660196b09599f0bfd88e2211ae4aa5": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -8233,6 +8257,10 @@
     "hardware/print-tests/enclosure-infill/mark2-v1/input.3mf": "b408ef995e0df01ac1c5231ca4a7fcf5af693a26",
     "hardware/print-tests/enclosure-support-scenarios/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.3mf": "c80dd468ec00920db5693651fce225ef788f062b",
     "hardware/print-tests/enclosure-support-scenarios/ready/2026-11-09-enclosure-support-scenarios-left04-z018-mark1.gcode.3mf": "ba4e433ddd5102f14ab4384edea9487d630bd3e5",
+    "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-meter-water/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.3mf": "7e186140412cf2333f8591b347b89af5bc98cf5d",
+    "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-meter-water/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.gcode.3mf": "84d9726edcc68851824e636cf38fdae477962d8c",
+    "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.3mf": "794a0b2c8163177dc0fc022e3fb6bd5bfaa80f51",
+    "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.gcode.3mf": "6e467ba6887a0ecf4108b62b2bfa824911ebdb86",
     "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.3mf": "d5728da890ae5c9ac78f1a3a6633da1f0cb7dddf",
     "hardware/print-tests/equipment-snap-pairs/prints/mark1/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei/2026-11-23-rear-snap-pairs-mark1-4f0077a9-textured-pei.gcode.3mf": "8e709ce4bff2d275120e27711d806193688230db",
     "hardware/print-tests/equipment-snap-pairs/prints/mark2/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei/2026-11-23-pump-meter-snap-pairs-mark2-270714d8-textured-pei.3mf": "b186460d15bfdd6f09d1de8155857bb111e91f03",
