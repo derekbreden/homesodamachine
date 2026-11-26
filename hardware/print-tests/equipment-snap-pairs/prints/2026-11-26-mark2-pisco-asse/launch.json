@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+    "name": "2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.gcode.3mf",
+    "objects": [
+      "pisco-snap-cap",
+      "asse-snap-cap",
+      "pisco-receiver",
+      "asse-receiver"
+    ],
+    "sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 334,
+  "observed_at": "2026-11-26T19:06:11+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1490535651",
+  "subtask_name": "2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.gcode.3mf",
+  "total_layer_num": 269
+}

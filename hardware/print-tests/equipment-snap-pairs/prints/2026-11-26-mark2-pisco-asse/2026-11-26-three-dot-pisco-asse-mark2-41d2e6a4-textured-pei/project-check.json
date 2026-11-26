@@ -1,0 +1,154 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.863452194418642e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          115.44624423900001,
+          109.193559647,
+          0.0
+        ],
+        [
+          144.25747585300002,
+          143.706464767,
+          41.704284668
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2623
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.198117822961649e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "asse-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          159.25747585300002,
+          105.417795181,
+          0.0
+        ],
+        [
+          209.553755761,
+          147.482229233,
+          64.625
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1387
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 109,
+      "embedded_vertex_error_mm": 8.877236723492388e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-receiver",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 4
+      },
+      "placed_bounds_mm": [
+        [
+          109.439997852,
+          176.92770958,
+          0.0
+        ],
+        [
+          144.260001362,
+          232.13672447200003,
+          44.230010986
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1099
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 89,
+      "embedded_vertex_error_mm": 8.437481824330462e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "asse-receiver",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 5
+      },
+      "placed_bounds_mm": [
+        [
+          159.260001362,
+          162.482229233,
+          0.0
+        ],
+        [
+          215.560002148,
+          246.58220481900003,
+          51.77999878
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 912
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.4",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.10 - 0.01",
+    "0.10 - 0.02",
+    "0.10 + 0.01",
+    "0.10"
+  ]
+}

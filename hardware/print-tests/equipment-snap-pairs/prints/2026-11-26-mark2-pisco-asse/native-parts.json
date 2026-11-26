@@ -1,0 +1,43 @@
+{
+  "purpose": "Verify all four oriented pieces in the actual Mark2 or Mark1 archive against the full-size source STLs, including all triangle winding and every deposited object.",
+  "slice_sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+  "gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+  "objects": {
+    "pisco-snap-cap": {
+      "source_stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/cover.stl",
+      "source_sha256": "95882ef5cce90972c4ea6def9fd467a0497186644683524c605df4b19ec055d6",
+      "facets": 5242,
+      "maximum_vertex_error_mm": 1.05e-06,
+      "extruding_course_count": 174
+    },
+    "asse-snap-cap": {
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-snap-cap.stl",
+      "source_sha256": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+      "facets": 2782,
+      "maximum_vertex_error_mm": 1.05e-06,
+      "extruding_course_count": 269
+    },
+    "pisco-receiver": {
+      "source_stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.stl",
+      "source_sha256": "299021a11a9075af646cd14295962ff75fd3468fc4ef633185543a906eee9f8f",
+      "facets": 2198,
+      "maximum_vertex_error_mm": 4.5e-07,
+      "extruding_course_count": 184
+    },
+    "asse-receiver": {
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.stl",
+      "source_sha256": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda",
+      "facets": 1824,
+      "maximum_vertex_error_mm": 1.04e-06,
+      "extruding_course_count": 216
+    }
+  },
+  "receiver_region_files_match_printed_source": true,
+  "support_enabled_for": [
+    "asse-snap-cap",
+    "pisco-receiver",
+    "asse-receiver"
+  ],
+  "minimum_bead_margin_mm": 72.6676555,
+  "slicer_warnings": []
+}

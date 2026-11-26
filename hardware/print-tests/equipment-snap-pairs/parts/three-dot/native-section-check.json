@@ -1,0 +1,181 @@
+{
+  "purpose": "Compare the three complete station pairs with the three-dot coupon Derek preferred, using their prepared G-code, at the seated catches and through straight entry.",
+  "hand_reference": "../../../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/physical-result.json",
+  "full_hardware_sweeps": "fit-check.json",
+  "methods": {
+    "section": "Invert the print placements onto each hook. Section the deposited XY segments and arcs at their stated widths, retaining full layer thickness on the fixed receiver. Each row covers the middle and both axial ends. The ASSE also includes its last 3 mm of reinforced inlet stock.",
+    "crest_and_entry": "Square the cambered toe with the coupon cantilever model and measure the width 0.03 mm inside the foot. For entry, measure the free toe over its leading 0.15 mm against the widest pilot material on the straight approach. Report the first bed course separately.",
+    "capture": "Seat the foot against the emitted roof. Spread its working face until it clears the full-height envelopes of the running guide and 45-degree shoulder. Compute overlap of the deposited wing nose with the retaining lip in that posture. Corner-bearing estimates depend on bead shape. The overnight row applies the same convention to the winning coupon. Its original bench record measures shoulder course midpoints.",
+    "stroke": "At the longitudinal midpoint of each hook, sample straight openings in 0.025 mm increments. Solve for the least outward spring motion that clears the deposited fixed face, using 0.0125 mm transverse sections and the measured donor cantilever shape. The spread slope uses a 0.25 mm closure window. Simultaneously engaged spring width, material stiffness and the installed hardware affect thumb force and rocking.",
+    "axial_span": "Each crest, pilot and capture result lists the first bed course followed by the sampled interior range, including the final printed course. Report the layer count and total axial extent of the working crest."
+  },
+  "plates": {
+    "overnight_coupon": {
+      "preparation": "../../../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei/preparation.json",
+      "archive_sha256": "569801665428d8c132e64530a150ff9fecb45f06e960a3b8d7c2a571558d000f",
+      "gcode_sha256": "e5545e8ce36bd845ca2dda75c29cc8dbe85509d278f41a635836d3887e050f56",
+      "source_stl_sha256": {
+        "cover-3": "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+        "receiver-3": "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a"
+      },
+      "functional_pocket_support_crossings": 0,
+      "show_face_contacts": 0,
+      "review_passed": true
+    },
+    "mark2_pisco_asse": {
+      "preparation": "../../prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/preparation.json",
+      "archive_sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+      "gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+      "source_stl_sha256": {
+        "asse-snap-cap": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+        "asse-receiver": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda"
+      },
+      "functional_pocket_support_crossings": 0,
+      "show_face_contacts": 0,
+      "review_passed": true
+    },
+    "mark1_meter_water": {
+      "preparation": "../../prints/2026-11-26-mark1-meter-water/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/preparation.json",
+      "archive_sha256": "8f0e161294528f445d1cebe0b5621422a33bffea1dbec27628b3178d6c586100",
+      "gcode_sha256": "3c72039daefc0eceed42cb3e505c00b11ea15fdf78156dfa5fda2eba3e0004e3",
+      "source_stl_sha256": {
+        "meter-snap-cap": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+        "regulator-snap-cap": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+        "meter-receiver": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+        "water-regulator-receiver": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2"
+      },
+      "functional_pocket_support_crossings": 0,
+      "show_face_contacts": 0,
+      "review_passed": true
+    }
+  },
+  "pairs": {
+    "overnight_coupon": {
+      "plate": "overnight_coupon",
+      "sides": {
+        "west": {
+          "crest_courses": 50,
+          "printed_working_length_mm": 11.96,
+          "deposited_crest_mm": [1.583, 1.873],
+          "free_toe_to_pilot_mm": [0.805, [0.674, 0.68]],
+          "seated_radial_capture_mm": [1.584, [1.563, 1.564]],
+          "first_contact_at_0p01_mm_spread_opening_mm": 12.025,
+          "peak_spread_from_free_mm": 3.731,
+          "maximum_spread_increase_per_mm_of_closure": 0.712
+        },
+        "east": {
+          "crest_courses": 50,
+          "printed_working_length_mm": 11.96,
+          "deposited_crest_mm": [1.583, 1.872],
+          "free_toe_to_pilot_mm": [0.804, [0.674, 0.68]],
+          "seated_radial_capture_mm": [1.584, [1.563, 1.564]],
+          "first_contact_at_0p01_mm_spread_opening_mm": 12.025,
+          "peak_spread_from_free_mm": 3.731,
+          "maximum_spread_increase_per_mm_of_closure": 0.712
+        }
+      }
+    },
+    "asse": {
+      "plate": "mark2_pisco_asse",
+      "sides": {
+        "west": {
+          "crest_courses": 174,
+          "printed_working_length_mm": 41.72,
+          "deposited_crest_mm": [1.582, [1.871, 1.872]],
+          "free_toe_to_pilot_mm": [0.855, 0.756],
+          "seated_radial_capture_mm": [1.562, 1.648],
+          "first_contact_at_0p01_mm_spread_opening_mm": 18.2,
+          "peak_spread_from_free_mm": 3.73,
+          "maximum_spread_increase_per_mm_of_closure": 0.604
+        },
+        "east": {
+          "crest_courses": 174,
+          "printed_working_length_mm": 41.72,
+          "deposited_crest_mm": [1.583, 1.873],
+          "free_toe_to_pilot_mm": [0.855, 0.755],
+          "seated_radial_capture_mm": [1.561, 1.648],
+          "first_contact_at_0p01_mm_spread_opening_mm": 18.2,
+          "peak_spread_from_free_mm": 3.73,
+          "maximum_spread_increase_per_mm_of_closure": 0.604
+        }
+      },
+      "entry": "The original bearing continues below the coupon bevel. Each free toe starts spreading earlier on the full part. Its largest spread and bearing width match the coupon."
+    },
+    "flow_meter": {
+      "plate": "mark1_meter_water",
+      "sides": {
+        "upper_short": {
+          "crest_courses": 89,
+          "printed_working_length_mm": 21.32,
+          "deposited_crest_mm": [1.583, 1.872],
+          "free_toe_to_pilot_mm": [0.758, 0.659],
+          "seated_radial_capture_mm": [1.423, 1.499],
+          "first_contact_at_0p01_mm_spread_opening_mm": 13.775,
+          "peak_spread_from_free_mm": 3.585,
+          "maximum_spread_increase_per_mm_of_closure": 0.601
+        },
+        "lower": {
+          "crest_courses": 159,
+          "printed_working_length_mm": 38.12,
+          "deposited_crest_mm": [1.583, 1.872],
+          "free_toe_to_pilot_mm": [0.798, 0.699],
+          "seated_radial_capture_mm": [1.39, 1.461],
+          "first_contact_at_0p01_mm_spread_opening_mm": 13.65,
+          "peak_spread_from_free_mm": 3.52,
+          "maximum_spread_increase_per_mm_of_closure": 0.599
+        }
+      },
+      "meter_guide": {
+        "section": "At the midpoint of each hook, sample the 5.88 mm running face at 0.008 mm intervals. Distances are from the deposited guide to the loaded wing. The short upper side prints with its guide facing down. Its longest local stair steps have a recessed band between adjacent bearing strips.",
+        "upper_short": {
+          "gap_3p2_mm_from_nominal_stop_mm": 0.481,
+          "length_within_0p10_mm_of_wing_mm": 2.15,
+          "length_within_0p15_mm_of_wing_mm": 3.41
+        },
+        "lower": {
+          "gap_3p2_mm_from_nominal_stop_mm": 0.037,
+          "length_within_0p10_mm_of_wing_mm": 2.02,
+          "length_within_0p15_mm_of_wing_mm": 3.28
+        }
+      },
+      "support": {
+        "bed_rooted_trees": 1,
+        "interface_islands": 5,
+        "meter_pocket_crossings": 0,
+        "access": "The upper lip interface lies at the open west side of the receiver. All 1,474 sampled interface road positions there have a direct unobstructed path to machine −X."
+      }
+    },
+    "water_regulator": {
+      "plate": "mark1_meter_water",
+      "sides": {
+        "fore": {
+          "crest_courses": 150,
+          "printed_working_length_mm": 35.96,
+          "deposited_crest_mm": [1.583, 1.872],
+          "free_toe_to_pilot_mm": [0.845, 0.746],
+          "seated_radial_capture_mm": [1.558, 1.643],
+          "first_contact_at_0p01_mm_spread_opening_mm": 12.075,
+          "peak_spread_from_free_mm": 3.729,
+          "maximum_spread_increase_per_mm_of_closure": 0.706
+        },
+        "aft": {
+          "crest_courses": 150,
+          "printed_working_length_mm": 35.96,
+          "deposited_crest_mm": [1.583, 1.872],
+          "free_toe_to_pilot_mm": [0.844, 0.746],
+          "seated_radial_capture_mm": [1.558, 1.644],
+          "first_contact_at_0p01_mm_spread_opening_mm": 12.075,
+          "peak_spread_from_free_mm": 3.73,
+          "maximum_spread_increase_per_mm_of_closure": 0.71
+        }
+      },
+      "fixed_shoulder_check": {
+        "axial_planes_per_side": 51,
+        "heights_per_plane": 41,
+        "total_surface_rays": 4182,
+        "largest_distance_from_coupon_shoulder_mm": 2.01e-05,
+        "split_lip_sections": 0
+      }
+    }
+  }
+}

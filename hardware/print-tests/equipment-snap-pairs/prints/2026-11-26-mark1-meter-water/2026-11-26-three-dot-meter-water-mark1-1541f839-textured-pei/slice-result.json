@@ -1,0 +1,115 @@
+{
+  "error_string": "Success.",
+  "export_time": 2549,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 191,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 146.1938934326172,
+        "Bridge": 985.6097412109375,
+        "Brim": 49.1402702331543,
+        "Custom": 302.3128356933594,
+        "Flush": 15.0,
+        "Gap infill": 126.20289611816406,
+        "Inner wall": 1512.513427734375,
+        "Internal solid infill": 993.5880126953125,
+        "Outer wall": 1278.550537109375,
+        "Overhang wall": 81.41301727294922,
+        "Prime tower": 8029.73779296875,
+        "Sparse infill": 3884.077392578125,
+        "Support": 992.523681640625,
+        "Support interface": 91.80783081054688,
+        "Support transition": 229.43856811523438,
+        "Top surface": 162.8362274169922,
+        "Travel": 1649.241943359375,
+        "Undefined": 1642.81396484375
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 103.86043548583984,
+          "total_used_g": 114.91271209716797
+        }
+      ],
+      "generate_support_material_time": 401,
+      "id": 1,
+      "infill_time": 547,
+      "layer_filament_change": 0,
+      "main_predication": 12166.134765625,
+      "make_perimeters_time": 291,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 54.30000305175781,
+            "height": 38.0,
+            "width": 41.485511779785156,
+            "x": 118.09398651123047,
+            "y": 108.8499984741211,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "meter-snap-cap",
+          "triangle_count": 2386
+        },
+        {
+          "bbox": {
+            "depth": 42.10641098022461,
+            "height": 36.0,
+            "width": 32.32651138305664,
+            "x": 174.57949829101562,
+            "y": 114.94679260253906,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "regulator-snap-cap",
+          "triangle_count": 145110
+        },
+        {
+          "bbox": {
+            "depth": 65.00000762939453,
+            "height": 70.66000366210938,
+            "width": 20.09999656677246,
+            "x": 113.47000122070312,
+            "y": 178.14999389648438,
+            "z": -5.469047437145491e-11
+          },
+          "id": 13,
+          "name": "meter-receiver",
+          "triangle_count": 3386
+        },
+        {
+          "bbox": {
+            "depth": 48.12000274658203,
+            "height": 20.0,
+            "width": 62.96000671386719,
+            "x": 148.5699920654297,
+            "y": 186.58999633789062,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "water-regulator-receiver",
+          "triangle_count": 5454
+        }
+      ],
+      "sliced_time": 4973,
+      "sliced_time_with_cache": 3405,
+      "total_predication": 23094.86905900958,
+      "triangle_count": 156336,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

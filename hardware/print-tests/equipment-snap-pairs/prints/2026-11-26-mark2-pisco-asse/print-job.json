@@ -1,0 +1,93 @@
+{
+  "purpose": "Try the three-dot C037 snap at full size on the Pisco gas regulator and ASSE backflow preventer.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1490535651",
+  "previous_finished_job": "1488385307",
+  "accepted_at": "2026-11-26T19:06:11+00:00",
+  "first_layer_verified_at": "2026-11-26T19:16:12+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 269,
+  "source_and_recipe_commit": "3b95f4c5b196a2cdc5ddba6a97718e4b5c227a28",
+  "printer_recipe": "three-dot-pisco-asse",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "external_filament": "Black PET-GF15 on the left external feed (254), mapped to PET-CF in firmware.",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "timelapse": "On, smooth",
+  "estimated_seconds": 22436,
+  "filament_g": 119.92,
+  "plate_identification": "From the open door the covers are in front of their matching receivers. Pisco on the left, ASSE on the right.",
+  "objects": [
+    {
+      "name": "pisco-snap-cap",
+      "source_stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/cover.stl",
+      "sha256": "95882ef5cce90972c4ea6def9fd467a0497186644683524c605df4b19ec055d6",
+      "identify_id": 1901,
+      "bed_center_xy_mm": [
+        129.85,
+        126.45
+      ]
+    },
+    {
+      "name": "asse-snap-cap",
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-snap-cap.stl",
+      "sha256": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+      "identify_id": 1902,
+      "bed_center_xy_mm": [
+        184.41,
+        126.45
+      ]
+    },
+    {
+      "name": "pisco-receiver",
+      "source_stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.stl",
+      "sha256": "299021a11a9075af646cd14295962ff75fd3468fc4ef633185543a906eee9f8f",
+      "identify_id": 1903,
+      "bed_center_xy_mm": [
+        126.85,
+        204.53
+      ]
+    },
+    {
+      "name": "asse-receiver",
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.stl",
+      "sha256": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda",
+      "identify_id": 1904,
+      "bed_center_xy_mm": [
+        187.41,
+        204.53
+      ]
+    }
+  ],
+  "minimum_bed_margin_mm": 72.67,
+  "native_review": "2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/review.json",
+  "submitted_mesh_check": "native-parts.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+  "project": {
+    "file": "2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.3mf",
+    "sha256": "a52b0c0846f95131e0e21279ce93d846d7b7cdd35b33980318fed43436db3983",
+    "git_blob": "794a0b2c8163177dc0fc022e3fb6bd5bfaa80f51",
+    "release_archive": "2026-11-26-three-dot-pisco-asse-mark2-caa9c790d691995f.zip"
+  },
+  "slice": {
+    "file": "2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.gcode.3mf",
+    "sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+    "git_blob": "6e467ba6887a0ecf4108b62b2bfa824911ebdb86",
+    "release_archive": "2026-11-26-three-dot-pisco-asse-mark2-caa9c790d691995f.zip"
+  },
+  "archive_restore": "The editable project and submitted slice were restored from the print-projects release and matched by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "bench_instructions": "../../README.md"
+}

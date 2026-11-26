@@ -1,0 +1,29 @@
+{
+  "archive": {
+    "gcode_sha256": "3c72039daefc0eceed42cb3e505c00b11ea15fdf78156dfa5fda2eba3e0004e3",
+    "name": "2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.gcode.3mf",
+    "objects": [
+      "meter-snap-cap",
+      "regulator-snap-cap",
+      "meter-receiver",
+      "water-regulator-receiver"
+    ],
+    "sha256": "8f0e161294528f445d1cebe0b5621422a33bffea1dbec27628b3178d6c586100",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 342,
+  "observed_at": "2026-11-26T19:12:37+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1490559572",
+  "subtask_name": "2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.gcode.3mf",
+  "total_layer_num": 295
+}

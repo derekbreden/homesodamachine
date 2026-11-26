@@ -1,0 +1,60 @@
+{
+  "purpose": "Check whether the four full covers occupy each other\u2019s space when placed together at their modeled installation datums.",
+  "states": "All cover leaves free, in the nominal CAD position. Hardware and spring deflection are addressed in each station\u2019s own fit record.",
+  "source_mesh_digests": {
+    "asse": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+    "meter": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+    "regulator": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+    "pisco": "95882ef5cce90972c4ea6def9fd467a0497186644683524c605df4b19ec055d6"
+  },
+  "cover_pairs": [
+    {
+      "covers": [
+        "asse",
+        "meter"
+      ],
+      "gap_mm": 8.438,
+      "overlap_mm3": 0.0
+    },
+    {
+      "covers": [
+        "asse",
+        "pisco"
+      ],
+      "gap_mm": 8.1462,
+      "overlap_mm3": 0.0
+    },
+    {
+      "covers": [
+        "asse",
+        "regulator"
+      ],
+      "gap_mm": 71.5338,
+      "overlap_mm3": 0.0
+    },
+    {
+      "covers": [
+        "meter",
+        "pisco"
+      ],
+      "gap_mm": 4.5226,
+      "overlap_mm3": 0.0
+    },
+    {
+      "covers": [
+        "meter",
+        "regulator"
+      ],
+      "gap_mm": 101.6135,
+      "overlap_mm3": 0.0
+    },
+    {
+      "covers": [
+        "pisco",
+        "regulator"
+      ],
+      "gap_mm": 122.7677,
+      "overlap_mm3": 0.0
+    }
+  ]
+}

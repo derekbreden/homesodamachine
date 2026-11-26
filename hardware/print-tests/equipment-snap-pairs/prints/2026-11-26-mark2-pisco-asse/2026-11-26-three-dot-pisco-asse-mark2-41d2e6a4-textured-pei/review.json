@@ -1,0 +1,377 @@
+{
+  "archive": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.gcode.3mf",
+  "archive_sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+  "bead_envelope_plate_mm": [
+    [
+      109.293456,
+      72.6676555
+    ],
+    [
+      215.706544,
+      246.7026855
+    ]
+  ],
+  "bed_border_mm": 60.0,
+  "bed_margins_mm": {
+    "back": 73.2973145,
+    "front": 72.6676555,
+    "left": 109.293456,
+    "right": 109.29345599999999
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "excluded_support_counts_by_region": {
+    "ASSE east catch pocket": 0,
+    "ASSE west catch pocket": 0,
+    "Covered bulkhead at X29.025858982281964 Z330.8647148810266": 0,
+    "Covered bulkhead at X76.5 Z331.2": 0,
+    "Identification channel 1": 0,
+    "Identification channel 2": 0,
+    "Pisco east catch pocket": 0,
+    "Pisco west catch pocket": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9203475377208354,
+      "second_layer_centerline_outside_first_mm": 5.392173725339365,
+      "second_layer_model_bead_area_mm2": 439.490088844572
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9210273757334361,
+      "second_layer_centerline_outside_first_mm": 7.993852168215554,
+      "second_layer_model_bead_area_mm2": 498.02209293428047
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.9967075642443466,
+      "second_layer_centerline_outside_first_mm": 6.900428185951761,
+      "second_layer_model_bead_area_mm2": 1917.0851415946343
+    },
+    "1904": {
+      "fraction_over_first_layer": 0.9977249661629941,
+      "second_layer_centerline_outside_first_mm": 16.60469030536597,
+      "second_layer_model_bead_area_mm2": 4502.890567629042
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 269,
+  "minimum_bed_margin_mm": 72.6676555,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        63.9123843126297,
+        66.3143843126297,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          114.01238201189041,
+          180.1767208099365,
+          -0.25
+        ],
+        [
+          116.91438201189041,
+          229.3810036075359,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco west catch pocket",
+      "object": 1903,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        86.6856156873703,
+        89.0876156873703,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          136.785613386631,
+          180.1767208099365,
+          -0.25
+        ],
+        [
+          139.68761338663103,
+          229.3810036075359,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco east catch pocket",
+      "object": 1903,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        59.09,
+        93.91,
+        469.299,
+        472.799,
+        310.77,
+        355.0
+      ],
+      "box_plate_mm": [
+        [
+          109.18999769926072,
+          173.17772080993655,
+          -0.25
+        ],
+        [
+          144.5099976992607,
+          177.17772080993655,
+          44.48000000000002
+        ]
+      ],
+      "name": "Identification channel 2",
+      "object": 1903,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.31,
+        322.6359030178927,
+        338.1285
+      ],
+      "box_plate_mm": [
+        [
+          119.67149769926071,
+          171.66672080993652,
+          16.621500000000026
+        ],
+        [
+          134.0284976992607,
+          188.47672080993652,
+          32.6140969821073
+        ]
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "object": 1903,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    },
+    {
+      "bounds_source_mm": [
+        3.6018602224066854,
+        9.001860222036488,
+        396.2032545933731,
+        438.3679848073112,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          161.96186160761863,
+          194.91423221844565,
+          -0.25
+        ],
+        [
+          167.86186160724844,
+          244.07896243238372,
+          14.800000000000011
+        ]
+      ],
+      "name": "ASSE west catch pocket",
+      "object": 1904,
+      "reason": "The chamfered catch prints without support."
+    },
+    {
+      "bounds_source_mm": [
+        48.59813977796351,
+        53.99813977815211,
+        396.2032545933731,
+        438.3679848073112,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          206.95814116317547,
+          194.91423221844565,
+          -0.25
+        ],
+        [
+          212.85814116336405,
+          244.07896243238372,
+          14.800000000000011
+        ]
+      ],
+      "name": "ASSE east catch pocket",
+      "object": 1904,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        7.6499988712316025,
+        49.9499988712316,
+        469.299,
+        472.799,
+        303.22,
+        355.0
+      ],
+      "box_plate_mm": [
+        [
+          166.01000025644356,
+          163.73321702575686,
+          -0.25
+        ],
+        [
+          208.81000025644354,
+          167.73321702575686,
+          52.02999999999997
+        ]
+      ],
+      "name": "Identification channel 1",
+      "object": 1904,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        55.35,
+        56.95,
+        469.299,
+        472.799,
+        303.22,
+        355.0
+      ],
+      "box_plate_mm": [
+        [
+          213.71000138521194,
+          163.73321702575686,
+          -0.25
+        ],
+        [
+          215.81000138521193,
+          167.73321702575686,
+          52.02999999999997
+        ]
+      ],
+      "name": "Identification channel 2",
+      "object": 1904,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        19.372358982281966,
+        38.67935898228196,
+        458.0,
+        474.31,
+        318.93233266023236,
+        340.5182148810266
+      ],
+      "box_plate_mm": [
+        [
+          177.73236036749392,
+          162.22221702575683,
+          14.231785118973391
+        ],
+        [
+          197.5393603674939,
+          179.03221702575684,
+          36.31766733976764
+        ]
+      ],
+      "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
+      "object": 1904,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          29.025858982281964,
+          330.8647148810266
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 9.6535,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    }
+  ],
+  "support_roads": 70859,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 6,
+      "interface_islands": 6,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 29.76,
+      "shortest_labelled_build_up_mm": 29.76,
+      "support_bodies": 1
+    },
+    "1903": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1904": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

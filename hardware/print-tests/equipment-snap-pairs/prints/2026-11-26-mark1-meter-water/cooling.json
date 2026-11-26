@@ -1,0 +1,32 @@
+{
+  "purpose": "Measure how long the hot nozzle extrudes elsewhere between successive courses of each finished article, including the upper courses that the shorter hardware does not reach.",
+  "method": "Commanded extrusion duration on other articles and the tower. Travel, acceleration and camera moves add time.",
+  "gcode_sha256": "3c72039daefc0eceed42cb3e505c00b11ea15fdf78156dfa5fda2eba3e0004e3",
+  "tower_final_z_mm": 70.76,
+  "parts": {
+    "meter-snap-cap": {
+      "courses": 159,
+      "minimum_s": 29.278,
+      "minimum_at_next_z_mm": 37.64,
+      "median_s": 46.329
+    },
+    "regulator-snap-cap": {
+      "courses": 150,
+      "minimum_s": 37.036,
+      "minimum_at_next_z_mm": 24.2,
+      "median_s": 49.606
+    },
+    "meter-receiver": {
+      "courses": 295,
+      "minimum_s": 25.753,
+      "minimum_at_next_z_mm": 38.6,
+      "median_s": 38.164
+    },
+    "water-regulator-receiver": {
+      "courses": 84,
+      "minimum_s": 46.305,
+      "minimum_at_next_z_mm": 1.64,
+      "median_s": 52.528
+    }
+  }
+}

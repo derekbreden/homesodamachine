@@ -1,0 +1,94 @@
+{
+  "purpose": "Try the three-dot C037 snap at full size on the Digiten flow meter and the water regulator.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1490559572",
+  "previous_finished_job": "1488314891",
+  "accepted_at": "2026-11-26T19:12:37+00:00",
+  "first_layer_verified_at": "2026-11-26T19:23:53+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 295,
+  "source_and_recipe_commit": "3b95f4c5b196a2cdc5ddba6a97718e4b5c227a28",
+  "printer_recipe": "three-dot-meter-water",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "external_filament": "Black PET-GF15 on the left external feed (254), mapped to PET-CF in firmware.",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "timelapse": "On, smooth",
+  "estimated_seconds": 23200,
+  "filament_g": 114.91,
+  "plate_identification": "From the open door the covers are in front of their matching receivers. Flow meter on the left, water regulator on the right.",
+  "objects": [
+    {
+      "name": "meter-snap-cap",
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-snap-cap.stl",
+      "sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+      "identify_id": 1901,
+      "bed_center_xy_mm": [
+        138.84,
+        136.0
+      ]
+    },
+    {
+      "name": "regulator-snap-cap",
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/regulator-snap-cap.stl",
+      "sha256": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+      "identify_id": 1902,
+      "bed_center_xy_mm": [
+        190.74,
+        136.0
+      ]
+    },
+    {
+      "name": "meter-receiver",
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-receiver.stl",
+      "sha256": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+      "identify_id": 1903,
+      "bed_center_xy_mm": [
+        123.52,
+        210.65
+      ]
+    },
+    {
+      "name": "water-regulator-receiver",
+      "source_stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.stl",
+      "sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+      "identify_id": 1904,
+      "bed_center_xy_mm": [
+        180.05,
+        210.65
+      ]
+    }
+  ],
+  "minimum_bed_margin_mm": 68.56,
+  "native_review": "2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/review.json",
+  "submitted_mesh_check": "native-parts.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "3c72039daefc0eceed42cb3e505c00b11ea15fdf78156dfa5fda2eba3e0004e3",
+  "project": {
+    "file": "2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.3mf",
+    "sha256": "48a8c8a8c0ebe050daf062deb077ea64011d81fdb755ccfd4d8723822ee7fa12",
+    "git_blob": "7e186140412cf2333f8591b347b89af5bc98cf5d",
+    "release_archive": "2026-11-26-three-dot-meter-water-mark1-9198218334cb089a.zip"
+  },
+  "slice": {
+    "file": "2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.gcode.3mf",
+    "sha256": "8f0e161294528f445d1cebe0b5621422a33bffea1dbec27628b3178d6c586100",
+    "git_blob": "84d9726edcc68851824e636cf38fdae477962d8c",
+    "release_archive": "2026-11-26-three-dot-meter-water-mark1-9198218334cb089a.zip"
+  },
+  "archive_restore": "The editable project and submitted slice were restored from the print-projects release and matched by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "bench_instructions": "../../README.md",
+  "seconds_after_other_printer_accepted": 386.0
+}

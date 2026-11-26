@@ -1,0 +1,1407 @@
+{
+  "archive": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.gcode.3mf",
+  "archive_sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+  "bed_type": "Textured PEI Plate",
+  "brim_allowance_mm": 0.0,
+  "connection_key": "Mark2",
+  "cooling_recovery": {
+    "added_commanded_motion_seconds": 2353.437350254393,
+    "archive_sha256": "3439aa39c2f4bd6e85e11066bd4f3243fb72ffe0de73c301f67836f65bfa28af",
+    "changed": true,
+    "estimate_scope": "Native estimate plus the added constant-feed motion time; acceleration and fan spin-up are not simulated.",
+    "input_archive_sha256": "845565e5711f383310c11c73cc51523eafd463a1bd95138fc2a81730d6908dc5",
+    "members": [
+      {
+        "added_commanded_motion_seconds": 2353.437350254393,
+        "changed": true,
+        "input_gcode_sha256": "b91914db724b5b041cea6de9456a8b4774ca4c9085223003c130cbdb501ad1a9",
+        "member": "Metadata/plate_1.gcode",
+        "native_cooled_seed_moves": 3952,
+        "ordinary_model_moves": 376692,
+        "output_gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+        "petgf_slots": [
+          0
+        ],
+        "policy": {
+          "grid_mm": 0.2,
+          "height_mm": 0.8
+        },
+        "recovery_by_feature": {
+          "Bridge": [
+            264.0,
+            218.2039422031333,
+            0.0
+          ],
+          "Floating vertical shell": [
+            3087.0,
+            12156.147683302534,
+            747.411643181228
+          ],
+          "Gap infill": [
+            8.0,
+            1.428455351991849,
+            0.0894947646908193
+          ],
+          "Inner wall": [
+            839.0,
+            945.5315208541446,
+            57.6912550312633
+          ],
+          "Internal solid infill": [
+            5623.0,
+            21285.313676824575,
+            1314.1563311125396
+          ],
+          "Outer wall": [
+            892.0,
+            2093.524273027164,
+            87.0453469880372
+          ],
+          "Sparse infill": [
+            3232.0,
+            2379.552470385751,
+            145.993617757996
+          ],
+          "Top surface": [
+            14.0,
+            17.10844939811342,
+            1.0496614186680513
+          ]
+        },
+        "recovery_fan_percent": [
+          "70"
+        ],
+        "recovery_moves": 13959,
+        "recovery_speed_limit_mm_s": [
+          "15",
+          "15",
+          "15"
+        ],
+        "scope": "The complete centerline lies in a recent native-cooled model footprint. Motion coordinates and extrusion words are retained; only local part cooling and recovery feed rates change.",
+        "speed_limited_moves": 13592
+      }
+    ]
+  },
+  "emitted_textured_trim_mm": 0.08,
+  "estimated_seconds": 22436.388522129393,
+  "gcode_sha256": "1cc432314e53c6d0896e0678c2c4b471f856cf40e9959cb8722dabb78b213381",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "objects": [
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 7863,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 5242,
+      "features": [],
+      "fins": [],
+      "identify_id": 1901,
+      "model_bed_margin_mm": 109.19355964660645,
+      "modifiers": [],
+      "name": "pisco-snap-cap",
+      "object_id": 2,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Both wings print as continuous perimeters on the axial end.",
+          "value": "0"
+        },
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_generator": {
+          "reason": "Match the end-on production spring cover.",
+          "value": "classic"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          115.44624423980713,
+          109.19355964660645,
+          0.0
+        ],
+        [
+          144.2574758529663,
+          143.70646476745605,
+          41.70428466796875
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.852142333984375
+      ],
+      "step_sha256": null,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/cover.stl",
+      "stl_sha256": "95882ef5cce90972c4ea6def9fd467a0497186644683524c605df4b19ec055d6",
+      "support_free_regions": [],
+      "translation_mm": [
+        129.85186004638672,
+        126.45001220703125,
+        20.852142333984375
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 4173,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 2782,
+      "features": [],
+      "fins": [],
+      "identify_id": 1902,
+      "model_bed_margin_mm": 105.41779518127441,
+      "modifiers": [],
+      "name": "asse-snap-cap",
+      "object_id": 4,
+      "object_settings": {
+        "enable_support": {
+          "reason": "Removable trees reach the fitted surfaces from the open end.",
+          "value": "1"
+        },
+        "overhang_1_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "overhang_2_4_speed": {
+          "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's.",
+          "value": "0,0,0,0,0"
+        },
+        "sparse_infill_density": {
+          "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks.",
+          "value": "100%"
+        },
+        "sparse_infill_pattern": {
+          "reason": "The rear-equipment-caps recipe: solid cap deposition.",
+          "value": "zig-zag"
+        },
+        "wall_generator": {
+          "reason": "Match the end-on production spring cover.",
+          "value": "classic"
+        },
+        "wall_loops": {
+          "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          159.2574758529663,
+          105.41779518127441,
+          0.0
+        ],
+        [
+          209.55375576019287,
+          147.4822292327881,
+          64.625
+        ]
+      ],
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        0.0,
+        -0.01775360107421875,
+        32.3125
+      ],
+      "step_sha256": null,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-snap-cap.stl",
+      "stl_sha256": "3c74ef90414d2547ff8e12e62fd762fc1d790e69b051adef7b7d3f6b7111912f",
+      "support_free_regions": [],
+      "translation_mm": [
+        184.4056158065796,
+        126.45001220703125,
+        32.3125
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 3297,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 2198,
+      "features": [
+        {
+          "blocker_source_mm": [
+            [
+              63.6623843126297,
+              416.84571720240064,
+              340.2
+            ],
+            [
+              66.5643843126297,
+              466.05,
+              355.25
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            63.9123843126297,
+            66.3143843126297,
+            417.09571720240064,
+            465.8,
+            340.45,
+            355.0
+          ],
+          "bounds_source_mm": [
+            63.9123843126297,
+            66.3143843126297,
+            420.3457172019407,
+            458.1610000003129,
+            340.45,
+            351.8
+          ],
+          "kind": "support_free",
+          "name": "Pisco west catch pocket",
+          "painted_faces": 6,
+          "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it.",
+          "record": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.print-features.json",
+          "record_sha256": "461d0ff9a02d49e7aa150de1202a95f18c6258609110f2a2435e3219b82671e8"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              86.4356156873703,
+              416.84571720240064,
+              340.2
+            ],
+            [
+              89.3376156873703,
+              466.05,
+              355.25
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            86.6856156873703,
+            89.0876156873703,
+            417.09571720240064,
+            465.8,
+            340.45,
+            355.0
+          ],
+          "bounds_source_mm": [
+            86.6856156873703,
+            89.0876156873703,
+            420.3457172019407,
+            458.1610000003129,
+            340.45,
+            351.8
+          ],
+          "kind": "support_free",
+          "name": "Pisco east catch pocket",
+          "painted_faces": 6,
+          "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it.",
+          "record": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.print-features.json",
+          "record_sha256": "461d0ff9a02d49e7aa150de1202a95f18c6258609110f2a2435e3219b82671e8"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              58.84,
+              469.049,
+              310.52
+            ],
+            [
+              94.16,
+              473.049,
+              355.25
+            ]
+          ],
+          "bounds_source_mm": [
+            59.09,
+            93.91,
+            469.299,
+            472.799,
+            310.77,
+            355.0
+          ],
+          "bridge_axis_source": [
+            1,
+            0,
+            0
+          ],
+          "bridge_span_mm": 42.300000000000004,
+          "kind": "support_free",
+          "name": "Identification channel 2",
+          "painted_faces": 17,
+          "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+          "record": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.print-features.json",
+          "record_sha256": "461d0ff9a02d49e7aa150de1202a95f18c6258609110f2a2435e3219b82671e8",
+          "support_print_up_source": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "blocker_source_mm": [
+            [
+              69.3215,
+              457.75,
+              322.3859030178927
+            ],
+            [
+              83.6785,
+              474.56,
+              338.3785
+            ]
+          ],
+          "bounds_source_mm": [
+            69.5715,
+            83.4285,
+            458.0,
+            474.31,
+            322.6359030178927,
+            338.1285
+          ],
+          "kind": "support_free",
+          "name": "Covered bulkhead at X76.5 Z331.2",
+          "painted_faces": 80,
+          "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+          "record": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.print-features.json",
+          "record_sha256": "461d0ff9a02d49e7aa150de1202a95f18c6258609110f2a2435e3219b82671e8",
+          "void_source": {
+            "centre_xz_mm": [
+              76.5,
+              331.2
+            ],
+            "kind": "teardrop_y",
+            "radius_mm": 6.9285,
+            "roof_angle_deg": 36.0,
+            "span_y_mm": [
+              465.55,
+              474.3
+            ]
+          }
+        }
+      ],
+      "fins": [],
+      "identify_id": 1903,
+      "model_bed_margin_mm": 87.8632755279541,
+      "modifiers": [],
+      "name": "pisco-receiver",
+      "object_id": 6,
+      "object_settings": {
+        "elefant_foot_compensation": {
+          "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py.",
+          "value": "0"
+        },
+        "enable_support": {
+          "reason": "Use the native painted receiver targets.",
+          "value": "1"
+        },
+        "max_bridge_length": {
+          "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression.",
+          "value": "0"
+        },
+        "support_object_xy_distance": {
+          "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces.",
+          "value": "0.5"
+        },
+        "support_on_build_plate_only": {
+          "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors.",
+          "value": "0"
+        },
+        "support_style": {
+          "reason": "Cavity supports must be branching trees that can be removed through their access openings.",
+          "value": "tree_slim"
+        },
+        "support_type": {
+          "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts.",
+          "value": "tree(manual)"
+        },
+        "tree_support_branch_distance": {
+          "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          109.4399978518486,
+          176.92770957946777,
+          0.0
+        ],
+        [
+          144.2600013613701,
+          232.1367244720459,
+          44.230010986328125
+        ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        76.50000190734863,
+        441.6945037841797,
+        332.88499450683594
+      ],
+      "step_sha256": null,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/three-dot/receiver.stl",
+      "stl_sha256": "299021a11a9075af646cd14295962ff75fd3468fc4ef633185543a906eee9f8f",
+      "support_free_regions": [
+        {
+          "bounds_source_mm": [
+            63.9123843126297,
+            66.3143843126297,
+            420.3457172019407,
+            458.1610000003129,
+            340.45,
+            351.8
+          ],
+          "box_plate_mm": [
+            [
+              114.01238201189041,
+              180.1767208099365,
+              -0.25
+            ],
+            [
+              116.91438201189041,
+              229.3810036075359,
+              14.800000000000011
+            ]
+          ],
+          "name": "Pisco west catch pocket",
+          "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+        },
+        {
+          "bounds_source_mm": [
+            86.6856156873703,
+            89.0876156873703,
+            420.3457172019407,
+            458.1610000003129,
+            340.45,
+            351.8
+          ],
+          "box_plate_mm": [
+            [
+              136.785613386631,
+              180.1767208099365,
+              -0.25
+            ],
+            [
+              139.68761338663103,
+              229.3810036075359,
+              14.800000000000011
+            ]
+          ],
+          "name": "Pisco east catch pocket",
+          "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+        },
+        {
+          "bounds_source_mm": [
+            59.09,
+            93.91,
+            469.299,
+            472.799,
+            310.77,
+            355.0
+          ],
+          "box_plate_mm": [
+            [
+              109.18999769926072,
+              173.17772080993655,
+              -0.25
+            ],
+            [
+              144.5099976992607,
+              177.17772080993655,
+              44.48000000000002
+            ]
+          ],
+          "name": "Identification channel 2",
+          "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+        },
+        {
+          "bounds_source_mm": [
+            69.5715,
+            83.4285,
+            458.0,
+            474.31,
+            322.6359030178927,
+            338.1285
+          ],
+          "box_plate_mm": [
+            [
+              119.67149769926071,
+              171.66672080993652,
+              16.621500000000026
+            ],
+            [
+              134.0284976992607,
+              188.47672080993652,
+              32.6140969821073
+            ]
+          ],
+          "name": "Covered bulkhead at X76.5 Z331.2",
+          "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+          "void_source": {
+            "centre_xz_mm": [
+              76.5,
+              331.2
+            ],
+            "kind": "teardrop_y",
+            "radius_mm": 6.9285,
+            "roof_angle_deg": 36.0,
+            "span_y_mm": [
+              465.55,
+              474.3
+            ]
+          }
+        }
+      ],
+      "translation_mm": [
+        126.84999960660934,
+        204.53221702575684,
+        22.115005493164062
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    },
+    {
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "closed": {
+        "bodies": 1,
+        "boundary_edges": 0,
+        "closed_oriented_single_body": true,
+        "edges": 2736,
+        "inconsistent_edges": 0,
+        "nonmanifold_edges": 0
+      },
+      "facets": 1824,
+      "features": [
+        {
+          "blocker_source_mm": [
+            [
+              3.3518602224066854,
+              392.7032545933731,
+              340.2
+            ],
+            [
+              9.251860222036488,
+              441.8679848073112,
+              355.25
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            3.6018602224066854,
+            9.001860222036488,
+            392.9532545933731,
+            441.6179848073112,
+            340.45,
+            355.0
+          ],
+          "bounds_source_mm": [
+            3.6018602224066854,
+            9.001860222036488,
+            396.2032545933731,
+            438.3679848073112,
+            340.45,
+            351.8
+          ],
+          "kind": "support_free",
+          "name": "ASSE west catch pocket",
+          "painted_faces": 2,
+          "reason": "The chamfered catch prints without support.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.print-features.json",
+          "record_sha256": "57adcc7795d8fe02590c63b682f620f9852ba66e9a8916fd6e880931bc92bb2f"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              48.34813977796351,
+              392.7032545933731,
+              340.2
+            ],
+            [
+              54.24813977815211,
+              441.8679848073112,
+              355.25
+            ]
+          ],
+          "blocking_bounds_source_mm": [
+            48.59813977796351,
+            53.99813977815211,
+            392.9532545933731,
+            441.6179848073112,
+            340.45,
+            355.0
+          ],
+          "bounds_source_mm": [
+            48.59813977796351,
+            53.99813977815211,
+            396.2032545933731,
+            438.3679848073112,
+            340.45,
+            351.8
+          ],
+          "kind": "support_free",
+          "name": "ASSE east catch pocket",
+          "painted_faces": 2,
+          "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.print-features.json",
+          "record_sha256": "57adcc7795d8fe02590c63b682f620f9852ba66e9a8916fd6e880931bc92bb2f"
+        },
+        {
+          "blocker_source_mm": [
+            [
+              7.3999988712316025,
+              469.049,
+              302.97
+            ],
+            [
+              50.1999988712316,
+              473.049,
+              355.25
+            ]
+          ],
+          "bounds_source_mm": [
+            7.6499988712316025,
+            49.9499988712316,
+            469.299,
+            472.799,
+            303.22,
+            355.0
+          ],
+          "bridge_axis_source": [
+            1,
+            0,
+            0
+          ],
+          "bridge_span_mm": 42.3,
+          "kind": "support_free",
+          "name": "Identification channel 1",
+          "painted_faces": 3,
+          "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.print-features.json",
+          "record_sha256": "57adcc7795d8fe02590c63b682f620f9852ba66e9a8916fd6e880931bc92bb2f",
+          "support_print_up_source": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "blocker_source_mm": [
+            [
+              55.1,
+              469.049,
+              302.97
+            ],
+            [
+              57.2,
+              473.049,
+              355.25
+            ]
+          ],
+          "bounds_source_mm": [
+            55.35,
+            56.95,
+            469.299,
+            472.799,
+            303.22,
+            355.0
+          ],
+          "bridge_axis_source": [
+            1,
+            0,
+            0
+          ],
+          "bridge_span_mm": 42.300000000000004,
+          "kind": "support_free",
+          "name": "Identification channel 2",
+          "painted_faces": 2,
+          "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.print-features.json",
+          "record_sha256": "57adcc7795d8fe02590c63b682f620f9852ba66e9a8916fd6e880931bc92bb2f",
+          "support_print_up_source": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "blocker_source_mm": [
+            [
+              19.122358982281966,
+              457.75,
+              318.68233266023236
+            ],
+            [
+              38.92935898228196,
+              474.56,
+              340.7682148810266
+            ]
+          ],
+          "bounds_source_mm": [
+            19.372358982281966,
+            38.67935898228196,
+            458.0,
+            474.31,
+            318.93233266023236,
+            340.5182148810266
+          ],
+          "kind": "support_free",
+          "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
+          "painted_faces": 80,
+          "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+          "record": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.print-features.json",
+          "record_sha256": "57adcc7795d8fe02590c63b682f620f9852ba66e9a8916fd6e880931bc92bb2f",
+          "void_source": {
+            "centre_xz_mm": [
+              29.025858982281964,
+              330.8647148810266
+            ],
+            "kind": "teardrop_y",
+            "radius_mm": 9.6535,
+            "roof_angle_deg": 36.0,
+            "span_y_mm": [
+              465.55,
+              474.3
+            ]
+          }
+        }
+      ],
+      "fins": [],
+      "identify_id": 1904,
+      "model_bed_margin_mm": 73.41779518127441,
+      "modifiers": [],
+      "name": "asse-receiver",
+      "object_id": 12,
+      "object_settings": {
+        "elefant_foot_compensation": {
+          "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py.",
+          "value": "0"
+        },
+        "enable_support": {
+          "reason": "Use the native painted receiver targets.",
+          "value": "1"
+        },
+        "max_bridge_length": {
+          "reason": "Native contact targets request the exposed undersides; explicit pocket exclusions keep the fitted interiors clear without a global bridge-support suppression.",
+          "value": "0"
+        },
+        "support_object_xy_distance": {
+          "reason": "Separate removable exterior trees from the C14 passage and its adjacent surfaces.",
+          "value": "0.5"
+        },
+        "support_on_build_plate_only": {
+          "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors.",
+          "value": "0"
+        },
+        "support_style": {
+          "reason": "Cavity supports must be branching trees that can be removed through their access openings.",
+          "value": "tree_slim"
+        },
+        "support_type": {
+          "reason": "Apply dense native interfaces beneath accessible joint, funnel, valve and routing contacts.",
+          "value": "tree(manual)"
+        },
+        "tree_support_branch_distance": {
+          "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact.",
+          "value": "3"
+        }
+      },
+      "plate_bounds_mm": [
+        [
+          159.2600013613701,
+          162.4822292327881,
+          0.0
+        ],
+        [
+          215.5600021481514,
+          246.5822048187256,
+          51.779998779296875
+        ]
+      ],
+      "pose": {
+        "turns": [
+          [
+            "x",
+            180
+          ]
+        ]
+      },
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "ranges": [],
+      "ribbons": [],
+      "seam_enforcer": null,
+      "source_center_mm": [
+        28.800000369548798,
+        432.25,
+        329.11000061035156
+      ],
+      "step_sha256": null,
+      "stl": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/asse-receiver.stl",
+      "stl_sha256": "9b256c7a3119594817986f72b928419d732fbe078336f34d7a2fa41956d3bfda",
+      "support_free_regions": [
+        {
+          "bounds_source_mm": [
+            3.6018602224066854,
+            9.001860222036488,
+            396.2032545933731,
+            438.3679848073112,
+            340.45,
+            351.8
+          ],
+          "box_plate_mm": [
+            [
+              161.96186160761863,
+              194.91423221844565,
+              -0.25
+            ],
+            [
+              167.86186160724844,
+              244.07896243238372,
+              14.800000000000011
+            ]
+          ],
+          "name": "ASSE west catch pocket",
+          "reason": "The chamfered catch prints without support."
+        },
+        {
+          "bounds_source_mm": [
+            48.59813977796351,
+            53.99813977815211,
+            396.2032545933731,
+            438.3679848073112,
+            340.45,
+            351.8
+          ],
+          "box_plate_mm": [
+            [
+              206.95814116317547,
+              194.91423221844565,
+              -0.25
+            ],
+            [
+              212.85814116336405,
+              244.07896243238372,
+              14.800000000000011
+            ]
+          ],
+          "name": "ASSE east catch pocket",
+          "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+        },
+        {
+          "bounds_source_mm": [
+            7.6499988712316025,
+            49.9499988712316,
+            469.299,
+            472.799,
+            303.22,
+            355.0
+          ],
+          "box_plate_mm": [
+            [
+              166.01000025644356,
+              163.73321702575686,
+              -0.25
+            ],
+            [
+              208.81000025644354,
+              167.73321702575686,
+              52.02999999999997
+            ]
+          ],
+          "name": "Identification channel 1",
+          "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+        },
+        {
+          "bounds_source_mm": [
+            55.35,
+            56.95,
+            469.299,
+            472.799,
+            303.22,
+            355.0
+          ],
+          "box_plate_mm": [
+            [
+              213.71000138521194,
+              163.73321702575686,
+              -0.25
+            ],
+            [
+              215.81000138521193,
+              167.73321702575686,
+              52.02999999999997
+            ]
+          ],
+          "name": "Identification channel 2",
+          "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+        },
+        {
+          "bounds_source_mm": [
+            19.372358982281966,
+            38.67935898228196,
+            458.0,
+            474.31,
+            318.93233266023236,
+            340.5182148810266
+          ],
+          "box_plate_mm": [
+            [
+              177.73236036749392,
+              162.22221702575683,
+              14.231785118973391
+            ],
+            [
+              197.5393603674939,
+              179.03221702575684,
+              36.31766733976764
+            ]
+          ],
+          "name": "Covered bulkhead at X29.025858982281964 Z330.8647148810266",
+          "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+          "void_source": {
+            "centre_xz_mm": [
+              29.025858982281964,
+              330.8647148810266
+            ],
+            "kind": "teardrop_y",
+            "radius_mm": 9.6535,
+            "roof_angle_deg": 36.0,
+            "span_y_mm": [
+              465.55,
+              474.3
+            ]
+          }
+        }
+      ],
+      "translation_mm": [
+        187.41000175476074,
+        204.53221702575684,
+        25.889999389648438
+      ],
+      "verify_spans": [],
+      "yaw_degrees": 0.0
+    }
+  ],
+  "pause": null,
+  "piece": "three-dot-pisco-asse",
+  "plate_border_mm": 60.0,
+  "plate_offset_mm": {
+    "reason": "Center the two model rows and their smooth-timelapse tower together on the textured plate.",
+    "value": [
+      0,
+      16
+    ]
+  },
+  "prepared_utc": "2026-11-26T18:56:53+00:00",
+  "printer": "Mark2",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "requested_z_trim_mm": 0.1,
+      "to_sha256": "3dbe43733a8338e4b7a7ef67b171d1fc8b613de10576da61d48810a7dbf1ae10"
+    },
+    "petgf_support_recipe": {
+      "members": {},
+      "profile": "hardware/printed-parts/petgf.profile.json",
+      "sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.10 Z trim"
+    }
+  },
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "project": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei.3mf",
+  "project_sha256": "a52b0c0846f95131e0e21279ce93d846d7b7cdd35b33980318fed43436db3983",
+  "requested_z_trim_mm": 0.1,
+  "settings_changes": {
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "reason": "Plate selected on the command line.",
+      "to": "Textured PEI Plate"
+    },
+    "enable_prime_tower": {
+      "from": "1",
+      "reason": "The earlier full-pair toolpaths return directly to the ASSE cover or the flow-meter receiver once the other objects end. Keep the hot nozzle away between these top courses.",
+      "to": "1"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading.",
+      "to": [
+        "#161616"
+      ]
+    },
+    "flush_into_support": {
+      "from": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "0"
+    },
+    "overhang_2_4_speed": {
+      "from": [
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here.",
+      "to": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35"
+      ]
+    },
+    "overhang_3_4_speed": {
+      "from": [
+        "30",
+        "30",
+        "30",
+        "30",
+        "30"
+      ],
+      "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here.",
+      "to": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35"
+      ]
+    },
+    "override_process_overhang_speed": {
+      "from": [
+        "1",
+        "0",
+        "0"
+      ],
+      "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply.",
+      "to": [
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    "prime_tower_max_speed": {
+      "from": "90",
+      "reason": "Time on the tower cools the cap while retaining the model print recipe.",
+      "to": "10"
+    },
+    "prime_tower_rib_wall": {
+      "from": "1",
+      "reason": "Keep the requested tower width in single-colour smooth-timelapse mode.",
+      "to": "0"
+    },
+    "prime_tower_width": {
+      "from": "60",
+      "reason": "A constant perimeter provides time away on every cap layer.",
+      "to": "50"
+    },
+    "requested_z_trim_mm": {
+      "from": 0.1,
+      "reason": "Use the textured PEI trim from the individual receiver and cap trials.",
+      "to": 0.1
+    },
+    "support_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.",
+      "to": "1"
+    },
+    "timelapse_type": {
+      "from": "0",
+      "reason": "Use the prior Pisco smooth-timelapse return interval at the upper courses of the full-size pair.",
+      "to": "1"
+    },
+    "wipe_tower_x": {
+      "from": [
+        "165"
+      ],
+      "reason": "Center the tower footprint within the seasoned bed region.",
+      "to": [
+        "137"
+      ]
+    },
+    "wipe_tower_y": {
+      "from": [
+        "250"
+      ],
+      "reason": "The tower stands clear of both front covers and their first-layer stock.",
+      "to": [
+        "78"
+      ]
+    }
+  },
+  "settings_sha256": "01e0721632e38178c9dba879f26b5ed6f90cb5f5dc43597125a27bd34ffd03b7",
+  "show_faces": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/2026-11-26-three-dot-pisco-asse-mark2-41d2e6a4-textured-pei/show-faces.npz",
+  "sliced": true,
+  "slicer_warnings": [],
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "98c262479b32aa67a4c1fed153e084c8d4cd48d7d072cf35e9c68b15f9a592bd",
+  "submitted": false,
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.rs": "4433c7b0e9582036abdbaf2d1b9d887d0f54154e0a099c05cc20387d626a40ca",
+    "tools/hsm/print-prep/src/approaches.rs": "5bf7b4ba8fdbf626534a9f95d048f34cd06b15e9b8eb078d498cec468fccbe29",
+    "tools/hsm/print-prep/src/audit.rs": "d3ee1a1527218b235dcdc9541bcc48eedb737833c22627363a3d95a416498b2c",
+    "tools/hsm/print-prep/src/base_foundation.rs": "dc54df99d1bbd512b50a7261db9f85d4b43fb6513432ab872146ac4a4acf8edf",
+    "tools/hsm/print-prep/src/cooling.rs": "e56accc63143f90c84cbb2f566664500884cd71201238552b104ee18cfaf6a33",
+    "tools/hsm/print-prep/src/course_field.rs": "bc81cf55189faea828141e3ad56bc43fd5112511ff67dbe8da5e070893990b57",
+    "tools/hsm/print-prep/src/derive.rs": "32feb840389e4e7010e4b52075a95f9a53bd5d7d69e7604e6b4763032c0338df",
+    "tools/hsm/print-prep/src/faucet.rs": "39fc4ae61ebccda26039e9a5c3d09c8e91b7c028f1a886eecd51446bdff74f75",
+    "tools/hsm/print-prep/src/faucet_contact.rs": "4d9723455214bc90329f3c61f858758259a305cca925003ba96314f1c3f7844f",
+    "tools/hsm/print-prep/src/faucet_plate.rs": "5c2255971377893cbb937966d92528d7ed85cf79499e0bca9eaba089c3cd50a8",
+    "tools/hsm/print-prep/src/faucet_recesses.rs": "67436872fcf6315d00d01dea42322d3c59448c82884e5b5dc010e4c08a51dd9c",
+    "tools/hsm/print-prep/src/feed_cap.rs": "e2b3652363fea2dc8436cc373fe125b6d583aaeb8378974e8986cbac88561f18",
+    "tools/hsm/print-prep/src/filled_base.rs": "5e4012e59975694f8d51dabdf9704d160ca44d8c55d34c211d07a8929e6c9cf8",
+    "tools/hsm/print-prep/src/foundation_sequence.rs": "97541500add2abceef652ef7a4e1d9683234a794dc6a44093cce53a1a3374731",
+    "tools/hsm/print-prep/src/gcode.rs": "7308b7d617941ccceade09d8d451dc2799df0a2236b1bc4e34a9af28c99d173e",
+    "tools/hsm/print-prep/src/head_map.rs": "f05abcd30e5f7ecd3035e69a0cd2fadd504f0632e4453cb494734ed6f6155853",
+    "tools/hsm/print-prep/src/head_replay.rs": "55c91c184e3e4d73d9b8b15a01baa9cb99a7dd357e31c9336d1ac2a5a40cb0c0",
+    "tools/hsm/print-prep/src/ids.rs": "ecd56bf93b5c1f08b1b8d6f36d983d5a18e1b123c138f5a9884b7fe2f786fbec",
+    "tools/hsm/print-prep/src/lib.rs": "3b7352c81877ee7998807230975c9354fd903f5a8b818baf2a8560b6017d07a1",
+    "tools/hsm/print-prep/src/mesh.rs": "47a9d52e10d0c8cae37eebe42f224480dba51fbe8f743e0ddb8f3d993ccdba65",
+    "tools/hsm/print-prep/src/motion.rs": "27fde46e9a2956e24be849c723dd2b81a922f15dd960362607e959e4b4b47bde",
+    "tools/hsm/print-prep/src/npz.rs": "23c7d5acbe636050d8e095f83943186709027f75b7e01623652c8d235baead21",
+    "tools/hsm/print-prep/src/plate_picture.rs": "a00385d94945c24e54605584f5de54dbd488a776de0bb24858426283c47c0345",
+    "tools/hsm/print-prep/src/plate_rings.rs": "097d6b48ead23ae4c40f59c880cf14bd3d617e9244aac3a4dcc05f9a2b50cca2",
+    "tools/hsm/print-prep/src/plate_sequence.rs": "054606df22b5ceb4d7fb922742019854a390f960e1b72671b2615b31cc4eb1a4",
+    "tools/hsm/print-prep/src/preset.rs": "8897253423900e99f4df09890a747ce633abc4a1c2b3ab73a6119183d3444770",
+    "tools/hsm/print-prep/src/profile.rs": "205384a98e03cfc79498fd1011d300a8b170452593cdf78f4d1a4cc9a91bf7f9",
+    "tools/hsm/print-prep/src/project.rs": "4fcd588d4704c42a82eda45074181419ea47a2b6918131729a3ad952991f54f9",
+    "tools/hsm/print-prep/src/refresh.rs": "2981218c8a9b5e5ff6ad3500644b7d34ee8705e2cb648e1229d39dccbdb8946c",
+    "tools/hsm/print-prep/src/review.rs": "0e985ef76e2bdbcf44f463c9a3bb4aa52441cb04c5c96f440abb3bf643c4ae55",
+    "tools/hsm/print-prep/src/seam.rs": "930c755a49513182a66e1acedac5df2ef7ef319fb47e84325dccf5012253685f",
+    "tools/hsm/print-prep/src/slice.rs": "6edbd05ee86cc7d5ab70b28a2f353ee482ee129eb3f70d7a470b72de8eab0c6a",
+    "tools/hsm/print-prep/src/sloped_courses.rs": "4d0bc66757be4465463b837bb151a0cc2524890173637017a1cbbafad217e0f6",
+    "tools/hsm/print-prep/src/stretch_cooling.rs": "2e68af6908e25fa12b29df744991546e86ed7102a6b61b317577fde59ac0c26b",
+    "tools/hsm/print-prep/src/support_stock.rs": "dca974e9035239b0661fffc159a23e4b312241f4a511eb830439cdc1a71b1847",
+    "tools/hsm/print-prep/src/tip_audit.rs": "2957f4a44e8d73f4497b2f6aaf874c2354a017e5ffd5142ff6ffcf20ad0c2d09",
+    "tools/hsm/print-prep/src/tip_courses.rs": "98f53ebfa27d80347db52c22a261585b29abc14b9a9f21b8754b7a0bceae173c",
+    "tools/hsm/print-prep/src/tip_foundation.rs": "4d9b5630a162877506c0df5b6d4cabcbffa8734a32c20db95e89148973e84f4f",
+    "tools/hsm/print-prep/src/tip_supports.rs": "d9c7bd831f4d23324b76131bcba1c3af3c9f392696b5bb1721bcfdfcaf6a6216",
+    "tools/hsm/print-prep/src/tip_warp.rs": "675aae67e5d36ddfdf6c52a572e09f523ba6eca5956a9903ad5c03396f912a23",
+    "tools/hsm/print-prep/src/trial_archive.rs": "0cc8dd5c1a459619ea652a46d216e94a2b8a24caf668e5c2d914b0070ac5271e",
+    "tools/hsm/print-prep/src/xml.rs": "6223880bf228c5c0092df6b2f3728fd792bff174ac3ef243e7d81d659f223407"
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ]
+}

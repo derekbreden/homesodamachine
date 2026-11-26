@@ -1,0 +1,193 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -30.419996798,
+      625.149999619,
+      322.600006104
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-meter-water/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.gcode.3mf plate_1.gcode, object 1903",
+    "gcode_sha256": "3c72039daefc0eceed42cb3e505c00b11ea15fdf78156dfa5fda2eba3e0004e3",
+    "model": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-receiver.stl",
+    "model_sha256": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+    "profile": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-meter-water/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei.3mf",
+    "profile_sha256": "48a8c8a8c0ebe050daf062deb077ea64011d81fdb755ccfd4d8723822ee7fa12"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_cad_xyz_mm": [
+        81.98,
+        383.55,
+        312.8,
+        97.58,
+        396.35,
+        313.28
+      ],
+      "bbox_xy_mm": [
+        112.4,
+        228.8,
+        128.0,
+        241.6
+      ],
+      "build_up_mm": 9.12,
+      "first_z_mm": 9.32,
+      "id": "interface-1",
+      "last_z_mm": 9.8,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        81.98,
+        394.35,
+        309.2,
+        86.78,
+        418.35,
+        309.92
+      ],
+      "bbox_xy_mm": [
+        112.4,
+        206.8,
+        117.2,
+        230.8
+      ],
+      "build_up_mm": 12.48,
+      "first_z_mm": 12.68,
+      "id": "interface-2",
+      "last_z_mm": 13.4,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        81.98,
+        417.55,
+        267.92,
+        96.38,
+        430.35,
+        269.6
+      ],
+      "bbox_xy_mm": [
+        112.4,
+        194.8,
+        126.8,
+        207.6
+      ],
+      "build_up_mm": 52.8,
+      "first_z_mm": 53.0,
+      "id": "interface-3",
+      "last_z_mm": 54.68,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        81.98,
+        383.55,
+        267.92,
+        96.38,
+        395.55,
+        269.36
+      ],
+      "bbox_xy_mm": [
+        112.4,
+        229.6,
+        126.8,
+        241.6
+      ],
+      "build_up_mm": 53.04,
+      "first_z_mm": 53.24,
+      "id": "interface-4",
+      "last_z_mm": 54.68,
+      "tree": "tree-1"
+    },
+    {
+      "bbox_cad_xyz_mm": [
+        81.98,
+        393.55,
+        263.84,
+        97.58,
+        419.95,
+        264.32
+      ],
+      "bbox_xy_mm": [
+        112.4,
+        205.2,
+        128.0,
+        231.6
+      ],
+      "build_up_mm": 58.08,
+      "first_z_mm": 58.28,
+      "id": "interface-5",
+      "last_z_mm": 58.76,
+      "tree": "tree-1"
+    }
+  ],
+  "piece": "meter-receiver",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 1,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 5,
+    "interface_islands": 5,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": 9.12,
+    "shortest_labelled_build_up_mm": 9.12,
+    "support_bodies": 1
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.2,
+      "bbox_cad_xyz_mm": [
+        73.18,
+        373.95,
+        263.84,
+        97.98,
+        430.35,
+        322.4
+      ],
+      "bbox_xy_mm": [
+        103.6,
+        194.8,
+        128.4,
+        251.2
+      ],
+      "first_interface_z_mm": 9.32,
+      "id": "tree-1",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3",
+        "interface-4",
+        "interface-5"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 9.12,
+      "top_z_mm": 58.76
+    }
+  ]
+}
