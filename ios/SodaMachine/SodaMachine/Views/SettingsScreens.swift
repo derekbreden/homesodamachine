@@ -1,8 +1,7 @@
 import SwiftUI
 
 // ────────────────────────────────────────────────────────────
-// Settings: the machine's name, its sound, its software, and the machines
-// this device knows.
+// Appliance readings and preferences, and the machines this device knows.
 // ────────────────────────────────────────────────────────────
 
 struct SettingsHomeView: View {
@@ -10,10 +9,15 @@ struct SettingsHomeView: View {
     @Environment(Navigator.self) var nav
 
     var body: some View {
+        let visible = nav.tab == .settings && nav.top == nil && !nav.managing
+        let readableMachine = visible && ble.canChange && ble.stampedSettingsSupported ? ble.current?.id : nil
         VStack(alignment: .leading, spacing: 28) {
+            CoolingSettings()
             VStack(alignment: .leading, spacing: 12) {
                 SectionTitle("Your machine")
                 GroupedPanel {
+                    SettingsRow(title: "Water & sensors", icon: "drop") { nav.push(.waterSensors) }
+                    RowDivider()
                     SettingsRow(title: "Name", detail: nameDetail, icon: "pencil") { nav.push(.rename) }
                     RowDivider()
                     SettingsRow(title: "Sound", icon: "speaker.wave.2") { nav.push(.sound) }
@@ -38,6 +42,10 @@ struct SettingsHomeView: View {
             }
         }
         .frame(maxWidth: 560).frame(maxWidth: .infinity, alignment: .leading)
+        .modifier(StatusPolling(visible: visible))
+        .task(id: readableMachine) {
+            if readableMachine != nil && !ble.temperatureUnitUnavailable { _ = await ble.readSetting(.temperatureUnit) }
+        }
     }
 
     /// A name the machine has not acknowledged yet says so.
@@ -113,6 +121,9 @@ struct FormSaveOutcome: View {
     private func describe(_ data: Data?) -> String {
         guard let data else { return "a newer setting" }
         if setting == .name { return "the name “\(String(data: data, encoding: .utf8) ?? "")”" }
+        if setting == .temperatureUnit, let byte = data.first, let unit = MachineTemperatureUnit(rawValue: byte) {
+            return "\(unit.label) selected"
+        }
         if let sound = SoundSettings(data) { return "volume \(sound.volume)% and its current quiet-hours schedule" }
         return "a newer setting"
     }

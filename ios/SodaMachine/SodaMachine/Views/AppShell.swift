@@ -57,6 +57,7 @@ struct RootView: View {
     private var connections: some View {
         pages.onChange(of: writer.acceptedCommits) { _, records in
             for (id, record) in records {
+                guard id.setting == .name || id.setting == .sound else { continue }
                 let field: EditField = id.setting == .name ? .name : .sound
                 let key = EditKey(machine: id.machine, field: field)
                 guard edits.base(key)?.revision == record.base.revision else { continue }
@@ -73,6 +74,7 @@ struct RootView: View {
         .onChange(of: ble.bridgeVersion) { mix.connectionChanged(); writer.poke() }
         .onChange(of: ble.trust) { mix.connectionChanged(); writer.poke() }
         .onChange(of: ble.current?.settingSnapshots) { mix.connectionChanged(); writer.poke() }
+        .onChange(of: ble.temperatureUnitWritable) { writer.poke() }
         // A machine added from anywhere opens, even one already in use; Your
         // machines closes over it.
         .onChange(of: access.added) {
@@ -145,9 +147,10 @@ extension RootView {
         guard let page = UserDefaults.standard.string(forKey: "demoPage") else { return }
         let routes: [String: AppRoute] = [
             "history": .history, "sound": .sound, "update": .update, "rename": .rename,
+            "sensors": .waterSensors,
             "flavor1": .flavor(0), "flavor2": .flavor(1),
         ]
-        let tabs: [String: AppTab] = ["machine": .machine, "care": .care, "settings": .settings]
+        let tabs: [String: AppTab] = ["machine": .machine, "care": .care, "settings": .settings, "sensors": .settings]
         guard routes[page] != nil || tabs[page] != nil else { return }
         if !ble.demoMode { ble.addDemo() }
         Task {
@@ -176,6 +179,7 @@ extension RootView {
         switch nav.top?.route {
         case .sound?: setting = .sound
         case .rename?: setting = .name
+        case nil where nav.tab == .settings: setting = .temperatureUnit
         default: setting = nil
         }
         writer.contextChanged(setting: nav.managing ? nil : setting, foreground: foreground)
@@ -344,6 +348,7 @@ struct RoutePage: View {
             case .update: SoftwareUpdateView(entry: entry)
             case .rename: RenameView(entry: entry)
             case .history: HistoryView(entry: entry)
+            case .waterSensors: WaterSensorsView(entry: entry)
             }
         }
         .modifier(PageTitle(title: entry.route.title, subtitle: ble.machineLine))
@@ -392,6 +397,7 @@ extension AppRoute {
         case .update: "Software Update"
         case .rename: "Machine name"
         case .history: "History"
+        case .waterSensors: "Water & sensors"
         }
     }
 }
@@ -597,6 +603,7 @@ struct ActionButton: View {
 }
 
 struct SettingsRow: View {
+    @Environment(\.dynamicTypeSize) private var typeSize
     let title: String
     var detail: String?
     var icon: String?
@@ -605,12 +612,22 @@ struct SettingsRow: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 12) {
-                if let icon { Image(systemName: icon).frame(width: 24).foregroundStyle(Theme.textSecondary) }
-                Text(title).font(.body)
-                Spacer(minLength: 12)
-                if let detail { Text(detail).font(.subheadline).foregroundStyle(Theme.textSecondary) }
-                Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(Theme.textSecondary)
+                if let icon {
+                    Image(systemName: icon).dynamicTypeSize(...DynamicTypeSize.xLarge)
+                        .frame(width: 24).foregroundStyle(Theme.textSecondary).accessibilityHidden(true)
+                }
+                let textLayout = typeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 2))
+                                                             : AnyLayout(HStackLayout(spacing: 12))
+                textLayout {
+                    Text(title).font(.body)
+                    if !typeSize.isAccessibilitySize { Spacer(minLength: 12) }
+                    if let detail { Text(detail).font(.subheadline).foregroundStyle(Theme.textSecondary) }
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "chevron.right").font(.caption.weight(.semibold))
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge).foregroundStyle(Theme.textSecondary)
+                    .accessibilityHidden(true)
             }
+            .padding(.vertical, typeSize.isAccessibilitySize ? 8 : 0)
             .frame(minHeight: 52)
             .contentShape(Rectangle())
         }

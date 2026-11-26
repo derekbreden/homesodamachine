@@ -50,10 +50,17 @@ class BLEManager {
     /// The faucet answered IDENTITY and said nothing about a bridge: its
     /// software predates it.
     var bridgeMissing = false
+    /// Only a status received on this connection can supply a live reading.
+    var statusReceivedOnLink = false
+    /// The main board behind a version 2 faucet can predate the unit preference.
+    var temperatureUnitSupportedOnLink: Bool?
+    @ObservationIgnored var temperatureUnitQuery: UUID?
+    @ObservationIgnored var temperatureUnitLastQuery: TimeInterval?
     @ObservationIgnored var bridgeNextID: UInt8 = 0
     @ObservationIgnored var bridgeWaiting: [UInt8: CheckedContinuation<Result<BridgeAnswer, BridgeError>, Never>] = [:]
     /// The demo's run in progress (DemoMachine.swift).
     @ObservationIgnored var demoRunTask: Task<Void, Never>?
+    @ObservationIgnored var demoCoolingStart: Date?
 
     // ── Trust (MachineTrust.swift) ───────────────────────────────────────
     /// Where this device stands with the machine on this link; nil until the
@@ -1079,6 +1086,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         guard peripheral === ble.connectedPeripheral else { return }
         log.info("Disconnected")
+        ble.linkGeneration += 1
         ble.connectedPeripheral = nil
         ble.rxCharacteristic = nil
         ble.nusReady = false

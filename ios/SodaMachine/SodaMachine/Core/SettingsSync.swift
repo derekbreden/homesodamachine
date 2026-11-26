@@ -5,7 +5,26 @@ import Foundation
 typealias SettingRevision = UInt64
 
 enum SettingKind: UInt8, Codable, CaseIterable {
-    case ratio = 0, sound = 1, name = 2, selection = 3, art = 4
+    case ratio = 0, sound = 1, name = 2, selection = 3, art = 4, temperatureUnit = 5
+}
+
+/// The main board's display preference. Probe and history samples always arrive in Celsius.
+enum MachineTemperatureUnit: UInt8, CaseIterable {
+    case fahrenheit = 0, celsius = 1
+
+    var label: String { self == .fahrenheit ? "Fahrenheit" : "Celsius" }
+    var symbol: String { self == .fahrenheit ? "°F" : "°C" }
+    var wire: Data { Data([rawValue]) }
+
+    func format(tenthsC: Int?, compact: Bool = false) -> String {
+        guard let tenthsC, let value = Int16(exactly: tenthsC), value != .min else { return "--" }
+        let numerator = self == .celsius ? tenthsC : 32 * 50 + tenthsC * 9
+        let denominator = self == .celsius ? 10 : 50
+        let scale = compact ? 1 : 10
+        let rounded = (abs(numerator) * scale + denominator / 2) / denominator
+        let sign = numerator < 0 && rounded != 0 ? "-" : ""
+        return compact ? "\(sign)\(rounded)\(symbol)" : "\(sign)\(rounded / 10).\(rounded % 10)\(symbol)"
+    }
 }
 
 struct SettingKey: Hashable, Codable {
@@ -22,11 +41,12 @@ struct SettingKey: Hashable, Codable {
     static let sound = SettingKey(.sound)
     static let name = SettingKey(.name)
     static let selection = SettingKey(.selection)
+    static let temperatureUnit = SettingKey(.temperatureUnit)
 
     var valid: Bool {
         switch kind {
         case .ratio, .art: channel < 2
-        case .sound, .name, .selection: channel == 0xFF
+        case .sound, .name, .selection, .temperatureUnit: channel == 0xFF
         }
     }
 
@@ -37,6 +57,7 @@ struct SettingKey: Hashable, Codable {
         switch kind {
         case .ratio: return bytes.count == 1 && (6...24).contains(Int(bytes[0]))
         case .selection: return bytes.count == 1 && bytes[0] < 2
+        case .temperatureUnit: return bytes.count == 1 && MachineTemperatureUnit(rawValue: bytes[0]) != nil
         case .art: return bytes.count == 1 && bytes[0] < 8
         case .sound:
             return bytes.count == 6 && bytes[0] <= 100 && bytes[1] <= 1

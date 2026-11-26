@@ -9,22 +9,25 @@ import Foundation
 extension BLEManager {
     /// Sample state for a demo that has none yet.
     func seedDemo(_ m: KnownMachine) {
-        if m.isDemo, m.appliance.status != nil { seedDemoSettings(m); return }
-        guard m.isDemo, m.appliance.status == nil else { return }
+        guard m.isDemo else { return }
         let now = Date()
+        if demoCoolingStart == nil { demoCoolingStart = now }
+        if let saved = m.appliance.status {
+            m.appliance.status = demoCooling(saved.value, at: now)
+            seedDemoSettings(m)
+            return
+        }
         var status = MachineStatus()
         status.levels = [3, 1]
         status.levelFlags = 0x01 | 0x02 | 0x04   // read, both carbonator reeds closed
         status.ratios = [20, 20]
-        status.tankTenthsC = 22
-        status.coldState = ColdState.on.rawValue
         status.refillState = RefillState.idle.rawValue
         var sound = SoundSettings()
         sound.volume = 60
         sound.quietOn = true
         sound.quietVolume = 20
         var state = ApplianceState()
-        state.status = Reading(value: status, at: now)
+        state.status = demoCooling(status, at: now)
         state.selection = Reading(value: FlavorSelection(channel: 0, persisted: true), at: now)
         state.sound = Reading(value: sound, at: now)
         state.fill = Reading(value: FillState(), at: now)
@@ -34,6 +37,29 @@ extension BLEManager {
         m.flavorArt = FlavorArt()
         seedDemoSettings(m)
         directory.save()
+    }
+
+    /// Sample both probes and the relay over the demo machine's warm restart.
+    private func demoCooling(_ previous: MachineStatus, at now: Date) -> Reading<MachineStatus> {
+        var status = previous
+        let age = max(0, Int(now.timeIntervalSince(demoCoolingStart ?? now)))
+        let remaining = max(0, 125 - age)
+        status.tankTenthsC = 167
+        status.coilTenthsC = remaining > 0 ? 84 : -35
+        status.probeCount = 2
+        status.startupCoolingSeconds = remaining > 0 ? remaining : nil
+        status.coldState = remaining > 0 ? ColdState.holding.rawValue : ColdState.on.rawValue
+        if remaining > 0 { status.flags &= ~0x40 } else { status.flags |= 0x40 }
+        status.reservoirReeds = status.levels.map { level in
+            switch level {
+            case 0: 1
+            case 1: 2
+            case 2: 4
+            case 4: 8
+            default: 0
+            }
+        }
+        return Reading(value: status, at: now)
     }
 
     /// The demo's answer to one request, as the machine would give it.
@@ -49,7 +75,7 @@ extension BLEManager {
 
         switch type {
         case MachineMessage.statusRequest:
-            a.status?.at = now
+            if let sample = a.status { a.status = demoCooling(sample.value, at: now) }
         case MachineMessage.flavorQuery:
             a.selection?.at = now
         case MachineMessage.flavorSelect:
@@ -135,6 +161,7 @@ extension BLEManager {
             (.selection, Data([UInt8(clamping: a.selection?.value.channel ?? 0)])),
             (.art(channel: 0), Data([UInt8(clamping: machine.flavorArt.art[0])])),
             (.art(channel: 1), Data([UInt8(clamping: machine.flavorArt.art[1])])),
+            (.temperatureUnit, MachineTemperatureUnit.fahrenheit.wire),
         ]
         for (key, value) in values where machine.settingSnapshots[key] == nil {
             machine.settingSnapshots[key] = SettingSnapshot(key: key, revision: 1, value: value)

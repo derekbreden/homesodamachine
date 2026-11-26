@@ -14,7 +14,7 @@ func runHistoryChecks(_ check: (Bool, String) -> Void) {
         }
         return out
     }
-    let plain: (Double) -> String = { String(format: "%.1f", $0) }
+    let plain: (Int) -> String = { String(format: "%.1f", Double($0) / 10) }
 
     // 41 3 312 2026-11-12T19:04:11 pour ch=B end=flow-stopped ms=5230 pulses=412 bursts=9 ratio=20
     let pourWire = bytes("29000000380100002bca8832030002016e1400009c010000090014007392e2e3")

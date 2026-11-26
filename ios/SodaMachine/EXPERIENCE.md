@@ -83,6 +83,13 @@ The Machine overview shows both flavors, the flavor on tap, coarse reservoir
 levels, saved ratios, and appliance readings. Selecting a flavor opens its
 detail; it does not immediately select that flavor at the faucet.
 
+The gear and tank-wall thermometer share one Settings button. During a warm
+start the hourglass shows the controller’s remaining minutes and seconds. An
+untimed restart shows the hourglass alone. A snowflake follows the compressor
+relay. A warning triangle indicates protection or a missing probe. Idle shows
+the temperature alone. When a report goes stale the value and countdown clear.
+Settings identifies the last tank reading by age. VoiceOver names the state.
+
 Flavor detail is the home for that channel's image and mix. Adjusting the mix
 saves automatically after a short coalescing pause. The minus button and **More
 flavor**, and plus button and **Lighter**, remain together. The outcome area sits
@@ -172,6 +179,13 @@ an unrelated saved record can remain available.
 
 ## Settings and software update
 
+**Temperature unit** selects Fahrenheit or Celsius for the appliance. The
+confirmed choice applies to Machine, Settings, Water & sensors, and recorded
+cooling events in History. A phone awaiting Trust shows its requested unit
+beside the save outcome. Returning to the Machine tab shows the confirmed unit.
+**Water & sensors** shows the tank and coil probes separately, the number of
+probes found, the refill state, and each level switch from low to high.
+
 Name and Sound are dedicated forms with explicit Save actions. A submitted form
 shows the actual queued choice and its outcome. It is kept while out of range
 and sends automatically on reconnect under its captured revision. Acceptance
@@ -242,7 +256,7 @@ hooks.
 
 A debug build opens on the demo at one page when launched with
 `-demoPage <page>`, so a page can be photographed in the simulator from the
-shell: `history`, `sound`, `update`, `rename`, `flavor1`, `flavor2`, or a
+shell: `history`, `sensors`, `sound`, `update`, `rename`, `flavor1`, `flavor2`, or a
 destination's name.
 
 The pure navigation, draft, removal, firmware-comparison, and history checks run manually

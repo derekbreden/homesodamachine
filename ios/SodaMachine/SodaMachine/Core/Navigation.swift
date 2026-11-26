@@ -41,6 +41,7 @@ enum AppRoute: Hashable {
     case update
     case rename
     case history
+    case waterSensors
 }
 
 /// One opening of a page.

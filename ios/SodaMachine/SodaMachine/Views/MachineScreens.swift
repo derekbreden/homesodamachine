@@ -40,13 +40,17 @@ extension BridgeError {
 /// The machine's readings while this page is up, and nothing while it is not.
 struct StatusPolling: ViewModifier {
     @Environment(BLEManager.self) var ble
+    @Environment(Navigator.self) var nav
+    let visible: Bool
 
     func body(content: Content) -> some View {
-        content.task(id: ble.linked && ble.bridgeReady) {
-            guard ble.linked, ble.bridgeReady else { return }
+        let machine = visible && !nav.managing && ble.canChange ? ble.current?.id : nil
+        content.task(id: machine) {
+            guard machine != nil else { return }
             while !Task.isCancelled {
                 await ble.readStatus()
-                try? await Task.sleep(for: .seconds(3))
+                let countdown = nav.top == nil && ble.appliance.status?.value.coolingState == .startupWait
+                try? await Task.sleep(for: .seconds(countdown ? 1 : 3))
             }
         }
     }
@@ -66,14 +70,24 @@ struct MachineHomeView: View {
             if width >= 760 && !typeSize.isAccessibilitySize {
                 HStack(alignment: .top, spacing: 24) {
                     flavorPair(compact: compact, artHeight: 200).frame(maxWidth: .infinity)
-                    MachineStatusPanel().frame(width: min(260, width * 0.31))
+                    VStack(spacing: 12) {
+                        MachineCoolingButton()
+                        history
+                    }.frame(width: min(280, width * 0.34))
                 }
             } else {
+                MachineCoolingButton()
                 flavorPair(compact: compact, artHeight: 152)
-                MachineStatusPanel()
+                history
             }
         }
-        .modifier(StatusPolling())
+        .modifier(StatusPolling(visible: nav.tab == .machine && nav.top == nil))
+    }
+
+    private var history: some View {
+        GroupedPanel {
+            SettingsRow(title: "History", icon: "clock.arrow.circlepath") { nav.push(.history) }
+        }
     }
 
     private func flavorPair(compact: Bool, artHeight: CGFloat) -> some View {
@@ -213,63 +227,20 @@ struct FlavorCard: View {
     }
 }
 
-struct MachineStatusPanel: View {
-    @Environment(BLEManager.self) var ble
-    @Environment(Navigator.self) var nav
-
-    var body: some View {
-        let reading = ble.appliance.status
-        let s = reading?.value
-        VStack(alignment: .leading, spacing: 12) {
-            SectionTitle("Status")
-            Panel {
-                HStack {
-                    Image(systemName: "thermometer.low").foregroundStyle(Theme.textSecondary)
-                    Text("Tank wall").font(.subheadline)
-                    Spacer()
-                    Text(s?.tankCelsius.map(Self.temperature) ?? "—").font(.title3.weight(.medium).monospacedDigit())
-                }
-                .accessibilityElement(children: .combine)
-                Divider().overlay(Theme.ice.opacity(0.2))
-                Label(s.map(Self.cooling) ?? "Waiting for a reading", systemImage: "snowflake").font(.subheadline)
-                Label(s.map(Self.water) ?? "Water level unknown", systemImage: "drop").font(.subheadline)
-                if let reading, !ble.statusIsLive { Note("As of \(said(reading.at))") }
-            }
-            GroupedPanel {
-                SettingsRow(title: "History", icon: "clock.arrow.circlepath") { nav.push(.history) }
-            }
-        }
-    }
-
-    /// The device's own unit, whatever the machine reads in.
-    static func temperature(_ celsius: Double) -> String {
-        Measurement(value: celsius, unit: UnitTemperature.celsius)
-            .formatted(.measurement(width: .abbreviated, usage: .weather, numberFormatStyle: .number.precision(.fractionLength(0))))
-    }
-
-    static func cooling(_ s: MachineStatus) -> String {
-        switch ColdState(rawValue: s.coldState) {
-        case .on: return "Cooling"
-        case .holding: return "Cooling soon"
-        case .off: return "Holding temperature"
-        case .freeze: return "Paused to prevent freezing"
-        case .fault, nil: return "Cooling unavailable"
-        }
-    }
-
+extension MachineStatus {
     /// Where the carbonator's water is, by its notice, its two reeds, and its refill.
-    static func water(_ s: MachineStatus) -> String {
-        if let water = s.machineNotice.water { return water }
-        switch RefillState(rawValue: s.refillState) {
+    var waterDescription: String {
+        if let water = machineNotice.water { return water }
+        switch RefillState(rawValue: refillState) {
         case .filling: return "Refilling with water"
         case .queued: return "Refill waiting"
         case .timeout: return "Refill stopped · check the water supply"
         case .fault: return "Water level fault"
         case .idle, nil: break
         }
-        guard s.levelsRead else { return "Water level unknown" }
-        if s.carbonatorHighReed { return "Water level high" }
-        if s.carbonatorLowReed { return "Water level low" }
+        guard levelsRead else { return "Water level unknown" }
+        if carbonatorHighReed { return "Water level high" }
+        if carbonatorLowReed { return "Water level low" }
         return "Water level normal"
     }
 }
@@ -383,7 +354,7 @@ struct FlavorDetailView: View {
                 }.padding(.top, 8)
             }.frame(maxWidth: .infinity)
         }
-        .modifier(StatusPolling())
+        .modifier(StatusPolling(visible: nav.top == entry))
     }
 
     private func use(expected: SettingSnapshot? = nil) {

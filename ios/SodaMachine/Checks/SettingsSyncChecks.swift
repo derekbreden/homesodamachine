@@ -38,6 +38,18 @@ func runSettingsSyncChecks(_ check: (Bool, String) -> Void) {
           "Machine names respect their UTF-8 byte capacity")
     check(SettingsWire.set(.name, expected: stamp, value: Data([0xFF])) == nil,
           "A name with invalid UTF-8 cannot be committed")
+    let unit = SettingKey.temperatureUnit
+    check(SettingsWire.get(unit) == Data([5, 0xFF]) && SettingsWire.get(SettingKey(.temperatureUnit, channel: 0)) == nil,
+          "Temperature units belong to the whole machine")
+    check(SettingsWire.set(unit, expected: stamp, value: MachineTemperatureUnit.celsius.wire)
+          == Data([5, 0xFF, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 1, 1]),
+          "A Celsius selection uses the controller’s existing conditional-write frame")
+    check(unit.validValue(Data([0])) && unit.validValue(Data([1])) && !unit.validValue(Data([2]))
+          && !unit.validValue(Data()) && !unit.validValue(Data([1, 0])),
+          "The wire accepts one byte naming Fahrenheit or Celsius")
+    let unknownUnit = SettingSnapshot(key: unit, revision: 0, value: Data())
+    check(SettingsWire.decode(SettingsWire.encode(.init(snapshot: unknownUnit, result: .invalid)))?.reply == .failure(.invalid),
+          "An older main board can refuse the unit key without supplying a snapshot")
     let unavailable = SettingSnapshot(key: ratio, revision: 0, value: Data())
     check(SettingsWire.decode(SettingsWire.encode(.init(snapshot: unavailable, result: .storageFailure)))?.reply == .failure(.storageFailure),
           "An unavailable durable epoch reports storage failure, never a usable zero stamp")

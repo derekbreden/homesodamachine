@@ -75,74 +75,6 @@ enum BridgeError: Error, Equatable {
 
 // ── What the machine says, as the app keeps it ───────────────────────────
 
-/// StatusPayload: what the main board reads about itself.
-struct MachineStatus: Codable, Equatable {
-    var flags: UInt8 = 0
-    var operationChannel: UInt8 = 0
-    var levels: [UInt8] = [0xFF, 0xFF]
-    var levelFlags: UInt8 = 0
-    var ratios: [Int] = [20, 20]
-    /// The carbonator wall, in tenths of a degree Celsius; nil when unread.
-    var tankTenthsC: Int?
-    var coldState: UInt8 = 0
-    var refillState: UInt8 = 0
-    /// Seconds since the machine last started; nil in a reading kept from
-    /// before the app read it.
-    var uptimeS: UInt32?
-    /// NOTICE_*: what stops the machine making soda; nil in a reading kept
-    /// from before the app read it.
-    var notice: UInt8?
-
-    static let levelUnknown: UInt8 = 0xFF
-    static let segments = 4
-
-    init() {}
-
-    init?(_ d: Data) {
-        let b = [UInt8](d)
-        guard b.count >= 40 else { return nil }
-        uptimeS = UInt32(b[0]) | UInt32(b[1]) << 8 | UInt32(b[2]) << 16 | UInt32(b[3]) << 24
-        flags = b[18]
-        operationChannel = b[19]
-        levels = [b[27], b[28]]
-        levelFlags = b[29]
-        ratios = [Int(b[30]), Int(b[31])]
-        let tank = Int16(bitPattern: UInt16(b[32]) | UInt16(b[33]) << 8)
-        tankTenthsC = tank == Int16.min ? nil : Int(tank)
-        coldState = b[36]
-        refillState = b[37]
-        notice = b[39]
-    }
-
-    var machineNotice: MachineNotice { notice.flatMap(MachineNotice.init(rawValue:)) ?? .none }
-
-    var gasAlarm: Bool { flags & 0x01 != 0 }
-    var priming:  Bool { flags & 0x02 != 0 }
-    var filling:  Bool { flags & 0x04 != 0 }
-    var cleaning: Bool { flags & 0x08 != 0 }
-    var airing:   Bool { flags & 0x10 != 0 }
-    var busy: Bool { priming || filling || cleaning || airing }
-
-    /// The reeds were read within the last few seconds.
-    var levelsRead: Bool { levelFlags & 0x01 != 0 }
-    var carbonatorLowReed: Bool { levelFlags & 0x02 != 0 }
-    var carbonatorHighReed: Bool { levelFlags & 0x04 != 0 }
-    /// A reading put in from the main board's console, not off a probe.
-    var simulated: Bool { levelFlags & 0x08 != 0 }
-
-    /// A reservoir's gauge, 0 through 4, or nil while it is not known.
-    func level(_ channel: Int) -> Int? {
-        guard levelsRead, levels.indices.contains(channel), levels[channel] != Self.levelUnknown else { return nil }
-        return min(Int(levels[channel]), Self.segments)
-    }
-
-    var tankCelsius: Double? { tankTenthsC.map { Double($0) / 10 } }
-}
-
-/// machine_policy::ColdState and RefillState, as StatusPayload carries them.
-enum ColdState: UInt8 { case fault = 0, off, holding, on, freeze }
-enum RefillState: UInt8 { case idle = 0, queued, filling, timeout, fault }
-
 struct FlavorSelection: Codable, Equatable {
     var channel: Int
     var persisted: Bool
@@ -290,12 +222,6 @@ struct PrimeSession: Codable, Equatable {
 
 enum PrimeOpenResult: UInt8 { case shown = 0, refused, noAnswer }
 
-/// One reading, and when it was taken.
-struct Reading<Value: Codable & Equatable>: Codable, Equatable {
-    var value: Value
-    var at: Date
-}
-
 /// Everything an appliance has said, as this phone last heard it, on the
 /// machine's record.
 struct ApplianceState: Codable, Equatable {
@@ -328,6 +254,11 @@ extension BLEManager {
     /// the machine is, then what it said.
     var bridgeReady: Bool { bridgeVersion != nil }
 
+    func liveCoolingStatus(at now: Date) -> MachineStatus? {
+        guard let reading = current?.appliance.status else { return nil }
+        return reading.liveStatus(at: now, connected: linked && (demoMode || statusReceivedOnLink))
+    }
+
     /// The faucet carries the bridge. The first time a link says so, every
     /// page's readings are read.
     func handleBridgeVersion(_ payload: Data) {
@@ -335,6 +266,7 @@ extension BLEManager {
         bridgeVersion = Int(payload.first ?? 0)
         bridgeMissing = false
         if first { current?.stampedSettingsUnavailable = false }
+        if (bridgeVersion ?? 0) < SettingsWire.minimumBridgeVersion { markTemperatureUnitUnavailable() }
         log.info("bridge version \(self.bridgeVersion ?? 0)")
         if first, linked { Task { await readAppliance() } }
     }
@@ -428,6 +360,11 @@ extension BLEManager {
         for (_, w) in waiting { w.resume(returning: .failure(.offline)) }
         bridgeVersion = nil
         bridgeMissing = false
+        statusReceivedOnLink = false
+        temperatureUnitSupportedOnLink = nil
+        temperatureUnitQuery = nil
+        temperatureUnitLastQuery = nil
+        demoCoolingStart = nil
     }
 
     /// File what the machine said on its record, whoever asked.
@@ -443,6 +380,7 @@ extension BLEManager {
                 if let mix = m.settingSnapshots[.ratio(channel: channel)]?.byte { s.ratios[channel] = mix }
             }
             state.status = Reading(value: s, at: now)
+            statusReceivedOnLink = true
         case MachineMessage.flavorState:
             guard var s = FlavorSelection(body) else { return }
             if let selected = m.settingSnapshots[.selection]?.byte { s.channel = selected }
@@ -479,7 +417,25 @@ extension BLEManager {
     // ── What the screens ask ─────────────────────────────────────────────
 
     @discardableResult
-    func readStatus() async -> Result<BridgeAnswer, BridgeError> { await ask(MachineMessage.statusRequest) }
+    func readStatus() async -> Result<BridgeAnswer, BridgeError> {
+        let generation = linkGeneration
+        let answer = await request(MachineMessage.statusRequest, [])
+        guard generation == linkGeneration else { return .failure(.offline) }
+        switch answer {
+        case .success(let reply) where reply.type == MachineMessage.status:
+            await readTemperatureUnitIfNeeded()
+        case .failure(.linkDown):
+            statusReceivedOnLink = false
+            temperatureUnitSupportedOnLink = nil
+            temperatureUnitLastQuery = nil
+        case .failure(.needsUpdate):
+            statusReceivedOnLink = false
+            markTemperatureUnitUnavailable()
+            temperatureUnitLastQuery = nil
+        default: break
+        }
+        return answer
+    }
 
     @discardableResult
     func readSelection() async -> Result<BridgeAnswer, BridgeError> { await ask(MachineMessage.flavorQuery) }
@@ -536,6 +492,7 @@ extension BLEManager {
     /// Everything a machine's pages show, read once when the link comes up.
     func readAppliance() async {
         if stampedSettingsSupported {
+            await readTemperatureUnitIfNeeded()
             for key in [SettingKey.ratio(channel: 0), .ratio(channel: 1), .sound, .name, .selection,
                         .art(channel: 0), .art(channel: 1)] {
                 if case .failure(.needsUpdate) = await readSetting(key) { break }

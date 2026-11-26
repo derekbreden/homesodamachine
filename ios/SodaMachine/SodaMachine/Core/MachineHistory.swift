@@ -177,8 +177,8 @@ extension HistoryEntry {
     }
 
     /// What else is worth saying; nil when the title is the whole of it.
-    /// Temperatures are worded by the caller, in the device's own unit.
-    func note(temperature: (Double) -> String) -> String? {
+    /// The caller formats recorded temperatures in the appliance's selected unit.
+    func note(temperature: (Int) -> String) -> String? {
         switch kind {
         case .start:
             switch Int(detail) {
@@ -210,8 +210,8 @@ extension HistoryEntry {
             }
         case .cooling:
             var parts: [String] = []
-            if d != Self.noTemperature { parts.append("Tank \(temperature(Double(d) / 10))") }
-            if e != Self.noTemperature { parts.append("coldest coil \(temperature(Double(e) / 10))") }
+            if d != Self.noTemperature { parts.append("Tank \(temperature(Int(d)))") }
+            if e != Self.noTemperature { parts.append("coldest coil \(temperature(Int(e)))") }
             if Int(detail) == 4 { parts.append("stopped to prevent freezing") }
             return parts.isEmpty ? nil : parts.joined(separator: " · ")
         case .coldTrouble:

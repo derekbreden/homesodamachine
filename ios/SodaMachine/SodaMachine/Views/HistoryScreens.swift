@@ -196,6 +196,7 @@ struct HistorySummary: View {
 }
 
 struct HistoryRow: View {
+    @Environment(BLEManager.self) private var ble
     let entry: HistoryEntry
     let time: Date?
 
@@ -207,7 +208,9 @@ struct HistoryRow: View {
                 .padding(.top, 2)
             VStack(alignment: .leading, spacing: 3) {
                 Text(entry.title).font(.body).fixedSize(horizontal: false, vertical: true)
-                if let note = entry.note(temperature: MachineStatusPanel.temperature) { Note(note) }
+                if let note = entry.note(temperature: { ble.temperatureUnit.format(tenthsC: $0) }) {
+                    Note(note)
+                }
             }
             Spacer(minLength: 12)
             if let time {

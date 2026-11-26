@@ -253,6 +253,8 @@ struct MachineRecord: Codable {
     var picturesReadAt: Date?
     var appliance: ApplianceState?
     var settings: [SettingSnapshot]?
+    /// Older app versions reject an unfamiliar kind in their settings array.
+    var temperatureUnitSetting: SettingSnapshot?
 
     init(_ m: KnownMachine) {
         id = m.id
@@ -275,7 +277,8 @@ struct MachineRecord: Codable {
         flavorArt = m.flavorArt
         picturesReadAt = m.picturesReadAt
         appliance = m.appliance
-        settings = Array(m.settingSnapshots.values)
+        settings = m.settingSnapshots.values.filter { $0.key != .temperatureUnit }
+        temperatureUnitSetting = m.settingSnapshots[.temperatureUnit]
     }
 
     func restore() -> KnownMachine {
@@ -295,6 +298,9 @@ struct MachineRecord: Codable {
         m.appliance = appliance ?? ApplianceState()
         for snapshot in settings ?? [] where snapshot.valid {
             m.settingSnapshots[snapshot.key] = snapshot
+        }
+        if let snapshot = temperatureUnitSetting, snapshot.key == .temperatureUnit, snapshot.valid {
+            m.settingSnapshots[.temperatureUnit] = snapshot
         }
         m.loadPictures()
         return m

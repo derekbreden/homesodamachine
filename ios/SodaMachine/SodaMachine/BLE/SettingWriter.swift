@@ -124,10 +124,22 @@ final class SettingWriter {
         guard ble.stampedSettingsSupported else {
             finish(id, original.id, phase: .failed, problem: SettingFailure.needsUpdate.message); return
         }
+        if id.setting == .temperatureUnit && !ble.temperatureUnitWritable {
+            if ble.temperatureUnitUnavailable {
+                finish(id, original.id, phase: .failed, problem: SettingFailure.needsUpdate.message)
+            } else if ble.current?.settingStorageProblem == true {
+                finish(id, original.id, phase: .failed, problem: SettingFailure.storageFailure.message)
+            }
+            return
+        }
         if ble.trust != .trusted && !ble.demoMode {
             guard visible == id.setting else { return }
             commits[id]?.phase = .trust
-            let reason: TrustReason = id.setting.kind == .name ? .name : .sound
+            let reason: TrustReason = switch id.setting.kind {
+            case .name: .name
+            case .sound: .sound
+            default: .anything
+            }
             let outcome = await ble.requestTrust(reason, quiet: true)
             guard commits[id]?.id == original.id else { return }
             guard outcome == .trusted else {
