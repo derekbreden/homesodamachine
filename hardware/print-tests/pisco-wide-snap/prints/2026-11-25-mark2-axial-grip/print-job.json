@@ -95,5 +95,7 @@
   },
   "bench_instructions": "../../parts/axial-grip/README.md",
   "axial_grip_fit_check": "../../parts/axial-grip/fit-check.json",
-  "seconds_after_other_printer_accepted": 219.0
+  "seconds_after_other_printer_accepted": 219.0,
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-26T06:28:41+00:00"
 }
