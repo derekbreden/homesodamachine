@@ -13,6 +13,18 @@ const LOADED_TIP: f64 = 0.19645;
 const PARALLEL_START: f64 = 2.00;
 const PARALLEL_END: f64 = 6.00;
 
+fn diagonal(s: &Section, hook: Hook, at_toe: f64, at_nose: f64) -> Vec<(f64, f64)> {
+    vec![
+        (hook.crest_inner_r - RUNNING_GAP + at_toe, s.roof_h),
+        (hook.nose_r - RUNNING_GAP + at_nose, s.roof_h + ENTRY_DEPTH),
+    ]
+}
+
+/// The seated guide on the two-dot pair Derek liked in C036.
+pub(super) fn tight_diagonal(s: &Section, hook: Hook) -> Vec<(f64, f64)> {
+    diagonal(s, hook, 0.402, 0.344)
+}
+
 fn parallel_faces(s: &Section, hook: Hook, lip_h: f64) -> (Vec<V2>, Vec<(f64, f64)>) {
     let start = s.roof_h + PARALLEL_START;
     let end = s.roof_h + PARALLEL_END;
@@ -48,21 +60,13 @@ pub(super) fn write(
     };
     let lip_h = s.roof_h + ENTRY_DEPTH + NOSE_LENGTH + hook.lip_r - hook.nose_r;
     let angle = s.free_angle(s.roof_h, lip_h, FREE_TIP_BIAS);
-    let control_toe = hook.crest_inner_r - RUNNING_GAP;
-    let control_nose = hook.nose_r - RUNNING_GAP;
-    let tapered = |at_toe, at_nose| {
-        vec![
-            (control_toe + at_toe, s.roof_h),
-            (control_nose + at_nose, s.roof_h + ENTRY_DEPTH),
-        ]
-    };
     let (parallel_cover, parallel_receiver) = parallel_faces(s, hook, lip_h);
     let profiles = [
-        ("close running fit", vec![], tapered(0.294, 0.236)),
+        ("close running fit", vec![], diagonal(s, hook, 0.294, 0.236)),
         (
             "contact at the diagonal course edges",
             vec![],
-            tapered(0.402, 0.344),
+            tight_diagonal(s, hook),
         ),
         ("parallel bearing", parallel_cover, parallel_receiver),
     ];

@@ -8,6 +8,8 @@ use hsm_kernel::{Affine, Solid, V3, v3};
 use serde_json::{Map, json};
 use std::{fs, path::Path};
 
+#[path = "easy_entry.rs"]
+mod easy_entry;
 #[path = "guide_contact.rs"]
 mod guide_contact;
 
@@ -168,6 +170,18 @@ pub(super) fn write(
     }
     guide_contact::write(
         &dir.join("guide-contact"),
+        s,
+        original,
+        trimmed,
+        post,
+        wide,
+        receiver_pose,
+        cover_pose,
+        back_mark,
+        flange_mark,
+    )?;
+    easy_entry::write(
+        &dir.join("easy-entry"),
         s,
         original,
         trimmed,

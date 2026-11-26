@@ -1,0 +1,501 @@
+{
+  "axis_x_mm": 76.5,
+  "axis_y_mm": 439.875,
+  "back_face_z_mm": 355.0,
+  "centered_post_width_mm": 8.0,
+  "cover_reference_lip_h_mm": 14.200000000186265,
+  "cover_seating_travel_mm": 0.1,
+  "frame": "r is distance from the Pisco axis. h is height above the flat receiver back. The cover closes toward machine +Z.",
+  "free_tip_bias_each_mm": 0.8,
+  "join_h_mm": 31.84999999981369,
+  "marks": {
+    "cover_group_center_machine_mm": [
+      84.3,
+      439.875,
+      316.97259999997914
+    ],
+    "depth_mm": 0.6,
+    "form": "Recessed conical dots on the saddle back and fixed flange.",
+    "opening_diameter_mm": 2.0,
+    "pitch_mm": 3.4,
+    "receiver_group_center_machine_mm": [
+      93.91000000014901,
+      439.875,
+      353.27499999990687
+    ]
+  },
+  "pairs": [
+    {
+      "centered_hook_capture_mm": 1.200000000000001,
+      "cover_intermediate_straight_guide_r_h_mm": [],
+      "crest_land_width_mm": 2.6,
+      "free_crest_angle_to_roof_deg": 2.0348194496228973,
+      "guide_design": "open pilot and shorter retaining lip",
+      "number": 1,
+      "primary_full_pisco_donor": true,
+      "receiver_entrance_r_h_mm": [
+        [
+          11.605615687370301,
+          13.600000000186265
+        ],
+        [
+          11.605615687370301,
+          13.960000000186264
+        ],
+        [
+          10.25,
+          16.799999999813735
+        ]
+      ],
+      "receiver_guide_r_h_mm": [
+        [
+          11.9876156873703,
+          3.4500000001862645
+        ],
+        [
+          10.529615687370299,
+          9.850000000186265
+        ]
+      ],
+      "retaining_lip_reduction_mm": 0.6
+    },
+    {
+      "centered_hook_capture_mm": 1.8000000000000007,
+      "cover_intermediate_straight_guide_r_h_mm": [],
+      "crest_land_width_mm": 2.6,
+      "free_crest_angle_to_roof_deg": 2.0348194496228973,
+      "guide_design": "open pilot and full retaining lip",
+      "number": 2,
+      "primary_full_pisco_donor": false,
+      "receiver_entrance_r_h_mm": [
+        [
+          12.205615687370301,
+          14.200000000186265
+        ],
+        [
+          12.205615687370301,
+          14.560000000186264
+        ],
+        [
+          10.25,
+          16.799999999813735
+        ]
+      ],
+      "receiver_guide_r_h_mm": [
+        [
+          11.9876156873703,
+          3.4500000001862645
+        ],
+        [
+          10.529615687370299,
+          9.850000000186265
+        ]
+      ],
+      "retaining_lip_reduction_mm": 0.0
+    },
+    {
+      "centered_hook_capture_mm": 1.8000000000000007,
+      "cover_intermediate_straight_guide_r_h_mm": [
+        [
+          11.2806156873703,
+          5.850000000186265
+        ]
+      ],
+      "crest_land_width_mm": 2.0,
+      "free_crest_angle_to_roof_deg": 2.0348194496228973,
+      "guide_design": "wing-side lead-in and full retaining lip",
+      "number": 3,
+      "primary_full_pisco_donor": false,
+      "receiver_entrance_r_h_mm": [
+        [
+          12.205615687370301,
+          14.200000000186265
+        ],
+        [
+          12.205615687370301,
+          14.560000000186264
+        ],
+        [
+          10.8,
+          16.799999999813735
+        ]
+      ],
+      "receiver_guide_r_h_mm": [
+        [
+          12.587615687370299,
+          3.4500000001862645
+        ],
+        [
+          11.4408656873703,
+          5.850000000186265
+        ],
+        [
+          10.529615687370299,
+          9.850000000186265
+        ]
+      ],
+      "retaining_lip_reduction_mm": 0.0
+    }
+  ],
+  "parts": {
+    "cover-1": {
+      "assembly_to_print_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.22905341675505
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -433.875
+        ]
+      ],
+      "connected_solids": 1,
+      "nominal_machine_bounds_mm": [
+        [
+          62.0943843126297,
+          433.875,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          445.875,
+          351.48550683353096
+        ]
+      ],
+      "print_bounds_mm": [
+        [
+          -14.4056156873703,
+          -17.256453416775912,
+          0.0
+        ],
+        [
+          14.4056156873703,
+          17.256453416775912,
+          12.0
+        ]
+      ],
+      "print_size_mm": [
+        28.8112313747406,
+        34.512906833551824,
+        12.0
+      ],
+      "print_up_in_machine": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "stl": "cover-1.stl",
+      "volume_mm3": 3393.2692288532985
+    },
+    "cover-2": {
+      "assembly_to_print_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.22905341675505
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -433.875
+        ]
+      ],
+      "connected_solids": 1,
+      "nominal_machine_bounds_mm": [
+        [
+          62.0943843126297,
+          433.875,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          445.875,
+          351.48550683353096
+        ]
+      ],
+      "print_bounds_mm": [
+        [
+          -14.4056156873703,
+          -17.256453416775912,
+          0.0
+        ],
+        [
+          14.4056156873703,
+          17.256453416775912,
+          12.0
+        ]
+      ],
+      "print_size_mm": [
+        28.8112313747406,
+        34.512906833551824,
+        12.0
+      ],
+      "print_up_in_machine": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "stl": "cover-2.stl",
+      "volume_mm3": 3392.6411626231024
+    },
+    "cover-3": {
+      "assembly_to_print_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          334.22905341675505
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -433.875
+        ]
+      ],
+      "connected_solids": 1,
+      "nominal_machine_bounds_mm": [
+        [
+          62.0943843126297,
+          433.875,
+          316.97259999997914
+        ],
+        [
+          90.9056156873703,
+          445.875,
+          351.48550683353096
+        ]
+      ],
+      "print_bounds_mm": [
+        [
+          -14.4056156873703,
+          -17.256453416775912,
+          0.0
+        ],
+        [
+          14.4056156873703,
+          17.256453416775912,
+          12.0
+        ]
+      ],
+      "print_size_mm": [
+        28.8112313747406,
+        34.512906833551824,
+        12.0
+      ],
+      "print_up_in_machine": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "stl": "cover-3.stl",
+      "volume_mm3": 3374.722193341503
+    },
+    "receiver-1": {
+      "assembly_to_print_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          439.875
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          355.0
+        ]
+      ],
+      "connected_solids": 1,
+      "nominal_machine_bounds_mm": [
+        [
+          59.08999999985099,
+          433.875,
+          320.3225999996066
+        ],
+        [
+          93.91000000014901,
+          445.875,
+          355.0
+        ]
+      ],
+      "print_bounds_mm": [
+        [
+          -17.41000000014901,
+          -6.0,
+          0.0
+        ],
+        [
+          17.41000000014901,
+          6.0,
+          34.67740000039339
+        ]
+      ],
+      "print_size_mm": [
+        34.82000000029802,
+        12.0,
+        34.67740000039339
+      ],
+      "print_up_in_machine": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "stl": "receiver-1.stl",
+      "volume_mm3": 6454.827096717538
+    },
+    "receiver-2": {
+      "assembly_to_print_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          439.875
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          355.0
+        ]
+      ],
+      "connected_solids": 1,
+      "nominal_machine_bounds_mm": [
+        [
+          59.08999999985099,
+          433.875,
+          320.3225999996066
+        ],
+        [
+          93.91000000014901,
+          445.875,
+          355.0
+        ]
+      ],
+      "print_bounds_mm": [
+        [
+          -17.41000000014901,
+          -6.0,
+          0.0
+        ],
+        [
+          17.41000000014901,
+          6.0,
+          34.67740000039339
+        ]
+      ],
+      "print_size_mm": [
+        34.82000000029802,
+        12.0,
+        34.67740000039339
+      ],
+      "print_up_in_machine": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "stl": "receiver-2.stl",
+      "volume_mm3": 6489.591463428056
+    },
+    "receiver-3": {
+      "assembly_to_print_matrix_mm": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -76.5
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          439.875
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0,
+          355.0
+        ]
+      ],
+      "connected_solids": 1,
+      "nominal_machine_bounds_mm": [
+        [
+          59.08999999985099,
+          433.875,
+          320.3225999996066
+        ],
+        [
+          93.91000000014901,
+          445.875,
+          355.0
+        ]
+      ],
+      "print_bounds_mm": [
+        [
+          -17.41000000014901,
+          -6.0,
+          0.0
+        ],
+        [
+          17.41000000014901,
+          6.0,
+          34.67740000039339
+        ]
+      ],
+      "print_size_mm": [
+        34.82000000029802,
+        12.0,
+        34.67740000039339
+      ],
+      "print_up_in_machine": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "stl": "receiver-3.stl",
+      "volume_mm3": 6521.027397148475
+    }
+  },
+  "post_apex_h_mm": 34.67740000039339,
+  "purpose": "Register the three passive-entry snap coupons and the one-dot full-Pisco donor to the C036 two-dot section.",
+  "roof_h_mm": 3.4500000001862645,
+  "section_length_mm": 12.0,
+  "spring_wall_thickness_mm": 2.0
+}
