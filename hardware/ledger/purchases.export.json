@@ -569,6 +569,14 @@
       "purchase_id": "pur-3bd4a5d8e22947b88ec7bcc9f7a8df8a"
     },
     {
+      "allocation_id": "alloc-4418082405fe4915951d6443580315f6",
+      "amount_minor": 46,
+      "currency": "USD",
+      "event_id": "evt-81bd30c2e599483b94ba3150fdc59781",
+      "order_id": "bambu:us795729195777990656",
+      "purchase_id": null
+    },
+    {
       "allocation_id": "alloc-46d597a68ada4e9cb985e3178b0678b5",
       "amount_minor": 950,
       "currency": "USD",
@@ -2233,6 +2241,26 @@
       ],
       "stream": "project procurement records",
       "vendor": "InnoAddi"
+    },
+    {
+      "checked_at": "2026-11-26",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-3456cbed81b443e883c889a067319672",
+      "evidence_type": "merchant_credit_notice",
+      "examined_period": {
+        "end": "2026-11-26",
+        "start": "2026-11-26"
+      },
+      "note": "Scoped review of the named order credit notice. No full account balance, historical credit origin, or redemption evidence.",
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "source_ids": [
+        "src-ce6f4a03215040d9b4603237c318d2a4"
+      ],
+      "stream": "order-specific loyalty credit",
+      "vendor": "Bambu Lab"
     },
     {
       "checked_at": "2026-10-04",
@@ -6837,6 +6865,28 @@
     },
     {
       "allocation_ids": [
+        "alloc-4418082405fe4915951d6443580315f6"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 46,
+      "confirmation": "confirmed",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-81bd30c2e599483b94ba3150fdc59781",
+      "event_type": "noncash_credit",
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "purchase_ids": [],
+      "source_ids": [
+        "src-ce6f4a03215040d9b4603237c318d2a4"
+      ],
+      "unallocated_to_purchase_minor": 46,
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-26"
+    },
+    {
+      "allocation_ids": [
         "alloc-135e60afd89a4e7eb8fe4457cb41e94f"
       ],
       "allocation_status": "all_project",
@@ -10723,7 +10773,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:25aaa2ff8b7f6d12811d16ce37125b94609dc504a22e0a5fc33f3395b5e4c2e6",
+  "input_fingerprint": "sha256:dd8b9cf419fe465880cef21e4d9d3fe6749f02cd8266831f3063ddae7f01e9c9",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -19324,6 +19374,7 @@
     {
       "allocation_status": "all_project",
       "event_ids": [
+        "evt-81bd30c2e599483b94ba3150fdc59781",
         "evt-edc004b6aa964fffa42f58de43bcf3b4"
       ],
       "order_date": {
@@ -19340,6 +19391,7 @@
         "src-2994d26d9a9843b78a6be9fa957e3302",
         "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-bfde288f9a4046bc93c85650ef78f631",
+        "src-ce6f4a03215040d9b4603237c318d2a4",
         "src-fc21b89f674c49d8b7beb35eb29aa7e1"
       ],
       "vendor": "Bambu Lab"
@@ -68911,6 +68963,25 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-11-26"
+      },
+      "document_type": "merchant_loyalty_credit_notice",
+      "note": "Bambu Lab confirms 46 store Credits from this exact order are available (advertised equivalent approximately USD 0.46), valid until 23:59 GMT+8 on November 30, 2027. These are restricted checkout credits, not a cash refund. The notice does not establish a separate posting date or subsequent redemption.",
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "proves": [
+        "noncash_credit"
+      ],
+      "reference": "us795729195777990656",
+      "source_id": "src-ce6f4a03215040d9b4603237c318d2a4",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-11-26"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-26"
       },
       "document_type": "merchant_monetary_receipt",
@@ -71735,7 +71806,7 @@
           "charges_minor": 2608949,
           "currency": "USD",
           "net_minor": 2608949,
-          "noncash_credits_minor": 0,
+          "noncash_credits_minor": 46,
           "refunds_minor": 0,
           "unresolved_project_share_minor": 0
         }
@@ -71759,6 +71830,7 @@
             "evt-66df2a83d9084e9d984fb5305fa95c49",
             "evt-6717a43cd68d4f1d80ba7a21e90df127",
             "evt-69d186cf3c4c436788b6706105b50532",
+            "evt-81bd30c2e599483b94ba3150fdc59781",
             "evt-8733331cccaa40d2b47ffde578a9bcd0",
             "evt-88d09a48acef421f95613ba1f60d2f08",
             "evt-903eedfb26fd4f999dda301c34468ee4",
@@ -71772,7 +71844,7 @@
             "evt-efe204a6e93f4a538e1f0a7d9274f382"
           ],
           "net_minor": 563952,
-          "noncash_credits_minor": 0,
+          "noncash_credits_minor": 46,
           "refunds_minor": 0,
           "unknown_amount_ids": [],
           "unresolved_project_share_minor": 0
@@ -72840,6 +72912,7 @@
         "coverage-30f6d1d81006498f86e43d091cc241ec",
         "coverage-31e4eb8840d84e2d869ea23e58c2cfcd",
         "coverage-341631217afb449cb36127936d24742b",
+        "coverage-3456cbed81b443e883c889a067319672",
         "coverage-39229818c301479f8e41d18b5ce3b0a6",
         "coverage-3b70e5a844c742d2ac1796dab636d5a0",
         "coverage-3be7379fc53e41e2b624ff0df39d942c",
@@ -73419,6 +73492,7 @@
       ],
       "order_only_allocation_event_ids": [
         "evt-0a248482126b481c9dc3c58fd1f7b687",
+        "evt-81bd30c2e599483b94ba3150fdc59781",
         "evt-db226e9820d147058384c3bfe695bab8"
       ],
       "partial_merchant_charge_purchase_ids": [],
@@ -73954,6 +74028,7 @@
         "evt-66df2a83d9084e9d984fb5305fa95c49",
         "evt-6717a43cd68d4f1d80ba7a21e90df127",
         "evt-69d186cf3c4c436788b6706105b50532",
+        "evt-81bd30c2e599483b94ba3150fdc59781",
         "evt-8733331cccaa40d2b47ffde578a9bcd0",
         "evt-88d09a48acef421f95613ba1f60d2f08",
         "evt-903eedfb26fd4f999dda301c34468ee4",
@@ -74119,6 +74194,7 @@
       "coverage-30f6d1d81006498f86e43d091cc241ec: evidence coverage is partial",
       "coverage-31e4eb8840d84e2d869ea23e58c2cfcd: evidence coverage is partial",
       "coverage-341631217afb449cb36127936d24742b: evidence coverage is partial",
+      "coverage-3456cbed81b443e883c889a067319672: evidence coverage is partial",
       "coverage-39229818c301479f8e41d18b5ce3b0a6: evidence coverage is partial",
       "coverage-3b70e5a844c742d2ac1796dab636d5a0: evidence coverage is partial",
       "coverage-3be7379fc53e41e2b624ff0df39d942c: evidence coverage is unknown",

@@ -16318,7 +16318,8 @@
         "src-1a7e236f18734150aa122917f332f47f",
         "src-8944c63d978340d3baaae57ea3c6dc01",
         "src-2994d26d9a9843b78a6be9fa957e3302",
-        "src-bfde288f9a4046bc93c85650ef78f631"
+        "src-bfde288f9a4046bc93c85650ef78f631",
+        "src-ce6f4a03215040d9b4603237c318d2a4"
       ]
     },
     "fws:WEBFWS100716314": {
@@ -21191,6 +21192,23 @@
         "value": "2026-11-26"
       },
       "service_period": null
+    },
+    {
+      "event_id": "evt-81bd30c2e599483b94ba3150fdc59781",
+      "vendor": "Bambu Lab",
+      "event_type": "noncash_credit",
+      "confirmation": "confirmed",
+      "event_date": null,
+      "amount_minor": 46,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ce6f4a03215040d9b4603237c318d2a4"
+      ],
+      "verified_at": "2026-11-26",
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ]
     }
   ],
   "allocations": [
@@ -23056,6 +23074,14 @@
       "purchase_id": "pur-1106641e9db944f386a53c3acb4bb52a",
       "order_id": "anthropic:8C2842D3-0013",
       "amount_minor": 4028,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-4418082405fe4915951d6443580315f6",
+      "event_id": "evt-81bd30c2e599483b94ba3150fdc59781",
+      "purchase_id": null,
+      "order_id": "bambu:us795729195777990656",
+      "amount_minor": 46,
       "currency": "USD"
     }
   ],
@@ -35726,6 +35752,24 @@
         "precision": "day",
         "value": "2026-11-26"
       }
+    },
+    "src-ce6f4a03215040d9b4603237c318d2a4": {
+      "vendor": "Bambu Lab",
+      "document_type": "merchant_loyalty_credit_notice",
+      "reference": "us795729195777990656",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "notification_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "proves": [
+        "noncash_credit"
+      ],
+      "verified_at": "2026-11-26",
+      "note": "Bambu Lab confirms 46 store Credits from this exact order are available (advertised equivalent approximately USD 0.46), valid until 23:59 GMT+8 on November 30, 2027. These are restricted checkout credits, not a cash refund. The notice does not establish a separate posting date or subsequent redemption."
     }
   },
   "coverage": [
@@ -38145,6 +38189,26 @@
         "anthropic:8C2842D3-0013"
       ],
       "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage."
+    },
+    {
+      "coverage_id": "coverage-3456cbed81b443e883c889a067319672",
+      "vendor": "Bambu Lab",
+      "stream": "order-specific loyalty credit",
+      "evidence_type": "merchant_credit_notice",
+      "checked_at": "2026-11-26",
+      "examined_period": {
+        "start": "2026-11-26",
+        "end": "2026-11-26"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-ce6f4a03215040d9b4603237c318d2a4"
+      ],
+      "order_ids": [
+        "bambu:us795729195777990656"
+      ],
+      "note": "Scoped review of the named order credit notice. No full account balance, historical credit origin, or redemption evidence."
     }
   ],
   "gaps": [
