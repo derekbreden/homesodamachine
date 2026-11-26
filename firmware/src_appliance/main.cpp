@@ -383,6 +383,7 @@ static void help() {
     Serial.println("                    the selected channel pours as if carbonated water were flowing");
     Serial.println("  selftest          every solenoid in turn, the fan, then each pump — one at a time");
     Serial.println("  thermal           the 1-wire bus: every ROM found, its family and its last reading");
+    Serial.println("  unit [f|c]        read or set the machine's temperature display unit");
     Serial.println("  refill clear      leave a latched refill TIMEOUT or FAULT and try again");
     Serial.println("  refill latch      stand a refill latched as one that spent its ceiling does");
     Serial.println("  refill forget     drop a refill that is owed, and the flash's note of it");
@@ -1283,6 +1284,23 @@ static void console(const String &line) {
         return;
     }
 
+    if (line == "unit" || line.startsWith("unit ")) {
+        String unit = line.substring(4);
+        unit.trim();
+        unit.toLowerCase();
+        if (unit.length()) {
+            if (unit != "f" && unit != "c") { Serial.println("\nusage: unit [f|c]"); return; }
+            const uint8_t value = unit == "c" ? TEMP_UNIT_CELSIUS : TEMP_UNIT_FAHRENHEIT;
+            if (!settingsWrite(SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, &value, 1)) {
+                Serial.println("\nunit not changed — settings storage is unavailable");
+                return;
+            }
+        }
+        Serial.printf("\ntemperature unit %s (%s)\n",
+                      settingsTemperatureUnit() == TEMP_UNIT_CELSIUS ? "°C" : "°F",
+                      settingsStorageFailed() ? "storage unavailable" : settingsDirty() ? "save pending" : "persisted");
+        return;
+    }
     if (line.startsWith("ratio")) {
         String rest = line.substring(5); rest.trim();
         if (rest.length()) {

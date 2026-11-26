@@ -15,10 +15,12 @@ static void check(bool ok, const char *message) {
 
 struct Disk {
     uint32_t epoch = 0;
-    Image saved = defaults();
+    StoredSettings saved{};
+    uint8_t unit = TEMP_UNIT_FAHRENHEIT;
     bool failEpoch = false;
     bool failValues = false;
     int valueWrites = 0;
+    Disk() { copyStoredSettings(defaults(), saved); }
 };
 
 static bool writeEpoch(uint32_t epoch, void *context) {
@@ -32,13 +34,17 @@ static bool writeValues(const Image &image, void *context) {
     auto &disk = *static_cast<Disk *>(context);
     ++disk.valueWrites;
     if (disk.failValues) return false;
-    disk.saved = image;
+    copyStoredSettings(image, disk.saved);
+    disk.unit = image.values[kTemperatureField].bytes[0];
     return true;
 }
 
 static Authority boot(Disk &disk) {
     Authority a;
-    a.begin(disk.saved, reserveBootEpoch(disk.epoch, writeEpoch, &disk));
+    auto image = defaults();
+    copyStoredSettings(disk.saved, image);
+    image.values[kTemperatureField].bytes[0] = disk.unit;
+    a.begin(image, reserveBootEpoch(disk.epoch, writeEpoch, &disk));
     return a;
 }
 
@@ -76,12 +82,14 @@ int main() {
     const uint8_t name[] = {'K', 'i', 't', 'c', 'h', 'e', 'n'};
     const uint8_t selected = 1;
     const uint8_t art = 3;
+    const uint8_t celsius = TEMP_UNIT_CELSIUS;
     const Mutation fields[] = {
         {SETTING_SOUND, SETTING_GLOBAL, 6, sound},
         {SETTING_NAME, SETTING_GLOBAL, sizeof(name), name},
         {SETTING_SELECTION, SETTING_GLOBAL, 1, &selected},
         {SETTING_ART, 0, 1, &art},
         {SETTING_ART, 1, 1, &art},
+        {SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, 1, &celsius},
     };
     for (const auto &field : fields) {
         const auto base = a.snapshot(field.kind, field.channel);
@@ -111,6 +119,9 @@ int main() {
     check(a.set(badPair, 2) == SETTING_INVALID && memcmp(&beforeBad, &a.image(), sizeof(beforeBad)) == 0,
           "An invalid pair cannot partially apply or partially advance stamps");
     check(a.snapshot(SETTING_SOUND, 0).result == SETTING_INVALID, "Global settings reject channel aliases");
+    check(a.snapshot(SETTING_TEMPERATURE_UNIT, 0).result == SETTING_INVALID &&
+          put(a, SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, 2) == SETTING_INVALID,
+          "Temperature units accept only F or C on the machine-wide key");
     check(a.snapshot(SETTING_RATIO, SETTING_GLOBAL).result == SETTING_INVALID, "Channel settings reject the global alias");
     const uint8_t truncatedUTF8[] = {0xE2, 0x82};
     const auto nameBase = a.snapshot(SETTING_NAME, SETTING_GLOBAL);
@@ -123,6 +134,8 @@ int main() {
     // Every reboot changes stamps even if a deferred value snapshot rolls back.
     const auto beforePowerLoss = a.snapshot(SETTING_RATIO, 0);
     auto restarted = boot(disk);
+    check(restarted.snapshot(SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL).value.bytes[0] == TEMP_UNIT_FAHRENHEIT,
+          "A machine with only the original settings record starts in Fahrenheit");
     check(disk.epoch == 2 && restarted.ready(), "A power loss before value flush still reserves a fresh epoch");
     check(restarted.snapshot(SETTING_RATIO, 0).value.bytes[0] == 20, "Unflushed live choices can restore the last durable value");
     check(restarted.compareSet(SETTING_RATIO, 0, beforePowerLoss.revision, &ratio, 1) == SETTING_CONFLICT,
@@ -132,11 +145,22 @@ int main() {
     ratio = 19;
     check(restarted.compareSet(SETTING_RATIO, 0, restarted.snapshot(SETTING_RATIO, 0).revision, &ratio, 1) == SETTING_OK,
           "A newly read post-restart base can save normally");
-    check(restarted.flush(writeValues, &disk), "The quiet flush stores the complete value/revision image");
+    check(put(restarted, SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, celsius) == SETTING_OK,
+          "A second surface can change the display unit");
+    const auto unitBase = restarted.snapshot(SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL).revision;
+    check(restarted.flush(writeValues, &disk), "The quiet flush stores the current settings");
     check(disk.saved.values[0].bytes[0] == 19 && disk.saved.epoch == 2 && !restarted.dirty(),
           "A durable image contains matching accepted value, boot epoch and counter");
     const auto durableBase = restarted.snapshot(SETTING_RATIO, 0).revision;
+    // An older firmware can still update either picture through its original 188-byte record.
+    disk.saved.values[5].bytes[0] = FLAVOR_ART_CUSTOM;
+    disk.saved.values[6].bytes[0] = 3;
     auto thirdBoot = boot(disk);
+    const auto remembered = thirdBoot.snapshot(SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL);
+    check(remembered.value.bytes[0] == TEMP_UNIT_CELSIUS && remembered.revision != unitBase &&
+          thirdBoot.snapshot(SETTING_ART, 0).value.bytes[0] == FLAVOR_ART_CUSTOM &&
+          thirdBoot.snapshot(SETTING_ART, 1).value.bytes[0] == 3,
+          "Celsius and both saved pictures survive a reboot and an older firmware editing the pictures");
     check(thirdBoot.snapshot(SETTING_RATIO, 0).value.bytes[0] == 19 && thirdBoot.snapshot(SETTING_RATIO, 0).revision != durableBase,
           "A flushed value survives reboot while its revision is still made fresh");
 

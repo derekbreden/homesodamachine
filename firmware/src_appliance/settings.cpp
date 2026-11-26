@@ -19,6 +19,8 @@ bool started = false;
 bool storeOpen = false;
 bool identityPending = false;
 uint8_t pending = 0;
+static_assert(stamped_settings::kFields <= 8, "Each setting needs a publication bit");
+uint8_t storedUnit = TEMP_UNIT_FAHRENHEIT;
 uint8_t nextPublication = 0;
 uint32_t persistDueMs = 0;
 constexpr uint32_t kPersistDelayMs = 500;
@@ -57,7 +59,16 @@ bool soundWrite(const sound_policy::Settings &s) {
 }
 
 bool persist(const stamped_settings::Image &image, void *) {
-    return storeOpen && prefs.putBytes("state", &image, sizeof(image)) == sizeof(image);
+    stamped_settings::StoredSettings original{};
+    stamped_settings::copyStoredSettings(image, original);
+    if (!storeOpen || prefs.putBytes("state", &original, sizeof(original)) != sizeof(original)) return false;
+    // The separate key leaves picture selections readable through firmware updates and rollbacks.
+    // All live field revisions get a fresh, durably reserved epoch at the next boot.
+    const uint8_t unit = image.values[stamped_settings::kTemperatureField].bytes[0];
+    if (storedUnit == unit) return true;
+    if (prefs.putUChar("tempUnit", unit) != sizeof(unit)) return false;
+    storedUnit = unit;
+    return true;
 }
 
 bool persistEpoch(uint32_t epoch, void *) {
@@ -94,10 +105,14 @@ void settingsBegin() {
         const bool hasState = prefs.isKey("state");
         const bool hasEpoch = prefs.isKey("epoch");
         bool valid = !hasState;
-        if (hasState && prefs.getBytesLength("state") == sizeof(image)) {
-            valid = prefs.getBytes("state", &image, sizeof(image)) == sizeof(image)
-                 && stamped_settings::validImage(image);
+        stamped_settings::StoredSettings original{};
+        if (hasState && prefs.getBytesLength("state") == sizeof(original)) {
+            valid = prefs.getBytes("state", &original, sizeof(original)) == sizeof(original);
+            if (valid) stamped_settings::copyStoredSettings(original, image);
         }
+        if (prefs.isKey("tempUnit")) storedUnit = prefs.getUChar("tempUnit", UINT8_MAX);
+        image.values[stamped_settings::kTemperatureField].bytes[0] = storedUnit;
+        valid = valid && stamped_settings::validImage(image);
         // A state without its monotonic epoch is a damaged store, not a new
         // machine. Never restart its sequence at one and reuse old stamps.
         if (valid && (!hasState || hasEpoch) && (!hasEpoch || prefs.getType("epoch") == PT_U32)) {
@@ -122,6 +137,9 @@ bool settingsStarted() { return started; }
 bool settingsReady() { return authority.ready(); }
 bool settingsDirty() { return authority.dirty(); }
 bool settingsStorageFailed() { return authority.storageFailed(); }
+uint8_t settingsTemperatureUnit() {
+    return authority.image().values[stamped_settings::kTemperatureField].bytes[0];
+}
 
 bool settingsWrite(uint8_t kind, uint8_t channel, const uint8_t *value, uint8_t length) {
     const stamped_settings::Mutation change{kind, channel, length, value};

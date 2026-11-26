@@ -11,6 +11,7 @@ int index(uint8_t kind, uint8_t channel) {
     if (kind == SETTING_NAME && channel == SETTING_GLOBAL) return 3;
     if (kind == SETTING_SELECTION && channel == SETTING_GLOBAL) return 4;
     if (kind == SETTING_ART && channel < 2) return 5 + channel;
+    if (kind == SETTING_TEMPERATURE_UNIT && channel == SETTING_GLOBAL) return kTemperatureField;
     return -1;
 }
 
@@ -20,6 +21,7 @@ void key(uint8_t i, uint8_t &kind, uint8_t &channel) {
     else if (i == 2) kind = SETTING_SOUND;
     else if (i == 3) kind = SETTING_NAME;
     else if (i == 4) kind = SETTING_SELECTION;
+    else if (i == kTemperatureField) kind = SETTING_TEMPERATURE_UNIT;
     else { kind = SETTING_ART; channel = i - 5; }
 }
 
@@ -52,6 +54,7 @@ bool validValue(uint8_t kind, const uint8_t *p, uint8_t n) {
     case SETTING_RATIO: return n == 1 && p[0] >= FLAVOR_RATIO_MIN && p[0] <= FLAVOR_RATIO_MAX;
     case SETTING_ART: return n == 1 && p[0] < FLAVOR_ART_COUNT;
     case SETTING_SELECTION: return n == 1 && p[0] < 2;
+    case SETTING_TEMPERATURE_UNIT: return n == 1 && (p[0] == TEMP_UNIT_FAHRENHEIT || p[0] == TEMP_UNIT_CELSIUS);
     case SETTING_SOUND:
         return n == 6 && p[0] <= 100 && p[1] <= 1 && p[2] < 24 && p[3] < 24 && p[4] <= 100 && p[5] == 0;
     case SETTING_NAME: return utf8(p, n);
@@ -82,6 +85,7 @@ Image defaults() {
     image.values[2].bytes[4] = 20;
     image.values[3].length = 0;
     image.values[6].bytes[0] = 1;
+    image.values[kTemperatureField].bytes[0] = TEMP_UNIT_FAHRENHEIT;
     return image;
 }
 

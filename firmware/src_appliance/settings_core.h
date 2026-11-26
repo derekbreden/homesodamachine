@@ -9,7 +9,9 @@
 // stay in settings.cpp; host checks exercise this exact compare/apply policy.
 namespace stamped_settings {
 
-constexpr uint8_t kFields = 7;
+constexpr uint8_t kStoredFields = 7;  // the original NVS "state" record
+constexpr uint8_t kTemperatureField = kStoredFields;
+constexpr uint8_t kFields = kStoredFields + 1;
 constexpr uint32_t kMagic = 0x48534D32;
 constexpr uint16_t kSchema = 1;
 
@@ -18,16 +20,34 @@ struct Value {
     uint8_t bytes[SETTING_VALUE_MAX];
 };
 
-// One NVS blob keeps each value and its revision together. The independent
-// boot-epoch key is committed before this image can accept a live write.
-struct Image {
+// The same field order is used in RAM and in the seven-field record older firmware reads.
+template <uint8_t Fields>
+struct SettingsImage {
     uint32_t magic;
     uint16_t schema;
     uint16_t reserved;
     uint32_t epoch;
-    uint32_t counters[kFields];
-    Value values[kFields];
+    uint32_t counters[Fields];
+    Value values[Fields];
 };
+
+using StoredSettings = SettingsImage<kStoredFields>;
+using Image = SettingsImage<kFields>;
+static_assert(sizeof(StoredSettings) == 188, "Preserve the original NVS settings layout");
+
+// Transfer the common fields explicitly because the two arrays of counters have different sizes.
+template <uint8_t Source, uint8_t Destination>
+void copyStoredSettings(const SettingsImage<Source> &from, SettingsImage<Destination> &to) {
+    static_assert(Source >= kStoredFields && Destination >= kStoredFields, "All saved fields must fit");
+    to.magic = from.magic;
+    to.schema = from.schema;
+    to.reserved = from.reserved;
+    to.epoch = from.epoch;
+    for (uint8_t i = 0; i < kStoredFields; ++i) {
+        to.counters[i] = from.counters[i];
+        to.values[i] = from.values[i];
+    }
+}
 
 struct Mutation {
     uint8_t kind;

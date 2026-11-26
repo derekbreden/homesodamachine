@@ -91,6 +91,10 @@ board also establishes and reports the safe I/O foundation the next connected be
   J9 frame counts, the MQ-6 divider, which operation is live, both reservoirs' reeds and
   gauges, the carbonator's two reeds, and what each channel pours at. The USB `status` command
   additionally verifies both expanders and reads all ten reed inputs on demand.
+- **Temperature units.** The enclosure and companion app share one display preference.
+  It defaults to °F. A change uses the same revision and deferred NVS save as a picture
+  selection. The unit has its own key so older firmware can still read and save the original
+  settings. The tank and coil continue to report tenths of a degree Celsius over the wire.
 - **Reservoir level.** Both reed columns and the carbonator's reeds are read once a second
   while the machine is idle and every quarter second by any operation that moves a level, and
   each reservoir's gauge is kept from them: the reed the float was last seen at, and which way
@@ -338,6 +342,7 @@ pio device monitor -e appliance
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll, and whether a Ratio page is open on both glasses |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
+| `unit [f\|c]` | read or set the temperature unit shared by the enclosure and the companion app |
 | `trust [forget\|yes\|no]` | how many phones the faucet trusts and how many it has bonds for; `forget` forgets every trusted phone; `yes` or `no` answers the ask that is up, as a tap on either display would |
 | `dry [s]` | dry the flavor lines, at the bench or the factory: air in then through to the faucet, on each channel in turn; `s` caps every step |
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |

@@ -10,6 +10,7 @@ bool settingsStarted();
 bool settingsReady();
 bool settingsDirty();
 bool settingsStorageFailed();
+uint8_t settingsTemperatureUnit();
 
 // Console and physical-display mutations are unconditional authoritative writes.
 // Each explicitly supplied field advances, even when its value is unchanged.
