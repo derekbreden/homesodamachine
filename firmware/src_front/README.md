@@ -214,9 +214,8 @@ ladder above). The difference from the faucet display is the backlight itself:
   lives in PSRAM (`flags.fb_in_psram`), and a flash write suspends the cache PSRAM is
   reached through, so the DMA refilling its bounce buffer faults on the next line —
   `Cache disabled but cached memory region accessed`, and the panic takes the USB PHY
-  down with it (`hsm-peripheral display-usb` brings it back). A ratio and a flavor's chosen
-  logo are therefore display-local, and the durable home for both is the main board,
-  where the faucet's own selection already lives.
+  down with it (`hsm-peripheral display-usb` brings it back). The main board saves each
+  flavor's ratio and logo, the selected flavor, and the machine's temperature unit.
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
   line on the CH422G (EXIO2) — on/off only, no PWM. EXIO2 drives both the LED
   converter and the panel's DISP input; panel VCC remains at 3.3 V while the
@@ -368,7 +367,7 @@ The sixteen-direction colour and type study is in Git at [`49738f2694`](https://
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
 The rail holds the two flavor targets and a reserved slot for phone requests. A single
 Settings button spans the foot of the rail and the portrait. Its gear, thermometer, tank
-reading in °F, and cooling activity share a single row. Touching anywhere in it opens Settings.
+reading in the selected unit, and cooling activity share a single row. Touching anywhere in it opens Settings.
 
 **The rail is the same on every page.** The selected flavor's cell is the portrait panel's
 own ice, from the glass edge into the portrait, so the two read as one. It holds no thumbnail,
@@ -391,7 +390,8 @@ on the band's last row, with the whole band its target. Back returns to rest. It
 an operation is pending or running and while a finger holds Prime, when Stop or the held pad is
 the pane's one control.
 
-**Settings** opens to the right of the flavor rail. Its Back band returns to On tap.
+**Settings** opens to the right of the flavor rail. **Temperature unit** offers **°F** and
+**°C** directly below the cooling card. Its Back band returns to On tap.
 **Water & sensors** opens the detail view, where **‹ Settings** returns to the overview.
 The gear keeps its position in the rail on both views.
 
@@ -403,7 +403,7 @@ The gear keeps its position in the rail on both views.
 | Fill | instructions, Start filling, authoritative progress and Stop |
 | Prime | shared main-board session and Hold to prime |
 | Clean | three rinse cycles, authoritative progress and Stop |
-| Settings | tank wall temperature, cooling state, Water & sensors, Move the machine, and Forget trusted phones |
+| Settings | tank wall temperature, cooling state, temperature unit, Water & sensors, Move the machine, and Forget trusted phones |
 | Water & sensors | labeled level-switch diagram, tank wall and cooling coil readings, probe count, and water refill status |
 
 Ratios appear only on the Ratio page. Image assignments and ratios are saved by the
@@ -570,8 +570,15 @@ faucet shows here within a statement.
 
 ### Settings and cooling
 
-The overview pairs the **Tank wall** reading, in whole degrees Fahrenheit and tenths of a
-degree Celsius, with the controller's cooling state. A timed startup wait shows the time
+The overview pairs the **Tank wall** reading in whole degrees with the controller's cooling
+state. **Temperature unit** changes the enclosure and phone together. The main board saves
+the selection with the flavor settings. The enclosure reads the unit over J9 while awake
+and sends a change against the revision it last received. The selected button and readings
+follow the machine's answer. A dropped answer is recovered by the next read, and the row
+shows when a change is unconfirmed or storage is unavailable. An older main board keeps
+the Fahrenheit readout with the unit controls dimmed.
+
+A timed startup wait shows the time
 until the compressor starts. A later protective restart wait says **Cooling soon**. The
 display distinguishes a running compressor, an idle loop, freeze protection, a missing
 probe, and a controller that has stopped answering. The compact readout on every flavor
@@ -580,7 +587,8 @@ triangle points to the explanation in Settings when a fault or protection stops 
 A missing tank reading leaves the thermometer empty and shows two dashes. Each available
 probe keeps its own reading.
 
-**Water & sensors** shows the tank wall and cooling coil in Celsius, the number of probes
+**Water & sensors** shows the tank wall and cooling coil to one decimal place in the
+selected unit, the number of probes
 detected and the water refill state. The side view locates the four level switches for each
 flavor and the two on the carbonator. A filled dot marks a closed switch. The diagram clears
 and its caption reports a missing reading when the controller marks the levels invalid or

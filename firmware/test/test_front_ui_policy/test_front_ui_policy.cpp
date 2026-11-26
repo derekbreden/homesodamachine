@@ -1,6 +1,7 @@
 #include <unity.h>
 #include <initializer_list>
 #include "../../src_front/front_cooling.h"
+#include "../../src_front/front_temperature_unit.h"
 #include "../../src_front/front_ui_policy.h"
 using namespace front_ui;
 using machine_policy::ColdState;
@@ -132,26 +133,122 @@ static void cooling_requires_an_available_status_and_a_recognized_controller_sta
     TEST_ASSERT_EQUAL(CoolingState::Unavailable, coolingState(true, s));
 }
 
-static void temperatures_round_at_half_fahrenheit_and_preserve_negative_celsius_tenths() {
+static void temperatures_round_once_in_the_selected_unit() {
     char out[16];
-    formatFahrenheit(out, sizeof(out), 20, true);
-    TEST_ASSERT_EQUAL_STRING("36°F", out);
-    formatFahrenheit(out, sizeof(out), -175, true);
-    TEST_ASSERT_EQUAL_STRING("1°F", out);
-    formatFahrenheit(out, sizeof(out), -225, true);
-    TEST_ASSERT_EQUAL_STRING("-9°F", out);
-    formatFahrenheit(out, sizeof(out), TEMP_UNREAD, true);
-    TEST_ASSERT_EQUAL_STRING("--", out);
-    formatFahrenheit(out, sizeof(out), 20, false);
-    TEST_ASSERT_EQUAL_STRING("--", out);
-    formatCelsius(out, sizeof(out), -1, true);
-    TEST_ASSERT_EQUAL_STRING("-0.1°C", out);
-    formatCelsius(out, sizeof(out), 0, true);
-    TEST_ASSERT_EQUAL_STRING("0.0°C", out);
-    formatCelsius(out, sizeof(out), TEMP_UNREAD, true);
-    TEST_ASSERT_EQUAL_STRING("--", out);
-    formatCelsius(out, sizeof(out), -1, false);
-    TEST_ASSERT_EQUAL_STRING("--", out);
+    const struct { int16_t cx10; const char *f, *c, *probeF, *probeC; } readings[] = {
+        {168, "62°F", "17°C", "62.2°F", "16.8°C"},
+        {-175, "1°F", "-18°C", "0.5°F", "-17.5°C"},
+        {-225, "-9°F", "-23°C", "-8.5°F", "-22.5°C"},
+        {-1, "32°F", "0°C", "31.8°F", "-0.1°C"},
+        {-178, "0°F", "-18°C", "0.0°F", "-17.8°C"},
+        {-550, "-67°F", "-55°C", "-67.0°F", "-55.0°C"},
+        {1250, "257°F", "125°C", "257.0°F", "125.0°C"},
+        {TEMP_UNREAD, "--", "--", "--", "--"},
+    };
+    for (const auto &r : readings) {
+        formatTemperature(out, sizeof(out), r.cx10, true, TEMP_UNIT_FAHRENHEIT, Degrees::Whole);
+        TEST_ASSERT_EQUAL_STRING(r.f, out);
+        formatTemperature(out, sizeof(out), r.cx10, true, TEMP_UNIT_CELSIUS, Degrees::Whole);
+        TEST_ASSERT_EQUAL_STRING(r.c, out);
+        formatTemperature(out, sizeof(out), r.cx10, true, TEMP_UNIT_FAHRENHEIT, Degrees::Tenths);
+        TEST_ASSERT_EQUAL_STRING(r.probeF, out);
+        formatTemperature(out, sizeof(out), r.cx10, true, TEMP_UNIT_CELSIUS, Degrees::Tenths);
+        TEST_ASSERT_EQUAL_STRING(r.probeC, out);
+    }
+    for (uint8_t unit : {TEMP_UNIT_CELSIUS, TEMP_UNIT_FAHRENHEIT}) {
+        formatTemperature(out, sizeof(out), 168, false, unit, Degrees::Whole);
+        TEST_ASSERT_EQUAL_STRING("--", out);
+        formatTemperature(out, sizeof(out), 168, false, unit, Degrees::Tenths);
+        TEST_ASSERT_EQUAL_STRING("--", out);
+    }
+}
+
+static void unitReadback(TemperatureUnitSetting &s, uint8_t result, uint64_t revision,
+                         uint8_t unit, uint32_t now) {
+    uint8_t frame[SETTING_STATE_HEADER_SIZE + 1] = {SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, result};
+    for (uint8_t i = 0; i < 8; ++i) frame[3 + i] = uint8_t(revision >> (i * 8));
+    frame[11] = 1;
+    frame[12] = unit;
+    s.receive(frame, sizeof(frame), now);
+}
+
+static void unit_changes_need_a_fresh_machine_revision() {
+    TemperatureUnitSetting s;
+    uint8_t write[SETTING_SET_HEADER_SIZE + 1];
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
+    TEST_ASSERT_FALSE(s.select(TEMP_UNIT_CELSIUS, 0, write));
+    TEST_ASSERT_TRUE(s.queryDue(0));
+    TEST_ASSERT_FALSE(s.queryDue(100));
+    const uint8_t oldBoard[SETTING_STATE_HEADER_SIZE] = {SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, SETTING_INVALID};
+    s.receive(oldBoard, sizeof(oldBoard), 120);
+    TEST_ASSERT_EQUAL(TemperatureUnitSetting::State::Unsupported, s.state(150));
+    TEST_ASSERT_FALSE(s.select(TEMP_UNIT_CELSIUS, 150, write));
+
+    unitReadback(s, SETTING_OK, 0x123456789ABCDEF0ull, TEMP_UNIT_CELSIUS, UINT32_MAX - 100);
+    TEST_ASSERT_TRUE(s.canChange(1));
+    TEST_ASSERT_FALSE(s.select(TEMP_UNIT_CELSIUS, 1, write));
+    TEST_ASSERT_FALSE(s.select(2, 1, write));
+    TEST_ASSERT_TRUE(s.select(TEMP_UNIT_FAHRENHEIT, 20, write));
+    const uint8_t expected[] = {SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, 0xF0, 0xDE, 0xBC,
+                                 0x9A, 0x78, 0x56, 0x34, 0x12, 1, TEMP_UNIT_FAHRENHEIT};
+    TEST_ASSERT_EQUAL_UINT8_ARRAY(expected, write, sizeof(expected));
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_CELSIUS, s.unit());
+    TEST_ASSERT_FALSE(s.canChange(30));
+    unitReadback(s, SETTING_OK, 43, TEMP_UNIT_FAHRENHEIT, 40);
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
+    TEST_ASSERT_FALSE(s.select(TEMP_UNIT_CELSIUS, 6000, write));
+    TEST_ASSERT_EQUAL(TemperatureUnitSetting::State::Waiting, s.state(6000));
+}
+
+static void lost_unit_acknowledgments_reconcile_without_overwriting_a_phone_change() {
+    using State = TemperatureUnitSetting::State;
+    TemperatureUnitSetting s;
+    uint8_t write[SETTING_SET_HEADER_SIZE + 1];
+    unitReadback(s, SETTING_OK, 41, TEMP_UNIT_FAHRENHEIT, 1000);
+    TEST_ASSERT_TRUE(s.select(TEMP_UNIT_CELSIUS, 1010, write));
+    unitReadback(s, SETTING_OK, 41, TEMP_UNIT_FAHRENHEIT, 1020);  // Earlier GET still in flight.
+    TEST_ASSERT_EQUAL(State::Updating, s.state(1020));
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
+    TEST_ASSERT_FALSE(s.queryDue(1200));
+    TEST_ASSERT_TRUE(s.queryDue(1500));
+    unitReadback(s, SETTING_OK, 42, TEMP_UNIT_CELSIUS, 1510);  // A later GET recovers the lost ACK.
+    TEST_ASSERT_EQUAL(State::Ready, s.state(1510));
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_CELSIUS, s.unit());
+
+    TEST_ASSERT_TRUE(s.select(TEMP_UNIT_FAHRENHEIT, 1600, write));
+    unitReadback(s, SETTING_CONFLICT, 44, TEMP_UNIT_CELSIUS, 1620);
+    TEST_ASSERT_EQUAL(State::ChangedElsewhere, s.state(1620));
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_CELSIUS, s.unit());
+    TEST_ASSERT_TRUE(s.select(TEMP_UNIT_FAHRENHEIT, 2000, write));
+    TEST_ASSERT_EQUAL_UINT8(44, write[2]);
+    TEST_ASSERT_EQUAL(State::Unconfirmed, s.state(4500));
+    unitReadback(s, SETTING_OK, 44, TEMP_UNIT_CELSIUS, 4600);
+    TEST_ASSERT_EQUAL(State::Unconfirmed, s.state(4600));
+    TEST_ASSERT_TRUE(s.canChange(4600));
+    unitReadback(s, SETTING_STORAGE_FAILURE, 44, TEMP_UNIT_CELSIUS, 4700);
+    TEST_ASSERT_EQUAL(State::StorageError, s.state(4700));
+    TEST_ASSERT_FALSE(s.canChange(4700));
+    unitReadback(s, SETTING_OK, 45, TEMP_UNIT_FAHRENHEIT, 4800);
+    TEST_ASSERT_EQUAL(State::Ready, s.state(4800));
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
+}
+
+static void damaged_or_unrelated_setting_frames_do_not_change_the_unit() {
+    TemperatureUnitSetting s;
+    uint8_t bytes[SETTING_STATE_HEADER_SIZE + 1] = {SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL, SETTING_OK, 91};
+    bytes[11] = 1; bytes[12] = TEMP_UNIT_CELSIUS;
+    s.receive(bytes, sizeof(bytes) - 1, 1000);
+    bytes[0] = SETTING_SOUND;
+    s.receive(bytes, sizeof(bytes), 1001);
+    bytes[0] = SETTING_TEMPERATURE_UNIT; bytes[1] = 0;
+    s.receive(bytes, sizeof(bytes), 1002);
+    unitReadback(s, SETTING_OK, 0, TEMP_UNIT_CELSIUS, 1003);
+    unitReadback(s, SETTING_OK, 1, 2, 1004);
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_FAHRENHEIT, s.unit());
+    TEST_ASSERT_FALSE(s.canChange(1010));
+    unitReadback(s, SETTING_STORAGE_FAILURE, 0, TEMP_UNIT_CELSIUS, 1020);
+    TEST_ASSERT_EQUAL_UINT8(TEMP_UNIT_CELSIUS, s.unit());
+    TEST_ASSERT_FALSE(s.canChange(1020));
 }
 
 int main() {
@@ -165,6 +262,9 @@ int main() {
     RUN_TEST(cooling_follows_the_relay_on_start_and_during_normal_operation);
     RUN_TEST(cooling_protections_keep_individual_readings_and_honor_the_gas_trip);
     RUN_TEST(cooling_requires_an_available_status_and_a_recognized_controller_state);
-    RUN_TEST(temperatures_round_at_half_fahrenheit_and_preserve_negative_celsius_tenths);
+    RUN_TEST(temperatures_round_once_in_the_selected_unit);
+    RUN_TEST(unit_changes_need_a_fresh_machine_revision);
+    RUN_TEST(lost_unit_acknowledgments_reconcile_without_overwriting_a_phone_change);
+    RUN_TEST(damaged_or_unrelated_setting_frames_do_not_change_the_unit);
     return UNITY_END();
 }

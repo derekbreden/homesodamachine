@@ -9,6 +9,7 @@
 #include "freertos/semphr.h"
 #include "fw_version.h"
 #include "front_cooling_strip.h"
+#include "front_temperature_unit.h"
 #include "front_ui_policy.h"
 #include "proto_link.h"
 #include "trust_text.h"
@@ -658,7 +659,9 @@ static unsigned long airUiMs = 0;
 static unsigned long airCardUntilMs = 0;
 static lv_obj_t *settingsBtn;
 static front_ui::CoolingStrip coolingStrip;
-static lv_obj_t *tankValue, *tankMetric, *coolingTitle, *coolingDetail;
+static front_ui::TemperatureUnitSetting temperatureUnit;
+static lv_obj_t *temperatureChoices[2], *temperatureNote;
+static lv_obj_t *tankValue, *coolingTitle, *coolingDetail;
 static lv_obj_t *sensorTank, *sensorCoil, *sensorProbes, *sensorRefill;
 
 // ── System status, as this glass shows it ──
@@ -2126,6 +2129,12 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_SETTING_STATE) {
+    temperatureUnit.receive(payload, plen, millis());
+    refreshStatusThermal();
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_STATE && plen >= sizeof(FlavorStatePayload)) {
     FlavorStatePayload state;
     memcpy(&state, payload, sizeof(state));
@@ -3474,25 +3483,49 @@ static void updateReading(lv_obj_t *label, const char *text) {
   if (strcmp(lv_label_get_text(label), text) != 0) lv_label_set_text(label, text);
 }
 
+static void refreshTemperatureChoice(uint32_t now, bool connected) {
+  using State = front_ui::TemperatureUnitSetting::State;
+  const char *note = "";
+  switch (temperatureUnit.state(now)) {
+    case State::Waiting:          note = connected ? "Unit unavailable" : "Waiting for machine"; break;
+    case State::Updating:         note = "Updating"; break;
+    case State::ChangedElsewhere: note = "Changed elsewhere"; break;
+    case State::Unconfirmed:      note = "No confirmation"; break;
+    case State::Unsupported:      note = "Update controller"; break;
+    case State::StorageError:     note = "Cannot save unit"; break;
+    case State::Ready:            break;
+  }
+  updateReading(temperatureNote, note);
+  for (uint8_t i = 0; i < 2; ++i) {
+    lv_obj_t *button = temperatureChoices[i];
+    if (i == temperatureUnit.unit()) lv_obj_add_state(button, LV_STATE_CHECKED);
+    else lv_obj_clear_state(button, LV_STATE_CHECKED);
+    if (temperatureUnit.canChange(now)) lv_obj_clear_state(button, LV_STATE_DISABLED);
+    else lv_obj_add_state(button, LV_STATE_DISABLED);
+  }
+}
+
 // The same status sample drives the Settings button, its landing and the sensor detail.
 static void refreshStatusThermal() {
   if (!uiReady) return;
-  const bool connected = front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
+  const uint32_t now = millis();
+  const bool connected = front_ui::readingFresh(ctrlStatusMs, now, STATUS_ANSWER_MS);
   const bool available = connected && ctrlStatusThermal;
   const bool tankRead = front_ui::temperatureAvailable(available, ctrlStatus.tankCx10);
-  char fahrenheit[16], celsius[16], countdown[24], coilReading[32], probes[8];
-  front_ui::formatFahrenheit(fahrenheit, sizeof(fahrenheit), ctrlStatus.tankCx10, available);
-  front_ui::formatCelsius(celsius, sizeof(celsius), ctrlStatus.tankCx10, available);
+  const uint8_t unit = temperatureUnit.unit();
+  char reading[16], countdown[24], coilReading[24], probes[8];
+  using front_ui::Degrees;
+  front_ui::formatTemperature(reading, sizeof(reading), ctrlStatus.tankCx10, available, unit, Degrees::Whole);
   const auto state = front_ui::coolingState(available, ctrlStatus);
-  coolingStrip.update(fahrenheit, tankRead ? ctrlStatus.tankCx10 : TEMP_UNREAD,
+  coolingStrip.update(reading, tankRead ? ctrlStatus.tankCx10 : TEMP_UNREAD,
                       state, ctrlStatus.startupCoolingS);
-  updateReading(tankValue, fahrenheit);
-  updateReading(tankMetric, tankRead ? celsius : "No reading");
-  updateReading(sensorTank, celsius);
-  front_ui::formatCelsius(celsius, sizeof(celsius), ctrlStatus.coilCx10, available);
-  updateReading(sensorCoil, celsius);
-  front_ui::formatFahrenheit(fahrenheit, sizeof(fahrenheit), ctrlStatus.coilCx10, available);
-  snprintf(coilReading, sizeof(coilReading), "Coil %s  /  %s", fahrenheit, celsius);
+  updateReading(tankValue, reading);
+  front_ui::formatTemperature(reading, sizeof(reading), ctrlStatus.tankCx10, available, unit, Degrees::Tenths);
+  updateReading(sensorTank, reading);
+  front_ui::formatTemperature(reading, sizeof(reading), ctrlStatus.coilCx10, available, unit, Degrees::Tenths);
+  updateReading(sensorCoil, reading);
+  snprintf(coilReading, sizeof(coilReading), "Coil %s", reading);
+  refreshTemperatureChoice(now, connected);
   if (available) snprintf(probes, sizeof(probes), "%u", unsigned(ctrlStatus.probeCount));
   updateReading(sensorProbes, available ? probes : "--");
 
@@ -5187,6 +5220,17 @@ static void sensorDetailCb(lv_event_t *) {
   if (front_ui::allows(front_ui::Action::Settings, lockActive, holding)) showSettingsView(true);
 }
 
+static void temperatureUnitCb(lv_event_t *e) {
+  if (!front_ui::allows(front_ui::Action::Edit, lockActive, holding)) return;
+  const uint8_t unit = (uintptr_t)lv_event_get_user_data(e);
+  uint8_t frame[SETTING_SET_HEADER_SIZE + 1];
+  if (temperatureUnit.select(unit, millis(), frame)) {
+    j9Post(MSG_SETTING_SET_IF, frame, sizeof(frame));
+    clickPending = false;  // The main board sounds the tick on the write itself.
+    refreshStatusThermal();
+  }
+}
+
 static void settingsBackCb(lv_event_t *) {
   if (!front_ui::allows(front_ui::Action::Dismiss, lockActive, holding)) return;
   if (viewingSensors) showSettingsView(false);
@@ -5524,29 +5568,49 @@ static void buildSettings(lv_obj_t *page) {
   settingsOverview = mkView(page);
   sensorDetail = mkView(page);
 
-  lv_obj_t *card = mkFlat(settingsOverview, 0, 18, SETTINGS_CONTENT_W, 142, lv_color_hex(COL_DIM));
+  lv_obj_t *card = mkFlat(settingsOverview, 0, 10, SETTINGS_CONTENT_W, 125, lv_color_hex(COL_DIM));
   lv_obj_clear_flag(card, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_set_pos(mkText(card, "Tank wall", &lv_font_montserrat_20, COL_INK), 22, 14);
   tankValue = mkText(card, "--", &lv_font_montserrat_48, COL_INK);
   lv_obj_set_pos(tankValue, 20, 43);
-  tankMetric = mkText(card, "No reading", &lv_font_montserrat_20, COL_INK);
-  lv_obj_set_pos(tankMetric, 22, 107);
-
-  lv_obj_t *divider = mkFlat(card, 231, 18, 1, 106, lv_color_hex(0xa4b8e6));
+  lv_obj_t *divider = mkFlat(card, 231, 14, 1, 97, lv_color_hex(0xa4b8e6));
   lv_obj_clear_flag(divider, LV_OBJ_FLAG_CLICKABLE);
   const lv_coord_t coolingX = 254;
   lv_obj_set_pos(mkText(card, "Cooling", &lv_font_montserrat_20, COL_INK), coolingX, 14);
   coolingTitle = mkText(card, "Waiting for machine", &lv_font_montserrat_32, COL_INK);
-  lv_obj_set_pos(coolingTitle, coolingX, 47);
+  lv_obj_set_pos(coolingTitle, coolingX, 39);
   coolingDetail = mkText(card, "Waiting for a fresh reading.", &lv_font_montserrat_20, COL_INK);
   lv_obj_set_width(coolingDetail, SETTINGS_CONTENT_W - coolingX - 18);
-  lv_obj_set_pos(coolingDetail, coolingX, 89);
+  lv_obj_set_pos(coolingDetail, coolingX, 75);
 
-  addMenuRow(settingsOverview, 0, 169, SETTINGS_CONTENT_W, "Water & sensors", sensorDetailCb);
-  addMenuRow(settingsOverview, 0, 244, SETTINGS_CONTENT_W, "Move the machine", moveAskCb);
-  addMenuRow(settingsOverview, 0, 305, SETTINGS_CONTENT_W, "Forget trusted phones", forgetAskCb, nullptr, true);
+  const lv_coord_t unitY = 144, segmentW = 76;
+  lv_obj_set_pos(mkText(settingsOverview, "Temperature unit", &lv_font_montserrat_28, COL_TEXT), 0, unitY + 9);
+  temperatureNote = mkText(settingsOverview, "", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(temperatureNote, LV_ALIGN_TOP_RIGHT, -2 * segmentW - 16, unitY + 14);
+  for (uint8_t i = 0; i < 2; ++i) {
+    lv_obj_t *button = temperatureChoices[i] = mkBtn(settingsOverview, segmentW, 52, COL_CARD);
+    lv_obj_set_pos(button, SETTINGS_CONTENT_W - (2 - i) * segmentW, unitY);
+    lv_obj_set_style_border_width(button, 1, 0);
+    lv_obj_set_style_border_color(button, lv_color_hex(COL_DIM), 0);
+    lv_obj_set_style_bg_color(button, lv_color_hex(COL_DIM), LV_STATE_CHECKED);
+    lv_obj_set_style_bg_color(button, lv_color_hex(COL_TEXT), LV_STATE_PRESSED);
+    lv_obj_set_style_text_color(button, lv_color_hex(COL_TEXT), 0);
+    lv_obj_set_style_text_color(button, lv_color_hex(COL_INK), LV_STATE_CHECKED);
+    lv_obj_set_style_text_color(button, lv_color_hex(COL_INK), LV_STATE_PRESSED);
+    lv_obj_set_style_opa(button, LV_OPA_70, LV_STATE_DISABLED);
+    lv_obj_set_style_color_filter_opa(button, LV_OPA_TRANSP, LV_STATE_DISABLED);
+    lv_obj_t *label = lv_label_create(button);
+    lv_label_set_text(label, i == TEMP_UNIT_CELSIUS ? "°C" : "°F");
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_28, 0);
+    lv_obj_center(label);
+    lv_obj_add_event_cb(button, temperatureUnitCb, ACT_EVENT, (void *)(uintptr_t)i);
+  }
+
+  addMenuRow(settingsOverview, 0, 198, SETTINGS_CONTENT_W, "Water & sensors", sensorDetailCb);
+  addMenuRow(settingsOverview, 0, 266, SETTINGS_CONTENT_W, "Move the machine", moveAskCb);
+  addMenuRow(settingsOverview, 0, 326, SETTINGS_CONTENT_W, "Forget trusted phones", forgetAskCb, nullptr, true);
   forgotNote = mkText(settingsOverview, "", &lv_font_montserrat_20, COL_TEXT);
-  lv_obj_set_pos(forgotNote, 0, 377);
+  lv_obj_set_pos(forgotNote, 0, 389);
   showIf(forgotNote, false);
 
   lv_obj_set_pos(mkText(sensorDetail, "Level switches", &lv_font_montserrat_24, COL_TEXT), 0, 18);
@@ -6473,6 +6537,10 @@ void loop() {
     if (millis() - statusAskedMs >= 1000) {
       statusAskedMs = millis();
       j9Post(MSG_STATUS_REQ, nullptr, 0);
+    }
+    if (outCount < OUT_Q_DEPTH / 2 && temperatureUnit.queryDue(millis())) {
+      const uint8_t key[] = {SETTING_TEMPERATURE_UNIT, SETTING_GLOBAL};
+      j9Post(MSG_SETTING_GET, key, sizeof(key));
     }
   }
 

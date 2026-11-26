@@ -9,7 +9,7 @@ namespace front_ui {
 class CoolingStrip {
 public:
   void build(lv_obj_t *button, lv_coord_t railWidth, lv_color_t ice, lv_color_t warning);
-  void update(const char *fahrenheit, int16_t tankCx10, CoolingState state, uint16_t seconds);
+  void update(const char *reading, int16_t tankCx10, CoolingState state, uint16_t seconds);
 
 private:
   static void draw(lv_event_t *event);

@@ -40,23 +40,27 @@ inline CoolingState coolingState(bool available, const StatusPayload &status) {
   return cold == ColdState::Off ? CoolingState::Idle : CoolingState::Paused;
 }
 
-inline void formatFahrenheit(char *out, size_t n, int16_t cx10, bool available) {
-  if (!temperatureAvailable(available, cx10)) {
-    snprintf(out, n, "--");
-    return;
-  }
-  const int fiftiethsF = 32 * 50 + cx10 * 9;
-  const int rounded = (fiftiethsF + (fiftiethsF < 0 ? -25 : 25)) / 50;
-  snprintf(out, n, "%d°F", rounded);
-}
+enum class Degrees { Whole, Tenths };
 
-inline void formatCelsius(char *out, size_t n, int16_t cx10, bool available) {
+inline void formatTemperature(char *out, size_t n, int16_t cx10, bool available,
+                              uint8_t unit, Degrees precision) {
   if (!temperatureAvailable(available, cx10)) {
     snprintf(out, n, "--");
     return;
   }
-  const int magnitude = cx10 < 0 ? -cx10 : cx10;
-  snprintf(out, n, "%s%d.%d°C", cx10 < 0 ? "-" : "", magnitude / 10, magnitude % 10);
+  const bool celsius = unit == TEMP_UNIT_CELSIUS;
+  const int numerator = celsius ? cx10 : 32 * 50 + cx10 * 9;
+  const int denominator = celsius ? 10 : 50;
+  const int magnitude = numerator < 0 ? -numerator : numerator;
+  const int scale = precision == Degrees::Whole ? 1 : 10;
+  const int rounded = (magnitude * scale + denominator / 2) / denominator;
+  const char *sign = numerator < 0 && rounded ? "-" : "";
+  const char suffix = celsius ? 'C' : 'F';
+  if (precision == Degrees::Whole) {
+    snprintf(out, n, "%s%d°%c", sign, rounded, suffix);
+  } else {
+    snprintf(out, n, "%s%d.%d°%c", sign, rounded / 10, rounded % 10, suffix);
+  }
 }
 
 inline void formatHoldTime(char *out, size_t n, uint16_t seconds) {

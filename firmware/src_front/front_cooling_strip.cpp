@@ -107,6 +107,21 @@ lv_obj_t *stripLabel(lv_obj_t *parent, int x, const char *value, const lv_font_t
   return label;
 }
 
+// Keep the degree suffix and the last second inside their own columns.
+void fitReading(lv_obj_t *label, const char *text, lv_coord_t width,
+                const lv_font_t *normal, const lv_font_t *smaller) {
+  if (strcmp(lv_label_get_text(label), text) == 0) return;
+  const size_t length = strlen(text);
+  const lv_font_t *font = normal;
+  if (lv_txt_get_width(text, length, font, 0, LV_TEXT_FLAG_NONE) > width) {
+    font = smaller;
+    if (lv_txt_get_width(text, length, font, 0, LV_TEXT_FLAG_NONE) > width)
+      font = &lv_font_montserrat_20;
+  }
+  lv_obj_set_style_text_font(label, font, 0);
+  lv_label_set_text(label, text);
+}
+
 }  // namespace
 
 namespace front_ui {
@@ -124,9 +139,8 @@ void CoolingStrip::build(lv_obj_t *button, lv_coord_t railWidth, lv_color_t ice,
   lv_obj_add_event_cb(button, draw, LV_EVENT_DRAW_MAIN_END, this);
 }
 
-void CoolingStrip::update(const char *fahrenheit, int16_t tankCx10, CoolingState state, uint16_t seconds) {
-  if (strcmp(lv_label_get_text(temperature_), fahrenheit) != 0)
-    lv_label_set_text(temperature_, fahrenheit);
+void CoolingStrip::update(const char *reading, int16_t tankCx10, CoolingState state, uint16_t seconds) {
+  fitReading(temperature_, reading, 87, &lv_font_montserrat_32, &lv_font_montserrat_28);
   // The bulb is empty without a reading. Its column spans freezing to room temperature.
   const int column = tankCx10 == TEMP_UNREAD ? -1 : LV_CLAMP(0, int(tankCx10), 200) * 23 / 200;
   if (state != CoolingState::StartupWait) seconds = 0;
@@ -134,7 +148,7 @@ void CoolingStrip::update(const char *fahrenheit, int16_t tankCx10, CoolingState
   if (seconds != seconds_) {
     char time[12] = {};
     if (seconds) formatHoldTime(time, sizeof(time), seconds);
-    lv_label_set_text(countdown_, time);
+    fitReading(countdown_, time, 77, &lv_font_montserrat_28, &lv_font_montserrat_24);
   }
   state_ = state;
   column_ = column;
