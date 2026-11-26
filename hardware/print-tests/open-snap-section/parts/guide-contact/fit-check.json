@@ -1,0 +1,116 @@
+{
+  "purpose": "Check the three guide-contact pairs against the grip and visible flank clearance Derek compared in C035.",
+  "dimensions": "geometry.json",
+  "hand_reference": "../../prints/2026-11-25-mark1-refinements/physical-result.json",
+  "printed_sections": "../../prints/2026-11-25-mark1-guide-contact/section-check.json",
+  "stl_sha256": {
+    "cover-1.stl": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+    "cover-2.stl": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+    "cover-3.stl": "5df8f4a6933121df521aa5dbe7017ccd9e1c65e1e3e9208e41ffaed074b705e0",
+    "receiver-1.stl": "98efccff6972ff5e63fad97ef5590afba2d3e4ac24717fb6b1a4e445a85cd728",
+    "receiver-2.stl": "227417507e77e9437f0c1ccba5b95001c6259589804f4e0e1f4a20bdd44f6d22",
+    "receiver-3.stl": "126a2bdfbbf0e7f761f10326e8a34a8ccb6e6985e71b401fe5abd3684cf179de"
+  },
+  "section": {
+    "length_each_piece_mm": 12.0,
+    "single_connected_solid_each": true,
+    "checked_height_band_h_mm": [
+      17.0,
+      31.6
+    ],
+    "leaf_normal_thickness_mm": [
+      1.9999,
+      2.0001
+    ],
+    "continuous_center_post_width_mm": 8.0,
+    "clear_space_between_free_leaves_mm": 24.1712,
+    "open_space_either_side_of_post_mm": 8.0856,
+    "receiver_post_and_crown_outline_difference_from_wide_neutral_above_h17_mm2": 0.0,
+    "straight_foot_width_mm": 2.6,
+    "symmetric_straight_hook_capture_mm": 1.8,
+    "native_control_tip_travel_beyond_straight_mm": 0.19645,
+    "mark_depth_mm": 0.6,
+    "remaining_stock_under_cover_mark_patch_mm": 5.014,
+    "minimum_receiver_edge_margin_around_marks_mm": 0.725
+  },
+  "pairs": [
+    {
+      "dots": 1,
+      "guide": "close running fit",
+      "change": "The original cover works against a backed diagonal wall advanced 0.294 mm at its toe and 0.236 mm at its nose from the original solid two-dot guide. It leaves a narrow opening across the full span.",
+      "mark_axial_centers_mm": [
+        0.0
+      ],
+      "open_end_working_outline_difference_mm2": 0.0,
+      "cad_stop_opening_from_nominal_mm": 0.00526,
+      "cad_required_tip_spread_from_free_at_stop_mm": 0.87399,
+      "cad_radial_hook_capture_at_stop_mm": 1.7531,
+      "maximum_required_tip_spread_from_free_each_mm": 3.7454,
+      "greatest_added_spread_over_newer_filmed_two_dot_between_7_and_12p5_mm_open_mm": 0.0,
+      "opening_at_added_spread_max_mm": null,
+      "verified_reversible_motion": {
+        "maximum_held_tip_spread_per_wing_mm": 4.2,
+        "opening_at_full_spread_mm": 1.0394,
+        "stroke_mm": 25,
+        "maximum_summed_swept_edge_interference_mm2": 0.0,
+        "maximum_waypoint_wing_interference_mm2": 0.0,
+        "rigid_saddle_swept_overlap_mm2": 0.0
+      }
+    },
+    {
+      "dots": 2,
+      "guide": "contact at the diagonal course edges",
+      "change": "The original cover works against the same loaded diagonal 0.108 mm farther out than the new one-dot guide. This brings every 0.24 mm receiver course close to the wing.",
+      "mark_axial_centers_mm": [
+        -1.7,
+        1.7
+      ],
+      "open_end_working_outline_difference_mm2": 0.0,
+      "cad_stop_opening_from_nominal_mm": 0.01293,
+      "cad_required_tip_spread_from_free_at_stop_mm": 0.98195,
+      "cad_radial_hook_capture_at_stop_mm": 1.6847,
+      "maximum_required_tip_spread_from_free_each_mm": 3.7454,
+      "greatest_added_spread_over_newer_filmed_two_dot_between_7_and_12p5_mm_open_mm": 0.0,
+      "opening_at_added_spread_max_mm": null,
+      "verified_reversible_motion": {
+        "maximum_held_tip_spread_per_wing_mm": 4.2,
+        "opening_at_full_spread_mm": 1.0056,
+        "stroke_mm": 25,
+        "maximum_summed_swept_edge_interference_mm2": 0.0,
+        "maximum_waypoint_wing_interference_mm2": 0.0,
+        "rigid_saddle_swept_overlap_mm2": 0.0
+      }
+    },
+    {
+      "dots": 3,
+      "guide": "parallel bearing",
+      "change": "A full-depth face on the existing cover and receiver forms a 4.00 mm central bearing. The cover is pre-angled by 0.500 degrees relative to the entry direction in the straight-leaf pose. The steeper lead-in spreads the wing earlier during insertion.",
+      "mark_axial_centers_mm": [
+        -3.4,
+        0.0,
+        3.4
+      ],
+      "open_end_working_outline_difference_mm2": 0.0,
+      "cad_stop_opening_from_nominal_mm": 0.01344,
+      "cad_required_tip_spread_from_free_at_stop_mm": 0.98915,
+      "cad_radial_hook_capture_at_stop_mm": 1.6801,
+      "maximum_required_tip_spread_from_free_each_mm": 3.7454,
+      "greatest_added_spread_over_newer_filmed_two_dot_between_7_and_12p5_mm_open_mm": 1.0444,
+      "opening_at_added_spread_max_mm": 11.1,
+      "verified_reversible_motion": {
+        "maximum_held_tip_spread_per_wing_mm": 4.2,
+        "opening_at_full_spread_mm": 1.0034,
+        "stroke_mm": 25,
+        "maximum_summed_swept_edge_interference_mm2": 0.0,
+        "maximum_waypoint_wing_interference_mm2": 0.0,
+        "rigid_saddle_swept_overlap_mm2": 0.0
+      }
+    }
+  ],
+  "methods": {
+    "geometry": "Invert each STL print matrix. Compare the two open ends with the complete working projection through the middle 31 mm of width. Intersect each leaf normal to its free neutral axis at 67 heights. Check the single 8 mm receiver post, the curved crown and recessed marks against those meshes.",
+    "fit": "The local clamped-leaf model progressively opens the real STL wing about its neutral axis. At each candidate closing height solve the least outward tip displacement that clears the receiver cheeks. Stop when the lowest loaded foot reaches the shelf. A further 0.80 mm per tip beyond the free shape makes the leaf straight.",
+    "stroke": "Sample required spread through a 25 mm straight press and release along the closing direction, with 0.05 mm steps for the first 4 mm. Compare early insertion with the newer filmed two-dot at openings of 7–12.5 mm. For a separate reversible path, move both tips from their located seats to a held 4.20 mm spread through 24 beam poses. Translate the held cover to 25 mm open and release. Check every moving boundary edge, sampled at intervals of 0.10 mm or less, through its straight interpolation between poses. Sweep the rigid saddle through the same travel.",
+    "interpretation": "Source meshes describe ideal solids. The submitted paths establish their different layer orientations, shoulder-driven posture and available bearing width. Hand tests establish actual rocking, insertion effort and release."
+  }
+}

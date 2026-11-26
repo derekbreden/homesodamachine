@@ -1,0 +1,383 @@
+{
+  "purpose": "Check that the two added fore stops reduce travel of the assembled Pisco with its actual rigid fittings, and that the selected two-dot snap seats and releases.",
+  "evidence": {
+    "dimensions": "geometry.json",
+    "preceding_cad_and_native_fit": "../two-dot-drop/fit-check.json",
+    "preceding_full_pair_hand_test": "../../prints/2026-11-25-mark2-two-dot-drop/physical-result.json",
+    "tested_coupon_comparison": "../../../open-snap-section/prints/2026-11-25-mark1-refinements/physical-result.json",
+    "tested_coupon_toolpaths": "../../../open-snap-section/prints/2026-11-25-mark1-refinements/section-check.json",
+    "selected_coupon_geometry": "../../../open-snap-section/parts/next-pairs/geometry.json",
+    "purchased_hardware_model": "../../../../reference/compact-inline-candidates/README.md",
+    "previous_full_native_preparation": "../../prints/2026-11-25-mark2-two-dot-drop/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/preparation.json",
+    "submitted_full_native_preparation": "../../prints/2026-11-25-mark2-axial-grip/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/preparation.json",
+    "previous_plate_gcode_sha256": "9abd5d318956b9f5e097ef3be275b3e766124276503b44b5de246ffec2a1d024",
+    "submitted_plate_gcode_sha256": "40c94f199128e6138caeefa995304c7563cf3c171e175aabbef1aa7a425356be",
+    "submitted_archive_sha256": "9eda7ee2e5e170890fe501153c9e7d56bd315148fd869c3a8fbaeb55102663d0",
+    "submitted_stls_sha256": {
+      "pisco-axial-cover": "911749784a6688233ac0dc2e116d711aae5ca54d5e18b28f569e4f51e0374eae",
+      "pisco-axial-receiver": "6f9dc3d5ea6e6942364121f0c038889567c5ad0e33278608e046add2dcef5f54"
+    }
+  },
+  "capture": {
+    "axis": "Machine +Y runs from the short outlet toward the long inlet. +Z closes the cover over the regulator. Positive housing Y and negative cover Y both bring the rigid short-outlet shoulder and its cover lip closer.",
+    "load_path": "Movement toward the outlet seats the aluminum fitting shoulder against the removable cover lip and both forward spring ends against the fixed pocket walls. Movement toward the inlet seats the tapered molded housing shoulder against the original rear bore. The white outlet release collet translates independently.",
+    "geometry": {
+      "lip_added_mm3": 30.133238,
+      "new_rigid_outlet_lip_y_mm": 424.365,
+      "new_wing_forward_stop_y_mm": 420.465717,
+      "previous_rigid_outlet_lip_y_mm": 424.125,
+      "previous_wing_forward_stop_y_mm": 420.345717,
+      "rigid_outlet_lip_advance_mm": 0.24,
+      "total_nominal_grip_reduction_mm": 0.36,
+      "wing_end_walls_added_mm3": 10.409107,
+      "wing_forward_stop_advance_mm": 0.12
+    },
+    "added_lip_average_section_mm2": 125.555158,
+    "added_fixed_end_walls_combined_average_section_mm2": 86.742557,
+    "effective_receiver_pocket_ends_y_mm": [
+      420.465717,
+      458.161
+    ],
+    "spring_ends_y_mm": [
+      420.595717,
+      457.911
+    ],
+    "rooted_hardware_asset_ids": {
+      "co2-inlet": "46764fd42ca28efdb0a4e6a7da0b28d59df27a6db3486074081f4f6fe519b7ab",
+      "gas-regulator/1": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/2": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/3": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-check": "169beeb4e8189bfdf1d515e99d01cc124d91b2c92dffb0d743c89f68e52a1b58"
+    },
+    "nominal_regulator_axis_xz_mm": [
+      76.5,
+      331.2
+    ],
+    "source_mesh_contact_witnesses_machine_mm": {
+      "fore_cap_stop_before_change": [
+        63.766,
+        420.346,
+        338.2
+      ],
+      "rigid_outlet_fitting_against_previous_lip": [
+        70.461,
+        424.125,
+        330.728
+      ],
+      "aft_molded_housing_against_fixed_bore": [
+        82.354,
+        465.55,
+        334.901
+      ]
+    },
+    "direct_stl_comparisons": {
+      "new_to_selected_open_cross_sections": {
+        "y_mm": [
+          421.0,
+          425.0,
+          430.0,
+          435.0,
+          439.8,
+          445.0,
+          450.0,
+          454.0,
+          457.7
+        ],
+        "max_symmetric_area_mm2": {
+          "springs": 1.8e-05,
+          "receiver_guides_and_shoulders": 0.000147
+        }
+      },
+      "molded_body_saddle_symmetric_difference_mm3": 0.0,
+      "white_release_ring_end_and_front_of_neck_lip_symmetric_difference_mm3": 0.0,
+      "rooted_receiver_center_chord_17p84_mm_symmetric_difference_mm3": 0.0,
+      "whole_receiver_aft_of_pockets_symmetric_difference_mm3": 0.0,
+      "cap_removed_minimum_clearance_to_receiver_for_2p1mm_release_ring_sweep_mm": 4.877037
+    }
+  },
+  "native_axial_fit": {
+    "method": "Register each half-width-expanded model wall in machine coordinates using its actual plate pose. At each axial cover course near the outlet, project the scanned fitting or release ring through that course and solve for its first Y intersection with the extrusion. Intersect both forward end walls with the deformed wing ends. At the rear, project the regulator through each of 85 native receiver courses and find its first +Y contact. The previous and new cap use identical hardware coordinates and closing positions. The limiting Y span includes the available forward movement of the cap in the receiver.",
+    "cap_relative_z_to_regulator_mm": [
+      -0.2561,
+      -0.145,
+      -0.02
+    ],
+    "fore_cap_end_wall_comparison": {
+      "former_position_y_mm": 420.345504,
+      "new_position_y_mm": 420.465504,
+      "former_forward_cover_offset_limit_mm": -0.250213,
+      "new_forward_cover_offset_limit_mm": -0.130213,
+      "native_bearing_course_mm": 16.76
+    },
+    "fore_rigid_outlet_comparison": {
+      "previous_last_cap_course_mm": 3.56,
+      "new_last_cap_course_mm": 3.8,
+      "previous_shoulder_face_y_mm": 424.155717,
+      "new_shoulder_face_y_mm": 424.395717,
+      "required_housing_y_minus_cover_y_at_contact_mm": [
+        0.113983,
+        0.114495
+      ],
+      "previous_housing_y_minus_cover_y_at_contact_mm": [
+        -0.12602,
+        -0.125505
+      ]
+    },
+    "rear_seat_comparison": {
+      "native_limiting_course_mm": 17.0,
+      "nominal_height_offset_mm": 0.0,
+      "housing_against_fixed_bearing_z_offset_mm": 0.029016,
+      "native_rear_shoulder_axial_limits_mm": [
+        0.039992,
+        9e-06
+      ]
+    },
+    "previous_full_pair_range": {
+      "forward_limit_range_at_different_closing_heights_mm": [
+        -0.376233,
+        -0.375718
+      ],
+      "rear_limit_at_nominal_axis_height_mm": 0.039992,
+      "rear_limit_with_housing_against_fixed_bearing_mm": 9e-06,
+      "available_travel_at_nominal_height_mm": [
+        0.41571,
+        0.416225
+      ],
+      "available_travel_against_fixed_bearing_mm": [
+        0.375728,
+        0.376243
+      ]
+    },
+    "new_full_pair_range": {
+      "forward_limit_range_at_different_closing_heights_mm": [
+        -0.016231,
+        -0.015718
+      ],
+      "rear_limit_at_nominal_axis_height_mm": 0.039992,
+      "rear_limit_with_housing_against_fixed_bearing_mm": 9e-06,
+      "available_travel_at_nominal_height_mm": [
+        0.05571,
+        0.056222
+      ],
+      "available_travel_against_fixed_bearing_mm": [
+        0.015728,
+        0.01624
+      ]
+    },
+    "measured_previous_minus_new_total_travel_mm": [
+      0.36,
+      0.360006
+    ],
+    "simultaneously_seated_example_mm": {
+      "cover_y_offset": -0.122,
+      "housing_y_offset": -0.004,
+      "housing_z_offset": 0.029016,
+      "clearance_to_forward_cap_stop": 0.008213,
+      "clearance_to_rigid_fore_shoulder_range": [
+        0.003505,
+        0.004017
+      ],
+      "clearance_to_aft_housing_stop": 0.004009,
+      "outlet_release_ring_axial_air": 0.141996
+    },
+    "collars": {
+      "method": "The nearest modeled point of the white outlet ring is behind the cap tip by its free-pose Y-envelope difference. Use opposing worst travel limits for the minimum remaining clearance. The long inlet ring lies behind the entire cropped receiver. For tube service with the cover removed, sweep the short ring toward the fixed receiver by its full modeled axial length. The purchased model supplies the free collar geometry. Actual release stroke is a bench measurement.",
+      "nominal_short_release_ring_axial_air_mm": 0.26,
+      "minimum_short_release_ring_air_across_opposing_limits_mm": 0.089791,
+      "minimum_long_release_ring_axial_air_behind_receiver_mm": 9.534769,
+      "cap_removed_clearance_for_2p10_mm_ring_sweep_mm": 4.877037
+    },
+    "interpretation": "C035 resolves about 0.55 mm of motion in the preceding full pair. The former native parts permit about 0.376–0.416 mm of rigid Y travel in these two housing positions. A 0.40 mm reduction uses all the modeled clearance at the upper seat. The selected 0.36 mm reduction preserves a positive opening at both heights. Mesh, bead shape, material flex and assembly variation limit prediction of the actual cooled fit."
+  },
+  "native_snap_and_saddle": {
+    "identity": "Both pieces retain the two recessed dots. The full receiver uses the latest two-dot ramp with a 1.2 mm blend near the hook nose. The cap retains its 2.60 mm compensated feet, 0.80 mm free inward camber, 2.00 mm wings and neutral shoulders.",
+    "coupon_comparison_midpoint_gap_mm": [
+      {
+        "dots": 1,
+        "square": [
+          0.2526,
+          0.25262
+        ],
+        "shoulder_loaded": [
+          0.32816,
+          0.32829
+        ]
+      },
+      {
+        "dots": 2,
+        "square": [
+          0.13285,
+          0.13285
+        ],
+        "shoulder_loaded": [
+          0.29972,
+          0.29972
+        ]
+      },
+      {
+        "dots": 3,
+        "square": [
+          0.17248,
+          0.17302
+        ],
+        "shoulder_loaded": [
+          0.34223,
+          0.34253
+        ]
+      }
+    ],
+    "full_plate_cross_sections_y_mm": [
+      425.0,
+      439.875,
+      454.0
+    ],
+    "measured_full_guide_mm": {
+      "square_feet": {
+        "gap_0p55_mm_from_toe_mm": [
+          0.13472,
+          0.13496
+        ],
+        "gap_at_middle_3p20_mm_mm": [
+          0.13323,
+          0.13347
+        ],
+        "gap_5p85_mm_from_toe_mm": [
+          0.20973,
+          0.20997
+        ]
+      },
+      "shoulder_loaded_feet": {
+        "gap_0p55_mm_from_toe_mm": [
+          0.32501,
+          0.32519
+        ],
+        "gap_at_middle_3p20_mm_mm": [
+          0.2994,
+          0.29952
+        ],
+        "gap_5p85_mm_from_toe_mm": [
+          0.35179,
+          0.35186
+        ]
+      }
+    },
+    "native_saddle_change_from_preceding_full_two_dot_cover_mm": {
+      "439.625": [
+        0.0,
+        0.0
+      ],
+      "439.875": [
+        0.0,
+        0.0
+      ],
+      "439.993": [
+        0.0,
+        0.0
+      ],
+      "440.125": [
+        0.0,
+        0.0
+      ],
+      "443.0": [
+        0.0,
+        0.0
+      ],
+      "447.0": [
+        0.0,
+        0.0
+      ],
+      "452.0": [
+        0.0,
+        0.0
+      ],
+      "460.0": [
+        0.0,
+        0.0
+      ]
+    },
+    "saddle_at_feasible_assembly_pose": {
+      "housing_y_offset_mm": -0.004,
+      "cap_y_offset_mm": -0.122,
+      "minimum_signed_pad_gap_against_fixed_seat_at_square_foot_mm": -0.217098,
+      "pad_cover_course_mm": 19.4
+    },
+    "retained_shift_of_saddle_toward_housing_mm": 0.2,
+    "measured_radial_hook_capture_at_first_widest_pad_contact_mm": [
+      1.368318,
+      1.368322
+    ]
+  },
+  "installation_and_removal": {
+    "method": "Use the unchanged installed access waypoints and the new meshes. For the five tilted segments subtract half the rotation and translation displacement per interval. Check nine hardware heights from nominal through the far receiver bearing. For the closing stroke, relax both springs as the feet travel, keeping the cover toward the open end, and subtract the bound on translations and rotation of the wing contours. Positive values are continuous lower bounds before the deliberately contacted working faces. Reverse the path for removal.",
+    "cover_fore_offset_mm": -0.121,
+    "tilt_waypoints_roll_deg_x_mm_z_mm": [
+      [
+        21.0,
+        -4.6,
+        -11.0
+      ],
+      [
+        20.0,
+        -4.55,
+        -9.0
+      ],
+      [
+        15.0,
+        -3.4,
+        -6.5
+      ],
+      [
+        10.0,
+        -2.4,
+        -4.5
+      ],
+      [
+        5.0,
+        -1.0,
+        -2.9
+      ],
+      [
+        0.0,
+        0.0,
+        -1.8
+      ]
+    ],
+    "moving_hardware_over_all_heights": {
+      "clearance_lower_bounds": {
+        "gas-regulator/1": 0.980328,
+        "gas-regulator/2": 0.025652,
+        "gas-regulator/3": 0.192933,
+        "co2-inlet": 17.8427
+      },
+      "height_samples": 9,
+      "intervals_per_tilt": 384
+    },
+    "tilt_clearance_to_receiver_and_meter_shoulder_mm": {
+      "receiver": 0.005626,
+      "surrounding_production_shell": 0.11846,
+      "backed_meter_shoulder": 0.603235
+    },
+    "straight_close_clearance_mm": {
+      "receiver": 0.007642,
+      "surrounding_production_shell": 0.119652,
+      "backed_meter_shoulder": 1.000613,
+      "gas-regulator/1": 0.000517,
+      "gas-regulator/2": 0.036572,
+      "gas-regulator/3": 0.17211,
+      "co2-inlet": 17.442489,
+      "gas-check": 1.835239
+    },
+    "straight_approach_in_loose_fixture_mm": {
+      "bench_receiver": 0.005212,
+      "gas-regulator/1": 1.207033,
+      "gas-regulator/2": 0.046536,
+      "gas-regulator/3": 0.268998,
+      "co2-inlet": 17.885556
+    },
+    "purchased_regulator_loading_and_reverse_clearance_mm": {
+      "receiver": 0.055853,
+      "surrounding_production_shell": 0.055866,
+      "backed_meter_shoulder": 2.284752
+    }
+  }
+}

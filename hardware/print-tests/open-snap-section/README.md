@@ -71,6 +71,14 @@ On the first dotted plate, Derek saw a smaller gap beside the three-dot hook and
 
 The 2 and 3 pairs keep the filmed two-dot retaining shoulder. All three retain 2.00 mm wing stock and the 8 mm-wide center post. The geometry command below writes `parts/next-pairs`. Slice `snap-fit-refinements --printer Mark1`. [Measured coupon geometry](parts/next-pairs/geometry.json) · [Mark1 print](prints/2026-11-25-mark1-refinements/print-job.json) · [Fit sections](prints/2026-11-25-mark1-refinements/fit-sections.png)
 
+## Bringing the guide up to the loaded wing
+
+Derek found that the three refinements and the earlier two-dot pair all held well. On camera, light shows through the lower guide of the newer two-dot pair in one view and the same guide looks dark in another. The sliced sections put that pair closest at the middle of the guide, about 0.30 mm compared with 0.42 mm on the earlier two-dot pair. The three-dot foot comes closest near the toe. [C035 bench review](prints/2026-11-25-mark1-refinements/physical-result.json) · [Sections of the four filmed fits](prints/2026-11-25-mark1-refinements/section-check.json)
+
+This Mark1 plate tests how closely the guide can follow the seated spring while the hook still carries the retaining load. Match the recessed dots on both pieces. The one-dot pair builds up the fully backed receiver slope. The two-dot pair brings the same slope another 0.11 mm toward the wing. The three-dot pair gives the middle 4 mm of the guide a straight bearing on both pieces. All three have 2.00 mm spring walls and 2.60 mm feet. Slice `snap-guide-contact --printer Mark1`. [Geometry](parts/guide-contact/geometry.json) · [Bench comparison](parts/guide-contact/bench.md) · [Mark1 plate](prints/2026-11-25-mark1-guide-contact/print-job.json)
+
+![One end of the hook on the filmed two-dot pair and the three new pairs](prints/2026-11-25-mark1-guide-contact/fit-sections.png)
+
 ## Reproduce the pair
 
 The source takes a constant section from the production bodies. To change only the center support in a later trial, change `FILLER_CONTACT_TRAVEL`. A larger value shortens the post and lets the cover travel farther before touching it. [Coupon source](coupon.rs)

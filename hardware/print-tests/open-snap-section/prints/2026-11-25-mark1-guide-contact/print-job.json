@@ -1,0 +1,127 @@
+{
+  "purpose": "Compare three backed guide profiles against the firm, filmed coupon fits, preserving the tested retaining shoulders.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1487969050",
+  "previous_finished_job": "1487491851",
+  "accepted_at": "2026-11-26T03:45:37+00:00",
+  "first_layer_verified_at": "2026-11-26T03:56:02+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 145,
+  "source_and_recipe_commit": "4ded2971ee7443637e9145fcefca16cc653a8483",
+  "printer_recipe": "snap-guide-contact",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (traditional)",
+  "estimated_seconds": 5833,
+  "filament_g": 26.38,
+  "minimum_bed_margin_mm": 98.21,
+  "plate_identification": "From the door, covers form the front row and their matching receivers the next row. Each row has one, two and three recessed dots from left to right. The stepped cooling wall is at the back.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/guide-contact/geometry.json",
+  "objects": [
+    {
+      "name": "cover-1",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/open-snap-section/parts/guide-contact/cover-1.stl",
+      "sha256": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+      "bed_center_xy_mm": [
+        121.689,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-2",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/guide-contact/cover-2.stl",
+      "sha256": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "bed_center_xy_mm": [
+        162.5,
+        138.0
+      ]
+    },
+    {
+      "name": "cover-3",
+      "identify_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/guide-contact/cover-3.stl",
+      "sha256": "5df8f4a6933121df521aa5dbe7017ccd9e1c65e1e3e9208e41ffaed074b705e0",
+      "bed_center_xy_mm": [
+        203.311,
+        138.0
+      ]
+    },
+    {
+      "name": "receiver-1",
+      "identify_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/guide-contact/receiver-1.stl",
+      "sha256": "98efccff6972ff5e63fad97ef5590afba2d3e4ac24717fb6b1a4e445a85cd728",
+      "bed_center_xy_mm": [
+        115.68,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-2",
+      "identify_id": 1905,
+      "stl": "hardware/print-tests/open-snap-section/parts/guide-contact/receiver-2.stl",
+      "sha256": "227417507e77e9437f0c1ccba5b95001c6259589804f4e0e1f4a20bdd44f6d22",
+      "bed_center_xy_mm": [
+        162.5,
+        173.256
+      ]
+    },
+    {
+      "name": "receiver-3",
+      "identify_id": 1906,
+      "stl": "hardware/print-tests/open-snap-section/parts/guide-contact/receiver-3.stl",
+      "sha256": "126a2bdfbbf0e7f761f10326e8a34a8ccb6e6985e71b401fe5abd3684cf179de",
+      "bed_center_xy_mm": [
+        209.32,
+        173.256
+      ]
+    },
+    {
+      "name": "cooling-wall",
+      "identify_id": 1907,
+      "stl": "hardware/print-tests/open-snap-section/parts/cooling-wall.stl",
+      "sha256": "c43acd015dac3c30082dbaba657726db77021afdd076db4edfb103c187b89c31",
+      "bed_center_xy_mm": [
+        162.5,
+        195.256
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "8b654ce71515ccba05bd1b99dc418ed2ef4d7a6f93299bff3053564f1a818d0d",
+  "project": {
+    "file": "2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei/2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei.3mf",
+    "sha256": "f6b97bb5817370867a156e584affef852f328c5f4f1144ab7316a8d85d212a07",
+    "git_blob": "dacfef7678a2fcdf0819943e4cfc7a7c41a6c224",
+    "release_archive": "2026-11-25-snap-guide-contact-mark1-648064db0f97829b.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei/2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei.gcode.3mf",
+    "sha256": "bab84e55772b742f2c55649bf77bd400f9f5228502a91bbe2af186b43be288c5",
+    "git_blob": "7fe4faaa087c421115eff2724d993c9739f7944b",
+    "release_archive": "2026-11-25-snap-guide-contact-mark1-648064db0f97829b.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "fit_toolpaths": "section-check.json",
+  "printed_dot_check": "native-paths.json",
+  "fit_sections": "fit-sections.png",
+  "bench_instructions": "../../parts/guide-contact/bench.md"
+}

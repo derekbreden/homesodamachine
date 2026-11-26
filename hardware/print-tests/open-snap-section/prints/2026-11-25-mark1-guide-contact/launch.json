@@ -1,0 +1,32 @@
+{
+  "archive": {
+    "gcode_sha256": "8b654ce71515ccba05bd1b99dc418ed2ef4d7a6f93299bff3053564f1a818d0d",
+    "name": "2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei.gcode.3mf",
+    "objects": [
+      "cover-1",
+      "cover-2",
+      "cover-3",
+      "receiver-1",
+      "receiver-2",
+      "receiver-3",
+      "cooling-wall"
+    ],
+    "sha256": "bab84e55772b742f2c55649bf77bd400f9f5228502a91bbe2af186b43be288c5",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 90,
+  "observed_at": "2026-11-26T03:45:37+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1487969050",
+  "subtask_name": "2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei.gcode.3mf",
+  "total_layer_num": 145
+}

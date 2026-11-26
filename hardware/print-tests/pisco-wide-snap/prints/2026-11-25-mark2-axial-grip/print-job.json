@@ -1,0 +1,99 @@
+{
+  "purpose": "Test the accepted closer guide at full length and reduce fore-and-aft regulator movement while preserving the tested saddle and snap.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1487976195",
+  "previous_finished_job": "1487482297",
+  "accepted_at": "2026-11-26T03:49:16+00:00",
+  "first_layer_verified_at": "2026-11-26T03:59:10+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 184,
+  "source_and_recipe_commit": "4ded2971ee7443637e9145fcefca16cc653a8483",
+  "printer_recipe": "pisco-axial-grip",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (smooth)",
+  "estimated_seconds": 9193,
+  "filament_g": 35.14,
+  "minimum_bed_margin_mm": 107.287,
+  "plate_identification": "From the door, the full receiver is on the left and its cover is on the right. A separate native cooling tower keeps the nozzle away between courses.",
+  "parts_image": "plate-key.png",
+  "source_geometry": "../../parts/axial-grip/geometry.json",
+  "objects": [
+    {
+      "name": "pisco-axial-cover",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/axial-grip/cover.stl",
+      "sha256": "911749784a6688233ac0dc2e116d711aae5ca54d5e18b28f569e4f51e0374eae",
+      "bed_center_xy_mm": [
+        187.41,
+        185.0
+      ]
+    },
+    {
+      "name": "pisco-axial-receiver",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/axial-grip/receiver.stl",
+      "sha256": "6f9dc3d5ea6e6942364121f0c038889567c5ad0e33278608e046add2dcef5f54",
+      "bed_center_xy_mm": [
+        140.594,
+        185.0
+      ]
+    }
+  ],
+  "native_review": "2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "40c94f199128e6138caeefa995304c7563cf3c171e175aabbef1aa7a425356be",
+  "project": {
+    "file": "2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.3mf",
+    "sha256": "211fa1b4e9a050400d07ce99a37a3e10dda99c82e5eb590f60be7d473b1c35c0",
+    "git_blob": "ee3638c93467c832d4501fd20b8df1686aae5ca6",
+    "release_archive": "2026-11-25-pisco-axial-grip-mark2-3319a3c4632827b1.zip"
+  },
+  "slice": {
+    "file": "2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.gcode.3mf",
+    "sha256": "9eda7ee2e5e170890fe501153c9e7d56bd315148fd869c3a8fbaeb55102663d0",
+    "git_blob": "82b91585aab315373b51cfa2f1448b3d9da3b158",
+    "release_archive": "2026-11-25-pisco-axial-grip-mark2-3319a3c4632827b1.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "axial_stop_sections": "axial-stops.png",
+  "native_exterior_dots": {
+    "cover": [
+      {
+        "offset_from_group_mm": -1.679,
+        "maximum_recess_mm": 0.59
+      },
+      {
+        "offset_from_group_mm": 1.681,
+        "maximum_recess_mm": 0.583
+      }
+    ],
+    "receiver": [
+      {
+        "offset_from_group_mm": -1.7,
+        "maximum_recess_mm": 0.579
+      },
+      {
+        "offset_from_group_mm": 1.7,
+        "maximum_recess_mm": 0.579
+      }
+    ]
+  },
+  "bench_instructions": "../../parts/axial-grip/README.md",
+  "axial_grip_fit_check": "../../parts/axial-grip/fit-check.json",
+  "seconds_after_other_printer_accepted": 219.0
+}

@@ -1,0 +1,56 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      -64.094382286,
+      626.694503784,
+      355.0
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-axial-grip/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.gcode.3mf plate_1.gcode, object 1902",
+    "gcode_sha256": "40c94f199128e6138caeefa995304c7563cf3c171e175aabbef1aa7a425356be",
+    "model": "hardware/print-tests/pisco-wide-snap/parts/axial-grip/receiver.stl",
+    "model_sha256": "6f9dc3d5ea6e6942364121f0c038889567c5ad0e33278608e046add2dcef5f54",
+    "profile": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-axial-grip/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.3mf",
+    "profile_sha256": "211fa1b4e9a050400d07ce99a37a3e10dda99c82e5eb590f60be7d473b1c35c0"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "pisco-axial-receiver",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}

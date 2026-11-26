@@ -4074,6 +4074,12 @@
       "bytes": 5093702,
       "sha256": "5723afde9b1ed915f5150d8659dbf128bb61a9e9debc76502940c0960793fe3b"
     },
+    "7fe4faaa087c421115eff2724d993c9739f7944b": {
+      "archive": "2026-11-25-snap-guide-contact-mark1-648064db0f97829b.zip",
+      "bytes": 961725,
+      "offset": 91133,
+      "sha256": "bab84e55772b742f2c55649bf77bd400f9f5228502a91bbe2af186b43be288c5"
+    },
     "7fe6b55992cdbfaa2416e1eedf3ed4ba9e86c6bd": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
       "offset": 171019323,
@@ -4157,6 +4163,12 @@
       "offset": 252460260,
       "bytes": 246228,
       "sha256": "e648a617112747cf9055fa881eef2fbdc766813aec5944f1e2f0751e1887e76b"
+    },
+    "82b91585aab315373b51cfa2f1448b3d9da3b158": {
+      "archive": "2026-11-25-pisco-axial-grip-mark2-3319a3c4632827b1.zip",
+      "bytes": 1139328,
+      "offset": 95103,
+      "sha256": "9eda7ee2e5e170890fe501153c9e7d56bd315148fd869c3a8fbaeb55102663d0"
     },
     "82d7e8b6939fd1c3ba337e593d2d0ff5107b27ad": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -6954,6 +6966,12 @@
       "bytes": 23275,
       "sha256": "66db9e395afeb3da697bb26672c9cf6240ba6cd45bb46789ca59036e91a0e495"
     },
+    "dacfef7678a2fcdf0819943e4cfc7a7c41a6c224": {
+      "archive": "2026-11-25-snap-guide-contact-mark1-648064db0f97829b.zip",
+      "bytes": 90985,
+      "offset": 74,
+      "sha256": "f6b97bb5817370867a156e584affef852f328c5f4f1144ab7316a8d85d212a07"
+    },
     "db23cc132cd54be724e00e016b62eaa606a41bd8": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 156943318,
@@ -7644,6 +7662,12 @@
       "bytes": 68004,
       "sha256": "4e028a9c583479bffe4f83ea5fcd1ab6a5aa86016a8e810fca4b5becfdeb6e49"
     },
+    "ee3638c93467c832d4501fd20b8df1686aae5ca6": {
+      "archive": "2026-11-25-pisco-axial-grip-mark2-3319a3c4632827b1.zip",
+      "bytes": 94955,
+      "offset": 74,
+      "sha256": "211fa1b4e9a050400d07ce99a37a3e10dda99c82e5eb590f60be7d473b1c35c0"
+    },
     "eed0e1bf9fc2c0fa49a484ff03a276b25375f7b1": {
       "archive": "back-top-meter-shoulder-e4c044212beb246c.zip",
       "bytes": 45027947,
@@ -8207,6 +8231,8 @@
     "hardware/print-tests/open-snap-section/prints/2026-11-24-mark2/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei/2026-11-24-open-snap-section-mark2-8442d45c-textured-pei.gcode.3mf": "9691a90bb3109a7268aa8f5d2c4e70bc27dfa275",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-flush/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.3mf": "54c2b87e68156c1a895c278942459aa5835b309e",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-flush/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei/2026-11-25-open-snap-flush-mark1-mark1-22bd1e4d-textured-pei.gcode.3mf": "da2560499210e6950a01a64c5068add7b6dced4f",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-guide-contact/2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei/2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei.3mf": "dacfef7678a2fcdf0819943e4cfc7a7c41a6c224",
+    "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-guide-contact/2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei/2026-11-25-snap-guide-contact-mark1-96afde59-textured-pei.gcode.3mf": "7fe4faaa087c421115eff2724d993c9739f7944b",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-refinements/2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei/2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei.3mf": "e04b97d05104b3117503afc449fb2e58453f02f8",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-refinements/2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei/2026-11-25-snap-fit-refinements-mark1-02b39a64-textured-pei.gcode.3mf": "cf8510d8742c044282cfa88f28db5ea030fa04bd",
     "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-solid-pairs/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei/2026-11-25-solid-snap-pairs-mark1-02869be7-textured-pei.3mf": "22627d79ede6858de2f89e3976c221565f1aba0c",
@@ -8264,6 +8290,8 @@
     "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei/2026-11-23-pisco-raised-tip-cover-mark1-e59412d1-textured-pei.gcode.3mf": "15686bc186e22ec5a7f9fd2067a77c15fdcf385a",
     "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei.3mf": "aeb8ecf6727002c2df582b65e316890e67fdedf1",
     "hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei/2026-11-23-pisco-raised-tip-cover-040-mark2-238bb141-textured-pei.gcode.3mf": "97541ce2a1b7375d131c61e81489738d1438e7ee",
+    "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-axial-grip/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.3mf": "ee3638c93467c832d4501fd20b8df1686aae5ca6",
+    "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-axial-grip/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.gcode.3mf": "82b91585aab315373b51cfa2f1448b3d9da3b158",
     "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-two-dot-drop/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei.3mf": "8a64290ae242f8f746ce86a0125adc6ec1c2b65e",
     "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-two-dot-drop/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei/2026-11-25-pisco-two-dot-drop-mark2-a5f30584-textured-pei.gcode.3mf": "e2856e6274b39bd30e5d6484ac456943815799cf",
     "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2/2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei/2026-11-25-pisco-wide-pair-mark2-1433b828-textured-pei.3mf": "566105c56018df90026605d0bafd771ca6d7d9f2",

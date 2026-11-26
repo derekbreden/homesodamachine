@@ -1,0 +1,205 @@
+{
+  "archive": "hardware/print-tests/pisco-wide-snap/prints/2026-11-25-mark2-axial-grip/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei.gcode.3mf",
+  "archive_sha256": "9eda7ee2e5e170890fe501153c9e7d56bd315148fd869c3a8fbaeb55102663d0",
+  "bead_envelope_plate_mm": [
+    [
+      123.0633145,
+      116.0388105
+    ],
+    [
+      201.93568549999998,
+      212.713187
+    ]
+  ],
+  "bed_border_mm": 70.0,
+  "bed_margins_mm": {
+    "back": 107.286813,
+    "front": 116.0388105,
+    "left": 123.0633145,
+    "right": 123.06431450000002
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "excluded_support_counts_by_region": {
+    "Covered bulkhead at X76.5 Z331.2": 0,
+    "Identification channel 2": 0,
+    "Pisco east catch pocket": 0,
+    "Pisco west catch pocket": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.921307749169837,
+      "second_layer_centerline_outside_first_mm": 5.397719306875837,
+      "second_layer_model_bead_area_mm2": 441.05653274321264
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9970150381880892,
+      "second_layer_centerline_outside_first_mm": 6.861403952908297,
+      "second_layer_model_bead_area_mm2": 1916.4136086832718
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 184,
+  "minimum_bed_margin_mm": 107.286813,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        64.0943843126297,
+        66.3143843126297,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          127.93876659870148,
+          160.64450378417968,
+          -0.25
+        ],
+        [
+          130.65876659870148,
+          209.84878658177905,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco west catch pocket",
+      "object": 1902,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        86.6856156873703,
+        88.9056156873703,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          150.52999797344208,
+          160.64450378417968,
+          -0.25
+        ],
+        [
+          153.24999797344208,
+          209.84878658177905,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco east catch pocket",
+      "object": 1902,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        59.09,
+        93.91,
+        469.299,
+        472.799,
+        310.77,
+        355.0
+      ],
+      "box_plate_mm": [
+        [
+          122.93438228607178,
+          153.6455037841797,
+          -0.25
+        ],
+        [
+          158.25438228607177,
+          157.6455037841797,
+          44.48000000000002
+        ]
+      ],
+      "name": "Identification channel 2",
+      "object": 1902,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.31,
+        322.6359030178927,
+        338.1285
+      ],
+      "box_plate_mm": [
+        [
+          133.4158822860718,
+          152.13450378417969,
+          16.621500000000026
+        ],
+        [
+          147.77288228607176,
+          168.9445037841797,
+          32.6140969821073
+        ]
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "object": 1902,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    }
+  ],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

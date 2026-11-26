@@ -1,0 +1,529 @@
+{
+  "purpose": "Compare the native long-guide clearance with both Pisco two-dot prints shown in C035 and verify supported feet, catch engagement and a reversible stroke.",
+  "archive_sha256": "bab84e55772b742f2c55649bf77bd400f9f5228502a91bbe2af186b43be288c5",
+  "gcode_sha256": "8b654ce71515ccba05bd1b99dc418ed2ef4d7a6f93299bff3053564f1a818d0d",
+  "native_mesh_and_dot_check": "native-paths.json",
+  "geometry": "../../parts/guide-contact/geometry.json",
+  "cad_stroke": "../../parts/guide-contact/fit-check.json",
+  "filmed_reference": "../2026-11-25-mark1-refinements/physical-result.json",
+  "midcourse_comparator": {
+    "part": "../../parts/next-pairs/geometry.json",
+    "gcode_sha256": "c903e26179086c2a47807c69fddef269c8fecd5aee34ee3110497ba59658076f",
+    "radial_hook_capture_mm": [
+      1.67817,
+      1.67817
+    ],
+    "gap_at_3p20_mm_from_toe_mm": [
+      0.29972,
+      0.29972
+    ],
+    "gap_range_across_5p92_mm_examined_mm": [
+      0.24851,
+      0.3948
+    ],
+    "section_through_both_shoulder_sides_at_axial_center": {
+      "native_midcourse": {
+        "extra_tip_spread_beyond_straight_mm": 0.19645,
+        "middle_gap_against_full_width_guide_mm": 0.29972
+      },
+      "rounded_course": {
+        "extra_tip_spread_beyond_straight_mm": 0.28126,
+        "middle_gap_against_full_width_guide_mm": 0.37177
+      },
+      "rectangular_course": {
+        "extra_tip_spread_beyond_straight_mm": 0.40263,
+        "middle_gap_against_full_width_guide_mm": 0.47491
+      }
+    }
+  },
+  "older_two_dot": {
+    "part": "../../parts/solid-pairs/geometry.json",
+    "gcode_sha256": "55319876a8452a37fa63aff0c7c3f43ee217d729b680a480a1abc34d3ac091bc",
+    "radial_hook_capture_mm": [
+      1.67817,
+      1.67817
+    ],
+    "gap_at_3p20_mm_from_toe_mm": [
+      0.41972,
+      0.41972
+    ],
+    "gap_range_across_5p92_mm_examined_mm": [
+      0.3598,
+      0.46409
+    ],
+    "section_through_both_shoulder_sides_at_axial_center": {
+      "native_midcourse": {
+        "extra_tip_spread_beyond_straight_mm": 0.19645,
+        "middle_gap_against_full_width_guide_mm": 0.41972
+      },
+      "rounded_course": {
+        "extra_tip_spread_beyond_straight_mm": 0.28126,
+        "middle_gap_against_full_width_guide_mm": 0.49177
+      },
+      "rectangular_course": {
+        "extra_tip_spread_beyond_straight_mm": 0.40263,
+        "middle_gap_against_full_width_guide_mm": 0.59491
+      }
+    }
+  },
+  "methods": {
+    "source": "Read the native G-code embedded in the submitted archive, undo object placement, and expand the outer-wall centerlines by half their commanded widths. Heights h run from the flat receiver back, and r increases outward from the Pisco axis. A positive guide gap is the horizontal space from the receiver face to the inner wing.",
+    "seat": "At both sides and axial offsets of −4.5, 0 and +4.5 mm, invert the free camber of the printed wing. Set the lowest foot at the h = 3.56 mm receiver roof. First solve the minimum tip spread that clears the midpoints of the 45° shoulder courses. Then include the lower edge, middle and upper edge of every guide course in the same solve. A positive nose capture is the distance between the outer lip and the seated inner edge of the hook nose.",
+    "guide": "Compare 5.92 mm of the 6.40 mm guide, from 0.24 to 6.16 mm above the printed foot. Sample both edges and midpoint of each 0.24 mm receiver course against the modeled bent cover. Integrate height within each gap threshold in cells no taller than 0.02 mm. The detailed central range for pair three covers h = 5.72–9.32 mm.",
+    "bearing": "Across all 46 interior cover courses, measure foot width 0.03 mm into the squared cover. For the shoulder-loaded posture measure the lower cap road above the backed receiver shelf on a 0.01 mm radial grid. Width within 0.025 mm of the roof measures how much of the foot is close enough to bear. Scan the center post on a 0.01 mm grid and record the signed gap to the rigid saddle.",
+    "shoulder_sensitivity": "Recalculate the center section with three 45° shoulder-edge assumptions. The native-midcourse case registers to the full-width bead at course center as in the filmed controls. The rounded-course case uses a 0.12 mm radius side edge, sampling the width through the layer, including the 45° tangent. The rectangular-course case keeps the maximum bead width to both course boundaries. Compare the resulting tip spread and clearance to the same full-width guide course at the long-face midpoint. The ranking persists across these three assumptions. Physical layer shape, elastic deformation, and wear influence the hand fit.",
+    "native_stroke": "At the axial center, retain the complete full-width rectangular receiver courses and a flat roof. Expand the cover perimeter as circular-ended segments with its native road width. Find the seat that clears all receiver courses, increase each tip spread to 4.20 mm, and translate the held cover to 25 mm open. Release the spread in free space. At 326 sampled poses per side the solid receiver courses clear the commanded wing perimeter. Each pose is reversible. The continuous interpolated STL sweep is recorded separately."
+  },
+  "pairs": [
+    {
+      "dots": 1,
+      "native_marker_counts": {
+        "cover": 1,
+        "receiver": 1
+      },
+      "square_foot_registration": {
+        "interior_cover_courses": 46,
+        "usable_foot_width_0p03_mm_from_face_mm": [
+          2.42714,
+          2.43756
+        ],
+        "receiver_roof_course_top_mm": 3.56,
+        "radial_retaining_face_overlap_mm": [
+          0.11006,
+          0.11047
+        ],
+        "retaining_face_samples": 24,
+        "shoulder_course_tops_mm": [
+          13.16,
+          13.88
+        ],
+        "signed_guide_gap_across_steps_mm": [
+          -0.07258,
+          0.03332
+        ]
+      },
+      "native_midcourse_seated_wing": {
+        "additional_tip_spread_from_straight_at_shoulders_mm": [
+          0.19586,
+          0.19604
+        ],
+        "additional_tip_spread_from_straight_with_guides_mm": [
+          0.19585,
+          0.19604
+        ],
+        "shoulder_gap_at_governing_midcourse_mm": [
+          0.0,
+          0.0
+        ],
+        "radial_nose_capture_mm": [
+          1.67835,
+          1.67878
+        ],
+        "opening_from_nominal_at_first_foot_stop_mm": [
+          0.12231,
+          0.12232
+        ],
+        "shelf_inner_edge_radius_mm": 11.827,
+        "backed_foot_width_within_0p025_mm_of_roof_mm": 2.37,
+        "backed_foot_width_within_0p050_mm_of_roof_mm": 2.47,
+        "loaded_central_foot_height_variation_mm": [
+          0.01632,
+          0.01633
+        ],
+        "minimum_central_crown_gap_on_0p01_mm_grid_mm": [
+          0.00125,
+          0.00372
+        ],
+        "centerline_crown_gap_mm": [
+          0.03919,
+          0.0392
+        ]
+      },
+      "seated_running_face": {
+        "radial_gap_at_course_edges_and_midpoints_mm": [
+          0.11849,
+          0.17448
+        ],
+        "gap_across_h5p72_to_h9p32_mm": [
+          0.11849,
+          0.17448
+        ],
+        "ramp_gap_at_midcourse_mm": [
+          0.14585,
+          0.15591
+        ],
+        "gap_0p55_mm_from_toe_mm": [
+          0.15765,
+          0.15823
+        ],
+        "gap_at_3p20_mm_mm": [
+          0.15597,
+          0.1561
+        ],
+        "gap_5p85_mm_from_toe_mm": [
+          0.15298,
+          0.1533
+        ],
+        "worst_location": {
+          "gap_mm": 0.11849,
+          "h_mm": 9.32,
+          "axial_station_mm": -4.5,
+          "side": 1
+        },
+        "length_within_0p025_mm": [
+          0.0,
+          0.0
+        ],
+        "length_within_0p050_mm": [
+          0.0,
+          0.0
+        ],
+        "length_within_0p100_mm": [
+          0.0,
+          0.0
+        ],
+        "receiver_radial_step_per_0p24_mm_course_mm": [
+          0.054,
+          0.055
+        ]
+      },
+      "center_section_shoulder_sensitivity": {
+        "native_midcourse": {
+          "extra_tip_spread_beyond_straight_mm": [
+            0.19585,
+            0.19604
+          ],
+          "middle_gap_against_full_width_guide_mm": [
+            0.15597,
+            0.1561
+          ]
+        },
+        "rounded_course": {
+          "extra_tip_spread_beyond_straight_mm": [
+            0.28073,
+            0.28085
+          ],
+          "middle_gap_against_full_width_guide_mm": [
+            0.2281,
+            0.22816
+          ]
+        },
+        "rectangular_course": {
+          "extra_tip_spread_beyond_straight_mm": [
+            0.40214,
+            0.40223
+          ],
+          "middle_gap_against_full_width_guide_mm": [
+            0.33127,
+            0.3313
+          ]
+        }
+      },
+      "reversible_native_stroke_center_section": {
+        "minimum_outward_tip_spread_at_rectangular_course_seat_mm_from_free": [
+          1.21792,
+          1.21821
+        ],
+        "opening_from_nominal_to_first_foot_at_that_spread_mm": [
+          0.13642,
+          0.13643
+        ],
+        "covered_opening_mm": 25.0,
+        "maximum_outward_tip_spread_from_free_each_mm": 4.2,
+        "straight_stroke_opening_increments_at_most_mm": 0.0999,
+        "checked_positions_including_tip_relaxation": 326,
+        "maximum_interference_of_outer_bead_envelopes_at_checked_positions_mm": 0.0
+      }
+    },
+    {
+      "dots": 2,
+      "native_marker_counts": {
+        "cover": 2,
+        "receiver": 2
+      },
+      "square_foot_registration": {
+        "interior_cover_courses": 46,
+        "usable_foot_width_0p03_mm_from_face_mm": [
+          2.42715,
+          2.43756
+        ],
+        "receiver_roof_course_top_mm": 3.56,
+        "radial_retaining_face_overlap_mm": [
+          0.11038,
+          0.11045
+        ],
+        "retaining_face_samples": 24,
+        "shoulder_course_tops_mm": [
+          13.16,
+          13.88
+        ],
+        "signed_guide_gap_across_steps_mm": [
+          -0.18035,
+          -0.07445
+        ]
+      },
+      "native_midcourse_seated_wing": {
+        "additional_tip_spread_from_straight_at_shoulders_mm": [
+          0.19646,
+          0.19646
+        ],
+        "additional_tip_spread_from_straight_with_guides_mm": [
+          0.19646,
+          0.19646
+        ],
+        "shoulder_gap_at_governing_midcourse_mm": [
+          0.0,
+          0.0
+        ],
+        "radial_nose_capture_mm": [
+          1.67817,
+          1.67817
+        ],
+        "opening_from_nominal_at_first_foot_stop_mm": [
+          0.12235,
+          0.12235
+        ],
+        "shelf_inner_edge_radius_mm": 11.935,
+        "backed_foot_width_within_0p025_mm_of_roof_mm": 2.37,
+        "backed_foot_width_within_0p050_mm_of_roof_mm": 2.47,
+        "loaded_central_foot_height_variation_mm": 0.01638,
+        "minimum_central_crown_gap_on_0p01_mm_grid_mm": [
+          -0.0006,
+          0.00376
+        ],
+        "centerline_crown_gap_mm": 0.03924
+      },
+      "seated_running_face": {
+        "radial_gap_at_course_edges_and_midpoints_mm": [
+          0.01134,
+          0.06702
+        ],
+        "gap_across_h5p72_to_h9p32_mm": [
+          0.01148,
+          0.06698
+        ],
+        "ramp_gap_at_midcourse_mm": [
+          0.03868,
+          0.04857
+        ],
+        "gap_0p55_mm_from_toe_mm": [
+          0.05047,
+          0.05047
+        ],
+        "gap_at_3p20_mm_mm": [
+          0.04872,
+          0.04872
+        ],
+        "gap_5p85_mm_from_toe_mm": [
+          0.04597,
+          0.04597
+        ],
+        "worst_location": {
+          "gap_mm": 0.01134,
+          "h_mm": 5.48,
+          "axial_station_mm": -4.5,
+          "side": -1
+        },
+        "length_within_0p025_mm": [
+          1.32923,
+          1.32923
+        ],
+        "length_within_0p050_mm": [
+          4.07658,
+          4.07658
+        ],
+        "length_within_0p100_mm": [
+          5.92,
+          5.92
+        ],
+        "receiver_radial_step_per_0p24_mm_course_mm": [
+          0.054,
+          0.055
+        ]
+      },
+      "center_section_shoulder_sensitivity": {
+        "native_midcourse": {
+          "extra_tip_spread_beyond_straight_mm": 0.19645,
+          "middle_gap_against_full_width_guide_mm": 0.04872
+        },
+        "rounded_course": {
+          "extra_tip_spread_beyond_straight_mm": 0.28126,
+          "middle_gap_against_full_width_guide_mm": 0.12077
+        },
+        "rectangular_course": {
+          "extra_tip_spread_beyond_straight_mm": 0.40263,
+          "middle_gap_against_full_width_guide_mm": 0.22391
+        }
+      },
+      "reversible_native_stroke_center_section": {
+        "minimum_outward_tip_spread_at_rectangular_course_seat_mm_from_free": 1.21863,
+        "opening_from_nominal_to_first_foot_at_that_spread_mm": 0.13646,
+        "covered_opening_mm": 25.0,
+        "maximum_outward_tip_spread_from_free_each_mm": 4.2,
+        "straight_stroke_opening_increments_at_most_mm": 0.0999,
+        "checked_positions_including_tip_relaxation": 326,
+        "maximum_interference_of_outer_bead_envelopes_at_checked_positions_mm": 0.0
+      }
+    },
+    {
+      "dots": 3,
+      "native_marker_counts": {
+        "cover": 3,
+        "receiver": 3
+      },
+      "square_foot_registration": {
+        "interior_cover_courses": 46,
+        "usable_foot_width_0p03_mm_from_face_mm": [
+          2.48471,
+          2.49463
+        ],
+        "receiver_roof_course_top_mm": 3.56,
+        "radial_retaining_face_overlap_mm": [
+          0.11006,
+          0.11047
+        ],
+        "retaining_face_samples": 24,
+        "shoulder_course_tops_mm": [
+          13.16,
+          13.88
+        ],
+        "signed_guide_gap_across_steps_mm": [
+          -0.17144,
+          0.2062
+        ]
+      },
+      "native_midcourse_seated_wing": {
+        "additional_tip_spread_from_straight_at_shoulders_mm": [
+          0.19677,
+          0.19703
+        ],
+        "additional_tip_spread_from_straight_with_guides_mm": [
+          0.19677,
+          0.19703
+        ],
+        "shoulder_gap_at_governing_midcourse_mm": [
+          0.0,
+          0.0
+        ],
+        "radial_nose_capture_mm": [
+          1.67771,
+          1.67819
+        ],
+        "opening_from_nominal_at_first_foot_stop_mm": [
+          0.1229,
+          0.12294
+        ],
+        "shelf_inner_edge_radius_mm": 11.574,
+        "backed_foot_width_within_0p025_mm_of_roof_mm": 2.43,
+        "backed_foot_width_within_0p050_mm_of_roof_mm": 2.52,
+        "loaded_central_foot_height_variation_mm": [
+          0.01643,
+          0.01646
+        ],
+        "minimum_central_crown_gap_on_0p01_mm_grid_mm": [
+          -4e-05,
+          0.00433
+        ],
+        "centerline_crown_gap_mm": [
+          0.03978,
+          0.03983
+        ]
+      },
+      "seated_running_face": {
+        "radial_gap_at_course_edges_and_midpoints_mm": [
+          0.00646,
+          0.39923
+        ],
+        "gap_across_h5p72_to_h9p32_mm": [
+          0.00646,
+          0.02512
+        ],
+        "ramp_gap_at_midcourse_mm": [
+          0.00646,
+          0.31619
+        ],
+        "gap_0p55_mm_from_toe_mm": [
+          0.3217,
+          0.32172
+        ],
+        "gap_at_3p20_mm_mm": [
+          0.00653,
+          0.00722
+        ],
+        "gap_5p85_mm_from_toe_mm": [
+          0.02446,
+          0.02512
+        ],
+        "worst_location": {
+          "gap_mm": 0.00646,
+          "h_mm": 9.32,
+          "axial_station_mm": -4.5,
+          "side": 1
+        },
+        "length_within_0p025_mm": [
+          3.80308,
+          4.02462
+        ],
+        "length_within_0p050_mm": [
+          4.08,
+          4.08
+        ],
+        "length_within_0p100_mm": [
+          4.20786,
+          4.20786
+        ],
+        "receiver_radial_step_per_0p24_mm_course_mm": [
+          0.0,
+          0.137
+        ]
+      },
+      "center_section_shoulder_sensitivity": {
+        "native_midcourse": {
+          "extra_tip_spread_beyond_straight_mm": [
+            0.19677,
+            0.19704
+          ],
+          "middle_gap_against_full_width_guide_mm": [
+            0.00653,
+            0.00723
+          ]
+        },
+        "rounded_course": {
+          "extra_tip_spread_beyond_straight_mm": [
+            0.282,
+            0.2822
+          ],
+          "middle_gap_against_full_width_guide_mm": [
+            0.0797,
+            0.08034
+          ]
+        },
+        "rectangular_course": {
+          "extra_tip_spread_beyond_straight_mm": [
+            0.40391,
+            0.40408
+          ],
+          "middle_gap_against_full_width_guide_mm": [
+            0.18436,
+            0.18497
+          ]
+        }
+      },
+      "reversible_native_stroke_center_section": {
+        "minimum_outward_tip_spread_at_rectangular_course_seat_mm_from_free": [
+          1.21982,
+          1.22021
+        ],
+        "opening_from_nominal_to_first_foot_at_that_spread_mm": [
+          0.13764,
+          0.13769
+        ],
+        "covered_opening_mm": 25.0,
+        "maximum_outward_tip_spread_from_free_each_mm": 4.2,
+        "straight_stroke_opening_increments_at_most_mm": 0.0999,
+        "checked_positions_including_tip_relaxation": 326,
+        "maximum_interference_of_outer_bead_envelopes_at_checked_positions_mm": 0.0
+      }
+    }
+  ]
+}

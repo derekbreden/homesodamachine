@@ -10,6 +10,16 @@ With the regulator installed, compare motion at its white outlet while holding t
 
 To reproduce this pair, pass `-- --two-dot-drop` to the Cargo command below and select `pisco-two-dot-drop` when slicing.
 
+## Taking up the remaining Y travel
+
+In C035 Derek feels friction when he turns the regulator and very little sideways wiggle. In the side view the rigid gray body still slides about 0.55 mm from end to end. Its molded circle and chevron both move relative to the printed opening. The 0.24 mm cover layers beside them provide the scale. [Registered frames and bench result](prints/2026-11-25-mark2-two-dot-drop/physical-result.json)
+
+The full axial-grip pair carries the newer two-dot guide and the saddle from that filmed full Pisco. On the cover, the short-outlet lip reaches one more 0.24 mm layer toward the rigid fitting shoulder. On the receiver, the forward ends of the two wing pockets advance 0.12 mm together, taking up some of the cover's own slide. The total Y reduction is 0.36 mm. The modeled travel would approach zero in the tightest seated position with a 0.40 mm reduction. The cover clears the white release ring throughout the modeled end travel. [Measured axial stops and release-ring clearance](parts/axial-grip/fit-check.json) · [Mark2 trial and handling](parts/axial-grip/README.md) · [Mark2 plate](prints/2026-11-25-mark2-axial-grip/print-job.json)
+
+![Added stock on the full cover lip and the fixed ends of its spring pockets](prints/2026-11-25-mark2-axial-grip/axial-stops.png)
+
+To reproduce this pair, pass `-- --axial-grip` to the Cargo command below and select `pisco-axial-grip` when slicing.
+
 ## Try the pair
 
 1. Rest the receiver on its flat roof face with the channel facing up. Start the regulator about 16 mm forward of its final position, with its long inlet neck facing the rear bore. Lower it into the channel, then slide it back until the neck enters the bore. The short outlet and its release ring face the open end.
