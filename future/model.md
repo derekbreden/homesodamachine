@@ -42,7 +42,7 @@ channel's ratio setting.
 | Drinking glass | | Weigh one of the matching glasses. |
 | Ratio setting | | The machine display, or `ratio` on the console. |
 | Pump | | KPHM600-SW3B17, [BOM](/hardware/ledger/bom.md) §8. |
-| Meter | pulses a second per L/min | The listing gives 38; one buyer's calibration found 36. |
+| Meter | 35–39 Hz per L/min in the model | The specified meter's listing gives 38. The FL-S402B filmed on the countertop is marked 23. A weighed catch and the board's pulse count distinguish the factors. [Filmed nameplate and calculation](/hardware/reference/lillium-flow/2026-11-25/README.md#what-this-changes-for-the-model-and-the-pour) |
 | Atmosphere | | Lincoln. |
 | Glass of soda | | Twelve ounces, as [acceptance](/hardware/assembly/acceptance-and-burn-in.md) pours. |
 
@@ -128,12 +128,10 @@ brass. Its first glass carries the same warm term unless the design removes it.
 
 ## 3. Syrup ratio
 
-The firmware sets the pump's on and off times from the meter's count per window, clamped at
-: at that count and the default ratio.
-That is the pump running of the time against the
-that count of pulses means, so the shape gives 1:20 for a pump that moves
- while it runs. The KPHM600 is rated, and
-three things set what it delivers:
+The firmware sets each pump burst from the count in a 50 ms window and the selected
+ratio. At the 1:20 setting, six counts command 200 ms on and 300 ms off. The same
+lever opening can command a different dose when a meter produces fewer pulses per
+litre. Three effects determine the volume delivered per burst. [Pour timing](/firmware/lib/machine_policy/pour_policy.cpp)
 
 - **The pump's speed.** A brushed motor's speed follows its voltage less the armature's own
   drop. The DRV8870's switches, J13 and the leads take
@@ -141,10 +139,11 @@ three things set what it delivers:
   and the head turns at of its rated
   speed.
 - **Each burst loses its spin-up**, assumed of every on-time.
-- **The count is truncated.** Each cycle is timed from the integer average of the last cycle's
-  windows, so a flow between counts gets the lower count's duty. Above the clamp the duty stays
-  at while the water keeps rising. At full lever this build's flow sits right
-  at the clamp, so whether a cycle counts one below it or reaches it moves the dose by.
+- **The count is truncated.** Each cycle uses the integer average of the previous cycle's
+  windows. The default model puts full lever near the six-count clamp. At the filmed
+  faucet's measured flow, its meter label implies about three counts. An electrical
+  count paired with a water catch would establish which duty the installed pump sees.
+  [Countertop pour measurements](/hardware/reference/lillium-flow/2026-11-25/README.md)
 
 Back pressure is the rise to the tip and the friction of the umbilical's flavor runs, a few kPa
 against a head built for far more; the model allows up to of slip. Diet
@@ -155,7 +154,7 @@ the concentrate's °Brix times the concentrate's mass share of the drink.
 
 | What is measured | Prediction |
 |---|---|
-| Meter count per window at full lever | |
+| Meter count per 50 ms window at full lever | Default model 6.0 (5.4–6.8). The filmed meter label and faucet flow imply 3.0. |
 | Prime: the pump running continuously into a cup | |
 | `flow 6` for into a cup, lever closed | |
 | `flow 5` for | |
@@ -164,7 +163,9 @@ the concentrate's °Brix times the concentrate's mass share of the drink.
 | Drink °Brix as a share of the concentrate's |; a true reads |
 | Lever half open | |
 
-The model expects a full-lever glass near the label and a gentle one well short of it.
+The default model expects a full-lever glass near the label ratio and a gentle one
+well short of it. Applying that prediction to the filmed faucet requires its measured
+pulses per litre and the concentrate each installed channel delivers.
 
 **Carries over:** this is the appliance's flavor side, so its ratio follows the same physics.
 Its lower feed pours less water, which moves the count per window, and the model puts its
@@ -172,19 +173,19 @@ full-lever glass at.
 
 ## 4. Seconds to fill a 12 oz glass
 
-The carbonator's pressure, less the rise to the faucet tip, drives the
-water through the friction of each run above and the losses of the Lillium's outlet path and
-the two bulkhead unions ( velocity heads of the 1/4" tube), the meter
- and the faucet (: the tube stiffener, the poppet seat,
-the body's turns, and the bubbles that form past the seat).
+The model uses the carbonator pressure, rise to the tip and losses through the tube,
+bulkheads, meter and faucet. The November 25 footage measures a tee-fed countertop
+route with exposed tubing. The short-outlet trial draws through a separate valve
+beside the Lillium. [Timed pours, cup readings and plumbing](/hardware/reference/lillium-flow/2026-11-25/README.md)
 
-| What is measured | Prediction |
-|---|---|
-| Flow, lever fully open | |
-| **12 oz** | |
+| Quantity | Lillium model, median (middle 80%) | Filmed white faucet, three pours | Filmed short outlet, one pour |
+|---|---:|---:|---:|
+| Water flow | 3.2 (2.9–3.7) L/min | 2.62 L/min pooled | About 2.9–3.4 L/min |
+| Seconds for 12 US fl oz of water | 6.6 (5.8–7.3) | 8.1 | About 6.3–7.2 |
 
-**Carries over:** at the appliance's feed, through its own runs and
-the same losses, the glass fills in.
+The short-outlet range reflects two possible end times with the valve in foam.
+The integrated machine's forecast at its own feed is 7.8 s (6.9–8.7) per glass.
+A timed catch on that machine will test it. [Model calculation](/tools/hsm/repo-tools/src/model.rs)
 
 ## The tests
 

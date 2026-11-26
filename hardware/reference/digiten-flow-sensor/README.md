@@ -9,6 +9,8 @@ Two DIGITEN models are in stock ([purchases](/hardware/ledger/purchases.md)):
 four of B07QRXLRTH, 0.3–10 L/min, and one of B07QS17S6Q, 0.3–6 L/min. The scan
 record does not name which model the sample is.
 
+The meter on the Lillium-fed countertop faucet is marked **FL-S402B**, **0.3–10 L/min** and **F = 23 × Q**. That label gives a nominal 1,380 water pulses per litre. The filmed sample's pulse output still needs a weighed catch for calibration. [Nameplate photograph and faucet measurements](../lillium-flow/2026-11-25/README.md)
+
 The ports are coaxial, but their axis is offset from the round housing centre.
 That offset, the fixed mounting collars and the complete cover envelope matter
 for placement. Dimensions below are millimetres.

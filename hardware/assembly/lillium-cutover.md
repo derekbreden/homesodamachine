@@ -5,6 +5,11 @@ assembly and cutover procedure are kept in the
 [prototype record](https://github.com/derekbreden/homesodamachine/blob/78c7aa7b01f90052b7ae4ae4bd7d0c9da992c17f/hardware/assembly/lillium-cutover.md).
 The linked procedure belongs to that recorded article.
 
+On November 25 Derek filmed three water pours from the white countertop faucet,
+traced the tubing and meter back to the Lillium tee, and drew a comparison cup
+from a short outlet beside the carbonator. The three faucet pours give an
+equivalent 8.1 s per 12 US fl oz of water. [Measured pours, meter label and source display](../reference/lillium-flow/2026-11-25/README.md)
+
 For parts printed from the current checkout, use the current
 [pump and plumbing assembly](internal-plumbing.md),
 [electronics assembly](electronics-bay.md),
