@@ -8,6 +8,7 @@
 #include "esp_lcd_panel_ops.h"
 #include "freertos/semphr.h"
 #include "fw_version.h"
+#include "front_cooling.h"
 #include "front_ui_policy.h"
 #include "proto_link.h"
 #include "trust_text.h"
@@ -201,7 +202,9 @@ static uint32_t frameDoneTimeouts = 0;
 #define PANE_W          TASK_W
 #define PANE_H          (SCREEN_H - HEADER_H - 2 * PANE_PAD)
 #define DETAIL_W        (PANE_W - 2 * PANE_PAD)
-#define SETTINGS_BTN     64
+#define SETTINGS_H       72
+#define SETTINGS_W      (SCREEN_W - RAIL_W)
+#define SETTINGS_CONTENT_W (SETTINGS_W - 2 * PANE_PAD)
 #define TEXT_H_20        22
 #define TEXT_H_28        30
 #define TEXT_H_40        44
@@ -234,11 +237,8 @@ static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits p
 #define RAIL_CELL_FOOT       345
 #define RAIL_NUMBER_Y        130   // a card's number under its thumbnail, from inside its border
 #define RAIL_BIG_NUMBER_Y     38   // the selected card's number, from inside its border
-#define HERO_ART_W           198   // the anchor's proportions, to the nearest whole pixel
-#define HERO_ART_H           368
-#define HERO_ART_Y            24
-#define HERO_CAPTION_Y       408
-#define HERO_COOLING_INSET     8   // space beneath the second caption on a warm restart
+#define HERO_ART_Y            18
+#define HERO_CAPTION_Y       348
 
 // ── The resting pane ──
 // At rest the pane beside the portrait runs the glass's full height, with the reservoir's
@@ -274,8 +274,10 @@ enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
 static lv_obj_t *pageObj[PAGE_COUNT];
-static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption, *heroCooling;
-static lv_obj_t *taskHeader, *backRow, *systemBand, *systemBack;
+static lv_obj_t *flavorRail, *heroPanel, *heroImage, *heroCaption;
+static lv_obj_t *taskHeader, *backRow, *systemBand, *systemBack, *systemBackLabel, *systemTitle;
+static lv_obj_t *settingsOverview, *sensorDetail, *simulatedNote;
+static bool viewingSensors = false;
 static lv_obj_t *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
 // The rail's selection: the selected cell's ice, and each card's number under its thumbnail,
@@ -388,9 +390,8 @@ static lv_img_dsc_t flavorCard[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorTile[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorRailArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorRailGreyArt[FLAVOR_IMAGE_COUNT];   // the rail's flavor not on tap
-static lv_img_dsc_t flavorHeroArt[FLAVOR_IMAGE_COUNT];   // the portrait
 static lv_img_dsc_t flavorPickerArt[FLAVOR_IMAGE_COUNT];
-static uint16_t *scaledPixels[3][FLAVOR_IMAGE_COUNT] = {};
+static uint16_t *scaledPixels[2][FLAVOR_IMAGE_COUNT] = {};
 static uint16_t *railGreyPixels[FLAVOR_IMAGE_COUNT] = {};
 
 // The flavor not on tap wears its rail picture in grey at a little over half strength over the
@@ -412,10 +413,10 @@ static void railGrey(const uint16_t *src, uint16_t *dst, size_t n) {
 }
 
 static void bindBigBlueArt() {
-  const uint16_t width[3] = {RAIL_ART_W, HERO_ART_W, 78};
-  const uint16_t height[3] = {RAIL_ART_H, HERO_ART_H, 145};
-  lv_img_dsc_t *sets[3] = {flavorRailArt, flavorHeroArt, flavorPickerArt};
-  for (uint8_t size = 0; size < 3; ++size) {
+  const uint16_t width[] = {RAIL_ART_W, 78};
+  const uint16_t height[] = {RAIL_ART_H, 145};
+  lv_img_dsc_t *sets[] = {flavorRailArt, flavorPickerArt};
+  for (uint8_t size = 0; size < 2; ++size) {
     for (uint8_t art = 0; art < FLAVOR_IMAGE_COUNT; ++art) {
       const lv_img_dsc_t &source = flavorAnchor[art];
       const size_t bytes = (size_t)width[size] * height[size] * sizeof(uint16_t);
@@ -539,6 +540,7 @@ static void bindFlavorLogos() {
         b.dsc[i].data_size = sizeof(kNoLogo);
         b.dsc[i].data = (const uint8_t *)kNoLogo;
       }
+      lv_img_cache_invalidate_src(&b.dsc[i]);
     }
   }
   bindBigBlueArt();
@@ -654,7 +656,9 @@ static unsigned long airStartSentMs = 0;
 static unsigned long airQueryMs = 0;
 static unsigned long airUiMs = 0;
 static unsigned long airCardUntilMs = 0;
-static lv_obj_t *settingsBtn;      // bottom of the persistent flavor rail
+static lv_obj_t *settingsBtn, *dockTank, *dockState;
+static lv_obj_t *tankValue, *tankMetric, *coolingTitle, *coolingDetail;
+static lv_obj_t *sensorTank, *sensorCoil, *sensorProbes, *sensorRefill;
 
 // ── System status, as this glass shows it ──
 // Ten reeds on the machine's own side profile: reservoir A's four, reservoir
@@ -662,35 +666,13 @@ static lv_obj_t *settingsBtn;      // bottom of the persistent flavor rail
 // says it is closed, then a filled disc. Index 0..3 is reservoir A's empty..full
 // reed, 4..7 reservoir B's, 8 the carbonator's low reed and 9 its high one.
 static lv_obj_t *statusReed[STATUS_REEDS];
-static lv_obj_t *statusNote = NULL;    // under the card: that nothing is being read, else empty
-static bool statusSimShown = false;
+static lv_obj_t *statusNote;
 static uint16_t  statusShown = 0;      // the closed set the diagram is drawn with
 static bool      statusFreshShown = false;
 #define STATUS_ANSWER_MS 1500          // a status poll unanswered this long is a main board not reading
 
 // The bytes of StatusPayload every main board sends, whatever else it appends.
 #define STATUS_CORE_BYTES 32
-
-// ── The cold loop and the refill, in the column beside the profile ──
-// Two probes on the 1-wire bus — the carbonator wall and the coil's suction end
-// — the state each of the two loops stands in, and how many devices answered
-// the bus. Five lines, label and value, filling the card's right-hand column.
-#define STATUS_THERMAL_ROWS 5
-#define STATUS_BTN_H 56   // Move the machine and Forget trusted phones, in the column beneath
-#define STATUS_BTN_GAP 12  // between them
-static lv_obj_t *statusThermalValue[STATUS_THERMAL_ROWS] = {NULL};
-
-// The reading the column is drawn with. `drawn` is false until the first pass,
-// so the placeholders the builder leaves are replaced on the first answer.
-static struct {
-  int16_t tank;
-  int16_t coil;
-  uint8_t cold;
-  uint8_t refill;
-  uint8_t probes;
-  bool    fresh;
-  bool    drawn;
-} statusThermalShown = {};
 
 // Both ratios are mirrored from the main board's persistent configuration.
 static uint8_t flavorRatio[2] = {20, 20};
@@ -1848,8 +1830,7 @@ static void sendSound(uint8_t id) {
   j9Post(MSG_SOUND_PLAY, &p, sizeof(p));
 }
 
-// The base's last StatusPayload remains available to USB diagnostics. It is not
-// a standing customer-facing screen.
+// The most recent controller sample drives the readouts on the glass and USB diagnostics.
 static StatusPayload ctrlStatus = {};
 static unsigned long ctrlStatusMs = 0;
 static unsigned long statusAskedMs = 0;
@@ -2207,7 +2188,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       ctrlStatus.tankCx10 = TEMP_UNREAD;
       ctrlStatus.coilCx10 = TEMP_UNREAD;
     }
-    ctrlStatusThermal = taken >= offsetof(StatusPayload, startupCoolingS);
+    ctrlStatusThermal = taken >= offsetof(StatusPayload, notice);
     if (taken < sizeof(ctrlStatus)) ctrlStatus.startupCoolingS = 0;
     ctrlStatusMs = millis();
     // The gauges, and — unless a step of this glass's is still unanswered —
@@ -2522,7 +2503,7 @@ static void refreshFlavorImages() {
     lv_img_set_src(chanImg[i], &chanImgSet[i][resolveFlavorArt(flavorImage[chanImgCh[i]], chanImgCh[i])]);
   for (uint8_t i = 0; i < selImgCount; ++i)
     lv_img_set_src(selImg[i], &selImgSet[i][resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
-  if (heroImage) lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  if (heroImage) lv_img_set_src(heroImage, &flavorAnchor[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
   uint8_t order[FLAVOR_IMAGE_COUNT];
   const uint8_t count = availableImageOrder(order);
   const uint8_t pages = front_ui::imagePages(count);
@@ -2577,8 +2558,8 @@ static void refreshHomeSelection() {
   paintRailSelection();
   if (activePage == PAGE_HOME || activePage == PAGE_SETUP) flavorSel = activeFlavor;
   const uint8_t art = resolveFlavorArt(flavorImage[flavorSel], flavorSel);
-  if (heroImage && lv_img_get_src(heroImage) != &flavorHeroArt[art]) {
-    lv_img_set_src(heroImage, &flavorHeroArt[art]);
+  if (heroImage && lv_img_get_src(heroImage) != &flavorAnchor[art]) {
+    lv_img_set_src(heroImage, &flavorAnchor[art]);
   }
   refreshHomeLevel();
 }
@@ -3446,20 +3427,9 @@ static void refreshHomeLevel() {
   const bool known = n != LEVEL_UNKNOWN && levelValid && fresh;
   const bool pouring = fresh && pouringShown == channel;
   const bool connecting = homeFlavorShown < 0;
-  const uint16_t cooling = activePage == PAGE_HOME && fresh && !connecting && !pouring
-                               ? ctrlStatus.startupCoolingS : 0;
-  static uint16_t shownCooling = 0;
-  const bool captionLayoutChanged = (cooling != 0) != (shownCooling != 0);
-  if (cooling != shownCooling) {
-    if (cooling == STARTUP_COOLING_RUNNING) lv_label_set_text(heroCooling, "Cooling");
-    else if (cooling) lv_label_set_text_fmt(heroCooling, "Cooling starts in %u:%02u",
-                                             unsigned(cooling / 60), unsigned(cooling % 60));
-    showIf(heroCooling, cooling != 0);
-    shownCooling = cooling;
-  }
   static int16_t shown = -1;
   const int16_t reading = (channel << 8) | (known ? n : 15) | (pouring ? 0x20 : 0) | (connecting ? 0x40 : 0);
-  if (reading == shown && !captionLayoutChanged) return;
+  if (reading == shown) return;
   shown = reading;
   lv_obj_set_style_border_color(homeGauge, lv_color_hex(known ? COL_DIM : COL_OFF), 0);
   for (uint8_t k = 0; k < LEVEL_SEGMENTS; ++k) {
@@ -3475,107 +3445,116 @@ static void refreshHomeLevel() {
                           (font->line_height - font->base_line);
   lv_obj_set_style_text_font(heroCaption, font, 0);
   lv_label_set_text(heroCaption, connecting ? "Connecting" : pouring ? "Pouring." : "On tap.");
-  if (cooling) lv_obj_align_to(heroCaption, heroCooling, LV_ALIGN_OUT_TOP_MID, 0, 0);
-  else lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y + rise);
+  lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y + rise);
 }
 
-// The reeds on the Settings landing. A reed the main board reads closed is a
-// white disc in its ring; every other one is the ring alone. A poll the main
-// board has not answered for STATUS_ANSWER_MS, or a reading it says is stale,
-// empties the diagram and says so under it, so a ring never stands for a reed
-// nobody has looked at.
+// Open and closed level switches share a physical position on the side view.
 static void refreshStatusReeds() {
   if (!statusNote) return;
-  const bool answered = ctrlStatusMs != 0 &&
-                        ((long)(ctrlStatusMs - statusAskedMs) >= 0 ||
-                         millis() - statusAskedMs < STATUS_ANSWER_MS);
-  const bool fresh = answered && front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS) &&
-                     (ctrlStatus.levelFlags & LEVEL_F_VALID) != 0;
+  const bool fresh = front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS) &&
+                     (ctrlStatus.levelFlags & LEVEL_F_VALID);
   uint16_t closed = 0;
   if (fresh) {
-    closed = (uint16_t)(ctrlStatus.reeds[0] & 0x0F)
-           | (uint16_t)((ctrlStatus.reeds[1] & 0x0F) << 4)
-           | ((ctrlStatus.levelFlags & LEVEL_F_CARB_LOW)  ? (uint16_t)(1u << 8) : 0)
-           | ((ctrlStatus.levelFlags & LEVEL_F_CARB_HIGH) ? (uint16_t)(1u << 9) : 0);
+    closed = (ctrlStatus.reeds[0] & 0x0F) | ((ctrlStatus.reeds[1] & 0x0F) << 4)
+           | ((ctrlStatus.levelFlags & LEVEL_F_CARB_LOW)  ? (1u << 8) : 0)
+           | ((ctrlStatus.levelFlags & LEVEL_F_CARB_HIGH) ? (1u << 9) : 0);
   }
-  if (closed == statusShown && fresh == statusFreshShown) return;
-  for (uint8_t i = 0; i < STATUS_REEDS; i++) {
-    if (!statusReed[i]) continue;
-    const bool lit = ((closed ^ statusShown) >> i) & 1;
-    if (!lit) continue;
-    const bool on = (closed >> i) & 1;
-    lv_obj_set_style_bg_color(statusReed[i], lv_color_hex(on ? COL_TEXT : COL_BLUE), 0);
+  if (fresh != statusFreshShown)
+    lv_label_set_text(statusNote, fresh ? "Filled dots mark closed switches." : "No level sensor reading");
+  for (uint8_t i = 0; i < STATUS_REEDS; ++i) {
+    if (((closed ^ statusShown) >> i) & 1)
+      lv_obj_set_style_bg_color(statusReed[i], lv_color_hex((closed >> i) & 1 ? COL_TEXT : COL_BLUE), 0);
   }
-  const bool simulated = (ctrlStatus.levelFlags & LEVEL_F_SIMULATED) != 0;
-  if (fresh != statusFreshShown || simulated != statusSimShown)
-    lv_label_set_text(statusNote, !fresh      ? "Not reading the sensors"
-                                 : simulated  ? "Simulated readings, injected from the console"
-                                              : "");
-  statusSimShown = simulated;
-  statusShown = closed;
   statusFreshShown = fresh;
+  statusShown = closed;
 }
 
-// Tenths of a degree as the column says it: one decimal, and a sign that
-// survives a reading between 0 and -1 C. A probe that did not read, and a bus
-// with no devices on it, both give "--".
-static void statusTempText(char *out, size_t n, int16_t cx10, bool read) {
-  if (!read || cx10 == TEMP_UNREAD) { snprintf(out, n, "--"); return; }
-  const int tenths = cx10 < 0 ? -(int)cx10 : (int)cx10;
-  snprintf(out, n, "%s%d.%d C", cx10 < 0 ? "-" : "", tenths / 10, tenths % 10);
+static void updateReading(lv_obj_t *label, const char *text) {
+  if (strcmp(lv_label_get_text(label), text) != 0) lv_label_set_text(label, text);
 }
 
-// The column beside the profile: the carbonator wall and the coil's suction end,
-// the state each of the two loops stands in, and how many devices answered the
-// 1-wire bus. A main board that has not answered for STATUS_ANSWER_MS, and one
-// that sends the core with no thermal tail, leave every line at "--".
+// The same status sample drives the Settings button, its landing and the sensor detail.
 static void refreshStatusThermal() {
-  if (!statusThermalValue[0]) return;
-  const bool answered = ctrlStatusMs != 0 &&
-                        ((long)(ctrlStatusMs - statusAskedMs) >= 0 ||
-                         millis() - statusAskedMs < STATUS_ANSWER_MS);
-  const bool fresh = answered && ctrlStatusThermal &&
-                     front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
-  if (statusThermalShown.drawn && fresh == statusThermalShown.fresh &&
-      ctrlStatus.tankCx10 == statusThermalShown.tank &&
-      ctrlStatus.coilCx10 == statusThermalShown.coil &&
-      ctrlStatus.coldState == statusThermalShown.cold &&
-      ctrlStatus.refillState == statusThermalShown.refill &&
-      ctrlStatus.probeCount == statusThermalShown.probes) return;
-  statusThermalShown.drawn  = true;
-  statusThermalShown.fresh  = fresh;
-  statusThermalShown.tank   = ctrlStatus.tankCx10;
-  statusThermalShown.coil   = ctrlStatus.coilCx10;
-  statusThermalShown.cold   = ctrlStatus.coldState;
-  statusThermalShown.refill = ctrlStatus.refillState;
-  statusThermalShown.probes = ctrlStatus.probeCount;
+  if (!dockState) return;
+  const bool connected = front_ui::readingFresh(ctrlStatusMs, millis(), STATUS_ANSWER_MS);
+  const bool available = connected && ctrlStatusThermal;
+  const bool tankRead = front_ui::temperatureAvailable(available, ctrlStatus.tankCx10);
+  char fahrenheit[16], celsius[16], countdown[24], dockCountdown[36], coilReading[32], probes[8];
+  front_ui::formatFahrenheit(fahrenheit, sizeof(fahrenheit), ctrlStatus.tankCx10, available);
+  front_ui::formatCelsius(celsius, sizeof(celsius), ctrlStatus.tankCx10, available);
+  updateReading(dockTank, fahrenheit);
+  updateReading(tankValue, fahrenheit);
+  updateReading(tankMetric, tankRead ? celsius : "No reading");
+  updateReading(sensorTank, celsius);
+  front_ui::formatCelsius(celsius, sizeof(celsius), ctrlStatus.coilCx10, available);
+  updateReading(sensorCoil, celsius);
+  front_ui::formatFahrenheit(fahrenheit, sizeof(fahrenheit), ctrlStatus.coilCx10, available);
+  snprintf(coilReading, sizeof(coilReading), "Coil %s  /  %s", fahrenheit, celsius);
+  if (available) snprintf(probes, sizeof(probes), "%u", unsigned(ctrlStatus.probeCount));
+  updateReading(sensorProbes, available ? probes : "--");
 
-  // machine_policy::ColdState and ::RefillState, low value first. Cooling is
-  // ColdState::On, Hold is ColdState::Holding, and the loop running and the
-  // pump drawing are the two states that carry the accent.
-  static const char *const coldWord[5]      = {"Fault", "Off", "Hold", "Cooling", "Freeze"};
-  static const uint32_t     coldColour[5]   = {COL_WARN, COL_TEXT, COL_TEXT, COL_ACCENT, COL_WARN};
-  static const char *const refillWord[5]    = {"Idle", "Queued", "Filling", "Timeout", "Fault"};
-  static const uint32_t     refillColour[5] = {COL_TEXT, COL_TEXT, COL_ACCENT, COL_WARN, COL_WARN};
-  const uint8_t cold   = ctrlStatus.coldState;
-  const uint8_t refill = ctrlStatus.refillState;
-  // TEMP_UNREAD is what the main board sends for a probe that did not read.
-  const bool probed = fresh;
+  using front_ui::CoolingState;
+  const char *compact = "Waiting for machine";
+  const char *headline = "Waiting for machine";
+  const char *detail = "Waiting for a fresh reading.";
+  switch (front_ui::coolingState(available, ctrlStatus)) {
+    case CoolingState::Unavailable:
+      if (connected) {
+        compact = headline = "Status unavailable";
+        detail = "No cooling status from the controller.";
+      }
+      break;
+    case CoolingState::ProbeFault:
+      compact = "Cooling paused";
+      headline = "Waiting for sensors";
+      if (ctrlStatus.tankCx10 == TEMP_UNREAD && ctrlStatus.coilCx10 == TEMP_UNREAD)
+        detail = ctrlStatus.probeCount ? "Both temperature readings are missing." : "No temperature probes detected.";
+      else if (ctrlStatus.tankCx10 == TEMP_UNREAD) detail = "No tank wall reading.";
+      else if (ctrlStatus.coilCx10 == TEMP_UNREAD) detail = "No cooling coil reading.";
+      else detail = "The controller needs fresh readings.";
+      break;
+    case CoolingState::FreezeProtection:
+      compact = headline = "Freeze protection";
+      detail = "Cooling resumes when the coil warms.";
+      break;
+    case CoolingState::Running:
+      compact = "Cooling";
+      headline = "Compressor running";
+      detail = coilReading;
+      break;
+    case CoolingState::StartupWait: {
+      char time[8];
+      snprintf(time, sizeof(time), "%u:%02u",
+               unsigned(ctrlStatus.startupCoolingS / 60), unsigned(ctrlStatus.startupCoolingS % 60));
+      snprintf(countdown, sizeof(countdown), "Starts in %s", time);
+      snprintf(dockCountdown, sizeof(dockCountdown), "Cooling starts in %s", time);
+      headline = countdown;
+      compact = dockCountdown;
+      detail = "Compressor restart delay.";
+      break;
+    }
+    case CoolingState::RestartHold:
+      compact = headline = "Cooling soon";
+      detail = "Waiting to restart the compressor.";
+      break;
+    case CoolingState::Idle:
+      compact = headline = "Holding temperature";
+      detail = coilReading;
+      break;
+    case CoolingState::Paused:
+      compact = headline = "Cooling paused";
+      detail = (ctrlStatus.flags & STATUS_F_GAS_TRIP) ? "The gas alarm is active." : "Compressor is off.";
+      break;
+  }
+  updateReading(dockState, compact);
+  updateReading(coolingTitle, headline);
+  updateReading(coolingDetail, detail);
 
-  char v[12];
-  statusTempText(v, sizeof(v), ctrlStatus.tankCx10, probed);
-  lv_label_set_text(statusThermalValue[0], v);
-  statusTempText(v, sizeof(v), ctrlStatus.coilCx10, probed);
-  lv_label_set_text(statusThermalValue[1], v);
-  lv_label_set_text(statusThermalValue[2], fresh && cold < 5 ? coldWord[cold] : "--");
-  lv_obj_set_style_text_color(statusThermalValue[2],
-                              lv_color_hex(fresh && cold < 5 ? coldColour[cold] : COL_TEXT), 0);
-  lv_label_set_text(statusThermalValue[3], fresh && refill < 5 ? refillWord[refill] : "--");
-  lv_obj_set_style_text_color(statusThermalValue[3],
-                              lv_color_hex(fresh && refill < 5 ? refillColour[refill] : COL_TEXT), 0);
-  if (fresh) snprintf(v, sizeof(v), "%u", ctrlStatus.probeCount);
-  else       snprintf(v, sizeof(v), "--");
-  lv_label_set_text(statusThermalValue[4], v);
+  static const char *const refill[] = {"Idle", "Waiting", "Refilling", "Timed out", "Level fault"};
+  updateReading(sensorRefill, available && ctrlStatus.refillState < sizeof(refill) / sizeof(*refill)
+                              ? refill[ctrlStatus.refillState] : "--");
+  const bool simulated = connected && (ctrlStatus.levelFlags & LEVEL_F_SIMULATED);
+  if (simulated == lv_obj_has_flag(simulatedNote, LV_OBJ_FLAG_HIDDEN)) showIf(simulatedNote, simulated);
 }
 
 // ── Page builders ──
@@ -4490,7 +4469,7 @@ static unsigned long noWaterTriedMs = 0;   // nonzero: Try again went out then, 
 static uint8_t trustAskId = 0;           // the faucet's number for the ask on the glass
 static unsigned long askShownMs = 0;
 static lv_obj_t *askScreen, *askTitle, *askBody, *askNoLabel, *askYesLabel;
-static lv_obj_t *moveBtn, *forgetBtn, *forgotNote;
+static lv_obj_t *forgotNote;
 static unsigned long forgotUntilMs = 0;  // nonzero: the note is up until then
 static lv_obj_t *trustInbox, *trustTaskTitle, *trustTaskBody, *trustTaskNo, *trustTaskYes;
 static uint32_t trustReceivedMs = 0;
@@ -4693,11 +4672,9 @@ static void moveAskCb(lv_event_t *e) {
           "Cancel", "Move");
 }
 
-// The column's note, above Move the machine and Forget trusted phones for FORGOT_MS: what the
-// faucet found when it forgot the phones, or a move the main board did not begin.
-static void columnNote() {
+// Action results have a reserved line below the Settings rows.
+static void showSettingsNote() {
   lv_obj_clear_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
-  lv_obj_align_to(forgotNote, moveBtn, LV_ALIGN_OUT_TOP_LEFT, 0, -8);
   forgotUntilMs = millis() + FORGOT_MS;
   if (!forgotUntilMs) forgotUntilMs = 1;
 }
@@ -4707,7 +4684,7 @@ static void trustForgot(uint8_t count) {
   if (count == 0)      lv_label_set_text(forgotNote, "No phones were trusted.");
   else if (count == 1) lv_label_set_text(forgotNote, "Forgot 1 trusted phone.");
   else                 lv_label_set_text_fmt(forgotNote, "Forgot %u trusted phones.", (unsigned)count);
-  columnNote();
+  showSettingsNote();
 }
 
 // From loop(): an ask stands ASK_MS at most, and the note keeps its own clock.
@@ -4951,7 +4928,7 @@ static void welcomeService() {
 }
 
 // ── Moving ────────────────────────────────────────────────────────────────
-// Move the machine, confirmed on System status, has the main board stop pouring and filling
+// Move the machine, confirmed in Settings, has the main board stop pouring and filling
 // while its tank is drained (NOTICE_MOVE). The next power-up turns the move into an owed
 // sweep, so the machine comes back with its welcome. While the notice stands this glass shows
 // the drain step by step, with Cancel. The tank's line is what the reeds can say: at the low
@@ -5070,7 +5047,7 @@ static void moveService() {
       moveAskedMs = 0;
       if (forgotNote) {
         lv_label_set_text(forgotNote, "Busy. Try again when it is done.");
-        columnNote();
+        showSettingsNote();
       }
     }
     return;
@@ -5113,8 +5090,10 @@ static lv_obj_t *mkCheck(lv_obj_t *card) {
 
 // At the far right of a resting row.
 static lv_obj_t *mkChevron(lv_obj_t *row) {
-  static const lv_point_t chevron[] = {{392, 23}, {399, 30}, {392, 37}};
-  return mkStroke(row, chevron, 3, COL_DIM);
+  static const lv_point_t chevron[] = {{0, 0}, {7, 7}, {0, 14}};
+  lv_obj_t *mark = mkStroke(row, chevron, 3, COL_DIM);
+  lv_obj_align(mark, LV_ALIGN_RIGHT_MID, -12, 0);
+  return mark;
 }
 
 // Back's chevron: a resting row's, pointing left, on the band's middle.
@@ -5157,19 +5136,16 @@ static void buildRail(lv_obj_t *scr) {
     lv_obj_add_flag(railBigNumber[i], LV_OBJ_FLAG_HIDDEN);
     lv_obj_add_flag(railBigCheck[i], LV_OBJ_FLAG_HIDDEN);
   }
-  heroPanel = mkBtn(scr, HERO_W, SCREEN_H, COL_DIM);
+  heroPanel = mkBtn(scr, HERO_W, SCREEN_H - SETTINGS_H, COL_DIM);
   lv_obj_set_pos(heroPanel, RAIL_W, 0);
   lv_obj_set_style_bg_color(heroPanel, lv_color_hex(COL_DIM), LV_STATE_PRESSED);
   lv_obj_add_event_cb(heroPanel, flavorBackCb, ACT_EVENT, NULL);
   heroImage = lv_img_create(heroPanel);
-  lv_img_set_src(heroImage, &flavorHeroArt[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
+  lv_img_set_src(heroImage, &flavorAnchor[resolveFlavorArt(flavorImage[flavorSel], flavorSel)]);
   lv_obj_align(heroImage, LV_ALIGN_TOP_MID, 0, HERO_ART_Y);
   lv_obj_clear_flag(heroImage, LV_OBJ_FLAG_CLICKABLE);
   heroCaption = mkText(heroPanel, "On tap.", &lv_font_montserrat_44, COL_INK);
   lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y);
-  heroCooling = mkText(heroPanel, "", &lv_font_montserrat_20, COL_INK);
-  lv_obj_align(heroCooling, LV_ALIGN_BOTTOM_MID, 0, -HERO_COOLING_INSET);
-  showIf(heroCooling, false);
 }
 
 // The rail's selection, the same on every page: the selected flavor's cell in the portrait
@@ -5203,39 +5179,73 @@ static void settingsCb(lv_event_t *e) {
   showPage(PAGE_SETUP);
 }
 
+static void showSettingsView(bool sensors) {
+  viewingSensors = sensors;
+  showIf(settingsOverview, !sensors);
+  showIf(sensorDetail, sensors);
+  updateReading(systemTitle, sensors ? "Water & sensors" : "Settings");
+  updateReading(systemBackLabel, sensors ? "Settings" : "Back");
+}
+
+static void sensorDetailCb(lv_event_t *) {
+  if (front_ui::allows(front_ui::Action::Settings, lockActive, holding)) showSettingsView(true);
+}
+
+static void settingsBackCb(lv_event_t *) {
+  if (!front_ui::allows(front_ui::Action::Dismiss, lockActive, holding)) return;
+  if (viewingSensors) showSettingsView(false);
+  else showPage(PAGE_HOME);
+}
+
 // The hairline over the Settings cell, where the rail's flavors end.
 #define SETTINGS_RULE 0x5675c9
 
 // Back across a band `w` wide: the chevron and the word at its left, a hairline on the band's
 // last row across the pane's text, and the whole band its target.
-static lv_obj_t *mkBackRow(lv_obj_t *band, lv_coord_t w) {
+static lv_obj_t *mkBackRow(lv_obj_t *band, lv_coord_t w, lv_event_cb_t cb, lv_obj_t **label = nullptr) {
   lv_obj_t *row = mkBtn(band, w, HEADER_H, COL_BLUE);
-  lv_obj_add_event_cb(row, flavorBackCb, ACT_EVENT, NULL);
+  lv_obj_add_event_cb(row, cb, ACT_EVENT, NULL);
   mkBackChevron(row);
-  lv_obj_align(mkText(row, "Back", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, BACK_LABEL_X, 0);
+  lv_obj_t *word = mkText(row, "Back", &lv_font_montserrat_28, COL_DIM);
+  lv_obj_align(word, LV_ALIGN_LEFT_MID, BACK_LABEL_X, 0);
+  if (label) *label = word;
   lv_obj_t *rule = mkFlat(row, PANE_PAD, HEADER_H - 1, w - 2 * PANE_PAD, 1, lv_color_hex(COL_OFF));
   lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
   return row;
 }
 
 static void buildSettingsButton(lv_obj_t *scr) {
-  settingsBtn = mkBtn(scr, RAIL_W, SETTINGS_BTN, COL_CARD);
-  lv_obj_set_pos(settingsBtn, 0, SCREEN_H - SETTINGS_BTN);
+  settingsBtn = mkBtn(scr, TASK_X, SETTINGS_H, COL_CARD);
+  lv_obj_set_pos(settingsBtn, 0, SCREEN_H - SETTINGS_H);
+  lv_obj_clear_flag(settingsBtn, LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_set_style_border_width(settingsBtn, 1, 0);
   lv_obj_set_style_border_side(settingsBtn, LV_BORDER_SIDE_TOP, 0);
   lv_obj_set_style_border_color(settingsBtn, lv_color_hex(SETTINGS_RULE), 0);
   lv_obj_add_event_cb(settingsBtn, settingsCb, ACT_EVENT, NULL);
-  lv_obj_center(mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_40, COL_TEXT));
+  lv_obj_t *gear = mkText(settingsBtn, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_set_width(gear, RAIL_W);
+  lv_obj_set_style_text_align(gear, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_pos(gear, 0, 6);
+  lv_obj_t *label = mkText(settingsBtn, "Settings", &lv_font_montserrat_20, COL_TEXT);
+  lv_obj_set_width(label, RAIL_W);
+  lv_obj_set_style_text_align(label, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_pos(label, 0, 40);
+  lv_obj_set_pos(mkText(settingsBtn, "Tank", &lv_font_montserrat_20, COL_DIM), 112, 12);
+  dockTank = mkText(settingsBtn, "--", &lv_font_montserrat_32, COL_TEXT);
+  lv_obj_set_pos(dockTank, 173, 2);
+  dockState = mkText(settingsBtn, "Waiting for machine", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_pos(dockState, 112, 40);
 
   // The band over the pane. A task's pane and the phone request page have Back there.
   taskHeader = mkFlat(scr, TASK_X, 0, TASK_W, HEADER_H, THEME_BG);
-  backRow = mkBackRow(taskHeader, TASK_W);
-  // System status's band runs from the rail: the same Back, and the page's title at its right,
-  // which stays when Back goes.
-  systemBand = mkFlat(scr, RAIL_W, 0, SCREEN_W - RAIL_W, HEADER_H, THEME_BG);
-  systemBack = mkBackRow(systemBand, SCREEN_W - RAIL_W);
-  lv_obj_align(mkText(systemBand, "System status", &lv_font_montserrat_28, COL_TEXT),
-               LV_ALIGN_RIGHT_MID, -PANE_PAD, 0);
+  backRow = mkBackRow(taskHeader, TASK_W, flavorBackCb);
+  systemBand = mkFlat(scr, RAIL_W, 0, SETTINGS_W, HEADER_H, THEME_BG);
+  systemBack = mkBackRow(systemBand, SETTINGS_W, settingsBackCb, &systemBackLabel);
+  systemTitle = mkText(systemBand, "Settings", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(systemTitle, LV_ALIGN_RIGHT_MID, -PANE_PAD, 0);
+  simulatedNote = mkText(systemBand, "Simulated readings", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(simulatedNote, LV_ALIGN_CENTER, -24, 0);
+  showIf(simulatedNote, false);
 }
 
 static void refreshShell() {
@@ -5249,8 +5259,8 @@ static void refreshShell() {
   showIf(backRow, task && back);
   showIf(systemBand, machine);
   showIf(systemBack, machine && back);
-  // While System status is open, the Settings cell takes the page's blue, joined to it, and the
-  // hairline over the cell goes.
+  // The gear stays anchored while the machine page takes the place of the portrait and its readout.
+  lv_obj_set_width(settingsBtn, machine ? RAIL_W : TASK_X);
   lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_BLUE : COL_CARD), 0);
   lv_obj_set_style_border_color(settingsBtn, lv_color_hex(machine ? COL_BLUE : SETTINGS_RULE), 0);
   lv_obj_set_style_opa(settingsBtn, lockActive || holding ? LV_OPA_50 : LV_OPA_COVER, 0);
@@ -5267,6 +5277,20 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
   lv_obj_set_pos(o, TASK_X, HEADER_H);
   lv_obj_set_style_pad_all(o, PANE_PAD, 0);
   return o;
+}
+
+// Menu rows use the same full-width touch target and chevron on the flavor and machine pages.
+static void addMenuRow(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coord_t w,
+                       const char *label, lv_event_cb_t cb, void *data = nullptr, bool ruled = false) {
+  lv_obj_t *row = mkBtn(parent, w, REST_ROW_H, COL_BLUE);
+  lv_obj_set_pos(row, x, y);
+  lv_obj_add_event_cb(row, cb, ACT_EVENT, data);
+  lv_obj_align(mkText(row, label, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
+  mkChevron(row);
+  if (ruled) {
+    lv_obj_t *rule = mkFlat(row, 0, 0, w, 1, lv_color_hex(COL_OFF));
+    lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
+  }
 }
 
 // The resting pane runs the glass's full height: the selected reservoir's reading at the top,
@@ -5300,15 +5324,8 @@ static void buildHome(lv_obj_t *page) {
   lv_coord_t y = REST_ROW_Y;
   for (uint8_t i = 0; i < sizeof(rows) / sizeof(rows[0]); ++i) {
     if (i == 3) y += REST_GROUP_GAP;
-    lv_obj_t *row = mkBtn(page, DETAIL_W, REST_ROW_H, COL_BLUE);
-    lv_obj_set_pos(row, PANE_PAD, y);
-    lv_obj_add_event_cb(row, rows[i].cb, ACT_EVENT, (void *)rows[i].to);
-    lv_obj_align(mkText(row, rows[i].label, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
-    mkChevron(row);
-    if (rows[i].ruled) {   // above the row, over the edge it shares with the one before
-      lv_obj_t *rule = mkFlat(page, PANE_PAD, y, DETAIL_W, 1, lv_color_hex(COL_OFF));
-      lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
-    }
+    addMenuRow(page, PANE_PAD, y, DETAIL_W, rows[i].label, rows[i].cb,
+               (void *)rows[i].to, rows[i].ruled);
     y += REST_ROW_H;
   }
 }
@@ -5514,54 +5531,71 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
   return h;
 }
 
-// Settings is the system status: the machine's profile with every reed on it,
-// and beside it the cold loop and the refill, with Move the machine and Forget
-// trusted phones under them.
+// The settings overview puts the two different questions side by side: the tank's
+// measured temperature and what the machine is doing about it.
 static void buildSettings(lv_obj_t *page) {
   lv_obj_set_pos(page, RAIL_W, HEADER_H);
-  lv_obj_set_width(page, SCREEN_W - RAIL_W);
-  lv_obj_t *status = mkView(page);
-  lv_obj_set_height(status, PANE_H + 8);
-  const lv_coord_t diagramHeight = buildStatusDiagram(status, 436, 5);
-  statusNote = mkText(status, "Not reading the sensors", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_set_pos(statusNote, 0, diagramHeight + 10);
-  // The cold loop and the refill, in the column beside the profile: a dim label
-  // at the column's left edge and its value right-aligned at its right edge, five
-  // rows down from the profile's top.
-  const lv_coord_t colW = SCREEN_W - RAIL_W - 2 * PANE_PAD - 460;
-  static const char *const thermalLabel[STATUS_THERMAL_ROWS] = {"Tank", "Coil", "Cold", "Refill", "Probes"};
-  for (uint8_t i = 0; i < STATUS_THERMAL_ROWS; i++) {
-    const lv_coord_t y = 5 + i * 34;
-    lv_obj_set_pos(mkText(status, thermalLabel[i], &lv_font_montserrat_20, COL_DIM), 460, y);
-    statusThermalValue[i] = mkText(status, "--", &lv_font_montserrat_20, COL_TEXT);
-    lv_obj_set_width(statusThermalValue[i], 460 + colW - 548);
-    lv_obj_set_style_text_align(statusThermalValue[i], LV_TEXT_ALIGN_RIGHT, 0);
-    lv_obj_set_pos(statusThermalValue[i], 548, y);
+  lv_obj_set_width(page, SETTINGS_W);
+  lv_obj_set_style_pad_ver(page, 0, 0);
+  settingsOverview = mkView(page);
+  sensorDetail = mkView(page);
+
+  lv_obj_t *card = mkFlat(settingsOverview, 0, 18, SETTINGS_CONTENT_W, 142, lv_color_hex(COL_DIM));
+  lv_obj_clear_flag(card, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_set_pos(mkText(card, "Tank wall", &lv_font_montserrat_20, COL_INK), 22, 14);
+  tankValue = mkText(card, "--", &lv_font_montserrat_48, COL_INK);
+  lv_obj_set_pos(tankValue, 20, 43);
+  tankMetric = mkText(card, "No reading", &lv_font_montserrat_20, COL_INK);
+  lv_obj_set_pos(tankMetric, 22, 107);
+
+  lv_obj_t *divider = mkFlat(card, 231, 18, 1, 106, lv_color_hex(0xa4b8e6));
+  lv_obj_clear_flag(divider, LV_OBJ_FLAG_CLICKABLE);
+  const lv_coord_t coolingX = 254;
+  lv_obj_set_pos(mkText(card, "Cooling", &lv_font_montserrat_20, COL_INK), coolingX, 14);
+  coolingTitle = mkText(card, "Waiting for machine", &lv_font_montserrat_32, COL_INK);
+  lv_obj_set_pos(coolingTitle, coolingX, 47);
+  coolingDetail = mkText(card, "Waiting for a fresh reading.", &lv_font_montserrat_20, COL_INK);
+  lv_obj_set_width(coolingDetail, SETTINGS_CONTENT_W - coolingX - 18);
+  lv_obj_set_pos(coolingDetail, coolingX, 89);
+
+  addMenuRow(settingsOverview, 0, 169, SETTINGS_CONTENT_W, "Water & sensors", sensorDetailCb);
+  addMenuRow(settingsOverview, 0, 244, SETTINGS_CONTENT_W, "Move the machine", moveAskCb);
+  addMenuRow(settingsOverview, 0, 305, SETTINGS_CONTENT_W, "Forget trusted phones", forgetAskCb, nullptr, true);
+  forgotNote = mkText(settingsOverview, "", &lv_font_montserrat_20, COL_TEXT);
+  lv_obj_set_pos(forgotNote, 0, 377);
+  showIf(forgotNote, false);
+
+  lv_obj_set_pos(mkText(sensorDetail, "Level switches", &lv_font_montserrat_24, COL_TEXT), 0, 18);
+  const lv_coord_t diagramW = 334;
+  const lv_coord_t diagramBottom = 58 + buildStatusDiagram(sensorDetail, diagramW, 58);
+  // Labels sit below the three vessels, in their physical order from front to back.
+  const char *const vessels[] = {"Flavor 2", "Tank", "Flavor 1"};
+  const lv_coord_t centers[] = {150, 226, 300};
+  for (uint8_t i = 0; i < 3; ++i) {
+    lv_obj_t *name = mkText(sensorDetail, vessels[i], &lv_font_montserrat_20, COL_DIM);
+    lv_obj_set_width(name, 82);
+    lv_obj_set_style_text_align(name, LV_TEXT_ALIGN_CENTER, 0);
+    lv_obj_set_pos(name, centers[i] - 41, diagramBottom + 5);
   }
-  // Move the machine and Forget trusted phones together at the foot of the column, Move
-  // directly above Forget and Forget level with the profile's floor. Each asks first; the
-  // column's note shows above them.
-  moveBtn = mkBtn(status, colW, STATUS_BTN_H, COL_BLUE);
-  lv_obj_set_pos(moveBtn, 460, 5 + diagramHeight - 2 * STATUS_BTN_H - STATUS_BTN_GAP);
-  lv_obj_set_style_border_width(moveBtn, 2, 0);
-  lv_obj_set_style_border_color(moveBtn, lv_color_hex(0x7d9eed), 0);
-  lv_obj_add_event_cb(moveBtn, moveAskCb, ACT_EVENT, NULL);
-  lv_obj_t *move = mkText(moveBtn, "Move the machine", &lv_font_montserrat_20, COL_TEXT);
-  lv_obj_set_width(move, colW - 16);
-  lv_obj_set_style_text_align(move, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_center(move);
-  forgetBtn = mkBtn(status, colW, STATUS_BTN_H, COL_BLUE);
-  lv_obj_set_pos(forgetBtn, 460, 5 + diagramHeight - STATUS_BTN_H);
-  lv_obj_set_style_border_width(forgetBtn, 2, 0);
-  lv_obj_set_style_border_color(forgetBtn, lv_color_hex(0x7d9eed), 0);
-  lv_obj_add_event_cb(forgetBtn, forgetAskCb, ACT_EVENT, NULL);
-  lv_obj_t *forget = mkText(forgetBtn, "Forget trusted phones", &lv_font_montserrat_20, COL_TEXT);
-  lv_obj_set_width(forget, colW - 16);
-  lv_obj_set_style_text_align(forget, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_center(forget);
-  forgotNote = mkText(status, "", &lv_font_montserrat_20, COL_TEXT);
-  lv_obj_set_width(forgotNote, colW);
-  lv_obj_add_flag(forgotNote, LV_OBJ_FLAG_HIDDEN);
+  statusNote = mkText(sensorDetail, "No level sensor reading", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_pos(statusNote, 0, diagramBottom + 48);
+
+  const lv_coord_t fieldsX = 368;
+  lv_obj_set_pos(mkText(sensorDetail, "Temperature probes", &lv_font_montserrat_24, COL_TEXT), fieldsX, 18);
+  lv_obj_t **const values[] = {&sensorTank, &sensorCoil, &sensorProbes};
+  const char *const labels[] = {"Tank wall", "Cooling coil", "Probes found"};
+  for (uint8_t i = 0; i < 3; ++i) {
+    const lv_coord_t y = 72 + i * 45;
+    lv_obj_set_pos(mkText(sensorDetail, labels[i], &lv_font_montserrat_20, COL_DIM), fieldsX, y);
+    *values[i] = mkText(sensorDetail, "--", &lv_font_montserrat_20, COL_TEXT);
+    lv_obj_align(*values[i], LV_ALIGN_TOP_RIGHT, 0, y);
+  }
+  lv_obj_t *rule = mkFlat(sensorDetail, fieldsX, 222, SETTINGS_CONTENT_W - fieldsX, 1, lv_color_hex(COL_OFF));
+  lv_obj_clear_flag(rule, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_set_pos(mkText(sensorDetail, "Water refill", &lv_font_montserrat_24, COL_TEXT), fieldsX, 249);
+  sensorRefill = mkText(sensorDetail, "--", &lv_font_montserrat_32, COL_DIM);
+  lv_obj_set_pos(sensorRefill, fieldsX, 289);
+  showIf(sensorDetail, false);
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -5661,6 +5695,7 @@ static void idleReset(uint8_t stage) {
       }
     }
     else if (activePage == PAGE_FLAVOR) showPage(PAGE_HOME);
+    else if (activePage == PAGE_SETUP && viewingSensors) showSettingsView(false);
   } else if (stage == 3) {
     showPage(PAGE_HOME);
   }
@@ -5698,7 +5733,11 @@ static void showPage(Page p) {
   else                   refreshHomeLevel();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_DETAIL);
   if (p == PAGE_SERVICE) { activeSvc = SVC_PRIME_PICK; showOnly(svcView, SVC_COUNT, -1); }
-  if (p == PAGE_SETUP)   { refreshStatusReeds(); refreshStatusThermal(); }
+  if (p == PAGE_SETUP) {
+    showSettingsView(false);
+    refreshStatusReeds();
+  }
+  refreshStatusThermal();
   refreshFlavorImages();
   refreshShell();
 }
@@ -6003,12 +6042,18 @@ static void processTextLine(const char *line) {
     sendPumpRun(PUMP_CHANNEL_B, 1000);
     Serial.println("OK:PUMP");
   } else if (strncmp(line, "PAGE:", 5) == 0) {
-    // 0..3 are the rail, in rail order, and 4 is Settings in the corner, so a
-    // bring-up script reaches it too.
+    // Positive destinations beyond the flavor tasks are the two machine views.
     int p = atoi(line + 5);
-    if (p == RAIL_PAGE_COUNT) { showPage(PAGE_SETUP); Serial.printf("OK:PAGE=%d\n", p); }
-    else if (p < 0 || p > RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
-    else { showRail((RailPage)p); Serial.printf("OK:PAGE=%d\n", p); }
+    if (p == RAIL_PAGE_COUNT || p == RAIL_PAGE_COUNT + 1) {
+      showPage(PAGE_SETUP);
+      if (p == RAIL_PAGE_COUNT + 1) showSettingsView(true);
+    } else if (p >= 0 && p < RAIL_PAGE_COUNT) {
+      showRail((RailPage)p);
+    } else {
+      Serial.println("ERR:PAGE expects 0..5");
+      return;
+    }
+    Serial.printf("OK:PAGE=%d\n", p);
   } else if (strncmp(line, "CLICK:", 6) == 0) {
     if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");
     else { clickSend = (line[6] == '1'); Serial.printf("OK:CLICK=%d\n", clickSend ? 1 : 0); }
@@ -6468,8 +6513,9 @@ void loop() {
       lastSlow = millis();
       padWatch();
       if (activePage == PAGE_HOME)   refreshHomeSelection();
-      if (activePage == PAGE_SETUP)  { refreshStatusReeds(); refreshStatusThermal(); }
-  refreshHomeLevel();
+      if (activePage == PAGE_SETUP) refreshStatusReeds();
+      refreshStatusThermal();
+      refreshHomeLevel();
     }
   }
 

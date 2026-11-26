@@ -8,7 +8,8 @@ pio test -e native
 
 `test_front_ui_policy` checks Stop-only operation locks from queued Start through completion,
 prime cancellation exits and Back's absence under a held prime, remote flavor changes on
-flavor versus machine pages, and stale sensor readings including clock wrap.
+flavor versus machine pages, and stale sensor readings including clock wrap. It also covers
+cooling waits, relay and protection states, independently missing probes and temperature formatting.
 `test_flavor_selection` checks first-install adoption, established-main-board authority,
 absolute/idempotent selection, corrupt storage, and failed-write retry state.
 `test_machine_policy` checks the canonical V-A–V-K operation plans, the three-valve ceiling,

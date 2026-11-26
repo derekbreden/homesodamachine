@@ -110,11 +110,10 @@ Boot opens with **Powering on · Getting everything ready.** for at least two
 complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
-If the tank is warm at startup, a second line under **On tap.** reads **Cooling starts in 2:47**,
-with the time remaining from the main board. The display stays awake and the menu is usable
-throughout the countdown. When the compressor relay closes, the line reads **Cooling** until
-the first cooling cycle ends.
-A cold start at serving temperature opens directly onto the usual home screen.
+On a warm restart, the Settings button shows the tank temperature and **Cooling starts in
+2:47**, counting down with the main board. The display stays awake and the menu remains
+usable through the wait. The button reads **Cooling** when the compressor relay closes and
+**Holding temperature** when the cold loop comes to rest.
 
 A machine that owes a sweep (`NOTICE_SWEEP`) opens from boot onto **Welcome**: the still
 mark where the boot's animation stood and, in a card like the boot's but taller and out to
@@ -124,14 +123,14 @@ welcome says **Done**, with **OK** alone. It is put up once each time the panel 
 again when the notice changes; it waits for an operation lock, a hold and an ask, and comes
 down by itself when the main board stops naming the sweep.
 
-**Move the machine** on System status asks **Move the machine?** first, and its **Move** sends
+**Move the machine** in Settings asks **Move the machine?** first, and its **Move** sends
 `MSG_MOVE_BEGIN`. While the main board names the move (`NOTICE_MOVE`) the glass shows **Moving
 the machine**: close the water shutoff and the cylinder valve, hold the faucet's lever over a
 jug until water and hissing stop, unplug it and free its tubes. Under the steps is what the
 reeds can say of the tank, at its low mark (`LEVEL_F_CARB_LOW`) or below it
 (`LEVEL_F_CARB_BELOW`), and **Cancel** sends `MSG_MOVE_CANCEL`. The steps hold the glass while
 the notice stands and come back after a restart, and the next power-up opens onto **Welcome**.
-A move the main board does not begin says so above the button.
+If the main board cannot begin the move, a message appears below the Settings rows.
 
 ## Build / flash
 
@@ -287,7 +286,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `LIGHT:0` / `LIGHT:1` → status light off / on (drives CH422G OC0, the board's DOUT0)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:3` → On tap, Prime, Fill, Clean;
-  `PAGE:4` → system status
+  `PAGE:4` → Settings, `PAGE:5` → Water & sensors
 - `FLAVOR:0` / `FLAVOR:1` → select through the same main-board-owned path as a card tap
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
   the same ratio and image-assignment handlers the screen uses
@@ -367,8 +366,9 @@ cannot undo the wake.
 The design exploration Big Blue grew from is in Git at [`10a22374d0`](https://github.com/derekbreden/homesodamachine/blob/10a22374d0/future/enclosure-display-studies/README.md).
 The sixteen-direction colour and type study is in Git at [`49738f2694`](https://github.com/derekbreden/homesodamachine/blob/49738f2694/firmware/src_front/studies/interface-variations/README.md).
 The palette is cobalt `#1749D1`, navy `#10319C`, ice `#DCE6FF`, and orange `#FF9152`.
-The flavor rail carries both actual images, the slot a phone's request takes, and Settings
-at the bottom. The portrait panel beside it shows the selected flavor's image.
+The rail holds the two flavor targets and a reserved slot for phone requests. A single
+Settings button spans the foot of the rail and the portrait. Its gear stays at the left,
+with the tank temperature and cooling state beside it. Touching either part opens Settings.
 
 **The rail is the same on every page.** The selected flavor's cell is the portrait panel's
 own ice, from the glass edge into the portrait, so the two read as one. It holds no thumbnail,
@@ -376,7 +376,7 @@ since its picture is the portrait: its number stands large in the middle of the 
 check under it, both in ink. The other flavor has no card; its thumbnail stands on the rail in
 grey at a little over half strength, over its white number, and a tap on it puts that flavor on
 tap. While the selection is not known, both thumbnails stand in colour over their numbers.
-System status has no portrait, and there the cell's ice ends at the rail's edge. The portrait
+In Settings the selected cell's ice ends at the rail's edge. The portrait
 stands beside the rail on every other page, captioned **On tap.** in ink.
 
 **At rest** nothing stands over the pane: it runs the glass's full height, with the
@@ -391,10 +391,9 @@ on the band's last row, with the whole band its target. Back returns to rest. It
 an operation is pending or running and while a finger holds Prime, when Stop or the held pad is
 the pane's one control.
 
-**System status** has the same Back in its band, which runs from the rail, with the page's title
-at the band's right. Back is gone while an operation is pending or running, and the title stays.
-While the page is open the Settings cell takes the page's blue, its gear white and the hairline
-over it gone, so the two read as one; a tap on it still opens System status.
+**Settings** opens to the right of the flavor rail. Its Back band returns to On tap.
+**Water & sensors** opens the detail view, where **‹ Settings** returns to the overview.
+The gear keeps its position in the rail on both views.
 
 | Page | Contents |
 |---|---|
@@ -404,7 +403,8 @@ over it gone, so the two read as one; a tap on it still opens System status.
 | Fill | instructions, Start filling, authoritative progress and Stop |
 | Prime | shared main-board session and Hold to prime |
 | Clean | three rinse cycles, authoritative progress and Stop |
-| System status | complete machine profile, ten live reed indicators, Move the machine, and Forget trusted phones |
+| Settings | tank wall temperature, cooling state, Water & sensors, Move the machine, and Forget trusted phones |
+| Water & sensors | labeled level-switch diagram, tank wall and cooling coil readings, probe count, and water refill status |
 
 Ratios appear only on the Ratio page. Image assignments and ratios are saved by the
 main board and shared with the faucet. Missing uploaded images are unavailable choices;
@@ -412,22 +412,19 @@ an empty customer page explains where to add images. Choosing an image keeps the
 open. Every page entry clears an armed image press so a remote flavor change cannot
 apply a pending choice to another channel.
 
-The image wire bundle stays 172×320, 129×240 and 86×160. At boot and after an image
-update, the display caches every image in PSRAM at each size it draws: the rail's, the
-portrait's and the picker's, and the rail's again in grey. The grey is a browser's
-`grayscale()` of the rail's own pixels, Rec. 709 luma, laid at a little over half strength
-over the rail's navy once per picture, so the rail draws it as a plain copy; factory pictures
-and a phone's take the same path. LVGL draws these complete portraits without transforming them
-during a frame. No image or ratio edit writes NVS on the running RGB panel.
+The portrait uses the native 172×320 image from the store. At boot and after an image
+update, the display caches rail and picker renditions in PSRAM. The inactive rail picture
+uses a separate copy with Rec. 709 luma blended over the rail's navy. Factory and uploaded
+pictures take the same path.
 
-Back, either flavor, the rail background and the whole portrait return to On tap.
+Either flavor and the rail background return to On tap. On a flavor page the portrait
+and Back also return there.
 Selecting a different flavor queues a causal prime cancellation before the new selection.
 A held prime takes Back away, keeps the flavors, rail and portrait as its exits, and blocks
 Settings. Fill, Clean and Dry intercept every touch except Stop from the queued Start through
 the authoritative terminal answer. Their result cards restore navigation immediately.
 
-System status occupies everything to the right of the rail, its band included; the portrait
-is absent. Changing flavor at the faucet leaves it open.
+Changing flavor at the faucet keeps the current Settings view open.
 
 Text is Montserrat, 20 px and up. Pages are built once; navigation changes visibility.
 Routine unchanged main-board replies do not repaint the portrait, selection or gauge.
@@ -443,7 +440,7 @@ ui choose a go      # flavor A image picker; no actuator
 ui fill a           # Fill instructions; no actuator
 ui prime a          # shared prime-ready session; pump waits for a hold
 ui clean a          # Clean instructions; no actuator
-ui settings         # System status
+ui settings         # Settings overview
 ui notice           # the notice standing: No water, Welcome, or Moving the machine
 ui notice no        # Welcome's Skip, which asks first; then go is Skip and no is Cancel;
                     # on Moving the machine, its Cancel
@@ -571,24 +568,21 @@ visit) when the page comes up and on the poll's pace while it stands, and closes
 page goes. Each statement is answered with the visit and both ratios, so a step at the
 faucet shows here within a statement.
 
-### System status
+### Settings and cooling
 
-**Settings lands on the machine's own side profile with every reed on it.** The enclosure is
-drawn as seen along X — 462 mm deep, 361 mm tall, the display's 45° facet off the top-front
-arris, the front on the left — with the cold core at the back of the floor, the carbonator's
-tube in the middle of it and a reservoir pocket at either end, B's forward and A's aft, none
-of them named on the glass. Each of the ten reeds is a 14 px dot at its own station: a column
-of four on each pocket's outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the shell, empty at
-the bottom and full at the top, and the carbonator's low and high on its tube's aft wall at
-99.1 and 127.3 mm. A reed the main board reads closed is a white disc in its ice ring; every
-other one is the ring alone.
+The overview pairs the **Tank wall** reading, in whole degrees Fahrenheit and tenths of a
+degree Celsius, with the controller's cooling state. A timed startup wait shows the time
+until the compressor starts. A later protective restart wait says **Cooling soon**. The
+display distinguishes a running compressor, an idle loop, freeze protection, a missing
+probe, and a controller that has stopped answering. The compact readout on every flavor
+page uses the same sample. Each available probe keeps its own reading.
 
-The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
-repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
-reading it flags as stale, empties every dot and puts **Not reading the sensors** in the pane
-below the drawing. The profile takes the page's left, beside a column of the cold loop and
-refill readings, each label at the column's left and its value right-aligned at its right. The
-drawing contains no text.
+**Water & sensors** shows the tank wall and cooling coil in Celsius, the number of probes
+detected and the water refill state. The side view locates the four level switches for each
+flavor and the two on the carbonator. A filled dot marks a closed switch. The diagram clears
+and its caption reports a missing reading when the controller marks the levels invalid or
+the status frame expires. A console-injected reading marks the Settings header
+**Simulated readings** on both views.
 
 ### Trusted phones
 
@@ -612,12 +606,9 @@ The rail, the resting rows and Back stay available while a request stands, and a
 the glass to another page. It does not hold the dark off here. This glass's own asks do:
 **Forget all trusted phones?**, **No water**, **Skip this step?** and **Move the machine?**.
 
-**Move the machine** and **Forget trusted phones** stand together at the foot of System
-status's right-hand column, Move directly above Forget and Forget level with the profile's
-floor. Forget asks **Forget all trusted phones?** first, and **Forget** sends
-`MSG_TRUST_FORGET`. The faucet's `MSG_RESP_TRUST_FORGET { count }` shows above the pair for
-[`main.cpp`](main.cpp)'s `FORGOT_MS`: *Forgot 2 trusted phones.*, *Forgot 1 trusted phone.* or
-*No phones were trusted.*
+**Forget trusted phones** in Settings asks **Forget all trusted phones?** before sending
+`MSG_TRUST_FORGET`. The response from the faucet gives the number of phones forgotten.
+That result appears below the action rows for `FORGOT_MS`.
 
 ## Integration seams (not implemented)
 

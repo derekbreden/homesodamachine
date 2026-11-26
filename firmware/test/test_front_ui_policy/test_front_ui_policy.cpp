@@ -1,7 +1,9 @@
 #include <unity.h>
 #include <initializer_list>
+#include "../../src_front/front_cooling.h"
 #include "../../src_front/front_ui_policy.h"
 using namespace front_ui;
+using machine_policy::ColdState;
 
 void setUp() {}
 void tearDown() {}
@@ -73,6 +75,85 @@ static void available_uploads_precede_defaults_without_empty_pages() {
     TEST_ASSERT_EQUAL_UINT8(2, imagePages(8));
 }
 
+static StatusPayload thermalStatus(ColdState cold) {
+    StatusPayload status{};
+    status.coldState = static_cast<uint8_t>(cold);
+    status.tankCx10 = 37;
+    status.coilCx10 = -18;
+    return status;
+}
+
+static void cooling_distinguishes_a_startup_countdown_from_a_later_restart_hold() {
+    StatusPayload s = thermalStatus(ColdState::Holding);
+    s.startupCoolingS = 75;
+    TEST_ASSERT_EQUAL(CoolingState::StartupWait, coolingState(true, s));
+    s.startupCoolingS = 1;
+    TEST_ASSERT_EQUAL(CoolingState::StartupWait, coolingState(true, s));
+    s.startupCoolingS = 0;
+    TEST_ASSERT_EQUAL(CoolingState::RestartHold, coolingState(true, s));
+    s.startupCoolingS = STARTUP_COOLING_RUNNING;
+    TEST_ASSERT_EQUAL(CoolingState::RestartHold, coolingState(true, s));
+}
+
+static void cooling_follows_the_relay_on_start_and_during_normal_operation() {
+    StatusPayload s = thermalStatus(ColdState::On);
+    s.startupCoolingS = STARTUP_COOLING_RUNNING;
+    TEST_ASSERT_EQUAL(CoolingState::Paused, coolingState(true, s));
+    s.flags = STATUS_F_COMPRESSOR;
+    TEST_ASSERT_EQUAL(CoolingState::Running, coolingState(true, s));
+    s.startupCoolingS = 0;
+    TEST_ASSERT_EQUAL(CoolingState::Running, coolingState(true, s));
+    s.coldState = static_cast<uint8_t>(ColdState::Off);
+    TEST_ASSERT_EQUAL(CoolingState::Running, coolingState(true, s));
+    s.flags = 0;
+    TEST_ASSERT_EQUAL(CoolingState::Idle, coolingState(true, s));
+}
+
+static void cooling_protections_keep_individual_readings_and_honor_the_gas_trip() {
+    StatusPayload s = thermalStatus(ColdState::Freeze);
+    TEST_ASSERT_EQUAL(CoolingState::FreezeProtection, coolingState(true, s));
+    s.coldState = static_cast<uint8_t>(ColdState::Fault);
+    TEST_ASSERT_EQUAL(CoolingState::ProbeFault, coolingState(true, s));
+    s.coilCx10 = TEMP_UNREAD;
+    TEST_ASSERT_TRUE(temperatureAvailable(true, s.tankCx10));
+    TEST_ASSERT_FALSE(temperatureAvailable(true, s.coilCx10));
+    s.coldState = static_cast<uint8_t>(ColdState::Off);
+    TEST_ASSERT_EQUAL(CoolingState::ProbeFault, coolingState(true, s));
+    s.coldState = static_cast<uint8_t>(ColdState::Fault);
+    s.flags = STATUS_F_GAS_TRIP;
+    TEST_ASSERT_EQUAL(CoolingState::Paused, coolingState(true, s));
+}
+
+static void cooling_requires_an_available_status_and_a_recognized_controller_state() {
+    StatusPayload s = thermalStatus(ColdState::On);
+    s.flags = STATUS_F_COMPRESSOR;
+    TEST_ASSERT_EQUAL(CoolingState::Unavailable, coolingState(false, s));
+    s.coldState = UINT8_MAX;
+    TEST_ASSERT_EQUAL(CoolingState::Unavailable, coolingState(true, s));
+}
+
+static void temperatures_round_at_half_fahrenheit_and_preserve_negative_celsius_tenths() {
+    char out[16];
+    formatFahrenheit(out, sizeof(out), 20, true);
+    TEST_ASSERT_EQUAL_STRING("36°F", out);
+    formatFahrenheit(out, sizeof(out), -175, true);
+    TEST_ASSERT_EQUAL_STRING("1°F", out);
+    formatFahrenheit(out, sizeof(out), -225, true);
+    TEST_ASSERT_EQUAL_STRING("-9°F", out);
+    formatFahrenheit(out, sizeof(out), TEMP_UNREAD, true);
+    TEST_ASSERT_EQUAL_STRING("--", out);
+    formatFahrenheit(out, sizeof(out), 20, false);
+    TEST_ASSERT_EQUAL_STRING("--", out);
+    formatCelsius(out, sizeof(out), -1, true);
+    TEST_ASSERT_EQUAL_STRING("-0.1°C", out);
+    formatCelsius(out, sizeof(out), 0, true);
+    TEST_ASSERT_EQUAL_STRING("0.0°C", out);
+    formatCelsius(out, sizeof(out), TEMP_UNREAD, true);
+    TEST_ASSERT_EQUAL_STRING("--", out);
+    formatCelsius(out, sizeof(out), -1, false);
+    TEST_ASSERT_EQUAL_STRING("--", out);
+}
+
 int main() {
     UNITY_BEGIN();
     RUN_TEST(queued_and_running_operations_allow_only_stop);
@@ -80,5 +161,10 @@ int main() {
     RUN_TEST(faucet_selection_dismisses_only_flavor_tasks);
     RUN_TEST(stale_sensor_readings_clear_at_deadline_and_across_clock_wrap);
     RUN_TEST(available_uploads_precede_defaults_without_empty_pages);
+    RUN_TEST(cooling_distinguishes_a_startup_countdown_from_a_later_restart_hold);
+    RUN_TEST(cooling_follows_the_relay_on_start_and_during_normal_operation);
+    RUN_TEST(cooling_protections_keep_individual_readings_and_honor_the_gas_trip);
+    RUN_TEST(cooling_requires_an_available_status_and_a_recognized_controller_state);
+    RUN_TEST(temperatures_round_at_half_fahrenheit_and_preserve_negative_celsius_tenths);
     return UNITY_END();
 }
