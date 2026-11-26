@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-11-19",
+  "as_of": "2026-11-26",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -10255,6 +10255,25 @@
         "src-a54ffd05bda844f09bda9a0b1847d536",
         "src-e36dd09a6e9543c782db2168bc26ed25"
       ]
+    },
+    "pur-1106641e9db944f386a53c3acb4bb52a": {
+      "vendor": "Anthropic",
+      "purpose": "engineering_software_services",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "anthropic:8C2842D3-0013"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-4461b6635c64480c9486007434e06f05"
+      ],
+      "stream": "automatic_top_up",
+      "service_period": null,
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "row_date_basis": "receipt_date"
     }
   },
   "orders": {
@@ -16679,6 +16698,15 @@
         "src-a54ffd05bda844f09bda9a0b1847d536",
         "src-e36dd09a6e9543c782db2168bc26ed25"
       ]
+    },
+    "anthropic:8C2842D3-0013": {
+      "vendor": "Anthropic",
+      "reference": "8C2842D3-0013",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-4461b6635c64480c9486007434e06f05"
+      ]
     }
   },
   "events": [
@@ -21138,6 +21166,31 @@
       "order_ids": [
         "amazon:112-3250291-4198614"
       ]
+    },
+    {
+      "event_id": "evt-e3e50ac9a2b540cfa26f4762c1c5cfcf",
+      "vendor": "Anthropic",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "amount_minor": 4028,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-4461b6635c64480c9486007434e06f05"
+      ],
+      "verified_at": "2026-11-26",
+      "order_ids": [
+        "anthropic:8C2842D3-0013"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "service_period": null
     }
   ],
   "allocations": [
@@ -22995,6 +23048,14 @@
       "purchase_id": "pur-3a63430840ba477eb03e79c3cc433bda",
       "order_id": "amazon:112-3250291-4198614",
       "amount_minor": 2198,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-f44a11c004b044368dfe4e2b0d497b50",
+      "event_id": "evt-e3e50ac9a2b540cfa26f4762c1c5cfcf",
+      "purchase_id": "pur-1106641e9db944f386a53c3acb4bb52a",
+      "order_id": "anthropic:8C2842D3-0013",
+      "amount_minor": 4028,
       "currency": "USD"
     }
   ],
@@ -35639,6 +35700,32 @@
       ],
       "verified_at": "2026-11-19",
       "note": "Delivery notification identifies the exact existing refrigeration-donor order. Generic Appliances label is resolved by prior exact-order merchant evidence. Relative delivered-today wording does not independently establish the calendar delivery date. Completed merchant payment and final tax are not proved."
+    },
+    "src-4461b6635c64480c9486007434e06f05": {
+      "vendor": "Anthropic",
+      "document_type": "merchant_monetary_receipt",
+      "reference": "8C2842D3-0013",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-26",
+      "note": "Anthropic monetary receipt shows one automatic credit recharge, paid November 26, 2026 for USD 40.28. Same invoice series and recharge stream as earlier recorded project credits. The receipt does not establish when credits are used.",
+      "invoice_reference": "8C2842D3-0013",
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      },
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-26"
+      }
     }
   },
   "coverage": [
@@ -38038,6 +38125,26 @@
         "amazon:112-3250291-4198614"
       ],
       "note": "Exact project order only; signed-in Order Details and its related transactions were examined."
+    },
+    {
+      "coverage_id": "coverage-8bee69ad822f490eaac32d546d86b849",
+      "vendor": "Anthropic",
+      "stream": "prepaid usage-credit receipt",
+      "evidence_type": "merchant_receipts",
+      "checked_at": "2026-11-26",
+      "examined_period": {
+        "start": "2026-11-26",
+        "end": "2026-11-26"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-4461b6635c64480c9486007434e06f05"
+      ],
+      "order_ids": [
+        "anthropic:8C2842D3-0013"
+      ],
+      "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage."
     }
   ],
   "gaps": [
