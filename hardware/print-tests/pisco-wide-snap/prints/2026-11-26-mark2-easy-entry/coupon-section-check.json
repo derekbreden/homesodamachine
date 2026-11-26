@@ -1,0 +1,412 @@
+{
+  "purpose": "Check the direct approach from fully relaxed wings, grip at both feet, and the emitted entrance terraces on the shared full-Pisco and three-coupon Mark2 plate.",
+  "archive_sha256": "569801665428d8c132e64530a150ff9fecb45f06e960a3b8d7c2a571558d000f",
+  "gcode_sha256": "e5545e8ce36bd845ca2dda75c29cc8dbe85509d278f41a635836d3887e050f56",
+  "native_mesh_and_dot_check": "native-paths.json",
+  "source_coupons": "../../../open-snap-section/parts/easy-entry/geometry.json",
+  "source_motion": "../../../open-snap-section/parts/easy-entry/fit-check.json",
+  "film_control": "../../../open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result.json",
+  "methods": {
+    "frame": "Remove each coupon’s plate translation. The cover was printed on one open end and the receiver on its flat back. Expand the actual outer wall roads by their commanded half widths. Positive pilot clearance means the uppermost receiver course fits past the inside of the free toe. For radial start margins measure over the leading 0.15 mm of the rounded free cover at three axial stations, on both sides.",
+    "press": "Model the outer perimeter of each working cover wing as printed, bending about the same clamped leaf neutral line. At each straight cover position solve the smallest outward spread needed to clear all emitted receiver courses. Begin with the free shape more than 1 mm beyond its first possible contact. Sample the central section at 0.02 mm travel through first contact and at 0.04 mm through the final catch. A separate CAD test bounds the continuous motion between positions and checks both orientations of an off-center start.",
+    "course_shape": "At every receiver height keep the deposited outer radius at midcourse. The rounded model uses a 0.12 mm radius edge above and below that plane. The rectangular model carries full bead width to each layer boundary. Both use the same rounded XY cover perimeters measured from the G-code. The signed rim margin uses the full width of the outermost receiver layer.",
+    "friction": "Let d be outward spring tip travel and m its increase per millimetre of direct closure. Report F/k = d(m + μ)/(1 − μm) for a single spring with a linear transverse stiffness k. The exploratory friction coefficients are 0, 0.15 and 0.30. Null denotes a nonpositive sliding denominator. Check both the local sampled slope and its average over one 0.24 mm course. The width-scaled full-part comparison is in the CAD check. Hand force, actual bead corner shape and friction remain bench measurements.",
+    "fit": "Seat the lowest foot at the actual receiver roof. Solve the spread that clears the 45° retaining-face course midpoints and the full widths of the six sampled running-guide sections. Measure positive radial overlap of the hook nose with the lip at this posture. Signed guide separation is the transverse distance from receiver to wing.",
+    "offset": "For the primary, also hold the free toe center 0.45 mm toward the receiver cheek and tilt the cover ±2° about that center. Advance from clear to 3.15 mm from nominal seat using the rounded receiver and expanded printed cover edges. Both directions represent the more-loaded wing of an initially tilted pair. Full seating in this record uses the centered posture."
+  },
+  "C036_two_dot_control": {
+    "source_gcode_sha256": "8b654ce71515ccba05bd1b99dc418ed2ef4d7a6f93299bff3053564f1a818d0d",
+    "native_rim_radius_mm": [
+      11.886,
+      11.886
+    ],
+    "free_toe_margin_over_rim_mm": -0.85872,
+    "passive_press": {
+      "rounded": {
+        "first_contact_opening_mm": 13.265,
+        "maximum_wing_spread_from_free_mm": 3.73049,
+        "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.75146,
+        "largest_positive_travel_slope_per_0p02_or_0p04_mm": 37.5731,
+        "largest_positive_travel_slope_per_0p24_mm": 3.9081,
+        "travel_slope_at_initial_mm": 37.5731,
+        "press_force_over_tip_stiffness_peak_mm": {
+          "0.0": 14.1174,
+          "0.15": null,
+          "0.3": null
+        },
+        "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+          "0.0": 1.9821,
+          "0.15": 4.5995,
+          "0.3": null
+        }
+      },
+      "rectangular": {
+        "first_contact_opening_mm": 13.265,
+        "maximum_wing_spread_from_free_mm": 3.73102,
+        "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.8451,
+        "largest_positive_travel_slope_per_0p02_or_0p04_mm": 42.2548,
+        "largest_positive_travel_slope_per_0p24_mm": 4.3877,
+        "travel_slope_at_initial_mm": 42.2548,
+        "press_force_over_tip_stiffness_peak_mm": {
+          "0.0": 17.8547,
+          "0.15": null,
+          "0.3": null
+        },
+        "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+          "0.0": 2.3685,
+          "0.15": 6.9892,
+          "0.3": null
+        }
+      }
+    }
+  },
+  "pairs": [
+    {
+      "dots": 1,
+      "objects": {
+        "cover": {
+          "id": 1902,
+          "native_dot_count": 1
+        },
+        "receiver": {
+          "id": 1906,
+          "native_dot_count": 1
+        }
+      },
+      "emitted_mouth": {
+        "rim_top_h_mm": 16.76,
+        "rim_r_mm": [
+          10.326,
+          10.326
+        ],
+        "peak_lip_r_mm": [
+          11.606,
+          11.606
+        ],
+        "entrance_course_expansion_mm": [
+          0.114,
+          0.115
+        ],
+        "innermost_free_toe_r_within_leading_0p15_mm_mm": 11.0269,
+        "free_toe_margin_six_axial_and_side_stations_mm": [
+          0.7009,
+          0.70167
+        ]
+      },
+      "centered_passive_press": {
+        "rounded": {
+          "first_contact_opening_mm": 11.645,
+          "maximum_wing_spread_from_free_mm": 2.76132,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.00257,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.093,
+          "largest_positive_travel_slope_per_0p24_mm": 0.5162,
+          "travel_slope_at_initial_mm": 1.093,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.0262,
+            "0.15": 1.4831,
+            "0.3": 2.0067
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.0005,
+            "0.15": 1.4481,
+            "0.3": 1.9605
+          }
+        },
+        "rectangular": {
+          "first_contact_opening_mm": 11.725,
+          "maximum_wing_spread_from_free_mm": 2.76176,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.00717,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.4381,
+          "largest_positive_travel_slope_per_0p24_mm": 0.5305,
+          "travel_slope_at_initial_mm": 1.4381,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.0285,
+            "0.15": 1.4849,
+            "0.3": 2.0083
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.0045,
+            "0.15": 1.4539,
+            "0.3": 1.9684
+          }
+        }
+      },
+      "seated": {
+        "foot_bearing_width_0p03_mm_inside_squared_perimeter_mm": [
+          2.42546,
+          2.43756
+        ],
+        "interior_cover_courses_measured": 46,
+        "receiver_roof_h_mm": 3.56,
+        "extra_tip_spread_beyond_straight_at_shoulders_mm": [
+          0.18345,
+          0.18377
+        ],
+        "extra_tip_spread_with_running_faces_mm": [
+          0.18441,
+          0.18514
+        ],
+        "radial_hook_capture_mm": [
+          1.08476,
+          1.08545
+        ],
+        "governing_shoulder_gap_mm": [
+          0.00039,
+          0.00102
+        ],
+        "radial_guide_gap_h3p80_to_h9p72_mm": [
+          0.0,
+          0.0583
+        ],
+        "radial_guide_gap_at_3p20_from_foot_mm": [
+          0.03839,
+          0.03874
+        ]
+      },
+      "offset_held_until_3p15_mm_open": {
+        "-2.0": {
+          "first_contact_opening_mm": 12.965,
+          "maximum_wing_spread_from_free_mm": 2.91956,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.0069,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.1594,
+          "largest_positive_travel_slope_per_0p24_mm": 0.5328,
+          "travel_slope_at_initial_mm": 1.1594,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.0913,
+            "0.15": 1.5997,
+            "0.3": 2.1766
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.0707,
+            "0.15": 1.5711,
+            "0.3": 2.1385
+          }
+        },
+        "2.0": {
+          "first_contact_opening_mm": 12.225,
+          "maximum_wing_spread_from_free_mm": 3.56163,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.00487,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.0178,
+          "largest_positive_travel_slope_per_0p24_mm": 0.5317,
+          "travel_slope_at_initial_mm": 1.0178,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.7886,
+            "0.15": 2.4869,
+            "0.3": 3.3202
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.7446,
+            "0.15": 2.4307,
+            "0.3": 3.2469
+          }
+        }
+      }
+    },
+    {
+      "dots": 2,
+      "objects": {
+        "cover": {
+          "id": 1903,
+          "native_dot_count": 2
+        },
+        "receiver": {
+          "id": 1907,
+          "native_dot_count": 2
+        }
+      },
+      "emitted_mouth": {
+        "rim_top_h_mm": 17.72,
+        "rim_r_mm": [
+          10.395,
+          10.395
+        ],
+        "peak_lip_r_mm": [
+          12.206,
+          12.206
+        ],
+        "entrance_course_expansion_mm": [
+          0.142,
+          0.143
+        ],
+        "innermost_free_toe_r_within_leading_0p15_mm_mm": 11.02767,
+        "free_toe_margin_six_axial_and_side_stations_mm": [
+          0.6319,
+          0.63267
+        ]
+      },
+      "centered_passive_press": {
+        "rounded": {
+          "first_contact_opening_mm": 12.945,
+          "maximum_wing_spread_from_free_mm": 3.72996,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.01699,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.3939,
+          "largest_positive_travel_slope_per_0p24_mm": 0.6544,
+          "travel_slope_at_initial_mm": 1.3673,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.5871,
+            "0.15": 2.2398,
+            "0.3": 3.004
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.5402,
+            "0.15": 2.1788,
+            "0.3": 2.9246
+          }
+        },
+        "rectangular": {
+          "first_contact_opening_mm": 13.025,
+          "maximum_wing_spread_from_free_mm": 3.73049,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.00159,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 2.0842,
+          "largest_positive_travel_slope_per_0p24_mm": 0.6849,
+          "travel_slope_at_initial_mm": 2.0842,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.9691,
+            "0.15": 2.9638,
+            "0.3": 5.2534
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.5473,
+            "0.15": 2.1883,
+            "0.3": 2.9371
+          }
+        }
+      },
+      "seated": {
+        "foot_bearing_width_0p03_mm_inside_squared_perimeter_mm": [
+          2.42451,
+          2.43756
+        ],
+        "interior_cover_courses_measured": 46,
+        "receiver_roof_h_mm": 3.56,
+        "extra_tip_spread_beyond_straight_at_shoulders_mm": [
+          0.20492,
+          0.20526
+        ],
+        "extra_tip_spread_with_running_faces_mm": [
+          0.20492,
+          0.20526
+        ],
+        "radial_hook_capture_mm": [
+          1.67244,
+          1.67246
+        ],
+        "governing_shoulder_gap_mm": [
+          0.0,
+          0.0
+        ],
+        "radial_guide_gap_h3p80_to_h9p72_mm": [
+          0.01729,
+          0.07555
+        ],
+        "radial_guide_gap_at_3p20_from_foot_mm": [
+          0.05555,
+          0.05611
+        ]
+      }
+    },
+    {
+      "dots": 3,
+      "objects": {
+        "cover": {
+          "id": 1904,
+          "native_dot_count": 3
+        },
+        "receiver": {
+          "id": 1908,
+          "native_dot_count": 3
+        }
+      },
+      "emitted_mouth": {
+        "rim_top_h_mm": 16.76,
+        "rim_r_mm": [
+          10.9,
+          10.9
+        ],
+        "peak_lip_r_mm": [
+          12.206,
+          12.206
+        ],
+        "entrance_course_expansion_mm": [
+          0.15,
+          0.151
+        ],
+        "innermost_free_toe_r_within_leading_0p15_mm_mm": 11.57545,
+        "free_toe_margin_six_axial_and_side_stations_mm": [
+          0.67514,
+          0.67545
+        ]
+      },
+      "centered_passive_press": {
+        "rounded": {
+          "first_contact_opening_mm": 11.985,
+          "maximum_wing_spread_from_free_mm": 3.73032,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.01797,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.208,
+          "largest_positive_travel_slope_per_0p24_mm": 0.663,
+          "travel_slope_at_initial_mm": 1.208,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.5873,
+            "0.15": 2.24,
+            "0.3": 3.0043
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.5403,
+            "0.15": 2.179,
+            "0.3": 2.925
+          }
+        },
+        "rectangular": {
+          "first_contact_opening_mm": 12.065,
+          "maximum_wing_spread_from_free_mm": 3.73085,
+          "required_spread_step_in_first_0p02_mm_of_contact_mm": 0.00319,
+          "largest_positive_travel_slope_per_0p02_or_0p04_mm": 1.4957,
+          "largest_positive_travel_slope_per_0p24_mm": 0.67,
+          "travel_slope_at_initial_mm": 1.4957,
+          "press_force_over_tip_stiffness_peak_mm": {
+            "0.0": 1.5921,
+            "0.15": 2.2468,
+            "0.3": 3.0134
+          },
+          "press_force_over_tip_stiffness_0p24_mm_average_mm": {
+            "0.0": 1.5474,
+            "0.15": 2.1885,
+            "0.3": 2.9374
+          }
+        }
+      },
+      "seated": {
+        "foot_bearing_width_0p03_mm_inside_squared_perimeter_mm": [
+          1.86255,
+          1.87316
+        ],
+        "interior_cover_courses_measured": 46,
+        "receiver_roof_h_mm": 3.56,
+        "extra_tip_spread_beyond_straight_at_shoulders_mm": [
+          0.19666,
+          0.1972
+        ],
+        "extra_tip_spread_with_running_faces_mm": [
+          0.19665,
+          0.1972
+        ],
+        "radial_hook_capture_mm": [
+          1.67792,
+          1.6781
+        ],
+        "governing_shoulder_gap_mm": [
+          0.0,
+          0.0
+        ],
+        "radial_guide_gap_h3p80_to_h9p72_mm": [
+          0.00598,
+          0.12402
+        ],
+        "radial_guide_gap_at_3p20_from_foot_mm": [
+          0.04718,
+          0.04834
+        ]
+      }
+    }
+  ]
+}

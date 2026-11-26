@@ -1,0 +1,566 @@
+{
+  "purpose": "Check the full one-dot push-on against the real regulator, the installed rear corner and the final eight-object Mark2 toolpaths.",
+  "evidence": {
+    "dimensioned_geometry": "geometry.json",
+    "one_dot_donor": "../../../open-snap-section/parts/easy-entry/geometry.json",
+    "previous_two_dot_full": "../axial-grip/fit-check.json",
+    "physical_full_pair": "../../prints/2026-11-25-mark2-axial-grip/physical-result.json",
+    "physical_coupon_comparison": "../../../open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result.json",
+    "coupon_native_comparison": "../../prints/2026-11-26-mark2-easy-entry/coupon-section-check.json",
+    "all_eight_archived_objects": "../../prints/2026-11-26-mark2-easy-entry/native-paths.json",
+    "fitted_regulator_exterior": "../../../../reference/compact-inline-candidates/dimensions.json",
+    "submitted_preparation": "../../prints/2026-11-26-mark2-easy-entry/2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei/preparation.json",
+    "gcode_sha256": "e5545e8ce36bd845ca2dda75c29cc8dbe85509d278f41a635836d3887e050f56",
+    "archive_sha256": "569801665428d8c132e64530a150ff9fecb45f06e960a3b8d7c2a571558d000f",
+    "full_components": {
+      "pisco-easy-cover": {
+        "id": 1901,
+        "stl_sha256": "44b6bf510f4518956cdafded2be5cae1da94e87c77dd82c4480d281e4ba7134a"
+      },
+      "pisco-easy-receiver": {
+        "id": 1905,
+        "stl_sha256": "32ee4bcac11e09a14dd0613cc6795ad1f7bcf47fa520536db02783538ec7a73c"
+      }
+    }
+  },
+  "axes": "Machine +Y points toward the long inlet. Machine +Z closes the cover. HY and CY denote housing and cover offsets from their modeled Y positions. The closing coordinate CZ−HZ locates the cover relative to the regulator. In the straight entry check, opening is 0.10 mm minus the cover Z offset.",
+  "physical_baseline": {
+    "observation": "All three close-fit coupons held after seating, but their mouths resisted a natural direct push. The earlier loose control started easily. Two rigid metal grooves moved relative to the printed short-end lip on the previous full pair. The white collet has separate motion.",
+    "rigid_outlet_representative_stroke_mm": 0.4,
+    "observed_stroke_range_mm": [
+      0.3,
+      0.5
+    ],
+    "last_full_modeled_hard_travel_range_mm": [
+      0.016,
+      0.056
+    ]
+  },
+  "coupon_and_full_section": {
+    "method": "Return the four STLs to assembly coordinates. Intersect nine axial stations with planes normal to Y and compare the working wing, guide and retaining contours. Exterior marks and full-length hardware walls lie outside those working sections.",
+    "donor_sha256": [
+      "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+      "cd0ac68f6e7eee7a5d757c8bda50e7592e2ec94f957519bc851a6cf586b5583a"
+    ],
+    "matched_profile": [
+      "cover-1.stl",
+      "receiver-1.stl"
+    ],
+    "matched_profile_measurement": {
+      "y_mm": [
+        421.0,
+        425.0,
+        430.0,
+        435.0,
+        439.8,
+        445.0,
+        450.0,
+        454.0,
+        457.7
+      ],
+      "max_symmetric_area_mm2": {
+        "springs": 1.8e-05,
+        "receiver_guides_and_shoulders": 0.000147
+      }
+    },
+    "nominal_per_wing_toe_cam_capture_mm": {
+      "inward_free_bias": 0.8,
+      "backed_foot_width": 2.6,
+      "wall": 2.0,
+      "centered_hook_capture": 1.2,
+      "lip_removed_from_prior": 0.6
+    },
+    "full_working_length_mm": 37.315283,
+    "coupon_working_length_mm": 12.0,
+    "full_to_coupon_length_ratio": 3.109607,
+    "force": "The full leaves have 3.11 times the engaged axial length of a coupon under uniform loading. A progressive hand press can load less than the full length at once. Actual starting, seating and release force are hand measurements."
+  },
+  "direct_entry": {
+    "method": "Project the molded body and rigid aluminum fitting across the entire working wing length. At each 0.05 mm of straight closure, bend the source wing about its clamped neutral line and solve the minimum outward spread avoiding the hardware silhouette and both printed faces. Repeat at 0.40 mm lateral error. The axial corridor separately tests the full end and tail solids, fixed column, rigid short fitting and white collet in 3D.",
+    "native_previous_control_rim_overlap_over_first_0p15_mm": 0.85872,
+    "native_full_positive_air_over_first_0p18_mm_per_side": [
+      0.677609,
+      0.677918
+    ],
+    "native_full_last_rim_course_mm": 16.76,
+    "largest_native_ramp_increment_per_0p24_mm_course_mm": 0.115,
+    "centered_from_free": {
+      "empty_receiver": {
+        "first_contact_opening_mm": 11.7,
+        "peak_spread_mm": 2.77265,
+        "peak_at_opening_mm": 1.47,
+        "max_positive_spread_per_mm_closure": 0.496338
+      },
+      "actual_regulator_and_receiver": {
+        "first_contact_opening_mm": 20.2,
+        "peak_spread_mm": 2.77265,
+        "peak_at_opening_mm": 1.47,
+        "max_positive_spread_per_mm_closure": 0.426758
+      },
+      "purchased_housing": {
+        "first_contact_opening_mm": 20.2,
+        "peak_spread_mm": 1.497363,
+        "peak_at_opening_mm": 11.5,
+        "max_positive_spread_per_mm_closure": 0.329346
+      }
+    },
+    "full_0p4_mm_lateral_error_peak_spread_smaller_and_larger_sides_mm": [
+      2.119293,
+      3.42218
+    ],
+    "matched_native_coupon_peak_spread_rounded_and_flat_course_limits_mm": [
+      2.76132,
+      2.76176
+    ],
+    "previous_control_native_peak_spread_mm": 3.73049,
+    "interpretation": "The round body begins to cam the free feet about 20 mm before closure and asks for less spread than the final snap. The new receiver entrance then guides them through the retaining shoulder. A straight approach with a fixed unloaded wing shape would report early hardware collisions.",
+    "three_dimensional_molded_body_first_contact_at_far_seat_mm": 20.15,
+    "three_dimensional_initial_spread_slope_mm_per_mm": 0.246094,
+    "full_solid_square_push_with_regulator_at_fixed_bearing": {
+      "sampled_poses": 370,
+      "limiting_distance_and_opening_mm": {
+        "gas-regulator/1": [
+          0.001863,
+          0.227867
+        ],
+        "gas-regulator/2": [
+          0.037918,
+          0.227867
+        ],
+        "gas-regulator/3": [
+          0.173456,
+          0.227867
+        ],
+        "co2-inlet": [
+          17.443836,
+          0.227867
+        ],
+        "receiver": [
+          0.008988,
+          0.227867
+        ]
+      },
+      "hold_cover_y_mm": -0.121,
+      "housing_fixed_at_far_z_mm": 0.119664,
+      "free_clear_start_spread_mm": 0.0,
+      "whole_wing_length_mm": 37.31528,
+      "method": "Start with free wings and the housing at its fixed bearing. Combine the source receiver cam and both sides of the actual molded body through initial contact. Allow up to 0.04 mm of additional elastic tip travel after contact and measure triangle clearance of the entire moving cap through 370 poses. Stop 0.002 mm before intentional molded-body contact. These are sampled distances."
+    }
+  },
+  "axial_entry": {
+    "relief_length_y_and_height_z_mm": [
+      0.8,
+      1.25
+    ],
+    "backed_original_aft_stop_height_mm": 2.9774,
+    "new_fore_and_existing_aft_planes_y_mm": [
+      420.465717,
+      462.3
+    ],
+    "corridor_sample_columns": [
+      "opening_mm",
+      "[min, max] cover Y offset with both ends and rigid outlet clear; null means square the cap farther before continuing"
+    ],
+    "corridor_by_held_yaw_deg": {
+      "0.0": [
+        [
+          20.0,
+          [
+            -1.0,
+            0.93
+          ]
+        ],
+        [
+          13.48,
+          [
+            -1.0,
+            0.93
+          ]
+        ],
+        [
+          10.76,
+          [
+            -0.129933,
+            0.93
+          ]
+        ],
+        [
+          9.4,
+          [
+            -0.129933,
+            0.076811
+          ]
+        ],
+        [
+          7.2,
+          [
+            -0.129933,
+            3.5e-05
+          ]
+        ],
+        [
+          4.8,
+          [
+            -0.129933,
+            -0.014321
+          ]
+        ],
+        [
+          2.4,
+          [
+            -0.129933,
+            -0.065078
+          ]
+        ],
+        [
+          0.24,
+          [
+            -0.129933,
+            -0.083022
+          ]
+        ]
+      ],
+      "-0.6": [
+        [
+          20.0,
+          [
+            -1.0,
+            0.93
+          ]
+        ],
+        [
+          13.48,
+          [
+            -1.0,
+            0.93
+          ]
+        ],
+        [
+          10.76,
+          [
+            0.021989,
+            1.0
+          ]
+        ],
+        [
+          9.4,
+          [
+            0.021989,
+            0.216942
+          ]
+        ],
+        [
+          7.2,
+          null
+        ],
+        [
+          4.8,
+          null
+        ],
+        [
+          2.4,
+          null
+        ],
+        [
+          0.24,
+          null
+        ]
+      ],
+      "0.6": [
+        [
+          20.0,
+          [
+            -1.0,
+            0.93
+          ]
+        ],
+        [
+          13.48,
+          [
+            -1.0,
+            0.93
+          ]
+        ],
+        [
+          10.76,
+          [
+            0.021989,
+            1.0
+          ]
+        ],
+        [
+          9.4,
+          null
+        ],
+        [
+          7.2,
+          null
+        ],
+        [
+          4.8,
+          null
+        ],
+        [
+          2.4,
+          null
+        ],
+        [
+          0.24,
+          null
+        ]
+      ]
+    },
+    "y_offset_clear_at_all_81_square_samples_mm": -0.121,
+    "range_of_searched_y_offsets_mm": [
+      -1.0,
+      1.0
+    ],
+    "method": "At each opening use the required spring cam spread with 0.018 mm numerical clearance. Sweep Y against both forward spring-end walls, the rear corner post, the purchased outlet and its release collar. The yawed samples include conservative outboard-wing spread. The cap can begin tilted slightly in plan and must square up as the outlet and end stops register."
+  },
+  "native_retention_and_radial_saddle": {
+    "method": "Expand each real wall centerline by its commanded radius. Retain full width to each receiver course edge. Check both full springs at three axial stations. At each cover height bend each wing just enough to clear the emitted retaining shoulder and measure radial hook overlap. For the radial saddle, register the actual housing at the preceding modeled simultaneous HY−CY of +0.118 and compare the bearing to the previous full cover on the emitted courses.",
+    "station_y_mm": [
+      425.0,
+      439.875,
+      454.0
+    ],
+    "native_at_first_radial_contact": {
+      "housing_z_offset_mm": 0.029016,
+      "cover_z_offset_mm": -0.227265,
+      "measured_nearest_cover_z_mm": -0.227,
+      "spread_mm": [
+        1.466629,
+        1.467046
+      ],
+      "radial_capture_mm": [
+        0.794982,
+        0.795033
+      ],
+      "foot_clearance_to_actual_3p56_roof_mm": [
+        0.174262,
+        0.174309
+      ]
+    },
+    "native_at_secondary_taper_contact": {
+      "cover_z_offset_mm": -0.205458,
+      "measured_nearest_cover_z_mm": -0.205,
+      "radial_capture_mm": [
+        0.813988,
+        0.81402
+      ]
+    },
+    "molded_body_saddle_shift_from_original_mm": 0.2,
+    "central_saddle_excluding_exterior_dots_symmetric_difference_vs_previous_mm3": 0.0,
+    "radial_pad_sample_y_cover_course_and_relative_z_of_contact_mm": [
+      [
+        439.625,
+        19.16,
+        -0.24695
+      ],
+      [
+        439.875,
+        19.4,
+        -0.256281
+      ],
+      [
+        440.125,
+        19.88,
+        -0.223443
+      ],
+      [
+        440.425,
+        20.12,
+        -0.128101
+      ],
+      [
+        440.625,
+        20.36,
+        -0.025501
+      ]
+    ],
+    "native_pad_height_difference_vs_previous_mm": [
+      -0.000747,
+      0.000812
+    ]
+  },
+  "additional_rigid_outlet_bearing": {
+    "mechanism": "A backed 7.5 mm wide land matches the lower rigid aluminum taper. A fore axial load on that taper produces an opening force that the retainer opposes. The rigid neck lip and rear housing stop still set the unloaded end-to-end limit. A contact witness on the taper distinguishes a loaded bearing from clearance in the real printed interface.",
+    "source_y_span_mm": [
+      424.265,
+      425.665
+    ],
+    "union_added_mm3": 3.436929,
+    "backing": {
+      "min_max_union_bearing_to_outside_mm": [
+        3.8961,
+        9.48865
+      ],
+      "min_max_active_native_band_union_to_outside_mm": [
+        4.010768,
+        5.632079
+      ],
+      "at_first_native_contact_top_bottom_mm": [
+        316.9726,
+        321.89603
+      ],
+      "thickness_at_first_native_contact_mm": 4.923429
+    },
+    "native_cover_courses_start_end_y_layer_and_peak_added_height_mm": [
+      [
+        424.395717,
+        424.635717,
+        4.04,
+        0.776978
+      ],
+      [
+        424.635717,
+        424.875717,
+        4.28,
+        0.52844
+      ],
+      [
+        424.875717,
+        425.115717,
+        4.52,
+        0.439258
+      ],
+      [
+        425.115717,
+        425.355717,
+        4.76,
+        0.227648
+      ]
+    ],
+    "gcode_first_new_contact_relative_z_mm": -0.234474,
+    "main_radial_contact_relative_z_mm": -0.256281,
+    "normal_air_when_existing_pad_first_seats_mm": 0.021807,
+    "contact_width_after_0p051_mm_further_closing_mm": 7.1,
+    "relative_z_at_7p10_mm_contact_width_mm": -0.205,
+    "local_geometric_overrun_if_pressed_to_relative_z_minus_0p145_mm": 0.089474,
+    "minimum_housing_relative_y_to_clear_taper_at_cover_relative_z": {
+      "-0.4": 0.006344,
+      "-0.32": 0.045864,
+      "-0.2561": 0.077068,
+      "-0.246": 0.096447,
+      "-0.2": 0.173809,
+      "-0.145": 0.283939,
+      "-0.1": 0.373737,
+      "-0.04": 0.416042
+    },
+    "interpretation": "Once touching, the sloped bearing gives a separate response to a fore stroke of the metal fitting. At HY−CY +0.118 its envelope clears at CZ−HZ −0.234. At HY−CY −0.20 it needs CZ−HZ −0.649. Actual polymer deflection, force, scan error and cooled fore/aft travel require the next physical test."
+  },
+  "native_axial_limits_and_collars": {
+    "method": "Project each rigid outlet or collar through each deposited cover course up to the original neck lip, intersect the deformed spring ends with the full-height front walls, and project the molded rear shoulder through 85 deposited receiver courses at two heights. For the lower taper, use its own four additional cover courses. All constraints refer to the same installed coordinate frame.",
+    "hard_lip_last_cover_course_and_fore_shoulder_y_mm": [
+      3.8,
+      424.395717
+    ],
+    "forward_cover_stop_offset_mm": -0.129761,
+    "forward_cover_stop_active_course_mm": 12.92,
+    "rear_limit_housing_y_at_nominal_and_raised_z_mm": [
+      0.040424,
+      0.000534
+    ],
+    "relative_housing_minus_cover_y_at_front_hard_contact_mm": 0.113976,
+    "possible_hard_stop_travel_at_nominal_and_raised_z_mm": [
+      0.056208,
+      0.016319
+    ],
+    "feasible_simultaneous_pose_mm": {
+      "cover_y": -0.122,
+      "housing_y": -0.004,
+      "housing_z": 0.029016,
+      "cover_z": -0.227265,
+      "air_to_one_forward_wing_end_wall": 0.007761,
+      "air_to_rigid_fore_shoulder": 0.004024,
+      "air_to_rear_bore_axial_stop": 0.004534,
+      "short_white_collet_axial_air": 0.141996,
+      "new_lower_taper_normal_air": 0.021807
+    },
+    "short_release_ring_relative_y_at_contact_mm": 0.259996,
+    "minimum_axial_air_to_short_ring_across_opposing_hard_extremes_mm": 0.089812,
+    "cap_off_clearance_through_2p10_mm_short_collet_stroke_mm": 4.877037,
+    "minimum_long_inlet_collet_beyond_aft_end_of_receiver_mm": 9.535215,
+    "hard_datum_volume_symmetric_difference_vs_previous_mm3": {
+      "white_release_ring_end_and_front_of_neck_lip_symmetric_difference_mm3": 0.0,
+      "rooted_receiver_center_chord_17p84_mm_symmetric_difference_mm3": 0.0,
+      "whole_receiver_aft_of_pockets_symmetric_difference_mm3": 0.0
+    },
+    "bench": "The prior C036 hard-stop clearance was small and the observed travel was larger. Real contact can shift on the scan-fitted neck, housing or printed parts under load. This revision avoids spending the physical observation as a further hard-stop reduction."
+  },
+  "installed_service": {
+    "method": "Use the complete cap, updated receiver, retained production shell crop, modeled gear and separate backed meter shoulder. Remove the meter and ASSE before servicing the installed bay. Sample the five tilted segments at 512 intervals each, subtracting a bound for the intervening rotation and translation. Check the tilted sweep at seven hardware heights. Then return the springs during a straight closing stroke at the far housing bearing with 1,537 full shapes. The terminal sample is 0.002 mm short of intentional source saddle contact. Reverse the same path for extraction.",
+    "fore_offset_mm": -0.121,
+    "tilt_waypoints_roll_deg_x_mm_z_mm": [
+      [
+        21.0,
+        -4.6,
+        -11.0
+      ],
+      [
+        20.0,
+        -4.55,
+        -9.0
+      ],
+      [
+        15.0,
+        -3.4,
+        -6.5
+      ],
+      [
+        10.0,
+        -2.4,
+        -4.5
+      ],
+      [
+        5.0,
+        -1.0,
+        -2.9
+      ],
+      [
+        0.0,
+        0.0,
+        -1.8
+      ]
+    ],
+    "held_wing_spread_during_installed_tilt_mm": [
+      5.45,
+      4.85
+    ],
+    "tilt_continuous_lower_bounds_mm": {
+      "receiver": 0.003945,
+      "surrounding_production_shell": 0.11719,
+      "backed_meter_shoulder": 0.601554,
+      "gas-check": 1.993931
+    },
+    "tilt_clearance_to_gear_over_7_heights_mm": {
+      "gas-regulator/1": 0.97559,
+      "gas-regulator/2": 0.021189,
+      "gas-regulator/3": 0.188765,
+      "co2-inlet": 17.838514
+    },
+    "straight_terminal_approach_continuous_lower_bounds_mm": {
+      "receiver": 0.006958,
+      "surrounding_production_shell": 0.118968,
+      "backed_meter_shoulder": 0.999929,
+      "gas-regulator/1": 0.001101,
+      "gas-regulator/2": 0.035887,
+      "gas-regulator/3": 0.171426,
+      "co2-inlet": 17.441805,
+      "gas-check": 1.834555
+    },
+    "purchased_hardware_loading_and_reverse_lower_bounds_mm": {
+      "receiver": 0.055853,
+      "surrounding_production_shell": 0.055866,
+      "backed_meter_shoulder": 2.284752
+    },
+    "rooted_hardware_assets": {
+      "co2-inlet": "46764fd42ca28efdb0a4e6a7da0b28d59df27a6db3486074081f4f6fe519b7ab",
+      "gas-regulator/1": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/2": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-regulator/3": "c66fbc2b8f12019ee2085445889e91f329c9e352e3b089e12f7e8024bc6e7939",
+      "gas-check": "169beeb4e8189bfdf1d515e99d01cc124d91b2c92dffb0d743c89f68e52a1b58"
+    }
+  },
+  "bench_instructions": "README.md"
+}

@@ -1,0 +1,198 @@
+{
+  "purpose": "Check whether straight pressure on initially relaxed wings starts and seats the three C036 follow-up coupons, and quantify the grip they retain.",
+  "source_dimensions": "geometry.json",
+  "hand_reference": "../../prints/2026-11-25-mark1-guide-contact/physical-result.json",
+  "prior_submitted_sections": "../../prints/2026-11-25-mark1-guide-contact/section-check.json",
+  "combined_native_sections": "../../../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/coupon-section-check.json",
+  "stl_sha256": {
+    "cover-1.stl": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+    "cover-2.stl": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+    "cover-3.stl": "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+    "receiver-1.stl": "cd0ac68f6e7eee7a5d757c8bda50e7592e2ec94f957519bc851a6cf586b5583a",
+    "receiver-2.stl": "1b8690e49850a52d652cb4bb214c44c3e2e6ecf99abdd657e329ccb773592750",
+    "receiver-3.stl": "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a"
+  },
+  "physical_control": {
+    "description": "The two-dot guide-contact pair was tight when seated in C036. At the entrance its broad, inward-biased feet meet the ends of the receiver lips. The older convenient press-on example has a narrower foot and Derek could rock it after seating. Its specific print identity is unconfirmed.",
+    "centered_free_toe_clearance_over_old_rim_mm": -0.73597,
+    "centered_peak_tip_spread_mm": 3.7454,
+    "largest_sampled_spread_change_per_mm_of_straight_closure": 30.493,
+    "wedge_model_at_coefficient_0p15": "The starting jump gives a nonpositive sliding denominator."
+  },
+  "shared_section": {
+    "axial_length_mm": 12.0,
+    "central_open_band_h_mm": [
+      18.1,
+      31.6
+    ],
+    "spring_wall_normal_thickness_mm": [
+      1.9999,
+      2.0001
+    ],
+    "open_free_span_between_wings_mm": 24.2465,
+    "center_post_width_mm": 8.0,
+    "open_gap_each_side_of_post_mm": 8.1233,
+    "post_and_crown_outline_change_above_h18p1_from_filmed_neutral_mm2": 0.0,
+    "minimum_solid_cover_stock_below_dot_patches_mm": 5.014,
+    "minimum_receiver_edge_margin_around_dot_mm": 0.725
+  },
+  "pairs": [
+    {
+      "dots": 1,
+      "function": "open pilot and shorter retaining lip",
+      "free_toe_to_rim_radial_margin_mm": 0.73967,
+      "uppermost_backed_cheek_width_mm": 1.79548,
+      "nominal_radial_undercut_mm": 1.2,
+      "loaded_cad_radial_capture_mm": 1.08511,
+      "loaded_cad_tip_spread_at_seat_mm": 0.98195,
+      "cover_opening_from_nominal_at_both_foot_stops_mm": 0.01293,
+      "centered_free_press": {
+        "first_contact_opening_mm": 11.68,
+        "peak_spread_per_wing_from_free_mm": 2.7727,
+        "max_positive_spread_gradient": 0.495,
+        "maximum_frictional_press_divided_by_tip_stiffness_mm": {
+          "0": 1.0469,
+          "0.15": 1.5102,
+          "0.3": 2.0418
+        }
+      },
+      "entry_alignment_limits": {
+        "lateral_offset_mm": [
+          -0.45,
+          0.45
+        ],
+        "rotation_about_center_of_toes_deg": [
+          -2.0,
+          2.0
+        ],
+        "worst_slope_over_four_misalignments": 0.543,
+        "all_four_sliding_at_assumed_coefficient_0p30": true,
+        "greatest_required_single_wing_spread_in_held_misalignment_mm": 3.5778
+      },
+      "swept_source_section": {
+        "straight_stroke_from_free_at_mm": 25.0,
+        "minimum_model_seat_height_for_numeric_sweep_mm": 0.01333,
+        "interpolated_tip_error_allowance_mm": 0.0009,
+        "course_intervals_checked": 411,
+        "subdivision_depth": 4,
+        "largest_summed_swept_edge_overlap_mm2": 0.0,
+        "largest_endpoint_area_mm2": 0.0,
+        "rigid_saddle_sweep_overlap_mm2": 0.0
+      },
+      "axial_positions_of_exterior_dots_mm": [
+        0.0
+      ]
+    },
+    {
+      "dots": 2,
+      "function": "extended solid bevel and full retaining lip",
+      "free_toe_to_rim_radial_margin_mm": 0.68966,
+      "uppermost_backed_cheek_width_mm": 1.84545,
+      "nominal_radial_undercut_mm": 1.8,
+      "loaded_cad_radial_capture_mm": 1.68511,
+      "loaded_cad_tip_spread_at_seat_mm": 0.98195,
+      "cover_opening_from_nominal_at_both_foot_stops_mm": 0.01293,
+      "centered_free_press": {
+        "first_contact_opening_mm": 13.055,
+        "peak_spread_per_wing_from_free_mm": 3.7454,
+        "max_positive_spread_gradient": 0.623,
+        "maximum_frictional_press_divided_by_tip_stiffness_mm": {
+          "0": 1.5892,
+          "0.15": 2.2428,
+          "0.3": 3.0081
+        }
+      },
+      "entry_alignment_limits": {
+        "lateral_offset_mm": [
+          -0.45,
+          0.45
+        ],
+        "rotation_about_center_of_toes_deg": [
+          -2.0,
+          2.0
+        ],
+        "worst_slope_over_four_misalignments": 0.64,
+        "all_four_sliding_at_assumed_coefficient_0p30": true,
+        "greatest_required_single_wing_spread_in_held_misalignment_mm": 4.6474
+      },
+      "swept_source_section": {
+        "straight_stroke_from_free_at_mm": 25.0,
+        "minimum_model_seat_height_for_numeric_sweep_mm": 0.01333,
+        "interpolated_tip_error_allowance_mm": 0.0009,
+        "course_intervals_checked": 459,
+        "subdivision_depth": 4,
+        "largest_summed_swept_edge_overlap_mm2": 0.0,
+        "largest_endpoint_area_mm2": 0.0,
+        "rigid_saddle_sweep_overlap_mm2": 0.0
+      },
+      "axial_positions_of_exterior_dots_mm": [
+        -1.7,
+        1.7
+      ]
+    },
+    {
+      "dots": 3,
+      "function": "wing-side lead-in and full retaining lip",
+      "free_toe_to_rim_radial_margin_mm": 0.75746,
+      "uppermost_backed_cheek_width_mm": 2.34549,
+      "nominal_radial_undercut_mm": 1.8,
+      "loaded_cad_radial_capture_mm": 1.68373,
+      "loaded_cad_tip_spread_at_seat_mm": 0.98421,
+      "cover_opening_from_nominal_at_both_foot_stops_mm": 0.00818,
+      "centered_free_press": {
+        "first_contact_opening_mm": 12.005,
+        "peak_spread_per_wing_from_free_mm": 3.7454,
+        "max_positive_spread_gradient": 0.646,
+        "maximum_frictional_press_divided_by_tip_stiffness_mm": {
+          "0": 1.5903,
+          "0.15": 2.2444,
+          "0.3": 3.0102
+        }
+      },
+      "entry_alignment_limits": {
+        "lateral_offset_mm": [
+          -0.45,
+          0.45
+        ],
+        "rotation_about_center_of_toes_deg": [
+          -2.0,
+          2.0
+        ],
+        "worst_slope_over_four_misalignments": 0.694,
+        "all_four_sliding_at_assumed_coefficient_0p30": true,
+        "greatest_required_single_wing_spread_in_held_misalignment_mm": 4.6474
+      },
+      "swept_source_section": {
+        "straight_stroke_from_free_at_mm": 25.0,
+        "minimum_model_seat_height_for_numeric_sweep_mm": 0.00858,
+        "interpolated_tip_error_allowance_mm": 0.0009,
+        "course_intervals_checked": 410,
+        "subdivision_depth": 3,
+        "largest_summed_swept_edge_overlap_mm2": 0.0,
+        "largest_endpoint_area_mm2": 0.0,
+        "rigid_saddle_sweep_overlap_mm2": 0.0
+      },
+      "axial_positions_of_exterior_dots_mm": [
+        -3.4,
+        0.0,
+        3.4
+      ]
+    }
+  ],
+  "methods": {
+    "start": "Use the free printed STL orientation, including local rotation of the 0.80 mm cambered leaf. Compare the inner surface over the leading 0.15 mm of the toe with the uppermost radius on the receiver mouth. Positive radial margin permits initial travel before the toe needs to spread.",
+    "direct_press": "Advance the cover toward the fixed receiver from 25 mm open, with both wings free. At each height find the least spread driven by contact with the receiver, using the clamped leaf and its tangent extension to the toe. The central saddle stays rigid. A nominal path uses 0.025–0.05 mm increments through first contact and engagement. Recompute the spring demand for ±0.45 mm lateral offsets and ±2° rotation in the open-end view about the center between the leading toes. Hold the initial misalignment through the approach to 3.15 mm open. This exercise establishes the range over which each toe finds its ramp. Alignment at the final post and both seats uses the centered path.",
+    "friction_proxy": "For each wing let d be required tip spread and m = increase in d per unit of straight closing travel. With a linear transverse tip stiffness k, a sliding-wedge estimate is F/k = d(m + μ)/(1 − μm) while the cam opens the wing. Examine μ = 0, 0.15 and 0.30 as a sensitivity. A nonpositive denominator flags a possible stall. The force divided by stiffness is in millimetres; friction, stiffness and thumb force have not been measured. A centered pair has two spring reactions.",
+    "sweep": "Follow that contact-driven route from free entry to the seated stop. Subdivide between successive wing shapes wherever a moving edge crosses the receiver. Bound the straight interpolation of every edge using its convex hull. A radial allowance up to 0.0009 mm and a 0.0004 mm opening allowance at the seated contact bound numerical error. Separately sweep the rigid saddle.",
+    "section_and_ids": "Invert the STL print transforms and compare both open ends with the working profile. Measure the working spring thickness normal to its 67 sampled stations, the molded receiver mouth, both marked stock patches and the center post. The dimensional record contains every actual guide coordinate."
+  },
+  "full_primary_transfer": {
+    "primary_dots": 1,
+    "coupon_axial_wing_span_mm": 12.0,
+    "full_axial_wing_span_mm": 37.3153,
+    "full_to_coupon_wing_width_ratio": 3.1096,
+    "primary_reduction_in_peak_tip_spread_vs_full_catch_percent": 26.0,
+    "primary_reduction_in_centered_force_proxy_vs_full_catch_at_mu_0p30_percent": 32.1,
+    "interpretation": "For equal material, section and simultaneous axial loading, a 37.32 mm wide spring has 3.11 times the transverse stiffness of the 12 mm coupon. The shorter lip lowers both travel and the force proxy. The installed Pisco, longitudinal stops and hand placement affect the force on the actual full assembly."
+  }
+}

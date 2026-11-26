@@ -79,6 +79,12 @@ This Mark1 plate tests how closely the guide can follow the seated spring while 
 
 ![One end of the hook on the filmed two-dot pair and the three new pairs](prints/2026-11-25-mark1-guide-contact/fit-sections.png)
 
+## Returning to a straight push
+
+In C036 the new pairs felt snug in the hand once seated. With the springs relaxed, their broad toes hit the flat at the receiver mouth. Derek showed an older cover sliding straight in under thumb pressure. The one-dot trial carries the seated guide from the two-dot pair he liked and gives each toe room to reach a ramp. The 2.00 mm spring and 2.60 mm foot continue through the full cover. [Hand comparison](prints/2026-11-25-mark1-guide-contact/physical-result.json) · [Entry sections](../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/entry.png)
+
+The full Pisco and the one-dot coupon share a 1.20 mm nominal retaining shoulder. The two-dot coupon leaves the full 1.80 mm shoulder behind an open entrance. The three-dot coupon carries more of the lead on the cover itself and retains the full shoulder. All three pairs have recessed marks on both pieces. The eight trial parts share one Mark2 plate. [Coupon geometry](parts/easy-entry/geometry.json) · [Submitted plate](../pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/print-job.json)
+
 ## Reproduce the pair
 
 The source takes a constant section from the production bodies. To change only the center support in a later trial, change `FILLER_CONTACT_TRAVEL`. A larger value shortens the post and lets the cover travel farther before touching it. [Coupon source](coupon.rs)

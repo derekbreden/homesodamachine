@@ -1,0 +1,295 @@
+{
+  "archive": "hardware/print-tests/pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei/2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei.gcode.3mf",
+  "archive_sha256": "569801665428d8c132e64530a150ff9fecb45f06e960a3b8d7c2a571558d000f",
+  "bead_envelope_plate_mm": [
+    [
+      74.7260165,
+      90.038656
+    ],
+    [
+      250.248187,
+      224.969187
+    ]
+  ],
+  "bed_border_mm": 70.0,
+  "bed_margins_mm": {
+    "back": 95.030813,
+    "front": 90.038656,
+    "left": 74.7260165,
+    "right": 74.751813
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "excluded_support_counts_by_region": {
+    "Covered bulkhead at X76.5 Z331.2": 0,
+    "Identification channel 2": 0,
+    "Pisco east catch pocket": 0,
+    "Pisco west catch pocket": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9213150953968691,
+      "second_layer_centerline_outside_first_mm": 5.397998531802426,
+      "second_layer_model_bead_area_mm2": 441.03991756496447
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.8919805548390825,
+      "second_layer_centerline_outside_first_mm": 3.5498748888457947,
+      "second_layer_model_bead_area_mm2": 281.35954662366873
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.891959982510408,
+      "second_layer_centerline_outside_first_mm": 3.5489628945234037,
+      "second_layer_model_bead_area_mm2": 281.36624381466737
+    },
+    "1904": {
+      "fraction_over_first_layer": 0.8902309452696756,
+      "second_layer_centerline_outside_first_mm": 3.5500895544822804,
+      "second_layer_model_bead_area_mm2": 279.81751369231546
+    },
+    "1905": {
+      "fraction_over_first_layer": 0.9970095541430992,
+      "second_layer_centerline_outside_first_mm": 6.896519694380098,
+      "second_layer_model_bead_area_mm2": 1916.506550637327
+    },
+    "1906": {
+      "fraction_over_first_layer": 0.9968316377847422,
+      "second_layer_centerline_outside_first_mm": 3.434757976555931,
+      "second_layer_model_bead_area_mm2": 417.1086342140543
+    },
+    "1907": {
+      "fraction_over_first_layer": 0.996831637784741,
+      "second_layer_centerline_outside_first_mm": 3.4347579765558223,
+      "second_layer_model_bead_area_mm2": 417.1086342140546
+    },
+    "1908": {
+      "fraction_over_first_layer": 0.9968316377847416,
+      "second_layer_centerline_outside_first_mm": 3.434757976555641,
+      "second_layer_model_bead_area_mm2": 417.1086342140547
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 184,
+  "minimum_bed_margin_mm": 74.7260165,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        64.0943843126297,
+        66.3143843126297,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          79.61438286304474,
+          172.90095634460448,
+          -0.25
+        ],
+        [
+          82.33438286304474,
+          222.10523914220386,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco west catch pocket",
+      "object": 1905,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        86.6856156873703,
+        88.9056156873703,
+        420.3457172019407,
+        458.1610000003129,
+        340.45,
+        351.8
+      ],
+      "box_plate_mm": [
+        [
+          102.20561423778534,
+          172.90095634460448,
+          -0.25
+        ],
+        [
+          104.92561423778534,
+          222.10523914220386,
+          14.800000000000011
+        ]
+      ],
+      "name": "Pisco east catch pocket",
+      "object": 1905,
+      "reason": "No tool reaches under this catch to remove support, and the chamfered catch prints without it."
+    },
+    {
+      "bounds_source_mm": [
+        59.09,
+        93.91,
+        469.299,
+        472.799,
+        310.77,
+        355.0
+      ],
+      "box_plate_mm": [
+        [
+          74.60999855041504,
+          165.9019563446045,
+          -0.25
+        ],
+        [
+          109.92999855041504,
+          169.9019563446045,
+          44.48000000000002
+        ]
+      ],
+      "name": "Identification channel 2",
+      "object": 1905,
+      "reason": "The shallow channel stop bridges between its rails, backed by the rear wall; keep its supporting trees out of the bulkhead column."
+    },
+    {
+      "bounds_source_mm": [
+        69.5715,
+        83.4285,
+        458.0,
+        474.31,
+        322.6359030178927,
+        338.1285
+      ],
+      "box_plate_mm": [
+        [
+          85.09149855041504,
+          164.3909563446045,
+          16.621500000000026
+        ],
+        [
+          99.44849855041504,
+          181.2009563446045,
+          32.6140969821073
+        ]
+      ],
+      "name": "Covered bulkhead at X76.5 Z331.2",
+      "object": 1905,
+      "reason": "The covered bore retains its circular hardware clearance inside the pointed roof.",
+      "void_source": {
+        "centre_xz_mm": [
+          76.5,
+          331.2
+        ],
+        "kind": "teardrop_y",
+        "radius_mm": 6.9285,
+        "roof_angle_deg": 36.0,
+        "span_y_mm": [
+          465.55,
+          474.3
+        ]
+      }
+    }
+  ],
+  "support_roads": 0,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1903": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1904": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1905": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1906": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1907": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    },
+    "1908": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "interface_islands": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": null,
+      "support_bodies": 0
+    }
+  }
+}

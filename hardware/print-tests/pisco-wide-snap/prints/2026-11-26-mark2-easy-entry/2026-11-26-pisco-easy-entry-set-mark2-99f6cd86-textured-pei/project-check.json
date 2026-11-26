@@ -1,0 +1,265 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 7.885603281465592e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-easy-cover",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          86.877536773,
+          123.13903999399999,
+          0.0
+        ],
+        [
+          115.68876838700001,
+          157.651945114,
+          41.704284668
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2644
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.189591310132528e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "cover-1",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          127.68876838599999,
+          123.13903999399999,
+          0.0
+        ],
+        [
+          156.5,
+          157.651945114,
+          12.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 753
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.189591310132528e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "cover-2",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          168.5,
+          123.13903999399999,
+          0.0
+        ],
+        [
+          197.311231614,
+          157.651945114,
+          12.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 882
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 7.856328920752276e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "cover-3",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          209.311231613,
+          123.13903999399999,
+          0.0
+        ],
+        [
+          238.122463227,
+          157.651945114,
+          12.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1015
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 105,
+      "embedded_vertex_error_mm": 9.169696113531245e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-easy-receiver",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1,
+        "support_blocker": 4
+      },
+      "placed_bounds_mm": [
+        [
+          74.859998703,
+          169.651945114,
+          0.0
+        ],
+        [
+          109.680002213,
+          224.86096000600003,
+          44.230010986
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 866
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.227676400769269e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "receiver-1",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          121.680002213,
+          191.25645256,
+          0.0
+        ],
+        [
+          156.50000190699998,
+          203.25645256,
+          34.677398682
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 273
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.239897735824343e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "receiver-2",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          168.500001908,
+          191.25645256,
+          0.0
+        ],
+        [
+          203.320001602,
+          203.25645256,
+          34.677398682
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 410
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.227676400769269e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "receiver-3",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          215.320001603,
+          191.25645256,
+          0.0
+        ],
+        [
+          250.140001297,
+          203.25645256,
+          34.677398682
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 539
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.4",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.10 - 0.01",
+    "0.10 - 0.02",
+    "0.10 + 0.01",
+    "0.10"
+  ]
+}

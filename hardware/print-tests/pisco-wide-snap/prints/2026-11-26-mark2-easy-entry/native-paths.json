@@ -1,0 +1,158 @@
+{
+  "gcode_sha256": "e5545e8ce36bd845ca2dda75c29cc8dbe85509d278f41a635836d3887e050f56",
+  "archive_sha256": "569801665428d8c132e64530a150ff9fecb45f06e960a3b8d7c2a571558d000f",
+  "method": "All oriented triangles in each model component of the sliced 3MF matched the indicated source STL at its plate pose. Dot depths use native outer-wall paths expanded by their commanded bead radius.",
+  "objects": {
+    "pisco-easy-cover": {
+      "identify_id": 1901,
+      "stl_sha256": "44b6bf510f4518956cdafded2be5cae1da94e87c77dd82c4480d281e4ba7134a",
+      "largest_archive_vertex_error_mm": 1.2e-06,
+      "extruding_courses": 174
+    },
+    "cover-1": {
+      "identify_id": 1902,
+      "stl_sha256": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+      "largest_archive_vertex_error_mm": 5e-07,
+      "extruding_courses": 50
+    },
+    "cover-2": {
+      "identify_id": 1903,
+      "stl_sha256": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "largest_archive_vertex_error_mm": 5e-07,
+      "extruding_courses": 50
+    },
+    "cover-3": {
+      "identify_id": 1904,
+      "stl_sha256": "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+      "largest_archive_vertex_error_mm": 7e-07,
+      "extruding_courses": 50
+    },
+    "pisco-easy-receiver": {
+      "identify_id": 1905,
+      "stl_sha256": "32ee4bcac11e09a14dd0613cc6795ad1f7bcf47fa520536db02783538ec7a73c",
+      "largest_archive_vertex_error_mm": 5e-07,
+      "extruding_courses": 184
+    },
+    "receiver-1": {
+      "identify_id": 1906,
+      "stl_sha256": "cd0ac68f6e7eee7a5d757c8bda50e7592e2ec94f957519bc851a6cf586b5583a",
+      "largest_archive_vertex_error_mm": 1.1e-06,
+      "extruding_courses": 145
+    },
+    "receiver-2": {
+      "identify_id": 1907,
+      "stl_sha256": "1b8690e49850a52d652cb4bb214c44c3e2e6ecf99abdd657e329ccb773592750",
+      "largest_archive_vertex_error_mm": 1.1e-06,
+      "extruding_courses": 145
+    },
+    "receiver-3": {
+      "identify_id": 1908,
+      "stl_sha256": "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a",
+      "largest_archive_vertex_error_mm": 1.2e-06,
+      "extruding_courses": 145
+    }
+  },
+  "native_marks": {
+    "cover-1": {
+      "source_print_x_mm": 7.8,
+      "sample_axis": "print Z at the middle of each native course",
+      "native_dot_count": 1,
+      "dots": [
+        {
+          "center_mm": 5.96,
+          "deepest_commanded_recession_mm": 0.552
+        }
+      ]
+    },
+    "cover-2": {
+      "source_print_x_mm": 7.8,
+      "sample_axis": "print Z at the middle of each native course",
+      "native_dot_count": 2,
+      "dots": [
+        {
+          "center_mm": 4.28,
+          "deepest_commanded_recession_mm": 0.54
+        },
+        {
+          "center_mm": 7.64,
+          "deepest_commanded_recession_mm": 0.564
+        }
+      ]
+    },
+    "cover-3": {
+      "source_print_x_mm": 7.8,
+      "sample_axis": "print Z at the middle of each native course",
+      "native_dot_count": 3,
+      "dots": [
+        {
+          "center_mm": 2.6,
+          "deepest_commanded_recession_mm": 0.528
+        },
+        {
+          "center_mm": 5.96,
+          "deepest_commanded_recession_mm": 0.552
+        },
+        {
+          "center_mm": 9.32,
+          "deepest_commanded_recession_mm": 0.576
+        }
+      ]
+    },
+    "receiver-1": {
+      "source_print_z_mm": 1.725,
+      "native_course_top_mm": 1.88,
+      "sample_axis": "print Y at 0.05 mm intervals",
+      "native_dot_count": 1,
+      "dots": [
+        {
+          "center_mm": 0.0,
+          "deepest_commanded_recession_mm": 0.579
+        }
+      ]
+    },
+    "receiver-2": {
+      "source_print_z_mm": 1.725,
+      "native_course_top_mm": 1.88,
+      "sample_axis": "print Y at 0.05 mm intervals",
+      "native_dot_count": 2,
+      "dots": [
+        {
+          "center_mm": -1.7,
+          "deepest_commanded_recession_mm": 0.579
+        },
+        {
+          "center_mm": 1.7,
+          "deepest_commanded_recession_mm": 0.579
+        }
+      ]
+    },
+    "receiver-3": {
+      "source_print_z_mm": 1.725,
+      "native_course_top_mm": 1.88,
+      "sample_axis": "print Y at 0.05 mm intervals",
+      "native_dot_count": 3,
+      "dots": [
+        {
+          "center_mm": -3.4,
+          "deepest_commanded_recession_mm": 0.579
+        },
+        {
+          "center_mm": 0.0,
+          "deepest_commanded_recession_mm": 0.579
+        },
+        {
+          "center_mm": 3.4,
+          "deepest_commanded_recession_mm": 0.579
+        }
+      ]
+    },
+    "pisco-easy-cover": {
+      "native_dot_count": 1,
+      "max_depth_mm": 0.6
+    },
+    "pisco-easy-receiver": {
+      "native_dot_count": 1,
+      "max_depth_mm": 0.579
+    }
+  }
+}

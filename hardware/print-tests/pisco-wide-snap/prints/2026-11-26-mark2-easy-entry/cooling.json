@@ -1,0 +1,108 @@
+{
+  "gcode_sha256": "e5545e8ce36bd845ca2dda75c29cc8dbe85509d278f41a635836d3887e050f56",
+  "method": "Commanded extrusion time on other objects or the tower after the last extrusion on a part and before the next course on that part. Travel, acceleration and camera moves add time.",
+  "object_intervals": {
+    "pisco-easy-cover": {
+      "all_courses": {
+        "intervals": 173,
+        "minimum_s": 25.15,
+        "minimum_at_next_z_mm": 39.32,
+        "median_s": 28.162
+      }
+    },
+    "cover-1": {
+      "all_courses": {
+        "intervals": 49,
+        "minimum_s": 43.202,
+        "minimum_at_next_z_mm": 8.6,
+        "median_s": 43.751
+      }
+    },
+    "cover-2": {
+      "all_courses": {
+        "intervals": 49,
+        "minimum_s": 43.203,
+        "minimum_at_next_z_mm": 8.6,
+        "median_s": 43.749
+      }
+    },
+    "cover-3": {
+      "all_courses": {
+        "intervals": 49,
+        "minimum_s": 43.222,
+        "minimum_at_next_z_mm": 8.6,
+        "median_s": 43.776
+      }
+    },
+    "pisco-easy-receiver": {
+      "all_courses": {
+        "intervals": 183,
+        "minimum_s": 24.071,
+        "minimum_at_next_z_mm": 42.2,
+        "median_s": 29.814
+      }
+    },
+    "receiver-1": {
+      "all_courses": {
+        "intervals": 144,
+        "minimum_s": 29.549,
+        "minimum_at_next_z_mm": 34.76,
+        "median_s": 37.769
+      },
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 37.758,
+        "minimum_at_next_z_mm": 15.32,
+        "median_s": 46.804
+      },
+      "post_above_catches": {
+        "intervals": 75,
+        "minimum_s": 29.549,
+        "minimum_at_next_z_mm": 34.76,
+        "median_s": 30.167
+      }
+    },
+    "receiver-2": {
+      "all_courses": {
+        "intervals": 144,
+        "minimum_s": 29.904,
+        "minimum_at_next_z_mm": 20.36,
+        "median_s": 37.822
+      },
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 37.767,
+        "minimum_at_next_z_mm": 15.08,
+        "median_s": 46.765
+      },
+      "post_above_catches": {
+        "intervals": 75,
+        "minimum_s": 29.904,
+        "minimum_at_next_z_mm": 20.36,
+        "median_s": 30.167
+      }
+    },
+    "receiver-3": {
+      "all_courses": {
+        "intervals": 144,
+        "minimum_s": 29.907,
+        "minimum_at_next_z_mm": 20.36,
+        "median_s": 37.979
+      },
+      "through_fixed_catches": {
+        "intervals": 69,
+        "minimum_s": 37.965,
+        "minimum_at_next_z_mm": 15.32,
+        "median_s": 46.725
+      },
+      "post_above_catches": {
+        "intervals": 75,
+        "minimum_s": 29.907,
+        "minimum_at_next_z_mm": 20.36,
+        "median_s": 30.27
+      }
+    }
+  },
+  "tower_courses_through_last_cover_course": 174,
+  "minimum_tower_commanded_s": 24.071
+}

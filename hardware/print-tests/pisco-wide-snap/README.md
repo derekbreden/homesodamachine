@@ -20,6 +20,14 @@ The full axial-grip pair carries the newer two-dot guide and the saddle from tha
 
 To reproduce this pair, pass `-- --axial-grip` to the Cargo command below and select `pisco-axial-grip` when slicing.
 
+## Starting the cover by hand
+
+C036 shows the incoming feet stopping against the fixed rim on the last coupons. Two grooves on the aluminum outlet also move about 0.4 mm relative to the printed lip in the previous complete assembly. [Straight-push comparison](../open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result/straight-entry-comparison.jpg) · [Rigid outlet movement](prints/2026-11-25-mark2-axial-grip/physical-result.json)
+
+The full one-dot Pisco uses the same entrance and holding faces as the one-dot coupon. A long receiver ramp gets under the relaxed 2.60 mm feet, and a 1.20 mm nominal shoulder retains each wing when seated. Backed chamfers at the ends guide the full cover into its fore-and-aft registration. A 7.5 mm-wide bearing under the aluminum outlet taper can take up some axial movement during final closure. It grows from the existing saddle and sits behind the white release ring. [Snap entry](prints/2026-11-26-mark2-easy-entry/entry.png) · [Outlet bearing](prints/2026-11-26-mark2-easy-entry/shoulder.png) · [Full assembly checks](parts/easy-entry/fit-check.json)
+
+The full pair and all three dot-marked coupon pairs share the `pisco-easy-entry-set` Mark2 plate. [Plate key](prints/2026-11-26-mark2-easy-entry/plate-key.png) · [Bench procedure](parts/easy-entry/README.md) · [Print record](prints/2026-11-26-mark2-easy-entry/print-job.json)
+
 ## Try the pair
 
 1. Rest the receiver on its flat roof face with the channel facing up. Start the regulator about 16 mm forward of its final position, with its long inlet neck facing the rear bore. Lower it into the channel, then slide it back until the neck enters the bore. The short outlet and its release ring face the open end.

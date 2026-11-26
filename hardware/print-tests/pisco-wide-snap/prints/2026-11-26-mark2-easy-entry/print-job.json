@@ -1,0 +1,141 @@
+{
+  "purpose": "Compare a passive straight press on the full Pisco and a matched one-dot coupon to two alternate entry profiles. The seated guides carry the holding load.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1488385307",
+  "previous_finished_job": "1487976195",
+  "accepted_at": "2026-11-26T07:23:53+00:00",
+  "first_layer_verified_at": "2026-11-26T07:34:11+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 184,
+  "source_and_recipe_commit": "892ea186bc8e13fce65cd371ed10dfd7d9fb9da8",
+  "printer_recipe": "pisco-easy-entry-set",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "left_external_feed": "254",
+  "bed": "Textured PEI Plate",
+  "timelapse": "On (smooth)",
+  "estimated_seconds": 12509,
+  "filament_g": 58.91,
+  "minimum_bed_margin_mm": 74.726,
+  "plate_identification": "From the printer door, the covers sit in front of their corresponding receivers. The full Pisco is at the left, then the one-, two- and three-dot coupons in order. The native tower sits ahead of the covers.",
+  "parts_image": "plate-key.png",
+  "coupon_entry_figure": "entry.png",
+  "source_geometry": "../../parts/easy-entry/geometry.json",
+  "coupon_geometry": "../../../open-snap-section/parts/easy-entry/geometry.json",
+  "objects": [
+    {
+      "name": "pisco-easy-cover",
+      "identify_id": 1901,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/easy-entry/cover.stl",
+      "sha256": "44b6bf510f4518956cdafded2be5cae1da94e87c77dd82c4480d281e4ba7134a",
+      "bed_center_xy_mm": [
+        101.283,
+        140.395
+      ]
+    },
+    {
+      "name": "cover-1",
+      "identify_id": 1902,
+      "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/cover-1.stl",
+      "sha256": "df0496a0e64041b8fb9ecd66aa3c15e0904e011e1619f5a174807fe5af86c83b",
+      "bed_center_xy_mm": [
+        142.094,
+        140.395
+      ]
+    },
+    {
+      "name": "cover-2",
+      "identify_id": 1903,
+      "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/cover-2.stl",
+      "sha256": "e0e527623dd0cdd1367146f5917c291b2ad5af2831ee86e5b096779d0b4e6398",
+      "bed_center_xy_mm": [
+        182.906,
+        140.395
+      ]
+    },
+    {
+      "name": "cover-3",
+      "identify_id": 1904,
+      "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/cover-3.stl",
+      "sha256": "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+      "bed_center_xy_mm": [
+        223.717,
+        140.395
+      ]
+    },
+    {
+      "name": "pisco-easy-receiver",
+      "identify_id": 1905,
+      "stl": "hardware/print-tests/pisco-wide-snap/parts/easy-entry/receiver.stl",
+      "sha256": "32ee4bcac11e09a14dd0613cc6795ad1f7bcf47fa520536db02783538ec7a73c",
+      "bed_center_xy_mm": [
+        92.27,
+        197.256
+      ]
+    },
+    {
+      "name": "receiver-1",
+      "identify_id": 1906,
+      "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/receiver-1.stl",
+      "sha256": "cd0ac68f6e7eee7a5d757c8bda50e7592e2ec94f957519bc851a6cf586b5583a",
+      "bed_center_xy_mm": [
+        139.09,
+        197.256
+      ]
+    },
+    {
+      "name": "receiver-2",
+      "identify_id": 1907,
+      "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/receiver-2.stl",
+      "sha256": "1b8690e49850a52d652cb4bb214c44c3e2e6ecf99abdd657e329ccb773592750",
+      "bed_center_xy_mm": [
+        185.91,
+        197.256
+      ]
+    },
+    {
+      "name": "receiver-3",
+      "identify_id": 1908,
+      "stl": "hardware/print-tests/open-snap-section/parts/easy-entry/receiver-3.stl",
+      "sha256": "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a",
+      "bed_center_xy_mm": [
+        232.73,
+        197.256
+      ]
+    }
+  ],
+  "native_review": "2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei/review.json",
+  "interlayer_cooling": "cooling.json",
+  "gcode_sha256": "e5545e8ce36bd845ca2dda75c29cc8dbe85509d278f41a635836d3887e050f56",
+  "project": {
+    "file": "2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei/2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei.3mf",
+    "sha256": "2546013e7b9be52802c7ddd91d9fbc7619091825dffb6eb83dd4da9085a5f25c",
+    "git_blob": "89df19d6d67b205e9e2aa2e0005a4402e0980d87",
+    "release_archive": "2026-11-26-pisco-easy-entry-set-mark2-aec6b5b425e258a7.zip"
+  },
+  "slice": {
+    "file": "2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei/2026-11-26-pisco-easy-entry-set-mark2-99f6cd86-textured-pei.gcode.3mf",
+    "sha256": "569801665428d8c132e64530a150ff9fecb45f06e960a3b8d7c2a571558d000f",
+    "git_blob": "95dc14f4e71524961eb412a758da02017a757118",
+    "release_archive": "2026-11-26-pisco-easy-entry-set-mark2-aec6b5b425e258a7.zip"
+  },
+  "archive_restore": "Both archived 3MF files were restored and matched the submitted files by SHA-256.",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "coupon_fit_check": "../../../open-snap-section/parts/easy-entry/fit-check.json",
+  "full_fit_check": "../../parts/easy-entry/fit-check.json",
+  "bench_instructions": "../../parts/easy-entry/README.md",
+  "native_object_paths": "native-paths.json",
+  "axial_bearing_figure": "shoulder.png",
+  "coupon_native_sections": "coupon-section-check.json"
+}
