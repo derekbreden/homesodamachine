@@ -576,6 +576,20 @@
       "said": "All of 4 these (newest 3 and last two-dot) fit right to me, and look the same to me",
       "tried": "the three new Mark1 back-top receiver coupons with their matching marked covers and printed regulator stand-in posts. Derek compared all three with the previous two-dot control. Small guide openings and movement under hand pressure remained visible.",
       "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-refinements/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-26",
+      "said": "Feels snug.",
+      "tried": "the seated two-dot Mark1 Pisco cover coupon. Derek also called one dot snug and found three dots very tight. He could not push the three-dot cover onto its receiver straight and could barely insert the other new pairs.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-26",
+      "said": "That one also looks pretty good up there.",
+      "tried": "both seated guides of the two-dot Mark1 back-top receiver coupon with its matching cover. Derek also liked the one-dot seating. On a direct push the broad cover feet caught at the entrances of the new receivers.",
+      "record": "hardware/print-tests/open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result.json"
     }
   ]
 }

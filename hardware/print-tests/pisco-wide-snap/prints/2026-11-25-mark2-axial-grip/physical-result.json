@@ -1,0 +1,185 @@
+{
+  "purpose": "Measure the remaining lengthwise movement of the full Pisco regulator in the axial-grip cover and receiver during Derek's C036 hand test.",
+  "date": "2026-11-26",
+  "printer": "Mark2",
+  "printer_task_id": "1487976195",
+  "print_job": "print-job.json",
+  "geometry_reference": "../../parts/axial-grip/fit-check.json",
+  "preceding_full_pair": "../2026-11-25-mark2-two-dot-drop/physical-result.json",
+  "coupon_trial": "../../../open-snap-section/prints/2026-11-25-mark1-guide-contact/physical-result.json",
+  "recording": {
+    "filename": "A_0001C036A261126_0131433A_CANON.MP4",
+    "sha256": "4b957b78bdc4bfb17e5bdb0cdc1d6917c60eb8ffe802d263d1d01a5eb3df3074",
+    "camera_creation_time_utc": "2026-11-26T07:31:44Z",
+    "duration_s": 238.404833,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the beginning of the Canon recording. Frame indices start at zero."
+  },
+  "tried": "Derek places the purchased Pisco RVFUP1/4–1/4-0.3 in the full-length receiver, fits the two-dot cover, and pushes and pulls the regulator along its axis. He turns the short outlet toward the camera for a view of the travel.",
+  "installed_pair": {
+    "source_seconds": [
+      172.8,
+      189.5
+    ],
+    "photo": "physical-result/184.58-full-pair.jpg",
+    "shows": "Two recessed exterior dots on the fitted cover and the short white outlet collar on the actual regulator."
+  },
+  "testimony": [
+    {
+      "source_seconds": [
+        189.54,
+        195.48
+      ],
+      "derek": "And we have less travel.",
+      "derek_qualifies": "Maybe a bit."
+    },
+    {
+      "source_seconds": [
+        198.04,
+        202.34
+      ],
+      "derek": "Frankly, I think it's kind of still moving about the same as before."
+    },
+    {
+      "source_seconds": [
+        207.58,
+        209.46
+      ],
+      "derek": "There you go. That's how much it's moving."
+    },
+    {
+      "source_seconds": [
+        224.5,
+        234.06
+      ],
+      "derek": "So if you can measure anything from that, that would be great because that's how far we have to go still."
+    }
+  ],
+  "axial_travel": {
+    "representative_hand_stroke_mm": 0.4,
+    "approximate_range_across_observed_strokes_mm": [
+      0.3,
+      0.5
+    ],
+    "practical_uncertainty_of_representative_stroke_mm": 0.1,
+    "photo": "physical-result/rigid-outlet-stroke.jpg",
+    "original_photos": [
+      {
+        "frame": 6870,
+        "seconds": 229.229,
+        "file": "physical-result/229.23-outlet.jpg"
+      },
+      {
+        "frame": 6873,
+        "seconds": 229.3291,
+        "file": "physical-result/229.33-outlet.jpg"
+      }
+    ],
+    "landmarks": "Two circumferential grooves on the rigid aluminum outlet neck behind the white release collet. Both grooves move together past the printed cover lip.",
+    "registration": "Match texture on the front face of the cover below the neck and on the narrow rim beside its slot. Register each frame independently to frame 6743 at 224.991 s with an affine fit. Compare the centers of each metal groove across 13 image rows from y=338 through y=470. Fit the translation of each curved edge along the projected regulator axis. Separate matches on the upper printed receiver block check changes of viewing angle and movement of the two printed pieces.",
+    "calibration": {
+      "scan": "../../../../reference/compact-inline-candidates/dimensions.json",
+      "short_collet_diameter_mm": 12.248,
+      "projected_ellipse_axes_px": [
+        525.3,
+        319.3
+      ],
+      "projection": "The scanned short collet radius reaches 6.124 mm. Its circular outline is elliptical in the camera view. Using its major and minor diameters gives about 34.1 projected pixels per millimeter along the regulator axis. Its short ellipse axis points 23 degrees below image horizontal in the reference frame. This uses the ring for scale. Both travel landmarks are on the metal behind it.",
+      "layer_cross_check": "On the adjacent side of the cover the submitted 0.24 mm courses run along a second direction. Their measured perpendicular spacing near the outlet is about 8.0–8.5 pixels in focused patches, consistent with the projected axis scale.",
+      "layer_source": "2026-11-25-pisco-axial-grip-mark2-72a331bd-textured-pei/slice-result.json",
+      "direction_source": "../../parts/axial-grip/geometry.json"
+    },
+    "strokes": [
+      {
+        "frames": [
+          6726,
+          6738
+        ],
+        "seconds": [
+          224.4242,
+          224.8246
+        ],
+        "rigid_groove_motion_mm": [
+          0.36,
+          0.36
+        ],
+        "other_print_along_projected_axis_px": -1.83
+      },
+      {
+        "frames": [
+          6780,
+          6783
+        ],
+        "seconds": [
+          226.226,
+          226.3261
+        ],
+        "rigid_groove_motion_mm": [
+          0.33,
+          0.26
+        ],
+        "other_print_along_projected_axis_px": 0.61
+      },
+      {
+        "frames": [
+          6870,
+          6873
+        ],
+        "seconds": [
+          229.229,
+          229.3291
+        ],
+        "rigid_groove_motion_mm": [
+          0.4,
+          0.41
+        ],
+        "rigid_groove_motion_along_projected_axis_px": [
+          13.58,
+          13.8
+        ],
+        "front_face_and_rim_matches": [
+          332,
+          191
+        ],
+        "other_print_matches": [
+          18,
+          13
+        ],
+        "other_print_along_projected_axis_px": -1.37
+      },
+      {
+        "frames": [
+          6870,
+          6882
+        ],
+        "seconds": [
+          229.229,
+          229.6294
+        ],
+        "rigid_groove_motion_mm": [
+          0.46,
+          0.48
+        ],
+        "other_print_along_projected_axis_px": -3.58,
+        "note": "The same push continues while the angle changes farther."
+      },
+      {
+        "frames": [
+          6903,
+          6906
+        ],
+        "seconds": [
+          230.3301,
+          230.4302
+        ],
+        "rigid_groove_motion_mm": [
+          0.37,
+          0.35
+        ],
+        "other_print_along_projected_axis_px": -0.54
+      }
+    ],
+    "uncertainty": "In the representative comparison the two grooves agree to 0.01 mm. The opposite printed member shows 1.37 pixels of apparent axial movement relative to the cover. Other pairs show up to 3.6 pixels, about 0.1 mm. The surfaces are at different depths and the camera pose changes as Derek loads the parts. The approximate range describes his filmed strokes. A controlled stop-to-stop clearance and the share due to cover motion or elastic deflection require a separate measurement.",
+    "comparison": "The preceding full pair showed about 0.55 mm on its representative stroke and about 0.45–0.65 mm across pushes. For the axial-grip pair the print-path model predicts 0.016–0.056 mm across the two modeled seating heights. The current hand strokes still show several tenths of a millimeter."
+  }
+}

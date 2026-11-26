@@ -1,0 +1,116 @@
+{
+  "purpose": "Record the seated grip and straight-on insertion of the three guide-contact Pisco coupons in Derek's C036 hand test.",
+  "date": "2026-11-26",
+  "printer": "Mark1",
+  "printer_task_id": "1487969050",
+  "print_job": "print-job.json",
+  "printed_sections": "section-check.json",
+  "bench_reference": "../../parts/guide-contact/bench.md",
+  "recording": {
+    "filename": "A_0001C036A261126_0131433A_CANON.MP4",
+    "sha256": "4b957b78bdc4bfb17e5bdb0cdc1d6917c60eb8ffe802d263d1d01a5eb3df3074",
+    "camera_creation_time_utc": "2026-11-26T07:31:44Z",
+    "duration_s": 238.404833,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the beginning of the Canon recording. Frame indices start at zero."
+  },
+  "tried": "Three marked 12 mm coupon pairs with a printed stand-in for the regulator. Derek first shows the already-seated pairs one at a time. He then separates the pieces, tries to press the new covers on, and demonstrates the same push on a much older pair.",
+  "seated_comparison": {
+    "photo": "physical-result/three-seated-pairs.jpg",
+    "frames": [
+      575,
+      1109,
+      1927
+    ],
+    "seconds": [
+      19.1858,
+      37.0036,
+      64.2976
+    ],
+    "pairs": [
+      {
+        "dots": 1,
+        "source_seconds": [
+          14.64,
+          25.26
+        ],
+        "derek": "I like the looks of that one.",
+        "repeat_seconds": [
+          53.48,
+          55.84
+        ],
+        "derek_on_repeat": "One feels pretty snug too.",
+        "observed": "He turns the assembled coupon to expose both hooks behind the receiver catches."
+      },
+      {
+        "dots": 2,
+        "source_seconds": [
+          28.5,
+          50.52
+        ],
+        "derek_on_upper": "That one also looks pretty good up there.",
+        "derek_on_lower": "Pretty darn good down there.",
+        "derek_on_grip": "Very tight fit.",
+        "derek_on_grip_again": "Feels snug.",
+        "observed": "He looks along both sides and squeezes the seated pair."
+      },
+      {
+        "dots": 3,
+        "source_seconds": [
+          56.9,
+          85.1
+        ],
+        "derek_on_grip": "very tight fit and snug",
+        "derek_on_entry": "I can't push and insert with that.",
+        "observed": "After showing both seated hooks, he separates the pieces and tries to press straight across the open end. The broad toes run into the receiver entrance while the post is still clear of the saddle."
+      }
+    ]
+  },
+  "straight_entry": {
+    "photo": "physical-result/straight-entry-comparison.jpg",
+    "frames": [
+      2368,
+      2949,
+      3626,
+      3660
+    ],
+    "seconds": [
+      79.0123,
+      98.3983,
+      120.9875,
+      122.122
+    ],
+    "new_pairs": [
+      {
+        "source_seconds": [
+          82.6,
+          98.56
+        ],
+        "derek": "I can barely do it with these other ones.",
+        "derek_on_repeat": "Yeah, look, I basically can't.",
+        "observed": "On another new pair he brings the cover from the left against the receiver at the right, then changes the angle. The leading ends meet the fixed lips before the regulator stand-in reaches the saddle. He does not name the second pair's dot count during this push."
+      },
+      {
+        "source_seconds": [
+          156.7,
+          171.68
+        ],
+        "derek": "Not great.",
+        "observed": "He presents two more straight approaches with the broad-foot covers. The toes meet the tips of the fixed cheeks."
+      }
+    ],
+    "older_comparison": {
+      "source_seconds": [
+        114.56,
+        153.2
+      ],
+      "derek_on_entry": "You see how great that is?",
+      "derek_on_fit": "And frankly, this one fits pretty well.",
+      "derek_on_play": "Well, no, it is kind of loose there.",
+      "derek_on_the_target": "If not this good, like at least this should be possible, right?",
+      "observed": "The older cover has a narrower flat tip and a long exposed slope behind it. The tips reach past the receiver lips, the slopes push the wings apart, and both hooks pass the lips with the same closing direction. Derek then rocks the seated pair. He identifies it only as a much older one."
+    }
+  },
+  "scope": "The hand test establishes close seated fit on all three new pairs and shows the straight-on entry problem. Derek demonstrates the older pair’s press-on action as the entry reference. Hand loads and through-depth clearances were unmeasured.",
+  "full_regulator_trial": "../../../pisco-wide-snap/prints/2026-11-25-mark2-axial-grip/physical-result.json"
+}
