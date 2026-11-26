@@ -222,10 +222,8 @@ static_assert(RAIL_W + HERO_W + TASK_W == SCREEN_W, "Big Blue fills the display"
 static_assert(4 * TILE_BTN_W + 3 * TILE_GAP <= DETAIL_W, "four whole portraits per page");
 
 // ── The rail and the portrait ──
-// On every page the selected flavor's rail cell is the portrait panel's own ice, from the
-// glass edge into the portrait, holding the flavor's number large with the check under it: its
-// picture is the portrait's. The other flavor stands on the rail without a card, its thumbnail
-// in grey over its number. The portrait is captioned under it.
+// The ice cell identifies the flavor on tap. Its picture lives in the portrait panel
+// when that panel is visible, and in the cell when machine settings take its place.
 #define RAIL_CARD_INSET       10   // a card from the rail's edges
 #define RAIL_CARD_PITCH      170
 #define RAIL_CARD_W           84
@@ -281,10 +279,9 @@ static lv_obj_t *settingsOverview, *sensorDetail, *simulatedNote;
 static bool viewingSensors = false;
 static lv_obj_t *homeGauge, *homeLevelCaption;
 static lv_obj_t *homeLevelSegments[LEVEL_SEGMENTS];
-// The rail's selection: the selected cell's ice, and each card's number under its thumbnail,
-// or large with the check under it while the card is the flavor on tap.
+// The highlight sits behind the flavor buttons so the whole card stays tappable.
 static lv_obj_t *railCell;
-static lv_obj_t *railNumber[2], *railBigNumber[2], *railBigCheck[2];
+static lv_obj_t *railNumber[2], *railCheck[2];
 static lv_obj_t *flvTilePosition;
 static lv_obj_t *flvTileMark[FLAVOR_IMAGE_COUNT] = {};
 static uint8_t imagePage = 0;
@@ -595,8 +592,7 @@ static lv_obj_t *homeFlavorBadge[2];
 // rail, portrait and gauge's cached visible state alone.
 static int8_t homeFlavorShown = -2;
 
-// The rail's picture of flavor `i`: in grey while the other flavor is the one on tap, and in
-// colour while nothing is known to be.
+// Only the off-tap channel uses the muted artwork.
 static const lv_img_dsc_t *railArt(uint8_t i) {
   const uint8_t art = resolveFlavorArt(flavorImage[i], i);
   return homeFlavorShown >= 0 && homeFlavorShown != i ? &flavorRailGreyArt[art] : &flavorRailArt[art];
@@ -5114,12 +5110,6 @@ static lv_obj_t *mkStroke(lv_obj_t *parent, const lv_point_t *points, uint16_t c
   return l;
 }
 
-// Under the selected card's large number and centred on it, from inside the card's border.
-static lv_obj_t *mkCheck(lv_obj_t *card) {
-  static const lv_point_t check[] = {{33, 114}, {38, 119}, {48, 109}};
-  return mkStroke(card, check, 3, COL_INK);
-}
-
 // At the far right of a resting row.
 static lv_obj_t *mkChevron(lv_obj_t *row) {
   static const lv_point_t chevron[] = {{0, 0}, {7, 7}, {0, 14}};
@@ -5160,13 +5150,9 @@ static void buildRail(lv_obj_t *scr) {
     railNumber[i] = mkText(b, "", &lv_font_montserrat_24, COL_TEXT);
     lv_label_set_text_fmt(railNumber[i], "%u", (unsigned)(i + 1));
     lv_obj_align(railNumber[i], LV_ALIGN_TOP_MID, 0, RAIL_NUMBER_Y);
-    // On tap, the number in its place: large and centred in the cell, the check under it.
-    railBigNumber[i] = mkText(b, "", &lv_font_montserrat_48, COL_INK);
-    lv_label_set_text_fmt(railBigNumber[i], "%u", (unsigned)(i + 1));
-    lv_obj_align(railBigNumber[i], LV_ALIGN_TOP_MID, 0, RAIL_BIG_NUMBER_Y);
-    railBigCheck[i] = mkCheck(b);
-    lv_obj_add_flag(railBigNumber[i], LV_OBJ_FLAG_HIDDEN);
-    lv_obj_add_flag(railBigCheck[i], LV_OBJ_FLAG_HIDDEN);
+    static const lv_point_t check[] = {{0, 5}, {5, 10}, {15, 0}};
+    railCheck[i] = mkStroke(b, check, 3, COL_INK);
+    lv_obj_add_flag(railCheck[i], LV_OBJ_FLAG_HIDDEN);
   }
   heroPanel = mkBtn(scr, HERO_W, SCREEN_H - SETTINGS_H, COL_DIM);
   lv_obj_set_pos(heroPanel, RAIL_W, 0);
@@ -5180,16 +5166,16 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_align(heroCaption, LV_ALIGN_TOP_MID, 0, HERO_CAPTION_Y);
 }
 
-// The rail's selection, the same on every page: the selected flavor's cell in the portrait
-// panel's ice with its number large and the check under it, and the other flavor's thumbnail in
-// grey over its white number. While the selection is not known both stand in colour. Only a
-// change of selection repaints it.
+// The selected cell trades its large number for a thumbnail when the portrait leaves the screen.
 static void paintRailSelection() {
-  if (!railCell) return;
+  if (!heroPanel) return;
   const int8_t selected = homeFlavorShown;
+  const bool portraitVisible = !lv_obj_has_flag(heroPanel, LV_OBJ_FLAG_HIDDEN);
   static int8_t shown = -3;
-  if (selected == shown) return;
+  static bool portraitWasVisible = false;
+  if (selected == shown && portraitVisible == portraitWasVisible) return;
   shown = selected;
+  portraitWasVisible = portraitVisible;
   if (selected >= 0) {
     lv_obj_set_pos(railCell, 0, selected ? RAIL_CELL_SPLIT : 0);
     lv_obj_set_height(railCell, selected ? RAIL_CELL_FOOT - RAIL_CELL_SPLIT : RAIL_CELL_SPLIT);
@@ -5197,11 +5183,15 @@ static void paintRailSelection() {
   showIf(railCell, selected >= 0);
   for (uint8_t i = 0; i < 2; ++i) {
     const bool on = selected == i;
+    const bool largeNumber = on && portraitVisible;
     lv_img_set_src(homeFlavorArtObj[i], railArt(i));
-    showIf(homeFlavorArtObj[i], !on);
-    showIf(railNumber[i], !on);
-    showIf(railBigNumber[i], on);
-    showIf(railBigCheck[i], on);
+    showIf(homeFlavorArtObj[i], !largeNumber);
+    lv_obj_set_style_text_font(railNumber[i], largeNumber ? &lv_font_montserrat_48 : &lv_font_montserrat_24, 0);
+    lv_obj_set_style_text_color(railNumber[i], lv_color_hex(on ? COL_INK : COL_TEXT), 0);
+    lv_obj_align(railNumber[i], LV_ALIGN_TOP_MID, 0, largeNumber ? RAIL_BIG_NUMBER_Y : RAIL_NUMBER_Y);
+    // Center the check under the large number, or place it beside the number below the thumbnail.
+    lv_obj_set_pos(railCheck[i], largeNumber ? 33 : 13, largeNumber ? 109 : RAIL_NUMBER_Y + 9);
+    showIf(railCheck[i], on);
   }
 }
 
@@ -5285,6 +5275,7 @@ static void refreshShell() {
   const bool task = activePage == PAGE_FLAVOR || activePage == PAGE_SERVICE || activePage == PAGE_TRUST;
   const bool back = front_ui::showBack(lockActive, holding);
   showIf(heroPanel, !machine);
+  paintRailSelection();
   // At rest every task is a row in the pane, so nothing stands over it.
   showIf(taskHeader, task);
   showIf(backRow, task && back);

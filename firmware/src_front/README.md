@@ -1,7 +1,7 @@
 # Machine Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
 The soda machine's display: Big Blue on an 800×480 RGB panel under LVGL.
-Both flavors stay in the left rail; the selected portrait and task occupy the rest.
+Both flavors stay in the left rail. A large portrait sits beside it on drink pages, and Settings uses that space for machine readings and controls.
 
 ## Board
 
@@ -369,14 +369,12 @@ The rail holds the two flavor targets and a reserved slot for phone requests. A 
 Settings button spans the foot of the rail and the portrait. Its gear, thermometer, tank
 reading in the selected unit, and cooling activity share a single row. Touching anywhere in it opens Settings.
 
-**The rail is the same on every page.** The selected flavor's cell is the portrait panel's
-own ice, from the glass edge into the portrait, so the two read as one. It holds no thumbnail,
-since its picture is the portrait: its number stands large in the middle of the cell with a
-check under it, both in ink. The other flavor has no card; its thumbnail stands on the rail in
-grey at a little over half strength, over its white number, and a tap on it puts that flavor on
-tap. While the selection is not known, both thumbnails stand in colour over their numbers.
-In Settings the selected cell's ice ends at the rail's edge. The portrait
-stands beside the rail on every other page, captioned **On tap.** in ink.
+**The flavor on tap** has an ice-colored rail cell and a checkmark. Beside the large
+portrait, the cell holds the flavor number with the check underneath. When Settings or
+Water & sensors takes the portrait's place, the full-color thumbnail returns to the cell
+with the check beside its number. The other flavor keeps its muted thumbnail and white
+number. Tapping it puts that flavor on tap. While the machine's selection is unknown,
+both thumbnails appear in color with their numbers.
 
 **At rest** nothing stands over the pane: it runs the glass's full height, with the
 reservoir's caption and gauge at its top, then Fill, Prime and Clean, and apart from them
