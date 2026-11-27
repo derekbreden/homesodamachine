@@ -781,9 +781,10 @@
   },
   "production_recipes": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
   "production_equipment_print_plans": {
-    "back_top_Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-supported-wago-pockets-mark1/print-plan.json",
+    "front_top_Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-wago-floor-trees-mark1/print-plan.json",
+    "back_top_Mark1": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-back-top-wago-floor-trees-mark1/print-plan.json",
     "accessory_plate_Mark2": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json",
-    "equipment_lid_Mark1": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/print-plan.json"
+    "equipment_lid_Mark1": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-27-lid-wago-floor-trees-mark1/print-plan.json"
   },
   "historical_archives": "Preserved with their recorded process. Current editable projects require a fresh slice before their next print.",
   "scope": "D supplies the shared contact and bridge settings. Each full product selects its support roots, clearance, interface treatment and bridges from its actual contact surfaces and removal access.",

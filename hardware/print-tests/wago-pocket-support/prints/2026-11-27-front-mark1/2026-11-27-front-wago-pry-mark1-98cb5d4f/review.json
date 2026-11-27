@@ -1,0 +1,202 @@
+{
+  "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.gcode.3mf",
+  "archive_sha256": "4435dd2f470be40b59b0f03e83e448af8b7646eb594666914f1548ff07c18730",
+  "bead_envelope_plate_mm": [
+    [
+      133.089005,
+      104.089005
+    ],
+    [
+      190.910995,
+      195.96236199999998
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 124.03763800000002,
+    "front": 104.089005,
+    "left": 133.089005,
+    "right": 134.089005
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9699922189940282,
+      "second_layer_centerline_outside_first_mm": 4.17431668339597,
+      "second_layer_model_bead_area_mm2": 528.6421312071859
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9667637684363138,
+      "second_layer_centerline_outside_first_mm": 3.4489783341632023,
+      "second_layer_model_bead_area_mm2": 403.4816652601115
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 181,
+  "minimum_bed_margin_mm": 104.089005,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": 0.06500061035156335,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.9964549019607843,
+      "minimum_outline_coverage": 0.9965831659380047,
+      "name": "front-420 roof transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          136.30099923706055,
+          169.14,
+          36.9
+        ],
+        [
+          148.00999923706055,
+          190.86,
+          40.169999999999995
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9964549019607843,
+          "infill_core_mm2": 239.06250000000006,
+          "outline_coverage": 0.9965831659380047,
+          "print_z_mm": 37.4,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 253.89000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989197723212431,
+          "infill_core_mm2": 240.69000000000005,
+          "outline_coverage": 0.9989759344598055,
+          "print_z_mm": 38.6,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 253.89000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989197723212431,
+          "infill_core_mm2": 240.69000000000005,
+          "outline_coverage": 0.9989759344598055,
+          "print_z_mm": 40.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 253.89000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          0.001,
+          -10.86,
+          36.9
+        ],
+        [
+          11.709999999999999,
+          10.86,
+          40.169999999999995
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9959595959595959,
+      "minimum_outline_coverage": 0.9961478271337426,
+      "name": "front-415 roof transverse bridge",
+      "object": 1902,
+      "plate_bounds_mm": [
+        [
+          172.001,
+          172.89,
+          37.1
+        ],
+        [
+          183.71,
+          187.11,
+          40.37
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9959595959595959,
+          "infill_core_mm2": 154.68750000000003,
+          "outline_coverage": 0.9961478271337426,
+          "print_z_mm": 37.64,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 166.14000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989258689239451,
+          "infill_core_mm2": 155.94000000000003,
+          "outline_coverage": 0.9989767665824004,
+          "print_z_mm": 38.84,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 166.14000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9988777735026292,
+          "infill_core_mm2": 155.94000000000003,
+          "outline_coverage": 0.9988563861803298,
+          "print_z_mm": 40.04,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 166.14000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          0.001,
+          -7.109999999999999,
+          37.1
+        ],
+        [
+          11.709999999999999,
+          7.109999999999999,
+          40.37
+        ]
+      ]
+    }
+  ],
+  "support_roads": 7989,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 1,
+      "removable_stock_moves": 4280,
+      "shortest_build_up_mm": 28.8,
+      "shortest_labelled_build_up_mm": 28.8,
+      "support_bodies": 1
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 1,
+      "removable_stock_moves": 3709,
+      "shortest_build_up_mm": 29.04,
+      "shortest_labelled_build_up_mm": 29.04,
+      "support_bodies": 1
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "purpose": "Test a single removable tree rooted inside each distinct WAGO pocket, including its mouth edge, with enough surrounding stock for prying.",
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1492717061",
+  "submitted_name": "2026-11-27-front-mark1-4435dd2f.gcode.3mf",
+  "previous_finished_job": "1491798007",
+  "accepted_at": "2026-11-27T10:27:48+00:00",
+  "first_layer_verified_at": "2026-11-27T10:38:30+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 181,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Print the pocket walls and the detachable tree in the production black PET-GF hotend.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "timelapse": "On, smooth",
+  "objects": [
+    {
+      "name": "front-420",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/front-420.stl",
+      "stl_sha256": "108c07137e7fb3eb4c94f844cb3a2eba931d4fed3fdc1e3b13f62cbd369f4c0d"
+    },
+    {
+      "name": "front-415",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/front-415.stl",
+      "stl_sha256": "af6e4e49ccfc11981c3ca66fef34302bf1d0787e8340383d08f411774c2aabf7"
+    }
+  ],
+  "printer_recipe": "front-wago-pry",
+  "source_and_recipe_commit": "fc8ce35b64c45b7696e02fa13515e6251c9baefc",
+  "native_review": "2026-11-27-front-wago-pry-mark1-98cb5d4f/review.json",
+  "pocket_measurements": "coupon-toolpaths.json",
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.3mf",
+    "sha256": "e0270bb30126a993afe1436e6ab9a1439ab728256e81a7d96b863d1a4d9b46b6",
+    "git_blob": "0f6269111100440f000901477c55b95b8a7cd455",
+    "release_archive": "wago-pry-mark1-c4e955a2189cf26c.zip"
+  },
+  "slice": {
+    "file": "2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.gcode.3mf",
+    "sha256": "4435dd2f470be40b59b0f03e83e448af8b7646eb594666914f1548ff07c18730",
+    "git_blob": "9f0953221e8d2c6febfe59594c49b00c5059dc67",
+    "release_archive": "wago-pry-mark1-c4e955a2189cf26c.zip"
+  },
+  "gcode_sha256": "3bb4d4d8f0a0101e994ba9e48869a31955e06371a5012598285341587258061a",
+  "estimated_seconds": 8813,
+  "filament_g": 49.48,
+  "minimum_bead_bed_margin_mm": 104.09
+}

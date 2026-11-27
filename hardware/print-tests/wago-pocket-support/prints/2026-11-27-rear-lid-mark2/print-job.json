@@ -1,0 +1,60 @@
+{
+  "purpose": "Test a single removable tree rooted inside each distinct WAGO pocket, including its mouth edge, with enough surrounding stock for prying.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1492726180",
+  "submitted_name": "2026-11-27-rear-lid-mark2-61892e9e.gcode.3mf",
+  "previous_finished_job": "1491785606",
+  "accepted_at": "2026-11-27T10:31:42+00:00",
+  "first_layer_verified_at": "2026-11-27T10:41:33+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 136,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Print the pocket walls and the detachable tree in the production black PET-GF hotend.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "timelapse": "On, smooth",
+  "objects": [
+    {
+      "name": "rear-413",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/rear-413.stl",
+      "stl_sha256": "d0b69ff9778075d146c261d8bc36772e818babcf2a40df38fdf44ded15b12a8e"
+    },
+    {
+      "name": "lid-413",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/lid-413.stl",
+      "stl_sha256": "717d90b44285789443e64c285b62d70684418c01a31de8497fe9598fb7b18fa5"
+    }
+  ],
+  "printer_recipe": "rear-lid-wago-pry",
+  "source_and_recipe_commit": "fc8ce35b64c45b7696e02fa13515e6251c9baefc",
+  "native_review": "2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/review.json",
+  "pocket_measurements": "coupon-toolpaths.json",
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.3mf",
+    "sha256": "26d0d205c4a80dd507d501d255d5de1eca4e7b9b0aacf355a80e8988bb973444",
+    "git_blob": "cd5d88d60566bf1317523a2acc7fe5f29d9a8b31",
+    "release_archive": "wago-pry-mark2-726d3f479bcf3dc4.zip"
+  },
+  "slice": {
+    "file": "2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.gcode.3mf",
+    "sha256": "61892e9e69d5c36f9c68e5694daa50f42cbfe36f88bb5dded3c50f98ad9619ad",
+    "git_blob": "146a04c3c07576dbe32e6eacfa627b911bc350e1",
+    "release_archive": "wago-pry-mark2-726d3f479bcf3dc4.zip"
+  },
+  "gcode_sha256": "8105c7aace55de3938c8d2e4963ad2e261ca6805e293b555db192e825b2e2fb6",
+  "estimated_seconds": 6579,
+  "filament_g": 35.98,
+  "minimum_bead_bed_margin_mm": 105.0
+}

@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/native",
+  "--export-3mf",
+  "2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/native/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.cli.3mf"
+]

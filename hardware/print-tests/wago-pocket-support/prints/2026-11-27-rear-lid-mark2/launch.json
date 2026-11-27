@@ -1,0 +1,27 @@
+{
+  "archive": {
+    "gcode_sha256": "8105c7aace55de3938c8d2e4963ad2e261ca6805e293b555db192e825b2e2fb6",
+    "name": "2026-11-27-rear-lid-mark2-61892e9e.gcode.3mf",
+    "objects": [
+      "rear-413",
+      "lid-413"
+    ],
+    "sha256": "61892e9e69d5c36f9c68e5694daa50f42cbfe36f88bb5dded3c50f98ad9619ad",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 108,
+  "observed_at": "2026-11-27T10:31:42+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1492726180",
+  "subtask_name": "2026-11-27-rear-lid-mark2-61892e9e.gcode.3mf",
+  "total_layer_num": 136
+}

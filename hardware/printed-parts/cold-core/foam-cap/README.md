@@ -59,13 +59,14 @@ the estimated hook engagement is 1.27 mm on each side and the feet have 0.28 mm
 to the pocket floors. Center the cover between the end walls, press on its rigid
 crown and feel both sides engage. [Production motor and cover measurements](pump-snap-fit.json)
 
-Print the [equipment lid on Mark1](prints/2026-11-26-production-snaps-mark1/print-plan.json) and its [motor cover on the Mark2 accessory plate](../../enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json). The lid’s ten screw positions match the current HSM-0018 shell. The shell hand-fitted in October has a different pattern. [Hole and insert measurements](prints/2026-11-26-production-snaps-mark1/shell-bolt-pattern.json)
+Print the [equipment lid on Mark1](prints/2026-11-27-lid-wago-floor-trees-mark1/print-plan.json) and its [motor cover on the Mark2 accessory plate](../../enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json). The lid’s ten screw positions match the current HSM-0018 shell. The shell hand-fitted in October has a different pattern. [Hole and insert measurements](prints/2026-11-26-production-snaps-mark1/shell-bolt-pattern.json)
 
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
 locates the bearing datums, axial stops and removable sliders.
 
 V-B uses the shared V69 upright socket. Four DC/sensor WAGO wells occupy the board-facing
-back of its wall. Their levers open west. The wall and wells retain ordinary 3 mm stock.
+back of its wall. Each pocket prints with one removable tree on its floor. Withdraw
+it through the connector mouth before installing the WAGO. The levers open west. The wall and wells retain ordinary 3 mm stock.
 The PCB and plumbing poses belong to the [above-core arrangement](../../../manifold-layout/above-core.md).
 
 The [top-lid print recipe](../../enclosure/trial-preparation/pieces.json) uses the PET-GF

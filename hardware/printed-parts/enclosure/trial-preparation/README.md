@@ -121,9 +121,9 @@ for fixed-width brim types.
 
 | Piece | Printer, hotend | Material | Read from the mesh, or pose | Recipe changes |
 | --- | --- | --- | --- | --- |
-| `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | Support XY 0.50 mm |
+| `front-top` | Mark1, left 0.4 | PET-GF black | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll | One detachable tree in each manifold WAGO pocket, rooted on its floor. Support XY 0.50 mm. |
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Tree(auto)/Default; short rail trees rooted on their cavity floors |
-| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on textured PEI, rear flutes clear of the bed; additive roof-edge transition; local solid rail bands | Manual trees at accessible contacts, receiver catches, meter floors and inlet roofs; removable rail caps and tube-wing strips rooted on the part; self-supporting nameplate ledges and protected corbelled catches, sockets and pilots |
+| `back-top` | Mark1, left 0.4 | PET-GF black | Ceiling-down on textured PEI, rear flutes clear of the bed; additive roof-edge transition; local solid rail bands | Manual trees at accessible contacts, receiver catches, meter floors and inlet roofs; removable rail caps and tube-wing strips rooted on the part, one removable tree on each of the six WAGO floors; self-supporting nameplate ledges and protected corbelled catches, sockets and pilots |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Integral handhold corbels with the shared ordinary layer schedule | Saved plate offset and automatic-tree branch angle |
 | `pump-retainer` | Mark1, left 0.4 | PET-GF black | Lower retainer on the Y-minus end | Classic perimeters, solid screw seats and bridged screw openings |
 | `rear-equipment-caps` | Mark2, left 0.4 | PET-GF black | ASSE, Pisco, regulator and meter caps as exported, mouths up; 15 mm spacing | Nonplanar regulator contact, bridged meter shoulder |
@@ -137,7 +137,7 @@ for fixed-width brim types.
 | `elbow-cradle` | Mark1, left 0.4 | PET-GF black | On its bottom, as exported | — |
 | `soda-bend-holder` | Mark1, left 0.4 | PET-GF black | The flat back of the D on the bed, as exported | Six walls, 100% zig-zag (the accepted 2026-10-23 article) |
 | `foam-shell` | Mark2, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; support-free |
-| `foam-cap-lid-top` | Mark1, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; Tree(auto)/Default |
+| `foam-cap-lid-top` | Mark1, left 0.4 Standard | PET-GF black | As exported, on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; Tree(auto)/Default and one removable floor-rooted tree in each of the four WAGO wells |
 | `foam-cap-bottom` | Mark2, left 0.4 Standard | PET-GF black | Half a turn about X, onto its flat face | As the other cold-core pieces |
 | `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.rs`](labels.rs) | — |
 | `funnel-cover` | Mark1, left 0.4 | PETG Basic black | [`zone-c/funnel-cover/prepare_print.rs`](../../zone-c/funnel-cover/prepare_print.rs) | — |

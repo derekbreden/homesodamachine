@@ -1,0 +1,351 @@
+{
+  "archive_sha256": "6ff51f7c362bf9408081346bac08a47aa82e3517403b71443b2e22a9c263290a",
+  "native_gcode_sha256": "0036498f00b4f01fde9fe0b18b5a3a127fe31a22d7f30140149adfefceba1e88",
+  "relative_to_archive_sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f",
+  "prior_native_gcode_sha256": "a0c095720f54bd718098ec28dac73ff1cc757a51ce4761ae847356211b9a8197",
+  "model_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "permanent_shell": {
+    "method": "Every deposited layer is intersected at its adjacent-layer midpoint. Every nonempty connected material polygon, with holes removed, is checked against actual positive-E model roads at that layer. Interior segment-midpoint witnesses are followed by complete segment and commanded bead intersection when needed. Results describe commanded deposition, independent of physical adhesion.",
+    "final": {
+      "interior model-centerline witness": 1761,
+      "total connected sections": 1761
+    },
+    "prior": {
+      "interior model-centerline witness": 1761,
+      "total connected sections": 1761
+    }
+  },
+  "support_review": {
+    "appearance_contact_count": 0,
+    "nearest_support_to_appearance_mm": 0.004987792968750848,
+    "excluded_support_crossings": 0,
+    "upward_meter_wing_seat_support_count": 0,
+    "named_regions_checked": 30
+  },
+  "label_channels": {
+    "FLAVOR B": {
+      "native_support_or_authored_stock_segments_in_full_channel": 0,
+      "model_segments_in_former_stand": 0,
+      "straight_chamfer_minimum_previous_perimeter_overlap_mm": 0.179,
+      "straight_chamfer_transverse_measurements_per_course": 375
+    },
+    "DRAIN": {
+      "native_support_or_authored_stock_segments_in_full_channel": 0,
+      "model_segments_in_former_stand": 0,
+      "straight_chamfer_minimum_previous_perimeter_overlap_mm": 0.179,
+      "straight_chamfer_transverse_measurements_per_course": 375
+    }
+  },
+  "continued_receiver_supports": {
+    "Fill tube snap removable upper-wing support": {
+      "deposited_courses": 26,
+      "first_course_z_mm": 93.56,
+      "last_course_z_mm": 99.56,
+      "nominal_release_gap_mm": 0.24,
+      "root_path_mm": 8.58,
+      "root_path_without_landing_mm": 0.0
+    },
+    "Removable west rail support 1": {
+      "deposited_courses": 25,
+      "first_course_z_mm": 180.2,
+      "last_course_z_mm": 185.96,
+      "nominal_release_gap_mm": 0.24,
+      "root_path_mm": 50.4,
+      "root_path_without_landing_mm": 0.0
+    },
+    "Removable west rail support 2": {
+      "deposited_courses": 25,
+      "first_course_z_mm": 180.2,
+      "last_course_z_mm": 185.96,
+      "nominal_release_gap_mm": 0.24,
+      "root_path_mm": 67.216,
+      "root_path_without_landing_mm": 0.0
+    },
+    "Removable east rail support 1": {
+      "deposited_courses": 25,
+      "first_course_z_mm": 180.2,
+      "last_course_z_mm": 185.96,
+      "nominal_release_gap_mm": 0.24,
+      "root_path_mm": 126.12,
+      "root_path_without_landing_mm": 0.0
+    }
+  },
+  "flow_meter": {
+    "first_course_deposition_by_area": {
+      "Fore shoulder": {
+        "first_course_model_path_mm": 419.57,
+        "over_interface_mm": 411.73,
+        "over_prior_model_mm": 7.84,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Outer lip": {
+        "first_course_model_path_mm": 109.92,
+        "over_interface_mm": 108.52,
+        "over_prior_model_mm": 1.9,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Outer ramp 32 deg": {
+        "first_course_model_path_mm": 131.41,
+        "over_interface_mm": 128.91,
+        "over_prior_model_mm": 109.86,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Outer crest": {
+        "first_course_model_path_mm": 43.41,
+        "over_interface_mm": 42.71,
+        "over_prior_model_mm": 0.25,
+        "without_prior_or_support_landing_mm": 0.45,
+        "longest_continuous_without_landing_mm": 0.3,
+        "longest_from_machine_xyz": [
+          87.511,
+          395.63,
+          309.68
+        ],
+        "longest_to_machine_xyz": [
+          87.511,
+          395.78,
+          309.68
+        ]
+      },
+      "Inner 45 deg return": {
+        "first_course_model_path_mm": 181.45,
+        "over_interface_mm": 176.72,
+        "over_prior_model_mm": 160.02,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Inner ramp 8 deg": {
+        "first_course_model_path_mm": 125.28,
+        "over_interface_mm": 123.33,
+        "over_prior_model_mm": 26.94,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Inner ramp 13 deg": {
+        "first_course_model_path_mm": 177.11,
+        "over_interface_mm": 174.96,
+        "over_prior_model_mm": 5.27,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Inner ramp 26 deg": {
+        "first_course_model_path_mm": 110.19,
+        "over_interface_mm": 86.84,
+        "over_prior_model_mm": 24.99,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Boss floor fore": {
+        "first_course_model_path_mm": 249.91,
+        "over_interface_mm": 243.19,
+        "over_prior_model_mm": 6.72,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Boss floor aft": {
+        "first_course_model_path_mm": 249.9,
+        "over_interface_mm": 243.18,
+        "over_prior_model_mm": 6.72,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Head floor fore": {
+        "first_course_model_path_mm": 35.27,
+        "over_interface_mm": 34.48,
+        "over_prior_model_mm": 2.44,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Head floor aft": {
+        "first_course_model_path_mm": 35.46,
+        "over_interface_mm": 34.96,
+        "over_prior_model_mm": 4.21,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "High head sliver fore": {
+        "first_course_model_path_mm": 21.77,
+        "over_interface_mm": 6.85,
+        "over_prior_model_mm": 15.21,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "High head sliver aft": {
+        "first_course_model_path_mm": 20.44,
+        "over_interface_mm": 6.11,
+        "over_prior_model_mm": 14.62,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Wire chamber": {
+        "first_course_model_path_mm": 159.87,
+        "over_interface_mm": 145.26,
+        "over_prior_model_mm": 14.6,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      },
+      "Lower broad shelf": {
+        "first_course_model_path_mm": 856.94,
+        "over_interface_mm": 823.32,
+        "over_prior_model_mm": 33.63,
+        "without_prior_or_support_landing_mm": 0.0,
+        "longest_continuous_without_landing_mm": 0,
+        "longest_from_machine_xyz": null,
+        "longest_to_machine_xyz": null
+      }
+    },
+    "all_sixteen_area_measurements_match_prior": true
+  },
+  "wago_cheeks": {
+    "method": "Inside the common open-height interval, intersect actual positive model centerlines with the two longitudinal bands of solid wall on either side of each 8.7 mm socket. The interval excludes 1 mm at both ends of the modifier height. The bands stop 0.35 mm short of the cavity and 0.7 mm short of the modifier side. The depth starts 0.75 mm inside the modifier back and ends 1.75 mm inside its outer cut extension. In those same bands, a regular 0.12 mm lattice measures the percentage of points covered by permanent-model roads at the commanded half-width (0.001 mm numeric tolerance). Native support is excluded. The recorded dimensions and densities are read from the actual 3MF.",
+    "sampled_occupancy_by_socket": {
+      "wago-h insertion pocket": {
+        "height_samples": 73,
+        "pitch_mm": 0.12,
+        "test_points": 183960,
+        "occupied_percent": 100.0,
+        "least_occupied_course_percent": 100.0,
+        "prior_occupied_percent": 100.0,
+        "prior_least_occupied_course_percent": 100.0
+      },
+      "wago-g insertion pocket": {
+        "height_samples": 73,
+        "pitch_mm": 0.12,
+        "test_points": 183960,
+        "occupied_percent": 100.0,
+        "least_occupied_course_percent": 100.0,
+        "prior_occupied_percent": 100.0,
+        "prior_least_occupied_course_percent": 100.0
+      },
+      "wago-n insertion pocket": {
+        "height_samples": 73,
+        "pitch_mm": 0.12,
+        "test_points": 183960,
+        "occupied_percent": 100.0,
+        "least_occupied_course_percent": 100.0,
+        "prior_occupied_percent": 100.0,
+        "prior_least_occupied_course_percent": 100.0
+      },
+      "wiring-junction-compressor-n insertion pocket": {
+        "height_samples": 73,
+        "pitch_mm": 0.12,
+        "test_points": 183960,
+        "occupied_percent": 99.523,
+        "least_occupied_course_percent": 99.484,
+        "prior_occupied_percent": 99.583,
+        "prior_least_occupied_course_percent": 99.524
+      },
+      "wiring-junction-compressor-h insertion pocket": {
+        "height_samples": 73,
+        "pitch_mm": 0.12,
+        "test_points": 183960,
+        "occupied_percent": 99.523,
+        "least_occupied_course_percent": 99.484,
+        "prior_occupied_percent": 99.583,
+        "prior_least_occupied_course_percent": 99.524
+      },
+      "wiring-junction-pump-positive insertion pocket": {
+        "height_samples": 73,
+        "pitch_mm": 0.12,
+        "test_points": 183960,
+        "occupied_percent": 99.425,
+        "least_occupied_course_percent": 99.405,
+        "prior_occupied_percent": 99.386,
+        "prior_least_occupied_course_percent": 99.325
+      }
+    },
+    "production_modifier_footprint_samples": [
+      {
+        "name": "wago-h insertion pocket fore gripping cheek",
+        "least_core_coverage_percent": 99.955,
+        "least_outline_coverage_percent": 99.894
+      },
+      {
+        "name": "wago-h insertion pocket aft gripping cheek",
+        "least_core_coverage_percent": 99.956,
+        "least_outline_coverage_percent": 99.894
+      },
+      {
+        "name": "wago-g insertion pocket fore gripping cheek",
+        "least_core_coverage_percent": 99.955,
+        "least_outline_coverage_percent": 99.894
+      },
+      {
+        "name": "wago-g insertion pocket aft gripping cheek",
+        "least_core_coverage_percent": 99.956,
+        "least_outline_coverage_percent": 99.894
+      },
+      {
+        "name": "wago-n insertion pocket fore gripping cheek",
+        "least_core_coverage_percent": 99.955,
+        "least_outline_coverage_percent": 99.894
+      },
+      {
+        "name": "wago-n insertion pocket aft gripping cheek",
+        "least_core_coverage_percent": 99.956,
+        "least_outline_coverage_percent": 99.894
+      },
+      {
+        "name": "wiring-junction-compressor-n insertion pocket fore gripping cheek",
+        "least_core_coverage_percent": 99.017,
+        "least_outline_coverage_percent": 97.963
+      },
+      {
+        "name": "wiring-junction-compressor-n insertion pocket aft gripping cheek",
+        "least_core_coverage_percent": 99.069,
+        "least_outline_coverage_percent": 97.698
+      },
+      {
+        "name": "wiring-junction-compressor-h insertion pocket fore gripping cheek",
+        "least_core_coverage_percent": 99.017,
+        "least_outline_coverage_percent": 97.848
+      },
+      {
+        "name": "wiring-junction-compressor-h insertion pocket aft gripping cheek",
+        "least_core_coverage_percent": 99.069,
+        "least_outline_coverage_percent": 97.848
+      },
+      {
+        "name": "wiring-junction-pump-positive insertion pocket fore gripping cheek",
+        "least_core_coverage_percent": 99.017,
+        "least_outline_coverage_percent": 97.919
+      },
+      {
+        "name": "wiring-junction-pump-positive insertion pocket aft gripping cheek",
+        "least_core_coverage_percent": 98.806,
+        "least_outline_coverage_percent": 98.272
+      }
+    ]
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "printer": "Mark1",
+  "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.gcode.3mf",
+  "archive_sha256": "4435dd2f470be40b59b0f03e83e448af8b7646eb594666914f1548ff07c18730",
+  "gcode_sha256": "3bb4d4d8f0a0101e994ba9e48869a31955e06371a5012598285341587258061a",
+  "model_stock_mm": {
+    "cheeks": 8,
+    "blind_back": 8,
+    "floor": 7.16,
+    "roof": 6
+  },
+  "cooling_method": "Off-object commanded deposition time from the last road on each coupon to the next course; includes actual tower deposition, omits travel, accelerations, and firmware waits.",
+  "nominal_upper_and_lower_release_gap_mm": 0.24,
+  "objects": {
+    "front-420": {
+      "identification_dots": 1,
+      "opening_width_height_depth_mm": [
+        15.7,
+        30.0,
+        8.7
+      ],
+      "bounds_plate_mm": [
+        [
+          136.3,
+          172.15,
+          7.16
+        ],
+        [
+          145.0,
+          187.85,
+          37.16
+        ]
+      ],
+      "native_topology": {
+        "bed_rooted_bodies": 0,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 1,
+        "interface_islands": 1,
+        "model_rooted_bodies": 1,
+        "removable_stock_moves": 4280,
+        "shortest_build_up_mm": 28.8,
+        "shortest_labelled_build_up_mm": 28.8,
+        "support_bodies": 1
+      },
+      "root_layer_top_z_mm": 7.64,
+      "solid_floor_top_z_mm": 7.16,
+      "first_root_minimum_bead_envelope_gap_mm": 0.18,
+      "root_nozzle_plane_rise_mm": 0.48,
+      "root_footprint_wholly_above_cavity_floor_percent": 100.0,
+      "foot_span_xy_mm": [
+        3.343,
+        3.343
+      ],
+      "crown_layer_tops_z_mm": [
+        36.44,
+        36.68,
+        36.92
+      ],
+      "crown_cover_of_designed_contact_percent": [
+        92.59,
+        99.69,
+        99.91
+      ],
+      "crown_top_coverage_of_complete_opening_percent": 88.61,
+      "crown_path_roles": [
+        {
+          "Inner wall": 4,
+          "Outer wall": 32,
+          "Bridge": 52
+        },
+        {
+          "Inner wall": 4,
+          "Outer wall": 7,
+          "Internal solid infill": 72
+        },
+        {
+          "Outer wall": 7,
+          "Top surface": 37
+        }
+      ],
+      "first_host_roof_top_z_mm": 37.4,
+      "first_roof_minimum_bead_envelope_gap_mm": 0.18,
+      "roof_nozzle_plane_rise_mm": 0.48,
+      "host_roof_transverse_bridge_tracks": 21,
+      "return_between_coupon_courses": {
+        "courses": 129,
+        "minimum_deposition_seconds": 28.49,
+        "minimum_at_next_layer_z_mm": 7.4,
+        "median_deposition_seconds": 28.58
+      },
+      "longest_wholly_unbacked_roof_span_mm_by_role": {
+        "Overhang wall": 0.017,
+        "Bridge": 0.092
+      },
+      "roof_crossing_count_and_count_landing_on_both_host_walls": {
+        "Overhang wall": [
+          2,
+          2
+        ],
+        "Bridge": [
+          21,
+          21
+        ]
+      }
+    },
+    "front-415": {
+      "identification_dots": 2,
+      "opening_width_height_depth_mm": [
+        8.2,
+        30.2,
+        8.7
+      ],
+      "bounds_plate_mm": [
+        [
+          172.0,
+          175.9,
+          7.16
+        ],
+        [
+          180.7,
+          184.1,
+          37.36
+        ]
+      ],
+      "native_topology": {
+        "bed_rooted_bodies": 0,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 1,
+        "interface_islands": 1,
+        "model_rooted_bodies": 1,
+        "removable_stock_moves": 3709,
+        "shortest_build_up_mm": 29.04,
+        "shortest_labelled_build_up_mm": 29.04,
+        "support_bodies": 1
+      },
+      "root_layer_top_z_mm": 7.64,
+      "solid_floor_top_z_mm": 7.16,
+      "first_root_minimum_bead_envelope_gap_mm": 0.18,
+      "root_nozzle_plane_rise_mm": 0.48,
+      "root_footprint_wholly_above_cavity_floor_percent": 100.0,
+      "foot_span_xy_mm": [
+        3.343,
+        3.343
+      ],
+      "crown_layer_tops_z_mm": [
+        36.68,
+        36.92,
+        37.16
+      ],
+      "crown_cover_of_designed_contact_percent": [
+        93.12,
+        99.94,
+        99.58
+      ],
+      "crown_top_coverage_of_complete_opening_percent": 83.04,
+      "crown_path_roles": [
+        {
+          "Inner wall": 4,
+          "Outer wall": 11,
+          "Bridge": 32
+        },
+        {
+          "Inner wall": 4,
+          "Outer wall": 7,
+          "Internal solid infill": 36
+        },
+        {
+          "Outer wall": 7,
+          "Top surface": 23
+        }
+      ],
+      "first_host_roof_top_z_mm": 37.64,
+      "first_roof_minimum_bead_envelope_gap_mm": 0.18,
+      "roof_nozzle_plane_rise_mm": 0.48,
+      "host_roof_transverse_bridge_tracks": 21,
+      "return_between_coupon_courses": {
+        "courses": 130,
+        "minimum_deposition_seconds": 29.28,
+        "minimum_at_next_layer_z_mm": 7.64,
+        "median_deposition_seconds": 29.39
+      },
+      "longest_wholly_unbacked_roof_span_mm_by_role": {
+        "Overhang wall": 0.017,
+        "Bridge": 0.092
+      },
+      "roof_crossing_count_and_count_landing_on_both_host_walls": {
+        "Overhang wall": [
+          2,
+          2
+        ],
+        "Bridge": [
+          21,
+          21
+        ]
+      }
+    }
+  },
+  "roof_projection_method": "Length along each positive-extrusion first-roof centerline where its emitted half bead width does not reach the deposited crown or the preceding host layer, clipped inside the opening. Travel and extruder-only moves are excluded."
+}
