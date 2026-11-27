@@ -277,7 +277,7 @@
               "name": "Rear support and bridge regions",
               "kind": "native_support_free",
               "record": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
-              "reason": "Support the exposed ledges and sliding bearings. Receiver pockets, covered bulkhead roofs, valve sockets and the vent lip bridge clear."
+              "reason": "Support the six WAGO pocket roofs, exposed ledges and sliding bearings. Keep the fitted fluid receivers, covered bulkhead openings and valve sockets clear."
             }
           ]
         }

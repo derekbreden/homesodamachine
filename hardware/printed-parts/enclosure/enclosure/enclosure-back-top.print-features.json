@@ -3,108 +3,6 @@
   "bridge_regions": [
     {
       "bounds_source_mm": [
-        -98.5,
-        -88.05,
-        384.85,
-        399.55,
-        323.95,
-        343.05
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "wago-h insertion pocket",
-      "reason": "Bridge the closed well end across the pocket between its side walls."
-    },
-    {
-      "bounds_source_mm": [
-        -98.5,
-        -88.05,
-        400.85,
-        415.55,
-        323.95,
-        343.05
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "wago-g insertion pocket",
-      "reason": "Bridge the closed well end across the pocket between its side walls."
-    },
-    {
-      "bounds_source_mm": [
-        -98.5,
-        -88.05,
-        416.85,
-        431.55,
-        323.95,
-        343.05
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "wago-n insertion pocket",
-      "reason": "Bridge the closed well end across the pocket between its side walls."
-    },
-    {
-      "bounds_source_mm": [
-        -102.5,
-        -92.05,
-        252.64999999999998,
-        267.34999999999997,
-        295.45,
-        314.55
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "wiring-junction-compressor-n insertion pocket",
-      "reason": "Bridge the closed well end across the pocket between its side walls."
-    },
-    {
-      "bounds_source_mm": [
-        -102.5,
-        -92.05,
-        268.65,
-        283.34999999999997,
-        295.45,
-        314.55
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "wiring-junction-compressor-h insertion pocket",
-      "reason": "Bridge the closed well end across the pocket between its side walls."
-    },
-    {
-      "bounds_source_mm": [
-        -102.5,
-        -92.05,
-        284.65,
-        299.34999999999997,
-        295.45,
-        314.55
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "wiring-junction-pump-positive insertion pocket",
-      "reason": "Bridge the closed well end across the pocket between its side walls."
-    },
-    {
-      "bounds_source_mm": [
         -103.75,
         -93.5,
         199.0,
@@ -219,7 +117,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+  "source_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -439,78 +337,6 @@
       ],
       "name": "East funnel frame seat",
       "reason": "The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."
-    },
-    {
-      "bounds_source_mm": [
-        -98.5,
-        -88.05,
-        387.85,
-        396.55,
-        323.95,
-        343.05
-      ],
-      "name": "wago-h insertion pocket",
-      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
-    },
-    {
-      "bounds_source_mm": [
-        -98.5,
-        -88.05,
-        403.85,
-        412.55,
-        323.95,
-        343.05
-      ],
-      "name": "wago-g insertion pocket",
-      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
-    },
-    {
-      "bounds_source_mm": [
-        -98.5,
-        -88.05,
-        419.85,
-        428.55,
-        323.95,
-        343.05
-      ],
-      "name": "wago-n insertion pocket",
-      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
-    },
-    {
-      "bounds_source_mm": [
-        -102.5,
-        -92.05,
-        255.64999999999998,
-        264.34999999999997,
-        295.45,
-        314.55
-      ],
-      "name": "wiring-junction-compressor-n insertion pocket",
-      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
-    },
-    {
-      "bounds_source_mm": [
-        -102.5,
-        -92.05,
-        271.65,
-        280.34999999999997,
-        295.45,
-        314.55
-      ],
-      "name": "wiring-junction-compressor-h insertion pocket",
-      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
-    },
-    {
-      "bounds_source_mm": [
-        -102.5,
-        -92.05,
-        287.65,
-        296.34999999999997,
-        295.45,
-        314.55
-      ],
-      "name": "wiring-junction-pump-positive insertion pocket",
-      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
     },
     {
       "blocking_bounds_source_mm": [
@@ -1178,6 +1004,78 @@
       ],
       "name": "Accessible front joint underside -1",
       "reason": "Support the exposed sloping joint end and counterbore roof through the open front removal path; the bed-edge chamfer lies outside this contact band."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        387.85,
+        396.55,
+        323.45,
+        323.95
+      ],
+      "name": "wago-h insertion pocket",
+      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        403.85,
+        412.55,
+        323.45,
+        323.95
+      ],
+      "name": "wago-g insertion pocket",
+      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        419.85,
+        428.55,
+        323.45,
+        323.95
+      ],
+      "name": "wago-n insertion pocket",
+      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        255.64999999999998,
+        264.34999999999997,
+        294.95,
+        295.45
+      ],
+      "name": "wiring-junction-compressor-n insertion pocket",
+      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        271.65,
+        280.34999999999997,
+        294.95,
+        295.45
+      ],
+      "name": "wiring-junction-compressor-h insertion pocket",
+      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        287.65,
+        296.34999999999997,
+        294.95,
+        295.45
+      ],
+      "name": "wiring-junction-pump-positive insertion pocket",
+      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
     },
     {
       "bounds_source_mm": [

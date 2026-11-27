@@ -1,6 +1,7 @@
 //! What the above-core layout puts on the top pieces: the wiring's Wago wells on both, and on
 //! back-top the rear wall's openings and identification, its wall hosts, valve seats and fluid
 //! supports.
+use crate::catalog;
 use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::Y;
 use crate::shapes::place;
@@ -59,13 +60,21 @@ fn wells(g: &mut Graph, host: Y) -> Vec<Well> {
         let fit = j.fit;
         let Wago { width: w, depth: d, height: h, .. } = j.wago;
         let rear = -d / 2.0 - fit - wall;
-        let stock = g.box_([-w / 2.0 - fit - wall, w / 2.0 + fit + wall, rear, j.mouth, -fit - wall, h + fit + wall]);
+        // Back-top prints ceiling down. Local width runs along installed Z in both rear
+        // banks, with opposite signs. Relieve only the supported face and carry its backing.
+        let relief = match host {
+            Y::Back => -j.rotation[2][0] * catalog::supported(),
+            Y::Front => 0.0,
+        };
+        let left = -w / 2.0 + relief.min(0.0);
+        let right = w / 2.0 + relief.max(0.0);
+        let stock = g.box_([left - fit - wall, right + fit + wall, rear, j.mouth, -fit - wall, h + fit + wall]);
         let stock = place(g, stock, j.rotation, j.translation);
         let stock = g.feature(stock, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]);
         let width_fit = fit - j.well_width_inset;
         let height_fit = fit - j.well_height_inset;
         let pocket = g.box_([
-            -w / 2.0 - width_fit, w / 2.0 + width_fit,
+            left - width_fit, right + width_fit,
             -d / 2.0 - fit, 1.0,
             -height_fit, h + height_fit,
         ]);
@@ -82,7 +91,7 @@ pub fn stock_bounds(host: Y) -> Vec<Bounds> {
     wells(&mut graph, host).into_iter().map(|w| w.stock.bounds()).collect()
 }
 
-/// The connector insertion pockets that bridge between their surrounding well walls.
+/// Each insertion pocket in the enclosure frame, for its host's support and bridge settings.
 pub fn pocket_regions(host: Y) -> Vec<(String, Bounds)> {
     let mut graph = Graph::new();
     wells(&mut graph, host).into_iter().map(|w| {
