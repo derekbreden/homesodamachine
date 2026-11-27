@@ -3,6 +3,108 @@
   "bridge_regions": [
     {
       "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        384.85,
+        399.55,
+        323.7,
+        343.05
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-h insertion pocket",
+      "reason": "Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        400.85,
+        415.55,
+        323.7,
+        343.05
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-g insertion pocket",
+      "reason": "Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."
+    },
+    {
+      "bounds_source_mm": [
+        -98.5,
+        -88.05,
+        416.85,
+        431.55,
+        323.7,
+        343.05
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-n insertion pocket",
+      "reason": "Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        252.64999999999998,
+        267.34999999999997,
+        295.2,
+        314.55
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wiring-junction-compressor-n insertion pocket",
+      "reason": "Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        268.65,
+        283.34999999999997,
+        295.2,
+        314.55
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wiring-junction-compressor-h insertion pocket",
+      "reason": "Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        284.65,
+        299.34999999999997,
+        295.2,
+        314.55
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wiring-junction-pump-positive insertion pocket",
+      "reason": "Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."
+    },
+    {
+      "bounds_source_mm": [
         -103.75,
         -93.5,
         199.0,
@@ -1015,7 +1117,7 @@
         323.95
       ],
       "name": "wago-h insertion pocket",
-      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+      "reason": "Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."
     },
     {
       "bounds_source_mm": [
@@ -1027,7 +1129,7 @@
         323.95
       ],
       "name": "wago-g insertion pocket",
-      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+      "reason": "Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."
     },
     {
       "bounds_source_mm": [
@@ -1039,7 +1141,7 @@
         323.95
       ],
       "name": "wago-n insertion pocket",
-      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+      "reason": "Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."
     },
     {
       "bounds_source_mm": [
@@ -1051,7 +1153,7 @@
         295.45
       ],
       "name": "wiring-junction-compressor-n insertion pocket",
-      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+      "reason": "Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."
     },
     {
       "bounds_source_mm": [
@@ -1063,7 +1165,7 @@
         295.45
       ],
       "name": "wiring-junction-compressor-h insertion pocket",
-      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+      "reason": "Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."
     },
     {
       "bounds_source_mm": [
@@ -1075,7 +1177,7 @@
         295.45
       ],
       "name": "wiring-junction-pump-positive insertion pocket",
-      "reason": "Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."
+      "reason": "Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."
     },
     {
       "bounds_source_mm": [

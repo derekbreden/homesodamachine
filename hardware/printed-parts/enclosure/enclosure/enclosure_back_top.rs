@@ -117,12 +117,18 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bounds_source_mm":[x0,x1,row.y-funnel::PAD_HALF_Y,row.y+funnel::PAD_HALF_Y,low,row.ledge_z],
             "reason":"The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."}));
     }
-    for (name, mut roof) in above::pocket_regions(quadrant::Y::Back) {
+    for (name, bounds) in above::pocket_regions(quadrant::Y::Back) {
         // In the ceiling-down print, the low installed Z face closes the well.
+        let mut roof = bounds;
         roof[5] = roof[4] + catalog::running();
         roof[4] -= catalog::running();
         targets.push(json!({"name":name,"bounds_source_mm":roof,
-            "reason":"Support the flat WAGO pocket roof through to its lip. The trees can root on the pocket floor and pull out through the inward-facing connector mouth."}));
+            "reason":"Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."}));
+        let mut surround = bounds;
+        surround[2] -= shell::WALL;
+        surround[3] += shell::WALL;
+        bridges.push(json!({"name":name,"bounds_source_mm":surround,"bridge_print_axis_source":[0,1,0],
+            "reason":"Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."}));
     }
     let mut valve_underside = rear::solenoid_seat_bounds();
     valve_underside[4] = valve_underside[5] - catalog::running();
