@@ -1,0 +1,241 @@
+{
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-wago-floor-trees-mark1/2026-11-27-front-top-mark1-f6835d0e-textured-pei/2026-11-27-front-top-mark1-f6835d0e-textured-pei.gcode.3mf",
+  "archive_sha256": "cff87e8c43d87fb69a5a52687f7f18ef9286c88db1ad41b6575e6110e8366e8c",
+  "gcode_sha256": "36e4d4f206c9d60731a1eb04ec52867b93e8dfa52175efb97f2f9fff4e8a835a",
+  "rows": [
+    {
+      "pocket": "wago-mana insertion pocket WAGO pocket floor tree",
+      "cavity_plate_mm": [
+        258.3,
+        267.0,
+        219.3999984741211,
+        235.0999984741211,
+        101.75000000022352,
+        131.7499999997765
+      ],
+      "model_floor_last_deposition_z_mm": 101.72,
+      "first_foot_deposition_z_mm": 102.2,
+      "first_foot_layer_height_mm": 0.3,
+      "bottom_gap_mm": 0.18,
+      "foot_material_on_model_floor_fraction": 1.0,
+      "foot": {
+        "connected_feet_or_caps": 1,
+        "area_mm2": 9.272,
+        "bounds_xy_mm": [
+          260.979,
+          225.579,
+          264.321,
+          228.921
+        ]
+      },
+      "narrowest_clearance_from_foot_to_pocket_wall_mm": 2.679,
+      "last_crown_deposition_z_mm": 131.48,
+      "roof_first_deposition_z_mm": 131.96,
+      "roof_layer_height_mm": 0.3,
+      "top_gap_mm": 0.18,
+      "last_three_crown_planes": [
+        {
+          "z": 131.0,
+          "coverage_fraction_of_rectangular_cap": 0.92358
+        },
+        {
+          "z": 131.24,
+          "coverage_fraction_of_rectangular_cap": 0.99647
+        },
+        {
+          "z": 131.48,
+          "coverage_fraction_of_rectangular_cap": 0.99872
+        }
+      ],
+      "crown": {
+        "connected_feet_or_caps": 1,
+        "area_mm2": 124.541,
+        "bounds_xy_mm": [
+          258.06,
+          219.88,
+          266.52,
+          234.62
+        ]
+      },
+      "crown_coverage_of_cavity_fraction": 0.88609,
+      "roof_material_coverage_of_cavity_fraction": 1.0,
+      "unsupported_gaps_inside_tree_mm": [],
+      "native_support_strokes_in_well": 0,
+      "roof_bridge_degrees": [
+        90.0
+      ],
+      "bridge_roads_crossing_inset": 20,
+      "longest_first_roof_centerline_wholly_beyond_bead_overlap_mm": {
+        "Inner wall": 0.0,
+        "Overhang wall": 0.017,
+        "Outer wall": 0.0,
+        "Bridge": 0.107
+      },
+      "outermost_mouth_perimeter": [
+        {
+          "length_across_mouth_mm": 15.3,
+          "longest_wholly_unbacked_mm": 0.017,
+          "width_mm": 0.463
+        }
+      ],
+      "smallest_first_roof_bead_width_mm": 0.42,
+      "gripping_cheeks_midheight": {
+        "fore": {
+          "z": 116.84,
+          "area_covered_fraction": 0.98869,
+          "sparse_centerline_count": 26
+        },
+        "aft": {
+          "z": 116.84,
+          "area_covered_fraction": 0.98974,
+          "sparse_centerline_count": 25
+        }
+      },
+      "gripping_cheeks_through_open_height": {
+        "fore": {
+          "native_region_density": "100%",
+          "open_layers_checked": 123,
+          "lowest_swept_area_fraction": 0.98815,
+          "lowest_coverage_z_mm": 131.48,
+          "average_swept_area_fraction": 0.98892
+        },
+        "aft": {
+          "native_region_density": "100%",
+          "open_layers_checked": 123,
+          "lowest_swept_area_fraction": 0.98878,
+          "lowest_coverage_z_mm": 131.48,
+          "average_swept_area_fraction": 0.9899
+        }
+      },
+      "connector": "221-420",
+      "checks": {
+        "one_floor_foot": true,
+        "release_under_foot_and_under_roof": true,
+        "continuous_tree": true,
+        "single_dense_crown": true,
+        "no_other_support_in_well": true,
+        "roof_tracks_supported_to_mouth": true,
+        "solid_gripping_cheeks": true
+      }
+    },
+    {
+      "pocket": "wago-manb insertion pocket WAGO pocket floor tree",
+      "cavity_plate_mm": [
+        258.3,
+        267.0,
+        219.4499984741211,
+        227.6499984741211,
+        67.64999999966473,
+        97.85000000033527
+      ],
+      "model_floor_last_deposition_z_mm": 67.64,
+      "first_foot_deposition_z_mm": 68.12,
+      "first_foot_layer_height_mm": 0.3,
+      "bottom_gap_mm": 0.18,
+      "foot_material_on_model_floor_fraction": 1.0,
+      "foot": {
+        "connected_feet_or_caps": 1,
+        "area_mm2": 9.272,
+        "bounds_xy_mm": [
+          260.979,
+          221.879,
+          264.321,
+          225.221
+        ]
+      },
+      "narrowest_clearance_from_foot_to_pocket_wall_mm": 2.429,
+      "last_crown_deposition_z_mm": 97.64,
+      "roof_first_deposition_z_mm": 98.12,
+      "roof_layer_height_mm": 0.3,
+      "top_gap_mm": 0.18,
+      "last_three_crown_planes": [
+        {
+          "z": 97.16,
+          "coverage_fraction_of_rectangular_cap": 0.93193
+        },
+        {
+          "z": 97.4,
+          "coverage_fraction_of_rectangular_cap": 0.9986
+        },
+        {
+          "z": 97.64,
+          "coverage_fraction_of_rectangular_cap": 0.9978
+        }
+      ],
+      "crown": {
+        "connected_feet_or_caps": 1,
+        "area_mm2": 61.116,
+        "bounds_xy_mm": [
+          258.06,
+          219.93,
+          266.52,
+          227.17
+        ]
+      },
+      "crown_coverage_of_cavity_fraction": 0.8327,
+      "roof_material_coverage_of_cavity_fraction": 1.0,
+      "unsupported_gaps_inside_tree_mm": [],
+      "native_support_strokes_in_well": 0,
+      "roof_bridge_degrees": [
+        90.0
+      ],
+      "bridge_roads_crossing_inset": 20,
+      "longest_first_roof_centerline_wholly_beyond_bead_overlap_mm": {
+        "Inner wall": 0.0,
+        "Overhang wall": 0.017,
+        "Outer wall": 0.0,
+        "Bridge": 0.107
+      },
+      "outermost_mouth_perimeter": [
+        {
+          "length_across_mouth_mm": 7.8,
+          "longest_wholly_unbacked_mm": 0.017,
+          "width_mm": 0.463
+        }
+      ],
+      "smallest_first_roof_bead_width_mm": 0.42,
+      "gripping_cheeks_midheight": {
+        "fore": {
+          "z": 83.0,
+          "area_covered_fraction": 0.989,
+          "sparse_centerline_count": 25
+        },
+        "aft": {
+          "z": 83.0,
+          "area_covered_fraction": 0.9915,
+          "sparse_centerline_count": 23
+        }
+      },
+      "gripping_cheeks_through_open_height": {
+        "fore": {
+          "native_region_density": "100%",
+          "open_layers_checked": 124,
+          "lowest_swept_area_fraction": 0.98891,
+          "lowest_coverage_z_mm": 68.36,
+          "average_swept_area_fraction": 0.98896
+        },
+        "aft": {
+          "native_region_density": "100%",
+          "open_layers_checked": 124,
+          "lowest_swept_area_fraction": 0.9915,
+          "lowest_coverage_z_mm": 68.12,
+          "average_swept_area_fraction": 0.99326
+        }
+      },
+      "connector": "221-415",
+      "checks": {
+        "one_floor_foot": true,
+        "release_under_foot_and_under_roof": true,
+        "continuous_tree": true,
+        "single_dense_crown": true,
+        "no_other_support_in_well": true,
+        "roof_tracks_supported_to_mouth": true,
+        "solid_gripping_cheeks": true
+      }
+    }
+  ],
+  "method": "Read positive-extrusion G1/G2/G3 moves from Metadata/plate_1.gcode, retaining emitted bead widths and heights. Measure one connected first footprint on the model floor, uninterrupted deposition to the crown, and clearance from the floor and first roof bead. Check roof stroke coverage against the union of the last crown and preceding model strokes at each emitted half-width. Read the 100% local cheek settings and measure their inset grip strips on every open layer. The slicer labels these dense zig-zag roads as sparse infill.",
+  "slicer_warnings": [],
+  "permanent_front_stl_sha256": "de3b6a794302df64c5ab08bb045ff683e97d184caa586872da1fcfc1c0c9f271",
+  "pass": true
+}

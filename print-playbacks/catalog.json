@@ -745,18 +745,18 @@
   },
   "HSM-0079": {
     "title": "Enclosure front top · Mark1 print plan",
-    "sha256": "c9ca0904fad8e520d85706a11d7e02bbcf5c071516a310f5fa8fe7cc7b373113",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-front-top-production-mark1/2026-11-21-front-top-mark1-d57afc83/2026-11-21-front-top-mark1-d57afc83.gcode.3mf",
+    "sha256": "fac69d6b8954a313953b3927a96a591626ee326c69e5cf631f4686258a6cc3e3",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-front-top-wago-floor-trees-mark1/2026-11-27-front-top-mark1-f6835d0e-textured-pei/2026-11-27-front-top-mark1-f6835d0e-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "front-top",
-    "recipe_sha256": "0f8bad999db6b14f3bd88daa0586c31e1a1e04dd286f80a09fc418b40a3278d5",
-    "project_sha256": "2614ceaef272e26f4a391394ec86000855da1da04ba1e2e73d86e6b1025cc6aa",
-    "archive_sha256": "201ec1bb353cb87108c56aefbe9381c4f6679a921ba5e5923111d6bd363ef0a0",
-    "gcode_sha256": "5ad2ba1dfc7f5ab5b3e551618a79b0bc02b2d997bb8e70eacb21d86f3cff25f4",
+    "recipe_sha256": "91435d4f9a7efee861d81271b48b5d09584fdaabf3d2c6c330c78ea31107a660",
+    "project_sha256": "7cef3544a25d3729ee9e3237433219994cae84553e14b9537e4179e09265c485",
+    "archive_sha256": "cff87e8c43d87fb69a5a52687f7f18ef9286c88db1ad41b6575e6110e8366e8c",
+    "gcode_sha256": "36e4d4f206c9d60731a1eb04ec52867b93e8dfa52175efb97f2f9fff4e8a835a",
     "kind": "plan",
     "layers": 1090,
-    "model_sha256": "e64f7105d6bb6e528da56e3a77edeb3305cd58343324a523a78498a6daf2a7be",
+    "model_sha256": "de3b6a794302df64c5ab08bb045ff683e97d184caa586872da1fcfc1c0c9f271",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -769,14 +769,14 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
-      "Wago pockets": "Pocket roofs bridge between the sidewalls. Support stays out of their openings.",
       "First-layer trim": "+0.04 mm over the plate preset",
       "Requested top gap": "0.24 mm",
       "Top interface": "3 layers, 0 mm spacing",
       "Funnel-frame insert pilots": "Clear of support, with solid infill through the ledges.",
-      "V-H entry clip": "The shelf grows from the bulkhead under the level bend. The split wings print upright, with solid infill through their roots and no removable support."
+      "V-H entry clip": "The shelf grows from the bulkhead under the level bend. The split wings print upright, with solid infill through their roots and no removable support.",
+      "WAGO pockets": "Each manifold pocket has one removable tree on its own floor. Its cap supports the bridge and the mouth edge."
     },
-    "recipe_commit": "bf282bd8ca129e93f17a1ed276256bfcb14f5c2f"
+    "recipe_commit": "f0fb67300a4e419777adba67e5f5cad9cf0f53c6"
   },
   "HSM-0080": {
     "title": "Enclosure back bottom · Mark2 print plan",
