@@ -10293,6 +10293,25 @@
         "value": "2026-11-26"
       },
       "row_date_basis": "receipt_date"
+    },
+    "pur-916a2ff41de7409cac120e6262cc1fd8": {
+      "vendor": "Anthropic",
+      "purpose": "engineering_software_services",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "anthropic:8C2842D3-0015"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f16d4f0a7c7f4f54ab900a3df6db214a"
+      ],
+      "stream": "automatic_top_up",
+      "service_period": null,
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-27"
+      },
+      "row_date_basis": "receipt_date"
     }
   },
   "orders": {
@@ -16736,6 +16755,15 @@
       "source_ids": [
         "src-3154c008c70b4814815b8f08c7963dd1"
       ]
+    },
+    "anthropic:8C2842D3-0015": {
+      "vendor": "Anthropic",
+      "reference": "8C2842D3-0015",
+      "order_date": null,
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f16d4f0a7c7f4f54ab900a3df6db214a"
+      ]
     }
   },
   "events": [
@@ -21262,6 +21290,31 @@
         "value": "2026-11-26"
       },
       "service_period": null
+    },
+    {
+      "event_id": "evt-2ee98235ef154e80b35d53ca60834e9a",
+      "vendor": "Anthropic",
+      "event_type": "charge",
+      "confirmation": "confirmed",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-11-27"
+      },
+      "amount_minor": 4039,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f16d4f0a7c7f4f54ab900a3df6db214a"
+      ],
+      "verified_at": "2026-11-27",
+      "order_ids": [
+        "anthropic:8C2842D3-0015"
+      ],
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-27"
+      },
+      "service_period": null
     }
   ],
   "allocations": [
@@ -23143,6 +23196,14 @@
       "purchase_id": "pur-236c0d0992d3437c9bce1195c189e322",
       "order_id": "anthropic:8C2842D3-0014",
       "amount_minor": 4010,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-ac97c7937d314861bb63f58ae865ae5f",
+      "event_id": "evt-2ee98235ef154e80b35d53ca60834e9a",
+      "purchase_id": "pur-916a2ff41de7409cac120e6262cc1fd8",
+      "order_id": "anthropic:8C2842D3-0015",
+      "amount_minor": 4039,
       "currency": "USD"
     }
   ],
@@ -35857,6 +35918,32 @@
         "precision": "day",
         "value": "2026-11-26"
       }
+    },
+    "src-f16d4f0a7c7f4f54ab900a3df6db214a": {
+      "vendor": "Anthropic",
+      "document_type": "merchant_monetary_receipt",
+      "reference": "8C2842D3-0015",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-11-27"
+      },
+      "proves": [
+        "price",
+        "charge",
+        "receipt_date",
+        "merchant_event_date"
+      ],
+      "verified_at": "2026-11-27",
+      "note": "Anthropic monetary receipt shows one distinct automatic credit recharge, paid November 27, 2026 for USD 40.39. Same invoice series as earlier recorded project credits; no evidence of when the credits were used.",
+      "invoice_reference": "8C2842D3-0015",
+      "receipt_date": {
+        "precision": "day",
+        "value": "2026-11-27"
+      },
+      "merchant_event_date": {
+        "precision": "day",
+        "value": "2026-11-27"
+      }
     }
   },
   "coverage": [
@@ -38314,6 +38401,26 @@
       ],
       "order_ids": [
         "anthropic:8C2842D3-0014"
+      ],
+      "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage."
+    },
+    {
+      "coverage_id": "coverage-433b6b66426d4d3b9241dd31f6d21852",
+      "vendor": "Anthropic",
+      "stream": "prepaid usage-credit receipt",
+      "evidence_type": "merchant_receipts",
+      "checked_at": "2026-11-27",
+      "examined_period": {
+        "start": "2026-11-27",
+        "end": "2026-11-27"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-f16d4f0a7c7f4f54ab900a3df6db214a"
+      ],
+      "order_ids": [
+        "anthropic:8C2842D3-0015"
       ],
       "note": "Review of the named Anthropic receipt; no claim of complete Anthropic account coverage."
     }
