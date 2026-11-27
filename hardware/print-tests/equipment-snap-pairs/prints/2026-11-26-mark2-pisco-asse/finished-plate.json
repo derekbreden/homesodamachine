@@ -1,0 +1,11 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1490535651",
+  "native_filename": "video_2026-11-27_03-16-04.mp4",
+  "native_sha256": "a7b39a708b0df9ee27bf2baef4e78441d85600a1b698ab6ebb8689e28d8cb779",
+  "duration_s": 12.7498,
+  "frame_at_s": 12.3,
+  "image": "finished-plate.jpg",
+  "image_sha256": "52fa53bca0473b44bf8105958359de95ffe4def5c7042f8d9bfb7be19cd30ae6",
+  "source": "Single new closed native clip in this printer’s /timelapse folder between the first-layer startup and its verified FINISH record."
+}
