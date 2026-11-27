@@ -1,0 +1,168 @@
+{
+  "archive": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf",
+  "sha256": "04308af145416e26040908b4458b8a6501cf2873fa616a512c489caa2f8e7075",
+  "scope": "A ray from a sampled native support road midpoint to exterior on the bare parent part. Directions \u00b1XYZ and normalized combinations, then a short double bend if needed. Support is normally separated into sections for extraction. No finite pull-tool or whole-tree extraction force simulated.",
+  "bodies": [
+    {
+      "name": "asse-snap-cap",
+      "tree": "tree-1",
+      "root": "bed",
+      "interfaces": [
+        "interface-1",
+        "interface-2",
+        "interface-3",
+        "interface-4",
+        "interface-5",
+        "interface-6"
+      ],
+      "bounds_mm": [
+        -22.408,
+        -3.1,
+        0.2,
+        22.392,
+        34.1,
+        60.44
+      ],
+      "points": 200,
+      "straight_exit": 200,
+      "turn_then_straight": 0,
+      "unresolved": 0,
+      "best_straight_axes": [
+        [
+          "-Z",
+          183
+        ],
+        [
+          "-Y-Z",
+          171
+        ],
+        [
+          "-Y",
+          167
+        ],
+        [
+          "-Y+Z",
+          158
+        ]
+      ],
+      "misses": []
+    },
+    {
+      "name": "regulator-snap-cap",
+      "tree": "tree-1",
+      "root": "bed",
+      "interfaces": [
+        "interface-1"
+      ],
+      "bounds_mm": [
+        -10.896,
+        -11.9,
+        0.2,
+        0.304,
+        11.7,
+        21.32
+      ],
+      "points": 200,
+      "straight_exit": 200,
+      "turn_then_straight": 0,
+      "unresolved": 0,
+      "best_straight_axes": [
+        [
+          "-Z",
+          200
+        ],
+        [
+          "+X",
+          200
+        ],
+        [
+          "+X-Z",
+          200
+        ],
+        [
+          "+X+Z",
+          136
+        ]
+      ],
+      "misses": []
+    },
+    {
+      "name": "elbow-cradle",
+      "tree": "tree-1",
+      "root": "bed",
+      "interfaces": [
+        "interface-1"
+      ],
+      "bounds_mm": [
+        -23.917,
+        -12.165,
+        0.2,
+        -14.717,
+        18.635,
+        23.72
+      ],
+      "points": 200,
+      "straight_exit": 200,
+      "turn_then_straight": 0,
+      "unresolved": 0,
+      "best_straight_axes": [
+        [
+          "-Z",
+          200
+        ],
+        [
+          "-Y",
+          200
+        ],
+        [
+          "+Y",
+          200
+        ],
+        [
+          "-X",
+          200
+        ]
+      ],
+      "misses": []
+    },
+    {
+      "name": "elbow-cradle",
+      "tree": "tree-2",
+      "root": "bed",
+      "interfaces": [
+        "interface-2"
+      ],
+      "bounds_mm": [
+        14.883,
+        -11.365,
+        0.2,
+        23.683,
+        18.635,
+        23.72
+      ],
+      "points": 200,
+      "straight_exit": 200,
+      "turn_then_straight": 0,
+      "unresolved": 0,
+      "best_straight_axes": [
+        [
+          "-Z",
+          200
+        ],
+        [
+          "-Y",
+          200
+        ],
+        [
+          "+Y",
+          200
+        ],
+        [
+          "+X",
+          200
+        ]
+      ],
+      "misses": []
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      -1.0,
+      0.0,
+      1.0,
+      0.0,
+      -109.5,
+      14.25,
+      398.077205658
+    ]
+  },
+  "first_layer_z_mm": 0.2,
+  "inputs": {
+    "gcode": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf plate_1.gcode, object 1907",
+    "gcode_sha256": "ef13ce5c36da33d7ed3e5fd0c4b92dafb2da38b612ef95a0e9755aff2210f370",
+    "model": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+    "model_sha256": "9f2369510b934419be5f28e8fe18e6410962b840770b4f5d7dddf133fdf70582",
+    "profile": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.3mf",
+    "profile_sha256": "9bdd5b8a91d33f5699f442165eb3dc481fad874947394810815b552427406d66"
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [],
+  "piece": "enclosure-pump-retainer-1",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0",
+    "support_interface_top_layers": "3",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.24",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 0,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "interface_islands": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": null,
+    "support_bodies": 0
+  },
+  "trees": []
+}

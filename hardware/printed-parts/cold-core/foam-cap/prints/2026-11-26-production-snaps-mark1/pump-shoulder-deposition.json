@@ -1,0 +1,33 @@
+{
+  "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei.gcode.3mf",
+  "sha256": "0f94034153ef0e8cacf6d7fb39a725ebc296dcdcf0bada021d0d40a4af676067",
+  "model_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
+  "sample_pitch_mm": 0.15,
+  "interaction": "Commanded bead envelope at the preceding model course or the actual Support D 0.24 mm air gap; same-layer lateral neighbor not credited; duplicate steep-facet regions may share edge samples.",
+  "regions": [
+    {
+      "feature": "pump west guide at -48.6, slope 45\u00b0",
+      "projected_area_mm2": 111.1,
+      "path_mm": 440.3,
+      "over_previous_model_mm": 440.3,
+      "over_interface_mm": 0.0,
+      "over_branch_mm": 0.0,
+      "no_lower_landing_mm": 0.0,
+      "longest_continuous_no_lower_landing_mm": 0.0,
+      "worst_role": null,
+      "worst_native_endpoints_mm": null
+    },
+    {
+      "feature": "pump east guide at 18.2, slope 45\u00b0",
+      "projected_area_mm2": 111.1,
+      "path_mm": 440.3,
+      "over_previous_model_mm": 440.3,
+      "over_interface_mm": 0.0,
+      "over_branch_mm": 0.0,
+      "no_lower_landing_mm": 0.0,
+      "longest_continuous_no_lower_landing_mm": 0.0,
+      "worst_role": null,
+      "worst_native_endpoints_mm": null
+    }
+  ]
+}

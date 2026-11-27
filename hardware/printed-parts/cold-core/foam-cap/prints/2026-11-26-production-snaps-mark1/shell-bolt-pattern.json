@@ -1,0 +1,148 @@
+{
+  "shell_native_hash": "4ffa4ea8ade04d5878b651d706a9d086ed88fa9e109ba5360347aa3e3b128789",
+  "shell_print_mesh_hash": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
+  "lid_native_hash": "8692cefc3c362667d3c36b169367569e6bee79d7466bfe21460412298f616b6e",
+  "lid_print_mesh_hash": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
+  "shell_z_mm": 223.84999999962747,
+  "lid_z_mm": 2,
+  "measured_shell_pilot_diam_mm": 6.4,
+  "measured_lid_bore_diam_mm": 5.2,
+  "lid_installation_xy": "rotate 180 degrees",
+  "matched_bores": 10,
+  "maximum_mismatch_mm": 3.725290298461914e-09,
+  "current_shell_job": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/print-plan.json",
+  "old_shell_bench_record": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/physical-result/physical-result.json",
+  "old_shell_pilot_record": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/insert-witnesses.json",
+  "stations": [
+    {
+      "id": 1,
+      "lid_xy_mm": [
+        135.4,
+        60.0
+      ],
+      "shell_xy_mm": [
+        -135.4,
+        -60.0
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 26.53813
+    },
+    {
+      "id": 2,
+      "lid_xy_mm": [
+        135.4,
+        0.0
+      ],
+      "shell_xy_mm": [
+        -135.4,
+        0.0
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 2.1
+    },
+    {
+      "id": 3,
+      "lid_xy_mm": [
+        135.4,
+        -60.0
+      ],
+      "shell_xy_mm": [
+        -135.4,
+        60.0
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 26.53813
+    },
+    {
+      "id": 4,
+      "lid_xy_mm": [
+        -135.4,
+        60.0
+      ],
+      "shell_xy_mm": [
+        135.4,
+        -60.0
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 26.53813
+    },
+    {
+      "id": 5,
+      "lid_xy_mm": [
+        -135.4,
+        0.0
+      ],
+      "shell_xy_mm": [
+        135.4,
+        0.0
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 2.1
+    },
+    {
+      "id": 6,
+      "lid_xy_mm": [
+        -135.4,
+        -56.0
+      ],
+      "shell_xy_mm": [
+        135.4,
+        56.0
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 30.50037
+    },
+    {
+      "id": 7,
+      "lid_xy_mm": [
+        -45.0,
+        84.4
+      ],
+      "shell_xy_mm": [
+        45.0,
+        -84.4
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 5.4231
+    },
+    {
+      "id": 8,
+      "lid_xy_mm": [
+        -45.0,
+        -84.4
+      ],
+      "shell_xy_mm": [
+        45.0,
+        84.4
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 5.4231
+    },
+    {
+      "id": 9,
+      "lid_xy_mm": [
+        -110.0,
+        84.4
+      ],
+      "shell_xy_mm": [
+        110.0,
+        -84.4
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 21.57945
+    },
+    {
+      "id": 10,
+      "lid_xy_mm": [
+        -110.0,
+        -84.4
+      ],
+      "shell_xy_mm": [
+        110.0,
+        84.4
+      ],
+      "actual_matching_mismatch_mm": 3.725290298461914e-09,
+      "old_nearest_distance_mm": 21.57945
+    }
+  ]
+}

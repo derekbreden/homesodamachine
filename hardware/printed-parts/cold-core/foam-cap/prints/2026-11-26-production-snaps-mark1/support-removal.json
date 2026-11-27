@@ -1,0 +1,106 @@
+{
+  "archive_sha256": "0f94034153ef0e8cacf6d7fb39a725ebc296dcdcf0bada021d0d40a4af676067",
+  "support_roads": 58964,
+  "auditor_summary": {
+    "bed_rooted_bodies": 1,
+    "bodies_without_interface_labels": 3,
+    "explicit_interface_islands": 6,
+    "interface_islands": null,
+    "model_rooted_bodies": 8,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": 16.8,
+    "support_bodies": 9
+  },
+  "support_removal_samples": [
+    {
+      "id": "tree-1",
+      "root": "model",
+      "region": "V-B valve-facing wall and four mounting sockets",
+      "native_direction": "+Y",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-2",
+      "root": "model",
+      "region": "V-B valve-facing wall and four mounting sockets",
+      "native_direction": "+Y",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-3",
+      "root": "model",
+      "region": "aft WAGO pocket",
+      "native_direction": "-X",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-4",
+      "root": "model",
+      "region": "aft WAGO pocket",
+      "native_direction": "-X",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-5",
+      "root": "model",
+      "region": "fore WAGO pocket",
+      "native_direction": "+X",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-6",
+      "root": "model",
+      "region": "fore WAGO pocket",
+      "native_direction": "+X",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-7",
+      "root": "model",
+      "region": "V-B valve-facing wall and four mounting sockets",
+      "native_direction": "+Y",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-8",
+      "root": "model",
+      "region": "V-B valve-facing wall and four mounting sockets",
+      "native_direction": "+Y",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    },
+    {
+      "id": "tree-9",
+      "root": "bed",
+      "region": "Reservoir B fill underside groove",
+      "native_direction": "-Z",
+      "points": 300,
+      "clear_to_mouth_then_above": 300,
+      "examples_including_other_endpoint_hits": [],
+      "read": "Sampled support-road centers. Only the bare lid is installed in the geometric probe."
+    }
+  ]
+}

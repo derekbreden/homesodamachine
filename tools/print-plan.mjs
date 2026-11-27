@@ -4,12 +4,14 @@
 // plate's project and sliced archive in the print archive.
 //
 //   node tools/print-plan.mjs PLATE_DIR --material HSM-0081 [--title "..."] [--object NAME]
-//        [--name ARCHIVE_NAME] [--dry-run]
+//        [--name ARCHIVE_NAME] [--all-parts] [--dry-run]
 //
 // PLATE_DIR is the folder the preparer wrote: preparation.json, review.json and
 // project-check.json beside the project and the sliced archive. The plate has to have been
 // sliced and to pass its review, and its mesh, project and archive have to be the bytes the
-// preparation names. `--object` picks the part on a plate that carries several.
+// preparation names. `--object` picks the primary part on a plate that carries several.
+// `--all-parts` publishes that slice for every distinct printed part on the plate, matching
+// its production STL to the corresponding STEP in the material ledger.
 //
 // The replay is `hsm-gcode view playback --inline --data` of the whole plate, kept gzipped under
 // its own SHA-256 in print-playbacks/. The catalog entry keeps its `process` lines, which are
@@ -27,7 +29,7 @@ import { fileURLToPath } from "node:url";
 import { gunzipSync, gzipSync } from "node:zlib";
 import { maxReplayBytes } from "../web/lib/print-playback.js";
 
-const USAGE = "Usage: node tools/print-plan.mjs PLATE_DIR --material HSM-NNNN [--title TITLE] [--object NAME] [--name ARCHIVE_NAME] [--dry-run]";
+const USAGE = "Usage: node tools/print-plan.mjs PLATE_DIR --material HSM-NNNN [--title TITLE] [--object NAME] [--name ARCHIVE_NAME] [--all-parts] [--dry-run]";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const CATALOG = "print-playbacks/catalog.json";
 
@@ -41,6 +43,7 @@ function options(argv) {
   for (let at = 0; at < argv.length; at += 1) {
     const argument = argv[at];
     if (argument === "--dry-run") found.dryRun = true;
+    else if (argument === "--all-parts") found.allParts = true;
     else if (["--material", "--title", "--object", "--name"].includes(argument)) found[argument.slice(2)] = argv[at += 1];
     else found.paths.push(argument);
   }
@@ -57,7 +60,8 @@ try {
   const part = chosen.object ? prep.objects.find(object => object.name === chosen.object)
     : prep.objects.length === 1 ? prep.objects[0] : null;
   if (!part) throw new Error(`Name the plate's part with --object: ${prep.objects.map(object => object.name).join(", ")}`);
-  for (const [file, expected] of [[part.stl, part.stl_sha256], [prep.project, prep.project_sha256], [prep.archive, prep.archive_sha256]]) {
+  const sources = new Map((chosen.allParts ? prep.objects : [part]).map(object => [object.stl, object.stl_sha256]));
+  for (const [file, expected] of [...sources, [prep.project, prep.project_sha256], [prep.archive, prep.archive_sha256]]) {
     if (sha256(file) !== expected) throw new Error(`${file} is not the file this plate was prepared from`);
   }
 
@@ -66,6 +70,22 @@ try {
   const title = chosen.title ?? previous?.title;
   if (!title) throw new Error(`${chosen.material} has no catalog entry yet: give its --title`);
   const plateNumber = previous?.plate ?? 1;
+  const parts = [];
+  if (chosen.allParts) {
+    const materials = read("hardware/ledger/materials.json").materials;
+    for (const [stl, model_sha256] of sources) {
+      const step = path.relative("hardware", stl).replace(/\.stl$/, ".step");
+      const matches = materials.filter(item => item.models?.some(model => model.file === step));
+      if (matches.length !== 1) throw new Error(`Expected one ledger material for ${stl}, found ${matches.length}`);
+      const material_id = matches[0].id;
+      const objects = prep.objects.filter(object => object.stl === stl).map(object => object.name);
+      if (parts.some(item => item.material_id === material_id)) throw new Error(`Two distinct print sources use ${material_id}`);
+      parts.push({ material_id, stl, model_sha256, objects });
+    }
+    if (!parts.some(item => item.material_id === chosen.material && item.stl === part.stl)) {
+      throw new Error(`${chosen.material} does not identify ${part.stl} in the material ledger`);
+    }
+  }
 
   mkdirSync(".cache/runs", { recursive: true });
   const scratch = mkdtempSync(".cache/runs/print-plan-");
@@ -91,6 +111,10 @@ try {
     recipe_commit: (again && previous.recipe_commit) || head,
   };
   catalog[chosen.material] = entry;
+  for (const item of parts) {
+    const existing = catalog[item.material_id];
+    catalog[item.material_id] = { ...entry, process: existing?.process, model_sha256: item.model_sha256 };
+  }
   const before = previous?.sha256;
   const unnamed = sha => Boolean(sha) && Object.values(catalog).every(other => other.sha256 !== sha);
 
@@ -123,6 +147,7 @@ try {
     profile_sha256: prep.profile_sha256,
     source_stl: part.stl,
     source_stl_sha256: part.stl_sha256,
+    ...(parts.length ? { plate_parts: parts } : {}),
     ...optional("source_fine_archive", beside(".step.npz")),
     ...optional("print_regions", part.regions?.record),
     archive: within(prep.archive),

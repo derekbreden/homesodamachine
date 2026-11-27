@@ -1,0 +1,260 @@
+{
+  "object_count": 13,
+  "tower_courses": 269,
+  "last_tower_z": 64.52,
+  "archive": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf",
+  "archive_sha256": "04308af145416e26040908b4458b8a6501cf2873fa616a512c489caa2f8e7075",
+  "header_gcode_sha256": "ef13ce5c36da33d7ed3e5fd0c4b92dafb2da38b612ef95a0e9755aff2210f370",
+  "objects": [
+    {
+      "part": "asse-snap-cap",
+      "sha256": "46f498e91975665fd805e2220accf38a62a43735993f6c2e2d3281b085a6d181",
+      "deposited_model_layers": 269,
+      "minimum_away_seconds_extrusion_only": 25.359,
+      "support_moves": 70929,
+      "support_interface_moves": 1413,
+      "feet": [
+        {
+          "source_axial_length_mm": 41.665,
+          "layers_with_flat_crest_perimeter": 174,
+          "required_layers": 174,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            41.665
+          ]
+        },
+        {
+          "source_axial_length_mm": 41.665,
+          "layers_with_flat_crest_perimeter": 174,
+          "required_layers": 174,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.656,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            41.665
+          ]
+        }
+      ]
+    },
+    {
+      "part": "pisco-snap-cap",
+      "sha256": "42122f3a2a22ac7d7c6fcea0151f040a4710a1766eebf5a8cec07294739201dc",
+      "deposited_model_layers": 174,
+      "minimum_away_seconds_extrusion_only": 48.616,
+      "support_moves": 0,
+      "support_interface_moves": 0,
+      "feet": [
+        {
+          "source_axial_length_mm": 37.315,
+          "layers_with_flat_crest_perimeter": 156,
+          "required_layers": 156,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            37.315
+          ]
+        },
+        {
+          "source_axial_length_mm": 37.315,
+          "layers_with_flat_crest_perimeter": 156,
+          "required_layers": 156,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            37.315
+          ]
+        }
+      ]
+    },
+    {
+      "part": "regulator-snap-cap",
+      "sha256": "17796d35573e1d2e9f47a067c6214bba0b7991a2e86368b7d539d20229e1e4fd",
+      "deposited_model_layers": 150,
+      "minimum_away_seconds_extrusion_only": 59.634,
+      "support_moves": 18907,
+      "support_interface_moves": 3214,
+      "feet": [
+        {
+          "source_axial_length_mm": 36.0,
+          "layers_with_flat_crest_perimeter": 150,
+          "required_layers": 150,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            36.0
+          ]
+        },
+        {
+          "source_axial_length_mm": 36.0,
+          "layers_with_flat_crest_perimeter": 150,
+          "required_layers": 150,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            36.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "meter-snap-cap",
+      "sha256": "1acb6611485eb87c9e602cd7e74e8f8d1e823b859d0b9d133623e764e914687d",
+      "deposited_model_layers": 159,
+      "minimum_away_seconds_extrusion_only": 51.163,
+      "support_moves": 0,
+      "support_interface_moves": 0,
+      "feet": [
+        {
+          "source_axial_length_mm": 21.337,
+          "layers_with_flat_crest_perimeter": 89,
+          "required_layers": 89,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            21.337
+          ]
+        },
+        {
+          "source_axial_length_mm": 38.0,
+          "layers_with_flat_crest_perimeter": 159,
+          "required_layers": 159,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.656,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            38.0
+          ]
+        }
+      ]
+    },
+    {
+      "part": "pump-snap-cap",
+      "sha256": "c234e6ea54fe2ec033c3fca436eafddb45ef6dbf9280a34754b6cc776f07586f",
+      "deposited_model_layers": 227,
+      "minimum_away_seconds_extrusion_only": 31.113,
+      "support_moves": 0,
+      "support_interface_moves": 0,
+      "feet": [
+        {
+          "source_axial_length_mm": 54.5,
+          "layers_with_flat_crest_perimeter": 227,
+          "required_layers": 227,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.656,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            54.5
+          ]
+        },
+        {
+          "source_axial_length_mm": 54.5,
+          "layers_with_flat_crest_perimeter": 227,
+          "required_layers": 227,
+          "missing_heights": [],
+          "minimum_continuous_centerline_mm": 1.345,
+          "median_continuous_centerline_mm": 1.655,
+          "min_and_max_plate_z_mm": [
+            0.0,
+            54.5
+          ]
+        }
+      ]
+    },
+    {
+      "part": "display-cover",
+      "sha256": "3594ee4fb113b440326981b1e5cef4bba11f439d2fa586544a5fae44e4dc5f34",
+      "deposited_model_layers": 13,
+      "minimum_away_seconds_extrusion_only": 162.793,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    },
+    {
+      "part": "enclosure-pump-retainer-1",
+      "sha256": "9f2369510b934419be5f28e8fe18e6410962b840770b4f5d7dddf133fdf70582",
+      "deposited_model_layers": 58,
+      "minimum_away_seconds_extrusion_only": 82.459,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    },
+    {
+      "part": "enclosure-pump-retainer-2",
+      "sha256": "9f2369510b934419be5f28e8fe18e6410962b840770b4f5d7dddf133fdf70582",
+      "deposited_model_layers": 58,
+      "minimum_away_seconds_extrusion_only": 83.412,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    },
+    {
+      "part": "reservoir-b-fill-guide",
+      "sha256": "4c1c6b12e8b6014b0fb9571189fe7f50802a2b898251fbfcd226632b34cadd1b",
+      "deposited_model_layers": 51,
+      "minimum_away_seconds_extrusion_only": 94.92,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    },
+    {
+      "part": "soda-bend-holder",
+      "sha256": "37c31f1c8b8efcc812134ac9765e9cfdbe898791565156b37ea2c358b3484766",
+      "deposited_model_layers": 51,
+      "minimum_away_seconds_extrusion_only": 98.527,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    },
+    {
+      "part": "elbow-cradle",
+      "sha256": "59ac96f327ffa74e41fbff08a954fcd51d29a8aa5684978047146be15a42f52b",
+      "deposited_model_layers": 112,
+      "minimum_away_seconds_extrusion_only": 67.501,
+      "support_moves": 22372,
+      "support_interface_moves": 456
+    },
+    {
+      "part": "umbilical-organizer",
+      "sha256": "87641a741b3d2cb750984c325a9175adc10e82833c6fdffcc45ab55302001fc6",
+      "deposited_model_layers": 42,
+      "minimum_away_seconds_extrusion_only": 97.41,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    },
+    {
+      "part": "collet-press",
+      "sha256": "c7844502e96123f02d6653b0a793f2dcd74964f7022f125d3b3929ebbd0c9141",
+      "deposited_model_layers": 74,
+      "minimum_away_seconds_extrusion_only": 68.665,
+      "support_moves": 0,
+      "support_interface_moves": 0
+    }
+  ],
+  "nonplanar_restoration": {
+    "added_commanded_motion_seconds": 103.83826144647578,
+    "archive_sha256": "04308af145416e26040908b4458b8a6501cf2873fa616a512c489caa2f8e7075",
+    "gcode_input_sha256": "e2d22add2db09f8779ae659f55d0bab95b3da4c404788443d3680677aa92f0de",
+    "gcode_sha256": "ef13ce5c36da33d7ed3e5fd0c4b92dafb2da38b612ef95a0e9755aff2210f370",
+    "lifted_travels": 401,
+    "mapped_deposition_segments": 71409,
+    "mapped_deposition_segments_by_region": [
+      71409
+    ],
+    "maximum_mapped_path_slope_degrees": 38.23502245779792,
+    "maximum_mapped_z_speed_mm_s": 7.499999495994714,
+    "maximum_vertical_motion_offset_mm": 0.5649945676013388,
+    "purpose": "Read the bounded restored movements of the full print.",
+    "restored_extrusion_delta_mm": 5.729541742147196
+  }
+}

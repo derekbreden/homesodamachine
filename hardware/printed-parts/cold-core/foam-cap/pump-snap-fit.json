@@ -1,0 +1,299 @@
+{
+  "purpose": "Fit and release of the production G-Ganen motor cover and cold-core lid. Distances are in mm and intersection volumes are in mm3.",
+  "native_geometry_sha256": {
+    "hardware/reference/g-ganen-pump/g-ganen-replica.step.npz": "ea7e209cbb8333bc91a4d151f231a1db9beb44c4c63f0f65a5eea501b53eddbc",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.step.npz": "f66ef043e1e4a537e0bda9215a90aa0af4f9c423d3e226fa1c4cc139b1bc692a",
+    "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl": "c234e6ea54fe2ec033c3fca436eafddb45ef6dbf9280a34754b6cc776f07586f",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.npz": "8692cefc3c362667d3c36b169367569e6bee79d7466bfe21460412298f616b6e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859"
+  },
+  "accepted_pair": {
+    "folder": "hardware/print-tests/open-snap-section/parts/easy-entry",
+    "pair": 3,
+    "cover_stl_sha256": "3ba9cfcbe9529cfa550d17837029375b708ad0791d6aefa3a887dd274a78f13f",
+    "receiver_stl_sha256": "d0ae420663174aadc0858f7a7ef3f5a2462dc5785e535f6a4fc12cd39a00019a",
+    "comparison": "Registered the printed donor section to the production cap across the outer 18.5 mm of its relaxed leaf and full fixed cheek from foot stop to entrance.",
+    "spring_symmetric_difference_mm2": 8e-06,
+    "spring_boundary_hausdorff_mm": 1e-06,
+    "cheek_symmetric_difference_mm2": 3e-06,
+    "cheek_boundary_hausdorff_mm": 0.0
+  },
+  "stock": {
+    "connected_solids": {
+      "lid": 1,
+      "cover": 1
+    },
+    "spring_span_mm": 54.5,
+    "spring_wall_mm": 2.0,
+    "spring_inside_root_radius_mm": 1.5,
+    "minimum_cap_wall_mm_to_three_decimal_places": 2.0,
+    "axial_section_witnesses_from_middle_mm": [
+      -26.9,
+      0,
+      26.9
+    ],
+    "fixed_guide_backing_thickness_checked_mm": 3.0,
+    "largest_missing_cheek_section_area_mm2": 0.0,
+    "largest_missing_3_mm_root_section_below_stop_mm2": 0.0
+  },
+  "motor_seat": {
+    "method": "Translate the actual native rigid solids to first overlap greater than 1e-8 mm3. The free springs are well outside the motor. The motor bearing datum is 0.00001 mm above rail contact.",
+    "motor_to_rail_floors_mm": 0.303298,
+    "cover_to_nominal_motor_mm": 0.054379,
+    "cover_to_rail_seated_motor_mm": 0.357667,
+    "previous_cover_to_rail_seated_motor_mm": 0.757667,
+    "upper_bore_toward_motor_mm": 0.4,
+    "lid_central_motor_rail_and_head_rooms_symmetric_difference_mm3": 0.0,
+    "complete_fore_and_aft_lid_stops_symmetric_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "rail_seated_pump_free_translation_to_first_lid_contact_mm": {
+      "left": 0.001546,
+      "right": 1.5e-05,
+      "fore": 0.176776,
+      "aft": 0.002171
+    },
+    "vertical_pump_installation": {
+      "sampled_poses": 92,
+      "start_height_above_seat_mm": 60.303298,
+      "max_pump_intrusion_into_lid_mm3": 0.0
+    },
+    "contact_bodies_0p003_mm_beyond_rigid_limit": [
+      "motor_can_vent_filled_envelope"
+    ],
+    "cap_axial_endplay_to_first_lid_contact_mm": {
+      "fore": 0.25,
+      "aft": 0.25
+    },
+    "source": "All 21 installed rigid pump replica bodies with the four removable rubber sliders omitted."
+  },
+  "cad_snap": {
+    "working_section_source": "hardware/print-tests/open-snap-section/parts/easy-entry/geometry.json, pair 3",
+    "measured_fit": "Sections through the exact cap and lid meshes. Undo the donor free curvature at each printed vertex, rotate its section with a root-clamped beam loaded at the lip, and solve each relaxed leaf independently against its complete fixed cheek. Confirm both solved springs simultaneously against the full native motor and lid.",
+    "hook_overlap_at_7p4_mm_from_stop_per_side_mm": [
+      1.534029,
+      1.534029
+    ],
+    "relaxed_toe_rim_clearance_over_first_0p15_mm_per_side_mm": [
+      0.772611,
+      0.772611
+    ],
+    "seated_tip_spread_from_free_per_side_mm": [
+      1.190835,
+      1.190835
+    ],
+    "seated_foot_to_floor_gap_per_side_mm": [
+      0.215078,
+      0.215078
+    ],
+    "straight_foot_stop_travel_mm": 0.59,
+    "straight_foot_travel_beyond_rail_seated_motor_mm": 0.232333,
+    "seated_interference_with_lid_mm3": 0.0,
+    "seated_interference_with_motor_mm3": 0.0,
+    "lift_0p25_mm_at_seated_splay_obstructed_mm3": 37.842993,
+    "straight_press_and_reversed_release": {
+      "sampled_poses": 193,
+      "start_above_nominal_mm": 38.0,
+      "highest_tip_spread_from_free_per_side_mm": [
+        3.745404,
+        3.745404
+      ],
+      "maximum_lid_interference_mm3": 0.0,
+      "maximum_motor_interference_mm3": 0.0
+    },
+    "open_wings_then_lift": {
+      "from_free_tip_spread_mm": 3.865404,
+      "sampled_poses": 56,
+      "max_lid_interference_mm3": 0.0,
+      "max_motor_interference_mm3": 0.0,
+      "minimum_outboard_floor_margin_mm": 1.943736
+    }
+  },
+  "centered_rocking": {
+    "method": "Rotate one seated part at a time about the real motor-band center, keeping the other part at its centered seat and holding the two spring deflections fixed. Each row gives overlaps that would have to deform or move to admit this angle.",
+    "poses": [
+      {
+        "direction": "across the motor barrel (pitch)",
+        "degrees": -0.1,
+        "motor_against_lid_and_cap_mm3": [
+          9.795552,
+          1.412299
+        ],
+        "cap_against_lid_and_motor_mm3": [
+          0.577645,
+          1.438403
+        ]
+      },
+      {
+        "direction": "across the motor barrel (pitch)",
+        "degrees": 0.1,
+        "motor_against_lid_and_cap_mm3": [
+          4.501923,
+          1.438403
+        ],
+        "cap_against_lid_and_motor_mm3": [
+          0.577645,
+          1.412299
+        ]
+      },
+      {
+        "direction": "along the motor barrel (roll)",
+        "degrees": -0.1,
+        "motor_against_lid_and_cap_mm3": [
+          5.158514,
+          0.000454
+        ],
+        "cap_against_lid_and_motor_mm3": [
+          0.405847,
+          0.000454
+        ]
+      },
+      {
+        "direction": "along the motor barrel (roll)",
+        "degrees": 0.1,
+        "motor_against_lid_and_cap_mm3": [
+          4.385746,
+          0.000454
+        ],
+        "cap_against_lid_and_motor_mm3": [
+          0.405847,
+          0.000454
+        ]
+      }
+    ]
+  },
+  "print_frames": {
+    "units": "mm, with mm3 for intersections. +closing is installed \u2212Z. The spring span follows installed Y.",
+    "lid_print_up_machine": [
+      0,
+      0,
+      1
+    ],
+    "cover_print_up_machine": [
+      0,
+      1,
+      0
+    ]
+  },
+  "native_paths": {
+    "lid": {
+      "archive": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei.gcode.3mf",
+      "archive_sha256": "0f94034153ef0e8cacf6d7fb39a725ebc296dcdcf0bada021d0d40a4af676067",
+      "gcode_sha256": "d44aaf3458acbaa3ceb0987e3e92af5ed580f144eda11ee9ccf8a7d2654fe744",
+      "object_id": 1901,
+      "source_stl_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859"
+    },
+    "cap": {
+      "archive": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf",
+      "archive_sha256": "04308af145416e26040908b4458b8a6501cf2873fa616a512c489caa2f8e7075",
+      "gcode_sha256": "ef13ce5c36da33d7ed3e5fd0c4b92dafb2da38b612ef95a0e9755aff2210f370",
+      "object_id": 1905,
+      "source_stl_sha256": "c234e6ea54fe2ec033c3fca436eafddb45ef6dbf9280a34754b6cc776f07586f"
+    },
+    "measured_bearings": {
+      "approximation": "Motor against commanded road widths. The printed rail model uses full-height rectangular course sections at 0.5 mm axial intervals in the two contact bands. The cap model uses round XY bead footprints in each layer at its axial midplane. Adhesion, real bead shape and hardware variation require a physical fit.",
+      "rail_scan_axial_pitch_mm": 0.5,
+      "motor_settling_from_nominal_to_first_printed_rail_mm": 0.182896,
+      "first_contact_each_printed_rail_mm_and_axial_station": {
+        "west": [
+          0.183965,
+          29.0
+        ],
+        "east": [
+          0.182896,
+          -46.0
+        ]
+      },
+      "cap_courses_examined": 227,
+      "saddle_from_nominal_to_first_nominal_motor_mm_and_axial_station": [
+        0.046038,
+        -3.65
+      ],
+      "first_contact_at_both_printed_surfaces_mm": 0.228934
+    },
+    "measured_hooks": {
+      "method": "Each cap outer-wall road is a capsule at its commanded line width. Each complete lid course is sectioned at the physical fore, middle or aft station and given its full commanded vertical layer height with square course corners. A cantilever reproduces the free donor curvature, then opens the actual cover beads until they clear every intersecting lid road. The primary case uses the bearing height of both actual sliced rails and the complete sliced saddle. The separate CAD closure and bracketing cases describe sensitivity to contour height. All distances in mm.",
+      "axial_stations_relative_to_cap_center_mm": [
+        -25,
+        0,
+        25
+      ],
+      "sides": [
+        {
+          "side": "west",
+          "cap_layer_tops_fore_middle_aft_mm": [
+            2.36,
+            27.32,
+            52.28
+          ],
+          "free_foot_entry_margin_mm": 0.7738,
+          "hook_capture_range_mm": [
+            1.26617,
+            1.26617
+          ],
+          "foot_clearance_range_mm": [
+            0.280557,
+            0.280557
+          ],
+          "loaded_tip_spread_from_free_mm": 1.579491,
+          "maximum_tip_spread_during_entry_mm": 3.729824,
+          "release_spread_from_free_mm": 3.849824,
+          "sampled_release_positions_per_station": 116,
+          "obstructed_release_positions": 0
+        },
+        {
+          "side": "east",
+          "cap_layer_tops_fore_middle_aft_mm": [
+            2.36,
+            27.32,
+            52.28
+          ],
+          "free_foot_entry_margin_mm": 0.774446,
+          "hook_capture_range_mm": [
+            1.265045,
+            1.265045
+          ],
+          "foot_clearance_range_mm": [
+            0.28051,
+            0.28051
+          ],
+          "loaded_tip_spread_from_free_mm": 1.581654,
+          "maximum_tip_spread_during_entry_mm": 3.730373,
+          "release_spread_from_free_mm": 3.850373,
+          "sampled_release_positions_per_station": 116,
+          "obstructed_release_positions": 0
+        }
+      ]
+    },
+    "receiver": {
+      "method": "Commanded bead envelope at the preceding model course or the actual Support D 0.24 mm air gap; same-layer lateral neighbor not credited; duplicate steep-facet regions may share edge samples.",
+      "sample_pitch_mm": 0.15,
+      "deposited_shoulder_lengths_west_east_mm": [
+        440.3,
+        440.3
+      ],
+      "backed_by_the_preceding_model_course_west_east_mm": [
+        440.3,
+        440.3
+      ],
+      "support_contact_length_west_east_mm": [
+        0.0,
+        0.0
+      ]
+    },
+    "cap_paths": {
+      "end_on_model_courses": 227,
+      "full_crest_outer_wall_courses_each_side": [
+        227,
+        227
+      ],
+      "minimum_continuous_crest_centerline_each_side_mm": [
+        1.345,
+        1.345
+      ],
+      "support_extrusion_moves": 0
+    }
+  },
+  "scope": "The models and commanded extrusion paths describe geometric fit and release. The full production pump pair still needs a physical hand-fit and vibration check."
+}

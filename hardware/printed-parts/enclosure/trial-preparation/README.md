@@ -233,6 +233,7 @@ A sliced plate that passes its review becomes its part's print plan with
 ```sh
 node tools/print-plan.mjs <plate folder> --material HSM-0081
 node tools/print-plan.mjs <plate folder> --material HSM-0081 --dry-run
+node tools/print-plan.mjs <accessory plate folder> --material HSM-0451 --object regulator-snap-cap --all-parts
 ```
 
 It encodes the Print tab's replay, updates the part's entry in
@@ -240,6 +241,9 @@ It encodes the Print tab's replay, updates the part's entry in
 the plate folder and puts the project and the sliced archive in the print archive. The entry's
 `process` lines are written by hand. `--dry-run` prints the entry and the record and changes
 nothing. Commit the replay, the catalog, the record and the archive's index together.
+For the shared accessory plate, `--all-parts` matches each distinct STL to its
+ledger material and binds every part's Print tab to the same archive and replay.
+The plate record lists both copies of the pump retainer.
 
 The 3MF files of any other print go into the archive with
 `node tools/print-archive.mjs add <name> <file>...`, and `node tools/print-archive.mjs <path>`

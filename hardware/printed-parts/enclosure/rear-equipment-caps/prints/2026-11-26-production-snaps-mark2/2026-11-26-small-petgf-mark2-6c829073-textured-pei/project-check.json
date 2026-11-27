@@ -1,0 +1,406 @@
+{
+  "cooling": {
+    "additional_cooling_fan_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "fan_min_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ]
+  },
+  "objects": [
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.974456816053134e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "asse-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          71.259502411,
+          124.467782974,
+          0.0
+        ],
+        [
+          121.555782319,
+          166.532217026,
+          64.625
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1371
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.047891242313199e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pisco-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          136.55578231799998,
+          128.24354744,
+          0.0
+        ],
+        [
+          165.367013932,
+          162.75645256,
+          41.704284668
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2540
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 5.113491852171137e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "regulator-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          23.932987213,
+          124.446796417,
+          0.0
+        ],
+        [
+          56.259502411,
+          166.553203583,
+          36.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2491
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 7.353548880928429e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "meter-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          261.086427688,
+          40.796796798,
+          0.0
+        ],
+        [
+          302.571935654,
+          95.096796036,
+          38.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1313
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.550831236992963e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "pump-snap-cap",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          172.92806434599999,
+          37.199289322,
+          0.0
+        ],
+        [
+          246.08642768800001,
+          98.694303512,
+          54.5
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 702
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.056701972236624e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "display-cover",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          22.428064346,
+          26.446796417,
+          0.0
+        ],
+        [
+          157.92806434599999,
+          109.446796417,
+          3.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 2576
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.648442045318006e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 1,
+      "name": "enclosure-pump-retainer-1",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 1,
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          64.0,
+          181.553203583,
+          0.0
+        ],
+        [
+          155.0,
+          202.553203583,
+          13.799999238
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1040
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 9.648442045318006e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 1,
+      "name": "enclosure-pump-retainer-2",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 1,
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          170.0,
+          181.553203583,
+          0.0
+        ],
+        [
+          261.0,
+          202.553203583,
+          13.799999238
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 1040
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 7.358380571531598e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "reservoir-b-fill-guide",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          210.888074636,
+          217.853203774,
+          0.0
+        ],
+        [
+          230.73807501800002,
+          237.253203392,
+          12.20832634
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 10745
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 8.998881639854517e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "soda-bend-holder",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          278.667013169,
+          134.300000191,
+          0.0
+        ],
+        [
+          301.067012787,
+          156.699999809,
+          12.20832634
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 24575
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 6.945697350602131e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "elbow-cradle",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          227.367013931,
+          130.524920464,
+          0.0
+        ],
+        [
+          263.66701316900003,
+          160.475079536,
+          26.807962418
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 3197
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 7.734399787295843e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "umbilical-organizer",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          180.367013931,
+          129.5,
+          0.0
+        ],
+        [
+          212.367013931,
+          161.5,
+          10.0
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 3080
+    },
+    {
+      "bed_contact_z_mm": 0.0,
+      "blocked_facets": 0,
+      "embedded_vertex_error_mm": 7.602807272633072e-10,
+      "layer_ranges": [],
+      "modifiers_expected": 0,
+      "name": "collet-press",
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "placed_bounds_mm": [
+        [
+          94.26192498199998,
+          217.553203583,
+          0.0
+        ],
+        [
+          195.888074636,
+          237.553203583,
+          17.868787766
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 532
+    }
+  ],
+  "pass": true,
+  "problems": [],
+  "project_sha256_matches": true,
+  "support": {
+    "brim_type": "auto_brim",
+    "max_bridge_length": "0",
+    "support_object_xy_distance": "0.4",
+    "support_style": "default",
+    "support_type": "tree(auto)",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5"
+  },
+  "z_trim_block": [
+    "+0.0",
+    "0.10 - 0.01",
+    "0.10 - 0.02",
+    "0.10 + 0.01",
+    "0.10"
+  ]
+}
