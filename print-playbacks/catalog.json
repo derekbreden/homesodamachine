@@ -812,18 +812,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "15f3f203712a254e8b81bdc16aa21694e32a339ab8faef8184e6011a8cc1c32f",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf",
+    "sha256": "1590312b6b14b41d7209b90fa84428d4d5881765c8da72736ceee4accda48189",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-supported-wago-pockets-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "ea2f88b1a7bd408222c446447c7dea8f206eb23dadbf8e0f00e19b6286cb1c83",
-    "project_sha256": "324e17da8cc6e06388eaac735961675ec42318f900dcb9f6fe2bd4dc19e49690",
-    "archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
-    "gcode_sha256": "3fb500e37fa25c50e005f0a0328ffbad15e1f50c670573e39fc16756f9eeea71",
+    "recipe_sha256": "d45ed5671c039f5d60b36f6630424fbaa625ddcbd43dd8b748b158c3ac1175e6",
+    "project_sha256": "5ba65f678e6dab803681d70267021254043fb03f379233d5292b2d62cb562f46",
+    "archive_sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f",
+    "gcode_sha256": "a0c095720f54bd718098ec28dac73ff1cc757a51ce4761ae847356211b9a8197",
     "kind": "plan",
-    "layers": 1010,
-    "model_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+    "layers": 1026,
+    "model_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -843,15 +843,16 @@
       "Filament bridge speed": "15 mm/s",
       "Rail roofs": "Breakaway caps carry the bearings, with roots on the inboard shoulders and a clear vent.",
       "Nameplate": "Integral corbels carry the rounded crown and lower lip",
-      "Protected openings": "Connector mouths, valve sockets, funnel passages and rear tile undercuts remain clear.",
+      "Protected openings": "Valve sockets, funnel passages and rear label channels remain clear.",
       "Snap catches": "The ASSE, Pisco and water regulator catches grow from the shell. The sideways flow meter uses removable support.",
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
       "Flow-meter receiver": "Pull the supports from beneath the short upper guide, lower shelf, boss pockets and wire floor through the open west side. The upper guide includes 0.25 mm of relief.",
       "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it.",
       "Rear label stops": "The 45° channel floors print from the rear wall. Slide FLAVOR B and DRAIN down their rails until their two flat ends reach the stops.",
-      "Funnel frame": "The two sloped rear seats grow from the shell. Fit both inserts from below and use M3 × 25 rear screws."
+      "Funnel frame": "The two sloped rear seats grow from the shell. Fit both inserts from below and use M3 × 25 rear screws.",
+      "WAGO pockets": "Three dense interface courses carry each of the six roofs. Remove the exposed trees and draw the interface out through each connector mouth before wiring."
     },
-    "recipe_commit": "4418111eb6a7163d62a8729bf99d801c6269a9bf"
+    "recipe_commit": "4c88e3ca75774511485cde345483394500eab1b8"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",

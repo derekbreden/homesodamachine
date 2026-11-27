@@ -1,0 +1,97 @@
+{
+  "purpose": "Bind the current back-top mesh to its production project, native slice and published replay.",
+  "piece": "back-top",
+  "material_id": "HSM-0081",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "status": "prepared",
+  "prepared_utc": "2026-11-27T09:20:49+00:00",
+  "source_revision": "4c88e3ca75774511485cde345483394500eab1b8",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark1 ran this back-top in black PET-GF on its left hardened 0.4 mm Standard-flow hotend (enclosure/enclosure/prints/2026-11-14-back-top-engineering-stock-z-mark1/print-job.json, task 1445040105).",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_commands_mm": [
+    0,
+    0.02
+  ],
+  "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "recipe_sha256": "d45ed5671c039f5d60b36f6630424fbaa625ddcbd43dd8b748b158c3ac1175e6",
+  "profile": "hardware/printed-parts/petgf.profile.json",
+  "profile_sha256": "faebae07681e2abf346f872c808da4ab6486f3d63a5524b0ec094c41ace39a51",
+  "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+  "source_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "source_fine_archive": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.npz",
+  "source_fine_archive_sha256": "fa956dce65f09bdb75db6e57d13acc3de34d5550201035c3a1a45dd97f7ab7b7",
+  "print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "print_regions_sha256": "5ee8c7e7191cead4c17d95f8d4c9b76e90f89b44243efeba57e63da9d0a6e453",
+  "archive": "2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf",
+  "archive_sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f",
+  "gcode_sha256": "a0c095720f54bd718098ec28dac73ff1cc757a51ce4761ae847356211b9a8197",
+  "project": "2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.3mf",
+  "project_sha256": "5ba65f678e6dab803681d70267021254043fb03f379233d5292b2d62cb562f46",
+  "preparation": "2026-11-27-back-top-mark1-b73f3bd0-textured-pei/preparation.json",
+  "native_review": "2026-11-27-back-top-mark1-b73f3bd0-textured-pei/review.json",
+  "support_audits": [
+    "2026-11-27-back-top-mark1-b73f3bd0-textured-pei/support-audit-1901.json"
+  ],
+  "layers": 1026,
+  "estimated_seconds": 130002.65169839095,
+  "minimum_bead_bed_margin_mm": 20.243000000000002,
+  "native_slicer_warnings": [],
+  "project_source_mesh_checks": [
+    {
+      "bed_contact_z_mm": 0,
+      "blocked_facets": 12885,
+      "embedded_vertex_error_mm": 5.000018177270249e-10,
+      "layer_ranges": [
+        [
+          0,
+          6.1,
+          {
+            "layer_height": "0.24",
+            "wall_loops": "6"
+          }
+        ]
+      ],
+      "modifiers_expected": 32,
+      "name": "enclosure-back-top",
+      "partially_painted_facets": 0,
+      "parts": {
+        "modifier_part": 32,
+        "normal_part": 5,
+        "support_blocker": 31,
+        "support_enforcer": 30
+      },
+      "placed_bounds_mm": [
+        [
+          22.025003051999988,
+          49.5,
+          0
+        ],
+        [
+          296.174996948,
+          270.5,
+          194.75
+        ]
+      ],
+      "seam_painted_facets": 0,
+      "source_comparison": "source triangles in order",
+      "source_sha256_matches": true,
+      "vertices": 315513
+    }
+  ],
+  "print_features": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json",
+  "print_features_sha256": "36c88c2000291c006491a4a026274570436a341659e8fda10a7fabcdbe094089",
+  "replay_sha256": "1590312b6b14b41d7209b90fa84428d4d5881765c8da72736ceee4accda48189",
+  "replay": "print-playbacks/1590312b6b14b41d7209b90fa84428d4d5881765c8da72736ceee4accda48189.json.gz",
+  "replaced_replay_sha256": "15f3f203712a254e8b81bdc16aa21694e32a339ab8faef8184e6011a8cc1c32f"
+}

@@ -1,0 +1,419 @@
+{
+  "scope": "Production STL well surfaces and straight withdrawal; incremental backing against all other bodies in the installed assembly.",
+  "before_stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+  "after_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "before_installed_scene_sha256": "0a164da2687438c811d246c052e48f688c09af5e292286b108c7f50c829a65bf",
+  "after_installed_scene_sha256": "554bebf45f75949d44dc25cf7773031625aae320902252539013e8f518fc5f52",
+  "installed_entries_before_after": [
+    716,
+    716
+  ],
+  "unchanged_connector_groups": [
+    "wago-g",
+    "wago-h",
+    "wago-mana",
+    "wago-manb",
+    "wago-n",
+    "wiring-junction-compressor-h",
+    "wiring-junction-compressor-n",
+    "wiring-junction-pump-positive"
+  ],
+  "unchanged_connector_meshes": [
+    "wago-g/1",
+    "wago-g/2",
+    "wago-h/1",
+    "wago-h/2",
+    "wago-mana/1",
+    "wago-mana/2",
+    "wago-manb/1",
+    "wago-manb/2",
+    "wago-n/1",
+    "wago-n/2",
+    "wiring-junction-compressor-h/1",
+    "wiring-junction-compressor-h/2",
+    "wiring-junction-compressor-n/1",
+    "wiring-junction-compressor-n/2",
+    "wiring-junction-pump-positive/1",
+    "wiring-junction-pump-positive/2"
+  ],
+  "unchanged_wire_mesh_and_placement_count": 100,
+  "assembly_comparison": "Compared immutable mesh asset hash, submesh index, and all 12 world-transform coefficients per body. Missing transform normalizes to the exact identity.",
+  "different_scene_entry_references": [
+    "enclosure-front-top",
+    "enclosure-back-top"
+  ],
+  "other_scene_entry_with_changed_reference": "Front-top vertices and triangle indices are bit-identical in world coordinates. The release pointer identifies the measured assembly and rear STL digests.",
+  "stations": [
+    {
+      "name": "wiring-junction-compressor-n",
+      "center_y_mm": 260.0,
+      "crown_world_z_mm": [
+        295.20001,
+        295.20001
+      ],
+      "drawn_crown_world_z_mm": 295.20001,
+      "opposite_world_z_mm": [
+        314.54999,
+        314.54999
+      ],
+      "clear_height_mm": 19.34998,
+      "floor_and_crown_air_to_seated_housing_mm": [
+        0.14999,
+        0.39999
+      ],
+      "clear_width_mm": [
+        8.70001,
+        8.70001
+      ],
+      "retaining_wall_thickness_min_mm": 7.29999,
+      "crown_stock_mm": [
+        3.0,
+        117.44001
+      ],
+      "blind_back_world_x_mm": -102.5,
+      "mouth_world_x_mm": -93.05,
+      "grip_depth_mm": 9.45,
+      "installed_box_pull_mm": 25,
+      "installed_box_pull_overlap_mm3": 0.0,
+      "installed_box_pull_min_gap_mm": 0.14999,
+      "cavity_gauge_mm": [
+        8.68,
+        19.32998
+      ],
+      "cavity_gauge_travel_beyond_mouth_mm": 75,
+      "cavity_gauge_sweep_overlap_mm3": 0.0
+    },
+    {
+      "name": "wiring-junction-compressor-h",
+      "center_y_mm": 276.0,
+      "crown_world_z_mm": [
+        295.20001,
+        295.20001
+      ],
+      "drawn_crown_world_z_mm": 295.20001,
+      "opposite_world_z_mm": [
+        314.54999,
+        314.54999
+      ],
+      "clear_height_mm": 19.34998,
+      "floor_and_crown_air_to_seated_housing_mm": [
+        0.14999,
+        0.39999
+      ],
+      "clear_width_mm": [
+        8.70001,
+        8.70001
+      ],
+      "retaining_wall_thickness_min_mm": 7.29999,
+      "crown_stock_mm": [
+        3.0,
+        117.44001
+      ],
+      "blind_back_world_x_mm": -102.5,
+      "mouth_world_x_mm": -93.05,
+      "grip_depth_mm": 9.45,
+      "installed_box_pull_mm": 25,
+      "installed_box_pull_overlap_mm3": 0.0,
+      "installed_box_pull_min_gap_mm": 0.14999,
+      "cavity_gauge_mm": [
+        8.68,
+        19.32998
+      ],
+      "cavity_gauge_travel_beyond_mouth_mm": 75,
+      "cavity_gauge_sweep_overlap_mm3": 0.0
+    },
+    {
+      "name": "wiring-junction-pump-positive",
+      "center_y_mm": 292.0,
+      "crown_world_z_mm": [
+        295.20001,
+        295.20001
+      ],
+      "drawn_crown_world_z_mm": 295.20001,
+      "opposite_world_z_mm": [
+        314.54999,
+        314.54999
+      ],
+      "clear_height_mm": 19.34998,
+      "floor_and_crown_air_to_seated_housing_mm": [
+        0.14999,
+        0.39999
+      ],
+      "clear_width_mm": [
+        8.70001,
+        8.70001
+      ],
+      "retaining_wall_thickness_min_mm": 3.0,
+      "crown_stock_mm": [
+        3.0,
+        117.44001
+      ],
+      "blind_back_world_x_mm": -102.5,
+      "mouth_world_x_mm": -93.05,
+      "grip_depth_mm": 9.45,
+      "installed_box_pull_mm": 25,
+      "installed_box_pull_overlap_mm3": 0.0,
+      "installed_box_pull_min_gap_mm": 0.14999,
+      "cavity_gauge_mm": [
+        8.68,
+        19.32998
+      ],
+      "cavity_gauge_travel_beyond_mouth_mm": 75,
+      "cavity_gauge_sweep_overlap_mm3": 0.0
+    },
+    {
+      "name": "wago-h",
+      "center_y_mm": 392.2,
+      "crown_world_z_mm": [
+        323.70001,
+        323.70001
+      ],
+      "drawn_crown_world_z_mm": 323.70001,
+      "opposite_world_z_mm": [
+        343.04999,
+        343.04999
+      ],
+      "clear_height_mm": 19.34998,
+      "floor_and_crown_air_to_seated_housing_mm": [
+        0.14999,
+        0.39999
+      ],
+      "clear_width_mm": [
+        8.69998,
+        8.69998
+      ],
+      "retaining_wall_thickness_min_mm": 3.0,
+      "crown_stock_mm": [
+        3.0,
+        3.0
+      ],
+      "blind_back_world_x_mm": -98.5,
+      "mouth_world_x_mm": -89.05,
+      "grip_depth_mm": 9.45,
+      "installed_box_pull_mm": 25,
+      "installed_box_pull_overlap_mm3": 0.0,
+      "installed_box_pull_min_gap_mm": 0.14999,
+      "cavity_gauge_mm": [
+        8.68,
+        19.32998
+      ],
+      "cavity_gauge_travel_beyond_mouth_mm": 75,
+      "cavity_gauge_sweep_overlap_mm3": 0.0
+    },
+    {
+      "name": "wago-g",
+      "center_y_mm": 408.2,
+      "crown_world_z_mm": [
+        323.70001,
+        323.70001
+      ],
+      "drawn_crown_world_z_mm": 323.70001,
+      "opposite_world_z_mm": [
+        343.04999,
+        343.04999
+      ],
+      "clear_height_mm": 19.34998,
+      "floor_and_crown_air_to_seated_housing_mm": [
+        0.14999,
+        0.39999
+      ],
+      "clear_width_mm": [
+        8.69998,
+        8.69998
+      ],
+      "retaining_wall_thickness_min_mm": 3.0,
+      "crown_stock_mm": [
+        3.0,
+        3.0
+      ],
+      "blind_back_world_x_mm": -98.5,
+      "mouth_world_x_mm": -89.05,
+      "grip_depth_mm": 9.45,
+      "installed_box_pull_mm": 25,
+      "installed_box_pull_overlap_mm3": 0.0,
+      "installed_box_pull_min_gap_mm": 0.14999,
+      "cavity_gauge_mm": [
+        8.68,
+        19.32998
+      ],
+      "cavity_gauge_travel_beyond_mouth_mm": 75,
+      "cavity_gauge_sweep_overlap_mm3": 0.0
+    },
+    {
+      "name": "wago-n",
+      "center_y_mm": 424.2,
+      "crown_world_z_mm": [
+        323.70001,
+        323.70001
+      ],
+      "drawn_crown_world_z_mm": 323.70001,
+      "opposite_world_z_mm": [
+        343.04999,
+        343.04999
+      ],
+      "clear_height_mm": 19.34998,
+      "floor_and_crown_air_to_seated_housing_mm": [
+        0.14999,
+        0.39999
+      ],
+      "clear_width_mm": [
+        8.69998,
+        8.69998
+      ],
+      "retaining_wall_thickness_min_mm": 3.0,
+      "crown_stock_mm": [
+        3.0,
+        3.0
+      ],
+      "blind_back_world_x_mm": -98.5,
+      "mouth_world_x_mm": -89.05,
+      "grip_depth_mm": 9.45,
+      "installed_box_pull_mm": 25,
+      "installed_box_pull_overlap_mm3": 0.0,
+      "installed_box_pull_min_gap_mm": 0.14999,
+      "cavity_gauge_mm": [
+        8.68,
+        19.32998
+      ],
+      "cavity_gauge_travel_beyond_mouth_mm": 75,
+      "cavity_gauge_sweep_overlap_mm3": 0.0
+    }
+  ],
+  "added_stock_components": [
+    {
+      "bank": "final bank",
+      "added_volume_mm3": 111.11182,
+      "bounds_mm": [
+        [
+          -98.5,
+          217.8,
+          292.20001
+        ],
+        [
+          -93.05,
+          299.35001,
+          292.45001
+        ]
+      ],
+      "nearest_drawn_neighbor": "wiring-junction-compressor-h/1",
+      "nearest_gap_mm": 3.14999,
+      "nearest_other_part": "y-seam-west-upper-screw",
+      "nearest_other_part_gap_mm": 6.40001,
+      "nearest_wire": "wire-DC1-GND",
+      "nearest_wire_gap_mm": 6.58655,
+      "geometric_distance_candidates": 30,
+      "bounding_boxes_intersecting_the_added_solid": [
+        [
+          "enclosure-front-top",
+          0.0
+        ],
+        [
+          "wire-DC1-V12",
+          0.0
+        ],
+        [
+          "wire-DC1-GND",
+          0.0
+        ],
+        [
+          "wire-J5-IO2",
+          0.0
+        ]
+      ]
+    },
+    {
+      "bank": "mains bank",
+      "added_volume_mm3": 34.7287,
+      "bounds_mm": [
+        [
+          -98.5,
+          384.85001,
+          320.70001
+        ],
+        [
+          -89.05,
+          399.54999,
+          320.95001
+        ]
+      ],
+      "nearest_drawn_neighbor": "wago-h/1",
+      "nearest_gap_mm": 3.14999,
+      "nearest_other_part": "relay-2/1",
+      "nearest_other_part_gap_mm": 6.82339,
+      "nearest_wire": "wire-AC1-L",
+      "nearest_wire_gap_mm": 10.7793,
+      "geometric_distance_candidates": 22,
+      "bounding_boxes_intersecting_the_added_solid": [
+        [
+          "wire-AC3-L",
+          0.0
+        ]
+      ]
+    },
+    {
+      "bank": "mains bank",
+      "added_volume_mm3": 34.7287,
+      "bounds_mm": [
+        [
+          -98.5,
+          400.85001,
+          320.70001
+        ],
+        [
+          -89.05,
+          415.54999,
+          320.95001
+        ]
+      ],
+      "nearest_drawn_neighbor": "wago-g/1",
+      "nearest_gap_mm": 3.14999,
+      "nearest_other_part": "relay-2/1",
+      "nearest_other_part_gap_mm": 6.82339,
+      "nearest_wire": "wire-AC1-PE",
+      "nearest_wire_gap_mm": 10.77947,
+      "geometric_distance_candidates": 20,
+      "bounding_boxes_intersecting_the_added_solid": [
+        [
+          "wire-AC3-L",
+          0.0
+        ]
+      ]
+    },
+    {
+      "bank": "mains bank",
+      "added_volume_mm3": 34.7287,
+      "bounds_mm": [
+        [
+          -98.5,
+          416.85001,
+          320.70001
+        ],
+        [
+          -89.05,
+          431.54999,
+          320.95001
+        ]
+      ],
+      "nearest_drawn_neighbor": "wago-n/1",
+      "nearest_gap_mm": 3.14999,
+      "nearest_other_part": "relay-2/1",
+      "nearest_other_part_gap_mm": 6.82339,
+      "nearest_wire": "wire-AC1-N",
+      "nearest_wire_gap_mm": 10.77963,
+      "geometric_distance_candidates": 22,
+      "bounding_boxes_intersecting_the_added_solid": [
+        [
+          "wire-AC3-L",
+          0.0
+        ]
+      ]
+    }
+  ],
+  "relieved_roof_material_mm3_by_bank": {
+    "final bank": 61.66132,
+    "mains bank": 61.6611
+  },
+  "neighbor_count": 715,
+  "new_neighbor_intersections": [],
+  "limits": "Nominal installed geometry, including all cable bodies. Bare-shell gauge sweeps establish straight access before assembly. Actual PET-GF cleanup force, residual strands and connector retention are not measured."
+}

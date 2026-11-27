@@ -318,6 +318,12 @@
       "bytes": 2382269,
       "sha256": "c4b9bac7e5761d8e13d240332d47e46111a5a0d7ae9502ba85462f25098a3eb6"
     },
+    "08ad2c2777e72ba61bf38dba20f84b25380d4ef6": {
+      "archive": "back-top-mark1-a68b7756b8cb7fd3.zip",
+      "bytes": 45660450,
+      "offset": 5854868,
+      "sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f"
+    },
     "08d370e8086938ff3957ce9190afde252ec8f939": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 159427354,
@@ -2777,6 +2783,12 @@
       "bytes": 477648,
       "offset": 53737,
       "sha256": "537739366e99e6cffd251d97f643897264cee4ce6470caef9b3b097b2cc0dee4"
+    },
+    "54365999f64a21abbfb41e4da672cfc186b338f9": {
+      "archive": "back-top-mark1-a68b7756b8cb7fd3.zip",
+      "bytes": 5854720,
+      "offset": 74,
+      "sha256": "5ba65f678e6dab803681d70267021254043fb03f379233d5292b2d62cb562f46"
     },
     "5466b1c74161cc08c71b32643f017757058ff778": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
@@ -8773,6 +8785,8 @@
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf": "559432e6990f424816d5cf5741fce154e138d847",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.3mf": "5304b1e3ede67b0081f4d1a1e10dd4ba5f0e150b",
     "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf": "2d93e1916e37dfacafad45bd0ff9ac8893631df7",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-supported-wago-pockets-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.3mf": "54365999f64a21abbfb41e4da672cfc186b338f9",
+    "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-supported-wago-pockets-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf": "08ad2c2777e72ba61bf38dba20f84b25380d4ef6",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/front-top-h2c-v18/2026-10-04-enclosure-front-top-flush-frame-h2c-v18-input.3mf": "7fdee04e0a1bcf37186cb0e630e3486c79d9707b",
     "hardware/printed-parts/enclosure/enclosure/support-bottom-gap/mark2-v2/2026-10-04-rc62-valve-frame-fit-mark2-v2-input.3mf": "61d9703060857159ef65d14852111ccefc55a1f2",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001-petgf.3mf": "3083c67d48a9798124749e605cc7b87a738f8dea",

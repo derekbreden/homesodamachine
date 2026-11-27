@@ -1,0 +1,311 @@
+{
+  "purpose": "Verify the six rear WAGO 221-413 roof contacts, exterior support clips and draw through the sockets in the complete Mark1 plate. All positions are in plate millimetres.",
+  "archive": "2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf",
+  "archive_sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f",
+  "plate_1_gcode_sha256": "a0c095720f54bd718098ec28dac73ff1cc757a51ce4761ae847356211b9a8197",
+  "source_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "project_sha256": "5ba65f678e6dab803681d70267021254043fb03f379233d5292b2d62cb562f46",
+  "prior_plate": {
+    "archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+    "gcode_sha256": "3fb500e37fa25c50e005f0a0328ffbad15e1f50c670573e39fc16756f9eeea71",
+    "native_supports_in_the_six_wells": 0,
+    "longest_roof_length_with_no_bead_overlap_mm": 8.262
+  },
+  "roof": {
+    "per_socket_opening_mm": [8.7, 9.45],
+    "first_roof_projected_area_mm2": 82.215,
+    "roof_crossings_per_socket": {
+      "transverse_bridge_roads": 24,
+      "transverse_mouth_wall_roads": 2
+    },
+    "native_z_air_gap_mm": {
+      "bridge_and_overhang_wall": 0.18,
+      "ordinary_wall": 0.24
+    },
+    "first_roof_bridge_width_mm": 0.438,
+    "blind_back_1mm_band_direct_coverage_percent": 46.39,
+    "blind_back": {
+      "first_bridge_center_mm_from_blind_back": -0.063,
+      "first_bridge_width_over_back_wall_mm": 0.282,
+      "next_bridge_center_mm_from_blind_back": 0.31,
+      "next_bridge_centerline_length_without_direct_projection_mm": 8.7,
+      "longest_run_with_no_bead_overlap_mm": 0.331,
+      "maximum_centerline_distance_to_backing_mm": 0.31
+    },
+    "method": "Sweep positive-extrusion G-code strokes by each emitted half-width. Clip the first complete roof to the opening. Backing combines the deposited top interface and preceding permanent-model footprints. A centerline can miss the interface along a full row while part of its 0.438 mm bead lands on it. The maximum wholly unbacked length is 0.331 mm, near a side wall at the blind back. Offset sampling pitch is 0.025 mm."
+  },
+  "support_groups": [
+    {
+      "members": [
+        "compressor-neutral",
+        "compressor-hot",
+        "diaphragm-pump-positive"
+      ],
+      "connected_support_envelope_xyz_mm": [
+        [75.955, 57.974, 0.0],
+        [119.551, 84.158, 59.48]
+      ],
+      "minimum_interwell_join_offset_outside_mouth_mm": 1.117,
+      "root": "build plate"
+    },
+    {
+      "members": [
+        "mains-hot",
+        "mains-ground"
+      ],
+      "connected_support_envelope_xyz_mm": [
+        [208.399, 61.974, 3.831],
+        [235.751, 72.454, 31.16]
+      ],
+      "minimum_interwell_join_offset_outside_mouth_mm": 0.5,
+      "root": "model below socket floor"
+    },
+    {
+      "members": [
+        "mains-neutral"
+      ],
+      "connected_support_envelope_xyz_mm": [
+        [237.984, 61.974, 3.831],
+        [251.751, 72.433, 31.16]
+      ],
+      "minimum_interwell_join_offset_outside_mouth_mm": null,
+      "root": "model below socket floor"
+    }
+  ],
+  "banks": {
+    "junction": {
+      "members": [
+        "compressor-neutral",
+        "compressor-hot",
+        "diaphragm-pump-positive"
+      ],
+      "blind_back_y_mm": 57.5,
+      "mouth_y_mm": 66.95,
+      "native_open_model_layers": 80,
+      "floor_top_z_mm": 40.52,
+      "three_interface_top_z_mm": [59.0, 59.24, 59.48],
+      "first_roof_top_z_mm": 59.96,
+      "mouth_wall_y_mm": [66.357, 66.74],
+      "root_in_socket": "Branches enter through the mouth from the bed-rooted trunk."
+    },
+    "mains": {
+      "members": [
+        "mains-hot",
+        "mains-ground",
+        "mains-neutral"
+      ],
+      "blind_back_y_mm": 61.5,
+      "mouth_y_mm": 70.95,
+      "native_open_model_layers": 81,
+      "floor_top_z_mm": 11.96,
+      "three_interface_top_z_mm": [30.68, 30.92, 31.16],
+      "first_roof_top_z_mm": 31.64,
+      "mouth_wall_y_mm": [70.357, 70.74],
+      "root_in_socket": "Each cavity also has a local printed root 0.249 mm above its floor."
+    }
+  },
+  "wells": [
+    {
+      "well": "compressor-neutral",
+      "center_x_mm": 81.875,
+      "direct_interface_coverage_percent": 76.65,
+      "mouth_1mm_band": {
+        "direct_coverage_percent": 80.2,
+        "max_no_bead_overlap_mm": 0.039
+      },
+      "both_mouth_wall_paths": {
+        "max_centerline_gap_mm": 0.477,
+        "max_no_bead_overlap_mm": 0.014
+      },
+      "support_inside_socket_xyz_bounds_mm": [
+        [77.999, 57.974, 41.408],
+        [85.751, 66.95, 59.48]
+      ],
+      "first_support_inside_socket_above_floor_mm": 0.888,
+      "clip_sites": [3, 4],
+      "clearance_to_remaining_support_on_withdrawal_mm_capped_at_2": 1.246
+    },
+    {
+      "well": "compressor-hot",
+      "center_x_mm": 97.875,
+      "direct_interface_coverage_percent": 82.31,
+      "mouth_1mm_band": {
+        "direct_coverage_percent": 86.62,
+        "max_no_bead_overlap_mm": 0.036
+      },
+      "both_mouth_wall_paths": {
+        "max_centerline_gap_mm": 0.474,
+        "max_no_bead_overlap_mm": 0.011
+      },
+      "support_inside_socket_xyz_bounds_mm": [
+        [93.999, 57.974, 41.408],
+        [101.751, 66.95, 59.48]
+      ],
+      "first_support_inside_socket_above_floor_mm": 0.888,
+      "clip_sites": [2, 4, 5],
+      "clearance_to_remaining_support_on_withdrawal_mm_capped_at_2": 1.496
+    },
+    {
+      "well": "diaphragm-pump-positive",
+      "center_x_mm": 113.875,
+      "direct_interface_coverage_percent": 82.4,
+      "mouth_1mm_band": {
+        "direct_coverage_percent": 86.72,
+        "max_no_bead_overlap_mm": 0.036
+      },
+      "both_mouth_wall_paths": {
+        "max_centerline_gap_mm": 0.474,
+        "max_no_bead_overlap_mm": 0.011
+      },
+      "support_inside_socket_xyz_bounds_mm": [
+        [109.999, 57.974, 41.144],
+        [117.751, 66.95, 59.48]
+      ],
+      "first_support_inside_socket_above_floor_mm": 0.624,
+      "clip_sites": [1, 5],
+      "clearance_to_remaining_support_on_withdrawal_mm_capped_at_2": 2.0
+    },
+    {
+      "well": "mains-hot",
+      "center_x_mm": 214.075,
+      "direct_interface_coverage_percent": 82.28,
+      "mouth_1mm_band": {
+        "direct_coverage_percent": 86.59,
+        "max_no_bead_overlap_mm": 0.036
+      },
+      "both_mouth_wall_paths": {
+        "max_centerline_gap_mm": 0.474,
+        "max_no_bead_overlap_mm": 0.011
+      },
+      "support_inside_socket_xyz_bounds_mm": [
+        [210.199, 61.974, 12.209],
+        [217.951, 70.95, 31.16]
+      ],
+      "first_support_inside_socket_above_floor_mm": 0.249,
+      "clip_sites": [
+        6
+      ],
+      "clearance_to_remaining_support_on_withdrawal_mm_capped_at_2": 0.158
+    },
+    {
+      "well": "mains-ground",
+      "center_x_mm": 230.075,
+      "direct_interface_coverage_percent": 76.65,
+      "mouth_1mm_band": {
+        "direct_coverage_percent": 80.2,
+        "max_no_bead_overlap_mm": 0.036
+      },
+      "both_mouth_wall_paths": {
+        "max_centerline_gap_mm": 0.474,
+        "max_no_bead_overlap_mm": 0.011
+      },
+      "support_inside_socket_xyz_bounds_mm": [
+        [226.199, 61.974, 12.209],
+        [233.951, 70.95, 31.16]
+      ],
+      "first_support_inside_socket_above_floor_mm": 0.249,
+      "clip_sites": [
+        7
+      ],
+      "clearance_to_remaining_support_on_withdrawal_mm_capped_at_2": 1.862
+    },
+    {
+      "well": "mains-neutral",
+      "center_x_mm": 246.075,
+      "direct_interface_coverage_percent": 76.64,
+      "mouth_1mm_band": {
+        "direct_coverage_percent": 80.18,
+        "max_no_bead_overlap_mm": 0.036
+      },
+      "both_mouth_wall_paths": {
+        "max_centerline_gap_mm": 0.474,
+        "max_no_bead_overlap_mm": 0.011
+      },
+      "support_inside_socket_xyz_bounds_mm": [
+        [242.199, 61.974, 12.209],
+        [249.951, 70.95, 31.16]
+      ],
+      "first_support_inside_socket_above_floor_mm": 0.249,
+      "clip_sites": [
+        8
+      ],
+      "clearance_to_remaining_support_on_withdrawal_mm_capped_at_2": 1.547
+    }
+  ],
+  "exterior_cut_sites": [
+    {
+      "site": 1,
+      "z_mm": 37.52,
+      "xy_bounds_mm": [108.16, 67.967, 114.008, 73.733],
+      "section_plastic_mm2": 17.776,
+      "rear_edge_beyond_receiver_face_mm": 1.017,
+      "tool_gauge_margin_mm": 0.767
+    },
+    {
+      "site": 2,
+      "z_mm": 37.76,
+      "xy_bounds_mm": [92.875, 67.972, 98.632, 73.703],
+      "section_plastic_mm2": 17.529,
+      "rear_edge_beyond_receiver_face_mm": 1.022,
+      "tool_gauge_margin_mm": 0.772
+    },
+    {
+      "site": 3,
+      "z_mm": 38.0,
+      "xy_bounds_mm": [81.131, 67.859, 86.889, 73.549],
+      "section_plastic_mm2": 17.452,
+      "rear_edge_beyond_receiver_face_mm": 0.909,
+      "tool_gauge_margin_mm": 0.659
+    },
+    {
+      "site": 4,
+      "z_mm": 55.391,
+      "xy_bounds_mm": [85.812, 67.838, 88.292, 70.327],
+      "section_plastic_mm2": 4.256,
+      "rear_edge_beyond_receiver_face_mm": 0.888,
+      "tool_gauge_margin_mm": 0.638
+    },
+    {
+      "site": 5,
+      "z_mm": 55.391,
+      "xy_bounds_mm": [102.143, 67.86, 104.658, 70.343],
+      "section_plastic_mm2": 4.287,
+      "rear_edge_beyond_receiver_face_mm": 0.91,
+      "tool_gauge_margin_mm": 0.66
+    },
+    {
+      "site": 6,
+      "z_mm": 26.72,
+      "xy_bounds_mm": [219.186, 71.45, 220.596, 72.17],
+      "section_plastic_mm2": 0.841,
+      "rear_edge_beyond_receiver_face_mm": 0.5,
+      "tool_gauge_margin_mm": 0.25
+    },
+    {
+      "site": 7,
+      "z_mm": 29.84,
+      "xy_bounds_mm": [223.215, 71.45, 224.49, 72.102],
+      "section_plastic_mm2": 0.72,
+      "rear_edge_beyond_receiver_face_mm": 0.5,
+      "tool_gauge_margin_mm": 0.229
+    },
+    {
+      "site": 8,
+      "z_mm": 29.84,
+      "xy_bounds_mm": [239.447, 71.45, 240.744, 72.14],
+      "section_plastic_mm2": 0.757,
+      "rear_edge_beyond_receiver_face_mm": 0.5,
+      "tool_gauge_margin_mm": 0.229
+    }
+  ],
+  "cleanup": {
+    "mouths_facing_plate_direction": "+Y",
+    "verified_pull_mm": 13.976,
+    "trailing_edge_beyond_mouth_after_pull_mm": 5,
+    "minimum_lateral_model_clearance_throughout_each_pull_mm": 0.474,
+    "permanent_and_remaining_support_intersections_after_clipping": 0,
+    "geometry": "Each listed clip is a horizontal section in the open enclosure. Split the real connected support at the indicated height while retaining both halves. For each socket, the detached component contains every deposited support stroke inside the bore and the complete top mat. Sweep every resulting layer section in +Y against the permanent bead envelopes and all other native support at overlapping heights. Breakaway from intended floor and interface contacts is assumed.",
+    "tool_access": "The tested clearance gauge includes 4 mm to either side of the clip outline, 2 mm above and below it, 0.25 mm behind it, and 25 mm toward the open enclosure. Every one of the eight gauges clears permanent stock. The cited smallest margin is the additional space beyond that gauge.",
+    "physical_status": "Release force, underside finish and connector hand fit await a physical print."
+  }
+}

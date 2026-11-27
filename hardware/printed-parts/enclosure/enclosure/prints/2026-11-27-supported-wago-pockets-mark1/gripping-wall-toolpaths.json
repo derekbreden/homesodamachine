@@ -1,0 +1,321 @@
+{
+  "archive_sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f",
+  "baseline_archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+  "method": "Inside the common open-height interval, intersect actual positive model centerlines with the two longitudinal bands of solid wall on either side of each 8.7 mm socket. The interval excludes 1 mm at both ends of the modifier height. The bands stop 0.35 mm short of the cavity and 0.7 mm short of the modifier side. The depth starts 0.75 mm inside the modifier back and ends 1.75 mm inside its outer cut extension. In those same bands, a regular 0.12 mm lattice measures the percentage of points covered by permanent-model roads at the commanded half-width (0.001 mm numeric tolerance). Native support is excluded. The recorded dimensions and densities are read from the actual 3MF.",
+  "original": {
+    "wago-h insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 2705.089,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 4749.966,
+        "Sparse infill": 0.0,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183960,
+        "coverage_percent_all": 100.0,
+        "minimum_layer_coverage_percent": 100.0
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 0
+    },
+    "wago-g insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 2705.089,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 4749.966,
+        "Sparse infill": 0.0,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183960,
+        "coverage_percent_all": 100.0,
+        "minimum_layer_coverage_percent": 100.0
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 0
+    },
+    "wago-n insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 2705.089,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 4749.966,
+        "Sparse infill": 0.0,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183960,
+        "coverage_percent_all": 100.0,
+        "minimum_layer_coverage_percent": 100.0
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 0
+    },
+    "wiring-junction-compressor-n insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 1505.844,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 0.0,
+        "Sparse infill": 5371.067,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183192,
+        "coverage_percent_all": 99.583,
+        "minimum_layer_coverage_percent": 99.524
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 73
+    },
+    "wiring-junction-compressor-h insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 1505.844,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 0.0,
+        "Sparse infill": 5371.2,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183192,
+        "coverage_percent_all": 99.583,
+        "minimum_layer_coverage_percent": 99.524
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 73
+    },
+    "wiring-junction-pump-positive insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 1903.694,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 0.0,
+        "Sparse infill": 5060.617,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 182830,
+        "coverage_percent_all": 99.386,
+        "minimum_layer_coverage_percent": 99.325
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 73
+    }
+  },
+  "candidate": {
+    "wago-h insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 2705.089,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 4749.966,
+        "Sparse infill": 0.0,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183960,
+        "coverage_percent_all": 100.0,
+        "minimum_layer_coverage_percent": 100.0
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 0
+    },
+    "wago-g insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 2705.089,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 4749.966,
+        "Sparse infill": 0.0,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183960,
+        "coverage_percent_all": 100.0,
+        "minimum_layer_coverage_percent": 100.0
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 0
+    },
+    "wago-n insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 2705.089,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 4749.966,
+        "Sparse infill": 0.0,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183960,
+        "coverage_percent_all": 100.0,
+        "minimum_layer_coverage_percent": 100.0
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 0
+    },
+    "wiring-junction-compressor-n insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 1505.844,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 0.0,
+        "Sparse infill": 5371.067,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183192,
+        "coverage_percent_all": 99.583,
+        "minimum_layer_coverage_percent": 99.524
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 73
+    },
+    "wiring-junction-compressor-h insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 1505.844,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 0.0,
+        "Sparse infill": 5371.2,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 183192,
+        "coverage_percent_all": 99.583,
+        "minimum_layer_coverage_percent": 99.524
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 73
+    },
+    "wiring-junction-pump-positive insertion pocket transverse bridge": {
+      "embedded_density": "100%",
+      "embedded_bridge_angle": "180",
+      "two_wall_strip_road_lengths_mm": {
+        "Outer wall": 0.0,
+        "Inner wall": 1903.694,
+        "Overhang wall": 0.0,
+        "Bridge": 0.0,
+        "Floating vertical shell": 0.0,
+        "Sparse infill": 5060.617,
+        "Gap infill": 0.0,
+        "Internal solid infill": 0.0,
+        "Top surface": 0.0,
+        "Bottom surface": 0.0
+      },
+      "all_permanent_bead_occupancy": {
+        "pitch_mm": 0.12,
+        "layers": 73,
+        "samples": 183960,
+        "occupied_samples": 182830,
+        "coverage_percent_all": 99.386,
+        "minimum_layer_coverage_percent": 99.325
+      },
+      "courses_with_solid_infill": 0,
+      "courses_with_sparse_infill": 73
+    }
+  }
+}

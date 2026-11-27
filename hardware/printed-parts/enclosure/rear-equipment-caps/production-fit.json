@@ -1,9 +1,9 @@
 {
   "purpose": "Compare the finished production caps and integral back-top receivers with the full-size fitting trials, and register the same parts in the installed viewer.",
-  "back_top_stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+  "back_top_stl_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
   "installed_covers_mesh_sha256": "90f8046147fea778be41f63fd86cee8de9fe99d58bb60fe67a5ef16459be249c",
-  "installed_back_top_source_sha256": "aaa0a0f5f37f7d0fbb25384de7e3a86c9865661fd2ce854e5695740235b0ec56",
-  "installed_back_top_viewer_asset_sha256": "82edb7792f6ba568c88806244c1d51009a307d08fd1d36a791f2e49896b7a0b1",
+  "installed_back_top_source_sha256": "2cdf5705a8fc82a37b3979e78f7e64b6057a0f83ec718e317862cb0594ee2fd6",
+  "installed_back_top_viewer_asset_sha256": "d5f2a8eb3108668f4e6961e8309a25c151f5acf155d467f39f7fd5147b297f2d",
   "previous_raised_crest_measurements": "https://github.com/derekbreden/homesodamachine/blob/8e3688f24aabd3ef67cf2127c883822f1efdffda/hardware/printed-parts/enclosure/rear-equipment-caps/production-fit.json",
   "method": {
     "surfaces": "Invert each archived cover STL registration. Invert the production generator’s axial-end print rotation and centering with its installed fine-model bounds. The receiver fixtures and production back-top STL share machine coordinates.",

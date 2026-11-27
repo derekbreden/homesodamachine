@@ -1,0 +1,411 @@
+{
+  "baseline_archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-chamfered-label-stops-mark1/2026-11-27-back-top-mark1-bc01ba73-textured-pei/2026-11-27-back-top-mark1-bc01ba73-textured-pei.gcode.3mf",
+  "baseline_archive_sha256": "26db6538e5db7bdef9e1cb5ae56ccfdc005d7899dba7de74a882cc0242e5e09d",
+  "replacement_archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-supported-wago-pockets-mark1/2026-11-27-back-top-mark1-b73f3bd0-textured-pei/2026-11-27-back-top-mark1-b73f3bd0-textured-pei.gcode.3mf",
+  "archive_sha256": "6e7bd370e0e300c80e16194f82546e17da4d639a162456d5f9e1059abb96286f",
+  "gcode_sha256": "a0c095720f54bd718098ec28dac73ff1cc757a51ce4761ae847356211b9a8197",
+  "project_sha256": "5ba65f678e6dab803681d70267021254043fb03f379233d5292b2d62cb562f46",
+  "STL_sha256": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1",
+  "geometry": {
+    "old_STL_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
+    "shell_added_mm3": 215.297904,
+    "shell_removed_mm3": 123.322417,
+    "added_components": 4,
+    "removed_components": 6,
+    "all_removed_are_0.25_mm_roof_cuts": true,
+    "changed_original_3mf_normal_parts": [
+      "enclosure-back-top"
+    ],
+    "all_normal_parts": [
+      "enclosure-back-top",
+      "Fill tube snap removable upper-wing support",
+      "Removable west rail support 1",
+      "Removable west rail support 2",
+      "Removable east rail support 1"
+    ],
+    "printing_transform_same": true,
+    "embedded_triangles_in_source_order": "source triangles in order",
+    "maximum_embedded_vertex_error_mm": 5.000018177270249e-10
+  },
+  "labels": {
+    "FLAVOR B": {
+      "native_support_or_authored_stock_segments_in_full_channel": 0,
+      "model_segments_in_former_stand": 0,
+      "foundation_and_chamfer_window": {
+        "segments": 2737,
+        "total_path_mm": 7647.789,
+        "coordinates_widths_roles_sha256": "f4298e49c540d4a7b568bee7c129fbe19422406e7f1332d384e08a6b2cb310c6"
+      },
+      "straight_chamfer_minimum_previous_perimeter_overlap_mm": 0.179,
+      "straight_chamfer_transverse_measurements_per_course": 375,
+      "chamfer_foundation_window_identical_to_baseline": true
+    },
+    "DRAIN": {
+      "native_support_or_authored_stock_segments_in_full_channel": 0,
+      "model_segments_in_former_stand": 0,
+      "foundation_and_chamfer_window": {
+        "segments": 3548,
+        "total_path_mm": 8043.253,
+        "coordinates_widths_roles_sha256": "5a756ca0b9e504397d39609f4ef1538fcaecd2e55b8ada0935c0b7902b660574"
+      },
+      "straight_chamfer_minimum_previous_perimeter_overlap_mm": 0.179,
+      "straight_chamfer_transverse_measurements_per_course": 375,
+      "chamfer_foundation_window_identical_to_baseline": true
+    }
+  },
+  "meter": {
+    "first_underside_regions_tested": 16,
+    "regional_measurements_different_from_baseline": {
+      "Outer crest": {
+        "before": {
+          "first_course_model_path_mm": 43.37,
+          "over_interface_mm": 42.71,
+          "over_prior_model_mm": 0.21,
+          "without_prior_or_support_landing_mm": 0.45,
+          "longest_continuous_without_landing_mm": 0.3,
+          "longest_from_machine_xyz": [
+            87.511,
+            395.63,
+            309.68
+          ],
+          "longest_to_machine_xyz": [
+            87.511,
+            395.78,
+            309.68
+          ]
+        },
+        "after": {
+          "first_course_model_path_mm": 43.41,
+          "over_interface_mm": 42.71,
+          "over_prior_model_mm": 0.25,
+          "without_prior_or_support_landing_mm": 0.45,
+          "longest_continuous_without_landing_mm": 0.3,
+          "longest_from_machine_xyz": [
+            87.511,
+            395.63,
+            309.68
+          ],
+          "longest_to_machine_xyz": [
+            87.511,
+            395.78,
+            309.68
+          ]
+        }
+      },
+      "Inner 45 deg return": {
+        "before": {
+          "first_course_model_path_mm": 181.41,
+          "over_interface_mm": 176.72,
+          "over_prior_model_mm": 159.98,
+          "without_prior_or_support_landing_mm": 0.0,
+          "longest_continuous_without_landing_mm": 0,
+          "longest_from_machine_xyz": null,
+          "longest_to_machine_xyz": null
+        },
+        "after": {
+          "first_course_model_path_mm": 181.45,
+          "over_interface_mm": 176.72,
+          "over_prior_model_mm": 160.02,
+          "without_prior_or_support_landing_mm": 0.0,
+          "longest_continuous_without_landing_mm": 0,
+          "longest_from_machine_xyz": null,
+          "longest_to_machine_xyz": null
+        }
+      }
+    },
+    "largest_continuous_first_course_without_underlying_stock_mm": 0.3,
+    "regions_with_any_unlanded_length": {
+      "Outer crest": 0.3
+    },
+    "support_roads_in_upward_wing_seat": 0
+  },
+  "rails_and_fill_tube": {
+    "Fill tube snap removable upper-wing support": {
+      "same_deposited_stock_paths_positions_widths_roles": false,
+      "same_surrounding_road_positions_widths_roles": false,
+      "stock_segments": 1294,
+      "courses": 26,
+      "root_samples": 90,
+      "root_path_without_supporting_floor_mm": 0.0,
+      "cap_top_mm": 99.56,
+      "first_course_over_rail_mm": null,
+      "length_mm_outside_accepted_stock_centerlines": 0.0,
+      "accepted_length_mm_missing_from_final_stock_centerlines": 0.0
+    },
+    "Removable west rail support 1": {
+      "same_deposited_stock_paths_positions_widths_roles": false,
+      "same_surrounding_road_positions_widths_roles": false,
+      "stock_segments": 6634,
+      "courses": 25,
+      "root_samples": 552,
+      "root_path_without_supporting_floor_mm": 0.0,
+      "cap_top_mm": 185.96,
+      "first_course_over_rail_mm": 186.44,
+      "bearing_first_course_top_mm": 186.44,
+      "underlying_cap_top_mm": 185.96,
+      "first_bearing_road_samples": 15112,
+      "accepted_percent_over_cap_or_prior_model": 98.927,
+      "final_percent_over_cap_or_prior_model": 98.927,
+      "length_mm_outside_accepted_stock_centerlines": 0.0,
+      "accepted_length_mm_missing_from_final_stock_centerlines": 0.0
+    },
+    "Removable west rail support 2": {
+      "same_deposited_stock_paths_positions_widths_roles": false,
+      "same_surrounding_road_positions_widths_roles": false,
+      "stock_segments": 9696,
+      "courses": 25,
+      "root_samples": 740,
+      "root_path_without_supporting_floor_mm": 0.0,
+      "cap_top_mm": 185.96,
+      "first_course_over_rail_mm": 186.44,
+      "bearing_first_course_top_mm": 186.44,
+      "underlying_cap_top_mm": 185.96,
+      "first_bearing_road_samples": 20370,
+      "accepted_percent_over_cap_or_prior_model": 99.146,
+      "final_percent_over_cap_or_prior_model": 99.146,
+      "length_mm_outside_accepted_stock_centerlines": 0.0,
+      "accepted_length_mm_missing_from_final_stock_centerlines": 0.0
+    },
+    "Removable east rail support 1": {
+      "same_deposited_stock_paths_positions_widths_roles": false,
+      "same_surrounding_road_positions_widths_roles": false,
+      "stock_segments": 16506,
+      "courses": 25,
+      "root_samples": 1421,
+      "root_path_without_supporting_floor_mm": 0.0,
+      "cap_top_mm": 185.96,
+      "first_course_over_rail_mm": 186.44,
+      "bearing_first_course_top_mm": 186.44,
+      "underlying_cap_top_mm": 185.96,
+      "first_bearing_road_samples": 37561,
+      "accepted_percent_over_cap_or_prior_model": 99.805,
+      "final_percent_over_cap_or_prior_model": 99.805,
+      "length_mm_outside_accepted_stock_centerlines": 0.0,
+      "accepted_length_mm_missing_from_final_stock_centerlines": 0.0
+    }
+  },
+  "fill_tube_first_underside": {
+    "sample_points": 1620,
+    "sampled_first_underside_road_mm": 111.793,
+    "on_previous_model_mm": 43.406,
+    "on_authored_stock_below_on_or_within_the_release_gap_mm": 102.803,
+    "without_previous_model_or_authored_stock_mm": 0.0,
+    "without_any_landing_mm": 0.0,
+    "maximum_continuous_unlanded_length_on_one_command_mm": 0,
+    "longest_unlanded_endpoints_source_xy_mm": null,
+    "longest_unlanded_model_course_z_mm": null
+  },
+  "appearance": {
+    "painted_triangles": 12885,
+    "original_paint_triangles_retained": 12885,
+    "original_paint_triangles_removed": 12,
+    "retired_paint_by_pocket": [
+      {
+        "old_crown_z_mm": 295.45,
+        "installed_y_midpoint_mm": 260.0,
+        "original_painted_triangles": 2
+      },
+      {
+        "old_crown_z_mm": 295.45,
+        "installed_y_midpoint_mm": 276.0,
+        "original_painted_triangles": 2
+      },
+      {
+        "old_crown_z_mm": 295.45,
+        "installed_y_midpoint_mm": 292.0,
+        "original_painted_triangles": 2
+      },
+      {
+        "old_crown_z_mm": 323.95,
+        "installed_y_midpoint_mm": 392.2,
+        "original_painted_triangles": 2
+      },
+      {
+        "old_crown_z_mm": 323.95,
+        "installed_y_midpoint_mm": 408.2,
+        "original_painted_triangles": 2
+      },
+      {
+        "old_crown_z_mm": 323.95,
+        "installed_y_midpoint_mm": 424.2,
+        "original_painted_triangles": 2
+      }
+    ],
+    "added_paint_triangles": 0,
+    "checked_support_roads": 257486,
+    "contacting_roads": 0,
+    "min_bead_surface_clearance_mm": 0.47759,
+    "previous_min_bead_surface_clearance_mm": 0.47759
+  },
+  "native_project": {
+    "global_settings_keys_changed": [],
+    "source_mesh_check": true,
+    "native_review_pass": true,
+    "scanned_protected_region_count": 30,
+    "named_protected_regions_removed": [
+      "wago-g insertion pocket",
+      "wago-h insertion pocket",
+      "wago-n insertion pocket",
+      "wiring-junction-compressor-h insertion pocket",
+      "wiring-junction-compressor-n insertion pocket",
+      "wiring-junction-pump-positive insertion pocket"
+    ],
+    "support_intrusions_into_protected_regions": 0,
+    "slicer_return_code": 0,
+    "plate_warning": "",
+    "diagnostics": [
+      "ZFiller: encounter idx from clip: 945",
+      "Invalid T command (T1001).",
+      "Invalid T command (T65535).",
+      "Invalid T command (T65279)."
+    ],
+    "flagged_tool_commands_same_as_accepted_print": true
+  },
+  "whole_shell": {
+    "actual_model_layers": 812,
+    "permanent_connected_sections": {
+      "interior model-centerline witness": 1761,
+      "total connected sections": 1761
+    },
+    "native_model_segments": 4651925,
+    "candidate_nonprinting_sections": {
+      "enclosure-back-top": 0,
+      "Fill tube snap removable upper-wing support": 6,
+      "Removable west rail support 1": 0,
+      "Removable west rail support 2": 0,
+      "Removable east rail support 1": 0
+    },
+    "candidate_sub_0p4mm_section_count": 6,
+    "accepted_nonprinting_section_count": 6,
+    "largest_coarse_uncovered_sample_mm": {
+      "layer": 395,
+      "print_z_mm": 94.76,
+      "lattice_distance_mm": 10.4,
+      "distance_to_actual_road_center_mm": 10.226,
+      "near_source_mm": [
+        87.4,
+        405.525,
+        260.36
+      ]
+    },
+    "candidate_distant_layers": [
+      {
+        "layer": 395,
+        "print_z_mm": 94.76,
+        "grid_samples": 36,
+        "bounds_source_mm": [
+          [
+            87.4,
+            400.725,
+            260.36
+          ],
+          [
+            87.4,
+            428.725,
+            260.36
+          ]
+        ],
+        "max_grid_distance_mm": 10.4,
+        "actual_max_witness_distance_mm": 10.226,
+        "max_source_mm": [
+          87.4,
+          405.525,
+          260.36
+        ]
+      }
+    ],
+    "accepted_distant_layers": [
+      {
+        "layer": 395,
+        "print_z_mm": 94.76,
+        "grid_samples": 36,
+        "bounds_source_mm": [
+          [
+            87.4,
+            400.725,
+            260.36
+          ],
+          [
+            87.4,
+            428.725,
+            260.36
+          ]
+        ],
+        "max_grid_distance_mm": 10.4,
+        "actual_max_witness_distance_mm": 10.226,
+        "max_source_mm": [
+          87.4,
+          405.525,
+          260.36
+        ]
+      }
+    ]
+  },
+  "pocket_reinforcement": {
+    "method": "Permanent bead width coverage on a 0.12 mm XY lattice inside the two common longitudinal wall strips, over the open height of each socket except a 1 mm margin at either end.",
+    "sockets": {
+      "wago-h insertion pocket transverse bridge": {
+        "embedded_density": "100%",
+        "embedded_angle_deg": "180",
+        "sample_count": 183960,
+        "courses": 73,
+        "accepted_covered_percent": 100.0,
+        "final_covered_percent": 100.0,
+        "final_lowest_layer_covered_percent": 100.0
+      },
+      "wago-g insertion pocket transverse bridge": {
+        "embedded_density": "100%",
+        "embedded_angle_deg": "180",
+        "sample_count": 183960,
+        "courses": 73,
+        "accepted_covered_percent": 100.0,
+        "final_covered_percent": 100.0,
+        "final_lowest_layer_covered_percent": 100.0
+      },
+      "wago-n insertion pocket transverse bridge": {
+        "embedded_density": "100%",
+        "embedded_angle_deg": "180",
+        "sample_count": 183960,
+        "courses": 73,
+        "accepted_covered_percent": 100.0,
+        "final_covered_percent": 100.0,
+        "final_lowest_layer_covered_percent": 100.0
+      },
+      "wiring-junction-compressor-n insertion pocket transverse bridge": {
+        "embedded_density": "100%",
+        "embedded_angle_deg": "180",
+        "sample_count": 183960,
+        "courses": 73,
+        "accepted_covered_percent": 99.583,
+        "final_covered_percent": 99.583,
+        "final_lowest_layer_covered_percent": 99.524
+      },
+      "wiring-junction-compressor-h insertion pocket transverse bridge": {
+        "embedded_density": "100%",
+        "embedded_angle_deg": "180",
+        "sample_count": 183960,
+        "courses": 73,
+        "accepted_covered_percent": 99.583,
+        "final_covered_percent": 99.583,
+        "final_lowest_layer_covered_percent": 99.524
+      },
+      "wiring-junction-pump-positive insertion pocket transverse bridge": {
+        "embedded_density": "100%",
+        "embedded_angle_deg": "180",
+        "sample_count": 183960,
+        "courses": 73,
+        "accepted_covered_percent": 99.386,
+        "final_covered_percent": 99.386,
+        "final_lowest_layer_covered_percent": 99.325
+      }
+    }
+  },
+  "stock_centerline_comparison_tolerance_mm": 0.06,
+  "method_notes": {
+    "geometry": "Subtract the closed permanent STLs in both directions. Compare each existing 3MF normal part by its coordinates, indexed triangles and placement.",
+    "labels": "Check every support or removable-stock road to the full channel height. Compare bead positions, widths and roles over the advancing chamfers and their previous courses, allowing execution order to vary.",
+    "show_faces": "Minimum distance from all emitted support segments, expanded by half the diagonal of width and height, to the painted triangles. The directed mesh changes identify any retired paint.",
+    "stock": "Support stock is identified by its embedded mesh and positively depositing line in G-code. Centerline comparisons permit the slicer to divide or reverse a stroke.",
+    "whole_shell": "At each actual model layer midpoint, intersect the permanent STL-matching embedded mesh and require a permanent extrusion within each connected section. Also check an independent 0.8 mm interior lattice against model deposition."
+  }
+}

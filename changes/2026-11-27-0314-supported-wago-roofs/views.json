@@ -1,0 +1,78 @@
+{
+  "views": [
+    {
+      "name": "roof-clearance",
+      "caption": "A section through the compressor-neutral pocket in print orientation. The connector stays on its locating faces as the roof and its backing move up by 0.25 mm.",
+      "before": "roof-clearance-before.webp",
+      "after": "roof-clearance-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -89.40883117545685,
+          257.6,
+          295.6
+        ],
+        "target": [
+          -98.1,
+          257.6,
+          295.6
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "fov": 45,
+        "near": 0.2512065196939294,
+        "far": 528.0045292950647,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -98.1,
+            260,
+            305
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wiring-junction-compressor-n*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0a164da2687438c811d246c052e48f688c09af5e292286b108c7f50c829a65bf",
+          "commit": "e2cf8a1c26f9eaf7cd78032b292c49f9ebce8786",
+          "taken": "2026-11-27T09:09:12.021Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "4a93357df8c22c3cb0e4b12b376414e8b1c7d9252751c134073b0baffd34274f",
+          "commit": "e27661819a8ceeef888703f00f25c824f584fc46",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-top"
+      ]
+    }
+  ]
+}
