@@ -1,4 +1,4 @@
-//! Four blind WAGO pocket sections with a solid rim to lever each removable tree out by its foot.
+//! Blind WAGO grip coupons for support removal and the two fitted-aperture comparisons.
 use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Solid, V3, reads, v3, write_stl};
 use serde_json::json;
@@ -7,7 +7,7 @@ use std::{fs, path::Path};
 
 /// The openings are expressed in their print frames. X runs from the mouth to the blind back.
 struct Pocket {
-    name: &'static str,
+    name: String,
     marks: usize,
     width: f64,
     height: f64,
@@ -29,11 +29,11 @@ fn production_pocket(name: &'static str, marks: usize, site: &str, record: &str)
     let [x0, x1, y0, y1, z0, z1]: [f64; 6] = serde_json::from_value(tree["bounds_source_mm"].clone())?;
     // Remove floating-point cancellation from subtracting world coordinates in millimetres.
     let span = |end: f64, start: f64| ((end - start) * 1_000.0).round() / 1_000.0;
-    Ok(Pocket { name, marks, width: span(y1, y0), height: span(z1, z0), depth: span(x1, x0) })
+    Ok(Pocket { name: name.to_owned(), marks, width: span(y1, y0), height: span(z1, z0), depth: span(x1, x0) })
 }
 
 /// Keep an uninterrupted floor, side cheeks, roof and rear wall around the entire extraction path.
-fn coupon(dir: &Path, p: &Pocket) -> Result<()> {
+fn coupon(dir: &Path, p: &Pocket, plate_bars: usize) -> Result<()> {
     let half = p.width / 2.0;
     let ceiling = FLOOR + p.height;
     let top = ceiling + ROOF;
@@ -44,6 +44,11 @@ fn coupon(dir: &Path, p: &Pocket) -> Result<()> {
     for dot in 0..p.marks {
         let y = (dot as f64 - (p.marks - 1) as f64 / 2.0) * 3.1;
         cuts.push(Solid::cylinder(v3(p.depth + BACK / 2.0, y, top - 0.72), V3::Z, 0.9, 1.0)?);
+    }
+    // The short recessed bars on the cheek identify the comparison plate after unloading.
+    for bar in 0..plate_bars {
+        let y = -half - CHEEK + 2.0 + 3.0 * bar as f64;
+        cuts.push(Solid::cuboid(v3(2.0, y, top - 0.72), v3(6.0, y + 1.2, top + 0.3)));
     }
     let body = stock.cut_all(&cuts)?.simplified()?;
     body.check()?;
@@ -80,8 +85,38 @@ fn coupon(dir: &Path, p: &Pocket) -> Result<()> {
     Ok(())
 }
 
+/// Apply Derek's fit increments to the openings of the coupons he actually held.
+fn fit_comparison(dir: &Path) -> Result<()> {
+    let records = Path::new("hardware/print-tests/wago-pocket-support/prints");
+    let front = reads::json(records.join("2026-11-27-front-mark1/coupon-toolpaths.json"))?;
+    let lid = reads::json(records.join("2026-11-27-rear-lid-mark2/coupon-toolpaths.json"))?;
+    const INCREMENT_MM: f64 = 0.20;
+    for (record, original, model, dots, short_steps, long_steps) in [
+        (&front, "front-420", "420", 1, 0_i32, 1_i32),
+        (&front, "front-415", "415", 2, -1, -1),
+        (&lid, "lid-413", "413", 3, -2, -2),
+    ] {
+        let [short, long, depth]: [f64; 3] = serde_json::from_value(
+            record["objects"][original]["opening_width_height_depth_mm"].clone(),
+        ).with_context(|| format!("measured opening for {original}"))?;
+        for (plate, bars, extra) in [("a", 1, 0), ("b", 2, 1)] {
+            let adjusted = |baseline: f64, steps: i32| {
+                let count = steps + extra * steps.signum();
+                ((baseline + f64::from(count) * INCREMENT_MM) * 100.0).round() / 100.0
+            };
+            let pocket = Pocket { name: format!("fit-{plate}-{model}"), marks: dots,
+                width: adjusted(short, short_steps), height: adjusted(long, long_steps), depth };
+            coupon(dir, &pocket, bars)?;
+        }
+    }
+    Ok(())
+}
+
 fn main() -> Result<()> {
     let dir = hsm_sandbox::out()?;
+    if std::env::args().nth(2).as_deref() == Some("--fit") {
+        return fit_comparison(&dir);
+    }
     let front = "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json";
     let rear = "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json";
     let lid = "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json";
@@ -91,7 +126,7 @@ fn main() -> Result<()> {
         ("rear-413", 3, "wiring-junction-compressor-n", rear),
         ("lid-413", 4, "wago-gnd", lid),
     ] {
-        coupon(&dir, &production_pocket(name, marks, site, record)?)?;
+        coupon(&dir, &production_pocket(name, marks, site, record)?, 0)?;
     }
     Ok(())
 }

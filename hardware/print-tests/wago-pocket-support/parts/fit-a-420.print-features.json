@@ -1,0 +1,64 @@
+{
+  "boundary_overlap_mm": 0.01,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        -0.1,
+        11.7,
+        -10.85,
+        10.85,
+        37.11,
+        40.36
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "fit-a-420 roof",
+      "reason": "Lay the ceiling across the opening between the two solid sidewall landings, as on its parent."
+    }
+  ],
+  "producer": "wago-pocket-pry",
+  "removable_support_stock": [
+    {
+      "bounds_source_mm": [
+        0.0,
+        8.7,
+        -7.85,
+        7.85,
+        7.16,
+        37.36
+      ],
+      "mouth_direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "name": "Removable MAG WAGO pocket floor tree fit-a-420",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "Test extraction of the same single floor foot, broad roof interface and release gaps used in the complete part.",
+      "shape": "pocket_floor_tree"
+    }
+  ],
+  "source_stl_sha256": "76915c14c4fa50ea0c9ba38f63cbcf33f515d62f1a083050863bed5202e6bcaa",
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        0.0,
+        8.7,
+        -7.85,
+        7.85,
+        7.16,
+        37.36
+      ],
+      "name": "fit-a-420 native tree exclusion",
+      "reason": "The separate removable tree occupies the pocket. Its base lands on the floor and its removal path opens at the mouth.",
+      "review_interior": false
+    }
+  ]
+}

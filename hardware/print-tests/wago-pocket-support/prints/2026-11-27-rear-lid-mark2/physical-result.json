@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-27",
+  "print_job": "print-job.json",
+  "printer": "Mark2",
+  "printer_task_id": "1492726180",
+  "slice_sha256": "61892e9e69d5c36f9c68e5694daa50f42cbfe36f88bb5dded3c50f98ad9619ad",
+  "axis_reference": "from my view Y axis is the long dimension on each and x axis is the short dimension on each.",
+  "support_removal": "Regarding the removability of the supports, they were removable.",
+  "pockets": [
+    {
+      "dots": [
+        3,
+        4
+      ],
+      "models": [
+        "back-top 221-413",
+        "lid 221-413"
+      ],
+      "short_x": "x axis is too loose",
+      "long_y": "y axis is too loose (this is the one where is maybe a difference between the 3 dot and 4 dot, but I couldn't tell you which is which without the dots, because they are both loose in the y axis)"
+    }
+  ]
+}

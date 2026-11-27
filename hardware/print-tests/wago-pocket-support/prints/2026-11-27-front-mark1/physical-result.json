@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-27",
+  "print_job": "print-job.json",
+  "printer": "Mark1",
+  "printer_task_id": "1492717061",
+  "slice_sha256": "4435dd2f470be40b59b0f03e83e448af8b7646eb594666914f1548ff07c18730",
+  "axis_reference": "from my view Y axis is the long dimension on each and x axis is the short dimension on each.",
+  "support_removal": "Regarding the removability of the supports, they were removable.",
+  "pockets": [
+    {
+      "dots": 1,
+      "connector": "221-420",
+      "short_x": "x axis seems perfect",
+      "long_y": "y axis is barely too tight"
+    },
+    {
+      "dots": 2,
+      "connector": "221-415",
+      "short_x": "x axis is barely too loose",
+      "long_y": "y axis is barely too lose"
+    }
+  ]
+}

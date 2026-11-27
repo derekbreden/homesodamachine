@@ -1,4 +1,20 @@
-# WAGO pocket support removal
+# WAGO pocket fit and support removal
+
+## Three-size fit comparison
+
+Read the openings with the dots uppermost and the mouth facing you. X is the short dimension between cheeks. Y is the long dimension from the floor to the underside of the bridge. One recessed bar identifies Mark1 and two bars identify Mark2. Each plate carries one separate coupon for each connector.
+
+| Dots | Connector | Mark1 X × Y | Mark2 X × Y | Insertion depth |
+| --- | --- | --- | --- | --- |
+| 1 | 10-way, 221-420 | 15.70 × 30.20 mm | 15.70 × 30.40 mm | 8.70 mm |
+| 2 | 5-way, 221-415 | 8.00 × 30.00 mm | 7.80 × 29.80 mm | 8.70 mm |
+| 3 | 3-way, 221-413 | 8.30 × 18.70 mm | 8.10 × 18.50 mm | 9.45 mm |
+
+The table gives the designed openings. The 0.20 mm increment applies to the entire opening. Both earlier 3-way pockets felt loose, so the new three-way coupons share the smaller tested opening, 8.70 × 19.10 mm, as their reference. All six use the same floor-rooted removable tree and pry stock as the first comparison. The `--fit` option on the coupon source generates the six fit specimens. The `wago-fit-a` and `wago-fit-b` plate recipes use those specimens.
+
+On the production 0.24 mm layer schedule, each 0.20 mm change in the designed long dimension moved the underside of the first bridge by a full layer. The measured opening from the top of the floor to the underside of the first roof bead is 30.18, 29.94 and 18.66 mm on Mark1, and 30.42, 29.70 and 18.42 mm on Mark2, in 10-, 5- and 3-way order. [Mark1 toolpaths](prints/2026-11-27-fit-a-mark1/fit-toolpaths.json) · [Mark2 toolpaths](prints/2026-11-27-fit-b-mark2/fit-toolpaths.json)
+
+## Original support-removal coupons
 
 Each coupon has one blind production pocket and one removable tree. The tree sits over the pocket floor and flares into a three-course crown beneath the transverse roof bridge. The 8 mm side cheeks and blind back, 7.16 mm floor and 6 mm roof give a screwdriver a solid edge to bear against. The dots recessed into the top of the blind back identify the specimen after removal from the plate.
 
@@ -15,4 +31,4 @@ The coupons use the production [removable tree](../../printed-parts/enclosure/en
 
 The [coupon source](coupon.rs) produces the four STLs and their support records. The `front-wago-pry` and `rear-lid-wago-pry` entries in the [plate recipes](../../printed-parts/enclosure/trial-preparation/pieces.json) prepare the Mark1 and Mark2 projects.
 
-The [Mark1 job](prints/2026-11-27-front-mark1/print-job.json) carries the one- and two-dot coupons. The [Mark2 job](prints/2026-11-27-rear-lid-mark2/print-job.json) carries the three- and four-dot coupons. The physical checks are whether each tree releases through the mouth, the lip and roof stay intact, and the corresponding connector seats fully.
+The [Mark1 job](prints/2026-11-27-front-mark1/print-job.json) carried the one- and two-dot coupons. The [Mark2 job](prints/2026-11-27-rear-lid-mark2/print-job.json) carried the three- and four-dot coupons. Derek removed the trees on the bench. The 10-way felt right on its short side and barely tight on its long side. The 5-way felt barely loose on both sides. Both 3-way openings felt loose in both directions. [Front coupon observations](prints/2026-11-27-front-mark1/physical-result.json) · [Rear and lid coupon observations](prints/2026-11-27-rear-lid-mark2/physical-result.json)

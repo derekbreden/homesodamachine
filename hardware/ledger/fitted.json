@@ -639,6 +639,27 @@
       "said": "The water regulator fit very well.",
       "tried": "the three-dot water-regulator receiver section with the revised 0.40 mm closer saddle on its Mark1 cover and the purchased regulator",
       "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/physical-result.json"
+    },
+    {
+      "material": "HSM-0079",
+      "date": "2026-11-27",
+      "said": "x axis seems perfect ... y axis is barely too tight ... x axis is barely too loose ... y axis is barely too lose ... Regarding the removability of the supports, they were removable.",
+      "tried": "removal of the floor-rooted trees on both front coupons and fit of the 10-way and 5-way connectors, respectively",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-27",
+      "said": "x axis is too loose ... y axis is too loose (this is the one where is maybe a difference between the 3 dot and 4 dot, but I couldn't tell you which is which without the dots, because they are both loose in the y axis) ... Regarding the removability of the supports, they were removable.",
+      "tried": "removal of the floor-rooted tree from the back-top three-dot coupon; the 3-way connector was loose in both dimensions",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/physical-result.json"
+    },
+    {
+      "material": "HSM-0020",
+      "date": "2026-11-27",
+      "said": "x axis is too loose ... y axis is too loose (this is the one where is maybe a difference between the 3 dot and 4 dot, but I couldn't tell you which is which without the dots, because they are both loose in the y axis) ... Regarding the removability of the supports, they were removable.",
+      "tried": "removal of the floor-rooted tree from the lid four-dot coupon; the 3-way connector was loose in both dimensions",
+      "record": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/physical-result.json"
     }
   ]
 }
