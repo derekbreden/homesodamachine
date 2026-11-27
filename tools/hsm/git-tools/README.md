@@ -43,6 +43,7 @@ End the message with one trailer block.
 ```text
 Session: <session title>
 Model: <app, model, effort>
+Experience: I was asked to <the request as you read it>, so I <what you did>.
 Derek: "<his words, exactly as typed>"
 Derek: "<another passage, with ... marking a cut; a long one wraps onto
  lines that start with a space>"
@@ -55,6 +56,12 @@ title `(auto-generated)`. In a cloud session
 the `Claude-Session:` link names the session. Quote a passage from Derek exactly
 for each request the commit answers. Omit `Derek:` for a commit he did not request.
 Read the passages with `git log --format='%(trailers:key=Derek)'`.
+
+`Experience:` is one line in your own terse words. The first blank is the request
+as you read it, never a copy of Derek's words, so the line beside his `Derek:` passage
+shows how he was read. Name who asked when it was not Derek. When the commit fixes
+what an earlier one left wrong, the first blank says what that was. Read them with
+`git log --format='%h %(trailers:key=Model,valueonly,separator=) | %(trailers:key=Experience,valueonly,separator=)'`.
 
 A commit from before 2026-11-26 has no `Model:` line. A Claude commit of that time
 names its model on its `Co-Authored-By` line. For a commit that names none,
