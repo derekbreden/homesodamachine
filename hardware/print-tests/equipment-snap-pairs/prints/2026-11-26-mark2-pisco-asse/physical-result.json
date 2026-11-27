@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-26",
+  "print_job": "print-job.json",
+  "printer": "Mark2",
+  "printer_task_id": "1490535651",
+  "recording": {
+    "filename": "A_0001C038A261126_2056253A_CANON.MP4",
+    "sha256": "da7aefc4eb42b551dccb997a0531d756f693a9f3930f70136d7508b02e407f1d",
+    "duration_s": 159.792967,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the first video frame."
+  },
+  "derek_written": "I think we're good enough on pisco and asse",
+  "asse": {
+    "material": "HSM-0448",
+    "review_seconds": [
+      0,
+      38
+    ],
+    "test": "Derek works the white inlet fitting in the full snap fixture, turns the assembly over, and tests the opposite end.",
+    "observation": "A small amount of movement is visible at the first end. Derek describes essentially no movement at the other end and accepts the fit.",
+    "decision": "Accept the current three-dot assembly.",
+    "photos": [
+      "physical-result/C038-asse-inlet.jpg",
+      "physical-result/C038-asse-reverse.jpg"
+    ]
+  },
+  "pisco": {
+    "material": "HSM-0449",
+    "review_seconds": [
+      105,
+      147
+    ],
+    "test": "Derek works the fittings at both ends of the regulator in the full three-dot cover and receiver.",
+    "observation": "He reports essentially no body movement, including end to end. The push-to-connect release button moves normally.",
+    "decision": "Accept the current three-dot assembly.",
+    "photos": [
+      "physical-result/C038-pisco-outlet.jpg"
+    ]
+  },
+  "other_stations": "../2026-11-26-mark1-meter-water/physical-result.json"
+}

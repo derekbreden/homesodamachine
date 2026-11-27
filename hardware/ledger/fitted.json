@@ -604,6 +604,27 @@
       "said": "a clean, well-seated snap",
       "tried": "the full-length one-dot Pisco receiver printed as a separate back-top section on Mark2. He seated the matching cover over the purchased regulator and worked the fittings from both ends. A little lengthwise regulator motion remained. He tried the three-dot profile separately on a 12 mm coupon.",
       "record": "hardware/print-tests/pisco-wide-snap/prints/2026-11-26-mark2-easy-entry/physical-result.json"
+    },
+    {
+      "material": "HSM-0448",
+      "date": "2026-11-26",
+      "said": "I think we're good enough on pisco and asse",
+      "tried": "the full three-dot ASSE snap cover over the backflow preventer and inlet adapter. There was slight motion at one end and essentially none at the other.",
+      "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json"
+    },
+    {
+      "material": "HSM-0449",
+      "date": "2026-11-26",
+      "said": "I think we're good enough on pisco and asse",
+      "tried": "the full three-dot Pisco cover over its regulator. The body stayed steady at both ends, including along its axis. The release button moved normally.",
+      "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-26",
+      "said": "I think we're good enough on pisco and asse",
+      "tried": "the separate full-size ASSE and Pisco receiver sections from Mark2, with their matching three-dot covers and purchased components. Derek accepted the fit of both stations.",
+      "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json"
     }
   ]
 }

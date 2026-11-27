@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-26",
+  "print_job": "print-job.json",
+  "printer": "Mark1",
+  "printer_task_id": "1490559572",
+  "recording": {
+    "filename": "A_0001C038A261126_2056253A_CANON.MP4",
+    "sha256": "da7aefc4eb42b551dccb997a0531d756f693a9f3930f70136d7508b02e407f1d",
+    "duration_s": 159.792967,
+    "frame_rate": "30000/1001",
+    "time_reference": "Seconds from the first video frame."
+  },
+  "water_regulator": {
+    "material": "HSM-0451",
+    "review_seconds": [
+      38,
+      105
+    ],
+    "closing_view_seconds": [
+      150,
+      157
+    ],
+    "test": "Derek holds the fixture and rocks the YZMSZ regulator back and forth, then turns it to show the other end.",
+    "observation": "The regulator toggles between two positions. Derek wants the installed body held more firmly. The footage has no dimensional or force reference for that motion.",
+    "derek_written": "that 0.40 mm reduction in saddle height on water regulator please start on mark1",
+    "decision": "Trial a 0.40 mm reduction of the space under the cover saddle with the existing receiver.",
+    "interpretation": "The closing remark says “flow meter” while the white regulator with the blue clip is in view. Both the earlier demonstration and the written instruction identify the YZMSZ water regulator for the saddle change.",
+    "photos": [
+      "physical-result/C038-water-toggle.jpg",
+      "physical-result/C038-water-closing-view.jpg"
+    ]
+  },
+  "flow_meter": {
+    "material": "HSM-0450",
+    "photo_record": "physical-result/physical-result.json",
+    "observation": "Derek separately photographed the Digiten receiver’s loose pocket roads beside the earlier design. Its fit after support removal will be tested on the Mark2 replacement."
+  },
+  "other_stations": "../2026-11-26-mark2-pisco-asse/physical-result.json"
+}
