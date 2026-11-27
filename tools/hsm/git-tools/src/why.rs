@@ -245,14 +245,9 @@ fn parse_permalink(url: &str) -> Option<(String, u64, u64, String)> {
     Some((commit.to_string(), a, b, path.to_string()))
 }
 
-/// The app and model behind a commit, and where that is written when its message has no `Model:` line.
-struct Model {
-    line: String,
-    source: Option<String>,
-}
-
-/// A commit's own `Model:` line, else its note on the model ref, else the line its harness added.
-fn model(root: &str, commit: &str) -> Option<Model> {
+/// The app and model behind a commit: its own `Model:` line, else its note on the model ref,
+/// else the line its harness added.
+fn model(root: &str, commit: &str) -> Option<String> {
     if commit == NULL_SHA {
         return None;
     }
@@ -260,18 +255,17 @@ fn model(root: &str, commit: &str) -> Option<Model> {
     let trailers = git(Some(root), &["show", "-s", format, commit]).ok()?;
     let (own, coauthors) = trailers.split_once('\0')?;
     if let Some(line) = own.lines().map(str::trim).find(|row| !row.is_empty()) {
-        return Some(Model { line: line.to_string(), source: None });
+        return Some(line.to_string());
     }
     if let Ok(note) = git(Some(root), &["notes", "--ref", MODEL_NOTES, "show", commit]) {
-        let field = |key: &str| note.lines().find_map(|row| row.strip_prefix(key)).map(|value| value.trim().to_string());
-        if let Some(line) = field("Model:") {
-            return Some(Model { line, source: field("Source:") });
+        if let Some(line) = note.lines().find_map(|row| row.strip_prefix("Model:")) {
+            return Some(line.trim().to_string());
         }
     }
     coauthors.lines().map(str::trim)
         .find(|row| row.ends_with("<noreply@anthropic.com>") || row.ends_with("<noreply@openai.com>"))
         .and_then(|row| row.rsplit_once(" <"))
-        .map(|(name, _)| Model { line: name.to_string(), source: Some("its Co-Authored-By line".to_string()) })
+        .map(|(name, _)| name.to_string())
 }
 
 fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinked: bool) -> Result<()> {
@@ -283,7 +277,7 @@ fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         let summary = git(Some(root), &["log", "-1", "--format=%h %ad %s", "--date=short", &blame.commit])?;
         println!("{}\n    {}:{}  {}", summary.trim_end(), blame.path, blame.line, blame.content.trim());
         if let Some(model) = model(root, &blame.commit) {
-            println!("    Model: {}{}", model.line, model.source.map(|source| format!(" ({source})")).unwrap_or_default());
+            println!("    Model: {model}");
         }
         match link {
             Some(Link { from: Some((commit, path, line)), note }) => {
@@ -317,7 +311,7 @@ fn print_json(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         rows.push(json!({
             "commit": blame.commit, "date": date, "subject": subject,
             "path": blame.path, "line": blame.line, "content": blame.content,
-            "model": model(root, &blame.commit).map(|m| json!({"line": m.line, "source": m.source})),
+            "model": model(root, &blame.commit),
             "derived_from": link.as_ref().and_then(|l| l.from.as_ref().map(|(c, p, n)| json!({"commit": c, "path": p, "line": n, "note": l.note}))),
             "begins_here": link.as_ref().filter(|l| l.from.is_none()).map(|l| json!({"note": l.note})),
         }));

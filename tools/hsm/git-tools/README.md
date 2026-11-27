@@ -83,8 +83,8 @@ was seen while the line was in. A rewrite or move records its `git why link`.
 to another language, it reads that commit's link records and blames again from the line
 each was rewritten from. It stops at the commit that set the line and prints each hop
 with that commit's message and its `Derek:` lines. Each hop names the app and model
-behind its commit: the commit's own `Model:` line, else its note on `refs/notes/model`
-with the note's source, else the line its harness added.
+behind its commit: the commit's own `Model:` line, else its note on `refs/notes/model`,
+else the line its harness added.
 
 ```sh
 git why hardware/printed-parts/enclosure/enclosure/back-top/supports.rs '/^const METER_HOUSING_FIT/'
