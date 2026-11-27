@@ -1,4 +1,4 @@
-//! Removable print stock carries rail caps from their cavity floors and the tube wing from its mate.
+//! Removable print stock for the sliding rails, tube wing, and rear identification stops.
 
 use anyhow::{Context, Result};
 use hsm_kernel::{Plane, Profile, Solid, v2, v3};
@@ -8,6 +8,13 @@ use serde_json::Value;
 #[derive(Deserialize)]
 #[serde(tag = "shape", rename_all = "snake_case")]
 enum Stock {
+    IdentificationStopStand {
+        opening_x_mm: [f64; 2],
+        channel_face_y_mm: f64,
+        rail_back_y_mm: f64,
+        contact_source_z_mm: f64,
+        bed_source_z_mm: f64,
+    },
     RailStrips {
         center_x_mm: f64,
         #[serde(default)]
@@ -30,6 +37,10 @@ enum Stock {
 pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, String)>)> {
     let stock: Stock = serde_json::from_value(spec.clone()).context("rear enclosure support stock")?;
     let solid = match stock {
+        Stock::IdentificationStopStand {
+            opening_x_mm, channel_face_y_mm, rail_back_y_mm, contact_source_z_mm, bed_source_z_mm,
+        } => identification_stop_stand(opening_x_mm, channel_face_y_mm, rail_back_y_mm,
+                                      contact_source_z_mm, bed_source_z_mm, gap)?,
         Stock::RailStrips { center_x_mm, cap_span_x_mm, span_y_mm, contact_source_z_mm, root_source_z_mm } => {
             let cap_span = cap_span_x_mm.unwrap_or([center_x_mm - 2.15, center_x_mm + 2.15]);
             rail_supports(center_x_mm, cap_span, span_y_mm, contact_source_z_mm, root_source_z_mm, gap)?
@@ -45,6 +56,33 @@ pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, St
         ("sparse_infill_density".into(), "100%".into()),
     ];
     Ok((solid, settings))
+}
+
+/// A bed-rooted stand behind the retaining lips. Its inclined tip reaches the flat stop
+/// through the open mouth. The two rear ribs stiffen the tall stem along its removal direction.
+fn identification_stop_stand(
+    [left, right]: [f64; 2], channel_face: f64, rail_back: f64, contact: f64, bed: f64, gap: f64,
+) -> Result<Solid> {
+    let (x0, x1) = (left + 0.45, right - 0.45);
+    let tip = channel_face + 0.38;
+    let stem = rail_back + 0.55;
+    let rear = stem + 2.8;
+    let foot = stem + 4.15;
+    let cap = contact + gap;
+    let side = Profile::polygon(&[
+        v2(tip, cap), v2(rear, cap), v2(rear, bed - 11.0), v2(foot, bed - 1.5),
+        v2(foot, bed), v2(stem, bed), v2(stem, cap + 6.55), v2(tip, cap + 0.76),
+    ]);
+    let body = Plane::YZ.at(v3(x0, 0.0, 0.0)).extrude(&side, x1 - x0)?;
+    let ribs = [x0 + 1.8, x1 - 4.8].map(|x| {
+        box_solid([x, rear - 0.05, cap + 7.0], [x + 3.0, foot, bed])
+    });
+    // Two first-layer ties reach the rear faces of the retaining lips. The slicer
+    // then sees the feet joined to the roof and omits the tall stands' oversized auto brim.
+    let ties = [left - 1.2, right - 1.2].map(|x| {
+        box_solid([x, rail_back - 0.10, bed - 0.23], [x + 2.4, stem + 0.70, bed])
+    });
+    Solid::union_all(&[body, ribs[0].clone(), ribs[1].clone(), ties[0].clone(), ties[1].clone()])?.simplified()
 }
 
 /// The cap follows the upper wing's nose and bore; slender feet break from the lower wing.
