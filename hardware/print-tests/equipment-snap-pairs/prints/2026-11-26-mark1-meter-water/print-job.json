@@ -90,5 +90,9 @@
   "launch": "launch.json",
   "printing_status": "printing-status.json",
   "bench_instructions": "../../README.md",
-  "seconds_after_other_printer_accepted": 386.0
+  "seconds_after_other_printer_accepted": 386.0,
+  "completion_status": "completion-status.json",
+  "finish_observed_at": "2026-11-27T01:41:06+00:00",
+  "chamber_image": "finished-plate.jpg",
+  "chamber_image_source": "finished-plate.json"
 }
