@@ -47,7 +47,9 @@ kept — is followed with.
 The link records [`git why`](../hsm/git-tools/README.md#following-a-line-past-a-rewrite) reads
 are notes on `refs/notes/agent-trace`, keyed by the commit each describes, and their permalinks
 name commits too. They sit on the successors in this table, permalinks repinned, as the tree's
-SHAs do; a rewrite that renames commits moves them with it.
+SHAs do; a rewrite that renames commits moves them with it. `refs/notes/model`, which names the
+app and model behind a commit whose message names none, is keyed by commit the same way and
+moves with a rewrite too.
 
 **Twenty-six do not resolve, and none of them can.** Seventeen name commits the rewrite left
 empty and dropped, so there is no successor to point at; the work is in the commit that

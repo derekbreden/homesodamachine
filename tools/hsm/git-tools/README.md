@@ -56,6 +56,17 @@ the `Claude-Session:` link names the session. Quote a passage from Derek exactly
 for each request the commit answers. Omit `Derek:` for a commit he did not request.
 Read the passages with `git log --format='%(trailers:key=Derek)'`.
 
+A commit from before 2026-11-26 has no `Model:` line. A Claude commit of that time
+names its model on its `Co-Authored-By` line. For a commit that names none,
+`refs/notes/model` holds the line where Codex's records on this Mac identify it, with
+a `Source:` line naming the record: the turn's own, or the model last selected for the task.
+
+```sh
+git fetch origin refs/notes/model:refs/notes/model
+git notes --ref model show COMMIT
+git log --notes=model --format='%h %(trailers:key=Model,valueonly)%N' -5
+```
+
 The commit that sets a value says what it does on the part and where its evidence
 is. A commit that moves a setting carries Derek's original words with it. When a
 rewrite breaks blame, record the link with [`git why link`](#following-a-line-past-a-rewrite).
