@@ -7,7 +7,7 @@ tube and the factory drier. NingBo Anuodan / HuaJun **HD48Y11A**, 110-120 V ~
 [`../ice-maker/README.md`](/hardware/reference/ice-maker/README.md).
 
 There is no vendor solid and no scan. The part was calipered, and
-[compressor.py](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compressor/compressor.py) draws the envelope the pack takes of it and the
+[compressor.py](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/compressor/compressor.py) draws the envelope the pack takes of it and the
 bolt pattern it stands on. `compressor.step` is that envelope, for the viewer and
 for anyone measuring clearance against it.
 
@@ -99,6 +99,6 @@ the plate's crown, so the posts locate the part as well as fasten it.
 
 ## Model inputs
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compressor/compressor.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/compressor/compressor.py).
 
-The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/compressor/compressor.py).
+The model and measurements are retained with their [source derivations](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/compressor/compressor.py).

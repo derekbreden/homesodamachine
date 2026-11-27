@@ -3,7 +3,7 @@
 The refrigeration loop's hot end: a finned serpentine with its fan bolted to
 one face, harvested from the donor appliance along with the compressor. There
 is **no STEP here** — the block was calipered, not scanned.
-[`condenser_block.py`](https://github.com/derekbreden/homesodamachine/blob/b25934c7fb755a226bfd6b804d089cf1ddcbbfcf/hardware/reference/condenser-block/condenser_block.py) draws the envelope the pack takes,
+[`condenser_block.py`](https://github.com/derekbreden/homesodamachine/blob/239a5b9d66dbaa215ea6ebe78ce86b5c255bf417/hardware/reference/condenser-block/condenser_block.py) draws the envelope the pack takes,
 declares the three arrivals on it, and cuts the two holes it hangs off.
 
 ## Geometry (calipered)
