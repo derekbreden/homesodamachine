@@ -625,6 +625,20 @@
       "said": "I think we're good enough on pisco and asse",
       "tried": "the separate full-size ASSE and Pisco receiver sections from Mark2, with their matching three-dot covers and purchased components. Derek accepted the fit of both stations.",
       "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json"
+    },
+    {
+      "material": "HSM-0451",
+      "date": "2026-11-26",
+      "said": "The water regulator fit very well.",
+      "tried": "the full-size YZMSZ water-regulator cover from Mark1 job 1491798007, with the saddle 0.40 mm closer to the body and the existing three-dot receiver",
+      "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/physical-result.json"
+    },
+    {
+      "material": "HSM-0081",
+      "date": "2026-11-26",
+      "said": "The water regulator fit very well.",
+      "tried": "the three-dot water-regulator receiver section with the revised 0.40 mm closer saddle on its Mark1 cover and the purchased regulator",
+      "record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/physical-result.json"
     }
   ]
 }

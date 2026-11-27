@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-26",
+  "station": "YZMSZ water regulator",
+  "printer": "Mark1",
+  "printer_task_id": "1491798007",
+  "print_job": "print-job.json",
+  "printed_cover": "hardware/print-tests/equipment-snap-pairs/parts/firm-regulator/regulator-snap-cap.stl",
+  "printed_cover_sha256": "7c1cdad76610e6fc4d50f46d73b05adea7ffbdf90fee04a5c60ec1d83712d3e8",
+  "mating_receiver": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.stl",
+  "mating_receiver_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+  "derek": "The water regulator fit very well.",
+  "tested": "The full-size water-regulator cover with 0.40 mm less space under the saddle, fitted to its existing three-dot receiver.",
+  "decision": "Accept this cover and receiver geometry for the production water-regulator station."
+}

@@ -2,8 +2,9 @@
 
 ## Full-size bench corrections
 
-Derek accepted the full three-dot Pisco and ASSE pairs. He could rock the YZMSZ
-water regulator in its fixture. His photos of the Digiten receiver show loose
+Derek accepted the full three-dot Pisco and ASSE pairs and the YZMSZ water
+regulator with its revised saddle. The earlier regulator cover allowed the body
+to rock in its fixture. His photos of the Digiten receiver show loose
 roads in the short catch beside the continuous courses on the previous design.
 [Pisco and ASSE](prints/2026-11-26-mark2-pisco-asse/physical-result.json) ·
 [Water regulator](prints/2026-11-26-mark1-meter-water/physical-result.json) ·
@@ -21,8 +22,9 @@ The replacement YZMSZ cover mates with the existing three-dot water-regulator
 receiver. Its fitted saddle reaches 0.40 mm farther toward the regulator body at
 the same wing position. With the housing centered, the rigid model gives
 1.53 mm of engagement at each hook and leaves the feet 0.23 mm short of their
-stops. Seat the hardware, press the cover home, then rock the two ends as in
-the video. [Cover fit](parts/firm-regulator/fit-check.json)
+stops. Derek reported that the revised cover fit very well.
+[Hand-fit result](prints/2026-11-26-mark1-firm-regulator/physical-result.json) ·
+[Cover measurements](parts/firm-regulator/fit-check.json)
 
 `equipment-snap-receivers --supported-meter` and `--firm-regulator` produce the
 two replacements. The `supported-meter-receiver` and `firm-regulator-cap`
