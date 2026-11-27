@@ -1,0 +1,200 @@
+{
+  "printer": "Mark1",
+  "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-a-mark1/2026-11-27-wago-fit-a-mark1-8f5106a4/2026-11-27-wago-fit-a-mark1-8f5106a4.gcode.3mf",
+  "archive_sha256": "af0c2aaac7608a312aaeb56af307a11b20878d87f9925bf8a65efde1c5203303",
+  "gcode_member": "Metadata/plate_1.gcode",
+  "gcode_sha256": "55e50e1fb2ceab9e0a53c70f0cb95f140f30d54e576faedf26039a4bc5329ed8",
+  "dimension_order": [
+    "X, short opening across the cheeks",
+    "Y, long opening from floor to roof"
+  ],
+  "measurement": "Positive-extrusion moves use their emitted widths and heights. For every open course, the separate tree island is excluded and both host bead edges are swept from the mouth to 0.25 mm before the blind back. Y runs from the top of the last continuous floor to the lowest bead surface of the first roof. Signed differences compare the same measurements on the earlier native archives.",
+  "prior_archives": {
+    "2026-11-27-front-mark1": {
+      "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.gcode.3mf",
+      "archive_sha256": "4435dd2f470be40b59b0f03e83e448af8b7646eb594666914f1548ff07c18730",
+      "gcode_sha256": "3bb4d4d8f0a0101e994ba9e48869a31955e06371a5012598285341587258061a"
+    },
+    "2026-11-27-rear-lid-mark2": {
+      "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.gcode.3mf",
+      "archive_sha256": "61892e9e69d5c36f9c68e5694daa50f42cbfe36f88bb5dded3c50f98ad9619ad",
+      "gcode_sha256": "8105c7aace55de3938c8d2e4963ad2e261ca6805e293b555db192e825b2e2fb6"
+    }
+  },
+  "objects": {
+    "fit-a-420": {
+      "article": "221-420",
+      "coupon_dots": 1,
+      "stl_sha256": "76915c14c4fa50ea0c9ba38f63cbcf33f515d62f1a083050863bed5202e6bcaa",
+      "cad_opening_short_long_depth_mm": [
+        15.7,
+        30.2,
+        8.7
+      ],
+      "sliced_clear_xy_mm": [
+        15.7,
+        30.18
+      ],
+      "prior_coupon": {
+        "archive_key": "2026-11-27-front-mark1",
+        "object": "front-420",
+        "dots": 1,
+        "sliced_clear_xy_mm": [
+          15.7,
+          29.94
+        ]
+      },
+      "sliced_change_from_prior_xy_mm": [
+        0.0,
+        0.24
+      ],
+      "open_courses": 126,
+      "short_clear_span_range_mm": [
+        15.7,
+        15.7
+      ],
+      "solid_floor_top_plate_z_mm": 7.16,
+      "first_roof_top_plate_z_mm": 37.64,
+      "first_roof_bead_height_mm": 0.3,
+      "first_roof_underface_plate_z_mm": 37.34,
+      "support": {
+        "model_rooted_bodies": 1,
+        "bed_rooted_bodies": 0,
+        "first_layer_connected_feet": 1,
+        "first_foot_top_plate_z_mm": 7.64,
+        "foot_span_plate_xy_mm": [
+          3.343,
+          3.343
+        ],
+        "foot_area_projected_onto_solid_floor_percent": 100.0,
+        "clear_gap_under_first_foot_mm": 0.18,
+        "crown_course_tops_plate_z_mm": [
+          36.68,
+          36.92,
+          37.16
+        ],
+        "clear_gap_above_crown_mm": 0.18,
+        "transverse_first_roof_roads_landing_on_both_cheeks": {
+          "Overhang wall": 2,
+          "Bridge": 21
+        }
+      }
+    },
+    "fit-a-415": {
+      "article": "221-415",
+      "coupon_dots": 2,
+      "stl_sha256": "cf0fd81443d19af1b2a4e54d1b273d431a7d8ac5d522f04ec78781732e753328",
+      "cad_opening_short_long_depth_mm": [
+        8.0,
+        30.0,
+        8.7
+      ],
+      "sliced_clear_xy_mm": [
+        8.0,
+        29.94
+      ],
+      "prior_coupon": {
+        "archive_key": "2026-11-27-front-mark1",
+        "object": "front-415",
+        "dots": 2,
+        "sliced_clear_xy_mm": [
+          8.2,
+          30.18
+        ]
+      },
+      "sliced_change_from_prior_xy_mm": [
+        -0.2,
+        -0.24
+      ],
+      "open_courses": 125,
+      "short_clear_span_range_mm": [
+        8.0,
+        8.0
+      ],
+      "solid_floor_top_plate_z_mm": 7.16,
+      "first_roof_top_plate_z_mm": 37.4,
+      "first_roof_bead_height_mm": 0.3,
+      "first_roof_underface_plate_z_mm": 37.1,
+      "support": {
+        "model_rooted_bodies": 1,
+        "bed_rooted_bodies": 0,
+        "first_layer_connected_feet": 1,
+        "first_foot_top_plate_z_mm": 7.64,
+        "foot_span_plate_xy_mm": [
+          3.343,
+          3.343
+        ],
+        "foot_area_projected_onto_solid_floor_percent": 100.0,
+        "clear_gap_under_first_foot_mm": 0.18,
+        "crown_course_tops_plate_z_mm": [
+          36.44,
+          36.68,
+          36.92
+        ],
+        "clear_gap_above_crown_mm": 0.18,
+        "transverse_first_roof_roads_landing_on_both_cheeks": {
+          "Overhang wall": 2,
+          "Bridge": 21
+        }
+      }
+    },
+    "fit-a-413": {
+      "article": "221-413",
+      "coupon_dots": 3,
+      "stl_sha256": "e0517a46ba68f39250c7f932b77192782de397bce5da582c7967daedceab6b88",
+      "cad_opening_short_long_depth_mm": [
+        8.3,
+        18.7,
+        9.45
+      ],
+      "sliced_clear_xy_mm": [
+        8.3,
+        18.66
+      ],
+      "prior_coupon": {
+        "archive_key": "2026-11-27-rear-lid-mark2",
+        "object": "lid-413",
+        "dots": 4,
+        "sliced_clear_xy_mm": [
+          8.7,
+          19.14
+        ]
+      },
+      "sliced_change_from_prior_xy_mm": [
+        -0.4,
+        -0.48
+      ],
+      "open_courses": 78,
+      "short_clear_span_range_mm": [
+        8.3,
+        8.3
+      ],
+      "solid_floor_top_plate_z_mm": 7.16,
+      "first_roof_top_plate_z_mm": 26.12,
+      "first_roof_bead_height_mm": 0.3,
+      "first_roof_underface_plate_z_mm": 25.82,
+      "support": {
+        "model_rooted_bodies": 1,
+        "bed_rooted_bodies": 0,
+        "first_layer_connected_feet": 1,
+        "first_foot_top_plate_z_mm": 7.64,
+        "foot_span_plate_xy_mm": [
+          3.343,
+          3.343
+        ],
+        "foot_area_projected_onto_solid_floor_percent": 100.0,
+        "clear_gap_under_first_foot_mm": 0.18,
+        "crown_course_tops_plate_z_mm": [
+          25.16,
+          25.4,
+          25.64
+        ],
+        "clear_gap_above_crown_mm": 0.18,
+        "transverse_first_roof_roads_landing_on_both_cheeks": {
+          "Overhang wall": 2,
+          "Bridge": 23
+        }
+      }
+    }
+  }
+}

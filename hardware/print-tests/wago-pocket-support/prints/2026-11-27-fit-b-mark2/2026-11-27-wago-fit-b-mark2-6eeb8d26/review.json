@@ -1,0 +1,277 @@
+{
+  "archive": "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-b-mark2/2026-11-27-wago-fit-b-mark2-6eeb8d26/2026-11-27-wago-fit-b-mark2-6eeb8d26.gcode.3mf",
+  "archive_sha256": "276f232b76a3598977cfa382185f920819d74805ffbd096727889e005933cb36",
+  "bead_envelope_plate_mm": [
+    [
+      117.795,
+      104.089055
+    ],
+    [
+      207.038792,
+      195.96379199999998
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 124.03620800000002,
+    "front": 104.089055,
+    "left": 117.795,
+    "right": 117.961208
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9699922190017086,
+      "second_layer_centerline_outside_first_mm": 4.174316683395456,
+      "second_layer_model_bead_area_mm2": 528.6421312071855
+    },
+    "1902": {
+      "fraction_over_first_layer": 0.9665682231240503,
+      "second_layer_centerline_outside_first_mm": 3.2506033985606613,
+      "second_layer_model_bead_area_mm2": 396.8160789263369
+    },
+    "1903": {
+      "fraction_over_first_layer": 0.9675771709937391,
+      "second_layer_centerline_outside_first_mm": 3.07220047092938,
+      "second_layer_model_bead_area_mm2": 419.8967483662478
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 182,
+  "minimum_bed_margin_mm": 104.089055,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": 0.025001373291014484,
+  "solid_host_deposition": [
+    {
+      "minimum_coverage": 0.9964549019607843,
+      "minimum_outline_coverage": 0.9965831659380047,
+      "name": "fit-b-420 roof transverse bridge",
+      "object": 1901,
+      "plate_bounds_mm": [
+        [
+          118.07599885559083,
+          169.14,
+          37.300000000000004
+        ],
+        [
+          129.78499885559083,
+          190.86,
+          40.57
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9964549019607843,
+          "infill_core_mm2": 239.06250000000006,
+          "outline_coverage": 0.9965831659380047,
+          "print_z_mm": 37.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 253.89000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989149713093375,
+          "infill_core_mm2": 239.62500000000006,
+          "outline_coverage": 0.9989759344598055,
+          "print_z_mm": 39.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 253.89000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989149713093375,
+          "infill_core_mm2": 239.62500000000006,
+          "outline_coverage": 0.9988971601874828,
+          "print_z_mm": 40.28,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 253.89000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          0.001,
+          -10.86,
+          37.300000000000004
+        ],
+        [
+          11.709999999999999,
+          10.86,
+          40.57
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.995638784852268,
+      "minimum_outline_coverage": 0.9959432676823982,
+      "name": "fit-b-415 roof transverse bridge",
+      "object": 1902,
+      "plate_bounds_mm": [
+        [
+          190.22600038146973,
+          173.09,
+          36.7
+        ],
+        [
+          201.93500038146973,
+          186.91,
+          39.97
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.995638784852268,
+          "infill_core_mm2": 150.18750000000003,
+          "outline_coverage": 0.9959432676823982,
+          "print_z_mm": 37.16,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 161.46000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989433364152688,
+          "infill_core_mm2": 151.42000000000002,
+          "outline_coverage": 0.9988542053759445,
+          "print_z_mm": 38.36,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 161.46000000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9989433364152688,
+          "infill_core_mm2": 151.42000000000002,
+          "outline_coverage": 0.9988542053759445,
+          "print_z_mm": 39.8,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 161.46000000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          0.001,
+          -6.91,
+          36.7
+        ],
+        [
+          11.709999999999999,
+          6.91,
+          39.97
+        ]
+      ]
+    },
+    {
+      "minimum_coverage": 0.9962301587301587,
+      "minimum_outline_coverage": 0.9964111766213791,
+      "name": "fit-b-413 roof transverse bridge",
+      "object": 1903,
+      "plate_bounds_mm": [
+        [
+          153.77599961853028,
+          172.94,
+          25.4
+        ],
+        [
+          166.23499961853028,
+          187.06,
+          28.67
+        ]
+      ],
+      "samples": [
+        {
+          "bead_radius_inset_mm": 0.231438,
+          "coverage": 0.9962301587301587,
+          "infill_core_mm2": 163.80000000000004,
+          "outline_coverage": 0.9964111766213791,
+          "print_z_mm": 25.88,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 175.54500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9990005148862707,
+          "infill_core_mm2": 165.08500000000004,
+          "outline_coverage": 0.9990600700675041,
+          "print_z_mm": 27.08,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 175.54500000000004
+        },
+        {
+          "bead_radius_inset_mm": 0.225,
+          "coverage": 0.9990005148862707,
+          "infill_core_mm2": 165.08500000000004,
+          "outline_coverage": 0.9990600700675041,
+          "print_z_mm": 28.52,
+          "sampling_step_mm": 0.05,
+          "stock_mm2": 175.54500000000004
+        }
+      ],
+      "source_bounds_mm": [
+        [
+          0.001,
+          -7.06,
+          25.4
+        ],
+        [
+          12.459999999999999,
+          7.06,
+          28.67
+        ]
+      ]
+    }
+  ],
+  "support_roads": 10519,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 1,
+      "removable_stock_moves": 4317,
+      "shortest_build_up_mm": 29.28,
+      "shortest_labelled_build_up_mm": 29.28,
+      "support_bodies": 1
+    },
+    "1902": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 1,
+      "removable_stock_moves": 3727,
+      "shortest_build_up_mm": 28.56,
+      "shortest_labelled_build_up_mm": 28.56,
+      "support_bodies": 1
+    },
+    "1903": {
+      "bed_rooted_bodies": 0,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 1,
+      "removable_stock_moves": 2475,
+      "shortest_build_up_mm": 17.28,
+      "shortest_labelled_build_up_mm": 17.28,
+      "support_bodies": 1
+    }
+  }
+}

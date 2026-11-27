@@ -3816,6 +3816,12 @@
       "bytes": 83548,
       "sha256": "dd7649f8bac7f28777571afaefbfc0e42b1c356d76a04c6b3018bc1cd6bae2f5"
     },
+    "7192c4d82daee2fe58b8b67799abc1bfb11e7943": {
+      "archive": "wago-fit-a-mark1-cf0ecccd646a68b6.zip",
+      "bytes": 54345,
+      "offset": 74,
+      "sha256": "6341735c44874b10b764a5f25575e846cf834f427ce1673313112fec4e07fffa"
+    },
     "71d7d192ffcbb1b6bfac9c7cb69246dafc4dbdcc": {
       "archive": "legacy-print-2-85eb212155f93ace.zip",
       "offset": 1157790703,
@@ -5784,6 +5790,12 @@
       "bytes": 73446,
       "sha256": "a7fda0cda652697b8627c78d8ba9897991c90d72cc633ec92399e6b7deead1e7"
     },
+    "ae31ba0e8532ee02228f6e0f31711b280129e729": {
+      "archive": "wago-fit-b-mark2-616d0746a150ce25.zip",
+      "bytes": 54588,
+      "offset": 74,
+      "sha256": "b3306bbed15cfe680da8aae0c8e213b05b474f9304848dc2bd705be6d077a4ef"
+    },
     "ae533dd0ac3b524cafd5601c1806551923854444": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
       "offset": 213550594,
@@ -6299,6 +6311,12 @@
       "offset": 742022924,
       "bytes": 2984020,
       "sha256": "7182b4bd2d418524e4e94bf2f593848df3dc94b7f9bb1792fcdbb4759b7481fa"
+    },
+    "bb9008997728c298a41c95e989231dc28c0f7054": {
+      "archive": "wago-fit-a-mark1-cf0ecccd646a68b6.zip",
+      "bytes": 689402,
+      "offset": 54493,
+      "sha256": "af0c2aaac7608a312aaeb56af307a11b20878d87f9925bf8a65efde1c5203303"
     },
     "bbb679b2ee7c2d77c8395c8d9f492b6bdd63ebb8": {
       "archive": "legacy-print-4-5a0bc4e99ad5423d.zip",
@@ -8424,6 +8442,12 @@
       "bytes": 25442103,
       "sha256": "0248cc8ac3967a8966f5d8b900c747eafb2809af124910f3e7fc72a1f4db7490"
     },
+    "fc3121c36d1c5b7d3fc9bb9e84012f695a9855a9": {
+      "archive": "wago-fit-b-mark2-616d0746a150ce25.zip",
+      "bytes": 689885,
+      "offset": 54736,
+      "sha256": "276f232b76a3598977cfa382185f920819d74805ffbd096727889e005933cb36"
+    },
     "fc4b2f4f50d1359846bf05bd804db31e12498884": {
       "archive": "legacy-print-5-2deadf4a08b4b3fc.zip",
       "offset": 1128787421,
@@ -8744,6 +8768,10 @@
     "hardware/print-tests/vb-return-clip/prints/2026-11-21-mark1/2026-11-21-vb-return-clip-mark1-6bf9695b/2026-11-21-vb-return-clip-mark1-6bf9695b.gcode.3mf": "b520b840f7eab2d7df484208ec7cf84631eacf12",
     "hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/2026-11-21-vh-entry-clip-mark1-5067bef8/2026-11-21-vh-entry-clip-mark1-5067bef8.3mf": "75c1fa4bcc72d4e01feab9e7e0e1436e6f3645c7",
     "hardware/print-tests/vh-entry-clip/prints/2026-11-21-mark1/2026-11-21-vh-entry-clip-mark1-5067bef8/2026-11-21-vh-entry-clip-mark1-5067bef8.gcode.3mf": "54ff3b001c5ccd97ce1f2fe887c20c644dd952ff",
+    "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-a-mark1/2026-11-27-wago-fit-a-mark1-8f5106a4/2026-11-27-wago-fit-a-mark1-8f5106a4.3mf": "7192c4d82daee2fe58b8b67799abc1bfb11e7943",
+    "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-a-mark1/2026-11-27-wago-fit-a-mark1-8f5106a4/2026-11-27-wago-fit-a-mark1-8f5106a4.gcode.3mf": "bb9008997728c298a41c95e989231dc28c0f7054",
+    "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-b-mark2/2026-11-27-wago-fit-b-mark2-6eeb8d26/2026-11-27-wago-fit-b-mark2-6eeb8d26.3mf": "ae31ba0e8532ee02228f6e0f31711b280129e729",
+    "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-b-mark2/2026-11-27-wago-fit-b-mark2-6eeb8d26/2026-11-27-wago-fit-b-mark2-6eeb8d26.gcode.3mf": "fc3121c36d1c5b7d3fc9bb9e84012f695a9855a9",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.3mf": "0f6269111100440f000901477c55b95b8a7cd455",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.gcode.3mf": "9f0953221e8d2c6febfe59594c49b00c5059dc67",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.3mf": "cd5d88d60566bf1317523a2acc7fe5f29d9a8b31",
