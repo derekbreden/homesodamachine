@@ -114,4 +114,5 @@ The artwork command accepts individual names with `--scenes`. The binder
 renders the HTML leaves, checks their authored page bounds and joins them in
 numbered order, then writes the identical delivery copy and source receipt.
 These commands run by hand. No build target, hook, watcher or recurring check
-invokes them. The HTML, artwork, PDF, cover and metadata are committed artifacts.
+invokes them. The HTML, artwork, cover and metadata are committed. The PDF is a
+published file the site fetches.

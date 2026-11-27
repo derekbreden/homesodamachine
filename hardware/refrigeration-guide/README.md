@@ -186,7 +186,7 @@ the flammable-refrigerant service setup and final process-tube closure is open.
 
 ## Manual rebuild and printing
 
-This is a committed document, outside the appliance build graph. It imports no CAD
+This document is built by hand, outside the appliance build graph. It imports no CAD
 or hardware generators. Rebuild deliberately after reviewing a changed operation:
 
 ```bash

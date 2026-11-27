@@ -65,10 +65,10 @@ services:
         - hardware/assembly/harnesses/**
         # THE HARDWARE PATHS THAT DEPLOY, AND WHY THEY ARE THE ONLY ONES. Everything else under
         # `hardware/` reaches a running container as data — the artifact pointer file moves and
-        # `web/lib/artifacts-live.js` brings its members down without a restart. This
-        # directory holds a hand-drawn build guide whose PDF, cover and sidecar are in git
-        # rather than in that pointer file, so a clone is what carries them and a deploy is what makes a
-        # clone. It changes when a person redraws it, which is rarely.
+        # `web/lib/artifacts-live.js` brings its members down without a restart. Each of these
+        # directories holds a hand-drawn guide. Its bound PDF is a member of that pointer file;
+        # its cover and sidecar are in git, so a clone is what carries them and a deploy is what
+        # makes a clone. They change when a person redraws the guide, which is rarely.
         - hardware/weld-rotator-guide/**
         - hardware/reed-sweep-rig-guide/**
         - hardware/printing-the-machine/**
@@ -83,7 +83,7 @@ services:
         - hardware/mold-guide/**
         - hardware/refrigeration-guide/**
         - hardware/magnetic-float-guide/**
-        # The owner install guide is committed with its cover and sidecar.
+        # The owner install guide's cover and sidecar are committed; its PDF is a pointer member.
         - hardware/install-guide/**
       ignoredPaths:
         # Tests run on request and are outside the deployed application's dependencies.

@@ -15,7 +15,8 @@ comes from one of those three; what this document adds is the order and the pict
 The numbered HTML leaves, committed pictures and bound book are maintained here.
 The native [manual guide builder](../../tools/hsm/manual-guides/src/html.rs) renders
 and binds them on demand. The appliance build does not regenerate this guide.
-The PDF, cover and document sidecar deploy from their committed directory.
+The cover and document sidecar deploy from their committed directory. The PDF is a
+published file the site fetches.
 
 The [archived illustration source](https://github.com/derekbreden/homesodamachine/blob/aacac6f1e3ecfd47cce184d9d84df7bc5f5cc1cc/tools/weld-rotator-guide/rotator_art.py)
 records the source shapes and picture poses used by the committed artwork.

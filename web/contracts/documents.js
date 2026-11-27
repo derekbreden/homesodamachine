@@ -18,10 +18,11 @@
 // excluded even when a scene build restores their PDF and sidecar.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
 
-// Committed documents are carried by the checkout. CAD publications may still name
-// an earlier edition; adopting or retiring those objects must leave the documents in place.
+// A guide's PDF is a published file: the pointer file names it and the artifact fetch puts it
+// on this disk. Its cover and sidecar, and each engineering drawing, are carried by the
+// checkout. CAD publications may still name an earlier edition of a committed file; adopting
+// or retiring those objects must leave the committed file in place.
 const COMMITTED_DOCUMENT_FILES = new Set([
-  "hardware/install-guide/install-guide.pdf",
   "hardware/install-guide/install-guide.cover.png",
   "hardware/install-guide/install-guide.pdf.json",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
@@ -42,7 +43,6 @@ const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf.json",
   "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.pdf",
   "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.pdf.json",
-  "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf",
   "hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf.json",
   "hardware/water-inlet-jet-guide/water-inlet-jet-guide.cover.png",
 ]);
@@ -50,7 +50,7 @@ const COMMITTED_DOCUMENT_FILES = new Set([
 export function isCommittedDocumentFile(repoRel) {
   return COMMITTED_DOCUMENT_FILES.has(repoRel) || (
     /^hardware\/(?:faucet-assembly-guide|printing-the-machine|tube-insertion-guide|carbonator-filming-guide|drill-and-cut-guide|mold-guide|refrigeration-guide|assembly-letter-guide|gun-positioner-guide|reed-sweep-rig-guide)\//.test(repoRel)
-    && /(?:\.pdf|\.cover\.png|\.pdf\.json)$/.test(repoRel)
+    && /(?:\.cover\.png|\.pdf\.json)$/.test(repoRel)
   );
 }
 

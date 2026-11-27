@@ -16,7 +16,7 @@ tools/run -- tools/hsm/target/release/fabrication-guides drill-and-cut-guide
 tools/hsm/target/release/fabrication-guides data weld-position
 ```
 
-`--root PATH` selects the source checkout for a book. `--out PATH` selects its output root; the default is the source root. Each book writes its PDF, cover and publication sidecar under its guide directory and its delivery PDF and source receipt under `output/pdf`.
+`--root PATH` selects the source checkout for a book. `--out PATH` selects its output root; the default is the source root. Each book writes its PDF, cover and publication sidecar under its guide directory and its delivery PDF and source receipt under `output/pdf`. Both PDFs stay out of git: [`BUNDLED_ART_FILES`](../publication/config.json) names the guide's, which the publisher uploads and the site fetches, and the delivery copy is a local file.
 
 `data weld-position` prints the current tube, cap and port dimensions as JSON. It reads typed rotator and endcap constants and writes no files. The existing weld-position browser test compares its pose inputs with this command.
 

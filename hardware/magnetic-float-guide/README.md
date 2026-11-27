@@ -29,9 +29,9 @@ its reviewed pause layers apply to that identified project.
 ## Authoring and rebuilding
 
 This booklet is rebuilt by hand. Its HTML leaves, artwork, PDF, cover and document
-sidecar live together here. `out/` holds ignored page renders. The committed PDF,
-cover and sidecar deploy through `render.yaml`; the sidecar lists the guide on
-the guides page.
+sidecar live together here. `out/` holds ignored page renders. The PDF is a
+published file the site fetches. The committed cover and sidecar deploy through
+`render.yaml`; the sidecar lists the guide on the guides page.
 
 ```sh
 hsm-manual-guides author magnetic-float-guide

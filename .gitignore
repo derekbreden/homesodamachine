@@ -133,15 +133,28 @@ hardware/quickstart/plumbing/out/
 hardware/quickstart/studies/first-power-link/out/
 
 # The weld-rotator build guide's page renders, and the staged STEPs its art pass writes while a
-# browser is looking at them. The guide itself — its HTML, its `art/*.png`, its bound PDF, its
-# cover and its `.pdf.json` — is in the index; that document is drawn by hand and is not a step
-# of the build (hardware/weld-rotator-guide/README.md). `tools/cad-artifacts/pack.py`'s
-# NOT_BUNDLED_DIRS names this directory too.
+# browser is looking at them. The guide's HTML, its `art/*.png`, its cover and its `.pdf.json`
+# are in the index; that document is drawn by hand and is not a step of the build
+# (hardware/weld-rotator-guide/README.md). The publication config's NOT_BUNDLED_DIRS names
+# this directory too.
 hardware/weld-rotator-guide/out/
 hardware/reed-sweep-rig-guide/out/
 hardware/printing-the-machine/out/
 hardware/gun-positioner-guide/out/
 hardware/tube-insertion-guide/out/
+
+# A guide's bound PDF is a published file. tools/hsm/publication/config.json names each one in
+# BUNDLED_ART_FILES, the publisher uploads it by hash, hardware/cad-artifacts.json points at it
+# and web/scripts/fetch-cad-artifacts.mjs puts it on the disk a deploy serves from.
+hardware/*-guide/*.pdf
+hardware/printing-the-machine/printing-the-machine.pdf
+
+# Written on request: the install guide's two Lulu upload files and its order bundle
+# (HSM_PRESS=1, hardware/install-guide/README.md), and each guide builder's delivery copy.
+hardware/install-guide/press/*.pdf
+output/pdf/*-guide.pdf
+output/pdf/assembly-drill-and-weld-letter.pdf
+output/pdf/install-guide-lulu-*
 
 # Local owner-document previews.
 hardware/quickstart-claude/out/

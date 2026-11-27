@@ -25,6 +25,11 @@ or owning Markdown procedures. `art` reads current component or retained print
 meshes and draws only the selected operation pictures. `--scenes` selects names;
 `--output` keeps a requested comparison outside the current deliverable.
 
+A book's PDF stays out of git. [`BUNDLED_ART_FILES`](../publication/config.json)
+names it; the publisher uploads it after the next commit and the site fetches it.
+Its cover and sidecar are committed. The delivery copy under `output/pdf/` is a
+local file.
+
 The PGFUN book accepts `--reuse-art`. Its `--inputs DIR` option reads the retained
 fixture inputs for a geometry comparison; the selected files are recorded in the
 source receipt. `qa gun-positioner-guide` performs the requested release-binding

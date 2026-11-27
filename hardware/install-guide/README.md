@@ -77,7 +77,8 @@ Montserrat Medium and Font Awesome, the fonts LVGL builds the panel's type from.
 enclosure's matte black PET-GF appearance. Both Fill views use the same exposure, and the
 complete frame has an uninterrupted outline.
 
-The PDF, cover, fonts and illustration snapshots are committed here. `assets/` contains the
+The cover, fonts and illustration snapshots are committed here. The PDF is a published file:
+the publisher uploads it and the site fetches it. `assets/` contains the
 booklet's artwork, including its Fill-screen illustration and hose-removal scene.
 `assets/print-resolution.json` registers crop and arrow coordinates against the native artwork
 dimensions. The back face, rear connections and bottle scene use higher-resolution snapshots

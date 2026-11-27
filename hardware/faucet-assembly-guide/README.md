@@ -161,9 +161,10 @@ five component pictures under `art/`; the PDF builder writes:
 - `output/pdf/faucet-assembly-guide.pdf`, the identical delivery copy
 - `output/pdf/faucet-assembly-guide.sources.json`, source hashes and wiring provenance
 
-These are committed document assets, regenerated on request outside the native
-print build. `render.yaml` deploys
-its committed directory so the shelf can serve it. Review the affected
+These are document assets, regenerated on request outside the native
+print build. The PDFs stay out of git: the guide's PDF is a published file the
+site fetches, and `render.yaml` deploys the committed cover and sidecar so the
+shelf can serve it. Review the affected
 operation deliberately when a part, fit, procedure or pin assignment changes.
 Render the resulting pages and inspect the pictures and text before publishing.
 
