@@ -17,6 +17,8 @@ use std::path::{Path, PathBuf};
 const RECIPE: &str = "hardware/printed-parts/enclosure/display-cover/prints/2026-11-08-identification-set-mark1-right-z005";
 const MODEL: &str = "3D/3dmodel.model";
 const SETTINGS: &str = "Metadata/model_settings.config";
+/// First-layer contour compensation on the two chips that print over their lower edge bevel.
+const LOWER_CHIP_FOOT_MM: f64 = 0.02;
 const SOURCES: [(&str, &str); 8] = [
     ("Nameplate unit 0001", "enclosure/nameplate/nameplate-001"),
     ("Status plate", "enclosure/display-cover/status-plate"),
@@ -105,9 +107,20 @@ pub(super) fn prepare(root: &Path, output: &Path) -> Result<PathBuf> {
         .context("accepted right trim")?;
     let mut archive = members(&template)?;
     let mut model = String::from_utf8(archive.remove(MODEL).context(MODEL)?)?;
-    let config = xml::parse(std::str::from_utf8(
+    let mut config = xml::parse(std::str::from_utf8(
         archive.get(SETTINGS).context(SETTINGS)?,
     )?)?;
+    for object in config.children.iter_mut().filter(|node| node.local() == "object") {
+        if matches!(metadata(object, "name")?, "DRAIN chip" | "FLAVOR B chip") {
+            object.children.insert(0, Element {
+                name: "metadata".into(),
+                attributes: vec![("key".into(), "elefant_foot_compensation".into()),
+                                 ("value".into(), LOWER_CHIP_FOOT_MM.to_string())],
+                ..Element::default()
+            });
+        }
+    }
+    let model_settings = xml::document(&config);
     let settings: Value = serde_json::from_slice(
         archive
             .get("Metadata/project_settings.config")
@@ -127,6 +140,8 @@ pub(super) fn prepare(root: &Path, output: &Path) -> Result<PathBuf> {
     let mut parts = Vec::new();
     let mut top_heights = Vec::new();
     let mut fingerprint = template_sha.clone();
+    fingerprint.push_str(&sha256_hex(&model_settings));
+    archive.insert(SETTINGS.into(), model_settings);
     for (name, source) in SOURCES {
         let object = config
             .children_named("object")
@@ -244,6 +259,7 @@ pub(super) fn prepare(root: &Path, output: &Path) -> Result<PathBuf> {
         "project": relative(&project, root), "project_sha256": super::file_sha(&project)?,
         "profile": relative(&template, root), "profile_sha256": template_sha, "recipe": relative(&review, root),
         "right_nozzle_trim_mm": right, "face_up_tops_mm": top_heights,
+        "lower_chip_elephant_foot_compensation_mm": LOWER_CHIP_FOOT_MM,
         "usable_plate_mm": [super::USABLE.0, super::USABLE.1], "plate_border_mm": super::BORDER,
         "parts": parts, "prepared_utc": super::now_utc()?, "sliced": false, "submitted": false,
     });
