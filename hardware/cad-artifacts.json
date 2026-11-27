@@ -93,7 +93,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8f062e9ef1cee06b9cb01395c324d0e82806504b257a2049057ac6a7098d120f",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "208d30cfa3bad79f7173b338a3fe1f6f9fd42f8c2d7aae402fa4720906752e9d",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "28ae8937a70f7a55571a37a303b38477bef45d5c4c9d2aef2c22fe58da4c34f8",
-    "hardware/manifold-layout/enclosure-assembly.facts.json": "d38d88517cd366e81e7e7153fe34c12c7d6d080fddd04212a90943f885d6306f",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "c6447947aa43bcbf2229418766cda1bfaa88af259612239694c5b15b7abd9f77",
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": "96be0d51a69a4bfce5f3984d9f08a82c5a97fa6c220bf7d72d389c15af217370",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "b089f4f80365a219b8f73a61982a28cad78a8e563ada83feef65111e955c1bd4",
     "hardware/manifold-layout/manifold-layout.step": "3fd31ca1b78af2be4868175bb325370c9cfdebf1bb465778901b55c1912ec7eb",
@@ -933,7 +933,7 @@
       "hardware/faucet-layout/pullout-concept/pulled-out-above-counter.step.mesh": "f258efbdc1e0adbf7b9dc83a0237273ab9bd0508569eca1cc5d9e2d38727f966",
       "hardware/faucet-layout/pullout-concept/pulled-out.step": "e86275b2ea50d6296309303490b8bcfc94ebafdd14e8c4c59e7523c9064d417b",
       "hardware/faucet-layout/pullout-concept/pulled-out.step.mesh": "9820e6a86e9d98a5a1da4a5ec1b7bbed25885a336d0684b28dbec653b4ca235b",
-      "hardware/manifold-layout/enclosure-assembly.facts.json": "d38d88517cd366e81e7e7153fe34c12c7d6d080fddd04212a90943f885d6306f",
+      "hardware/manifold-layout/enclosure-assembly.facts.json": "c6447947aa43bcbf2229418766cda1bfaa88af259612239694c5b15b7abd9f77",
       "hardware/manifold-layout/enclosure-assembly.step.mesh": "b089f4f80365a219b8f73a61982a28cad78a8e563ada83feef65111e955c1bd4",
       "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
       "hardware/pcb/pcba/out/pcba.bottom.png": "9daeef19d29ef35ba7c6d0f04a7090ca88bb2d3795f5a9470c4447f6f3207f5a",
@@ -2932,7 +2932,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1793690801,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1793830497,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1793830497,
-    "hardware/manifold-layout/enclosure-assembly.facts.json": 1795759230.423143,
+    "hardware/manifold-layout/enclosure-assembly.facts.json": 1795760849.206556,
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": 1793858653,
     "hardware/manifold-layout/enclosure-assembly.step.mesh": 1795760831.841402,
     "hardware/manifold-layout/manifold-layout.step": 1794269272.362814,
@@ -3939,8 +3939,8 @@
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.facts.json": {
-      "commit": "09e4c702d25d58663482a98ccde0797897469eb4",
-      "inputs": "e7013c1fe7146e24c65d91401eeab3fbb7857feb71408156c1a74328fd6f6124",
+      "commit": "8cb93bfeaf5d65173d63c05305ac55dea6638626",
+      "inputs": "0c4a30a98e9527735101d6232e63952b8b02512f0a312dd475965a310248cb3b",
       "unproven": true
     },
     "hardware/manifold-layout/enclosure-assembly.physical.step.mesh": {
