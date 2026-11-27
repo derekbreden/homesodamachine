@@ -4,14 +4,25 @@
 use crate::plan::{Bounds, Graph, Shape};
 use crate::quadrant::Y;
 use crate::shapes::place;
-use crate::shell::WAGO_WELL_WALL;
+use crate::faces::back_top_flank_face;
+use crate::shell::{back_top_ceiling_face, LIP_LEN, WAGO_WELL_WALL};
 use crate::spec::Box;
-use crate::junctions::{junctions, Wago};
+use crate::junctions::{final_join_id, junctions, Junction, Wago};
 
 /// The piece with every above-core feature it carries, and the wells' pockets, which back-top's
 /// wall features keep clear of.
 pub fn apply(g: &mut Graph, mut piece: Shape, b: &Box, col: Y) -> (Shape, Option<Shape>) {
-    let (stocks, pockets) = wells(g, col);
+    let wells = wells(g, col);
+    let mut stocks: Vec<_> = wells.iter().map(|w| w.stock).collect();
+    let pockets: Vec<_> = wells.iter().map(|w| w.pocket).collect();
+    let row: Vec<_> = wells.iter().filter(|w| final_join_id(&w.junction.name).is_some()).collect();
+    if !row.is_empty() {
+        let bounds: Vec<_> = row.iter().map(|w| w.stock.bounds()).collect();
+        let [_, face, _, aft, bottom, _] = hull(bounds.iter());
+        let bank = g.box_([back_top_flank_face()[0], face, b.y_joint + LIP_LEN, aft, bottom, back_top_ceiling_face()]);
+        let parts: Vec<_> = row.iter().map(|w| w.junction.name.as_str()).collect();
+        stocks.push(g.feature(bank, "west-final-join-bank", "West final connections from seam rib to roof", &parts));
+    }
     let cut = union_all(g, &pockets);
     if !stocks.is_empty() {
         let stock = match col {
@@ -32,20 +43,25 @@ fn union_all(g: &mut Graph, shapes: &[Shape]) -> Option<Shape> {
     Some(g.union(*first, rest))
 }
 
+struct Well {
+    junction: &'static Junction,
+    stock: Shape,
+    pocket: Shape,
+}
+
 /// Each junction's well on this top piece: closed stock round the connector's blank rear half,
 /// and the pocket it inserts into butt first. Back-top seats its row against the west wall;
 /// front-top carries its wells on the manifold towers.
-fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
+fn wells(g: &mut Graph, host: Y) -> Vec<Well> {
     let wall = WAGO_WELL_WALL;
-    let mut stocks = Vec::new();
-    let mut pockets = Vec::new();
+    let mut wells = Vec::new();
     for j in junctions().iter().filter(|j| j.host == host) {
         let fit = j.fit;
         let Wago { width: w, depth: d, height: h, .. } = j.wago;
         let rear = -d / 2.0 - fit - wall;
         let stock = g.box_([-w / 2.0 - fit - wall, w / 2.0 + fit + wall, rear, j.mouth, -fit - wall, h + fit + wall]);
         let stock = place(g, stock, j.rotation, j.translation);
-        stocks.push(g.feature(stock, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]));
+        let stock = g.feature(stock, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]);
         let width_fit = fit - j.well_width_inset;
         let height_fit = fit - j.well_height_inset;
         let pocket = g.box_([
@@ -54,23 +70,23 @@ fn wells(g: &mut Graph, host: Y) -> (Vec<Shape>, Vec<Shape>) {
             -height_fit, h + height_fit,
         ]);
         let pocket = place(g, pocket, j.rotation, j.translation);
-        pockets.push(g.feature(pocket, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]));
+        let pocket = g.feature(pocket, format!("{}-well", j.name), format!("{} connector well", j.name), &[&j.name]);
+        wells.push(Well { junction: j, stock, pocket });
     }
-    (stocks, pockets)
+    wells
 }
 
 /// Each well's closed stock on this top piece, for the ceiling pocket that runs round it.
 pub fn stock_bounds(host: Y) -> Vec<Bounds> {
     let mut graph = Graph::new();
-    wells(&mut graph, host).0.into_iter().map(|stock| stock.bounds()).collect()
+    wells(&mut graph, host).into_iter().map(|w| w.stock.bounds()).collect()
 }
 
 /// The connector insertion pockets that bridge between their surrounding well walls.
 pub fn pocket_regions(host: Y) -> Vec<(String, Bounds)> {
     let mut graph = Graph::new();
-    let (_, pockets) = wells(&mut graph, host);
-    junctions().iter().filter(|junction| junction.host == host).zip(pockets).map(|(junction, pocket)| {
-        (format!("{} insertion pocket", junction.name), pocket.bounds())
+    wells(&mut graph, host).into_iter().map(|w| {
+        (format!("{} insertion pocket", w.junction.name), w.pocket.bounds())
     }).collect()
 }
 

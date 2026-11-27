@@ -3,40 +3,6 @@
   "bridge_regions": [
     {
       "bounds_source_mm": [
-        4.6499988712316025,
-        52.9499988712316,
-        466.299,
-        471.31,
-        237.6,
-        243.6
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "Identification channel 1 stop",
-      "reason": "Lay the stop's first infill across its 2 mm depth from the rear wall to the supported edge."
-    },
-    {
-      "bounds_source_mm": [
-        52.35,
-        100.65,
-        466.299,
-        471.31,
-        237.6,
-        243.6
-      ],
-      "bridge_print_axis_source": [
-        0,
-        1,
-        0
-      ],
-      "name": "Identification channel 2 stop",
-      "reason": "Lay the stop's first infill across its 2 mm depth from the rear wall to the supported edge."
-    },
-    {
-      "bounds_source_mm": [
         -98.5,
         -88.05,
         384.85,
@@ -88,6 +54,57 @@
     },
     {
       "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        252.64999999999998,
+        267.34999999999997,
+        295.45,
+        314.55
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wiring-junction-compressor-n insertion pocket",
+      "reason": "Bridge the closed well end across the pocket between its side walls."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        268.65,
+        283.34999999999997,
+        295.45,
+        314.55
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wiring-junction-compressor-h insertion pocket",
+      "reason": "Bridge the closed well end across the pocket between its side walls."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        284.65,
+        299.34999999999997,
+        295.45,
+        314.55
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wiring-junction-pump-positive insertion pocket",
+      "reason": "Bridge the closed well end across the pocket between its side walls."
+    },
+    {
+      "bounds_source_mm": [
         -103.75,
         -93.5,
         199.0,
@@ -135,40 +152,6 @@
   ],
   "producer": "enclosure-back-top",
   "removable_support_stock": [
-    {
-      "bed_source_z_mm": 355.0,
-      "channel_face_y_mm": 469.299,
-      "contact_source_z_mm": 240.6,
-      "name": "Removable Identification channel 1 loading stop stand",
-      "opening_x_mm": [
-        9.799998871231601,
-        47.7999988712316
-      ],
-      "rail_back_y_mm": 474.3,
-      "reason": "The first-layer ties join the backs of the solid rail roots outside the tile mouth. Clip both ties flush with the root backs and pull the stand straight rearward. The inclined tip supports the exposed stop across the release gap.",
-      "shape": "identification_stop_stand",
-      "tie_root_centres_x_mm": [
-        6.449998871231601,
-        51.1499988712316
-      ]
-    },
-    {
-      "bed_source_z_mm": 355.0,
-      "channel_face_y_mm": 469.299,
-      "contact_source_z_mm": 240.6,
-      "name": "Removable Identification channel 2 loading stop stand",
-      "opening_x_mm": [
-        57.5,
-        95.5
-      ],
-      "rail_back_y_mm": 474.3,
-      "reason": "The first-layer ties join the backs of the solid rail roots outside the tile mouth. Clip both ties flush with the root backs and pull the stand straight rearward. The inclined tip supports the exposed stop across the release gap.",
-      "shape": "identification_stop_stand",
-      "tie_root_centres_x_mm": [
-        54.15,
-        98.85
-      ]
-    },
     {
       "bore_radius_mm": 3.175,
       "centre_source_mm": [
@@ -236,7 +219,7 @@
       ]
     }
   ],
-  "source_stl_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
+  "source_stl_sha256": "7a10bbd93c773fed659f20c3edba20551bc54e268a95232061402052c12ce86d",
   "support_free_regions": [
     {
       "blocking_bounds_source_mm": [
@@ -404,46 +387,12 @@
         7.6499988712316025,
         49.9499988712316,
         469.299,
-        472.799,
-        246.6,
+        474.55,
+        240.35,
         357.0
       ],
       "name": "Identification channel 1",
-      "reason": "Only the inclined tip of the removable stand enters the open end. The stand stays behind the rail faces along the long card channel and all nut bores.",
-      "support_print_up_source": [
-        0,
-        0,
-        -1
-      ]
-    },
-    {
-      "bounds_source_mm": [
-        7.6499988712316025,
-        9.799998871231601,
-        469.299,
-        472.799,
-        240.35,
-        246.6
-      ],
-      "name": "Identification channel 1 left retaining lip",
-      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
-      "support_print_up_source": [
-        0,
-        0,
-        -1
-      ]
-    },
-    {
-      "bounds_source_mm": [
-        47.7999988712316,
-        49.9499988712316,
-        469.299,
-        472.799,
-        240.35,
-        246.6
-      ],
-      "name": "Identification channel 1 right retaining lip",
-      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
+      "reason": "The wall and the outer rail carry the lower chamfers. Keep the sliding opening and both seating flats clear.",
       "support_print_up_source": [
         0,
         0,
@@ -455,46 +404,12 @@
         55.35,
         97.65,
         469.299,
-        472.799,
-        246.6,
+        474.55,
+        240.35,
         357.0
       ],
       "name": "Identification channel 2",
-      "reason": "Only the inclined tip of the removable stand enters the open end. The stand stays behind the rail faces along the long card channel and all nut bores.",
-      "support_print_up_source": [
-        0,
-        0,
-        -1
-      ]
-    },
-    {
-      "bounds_source_mm": [
-        55.35,
-        57.5,
-        469.299,
-        472.799,
-        240.35,
-        246.6
-      ],
-      "name": "Identification channel 2 left retaining lip",
-      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
-      "support_print_up_source": [
-        0,
-        0,
-        -1
-      ]
-    },
-    {
-      "bounds_source_mm": [
-        95.5,
-        97.65,
-        469.299,
-        472.799,
-        240.35,
-        246.6
-      ],
-      "name": "Identification channel 2 right retaining lip",
-      "reason": "Keep the undercut behind the retaining lip clear so the stop stand can pull straight out of the rear opening.",
+      "reason": "The wall and the outer rail carry the lower chamfers. Keep the sliding opening and both seating flats clear.",
       "support_print_up_source": [
         0,
         0,
@@ -559,6 +474,42 @@
         343.05
       ],
       "name": "wago-n insertion pocket",
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        255.64999999999998,
+        264.34999999999997,
+        295.45,
+        314.55
+      ],
+      "name": "wiring-junction-compressor-n insertion pocket",
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        271.65,
+        280.34999999999997,
+        295.45,
+        314.55
+      ],
+      "name": "wiring-junction-compressor-h insertion pocket",
+      "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
+    },
+    {
+      "bounds_source_mm": [
+        -102.5,
+        -92.05,
+        287.65,
+        296.34999999999997,
+        295.45,
+        314.55
+      ],
+      "name": "wiring-junction-pump-positive insertion pocket",
       "reason": "The connector insertion pocket bridges between the surrounding well walls and remains clear for the connector body."
     },
     {

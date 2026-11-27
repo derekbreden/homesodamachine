@@ -71,6 +71,11 @@ struct Document {
     junctions: Vec<Placement>,
 }
 
+/// The electrical join ID of a through-funnel connector in the common west-wall bank.
+pub fn final_join_id(body: &str) -> Option<&str> {
+    body.strip_prefix("wiring-junction-")
+}
+
 /// The connectors and their printed pockets share these runtime design placements.
 pub fn junctions() -> &'static [Junction] {
     static JUNCTIONS: OnceLock<Vec<Junction>> = OnceLock::new();

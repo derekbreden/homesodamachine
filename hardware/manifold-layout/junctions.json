@@ -28,6 +28,30 @@
       "mouth_mm": 0.0
     },
     {
+      "name": "wiring-junction-compressor-n",
+      "size": "413",
+      "host": "back-top",
+      "rotation": [[0.0, 1.0, 0.0], [0.0, 0.0, -1.0], [-1.0, 0.0, 0.0]],
+      "translation_mm": [-93.05, 264.2, 305.0],
+      "mouth_mm": 0.0
+    },
+    {
+      "name": "wiring-junction-compressor-h",
+      "size": "413",
+      "host": "back-top",
+      "rotation": [[0.0, 1.0, 0.0], [0.0, 0.0, -1.0], [-1.0, 0.0, 0.0]],
+      "translation_mm": [-93.05, 280.2, 305.0],
+      "mouth_mm": 0.0
+    },
+    {
+      "name": "wiring-junction-pump-positive",
+      "size": "413",
+      "host": "back-top",
+      "rotation": [[0.0, 1.0, 0.0], [0.0, 0.0, -1.0], [-1.0, 0.0, 0.0]],
+      "translation_mm": [-93.05, 296.2, 305.0],
+      "mouth_mm": 0.0
+    },
+    {
       "name": "wago-mana",
       "size": "420",
       "host": "front-top",
