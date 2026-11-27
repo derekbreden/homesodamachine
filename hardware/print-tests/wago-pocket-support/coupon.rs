@@ -1,4 +1,4 @@
-//! Blind WAGO grip coupons for support removal and the two fitted-aperture comparisons.
+//! Blind WAGO grip coupons for support removal and three-size fit trials.
 use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Solid, V3, reads, v3, write_stl};
 use serde_json::json;
@@ -46,8 +46,9 @@ fn coupon(dir: &Path, p: &Pocket, plate_bars: usize) -> Result<()> {
         cuts.push(Solid::cylinder(v3(p.depth + BACK / 2.0, y, top - 0.72), V3::Z, 0.9, 1.0)?);
     }
     // The short recessed bars on the cheek identify the comparison plate after unloading.
+    let (inset, pitch) = if plate_bars == 3 { (1.0, 2.5) } else { (2.0, 3.0) };
     for bar in 0..plate_bars {
-        let y = -half - CHEEK + 2.0 + 3.0 * bar as f64;
+        let y = -half - CHEEK + inset + pitch * bar as f64;
         cuts.push(Solid::cuboid(v3(2.0, y, top - 0.72), v3(6.0, y + 1.2, top + 0.3)));
     }
     let body = stock.cut_all(&cuts)?.simplified()?;
@@ -85,16 +86,16 @@ fn coupon(dir: &Path, p: &Pocket, plate_bars: usize) -> Result<()> {
     Ok(())
 }
 
-/// Apply Derek's fit increments to the openings of the coupons he actually held.
+/// Build the two incremental comparisons and Derek's selected short and long openings.
 fn fit_comparison(dir: &Path) -> Result<()> {
     let records = Path::new("hardware/print-tests/wago-pocket-support/prints");
     let front = reads::json(records.join("2026-11-27-front-mark1/coupon-toolpaths.json"))?;
     let lid = reads::json(records.join("2026-11-27-rear-lid-mark2/coupon-toolpaths.json"))?;
     const INCREMENT_MM: f64 = 0.20;
-    for (record, original, model, dots, short_steps, long_steps) in [
-        (&front, "front-420", "420", 1, 0_i32, 1_i32),
-        (&front, "front-415", "415", 2, -1, -1),
-        (&lid, "lid-413", "413", 3, -2, -2),
+    for (record, original, model, dots, short_steps, long_steps, selected) in [
+        (&front, "front-420", "420", 1, 0_i32, 1_i32, (15.70, 30.10)),
+        (&front, "front-415", "415", 2, -1, -1, (8.10, 30.10)),
+        (&lid, "lid-413", "413", 3, -2, -2, (8.20, 18.70)),
     ] {
         let [short, long, depth]: [f64; 3] = serde_json::from_value(
             record["objects"][original]["opening_width_height_depth_mm"].clone(),
@@ -108,6 +109,9 @@ fn fit_comparison(dir: &Path) -> Result<()> {
                 width: adjusted(short, short_steps), height: adjusted(long, long_steps), depth };
             coupon(dir, &pocket, bars)?;
         }
+        let pocket = Pocket { name: format!("fit-c-{model}"), marks: dots,
+            width: selected.0, height: selected.1, depth };
+        coupon(dir, &pocket, 3)?;
     }
     Ok(())
 }

@@ -6636,6 +6636,178 @@
         "reason": "Center the three coupons and their cooling tower within the seasoned part of the sheet."
       }
     },
+    "wago-fit-c": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Print the pocket walls and the detachable tree in the production black PET-GF hotend."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "fit-c-420",
+          "stl": "hardware/print-tests/wago-pocket-support/parts/fit-c-420.stl",
+          "features": [
+            {
+              "kind": "native_support_free",
+              "name": "fit-c-420 roof and floor tree",
+              "record": "hardware/print-tests/wago-pocket-support/parts/fit-c-420.print-features.json",
+              "reason": "Keep the proven removable tree under the mouth and transverse bridge of this opening."
+            }
+          ],
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Give the extraction tool solid bearing stock at the floor, the side walls and the rear of the pocket."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Match the dense grip region on the production pocket."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The pocket has its own fitted removable tree and the flat bench grip has no other overhangs."
+            }
+          }
+        },
+        {
+          "name": "fit-c-415",
+          "stl": "hardware/print-tests/wago-pocket-support/parts/fit-c-415.stl",
+          "features": [
+            {
+              "kind": "native_support_free",
+              "name": "fit-c-415 roof and floor tree",
+              "record": "hardware/print-tests/wago-pocket-support/parts/fit-c-415.print-features.json",
+              "reason": "Keep the proven removable tree under the mouth and transverse bridge of this opening."
+            }
+          ],
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Give the extraction tool solid bearing stock at the floor, the side walls and the rear of the pocket."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Match the dense grip region on the production pocket."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The pocket has its own fitted removable tree and the flat bench grip has no other overhangs."
+            }
+          }
+        },
+        {
+          "name": "fit-c-413",
+          "stl": "hardware/print-tests/wago-pocket-support/parts/fit-c-413.stl",
+          "features": [
+            {
+              "kind": "native_support_free",
+              "name": "fit-c-413 roof and floor tree",
+              "record": "hardware/print-tests/wago-pocket-support/parts/fit-c-413.print-features.json",
+              "reason": "Keep the proven removable tree under the mouth and transverse bridge of this opening."
+            }
+          ],
+          "object_settings": {
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "Give the extraction tool solid bearing stock at the floor, the side walls and the rear of the pocket."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "Match the dense grip region on the production pocket."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The pocket has its own fitted removable tree and the flat bench grip has no other overhangs."
+            }
+          }
+        }
+      ],
+      "yaw_degrees": 0,
+      "spacing_mm": 19.0,
+      "plate_border_mm": 80.0,
+      "pose_reason": "All three coupons stand on the tested 7.16 mm floor. The short opening lies across the cheeks, and the long opening runs from the floor to the bridge.",
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the measured textured PEI trim for the left 0.4 mm nozzle and black Fiberon PET-GF15."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the meter receiver trials."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Use the tested smooth timelapse for the three specimens and the cooling tower."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "Purge away from the grip bodies during smooth timelapse."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "Keep the tested full-width tower through the two tall pocket roofs."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Keep the nozzle at the tower while the small tree stems and crowns cool."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "108"
+          ],
+          "reason": "Clear both coupon grips while keeping the tower in the seasoned plate region."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          20
+        ],
+        "reason": "Center the three coupons and their cooling tower within the seasoned part of the sheet."
+      }
+    },
     "front-wago-pry": {
       "printer": "Mark1",
       "nozzle": {
