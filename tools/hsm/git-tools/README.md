@@ -82,7 +82,9 @@ was seen while the line was in. A rewrite or move records its `git why link`.
 `git blame`; where the commit it lands on rewrote lines git can't follow, such as a port
 to another language, it reads that commit's link records and blames again from the line
 each was rewritten from. It stops at the commit that set the line and prints each hop
-with that commit's message and its `Derek:` lines.
+with that commit's message and its `Derek:` lines. Each hop names the app and model
+behind its commit: the commit's own `Model:` line, else its note on `refs/notes/model`
+with the note's source, else the line its harness added.
 
 ```sh
 git why hardware/printed-parts/enclosure/enclosure/back-top/supports.rs '/^const METER_HOUSING_FIT/'
@@ -102,8 +104,8 @@ commit, such as a setting the port introduced or a unit conversion. `git why` en
 trail at that line and prints the note. For a line still missing a record in a documented
 rewrite, it prints the `link` command.
 
-A checkout fetches the notes on its first `git why` run. Refresh an existing checkout
-with `git fetch origin refs/notes/agent-trace:refs/notes/agent-trace`.
+A checkout fetches both notes refs on its first `git why` run. Refresh an existing checkout
+with `git fetch origin refs/notes/agent-trace:refs/notes/agent-trace refs/notes/model:refs/notes/model`.
 
 The Rust ports' records point to the earlier hand-written lines that set or computed
 their values. When an earlier rewrite also has a record for the line, `git why` follows

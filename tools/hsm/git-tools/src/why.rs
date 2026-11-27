@@ -1,5 +1,5 @@
 //! git-why follows a line's history past the commits where git loses track of it, through the
-//! Agent Trace records kept in git notes.
+//! Agent Trace records kept in git notes, and names the app and model behind each commit it passes.
 use anyhow::{Context, Result, bail, ensure};
 use serde_json::{Value, json};
 use std::{
@@ -14,6 +14,8 @@ use std::{
 const NOTES: &str = "refs/notes/agent-trace";
 /// Where a link push parks the remote's notes while it merges them in.
 const REMOTE_NOTES: &str = "refs/notes/agent-trace-remote";
+/// A `Model:` line and its `Source:` for each commit whose message names no model.
+const MODEL_NOTES: &str = "refs/notes/model";
 /// The `related` link type naming the line a range was rewritten from.
 const DERIVED_FROM: &str = "derived_from";
 /// The metadata namespace holding a link's note.
@@ -243,6 +245,35 @@ fn parse_permalink(url: &str) -> Option<(String, u64, u64, String)> {
     Some((commit.to_string(), a, b, path.to_string()))
 }
 
+/// The app and model behind a commit, and where that is written when its message has no `Model:` line.
+struct Model {
+    line: String,
+    source: Option<String>,
+}
+
+/// A commit's own `Model:` line, else its note on the model ref, else the line its harness added.
+fn model(root: &str, commit: &str) -> Option<Model> {
+    if commit == NULL_SHA {
+        return None;
+    }
+    let format = "--format=%(trailers:key=Model,valueonly,unfold)%x00%(trailers:key=Co-Authored-By,valueonly,unfold)";
+    let trailers = git(Some(root), &["show", "-s", format, commit]).ok()?;
+    let (own, coauthors) = trailers.split_once('\0')?;
+    if let Some(line) = own.lines().map(str::trim).find(|row| !row.is_empty()) {
+        return Some(Model { line: line.to_string(), source: None });
+    }
+    if let Ok(note) = git(Some(root), &["notes", "--ref", MODEL_NOTES, "show", commit]) {
+        let field = |key: &str| note.lines().find_map(|row| row.strip_prefix(key)).map(|value| value.trim().to_string());
+        if let Some(line) = field("Model:") {
+            return Some(Model { line, source: field("Source:") });
+        }
+    }
+    coauthors.lines().map(str::trim)
+        .find(|row| row.ends_with("<noreply@anthropic.com>") || row.ends_with("<noreply@openai.com>"))
+        .and_then(|row| row.rsplit_once(" <"))
+        .map(|(name, _)| Model { line: name.to_string(), source: Some("its Co-Authored-By line".to_string()) })
+}
+
 fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinked: bool) -> Result<()> {
     for (blame, link) in hops {
         if blame.commit == NULL_SHA {
@@ -251,6 +282,9 @@ fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         }
         let summary = git(Some(root), &["log", "-1", "--format=%h %ad %s", "--date=short", &blame.commit])?;
         println!("{}\n    {}:{}  {}", summary.trim_end(), blame.path, blame.line, blame.content.trim());
+        if let Some(model) = model(root, &blame.commit) {
+            println!("    Model: {}{}", model.line, model.source.map(|source| format!(" ({source})")).unwrap_or_default());
+        }
         match link {
             Some(Link { from: Some((commit, path, line)), note }) => {
                 let short = &commit[..commit.len().min(10)];
@@ -283,6 +317,7 @@ fn print_json(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         rows.push(json!({
             "commit": blame.commit, "date": date, "subject": subject,
             "path": blame.path, "line": blame.line, "content": blame.content,
+            "model": model(root, &blame.commit).map(|m| json!({"line": m.line, "source": m.source})),
             "derived_from": link.as_ref().and_then(|l| l.from.as_ref().map(|(c, p, n)| json!({"commit": c, "path": p, "line": n, "note": l.note}))),
             "begins_here": link.as_ref().filter(|l| l.from.is_none()).map(|l| json!({"note": l.note})),
         }));
@@ -293,8 +328,10 @@ fn print_json(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
 
 /// A checkout that has never fetched the notes takes them from origin once.
 fn fetch_notes_once(root: &str) {
-    if git(Some(root), &["rev-parse", "--verify", "--quiet", NOTES]).is_err() {
-        let _ = git(Some(root), &["fetch", "-q", "origin", &format!("{NOTES}:{NOTES}")]);
+    for notes in [NOTES, MODEL_NOTES] {
+        if git(Some(root), &["rev-parse", "--verify", "--quiet", notes]).is_err() {
+            let _ = git(Some(root), &["fetch", "-q", "origin", &format!("{notes}:{notes}")]);
+        }
     }
 }
 
