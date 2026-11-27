@@ -1,0 +1,235 @@
+{
+  "views": [
+    {
+      "name": "pockets",
+      "caption": "The west wall looking up from inside the enclosure. The highlighted back-top meets the seam rib at the left, with the full pad carried up to the roof. The pockets run front to rear from left to right.",
+      "before": "pockets-before.webp",
+      "after": "pockets-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 328.4,
+          "y": 226.2,
+          "r": 47.4,
+          "label": "Extended to the roof",
+          "at": [
+            -93.05,
+            232,
+            337
+          ]
+        },
+        {
+          "x": 172.3,
+          "y": 557.4,
+          "r": 35.5,
+          "label": "Front seam rib",
+          "at": [
+            -93.05,
+            218.2,
+            308
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          737.8035408022067,
+          -1.5490976486840395,
+          177.76339806362486
+        ],
+        "target": [
+          -93,
+          256,
+          319
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 38,
+        "near": 411.70274792104095,
+        "far": 1366.3363264154725,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -82,
+            260,
+            305
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wiring-junction-*",
+        "wire-J5-*",
+        "wire-AC4-*",
+        "wire-AC5-*",
+        "wire-DC3-*",
+        "funnel-frame-back-west-*",
+        "cold-core/pcba",
+        "tube-fluid-*",
+        "tube-above-core-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b089f4f80365a219b8f73a61982a28cad78a8e563ada83feef65111e955c1bd4",
+          "commit": "a18d10c5d17c4b93748f44fb7ccf54d07c1eda04",
+          "taken": "2026-11-27T08:06:00.551Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "33df3927fd8b6e59f64960096a80d6e7317119061ac308cfcb51ddc51ecfe9f8",
+          "commit": "bf1a8090afdeba1c9e9a91ba2f51693e7a62b184",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-DC3-positive",
+        "wiring-junction-pump-positive",
+        "wire-DC3-pigtail",
+        "wire-AC5-pigtail",
+        "wire-AC5-N",
+        "wire-AC4-pigtail",
+        "wire-AC4-H",
+        "wiring-junction-compressor-h",
+        "wiring-junction-compressor-n",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "west-wall",
+      "caption": "A wider section includes the funnel frame, tubing, J5 wiring and control board around the three seated connectors.",
+      "before": "west-wall-before.webp",
+      "after": "west-wall-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 715.8,
+          "y": 425.1,
+          "r": 40.9,
+          "label": "Compressor hot",
+          "at": [
+            -86,
+            276,
+            305
+          ]
+        },
+        {
+          "x": 604.2,
+          "y": 631.3,
+          "r": 24.5,
+          "label": "J5 wiring",
+          "at": [
+            -97,
+            263,
+            280
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          792.7257856891994,
+          209.09645285864804,
+          284.36548428621603
+        ],
+        "target": [
+          -89,
+          262,
+          302
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 55,
+        "near": 429.1714886391502,
+        "far": 1386.2829224101934,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -62,
+            260,
+            305
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "funnel",
+        "funnel-frame*",
+        "cold-core/pcba",
+        "wiring-junction-*",
+        "wire-J5-*",
+        "terminal-J5",
+        "wire-AC4-*",
+        "wire-AC5-*",
+        "wire-DC3-*",
+        "tube-fluid-*",
+        "tube-above-core-*",
+        "wire-DC1-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b089f4f80365a219b8f73a61982a28cad78a8e563ada83feef65111e955c1bd4",
+          "commit": "a18d10c5d17c4b93748f44fb7ccf54d07c1eda04",
+          "taken": "2026-11-27T08:06:00.551Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "33df3927fd8b6e59f64960096a80d6e7317119061ac308cfcb51ddc51ecfe9f8",
+          "commit": "bf1a8090afdeba1c9e9a91ba2f51693e7a62b184",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-DC3-positive",
+        "wiring-junction-pump-positive",
+        "wire-DC3-pigtail",
+        "wire-AC5-pigtail",
+        "wire-AC5-N",
+        "wire-AC4-pigtail",
+        "wire-AC4-H",
+        "wiring-junction-compressor-h",
+        "wiring-junction-compressor-n",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
