@@ -775,11 +775,18 @@ fn prepare(root: &Path, name: &str, printer: Option<&str>, bed_override: Option<
             let placed: Vec<_> = corners(source[0], source[1]).into_iter().map(source_to_plate).collect();
             let (a, b) = bbox(&placed);
             plate.add_part(index, name, vertices, faces, "normal_part", settings, Some("8"));
-            record.as_object_mut().unwrap().entry("removable_support_stock").or_insert(json!([])).as_array_mut().unwrap().push(json!({
+            let mut stock_record = json!({
                 "name": name, "bounds_source_mm": source, "plate_bounds_mm": [a, b],
                 "source": f.record["record"], "source_sha256": f.record["record_sha256"], "contact_gap_mm": gap,
                 "reason": f.record["reason"],
-            }));
+            });
+            if f.record["shape"] == "pocket_floor_tree" {
+                stock_record["shape"] = f.record["shape"].clone();
+                stock_record["interface_top_depth_mm"] = json!(back_top_print_supports::POCKET_INTERFACE_THICKNESS);
+                stock_record["contact_gap_mm"] = json!(back_top_print_supports::POCKET_RELEASE_GAP);
+                stock_record["floor_gap_mm"] = json!(back_top_print_supports::POCKET_RELEASE_GAP);
+            }
+            record.as_object_mut().unwrap().entry("removable_support_stock").or_insert(json!([])).as_array_mut().unwrap().push(stock_record);
         }
         let ranges = derive::layer_ranges(&inst.features);
         plate.objects[index].ranges = ranges.iter().map(|r| Range {

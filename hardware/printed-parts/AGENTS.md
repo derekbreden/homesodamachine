@@ -167,8 +167,9 @@ free upper wing prints on breakaway strips rooted on its corbelled lower wing.
 The cable hooks' beak lands overhang too little to need support, as
 front-bottom's same hooks show. Read the
 actual removal openings and first model courses in the native slice. Keep blind pilot roofs
-outside support enforcers. Connector insertion pockets bridge between their well
-walls and remain support-free. A bridge path needs a landing at both ends. Follow
+outside support enforcers. Each WAGO well in the enclosure tops and equipment lid has one removable tree
+rooted on its own pocket floor, with its cap accessible through the mouth.
+The roof spans between the two well walls. A bridge path needs a landing at both ends. Follow
 the first paths across the opening to the deposited courses that carry them.
 Read each exposed underside's first deposited courses
 and its actual support contacts; the support topology alone does not establish

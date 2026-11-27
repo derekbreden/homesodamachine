@@ -117,18 +117,24 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
             "bounds_source_mm":[x0,x1,row.y-funnel::PAD_HALF_Y,row.y+funnel::PAD_HALF_Y,low,row.ledge_z],
             "reason":"The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."}));
     }
+    let mut support_stock = routes::upper_wing_support_stock(quadrant::Quadrant::BACK_TOP);
+    let mut cheeks = Vec::new();
+    for (name, interior) in above::pocket_interiors(quadrant::Y::Back) {
+        support_stock.push(json!({"name":format!("{name} WAGO pocket floor tree"),"shape":"pocket_floor_tree",
+            "bounds_source_mm":interior,"print_up_source":[0,0,-1],"mouth_direction_source":[1,0,0],
+            "reason":"One removable tree stands on this well's floor. Its crown supports the roof and pulls inward through the mouth."}));
+    }
     for (name, bounds) in above::pocket_regions(quadrant::Y::Back) {
-        // In the ceiling-down print, the low installed Z face closes the well.
-        let mut roof = bounds;
-        roof[5] = roof[4] + catalog::running();
-        roof[4] -= catalog::running();
-        targets.push(json!({"name":name,"bounds_source_mm":roof,
-            "reason":"Support the flat WAGO roof to its lip. The inward-facing mouth gives access to remove the branches and interface before seating the connector."}));
-        let mut surround = bounds;
-        surround[2] -= shell::WALL;
-        surround[3] += shell::WALL;
-        bridges.push(json!({"name":name,"bounds_source_mm":surround,"bridge_print_axis_source":[0,1,0],
-            "reason":"Keep the gripping cheeks solid and lay the first roof roads across the short span over the removable interface."}));
+        let mut blocking = bounds;
+        blocking[4] -= catalog::running();
+        regions.push(json!({"name":name,"bounds_source_mm":bounds,"blocking_bounds_source_mm":blocking,
+            "review_interior":false,"reason":"Reserve the pocket for its own floor-rooted tree and keep exterior tree branches out of its mouth."}));
+        let [x0, x1, y0, y1, roof, floor] = bounds;
+        for (side, a, b) in [("fore", y0 - shell::WALL, y0), ("aft", y1, y1 + shell::WALL)] {
+            cheeks.push(json!({"name":format!("{name} {side} gripping cheek"),"bounds_source_mm":[x0,x1,a,b,roof,floor]}));
+        }
+        bridges.push(json!({"name":name,"bounds_source_mm":[x0,x1,y0-shell::WALL,y1+shell::WALL,roof-shell::WALL,roof+catalog::running()],
+            "bridge_print_axis_source":[0,1,0],"reason":"Lay the first roof roads across the short span above the tree crown, including the mouth."}));
     }
     let mut valve_underside = rear::solenoid_seat_bounds();
     valve_underside[4] = valve_underside[5] - catalog::running();
@@ -157,7 +163,6 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     }
     let rail_contact = b.splits[1] + shell::HOOK_FOOT;
     let rail_floor = b.splits[1] + shell::Z_RISE + shell::slide_slip();
-    let mut support_stock = routes::upper_wing_support_stock(quadrant::Quadrant::BACK_TOP);
     // Follow the complete bearing, breaking only at the vent's actual open passage.
     for run in hsm_enclosure_quadrants::rails::z_rail_runs(&b.inner, b.y_joint, quadrant::Y::Back) {
         let mut spans = vec![[run.y1 + shell::RAIL_STOP_LEN, run.y0]];
@@ -281,7 +286,7 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
     tunnel[2] -= shell::WALL;
     let record = json!({"source_stl_sha256": digest(&std::fs::read(dir.join("enclosure-back-top.stl"))?),
         "producer": "enclosure-back-top", "boundary_overlap_mm": catalog::running(), "support_free_regions": regions,
-        "bridge_regions":bridges,"support_regions":targets,"removable_support_stock":support_stock,
+        "bridge_regions":bridges,"support_regions":targets,"removable_support_stock":support_stock,"solid_infill_regions":cheeks,
         "wall_hosts": {"boss_radius_mm": rear::BOSS_RADIUS, "row_bar_half_width_mm": rear::RELAY_BAR_HALF,
                        "bar_bounds_mm": bars, "parts": hosts, "c14_tunnel_mm": tunnel}});
     keep(

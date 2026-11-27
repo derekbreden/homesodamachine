@@ -95,9 +95,14 @@ path = "../../../hardware/faucet-layout/pullout-concept/acetal-valve/valve.rs"
 name = "open-snap-section"
 path = "../../../hardware/print-tests/open-snap-section/coupon.rs"
 
+[[example]]
+name = "wago-pocket-pry"
+path = "../../../hardware/print-tests/wago-pocket-support/coupon.rs"
+
 [dependencies]
 anyhow.workspace = true
 serde_json.workspace = true
+sha2.workspace = true
 hsm-kernel = { path = "../kernel" }
 hsm-faucet = { path = "../faucet" }
 hsm-faucet-numbers = { path = "../faucet-numbers" }

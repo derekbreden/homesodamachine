@@ -38,6 +38,54 @@
   ],
   "producer": "enclosure-front-top",
   "purpose": "Bind the tube clip reinforcement and Wago pocket print settings to the front-top mesh.",
+  "removable_support_stock": [
+    {
+      "bounds_source_mm": [
+        95.8,
+        104.5,
+        169.3,
+        185.0,
+        262.0,
+        292.0
+      ],
+      "mouth_direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "name": "wago-mana insertion pocket WAGO pocket floor tree",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "A single removable tree rests on the well floor and spreads under the transverse roof bridge.",
+      "shape": "pocket_floor_tree"
+    },
+    {
+      "bounds_source_mm": [
+        95.8,
+        104.5,
+        169.35,
+        177.55,
+        227.9,
+        258.1
+      ],
+      "mouth_direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "name": "wago-manb insertion pocket WAGO pocket floor tree",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "A single removable tree rests on the well floor and spreads under the transverse roof bridge.",
+      "shape": "pocket_floor_tree"
+    }
+  ],
   "solid_infill_regions": [
     {
       "bounds_source_mm": [
@@ -49,6 +97,50 @@
         299.4356636552512
       ],
       "name": "V-H entry clip and bulkhead root"
+    },
+    {
+      "bounds_source_mm": [
+        94.2,
+        104.5,
+        166.3,
+        169.3,
+        262.0,
+        292.0
+      ],
+      "name": "wago-mana insertion pocket fore gripping cheek"
+    },
+    {
+      "bounds_source_mm": [
+        94.2,
+        104.5,
+        185.0,
+        188.0,
+        262.0,
+        292.0
+      ],
+      "name": "wago-mana insertion pocket aft gripping cheek"
+    },
+    {
+      "bounds_source_mm": [
+        94.05,
+        104.5,
+        166.35,
+        169.35,
+        227.9,
+        258.1
+      ],
+      "name": "wago-manb insertion pocket fore gripping cheek"
+    },
+    {
+      "bounds_source_mm": [
+        94.05,
+        104.5,
+        177.55,
+        180.55,
+        227.9,
+        258.1
+      ],
+      "name": "wago-manb insertion pocket aft gripping cheek"
     }
   ],
   "source_stl_sha256": "de3b6a794302df64c5ab08bb045ff683e97d184caa586872da1fcfc1c0c9f271",
@@ -63,7 +155,8 @@
         292.0
       ],
       "name": "wago-mana insertion pocket",
-      "reason": "Keep the connector pocket and mouth clear of support."
+      "reason": "Keep automatic branches outside the well and mouth; its removable tree rests on the pocket floor.",
+      "review_interior": false
     },
     {
       "bounds_source_mm": [
@@ -75,7 +168,8 @@
         258.1
       ],
       "name": "wago-manb insertion pocket",
-      "reason": "Keep the connector pocket and mouth clear of support."
+      "reason": "Keep automatic branches outside the well and mouth; its removable tree rests on the pocket floor.",
+      "review_interior": false
     },
     {
       "bounds_source_mm": [

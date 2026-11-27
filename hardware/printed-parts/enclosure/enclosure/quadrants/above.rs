@@ -99,9 +99,25 @@ pub fn pocket_regions(host: Y) -> Vec<(String, Bounds)> {
     }).collect()
 }
 
-/// Front-top's wells as towers: each overlapping group of well stocks one box, standing on a
-/// wedge that runs it out to its flank.
-fn stacked_towers(g: &mut Graph, stocks: &[Shape], inner: &Bounds) -> Shape {
+/// The closed back through the actual mouth, excluding the cutting tool's overrun.
+pub fn pocket_interiors(host: Y) -> Vec<(String, Bounds)> {
+    let mut g = Graph::new();
+    let wells = wells(&mut g, host);
+    let stocks: Vec<_> = wells.iter().map(|w| w.stock).collect();
+    let groups = match host {
+        Y::Front => tower_groups(&stocks),
+        Y::Back => stocks.iter().map(|stock| vec![stock.bounds()]).collect(),
+    };
+    wells.iter().map(|well| {
+        let group = groups.iter().find(|group| group.contains(&well.stock.bounds())).expect("well stock group");
+        let stock = hull(group.iter());
+        let cut = well.pocket.bounds();
+        let interior = std::array::from_fn(|i| if i % 2 == 0 { cut[i].max(stock[i]) } else { cut[i].min(stock[i]) });
+        (format!("{} insertion pocket", well.junction.name), interior)
+    }).collect()
+}
+
+fn tower_groups(stocks: &[Shape]) -> Vec<Vec<Bounds>> {
     let mut boxes: Vec<Bounds> = stocks.iter().map(|s| s.bounds()).collect();
     let overlaps = |a: &Bounds, b: &Bounds| (0..3).all(|k| a[2 * k + 1].min(b[2 * k + 1]) - a[2 * k].max(b[2 * k]) > 1e-8);
     let mut groups: Vec<Vec<Bounds>> = Vec::new();
@@ -119,7 +135,13 @@ fn stacked_towers(g: &mut Graph, stocks: &[Shape], inner: &Bounds) -> Shape {
         }
         groups.push(group);
     }
-    let towers: Vec<Shape> = groups
+    groups
+}
+
+/// Front-top's wells as towers: each overlapping group of well stocks one box, standing on a
+/// wedge that runs it out to its flank.
+fn stacked_towers(g: &mut Graph, stocks: &[Shape], inner: &Bounds) -> Shape {
+    let towers: Vec<Shape> = tower_groups(stocks)
         .iter()
         .map(|group| {
             let b = hull(group.iter());

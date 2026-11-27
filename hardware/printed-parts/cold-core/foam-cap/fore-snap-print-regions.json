@@ -1,4 +1,74 @@
 {
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        82.80580000000003,
+        92.25580000000002,
+        10.150000000000002,
+        24.85,
+        50.400000000000034,
+        53.650000000000034
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-sensors insertion pocket",
+      "reason": "Bridge the narrow opening between its two sidewalls over the removable crown."
+    },
+    {
+      "bounds_source_mm": [
+        82.80580000000003,
+        92.25580000000002,
+        10.150000000000002,
+        24.85,
+        28.30000000000001,
+        31.55000000000001
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-v12 insertion pocket",
+      "reason": "Bridge the narrow opening between its two sidewalls over the removable crown."
+    },
+    {
+      "bounds_source_mm": [
+        70.25580000000002,
+        79.70580000000001,
+        10.150000000000002,
+        24.85,
+        28.30000000000001,
+        31.55000000000001
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-gnd insertion pocket",
+      "reason": "Bridge the narrow opening between its two sidewalls over the removable crown."
+    },
+    {
+      "bounds_source_mm": [
+        70.25580000000002,
+        79.70580000000001,
+        10.150000000000002,
+        24.85,
+        50.400000000000034,
+        53.650000000000034
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "wago-reeds-b insertion pocket",
+      "reason": "Bridge the narrow opening between its two sidewalls over the removable crown."
+    }
+  ],
   "coordinate_frames": {
     "foam-cap-bottom": "Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates.",
     "foam-cap-lid-top": "Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates.",
@@ -929,7 +999,101 @@
     ]
   },
   "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
-  "scope": "Solid infill through the pump catches, tube seats, casing screw hosts and bearings, and PCB insert posts. The lid keeps both motor-cap pockets clear for insertion and release.",
+  "removable_support_stock": [
+    {
+      "bounds_source_mm": [
+        82.80580000000003,
+        92.25580000000002,
+        13.150000000000002,
+        21.85,
+        31.55000000000001,
+        50.650000000000034
+      ],
+      "mouth_direction_source": [
+        1,
+        0,
+        0
+      ],
+      "name": "wago-sensors insertion pocket WAGO pocket floor tree",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "One floor-rooted tree spreads beneath the roof and pulls out through the connector mouth.",
+      "shape": "pocket_floor_tree"
+    },
+    {
+      "bounds_source_mm": [
+        82.80580000000003,
+        92.25580000000002,
+        13.150000000000002,
+        21.85,
+        9.449999999999989,
+        28.55000000000001
+      ],
+      "mouth_direction_source": [
+        1,
+        0,
+        0
+      ],
+      "name": "wago-v12 insertion pocket WAGO pocket floor tree",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "One floor-rooted tree spreads beneath the roof and pulls out through the connector mouth.",
+      "shape": "pocket_floor_tree"
+    },
+    {
+      "bounds_source_mm": [
+        70.25580000000002,
+        79.70580000000001,
+        13.150000000000002,
+        21.85,
+        9.449999999999989,
+        28.55000000000001
+      ],
+      "mouth_direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "name": "wago-gnd insertion pocket WAGO pocket floor tree",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "One floor-rooted tree spreads beneath the roof and pulls out through the connector mouth.",
+      "shape": "pocket_floor_tree"
+    },
+    {
+      "bounds_source_mm": [
+        70.25580000000002,
+        79.70580000000001,
+        13.150000000000002,
+        21.85,
+        31.55000000000001,
+        50.650000000000034
+      ],
+      "mouth_direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "name": "wago-reeds-b insertion pocket WAGO pocket floor tree",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "One floor-rooted tree spreads beneath the roof and pulls out through the connector mouth.",
+      "shape": "pocket_floor_tree"
+    }
+  ],
+  "scope": "Solid infill through the pump catches, tube seats, casing screw hosts and bearings, and PCB insert posts. The lid keeps both motor-cap pockets clear and carries one removable tree inside each WAGO pocket.",
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
     "hardware/manifold-layout/above-core.json": "102a7d321f1d896e20d2980ec123c20eddd43afda00cb5433c13032b526819e7",
@@ -939,7 +1103,8 @@
     "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "11f2ad6dd8b09b2272b1217b5761489f4f220fb8487e5b61e44052644b8ab741",
     "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs": "854591136207c0761f2fc4dfc11f5ff3fa0fe8e7d37760cf29de708d2ae6c950",
     "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0f34adc0acc449d45c526b24c53d6605aa403ac9332d39bb1611c68da4e0bb57",
-    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "933efd9c432295ff86c4cb2bf9b353a81ff04e59a7a38c2b1744639ebfd156e9",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/wells.rs": "2bcb8c822d0989db293b74c12776a2716181ae9d0443c6d6dbcbd74fb4560f18",
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "cce37e827624bfd4eda68f2fb532a97fe867175bbed3425c72ef15436e8d0f99",
     "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e",
     "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs": "c98834c147f47899669d521844566721961f524ac445992d5b3474549ec1197c"
   },
@@ -968,7 +1133,91 @@
       ],
       "name": "Pump east catch pocket",
       "reason": "The retaining shoulder grows at 45 degrees from continuous stock. The guide and release slot print clear."
+    },
+    {
+      "blocking_bounds_source_mm": [
+        82.80580000000003,
+        93.25580000000002,
+        13.150000000000002,
+        21.85,
+        31.55000000000001,
+        50.900000000000034
+      ],
+      "bounds_source_mm": [
+        82.80580000000003,
+        92.25580000000002,
+        13.150000000000002,
+        21.85,
+        31.55000000000001,
+        50.650000000000034
+      ],
+      "name": "wago-sensors insertion pocket",
+      "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
+      "review_interior": false
+    },
+    {
+      "blocking_bounds_source_mm": [
+        82.80580000000003,
+        93.25580000000002,
+        13.150000000000002,
+        21.85,
+        9.449999999999989,
+        28.80000000000001
+      ],
+      "bounds_source_mm": [
+        82.80580000000003,
+        92.25580000000002,
+        13.150000000000002,
+        21.85,
+        9.449999999999989,
+        28.55000000000001
+      ],
+      "name": "wago-v12 insertion pocket",
+      "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
+      "review_interior": false
+    },
+    {
+      "blocking_bounds_source_mm": [
+        69.25580000000002,
+        79.70580000000001,
+        13.150000000000002,
+        21.85,
+        9.449999999999989,
+        28.80000000000001
+      ],
+      "bounds_source_mm": [
+        70.25580000000002,
+        79.70580000000001,
+        13.150000000000002,
+        21.85,
+        9.449999999999989,
+        28.55000000000001
+      ],
+      "name": "wago-gnd insertion pocket",
+      "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
+      "review_interior": false
+    },
+    {
+      "blocking_bounds_source_mm": [
+        69.25580000000002,
+        79.70580000000001,
+        13.150000000000002,
+        21.85,
+        31.55000000000001,
+        50.900000000000034
+      ],
+      "bounds_source_mm": [
+        70.25580000000002,
+        79.70580000000001,
+        13.150000000000002,
+        21.85,
+        31.55000000000001,
+        50.650000000000034
+      ],
+      "name": "wago-reeds-b insertion pocket",
+      "reason": "Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor.",
+      "review_interior": false
     }
   ],
-  "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."
+  "use": "Print preparation for the equipment lid, shell and bottom cap. Modifier boxes set local deposition. The lid's four print-only trees release through the connector mouths."
 }

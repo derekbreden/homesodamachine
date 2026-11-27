@@ -1,6 +1,6 @@
-//! Removable print stock for the sliding rails and tube wing.
+//! Removable print stock for the enclosure rails, tube wing, and WAGO wells.
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use hsm_kernel::{Plane, Profile, Solid, v2, v3};
 use serde::Deserialize;
 use serde_json::Value;
@@ -24,12 +24,32 @@ enum Stock {
         tip_degrees: f64,
         span_y_mm: [f64; 2],
     },
+    PocketFloorTree {
+        bounds_source_mm: [f64; 6],
+        print_up_source: [i8; 3],
+        mouth_direction_source: [i8; 3],
+    },
 }
+
+pub const POCKET_INTERFACE_THICKNESS: f64 = 0.72;
+pub const POCKET_RELEASE_GAP: f64 = 0.24;
 
 /// A separate printable solid and its slicer settings, in the enclosure source frame.
 pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, String)>)> {
-    let stock: Stock = serde_json::from_value(spec.clone()).context("rear enclosure support stock")?;
+    let stock: Stock = serde_json::from_value(spec.clone()).context("enclosure support stock")?;
     let solid = match stock {
+        Stock::PocketFloorTree { bounds_source_mm, print_up_source, mouth_direction_source } => {
+            let tree = pocket_floor_tree(bounds_source_mm, print_up_source, mouth_direction_source)?;
+            let settings = [
+                ("wall_loops", "2"),
+                ("sparse_infill_density", "15%"),
+                ("top_shell_layers", "3"),
+                ("top_shell_thickness", "0"),
+                ("bottom_shell_layers", "2"),
+                ("bottom_shell_thickness", "0"),
+            ].into_iter().map(|(k, v)| (k.to_owned(), v.to_owned())).collect();
+            return Ok((tree, settings));
+        }
         Stock::RailStrips { center_x_mm, cap_span_x_mm, span_y_mm, contact_source_z_mm, root_source_z_mm } => {
             let cap_span = cap_span_x_mm.unwrap_or([center_x_mm - 2.15, center_x_mm + 2.15]);
             rail_supports(center_x_mm, cap_span, span_y_mm, contact_source_z_mm, root_source_z_mm, gap)?
@@ -45,6 +65,52 @@ pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, St
         ("sparse_infill_density".into(), "100%".into()),
     ];
     Ok((solid, settings))
+}
+
+/// One breakaway foot printed on the well floor. The sloping shoulder can print from
+/// the stem and leaves the full-width cap free to slide out through the side mouth.
+fn pocket_floor_tree(bounds: [f64; 6], up: [i8; 3], mouth: [i8; 3]) -> Result<Solid> {
+    let unit_axis = |direction: [i8; 3]| direction.map(|k| i16::from(k).abs()).iter().sum::<i16>() == 1;
+    ensure!(unit_axis(up) && unit_axis(mouth), "WAGO tree requires signed principal print and mouth axes");
+    let w = up.iter().position(|&k| k != 0).unwrap();
+    ensure!(mouth[w] == 0, "WAGO mouth must face sideways in print position");
+    let (u, v) = ((w + 1) % 3, (w + 2) % 3);
+    let size = |i: usize| bounds[2 * i + 1] - bounds[2 * i];
+    let middle = |i: usize| (bounds[2 * i] + bounds[2 * i + 1]) / 2.0;
+    let floor = bounds[2 * w + usize::from(up[w] < 0)];
+    // The mouth has no wall. Extending this single edge 0.24 mm past the lip
+    // catches the first outside perimeter, whose center is only 0.21 mm inside.
+    let offset = |i: usize| 0.36 * f64::from(mouth[i]);
+    let (du, dv) = (offset(u), offset(v));
+    let (cap_u, cap_v) = (size(u) / 2.0 - 0.48 + du.abs(), size(v) / 2.0 - 0.48 + dv.abs());
+    let cap_top = size(w) - POCKET_RELEASE_GAP;
+    let cap_base = cap_top - POCKET_INTERFACE_THICKNESS;
+    // Even the corners can grow at no more than 45 degrees from the nearest stem.
+    let fan_start = cap_base - ((cap_u + du.abs()).hypot(cap_v + dv.abs()) - 1.35);
+    ensure!(cap_u > 1.8 && cap_v > 1.8 && fan_start > 1.35, "WAGO tree does not fit pocket {bounds:?}");
+    let octagon = |z: f64, a: f64, b: f64, cut: f64, dx: f64, dy: f64| {
+        [(-a + cut,-b), (a - cut,-b), (a,-b + cut), (a,b - cut),
+         (a - cut,b), (-a + cut,b), (-a,b - cut), (-a,-b + cut)].map(|(x,y)| {
+            let mut p = [0.0; 3];
+            p[u] = middle(u) + x + dx;
+            p[v] = middle(v) + y + dy;
+            p[w] = floor + f64::from(up[w]) * z;
+            v3(p[0], p[1], p[2])
+        })
+    };
+    let rings = [
+        octagon(POCKET_RELEASE_GAP, 1.65, 1.65, 0.96, 0.0, 0.0),
+        octagon(0.75, 1.65, 1.65, 0.96, 0.0, 0.0),
+        octagon(1.35, 1.35, 1.35, 0.79, 0.0, 0.0),
+        octagon(fan_start, 1.35, 1.35, 0.79, 0.0, 0.0),
+        octagon(cap_base, cap_u, cap_v, 0.15, du, dv),
+        octagon(cap_top, cap_u, cap_v, 0.15, du, dv),
+    ];
+    let sections = rings.windows(2).map(|neighbor| {
+        let points: Vec<_> = neighbor[0].iter().chain(&neighbor[1]).copied().collect();
+        Solid::hull(&points)
+    }).collect::<Result<Vec<_>>>()?;
+    Solid::union_all(&sections)?.simplified()
 }
 
 /// The cap follows the upper wing's nose and bore; slender feet break from the lower wing.

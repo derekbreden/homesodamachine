@@ -187,12 +187,25 @@ fn write(
 fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json::Value {
     let mut exclusions = Vec::new();
     let mut bridges = Vec::new();
+    let mut cheeks = Vec::new();
+    let tree_stock: Vec<_> = above::pocket_interiors(quadrant::Y::Front).into_iter().map(|(name, bounds)| json!({
+        "name": format!("{name} WAGO pocket floor tree"),
+        "shape": "pocket_floor_tree", "bounds_source_mm": bounds,
+        "print_up_source": [0, 0, 1], "mouth_direction_source": [-1, 0, 0],
+        "reason": "A single removable tree rests on the well floor and spreads under the transverse roof bridge."
+    })).collect();
     for (name, bounds) in above::pocket_regions(quadrant::Y::Front) {
         exclusions.push(json!({
-            "name": name, "bounds_source_mm": bounds,
-            "reason": "Keep the connector pocket and mouth clear of support."
+            "name": name, "bounds_source_mm": bounds, "review_interior": false,
+            "reason": "Keep automatic branches outside the well and mouth; its removable tree rests on the pocket floor."
         }));
-        let [x0, x1, y0, y1, _, roof] = bounds;
+        let [x0, x1, y0, y1, floor, roof] = bounds;
+        for (side, a, b) in [("fore", y0 - WALL, y0), ("aft", y1, y1 + WALL)] {
+            cheeks.push(json!({
+                "name": format!("{name} {side} gripping cheek"),
+                "bounds_source_mm": [x0, x1, a, b, floor, roof]
+            }));
+        }
         bridges.push(json!({
             "name": name,
             "bounds_source_mm": [x0, x1 + WALL, y0 - WALL, y1 + WALL, roof - catalog::running(), roof + WALL],
@@ -206,18 +219,20 @@ fn front_top_print_features(stl: &[u8], clip: Option<&InletClip>) -> serde_json:
             "reason": "The sloping shelf carries the upright seat. Keep the tube mouth and flex slot open."
         }));
     }
-    let clip_regions: Vec<_> = clip.into_iter().map(|clip| {
+    let mut solid_regions: Vec<_> = clip.into_iter().map(|clip| {
         let mut bounds = clip.reinforcement();
         bounds[2] -= WALL;
         json!({"name": "V-H entry clip and bulkhead root", "bounds_source_mm": bounds})
     }).collect();
+    solid_regions.extend(cheeks);
     json!({
         "purpose": "Bind the tube clip reinforcement and Wago pocket print settings to the front-top mesh.",
-        "solid_infill_regions": clip_regions,
+        "solid_infill_regions": solid_regions,
         "producer": "enclosure-front-top",
         "source_stl_sha256": digest(stl),
         "boundary_overlap_mm": catalog::running(),
         "support_free_regions": exclusions,
+        "removable_support_stock": tree_stock,
         "bridge_regions": bridges
     })
 }

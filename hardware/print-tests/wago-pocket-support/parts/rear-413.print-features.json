@@ -1,0 +1,64 @@
+{
+  "boundary_overlap_mm": 0.01,
+  "bridge_regions": [
+    {
+      "bounds_source_mm": [
+        -0.1,
+        12.45,
+        -7.35,
+        7.35,
+        26.26,
+        29.51
+      ],
+      "bridge_print_axis_source": [
+        0,
+        1,
+        0
+      ],
+      "name": "rear-413 roof",
+      "reason": "Lay the ceiling across the opening between the two solid sidewall landings, as on its parent."
+    }
+  ],
+  "producer": "wago-pocket-pry",
+  "removable_support_stock": [
+    {
+      "bounds_source_mm": [
+        0.0,
+        9.45,
+        -4.35,
+        4.35,
+        7.16,
+        26.51
+      ],
+      "mouth_direction_source": [
+        -1,
+        0,
+        0
+      ],
+      "name": "Removable MAG WAGO pocket floor tree rear-413",
+      "print_up_source": [
+        0,
+        0,
+        1
+      ],
+      "reason": "Test extraction of the same single floor foot, broad roof interface and release gaps used in the complete part.",
+      "shape": "pocket_floor_tree"
+    }
+  ],
+  "source_stl_sha256": "d0b69ff9778075d146c261d8bc36772e818babcf2a40df38fdf44ded15b12a8e",
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        0.0,
+        9.45,
+        -4.35,
+        4.35,
+        7.16,
+        26.51
+      ],
+      "name": "rear-413 native tree exclusion",
+      "reason": "The separate removable tree occupies the pocket. Its base lands on the floor and its removal path opens at the mouth.",
+      "review_interior": false
+    }
+  ]
+}

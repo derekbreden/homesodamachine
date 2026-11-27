@@ -206,14 +206,16 @@ fn main() -> Result<()> {
         }
     }
 
-    for row in read(FRONT_TOP_FEATURES)?["solid_infill_regions"].as_array().into_iter().flatten() {
-        regions.add("front-top", row["name"].as_str().context("front-top infill region name")?,
-                    bounds6(&row["bounds_source_mm"])?);
+    let features = read(BACK_TOP_FEATURES)?;
+    let front_features = read(FRONT_TOP_FEATURES)?;
+    for (piece, source) in [("front-top", &front_features), ("back-top", &features)] {
+        for row in source["solid_infill_regions"].as_array().into_iter().flatten() {
+            regions.add(piece, row["name"].as_str().context("infill region name")?, bounds6(&row["bounds_source_mm"])?);
+        }
     }
 
     // The rear wall: its equipment hosts, the C14 tunnel, the nameplate's insert lands, and the
     // funnel frame's receivers.
-    let features = read(BACK_TOP_FEATURES)?;
     wall_hosts(&mut regions, &features, &b.outer)?;
     let inlet = &features["wall_hosts"]["c14_tunnel_mm"];
     regions.add("back-top", "C14 internal insert tunnel and wall roots",

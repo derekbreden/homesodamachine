@@ -6,7 +6,7 @@
       ".stl": "b3822483963c26a4451e7772bcf27c79a0d6f8938f4cb35f4c0c38efe8b371bf"
     },
     "back-top": {
-      ".step.npz": "00a42a492b7454c1ba2c0a6aba4ffc1b47addd3d262b8745e654e421d715c2ea",
+      ".step.npz": "9df6889911994fb6bfa1faedae6602edfa0ea9a9e58a2aa875b7bedd6a9dc80f",
       ".stl": "a952817df4e90518ebff6b3502e84a0aac60d3d070dd17df92b6c1c635ef37c1"
     },
     "front-bottom": {
@@ -234,6 +234,258 @@
           177.8
         ],
         "name": "Z rail, end stop and wall root +1",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -98.5,
+          -88.05,
+          384.85,
+          387.85,
+          323.7,
+          343.05
+        ],
+        "machine_bounds_mm": [
+          -98.5,
+          -88.05,
+          384.85,
+          387.85,
+          323.7,
+          343.05
+        ],
+        "name": "wago-h insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -98.5,
+          -88.05,
+          396.55,
+          399.55,
+          323.7,
+          343.05
+        ],
+        "machine_bounds_mm": [
+          -98.5,
+          -88.05,
+          396.55,
+          399.55,
+          323.7,
+          343.05
+        ],
+        "name": "wago-h insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -98.5,
+          -88.05,
+          400.85,
+          403.85,
+          323.7,
+          343.05
+        ],
+        "machine_bounds_mm": [
+          -98.5,
+          -88.05,
+          400.85,
+          403.85,
+          323.7,
+          343.05
+        ],
+        "name": "wago-g insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -98.5,
+          -88.05,
+          412.55,
+          415.55,
+          323.7,
+          343.05
+        ],
+        "machine_bounds_mm": [
+          -98.5,
+          -88.05,
+          412.55,
+          415.55,
+          323.7,
+          343.05
+        ],
+        "name": "wago-g insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -98.5,
+          -88.05,
+          416.85,
+          419.85,
+          323.7,
+          343.05
+        ],
+        "machine_bounds_mm": [
+          -98.5,
+          -88.05,
+          416.85,
+          419.85,
+          323.7,
+          343.05
+        ],
+        "name": "wago-n insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -98.5,
+          -88.05,
+          428.55,
+          431.55,
+          323.7,
+          343.05
+        ],
+        "machine_bounds_mm": [
+          -98.5,
+          -88.05,
+          428.55,
+          431.55,
+          323.7,
+          343.05
+        ],
+        "name": "wago-n insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -102.5,
+          -92.05,
+          252.64999999999998,
+          255.64999999999998,
+          295.2,
+          314.55
+        ],
+        "machine_bounds_mm": [
+          -102.5,
+          -92.05,
+          252.64999999999998,
+          255.64999999999998,
+          295.2,
+          314.55
+        ],
+        "name": "wiring-junction-compressor-n insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -102.5,
+          -92.05,
+          264.34999999999997,
+          267.34999999999997,
+          295.2,
+          314.55
+        ],
+        "machine_bounds_mm": [
+          -102.5,
+          -92.05,
+          264.34999999999997,
+          267.34999999999997,
+          295.2,
+          314.55
+        ],
+        "name": "wiring-junction-compressor-n insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -102.5,
+          -92.05,
+          268.65,
+          271.65,
+          295.2,
+          314.55
+        ],
+        "machine_bounds_mm": [
+          -102.5,
+          -92.05,
+          268.65,
+          271.65,
+          295.2,
+          314.55
+        ],
+        "name": "wiring-junction-compressor-h insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -102.5,
+          -92.05,
+          280.34999999999997,
+          283.34999999999997,
+          295.2,
+          314.55
+        ],
+        "machine_bounds_mm": [
+          -102.5,
+          -92.05,
+          280.34999999999997,
+          283.34999999999997,
+          295.2,
+          314.55
+        ],
+        "name": "wiring-junction-compressor-h insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -102.5,
+          -92.05,
+          284.65,
+          287.65,
+          295.2,
+          314.55
+        ],
+        "machine_bounds_mm": [
+          -102.5,
+          -92.05,
+          284.65,
+          287.65,
+          295.2,
+          314.55
+        ],
+        "name": "wiring-junction-pump-positive insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -102.5,
+          -92.05,
+          296.34999999999997,
+          299.34999999999997,
+          295.2,
+          314.55
+        ],
+        "machine_bounds_mm": [
+          -102.5,
+          -92.05,
+          296.34999999999997,
+          299.34999999999997,
+          295.2,
+          314.55
+        ],
+        "name": "wiring-junction-pump-positive insertion pocket aft gripping cheek",
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag"
       },
@@ -1104,6 +1356,90 @@
       },
       {
         "applied_source_bounds_mm": [
+          94.2,
+          104.5,
+          166.3,
+          169.3,
+          262.0,
+          292.0
+        ],
+        "machine_bounds_mm": [
+          94.2,
+          104.5,
+          166.3,
+          169.3,
+          262.0,
+          292.0
+        ],
+        "name": "wago-mana insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          94.2,
+          104.5,
+          185.0,
+          188.0,
+          262.0,
+          292.0
+        ],
+        "machine_bounds_mm": [
+          94.2,
+          104.5,
+          185.0,
+          188.0,
+          262.0,
+          292.0
+        ],
+        "name": "wago-mana insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          94.05,
+          104.5,
+          166.35,
+          169.35,
+          227.9,
+          258.1
+        ],
+        "machine_bounds_mm": [
+          94.05,
+          104.5,
+          166.35,
+          169.35,
+          227.9,
+          258.1
+        ],
+        "name": "wago-manb insertion pocket fore gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          94.05,
+          104.5,
+          177.55,
+          180.55,
+          227.9,
+          258.1
+        ],
+        "machine_bounds_mm": [
+          94.05,
+          104.5,
+          177.55,
+          180.55,
+          227.9,
+          258.1
+        ],
+        "name": "wago-manb insertion pocket aft gripping cheek",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
           -107.5,
           107.5,
           118.99999207671873,
@@ -1260,9 +1596,9 @@
     "hardware/manifold-layout/enclosure-box.json": "1f6bb8fee7d04a10b5c1b39ce87ee6112cdd4ceae2b88e4f586f59e415a54cdc",
     "hardware/manifold-layout/machine-export-physical.numbers.json": "90f9a464b95d19a4de7a9a51a3fd7d6d6bd7b01abe99d64dc01eb0f24b39c0dd",
     "hardware/printed-parts/enclosure/display-cover/mount-dimensions.json": "b809250d2d8518ed084bf03bb7c449a9e3d2df04a6c88ef702f7ad31433a8986",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "bc1311a88b97b64ef7c36f03ea8367e1258d9bb07251f5fc44a9b2c45aba4e6e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "7af3ec5acb43d6caa978754deda2a9167458aec675254bc4bb461e2a5480e2ca",
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "c51457723dfd84e9872e017326f64b8a2203db1f8481e5ff7f039525ae193d51",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.print-features.json": "a4e05921b0188f758036b1934215945ac9fb01072cfbef68a7f49af78974cf99",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.print-features.json": "06d036f1321300f89817174e066ca67ca226f0fe83bcf5d0de7f50f4679f8879",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.rs": "b259b6f5d91ca021b1d84c921f6e89f1d844edb32a0271ff5595f682af0a43b7",
     "hardware/printed-parts/enclosure/nameplate/nameplate.numbers.json": "4a6ca57e22a457d1a1d1fa7c22afe7255d744f96b470d85d98a47052abe6ca64"
   },
   "use": "Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result."

@@ -12,8 +12,8 @@
 
 use anyhow::{bail, Context, Result};
 use hsm_cold_core_interface as core;
-use hsm_cold_core_layout::cap::world_to_cap;
-use hsm_foam_cap_numbers::{clips, deck, fits, pump, reservoir_a};
+use hsm_cold_core_layout::cap::{Pose, world_to_cap};
+use hsm_foam_cap_numbers::{clips, deck, fits, pump, reservoir_a, wells};
 use serde_json::{json, Map, Value};
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
@@ -76,6 +76,16 @@ fn lid_bounds(low: [f64; 3], high: [f64; 3]) -> [f64; 6] {
     [a[0].min(b[0]), a[0].max(b[0]), a[1].min(b[1]), a[1].max(b[1]), a[2].min(b[2]), a[2].max(b[2])]
 }
 
+/// This connector and the lid use quarter-turn placements. The two opposite
+/// corners therefore also bound the pocket in the lid's print frame.
+fn wago_interior(well: &wells::Well, end: f64) -> [f64; 6] {
+    let fit = wells::fit();
+    let connector = Pose { rotation: well.rotation, translation: well.translation };
+    let half = well.wago.width / 2. + fit;
+    lid_bounds(connector.point([-half, -well.wago.depth / 2. - fit, -fit]),
+               connector.point([half, end, well.wago.height + fit]))
+}
+
 fn main() -> Result<()> {
     let root = std::env::current_dir()?;
     let mut out = root.join(HERE).join("fore-snap-print-regions.json");
@@ -132,6 +142,26 @@ fn main() -> Result<()> {
         pocket_exclusions.push(json!({"name": format!("Pump {name} catch pocket"), "bounds_source_mm": mouth,
             "reason": "The retaining shoulder grows at 45 degrees from continuous stock. The guide and release slot print clear."}));
     }
+    let mut trees = Vec::new();
+    let mut bridges = Vec::new();
+    for well in wells::wells() {
+        let name = format!("{} insertion pocket", well.name);
+        let interior = wago_interior(&well, 0.);
+        let mut blocking = wago_interior(&well, wells::POCKET_OVERRUN);
+        let pose = Pose { rotation: well.rotation, translation: well.translation };
+        let mouth = world_to_cap(pose.translation);
+        let outward = world_to_cap(pose.point([0., 1., 0.]));
+        let direction: [i8; 3] = std::array::from_fn(|axis| (outward[axis] - mouth[axis]).round() as i8);
+        blocking[5] += f.running;
+        pocket_exclusions.push(json!({"name":name,"bounds_source_mm":interior,"blocking_bounds_source_mm":blocking,
+            "review_interior":false,"reason":"Keep automatic branches out of this well and its mouth. Its own removable tree starts on the floor."}));
+        trees.push(json!({"name":format!("{name} WAGO pocket floor tree"),"shape":"pocket_floor_tree",
+            "bounds_source_mm":interior,"print_up_source":[0,0,1],"mouth_direction_source":direction,
+            "reason":"One floor-rooted tree spreads beneath the roof and pulls out through the connector mouth."}));
+        let [x0, x1, y0, y1, _, roof] = interior;
+        bridges.push(json!({"name":name,"bounds_source_mm":[x0,x1,y0-wells::WALL,y1+wells::WALL,roof-f.running,roof+wells::WALL],
+            "bridge_print_axis_source":[0,1,0],"reason":"Bridge the narrow opening between its two sidewalls over the removable crown."}));
+    }
     let (mut shell_rows, mut bottom_rows) = (Vec::new(), Vec::new());
 
     let bottom = bounds["foam-cap-bottom"];
@@ -154,7 +184,7 @@ fn main() -> Result<()> {
 
     let sources = ["hardware/printed-parts/cold-core/foam-cap/print_regions.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs",
                    "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/design.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
-                   "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs", "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs",
+                   "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/wells.rs", "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs",
                    "hardware/printed-parts/cold-core/interface/lib.rs", "hardware/cold-core-layout/layout/cap.rs", "hardware/manifold-layout/above-core.json"];
     let mut source_sha = Map::new();
     for s in sources {
@@ -163,11 +193,12 @@ fn main() -> Result<()> {
     let frames: Map<String, Value> = paths.iter().map(|(name, _)| (name.to_string(),
         json!("Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates."))).collect();
     let record = json!({
-        "scope": "Solid infill through the pump catches, tube seats, casing screw hosts and bearings, and PCB insert posts. The lid keeps both motor-cap pockets clear for insertion and release.",
-        "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
+        "scope": "Solid infill through the pump catches, tube seats, casing screw hosts and bearings, and PCB insert posts. The lid keeps both motor-cap pockets clear and carries one removable tree inside each WAGO pocket.",
+        "use": "Print preparation for the equipment lid, shell and bottom cap. Modifier boxes set local deposition. The lid's four print-only trees release through the connector mouths.",
         "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
         "coordinate_frames": frames, "source_sha256": source_sha, "native_artifact_sha256": meshes,
         "source_stl_sha256": meshes["foam-cap-lid-top"][".stl"], "support_free_regions": pocket_exclusions,
+        "removable_support_stock": trees, "bridge_regions": bridges,
         "part_process_overrides": {},
         "pieces": {"foam-cap-lid-top": lid_rows, "foam-cap-bottom": bottom_rows, "foam-shell": shell_rows},
     });
