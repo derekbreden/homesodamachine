@@ -566,7 +566,7 @@ function cameraFor(box, model) {
 // --- snapshot --------------------------------------------------------------------------------
 
 function snapshot(opts) {
-  const rels = opts.model?.length ? opts.model : [DEFAULT_MODEL];
+  const rels = [DEFAULT_MODEL, ...(opts.model || []).filter((rel) => rel !== DEFAULT_MODEL)];
   const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\..*/, "").replace("T", "-");
   const out = path.resolve(opts.out || path.join(os.tmpdir(), "hsm-changes", stamp));
   const inside = path.relative(REPO_ROOT, out);
