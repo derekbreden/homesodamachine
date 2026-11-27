@@ -1,6 +1,8 @@
 //! The individual bench receivers retain each complete production seat and its rooted enclosure stock.
 #[path = "../rear-equipment-corner/regions.rs"]
 mod regions;
+mod firm_regulator;
+mod supported_meter;
 mod three_dot;
 
 use anyhow::{Context, Result, ensure};
@@ -20,8 +22,13 @@ fn write_json(path: &Path, data: &Value) -> Result<()> {
 fn main() -> Result<()> {
     let mut args = std::env::args_os().skip(1);
     if let Some(arg) = args.next() {
-        ensure!(arg == "--three-dot" && args.next().is_none(), "usage: equipment-snap-receivers [--three-dot]");
-        return three_dot::write();
+        ensure!(args.next().is_none(), "expected one equipment snap variant");
+        return match arg.to_str() {
+            Some("--three-dot") => three_dot::write(),
+            Some("--firm-regulator") => firm_regulator::write(),
+            Some("--supported-meter") => supported_meter::write(),
+            _ => anyhow::bail!("usage: equipment-snap-receivers [--three-dot | --firm-regulator | --supported-meter]"),
+        };
     }
     let here = Path::new(HERE);
     let spec: Value = serde_json::from_slice(&fs::read(here.join("inputs.json"))?)?;

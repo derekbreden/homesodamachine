@@ -1,0 +1,97 @@
+{
+  "purpose": "Compare the C038 water-regulator cover with its original three-dot cover and the same purchased regulator and receiver.",
+  "original_cover_sha256": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+  "cover_sha256": "7c1cdad76610e6fc4d50f46d73b05adea7ffbdf90fee04a5c60ec1d83712d3e8",
+  "existing_receiver_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+  "installed_housing_mesh_asset_sha256": "74fba3d8793f57dc1c3441d2749ce2461949296d55ff5dbdd39b1b3096bafc2c",
+  "geometry": {
+    "compared_triangles": 4752,
+    "unchanged_triangles": 856,
+    "translated_triangles": 3773,
+    "fitted_saddle_surface_triangles": 3754,
+    "side_or_end_plane_triangles_with_extended_edges": 123,
+    "all_faces_outside_bearing_width_unchanged": true,
+    "added_bearing_volume_mm3": 477.48952,
+    "nonplanar_selection_on_same_translated_roof_triangles": 528,
+    "surface_witnesses": [
+      {
+        "feature": "housing first contact",
+        "machine_xy_mm": [
+          -25.60594,
+          306.49239
+        ],
+        "before_z_mm": 319.11573,
+        "after_z_mm": 319.51573
+      },
+      {
+        "feature": "body bearing",
+        "machine_xy_mm": [
+          -30.0,
+          307.657
+        ],
+        "before_z_mm": 319.08806,
+        "after_z_mm": 319.48805
+      },
+      {
+        "feature": "body-to-outlet shoulder",
+        "machine_xy_mm": [
+          -40.885,
+          307.657
+        ],
+        "before_z_mm": 324.08718,
+        "after_z_mm": 324.48718
+      },
+      {
+        "feature": "outlet bearing",
+        "machine_xy_mm": [
+          -49.0,
+          307.657
+        ],
+        "before_z_mm": 321.63726,
+        "after_z_mm": 322.03726
+      },
+      {
+        "feature": "outlet bearing edge",
+        "machine_xy_mm": [
+          -53.0,
+          310.0
+        ],
+        "before_z_mm": 321.86326,
+        "after_z_mm": 322.26326
+      }
+    ]
+  },
+  "centered_rigid_fit": {
+    "method": "First triangle contact along installed +Z on the complete meshes. The housing can translate toward the fixed receiver as the cap closes.",
+    "original_cover_contact_from_nominal_mm": 0.247798,
+    "raised_cover_contact_from_nominal_mm": -0.152202,
+    "saddle_first_contact_machine_xyz_mm": [
+      -25.60594,
+      306.49239,
+      319.36353
+    ],
+    "housing_available_to_far_receiver_seat_mm": 0.25,
+    "far_receiver_first_contact_machine_xyz_mm": [
+      -4.64959,
+      307.60123,
+      346.0
+    ],
+    "maximum_rigid_cap_closure_from_nominal_mm": 0.097798,
+    "nominal_hook_foot_stop_closure_mm": 0.33,
+    "distance_short_of_foot_stop_mm": 0.232202
+  },
+  "seated_hook_estimate": {
+    "method": "The guide, lip and complete springs are geometrically identical to the full three-dot pair. Use its donor cantilever, solve the least outward spread at the old evaluated posture and the new rigid housing limit, and read the radial lip overlap 7.40 mm back from the foot stop. Assumes a centered housing and straight press. Material compliance and hand force are physical observations.",
+    "donor_comparison": "../three-dot/fit-check.json",
+    "old": {
+      "distance_before_nominal_foot_stop_mm": 0.0083,
+      "tip_spread_from_free_per_wing_mm": 0.98414,
+      "hook_capture_per_wing_mm": 1.67641
+    },
+    "raised": {
+      "distance_before_nominal_foot_stop_mm": 0.2322,
+      "tip_spread_from_free_per_wing_mm": 1.19034,
+      "hook_capture_per_wing_mm": 1.53437
+    }
+  }
+}

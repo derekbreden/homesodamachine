@@ -5295,6 +5295,280 @@
       },
       "nonplanar_contacts": "hardware/printed-parts/enclosure/rear-equipment-caps/contact.json"
     },
+    "supported-meter-receiver": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Use the fixed left hardened enclosure hotend for the black PET-GF receiver."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "meter-receiver",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/meter-receiver.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
+          "features": [
+            {
+              "name": "Flow meter receiver supports",
+              "kind": "native_support_free",
+              "record": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/meter-receiver.print-features.json",
+              "reason": "Place removable interfaces under the flank-mounted snap and hardware seats through the open west side."
+            }
+          ],
+          "object_settings": {
+            "support_style": {
+              "value": "tree_slim",
+              "reason": "Cavity supports must be branching trees that can be removed through their access openings."
+            },
+            "support_type": {
+              "value": "tree(manual)",
+              "reason": "Put tree interfaces on the exposed snap surfaces and the adjacent meter-seat overhangs."
+            },
+            "elefant_foot_compensation": {
+              "value": "0",
+              "reason": "The roof-down additive chamfer retains its uncompensated bed perimeter. X/Y locating fits begin above this roof band. enclosure/accepted-fit-integration/prepare_prints.py."
+            },
+            "support_object_xy_distance": {
+              "value": "0.5",
+              "reason": "Keep the meter trial’s lateral tree clearance for removal through the open west side."
+            },
+            "support_on_build_plate_only": {
+              "value": "0",
+              "reason": "Allow roots at accessible model landings. Separate breakaway rail supports start on their own cavity floors."
+            },
+            "max_bridge_length": {
+              "value": "0",
+              "reason": "Allow support requests along the full length of each downward-facing shelf."
+            },
+            "tree_support_branch_distance": {
+              "value": "3",
+              "reason": "Space the tree tips beneath accessible surfaces while the interface layers spread their contact."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the native painted receiver targets."
+            }
+          }
+        }
+      ],
+      "yaw_degrees": 0,
+      "plate_border_mm": 80.0,
+      "pose_reason": "Print the receiver ceiling-down in the enclosure layer direction. Keep its long axis parallel to the original three-dot receiver.",
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the textured PEI trim from the individual receiver and cap trials."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the meter receiver trials."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Give the receiver time to cool at its narrow upper layers."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "Reprime away from the lone receiver on each smooth-timelapse return."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "The constant-width tower maintains its cooling interval through the top of the receiver."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Give fresh meter-seat and catch courses time away from the hot nozzle."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "108"
+          ],
+          "reason": "Separate the tower and receiver first-layer footprints."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          20
+        ],
+        "reason": "Center the combined receiver and cooling tower footprints on the seasoned sheet."
+      }
+    },
+    "firm-regulator-cap": {
+      "nonplanar_contacts": "hardware/print-tests/equipment-snap-pairs/parts/firm-regulator/contact.json",
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "name": "regulator-snap-cap",
+          "stl": "hardware/print-tests/equipment-snap-pairs/parts/firm-regulator/regulator-snap-cap.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "3",
+              "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The rear-equipment-caps recipe: solid stock through the cap body, leaves, roots and hooks."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The rear-equipment-caps recipe: solid cap deposition."
+            },
+            "overhang_1_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "overhang_2_4_speed": {
+              "value": "0,0,0,0,0",
+              "reason": "Walls at their own speed through the slicer's two shallowest overhang points, as the faucet plate Derek accepted laid its base and tip (tools/hsm/print-prep/faucet-plate.json, shallow_overhang_wall_speed); the steeper points, bridges and their fan keep the filament's."
+            },
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Match the end-on production spring cover."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Removable trees reach the fitted surfaces from the open end."
+            }
+          }
+        }
+      ],
+      "pose_reason": "Stand the three-dot water-regulator cover on the same axial end as the cover tested in C038.",
+      "plate_border_mm": 80.0,
+      "z_trim_mm": {
+        "value": 0.1,
+        "reason": "Use the textured PEI trim from the individual receiver and cap trials."
+      },
+      "settings": {
+        "overhang_2_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "overhang_3_4_speed": {
+          "value": [
+            "35",
+            "35",
+            "35",
+            "35",
+            "35"
+          ],
+          "reason": "The process holds the filament's speed at this point for the left Standard slot, so turning the filament's override off moves no part's speed here."
+        },
+        "override_process_overhang_speed": {
+          "value": [
+            "0",
+            "0",
+            "0"
+          ],
+          "reason": "The filament's overhang speeds stop overriding the process's, so each part's own two shallowest overhang points apply."
+        },
+        "curr_bed_type": {
+          "value": "Textured PEI Plate",
+          "reason": "Use the textured sheet from the fitted cap trials."
+        },
+        "timelapse_type": {
+          "value": "1",
+          "reason": "Smooth timelapse parks away and uses the native tower before returning to the cap."
+        },
+        "enable_prime_tower": {
+          "value": "1",
+          "reason": "Reprime on the native tower after each timelapse departure."
+        },
+        "prime_tower_width": {
+          "value": "50",
+          "reason": "A constant perimeter provides time away on every cap layer."
+        },
+        "prime_tower_max_speed": {
+          "value": "10",
+          "reason": "Time on the tower cools the cap while retaining the model print recipe."
+        },
+        "wipe_tower_x": {
+          "value": [
+            "137"
+          ],
+          "reason": "Center the tower footprint within the seasoned bed region."
+        },
+        "wipe_tower_y": {
+          "value": [
+            "120"
+          ],
+          "reason": "Separate the tower brim from the cap brim."
+        },
+        "prime_tower_rib_wall": {
+          "value": "0",
+          "reason": "Keep the requested tower width in single-colour smooth-timelapse mode."
+        }
+      },
+      "plate_offset_mm": {
+        "value": [
+          0,
+          25
+        ],
+        "reason": "Center the combined cap and tower envelope with separate brim footprints."
+      }
+    },
     "rear-snap-pairs": {
       "printer": "Mark1",
       "nozzle": {

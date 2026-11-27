@@ -1,7 +1,7 @@
 //! Transfer the hand-selected three-dot spring and fixed cheek to the three full fitted bench mounts.
 #[allow(dead_code)]
 #[path = "../../../tools/hsm/print-prep/src/mesh.rs"]
-mod mesh;
+pub(super) mod mesh;
 
 use super::{HERE, sha, write_json};
 use anyhow::{Context, Result, ensure};
@@ -61,7 +61,7 @@ fn box3(x: [f64; 2], y: [f64; 2], z: [f64; 2]) -> Solid {
     Solid::cuboid(v3(x[0], y[0], z[0]), v3(x[1], y[1], z[1]))
 }
 
-fn facet_solid(vertices: &[V3], faces: &[[u32; 3]]) -> Result<Solid> {
+pub(super) fn facet_solid(vertices: &[V3], faces: &[[u32; 3]]) -> Result<Solid> {
     Solid::from_mesh(
         vertices,
         faces,
@@ -323,7 +323,7 @@ impl Side {
     }
 }
 
-fn write_part(dir: &Path, name: &str, native: &Solid, transform: &Affine) -> Result<Value> {
+pub(super) fn write_part(dir: &Path, name: &str, native: &Solid, transform: &Affine) -> Result<Value> {
     native.check()?;
     ensure!(
         native.components().len() == 1,

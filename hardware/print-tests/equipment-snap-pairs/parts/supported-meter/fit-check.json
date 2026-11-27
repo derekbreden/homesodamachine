@@ -1,0 +1,59 @@
+{
+  "purpose": "Measure the exported receiver against its three-dot predecessor, existing cap and installed Digiten hardware.",
+  "geometry": "geometry.json",
+  "receiver_sha256": "221d9138d5493abb2672f84d48c9704d4f49cebdd506b7d941bc9842c41022b4",
+  "comparison": {
+    "method": "Intersect each receiver STL with installed XZ sections. Compare the working-side outline at 138 X positions spanning 83.052 through 98.499 mm on each section.",
+    "upper_section_y_mm": [395.509, 395.53, 396, 399, 403, 406, 409, 414, 417, 417.345],
+    "upper_samples": 1380,
+    "upper_change_in_machine_z_min_max_mm": [-0.25, -0.25],
+    "lower_section_y_mm": [395.52, 399, 406, 417, 425, 433.99],
+    "lower_samples": 828,
+    "lower_change_in_machine_z_min_max_mm": [0, 0],
+    "closing_stop_rays": {
+      "description": "At Y406.5, cast from X97 toward +X through the distal ends of the two wing pockets.",
+      "z_mm": [311.7, 259],
+      "previous_x_mm": [98.5, 98.5],
+      "revised_x_mm": [98.5, 98.5]
+    }
+  },
+  "short_upper_wing_at_nominal_cover_pose": {
+    "method": "Section the existing cap in its installed coordinates at Y406.5. Subtract the receiver's upper working-face Z from the unbent wing's inner-face Z. A negative reading is the geometry the spring must clear. Rough supported roads and spring deflection change the hand fit.",
+    "x_mm": [84, 87.55, 90.2, 95.3],
+    "location": ["pilot", "retaining lip", "short running slope", "long running slope"],
+    "previous_signed_separation_mm": [1.315, -0.356, -0.354, -0.805],
+    "revised_signed_separation_mm": [1.565, -0.106, -0.104, -0.555]
+  },
+  "centered_seated_cover": {
+    "method": "Return the measured free wing section at Y406.5 to its neutral shape with the coupon cantilever model, including the rotation of each cross-section. Solve each side for the least outward tip spread that clears its fixed cheek. Hold the cover centered at the same +0.0917 mm closing translation used in the previous fit check. Capture is the radial overlap between the retaining lip and the loaded hook nose at X91.10.",
+    "previous_fit_record": "../three-dot/fit-check.json",
+    "upper_short": {
+      "previous_and_revised_tip_spread_from_free_mm": [0.984, 0.726],
+      "previous_and_revised_hook_overlap_mm": [1.676, 1.599]
+    },
+    "lower_long": {
+      "previous_and_revised_tip_spread_from_free_mm": [0.984, 0.984],
+      "previous_and_revised_hook_overlap_mm": [1.676, 1.676]
+    },
+    "scope": "These are smooth-CAD positions at a centered seat. Retained support texture changes effective clearance, and the unrestrained cap can shift. Hand force and actual seating require the physical pair."
+  },
+  "volume_and_clearance": {
+    "previous_minus_revised_stl_mm3": 84.34565,
+    "revised_minus_previous_stl_mm3": 62.82870,
+    "upper_and_lower_splice_additions_mm3": [36.90436, 25.92434],
+    "installed_Digiten_components": 12,
+    "combined_Digiten_machine_z_extent_mm": [267.70, 303.35],
+    "minimum_z_clearance_to_lower_and_upper_splices_mm": [2.70, 2.25],
+    "loading": "All installed Digiten bodies preserve their Z coordinates throughout the receiver's X then Y loading stroke.",
+    "existing_cap": "Every free wing triangle that can reach X91.25 during insertion clears the corresponding splice by at least 0.979 mm in machine Z. Spring spread opens that separation."
+  },
+  "support_removal_access": {
+    "method": "Sample 300 area-weighted points on each exposed horizontal floor and cast to machine -X at 0.55 mm into its open side.",
+    "long_lower_backing": {"machine_z_mm": 263.70, "exposed_area_mm2": 312.660, "clear_west_rays": 300},
+    "wire_floor": {"machine_z_mm": 263.50, "exposed_area_mm2": 60.457, "clear_west_rays": 300}
+  },
+  "regeneration": {
+    "command": "equipment-snap-receivers --supported-meter",
+    "isolated_regeneration_byte_identical": ["meter-receiver.stl", "meter-receiver.print-features.json", "geometry.json"]
+  }
+}

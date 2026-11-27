@@ -1,5 +1,33 @@
 # Individual equipment snap pairs
 
+## Full-size bench corrections
+
+Derek accepted the full three-dot Pisco and ASSE pairs. He could rock the YZMSZ
+water regulator in its fixture. His photos of the Digiten receiver show loose
+roads in the short catch beside the continuous courses on the previous design.
+[Pisco and ASSE](prints/2026-11-26-mark2-pisco-asse/physical-result.json) ·
+[Water regulator](prints/2026-11-26-mark1-meter-water/physical-result.json) ·
+[Flow-meter comparison photos](prints/2026-11-26-mark1-meter-water/physical-result/physical-result.json)
+
+The replacement Digiten receiver mates with the three-dot cover already printed
+on Mark1. Its short upper guide faces down on the plate. That face is recessed
+0.25 mm to allow for the texture left by support removal. The long hook bears
+on an upward-facing surface at its original height. A dense interface on
+removable trees supports the exposed underside of that cheek. The two blind
+seams where the catches join the receiver are filled. Clear the trees through the open side before
+installing the meter. [Receiver fit](parts/supported-meter/fit-check.json)
+
+The replacement YZMSZ cover mates with the existing three-dot water-regulator
+receiver. Its fitted saddle reaches 0.40 mm farther toward the regulator body at
+the same wing position. With the housing centered, the rigid model gives
+1.53 mm of engagement at each hook and leaves the feet 0.23 mm short of their
+stops. Seat the hardware, press the cover home, then rock the two ends as in
+the video. [Cover fit](parts/firm-regulator/fit-check.json)
+
+`equipment-snap-receivers --supported-meter` and `--firm-regulator` produce the
+two replacements. The `supported-meter-receiver` and `firm-regulator-cap`
+recipes print one full part each in its enclosure or cover orientation.
+
 ## Full-size three-dot pairs
 
 Derek preferred the three-dot pair for its easy start and steadier hold in the

@@ -1,0 +1,100 @@
+{
+  "closed_splices": {
+    "lower_aft": {
+      "added_mm3": 25.924335164076183,
+      "bounds_machine_mm": [
+        91.25,
+        93.8499984741211,
+        418.66864013671875,
+        434.0086364746094,
+        263.70001220703125,
+        265.0
+      ]
+    },
+    "upper": {
+      "added_mm3": 36.90436229730403,
+      "bounds_machine_mm": [
+        91.25,
+        93.8499984741211,
+        395.5086364746094,
+        417.345703125,
+        305.6000061035156,
+        306.8999938964844
+      ]
+    }
+  },
+  "closing_direction_machine": [
+    1,
+    0,
+    0
+  ],
+  "cover_stop_x_mm": 98.5,
+  "existing_cover": "../three-dot/meter-snap-cap.stl",
+  "existing_cover_sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+  "exposed_lower_backing_bounds_machine_mm": [
+    85.0,
+    98.5,
+    395.5086364746094,
+    418.66864013671875,
+    263.70001220703125,
+    263.70001220703125
+  ],
+  "lower_wing_bearing_relief_mm": 0.0,
+  "mesh": {
+    "assembly_to_stl_matrix_mm": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "connected_solids": 1,
+    "installed_bounds_mm": [
+      [
+        83.05000305175781,
+        382.0,
+        251.94000244140625
+      ],
+      [
+        103.1500015258789,
+        447.0,
+        322.6000061035156
+      ]
+    ],
+    "sha256": "221d9138d5493abb2672f84d48c9704d4f49cebdd506b7d941bc9842c41022b4",
+    "volume_mm3": 46515.533893466614
+  },
+  "previous_receiver": "../three-dot/meter-receiver.stl",
+  "previous_receiver_sha256": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+  "print_up_machine": [
+    0,
+    0,
+    -1
+  ],
+  "purpose": "Identify the supported Digiten receiver, its existing three-dot cap and the supported-face allowance in the enclosure print orientation.",
+  "upper_cheek_relief_footprint_machine_xy_mm": [
+    83.05000305175781,
+    98.5,
+    395.5086364746094,
+    417.345703125
+  ],
+  "upper_cheek_relief_machine_mm": [
+    0.0,
+    0.0,
+    -0.25
+  ],
+  "upper_cheek_removed_mm3": 84.3456532767741
+}

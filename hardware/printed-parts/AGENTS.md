@@ -131,7 +131,10 @@ supports on model material alone does not establish where the slicer roots them.
 Back-top prints ceiling-down, with the rear flutes standing clear of the bed.
 Every rear receiver catch and its matching cap use the shared snap chamfer.
 The flat crests on the ASSE, Pisco and water-regulator covers meet their pocket
-roofs. The meter crests meet the east wall. Keep the catch pockets clear of supports.
+roofs. The meter crests meet the east wall. The original chamfered catch pockets
+print clear of supports. On the [three-dot flow-meter receiver](../print-tests/equipment-snap-pairs/README.md),
+support the short wing’s downward-facing guide and the exposed shelf behind the long catch
+through the open west side.
 The rear ceiling recess runs flush to
 the flanks and to the rear wall, whose panel relief runs from the rim up to it
 at the face of the core's pocket, and it runs round the connector wells' row.

@@ -1,0 +1,50 @@
+{
+  "added_volume_mm3": 477.4897003173319,
+  "assembly_to_stl_matrix_mm": [
+    [
+      6.123233995736766e-17,
+      0.0,
+      1.0,
+      -332.06964183645323
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      -307.6568368738517
+    ],
+    [
+      -1.0,
+      0.0,
+      6.123233995736766e-17,
+      -19.323910304345187
+    ]
+  ],
+  "bearing_footprint_print_y_z_mm": [
+    [
+      -17.053203582763672,
+      17.053203582763672
+    ],
+    [
+      3.552713678800501e-15,
+      35.0
+    ]
+  ],
+  "bearing_triangles": 3754,
+  "cover_sha256": "7c1cdad76610e6fc4d50f46d73b05adea7ffbdf90fee04a5c60ec1d83712d3e8",
+  "donor_cover": "../three-dot/regulator-snap-cap.stl",
+  "donor_cover_sha256": "523892fb89f48acbc5c1d6cc4bd42446cafa40a69dd15893057aae7755ba19c2",
+  "existing_receiver": "../three-dot/water-regulator-receiver.stl",
+  "existing_receiver_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+  "purpose": "Register the raised water regulator bearing to the filmed three-dot cover and receiver.",
+  "saddle_rise_machine_mm": [
+    0.0,
+    0.0,
+    0.4
+  ],
+  "saddle_rise_print_mm": [
+    0.4,
+    0.0,
+    2.4492935982947065e-17
+  ]
+}
