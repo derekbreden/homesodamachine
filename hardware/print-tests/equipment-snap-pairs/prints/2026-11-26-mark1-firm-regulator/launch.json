@@ -1,0 +1,26 @@
+{
+  "archive": {
+    "gcode_sha256": "de60b0e74c760588da370c340cb2a5f04a34252a1be9ea40986164d978ce2baf",
+    "name": "2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei.gcode.3mf",
+    "objects": [
+      "regulator-snap-cap"
+    ],
+    "sha256": "c80e35a31c0926d7499a2620428227570fe86df69bb6c07c8a17e55b485b3d19",
+    "slots": {
+      "1": {
+        "colour": "000000",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 110,
+  "observed_at": "2026-11-27T02:39:06+00:00",
+  "print_error": 0,
+  "printer": "H2C",
+  "printer_task_id": "1491798007",
+  "subtask_name": "2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei.gcode.3mf",
+  "total_layer_num": 150
+}

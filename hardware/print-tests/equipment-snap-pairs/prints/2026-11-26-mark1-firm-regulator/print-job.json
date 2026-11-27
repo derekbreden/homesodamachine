@@ -1,0 +1,51 @@
+{
+  "printer": "Mark1",
+  "firmware_printer": "H2C",
+  "printer_task_id": "1491798007",
+  "previous_finished_job": "1490559572",
+  "accepted_at": "2026-11-27T02:39:06+00:00",
+  "first_layer_verified_at": "2026-11-27T02:48:58+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 150,
+  "part": "regulator-snap-cap",
+  "source": "hardware/print-tests/equipment-snap-pairs/parts/firm-regulator/regulator-snap-cap.stl",
+  "source_sha256": "7c1cdad76610e6fc4d50f46d73b05adea7ffbdf90fee04a5c60ec1d83712d3e8",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed": "Textured PEI Plate",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Match the installed abrasive-compatible fixed left hotend and the approved cap recipe.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "native_check": "native-check.json",
+  "native_review": "2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei/review.json",
+  "gcode_sha256": "de60b0e74c760588da370c340cb2a5f04a34252a1be9ea40986164d978ce2baf",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei/2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei.3mf",
+    "sha256": "37f84b0c72cee9ff15480f0d48b29b891c89e740fd5ada9e268307a1ce910ded",
+    "git_blob": "ad430ef1ed228b4ab2b63b191b03e9ad1c3f3683",
+    "release_archive": "2026-11-26-mark1-firm-regulator-831543dbd1d67d0a.zip"
+  },
+  "slice": {
+    "file": "2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei/2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei.gcode.3mf",
+    "sha256": "c80e35a31c0926d7499a2620428227570fe86df69bb6c07c8a17e55b485b3d19",
+    "git_blob": "744276b44270c86cf2dcfd2a60aa06064e47d62c",
+    "release_archive": "2026-11-26-mark1-firm-regulator-831543dbd1d67d0a.zip"
+  },
+  "source_and_recipe_commit": "244e007084db110e1637030c3bfadb8474e4de12",
+  "printer_recipe": "firm-regulator-cap",
+  "mating_part": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/water-regulator-receiver.stl",
+  "mating_part_sha256": "2f6ce2cb87cd91d27f33521cfcc899879d9ff98d3b4dcc5bbeb859698c3bb8d2",
+  "timelapse": "On, smooth",
+  "estimated_seconds": 6698,
+  "filament_g": 28.77,
+  "geometry_fit_record": "hardware/print-tests/equipment-snap-pairs/parts/firm-regulator/fit-check.json",
+  "purpose": "Reduce the space under the existing water-regulator saddle by 0.40 mm with the filmed three-dot receiver."
+}

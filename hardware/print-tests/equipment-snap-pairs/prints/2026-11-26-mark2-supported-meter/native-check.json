@@ -1,0 +1,22 @@
+{
+  "purpose": "Identify the current full-size source in the submitted receiver or cover slice and check emitted layer cooling and plate conditions.",
+  "object": "meter-receiver",
+  "source": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/meter-receiver.stl",
+  "source_sha256": "221d9138d5493abb2672f84d48c9704d4f49cebdd506b7d941bc9842c41022b4",
+  "archive_sha256": "c54de4f948aadc5f9bd0d23a3519683bf66877c52b71979268d193e44a4164ab",
+  "gcode_sha256": "4184a759ec6ef4b4e6295e9d48cfb8f17b9aa0c03b670a295db335b078c1b7e4",
+  "facets": 3172,
+  "maximum_vertex_error_mm": 8e-08,
+  "extruding_layers": 295,
+  "minimum_bed_margin_mm": 99.13914,
+  "minimum_extrusion_time_elsewhere_between_layers_s": 25.753,
+  "minimum_at_next_z_mm": 19.88,
+  "median_extrusion_time_elsewhere_between_layers_s": 25.753,
+  "tower_last_layer_z_mm": 70.76,
+  "top_mm": 70.76,
+  "support_interface_layers": 3,
+  "support_interface_line_spacing_setting_mm": 0.0,
+  "requested_top_gap_mm": 0.24,
+  "print_time_s": 14669.980600774392,
+  "filament_g": 44.05
+}

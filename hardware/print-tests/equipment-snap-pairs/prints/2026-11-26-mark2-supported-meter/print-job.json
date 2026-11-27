@@ -1,0 +1,53 @@
+{
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1491785606",
+  "previous_finished_job": "1490535651",
+  "accepted_at": "2026-11-27T02:33:17+00:00",
+  "first_layer_verified_at": "2026-11-27T02:43:25+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 295,
+  "part": "meter-receiver",
+  "source": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/meter-receiver.stl",
+  "source_sha256": "221d9138d5493abb2672f84d48c9704d4f49cebdd506b7d941bc9842c41022b4",
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed": "Textured PEI Plate",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Use the fixed left hardened enclosure hotend for the black PET-GF receiver.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "native_check": "native-check.json",
+  "native_review": "2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei/review.json",
+  "gcode_sha256": "4184a759ec6ef4b4e6295e9d48cfb8f17b9aa0c03b670a295db335b078c1b7e4",
+  "prelaunch_status": "prelaunch-status.json",
+  "launch": "launch.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei/2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei.3mf",
+    "sha256": "3b68d427769ae31ef1b1c63aa5d9ac3ac4a997b04f288815bf5a0f713607a51b",
+    "git_blob": "761986d2350120d3c02f41428ef327e74f0bfae8",
+    "release_archive": "2026-11-26-mark2-supported-meter-60bf08b87788a494.zip"
+  },
+  "slice": {
+    "file": "2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei/2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei.gcode.3mf",
+    "sha256": "c54de4f948aadc5f9bd0d23a3519683bf66877c52b71979268d193e44a4164ab",
+    "git_blob": "4893168d4ffb8ce4806d50ddbfa98040694e6e05",
+    "release_archive": "2026-11-26-mark2-supported-meter-60bf08b87788a494.zip"
+  },
+  "source_and_recipe_commit": "244e007084db110e1637030c3bfadb8474e4de12",
+  "printer_recipe": "supported-meter-receiver",
+  "mating_part": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-snap-cap.stl",
+  "mating_part_sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+  "timelapse": "On, smooth",
+  "estimated_seconds": 14670,
+  "filament_g": 44.05,
+  "geometry_fit_record": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json",
+  "purpose": "Replace the failed receiver with removable support under the exposed catches and one supported-face allowance at the short upper guide.",
+  "support_coverage": "support-coverage.json",
+  "support_comparison": "support-comparison.png"
+}

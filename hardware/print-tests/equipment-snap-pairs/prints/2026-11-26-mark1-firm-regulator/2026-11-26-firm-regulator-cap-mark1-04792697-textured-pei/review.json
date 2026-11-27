@@ -1,0 +1,66 @@
+{
+  "archive": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei/2026-11-26-firm-regulator-cap-mark1-04792697-textured-pei.gcode.3mf",
+  "archive_sha256": "c80e35a31c0926d7499a2620428227570fe86df69bb6c07c8a17e55b485b3d19",
+  "bead_envelope_plate_mm": [
+    [
+      133.94495600000002,
+      116.94495599999999
+    ],
+    [
+      190.05504399999998,
+      201.288654
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 118.71134599999999,
+    "front": 116.94495599999999,
+    "left": 133.94495600000002,
+    "right": 134.94495600000002
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.914250450985735,
+      "second_layer_centerline_outside_first_mm": 6.113634404183619,
+      "second_layer_model_bead_area_mm2": 467.1611677699155
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 150,
+  "minimum_bed_margin_mm": 116.94495599999999,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": null,
+  "solid_host_deposition": [],
+  "support_roads": 19616,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 1,
+      "interface_islands": 1,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": 20.64,
+      "shortest_labelled_build_up_mm": 20.64,
+      "support_bodies": 1
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "archive": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-supported-meter/2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei/2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei.gcode.3mf",
+  "archive_sha256": "c54de4f948aadc5f9bd0d23a3519683bf66877c52b71979268d193e44a4164ab",
+  "bead_envelope_plate_mm": [
+    [
+      131.26414,
+      102.26414
+    ],
+    [
+      192.73586,
+      220.86086
+    ]
+  ],
+  "bed_border_mm": 80.0,
+  "bed_margins_mm": {
+    "back": 99.13914,
+    "front": 102.26414,
+    "left": 131.26414,
+    "right": 132.26414
+  },
+  "checks": {
+    "archive": true,
+    "bed_border": true,
+    "declared_interiors_support_free": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "solid_hosts_sampled": true,
+    "z_trim": true
+  },
+  "emitted_z_trim_mm": [
+    0.0,
+    0.08
+  ],
+  "excluded_support_counts_by_region": {
+    "Upward-facing long lower wing seat": 0
+  },
+  "excluded_support_crossing_count": 0,
+  "excluded_support_crossings": [],
+  "expected_emitted_textured_trim_mm": 0.08,
+  "fine_and_transition_bands": [],
+  "fine_band_unbacked_roads": [],
+  "fine_band_unbacked_statistics_requested": false,
+  "first_second_layer_stack": {
+    "1901": {
+      "fraction_over_first_layer": 0.9933477282254423,
+      "second_layer_centerline_outside_first_mm": 20.243154736369302,
+      "second_layer_model_bead_area_mm2": 302.20504010488287
+    }
+  },
+  "gcode_md5_matches": true,
+  "layers": 295,
+  "minimum_bed_margin_mm": 99.13914,
+  "pass": true,
+  "project_check": true,
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "show_face_contacts": [],
+  "show_face_minimum_bead_clearance_mm": 0.5123759100949445,
+  "solid_host_deposition": [],
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        83.05,
+        99.0,
+        395.5086388104271,
+        434.0086388104271,
+        258.15000000000003,
+        263.00000000000006
+      ],
+      "box_plate_mm": [
+        [
+          150.14999771118164,
+          160.2413611895729,
+          59.35000610351557
+        ],
+        [
+          171.89999771118164,
+          199.2413611895729,
+          67.95000610351559
+        ]
+      ],
+      "name": "Upward-facing long lower wing seat",
+      "object": 1901,
+      "reason": "The long lower wing bears on a print-up face. Its opposite face is the accessible backing supported above this pocket in machine Z."
+    }
+  ],
+  "support_roads": 104414,
+  "support_topology": {
+    "1901": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 7,
+      "interface_islands": 7,
+      "model_rooted_bodies": 1,
+      "shortest_build_up_mm": 5.28,
+      "shortest_labelled_build_up_mm": 5.28,
+      "support_bodies": 2
+    }
+  }
+}
