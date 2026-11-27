@@ -1,0 +1,234 @@
+{
+  "back_stl_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
+  "back_fine_sha256": "5de2d6bdb882bd5a2a174b2a8d3951412ab9bf538acf9b580f61066134fdc4c4",
+  "frame_print_stl_sha256": "051755d7a32f6d9524b42e5d6308ec3cafb04d758e23b9daf7855bbd2c8e3164",
+  "frame_fine_sha256": "d7c8f1fb86f0a8048a2a4ac6acbda6684aa2fc3d8cca41faddbf47b922461a76",
+  "front_top_fine_sha256": "0365f0cd0014b2766fca7bfe914afe344f9f8acf12ff28293e616cb527a500ab",
+  "frame_placement_mm": [
+    0.0,
+    179.19575,
+    299.9
+  ],
+  "screw_schedule": {
+    "front_count": 4,
+    "front_length_mm": 12.0,
+    "rear_count": 2,
+    "rear_length_mm": 25.0,
+    "total": 6,
+    "nominal_insert_diameter_mm": 4.6,
+    "nominal_insert_length_mm": 5.7,
+    "nominal_pilot_diameter_mm": 4.0,
+    "bom_path": "hardware/ledger/bom.md",
+    "bom_line": 314
+  },
+  "complete_frame_and_shell_solid_overlap_mm3": 0.0,
+  "initial_hardware_contact": {
+    "back_quadrant_initial_interference_mm3": 0.0,
+    "front_quadrant_initial_interference_mm3": 0.0,
+    "first_downward_translation_for_positive_volume_against_back_mm": 0.212134,
+    "first_downward_translation_for_positive_volume_against_front_mm": 0.464502,
+    "contact_volume_threshold_mm3": 1e-05,
+    "first_on_either_quadrant_mm": 0.212134,
+    "seats": [
+      {
+        "seat": "West funnel frame seat",
+        "design_gap_mm": 0.15,
+        "vertical_lowering_to_plane_contact_mm": 0.212132,
+        "remaining_normal_gap_when_first_of_both_quadrants_contacts_mm": 0.0
+      },
+      {
+        "seat": "East funnel frame seat",
+        "design_gap_mm": 0.15,
+        "vertical_lowering_to_plane_contact_mm": 0.212132,
+        "remaining_normal_gap_when_first_of_both_quadrants_contacts_mm": 0.0
+      }
+    ],
+    "scope": "Rigid vertical translation from the installed datum; separate silicone accessories and screws are omitted."
+  },
+  "seats": [
+    {
+      "seat": "West funnel frame seat",
+      "station_xy": [
+        -87.7,
+        259.4915079232813
+      ],
+      "shell_finite_slope_face_area_mm2": 123.488,
+      "frame_finite_mating_slope_face_area_mm2": 129.561,
+      "common_projected_mating_area_along_surface_mm2": 117.877,
+      "measured_normal_frame_clearance_mm": 0.15,
+      "seat_axis_z_mm": 342.2,
+      "measured_head_seat_z_mm": 351.8,
+      "measured_flat_insert_entrance_z_mm": 327.3,
+      "insert_end_z_mm": 333.0,
+      "screw_tip_z_mm": 326.8,
+      "actual_nominal_tip_beyond_underside_mm": 0.5,
+      "screw_thread_engagement_mm": 5.7,
+      "pilot_radius_lower_middle_upper_mm": [
+        [
+          2.0,
+          2.0
+        ],
+        [
+          2.0,
+          2.0
+        ],
+        [
+          2.0,
+          2.0
+        ]
+      ],
+      "actual_screw_at_postulated_slope_contact_overlap_mm3": 0.0,
+      "bores": [
+        {
+          "gauge": "purchased-insert axial approach",
+          "diameter_mm": 4.6,
+          "low_z_mm": 247.3,
+          "high_z_mm": 327.298,
+          "applicable_body": "shell",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "setting tool, outward withdrawal on same axis",
+          "diameter_mm": 6.0,
+          "low_z_mm": 247.3,
+          "high_z_mm": 327.298,
+          "applicable_body": "shell",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "actual nominal shell pilot less 0.02",
+          "diameter_mm": 3.98,
+          "low_z_mm": 327.29,
+          "high_z_mm": 346.01,
+          "applicable_body": "shell",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "actual frame through-gauge less 0.02",
+          "diameter_mm": 3.28,
+          "low_z_mm": 327.299,
+          "high_z_mm": 351.81,
+          "applicable_body": "frame",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "M3 body through both pieces",
+          "diameter_mm": 3.0,
+          "low_z_mm": 326.8,
+          "high_z_mm": 351.8,
+          "applicable_body": "both",
+          "interference_with_applicable_body_mm3": 0.0
+        }
+      ],
+      "annular_stock_around_insert": {
+        "witness_outer_radius_mm": 4.998,
+        "nominal_knurl_radius_mm": 2.3,
+        "lower_bound_radial_stock_outside_actual_insert_mm": 2.698,
+        "annular_witness_missing_mm3": 0.0
+      },
+      "relief": {
+        "inner_end_axis_plane_z_mm": 336.2,
+        "ramp_meets_shell_seat_distance_inward_from_axis_mm": 3.0,
+        "remaining_land_past_nominal_pilot_mm": 1.0,
+        "shell_angle_to_seat_degrees": 90.0,
+        "frame_angle_to_seat_degrees": 90.0,
+        "shell_relief_terminus_area_mm2": 8.0884,
+        "frame_relief_terminus_area_mm2": 3.4467,
+        "shell_slot_floor_witness_from_mesh_z_mm": 338.55,
+        "nominal_inner_opening_width_mm": 4.0
+      }
+    },
+    {
+      "seat": "East funnel frame seat",
+      "station_xy": [
+        87.7,
+        259.4915079232813
+      ],
+      "shell_finite_slope_face_area_mm2": 123.488,
+      "frame_finite_mating_slope_face_area_mm2": 129.561,
+      "common_projected_mating_area_along_surface_mm2": 117.877,
+      "measured_normal_frame_clearance_mm": 0.15,
+      "seat_axis_z_mm": 342.2,
+      "measured_head_seat_z_mm": 351.8,
+      "measured_flat_insert_entrance_z_mm": 327.3,
+      "insert_end_z_mm": 333.0,
+      "screw_tip_z_mm": 326.8,
+      "actual_nominal_tip_beyond_underside_mm": 0.5,
+      "screw_thread_engagement_mm": 5.7,
+      "pilot_radius_lower_middle_upper_mm": [
+        [
+          2.0,
+          2.0
+        ],
+        [
+          2.0,
+          2.0
+        ],
+        [
+          2.0,
+          2.0
+        ]
+      ],
+      "actual_screw_at_postulated_slope_contact_overlap_mm3": 0.0,
+      "bores": [
+        {
+          "gauge": "purchased-insert axial approach",
+          "diameter_mm": 4.6,
+          "low_z_mm": 247.3,
+          "high_z_mm": 327.298,
+          "applicable_body": "shell",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "setting tool, outward withdrawal on same axis",
+          "diameter_mm": 6.0,
+          "low_z_mm": 247.3,
+          "high_z_mm": 327.298,
+          "applicable_body": "shell",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "actual nominal shell pilot less 0.02",
+          "diameter_mm": 3.98,
+          "low_z_mm": 327.29,
+          "high_z_mm": 346.01,
+          "applicable_body": "shell",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "actual frame through-gauge less 0.02",
+          "diameter_mm": 3.28,
+          "low_z_mm": 327.299,
+          "high_z_mm": 351.81,
+          "applicable_body": "frame",
+          "interference_with_applicable_body_mm3": 0.0
+        },
+        {
+          "gauge": "M3 body through both pieces",
+          "diameter_mm": 3.0,
+          "low_z_mm": 326.8,
+          "high_z_mm": 351.8,
+          "applicable_body": "both",
+          "interference_with_applicable_body_mm3": 0.0
+        }
+      ],
+      "annular_stock_around_insert": {
+        "witness_outer_radius_mm": 4.998,
+        "nominal_knurl_radius_mm": 2.3,
+        "lower_bound_radial_stock_outside_actual_insert_mm": 2.698,
+        "annular_witness_missing_mm3": 0.0
+      },
+      "relief": {
+        "inner_end_axis_plane_z_mm": 336.2,
+        "ramp_meets_shell_seat_distance_inward_from_axis_mm": 3.0,
+        "remaining_land_past_nominal_pilot_mm": 1.0,
+        "shell_angle_to_seat_degrees": 90.0,
+        "frame_angle_to_seat_degrees": 90.0,
+        "shell_relief_terminus_area_mm2": 8.0884,
+        "frame_relief_terminus_area_mm2": 3.4467,
+        "shell_slot_floor_witness_from_mesh_z_mm": 338.55,
+        "nominal_inner_opening_width_mm": 4.0
+      }
+    }
+  ]
+}

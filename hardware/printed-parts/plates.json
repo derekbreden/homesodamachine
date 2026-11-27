@@ -28,7 +28,9 @@
     "material": "HSM-0081",
     "filament": "PET-GF",
     "thumbnail": "/parts/plates/back-top.webp",
+    "detail": "Mark1 · PET-GF · four equipment receivers and sloped rear funnel seats",
     "href": "/parts#material:HSM-0081?view=print",
+    "download": "/print-archive/5304b1e3ede67b0081f4d1a1e10dd4ba5f0e150b/enclosure-back-top-mark1.3mf",
     "parts": [{"label": "Enclosure back top", "material": "HSM-0081"}],
     "relatedPrints": [{"label": "ASSE vent sleeve · TPU", "material": "HSM-0088", "href": "/parts#material:HSM-0088?view=print"}]
   },

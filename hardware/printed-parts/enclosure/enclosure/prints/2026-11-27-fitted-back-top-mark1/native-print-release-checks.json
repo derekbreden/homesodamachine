@@ -1,0 +1,1524 @@
+{
+  "scope": "Actual finished archives on textured PEI, fixed left hardened standard-flow 0.4 mm, black Fiberon PET-GF15. Native road envelopes, centerline sampling and rigid CAD sweeps. Handling force, PET-GF adhesion, surface finish, loaded snap retention and vibration require the physical parts. Historical hand fits apply to the named test hardware.",
+  "cold_core_lid": {
+    "material_id": "HSM-0020",
+    "printer": "Mark1",
+    "job": {
+      "archive": "2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei/2026-11-26-foam-cap-lid-top-mark1-f40b229a-textured-pei.gcode.3mf",
+      "archive_sha256": "0f94034153ef0e8cacf6d7fb39a725ebc296dcdcf0bada021d0d40a4af676067",
+      "gcode_sha256": "d44aaf3458acbaa3ceb0987e3e92af5ed580f144eda11ee9ccf8a7d2654fe744",
+      "source_mesh_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
+      "print_run": "hardware/printed-parts/cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1",
+      "target_printer": "Mark1",
+      "connection_key": "H2C",
+      "bed_type": "Textured PEI Plate",
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "nozzle": {
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true
+      },
+      "manufacturer_native_return_code": 0,
+      "manufacturer_native_result": "Success.",
+      "manufacturer_plate_warnings": [],
+      "preparation_checks": {
+        "archive": true,
+        "bed_border": true,
+        "declared_interiors_support_free": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 20.262,
+      "bead_to_bed_edge_clearance_by_side_mm": {
+        "back": 69.678,
+        "front": 69.678,
+        "left": 20.328,
+        "right": 20.262
+      },
+      "emitted_trim_mm": [
+        0.0,
+        0.02
+      ],
+      "layers": 224,
+      "fine_band_unbacked_statistics_requested": false,
+      "listed_fine_band_unbacked_road_count": 0,
+      "support_region_crossings": 0,
+      "support_show_face_contacts": 0,
+      "global_designated_appearance_bead_clearance_mm": null
+    },
+    "model_backed_pump_cheeks": [
+      {
+        "face": "pump west guide at -48.6, slope 45\u00b0",
+        "first_course_mm": 440.3,
+        "no_lower_landing_mm": 0.0
+      },
+      {
+        "face": "pump east guide at 18.2, slope 45\u00b0",
+        "first_course_mm": 440.3,
+        "no_lower_landing_mm": 0.0
+      }
+    ],
+    "support_bodies": {
+      "bed_rooted_bodies": 1,
+      "bodies_without_interface_labels": 3,
+      "explicit_interface_islands": 6,
+      "interface_islands": null,
+      "model_rooted_bodies": 8,
+      "shortest_build_up_mm": null,
+      "shortest_labelled_build_up_mm": 16.8,
+      "support_bodies": 9
+    },
+    "support_exit_samples": {
+      "clear": 2700,
+      "examined": 2700,
+      "mouths": [
+        "V-B valve face",
+        "fore and aft WAGO mouths",
+        "B-fill underside groove"
+      ]
+    },
+    "retained_material_changes_outside_pump_mm3": [
+      0.0,
+      0.0
+    ],
+    "m5": {
+      "matches": 10,
+      "max_center_error_mm": 3.725290298461914e-09,
+      "driver_gauge": "\u00d84.8 \u00d7 80 mm",
+      "driver_collision_mm3": 0.0,
+      "through_screw_gauge_mm": 5,
+      "through_screw_collision_mm3": 0.0,
+      "matched_shell_stl_sha256": "5e1e9f92ef81798d7b422d00a80dded135405af42bf2736db40b2f9900ba6814",
+      "old_bench_shell": "hardware/printed-parts/cold-core/foam-shell/prints/2026-10-26-mark2-round-ports-a2/physical-result/physical-result.json",
+      "old_nearest_axis_ranges_mm": [
+        2.1,
+        30.5
+      ]
+    },
+    "minimum_air_tube_radial_clearance_mm": 0.599819,
+    "pump_catch_roots": [
+      {
+        "feature": "Pump west catch and lid root",
+        "minimum_sampled_core_coverage": 0.996731703707358,
+        "minimum_sampled_outline_coverage": 0.9877170138888889
+      },
+      {
+        "feature": "Pump east catch and lid root",
+        "minimum_sampled_core_coverage": 0.9967973985021679,
+        "minimum_sampled_outline_coverage": 0.9896326654523376
+      }
+    ],
+    "declared_solid_zones": 21,
+    "matching_shell_print_plan": "hardware/printed-parts/cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/print-plan.json"
+  },
+  "accessory_plate": {
+    "printer": "Mark2",
+    "job": {
+      "archive": "2026-11-26-small-petgf-mark2-6c829073-textured-pei/2026-11-26-small-petgf-mark2-6c829073-textured-pei.gcode.3mf",
+      "archive_sha256": "04308af145416e26040908b4458b8a6501cf2873fa616a512c489caa2f8e7075",
+      "gcode_sha256": "ef13ce5c36da33d7ed3e5fd0c4b92dafb2da38b612ef95a0e9755aff2210f370",
+      "source_mesh_sha256": "46f498e91975665fd805e2220accf38a62a43735993f6c2e2d3281b085a6d181",
+      "print_run": "hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-26-production-snaps-mark2",
+      "target_printer": "Mark2",
+      "connection_key": "Mark2",
+      "bed_type": "Textured PEI Plate",
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "nozzle": {
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true
+      },
+      "manufacturer_native_return_code": 0,
+      "manufacturer_native_result": "Success.",
+      "manufacturer_plate_warnings": [],
+      "preparation_checks": {
+        "archive": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 22.301,
+      "bead_to_bed_edge_clearance_by_side_mm": {
+        "back": 74.261,
+        "front": 26.326,
+        "left": 22.307,
+        "right": 22.301
+      },
+      "emitted_trim_mm": [
+        0.0,
+        0.08
+      ],
+      "layers": 269,
+      "fine_band_unbacked_statistics_requested": false,
+      "listed_fine_band_unbacked_road_count": 0,
+      "support_region_crossings": null,
+      "support_show_face_contacts": 0,
+      "global_designated_appearance_bead_clearance_mm": null
+    },
+    "object_count": 13,
+    "unique_part_count": 12,
+    "corrected_asse_stl_sha256": "46f498e91975665fd805e2220accf38a62a43735993f6c2e2d3281b085a6d181",
+    "fitted_working_feet": 10,
+    "required_foot_course_pairs": 1662,
+    "present_foot_course_pairs": 1662,
+    "minimum_continuous_crest_line_mm": 1.345,
+    "median_crest_line_mm": [
+      1.655,
+      1.656
+    ],
+    "minimum_between_layer_extrusion_time_seconds": 25.359,
+    "tower_courses": 269,
+    "last_tower_z_mm": 64.52,
+    "support_bodies": {
+      "count": 4,
+      "parts": [
+        "asse-snap-cap",
+        "regulator-snap-cap",
+        "elbow-cradle",
+        "elbow-cradle"
+      ],
+      "sampled_exits": 800,
+      "examined": 800
+    },
+    "meter_port": {
+      "bridge_tagged_roads": 43,
+      "longest_native_road_mm": 5.004,
+      "largest_span_without_prior_model_mm": 0.0
+    },
+    "regulator_contact_restore": {
+      "segments": 71409,
+      "max_vertical_speed_mm_s": 7.5
+    },
+    "cap_crest_and_cooling": [
+      {
+        "part": "asse-snap-cap",
+        "crest_courses": 348,
+        "minimum_away_seconds_extrusion_only": 25.359
+      },
+      {
+        "part": "pisco-snap-cap",
+        "crest_courses": 312,
+        "minimum_away_seconds_extrusion_only": 48.616
+      },
+      {
+        "part": "regulator-snap-cap",
+        "crest_courses": 300,
+        "minimum_away_seconds_extrusion_only": 59.634
+      },
+      {
+        "part": "meter-snap-cap",
+        "crest_courses": 248,
+        "minimum_away_seconds_extrusion_only": 51.163
+      },
+      {
+        "part": "pump-snap-cap",
+        "crest_courses": 454,
+        "minimum_away_seconds_extrusion_only": 31.113
+      }
+    ],
+    "distinct_print_objects": [
+      "asse-snap-cap",
+      "pisco-snap-cap",
+      "regulator-snap-cap",
+      "meter-snap-cap",
+      "pump-snap-cap",
+      "display-cover",
+      "enclosure-pump-retainer-1",
+      "enclosure-pump-retainer-2",
+      "reservoir-b-fill-guide",
+      "soda-bend-holder",
+      "elbow-cradle",
+      "umbilical-organizer",
+      "collet-press"
+    ]
+  },
+  "back_top": {
+    "material_id": "HSM-0081",
+    "printer": "Mark1",
+    "job": {
+      "archive": "2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf",
+      "archive_sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
+      "gcode_sha256": "e7d4d8b912602de30387c60eecd68e66b53b3b5641ed84afd09ea5917de79e48",
+      "source_mesh_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
+      "print_run": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei",
+      "target_printer": "Mark1",
+      "connection_key": "H2C",
+      "bed_type": "Textured PEI Plate",
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "nozzle": {
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true
+      },
+      "manufacturer_native_return_code": 0,
+      "manufacturer_native_result": "Success.",
+      "manufacturer_plate_warnings": [],
+      "preparation_checks": {
+        "archive": true,
+        "bed_border": true,
+        "declared_interiors_support_free": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "solid_hosts_sampled": true,
+        "z_trim": true
+      },
+      "minimum_bed_margin_mm": 20.271,
+      "bead_to_bed_edge_clearance_by_side_mm": {
+        "back": 49.292,
+        "front": 49.291,
+        "left": 20.271,
+        "right": 20.284
+      },
+      "emitted_trim_mm": [
+        0.0,
+        0.02
+      ],
+      "layers": 1010,
+      "fine_band_unbacked_statistics_requested": false,
+      "listed_fine_band_unbacked_road_count": 0,
+      "support_region_crossings": 0,
+      "support_show_face_contacts": 0,
+      "global_designated_appearance_bead_clearance_mm": 0.06499336707108794
+    },
+    "support_access": {
+      "native_and_authored_path_accounting": {
+        "automatic_only_connected_bodies": 7,
+        "automatic_only_generated_interfaces": 17,
+        "automatic_only_roots": {
+          "bed": 3,
+          "model": 4
+        },
+        "automatic_only_shortest_labelled_build_up_mm": 5.228,
+        "ray_locator_crosschecks_against_solid": 48,
+        "model_style_distinct_solids": 6,
+        "full_combined_grid_cells_reported_as_components": 1786,
+        "full_combined_components_flagged_authored_stock": 416,
+        "full_combined_components_flagged_automatic": 1370,
+        "automatic_branch_and_interface_roads": 187562,
+        "model_style_stock_roads": 343774,
+        "all_native_extrusion_midpoints_accounted_for": 531336
+      },
+      "compared_road_centers": 531336,
+      "straight_exits": 515652,
+      "exits_with_a_turn": 15684,
+      "unresolved": 0,
+      "regions": [
+        {
+          "spatial_feature": "east front seam joint",
+          "automatic_support_only_tree_ids": [
+            "tree-1"
+          ],
+          "raw_role_counts": {
+            "Support": 17145,
+            "Support interface": 1689,
+            "Support transition": 200
+          },
+          "raw_roads": 19034,
+          "points": 19034,
+          "straight_exit": 19034,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "bed"
+        },
+        {
+          "spatial_feature": "west front seam joint",
+          "automatic_support_only_tree_ids": [
+            "tree-2"
+          ],
+          "raw_role_counts": {
+            "Support": 17019,
+            "Support interface": 1744,
+            "Support transition": 197
+          },
+          "raw_roads": 18960,
+          "points": 18960,
+          "straight_exit": 18960,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "bed"
+        },
+        {
+          "spatial_feature": "soda valve seat",
+          "automatic_support_only_tree_ids": [
+            "tree-3"
+          ],
+          "raw_role_counts": {
+            "Support": 26235,
+            "Support interface": 373,
+            "Support transition": 114
+          },
+          "raw_roads": 26722,
+          "points": 26722,
+          "straight_exit": 26722,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "west relay bosses",
+          "automatic_support_only_tree_ids": [
+            "tree-4"
+          ],
+          "raw_role_counts": {
+            "Support": 4590,
+            "Support interface": 182,
+            "Support transition": 69
+          },
+          "raw_roads": 4841,
+          "points": 4841,
+          "straight_exit": 4827,
+          "turn_then_straight": 14,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "Digiten receiver",
+          "automatic_support_only_tree_ids": [
+            "tree-5"
+          ],
+          "raw_role_counts": {
+            "Support": 34184,
+            "Support interface": 912,
+            "Support transition": 521
+          },
+          "raw_roads": 35617,
+          "points": 35617,
+          "straight_exit": 30342,
+          "turn_then_straight": 5275,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "Digiten receiver",
+          "automatic_support_only_tree_ids": [
+            "tree-6"
+          ],
+          "raw_role_counts": {
+            "Support": 29516,
+            "Support interface": 1462,
+            "Support transition": 622
+          },
+          "raw_roads": 31600,
+          "points": 31600,
+          "straight_exit": 21313,
+          "turn_then_straight": 10287,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "west rear relay and C14 opening",
+          "automatic_support_only_tree_ids": [
+            "tree-7"
+          ],
+          "raw_role_counts": {
+            "Support": 48359,
+            "Support interface": 1793,
+            "Support transition": 636
+          },
+          "raw_roads": 50788,
+          "points": 50788,
+          "straight_exit": 50680,
+          "turn_then_straight": 108,
+          "unresolved": 0,
+          "root": "bed"
+        },
+        {
+          "spatial_feature": "Removable Identification channel 1 loading stop stand",
+          "automatic_support_only_tree_ids": [],
+          "raw_role_counts": {
+            "model-style stock": 154844
+          },
+          "raw_roads": 154844,
+          "points": 154844,
+          "straight_exit": 154844,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "bed"
+        },
+        {
+          "spatial_feature": "Removable Identification channel 2 loading stop stand",
+          "automatic_support_only_tree_ids": [],
+          "raw_role_counts": {
+            "model-style stock": 154929
+          },
+          "raw_roads": 154929,
+          "points": 154929,
+          "straight_exit": 154929,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "bed"
+        },
+        {
+          "spatial_feature": "Fill tube snap removable upper-wing support",
+          "automatic_support_only_tree_ids": [],
+          "raw_role_counts": {
+            "model-style stock": 1340
+          },
+          "raw_roads": 1340,
+          "points": 1340,
+          "straight_exit": 1340,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "Removable west rail support 1",
+          "automatic_support_only_tree_ids": [],
+          "raw_role_counts": {
+            "model-style stock": 6510
+          },
+          "raw_roads": 6510,
+          "points": 6510,
+          "straight_exit": 6510,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "Removable west rail support 2",
+          "automatic_support_only_tree_ids": [],
+          "raw_role_counts": {
+            "model-style stock": 9697
+          },
+          "raw_roads": 9697,
+          "points": 9697,
+          "straight_exit": 9697,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "model"
+        },
+        {
+          "spatial_feature": "Removable east rail support 1",
+          "automatic_support_only_tree_ids": [],
+          "raw_role_counts": {
+            "model-style stock": 16454
+          },
+          "raw_roads": 16454,
+          "points": 16454,
+          "straight_exit": 16454,
+          "turn_then_straight": 0,
+          "unresolved": 0,
+          "root": "model"
+        }
+      ],
+      "evidence_scope": "Every positive-length native support/interface and removable-stock command midpoint; a straight open segment or a two-segment turn to the exterior of the bare retained shell. No complete rigid-tree withdrawal or force is inferred. The two clipped ID stands also have whole-solid sweeps.",
+      "all_reported_native_commands_traceable": true
+    },
+    "identification_stands": [
+      {
+        "solid": "Removable Identification channel 1 loading stop stand",
+        "tie_clips": [
+          {
+            "center_x_mm": 6.44999859854579,
+            "nominal_cut_width_mm": 1.8,
+            "offset_from_opening_lip_x_mm": -3.35,
+            "rail_back_y_mm": 474.3,
+            "clip_plane_y_mm": 474.575,
+            "clip_approach_from_roof_overlap_mm3": 0.0,
+            "clip_guide_section_mm": [
+              1.84,
+              0.2
+            ],
+            "clip_approach_above_roof_mm": 10,
+            "as_molded_cad_material_in_shell_mm3": 0.041393133459822075,
+            "retained_rail_overlap_bounds_mm": [
+              5.549999,
+              474.20000499472656,
+              354.7699986,
+              7.349998199999998,
+              474.29998784472656,
+              355.0
+            ],
+            "actual_bed_course": {
+              "native_course_z_mm": 0.2,
+              "native_roles": [
+                "Bottom surface",
+                "Gap infill",
+                "Inner wall",
+                "Outer wall"
+              ],
+              "classifier_stock_segment_count": 23,
+              "classifier_retained_segment_count": 22,
+              "deposition_across_clip_plane_mm": 1.799998,
+              "deposition_across_exterior_rail_face_mm": 1.799998,
+              "deposition_across_retained_rail_inside_face_mm": 1.799999,
+              "stock_and_retained_commanded_bead_overlap_area_in_tie_patch_mm2": 0.1721231,
+              "tested_real_shell_anchor_area_mm2": 0.117,
+              "tested_tall_stem_area_mm2": 1.3175,
+              "combined_bead_envelope_connects_outer_rail_with_stand_foot": true
+            }
+          },
+          {
+            "center_x_mm": 51.149999398738146,
+            "nominal_cut_width_mm": 1.8,
+            "offset_from_opening_lip_x_mm": 3.35,
+            "rail_back_y_mm": 474.3,
+            "clip_plane_y_mm": 474.575,
+            "clip_approach_from_roof_overlap_mm3": 0.0,
+            "clip_guide_section_mm": [
+              1.84,
+              0.2
+            ],
+            "clip_approach_above_roof_mm": 10,
+            "as_molded_cad_material_in_shell_mm3": 0.041393133459822096,
+            "retained_rail_overlap_bounds_mm": [
+              50.2499998,
+              474.20000499472656,
+              354.7699986,
+              52.049999,
+              474.29998784472656,
+              355.0
+            ],
+            "actual_bed_course": {
+              "native_course_z_mm": 0.2,
+              "native_roles": [
+                "Bottom surface",
+                "Gap infill",
+                "Inner wall",
+                "Outer wall"
+              ],
+              "classifier_stock_segment_count": 24,
+              "classifier_retained_segment_count": 25,
+              "deposition_across_clip_plane_mm": 1.799999,
+              "deposition_across_exterior_rail_face_mm": 1.799999,
+              "deposition_across_retained_rail_inside_face_mm": 1.799999,
+              "stock_and_retained_commanded_bead_overlap_area_in_tie_patch_mm2": 0.0442499,
+              "tested_real_shell_anchor_area_mm2": 0.117,
+              "tested_tall_stem_area_mm2": 1.3175,
+              "combined_bead_envelope_connects_outer_rail_with_stand_foot": true
+            }
+          }
+        ],
+        "exterior_root_flush_cut_witnesses": [
+          {
+            "cut_plane_behind_nominal_rail_back_mm": 0.0,
+            "post_clip_full_swept_shell_intersection_mm3": 0.0,
+            "minimum_post_clip_full_swept_shell_clearance_mm": 1.2e-05,
+            "intersection_with_other_installed_stand_mm3": 0.0,
+            "minimum_post_clip_clearance_to_other_stand_mm": 1.2,
+            "largest_flush_cutter_approach_interference_with_shell_mm3": 0.0,
+            "cutter_depth_behind_cut_mm": 0.2,
+            "cutter_approach_height_above_roof_mm": 10
+          },
+          {
+            "cut_plane_behind_nominal_rail_back_mm": 0.025,
+            "post_clip_full_swept_shell_intersection_mm3": 0.0,
+            "minimum_post_clip_full_swept_shell_clearance_mm": 0.025012,
+            "intersection_with_other_installed_stand_mm3": 0.0,
+            "minimum_post_clip_clearance_to_other_stand_mm": 1.2,
+            "largest_flush_cutter_approach_interference_with_shell_mm3": 0.0,
+            "cutter_depth_behind_cut_mm": 0.2,
+            "cutter_approach_height_above_roof_mm": 10
+          }
+        ],
+        "before_clipping_shell_material_overlap_mm3": 0.08278626691964416,
+        "whole_stand_after_clipping": true,
+        "archive_object_id": 1901,
+        "archive_normal_part_id": 95,
+        "source_bounds_mm": [
+          [
+            5.55,
+            469.67901,
+            240.84
+          ],
+          [
+            52.05,
+            479.00001,
+            355.0
+          ]
+        ],
+        "modeled_gap_from_stop_mm": 0.24,
+        "minimum_shell_gap_during_full_sweep_mm": 0.23999599999999077,
+        "whole_stand_rearward_swept_overlap_with_shell_mm3": 0.0,
+        "withdrawal_vector_mm": [
+          0.0,
+          25.0,
+          0.0
+        ],
+        "generated_stock_road_count": 154844,
+        "first_course_top_plate_mm": 0.2,
+        "last_course_top_plate_mm": 114.2,
+        "course_count": 476,
+        "largest_vertical_layer_step_mm": 0.2400000000000091,
+        "first_course_bed_bead_area_mm2": 165.31018462371892,
+        "last_course_bead_area_mm2": 295.606026314793,
+        "courses_without_previous_course_backing": 0,
+        "longest_straight_stand_growth_unlanded_mm": 0,
+        "actual_stand_to_retained_stop_road_measurements": [
+          {
+            "role": "Overhang wall",
+            "stop_course_top_mm": 114.68,
+            "stand_tip_top_mm": 114.2,
+            "first_road_height_range_mm": [
+              0.3,
+              0.3
+            ],
+            "commanded_vertical_release_range_mm": [
+              0.18,
+              0.18
+            ],
+            "over_tip_mm": 75.021
+          },
+          {
+            "role": "Bridge",
+            "stop_course_top_mm": 114.68,
+            "stand_tip_top_mm": 114.2,
+            "first_road_height_range_mm": [
+              0.3,
+              0.3
+            ],
+            "commanded_vertical_release_range_mm": [
+              0.18,
+              0.18
+            ],
+            "over_tip_mm": 115.193
+          }
+        ],
+        "prepared_project_normal_part_id": 96,
+        "automatic_support_in_id_channel_samples": 0,
+        "protected_volume_count": 12,
+        "largest_intersection_with_protected_volume_over_entire_25mm_withdrawal_mm3": 0.0,
+        "max_protected_volume_overlap_mm3": 0.0,
+        "stop_first_course": {
+          "feature": "West identification stop (28.8, 470.3)",
+          "path_mm": 235.6,
+          "over_previous_model_mm": 37.33,
+          "over_interface_mm": 0.0,
+          "over_branch_mm": 0.0,
+          "over_stock_one_release_gap_mm": 218.65,
+          "no_lower_landing_mm": 16.95,
+          "longest_continuous_no_lower_landing_mm": 2.1,
+          "longest_straight_unlanded_perimeter_mm": 2.095,
+          "longest_straight_unlanded_bridge_mm": 0.855
+        }
+      },
+      {
+        "solid": "Removable Identification channel 2 loading stop stand",
+        "tie_clips": [
+          {
+            "center_x_mm": 54.14999959990382,
+            "nominal_cut_width_mm": 1.8,
+            "offset_from_opening_lip_x_mm": -3.35,
+            "rail_back_y_mm": 474.3,
+            "clip_plane_y_mm": 474.575,
+            "clip_approach_from_roof_overlap_mm3": 0.0,
+            "clip_guide_section_mm": [
+              1.84,
+              0.2
+            ],
+            "clip_approach_above_roof_mm": 10,
+            "as_molded_cad_material_in_shell_mm3": 0.041393133459822096,
+            "retained_rail_overlap_bounds_mm": [
+              53.25,
+              474.20000499472656,
+              354.7699986,
+              55.0499992,
+              474.29998784472656,
+              355.0
+            ],
+            "actual_bed_course": {
+              "native_course_z_mm": 0.2,
+              "native_roles": [
+                "Bottom surface",
+                "Gap infill",
+                "Inner wall",
+                "Outer wall"
+              ],
+              "classifier_stock_segment_count": 24,
+              "classifier_retained_segment_count": 22,
+              "deposition_across_clip_plane_mm": 1.799999,
+              "deposition_across_exterior_rail_face_mm": 1.799999,
+              "deposition_across_retained_rail_inside_face_mm": 1.78649,
+              "stock_and_retained_commanded_bead_overlap_area_in_tie_patch_mm2": 0.1616881,
+              "tested_real_shell_anchor_area_mm2": 0.117,
+              "tested_tall_stem_area_mm2": 1.3175,
+              "combined_bead_envelope_connects_outer_rail_with_stand_foot": true
+            }
+          },
+          {
+            "center_x_mm": 98.84999845176935,
+            "nominal_cut_width_mm": 1.8,
+            "offset_from_opening_lip_x_mm": 3.35,
+            "rail_back_y_mm": 474.3,
+            "clip_plane_y_mm": 474.575,
+            "clip_approach_from_roof_overlap_mm3": 0.0,
+            "clip_guide_section_mm": [
+              1.84,
+              0.2
+            ],
+            "clip_approach_above_roof_mm": 10,
+            "as_molded_cad_material_in_shell_mm3": 0.04139322314499749,
+            "retained_rail_overlap_bounds_mm": [
+              97.9499969,
+              474.20000499472656,
+              354.7699986,
+              99.75,
+              474.29998784472656,
+              355.0
+            ],
+            "actual_bed_course": {
+              "native_course_z_mm": 0.2,
+              "native_roles": [
+                "Bottom surface",
+                "Gap infill",
+                "Inner wall",
+                "Outer wall"
+              ],
+              "classifier_stock_segment_count": 24,
+              "classifier_retained_segment_count": 22,
+              "deposition_across_clip_plane_mm": 1.8,
+              "deposition_across_exterior_rail_face_mm": 1.616409,
+              "deposition_across_retained_rail_inside_face_mm": 1.800003,
+              "stock_and_retained_commanded_bead_overlap_area_in_tie_patch_mm2": 0.0575949,
+              "tested_real_shell_anchor_area_mm2": 0.117,
+              "tested_tall_stem_area_mm2": 1.3175,
+              "combined_bead_envelope_connects_outer_rail_with_stand_foot": true
+            }
+          }
+        ],
+        "exterior_root_flush_cut_witnesses": [
+          {
+            "cut_plane_behind_nominal_rail_back_mm": 0.0,
+            "post_clip_full_swept_shell_intersection_mm3": 0.0,
+            "minimum_post_clip_full_swept_shell_clearance_mm": 1.2e-05,
+            "intersection_with_other_installed_stand_mm3": 0.0,
+            "minimum_post_clip_clearance_to_other_stand_mm": 1.2,
+            "largest_flush_cutter_approach_interference_with_shell_mm3": 0.0,
+            "cutter_depth_behind_cut_mm": 0.2,
+            "cutter_approach_height_above_roof_mm": 10
+          },
+          {
+            "cut_plane_behind_nominal_rail_back_mm": 0.025,
+            "post_clip_full_swept_shell_intersection_mm3": 0.0,
+            "minimum_post_clip_full_swept_shell_clearance_mm": 0.025012,
+            "intersection_with_other_installed_stand_mm3": 0.0,
+            "minimum_post_clip_clearance_to_other_stand_mm": 1.2,
+            "largest_flush_cutter_approach_interference_with_shell_mm3": 0.0,
+            "cutter_depth_behind_cut_mm": 0.2,
+            "cutter_approach_height_above_roof_mm": 10
+          }
+        ],
+        "before_clipping_shell_material_overlap_mm3": 0.08278635660481604,
+        "whole_stand_after_clipping": true,
+        "archive_object_id": 1901,
+        "archive_normal_part_id": 96,
+        "source_bounds_mm": [
+          [
+            53.25,
+            469.67901,
+            240.84
+          ],
+          [
+            99.75,
+            479.00001,
+            355.0
+          ]
+        ],
+        "modeled_gap_from_stop_mm": 0.24,
+        "minimum_shell_gap_during_full_sweep_mm": 0.23999599999999077,
+        "whole_stand_rearward_swept_overlap_with_shell_mm3": 0.0,
+        "withdrawal_vector_mm": [
+          0.0,
+          25.0,
+          0.0
+        ],
+        "generated_stock_road_count": 154929,
+        "first_course_top_plate_mm": 0.2,
+        "last_course_top_plate_mm": 114.2,
+        "course_count": 476,
+        "largest_vertical_layer_step_mm": 0.2400000000000091,
+        "first_course_bed_bead_area_mm2": 165.32315082346355,
+        "last_course_bead_area_mm2": 295.5754442518185,
+        "courses_without_previous_course_backing": 0,
+        "longest_straight_stand_growth_unlanded_mm": 0,
+        "actual_stand_to_retained_stop_road_measurements": [
+          {
+            "role": "Overhang wall",
+            "stop_course_top_mm": 114.68,
+            "stand_tip_top_mm": 114.2,
+            "first_road_height_range_mm": [
+              0.3,
+              0.3
+            ],
+            "commanded_vertical_release_range_mm": [
+              0.18,
+              0.18
+            ],
+            "over_tip_mm": 76.19
+          },
+          {
+            "role": "Bridge",
+            "stop_course_top_mm": 114.68,
+            "stand_tip_top_mm": 114.2,
+            "first_road_height_range_mm": [
+              0.3,
+              0.3
+            ],
+            "commanded_vertical_release_range_mm": [
+              0.18,
+              0.18
+            ],
+            "over_tip_mm": 133.412
+          }
+        ],
+        "prepared_project_normal_part_id": 97,
+        "automatic_support_in_id_channel_samples": 0,
+        "protected_volume_count": 12,
+        "largest_intersection_with_protected_volume_over_entire_25mm_withdrawal_mm3": 0.0,
+        "max_protected_volume_overlap_mm3": 0.0,
+        "stop_first_course": {
+          "feature": "East identification stop (76.5, 471.6)",
+          "path_mm": 259.26,
+          "over_previous_model_mm": 39.69,
+          "over_interface_mm": 0.0,
+          "over_branch_mm": 0.0,
+          "over_stock_one_release_gap_mm": 241.11,
+          "no_lower_landing_mm": 18.15,
+          "longest_continuous_no_lower_landing_mm": 2.1,
+          "longest_straight_unlanded_perimeter_mm": 2.099,
+          "longest_straight_unlanded_bridge_mm": 1.851
+        }
+      }
+    ],
+    "rail_bearings": [
+      {
+        "feature": "Removable west rail support 1 bearing",
+        "path_mm": 1355.9,
+        "over_previous_model_mm": 74.58,
+        "over_interface_mm": 0.0,
+        "over_branch_mm": 0.0,
+        "over_stock_one_release_gap_mm": 1341.47,
+        "no_lower_landing_mm": 14.43,
+        "longest_continuous_no_lower_landing_mm": 4.23,
+        "longest_straight_unlanded_perimeter_mm": 0.15,
+        "longest_straight_unlanded_bridge_mm": 4.104
+      },
+      {
+        "feature": "Removable west rail support 2 bearing",
+        "path_mm": 1819.92,
+        "over_previous_model_mm": 100.67,
+        "over_interface_mm": 0.0,
+        "over_branch_mm": 0.0,
+        "over_stock_one_release_gap_mm": 1803.71,
+        "no_lower_landing_mm": 16.21,
+        "longest_continuous_no_lower_landing_mm": 4.1,
+        "longest_straight_unlanded_perimeter_mm": 0.15,
+        "longest_straight_unlanded_bridge_mm": 4.104
+      },
+      {
+        "feature": "Removable east rail support 1 bearing",
+        "path_mm": 3351.41,
+        "over_previous_model_mm": 185.34,
+        "over_interface_mm": 0.0,
+        "over_branch_mm": 0.0,
+        "over_stock_one_release_gap_mm": 3340.16,
+        "no_lower_landing_mm": 11.25,
+        "longest_continuous_no_lower_landing_mm": 0.44,
+        "longest_straight_unlanded_perimeter_mm": 0.15,
+        "longest_straight_unlanded_bridge_mm": 0.44
+      }
+    ],
+    "stock_root_patches": [
+      {
+        "stock": "Removable Identification channel 1 loading stop stand",
+        "root": "bed",
+        "first_course_top_mm": 0.2,
+        "geometric_root_clusters_in_first_course": 1,
+        "sample_count": 3595,
+        "samples_landed_on_previous_model": 3595,
+        "first_stock_road_without_previous_model_mm": 0.0
+      },
+      {
+        "stock": "Removable Identification channel 2 loading stop stand",
+        "root": "bed",
+        "first_course_top_mm": 0.2,
+        "geometric_root_clusters_in_first_course": 1,
+        "sample_count": 3590,
+        "samples_landed_on_previous_model": 3590,
+        "first_stock_road_without_previous_model_mm": 0.0
+      },
+      {
+        "stock": "Fill tube snap removable upper-wing support",
+        "root": "previous model",
+        "first_course_top_mm": 93.56,
+        "geometric_root_clusters_in_first_course": 3,
+        "sample_count": 90,
+        "samples_landed_on_previous_model": 90,
+        "first_stock_road_without_previous_model_mm": 0.0
+      },
+      {
+        "stock": "Removable west rail support 1",
+        "root": "previous model",
+        "first_course_top_mm": 180.2,
+        "geometric_root_clusters_in_first_course": 24,
+        "sample_count": 552,
+        "samples_landed_on_previous_model": 552,
+        "first_stock_road_without_previous_model_mm": 0.0
+      },
+      {
+        "stock": "Removable west rail support 2",
+        "root": "previous model",
+        "first_course_top_mm": 180.2,
+        "geometric_root_clusters_in_first_course": 32,
+        "sample_count": 739,
+        "samples_landed_on_previous_model": 739,
+        "first_stock_road_without_previous_model_mm": 0.0
+      },
+      {
+        "stock": "Removable east rail support 1",
+        "root": "previous model",
+        "first_course_top_mm": 180.2,
+        "geometric_root_clusters_in_first_course": 60,
+        "sample_count": 1416,
+        "samples_landed_on_previous_model": 1416,
+        "first_stock_road_without_previous_model_mm": 0.0
+      }
+    ],
+    "other_face_families": {
+      "C14 roofs": {
+        "patches": 2,
+        "longest_stretch_without_prior_model_or_support_mm": 0.0,
+        "interface_backing_mm": 964.69,
+        "first_course_mm": 986.25
+      },
+      "Front seam joints": {
+        "patches": 2,
+        "longest_stretch_without_prior_model_or_support_mm": 0.14,
+        "interface_backing_mm": 1549.68,
+        "first_course_mm": 1592.09
+      },
+      "Soda valve seat": {
+        "patches": 1,
+        "longest_stretch_without_prior_model_or_support_mm": 0.0,
+        "interface_backing_mm": 868.76,
+        "first_course_mm": 875.46
+      },
+      "Rear relay bosses on exposed crowns": {
+        "patches": 2,
+        "longest_stretch_without_prior_model_or_support_mm": 0.0,
+        "interface_backing_mm": 145.49,
+        "first_course_mm": 161.04
+      },
+      "Funnel receiver slopes": {
+        "patches": 2,
+        "longest_stretch_without_prior_model_or_support_mm": 3.56,
+        "interface_backing_mm": 0.0,
+        "first_course_mm": 684.08
+      },
+      "Funnel bore reliefs square to the seats": {
+        "patches": 2,
+        "longest_stretch_without_prior_model_or_support_mm": 3.54,
+        "interface_backing_mm": 0.0,
+        "first_course_mm": 40.0
+      },
+      "WAGO ends": {
+        "patches": 3,
+        "longest_stretch_without_prior_model_or_support_mm": 8.3,
+        "interface_backing_mm": 0.0,
+        "first_course_mm": 657.78
+      },
+      "PRV vent chase triangular face": {
+        "patches": 1,
+        "longest_stretch_without_prior_model_or_support_mm": 9.97,
+        "interface_backing_mm": 0.0,
+        "first_course_mm": 78.42
+      },
+      "Keystone keeper": {
+        "patches": 1,
+        "longest_stretch_without_prior_model_or_support_mm": 14.55,
+        "interface_backing_mm": 0.0,
+        "first_course_mm": 44.95
+      },
+      "Cable keepers": {
+        "patches": 3,
+        "longest_stretch_without_prior_model_or_support_mm": 16.26,
+        "interface_backing_mm": 0.0,
+        "first_course_mm": 79.31
+      }
+    },
+    "earliest_free_edge_by_native_sequence_mm": {
+      "West ID stop": 2.181,
+      "East ID stop": 1.721,
+      "West wall triangular seat": 8.64,
+      "WAGO H": 7.845,
+      "WAGO G": 7.845,
+      "WAGO N": 7.845,
+      "East 0.60 keeper": 0.115,
+      "West 0.75 keeper J5": 0.115,
+      "West 0.75 keeper DC1": 0.115,
+      "Keystone lower catch": 14.092
+    },
+    "wago_hgn": {
+      "shell_and_lever_swept_bodies": 6,
+      "straight_insertion_stroke_mm": 25,
+      "minimum_swept_box_clearance_mm": 0.15000000037252903,
+      "maximum_swept_box_interference_mm3": 0.0
+    },
+    "relay": {
+      "full_pilots": 8,
+      "gauge_diameter_mm": 3.18,
+      "gauge_depth_mm": 5.43,
+      "max_probe_interference_mm3": 0.0,
+      "wholly_preceded_by_solid": 6
+    },
+    "funnel_frame": {
+      "frame_stl_sha256": "051755d7a32f6d9524b42e5d6308ec3cafb04d758e23b9daf7855bbd2c8e3164",
+      "stl_matched_to_current_source": true,
+      "installed_frame_shell_overlap_mm3": 0.0,
+      "screw_schedule": {
+        "front_count": 4,
+        "front_length_mm": 12.0,
+        "rear_count": 2,
+        "rear_length_mm": 25.0,
+        "total": 6,
+        "nominal_insert_diameter_mm": 4.6,
+        "nominal_insert_length_mm": 5.7,
+        "nominal_pilot_diameter_mm": 4.0,
+        "bom_path": "hardware/ledger/bom.md",
+        "bom_line": 314
+      },
+      "initial_hardware_contact": {
+        "back_quadrant_initial_interference_mm3": 0.0,
+        "front_quadrant_initial_interference_mm3": 0.0,
+        "first_downward_translation_for_positive_volume_against_back_mm": 0.212134,
+        "first_downward_translation_for_positive_volume_against_front_mm": 0.464502,
+        "contact_volume_threshold_mm3": 1e-05,
+        "first_on_either_quadrant_mm": 0.212134,
+        "seats": [
+          {
+            "seat": "West funnel frame seat",
+            "design_gap_mm": 0.15,
+            "vertical_lowering_to_plane_contact_mm": 0.212132,
+            "remaining_normal_gap_when_first_of_both_quadrants_contacts_mm": 0.0
+          },
+          {
+            "seat": "East funnel frame seat",
+            "design_gap_mm": 0.15,
+            "vertical_lowering_to_plane_contact_mm": 0.212132,
+            "remaining_normal_gap_when_first_of_both_quadrants_contacts_mm": 0.0
+          }
+        ],
+        "scope": "Rigid vertical translation from the installed datum; separate silicone accessories and screws are omitted."
+      },
+      "seats": [
+        {
+          "seat": "West funnel frame seat",
+          "station_xy": [
+            -87.7,
+            259.4915079232813
+          ],
+          "shell_finite_slope_face_area_mm2": 123.488,
+          "common_projected_mating_area_along_surface_mm2": 117.877,
+          "measured_normal_frame_clearance_mm": 0.15,
+          "measured_head_seat_z_mm": 351.8,
+          "measured_flat_insert_entrance_z_mm": 327.3,
+          "insert_end_z_mm": 333.0,
+          "screw_tip_z_mm": 326.8,
+          "screw_thread_engagement_mm": 5.7,
+          "actual_nominal_tip_beyond_underside_mm": 0.5,
+          "annular_stock_around_insert": {
+            "witness_outer_radius_mm": 4.998,
+            "nominal_knurl_radius_mm": 2.3,
+            "lower_bound_radial_stock_outside_actual_insert_mm": 2.698,
+            "annular_witness_missing_mm3": 0.0
+          },
+          "relief": {
+            "inner_end_axis_plane_z_mm": 336.2,
+            "ramp_meets_shell_seat_distance_inward_from_axis_mm": 3.0,
+            "remaining_land_past_nominal_pilot_mm": 1.0,
+            "shell_angle_to_seat_degrees": 90.0,
+            "frame_angle_to_seat_degrees": 90.0,
+            "shell_relief_terminus_area_mm2": 8.0884,
+            "frame_relief_terminus_area_mm2": 3.4467,
+            "shell_slot_floor_witness_from_mesh_z_mm": 338.55,
+            "nominal_inner_opening_width_mm": 4.0
+          },
+          "bores": [
+            {
+              "gauge": "purchased-insert axial approach",
+              "diameter_mm": 4.6,
+              "low_z_mm": 247.3,
+              "high_z_mm": 327.298,
+              "applicable_body": "shell",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "setting tool, outward withdrawal on same axis",
+              "diameter_mm": 6.0,
+              "low_z_mm": 247.3,
+              "high_z_mm": 327.298,
+              "applicable_body": "shell",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "actual nominal shell pilot less 0.02",
+              "diameter_mm": 3.98,
+              "low_z_mm": 327.29,
+              "high_z_mm": 346.01,
+              "applicable_body": "shell",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "actual frame through-gauge less 0.02",
+              "diameter_mm": 3.28,
+              "low_z_mm": 327.299,
+              "high_z_mm": 351.81,
+              "applicable_body": "frame",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "M3 body through both pieces",
+              "diameter_mm": 3.0,
+              "low_z_mm": 326.8,
+              "high_z_mm": 351.8,
+              "applicable_body": "both",
+              "interference_with_applicable_body_mm3": 0.0
+            }
+          ]
+        },
+        {
+          "seat": "East funnel frame seat",
+          "station_xy": [
+            87.7,
+            259.4915079232813
+          ],
+          "shell_finite_slope_face_area_mm2": 123.488,
+          "common_projected_mating_area_along_surface_mm2": 117.877,
+          "measured_normal_frame_clearance_mm": 0.15,
+          "measured_head_seat_z_mm": 351.8,
+          "measured_flat_insert_entrance_z_mm": 327.3,
+          "insert_end_z_mm": 333.0,
+          "screw_tip_z_mm": 326.8,
+          "screw_thread_engagement_mm": 5.7,
+          "actual_nominal_tip_beyond_underside_mm": 0.5,
+          "annular_stock_around_insert": {
+            "witness_outer_radius_mm": 4.998,
+            "nominal_knurl_radius_mm": 2.3,
+            "lower_bound_radial_stock_outside_actual_insert_mm": 2.698,
+            "annular_witness_missing_mm3": 0.0
+          },
+          "relief": {
+            "inner_end_axis_plane_z_mm": 336.2,
+            "ramp_meets_shell_seat_distance_inward_from_axis_mm": 3.0,
+            "remaining_land_past_nominal_pilot_mm": 1.0,
+            "shell_angle_to_seat_degrees": 90.0,
+            "frame_angle_to_seat_degrees": 90.0,
+            "shell_relief_terminus_area_mm2": 8.0884,
+            "frame_relief_terminus_area_mm2": 3.4467,
+            "shell_slot_floor_witness_from_mesh_z_mm": 338.55,
+            "nominal_inner_opening_width_mm": 4.0
+          },
+          "bores": [
+            {
+              "gauge": "purchased-insert axial approach",
+              "diameter_mm": 4.6,
+              "low_z_mm": 247.3,
+              "high_z_mm": 327.298,
+              "applicable_body": "shell",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "setting tool, outward withdrawal on same axis",
+              "diameter_mm": 6.0,
+              "low_z_mm": 247.3,
+              "high_z_mm": 327.298,
+              "applicable_body": "shell",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "actual nominal shell pilot less 0.02",
+              "diameter_mm": 3.98,
+              "low_z_mm": 327.29,
+              "high_z_mm": 346.01,
+              "applicable_body": "shell",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "actual frame through-gauge less 0.02",
+              "diameter_mm": 3.28,
+              "low_z_mm": 327.299,
+              "high_z_mm": 351.81,
+              "applicable_body": "frame",
+              "interference_with_applicable_body_mm3": 0.0
+            },
+            {
+              "gauge": "M3 body through both pieces",
+              "diameter_mm": 3.0,
+              "low_z_mm": 326.8,
+              "high_z_mm": 351.8,
+              "applicable_body": "both",
+              "interference_with_applicable_body_mm3": 0.0
+            }
+          ]
+        }
+      ],
+      "older_flat_frame_vertical_gap_mm": [
+        4.280002,
+        4.280002
+      ],
+      "nonmatching_older_frame_run": "hardware/printed-parts/zone-c/funnel/prints/2026-11-24-lift-out-mark2/print-plan.json",
+      "native_initial_relief_and_seat_roads": [
+        {
+          "feature": "West funnel frame seat (45\u00b0)",
+          "native_model_z_mm": 338.72,
+          "actual_role": "Outer wall",
+          "full_native_line_length_mm": 11.581,
+          "full_native_line_xyz_mm": [
+            [
+              -84.55,
+              265.282,
+              338.72
+            ],
+            [
+              -84.55,
+              253.701,
+              338.72
+            ]
+          ],
+          "endpoints_have_immediate_previous_model": [
+            true,
+            true
+          ],
+          "endpoints_have_preceding_parallel_bead": [
+            false,
+            false
+          ],
+          "previous_course_supported_length_at_each_end_mm": [
+            3.9535,
+            3.9535
+          ],
+          "largest_drop_without_previous_model_mm": 3.7139,
+          "largest_drop_without_previous_model_or_earlier_parallel_bead_mm": 0.0
+        },
+        {
+          "feature": "West funnel bore relief (45\u00b0)",
+          "native_model_z_mm": 338.72,
+          "actual_role": "Outer wall",
+          "full_native_line_length_mm": 4.337,
+          "full_native_line_xyz_mm": [
+            [
+              -84.85,
+              261.66,
+              338.72
+            ],
+            [
+              -84.85,
+              257.323,
+              338.72
+            ]
+          ],
+          "endpoints_have_immediate_previous_model": [
+            true,
+            true
+          ],
+          "endpoints_have_preceding_parallel_bead": [
+            false,
+            false
+          ],
+          "previous_course_supported_length_at_each_end_mm": [
+            0.3979,
+            0.3979
+          ],
+          "largest_drop_without_previous_model_mm": 3.581,
+          "largest_drop_without_previous_model_or_earlier_parallel_bead_mm": 3.581
+        },
+        {
+          "feature": "East funnel frame seat (45\u00b0)",
+          "native_model_z_mm": 338.72,
+          "actual_role": "Outer wall",
+          "full_native_line_length_mm": 11.581,
+          "full_native_line_xyz_mm": [
+            [
+              84.55,
+              253.701,
+              338.72
+            ],
+            [
+              84.55,
+              265.282,
+              338.72
+            ]
+          ],
+          "endpoints_have_immediate_previous_model": [
+            true,
+            true
+          ],
+          "endpoints_have_preceding_parallel_bead": [
+            false,
+            false
+          ],
+          "previous_course_supported_length_at_each_end_mm": [
+            3.9535,
+            3.9535
+          ],
+          "largest_drop_without_previous_model_mm": 3.7139,
+          "largest_drop_without_previous_model_or_earlier_parallel_bead_mm": 0.0
+        },
+        {
+          "feature": "East funnel bore relief (45\u00b0)",
+          "native_model_z_mm": 338.72,
+          "actual_role": "Outer wall",
+          "full_native_line_length_mm": 4.277,
+          "full_native_line_xyz_mm": [
+            [
+              84.85,
+              257.323,
+              338.72
+            ],
+            [
+              84.85,
+              261.6,
+              338.72
+            ]
+          ],
+          "endpoints_have_immediate_previous_model": [
+            true,
+            true
+          ],
+          "endpoints_have_preceding_parallel_bead": [
+            true,
+            false
+          ],
+          "previous_course_supported_length_at_each_end_mm": [
+            0.3997,
+            0.3597
+          ],
+          "largest_drop_without_previous_model_mm": 3.5575,
+          "largest_drop_without_previous_model_or_earlier_parallel_bead_mm": 3.5175
+        }
+      ]
+    },
+    "whole_clipped_breakaway_stock": [
+      {
+        "normal_part_name": "Fill tube snap removable upper-wing support",
+        "normal_part_id": 97,
+        "nominal_components": 3,
+        "max_post_clip_whole_piece_swept_overlap_mm3": 0,
+        "minimum_swept_clearance_mm": 0.08312,
+        "best_exit_vectors_mm": [
+          [
+            0.0,
+            -14.0,
+            0.0
+          ]
+        ]
+      },
+      {
+        "normal_part_name": "Removable west rail support 1",
+        "normal_part_id": 98,
+        "nominal_components": 6,
+        "max_post_clip_whole_piece_swept_overlap_mm3": 0,
+        "minimum_swept_clearance_mm": 0.10001,
+        "best_exit_vectors_mm": [
+          [
+            18.0,
+            0.0,
+            0.0
+          ]
+        ]
+      },
+      {
+        "normal_part_name": "Removable west rail support 2",
+        "normal_part_id": 99,
+        "nominal_components": 8,
+        "max_post_clip_whole_piece_swept_overlap_mm3": 0,
+        "minimum_swept_clearance_mm": 0.10001,
+        "best_exit_vectors_mm": [
+          [
+            18.0,
+            0.0,
+            0.0
+          ]
+        ]
+      },
+      {
+        "normal_part_name": "Removable east rail support 1",
+        "normal_part_id": 100,
+        "nominal_components": 15,
+        "max_post_clip_whole_piece_swept_overlap_mm3": 0,
+        "minimum_swept_clearance_mm": 0.10001,
+        "best_exit_vectors_mm": [
+          [
+            -18.0,
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    ],
+    "authored_components_in_six_normal_parts": 34,
+    "root_tie_appearance_independent": {
+      "archive_sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
+      "bed_stock_road_count": 104,
+      "stock_roads_with_possible_appearance_contact": 0,
+      "minimum_clearance_to_painted_triangles_including_0p05_sampling_bound_mm": 0.660993,
+      "physical_scope": "Every root-stand stock command on the first 0.20 mm course, against all selected appearance triangles of the full production part. Subtracts half the maximum sample spacing from the nearest sampled distance and uses the same half-bead diagonal radius as standard preparation review.",
+      "root_areas": [
+        {
+          "stand": 1,
+          "tie_center_x_mm": 6.45,
+          "verified_stock_roads": 23,
+          "minimum_sampled_clearance_to_painted_triangles_mm": 0.686047,
+          "minimum_clearance_including_sampling_bound_mm": 0.66141,
+          "nearest_source_gcode_line": 2650,
+          "nearby_painted_surface_installed_xyz_mm": [
+            9.8,
+            474.29999,
+            355.0
+          ]
+        },
+        {
+          "stand": 1,
+          "tie_center_x_mm": 51.15,
+          "verified_stock_roads": 30,
+          "minimum_sampled_clearance_to_painted_triangles_mm": 0.686047,
+          "minimum_clearance_including_sampling_bound_mm": 0.66141,
+          "nearest_source_gcode_line": 2646,
+          "nearby_painted_surface_installed_xyz_mm": [
+            47.8,
+            474.29999,
+            355.0
+          ]
+        },
+        {
+          "stand": 2,
+          "tie_center_x_mm": 54.15,
+          "verified_stock_roads": 23,
+          "minimum_sampled_clearance_to_painted_triangles_mm": 0.685993,
+          "minimum_clearance_including_sampling_bound_mm": 0.660993,
+          "nearest_source_gcode_line": 2784,
+          "nearby_painted_surface_installed_xyz_mm": [
+            57.5,
+            474.29999,
+            355.0
+          ]
+        },
+        {
+          "stand": 2,
+          "tie_center_x_mm": 98.85,
+          "verified_stock_roads": 28,
+          "minimum_sampled_clearance_to_painted_triangles_mm": 0.685993,
+          "minimum_clearance_including_sampling_bound_mm": 0.660993,
+          "nearest_source_gcode_line": 2780,
+          "nearby_painted_surface_installed_xyz_mm": [
+            95.5,
+            474.29999,
+            355.0
+          ]
+        }
+      ]
+    },
+    "raw_native_diagnostics": [
+      "ZFiller: encounter idx from clip: 969",
+      "Invalid T command (T1001).",
+      "Invalid T command (T65535).",
+      "Invalid T command (T65279)."
+    ],
+    "keystone_actual_jack_and_fitted_exception": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers:7",
+    "validated_rail_bench_record": "hardware/ledger/fitted.json"
+  }
+}

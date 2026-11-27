@@ -1,0 +1,249 @@
+{
+  "archive": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf",
+  "archive_sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
+  "method": {
+    "sample_pitch_mm": 0.15,
+    "bead_geometry": "Positive native model and support-interface XY segments at their emitted line widths. A landing overlaps a model bead one real course below or interface one release gap below that course. Endpoint distance includes bead radius; 0.01 mm numeric allowance. Same-layer lateral neighbors not credited.",
+    "support_top_gap_mm": 0.24
+  },
+  "regions": {
+    "Fore shoulder": {
+      "first_course_model_path_mm": 419.57,
+      "over_interface_mm": 411.73,
+      "over_prior_model_mm": 7.84,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Outer lip": {
+      "first_course_model_path_mm": 109.92,
+      "over_interface_mm": 108.52,
+      "over_prior_model_mm": 1.9,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Outer ramp 32 deg": {
+      "first_course_model_path_mm": 131.41,
+      "over_interface_mm": 128.91,
+      "over_prior_model_mm": 109.86,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Outer crest": {
+      "first_course_model_path_mm": 43.41,
+      "over_interface_mm": 42.56,
+      "over_prior_model_mm": 0.25,
+      "without_prior_or_support_landing_mm": 0.6,
+      "longest_continuous_without_landing_mm": 0.3,
+      "longest_from_machine_xyz": [
+        87.511,
+        396.827,
+        309.68
+      ],
+      "longest_to_machine_xyz": [
+        87.511,
+        396.677,
+        309.68
+      ]
+    },
+    "Inner 45 deg return": {
+      "first_course_model_path_mm": 181.87,
+      "over_interface_mm": 176.26,
+      "over_prior_model_mm": 160.44,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Inner ramp 8 deg": {
+      "first_course_model_path_mm": 125.28,
+      "over_interface_mm": 123.33,
+      "over_prior_model_mm": 26.94,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Inner ramp 13 deg": {
+      "first_course_model_path_mm": 177.11,
+      "over_interface_mm": 174.96,
+      "over_prior_model_mm": 5.27,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Inner ramp 26 deg": {
+      "first_course_model_path_mm": 110.19,
+      "over_interface_mm": 86.84,
+      "over_prior_model_mm": 24.99,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Boss floor fore": {
+      "first_course_model_path_mm": 249.91,
+      "over_interface_mm": 243.19,
+      "over_prior_model_mm": 6.72,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Boss floor aft": {
+      "first_course_model_path_mm": 249.9,
+      "over_interface_mm": 243.18,
+      "over_prior_model_mm": 6.72,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Head floor fore": {
+      "first_course_model_path_mm": 35.27,
+      "over_interface_mm": 34.48,
+      "over_prior_model_mm": 2.44,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Head floor aft": {
+      "first_course_model_path_mm": 35.46,
+      "over_interface_mm": 34.96,
+      "over_prior_model_mm": 4.21,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "High head sliver fore": {
+      "first_course_model_path_mm": 21.77,
+      "over_interface_mm": 6.85,
+      "over_prior_model_mm": 15.21,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "High head sliver aft": {
+      "first_course_model_path_mm": 20.44,
+      "over_interface_mm": 6.11,
+      "over_prior_model_mm": 14.62,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Wire chamber": {
+      "first_course_model_path_mm": 159.87,
+      "over_interface_mm": 145.26,
+      "over_prior_model_mm": 14.6,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    },
+    "Lower broad shelf": {
+      "first_course_model_path_mm": 856.94,
+      "over_interface_mm": 823.32,
+      "over_prior_model_mm": 33.63,
+      "without_prior_or_support_landing_mm": 0.0,
+      "longest_continuous_without_landing_mm": 0,
+      "longest_from_machine_xyz": null,
+      "longest_to_machine_xyz": null
+    }
+  },
+  "native_gcode_sha256": "e7d4d8b912602de30387c60eecd68e66b53b3b5641ed84afd09ea5917de79e48",
+  "back_top_stl_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
+  "receiver_reference": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/meter-receiver.stl",
+  "reference_projected_face_to_production_stl": {
+    "Fore shoulder": {
+      "sample_count": 8547,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 8547
+    },
+    "Outer lip": {
+      "sample_count": 2340,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 2340
+    },
+    "Outer ramp 32 deg": {
+      "sample_count": 2496,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 2496
+    },
+    "Outer crest": {
+      "sample_count": 468,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 468
+    },
+    "Inner 45 deg return": {
+      "sample_count": 2184,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 2184
+    },
+    "Inner ramp 8 deg": {
+      "sample_count": 2652,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 2652
+    },
+    "Inner ramp 13 deg": {
+      "sample_count": 4368,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 4368
+    },
+    "Inner ramp 26 deg": {
+      "sample_count": 2808,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 2808
+    },
+    "Boss floor fore": {
+      "sample_count": 4774,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 4774
+    },
+    "Boss floor aft": {
+      "sample_count": 4774,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 4774
+    },
+    "Head floor fore": {
+      "sample_count": 795,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 795
+    },
+    "Head floor aft": {
+      "sample_count": 796,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 796
+    },
+    "High head sliver fore": {
+      "sample_count": 379,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 379
+    },
+    "High head sliver aft": {
+      "sample_count": 386,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 386
+    },
+    "Wire chamber": {
+      "sample_count": 3101,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 3101
+    },
+    "Lower broad shelf": {
+      "sample_count": 16102,
+      "max_mm": 0.0,
+      "samples_within_0.015_mm": 16102
+    }
+  },
+  "coordinate_check": "The build matrix, instance translation and source mesh origin in the sliced 3MF agree with preparation. First-course samples are taken in that plate frame."
+}

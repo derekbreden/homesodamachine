@@ -58,7 +58,7 @@
       "Bridge flow": "1.25",
       "Process bridge speed": "15 mm/s",
       "Filament bridge speed": "15 mm/s",
-      "Support contact": "Accessible receiver ceilings"
+      "Support contact": "WAGO openings, valve seat and the underside groove for the reservoir B fill tube. The two 45° pump-catch shoulders grow on the preceding model layer."
     }
   },
   "HSM-0021": {
@@ -810,18 +810,18 @@
   },
   "HSM-0081": {
     "title": "Enclosure back top · Mark1 print plan",
-    "sha256": "ce9cf00f87b1504ccac86ebcb78fa74c5a0a667de97b1cb78251354a5ecef8bd",
-    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-21-relay-m2-production-mark1/2026-11-21-back-top-mark1-c8a8a278-textured-pei/2026-11-21-back-top-mark1-c8a8a278-textured-pei.gcode.3mf",
+    "sha256": "0af8b777c84ff69c4091bbdb0680af4cd4782bc321f00c3680122ff14e7deaea",
+    "slice": "hardware/printed-parts/enclosure/enclosure/prints/2026-11-27-fitted-back-top-mark1/2026-11-27-back-top-mark1-bb4e3273-textured-pei/2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf",
     "plate": 1,
     "recipe": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
     "recipe_target": "back-top",
-    "recipe_sha256": "b487cf6dd7c352ac7158032214d5963374b1820ee9d4ddfd94b5adcd5831e474",
-    "project_sha256": "e7f6dc04136285bbd780d8fb0e3fd77d61fbe15b90ac83d9ad741b995818d7db",
-    "archive_sha256": "317685c2629f0df9a7275a9f2a5987442d13b2c61f973fee98e5ec435295dff4",
-    "gcode_sha256": "ccdb861a0c2618a1af0214c25068f363f12ed5f15cc90e6b6f834511cf1265d3",
+    "recipe_sha256": "ea2f88b1a7bd408222c446447c7dea8f206eb23dadbf8e0f00e19b6286cb1c83",
+    "project_sha256": "c2c7d7610be55c049317962db3feb1030b5fe5f4254b8bb6143cba44ef9c96a4",
+    "archive_sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
+    "gcode_sha256": "e7d4d8b912602de30387c60eecd68e66b53b3b5641ed84afd09ea5917de79e48",
     "kind": "plan",
-    "layers": 1022,
-    "model_sha256": "d43f3f5f1b11129c804062d7b1980389a16759a7fd5c73d67db08818c414ab0f",
+    "layers": 1010,
+    "model_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5",
     "process": {
       "Material": "Polymaker Fiberon PET-GF15, black",
       "Printer": "Mark1",
@@ -841,13 +841,15 @@
       "Filament bridge speed": "15 mm/s",
       "Rail roofs": "Breakaway caps carry the bearings, with roots on the inboard shoulders and a clear vent.",
       "Nameplate": "Integral corbels carry the rounded crown and lower lip",
-      "Protected openings": "Catch pockets, meter cap pockets, connector pockets, valve sockets and insert pilots clear",
-      "Snap catches": "Chamfered catches print without support",
+      "Protected openings": "Connector mouths, valve sockets, funnel passages and rear tile undercuts remain clear.",
+      "Snap catches": "The ASSE, Pisco and water regulator catches grow from the shell. The sideways flow meter uses removable support.",
       "C14 inlet": "Removable supports under the flange pocket and cord passage roofs",
-      "Flow-meter receiver": "Removable supports under both end shoulders, the whole lip and the slide and wire floors. The supports under the lip's aft end and the aft shoulder stand on the Pisco receiver.",
-      "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it."
+      "Flow-meter receiver": "Pull the supports from beneath the short upper guide, lower shelf, boss pockets and wire floor through the open west side. The upper guide includes 0.25 mm of relief.",
+      "Fill tube snap": "A corbel carries its print-down jaw from the east wall. Contoured breakaway strips rooted on that jaw carry the free jaw above it.",
+      "Rear label stops": "Clip each exterior stand’s two first-layer ties flush at the solid rail roots, then pull the stand straight out through the rear.",
+      "Funnel frame": "The two sloped rear seats grow from the shell. Fit both inserts from below and use M3 × 25 rear screws."
     },
-    "recipe_commit": "e0f9c0b8d0b4c54d460e75eef96057816e722d07"
+    "recipe_commit": "65b5f27b884de6408ec1ea87341e83a173eb609f"
   },
   "HSM-0082": {
     "title": "PET-GF accessory plate · Mark2 print plan",

@@ -8,7 +8,27 @@ acceptance standard. The complete operating assembly includes the integrated col
 core and refrigeration provisions, even when a bench build uses the external Lillium
 carbonator.
 
-The requested next four parts are back-top HSM-0081, front-top HSM-0079,
+## Production PET-GF prints, November 26–27
+
+| Full plate | Printer | What the fit evidence covers |
+| --- | --- | --- |
+| [Enclosure back top](enclosure/prints/2026-11-27-fitted-back-top-mark1/print-plan.json) | Mark1 | Four integral receivers. The Pisco and ASSE fitting pairs were accepted. The water regulator’s full cover and receiver fixture fit very well with the 0.40 mm saddle adjustment. The sideways Digiten pocket carries the supported upper guide and ledges into the enclosure. |
+| [Accessory plate](rear-equipment-caps/prints/2026-11-26-production-snaps-mark2/print-plan.json) | Mark2 | Thirteen pieces, including the five mating equipment covers. The native slice preserves both crest perimeters on every measured working layer. |
+| [Cold-core equipment lid](../cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/print-plan.json) | Mark1 | The motor rails, fore-and-aft stops and both integral catches match the production pump cover. All ten lid holes align with the insert pilots on the current HSM-0018 shell. The October fit-tested shell has a different bolt pattern. |
+
+The full slices were checked for where the first layer of each working surface lands, whether removed support can exit the part and whether it touches a finished face. Both pump catches grow from the lid itself. All five snap covers carry a continuous perimeter on both working crests. [Three-plate print check](enclosure/prints/2026-11-27-fitted-back-top-mark1/print-check.md) · [Detailed support measurements](enclosure/prints/2026-11-27-fitted-back-top-mark1/native-print-release-checks.json) · [Flow-meter support coverage](enclosure/prints/2026-11-27-fitted-back-top-mark1/meter-receiver-deposition.json)
+
+Pair the back top with the funnel frame that has sloped rear seats. Install the two rear M3 inserts from below and use M3 × 25 screws there. The four front positions use M3 × 12. The November 24 frame print has flat rear seats. [Current funnel frame](../zone-c/funnel/README.md) · [Seat and screw measurements](enclosure/prints/2026-11-27-fitted-back-top-mark1/funnel-seats-and-screw-access.json)
+
+Use the November 21 HSM-0018 cold-core shell or a shell with the same ten insert positions for this lid. [Matching shell print](../cold-core/foam-shell/prints/2026-11-21-shell-production-mark2/print-plan.json) · [Hole measurements](../cold-core/foam-cap/prints/2026-11-26-production-snaps-mark1/shell-bolt-pattern.json)
+
+The standalone full-size meter receiver finished printing on Mark2. On both native slices the last full course on the meter’s lower hook is 1.01 mm wide. Both stop 0.13 mm short of the CAD tip and give 1.44 mm of calculated hook engagement at the checked seat. After cleanup, the first full build will establish how the cover inserts and holds in the enclosure and how the pump holds while running. [Lower-hook and shell measurements](enclosure/prints/2026-11-27-fitted-back-top-mark1/back-native-section-coverage.json) · [Meter receiver print](../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-supported-meter/print-job.json) · [Regulator hand fit](../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark1-firm-regulator/physical-result.json) · [Pump contact measurements](../cold-core/foam-cap/pump-snap-fit.json)
+
+Before fitting the rear identification cards, clip two ties per stand at the backs of the solid rail roots. Each stand then pulls straight out through the rear. Remove the meter supports through the open west side before installing the meter. [Rear label stand removal](enclosure/prints/2026-11-27-fitted-back-top-mark1/label-stand-removal.png) · [Meter installation and service](rear-equipment-caps/README.md#installation-and-service)
+
+## Earlier enclosure reviews
+
+The earlier four-part review covered back-top HSM-0081, front-top HSM-0079,
 lower pump retainer HSM-0082 and equipment lid HSM-0020. Their
 [manual full-part review](https://github.com/derekbreden/homesodamachine/blob/1cc889852188373f444f598b862383333729bf74/hardware/print-tests/receiver-tool-access/full-part-review/readiness.json)
 binds the final meshes, reinforcement regions and reviewed complete native slices.
@@ -18,8 +38,7 @@ print-only archive hashes. Front-top HSM-0079's archive went to Mark1 as job
 1405624302. Back-top, the lower retainer and equipment lid have prepared archives.
 What has printed since, and on which machine, is in the [print log](enclosure/print-log.md)
 and each part's `prints/` records.
-The latest physical feedback accepts the other completed snap fits and calls for
-the ASSE adapter and its conforming cavity to rise 0.18 mm. The integrated
+The ASSE bench feedback called for the adapter and its conforming cavity to rise 0.18 mm. The integrated
 production parts include that alignment and continuous rear receiver bases;
 the front paired-pump pry windows retain their geometry. ASSE combined seating
 will be verified during the normal full-enclosure assembly.
@@ -214,12 +233,6 @@ the accepted flat-wing receiver.
 The [populated closure review](../../mechanical-qualification/enclosure-above-core/README.md)
 identifies its actual exported components, tested motions and stock readings.
 Those records do not establish the strength or assembly fit of new wall hosts.
-
-Print preparations must name these exact production meshes and their support
-contacts before claiming that the new interfaces are ready to print. Accepted
-coupons, surfaces and connector fits in this file retain their recorded artifact
-scope. They establish no complete-assembly fit, support cleanup, insertion force,
-load capacity, pressure seal or lifetime for this arrangement.
 
 ## Pump tees and returns
 

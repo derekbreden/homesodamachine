@@ -1,0 +1,152 @@
+{
+  "title": "Back-top mesh sections and deposited snap geometry",
+  "project": {
+    "file": "2026-11-27-back-top-mark1-bb4e3273-textured-pei.3mf",
+    "sha256": "c2c7d7610be55c049317962db3feb1030b5fe5f4254b8bb6143cba44ef9c96a4"
+  },
+  "production_archive": {
+    "file": "2026-11-27-back-top-mark1-bb4e3273-textured-pei.gcode.3mf",
+    "sha256": "4f6b215bc43c22c09e5fdcec6af1cff0ac1553f7ccd6ade001d97e12dd6d3808",
+    "embedded_plate_1_gcode_sha256": "e7d4d8b912602de30387c60eecd68e66b53b3b5641ed84afd09ea5917de79e48",
+    "shell_stl_sha256": "99314950eaf9c6d9b89ee3280eff5d0376fa8354ba7ef842180a361e13a071d5"
+  },
+  "native_log_message": "ZFiller: encounter idx from clip: 969",
+  "whole_connected_sections": {
+    "method": "Section the seven prepared normal-part meshes at each layer midpoint. Search each connected material polygon, excluding its holes, for a positive-extrusion road from the object. Test segment centers, then complete segments and commanded bead footprints. Automatic support, machine routines and travel are excluded.",
+    "native_layers": 812,
+    "layer_top_range_mm": [
+      0.2,
+      194.84
+    ],
+    "positive_model_segments": 4929526,
+    "sections": 4305,
+    "with_interior_road": 4299,
+    "by_project_mesh": {
+      "Fill tube snap removable upper-wing support": {
+        "sections": 84,
+        "with_interior_road": 78
+      },
+      "Removable Identification channel 1 loading stop stand": {
+        "sections": 476,
+        "with_interior_road": 476
+      },
+      "Removable Identification channel 2 loading stop stand": {
+        "sections": 476,
+        "with_interior_road": 476
+      },
+      "Removable east rail support 1": {
+        "sections": 780,
+        "with_interior_road": 780
+      },
+      "Removable west rail support 1": {
+        "sections": 312,
+        "with_interior_road": 312
+      },
+      "Removable west rail support 2": {
+        "sections": 416,
+        "with_interior_road": 416
+      },
+      "enclosure-back-top": {
+        "sections": 1761,
+        "with_interior_road": 1761
+      }
+    },
+    "omitted_sections": "Six terminal sections on the three removable fill-tube support noses. Each measures 2.367 by 0.376 mm on layer 413 and 2.367 by 0.101 mm on layer 414. None contains a 0.4 mm diameter circle."
+  },
+  "shell_interior_scan": {
+    "method": "Sample the full shell on a 0.8 mm XY lattice at every layer midpoint, using model road centerlines rasterized at up to 0.28 mm steps along their dominant axis. Recheck outlier witnesses against exact segments. The grid encloses the entire transformed shell.",
+    "interior_samples": 9966466,
+    "samples_over_5mm_from_a_rasterized_road": 36,
+    "affected_layer": 395,
+    "print_z_mm": 94.76,
+    "affected_machine_coordinate_range_mm": [
+      [
+        87.4,
+        400.725,
+        260.36
+      ],
+      [
+        87.4,
+        428.725,
+        260.36
+      ]
+    ],
+    "largest_outlier_witness_to_exact_centerline_mm": 10.226,
+    "finding": "All distant samples lie on the last 0.386 mm-wide Digiten lower retaining crest. Every whole permanent shell section contains an interior road. Nominal gyroid infill leaves intentional void space."
+  },
+  "digiten_lower_hook": {
+    "method": "Recover the XZ receiver envelope from commanded extrusion widths and layer bands at five installed Y sections. Apply the supported-meter fit model to the same three-dot cap section at each Y, holding its centered closing translation at +0.0917 mm. Solve for the least cap spread that clears each native receiver and measure lip-to-loaded-hook overlap at installed X91.10 mm.",
+    "compared_machine_y_mm": [
+      397.0,
+      406.5,
+      415.0,
+      427.0,
+      433.0
+    ],
+    "smooth_tip_source_z_mm": 260.35,
+    "smooth_seated_hook_overlap_mm": 1.676,
+    "missing_final_course_midplane_width_mm": 0.386,
+    "supported_coupon_archive": {
+      "path": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-supported-meter/2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei/2026-11-26-supported-meter-receiver-mark2-eae93d96-textured-pei.gcode.3mf",
+      "sha256": "c54de4f948aadc5f9bd0d23a3519683bf66877c52b71979268d193e44a4164ab",
+      "embedded_plate_1_gcode_sha256": "4184a759ec6ef4b4e6295e9d48cfb8f17b9aa0c03b670a295db335b078c1b7e4",
+      "completion_record": "hardware/print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-supported-meter/completion-status.json",
+      "reported_layers_finished": 295
+    },
+    "cap_model": {
+      "path": "hardware/print-tests/equipment-snap-pairs/parts/three-dot/meter-snap-cap.stl",
+      "stl_sha256": "54a328976ed885be0553dceb0637470516f9019fa083c05e254ab76f9b34e8f3",
+      "fit_record": "hardware/print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json",
+      "fit_record_sha256": "9762bac10540ee9acadaa05268b354d9b10b40c24e011b6c5a4812df7298c519"
+    },
+    "measurements_common_to_production_and_coupon": {
+      "outermost_lip_source_z_mm": 260.48,
+      "apex_loss_along_print_axis_mm": 0.13,
+      "retained_apex_course_width_mm": 1.008,
+      "distal_seat_stop_source_x_at_z259_mm": 98.5,
+      "seated_cap_tip_spread_mm": 1.141,
+      "seated_hook_source_z_mm": 261.921,
+      "seated_lower_hook_overlap_mm": 1.441,
+      "overlap_at_fixed_smooth_cap_pose_mm": 1.546
+    },
+    "last_course_machine_x_range_mm": [
+      86.992,
+      88.0
+    ],
+    "next_course_machine_x_range_mm": [
+      86.609,
+      88.24
+    ],
+    "finding": "The commanded production and coupon receiver measurements agree within 0.001 mm at all five sections. The modeled capture uses the deposited receiver and a seated geometric cap. Hand force and surface finish require physical testing."
+  },
+  "fill_tube_upper_wing": {
+    "method": "Sample the first underside roads every 0.07 mm over installed X90.61–95.51, Y261–269. The shell mesh gives the inclined first surface at 0.003 mm intervals in X. With commanded bead widths and 0.01 mm numerical tolerance, test overlap with the immediately preceding shell course or the authored wedge at one or two courses below (0.24 mm release gap).",
+    "sample_count": 1620,
+    "sampled_underside_road_mm": 111.793,
+    "on_previous_shell_mm": 43.406,
+    "over_authored_stock_mm": 102.803,
+    "length_with_neither_landing_mm": 0.0,
+    "underlying_shell_and_stock_groups_overlap": true,
+    "above_omitted_stock_noses": [
+      {
+        "machine_y_mm": 262.333,
+        "sample_count": 34,
+        "sampled_road_mm": 2.353,
+        "on_previous_shell_mm": 2.353
+      },
+      {
+        "machine_y_mm": 265.0,
+        "sample_count": 35,
+        "sampled_road_mm": 2.434,
+        "on_previous_shell_mm": 2.434
+      },
+      {
+        "machine_y_mm": 267.667,
+        "sample_count": 34,
+        "sampled_road_mm": 2.353,
+        "on_previous_shell_mm": 2.353
+      }
+    ]
+  },
+  "scope": "This compares commanded deposition with model geometry. The finished G-code does not expose the polygon index that caused the slicer diagnostic or measure material placement, adhesion, snap force or support-removal finish."
+}
