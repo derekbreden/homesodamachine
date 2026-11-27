@@ -5,29 +5,21 @@
 //! holds the motor can over the snap band. The pump's frame is its reference's: X along the motor
 //! from the motor/head seam, Z up from the foot plane.
 use crate::P3;
+use hsm_enclosure_numbers::equipment_snap;
 use crate::design::{Can, Placed, PumpMount, Section, above_core, pump_reference};
 
-/// The pump cap's shared rear-snap section: spring stock, retaining reach, free length and rooted
-/// bearing geometry. The above-core design owns the pointed lead-in shared by the rear caps.
+/// The fixed motor rails set the width of the lid block and the roots of the two springs.
 pub mod wing {
-    pub const WALL: f64 = 3.0;
-    pub const REACH: f64 = 2.6;
-    pub const SIDE: f64 = 0.5;
-    pub const WING: f64 = 2.0;
-    pub const FREE_LENGTH: f64 = 22.25;
+    pub const OUTER_FROM_RAIL_ROOM: f64 = 8.35;
     pub const ROOT_RADIUS: f64 = 1.5;
-    pub const LEDGE: f64 = 3.0;
-    pub const NOSE_LAND: f64 = 1.6;
-    /// The cap travels from its installed datum to the barrel with the bare pump on its rail floors.
-    pub const SEATING_TRAVEL: f64 = 0.76;
-    pub const LOADED_CATCH_DRAW: f64 = 0.24;
-    /// The crests meet their pockets before the rigid motor saddle reaches the full rail-seated travel.
-    pub const CREST_TRAVEL: f64 = 0.59;
-    pub const LOADED_SHOULDER_AIR: f64 = 0.09;
-    pub const CREST_WIDTH: f64 = 0.90;
-    pub const CREST_RISE: f64 = 0.40;
-    /// The crest swings farther than the hook when a leaf is spread for release.
+    pub const ROOT_LAND: f64 = 0.35;
+    /// Depths increase from the motor split toward the lid.
+    pub const STRAIGHT_FOOT: f64 = 30.25;
+    pub const FOOT_STOP_TRAVEL: f64 = 0.59;
+    pub const SHOULDER_STOP_TRAVEL: f64 = 0.85;
     pub const TIP_RELEASE_ROOM: f64 = 5.0;
+    /// The full motor bore seats the bare pump against the fixed rail floors before the feet bottom.
+    pub const SADDLE_DROP: f64 = 0.40;
 }
 
 /// The cap's split: its wings root on the pump's axis.
@@ -56,33 +48,25 @@ pub struct Rail {
 /// Z up from the split, Y along the pump in the enclosure.
 #[derive(Clone, Copy, Debug)]
 pub struct Station {
-    /// The pump's axis across, in the enclosure's X.
     pub axis_x: f64,
-    /// The cap's ends along the pump, in the enclosure's Y.
     pub y0: f64,
     pub y1: f64,
-    pub split: f64,
-    /// Half the cradle's neck the wings close round, the ledge's inner face, the wings' inner and
-    /// outer faces, and the hook's inner face.
-    pub neck: f64,
-    pub ledge: f64,
-    pub inner: f64,
     pub outer: f64,
-    pub hook: f64,
-    /// Heights off the split: the ledge's bearing, the hook's catch and tip, and the pocket's
-    /// ceiling over it.
-    pub bearing: f64,
-    pub catch: f64,
-    pub tip: f64,
+    pub join: f64,
     pub ceiling: f64,
-    /// The wings' root, its round, and the hook's solid nose.
-    pub root: f64,
-    pub root_radius: f64,
-    pub nose_land: f64,
-    pub tool_angle_degrees: f64,
-    pub tool_end_stock: f64,
-    /// The east tool entry's outer edge, on the aft airline opening's inner plane.
-    pub tool_outer_edge: f64,
+}
+
+impl Station {
+    /// The relaxed leaf from the outer root round the toe and nose to the inner root.
+    pub fn wing(&self) -> Vec<[f64; 2]> {
+        equipment_snap::wing(self.join - wing::STRAIGHT_FOOT).into_iter()
+            .map(|[r, d]| [self.outer + r, wing::STRAIGHT_FOOT + d]).collect()
+    }
+
+    /// The fully backed side of the pocket from the foot stop out to the entry bevel.
+    pub fn cheek(&self) -> [[f64; 2]; 7] {
+        equipment_snap::CHEEK.map(|[r, d]| [self.outer + r, self.ceiling + d])
+    }
 }
 
 /// The pump's mount, worked from its scan and the above-core design.
@@ -219,40 +203,15 @@ fn work() -> Cradle {
     let upper = section_points(&reference.casing_sections, cap_band[0], cap_band[1]);
     let bore_radius =
         can.radius_mm.max(largest(upper.iter().filter(|p| p[2] >= axis_z(p[0])).map(radial))) + fits.slip;
-    let neck = largest([bore_radius].into_iter().chain(rails.iter().map(|r| r.outer_y.abs()))) + wing::WALL;
-
-    // The inclined ledge passes through the original bearing datum at the nose.
-    let catch_fit = fits.slip + fits.supported_surface;
-    let ledge = neck + wing::REACH + fits.running;
-    let inner = ledge + wing::SIDE;
-    let root = SPLIT;
-    let station_height = (root + wing::FREE_LENGTH).max(SPLIT + wing::LEDGE + catch_fit);
-    let bearing = station_height - catch_fit;
-    let catch = bearing - wing::SEATING_TRAVEL - wing::LOADED_CATCH_DRAW;
-    let tip = station_height + wing::NOSE_LAND + hsm_enclosure_numbers::layout::snap_tip_rise() + wing::CREST_RISE;
-    let ceiling = tip + wing::CREST_TRAVEL;
-    let outer = inner + wing::WING;
+    let rail_room = largest([bore_radius].into_iter().chain(rails.iter().map(|r| r.outer_y.abs())));
     let ty = frame.translation_mm[1];
     let station = Station {
         axis_x: centre[0],
         y0: ty + cap_band[0],
         y1: ty + cap_band[1],
-        split: SPLIT,
-        neck,
-        ledge,
-        inner,
-        outer,
-        hook: ledge - wing::REACH,
-        bearing,
-        catch,
-        tip,
-        ceiling,
-        root,
-        root_radius: wing::ROOT_RADIUS,
-        nose_land: wing::NOSE_LAND,
-        tool_angle_degrees: TOOL_ANGLE_DEGREES,
-        tool_end_stock: TOOL_END_STOCK,
-        tool_outer_edge: centre[0] - outer,
+        outer: rail_room + wing::OUTER_FROM_RAIL_ROOM,
+        join: SPLIT - fits.slip + wing::ROOT_RADIUS + wing::ROOT_LAND,
+        ceiling: wing::STRAIGHT_FOOT + wing::FOOT_STOP_TRAVEL,
     };
     Cradle {
         band: [first, last],

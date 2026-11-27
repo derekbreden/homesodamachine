@@ -4,6 +4,7 @@
 //! station of the receiver it snaps into. The water regulator's station is written down in the
 //! layout; the other three are figured here.
 use hsm_enclosure_numbers::catalog::{clearance, running, slip};
+use hsm_enclosure_numbers::equipment_snap::WALL as WING;
 use hsm_enclosure_numbers::layout::{Pose, Station, layout};
 use hsm_enclosure_numbers::{P2, P3};
 use serde::Deserialize;
@@ -14,7 +15,6 @@ pub const WALL: f64 = 3.0;
 /// A cap's spring wing: its section, its flat bearing past the receiver edge, its relaxed face
 /// off that edge, its free length from root to hook, the round at its root, and how far below
 /// its axis a rear wing roots.
-const WING: f64 = 2.0;
 pub const REACH: f64 = 2.6;
 const SIDE: f64 = 0.5;
 const FREE_LENGTH: f64 = 22.25;
@@ -117,6 +117,7 @@ pub struct FittedExterior {
 
 #[derive(Deserialize)]
 pub struct ComponentRanges {
+    pub body: P2,
     pub outlet_fitting: P2,
     pub outlet_collet: P2,
 }
@@ -140,11 +141,6 @@ fn rear() -> f64 {
 /// The cap's spring wing clears its hook this far: one face's slip and its supported finish.
 pub fn catch_air() -> f64 {
     clearance(false, true, false)
-}
-
-/// The corbel's slope: its rise for each millimetre it climbs the neck from the ledge's edge.
-pub fn corbel_slope() -> f64 {
-    hsm_enclosure_numbers::layout::REAR_SNAP_CHAMFER_SLOPE
 }
 
 /// One snap station's flank numbers about its axis, from the seat's neck half-width, the cap's

@@ -11,6 +11,7 @@ use hsm_cold_core_interface as core;
 use hsm_cold_core_layout::b_fill as tube;
 use hsm_cold_core_layout::cap::cap_face_z;
 use hsm_foam_cap_numbers as cap;
+use hsm_enclosure_numbers::equipment_snap;
 use hsm_foam_cap_numbers::pump::{self, Cradle};
 use hsm_foam_cap_numbers::reservoir_a;
 use hsm_kernel::math::{PI, TAU, cos, sin};
@@ -342,7 +343,7 @@ fn pump_room(c: &Cradle) -> Result<Solid> {
     let origin = p3(c.can.axis_point_mm);
     let [first, last] = c.band;
     let x = first - ROOM_OVERRUN;
-    let start = v3(x, origin.y, origin.z + axis.z * (x - origin.x) / axis.x);
+    let start = v3(x, origin.y, origin.z + axis.z * (x - origin.x) / axis.x - pump::wing::SADDLE_DROP);
     let t = placement(c.frame.rotation, c.frame.translation_mm);
     Solid::cylinder(t.point(start), t.vector(axis), c.bore_radius, (last - first + 2. * ROOM_OVERRUN) / axis.x)
 }
@@ -401,26 +402,10 @@ fn pump_cradle() -> Result<Solid> {
         }
         body = body.cut(&Solid::loft(&profiles)?)?;
     }
-    let s = &c.station;
-    let slope = hsm_enclosure_numbers::layout::REAR_SNAP_CHAMFER_SLOPE;
-    let shoulder = pump::wing::SEATING_TRAVEL + pump::wing::LOADED_SHOULDER_AIR - cap::fits().slip;
-    for side in [-1., 1.] {
-        let at = |u, z| v2(s.axis_x + side * u, z);
-        let edge = |u: f64| s.bearing + (s.hook - u) * slope;
-        let profile = Loop::polygon(&[
-            at(half, s.split - 1.), at(wide + 1., s.split - 1.), at(wide + 1., s.ceiling),
-            at(s.neck, s.ceiling), at(s.neck, edge(s.neck)), at(s.ledge, edge(s.ledge)),
-            at(s.ledge, s.root + s.root_radius + running),
-            at(s.inner - s.root_radius - running, shoulder), at(half, shoulder),
-        ]);
-        let pocket = Plane::XZ.at(v3(0., s.y1 + running, 0.))
-            .extrude(&Profile::new(profile), s.y1 - s.y0 + 2. * running)?;
-        body = body.cut(&pump_cap_world(&pocket, c))?;
-    }
     // The air passage opens through this outside corner behind the cap; the whole bearing lands
     // stay inboard of the spring's outer face.
     let (east, aft) = (cx + wide, fy + rear1);
-    let cap_end = s.y1 + running;
+    let cap_end = c.station.y1 + running;
     let clearance = box3(cx + c.stock_half_width, east + OVERCUT, cap_end, aft + OVERCUT, face - 2. * OVERCUT, cz + 2. * OVERCUT);
     Ok(body.cut(&clearance)?.transformed(&world_to_cap()))
 }
@@ -430,21 +415,15 @@ fn pump_cradle() -> Result<Solid> {
 fn pump_snap() -> Result<Solid> {
     let c = pump::cradle();
     let s = &c.station;
-    let (x, w, wi, h) = (s.axis_x, s.outer, s.inner, s.hook);
-    let base = -cap::fits().slip;
-    let root = s.root_radius;
+    let (x, w) = (s.axis_x, s.outer);
+    let wi = w - equipment_snap::WALL;
+    let base = pump::SPLIT - cap::fits().slip;
+    let root = pump::wing::ROOT_RADIUS;
     let k = root / 2_f64.sqrt();
     let r = c.bore_radius + c.selected.cap_arch_wall_mm;
-    let slope = hsm_enclosure_numbers::layout::REAR_SNAP_CHAMFER_SLOPE;
-    let west = [
-        v2(x - w, 0.),
-        v2(x - w, s.tip),
-        v2(x - w + pump::wing::CREST_WIDTH, s.tip),
-        v2(x - h, s.catch + s.nose_land),
-        v2(x - h, s.catch),
-        v2(x - wi, s.catch - (wi - h) * slope),
-        v2(x - wi, base + root),
-    ];
+    let mut west = vec![v2(x - w, pump::SPLIT)];
+    west.extend(s.wing().iter().map(|[radial, depth]| v2(x - radial, *depth)));
+    west.push(v2(x - wi, base + root));
     let mut pen = Pen::new(west[0]);
     for &p in &west[1..] {
         pen = pen.line_to(p);
@@ -787,14 +766,24 @@ fn top_lid() -> Result<Solid> {
     let half = pump::CHANNEL_HALF_WIDTH;
     let recess = box3(cx - half, cx + half, fy + fore - OVERCUT, fy + aft + OVERCUT, face - c.selected.cover_channel_recess_mm, face + OVERCUT)
         .transformed(&t);
-    // The pocket floor continues under the whole crest as the hook springs over the ledge.
+    // Each continuous cut reaches from the motor cradle into the plate, leaving solid stock
+    // behind the guide, the 45-degree retaining shoulder and the lead-in at either end.
     let s = &c.station;
     let (y0, y1) = (s.y0 - fits.running, s.y1 + fits.running);
+    let cheek = s.cheek();
+    let pilot = cheek.last().unwrap()[0];
+    let inner = s.outer - equipment_snap::WALL;
+    let base = pump::SPLIT - fits.slip;
+    let shoulder = base + pump::wing::SHOULDER_STOP_TRAVEL;
     let mut tips = vec![];
     for side in [-1., 1.] {
-        let near = s.axis_x + side * s.neck;
-        let far = s.axis_x + side * (s.outer + pump::wing::TIP_RELEASE_ROOM);
-        let pocket = box3(near, far, y0, y1, c.centre[2] - face - OVERCUT, s.ceiling);
+        let at = |r, d| v2(s.axis_x + side * r, d);
+        let far = s.outer + pump::wing::TIP_RELEASE_ROOM;
+        let mut profile = vec![at(half, pump::SPLIT - 1.), at(far, pump::SPLIT - 1.), at(far, s.ceiling)];
+        profile.extend(cheek.iter().map(|[r, d]| at(*r, *d)));
+        profile.extend([at(pilot, pump::wing::ROOT_RADIUS + fits.running),
+                        at(inner - pump::wing::ROOT_RADIUS - fits.running, shoulder), at(half, shoulder)]);
+        let pocket = Plane::XZ.at(v3(0., y1, 0.)).extrude(&Profile::polygon(&profile), y1 - y0)?;
         tips.push(pump_cap_world(&pocket, c).transformed(&t));
     }
     // An air tube's passage nearer than a wall to the east pocket's aft corner opens into it: the
@@ -818,13 +807,14 @@ fn top_lid() -> Result<Solid> {
 fn machine_numbers(dir: &std::path::Path) -> Result<()> {
     let c = pump::cradle();
     let s = &c.station;
+    let free_tip = s.wing().iter().map(|p| p[1]).fold(f64::NEG_INFINITY, f64::max);
     let station = json!({
-        "axis_x": s.axis_x, "y0": s.y0, "y1": s.y1, "split": s.split, "neck": s.neck,
-        "ledge": s.ledge, "inner": s.inner, "outer": s.outer, "hook": s.hook, "bearing": s.bearing,
-        "catch": s.catch, "tip": s.tip, "ceiling": s.ceiling, "root": s.root,
-        "nose_land": s.nose_land, "root_radius": s.root_radius,
-        "tool_angle_degrees": s.tool_angle_degrees, "tool_end_stock": s.tool_end_stock,
-        "tool_outer_edges": [s.tool_outer_edge, Value::Null], "tool_ports": [],
+        "axis_x": s.axis_x, "y0": s.y0, "y1": s.y1, "split": pump::SPLIT,
+        "inner": s.outer - equipment_snap::WALL, "outer": s.outer, "tip": free_tip, "ceiling": s.ceiling,
+        "straight_foot_mm": pump::wing::STRAIGHT_FOOT, "spring_join_mm": s.join,
+        "fixed_guide_radius_and_depth_mm": s.cheek(), "root_radius": pump::wing::ROOT_RADIUS,
+        "saddle_drop_mm": pump::wing::SADDLE_DROP, "tool_angle_degrees": pump::TOOL_ANGLE_DEGREES,
+        "tool_end_stock": pump::TOOL_END_STOCK, "tool_outer_edges": [s.axis_x - s.outer, Value::Null], "tool_ports": [],
     });
     let rails: Vec<Value> = c
         .rails

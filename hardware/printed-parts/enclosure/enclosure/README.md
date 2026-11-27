@@ -753,18 +753,17 @@ native slice review confirms the cap air gaps, bed border and clear fitted
 interiors. Funnel insert pilots bridge between their own walls inside the
 supported shoulders, and so do the power inlet's blind pilots inside its
 supported flange pocket and cord passage. The connector insertion pockets
-remain clear. The [current review record](../../support-D-rollout.json)
+remain clear. The [production print plan](prints/2026-11-26-production-snaps-mark1/print-plan.json)
 binds those results to the exact enclosure mesh and toolpaths. Physical cleanup
 and fit of this prepared plate await its first print.
 
-Each rear catch has a solid 45° face. As the hooks return, the two flat crests
-on each cover meet their pocket roof or the meter’s east wall. The ASSE and
-water roofs have local recesses for their measured seating travel. Their
-outboard clearance lets the crests sweep past the roof skin while releasing
-the hooks. The Pisco wings stop ahead of the rear corner column.
+Each rear catch has a solid retaining face. The pilot on each spring foot
+guides the cover into the pair of cheeks. On the fitted water regulator the
+curved saddle meets the body before the feet reach their stops. The Pisco
+wings clear the rear corner column as the cap tips into position.
 [Measured rear cap fits](../rear-equipment-caps/production-fit.json)
 
-The ASSE, Pisco, meter and water-regulator catch pockets stay clear of supports.
+The ASSE, Pisco and water-regulator catches grow in the ceiling-down orientation.
 A common ceiling recess over the ASSE and Pisco runs between the flanks and
 flush to the rear wall, whose panel relief runs from the rim up to it at the
 face of the core's pocket, and it runs round the connector wells' row on the
@@ -776,9 +775,11 @@ passages and wing catches. The Pisco body retains its fitted span.
 The meter’s upper catch ends at the Pisco receiver’s fore wall. Both
 sideways channels return to the flank on bevels. The aft boss-channel crown
 grows from a permanent 45° slope with a taper at the upper spring’s end.
-The Pisco clears the shoulder as it tips in. Support the fore shoulder, upper
-lip, boss channels, screw-head channels and wire chamber through the open
-west side. Leave the two catch pockets clear. [Backed shoulder specimen](../../../print-tests/rear-receiver-quick/README.md)
+The Pisco clears the shoulder as it tips in. On the meter, removable interfaces
+back the upper guide and retaining return, the shelf behind the long cheek,
+the fore shoulder, the boss and screw-head ledges, and the wire chamber roof.
+They are accessible through the west side before the meter is installed.
+[Supported receiver trial](../../../print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json)
 
 Component bearing profiles and
 spring walls retain their fitted geometry. The

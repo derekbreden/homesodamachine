@@ -4,6 +4,7 @@
 //! lands.
 pub mod catalog;
 pub mod display_mount;
+pub mod equipment_snap;
 pub mod disposal;
 pub mod exterior;
 pub mod faces;

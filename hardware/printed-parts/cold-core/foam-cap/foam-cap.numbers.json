@@ -162,7 +162,7 @@
      "contact_scope": "Motor-side saddle native X16.75–77.75 and one continuous upper clip X20–74.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
      "cover_channel_fore_native_x_mm": -20.0,
      "cover_channel_recess_mm": 2.5,
-     "insertion": "Lower the bare pump onto the fixed rail seats above the shallow lid recess. The cap closes over the motor. Its inclined catches draw the arch toward the barrel until the flat crests meet the floors of the side pockets.",
+     "insertion": "Lower the bare pump onto its fixed rails. Center the cap between the end walls and press its rigid crown until both hooks engage. The saddle bears on the motor before the feet reach the pocket floors.",
      "motor_band_native_x_mm": [
       16.75,
       77.75
@@ -190,19 +190,45 @@
     },
     "snap_station": {
      "axis_x": -15.181429835394722,
-     "bearing": 21.85,
-     "catch": 20.85,
      "ceiling": 30.84,
-     "hook": 31.479180708991777,
+     "fixed_guide_radius_and_depth_mm": [
+      [
+       34.76118070899178,
+       30.84
+      ],
+      [
+       33.614430708991776,
+       28.44
+      ],
+      [
+       32.70318070899178,
+       24.439999999999998
+      ],
+      [
+       32.35918070899178,
+       22.11
+      ],
+      [
+       34.379180708991775,
+       20.09
+      ],
+      [
+       34.379180708991775,
+       19.73
+      ],
+      [
+       32.97356502162178,
+       17.490000000000002
+      ]
+     ],
      "inner": 34.57918070899178,
-     "ledge": 34.07918070899178,
-     "neck": 31.229180708991777,
-     "nose_land": 1.6,
      "outer": 36.57918070899178,
-     "root": 0.0,
      "root_radius": 1.5,
+     "saddle_drop_mm": 0.4,
      "split": 0.0,
-     "tip": 30.25,
+     "spring_join_mm": 1.7000000000000002,
+     "straight_foot_mm": 30.25,
+     "tip": 30.28550683405693,
      "tool_angle_degrees": -65.0,
      "tool_end_stock": 10.0,
      "tool_outer_edges": [
@@ -300,7 +326,7 @@
    "contact_scope": "Motor-side saddle native X16.75–77.75 and one continuous upper clip X20–74.5. End stops contact only fixed motor rail ends; the rough head underside remains clear throughout axial free play. The central wire-cover and lead corridor stays open.",
    "cover_channel_fore_native_x_mm": -20.0,
    "cover_channel_recess_mm": 2.5,
-   "insertion": "Lower the bare pump onto the fixed rail seats above the shallow lid recess. The cap closes over the motor. Its inclined catches draw the arch toward the barrel until the flat crests meet the floors of the side pockets.",
+   "insertion": "Lower the bare pump onto its fixed rails. Center the cap between the end walls and press its rigid crown until both hooks engage. The saddle bears on the motor before the feet reach the pocket floors.",
    "motor_band_native_x_mm": [
     16.75,
     77.75
@@ -328,19 +354,45 @@
   },
   "snap_station": {
    "axis_x": -15.181429835394722,
-   "bearing": 21.85,
-   "catch": 20.85,
    "ceiling": 30.84,
-   "hook": 31.479180708991777,
+   "fixed_guide_radius_and_depth_mm": [
+    [
+     34.76118070899178,
+     30.84
+    ],
+    [
+     33.614430708991776,
+     28.44
+    ],
+    [
+     32.70318070899178,
+     24.439999999999998
+    ],
+    [
+     32.35918070899178,
+     22.11
+    ],
+    [
+     34.379180708991775,
+     20.09
+    ],
+    [
+     34.379180708991775,
+     19.73
+    ],
+    [
+     32.97356502162178,
+     17.490000000000002
+    ]
+   ],
    "inner": 34.57918070899178,
-   "ledge": 34.07918070899178,
-   "neck": 31.229180708991777,
-   "nose_land": 1.6,
    "outer": 36.57918070899178,
-   "root": 0.0,
    "root_radius": 1.5,
+   "saddle_drop_mm": 0.4,
    "split": 0.0,
-   "tip": 30.25,
+   "spring_join_mm": 1.7000000000000002,
+   "straight_foot_mm": 30.25,
+   "tip": 30.28550683405693,
    "tool_angle_degrees": -65.0,
    "tool_end_stock": 10.0,
    "tool_outer_edges": [

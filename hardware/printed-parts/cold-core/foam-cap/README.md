@@ -46,21 +46,21 @@ rails bear on fitted floors from native X16.75–77.75. The joined stock stops
 both rails at each end. One straight 49.62 mm channel is recessed 2.5 mm below
 the lid face, leaving a 4.9 mm floor. A single fore plane clears both head lugs. The two rail bearing strips
 are 3.419 mm and 3.329 mm wide.
-One continuous 54.5 mm filled box half-pipe spans native X20–74.5, with a
-6.2 mm crown and one straight east shoulder for ASSE clearance. Independent
-2.0 mm spring leaves have 1.5 mm inside root blends. Each full-length hook bears on
-a matching 45° ledge. Its lead-in ends in a 0.90 mm flat crest raised 0.40 mm
-toward the lid. The straight pockets extend outboard for release. The east pocket
-opens into Reservoir A's air passage beside the aft corner.
+The 54.5 mm cover spans native X20–74.5. Its filled crown has a straight east
+shoulder for ASSE clearance. Each 2.0 mm spring grows from a 1.5 mm root blend.
+The two broad feet start over the beveled receiver mouths. The inward-curved
+springs follow the fixed guides, then catch on the backed 45° shoulders.
+The east release pocket opens into Reservoir A's air passage at the aft corner.
 
-From the nominal installed position, the arch reaches the rigid motor at
-0.454 mm of downward travel. The crest stops at 0.590 mm. With the bare motor
-already resting on its rail floors, the rigid arch still has 0.168 mm of
-vertical travel to the barrel when the crests meet the pocket floors. The
-benchtop pair preserves both rail seats, end stops and the lid's print face.
-[Loaded fit and release measurements](../../../print-tests/pump-seated-snaps/parts/fit-check.json)
+With the motor resting on its rail floors, the cover reaches the motor can
+after 0.358 mm of downward travel in CAD. The two final print files place the
+motor higher on the rail courses. At first contact with both printed bearings,
+the estimated hook engagement is 1.27 mm on each side and the feet have 0.28 mm
+to the pocket floors. Center the cover between the end walls, press on its rigid
+crown and feel both sides engage. [Production motor and cover measurements](pump-snap-fit.json)
+
 The [pump installation](../../../reference/g-ganen-pump/installation/README.md)
-owns the bearing datums, axial stops and removable sliders.
+locates the bearing datums, axial stops and removable sliders.
 
 V-B uses the shared V69 upright socket. Four DC/sensor WAGO wells occupy the board-facing
 back of its wall. Their levers open west. The wall and wells retain ordinary 3 mm stock.
@@ -131,8 +131,9 @@ The cap stays fastened to the shell throughout the body assembly.
 ## M5 closure hardware
 
 Each face has ten screws: three on each short end and two on each aft long flank.
-The shell-native axes are X±135.4 at Y−60/0/+60 mm, and X45/110 at Y±84.4 mm.
-The top lid carries the inverse pattern in its pre-install half-turn frame.
+The shell end at X−135.4 carries screws at Y−60/0/+60 mm. The end at
+X+135.4 uses Y−60/0/+56 mm, placing its sixth screw at (−135.4, −56)
+in the turned lid frame. The remaining four shell axes are X45/110 at Y±84.4 mm.
 
 The selected fully threaded M5 × 100 screws have Ø8.5 × 5 mm heads and 4 mm hex sockets.
 The printed passages are Ø5.2 and the outward-open head pockets are Ø9.
@@ -156,7 +157,7 @@ records the Rust meshes, saved recipes, emitted paths and driver envelopes.
 The [native M5 driver reading](m5-lid-driver-review.json) retains the native reference.
 
 The [local solid regions](fore-snap-print-regions.json) give the V-A feed, V-B return and pump-discharge clips,
-the reservoir A clip pairs, the casing screw hosts and head bearings, and the PCB
+the two motor catches, the reservoir A clip pairs, the casing screw hosts and head bearings, and the PCB
 insert posts solid infill through their roots. Before preparing a print project,
 regenerate the regions from the cap dimensions and the exported pieces with
 [`foam-cap-print-regions`](print_regions.rs).
@@ -167,8 +168,8 @@ Assembly order and foam work: [cold-core assembly](../../../assembly/cold-core.m
 
 With the lid on the bench, dress the pump plumbing and leads aside, spread the
 exposed leaves until both hooks clear their ledges and lift the cap straight up.
-The pocket floors give both raised crests room to swing out with the leaves.
+The open side pockets give both feet room to swing out with the leaves.
 
 The [complete snap set](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/receiver-tool-access/README.md)
-records the earlier receiver trials. The [independent pump pair](../../../print-tests/pump-seated-snaps/README.md)
-fits the complete bare pump for checking cover movement and release.
+records the earlier receiver trials. The [pump fixture](../../../print-tests/pump-seated-snaps/README.md)
+preserves the production lid orientation, rail floors and end stops for bench checks.

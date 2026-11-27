@@ -103,6 +103,10 @@ pub(super) fn write() -> Result<()> {
 
     let mut contact =
         reads::json("hardware/printed-parts/enclosure/rear-equipment-caps/contact.json")?;
+    let printed = reads::json(Path::new(HERE).join(
+        "prints/2026-11-26-mark1-meter-water/2026-11-26-three-dot-meter-water-mark1-1541f839-textured-pei/contact-band.json",
+    ))?;
+    contact["roof"] = printed["selection"].clone();
     let mut selection: [[f64; 3]; 2] =
         serde_json::from_value(contact["roof"]["bounds_source_mm"].clone())?;
     for p in &mut selection {

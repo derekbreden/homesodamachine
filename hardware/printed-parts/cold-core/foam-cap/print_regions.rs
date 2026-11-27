@@ -4,7 +4,7 @@
 //!     foam-cap-print-regions [--out FILE]
 //!
 //! Each region is a box of full zig-zag infill through a retention feature and the plate or wall
-//! that roots it: reservoir A's fore pair's shared base and its aft pair, the valve and pump-discharge clips, the casing's M5 hosts and
+//! that roots it: reservoir A's fore pair's shared base and its aft pair, the pump catches, valve and discharge clips, the casing's M5 hosts and
 //! head bearings, and the PCB deck's insert posts. A box intersects existing material and adds no geometry; it
 //! is clipped to its piece's current mesh, and the record binds each piece's STEP and STL, so
 //! print preparation refuses a piece whose exports have moved since. It reads the cap's numbers
@@ -13,7 +13,7 @@
 use anyhow::{bail, Context, Result};
 use hsm_cold_core_interface as core;
 use hsm_cold_core_layout::cap::world_to_cap;
-use hsm_foam_cap_numbers::{clips, deck, fits, reservoir_a};
+use hsm_foam_cap_numbers::{clips, deck, fits, pump, reservoir_a};
 use serde_json::{json, Map, Value};
 use sha2::{Digest, Sha256};
 use std::path::{Path, PathBuf};
@@ -69,6 +69,13 @@ fn square(x: f64, y: f64, half: f64, z0: f64, z1: f64) -> [f64; 6] {
     [x - half, x + half, y - half, y + half, z0, z1]
 }
 
+/// The installation frame and the lid's print frame differ by a quarter-turn about Z.
+fn lid_bounds(low: [f64; 3], high: [f64; 3]) -> [f64; 6] {
+    let a = world_to_cap(low);
+    let b = world_to_cap(high);
+    [a[0].min(b[0]), a[0].max(b[0]), a[1].min(b[1]), a[1].max(b[1]), a[2].min(b[2]), a[2].max(b[2])]
+}
+
 fn main() -> Result<()> {
     let root = std::env::current_dir()?;
     let mut out = root.join(HERE).join("fore-snap-print-regions.json");
@@ -99,18 +106,7 @@ fn main() -> Result<()> {
                                 ("V-B return clip and lid root", clips::vb_stock_bounds()?),
                                 ("V-A feed clip and lid root", clips::va_feed()?.stock_bounds),
                                 ("Pump discharge clip and lid root", clips::pump_discharge()?.stock_bounds())] {
-        let mut native = [f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY];
-        for x in [low[0], high[0]] {
-            for y in [low[1], high[1]] {
-                for z in [low[2], high[2]] {
-                    let p = world_to_cap([x, y, z]);
-                    for axis in 0..3 {
-                        native[2 * axis] = native[2 * axis].min(p[axis]);
-                        native[2 * axis + 1] = native[2 * axis + 1].max(p[axis]);
-                    }
-                }
-            }
-        }
+        let native = lid_bounds(low, high);
         let clipped = clip(native, lid.0, lid.1);
         if (0..3).any(|axis| clipped[2 * axis + 1] <= clipped[2 * axis]) {
             bail!("the modifier for {name} is outside the current lid bounds");
@@ -118,6 +114,23 @@ fn main() -> Result<()> {
         let mut row = region(name.into(), native, lid);
         row["world_bounds_mm"] = json!([low[0], high[0], low[1], high[1], low[2], high[2]]);
         lid_rows.push(row);
+    }
+    let cradle = pump::cradle();
+    let s = &cradle.station;
+    let cheek = s.cheek();
+    let inner = cheek.iter().map(|p| p[0]).fold(f64::INFINITY, f64::min);
+    let outer = s.outer + pump::wing::TIP_RELEASE_ROOM;
+    let floor = cradle.centre[2] - s.ceiling;
+    let mut pocket_exclusions = Vec::new();
+    for (side, name) in [(-1., "west"), (1., "east")] {
+        let x = |radial: f64| s.axis_x + side * radial;
+        let y0 = s.y0 - f.running;
+        let y1 = s.y1 + f.running;
+        let stock = lid_bounds([x(inner - ROOT), y0 - ROOT, floor - ROOT], [x(cheek[0][0]), y1 + ROOT, cradle.centre[2]]);
+        lid_rows.push(region(format!("Pump {name} catch and lid root"), stock, lid));
+        let mouth = lid_bounds([x(inner), y0, floor], [x(outer), y1, cradle.centre[2]]);
+        pocket_exclusions.push(json!({"name": format!("Pump {name} catch pocket"), "bounds_source_mm": mouth,
+            "reason": "The retaining shoulder grows at 45 degrees from continuous stock. The guide and release slot print clear."}));
     }
     let (mut shell_rows, mut bottom_rows) = (Vec::new(), Vec::new());
 
@@ -141,6 +154,7 @@ fn main() -> Result<()> {
 
     let sources = ["hardware/printed-parts/cold-core/foam-cap/print_regions.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs",
                    "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/design.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs", "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs",
+                   "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs", "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs",
                    "hardware/printed-parts/cold-core/interface/lib.rs", "hardware/cold-core-layout/layout/cap.rs", "hardware/manifold-layout/above-core.json"];
     let mut source_sha = Map::new();
     for s in sources {
@@ -149,10 +163,11 @@ fn main() -> Result<()> {
     let frames: Map<String, Value> = paths.iter().map(|(name, _)| (name.to_string(),
         json!("Source STEP/STL coordinates before installed placement; world_bounds_mm, where present, uses appliance coordinates."))).collect();
     let record = json!({
-        "scope": "Solid infill through reservoir A's fore and aft seats, the V-A feed, V-B return and pump-discharge clips, the casing screw hosts and head bearings, and the PCB insert posts. Each region includes its supporting plate or wall root.",
+        "scope": "Solid infill through the pump catches, tube seats, casing screw hosts and bearings, and PCB insert posts. The lid keeps both motor-cap pockets clear for insertion and release.",
         "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe.",
         "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
         "coordinate_frames": frames, "source_sha256": source_sha, "native_artifact_sha256": meshes,
+        "source_stl_sha256": meshes["foam-cap-lid-top"][".stl"], "support_free_regions": pocket_exclusions,
         "part_process_overrides": {},
         "pieces": {"foam-cap-lid-top": lid_rows, "foam-cap-bottom": bottom_rows, "foam-shell": shell_rows},
     });

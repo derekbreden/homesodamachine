@@ -10,14 +10,14 @@ mod stations;
 
 use anyhow::{Result, anyhow, bail};
 use hsm_enclosure_numbers::catalog::{self, running, slip};
-use hsm_enclosure_numbers::layout::{Pose, Station, REAR_SNAP_CREST_WIDTH, layout};
+use hsm_enclosure_numbers::equipment_snap;
+use hsm_enclosure_numbers::layout::{Pose, Station, layout};
 use hsm_enclosure_numbers::{Bounds, P2, P3};
 use hsm_kernel::part::{write_part, write_shown};
 use hsm_kernel::rule::ring_count;
 use hsm_kernel::{Affine, Body, Loop, Plane, Profile, Seg, Solid, V2, V3, v2, v3};
 use serde::Deserialize;
-use stations::{Meter, NOSE_LAND, REACH, ROOT_RADIUS, WALL, asse, catch_air, clearance_profile,
-               corbel_slope, interpolate, meter, tip_air};
+use stations::{Meter, ROOT_RADIUS, WALL, asse, clearance_profile, interpolate, meter, tip_air};
 use std::f64::consts::{PI, TAU};
 use std::path::PathBuf;
 use std::sync::OnceLock;
@@ -40,12 +40,8 @@ const ASSE_BODY_SEATING_DEPTH: f64 = 0.25;
 const ASSE_HEX_SEATING_DEPTH: f64 = 0.25;
 const ASSE_ROOM_AFT: f64 = 0.5;
 const ROOM_ENDS: f64 = 0.01;
-/// The fitted four-bar cover raises both crests this far beyond the original pointed lead-in.
+/// Registration of the straight wing foot to the equipment stations.
 const CREST_RISE: f64 = 0.40;
-/// The free retaining faces overlap their catches enough to keep the leaves sprung at the roof stop.
-const PISCO_METER_FREE_HOOK_OVERLAP: f64 = 0.55;
-const ASSE_FREE_HOOK_OVERLAP: f64 = 0.68;
-const REGULATOR_FREE_HOOK_OVERLAP: f64 = 0.78;
 /// The inlet adapter's aft neck shoulder on its own axis; the stock that captures its hex runs a
 /// wall past it.
 const ADAPTER_SHOULDER_X: f64 = -13.825;
@@ -69,6 +65,7 @@ const BEVEL_ENDS: f64 = 0.1;
 /// The water regulator's central bearing ends this far short of the spring ends beside the
 /// outlet's release collet.
 const REGULATOR_OUTLET_SETBACK: f64 = 1.0;
+const REGULATOR_SADDLE_RISE: f64 = 0.40;
 /// A turned profile's axis laid fore, along the machine's −Y.
 const FORE: [P3; 3] = [[0.0, 1.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 1.0]];
 
@@ -211,8 +208,14 @@ fn asse_cap() -> Result<Cap> {
     let axis = [centre[0], centre[2]];
     let st = stations::asse_station();
     let (stock, adapter) = adapter_capture(chain, &st, axis)?;
-    let wings = section(&st, Underside::Hex(axis[1]), st.bearing, ASSE_FREE_HOOK_OVERLAP, st.ceiling)?;
-    let cap = along_y(wings, [st.y0, st.y1])?.union(&stock)?;
+    let wings = section(&st, Underside::Hex(axis[1]), st.ceiling)?;
+    let mut cap = along_y(wings, [st.y0, st.y1])?.union(&stock)?;
+    // The adapter overlaps the last wall-width of each spring up to the housing axis.
+    for sign in [-1.0, 1.0] {
+        let edge = axis[0] + sign * st.outer;
+        let inner = axis[0] + sign * st.inner;
+        cap = cap.union(&cuboid([edge.min(inner), edge.max(inner), st.y1-WALL, st.y1, st.root, axis[1]]))?;
+    }
     let room = along_y(body_room(axis), [st.y0 - ROOM_ENDS, st.y1 + ASSE_ROOM_AFT + ROOM_ENDS])?;
     let pose = &l.parts.asse1022_assembly;
     let [lo, hi] = world_bounds(pose, vent_bounds());
@@ -330,18 +333,64 @@ fn pisco_cap() -> Result<Cap> {
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     let saddle = axis[1] - (body_radius.powi(2) - (half - WALL).powi(2)).max(0.0).sqrt();
     // The leaves stop ahead of the rear corner column; the body beneath their roots runs on.
-    let wings = section(&st, Underside::Flat(bottom), st.bearing, PISCO_METER_FREE_HOOK_OVERLAP, st.ceiling)?;
+    let wings = section(&st, Underside::Flat(bottom), st.ceiling)?;
     let cap = along_y(wings, [st.y0, hsm_enclosure_numbers::layout::PISCO_WING_AFT_Y])?
         .union(&cuboid([axis[0] - st.outer, axis[0] + st.outer, st.y0, st.y1, bottom, st.root]))?
         .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, st.y1, bottom, saddle]))?
-        .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, lip, bottom, axis[1]]))?;
+        .union(&cuboid([axis[0] - half, axis[0] + half, st.y0, lip + 0.24, bottom, axis[1]]))?;
     let below: Vec<P2> = profile.iter().copied().filter(|p| p[0] <= neck).collect();
     let above: Vec<P2> = profile.iter().copied().filter(|p| p[0] >= neck).collect();
-    let body = clipped(&clearance_profile(&below, PISCO_CAP_FIT, running()), window[0], mouth_y - lip);
-    let outlet = clipped(&clearance_profile(&above, PISCO_CAP_FIT, running()), mouth_y - lip, window[1]);
+    let body = clipped(&clearance_profile(&below, PISCO_CAP_FIT, running()), window[0], mouth_y - lip - 0.24);
+    let mut outlet = clipped(&clearance_profile(&above, PISCO_CAP_FIT, running()), mouth_y - lip, window[1]);
+    outlet.insert(0, [mouth_y - lip - 0.24, outlet[0][1]]);
     let frame = affine(&Pose { rotation: FORE, translation_mm: [axis[0], mouth_y, axis[1]] });
     let bores = [turned(&body)?.transformed(&frame), turned(&outlet)?.transformed(&frame)];
-    Ok(Cap { name: "pisco-snap-cap", installed: cap.cut_all(&bores)?, print: V3::X })
+    let cap = cap.cut_all(&bores)?;
+    let [body_station, radius] = profile.iter().copied().max_by(|a,b| a[1].total_cmp(&b[1])).unwrap();
+    let bearing_y = mouth_y - body_station;
+    let centre_z = axis[1] + 0.035 + 0.0103;
+    let mut bearing = vec![v2(axis[0] - 4.0, bottom + 0.65), v2(axis[0] + 4.0, bottom + 0.65)];
+    for i in (-32..=32).rev() {
+        let x = f64::from(i) / 8.0;
+        bearing.push(v2(axis[0] + x, centre_z - (radius * radius - x * x).sqrt()));
+    }
+    let cap = cap.union(&along_y(Loop::polygon(&bearing), [bearing_y - 1.0, bearing_y + 1.0])?)?;
+    let body_end = mouth_y - exterior.component_ranges_mm.body[1];
+    let cradle = |y0, y1| cuboid([axis[0]-half, axis[0]+half, y0, y1, bottom+0.65, axis[1]+0.01]);
+    let lead = 0.60;
+    let rise = 0.20;
+    let ramp = cap.intersect(&cradle(body_end, body_end + lead))?.mapped(&Affine {
+        m: [[1.,0.,0.,0.], [0.,1.,0.,0.], [0.,rise/lead,1.,-body_end*rise/lead]],
+    })?;
+    let raised = cap.intersect(&cradle(body_end + lead, st.y1))?.translate(V3::Z * rise);
+    let cap = cap.union(&ramp)?.union(&raised)?;
+    let stop = lip + 0.24;
+    let shoulder = pisco_outlet_bearing(profile, mouth_y, axis, stop, bottom)?;
+    let aft = st.y1;
+    let top = st.root;
+    let tail_lead = Plane::YZ.at(v3(axis[0] + st.outer - 3.30, 0., 0.)).extrude(
+        &Profile::polygon(&[v2(aft + 0.02, top - 1.25 - 0.02 * 1.25 / 0.80),
+            v2(aft + 0.02, top + 0.02), v2(aft - 0.80 - 0.02 * 0.80 / 1.25, top + 0.02)]), 3.35)?;
+    Ok(Cap { name: "pisco-snap-cap", installed: cap.union(&shoulder)?.cut(&tail_lead)?, print: V3::X })
+}
+
+/// The metal outlet cone bears on this central chord while the release collet stays free.
+fn pisco_outlet_bearing(scan: &[P2], mouth: f64, axis: P2, stop: f64, bottom: f64) -> Result<Solid> {
+    let (start, end, relief) = (stop - 0.10, stop + 1.30, stop + 0.63);
+    let registration = 0.12 - 0.118;
+    let mut stations = vec![start, end, relief, stop + 0.12];
+    stations.extend(scan.iter().map(|p| mouth - p[0] - registration).filter(|s| *s > start && *s < end));
+    stations.sort_by(f64::total_cmp);
+    stations.dedup_by(|a,b| (*a - *b).abs() < 1e-6);
+    let profile: Vec<_> = stations.into_iter().map(|y| {
+        let r = (interpolate(scan, mouth - y - registration) - 0.216).max(9.38);
+        [y, r + 0.52 * ((y - relief) / (end - relief)).clamp(0., 1.)]
+    }).collect();
+    let mut outline = vec![v2(0., start - 0.02), v2(profile[0][1], start - 0.02)];
+    outline.extend(profile.iter().map(|&[y,r]| v2(r,y)));
+    outline.extend([v2(profile.last().unwrap()[1], end + 0.02), v2(0., end + 0.02)]);
+    let bore = Plane::XY.at(v3(axis[0],0.,axis[1])).revolve(&Profile::polygon(&outline), 360., V2::ZERO, v2(0.,1.))?;
+    cuboid([axis[0]-3.75, axis[0]+3.75, start, end, bottom+0.7, axis[1]-5.0]).cut(&bore)
 }
 
 /// A profile cut to run from `a` to `b`, its ends where the profile passes them.
@@ -365,9 +414,8 @@ fn meter_cap() -> Result<Cap> {
     let bottom = st.root - METER_BACK;
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
     // The sideways catch climbs from its lip to the nose. The east flank stops the flat crest.
-    let catch = st.bearing + REACH * corbel_slope();
     let flank = hsm_enclosure_numbers::faces::back_top_flank_face()[1] - m.split;
-    let wings = section(&st, Underside::Flat(bottom), catch, PISCO_METER_FREE_HOOK_OVERLAP, flank)?;
+    let wings = section(&st, Underside::Flat(bottom), flank)?;
     // End the entire upper spring profile at the catch, including its inward-pointing nose.
     // The spine below the root and the bearing between the leaves span the housing.
     let upper_end = hsm_enclosure_numbers::layout::meter_upper_catch_end_y(&stations::pisco_station()) - running();
@@ -409,11 +457,13 @@ fn regulator_cap() -> Result<Cap> {
     let [t0, t1, t2] = l.snapshots.reg.translation_mm;
     let frame = Pose { rotation: [r1, r0.map(|v| -v), r2], translation_mm: [t1, -t0, t2] };
     let half = st.inner - ROOT_RADIUS - LEAF_GAP;
-    let wings = section(st, Underside::Flat(mount.cap_bottom), st.bearing, REGULATOR_FREE_HOOK_OVERLAP, st.ceiling)?;
-    let cap = along_y(wings, [st.y0, st.y1])?
-        .union(&cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK, mount.cap_bottom,
-                        mount.axis[1]]))?
-        .cut(&turned(&profile)?.transformed(&affine(&frame)))?;
+    let wings = section(st, Underside::Flat(mount.cap_bottom), st.ceiling)?;
+    let bore = turned(&profile)?.transformed(&affine(&frame));
+    let cap = along_y(wings, [st.y0, st.y1])?.cut(&bore)?;
+    let saddle = cuboid([st.axis_x - half, st.axis_x + half, st.y0, st.y1 - REGULATOR_OUTLET_SETBACK,
+        mount.cap_bottom, mount.axis[1] + REGULATOR_SADDLE_RISE])
+        .cut(&bore.translate(V3::Z * REGULATOR_SADDLE_RISE))?;
+    let cap = cap.union(&saddle)?;
     Ok(Cap { name: "regulator-snap-cap", installed: cap.rotate(V3::ZERO, V3::Z, 90.0), print: V3::Y })
 }
 
@@ -425,17 +475,15 @@ enum Underside {
 }
 
 /// Draw both full-length hooks, with a solid inclined retaining face, planar lead-in and flat crest.
-fn section(st: &Station, under: Underside, catch: f64, free_overlap: f64, pointed_pocket: f64) -> Result<Loop> {
+fn section(st: &Station, under: Underside, pocket: f64) -> Result<Loop> {
     let (c, outer, inner, r, root) = (st.axis_x, st.outer, st.inner, st.root_radius, st.root);
-    let reach = st.ledge - REACH;
-    let bearing = catch - free_overlap;
-    let shoulder = catch + catch_air() + NOSE_LAND;
-    let tip = pointed_pocket - tip_air() + CREST_RISE;
-    // One wall, out from the axis by `side`: up the outer face, over the hook, down the inner face.
+    let tip = pocket - tip_air() + CREST_RISE;
+    let profile = equipment_snap::wing(root + r + 0.35 - tip);
     let wall = |side: f64| {
-        let at = |x: f64, z: f64| v2(c + side * x, z);
-        vec![at(outer, root), at(outer, tip), at(outer - REAR_SNAP_CREST_WIDTH, tip), at(reach, shoulder),
-             at(reach, bearing), at(inner, bearing - (inner - reach) * corbel_slope()), at(inner, root + r)]
+        let mut points = vec![v2(c + side * outer, root)];
+        points.extend(profile.iter().map(|&[x,z]| v2(c + side * (outer + x), tip + z)));
+        points.push(v2(c + side * inner, root + r));
+        points
     };
     let west = wall(-1.0);
     let east: Vec<V2> = wall(1.0).into_iter().rev().collect();

@@ -45,6 +45,10 @@ Both wings have 2.00 mm lands and 0.80 mm inward bias before assembly. They run 
 
 The generator takes the working end profiles directly from the two Mark2 coupon STLs and registers them to the full production spring and pocket ends. The cover prints on its forward axial end and the receiver prints on the original enclosure roof. [Generator](pair.rs) · [Receiver print features](parts/pisco-receiver.print-features.json)
 
+The commands that derive an experimental pair from production use the previous
+rear enclosure and fitted caps at the [trial source revision](https://github.com/derekbreden/homesodamachine/tree/85e9582cc74c76437052ebf3407d99605882462f).
+Production now includes the selected full-size three-dot fit.
+
 ```sh
 tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
   -p hsm-tooling --bin pisco-wide-snap

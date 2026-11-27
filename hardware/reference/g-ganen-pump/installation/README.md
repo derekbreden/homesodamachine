@@ -17,8 +17,8 @@ and connected fitting frames belong to [above-core.json](../../../manifold-layou
 The lid-integrated half pipe supports the motor over native X16.75–77.75. Its
 continuous 54.5 mm upper clip spans X20–74.5. It is a filled box half-pipe with a
 6.2 mm crown, one straight east clearance shoulder and two 2.0 mm spring leaves
-with inclined hooks. Their raised crests bear in shallow lid pockets. The upper motor bore clears the largest retained upper
-barrel high spot with the shared 0.15 mm per-face static allowance. The lower
+with 2 mm feet and inclined hooks. Each pocket guides the foot into place, and the
+upper saddle bears on the motor can with its fixed rails seated. The lower
 seat gives the admitted barrel 0.25 mm running clearance. Open rooms admit the complete fixed rails and molded wire cover
 vertically. The straight cover room is recessed 2.5 mm into the lid, leaving a
 4.9 mm floor; two fitted lower
@@ -38,8 +38,8 @@ the complete seat.
 Slide all four complete foot-and-leg assemblies off their fixed rails. Complete
 the lid's ten M5 clamps while its equipment mounts are empty. Lower
 the bare pump vertically into the open cradle. Press the cap down over the motor
-until both hooks catch. The matched slopes pull the cap toward the pump, and the
-flat crests stop against the lid. Fit the PCB after both hooks seat. The spring pockets remain accessible
+at the center of its rigid crown until both hooks catch. Confirm that the motor stays
+on its rails when each end is pressed. Fit the PCB after both hooks seat. The spring pockets remain accessible
 with back-top separated from the core. Fit
 the two clamped PVC joints and discharge check while the core is open. Keep the
 suction elbow and its short inlet link loose for the populated rear-shell
@@ -70,6 +70,7 @@ slider observations remain independently available in the purchased reference.
 Occupied casing solids describe exterior clearance, not mass or wall thickness.
 Actual snap retention, vibration and assembled fit remain physical qualification.
 
+The [production pump fit](../../../printed-parts/cold-core/foam-cap/pump-snap-fit.json) measures the centered saddle, both hooks and the bare motor loading path.
 The [production block check](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/production-pump-block.json)
 records the isolated base and cap's native fit and printable geometry. The
 [sample trial](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/README.md) records the

@@ -23,7 +23,7 @@
   "object": "regulator-snap-cap",
   "roof": {
     "reason": "Follow the curved transition between the fitted body bearing and outlet neck.",
-    "bounds_source_mm": [[-13.0, -13.25, 21.25], [2.0, 13.25, 22.05]],
+    "bounds_source_mm": [[-12.617753, -13.25, 21.25], [2.382247, 13.25, 22.05]],
     "band_phase_source_mm": 21.56,
     "edge_blend_mm": 1.5
   }

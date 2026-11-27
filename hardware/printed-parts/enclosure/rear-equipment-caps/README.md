@@ -1,109 +1,23 @@
 # Rear equipment caps
 
-Four PET-GF caps close the integral seats on back-top. Each cap is drawn from
-the station of the receiver it snaps into: [stations.rs](stations.rs) figures
-the stations as back-top's [supports.rs](../enclosure/back-top/supports.rs)
-figures its receivers, and [rear_equipment_caps.rs](rear_equipment_caps.rs)
-cuts the caps.
+Four PET-GF caps close the ASSE, Pisco, Digiten flow-meter and YZMSZ water-regulator seats on back-top. Each cap has two integral 2.00 mm spring walls, a 1.5 mm inside root radius and a 2.00 mm-wide foot. The relaxed leaves curve inward by 0.80 mm at the toe. The guide on the foot starts on the receiver's bevel, then the hook passes its solid retaining lip. The meter closes eastward against the flank. The other three caps close upward. [Shared snap section](../enclosure/numbers/equipment_snap.rs) · [Installed receiver source](../enclosure/back-top/supports.rs) · [Cover source](rear_equipment_caps.rs) · [Production fit measurements](production-fit.json)
 
-The ASSE cap holds the lower halves of both ASSE hexes and captures both
-axial shoulders of the inlet adapter's hex. Its solid lower body extends to
-Y461.078, while its springs retain Y396.453–438.114. The adapter pocket follows
-the captured profile and all six wrench-flat directions at the measured clock.
-Its complete fitted cavity and installed adapter sit 0.18 mm higher in Z than
-the captured chain pose, matching the wrench-band center height to the ASSE body axis.
-The three lower-facing flats have 0.25 mm additional vertical seating allowance;
-the upper flats, 0.15 mm cylindrical neck seats and both axial shoulder
-stations retain their fits. The hex's rounded corner room has 12.874 mm radius
-through the 10.25 mm wrench band, clearing the lowered flats. The ASSE body's wrench flats
-locate the body separately.
-The downward vent cup passes through the bottom flat. The Pisco
-cap has a raised lip around the short outlet fitting's neck and a broad body
-bearing between its independent leaves. Its body ends just short of the receiver end wall
-ahead of the Pisco's rear-wall bore.
-The meter cap enters from the west
-and has a solid 9 mm spine, shaped bearing stock extending toward the housing,
-and two sideways spring leaves. The upper leaf ends at the fore wall of the
-Pisco receiver to make room for the Pisco cover to tip into its seat. The
-lower leaf and spine run the length of the meter cover. A 6 mm lower outside corner bevel clears
-the A-fill tube while retaining the 9 mm central spine, full fitted bearing
-and spring-root geometry. Its flexible
-leads turn west against the housing above the lower leaf. The water regulator
-cap spans 36 mm of the housing and smaller outlet neck, with its lowest face
-at Z315.924 mm. Each cap is one solid, with two integral spring walls and hooks.
+| Station | Hardware held by the cap and receiver | Full-size fit evidence |
+| --- | --- | --- |
+| Multiplex ASSE 1022 | Both ASSE wrench flats, both shoulders of the inlet adapter, and a through-window for the vent and drain sleeve. | [Accepted ASSE and adapter](../../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json) |
+| Pisco RVFUP | Molded body cradle, raised short-outlet bearing and fore-and-aft end stops. The white release collet remains accessible with the cap removed. | [Accepted rigid-body and axial hold](../../../print-tests/equipment-snap-pairs/prints/2026-11-26-mark2-pisco-asse/physical-result.json) |
+| Digiten flow meter | Relieved saddle, port neck, fixed boss and screw-head channels and the lead exit. The lower leaf spans the seat. The upper leaf ends ahead of the Pisco receiver. | [Supported receiver and existing cover](../../../print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json) |
+| YZMSZ water regulator | The raised saddle follows the scanned body and outlet shoulder. The central bearing ends 1 mm short of the spring ends beside the outlet collet. | [Firm saddle and original three-dot receiver](../../../print-tests/equipment-snap-pairs/parts/firm-regulator/fit-check.json) · [Recorded hand fit](../../../ledger/fitted.json) |
 
-The ASSE seat uses 0.25 mm running clearance. Its cap has one continuous
-hex cavity with a 14.6 mm nominal upper apothem at the two wrench flats' mean
-clocking. Its three lower-facing planes have 0.25 mm additional vertical seating
-allowance over the main body and bonnet; all six flat directions are retained.
-The common envelope includes at least 0.15 mm slip clearance around both hexes. The ASSE seat allows 1.5 mm of threaded-joint position variation.
-The drain-sleeve window carries that full fore/aft adjustment and clears the
-sleeve's measured upper exterior.
-The Pisco cap follows the scanned body and exposed neck with 0.15 mm radial
-and 0.25 mm axial air. The receiver has a 3 mm-wide upper ring bearing at
-Y438.125–441.125 with 0.15 mm radial air; its loading corridor retains 0.5 mm.
-The neck lip excludes the release collet. The meter receiver follows the
-housing taper, flange and label-side bevel with 0.15 mm radial and axial
-air. The cover's fitted saddle, side-neck bore, spring roots and outer spine
-sit 0.40 mm farther west than on the earlier +0.40 mm cover. Its hooks and
-crests still meet the same receiver surfaces. The lower outside bevel clears
-the A-fill tube by 3.775 mm. Bosses and screw heads have separate fitted
-passages. The receiver's fore corridor admits the complete 16 mm insertion slide. The water
-regulator uses its measured linear radius profile and true installed axis,
-with 0.30 mm receiver radial air, 0.25 mm cap radial air and 0.25 mm axial air.
-Its body-to-outlet shoulder retains the scanned position. The central cap
-bearing ends 1 mm short of the spring ends beside the outlet release collet.
-The PISCO and water-regulator hardware fits are
-[physically approved](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/pointed-snaps/physical-result/physical-result.json).
-The PISCO and an earlier flow-meter cover were tried on the
-[fitted-retention samples](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v5/README.md): receivers cut
-from back-top, printed roof-down as it prints, with automatic tree supports in their cavities, so
-the meter's channel and wire-chamber floors printed on support. The water regulator's fit is the
-[v4 sample's](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/rear-snap-retention/v4/physical-result/physical-result.json).
-Derek found the +0.40 mm meter cover fit better than +0.20 mm, and +0.20 mm
-better than the original point. Both raised covers showed incomplete seating.
-With the +0.40 mm crests and 0.40 mm saddle relief, the meter cover held firmly
-and Derek accepted the fit. The wings sat very slightly short of full seating,
-visible at the exposed cross section or on very close inspection. The bench
-receivers predate this cover shape. Which contact gives the firm hold remains
-unknown. [Earlier comparison](prints/2026-11-24-meter-020-mark2/physical-result.json) · [Relieved cover fit and photos](prints/2026-11-24-meter-040-relief-mark2/physical-result.json)
+The ASSE seat admits 1.5 mm of threaded-joint position variation. Its adapter pocket follows the captured profile and all six wrench-flat directions at the measured clock. The installed adapter and its cavity sit 0.18 mm above the original captured chain pose. The three lower-facing flats have an additional 0.25 mm of vertical seating allowance. The inlet-adapter stock backs the last 3 mm of both ASSE springs up to the body axis.
 
-The [latest pointed-set result](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/physical-result/physical-result.json)
-reports tight hardware fits, with the ASSE body seating as the exception. The
-[ASSE body cap](https://github.com/derekbreden/homesodamachine/blob/ed4ebc3cf65805689fe1421af6710770936107ec/hardware/print-tests/asse-body-seating/README.md) carries its local seating allowance.
-Each rear cap has two 2.0 mm spring leaves, a 1.5 mm inside root radius
-and solid 45° retaining faces. Root-to-catch length is 22.25 mm on the ASSE
-and Pisco and 21.25 mm on the water regulator. On the flow meter each leaf
-measures 32.45 mm from its root to its flat crest. All eight leaves end in
-a 0.90 mm-wide flat that extends 0.40 mm beyond the original point.
-The inclined hooks draw the cover toward its hardware until the crests reach
-the fixed receiver. The meter closes against the east wall. The other three
-close upward against the pocket roofs.
+The Pisco's 3 mm-wide fixed upper ring retains the insertion corridor. Between the independent leaves the backed cover cradle rises 0.20 mm, with a 0.60 mm lead beside the short outlet and a central bearing on the rigid metal shoulder. The cover's outlet lip advances 0.24 mm and the forward wing stop advances 0.12 mm. Entry bevels on the forward wall and aft tail take up the 0.80 mm initial axial relief as the cover seats. The rear body extends to its stop while the springs end ahead of the corner column. [Full Pisco register and measured service path](../../../print-tests/pisco-wide-snap/parts/three-dot/fit-check.json)
 
-| Station | Closure to the crest stop | Free catch overlap | Closure to contact the nominal hardware | Additional hardware travel to its far seat |
-| --- | ---: | ---: | ---: | ---: |
-| ASSE | 0.23 mm | 0.68 mm | 0.147 mm | 0.250 mm |
-| Pisco | 0.10 mm | 0.55 mm | 0.147 mm | 0.121 mm |
-| Flow meter | 0.10 mm | 0.55 mm | 0.550 mm | 0.150 mm |
-| Water regulator | 0.33 mm | 0.78 mm | 0.248 mm | 0.251 mm |
+The meter's spine is 9 mm deep. Its 6 mm lower corner bevel clears the A-fill tube, while the saddle, port bore and roots retain the 0.40 mm westward setback from the relieved cover. The receiver recesses the entire downward-facing short upper cheek by 0.25 mm and retains the long lower hook's bearing height. Solid stock backs the upper catch and the aft part of the lower catch. Through the open west side, remove the trees from the short guide, the exposed lower shelf, the boss and screw-head recesses and the wire floor before fitting the meter. [Full receiver comparison and removal paths](../../../print-tests/equipment-snap-pairs/parts/supported-meter/fit-check.json)
 
-At their modeled stops the springs take up 0.45 mm of inclined-face overlap.
-When the meter crests touch the east wall, 0.45 mm of axial clearance remains
-between the saddle and the nominal housing. The Pisco crests reach the roof
-before the cover contacts the regulator. The ASSE inlet coupling and water
-regulator have begun moving toward their far seats when their crests touch.
-Plumbing and gravity can shift each piece of hardware within its seat.
-[Production mesh readings](production-fit.json) · [Relieved saddle comparison](prints/2026-11-24-meter-040-relief-mark2/saddle-measurement.json) · [Paired-plate toolpaths](crest-paths.json) · [Single flow-meter cover toolpaths](prints/2026-11-24-meter-040-relief-mark2/crest-paths.json)
+The water regulator's bearing reaches 0.40 mm farther toward the hardware at the same wing registration as the original three-dot cap. The fixed receiver retains 0.30 mm radial allowance, and the bore follows the measured body-to-outlet shoulder. At both rigid hardware contacts the modeled feet are 0.232 mm short of their stops, with 1.534 mm hook engagement per side. [Water regulator mesh fit](../../../print-tests/equipment-snap-pairs/parts/firm-regulator/fit-check.json)
 
-The ASSE and Pisco seats have plain end walls around the fitted passages.
-The ASSE and water pockets extend outboard to admit the crests when the hooks
-spread for removal. The Pisco leaves stop ahead of the rear corner column.
-The meter's upper leaf ends at the Pisco fore wall. Both meter channels return
-to the east wall on bevels, with room for their flat crests. A permanent
-slope from the flank backs the aft meter shoulder under the Pisco approach.
-The fore shoulder and the lip under the meter's upper leaf take removable
-support through the open west side. The leaves release from their exposed
-edges. [Back-top receivers](../enclosure/README.md#support-removal-strategy)
+## Installation and service
 
 ASSE, Pisco and meter enter their seats 16 mm forward and slide aft. The
 regulator enters directly upward. The caps close after their bodies seat.
@@ -126,21 +40,9 @@ After removing the ASSE chain, release the meter leaves, withdraw the cap
 fore and out through the open side. Remove the meter, its disconnected soda
 line/insulation and bend holder before withdrawing the PISCO cap.
 
-The Pisco cover tips in from X past the meter shoulder. Derek pressed on the
-two-bar and four-bar covers in the same original quadrant with the regulator
-installed. He preferred the four-bar cover and described the remaining motion
-as the whole wing bending. The production saddle, outlet lip, retaining
-faces and crests match that print. The four exterior identification grooves
-are filled. The current cover clears the backed meter shoulder throughout
-its modeled tilt path. [Bench video and observations](https://github.com/derekbreden/homesodamachine/blob/2d7f9faac54a802877a41971e513dc0211d3475c/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark2/physical-result/physical-result.json) · [Production Pisco comparison](pisco-fit.json)
+After the meter comes out, tip the Pisco cover past the fixed meter shoulder. Spread its leaves while passing the receiver and settle the cap over the rigid short outlet. The checked tilt path, purchase-part loading path and release-ring stroke are in the [full three-dot service study](../../../print-tests/pisco-wide-snap/parts/three-dot/fit-check.json).
 
-On the paired Mark1 plate, the two Pisco roof surfaces finish at installed Z351.44 mm. The deposited crest edge reaches Z351.45 mm, giving about 0.01 mm of nominal overlap in the sliced geometry. The hand test establishes the actual fit. [Paired-slice measurements](crest-paths.json)
-
-The solid retaining face spans each hook. An earlier trial’s segmented bridge
-strands separated during removal. For a hand fit, press alternately on the two
-sides with the hardware in place, then release the covers and inspect the
-bearing surfaces. The water-regulator cover releases straight down, the meter
-straight west. [Catch teardown](https://github.com/derekbreden/homesodamachine/blob/9c2c91090983a69177978413374640db8b046729/hardware/print-tests/pisco-cover-rocking/prints/2026-11-22-bridges-mark2/physical-result/physical-result.json) · [Individual receiver and cover pairs](../../../print-tests/equipment-snap-pairs/README.md)
+## Printing
 
 The standalone STEP and STL files use the print frame, with one axial end
 on Z0 and spring bending within the layer plane. The appliance uses their installed frames.
@@ -150,14 +52,12 @@ follows the fitted body-to-neck transition from the complete cap mesh.
 Its clearance below the roof keeps the curved bead edges separated at the dense interface.
 The ASSE cap uses the native dense interface and the surrounding model stock
 to back its fitted shoulder. The meter's narrow port shoulder bridges with its
-opening clear, and the Pisco cap prints without support. The
-[print-plan review](print-plan-review.json) binds the full plate and timed single
-regulator paths to the fitted solids and records the emitted gaps and bridge anchors.
+opening clear, and the Pisco cap prints without support. The [earlier raised-crest print review](print-plan-review.json) records the gaps and bridge anchors for those earlier solids.
 
 For an individual water-regulator cover, use the `single-regulator-cap`
 [preparation recipe](../trial-preparation/pieces.json). Its native smooth-timelapse
 tower provides time away from the cap between layers while retaining the
-approved cap geometry and production deposition recipe. The
+current cap geometry and production deposition recipe. The
 [print record](https://github.com/derekbreden/homesodamachine/blob/0016c68223af1b237a3f23bc608fc248a7c0d7d5/hardware/printed-parts/enclosure/rear-equipment-caps/prints/2026-11-07-single-regulator-mark2/README.md) identifies the
 emitted timing and physical-review state. The
 [cooling policy](../../cooling/README.md#small-individual-parts) describes the
@@ -166,7 +66,7 @@ batch-time requirement.
 For an individual Pisco cover, use `single-pisco-cap` on textured PEI. The
 cover stands on its axial end, prints without support and uses the native
 smooth-timelapse tower for cooling between layers. Select Timelapse On.
-[Fitted print job](https://github.com/derekbreden/homesodamachine/blob/28db775ffbc3650516a81910b1d5a603cd326bb7/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/print-job.json)
+[Earlier raised-tip print job](https://github.com/derekbreden/homesodamachine/blob/28db775ffbc3650516a81910b1d5a603cd326bb7/hardware/print-tests/pisco-raised-tip-cover/prints/2026-11-23-mark1/print-job.json)
 
 Remove the small cavity supports with a tiny flathead screwdriver that fits
 inside the opening. Derek reports that the original trial's small automatic

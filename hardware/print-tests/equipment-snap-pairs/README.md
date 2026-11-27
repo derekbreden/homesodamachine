@@ -58,6 +58,11 @@ The [mesh and loading measurements](parts/three-dot/fit-check.json) and
 The ASSE, meter and regulator covers stand on their production axial ends.
 Their separate receivers retain the enclosure’s ceiling-down print orientation.
 
+To reproduce these historical specimens, build the back-top and installed covers at the
+[trial source revision](https://github.com/derekbreden/homesodamachine/tree/244e007084db110e1637030c3bfadb8474e4de12)
+before running the command below. The trial measures the preceding straight wings and
+transfers the selected section onto them. Current production draws that section directly.
+
 ```sh
 tools/run -- cargo run --release --locked -j2 --manifest-path tools/hsm/Cargo.toml \
   -p hsm-tooling --bin equipment-snap-receivers -- --three-dot

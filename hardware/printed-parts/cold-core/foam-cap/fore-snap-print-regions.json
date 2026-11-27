@@ -10,8 +10,8 @@
       ".stl": "52296e799a5633032ee1a248ebec62e25a9eef2ca154de00590d2fb8dcce48ff"
     },
     "foam-cap-lid-top": {
-      ".step": "8884a5099e2545214fab0c96a7171e28e7bef2efb129fe0bc9168b5320c5ccff",
-      ".stl": "bc2c5261bf7f37e6700db61bf6208517d655ec104d378cb70d11a3b580306ef5"
+      ".step": "524906a5925bccc6bdcf75e9fe236ddb2129a574faa1c2d4d2ba3c9f3e6c441e",
+      ".stl": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859"
     },
     "foam-shell": {
       ".step": "3fc58a2945d3906a8e47f755b8ce768ec38719ccd99a581e12bf8e6acfff7feb",
@@ -377,6 +377,48 @@
           250.4,
           271.63205307098633
         ]
+      },
+      {
+        "applied_source_bounds_mm": [
+          -122.01805044206617,
+          -61.01805044206617,
+          -49.942610544386504,
+          -44.5406105443865,
+          2.189346931498932,
+          36.029346931498935
+        ],
+        "machine_bounds_mm": [
+          -122.01805044206617,
+          -61.01805044206617,
+          -49.942610544386504,
+          -44.5406105443865,
+          2.189346931498932,
+          36.029346931498935
+        ],
+        "name": "Pump west catch and lid root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
+      },
+      {
+        "applied_source_bounds_mm": [
+          -122.01805044206617,
+          -61.01805044206617,
+          14.177750873597057,
+          19.579750873597057,
+          2.189346931498932,
+          36.029346931498935
+        ],
+        "machine_bounds_mm": [
+          -122.01805044206617,
+          -61.01805044206617,
+          14.177750873597057,
+          19.579750873597057,
+          2.189346931498932,
+          36.029346931498935
+        ],
+        "name": "Pump east catch and lid root",
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag"
       },
       {
         "applied_source_bounds_mm": [
@@ -887,17 +929,46 @@
     ]
   },
   "producer": "hardware/printed-parts/cold-core/foam-cap/print_regions.rs",
-  "scope": "Solid infill through reservoir A's fore and aft seats, the V-A feed, V-B return and pump-discharge clips, the casing screw hosts and head bearings, and the PCB insert posts. Each region includes its supporting plate or wall root.",
+  "scope": "Solid infill through the pump catches, tube seats, casing screw hosts and bearings, and PCB insert posts. The lid keeps both motor-cap pockets clear for insertion and release.",
   "source_sha256": {
     "hardware/cold-core-layout/layout/cap.rs": "d095bb82bd1bdc5163b87127323b8dcd1b8676cbc58abc91498d86a0919790a4",
-    "hardware/manifold-layout/above-core.json": "83e80580b7fbc656d385dec5cd1213876ada0c438780e4f36a08053c74d62e6d",
+    "hardware/manifold-layout/above-core.json": "102a7d321f1d896e20d2980ec123c20eddd43afda00cb5433c13032b526819e7",
     "hardware/printed-parts/cold-core/foam-cap/numbers/clips.rs": "aad4a6211b8cf82180a93169d9765251cb9a0f50162f2596c6dae15a63f76fdf",
     "hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs": "db1643812b547b81a2be6f6c97b5033780d073860b966547cf0fc124e138c9d8",
     "hardware/printed-parts/cold-core/foam-cap/numbers/design.rs": "6f8aac00c5799dd6f20b87d1d0499f1c27baed901b22190e56eb552678b3f4f6",
     "hardware/printed-parts/cold-core/foam-cap/numbers/lib.rs": "11f2ad6dd8b09b2272b1217b5761489f4f220fb8487e5b61e44052644b8ab741",
+    "hardware/printed-parts/cold-core/foam-cap/numbers/pump.rs": "854591136207c0761f2fc4dfc11f5ff3fa0fe8e7d37760cf29de708d2ae6c950",
     "hardware/printed-parts/cold-core/foam-cap/numbers/reservoir_a.rs": "0f34adc0acc449d45c526b24c53d6605aa403ac9332d39bb1611c68da4e0bb57",
-    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "8d940e0748f5528b2570519ace8ad68ec99601390e1ee59a9438378f8f590f6c",
-    "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e"
+    "hardware/printed-parts/cold-core/foam-cap/print_regions.rs": "933efd9c432295ff86c4cb2bf9b353a81ff04e59a7a38c2b1744639ebfd156e9",
+    "hardware/printed-parts/cold-core/interface/lib.rs": "b0f635b40df386d4f02b2d18489c68bd1b74a17657d7ce7e57c0618a0689480e",
+    "hardware/printed-parts/enclosure/enclosure/numbers/equipment_snap.rs": "c98834c147f47899669d521844566721961f524ac445992d5b3474549ec1197c"
   },
+  "source_stl_sha256": "2a74672a1c10c6393afd85701725f7c8701ddb14c408804879863f768b808859",
+  "support_free_regions": [
+    {
+      "bounds_source_mm": [
+        -119.01805044206617,
+        -64.01805044206617,
+        -56.7606105443865,
+        -47.5406105443865,
+        5.189346931498932,
+        36.029346931498935
+      ],
+      "name": "Pump west catch pocket",
+      "reason": "The retaining shoulder grows at 45 degrees from continuous stock. The guide and release slot print clear."
+    },
+    {
+      "bounds_source_mm": [
+        -119.01805044206617,
+        -64.01805044206617,
+        17.177750873597056,
+        26.397750873597055,
+        5.189346931498932,
+        36.029346931498935
+      ],
+      "name": "Pump east catch pocket",
+      "reason": "The retaining shoulder grows at 45 degrees from continuous stock. The guide and release slot print clear."
+    }
+  ],
   "use": "Manual print preparation for the equipment lid, shell and bottom cap. Each box intersects existing material and adds no geometry. All other lid walls, infill, pose, features and support settings retain their current recipe."
 }

@@ -816,7 +816,15 @@
         {
           "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
           "regions": "foam-cap-lid-top",
-          "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json"
+          "regions_file": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+          "features": [
+            {
+              "name": "Pump catch pockets",
+              "kind": "native_support_free",
+              "record": "hardware/printed-parts/cold-core/foam-cap/fore-snap-print-regions.json",
+              "reason": "The inclined retaining shoulders grow from continuous stock. Leave both pockets open for the cap."
+            }
+          ]
         }
       ],
       "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it.",
@@ -1911,6 +1919,14 @@
           "name": "asse-snap-cap",
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/asse-snap-cap.stl",
           "object_settings": {
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Preserve the continuous fixed-width perimeters of the end-on spring wings."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Removable trees reach the internal ASSE contact from its open end."
+            },
             "wall_loops": {
               "value": "3",
               "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
@@ -1937,6 +1953,14 @@
           "name": "pisco-snap-cap",
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/pisco-snap-cap.stl",
           "object_settings": {
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Preserve the continuous fixed-width perimeters of the end-on spring wings."
+            },
+            "enable_support": {
+              "value": "0",
+              "reason": "The fitted Pisco wings grow continuously from the axial end."
+            },
             "wall_loops": {
               "value": "3",
               "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
@@ -1963,6 +1987,14 @@
           "name": "regulator-snap-cap",
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/regulator-snap-cap.stl",
           "object_settings": {
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Preserve the continuous fixed-width perimeters of the end-on spring wings."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Use the open-end support access of the fitted water-regulator cover."
+            },
             "wall_loops": {
               "value": "3",
               "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
@@ -1989,6 +2021,10 @@
           "name": "meter-snap-cap",
           "stl": "hardware/printed-parts/enclosure/rear-equipment-caps/meter-snap-cap.stl",
           "object_settings": {
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Preserve the continuous fixed-width perimeters of the end-on spring wings."
+            },
             "wall_loops": {
               "value": "3",
               "reason": "The rear-equipment-caps recipe: three Classic loops and solid infill keep the complete spring section."
@@ -2019,6 +2055,14 @@
           "name": "pump-snap-cap",
           "stl": "hardware/printed-parts/cold-core/foam-cap/pump-snap-cap.stl",
           "object_settings": {
+            "wall_generator": {
+              "value": "classic",
+              "reason": "Preserve the continuous fixed-width perimeters of the end-on spring wings."
+            },
+            "enable_support": {
+              "value": "1",
+              "reason": "Allow removable trees under the motor contact and the axial locating faces."
+            },
             "wall_loops": {
               "value": "3",
               "reason": "The pump-snap-cap recipe: three Classic loops and solid infill keep the complete spring section."

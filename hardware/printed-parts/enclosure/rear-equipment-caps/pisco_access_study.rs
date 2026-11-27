@@ -85,7 +85,7 @@ fn pisco(old: &Solid, original: &Solid) -> Result<Access> {
         let passage = Solid::cylinder(v3(x,a,mouth[2]),V3::Y,widest[1]+air,b-a)?;
         receiver=receiver.cut(&passage)?;
         // The lower bore follows the shell's corbel slope in the ceiling-down print.
-        let slope=stations::corbel_slope();
+        let slope=hsm_enclosure_numbers::layout::REAR_SNAP_CHAMFER_SLOPE;
         let r=widest[1]+air;
         let norm=(1.0+slope*slope).sqrt();
         let tangent=[x+r*slope/norm,mouth[2]-r/norm];

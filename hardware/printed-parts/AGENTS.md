@@ -129,12 +129,14 @@ Read the actual rail-tree bases and interfaces from the native slice; allowing
 supports on model material alone does not establish where the slicer roots them.
 
 Back-top prints ceiling-down, with the rear flutes standing clear of the bed.
-Every rear receiver catch and its matching cap use the shared snap chamfer.
-The flat crests on the ASSE, Pisco and water-regulator covers meet their pocket
-roofs. The meter crests meet the east wall. The original chamfered catch pockets
-print clear of supports. On the [three-dot flow-meter receiver](../print-tests/equipment-snap-pairs/README.md),
-support the short wing’s downward-facing guide and the exposed shelf behind the long catch
-through the open west side.
+The four rear receivers and the carbonator pump use the
+[shared fitted spring and cheek](enclosure/enclosure/numbers/equipment_snap.rs).
+Check seating against the installed hardware. The water regulator bears on its
+cap before the feet reach the pocket roofs. The sideways flow-meter receiver
+needs removable support under its short wing guide, retaining return, long-catch
+shelf, screw-head ledges and exposed housing surfaces. The trees come out of
+the open west side before the meter goes in.
+[Rear fit record](enclosure/rear-equipment-caps/production-fit.json)
 The rear ceiling recess runs flush to
 the flanks and to the rear wall, whose panel relief runs from the rim up to it
 at the face of the core's pocket, and it runs round the connector wells' row.
