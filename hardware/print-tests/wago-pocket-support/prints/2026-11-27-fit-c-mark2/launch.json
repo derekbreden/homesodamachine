@@ -1,0 +1,28 @@
+{
+  "archive": {
+    "gcode_sha256": "13f27b40037184318e8a5edc257a85f5aa022a54894c719db506a2c0e551ebea",
+    "name": "2026-11-27-fit-c-mark2-6799c272.gcode.3mf",
+    "objects": [
+      "fit-c-420",
+      "fit-c-415",
+      "fit-c-413"
+    ],
+    "sha256": "6799c2727f9d90e0697590c5d5f925777d5d391c7ef74371a467208133a9652c",
+    "slots": {
+      "1": {
+        "colour": "161616",
+        "type": "PET-CF"
+      }
+    }
+  },
+  "gcode_state": "RUNNING",
+  "hms": [],
+  "layer_num": 0,
+  "mc_remaining_time": 166,
+  "observed_at": "2026-11-27T22:46:41+00:00",
+  "print_error": 0,
+  "printer": "Mark2",
+  "printer_task_id": "1495125816",
+  "subtask_name": "2026-11-27-fit-c-mark2-6799c272.gcode.3mf",
+  "total_layer_num": 180
+}

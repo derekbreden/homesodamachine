@@ -510,6 +510,12 @@
       "bytes": 1164439,
       "sha256": "6c21ee4c3f99d22b2a7fa6d8c61d69004d018f04a48896dfd98fc71626b6d099"
     },
+    "0f167aace6be7f10a6b16eb5e003a1b6f1722197": {
+      "archive": "wago-fit-c-mark2-0c200babd5496f18.zip",
+      "bytes": 54964,
+      "offset": 74,
+      "sha256": "89b91052b2058e6fe8d699c2ade3b3ebaa1bdb618ab85fcfe7467e51f7a7b88c"
+    },
     "0f2a96bd618145d20fde2a5278908728b8bd6d5a": {
       "archive": "legacy-print-1-96fff246bf8249b5.zip",
       "offset": 352218984,
@@ -4475,6 +4481,12 @@
       "offset": 414124900,
       "bytes": 166310,
       "sha256": "c217da305228e10f1321d2bf8e0b734b781c170ff396b54ec0c33d0dbb655565"
+    },
+    "8693bf40c193655d68dc19c59a2f9da6d22f592d": {
+      "archive": "wago-fit-c-mark2-0c200babd5496f18.zip",
+      "bytes": 686006,
+      "offset": 55112,
+      "sha256": "6799c2727f9d90e0697590c5d5f925777d5d391c7ef74371a467208133a9652c"
     },
     "870883d301a0faed41e185b2a3bd0aeb5cc167b8": {
       "archive": "legacy-print-3-28ea610c134c407f.zip",
@@ -8772,6 +8784,8 @@
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-a-mark1/2026-11-27-wago-fit-a-mark1-8f5106a4/2026-11-27-wago-fit-a-mark1-8f5106a4.gcode.3mf": "bb9008997728c298a41c95e989231dc28c0f7054",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-b-mark2/2026-11-27-wago-fit-b-mark2-6eeb8d26/2026-11-27-wago-fit-b-mark2-6eeb8d26.3mf": "ae31ba0e8532ee02228f6e0f31711b280129e729",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-b-mark2/2026-11-27-wago-fit-b-mark2-6eeb8d26/2026-11-27-wago-fit-b-mark2-6eeb8d26.gcode.3mf": "fc3121c36d1c5b7d3fc9bb9e84012f695a9855a9",
+    "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/2026-11-27-wago-fit-c-mark2-804ad1fc/2026-11-27-wago-fit-c-mark2-804ad1fc.3mf": "0f167aace6be7f10a6b16eb5e003a1b6f1722197",
+    "hardware/print-tests/wago-pocket-support/prints/2026-11-27-fit-c-mark2/2026-11-27-wago-fit-c-mark2-804ad1fc/2026-11-27-wago-fit-c-mark2-804ad1fc.gcode.3mf": "8693bf40c193655d68dc19c59a2f9da6d22f592d",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.3mf": "0f6269111100440f000901477c55b95b8a7cd455",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-front-mark1/2026-11-27-front-wago-pry-mark1-98cb5d4f/2026-11-27-front-wago-pry-mark1-98cb5d4f.gcode.3mf": "9f0953221e8d2c6febfe59594c49b00c5059dc67",
     "hardware/print-tests/wago-pocket-support/prints/2026-11-27-rear-lid-mark2/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d/2026-11-27-rear-lid-wago-pry-mark2-6f6b367d.3mf": "cd5d88d60566bf1317523a2acc7fe5f29d9a8b31",

@@ -1,8 +1,20 @@
 # WAGO pocket fit and support removal
 
+## Selected Mark2 openings
+
+Three recessed bars identify this plate. Hold each coupon with the dots up and the opening facing you. X is the short dimension between the cheeks and Y runs from the floor to the roof.
+
+| Dots | Connector | Requested X × Y | Clear X × Y in the G-code |
+| --- | --- | --- | --- |
+| 1 | 10-way, 221-420 | 15.70 × 30.10 mm | 15.70 × 29.94 mm |
+| 2 | 5-way, 221-415 | 8.10 × 30.10 mm | 8.10 × 29.94 mm |
+| 3 | 3-way, 221-413 | 8.20 × 18.70 mm | 8.20 × 18.66 mm |
+
+Each coupon has one removable tree rooted on its pocket floor. The long dimension in the slice runs from the deposited floor to the underside of the first bridge bead on the production layer schedule. The 10-way opening repeats the clear span of the original one-dot support-removal coupon. [Measured toolpaths](prints/2026-11-27-fit-c-mark2/fit-toolpaths.json) · [Mark2 print record](prints/2026-11-27-fit-c-mark2/print-job.json)
+
 ## Three-size fit comparison
 
-Read the openings with the dots uppermost and the mouth facing you. X is the short dimension between cheeks. Y is the long dimension from the floor to the underside of the bridge. One recessed bar identifies Mark1 and two bars identify Mark2. Each plate carries one separate coupon for each connector.
+In the incremental comparison, one recessed bar identifies the Mark1 set and two bars identify the Mark2 set. Each plate carries one separate coupon for each connector.
 
 | Dots | Connector | Mark1 X × Y | Mark2 X × Y | Insertion depth |
 | --- | --- | --- | --- | --- |
@@ -10,7 +22,7 @@ Read the openings with the dots uppermost and the mouth facing you. X is the sho
 | 2 | 5-way, 221-415 | 8.00 × 30.00 mm | 7.80 × 29.80 mm | 8.70 mm |
 | 3 | 3-way, 221-413 | 8.30 × 18.70 mm | 8.10 × 18.50 mm | 9.45 mm |
 
-The table gives the designed openings. The 0.20 mm increment applies to the entire opening. Both earlier 3-way pockets felt loose, so the new three-way coupons share the smaller tested opening, 8.70 × 19.10 mm, as their reference. All six use the same floor-rooted removable tree and pry stock as the first comparison. The `--fit` option on the coupon source generates the six fit specimens. The `wago-fit-a` and `wago-fit-b` plate recipes use those specimens.
+The table gives the designed openings. The 0.20 mm increment applies to the entire opening. Both earlier 3-way pockets felt loose, so the three-way comparison coupons share the smaller tested opening, 8.70 × 19.10 mm, as their reference. All six use the same floor-rooted removable tree and pry stock as the first comparison. The `--fit` option on the coupon source generates the three sets for the `wago-fit-a`, `wago-fit-b` and `wago-fit-c` plate recipes.
 
 On the production 0.24 mm layer schedule, each 0.20 mm change in the designed long dimension moved the underside of the first bridge by a full layer. The measured opening from the top of the floor to the underside of the first roof bead is 30.18, 29.94 and 18.66 mm on Mark1, and 30.42, 29.70 and 18.42 mm on Mark2, in 10-, 5- and 3-way order. [Mark1 toolpaths](prints/2026-11-27-fit-a-mark1/fit-toolpaths.json) · [Mark2 toolpaths](prints/2026-11-27-fit-b-mark2/fit-toolpaths.json)
 

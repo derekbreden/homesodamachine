@@ -1,0 +1,65 @@
+{
+  "purpose": "Test one floor-supported pocket at each of the three WAGO opening sizes Derek selected for Mark2.",
+  "printer": "Mark2",
+  "firmware_printer": "Mark2",
+  "printer_task_id": "1495125816",
+  "submitted_name": "2026-11-27-fit-c-mark2-6799c272.gcode.3mf",
+  "accepted_at": "2026-11-27T22:46:41+00:00",
+  "previous_job_id": "1494457274",
+  "first_layer_verified_at": "2026-11-27T22:56:01+00:00",
+  "firmware_layer_at_verification": 1,
+  "firmware_total_layers": 180,
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "nozzle": {
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Print the pocket walls and the detachable tree in the production black PET-GF hotend.",
+    "side": "left",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "bed": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.1,
+  "timelapse": "On, smooth",
+  "objects": [
+    {
+      "name": "fit-c-420",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-c-420.stl",
+      "stl_sha256": "237969f4e3362c22aa3076e975bee6e1fe1e3ad80a8343309d5358c2332763f8"
+    },
+    {
+      "name": "fit-c-415",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-c-415.stl",
+      "stl_sha256": "0caa742c7904bd1c2c1adaed72f4278f127f653cb0167eb9a015f339c1185320"
+    },
+    {
+      "name": "fit-c-413",
+      "stl": "hardware/print-tests/wago-pocket-support/parts/fit-c-413.stl",
+      "stl_sha256": "f4e71063be93718ef01b47866ea06e3e7acb51414c310df76a305e4068188bcb"
+    }
+  ],
+  "printer_recipe": "wago-fit-c",
+  "source_and_recipe_commit": "f3ecabd0f17218d67c89cdbfd47b1acfbfde0246",
+  "native_review": "2026-11-27-wago-fit-c-mark2-804ad1fc/review.json",
+  "pocket_measurements": "fit-toolpaths.json",
+  "launch": "launch.json",
+  "prelaunch_status": "prelaunch-status.json",
+  "printing_status": "printing-status.json",
+  "project": {
+    "file": "2026-11-27-wago-fit-c-mark2-804ad1fc/2026-11-27-wago-fit-c-mark2-804ad1fc.3mf",
+    "sha256": "89b91052b2058e6fe8d699c2ade3b3ebaa1bdb618ab85fcfe7467e51f7a7b88c",
+    "git_blob": "0f167aace6be7f10a6b16eb5e003a1b6f1722197",
+    "release_archive": "wago-fit-c-mark2-0c200babd5496f18.zip"
+  },
+  "slice": {
+    "file": "2026-11-27-wago-fit-c-mark2-804ad1fc/2026-11-27-wago-fit-c-mark2-804ad1fc.gcode.3mf",
+    "sha256": "6799c2727f9d90e0697590c5d5f925777d5d391c7ef74371a467208133a9652c",
+    "git_blob": "8693bf40c193655d68dc19c59a2f9da6d22f592d",
+    "release_archive": "wago-fit-c-mark2-0c200babd5496f18.zip"
+  },
+  "gcode_sha256": "13f27b40037184318e8a5edc257a85f5aa022a54894c719db506a2c0e551ebea",
+  "estimated_seconds": 10122,
+  "filament_g": 64.32,
+  "minimum_bead_bed_margin_mm": 104.09
+}

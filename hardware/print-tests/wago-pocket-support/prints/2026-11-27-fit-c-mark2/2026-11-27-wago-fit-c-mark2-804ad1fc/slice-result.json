@@ -1,0 +1,98 @@
+{
+  "error_string": "Success.",
+  "export_time": 1045,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 27,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 56.596431732177734,
+        "Bridge": 83.93670654296875,
+        "Custom": 303.7100524902344,
+        "Flush": 15.0,
+        "Gap infill": 5.4860453605651855,
+        "Inner wall": 369.9374084472656,
+        "Internal solid infill": 259.0296936035156,
+        "Outer wall": 492.9111633300781,
+        "Overhang wall": 9.04422378540039,
+        "Prime tower": 4651.86376953125,
+        "Sparse infill": 3233.938720703125,
+        "Top surface": 44.37546920776367,
+        "Travel": 459.0931701660156,
+        "Undefined": 451.2851867675781
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 57.92234802246094,
+          "total_used_g": 64.3206787109375
+        }
+      ],
+      "generate_support_material_time": 7,
+      "id": 1,
+      "infill_time": 90,
+      "layer_filament_change": 0,
+      "main_predication": 4996.30810546875,
+      "make_perimeters_time": 45,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 31.70000648498535,
+            "height": 43.2599983215332,
+            "width": 16.940000534057617,
+            "x": 117.83499908447266,
+            "y": 164.14999389648438,
+            "z": 2.333990778424777e-10
+          },
+          "id": 5,
+          "name": "fit-c-420",
+          "triangle_count": 680
+        },
+        {
+          "bbox": {
+            "depth": 24.10000228881836,
+            "height": 43.2599983215332,
+            "width": 16.940000534057617,
+            "x": 189.98500061035156,
+            "y": 167.9499969482422,
+            "z": 2.333990778424777e-10
+          },
+          "id": 9,
+          "name": "fit-c-415",
+          "triangle_count": 1192
+        },
+        {
+          "bbox": {
+            "depth": 24.20000648498535,
+            "height": 31.860000610351562,
+            "width": 17.68999671936035,
+            "x": 153.53500366210938,
+            "y": 167.89999389648438,
+            "z": -1.7578116739969118e-10
+          },
+          "id": 13,
+          "name": "fit-c-413",
+          "triangle_count": 1704
+        }
+      ],
+      "sliced_time": 575,
+      "sliced_time_with_cache": 395,
+      "total_predication": 10121.571531877964,
+      "triangle_count": 3576,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
