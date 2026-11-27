@@ -1,5 +1,6 @@
 //! git-why follows a line's history past the commits where git loses track of it, through the
-//! Agent Trace records kept in git notes, and names the app and model behind each commit it passes.
+//! Agent Trace records kept in git notes, and names the app and model behind each commit it passes
+//! with what its agent says it was asked and did.
 use anyhow::{Context, Result, bail, ensure};
 use serde_json::{Value, json};
 use std::{
@@ -268,6 +269,15 @@ fn model(root: &str, commit: &str) -> Option<String> {
         .map(|(name, _)| name.to_string())
 }
 
+/// What the commit's agent says it was asked and did: its `Experience:` line.
+fn experience(root: &str, commit: &str) -> Option<String> {
+    if commit == NULL_SHA {
+        return None;
+    }
+    let line = git(Some(root), &["show", "-s", "--format=%(trailers:key=Experience,valueonly,unfold)", commit]).ok()?;
+    line.lines().map(str::trim).find(|row| !row.is_empty()).map(str::to_string)
+}
+
 fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinked: bool) -> Result<()> {
     for (blame, link) in hops {
         if blame.commit == NULL_SHA {
@@ -278,6 +288,9 @@ fn print_text(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
         println!("{}\n    {}:{}  {}", summary.trim_end(), blame.path, blame.line, blame.content.trim());
         if let Some(model) = model(root, &blame.commit) {
             println!("    Model: {model}");
+        }
+        if let Some(experience) = experience(root, &blame.commit) {
+            println!("    Experience: {experience}");
         }
         match link {
             Some(Link { from: Some((commit, path, line)), note }) => {
@@ -312,6 +325,7 @@ fn print_json(root: &str, hops: &[(Blame, Option<Link>)], message: &str, unlinke
             "commit": blame.commit, "date": date, "subject": subject,
             "path": blame.path, "line": blame.line, "content": blame.content,
             "model": model(root, &blame.commit),
+            "experience": experience(root, &blame.commit),
             "derived_from": link.as_ref().and_then(|l| l.from.as_ref().map(|(c, p, n)| json!({"commit": c, "path": p, "line": n, "note": l.note}))),
             "begins_here": link.as_ref().filter(|l| l.from.is_none()).map(|l| json!({"note": l.note})),
         }));
