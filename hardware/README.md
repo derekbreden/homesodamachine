@@ -168,7 +168,7 @@ viewer pointers. Manual guides, kitchen illustrations, cut drawings and PCB manu
 outputs run only when requested; they remain outside the normal print build.
 
 [Printing the Machine](printing-the-machine/README.md) tells the shop's FDM lessons one print
-at a time, a page each, sorted by plastic and printer, as [a book](printing-the-machine/printing-the-machine.pdf).
+at a time, a page each, sorted by plastic and printer, as [a book](https://homesodamachine.com/read/printing-the-machine/printing-the-machine.pdf).
 
 `hsm render` and `tools/look.sh` draw the exported payloads in the website's viewer.
 The [conversion records](/tools/hsm/conversion.md#fixed-input-evidence) retain measured build

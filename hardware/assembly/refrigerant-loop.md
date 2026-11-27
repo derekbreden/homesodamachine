@@ -2,7 +2,7 @@
 
 Integrate the Antarctic Star HZB-12/Q refrigeration circuit with the wrapped evaporator, then establish the charge under a repeatable water load.
 
-Design intent and component rationale live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the procedure that ties them together. The illustrated sequence is [`refrigeration-guide.pdf`](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+Design intent and component rationale live in [`/hardware/README.md`](/hardware/README.md) "Refrigeration". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the procedure that ties them together. The illustrated sequence is [`refrigeration-guide.pdf`](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf).
 
 ## Scope
 
@@ -67,7 +67,7 @@ Confirm the complete R-600a bench kit before starting. The refrigeration section
 - **Coil-to-cap-tube join:** Knipex 86 01 180 Pliers Wrench (7.25", smooth parallel-jaw) — pinch-swages 1/4" ACR copper inlet down onto the capillary tube (~0.031" bore) via progressive 60° rotation collapse. No reducer fitting required.
 - **Coil-to-suction-line join:** HVAC 1/4" OD copper slip coupling (ACR-grade, sweat × sweat) joins coil outlet to factory suction line, both 1/4" OD.
 - **Vacuum and gauges:** A3-suitable vacuum pump and manifold with a circuit-side micron gauge. Orion lists the ledger pump for other refrigerants. Use a low-volume absolute pressure sensor for running suction, or a compound gauge and local station barometer. [Orion pump specifications](https://orionmotortech.com/products/4cfm-vacuum-pump-1-stage-hvac-vacuum-pump-for-r12-r22-r134a-r410a-systems-small-1-3hp-38-micron-vacuum-pump-for-air-conditioner-servicing-resin-degassing-and-more-oil-included)
-- **Mass scale and transfer volume:** verify the Smart Weigh Pro under the actual hose load. Use the repeatability and transfer method in the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+- **Mass scale and transfer volume:** verify the Smart Weigh Pro under the actual hose load. Use the repeatability and transfer method in the [bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf).
 - **Brazing heat:** Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit.
 - **Braze heat protection** for the printed shell exits (Hazard C): two cotton shop rags and a cup of water, off the bench. Nothing is bought for this and nothing appears in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) — a soaked rag is a boiling-water clamp on the tube, which draws heat from the tube while it remains wet. Heat-blocking paste (~$25/tub) is the alternative and is rejected here: it has to be smeared onto and then cleaned off a tube that is about to be brazed dry, and residue on the OD near a phosphorus-fluxing joint is a contamination risk the rag does not carry.
 - **Filler:** BCuP-5 15 % silver brazing alloy — phosphorus self-fluxes on copper, so every (copper-to-copper) loop joint is brazed **dry, no flux**. Brazing flux is only needed for a dissimilar-metal joint (copper-to-brass/steel), of which the loop has none; flux residue left inside a sealed refrigeration loop is corrosive and can plug the cap tube or drier screen, so it is deliberately omitted.
@@ -86,7 +86,7 @@ Confirm the complete R-600a bench kit before starting. The refrigeration section
 Photograph the Antarctic Star HZB-12/Q appliance label and compressor sticker.
 Record the model, electrical ratings and component identities. Use the U.S.
 HZB-12/Q rating from the Intertek constructional report for the first trial mass
-in the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+in the [bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf).
 The inspected plate provides no charge mass. Read any markings the actual unit
 carries and resolve a conflicting refrigerant or model identity before opening.
 [Donor evidence](/hardware/reference/ice-maker/README.md#refrigerant)
@@ -161,7 +161,7 @@ Release inert test gas before connecting the A3 vacuum equipment. Keep the
 micron gauge on the circuit side of the isolation valve and allow the high
 side time to evacuate. Use the pumping and isolation times on the vacuum
 page. Resolve a sustained rise before charging.
-[Bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf)
+[Bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf)
 
 ### 8. Meter the first trial
 
@@ -169,11 +169,11 @@ Weigh the R-600a transfer after charge removal and evacuation. Use the approved
 low-volume kit with a sealed split at the circuit boundary. Weigh the can, tap,
 transfer hose, valve and end fitting together before and after so refrigerant
 retained in the kit stays in both readings. Account for any transfer loss before
-calling the difference net to the circuit. The [gram-scale page](/hardware/refrigeration-guide/refrigeration-guide.pdf#page=24)
+calling the difference net to the circuit. The [gram-scale page](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf#page=24)
 gives the loaded check and the display targets.
 
 Start at the U.S. HZB-12/Q rating printed on the metering page of the
-[bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+[bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf).
 The first mass is a commissioning point. Close and leak-check the service
 access between runs. Log the delivered mass and the transfer setup. Weigh
 each subsequent change and use the matched water-load trial below.
@@ -202,7 +202,7 @@ clearance procedure. Remove the charge through the qualified service connection
 using the route established for the rebuilt loop before opening a leaking joint.
 Restore the inert flow and heat protection,
 pressure-test, evacuate and weigh the next fill.
-[Bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf)
+[Bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf)
 
 ## Output condition
 
@@ -221,7 +221,7 @@ The integrated assembly — cold core + plumbed compressor + condenser — is no
 
 ## Charge commissioning
 
-Follow pages 25–29 and 42–51 of the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+Follow pages 25–29 and 42–51 of the [bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf).
 Use 16.0 g net for the first weighed fill. The [charge estimate](/hardware/refrigeration-guide/README.md#why-the-first-fill-is-160-g)
 records the completed coil calculation. The measured bench comparison supplies
 the commissioning result.
@@ -274,4 +274,4 @@ charge increase. To restore the prior measured fill after a failed addition,
 remove the full charge by the applicable handling method, evacuate and weigh
 in 16.0 g again. Close and leak-check the final service access and save the
 matched runs and finished charge with the unit.
-[Worked examples](/hardware/refrigeration-guide/refrigeration-guide.pdf#page=51)
+[Worked examples](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf#page=51)

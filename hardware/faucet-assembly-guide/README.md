@@ -1,7 +1,7 @@
 # Faucet assembly guide
 
 [Open the display wiring on page 2](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=2)
-or [open the complete local PDF](faucet-assembly-guide.pdf).
+or [open the complete guide](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf).
 
 18 illustrated Letter pages for building the faucet, connecting its Waveshare
 ESP32-S3-Touch-LCD-1.47 display, and finishing the permanently attached
@@ -25,7 +25,7 @@ Pages 6-10 follow the [physical assembly observations](../printed-parts/faucet/l
 5. Route the remaining tubes and flat insulated ribbon, set D's open end
    inside the common passage, then close the neck and base.
 
-The [tube insertion jig guide](../tube-insertion-guide/tube-insertion-guide.pdf)
+The [tube insertion jig guide](https://homesodamachine.com/read/tube-insertion-guide/tube-insertion-guide.pdf)
 covers building and using the T handle and bench press. Their tube grip also
 holds the tube while fitting the sealing sleeve. The printed faucet lever
 is already attached during either donor insertion operation.

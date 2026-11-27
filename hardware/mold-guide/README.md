@@ -2,7 +2,7 @@
 
 The illustrated shop guide covers casting the silicone funnel and insulating
 the cold core. Each operation has a schematic, bench actions and a completion
-check. [Shop guide](mold-guide.pdf) · [Cold-core bench procedure](../assembly/cold-core.md)
+check. [Shop guide](https://homesodamachine.com/read/mold-guide/mold-guide.pdf) · [Cold-core bench procedure](../assembly/cold-core.md)
 
 ## Operations and pages
 

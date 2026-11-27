@@ -1,7 +1,7 @@
 # Printing the Machine
 
 What nine months of printing the Home Soda Machine taught us about FDM, one plastic at a time.
-[Illustrated PDF](printing-the-machine.pdf) · [Website reader](https://homesodamachine.com/read/printing-the-machine/printing-the-machine.pdf)
+[Illustrated PDF in the website reader](https://homesodamachine.com/read/printing-the-machine/printing-the-machine.pdf)
 
 Each page of the book is one HTML file in this folder, built on one real print. Its title is the rule that print taught.
 Every page says which plastic, printer, plate and nozzle its evidence comes from. A lesson learned in one plastic is

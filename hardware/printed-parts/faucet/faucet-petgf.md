@@ -10,5 +10,5 @@ Prepare the product plate. Its archive is kept on this Mac at `sculpted/producti
 tools/run -- faucet-plate sculpted path/to/new-run-directory --production
 ```
 
-Use the [assembly guide](../../faucet-assembly-guide/faucet-assembly-guide.pdf) and
+Use the [assembly guide](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf) and
 [flavor-line specification](flavor-lines/README.md) for the current tubing and interfaces.

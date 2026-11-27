@@ -3,7 +3,7 @@
 Print replacement D and E jaws and two F liners. Reuse the existing base,
 carrier, support puck and stocked metal hardware. The base and carrier
 STLs match the identified existing geometry. The
-[assembly guide](../../../tube-insertion-guide/tube-insertion-guide.pdf)
+[assembly guide](https://homesodamachine.com/read/tube-insertion-guide/tube-insertion-guide.pdf)
 shows their assembly and the sleeve-first sequence.
 
 The two closure screws, liner length and crossbar share X22. Each liner

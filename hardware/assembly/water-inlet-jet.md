@@ -13,7 +13,7 @@ continuous circumferential joint and the required fusion to the wetted root.
 Fitting geometry is shown as reference; measured fit and small-joint weld
 qualification have the scope below.
 
-The [illustrated jet build guide](../water-inlet-jet-guide/water-inlet-jet-guide.pdf)
+The [illustrated jet build guide](https://homesodamachine.com/read/water-inlet-jet-guide/water-inlet-jet-guide.pdf)
 follows one physical build: print and assemble the drilling jaws, install all
 four clamps, drill and cut the cap, connect the welding setup, then seat, tack
 and weld the cap onto the elbow. Pages 2-5 cover the drilling fixture itself.

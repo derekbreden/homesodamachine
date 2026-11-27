@@ -133,7 +133,7 @@ Any failure here is loom wiring, a device fault, or a board fault. Resolve and r
 
 ### 8. First powered refrigeration run
 
-Use the [refrigeration bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf)
+Use the [refrigeration bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf)
 for startup observations and the meter settings. Assemble the compressor
 cover and earth bonds, prove the gas interlock and do the required leak
 checks before supplying power. Use the protected bench disconnect outside

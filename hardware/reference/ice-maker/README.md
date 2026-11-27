@@ -21,7 +21,7 @@ service equipment.
 
 ### Refrigerant
 
-Use the U.S. HZB-12/Q refrigerant rating in Intertek's constructional report as the baseline in the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf). Derek reports the inspected nameplate gives no charge mass. The report permits several compressors under this model, so check the actual compressor plate, fan and connections against the reference measurements. [Intertek constructional report, ratings](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70)
+Use the U.S. HZB-12/Q refrigerant rating in Intertek's constructional report as the baseline in the [bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf). Derek reports the inspected nameplate gives no charge mass. The report permits several compressors under this model, so check the actual compressor plate, fan and connections against the reference measurements. [Intertek constructional report, ratings](https://device.report/m/ba17ebc69382c7509ea70d4e77dfa9bc9ae002417ea8c0af0e913a8b8f89de70)
 
 ### Refrigerant circuit topology (verified by disassembly)
 
@@ -101,7 +101,7 @@ A stainless-finger cold plate, purpose-built for ice-cube formation. **Discarded
 
 The reference compressor is a single-phase AC hermetic with a **combined PTC start relay and overload protector** clipped to its terminal block. Retain the moulded power-box cover and its original retention. The reference teardown found black and white external pigtails. Measure and record the delivered donor's lead function, termination, usable length and earth landing before preparing the mating harness.
 
-For the first start, use the protected appliance feed and the normal warm-wall call after the off guard. The P4400 records standby and running readings at that feed. Follow the [bench guide](/hardware/refrigeration-guide/refrigeration-guide.pdf).
+For the first start, use the protected appliance feed and the normal warm-wall call after the off guard. The P4400 records standby and running readings at that feed. Follow the [bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf).
 
 Safety:
 - **R600a is flammable.** Do not energize after physical damage, near open flame, or if a butane smell is present near the compressor. The factory loop is sealed from the factory, so there's no leak risk during teardown *inspection* — leak risk only appears once the loop is opened for re-piping.

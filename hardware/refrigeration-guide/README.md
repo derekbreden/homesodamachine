@@ -1,6 +1,6 @@
 # Refrigeration bench guide
 
-[Refrigeration bench guide](refrigeration-guide.pdf) covers evaporator fabrication,
+[Refrigeration bench guide](https://homesodamachine.com/read/refrigeration-guide/refrigeration-guide.pdf) covers evaporator fabrication,
 the Antarctic Star donor, charge removal, brazing, pressure test, vacuum, charge and
 water-load commissioning in illustrated Letter pages.
 

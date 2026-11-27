@@ -1,6 +1,6 @@
 # PGFUN two-axis weld positioner shop guide
 
-The [assembly guide](gun-positioner-guide.pdf) uses the shared Letter shop-guide
+The [assembly guide](https://homesodamachine.com/read/gun-positioner-guide/gun-positioner-guide.pdf) uses the shared Letter shop-guide
 theme: IBM Plex, cobalt/coral page bands, ice panels, numbered actions and
 visible ready checks. Its clickable contents and PDF bookmarks lead to the
 operations. Current CAD pictures sit beside the corresponding assembly step.

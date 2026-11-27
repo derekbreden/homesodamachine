@@ -1,6 +1,6 @@
 # Build the water-inlet jet
 
-The [illustrated build guide](water-inlet-jet-guide.pdf) follows the tools and
+The [illustrated build guide](https://homesodamachine.com/read/water-inlet-jet-guide/water-inlet-jet-guide.pdf) follows the tools and
 parts in assembly order. It starts with the drilling fixture, makes the cap,
 connects the welding setup, then seats, tacks and welds the cap to the elbow.
 

@@ -12,7 +12,7 @@ blank before making caps. This is shop tooling, separate from the machine
 assembly. The fabrication procedure is
 [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md).
 
-The [illustrated jet build guide](/hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf)
+The [illustrated jet build guide](https://homesodamachine.com/read/water-inlet-jet-guide/water-inlet-jet-guide.pdf)
 opens with the fixture assembly on pages 2-5: identify the two prints, load
 the rod between their grooves, close the jaws with two horizontal C-clamps,
 then attach the base and backer to the drill table with two vertical clamps.

@@ -1,6 +1,6 @@
 # ASA Aero magnetic float build guide
 
-[Open the illustrated build guide](magnetic-float-guide.pdf), published on
+[Open the illustrated build guide](https://homesodamachine.com/read/magnetic-float-guide/magnetic-float-guide.pdf), published on
 [the guides page](https://homesodamachine.com/guides).
 
 Thirteen Letter pages cover the one-piece ASA Aero float, external dry-feed

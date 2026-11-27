@@ -17,7 +17,7 @@ process. No measured performance is asserted for unbuilt hardware.
 
 | Item | Governing source |
 |---|---|
-| Assembly | [Step-by-step instructions](assembly.md), [printable shop guide](../gun-positioner-guide/gun-positioner-guide.pdf) |
+| Assembly | [Step-by-step instructions](assembly.md), [printable shop guide](https://homesodamachine.com/read/gun-positioner-guide/gun-positioner-guide.pdf) |
 | CAD | [Editable parameters](../printed-parts/fixtures/pgfun-positioner/design.json), [complete STEP](../printed-parts/fixtures/pgfun-positioner/assembly.step), [STL print pack](../printed-parts/fixtures/pgfun-positioner/print-pack.zip) |
 | Printing | [Part manifest](../printed-parts/fixtures/pgfun-positioner/print-manifest.json) and [print preparation](assembly.md#print-and-prepare) |
 | Cost | [Prime purchases and exact fastener allocation](purchases.md) |
