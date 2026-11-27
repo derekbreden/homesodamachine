@@ -593,8 +593,12 @@ fn tracked(root: &Path, graph: &Graph, config: &Value) -> Result<BTreeSet<String
     Ok(files)
 }
 
-fn gave_up(prior: &Reading, current: &Reading) -> bool {
-    prior.reads.len() > current.reads.len() || prior.writes.len() > current.writes.len()
+/// The paths a prior reading declared that the new one does not: reads, then writes.
+fn given_up(prior: &Reading, current: &Reading) -> (Vec<String>, Vec<String>) {
+    (
+        prior.reads.difference(&current.reads).cloned().collect(),
+        prior.writes.difference(&current.writes).cloned().collect(),
+    )
 }
 
 #[derive(Debug, Default, PartialEq, Eq)]
@@ -603,15 +607,12 @@ struct Retention {
     missing: usize,
 }
 
-// A full sweep retains prior declarations only while the checkout still holds their paths.
-fn replacement(
-    root: &Path,
-    prior: Option<&Reading>,
-    mut current: Reading,
-    all: bool,
-) -> (Reading, Retention) {
+// A trace keeps a prior declaration while the checkout still holds its path. A run that finds its
+// geometry already retained skips reads a cold run makes, and a read dropped from the graph is a
+// file the producer's staged run no longer receives.
+fn replacement(root: &Path, prior: Option<&Reading>, mut current: Reading) -> (Reading, Retention) {
     let mut retention = Retention::default();
-    if let Some(prior) = prior.filter(|_| all) {
+    if let Some(prior) = prior {
         for (old, fresh) in [
             (&prior.reads, &mut current.reads),
             (&prior.writes, &mut current.writes),
@@ -693,7 +694,7 @@ pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
             }
             "--help" | "-h" => {
                 println!(
-                    "Trace registered native producers and carry their outputs.\n\nUsage: hsm-build-plan trace-inputs [--graph FILE] [--timeout SECONDS] SOURCE.rs ...\nUse --all to trace the full registered set and retain prior declarations whose paths still exist."
+                    "Trace registered native producers and carry their outputs.\n\nUsage: hsm-build-plan trace-inputs [--graph FILE] [--timeout SECONDS] SOURCE.rs ...\nUse --all to trace the full registered set. A trace keeps each prior declaration whose path still exists."
                 );
                 return Ok(0);
             }
@@ -746,21 +747,15 @@ pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
         if !result.reading.writes.is_empty() {
             // Pointer debt concerns exports made by this run, not retained declarations.
             wrote.extend(result.reading.writes.iter().cloned());
-            let (reading, kept) = replacement(root, graph.get(source), result.reading, all);
+            let (reading, kept) = replacement(root, graph.get(source), result.reading);
             result.reading = reading;
             retention.kept += kept.kept;
             retention.missing += kept.missing;
-            if let Some(prior) = graph
-                .get(source)
-                .filter(|prior| gave_up(prior, &result.reading))
-            {
-                shrank.push((
-                    source.clone(),
-                    prior.reads.len(),
-                    result.reading.reads.len(),
-                    prior.writes.len(),
-                    result.reading.writes.len(),
-                ));
+            if let Some(prior) = graph.get(source) {
+                let (reads, writes) = given_up(prior, &result.reading);
+                if !reads.is_empty() || !writes.is_empty() {
+                    shrank.push((source.clone(), reads, writes));
+                }
             }
             graph.insert(source.clone(), result.reading.clone());
             if let Some(parent) = graph_path.parent() {
@@ -799,7 +794,7 @@ pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
         std::io::stdout().flush()?;
     }
     println!("{} generator(s) in the graph", graph.len());
-    if all {
+    if retention != Retention::default() {
         println!(
             "{} prior declaration(s) retained because their paths exist; {} missing path(s) dropped",
             retention.kept, retention.missing
@@ -810,8 +805,14 @@ pub fn cli(root: &Path, args: &[String]) -> Result<i32> {
             "{} reading(s) gave up prior inputs or outputs:",
             shrank.len()
         );
-        for (source, old_reads, reads, old_writes, writes) in shrank {
-            println!("  {source}: {old_reads} -> {reads} read, {old_writes} -> {writes} written");
+        for (source, reads, writes) in shrank {
+            println!("  {source}");
+            for path in reads {
+                println!("    no longer reads {path}");
+            }
+            for path in writes {
+                println!("    no longer writes {path}");
+            }
         }
     }
     let behind = pointer_debt(root, &wrote)?;
@@ -853,16 +854,25 @@ mod tests {
     }
 
     #[test]
-    fn losing_either_side_of_a_reading_is_reported() {
-        let reading = |read: usize, write: usize| Reading {
-            reads: (0..read).map(|i| format!("r{i}")).collect(),
-            writes: (0..write).map(|i| format!("w{i}")).collect(),
+    fn a_path_given_up_is_named_even_when_the_reading_grows() {
+        let reading = |reads: &[&str], writes: &[&str]| Reading {
+            reads: reads.iter().map(|path| path.to_string()).collect(),
+            writes: writes.iter().map(|path| path.to_string()).collect(),
             ..Reading::default()
         };
-        assert!(gave_up(&reading(5, 3), &reading(9, 1)));
-        assert!(gave_up(&reading(9, 1), &reading(5, 3)));
-        assert!(!gave_up(&reading(5, 1), &reading(9, 3)));
-        assert!(!gave_up(&reading(9, 3), &reading(9, 3)));
+        let none: Vec<String> = Vec::new();
+        assert_eq!(
+            given_up(&reading(&["a", "elbow.npz"], &["w"]), &reading(&["a", "b", "c"], &["w"])),
+            (vec!["elbow.npz".to_owned()], none.clone())
+        );
+        assert_eq!(
+            given_up(&reading(&["a"], &["w", "v"]), &reading(&["a"], &["w", "x"])),
+            (none.clone(), vec!["v".to_owned()])
+        );
+        assert_eq!(
+            given_up(&reading(&["a"], &["w"]), &reading(&["a", "b"], &["w", "x"])),
+            (none.clone(), none)
+        );
     }
 
     #[test]
@@ -873,7 +883,7 @@ mod tests {
     }
 
     #[test]
-    fn full_sweep_retains_existing_prior_paths_without_retaining_old_compiler_metadata() {
+    fn a_trace_retains_existing_prior_paths_without_retaining_old_compiler_metadata() {
         let scratch = scratch("retention-test");
         for path in ["old.rs", "present.stl", "notes.md"] {
             fs::write(scratch.0.join(path), "held").unwrap();
@@ -903,7 +913,7 @@ mod tests {
             }),
             ..Reading::default()
         };
-        let (merged, retention) = replacement(&scratch.0, Some(&prior), current.clone(), true);
+        let (merged, retention) = replacement(&scratch.0, Some(&prior), current);
         assert_eq!(
             retention,
             Retention {
@@ -927,11 +937,6 @@ mod tests {
             merged.program.as_ref().unwrap().sources,
             ["new.rs".into()].into()
         );
-        let (narrow, retention) = replacement(&scratch.0, Some(&prior), current, false);
-        assert_eq!(retention, Retention::default());
-        assert_eq!(narrow.reads, ["new.rs".into()].into());
-        assert_eq!(narrow.writes, ["new.stl".into()].into());
-        assert!(narrow.rewritten.is_empty());
     }
 
     #[test]
