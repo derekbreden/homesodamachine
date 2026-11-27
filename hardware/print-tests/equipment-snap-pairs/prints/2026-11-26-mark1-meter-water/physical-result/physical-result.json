@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-26",
+  "observed_by": "Derek",
+  "printer": "Mark1",
+  "printer_task_id": "1490559572",
+  "object": "meter-receiver",
+  "source_stl_sha256": "b8bf10451e92e3176185ca36ebb1970f0695449ff0ecd201709ef6a0cb1f9bcd",
+  "companion_cover": "Existing meter-snap-cap from this plate.",
+  "comparison": "Derek included the most recent print of the previous design.",
+  "derek": "You didn't support your surfaces on the flow meter receiver. I'm including the most recent print of the previous design for comparison for you in these photos.",
+  "observations": [
+    "Long loose roads span the new catch pocket and a strand protrudes at the outer edge. The comparison shows continuous courses at the earlier pocket.",
+    "The photographs document the as-printed surface. No cleaned clearance or insertion force was measured."
+  ],
+  "photos": [
+    {
+      "file": "IMG_8883.jpeg",
+      "source_attachment_sha256": "78bdda239989043a76cf1e4303ab1bcb9964ad6c3811037480d89aaec5f95621",
+      "sha256": "31381c77db4190e95cb4718eed4bd8a24858016123e79898a33fa1cdd8c90064"
+    },
+    {
+      "file": "IMG_8884.jpeg",
+      "source_attachment_sha256": "25a42e6c0f2a1c6d5e71c9087d1c8c1276130540fb4079967640cfff8f110fa6",
+      "sha256": "d1fa33147828cb64d89e1de08b8925c393ea2eb117a59891b1ec1b58fa731dbb"
+    },
+    {
+      "file": "IMG_8885.jpeg",
+      "source_attachment_sha256": "501f086d9a82041f28dbcf72dabfdf2a0737c09c21bd3e8d88c2cf76491a84b3",
+      "sha256": "b49f7968cd27a582f103213d10e08c400332d9eb62e15ad9ecdbde88a2cb902d"
+    },
+    {
+      "file": "IMG_8886.jpeg",
+      "source_attachment_sha256": "cacf0a272a0e20525c4fa1ba9596df05810537d714c31652b0eb73c41704f2ee",
+      "sha256": "86a6f424e1ea21111e8eb8a616a540497b460acb38e41066e2ad30084af589f1"
+    }
+  ],
+  "photo_export": "Full-resolution attachment pixels and colour profiles preserved. Camera metadata removed."
+}
