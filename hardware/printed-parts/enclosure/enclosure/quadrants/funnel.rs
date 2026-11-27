@@ -6,7 +6,7 @@ use crate::shapes::{corner_prism, rounded, rounded_prism};
 use crate::shell::*;
 use crate::structure::FUNNEL_SEAT;
 use crate::ystacks::y_stack_axis;
-use hsm_enclosure_numbers::funnel_mount::{self, REAR_ACCESS, SCREW_GRIP};
+use hsm_enclosure_numbers::funnel_mount::{self, BACK_BORE_LAND, BACK_SEAT_SLOPE, REAR_ACCESS, SCREW_GRIP};
 pub use hsm_enclosure_numbers::funnel_mount::PAD_HALF_Y;
 
 pub const COLLAR_W: f64 = 165.0;
@@ -80,7 +80,9 @@ pub fn roof_datums([_cx, cy]: P2, seat: f64) -> Roof {
     }
 }
 
-/// A frame screw and its ledge in the shell.
+/// A frame screw and its ledge in the shell. A sloped ledge is a back one: its seat falls
+/// inward from the pocket's flank, and its insert presses in from its flat underside into a
+/// pilot that runs on up through the seat.
 #[derive(Clone, Copy, Debug)]
 pub struct Fastener {
     pub col: Y,
@@ -93,24 +95,35 @@ pub struct Fastener {
     pub bore_bottom_z: f64,
     pub host_bottom_z: f64,
     pub host_radius: f64,
+    pub sloped: bool,
 }
 
 pub fn fasteners(centre: P2, seat: f64) -> impl Iterator<Item = Fastener> {
     let r = roof_datums(centre, seat);
     let ledge = r.floor;
     let bore_bottom = ledge - HEATSET_LONG_LEN - PILOT_RELIEF;
-    funnel_mount::stations(r.front, r.back).map(move |station| Fastener {
-        col: if station.front { Y::Front } else { Y::Back },
-        side: station.side,
-        x: centre[0] + station.x,
-        y: station.y,
-        ledge_z: ledge,
-        head_seat_z: ledge + SCREW_GRIP,
-        insert_top_z: ledge,
-        bore_bottom_z: bore_bottom,
-        host_bottom_z: bore_bottom - WALL,
-        host_radius: HEATSET_DIA / 2.0 + WALL,
+    let entry = funnel_mount::back_insert_entry(ledge);
+    funnel_mount::stations(r.front, r.back).map(move |station| {
+        let sloped = !station.front;
+        Fastener {
+            col: if station.front { Y::Front } else { Y::Back },
+            side: station.side,
+            x: centre[0] + station.x,
+            y: station.y,
+            ledge_z: ledge,
+            head_seat_z: ledge + SCREW_GRIP,
+            insert_top_z: if sloped { entry + HEATSET_LONG_LEN } else { ledge },
+            bore_bottom_z: if sloped { entry } else { bore_bottom },
+            host_bottom_z: if sloped { entry } else { bore_bottom - WALL },
+            host_radius: HEATSET_DIA / 2.0 + WALL,
+            sloped,
+        }
     })
+}
+
+/// The roof pocket's flank a sloped seat falls from, on the side `side`.
+pub fn seat_flank(inner: &Bounds, side: f64) -> f64 {
+    if side < 0.0 { inner[0] + Y_STACK_HIGH_DEPTH } else { inner[1] - Y_STACK_HIGH_DEPTH }
 }
 
 /// The frame's plan blank, stepped in behind the Y stacks when it is wider than their reach.
@@ -177,7 +190,8 @@ pub fn front_roof_clearance(g: &mut Graph, inner: &Bounds, centre: P2, seat: f64
 }
 
 /// The ledges one column's frame screws land on, each rooted in its flank; print-up pieces
-/// take a corbel under each.
+/// take a corbel under each. A sloped ledge's seat falls from the pocket's flank to its inner
+/// face, so back-top prints it ceiling-down without support.
 pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat: f64, col: Y,
                  up: Option<f64>) -> Option<Shape> {
     let mut blocks = Vec::new();
@@ -187,6 +201,15 @@ pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat
         let (xa, xb) = sorted(inside, if side < 0.0 { outer[0] } else { outer[1] });
         let (y0, bottom) = (row.y - PAD_HALF_Y, row.host_bottom_z);
         let mut block = g.box_([xa, xb, y0, y0 + 2.0 * PAD_HALF_Y, bottom, row.ledge_z]);
+        if row.sloped {
+            let flank = seat_flank(inner, side);
+            let edge = inside - side;
+            let fall = (flank - edge).abs() * BACK_SEAT_SLOPE;
+            let above = g.xz_prism(y0 - 1.0, y0 + 2.0 * PAD_HALF_Y + 1.0,
+                                   vec![[flank, row.ledge_z], [edge, row.ledge_z - fall],
+                                        [edge, row.ledge_z + 1.0], [flank, row.ledge_z + 1.0]]);
+            block = g.cut(block, &[above]);
+        }
         if up.is_some_and(|u| u > 0.0) {
             let wall_x = if side > 0.0 { inner[1] } else { inner[0] };
             let corbel = g.xz_prism(y0, y0 + 2.0 * PAD_HALF_Y,
@@ -199,11 +222,30 @@ pub fn receivers(g: &mut Graph, inner: &Bounds, outer: &Bounds, centre: P2, seat
     Some(g.union(*first, rest))
 }
 
-/// The heat-set bores one column's frame screws take in the shell.
-pub fn shell_screw_cuts(g: &mut Graph, centre: P2, seat: f64, col: Y) -> Option<Shape> {
+/// The heat-set bores one column's frame screws take in the shell. A sloped ledge's pilot runs
+/// from its underside up through the seat. Inward of its axis it runs on as a slot of its own
+/// width, closed by a face square to the seat that lands `BACK_BORE_LAND` past the bore wall, so
+/// the seat meets no bore edge at less than a right angle.
+pub fn shell_screw_cuts(g: &mut Graph, inner: &Bounds, centre: P2, seat: f64, col: Y) -> Option<Shape> {
     let bores: Vec<Shape> = fasteners(centre, seat)
         .filter(|r| r.col == col)
-        .map(|r| g.zcyl(HEATSET_DIA / 2.0, r.x, r.y, r.bore_bottom_z, r.insert_top_z + 1.0))
+        .map(|r| {
+            if r.sloped {
+                let half = HEATSET_DIA / 2.0;
+                let pilot = g.zcyl(half, r.x, r.y, r.bore_bottom_z - 1.0, r.ledge_z + 1.0);
+                let land = r.x - r.side * (half + BACK_BORE_LAND);
+                let land_z = r.ledge_z - (seat_flank(inner, r.side) - land).abs() * BACK_SEAT_SLOPE;
+                let axis_z = land_z - (r.x - land).abs() / BACK_SEAT_SLOPE;
+                let run = r.host_radius + 1.0;
+                let edge = r.x - r.side * run;
+                let open = g.xz_prism(r.y - half, r.y + half,
+                                      vec![[r.x, axis_z], [edge, axis_z + run / BACK_SEAT_SLOPE],
+                                           [edge, r.ledge_z + 1.0], [r.x, r.ledge_z + 1.0]]);
+                g.union(pilot, &[open])
+            } else {
+                g.zcyl(HEATSET_DIA / 2.0, r.x, r.y, r.bore_bottom_z, r.insert_top_z + 1.0)
+            }
+        })
         .collect();
     let (first, rest) = bores.split_first()?;
     Some(g.union(*first, rest))

@@ -118,6 +118,42 @@ fn socket(n: &Frame) -> Result<Solid> {
     pocket.cut(&floor)
 }
 
+/// Under each back notch the flange keeps a wedge whose face rises outward at the back seat's
+/// slope, one slip square to back-top's ledge, from the body out to the roof's edge and aft to
+/// the body's corbel. Upright, the face prints without support. Outward of its axis the screw's
+/// bore opens below a face square to the seat, falling from the flange's underside, so the face
+/// meets no bore edge at less than a right angle.
+fn back_seats(n: &Frame, aft_corbel: &Solid) -> Result<Vec<Solid>> {
+    let floor = n.roof_floor + SEATING_RELIEF;
+    let lift = n.back_seat_air * (1.0 + n.back_seat_slope.powi(2)).sqrt();
+    let face = |a: f64| n.roof_floor - (n.back_seat_flank - a) * n.back_seat_slope + lift;
+    let roof = Plane::XY.at(v3(0.0, 0.0, -1.0)).extrude(&blank_plan(n, n.roof_width)?, floor + 3.0)?;
+    let mut seats = vec![];
+    for &(x, y, head, host, side, front, _) in &n.screws {
+        if front {
+            continue;
+        }
+        let inner = x.abs() - host - n.slide_slip - 1.0;
+        let outer = n.back_seat_flank;
+        let section = Profile::new(Loop::polygon(&[
+            v2(side * inner, face(inner)), v2(side * outer, face(outer)),
+            v2(side * outer, floor + 1.0), v2(side * inner, floor + 1.0),
+        ]));
+        let start = y - n.ledge_pad_half_y - n.slide_slip;
+        let wedge = Plane::XZ.at(v3(0.0, n.back + 1.0, 0.0)).extrude(&section, n.back + 1.0 - start)?;
+        let r = n.screw_clear_radius;
+        let hole = cylinder(x, y, r, -1.0, head + 0.01)?;
+        let run = outer + 1.0 - x.abs();
+        let edge = x + side * run;
+        let opening = Profile::new(Loop::polygon(&[
+            v2(x, -1.0), v2(x, floor), v2(edge, floor - run / n.back_seat_slope), v2(edge, -1.0),
+        ]));
+        let open = Plane::XZ.at(v3(0.0, y + r, 0.0)).extrude(&opening, 2.0 * r)?;
+        seats.push(wedge.intersect(&roof)?.cut_all(&[aft_corbel.clone(), hole, open])?);
+    }
+    Ok(seats)
+}
+
 fn build(n: &Frame) -> Result<Solid> {
     let seat = n.seat;
     let floor = n.roof_floor + SEATING_RELIEF;
@@ -137,6 +173,7 @@ fn build(n: &Frame) -> Result<Solid> {
         let plan = Profile::new(Loop::polygon(&points));
         cuts.push(Plane::YZ.at(v3(-150.0, 0.0, 0.0)).extrude(&plan, 300.0)?);
     }
+    let seats = back_seats(n, &cuts[1])?;
 
     let slip = n.slide_slip;
     let pad = n.ledge_pad_half_y;
@@ -178,10 +215,11 @@ fn build(n: &Frame) -> Result<Solid> {
     let half = n.body_half_width;
     let rear = block(-150.0, 150.0, n.rear_start, n.rear_start + 200.0, seat, top + 1.0)
         .cut_all(&rear_pads)?;
-    body.cut_all(&[
+    let body = body.cut_all(&[
         block(half, 150.0, -200.0, 200.0, -1.0, floor),
         block(-150.0, -half, -200.0, 200.0, -1.0, floor), rear,
-    ])
+    ])?;
+    seats.iter().try_fold(body, |body, wedge| body.union(wedge))
 }
 
 fn main() -> Result<()> {

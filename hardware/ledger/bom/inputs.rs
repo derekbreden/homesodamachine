@@ -183,6 +183,9 @@ pub fn inputs(root: &Path) -> Result<Inputs> {
     let funnel_screws = facts.bodies.keys()
         .filter(|name| name.starts_with("funnel-frame-") && name.ends_with("-screw"))
         .count();
+    let funnel_deep_screws = facts.bodies.keys()
+        .filter(|name| name.starts_with("funnel-frame-back-") && name.ends_with("-screw"))
+        .count();
     Ok(Inputs {
         relays,
         placed,
@@ -213,6 +216,7 @@ pub fn inputs(root: &Path) -> Result<Inputs> {
         },
         seam_rods: bought::SEAM_RODS,
         funnel_screws,
+        funnel_deep_screws,
         compressor: Compressor {
             bore: compressor.mount_d_mm,
             ligament: bought::COMPRESSOR_HOLE_INSET - compressor.mount_d_mm / 2.0,

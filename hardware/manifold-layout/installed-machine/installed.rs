@@ -3,7 +3,7 @@
 use crate::design;
 use crate::pack::{model, reference_bounds, text};
 use anyhow::{Context, Result};
-use hsm_enclosure_numbers::{Bounds, display_mount, rear_wall, shell, structure};
+use hsm_enclosure_numbers::{Bounds, display_mount, fasteners, funnel_mount, rear_wall, shell, structure};
 use serde::Deserialize;
 use serde_json::{Map, Value, json};
 use std::path::Path;
@@ -126,7 +126,8 @@ impl Site {
         self.seat() - self.frame.seat
     }
 
-    /// The frame's screws into the shell's ledges, in the machine's frame.
+    /// The frame's screws into the shell's ledges, in the machine's frame. A front insert opens
+    /// at its ledge; a back one presses in from under its sloped ledge, on the longer screw.
     fn fasteners(&self) -> Vec<Value> {
         let [cx, cy] = self.centre;
         let floor = self.frame_floor();
@@ -138,11 +139,16 @@ impl Site {
                 let col = if front { "front" } else { "back" };
                 let edge = if side < 0.0 { "west" } else { "east" };
                 let row = row.as_deref().unwrap_or(col);
+                let (bottom, length) = if front {
+                    (ledge - shell::HEATSET_LONG_LEN, fasteners::M3_SCREW_LENGTH)
+                } else {
+                    (funnel_mount::back_insert_entry(ledge), funnel_mount::BACK_SCREW_LENGTH)
+                };
                 json!({
                     "name": format!("{row}-{edge}"), "col": col, "side": side as i64,
                     "x": cx + dx, "y": cy + dy, "ledge_z": ledge, "head_seat_z": floor + head,
-                    "insert_top_z": ledge, "insert_bottom_z": ledge - shell::HEATSET_LONG_LEN,
-                    "host_radius_mm": host_radius,
+                    "insert_top_z": bottom + shell::HEATSET_LONG_LEN, "insert_bottom_z": bottom,
+                    "screw_length_mm": length, "host_radius_mm": host_radius,
                 })
             })
             .collect()

@@ -18,3 +18,9 @@ click: x=89.350 y=80.301 z=47.067
 click: x=91.250 y=80.301 z=47.067
 click: x=-89.349 y=80.323 z=47.066
 click: x=-91.250 y=80.323 z=47.066
+
+[thin] The back screw's 3.3 mm bore stands 1.9 mm in from the frame's rear edge at the shared back station. Under the flange it passes through the wedge whose face rises outward at 45 degrees to match back-top's seat, as Derek asked. Where the bore leaves that face, its outer half is closed by a face square to the seat 0.38 mm past the bore wall, so no knife edge remains. The 1.24 mm read here is the run from the bore wall to the rising face just above that closing face, inside the 1.9 mm the frame's edge already allows.
+alternatives: Carrying the bore out through the roof's edge as an open slot leaves a flat 3.3 by 1.9 mm bridge, read as a ledge. Raising the closing face brings it within about 1.1 mm of the frame's outer face. Moving the shared back station inward moves back-top's insert and the frame's head pad with it, and the rising face still stands under 2.5 mm from the bore near its foot.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=-90.587 y=80.125 z=45.399
+click: x=90.587 y=80.125 z=45.399

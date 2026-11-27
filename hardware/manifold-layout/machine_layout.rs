@@ -1187,13 +1187,14 @@ fn installed(layout: &mut Layout, v: &Value) -> Result<()> {
             "funnel-frame-{}",
             row["name"].as_str().context("fastener name")?
         );
-        let (x, y, head, insert) = (
+        let (x, y, head, insert, length) = (
             f(row, "x")?,
             f(row, "y")?,
             f(row, "head_seat_z")?,
             f(row, "insert_top_z")?,
+            f(row, "screw_length_mm")?,
         );
-        let screw = zcylinder(x, y, 1.5, head - 12., head)?
+        let screw = zcylinder(x, y, 1.5, head - length, head)?
             .union(&zcylinder(x, y, 2.75, head, head + 3.)?)?
             .cut(&hexagon(x, y, 2.5, head + 1.5, head + 3.1)?)?;
         let sleeve = zcylinder(x, y, 2.3, insert - 5.7, insert)?.cut(&zcylinder(

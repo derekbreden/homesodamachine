@@ -73,7 +73,9 @@ stepped roof pocket.
 
 The flange underside has seating relief above the shell ledges, owned by
 `SEATING_RELIEF` in [the frame's dimensions](../numbers/frame.rs). The front corner
-coupon seats under light hand pressure in the printed front-top.
+coupon seats under light hand pressure in the printed front-top. Over each back
+ledge the frame keeps a wedge whose face rises outward at 45° from the body to the
+roof's edge, one slip square to back-top's seat, and ends aft on the body's corbel.
 [Coupon photographs and fit record](https://github.com/derekbreden/homesodamachine/tree/635052504/hardware/print-tests/funnel-frame-seating/prints/2026-11-17-funnel-frame-seating-coupon-mark2-600b84b5-textured-pei/physical-result)
 The lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
@@ -91,17 +93,29 @@ The front head wells open to the sides above their bearing floors. The rear pads
 stand outside the brim's rounded corners. Install the screws from above before
 seating the silicone apron over the heads.
 
-Each insert opens upward at Z346. Its Ø4.0 mm pilot ends at Z338.8 with
-3 mm of blind backing. The nominal screw takes the complete 5.7 mm insert
+Each front insert opens upward at Z346. Its Ø4.0 mm pilot ends at Z338.8 with
+3 mm of blind backing. The nominal M3 × 12 takes the complete 5.7 mm insert
 and extends 0.5 mm beyond it. A ±0.4 mm screw-length allowance retains at
 least 5.8 mm reach below the insert entrance and 0.6 mm blind-tip clearance.
 The upper M5 seam blocks and their screw passages retain their own stock and datums.
 
+Each back ledge's seat falls inward at 45° from the roof pocket's flank at Z346,
+so back-top prints it ceiling-down without support. Its insert presses in from
+the ledge's flat underside and spans Z327.3 to Z333.0. The Ø4.0 mm pilot runs on
+up through the seat; inward of its axis it runs on as a slot of its own width,
+closed by a face square to the seat that lands 1 mm past the bore wall. Outward of
+its axis the frame's screw bore opens below a face square to the wedge's face, so
+neither 45° face meets a bore edge at less than a right angle. The M3 × 25 from
+the Z351.8 head pad takes the complete insert and its tip passes 0.5 mm below the
+underside. Press these two inserts with back-top resting on its roof, using the
+90° M3 tip from inside the box.
+
 The frame prints on its lower feet, with the exported individual STEP and STL
 placing their undersides at Z0 and the funnel's plan center at X0, Y0.
 Its flat underside flange and lower corbels are functional bearing/access features;
-use the enclosure's PET-GF support-removal strategy. Clamping and full-frame fit
-with the added screws await a physical assembly.
+use the enclosure's PET-GF support-removal strategy. The back wedges' 45° faces
+print without support. Clamping and full-frame fit with the added screws await a
+physical assembly.
 
 ## Drain socket and snap web
 

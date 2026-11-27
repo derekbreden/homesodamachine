@@ -63,7 +63,7 @@ pub fn funnel_seat(g: &mut Graph, mut piece: Shape, b: &Box, q: Quadrant, silhou
     }
     let roof = funnel::front_roof_clearance(g, inner, centre, seat, y_joint);
     piece = g.cut(piece, &[roof]);
-    if let Some(bores) = funnel::shell_screw_cuts(g, centre, seat, q.y) {
+    if let Some(bores) = funnel::shell_screw_cuts(g, inner, centre, seat, q.y) {
         piece = g.cut(piece, &[bores]);
     }
     if q.y == Y::Front {

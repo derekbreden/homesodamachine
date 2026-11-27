@@ -162,7 +162,7 @@ clearances pointing in the build direction. The vent cap has a rooted chamfer;
 its passage stays clear of supports. Back-top's rail caps have narrow removable
 roots on their own cavity floors. The nameplate receiver's two ledges grow
 from the rear wall on corbels. Manual Tree Slim supports exposed joint ends,
-funnel receivers, the valve seat and initial boss curves. The fill tube seat's
+the valve seat and initial boss curves. The fill tube seat's
 free upper wing prints on breakaway strips rooted on its corbelled lower wing.
 The cable hooks' beak lands overhang too little to need support, as
 front-bottom's same hooks show. Read the

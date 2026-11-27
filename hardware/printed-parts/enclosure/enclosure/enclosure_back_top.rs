@@ -122,32 +122,13 @@ fn print_features(dir: &Path, b: &spec::Box) -> Result<()> {
         .filter(|row| row.col == quadrant::Y::Back)
     {
         let side = if row.side < 0.0 { "West" } else { "East" };
-        let r = shell::HEATSET_DIA / 2.0;
-        let (x0, x1) = if row.side < 0.0 {
-            (b.outer[0], row.x + row.host_radius)
-        } else {
-            (row.x - row.host_radius, b.outer[1])
-        };
-        let (y0, y1) = (row.y - funnel::PAD_HALF_Y, row.y + funnel::PAD_HALF_Y);
-        let (z0, z1) = (row.ledge_z - catalog::running(), row.ledge_z + catalog::running());
-        // Leave room for the slicer's expansion of a manual contact around the pilot.
-        let reserve = r + shell::WALL / 2.0 + catalog::running();
-        let (xa, xb, ya, yb) = (row.x - reserve, row.x + reserve, row.y - reserve, row.y + reserve);
-        for (edge, bounds) in [
-            ("west", [x0, xa, y0, y1, z0, z1]),
-            ("east", [xb, x1, y0, y1, z0, z1]),
-            ("front", [xa, xb, y0, ya, z0, z1]),
-            ("back", [xa, xb, yb, y1, z0, z1]),
-        ] {
-            targets.push(json!({"name":format!("{side} funnel frame receiver {edge} shoulder"),
-                "bounds_source_mm":bounds,
-                "reason":"Support the exposed shoulder through the open flank removal path while the adjacent insert pilot bridges."}));
-        }
-        regions.push(json!({"name":format!("{side} funnel frame insert pilot"),
-            "bounds_source_mm":[row.x-r,row.x+r,row.y-r,row.y+r,row.bore_bottom_z,row.insert_top_z],
-            "void_source":{"kind":"cylinder","start_mm":[row.x,row.y,row.bore_bottom_z],
-                "end_mm":[row.x,row.y,row.insert_top_z],"radius_mm":r},
-            "reason":"Bridge the blind insert pilot across its own walls while the exposed surrounding ledge receives removable support."}));
+        let inside = row.x - row.side * row.host_radius;
+        let flank = funnel::seat_flank(&b.inner, row.side);
+        let (x0, x1) = if row.side < 0.0 { (flank, inside) } else { (inside, flank) };
+        let low = row.ledge_z - (flank - inside).abs() * hsm_enclosure_numbers::funnel_mount::BACK_SEAT_SLOPE;
+        regions.push(json!({"name":format!("{side} funnel frame seat"),
+            "bounds_source_mm":[x0,x1,row.y-funnel::PAD_HALF_Y,row.y+funnel::PAD_HALF_Y,low,row.ledge_z],
+            "reason":"The seat falls inward at 45 degrees from the pocket's flank and grows without support. Its insert pilot opens on the ledge's flat underside."}));
     }
     for (name, bounds) in above::pocket_regions(quadrant::Y::Back) {
         regions.push(json!({"name":name,"bounds_source_mm":bounds,

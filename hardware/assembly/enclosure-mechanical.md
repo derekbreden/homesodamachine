@@ -75,6 +75,8 @@ Use the regular M3 and M5 bodies selected in [the BOM](/hardware/ledger/bom.md#1
   blind lands stand in matching closed recesses in the cold-core casing.
 - Install regular M3 inserts in the PSU hosts, mains-inlet block, condenser
   fingers, funnel ledges and pump-retainer hosts before fitting their parts.
+  Back-top's two funnel-ledge inserts enter from the ledges' flat undersides:
+  rest back-top on its roof and press them flush with the 90° M3 tip from inside the box.
 - The core's PCB columns use the [deck mount schedule](/hardware/printed-parts/cold-core/foam-cap/numbers/deck.rs).
   Fit the short screws directly through the board; keep the lid removed for heat setting.
 - Seat the ruthex RX-M2x4 inserts flush in the west-wall relay bearings.
