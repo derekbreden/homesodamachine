@@ -398,9 +398,10 @@ Supported pocket edges receive their directional allowance in back-top's
 inverted print pose. The label pads retain full backing through their
 print-down edges before their run-outs.
 
-Before loading the identification tiles, clip the two first-layer ties on each
-stand where they meet the outer backs of the retaining rails. Pull each stand
-straight out of the rear opening. The flat stop at Z240.6 sets the tile height.
+Before loading the identification tiles, clip each stand's two first-layer ties
+flush with the backs of the solid rail roots. Each clipping point sits 3.35 mm
+along the rail from the adjacent edge of the tile opening. Pull each stand straight
+out of the rear opening. The flat stop at Z240.6 sets the tile height.
 [Support removal guide](prints/2026-11-27-fitted-back-top-mark1/label-stand-removal.png)
 
 The [screw-mounted nameplate](../nameplate/README.md) bears on its receiver.

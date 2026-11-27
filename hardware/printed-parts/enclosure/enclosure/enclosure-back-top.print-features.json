@@ -145,8 +145,12 @@
         47.7999988712316
       ],
       "rail_back_y_mm": 474.3,
-      "reason": "The stand rises from the bed outside the rear rail faces. Its top supports the exposed stop across the release gap. Clip the two first-layer ties at the exterior rail backs and pull the stand straight rearward before fitting the tiles.",
-      "shape": "identification_stop_stand"
+      "reason": "The first-layer ties join the backs of the solid rail roots outside the tile mouth. Clip both ties flush with the root backs and pull the stand straight rearward. The inclined tip supports the exposed stop across the release gap.",
+      "shape": "identification_stop_stand",
+      "tie_root_centres_x_mm": [
+        6.449998871231601,
+        51.1499988712316
+      ]
     },
     {
       "bed_source_z_mm": 355.0,
@@ -158,8 +162,12 @@
         95.5
       ],
       "rail_back_y_mm": 474.3,
-      "reason": "The stand rises from the bed outside the rear rail faces. Its top supports the exposed stop across the release gap. Clip the two first-layer ties at the exterior rail backs and pull the stand straight rearward before fitting the tiles.",
-      "shape": "identification_stop_stand"
+      "reason": "The first-layer ties join the backs of the solid rail roots outside the tile mouth. Clip both ties flush with the root backs and pull the stand straight rearward. The inclined tip supports the exposed stop across the release gap.",
+      "shape": "identification_stop_stand",
+      "tie_root_centres_x_mm": [
+        54.15,
+        98.85
+      ]
     },
     {
       "bore_radius_mm": 3.175,

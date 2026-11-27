@@ -426,12 +426,14 @@ fn identification_stop(
 ) -> (serde_json::Value, serde_json::Value) {
     use serde_json::json;
     let back = rear_wall::ROOT_Y[1];
+    let root_offset = rear_wall::RAIL_INSET + rear_wall::TILE_SLIP / 2.0 + 1.20;
     let stand = json!({
         "name": format!("Removable {name} loading stop stand"),
         "shape": "identification_stop_stand",
         "opening_x_mm": [left, right], "channel_face_y_mm": y0, "rail_back_y_mm": rear_wall::BOUND_Y[1],
+        "tie_root_centres_x_mm": [left - root_offset, right + root_offset],
         "contact_source_z_mm": floor, "bed_source_z_mm": bed,
-        "reason": "The stand rises from the bed outside the rear rail faces. Its top supports the exposed stop across the release gap. Clip the two first-layer ties at the exterior rail backs and pull the stand straight rearward before fitting the tiles."
+        "reason": "The first-layer ties join the backs of the solid rail roots outside the tile mouth. Clip both ties flush with the root backs and pull the stand straight rearward. The inclined tip supports the exposed stop across the release gap."
     });
     let bridge = json!({
         "name": format!("{name} stop"),

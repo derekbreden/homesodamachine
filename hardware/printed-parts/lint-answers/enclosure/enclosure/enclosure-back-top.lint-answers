@@ -450,7 +450,7 @@ alternatives: Filling or corbelling into these faces enters the fitted housing o
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=85.767 y=418.005 z=260.300
 
-[ceiling] The 2 mm-deep stop at Z240.6 locates the stack of three rectangular identification cards before the bulkheads clamp them. In the ceiling-down print, a separate stand rises behind each pair of retaining lips. Its inclined tip supports the exposed stop across a 0.24 mm release gap. Clip the two first-layer ties at each stand’s exterior rail backs and withdraw the stands straight to the rear before fitting the cards and bulkheads.
+[ceiling] The 2 mm-deep stop at Z240.6 locates the stack of three rectangular identification cards before the bulkheads clamp them. In the ceiling-down print, a separate stand rises behind each pair of retaining lips. Its inclined tip supports the exposed stop across a 0.24 mm release gap. Clip the two first-layer ties flush with the backs of the solid rail roots, 3.35 mm from the adjacent edges of the tile mouth and withdraw the stands straight to the rear before fitting the cards and bulkheads.
 alternatives: Removing the stop loses the stack's loading datum. A sloping stop needs a matching wedge on the bottom card and changes the requested rectangular color face. Separate stops add small features and edges.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=28.800 y=470.299 z=240.600

@@ -10,6 +10,7 @@ use serde_json::Value;
 enum Stock {
     IdentificationStopStand {
         opening_x_mm: [f64; 2],
+        tie_root_centres_x_mm: Option<[f64; 2]>,
         channel_face_y_mm: f64,
         rail_back_y_mm: f64,
         contact_source_z_mm: f64,
@@ -38,8 +39,8 @@ pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, St
     let stock: Stock = serde_json::from_value(spec.clone()).context("rear enclosure support stock")?;
     let solid = match stock {
         Stock::IdentificationStopStand {
-            opening_x_mm, channel_face_y_mm, rail_back_y_mm, contact_source_z_mm, bed_source_z_mm,
-        } => identification_stop_stand(opening_x_mm, channel_face_y_mm, rail_back_y_mm,
+            opening_x_mm, tie_root_centres_x_mm, channel_face_y_mm, rail_back_y_mm, contact_source_z_mm, bed_source_z_mm,
+        } => identification_stop_stand(opening_x_mm, tie_root_centres_x_mm, channel_face_y_mm, rail_back_y_mm,
                                       contact_source_z_mm, bed_source_z_mm, gap)?,
         Stock::RailStrips { center_x_mm, cap_span_x_mm, span_y_mm, contact_source_z_mm, root_source_z_mm } => {
             let cap_span = cap_span_x_mm.unwrap_or([center_x_mm - 2.15, center_x_mm + 2.15]);
@@ -61,7 +62,8 @@ pub fn removable_stock(spec: &Value, gap: f64) -> Result<(Solid, Vec<(String, St
 /// A bed-rooted stand behind the retaining lips. Its inclined tip reaches the flat stop
 /// through the open mouth. The two rear ribs stiffen the tall stem along its removal direction.
 fn identification_stop_stand(
-    [left, right]: [f64; 2], channel_face: f64, rail_back: f64, contact: f64, bed: f64, gap: f64,
+    [left, right]: [f64; 2], tie_roots: Option<[f64; 2]>, channel_face: f64, rail_back: f64,
+    contact: f64, bed: f64, gap: f64,
 ) -> Result<Solid> {
     let (x0, x1) = (left + 0.45, right - 0.45);
     let tip = channel_face + 0.38;
@@ -77,12 +79,23 @@ fn identification_stop_stand(
     let ribs = [x0 + 1.8, x1 - 4.8].map(|x| {
         box_solid([x, rear - 0.05, cap + 7.0], [x + 3.0, foot, bed])
     });
-    // Two first-layer ties reach the rear faces of the retaining lips. The slicer
-    // then sees the feet joined to the roof and omits the tall stands' oversized auto brim.
-    let ties = [left - 1.2, right - 1.2].map(|x| {
-        box_solid([x, rail_back - 0.10, bed - 0.23], [x + 2.4, stem + 0.70, bed])
-    });
-    Solid::union_all(&[body, ribs[0].clone(), ribs[1].clone(), ties[0].clone(), ties[1].clone()])?.simplified()
+    // Join the first layer to the backs of the permanent rail roots. Each tie turns
+    // behind the rail before it reaches the stand, clear of the tile mouth and lip tip.
+    let mut stock = vec![body, ribs[0].clone(), ribs[1].clone()];
+    if let Some([left_root, right_root]) = tie_roots {
+        for (root_x, inside) in [(left_root, x0 + 1.05), (right_root, x1 - 1.05)] {
+            let (a, b) = (root_x - 0.90, root_x + 0.90);
+            stock.push(box_solid([a, rail_back - 0.10, bed - 0.23], [b, rail_back + 2.05, bed]));
+            stock.push(box_solid([a.min(inside), rail_back + 0.70, bed - 0.23],
+                                 [b.max(inside), rail_back + 2.05, bed]));
+        }
+    } else {
+        // The first fitted stand record used straight ties at the edges of the opening.
+        for x in [left - 1.2, right - 1.2] {
+            stock.push(box_solid([x, rail_back - 0.10, bed - 0.23], [x + 2.4, stem + 0.70, bed]));
+        }
+    }
+    Solid::union_all(&stock)?.simplified()
 }
 
 /// The cap follows the upper wing's nose and bore; slender feet break from the lower wing.
